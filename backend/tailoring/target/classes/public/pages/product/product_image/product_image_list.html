@@ -1,0 +1,39 @@
+<!-- 
+	商品图片 列表 HTML 页面
+	@author 李方捷
+	@since 2021-04-01 08:44:51
+ -->
+<div class="layui-card">
+    <div class="layui-card-header">
+        <h2 class="header-title"><span th:text="${lang.translate('商品图片')}">商品图片</span></h2>
+        <span class="layui-breadcrumb pull-right">
+          <a href="#!console"><span th:text="${lang.translate('首页')}">首页</span></a>
+          <a><cite><span th:text="${lang.translate('商品图片')}">商品图片</span></cite></a>
+        </span>
+    </div>
+    <div class="layui-card-body">
+        <div class="layui-form toolbar">
+            <span th:text="${lang.translate('搜索')}">搜索</span>：
+            <select id="product_image-search-field">
+                <option value="" th:text="${lang.translate('-请选择-')}">-请选择-</option>
+                <option value="id" th:text="${lang.translate('ID')}">ID</option>
+                <option value="productId" th:text="${lang.translate('商品ID')}">商品ID</option>
+                <option value="fileId" th:text="${lang.translate('图片地址')}">图片地址</option>
+                <option value="isChief" th:text="${lang.translate('是否主图')}">是否主图</option>
+            </select>&emsp;
+            <input id="product_image-search-value" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入关键字')}"/>&emsp;
+            <button id="product_image-btn-search" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i><span th:text="${lang.translate('搜索')}">搜索</span></button>
+            <button id="product_image-btn-add" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i><span th:text="${lang.translate('添加')}">添加</span></button>
+        </div>
+
+        <table class="layui-table" id="product_image-table" lay-filter="product_image-table"></table>
+    </div>
+</div>
+
+<!-- 表格操作列 -->
+<script type="text/html" id="product_image-table-operation">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit" th:text="${lang.translate('修改')}">修改</a>
+    <a class="layui-btn layui-btn-xs" lay-event="del" th:text="${lang.translate('删除')}">删除</a>
+</script>
+
+<script src="/pages/product/product_image/product_image_list.js"></script>

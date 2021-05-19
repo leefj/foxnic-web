@@ -1,0 +1,33 @@
+<!-- 
+	系统配置 表单 HTML 页面
+	@author 李方捷
+	@since 2021-04-01 10:41:22
+ -->
+<form id="config-form" lay-filter="config-form" class="layui-form model-form">
+    <input name="code" type="hidden"/>
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('配置名')}">配置名</label>
+        <div class="layui-input-block">
+            <input name="name" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('配置名') }" type="text" class="layui-input" maxlength='128'   />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('配置值')}">配置值</label>
+        <div class="layui-input-block">
+            <input name="value" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('配置值') }" type="text" class="layui-input" maxlength='512'   />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('是否生效')}">是否生效</label>
+        <div class="layui-input-block">
+            <input name="valid" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('是否生效') }" type="text" class="layui-input"  lay-verify='required' required />
+        </div>
+    </div>
+
+    <div class="layui-form-item model-form-footer">
+        <button class="layui-btn layui-btn-primary" ew-event="closeDialog" type="button" th:text="${lang.translate('取消')}">取消</button>
+        <button class="layui-btn" lay-filter="config-form-submit" lay-submit th:text="${lang.translate('保存')}">保存</button>
+    </div>
+</form>
+
+<script src="/pages/system/config/config_form.js"></script>

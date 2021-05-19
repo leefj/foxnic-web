@@ -1,0 +1,47 @@
+<div class="layui-card">
+    <div class="layui-card-header">
+        <h2 class="header-title"><span th:text="${lang.translate('账户管理')}">账户管理</span></h2>
+        <span class="layui-breadcrumb pull-right">
+          <a href="#!console"><span th:text="${lang.translate('首页')}">首页</span></a>
+          <a><cite><span th:text="${lang.translate('账户管理')}">账户管理</span></cite></a>
+        </span>
+    </div>
+    <div class="layui-card-body">
+        <div class="layui-form toolbar">
+            <span th:text="${lang.translate('搜索')}">搜索</span>：
+            <select id="user-search-field">
+                <option value="" th:text="${lang.translate('-请选择-')}">-请选择-</option>
+                <option value="id" th:text="${lang.translate('编号')}">编号</option>
+                <option value="account" th:text="${lang.translate('账号')}">账号</option>
+                <option value="name" th:text="${lang.translate('用户名')}">用户名</option>
+                <option value="mobile" th:text="${lang.translate('手机号')}">手机号</option>
+            </select>&emsp;
+            <input id="user-search-value" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入关键字')}"/>&emsp;
+            <button id="user-btn-search" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i><span th:text="${lang.translate('搜索')}">搜索</span></button>
+            <button id="user-btn-add" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i><span th:text="${lang.translate('添加')}">添加</span></button>
+            <!-- 
+            <button id="user-btn-export" class="layui-btn icon-btn"><i class="layui-icon">&#xe601;</i>导出</button>
+            <button type="button" class="layui-btn" id="user-btn-import">
+                <i class="layui-icon">&#xe67c;</i>导入
+            </button>
+             -->
+        </div>
+
+        <table class="layui-table" id="user-table" lay-filter="user-table"></table>
+    </div>
+</div>
+
+
+<!-- 表格操作列 -->
+<script type="text/html" id="user-table-bar">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit" th:text="${lang.translate('修改')}">修改</a>
+    <a class="layui-btn layui-btn-xs" lay-event="reset" th:text="${lang.translate('重置密码')}">重置密码</a>
+    <a class="layui-btn layui-btn-xs" lay-event="del" th:text="${lang.translate('删除')}">删除</a>
+</script>
+
+<!-- 表格状态列 -->
+<script type="text/html" id="user-tpl-state">
+    <input type="checkbox" lay-filter="user-tpl-state" value="{{d.id}}" lay-skin="switch" lay-text="正常|锁定"  {{d.valid==1?'checked':''}}/>
+</script>
+
+<script src="/pages/system/user/user_list.js"></script>

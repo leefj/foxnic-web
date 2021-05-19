@@ -1,0 +1,39 @@
+<!-- 
+	产品标签 列表 HTML 页面
+	@author 李方捷
+	@since 2021-04-02 04:36:26
+ -->
+<div class="layui-card">
+    <div class="layui-card-header">
+        <h2 class="header-title"><span th:text="${lang.translate('产品标签')}">产品标签</span></h2>
+        <span class="layui-breadcrumb pull-right">
+          <a href="#!console"><span th:text="${lang.translate('首页')}">首页</span></a>
+          <a><cite><span th:text="${lang.translate('产品标签')}">产品标签</span></cite></a>
+        </span>
+    </div>
+    <div class="layui-card-body">
+        <div class="layui-form toolbar">
+            <span th:text="${lang.translate('搜索')}">搜索</span>：
+            <select id="label-search-field">
+                <option value="" th:text="${lang.translate('-请选择-')}">-请选择-</option>
+                <option value="label" th:text="${lang.translate('标签')}">标签</option>
+            </select>&emsp;
+            <input id="label-search-value" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入关键字')}"/>&emsp;
+            <button id="label-btn-search" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i><span th:text="${lang.translate('搜索')}">搜索</span></button>
+            <button id="label-btn-add" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i><span th:text="${lang.translate('添加')}">添加</span></button>
+            <button id="label-btn-delete" class="layui-btn icon-btn layui-btn-danger"><i class="layui-icon">&#xe67e;</i><span th:text="${lang.translate('删除')}">删除</span></button>
+            <span id="tree-nav" class="layui-breadcrumb" style="padding-left:16px"></span>
+        </div>
+
+        <table class="layui-table" id="label-table" lay-filter="label-table"></table>
+    </div>
+</div>
+
+<!-- 表格操作列 -->
+<script type="text/html" id="label-table-operation">
+	<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="drill" th:text="${lang.translate('下级')}">下级</a>
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit" th:text="${lang.translate('修改')}">修改</a>
+    <a class="layui-btn layui-btn-xs" lay-event="del" th:text="${lang.translate('删除')}">删除</a>
+</script>
+
+<script src="/pages/product/label/label_list.js"></script>

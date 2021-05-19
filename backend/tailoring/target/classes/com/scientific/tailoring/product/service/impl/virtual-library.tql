@@ -1,0 +1,20 @@
+[prefix:virtuallibrary]
+
+[insert-data]
+insert into prd_virtual_library(product_id,fabric_id,valid)
+select a.id product_id,b.id fabric_id , 0 valid from prd_product a , prd_fabric b where a.deleted=0 and b.deleted=0
+and not EXISTS(select 1 from prd_virtual_library c where a.id=product_id and b.id=fabric_id)
+
+[basic-join-select]
+select a.*,p.name productName,f.short_name fabricName from prd_virtual_library a 
+join prd_product p on a.product_id=p.id
+join prd_fabric f on a.fabric_id=f.id
+
+
+
+[demo]
+select * from pf
+#if(test_f1) f1=0 #end
+join prd_fabric f on pf.fabric_id=f.id and f.deleted=0
+join prd_virtual_library vl on pf.virtual_id=vl.id and vl.valid=1 and vl.deleted=0
+where pf.product_id=? 

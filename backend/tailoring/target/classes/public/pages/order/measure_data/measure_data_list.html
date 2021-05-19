@@ -1,0 +1,70 @@
+<!-- 
+	测量数据发聩 列表 HTML 页面
+	@author 李方捷
+	@since 2021-04-01 10:44:17
+ -->
+<div class="layui-card">
+    <div class="layui-card-header">
+        <h2 class="header-title"><span th:text="${lang.translate('测量数据发聩')}">测量数据发聩</span></h2>
+        <span class="layui-breadcrumb pull-right">
+          <a href="#!console"><span th:text="${lang.translate('首页')}">首页</span></a>
+          <a><cite><span th:text="${lang.translate('测量数据发聩')}">测量数据发聩</span></cite></a>
+        </span>
+    </div>
+    <div class="layui-card-body">
+        <div class="layui-form toolbar">
+            <span th:text="${lang.translate('搜索')}">搜索</span>：
+            <select id="measure_data-search-field">
+                <option value="" th:text="${lang.translate('-请选择-')}">-请选择-</option>
+                <option value="id" th:text="${lang.translate('ID')}">ID</option>
+                <option value="measureId" th:text="${lang.translate('测量ID')}">测量ID</option>
+                <option value="resultType" th:text="${lang.translate('测量类型')}">测量类型</option>
+                <option value="lingWei" th:text="${lang.translate('领围')}">领围</option>
+                <option value="xiongWei" th:text="${lang.translate('胸围')}">胸围</option>
+                <option value="yaoWei" th:text="${lang.translate('腰围')}">腰围</option>
+                <option value="fuWei" th:text="${lang.translate('腹围')}">腹围</option>
+                <option value="youShangBiWei" th:text="${lang.translate('右上臂围')}">右上臂围</option>
+                <option value="youXiaBiWei" th:text="${lang.translate('右下臂围')}">右下臂围</option>
+                <option value="zuoShangBiWei" th:text="${lang.translate('左上臂围')}">左上臂围</option>
+                <option value="zuoXiaBiWei" th:text="${lang.translate('左下臂围')}">左下臂围</option>
+                <option value="youShangTuiWei" th:text="${lang.translate('右上腿围')}">右上腿围</option>
+                <option value="youXiaTuiWei" th:text="${lang.translate('右下腿围')}">右下腿围</option>
+                <option value="zuoShangTuiWei" th:text="${lang.translate('左上腿围')}">左上腿围</option>
+                <option value="zuoXiaTuiWei" th:text="${lang.translate('左下腿围')}">左下腿围</option>
+                <option value="shenGao" th:text="${lang.translate('身高')}">身高</option>
+                <option value="jianKuan" th:text="${lang.translate('肩宽')}">肩宽</option>
+                <option value="beiChang" th:text="${lang.translate('背长')}">背长</option>
+                <option value="jingZhuiDianGao" th:text="${lang.translate('颈椎点高')}">颈椎点高</option>
+                <option value="yaoWeiGao" th:text="${lang.translate('腰围高')}">腰围高</option>
+                <option value="tunGao" th:text="${lang.translate('臀高')}">臀高</option>
+                <option value="tunWei" th:text="${lang.translate('臀围')}">臀围</option>
+                <option value="kuChang" th:text="${lang.translate('裤长')}">裤长</option>
+                <option value="zuoBiChang" th:text="${lang.translate('左臂长')}">左臂长</option>
+                <option value="youBiChang" th:text="${lang.translate('右臂长')}">右臂长</option>
+                <option value="youShangBiChang" th:text="${lang.translate('右上臂长')}">右上臂长</option>
+                <option value="youXiaBiChang" th:text="${lang.translate('右下臂长')}">右下臂长</option>
+                <option value="zuoShangBiChang" th:text="${lang.translate('左上臂长')}">左上臂长</option>
+                <option value="zuoXiaBiChang" th:text="${lang.translate('左下臂长')}">左下臂长</option>
+                <option value="youTuiChang" th:text="${lang.translate('右腿长')}">右腿长</option>
+                <option value="zuoTuiChang" th:text="${lang.translate('左腿长')}">左腿长</option>
+                <option value="youShangTuiChang" th:text="${lang.translate('右上腿长')}">右上腿长</option>
+                <option value="youXiaTuiChang" th:text="${lang.translate('右下腿长')}">右下腿长</option>
+                <option value="zuoShangTuiChang" th:text="${lang.translate('左上腿长')}">左上腿长</option>
+                <option value="zuoXiaTuiChang" th:text="${lang.translate('左下腿长')}">左下腿长</option>
+            </select>&emsp;
+            <input id="measure_data-search-value" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入关键字')}"/>&emsp;
+            <button id="measure_data-btn-search" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i><span th:text="${lang.translate('搜索')}">搜索</span></button>
+            <button id="measure_data-btn-add" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i><span th:text="${lang.translate('添加')}">添加</span></button>
+        </div>
+
+        <table class="layui-table" id="measure_data-table" lay-filter="measure_data-table"></table>
+    </div>
+</div>
+
+<!-- 表格操作列 -->
+<script type="text/html" id="measure_data-table-operation">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit" th:text="${lang.translate('修改')}">修改</a>
+    <a class="layui-btn layui-btn-xs" lay-event="del" th:text="${lang.translate('删除')}">删除</a>
+</script>
+
+<script src="/pages/order/measure_data/measure_data_list.js"></script>

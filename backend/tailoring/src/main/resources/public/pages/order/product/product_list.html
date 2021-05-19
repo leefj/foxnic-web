@@ -1,0 +1,28 @@
+<!-- 
+	订单商品关系 列表 HTML 页面
+	@author 李方捷
+	@since 2021-04-15 05:32:19
+ -->
+<div class="layui-card">
+    <div class="layui-card-body">
+        <div class="layui-form toolbar" style="display: flex;display: -webkit-flex;flex-direction:row;flex-wrap: nowrap;justify-content: flex-start;align-items:center;">
+            <span th:text="${lang.translate('商品')}">商品</span>：
+            <select name="product-input" xm-select="product-input" xm-select-radio xm-select-search th:xm-select-search-xxx="${'/service-tailoring/odr-product/query-unused-list?orderId='+orderId}" style="width:200px"></select>&nbsp;&nbsp;&nbsp;&nbsp;
+            <button id="odr-product-btn-add" class="layui-btn icon-btn" style="height:36px"><i class="layui-icon">&#xe654;</i><span th:text="${lang.translate('添加')}">添加</span></button>
+            <button id="odr-product-btn-delete" class="layui-btn icon-btn layui-btn-danger" style="height:36px"><i class="layui-icon">&#xe67e;</i><span th:text="${lang.translate('删除')}">删除</span></button>
+        </div>
+
+        <table class="layui-table" id="odr-product-table" lay-filter="odr-product-table"></table>
+    </div>
+</div>
+
+<!-- 表格操作列 -->
+<script type="text/html" id="odr-product-table-operation">
+    <a class="layui-btn layui-btn-xs" lay-event="del" th:text="${lang.translate('删除')}">删除</a>
+</script>
+
+<script type="text/javascript">
+    var orderId= [[${orderId}]];
+</script>
+
+<script src="/pages/order/product/product_list.js"></script>

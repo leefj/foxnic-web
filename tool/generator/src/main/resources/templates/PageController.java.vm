@@ -1,0 +1,32 @@
+package #(package);
+#(imports)
+
+import com.scientific.tailoring.framework.web.SuperController;
+
+#(classJavaDoc)
+
+@Controller("#(beanName)")
+@RequestMapping(#(simpleName).prefix)
+public class #(simpleName)  extends SuperController {
+	
+	public static final String prefix="#(uriPrefix)";
+
+	@Autowired
+	private #(serviceSimpleName) #(serviceVarName);
+
+	/**
+	 * #(topic) 功能主页面
+	 */
+	@RequestMapping("/#(listPageName).html")
+	public String list(Model model) {
+		return prefix+"/#(listPageName)";
+	}
+
+	/**
+	 * #(topic) 表单页面
+	 */
+	@RequestMapping("/#(formPageName).html")
+	public String form(Model model) {
+		return prefix+"/#(formPageName)";
+	}
+}

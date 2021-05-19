@@ -1,0 +1,79 @@
+<!-- 
+	商品 表单 HTML 页面
+	@author 李方捷
+	@since 2021-04-09 04:05:28
+ -->
+<form id="product-form" lay-filter="product-form" class="layui-form model-form">
+    <input name="id" id="id"  type="hidden"/>
+    <input name="img-0" id="img-0"  type="hidden"/>
+    <input name="img-1" id="img-1"  type="hidden"/>
+    <input name="img-2" id="img-2"  type="hidden"/>
+    
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('商品名称')}">商品名称</label>
+        <div class="layui-input-block">
+            <input id="name" name="name" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('商品名称') }" lay-verify="required" type="text" class="layui-input"  maxlength='128'  />
+        </div>
+    </div>
+    
+	
+	
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('是否上架')}">是否上架</label>
+        <div class="layui-input-block">
+            <input type="checkbox" checked="" id="isOnShelf"  name="isOnShelf" lay-skin="switch" lay-filter="isOnShelf" lay-text="上架|下架" value="1">
+        </div>
+    </div>
+    
+     <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('标签')}">标签</label>
+        <div class="layui-input-block">
+            <select name="labelIds" xm-select="labelIds">
+            </select>
+        </div>
+    </div>
+    
+	<div class="layui-form-item">
+    	<label class="layui-form-label" ></label>
+    	<div style="display: flex;display: -webkit-flex;flex-direction:row;flex-wrap: nowrap;justify-content: flex-start;">
+		    <div class="layui-upload layui-input-block" style="margin-left:0px;margin-right:16px;" >
+			  <button type="button" class="layui-btn" id="fileId-button-0" th:text="${lang.translate('选择主图')}">选择主图</button>
+			  <div class="layui-upload-list">
+			    <img class="layui-upload-img" onclick="window.previewImage(this)" id="fileId-image-0" style="width:92px;height:92px" src="/assets/images/no-image-92@2x.png">
+			    <p id="fileId-text"></p>
+			  </div>
+			</div>
+			<div class="layui-upload layui-input-block" style="margin-left:0px;margin-right:16px;">
+			  <button type="button" class="layui-btn" id="fileId-button-1" th:text="${lang.translate('选择图片')}">选择图片</button>
+			  <div class="layui-upload-list">
+			    <img class="layui-upload-img" onclick="window.previewImage(this)" id="fileId-image-1" style="width:92px;height:92px" src="/assets/images/no-image-92@2x.png">
+			    <p id="fileId-text"></p>
+			  </div>
+			</div>
+			<div class="layui-upload layui-input-block" style="margin-left:0px;margin-right:16px;">
+			  <button type="button" class="layui-btn" id="fileId-button-2" th:text="${lang.translate('选择图片')}">选择图片</button>
+			  <div class="layui-upload-list">
+			    <img class="layui-upload-img" onclick="window.previewImage(this)" id="fileId-image-2" style="width:92px;height:92px" src="/assets/images/no-image-92@2x.png">
+			    <p id="fileId-text"></p>
+			  </div>
+			</div>
+		</div>
+	</div>
+	
+    
+   <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('商品详情')}">商品详情</label>
+        <div class="layui-input-block">
+            <textarea id="detail" name="detail" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('商品详情') }" class="layui-textarea"  maxlength='65535' ></textarea>
+        </div>
+    </div>
+    
+	
+
+    <div class="layui-form-item model-form-footer">
+        <button class="layui-btn layui-btn-primary" ew-event="closeDialog" type="button" th:text="${lang.translate('取消')}">取消</button>
+        <button class="layui-btn" lay-filter="product-form-submit" lay-submit th:text="${lang.translate('保存')}">保存</button>
+    </div>
+</form>
+
+<script src="/pages/product/product/product_form.js"></script>

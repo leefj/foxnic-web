@@ -1,0 +1,44 @@
+<!-- 
+	商品收藏 列表 HTML 页面
+	@author 李方捷
+	@since 2021-04-15 01:33:21
+ -->
+<div class="layui-card">
+    <div class="layui-card-header">
+        <h2 class="header-title"><span th:text="${lang.translate('商品收藏')}">商品收藏</span></h2>
+        <span class="layui-breadcrumb pull-right">
+          <a href="#!console"><span th:text="${lang.translate('首页')}">首页</span></a>
+          <a><cite><span th:text="${lang.translate('商品收藏')}">商品收藏</span></cite></a>
+        </span>
+    </div>
+    <div class="layui-card-body">
+        <div class="layui-form toolbar">
+            <span th:text="${lang.translate('搜索')}">搜索</span>：
+            <select id="favorite_product-search-field">
+                <option value="" th:text="${lang.translate('-请选择-')}">-请选择-</option>
+                <option value="id" th:text="${lang.translate('ID')}">ID</option>
+                <option value="userId" th:text="${lang.translate('用户ID')}">用户ID</option>
+                <option value="productId" th:text="${lang.translate('商品ID')}">商品ID</option>
+                <option value="fabricId" th:text="${lang.translate('材料ID')}">材料ID</option>
+                <option value="folderId" th:text="${lang.translate('目录ID')}">目录ID</option>
+            </select>&emsp;
+            <input id="favorite_product-search-value" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入关键字')}"/>&emsp;
+            <button id="favorite_product-btn-search" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i><span th:text="${lang.translate('搜索')}">搜索</span></button>
+            <button id="favorite_product-btn-add" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i><span th:text="${lang.translate('添加')}">添加</span></button>
+            <button id="favorite_product-btn-delete" class="layui-btn icon-btn layui-btn-danger"><i class="layui-icon">&#xe67e;</i><span th:text="${lang.translate('删除')}">删除</span></button>
+            
+        </div>
+
+        <table class="layui-table" id="favorite_product-table" lay-filter="favorite_product-table"></table>
+    </div>
+</div>
+
+<!-- 表格操作列 -->
+<script type="text/html" id="favorite_product-table-operation">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit" th:text="${lang.translate('修改')}">修改</a>
+    <a class="layui-btn layui-btn-xs" lay-event="del" th:text="${lang.translate('删除')}">删除</a>
+</script>
+
+<!-- 表格状态列 -->
+
+<script src="/pages/crm/favorite_product/favorite_product_list.js"></script>

@@ -1,0 +1,27 @@
+<!-- 
+	用户角色关系 表单 HTML 页面
+	@author 李方捷
+	@since 2021-04-01 10:41:23
+ -->
+<form id="user_role-form" lay-filter="user_role-form" class="layui-form model-form">
+    <input name="id" type="hidden"/>
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('用户ID')}">用户ID</label>
+        <div class="layui-input-block">
+            <input name="userId" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('用户ID') }" type="text" class="layui-input"  lay-verify='required' required />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('角色ID')}">角色ID</label>
+        <div class="layui-input-block">
+            <input name="roleId" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('角色ID') }" type="text" class="layui-input"  lay-verify='required' required />
+        </div>
+    </div>
+
+    <div class="layui-form-item model-form-footer">
+        <button class="layui-btn layui-btn-primary" ew-event="closeDialog" type="button" th:text="${lang.translate('取消')}">取消</button>
+        <button class="layui-btn" lay-filter="user_role-form-submit" lay-submit th:text="${lang.translate('保存')}">保存</button>
+    </div>
+</form>
+
+<script src="/pages/system/user_role/user_role_form.js"></script>

@@ -1,0 +1,55 @@
+<!-- 
+#(authorAndTime)
+ -->
+<div class="layui-card">
+    <div class="layui-card-header">
+        <h2 class="header-title"><span th:text="${lang.translate('#(topic)')}">#(topic)</span></h2>
+        <span class="layui-breadcrumb pull-right">
+          <a href="#!console"><span th:text="${lang.translate('首页')}">首页</span></a>
+          <a><cite><span th:text="${lang.translate('#(topic)')}">#(topic)</span></cite></a>
+        </span>
+    </div>
+    <div class="layui-card-body">
+        <div class="layui-form toolbar">
+            <span th:text="${lang.translate('搜索')}">搜索</span>：
+            <select id="#(searchFieldId)">
+                <option value="" th:text="${lang.translate('-请选择-')}">-请选择-</option>
+                #for(opt : searchOptions)
+                <option value="#(opt[0])" th:text="${lang.translate('#(opt[1])')}">#(opt[1])</option>
+                #end
+            </select>&emsp;
+            <input id="#(searchValueInputId)" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入关键字')}"/>&emsp;
+            <button id="#(searchButtonId)" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i><span th:text="${lang.translate('搜索')}">搜索</span></button>
+            <button id="#(addButtonId)" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i><span th:text="${lang.translate('添加')}">添加</span></button>
+            #if(isSinglePK)
+            <button id="#(deleteButtonId)" class="layui-btn icon-btn layui-btn-danger"><i class="layui-icon">&#xe67e;</i><span th:text="${lang.translate('删除')}">删除</span></button>
+            #end
+            #if(isTree)
+            <span id="tree-nav" class="layui-breadcrumb" style="padding-left:16px"></span>
+			#end
+            
+        </div>
+
+        <table class="layui-table" id="#(tableId)" lay-filter="#(tableId)"></table>
+    </div>
+</div>
+
+<!-- 表格操作列 -->
+<script type="text/html" id="#(operationTemplateId)">
+	#if(isTree) 
+	<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="drill" th:text="${lang.translate('下级')}">下级</a>
+	#end
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit" th:text="${lang.translate('修改')}">修改</a>
+    <a class="layui-btn layui-btn-xs" lay-event="del" th:text="${lang.translate('删除')}">删除</a>
+</script>
+
+<!-- 表格状态列 -->
+#for(f:fields)
+#if(f.isLogicField)
+<script type="text/html" id="cell-tpl-#(f.varName)">
+    <input type="checkbox" lay-filter="cell-tpl-#(f.varName)" value="{{d.#(pkVarName)}}" lay-skin="switch" lay-text="#(f.logicField.labelOn)|#(f.logicField.labelOff)"  {{d.#(f.varName)==#(f.logicField.valueOn)?'checked':''}}/>
+</script>
+#end
+#end
+
+<script src="#(jsPath)"></script>
