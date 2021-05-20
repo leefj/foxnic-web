@@ -2,20 +2,30 @@ package com.tailoring.generator.config;
 
 import java.io.File;
 
+import org.github.foxnic.web.framework.dao.DBTreatyConfig;
+import org.github.foxnic.web.framework.nacos.NacosConfig;
+
 import com.alibaba.druid.pool.DruidDataSource;
+import com.github.foxnic.commons.cache.Variable;
 import com.github.foxnic.commons.io.FileUtil;
+import com.github.foxnic.commons.network.Machine;
 import com.github.foxnic.commons.project.maven.MavenProject;
 import com.github.foxnic.commons.property.YMLProperties;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.dao.spec.DAOBuilder;
 import com.github.foxnic.generatorV2.config.GlobalSettings;
 import com.github.foxnic.sql.treaty.DBTreaty;
-import com.scientific.tailoring.framework.dao.DBTreatyConfig;
-import com.scientific.tailoring.framework.nacos.NacosConfig;
 
 public class FoxnicWebConfigs {
 	
-	private GlobalSettings settings=null;
+	private String appConfigPrefix;
+	private ProjectConfigs projectConfigs;
+	
+	public ProjectConfigs getProjectConfigs() {
+		return projectConfigs;
+	}
+
+	protected GlobalSettings settings=null;
 	
 	//
 	private MavenProject  generatorProject=null;
@@ -35,24 +45,33 @@ public class FoxnicWebConfigs {
 	//
 	private String datasourceConfigKey=null;
 	//
-	private YMLProperties properties;
+	private YMLProperties applicationConfigs;
 	private DAO dao;
 	
 	
-	public FoxnicWebConfigs() {
-		this(FoxnicWebConstants.SERVICE_SYSTEM_PROJECT_FOLDER_NAME, FoxnicWebConstants.PRIMARY_DATASOURCE_CONFIG_KEY, FoxnicWebConstants.NACOS_GROUP, FoxnicWebConstants.DEFAULT_NACOS_DATA_ID);
-	}
+//	public FoxnicWebConfigs() {
+//		this(FoxnicWebConstants.SERVICE_SYSTEM_PROJECT_FOLDER_NAME, FoxnicWebConstants.PRIMARY_DATASOURCE_CONFIG_KEY, FoxnicWebConstants.NACOS_GROUP, FoxnicWebConstants.DEFAULT_NACOS_DATA_ID);
+//	}
+//	
+//	public FoxnicWebConfigs(String serviceProjectFolderName) {
+//		this(serviceProjectFolderName, FoxnicWebConstants.PRIMARY_DATASOURCE_CONFIG_KEY, FoxnicWebConstants.NACOS_GROUP, FoxnicWebConstants.DEFAULT_NACOS_DATA_ID);
+//	}
+//	
+//	public FoxnicWebConfigs(String serviceProjectFolderName,String datasourceConfigKey,String nacosGroup,String nacosDataId) {
+//		
 	
-	public FoxnicWebConfigs(String serviceProjectFolderName) {
-		this(serviceProjectFolderName, FoxnicWebConstants.PRIMARY_DATASOURCE_CONFIG_KEY, FoxnicWebConstants.NACOS_GROUP, FoxnicWebConstants.DEFAULT_NACOS_DATA_ID);
-	}
-	
-	public FoxnicWebConfigs(String serviceProjectFolderName,String datasourceConfigKey,String nacosGroup,String nacosDataId) {
+	public FoxnicWebConfigs(String appId) {
+		
+		System.out.println("machine Id : "+Machine.getIdentity());
 		
 		initGlobalSettings();
- 
 		//
 		generatorProject=new MavenProject(FoxnicWebConfigs.class);
+		
+		
+		File configFile=FileUtil.resolveByPath(this.generatorProject.getMainResourceDir(), "config.yml");
+		this.appConfigPrefix="applications."+appId;
+		projectConfigs=new ProjectConfigs(this.appConfigPrefix,new YMLProperties(configFile));
 		
 		File baseDir=generatorProject.getProjectDir().getParentFile().getParentFile();
 		
@@ -74,21 +93,30 @@ public class FoxnicWebConfigs {
 		nacosPassword=bootstrapProperties.getProperty("application.nacos.password").stringValue();
 		nacosNamespace=bootstrapProperties.getProperty("application.nacos.namespace").stringValue();
 		//
-		this.nacosDataId=nacosDataId;
-		this.nacosGroup=nacosGroup;
-		this.datasourceConfigKey=datasourceConfigKey;
+		this.nacosDataId=this.projectConfigs.getAppNacosDataId();
+		this.nacosGroup=this.projectConfigs.getAppNacosGroup();
+		this.datasourceConfigKey=this.projectConfigs.getAppPrimaryDatasourceConfigKey();
 		
 		//
 		File file= this.saveRemoteConfig();
 		
 		//配置文件
-		properties=new YMLProperties(file);
+		applicationConfigs=new YMLProperties(file);
  
 		try {
 			initDAO();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		
+		String author=projectConfigs.getAuthorInfo();
+		
+		if(author==null) {
+			throw new IllegalArgumentException("请按机器码 "+Machine.getIdentity()+" 配置开发人员");
+		}
+		
+		this.settings.setAuthor(author);
 		
 	}
 
@@ -111,10 +139,10 @@ public class FoxnicWebConfigs {
 		
 		String prefix=this.getDatasourceConfigKey()+".";
 		//
-		String driver=properties.getProperty(prefix+"driver-class-name").stringValue();
-		String url=properties.getProperty(prefix+"url").stringValue();
-		String username=properties.getProperty(prefix+"username").stringValue();
-		String password=properties.getProperty(prefix+"password").stringValue();
+		String driver=applicationConfigs.getProperty(prefix+"driver-class-name").stringValue();
+		String url=applicationConfigs.getProperty(prefix+"url").stringValue();
+		String username=applicationConfigs.getProperty(prefix+"username").stringValue();
+		String password=applicationConfigs.getProperty(prefix+"password").stringValue();
 		
 		// 创建数据源
 		DruidDataSource ds = new DruidDataSource();
@@ -188,5 +216,75 @@ public class FoxnicWebConfigs {
 	public GlobalSettings getSettings() {
 		return settings;
 	}
+	
+	public static class ProjectConfigs {
+		private YMLProperties properties;
+		private String appConfigPrefix;
+		public ProjectConfigs(String appConfigPrefix,YMLProperties properties) {
+			this.properties=properties;
+			this.appConfigPrefix=appConfigPrefix;
+		}
+		
+		public String getDAONameConst() {
+			return properties.getProperty("source.daoNameConst").stringValue();
+		}
+		
+		/**
+		 * 获得 nacos group
+		 * */
+		public String getAppNacosGroup() {
+			return properties.getProperty(this.appConfigPrefix+".nacosGroup").stringValue();
+		}
+		
+		/**
+		 * 获得 nacos group
+		 * */
+		public String getAppNacosDataId() {
+			return properties.getProperty(this.appConfigPrefix+".nacosDataId").stringValue();
+		}
+		
+		/**
+		 * 获得应用的路径
+		 * */
+		public String getAppProjectPath() {
+			return properties.getProperty(this.appConfigPrefix+".projectPath").stringValue();
+		}
+		
+		public String getAppPrimaryDatasourceConfigKey() {
+			return properties.getProperty(this.appConfigPrefix+".primaryDatasourceConfigKey").stringValue();
+		}
+		
+		public String getAppMicroServiceNameConst() {
+			return properties.getProperty(this.appConfigPrefix+".microServiceNameConst").stringValue();
+		}
+		
+		public String getAppPackageName() {
+			return properties.getProperty(this.appConfigPrefix+".packageName").stringValue();
+		}
+		
+		public String getAppViewCodePathPrefix() {
+			return properties.getProperty(this.appConfigPrefix+".viewCodePathPrefix").stringValue();
+		}
+		
+		public String getAppViewUriPrefix() {
+			String codePathPrefix=this.getAppViewCodePathPrefix();
+			return codePathPrefix.substring(codePathPrefix.indexOf("/"));
+		}
+		
+		public String getAuthorInfo() {
+			Variable var=properties.getProperty("authors."+Machine.getIdentity());
+			if(var==null) {
+				return null;
+			}
+			return var.stringValue();
+		}
+		
+		
+		
+		
+		
+	}
  
 }
+
+

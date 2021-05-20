@@ -1,9 +1,12 @@
 package com.tailoring.generator.module;
 
+import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_CONFIG;
+import org.github.foxnic.web.proxy.MicroServiceNames;
+
 import com.github.foxnic.generatorV2.config.MduCtx;
+import com.github.foxnic.generatorV2.config.WriteMode;
 import com.github.foxnic.sql.meta.DBTable;
-import com.scientific.tailoring.proxy.MicroServiceNames;
-import com.tailoring.generator.config.FoxnicWebConstants;
+import com.tailoring.generator.config.FoxnicWebConfigs.ProjectConfigs;
  
  
 
@@ -14,9 +17,8 @@ public class SysCodeGenerator extends ModuleGenerator {
  
 	public static void main(String[] args) throws Exception {
 		SysCodeGenerator g=new SysCodeGenerator();
-		//按调用顺序呈现
 		// 
-//		g.generateSysConfig();
+		g.generateSysConfig();
 //		//
 //		g.generateSysDict();
 //		//
@@ -38,75 +40,62 @@ public class SysCodeGenerator extends ModuleGenerator {
 
 		
 	}
-	
-	/**
-	 * nacos 配置的 group
-	 * */
-	private static final String NACOS_GROUP="service";
-	
-	/**
-	 * nacos 配置的 dataId
-	 * */
-	private static final String NACOS_DATA_ID="service_system.yml";
-	
-	/**
-	 * 代码生成的微服务项目所在的目录
-	 * */
-	private static final String SERVICE_PROJECT_FOLDER="service-tailoring";
- 
-	/**
-	 * 在 MicroServiceNames 类中定义的常量名
-	 * */
-	private static final String MICRO_SERVICE_NAME_CONST="TAILORING";
-	
-	/**
-	 * 在配置中使用的数据源配置键
-	 * */
-	private static final String DATASOURCE_CONFIG_KEY="spring.datasource.druid.primary";
-	
-	/**
-	 * 界面基础路径
-	 * */
-	private static final String UI_PATH_PREFIX="public/pages/system";
  
 	public SysCodeGenerator() {
 		//
-		super(NACOS_GROUP, NACOS_DATA_ID,SERVICE_PROJECT_FOLDER,MICRO_SERVICE_NAME_CONST,DATASOURCE_CONFIG_KEY);
-		//设置开发人员
-		generator.setAuthor("李方捷");
+		super("service-system");
 	}
 	
 	
-	public MduCtx createModuleConfig(DBTable table,int apiSort) {
+	protected MduCtx createModuleConfig(DBTable table,String tablePrefix,int apiSort) {
+
+		//项目配置
+		ProjectConfigs procfg=this.getConfigs().getProjectConfigs();
 		
-		
-		//前缀
-		String tablePrefix="sys_";
-		
-		MduCtx mdu=new MduCtx(this.getConfigs().getSettings(),table,tablePrefix,"com.scientific.tailoring.system");
-		mdu.setBaseUriPrefix4Ui("/pages/system");
-		
-		
+		MduCtx mdu=new MduCtx(this.getConfigs().getSettings(),table,tablePrefix,procfg.getAppPackageName());
+		//设置页面的基础 URI
+		mdu.setBaseUriPrefix4Ui(procfg.getAppViewUriPrefix());
+		//设置 DAO
 		mdu.setDAO(this.getConfigs().getDAO());
+		//设置 Domain Project
 		mdu.setDomainProject(this.getConfigs().getDomianProject());
+		//设置 Proxy Project
 		mdu.setProxyProject(this.getConfigs().getProxyProject());
+		//设置 Service Project
 		mdu.setServiceProject(this.getConfigs().getServiceProject());
-		mdu.setDAONameConsts(FoxnicWebConstants.DAO_NAME_CONST);
-		mdu.setMicroServiceNameConst(MicroServiceNames.class.getName()+"."+FoxnicWebConstants.DEFAULT_MICRO_SERVICE_NAME_CONST);
-		
+		//设置DAO名称常量
+		mdu.setDAONameConsts(procfg.getDAONameConst());
+		//设置微服务命名常量
+		mdu.setMicroServiceNameConst(MicroServiceNames.class.getName()+"."+procfg.getAppMicroServiceNameConst());
  
 		return mdu;
  
 	}
 	
 	
-//	public void generateSysConfig() throws Exception {		
-//		//创建配置
-//		MduCtx mducfg=createModuleConfig(SYS_CONFIG.$TABLE, 1);
-//		//生成代码
-//		mducfg.buildAll();
-////		generator.build(mducfg);
-//	}
+	public MduCtx createModuleConfig(DBTable table,int apiSort) {
+		return createModuleConfig(table, "sys_", apiSort);
+	}
+	
+	
+	public void generateSysConfig() throws Exception {	
+		
+		//创建模块配置
+		MduCtx cfg=createModuleConfig(SYS_CONFIG.$TABLE, 1);
+		
+		
+		//文件生成覆盖模式
+		cfg.overrides()
+		.setServiceIntfAnfImpl(WriteMode.WRITE_DIRECT) //服务与接口
+		.setControllerAndAgent(WriteMode.WRITE_DIRECT) //Rest
+		.setPageController(WriteMode.IGNORE) //页面控制器
+		.setFormPage(WriteMode.IGNORE) //表单HTML页
+		.setListPage(WriteMode.IGNORE); //列表HTML页
+		
+ 
+		//生成代码
+		cfg.buildAll();
+	}
 	
 	
 	
@@ -258,8 +247,10 @@ public class SysCodeGenerator extends ModuleGenerator {
 //	public void generateSysArea() throws Exception {
 //		//创建配置
 //		MduCtx mducfg=createModuleConfig(SYS_AREA.$TABLE, 7);
+//		
+//		
+//		
 //		//生成代码
-////		generator.build(mducfg);
 //		mducfg.buildAll();
 //	}
 	

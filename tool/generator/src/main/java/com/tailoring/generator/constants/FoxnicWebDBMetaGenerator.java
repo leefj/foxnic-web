@@ -25,7 +25,7 @@ public class FoxnicWebDBMetaGenerator  {
 	private DAO dao;
 	
 	public FoxnicWebDBMetaGenerator() {
-		this.configs=new FoxnicWebConfigs();
+		this.configs=new FoxnicWebConfigs("service-system");
 		this.dao=this.configs.getDAO();
 	}
 

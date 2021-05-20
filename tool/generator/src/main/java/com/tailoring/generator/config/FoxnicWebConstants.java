@@ -5,7 +5,7 @@ public class FoxnicWebConstants {
 	/**
 	 * nacos 配置的 group
 	 * */
-	public static final String NACOS_GROUP="service";
+//	public static final String NACOS_GROUP="service";
 	/**
 	 * nacos 配置的 dataId
 	 * */
@@ -46,14 +46,11 @@ public class FoxnicWebConstants {
 	 * */
 	public static final String DOMAIN_CONSTANTS_PACKAGE="org.github.foxnic.web.constants";
  
-	/**
-	 * 在 MicroServiceNames 类中定义的常量名
-	 * */
-	public static final String DEFAULT_MICRO_SERVICE_NAME_CONST="TAILORING";
+ 
  
 	/**
 	 * 在 MicroServiceNames 类中定义的常量名
 	 * */
-	public static final String DAO_NAME_CONST="com.scientific.tailoring.framework.DBConfigs.PRIMARY_DAO";
+//	public static final String DAO_NAME_CONST="org.github.foxnic.web.framework.dao.DBConfigs.PRIMARY_DAO";
  
 }

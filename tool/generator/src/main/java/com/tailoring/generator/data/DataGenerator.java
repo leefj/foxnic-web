@@ -35,7 +35,7 @@ public class DataGenerator  {
 	private DAO dao;
 	
 	public DataGenerator() {
-		this.configs=new FoxnicWebConfigs();
+		this.configs=new FoxnicWebConfigs("service-system");
 		this.dao=this.configs.getDAO();
 	}
 

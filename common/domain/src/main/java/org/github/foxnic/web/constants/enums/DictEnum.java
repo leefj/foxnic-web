@@ -4,7 +4,8 @@ package org.github.foxnic.web.constants.enums;
 
 
 /**
- * @since 2021-05-20 11:46:30
+ * @since 2021-05-20 03:18:13
+ * @author 李方捷 , leefangjie@qq.com
  * 从 select code,name from sys_dict WHERE deleted=0 生成
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成
 */

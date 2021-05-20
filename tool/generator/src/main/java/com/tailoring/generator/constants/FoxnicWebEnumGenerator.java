@@ -16,6 +16,7 @@ import com.github.foxnic.dao.data.RcdSet;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.generatorV2.builder.constants.EnumClassFile;
 import com.github.foxnic.generatorV2.config.EnumConfig;
+import com.github.foxnic.generatorV2.config.GlobalSettings;
 import com.github.foxnic.sql.entity.naming.DefaultNameConvertor;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.tailoring.generator.config.FoxnicWebConfigs;
@@ -42,7 +43,7 @@ public class FoxnicWebEnumGenerator  {
 	private DAO dao;
 	
 	public FoxnicWebEnumGenerator() {
-		this.configs=new FoxnicWebConfigs();
+		this.configs=new FoxnicWebConfigs("service-system");
 		this.dao=this.configs.getDAO();
 	}
 
@@ -94,6 +95,7 @@ class DictItemBuilder extends JavaClassFile {
 		//加入注释
 		code.ln("/**");
 		code.ln(" * @since "+DateUtil.getFormattedTime(false));
+		code.ln(" * @author "+GlobalSettings.instance().getAuthor());
 		code.ln(" * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。");
 		code.ln("*/");
 		code.ln("");

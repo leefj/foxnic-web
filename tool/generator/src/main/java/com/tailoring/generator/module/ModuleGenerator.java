@@ -1,13 +1,14 @@
 package com.tailoring.generator.module;
 
+import org.github.foxnic.web.framework.feign.FeignConfigs;
+import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
+import org.github.foxnic.web.framework.web.SuperController;
+import org.github.foxnic.web.proxy.MicroServiceNames;
+
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.generator.CodeGenerator;
 import com.github.foxnic.springboot.mvc.Result;
 import com.github.foxnic.sql.entity.naming.DefaultNameConvertor;
-import com.scientific.tailoring.framework.feign.FeignConfigs;
-import com.scientific.tailoring.framework.sentinel.SentinelExceptionUtil;
-import com.scientific.tailoring.framework.web.SuperController;
-import com.scientific.tailoring.proxy.MicroServiceNames;
 import com.tailoring.generator.config.FoxnicWebConfigs;
 import com.tailoring.generator.config.FoxnicWebConstants;
 
@@ -17,15 +18,15 @@ public class ModuleGenerator {
  
 	protected CodeGenerator generator = null;
  
-	public ModuleGenerator(String nacosGroup,String nacosDataId,String serviceProjectFolderName,String microServiceNameConst,String datasourceConfigKey) {
+	public ModuleGenerator(String appConfigPrefix) {
 
-		configs=new FoxnicWebConfigs(serviceProjectFolderName,datasourceConfigKey,nacosGroup,nacosDataId);
+		configs=new FoxnicWebConfigs(appConfigPrefix);
  
 		initGenerator();
 		
 		generator.setSettings(configs.getSettings());
 		//
-		generator.setMicroServiceNameConst(MicroServiceNames.class.getName()+"."+microServiceNameConst);
+//		generator.setMicroServiceNameConst(MicroServiceNames.class.getName()+"."+microServiceNameConst);
 		//
 //		generator.setDAONameConst(daoNameConst);
 		
