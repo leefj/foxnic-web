@@ -1,20 +1,16 @@
 package com.scientific.tailoring.framework.dao;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.github.foxnic.springboot.spring.SpringUtil;
 import com.github.foxnic.sql.meta.DBDataType;
 import com.github.foxnic.sql.treaty.DBTreaty;
-import com.scientific.tailoring.framework.security.service.ISecurityService;
 
 @Configuration
 public class DBTreatyConfig {
 	
 	
-	private ISecurityService securityService;
-	
+ 
 	@Bean
 	public DBTreaty getDBTreaty() {
 		
@@ -46,14 +42,14 @@ public class DBTreatyConfig {
 		dbTreaty.setTrueValue(1);
 		
 		//设置获取当前用户的逻辑
-		if(SpringUtil.isReady()) {
-			securityService=SpringUtil.getBean(ISecurityService.class);
-			dbTreaty.setUserIdHandler(()->{
-				securityService=SpringUtil.getBean(ISecurityService.class);
-				if(securityService.getSessionSubject()==null) return null;
-				return securityService.getSessionSubject().getUserId();
-			});
-		}
+//		if(SpringUtil.isReady()) {
+//			securityService=SpringUtil.getBean(ISecurityService.class);
+//			dbTreaty.setUserIdHandler(()->{
+//				securityService=SpringUtil.getBean(ISecurityService.class);
+//				if(securityService.getSessionSubject()==null) return null;
+//				return securityService.getSessionSubject().getUserId();
+//			});
+//		}
 		
 		//
 		return dbTreaty;

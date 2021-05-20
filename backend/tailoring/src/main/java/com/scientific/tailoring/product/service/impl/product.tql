@@ -1,8 +1,0 @@
-[prefix:product]
-
-[product-label-page-list]
-select l.*,pl.product_id from  prd_label l 
-left join (select * from prd_product_label where product_id=1) pl on l.id=pl.label_id  
-where l.deleted=0 
-order by product_id desc , l.label asc
-

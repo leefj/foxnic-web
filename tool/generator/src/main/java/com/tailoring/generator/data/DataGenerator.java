@@ -7,7 +7,7 @@ import com.github.foxnic.commons.io.FileUtil;
 import com.github.foxnic.commons.project.maven.MavenProject;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.sql.parameter.BatchParamBuilder;
-import com.tailoring.generator.config.Configs;
+import com.tailoring.generator.config.FoxnicWebConfigs;
 
 /**
  * 为以usr_开头的表生成代码
@@ -31,11 +31,11 @@ public class DataGenerator  {
 		//
 	}
 	
-	private Configs configs;
+	private FoxnicWebConfigs configs;
 	private DAO dao;
 	
 	public DataGenerator() {
-		this.configs=new Configs();
+		this.configs=new FoxnicWebConfigs();
 		this.dao=this.configs.getDAO();
 	}
 

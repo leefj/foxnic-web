@@ -8,18 +8,18 @@ import com.scientific.tailoring.framework.feign.FeignConfigs;
 import com.scientific.tailoring.framework.sentinel.SentinelExceptionUtil;
 import com.scientific.tailoring.framework.web.SuperController;
 import com.scientific.tailoring.proxy.MicroServiceNames;
-import com.tailoring.generator.config.Configs;
-import com.tailoring.generator.config.ProjectConstants;
+import com.tailoring.generator.config.FoxnicWebConfigs;
+import com.tailoring.generator.config.FoxnicWebConstants;
 
 public class ModuleGenerator {
  
-	private Configs configs;
+	private FoxnicWebConfigs configs;
  
 	protected CodeGenerator generator = null;
  
 	public ModuleGenerator(String nacosGroup,String nacosDataId,String serviceProjectFolderName,String microServiceNameConst,String datasourceConfigKey) {
 
-		configs=new Configs(serviceProjectFolderName,datasourceConfigKey,nacosGroup,nacosDataId);
+		configs=new FoxnicWebConfigs(serviceProjectFolderName,datasourceConfigKey,nacosGroup,nacosDataId);
  
 		initGenerator();
 		
@@ -30,7 +30,7 @@ public class ModuleGenerator {
 //		generator.setDAONameConst(daoNameConst);
 		
 		//设置常量包
-		generator.setConstsPackage(ProjectConstants.DOMAIN_CONSTANTS_PACKAGE);
+		generator.setConstsPackage(FoxnicWebConstants.DOMAIN_CONSTANTS_PACKAGE);
  
 		final DefaultNameConvertor nc=new DefaultNameConvertor();
 		//加入自定义注解
@@ -106,7 +106,7 @@ public class ModuleGenerator {
 
 
 
-	public Configs getConfigs() {
+	public FoxnicWebConfigs getConfigs() {
 		return configs;
 	}
 	
