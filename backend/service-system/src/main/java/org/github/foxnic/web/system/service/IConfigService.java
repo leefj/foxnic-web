@@ -17,7 +17,7 @@ import org.github.foxnic.web.domain.system.ConfigVO;
  * 系统配置表 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-20 03:18:39
+ * @since 2021-05-20 03:37:38
 */
 
 public interface IConfigService extends ISuperService<Config> {
