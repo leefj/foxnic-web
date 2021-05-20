@@ -14,10 +14,10 @@ import com.tailoring.generator.config.FoxnicWebConfigs.ProjectConfigs;
 /**
  * 为以usr_开头的表生成代码
  */
-public class SysCodeGenerator extends ModuleGenerator {
+public class SystemCodeGenerator extends ModuleGenerator {
  
 	public static void main(String[] args) throws Exception {
-		SysCodeGenerator g=new SysCodeGenerator();
+		SystemCodeGenerator g=new SystemCodeGenerator();
 		// 
 		g.generateSysConfig();
 //		//
@@ -42,9 +42,12 @@ public class SysCodeGenerator extends ModuleGenerator {
 		
 	}
  
-	public SysCodeGenerator() {
-		//
+	public SystemCodeGenerator() {
 		super("service-system");
+	}
+	
+	public SystemCodeGenerator(String appConfigPrefix) {
+		super(appConfigPrefix);
 	}
 	
 	

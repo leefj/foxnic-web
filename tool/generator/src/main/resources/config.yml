@@ -28,6 +28,7 @@ compoments:
 
 #应用清单
 applications: 
+  #系统服务
   service-system:  
     nacosGroup: service
     nacosDataId: service-system.yml
@@ -35,6 +36,16 @@ applications:
     packageName: org.github.foxnic.web.system
     primaryDatasourceConfigKey: spring.datasource.druid.primary
     microServiceNameConst: SYSTEM
+    viewProjectPath: /frontend/console
+    viewCodePathPrefix: public/pages/system
+  #存储服务
+  service-storage:  
+    nacosGroup: service
+    nacosDataId: service-storage.yml
+    projectPath:  /backend/service-storage
+    packageName: org.github.foxnic.web.storage
+    primaryDatasourceConfigKey: spring.datasource.druid.primary
+    microServiceNameConst: STORAGE
     viewProjectPath: /frontend/console
     viewCodePathPrefix: public/pages/system
     
