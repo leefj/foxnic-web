@@ -1,19 +1,18 @@
 package #(package);
 #(imports)
 
-import com.scientific.tailoring.framework.web.SuperController;
-
 #(classJavaDoc)
 
 @Controller("#(beanName)")
 @RequestMapping(#(simpleName).prefix)
-public class #(simpleName)  extends SuperController {
+public class #(simpleName) {
 	
 	public static final String prefix="#(uriPrefix)";
 
+	#if(!isFrontendDepart)
 	@Autowired
 	private #(serviceSimpleName) #(serviceVarName);
-
+	#end
 	/**
 	 * #(topic) 功能主页面
 	 */

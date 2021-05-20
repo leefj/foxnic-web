@@ -21,9 +21,7 @@ public class FoxnicWebConfigs {
 	private String appConfigPrefix;
 	private ProjectConfigs projectConfigs;
 	
-	public ProjectConfigs getProjectConfigs() {
-		return projectConfigs;
-	}
+	
 
 	protected GlobalSettings settings=null;
 	
@@ -32,7 +30,11 @@ public class FoxnicWebConfigs {
 	private MavenProject  domianProject=null;
 	private MavenProject serviceProject;
 	private MavenProject proxyProject;
+	private MavenProject viewProject;
 	
+	
+
+
 	//
 	private String nacosGroup;
 	private String nacosDataId;
@@ -85,6 +87,10 @@ public class FoxnicWebConfigs {
 		File proxyProjectFolder=FileUtil.resolveByPath(baseDir,  this.projectConfigs.getProxyProjectPath());
 		proxyProject=new MavenProject(proxyProjectFolder);
 		
+		File viewProjectFolder=FileUtil.resolveByPath(baseDir,  this.projectConfigs.getAppViewProjectPath());
+		viewProject=new MavenProject(viewProjectFolder);
+		
+		
 		//读取配置
 		File bootstrap=FileUtil.resolveByPath(this.getServiceProject().getMainResourceDir(), "bootstrap.yml");
 		YMLProperties bootstrapProperties=new YMLProperties(bootstrap);
@@ -119,7 +125,7 @@ public class FoxnicWebConfigs {
 		this.settings.setAuthor(author);
 		this.settings.setEnableSwagger(projectConfigs.isEnableSwagger());
 		this.settings.setEnableMicroService(projectConfigs.isEnableMicroService());
-		
+		this.settings.setFrontendDepart(projectConfigs.isFrontendDepart());
 	}
 
 	
@@ -175,7 +181,13 @@ public class FoxnicWebConfigs {
 		return domianProject;
 	}
 
-
+	public ProjectConfigs getProjectConfigs() {
+		return projectConfigs;
+	}
+	
+	public MavenProject getViewProject() {
+		return viewProject;
+	}
 
 	public MavenProject getServiceProject() {
 		return serviceProject;
@@ -249,6 +261,15 @@ public class FoxnicWebConfigs {
 		}
 		
 		/**
+		 * 获得 isFrontendDepart
+		 * */
+		public boolean isFrontendDepart() {
+			return properties.getProperty("settings.isFrontendDepart").booleanValue();
+		}
+		
+		
+		
+		/**
 		 * 获得 enableSwagger
 		 * */
 		public boolean isEnableSwagger() {
@@ -298,9 +319,15 @@ public class FoxnicWebConfigs {
 			return properties.getProperty(this.appConfigPrefix+".packageName").stringValue();
 		}
 		
+		public String getAppViewProjectPath() {
+			return properties.getProperty(this.appConfigPrefix+".viewProjectPath").stringValue();
+		}
+		
 		public String getAppViewCodePathPrefix() {
 			return properties.getProperty(this.appConfigPrefix+".viewCodePathPrefix").stringValue();
 		}
+		
+		
 		
 		public String getAppViewUriPrefix() {
 			String codePathPrefix=this.getAppViewCodePathPrefix();
@@ -320,6 +347,8 @@ public class FoxnicWebConfigs {
 		
 		
 	}
+
+
  
 }
 

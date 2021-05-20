@@ -63,6 +63,8 @@ public class SysCodeGenerator extends ModuleGenerator {
 		mdu.setProxyProject(this.getConfigs().getProxyProject());
 		//设置 Service Project
 		mdu.setServiceProject(this.getConfigs().getServiceProject());
+		//设置 View Project
+		mdu.setViewProject(this.getConfigs().getViewProject());
 		//设置DAO名称常量
 		mdu.setDAONameConsts(procfg.getDAONameConst());
 		//设置微服务命名常量
@@ -88,7 +90,7 @@ public class SysCodeGenerator extends ModuleGenerator {
 		cfg.overrides()
 		.setServiceIntfAnfImpl(WriteMode.WRITE_DIRECT) //服务与接口
 		.setControllerAndAgent(WriteMode.WRITE_DIRECT) //Rest
-		.setPageController(WriteMode.IGNORE) //页面控制器
+		.setPageController(WriteMode.WRITE_DIRECT) //页面控制器
 		.setFormPage(WriteMode.IGNORE) //表单HTML页
 		.setListPage(WriteMode.IGNORE); //列表HTML页
 		

@@ -1,8 +1,9 @@
 
-
 settings:
   enableMicroService: true 
   enableSwagger: true
+  #是否前后端分离
+  isFrontendDepart: true
 
 
 #源代码相关的部分
@@ -34,4 +35,6 @@ applications:
     packageName: org.github.foxnic.web.system
     primaryDatasourceConfigKey: spring.datasource.druid.primary
     microServiceNameConst: SYSTEM
+    viewProjectPath: /frontend/console
     viewCodePathPrefix: public/pages/system
+    
