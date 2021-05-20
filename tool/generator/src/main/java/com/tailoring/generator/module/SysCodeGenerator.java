@@ -1,6 +1,7 @@
 package com.tailoring.generator.module;
 
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_CONFIG;
+import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_LANG;
 import org.github.foxnic.web.proxy.MicroServiceNames;
 
 import com.github.foxnic.generatorV2.config.MduCtx;
@@ -36,7 +37,7 @@ public class SysCodeGenerator extends ModuleGenerator {
 //		//
 //		g.generateSysArea();
 //		//
-//		g.generateSysLang();
+		g.generateSysLang();
 
 		
 	}
@@ -88,9 +89,9 @@ public class SysCodeGenerator extends ModuleGenerator {
 		
 		//文件生成覆盖模式
 		cfg.overrides()
-		.setServiceIntfAnfImpl(WriteMode.WRITE_DIRECT) //服务与接口
-		.setControllerAndAgent(WriteMode.WRITE_DIRECT) //Rest
-		.setPageController(WriteMode.WRITE_DIRECT) //页面控制器
+		.setServiceIntfAnfImpl(WriteMode.DO_NOTHING) //服务与接口
+		.setControllerAndAgent(WriteMode.DO_NOTHING) //Rest
+		.setPageController(WriteMode.DO_NOTHING) //页面控制器
 		.setFormPage(WriteMode.IGNORE) //表单HTML页
 		.setListPage(WriteMode.IGNORE); //列表HTML页
 		
@@ -183,13 +184,21 @@ public class SysCodeGenerator extends ModuleGenerator {
 //	}
 //	
 //	
-//	public void generateSysLang() throws Exception {
-//		//创建配置
-//		MduCtx mducfg=createModuleConfig(SYS_LANG.$TABLE, 5);
-//		//生成代码
-////		generator.build(mducfg);
-//		mducfg.buildAll();
-//	}
+	public void generateSysLang() throws Exception {
+		//创建配置
+		MduCtx cfg=createModuleConfig(SYS_LANG.$TABLE, 5);
+		
+		//文件生成覆盖模式
+		cfg.overrides()
+		.setServiceIntfAnfImpl(WriteMode.DO_NOTHING) //服务与接口
+		.setControllerAndAgent(WriteMode.DO_NOTHING) //Rest
+		.setPageController(WriteMode.DO_NOTHING) //页面控制器
+		.setFormPage(WriteMode.IGNORE) //表单HTML页
+		.setListPage(WriteMode.IGNORE); //列表HTML页
+		
+		//生成代码
+		 cfg.buildAll();
+	}
 //	
 //	
 //	public void generateSysRole() throws Exception {

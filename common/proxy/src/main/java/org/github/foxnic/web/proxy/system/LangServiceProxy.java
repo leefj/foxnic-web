@@ -10,20 +10,20 @@ import org.github.foxnic.web.proxy.FeignConfiguration;
 import org.springframework.cloud.openfeign.FeignClient;
 
 
-import org.github.foxnic.web.domain.system.Config;
-import org.github.foxnic.web.domain.system.ConfigVO;
+import org.github.foxnic.web.domain.system.Lang;
+import org.github.foxnic.web.domain.system.LangVO;
 import org.github.foxnic.web.proxy.MicroServiceNames;
 
 /**
  * <p>
- * 系统配置表  控制器服务代理
+ * 语言条目表  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
  * @since 2021-05-20 04:34:14
 */
 
-@FeignClient(value = MicroServiceNames.SYSTEM, contextId = ConfigServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)
-public interface ConfigServiceProxy {
+@FeignClient(value = MicroServiceNames.SYSTEM, contextId = LangServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)
+public interface LangServiceProxy {
 	
 	/**
 	 * 基础路径 , service-system
@@ -31,9 +31,9 @@ public interface ConfigServiceProxy {
 	public static final String API_BASIC_PATH = "service-system";
 	
 	/**
-	 * API 上下文路径 , sys-config
+	 * API 上下文路径 , sys-lang
 	*/
-	public static final String API_CONTEXT_PATH = "sys-config";
+	public static final String API_CONTEXT_PATH = "sys-lang";
 	
 	/**
 	 * API 基础路径 , 由 API_BASIC_PATH 和 API_CONTEXT_PATH 两部分组成
@@ -41,45 +41,45 @@ public interface ConfigServiceProxy {
 	public static final String API_PREFIX = "/" + API_BASIC_PATH + "/"+API_CONTEXT_PATH+"/";
 	
 	/**
-	 * 添加系统配置
+	 * 添加语言条目
 	 */
 	public static final String INSERT = API_PREFIX + "insert";
 	
 	/**
-	 * 按主键删除系统配置
+	 * 按主键删除语言条目
 	 */
 	public static final String DELETE = API_PREFIX + "delete";
 	
 	
 	/**
-	 * 按主键删除系统配置
+	 * 按主键删除语言条目
 	 */
 	public static final String BATCH_DELETE = API_PREFIX + "batch-delete";
 	
 	
 	/**
-	 * 更新系统配置
+	 * 更新语言条目
 	 */
 	public static final String UPDATE = API_PREFIX + "update";
 	
 	
 	/**
-	 * 保存系统配置
+	 * 保存语言条目
 	 */
 	public static final String SAVE = API_PREFIX + "save";
 	
 	/**
-	 * 按主键获取系统配置
+	 * 按主键获取语言条目
 	 */
 	public static final String GET_BY_ID = API_PREFIX + "get-by-id";
 	
 	/**
-	 * 查询全部符合条件的系统配置
+	 * 查询全部符合条件的语言条目
 	 */
 	public static final String QUERY_LIST = API_PREFIX + "query-list";
 	
 	/**
-	 * 分页查询符合条件的系统配置
+	 * 分页查询符合条件的语言条目
 	 */
 	public static final String QUERY_PAGED_LIST = API_PREFIX + "query-paged-list";
 	
@@ -94,52 +94,52 @@ public interface ConfigServiceProxy {
 	public static final String IMPORT_EXCEL = API_PREFIX + "import-excel";
 	
 	/**
-	 * 添加系统配置
+	 * 添加语言条目
 	*/
-	@RequestMapping(ConfigServiceProxy.INSERT)
-	Result<Config> insert(ConfigVO configVO);
+	@RequestMapping(LangServiceProxy.INSERT)
+	Result<Lang> insert(LangVO langVO);
 	
 	/**
-	 * 按主键删除系统配置
+	 * 按主键删除语言条目
 	*/
-	@RequestMapping(ConfigServiceProxy.DELETE)
-	Result<Config> deleteById(String code);
+	@RequestMapping(LangServiceProxy.DELETE)
+	Result<Lang> deleteById(String code);
 	
 	
 	/**
-	 * 按主键删除系统配置
+	 * 按主键删除语言条目
 	*/
-	@RequestMapping(ConfigServiceProxy.BATCH_DELETE)
-	Result<Config> deleteByIds(List<String> id);
+	@RequestMapping(LangServiceProxy.BATCH_DELETE)
+	Result<Lang> deleteByIds(List<String> id);
 	
 	/**
-	 * 更新系统配置
+	 * 更新语言条目
 	*/
-	@RequestMapping(ConfigServiceProxy.UPDATE)
-	Result<Config> update(ConfigVO configVO);
+	@RequestMapping(LangServiceProxy.UPDATE)
+	Result<Lang> update(LangVO langVO);
 	
 	/**
-	 * 更新系统配置
+	 * 更新语言条目
 	*/
-	@RequestMapping(ConfigServiceProxy.SAVE)
-	Result<Config> save(ConfigVO configVO);
+	@RequestMapping(LangServiceProxy.SAVE)
+	Result<Lang> save(LangVO langVO);
 	
 	/**
-	 * 按主键获取系统配置
+	 * 按主键获取语言条目
 	*/
-	@RequestMapping(ConfigServiceProxy.GET_BY_ID)
-	Result<Config> getById(String code);
+	@RequestMapping(LangServiceProxy.GET_BY_ID)
+	Result<Lang> getById(String code);
 	
 	/**
-	 * 查询全部符合条件的系统配置
+	 * 查询全部符合条件的语言条目
 	*/
-	@RequestMapping(ConfigServiceProxy.QUERY_LIST)
-	Result<List<Config>> queryList(ConfigVO sample);
+	@RequestMapping(LangServiceProxy.QUERY_LIST)
+	Result<List<Lang>> queryList(LangVO sample);
 	
 	/**
-	 * 分页查询符合条件的系统配置
+	 * 分页查询符合条件的语言条目
 	*/
-	@RequestMapping(ConfigServiceProxy.QUERY_PAGED_LIST)
-	Result<PagedList<Config>> queryPagedList(ConfigVO sample);
+	@RequestMapping(LangServiceProxy.QUERY_PAGED_LIST)
+	Result<PagedList<Lang>> queryPagedList(LangVO sample);
 
 }

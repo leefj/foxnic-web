@@ -8,7 +8,7 @@ application:
     password: nacos
 
 server:
-  port: 1819
+  port: 1810
     
 spring:
   application:

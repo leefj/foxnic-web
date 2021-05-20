@@ -34,7 +34,7 @@ import com.github.foxnic.springboot.api.annotations.NotNull;
  * 系统配置表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-20 04:25:38
+ * @since 2021-05-20 04:34:14
 */
 
 @Api(tags = "系统配置")

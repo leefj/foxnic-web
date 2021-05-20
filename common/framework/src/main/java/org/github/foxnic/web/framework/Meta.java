@@ -5,7 +5,7 @@ public class Meta {
 	/**
 	 * 基础包
 	 * */
-	public static final String BASE_PACKAGE="com.scientific.tailoring";
+	public static final String BASE_PACKAGE="org.github.foxnic.web";
  
 	/**
 	 * Feign代理包
