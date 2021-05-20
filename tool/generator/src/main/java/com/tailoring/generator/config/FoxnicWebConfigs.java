@@ -76,13 +76,13 @@ public class FoxnicWebConfigs {
 		File baseDir=generatorProject.getProjectDir().getParentFile().getParentFile();
 		
 		//
-		File domainProjectFolder=FileUtil.resolveByPath(baseDir, FoxnicWebConstants.DOMAIN_PROJECT_FOLDER_NAME);
+		File domainProjectFolder=FileUtil.resolveByPath(baseDir, this.projectConfigs.getDomainProjectPath());
 		domianProject=new MavenProject(domainProjectFolder); 
 		
-		File serviceProjectFolder=FileUtil.resolveByPath(baseDir, FoxnicWebConstants.SERVICE_SYSTEM_PROJECT_FOLDER_NAME);
+		File serviceProjectFolder=FileUtil.resolveByPath(baseDir,  projectConfigs.getAppProjectPath());
 		serviceProject=new MavenProject(serviceProjectFolder);
 		
-		File proxyProjectFolder=FileUtil.resolveByPath(baseDir, FoxnicWebConstants.AGENT_PROJECT_FOLDER_NAME);
+		File proxyProjectFolder=FileUtil.resolveByPath(baseDir,  this.projectConfigs.getProxyProjectPath());
 		proxyProject=new MavenProject(proxyProjectFolder);
 		
 		//读取配置
@@ -117,6 +117,8 @@ public class FoxnicWebConfigs {
 		}
 		
 		this.settings.setAuthor(author);
+		this.settings.setEnableSwagger(projectConfigs.isEnableSwagger());
+		this.settings.setEnableMicroService(projectConfigs.isEnableMicroService());
 		
 	}
 
@@ -124,11 +126,7 @@ public class FoxnicWebConfigs {
 	
 	private void initGlobalSettings() {
 		this.settings=new GlobalSettings();
-		//
 		this.settings.setAuthor("李方捷");
-		this.settings.setEnableSwagger(true);
-		this.settings.setEnableMicroService(FoxnicWebConstants.ENABLE_MICRO_SERVICE);
-		
 	}
 
 	private void initDAO() throws Exception {
@@ -242,6 +240,44 @@ public class FoxnicWebConfigs {
 		public String getAppNacosDataId() {
 			return properties.getProperty(this.appConfigPrefix+".nacosDataId").stringValue();
 		}
+		
+		/**
+		 * 获得 enableMicroService
+		 * */
+		public boolean isEnableMicroService() {
+			return properties.getProperty("settings.enableMicroService").booleanValue();
+		}
+		
+		/**
+		 * 获得 enableSwagger
+		 * */
+		public boolean isEnableSwagger() {
+			return properties.getProperty("settings.enableSwagger").booleanValue();
+		}
+		
+		/**
+		 * 获得 domain 的路径
+		 * */
+		public String getDomainProjectPath() {
+			return properties.getProperty("compoments.domain").stringValue();
+		}
+		
+		/**
+		 * 获得 proxy 的路径
+		 * */
+		public String getProxyProjectPath() {
+			return properties.getProperty("compoments.proxy").stringValue();
+		}
+		
+		/**
+		 * 获得 domain 的路径
+		 * */
+		public String getDomainConstantsPackage() {
+			return properties.getProperty("source.domainConstantsPackage").stringValue();
+		}
+		
+		
+		
 		
 		/**
 		 * 获得应用的路径

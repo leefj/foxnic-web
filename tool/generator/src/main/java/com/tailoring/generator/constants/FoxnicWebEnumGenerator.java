@@ -20,23 +20,17 @@ import com.github.foxnic.generatorV2.config.GlobalSettings;
 import com.github.foxnic.sql.entity.naming.DefaultNameConvertor;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.tailoring.generator.config.FoxnicWebConfigs;
-import com.tailoring.generator.config.FoxnicWebConstants;
 
-/**
- * 为以usr_开头的表生成代码
- */
 public class FoxnicWebEnumGenerator  {
 	
 	DefaultNameConvertor nc=new DefaultNameConvertor();
  
-	
-	
+	/**
+	 * 运行main函数生成代码
+	 * */
 	public static void main(String[] args) throws Exception {
 		FoxnicWebEnumGenerator g = new FoxnicWebEnumGenerator();
-	 
 		g.buildEnums();
-
-		//
 	}
 	
 	private FoxnicWebConfigs configs;
@@ -53,15 +47,15 @@ public class FoxnicWebEnumGenerator  {
 	 * */
 	private void buildEnums() {
 		 
-		
+		String dcp=this.configs.getProjectConfigs().getDomainConstantsPackage();
 		
 		//系统配置 sys_config
 		EnumConfig info=new EnumConfig(SYS_CONFIG.CODE,SYS_CONFIG.NAME , new ConditionExpr("deleted=0"));
-		new EnumClassFile(dao,configs.getDomianProject(),info,FoxnicWebConstants.DOMAIN_CONSTANTS_PACKAGE,"SystemConfigEnum").save(true);
+		new EnumClassFile(dao,configs.getDomianProject(),info,dcp,"SystemConfigEnum").save(true);
 		
 		//字典 sys_dict
 		info=new EnumConfig(SYS_DICT.CODE, SYS_DICT.NAME , new ConditionExpr("deleted=0"));
-		new EnumClassFile(dao,configs.getDomianProject(),info,FoxnicWebConstants.DOMAIN_CONSTANTS_PACKAGE,"DictEnum").save(true);
+		new EnumClassFile(dao,configs.getDomianProject(),info,dcp,"DictEnum").save(true);
 		
 		//生成字典枚举
 		RcdSet rs=dao.query("select * from sys_dict_item where deleted=0 order by dict_code,sort asc");
@@ -69,16 +63,19 @@ public class FoxnicWebEnumGenerator  {
 		for (String dictCode : gps.keySet()) {
 			List<Rcd> g=gps.get(dictCode);
 			String clsName=nc.getClassName(dictCode, 0);
-			new DictItemBuilder(configs.getDomianProject(),FoxnicWebConstants.DOMAIN_CONSTANTS_PACKAGE, clsName, g).save(true);
+			new DictItemBuilder(configs.getDomianProject(),dcp, clsName, g).save(true);
 		}
 		
 		//角色 sys_role
 		info=new EnumConfig(SYS_ROLE.CODE, SYS_ROLE.NAME , new ConditionExpr("deleted=0"));
-		new EnumClassFile(dao,configs.getDomianProject(),info,FoxnicWebConstants.DOMAIN_CONSTANTS_PACKAGE,"RoleEnum").save(true);
+		new EnumClassFile(dao,configs.getDomianProject(),info,dcp,"RoleEnum").save(true);
 
 	}
 
 }
+
+
+
 
 
 class DictItemBuilder extends JavaClassFile {

@@ -1,13 +1,29 @@
- 
+
+
+settings:
+  enableMicroService: true 
+  enableSwagger: true
+
+
 #源代码相关的部分
 source: 
   #DAO常量名
   daoNameConst: org.github.foxnic.web.framework.dao.DBConfigs.PRIMARY_DAO
+  #系统常量包名
+  domainConstantsPackage: org.github.foxnic.web.constants
 
+#使用不同的机器码对应到作者
 authors:
   #指定机器码与对应的作者，机器码在代码生成时控制台输出，或main函数调用 Machine.getIdentity()
   D11C00DED5F5C931: 李方捷 , leefangjie@qq.com
-  D11C00DED5F5C932: 金杰
+  D11C00DED5F5C932: 金杰 , maillank@qq.com
+
+
+compoments: 
+  domain: /common/domain
+  proxy: /common/proxy
+  
+
 
 #应用清单
 applications: 

@@ -3,22 +3,17 @@ package com.tailoring.generator.constants;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.generatorV2.builder.constants.DBMetaClassFile;
 import com.tailoring.generator.config.FoxnicWebConfigs;
-import com.tailoring.generator.config.FoxnicWebConstants;
 
-/**
- * 为以usr_开头的表生成代码
- */
+
 public class FoxnicWebDBMetaGenerator  {
  
  
-	
+	/**
+	 * 运行main函数生成代码
+	 * */
 	public static void main(String[] args) throws Exception {
- 
 		FoxnicWebDBMetaGenerator g = new FoxnicWebDBMetaGenerator();
-	 
 		g.buildDBMeta();
-
-		//
 	}
 	
 	private FoxnicWebConfigs configs;
@@ -34,7 +29,8 @@ public class FoxnicWebDBMetaGenerator  {
 	 * 生成DBMeta数据
 	 * */
 	private void buildDBMeta() {
-		DBMetaClassFile dbMetaBuilder=new DBMetaClassFile(dao,configs.getDomianProject(),FoxnicWebConstants.DOMAIN_CONSTANTS_PACKAGE,"FoxnicWeb");
+		
+		DBMetaClassFile dbMetaBuilder=new DBMetaClassFile(dao,configs.getDomianProject(),this.configs.getProjectConfigs().getDomainConstantsPackage(),"FoxnicWeb");
 		dbMetaBuilder.save(true);
 	}
 

@@ -3,14 +3,12 @@ package com.tailoring.generator.module;
 import org.github.foxnic.web.framework.feign.FeignConfigs;
 import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
 import org.github.foxnic.web.framework.web.SuperController;
-import org.github.foxnic.web.proxy.MicroServiceNames;
 
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.generator.CodeGenerator;
 import com.github.foxnic.springboot.mvc.Result;
 import com.github.foxnic.sql.entity.naming.DefaultNameConvertor;
 import com.tailoring.generator.config.FoxnicWebConfigs;
-import com.tailoring.generator.config.FoxnicWebConstants;
 
 public class ModuleGenerator {
  
@@ -31,7 +29,7 @@ public class ModuleGenerator {
 //		generator.setDAONameConst(daoNameConst);
 		
 		//设置常量包
-		generator.setConstsPackage(FoxnicWebConstants.DOMAIN_CONSTANTS_PACKAGE);
+//		generator.setConstsPackage(FoxnicWebConstants.DOMAIN_CONSTANTS_PACKAGE);
  
 		final DefaultNameConvertor nc=new DefaultNameConvertor();
 		//加入自定义注解
