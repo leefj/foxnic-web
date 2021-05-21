@@ -18,6 +18,7 @@ import com.alibaba.nacos.api.naming.NamingService;
 import com.alibaba.nacos.api.naming.listener.Event;
 import com.alibaba.nacos.api.naming.listener.EventListener;
 import com.alibaba.nacos.api.naming.listener.NamingEvent;
+import com.github.foxnic.springboot.spring.SpringUtil;
 
 @Component
 public class Test {
@@ -50,13 +51,13 @@ public class Test {
 		});
 		
 		
-		
+		NacosConfigProperties p=SpringUtil.getBean(NacosConfigProperties.class);
 		
 		Properties properties = new Properties();
 		properties.put(PropertyKeyConst.SERVER_ADDR, nacosConfigProperties.getServerAddr());
 		properties.put(PropertyKeyConst.NAMESPACE, nacosConfigProperties.getNamespace());
-		properties.put(PropertyKeyConst.USERNAME, "nacos");
-		properties.put(PropertyKeyConst.PASSWORD, "nacos");
+		properties.put(PropertyKeyConst.USERNAME, nacosConfigProperties.getUsername());
+		properties.put(PropertyKeyConst.PASSWORD, nacosConfigProperties.getPassword());
 		try {
 			namingService = NamingFactory.createNamingService(properties);
 			

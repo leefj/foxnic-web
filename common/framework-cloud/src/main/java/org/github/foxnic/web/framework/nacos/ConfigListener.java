@@ -5,11 +5,13 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.Executor;
 
+import com.alibaba.cloud.nacos.NacosConfigProperties;
 import com.alibaba.nacos.api.NacosFactory;
 import com.alibaba.nacos.api.PropertyKeyConst;
 import com.alibaba.nacos.api.config.ConfigService;
 import com.alibaba.nacos.api.config.listener.Listener;
 import com.alibaba.nacos.api.exception.NacosException;
+import com.github.foxnic.springboot.spring.SpringUtil;
 
 
 /**
@@ -20,11 +22,13 @@ public class ConfigListener {
 
 	public ConfigListener(String serverAddr, String namespace, String group, String dataId) {
 
+		NacosConfigProperties p=SpringUtil.getBean(NacosConfigProperties.class);
+		
 		Properties properties = new Properties();
 		properties.put(PropertyKeyConst.SERVER_ADDR, serverAddr);
 		properties.put(PropertyKeyConst.NAMESPACE, namespace);
-		properties.put(PropertyKeyConst.USERNAME, "nacos");
-		properties.put(PropertyKeyConst.PASSWORD, "nacos");
+		properties.put(PropertyKeyConst.USERNAME, p.getUsername());
+		properties.put(PropertyKeyConst.PASSWORD, p.getPassword());
 		try {
 			ConfigService configService = NacosFactory.createConfigService(properties);
 			 
