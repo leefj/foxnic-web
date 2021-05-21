@@ -21,7 +21,7 @@ public interface IFileService extends ISuperService<File> {
 	 * @param id ID , 详情 : ID
 	 * @return 查询结果 , File对象
 	 */
-	boolean deleteByIdPhysical(Long id);
+	boolean deleteByIdPhysical(String id);
 	
 	/**
 	 * 按主键删除sys_file
@@ -29,7 +29,7 @@ public interface IFileService extends ISuperService<File> {
 	 * @param id ID , 详情 : ID
 	 * @return 查询结果 , File对象
 	 */
-	boolean deleteByIdLogical(Long id);
+	boolean deleteByIdLogical(String id);
 	
 	/**
 	 * 按主键获取sys_file
@@ -37,16 +37,16 @@ public interface IFileService extends ISuperService<File> {
 	 * @param id ID
 	 * @return 查询结果 , File对象
 	 */
-	File getById(Long id);
+	File getById(String id);
 
 	/**
 	 * 保存文件
 	 * */
-	Long uploadFile(MultipartFile mf);
+	String uploadFile(MultipartFile mf);
 	
 	/**
 	 * 文件下载
 	 * */
-	void downloadFile(Long id,HttpServletResponse response);
+	void downloadFile(String id,HttpServletResponse response);
 
 }

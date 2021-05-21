@@ -71,7 +71,7 @@ public class FileServiceImpl extends SuperService<File> implements IFileService 
 	 * @param id ID , 详情 : ID
 	 * @return 查询结果 , File对象
 	 */
-	public boolean deleteByIdPhysical(Long id) {
+	public boolean deleteByIdPhysical(String id) {
 		File file = new File();
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null 。");
 		file.setId(id);
@@ -84,7 +84,7 @@ public class FileServiceImpl extends SuperService<File> implements IFileService 
 	 * @param id ID , 详情 : ID
 	 * @return 查询结果 , File对象
 	 */
-	public boolean deleteByIdLogical(Long id) {
+	public boolean deleteByIdLogical(String id) {
 		File file = new File();
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null 。");
 		file.setId(id);
@@ -98,7 +98,7 @@ public class FileServiceImpl extends SuperService<File> implements IFileService 
 	 * @param id ID
 	 * @return 查询结果 , File对象
 	 */
-	public File getById(Long id) {
+	public File getById(String id) {
 		File sample = new File();
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null 。");
 		sample.setId(id);
@@ -106,7 +106,7 @@ public class FileServiceImpl extends SuperService<File> implements IFileService 
 	}
 
 	@Override
-	public Long uploadFile(MultipartFile file) {
+	public String uploadFile(MultipartFile file) {
 		byte[] bytes=new byte[0];
         try {
             bytes = file.getBytes();
@@ -148,7 +148,7 @@ public class FileServiceImpl extends SuperService<File> implements IFileService 
      * @param response   HttpServletResponse 内置对象
      * @throws IOException
      */
-    public void downloadFile(Long id,HttpServletResponse response)  {
+    public void downloadFile(String id,HttpServletResponse response)  {
         byte[] bytes=null;
         File file=this.getById(id);
         if(file==null) {

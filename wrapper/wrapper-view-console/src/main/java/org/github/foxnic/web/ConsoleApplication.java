@@ -1,4 +1,4 @@
-package org.github.foxnic.web.system;
+package org.github.foxnic.web;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

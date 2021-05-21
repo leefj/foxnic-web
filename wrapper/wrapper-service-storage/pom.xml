@@ -23,18 +23,23 @@
 	</properties>
 
 	<dependencies>
-		
+
+		<dependency>
+			<groupId>com.github.foxnic.web</groupId>
+			<artifactId>framework-cloud</artifactId>
+			<version>${platform.version}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>com.github.foxnic.web</groupId>
 			<artifactId>service-storage</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
- 
+
+
+
 	</dependencies>
 
-	<dependencyManagement>
-
-	</dependencyManagement>
 
 
 	<build>

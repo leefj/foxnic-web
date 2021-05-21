@@ -94,7 +94,7 @@ public class FileMeta {
 		 * @param id ID
 		 * @return 当前对象
 		*/
-		public File setId(Long id) {
+		public File setId(String id) {
 			super.change(ID,super.getId(),id);
 			super.setId(id);
 			return this;

@@ -36,7 +36,7 @@ public class File extends Entity {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@ApiModelProperty(required = true,value="ID" , notes = "ID")
-	private Long id;
+	private String id;
 	
 	/**
 	 * 文件名：文件名
@@ -115,7 +115,7 @@ public class File extends Entity {
 	 * 属性说明 : ID
 	 * @return ID
 	*/
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 	
@@ -124,7 +124,7 @@ public class File extends Entity {
 	 * @param id ID
 	 * @return 当前对象
 	*/
-	public File setId(Long id) {
+	public File setId(String id) {
 		this.id=id;
 		return this;
 	}

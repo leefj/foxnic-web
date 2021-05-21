@@ -69,7 +69,7 @@ public class FileController extends SuperController {
 		JSONObject ret=new JSONObject();
 		for (String f : map.keySet()) {
 			MultipartFile mf = map.get(f);
-			Long id = fileService.uploadFile(mf);
+			String id = fileService.uploadFile(mf);
 			ret.put("fileId",id);
 			ret.put("fileName", mf.getOriginalFilename());
 			ret.put("field",mf.getName());
@@ -79,7 +79,7 @@ public class FileController extends SuperController {
 	}
 	
 	@RequestMapping(FileServiceProxy.DOWNLOAD)
-	public void download(HttpServletRequest request,HttpServletResponse response,Long id) throws Exception {
+	public void download(HttpServletRequest request,HttpServletResponse response,String id) throws Exception {
  
 		fileService.downloadFile(id, response);
  

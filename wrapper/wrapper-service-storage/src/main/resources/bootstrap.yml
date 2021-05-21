@@ -8,12 +8,12 @@ application:
     password: nacos
 
 server:
-  port: 1810
+  port: 1811
     
 spring:
   application:
-    name: service-system
-    description: Foxnic Web System Service
+    name: service-storage
+    description: Foxnic Web Storage Service
   cloud:
     nacos:
       discovery:

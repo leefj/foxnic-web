@@ -19,7 +19,13 @@
 
 		<dependency>
 			<groupId>com.github.foxnic.web</groupId>
-			<artifactId>framework</artifactId>
+			<artifactId>framework-boot</artifactId>
+			<version>${platform.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.github.foxnic.web</groupId>
+			<artifactId>framework-cloud</artifactId>
 			<version>${platform.version}</version>
 		</dependency>
 

@@ -4,8 +4,8 @@ application:
     ip: 47.92.240.43:9369
     #ip: 47.92.240.43:9369
     namespace: foxnic-web
-    username: nacos
-    password: nacos
+    username: foxnic-web
+    password: foxnic-web
 
 server:
   port: 1810
