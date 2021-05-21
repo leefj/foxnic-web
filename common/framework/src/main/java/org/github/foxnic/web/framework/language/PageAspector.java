@@ -33,7 +33,7 @@ public class PageAspector {
 	 
 	private static final String LANG = "lang";
 	
-	@Autowired
+
 	private LanguageService languageService;
 
 	@PostConstruct
@@ -67,6 +67,11 @@ public class PageAspector {
 		Controller rc=method.getDeclaringClass().getAnnotation(Controller.class);
 		if(rc==null) {
 			return joinPoint.proceed();
+		}
+		
+		
+		if(languageService==null) {
+			languageService=SpringUtil.getBean(LanguageService.class);
 		}
 		
 		Object args[] = joinPoint.getArgs();

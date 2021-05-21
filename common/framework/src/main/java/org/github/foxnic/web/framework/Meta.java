@@ -21,6 +21,21 @@ public class Meta {
 	 * 实体包
 	 * */
 	public static final String DOMAIN_PACKAGE=BASE_PACKAGE+".doman";
+	
+	
+	/**
+	 * 系统服务
+	 * */
+	public static final String SERVICE_SYSTEM_PACKAGE=BASE_PACKAGE+".system";
+ 
+	
+	/**
+	 * 存储服务
+	 * */
+	public static final String SERVICE_STORAGE_PACKAGE=BASE_PACKAGE+".storage";
+	
+	
+	 
  
 	
 }

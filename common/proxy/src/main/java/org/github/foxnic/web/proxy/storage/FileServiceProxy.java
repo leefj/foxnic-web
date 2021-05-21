@@ -93,6 +93,17 @@ public interface FileServiceProxy {
 	 */
 	public static final String IMPORT_EXCEL = API_PREFIX + "import-excel";
 	
+	
+	/**
+	 * 下载
+	 */
+	public static final String DOWNLOAD = API_PREFIX + "download";
+	
+	/**
+	 * 上传
+	 */
+	public static final String UPLOAD = API_PREFIX + "upload";
+	
 	/**
 	 * 添加系统文件
 	*/
