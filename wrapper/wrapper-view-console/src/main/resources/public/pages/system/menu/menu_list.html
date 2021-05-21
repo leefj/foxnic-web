@@ -1,0 +1,43 @@
+<!-- 
+	功能菜单 列表 HTML 页面
+	@author 李方捷
+	@since 2021-04-01 10:41:22
+ -->
+<div class="layui-card">
+    <div class="layui-card-header">
+        <h2 class="header-title"><span th:text="${lang.translate('功能菜单')}">功能菜单</span></h2>
+        <span class="layui-breadcrumb pull-right">
+          <a href="#!console"><span th:text="${lang.translate('首页')}">首页</span></a>
+          <a><cite><span th:text="${lang.translate('功能菜单')}">功能菜单</span></cite></a>
+        </span>
+    </div>
+    <div class="layui-card-body">
+        <div class="layui-form toolbar">
+            <span th:text="${lang.translate('搜索')}">搜索</span>：
+            <select id="menu-search-field">
+                <option value="" th:text="${lang.translate('-请选择-')}">-请选择-</option>
+                <option value="id" th:text="${lang.translate('id')}">id</option>
+                <option value="icon" th:text="${lang.translate('图标')}">图标</option>
+                <option value="css" th:text="${lang.translate('样式')}">样式</option>
+                <option value="label" th:text="${lang.translate('标签')}">标签</option>
+                <option value="type" th:text="${lang.translate('菜单类型')}">菜单类型</option>
+                <option value="path" th:text="${lang.translate('模版路径')}">模版路径</option>
+                <option value="url" th:text="${lang.translate('路由地址')}">路由地址</option>
+                <option value="parentId" th:text="${lang.translate('上级ID')}">上级ID</option>
+            </select>&emsp;
+            <input id="menu-search-value" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入关键字')}"/>&emsp;
+            <button id="menu-btn-search" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i><span th:text="${lang.translate('搜索')}">搜索</span></button>
+            <button id="menu-btn-add" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i><span th:text="${lang.translate('添加')}">添加</span></button>
+        </div>
+
+        <table class="layui-table" id="menu-table" lay-filter="menu-table"></table>
+    </div>
+</div>
+
+<!-- 表格操作列 -->
+<script type="text/html" id="menu-table-operation">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit" th:text="${lang.translate('修改')}">修改</a>
+    <a class="layui-btn layui-btn-xs" lay-event="del" th:text="${lang.translate('删除')}">删除</a>
+</script>
+
+<script src="/pages/system/menu/menu_list.js"></script>

@@ -1,0 +1,39 @@
+<!-- 
+	系统配置 列表 HTML 页面
+	@author 李方捷
+	@since 2021-04-01 10:41:22
+ -->
+<div class="layui-card">
+    <div class="layui-card-header">
+        <h2 class="header-title"><span th:text="${lang.translate('系统配置')}">系统配置</span></h2>
+        <span class="layui-breadcrumb pull-right">
+          <a href="#!console"><span th:text="${lang.translate('首页')}">首页</span></a>
+          <a><cite><span th:text="${lang.translate('系统配置')}">系统配置</span></cite></a>
+        </span>
+    </div>
+    <div class="layui-card-body">
+        <div class="layui-form toolbar">
+            <span th:text="${lang.translate('搜索')}">搜索</span>：
+            <select id="config-search-field">
+                <option value="" th:text="${lang.translate('-请选择-')}">-请选择-</option>
+                <option value="code" th:text="${lang.translate('配置键')}">配置键</option>
+                <option value="name" th:text="${lang.translate('配置名')}">配置名</option>
+                <option value="value" th:text="${lang.translate('配置值')}">配置值</option>
+                <option value="valid" th:text="${lang.translate('是否生效')}">是否生效</option>
+            </select>&emsp;
+            <input id="config-search-value" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入关键字')}"/>&emsp;
+            <button id="config-btn-search" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i><span th:text="${lang.translate('搜索')}">搜索</span></button>
+            <button id="config-btn-add" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i><span th:text="${lang.translate('添加')}">添加</span></button>
+        </div>
+
+        <table class="layui-table" id="config-table" lay-filter="config-table"></table>
+    </div>
+</div>
+
+<!-- 表格操作列 -->
+<script type="text/html" id="config-table-operation">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit" th:text="${lang.translate('修改')}">修改</a>
+    <a class="layui-btn layui-btn-xs" lay-event="del" th:text="${lang.translate('删除')}">删除</a>
+</script>
+
+<script src="/pages/system/config/config_list.js"></script>

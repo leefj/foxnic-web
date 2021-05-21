@@ -1,0 +1,31 @@
+<!-- 
+	商品面料关系 列表 HTML 页面
+	@author 李方捷
+	@since 2021-04-12 02:24:36
+ -->
+<div class="layui-card">
+
+    <div class="layui-card-body">
+        <div class="layui-form toolbar" style="display: flex;display: -webkit-flex;flex-direction:row;flex-wrap: nowrap;justify-content: flex-start;align-items:center;">
+            <span th:text="${lang.translate('面料')}">面料</span>：
+            <select name="fabirc-input" xm-select="fabirc-input" xm-select-radio=""  xm-select-search th:xm-select-search-xxx="${'/service-tailoring/prd-product-fabric/query-choose-list?productId='+productId}"></select>&nbsp;&nbsp;&nbsp;&nbsp;
+            <button id="product_fabric-btn-add" class="layui-btn icon-btn" style="height:36px"><i class="layui-icon">&#xe654;</i><span th:text="${lang.translate('添加')}">添加</span></button>
+            <button id="product_fabric-btn-delete" class="layui-btn icon-btn layui-btn-danger" style="height:36px"><i class="layui-icon">&#xe67e;</i><span th:text="${lang.translate('删除')}">删除</span></button>
+        </div>
+
+        <table class="layui-table" id="product_fabric-table" lay-filter="product_fabric-table"></table>
+    </div>
+</div>
+
+<!-- 表格操作列 -->
+<script type="text/html" id="product_fabric-table-operation">
+	<a class="layui-btn layui-btn-xs upload-button" lay-event="img" th:text="${lang.translate('图片')}">图片</a>
+    <a class="layui-btn layui-btn-xs" lay-event="del" th:text="${lang.translate('删除')}">删除</a>
+</script>
+
+<!-- 表格状态列 -->
+
+<script type="text/javascript">
+var productId= [[${productId}]];
+</script>
+<script src="/pages/product/product_fabric/product_fabric_list.js"></script>

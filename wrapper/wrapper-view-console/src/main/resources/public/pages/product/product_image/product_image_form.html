@@ -1,0 +1,33 @@
+<!-- 
+	商品图片 表单 HTML 页面
+	@author 李方捷
+	@since 2021-04-01 08:44:51
+ -->
+<form id="product_image-form" lay-filter="product_image-form" class="layui-form model-form">
+    <input name="id" type="hidden"/>
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('商品ID')}">商品ID</label>
+        <div class="layui-input-block">
+            <input name="productId" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('商品ID') }" type="text" class="layui-input"    />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('图片地址')}">图片地址</label>
+        <div class="layui-input-block">
+            <input name="fileId" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('图片地址') }" type="text" class="layui-input"    />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('是否主图')}">是否主图</label>
+        <div class="layui-input-block">
+            <input name="isChief" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('是否主图') }" type="text" class="layui-input"    />
+        </div>
+    </div>
+
+    <div class="layui-form-item model-form-footer">
+        <button class="layui-btn layui-btn-primary" ew-event="closeDialog" type="button" th:text="${lang.translate('取消')}">取消</button>
+        <button class="layui-btn" lay-filter="product_image-form-submit" lay-submit th:text="${lang.translate('保存')}">保存</button>
+    </div>
+</form>
+
+<script src="/pages/product/product_image/product_image_form.js"></script>

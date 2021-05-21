@@ -1,0 +1,39 @@
+<!-- 
+	系统文件 表单 HTML 页面
+	@author 李方捷
+	@since 2021-04-01 10:41:24
+ -->
+<form id="file-form" lay-filter="file-form" class="layui-form model-form">
+    <input name="id" type="hidden"/>
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('文件名')}">文件名</label>
+        <div class="layui-input-block">
+            <input name="fileName" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('文件名') }" type="text" class="layui-input" maxlength='256'   />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('存储位置')}">存储位置</label>
+        <div class="layui-input-block">
+            <input name="location" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('存储位置') }" type="text" class="layui-input" maxlength='512'   />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('文件大小')}">文件大小</label>
+        <div class="layui-input-block">
+            <input name="size" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('文件大小') }" type="text" class="layui-input"    />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('文件类型')}">文件类型</label>
+        <div class="layui-input-block">
+            <input name="fileType" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('文件类型') }" type="text" class="layui-input" maxlength='8'   />
+        </div>
+    </div>
+
+    <div class="layui-form-item model-form-footer">
+        <button class="layui-btn layui-btn-primary" ew-event="closeDialog" type="button" th:text="${lang.translate('取消')}">取消</button>
+        <button class="layui-btn" lay-filter="file-form-submit" lay-submit th:text="${lang.translate('保存')}">保存</button>
+    </div>
+</form>
+
+<script src="/pages/system/file/file_form.js"></script>

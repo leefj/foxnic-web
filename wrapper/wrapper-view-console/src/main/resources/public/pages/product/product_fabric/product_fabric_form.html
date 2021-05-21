@@ -1,0 +1,51 @@
+<!-- 
+	商品面料关系 表单 HTML 页面
+	@author 李方捷
+	@since 2021-04-12 02:24:36
+ -->
+<form id="product_fabric-form" lay-filter="product_fabric-form" class="layui-form model-form">
+    <input name="id" id="id"  type="hidden"/>
+    
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('商品ID')}">商品ID</label>
+        <div class="layui-input-block">
+            <input id="productId" name="productId" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('商品ID') }" type="text" class="layui-input"    />
+        </div>
+    </div>
+    
+	
+    
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('标签ID')}">标签ID</label>
+        <div class="layui-input-block">
+            <input id="fabricId" name="fabricId" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('标签ID') }" type="text" class="layui-input"    />
+        </div>
+    </div>
+    
+	
+    
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('虚拟试衣编码')}">虚拟试衣编码</label>
+        <div class="layui-input-block">
+            <input id="virtualCode" name="virtualCode" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('虚拟试衣编码') }" type="text" class="layui-input"  maxlength='64'  />
+        </div>
+    </div>
+    
+	
+    
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('虚拟试衣效果图')}">虚拟试衣效果图</label>
+        <div class="layui-input-block">
+            <input id="effectImageLocation" name="effectImageLocation" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('虚拟试衣效果图') }" type="text" class="layui-input"  maxlength='512'  />
+        </div>
+    </div>
+    
+	
+
+    <div class="layui-form-item model-form-footer">
+        <button class="layui-btn layui-btn-primary" ew-event="closeDialog" type="button" th:text="${lang.translate('取消')}">取消</button>
+        <button class="layui-btn" lay-filter="product_fabric-form-submit" lay-submit th:text="${lang.translate('保存')}">保存</button>
+    </div>
+</form>
+
+<script src="/pages/product/product_fabric/product_fabric_form.js"></script>

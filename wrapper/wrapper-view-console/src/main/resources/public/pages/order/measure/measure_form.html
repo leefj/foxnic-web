@@ -1,0 +1,60 @@
+<!-- 
+	订单测量信息 表单 HTML 页面
+	@author 李方捷
+	@since 2021-04-16 09:44:30
+ -->
+<form id="measure-form" lay-filter="measure-form" class="layui-form model-form">
+    <input name="id" id="id"  type="hidden"/>
+    
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('订单ID')}">订单ID</label>
+        <div class="layui-input-block">
+            <input id="orderId" name="orderId" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('订单ID') }" type="text" class="layui-input" lay-verify='required'  required />
+        </div>
+    </div>
+    
+	
+    
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('被测量人姓名')}">被测量人姓名</label>
+        <div class="layui-input-block">
+            <input id="bodyName" name="bodyName" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('被测量人姓名') }" type="text" class="layui-input"  maxlength='16'  />
+        </div>
+    </div>
+    
+	
+    
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('被测量人部门')}">被测量人部门</label>
+        <div class="layui-input-block">
+            <input id="bodyDept" name="bodyDept" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('被测量人部门') }" type="text" class="layui-input"  maxlength='32'  />
+        </div>
+    </div>
+    
+	
+    
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('被测量人性别')}">被测量人性别</label>
+        <div class="layui-input-block">
+            <input id="bodySex" name="bodySex" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('被测量人性别') }" type="text" class="layui-input"  maxlength='2'  />
+        </div>
+    </div>
+    
+	
+    
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('测量状态')}">测量状态</label>
+        <div class="layui-input-block">
+            <input id="status" name="status" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('测量状态') }" type="text" class="layui-input"  maxlength='8'  />
+        </div>
+    </div>
+    
+	
+
+    <div class="layui-form-item model-form-footer">
+        <button class="layui-btn layui-btn-primary" ew-event="closeDialog" type="button" th:text="${lang.translate('取消')}">取消</button>
+        <button class="layui-btn" lay-filter="measure-form-submit" lay-submit th:text="${lang.translate('保存')}">保存</button>
+    </div>
+</form>
+
+<script src="/pages/order/measure/measure_form.js"></script>

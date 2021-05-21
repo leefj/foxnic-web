@@ -1,0 +1,45 @@
+<!-- 
+	公司员工关系 表单 HTML 页面
+	@author 李方捷
+	@since 2021-04-01 10:41:25
+ -->
+<form id="employee-form" lay-filter="employee-form" class="layui-form model-form">
+    <input name="id" type="hidden"/>
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('所属部门ID')}">所属部门ID</label>
+        <div class="layui-input-block">
+            <input name="departmentId" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('所属部门ID') }" type="text" class="layui-input"    />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('公司ID')}">公司ID</label>
+        <div class="layui-input-block">
+            <input name="companyId" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('公司ID') }" type="text" class="layui-input"    />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('用户ID')}">用户ID</label>
+        <div class="layui-input-block">
+            <input name="userId" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('用户ID') }" type="text" class="layui-input"    />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('员工姓名')}">员工姓名</label>
+        <div class="layui-input-block">
+            <input name="name" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('员工姓名') }" type="text" class="layui-input" maxlength='32'   />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('员工性别')}">员工性别</label>
+        <div class="layui-input-block">
+            <input name="sex" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('员工性别') }" type="text" class="layui-input" maxlength='16'   />
+        </div>
+    </div>
+
+    <div class="layui-form-item model-form-footer">
+        <button class="layui-btn layui-btn-primary" ew-event="closeDialog" type="button" th:text="${lang.translate('取消')}">取消</button>
+        <button class="layui-btn" lay-filter="employee-form-submit" lay-submit th:text="${lang.translate('保存')}">保存</button>
+    </div>
+</form>
+
+<script src="/pages/crm/employee/employee_form.js"></script>

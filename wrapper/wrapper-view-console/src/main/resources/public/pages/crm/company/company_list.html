@@ -1,0 +1,45 @@
+<!-- 
+	客户公司 列表 HTML 页面
+	@author 李方捷
+	@since 2021-04-01 10:41:25
+ -->
+<div class="layui-card">
+    <div class="layui-card-header">
+        <h2 class="header-title"><span th:text="${lang.translate('客户公司')}">客户公司</span></h2>
+        <span class="layui-breadcrumb pull-right">
+          <a href="#!console"><span th:text="${lang.translate('首页')}">首页</span></a>
+          <a><cite><span th:text="${lang.translate('客户公司')}">客户公司</span></cite></a>
+        </span>
+    </div>
+    <div class="layui-card-body">
+        <div class="layui-form toolbar">
+            <span th:text="${lang.translate('搜索')}">搜索</span>：
+            <select id="company-search-field">
+                <option value="" th:text="${lang.translate('-请选择-')}">-请选择-</option>
+                <option value="id" th:text="${lang.translate('ID')}">ID</option>
+                <option value="name" th:text="${lang.translate('公司名称')}">公司名称</option>
+                <option value="unifySocialCode" th:text="${lang.translate('统一社会信用代码')}">统一社会信用代码</option>
+                <option value="licensePhoto" th:text="${lang.translate('营业执照图片地址')}">营业执照图片地址</option>
+                <option value="businessRange" th:text="${lang.translate('经营范围')}">经营范围</option>
+                <option value="termStartDate" th:text="${lang.translate('营业期限开始日期')}">营业期限开始日期</option>
+                <option value="termEndDate" th:text="${lang.translate('营业期限结束日期')}">营业期限结束日期</option>
+                <option value="contractStartDate" th:text="${lang.translate('合同生效时间')}">合同生效时间</option>
+                <option value="contractStatus" th:text="${lang.translate('合同状态')}">合同状态</option>
+                <option value="type" th:text="${lang.translate('公司类型')}">公司类型</option>
+            </select>&emsp;
+            <input id="company-search-value" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入关键字')}"/>&emsp;
+            <button id="company-btn-search" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i><span th:text="${lang.translate('搜索')}">搜索</span></button>
+            <button id="company-btn-add" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i><span th:text="${lang.translate('添加')}">添加</span></button>
+        </div>
+
+        <table class="layui-table" id="company-table" lay-filter="company-table"></table>
+    </div>
+</div>
+
+<!-- 表格操作列 -->
+<script type="text/html" id="company-table-operation">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit" th:text="${lang.translate('修改')}">修改</a>
+    <a class="layui-btn layui-btn-xs" lay-event="del" th:text="${lang.translate('删除')}">删除</a>
+</script>
+
+<script src="/pages/crm/company/company_list.js"></script>
