@@ -1,0 +1,33 @@
+<!-- 
+	商品收藏分类 表单 HTML 页面
+	@author 李方捷
+	@since 2021-04-01 10:41:26
+ -->
+<form id="favorite_folder-form" lay-filter="favorite_folder-form" class="layui-form model-form">
+    <input name="id" type="hidden"/>
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('上级目录ID')}">上级目录ID</label>
+        <div class="layui-input-block">
+            <input name="parentId" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('上级目录ID') }" type="text" class="layui-input"    />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('用户ID')}">用户ID</label>
+        <div class="layui-input-block">
+            <input name="userId" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('用户ID') }" type="text" class="layui-input"    />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('目录名称')}">目录名称</label>
+        <div class="layui-input-block">
+            <input name="name" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('目录名称') }" type="text" class="layui-input" maxlength='64'   />
+        </div>
+    </div>
+
+    <div class="layui-form-item model-form-footer">
+        <button class="layui-btn layui-btn-primary" ew-event="closeDialog" type="button" th:text="${lang.translate('取消')}">取消</button>
+        <button class="layui-btn" lay-filter="favorite_folder-form-submit" lay-submit th:text="${lang.translate('保存')}">保存</button>
+    </div>
+</form>
+
+<script src="/pages/crm/favorite_folder/favorite_folder_form.js"></script>

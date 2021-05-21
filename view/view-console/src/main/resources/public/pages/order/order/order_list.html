@@ -1,0 +1,43 @@
+<!-- 
+	订单 列表 HTML 页面
+	@author 李方捷
+	@since 2021-04-14 10:26:37
+ -->
+<div class="layui-card">
+    <div class="layui-card-header">
+        <h2 class="header-title"><span th:text="${lang.translate('订单')}">订单</span></h2>
+        <span class="layui-breadcrumb pull-right">
+          <a href="#!console"><span th:text="${lang.translate('首页')}">首页</span></a>
+          <a><cite><span th:text="${lang.translate('订单')}">订单</span></cite></a>
+        </span>
+    </div>
+    <div class="layui-card-body">
+        <div class="layui-form toolbar">
+            <span th:text="${lang.translate('搜索')}">搜索</span>：
+            <select id="order-search-field">
+                <option value="" th:text="${lang.translate('-请选择-')}">-请选择-</option>
+                <option value="orderNo" th:text="${lang.translate('订单号')}">订单号</option>
+                <option value="companyName" th:text="${lang.translate('公司名称')}">公司名称</option>
+            </select>&emsp;
+            <input id="order-search-value" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入关键字')}"/>&emsp;
+            <button id="order-btn-search" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i><span th:text="${lang.translate('搜索')}">搜索</span></button>
+            <button id="order-btn-add" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i><span th:text="${lang.translate('添加')}">添加</span></button>
+            <button id="order-btn-delete" class="layui-btn icon-btn layui-btn-danger"><i class="layui-icon">&#xe67e;</i><span th:text="${lang.translate('删除')}">删除</span></button>
+            
+        </div>
+
+        <table class="layui-table" id="order-table" lay-filter="order-table"></table>
+    </div>
+</div>
+
+<!-- 表格操作列 -->
+<script type="text/html" id="order-table-operation">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit" th:text="${lang.translate('修改')}">修改</a>
+	<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="product" th:text="${lang.translate('商品')}">商品</a>
+	<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="measure" th:text="${lang.translate('量体')}">量体</a>
+    <a class="layui-btn layui-btn-xs" lay-event="del" th:text="${lang.translate('删除')}">删除</a>
+</script>
+
+<!-- 表格状态列 -->
+
+<script src="/pages/order/order/order_list.js"></script>

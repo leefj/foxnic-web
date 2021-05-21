@@ -1,0 +1,55 @@
+<!-- 
+	面料 表单 HTML 页面
+	@author 李方捷
+	@since 2021-04-08 03:23:07
+ -->
+<form id="fabric-form" lay-filter="fabric-form" class="layui-form model-form">
+    <input name="id" id="id"  type="hidden"/>
+    <input name="fileId" id="fileId"  type="hidden"/>
+    
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('编码')}">编码</label>
+        <div class="layui-input-block">
+            <input name="code" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('编码') }" type="text" class="layui-input" lay-verify='required' maxlength='64' required />
+        </div>
+    </div>
+    
+	
+    
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('名称')}">名称</label>
+        <div class="layui-input-block">
+            <input name="fullName" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('名称') }" type="text" class="layui-input" lay-verify='required' maxlength='64' required />
+        </div>
+    </div>
+    
+	
+    
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('简称')}">简称</label>
+        <div class="layui-input-block">
+            <input name="shortName" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('简称') }" type="text" class="layui-input"  maxlength='64'  />
+        </div>
+    </div>
+    
+	
+    <div class="layui-form-item">
+    	<label class="layui-form-label" ></label>
+	    <div class="layui-upload layui-input-block">
+		  <button type="button" class="layui-btn" id="fileId-button" th:text="${lang.translate('选择图片')}">选择图片</button>
+		  <div class="layui-upload-list">
+		    <img class="layui-upload-img" onclick="window.previewImage(this)" id="fileId-image" style="width:92px;height:92px" src="/assets/images/no-image-92@2x.png">
+		    <p id="fileId-text"></p>
+		  </div>
+		</div>
+	</div>
+	
+	
+
+    <div class="layui-form-item model-form-footer">
+        <button class="layui-btn layui-btn-primary" ew-event="closeDialog" type="button" th:text="${lang.translate('取消')}">取消</button>
+        <button class="layui-btn" lay-filter="fabric-form-submit" lay-submit th:text="${lang.translate('保存')}">保存</button>
+    </div>
+</form>
+
+<script src="/pages/product/fabric/fabric_form.js"></script>

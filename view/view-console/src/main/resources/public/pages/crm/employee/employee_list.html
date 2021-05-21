@@ -1,0 +1,41 @@
+<!-- 
+	公司员工关系 列表 HTML 页面
+	@author 李方捷
+	@since 2021-04-01 10:41:25
+ -->
+<div class="layui-card">
+    <div class="layui-card-header">
+        <h2 class="header-title"><span th:text="${lang.translate('公司员工关系')}">公司员工关系</span></h2>
+        <span class="layui-breadcrumb pull-right">
+          <a href="#!console"><span th:text="${lang.translate('首页')}">首页</span></a>
+          <a><cite><span th:text="${lang.translate('公司员工关系')}">公司员工关系</span></cite></a>
+        </span>
+    </div>
+    <div class="layui-card-body">
+        <div class="layui-form toolbar">
+            <span th:text="${lang.translate('搜索')}">搜索</span>：
+            <select id="employee-search-field">
+                <option value="" th:text="${lang.translate('-请选择-')}">-请选择-</option>
+                <option value="id" th:text="${lang.translate('ID')}">ID</option>
+                <option value="departmentId" th:text="${lang.translate('所属部门ID')}">所属部门ID</option>
+                <option value="companyId" th:text="${lang.translate('公司ID')}">公司ID</option>
+                <option value="userId" th:text="${lang.translate('用户ID')}">用户ID</option>
+                <option value="name" th:text="${lang.translate('员工姓名')}">员工姓名</option>
+                <option value="sex" th:text="${lang.translate('员工性别')}">员工性别</option>
+            </select>&emsp;
+            <input id="employee-search-value" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入关键字')}"/>&emsp;
+            <button id="employee-btn-search" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i><span th:text="${lang.translate('搜索')}">搜索</span></button>
+            <button id="employee-btn-add" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i><span th:text="${lang.translate('添加')}">添加</span></button>
+        </div>
+
+        <table class="layui-table" id="employee-table" lay-filter="employee-table"></table>
+    </div>
+</div>
+
+<!-- 表格操作列 -->
+<script type="text/html" id="employee-table-operation">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit" th:text="${lang.translate('修改')}">修改</a>
+    <a class="layui-btn layui-btn-xs" lay-event="del" th:text="${lang.translate('删除')}">删除</a>
+</script>
+
+<script src="/pages/crm/employee/employee_list.js"></script>

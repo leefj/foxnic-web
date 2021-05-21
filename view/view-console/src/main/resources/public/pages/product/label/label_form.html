@@ -1,0 +1,22 @@
+<!-- 
+	产品标签 表单 HTML 页面
+	@author 李方捷
+	@since 2021-04-02 04:36:26
+ -->
+<form id="label-form" lay-filter="label-form" class="layui-form model-form">
+    <input name="id" type="hidden"/>
+    <input name="parentId" type="hidden"/>
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('标签')}">标签</label>
+        <div class="layui-input-block">
+            <input name="label" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('标签') }" type="text" class="layui-input" maxlength='64' lay-verify="required"  />
+        </div>
+    </div>
+
+    <div class="layui-form-item model-form-footer">
+        <button class="layui-btn layui-btn-primary" ew-event="closeDialog" type="button" th:text="${lang.translate('取消')}">取消</button>
+        <button class="layui-btn" lay-filter="label-form-submit" lay-submit th:text="${lang.translate('保存')}">保存</button>
+    </div>
+</form>
+
+<script src="/pages/product/label/label_form.js"></script>
