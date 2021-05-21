@@ -41,12 +41,6 @@
 			<version>${foxnic.version}</version>
 		</dependency>
 
-		<dependency>
-			<groupId>com.github.foxnic.web</groupId>
-			<artifactId>tailoring</artifactId>
-			<version>${platform.version}</version>
-		</dependency>
- 
 	</dependencies>
 
 
