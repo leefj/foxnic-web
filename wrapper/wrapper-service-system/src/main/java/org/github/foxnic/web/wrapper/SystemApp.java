@@ -1,7 +1,7 @@
 package org.github.foxnic.web.wrapper;
 
 import org.github.foxnic.web.framework.Meta;
-import org.github.foxnic.web.framework.starter.BootApplication;
+import org.github.foxnic.web.framework.starter.CloudApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
@@ -9,7 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 public class SystemApp {
 	public static void main(String[] args) {
-		BootApplication.run(SystemApp.class, args);
+		CloudApplication.run(SystemApp.class, args);
 	}
 	
 	 

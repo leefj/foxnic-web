@@ -1,18 +1,16 @@
 package org.github.foxnic.web.proxy.storage;
 
-import java.util.List;
-import org.springframework.web.bind.annotation.RequestMapping;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.springboot.mvc.Result;
-
-import org.github.foxnic.web.proxy.FeignConfiguration;
-
-import org.springframework.cloud.openfeign.FeignClient;
-
-
 import org.github.foxnic.web.domain.storage.File;
 import org.github.foxnic.web.domain.storage.FileVO;
+import org.github.foxnic.web.framework.proxy.APIProxy;
+import org.github.foxnic.web.proxy.FeignConfiguration;
 import org.github.foxnic.web.proxy.MicroServiceNames;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 /**
  * <p>
@@ -139,7 +137,7 @@ public interface FileServiceProxy {
 	 * 按主键获取系统文件
 	*/
 	@RequestMapping(FileServiceProxy.GET_BY_ID)
-	Result<File> getById(Long id);
+	Result<File> getById(String id);
 	
 	/**
 	 * 查询全部符合条件的系统文件
@@ -152,5 +150,17 @@ public interface FileServiceProxy {
 	*/
 	@RequestMapping(FileServiceProxy.QUERY_PAGED_LIST)
 	Result<PagedList<File>> queryPagedList(FileVO sample);
+
+	/**
+	 * 控制器名称
+	 * */
+	public static final String CONTROLLER_CLASS_NAME="org.github.foxnic.web.storage.controller.FileController";
+
+	/**
+	 * 统一的调用接口，实现在单体应用和微服务应用下的无差异调用
+	 * */
+	public static FileServiceProxy api() {
+		return APIProxy.get(FileServiceProxy.class,CONTROLLER_CLASS_NAME);
+	}
 
 }

@@ -3,6 +3,10 @@ package org.github.foxnic.web.framework;
 public class Meta {
 
 	/**
+	 *
+	 * */
+	public static final String FEIGN_AUTO_CONFIGURATION="org.springframework.cloud.openfeign.FeignAutoConfiguration";
+	/**
 	 * 基础包
 	 * */
 	public static final String BASE_PACKAGE="org.github.foxnic.web";
