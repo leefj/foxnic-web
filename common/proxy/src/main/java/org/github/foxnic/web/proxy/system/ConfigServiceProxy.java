@@ -1,18 +1,15 @@
 package org.github.foxnic.web.proxy.system;
 
-import java.util.List;
-import org.springframework.web.bind.annotation.RequestMapping;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.springboot.mvc.Result;
-
-import org.github.foxnic.web.proxy.FeignConfiguration;
-
-import org.springframework.cloud.openfeign.FeignClient;
-
-
 import org.github.foxnic.web.domain.system.Config;
 import org.github.foxnic.web.domain.system.ConfigVO;
+import org.github.foxnic.web.proxy.FeignConfiguration;
 import org.github.foxnic.web.proxy.MicroServiceNames;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 /**
  * <p>
@@ -141,5 +138,7 @@ public interface ConfigServiceProxy {
 	*/
 	@RequestMapping(ConfigServiceProxy.QUERY_PAGED_LIST)
 	Result<PagedList<Config>> queryPagedList(ConfigVO sample);
+
+
 
 }

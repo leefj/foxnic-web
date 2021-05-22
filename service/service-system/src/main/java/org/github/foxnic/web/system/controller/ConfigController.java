@@ -1,33 +1,29 @@
 package org.github.foxnic.web.system.controller;
 
  
-import java.util.List;
-
-import com.github.foxnic.dao.data.SaveMode;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.github.foxnic.dao.data.PagedList;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.springboot.api.annotations.NotNull;
 import com.github.foxnic.springboot.mvc.Result;
-
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-
-import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
-import org.github.foxnic.web.framework.web.SuperController;
-
-
-import org.github.foxnic.web.proxy.system.ConfigServiceProxy;
-import org.github.foxnic.web.domain.system.meta.ConfigVOMeta;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
+import com.github.xiaoymin.knife4j.annotations.ApiSort;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import org.github.foxnic.web.domain.storage.File;
 import org.github.foxnic.web.domain.system.Config;
 import org.github.foxnic.web.domain.system.ConfigVO;
-import io.swagger.annotations.Api;
-import com.github.xiaoymin.knife4j.annotations.ApiSort;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiImplicitParam;
-import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import org.github.foxnic.web.domain.system.meta.ConfigVOMeta;
+import org.github.foxnic.web.proxy.storage.FileServiceProxy;
+import org.github.foxnic.web.proxy.system.ConfigServiceProxy;
 import org.github.foxnic.web.system.service.IConfigService;
-import com.github.foxnic.springboot.api.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * <p>
@@ -171,7 +167,7 @@ public class ConfigController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 查询系统配置
 	*/
@@ -186,9 +182,10 @@ public class ConfigController {
 	@SentinelResource(value = ConfigServiceProxy.QUERY_LIST)
 	@PostMapping(ConfigServiceProxy.QUERY_LIST)
 	public Result<List<Config>> queryList(ConfigVO sample) {
+		Result<File> r=FileServiceProxy.api().getById("314");
 		Result<List<Config>> result=new Result<>();
 		List<Config> list=configService.queryList(sample);
-		result.success(true).data(list);
+		result.success(true).data(list).refer("config", r);
 		return result;
 	}
 

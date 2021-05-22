@@ -10,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.springboot.mvc.Result;
 
 import feign.FeignException;
@@ -38,6 +39,8 @@ public class FeignResultDecoder implements Decoder {
         result.success(json.getBoolean("success"));
         result.message(json.getString("message"));
         result.code(json.getString("code"));
+        
+ 
         
         ParameterizedTypeImpl typeImpl=(ParameterizedTypeImpl)type;
         Type[] gTypes=typeImpl.getActualTypeArguments();
@@ -74,6 +77,12 @@ public class FeignResultDecoder implements Decoder {
 	    		result.data(JSON.parseObject(data, gType));
 	    	}
         }
+        
+        JSONObject extra=json.getJSONObject("extra");
+        for (String key : extra.keySet()) {
+			BeanUtil.setFieldValue(result.extra(), key, extra.get(key));
+		}
+       
        
          
         return result;

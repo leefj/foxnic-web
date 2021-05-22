@@ -8,12 +8,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
+import com.github.foxnic.springboot.spring.SpringUtil;
 import com.netflix.loadbalancer.IRule;
 
+import feign.RequestInterceptor;
+import feign.RequestTemplate;
 import feign.codec.Decoder;
 
 @Configuration
-public class FeignConfigs {
+public class FeignConfigs implements RequestInterceptor {
  
 	Logger log=LoggerFactory.getLogger(FeignConfigs.class);
 	
@@ -26,9 +29,22 @@ public class FeignConfigs {
 	@Value("${ribbon.ReadTimeout:30000}")
 	private Integer readTimeout=null;
 	 
+	/**
+	 * 响应解码器
+	 * */
 	@Bean
     public Decoder feignDecoder() {
         return new FeignResultDecoder();
+    }
+	
+	/**
+	 *  请求拦截器
+	 * */
+    @Override
+    public void apply(RequestTemplate requestTemplate) {
+    	requestTemplate.header("is-feign","1");
+        requestTemplate.header(com.github.foxnic.commons.log.Logger.TIRACE_ID_KEY, com.github.foxnic.commons.log.Logger.getTID());
+        requestTemplate.header("invoke-from", SpringUtil.getEnvProperty("spring.application.name"));
     }
 	
 	
@@ -48,5 +64,8 @@ public class FeignConfigs {
 		log.info("user rule "+rule.name()+","+rule.getRule().getClass().getName());
         return rule.getRule();
     }
+ 
+	
+
 	 
 }
