@@ -1,7 +1,7 @@
 /**
  * 系统文件 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-24 05:35:55
+ * @since 2021-05-24 05:39:03
  */
  layui.use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic'], function () {
         var form = layui.form;

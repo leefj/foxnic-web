@@ -20,7 +20,7 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  * 系统文件  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-24 01:15:13
+ * @since 2021-05-24 05:39:02
 */
 
 @FeignClient(value = MicroServiceNames.STORAGE, contextId = FileServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)
@@ -95,16 +95,6 @@ public interface FileServiceProxy {
 	public static final String IMPORT_EXCEL = API_PREFIX + "import-excel";
 	
 	/**
-	 * 导入Excel
-	 */
-	public static final String UPLOAD = API_PREFIX + "upload";
-
-	/**
-	 * 导入Excel
-	 */
-	public static final String DOWNLOAD = API_PREFIX + "download";
-	
-	/**
 	 * 添加系统文件
 	*/
 	@RequestMapping(FileServiceProxy.INSERT)
@@ -158,8 +148,6 @@ public interface FileServiceProxy {
 	 * 控制器类名
 	 * */
 	public static final String CONTROLLER_CLASS_NAME="org.github.foxnic.web.storage.controller.FileController";
-
-
 
 	/**
 	 * 统一的调用接口，实现在单体应用和微服务应用下的无差异调用
