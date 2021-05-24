@@ -1,17 +1,30 @@
 package org.github.foxnic.web.proxy.storage;
 
+<<<<<<< HEAD
 import java.util.List;
 
+=======
+import com.github.foxnic.dao.data.PagedList;
+import com.github.foxnic.springboot.mvc.Result;
+>>>>>>> branch 'master' of https://gitee.com/LeeFJ/foxnic-web.git
 import org.github.foxnic.web.domain.storage.File;
 import org.github.foxnic.web.domain.storage.FileVO;
+<<<<<<< HEAD
+=======
+import org.github.foxnic.web.framework.proxy.APIProxy;
+>>>>>>> branch 'master' of https://gitee.com/LeeFJ/foxnic-web.git
 import org.github.foxnic.web.proxy.FeignConfiguration;
 import org.github.foxnic.web.proxy.MicroServiceNames;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+<<<<<<< HEAD
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.springboot.api.proxy.APIProxy;
 import com.github.foxnic.springboot.mvc.Result;
+=======
+import java.util.List;
+>>>>>>> branch 'master' of https://gitee.com/LeeFJ/foxnic-web.git
 
 /**
  * <p>
