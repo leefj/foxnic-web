@@ -1,22 +1,26 @@
 package org.github.foxnic.web.proxy.system;
 
+import java.util.List;
+import org.springframework.web.bind.annotation.RequestMapping;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.springboot.mvc.Result;
+
+import org.github.foxnic.web.proxy.FeignConfiguration;
+
+import org.springframework.cloud.openfeign.FeignClient;
+
+
 import org.github.foxnic.web.domain.system.Config;
 import org.github.foxnic.web.domain.system.ConfigVO;
-import org.github.foxnic.web.proxy.FeignConfiguration;
+import com.github.foxnic.springboot.api.proxy.APIProxy;
 import org.github.foxnic.web.proxy.MicroServiceNames;
-import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.List;
 
 /**
  * <p>
  * 系统配置表  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-20 04:34:14
+ * @since 2021-05-24 01:19:36
 */
 
 @FeignClient(value = MicroServiceNames.SYSTEM, contextId = ConfigServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)
@@ -138,7 +142,18 @@ public interface ConfigServiceProxy {
 	*/
 	@RequestMapping(ConfigServiceProxy.QUERY_PAGED_LIST)
 	Result<PagedList<Config>> queryPagedList(ConfigVO sample);
+	
+	
+	/**
+	 * 控制器类名
+	 * */
+	public static final String CONTROLLER_CLASS_NAME="org.github.foxnic.web.system.controller.ConfigController";
 
-
+	/**
+	 * 统一的调用接口，实现在单体应用和微服务应用下的无差异调用
+	 * */
+	public static ConfigServiceProxy api() {
+		return APIProxy.get(ConfigServiceProxy.class,CONTROLLER_CLASS_NAME);
+	}
 
 }

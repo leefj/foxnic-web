@@ -57,8 +57,10 @@ public class SystemCodeGenerator extends ModuleGenerator {
 		ProjectConfigs procfg=this.getConfigs().getProjectConfigs();
 		
 		MduCtx mdu=new MduCtx(this.getConfigs().getSettings(),table,tablePrefix,procfg.getAppPackageName());
-		//设置页面的基础 URI
-		mdu.setBaseUriPrefix4Ui(procfg.getAppViewUriPrefix());
+		//设置页面的代码文件路径
+		mdu.setViewPrefixPath(procfg.getAppViewPrefixPath());
+		//设置页面访问的基础URI
+		mdu.setViewPrefixURI(procfg.getAppViewPrefixURI());
 		//设置 DAO
 		mdu.setDAO(this.getConfigs().getDAO());
 		//设置 Domain Project
@@ -69,6 +71,8 @@ public class SystemCodeGenerator extends ModuleGenerator {
 		mdu.setServiceProject(this.getConfigs().getServiceProject());
 		//设置 View Project
 		mdu.setViewProject(this.getConfigs().getViewProject());
+		//设置 Wrapper Project
+		mdu.setWrapperProject(this.getConfigs().getWrapperProject());
 		//设置DAO名称常量
 		mdu.setDAONameConsts(procfg.getDAONameConst());
 		//设置微服务命名常量

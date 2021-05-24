@@ -6,19 +6,12 @@ import com.github.foxnic.generatorV2.config.MduCtx;
 import com.github.foxnic.generatorV2.config.WriteMode;
 import com.github.foxnic.sql.meta.DBTable;
  
- 
 
-/**
- * 为以usr_开头的表生成代码
- */
 public class StorageCodeGenerator extends SystemCodeGenerator {
  
 	public static void main(String[] args) throws Exception {
 		StorageCodeGenerator g=new StorageCodeGenerator();
 		g.generateSysFile();
- 
-
-		
 	}
  
 	public StorageCodeGenerator() {
@@ -40,7 +33,7 @@ public class StorageCodeGenerator extends SystemCodeGenerator {
 		.setControllerAndAgent(WriteMode.DO_NOTHING) //Rest
 		.setPageController(WriteMode.DO_NOTHING) //页面控制器
 		.setFormPage(WriteMode.IGNORE) //表单HTML页
-		.setListPage(WriteMode.IGNORE); //列表HTML页
+		.setListPage(WriteMode.WRITE_DIRECT); //列表HTML页
 		
 		//生成代码
 		cfg.buildAll();

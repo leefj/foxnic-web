@@ -9,8 +9,8 @@ import java.util.ArrayList;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-20 05:14:07
- * @sign B1BE7C61B06FCF99B871C58F1BF379C6
+ * @since 2021-05-24 01:09:11
+ * @sign 193B5D0E11CCD37E3CD7B907F9065311
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -46,7 +46,7 @@ public class FileVO extends File {
 	 * 主键清单：用于接收批量主键参数
 	*/
 	@ApiModelProperty(required = false,value="主键清单" , notes = "用于接收批量主键参数")
-	private List<Long> ids;
+	private List<String> ids;
 	
 	/**
 	 * 获得 页码<br>
@@ -149,7 +149,7 @@ public class FileVO extends File {
 	 * 属性说明 : 用于接收批量主键参数
 	 * @return 主键清单
 	*/
-	public List<Long> getIds() {
+	public List<String> getIds() {
 		return ids;
 	}
 	
@@ -158,7 +158,7 @@ public class FileVO extends File {
 	 * @param ids 主键清单
 	 * @return 当前对象
 	*/
-	public FileVO setIds(List<Long> ids) {
+	public FileVO setIds(List<String> ids) {
 		this.ids=ids;
 		return this;
 	}
@@ -168,7 +168,7 @@ public class FileVO extends File {
 	 * @param ids 主键清单
 	 * @return 当前对象
 	*/
-	public FileVO addId(Long id) {
+	public FileVO addId(String id) {
 		if(this.ids==null) ids=new ArrayList<>();
 		this.ids.add(id);
 		return this;

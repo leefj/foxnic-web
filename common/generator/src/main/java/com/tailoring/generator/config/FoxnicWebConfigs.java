@@ -31,6 +31,7 @@ public class FoxnicWebConfigs {
 	private MavenProject serviceProject;
 	private MavenProject proxyProject;
 	private MavenProject viewProject;
+	private MavenProject wrapperProject;
 	
 	
 
@@ -81,7 +82,7 @@ public class FoxnicWebConfigs {
 		File domainProjectFolder=FileUtil.resolveByPath(baseDir, this.projectConfigs.getDomainProjectPath());
 		domianProject=new MavenProject(domainProjectFolder); 
 		
-		File serviceProjectFolder=FileUtil.resolveByPath(baseDir,  projectConfigs.getAppProjectPath());
+		File serviceProjectFolder=FileUtil.resolveByPath(baseDir,  projectConfigs.getAppServiceProjectPath());
 		serviceProject=new MavenProject(serviceProjectFolder);
 		
 		File proxyProjectFolder=FileUtil.resolveByPath(baseDir,  this.projectConfigs.getProxyProjectPath());
@@ -90,24 +91,30 @@ public class FoxnicWebConfigs {
 		File viewProjectFolder=FileUtil.resolveByPath(baseDir,  this.projectConfigs.getAppViewProjectPath());
 		viewProject=new MavenProject(viewProjectFolder);
 		
+		File wrapperProjectFolder=FileUtil.resolveByPath(baseDir,  this.projectConfigs.getAppWrapperProjectPath());
+		wrapperProject=new MavenProject(wrapperProjectFolder);
+		
 		
 		//读取配置
-		File bootstrap=FileUtil.resolveByPath(this.getServiceProject().getMainResourceDir(), "bootstrap.yml");
-		YMLProperties bootstrapProperties=new YMLProperties(bootstrap);
-		nacosServerAddr=bootstrapProperties.getProperty("application.nacos.ip").stringValue();
-		nacosUserName=bootstrapProperties.getProperty("application.nacos.username").stringValue();
-		nacosPassword=bootstrapProperties.getProperty("application.nacos.password").stringValue();
-		nacosNamespace=bootstrapProperties.getProperty("application.nacos.namespace").stringValue();
-		//
-		this.nacosDataId=this.projectConfigs.getAppNacosDataId();
-		this.nacosGroup=this.projectConfigs.getAppNacosGroup();
+		File bootstrapFile=FileUtil.resolveByPath(this.getWrapperProject().getMainResourceDir(), "bootstrap.yml");
+		File applicationFile=FileUtil.resolveByPath(this.getWrapperProject().getMainResourceDir(), "application.yml");
+		
+		if(bootstrapFile.exists() && !applicationFile.exists()) {
+			YMLProperties bootstrapProperties=new YMLProperties(bootstrapFile);
+			nacosServerAddr=bootstrapProperties.getProperty("application.nacos.ip").stringValue();
+			nacosUserName=bootstrapProperties.getProperty("application.nacos.username").stringValue();
+			nacosPassword=bootstrapProperties.getProperty("application.nacos.password").stringValue();
+			nacosNamespace=bootstrapProperties.getProperty("application.nacos.namespace").stringValue();
+			this.nacosDataId=this.projectConfigs.getAppNacosDataId();
+			this.nacosGroup=this.projectConfigs.getAppNacosGroup();
+			File file= this.saveRemoteConfig();
+			//配置文件
+			applicationConfigs=new YMLProperties(file);
+		} else if(!bootstrapFile.exists() && applicationFile.exists()) {
+			applicationConfigs=new YMLProperties(applicationFile);
+		}
+ 
 		this.datasourceConfigKey=this.projectConfigs.getAppPrimaryDatasourceConfigKey();
-		
-		//
-		File file= this.saveRemoteConfig();
-		
-		//配置文件
-		applicationConfigs=new YMLProperties(file);
  
 		try {
 			initDAO();
@@ -235,6 +242,8 @@ public class FoxnicWebConfigs {
 			this.appConfigPrefix=appConfigPrefix;
 		}
 		
+		
+
 		public String getDAONameConst() {
 			return properties.getProperty("source.daoNameConst").stringValue();
 		}
@@ -303,8 +312,12 @@ public class FoxnicWebConfigs {
 		/**
 		 * 获得应用的路径
 		 * */
-		public String getAppProjectPath() {
-			return properties.getProperty(this.appConfigPrefix+".projectPath").stringValue();
+		public String getAppServiceProjectPath() {
+			return properties.getProperty(this.appConfigPrefix+".serviceProjectPath").stringValue();
+		}
+		
+		public String getAppWrapperProjectPath() {
+			return properties.getProperty(this.appConfigPrefix+".wrapperProjectPath").stringValue();
 		}
 		
 		public String getAppPrimaryDatasourceConfigKey() {
@@ -323,14 +336,14 @@ public class FoxnicWebConfigs {
 			return properties.getProperty(this.appConfigPrefix+".viewProjectPath").stringValue();
 		}
 		
-		public String getAppViewCodePathPrefix() {
-			return properties.getProperty(this.appConfigPrefix+".viewCodePathPrefix").stringValue();
+		public String getAppViewPrefixPath() {
+			return properties.getProperty(this.appConfigPrefix+".viewPrefixPath").stringValue();
 		}
 		
 		
 		
-		public String getAppViewUriPrefix() {
-			String codePathPrefix=this.getAppViewCodePathPrefix();
+		public String getAppViewPrefixURI() {
+			String codePathPrefix=this.getAppViewPrefixPath();
 			return codePathPrefix.substring(codePathPrefix.indexOf("/"));
 		}
 		
@@ -346,6 +359,10 @@ public class FoxnicWebConfigs {
 		
 		
 		
+	}
+
+	public MavenProject getWrapperProject() {
+		return wrapperProject;
 	}
 
 

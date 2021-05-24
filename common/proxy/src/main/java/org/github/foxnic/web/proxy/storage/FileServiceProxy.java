@@ -1,37 +1,26 @@
 package org.github.foxnic.web.proxy.storage;
 
-<<<<<<< HEAD
 import java.util.List;
-
-=======
+import org.springframework.web.bind.annotation.RequestMapping;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.springboot.mvc.Result;
->>>>>>> branch 'master' of https://gitee.com/LeeFJ/foxnic-web.git
+
+import org.github.foxnic.web.proxy.FeignConfiguration;
+
+import org.springframework.cloud.openfeign.FeignClient;
+
+
 import org.github.foxnic.web.domain.storage.File;
 import org.github.foxnic.web.domain.storage.FileVO;
-<<<<<<< HEAD
-=======
-import org.github.foxnic.web.framework.proxy.APIProxy;
->>>>>>> branch 'master' of https://gitee.com/LeeFJ/foxnic-web.git
-import org.github.foxnic.web.proxy.FeignConfiguration;
-import org.github.foxnic.web.proxy.MicroServiceNames;
-import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-<<<<<<< HEAD
-import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.springboot.api.proxy.APIProxy;
-import com.github.foxnic.springboot.mvc.Result;
-=======
-import java.util.List;
->>>>>>> branch 'master' of https://gitee.com/LeeFJ/foxnic-web.git
+import org.github.foxnic.web.proxy.MicroServiceNames;
 
 /**
  * <p>
  * 系统文件  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-20 05:14:07
+ * @since 2021-05-24 01:15:13
 */
 
 @FeignClient(value = MicroServiceNames.STORAGE, contextId = FileServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)
@@ -105,16 +94,15 @@ public interface FileServiceProxy {
 	 */
 	public static final String IMPORT_EXCEL = API_PREFIX + "import-excel";
 	
-	
 	/**
-	 * 下载
-	 */
-	public static final String DOWNLOAD = API_PREFIX + "download";
-	
-	/**
-	 * 上传
+	 * 导入Excel
 	 */
 	public static final String UPLOAD = API_PREFIX + "upload";
+
+	/**
+	 * 导入Excel
+	 */
+	public static final String DOWNLOAD = API_PREFIX + "download";
 	
 	/**
 	 * 添加系统文件
@@ -126,14 +114,14 @@ public interface FileServiceProxy {
 	 * 按主键删除系统文件
 	*/
 	@RequestMapping(FileServiceProxy.DELETE)
-	Result<File> deleteById(Long id);
+	Result<File> deleteById(String id);
 	
 	
 	/**
 	 * 按主键删除系统文件
 	*/
 	@RequestMapping(FileServiceProxy.BATCH_DELETE)
-	Result<File> deleteByIds(List<Long> id);
+	Result<File> deleteByIds(List<String> id);
 	
 	/**
 	 * 更新系统文件
@@ -164,11 +152,14 @@ public interface FileServiceProxy {
 	*/
 	@RequestMapping(FileServiceProxy.QUERY_PAGED_LIST)
 	Result<PagedList<File>> queryPagedList(FileVO sample);
-
+	
+	
 	/**
-	 * 控制器名称
+	 * 控制器类名
 	 * */
 	public static final String CONTROLLER_CLASS_NAME="org.github.foxnic.web.storage.controller.FileController";
+
+
 
 	/**
 	 * 统一的调用接口，实现在单体应用和微服务应用下的无差异调用

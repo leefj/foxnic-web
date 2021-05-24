@@ -12,6 +12,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 
 import org.github.foxnic.web.domain.system.Lang;
 import org.github.foxnic.web.domain.system.LangVO;
+import com.github.foxnic.springboot.api.proxy.APIProxy;
 import org.github.foxnic.web.proxy.MicroServiceNames;
 
 /**
@@ -19,7 +20,7 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  * 语言条目表  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-20 04:34:14
+ * @since 2021-05-24 01:19:36
 */
 
 @FeignClient(value = MicroServiceNames.SYSTEM, contextId = LangServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)
@@ -141,5 +142,18 @@ public interface LangServiceProxy {
 	*/
 	@RequestMapping(LangServiceProxy.QUERY_PAGED_LIST)
 	Result<PagedList<Lang>> queryPagedList(LangVO sample);
+	
+	
+	/**
+	 * 控制器类名
+	 * */
+	public static final String CONTROLLER_CLASS_NAME="org.github.foxnic.web.system.controller.LangController";
+
+	/**
+	 * 统一的调用接口，实现在单体应用和微服务应用下的无差异调用
+	 * */
+	public static LangServiceProxy api() {
+		return APIProxy.get(LangServiceProxy.class,CONTROLLER_CLASS_NAME);
+	}
 
 }

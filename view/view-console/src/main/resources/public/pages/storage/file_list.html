@@ -1,12 +1,16 @@
 <!-- 
-#(authorAndTime)
+/**
+ * 系统文件 列表页 JS 脚本
+ * @author 李方捷 , leefangjie@qq.com
+ * @since 2021-05-24 05:35:54
+ */
  -->
 <div class="layui-card">
     <div class="layui-card-header">
-        <h2 class="header-title"><span th:text="${lang.translate('#(topic)')}">#(topic)</span></h2>
+        <h2 class="header-title"><span th:text="${lang.translate('系统文件')}">系统文件</span></h2>
         <span class="layui-breadcrumb pull-right">
           <a href="#!console"><span th:text="${lang.translate('首页')}">首页</span></a>
-          <a><cite><span th:text="${lang.translate('#(topic)')}">#(topic)</span></cite></a>
+          <a><cite><span th:text="${lang.translate('系统文件')}">系统文件</span></cite></a>
         </span>
     </div>
     <div class="layui-card-body">
@@ -14,19 +18,16 @@
             <span th:text="${lang.translate('搜索')}">搜索</span>：
             <select id="search-field">
                 <option value="" th:text="${lang.translate('-请选择-')}">-请选择-</option>
-                #for(f : searchFields)
-                <option value="#(f.varName)" th:text="${lang.translate('#(f.label)'}">#(f.label)</option>
-                #end
+                <option value="id" th:text="${lang.translate('ID'}">ID</option>
+                <option value="fileName" th:text="${lang.translate('文件名'}">文件名</option>
+                <option value="location" th:text="${lang.translate('存储位置'}">存储位置</option>
+                <option value="size" th:text="${lang.translate('文件大小'}">文件大小</option>
+                <option value="fileType" th:text="${lang.translate('文件类型'}">文件类型</option>
             </select>&emsp;
             <input id="search-input" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入关键字')}"/>&emsp;
             <button id="search-button" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i><span th:text="${lang.translate('搜索')}">搜索</span></button>
             <button id="add-button" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i><span th:text="${lang.translate('添加')}">添加</span></button>
-            #if(isSimplePK)
             <button id="delete-button" class="layui-btn icon-btn layui-btn-danger"><i class="layui-icon">&#xe67e;</i><span th:text="${lang.translate('删除')}">删除</span></button>
-            #end
-            #if(isTree)
-            <span id="tree-nav" class="layui-breadcrumb" style="padding-left:16px"></span>
-			#end
             
         </div>
 
@@ -36,20 +37,10 @@
 
 <!-- 表格操作列 -->
 <script type="text/html" id="tableOperationTemplate">
-	#if(isTree) 
-	<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="drill" th:text="${lang.translate('下级')}">下级</a>
-	#end
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit" th:text="${lang.translate('修改')}">修改</a>
     <a class="layui-btn layui-btn-xs" lay-event="del" th:text="${lang.translate('删除')}">删除</a>
 </script>
 
 <!-- 表格状态列 -->
-#for(f:fields)
-#if(f.isLogicField)
-<script type="text/html" id="cell-tpl-#(f.varName)">
-    <input type="checkbox" lay-filter="cell-tpl-#(f.varName)" value="{{d.#(pkVarName)}}" lay-skin="switch" lay-text="#(f.logicField.labelOn)|#(f.logicField.labelOff)"  {{d.#(f.varName)==#(f.logicField.valueOn)?'checked':''}}/>
-</script>
-#end
-#end
 
-<script src="#(jsPath)"></script>
+<script src=""></script>

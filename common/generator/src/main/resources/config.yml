@@ -32,20 +32,22 @@ applications:
   service-system:  
     nacosGroup: service
     nacosDataId: service-system.yml
-    projectPath:  /backend/service-system
+    serviceProjectPath:  /service/service-system
     packageName: org.github.foxnic.web.system
     primaryDatasourceConfigKey: spring.datasource.druid.primary
     microServiceNameConst: SYSTEM
-    viewProjectPath: /frontend/console
-    viewCodePathPrefix: public/pages/system
+    viewProjectPath: /view/view-console
+    viewPrefixPath: public/pages/system
+    wrapperProjectPath:  /wrapper/wrapper-service-system
   #存储服务
   service-storage:  
     nacosGroup: service
     nacosDataId: service-storage.yml
-    projectPath:  /backend/service-storage
+    serviceProjectPath:  /service/service-storage
     packageName: org.github.foxnic.web.storage
     primaryDatasourceConfigKey: spring.datasource.druid.primary
     microServiceNameConst: STORAGE
-    viewProjectPath: /frontend/console
-    viewCodePathPrefix: public/pages/system
+    viewProjectPath: /view/view-console
+    viewPrefixPath: public/pages/storage
+    wrapperProjectPath:  /wrapper/wrapper-all-service
     

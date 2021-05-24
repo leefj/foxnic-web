@@ -7,8 +7,8 @@ import java.util.List;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-20 05:14:07
- * @sign B1BE7C61B06FCF99B871C58F1BF379C6
+ * @since 2021-05-24 01:09:11
+ * @sign 193B5D0E11CCD37E3CD7B907F9065311
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -98,7 +98,7 @@ public class FileVOMeta extends FileMeta {
 		 * @param ids 主键清单
 		 * @return 当前对象
 		*/
-		public FileVO setIds(List<Long> ids) {
+		public FileVO setIds(List<String> ids) {
 			super.change(IDS,super.getIds(),ids);
 			super.setIds(ids);
 			return this;
