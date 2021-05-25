@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-24 01:09:11
- * @sign F1110B673CF1D4BB464E9C357F0C3F7F
+ * @since 2021-05-25 10:06:03
+ * @sign E12FAE291AE7F958C17466DD808B16D4
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -87,7 +87,7 @@ public class File extends Entity {
 	 * 是否已删除：是否已删除
 	*/
 	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除")
-	private Boolean deleted;
+	private Integer deleted;
 	
 	/**
 	 * 删除人ID：删除人ID
@@ -337,18 +337,8 @@ public class File extends Entity {
 	 * 属性说明 : 是否已删除
 	 * @return 是否已删除
 	*/
-	public Boolean isDeleted() {
+	public Integer getDeleted() {
 		return deleted;
-	}
-	
-	/**
-	 * 获得 是否已删除<br>
-	 * 等价于 isDeleted 方法，为兼容 Swagger 需要
-	 * 属性说明 : 是否已删除
-	 * @return 是否已删除
-	*/
-	public Boolean getDeleted() {
-		return this.deleted;
 	}
 	
 	/**
@@ -356,7 +346,7 @@ public class File extends Entity {
 	 * @param deleted 是否已删除
 	 * @return 当前对象
 	*/
-	public File setDeleted(Boolean deleted) {
+	public File setDeleted(Integer deleted) {
 		this.deleted=deleted;
 		return this;
 	}

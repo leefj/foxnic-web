@@ -88,7 +88,7 @@ public class FileServiceImpl extends SuperService<File> implements IFileService 
 		File file = new File();
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null 。");
 		file.setId(id);
-		file.setDeleted(true);
+		file.setDeleted(1);
 		return dao.updateEntity(file,SaveMode.NOT_NULL_FIELDS);
 	}
 	

@@ -20,7 +20,7 @@ public class DBTreatyConfig {
 		dbTreaty.setAllowUpdateWithoutWhere(false);
 		
 		//
-		dbTreaty.setUserIdDataType(DBDataType.BIGINT);
+		dbTreaty.setUserIdDataType(DBDataType.STRING);
 		//
 		dbTreaty.setCreateTimeField("create_time");
 		dbTreaty.setCreateUserIdField("create_by");
@@ -34,9 +34,7 @@ public class DBTreatyConfig {
 		//
 		dbTreaty.setVersionField("version");
 		//
-		dbTreaty.setAutoCastLogicField(true);
-		dbTreaty.addLogicFieldPatten("is_");
-		dbTreaty.addLogicField("*", "valid");
+		dbTreaty.setAutoCastLogicField(false);
 		//
 		dbTreaty.setFalseValue(0);
 		dbTreaty.setTrueValue(1);

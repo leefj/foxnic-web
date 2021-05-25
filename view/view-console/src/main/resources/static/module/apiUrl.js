@@ -1,3 +1,4 @@
+//debugger;
 var my_api_server_url=location.href;
 var i=my_api_server_url.indexOf("//");
 i=my_api_server_url.indexOf("/",i+2);

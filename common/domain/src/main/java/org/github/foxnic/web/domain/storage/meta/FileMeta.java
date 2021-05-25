@@ -7,8 +7,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-24 01:09:11
- * @sign F1110B673CF1D4BB464E9C357F0C3F7F
+ * @since 2021-05-25 10:06:03
+ * @sign E12FAE291AE7F958C17466DD808B16D4
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -193,8 +193,8 @@ public class FileMeta {
 		 * @param deleted 是否已删除
 		 * @return 当前对象
 		*/
-		public File setDeleted(Boolean deleted) {
-			super.change(DELETED,super.isDeleted(),deleted);
+		public File setDeleted(Integer deleted) {
+			super.change(DELETED,super.getDeleted(),deleted);
 			super.setDeleted(deleted);
 			return this;
 		}

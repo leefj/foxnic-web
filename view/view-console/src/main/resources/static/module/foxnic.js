@@ -97,7 +97,7 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload'], fun
     			text=defaults;
     		}
     		
-    		admin.req("/service-tailoring/sys-lang/insert", {code:code,defaults:defaults}, function (data) {});
+    		admin.req("/service-system/sys-lang/insert", {code:code,defaults:defaults}, function (data) {});
     		
     		return text?text:"--";
     	},
@@ -250,12 +250,12 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload'], fun
     
   
     //加载数据字典
-    admin.req('/service-tailoring/sys-dict/query-all', {}, function (data) {
-    	dict=data.data;
-    });
+//    admin.req('/service-tailoring/sys-dict/query-all', {}, function (data) {
+//    	dict=data.data;
+//    });
     
     //加载语言
-    admin.req('/service-tailoring/sys-lang/query-list', {}, function (data) {
+    admin.req('/service-system/sys-lang/query-list', {}, function (data) {
     	data=data.data;
     	codeLangs={};
     	defaultsLangs={};
