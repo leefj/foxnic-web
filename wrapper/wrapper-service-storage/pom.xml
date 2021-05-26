@@ -41,7 +41,7 @@
 		<dependency>
 			<groupId>com.github.foxnic.web</groupId>
 			<artifactId>service-storage</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${platform.version}</version>
 		</dependency>
 
 
