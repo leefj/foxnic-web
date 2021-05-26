@@ -1,9 +1,13 @@
-#(authorAndTime)
+/**
+ * 系统文件 列表页 JS 脚本
+ * @author 李方捷 , leefangjie@qq.com
+ * @since 2021-05-26 11:34:30
+ */
 
 function FormPage() {
 
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect;
-	const moduleURL="#(moduleURL)";
+	const moduleURL="/service-storage/sys-file";
 	
 	/**
       * 入口函数，初始化
@@ -29,7 +33,7 @@ function FormPage() {
 	function adjustPopup() {
 		var height=document.body.clientHeight+58;
 		admin.changePopupArea(null,height);
-		admin.putTempData('#(formAreaKey)', {height:height});
+		admin.putTempData('sys-file-form-area', {height:height});
 	}
 	
 	/**
@@ -38,29 +42,17 @@ function FormPage() {
 	function renderFormFields() {
 		form.render('radio');
 	    //渲染图片字段
-	    #for(f : fields)
-	    #if(f.isImageField) 
-	    fox.renderSimpleUpload("##(f.varName)","##(f.varName)-button","##(f.varName)-image");
-	    #end
-	    #end
 	}
 	
 	/**
       * 填充表单数据
       */
 	function fillFormData() {
-		var formData = admin.getTempData('#(formDataKey)');
+		var formData = admin.getTempData('sys-file-form-data');
 		$('#data-form').attr('method', 'POST');
 		if (formData) {
 			form.val('data-form', formData);
 	     	//设置并显示图片
-	     	#for(f : fields)
-		    #if(f.isImageField)
-		    if($("##(f.varName)").val()) {
-		    	$("##(f.varName)-image").attr("src","/service-storage/sys-file/download?id="+$("##(f.varName)").val());
-		    }
-		    #end
-		    #end
 	     	$('#data-form').attr('method', 'POST');
 		}
 	}
@@ -74,13 +66,8 @@ function FormPage() {
 	    	//debugger;
 	    	
 	    	//处理逻辑值
-	    	#for(f : fields)
-		    #if(f.isLogicField) 
-		    if(!data.field.#(f.varName)) data.field.#(f.varName)=0;
-		    #end
-		    #end
 	    	
-	    	var api=moduleURL+"/"+(data.field.#(idPropertyName)?"update":"insert");
+	    	var api=moduleURL+"/"+(data.field.id?"update":"insert");
 	        layer.load(2);
 	        admin.req(api, JSON.stringify(data.field), function (data) {
 	            layer.closeAll('loading');

@@ -10,14 +10,14 @@ import org.springframework.ui.Model;
  * 系统文件 模版页面控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-20 05:14:07
+ * @since 2021-05-26 11:05:39
 */
 
 @Controller("SysFilePageController")
 @RequestMapping(FilePageController.prefix)
 public class FilePageController {
 	
-	public static final String prefix="pages/system/file";
+	public static final String prefix="pages/storage/file";
 
 	/**
 	 * 系统文件 功能主页面
@@ -31,7 +31,7 @@ public class FilePageController {
 	 * 系统文件 表单页面
 	 */
 	@RequestMapping("/file_form.html")
-	public String form(Model model) {
+	public String form(Model model , String id) {
 		return prefix+"/file_form";
 	}
 }

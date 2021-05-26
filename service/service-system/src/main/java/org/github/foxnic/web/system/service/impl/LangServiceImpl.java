@@ -153,7 +153,7 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 	public String translate(String defaults, String key) {
 		String sysLangValue = configService.getById(SystemEnum.SYSTEM_LANGUAGE).getValue();
 		// 调试写死
-		sysLangValue = "confuse";
+//		sysLangValue = "confuse";
 		Language sysLang = Language.valueOf(sysLangValue);
 		return this.translate(sysLang, defaults, key);
 	}

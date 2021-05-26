@@ -7,6 +7,7 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
 import com.github.foxnic.generatorV2.config.MduCtx;
 import com.github.foxnic.generatorV2.config.WriteMode;
 import com.github.foxnic.sql.meta.DBTable;
+import com.tailoring.generator.config.FoxnicWebConfigs;
 import com.tailoring.generator.config.FoxnicWebConfigs.ProjectConfigs;
  
  
@@ -14,7 +15,7 @@ import com.tailoring.generator.config.FoxnicWebConfigs.ProjectConfigs;
 /**
  * 为以usr_开头的表生成代码
  */
-public class SystemCodeGenerator extends ModuleGenerator {
+public class SystemCodeGenerator  {
  
 	public static void main(String[] args) throws Exception {
 		SystemCodeGenerator g=new SystemCodeGenerator();
@@ -41,38 +42,41 @@ public class SystemCodeGenerator extends ModuleGenerator {
 
 		
 	}
+	
+	private FoxnicWebConfigs configs;
+	
  
 	public SystemCodeGenerator() {
-		super("service-system");
+		this("service-system");
 	}
 	
 	public SystemCodeGenerator(String appConfigPrefix) {
-		super(appConfigPrefix);
+		configs=new FoxnicWebConfigs(appConfigPrefix);
 	}
 	
 	
 	protected MduCtx createModuleConfig(DBTable table,String tablePrefix,int apiSort) {
 
 		//项目配置
-		ProjectConfigs procfg=this.getConfigs().getProjectConfigs();
+		ProjectConfigs procfg=this.configs.getProjectConfigs();
 		
-		MduCtx mdu=new MduCtx(this.getConfigs().getSettings(),table,tablePrefix,procfg.getAppPackageName());
+		MduCtx mdu=new MduCtx(this.configs.getSettings(),table,tablePrefix,procfg.getAppPackageName());
 		//设置页面的代码文件路径
 		mdu.setViewPrefixPath(procfg.getAppViewPrefixPath());
 		//设置页面访问的基础URI
 		mdu.setViewPrefixURI(procfg.getAppViewPrefixURI());
 		//设置 DAO
-		mdu.setDAO(this.getConfigs().getDAO());
+		mdu.setDAO(this.configs.getDAO());
 		//设置 Domain Project
-		mdu.setDomainProject(this.getConfigs().getDomianProject());
+		mdu.setDomainProject(this.configs.getDomianProject());
 		//设置 Proxy Project
-		mdu.setProxyProject(this.getConfigs().getProxyProject());
+		mdu.setProxyProject(this.configs.getProxyProject());
 		//设置 Service Project
-		mdu.setServiceProject(this.getConfigs().getServiceProject());
+		mdu.setServiceProject(this.configs.getServiceProject());
 		//设置 View Project
-		mdu.setViewProject(this.getConfigs().getViewProject());
+		mdu.setViewProject(this.configs.getViewProject());
 		//设置 Wrapper Project
-		mdu.setWrapperProject(this.getConfigs().getWrapperProject());
+		mdu.setWrapperProject(this.configs.getWrapperProject());
 		//设置DAO名称常量
 		mdu.setDAONameConsts(procfg.getDAONameConst());
 		//设置微服务命名常量
@@ -96,9 +100,9 @@ public class SystemCodeGenerator extends ModuleGenerator {
 		
 		//文件生成覆盖模式
 		cfg.overrides()
-		.setServiceIntfAnfImpl(WriteMode.DO_NOTHING) //服务与接口
-		.setControllerAndAgent(WriteMode.DO_NOTHING) //Rest
-		.setPageController(WriteMode.DO_NOTHING) //页面控制器
+		.setServiceIntfAnfImpl(WriteMode.CREATE_IF_NOT_EXISTS) //服务与接口
+		.setControllerAndAgent(WriteMode.CREATE_IF_NOT_EXISTS) //Rest
+		.setPageController(WriteMode.CREATE_IF_NOT_EXISTS) //页面控制器
 		.setFormPage(WriteMode.IGNORE) //表单HTML页
 		.setListPage(WriteMode.IGNORE); //列表HTML页
 		
@@ -197,9 +201,9 @@ public class SystemCodeGenerator extends ModuleGenerator {
 		
 		//文件生成覆盖模式
 		cfg.overrides()
-		.setServiceIntfAnfImpl(WriteMode.DO_NOTHING) //服务与接口
-		.setControllerAndAgent(WriteMode.DO_NOTHING) //Rest
-		.setPageController(WriteMode.DO_NOTHING) //页面控制器
+		.setServiceIntfAnfImpl(WriteMode.CREATE_IF_NOT_EXISTS) //服务与接口
+		.setControllerAndAgent(WriteMode.CREATE_IF_NOT_EXISTS) //Rest
+		.setPageController(WriteMode.CREATE_IF_NOT_EXISTS) //页面控制器
 		.setFormPage(WriteMode.IGNORE) //表单HTML页
 		.setListPage(WriteMode.IGNORE); //列表HTML页
 		

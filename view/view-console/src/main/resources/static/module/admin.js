@@ -71,12 +71,61 @@ layui.define(['settings', 'layer'], function (exports) {
         },
         // 关闭中间弹出并且触发finish回调
         finishPopupCenter: function () {
+        	//拦截，并由顶层窗口处理
+        	if(top && top!=window && top.admin) {
+        		top.admin.finishPopupCenter();
+        		return;
+        	}
             layer.close(popupCenterIndex);
             popupCenterParam.finish ? popupCenterParam.finish() : '';
         },
         // 关闭中间弹出
         closePopupCenter: function () {
+        	if(top && top!=window && top.admin) {
+        		top.admin.closePopupCenter();
+        		return;
+        	}
             layer.close(popupCenterIndex);
+        },
+        changePopupArea: function (width,height) {
+        	if(top && top!=window && top.admin) {
+        		top.admin.changePopupArea(width,height);
+        		return;
+        	}
+        	//debugger;
+        	var layerWidth= $("#layui-layer"+popupCenterIndex).width();
+        	var layerHeight=$("#layui-layer"+popupCenterIndex).height();
+        	var layerTop= $("#layui-layer"+popupCenterIndex).offset().top;
+        	var layerLeft=$("#layui-layer"+popupCenterIndex).offset().left;
+        	var iframeWidth= $("#layui-layer-iframe"+popupCenterIndex).width();
+        	var iframeHeight=$("#layui-layer-iframe"+popupCenterIndex).height();
+        	var dw=width-layerWidth;
+        	var dh=height-layerHeight;
+        	var dx=dw/2;
+        	var dy=dh/2;
+        	iframeWidth+=dw;
+        	iframeHeight+=dh;
+        	layerTop+=dy;
+        	layerLeft+=dx;
+        	if(layerTop<0) layerTop=0;
+        	if(layerLeft<0) layerLeft=0;
+            if(width) {
+            	$("#layui-layer"+popupCenterIndex).animate({width:width+"px"},200,"swing",function(){
+            		//$("#layui-layer"+popupCenterIndex).animate({left:layerLeft+"px"},200,"swing");
+            	});
+            }
+            if(height) {
+            	$("#layui-layer"+popupCenterIndex).animate({height:height+"px"},200,"swing",function(){
+            		//$("#layui-layer"+popupCenterIndex).animate({top:layerTop+"px"},200,"swing");
+            	});
+            }
+            if(width) {
+            	$("#layui-layer-iframe"+popupCenterIndex).animate({height:iframeWidth+"px"},"fast");
+            }
+            if(height) {
+            	$("#layui-layer-iframe"+popupCenterIndex).animate({height:iframeHeight+"px"},"fast");
+            }
+            
         },
         // 封装layer.open
         open: function (param) {
@@ -88,8 +137,12 @@ layui.define(['settings', 'layer'], function (exports) {
             param.shade ? param.shade : .2;
             param.success = function (layero, index) {
                 sCallBack ? sCallBack(layero, index) : '';
-                $(layero).children('.layui-layer-content').load(param.path);
+                //var loc=param.path?param.path:param.content;
+                if(param.path) {
+                	$(layero).children('.layui-layer-content').load(param.path);
+                }
             };
+            //debugger;
             return layer.open(param);
         },
         // 封装ajax请求，返回数据类型为json
@@ -112,7 +165,7 @@ layui.define(['settings', 'layer'], function (exports) {
                 success: success,
                 beforeSend: function (xhr) {
                     if (!noHeaderToken) {
-                        let token = config.getToken();
+                        var token = config.getToken();
                         //debugger;
                         if (token) {
                             //xhr.setRequestHeader('Authorization', 'Bearer ' + token.access_token);
@@ -120,7 +173,7 @@ layui.define(['settings', 'layer'], function (exports) {
                         	xhr.setRequestHeader('token', token);
                         }
                     }
-                    let isolationVersion = config.isolationVersion;
+                    var isolationVersion = config.isolationVersion;
                     if (isolationVersion) {
                         xhr.setRequestHeader('z-l-t-version', isolationVersion);
                     }
@@ -352,6 +405,7 @@ layui.define(['settings', 'layer'], function (exports) {
     }).on('mouseleave', '*[lay-tips]', function () {
         layer.closeAll('tips');
     });
-
+    
+	window.admin=admin;
     exports('admin', admin);
 });

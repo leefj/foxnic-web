@@ -62,7 +62,7 @@ public class FileServiceImpl extends SuperService<File> implements IFileService 
 	 * */
 	@Override
 	public Object generateId(Field field) {
-		return null;
+		return IDGenerator.getSnowflakeIdString();
 	}
 	
 	/**

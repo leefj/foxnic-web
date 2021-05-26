@@ -3,7 +3,7 @@
 
 function ListPage() {
         
-	var settings,admin,form,table,layer,util,fox,upload;
+	var settings,admin,form,table,layer,util,fox,upload,xmSelect;
 	#if(isTree)
 	// 树形结构记录当前上级节点ID
 	var #(parentIdVar) = #(rootId);
@@ -12,10 +12,13 @@ function ListPage() {
 	//模块基础路径
 	const moduleURL="#(moduleURL)";
 	
+	/**
+      * 入口函数，初始化
+      */
 	this.init=function(layui) {
      	
      	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload;
-		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic;
+		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
 		
      	//渲染表格
      	renderTable();
@@ -113,7 +116,7 @@ function ListPage() {
 	  * 获得已经选中行的数据,不传入 field 时，返回所有选中的记录，指定 field 时 返回指定的字段集合
 	  */
 	function getCheckedList(field) {
-		var checkStatus = table.checkStatus('#data-table');
+		var checkStatus = table.checkStatus('data-table');
 		var data = checkStatus.data;
 		if(!field) return data;
 		for(var i=0;i<data.length;i++) data[i]=data[i][field];
@@ -157,7 +160,7 @@ function ListPage() {
         	#if(isTree) 
         	data.#(parentIdVar)=#(parentIdVar);
         	#end
-            showEditModel(data);
+            showEditForm(data);
         });
 		
 		#if(isSimplePK)
@@ -173,7 +176,7 @@ function ListPage() {
 			layer.confirm(fox.translate('确定删除已选中的')+fox.translate('#(topic)')+fox.translate('吗？'), function (i) {
 				layer.close(i);
 				layer.load(2);
-                admin.req(moduleURL+"/batch-delete", JSON.stringify({ #(idPropertyName): JSON.stringify(ids) }), function (data) {
+                admin.req(moduleURL+"/batch-delete", JSON.stringify({ #(idsPropertyName): JSON.stringify(ids) }), function (data) {
                     layer.closeAll('loading');
                     if (data.success) {
                         layer.msg(data.message, {icon: 1, time: 500});
@@ -192,60 +195,71 @@ function ListPage() {
      */
     function bindRowOperationEvent() {
 		// 工具条点击事件
-		table.on('tool(#data-table)', function (obj) {
-		var data = obj.data;
-		var layEvent = obj.event;
-
-		if (layEvent === 'edit') { // 修改
-			
-			admin.req(moduleURL+"/get-by-id", { #(paramJson) }, function (data) {
-				if(data.success) {
-					 showEditModel(data.data);
-				} else {
-					 layer.msg(data.message, {icon: 1, time: 500});
-				}
-			});
-			
-		} else if (layEvent === 'del') { // 删除
-		
-			layer.confirm(fox.translate('确定删除此')+fox.translate('#(topic)')+fox.translate('吗？'), function (i) {
-				layer.close(i);
+		table.on('tool(data-table)', function (obj) {
+			var data = obj.data;
+			var layEvent = obj.event;
+	
+			if (layEvent === 'edit') { // 修改
 				layer.load(2);
-				admin.req(moduleURL+"/delete", { #(paramJson) }, function (data) {
+				admin.req(moduleURL+"/get-by-id", { #(paramJson) }, function (data) {
 					layer.closeAll('loading');
-					if (data.success) {
-						layer.msg(data.message, {icon: 1, time: 500});
-						refreshTableData();
+					if(data.success) {
+						 showEditForm(data.data);
 					} else {
-						layer.msg(data.message, {icon: 2, time: 500});
+						 layer.msg(data.message, {icon: 1, time: 500});
 					}
 				});
-			});
+				
+			} else if (layEvent === 'del') { // 删除
 			
-		}  #if(isTree)else if (layEvent === 'drill') {
-		
-			#(parentIdVar) = data.#(idPropertyName);
-			navStack.push([data.id,data.label]);
-			resetSearchFields();
-			refreshTableData();
-			refreshNav();
+				layer.confirm(fox.translate('确定删除此')+fox.translate('#(topic)')+fox.translate('吗？'), function (i) {
+					layer.close(i);
+					layer.load(2);
+					admin.req(moduleURL+"/delete", { #(paramJson) }, function (data) {
+						layer.closeAll('loading');
+						if (data.success) {
+							layer.msg(data.message, {icon: 1, time: 500});
+							refreshTableData();
+						} else {
+							layer.msg(data.message, {icon: 2, time: 500});
+						}
+					});
+				});
+				
+			}  #if(isTree)else if (layEvent === 'drill') {
 			
-		} #end
+				#(parentIdVar) = data.#(idPropertyName);
+				navStack.push([data.id,data.label]);
+				resetSearchFields();
+				refreshTableData();
+				refreshNav();
+				
+			} #end
 		});
-
-		//显示表单弹窗
-		var showEditModel = function (data) {
-			admin.putTempData('#(formDataKey)', data);
-			var title = (data && data.#(idPropertyName)) ? (fox.translate('修改')+fox.translate('#(topic)')) : (fox.translate('添加')+fox.translate('#(topic)'));
-			admin.popupCenter({
-				title: title,
-				path: '#(formPath)',
-				finish: function () {
-					refreshTableData();
-				}
-			});
-		};
-    }
+ 
+    };
+    
+    /**
+     * 打开编辑窗口
+     */
+	function showEditForm(data) {
+		var queryString="";
+		if(data) queryString="?" + #(paramQueryString);
+		admin.putTempData('#(formDataKey)', data);
+		var area=admin.getTempData('#(formAreaKey)');
+		var height= (area && area.height) ? area.height : 600;
+		var title = (data && data.#(idPropertyName)) ? (fox.translate('修改')+fox.translate('#(topic)')) : (fox.translate('添加')+fox.translate('#(topic)'));
+		admin.popupCenter({
+			title: title,
+			resize:true,
+			area:["500px",height+"px"],
+			type: 2,
+			content: '#(formURI)' + queryString,
+			finish: function () {
+				refreshTableData();
+			}
+		});
+	};
 
 };
 
@@ -254,6 +268,6 @@ layui.config({
 	base: '/module/'
 }).extend({
 	xmSelect: '/xm-select/xm-select'
-}).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic'],function() {
+}).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect'],function() {
 	(new ListPage()).init(layui);
 });

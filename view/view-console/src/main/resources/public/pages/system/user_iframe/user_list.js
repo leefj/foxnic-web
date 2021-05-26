@@ -4,7 +4,7 @@ layui.config({
         //formSelects: '/formSelects/formSelects-v4',
         xmSelect: '/xm-select/xm-select',
         treetable: '/treetable-lay/treetable'
-}).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic'], function () {
+}).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect'], function () {
         var form = layui.form;
         var table = layui.table;
         var settings = layui.settings;

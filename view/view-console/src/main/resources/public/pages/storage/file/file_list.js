@@ -1,20 +1,23 @@
 /**
  * 系统文件 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-25 02:58:15
+ * @since 2021-05-26 11:34:30
  */
 
 
 function ListPage() {
         
-	var settings,admin,form,table,layer,util,fox,upload;
+	var settings,admin,form,table,layer,util,fox,upload,xmSelect;
 	//模块基础路径
 	const moduleURL="/service-storage/sys-file";
 	
+	/**
+      * 入口函数，初始化
+      */
 	this.init=function(layui) {
      	
      	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload;
-		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic;
+		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
 		
      	//渲染表格
      	renderTable();
@@ -65,7 +68,7 @@ function ListPage() {
 	  * 获得已经选中行的数据,不传入 field 时，返回所有选中的记录，指定 field 时 返回指定的字段集合
 	  */
 	function getCheckedList(field) {
-		var checkStatus = table.checkStatus('#data-table');
+		var checkStatus = table.checkStatus('data-table');
 		var data = checkStatus.data;
 		if(!field) return data;
 		for(var i=0;i<data.length;i++) data[i]=data[i][field];
@@ -106,7 +109,7 @@ function ListPage() {
         $('#add-button').click(function () {
         	//设置新增是初始化数据
         	var data={};
-            showEditModel(data);
+            showEditForm(data);
         });
 		
         //批量删除按钮点击事件
@@ -121,7 +124,7 @@ function ListPage() {
 			layer.confirm(fox.translate('确定删除已选中的')+fox.translate('系统文件')+fox.translate('吗？'), function (i) {
 				layer.close(i);
 				layer.load(2);
-                admin.req(moduleURL+"/batch-delete", JSON.stringify({ id: JSON.stringify(ids) }), function (data) {
+                admin.req(moduleURL+"/batch-delete", JSON.stringify({ ids: JSON.stringify(ids) }), function (data) {
                     layer.closeAll('loading');
                     if (data.success) {
                         layer.msg(data.message, {icon: 1, time: 500});
@@ -139,52 +142,63 @@ function ListPage() {
      */
     function bindRowOperationEvent() {
 		// 工具条点击事件
-		table.on('tool(#data-table)', function (obj) {
-		var data = obj.data;
-		var layEvent = obj.event;
-
-		if (layEvent === 'edit') { // 修改
-			
-			admin.req(moduleURL+"/get-by-id", {  }, function (data) {
-				if(data.success) {
-					 showEditModel(data.data);
-				} else {
-					 layer.msg(data.message, {icon: 1, time: 500});
-				}
-			});
-			
-		} else if (layEvent === 'del') { // 删除
-		
-			layer.confirm(fox.translate('确定删除此')+fox.translate('系统文件')+fox.translate('吗？'), function (i) {
-				layer.close(i);
+		table.on('tool(data-table)', function (obj) {
+			var data = obj.data;
+			var layEvent = obj.event;
+	
+			if (layEvent === 'edit') { // 修改
 				layer.load(2);
-				admin.req(moduleURL+"/delete", {  }, function (data) {
+				admin.req(moduleURL+"/get-by-id", { id : data.id }, function (data) {
 					layer.closeAll('loading');
-					if (data.success) {
-						layer.msg(data.message, {icon: 1, time: 500});
-						refreshTableData();
+					if(data.success) {
+						 showEditForm(data.data);
 					} else {
-						layer.msg(data.message, {icon: 2, time: 500});
+						 layer.msg(data.message, {icon: 1, time: 500});
 					}
 				});
-			});
+				
+			} else if (layEvent === 'del') { // 删除
 			
-		}  
+				layer.confirm(fox.translate('确定删除此')+fox.translate('系统文件')+fox.translate('吗？'), function (i) {
+					layer.close(i);
+					layer.load(2);
+					admin.req(moduleURL+"/delete", { id : data.id }, function (data) {
+						layer.closeAll('loading');
+						if (data.success) {
+							layer.msg(data.message, {icon: 1, time: 500});
+							refreshTableData();
+						} else {
+							layer.msg(data.message, {icon: 2, time: 500});
+						}
+					});
+				});
+				
+			}  
 		});
-
-		//显示表单弹窗
-		var showEditModel = function (data) {
-			admin.putTempData('', data);
-			var title = (data && data.id) ? (fox.translate('修改')+fox.translate('系统文件')) : (fox.translate('添加')+fox.translate('系统文件'));
-			admin.popupCenter({
-				title: title,
-				path: '',
-				finish: function () {
-					refreshTableData();
-				}
-			});
-		};
-    }
+ 
+    };
+    
+    /**
+     * 打开编辑窗口
+     */
+	function showEditForm(data) {
+		var queryString="";
+		if(data) queryString="?" + 'id=' + data.id;
+		admin.putTempData('sys-file-form-data', data);
+		var area=admin.getTempData('sys-file-form-area');
+		var height= (area && area.height) ? area.height : 600;
+		var title = (data && data.id) ? (fox.translate('修改')+fox.translate('系统文件')) : (fox.translate('添加')+fox.translate('系统文件'));
+		admin.popupCenter({
+			title: title,
+			resize:true,
+			area:["500px",height+"px"],
+			type: 2,
+			content: '/pages/storage/file/file_form.html' + queryString,
+			finish: function () {
+				refreshTableData();
+			}
+		});
+	};
 
 };
 
@@ -193,6 +207,6 @@ layui.config({
 	base: '/module/'
 }).extend({
 	xmSelect: '/xm-select/xm-select'
-}).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic'],function() {
+}).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect'],function() {
 	(new ListPage()).init(layui);
 });
