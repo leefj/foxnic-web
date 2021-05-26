@@ -1,7 +1,7 @@
 package com.tailoring.generator.constants;
 
 import com.github.foxnic.dao.spec.DAO;
-import com.github.foxnic.generatorV2.builder.constants.DBMetaClassFile;
+import com.github.foxnic.generator.builder.constants.DBMetaClassFile;
 import com.tailoring.generator.config.FoxnicWebConfigs;
 
 

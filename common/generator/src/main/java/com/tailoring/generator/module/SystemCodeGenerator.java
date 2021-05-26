@@ -4,8 +4,8 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_CONFIG;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_LANG;
 import org.github.foxnic.web.proxy.MicroServiceNames;
 
-import com.github.foxnic.generatorV2.config.MduCtx;
-import com.github.foxnic.generatorV2.config.WriteMode;
+import com.github.foxnic.generator.config.MduCtx;
+import com.github.foxnic.generator.config.WriteMode;
 import com.github.foxnic.sql.meta.DBTable;
 import com.tailoring.generator.config.FoxnicWebConfigs;
 import com.tailoring.generator.config.FoxnicWebConfigs.ProjectConfigs;

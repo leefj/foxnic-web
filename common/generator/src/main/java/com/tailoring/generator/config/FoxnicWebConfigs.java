@@ -13,7 +13,7 @@ import com.github.foxnic.commons.project.maven.MavenProject;
 import com.github.foxnic.commons.property.YMLProperties;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.dao.spec.DAOBuilder;
-import com.github.foxnic.generatorV2.config.GlobalSettings;
+import com.github.foxnic.generator.config.GlobalSettings;
 import com.github.foxnic.sql.treaty.DBTreaty;
 
 public class FoxnicWebConfigs {

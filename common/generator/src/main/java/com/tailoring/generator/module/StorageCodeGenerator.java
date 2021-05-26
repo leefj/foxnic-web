@@ -2,8 +2,8 @@ package com.tailoring.generator.module;
 
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_FILE;
 
-import com.github.foxnic.generatorV2.config.MduCtx;
-import com.github.foxnic.generatorV2.config.WriteMode;
+import com.github.foxnic.generator.config.MduCtx;
+import com.github.foxnic.generator.config.WriteMode;
 import com.github.foxnic.sql.meta.DBTable;
  
 
