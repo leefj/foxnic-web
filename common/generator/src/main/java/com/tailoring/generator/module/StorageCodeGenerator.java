@@ -2,7 +2,7 @@ package com.tailoring.generator.module;
 
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_FILE;
 
-import com.github.foxnic.generator.config.MduCtx;
+import com.github.foxnic.generator.config.ModuleContext;
 import com.github.foxnic.generator.config.WriteMode;
 import com.github.foxnic.sql.meta.DBTable;
  
@@ -18,14 +18,14 @@ public class StorageCodeGenerator extends SystemCodeGenerator {
 		super("service-storage");
 	}
  
-	public MduCtx createModuleConfig(DBTable table,int apiSort) {
+	public ModuleContext createModuleConfig(DBTable table,int apiSort) {
 		return createModuleConfig(table, "sys_", apiSort);
 	}
 	
  
 	public void generateSysFile() throws Exception {
 		//创建配置
-		MduCtx cfg=createModuleConfig(SYS_FILE.$TABLE, 6);
+		ModuleContext cfg=createModuleConfig(SYS_FILE.$TABLE, 6);
 		
 		//文件生成覆盖模式
 		cfg.overrides()

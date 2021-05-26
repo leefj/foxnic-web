@@ -4,7 +4,7 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_CONFIG;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_LANG;
 import org.github.foxnic.web.proxy.MicroServiceNames;
 
-import com.github.foxnic.generator.config.MduCtx;
+import com.github.foxnic.generator.config.ModuleContext;
 import com.github.foxnic.generator.config.WriteMode;
 import com.github.foxnic.sql.meta.DBTable;
 import com.tailoring.generator.config.FoxnicWebConfigs;
@@ -55,12 +55,12 @@ public class SystemCodeGenerator  {
 	}
 	
 	
-	protected MduCtx createModuleConfig(DBTable table,String tablePrefix,int apiSort) {
+	protected ModuleContext createModuleConfig(DBTable table,String tablePrefix,int apiSort) {
 
 		//项目配置
 		ProjectConfigs procfg=this.configs.getProjectConfigs();
 		
-		MduCtx mdu=new MduCtx(this.configs.getSettings(),table,tablePrefix,procfg.getAppPackageName());
+		ModuleContext mdu=new ModuleContext(this.configs.getSettings(),table,tablePrefix,procfg.getAppPackageName());
 		//设置页面的代码文件路径
 		mdu.setViewPrefixPath(procfg.getAppViewPrefixPath());
 		//设置页面访问的基础URI
@@ -87,7 +87,7 @@ public class SystemCodeGenerator  {
 	}
 	
 	
-	public MduCtx createModuleConfig(DBTable table,int apiSort) {
+	public ModuleContext createModuleConfig(DBTable table,int apiSort) {
 		return createModuleConfig(table, "sys_", apiSort);
 	}
 	
@@ -95,7 +95,7 @@ public class SystemCodeGenerator  {
 	public void generateSysConfig() throws Exception {	
 		
 		//创建模块配置
-		MduCtx cfg=createModuleConfig(SYS_CONFIG.$TABLE, 1);
+		ModuleContext cfg=createModuleConfig(SYS_CONFIG.$TABLE, 1);
 		
 		
 		//文件生成覆盖模式
@@ -197,7 +197,7 @@ public class SystemCodeGenerator  {
 //	
 	public void generateSysLang() throws Exception {
 		//创建配置
-		MduCtx cfg=createModuleConfig(SYS_LANG.$TABLE, 5);
+		ModuleContext cfg=createModuleConfig(SYS_LANG.$TABLE, 5);
 		
 		//文件生成覆盖模式
 		cfg.overrides()
