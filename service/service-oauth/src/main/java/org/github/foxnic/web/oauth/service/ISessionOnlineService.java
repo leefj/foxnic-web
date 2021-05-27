@@ -1,45 +1,45 @@
 package org.github.foxnic.web.oauth.service;
 import java.util.List;
 
-import org.github.foxnic.web.domain.oauth.User;
-import org.github.foxnic.web.oauth.domain.SOSUserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.ISuperService;
 import com.github.foxnic.springboot.mvc.Result;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.expr.OrderBy;
 import com.github.foxnic.sql.meta.DBField;
 
+import org.github.foxnic.web.domain.oauth.SessionOnline;
+import org.github.foxnic.web.domain.oauth.SessionOnlineVO;
+
 /**
  * <p>
- * 账户表 服务接口
+ * 在线会话表 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-26 01:25:30
+ * @since 2021-05-27 05:28:14
 */
 
-public interface IUserService extends UserDetailsService {
+public interface ISessionOnlineService extends ISuperService<SessionOnline> {
 	
 	/**
 	 * 插入实体
-	 * @param user 实体数据
+	 * @param sessionOnline 实体数据
 	 * @return 插入是否成功
 	 * */
-	boolean insert(User user);
+	boolean insert(SessionOnline sessionOnline);
  
 	/**
 	 * 批量插入实体，事务内
-	 * @param userList 实体数据清单
+	 * @param sessionOnlineList 实体数据清单
 	 * @return 插入是否成功
 	 * */
-	boolean insertList(List<User> userList);
+	boolean insertList(List<SessionOnline> sessionOnlineList);
 	
 	
 		
 	/**
-	 * 按主键删除 账户
+	 * 按主键删除 在线会话
 	 *
 	 * @param id ID
 	 * @return 删除是否成功
@@ -47,7 +47,7 @@ public interface IUserService extends UserDetailsService {
 	boolean deleteByIdPhysical(String id);
 	
 	/**
-	 * 按主键删除 账户
+	 * 按主键删除 在线会话
 	 *
 	 * @param id ID
 	 * @return 删除是否成功
@@ -71,7 +71,7 @@ public interface IUserService extends UserDetailsService {
 	
 		
 	/**
-	 * 按主键更新字段 账户
+	 * 按主键更新字段 在线会话
 	 *
 	 * @param id ID
 	 * @return 是否更新成功
@@ -80,20 +80,20 @@ public interface IUserService extends UserDetailsService {
 	
 	/**
 	 * 更新实体
-	 * @param user 数据对象
+	 * @param sessionOnline 数据对象
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	boolean update(User user , SaveMode mode);
+	boolean update(SessionOnline sessionOnline , SaveMode mode);
 	
 	
 	/**
 	 * 更新实体集，事务内
-	 * @param userList 数据对象列表
+	 * @param sessionOnlineList 数据对象列表
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	boolean updateList(List<User> userList, SaveMode mode);
+	boolean updateList(List<SessionOnline> sessionOnlineList, SaveMode mode);
 	
 	/**
 	 * 保存实体，如果主键值不为 null，则更新，否则插入
@@ -101,40 +101,40 @@ public interface IUserService extends UserDetailsService {
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	boolean save(User user , SaveMode mode);
+	boolean save(SessionOnline sessionOnline , SaveMode mode);
 	
 	/**
 	 * 保存实体，如果主键值不为null，则更新，否则插入
-	 * @param userList 实体数据清单
+	 * @param sessionOnlineList 实体数据清单
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	boolean saveList(List<User> userList , SaveMode mode);
+	boolean saveList(List<SessionOnline> sessionOnlineList , SaveMode mode);
 	
 	/**
 	 * 检查实体中的数据字段是否已经存在
-	 * @param user  实体对象
+	 * @param sessionOnline  实体对象
 	 * @param field  字段清单，至少指定一个
 	 * @param 是否已经存在
 	 * */
-	boolean checkExists(User user,DBField... field);
+	boolean checkExists(SessionOnline sessionOnline,DBField... field);
  
 		
 	/**
-	 * 按主键获取 账户
+	 * 按主键获取 在线会话
 	 *
 	 * @param id ID
-	 * @return User 数据对象
+	 * @return SessionOnline 数据对象
 	 */
-	User getById(String id);
+	SessionOnline getById(String id);
 	
 	/**
 	 * 检查 角色 是否已经存在
 	 *
-	 * @param user 数据对象
+	 * @param sessionOnline 数据对象
 	 * @return 判断结果
 	 */
-	Result<User> checkExists(User user);
+	Result<SessionOnline> checkExists(SessionOnline sessionOnline);
  
 	/**
 	 * 根据实体数构建默认的条件表达式
@@ -142,14 +142,14 @@ public interface IUserService extends UserDetailsService {
 	 * @param stringFuzzy 字符串是否使用模糊匹配
 	 * @return ConditionExpr 条件表达式
 	 * */
-	ConditionExpr buildQueryCondition(User sample,boolean stringFuzzy);
+	ConditionExpr buildQueryCondition(SessionOnline sample,boolean stringFuzzy);
 	
 	/**
 	 * 根据实体数构建默认的条件表达式，字符串使用模糊匹配
 	 * @param sample 数据样例
 	 * @return ConditionExpr 条件表达式
 	 * */
-	ConditionExpr buildQueryCondition(User sample);
+	ConditionExpr buildQueryCondition(SessionOnline sample);
 	
 	/**
 	 * 根据实体数构建默认的条件表达式, 字符串是否使用模糊匹配
@@ -157,7 +157,7 @@ public interface IUserService extends UserDetailsService {
 	 * @param tableAliase 数据表别名
 	 * 	@return ConditionExpr 条件表达式
 	 * */
-	ConditionExpr buildQueryCondition(User sample,String tableAliase);
+	ConditionExpr buildQueryCondition(SessionOnline sample,String tableAliase);
 	
 	/**
 	 * 根据实体数构建默认的条件表达式
@@ -166,14 +166,14 @@ public interface IUserService extends UserDetailsService {
 	 * @param tableAliase 数据表别名
 	 * @return ConditionExpr 条件表达式
 	 * */
-	ConditionExpr buildQueryCondition(User sample,boolean stringFuzzy,String tableAliase);
+	ConditionExpr buildQueryCondition(SessionOnline sample,boolean stringFuzzy,String tableAliase);
 	
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
 	 * @param sample  查询条件
 	 * @return 查询结果
 	 * */
-	List<User> queryList(User sample);
+	List<SessionOnline> queryList(SessionOnline sample);
  
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
@@ -182,7 +182,7 @@ public interface IUserService extends UserDetailsService {
 	 * @param orderBy  排序
 	 * @return 查询结果
 	 * */
-	List<User> queryList(User sample,ConditionExpr condition,OrderBy orderBy);
+	List<SessionOnline> queryList(SessionOnline sample,ConditionExpr condition,OrderBy orderBy);
 	
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
@@ -190,7 +190,7 @@ public interface IUserService extends UserDetailsService {
 	 * @param orderBy  排序
 	 * @return 查询结果
 	 * */
-	List<User> queryList(User sample,OrderBy orderBy);
+	List<SessionOnline> queryList(SessionOnline sample,OrderBy orderBy);
 	
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
@@ -198,14 +198,14 @@ public interface IUserService extends UserDetailsService {
 	 * @param condition  其它条件
 	 * @return 查询结果
 	 * */
-	List<User> queryList(User sample,ConditionExpr condition);
+	List<SessionOnline> queryList(SessionOnline sample,ConditionExpr condition);
 	
 	/**
 	 * 查询单个实体
 	 * @param sample  查询条件
 	 * @return 查询结果
 	 * */
-	User queryEntity(User sample);
+	SessionOnline queryEntity(SessionOnline sample);
 	
 	/**
 	 * 分页查询实体集
@@ -214,7 +214,7 @@ public interface IUserService extends UserDetailsService {
 	 * @param pageIndex 页码
 	 * @return 查询结果
 	 * */
-	PagedList<User> queryPagedList(User sample,int pageSize,int pageIndex);
+	PagedList<SessionOnline> queryPagedList(SessionOnline sample,int pageSize,int pageIndex);
 	
 	/**
 	 * 分页查询实体集
@@ -225,7 +225,7 @@ public interface IUserService extends UserDetailsService {
 	 * @param orderBy  排序
 	 * @return 查询结果
 	 * */
-	PagedList<User> queryPagedList(User sample,ConditionExpr condition,OrderBy orderBy,int pageSize,int pageIndex);
+	PagedList<SessionOnline> queryPagedList(SessionOnline sample,ConditionExpr condition,OrderBy orderBy,int pageSize,int pageIndex);
 	
 	/**
 	 * 分页查询实体集
@@ -235,7 +235,7 @@ public interface IUserService extends UserDetailsService {
 	 * @param condition  其它条件
 	 * @return 查询结果
 	 * */
-	PagedList<User> queryPagedList(User sample,ConditionExpr condition,int pageSize,int pageIndex);
+	PagedList<SessionOnline> queryPagedList(SessionOnline sample,ConditionExpr condition,int pageSize,int pageIndex);
 	
 	/**
 	 * 分页查询实体集
@@ -245,7 +245,7 @@ public interface IUserService extends UserDetailsService {
 	 * @param orderBy  排序
 	 * @return 查询结果
 	 * */
-	PagedList<User> queryPagedList(User sample,OrderBy orderBy,int pageSize,int pageIndex);
+	PagedList<SessionOnline> queryPagedList(SessionOnline sample,OrderBy orderBy,int pageSize,int pageIndex);
  
  	/**
 	 * 查询指定字段的数据清单
@@ -267,7 +267,5 @@ public interface IUserService extends UserDetailsService {
 	 * @return 列数据
 	 * */
 	<T> List<T> queryValues(DBField field, Class<T> type, String condition,Object... ps);
-
-	SOSUserDetails getUserByToken(String token);
  
 }

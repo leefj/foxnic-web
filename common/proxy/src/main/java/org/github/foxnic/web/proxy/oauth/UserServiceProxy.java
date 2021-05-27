@@ -94,6 +94,12 @@ public interface UserServiceProxy {
 	 */
 	public static final String IMPORT_EXCEL = API_PREFIX + "import-excel";
 	
+	
+	/**
+	 * 登录地址
+	 * */
+	public static String LOGIN_URI = "/security/login";
+	
 	/**
 	 * 添加账户
 	*/

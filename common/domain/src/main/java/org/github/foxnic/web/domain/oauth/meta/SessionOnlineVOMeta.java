@@ -1,18 +1,18 @@
 package org.github.foxnic.web.domain.oauth.meta;
 
-import org.github.foxnic.web.domain.oauth.UserVO;
+import org.github.foxnic.web.domain.oauth.SessionOnlineVO;
 import java.util.List;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-26 01:25:30
- * @sign 94AC76C9EA3580BAA6D884FFA8AB26CC
+ * @since 2021-05-27 05:28:14
+ * @sign 76E4F3EE568CAB0B29E800F35A56EE38
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
-public class UserVOMeta extends UserMeta {
+public class SessionOnlineVOMeta extends SessionOnlineMeta {
 	
 	/**
 	 * 页码
@@ -47,16 +47,17 @@ public class UserVOMeta extends UserMeta {
 	/**
 	 * 代理类
 	*/
-	public static class $$proxy$$ extends org.github.foxnic.web.domain.oauth.UserVO {
- 
+	public static class $$proxy$$ extends org.github.foxnic.web.domain.oauth.SessionOnlineVO {
+
 		private static final long serialVersionUID = 1L;
 
+		
 		/**
 		 * 设置 页码
 		 * @param pageIndex 页码
 		 * @return 当前对象
 		*/
-		public UserVO setPageIndex(Integer pageIndex) {
+		public SessionOnlineVO setPageIndex(Integer pageIndex) {
 			super.change(PAGE_INDEX,super.getPageIndex(),pageIndex);
 			super.setPageIndex(pageIndex);
 			return this;
@@ -67,7 +68,7 @@ public class UserVOMeta extends UserMeta {
 		 * @param pageSize 分页大小
 		 * @return 当前对象
 		*/
-		public UserVO setPageSize(Integer pageSize) {
+		public SessionOnlineVO setPageSize(Integer pageSize) {
 			super.change(PAGE_SIZE,super.getPageSize(),pageSize);
 			super.setPageSize(pageSize);
 			return this;
@@ -78,7 +79,7 @@ public class UserVOMeta extends UserMeta {
 		 * @param searchField 搜索字段
 		 * @return 当前对象
 		*/
-		public UserVO setSearchField(String searchField) {
+		public SessionOnlineVO setSearchField(String searchField) {
 			super.change(SEARCH_FIELD,super.getSearchField(),searchField);
 			super.setSearchField(searchField);
 			return this;
@@ -89,7 +90,7 @@ public class UserVOMeta extends UserMeta {
 		 * @param searchValue 搜索的值
 		 * @return 当前对象
 		*/
-		public UserVO setSearchValue(String searchValue) {
+		public SessionOnlineVO setSearchValue(String searchValue) {
 			super.change(SEARCH_VALUE,super.getSearchValue(),searchValue);
 			super.setSearchValue(searchValue);
 			return this;
@@ -100,10 +101,10 @@ public class UserVOMeta extends UserMeta {
 		 * @param ids 主键清单
 		 * @return 当前对象
 		*/
-		public UserVO setIds(List<String> ids) {
+		public SessionOnlineVO setIds(List<String> ids) {
 			super.change(IDS,super.getIds(),ids);
 			super.setIds(ids);
 			return this;
 		}
-}
+	}
 }

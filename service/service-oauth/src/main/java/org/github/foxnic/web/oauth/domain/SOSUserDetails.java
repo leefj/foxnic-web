@@ -11,7 +11,8 @@ public class SOSUserDetails implements UserDetails {
 	
 	private User user;
 	
-	
+	private String token;
+ 
 	public SOSUserDetails(User user) {
 		this.user=user;
 	}
@@ -27,20 +28,17 @@ public class SOSUserDetails implements UserDetails {
 
 	@Override
 	public String getPassword() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.user.getPasswd();
 	}
 
 	@Override
 	public String getUsername() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.user.getName();
 	}
 
 	@Override
 	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
-		return false;
+		return this.user.getValid()==null ||  this.user.getValid()==0;
 	}
 
 	/**
@@ -64,8 +62,19 @@ public class SOSUserDetails implements UserDetails {
 	 * */
 	@Override
 	public boolean isEnabled() {
-		// TODO Auto-generated method stub
 		return false;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
 	}
 
 }

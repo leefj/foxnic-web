@@ -134,6 +134,8 @@ public class OauthClientMeta {
 	*/
 	public static class $$proxy$$ extends org.github.foxnic.web.domain.oauth.OauthClient {
 		
+		private static final long serialVersionUID = 1L;
+		
 		/**
 		 * 设置 客户端标识
 		 * @param id 客户端标识
@@ -375,5 +377,5 @@ public class OauthClientMeta {
 			super.setVersion(version);
 			return this;
 		}
-}
+	}
 }

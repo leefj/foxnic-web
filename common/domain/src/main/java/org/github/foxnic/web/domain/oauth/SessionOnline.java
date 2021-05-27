@@ -3,7 +3,7 @@ package org.github.foxnic.web.domain.oauth;
 import com.github.foxnic.dao.entity.Entity;
 import javax.persistence.Table;
 import com.github.foxnic.sql.meta.DBTable;
-import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER;
+import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_SESSION_ONLINE;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
@@ -16,17 +16,17 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-27 05:31:55
- * @sign A5ADE28408E74F995A1E6CCE311C9F22
+ * @since 2021-05-27 05:28:14
+ * @sign CA4F5D37C7562DA3BBCEB5DBE6F806EE
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
-@Table(name = "sys_user")
-public class User extends Entity {
+@Table(name = "sys_session_online")
+public class SessionOnline extends Entity {
 
 	private static final long serialVersionUID = 1L;
 
-	public static final DBTable TABLE =SYS_USER.$TABLE;
+	public static final DBTable TABLE =SYS_SESSION_ONLINE.$TABLE;
 	
 	/**
 	 * ID：ID
@@ -36,52 +36,34 @@ public class User extends Entity {
 	private String id;
 	
 	/**
-	 * 账户：账户
+	 * token：token
 	*/
-	@ApiModelProperty(required = false,value="账户" , notes = "账户")
-	private String name;
+	@ApiModelProperty(required = false,value="token" , notes = "token")
+	private String token;
 	
 	/**
-	 * 密码：密码
+	 * 账户ID：账户ID
 	*/
-	@ApiModelProperty(required = false,value="密码" , notes = "密码")
-	private String passwd;
+	@ApiModelProperty(required = false,value="账户ID" , notes = "账户ID")
+	private String userId;
 	
 	/**
-	 * 盐：盐
+	 * 登录时间：登录时间
 	*/
-	@ApiModelProperty(required = false,value="盐" , notes = "盐")
-	private String salt;
+	@ApiModelProperty(required = false,value="登录时间" , notes = "登录时间")
+	private Date loginTime;
 	
 	/**
-	 * 手机号码：手机号码
+	 * 登出时间：登出时间
 	*/
-	@ApiModelProperty(required = false,value="手机号码" , notes = "手机号码")
-	private String mobile;
+	@ApiModelProperty(required = false,value="登出时间" , notes = "登出时间")
+	private Date logoutTime;
 	
 	/**
-	 * 人员ID：人员ID
+	 * 是否在线：是否在线
 	*/
-	@ApiModelProperty(required = false,value="人员ID" , notes = "人员ID")
-	private String personId;
-	
-	/**
-	 * 员工ID：员工ID
-	*/
-	@ApiModelProperty(required = false,value="员工ID" , notes = "员工ID")
-	private String employeeId;
-	
-	/**
-	 * 是否有效：是否有效
-	*/
-	@ApiModelProperty(required = true,value="是否有效" , notes = "是否有效")
-	private Integer valid;
-	
-	/**
-	 * 最后登录时间：最后登录时间
-	*/
-	@ApiModelProperty(required = false,value="最后登录时间" , notes = "最后登录时间")
-	private Date lastLoginTime;
+	@ApiModelProperty(required = false,value="是否在线" , notes = "是否在线")
+	private Integer online;
 	
 	/**
 	 * 创建人ID：创建人ID
@@ -145,7 +127,7 @@ public class User extends Entity {
 	 * @param id ID
 	 * @return 当前对象
 	*/
-	public User setId(String id) {
+	public SessionOnline setId(String id) {
 		this.id=id;
 		return this;
 	}
@@ -157,202 +139,127 @@ public class User extends Entity {
 	*/
 	
 	/**
-	 * 获得 账户<br>
-	 * 属性说明 : 账户
-	 * @return 账户
+	 * 获得 token<br>
+	 * 属性说明 : token
+	 * @return token
 	*/
-	public String getName() {
-		return name;
+	public String getToken() {
+		return token;
 	}
 	
 	/**
-	 * 设置 账户
-	 * @param name 账户
+	 * 设置 token
+	 * @param token token
 	 * @return 当前对象
 	*/
-	public User setName(String name) {
-		this.name=name;
+	public SessionOnline setToken(String token) {
+		this.token=token;
 		return this;
 	}
 	
 	/**
-	 * 添加 账户
-	 * @param name 账户
+	 * 添加 token
+	 * @param token token
 	 * @return 当前对象
 	*/
 	
 	/**
-	 * 获得 密码<br>
-	 * 属性说明 : 密码
-	 * @return 密码
+	 * 获得 账户ID<br>
+	 * 属性说明 : 账户ID
+	 * @return 账户ID
 	*/
-	public String getPasswd() {
-		return passwd;
+	public String getUserId() {
+		return userId;
 	}
 	
 	/**
-	 * 设置 密码
-	 * @param passwd 密码
+	 * 设置 账户ID
+	 * @param userId 账户ID
 	 * @return 当前对象
 	*/
-	public User setPasswd(String passwd) {
-		this.passwd=passwd;
+	public SessionOnline setUserId(String userId) {
+		this.userId=userId;
 		return this;
 	}
 	
 	/**
-	 * 添加 密码
-	 * @param passwd 密码
+	 * 添加 账户ID
+	 * @param userId 账户ID
 	 * @return 当前对象
 	*/
 	
 	/**
-	 * 获得 盐<br>
-	 * 属性说明 : 盐
-	 * @return 盐
+	 * 获得 登录时间<br>
+	 * 属性说明 : 登录时间
+	 * @return 登录时间
 	*/
-	public String getSalt() {
-		return salt;
+	public Date getLoginTime() {
+		return loginTime;
 	}
 	
 	/**
-	 * 设置 盐
-	 * @param salt 盐
+	 * 设置 登录时间
+	 * @param loginTime 登录时间
 	 * @return 当前对象
 	*/
-	public User setSalt(String salt) {
-		this.salt=salt;
+	public SessionOnline setLoginTime(Date loginTime) {
+		this.loginTime=loginTime;
 		return this;
 	}
 	
 	/**
-	 * 添加 盐
-	 * @param salt 盐
+	 * 添加 登录时间
+	 * @param loginTime 登录时间
 	 * @return 当前对象
 	*/
 	
 	/**
-	 * 获得 手机号码<br>
-	 * 属性说明 : 手机号码
-	 * @return 手机号码
+	 * 获得 登出时间<br>
+	 * 属性说明 : 登出时间
+	 * @return 登出时间
 	*/
-	public String getMobile() {
-		return mobile;
+	public Date getLogoutTime() {
+		return logoutTime;
 	}
 	
 	/**
-	 * 设置 手机号码
-	 * @param mobile 手机号码
+	 * 设置 登出时间
+	 * @param logoutTime 登出时间
 	 * @return 当前对象
 	*/
-	public User setMobile(String mobile) {
-		this.mobile=mobile;
+	public SessionOnline setLogoutTime(Date logoutTime) {
+		this.logoutTime=logoutTime;
 		return this;
 	}
 	
 	/**
-	 * 添加 手机号码
-	 * @param mobile 手机号码
+	 * 添加 登出时间
+	 * @param logoutTime 登出时间
 	 * @return 当前对象
 	*/
 	
 	/**
-	 * 获得 人员ID<br>
-	 * 属性说明 : 人员ID
-	 * @return 人员ID
+	 * 获得 是否在线<br>
+	 * 属性说明 : 是否在线
+	 * @return 是否在线
 	*/
-	public String getPersonId() {
-		return personId;
+	public Integer getOnline() {
+		return online;
 	}
 	
 	/**
-	 * 设置 人员ID
-	 * @param personId 人员ID
+	 * 设置 是否在线
+	 * @param online 是否在线
 	 * @return 当前对象
 	*/
-	public User setPersonId(String personId) {
-		this.personId=personId;
+	public SessionOnline setOnline(Integer online) {
+		this.online=online;
 		return this;
 	}
 	
 	/**
-	 * 添加 人员ID
-	 * @param personId 人员ID
-	 * @return 当前对象
-	*/
-	
-	/**
-	 * 获得 员工ID<br>
-	 * 属性说明 : 员工ID
-	 * @return 员工ID
-	*/
-	public String getEmployeeId() {
-		return employeeId;
-	}
-	
-	/**
-	 * 设置 员工ID
-	 * @param employeeId 员工ID
-	 * @return 当前对象
-	*/
-	public User setEmployeeId(String employeeId) {
-		this.employeeId=employeeId;
-		return this;
-	}
-	
-	/**
-	 * 添加 员工ID
-	 * @param employeeId 员工ID
-	 * @return 当前对象
-	*/
-	
-	/**
-	 * 获得 是否有效<br>
-	 * 属性说明 : 是否有效
-	 * @return 是否有效
-	*/
-	public Integer getValid() {
-		return valid;
-	}
-	
-	/**
-	 * 设置 是否有效
-	 * @param valid 是否有效
-	 * @return 当前对象
-	*/
-	public User setValid(Integer valid) {
-		this.valid=valid;
-		return this;
-	}
-	
-	/**
-	 * 添加 是否有效
-	 * @param valid 是否有效
-	 * @return 当前对象
-	*/
-	
-	/**
-	 * 获得 最后登录时间<br>
-	 * 属性说明 : 最后登录时间
-	 * @return 最后登录时间
-	*/
-	public Date getLastLoginTime() {
-		return lastLoginTime;
-	}
-	
-	/**
-	 * 设置 最后登录时间
-	 * @param lastLoginTime 最后登录时间
-	 * @return 当前对象
-	*/
-	public User setLastLoginTime(Date lastLoginTime) {
-		this.lastLoginTime=lastLoginTime;
-		return this;
-	}
-	
-	/**
-	 * 添加 最后登录时间
-	 * @param lastLoginTime 最后登录时间
+	 * 添加 是否在线
+	 * @param online 是否在线
 	 * @return 当前对象
 	*/
 	
@@ -370,7 +277,7 @@ public class User extends Entity {
 	 * @param createBy 创建人ID
 	 * @return 当前对象
 	*/
-	public User setCreateBy(Long createBy) {
+	public SessionOnline setCreateBy(Long createBy) {
 		this.createBy=createBy;
 		return this;
 	}
@@ -395,7 +302,7 @@ public class User extends Entity {
 	 * @param createTime 创建时间
 	 * @return 当前对象
 	*/
-	public User setCreateTime(Date createTime) {
+	public SessionOnline setCreateTime(Date createTime) {
 		this.createTime=createTime;
 		return this;
 	}
@@ -420,7 +327,7 @@ public class User extends Entity {
 	 * @param updateBy 修改人ID
 	 * @return 当前对象
 	*/
-	public User setUpdateBy(Long updateBy) {
+	public SessionOnline setUpdateBy(Long updateBy) {
 		this.updateBy=updateBy;
 		return this;
 	}
@@ -445,7 +352,7 @@ public class User extends Entity {
 	 * @param updateTime 修改时间
 	 * @return 当前对象
 	*/
-	public User setUpdateTime(Date updateTime) {
+	public SessionOnline setUpdateTime(Date updateTime) {
 		this.updateTime=updateTime;
 		return this;
 	}
@@ -470,7 +377,7 @@ public class User extends Entity {
 	 * @param deleted 是否已删除
 	 * @return 当前对象
 	*/
-	public User setDeleted(Integer deleted) {
+	public SessionOnline setDeleted(Integer deleted) {
 		this.deleted=deleted;
 		return this;
 	}
@@ -495,7 +402,7 @@ public class User extends Entity {
 	 * @param deleteBy 删除人ID
 	 * @return 当前对象
 	*/
-	public User setDeleteBy(Long deleteBy) {
+	public SessionOnline setDeleteBy(Long deleteBy) {
 		this.deleteBy=deleteBy;
 		return this;
 	}
@@ -520,7 +427,7 @@ public class User extends Entity {
 	 * @param deleteTime 删除时间
 	 * @return 当前对象
 	*/
-	public User setDeleteTime(Date deleteTime) {
+	public SessionOnline setDeleteTime(Date deleteTime) {
 		this.deleteTime=deleteTime;
 		return this;
 	}
@@ -545,7 +452,7 @@ public class User extends Entity {
 	 * @param version 数据版本号
 	 * @return 当前对象
 	*/
-	public User setVersion(Integer version) {
+	public SessionOnline setVersion(Integer version) {
 		this.version=version;
 		return this;
 	}
@@ -559,7 +466,7 @@ public class User extends Entity {
 	/**
 	 * 将自己转换成指定类型的PO
 	 * @param poType  PO类型
-	 * @return User , 转换好的 User 对象
+	 * @return SessionOnline , 转换好的 SessionOnline 对象
 	*/
 	@Transient
 	public <T extends Entity> T toPO(Class<T> poType) {
@@ -569,7 +476,7 @@ public class User extends Entity {
 	/**
 	 * 将自己转换成任意指定类型
 	 * @param pojoType  Pojo类型
-	 * @return User , 转换好的 PoJo 对象
+	 * @return SessionOnline , 转换好的 PoJo 对象
 	*/
 	@Transient
 	public <T> T toPojo(Class<T> pojoType) {
@@ -586,35 +493,35 @@ public class User extends Entity {
 	}
 
 	/**
-	 * 将 Map 转换成 User
-	 * @param userMap 包含实体信息的 Map 对象
-	 * @return User , 转换好的的 User 对象
+	 * 将 Map 转换成 SessionOnline
+	 * @param sessionOnlineMap 包含实体信息的 Map 对象
+	 * @return SessionOnline , 转换好的的 SessionOnline 对象
 	*/
 	@Transient
-	public static User createFrom(Map<String,Object> userMap) {
-		if(userMap==null) return null;
-		User po = EntityContext.create(User.class, userMap);
+	public static SessionOnline createFrom(Map<String,Object> sessionOnlineMap) {
+		if(sessionOnlineMap==null) return null;
+		SessionOnline po = EntityContext.create(SessionOnline.class, sessionOnlineMap);
 		return po;
 	}
 
 	/**
-	 * 将 Pojo 转换成 User
+	 * 将 Pojo 转换成 SessionOnline
 	 * @param pojo 包含实体信息的 Pojo 对象
-	 * @return User , 转换好的的 User 对象
+	 * @return SessionOnline , 转换好的的 SessionOnline 对象
 	*/
 	@Transient
-	public static User createFrom(Object pojo) {
+	public static SessionOnline createFrom(Object pojo) {
 		if(pojo==null) return null;
-		User po = EntityContext.create(User.class,pojo);
+		SessionOnline po = EntityContext.create(SessionOnline.class,pojo);
 		return po;
 	}
 
 	/**
-	 * 创建一个 User，等同于 new
-	 * @return User 对象
+	 * 创建一个 SessionOnline，等同于 new
+	 * @return SessionOnline 对象
 	*/
 	@Transient
-	public static User create() {
-		return new User();
+	public static SessionOnline create() {
+		return new SessionOnline();
 	}
 }

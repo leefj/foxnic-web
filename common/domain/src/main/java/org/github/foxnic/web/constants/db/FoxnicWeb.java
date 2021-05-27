@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2021-05-26 02:02:05
+ * @since 2021-05-27 05:31:38
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -1026,6 +1026,92 @@ public class FoxnicWeb {
 	}
 	
 	/**
+	 * 在线会话表
+	*/
+	public static class SYS_SESSION_ONLINE extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "sys_session_online";
+		
+		/**
+		 * ID
+		*/
+		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","ID","ID",true,false,false);
+		
+		/**
+		 * token
+		*/
+		public static final DBField TOKEN = new DBField(DBDataType.STRING , "token","token","token","token",false,false,true);
+		
+		/**
+		 * 账户ID
+		*/
+		public static final DBField USER_ID = new DBField(DBDataType.STRING , "user_id","userId","账户ID","账户ID",false,false,true);
+		
+		/**
+		 * 登录时间
+		*/
+		public static final DBField LOGIN_TIME = new DBField(DBDataType.DATE , "login_time","loginTime","登录时间","登录时间",false,false,true);
+		
+		/**
+		 * 登出时间
+		*/
+		public static final DBField LOGOUT_TIME = new DBField(DBDataType.DATE , "logout_time","logoutTime","登出时间","登出时间",false,false,true);
+		
+		/**
+		 * 是否在线
+		*/
+		public static final DBField ONLINE = new DBField(DBDataType.INTEGER , "online","online","是否在线","是否在线",false,false,true);
+		
+		/**
+		 * 创建人ID
+		*/
+		public static final DBField CREATE_BY = new DBField(DBDataType.LONG , "create_by","createBy","创建人ID","创建人ID",false,false,true);
+		
+		/**
+		 * 创建时间
+		*/
+		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","创建时间","创建时间",false,false,true);
+		
+		/**
+		 * 修改人ID
+		*/
+		public static final DBField UPDATE_BY = new DBField(DBDataType.LONG , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
+		
+		/**
+		 * 修改时间
+		*/
+		public static final DBField UPDATE_TIME = new DBField(DBDataType.DATE , "update_time","updateTime","修改时间","修改时间",false,false,true);
+		
+		/**
+		 * 是否已删除
+		*/
+		public static final DBField DELETED = new DBField(DBDataType.INTEGER , "deleted","deleted","是否已删除","是否已删除",false,false,false);
+		
+		/**
+		 * 删除人ID
+		*/
+		public static final DBField DELETE_BY = new DBField(DBDataType.LONG , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
+		
+		/**
+		 * 删除时间
+		*/
+		public static final DBField DELETE_TIME = new DBField(DBDataType.DATE , "delete_time","deleteTime","删除时间","删除时间",false,false,true);
+		
+		/**
+		 * 数据版本号
+		*/
+		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
+		
+		public SYS_SESSION_ONLINE() {
+			this.init($NAME,"在线会话表" , ID , TOKEN , USER_ID , LOGIN_TIME , LOGOUT_TIME , ONLINE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+		}
+		public static final SYS_SESSION_ONLINE $TABLE=new SYS_SESSION_ONLINE();
+	}
+	
+	/**
 	 * 账户表
 	*/
 	public static class SYS_USER extends DBTable {
@@ -1051,6 +1137,11 @@ public class FoxnicWeb {
 		public static final DBField PASSWD = new DBField(DBDataType.STRING , "passwd","passwd","密码","密码",false,false,true);
 		
 		/**
+		 * 盐
+		*/
+		public static final DBField SALT = new DBField(DBDataType.STRING , "salt","salt","盐","盐",false,false,true);
+		
+		/**
 		 * 手机号码
 		*/
 		public static final DBField MOBILE = new DBField(DBDataType.STRING , "mobile","mobile","手机号码","手机号码",false,false,true);
@@ -1068,7 +1159,7 @@ public class FoxnicWeb {
 		/**
 		 * 是否有效
 		*/
-		public static final DBField VALID = new DBField(DBDataType.INTEGER , "valid","valid","是否有效","是否有效",false,false,true);
+		public static final DBField VALID = new DBField(DBDataType.INTEGER , "valid","valid","是否有效","是否有效",false,false,false);
 		
 		/**
 		 * 最后登录时间
@@ -1116,7 +1207,7 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
 		public SYS_USER() {
-			this.init($NAME,"账户表" , ID , NAME , PASSWD , MOBILE , PERSON_ID , EMPLOYEE_ID , VALID , LAST_LOGIN_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"账户表" , ID , NAME , PASSWD , SALT , MOBILE , PERSON_ID , EMPLOYEE_ID , VALID , LAST_LOGIN_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final SYS_USER $TABLE=new SYS_USER();
 	}

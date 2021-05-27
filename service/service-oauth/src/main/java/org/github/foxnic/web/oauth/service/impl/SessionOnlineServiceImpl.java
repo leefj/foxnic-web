@@ -1,18 +1,14 @@
 package org.github.foxnic.web.oauth.service.impl;
 
+import java.lang.reflect.Field;
 import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
-
-import org.github.foxnic.web.domain.oauth.User;
-import org.github.foxnic.web.framework.dao.DBConfigs;
-import org.github.foxnic.web.oauth.domain.SOSUserDetails;
-import org.github.foxnic.web.oauth.service.IUserService;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.foxnic.commons.busi.id.IDGenerator;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.entity.SuperService;
@@ -22,17 +18,24 @@ import com.github.foxnic.springboot.mvc.Result;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
 
+
+import org.github.foxnic.web.domain.oauth.SessionOnline;
+import org.github.foxnic.web.domain.oauth.SessionOnlineVO;
+import org.github.foxnic.web.oauth.service.ISessionOnlineService;
+import org.github.foxnic.web.framework.dao.DBConfigs;
+import java.util.Date;
+
 /**
  * <p>
- * 账户表 服务实现
+ * 在线会话表 服务实现
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-26 01:25:30
+ * @since 2021-05-27 05:28:14
 */
 
 
-@Service("SysUserService")
-public class UserServiceImpl extends SuperService<User> implements IUserService {
+@Service("SysSessionOnlineService")
+public class SessionOnlineServiceImpl extends SuperService<SessionOnline> implements ISessionOnlineService {
 	
 	/**
 	 * 注入DAO对象
@@ -45,14 +48,19 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 	 * */
 	public DAO dao() { return dao; }
 	
+	@Override
+	public Object generateId(Field field) {
+		return IDGenerator.getSnowflakeIdString();
+	}
+	
 	/**
 	 * 插入实体
 	 * @param role 实体数据
 	 * @return 插入是否成功
 	 * */
 	@Override
-	public boolean insert(User user) {
-		return super.insert(user);
+	public boolean insert(SessionOnline sessionOnline) {
+		return super.insert(sessionOnline);
 	}
 	
 	/**
@@ -61,38 +69,38 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 	 * @return 插入是否成功
 	 * */
 	@Override
-	public boolean insertList(List<User> userList) {
-		return super.insertList(userList);
+	public boolean insertList(List<SessionOnline> sessionOnlineList) {
+		return super.insertList(sessionOnlineList);
 	}
 	
 	
 	/**
-	 * 按主键删除 账户
+	 * 按主键删除 在线会话
 	 *
 	 * @param id ID
 	 * @return 删除是否成功
 	 */
 	public boolean deleteByIdPhysical(String id) {
-		User user = new User();
+		SessionOnline sessionOnline = new SessionOnline();
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null ");
-		user.setId(id);
-		return dao.deleteEntity(user);
+		sessionOnline.setId(id);
+		return dao.deleteEntity(sessionOnline);
 	}
 	
 	/**
-	 * 按主键删除 账户
+	 * 按主键删除 在线会话
 	 *
 	 * @param id ID
 	 * @return 删除是否成功
 	 */
 	public boolean deleteByIdLogical(String id) {
-		User user = new User();
+		SessionOnline sessionOnline = new SessionOnline();
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null 。");
-		user.setId(id);
-		user.setDeleted(dao.getDBTreaty().getTrueValue());
-		user.setDeleteBy((Long)dao.getDBTreaty().getLoginUserId());
-		user.setDeleteTime(new Date());
-		return dao.updateEntity(user,SaveMode.NOT_NULL_FIELDS);
+		sessionOnline.setId(id);
+		sessionOnline.setDeleted(dao.getDBTreaty().getTrueValue());
+		sessionOnline.setDeleteBy((Long)dao.getDBTreaty().getLoginUserId());
+		sessionOnline.setDeleteTime(new Date());
+		return dao.updateEntity(sessionOnline,SaveMode.NOT_NULL_FIELDS);
 	}
 	
 	/**
@@ -102,8 +110,8 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 	 * @return 保存是否成功
 	 * */
 	@Override
-	public boolean update(User user , SaveMode mode) {
-		return super.update(user , mode);
+	public boolean update(SessionOnline sessionOnline , SaveMode mode) {
+		return super.update(sessionOnline , mode);
 	}
 	
 	/**
@@ -113,13 +121,13 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 	 * @return 保存是否成功
 	 * */
 	@Override
-	public boolean updateList(List<User> userList , SaveMode mode) {
-		return super.updateList(userList , mode);
+	public boolean updateList(List<SessionOnline> sessionOnlineList , SaveMode mode) {
+		return super.updateList(sessionOnlineList , mode);
 	}
 	
 	
 	/**
-	 * 按主键更新字段 账户
+	 * 按主键更新字段 在线会话
 	 *
 	 * @param id ID
 	 * @return 是否更新成功
@@ -133,13 +141,13 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 	
 	
 	/**
-	 * 按主键获取 账户
+	 * 按主键获取 在线会话
 	 *
 	 * @param id ID
-	 * @return User 数据对象
+	 * @return SessionOnline 数据对象
 	 */
-	public User getById(String id) {
-		User sample = new User();
+	public SessionOnline getById(String id) {
+		SessionOnline sample = new SessionOnline();
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null ");
 		sample.setId(id);
 		return dao.queryEntity(sample);
@@ -152,7 +160,7 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 	 * @return 查询结果
 	 * */
 	@Override
-	public List<User> queryList(User sample) {
+	public List<SessionOnline> queryList(SessionOnline sample) {
 		return super.queryList(sample);
 	}
 	
@@ -166,7 +174,7 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 	 * @return 查询结果
 	 * */
 	@Override
-	public PagedList<User> queryPagedList(User sample, int pageSize, int pageIndex) {
+	public PagedList<SessionOnline> queryPagedList(SessionOnline sample, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, pageSize, pageIndex);
 	}
 	
@@ -180,7 +188,7 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 	 * @return 查询结果
 	 * */
 	@Override
-	public PagedList<User> queryPagedList(User sample, ConditionExpr condition, int pageSize, int pageIndex) {
+	public PagedList<SessionOnline> queryPagedList(SessionOnline sample, ConditionExpr condition, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, condition, pageSize, pageIndex);
 	}
 	
@@ -190,32 +198,11 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 	 * @param roleVO 数据对象
 	 * @return 判断结果
 	 */
-	public Result<User> checkExists(User role) {
+	public Result<SessionOnline> checkExists(SessionOnline role) {
 		//TDOD 此处添加判断段的代码
 		//boolean exists=this.checkExists(role, SYS_ROLE.NAME);
 		//return exists;
 		return ErrorDesc.success();
-	}
-	
-	/**
-	 * 提供给 SpringSecurity 的查询接口
-	 * */
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    	User user=dao.queryEntity(User.class, new ConditionExpr("(name = ? or mobile=? ) and valid = 1 and deleted = 0",username,username));
-    	//授权
-    	if (user!=null) {
-//    		user.privileges().addAll(findPrivileges(user.id()));
-    	}
-        if (user == null || user.getValid()==0) {
-            throw new UsernameNotFoundException("无效账户 [" + username + "]");
-        }
-        return new SOSUserDetails(user);
-    }
-
-	@Override
-	public SOSUserDetails getUserByToken(String token) {
-		User user=dao.queryEntity(User.class, new ConditionExpr("token = ? and valid = 0",token));
-		 return new SOSUserDetails(user);
 	}
 
 }

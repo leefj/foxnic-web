@@ -49,6 +49,8 @@ public class OauthClientVOMeta extends OauthClientMeta {
 	*/
 	public static class $$proxy$$ extends org.github.foxnic.web.domain.oauth.OauthClientVO {
 		
+		private static final long serialVersionUID = 1L;
+		
 		/**
 		 * 设置 页码
 		 * @param pageIndex 页码
@@ -103,5 +105,5 @@ public class OauthClientVOMeta extends OauthClientMeta {
 			super.setIds(ids);
 			return this;
 		}
-}
+	}
 }

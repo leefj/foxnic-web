@@ -1,18 +1,18 @@
 package org.github.foxnic.web.domain.oauth.meta;
 
-import org.github.foxnic.web.domain.oauth.User;
+import org.github.foxnic.web.domain.oauth.SessionOnline;
 import java.util.Date;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-27 05:31:55
- * @sign A5ADE28408E74F995A1E6CCE311C9F22
+ * @since 2021-05-27 05:28:14
+ * @sign CA4F5D37C7562DA3BBCEB5DBE6F806EE
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
-public class UserMeta {
+public class SessionOnlineMeta {
 	
 	/**
 	 * ID
@@ -20,44 +20,29 @@ public class UserMeta {
 	public static final String ID="id";
 	
 	/**
-	 * 账户
+	 * token
 	*/
-	public static final String NAME="name";
+	public static final String TOKEN="token";
 	
 	/**
-	 * 密码
+	 * 账户ID
 	*/
-	public static final String PASSWD="passwd";
+	public static final String USER_ID="userId";
 	
 	/**
-	 * 盐
+	 * 登录时间
 	*/
-	public static final String SALT="salt";
+	public static final String LOGIN_TIME="loginTime";
 	
 	/**
-	 * 手机号码
+	 * 登出时间
 	*/
-	public static final String MOBILE="mobile";
+	public static final String LOGOUT_TIME="logoutTime";
 	
 	/**
-	 * 人员ID
+	 * 是否在线
 	*/
-	public static final String PERSON_ID="personId";
-	
-	/**
-	 * 员工ID
-	*/
-	public static final String EMPLOYEE_ID="employeeId";
-	
-	/**
-	 * 是否有效
-	*/
-	public static final String VALID="valid";
-	
-	/**
-	 * 最后登录时间
-	*/
-	public static final String LAST_LOGIN_TIME="lastLoginTime";
+	public static final String ONLINE="online";
 	
 	/**
 	 * 创建人ID
@@ -102,12 +87,12 @@ public class UserMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , NAME , PASSWD , SALT , MOBILE , PERSON_ID , EMPLOYEE_ID , VALID , LAST_LOGIN_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , TOKEN , USER_ID , LOGIN_TIME , LOGOUT_TIME , ONLINE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
 	
 	/**
 	 * 代理类
 	*/
-	public static class $$proxy$$ extends org.github.foxnic.web.domain.oauth.User {
+	public static class $$proxy$$ extends org.github.foxnic.web.domain.oauth.SessionOnline {
 
 		private static final long serialVersionUID = 1L;
 
@@ -117,97 +102,64 @@ public class UserMeta {
 		 * @param id ID
 		 * @return 当前对象
 		*/
-		public User setId(String id) {
+		public SessionOnline setId(String id) {
 			super.change(ID,super.getId(),id);
 			super.setId(id);
 			return this;
 		}
 		
 		/**
-		 * 设置 账户
-		 * @param name 账户
+		 * 设置 token
+		 * @param token token
 		 * @return 当前对象
 		*/
-		public User setName(String name) {
-			super.change(NAME,super.getName(),name);
-			super.setName(name);
+		public SessionOnline setToken(String token) {
+			super.change(TOKEN,super.getToken(),token);
+			super.setToken(token);
 			return this;
 		}
 		
 		/**
-		 * 设置 密码
-		 * @param passwd 密码
+		 * 设置 账户ID
+		 * @param userId 账户ID
 		 * @return 当前对象
 		*/
-		public User setPasswd(String passwd) {
-			super.change(PASSWD,super.getPasswd(),passwd);
-			super.setPasswd(passwd);
+		public SessionOnline setUserId(String userId) {
+			super.change(USER_ID,super.getUserId(),userId);
+			super.setUserId(userId);
 			return this;
 		}
 		
 		/**
-		 * 设置 盐
-		 * @param salt 盐
+		 * 设置 登录时间
+		 * @param loginTime 登录时间
 		 * @return 当前对象
 		*/
-		public User setSalt(String salt) {
-			super.change(SALT,super.getSalt(),salt);
-			super.setSalt(salt);
+		public SessionOnline setLoginTime(Date loginTime) {
+			super.change(LOGIN_TIME,super.getLoginTime(),loginTime);
+			super.setLoginTime(loginTime);
 			return this;
 		}
 		
 		/**
-		 * 设置 手机号码
-		 * @param mobile 手机号码
+		 * 设置 登出时间
+		 * @param logoutTime 登出时间
 		 * @return 当前对象
 		*/
-		public User setMobile(String mobile) {
-			super.change(MOBILE,super.getMobile(),mobile);
-			super.setMobile(mobile);
+		public SessionOnline setLogoutTime(Date logoutTime) {
+			super.change(LOGOUT_TIME,super.getLogoutTime(),logoutTime);
+			super.setLogoutTime(logoutTime);
 			return this;
 		}
 		
 		/**
-		 * 设置 人员ID
-		 * @param personId 人员ID
+		 * 设置 是否在线
+		 * @param online 是否在线
 		 * @return 当前对象
 		*/
-		public User setPersonId(String personId) {
-			super.change(PERSON_ID,super.getPersonId(),personId);
-			super.setPersonId(personId);
-			return this;
-		}
-		
-		/**
-		 * 设置 员工ID
-		 * @param employeeId 员工ID
-		 * @return 当前对象
-		*/
-		public User setEmployeeId(String employeeId) {
-			super.change(EMPLOYEE_ID,super.getEmployeeId(),employeeId);
-			super.setEmployeeId(employeeId);
-			return this;
-		}
-		
-		/**
-		 * 设置 是否有效
-		 * @param valid 是否有效
-		 * @return 当前对象
-		*/
-		public User setValid(Integer valid) {
-			super.change(VALID,super.getValid(),valid);
-			super.setValid(valid);
-			return this;
-		}
-		
-		/**
-		 * 设置 最后登录时间
-		 * @param lastLoginTime 最后登录时间
-		 * @return 当前对象
-		*/
-		public User setLastLoginTime(Date lastLoginTime) {
-			super.change(LAST_LOGIN_TIME,super.getLastLoginTime(),lastLoginTime);
-			super.setLastLoginTime(lastLoginTime);
+		public SessionOnline setOnline(Integer online) {
+			super.change(ONLINE,super.getOnline(),online);
+			super.setOnline(online);
 			return this;
 		}
 		
@@ -216,7 +168,7 @@ public class UserMeta {
 		 * @param createBy 创建人ID
 		 * @return 当前对象
 		*/
-		public User setCreateBy(Long createBy) {
+		public SessionOnline setCreateBy(Long createBy) {
 			super.change(CREATE_BY,super.getCreateBy(),createBy);
 			super.setCreateBy(createBy);
 			return this;
@@ -227,7 +179,7 @@ public class UserMeta {
 		 * @param createTime 创建时间
 		 * @return 当前对象
 		*/
-		public User setCreateTime(Date createTime) {
+		public SessionOnline setCreateTime(Date createTime) {
 			super.change(CREATE_TIME,super.getCreateTime(),createTime);
 			super.setCreateTime(createTime);
 			return this;
@@ -238,7 +190,7 @@ public class UserMeta {
 		 * @param updateBy 修改人ID
 		 * @return 当前对象
 		*/
-		public User setUpdateBy(Long updateBy) {
+		public SessionOnline setUpdateBy(Long updateBy) {
 			super.change(UPDATE_BY,super.getUpdateBy(),updateBy);
 			super.setUpdateBy(updateBy);
 			return this;
@@ -249,7 +201,7 @@ public class UserMeta {
 		 * @param updateTime 修改时间
 		 * @return 当前对象
 		*/
-		public User setUpdateTime(Date updateTime) {
+		public SessionOnline setUpdateTime(Date updateTime) {
 			super.change(UPDATE_TIME,super.getUpdateTime(),updateTime);
 			super.setUpdateTime(updateTime);
 			return this;
@@ -260,7 +212,7 @@ public class UserMeta {
 		 * @param deleted 是否已删除
 		 * @return 当前对象
 		*/
-		public User setDeleted(Integer deleted) {
+		public SessionOnline setDeleted(Integer deleted) {
 			super.change(DELETED,super.getDeleted(),deleted);
 			super.setDeleted(deleted);
 			return this;
@@ -271,7 +223,7 @@ public class UserMeta {
 		 * @param deleteBy 删除人ID
 		 * @return 当前对象
 		*/
-		public User setDeleteBy(Long deleteBy) {
+		public SessionOnline setDeleteBy(Long deleteBy) {
 			super.change(DELETE_BY,super.getDeleteBy(),deleteBy);
 			super.setDeleteBy(deleteBy);
 			return this;
@@ -282,7 +234,7 @@ public class UserMeta {
 		 * @param deleteTime 删除时间
 		 * @return 当前对象
 		*/
-		public User setDeleteTime(Date deleteTime) {
+		public SessionOnline setDeleteTime(Date deleteTime) {
 			super.change(DELETE_TIME,super.getDeleteTime(),deleteTime);
 			super.setDeleteTime(deleteTime);
 			return this;
@@ -293,7 +245,7 @@ public class UserMeta {
 		 * @param version 数据版本号
 		 * @return 当前对象
 		*/
-		public User setVersion(Integer version) {
+		public SessionOnline setVersion(Integer version) {
 			super.change(VERSION,super.getVersion(),version);
 			super.setVersion(version);
 			return this;
