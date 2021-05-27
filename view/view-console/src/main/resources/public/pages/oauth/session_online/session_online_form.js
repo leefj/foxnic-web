@@ -1,5 +1,5 @@
 /**
- * 账户 列表页 JS 脚本
+ * 在线会话 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
  * @since 2021-05-27 05:35:15
  */
@@ -7,7 +7,7 @@
 function FormPage() {
 
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect;
-	const moduleURL="/service-oauth/sys-user";
+	const moduleURL="/service-oauth/sys-session-online";
 	
 	/**
       * 入口函数，初始化
@@ -33,7 +33,7 @@ function FormPage() {
 	function adjustPopup() {
 		var height=document.body.clientHeight+58;
 		admin.changePopupArea(null,height);
-		admin.putTempData('sys-user-form-area', {height:height});
+		admin.putTempData('sys-session-online-form-area', {height:height});
 	}
 	
 	/**
@@ -48,7 +48,7 @@ function FormPage() {
       * 填充表单数据
       */
 	function fillFormData() {
-		var formData = admin.getTempData('sys-user-form-data');
+		var formData = admin.getTempData('sys-session-online-form-data');
 		$('#data-form').attr('method', 'POST');
 		if (formData) {
 			form.val('data-form', formData);

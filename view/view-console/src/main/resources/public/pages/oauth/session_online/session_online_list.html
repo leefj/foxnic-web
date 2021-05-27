@@ -1,8 +1,8 @@
 <!-- 
 /**
- * 账户 列表页 JS 脚本
+ * 在线会话 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-27 05:35:14
+ * @since 2021-05-27 05:35:15
  */
  -->
  <!DOCTYPE html>
@@ -11,7 +11,7 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta charset="utf-8"/>
-    <title th:text="${lang.translate('账户')}">账户</title>
+    <title th:text="${lang.translate('在线会话')}">在线会话</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="/assets/libs/layui/css/layui.css"/>
     <link rel="stylesheet" href="/assets/css/admin.css"/>
@@ -25,10 +25,10 @@
 
 <div class="layui-card">
     <div class="layui-card-header">
-        <h2 class="header-title"><span th:text="${lang.translate('账户')}">账户</span></h2>
+        <h2 class="header-title"><span th:text="${lang.translate('在线会话')}">在线会话</span></h2>
         <span class="layui-breadcrumb pull-right">
           <a href="#!console"><span th:text="${lang.translate('首页')}">首页</span></a>
-          <a><cite><span th:text="${lang.translate('账户')}">账户</span></cite></a>
+          <a><cite><span th:text="${lang.translate('在线会话')}">在线会话</span></cite></a>
         </span>
     </div>
     <div class="layui-card-body">
@@ -37,14 +37,11 @@
             <select id="search-field">
                 <option value="" th:text="${lang.translate('-请选择-')}">-请选择-</option>
                 <option value="id" th:text="${lang.translate('ID')}">ID</option>
-                <option value="name" th:text="${lang.translate('账户')}">账户</option>
-                <option value="passwd" th:text="${lang.translate('密码')}">密码</option>
-                <option value="salt" th:text="${lang.translate('盐')}">盐</option>
-                <option value="mobile" th:text="${lang.translate('手机号码')}">手机号码</option>
-                <option value="personId" th:text="${lang.translate('人员ID')}">人员ID</option>
-                <option value="employeeId" th:text="${lang.translate('员工ID')}">员工ID</option>
-                <option value="valid" th:text="${lang.translate('是否有效')}">是否有效</option>
-                <option value="lastLoginTime" th:text="${lang.translate('最后登录时间')}">最后登录时间</option>
+                <option value="token" th:text="${lang.translate('token')}">token</option>
+                <option value="userId" th:text="${lang.translate('账户ID')}">账户ID</option>
+                <option value="loginTime" th:text="${lang.translate('登录时间')}">登录时间</option>
+                <option value="logoutTime" th:text="${lang.translate('登出时间')}">登出时间</option>
+                <option value="online" th:text="${lang.translate('是否在线')}">是否在线</option>
             </select>&emsp;
             <input id="search-input" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入关键字')}"/>&emsp;
             <button id="search-button" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i><span th:text="${lang.translate('搜索')}">搜索</span></button>
@@ -68,7 +65,7 @@
     <a class="layui-btn layui-btn-xs" lay-event="del" th:text="${lang.translate('删除')}">删除</a>
 </script>
 
-<script src="/pages/oauth/user/user_list.js"></script>
+<script src="/pages/oauth/session_online/session_online_list.js"></script>
 
 </body>
 </html>
