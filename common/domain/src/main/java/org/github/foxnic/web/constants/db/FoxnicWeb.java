@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2021-05-20 03:37:54
+ * @since 2021-05-26 02:02:05
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -189,7 +189,7 @@ public class FoxnicWeb {
 		/**
 		 * 数据是否有效 （0：无效 1：有效）
 		*/
-		public static final DBField VALID = new DBField(DBDataType.BOOL , "valid","valid","数据是否有效","（0：无效 1：有效）",false,false,false);
+		public static final DBField VALID = new DBField(DBDataType.INTEGER , "valid","valid","数据是否有效","（0：无效 1：有效）",false,false,false);
 		
 		public SYS_AREA() {
 			this.init($NAME,"区域表" , ID , PARENT_ID , NAME , DEPTH , CREATED_BY , UPDATED_BY , CREATE_DATE , UPDATE_DATE , VALID);
@@ -225,7 +225,7 @@ public class FoxnicWeb {
 		/**
 		 * 是否生效
 		*/
-		public static final DBField VALID = new DBField(DBDataType.BOOL , "valid","valid","是否生效","是否生效",false,false,false);
+		public static final DBField VALID = new DBField(DBDataType.INTEGER , "valid","valid","是否生效","是否生效",false,false,false);
 		
 		/**
 		 * 创建人ID
@@ -250,7 +250,7 @@ public class FoxnicWeb {
 		/**
 		 * 是否已删除
 		*/
-		public static final DBField DELETED = new DBField(DBDataType.BOOL , "deleted","deleted","是否已删除","是否已删除",false,false,false);
+		public static final DBField DELETED = new DBField(DBDataType.INTEGER , "deleted","deleted","是否已删除","是否已删除",false,false,false);
 		
 		/**
 		 * 删除人ID
@@ -321,7 +321,7 @@ public class FoxnicWeb {
 		/**
 		 * 是否已删除
 		*/
-		public static final DBField DELETED = new DBField(DBDataType.BOOL , "deleted","deleted","是否已删除","是否已删除",false,false,false);
+		public static final DBField DELETED = new DBField(DBDataType.INTEGER , "deleted","deleted","是否已删除","是否已删除",false,false,false);
 		
 		/**
 		 * 删除人ID
@@ -407,7 +407,7 @@ public class FoxnicWeb {
 		/**
 		 * 是否已删除
 		*/
-		public static final DBField DELETED = new DBField(DBDataType.BOOL , "deleted","deleted","是否已删除","是否已删除",false,false,false);
+		public static final DBField DELETED = new DBField(DBDataType.INTEGER , "deleted","deleted","是否已删除","是否已删除",false,false,false);
 		
 		/**
 		 * 删除人ID
@@ -443,7 +443,7 @@ public class FoxnicWeb {
 		/**
 		 * ID
 		*/
-		public static final DBField ID = new DBField(DBDataType.LONG , "id","id","ID","ID",true,true,false);
+		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","ID","ID",true,false,false);
 		
 		/**
 		 * 文件名
@@ -488,7 +488,7 @@ public class FoxnicWeb {
 		/**
 		 * 是否已删除
 		*/
-		public static final DBField DELETED = new DBField(DBDataType.BOOL , "deleted","deleted","是否已删除","是否已删除",false,false,false);
+		public static final DBField DELETED = new DBField(DBDataType.INTEGER , "deleted","deleted","是否已删除","是否已删除",false,false,false);
 		
 		/**
 		 * 删除人ID
@@ -640,7 +640,7 @@ public class FoxnicWeb {
 		/**
 		 * 是否有效
 		*/
-		public static final DBField VALID = new DBField(DBDataType.BOOL , "valid","valid","是否有效","是否有效",false,false,true);
+		public static final DBField VALID = new DBField(DBDataType.INTEGER , "valid","valid","是否有效","是否有效",false,false,true);
 		
 		/**
 		 * 创建人ID
@@ -665,7 +665,7 @@ public class FoxnicWeb {
 		/**
 		 * 是否已删除
 		*/
-		public static final DBField DELETED = new DBField(DBDataType.BOOL , "deleted","deleted","是否已删除","是否已删除",false,false,false);
+		public static final DBField DELETED = new DBField(DBDataType.INTEGER , "deleted","deleted","是否已删除","是否已删除",false,false,false);
 		
 		/**
 		 * 删除人ID
@@ -761,7 +761,7 @@ public class FoxnicWeb {
 		/**
 		 * 是否已删除
 		*/
-		public static final DBField DELETED = new DBField(DBDataType.BOOL , "deleted","deleted","是否已删除","是否已删除",false,false,false);
+		public static final DBField DELETED = new DBField(DBDataType.INTEGER , "deleted","deleted","是否已删除","是否已删除",false,false,false);
 		
 		/**
 		 * 删除人ID
@@ -782,6 +782,132 @@ public class FoxnicWeb {
 			this.init($NAME,"菜单表" , ID , ICON , CSS , LABEL , TYPE , PATH , URL , PARENT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final SYS_MENU $TABLE=new SYS_MENU();
+	}
+	
+	/**
+	 * 认证客户端
+	*/
+	public static class SYS_OAUTH_CLIENT extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "sys_oauth_client";
+		
+		/**
+		 * 客户端标识
+		*/
+		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","客户端标识","客户端标识",true,false,false);
+		
+		/**
+		 * 名称
+		*/
+		public static final DBField NAME = new DBField(DBDataType.STRING , "name","name","名称","名称",false,false,true);
+		
+		/**
+		 * 资源集合，用逗号隔开
+		*/
+		public static final DBField RESOURCE_IDS = new DBField(DBDataType.STRING , "resource_ids","resourceIds","资源集合","用逗号隔开",false,false,true);
+		
+		/**
+		 * 访问密匙
+		*/
+		public static final DBField CLIENT_SECRET = new DBField(DBDataType.STRING , "client_secret","clientSecret","访问密匙","访问密匙",false,false,true);
+		
+		/**
+		 * 权限范围
+		*/
+		public static final DBField SCOPE = new DBField(DBDataType.STRING , "scope","scope","权限范围","权限范围",false,false,true);
+		
+		/**
+		 * 授权类型
+		*/
+		public static final DBField AUTHORIZED_GRANT_TYPES = new DBField(DBDataType.STRING , "authorized_grant_types","authorizedGrantTypes","授权类型","授权类型",false,false,true);
+		
+		/**
+		 * 重定向URI
+		*/
+		public static final DBField WEB_SERVER_REDIRECT_URI = new DBField(DBDataType.STRING , "web_server_redirect_uri","webServerRedirectUri","重定向URI","重定向URI",false,false,true);
+		
+		/**
+		 * 权限值列表
+		*/
+		public static final DBField AUTHORITIES = new DBField(DBDataType.STRING , "authorities","authorities","权限值列表","权限值列表",false,false,true);
+		
+		/**
+		 * access_token时长(秒)
+		*/
+		public static final DBField ACCESS_TOKEN_VALIDITY = new DBField(DBDataType.INTEGER , "access_token_validity","accessTokenValidity","access","token时长(秒)",false,false,true);
+		
+		/**
+		 * refresh_token时长(秒)
+		*/
+		public static final DBField REFRESH_TOKEN_VALIDITY = new DBField(DBDataType.INTEGER , "refresh_token_validity","refreshTokenValidity","refresh","token时长(秒)",false,false,true);
+		
+		/**
+		 * 备注信息
+		*/
+		public static final DBField NOTES = new DBField(DBDataType.STRING , "notes","notes","备注信息","备注信息",false,false,true);
+		
+		/**
+		 * 是否有效
+		*/
+		public static final DBField VALID = new DBField(DBDataType.INTEGER , "valid","valid","是否有效","是否有效",false,false,true);
+		
+		/**
+		 * 是否自动Approval操作
+		*/
+		public static final DBField AUTO_APPROVE = new DBField(DBDataType.INTEGER , "auto_approve","autoApprove","是否自动Approval操作","是否自动Approval操作",false,false,true);
+		
+		/**
+		 * 是否信任
+		*/
+		public static final DBField TRUSTED = new DBField(DBDataType.INTEGER , "trusted","trusted","是否信任","是否信任",false,false,true);
+		
+		/**
+		 * 创建人ID
+		*/
+		public static final DBField CREATE_BY = new DBField(DBDataType.LONG , "create_by","createBy","创建人ID","创建人ID",false,false,true);
+		
+		/**
+		 * 创建时间
+		*/
+		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","创建时间","创建时间",false,false,true);
+		
+		/**
+		 * 修改人ID
+		*/
+		public static final DBField UPDATE_BY = new DBField(DBDataType.LONG , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
+		
+		/**
+		 * 修改时间
+		*/
+		public static final DBField UPDATE_TIME = new DBField(DBDataType.DATE , "update_time","updateTime","修改时间","修改时间",false,false,true);
+		
+		/**
+		 * 是否已删除
+		*/
+		public static final DBField DELETED = new DBField(DBDataType.INTEGER , "deleted","deleted","是否已删除","是否已删除",false,false,false);
+		
+		/**
+		 * 删除人ID
+		*/
+		public static final DBField DELETE_BY = new DBField(DBDataType.LONG , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
+		
+		/**
+		 * 删除时间
+		*/
+		public static final DBField DELETE_TIME = new DBField(DBDataType.DATE , "delete_time","deleteTime","删除时间","删除时间",false,false,true);
+		
+		/**
+		 * 数据版本号
+		*/
+		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
+		
+		public SYS_OAUTH_CLIENT() {
+			this.init($NAME,"认证客户端" , ID , NAME , RESOURCE_IDS , CLIENT_SECRET , SCOPE , AUTHORIZED_GRANT_TYPES , WEB_SERVER_REDIRECT_URI , AUTHORITIES , ACCESS_TOKEN_VALIDITY , REFRESH_TOKEN_VALIDITY , NOTES , VALID , AUTO_APPROVE , TRUSTED , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+		}
+		public static final SYS_OAUTH_CLIENT $TABLE=new SYS_OAUTH_CLIENT();
 	}
 	
 	/**
@@ -832,7 +958,7 @@ public class FoxnicWeb {
 		/**
 		 * 是否已删除
 		*/
-		public static final DBField DELETED = new DBField(DBDataType.BOOL , "deleted","deleted","是否已删除","是否已删除",false,false,false);
+		public static final DBField DELETED = new DBField(DBDataType.INTEGER , "deleted","deleted","是否已删除","是否已删除",false,false,false);
 		
 		/**
 		 * 删除人ID
@@ -939,8 +1065,58 @@ public class FoxnicWeb {
 		*/
 		public static final DBField EMPLOYEE_ID = new DBField(DBDataType.STRING , "employee_id","employeeId","员工ID","员工ID",false,false,true);
 		
+		/**
+		 * 是否有效
+		*/
+		public static final DBField VALID = new DBField(DBDataType.INTEGER , "valid","valid","是否有效","是否有效",false,false,true);
+		
+		/**
+		 * 最后登录时间
+		*/
+		public static final DBField LAST_LOGIN_TIME = new DBField(DBDataType.DATE , "last_login_time","lastLoginTime","最后登录时间","最后登录时间",false,false,true);
+		
+		/**
+		 * 创建人ID
+		*/
+		public static final DBField CREATE_BY = new DBField(DBDataType.LONG , "create_by","createBy","创建人ID","创建人ID",false,false,true);
+		
+		/**
+		 * 创建时间
+		*/
+		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","创建时间","创建时间",false,false,true);
+		
+		/**
+		 * 修改人ID
+		*/
+		public static final DBField UPDATE_BY = new DBField(DBDataType.LONG , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
+		
+		/**
+		 * 修改时间
+		*/
+		public static final DBField UPDATE_TIME = new DBField(DBDataType.DATE , "update_time","updateTime","修改时间","修改时间",false,false,true);
+		
+		/**
+		 * 是否已删除
+		*/
+		public static final DBField DELETED = new DBField(DBDataType.INTEGER , "deleted","deleted","是否已删除","是否已删除",false,false,false);
+		
+		/**
+		 * 删除人ID
+		*/
+		public static final DBField DELETE_BY = new DBField(DBDataType.LONG , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
+		
+		/**
+		 * 删除时间
+		*/
+		public static final DBField DELETE_TIME = new DBField(DBDataType.DATE , "delete_time","deleteTime","删除时间","删除时间",false,false,true);
+		
+		/**
+		 * 数据版本号
+		*/
+		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
+		
 		public SYS_USER() {
-			this.init($NAME,"账户表" , ID , NAME , PASSWD , MOBILE , PERSON_ID , EMPLOYEE_ID);
+			this.init($NAME,"账户表" , ID , NAME , PASSWD , MOBILE , PERSON_ID , EMPLOYEE_ID , VALID , LAST_LOGIN_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final SYS_USER $TABLE=new SYS_USER();
 	}

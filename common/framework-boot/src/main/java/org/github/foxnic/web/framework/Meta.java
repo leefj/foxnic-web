@@ -31,6 +31,12 @@ public class Meta {
 	 * 系统服务
 	 * */
 	public static final String SERVICE_SYSTEM_PACKAGE=BASE_PACKAGE+".system";
+	
+	
+	/**
+	 * 认证服务
+	 * */
+	public static final String SERVICE_OAUTH_PACKAGE=BASE_PACKAGE+".oauth";
  
 	
 	/**

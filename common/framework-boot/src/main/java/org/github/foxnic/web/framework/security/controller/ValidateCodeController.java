@@ -29,7 +29,7 @@ import io.swagger.annotations.ApiOperation;
 @Api(tags = "验证码服务")
 @ApiSort(1)
 @Controller
-@RequestMapping("/security/permission/validate-code")
+@RequestMapping("/security/validate-code")
 public class ValidateCodeController {
  
 	@Autowired

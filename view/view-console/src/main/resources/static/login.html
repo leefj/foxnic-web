@@ -85,7 +85,7 @@
         form.on('submit(login-submit)', function (obj) {
             layer.load(2);
             $.ajax({
-                url: config.base_server + '/security/user/console-login',
+                url: config.base_server + '/security/login',
                 xhrFields: {
                     withCredentials: true
                 },
@@ -119,7 +119,7 @@
         });
 
         // 图形验证码
-        $('.login-captcha').attr("src", config.base_server + "/security/permission/validate-code/get/"+uuid);
+        $('.login-captcha').attr("src", config.base_server + "/security/validate-code/get/"+uuid);
         $('.login-captcha').attr("style", "");
 
         // 图形验证码

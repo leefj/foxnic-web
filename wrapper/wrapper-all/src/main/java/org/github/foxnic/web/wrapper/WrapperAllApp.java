@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.FeignAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 
-@ComponentScan(basePackages = { Meta.SERVICE_STORAGE_PACKAGE , Meta.SERVICE_SYSTEM_PACKAGE })
+@ComponentScan(basePackages = { Meta.SERVICE_STORAGE_PACKAGE , Meta.SERVICE_SYSTEM_PACKAGE , Meta.SERVICE_OAUTH_PACKAGE })
 @SpringBootApplication(exclude = {FeignAutoConfiguration.class})
 public class WrapperAllApp {
 

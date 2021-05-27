@@ -2,6 +2,8 @@ server:
   port: 1898
  
 spring:
+  main:
+    allow-bean-definition-overriding: true
   application:
     name: service-all
     description: Foxnic Web Service All

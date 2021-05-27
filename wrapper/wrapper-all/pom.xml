@@ -39,6 +39,12 @@
 		
 		<dependency>
 			<groupId>com.github.foxnic.web</groupId>
+			<artifactId>service-oauth</artifactId>
+			<version>${platform.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.github.foxnic.web</groupId>
 			<artifactId>view-console</artifactId>
 			<version>${platform.version}</version>
 		</dependency>

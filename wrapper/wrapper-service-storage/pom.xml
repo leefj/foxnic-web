@@ -11,8 +11,8 @@
 	</parent>
 
 	<artifactId>wrapper-service-storage</artifactId>
-	<name>wrapper-all</name>
-	<description>Wrapper-All</description>
+	<name>wrapper-storage</name>
+	<description>Wrapper-Storage</description>
 
 	<properties>
 		<skipTests>true</skipTests>
@@ -23,14 +23,7 @@
 	</properties>
 
 	<dependencies>
-
-		<!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
-		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
-			<version>30.1.1-jre</version>
-		</dependency>
-
+ 
 
 		<dependency>
 			<groupId>com.github.foxnic.web</groupId>

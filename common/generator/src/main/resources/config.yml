@@ -50,4 +50,15 @@ applications:
     viewProjectPath: /view/view-console
     viewPrefixPath: public/pages/storage
     wrapperProjectPath:  /wrapper/wrapper-all-service
+  #存储服务
+  service-oauth:  
+    nacosGroup: service
+    nacosDataId: service-oauth.yml
+    serviceProjectPath:  /service/service-oauth
+    packageName: org.github.foxnic.web.oauth
+    primaryDatasourceConfigKey: spring.datasource.druid.primary
+    microServiceNameConst: OAUTH
+    viewProjectPath: /view/view-console
+    viewPrefixPath: public/pages/oauth
+    wrapperProjectPath:  /wrapper/wrapper-service-oauth
     

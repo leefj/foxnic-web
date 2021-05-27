@@ -79,8 +79,8 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload'], fun
     	},
     	
     	translate:function(defaults,code) {
-    		var language="confuse";
-//			var language="defaults";
+//    		var language="confuse";
+			var language="defaults";
     		var item=defaultsLangs[defaults];
     		var text=null;
     		if(!item && code) {
