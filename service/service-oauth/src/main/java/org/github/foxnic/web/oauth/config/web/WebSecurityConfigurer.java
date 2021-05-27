@@ -49,18 +49,17 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter  {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
     	//默认位置
-        http.csrf().ignoringAntMatchers("/oauth/authorize", "/oauth/token", "/oauth/rest_token");
+    	http.csrf().disable();
+        //http.csrf().ignoringAntMatchers("/oauth/authorize", "/oauth/token", "/oauth/rest_token");
 
         http.authorizeRequests()
                 // permitAll() 的URL路径属于公开访问，不需要权限
-                .antMatchers("/public/**").permitAll()
-                .antMatchers("/static/**").permitAll()
-                //
                 .antMatchers("/assets/**").permitAll()
                 .antMatchers("/module/**").permitAll()
                 .antMatchers("/pages/tpl/**").permitAll()
                 .antMatchers("/favicon.ico").permitAll()
                 .antMatchers("/security/validate-code/get/**").permitAll()
+                .antMatchers("/security/login").permitAll()
                 .antMatchers("/login.html").permitAll()
                 //
                 .antMatchers("/oauth/rest_token*").permitAll()
@@ -75,8 +74,8 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter  {
                 .loginPage("/login.html")
                 .loginProcessingUrl("/security/login")
                 .failureUrl("/login?error=1")
-                .usernameParameter("oidc_user")
-                .passwordParameter("oidcPwd")
+                .usernameParameter("identity")
+                .passwordParameter("passwd")
                 .and()
                 .logout()
                 .logoutUrl("/security/logout")
