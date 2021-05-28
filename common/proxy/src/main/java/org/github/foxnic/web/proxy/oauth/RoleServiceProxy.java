@@ -20,7 +20,7 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  * 角色表  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-28 10:53:34
+ * @since 2021-05-28 14:17:03
 */
 
 @FeignClient(value = MicroServiceNames.OAUTH, contextId = RoleServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)
@@ -47,13 +47,13 @@ public interface RoleServiceProxy {
 	public static final String INSERT = API_PREFIX + "insert";
 	
 	/**
-	 * 按主键删除角色
+	 * 删除角色
 	 */
 	public static final String DELETE = API_PREFIX + "delete";
 	
 	
 	/**
-	 * 按主键删除角色
+	 * 批量删除角色
 	 */
 	public static final String BATCH_DELETE = API_PREFIX + "batch-delete";
 	
@@ -70,27 +70,27 @@ public interface RoleServiceProxy {
 	public static final String SAVE = API_PREFIX + "save";
 	
 	/**
-	 * 按主键获取角色
+	 * 获取角色
 	 */
 	public static final String GET_BY_ID = API_PREFIX + "get-by-id";
 	
 	/**
-	 * 查询全部符合条件的角色
+	 * 查询角色
 	 */
 	public static final String QUERY_LIST = API_PREFIX + "query-list";
 	
 	/**
-	 * 分页查询符合条件的角色
+	 * 分页查询角色
 	 */
 	public static final String QUERY_PAGED_LIST = API_PREFIX + "query-paged-list";
 	
 	/**
-	 * 导出Excel
+	 * 导出角色数据(Excel)
 	 */
 	public static final String EXPORT_EXCEL = API_PREFIX + "export-excel";
 	
 	/**
-	 * 导入Excel
+	 * 导入角色数据(Excel)
 	 */
 	public static final String IMPORT_EXCEL = API_PREFIX + "import-excel";
 	
@@ -101,14 +101,14 @@ public interface RoleServiceProxy {
 	Result<Role> insert(RoleVO roleVO);
 	
 	/**
-	 * 按主键删除角色
+	 * 删除角色
 	*/
 	@RequestMapping(RoleServiceProxy.DELETE)
 	Result<Role> deleteById(String id);
 	
 	
 	/**
-	 * 按主键删除角色
+	 * 批量删除角色
 	*/
 	@RequestMapping(RoleServiceProxy.BATCH_DELETE)
 	Result<Role> deleteByIds(List<String> id);
@@ -126,19 +126,19 @@ public interface RoleServiceProxy {
 	Result<Role> save(RoleVO roleVO);
 	
 	/**
-	 * 按主键获取角色
+	 * 获取角色
 	*/
 	@RequestMapping(RoleServiceProxy.GET_BY_ID)
 	Result<Role> getById(String id);
 	
 	/**
-	 * 查询全部符合条件的角色
+	 * 查询角色
 	*/
 	@RequestMapping(RoleServiceProxy.QUERY_LIST)
 	Result<List<Role>> queryList(RoleVO sample);
 	
 	/**
-	 * 分页查询符合条件的角色
+	 * 分页查询角色
 	*/
 	@RequestMapping(RoleServiceProxy.QUERY_PAGED_LIST)
 	Result<PagedList<Role>> queryPagedList(RoleVO sample);

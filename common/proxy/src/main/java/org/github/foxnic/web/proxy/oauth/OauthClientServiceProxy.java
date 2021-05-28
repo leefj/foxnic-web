@@ -20,7 +20,7 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  * 认证客户端  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-26 01:57:43
+ * @since 2021-05-28 14:17:03
 */
 
 @FeignClient(value = MicroServiceNames.OAUTH, contextId = OauthClientServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)
@@ -47,13 +47,13 @@ public interface OauthClientServiceProxy {
 	public static final String INSERT = API_PREFIX + "insert";
 	
 	/**
-	 * 按主键删除认证客户端
+	 * 删除认证客户端
 	 */
 	public static final String DELETE = API_PREFIX + "delete";
 	
 	
 	/**
-	 * 按主键删除认证客户端
+	 * 批量删除认证客户端
 	 */
 	public static final String BATCH_DELETE = API_PREFIX + "batch-delete";
 	
@@ -70,27 +70,27 @@ public interface OauthClientServiceProxy {
 	public static final String SAVE = API_PREFIX + "save";
 	
 	/**
-	 * 按主键获取认证客户端
+	 * 获取认证客户端
 	 */
 	public static final String GET_BY_ID = API_PREFIX + "get-by-id";
 	
 	/**
-	 * 查询全部符合条件的认证客户端
+	 * 查询认证客户端
 	 */
 	public static final String QUERY_LIST = API_PREFIX + "query-list";
 	
 	/**
-	 * 分页查询符合条件的认证客户端
+	 * 分页查询认证客户端
 	 */
 	public static final String QUERY_PAGED_LIST = API_PREFIX + "query-paged-list";
 	
 	/**
-	 * 导出Excel
+	 * 导出认证客户端数据(Excel)
 	 */
 	public static final String EXPORT_EXCEL = API_PREFIX + "export-excel";
 	
 	/**
-	 * 导入Excel
+	 * 导入认证客户端数据(Excel)
 	 */
 	public static final String IMPORT_EXCEL = API_PREFIX + "import-excel";
 	
@@ -101,14 +101,14 @@ public interface OauthClientServiceProxy {
 	Result<OauthClient> insert(OauthClientVO oauthClientVO);
 	
 	/**
-	 * 按主键删除认证客户端
+	 * 删除认证客户端
 	*/
 	@RequestMapping(OauthClientServiceProxy.DELETE)
 	Result<OauthClient> deleteById(String id);
 	
 	
 	/**
-	 * 按主键删除认证客户端
+	 * 批量删除认证客户端
 	*/
 	@RequestMapping(OauthClientServiceProxy.BATCH_DELETE)
 	Result<OauthClient> deleteByIds(List<String> id);
@@ -126,19 +126,19 @@ public interface OauthClientServiceProxy {
 	Result<OauthClient> save(OauthClientVO oauthClientVO);
 	
 	/**
-	 * 按主键获取认证客户端
+	 * 获取认证客户端
 	*/
 	@RequestMapping(OauthClientServiceProxy.GET_BY_ID)
 	Result<OauthClient> getById(String id);
 	
 	/**
-	 * 查询全部符合条件的认证客户端
+	 * 查询认证客户端
 	*/
 	@RequestMapping(OauthClientServiceProxy.QUERY_LIST)
 	Result<List<OauthClient>> queryList(OauthClientVO sample);
 	
 	/**
-	 * 分页查询符合条件的认证客户端
+	 * 分页查询认证客户端
 	*/
 	@RequestMapping(OauthClientServiceProxy.QUERY_PAGED_LIST)
 	Result<PagedList<OauthClient>> queryPagedList(OauthClientVO sample);

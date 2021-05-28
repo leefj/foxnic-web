@@ -20,7 +20,7 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  * 菜单表  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-28 10:53:35
+ * @since 2021-05-28 14:17:03
 */
 
 @FeignClient(value = MicroServiceNames.OAUTH, contextId = MenuServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)
@@ -47,13 +47,13 @@ public interface MenuServiceProxy {
 	public static final String INSERT = API_PREFIX + "insert";
 	
 	/**
-	 * 按主键删除菜单
+	 * 删除菜单
 	 */
 	public static final String DELETE = API_PREFIX + "delete";
 	
 	
 	/**
-	 * 按主键删除菜单
+	 * 批量删除菜单
 	 */
 	public static final String BATCH_DELETE = API_PREFIX + "batch-delete";
 	
@@ -70,27 +70,27 @@ public interface MenuServiceProxy {
 	public static final String SAVE = API_PREFIX + "save";
 	
 	/**
-	 * 按主键获取菜单
+	 * 获取菜单
 	 */
 	public static final String GET_BY_ID = API_PREFIX + "get-by-id";
 	
 	/**
-	 * 查询全部符合条件的菜单
+	 * 查询菜单
 	 */
 	public static final String QUERY_LIST = API_PREFIX + "query-list";
 	
 	/**
-	 * 分页查询符合条件的菜单
+	 * 分页查询菜单
 	 */
 	public static final String QUERY_PAGED_LIST = API_PREFIX + "query-paged-list";
 	
 	/**
-	 * 导出Excel
+	 * 导出菜单数据(Excel)
 	 */
 	public static final String EXPORT_EXCEL = API_PREFIX + "export-excel";
 	
 	/**
-	 * 导入Excel
+	 * 导入菜单数据(Excel)
 	 */
 	public static final String IMPORT_EXCEL = API_PREFIX + "import-excel";
 	
@@ -101,14 +101,14 @@ public interface MenuServiceProxy {
 	Result<Menu> insert(MenuVO menuVO);
 	
 	/**
-	 * 按主键删除菜单
+	 * 删除菜单
 	*/
 	@RequestMapping(MenuServiceProxy.DELETE)
 	Result<Menu> deleteById(String id);
 	
 	
 	/**
-	 * 按主键删除菜单
+	 * 批量删除菜单
 	*/
 	@RequestMapping(MenuServiceProxy.BATCH_DELETE)
 	Result<Menu> deleteByIds(List<String> id);
@@ -126,19 +126,19 @@ public interface MenuServiceProxy {
 	Result<Menu> save(MenuVO menuVO);
 	
 	/**
-	 * 按主键获取菜单
+	 * 获取菜单
 	*/
 	@RequestMapping(MenuServiceProxy.GET_BY_ID)
 	Result<Menu> getById(String id);
 	
 	/**
-	 * 查询全部符合条件的菜单
+	 * 查询菜单
 	*/
 	@RequestMapping(MenuServiceProxy.QUERY_LIST)
 	Result<List<Menu>> queryList(MenuVO sample);
 	
 	/**
-	 * 分页查询符合条件的菜单
+	 * 分页查询菜单
 	*/
 	@RequestMapping(MenuServiceProxy.QUERY_PAGED_LIST)
 	Result<PagedList<Menu>> queryPagedList(MenuVO sample);

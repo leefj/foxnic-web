@@ -20,7 +20,7 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  * 账户表  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-26 01:57:42
+ * @since 2021-05-28 14:17:02
 */
 
 @FeignClient(value = MicroServiceNames.OAUTH, contextId = UserServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)
@@ -47,13 +47,13 @@ public interface UserServiceProxy {
 	public static final String INSERT = API_PREFIX + "insert";
 	
 	/**
-	 * 按主键删除账户
+	 * 删除账户
 	 */
 	public static final String DELETE = API_PREFIX + "delete";
 	
 	
 	/**
-	 * 按主键删除账户
+	 * 批量删除账户
 	 */
 	public static final String BATCH_DELETE = API_PREFIX + "batch-delete";
 	
@@ -70,35 +70,29 @@ public interface UserServiceProxy {
 	public static final String SAVE = API_PREFIX + "save";
 	
 	/**
-	 * 按主键获取账户
+	 * 获取账户
 	 */
 	public static final String GET_BY_ID = API_PREFIX + "get-by-id";
 	
 	/**
-	 * 查询全部符合条件的账户
+	 * 查询账户
 	 */
 	public static final String QUERY_LIST = API_PREFIX + "query-list";
 	
 	/**
-	 * 分页查询符合条件的账户
+	 * 分页查询账户
 	 */
 	public static final String QUERY_PAGED_LIST = API_PREFIX + "query-paged-list";
 	
 	/**
-	 * 导出Excel
+	 * 导出账户数据(Excel)
 	 */
 	public static final String EXPORT_EXCEL = API_PREFIX + "export-excel";
 	
 	/**
-	 * 导入Excel
+	 * 导入账户数据(Excel)
 	 */
 	public static final String IMPORT_EXCEL = API_PREFIX + "import-excel";
-	
-	
-	/**
-	 * 登录地址
-	 * */
-	public static String LOGIN_URI = "/security/login";
 	
 	/**
 	 * 添加账户
@@ -107,14 +101,14 @@ public interface UserServiceProxy {
 	Result<User> insert(UserVO userVO);
 	
 	/**
-	 * 按主键删除账户
+	 * 删除账户
 	*/
 	@RequestMapping(UserServiceProxy.DELETE)
 	Result<User> deleteById(String id);
 	
 	
 	/**
-	 * 按主键删除账户
+	 * 批量删除账户
 	*/
 	@RequestMapping(UserServiceProxy.BATCH_DELETE)
 	Result<User> deleteByIds(List<String> id);
@@ -132,19 +126,19 @@ public interface UserServiceProxy {
 	Result<User> save(UserVO userVO);
 	
 	/**
-	 * 按主键获取账户
+	 * 获取账户
 	*/
 	@RequestMapping(UserServiceProxy.GET_BY_ID)
 	Result<User> getById(String id);
 	
 	/**
-	 * 查询全部符合条件的账户
+	 * 查询账户
 	*/
 	@RequestMapping(UserServiceProxy.QUERY_LIST)
 	Result<List<User>> queryList(UserVO sample);
 	
 	/**
-	 * 分页查询符合条件的账户
+	 * 分页查询账户
 	*/
 	@RequestMapping(UserServiceProxy.QUERY_PAGED_LIST)
 	Result<PagedList<User>> queryPagedList(UserVO sample);
@@ -154,6 +148,11 @@ public interface UserServiceProxy {
 	 * 控制器类名
 	 * */
 	public static final String CONTROLLER_CLASS_NAME="org.github.foxnic.web.oauth.controller.UserController";
+
+	/**
+	 * 账户登录
+	 * */
+	public static final String LOGIN_URI = "/security/login";
 
 	/**
 	 * 统一的调用接口，实现在单体应用和微服务应用下的无差异调用

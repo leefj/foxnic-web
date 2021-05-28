@@ -20,7 +20,7 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  * 在线会话表  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-27 05:28:14
+ * @since 2021-05-28 14:17:03
 */
 
 @FeignClient(value = MicroServiceNames.OAUTH, contextId = SessionOnlineServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)
@@ -47,13 +47,13 @@ public interface SessionOnlineServiceProxy {
 	public static final String INSERT = API_PREFIX + "insert";
 	
 	/**
-	 * 按主键删除在线会话
+	 * 删除在线会话
 	 */
 	public static final String DELETE = API_PREFIX + "delete";
 	
 	
 	/**
-	 * 按主键删除在线会话
+	 * 批量删除在线会话
 	 */
 	public static final String BATCH_DELETE = API_PREFIX + "batch-delete";
 	
@@ -70,27 +70,27 @@ public interface SessionOnlineServiceProxy {
 	public static final String SAVE = API_PREFIX + "save";
 	
 	/**
-	 * 按主键获取在线会话
+	 * 获取在线会话
 	 */
 	public static final String GET_BY_ID = API_PREFIX + "get-by-id";
 	
 	/**
-	 * 查询全部符合条件的在线会话
+	 * 查询在线会话
 	 */
 	public static final String QUERY_LIST = API_PREFIX + "query-list";
 	
 	/**
-	 * 分页查询符合条件的在线会话
+	 * 分页查询在线会话
 	 */
 	public static final String QUERY_PAGED_LIST = API_PREFIX + "query-paged-list";
 	
 	/**
-	 * 导出Excel
+	 * 导出在线会话数据(Excel)
 	 */
 	public static final String EXPORT_EXCEL = API_PREFIX + "export-excel";
 	
 	/**
-	 * 导入Excel
+	 * 导入在线会话数据(Excel)
 	 */
 	public static final String IMPORT_EXCEL = API_PREFIX + "import-excel";
 	
@@ -101,14 +101,14 @@ public interface SessionOnlineServiceProxy {
 	Result<SessionOnline> insert(SessionOnlineVO sessionOnlineVO);
 	
 	/**
-	 * 按主键删除在线会话
+	 * 删除在线会话
 	*/
 	@RequestMapping(SessionOnlineServiceProxy.DELETE)
 	Result<SessionOnline> deleteById(String id);
 	
 	
 	/**
-	 * 按主键删除在线会话
+	 * 批量删除在线会话
 	*/
 	@RequestMapping(SessionOnlineServiceProxy.BATCH_DELETE)
 	Result<SessionOnline> deleteByIds(List<String> id);
@@ -126,19 +126,19 @@ public interface SessionOnlineServiceProxy {
 	Result<SessionOnline> save(SessionOnlineVO sessionOnlineVO);
 	
 	/**
-	 * 按主键获取在线会话
+	 * 获取在线会话
 	*/
 	@RequestMapping(SessionOnlineServiceProxy.GET_BY_ID)
 	Result<SessionOnline> getById(String id);
 	
 	/**
-	 * 查询全部符合条件的在线会话
+	 * 查询在线会话
 	*/
 	@RequestMapping(SessionOnlineServiceProxy.QUERY_LIST)
 	Result<List<SessionOnline>> queryList(SessionOnlineVO sample);
 	
 	/**
-	 * 分页查询符合条件的在线会话
+	 * 分页查询在线会话
 	*/
 	@RequestMapping(SessionOnlineServiceProxy.QUERY_PAGED_LIST)
 	Result<PagedList<SessionOnline>> queryPagedList(SessionOnlineVO sample);
