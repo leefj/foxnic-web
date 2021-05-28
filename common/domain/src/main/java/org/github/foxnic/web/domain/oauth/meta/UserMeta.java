@@ -2,13 +2,16 @@ package org.github.foxnic.web.domain.oauth.meta;
 
 import org.github.foxnic.web.domain.oauth.User;
 import java.util.Date;
+import org.github.foxnic.web.domain.oauth.Role;
+import java.util.List;
+import org.github.foxnic.web.domain.oauth.Menu;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-27 05:31:55
- * @sign A5ADE28408E74F995A1E6CCE311C9F22
+ * @since 2021-05-28 15:09:50
+ * @sign 637C5B92CB9EB294403EA0DDC8C4A4BB
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -100,9 +103,19 @@ public class UserMeta {
 	public static final String VERSION="version";
 	
 	/**
+	 * 角色清单 , 当前用户的所有角色清单
+	*/
+	public static final String ROLES="roles";
+	
+	/**
+	 * 菜单清单 , 当前用户的所有菜单清单
+	*/
+	public static final String MENUS="menus";
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , NAME , PASSWD , SALT , MOBILE , PERSON_ID , EMPLOYEE_ID , VALID , LAST_LOGIN_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , NAME , PASSWD , SALT , MOBILE , PERSON_ID , EMPLOYEE_ID , VALID , LAST_LOGIN_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , ROLES , MENUS };
 	
 	/**
 	 * 代理类
@@ -216,7 +229,7 @@ public class UserMeta {
 		 * @param createBy 创建人ID
 		 * @return 当前对象
 		*/
-		public User setCreateBy(Long createBy) {
+		public User setCreateBy(String createBy) {
 			super.change(CREATE_BY,super.getCreateBy(),createBy);
 			super.setCreateBy(createBy);
 			return this;
@@ -238,7 +251,7 @@ public class UserMeta {
 		 * @param updateBy 修改人ID
 		 * @return 当前对象
 		*/
-		public User setUpdateBy(Long updateBy) {
+		public User setUpdateBy(String updateBy) {
 			super.change(UPDATE_BY,super.getUpdateBy(),updateBy);
 			super.setUpdateBy(updateBy);
 			return this;
@@ -271,7 +284,7 @@ public class UserMeta {
 		 * @param deleteBy 删除人ID
 		 * @return 当前对象
 		*/
-		public User setDeleteBy(Long deleteBy) {
+		public User setDeleteBy(String deleteBy) {
 			super.change(DELETE_BY,super.getDeleteBy(),deleteBy);
 			super.setDeleteBy(deleteBy);
 			return this;
@@ -296,6 +309,28 @@ public class UserMeta {
 		public User setVersion(Integer version) {
 			super.change(VERSION,super.getVersion(),version);
 			super.setVersion(version);
+			return this;
+		}
+		
+		/**
+		 * 设置 角色清单
+		 * @param roles 角色清单
+		 * @return 当前对象
+		*/
+		public User setRoles(List<Role> roles) {
+			super.change(ROLES,super.getRoles(),roles);
+			super.setRoles(roles);
+			return this;
+		}
+		
+		/**
+		 * 设置 菜单清单
+		 * @param menus 菜单清单
+		 * @return 当前对象
+		*/
+		public User setMenus(List<Menu> menus) {
+			super.change(MENUS,super.getMenus(),menus);
+			super.setMenus(menus);
 			return this;
 		}
 	}

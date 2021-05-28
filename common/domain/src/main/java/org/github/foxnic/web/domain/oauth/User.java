@@ -1,5 +1,6 @@
 package org.github.foxnic.web.domain.oauth;
 
+import java.util.List;
 import com.github.foxnic.dao.entity.Entity;
 import javax.persistence.Table;
 import com.github.foxnic.sql.meta.DBTable;
@@ -7,6 +8,7 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
+import java.util.ArrayList;
 import javax.persistence.Transient;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
@@ -16,8 +18,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-27 05:31:55
- * @sign A5ADE28408E74F995A1E6CCE311C9F22
+ * @since 2021-05-28 15:09:50
+ * @sign 637C5B92CB9EB294403EA0DDC8C4A4BB
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -87,7 +89,7 @@ public class User extends Entity {
 	 * 创建人ID：创建人ID
 	*/
 	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID")
-	private Long createBy;
+	private String createBy;
 	
 	/**
 	 * 创建时间：创建时间
@@ -99,7 +101,7 @@ public class User extends Entity {
 	 * 修改人ID：修改人ID
 	*/
 	@ApiModelProperty(required = false,value="修改人ID" , notes = "修改人ID")
-	private Long updateBy;
+	private String updateBy;
 	
 	/**
 	 * 修改时间：修改时间
@@ -117,7 +119,7 @@ public class User extends Entity {
 	 * 删除人ID：删除人ID
 	*/
 	@ApiModelProperty(required = false,value="删除人ID" , notes = "删除人ID")
-	private Long deleteBy;
+	private String deleteBy;
 	
 	/**
 	 * 删除时间：删除时间
@@ -130,6 +132,18 @@ public class User extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
 	private Integer version;
+	
+	/**
+	 * 角色清单：当前用户的所有角色清单
+	*/
+	@ApiModelProperty(required = false,value="角色清单" , notes = "当前用户的所有角色清单")
+	private List<Role> roles;
+	
+	/**
+	 * 菜单清单：当前用户的所有菜单清单
+	*/
+	@ApiModelProperty(required = false,value="菜单清单" , notes = "当前用户的所有菜单清单")
+	private List<Menu> menus;
 	
 	/**
 	 * 获得 ID<br>
@@ -361,7 +375,7 @@ public class User extends Entity {
 	 * 属性说明 : 创建人ID
 	 * @return 创建人ID
 	*/
-	public Long getCreateBy() {
+	public String getCreateBy() {
 		return createBy;
 	}
 	
@@ -370,7 +384,7 @@ public class User extends Entity {
 	 * @param createBy 创建人ID
 	 * @return 当前对象
 	*/
-	public User setCreateBy(Long createBy) {
+	public User setCreateBy(String createBy) {
 		this.createBy=createBy;
 		return this;
 	}
@@ -411,7 +425,7 @@ public class User extends Entity {
 	 * 属性说明 : 修改人ID
 	 * @return 修改人ID
 	*/
-	public Long getUpdateBy() {
+	public String getUpdateBy() {
 		return updateBy;
 	}
 	
@@ -420,7 +434,7 @@ public class User extends Entity {
 	 * @param updateBy 修改人ID
 	 * @return 当前对象
 	*/
-	public User setUpdateBy(Long updateBy) {
+	public User setUpdateBy(String updateBy) {
 		this.updateBy=updateBy;
 		return this;
 	}
@@ -486,7 +500,7 @@ public class User extends Entity {
 	 * 属性说明 : 删除人ID
 	 * @return 删除人ID
 	*/
-	public Long getDeleteBy() {
+	public String getDeleteBy() {
 		return deleteBy;
 	}
 	
@@ -495,7 +509,7 @@ public class User extends Entity {
 	 * @param deleteBy 删除人ID
 	 * @return 当前对象
 	*/
-	public User setDeleteBy(Long deleteBy) {
+	public User setDeleteBy(String deleteBy) {
 		this.deleteBy=deleteBy;
 		return this;
 	}
@@ -555,6 +569,66 @@ public class User extends Entity {
 	 * @param version 数据版本号
 	 * @return 当前对象
 	*/
+	
+	/**
+	 * 获得 角色清单<br>
+	 * 属性说明 : 当前用户的所有角色清单
+	 * @return 角色清单
+	*/
+	public List<Role> getRoles() {
+		return roles;
+	}
+	
+	/**
+	 * 设置 角色清单
+	 * @param roles 角色清单
+	 * @return 当前对象
+	*/
+	public User setRoles(List<Role> roles) {
+		this.roles=roles;
+		return this;
+	}
+	
+	/**
+	 * 添加 角色清单
+	 * @param roles 角色清单
+	 * @return 当前对象
+	*/
+	public User addRole(Role role) {
+		if(this.roles==null) roles=new ArrayList<>();
+		this.roles.add(role);
+		return this;
+	}
+	
+	/**
+	 * 获得 菜单清单<br>
+	 * 属性说明 : 当前用户的所有菜单清单
+	 * @return 菜单清单
+	*/
+	public List<Menu> getMenus() {
+		return menus;
+	}
+	
+	/**
+	 * 设置 菜单清单
+	 * @param menus 菜单清单
+	 * @return 当前对象
+	*/
+	public User setMenus(List<Menu> menus) {
+		this.menus=menus;
+		return this;
+	}
+	
+	/**
+	 * 添加 菜单清单
+	 * @param menus 菜单清单
+	 * @return 当前对象
+	*/
+	public User addMenu(Menu menu) {
+		if(this.menus==null) menus=new ArrayList<>();
+		this.menus.add(menu);
+		return this;
+	}
 
 	/**
 	 * 将自己转换成指定类型的PO
