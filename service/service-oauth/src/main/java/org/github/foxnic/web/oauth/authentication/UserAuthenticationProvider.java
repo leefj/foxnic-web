@@ -1,4 +1,4 @@
-package org.github.foxnic.web.oauth.login;
+package org.github.foxnic.web.oauth.authentication;
 
 import java.util.Date;
 
@@ -19,14 +19,14 @@ import org.springframework.stereotype.Component;
 import com.github.foxnic.dao.data.SaveMode;
 
 /**
- *  <p> 自定义认证处理 </p>
+ *  <p> 自定义账户认证处理器 </p>
  *
- * @description :
- * @author : zhengqing
- * @date : 2019/10/12 14:49
+ * @description : 对接数据库，进行身份认证
+ * @author : 李方捷
+ * @date : 2021/05/28 14:49
  */
 @Component
-public class AdminAuthenticationProvider implements AuthenticationProvider {
+public class UserAuthenticationProvider implements AuthenticationProvider {
 
     @Autowired
     IUserService userDetailsService;
@@ -37,40 +37,30 @@ public class AdminAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        // 获取前端表单中输入后返回的用户名、密码
-        String userName = (String) authentication.getPrincipal();
-        String password = (String) authentication.getCredentials();
+        // 前端传入的用户名、密码
+        String identity = (String) authentication.getPrincipal();
+        String passwd = (String) authentication.getCredentials();
 
-        SOSUserDetails userInfo = (SOSUserDetails) userDetailsService.loadUserByUsername(userName);
-
+        SOSUserDetails userInfo = (SOSUserDetails) userDetailsService.loadUserByUsername(identity);
         String salt=userInfo.getUser().getSalt();
-//        String userId=userInfo.getUser().getId();
-        
         //核对密码
-        boolean isValid = PasswordUtils.isValidPassword(password, userInfo.getPassword(), salt);
+        boolean isValid = PasswordUtils.isValidPassword(passwd, userInfo.getPassword(), salt);
         // 验证密码
         if (!isValid) {
             throw new BadCredentialsException("密码错误");
         }
-
-        // 前后端分离情况下 处理逻辑...
-        // 更新登录令牌
+        // Token
         String token = PasswordUtils.encodePassword(System.currentTimeMillis() + salt, salt);
         userInfo.setToken(token);
-        //User user = userDetailsService.getById(userId);//  userMapper.selectById(userInfo.getCurrentUserInfo().getId());
-        //user.setToken(token);
         
+        //
         SessionOnline online=new SessionOnline();
         online.setToken(token);
         online.setOnline(1);
         online.setLoginTime(new Date());
         onlineService.insert(online);
-        
-        //userDetailsService.update(user,SaveMode.DIRTY_FIELDS);
-        //userMapper.updateById(user);
-//        userInfo.getUser().setToken(token);
-       
-        return new UsernamePasswordAuthenticationToken(userInfo, password, userInfo.getAuthorities());
+        //
+        return new UsernamePasswordAuthenticationToken(userInfo, passwd, userInfo.getAuthorities());
     }
 
     @Override

@@ -1,12 +1,9 @@
-package org.github.foxnic.web.oauth.filter;
+package org.github.foxnic.web.oauth.authentication;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.github.foxnic.web.domain.oauth.LoginIdentityVO;
-import org.github.foxnic.web.oauth.login.AdminAuthenticationFailureHandler;
-import org.github.foxnic.web.oauth.login.AdminAuthenticationSuccessHandler;
-import org.github.foxnic.web.oauth.login.CusAuthenticationManager;
 import org.github.foxnic.web.proxy.oauth.UserServiceProxy;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,6 +13,7 @@ import org.springframework.security.web.authentication.AbstractAuthenticationPro
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.stereotype.Component;
 
+import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.springboot.mvc.RequestParameter;
  
 
@@ -27,14 +25,14 @@ import com.github.foxnic.springboot.mvc.RequestParameter;
  * @date : 2019/10/12 15:32
  */
 @Component
-public class AdminAuthenticationProcessingFilter extends AbstractAuthenticationProcessingFilter {
+public class UserAuthenticationProcessingFilter extends AbstractAuthenticationProcessingFilter {
 
     /**
      * @param authenticationManager:             认证管理器
      * @param adminAuthenticationSuccessHandler: 认证成功处理
      * @param adminAuthenticationFailureHandler: 认证失败处理
      */
-    public AdminAuthenticationProcessingFilter(CusAuthenticationManager authenticationManager, AdminAuthenticationSuccessHandler adminAuthenticationSuccessHandler, AdminAuthenticationFailureHandler adminAuthenticationFailureHandler) {
+    public UserAuthenticationProcessingFilter(UserAuthenticationManager authenticationManager, UserAuthenticationSuccessHandler adminAuthenticationSuccessHandler, UserAuthenticationFailureHandler adminAuthenticationFailureHandler) {
         super(new AntPathRequestMatcher(UserServiceProxy.LOGIN_URI, "POST"));
         this.setAuthenticationManager(authenticationManager);
         this.setAuthenticationSuccessHandler(adminAuthenticationSuccessHandler);
@@ -45,7 +43,7 @@ public class AdminAuthenticationProcessingFilter extends AbstractAuthenticationP
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
     	//获得请求参数
     	RequestParameter param=RequestParameter.get();
-    	//转VO
+    	//转 VO
     	LoginIdentityVO loginIdentity = param.toPojo(LoginIdentityVO.class);
         UsernamePasswordAuthenticationToken authRequest;
         try {
@@ -60,7 +58,7 @@ public class AdminAuthenticationProcessingFilter extends AbstractAuthenticationP
 		try {
 			auth = this.getAuthenticationManager().authenticate(authRequest);
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error("登录异常",e);
 			throw e;
 		}
         return auth;

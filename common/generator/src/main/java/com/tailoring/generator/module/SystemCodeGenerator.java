@@ -195,7 +195,7 @@ public class SystemCodeGenerator  {
 //	}
 //	
 //	
-	public void generateSysLang() throws Exception {
+	private void generateSysLang() throws Exception {
 		//创建配置
 		ModuleContext cfg=createModuleConfig(SYS_LANG.$TABLE, 5);
 		

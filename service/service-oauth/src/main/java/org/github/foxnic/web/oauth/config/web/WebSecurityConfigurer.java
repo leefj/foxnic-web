@@ -1,8 +1,8 @@
 package org.github.foxnic.web.oauth.config.web;
 
-import org.github.foxnic.web.oauth.filter.AdminAuthenticationProcessingFilter;
-import org.github.foxnic.web.oauth.filter.MyAuthenticationFilter;
-import org.github.foxnic.web.oauth.login.AdminAuthenticationEntryPoint;
+import org.github.foxnic.web.oauth.authentication.UserAuthenticationProcessingFilter;
+import org.github.foxnic.web.oauth.authorization.AuthenticationFilter;
+import org.github.foxnic.web.oauth.authentication.UserAuthenticationEntryPoint;
 import org.github.foxnic.web.oauth.service.IUserService;
 import org.github.foxnic.web.oauth.url.UrlAccessDecisionManager;
 import org.github.foxnic.web.oauth.url.UrlAccessDeniedHandler;
@@ -43,15 +43,15 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter  {
     /**
      * 访问鉴权 - 认证token、签名...
      */
-    private final MyAuthenticationFilter myAuthenticationFilter;
+    private final AuthenticationFilter myAuthenticationFilter;
     /**
      * 访问权限认证异常处理
      */
-    private final AdminAuthenticationEntryPoint adminAuthenticationEntryPoint;
+    private final UserAuthenticationEntryPoint adminAuthenticationEntryPoint;
     /**
      * 用户密码校验过滤器
      */
-    private final AdminAuthenticationProcessingFilter adminAuthenticationProcessingFilter;
+    private final UserAuthenticationProcessingFilter adminAuthenticationProcessingFilter;
 
     // 上面是登录认证相关  下面为url权限相关 - ========================================================================================
 
@@ -69,7 +69,7 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter  {
     private final UrlAccessDeniedHandler urlAccessDeniedHandler;
     
     
-    public WebSecurityConfigurer(MyAuthenticationFilter myAuthenticationFilter, AdminAuthenticationEntryPoint adminAuthenticationEntryPoint, AdminAuthenticationProcessingFilter adminAuthenticationProcessingFilter, UrlFilterInvocationSecurityMetadataSource urlFilterInvocationSecurityMetadataSource, UrlAccessDeniedHandler urlAccessDeniedHandler, UrlAccessDecisionManager urlAccessDecisionManager) {
+    public WebSecurityConfigurer(AuthenticationFilter myAuthenticationFilter, UserAuthenticationEntryPoint adminAuthenticationEntryPoint, UserAuthenticationProcessingFilter adminAuthenticationProcessingFilter, UrlFilterInvocationSecurityMetadataSource urlFilterInvocationSecurityMetadataSource, UrlAccessDeniedHandler urlAccessDeniedHandler, UrlAccessDecisionManager urlAccessDecisionManager) {
         this.myAuthenticationFilter = myAuthenticationFilter;
         this.adminAuthenticationEntryPoint = adminAuthenticationEntryPoint;
         this.adminAuthenticationProcessingFilter = adminAuthenticationProcessingFilter;

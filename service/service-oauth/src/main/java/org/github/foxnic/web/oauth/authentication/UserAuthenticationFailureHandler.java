@@ -1,4 +1,4 @@
-package org.github.foxnic.web.oauth.login;
+package org.github.foxnic.web.oauth.authentication;
 
 
 import java.io.IOException;
@@ -7,7 +7,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.github.foxnic.web.oauth.utils.ResponseUtils;
 import org.springframework.security.authentication.AccountExpiredException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.CredentialsExpiredException;
@@ -19,8 +18,10 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.stereotype.Component;
 
 import com.github.foxnic.commons.log.Logger;
+import com.github.foxnic.springboot.api.error.CommonError;
 import com.github.foxnic.springboot.api.error.ErrorDesc;
 import com.github.foxnic.springboot.mvc.Result;
+import com.github.foxnic.springboot.web.ResponseUtils;
 
 /**
  *  <p> 认证失败处理 - 前后端分离情况下返回json数据格式 </p>
@@ -30,21 +31,23 @@ import com.github.foxnic.springboot.mvc.Result;
  * @date : 2019/10/12 15:33
  */
 @Component
-public class AdminAuthenticationFailureHandler implements AuthenticationFailureHandler {
+public class UserAuthenticationFailureHandler implements AuthenticationFailureHandler {
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse response, AuthenticationException e) throws IOException, ServletException {
         Result result;
-        if (e instanceof UsernameNotFoundException || e instanceof BadCredentialsException) {
-            result = ErrorDesc.failureMessage(e.getMessage());
+        if (e instanceof UsernameNotFoundException) {
+        	 result = ErrorDesc.failure(CommonError.USER_NOT_EXISTS);
+        } else if (e instanceof BadCredentialsException) {
+        	 result = ErrorDesc.failure(CommonError.PASSWORD_INVALID);
         } else if (e instanceof LockedException) {
-            result = ErrorDesc.failureMessage("账户被锁定，请联系管理员!");
+            result = ErrorDesc.failure(CommonError.USER_BLOCKED);
         } else if (e instanceof CredentialsExpiredException) {
-            result = ErrorDesc.failureMessage("证书过期，请联系管理员!");
+            result = ErrorDesc.failure(CommonError.CREDENTIALS_EXPIRED);
         } else if (e instanceof AccountExpiredException) {
-            result = ErrorDesc.failureMessage("账户过期，请联系管理员!");
+            result = ErrorDesc.failure(CommonError.USER_EXPIRED);
         } else if (e instanceof DisabledException) {
-            result = ErrorDesc.failureMessage("账户被禁用，请联系管理员!");
+        	result = ErrorDesc.failure(CommonError.USER_DISABLED);
         } else {
             Logger.error("登录失败：", e);
             result = ErrorDesc.failureMessage("登录失败!");

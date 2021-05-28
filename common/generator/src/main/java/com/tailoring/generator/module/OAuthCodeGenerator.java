@@ -1,10 +1,13 @@
 package com.tailoring.generator.module;
 
+import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_MENU;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_OAUTH_CLIENT;
+import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_ROLE;
+import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_ROLE_MENU;
+import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_ROLE_USER;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_SESSION_ONLINE;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER;
 
-import com.alibaba.nacos.api.cmdb.pojo.Entity;
 import com.github.foxnic.generator.builder.model.PojoClassFile;
 import com.github.foxnic.generator.config.ModuleContext;
 import com.github.foxnic.generator.config.WriteMode;
@@ -18,6 +21,11 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		g.generateSysUser();
 		g.generateSysOAuthClient();
 		g.generateSysSessionOnline();
+		g.generateSysRole();
+		g.generateSysRoleUser();
+		g.generateSysMenu();
+		g.generateSysRoleMenu();
+		
 	}
  
 	public OAuthCodeGenerator() {
@@ -38,8 +46,8 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		.setServiceIntfAnfImpl(WriteMode.CREATE_IF_NOT_EXISTS) //服务与接口
 		.setControllerAndAgent(WriteMode.CREATE_IF_NOT_EXISTS) //Rest
 		.setPageController(WriteMode.CREATE_IF_NOT_EXISTS) //页面控制器
-		.setFormPage(WriteMode.COVER_EXISTS_FILE) //表单HTML页
-		.setListPage(WriteMode.COVER_EXISTS_FILE); //列表HTML页
+		.setFormPage(WriteMode.CREATE_IF_NOT_EXISTS) //表单HTML页
+		.setListPage(WriteMode.CREATE_IF_NOT_EXISTS); //列表HTML页
 		
 		
 		PojoClassFile pojo=cfg.createPojo("LoginIdentityVO");
@@ -81,8 +89,74 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		.setServiceIntfAnfImpl(WriteMode.CREATE_IF_NOT_EXISTS) //服务与接口
 		.setControllerAndAgent(WriteMode.CREATE_IF_NOT_EXISTS) //Rest
 		.setPageController(WriteMode.CREATE_IF_NOT_EXISTS) //页面控制器
-		.setFormPage(WriteMode.COVER_EXISTS_FILE) //表单HTML页
-		.setListPage(WriteMode.COVER_EXISTS_FILE); //列表HTML页
+		.setFormPage(WriteMode.CREATE_IF_NOT_EXISTS) //表单HTML页
+		.setListPage(WriteMode.CREATE_IF_NOT_EXISTS); //列表HTML页
+ 
+		//生成代码
+		cfg.buildAll();
+	}
+	
+	
+	public void generateSysRole() throws Exception {
+		//创建配置
+		ModuleContext cfg=createModuleConfig(SYS_ROLE.$TABLE, 6);
+		
+		//文件生成覆盖模式
+		cfg.overrides()
+		.setServiceIntfAnfImpl(WriteMode.CREATE_IF_NOT_EXISTS) //服务与接口
+		.setControllerAndAgent(WriteMode.CREATE_IF_NOT_EXISTS) //Rest
+		.setPageController(WriteMode.CREATE_IF_NOT_EXISTS) //页面控制器
+		.setFormPage(WriteMode.CREATE_IF_NOT_EXISTS) //表单HTML页
+		.setListPage(WriteMode.CREATE_IF_NOT_EXISTS); //列表HTML页
+ 
+		//生成代码
+		cfg.buildAll();
+	}
+	
+	
+	public void generateSysRoleUser() throws Exception {
+		//创建配置
+		ModuleContext cfg=createModuleConfig(SYS_ROLE_USER.$TABLE, 6);
+		
+		//文件生成覆盖模式
+		cfg.overrides()
+		.setServiceIntfAnfImpl(WriteMode.CREATE_IF_NOT_EXISTS) //服务与接口
+		.setControllerAndAgent(WriteMode.CREATE_IF_NOT_EXISTS) //Rest
+		.setPageController(WriteMode.CREATE_IF_NOT_EXISTS) //页面控制器
+		.setFormPage(WriteMode.CREATE_IF_NOT_EXISTS) //表单HTML页
+		.setListPage(WriteMode.CREATE_IF_NOT_EXISTS); //列表HTML页
+ 
+		//生成代码
+		cfg.buildAll();
+	}
+	
+	public void generateSysRoleMenu() throws Exception {
+		//创建配置
+		ModuleContext cfg=createModuleConfig(SYS_ROLE_MENU.$TABLE, 6);
+		
+		//文件生成覆盖模式
+		cfg.overrides()
+		.setServiceIntfAnfImpl(WriteMode.CREATE_IF_NOT_EXISTS) //服务与接口
+		.setControllerAndAgent(WriteMode.CREATE_IF_NOT_EXISTS) //Rest
+		.setPageController(WriteMode.CREATE_IF_NOT_EXISTS) //页面控制器
+		.setFormPage(WriteMode.CREATE_IF_NOT_EXISTS) //表单HTML页
+		.setListPage(WriteMode.CREATE_IF_NOT_EXISTS); //列表HTML页
+ 
+		//生成代码
+		cfg.buildAll();
+	}
+	
+	public void generateSysMenu() throws Exception {
+		//创建配置
+		ModuleContext cfg=createModuleConfig(SYS_MENU.$TABLE, 6);
+		
+		//文件生成覆盖模式
+		cfg.overrides()
+		.setServiceIntfAnfImpl(WriteMode.CREATE_IF_NOT_EXISTS) //服务与接口
+		.setControllerAndAgent(WriteMode.CREATE_IF_NOT_EXISTS) //Rest
+		.setPageController(WriteMode.CREATE_IF_NOT_EXISTS) //页面控制器
+		.setFormPage(WriteMode.CREATE_IF_NOT_EXISTS) //表单HTML页
+		.setListPage(WriteMode.CREATE_IF_NOT_EXISTS); //列表HTML页
  
 		//生成代码
 		cfg.buildAll();
