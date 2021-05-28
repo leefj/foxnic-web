@@ -7,8 +7,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-26 02:02:23
- * @sign 0627C7313D0CCB722858B4489E4C0C03
+ * @since 2021-05-28 15:09:51
+ * @sign 80217A241E1E48648680C90E230A2E8A
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -133,8 +133,9 @@ public class OauthClientMeta {
 	 * 代理类
 	*/
 	public static class $$proxy$$ extends org.github.foxnic.web.domain.oauth.OauthClient {
-		
+
 		private static final long serialVersionUID = 1L;
+
 		
 		/**
 		 * 设置 客户端标识
@@ -295,7 +296,7 @@ public class OauthClientMeta {
 		 * @param createBy 创建人ID
 		 * @return 当前对象
 		*/
-		public OauthClient setCreateBy(Long createBy) {
+		public OauthClient setCreateBy(String createBy) {
 			super.change(CREATE_BY,super.getCreateBy(),createBy);
 			super.setCreateBy(createBy);
 			return this;
@@ -317,7 +318,7 @@ public class OauthClientMeta {
 		 * @param updateBy 修改人ID
 		 * @return 当前对象
 		*/
-		public OauthClient setUpdateBy(Long updateBy) {
+		public OauthClient setUpdateBy(String updateBy) {
 			super.change(UPDATE_BY,super.getUpdateBy(),updateBy);
 			super.setUpdateBy(updateBy);
 			return this;
@@ -350,7 +351,7 @@ public class OauthClientMeta {
 		 * @param deleteBy 删除人ID
 		 * @return 当前对象
 		*/
-		public OauthClient setDeleteBy(Long deleteBy) {
+		public OauthClient setDeleteBy(String deleteBy) {
 			super.change(DELETE_BY,super.getDeleteBy(),deleteBy);
 			super.setDeleteBy(deleteBy);
 			return this;

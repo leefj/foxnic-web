@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-28 10:53:34
- * @sign FC17778F3630357E108E2AB3313A00AB
+ * @since 2021-05-28 15:09:51
+ * @sign 846B1408C5BAE73F1E9E00E8B7F2BDAD
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -51,7 +51,7 @@ public class RoleUser extends Entity {
 	 * 创建人ID：创建人ID
 	*/
 	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID")
-	private Long createBy;
+	private String createBy;
 	
 	/**
 	 * 创建时间：创建时间
@@ -63,7 +63,7 @@ public class RoleUser extends Entity {
 	 * 修改人ID：修改人ID
 	*/
 	@ApiModelProperty(required = false,value="修改人ID" , notes = "修改人ID")
-	private Long updateBy;
+	private String updateBy;
 	
 	/**
 	 * 修改时间：修改时间
@@ -81,7 +81,7 @@ public class RoleUser extends Entity {
 	 * 删除人ID：删除人ID
 	*/
 	@ApiModelProperty(required = false,value="删除人ID" , notes = "删除人ID")
-	private Long deleteBy;
+	private String deleteBy;
 	
 	/**
 	 * 删除时间：删除时间
@@ -175,7 +175,7 @@ public class RoleUser extends Entity {
 	 * 属性说明 : 创建人ID
 	 * @return 创建人ID
 	*/
-	public Long getCreateBy() {
+	public String getCreateBy() {
 		return createBy;
 	}
 	
@@ -184,7 +184,7 @@ public class RoleUser extends Entity {
 	 * @param createBy 创建人ID
 	 * @return 当前对象
 	*/
-	public RoleUser setCreateBy(Long createBy) {
+	public RoleUser setCreateBy(String createBy) {
 		this.createBy=createBy;
 		return this;
 	}
@@ -225,7 +225,7 @@ public class RoleUser extends Entity {
 	 * 属性说明 : 修改人ID
 	 * @return 修改人ID
 	*/
-	public Long getUpdateBy() {
+	public String getUpdateBy() {
 		return updateBy;
 	}
 	
@@ -234,7 +234,7 @@ public class RoleUser extends Entity {
 	 * @param updateBy 修改人ID
 	 * @return 当前对象
 	*/
-	public RoleUser setUpdateBy(Long updateBy) {
+	public RoleUser setUpdateBy(String updateBy) {
 		this.updateBy=updateBy;
 		return this;
 	}
@@ -300,7 +300,7 @@ public class RoleUser extends Entity {
 	 * 属性说明 : 删除人ID
 	 * @return 删除人ID
 	*/
-	public Long getDeleteBy() {
+	public String getDeleteBy() {
 		return deleteBy;
 	}
 	
@@ -309,7 +309,7 @@ public class RoleUser extends Entity {
 	 * @param deleteBy 删除人ID
 	 * @return 当前对象
 	*/
-	public RoleUser setDeleteBy(Long deleteBy) {
+	public RoleUser setDeleteBy(String deleteBy) {
 		this.deleteBy=deleteBy;
 		return this;
 	}

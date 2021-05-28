@@ -7,8 +7,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-28 10:53:35
- * @sign 5C1CC468DE2822EACF58868978136604
+ * @since 2021-05-28 15:09:52
+ * @sign A8B11C848685EB7CA54CFBAD270F1F01
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -120,7 +120,7 @@ public class RoleMenuMeta {
 		 * @param createBy 创建人ID
 		 * @return 当前对象
 		*/
-		public RoleMenu setCreateBy(Long createBy) {
+		public RoleMenu setCreateBy(String createBy) {
 			super.change(CREATE_BY,super.getCreateBy(),createBy);
 			super.setCreateBy(createBy);
 			return this;
@@ -142,7 +142,7 @@ public class RoleMenuMeta {
 		 * @param updateBy 修改人ID
 		 * @return 当前对象
 		*/
-		public RoleMenu setUpdateBy(Long updateBy) {
+		public RoleMenu setUpdateBy(String updateBy) {
 			super.change(UPDATE_BY,super.getUpdateBy(),updateBy);
 			super.setUpdateBy(updateBy);
 			return this;
@@ -175,7 +175,7 @@ public class RoleMenuMeta {
 		 * @param deleteBy 删除人ID
 		 * @return 当前对象
 		*/
-		public RoleMenu setDeleteBy(Long deleteBy) {
+		public RoleMenu setDeleteBy(String deleteBy) {
 			super.change(DELETE_BY,super.getDeleteBy(),deleteBy);
 			super.setDeleteBy(deleteBy);
 			return this;

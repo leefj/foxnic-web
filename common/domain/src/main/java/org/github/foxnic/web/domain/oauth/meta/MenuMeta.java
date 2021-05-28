@@ -7,8 +7,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-28 10:53:35
- * @sign B353D9815CD74D3F3D99DB3E7FD2D718
+ * @since 2021-05-28 15:32:38
+ * @sign D8446130ABCD72590077F41DBCBB6A33
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -20,9 +20,19 @@ public class MenuMeta {
 	public static final String ID="id";
 	
 	/**
+	 * 批次号 , 自动生成时的批次号
+	*/
+	public static final String BATCH_ID="batchId";
+	
+	/**
 	 * 图标
 	*/
 	public static final String ICON="icon";
+	
+	/**
+	 * 是否隐藏
+	*/
+	public static final String HIDDEN="hidden";
 	
 	/**
 	 * 样式
@@ -97,7 +107,7 @@ public class MenuMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , ICON , CSS , LABEL , TYPE , PATH , URL , PARENT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , BATCH_ID , ICON , HIDDEN , CSS , LABEL , TYPE , PATH , URL , PARENT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
 	
 	/**
 	 * 代理类
@@ -119,6 +129,17 @@ public class MenuMeta {
 		}
 		
 		/**
+		 * 设置 批次号
+		 * @param batchId 批次号
+		 * @return 当前对象
+		*/
+		public Menu setBatchId(String batchId) {
+			super.change(BATCH_ID,super.getBatchId(),batchId);
+			super.setBatchId(batchId);
+			return this;
+		}
+		
+		/**
 		 * 设置 图标
 		 * @param icon 图标
 		 * @return 当前对象
@@ -126,6 +147,17 @@ public class MenuMeta {
 		public Menu setIcon(String icon) {
 			super.change(ICON,super.getIcon(),icon);
 			super.setIcon(icon);
+			return this;
+		}
+		
+		/**
+		 * 设置 是否隐藏
+		 * @param hidden 是否隐藏
+		 * @return 当前对象
+		*/
+		public Menu setHidden(Integer hidden) {
+			super.change(HIDDEN,super.getHidden(),hidden);
+			super.setHidden(hidden);
 			return this;
 		}
 		
@@ -156,7 +188,7 @@ public class MenuMeta {
 		 * @param type 菜单类型
 		 * @return 当前对象
 		*/
-		public Menu setType(Integer type) {
+		public Menu setType(String type) {
 			super.change(TYPE,super.getType(),type);
 			super.setType(type);
 			return this;
@@ -189,7 +221,7 @@ public class MenuMeta {
 		 * @param parentId 上级ID
 		 * @return 当前对象
 		*/
-		public Menu setParentId(Integer parentId) {
+		public Menu setParentId(String parentId) {
 			super.change(PARENT_ID,super.getParentId(),parentId);
 			super.setParentId(parentId);
 			return this;
@@ -200,7 +232,7 @@ public class MenuMeta {
 		 * @param createBy 创建人ID
 		 * @return 当前对象
 		*/
-		public Menu setCreateBy(Long createBy) {
+		public Menu setCreateBy(String createBy) {
 			super.change(CREATE_BY,super.getCreateBy(),createBy);
 			super.setCreateBy(createBy);
 			return this;
@@ -222,7 +254,7 @@ public class MenuMeta {
 		 * @param updateBy 修改人ID
 		 * @return 当前对象
 		*/
-		public Menu setUpdateBy(Long updateBy) {
+		public Menu setUpdateBy(String updateBy) {
 			super.change(UPDATE_BY,super.getUpdateBy(),updateBy);
 			super.setUpdateBy(updateBy);
 			return this;
@@ -255,7 +287,7 @@ public class MenuMeta {
 		 * @param deleteBy 删除人ID
 		 * @return 当前对象
 		*/
-		public Menu setDeleteBy(Long deleteBy) {
+		public Menu setDeleteBy(String deleteBy) {
 			super.change(DELETE_BY,super.getDeleteBy(),deleteBy);
 			super.setDeleteBy(deleteBy);
 			return this;

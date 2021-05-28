@@ -7,8 +7,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-27 05:28:14
- * @sign CA4F5D37C7562DA3BBCEB5DBE6F806EE
+ * @since 2021-05-28 15:09:51
+ * @sign BC449DA23F65C8308A1FE3D8CC04D04A
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -168,7 +168,7 @@ public class SessionOnlineMeta {
 		 * @param createBy 创建人ID
 		 * @return 当前对象
 		*/
-		public SessionOnline setCreateBy(Long createBy) {
+		public SessionOnline setCreateBy(String createBy) {
 			super.change(CREATE_BY,super.getCreateBy(),createBy);
 			super.setCreateBy(createBy);
 			return this;
@@ -190,7 +190,7 @@ public class SessionOnlineMeta {
 		 * @param updateBy 修改人ID
 		 * @return 当前对象
 		*/
-		public SessionOnline setUpdateBy(Long updateBy) {
+		public SessionOnline setUpdateBy(String updateBy) {
 			super.change(UPDATE_BY,super.getUpdateBy(),updateBy);
 			super.setUpdateBy(updateBy);
 			return this;
@@ -223,7 +223,7 @@ public class SessionOnlineMeta {
 		 * @param deleteBy 删除人ID
 		 * @return 当前对象
 		*/
-		public SessionOnline setDeleteBy(Long deleteBy) {
+		public SessionOnline setDeleteBy(String deleteBy) {
 			super.change(DELETE_BY,super.getDeleteBy(),deleteBy);
 			super.setDeleteBy(deleteBy);
 			return this;

@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-28 10:53:35
- * @sign B353D9815CD74D3F3D99DB3E7FD2D718
+ * @since 2021-05-28 15:32:38
+ * @sign D8446130ABCD72590077F41DBCBB6A33
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -36,10 +36,22 @@ public class Menu extends Entity {
 	private String id;
 	
 	/**
+	 * 批次号：自动生成时的批次号
+	*/
+	@ApiModelProperty(required = false,value="批次号" , notes = "自动生成时的批次号")
+	private String batchId;
+	
+	/**
 	 * 图标：图标
 	*/
 	@ApiModelProperty(required = false,value="图标" , notes = "图标")
 	private String icon;
+	
+	/**
+	 * 是否隐藏：是否隐藏
+	*/
+	@ApiModelProperty(required = true,value="是否隐藏" , notes = "是否隐藏")
+	private Integer hidden;
 	
 	/**
 	 * 样式：样式
@@ -57,7 +69,7 @@ public class Menu extends Entity {
 	 * 菜单类型：菜单类型
 	*/
 	@ApiModelProperty(required = false,value="菜单类型" , notes = "菜单类型")
-	private Integer type;
+	private String type;
 	
 	/**
 	 * 模版路径：模版路径
@@ -75,13 +87,13 @@ public class Menu extends Entity {
 	 * 上级ID：上级ID
 	*/
 	@ApiModelProperty(required = false,value="上级ID" , notes = "上级ID")
-	private Integer parentId;
+	private String parentId;
 	
 	/**
 	 * 创建人ID：创建人ID
 	*/
 	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID")
-	private Long createBy;
+	private String createBy;
 	
 	/**
 	 * 创建时间：创建时间
@@ -93,7 +105,7 @@ public class Menu extends Entity {
 	 * 修改人ID：修改人ID
 	*/
 	@ApiModelProperty(required = false,value="修改人ID" , notes = "修改人ID")
-	private Long updateBy;
+	private String updateBy;
 	
 	/**
 	 * 修改时间：修改时间
@@ -111,7 +123,7 @@ public class Menu extends Entity {
 	 * 删除人ID：删除人ID
 	*/
 	@ApiModelProperty(required = false,value="删除人ID" , notes = "删除人ID")
-	private Long deleteBy;
+	private String deleteBy;
 	
 	/**
 	 * 删除时间：删除时间
@@ -151,6 +163,31 @@ public class Menu extends Entity {
 	*/
 	
 	/**
+	 * 获得 批次号<br>
+	 * 属性说明 : 自动生成时的批次号
+	 * @return 批次号
+	*/
+	public String getBatchId() {
+		return batchId;
+	}
+	
+	/**
+	 * 设置 批次号
+	 * @param batchId 批次号
+	 * @return 当前对象
+	*/
+	public Menu setBatchId(String batchId) {
+		this.batchId=batchId;
+		return this;
+	}
+	
+	/**
+	 * 添加 批次号
+	 * @param batchId 批次号
+	 * @return 当前对象
+	*/
+	
+	/**
 	 * 获得 图标<br>
 	 * 属性说明 : 图标
 	 * @return 图标
@@ -172,6 +209,31 @@ public class Menu extends Entity {
 	/**
 	 * 添加 图标
 	 * @param icon 图标
+	 * @return 当前对象
+	*/
+	
+	/**
+	 * 获得 是否隐藏<br>
+	 * 属性说明 : 是否隐藏
+	 * @return 是否隐藏
+	*/
+	public Integer getHidden() {
+		return hidden;
+	}
+	
+	/**
+	 * 设置 是否隐藏
+	 * @param hidden 是否隐藏
+	 * @return 当前对象
+	*/
+	public Menu setHidden(Integer hidden) {
+		this.hidden=hidden;
+		return this;
+	}
+	
+	/**
+	 * 添加 是否隐藏
+	 * @param hidden 是否隐藏
 	 * @return 当前对象
 	*/
 	
@@ -230,7 +292,7 @@ public class Menu extends Entity {
 	 * 属性说明 : 菜单类型
 	 * @return 菜单类型
 	*/
-	public Integer getType() {
+	public String getType() {
 		return type;
 	}
 	
@@ -239,7 +301,7 @@ public class Menu extends Entity {
 	 * @param type 菜单类型
 	 * @return 当前对象
 	*/
-	public Menu setType(Integer type) {
+	public Menu setType(String type) {
 		this.type=type;
 		return this;
 	}
@@ -305,7 +367,7 @@ public class Menu extends Entity {
 	 * 属性说明 : 上级ID
 	 * @return 上级ID
 	*/
-	public Integer getParentId() {
+	public String getParentId() {
 		return parentId;
 	}
 	
@@ -314,7 +376,7 @@ public class Menu extends Entity {
 	 * @param parentId 上级ID
 	 * @return 当前对象
 	*/
-	public Menu setParentId(Integer parentId) {
+	public Menu setParentId(String parentId) {
 		this.parentId=parentId;
 		return this;
 	}
@@ -330,7 +392,7 @@ public class Menu extends Entity {
 	 * 属性说明 : 创建人ID
 	 * @return 创建人ID
 	*/
-	public Long getCreateBy() {
+	public String getCreateBy() {
 		return createBy;
 	}
 	
@@ -339,7 +401,7 @@ public class Menu extends Entity {
 	 * @param createBy 创建人ID
 	 * @return 当前对象
 	*/
-	public Menu setCreateBy(Long createBy) {
+	public Menu setCreateBy(String createBy) {
 		this.createBy=createBy;
 		return this;
 	}
@@ -380,7 +442,7 @@ public class Menu extends Entity {
 	 * 属性说明 : 修改人ID
 	 * @return 修改人ID
 	*/
-	public Long getUpdateBy() {
+	public String getUpdateBy() {
 		return updateBy;
 	}
 	
@@ -389,7 +451,7 @@ public class Menu extends Entity {
 	 * @param updateBy 修改人ID
 	 * @return 当前对象
 	*/
-	public Menu setUpdateBy(Long updateBy) {
+	public Menu setUpdateBy(String updateBy) {
 		this.updateBy=updateBy;
 		return this;
 	}
@@ -455,7 +517,7 @@ public class Menu extends Entity {
 	 * 属性说明 : 删除人ID
 	 * @return 删除人ID
 	*/
-	public Long getDeleteBy() {
+	public String getDeleteBy() {
 		return deleteBy;
 	}
 	
@@ -464,7 +526,7 @@ public class Menu extends Entity {
 	 * @param deleteBy 删除人ID
 	 * @return 当前对象
 	*/
-	public Menu setDeleteBy(Long deleteBy) {
+	public Menu setDeleteBy(String deleteBy) {
 		this.deleteBy=deleteBy;
 		return this;
 	}

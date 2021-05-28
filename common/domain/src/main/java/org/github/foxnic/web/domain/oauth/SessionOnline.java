@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-27 05:28:14
- * @sign CA4F5D37C7562DA3BBCEB5DBE6F806EE
+ * @since 2021-05-28 15:09:51
+ * @sign BC449DA23F65C8308A1FE3D8CC04D04A
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -69,7 +69,7 @@ public class SessionOnline extends Entity {
 	 * 创建人ID：创建人ID
 	*/
 	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID")
-	private Long createBy;
+	private String createBy;
 	
 	/**
 	 * 创建时间：创建时间
@@ -81,7 +81,7 @@ public class SessionOnline extends Entity {
 	 * 修改人ID：修改人ID
 	*/
 	@ApiModelProperty(required = false,value="修改人ID" , notes = "修改人ID")
-	private Long updateBy;
+	private String updateBy;
 	
 	/**
 	 * 修改时间：修改时间
@@ -99,7 +99,7 @@ public class SessionOnline extends Entity {
 	 * 删除人ID：删除人ID
 	*/
 	@ApiModelProperty(required = false,value="删除人ID" , notes = "删除人ID")
-	private Long deleteBy;
+	private String deleteBy;
 	
 	/**
 	 * 删除时间：删除时间
@@ -268,7 +268,7 @@ public class SessionOnline extends Entity {
 	 * 属性说明 : 创建人ID
 	 * @return 创建人ID
 	*/
-	public Long getCreateBy() {
+	public String getCreateBy() {
 		return createBy;
 	}
 	
@@ -277,7 +277,7 @@ public class SessionOnline extends Entity {
 	 * @param createBy 创建人ID
 	 * @return 当前对象
 	*/
-	public SessionOnline setCreateBy(Long createBy) {
+	public SessionOnline setCreateBy(String createBy) {
 		this.createBy=createBy;
 		return this;
 	}
@@ -318,7 +318,7 @@ public class SessionOnline extends Entity {
 	 * 属性说明 : 修改人ID
 	 * @return 修改人ID
 	*/
-	public Long getUpdateBy() {
+	public String getUpdateBy() {
 		return updateBy;
 	}
 	
@@ -327,7 +327,7 @@ public class SessionOnline extends Entity {
 	 * @param updateBy 修改人ID
 	 * @return 当前对象
 	*/
-	public SessionOnline setUpdateBy(Long updateBy) {
+	public SessionOnline setUpdateBy(String updateBy) {
 		this.updateBy=updateBy;
 		return this;
 	}
@@ -393,7 +393,7 @@ public class SessionOnline extends Entity {
 	 * 属性说明 : 删除人ID
 	 * @return 删除人ID
 	*/
-	public Long getDeleteBy() {
+	public String getDeleteBy() {
 		return deleteBy;
 	}
 	
@@ -402,7 +402,7 @@ public class SessionOnline extends Entity {
 	 * @param deleteBy 删除人ID
 	 * @return 当前对象
 	*/
-	public SessionOnline setDeleteBy(Long deleteBy) {
+	public SessionOnline setDeleteBy(String deleteBy) {
 		this.deleteBy=deleteBy;
 		return this;
 	}
