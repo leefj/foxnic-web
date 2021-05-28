@@ -91,7 +91,7 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null 。");
 		menu.setId(id);
 		menu.setDeleted(dao.getDBTreaty().getTrueValue());
-		menu.setDeleteBy((Long)dao.getDBTreaty().getLoginUserId());
+		menu.setDeleteBy((String)dao.getDBTreaty().getLoginUserId());
 		menu.setDeleteTime(new Date());
 		return dao.updateEntity(menu,SaveMode.NOT_NULL_FIELDS);
 	}

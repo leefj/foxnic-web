@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2021-05-28 10:49:13
+ * @since 2021-05-28 15:32:16
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -230,7 +230,7 @@ public class FoxnicWeb {
 		/**
 		 * 创建人ID
 		*/
-		public static final DBField CREATE_BY = new DBField(DBDataType.LONG , "create_by","createBy","创建人ID","创建人ID",false,false,true);
+		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
 		
 		/**
 		 * 创建时间
@@ -240,7 +240,7 @@ public class FoxnicWeb {
 		/**
 		 * 修改人ID
 		*/
-		public static final DBField UPDATE_BY = new DBField(DBDataType.LONG , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
+		public static final DBField UPDATE_BY = new DBField(DBDataType.STRING , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
 		
 		/**
 		 * 修改时间
@@ -255,7 +255,7 @@ public class FoxnicWeb {
 		/**
 		 * 删除人ID
 		*/
-		public static final DBField DELETE_BY = new DBField(DBDataType.LONG , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
+		public static final DBField DELETE_BY = new DBField(DBDataType.STRING , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
 		
 		/**
 		 * 删除时间
@@ -301,7 +301,7 @@ public class FoxnicWeb {
 		/**
 		 * 创建人ID
 		*/
-		public static final DBField CREATE_BY = new DBField(DBDataType.LONG , "create_by","createBy","创建人ID","创建人ID",false,false,true);
+		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
 		
 		/**
 		 * 创建时间
@@ -311,7 +311,7 @@ public class FoxnicWeb {
 		/**
 		 * 修改人ID
 		*/
-		public static final DBField UPDATE_BY = new DBField(DBDataType.LONG , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
+		public static final DBField UPDATE_BY = new DBField(DBDataType.STRING , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
 		
 		/**
 		 * 修改时间
@@ -326,7 +326,7 @@ public class FoxnicWeb {
 		/**
 		 * 删除人ID
 		*/
-		public static final DBField DELETE_BY = new DBField(DBDataType.LONG , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
+		public static final DBField DELETE_BY = new DBField(DBDataType.STRING , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
 		
 		/**
 		 * 删除时间
@@ -387,7 +387,7 @@ public class FoxnicWeb {
 		/**
 		 * 创建人ID
 		*/
-		public static final DBField CREATE_BY = new DBField(DBDataType.LONG , "create_by","createBy","创建人ID","创建人ID",false,false,true);
+		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
 		
 		/**
 		 * 创建时间
@@ -397,7 +397,7 @@ public class FoxnicWeb {
 		/**
 		 * 修改人ID
 		*/
-		public static final DBField UPDATE_BY = new DBField(DBDataType.LONG , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
+		public static final DBField UPDATE_BY = new DBField(DBDataType.STRING , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
 		
 		/**
 		 * 修改时间
@@ -412,7 +412,7 @@ public class FoxnicWeb {
 		/**
 		 * 删除人ID
 		*/
-		public static final DBField DELETE_BY = new DBField(DBDataType.LONG , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
+		public static final DBField DELETE_BY = new DBField(DBDataType.STRING , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
 		
 		/**
 		 * 删除时间
@@ -468,7 +468,7 @@ public class FoxnicWeb {
 		/**
 		 * 创建人ID
 		*/
-		public static final DBField CREATE_BY = new DBField(DBDataType.LONG , "create_by","createBy","创建人ID","创建人ID",false,false,true);
+		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
 		
 		/**
 		 * 创建时间
@@ -478,7 +478,7 @@ public class FoxnicWeb {
 		/**
 		 * 修改人ID
 		*/
-		public static final DBField UPDATE_BY = new DBField(DBDataType.LONG , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
+		public static final DBField UPDATE_BY = new DBField(DBDataType.STRING , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
 		
 		/**
 		 * 修改时间
@@ -493,7 +493,7 @@ public class FoxnicWeb {
 		/**
 		 * 删除人ID
 		*/
-		public static final DBField DELETE_BY = new DBField(DBDataType.LONG , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
+		public static final DBField DELETE_BY = new DBField(DBDataType.STRING , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
 		
 		/**
 		 * 删除时间
@@ -645,7 +645,7 @@ public class FoxnicWeb {
 		/**
 		 * 创建人ID
 		*/
-		public static final DBField CREATE_BY = new DBField(DBDataType.LONG , "create_by","createBy","创建人ID","创建人ID",false,false,true);
+		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
 		
 		/**
 		 * 创建时间
@@ -655,7 +655,7 @@ public class FoxnicWeb {
 		/**
 		 * 修改人ID
 		*/
-		public static final DBField UPDATE_BY = new DBField(DBDataType.LONG , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
+		public static final DBField UPDATE_BY = new DBField(DBDataType.STRING , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
 		
 		/**
 		 * 修改时间
@@ -670,7 +670,7 @@ public class FoxnicWeb {
 		/**
 		 * 删除人ID
 		*/
-		public static final DBField DELETE_BY = new DBField(DBDataType.LONG , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
+		public static final DBField DELETE_BY = new DBField(DBDataType.STRING , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
 		
 		/**
 		 * 删除时间
@@ -704,9 +704,19 @@ public class FoxnicWeb {
 		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","ID","ID",true,false,false);
 		
 		/**
+		 * 批次号，自动生成时的批次号
+		*/
+		public static final DBField BATCH_ID = new DBField(DBDataType.STRING , "batch_id","batchId","批次号","自动生成时的批次号",false,false,true);
+		
+		/**
 		 * 图标
 		*/
 		public static final DBField ICON = new DBField(DBDataType.STRING , "icon","icon","图标","图标",false,false,true);
+		
+		/**
+		 * 是否隐藏
+		*/
+		public static final DBField HIDDEN = new DBField(DBDataType.INTEGER , "hidden","hidden","是否隐藏","是否隐藏",false,false,false);
 		
 		/**
 		 * 样式
@@ -721,7 +731,7 @@ public class FoxnicWeb {
 		/**
 		 * 菜单类型
 		*/
-		public static final DBField TYPE = new DBField(DBDataType.INTEGER , "type","type","菜单类型","菜单类型",false,false,true);
+		public static final DBField TYPE = new DBField(DBDataType.STRING , "type","type","菜单类型","菜单类型",false,false,true);
 		
 		/**
 		 * 模版路径
@@ -736,12 +746,12 @@ public class FoxnicWeb {
 		/**
 		 * 上级ID
 		*/
-		public static final DBField PARENT_ID = new DBField(DBDataType.INTEGER , "parent_id","parentId","上级ID","上级ID",false,false,true);
+		public static final DBField PARENT_ID = new DBField(DBDataType.STRING , "parent_id","parentId","上级ID","上级ID",false,false,true);
 		
 		/**
 		 * 创建人ID
 		*/
-		public static final DBField CREATE_BY = new DBField(DBDataType.LONG , "create_by","createBy","创建人ID","创建人ID",false,false,true);
+		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
 		
 		/**
 		 * 创建时间
@@ -751,7 +761,7 @@ public class FoxnicWeb {
 		/**
 		 * 修改人ID
 		*/
-		public static final DBField UPDATE_BY = new DBField(DBDataType.LONG , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
+		public static final DBField UPDATE_BY = new DBField(DBDataType.STRING , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
 		
 		/**
 		 * 修改时间
@@ -766,7 +776,7 @@ public class FoxnicWeb {
 		/**
 		 * 删除人ID
 		*/
-		public static final DBField DELETE_BY = new DBField(DBDataType.LONG , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
+		public static final DBField DELETE_BY = new DBField(DBDataType.STRING , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
 		
 		/**
 		 * 删除时间
@@ -779,7 +789,7 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
 		public SYS_MENU() {
-			this.init($NAME,"菜单表" , ID , ICON , CSS , LABEL , TYPE , PATH , URL , PARENT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"菜单表" , ID , BATCH_ID , ICON , HIDDEN , CSS , LABEL , TYPE , PATH , URL , PARENT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final SYS_MENU $TABLE=new SYS_MENU();
 	}
@@ -867,7 +877,7 @@ public class FoxnicWeb {
 		/**
 		 * 创建人ID
 		*/
-		public static final DBField CREATE_BY = new DBField(DBDataType.LONG , "create_by","createBy","创建人ID","创建人ID",false,false,true);
+		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
 		
 		/**
 		 * 创建时间
@@ -877,7 +887,7 @@ public class FoxnicWeb {
 		/**
 		 * 修改人ID
 		*/
-		public static final DBField UPDATE_BY = new DBField(DBDataType.LONG , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
+		public static final DBField UPDATE_BY = new DBField(DBDataType.STRING , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
 		
 		/**
 		 * 修改时间
@@ -892,7 +902,7 @@ public class FoxnicWeb {
 		/**
 		 * 删除人ID
 		*/
-		public static final DBField DELETE_BY = new DBField(DBDataType.LONG , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
+		public static final DBField DELETE_BY = new DBField(DBDataType.STRING , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
 		
 		/**
 		 * 删除时间
@@ -938,7 +948,7 @@ public class FoxnicWeb {
 		/**
 		 * 创建人ID
 		*/
-		public static final DBField CREATE_BY = new DBField(DBDataType.LONG , "create_by","createBy","创建人ID","创建人ID",false,false,true);
+		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
 		
 		/**
 		 * 创建时间
@@ -948,7 +958,7 @@ public class FoxnicWeb {
 		/**
 		 * 修改人ID
 		*/
-		public static final DBField UPDATE_BY = new DBField(DBDataType.LONG , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
+		public static final DBField UPDATE_BY = new DBField(DBDataType.STRING , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
 		
 		/**
 		 * 修改时间
@@ -963,7 +973,7 @@ public class FoxnicWeb {
 		/**
 		 * 删除人ID
 		*/
-		public static final DBField DELETE_BY = new DBField(DBDataType.LONG , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
+		public static final DBField DELETE_BY = new DBField(DBDataType.STRING , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
 		
 		/**
 		 * 删除时间
@@ -1008,7 +1018,7 @@ public class FoxnicWeb {
 		/**
 		 * 创建人ID
 		*/
-		public static final DBField CREATE_BY = new DBField(DBDataType.LONG , "create_by","createBy","创建人ID","创建人ID",false,false,true);
+		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
 		
 		/**
 		 * 创建时间
@@ -1018,7 +1028,7 @@ public class FoxnicWeb {
 		/**
 		 * 修改人ID
 		*/
-		public static final DBField UPDATE_BY = new DBField(DBDataType.LONG , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
+		public static final DBField UPDATE_BY = new DBField(DBDataType.STRING , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
 		
 		/**
 		 * 修改时间
@@ -1033,7 +1043,7 @@ public class FoxnicWeb {
 		/**
 		 * 删除人ID
 		*/
-		public static final DBField DELETE_BY = new DBField(DBDataType.LONG , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
+		public static final DBField DELETE_BY = new DBField(DBDataType.STRING , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
 		
 		/**
 		 * 删除时间
@@ -1078,7 +1088,7 @@ public class FoxnicWeb {
 		/**
 		 * 创建人ID
 		*/
-		public static final DBField CREATE_BY = new DBField(DBDataType.LONG , "create_by","createBy","创建人ID","创建人ID",false,false,true);
+		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
 		
 		/**
 		 * 创建时间
@@ -1088,7 +1098,7 @@ public class FoxnicWeb {
 		/**
 		 * 修改人ID
 		*/
-		public static final DBField UPDATE_BY = new DBField(DBDataType.LONG , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
+		public static final DBField UPDATE_BY = new DBField(DBDataType.STRING , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
 		
 		/**
 		 * 修改时间
@@ -1103,7 +1113,7 @@ public class FoxnicWeb {
 		/**
 		 * 删除人ID
 		*/
-		public static final DBField DELETE_BY = new DBField(DBDataType.LONG , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
+		public static final DBField DELETE_BY = new DBField(DBDataType.STRING , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
 		
 		/**
 		 * 删除时间
@@ -1208,7 +1218,7 @@ public class FoxnicWeb {
 		/**
 		 * 创建人ID
 		*/
-		public static final DBField CREATE_BY = new DBField(DBDataType.LONG , "create_by","createBy","创建人ID","创建人ID",false,false,true);
+		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
 		
 		/**
 		 * 创建时间
@@ -1218,7 +1228,7 @@ public class FoxnicWeb {
 		/**
 		 * 修改人ID
 		*/
-		public static final DBField UPDATE_BY = new DBField(DBDataType.LONG , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
+		public static final DBField UPDATE_BY = new DBField(DBDataType.STRING , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
 		
 		/**
 		 * 修改时间
@@ -1233,7 +1243,7 @@ public class FoxnicWeb {
 		/**
 		 * 删除人ID
 		*/
-		public static final DBField DELETE_BY = new DBField(DBDataType.LONG , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
+		public static final DBField DELETE_BY = new DBField(DBDataType.STRING , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
 		
 		/**
 		 * 删除时间
@@ -1309,7 +1319,7 @@ public class FoxnicWeb {
 		/**
 		 * 创建人ID
 		*/
-		public static final DBField CREATE_BY = new DBField(DBDataType.LONG , "create_by","createBy","创建人ID","创建人ID",false,false,true);
+		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
 		
 		/**
 		 * 创建时间
@@ -1319,7 +1329,7 @@ public class FoxnicWeb {
 		/**
 		 * 修改人ID
 		*/
-		public static final DBField UPDATE_BY = new DBField(DBDataType.LONG , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
+		public static final DBField UPDATE_BY = new DBField(DBDataType.STRING , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
 		
 		/**
 		 * 修改时间
@@ -1334,7 +1344,7 @@ public class FoxnicWeb {
 		/**
 		 * 删除人ID
 		*/
-		public static final DBField DELETE_BY = new DBField(DBDataType.LONG , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
+		public static final DBField DELETE_BY = new DBField(DBDataType.STRING , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
 		
 		/**
 		 * 删除时间

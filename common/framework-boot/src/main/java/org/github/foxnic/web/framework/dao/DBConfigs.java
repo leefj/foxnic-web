@@ -2,7 +2,8 @@ package org.github.foxnic.web.framework.dao;
 
 import javax.sql.DataSource;
 
-import org.github.foxnic.web.relation.TailoringRelationManager;
+import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_SEQUENCE;
+import org.github.foxnic.web.relation.FoxnicWebRelationManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -57,10 +58,10 @@ public class DBConfigs {
 			dao.setPrintSQL(printSQL);
 			dao.setPrintSQLSimple(printSQL);
 			dao.setDBTreaty(dbTreaty);
-			dao.setRelationManager(new TailoringRelationManager());
+			dao.setRelationManager(new FoxnicWebRelationManager());
 			
 			//设置序列相关的配置
-			dao.setSequenceTable("sys_sequence");
+			dao.setSequenceTable(SYS_SEQUENCE.$NAME);
 			dao.setSequenceProcedure("NEXT_VAL");
 			
 			

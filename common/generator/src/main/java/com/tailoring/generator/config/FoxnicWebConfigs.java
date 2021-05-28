@@ -4,6 +4,7 @@ import java.io.File;
 
 import org.github.foxnic.web.framework.dao.DBTreatyConfig;
 import org.github.foxnic.web.framework.nacos.NacosConfig;
+import org.github.foxnic.web.relation.FoxnicWebRelationManager;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.github.foxnic.commons.cache.Variable;
@@ -166,7 +167,7 @@ public class FoxnicWebConfigs {
 		// 设置数据库规约
 		DBTreaty dbTreaty = (new DBTreatyConfig()).getDBTreaty();
 		dao.setDBTreaty(dbTreaty);
-//		dao.setRelationManager(new TailoringRelationManager());
+		dao.setRelationManager(new FoxnicWebRelationManager());
 		
  
 	}

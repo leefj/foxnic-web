@@ -1,5 +1,14 @@
 package org.github.foxnic.web.relation.modules;
 
+import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_MENU;
+import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_ROLE;
+import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_ROLE_MENU;
+import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_ROLE_USER;
+import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER;
+import org.github.foxnic.web.domain.oauth.Menu;
+import org.github.foxnic.web.domain.oauth.Role;
+import org.github.foxnic.web.domain.oauth.User;
+
 import com.github.foxnic.dao.relation.RelationManager;
 
 public class SystemRelationManager extends RelationManager {
@@ -27,21 +36,8 @@ public class SystemRelationManager extends RelationManager {
 //			.using(SYS_MENU.PARENT_ID)
 //			.addRoute(SYS_MENU.ID);
 //
-//		// 用户 - 角色
-//		this.property(User.class, "allRoles", Role.class, "所有角色清单", "拥有当前用户的所有角色清单").list()
-//			.using(SYS_USER.ID)
-//			.addRoute(SYS_USER_ROLE.$TABLE)
-//			.after((user, roles) -> {
-//					// 按逻辑条件过滤
-//					roles = roles.stream().filter(r -> {
-//						return !r.isDeleted();
-//					}).collect(Collectors.toList());
-//					// 处理角色
-//					for (Role r : roles) {
-//						r.setName(r.getName() + "-" + System.currentTimeMillis());
-//					}
-//					return roles;
-//				}).fork(16);
+		
+		
 //
 //		// 用户 - 角色
 //		this.property(User.class, "validRoles", Role.class, "可用角色清单", "拥有当前用户的可用角色清单").list()
@@ -75,14 +71,8 @@ public class SystemRelationManager extends RelationManager {
 	}
 	
 	private void setupRelations() {
-		// 菜单 - 菜单层级关系
-//		this.from( SYS_MENU.ID ).join( SYS_MENU.PARENT_ID );
-//		// 用户 - 用户角色关系
-//		this.from( SYS_USER.ID ).join( SYS_USER_ROLE.USER_ID );
-//		// 用户角色关系 - 角色
-//		this.from( SYS_USER_ROLE.ROLE_ID ).join( SYS_ROLE.ID );
-//		// 账户 - 员工
-//		this.from( SYS_USER.ID ).join( CRM_EMPLOYEE.USER_ID );
+		
+		
 	}
 
 }

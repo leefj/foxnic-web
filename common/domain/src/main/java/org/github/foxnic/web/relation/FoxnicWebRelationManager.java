@@ -1,15 +1,18 @@
 package org.github.foxnic.web.relation;
 
+import org.github.foxnic.web.relation.modules.OAuthRelationManager;
 import org.github.foxnic.web.relation.modules.SystemRelationManager;
 
 import com.github.foxnic.commons.concurrent.task.SimpleTaskManager;
+import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.dao.relation.RelationManager;
 import com.github.foxnic.springboot.spring.SpringUtil;
 
-public class TailoringRelationManager extends RelationManager {
+public class FoxnicWebRelationManager extends RelationManager {
 
-	public TailoringRelationManager() {
+	public FoxnicWebRelationManager() {
 		super(
+				new OAuthRelationManager(),
 				new SystemRelationManager()
 		);
 		//启动动态刷入
@@ -28,10 +31,11 @@ public class TailoringRelationManager extends RelationManager {
 		}
 	}
 
+	
 	protected void doReConfigAndValidate() {
-		//TailoringRelationManager.this.reconfig(); 
-		//TailoringRelationManager.this.validate();
-		//Logger.info("TailoringRelationManager Reconfig");
+		FoxnicWebRelationManager.this.reconfig(); 
+		FoxnicWebRelationManager.this.validate();
+//		Logger.info("FoxnicWebRelationManager Reconfig");
 	}
 
 	
