@@ -37,13 +37,13 @@ public interface #(simpleName) {
 	public static final String INSERT = API_PREFIX + "insert";
 	
 	/**
-	 * 按主键删除#(topic)
+	 * 删除#(topic)
 	 */
 	public static final String DELETE = API_PREFIX + "delete";
 	
 	
 	/**
-	 * 按主键删除#(topic)
+	 * 批量删除#(topic)
 	 */
 	public static final String BATCH_DELETE = API_PREFIX + "batch-delete";
 	
@@ -60,27 +60,27 @@ public interface #(simpleName) {
 	public static final String SAVE = API_PREFIX + "save";
 	
 	/**
-	 * 按主键获取#(topic)
+	 * 获取#(topic)
 	 */
 	public static final String GET_BY_ID = API_PREFIX + "get-by-id";
 	
 	/**
-	 * 查询全部符合条件的#(topic)
+	 * 查询#(topic)
 	 */
 	public static final String QUERY_LIST = API_PREFIX + "query-list";
 	
 	/**
-	 * 分页查询符合条件的#(topic)
+	 * 分页查询#(topic)
 	 */
 	public static final String QUERY_PAGED_LIST = API_PREFIX + "query-paged-list";
 	
 	/**
-	 * 导出Excel
+	 * 导出#(topic)数据(Excel)
 	 */
 	public static final String EXPORT_EXCEL = API_PREFIX + "export-excel";
 	
 	/**
-	 * 导入Excel
+	 * 导入#(topic)数据(Excel)
 	 */
 	public static final String IMPORT_EXCEL = API_PREFIX + "import-excel";
 	
@@ -91,14 +91,14 @@ public interface #(simpleName) {
 	Result<#(poSimpleName)> insert(#(voSimpleName) #(voVar));
 	
 	/**
-	 * 按主键删除#(topic)
+	 * 删除#(topic)
 	*/
 	@RequestMapping(#(agentSimpleName).DELETE)
 	Result<#(poSimpleName)> deleteById(#(controllerMethodParameterDeclare4DeleteById));
 	
 	
 	/**
-	 * 按主键删除#(topic)
+	 * 批量删除#(topic)
 	*/
 	@RequestMapping(#(agentSimpleName).BATCH_DELETE)
 	Result<#(poSimpleName)> deleteByIds(List<#(pkType)> id);
@@ -116,19 +116,19 @@ public interface #(simpleName) {
 	Result<#(poSimpleName)> save(#(voSimpleName) #(voVar));
 	
 	/**
-	 * 按主键获取#(topic)
+	 * 获取#(topic)
 	*/
 	@RequestMapping(#(agentSimpleName).GET_BY_ID)
 	Result<#(poSimpleName)> getById(#(controllerMethodParameterDeclare4GetById));
 	
 	/**
-	 * 查询全部符合条件的#(topic)
+	 * 查询#(topic)
 	*/
 	@RequestMapping(#(agentSimpleName).QUERY_LIST)
 	Result<List<#(poSimpleName)>> queryList(#(voSimpleName) sample);
 	
 	/**
-	 * 分页查询符合条件的#(topic)
+	 * 分页查询#(topic)
 	*/
 	@RequestMapping(#(agentSimpleName).QUERY_PAGED_LIST)
 	Result<PagedList<#(poSimpleName)>> queryPagedList(#(voSimpleName) sample);
