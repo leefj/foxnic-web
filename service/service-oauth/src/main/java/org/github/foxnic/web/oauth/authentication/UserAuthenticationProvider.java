@@ -2,6 +2,7 @@ package org.github.foxnic.web.oauth.authentication;
 
 import java.util.Date;
 
+import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER;
 import org.github.foxnic.web.domain.oauth.SessionOnline;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.oauth.domain.SOSUserDetails;
@@ -52,6 +53,7 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
         // Token
         String token = PasswordUtils.encodePassword(System.currentTimeMillis() + salt, salt);
         userInfo.setToken(token);
+        userDetailsService.update(SYS_USER.LAST_LOGIN_TIME, new Date(), userInfo.getUser().getId());
         
         //
         SessionOnline online=new SessionOnline();
