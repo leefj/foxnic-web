@@ -91,7 +91,7 @@ public class OauthClientServiceImpl extends SuperService<OauthClient> implements
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null 。");
 		oauthClient.setId(id);
 		oauthClient.setDeleted(dao.getDBTreaty().getTrueValue());
-		oauthClient.setDeleteBy((Long)dao.getDBTreaty().getLoginUserId());
+		oauthClient.setDeleteBy((String)dao.getDBTreaty().getLoginUserId());
 		oauthClient.setDeleteTime(new Date());
 		return dao.updateEntity(oauthClient,SaveMode.NOT_NULL_FIELDS);
 	}

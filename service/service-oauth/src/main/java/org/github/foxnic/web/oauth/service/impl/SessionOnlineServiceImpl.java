@@ -98,7 +98,7 @@ public class SessionOnlineServiceImpl extends SuperService<SessionOnline> implem
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null 。");
 		sessionOnline.setId(id);
 		sessionOnline.setDeleted(dao.getDBTreaty().getTrueValue());
-		sessionOnline.setDeleteBy((Long)dao.getDBTreaty().getLoginUserId());
+		sessionOnline.setDeleteBy((String)dao.getDBTreaty().getLoginUserId());
 		sessionOnline.setDeleteTime(new Date());
 		return dao.updateEntity(sessionOnline,SaveMode.NOT_NULL_FIELDS);
 	}

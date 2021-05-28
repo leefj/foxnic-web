@@ -91,7 +91,7 @@ public class RoleMenuServiceImpl extends SuperService<RoleMenu> implements IRole
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null 。");
 		roleMenu.setId(id);
 		roleMenu.setDeleted(dao.getDBTreaty().getTrueValue());
-		roleMenu.setDeleteBy((Long)dao.getDBTreaty().getLoginUserId());
+		roleMenu.setDeleteBy((String)dao.getDBTreaty().getLoginUserId());
 		roleMenu.setDeleteTime(new Date());
 		return dao.updateEntity(roleMenu,SaveMode.NOT_NULL_FIELDS);
 	}

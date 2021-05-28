@@ -1,10 +1,13 @@
 package org.github.foxnic.web.oauth.service.impl;
 
+ 
 import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.github.foxnic.web.domain.oauth.Menu;
+import org.github.foxnic.web.domain.oauth.Role;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.oauth.domain.SOSUserDetails;
@@ -21,6 +24,8 @@ import com.github.foxnic.springboot.api.error.ErrorDesc;
 import com.github.foxnic.springboot.mvc.Result;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
+
+ 
 
 /**
  * <p>
@@ -90,7 +95,7 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null 。");
 		user.setId(id);
 		user.setDeleted(dao.getDBTreaty().getTrueValue());
-		user.setDeleteBy((Long)dao.getDBTreaty().getLoginUserId());
+		user.setDeleteBy((String)dao.getDBTreaty().getLoginUserId());
 		user.setDeleteTime(new Date());
 		return dao.updateEntity(user,SaveMode.NOT_NULL_FIELDS);
 	}
@@ -202,6 +207,7 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 	 * */
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     	User user=dao.queryEntity(User.class, new ConditionExpr("(name = ? or mobile=? ) and valid = 1 and deleted = 0",username,username));
+    	dao.join(user,Role.class,Menu.class);
     	//授权
     	if (user!=null) {
 //    		user.privileges().addAll(findPrivileges(user.id()));

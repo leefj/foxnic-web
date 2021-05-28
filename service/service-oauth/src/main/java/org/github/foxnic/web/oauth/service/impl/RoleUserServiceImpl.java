@@ -91,7 +91,7 @@ public class RoleUserServiceImpl extends SuperService<RoleUser> implements IRole
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null 。");
 		roleUser.setId(id);
 		roleUser.setDeleted(dao.getDBTreaty().getTrueValue());
-		roleUser.setDeleteBy((Long)dao.getDBTreaty().getLoginUserId());
+		roleUser.setDeleteBy((String)dao.getDBTreaty().getLoginUserId());
 		roleUser.setDeleteTime(new Date());
 		return dao.updateEntity(roleUser,SaveMode.NOT_NULL_FIELDS);
 	}
