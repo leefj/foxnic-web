@@ -2,6 +2,9 @@ package org.github.foxnic.web.oauth.config.web;
 
 import org.github.foxnic.web.oauth.authentication.UserAuthenticationProcessingFilter;
 import org.github.foxnic.web.oauth.authorization.AuthenticationFilter;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.github.foxnic.web.oauth.authentication.UserAuthenticationEntryPoint;
 import org.github.foxnic.web.oauth.service.IUserService;
 import org.github.foxnic.web.oauth.url.UrlAccessDecisionManager;
@@ -26,6 +29,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+
+import com.github.foxnic.springboot.web.WebContext;
  
 
 /**
@@ -84,16 +89,39 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter  {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
+    
+    public static String[] IGNORS= {"/assets/**","/pages/tpl/**","/favicon.ico","/module/**","/**/*.css","/**/*.js","/login.html","/security/validate-code/get/**"};
+    
+    /**
+     * 检查是否是忽略的资源
+     * */
+    public static boolean isIgnoredResource(HttpServletRequest request) {
+    	boolean ignored=false;
+    	String uri=request.getRequestURI();
+    	for (String pattern : IGNORS) {
+    		ignored = WebContext.isMatchPattern(pattern,uri);
+    		if(ignored) {
+    			return true;
+    		}
+		}
+    	return false;
+    	
+    }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
         // Spring Security 过滤器忽略以下资源
-        web.ignoring().antMatchers("/assets/**")
-        .antMatchers("/pages/tpl/**")
-        .antMatchers("/favicon.ico")
-        .antMatchers("/module/**")
-        .antMatchers("/**/*.css")
-        .antMatchers("/**/*.js");
+//        web.ignoring().antMatchers("/assets/**")
+//        .antMatchers("/pages/tpl/**")
+//        .antMatchers("/favicon.ico")
+//        .antMatchers("/module/**")
+//        .antMatchers("/**/*.css")
+//        .antMatchers("/**/*.js");
+        
+        for (String pattern : IGNORS) {
+        	web.ignoring().antMatchers(pattern);
+		}
+        
     }
 
 

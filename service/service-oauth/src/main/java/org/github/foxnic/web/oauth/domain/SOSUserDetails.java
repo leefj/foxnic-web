@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class SOSUserDetails implements UserDetails {
 
+	public static final String TOKEN_KEY = "x-token";
 	
 	private User user;
 	

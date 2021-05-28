@@ -3,6 +3,7 @@ package org.github.foxnic.web.oauth.url;
 import java.util.Collection;
 
 import org.github.foxnic.web.oauth.Constants;
+import org.github.foxnic.web.proxy.oauth.UserServiceProxy;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.web.FilterInvocation;
@@ -34,10 +35,10 @@ public class UrlFilterInvocationSecurityMetadataSource implements FilterInvocati
      */
     @Override
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
-        // 获取当前请求url
-        String requestUrl = ((FilterInvocation) object).getRequestUrl();
+        // 请求的url
+        String url = ((FilterInvocation)object).getRequestUrl();
         // TODO 忽略url请放在此处进行过滤放行
-        if ("/login".equals(requestUrl) || requestUrl.contains("logout")) {
+        if (UserServiceProxy.LOGIN_URI.equals(url) || UserServiceProxy.LOGOUT_URI.equals(url)) {
             return null;
         }
 

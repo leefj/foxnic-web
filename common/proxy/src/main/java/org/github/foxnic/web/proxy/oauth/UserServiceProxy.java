@@ -153,6 +153,11 @@ public interface UserServiceProxy {
 	 * 账户登录
 	 * */
 	public static final String LOGIN_URI = "/security/login";
+	
+	/**
+	 * 账户登出
+	 * */
+	public static final String LOGOUT_URI = "/security/logout";
 
 	/**
 	 * 统一的调用接口，实现在单体应用和微服务应用下的无差异调用

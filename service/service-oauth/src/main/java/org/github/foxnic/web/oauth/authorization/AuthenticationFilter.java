@@ -11,18 +11,23 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.github.foxnic.web.oauth.Constants;
+import org.github.foxnic.web.oauth.config.web.WebSecurityConfigurer;
 import org.github.foxnic.web.oauth.domain.SOSUserDetails;
 import org.github.foxnic.web.oauth.service.IUserService;
 import org.github.foxnic.web.oauth.utils.MultiReadHttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.web.method.HandlerMethod;
 
 import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.springboot.mvc.RequestParameter;
+import com.github.foxnic.springboot.web.WebContext;
 
 /**
  *  <p> 访问鉴权 - 每次访问接口都会经过此过滤器 </p>
@@ -35,7 +40,11 @@ import com.github.foxnic.springboot.mvc.RequestParameter;
 @Component
 public class AuthenticationFilter extends OncePerRequestFilter {
 
+	
     private final IUserService userDetailsService;
+    
+    @Autowired
+    private WebContext webContent;
 
     protected AuthenticationFilter(IUserService userDetailsService) {
         this.userDetailsService = userDetailsService;
@@ -43,35 +52,42 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        
-    	RequestParameter parameter=RequestParameter.get();
-    	
-    	System.out.println("请求头类型： " + request.getContentType());
-        if ((request.getContentType() == null && request.getContentLength() > 0) || (request.getContentType() != null && !request.getContentType().contains(Constants.REQUEST_HEADERS_CONTENT_TYPE))) {
+ 
+    	//是否是一个被忽略的资源
+    	boolean ignored=WebSecurityConfigurer.isIgnoredResource(request);
+    	if(ignored) {
+    		filterChain.doFilter(request, response);
+            return;
+    	}
+ 
+    	//获得上下文 SecurityContext
+    	SecurityContext context = SecurityContextHolder.getContext();
+    	//如果已经登录
+        if (context.getAuthentication() != null && context.getAuthentication().isAuthenticated()) {
             filterChain.doFilter(request, response);
             return;
         }
+        
+        //如果是静态资源
+        boolean isStaticResorce=WebContext.isStaticResource(request);
+        if(isStaticResorce) {
+        	 filterChain.doFilter(request, response);
+             return;
+        }
+    	
+    	MultiReadHttpServletResponse wrappedResponse = new MultiReadHttpServletResponse(response);
+    	RequestParameter parameter=RequestParameter.get();
 
-//        MultiReadHttpServletRequest wrappedRequest = new MultiReadHttpServletRequest(request);
-        MultiReadHttpServletResponse wrappedResponse = new MultiReadHttpServletResponse(response);
-        StopWatch stopWatch = new StopWatch();
-        try {
-            stopWatch.start();
-            // 记录请求的消息体
-//            logRequestBody(parameter.getRequestWrapper());
-
-//            SecurityContext context = SecurityContextHolder.getContext();
-//            if (context.getAuthentication() != null && context.getAuthentication().isAuthenticated()) {
-//                filterChain.doFilter(wrappedRequest, wrappedResponse);
-//                return;
-//            }
-
-
-//            String token = "123";
-            // 前后端分离情况下，前端登录后将token储存在cookie中，每次访问接口时通过token去拿用户权限
-            String token = parameter.getHeader().get(Constants.REQUEST_HEADER);
-            Logger.debug("后台检查令牌:{}", token);
-            if (StringUtils.isNotBlank(token)) {
+//        if ((request.getContentType() == null && request.getContentLength() > 0) || (request.getContentType() != null && !request.getContentType().contains(Constants.REQUEST_HEADERS_CONTENT_TYPE))) {
+//            filterChain.doFilter(request, response);
+//            return;
+//        }
+ 
+    	
+ 
+        String token = parameter.getHeader().get(SOSUserDetails.TOKEN_KEY);
+          
+        if (StringUtils.isNotBlank(token)) {
                 // 检查token
             	SOSUserDetails securityUser = userDetailsService.getUserByToken(token);
                 if (securityUser == null || securityUser.getUser() == null) {
@@ -82,12 +98,12 @@ public class AuthenticationFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
             filterChain.doFilter( request , wrappedResponse);
-        } finally {
-            stopWatch.stop();
-            long usedTimes = stopWatch.getTotalTimeMillis();
-            // 记录响应的消息体
-//            logResponseBody(wrappedRequest, wrappedResponse, usedTimes);
-        }
+//        } finally {
+////            stopWatch.stop();
+////            long usedTimes = stopWatch.getTotalTimeMillis();
+//            // 记录响应的消息体
+////            logResponseBody(wrappedRequest, wrappedResponse, usedTimes);
+//        }
 
     }
 
