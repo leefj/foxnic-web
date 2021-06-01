@@ -17,9 +17,12 @@ spring:
     druid:
       primary:
         driver-class-name: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://39.105.191.22:3306/eam?useSSL=false&serverTimezone=Hongkong&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&allowPublicKeyRetrieval=true
-        username: root
-        password: root_pwd
+        #url: jdbc:mysql://39.105.191.22:3306/eam?useSSL=false&serverTimezone=Hongkong&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&allowPublicKeyRetrieval=true&tinyInt1isBit=false
+        #username: root
+        #password: root_pwd
+        url: jdbc:mysql://47.92.240.43:3306/foxnic-web?useSSL=false&serverTimezone=Hongkong&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&allowPublicKeyRetrieval=true&tinyInt1isBit=false
+        username: tailoring
+        password: Tailoring@2021
         min-idle: 1
         initial-size: 2
         max-active: 64
@@ -35,12 +38,25 @@ spring:
     cache: false
 
 
+
 security: 
   #会话时长，单位秒
   sessionTime : 1200
   sessionCacheType: local
   ignored: /assets/** , /pages/tpl/** , /favicon.ico , /module/** ,  /**/*.css , /**/*.js
   loginPage: /login.html
+
+# jwt
+jwt:
+  config:
+    enabled: true
+    key-location: felordcn.jks
+    key-alias: felordcn
+    key-pass: 123456
+    iss: felord.cn
+    sub: all
+    access-exp-days: 30
+    refresh-exp-days: 90
 
 
 logging:
