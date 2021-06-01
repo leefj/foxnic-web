@@ -1,4 +1,6 @@
 server:
+  session: 
+    timeout: 20
   port: 1899
  
 spring:
@@ -31,6 +33,15 @@ spring:
     content-type: text/html
     mode: HTML5
     cache: false
+
+
+security: 
+  #会话时长，单位秒
+  sessionTime : 1200
+  sessionCacheType: local
+  ignored: /assets/** , /pages/tpl/** , /favicon.ico , /module/** ,  /**/*.css , /**/*.js
+  loginPage: /login.html
+
 
 logging:
   config: classpath:logback-config.xml  

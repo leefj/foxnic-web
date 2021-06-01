@@ -1,15 +1,14 @@
 package org.github.foxnic.web.oauth.config.web;
 
+import org.github.foxnic.web.oauth.authentication.UserAuthenticationEntryPoint;
 import org.github.foxnic.web.oauth.authentication.UserAuthenticationProcessingFilter;
 import org.github.foxnic.web.oauth.authorization.AuthenticationFilter;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.github.foxnic.web.oauth.authentication.UserAuthenticationEntryPoint;
 import org.github.foxnic.web.oauth.service.IUserService;
+import org.github.foxnic.web.oauth.session.SessionManager;
 import org.github.foxnic.web.oauth.url.UrlAccessDecisionManager;
 import org.github.foxnic.web.oauth.url.UrlAccessDeniedHandler;
 import org.github.foxnic.web.oauth.url.UrlFilterInvocationSecurityMetadataSource;
+import org.github.foxnic.web.proxy.oauth.UserServiceProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,8 +28,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-
-import com.github.foxnic.springboot.web.WebContext;
  
 
 /**
@@ -41,6 +38,8 @@ import com.github.foxnic.springboot.web.WebContext;
 @EnableGlobalMethodSecurity(prePostEnabled = true, proxyTargetClass = true)
 public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter  {
 
+	@Autowired
+	private SecurityConfigs  securityConfigs;
 
     @Autowired
     private IUserService userService;
@@ -74,6 +73,10 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter  {
     private final UrlAccessDeniedHandler urlAccessDeniedHandler;
     
     
+//    @Autowired
+//    private SessionManager sessionManager;
+    
+    
     public WebSecurityConfigurer(AuthenticationFilter myAuthenticationFilter, UserAuthenticationEntryPoint adminAuthenticationEntryPoint, UserAuthenticationProcessingFilter adminAuthenticationProcessingFilter, UrlFilterInvocationSecurityMetadataSource urlFilterInvocationSecurityMetadataSource, UrlAccessDeniedHandler urlAccessDeniedHandler, UrlAccessDecisionManager urlAccessDecisionManager) {
         this.myAuthenticationFilter = myAuthenticationFilter;
         this.adminAuthenticationEntryPoint = adminAuthenticationEntryPoint;
@@ -89,24 +92,14 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter  {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
+ 
+    //public static final String LOGIN_PAGE="/login.html";
     
-    public static String[] IGNORS= {"/assets/**","/pages/tpl/**","/favicon.ico","/module/**","/**/*.css","/**/*.js","/login.html","/security/validate-code/get/**"};
     
-    /**
-     * 检查是否是忽略的资源
-     * */
-    public static boolean isIgnoredResource(HttpServletRequest request) {
-    	boolean ignored=false;
-    	String uri=request.getRequestURI();
-    	for (String pattern : IGNORS) {
-    		ignored = WebContext.isMatchPattern(pattern,uri);
-    		if(ignored) {
-    			return true;
-    		}
-		}
-    	return false;
-    	
-    }
+    
+    //public static String[] IGNORS= {"/assets/**","/pages/tpl/**","/favicon.ico","/module/**","/**/*.css","/**/*.js","/login.html","/security/validate-code/get/**"};
+    
+   
 
     @Override
     public void configure(WebSecurity web) throws Exception {
@@ -118,7 +111,7 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter  {
 //        .antMatchers("/**/*.css")
 //        .antMatchers("/**/*.js");
         
-        for (String pattern : IGNORS) {
+        for (String pattern : securityConfigs.getIgnored()) {
         	web.ignoring().antMatchers(pattern);
 		}
         
@@ -140,6 +133,9 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter  {
         http.exceptionHandling().authenticationEntryPoint(adminAuthenticationEntryPoint);
         // 登录过后访问无权限的接口时自定义403响应内容
         http.exceptionHandling().accessDeniedHandler(urlAccessDeniedHandler);
+//        http.sessionManagement().invalidSessionStrategy(sessionManager);
+        
+        http.logout().logoutUrl(UserServiceProxy.LOGOUT_URI);
 
         // url权限认证处理
         registry.withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
@@ -151,6 +147,7 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter  {
             }
         });
  
+        
         
 //        http.authorizeRequests()
 //                // permitAll() 的URL路径属于公开访问，不需要权限
@@ -190,9 +187,9 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter  {
         // 标识访问 `/home` 这个接口，需要具备`ADMIN`角色
 //      registry.antMatchers("/home").hasRole("ADMIN");
       // 标识只能在 服务器本地ip[127.0.0.1或localhost] 访问 `/home` 这个接口，其他ip地址无法访问
-      registry.antMatchers("/home").hasIpAddress("127.0.0.1");
+//      registry.antMatchers("/home").hasIpAddress("127.0.0.1");
       // 允许匿名的url - 可理解为放行接口 - 多个接口使用,分割
-      registry.antMatchers("/login", "/index").permitAll();
+//      registry.antMatchers("/login", "/index").permitAll();
 //      registry.antMatchers("/**").access("hasAuthority('admin')");
       // OPTIONS(选项)：查找适用于一个特定网址资源的通讯选择。 在不需执行具体的涉及数据传输的动作情况下， 允许客户端来确定与资源相关的选项以及 / 或者要求， 或是一个服务器的性能
       registry.antMatchers(HttpMethod.OPTIONS, "/**").denyAll();
@@ -240,4 +237,10 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter  {
 //    public SOSContextHolder sosContextHolder() {
 //        return new SOSContextHolder();
 //    }
+    
+
+    @Bean
+    public SessionManager sessionManager(){
+        return new SessionManager();
+    }
 }

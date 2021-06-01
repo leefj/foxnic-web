@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-28 15:09:51
- * @sign BC449DA23F65C8308A1FE3D8CC04D04A
+ * @since 2021-05-31 11:26:35
+ * @sign 1751F9D041361D6747A314B070E61793
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -52,6 +52,12 @@ public class SessionOnline extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="登录时间" , notes = "登录时间")
 	private Date loginTime;
+	
+	/**
+	 * 最近一次交互时间：最近一次交互时间
+	*/
+	@ApiModelProperty(required = false,value="最近一次交互时间" , notes = "最近一次交互时间")
+	private Date interactTime;
 	
 	/**
 	 * 登出时间：登出时间
@@ -210,6 +216,31 @@ public class SessionOnline extends Entity {
 	/**
 	 * 添加 登录时间
 	 * @param loginTime 登录时间
+	 * @return 当前对象
+	*/
+	
+	/**
+	 * 获得 最近一次交互时间<br>
+	 * 属性说明 : 最近一次交互时间
+	 * @return 最近一次交互时间
+	*/
+	public Date getInteractTime() {
+		return interactTime;
+	}
+	
+	/**
+	 * 设置 最近一次交互时间
+	 * @param interactTime 最近一次交互时间
+	 * @return 当前对象
+	*/
+	public SessionOnline setInteractTime(Date interactTime) {
+		this.interactTime=interactTime;
+		return this;
+	}
+	
+	/**
+	 * 添加 最近一次交互时间
+	 * @param interactTime 最近一次交互时间
 	 * @return 当前对象
 	*/
 	

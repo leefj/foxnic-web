@@ -29,9 +29,11 @@ import io.swagger.annotations.ApiOperation;
 @Api(tags = "验证码服务")
 @ApiSort(1)
 @Controller
-@RequestMapping("/security/validate-code")
+@RequestMapping(ValidateCodeController.VCODE_URI)
 public class ValidateCodeController {
  
+	public static final String VCODE_URI="/security/validate-code";
+	
 	@Autowired
 	private IValidateCodeService validateCodeService;
     /**
@@ -44,7 +46,7 @@ public class ValidateCodeController {
 		@ApiImplicitParam(name = "deviceId" , value = "客户端唯一码" , required = true , dataTypeClass=String.class),
 	})
 	@NotNull(name = "deviceId")
-    @GetMapping("/get/{deviceId}")
+    @GetMapping("/{deviceId}")
     public void createCode(@PathVariable String deviceId, HttpServletResponse response) throws Exception {
         Assert.notNull(deviceId, "机器码不能为空");
         // 设置请求头为输出图片类型

@@ -6,12 +6,18 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_SESSION_ONLINE;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.Role;
+import org.github.foxnic.web.domain.oauth.SessionOnline;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.framework.dao.DBConfigs;
-import org.github.foxnic.web.oauth.domain.SOSUserDetails;
+import org.github.foxnic.web.oauth.config.web.SecurityConfigs;
+import org.github.foxnic.web.oauth.service.ISessionOnlineService;
 import org.github.foxnic.web.oauth.service.IUserService;
+import org.github.foxnic.web.oauth.session.SessionManager;
+import org.github.foxnic.web.oauth.session.SessionUser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -45,10 +51,23 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 	@Resource(name=DBConfigs.PRIMARY_DAO) 
 	private DAO dao=null;
 	
+	
+	
+	
 	/**
 	 * 获得 DAO 对象
 	 * */
 	public DAO dao() { return dao; }
+	
+	@Autowired
+	private SecurityConfigs securityConfigs;
+	
+	@Autowired
+	private ISessionOnlineService onlineService;
+	
+//	@Autowired
+//	private SessionManager sessionManager;
+ 
 	
 	/**
 	 * 插入实体
@@ -207,21 +226,52 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 	 * */
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     	User user=dao.queryEntity(User.class, new ConditionExpr("(name = ? or mobile=? ) and valid = 1 and deleted = 0",username,username));
-    	dao.join(user,Role.class,Menu.class);
     	//授权
     	if (user!=null) {
 //    		user.privileges().addAll(findPrivileges(user.id()));
+    		dao.join(user,Role.class,Menu.class);
     	}
         if (user == null || user.getValid()==0) {
             throw new UsernameNotFoundException("无效账户 [" + username + "]");
         }
-        return new SOSUserDetails(user);
+        return new SessionUser(null,user,null);
     }
+	
+	public void updateInteractTime() {
+		SessionUser user=SessionUser.getCurrent();
+		if(user!=null) {
+			Date date=user.interact();
+			if(user.getToken()!=null) {
+//				sessionManager.putInteract(user.getToken(), date);
+//				int i=dao.update(SYS_SESSION_ONLINE.$NAME).set(SYS_SESSION_ONLINE.INTERACT_TIME, new Date()).where().and("token=?",user.getToken()).top().execute();
+//				return i>0;
+			}
+		}
+//		return true;
+	}
 
 	@Override
-	public SOSUserDetails getUserByToken(String token) {
-		User user=dao.queryEntity(User.class, new ConditionExpr("token = ? and valid = 0",token));
-		 return new SOSUserDetails(user);
+	public SessionUser getUserByToken(String token) {
+		
+		SessionOnline online=onlineService.queryEntity(SessionOnline.create().setToken(token));
+		//无效的 Token
+		if(online==null) {
+			return null;
+		}
+		SessionUser userDetails=new SessionUser(token,null,online);
+		if(userDetails.isSessionExpire()) {
+			return userDetails;
+		}
+ 
+		//查询登录用户
+		User user=this.getById(online.getUserId());
+		
+		if(user.getValid()!=1 && user.getDeleted()!=0) {
+			return null;
+		}
+		dao.join(user,Menu.class,Role.class);
+		userDetails=new SessionUser(token,user,online);
+		return userDetails;
 	}
 
 }

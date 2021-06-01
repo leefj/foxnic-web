@@ -7,8 +7,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-28 15:32:38
- * @sign D8446130ABCD72590077F41DBCBB6A33
+ * @since 2021-05-31 13:23:57
+ * @sign 9C93F3D90FF93A7FF204DD4F687A1B82
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -23,6 +23,11 @@ public class MenuMeta {
 	 * 批次号 , 自动生成时的批次号
 	*/
 	public static final String BATCH_ID="batchId";
+	
+	/**
+	 * 权限 , 权限标识
+	*/
+	public static final String AUTHORITY="authority";
 	
 	/**
 	 * 图标
@@ -107,7 +112,7 @@ public class MenuMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , BATCH_ID , ICON , HIDDEN , CSS , LABEL , TYPE , PATH , URL , PARENT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , BATCH_ID , AUTHORITY , ICON , HIDDEN , CSS , LABEL , TYPE , PATH , URL , PARENT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
 	
 	/**
 	 * 代理类
@@ -136,6 +141,17 @@ public class MenuMeta {
 		public Menu setBatchId(String batchId) {
 			super.change(BATCH_ID,super.getBatchId(),batchId);
 			super.setBatchId(batchId);
+			return this;
+		}
+		
+		/**
+		 * 设置 权限
+		 * @param authority 权限
+		 * @return 当前对象
+		*/
+		public Menu setAuthority(String authority) {
+			super.change(AUTHORITY,super.getAuthority(),authority);
+			super.setAuthority(authority);
 			return this;
 		}
 		

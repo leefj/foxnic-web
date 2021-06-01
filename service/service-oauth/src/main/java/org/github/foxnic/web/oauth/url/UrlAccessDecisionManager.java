@@ -14,6 +14,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
+import com.github.foxnic.springboot.mvc.RequestParameter;
+
 /**
  * <p> 对访问url进行权限认证处理 </p>
  *
@@ -32,26 +34,32 @@ public class UrlAccessDecisionManager implements AccessDecisionManager {
      */
     @Override
     public void decide(Authentication authentication, Object object, Collection<ConfigAttribute> collection) throws AccessDeniedException, AuthenticationException {
-        // 遍历角色
+ 
+    	// 遍历角色
         for (ConfigAttribute ca : collection) {
-            // ① 当前url请求需要的权限
+            //当前url请求需要的权限
             String needRole = ca.getAttribute();
-            if (Constants.ROLE_LOGIN.equals(needRole)) {
+            if (Constants.INVALID_SESSION.equals(needRole)) {
                 if (authentication instanceof AnonymousAuthenticationToken) {
-                    throw new BadCredentialsException("未登录!");
+                    throw new BadCredentialsException("未登录");
                 } else {
-                    throw new AccessDeniedException("未授权该url！");
+                    throw new AccessDeniedException("URL 未授权 , "+RequestParameter.get().getRequest().getRequestURL());
+                }
+            } else if (Constants.PERMISSION_REQUIRE.equals(needRole)) {
+                if (authentication instanceof AnonymousAuthenticationToken) {
+                    throw new BadCredentialsException("未登录");
+                } else {
+                    throw new AccessDeniedException("URL 未授权 , "+RequestParameter.get().getRequest().getRequestURL());
                 }
             }
-
-            // ② 当前用户所具有的角色
-            Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-            for (GrantedAuthority authority : authorities) {
-                // 只要包含其中一个角色即可访问
-                if (authority.getAuthority().equals(needRole)) {
-                    return;
-                }
-            }
+//            // ② 当前用户所具有的角色
+//            Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+//            for (GrantedAuthority authority : authorities) {
+//                // 只要包含其中一个角色即可访问
+//                if (authority.getAuthority().equals(needRole)) {
+//                    return;
+//                }
+//            }
         }
         throw new AccessDeniedException("请联系管理员分配权限！");
     }

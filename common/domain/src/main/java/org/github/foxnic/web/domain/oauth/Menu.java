@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-28 15:32:38
- * @sign D8446130ABCD72590077F41DBCBB6A33
+ * @since 2021-05-31 13:23:57
+ * @sign 9C93F3D90FF93A7FF204DD4F687A1B82
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -40,6 +40,12 @@ public class Menu extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="批次号" , notes = "自动生成时的批次号")
 	private String batchId;
+	
+	/**
+	 * 权限：权限标识
+	*/
+	@ApiModelProperty(required = false,value="权限" , notes = "权限标识")
+	private String authority;
 	
 	/**
 	 * 图标：图标
@@ -184,6 +190,31 @@ public class Menu extends Entity {
 	/**
 	 * 添加 批次号
 	 * @param batchId 批次号
+	 * @return 当前对象
+	*/
+	
+	/**
+	 * 获得 权限<br>
+	 * 属性说明 : 权限标识
+	 * @return 权限
+	*/
+	public String getAuthority() {
+		return authority;
+	}
+	
+	/**
+	 * 设置 权限
+	 * @param authority 权限
+	 * @return 当前对象
+	*/
+	public Menu setAuthority(String authority) {
+		this.authority=authority;
+		return this;
+	}
+	
+	/**
+	 * 添加 权限
+	 * @param authority 权限
 	 * @return 当前对象
 	*/
 	

@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.github.foxnic.web.domain.oauth.User;
-import org.github.foxnic.web.oauth.domain.SOSUserDetails;
+import org.github.foxnic.web.oauth.session.SessionUser;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -31,7 +31,7 @@ public class UserAuthenticationSuccessHandler implements AuthenticationSuccessHa
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse response, Authentication auth) throws IOException, ServletException {
-        SOSUserDetails securityUser = ((SOSUserDetails) auth.getPrincipal());
+        SessionUser securityUser = ((SessionUser) auth.getPrincipal());
         
         JSONObject ret=new JSONObject();
         

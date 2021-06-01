@@ -46,8 +46,13 @@ public class Constants {
     public static final String REQUEST_HEADERS_CONTENT_TYPE = "application/json";
 
     /**
-     * 未登录者角色
+     * 未登录
      */
-    public static final String ROLE_LOGIN = "role_login";
+    public static final String INVALID_SESSION = "INVALID_SESSION";
+    
+    /**
+     * 缺少权限
+     */
+    public static final String PERMISSION_REQUIRE = "PERMISSION_REQUIRE";
 
 }

@@ -7,8 +7,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-28 15:09:51
- * @sign BC449DA23F65C8308A1FE3D8CC04D04A
+ * @since 2021-05-31 11:26:35
+ * @sign 1751F9D041361D6747A314B070E61793
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -33,6 +33,11 @@ public class SessionOnlineMeta {
 	 * 登录时间
 	*/
 	public static final String LOGIN_TIME="loginTime";
+	
+	/**
+	 * 最近一次交互时间
+	*/
+	public static final String INTERACT_TIME="interactTime";
 	
 	/**
 	 * 登出时间
@@ -87,7 +92,7 @@ public class SessionOnlineMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , TOKEN , USER_ID , LOGIN_TIME , LOGOUT_TIME , ONLINE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , TOKEN , USER_ID , LOGIN_TIME , INTERACT_TIME , LOGOUT_TIME , ONLINE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
 	
 	/**
 	 * 代理类
@@ -138,6 +143,17 @@ public class SessionOnlineMeta {
 		public SessionOnline setLoginTime(Date loginTime) {
 			super.change(LOGIN_TIME,super.getLoginTime(),loginTime);
 			super.setLoginTime(loginTime);
+			return this;
+		}
+		
+		/**
+		 * 设置 最近一次交互时间
+		 * @param interactTime 最近一次交互时间
+		 * @return 当前对象
+		*/
+		public SessionOnline setInteractTime(Date interactTime) {
+			super.change(INTERACT_TIME,super.getInteractTime(),interactTime);
+			super.setInteractTime(interactTime);
 			return this;
 		}
 		

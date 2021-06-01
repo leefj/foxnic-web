@@ -11,9 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.github.foxnic.web.oauth.Constants;
+import org.github.foxnic.web.oauth.config.web.SecurityConfigs;
 import org.github.foxnic.web.oauth.config.web.WebSecurityConfigurer;
-import org.github.foxnic.web.oauth.domain.SOSUserDetails;
 import org.github.foxnic.web.oauth.service.IUserService;
+import org.github.foxnic.web.oauth.session.SessionUser;
 import org.github.foxnic.web.oauth.utils.MultiReadHttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
@@ -25,8 +26,10 @@ import org.springframework.util.StopWatch;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.method.HandlerMethod;
 
+import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.springboot.mvc.RequestParameter;
+import com.github.foxnic.springboot.mvc.Result;
 import com.github.foxnic.springboot.web.WebContext;
 
 /**
@@ -40,11 +43,13 @@ import com.github.foxnic.springboot.web.WebContext;
 @Component
 public class AuthenticationFilter extends OncePerRequestFilter {
 
+	@Autowired
+	private SecurityConfigs  securityConfigs;
 	
     private final IUserService userDetailsService;
     
     @Autowired
-    private WebContext webContent;
+    private WebContext webContext;
 
     protected AuthenticationFilter(IUserService userDetailsService) {
         this.userDetailsService = userDetailsService;
@@ -53,59 +58,102 @@ public class AuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
  
-    	//是否是一个被忽略的资源
-    	boolean ignored=WebSecurityConfigurer.isIgnoredResource(request);
+    	//判断是否需要身份认证
+    	boolean ignored=securityConfigs.isIgnoredResource(request);
     	if(ignored) {
+    		userDetailsService.updateInteractTime();
     		filterChain.doFilter(request, response);
             return;
     	}
+    	
+    	 //判定请求性质
+        boolean isStaticResorce=WebContext.isStaticResource(request);
+        boolean isRestApi=false;
+        if(!isStaticResorce) {
+        	HandlerMethod handlerMethod = webContext.getHandlerMethod(request);
+            if(handlerMethod!=null) {
+            	isRestApi=Result.class.isAssignableFrom(handlerMethod.getMethod().getReturnType());
+            }
+        }
  
     	//获得上下文 SecurityContext
     	SecurityContext context = SecurityContextHolder.getContext();
-    	//如果已经登录
+    	//如果已经登录，去验证权限
         if (context.getAuthentication() != null && context.getAuthentication().isAuthenticated()) {
+        	SessionUser user=SessionUser.getCurrent();
+        	if(user.isSessionExpire()) {
+        		context.setAuthentication(null);
+        		request.getSession().invalidate();
+        		handleResponse(filterChain, request, response, isStaticResorce, isRestApi);
+        		return;
+        	}
+        	userDetailsService.updateInteractTime();
             filterChain.doFilter(request, response);
             return;
         }
         
-        //如果是静态资源
-        boolean isStaticResorce=WebContext.isStaticResource(request);
-        if(isStaticResorce) {
-        	 filterChain.doFilter(request, response);
-             return;
-        }
-    	
-    	MultiReadHttpServletResponse wrappedResponse = new MultiReadHttpServletResponse(response);
+       
+        
+        
+        //获取 token
     	RequestParameter parameter=RequestParameter.get();
-
-//        if ((request.getContentType() == null && request.getContentLength() > 0) || (request.getContentType() != null && !request.getContentType().contains(Constants.REQUEST_HEADERS_CONTENT_TYPE))) {
-//            filterChain.doFilter(request, response);
-//            return;
-//        }
+        String token = parameter.getHeader().get(SessionUser.TOKEN_KEY);
+        
+        //如果未登录，且无token
+        if(StringUtil.isBlank(token)) {
+        	handleResponse(filterChain,request,response, isStaticResorce, isRestApi);
+        	return;
+        }
+        // 检查 token 登录情况
+    	SessionUser securityUser = userDetailsService.getUserByToken(token);
+    	//如果token无效或登录超时
+    	if(securityUser==null || securityUser.isSessionExpire()) {
+    		handleResponse(filterChain,request,response, isStaticResorce, isRestApi);
+    		return;
+    	}
  
-    	
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(securityUser, null, securityUser.getAuthorities());
+        // 全局注入用户基本信息
+        SecurityContextHolder.getContext().setAuthentication(authentication);
  
-        String token = parameter.getHeader().get(SOSUserDetails.TOKEN_KEY);
-          
-        if (StringUtils.isNotBlank(token)) {
-                // 检查token
-            	SOSUserDetails securityUser = userDetailsService.getUserByToken(token);
-                if (securityUser == null || securityUser.getUser() == null) {
-                    throw new AccessDeniedException("TOKEN已过期，请重新登录！");
-                }
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(securityUser, null, securityUser.getAuthorities());
-                // 全局注入角色权限信息和登录用户基本信息
-                SecurityContextHolder.getContext().setAuthentication(authentication);
-            }
-            filterChain.doFilter( request , wrappedResponse);
-//        } finally {
-////            stopWatch.stop();
-////            long usedTimes = stopWatch.getTotalTimeMillis();
-//            // 记录响应的消息体
-////            logResponseBody(wrappedRequest, wrappedResponse, usedTimes);
+//        //如果未登录，且是静态资源，跳转到登录页
+//        
+//        if(isStaticResorce) {
+//        	 response.sendRedirect(securityConfigs.getLoginPage());
+//             return;
 //        }
-
+//        
+//       
+//        HandlerMethod handlerMethod = webContext.getHandlerMethod(request);
+//        
+//        //如果未登录，无对应的实现方法，跳转到登录页
+//        if(handlerMethod==null) {
+//        	response.sendRedirect(securityConfigs.getLoginPage());
+//        	return;
+//        }
+//        //如果未登录，且返回值类型不是 Result，跳转到登录页
+//        if(!Result.class.isAssignableFrom(handlerMethod.getMethod().getReturnType())) {
+//        	response.sendRedirect(securityConfigs.getLoginPage());
+//        	return;
+//        }
+// 
+       
+        
+        filterChain.doFilter(request , response);
     }
+
+	private void handleResponse(FilterChain filterChain,HttpServletRequest request,HttpServletResponse response, boolean isStaticResorce, boolean isRestApi)
+			throws IOException, ServletException {
+		if(isStaticResorce || !isRestApi) {
+			//跳转到登录页
+			response.sendRedirect(securityConfigs.getLoginPage());
+			return;
+		} else {
+			//返回JSON提示
+			filterChain.doFilter(request, response);
+			return;
+		}
+	}
 
 //    private String logRequestBody(HttpServletRequestWrapper request) {
 //    	HttpServletRequestWrapper wrapper = request;

@@ -2,7 +2,7 @@ package org.github.foxnic.web.oauth.service;
 import java.util.List;
 
 import org.github.foxnic.web.domain.oauth.User;
-import org.github.foxnic.web.oauth.domain.SOSUserDetails;
+import org.github.foxnic.web.oauth.session.SessionUser;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import com.github.foxnic.dao.data.PagedList;
@@ -268,6 +268,8 @@ public interface IUserService extends UserDetailsService {
 	 * */
 	<T> List<T> queryValues(DBField field, Class<T> type, String condition,Object... ps);
 
-	SOSUserDetails getUserByToken(String token);
+	SessionUser getUserByToken(String token);
+	
+	void updateInteractTime();
  
 }

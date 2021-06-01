@@ -10,6 +10,7 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;
 
+import com.github.foxnic.springboot.api.error.CommonError;
 import com.github.foxnic.springboot.api.error.ErrorDesc;
 import com.github.foxnic.springboot.web.ResponseUtils;
 
@@ -27,6 +28,10 @@ import com.github.foxnic.springboot.web.ResponseUtils;
 public class UrlAccessDeniedHandler implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException e) throws IOException, ServletException {
-        ResponseUtils.out(response, ErrorDesc.failure("403").message(e.getMessage()));
+    	if(e instanceof AccessDeniedException) {
+    		ResponseUtils.out(response, ErrorDesc.failure(CommonError.PERMISSION_REQUIRED).message(e.getMessage()));
+    	} else {
+    		ResponseUtils.out(response, ErrorDesc.failure(CommonError.SESSION_INVALID).message(e.getMessage()));
+    	}
     }
 }

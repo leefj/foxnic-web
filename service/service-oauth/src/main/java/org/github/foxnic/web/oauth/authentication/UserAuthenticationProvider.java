@@ -5,9 +5,9 @@ import java.util.Date;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER;
 import org.github.foxnic.web.domain.oauth.SessionOnline;
 import org.github.foxnic.web.domain.oauth.User;
-import org.github.foxnic.web.oauth.domain.SOSUserDetails;
 import org.github.foxnic.web.oauth.service.ISessionOnlineService;
 import org.github.foxnic.web.oauth.service.IUserService;
+import org.github.foxnic.web.oauth.session.SessionUser;
 import org.github.foxnic.web.oauth.utils.PasswordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -42,7 +42,7 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
         String identity = (String) authentication.getPrincipal();
         String passwd = (String) authentication.getCredentials();
 
-        SOSUserDetails userInfo = (SOSUserDetails) userDetailsService.loadUserByUsername(identity);
+        SessionUser userInfo = (SessionUser) userDetailsService.loadUserByUsername(identity);
         String salt=userInfo.getUser().getSalt();
         //核对密码
         boolean isValid = PasswordUtils.isValidPassword(passwd, userInfo.getPassword(), salt);
@@ -57,9 +57,11 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
         
         //
         SessionOnline online=new SessionOnline();
+        online.setUserId(userInfo.getUser().getId());
         online.setToken(token);
         online.setOnline(1);
         online.setLoginTime(new Date());
+        online.setInteractTime(new Date());
         onlineService.insert(online);
         //
         return new UsernamePasswordAuthenticationToken(userInfo, passwd, userInfo.getAuthorities());

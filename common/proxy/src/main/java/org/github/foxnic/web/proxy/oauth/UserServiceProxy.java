@@ -152,7 +152,7 @@ public interface UserServiceProxy {
 	/**
 	 * 账户登录
 	 * */
-	public static final String LOGIN_URI = "/security/login";
+	public static final String LOGIN_URI= "/security/login";
 	
 	/**
 	 * 账户登出

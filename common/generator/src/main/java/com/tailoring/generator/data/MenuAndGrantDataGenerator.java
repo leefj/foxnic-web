@@ -90,6 +90,7 @@ public class MenuAndGrantDataGenerator {
 	
 	private String generateMenus(DBTable table, Class proxy, Class page, String parentId) throws Exception {
 		
+		String authorityPrefix=table.name()+"::";
 		//批次号
 		String batchId=IDGenerator.getSnowflakeIdString();
 		
@@ -99,7 +100,7 @@ public class MenuAndGrantDataGenerator {
 		topic=StringUtil.removeLast(topic, "数据表");
 		topic=StringUtil.removeLast(topic, "表");
 	 
-		
+		 
 		//插入模块目录
 		Menu listMenu=null;
 		Menu formMenu=null;
@@ -141,10 +142,12 @@ public class MenuAndGrantDataGenerator {
 		
 		if(formMenu==null || listMenu==null) return null;
 		
+		listMenu.setAuthority(authorityPrefix+"list::view");
 		listMenu.setBatchId(batchId);
 		formMenu.setBatchId(batchId);
 		listMenu.setParentId(parentId);
 		formMenu.setParentId(listMenu.getId());
+		formMenu.setAuthority(authorityPrefix+"form::view");
 		dao.insertEntity(formMenu);
 		dao.insertEntity(listMenu);	
 	 
@@ -156,6 +159,7 @@ public class MenuAndGrantDataGenerator {
 		api.setHidden(1);
 		api.setType(MenuType.folder.name());
 		api.setParentId(listMenu.getId());
+		api.setAuthority(authorityPrefix+"apiset");
 		api.setBatchId(batchId);
 		dao.insertEntity(api);	
 		
@@ -178,6 +182,7 @@ public class MenuAndGrantDataGenerator {
 			rest.setId(IDGenerator.getSnowflakeIdString());
 			rest.setType(MenuType.api.name());
 			rest.setHidden(1);
+			rest.setAuthority(authorityPrefix+"api::"+name.toLowerCase());
 			rest.setParentId(api.getId());
 			rest.setPath(value);
 			rest.setLabel(doc);
