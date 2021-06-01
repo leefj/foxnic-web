@@ -31,7 +31,8 @@ import com.github.foxnic.springboot.web.ResponseUtils;
 @Component
 public class SimpleAuthenticationEntryPoint implements AuthenticationEntryPoint {
 	
-	public static void handleException(HttpServletResponse response, AuthenticationException e) {
+	public static void handleException(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) {
+		String uri=request.getRequestURI();
 		Result result;
         if (e instanceof UsernameNotFoundException) {
         	 result = ErrorDesc.failure(CommonError.USER_NOT_EXISTS);
@@ -56,6 +57,6 @@ public class SimpleAuthenticationEntryPoint implements AuthenticationEntryPoint 
 	
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException, ServletException {
-    	handleException(response, e);
+    	handleException(request,response,e);
     }
 }

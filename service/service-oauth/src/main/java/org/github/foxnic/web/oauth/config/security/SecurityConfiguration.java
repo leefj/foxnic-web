@@ -3,6 +3,7 @@ package org.github.foxnic.web.oauth.config.security;
 
 import javax.annotation.Resource;
 
+import org.github.foxnic.web.oauth.config.jwt.JwtProperties;
 import org.github.foxnic.web.oauth.exception.SimpleAccessDeniedHandler;
 import org.github.foxnic.web.oauth.exception.SimpleAuthenticationEntryPoint;
 import org.github.foxnic.web.oauth.login.PreLoginFilter;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -21,12 +23,11 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
-import com.github.foxnic.springboot.spring.SpringUtil;
 
 /**
  * CustomSpring
@@ -40,29 +41,18 @@ import com.github.foxnic.springboot.spring.SpringUtil;
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 public class SecurityConfiguration {
 	
-    private static final String LOGIN_PROCESSING_URL = UserServiceProxy.LOGIN_URI;
-
-
-    
-    /**
-     * Json login post processor json login post processor.
-     *
-     * @return the json login post processor
-     */
-//    @Bean
-//    public JsonLoginPostProcessor jsonLoginPostProcessor(){
-//        return new JsonLoginPostProcessor();
-//    }
+   
+ 
 
     /**
-     * Pre login filter pre login filter.
+     * 登录前的参数转换过滤器
      *
      * @param loginPostProcessors the login post processors
      * @return the pre login filter
      */
     @Bean
     public PreLoginFilter preLoginFilter(){
-        return new PreLoginFilter(LOGIN_PROCESSING_URL);
+        return new PreLoginFilter(UserServiceProxy.LOGIN_URI);
     }
     
     
@@ -83,20 +73,24 @@ public class SecurityConfiguration {
      */
     @Configuration
     @Order(SecurityProperties.BASIC_AUTH_ORDER)
-    static class DefaultConfigurerAdapter extends WebSecurityConfigurerAdapter {
+    @EnableConfigurationProperties(org.github.foxnic.web.oauth.config.security.SecurityProperties.class)
+	static class DefaultConfigurerAdapter extends WebSecurityConfigurerAdapter {
 
-      @Resource
-      private PreLoginFilter preLoginFilter;
+    	@Autowired
+    	private org.github.foxnic.web.oauth.config.security.SecurityProperties securityProperties;
+    	
+    	@Resource
+    	private PreLoginFilter preLoginFilter;
       
-      @Autowired
-      private AuthenticationSuccessHandler authenticationSuccessHandler;
-      @Autowired
-      private AuthenticationFailureHandler authenticationFailureHandler;
+    	@Autowired
+    	private AuthenticationSuccessHandler authenticationSuccessHandler;
+    	@Autowired
+    	private AuthenticationFailureHandler authenticationFailureHandler;
       
-      @Autowired
-      private SimpleAuthenticationEntryPoint simpleAuthenticationEntryPoint;
-      @Autowired
-      private SimpleAccessDeniedHandler simpleAccessDeniedHandler;
+    	@Autowired
+    	private SimpleAuthenticationEntryPoint simpleAuthenticationEntryPoint;
+    	@Autowired
+    	private SimpleAccessDeniedHandler simpleAccessDeniedHandler;
  
         @Override
         protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -105,12 +99,23 @@ public class SecurityConfiguration {
 
         @Override
         public void configure(WebSecurity web) throws Exception  {
+
+            for (String pattern : securityProperties.getIgnoredUrls()) {
+            	web.ignoring().antMatchers(pattern);
+    		}
+            web.ignoring().antMatchers(securityProperties.getLoginPage());
             super.configure(web);
         }
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {
-            http.csrf().disable()
+            
+        	//禁用Session
+        	http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        	
+        	http.authorizeRequests().antMatchers(securityProperties.getLoginPage()).permitAll();
+        	
+        	http.csrf().disable()
                     .cors()
                     .and()
                     //登录与鉴权异常处理
@@ -121,9 +126,8 @@ public class SecurityConfiguration {
                     .addFilterBefore(preLoginFilter, UsernamePasswordAuthenticationFilter.class)
                     //formLogin
                     .formLogin()
-                    .loginProcessingUrl(LOGIN_PROCESSING_URL)
-//                    .successForwardUrl(SecurityController.SUCCESS_URL)
-//                    .failureForwardUrl(SecurityController.FAILURE_URL)
+                    .loginPage(securityProperties.getLoginPage())
+                    .loginProcessingUrl(UserServiceProxy.LOGIN_URI)
                     .successHandler(authenticationSuccessHandler)
                     .failureHandler(authenticationFailureHandler)
                     .and()

@@ -10,7 +10,6 @@ import java.util.Set;
 
 import org.github.foxnic.web.oauth.config.user.SessionUser;
 import org.github.foxnic.web.oauth.exception.SimpleAuthenticationEntryPoint;
-import org.github.foxnic.web.oauth.jwt.JwtProperties;
 import org.github.foxnic.web.oauth.jwt.JwtTokenCacheStorage;
 import org.github.foxnic.web.oauth.jwt.JwtTokenGenerator;
 import org.github.foxnic.web.oauth.jwt.JwtTokenPair;
@@ -43,7 +42,6 @@ import com.github.foxnic.springboot.web.ResponseUtils;
  * @since 16 :54 2019/10/25
  */
 @EnableConfigurationProperties(JwtProperties.class)
-@ConditionalOnProperty(prefix = "jwt.config",name = "enabled")
 @Configuration
 public class JwtConfiguration {
 
@@ -116,7 +114,7 @@ public class JwtConfiguration {
     @Bean
     public AuthenticationFailureHandler authenticationFailureHandler() {
         return (request, response, e) -> {
-        	SimpleAuthenticationEntryPoint.handleException(response, e);
+        	SimpleAuthenticationEntryPoint.handleException(request,response, e);
         };
     }
 

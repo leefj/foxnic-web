@@ -1,4 +1,4 @@
-package org.github.foxnic.web.oauth.jwt;
+package org.github.foxnic.web.oauth.config.jwt;
 
  
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -11,13 +11,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @author Felordcn
  * @since 15 :06 2019/10/25
  */
-@ConfigurationProperties(prefix=JwtProperties.JWT_PREFIX)
+@ConfigurationProperties(prefix="security.jwt")
 public class JwtProperties {
-    static final String JWT_PREFIX= "jwt.config";
-    /**
-     * 是否可用
-     */
-    private boolean enabled;
+   
     /**
      * jks 路径
      */
@@ -46,12 +42,7 @@ public class JwtProperties {
      * refresh jwt token 有效天数
      */
     private int refreshExpDays;
-	public boolean isEnabled() {
-		return enabled;
-	}
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
+	 
 	public String getKeyLocation() {
 		return keyLocation;
 	}

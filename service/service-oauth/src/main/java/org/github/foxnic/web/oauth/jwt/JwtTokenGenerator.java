@@ -9,6 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import java.util.Set;
 
+import org.github.foxnic.web.oauth.config.jwt.JwtProperties;
 import org.springframework.security.jwt.Jwt;
 import org.springframework.security.jwt.JwtHelper;
 import org.springframework.security.jwt.crypto.sign.RsaSigner;
