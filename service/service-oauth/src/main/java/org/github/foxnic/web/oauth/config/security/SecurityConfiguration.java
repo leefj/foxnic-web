@@ -1,9 +1,9 @@
 package org.github.foxnic.web.oauth.config.security;
 
-
 import javax.annotation.Resource;
 
 import org.github.foxnic.web.oauth.config.jwt.JwtProperties;
+import org.github.foxnic.web.oauth.config.security.SecurityProperties.SecurityMode;
 import org.github.foxnic.web.oauth.exception.SimpleAccessDeniedHandler;
 import org.github.foxnic.web.oauth.exception.SimpleAuthenticationEntryPoint;
 import org.github.foxnic.web.oauth.login.PreLoginFilter;
@@ -40,102 +40,98 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @ConditionalOnClass(WebSecurityConfigurerAdapter.class)
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 public class SecurityConfiguration {
-	
-   
- 
 
-    /**
-     * 登录前的参数转换过滤器
-     *
-     * @param loginPostProcessors the login post processors
-     * @return the pre login filter
-     */
-    @Bean
-    public PreLoginFilter preLoginFilter(){
-        return new PreLoginFilter(UserServiceProxy.LOGIN_URI);
-    }
-    
-    
-    /**
-     * 替换默认的 DaoAuthenticationProvider
-     * */
-    @Bean
-    public DaoAuthenticationProvider daoAuthenticationProvider(UserDetailsManager mngr){
-    	DaoAuthenticationProvider provider=new DaoAuthenticationProvider();
-    	//当账户不存在时，显示账户不存在
-    	provider.setHideUserNotFoundExceptions(false);
-    	provider.setUserDetailsService(mngr);
-        return provider;
-    }
+	/**
+	 * 登录前的参数转换过滤器
+	 *
+	 * @param loginPostProcessors the login post processors
+	 * @return the pre login filter
+	 */
+	@Bean
+	public PreLoginFilter preLoginFilter() {
+		return new PreLoginFilter(UserServiceProxy.LOGIN_URI);
+	}
 
-    /**
-     * The type Default configurer adapter.
-     */
-    @Configuration
-    @Order(SecurityProperties.BASIC_AUTH_ORDER)
-    @EnableConfigurationProperties(org.github.foxnic.web.oauth.config.security.SecurityProperties.class)
+	/**
+	 * 替换默认的 DaoAuthenticationProvider
+	 */
+	@Bean
+	public DaoAuthenticationProvider daoAuthenticationProvider(UserDetailsManager mngr) {
+		DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+		// 当账户不存在时，显示账户不存在
+		provider.setHideUserNotFoundExceptions(false);
+		provider.setUserDetailsService(mngr);
+		return provider;
+	}
+
+	/**
+	 * The type Default configurer adapter.
+	 */
+	@Configuration
+	@Order(SecurityProperties.BASIC_AUTH_ORDER)
+	@EnableConfigurationProperties(org.github.foxnic.web.oauth.config.security.SecurityProperties.class)
 	static class DefaultConfigurerAdapter extends WebSecurityConfigurerAdapter {
 
-    	@Autowired
-    	private org.github.foxnic.web.oauth.config.security.SecurityProperties securityProperties;
-    	
-    	@Resource
-    	private PreLoginFilter preLoginFilter;
-      
-    	@Autowired
-    	private AuthenticationSuccessHandler authenticationSuccessHandler;
-    	@Autowired
-    	private AuthenticationFailureHandler authenticationFailureHandler;
-      
-    	@Autowired
-    	private SimpleAuthenticationEntryPoint simpleAuthenticationEntryPoint;
-    	@Autowired
-    	private SimpleAccessDeniedHandler simpleAccessDeniedHandler;
- 
-        @Override
-        protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-            super.configure(auth);
-        }
+		@Autowired
+		private org.github.foxnic.web.oauth.config.security.SecurityProperties securityProperties;
 
-        @Override
-        public void configure(WebSecurity web) throws Exception  {
+		@Resource
+		private PreLoginFilter preLoginFilter;
 
-            for (String pattern : securityProperties.getIgnoredUrls()) {
-            	web.ignoring().antMatchers(pattern);
-    		}
-            web.ignoring().antMatchers(securityProperties.getLoginPage());
-            super.configure(web);
-        }
+		@Autowired
+		private AuthenticationSuccessHandler authenticationSuccessHandler;
+		@Autowired
+		private AuthenticationFailureHandler authenticationFailureHandler;
 
-        @Override
-        protected void configure(HttpSecurity http) throws Exception {
-            
-        	//禁用Session
-        	http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        	
-        	http.authorizeRequests().antMatchers(securityProperties.getLoginPage()).permitAll();
-        	
-        	http.csrf().disable()
-                    .cors()
-                    .and()
-                    //登录与鉴权异常处理
-                    .exceptionHandling().accessDeniedHandler(simpleAccessDeniedHandler).authenticationEntryPoint(simpleAuthenticationEntryPoint)
-                    .and()
-                    .authorizeRequests().anyRequest().authenticated()
-                    .and()
-                    .addFilterBefore(preLoginFilter, UsernamePasswordAuthenticationFilter.class)
-                    //formLogin
-                    .formLogin()
-                    .loginPage(securityProperties.getLoginPage())
-                    .loginProcessingUrl(UserServiceProxy.LOGIN_URI)
-                    .successHandler(authenticationSuccessHandler)
-                    .failureHandler(authenticationFailureHandler)
-                    .and()
-                    //logout
-                    .logout().logoutUrl(UserServiceProxy.LOGOUT_URI)
-                    .addLogoutHandler(new CustomLogoutHandler())
-                    .logoutSuccessHandler(new CustomLogoutSuccessHandler());
+		@Autowired
+		private SimpleAuthenticationEntryPoint simpleAuthenticationEntryPoint;
+		@Autowired
+		private SimpleAccessDeniedHandler simpleAccessDeniedHandler;
 
-        }
-    }
+		@Override
+		protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+			super.configure(auth);
+		}
+
+		@Override
+		public void configure(WebSecurity web) throws Exception {
+
+			for (String pattern : securityProperties.getIgnoredUrls()) {
+				web.ignoring().antMatchers(pattern);
+			}
+			web.ignoring().antMatchers(securityProperties.getLoginPage());
+			super.configure(web);
+		}
+
+		@Override
+		protected void configure(HttpSecurity http) throws Exception {
+
+			// 如果是 token 模式，禁用Session
+			if(securityProperties.getSecurityMode()==SecurityMode.JWT) {
+				http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+			}
+			// 如果是Session模式，指定访问页面
+			if(securityProperties.getSecurityMode()==SecurityMode.SESSION) {
+				http.authorizeRequests().antMatchers(securityProperties.getLoginPage()).permitAll();
+			}
+			// 禁用 csrf
+			http.csrf().disable();
+			// 启用跨域
+			http.cors();
+			// 登录与鉴权异常处理
+			http.exceptionHandling().accessDeniedHandler(simpleAccessDeniedHandler)
+					.authenticationEntryPoint(simpleAuthenticationEntryPoint);
+			//
+			http.authorizeRequests().anyRequest().authenticated();
+			// 登录前置过滤器
+			http.addFilterBefore(preLoginFilter, UsernamePasswordAuthenticationFilter.class);
+			// formLogin
+			http.formLogin().loginPage(securityProperties.getLoginPage()).loginProcessingUrl(UserServiceProxy.LOGIN_URI)
+					.successHandler(authenticationSuccessHandler).failureHandler(authenticationFailureHandler);
+			// logout
+			http.logout().logoutUrl(UserServiceProxy.LOGOUT_URI).addLogoutHandler(new CustomLogoutHandler())
+					.logoutSuccessHandler(new CustomLogoutSuccessHandler());
+
+		}
+	}
 }

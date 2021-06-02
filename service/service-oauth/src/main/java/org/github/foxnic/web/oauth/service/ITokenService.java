@@ -9,50 +9,50 @@ import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.expr.OrderBy;
 import com.github.foxnic.sql.meta.DBField;
 
-import org.github.foxnic.web.domain.oauth.SessionOnline;
-import org.github.foxnic.web.domain.oauth.SessionOnlineVO;
+import org.github.foxnic.web.domain.oauth.Token;
+import org.github.foxnic.web.domain.oauth.TokenVO;
 
 /**
  * <p>
- * 在线会话表 服务接口
+ * Token表 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-01 09:27:28
+ * @since 2021-06-02 14:46:36
 */
 
-public interface ISessionOnlineService extends ISuperService<SessionOnline> {
+public interface ITokenService extends ISuperService<Token> {
 	
 	/**
 	 * 插入实体
-	 * @param sessionOnline 实体数据
+	 * @param token 实体数据
 	 * @return 插入是否成功
 	 * */
-	boolean insert(SessionOnline sessionOnline);
+	boolean insert(Token token);
  
 	/**
 	 * 批量插入实体，事务内
-	 * @param sessionOnlineList 实体数据清单
+	 * @param tokenList 实体数据清单
 	 * @return 插入是否成功
 	 * */
-	boolean insertList(List<SessionOnline> sessionOnlineList);
+	boolean insertList(List<Token> tokenList);
 	
 	
 		
 	/**
-	 * 按主键删除 在线会话
+	 * 按主键删除 Token
 	 *
-	 * @param id ID
+	 * @param id id
 	 * @return 删除是否成功
 	 */
-	boolean deleteByIdPhysical(String id);
+	boolean deleteByIdPhysical(Integer id);
 	
 	/**
-	 * 按主键删除 在线会话
+	 * 按主键删除 Token
 	 *
-	 * @param id ID
+	 * @param id id
 	 * @return 删除是否成功
 	 */
-	boolean deleteByIdLogical(String id);
+	boolean deleteByIdLogical(Integer id);
 	
 	
 	/**
@@ -71,29 +71,29 @@ public interface ISessionOnlineService extends ISuperService<SessionOnline> {
 	
 		
 	/**
-	 * 按主键更新字段 在线会话
+	 * 按主键更新字段 Token
 	 *
-	 * @param id ID
+	 * @param id id
 	 * @return 是否更新成功
 	 */
-	boolean update(DBField field,Object value , String id);
+	boolean update(DBField field,Object value , Integer id);
 	
 	/**
 	 * 更新实体
-	 * @param sessionOnline 数据对象
+	 * @param token 数据对象
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	boolean update(SessionOnline sessionOnline , SaveMode mode);
+	boolean update(Token token , SaveMode mode);
 	
 	
 	/**
 	 * 更新实体集，事务内
-	 * @param sessionOnlineList 数据对象列表
+	 * @param tokenList 数据对象列表
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	boolean updateList(List<SessionOnline> sessionOnlineList, SaveMode mode);
+	boolean updateList(List<Token> tokenList, SaveMode mode);
 	
 	/**
 	 * 保存实体，如果主键值不为 null，则更新，否则插入
@@ -101,40 +101,40 @@ public interface ISessionOnlineService extends ISuperService<SessionOnline> {
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	boolean save(SessionOnline sessionOnline , SaveMode mode);
+	boolean save(Token token , SaveMode mode);
 	
 	/**
 	 * 保存实体，如果主键值不为null，则更新，否则插入
-	 * @param sessionOnlineList 实体数据清单
+	 * @param tokenList 实体数据清单
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	boolean saveList(List<SessionOnline> sessionOnlineList , SaveMode mode);
+	boolean saveList(List<Token> tokenList , SaveMode mode);
 	
 	/**
 	 * 检查实体中的数据字段是否已经存在
-	 * @param sessionOnline  实体对象
+	 * @param token  实体对象
 	 * @param field  字段清单，至少指定一个
 	 * @param 是否已经存在
 	 * */
-	boolean checkExists(SessionOnline sessionOnline,DBField... field);
+	boolean checkExists(Token token,DBField... field);
  
 		
 	/**
-	 * 按主键获取 在线会话
+	 * 按主键获取 Token
 	 *
-	 * @param id ID
-	 * @return SessionOnline 数据对象
+	 * @param id id
+	 * @return Token 数据对象
 	 */
-	SessionOnline getById(String id);
+	Token getById(Integer id);
 	
 	/**
 	 * 检查 角色 是否已经存在
 	 *
-	 * @param sessionOnline 数据对象
+	 * @param token 数据对象
 	 * @return 判断结果
 	 */
-	Result<SessionOnline> checkExists(SessionOnline sessionOnline);
+	Result<Token> checkExists(Token token);
  
 	/**
 	 * 根据实体数构建默认的条件表达式
@@ -142,14 +142,14 @@ public interface ISessionOnlineService extends ISuperService<SessionOnline> {
 	 * @param stringFuzzy 字符串是否使用模糊匹配
 	 * @return ConditionExpr 条件表达式
 	 * */
-	ConditionExpr buildQueryCondition(SessionOnline sample,boolean stringFuzzy);
+	ConditionExpr buildQueryCondition(Token sample,boolean stringFuzzy);
 	
 	/**
 	 * 根据实体数构建默认的条件表达式，字符串使用模糊匹配
 	 * @param sample 数据样例
 	 * @return ConditionExpr 条件表达式
 	 * */
-	ConditionExpr buildQueryCondition(SessionOnline sample);
+	ConditionExpr buildQueryCondition(Token sample);
 	
 	/**
 	 * 根据实体数构建默认的条件表达式, 字符串是否使用模糊匹配
@@ -157,7 +157,7 @@ public interface ISessionOnlineService extends ISuperService<SessionOnline> {
 	 * @param tableAliase 数据表别名
 	 * 	@return ConditionExpr 条件表达式
 	 * */
-	ConditionExpr buildQueryCondition(SessionOnline sample,String tableAliase);
+	ConditionExpr buildQueryCondition(Token sample,String tableAliase);
 	
 	/**
 	 * 根据实体数构建默认的条件表达式
@@ -166,14 +166,14 @@ public interface ISessionOnlineService extends ISuperService<SessionOnline> {
 	 * @param tableAliase 数据表别名
 	 * @return ConditionExpr 条件表达式
 	 * */
-	ConditionExpr buildQueryCondition(SessionOnline sample,boolean stringFuzzy,String tableAliase);
+	ConditionExpr buildQueryCondition(Token sample,boolean stringFuzzy,String tableAliase);
 	
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
 	 * @param sample  查询条件
 	 * @return 查询结果
 	 * */
-	List<SessionOnline> queryList(SessionOnline sample);
+	List<Token> queryList(Token sample);
  
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
@@ -182,7 +182,7 @@ public interface ISessionOnlineService extends ISuperService<SessionOnline> {
 	 * @param orderBy  排序
 	 * @return 查询结果
 	 * */
-	List<SessionOnline> queryList(SessionOnline sample,ConditionExpr condition,OrderBy orderBy);
+	List<Token> queryList(Token sample,ConditionExpr condition,OrderBy orderBy);
 	
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
@@ -190,7 +190,7 @@ public interface ISessionOnlineService extends ISuperService<SessionOnline> {
 	 * @param orderBy  排序
 	 * @return 查询结果
 	 * */
-	List<SessionOnline> queryList(SessionOnline sample,OrderBy orderBy);
+	List<Token> queryList(Token sample,OrderBy orderBy);
 	
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
@@ -198,14 +198,14 @@ public interface ISessionOnlineService extends ISuperService<SessionOnline> {
 	 * @param condition  其它条件
 	 * @return 查询结果
 	 * */
-	List<SessionOnline> queryList(SessionOnline sample,ConditionExpr condition);
+	List<Token> queryList(Token sample,ConditionExpr condition);
 	
 	/**
 	 * 查询单个实体
 	 * @param sample  查询条件
 	 * @return 查询结果
 	 * */
-	SessionOnline queryEntity(SessionOnline sample);
+	Token queryEntity(Token sample);
 	
 	/**
 	 * 分页查询实体集
@@ -214,7 +214,7 @@ public interface ISessionOnlineService extends ISuperService<SessionOnline> {
 	 * @param pageIndex 页码
 	 * @return 查询结果
 	 * */
-	PagedList<SessionOnline> queryPagedList(SessionOnline sample,int pageSize,int pageIndex);
+	PagedList<Token> queryPagedList(Token sample,int pageSize,int pageIndex);
 	
 	/**
 	 * 分页查询实体集
@@ -225,7 +225,7 @@ public interface ISessionOnlineService extends ISuperService<SessionOnline> {
 	 * @param orderBy  排序
 	 * @return 查询结果
 	 * */
-	PagedList<SessionOnline> queryPagedList(SessionOnline sample,ConditionExpr condition,OrderBy orderBy,int pageSize,int pageIndex);
+	PagedList<Token> queryPagedList(Token sample,ConditionExpr condition,OrderBy orderBy,int pageSize,int pageIndex);
 	
 	/**
 	 * 分页查询实体集
@@ -235,7 +235,7 @@ public interface ISessionOnlineService extends ISuperService<SessionOnline> {
 	 * @param condition  其它条件
 	 * @return 查询结果
 	 * */
-	PagedList<SessionOnline> queryPagedList(SessionOnline sample,ConditionExpr condition,int pageSize,int pageIndex);
+	PagedList<Token> queryPagedList(Token sample,ConditionExpr condition,int pageSize,int pageIndex);
 	
 	/**
 	 * 分页查询实体集
@@ -245,7 +245,7 @@ public interface ISessionOnlineService extends ISuperService<SessionOnline> {
 	 * @param orderBy  排序
 	 * @return 查询结果
 	 * */
-	PagedList<SessionOnline> queryPagedList(SessionOnline sample,OrderBy orderBy,int pageSize,int pageIndex);
+	PagedList<Token> queryPagedList(Token sample,OrderBy orderBy,int pageSize,int pageIndex);
  
  	/**
 	 * 查询指定字段的数据清单
@@ -268,9 +268,6 @@ public interface ISessionOnlineService extends ISuperService<SessionOnline> {
 	 * */
 	<T> List<T> queryValues(DBField field, Class<T> type, String condition,Object... ps);
 
-	/**
-	 * 标记离线
-	 * */
-	void offline(String id);
+//	Token getValidTokenByUserId(String userId);
  
 }

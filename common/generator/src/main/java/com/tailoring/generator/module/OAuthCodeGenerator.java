@@ -6,6 +6,7 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_ROLE;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_ROLE_MENU;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_ROLE_USER;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_SESSION_ONLINE;
+import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_TOKEN;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER;
 
 import com.github.foxnic.generator.builder.model.PojoClassFile;
@@ -21,6 +22,7 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		g.generateSysUser();
 		g.generateSysOAuthClient();
 		g.generateSysSessionOnline();
+		g.generateSysToken();
 		g.generateSysRole();
 		g.generateSysRoleUser();
 		g.generateSysMenu();
@@ -83,6 +85,23 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 	public void generateSysSessionOnline() throws Exception {
 		//创建配置
 		ModuleContext cfg=createModuleConfig(SYS_SESSION_ONLINE.$TABLE, 6);
+		
+		//文件生成覆盖模式
+		cfg.overrides()
+		.setServiceIntfAnfImpl(WriteMode.CREATE_IF_NOT_EXISTS) //服务与接口
+		.setControllerAndAgent(WriteMode.CREATE_IF_NOT_EXISTS) //Rest
+		.setPageController(WriteMode.CREATE_IF_NOT_EXISTS) //页面控制器
+		.setFormPage(WriteMode.CREATE_IF_NOT_EXISTS) //表单HTML页
+		.setListPage(WriteMode.CREATE_IF_NOT_EXISTS); //列表HTML页
+ 
+		//生成代码
+		cfg.buildAll();
+	}
+	
+	
+	public void generateSysToken() throws Exception {
+		//创建配置
+		ModuleContext cfg=createModuleConfig(SYS_TOKEN.$TABLE, 6);
 		
 		//文件生成覆盖模式
 		cfg.overrides()

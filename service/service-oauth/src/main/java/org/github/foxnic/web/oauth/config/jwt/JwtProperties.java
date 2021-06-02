@@ -37,11 +37,11 @@ public class JwtProperties {
     /**
      * access jwt token 有效天数
      */
-    private int accessExpDays;
+    private int accessExpireSeconds;
     /**
      * refresh jwt token 有效天数
      */
-    private int refreshExpDays;
+    private int refreshExpireSeconds;
 	 
 	public String getKeyLocation() {
 		return keyLocation;
@@ -73,16 +73,17 @@ public class JwtProperties {
 	public void setSub(String sub) {
 		this.sub = sub;
 	}
-	public int getAccessExpDays() {
-		return accessExpDays;
+	public int getAccessExpireSeconds() {
+		return accessExpireSeconds;
 	}
-	public void setAccessExpDays(int accessExpDays) {
-		this.accessExpDays = accessExpDays;
+	public void setAccessExpireSeconds(int accessExpireSeconds) {
+		this.accessExpireSeconds = accessExpireSeconds;
 	}
-	public int getRefreshExpDays() {
-		return refreshExpDays;
+	public int getRefreshExpireSeconds() {
+		return refreshExpireSeconds;
 	}
-	public void setRefreshExpDays(int refreshExpDays) {
-		this.refreshExpDays = refreshExpDays;
+	public void setRefreshExpireSeconds(int refreshExpireSeconds) {
+		this.refreshExpireSeconds = refreshExpireSeconds;
 	}
+	 
 }

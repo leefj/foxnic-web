@@ -18,6 +18,7 @@ import org.springframework.security.jwt.crypto.sign.SignatureVerifier;
 import org.springframework.util.Assert;
 
 import com.alibaba.fastjson.JSONObject;
+import com.github.foxnic.commons.busi.id.IDGenerator;
 
 /**
  * JwtTokenGenerator
@@ -27,7 +28,7 @@ import com.alibaba.fastjson.JSONObject;
  */
 public class JwtTokenGenerator {
     private static final String JWT_EXP_KEY = "exp";
-    private JwtPayloadBuilder jwtPayloadBuilder = new JwtPayloadBuilder();
+ 
     private JwtProperties jwtProperties;
 
     private JwtTokenStorage jwtTokenStorage;
@@ -56,15 +57,18 @@ public class JwtTokenGenerator {
      * @param additional the additional
      * @return the jwt token pair
      */
-    public JwtTokenPair jwtTokenPair(String aud, Set<String> roles, Map<String, String> additional) {
-        String accessToken = jwtToken(aud, jwtProperties.getAccessExpDays(), roles, additional);
-        String refreshToken = jwtToken(aud, jwtProperties.getRefreshExpDays(), roles, additional);
+    public JwtTokenPair jwtTokenPair(String uid,String aud) {
+    	
+    	String jti=IDGenerator.getUUID();
+    	
+    	JwtToken accessToken = jwtToken(jti,"access", aud,uid, jwtProperties.getAccessExpireSeconds());
+    	JwtToken refreshToken = jwtToken(jti,"refresh",aud,uid, jwtProperties.getRefreshExpireSeconds());
 
-        JwtTokenPair jwtTokenPair = new JwtTokenPair();
+        JwtTokenPair jwtTokenPair = new JwtTokenPair(jti);
         jwtTokenPair.setAccessToken(accessToken);
         jwtTokenPair.setRefreshToken(refreshToken);
-        // 放入缓存
-        jwtTokenStorage.put(jwtTokenPair, aud);
+        // 存储
+        jwtTokenStorage.put(jwtTokenPair);
         return jwtTokenPair;
     }
 
@@ -78,19 +82,25 @@ public class JwtTokenGenerator {
      * @param additional the additional
      * @return the string
      */
-    private String jwtToken(String aud, int exp, Set<String> roles, Map<String, String> additional) {
-        String payload = jwtPayloadBuilder
+	private JwtToken jwtToken(String jti,String type,String aud, String uid,int exp) {
+		
+		JwtToken builder = new JwtToken();
+		
+		String payload = builder
+				.jti(jti)
+				.uid(uid)
                 .iss(jwtProperties.getIss())
                 .sub(jwtProperties.getSub())
                 .aud(aud)
-                .additional(additional)
-                .roles(roles)
-                .expDays(exp)
+                .type(type)
+                .expireSeconds(exp)
                 .builder();
+		
         RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
-
-        RsaSigner signer = new RsaSigner(privateKey);
-        return JwtHelper.encode(payload, signer).getEncoded();
+		RsaSigner signer = new RsaSigner(privateKey);
+		String token=JwtHelper.encode(payload, signer).getEncoded();
+		builder.token(token);
+        return builder;
     }
 
 
@@ -125,5 +135,6 @@ public class JwtTokenGenerator {
 
         return LocalDateTime.now().isAfter(LocalDateTime.parse(exp, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
     }
+    
   
 }

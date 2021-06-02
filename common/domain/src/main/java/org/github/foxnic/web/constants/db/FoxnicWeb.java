@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2021-05-31 13:23:36
+ * @since 2021-06-02 17:13:31
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -1201,6 +1201,11 @@ public class FoxnicWeb {
 		public static final DBField TOKEN = new DBField(DBDataType.STRING , "token","token","token","token",false,false,true);
 		
 		/**
+		 * 会话ID
+		*/
+		public static final DBField SESSION_ID = new DBField(DBDataType.STRING , "session_id","sessionId","会话ID","会话ID",false,false,true);
+		
+		/**
 		 * 账户ID
 		*/
 		public static final DBField USER_ID = new DBField(DBDataType.STRING , "user_id","userId","账户ID","账户ID",false,false,true);
@@ -1219,6 +1224,11 @@ public class FoxnicWeb {
 		 * 登出时间
 		*/
 		public static final DBField LOGOUT_TIME = new DBField(DBDataType.DATE , "logout_time","logoutTime","登出时间","登出时间",false,false,true);
+		
+		/**
+		 * 会话时长，单位秒
+		*/
+		public static final DBField SESSION_TIME = new DBField(DBDataType.INTEGER , "session_time","sessionTime","会话时长","单位秒",false,false,true);
 		
 		/**
 		 * 是否在线
@@ -1266,9 +1276,109 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
 		public SYS_SESSION_ONLINE() {
-			this.init($NAME,"在线会话表" , ID , TOKEN , USER_ID , LOGIN_TIME , INTERACT_TIME , LOGOUT_TIME , ONLINE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"在线会话表" , ID , TOKEN , SESSION_ID , USER_ID , LOGIN_TIME , INTERACT_TIME , LOGOUT_TIME , SESSION_TIME , ONLINE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final SYS_SESSION_ONLINE $TABLE=new SYS_SESSION_ONLINE();
+	}
+	
+	/**
+	 * Token表
+	*/
+	public static class SYS_TOKEN extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "sys_token";
+		
+		/**
+		*/
+		public static final DBField ID = new DBField(DBDataType.INTEGER , "id","id","id","id",true,false,false);
+		
+		/**
+		 * 账户ID
+		*/
+		public static final DBField USER_ID = new DBField(DBDataType.STRING , "user_id","userId","账户ID","账户ID",false,false,false);
+		
+		/**
+		 * Token标识
+		*/
+		public static final DBField JTI = new DBField(DBDataType.STRING , "jti","jti","Token标识","Token标识",false,false,true);
+		
+		/**
+		 * 访问用Token
+		*/
+		public static final DBField ACCESS_TOKEN = new DBField(DBDataType.STRING , "access_token","accessToken","访问用Token","访问用Token",false,false,true);
+		
+		/**
+		 * 刷新用Token
+		*/
+		public static final DBField REFRESH_TOKEN = new DBField(DBDataType.STRING , "refresh_token","refreshToken","刷新用Token","刷新用Token",false,false,true);
+		
+		/**
+		 * 访问用Token过期时间
+		*/
+		public static final DBField ACCESS_TOKEN_EXPIRE_TIME = new DBField(DBDataType.DATE , "access_token_expire_time","accessTokenExpireTime","访问用Token过期时间","访问用Token过期时间",false,false,true);
+		
+		/**
+		 * 访问用Token是否过期
+		*/
+		public static final DBField ACCESS_TOKEN_EXPIRED = new DBField(DBDataType.INTEGER , "access_token_expired","accessTokenExpired","访问用Token是否过期","访问用Token是否过期",false,false,false);
+		
+		/**
+		 * 刷新用Token过期时间
+		*/
+		public static final DBField REFRESH_TOKEN_EXPIRE_TIME = new DBField(DBDataType.DATE , "refresh_token_expire_time","refreshTokenExpireTime","刷新用Token过期时间","刷新用Token过期时间",false,false,true);
+		
+		/**
+		 * 刷新用Token是否过期
+		*/
+		public static final DBField REFRESH_TOKEN_EXPIRED = new DBField(DBDataType.INTEGER , "refresh_token_expired","refreshTokenExpired","刷新用Token是否过期","刷新用Token是否过期",false,false,false);
+		
+		/**
+		 * 创建人ID
+		*/
+		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
+		
+		/**
+		 * 创建时间
+		*/
+		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","创建时间","创建时间",false,false,true);
+		
+		/**
+		 * 修改人ID
+		*/
+		public static final DBField UPDATE_BY = new DBField(DBDataType.STRING , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
+		
+		/**
+		 * 修改时间
+		*/
+		public static final DBField UPDATE_TIME = new DBField(DBDataType.DATE , "update_time","updateTime","修改时间","修改时间",false,false,true);
+		
+		/**
+		 * 是否已删除
+		*/
+		public static final DBField DELETED = new DBField(DBDataType.INTEGER , "deleted","deleted","是否已删除","是否已删除",false,false,false);
+		
+		/**
+		 * 删除人ID
+		*/
+		public static final DBField DELETE_BY = new DBField(DBDataType.STRING , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
+		
+		/**
+		 * 删除时间
+		*/
+		public static final DBField DELETE_TIME = new DBField(DBDataType.DATE , "delete_time","deleteTime","删除时间","删除时间",false,false,true);
+		
+		/**
+		 * 数据版本号
+		*/
+		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
+		
+		public SYS_TOKEN() {
+			this.init($NAME,"Token表" , ID , USER_ID , JTI , ACCESS_TOKEN , REFRESH_TOKEN , ACCESS_TOKEN_EXPIRE_TIME , ACCESS_TOKEN_EXPIRED , REFRESH_TOKEN_EXPIRE_TIME , REFRESH_TOKEN_EXPIRED , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+		}
+		public static final SYS_TOKEN $TABLE=new SYS_TOKEN();
 	}
 	
 	/**

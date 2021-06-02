@@ -3,7 +3,7 @@ package org.github.foxnic.web.domain.oauth;
 import com.github.foxnic.dao.entity.Entity;
 import javax.persistence.Table;
 import com.github.foxnic.sql.meta.DBTable;
-import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_SESSION_ONLINE;
+import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_TOKEN;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
@@ -16,72 +16,72 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-02 17:13:49
- * @sign 912A496BD80F888F0A45C92C0B95D6D0
+ * @since 2021-06-02 15:15:46
+ * @sign E4CBB327E68F3FD9610F5FD7D47E2025
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
-@Table(name = "sys_session_online")
-public class SessionOnline extends Entity {
+@Table(name = "sys_token")
+public class Token extends Entity {
 
 	private static final long serialVersionUID = 1L;
 
-	public static final DBTable TABLE =SYS_SESSION_ONLINE.$TABLE;
+	public static final DBTable TABLE =SYS_TOKEN.$TABLE;
 	
 	/**
-	 * ID：ID
+	 * id：id
 	*/
 	@Id
-	@ApiModelProperty(required = true,value="ID" , notes = "ID")
-	private String id;
-	
-	/**
-	 * token：token
-	*/
-	@ApiModelProperty(required = false,value="token" , notes = "token")
-	private String token;
-	
-	/**
-	 * 会话ID：会话ID
-	*/
-	@ApiModelProperty(required = false,value="会话ID" , notes = "会话ID")
-	private String sessionId;
+	@ApiModelProperty(required = true,value="id" , notes = "id")
+	private Integer id;
 	
 	/**
 	 * 账户ID：账户ID
 	*/
-	@ApiModelProperty(required = false,value="账户ID" , notes = "账户ID")
+	@ApiModelProperty(required = true,value="账户ID" , notes = "账户ID")
 	private String userId;
 	
 	/**
-	 * 登录时间：登录时间
+	 * Token标识：Token标识
 	*/
-	@ApiModelProperty(required = false,value="登录时间" , notes = "登录时间")
-	private Date loginTime;
+	@ApiModelProperty(required = false,value="Token标识" , notes = "Token标识")
+	private String jti;
 	
 	/**
-	 * 最近一次交互时间：最近一次交互时间
+	 * 访问用Token：访问用Token
 	*/
-	@ApiModelProperty(required = false,value="最近一次交互时间" , notes = "最近一次交互时间")
-	private Date interactTime;
+	@ApiModelProperty(required = false,value="访问用Token" , notes = "访问用Token")
+	private String accessToken;
 	
 	/**
-	 * 登出时间：登出时间
+	 * 刷新用Token：刷新用Token
 	*/
-	@ApiModelProperty(required = false,value="登出时间" , notes = "登出时间")
-	private Date logoutTime;
+	@ApiModelProperty(required = false,value="刷新用Token" , notes = "刷新用Token")
+	private String refreshToken;
 	
 	/**
-	 * 会话时长：单位秒
+	 * 访问用Token过期时间：访问用Token过期时间
 	*/
-	@ApiModelProperty(required = false,value="会话时长" , notes = "单位秒")
-	private Integer sessionTime;
+	@ApiModelProperty(required = false,value="访问用Token过期时间" , notes = "访问用Token过期时间")
+	private Date accessTokenExpireTime;
 	
 	/**
-	 * 是否在线：是否在线
+	 * 访问用Token是否过期：访问用Token是否过期
 	*/
-	@ApiModelProperty(required = false,value="是否在线" , notes = "是否在线")
-	private Integer online;
+	@ApiModelProperty(required = true,value="访问用Token是否过期" , notes = "访问用Token是否过期")
+	private Integer accessTokenExpired;
+	
+	/**
+	 * 刷新用Token过期时间：刷新用Token过期时间
+	*/
+	@ApiModelProperty(required = false,value="刷新用Token过期时间" , notes = "刷新用Token过期时间")
+	private Date refreshTokenExpireTime;
+	
+	/**
+	 * 刷新用Token是否过期：刷新用Token是否过期
+	*/
+	@ApiModelProperty(required = true,value="刷新用Token是否过期" , notes = "刷新用Token是否过期")
+	private Integer refreshTokenExpired;
 	
 	/**
 	 * 创建人ID：创建人ID
@@ -132,77 +132,27 @@ public class SessionOnline extends Entity {
 	private Integer version;
 	
 	/**
-	 * 获得 ID<br>
-	 * 属性说明 : ID
-	 * @return ID
+	 * 获得 id<br>
+	 * 属性说明 : id
+	 * @return id
 	*/
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
 	
 	/**
-	 * 设置 ID
-	 * @param id ID
+	 * 设置 id
+	 * @param id id
 	 * @return 当前对象
 	*/
-	public SessionOnline setId(String id) {
+	public Token setId(Integer id) {
 		this.id=id;
 		return this;
 	}
 	
 	/**
-	 * 添加 ID
-	 * @param id ID
-	 * @return 当前对象
-	*/
-	
-	/**
-	 * 获得 token<br>
-	 * 属性说明 : token
-	 * @return token
-	*/
-	public String getToken() {
-		return token;
-	}
-	
-	/**
-	 * 设置 token
-	 * @param token token
-	 * @return 当前对象
-	*/
-	public SessionOnline setToken(String token) {
-		this.token=token;
-		return this;
-	}
-	
-	/**
-	 * 添加 token
-	 * @param token token
-	 * @return 当前对象
-	*/
-	
-	/**
-	 * 获得 会话ID<br>
-	 * 属性说明 : 会话ID
-	 * @return 会话ID
-	*/
-	public String getSessionId() {
-		return sessionId;
-	}
-	
-	/**
-	 * 设置 会话ID
-	 * @param sessionId 会话ID
-	 * @return 当前对象
-	*/
-	public SessionOnline setSessionId(String sessionId) {
-		this.sessionId=sessionId;
-		return this;
-	}
-	
-	/**
-	 * 添加 会话ID
-	 * @param sessionId 会话ID
+	 * 添加 id
+	 * @param id id
 	 * @return 当前对象
 	*/
 	
@@ -220,7 +170,7 @@ public class SessionOnline extends Entity {
 	 * @param userId 账户ID
 	 * @return 当前对象
 	*/
-	public SessionOnline setUserId(String userId) {
+	public Token setUserId(String userId) {
 		this.userId=userId;
 		return this;
 	}
@@ -232,127 +182,177 @@ public class SessionOnline extends Entity {
 	*/
 	
 	/**
-	 * 获得 登录时间<br>
-	 * 属性说明 : 登录时间
-	 * @return 登录时间
+	 * 获得 Token标识<br>
+	 * 属性说明 : Token标识
+	 * @return Token标识
 	*/
-	public Date getLoginTime() {
-		return loginTime;
+	public String getJti() {
+		return jti;
 	}
 	
 	/**
-	 * 设置 登录时间
-	 * @param loginTime 登录时间
+	 * 设置 Token标识
+	 * @param jti Token标识
 	 * @return 当前对象
 	*/
-	public SessionOnline setLoginTime(Date loginTime) {
-		this.loginTime=loginTime;
+	public Token setJti(String jti) {
+		this.jti=jti;
 		return this;
 	}
 	
 	/**
-	 * 添加 登录时间
-	 * @param loginTime 登录时间
+	 * 添加 Token标识
+	 * @param jti Token标识
 	 * @return 当前对象
 	*/
 	
 	/**
-	 * 获得 最近一次交互时间<br>
-	 * 属性说明 : 最近一次交互时间
-	 * @return 最近一次交互时间
+	 * 获得 访问用Token<br>
+	 * 属性说明 : 访问用Token
+	 * @return 访问用Token
 	*/
-	public Date getInteractTime() {
-		return interactTime;
+	public String getAccessToken() {
+		return accessToken;
 	}
 	
 	/**
-	 * 设置 最近一次交互时间
-	 * @param interactTime 最近一次交互时间
+	 * 设置 访问用Token
+	 * @param accessToken 访问用Token
 	 * @return 当前对象
 	*/
-	public SessionOnline setInteractTime(Date interactTime) {
-		this.interactTime=interactTime;
+	public Token setAccessToken(String accessToken) {
+		this.accessToken=accessToken;
 		return this;
 	}
 	
 	/**
-	 * 添加 最近一次交互时间
-	 * @param interactTime 最近一次交互时间
+	 * 添加 访问用Token
+	 * @param accessToken 访问用Token
 	 * @return 当前对象
 	*/
 	
 	/**
-	 * 获得 登出时间<br>
-	 * 属性说明 : 登出时间
-	 * @return 登出时间
+	 * 获得 刷新用Token<br>
+	 * 属性说明 : 刷新用Token
+	 * @return 刷新用Token
 	*/
-	public Date getLogoutTime() {
-		return logoutTime;
+	public String getRefreshToken() {
+		return refreshToken;
 	}
 	
 	/**
-	 * 设置 登出时间
-	 * @param logoutTime 登出时间
+	 * 设置 刷新用Token
+	 * @param refreshToken 刷新用Token
 	 * @return 当前对象
 	*/
-	public SessionOnline setLogoutTime(Date logoutTime) {
-		this.logoutTime=logoutTime;
+	public Token setRefreshToken(String refreshToken) {
+		this.refreshToken=refreshToken;
 		return this;
 	}
 	
 	/**
-	 * 添加 登出时间
-	 * @param logoutTime 登出时间
+	 * 添加 刷新用Token
+	 * @param refreshToken 刷新用Token
 	 * @return 当前对象
 	*/
 	
 	/**
-	 * 获得 会话时长<br>
-	 * 属性说明 : 单位秒
-	 * @return 会话时长
+	 * 获得 访问用Token过期时间<br>
+	 * 属性说明 : 访问用Token过期时间
+	 * @return 访问用Token过期时间
 	*/
-	public Integer getSessionTime() {
-		return sessionTime;
+	public Date getAccessTokenExpireTime() {
+		return accessTokenExpireTime;
 	}
 	
 	/**
-	 * 设置 会话时长
-	 * @param sessionTime 会话时长
+	 * 设置 访问用Token过期时间
+	 * @param accessTokenExpireTime 访问用Token过期时间
 	 * @return 当前对象
 	*/
-	public SessionOnline setSessionTime(Integer sessionTime) {
-		this.sessionTime=sessionTime;
+	public Token setAccessTokenExpireTime(Date accessTokenExpireTime) {
+		this.accessTokenExpireTime=accessTokenExpireTime;
 		return this;
 	}
 	
 	/**
-	 * 添加 会话时长
-	 * @param sessionTime 会话时长
+	 * 添加 访问用Token过期时间
+	 * @param accessTokenExpireTime 访问用Token过期时间
 	 * @return 当前对象
 	*/
 	
 	/**
-	 * 获得 是否在线<br>
-	 * 属性说明 : 是否在线
-	 * @return 是否在线
+	 * 获得 访问用Token是否过期<br>
+	 * 属性说明 : 访问用Token是否过期
+	 * @return 访问用Token是否过期
 	*/
-	public Integer getOnline() {
-		return online;
+	public Integer getAccessTokenExpired() {
+		return accessTokenExpired;
 	}
 	
 	/**
-	 * 设置 是否在线
-	 * @param online 是否在线
+	 * 设置 访问用Token是否过期
+	 * @param accessTokenExpired 访问用Token是否过期
 	 * @return 当前对象
 	*/
-	public SessionOnline setOnline(Integer online) {
-		this.online=online;
+	public Token setAccessTokenExpired(Integer accessTokenExpired) {
+		this.accessTokenExpired=accessTokenExpired;
 		return this;
 	}
 	
 	/**
-	 * 添加 是否在线
-	 * @param online 是否在线
+	 * 添加 访问用Token是否过期
+	 * @param accessTokenExpired 访问用Token是否过期
+	 * @return 当前对象
+	*/
+	
+	/**
+	 * 获得 刷新用Token过期时间<br>
+	 * 属性说明 : 刷新用Token过期时间
+	 * @return 刷新用Token过期时间
+	*/
+	public Date getRefreshTokenExpireTime() {
+		return refreshTokenExpireTime;
+	}
+	
+	/**
+	 * 设置 刷新用Token过期时间
+	 * @param refreshTokenExpireTime 刷新用Token过期时间
+	 * @return 当前对象
+	*/
+	public Token setRefreshTokenExpireTime(Date refreshTokenExpireTime) {
+		this.refreshTokenExpireTime=refreshTokenExpireTime;
+		return this;
+	}
+	
+	/**
+	 * 添加 刷新用Token过期时间
+	 * @param refreshTokenExpireTime 刷新用Token过期时间
+	 * @return 当前对象
+	*/
+	
+	/**
+	 * 获得 刷新用Token是否过期<br>
+	 * 属性说明 : 刷新用Token是否过期
+	 * @return 刷新用Token是否过期
+	*/
+	public Integer getRefreshTokenExpired() {
+		return refreshTokenExpired;
+	}
+	
+	/**
+	 * 设置 刷新用Token是否过期
+	 * @param refreshTokenExpired 刷新用Token是否过期
+	 * @return 当前对象
+	*/
+	public Token setRefreshTokenExpired(Integer refreshTokenExpired) {
+		this.refreshTokenExpired=refreshTokenExpired;
+		return this;
+	}
+	
+	/**
+	 * 添加 刷新用Token是否过期
+	 * @param refreshTokenExpired 刷新用Token是否过期
 	 * @return 当前对象
 	*/
 	
@@ -370,7 +370,7 @@ public class SessionOnline extends Entity {
 	 * @param createBy 创建人ID
 	 * @return 当前对象
 	*/
-	public SessionOnline setCreateBy(String createBy) {
+	public Token setCreateBy(String createBy) {
 		this.createBy=createBy;
 		return this;
 	}
@@ -395,7 +395,7 @@ public class SessionOnline extends Entity {
 	 * @param createTime 创建时间
 	 * @return 当前对象
 	*/
-	public SessionOnline setCreateTime(Date createTime) {
+	public Token setCreateTime(Date createTime) {
 		this.createTime=createTime;
 		return this;
 	}
@@ -420,7 +420,7 @@ public class SessionOnline extends Entity {
 	 * @param updateBy 修改人ID
 	 * @return 当前对象
 	*/
-	public SessionOnline setUpdateBy(String updateBy) {
+	public Token setUpdateBy(String updateBy) {
 		this.updateBy=updateBy;
 		return this;
 	}
@@ -445,7 +445,7 @@ public class SessionOnline extends Entity {
 	 * @param updateTime 修改时间
 	 * @return 当前对象
 	*/
-	public SessionOnline setUpdateTime(Date updateTime) {
+	public Token setUpdateTime(Date updateTime) {
 		this.updateTime=updateTime;
 		return this;
 	}
@@ -470,7 +470,7 @@ public class SessionOnline extends Entity {
 	 * @param deleted 是否已删除
 	 * @return 当前对象
 	*/
-	public SessionOnline setDeleted(Integer deleted) {
+	public Token setDeleted(Integer deleted) {
 		this.deleted=deleted;
 		return this;
 	}
@@ -495,7 +495,7 @@ public class SessionOnline extends Entity {
 	 * @param deleteBy 删除人ID
 	 * @return 当前对象
 	*/
-	public SessionOnline setDeleteBy(String deleteBy) {
+	public Token setDeleteBy(String deleteBy) {
 		this.deleteBy=deleteBy;
 		return this;
 	}
@@ -520,7 +520,7 @@ public class SessionOnline extends Entity {
 	 * @param deleteTime 删除时间
 	 * @return 当前对象
 	*/
-	public SessionOnline setDeleteTime(Date deleteTime) {
+	public Token setDeleteTime(Date deleteTime) {
 		this.deleteTime=deleteTime;
 		return this;
 	}
@@ -545,7 +545,7 @@ public class SessionOnline extends Entity {
 	 * @param version 数据版本号
 	 * @return 当前对象
 	*/
-	public SessionOnline setVersion(Integer version) {
+	public Token setVersion(Integer version) {
 		this.version=version;
 		return this;
 	}
@@ -559,7 +559,7 @@ public class SessionOnline extends Entity {
 	/**
 	 * 将自己转换成指定类型的PO
 	 * @param poType  PO类型
-	 * @return SessionOnline , 转换好的 SessionOnline 对象
+	 * @return Token , 转换好的 Token 对象
 	*/
 	@Transient
 	public <T extends Entity> T toPO(Class<T> poType) {
@@ -569,7 +569,7 @@ public class SessionOnline extends Entity {
 	/**
 	 * 将自己转换成任意指定类型
 	 * @param pojoType  Pojo类型
-	 * @return SessionOnline , 转换好的 PoJo 对象
+	 * @return Token , 转换好的 PoJo 对象
 	*/
 	@Transient
 	public <T> T toPojo(Class<T> pojoType) {
@@ -586,35 +586,35 @@ public class SessionOnline extends Entity {
 	}
 
 	/**
-	 * 将 Map 转换成 SessionOnline
-	 * @param sessionOnlineMap 包含实体信息的 Map 对象
-	 * @return SessionOnline , 转换好的的 SessionOnline 对象
+	 * 将 Map 转换成 Token
+	 * @param tokenMap 包含实体信息的 Map 对象
+	 * @return Token , 转换好的的 Token 对象
 	*/
 	@Transient
-	public static SessionOnline createFrom(Map<String,Object> sessionOnlineMap) {
-		if(sessionOnlineMap==null) return null;
-		SessionOnline po = EntityContext.create(SessionOnline.class, sessionOnlineMap);
+	public static Token createFrom(Map<String,Object> tokenMap) {
+		if(tokenMap==null) return null;
+		Token po = EntityContext.create(Token.class, tokenMap);
 		return po;
 	}
 
 	/**
-	 * 将 Pojo 转换成 SessionOnline
+	 * 将 Pojo 转换成 Token
 	 * @param pojo 包含实体信息的 Pojo 对象
-	 * @return SessionOnline , 转换好的的 SessionOnline 对象
+	 * @return Token , 转换好的的 Token 对象
 	*/
 	@Transient
-	public static SessionOnline createFrom(Object pojo) {
+	public static Token createFrom(Object pojo) {
 		if(pojo==null) return null;
-		SessionOnline po = EntityContext.create(SessionOnline.class,pojo);
+		Token po = EntityContext.create(Token.class,pojo);
 		return po;
 	}
 
 	/**
-	 * 创建一个 SessionOnline，等同于 new
-	 * @return SessionOnline 对象
+	 * 创建一个 Token，等同于 new
+	 * @return Token 对象
 	*/
 	@Transient
-	public static SessionOnline create() {
-		return new SessionOnline();
+	public static Token create() {
+		return new Token();
 	}
 }

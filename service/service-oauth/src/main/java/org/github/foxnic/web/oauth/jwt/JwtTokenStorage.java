@@ -16,23 +16,23 @@ public interface JwtTokenStorage {
      * @param userId       the user id
      * @return the jwt token pair
      */
-    JwtTokenPair put(JwtTokenPair jwtTokenPair, String userId);
+    JwtTokenPair put(JwtTokenPair jwtTokenPair);
 
 
-    /**
-     * Expire.
-     *
-     * @param userId the user id
-     */
-    void expire(String userId);
-
-
-    /**
-     * Get jwt token pair.
-     *
-     * @param userId the user id
-     * @return the jwt token pair
-     */
-    JwtTokenPair get(String userId);
+//    /**
+//     * Expire.
+//     *
+//     * @param userId the user id
+//     */
+//    void expire(String userId);
+//
+//
+//    /**
+//     * Get jwt token pair.
+//     *
+//     * @param userId the user id
+//     * @return the jwt token pair
+//     */
+//    JwtTokenPair get(String userId);
 
 }

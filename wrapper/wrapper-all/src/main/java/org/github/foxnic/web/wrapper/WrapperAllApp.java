@@ -3,6 +3,7 @@ package org.github.foxnic.web.wrapper;
 import org.github.foxnic.web.framework.Meta;
 import org.github.foxnic.web.framework.starter.BootApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.cloud.openfeign.FeignAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 

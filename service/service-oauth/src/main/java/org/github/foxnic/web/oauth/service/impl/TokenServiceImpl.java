@@ -5,7 +5,10 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import org.github.foxnic.web.domain.oauth.Token;
+import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.github.foxnic.web.oauth.service.ITokenService;
 import org.springframework.stereotype.Service;
 
 import com.github.foxnic.commons.busi.id.IDGenerator;
@@ -16,26 +19,20 @@ import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.springboot.api.error.ErrorDesc;
 import com.github.foxnic.springboot.mvc.Result;
 import com.github.foxnic.sql.expr.ConditionExpr;
+import com.github.foxnic.sql.expr.Expr;
 import com.github.foxnic.sql.meta.DBField;
-
-
-import org.github.foxnic.web.domain.oauth.SessionOnline;
-import org.github.foxnic.web.domain.oauth.SessionOnlineVO;
-import org.github.foxnic.web.oauth.service.ISessionOnlineService;
-import org.github.foxnic.web.framework.dao.DBConfigs;
-import java.util.Date;
 
 /**
  * <p>
- * 在线会话表 服务实现
+ * Token表 服务实现
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-01 09:27:28
+ * @since 2021-06-02 15:02:42
 */
 
 
-@Service("SysSessionOnlineService")
-public class SessionOnlineServiceImpl extends SuperService<SessionOnline> implements ISessionOnlineService {
+@Service("SysTokenService")
+public class TokenServiceImpl extends SuperService<Token> implements ITokenService {
 	
 	/**
 	 * 注入DAO对象
@@ -59,8 +56,8 @@ public class SessionOnlineServiceImpl extends SuperService<SessionOnline> implem
 	 * @return 插入是否成功
 	 * */
 	@Override
-	public boolean insert(SessionOnline sessionOnline) {
-		return super.insert(sessionOnline);
+	public boolean insert(Token token) {
+		return super.insert(token);
 	}
 	
 	/**
@@ -69,38 +66,38 @@ public class SessionOnlineServiceImpl extends SuperService<SessionOnline> implem
 	 * @return 插入是否成功
 	 * */
 	@Override
-	public boolean insertList(List<SessionOnline> sessionOnlineList) {
-		return super.insertList(sessionOnlineList);
+	public boolean insertList(List<Token> tokenList) {
+		return super.insertList(tokenList);
 	}
 	
 	
 	/**
-	 * 按主键删除 在线会话
+	 * 按主键删除 Token
 	 *
-	 * @param id ID
+	 * @param id id
 	 * @return 删除是否成功
 	 */
-	public boolean deleteByIdPhysical(String id) {
-		SessionOnline sessionOnline = new SessionOnline();
+	public boolean deleteByIdPhysical(Integer id) {
+		Token token = new Token();
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null ");
-		sessionOnline.setId(id);
-		return dao.deleteEntity(sessionOnline);
+		token.setId(id);
+		return dao.deleteEntity(token);
 	}
 	
 	/**
-	 * 按主键删除 在线会话
+	 * 按主键删除 Token
 	 *
-	 * @param id ID
+	 * @param id id
 	 * @return 删除是否成功
 	 */
-	public boolean deleteByIdLogical(String id) {
-		SessionOnline sessionOnline = new SessionOnline();
+	public boolean deleteByIdLogical(Integer id) {
+		Token token = new Token();
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null 。");
-		sessionOnline.setId(id);
-		sessionOnline.setDeleted(dao.getDBTreaty().getTrueValue());
-		sessionOnline.setDeleteBy((String)dao.getDBTreaty().getLoginUserId());
-		sessionOnline.setDeleteTime(new Date());
-		return dao.updateEntity(sessionOnline,SaveMode.NOT_NULL_FIELDS);
+		token.setId(id);
+		token.setDeleted(dao.getDBTreaty().getTrueValue());
+		token.setDeleteBy((String)dao.getDBTreaty().getLoginUserId());
+		token.setDeleteTime(new Date());
+		return dao.updateEntity(token,SaveMode.NOT_NULL_FIELDS);
 	}
 	
 	/**
@@ -110,8 +107,8 @@ public class SessionOnlineServiceImpl extends SuperService<SessionOnline> implem
 	 * @return 保存是否成功
 	 * */
 	@Override
-	public boolean update(SessionOnline sessionOnline , SaveMode mode) {
-		return super.update(sessionOnline , mode);
+	public boolean update(Token token , SaveMode mode) {
+		return super.update(token , mode);
 	}
 	
 	/**
@@ -121,18 +118,18 @@ public class SessionOnlineServiceImpl extends SuperService<SessionOnline> implem
 	 * @return 保存是否成功
 	 * */
 	@Override
-	public boolean updateList(List<SessionOnline> sessionOnlineList , SaveMode mode) {
-		return super.updateList(sessionOnlineList , mode);
+	public boolean updateList(List<Token> tokenList , SaveMode mode) {
+		return super.updateList(tokenList , mode);
 	}
 	
 	
 	/**
-	 * 按主键更新字段 在线会话
+	 * 按主键更新字段 Token
 	 *
-	 * @param id ID
+	 * @param id id
 	 * @return 是否更新成功
 	 */
-	public boolean update(DBField field,Object value , String id) {
+	public boolean update(DBField field,Object value , Integer id) {
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null ");
 		if(!field.table().name().equals(this.table())) throw new IllegalArgumentException("更新的数据表["+field.table().name()+"]与服务对应的数据表["+this.table()+"]不一致");
 		int suc=dao.update(field.table().name()).set(field.name(), value).where().and("id = ? ",id).top().execute();
@@ -141,13 +138,13 @@ public class SessionOnlineServiceImpl extends SuperService<SessionOnline> implem
 	
 	
 	/**
-	 * 按主键获取 在线会话
+	 * 按主键获取 Token
 	 *
-	 * @param id ID
-	 * @return SessionOnline 数据对象
+	 * @param id id
+	 * @return Token 数据对象
 	 */
-	public SessionOnline getById(String id) {
-		SessionOnline sample = new SessionOnline();
+	public Token getById(Integer id) {
+		Token sample = new Token();
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null ");
 		sample.setId(id);
 		return dao.queryEntity(sample);
@@ -160,7 +157,7 @@ public class SessionOnlineServiceImpl extends SuperService<SessionOnline> implem
 	 * @return 查询结果
 	 * */
 	@Override
-	public List<SessionOnline> queryList(SessionOnline sample) {
+	public List<Token> queryList(Token sample) {
 		return super.queryList(sample);
 	}
 	
@@ -174,7 +171,7 @@ public class SessionOnlineServiceImpl extends SuperService<SessionOnline> implem
 	 * @return 查询结果
 	 * */
 	@Override
-	public PagedList<SessionOnline> queryPagedList(SessionOnline sample, int pageSize, int pageIndex) {
+	public PagedList<Token> queryPagedList(Token sample, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, pageSize, pageIndex);
 	}
 	
@@ -188,7 +185,7 @@ public class SessionOnlineServiceImpl extends SuperService<SessionOnline> implem
 	 * @return 查询结果
 	 * */
 	@Override
-	public PagedList<SessionOnline> queryPagedList(SessionOnline sample, ConditionExpr condition, int pageSize, int pageIndex) {
+	public PagedList<Token> queryPagedList(Token sample, ConditionExpr condition, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, condition, pageSize, pageIndex);
 	}
 	
@@ -198,16 +195,22 @@ public class SessionOnlineServiceImpl extends SuperService<SessionOnline> implem
 	 * @param roleVO 数据对象
 	 * @return 判断结果
 	 */
-	public Result<SessionOnline> checkExists(SessionOnline role) {
+	public Result<Token> checkExists(Token role) {
 		//TDOD 此处添加判断段的代码
 		//boolean exists=this.checkExists(role, SYS_ROLE.NAME);
 		//return exists;
 		return ErrorDesc.success();
 	}
 
-	@Override
-	public void offline(String sessionId) {
-		dao.execute("update "+this.table()+" set online=0 , logout_time=now() where session_id=?",sessionId);
-	}
+//	/**
+//	 * 按用户ID获得有效的最近
+//	 * */
+//	@Override
+//	public Token getValidTokenByUserId(String userId) {
+//		Expr ce=new Expr("select * from "+this.table()+" where user_id=? and refresh_token_expired=0 and refresh_token_expire_time>now() and deleted=0 order by refresh_token_expire_time desc",userId);
+//		List<Token> tokens=dao.queryEntities(Token.class, ce);
+//		if(tokens.isEmpty()) return null;
+//		else return tokens.get(0);
+//	}
 
 }

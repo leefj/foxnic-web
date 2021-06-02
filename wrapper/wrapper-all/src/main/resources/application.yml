@@ -1,6 +1,7 @@
 server:
-  session: 
-    timeout: 20
+  servlet:
+    session:
+      timeout: 5s # session超时时间默认30m (30分钟)，至少设置1分钟
   port: 1899
  
 spring:
@@ -17,12 +18,12 @@ spring:
     druid:
       primary:
         driver-class-name: com.mysql.cj.jdbc.Driver
-        #url: jdbc:mysql://39.105.191.22:3306/eam?useSSL=false&serverTimezone=Hongkong&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&allowPublicKeyRetrieval=true&tinyInt1isBit=false
-        #username: root
-        #password: root_pwd
-        url: jdbc:mysql://47.92.240.43:3306/foxnic-web?useSSL=false&serverTimezone=Hongkong&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&allowPublicKeyRetrieval=true&tinyInt1isBit=false
-        username: tailoring
-        password: Tailoring@2021
+        url: jdbc:mysql://39.105.191.22:3306/eam?useSSL=false&serverTimezone=Hongkong&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&allowPublicKeyRetrieval=true&tinyInt1isBit=false
+        username: root
+        password: root_pwd
+        #url: jdbc:mysql://47.92.240.43:3306/foxnic-web?useSSL=false&serverTimezone=Hongkong&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&allowPublicKeyRetrieval=true&tinyInt1isBit=false
+        #username: tailoring
+        #password: Tailoring@2021111
         min-idle: 1
         initial-size: 2
         max-active: 64
@@ -36,21 +37,32 @@ spring:
     content-type: text/html
     mode: HTML5
     cache: false
+  session:
+    store-type: redis # 使用 redis 存储session
+  redis:
+      port: 6379
+      host: 127.0.0.1
 
 
 
-security: 
-  session-cache-type: local
+security:
+  # 模式：session / jwt
+  mode: session 
+  # 缓存类型  local/remote/both
+  cache-type: local
+  # 配置无需鉴权可以访问的地址
   ignored-urls: /assets/** , /pages/tpl/** , /favicon.ico , /module/** ,  /**/*.css , /**/*.js
+  # mode=session 时配置的登录页面
   login-page: /login.html
+  # mode=jwt 时配置的 jwt 选项
   jwt:
     key-location: felordcn.jks
     key-alias: felordcn
     key-pass: 123456
     iss: felord.cn
     sub: all
-    access-exp-days: 30
-    refresh-exp-days: 90
+    access-expire-seconds: 20
+    refresh-expire-seconds: 30
 
 
 logging:

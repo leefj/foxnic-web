@@ -1,0 +1,97 @@
+<!-- 
+/**
+ * Token 列表页 JS 脚本
+ * @author 李方捷 , leefangjie@qq.com
+ * @since 2021-06-02 14:46:36
+ */
+ -->
+ <!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta charset="utf-8"/>
+	<title th:text="${lang.translate('Token')}">Token</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/assets/libs/layui/css/layui.css"/>
+    <link rel="stylesheet" href="/assets/css/admin.css"/>
+    <link rel="stylesheet" href="/module/formSelects/formSelects-v4.css"/>
+    <link rel="stylesheet" href="/assets/libs/zTree/css/metroStyle/metroStyle.css"/>
+    <!-- 自定义主题，使用EasyWeb主题生成器生成 -->
+    <!--<link rel="stylesheet" href="assets/css/theme-blue.css"/>-->
+</head>
+
+<body>
+
+<form id="data-form" lay-filter="data-form" class="layui-form model-form">
+    <input name="id" id="id"  type="hidden"/>
+    
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('user_id')}">user_id</label>
+        <div class="layui-input-block">
+            <input id="userId" name="userId" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('user_id') }" type="text" class="layui-input"    />
+        </div>
+    </div>
+    
+	
+    
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('Token标识')}">Token标识</label>
+        <div class="layui-input-block">
+            <input id="jti" name="jti" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('Token标识') }" type="text" class="layui-input"    />
+        </div>
+    </div>
+    
+	
+    
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('访问用Token')}">访问用Token</label>
+        <div class="layui-input-block">
+            <input id="accessToken" name="accessToken" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('访问用Token') }" type="text" class="layui-input"    />
+        </div>
+    </div>
+    
+	
+    
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('刷新用Token')}">刷新用Token</label>
+        <div class="layui-input-block">
+            <input id="refreshToken" name="refreshToken" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('刷新用Token') }" type="text" class="layui-input"    />
+        </div>
+    </div>
+    
+	
+    
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('过期时间')}">过期时间</label>
+        <div class="layui-input-block">
+            <input id="expireTime" name="expireTime" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('过期时间') }" type="text" class="layui-input"    />
+        </div>
+    </div>
+    
+	
+    
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('是否过期')}">是否过期</label>
+        <div class="layui-input-block">
+            <input id="expired" name="expired" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('是否过期') }" type="text" class="layui-input"    />
+        </div>
+    </div>
+    
+	
+
+    <div class="layui-form-item model-form-footer">
+        <button class="layui-btn layui-btn-primary" ew-event="closeDialog" type="button" th:text="${lang.translate('取消')}">取消</button>
+        <button class="layui-btn"  id="submit-button" lay-filter="submit-button" lay-submit th:text="${lang.translate('保存')}">保存</button>
+    </div>
+</form>
+
+<script type="text/javascript" src="/module/apiUrl.js"></script>
+<script type="text/javascript" src="/assets/libs/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/assets/libs/pandyle.min.js"></script>
+<script type="text/javascript" src="/assets/libs/layui/layui.js"></script>
+
+<script src="/pages/oauth/token/token_form.js"></script>
+
+</body>
+</html>

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.oauth.service.IUserService;
+import org.github.foxnic.web.oauth.session.SessionUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;

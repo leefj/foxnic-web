@@ -1,11 +1,16 @@
-package org.github.foxnic.web.oauth.config.user;
+package org.github.foxnic.web.oauth.session;
 
 import java.util.Collection;
 
 import org.github.foxnic.web.domain.oauth.User;
 import org.springframework.security.core.CredentialsContainer;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.springboot.mvc.RequestParameter;
 
 public class SessionUser implements UserDetails, CredentialsContainer {
  
@@ -13,8 +18,14 @@ public class SessionUser implements UserDetails, CredentialsContainer {
 	
 	private User user;
 	
+	private String token;
+	
+	private String sessionId;
+	
 	public SessionUser(User user) {
 		this.user=user;
+		this.token=IDGenerator.getSUID(true);
+		this.sessionId=RequestParameter.get().getSessionId(true);
 	}
 
 	@Override
@@ -64,7 +75,35 @@ public class SessionUser implements UserDetails, CredentialsContainer {
 	public User getUser() {
 		return user;
 	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
 	
+	
+	/**
+	 * 获得当前登录的账户
+	 * */
+	public static SessionUser getCurrent() {
+		SecurityContext context = SecurityContextHolder.getContext();
+        if(context==null || context.getAuthentication()==null || !context.getAuthentication().isAuthenticated()) {
+        	 return null;
+        }
+        Object principal=context.getAuthentication().getPrincipal();
+        if(principal==null || !(principal instanceof SessionUser)) {
+        	return null;
+        }
+        SessionUser userDetail=(SessionUser)principal;
+        return userDetail;
+	}
+
+	public String getSessionId() {
+		return sessionId;
+	}
 	 
 	
 }
