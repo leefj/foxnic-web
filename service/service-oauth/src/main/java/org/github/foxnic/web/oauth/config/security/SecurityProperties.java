@@ -12,8 +12,12 @@ import com.github.foxnic.springboot.web.WebContext;
 @ConfigurationProperties(prefix="security")
 public class SecurityProperties {
 	
+	public static enum SecurityMode {
+		SESSION,JWT;
+	}
+	
 	public static enum SessionCacheType {
-		local,remote,both;
+		LOCAL,REMOTE,BOTH;
 	}
 	
 	public static final String VCODE_URI_PATTERN=ValidateCodeController.VCODE_URI+"/**";
@@ -24,11 +28,11 @@ public class SecurityProperties {
 	private String[] ignored;
  
 	private String sessionCacheType;
-	
 	private SessionCacheType sessionCacheTypeEnum=null;
 	
-	
-	
+	private String securityMode;
+	private SecurityMode securityModeEnum=null;
+ 
 
 	public String getLoginPage() {
 		return loginPage;
@@ -61,7 +65,7 @@ public class SecurityProperties {
     }
  
 	public SessionCacheType getSessionCacheType() {
-		if(sessionCacheTypeEnum==null) sessionCacheTypeEnum=SessionCacheType.valueOf(sessionCacheType);
+		if(sessionCacheTypeEnum==null) sessionCacheTypeEnum=SessionCacheType.valueOf(sessionCacheType.toUpperCase());
 		return sessionCacheTypeEnum;
 	}
 
@@ -75,6 +79,15 @@ public class SecurityProperties {
 
 	public void setSessionCacheType(String sessionCacheType) {
 		this.sessionCacheType = sessionCacheType;
+	}
+
+	public SecurityMode getSecurityMode() {
+		if(securityModeEnum==null) securityModeEnum=SecurityMode.valueOf(securityMode.toUpperCase());
+		return securityModeEnum;
+	}
+
+	public void setMode(String securityMode) {
+		this.securityMode = securityMode;
 	}
 	
 }

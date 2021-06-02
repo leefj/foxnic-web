@@ -8,7 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.github.foxnic.web.oauth.config.user.SessionUser;
+import org.github.foxnic.web.oauth.session.SessionUser;
 import org.github.foxnic.web.oauth.utils.ResponseUtil;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;

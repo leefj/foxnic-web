@@ -20,13 +20,14 @@ import java.util.Set;
  * @author Felordcn
  * @since 11:27 2019/10/25
  **/
-public class JwtPayloadBuilder {
+public class JwtToken {
+ 
+	private String jti;
+	
+	
 
     private Map<String, String> payload = new HashMap<>();
-    /**
-     * 附加的属性
-     */
-    private Map<String, String> additional;
+ 
     /**
      * jwt签发者
      **/
@@ -36,9 +37,13 @@ public class JwtPayloadBuilder {
      **/
     private String sub;
     /**
-     * 接收jwt的一方
+     * 接收jwt的一方 姓名
      **/
     private String aud;
+    /**
+     * 接收jwt的一方 ID
+     **/
+    private String uid;
     /**
      * jwt的过期时间，这个过期时间必须要大于签发时间
      **/
@@ -47,62 +52,82 @@ public class JwtPayloadBuilder {
      * jwt的签发时间
      **/
     private LocalDateTime iat = LocalDateTime.now();
+    
     /**
-     * 权限集
-     */
-    private Set<String> roles = new HashSet<>();
-    /**
-     * jwt的唯一身份标识，主要用来作为一次性token,从而回避重放攻击
+     * token 类型  access/refresh
      **/
-    private String jti = IDGenerator.getUUID();
-
-    public JwtPayloadBuilder iss(String iss) {
+    private String type;
+    
+    /**
+     * token 结果
+     **/
+    private String token;
+ 
+    public JwtToken type(String type) {
+        this.type = type;
+        return this;
+    }
+    
+    public JwtToken jti(String jti) {
+    	this.jti = jti;
+    	return this;
+	}
+    
+    public JwtToken uid(String uid) {
+        this.uid = uid;
+        return this;
+    }
+ 
+    public JwtToken iss(String iss) {
         this.iss = iss;
         return this;
     }
-
-
-    public JwtPayloadBuilder sub(String sub) {
+ 
+    public JwtToken sub(String sub) {
         this.sub = sub;
         return this;
     }
 
-    public JwtPayloadBuilder aud(String aud) {
+    public JwtToken aud(String aud) {
         this.aud = aud;
         return this;
     }
-
-
-    public JwtPayloadBuilder roles(Set<String> roles) {
-        this.roles = roles;
+ 
+    public JwtToken expireSeconds(int seconds) {
+        Assert.isTrue(seconds > 0, "jwt expire seconds must after now");
+        this.exp = this.iat.plusSeconds(seconds);
         return this;
     }
-
-    public JwtPayloadBuilder expDays(int days) {
-        Assert.isTrue(days > 0, "jwt expireDate must after now");
-        this.exp = this.iat.plusDays(days);
-        return this;
+    
+    public LocalDateTime exp() {
+    	return this.exp;
     }
-
-    public JwtPayloadBuilder additional(Map<String, String> additional) {
-        this.additional = additional;
-        return this;
-    }
-
+    
+  
     public String builder() {
-        payload.put("iss", this.iss);
+    	
+    	payload.put("iss", this.iss);
         payload.put("sub", this.sub);
+        payload.put("uid", this.uid);
         payload.put("aud", this.aud);
         payload.put("exp", this.exp.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         payload.put("iat", this.iat.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-        payload.put("jti", this.jti);
+        payload.put("jti",this.jti);
 
-        if (!CollectionUtils.isEmpty(additional)) {
-            payload.putAll(additional);
-        }
-        payload.put("roles", JSON.toJSONString(this.roles));
+        
         return JSON.toJSONString(payload);
-
     }
 
+	public String token() {
+		return token;
+	}
+
+	public void token(String token) {
+		this.token = token;
+	}
+
+	public String uid() {
+		return this.uid;
+	}
+ 
 }

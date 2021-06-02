@@ -14,19 +14,28 @@ public class JwtTokenPair implements Serializable {
 	
     private static final long serialVersionUID = -8518897818107784049L;
     
-    private String accessToken;
-    private String refreshToken;
+    private String jti;
     
-	public String getAccessToken() {
+    public JwtTokenPair(String jti) {
+    	this.jti = jti;
+    }
+ 
+    private JwtToken accessToken;
+    private JwtToken refreshToken;
+    
+	public JwtToken getAccessToken() {
 		return accessToken;
 	}
-	public void setAccessToken(String accessToken) {
+	public void setAccessToken(JwtToken accessToken) {
 		this.accessToken = accessToken;
 	}
-	public String getRefreshToken() {
+	public JwtToken getRefreshToken() {
 		return refreshToken;
 	}
-	public void setRefreshToken(String refreshToken) {
+	public void setRefreshToken(JwtToken refreshToken) {
 		this.refreshToken = refreshToken;
+	}
+	public String getJti() {
+		return jti;
 	}
 }

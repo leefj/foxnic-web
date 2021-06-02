@@ -7,8 +7,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-31 11:26:35
- * @sign 1751F9D041361D6747A314B070E61793
+ * @since 2021-06-02 17:13:49
+ * @sign 912A496BD80F888F0A45C92C0B95D6D0
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -23,6 +23,11 @@ public class SessionOnlineMeta {
 	 * token
 	*/
 	public static final String TOKEN="token";
+	
+	/**
+	 * 会话ID
+	*/
+	public static final String SESSION_ID="sessionId";
 	
 	/**
 	 * 账户ID
@@ -43,6 +48,11 @@ public class SessionOnlineMeta {
 	 * 登出时间
 	*/
 	public static final String LOGOUT_TIME="logoutTime";
+	
+	/**
+	 * 会话时长 , 单位秒
+	*/
+	public static final String SESSION_TIME="sessionTime";
 	
 	/**
 	 * 是否在线
@@ -92,7 +102,7 @@ public class SessionOnlineMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , TOKEN , USER_ID , LOGIN_TIME , INTERACT_TIME , LOGOUT_TIME , ONLINE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , TOKEN , SESSION_ID , USER_ID , LOGIN_TIME , INTERACT_TIME , LOGOUT_TIME , SESSION_TIME , ONLINE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
 	
 	/**
 	 * 代理类
@@ -121,6 +131,17 @@ public class SessionOnlineMeta {
 		public SessionOnline setToken(String token) {
 			super.change(TOKEN,super.getToken(),token);
 			super.setToken(token);
+			return this;
+		}
+		
+		/**
+		 * 设置 会话ID
+		 * @param sessionId 会话ID
+		 * @return 当前对象
+		*/
+		public SessionOnline setSessionId(String sessionId) {
+			super.change(SESSION_ID,super.getSessionId(),sessionId);
+			super.setSessionId(sessionId);
 			return this;
 		}
 		
@@ -165,6 +186,17 @@ public class SessionOnlineMeta {
 		public SessionOnline setLogoutTime(Date logoutTime) {
 			super.change(LOGOUT_TIME,super.getLogoutTime(),logoutTime);
 			super.setLogoutTime(logoutTime);
+			return this;
+		}
+		
+		/**
+		 * 设置 会话时长
+		 * @param sessionTime 会话时长
+		 * @return 当前对象
+		*/
+		public SessionOnline setSessionTime(Integer sessionTime) {
+			super.change(SESSION_TIME,super.getSessionTime(),sessionTime);
+			super.setSessionTime(sessionTime);
 			return this;
 		}
 		

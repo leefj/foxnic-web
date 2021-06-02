@@ -3,7 +3,7 @@ package org.github.foxnic.web.oauth.logout;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.github.foxnic.web.oauth.config.user.SessionUser;
+import org.github.foxnic.web.oauth.session.SessionUser;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
