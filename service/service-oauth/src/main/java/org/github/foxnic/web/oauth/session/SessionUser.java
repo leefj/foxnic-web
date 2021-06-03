@@ -20,12 +20,11 @@ public class SessionUser implements UserDetails, CredentialsContainer {
 	
 	private String token;
 	
-	private String sessionId;
+	public static final  String SESSION_ONLINE_ID_KEY="SESSION_ONLINE_ID_KEY";
 	
 	public SessionUser(User user) {
 		this.user=user;
 		this.token=IDGenerator.getSUID(true);
-		this.sessionId=RequestParameter.get().getSessionId(true);
 	}
 
 	@Override
@@ -100,10 +99,5 @@ public class SessionUser implements UserDetails, CredentialsContainer {
         SessionUser userDetail=(SessionUser)principal;
         return userDetail;
 	}
-
-	public String getSessionId() {
-		return sessionId;
-	}
-	 
-	
+ 
 }
