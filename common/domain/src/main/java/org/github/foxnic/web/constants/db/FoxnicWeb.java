@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2021-06-02 17:13:31
+ * @since 2021-06-03 08:55:10
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -1221,6 +1221,11 @@ public class FoxnicWeb {
 		public static final DBField INTERACT_TIME = new DBField(DBDataType.DATE , "interact_time","interactTime","最近一次交互时间","最近一次交互时间",false,false,true);
 		
 		/**
+		 * 最后访问的地址
+		*/
+		public static final DBField INTERACT_URL = new DBField(DBDataType.STRING , "interact_url","interactUrl","最后访问的地址","最后访问的地址",false,false,true);
+		
+		/**
 		 * 登出时间
 		*/
 		public static final DBField LOGOUT_TIME = new DBField(DBDataType.DATE , "logout_time","logoutTime","登出时间","登出时间",false,false,true);
@@ -1276,7 +1281,7 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
 		public SYS_SESSION_ONLINE() {
-			this.init($NAME,"在线会话表" , ID , TOKEN , SESSION_ID , USER_ID , LOGIN_TIME , INTERACT_TIME , LOGOUT_TIME , SESSION_TIME , ONLINE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"在线会话表" , ID , TOKEN , SESSION_ID , USER_ID , LOGIN_TIME , INTERACT_TIME , INTERACT_URL , LOGOUT_TIME , SESSION_TIME , ONLINE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final SYS_SESSION_ONLINE $TABLE=new SYS_SESSION_ONLINE();
 	}

@@ -7,8 +7,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-02 17:13:49
- * @sign 912A496BD80F888F0A45C92C0B95D6D0
+ * @since 2021-06-03 08:55:28
+ * @sign 094E24FE2581A08B603B166782252CBA
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -43,6 +43,11 @@ public class SessionOnlineMeta {
 	 * 最近一次交互时间
 	*/
 	public static final String INTERACT_TIME="interactTime";
+	
+	/**
+	 * 最后访问的地址
+	*/
+	public static final String INTERACT_URL="interactUrl";
 	
 	/**
 	 * 登出时间
@@ -102,7 +107,7 @@ public class SessionOnlineMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , TOKEN , SESSION_ID , USER_ID , LOGIN_TIME , INTERACT_TIME , LOGOUT_TIME , SESSION_TIME , ONLINE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , TOKEN , SESSION_ID , USER_ID , LOGIN_TIME , INTERACT_TIME , INTERACT_URL , LOGOUT_TIME , SESSION_TIME , ONLINE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
 	
 	/**
 	 * 代理类
@@ -175,6 +180,17 @@ public class SessionOnlineMeta {
 		public SessionOnline setInteractTime(Date interactTime) {
 			super.change(INTERACT_TIME,super.getInteractTime(),interactTime);
 			super.setInteractTime(interactTime);
+			return this;
+		}
+		
+		/**
+		 * 设置 最后访问的地址
+		 * @param interactUrl 最后访问的地址
+		 * @return 当前对象
+		*/
+		public SessionOnline setInteractUrl(String interactUrl) {
+			super.change(INTERACT_URL,super.getInteractUrl(),interactUrl);
+			super.setInteractUrl(interactUrl);
 			return this;
 		}
 		

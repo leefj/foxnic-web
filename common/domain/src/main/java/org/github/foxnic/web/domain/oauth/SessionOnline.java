@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-02 17:13:49
- * @sign 912A496BD80F888F0A45C92C0B95D6D0
+ * @since 2021-06-03 08:55:28
+ * @sign 094E24FE2581A08B603B166782252CBA
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -64,6 +64,12 @@ public class SessionOnline extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="最近一次交互时间" , notes = "最近一次交互时间")
 	private Date interactTime;
+	
+	/**
+	 * 最后访问的地址：最后访问的地址
+	*/
+	@ApiModelProperty(required = false,value="最后访问的地址" , notes = "最后访问的地址")
+	private String interactUrl;
 	
 	/**
 	 * 登出时间：登出时间
@@ -278,6 +284,31 @@ public class SessionOnline extends Entity {
 	/**
 	 * 添加 最近一次交互时间
 	 * @param interactTime 最近一次交互时间
+	 * @return 当前对象
+	*/
+	
+	/**
+	 * 获得 最后访问的地址<br>
+	 * 属性说明 : 最后访问的地址
+	 * @return 最后访问的地址
+	*/
+	public String getInteractUrl() {
+		return interactUrl;
+	}
+	
+	/**
+	 * 设置 最后访问的地址
+	 * @param interactUrl 最后访问的地址
+	 * @return 当前对象
+	*/
+	public SessionOnline setInteractUrl(String interactUrl) {
+		this.interactUrl=interactUrl;
+		return this;
+	}
+	
+	/**
+	 * 添加 最后访问的地址
+	 * @param interactUrl 最后访问的地址
 	 * @return 当前对象
 	*/
 	
