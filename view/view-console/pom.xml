@@ -25,7 +25,7 @@
 	</properties>
 
 	<dependencies>
-	
+
 		<dependency>
 			<groupId>com.github.foxnic.web</groupId>
 			<artifactId>domain</artifactId>
@@ -37,11 +37,26 @@
 			<artifactId>proxy</artifactId>
 			<version>${platform.version}</version>
 		</dependency>
-	
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+			<!-- 移除掉默认支持的 Tomcat -->
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
+
+		<!-- 添加 Undertow 容器 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-undertow</artifactId>
+		</dependency>
+
+
 
 		<dependency>
 			<groupId>com.github.ben-manes.caffeine</groupId>
