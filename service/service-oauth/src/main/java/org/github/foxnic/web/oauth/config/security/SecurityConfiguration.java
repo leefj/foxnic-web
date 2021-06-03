@@ -112,6 +112,9 @@ public class SecurityConfiguration {
 			}
 			// 如果是Session模式，指定访问页面
 			if(securityProperties.getSecurityMode()==SecurityMode.SESSION) {
+				for (String pattern : securityProperties.getIgnoredUrls()) {
+					http.authorizeRequests().antMatchers(pattern).permitAll();
+				}
 				http.authorizeRequests().antMatchers(securityProperties.getLoginPage()).permitAll();
 			}
 			// 禁用 csrf
@@ -126,7 +129,7 @@ public class SecurityConfiguration {
 			// 登录前置过滤器
 			http.addFilterBefore(preLoginFilter, UsernamePasswordAuthenticationFilter.class);
 			// formLogin
-			http.formLogin().loginPage(securityProperties.getLoginPage()).loginProcessingUrl(UserServiceProxy.LOGIN_URI)
+			http.formLogin().loginProcessingUrl(UserServiceProxy.LOGIN_URI).loginPage(securityProperties.getLoginPage())
 					.successHandler(authenticationSuccessHandler).failureHandler(authenticationFailureHandler);
 			// logout
 			http.logout().logoutUrl(UserServiceProxy.LOGOUT_URI).addLogoutHandler(new CustomLogoutHandler())

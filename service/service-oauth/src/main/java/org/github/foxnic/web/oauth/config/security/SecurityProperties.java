@@ -44,7 +44,7 @@ public class SecurityProperties {
 			for (int i = 0; i < ignored.length; i++) {
 				ignored[i]=ignored[i].trim();
 			}
-			ignored=ArrayUtil.append(ignored,VCODE_URI_PATTERN,this.getLoginPage(),UserServiceProxy.LOGIN_URI,UserServiceProxy.LOGOUT_URI);
+			ignored=ArrayUtil.append(ignored,VCODE_URI_PATTERN);
 		}
 		return ignored;
 	}
