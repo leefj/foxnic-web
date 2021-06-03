@@ -1,7 +1,10 @@
 server:
+  session: 
+    timeout: 30s
   servlet:
     session:
-      timeout: 5s # session超时时间默认30m (30分钟)，至少设置1分钟
+      # 会话超时时间，如 30s , 20m 等
+      timeout: 30s 
   port: 1899
  
 spring:
@@ -51,7 +54,7 @@ security:
   # 缓存类型  local/remote/both
   cache-type: local
   # 配置无需鉴权可以访问的地址
-  ignored-urls: /assets/** , /pages/tpl/** , /favicon.ico , /module/** ,  /**/*.css , /**/*.js
+  ignored-urls: /assets/** , /pages/tpl/** , /favicon.ico , /module/** ,  /**/*.css , /**/*.js , /error
   # mode=session 时配置的登录页面
   login-page: /login.html
   # mode=jwt 时配置的 jwt 选项
