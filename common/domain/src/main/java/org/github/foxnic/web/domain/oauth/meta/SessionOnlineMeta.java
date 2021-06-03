@@ -7,8 +7,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-03 08:55:28
- * @sign 094E24FE2581A08B603B166782252CBA
+ * @since 2021-06-03 14:06:10
+ * @sign 2A4666C838F1AE796F066AB4F06C4627
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -18,11 +18,6 @@ public class SessionOnlineMeta {
 	 * ID
 	*/
 	public static final String ID="id";
-	
-	/**
-	 * token
-	*/
-	public static final String TOKEN="token";
 	
 	/**
 	 * 会话ID
@@ -107,7 +102,7 @@ public class SessionOnlineMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , TOKEN , SESSION_ID , USER_ID , LOGIN_TIME , INTERACT_TIME , INTERACT_URL , LOGOUT_TIME , SESSION_TIME , ONLINE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , SESSION_ID , USER_ID , LOGIN_TIME , INTERACT_TIME , INTERACT_URL , LOGOUT_TIME , SESSION_TIME , ONLINE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
 	
 	/**
 	 * 代理类
@@ -125,17 +120,6 @@ public class SessionOnlineMeta {
 		public SessionOnline setId(String id) {
 			super.change(ID,super.getId(),id);
 			super.setId(id);
-			return this;
-		}
-		
-		/**
-		 * 设置 token
-		 * @param token token
-		 * @return 当前对象
-		*/
-		public SessionOnline setToken(String token) {
-			super.change(TOKEN,super.getToken(),token);
-			super.setToken(token);
 			return this;
 		}
 		

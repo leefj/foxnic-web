@@ -17,7 +17,7 @@ import com.github.foxnic.springboot.web.WebContext;
 public class SecurityProperties {
 	
 	public static enum SecurityMode {
-		SESSION,JWT;
+		SESSION,JWT,BOTH;
 	}
 	
 	public static enum SessionCacheType {

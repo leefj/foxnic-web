@@ -33,6 +33,6 @@ public interface JwtTokenStorage {
 //     * @param userId the user id
 //     * @return the jwt token pair
 //     */
-//    JwtTokenPair get(String userId);
+    JwtTokenPair get(String userId);
 
 }

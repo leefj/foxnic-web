@@ -1,39 +1,13 @@
 package org.github.foxnic.web.oauth.config.jwt;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
-import org.github.foxnic.web.oauth.exception.UserAuthenticationEntryPoint;
+import org.github.foxnic.web.oauth.config.security.SecurityProperties;
+import org.github.foxnic.web.oauth.jwt.JwtAuthenticationFilter;
 import org.github.foxnic.web.oauth.jwt.JwtTokenCacheStorage;
 import org.github.foxnic.web.oauth.jwt.JwtTokenGenerator;
-import org.github.foxnic.web.oauth.jwt.JwtTokenPair;
 import org.github.foxnic.web.oauth.jwt.JwtTokenStorage;
-import org.github.foxnic.web.oauth.session.SessionUser;
-import org.github.foxnic.web.oauth.utils.ResponseUtil;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AccountExpiredException;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.CredentialsExpiredException;
-import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.authentication.LockedException;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-
-import com.github.foxnic.commons.log.Logger;
-import com.github.foxnic.springboot.api.error.CommonError;
-import com.github.foxnic.springboot.api.error.ErrorDesc;
-import com.github.foxnic.springboot.mvc.Result;
-import com.github.foxnic.springboot.web.ResponseUtils;
 
 /**
  * JwtConfiguration
@@ -41,7 +15,8 @@ import com.github.foxnic.springboot.web.ResponseUtils;
  * @author 李方捷
  * @since  2021-06-02
  */
-@EnableConfigurationProperties(JwtProperties.class)
+@EnableConfigurationProperties(value= {JwtProperties.class,SecurityProperties.class})
+
 @Configuration
 public class JwtConfiguration {
 
@@ -64,8 +39,20 @@ public class JwtConfiguration {
      * @return the jwt token generator
      */
     @Bean
-    public JwtTokenGenerator jwtTokenGenerator(JwtTokenStorage jwtTokenStorage, JwtProperties jwtProperties) {
-        return new JwtTokenGenerator(jwtTokenStorage, jwtProperties);
+    public JwtTokenGenerator jwtTokenGenerator(JwtTokenStorage jwtTokenStorage,SecurityProperties securityProperties, JwtProperties jwtProperties) {
+        return new JwtTokenGenerator(jwtTokenStorage,securityProperties, jwtProperties);
+    }
+    
+    /**
+     * Jwt 认证过滤器.
+     *
+     * @param jwtTokenGenerator jwt 工具类 负责 生成 验证 解析
+     * @param jwtTokenStorage   jwt 缓存存储接口
+     * @return the jwt authentication filter
+     */
+    @Bean
+    public JwtAuthenticationFilter jwtAuthenticationFilter(JwtTokenGenerator jwtTokenGenerator, JwtTokenStorage jwtTokenStorage) {
+        return new JwtAuthenticationFilter(jwtTokenGenerator, jwtTokenStorage);
     }
  
 }

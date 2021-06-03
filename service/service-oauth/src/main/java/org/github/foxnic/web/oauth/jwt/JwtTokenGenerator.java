@@ -10,6 +10,8 @@ import java.util.Map;
 import java.util.Set;
 
 import org.github.foxnic.web.oauth.config.jwt.JwtProperties;
+import org.github.foxnic.web.oauth.config.security.SecurityProperties;
+import org.github.foxnic.web.oauth.config.security.SecurityProperties.SecurityMode;
 import org.springframework.security.jwt.Jwt;
 import org.springframework.security.jwt.JwtHelper;
 import org.springframework.security.jwt.crypto.sign.RsaSigner;
@@ -40,12 +42,13 @@ public class JwtTokenGenerator {
      * @param jwtTokenStorage the jwt token storage
      * @param jwtProperties   the jwt properties
      */
-    public JwtTokenGenerator(JwtTokenStorage jwtTokenStorage, JwtProperties jwtProperties) {
+    public JwtTokenGenerator(JwtTokenStorage jwtTokenStorage, SecurityProperties securityProperties,JwtProperties jwtProperties) {
         this.jwtTokenStorage = jwtTokenStorage;
         this.jwtProperties = jwtProperties;
-
-        KeyPairFactory keyPairFactory = new KeyPairFactory();
-        this.keyPair = keyPairFactory.create(jwtProperties.getKeyLocation(), jwtProperties.getKeyAlias(), jwtProperties.getKeyPass());
+        if(securityProperties.getSecurityMode()==SecurityMode.JWT  || securityProperties.getSecurityMode()==SecurityMode.BOTH) {
+	        KeyPairFactory keyPairFactory = new KeyPairFactory();
+	        this.keyPair = keyPairFactory.create(jwtProperties.getKeyLocation(), jwtProperties.getKeyAlias(), jwtProperties.getKeyPass());
+        }
     }
 
 

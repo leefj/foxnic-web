@@ -23,13 +23,12 @@ public class SessionUser implements UserDetails, CredentialsContainer {
 	
 	private User user;
 	
-	private String token;
+	private String sessionOnlineId;
 	
 	public static final  String SESSION_ONLINE_ID_KEY="SESSION_ONLINE_ID_KEY";
 	
 	public SessionUser(User user) {
 		this.user=user;
-		this.token=IDGenerator.getSUID(true);
 	}
 
 	@Override
@@ -80,12 +79,12 @@ public class SessionUser implements UserDetails, CredentialsContainer {
 		return user;
 	}
 
-	public String getToken() {
-		return token;
+	public String getSessionUserId() {
+		return sessionOnlineId;
 	}
 
-	public void setToken(String token) {
-		this.token = token;
+	public void setSessionUserId(String token) {
+		this.sessionOnlineId = token;
 	}
 	
 	

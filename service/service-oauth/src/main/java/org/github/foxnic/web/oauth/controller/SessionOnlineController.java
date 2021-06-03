@@ -49,7 +49,6 @@ public class SessionOnlineController {
 	@ApiOperation(value = "添加在线会话")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = SessionOnlineVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "450690969709314048"),
-		@ApiImplicitParam(name = SessionOnlineVOMeta.TOKEN , value = "token" , required = false , dataTypeClass=String.class , example = "089ca02ede56d2c7aea7f766c542f8946a25df4e"),
 		@ApiImplicitParam(name = SessionOnlineVOMeta.USER_ID , value = "账户ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = SessionOnlineVOMeta.LOGIN_TIME , value = "登录时间" , required = false , dataTypeClass=Date.class , example = "2021-05-28 04:05:01"),
 		@ApiImplicitParam(name = SessionOnlineVOMeta.INTERACT_TIME , value = "最近一次交互时间" , required = false , dataTypeClass=Date.class),
@@ -112,7 +111,6 @@ public class SessionOnlineController {
 	@ApiOperation(value = "更新在线会话")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = SessionOnlineVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "450690969709314048"),
-		@ApiImplicitParam(name = SessionOnlineVOMeta.TOKEN , value = "token" , required = false , dataTypeClass=String.class , example = "089ca02ede56d2c7aea7f766c542f8946a25df4e"),
 		@ApiImplicitParam(name = SessionOnlineVOMeta.USER_ID , value = "账户ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = SessionOnlineVOMeta.LOGIN_TIME , value = "登录时间" , required = false , dataTypeClass=Date.class , example = "2021-05-28 04:05:01"),
 		@ApiImplicitParam(name = SessionOnlineVOMeta.INTERACT_TIME , value = "最近一次交互时间" , required = false , dataTypeClass=Date.class),
@@ -137,7 +135,6 @@ public class SessionOnlineController {
 	@ApiOperation(value = "保存在线会话")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = SessionOnlineVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "450690969709314048"),
-		@ApiImplicitParam(name = SessionOnlineVOMeta.TOKEN , value = "token" , required = false , dataTypeClass=String.class , example = "089ca02ede56d2c7aea7f766c542f8946a25df4e"),
 		@ApiImplicitParam(name = SessionOnlineVOMeta.USER_ID , value = "账户ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = SessionOnlineVOMeta.LOGIN_TIME , value = "登录时间" , required = false , dataTypeClass=Date.class , example = "2021-05-28 04:05:01"),
 		@ApiImplicitParam(name = SessionOnlineVOMeta.INTERACT_TIME , value = "最近一次交互时间" , required = false , dataTypeClass=Date.class),
@@ -181,7 +178,6 @@ public class SessionOnlineController {
 	@ApiOperation(value = "查询在线会话")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = SessionOnlineVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "450690969709314048"),
-		@ApiImplicitParam(name = SessionOnlineVOMeta.TOKEN , value = "token" , required = false , dataTypeClass=String.class , example = "089ca02ede56d2c7aea7f766c542f8946a25df4e"),
 		@ApiImplicitParam(name = SessionOnlineVOMeta.USER_ID , value = "账户ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = SessionOnlineVOMeta.LOGIN_TIME , value = "登录时间" , required = false , dataTypeClass=Date.class , example = "2021-05-28 04:05:01"),
 		@ApiImplicitParam(name = SessionOnlineVOMeta.INTERACT_TIME , value = "最近一次交互时间" , required = false , dataTypeClass=Date.class),
@@ -205,7 +201,6 @@ public class SessionOnlineController {
 	@ApiOperation(value = "分页查询在线会话")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = SessionOnlineVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "450690969709314048"),
-		@ApiImplicitParam(name = SessionOnlineVOMeta.TOKEN , value = "token" , required = false , dataTypeClass=String.class , example = "089ca02ede56d2c7aea7f766c542f8946a25df4e"),
 		@ApiImplicitParam(name = SessionOnlineVOMeta.USER_ID , value = "账户ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = SessionOnlineVOMeta.LOGIN_TIME , value = "登录时间" , required = false , dataTypeClass=Date.class , example = "2021-05-28 04:05:01"),
 		@ApiImplicitParam(name = SessionOnlineVOMeta.INTERACT_TIME , value = "最近一次交互时间" , required = false , dataTypeClass=Date.class),

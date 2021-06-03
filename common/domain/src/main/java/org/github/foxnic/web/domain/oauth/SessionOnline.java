@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-03 08:55:28
- * @sign 094E24FE2581A08B603B166782252CBA
+ * @since 2021-06-03 14:06:10
+ * @sign 2A4666C838F1AE796F066AB4F06C4627
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -34,12 +34,6 @@ public class SessionOnline extends Entity {
 	@Id
 	@ApiModelProperty(required = true,value="ID" , notes = "ID")
 	private String id;
-	
-	/**
-	 * token：token
-	*/
-	@ApiModelProperty(required = false,value="token" , notes = "token")
-	private String token;
 	
 	/**
 	 * 会话ID：会话ID
@@ -159,31 +153,6 @@ public class SessionOnline extends Entity {
 	/**
 	 * 添加 ID
 	 * @param id ID
-	 * @return 当前对象
-	*/
-	
-	/**
-	 * 获得 token<br>
-	 * 属性说明 : token
-	 * @return token
-	*/
-	public String getToken() {
-		return token;
-	}
-	
-	/**
-	 * 设置 token
-	 * @param token token
-	 * @return 当前对象
-	*/
-	public SessionOnline setToken(String token) {
-		this.token=token;
-		return this;
-	}
-	
-	/**
-	 * 添加 token
-	 * @param token token
 	 * @return 当前对象
 	*/
 	

@@ -201,7 +201,14 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 	 * 提供给 SpringSecurity 的查询接口
 	 * */
 	public User getUserByIdentity(String identity) {
-    	User user=dao.queryEntity(User.class, new ConditionExpr("( name = ? or mobile=? )",identity,identity));
+		User user=dao.queryEntity(User.class, new ConditionExpr("id = ?",identity));
+    	if(user==null) {
+    		user=dao.queryEntity(User.class, new ConditionExpr("name = ?",identity));
+    	}
+    	if(user==null) {
+    		user=dao.queryEntity(User.class, new ConditionExpr("mobile = ?",identity));
+    	}
+    	
     	//授权
     	if (user!=null) {
     		dao.join(user,Role.class,Menu.class);

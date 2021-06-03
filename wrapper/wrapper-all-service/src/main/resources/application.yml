@@ -15,7 +15,7 @@ spring:
     druid:
       primary:
         driver-class-name: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://39.105.191.22:3306/eam?useSSL=false&serverTimezone=Hongkong&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&allowPublicKeyRetrieval=true
+        url: jdbc:mysql://39.105.191.22:3306/eam?useSSL=false&serverTimezone=Hongkong&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&allowPublicKeyRetrieval=true&tinyInt1isBit=false
         username: root
         password: root_pwd
         min-idle: 1
@@ -23,6 +23,24 @@ spring:
         max-active: 64
         max-wait: 60000
         printSQL: true
+
+
+security:
+  # 模式：session / jwt
+  mode: jwt 
+  # 配置无需鉴权可以访问的地址
+  ignored-urls: /error
+  # mode=jwt 时配置的 jwt 选项
+  jwt:
+    key-location: felordcn.jks
+    key-alias: felordcn
+    key-pass: 123456
+    # 缓存类型  local/remote/both
+    cache-type: local
+    iss: felord.cn
+    sub: all
+    access-expire-seconds: 20
+    refresh-expire-seconds: 30
 
 
 logging:

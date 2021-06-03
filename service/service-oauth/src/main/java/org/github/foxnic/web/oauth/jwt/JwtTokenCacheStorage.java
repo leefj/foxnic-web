@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 import com.github.foxnic.commons.cache.LocalCache;
+import com.github.foxnic.commons.concurrent.task.SimpleTaskManager;
 import com.github.foxnic.commons.lang.DateUtil;
+import com.github.foxnic.springboot.spring.SpringUtil;
 
 /**
  * The type Jwt token cache storage.
@@ -23,14 +25,37 @@ public class JwtTokenCacheStorage implements JwtTokenStorage {
 	@Autowired
 	private SecurityProperties props;
 	
-	@Autowired
+
 	private ITokenService tokeService;
 
 	private LocalCache<String, JwtTokenPair> cache = null;
 
 	public JwtTokenCacheStorage() {
 		cache = new LocalCache<String, JwtTokenPair>();
-		//TODO 从磁盘恢复有效的 Token
+		//从磁盘恢复有效的 Token
+		SimpleTaskManager.doParallelTask(new Runnable() {
+			@Override
+			public void run() {
+				 
+				tokeService=SpringUtil.getBean(ITokenService.class);
+				List<Token> tokens=tokeService.queryValidTokens();
+				for (Token token : tokens) {
+					JwtTokenPair jwtTokenPair=new JwtTokenPair(token.getJti());
+					//
+					JwtToken accessToken=new JwtToken();
+					accessToken.token(token.getAccessToken());
+					jwtTokenPair.setAccessToken(accessToken);
+					//
+					JwtToken refreshToken=new JwtToken();
+					refreshToken.token(token.getRefreshToken());
+					jwtTokenPair.setAccessToken(refreshToken);
+					
+					JwtTokenCacheStorage.this.cache.put(jwtTokenPair.getJti(), jwtTokenPair);
+				}
+				
+			}
+		});
+		
 	}
 
 	@Override
@@ -60,8 +85,8 @@ public class JwtTokenCacheStorage implements JwtTokenStorage {
 //		cache.remove(userId);
 //	}
 //
-//	@Override
-//	public JwtTokenPair get(String userId) {
-//		return cache.get(userId);
-//	}
+	@Override
+	public JwtTokenPair get(String userId) {
+		return cache.get(userId);
+	}
 }

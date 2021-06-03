@@ -202,15 +202,10 @@ public class TokenServiceImpl extends SuperService<Token> implements ITokenServi
 		return ErrorDesc.success();
 	}
 
-//	/**
-//	 * 按用户ID获得有效的最近
-//	 * */
-//	@Override
-//	public Token getValidTokenByUserId(String userId) {
-//		Expr ce=new Expr("select * from "+this.table()+" where user_id=? and refresh_token_expired=0 and refresh_token_expire_time>now() and deleted=0 order by refresh_token_expire_time desc",userId);
-//		List<Token> tokens=dao.queryEntities(Token.class, ce);
-//		if(tokens.isEmpty()) return null;
-//		else return tokens.get(0);
-//	}
+	@Override
+	public List<Token> queryValidTokens() {
+		return dao.queryEntities(Token.class,new Expr("select * from sys_token where refresh_token_expire_time>now() or access_token_expire_time>now()"));
+	}
+ 
 
 }

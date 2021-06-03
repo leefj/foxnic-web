@@ -268,6 +268,6 @@ public interface ITokenService extends ISuperService<Token> {
 	 * */
 	<T> List<T> queryValues(DBField field, Class<T> type, String condition,Object... ps);
 
-//	Token getValidTokenByUserId(String userId);
+	List<Token> queryValidTokens();
  
 }

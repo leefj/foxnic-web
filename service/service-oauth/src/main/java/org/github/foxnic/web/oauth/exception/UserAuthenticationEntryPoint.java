@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.github.foxnic.web.oauth.utils.ResponseUtil;
 import org.springframework.security.authentication.AccountExpiredException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.CredentialsExpiredException;
@@ -21,7 +22,6 @@ import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.springboot.api.error.CommonError;
 import com.github.foxnic.springboot.api.error.ErrorDesc;
 import com.github.foxnic.springboot.mvc.Result;
-import com.github.foxnic.springboot.web.ResponseUtils;
 
 /**
  * 认证异常处理
@@ -31,7 +31,7 @@ import com.github.foxnic.springboot.web.ResponseUtils;
 @Component
 public class UserAuthenticationEntryPoint implements AuthenticationEntryPoint {
 	
-	public static void handleException(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) {
+	public static void handleException(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException {
 		String uri=request.getRequestURI();
 		Result result;
         if (e instanceof UsernameNotFoundException) {
@@ -52,7 +52,7 @@ public class UserAuthenticationEntryPoint implements AuthenticationEntryPoint {
             Logger.error("登录失败：", e);
             result = ErrorDesc.failureMessage("登录失败!");
         }
-        ResponseUtils.out(response, result);
+        ResponseUtil.writeOK(response, result);
 	}
 	
     @Override

@@ -32,9 +32,7 @@ import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.springboot.api.error.ErrorDesc;
-import com.github.foxnic.springboot.mvc.RequestParameter;
 import com.github.foxnic.springboot.mvc.Result;
-import com.github.foxnic.springboot.web.ResponseUtils;
 
 /**
  * 处理登录成功的逻辑
@@ -63,38 +61,32 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
 
-		if(securityProperties.getSecurityMode()==SecurityMode.JWT) {
-			handleTokenMode(response, authentication);
-		} else if(securityProperties.getSecurityMode()==SecurityMode.SESSION) {
-			handleSessionMode(request,response, authentication);
-		} 
-
-	}
-
-	private void handleSessionMode(HttpServletRequest request,HttpServletResponse response, Authentication authentication) {
-	 
+//		if(securityProperties.getSecurityMode()==SecurityMode.JWT) {
+//			handleTokenMode(response, authentication);
+//		} else if(securityProperties.getSecurityMode()==SecurityMode.SESSION) {
+//			handleSessionMode(request,response, authentication);
+//		} else if(securityProperties.getSecurityMode()==SecurityMode.BOTH) {
+//			System.out.println();
+//		} 
+		
 		SessionUser securityUser = ((SessionUser) authentication.getPrincipal());
         
         JSONObject ret=new JSONObject();
         User user=securityUser.getUser().toPojo(User.class);
         ret.put("user", user);
-        ret.put("token", securityUser.getToken());
-        
-        
-        
         
         userDetailsService.update(SYS_USER.LAST_LOGIN_TIME, new Date(), securityUser.getUser().getId());
         //
         String initId=(String)request.getAttribute(SessionUser.SESSION_ONLINE_ID_KEY);
+        securityUser.setSessionUserId(initId);
         
-        
-        
+        ret.put("sessionId", securityUser.getSessionUserId());
+   
         SessionOnline online=onlineService.getById(initId);
         if(online==null) {
         	online=new SessionOnline();
 	        online.setId(initId);
 	        online.setUserId(securityUser.getUser().getId());
-	        online.setToken(securityUser.getToken());
 	        online.setOnline(1);
 	        online.setLoginTime(new Date());
 	        online.setInteractTime(new Date());
@@ -102,18 +94,20 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 	        online.setSessionTime(request.getSession().getMaxInactiveInterval());
 	        onlineService.insert(online);
         }
-
+        
+        if( securityProperties.getSecurityMode()==SecurityMode.BOTH || securityProperties.getSecurityMode()==SecurityMode.JWT ) {
+        	Map<String, Object> token = getToken(authentication);
+        	ret.put("token", token);
+        }
+ 
         Result r=ErrorDesc.success().message("登录成功").data(ret);
  
- 
-        ResponseUtils.out(response, r);
-		
+        ResponseUtil.writeOK(response, r);
+
 	}
 	
-	
-	
-
-	private void handleTokenMode(HttpServletResponse response, Authentication authentication) throws IOException {
+ 
+	private Map<String, Object> getToken(Authentication authentication)  {
 		
 		Map<String, Object> map = new HashMap<>(5);
 		SessionUser principal = (SessionUser) authentication.getPrincipal();
@@ -132,8 +126,10 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
 		map.put("accessToken", jwtTokenPair.getAccessToken().token());
 		map.put("refreshToken", jwtTokenPair.getRefreshToken().token());
+		
+		return map;
 
-		ResponseUtil.writeOK(response, ErrorDesc.success().message("登录成功").data(map));
+//		ResponseUtil.writeOK(response, ErrorDesc.success().message("登录成功").data(map));
 	}
 
 }

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.http.MediaType;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.github.foxnic.springboot.mvc.Result;
 
 public class ResponseUtil {
@@ -16,7 +17,7 @@ public class ResponseUtil {
 		response.setStatus(HttpServletResponse.SC_OK);
 		response.setCharacterEncoding("utf-8");
 		response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-		String resBody = JSON.toJSONString(rest);
+		String resBody = JSON.toJSONString(rest,SerializerFeature.WriteDateUseDateFormat);
 		PrintWriter printWriter = response.getWriter();
 		printWriter.print(resBody);
 		printWriter.flush();

@@ -2,10 +2,10 @@ package org.github.foxnic.web.oauth.config.security;
 
 import javax.annotation.Resource;
 
-import org.github.foxnic.web.oauth.config.jwt.JwtProperties;
 import org.github.foxnic.web.oauth.config.security.SecurityProperties.SecurityMode;
 import org.github.foxnic.web.oauth.exception.RequestDeniedHandler;
 import org.github.foxnic.web.oauth.exception.UserAuthenticationEntryPoint;
+import org.github.foxnic.web.oauth.jwt.JwtAuthenticationFilter;
 import org.github.foxnic.web.oauth.login.PreLoginFilter;
 import org.github.foxnic.web.oauth.logout.UserLogoutHandler;
 import org.github.foxnic.web.oauth.logout.UserLogoutSuccessHandler;
@@ -87,6 +87,9 @@ public class SecurityConfiguration {
 		private UserAuthenticationEntryPoint simpleAuthenticationEntryPoint;
 		@Autowired
 		private RequestDeniedHandler simpleAccessDeniedHandler;
+		
+		@Autowired
+        private JwtAuthenticationFilter jwtAuthenticationFilter;
 
 		@Override
 		protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -128,6 +131,7 @@ public class SecurityConfiguration {
 			http.authorizeRequests().anyRequest().authenticated();
 			// 登录前置过滤器
 			http.addFilterBefore(preLoginFilter, UsernamePasswordAuthenticationFilter.class);
+			http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 			// formLogin
 			http.formLogin().loginProcessingUrl(UserServiceProxy.LOGIN_URI).loginPage(securityProperties.getLoginPage())
 					.successHandler(authenticationSuccessHandler).failureHandler(authenticationFailureHandler);
