@@ -24,11 +24,11 @@ import com.github.foxnic.springboot.mvc.Result;
 /**
  * CustomLogoutSuccessHandler
  *
- * @author Felordcn
- * @since 17:10 2019/10/23
+ * @author 李方捷
+ * @since  2021-06-02
  **/
 
-public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
+public class UserLogoutSuccessHandler implements LogoutSuccessHandler {
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         

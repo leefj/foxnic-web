@@ -17,7 +17,8 @@ import org.springframework.security.provisioning.UserDetailsManager;
 /**
  * 代理 {@link org.springframework.security.provisioning.UserDetailsManager} 所有功能
  *
- * @author dax
+ * @author 李方捷
+ * @since  2021-06-02
  */
 public class SessionUserDetailsManager implements UserDetailsManager {
 	

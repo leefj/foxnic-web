@@ -7,8 +7,8 @@ import java.io.Serializable;
 /**
  * JwtTokenPair
  *
- * @author Felordcn
- * @since 16:09 2019/10/25
+ * @author 李方捷
+ * @since  2021-06-02
  **/
 public class JwtTokenPair implements Serializable {
 	

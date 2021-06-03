@@ -3,12 +3,16 @@ package org.github.foxnic.web.oauth.config.security;
 import javax.servlet.http.HttpServletRequest;
 
 import org.github.foxnic.web.framework.security.controller.ValidateCodeController;
-import org.github.foxnic.web.proxy.oauth.UserServiceProxy;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import com.github.foxnic.commons.lang.ArrayUtil;
 import com.github.foxnic.springboot.web.WebContext;
 
+/**
+ * 外部配置
+ * @author 李方捷
+ * @since  2021-06-02
+ * */
 @ConfigurationProperties(prefix="security")
 public class SecurityProperties {
 	

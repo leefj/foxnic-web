@@ -3,8 +3,8 @@ package org.github.foxnic.web.oauth.jwt;
 /**
  * jwt token storage
  *
- * @author Dax
- * @since 13 :25  2018/9/21
+ * @author 李方捷
+ * @since  2021-06-02
  */
 public interface JwtTokenStorage {
 

@@ -9,21 +9,15 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.provisioning.UserDetailsManager;
 
 /**
- * @author dax
+ * @author 李方捷
+ * @since  2021-06-02
  */
 @Configuration
 public class SessionUserServiceConfiguration {
 
 	@Bean
 	public UserDetailsManager userDetailsManager() {
-		
-		SessionUserDetailsManager mngr = new SessionUserDetailsManager();
-		
-//		UserDetails felordcn = User.withUsername("leefj").password("{noop}123456")
-//				.authorities(AuthorityUtils.NO_AUTHORITIES).build();
-//		mngr.createUser(felordcn);
-		
-		return mngr;
+		return new SessionUserDetailsManager();
 	}
 
 }

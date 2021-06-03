@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import org.github.foxnic.web.oauth.exception.SimpleAuthenticationEntryPoint;
+import org.github.foxnic.web.oauth.exception.UserAuthenticationEntryPoint;
 import org.github.foxnic.web.oauth.jwt.JwtTokenCacheStorage;
 import org.github.foxnic.web.oauth.jwt.JwtTokenGenerator;
 import org.github.foxnic.web.oauth.jwt.JwtTokenPair;
@@ -38,8 +38,8 @@ import com.github.foxnic.springboot.web.ResponseUtils;
 /**
  * JwtConfiguration
  *
- * @author Felordcn
- * @since 16 :54 2019/10/25
+ * @author 李方捷
+ * @since  2021-06-02
  */
 @EnableConfigurationProperties(JwtProperties.class)
 @Configuration

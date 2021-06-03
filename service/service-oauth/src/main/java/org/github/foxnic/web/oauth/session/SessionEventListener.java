@@ -25,15 +25,13 @@ public class SessionEventListener implements  HttpSessionListener  {
 	@Override
 	public void sessionCreated(HttpSessionEvent event) {
 		HttpSessionListener.super.sessionCreated(event);
-		event.getSession().setAttribute(SessionUser.SESSION_ONLINE_ID_KEY, event.getSession().getId());
-		//System.err.println("sessionCreated("+event.getSession().hashCode()+") : "+event.getSession().getId()+","+event.getSession().getMaxInactiveInterval()+","+SessionUtil.getKey(event.getSession())); 
+		event.getSession().setAttribute(SessionUser.SESSION_ONLINE_ID_KEY, event.getSession().getId()); 
 	}
 	 
 	
 	public void sessionDestroyed(HttpSessionEvent event) {
 		//下线记录
 		if(securityProperties.getSecurityMode()==SecurityMode.SESSION) {
-			//System.err.println("sessionDestroyed("+event.getSession().hashCode()+") : "+event.getSession().getId()+","+event.getSession().getMaxInactiveInterval()+","+SessionUtil.getKey(event.getSession())); 
 			onlineService.offline(event.getSession().getId());
 		}
 	}

@@ -25,11 +25,11 @@ import com.github.foxnic.springboot.web.ResponseUtils;
 
 /**
  * 认证异常处理
- * @author dax
- * @since 2019/11/6 22:11
+ * @author 李方捷
+ * @since  2021-06-02
  */
 @Component
-public class SimpleAuthenticationEntryPoint implements AuthenticationEntryPoint {
+public class UserAuthenticationEntryPoint implements AuthenticationEntryPoint {
 	
 	public static void handleException(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) {
 		String uri=request.getRequestURI();

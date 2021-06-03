@@ -8,8 +8,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 /**
  * Jwt 在 springboot application.yml 中的配置文件
  *
- * @author Felordcn
- * @since 15 :06 2019/10/25
+ * @author 李方捷
+ * @since  2021-06-02
  */
 @ConfigurationProperties(prefix="security.jwt")
 public class JwtProperties {

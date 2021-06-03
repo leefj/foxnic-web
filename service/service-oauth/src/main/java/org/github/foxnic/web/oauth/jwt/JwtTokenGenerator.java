@@ -23,8 +23,8 @@ import com.github.foxnic.commons.busi.id.IDGenerator;
 /**
  * JwtTokenGenerator
  *
- * @author Felordcn
- * @since 15 :26 2019/10/25
+ * @author 李方捷
+ * @since  2021-06-02
  */
 public class JwtTokenGenerator {
     private static final String JWT_EXP_KEY = "exp";

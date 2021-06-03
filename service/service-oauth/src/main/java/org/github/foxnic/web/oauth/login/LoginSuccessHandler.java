@@ -38,6 +38,9 @@ import com.github.foxnic.springboot.web.ResponseUtils;
 
 /**
  * 处理登录成功的逻辑
+ * 
+ * @author 李方捷
+ * @since  2021-06-02
  */
 @Component
 @EnableConfigurationProperties(SecurityProperties.class)

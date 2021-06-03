@@ -7,14 +7,14 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 /**
- * @author dax
- * @since 2019/10/18 22:08
+ * @author 李方捷
+ * @since  2021-06-02
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnBean(WebSecurityConfigurerAdapter.class)
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 //打印调试信息
-@EnableWebSecurity(debug = true)
+@EnableWebSecurity(debug = false)
 public class SecurityEnableConfiguration {
 
 }

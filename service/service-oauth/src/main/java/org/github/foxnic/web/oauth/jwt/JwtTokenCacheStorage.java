@@ -14,8 +14,8 @@ import com.github.foxnic.commons.lang.DateUtil;
 /**
  * The type Jwt token cache storage.
  *
- * @author Dax
- * @since 13 :28 2018/9/21
+ * @author 李方捷
+ * @since  2021-06-02
  */
 @EnableConfigurationProperties(SecurityProperties.class)
 public class JwtTokenCacheStorage implements JwtTokenStorage {

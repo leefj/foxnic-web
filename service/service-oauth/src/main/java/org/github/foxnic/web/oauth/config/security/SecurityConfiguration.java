@@ -4,11 +4,11 @@ import javax.annotation.Resource;
 
 import org.github.foxnic.web.oauth.config.jwt.JwtProperties;
 import org.github.foxnic.web.oauth.config.security.SecurityProperties.SecurityMode;
-import org.github.foxnic.web.oauth.exception.SimpleAccessDeniedHandler;
-import org.github.foxnic.web.oauth.exception.SimpleAuthenticationEntryPoint;
+import org.github.foxnic.web.oauth.exception.RequestDeniedHandler;
+import org.github.foxnic.web.oauth.exception.UserAuthenticationEntryPoint;
 import org.github.foxnic.web.oauth.login.PreLoginFilter;
-import org.github.foxnic.web.oauth.logout.CustomLogoutHandler;
-import org.github.foxnic.web.oauth.logout.CustomLogoutSuccessHandler;
+import org.github.foxnic.web.oauth.logout.UserLogoutHandler;
+import org.github.foxnic.web.oauth.logout.UserLogoutSuccessHandler;
 import org.github.foxnic.web.proxy.oauth.UserServiceProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -32,9 +32,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 /**
  * CustomSpring
  *
- * @author Felordcn
  * @see org.springframework.boot.autoconfigure.security.servlet.SpringBootWebSecurityConfiguration
- * @since 14 :58 2019/10/15
+ * @author 李方捷
+ * @since  2021-06-02
  */
 @Configuration
 @ConditionalOnClass(WebSecurityConfigurerAdapter.class)
@@ -84,9 +84,9 @@ public class SecurityConfiguration {
 		private AuthenticationFailureHandler authenticationFailureHandler;
 
 		@Autowired
-		private SimpleAuthenticationEntryPoint simpleAuthenticationEntryPoint;
+		private UserAuthenticationEntryPoint simpleAuthenticationEntryPoint;
 		@Autowired
-		private SimpleAccessDeniedHandler simpleAccessDeniedHandler;
+		private RequestDeniedHandler simpleAccessDeniedHandler;
 
 		@Override
 		protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -132,8 +132,8 @@ public class SecurityConfiguration {
 			http.formLogin().loginProcessingUrl(UserServiceProxy.LOGIN_URI).loginPage(securityProperties.getLoginPage())
 					.successHandler(authenticationSuccessHandler).failureHandler(authenticationFailureHandler);
 			// logout
-			http.logout().logoutUrl(UserServiceProxy.LOGOUT_URI).addLogoutHandler(new CustomLogoutHandler())
-					.logoutSuccessHandler(new CustomLogoutSuccessHandler());
+			http.logout().logoutUrl(UserServiceProxy.LOGOUT_URI).addLogoutHandler(new UserLogoutHandler())
+					.logoutSuccessHandler(new UserLogoutSuccessHandler());
 
 		}
 	}

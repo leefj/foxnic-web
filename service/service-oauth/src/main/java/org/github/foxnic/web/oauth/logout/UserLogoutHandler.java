@@ -13,10 +13,10 @@ import com.github.foxnic.commons.log.Logger;
 /**
  * 自定义登录处理器
  *
- * @author Felordcn
- * @since 16:55 2019/10/23
+ * @author 李方捷
+ * @since  2021-06-02
  **/
-public class CustomLogoutHandler implements LogoutHandler {
+public class UserLogoutHandler implements LogoutHandler {
     @Override
     public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
     	if(authentication==null) {

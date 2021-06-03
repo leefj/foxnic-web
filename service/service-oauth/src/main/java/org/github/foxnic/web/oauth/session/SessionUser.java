@@ -12,6 +12,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.github.foxnic.commons.busi.id.IDGenerator;
 import com.github.foxnic.springboot.mvc.RequestParameter;
 
+/**
+ * 
+ * @author 李方捷
+ * @since  2021-06-02
+ * */
 public class SessionUser implements UserDetails, CredentialsContainer {
  
 	private static final long serialVersionUID = 1L;

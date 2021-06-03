@@ -14,11 +14,12 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 
 /**
- * @author dax
- * @since 2019/11/6 22:19
+ * 请求访问被拒绝时的处理逻辑
+ * @author 李方捷
+ * @since  2021-06-02
  */
 @Component
-public class SimpleAccessDeniedHandler implements AccessDeniedHandler {
+public class RequestDeniedHandler implements AccessDeniedHandler {
     
 	@Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {

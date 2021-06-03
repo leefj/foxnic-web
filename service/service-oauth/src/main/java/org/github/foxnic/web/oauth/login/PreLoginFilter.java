@@ -22,8 +22,8 @@ import com.github.foxnic.springboot.mvc.RequestParameter;
 /**
  * 预登录控过滤器，接收JSON参数，并作为后续过滤器的验证参数
  *
- * @author Felordcn
- * @since 16 :21 2019/10/17
+ * @author 李方捷
+ * @since  2021-06-02
  */
 public class PreLoginFilter extends GenericFilterBean {
  

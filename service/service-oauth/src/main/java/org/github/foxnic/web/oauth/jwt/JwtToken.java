@@ -17,8 +17,8 @@ import java.util.Set;
 /**
  * 构建 jwt payload
  *
- * @author Felordcn
- * @since 11:27 2019/10/25
+ * @author 李方捷
+ * @since  2021-06-02
  **/
 public class JwtToken {
  
