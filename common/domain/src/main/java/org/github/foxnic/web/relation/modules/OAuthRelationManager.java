@@ -7,6 +7,7 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_ROLE_USER;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.Role;
+import org.github.foxnic.web.domain.oauth.RoleMenu;
 import org.github.foxnic.web.domain.oauth.User;
 
 import com.github.foxnic.dao.relation.RelationManager;
@@ -30,6 +31,16 @@ public class OAuthRelationManager extends RelationManager {
 			.using(SYS_USER.ID)
 			.addRoute(SYS_ROLE_USER.$TABLE)
 			.addRoute(SYS_ROLE_MENU.$TABLE);
+		
+		
+		// 用户 - 角色菜单关系
+		this.property(User.class, "roleMenus", RoleMenu.class, "角色菜单关系清单", "当前用户的所有角色菜单关系清单").list()
+			.using(SYS_USER.ID)
+			.addRoute(SYS_ROLE_USER.$TABLE);
+
+		
+		
+		
 
 	}
 	

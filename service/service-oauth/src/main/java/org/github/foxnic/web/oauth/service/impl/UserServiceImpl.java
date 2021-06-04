@@ -2,24 +2,28 @@ package org.github.foxnic.web.oauth.service.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.Role;
+import org.github.foxnic.web.domain.oauth.RoleMenu;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.oauth.service.IUserService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.github.foxnic.dao.data.PagedList;
+import com.github.foxnic.dao.data.RcdSet;
 import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.CollectorUtil;
 import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.springboot.api.error.ErrorDesc;
 import com.github.foxnic.springboot.mvc.Result;
 import com.github.foxnic.sql.expr.ConditionExpr;
+import com.github.foxnic.sql.expr.In;
 import com.github.foxnic.sql.meta.DBField;
 
 /**
@@ -211,8 +215,9 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
     	
     	//授权
     	if (user!=null) {
-    		dao.join(user,Role.class,Menu.class);
+    		dao.join(user,Role.class,Menu.class,RoleMenu.class);
     	}
+  
         return user;
     }
 

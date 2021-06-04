@@ -52,6 +52,7 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		.setListPage(WriteMode.CREATE_IF_NOT_EXISTS); //列表HTML页
 		
 		
+		
 		PojoClassFile pojo=cfg.createPojo("LoginIdentityVO");
 		pojo.setSuperType(null);
 		pojo.setDoc("用于App登录接口");

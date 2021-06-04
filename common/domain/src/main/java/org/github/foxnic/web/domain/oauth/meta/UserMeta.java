@@ -5,13 +5,14 @@ import java.util.Date;
 import org.github.foxnic.web.domain.oauth.Role;
 import java.util.List;
 import org.github.foxnic.web.domain.oauth.Menu;
+import org.github.foxnic.web.domain.oauth.RoleMenu;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-28 15:09:50
- * @sign 637C5B92CB9EB294403EA0DDC8C4A4BB
+ * @since 2021-06-04 13:33:08
+ * @sign 8B2FC9A375D6AC8EE2713F195A336928
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -113,9 +114,14 @@ public class UserMeta {
 	public static final String MENUS="menus";
 	
 	/**
+	 * 角色菜单关系清单 , 当前用户的所有角色菜单关系清单
+	*/
+	public static final String ROLE_MENUS="roleMenus";
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , NAME , PASSWD , SALT , MOBILE , PERSON_ID , EMPLOYEE_ID , VALID , LAST_LOGIN_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , ROLES , MENUS };
+	public static final String[] $PROPS={ ID , NAME , PASSWD , SALT , MOBILE , PERSON_ID , EMPLOYEE_ID , VALID , LAST_LOGIN_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , ROLES , MENUS , ROLE_MENUS };
 	
 	/**
 	 * 代理类
@@ -331,6 +337,17 @@ public class UserMeta {
 		public User setMenus(List<Menu> menus) {
 			super.change(MENUS,super.getMenus(),menus);
 			super.setMenus(menus);
+			return this;
+		}
+		
+		/**
+		 * 设置 角色菜单关系清单
+		 * @param roleMenus 角色菜单关系清单
+		 * @return 当前对象
+		*/
+		public User setRoleMenus(List<RoleMenu> roleMenus) {
+			super.change(ROLE_MENUS,super.getRoleMenus(),roleMenus);
+			super.setRoleMenus(roleMenus);
 			return this;
 		}
 	}

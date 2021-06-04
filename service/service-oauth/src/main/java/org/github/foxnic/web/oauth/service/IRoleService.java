@@ -267,5 +267,10 @@ public interface IRoleService extends ISuperService<Role> {
 	 * @return 列数据
 	 * */
 	<T> List<T> queryValues(DBField field, Class<T> type, String condition,Object... ps);
+
+	/**
+	 * 获得系统的所有角色代码
+	 * */
+	List<String> queryAllRoleCode();
  
 }

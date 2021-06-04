@@ -1,10 +1,10 @@
 server:
   session: 
-    timeout: 30s
+    timeout: 1200s
   servlet:
     session:
       # 会话超时时间，如 30s , 20m 等
-      timeout: 30s 
+      timeout: 1200s 
   port: 1899
  
 spring:
@@ -56,9 +56,9 @@ security:
   # mode=session 时配置的登录页面
   login-page: /login.html
   jwt:
-    key-location: felordcn.jks
-    key-alias: felordcn
-    key-pass: 123456
+    key-location: foxnic-web.jks
+    key-alias: foxnic-web
+    key-pass: fox-123456-nic
     # 缓存类型  local/remote/both
     cache-type: local
     iss: felord.cn

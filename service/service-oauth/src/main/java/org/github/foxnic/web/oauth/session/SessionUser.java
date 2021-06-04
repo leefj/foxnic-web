@@ -1,16 +1,22 @@
 package org.github.foxnic.web.oauth.session;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
+import org.github.foxnic.web.domain.oauth.Menu;
+import org.github.foxnic.web.domain.oauth.Role;
 import org.github.foxnic.web.domain.oauth.User;
 import org.springframework.security.core.CredentialsContainer;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.github.foxnic.commons.busi.id.IDGenerator;
-import com.github.foxnic.springboot.mvc.RequestParameter;
+import com.github.foxnic.commons.lang.StringUtil;
 
 /**
  * 
@@ -25,8 +31,15 @@ public class SessionUser implements UserDetails, CredentialsContainer {
 	
 	private String sessionOnlineId;
 	
+	
 	public static final  String SESSION_ONLINE_ID_KEY="SESSION_ONLINE_ID_KEY";
 	
+//	public static final String ROLE_PERMITTED="ROLE_PERMITTED";
+// 
+//	private static List<GrantedAuthority>  ROLES_PERMITTED=Arrays.asList(new SimpleGrantedAuthority(ROLE_PERMITTED));
+  
+	private transient SessionPermission permission = null;
+ 
 	public SessionUser(User user) {
 		this.user=user;
 	}
@@ -36,10 +49,10 @@ public class SessionUser implements UserDetails, CredentialsContainer {
 		this.user.setPasswd("******");
 		this.user.setSalt("******");
 	}
-
+ 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return null;
+		return permission().getAuthorities();
 	}
 
 	@Override
@@ -88,6 +101,8 @@ public class SessionUser implements UserDetails, CredentialsContainer {
 	}
 	
 	
+	
+	
 	/**
 	 * 获得当前登录的账户
 	 * */
@@ -102,6 +117,11 @@ public class SessionUser implements UserDetails, CredentialsContainer {
         }
         SessionUser userDetail=(SessionUser)principal;
         return userDetail;
+	}
+
+	public SessionPermission permission() {
+		if(permission==null) permission=new SessionPermission(this);
+		return permission;
 	}
  
 }

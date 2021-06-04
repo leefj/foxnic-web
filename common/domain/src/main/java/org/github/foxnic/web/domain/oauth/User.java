@@ -18,8 +18,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-28 15:09:50
- * @sign 637C5B92CB9EB294403EA0DDC8C4A4BB
+ * @since 2021-06-04 13:33:08
+ * @sign 8B2FC9A375D6AC8EE2713F195A336928
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -144,6 +144,12 @@ public class User extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="菜单清单" , notes = "当前用户的所有菜单清单")
 	private List<Menu> menus;
+	
+	/**
+	 * 角色菜单关系清单：当前用户的所有角色菜单关系清单
+	*/
+	@ApiModelProperty(required = false,value="角色菜单关系清单" , notes = "当前用户的所有角色菜单关系清单")
+	private List<RoleMenu> roleMenus;
 	
 	/**
 	 * 获得 ID<br>
@@ -627,6 +633,36 @@ public class User extends Entity {
 	public User addMenu(Menu menu) {
 		if(this.menus==null) menus=new ArrayList<>();
 		this.menus.add(menu);
+		return this;
+	}
+	
+	/**
+	 * 获得 角色菜单关系清单<br>
+	 * 属性说明 : 当前用户的所有角色菜单关系清单
+	 * @return 角色菜单关系清单
+	*/
+	public List<RoleMenu> getRoleMenus() {
+		return roleMenus;
+	}
+	
+	/**
+	 * 设置 角色菜单关系清单
+	 * @param roleMenus 角色菜单关系清单
+	 * @return 当前对象
+	*/
+	public User setRoleMenus(List<RoleMenu> roleMenus) {
+		this.roleMenus=roleMenus;
+		return this;
+	}
+	
+	/**
+	 * 添加 角色菜单关系清单
+	 * @param roleMenus 角色菜单关系清单
+	 * @return 当前对象
+	*/
+	public User addRoleMenu(RoleMenu roleMenu) {
+		if(this.roleMenus==null) roleMenus=new ArrayList<>();
+		this.roleMenus.add(roleMenu);
 		return this;
 	}
 

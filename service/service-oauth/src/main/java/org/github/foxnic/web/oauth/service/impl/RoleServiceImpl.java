@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.CollectorUtil;
 import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.springboot.api.error.ErrorDesc;
@@ -196,6 +197,13 @@ public class RoleServiceImpl extends SuperService<Role> implements IRoleService 
 		//boolean exists=this.checkExists(role, SYS_ROLE.NAME);
 		//return exists;
 		return ErrorDesc.success();
+	}
+
+	@Override
+	public List<String> queryAllRoleCode() {
+		List<Role> roles=this.queryList(Role.create());
+		List<String> codes=CollectorUtil.collectList(roles, Role::getCode);
+		return codes;
 	}
 
 }

@@ -18,13 +18,17 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.provisioning.UserDetailsManager;
+import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -90,6 +94,11 @@ public class SecurityConfiguration {
 		
 		@Autowired
         private JwtAuthenticationFilter jwtAuthenticationFilter;
+		
+		 @Autowired
+        private FilterInvocationSecurityMetadataSource filterInvocationSecurityMetadataSource;
+        @Autowired
+        private AccessDecisionManager accessDecisionManager;
 
 		@Override
 		protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -128,7 +137,10 @@ public class SecurityConfiguration {
 			http.exceptionHandling().accessDeniedHandler(simpleAccessDeniedHandler)
 					.authenticationEntryPoint(simpleAuthenticationEntryPoint);
 			//
-			http.authorizeRequests().anyRequest().authenticated();
+			//http.authorizeRequests().anyRequest().authenticated();
+			
+			http.authorizeRequests().anyRequest().authenticated().withObjectPostProcessor(filterSecurityInterceptorObjectPostProcessor());
+			
 			// 登录前置过滤器
 			http.addFilterBefore(preLoginFilter, UsernamePasswordAuthenticationFilter.class);
 			http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
@@ -140,5 +152,23 @@ public class SecurityConfiguration {
 					.logoutSuccessHandler(new UserLogoutSuccessHandler());
 
 		}
+		
+		 /**
+         * 自定义 FilterSecurityInterceptor  ObjectPostProcessor 以替换默认配置达到动态权限的目的
+         *
+         * @return ObjectPostProcessor
+         */
+        private ObjectPostProcessor<FilterSecurityInterceptor> filterSecurityInterceptorObjectPostProcessor() {
+            return new ObjectPostProcessor<FilterSecurityInterceptor>() {
+                @Override
+                public <O extends FilterSecurityInterceptor> O postProcess(O object) {
+                    object.setAccessDecisionManager(accessDecisionManager);
+                    object.setSecurityMetadataSource(filterInvocationSecurityMetadataSource);
+                    return object;
+                }
+            };
+        }
+        
+        
 	}
 }
