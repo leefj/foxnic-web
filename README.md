@@ -8,14 +8,19 @@
 
 #### 主要技术栈
 Spring Boot 
+
 Spring Cloud
+
 Spring Security
+
 [foxnic](https://gitee.com/LeeFJ/foxnic)  ， [文档（老版本）](https://gitee.com/LeeFJ/tity-sql-public/wikis/)
 
 
 
 Theamleaf
+
 Jquery
+
 LayUI
 
 #### 安装教程
