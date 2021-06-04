@@ -11,13 +11,20 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
+import javax.servlet.http.HttpServletResponse;
 
 import org.github.foxnic.web.domain.oauth.LoginIdentityVO;
+import org.github.foxnic.web.oauth.service.ICaptchaService;
+import org.github.foxnic.web.oauth.utils.ResponseUtil;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.web.filter.GenericFilterBean;
 
+import com.github.foxnic.springboot.api.error.CommonError;
+import com.github.foxnic.springboot.api.error.ErrorDesc;
 import com.github.foxnic.springboot.mvc.RequestParameter;
+import com.github.foxnic.springboot.spring.SpringUtil;
 
 /**
  * 预登录控过滤器，接收JSON参数，并作为后续过滤器的验证参数
@@ -29,55 +36,14 @@ public class PreLoginFilter extends GenericFilterBean {
  
     private RequestMatcher authenticationRequestMatcher;
     
-//    private Map<LoginTypeEnum, LoginPostProcessor> processors = new HashMap<>();
-
+    private ICaptchaService captchaService;
 
     public PreLoginFilter(String loginProcessingUrl) {
-    	//
         authenticationRequestMatcher = new AntPathRequestMatcher(loginProcessingUrl, "POST");
-        //
-//        LoginPostProcessor loginPostProcessor = defaultLoginPostProcessor();
-//        processors.put(loginPostProcessor.getLoginTypeEnum(), loginPostProcessor);
-
-//        if (!CollectionUtils.isEmpty(loginPostProcessors)) {
-//            loginPostProcessors.forEach(element -> processors.put(element.getLoginTypeEnum(), element));
-//        }
-
+        captchaService=SpringUtil.getBean(ICaptchaService.class);
     }
-
-
-//    private LoginTypeEnum getLoginTypeFromRequest(RequestParameter parameter) {
-//        if(parameter.isPostByJson()) {
-//        	return LoginTypeEnum.JSON;
-//        } else {
-//        	return LoginTypeEnum.FORM;
-//        }
-//    }
-
-
-//    /**
-//     * @return the login post processor
-//     */
-//    private LoginPostProcessor defaultLoginPostProcessor() {
-//        return new LoginPostProcessor() {
-//            @Override
-//            public LoginTypeEnum getLoginTypeEnum() {
-//                return LoginTypeEnum.FORM;
-//            }
-//
-//            @Override
-//            public String obtainUsername(ServletRequest request) {
-//                return request.getParameter(SPRING_SECURITY_FORM_USERNAME_KEY);
-//            }
-//
-//            @Override
-//            public String obtainPassword(ServletRequest request) {
-//                return request.getParameter(SPRING_SECURITY_FORM_PASSWORD_KEY);
-//            }
-//        };
-//    }
-
-
+ 
+ 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
  
@@ -85,20 +51,26 @@ public class PreLoginFilter extends GenericFilterBean {
     	HttpServletRequestWrapper wrapper = parameter.getRequestWrapper();
  
     	if (authenticationRequestMatcher.matches((HttpServletRequest) request)) {
-
-//            LoginTypeEnum typeFromReq = getLoginTypeFromRequest(parameter);
-
-//            LoginPostProcessor loginPostProcessor = processors.get(typeFromReq);
-
-
+ 
             LoginIdentityVO identity=parameter.toPojo(LoginIdentityVO.class);
-//            String username = loginPostProcessor.obtainUsername(request);
-
-//            String password = loginPostProcessor.obtainPassword(request);
-
-
+            
+            //处理图片验证码
+            if(identity.getBrowserId()!=null) {
+            	String captcha=captchaService.getImageCaptcha(identity.getBrowserId());
+            	if(captcha==null) {
+            		ResponseUtil.writeOK((HttpServletResponse)response, ErrorDesc.failure(CommonError.CAPTCHA_INVALID).message("验证码已失效"));
+            		return;
+            	} else {
+            		if(!captcha.equalsIgnoreCase(identity.getCaptcha())) {
+            			ResponseUtil.writeOK((HttpServletResponse)response, ErrorDesc.failure(CommonError.CAPTCHA_INVALID).message("验证码错误"));
+            			return;
+            		}
+            	}
+            }
+ 
             wrapper.setAttribute(SPRING_SECURITY_FORM_USERNAME_KEY, identity.getIdentity());
             wrapper.setAttribute(SPRING_SECURITY_FORM_PASSWORD_KEY, identity.getPasswd());
+            
             
         }
 

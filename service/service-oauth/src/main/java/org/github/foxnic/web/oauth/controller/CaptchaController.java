@@ -43,24 +43,24 @@ public class CaptchaController {
      */
 	@ApiOperation(value = "获取验证码图片")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = "deviceId" , value = "客户端唯一码" , required = true , dataTypeClass=String.class),
+		@ApiImplicitParam(name = "browserId" , value = "客户端唯一码" , required = true , dataTypeClass=String.class),
 	})
-	@NotNull(name = "deviceId")
-    @GetMapping("/image/{deviceId}")
-    public void createCode(@PathVariable String deviceId, HttpServletResponse response) throws Exception {
-        Assert.notNull(deviceId, "机器码不能为空");
+	@NotNull(name = "browserId")
+    @GetMapping("/image/{browserId}")
+    public void createCode(@PathVariable String browserId, HttpServletResponse response) throws Exception {
+        Assert.notNull(browserId, "机器码不能为空");
         // 设置请求头为输出图片类型
         CaptchaUtil.setHeader(response);
         // 三个参数分别为宽、高、位数
         //GifCaptcha gifCaptcha = new GifCaptcha(100, 35, 4);
-        SpecCaptcha gifCaptcha = new SpecCaptcha(100, 35, 4);
+        SpecCaptcha captcha = new SpecCaptcha(100, 35, 4);
         
         // 设置类型：字母数字混合
-        gifCaptcha.setCharType(Captcha.TYPE_DEFAULT);
+        captcha.setCharType(Captcha.TYPE_DEFAULT);
         // 保存验证码
-        validateCodeService.saveValidateCode(deviceId, gifCaptcha.text().toLowerCase());
+        validateCodeService.saveImageCaptcha(browserId, captcha.text().toLowerCase());
         // 输出图片流
-        gifCaptcha.out(response.getOutputStream());
+        captcha.out(response.getOutputStream());
     }
  
 }

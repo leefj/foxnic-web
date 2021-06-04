@@ -2,8 +2,8 @@ package org.github.foxnic.web.oauth.service;
 
 public interface ICaptchaService {
 	
-	void saveValidateCode(String deviceId, String imageCode);
+	void saveImageCaptcha(String browserId, String imageCode);
 	
-	String getValidateCode(String deviceId);
+	String getImageCaptcha(String browserId);
 	
 }

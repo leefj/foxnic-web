@@ -9,16 +9,16 @@ import com.github.foxnic.commons.cache.LocalCache;
 @Service
 public class CaptchaServiceImpl implements ICaptchaService {
 
-	private LocalCache<String, String> CODE_CACHE=new LocalCache<>(1000*60*15);
+	private LocalCache<String, String> CODE_CACHE=new LocalCache<>(1000*60*2);
 	
 	@Override
-	public void saveValidateCode(String deviceId, String imageCode) {
-		CODE_CACHE.put(deviceId,imageCode);
+	public void saveImageCaptcha(String browserId, String imageCode) {
+		CODE_CACHE.put(browserId,imageCode);
 	}
 
 	@Override
-	public String getValidateCode(String deviceId) {
-		return CODE_CACHE.get(deviceId);
+	public String getImageCaptcha(String browserId) {
+		return CODE_CACHE.get(browserId);
 	}
 
 }
