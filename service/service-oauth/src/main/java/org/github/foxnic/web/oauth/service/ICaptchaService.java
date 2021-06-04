@@ -1,6 +1,6 @@
-package org.github.foxnic.web.framework.security.service;
+package org.github.foxnic.web.oauth.service;
 
-public interface IValidateCodeService {
+public interface ICaptchaService {
 	
 	void saveValidateCode(String deviceId, String imageCode);
 	

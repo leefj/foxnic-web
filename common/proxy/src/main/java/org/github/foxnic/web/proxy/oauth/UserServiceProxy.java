@@ -150,9 +150,15 @@ public interface UserServiceProxy {
 	public static final String CONTROLLER_CLASS_NAME="org.github.foxnic.web.oauth.controller.UserController";
 
 	/**
-	 * 账户登录
+	 * 帐号密码登录
 	 * */
 	public static final String LOGIN_URI= "/security/login";
+	
+	/**
+	 * 验证码登录
+	 * */
+	public static final String LOGIN_BY_CAPTCHA_URI= "/security/login_by_captcha";
+	
 	
 	/**
 	 * 账户登出

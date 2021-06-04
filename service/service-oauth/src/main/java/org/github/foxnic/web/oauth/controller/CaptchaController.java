@@ -1,8 +1,8 @@
-package org.github.foxnic.web.framework.security.controller;
+package org.github.foxnic.web.oauth.controller;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.github.foxnic.web.framework.security.service.IValidateCodeService;
+import org.github.foxnic.web.oauth.service.ICaptchaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
@@ -29,13 +29,13 @@ import io.swagger.annotations.ApiOperation;
 @Api(tags = "验证码服务")
 @ApiSort(1)
 @Controller
-@RequestMapping(ValidateCodeController.VCODE_URI)
-public class ValidateCodeController {
+@RequestMapping(CaptchaController.CAPTCHA_URI)
+public class CaptchaController {
  
-	public static final String VCODE_URI="/security/validate-code";
+	public static final String CAPTCHA_URI="/security/captcha";
 	
 	@Autowired
-	private IValidateCodeService validateCodeService;
+	private ICaptchaService validateCodeService;
     /**
      * 创建验证码
      *
@@ -46,7 +46,7 @@ public class ValidateCodeController {
 		@ApiImplicitParam(name = "deviceId" , value = "客户端唯一码" , required = true , dataTypeClass=String.class),
 	})
 	@NotNull(name = "deviceId")
-    @GetMapping("/{deviceId}")
+    @GetMapping("/image/{deviceId}")
     public void createCode(@PathVariable String deviceId, HttpServletResponse response) throws Exception {
         Assert.notNull(deviceId, "机器码不能为空");
         // 设置请求头为输出图片类型

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.Role;
 import org.github.foxnic.web.domain.oauth.RoleMenu;
@@ -205,12 +206,12 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 	 * 提供给 SpringSecurity 的查询接口
 	 * */
 	public User getUserByIdentity(String identity) {
-		User user=dao.queryEntity(User.class, new ConditionExpr("id = ?",identity));
+		User user=dao.queryEntity(User.class, new ConditionExpr(SYS_USER.ID+" = ?",identity));
     	if(user==null) {
-    		user=dao.queryEntity(User.class, new ConditionExpr("name = ?",identity));
+    		user=dao.queryEntity(User.class, new ConditionExpr(SYS_USER.NAME+" = ?",identity));
     	}
     	if(user==null) {
-    		user=dao.queryEntity(User.class, new ConditionExpr("mobile = ?",identity));
+    		user=dao.queryEntity(User.class, new ConditionExpr(SYS_USER.PHONE+" = ?",identity));
     	}
     	
     	//授权

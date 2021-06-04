@@ -16,7 +16,6 @@ import org.springframework.context.annotation.Configuration;
  * @since  2021-06-02
  */
 @EnableConfigurationProperties(value= {JwtProperties.class,SecurityProperties.class})
-
 @Configuration
 public class JwtConfiguration {
 

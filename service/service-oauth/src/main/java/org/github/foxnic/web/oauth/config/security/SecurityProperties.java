@@ -2,7 +2,7 @@ package org.github.foxnic.web.oauth.config.security;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.github.foxnic.web.framework.security.controller.ValidateCodeController;
+import org.github.foxnic.web.oauth.controller.CaptchaController;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import com.github.foxnic.commons.lang.ArrayUtil;
@@ -24,7 +24,7 @@ public class SecurityProperties {
 		LOCAL,REMOTE,BOTH;
 	}
 	
-	public static final String VCODE_URI_PATTERN=ValidateCodeController.VCODE_URI+"/**";
+	public static final String VCODE_URI_PATTERN=CaptchaController.CAPTCHA_URI+"/**";
  
 	private String loginPage;
  

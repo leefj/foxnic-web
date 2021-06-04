@@ -56,10 +56,10 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		PojoClassFile pojo=cfg.createPojo("LoginIdentityVO");
 		pojo.setSuperType(null);
 		pojo.setDoc("用于App登录接口");
-		pojo.addSimpleProperty(String.class,"identity","帐号或手机号","");
+		pojo.addSimpleProperty(String.class,"identity","帐号或手机号等用于识别身份的标识","");
 		pojo.addSimpleProperty(String.class,"passwd","密码","");
-		pojo.addSimpleProperty(String.class,"randomId","随机ID","客户端产生的唯一ID，用于标识一次认证");
-		pojo.addSimpleProperty(String.class,"vcode","校验码","用户输入的校验码");
+		pojo.addSimpleProperty(String.class,"browserId","随机ID","客户端产生的唯一ID，用于标识一次认证");
+		pojo.addSimpleProperty(String.class,"captcha","校验码/验证码","用户输入的校验码");
  
 		//生成代码
 		cfg.buildAll();

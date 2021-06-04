@@ -18,8 +18,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-04 13:33:08
- * @sign 8B2FC9A375D6AC8EE2713F195A336928
+ * @since 2021-06-04 15:27:27
+ * @sign 6BAB5A7BEA5DA5F33F8BCC13FEE75D73
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -59,7 +59,7 @@ public class User extends Entity {
 	 * 手机号码：手机号码
 	*/
 	@ApiModelProperty(required = false,value="手机号码" , notes = "手机号码")
-	private String mobile;
+	private String phone;
 	
 	/**
 	 * 人员ID：人员ID
@@ -256,23 +256,23 @@ public class User extends Entity {
 	 * 属性说明 : 手机号码
 	 * @return 手机号码
 	*/
-	public String getMobile() {
-		return mobile;
+	public String getPhone() {
+		return phone;
 	}
 	
 	/**
 	 * 设置 手机号码
-	 * @param mobile 手机号码
+	 * @param phone 手机号码
 	 * @return 当前对象
 	*/
-	public User setMobile(String mobile) {
-		this.mobile=mobile;
+	public User setPhone(String phone) {
+		this.phone=phone;
 		return this;
 	}
 	
 	/**
 	 * 添加 手机号码
-	 * @param mobile 手机号码
+	 * @param phone 手机号码
 	 * @return 当前对象
 	*/
 	
