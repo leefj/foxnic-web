@@ -14,7 +14,7 @@ import org.github.foxnic.web.constants.enums.MenuType;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.Role;
 import org.github.foxnic.web.domain.oauth.RoleMenu;
-import org.springframework.security.access.AccessDeniedException;
+import org.github.foxnic.web.framework.web.SessionPermission;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.access.expression.SecurityExpressionRoot;
@@ -23,11 +23,11 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.github.foxnic.commons.lang.StringUtil;
 
-public class SessionPermission {
+public class SessionPermissionImpl implements SessionPermission {
 	
 	public static final String ROLE_PREFIX="ROLE_";
 	
-	private SessionUser sessionUser;
+	private SessionUserImpl sessionUser;
 	
 	private Set<AntPathRequestMatcher> requestMatchers;
 	
@@ -38,7 +38,7 @@ public class SessionPermission {
 	private Map<String,Role> roleIdCache;
 	private Map<String,Menu> menuPathCache;
 	
-	public SessionPermission(SessionUser sessionUser) {
+	public SessionPermissionImpl(SessionUserImpl sessionUser) {
 		this.sessionUser=sessionUser;
 		
 		initRequestMatchers();
@@ -102,7 +102,7 @@ public class SessionPermission {
 	}
 
 
-	public SessionUser getSessionUser() {
+	public SessionUserImpl getSessionUser() {
 		return sessionUser;
 	}
 

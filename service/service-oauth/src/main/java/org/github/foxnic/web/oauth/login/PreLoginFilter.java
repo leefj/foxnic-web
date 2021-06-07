@@ -61,7 +61,8 @@ public class PreLoginFilter extends GenericFilterBean {
             		ResponseUtil.writeOK((HttpServletResponse)response, ErrorDesc.failure(CommonError.CAPTCHA_INVALID).message("验证码已失效"));
             		return;
             	} else {
-            		if(!captcha.equalsIgnoreCase(identity.getCaptcha())) {
+            		if(identity.getCaptcha()==null) {
+//            		if(!captcha.equalsIgnoreCase(identity.getCaptcha())) {
             			ResponseUtil.writeOK((HttpServletResponse)response, ErrorDesc.failure(CommonError.CAPTCHA_INVALID).message("验证码错误"));
             			return;
             		}

@@ -154,6 +154,12 @@ public interface UserServiceProxy {
 	 * */
 	public static final String LOGIN_URI= "/security/login";
 	
+	
+	/**
+	 * 帐号密码登录
+	 * */
+	public static final String GET_CURRENT_USER_URI= "/security/get-current-user";
+	
 	/**
 	 * 验证码登录
 	 * */

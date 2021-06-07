@@ -21,7 +21,7 @@ import org.github.foxnic.web.oauth.jwt.JwtTokenGenerator;
 import org.github.foxnic.web.oauth.jwt.JwtTokenPair;
 import org.github.foxnic.web.oauth.service.ISessionOnlineService;
 import org.github.foxnic.web.oauth.service.IUserService;
-import org.github.foxnic.web.oauth.session.SessionUser;
+import org.github.foxnic.web.oauth.session.SessionUserImpl;
 import org.github.foxnic.web.oauth.utils.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -69,7 +69,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 //			System.out.println();
 //		} 
 		
-		SessionUser securityUser = ((SessionUser) authentication.getPrincipal());
+		SessionUserImpl securityUser = ((SessionUserImpl) authentication.getPrincipal());
         
         JSONObject ret=new JSONObject();
         User user=securityUser.getUser().toPojo(User.class);
@@ -77,7 +77,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         
         userDetailsService.update(SYS_USER.LAST_LOGIN_TIME, new Date(), securityUser.getUser().getId());
         //
-        String initId=(String)request.getAttribute(SessionUser.SESSION_ONLINE_ID_KEY);
+        String initId=(String)request.getAttribute(SessionUserImpl.SESSION_ONLINE_ID_KEY);
         securityUser.setSessionUserId(initId);
         
         ret.put("sessionId", securityUser.getSessionUserId());
@@ -110,7 +110,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 	private Map<String, Object> getToken(Authentication authentication)  {
 		
 		Map<String, Object> map = new HashMap<>(5);
-		SessionUser principal = (SessionUser) authentication.getPrincipal();
+		SessionUserImpl principal = (SessionUserImpl) authentication.getPrincipal();
 
 		String username = principal.getUsername();
 		Collection<? extends GrantedAuthority> authorities = principal.getAuthorities();

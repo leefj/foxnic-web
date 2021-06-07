@@ -37,7 +37,7 @@ applications:
     primaryDatasourceConfigKey: spring.datasource.druid.primary
     microServiceNameConst: SYSTEM
     viewProjectPath: /view/view-console
-    viewPrefixPath: public/pages/system
+    viewPrefixPath: public/business/system
     wrapperProjectPath:  /wrapper/wrapper-service-system
   #存储服务
   service-storage:  
@@ -48,7 +48,7 @@ applications:
     primaryDatasourceConfigKey: spring.datasource.druid.primary
     microServiceNameConst: STORAGE
     viewProjectPath: /view/view-console
-    viewPrefixPath: public/pages/storage
+    viewPrefixPath: public/business/storage
     wrapperProjectPath:  /wrapper/wrapper-all-service
   #存储服务
   service-oauth:  
@@ -59,6 +59,6 @@ applications:
     primaryDatasourceConfigKey: spring.datasource.druid.primary
     microServiceNameConst: OAUTH
     viewProjectPath: /view/view-console
-    viewPrefixPath: public/pages/oauth
+    viewPrefixPath: public/business/oauth
     wrapperProjectPath:  /wrapper/wrapper-service-oauth
     

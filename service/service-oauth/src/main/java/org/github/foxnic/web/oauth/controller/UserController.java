@@ -7,7 +7,10 @@ import java.util.List;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.domain.oauth.UserVO;
 import org.github.foxnic.web.domain.oauth.meta.UserVOMeta;
+import org.github.foxnic.web.framework.web.SessionUser;
+import org.github.foxnic.web.framework.web.SuperController;
 import org.github.foxnic.web.oauth.service.IUserService;
+import org.github.foxnic.web.oauth.session.SessionUserImpl;
 import org.github.foxnic.web.proxy.oauth.UserServiceProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,7 +40,7 @@ import io.swagger.annotations.ApiOperation;
 @Api(tags = "账户")
 @ApiSort(0)
 @RestController("SysUserController")
-public class UserController {
+public class UserController extends SuperController {
 
 	@Autowired
 	private IUserService userService;
@@ -179,6 +182,21 @@ public class UserController {
 		result.success(true).data(role);
 		return result;
 	}
+	
+	
+	/**
+	 * 获取账户
+	*/
+	@ApiOperation(value = "获取当前登录账户")
+	@ApiOperationSupport(order=6)
+	@SentinelResource(value = UserServiceProxy.GET_CURRENT_USER_URI)
+	@PostMapping(UserServiceProxy.GET_CURRENT_USER_URI)
+	public Result<User> getCurrentUser() {
+		Result<User> result=new Result<>();
+		SessionUserImpl user=(SessionUserImpl)this.getSessionUser();
+		result.data(user.getUser());
+		return result;
+	}
 
 	
 	/**
@@ -229,6 +247,9 @@ public class UserController {
 		result.success(true).data(list);
 		return result;
 	}
+	
+	
+	
 
 
 }

@@ -17,10 +17,10 @@ layui.define(function (exports) {
     }
     var settings = {
         base_server: apiUrl,
-        tableName: 'easyweb',  // 存储表名
-        clientId: 'webApp', // 应用id
+        tableName: 'foxnic-web',  // 存储表名
+        clientId: 'web-console', // 应用id
         isolationVersion: '', // 隔离版本
-        clientSecret: 'webApp', // 应用秘钥
+        clientSecret: 'web-console', // 应用秘钥
         autoRender: false,  // 窗口大小改变后是否自动重新渲染表格，解决layui数据表格非响应式的问题，目前实现的还不是很好，暂时关闭该功能
         pageTabs: true,   // 是否开启多标签
         // 获取缓存的token

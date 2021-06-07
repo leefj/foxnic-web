@@ -11,8 +11,8 @@ import org.github.foxnic.web.domain.oauth.RoleMenu;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-04 15:27:27
- * @sign 6BAB5A7BEA5DA5F33F8BCC13FEE75D73
+ * @since 2021-06-07 14:09:39
+ * @sign 0C10EC6AF551BFA61451F163DDD94986
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -42,6 +42,11 @@ public class UserMeta {
 	 * 手机号码
 	*/
 	public static final String PHONE="phone";
+	
+	/**
+	 * 头像ID
+	*/
+	public static final String PORTRAIT_ID="portraitId";
 	
 	/**
 	 * 人员ID
@@ -121,7 +126,7 @@ public class UserMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , NAME , PASSWD , SALT , PHONE , PERSON_ID , EMPLOYEE_ID , VALID , LAST_LOGIN_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , ROLES , MENUS , ROLE_MENUS };
+	public static final String[] $PROPS={ ID , NAME , PASSWD , SALT , PHONE , PORTRAIT_ID , PERSON_ID , EMPLOYEE_ID , VALID , LAST_LOGIN_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , ROLES , MENUS , ROLE_MENUS };
 	
 	/**
 	 * 代理类
@@ -183,6 +188,17 @@ public class UserMeta {
 		public User setPhone(String phone) {
 			super.change(PHONE,super.getPhone(),phone);
 			super.setPhone(phone);
+			return this;
+		}
+		
+		/**
+		 * 设置 头像ID
+		 * @param portraitId 头像ID
+		 * @return 当前对象
+		*/
+		public User setPortraitId(String portraitId) {
+			super.change(PORTRAIT_ID,super.getPortraitId(),portraitId);
+			super.setPortraitId(portraitId);
 			return this;
 		}
 		

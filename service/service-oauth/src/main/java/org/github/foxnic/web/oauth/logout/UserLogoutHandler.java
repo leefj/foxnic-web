@@ -3,7 +3,7 @@ package org.github.foxnic.web.oauth.logout;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.github.foxnic.web.oauth.session.SessionUser;
+import org.github.foxnic.web.oauth.session.SessionUserImpl;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
@@ -28,7 +28,7 @@ public class UserLogoutHandler implements LogoutHandler {
     		Logger.info("no session user");
     		return;
     	}
-        SessionUser user = (SessionUser) principal;
+        SessionUserImpl user = (SessionUserImpl) principal;
         String username = user.getUsername();
         Logger.info("username: {}  is offline now", username);
     }

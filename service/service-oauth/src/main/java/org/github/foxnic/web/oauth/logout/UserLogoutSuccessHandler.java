@@ -8,7 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.github.foxnic.web.oauth.session.SessionUser;
+import org.github.foxnic.web.oauth.session.SessionUserImpl;
 import org.github.foxnic.web.oauth.utils.ResponseUtil;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
@@ -43,7 +43,7 @@ public class UserLogoutSuccessHandler implements LogoutSuccessHandler {
     		return;
     	}
     	
-    	SessionUser user = (SessionUser) principal;
+    	SessionUserImpl user = (SessionUserImpl) principal;
         String username = user.getUsername();
         Logger.info("username: {}  is offline now", username);
         

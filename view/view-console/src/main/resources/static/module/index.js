@@ -40,11 +40,39 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form'], functi
     var index = {
         // 渲染左侧菜单栏
         initLeftNav: function () {
-            admin.req('/service-tailoring/sys-menu/get-menu-tree', {}, function (data) {
+        	
+        	var user=config.getUser();   
+        	var menus=user.user.menus;
+        	var map={};
+        	var pages=[];
+        	for (var i = 0; i < menus.length; i++) {
+        		if(menus[i].type!="page" || menus[i].hidden==1) continue;
+        		pages.push(menus[i]);
+        		map[menus[i].id]=menus[i];
+        		
+        	}
+        	for (var i = 0; i < pages.length; i++) {
+        		if(!pages[i].parentId) continue;
+        		var p=map[pages[i].parentId];
+        		if(p==null) continue;
+        		var subMenus=p["subMenus"];
+        		if(subMenus==null) {
+        			subMenus=[];
+        			p.subMenus=subMenus;
+        		}
+        		subMenus.push(pages[i]);
+        	}
+        	
+        	console.log(pages);
+ 
+//        	debugger;
+        	
+        	
+//            admin.req('/service-tailoring/sys-menu/get-menu-tree', {}, function (data) {
                 //data = data[1];
             	//debugger;
-                admin.putTempData("menus",data.data);
-                var menus = data.data;
+                admin.putTempData("menus",pages);
+//                var menus = data.data;
                 // 判断权限
 //                for (var i = menus.length - 1; i >= 0; i--) {
 //                    var tempMenu = menus[i];
@@ -92,7 +120,7 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form'], functi
 //                }
                 // 渲染
                 $('.layui-layout-admin .layui-side').load('pages/side.html', function () {
-                    laytpl(sideNav.innerHTML).render(menus, function (html) {
+                    laytpl(sideNav.innerHTML).render(pages, function (html) {
                         $('#sideNav').after(html);
                     });
                     element.render('nav');
@@ -100,7 +128,7 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form'], functi
                 });
 
 
-            }, 'POST');
+//            }, 'POST');
         },
         // 路由注册
         initRouter: function () {  
@@ -128,8 +156,12 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form'], functi
                             data.path.startWith("http://") ?  admin.putTempData("params",data.path) : null ;
 
                             var menuId = data.url.substring(2);
+                            //debugger;
+//                            while(data.path.startWith("/")) {
+//                            	data.path=data.path.substring(1);
+//                            }
                             //add by owen 修复 path 无法引用http://页面的问题
-                            var menuPath = data.path.startWith("http://") ? 'pages/tpl/iframe.html' : 'pages/' + data.path
+                            var menuPath = data.path.startWith("http://") ? 'pages/tpl/iframe.html' : data.path
                             index.loadView(menuId, menuPath, data.label);
                         }
                     });
@@ -141,6 +173,7 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form'], functi
         },
         // 路由加载组件
         loadView: function (menuId, menuPath, menuName) {
+//        	debugger;
             var contentDom = '.layui-layout-admin .layui-body';
             admin.showLoading('.layui-layout-admin .layui-body');
             var flag;  // 选项卡是否添加
@@ -158,8 +191,8 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form'], functi
                     element.tabAdd('admin-pagetabs', {
                         title: menuName,
                         //add by owen 修复 path 无法引用http://页面的问题
-                        //content:  '<div id="admin-iframe" style="width: 100%; height: 100%;"><iframe id="' + menuId + '" src="' + menuPath + '" marginwidth="0"  marginheight="0" width="100%" height="100%"  frameborder="0" onload="initIFrame()"></iframe> </div>',
-                        content:  (menuPath.startWith("http://") || menuId=="userifr") ? '<div id="admin-iframe" style="width: 100%; height: 100%;"><iframe id="' + menuId + '" src="' + menuPath + '" marginwidth="0"  marginheight="0" width="100%" height="100%"  frameborder="0" onload="initIFrame()"></iframe> </div>'   :  '<div id="' + menuId + '"></div>' ,
+                        content:  '<div id="admin-iframe" style="width: 100%; height: 100%;"><iframe id="' + menuId + '" src="' + menuPath + '" marginwidth="0"  marginheight="0" width="100%" height="100%"  frameborder="0" onload="initIFrame()"></iframe> </div>',
+                        //content:  (menuPath.startWith("http://") || menuId=="userifr") ? '<div id="admin-iframe" style="width: 100%; height: 100%;"><iframe id="' + menuId + '" src="' + menuPath + '" marginwidth="0"  marginheight="0" width="100%" height="100%"  frameborder="0" onload="initIFrame()"></iframe> </div>'   :  '<div id="' + menuId + '"></div>' ,
                         id: menuId
                     });
                 }
@@ -177,16 +210,16 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form'], functi
                 }
             }
             if (!flag || admin.isRefresh) {
-            	if(menuId!="userifr"){
+            	//if(menuId!="userifr"){
 	                $(contentDom).load(menuPath, function () {
 	                    admin.isRefresh = false;
 	                    element.render('breadcrumb');
 	                    form.render('select');
 	                    admin.removeLoading('.layui-layout-admin .layui-body');
 	                });
-            	} else  {
-            		 admin.removeLoading('.layui-layout-admin .layui-body');
-            	}
+            	//} else  {
+            	//	 admin.removeLoading('.layui-layout-admin .layui-body');
+            	//}
             } else {
                 admin.removeLoading('.layui-layout-admin .layui-body');
             }
@@ -198,27 +231,20 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form'], functi
         },
         // 从服务器获取登录用户的信息
         getUser: function (success) {
-            layer.load(2);
-            admin.req('/security/user/current-user', {}, function (data) {
-                layer.closeAll('loading');
-                if (data.success) {
-                    let user = data.data;
-                    config.putUser(user);
-                    admin.putTempData("permissions",user.permissions);
-                    success(user);
-                } else {
-                	//debugger;
-                    layer.msg('获取用户失败', {icon: 2});
-                    config.removeToken();
-                    location.replace('login.html');
-                }
-            }, 'POST');
+			var user=config.getUser();   
+			console.log(user);
+			success(user);
+			return;
         },
         //获取菜单
         getMenus: function () {
-            admin.req('api-user/menus/current', {}, function (data) {
-                admin.putTempData("menus",data);
-            }, 'GET');
+        	debugger;
+        	var user=config.getUser();   
+        	var menus=user.menus;
+        	admin.putTempData("menus",menus);
+//            admin.post('api-user/menus/current', {}, function (data) {
+//                admin.putTempData("menus",data);
+//            });
         },
         // 页面元素绑定事件监听
         bindEvent: function () {
@@ -233,8 +259,7 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form'], functi
 
                         //if (accessToken) {
                         //    isExistsToken = true;
-                            admin.req('/security/user/logout?token='+token, {}, function (data) {
-                                //debugger;
+                            admin.post('/security/logout', {token:token}, function (data) {
                                 if (data.success) {
                                 	//debugger;
                                     location.replace('login.html');
@@ -285,6 +310,7 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form'], functi
         },
         // 打开新页面
         openNewTab: function (param) {
+        	debugger;
             var url = param.url;
             var title = param.title;
             var menuId = param.menuId;

@@ -146,7 +146,7 @@ layui.define(['settings', 'layer'], function (exports) {
             return layer.open(param);
         },
         // 封装ajax请求，返回数据类型为json
-        req: function (url, data, success, method, noHeaderToken) {
+        post: function (url, data, success, method, noHeaderToken) {
         	//debugger;
         	if(method==null) method="POST";
             if ('put' == method.toLowerCase()) {
@@ -183,6 +183,7 @@ layui.define(['settings', 'layer'], function (exports) {
 
         // 封装ajax请求
         ajax: function (param) {
+        	//debugger
             var successCallback = param.success;
             param.success = function (result, status, xhr) {
                 // 判断登录过期和没有权限

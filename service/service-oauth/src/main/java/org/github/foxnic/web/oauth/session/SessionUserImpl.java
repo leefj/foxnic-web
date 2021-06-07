@@ -1,29 +1,22 @@
 package org.github.foxnic.web.oauth.session;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
-import java.util.Map;
 
-import org.github.foxnic.web.domain.oauth.Menu;
-import org.github.foxnic.web.domain.oauth.Role;
 import org.github.foxnic.web.domain.oauth.User;
+import org.github.foxnic.web.framework.web.SessionPermission;
+import org.github.foxnic.web.framework.web.SessionUser;
 import org.springframework.security.core.CredentialsContainer;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-
-import com.github.foxnic.commons.lang.StringUtil;
 
 /**
  * 
  * @author 李方捷
  * @since  2021-06-02
  * */
-public class SessionUser implements UserDetails, CredentialsContainer {
+public class SessionUserImpl extends SessionUser implements UserDetails, CredentialsContainer {
  
 	private static final long serialVersionUID = 1L;
 	
@@ -38,9 +31,9 @@ public class SessionUser implements UserDetails, CredentialsContainer {
 // 
 //	private static List<GrantedAuthority>  ROLES_PERMITTED=Arrays.asList(new SimpleGrantedAuthority(ROLE_PERMITTED));
   
-	private transient SessionPermission permission = null;
+	private transient SessionPermissionImpl permission = null;
  
-	public SessionUser(User user) {
+	public SessionUserImpl(User user) {
 		this.user=user;
 	}
 
@@ -52,7 +45,7 @@ public class SessionUser implements UserDetails, CredentialsContainer {
  
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return permission().getAuthorities();
+		return ((SessionPermissionImpl)permission()).getAuthorities();
 	}
 
 	@Override
@@ -106,22 +99,27 @@ public class SessionUser implements UserDetails, CredentialsContainer {
 	/**
 	 * 获得当前登录的账户
 	 * */
-	public static SessionUser getCurrent() {
+	public static SessionUserImpl getCurrent() {
 		SecurityContext context = SecurityContextHolder.getContext();
         if(context==null || context.getAuthentication()==null || !context.getAuthentication().isAuthenticated()) {
         	 return null;
         }
         Object principal=context.getAuthentication().getPrincipal();
-        if(principal==null || !(principal instanceof SessionUser)) {
+        if(principal==null || !(principal instanceof SessionUserImpl)) {
         	return null;
         }
-        SessionUser userDetail=(SessionUser)principal;
+        SessionUserImpl userDetail=(SessionUserImpl)principal;
         return userDetail;
 	}
 
 	public SessionPermission permission() {
-		if(permission==null) permission=new SessionPermission(this);
+		if(permission==null) permission=new SessionPermissionImpl(this);
 		return permission;
+	}
+
+	@Override
+	public String getUserId() {
+		 return this.user.getId();
 	}
  
 }

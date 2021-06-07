@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.github.foxnic.web.oauth.config.user.SessionUserDetailsManager;
 import org.github.foxnic.web.oauth.exception.UserAuthenticationEntryPoint;
-import org.github.foxnic.web.oauth.session.SessionUser;
+import org.github.foxnic.web.oauth.session.SessionUserImpl;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.authentication.BadCredentialsException;

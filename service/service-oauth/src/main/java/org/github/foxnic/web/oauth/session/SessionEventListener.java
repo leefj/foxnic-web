@@ -25,7 +25,7 @@ public class SessionEventListener implements  HttpSessionListener  {
 	@Override
 	public void sessionCreated(HttpSessionEvent event) {
 		HttpSessionListener.super.sessionCreated(event);
-		event.getSession().setAttribute(SessionUser.SESSION_ONLINE_ID_KEY, event.getSession().getId()); 
+		event.getSession().setAttribute(SessionUserImpl.SESSION_ONLINE_ID_KEY, event.getSession().getId()); 
 	}
 	 
 	

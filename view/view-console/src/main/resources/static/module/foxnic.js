@@ -97,7 +97,7 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload'], fun
     			text=defaults;
     		}
     		
-    		admin.req("/service-system/sys-lang/insert", {code:code,defaults:defaults}, function (data) {});
+    		admin.post("/service-system/sys-lang/insert", {code:code,defaults:defaults}, function (data) {});
     		
     		return text?text:"--";
     	},
@@ -186,7 +186,7 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload'], fun
     	bindSwitchEvent:function(layFilter,updateApiUrl,callback){
 			form.on('switch('+layFilter+')', function (obj) {
 	            layer.load(2);
-	            admin.req(updateApiUrl, {
+	            admin.post(updateApiUrl, {
 	                id: obj.elem.value,
 	                valid: obj.elem.checked ? 1 : 0
 	            }, function (data) {
@@ -255,7 +255,7 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload'], fun
 //    });
     
     //加载语言
-    admin.req('/service-system/sys-lang/query-list', {}, function (data) {
+    admin.post('/service-system/sys-lang/query-list', {}, function (data) {
     	data=data.data;
     	codeLangs={};
     	defaultsLangs={};

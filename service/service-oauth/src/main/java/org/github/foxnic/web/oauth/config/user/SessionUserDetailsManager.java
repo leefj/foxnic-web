@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.oauth.service.IUserService;
-import org.github.foxnic.web.oauth.session.SessionUser;
+import org.github.foxnic.web.oauth.session.SessionUserImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
@@ -109,7 +109,7 @@ public class SessionUserDetailsManager implements UserDetailsManager {
     	if(user==null) {
     		throw new UsernameNotFoundException("无效账户 [" + username + "]");
     	}
-    	return new SessionUser(user);
+    	return new SessionUserImpl(user);
     }
     
     

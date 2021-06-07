@@ -108,8 +108,8 @@ public class RequestListener  implements ServletRequestListener {
 		if(session==null) {
 			session=request.getSession(true);
 		}
-		String initId=(String)session.getAttribute(SessionUser.SESSION_ONLINE_ID_KEY);
-		request.setAttribute(SessionUser.SESSION_ONLINE_ID_KEY, initId);
+		String initId=(String)session.getAttribute(SessionUserImpl.SESSION_ONLINE_ID_KEY);
+		request.setAttribute(SessionUserImpl.SESSION_ONLINE_ID_KEY, initId);
 		sessionOnlineId.set(initId);
 	}
 

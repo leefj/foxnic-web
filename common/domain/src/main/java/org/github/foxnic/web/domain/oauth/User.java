@@ -18,8 +18,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-04 15:27:27
- * @sign 6BAB5A7BEA5DA5F33F8BCC13FEE75D73
+ * @since 2021-06-07 14:09:39
+ * @sign 0C10EC6AF551BFA61451F163DDD94986
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -60,6 +60,12 @@ public class User extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="手机号码" , notes = "手机号码")
 	private String phone;
+	
+	/**
+	 * 头像ID：头像ID
+	*/
+	@ApiModelProperty(required = false,value="头像ID" , notes = "头像ID")
+	private String portraitId;
 	
 	/**
 	 * 人员ID：人员ID
@@ -273,6 +279,31 @@ public class User extends Entity {
 	/**
 	 * 添加 手机号码
 	 * @param phone 手机号码
+	 * @return 当前对象
+	*/
+	
+	/**
+	 * 获得 头像ID<br>
+	 * 属性说明 : 头像ID
+	 * @return 头像ID
+	*/
+	public String getPortraitId() {
+		return portraitId;
+	}
+	
+	/**
+	 * 设置 头像ID
+	 * @param portraitId 头像ID
+	 * @return 当前对象
+	*/
+	public User setPortraitId(String portraitId) {
+		this.portraitId=portraitId;
+		return this;
+	}
+	
+	/**
+	 * 添加 头像ID
+	 * @param portraitId 头像ID
 	 * @return 当前对象
 	*/
 	

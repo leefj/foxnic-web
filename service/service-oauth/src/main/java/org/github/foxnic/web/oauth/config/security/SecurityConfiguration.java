@@ -152,6 +152,10 @@ public class SecurityConfiguration {
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
 
+			
+			//允许iframe嵌入
+			http.headers().frameOptions().disable();
+			
 			// 如果是 token 模式，禁用Session
 			if(securityProperties.getSecurityMode()==SecurityMode.JWT) {
 				http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

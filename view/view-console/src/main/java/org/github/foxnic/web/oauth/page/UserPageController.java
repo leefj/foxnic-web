@@ -17,7 +17,7 @@ import org.springframework.ui.Model;
 @RequestMapping(UserPageController.prefix)
 public class UserPageController {
 	
-	public static final String prefix="pages/oauth/user";
+	public static final String prefix="business/oauth/user";
 
 	/**
 	 * 账户 功能主页面

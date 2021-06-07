@@ -1,6 +1,5 @@
 package org.github.foxnic.web.oauth.permission;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -10,18 +9,15 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.github.foxnic.web.domain.oauth.Menu;
-import org.github.foxnic.web.domain.oauth.Role;
 import org.github.foxnic.web.oauth.service.IMenuService;
-import org.github.foxnic.web.oauth.service.IRoleService;
-import org.github.foxnic.web.oauth.session.SessionUser;
+import org.github.foxnic.web.oauth.session.SessionPermissionImpl;
+import org.github.foxnic.web.oauth.session.SessionUserImpl;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.ConfigAttribute;
-import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
-import org.springframework.util.CollectionUtils;
 
 import com.github.foxnic.commons.lang.StringUtil;
 
@@ -41,19 +37,21 @@ public class PermissonFilterInvocationSecurityMetadataSource implements FilterIn
     @Override
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
 
-    	SessionUser user=SessionUser.getCurrent();
+    	SessionUserImpl user=SessionUserImpl.getCurrent();
     	if(user==null) {
     		throw new AccessDeniedException("非法访问");
     	}
  
         final HttpServletRequest request = ((FilterInvocation) object).getRequest();
         
-        AntPathRequestMatcher matcher=user.permission().check(request);
+        SessionPermissionImpl permission=(SessionPermissionImpl)user.permission();
+        
+        AntPathRequestMatcher matcher=permission.check(request);
         if(matcher==null) {
         	throw new AccessDeniedException("非法访问");
         }
      
-        Collection<ConfigAttribute> attrs=user.permission().getConfigAttributesByMatcher(matcher);
+        Collection<ConfigAttribute> attrs=permission.getConfigAttributesByMatcher(matcher);
         if(attrs==null) {
     		throw new AccessDeniedException("非法访问");
     	}
