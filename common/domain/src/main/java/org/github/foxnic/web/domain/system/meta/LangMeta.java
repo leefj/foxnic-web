@@ -7,8 +7,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-20 04:34:14
- * @sign FC78F8F8135E306AEFE5E7CE54407725
+ * @since 2021-06-07 16:28:27
+ * @sign 4EE7C2D62B94951A69C4A46593A4B10B
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -103,6 +103,9 @@ public class LangMeta {
 	 * 代理类
 	*/
 	public static class $$proxy$$ extends org.github.foxnic.web.domain.system.Lang {
+
+		private static final long serialVersionUID = 1L;
+
 		
 		/**
 		 * 设置 编码键
@@ -186,8 +189,8 @@ public class LangMeta {
 		 * @param valid 是否有效
 		 * @return 当前对象
 		*/
-		public Lang setValid(Boolean valid) {
-			super.change(VALID,super.isValid(),valid);
+		public Lang setValid(Integer valid) {
+			super.change(VALID,super.getValid(),valid);
 			super.setValid(valid);
 			return this;
 		}
@@ -197,7 +200,7 @@ public class LangMeta {
 		 * @param createBy 创建人ID
 		 * @return 当前对象
 		*/
-		public Lang setCreateBy(Long createBy) {
+		public Lang setCreateBy(String createBy) {
 			super.change(CREATE_BY,super.getCreateBy(),createBy);
 			super.setCreateBy(createBy);
 			return this;
@@ -219,7 +222,7 @@ public class LangMeta {
 		 * @param updateBy 修改人ID
 		 * @return 当前对象
 		*/
-		public Lang setUpdateBy(Long updateBy) {
+		public Lang setUpdateBy(String updateBy) {
 			super.change(UPDATE_BY,super.getUpdateBy(),updateBy);
 			super.setUpdateBy(updateBy);
 			return this;
@@ -241,8 +244,8 @@ public class LangMeta {
 		 * @param deleted 是否已删除
 		 * @return 当前对象
 		*/
-		public Lang setDeleted(Boolean deleted) {
-			super.change(DELETED,super.isDeleted(),deleted);
+		public Lang setDeleted(Integer deleted) {
+			super.change(DELETED,super.getDeleted(),deleted);
 			super.setDeleted(deleted);
 			return this;
 		}
@@ -252,7 +255,7 @@ public class LangMeta {
 		 * @param deleteBy 删除人ID
 		 * @return 当前对象
 		*/
-		public Lang setDeleteBy(Long deleteBy) {
+		public Lang setDeleteBy(String deleteBy) {
 			super.change(DELETE_BY,super.getDeleteBy(),deleteBy);
 			super.setDeleteBy(deleteBy);
 			return this;
@@ -279,5 +282,5 @@ public class LangMeta {
 			super.setVersion(version);
 			return this;
 		}
-}
+	}
 }

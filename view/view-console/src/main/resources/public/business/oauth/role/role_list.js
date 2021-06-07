@@ -1,7 +1,7 @@
 /**
  * 角色 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-28 10:53:34
+ * @since 2021-06-07 17:01:30
  */
 
 
@@ -193,7 +193,7 @@ function ListPage() {
 			offset:[top,null],
 			area:["500px",height+"px"],
 			type: 2,
-			content: '/pages/oauth/role/role_form.html' + queryString,
+			content: '/business/oauth/role/role_form.html' + queryString,
 			finish: function () {
 				refreshTableData();
 			}
@@ -206,7 +206,7 @@ function ListPage() {
 layui.config({
 	base: '/module/'
 }).extend({
-	xmSelect: '/xm-select/xm-select'
+	xmSelect: 'xm-select/xm-select'
 }).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect'],function() {
 	(new ListPage()).init(layui);
 });

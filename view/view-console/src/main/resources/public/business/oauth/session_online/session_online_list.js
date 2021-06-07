@@ -1,7 +1,7 @@
 /**
  * 在线会话 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-27 05:35:15
+ * @since 2021-06-07 17:01:29
  */
 
 
@@ -42,10 +42,13 @@ function ListPage() {
 			 	{ type:'checkbox' },
                 { type: 'numbers' },
                 { field: 'id', sort: true, title: fox.translate('ID') } ,
-                { field: 'token', sort: true, title: fox.translate('token') } ,
+                { field: 'sessionId', sort: true, title: fox.translate('会话ID') } ,
                 { field: 'userId', sort: true, title: fox.translate('账户ID') } ,
                 { field: 'loginTime', sort: true, title: fox.translate('登录时间') , templet: function (d) { return util.toDateString(d.loginTime); } } ,
+                { field: 'interactTime', sort: true, title: fox.translate('最近一次交互时间') , templet: function (d) { return util.toDateString(d.interactTime); } } ,
+                { field: 'interactUrl', sort: true, title: fox.translate('最后访问的地址') } ,
                 { field: 'logoutTime', sort: true, title: fox.translate('登出时间') , templet: function (d) { return util.toDateString(d.logoutTime); } } ,
+                { field: 'sessionTime', sort: true, title: fox.translate('会话时长') } ,
                 { field: 'online', sort: true, title: fox.translate('是否在线') } ,
                 { field: 'createTime', sort: true, title: fox.translate('创建时间') , templet: function (d) { return util.toDateString(d.createTime); } } ,
                 { fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 175 }
@@ -196,7 +199,7 @@ function ListPage() {
 			offset:[top,null],
 			area:["500px",height+"px"],
 			type: 2,
-			content: '/pages/oauth/session_online/session_online_form.html' + queryString,
+			content: '/business/oauth/session_online/session_online_form.html' + queryString,
 			finish: function () {
 				refreshTableData();
 			}
@@ -209,7 +212,7 @@ function ListPage() {
 layui.config({
 	base: '/module/'
 }).extend({
-	xmSelect: '/xm-select/xm-select'
+	xmSelect: 'xm-select/xm-select'
 }).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect'],function() {
 	(new ListPage()).init(layui);
 });

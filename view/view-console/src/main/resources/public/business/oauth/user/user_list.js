@@ -210,9 +210,10 @@ function ListPage() {
 
 
 layui.config({
+	dir: layuiPath,
 	base: '/module/'
 }).extend({
-	xmSelect: '/xm-select/xm-select'
-}).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect'],function() {
+	xmSelect: 'xm-select/xm-select'
+}).use(['table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect','form'],function() {
 	(new ListPage()).init(layui);
 });

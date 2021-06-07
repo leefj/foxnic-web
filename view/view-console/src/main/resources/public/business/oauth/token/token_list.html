@@ -2,7 +2,7 @@
 /**
  * Token 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-02 14:46:36
+ * @since 2021-06-07 17:01:30
  */
  -->
  <!DOCTYPE html>
@@ -37,12 +37,14 @@
             <select id="search-field">
                 <option value="" th:text="${lang.translate('-请选择-')}">-请选择-</option>
                 <option value="id" th:text="${lang.translate('id')}">id</option>
-                <option value="userId" th:text="${lang.translate('user_id')}">user_id</option>
+                <option value="userId" th:text="${lang.translate('账户ID')}">账户ID</option>
                 <option value="jti" th:text="${lang.translate('Token标识')}">Token标识</option>
                 <option value="accessToken" th:text="${lang.translate('访问用Token')}">访问用Token</option>
                 <option value="refreshToken" th:text="${lang.translate('刷新用Token')}">刷新用Token</option>
-                <option value="expireTime" th:text="${lang.translate('过期时间')}">过期时间</option>
-                <option value="expired" th:text="${lang.translate('是否过期')}">是否过期</option>
+                <option value="accessTokenExpireTime" th:text="${lang.translate('访问用Token过期时间')}">访问用Token过期时间</option>
+                <option value="accessTokenExpired" th:text="${lang.translate('访问用Token是否过期')}">访问用Token是否过期</option>
+                <option value="refreshTokenExpireTime" th:text="${lang.translate('刷新用Token过期时间')}">刷新用Token过期时间</option>
+                <option value="refreshTokenExpired" th:text="${lang.translate('刷新用Token是否过期')}">刷新用Token是否过期</option>
             </select>&emsp;
             <input id="search-input" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入关键字')}"/>&emsp;
             <button id="search-button" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i><span th:text="${lang.translate('搜索')}">搜索</span></button>
@@ -66,7 +68,7 @@
     <a class="layui-btn layui-btn-xs" lay-event="del" th:text="${lang.translate('删除')}">删除</a>
 </script>
 
-<script src="/pages/oauth/token/token_list.js"></script>
+<script src="/business/oauth/token/token_list.js"></script>
 
 </body>
 </html>

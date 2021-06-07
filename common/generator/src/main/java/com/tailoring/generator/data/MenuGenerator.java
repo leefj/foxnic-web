@@ -5,11 +5,14 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_MENU;
+import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_ROLE;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_ROLE_MENU;
-import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER;
 import org.github.foxnic.web.constants.enums.MenuType;
 import org.github.foxnic.web.domain.oauth.Menu;
-import org.github.foxnic.web.oauth.page.UserPageController;
+import org.github.foxnic.web.oauth.page.MenuPageController;
+import org.github.foxnic.web.oauth.page.RolePageController;
+import org.github.foxnic.web.proxy.oauth.MenuServiceProxy;
+import org.github.foxnic.web.proxy.oauth.RoleServiceProxy;
 import org.github.foxnic.web.proxy.oauth.UserServiceProxy;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -25,15 +28,24 @@ import com.tailoring.generator.config.FoxnicWebConfigs;
 
  
 
-public class MenuAndGrantDataGenerator {
+public class MenuGenerator {
 	
 	public static final String superAdminRoleId="110352963290923110";
 	
 	public static void main(String[] args) throws Exception {
 		
-		MenuAndGrantDataGenerator generator=new MenuAndGrantDataGenerator();
+		MenuGenerator generator=new MenuGenerator();
 		//
-		generator.generate(SYS_USER.$TABLE,UserServiceProxy.class,UserPageController.class,"oauth");
+//		generator.generate(SYS_USER.$TABLE,UserServiceProxy.class,UserPageController.class,"oauth");
+		
+//		generator.generate(SYS_LANG.$TABLE,LangServiceProxy.class,LangPageController.class,"system");
+		
+//		generator.generate(SYS_ROLE.$TABLE,RoleServiceProxy.class,RolePageController.class,"oauth");
+		
+//		generator.generate(SYS_MENU.$TABLE,MenuServiceProxy.class,MenuPageController.class,"oauth");
+		
+//		generator.removeByBatchId("454331740924674048");
+		
 	}
 	
 	
@@ -59,9 +71,19 @@ public class MenuAndGrantDataGenerator {
 	private FoxnicWebConfigs configs;
 	private DAO dao;
 	
-	public MenuAndGrantDataGenerator() {
+	public MenuGenerator() {
 		this.configs=new FoxnicWebConfigs("service-system");
 		this.dao=this.configs.getDAO();
+	}
+	
+	public void removeByBatchId(String batchId) throws Exception {
+
+	 this.dao.beginTransaction();
+	 this.dao.execute("delete from sys_role_menu where menu_id in (select id from sys_menu where batch_id=?)",batchId);
+	 this.dao.execute("delete from sys_menu where batch_id=?",batchId);
+	 this.dao.commit();
+	 
+
 	}
 	
 	public void generate(DBTable table, Class proxy,Class page,String parentId) throws Exception {
@@ -69,6 +91,8 @@ public class MenuAndGrantDataGenerator {
 		String batchId=generateMenus(table,proxy,page,parentId);
 		
 		grant(batchId);
+		
+		System.err.println("batchId = "+batchId);
 
 	}
 

@@ -6,9 +6,9 @@ import java.util.Date;
 
 
 /**
- * @author 李方捷
- * @since 2021-05-20 01:28:25
- * @sign CCCC131534F2D7A16194A6BF815B5E1D
+ * @author 李方捷 , leefangjie@qq.com
+ * @since 2021-06-07 16:28:26
+ * @sign 3C1D026F901FB5930274BE4BF14FFF72
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -83,6 +83,9 @@ public class ConfigMeta {
 	 * 代理类
 	*/
 	public static class $$proxy$$ extends org.github.foxnic.web.domain.system.Config {
+
+		private static final long serialVersionUID = 1L;
+
 		
 		/**
 		 * 设置 配置键
@@ -122,8 +125,8 @@ public class ConfigMeta {
 		 * @param valid 是否生效
 		 * @return 当前对象
 		*/
-		public Config setValid(Boolean valid) {
-			super.change(VALID,super.isValid(),valid);
+		public Config setValid(Integer valid) {
+			super.change(VALID,super.getValid(),valid);
 			super.setValid(valid);
 			return this;
 		}
@@ -133,7 +136,7 @@ public class ConfigMeta {
 		 * @param createBy 创建人ID
 		 * @return 当前对象
 		*/
-		public Config setCreateBy(Long createBy) {
+		public Config setCreateBy(String createBy) {
 			super.change(CREATE_BY,super.getCreateBy(),createBy);
 			super.setCreateBy(createBy);
 			return this;
@@ -155,7 +158,7 @@ public class ConfigMeta {
 		 * @param updateBy 修改人ID
 		 * @return 当前对象
 		*/
-		public Config setUpdateBy(Long updateBy) {
+		public Config setUpdateBy(String updateBy) {
 			super.change(UPDATE_BY,super.getUpdateBy(),updateBy);
 			super.setUpdateBy(updateBy);
 			return this;
@@ -177,8 +180,8 @@ public class ConfigMeta {
 		 * @param deleted 是否已删除
 		 * @return 当前对象
 		*/
-		public Config setDeleted(Boolean deleted) {
-			super.change(DELETED,super.isDeleted(),deleted);
+		public Config setDeleted(Integer deleted) {
+			super.change(DELETED,super.getDeleted(),deleted);
 			super.setDeleted(deleted);
 			return this;
 		}
@@ -188,7 +191,7 @@ public class ConfigMeta {
 		 * @param deleteBy 删除人ID
 		 * @return 当前对象
 		*/
-		public Config setDeleteBy(Long deleteBy) {
+		public Config setDeleteBy(String deleteBy) {
 			super.change(DELETE_BY,super.getDeleteBy(),deleteBy);
 			super.setDeleteBy(deleteBy);
 			return this;
@@ -215,5 +218,5 @@ public class ConfigMeta {
 			super.setVersion(version);
 			return this;
 		}
-}
+	}
 }

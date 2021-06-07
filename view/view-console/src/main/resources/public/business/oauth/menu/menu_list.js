@@ -1,7 +1,7 @@
 /**
  * 菜单 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-28 10:53:35
+ * @since 2021-06-07 17:01:30
  */
 
 
@@ -42,7 +42,10 @@ function ListPage() {
 			 	{ type:'checkbox' },
                 { type: 'numbers' },
                 { field: 'id', sort: true, title: fox.translate('ID') } ,
+                { field: 'batchId', sort: true, title: fox.translate('批次号') } ,
+                { field: 'authority', sort: true, title: fox.translate('权限') } ,
                 { field: 'icon', sort: true, title: fox.translate('图标') } ,
+                { field: 'hidden', sort: true, title: fox.translate('是否隐藏') } ,
                 { field: 'css', sort: true, title: fox.translate('样式') } ,
                 { field: 'label', sort: true, title: fox.translate('标签') } ,
                 { field: 'type', sort: true, title: fox.translate('菜单类型') } ,
@@ -198,7 +201,7 @@ function ListPage() {
 			offset:[top,null],
 			area:["500px",height+"px"],
 			type: 2,
-			content: '/pages/oauth/menu/menu_form.html' + queryString,
+			content: '/business/oauth/menu/menu_form.html' + queryString,
 			finish: function () {
 				refreshTableData();
 			}
@@ -211,7 +214,7 @@ function ListPage() {
 layui.config({
 	base: '/module/'
 }).extend({
-	xmSelect: '/xm-select/xm-select'
+	xmSelect: 'xm-select/xm-select'
 }).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect'],function() {
 	(new ListPage()).init(layui);
 });

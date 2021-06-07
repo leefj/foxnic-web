@@ -2,7 +2,7 @@
 /**
  * 在线会话 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-27 05:35:15
+ * @since 2021-06-07 17:01:29
  */
  -->
  <!DOCTYPE html>
@@ -37,10 +37,13 @@
             <select id="search-field">
                 <option value="" th:text="${lang.translate('-请选择-')}">-请选择-</option>
                 <option value="id" th:text="${lang.translate('ID')}">ID</option>
-                <option value="token" th:text="${lang.translate('token')}">token</option>
+                <option value="sessionId" th:text="${lang.translate('会话ID')}">会话ID</option>
                 <option value="userId" th:text="${lang.translate('账户ID')}">账户ID</option>
                 <option value="loginTime" th:text="${lang.translate('登录时间')}">登录时间</option>
+                <option value="interactTime" th:text="${lang.translate('最近一次交互时间')}">最近一次交互时间</option>
+                <option value="interactUrl" th:text="${lang.translate('最后访问的地址')}">最后访问的地址</option>
                 <option value="logoutTime" th:text="${lang.translate('登出时间')}">登出时间</option>
+                <option value="sessionTime" th:text="${lang.translate('会话时长')}">会话时长</option>
                 <option value="online" th:text="${lang.translate('是否在线')}">是否在线</option>
             </select>&emsp;
             <input id="search-input" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入关键字')}"/>&emsp;
@@ -65,7 +68,7 @@
     <a class="layui-btn layui-btn-xs" lay-event="del" th:text="${lang.translate('删除')}">删除</a>
 </script>
 
-<script src="/pages/oauth/session_online/session_online_list.js"></script>
+<script src="/business/oauth/session_online/session_online_list.js"></script>
 
 </body>
 </html>

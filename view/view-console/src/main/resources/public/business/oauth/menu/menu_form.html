@@ -2,7 +2,7 @@
 /**
  * 菜单 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-28 10:53:35
+ * @since 2021-06-07 17:01:30
  */
  -->
  <!DOCTYPE html>
@@ -27,9 +27,36 @@
     <input name="id" id="id"  type="hidden"/>
     
     <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('批次号')}">批次号</label>
+        <div class="layui-input-block">
+            <input id="batchId" name="batchId" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('批次号') }" type="text" class="layui-input"    />
+        </div>
+    </div>
+    
+	
+    
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('权限')}">权限</label>
+        <div class="layui-input-block">
+            <input id="authority" name="authority" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('权限') }" type="text" class="layui-input"    />
+        </div>
+    </div>
+    
+	
+    
+    <div class="layui-form-item">
         <label class="layui-form-label" th:text="${lang.translate('图标')}">图标</label>
         <div class="layui-input-block">
             <input id="icon" name="icon" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('图标') }" type="text" class="layui-input"    />
+        </div>
+    </div>
+    
+	
+    
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('是否隐藏')}">是否隐藏</label>
+        <div class="layui-input-block">
+            <input id="hidden" name="hidden" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('是否隐藏') }" type="text" class="layui-input"    />
         </div>
     </div>
     
@@ -100,7 +127,7 @@
 <script type="text/javascript" src="/assets/libs/pandyle.min.js"></script>
 <script type="text/javascript" src="/assets/libs/layui/layui.js"></script>
 
-<script src="/pages/oauth/menu/menu_form.js"></script>
+<script src="/business/oauth/menu/menu_form.js"></script>
 
 </body>
 </html>

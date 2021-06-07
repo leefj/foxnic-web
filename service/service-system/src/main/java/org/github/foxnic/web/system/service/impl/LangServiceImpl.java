@@ -136,7 +136,7 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 			Lang lang = new Lang();
 			lang.setCode(code);
 			lang.setDefaults(defaults);
-			lang.setValid(true);
+			lang.setValid(1);
 			this.insert(lang);
 		} else {
 			item = r.getString("item");

@@ -60,7 +60,7 @@ public class LangController extends SuperController {
 		Result<Lang> result=langService.checkExists(langVO);
 		if(result.failure()) return result;
 		
-		langVO.setValid(true);
+		langVO.setValid(1);
 		boolean suc=langService.insert(langVO);
 		result.success(suc);
 		return result;

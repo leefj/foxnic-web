@@ -10,14 +10,14 @@ import org.springframework.ui.Model;
  * 角色表 模版页面控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-28 10:53:34
+ * @since 2021-06-07 16:24:14
 */
 
 @Controller("SysRolePageController")
 @RequestMapping(RolePageController.prefix)
 public class RolePageController {
 	
-	public static final String prefix="pages/oauth/role";
+	public static final String prefix="business/oauth/role";
 
 	/**
 	 * 角色 功能主页面

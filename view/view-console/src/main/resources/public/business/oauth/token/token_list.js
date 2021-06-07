@@ -1,7 +1,7 @@
 /**
  * Token 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-02 14:46:36
+ * @since 2021-06-07 17:01:30
  */
 
 
@@ -42,12 +42,14 @@ function ListPage() {
 			 	{ type:'checkbox' },
                 { type: 'numbers' },
                 { field: 'id', sort: true, title: fox.translate('id') } ,
-                { field: 'userId', sort: true, title: fox.translate('user_id') } ,
+                { field: 'userId', sort: true, title: fox.translate('账户ID') } ,
                 { field: 'jti', sort: true, title: fox.translate('Token标识') } ,
                 { field: 'accessToken', sort: true, title: fox.translate('访问用Token') } ,
                 { field: 'refreshToken', sort: true, title: fox.translate('刷新用Token') } ,
-                { field: 'expireTime', sort: true, title: fox.translate('过期时间') , templet: function (d) { return util.toDateString(d.expireTime); } } ,
-                { field: 'expired', sort: true, title: fox.translate('是否过期') } ,
+                { field: 'accessTokenExpireTime', sort: true, title: fox.translate('访问用Token过期时间') , templet: function (d) { return util.toDateString(d.accessTokenExpireTime); } } ,
+                { field: 'accessTokenExpired', sort: true, title: fox.translate('访问用Token是否过期') } ,
+                { field: 'refreshTokenExpireTime', sort: true, title: fox.translate('刷新用Token过期时间') , templet: function (d) { return util.toDateString(d.refreshTokenExpireTime); } } ,
+                { field: 'refreshTokenExpired', sort: true, title: fox.translate('刷新用Token是否过期') } ,
                 { field: 'createTime', sort: true, title: fox.translate('创建时间') , templet: function (d) { return util.toDateString(d.createTime); } } ,
                 { fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 175 }
             ]]
@@ -197,7 +199,7 @@ function ListPage() {
 			offset:[top,null],
 			area:["500px",height+"px"],
 			type: 2,
-			content: '/pages/oauth/token/token_form.html' + queryString,
+			content: '/business/oauth/token/token_form.html' + queryString,
 			finish: function () {
 				refreshTableData();
 			}
@@ -210,7 +212,7 @@ function ListPage() {
 layui.config({
 	base: '/module/'
 }).extend({
-	xmSelect: '/xm-select/xm-select'
+	xmSelect: 'xm-select/xm-select'
 }).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect'],function() {
 	(new ListPage()).init(layui);
 });

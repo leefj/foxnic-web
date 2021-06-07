@@ -1,43 +1,95 @@
 /**
- * 语言条目 表单 JS 脚本
- * @author 李方捷
- * @since 2021-04-01 10:41:24
+ * 语言条目 列表页 JS 脚本
+ * @author 李方捷 , leefangjie@qq.com
+ * @since 2021-06-07 17:01:16
  */
-layui.use(['layer', 'admin', 'form', 'formSelects','foxnic'], function () {
-    var layer = layui.layer;
-    var admin = layui.admin;
-    var form = layui.form;
-    var formSelects = layui.formSelects;
-	var fox = layui.foxnic;
-     
-	//模块基础路径
-	var moduleURL="/service-tailoring/sys-lang/";
-     
-    form.render('radio');
+
+function FormPage() {
+
+	var settings,admin,form,table,layer,util,fox,upload,xmSelect;
+	const moduleURL="/service-system/sys-lang";
+	
+	/**
+      * 入口函数，初始化
+      */
+	this.init=function(layui) { 	
+     	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload;
+		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
+		
+		//渲染表单组件
+		renderFormFields();
+		
+		//填充表单数据
+		fillFormData();
+		
+		//绑定提交事件
+		bindSubmitEvent();
+		
+		//调整窗口的高度与位置
+		adjustPopup();
+		
+	}
+	
+	function adjustPopup() {
+		var height=document.body.clientHeight+58;
+		admin.changePopupArea(null,height);
+		admin.putTempData('sys-lang-form-area', {height:height});
+	}
+	
+	/**
+      * 渲染表单组件
+      */
+	function renderFormFields() {
+		form.render('radio');
+	    //渲染图片字段
+	}
+	
+	/**
+      * 填充表单数据
+      */
+	function fillFormData() {
+		var formData = admin.getTempData('sys-lang-form-data');
+		$('#data-form').attr('method', 'POST');
+		if (formData) {
+			form.val('data-form', formData);
+	     	//设置并显示图片
+	     	$('#data-form').attr('method', 'POST');
+		}
+	}
+	
+	/**
+      * 保存数据，表单提交事件
+      */
+    function bindSubmitEvent() {
     
-     var formData = admin.getTempData('sys-lang-form-data');
-     $('#lang-form').attr('method', 'POST');
-     if (formData) {
-     	form.val('lang-form', formData);
-     	$('#lang-form').attr('method', 'POST');
-     }
- 
- 
-    // 表单提交事件
-    form.on('submit(lang-form-submit)', function (data) {
-    	//debugger;
-    	var api=moduleURL+(data.field.id?"update":"insert");
-        layer.load(2);
-        admin.req(api, JSON.stringify(data.field), function (data) {
-            layer.closeAll('loading');
-            if (data.success) {
-                layer.msg(data.message, {icon: 1, time: 500});
-                admin.finishPopupCenter();
-            } else {
-                layer.msg(data.message, {icon: 2, time: 500});
-            }
-        }, "POST");
-        
-        return false;
-    });
+	    form.on('submit(submit-button)', function (data) {
+	    	//debugger;
+	    	
+	    	//处理逻辑值
+	    	
+	    	var api=moduleURL+"/"+(data.field.code?"update":"insert");
+	        layer.load(2);
+	        admin.req(api, JSON.stringify(data.field), function (data) {
+	            layer.closeAll('loading');
+	            if (data.success) {
+	                layer.msg(data.message, {icon: 1, time: 500});
+	                admin.finishPopupCenter();
+	            } else {
+	                layer.msg(data.message, {icon: 2, time: 500});
+	            }
+	        }, "POST");
+	        
+	        return false;
+	    });
+	    
+    }
+
+}
+
+layui.config({
+	base: '/module/'
+}).extend({
+	xmSelect: 'xm-select/xm-select'
+}).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect'],function() {
+	(new FormPage()).init(layui);
 });

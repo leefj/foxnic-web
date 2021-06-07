@@ -66,8 +66,8 @@ public class ConfigServiceImpl  extends SuperService<Config> implements IConfigS
 		Config config = new Config();
 		if(code==null) throw new IllegalArgumentException("key 不允许为 null 。");
 		config.setCode(code);
-		config.setDeleted(true);
-		config.setDeleteBy((Long)dao.getDBTreaty().getLoginUserId());
+		config.setDeleted(1);
+		config.setDeleteBy((String)dao.getDBTreaty().getLoginUserId());
 		config.setDeleteTime(new Date());
 		return dao.updateEntity(config,SaveMode.NOT_NULL_FIELDS);
 	}

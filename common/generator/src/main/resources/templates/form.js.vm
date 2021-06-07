@@ -100,9 +100,10 @@ function FormPage() {
 }
 
 layui.config({
+	dir: layuiPath,
 	base: '/module/'
 }).extend({
-	xmSelect: '/xm-select/xm-select'
+	xmSelect: 'xm-select/xm-select'
 }).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect'],function() {
 	(new FormPage()).init(layui);
 });

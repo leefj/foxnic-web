@@ -10,14 +10,14 @@ import org.springframework.ui.Model;
  * 系统配置表 模版页面控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-20 04:34:14
+ * @since 2021-06-07 16:28:26
 */
 
 @Controller("SysConfigPageController")
 @RequestMapping(ConfigPageController.prefix)
 public class ConfigPageController {
 	
-	public static final String prefix="pages/system/config";
+	public static final String prefix="business/system/config";
 
 	/**
 	 * 系统配置 功能主页面
@@ -31,7 +31,7 @@ public class ConfigPageController {
 	 * 系统配置 表单页面
 	 */
 	@RequestMapping("/config_form.html")
-	public String form(Model model) {
+	public String form(Model model , String code) {
 		return prefix+"/config_form";
 	}
 }

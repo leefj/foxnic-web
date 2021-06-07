@@ -1,7 +1,7 @@
 /**
  * 菜单 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-28 10:53:35
+ * @since 2021-06-07 17:01:30
  */
 
 function FormPage() {
@@ -89,7 +89,7 @@ function FormPage() {
 layui.config({
 	base: '/module/'
 }).extend({
-	xmSelect: '/xm-select/xm-select'
+	xmSelect: 'xm-select/xm-select'
 }).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect'],function() {
 	(new FormPage()).init(layui);
 });

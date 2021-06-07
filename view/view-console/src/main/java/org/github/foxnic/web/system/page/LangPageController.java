@@ -10,14 +10,14 @@ import org.springframework.ui.Model;
  * 语言条目表 模版页面控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-20 04:34:14
+ * @since 2021-06-07 16:28:27
 */
 
 @Controller("SysLangPageController")
 @RequestMapping(LangPageController.prefix)
 public class LangPageController {
 	
-	public static final String prefix="pages/system/lang";
+	public static final String prefix="business/system/lang";
 
 	/**
 	 * 语言条目 功能主页面
@@ -31,7 +31,7 @@ public class LangPageController {
 	 * 语言条目 表单页面
 	 */
 	@RequestMapping("/lang_form.html")
-	public String form(Model model) {
+	public String form(Model model , String code) {
 		return prefix+"/lang_form";
 	}
 }

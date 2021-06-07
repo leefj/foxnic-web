@@ -2,7 +2,7 @@
 /**
  * Token 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-02 14:46:36
+ * @since 2021-06-07 17:01:30
  */
  -->
  <!DOCTYPE html>
@@ -27,9 +27,9 @@
     <input name="id" id="id"  type="hidden"/>
     
     <div class="layui-form-item">
-        <label class="layui-form-label" th:text="${lang.translate('user_id')}">user_id</label>
+        <label class="layui-form-label" th:text="${lang.translate('账户ID')}">账户ID</label>
         <div class="layui-input-block">
-            <input id="userId" name="userId" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('user_id') }" type="text" class="layui-input"    />
+            <input id="userId" name="userId" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('账户ID') }" type="text" class="layui-input"    />
         </div>
     </div>
     
@@ -63,18 +63,36 @@
 	
     
     <div class="layui-form-item">
-        <label class="layui-form-label" th:text="${lang.translate('过期时间')}">过期时间</label>
+        <label class="layui-form-label" th:text="${lang.translate('访问用Token过期时间')}">访问用Token过期时间</label>
         <div class="layui-input-block">
-            <input id="expireTime" name="expireTime" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('过期时间') }" type="text" class="layui-input"    />
+            <input id="accessTokenExpireTime" name="accessTokenExpireTime" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('访问用Token过期时间') }" type="text" class="layui-input"    />
         </div>
     </div>
     
 	
     
     <div class="layui-form-item">
-        <label class="layui-form-label" th:text="${lang.translate('是否过期')}">是否过期</label>
+        <label class="layui-form-label" th:text="${lang.translate('访问用Token是否过期')}">访问用Token是否过期</label>
         <div class="layui-input-block">
-            <input id="expired" name="expired" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('是否过期') }" type="text" class="layui-input"    />
+            <input id="accessTokenExpired" name="accessTokenExpired" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('访问用Token是否过期') }" type="text" class="layui-input"    />
+        </div>
+    </div>
+    
+	
+    
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('刷新用Token过期时间')}">刷新用Token过期时间</label>
+        <div class="layui-input-block">
+            <input id="refreshTokenExpireTime" name="refreshTokenExpireTime" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('刷新用Token过期时间') }" type="text" class="layui-input"    />
+        </div>
+    </div>
+    
+	
+    
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('刷新用Token是否过期')}">刷新用Token是否过期</label>
+        <div class="layui-input-block">
+            <input id="refreshTokenExpired" name="refreshTokenExpired" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('刷新用Token是否过期') }" type="text" class="layui-input"    />
         </div>
     </div>
     
@@ -91,7 +109,7 @@
 <script type="text/javascript" src="/assets/libs/pandyle.min.js"></script>
 <script type="text/javascript" src="/assets/libs/layui/layui.js"></script>
 
-<script src="/pages/oauth/token/token_form.js"></script>
+<script src="/business/oauth/token/token_form.js"></script>
 
 </body>
 </html>

@@ -2,7 +2,7 @@
 /**
  * 菜单 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-28 10:53:35
+ * @since 2021-06-07 17:01:30
  */
  -->
  <!DOCTYPE html>
@@ -37,7 +37,10 @@
             <select id="search-field">
                 <option value="" th:text="${lang.translate('-请选择-')}">-请选择-</option>
                 <option value="id" th:text="${lang.translate('ID')}">ID</option>
+                <option value="batchId" th:text="${lang.translate('批次号')}">批次号</option>
+                <option value="authority" th:text="${lang.translate('权限')}">权限</option>
                 <option value="icon" th:text="${lang.translate('图标')}">图标</option>
+                <option value="hidden" th:text="${lang.translate('是否隐藏')}">是否隐藏</option>
                 <option value="css" th:text="${lang.translate('样式')}">样式</option>
                 <option value="label" th:text="${lang.translate('标签')}">标签</option>
                 <option value="type" th:text="${lang.translate('菜单类型')}">菜单类型</option>
@@ -67,7 +70,7 @@
     <a class="layui-btn layui-btn-xs" lay-event="del" th:text="${lang.translate('删除')}">删除</a>
 </script>
 
-<script src="/pages/oauth/menu/menu_list.js"></script>
+<script src="/business/oauth/menu/menu_list.js"></script>
 
 </body>
 </html>

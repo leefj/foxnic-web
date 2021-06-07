@@ -10,14 +10,14 @@ import org.springframework.ui.Model;
  * 在线会话表 模版页面控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-27 05:28:14
+ * @since 2021-06-07 16:24:14
 */
 
 @Controller("SysSessionOnlinePageController")
 @RequestMapping(SessionOnlinePageController.prefix)
 public class SessionOnlinePageController {
 	
-	public static final String prefix="pages/oauth/session_online";
+	public static final String prefix="business/oauth/session_online";
 
 	/**
 	 * 在线会话 功能主页面

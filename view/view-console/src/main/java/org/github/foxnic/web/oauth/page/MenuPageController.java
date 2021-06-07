@@ -10,14 +10,14 @@ import org.springframework.ui.Model;
  * 菜单表 模版页面控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-28 10:53:35
+ * @since 2021-06-07 16:24:15
 */
 
 @Controller("SysMenuPageController")
 @RequestMapping(MenuPageController.prefix)
 public class MenuPageController {
 	
-	public static final String prefix="pages/oauth/menu";
+	public static final String prefix="business/oauth/menu";
 
 	/**
 	 * 菜单 功能主页面

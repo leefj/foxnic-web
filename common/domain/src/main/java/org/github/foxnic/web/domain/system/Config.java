@@ -15,9 +15,9 @@ import com.github.foxnic.dao.entity.EntityContext;
 
 /**
  * null
- * @author 李方捷
- * @since 2021-05-20 01:28:25
- * @sign CCCC131534F2D7A16194A6BF815B5E1D
+ * @author 李方捷 , leefangjie@qq.com
+ * @since 2021-06-07 16:28:26
+ * @sign 3C1D026F901FB5930274BE4BF14FFF72
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -51,13 +51,13 @@ public class Config extends Entity {
 	 * 是否生效：是否生效
 	*/
 	@ApiModelProperty(required = true,value="是否生效" , notes = "是否生效")
-	private Boolean valid;
+	private Integer valid;
 	
 	/**
 	 * 创建人ID：创建人ID
 	*/
 	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID")
-	private Long createBy;
+	private String createBy;
 	
 	/**
 	 * 创建时间：创建时间
@@ -69,7 +69,7 @@ public class Config extends Entity {
 	 * 修改人ID：修改人ID
 	*/
 	@ApiModelProperty(required = false,value="修改人ID" , notes = "修改人ID")
-	private Long updateBy;
+	private String updateBy;
 	
 	/**
 	 * 修改时间：修改时间
@@ -81,13 +81,13 @@ public class Config extends Entity {
 	 * 是否已删除：是否已删除
 	*/
 	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除")
-	private Boolean deleted;
+	private Integer deleted;
 	
 	/**
 	 * 删除人ID：删除人ID
 	*/
 	@ApiModelProperty(required = false,value="删除人ID" , notes = "删除人ID")
-	private Long deleteBy;
+	private String deleteBy;
 	
 	/**
 	 * 删除时间：删除时间
@@ -181,18 +181,8 @@ public class Config extends Entity {
 	 * 属性说明 : 是否生效
 	 * @return 是否生效
 	*/
-	public Boolean isValid() {
+	public Integer getValid() {
 		return valid;
-	}
-	
-	/**
-	 * 获得 是否生效<br>
-	 * 等价于 isValid 方法，为兼容 Swagger 需要
-	 * 属性说明 : 是否生效
-	 * @return 是否生效
-	*/
-	public Boolean getValid() {
-		return this.valid;
 	}
 	
 	/**
@@ -200,7 +190,7 @@ public class Config extends Entity {
 	 * @param valid 是否生效
 	 * @return 当前对象
 	*/
-	public Config setValid(Boolean valid) {
+	public Config setValid(Integer valid) {
 		this.valid=valid;
 		return this;
 	}
@@ -216,7 +206,7 @@ public class Config extends Entity {
 	 * 属性说明 : 创建人ID
 	 * @return 创建人ID
 	*/
-	public Long getCreateBy() {
+	public String getCreateBy() {
 		return createBy;
 	}
 	
@@ -225,7 +215,7 @@ public class Config extends Entity {
 	 * @param createBy 创建人ID
 	 * @return 当前对象
 	*/
-	public Config setCreateBy(Long createBy) {
+	public Config setCreateBy(String createBy) {
 		this.createBy=createBy;
 		return this;
 	}
@@ -266,7 +256,7 @@ public class Config extends Entity {
 	 * 属性说明 : 修改人ID
 	 * @return 修改人ID
 	*/
-	public Long getUpdateBy() {
+	public String getUpdateBy() {
 		return updateBy;
 	}
 	
@@ -275,7 +265,7 @@ public class Config extends Entity {
 	 * @param updateBy 修改人ID
 	 * @return 当前对象
 	*/
-	public Config setUpdateBy(Long updateBy) {
+	public Config setUpdateBy(String updateBy) {
 		this.updateBy=updateBy;
 		return this;
 	}
@@ -316,18 +306,8 @@ public class Config extends Entity {
 	 * 属性说明 : 是否已删除
 	 * @return 是否已删除
 	*/
-	public Boolean isDeleted() {
+	public Integer getDeleted() {
 		return deleted;
-	}
-	
-	/**
-	 * 获得 是否已删除<br>
-	 * 等价于 isDeleted 方法，为兼容 Swagger 需要
-	 * 属性说明 : 是否已删除
-	 * @return 是否已删除
-	*/
-	public Boolean getDeleted() {
-		return this.deleted;
 	}
 	
 	/**
@@ -335,7 +315,7 @@ public class Config extends Entity {
 	 * @param deleted 是否已删除
 	 * @return 当前对象
 	*/
-	public Config setDeleted(Boolean deleted) {
+	public Config setDeleted(Integer deleted) {
 		this.deleted=deleted;
 		return this;
 	}
@@ -351,7 +331,7 @@ public class Config extends Entity {
 	 * 属性说明 : 删除人ID
 	 * @return 删除人ID
 	*/
-	public Long getDeleteBy() {
+	public String getDeleteBy() {
 		return deleteBy;
 	}
 	
@@ -360,7 +340,7 @@ public class Config extends Entity {
 	 * @param deleteBy 删除人ID
 	 * @return 当前对象
 	*/
-	public Config setDeleteBy(Long deleteBy) {
+	public Config setDeleteBy(String deleteBy) {
 		this.deleteBy=deleteBy;
 		return this;
 	}

@@ -2,7 +2,7 @@
 /**
  * 在线会话 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-27 05:35:15
+ * @since 2021-06-07 17:01:29
  */
  -->
  <!DOCTYPE html>
@@ -27,9 +27,9 @@
     <input name="id" id="id"  type="hidden"/>
     
     <div class="layui-form-item">
-        <label class="layui-form-label" th:text="${lang.translate('token')}">token</label>
+        <label class="layui-form-label" th:text="${lang.translate('会话ID')}">会话ID</label>
         <div class="layui-input-block">
-            <input id="token" name="token" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('token') }" type="text" class="layui-input"    />
+            <input id="sessionId" name="sessionId" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('会话ID') }" type="text" class="layui-input"    />
         </div>
     </div>
     
@@ -54,9 +54,36 @@
 	
     
     <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('最近一次交互时间')}">最近一次交互时间</label>
+        <div class="layui-input-block">
+            <input id="interactTime" name="interactTime" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('最近一次交互时间') }" type="text" class="layui-input"    />
+        </div>
+    </div>
+    
+	
+    
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('最后访问的地址')}">最后访问的地址</label>
+        <div class="layui-input-block">
+            <input id="interactUrl" name="interactUrl" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('最后访问的地址') }" type="text" class="layui-input"    />
+        </div>
+    </div>
+    
+	
+    
+    <div class="layui-form-item">
         <label class="layui-form-label" th:text="${lang.translate('登出时间')}">登出时间</label>
         <div class="layui-input-block">
             <input id="logoutTime" name="logoutTime" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('登出时间') }" type="text" class="layui-input"    />
+        </div>
+    </div>
+    
+	
+    
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('会话时长')}">会话时长</label>
+        <div class="layui-input-block">
+            <input id="sessionTime" name="sessionTime" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('会话时长') }" type="text" class="layui-input"    />
         </div>
     </div>
     
@@ -82,7 +109,7 @@
 <script type="text/javascript" src="/assets/libs/pandyle.min.js"></script>
 <script type="text/javascript" src="/assets/libs/layui/layui.js"></script>
 
-<script src="/pages/oauth/session_online/session_online_form.js"></script>
+<script src="/business/oauth/session_online/session_online_form.js"></script>
 
 </body>
 </html>

@@ -9,3 +9,5 @@ if(i==-1) {
 }
 my_api_server_url =  my_api_server_url.substring(0,i-1);
 console.log("baseURI",my_api_server_url);
+
+var layuiPath="/assets/libs/layui/";

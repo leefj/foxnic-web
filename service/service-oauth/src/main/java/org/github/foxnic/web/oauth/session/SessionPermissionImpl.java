@@ -82,18 +82,25 @@ public class SessionPermissionImpl implements SessionPermission {
 
 	private void initRequestMatchers() {
 		requestMatchers=new HashSet<AntPathRequestMatcher>();
-		String method="GET";
+		String method=null;
 		for (Menu menu : this.sessionUser.getUser().getMenus()) {
+			method="GET";
 			if(StringUtil.isBlank(menu.getPath())) continue;
 			if(MenuType.api.name().equalsIgnoreCase(menu.getType())) {
 				method="POST";
 			}
+//			if(menu.getPath().equals("/business/system/lang/lang_list.html")) {
+//				System.out.println();
+//			}
 			requestMatchers.add(new AntPathRequestMatcher(menu.getPath(),method,false));
 		}
 	}
 	
 	public AntPathRequestMatcher check(HttpServletRequest request) {
 		for (AntPathRequestMatcher m : requestMatchers) {
+//			 if(m.getPattern().equals("/business/system/lang/lang_list.html")) {
+//				 System.out.println();
+//			 }
 			 if(m.matches(request)) {
 				 return m;
 			 }

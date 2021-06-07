@@ -2,6 +2,7 @@ package com.tailoring.generator.module;
 
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_CONFIG;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_LANG;
+import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER;
 import org.github.foxnic.web.proxy.MicroServiceNames;
 
 import com.github.foxnic.generator.config.ModuleContext;
@@ -26,15 +27,8 @@ public class SystemCodeGenerator  {
 //		//
 //		g.generateSysDictItem();
 //		//
-//		g.generateSysMenu();
-		//
-//		g.generateSysUser();
-		//
-//		g.generateSysRole();
-//		//
-//		g.generateSysUserRole();
-		//
-//		g.generateSysFile();
+ 
+ 
 //		//
 //		g.generateSysArea();
 //		//
@@ -103,8 +97,8 @@ public class SystemCodeGenerator  {
 		.setServiceIntfAnfImpl(WriteMode.CREATE_IF_NOT_EXISTS) //服务与接口
 		.setControllerAndAgent(WriteMode.CREATE_IF_NOT_EXISTS) //Rest
 		.setPageController(WriteMode.CREATE_IF_NOT_EXISTS) //页面控制器
-		.setFormPage(WriteMode.IGNORE) //表单HTML页
-		.setListPage(WriteMode.IGNORE); //列表HTML页
+		.setFormPage(WriteMode.CREATE_IF_NOT_EXISTS) //表单HTML页
+		.setListPage(WriteMode.CREATE_IF_NOT_EXISTS); //列表HTML页
 		
  
 		//生成代码
@@ -113,7 +107,9 @@ public class SystemCodeGenerator  {
 	
 	
 	
- 
+	 
+
+
 	
 //	public void generateSysDict() throws Exception {
 //		//创建配置
@@ -204,8 +200,8 @@ public class SystemCodeGenerator  {
 		.setServiceIntfAnfImpl(WriteMode.CREATE_IF_NOT_EXISTS) //服务与接口
 		.setControllerAndAgent(WriteMode.CREATE_IF_NOT_EXISTS) //Rest
 		.setPageController(WriteMode.CREATE_IF_NOT_EXISTS) //页面控制器
-		.setFormPage(WriteMode.IGNORE) //表单HTML页
-		.setListPage(WriteMode.IGNORE); //列表HTML页
+		.setFormPage(WriteMode.CREATE_IF_NOT_EXISTS) //表单HTML页
+		.setListPage(WriteMode.CREATE_IF_NOT_EXISTS); //列表HTML页
 		
 		//生成代码
 		 cfg.buildAll();

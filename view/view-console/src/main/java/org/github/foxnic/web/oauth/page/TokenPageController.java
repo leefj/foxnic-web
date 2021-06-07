@@ -10,14 +10,14 @@ import org.springframework.ui.Model;
  * Token表 模版页面控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-02 14:46:36
+ * @since 2021-06-07 16:24:14
 */
 
 @Controller("SysTokenPageController")
 @RequestMapping(TokenPageController.prefix)
 public class TokenPageController {
 	
-	public static final String prefix="pages/oauth/token";
+	public static final String prefix="business/oauth/token";
 
 	/**
 	 * Token 功能主页面
