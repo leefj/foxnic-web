@@ -7,8 +7,8 @@ layui.define(function (exports) {
     //当前环境的api地址
     var apiUrl;
     try{
-        if (my_api_server_url.length > 0) {
-            apiUrl = my_api_server_url;
+        if (apiServerUrl.length > 0) {
+            apiUrl = apiServerUrl;
         } else {
             apiUrl = defUrl;
         }

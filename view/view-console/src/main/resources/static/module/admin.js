@@ -146,7 +146,7 @@ layui.define(['settings', 'layer'], function (exports) {
             return layer.open(param);
         },
         // 封装ajax请求，返回数据类型为json
-        post: function (url, data, success, method, noHeaderToken) {
+        request: function (url, data, success, method, noHeaderToken) {
         	//debugger;
         	if(method==null) method="POST";
             if ('put' == method.toLowerCase()) {

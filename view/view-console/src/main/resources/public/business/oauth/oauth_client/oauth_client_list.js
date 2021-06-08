@@ -1,7 +1,7 @@
 /**
  * 认证客户端 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-07 17:01:29
+ * @since 2021-06-08 10:22:53
  */
 
 
@@ -215,6 +215,7 @@ function ListPage() {
 
 
 layui.config({
+	dir: layuiPath,
 	base: '/module/'
 }).extend({
 	xmSelect: 'xm-select/xm-select'

@@ -259,7 +259,7 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form'], functi
 
                         //if (accessToken) {
                         //    isExistsToken = true;
-                            admin.post('/security/logout', {token:token}, function (data) {
+                            admin.request('/security/logout', {token:token}, function (data) {
                                 if (data.success) {
                                 	//debugger;
                                     location.replace('login.html');
