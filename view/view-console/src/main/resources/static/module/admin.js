@@ -32,6 +32,15 @@ layui.define(['settings', 'layer'], function (exports) {
                 $a.parent('dd').parent('.layui-nav-child').parent('.layui-nav-item').addClass('layui-nav-itemed');
             }
         },
+        toast:function() {
+        	//https://gitee.com/wispx/toastr?_from=gitee_search
+        	//debugger;
+        	//拦截，并由顶层弹出窗口
+        	if(top && top!=window && top.admin) {
+        		return top.admin.toast();
+        	}
+        	return $.toast;
+        },
         // 右侧弹出
         popupRight: function (path) {
             var param = new Object();

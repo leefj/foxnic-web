@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-31 13:23:57
- * @sign 9C93F3D90FF93A7FF204DD4F687A1B82
+ * @since 2021-06-08 16:09:58
+ * @sign D7764B48B8D58E62C1D23DBAEC740312
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -94,6 +94,12 @@ public class Menu extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="上级ID" , notes = "上级ID")
 	private String parentId;
+	
+	/**
+	 * 显示顺序：显示顺序
+	*/
+	@ApiModelProperty(required = false,value="显示顺序" , notes = "显示顺序")
+	private Integer sort;
 	
 	/**
 	 * 创建人ID：创建人ID
@@ -415,6 +421,31 @@ public class Menu extends Entity {
 	/**
 	 * 添加 上级ID
 	 * @param parentId 上级ID
+	 * @return 当前对象
+	*/
+	
+	/**
+	 * 获得 显示顺序<br>
+	 * 属性说明 : 显示顺序
+	 * @return 显示顺序
+	*/
+	public Integer getSort() {
+		return sort;
+	}
+	
+	/**
+	 * 设置 显示顺序
+	 * @param sort 显示顺序
+	 * @return 当前对象
+	*/
+	public Menu setSort(Integer sort) {
+		this.sort=sort;
+		return this;
+	}
+	
+	/**
+	 * 添加 显示顺序
+	 * @param sort 显示顺序
 	 * @return 当前对象
 	*/
 	

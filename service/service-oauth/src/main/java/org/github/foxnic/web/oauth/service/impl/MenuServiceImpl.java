@@ -1,13 +1,25 @@
 package org.github.foxnic.web.oauth.service.impl;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Resource;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_MENU;
+import org.github.foxnic.web.domain.oauth.Menu;
+import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.github.foxnic.web.misc.ztree.ZTreeNode;
+import org.github.foxnic.web.misc.ztree.ZTreeNode.Transformer;
+import org.github.foxnic.web.oauth.service.IMenuService;
 import org.springframework.stereotype.Service;
 
+import com.github.foxnic.commons.busi.id.IDGenerator;
 import com.github.foxnic.dao.data.PagedList;
+import com.github.foxnic.dao.data.Rcd;
+import com.github.foxnic.dao.data.RcdSet;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.dao.spec.DAO;
@@ -15,13 +27,7 @@ import com.github.foxnic.springboot.api.error.ErrorDesc;
 import com.github.foxnic.springboot.mvc.Result;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
-
-
-import org.github.foxnic.web.domain.oauth.Menu;
-import org.github.foxnic.web.domain.oauth.MenuVO;
-import org.github.foxnic.web.oauth.service.IMenuService;
-import org.github.foxnic.web.framework.dao.DBConfigs;
-import java.util.Date;
+import com.github.foxnic.sql.parameter.BatchParamBuilder;
 
 /**
  * <p>
@@ -45,6 +51,11 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 	 * 获得 DAO 对象
 	 * */
 	public DAO dao() { return dao; }
+	
+	@Override
+	public Object generateId(Field field) {
+		return IDGenerator.getSnowflakeIdString();
+	}
 	
 	/**
 	 * 插入实体
@@ -196,6 +207,101 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 		//boolean exists=this.checkExists(role, SYS_ROLE.NAME);
 		//return exists;
 		return ErrorDesc.success();
+	}
+	
+	private RcdSet queryChildMenus(String parentId) {
+		RcdSet menus=null;
+		if(parentId==null) {
+			menus=dao.query("select m.*,(select count(1) from sys_menu cm  where m.id=cm.parent_id and cm.deleted=0) child_count from sys_menu m where m.parent_id is null and m.deleted=0 order by sort asc");
+		} else {
+			menus=dao.query("select m.*,(select count(1) from sys_menu cm  where m.id=cm.parent_id and cm.deleted=0) child_count from sys_menu m where m.parent_id=? and m.deleted=0 order by sort asc",parentId);
+		}
+		return menus;
+	}
+
+	@Override
+	public List<ZTreeNode> queryRootNotes() {
+		
+		RcdSet menus=queryChildMenus(null);
+		List<ZTreeNode> nodes = toZTreeNodeList(menus);
+		return nodes;
+	}
+ 
+	@Override
+	public List<ZTreeNode> queryChildNodes(String parentId) {
+		RcdSet menus=queryChildMenus(parentId);
+		List<ZTreeNode> nodes = toZTreeNodeList(menus);
+		return nodes;
+	}
+	
+	private List<ZTreeNode> toZTreeNodeList(RcdSet menus) {
+		List<ZTreeNode> nodes=new ArrayList<ZTreeNode>();
+		for (Rcd m : menus) {
+			ZTreeNode node=new ZTreeNode();
+			node.setId(m.getString(SYS_MENU.ID));
+			node.setName(m.getString(SYS_MENU.LABEL));
+			node.setParentId(m.getString(SYS_MENU.PARENT_ID));
+			node.setIsParent(m.getInteger("child_count")>0);
+			nodes.add(node);
+		}
+		return nodes;
+	}
+
+	@Override
+	public Boolean changeParent(String id, String parentId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+	/**
+	 * 节点排序
+	 * */
+	@Override
+	public Boolean sortNode(String id, String afterId) {
+		Menu menu=this.getById(id);
+		Menu after=null;
+		if(afterId!=null) {
+			after=this.getById(afterId);
+		}
+		//不是同一个父节点，不能排序
+		if(after!=null && after.getParentId().equals(menu.getParentId())) {
+			return false;
+		}
+		//查询下级节点
+		List<Rcd> menus=queryChildMenus(menu.getParentId()).getRcdList();
+	 
+		//定位
+		String menuId=null;
+		Rcd menuRcd=null;
+		int afterIndex=-1;
+		for (int i = 0; i < menus.size(); i++) {
+			menuId=menus.get(i).getString(SYS_MENU.ID);
+			if(menuId.equals(id)) {
+				menuRcd=menus.get(i);
+			}
+			if(menuId.equals(afterId)) {
+				afterIndex=i;
+			}
+		}
+		
+		//没有找到匹配的
+		if(afterIndex==-1 || menuRcd==null) {
+			return false;
+		}
+		
+		//设定位置
+		menus.add(afterIndex, menuRcd);
+		
+		int sort=0;
+		BatchParamBuilder pb=new BatchParamBuilder();
+		for (Rcd r : menus) {
+			pb.add(sort,menuId);
+		}
+		
+		dao.batchExecute("update "+table()+" set sort=? where id=?",pb.getBatchList());
+		
+		return true;
 	}
 
 }

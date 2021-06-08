@@ -3,31 +3,29 @@ package org.github.foxnic.web.oauth.controller;
  
 import java.util.List;
 
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.springboot.mvc.Result;
-
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-
-import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
-import org.github.foxnic.web.framework.web.SuperController;
-
-
-import org.github.foxnic.web.proxy.oauth.MenuServiceProxy;
-import org.github.foxnic.web.domain.oauth.meta.MenuVOMeta;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.MenuVO;
-import io.swagger.annotations.Api;
-import com.github.xiaoymin.knife4j.annotations.ApiSort;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiImplicitParam;
-import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import org.github.foxnic.web.domain.oauth.meta.MenuVOMeta;
+import org.github.foxnic.web.misc.ztree.ZTreeNode;
+import org.github.foxnic.web.misc.ztree.ZTreeNode.Transformer;
 import org.github.foxnic.web.oauth.service.IMenuService;
+import org.github.foxnic.web.proxy.oauth.MenuServiceProxy;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.github.foxnic.dao.data.PagedList;
+import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.springboot.api.annotations.NotNull;
+import com.github.foxnic.springboot.mvc.Result;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
+import com.github.xiaoymin.knife4j.annotations.ApiSort;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 
 /**
  * <p>
@@ -69,9 +67,11 @@ public class MenuController {
 	@SentinelResource(value = MenuServiceProxy.INSERT)
 	@PostMapping(MenuServiceProxy.INSERT)
 	public Result<Menu> insert(MenuVO menuVO) {
+		menuVO.setSort(999999);
+		menuVO.setLabel(menuVO.getLabel()+"-"+System.currentTimeMillis());
 		Result<Menu> result=new Result<>();
 		boolean suc=menuService.insert(menuVO);
-		result.success(suc);
+		result.success(suc).data(menuVO);
 		return result;
 	}
 
@@ -89,6 +89,11 @@ public class MenuController {
 	@PostMapping(MenuServiceProxy.DELETE)
 	public Result<Menu> deleteById(String id) {
 		Result<Menu> result=new Result<>();
+		List children=menuService.queryChildNodes(id);
+		if(!children.isEmpty()) {
+			result.success(false).message("请先删除下级节点");
+			return result;
+		}
 		boolean suc=menuService.deleteByIdLogical(id);
 		result.success(suc);
 		return result;
@@ -219,6 +224,41 @@ public class MenuController {
 		result.success(true).data(list);
 		return result;
 	}
+	
+	
+	
+	/**
+	 * 查询菜单节点
+	*/
+	@ApiOperation(value = "查询菜单")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = MenuVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "451739184575545344"),
+		@ApiImplicitParam(name = MenuVOMeta.BATCH_ID , value = "批次号" , required = false , dataTypeClass=String.class , example = "451739178166648832"),
+		@ApiImplicitParam(name = MenuVOMeta.AUTHORITY , value = "权限" , required = false , dataTypeClass=String.class , example = "sys_user::form::view"),
+		@ApiImplicitParam(name = MenuVOMeta.ICON , value = "图标" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = MenuVOMeta.HIDDEN , value = "是否隐藏" , required = true , dataTypeClass=Integer.class , example = "1"),
+		@ApiImplicitParam(name = MenuVOMeta.CSS , value = "样式" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = MenuVOMeta.LABEL , value = "标签" , required = false , dataTypeClass=String.class , example = "编辑账户"),
+		@ApiImplicitParam(name = MenuVOMeta.TYPE , value = "菜单类型" , required = false , dataTypeClass=String.class , example = "page"),
+		@ApiImplicitParam(name = MenuVOMeta.PATH , value = "模版路径" , required = false , dataTypeClass=String.class , example = "/pages/oauth/user/user_form.html"),
+		@ApiImplicitParam(name = MenuVOMeta.URL , value = "路由地址" , required = false , dataTypeClass=String.class , example = "#!sys_user_edit"),
+		@ApiImplicitParam(name = MenuVOMeta.PARENT_ID , value = "上级ID" , required = false , dataTypeClass=String.class , example = "451739184579739648"),
+	})
+	@ApiOperationSupport(order=5 ,  ignoreParameters = { MenuVOMeta.PAGE_INDEX , MenuVOMeta.PAGE_SIZE } )
+	@SentinelResource(value = MenuServiceProxy.QUERY_NODES)
+	@PostMapping(MenuServiceProxy.QUERY_NODES)
+	public Result<List<ZTreeNode>> queryNodes(MenuVO sample) {
+		Result<List<ZTreeNode>> result=new Result<>();
+		List<ZTreeNode> list=null;
+		if(sample.getParentId()==null) {
+			list=menuService.queryRootNotes();
+		} else {
+			list=menuService.queryChildNodes(sample.getParentId());
+		}
+ 
+		result.success(true).data(list);
+		return result;
+	}
 
 	
 	/**
@@ -247,6 +287,49 @@ public class MenuController {
 		result.success(true).data(list);
 		return result;
 	}
+	
+	
+	
+	/**
+	 * 删除菜单
+	*/
+	@ApiOperation(value = "变更菜单上级节点")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = MenuVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "451739184575545344"),
+		@ApiImplicitParam(name = MenuVOMeta.PARENT_ID , value = "新的上级节点ID" , required = true , dataTypeClass=String.class , example = "451739184575545344")
+	})
+	@ApiOperationSupport(order=2)
+	@NotNull(name = MenuVOMeta.ID)
+	@NotNull(name = MenuVOMeta.PARENT_ID)
+	@SentinelResource(value = MenuServiceProxy.CHANGE_PARENT)
+	@PostMapping(MenuServiceProxy.CHANGE_PARENT)
+	public Result<Menu> changeParent(String id,String parentId) {
+		Result<Menu> result=new Result<>();
+		Boolean suc=menuService.changeParent(id,parentId);
+		result.success(suc);
+		return result;
+	}
+	
+	/**
+	 * 删除菜单
+	*/
+	@ApiOperation(value = "变更菜单上级节点")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = MenuVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "451739184575545344"),
+		@ApiImplicitParam(name = "afterId" , value = "排在哪个ID后面，如果null，则第一个" , required = true , dataTypeClass=String.class , example = "451739184575545344")
+	})
+	@ApiOperationSupport(order=2)
+	@NotNull(name = MenuVOMeta.ID)
+	@SentinelResource(value = MenuServiceProxy.SORT_NODE)
+	@PostMapping(MenuServiceProxy.SORT_NODE)
+	public Result<Menu> sortNode(String id,String afterId) {
+		Result<Menu> result=new Result<>();
+		Boolean suc=menuService.sortNode(id,afterId);
+		result.success(suc);
+		return result;
+	}
+	
+	
 
 
 }

@@ -1,6 +1,9 @@
 package org.github.foxnic.web.oauth.service;
 import java.util.List;
 
+import org.github.foxnic.web.domain.oauth.Menu;
+import org.github.foxnic.web.misc.ztree.ZTreeNode;
+
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.entity.ISuperService;
@@ -8,9 +11,6 @@ import com.github.foxnic.springboot.mvc.Result;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.expr.OrderBy;
 import com.github.foxnic.sql.meta.DBField;
-
-import org.github.foxnic.web.domain.oauth.Menu;
-import org.github.foxnic.web.domain.oauth.MenuVO;
 
 /**
  * <p>
@@ -267,5 +267,16 @@ public interface IMenuService extends ISuperService<Menu> {
 	 * @return 列数据
 	 * */
 	<T> List<T> queryValues(DBField field, Class<T> type, String condition,Object... ps);
+
+	/**
+	 * 查询根节点
+	 * */
+	List<ZTreeNode> queryRootNotes();
+
+	List<ZTreeNode> queryChildNodes(String parentId);
+
+	Boolean changeParent(String id, String parentId);
+
+	Boolean sortNode(String id, String afterId);
  
 }

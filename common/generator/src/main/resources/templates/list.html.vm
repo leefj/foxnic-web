@@ -17,13 +17,7 @@
 <body>
 
 <div class="layui-card">
-    <div class="layui-card-header">
-        <h2 class="header-title"><span th:text="${lang.translate('#(topic)')}">#(topic)</span></h2>
-        <span class="layui-breadcrumb pull-right">
-          <a href="#!console"><span th:text="${lang.translate('首页')}">首页</span></a>
-          <a><cite><span th:text="${lang.translate('#(topic)')}">#(topic)</span></cite></a>
-        </span>
-    </div>
+ 
     <div class="layui-card-body">
         <div class="layui-form toolbar">
             <span th:text="${lang.translate('搜索')}">搜索</span>：

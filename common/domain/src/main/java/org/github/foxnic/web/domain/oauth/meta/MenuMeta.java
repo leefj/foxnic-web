@@ -7,8 +7,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-31 13:23:57
- * @sign 9C93F3D90FF93A7FF204DD4F687A1B82
+ * @since 2021-06-08 16:09:58
+ * @sign D7764B48B8D58E62C1D23DBAEC740312
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -70,6 +70,11 @@ public class MenuMeta {
 	public static final String PARENT_ID="parentId";
 	
 	/**
+	 * 显示顺序
+	*/
+	public static final String SORT="sort";
+	
+	/**
 	 * 创建人ID
 	*/
 	public static final String CREATE_BY="createBy";
@@ -112,7 +117,7 @@ public class MenuMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , BATCH_ID , AUTHORITY , ICON , HIDDEN , CSS , LABEL , TYPE , PATH , URL , PARENT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , BATCH_ID , AUTHORITY , ICON , HIDDEN , CSS , LABEL , TYPE , PATH , URL , PARENT_ID , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
 	
 	/**
 	 * 代理类
@@ -240,6 +245,17 @@ public class MenuMeta {
 		public Menu setParentId(String parentId) {
 			super.change(PARENT_ID,super.getParentId(),parentId);
 			super.setParentId(parentId);
+			return this;
+		}
+		
+		/**
+		 * 设置 显示顺序
+		 * @param sort 显示顺序
+		 * @return 当前对象
+		*/
+		public Menu setSort(Integer sort) {
+			super.change(SORT,super.getSort(),sort);
+			super.setSort(sort);
 			return this;
 		}
 		

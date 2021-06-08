@@ -11,75 +11,88 @@ function ListPage() {
 	//模块基础路径
 	const moduleURL="/service-oauth/sys-menu";
 	
+	var menuTree;
+	
 	/**
       * 入口函数，初始化
       */
 	this.init=function(layui) {
-     	
+ 
      	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload;
 		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
-		
-     	//渲染表格
-     	renderTable();
-		//绑定搜索框事件
-		bindSearchEvent();
-		//绑定按钮事件
-		bindButtonEvent();
-		//绑定行操作按钮事件
-    	bindRowOperationEvent();
+ 
+     	var cfgs = {
+     		edit: {
+				enable: true
+			},
+			async: {
+				enable: true,
+				contentType:"application/json",
+				url:moduleURL+"/query-nodes",
+				autoParam:["id=parentId"],
+				otherParam:{},
+				dataFilter: nodeDatafilter
+			},
+			callback: {
+				onRename : onNodeRename,
+				beforeRemove : beforeNodeRemove,
+				onDrop : onNodeDrop
+			}
+		};
+		menuTree=$.fn.zTree.init($("#menu-tree"), cfgs);
      }
-     
-     
-     /**
-      * 渲染表格
-      */
-     function renderTable() {
-     
-		fox.renderTable({
-			elem: '#data-table',
-            url: moduleURL +'/query-paged-list',
-			cols: [[
-			 	{ type:'checkbox' },
-                { type: 'numbers' },
-                { field: 'id', sort: true, title: fox.translate('ID') } ,
-                { field: 'batchId', sort: true, title: fox.translate('批次号') } ,
-                { field: 'authority', sort: true, title: fox.translate('权限') } ,
-                { field: 'icon', sort: true, title: fox.translate('图标') } ,
-                { field: 'hidden', sort: true, title: fox.translate('是否隐藏') } ,
-                { field: 'css', sort: true, title: fox.translate('样式') } ,
-                { field: 'label', sort: true, title: fox.translate('标签') } ,
-                { field: 'type', sort: true, title: fox.translate('菜单类型') } ,
-                { field: 'path', sort: true, title: fox.translate('模版路径') } ,
-                { field: 'url', sort: true, title: fox.translate('路由地址') } ,
-                { field: 'parentId', sort: true, title: fox.translate('上级ID') } ,
-                { field: 'createTime', sort: true, title: fox.translate('创建时间') , templet: function (d) { return util.toDateString(d.createTime); } } ,
-                { fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 175 }
-            ]]
-        });
-        
-     };
-     
-	/**
-      * 刷新表格数据
-      */
-	function refreshTableData() {
-		var field = $('#search-field').val();
-		var value = $('#search-input').val();
-		var ps={searchField: field, searchValue: value};
-		table.reload('data-table', { where : ps });
-	}
     
-	
-	/**
-	  * 获得已经选中行的数据,不传入 field 时，返回所有选中的记录，指定 field 时 返回指定的字段集合
-	  */
-	function getCheckedList(field) {
-		var checkStatus = table.checkStatus('data-table');
-		var data = checkStatus.data;
-		if(!field) return data;
-		for(var i=0;i<data.length;i++) data[i]=data[i][field];
-		return data;
+     
+    function onNodeDrop(event, treeId, treeNodes, targetNode, moveType) {
+    	//成为下级节点
+    	if(moveType=="inner") {
+    		debugger;
+    	} else if(moveType=="prev") {
+    		debugger;
+    	} else if(moveType=="next") {
+    		debugger;
+    	} else {
+    		debugger;
+    	}
+    	
+    }
+     
+    function beforeNodeRemove(treeId, treeNode) {
+		layer.confirm('确定要删除['+treeNode.name+']菜单吗?', function(index,a,c,d) {
+			layer.close(index);
+			admin.request(moduleURL+"/delete",{id:treeNode.id},function(r) {
+				if(r.success) {
+					admin.toast().success("菜单已删除",{time:1000,position:"right-bottom"});
+					menuTree.removeNode(treeNode,false);
+				} else {
+					admin.toast().error("删除失败 : "+r.message,{time:1000,position:"right-bottom",width:"300px"});
+				}
+			});
+		});
+    	return false;
+    }
+     
+	function onNodeRename (event, treeId, treeNode, isCancel) {
+		admin.request(moduleURL+"/update",{id:treeNode.id,label:treeNode.name},function(r){
+			if(r.success) {
+				admin.toast().success("名称已更改",{time:1000,position:"right-bottom"});
+			} else {
+				admin.toast().error("名称更改失败",{time:1000,position:"right-bottom"});
+			}
+		});
 	}
+     
+	function nodeDatafilter(treeId, parentNode, childNodes) {
+     	//debugger;
+     	childNodes=childNodes.data;
+		if (!childNodes) return null;
+		for (var i=0, l=childNodes.length; i<l; i++) {
+		 
+		}
+		return childNodes;
+	}
+     
+      
 	
 	/**
 	 * 重置搜索框
@@ -100,89 +113,53 @@ function ListPage() {
 		  	refreshTableData();
         });
 
-        // 搜索按钮点击事件
-        $('#search-button').click(function () {
-           refreshTableData();
-        });
 	}
 	
-	/**
-	 * 绑定按钮事件
-	  */
-	function bindButtonEvent() {
-	
-		//添加按钮点击事件
-        $('#add-button').click(function () {
-        	//设置新增是初始化数据
-        	var data={};
-            showEditForm(data);
-        });
-		
-        //批量删除按钮点击事件
-        $('#delete-button').click(function () {
-          
-			var ids=getCheckedList("id");
-            if(ids.length==0) {
-            	layer.msg(fox.translate('请选择需要删除的')+fox.translate('菜单')+"!");
-            	return;
-            }
-            //调用批量删除接口
-			layer.confirm(fox.translate('确定删除已选中的')+fox.translate('菜单')+fox.translate('吗？'), function (i) {
-				layer.close(i);
-				layer.load(2);
-                admin.req(moduleURL+"/batch-delete", JSON.stringify({ ids: JSON.stringify(ids) }), function (data) {
-                    layer.closeAll('loading');
-                    if (data.success) {
-                        layer.msg(data.message, {icon: 1, time: 500});
-                        refreshTableData();
-                    } else {
-                        layer.msg(data.message, {icon: 2, time: 500});
-                    }
-                });
-			});
-        });
-	}
-     
-    /**
-     * 绑定行操作按钮事件
-     */
-    function bindRowOperationEvent() {
-		// 工具条点击事件
-		table.on('tool(data-table)', function (obj) {
-			var data = obj.data;
-			var layEvent = obj.event;
-	
-			if (layEvent === 'edit') { // 修改
-				layer.load(2);
-				admin.req(moduleURL+"/get-by-id", { id : data.id }, function (data) {
-					layer.closeAll('loading');
-					if(data.success) {
-						 showEditForm(data.data);
-					} else {
-						 layer.msg(data.message, {icon: 1, time: 500});
-					}
-				});
-				
-			} else if (layEvent === 'del') { // 删除
-			
-				layer.confirm(fox.translate('确定删除此')+fox.translate('菜单')+fox.translate('吗？'), function (i) {
-					layer.close(i);
-					layer.load(2);
-					admin.req(moduleURL+"/delete", { id : data.id }, function (data) {
-						layer.closeAll('loading');
-						if (data.success) {
-							layer.msg(data.message, {icon: 1, time: 500});
-							refreshTableData();
-						} else {
-							layer.msg(data.message, {icon: 2, time: 500});
-						}
-					});
-				});
-				
-			}  
-		});
+	// 添加按钮点击事件
+    $('#btn-add').click(function () {
+        var nodes=menuTree.getSelectedNodes();
  
-    };
+        //默认根节点
+        var treeNode=null;
+        if(nodes && nodes.length>0) {
+         	treeNode=nodes[0];
+        }
+ 
+        admin.request(moduleURL+"/insert",{parentId:treeNode?treeNode.id:null,label:"新菜单"},function(r) {
+			if(r.success) {
+				admin.toast().success("菜单已创建",{time:1000,position:"right-bottom"});
+				//debugger
+				if(treeNode==null) {
+					//debugger;
+					menuTree.addNodes(null,{id:r.data.id,name:r.data.label});
+					return;
+				}
+				
+				var isLeaf=!treeNode.isParent;
+				treeNode.isParent=true;
+				menuTree.updateNode(treeNode)
+				if(isLeaf) {
+					menuTree.reAsyncChildNodes(treeNode,"refresh",false);
+				} else {
+					if(!treeNode.open ) {
+						//展开节点
+						menuTree.expandNode(treeNode,true,false,true,false);
+					} else {
+						if(treeNode.children && treeNode.children.length>0) {
+							menuTree.addNodes(treeNode,{id:r.data.id,name:r.data.label,parentId:r.data.parentId});
+							//menuTree.selectNode(newNode,false);
+						} else {
+							menuTree.reAsyncChildNodes(treeNode,"refresh",true);
+						}
+						
+					}
+				}
+			} else {
+				admin.toast().error("新建菜单失败",{time:1000,position:"right-bottom"});
+			}
+		});
+    });
+ 
     
     /**
      * 打开编辑窗口
@@ -207,7 +184,6 @@ function ListPage() {
 			}
 		});
 	};
-
 };
 
 
