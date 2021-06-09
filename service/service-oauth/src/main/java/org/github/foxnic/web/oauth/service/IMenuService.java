@@ -275,8 +275,6 @@ public interface IMenuService extends ISuperService<Menu> {
 
 	List<ZTreeNode> queryChildNodes(String parentId);
 
-	Boolean changeParent(String id, String parentId);
-
-	Boolean sortNode(String id, String afterId);
+	Boolean saveHierarchy(List<String> ids, String parentId);
  
 }

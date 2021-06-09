@@ -248,60 +248,15 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 	}
 
 	@Override
-	public Boolean changeParent(String id, String parentId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	
-	/**
-	 * 节点排序
-	 * */
-	@Override
-	public Boolean sortNode(String id, String afterId) {
-		Menu menu=this.getById(id);
-		Menu after=null;
-		if(afterId!=null) {
-			after=this.getById(afterId);
-		}
-		//不是同一个父节点，不能排序
-		if(after!=null && after.getParentId().equals(menu.getParentId())) {
-			return false;
-		}
-		//查询下级节点
-		List<Rcd> menus=queryChildMenus(menu.getParentId()).getRcdList();
-	 
-		//定位
-		String menuId=null;
-		Rcd menuRcd=null;
-		int afterIndex=-1;
-		for (int i = 0; i < menus.size(); i++) {
-			menuId=menus.get(i).getString(SYS_MENU.ID);
-			if(menuId.equals(id)) {
-				menuRcd=menus.get(i);
-			}
-			if(menuId.equals(afterId)) {
-				afterIndex=i;
-			}
-		}
-		
-		//没有找到匹配的
-		if(afterIndex==-1 || menuRcd==null) {
-			return false;
-		}
-		
-		//设定位置
-		menus.add(afterIndex, menuRcd);
-		
-		int sort=0;
+	public Boolean saveHierarchy(List<String> ids, String parentId) {	
 		BatchParamBuilder pb=new BatchParamBuilder();
-		for (Rcd r : menus) {
-			pb.add(sort,menuId);
+		int sort=0;
+		for (String menuId : ids) {
+			pb.add(parentId,sort,menuId);
+			sort++;
 		}
-		
-		dao.batchExecute("update "+table()+" set sort=? where id=?",pb.getBatchList());
-		
+		dao.batchExecute("update "+table()+" set parent_id=?,sort=? where id=?",pb.getBatchList());
 		return true;
 	}
-
+ 
 }

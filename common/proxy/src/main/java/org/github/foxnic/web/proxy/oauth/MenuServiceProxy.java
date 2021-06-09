@@ -86,15 +86,11 @@ public interface MenuServiceProxy {
 	public static final String QUERY_NODES = API_PREFIX + "query-nodes";
 	
 	/**
-	 * 变更上级节点
+	 * 节点层级变更
 	 */
-	public static final String CHANGE_PARENT = API_PREFIX + "change-parent";
+	public static final String SAVE_HIERARCHY = API_PREFIX + "save-hierarchy";
 	
-	/**
-	 * 节点排序
-	 */
-	public static final String SORT_NODE = API_PREFIX + "sort-node";
-	
+	 
 	/**
 	 * 分页查询菜单
 	 */

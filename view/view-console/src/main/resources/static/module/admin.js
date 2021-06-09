@@ -164,13 +164,14 @@ layui.define(['settings', 'layer'], function (exports) {
                 method = 'DELETE';
             }
             url=url.replace("//","/");
+            data=JSON.stringify(data);
             //add by owen ajax 执行前置处理器  
             admin.ajax({
                 url: config.base_server + url,
                 data: data,
                 type: method,
                 dataType: 'json',
-                contentType: "application/json",
+                contentType: "application/json;charset=utf-8",
                 success: success,
                 beforeSend: function (xhr) {
                     if (!noHeaderToken) {
@@ -223,7 +224,7 @@ layui.define(['settings', 'layer'], function (exports) {
             };
             //发送同步ajax请求
             param.async = false;
-            //console.log(param);
+            console.log(param);
             $.ajax(param);
         },
         // 判断是否有权限

@@ -37,6 +37,10 @@ function ListPage() {
 				onRename : onNodeRename,
 				beforeRemove : beforeNodeRemove,
 				onDrop : onNodeDrop
+			},
+			view: {
+				addHoverDom: addHoverDom,
+				removeHoverDom: removeHoverDom
 			}
 		};
 		menuTree=$.fn.zTree.init($("#menu-tree"), cfgs);
@@ -44,19 +48,54 @@ function ListPage() {
     
      
     function onNodeDrop(event, treeId, treeNodes, targetNode, moveType) {
-    	//成为下级节点
-    	if(moveType=="inner") {
-    		debugger;
-    	} else if(moveType=="prev") {
-    		debugger;
-    	} else if(moveType=="next") {
-    		debugger;
-    	} else {
+ 
+		var ids=[];
+		//移动节点
+    	if(moveType=="inner" || moveType=="prev" || moveType=="next") { // 调整节点顺序
+    		var parentNode=treeNodes[0].getParentNode();
+	    	var siblings=null;
+	    	var parentId=null;
+	    	//非根节点
+	    	if(parentNode!=null) {
+	    		siblings=parentNode.children;
+	    		parentId=parentNode.id;
+	    	} else {
+	    		//根节点
+	    		siblings=[];
+	    		var prev=null;
+	    		var curr=treeNodes[0];
+	    		while(true) {
+	    			prev=curr.getPreNode();
+	    			if(prev==null) break;
+	    			curr=prev;
+	    		}
+	    		var next=null;
+	    		while(true) {
+	    			siblings.push(curr);
+	    			next=curr.getNextNode();
+	    			if(next==null) break;
+	    			curr=next;
+	    		}
+	    	}
+	    	for (var i = 0; i < siblings.length; i++) {
+				ids.push(siblings[i].id);
+			}
+    		saveHierarchy(ids,parentId);
+    	}  else {
     		debugger;
     	}
-    	
     }
-     
+    
+    function saveHierarchy(ids,parentId) {
+    	admin.request(moduleURL+"/save-hierarchy",{"ids":ids,parentId:parentId},function(r) {
+			if(r.success) {
+				admin.toast().success("已调整",{time:1000,position:"right-bottom"});
+			} else {
+				admin.toast().error("调整失败",{time:1000,position:"right-bottom"});
+			}
+		});
+    }
+  
     function beforeNodeRemove(treeId, treeNode) {
 		layer.confirm('确定要删除['+treeNode.name+']菜单吗?', function(index,a,c,d) {
 			layer.close(index);
@@ -91,6 +130,34 @@ function ListPage() {
 		}
 		return childNodes;
 	}
+	
+	function addHoverDom(treeId, treeNode) {
+		if(!treeNode.isParent) return;
+		var aObj = $("#" + treeNode.tId + "_a");
+		if ($("#diyBtn_"+treeNode.id).length>0) return;
+		//var editStr = "<span class='button icon01' id='diyBtn_" +treeNode.id+ "' title='"+treeNode.name+"' onfocus='this.blur();'></span>";
+		var editStr = "<image tid='"+treeNode.tId+"' style='margin-top:2px' id='diyBtn_" +treeNode.id+ "' src='/assets/libs/zTree/images/refresh-16.png'  onfocus='this.blur();'/>"
+		aObj.after(editStr);
+		var btn = $("#diyBtn_"+treeNode.id);
+		if (btn) btn.bind("click", function() {
+			var it=$(this);
+			var tid=it.attr("tid");
+			var node=menuTree.getNodeByTId(tid);
+			menuTree.reAsyncChildNodes(node,'refresh');
+		});
+			 
+	}
+	
+	function removeHoverDom(treeId, treeNode) {
+			//if (treeNode.parentTId && treeNode.getParentNode().id!=1) return;
+//			if (treeNode.id == 15) {
+//				$("#diyBtn1_"+treeNode.id).unbind().remove();
+//				$("#diyBtn2_"+treeNode.id).unbind().remove();
+//			} else {
+				$("#diyBtn_"+treeNode.id).unbind().remove();
+//				$("#diyBtn_space_" +treeNode.id).unbind().remove();
+//			}
+		}
      
       
 	

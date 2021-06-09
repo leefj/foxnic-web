@@ -291,43 +291,25 @@ public class MenuController {
 	
 	
 	/**
-	 * 删除菜单
+	 * 变更菜单层级关系
 	*/
-	@ApiOperation(value = "变更菜单上级节点")
+	@ApiOperation(value = "变更菜单层级关系")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = MenuVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "451739184575545344"),
+		@ApiImplicitParam(name = "ids" , value = "ID" , required = true , dataTypeClass=String.class , example = "451739184575545344"),
 		@ApiImplicitParam(name = MenuVOMeta.PARENT_ID , value = "新的上级节点ID" , required = true , dataTypeClass=String.class , example = "451739184575545344")
 	})
 	@ApiOperationSupport(order=2)
-	@NotNull(name = MenuVOMeta.ID)
-	@NotNull(name = MenuVOMeta.PARENT_ID)
-	@SentinelResource(value = MenuServiceProxy.CHANGE_PARENT)
-	@PostMapping(MenuServiceProxy.CHANGE_PARENT)
-	public Result<Menu> changeParent(String id,String parentId) {
+	@NotNull(name = "ids")
+	@SentinelResource(value = MenuServiceProxy.SAVE_HIERARCHY)
+	@PostMapping(MenuServiceProxy.SAVE_HIERARCHY)
+	public Result<Menu> changeParent(List<String> ids,String parentId) {
 		Result<Menu> result=new Result<>();
-		Boolean suc=menuService.changeParent(id,parentId);
+		Boolean suc=menuService.saveHierarchy(ids,parentId);
 		result.success(suc);
 		return result;
 	}
 	
-	/**
-	 * 删除菜单
-	*/
-	@ApiOperation(value = "变更菜单上级节点")
-	@ApiImplicitParams({
-		@ApiImplicitParam(name = MenuVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "451739184575545344"),
-		@ApiImplicitParam(name = "afterId" , value = "排在哪个ID后面，如果null，则第一个" , required = true , dataTypeClass=String.class , example = "451739184575545344")
-	})
-	@ApiOperationSupport(order=2)
-	@NotNull(name = MenuVOMeta.ID)
-	@SentinelResource(value = MenuServiceProxy.SORT_NODE)
-	@PostMapping(MenuServiceProxy.SORT_NODE)
-	public Result<Menu> sortNode(String id,String afterId) {
-		Result<Menu> result=new Result<>();
-		Boolean suc=menuService.sortNode(id,afterId);
-		result.success(suc);
-		return result;
-	}
+	 
 	
 	
 
