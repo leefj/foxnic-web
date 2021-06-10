@@ -45,14 +45,24 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form'], functi
         	var menus=user.user.menus;
         	var map={};
         	var pages=[];
+        	
+        	//过滤，并建立对照
         	for (var i = 0; i < menus.length; i++) {
-        		if(menus[i].type!="page" || menus[i].hidden==1) continue;
+        		
+        		if(menus[i].type!="folder" &&  menus[i].type!="page") continue;
+        		if(menus[i].hidden==1) continue;
+        		if(menus[i].type=="folder") menus[i].url="#";
+        		
         		pages.push(menus[i]);
         		map[menus[i].id]=menus[i];
-        		
         	}
+        	var tops=[];
+        	//填充 subMenus
         	for (var i = 0; i < pages.length; i++) {
-        		if(!pages[i].parentId) continue;
+        		if(!pages[i].parentId){
+        			tops.push(pages[i]);
+        			continue;
+        		}
         		var p=map[pages[i].parentId];
         		if(p==null) continue;
         		var subMenus=p["subMenus"];
@@ -62,6 +72,9 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form'], functi
         		}
         		subMenus.push(pages[i]);
         	}
+        	
+         	pages=tops;
+        	 
         	
         	console.log(pages);
  
@@ -173,7 +186,7 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form'], functi
         },
         // 路由加载组件
         loadView: function (menuId, menuPath, menuName) {
-//        	debugger;
+        	debugger;
             var contentDom = '.layui-layout-admin .layui-body';
             admin.showLoading('.layui-layout-admin .layui-body');
             var flag;  // 选项卡是否添加
