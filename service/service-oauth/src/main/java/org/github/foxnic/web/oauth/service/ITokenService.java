@@ -44,7 +44,7 @@ public interface ITokenService extends ISuperService<Token> {
 	 * @param id id
 	 * @return 删除是否成功
 	 */
-	boolean deleteByIdPhysical(Integer id);
+	boolean deleteByIdPhysical(String id);
 	
 	/**
 	 * 按主键删除 Token
@@ -52,7 +52,7 @@ public interface ITokenService extends ISuperService<Token> {
 	 * @param id id
 	 * @return 删除是否成功
 	 */
-	boolean deleteByIdLogical(Integer id);
+	boolean deleteByIdLogical(String id);
 	
 	
 	/**
@@ -76,7 +76,7 @@ public interface ITokenService extends ISuperService<Token> {
 	 * @param id id
 	 * @return 是否更新成功
 	 */
-	boolean update(DBField field,Object value , Integer id);
+	boolean update(DBField field,Object value , String id);
 	
 	/**
 	 * 更新实体
@@ -126,7 +126,7 @@ public interface ITokenService extends ISuperService<Token> {
 	 * @param id id
 	 * @return Token 数据对象
 	 */
-	Token getById(Integer id);
+	Token getById(String id);
 	
 	/**
 	 * 检查 角色 是否已经存在

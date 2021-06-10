@@ -7,8 +7,8 @@ import java.util.List;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-02 14:46:36
- * @sign 7EEB865DF4FF321FBD660B786A5C2F00
+ * @since 2021-06-10 17:27:49
+ * @sign B0E62A41425865D4CA38F80F6FBFC849
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -101,7 +101,7 @@ public class TokenVOMeta extends TokenMeta {
 		 * @param ids 主键清单
 		 * @return 当前对象
 		*/
-		public TokenVO setIds(List<Integer> ids) {
+		public TokenVO setIds(List<String> ids) {
 			super.change(IDS,super.getIds(),ids);
 			super.setIds(ids);
 			return this;

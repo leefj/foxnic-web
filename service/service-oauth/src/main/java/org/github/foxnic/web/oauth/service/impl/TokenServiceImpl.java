@@ -77,7 +77,7 @@ public class TokenServiceImpl extends SuperService<Token> implements ITokenServi
 	 * @param id id
 	 * @return 删除是否成功
 	 */
-	public boolean deleteByIdPhysical(Integer id) {
+	public boolean deleteByIdPhysical(String id) {
 		Token token = new Token();
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null ");
 		token.setId(id);
@@ -90,7 +90,7 @@ public class TokenServiceImpl extends SuperService<Token> implements ITokenServi
 	 * @param id id
 	 * @return 删除是否成功
 	 */
-	public boolean deleteByIdLogical(Integer id) {
+	public boolean deleteByIdLogical(String id) {
 		Token token = new Token();
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null 。");
 		token.setId(id);
@@ -129,7 +129,7 @@ public class TokenServiceImpl extends SuperService<Token> implements ITokenServi
 	 * @param id id
 	 * @return 是否更新成功
 	 */
-	public boolean update(DBField field,Object value , Integer id) {
+	public boolean update(DBField field,Object value , String id) {
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null ");
 		if(!field.table().name().equals(this.table())) throw new IllegalArgumentException("更新的数据表["+field.table().name()+"]与服务对应的数据表["+this.table()+"]不一致");
 		int suc=dao.update(field.table().name()).set(field.name(), value).where().and("id = ? ",id).top().execute();
@@ -143,7 +143,7 @@ public class TokenServiceImpl extends SuperService<Token> implements ITokenServi
 	 * @param id id
 	 * @return Token 数据对象
 	 */
-	public Token getById(Integer id) {
+	public Token getById(String id) {
 		Token sample = new Token();
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null ");
 		sample.setId(id);

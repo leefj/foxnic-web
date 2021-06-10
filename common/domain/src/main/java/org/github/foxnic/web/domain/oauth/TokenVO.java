@@ -9,8 +9,8 @@ import java.util.ArrayList;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-02 14:46:36
- * @sign 7EEB865DF4FF321FBD660B786A5C2F00
+ * @since 2021-06-10 17:27:49
+ * @sign B0E62A41425865D4CA38F80F6FBFC849
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -46,7 +46,7 @@ public class TokenVO extends Token {
 	 * 主键清单：用于接收批量主键参数
 	*/
 	@ApiModelProperty(required = false,value="主键清单" , notes = "用于接收批量主键参数")
-	private List<Integer> ids;
+	private List<String> ids;
 	
 	/**
 	 * 获得 页码<br>
@@ -149,7 +149,7 @@ public class TokenVO extends Token {
 	 * 属性说明 : 用于接收批量主键参数
 	 * @return 主键清单
 	*/
-	public List<Integer> getIds() {
+	public List<String> getIds() {
 		return ids;
 	}
 	
@@ -158,7 +158,7 @@ public class TokenVO extends Token {
 	 * @param ids 主键清单
 	 * @return 当前对象
 	*/
-	public TokenVO setIds(List<Integer> ids) {
+	public TokenVO setIds(List<String> ids) {
 		this.ids=ids;
 		return this;
 	}
@@ -168,7 +168,7 @@ public class TokenVO extends Token {
 	 * @param ids 主键清单
 	 * @return 当前对象
 	*/
-	public TokenVO addId(Integer id) {
+	public TokenVO addId(String id) {
 		if(this.ids==null) ids=new ArrayList<>();
 		this.ids.add(id);
 		return this;

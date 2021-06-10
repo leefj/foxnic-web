@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-08 16:09:58
- * @sign D7764B48B8D58E62C1D23DBAEC740312
+ * @since 2021-06-10 17:27:49
+ * @sign C8A3D0EC4E9EE548380F07B7A003669D
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -98,7 +98,7 @@ public class Menu extends Entity {
 	/**
 	 * 显示顺序：显示顺序
 	*/
-	@ApiModelProperty(required = false,value="显示顺序" , notes = "显示顺序")
+	@ApiModelProperty(required = true,value="显示顺序" , notes = "显示顺序")
 	private Integer sort;
 	
 	/**

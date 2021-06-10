@@ -7,8 +7,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-02 15:15:46
- * @sign E4CBB327E68F3FD9610F5FD7D47E2025
+ * @since 2021-06-10 17:27:49
+ * @sign 61F3EA44FEFF15349F32D096684D1DDA
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -117,7 +117,7 @@ public class TokenMeta {
 		 * @param id id
 		 * @return 当前对象
 		*/
-		public Token setId(Integer id) {
+		public Token setId(String id) {
 			super.change(ID,super.getId(),id);
 			super.setId(id);
 			return this;

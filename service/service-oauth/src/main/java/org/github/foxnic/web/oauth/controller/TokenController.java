@@ -72,13 +72,13 @@ public class TokenController {
 	*/
 	@ApiOperation(value = "删除Token")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = TokenVOMeta.ID , value = "id" , required = true , dataTypeClass=Integer.class)
+		@ApiImplicitParam(name = TokenVOMeta.ID , value = "id" , required = true , dataTypeClass=String.class)
 	})
 	@ApiOperationSupport(order=2)
 	@NotNull(name = TokenVOMeta.ID)
 	@SentinelResource(value = TokenServiceProxy.DELETE)
 	@PostMapping(TokenServiceProxy.DELETE)
-	public Result<Token> deleteById(Integer id) {
+	public Result<Token> deleteById(String id) {
 		Result<Token> result=new Result<>();
 		boolean suc=tokenService.deleteByIdLogical(id);
 		result.success(suc);
@@ -158,13 +158,13 @@ public class TokenController {
 	*/
 	@ApiOperation(value = "获取Token")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = TokenVOMeta.ID , value = "主键" , required = true , dataTypeClass=Integer.class , example = "1"),
+		@ApiImplicitParam(name = TokenVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "1"),
 	})
 	@ApiOperationSupport(order=6)
 	@NotNull(name = TokenVOMeta.ID)
 	@SentinelResource(value = TokenServiceProxy.GET_BY_ID)
 	@PostMapping(TokenServiceProxy.GET_BY_ID)
-	public Result<Token> getById(Integer id) {
+	public Result<Token> getById(String id) {
 		Result<Token> result=new Result<>();
 		Token role=tokenService.getById(id);
 		result.success(true).data(role);
