@@ -4,7 +4,7 @@ import java.util.Date;
 
 import javax.annotation.Resource;
 
-import org.github.foxnic.web.constants.enums.SystemEnum;
+import org.github.foxnic.web.constants.enums.SystemConfigEnum;
 import org.github.foxnic.web.domain.system.Config;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.system.service.IConfigService;
@@ -93,7 +93,7 @@ public class ConfigServiceImpl  extends SuperService<Config> implements IConfigS
 	}
 
 	@Override
-	public Config getById(SystemEnum cfg) {
+	public Config getById(SystemConfigEnum cfg) {
 		return this.getById(cfg.code());
 	}
 }

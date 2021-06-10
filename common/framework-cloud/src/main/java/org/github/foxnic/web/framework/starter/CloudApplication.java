@@ -1,6 +1,6 @@
 package org.github.foxnic.web.framework.starter;
 
-import org.github.foxnic.web.framework.Meta;
+import org.github.foxnic.web.framework.FoxnicWebMeta;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -12,8 +12,8 @@ import com.github.foxnic.springboot.starter.FoxnicApplication;
 
 
 @SpringBootApplication
-@EnableFeignClients(basePackages = {Meta.PROXY_PACKAGE})
-@ComponentScan(basePackages = {Meta.FRAMEWORK_PACKAGE,Meta.PROXY_PACKAGE})
+@EnableFeignClients(basePackages = {FoxnicWebMeta.PROXY_PACKAGE})
+@ComponentScan(basePackages = {FoxnicWebMeta.FRAMEWORK_PACKAGE,FoxnicWebMeta.PROXY_PACKAGE})
 @EnableDiscoveryClient
 public class CloudApplication {
 	

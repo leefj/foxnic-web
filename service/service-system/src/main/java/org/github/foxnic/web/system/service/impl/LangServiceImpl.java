@@ -5,11 +5,10 @@ import java.lang.reflect.Field;
 import javax.annotation.Resource;
 
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_LANG;
-import org.github.foxnic.web.constants.enums.SystemEnum;
+import org.github.foxnic.web.constants.enums.SystemConfigEnum;
 import org.github.foxnic.web.domain.system.Lang;
 import org.github.foxnic.web.domain.system.LangVO;
 import org.github.foxnic.web.framework.dao.DBConfigs;
-import org.github.foxnic.web.framework.language.LanguageService.Language;
 import org.github.foxnic.web.system.service.IConfigService;
 import org.github.foxnic.web.system.service.ILangService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -151,7 +150,7 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 
 	@Override
 	public String translate(String defaults, String key) {
-		String sysLangValue = configService.getById(SystemEnum.SYSTEM_LANGUAGE).getValue();
+		String sysLangValue = configService.getById(SystemConfigEnum.SYSTEM_LANGUAGE).getValue();
 		// 调试写死
 //		sysLangValue = "confuse";
 		Language sysLang = Language.valueOf(sysLangValue);

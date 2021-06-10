@@ -1,4 +1,4 @@
-package com.tailoring.generator.module;
+package org.github.foxnic.web.generator.module;
 
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_MENU;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_OAUTH_CLIENT;

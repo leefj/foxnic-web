@@ -1,13 +1,14 @@
-package com.tailoring.generator.data;
+package org.github.foxnic.web.generator.data;
 
 import java.io.File;
 import java.util.HashSet;
+
+import org.github.foxnic.web.generator.config.FoxnicWebConfigs;
 
 import com.github.foxnic.commons.io.FileUtil;
 import com.github.foxnic.commons.project.maven.MavenProject;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.sql.parameter.BatchParamBuilder;
-import com.tailoring.generator.config.FoxnicWebConfigs;
 
 /**
  * 为以usr_开头的表生成代码

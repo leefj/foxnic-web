@@ -1,8 +1,9 @@
-package com.tailoring.generator.constants;
+package org.github.foxnic.web.generator.constants;
+
+import org.github.foxnic.web.generator.config.FoxnicWebConfigs;
 
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.generator.builder.constants.DBMetaClassFile;
-import com.tailoring.generator.config.FoxnicWebConfigs;
 
 
 public class FoxnicWebDBMetaGenerator  {
@@ -31,6 +32,11 @@ public class FoxnicWebDBMetaGenerator  {
 	private void buildDBMeta() {
 		
 		DBMetaClassFile dbMetaBuilder=new DBMetaClassFile(dao,configs.getDomianProject(),this.configs.getProjectConfigs().getDomainConstantsPackage(),"FoxnicWeb");
+		dbMetaBuilder.setTableFilter(table->{
+			table=table.toLowerCase();
+			if(table.startsWith("sys_")) return true;
+			return false;
+		});
 		dbMetaBuilder.save(true);
 	}
 

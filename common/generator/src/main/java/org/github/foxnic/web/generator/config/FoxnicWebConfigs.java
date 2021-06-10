@@ -1,4 +1,4 @@
-package com.tailoring.generator.config;
+package org.github.foxnic.web.generator.config;
 
 import java.io.File;
 

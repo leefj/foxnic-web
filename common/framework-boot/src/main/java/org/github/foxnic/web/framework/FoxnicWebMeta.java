@@ -1,6 +1,6 @@
 package org.github.foxnic.web.framework;
 
-public class Meta {
+public class FoxnicWebMeta {
 
 	/**
 	 *

@@ -1,5 +1,5 @@
 package org.github.foxnic.web.system.service;
-import org.github.foxnic.web.constants.enums.SystemEnum;
+import org.github.foxnic.web.constants.enums.SystemConfigEnum;
 import org.github.foxnic.web.domain.system.Config;
 
 import com.github.foxnic.dao.entity.ISuperService;
@@ -39,6 +39,6 @@ public interface IConfigService extends ISuperService<Config> {
 	 */
 	Config getById(String key);
 
-	Config getById(SystemEnum key);
+	Config getById(SystemConfigEnum key);
 
 }

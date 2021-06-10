@@ -5,7 +5,7 @@
     <parent> 
         <groupId>com.github.foxnic.web</groupId>  
         <artifactId>parent</artifactId>  
-        <version>0.0.2.RELEASE</version>  
+        <version>0.0.3.RELEASE</version>  
         <relativePath/>  
         <!-- lookup parent from repository --> 
     </parent>  
@@ -14,6 +14,11 @@
     <description>proxy</description>  
     <packaging>jar</packaging>  
     <dependencies> 
+        <dependency> 
+            <groupId>com.github.foxnic</groupId>  
+            <artifactId>foxnic-springboot</artifactId>  
+            <version>${foxnic.version}</version> 
+        </dependency>  
         <dependency> 
             <groupId>com.github.foxnic.web</groupId>  
             <artifactId>domain</artifactId>  

@@ -1,4 +1,4 @@
-package com.tailoring.generator.data;
+package org.github.foxnic.web.generator.data;
 
 import java.io.File;
 import java.lang.reflect.Field;
@@ -9,6 +9,7 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_ROLE;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_ROLE_MENU;
 import org.github.foxnic.web.constants.enums.MenuType;
 import org.github.foxnic.web.domain.oauth.Menu;
+import org.github.foxnic.web.generator.config.FoxnicWebConfigs;
 import org.github.foxnic.web.oauth.page.MenuPageController;
 import org.github.foxnic.web.oauth.page.RolePageController;
 import org.github.foxnic.web.proxy.oauth.MenuServiceProxy;
@@ -24,7 +25,6 @@ import com.github.foxnic.dao.data.RcdSet;
 import com.github.foxnic.dao.meta.DBTableMeta;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.sql.meta.DBTable;
-import com.tailoring.generator.config.FoxnicWebConfigs;
 
  
 

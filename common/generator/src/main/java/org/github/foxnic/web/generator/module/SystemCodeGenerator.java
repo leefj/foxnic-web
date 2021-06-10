@@ -1,15 +1,15 @@
-package com.tailoring.generator.module;
+package org.github.foxnic.web.generator.module;
 
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_CONFIG;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_LANG;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER;
+import org.github.foxnic.web.generator.config.FoxnicWebConfigs;
+import org.github.foxnic.web.generator.config.FoxnicWebConfigs.ProjectConfigs;
 import org.github.foxnic.web.proxy.MicroServiceNames;
 
 import com.github.foxnic.generator.config.ModuleContext;
 import com.github.foxnic.generator.config.WriteMode;
 import com.github.foxnic.sql.meta.DBTable;
-import com.tailoring.generator.config.FoxnicWebConfigs;
-import com.tailoring.generator.config.FoxnicWebConfigs.ProjectConfigs;
  
  
 
