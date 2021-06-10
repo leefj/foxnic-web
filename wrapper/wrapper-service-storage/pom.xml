@@ -19,6 +19,8 @@
         <maven.compiler.source>1.8</maven.compiler.source>  
         <maven.compiler.target>1.8</maven.compiler.target>  
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>  
+        <platform.version xmlns="">0.0.2.RELEASE</platform.version>  
+        <platform.version xmlns="">0.0.2.RELEASE</platform.version>  
         <platform.version xmlns="">0.0.2.RELEASE</platform.version>
     </properties>  
     <dependencies> 

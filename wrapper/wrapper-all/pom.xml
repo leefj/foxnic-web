@@ -51,7 +51,7 @@
             <artifactId>spring-session-data-redis</artifactId> 
         </dependency> 
     </dependencies>  
-    <dependencyManagement></dependencyManagement>  
+    <dependencyManagement/>  
     <build> 
         <defaultGoal>compile</defaultGoal>  
         <resources> 

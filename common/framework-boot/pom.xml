@@ -15,6 +15,21 @@
     <packaging>jar</packaging>  
     <dependencies> 
         <dependency> 
+            <groupId>com.github.foxnic</groupId>  
+            <artifactId>foxnic-sql</artifactId>  
+            <version>${foxnic.version}</version> 
+        </dependency>  
+        <dependency> 
+            <groupId>com.github.foxnic</groupId>  
+            <artifactId>foxnic-dao</artifactId>  
+            <version>${foxnic.version}</version> 
+        </dependency>  
+        <dependency> 
+            <groupId>com.github.foxnic</groupId>  
+            <artifactId>foxnic-springboot</artifactId>  
+            <version>${foxnic.version}</version> 
+        </dependency>  
+        <dependency> 
             <groupId>com.github.foxnic.web</groupId>  
             <artifactId>domain</artifactId>  
             <version>${platform.version}</version> 

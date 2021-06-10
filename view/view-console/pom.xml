@@ -26,7 +26,13 @@
         <dependency> 
             <groupId>com.github.foxnic.web</groupId>  
             <artifactId>domain</artifactId>  
-            <version>${platform.version}</version> 
+            <version>${platform.version}</version>  
+            <exclusions> 
+                <exclusion> 
+                    <groupId>com.github.xiaoymin</groupId>  
+                    <artifactId>knife4j-micro-spring-boot-starter</artifactId> 
+                </exclusion> 
+            </exclusions> 
         </dependency>  
         <dependency> 
             <groupId>com.github.foxnic.web</groupId>  
@@ -108,21 +114,6 @@
             <scope>test</scope> 
         </dependency> 
     </dependencies>  
-    <build> 
-        <plugins> 
-            <plugin> 
-                <groupId>org.apache.maven.plugins</groupId>  
-                <artifactId>maven-surefire-plugin</artifactId>  
-                <configuration> 
-                    <skip>true</skip> 
-                </configuration> 
-            </plugin>  
-            <plugin> 
-                <groupId>org.springframework.boot</groupId>  
-                <artifactId>spring-boot-maven-plugin</artifactId> 
-            </plugin> 
-        </plugins> 
-    </build>  
     <repositories> 
         <repository> 
             <id>releases</id>  
