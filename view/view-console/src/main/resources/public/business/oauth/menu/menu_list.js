@@ -36,7 +36,8 @@ function ListPage() {
 			callback: {
 				onRename : onNodeRename,
 				beforeRemove : beforeNodeRemove,
-				onDrop : onNodeDrop
+				onDrop : onNodeDrop,
+				onClick: onNodeClick
 			},
 			view: {
 				addHoverDom: addHoverDom,
@@ -44,7 +45,24 @@ function ListPage() {
 			}
 		};
 		menuTree=$.fn.zTree.init($("#menu-tree"), cfgs);
+		
+		
+		setTimeout(function(){
+			var toolbarHeight=$("#toolbar")[0].clientHeight;
+			var fullHeight=$(window).height();
+			var treeHeight=fullHeight-toolbarHeight-1;
+			$("#tree-container").height(treeHeight);
+			$("#form-view").height(fullHeight-6);
+		},10);
+		
+		
      }
+    
+    var editingNode=null;
+    function onNodeClick(event, treeId, treeNode) {
+    	editingNode=treeNode;
+    	$("#form-view")[0].contentWindow.loadFormData(treeNode.id);
+    }
     
      
     function onNodeDrop(event, treeId, treeNodes, targetNode, moveType) {
@@ -147,6 +165,14 @@ function ListPage() {
 		});
 			 
 	}
+	
+	function chaneNodeName(id,name) {
+		if(editingNode==null) return;
+		if(editingNode.id!=id) return;
+		editingNode.name=name;
+		menuTree.updateNode(editingNode);
+	}
+	window.chaneNodeName=chaneNodeName;
 	
 	function removeHoverDom(treeId, treeNode) {
 			//if (treeNode.parentTId && treeNode.getParentNode().id!=1) return;

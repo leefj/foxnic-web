@@ -14,16 +14,12 @@
     <!--<link rel="stylesheet" href="assets/css/theme-blue.css"/>-->
     <style>
         /* 覆盖原始样式 */
-        .layui-layout-admin .layui-body {
-            position: fixed;
-            top: 60px;
-            bottom: 0px;
-        }
         .xm-icon-close:before {
 		    content: "";
 		    display: none;
 		}
     </style>
+    <link rel="stylesheet" href="/assets/css/foxnic-web.css">
 </head>
 
 <body class="layui-layout-body">
@@ -35,7 +31,7 @@
     <div class="layui-side" p-com="side"></div>
 
     <!-- 主体部分 -->
-    <div class="layui-body">
+    <div class="layui-body" style="bottom:8px">
         <div class="layui-tab" lay-allowClose="true" lay-filter="admin-pagetabs">
             <ul class="layui-tab-title">
             </ul>

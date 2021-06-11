@@ -7,8 +7,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-10 17:27:50
- * @sign C8A3D0EC4E9EE548380F07B7A003669D
+ * @since 2021-06-11 11:48:07
+ * @sign 3ABA9BBA51769FC0F0BFF9CFB8CCEC3A
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -28,11 +28,6 @@ public class MenuMeta {
 	 * 权限 , 权限标识
 	*/
 	public static final String AUTHORITY="authority";
-	
-	/**
-	 * 图标
-	*/
-	public static final String ICON="icon";
 	
 	/**
 	 * 是否隐藏
@@ -117,7 +112,7 @@ public class MenuMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , BATCH_ID , AUTHORITY , ICON , HIDDEN , CSS , LABEL , TYPE , PATH , URL , PARENT_ID , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , BATCH_ID , AUTHORITY , HIDDEN , CSS , LABEL , TYPE , PATH , URL , PARENT_ID , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
 	
 	/**
 	 * 代理类
@@ -157,17 +152,6 @@ public class MenuMeta {
 		public Menu setAuthority(String authority) {
 			super.change(AUTHORITY,super.getAuthority(),authority);
 			super.setAuthority(authority);
-			return this;
-		}
-		
-		/**
-		 * 设置 图标
-		 * @param icon 图标
-		 * @return 当前对象
-		*/
-		public Menu setIcon(String icon) {
-			super.change(ICON,super.getIcon(),icon);
-			super.setIcon(icon);
 			return this;
 		}
 		

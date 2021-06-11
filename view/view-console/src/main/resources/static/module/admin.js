@@ -4,7 +4,6 @@ layui.define(['settings', 'layer'], function (exports) {
     var popupRightIndex, popupCenterIndex, popupCenterParam;
 
     var admin = {
-        isRefresh: false,
         // 设置侧栏折叠
         flexible: function (expand) {
             var isExapnd = $('.layui-layout-admin').hasClass('admin-nav-mini');
@@ -290,8 +289,15 @@ layui.define(['settings', 'layer'], function (exports) {
             }
         },
         refresh: function () {
-            admin.isRefresh = true;
-            Q.refresh();
+           
+            var $title = $('.layui-layout-admin .layui-body .layui-tab .layui-tab-title');
+        	if ($title.find('li').first().hasClass('layui-this')) {
+                return;
+            }
+            var id=$title.find('li.layui-this').attr("lay-id")
+            var ifr=$("#"+id);
+            ifr[0].contentWindow.location.reload();
+
         },
         // 判断是否为json
         parseJSON: function (str) {
@@ -358,7 +364,7 @@ layui.define(['settings', 'layer'], function (exports) {
         },
         openInNewTab:function() {
         	var $title = $('.layui-layout-admin .layui-body .layui-tab .layui-tab-title');
-        	 if ($title.find('li').first().hasClass('layui-this')) {
+        	if ($title.find('li').first().hasClass('layui-this')) {
                 return;
             }
             var id=$title.find('li.layui-this').attr("lay-id")

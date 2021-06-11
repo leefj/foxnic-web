@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="/assets/libs/layui/css/layui.css"/>
     <link rel="stylesheet" href="/assets/css/admin.css"/>
     <link rel="stylesheet" href="/module/formSelects/formSelects-v4.css"/>
+    <link rel="stylesheet" href="/assets/css/foxnic-web.css">
 </head>
 
 <body>
@@ -24,6 +25,22 @@
     <input name="id" id="id"  type="hidden"/>
     
     <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('名称')}">名称</label>
+        <div class="layui-input-block">
+            <input id="label" name="label" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('名称') }" type="text" class="layui-input"    />
+        </div>
+    </div>
+    
+	
+    
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('菜单类型')}">类型</label>
+        <div class="layui-input-block">
+	      <input type="radio" name="type" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.MenuType')}" th:value="${e.code}" th:title="${e.text}">
+        </div>
+    </div>
+    
+    <div class="layui-form-item" style="display:none">
         <label class="layui-form-label" th:text="${lang.translate('批次号')}">批次号</label>
         <div class="layui-input-block">
             <input id="batchId" name="batchId" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('批次号') }" type="text" class="layui-input"    />
@@ -38,63 +55,29 @@
             <input id="authority" name="authority" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('权限') }" type="text" class="layui-input"    />
         </div>
     </div>
-    
-	
-    
-    <div class="layui-form-item">
-        <label class="layui-form-label" th:text="${lang.translate('图标')}">图标</label>
-        <div class="layui-input-block">
-            <input id="icon" name="icon" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('图标') }" type="text" class="layui-input"    />
-        </div>
-    </div>
-    
-	
+ 
     
     <div class="layui-form-item">
-        <label class="layui-form-label" th:text="${lang.translate('是否隐藏')}">是否隐藏</label>
+        <label class="layui-form-label" th:text="${lang.translate('是否隐藏')}">隐藏</label>
         <div class="layui-input-block">
-            <input id="hidden" name="hidden" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('是否隐藏') }" type="text" class="layui-input"    />
+            <input type="checkbox" id="hidden" name="hidden" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('是否隐藏') }" lay-skin="switch" lay-filter="switchTest" lay-text="显示&nbsp;|隐藏&nbsp;&nbsp;" />
         </div>
     </div>
-    
-	
-    
+ 
     <div class="layui-form-item">
         <label class="layui-form-label" th:text="${lang.translate('样式')}">样式</label>
         <div class="layui-input-block">
             <input id="css" name="css" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('样式') }" type="text" class="layui-input"    />
         </div>
     </div>
-    
-	
-    
-    <div class="layui-form-item">
-        <label class="layui-form-label" th:text="${lang.translate('标签')}">标签</label>
-        <div class="layui-input-block">
-            <input id="label" name="label" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('标签') }" type="text" class="layui-input"    />
-        </div>
-    </div>
-    
-	
-    
-    <div class="layui-form-item">
-        <label class="layui-form-label" th:text="${lang.translate('菜单类型')}">菜单类型</label>
-        <div class="layui-input-block">
-            <input id="type" name="type" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('菜单类型') }" type="text" class="layui-input"    />
-        </div>
-    </div>
-    
-	
-    
+ 
     <div class="layui-form-item">
         <label class="layui-form-label" th:text="${lang.translate('模版路径')}">模版路径</label>
         <div class="layui-input-block">
             <input id="path" name="path" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('模版路径') }" type="text" class="layui-input"    />
         </div>
     </div>
-    
-	
-    
+ 
     <div class="layui-form-item">
         <label class="layui-form-label" th:text="${lang.translate('路由地址')}">路由地址</label>
         <div class="layui-input-block">
@@ -104,17 +87,14 @@
     
 	
     
-    <div class="layui-form-item">
+    <div class="layui-form-item" style="display:none">
         <label class="layui-form-label" th:text="${lang.translate('上级ID')}">上级ID</label>
         <div class="layui-input-block">
             <input id="parentId" name="parentId" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('上级ID') }" type="text" class="layui-input"    />
         </div>
     </div>
-    
-	
-
+ 
     <div class="layui-form-item model-form-footer">
-        <button class="layui-btn layui-btn-primary" ew-event="closeDialog" type="button" th:text="${lang.translate('取消')}">取消</button>
         <button class="layui-btn"  id="submit-button" lay-filter="submit-button" lay-submit th:text="${lang.translate('保存')}">保存</button>
     </div>
 </form>

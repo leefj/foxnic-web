@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-10 17:27:49
- * @sign C8A3D0EC4E9EE548380F07B7A003669D
+ * @since 2021-06-11 11:48:07
+ * @sign 3ABA9BBA51769FC0F0BFF9CFB8CCEC3A
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -46,12 +46,6 @@ public class Menu extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="权限" , notes = "权限标识")
 	private String authority;
-	
-	/**
-	 * 图标：图标
-	*/
-	@ApiModelProperty(required = false,value="图标" , notes = "图标")
-	private String icon;
 	
 	/**
 	 * 是否隐藏：是否隐藏
@@ -221,31 +215,6 @@ public class Menu extends Entity {
 	/**
 	 * 添加 权限
 	 * @param authority 权限
-	 * @return 当前对象
-	*/
-	
-	/**
-	 * 获得 图标<br>
-	 * 属性说明 : 图标
-	 * @return 图标
-	*/
-	public String getIcon() {
-		return icon;
-	}
-	
-	/**
-	 * 设置 图标
-	 * @param icon 图标
-	 * @return 当前对象
-	*/
-	public Menu setIcon(String icon) {
-		this.icon=icon;
-		return this;
-	}
-	
-	/**
-	 * 添加 图标
-	 * @param icon 图标
 	 * @return 当前对象
 	*/
 	

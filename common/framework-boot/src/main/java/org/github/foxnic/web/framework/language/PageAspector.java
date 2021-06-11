@@ -9,7 +9,7 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.github.foxnic.web.framework.misc.EnumService;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,9 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.commons.log.Logger;
-import com.github.foxnic.springboot.api.swagger.SwaggerDataHandler;
 import com.github.foxnic.springboot.spring.SpringUtil;
 
  
@@ -33,6 +31,9 @@ public class PageAspector {
 	 
 	private static final String LANG = "lang";
 	
+	private static final String ENUM = "enum";
+	
+	private EnumService enumService;
 
 	private LanguageService languageService;
 
@@ -74,14 +75,22 @@ public class PageAspector {
 			languageService=SpringUtil.getBean(LanguageService.class);
 		}
 		
+		if(enumService==null) {
+			enumService=SpringUtil.getBean(EnumService.class);
+		}
+		
+		
 		Object args[] = joinPoint.getArgs();
 		for (Object arg : args) {
 			if(arg instanceof Model ) {
 				((Model)arg).addAttribute(LANG, languageService);
+				((Model)arg).addAttribute(ENUM, enumService);
 			} else if(arg instanceof ModelAndView ) {
 				((ModelAndView)arg).addObject(LANG, languageService);
+				((ModelAndView)arg).addObject(ENUM, enumService);
 			} else if(arg instanceof ModelMap ) {
 				((ModelMap)arg).addAttribute(LANG, languageService);
+				((ModelMap)arg).addAttribute(ENUM, enumService);
 			}
 		}
 		 

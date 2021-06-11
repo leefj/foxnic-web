@@ -543,8 +543,8 @@ html {
 .layui-layout-admin .layui-body .layui-tab .layui-tab-content .layui-tab-item {
     position: absolute;
     bottom: 0;
-    overflow-y: scroll;
-    padding: 15px;
+    overflow-y: auto;
+    padding: 15px 15px 8px 15px;
     right: 0;
     top: 40px;
     left: 0;
