@@ -186,7 +186,7 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form'], functi
         },
         // 路由加载组件
         loadView: function (menuId, menuPath, menuName) {
-        	debugger;
+        	//debugger;
             var contentDom = '.layui-layout-admin .layui-body';
             admin.showLoading('.layui-layout-admin .layui-body');
             var flag;  // 选项卡是否添加

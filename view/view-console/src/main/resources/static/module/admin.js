@@ -356,6 +356,15 @@ layui.define(['settings', 'layer'], function (exports) {
         rightPage: function () {
             admin.rollPage();
         },
+        openInNewTab:function() {
+        	var $title = $('.layui-layout-admin .layui-body .layui-tab .layui-tab-title');
+        	 if ($title.find('li').first().hasClass('layui-this')) {
+                return;
+            }
+            var id=$title.find('li.layui-this').attr("lay-id")
+            var src=$("#"+id).attr("src");
+            window.open(src);
+        },
         // 关闭当前选项卡
         closeThisTabs: function () {
             var $title = $('.layui-layout-admin .layui-body .layui-tab .layui-tab-title');
