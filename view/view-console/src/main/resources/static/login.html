@@ -13,7 +13,7 @@
 
 <body>
 <div class="login-wrapper">
-    <div class="login-body">
+    <div class="login-body" id="login-form" style="display: none">
         <div class="layui-card">
             <div class="layui-card-header">
                 <i class="layui-icon layui-icon-engine"></i>&nbsp;&nbsp;用户登录
@@ -119,6 +119,20 @@
         $('.login-captcha').click(function () {
             this.src = this.src + '?t=' + (new Date).getTime();
         });
+
+        var fullHeight=$(window).height();
+        var formHeight=$("#login-form").height();
+        var formTop=(fullHeight-formHeight)/2;
+        $("#login-form").css("padding",formTop+"px 10px 40px 10px");
+        $("#login-form").css("opacity","0.0");
+        $("#login-form").css("display","");
+        setTimeout(function (){
+            $("#login-form").animate({
+                opacity:'1.0'
+            },1000);
+        },500)
+
+
     });
 </script>
 </body>
