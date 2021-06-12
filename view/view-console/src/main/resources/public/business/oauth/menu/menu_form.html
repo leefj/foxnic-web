@@ -60,7 +60,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label" th:text="${lang.translate('是否隐藏')}">隐藏</label>
         <div class="layui-input-block">
-            <input type="checkbox" id="hidden" name="hidden" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('是否隐藏') }" lay-skin="switch" lay-filter="switchTest" lay-text="显示&nbsp;|隐藏&nbsp;&nbsp;" />
+            <input type="checkbox" id="hidden" name="hidden" lay-filter="hidden" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('是否隐藏') }" lay-skin="switch" lay-text="显示&nbsp;|隐藏&nbsp;&nbsp;" />
         </div>
     </div>
  

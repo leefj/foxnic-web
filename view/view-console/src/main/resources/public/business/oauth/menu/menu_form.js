@@ -62,7 +62,18 @@ function FormPage() {
 		if (formData) {
 			form.val('data-form', formData);
 		}
-		form.render();
+		renderFormFields();
+	}
+
+
+	function processFormValues(values) {
+		for (var id in values) {
+			if($("#"+id).attr("type")=="checkbox") {
+				if(values[id]=='on') values[id]=1;
+				else values[id]=0;
+			}
+		}
+		return values;
 	}
 	
 	/**
@@ -73,7 +84,7 @@ function FormPage() {
 	    form.on('submit(submit-button)', function (data) {
  
 	    	//处理逻辑值
-	    	var values=data.field;
+	    	var values=processFormValues(data.field);
 	    	var api=moduleURL+"/"+(values.id?"update":"insert");
 	        layer.load(2);
 	        admin.request(api, data.field, function (data) {
