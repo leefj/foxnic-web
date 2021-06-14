@@ -11,7 +11,7 @@
     </parent>  
     <groupId>com.github.foxnic.web</groupId>  
     <artifactId>view-console</artifactId>  
-    <version>0.0.3.RELEASE</version>  
+    <version>0.0.4.RELEASE</version>  
     <name>view-console</name>  
     <description>Console View</description>  
     <properties> 
@@ -19,8 +19,8 @@
         <junit.jupiter.version>5.7.0</junit.jupiter.version>  
         <junit.vintage.version>5.7.0</junit.vintage.version>  
         <junit.platform.version>1.7.0</junit.platform.version>  
-        <foxnic.version>1.2.0.RELEASE</foxnic.version>  
-        <platform.version>0.0.3.RELEASE</platform.version> 
+        <foxnic.version>1.2.1.RELEASE</foxnic.version>  
+        <platform.version>0.0.4.RELEASE</platform.version> 
     </properties>  
     <dependencies> 
         <dependency> 

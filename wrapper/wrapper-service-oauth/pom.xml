@@ -10,7 +10,7 @@
         <!-- lookup parent from repository --> 
     </parent>  
     <groupId>com.github.foxnic.web</groupId>  
-    <version>0.0.3.RELEASE</version>  
+    <version>0.0.4.RELEASE</version>  
     <artifactId>wrapper-service-oauth</artifactId>  
     <name>wrapper-oauth</name>  
     <description>Wrapper-OAuth</description>  
@@ -26,7 +26,15 @@
         <platform.version xmlns="">0.0.2.RELEASE</platform.version>  
         <platform.version xmlns="">0.0.2.RELEASE</platform.version>  
         <platform.version xmlns="">0.0.2.RELEASE</platform.version>  
-        <platform.version xmlns="">0.0.3.RELEASE</platform.version>
+        <platform.version xmlns="">0.0.3.RELEASE</platform.version>  
+        <platform.version xmlns="">0.0.3.RELEASE</platform.version>  
+        <platform.version xmlns="">0.0.3.RELEASE</platform.version>  
+        <platform.version xmlns="">0.0.3.RELEASE</platform.version>  
+        <platform.version xmlns="">0.0.3.RELEASE</platform.version>  
+        <platform.version xmlns="">0.0.3.RELEASE</platform.version>  
+        <platform.version xmlns="">0.0.3.RELEASE</platform.version>  
+        <platform.version xmlns="">0.0.3.RELEASE</platform.version>  
+        <platform.version xmlns="">0.0.4.RELEASE</platform.version>
     </properties>  
     <dependencies> 
         <dependency> 

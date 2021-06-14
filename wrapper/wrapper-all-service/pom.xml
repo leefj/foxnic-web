@@ -10,7 +10,7 @@
         <!-- lookup parent from repository --> 
     </parent>  
     <groupId>com.github.foxnic.web</groupId>  
-    <version>0.0.3.RELEASE</version>  
+    <version>0.0.4.RELEASE</version>  
     <artifactId>wrapper-all-service</artifactId>  
     <name>wrapper-all-service</name>  
     <description>Wrapper All Service</description>  
@@ -20,7 +20,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>  
         <maven.compiler.target>1.8</maven.compiler.target>  
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>  
-        <platform.version>0.0.3.RELEASE</platform.version> 
+        <platform.version>0.0.4.RELEASE</platform.version> 
     </properties>  
     <dependencies> 
         <dependency> 
