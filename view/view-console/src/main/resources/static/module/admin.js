@@ -31,6 +31,36 @@ layui.define(['settings', 'layer'], function (exports) {
                 $a.parent('dd').parent('.layui-nav-child').parent('.layui-nav-item').addClass('layui-nav-itemed');
             }
         },
+        openIconDialog:function(callback) {
+
+            //拦截，并由顶层弹出窗口
+            if(top && top!=window && top.admin) {
+                return top.admin.openIconDialog(callback);
+            }
+
+            var index=admin.popupCenter({
+                type:2,
+                title: "请选择图标",
+                content: '/module/icon/icon.html',
+                area:["80%","80%"],
+                offset:["10%","10%"]
+            });
+
+            var task=setInterval(function (){
+                try{
+                    $("#layui-layer-iframe"+index)[0].contentWindow.setLinkIn(index,function(act,css){
+                        admin.closePopupCenter();
+                        if(act=="sure") {
+                            callback(css);
+                        }
+                    });
+                    clearInterval(task);
+                } catch (e) {}
+            },100);
+
+
+
+        },
         toast:function() {
         	//https://gitee.com/wispx/toastr?_from=gitee_search
         	//debugger;
@@ -68,8 +98,7 @@ layui.define(['settings', 'layer'], function (exports) {
           
         	//拦截，并由顶层弹出窗口
         	if(top && top!=window && top.admin) {
-        		top.admin.popupCenter(param);
-        		return;
+                return top.admin.popupCenter(param);
         	}
         	
             param.id =param.id?param.id : 'adminPopupC';
@@ -96,6 +125,7 @@ layui.define(['settings', 'layer'], function (exports) {
             layer.close(popupCenterIndex);
         },
         changePopupArea: function (width,height) {
+
         	if(top && top!=window && top.admin) {
         		top.admin.changePopupArea(width,height);
         		return;

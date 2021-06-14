@@ -1,21 +1,5 @@
 package org.github.foxnic.web.oauth.service.impl;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-
-import javax.annotation.Resource;
-
-import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_MENU;
-import org.github.foxnic.web.domain.oauth.Menu;
-import org.github.foxnic.web.framework.dao.DBConfigs;
-import org.github.foxnic.web.misc.ztree.ZTreeNode;
-import org.github.foxnic.web.misc.ztree.ZTreeNode.Transformer;
-import org.github.foxnic.web.oauth.service.IMenuService;
-import org.springframework.stereotype.Service;
-
 import com.github.foxnic.commons.busi.id.IDGenerator;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.Rcd;
@@ -28,6 +12,18 @@ import com.github.foxnic.springboot.mvc.Result;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
 import com.github.foxnic.sql.parameter.BatchParamBuilder;
+import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_MENU;
+import org.github.foxnic.web.domain.oauth.Menu;
+import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.github.foxnic.web.misc.ztree.ZTreeNode;
+import org.github.foxnic.web.oauth.service.IMenuService;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -212,7 +208,7 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 	private RcdSet queryChildMenus(String parentId) {
 		RcdSet menus=null;
 		if(parentId==null) {
-			menus=dao.query("select m.*,(select count(1) from sys_menu cm  where m.id=cm.parent_id and cm.deleted=0) child_count from sys_menu m where m.parent_id is null and m.deleted=0 order by sort asc");
+			menus=dao.query("select m.*,(select count(1) from sys_menu cm  where m.id=cm.parent_id and cm.deleted=0) child_count from sys_menu m where (m.parent_id is null or m.parent_id='') and m.deleted=0 order by sort asc");
 		} else {
 			menus=dao.query("select m.*,(select count(1) from sys_menu cm  where m.id=cm.parent_id and cm.deleted=0) child_count from sys_menu m where m.parent_id=? and m.deleted=0 order by sort asc",parentId);
 		}

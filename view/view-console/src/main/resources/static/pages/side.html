@@ -5,13 +5,13 @@
             {{#  layui.each(d, function(index, item){ }}
             {{# if(!item.hidden){ }}
             <li class="layui-nav-item">
-                <a href="{{item.url}}"><i class="layui-icon {{item.icon}}"></i>&emsp;<cite>{{ item.label }}</cite></a>
+                <a href="{{item.url}}"><i class="{{item.css}}"></i>&emsp;<cite>{{ item.label }}</cite></a>
                 {{# if(item.subMenus&&item.subMenus.length>0){ }}
                 <dl class="layui-nav-child">
                     {{# layui.each(item.subMenus, function(index, subItem){ }}
                     {{# if(!subItem.hidden){ }}
                     <dd>
-                        <a href="{{ subItem.url }}"><i class="layui-icon {{subItem.icon}}"></i>&emsp;<cite>{{ subItem.label }}</cite></a>
+                        <a href="{{ subItem.url }}"><i class="{{subItem.css}}"></i>&emsp;<cite>{{ subItem.label }}</cite></a>
 
                         {{# if(subItem.subMenus&&subItem.subMenus.length>0){ }}
                         <dl class="layui-nav-child">

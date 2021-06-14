@@ -61,6 +61,8 @@ function FormPage() {
 		$('#data-form')[0].reset();
 		if (formData) {
 			form.val('data-form', formData);
+			if(!formData.css) formData.css="";
+			$("#icon-button-el").attr("class",formData.css);
 		}
 		renderFormFields();
 	}
@@ -75,6 +77,14 @@ function FormPage() {
 		}
 		return values;
 	}
+
+	$("#icon-button").click(function(){
+		admin.openIconDialog(function (css){
+			//debugger;
+			$("#css").val(css);
+			$("#icon-button-el").attr("class",css);
+		});
+	});
 	
 	/**
       * 保存数据，表单提交事件
