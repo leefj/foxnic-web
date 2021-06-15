@@ -5,7 +5,7 @@
     <parent> 
         <groupId>com.github.foxnic.web</groupId>  
         <artifactId>parent</artifactId>  
-        <version>0.0.4.RELEASE</version>  
+        <version>0.0.5.RELEASE</version>  
         <relativePath/>  
         <!-- lookup parent from repository --> 
     </parent>  
@@ -14,7 +14,7 @@
     <description>framework-boot</description>  
     <packaging>jar</packaging>  
     <dependencies> 
-    	<dependency> 
+        <dependency> 
             <groupId>com.github.foxnic</groupId>  
             <artifactId>foxnic-commons</artifactId>  
             <version>${foxnic.version}</version> 
@@ -49,7 +49,7 @@
                     <artifactId>junit-vintage-engine</artifactId> 
                 </exclusion> 
             </exclusions> 
-        </dependency> 
+        </dependency>  
         <dependency> 
             <groupId>com.github.foxnic</groupId>  
             <artifactId>foxnic-dao</artifactId>  

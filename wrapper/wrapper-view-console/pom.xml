@@ -2,23 +2,37 @@
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">  
     <modelVersion>4.0.0</modelVersion>  
-   	<parent>
-		<groupId>com.github.foxnic.web</groupId>
-		<artifactId>parent</artifactId>
-		<version>0.0.4.RELEASE</version>
-		<relativePath />
-		<!-- lookup parent from repository -->
-	</parent>
-    
+    <parent> 
+        <groupId>com.github.foxnic.web</groupId>  
+        <artifactId>parent</artifactId>  
+        <version>0.0.5.RELEASE</version>  
+        <relativePath/>  
+        <!-- lookup parent from repository --> 
+    </parent>  
     <artifactId>wrapper-view-console</artifactId>  
     <name>wrapper-view-console</name>  
     <description>Wrapper Console View</description>  
-  
     <dependencies> 
         <dependency> 
             <groupId>com.github.foxnic.web</groupId>  
             <artifactId>view-console</artifactId>  
             <version>${platform.version}</version> 
+        </dependency>  
+        <dependency> 
+            <groupId>org.springframework.boot</groupId>  
+            <artifactId>spring-boot-starter-web</artifactId>  
+            <!-- 移除掉默认支持的 Tomcat -->  
+            <exclusions> 
+                <exclusion> 
+                    <groupId>org.springframework.boot</groupId>  
+                    <artifactId>spring-boot-starter-tomcat</artifactId> 
+                </exclusion> 
+            </exclusions> 
+        </dependency>  
+        <!-- 添加 Undertow 容器 -->  
+        <dependency> 
+            <groupId>org.springframework.boot</groupId>  
+            <artifactId>spring-boot-starter-undertow</artifactId> 
         </dependency> 
     </dependencies>  
     <build> 
