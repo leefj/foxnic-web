@@ -47,42 +47,7 @@
         <knife4j.version>3.0.2</knife4j.version> 
     </properties>  
     <dependencies> 
-        <dependency> 
-            <groupId>com.github.foxnic</groupId>  
-            <artifactId>foxnic-commons</artifactId>  
-            <version>${foxnic.version}</version> 
-        </dependency>  
-        <dependency> 
-            <groupId>com.github.foxnic</groupId>  
-            <artifactId>foxnic-sql</artifactId>  
-            <version>${foxnic.version}</version> 
-        </dependency>  
-        <dependency> 
-            <groupId>com.github.ben-manes.caffeine</groupId>  
-            <artifactId>caffeine</artifactId> 
-        </dependency>  
-        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-pool2 -->  
-        <dependency> 
-            <groupId>org.apache.commons</groupId>  
-            <artifactId>commons-pool2</artifactId> 
-        </dependency>  
-        <!-- https://mvnrepository.com/artifact/com.esotericsoftware/reflectasm -->  
-        <dependency> 
-            <groupId>com.esotericsoftware</groupId>  
-            <artifactId>reflectasm</artifactId>  
-            <version>1.11.9</version> 
-        </dependency>  
-        <dependency> 
-            <groupId>org.springframework.boot</groupId>  
-            <artifactId>spring-boot-starter-test</artifactId>  
-            <scope>test</scope>  
-            <exclusions> 
-                <exclusion> 
-                    <groupId>org.junit.vintage</groupId>  
-                    <artifactId>junit-vintage-engine</artifactId> 
-                </exclusion> 
-            </exclusions> 
-        </dependency> 
+        
     </dependencies>  
     <build> 
         <defaultGoal>compile</defaultGoal>  
