@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-07 16:28:26
- * @sign 3C1D026F901FB5930274BE4BF14FFF72
+ * @since 2021-06-15 14:23:45
+ * @sign 831358CE5F0FF8309B1D91C7838B56F4
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -42,6 +42,18 @@ public class Config extends Entity {
 	private String name;
 	
 	/**
+	 * 数据类型：由开发人员在库中指定，包括 String,Integer,DateTime,Double,Enum,Dict
+	*/
+	@ApiModelProperty(required = false,value="数据类型" , notes = "由开发人员在库中指定，包括 String,Integer,DateTime,Double,Enum,Dict")
+	private String type;
+	
+	/**
+	 * 类型描述：类型描述
+	*/
+	@ApiModelProperty(required = false,value="类型描述" , notes = "类型描述")
+	private String typeDesc;
+	
+	/**
 	 * 配置值：配置值
 	*/
 	@ApiModelProperty(required = false,value="配置值" , notes = "配置值")
@@ -52,6 +64,12 @@ public class Config extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="是否生效" , notes = "是否生效")
 	private Integer valid;
+	
+	/**
+	 * 说明：说明
+	*/
+	@ApiModelProperty(required = false,value="说明" , notes = "说明")
+	private String notes;
 	
 	/**
 	 * 创建人ID：创建人ID
@@ -152,6 +170,56 @@ public class Config extends Entity {
 	*/
 	
 	/**
+	 * 获得 数据类型<br>
+	 * 属性说明 : 由开发人员在库中指定，包括 String,Integer,DateTime,Double,Enum,Dict
+	 * @return 数据类型
+	*/
+	public String getType() {
+		return type;
+	}
+	
+	/**
+	 * 设置 数据类型
+	 * @param type 数据类型
+	 * @return 当前对象
+	*/
+	public Config setType(String type) {
+		this.type=type;
+		return this;
+	}
+	
+	/**
+	 * 添加 数据类型
+	 * @param type 数据类型
+	 * @return 当前对象
+	*/
+	
+	/**
+	 * 获得 类型描述<br>
+	 * 属性说明 : 类型描述
+	 * @return 类型描述
+	*/
+	public String getTypeDesc() {
+		return typeDesc;
+	}
+	
+	/**
+	 * 设置 类型描述
+	 * @param typeDesc 类型描述
+	 * @return 当前对象
+	*/
+	public Config setTypeDesc(String typeDesc) {
+		this.typeDesc=typeDesc;
+		return this;
+	}
+	
+	/**
+	 * 添加 类型描述
+	 * @param typeDesc 类型描述
+	 * @return 当前对象
+	*/
+	
+	/**
 	 * 获得 配置值<br>
 	 * 属性说明 : 配置值
 	 * @return 配置值
@@ -198,6 +266,31 @@ public class Config extends Entity {
 	/**
 	 * 添加 是否生效
 	 * @param valid 是否生效
+	 * @return 当前对象
+	*/
+	
+	/**
+	 * 获得 说明<br>
+	 * 属性说明 : 说明
+	 * @return 说明
+	*/
+	public String getNotes() {
+		return notes;
+	}
+	
+	/**
+	 * 设置 说明
+	 * @param notes 说明
+	 * @return 当前对象
+	*/
+	public Config setNotes(String notes) {
+		this.notes=notes;
+		return this;
+	}
+	
+	/**
+	 * 添加 说明
+	 * @param notes 说明
 	 * @return 当前对象
 	*/
 	

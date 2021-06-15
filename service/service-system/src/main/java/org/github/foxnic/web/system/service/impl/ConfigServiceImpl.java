@@ -96,4 +96,17 @@ public class ConfigServiceImpl  extends SuperService<Config> implements IConfigS
 	public Config getById(SystemConfigEnum cfg) {
 		return this.getById(cfg.code());
 	}
+	
+	@Override
+	public boolean save(Config entity, SaveMode mode) {
+		cache.remove(entity.getCode());
+		return super.save(entity, mode);
+	}
+	
+	@Override
+	public boolean update(Config entity, SaveMode mode) {
+		cache.remove(entity.getCode());
+		return super.update(entity, mode);
+	}
+	
 }

@@ -133,7 +133,7 @@ public class FoxnicWebConfigs {
 		this.settings.setAuthor(author);
 		this.settings.setEnableSwagger(projectConfigs.isEnableSwagger());
 		this.settings.setEnableMicroService(projectConfigs.isEnableMicroService());
-		this.settings.setFrontendDepart(projectConfigs.isFrontendDepart());
+ 
 	}
 
 	
@@ -270,15 +270,7 @@ public class FoxnicWebConfigs {
 			return properties.getProperty("settings.enableMicroService").booleanValue();
 		}
 		
-		/**
-		 * 获得 isFrontendDepart
-		 * */
-		public boolean isFrontendDepart() {
-			return properties.getProperty("settings.isFrontendDepart").booleanValue();
-		}
-		
-		
-		
+ 
 		/**
 		 * 获得 enableSwagger
 		 * */

@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2021-06-11 11:47:39
+ * @since 2021-06-15 14:23:32
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -100,6 +100,16 @@ public class FoxnicWeb {
 		public static final DBField NAME = new DBField(DBDataType.STRING , "name","name","配置名","配置名",false,false,true);
 		
 		/**
+		 * 数据类型，由开发人员在库中指定，包括 String,Integer,DateTime,Double,Enum,Dict
+		*/
+		public static final DBField TYPE = new DBField(DBDataType.STRING , "type","type","数据类型","由开发人员在库中指定，包括 String,Integer,DateTime,Double,Enum,Dict",false,false,true);
+		
+		/**
+		 * 类型描述
+		*/
+		public static final DBField TYPE_DESC = new DBField(DBDataType.STRING , "type_desc","typeDesc","类型描述","类型描述",false,false,true);
+		
+		/**
 		 * 配置值
 		*/
 		public static final DBField VALUE = new DBField(DBDataType.STRING , "value","value","配置值","配置值",false,false,true);
@@ -108,6 +118,11 @@ public class FoxnicWeb {
 		 * 是否生效
 		*/
 		public static final DBField VALID = new DBField(DBDataType.INTEGER , "valid","valid","是否生效","是否生效",false,false,false);
+		
+		/**
+		 * 说明
+		*/
+		public static final DBField NOTES = new DBField(DBDataType.STRING , "notes","notes","说明","说明",false,false,true);
 		
 		/**
 		 * 创建人ID
@@ -150,7 +165,7 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
 		public SYS_CONFIG() {
-			this.init($NAME,"系统配置表" , CODE , NAME , VALUE , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"系统配置表" , CODE , NAME , TYPE , TYPE_DESC , VALUE , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final SYS_CONFIG $TABLE=new SYS_CONFIG();
 	}
@@ -618,7 +633,7 @@ public class FoxnicWeb {
 		/**
 		 * 菜单类型
 		*/
-		public static final DBField TYPE = new DBField(DBDataType.STRING , "type","type","菜单类型","菜单类型",false,false,true);
+		public static final DBField TYPE = new DBField(DBDataType.STRING , "type","type","菜单类型","菜单类型",false,false,false);
 		
 		/**
 		 * 模版路径

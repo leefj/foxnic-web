@@ -144,6 +144,7 @@ public class ConfigController {
 	public Result<Config> save(ConfigVO configVO) {
 		Result<Config> result=new Result<>();
 		boolean suc=configService.save(configVO,SaveMode.NOT_NULL_FIELDS);
+		
 		result.success(suc);
 		return result;
 	}

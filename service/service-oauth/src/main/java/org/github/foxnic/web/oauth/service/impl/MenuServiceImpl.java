@@ -15,8 +15,10 @@ import com.github.foxnic.sql.parameter.BatchParamBuilder;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_MENU;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.github.foxnic.web.framework.language.LanguageService;
 import org.github.foxnic.web.misc.ztree.ZTreeNode;
 import org.github.foxnic.web.oauth.service.IMenuService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -52,6 +54,9 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 	public Object generateId(Field field) {
 		return IDGenerator.getSnowflakeIdString();
 	}
+	
+	@Autowired
+	private LanguageService languageService;
 	
 	/**
 	 * 插入实体

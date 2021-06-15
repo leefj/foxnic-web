@@ -183,17 +183,16 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload'], fun
     	/**
     	 * 绑定Switch开关
     	 * */
-    	bindSwitchEvent:function(layFilter,updateApiUrl,callback){
+    	bindSwitchEvent:function(layFilter,updateApiUrl,idProp,logicProp,callback){
 			form.on('switch('+layFilter+')', function (obj) {
 	            layer.load(2);
-	            admin.request(updateApiUrl, {
-	                id: obj.elem.value,
-	                valid: obj.elem.checked ? 1 : 0
-	            }, function (data) {
+	            var data={};
+	            data[idProp]=obj.elem.value;
+	            data[logicProp]=obj.elem.checked ? 1 : 0;
+	            admin.request(updateApiUrl, data, function (data) {
 	                layer.closeAll('loading');
 	                if (data.success) {
 	                    layer.msg(data.message, {icon: 1, time: 500});
-	                    //table.reload('table-user', {});
 	                } else {
 	                    layer.msg(data.resp_msg, {icon: 2, time: 500});
 	                    $(obj.elem).prop('checked', !obj.elem.checked);

@@ -1,9 +1,13 @@
-#(authorAndTime)
+/**
+ * 语言条目 列表页 JS 脚本
+ * @author 李方捷 , leefangjie@qq.com
+ * @since 2021-06-15 14:18:55
+ */
 
 function FormPage() {
 
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect;
-	const moduleURL="#(moduleURL)";
+	const moduleURL="/service-system/sys-lang";
 	
 	/**
       * 入口函数，初始化
@@ -29,7 +33,7 @@ function FormPage() {
 	function adjustPopup() {
 		var height=document.body.clientHeight+58;
 		admin.changePopupArea(null,height);
-		admin.putTempData('#(formAreaKey)', {height:height});
+		admin.putTempData('sys-lang-form-area', {height:height});
 	}
 	
 	/**
@@ -37,45 +41,20 @@ function FormPage() {
       */
 	function renderFormFields() {
 		form.render();
-	   
-	    #for(f : fields)
-	    #if(f.isImageField) 
 	    //渲染图片字段
-	    fox.renderSimpleUpload("##(f.varName)","##(f.varName)-button","##(f.varName)-image");
-	    #end
-	    #end
 	}
 	
 	/**
       * 填充表单数据
       */
 	function fillFormData() {
-		var formData = admin.getTempData('#(formDataKey)');
-		var fm=$('#data-form');
+		var formData = admin.getTempData('sys-lang-form-data');
 		if (formData) {
-			fm[0].reset();
+			$('#data-form')[0].reset();
 			form.val('data-form', formData);
 	     	//设置并显示图片
-	     	#for(f : fields)
-		    #if(f.isImageField)
-		    if($("##(f.varName)").val()) {
-		    	$("##(f.varName)-image").attr("src","/service-storage/sys-file/download?id="+$("##(f.varName)").val());
-		    }
-		    #end
-		    #end
-	     	fm.attr('method', 'POST');
-	     	renderFormFields();
+	     	$('#data-form').attr('method', 'POST');
 		}
-		
-		//渐显效果
-		fm.css("opacity","0.0");
-        fm.css("display","");
-        setTimeout(function (){
-            fm.animate({
-                opacity:'1.0'
-            },100);
-        },1);
-        
 	}
 	
 	/**
@@ -87,17 +66,11 @@ function FormPage() {
 	    	//debugger;
 	    	
 	    	//处理逻辑值
-	    	#for(f : fields)
-		    #if(f.isLogicField) 
-		    if(!data.field.#(f.varName)) data.field.#(f.varName)=0;
-		    #end
-		    #end
 	    	
-	    	var api=moduleURL+"/"+(data.field.#(idPropertyName)?"update":"insert");
-	        var task=setTimeout(function(){layer.load(2);},1000);
+	    	var api=moduleURL+"/"+(data.field.code?"update":"insert");
+	        layer.load(2);
 	        admin.request(api, data.field, function (data) {
-	            clearTimeout(task);
-			    layer.closeAll('loading');
+	            layer.closeAll('loading');
 	            if (data.success) {
 	                layer.msg(data.message, {icon: 1, time: 500});
 	                admin.finishPopupCenter();

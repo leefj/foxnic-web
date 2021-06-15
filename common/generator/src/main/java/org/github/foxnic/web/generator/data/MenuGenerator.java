@@ -4,17 +4,15 @@ import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
+import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_CONFIG;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_MENU;
-import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_ROLE;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_ROLE_MENU;
 import org.github.foxnic.web.constants.enums.MenuType;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.generator.config.FoxnicWebConfigs;
-import org.github.foxnic.web.oauth.page.MenuPageController;
-import org.github.foxnic.web.oauth.page.RolePageController;
-import org.github.foxnic.web.proxy.oauth.MenuServiceProxy;
-import org.github.foxnic.web.proxy.oauth.RoleServiceProxy;
 import org.github.foxnic.web.proxy.oauth.UserServiceProxy;
+import org.github.foxnic.web.proxy.system.ConfigServiceProxy;
+import org.github.foxnic.web.system.page.ConfigPageController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.github.foxnic.commons.busi.id.IDGenerator;
@@ -44,7 +42,9 @@ public class MenuGenerator {
 		
 //		generator.generate(SYS_MENU.$TABLE,MenuServiceProxy.class,MenuPageController.class,"oauth");
 		
-//		generator.removeByBatchId("454331740924674048");
+		generator.generate(SYS_CONFIG.$TABLE,ConfigServiceProxy.class,ConfigPageController.class,"system");
+		
+//		generator.removeByBatchId("457192643089137664");
 		
 	}
 	
@@ -152,6 +152,7 @@ public class MenuGenerator {
 				
 				menu.setLabel("编辑"+topic);
 				menu.setHidden(1);
+			
 				formMenu=menu;
 			}
 			
@@ -161,6 +162,8 @@ public class MenuGenerator {
 				menu.setHidden(0);
 				listMenu=menu;
 			}
+			
+			menu.setSort(0);
 			
 		}
 		
@@ -185,6 +188,7 @@ public class MenuGenerator {
 		api.setParentId(listMenu.getId());
 		api.setAuthority(authorityPrefix+"apiset");
 		api.setBatchId(batchId);
+		api.setSort(3);
 		dao.insertEntity(api);	
 		
 		File file=this.configs.getProxyProject().getSourceFile(UserServiceProxy.class);
@@ -194,6 +198,7 @@ public class MenuGenerator {
 		
 		Field[] fs=proxy.getDeclaredFields();
 
+		int sort=0;
 		for (Field f : fs) {
 			String name=f.getName();
 			//排除一些无效的静态属性
@@ -211,7 +216,9 @@ public class MenuGenerator {
 			rest.setPath(value);
 			rest.setLabel(doc);
 			rest.setBatchId(batchId);
+			rest.setSort(sort);
 			dao.insertEntity(rest);	
+			sort++;
 			
 		}
 		

@@ -2,8 +2,6 @@
 settings:
   enableMicroService: true 
   enableSwagger: true
-  #是否前后端分离
-  isFrontendDepart: true
 
 
 #源代码相关的部分
@@ -16,7 +14,7 @@ source:
 #使用不同的机器码对应到作者
 authors:
   #指定机器码与对应的作者，机器码在代码生成时控制台输出，或main函数调用 Machine.getIdentity()
-  C99A60CEE2D4D881: 李方捷 , leefangjie@qq.com
+  D5D57AC903798568: 李方捷 , leefangjie@qq.com
   D11C00DED5F5C932: 金杰 , maillank@qq.com
 
 

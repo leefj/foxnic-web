@@ -1,9 +1,13 @@
-#(authorAndTime)
+/**
+ * 系统配置 列表页 JS 脚本
+ * @author 李方捷 , leefangjie@qq.com
+ * @since 2021-06-15 16:43:25
+ */
 
 function FormPage() {
 
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect;
-	const moduleURL="#(moduleURL)";
+	const moduleURL="/service-system/sys-config";
 	
 	/**
       * 入口函数，初始化
@@ -24,12 +28,25 @@ function FormPage() {
 		//调整窗口的高度与位置
 		adjustPopup();
 		
+		//绑定表单字段事件
+		bindFieldEvents();
+		
+	}
+	
+	function bindFieldEvents() {
+		form.on('radio(type)', function(data) {
+			var fmdata = form.val("data-form");
+			 save(fmdata,function(){
+			 	admin.putTempData('sys-config-form-data',fmdata);
+			 	location.reload();
+			 });
+		});
 	}
 	
 	function adjustPopup() {
 		var height=document.body.clientHeight+58;
 		admin.changePopupArea(null,height);
-		admin.putTempData('#(formAreaKey)', {height:height});
+		admin.putTempData('sys-config-form-area', {height:height});
 	}
 	
 	/**
@@ -38,31 +55,18 @@ function FormPage() {
 	function renderFormFields() {
 		form.render();
 	   
-	    #for(f : fields)
-	    #if(f.isImageField) 
-	    //渲染图片字段
-	    fox.renderSimpleUpload("##(f.varName)","##(f.varName)-button","##(f.varName)-image");
-	    #end
-	    #end
 	}
 	
 	/**
       * 填充表单数据
       */
 	function fillFormData() {
-		var formData = admin.getTempData('#(formDataKey)');
+		var formData = admin.getTempData('sys-config-form-data');
 		var fm=$('#data-form');
 		if (formData) {
 			fm[0].reset();
 			form.val('data-form', formData);
 	     	//设置并显示图片
-	     	#for(f : fields)
-		    #if(f.isImageField)
-		    if($("##(f.varName)").val()) {
-		    	$("##(f.varName)-image").attr("src","/service-storage/sys-file/download?id="+$("##(f.varName)").val());
-		    }
-		    #end
-		    #end
 	     	fm.attr('method', 'POST');
 	     	renderFormFields();
 		}
@@ -87,28 +91,32 @@ function FormPage() {
 	    	//debugger;
 	    	
 	    	//处理逻辑值
-	    	#for(f : fields)
-		    #if(f.isLogicField) 
-		    if(!data.field.#(f.varName)) data.field.#(f.varName)=0;
-		    #end
-		    #end
+		    if(!data.field.valid) data.field.valid=0;
 	    	
-	    	var api=moduleURL+"/"+(data.field.#(idPropertyName)?"update":"insert");
-	        var task=setTimeout(function(){layer.load(2);},1000);
-	        admin.request(api, data.field, function (data) {
-	            clearTimeout(task);
-			    layer.closeAll('loading');
-	            if (data.success) {
-	                layer.msg(data.message, {icon: 1, time: 500});
-	                admin.finishPopupCenter();
-	            } else {
-	                layer.msg(data.message, {icon: 2, time: 500});
-	            }
-	        }, "POST");
+	    	save(data.field);
 	        
 	        return false;
 	    });
 	    
+    }
+    
+    function save(data,success) {
+    	var api=moduleURL+"/"+(data.code?"update":"insert");
+	        var task=setTimeout(function(){layer.load(2);},1000);
+	        admin.request(api, data, function (data) {
+	            clearTimeout(task);
+			    layer.closeAll('loading');
+	            if (data.success) {
+	                
+	                if(!success){
+	                	layer.msg(data.message, {icon: 1, time: 500});
+	                	admin.finishPopupCenter();
+	                }
+	                else success();
+	            } else {
+	                layer.msg(data.message, {icon: 2, time: 500});
+	            }
+	        }, "POST");
     }
 
 }

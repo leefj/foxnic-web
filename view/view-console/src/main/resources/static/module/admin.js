@@ -249,7 +249,8 @@ layui.define(['settings', 'layer'], function (exports) {
                 successCallback(result, status, xhr);
             };
             param.error = function (xhr) {
-                param.success({code: xhr.status, msg: xhr.statusText});
+                //param.success({code: xhr.status, msg: xhr.statusText});
+            	layer.msg('请求异常', {icon: 2});
             };
             //发送同步ajax请求
             param.async = false;

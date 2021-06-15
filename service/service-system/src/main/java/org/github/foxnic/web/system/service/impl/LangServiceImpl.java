@@ -36,6 +36,8 @@ import com.github.foxnic.springboot.mvc.Result;
 @Service("SysLangServiceImpl")
 public class LangServiceImpl extends SuperService<Lang> implements ILangService {
 
+	private static final String NOT_SET = "#$not-set:;";
+
 	@Autowired
 	private IConfigService configService;
 
@@ -114,6 +116,9 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 		// 获取缓存数据
 		String item = itemCache.get(cacheKey);
 		if (item != null) {
+			if(NOT_SET.equals(item)) {
+				return StringUtil.isBlank(defaults) ? code : defaults;
+			}
 			return item;
 		}
 		// 获取数据库中的配置
@@ -142,6 +147,8 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 			if (item != null) {
 				itemCache.put(cacheKey, item);
 				return item;
+			} else {
+				itemCache.put(cacheKey, NOT_SET);
 			}
 		}
 
@@ -152,7 +159,7 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 	public String translate(String defaults, String key) {
 		String sysLangValue = configService.getById(SystemConfigEnum.SYSTEM_LANGUAGE).getValue();
 		// 调试写死
-//		sysLangValue = "confuse";
+		sysLangValue = "confuse";
 		Language sysLang = Language.valueOf(sysLangValue);
 		return this.translate(sysLang, defaults, key);
 	}

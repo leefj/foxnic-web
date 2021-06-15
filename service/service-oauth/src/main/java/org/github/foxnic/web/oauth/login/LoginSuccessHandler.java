@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -13,8 +14,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER;
+import org.github.foxnic.web.constants.enums.MenuType;
+import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.SessionOnline;
 import org.github.foxnic.web.domain.oauth.User;
+import org.github.foxnic.web.framework.language.LanguageService;
 import org.github.foxnic.web.oauth.config.security.SecurityProperties;
 import org.github.foxnic.web.oauth.config.security.SecurityProperties.SecurityMode;
 import org.github.foxnic.web.oauth.jwt.JwtTokenGenerator;
@@ -31,6 +35,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSONObject;
+import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.springboot.api.error.ErrorDesc;
 import com.github.foxnic.springboot.mvc.Result;
 
@@ -55,6 +60,9 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
     
     @Autowired
     ISessionOnlineService onlineService;
+    
+    @Autowired
+	private LanguageService languageService;
  
 
 	@Override
@@ -92,6 +100,15 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 	        online.setInteractTime(new Date());
 	        online.setSessionId(request.getSession().getId());
 	        online.setSessionTime(request.getSession().getMaxInactiveInterval());
+	        List<Menu> menus=user.getMenus();
+	        
+	        for (Menu menu : menus) {
+	        	if(StringUtil.isBlank(menu.getType())) continue;
+	        	if(menu.getType().equalsIgnoreCase(MenuType.api.name())) continue;
+	        	if(menu.getType().equalsIgnoreCase(MenuType.function.name())) continue;
+	        	menu.setLabel(languageService.translate(menu.getLabel()));
+			}
+	        
 	        onlineService.insert(online);
         }
         

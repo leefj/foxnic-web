@@ -7,8 +7,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-07 16:28:26
- * @sign 3C1D026F901FB5930274BE4BF14FFF72
+ * @since 2021-06-15 14:23:45
+ * @sign 831358CE5F0FF8309B1D91C7838B56F4
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -25,6 +25,16 @@ public class ConfigMeta {
 	public static final String NAME="name";
 	
 	/**
+	 * 数据类型 , 由开发人员在库中指定，包括 String,Integer,DateTime,Double,Enum,Dict
+	*/
+	public static final String TYPE="type";
+	
+	/**
+	 * 类型描述
+	*/
+	public static final String TYPE_DESC="typeDesc";
+	
+	/**
 	 * 配置值
 	*/
 	public static final String VALUE="value";
@@ -33,6 +43,11 @@ public class ConfigMeta {
 	 * 是否生效
 	*/
 	public static final String VALID="valid";
+	
+	/**
+	 * 说明
+	*/
+	public static final String NOTES="notes";
 	
 	/**
 	 * 创建人ID
@@ -77,7 +92,7 @@ public class ConfigMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ CODE , NAME , VALUE , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ CODE , NAME , TYPE , TYPE_DESC , VALUE , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
 	
 	/**
 	 * 代理类
@@ -110,6 +125,28 @@ public class ConfigMeta {
 		}
 		
 		/**
+		 * 设置 数据类型
+		 * @param type 数据类型
+		 * @return 当前对象
+		*/
+		public Config setType(String type) {
+			super.change(TYPE,super.getType(),type);
+			super.setType(type);
+			return this;
+		}
+		
+		/**
+		 * 设置 类型描述
+		 * @param typeDesc 类型描述
+		 * @return 当前对象
+		*/
+		public Config setTypeDesc(String typeDesc) {
+			super.change(TYPE_DESC,super.getTypeDesc(),typeDesc);
+			super.setTypeDesc(typeDesc);
+			return this;
+		}
+		
+		/**
 		 * 设置 配置值
 		 * @param value 配置值
 		 * @return 当前对象
@@ -128,6 +165,17 @@ public class ConfigMeta {
 		public Config setValid(Integer valid) {
 			super.change(VALID,super.getValid(),valid);
 			super.setValid(valid);
+			return this;
+		}
+		
+		/**
+		 * 设置 说明
+		 * @param notes 说明
+		 * @return 当前对象
+		*/
+		public Config setNotes(String notes) {
+			super.change(NOTES,super.getNotes(),notes);
+			super.setNotes(notes);
 			return this;
 		}
 		
