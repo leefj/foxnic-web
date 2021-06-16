@@ -7,10 +7,9 @@
 
 function ListPage() {
         
-	var settings,admin,form,table,layer,util,fox,upload,xmSelect,laydate;
+	var settings,admin,form,table,layer,util,fox,upload,xmSelect,laydate,soulTable;
 	//模块基础路径
 	const moduleURL="/service-system/sys-config";
-	
 	/**
       * 入口函数，初始化
       */
@@ -18,9 +17,8 @@ function ListPage() {
      	
      	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload;
 		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
-		laydate = layui.laydate;
-		window.laydate=laydate;
-		
+		laydate = layui.laydate
+
      	//渲染表格
      	renderTable();
 		//绑定搜索框事件
@@ -42,7 +40,7 @@ function ListPage() {
             url: moduleURL +'/query-paged-list',
 			cols: [[
 			 	//{ type:'checkbox' },
-                { type: 'numbers' },
+                { fixed: 'left',type: 'numbers' },
                 { field: 'code', sort: true, title: fox.translate('配置键') } ,
                 { field: 'name', sort: true, title: fox.translate('配置名') } ,
                // { field: 'type', sort: true, title: fox.translate('数据类型') } ,
@@ -50,22 +48,33 @@ function ListPage() {
                 { field: 'value', sort: true, title: fox.translate('配置值') } ,
                 { field: 'valid', sort: true, title: fox.translate('是否生效'), templet: '#cell-tpl-valid',width: 120 } ,
                 //{ field: 'notes', sort: true, title: fox.translate('说明') } ,
-                { field: 'createTime', sort: true, title: fox.translate('创建时间') , templet: function (d) { return util.toDateString(d.createTime); },width: 160 } ,
+                { field: 'createTime', sort: true, title: fox.translate('创建时间') , templet: function (d) { return fox.dateFormat(d.createTime); },width: 160 } ,
                 { fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 100 }
-            ]]
+            ]],
+            done:function() {
+            	 
+            	var div=$("#layui-table-page"+this.index);
+            	var buttons=['<button type="button" class="layui-btn layui-btn-primary layui-btn-xs" ><i class="layui-icon"></i></button>'];
+            	div.append("<div style='float:right'>"+buttons.join("")+"</div>")
+            	//debugger;
+            }
         });
         //绑定 Switch 切换事件
         fox.bindSwitchEvent("cell-tpl-valid",moduleURL +'/update','code','valid',function(r){});
+        //绑定排序事件
+        table.on('sort(data-table)', function(obj){
+		  refreshTableData(obj.field,obj.type);
+        });
         
      };
      
 	/**
       * 刷新表格数据
       */
-	function refreshTableData() {
+	function refreshTableData(sortField,sortType) {
 		var field = $('#search-field').val();
 		var value = $('#search-input').val();
-		var ps={searchField: field, searchValue: value};
+		var ps={searchField: field, searchValue: value,sortField:sortField,sortType:sortType};
 		table.reload('data-table', { where : ps });
 	}
     
@@ -191,7 +200,7 @@ function ListPage() {
      */
 	function showEditForm(data) {
 		var queryString="";
-		if(data) queryString="?" + 'code=' + data.code;
+		if(data && data.code) queryString="?" + 'code=' + data.code;
 		admin.putTempData('sys-config-form-data', data);
 		var area=admin.getTempData('sys-config-form-area');
 		var height= (area && area.height) ? area.height : ($(window).height()*0.6);
@@ -217,7 +226,7 @@ layui.config({
 	dir: layuiPath,
 	base: '/module/'
 }).extend({
-	xmSelect: 'xm-select/xm-select'
+	xmSelect: 'xm-select/xm-select',
 }).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect',"laydate"],function() {
 	(new ListPage()).init(layui);
 });

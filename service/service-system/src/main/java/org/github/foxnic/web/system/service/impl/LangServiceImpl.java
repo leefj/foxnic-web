@@ -1,6 +1,7 @@
 package org.github.foxnic.web.system.service.impl;
 
 import java.lang.reflect.Field;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -38,7 +39,7 @@ import com.github.foxnic.springboot.mvc.Result;
 @Service("SysLangServiceImpl")
 public class LangServiceImpl extends SuperService<Lang> implements ILangService {
 
-	private static final String NOT_SET = "#$not-set:;";
+	private static final String NOT_SET = ":ns;";
 	
 	@Value("${develop.language:}")
 	private String devLang;
@@ -183,6 +184,15 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 	@Override
 	public String translate(String defaults) {
 		return translate(defaults, null);
+	}
+	
+	@Override
+	public List<Lang> queryList(Lang sample) {
+		List<Lang> items=super.queryList(sample);
+		for (Lang lang : items) {
+			if(lang.getConfuse()==null) lang.setConfuse(NOT_SET);
+		}
+		return items;
 	}
 
 }

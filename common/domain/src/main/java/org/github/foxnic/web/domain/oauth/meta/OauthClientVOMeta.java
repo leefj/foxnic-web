@@ -7,8 +7,8 @@ import java.util.List;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-26 01:44:49
- * @sign 54788D764177CD7F06DA0B2944ADA404
+ * @since 2021-06-16 16:31:58
+ * @sign ABF65D06BF34D09D0ED1CA2ABA9BB4FB
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -35,6 +35,16 @@ public class OauthClientVOMeta extends OauthClientMeta {
 	public static final String SEARCH_VALUE="searchValue";
 	
 	/**
+	 * 排序字段
+	*/
+	public static final String SORT_FIELD="sortField";
+	
+	/**
+	 * 排序方式
+	*/
+	public static final String SORT_TYPE="sortType";
+	
+	/**
 	 * 主键清单 , 用于接收批量主键参数
 	*/
 	public static final String IDS="ids";
@@ -42,14 +52,15 @@ public class OauthClientVOMeta extends OauthClientMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , SEARCH_VALUE , IDS };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , SEARCH_VALUE , SORT_FIELD , SORT_TYPE , IDS };
 	
 	/**
 	 * 代理类
 	*/
 	public static class $$proxy$$ extends org.github.foxnic.web.domain.oauth.OauthClientVO {
-		
+
 		private static final long serialVersionUID = 1L;
+
 		
 		/**
 		 * 设置 页码
@@ -92,6 +103,28 @@ public class OauthClientVOMeta extends OauthClientMeta {
 		public OauthClientVO setSearchValue(String searchValue) {
 			super.change(SEARCH_VALUE,super.getSearchValue(),searchValue);
 			super.setSearchValue(searchValue);
+			return this;
+		}
+		
+		/**
+		 * 设置 排序字段
+		 * @param sortField 排序字段
+		 * @return 当前对象
+		*/
+		public OauthClientVO setSortField(String sortField) {
+			super.change(SORT_FIELD,super.getSortField(),sortField);
+			super.setSortField(sortField);
+			return this;
+		}
+		
+		/**
+		 * 设置 排序方式
+		 * @param sortType 排序方式
+		 * @return 当前对象
+		*/
+		public OauthClientVO setSortType(String sortType) {
+			super.change(SORT_TYPE,super.getSortType(),sortType);
+			super.setSortType(sortType);
 			return this;
 		}
 		

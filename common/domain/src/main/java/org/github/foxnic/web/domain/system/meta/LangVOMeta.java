@@ -7,8 +7,8 @@ import java.util.List;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-20 04:34:14
- * @sign 488D8C4CFFD50D40E4B22F8580192A01
+ * @since 2021-06-16 16:32:23
+ * @sign C13F1A2A1FF57C36BAB7790E954208B3
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -35,6 +35,16 @@ public class LangVOMeta extends LangMeta {
 	public static final String SEARCH_VALUE="searchValue";
 	
 	/**
+	 * 排序字段
+	*/
+	public static final String SORT_FIELD="sortField";
+	
+	/**
+	 * 排序方式
+	*/
+	public static final String SORT_TYPE="sortType";
+	
+	/**
 	 * 主键清单 , 用于接收批量主键参数
 	*/
 	public static final String CODES="codes";
@@ -42,12 +52,15 @@ public class LangVOMeta extends LangMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , SEARCH_VALUE , CODES };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , SEARCH_VALUE , SORT_FIELD , SORT_TYPE , CODES };
 	
 	/**
 	 * 代理类
 	*/
 	public static class $$proxy$$ extends org.github.foxnic.web.domain.system.LangVO {
+
+		private static final long serialVersionUID = 1L;
+
 		
 		/**
 		 * 设置 页码
@@ -94,6 +107,28 @@ public class LangVOMeta extends LangMeta {
 		}
 		
 		/**
+		 * 设置 排序字段
+		 * @param sortField 排序字段
+		 * @return 当前对象
+		*/
+		public LangVO setSortField(String sortField) {
+			super.change(SORT_FIELD,super.getSortField(),sortField);
+			super.setSortField(sortField);
+			return this;
+		}
+		
+		/**
+		 * 设置 排序方式
+		 * @param sortType 排序方式
+		 * @return 当前对象
+		*/
+		public LangVO setSortType(String sortType) {
+			super.change(SORT_TYPE,super.getSortType(),sortType);
+			super.setSortType(sortType);
+			return this;
+		}
+		
+		/**
 		 * 设置 主键清单
 		 * @param codes 主键清单
 		 * @return 当前对象
@@ -103,5 +138,5 @@ public class LangVOMeta extends LangMeta {
 			super.setCodes(codes);
 			return this;
 		}
-}
+	}
 }

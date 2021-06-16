@@ -64,16 +64,19 @@ function ListPage() {
         #end
         #end
         #end
-        
+        //绑定排序事件
+        table.on('sort(data-table)', function(obj){
+		  refreshTableData(obj.field,obj.type);
+        });
      };
      
 	/**
       * 刷新表格数据
       */
-	function refreshTableData() {
+	function refreshTableData(sortField,sortType) {
 		var field = $('#search-field').val();
 		var value = $('#search-input').val();
-		var ps={searchField: field, searchValue: value};
+		var ps={searchField: field, searchValue: value,sortField:sortField,sortType:sortType};
 		#if(isTree) 
 		// 树形结构锁定上级ID
 		ps.#(parentIdVar)=#(parentIdVar);
@@ -246,7 +249,7 @@ function ListPage() {
      */
 	function showEditForm(data) {
 		var queryString="";
-		if(data) queryString="?" + #(paramQueryString);
+		if(data && data.#(idPropertyName)) queryString="?" + #(paramQueryString);
 		admin.putTempData('#(formDataKey)', data);
 		var area=admin.getTempData('#(formAreaKey)');
 		var height= (area && area.height) ? area.height : ($(window).height()*0.6);

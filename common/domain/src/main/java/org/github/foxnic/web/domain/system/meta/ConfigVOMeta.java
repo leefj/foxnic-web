@@ -6,9 +6,9 @@ import java.util.List;
 
 
 /**
- * @author 李方捷
- * @since 2021-05-20 01:28:25
- * @sign 9BE38C843C4B9B8C0B5D483A2BF29097
+ * @author 李方捷 , leefangjie@qq.com
+ * @since 2021-06-16 16:32:22
+ * @sign 425E02A4E4103E09CD9F9F60A9D78398
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -35,6 +35,16 @@ public class ConfigVOMeta extends ConfigMeta {
 	public static final String SEARCH_VALUE="searchValue";
 	
 	/**
+	 * 排序字段
+	*/
+	public static final String SORT_FIELD="sortField";
+	
+	/**
+	 * 排序方式
+	*/
+	public static final String SORT_TYPE="sortType";
+	
+	/**
 	 * 主键清单 , 用于接收批量主键参数
 	*/
 	public static final String CODES="codes";
@@ -42,12 +52,15 @@ public class ConfigVOMeta extends ConfigMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , SEARCH_VALUE , CODES };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , SEARCH_VALUE , SORT_FIELD , SORT_TYPE , CODES };
 	
 	/**
 	 * 代理类
 	*/
 	public static class $$proxy$$ extends org.github.foxnic.web.domain.system.ConfigVO {
+
+		private static final long serialVersionUID = 1L;
+
 		
 		/**
 		 * 设置 页码
@@ -94,6 +107,28 @@ public class ConfigVOMeta extends ConfigMeta {
 		}
 		
 		/**
+		 * 设置 排序字段
+		 * @param sortField 排序字段
+		 * @return 当前对象
+		*/
+		public ConfigVO setSortField(String sortField) {
+			super.change(SORT_FIELD,super.getSortField(),sortField);
+			super.setSortField(sortField);
+			return this;
+		}
+		
+		/**
+		 * 设置 排序方式
+		 * @param sortType 排序方式
+		 * @return 当前对象
+		*/
+		public ConfigVO setSortType(String sortType) {
+			super.change(SORT_TYPE,super.getSortType(),sortType);
+			super.setSortType(sortType);
+			return this;
+		}
+		
+		/**
 		 * 设置 主键清单
 		 * @param codes 主键清单
 		 * @return 当前对象
@@ -103,5 +138,5 @@ public class ConfigVOMeta extends ConfigMeta {
 			super.setCodes(codes);
 			return this;
 		}
-}
+	}
 }

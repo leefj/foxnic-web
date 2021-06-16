@@ -32,7 +32,7 @@ public class PortalPageController {
 		Result<Config> cfg= ConfigServiceProxy.api().getById(SystemConfigEnum.SYSTEM_TITLE.code());
 		String title=cfg.data().getValue();
 		model.addAttribute("title", title);
-		return prefix+"/index";
+		return prefix+"index";
 	}
 
 	/**
@@ -53,6 +53,6 @@ public class PortalPageController {
 		String copyrightLink=cfg.data().getValue();
 		model.addAttribute("copyrightLink", copyrightLink);
 		//
-		return prefix+"/login";
+		return prefix+"login";
 	}
 }

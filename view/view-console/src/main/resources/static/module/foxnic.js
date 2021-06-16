@@ -27,6 +27,7 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload'], fun
     var admin = layui.admin;
     var upload = layui.upload;
     var form = layui.form;
+    var util=layui.util;
   	var dict={};
  
   	var language=settings.getLang();
@@ -66,6 +67,8 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload'], fun
 			    cfg[key]=basicConfig[key];
 			}
 			
+			cfg.autoSort=false,
+			
     		table.render(cfg);
     	},
     	
@@ -80,7 +83,7 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload'], fun
     	},
     	
     	translate:function(defaults,code) {
- 
+ 			//debugger
     		var item=defaultsLangs[defaults];
     		var text=null;
     		if(!item && code) {
@@ -88,16 +91,21 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload'], fun
     		}
     		if(item) {
     			text=item[language];
-    			if(text){
+    			if(text && text!=":ns;"){
     				return text;
     			}
     		}
     		
-    		if(!text) {
+    		if(!text || text==":ns;") {
     			text=defaults;
     		}
     		
-    		admin.request("/service-system/sys-lang/insert", {code:code,defaults:defaults}, function (data) {});
+    		//如果条目不存在，则插入
+    		if(!item) {
+	    		admin.request("/service-system/sys-lang/insert", {code:code,defaults:defaults}, function (data) {
+	    		
+	    		});
+    		}
     		
     		return text?text:"--";
     	},
@@ -143,6 +151,11 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload'], fun
     	
     	},
     	
+    	dateFormat(t,f) {
+    		if(!t) return "";
+    		return util.toDateString(t,f);
+    	},
+    	
     	/**
     	 * 渲染单文件上传界面
     	 * */
@@ -151,7 +164,7 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload'], fun
     		 var uploadInst = upload.render({
 			    elem: buttonEl
 			    ,url:  '/service-tailoring/sys-file/upload' //改成您自己的上传接口
-			    ,before: function(obj){
+			    ,before: function(obj) {
 			      //预读本地文件示例，不支持ie8
 			      obj.preview(function(index, file, result){
 			        $(imageEl).attr('src', result); //图片链接（base64）
@@ -253,28 +266,43 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload'], fun
 //    	dict=data.data;
 //    });
     
+    var languageTimestamp=localStorage.getItem("language_timestamp");
+    
     //加载语言
-    codeLangs=localStorage.getItem("codeLangs");
-    if(codeLangs && codeLangs.length>2) {
-    	codeLangs=JSON.parse(codeLangs);
-    }
     
-    defaultsLangs=localStorage.getItem("defaultsLangs");
-    if(defaultsLangs && defaultsLangs.length>2) {
-    	defaultsLangs=JSON.parse(defaultsLangs);
-    }
-    
-    admin.request('/service-system/sys-lang/query-list', {}, function (data) {
-    	data=data.data;
-    	codeLangs={};
-    	defaultsLangs={};
-    	for (var i = 0; i < data.length; i++) {
-    		codeLangs[data[i].code]=data[i];
-    		defaultsLangs[data[i].defaults]=data[i];
+    if(languageTimestamp) {
+    	
+    	var expire=((new Date()).getTime()-languageTimestamp)/1000;
+    	
+    	if(expire < 60 * 15)
+    	{
+		    codeLangs=localStorage.getItem("language_codeLangs");
+		    if(codeLangs && codeLangs.length>2) {
+		    	codeLangs=JSON.parse(codeLangs);
+		    }
+		    
+		    defaultsLangs=localStorage.getItem("language_defaultsLangs");
+		    if(defaultsLangs && defaultsLangs.length>2) {
+		    	defaultsLangs=JSON.parse(defaultsLangs);
+		    }
     	}
-    	localStorage.setItem("codeLangs",JSON.stringify(codeLangs));
-    	localStorage.setItem("defaultsLangs",JSON.stringify(defaultsLangs));
-    });
+	    
+    }
+    
+    if(defaultsLangs==null || codeLangs==null) {
+	    admin.request('/service-system/sys-lang/query-list', {}, function (data) {
+	    	data=data.data;
+	    	codeLangs={};
+	    	defaultsLangs={};
+	    	for (var i = 0; i < data.length; i++) {
+	    		codeLangs[data[i].code]=data[i];
+	    		defaultsLangs[data[i].defaults]=data[i];
+	    	}
+	    	localStorage.setItem("language_codeLangs",JSON.stringify(codeLangs));
+	    	localStorage.setItem("language_defaultsLangs",JSON.stringify(defaultsLangs));
+	    	localStorage.setItem("language_timestamp",(new Date()).getTime());
+	    });
+    }
     
     //图片预览支持
     window.previewImage = function(obj) {

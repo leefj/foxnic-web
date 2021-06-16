@@ -9,8 +9,8 @@ import java.util.ArrayList;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-20 04:34:14
- * @sign 488D8C4CFFD50D40E4B22F8580192A01
+ * @since 2021-06-16 16:32:23
+ * @sign C13F1A2A1FF57C36BAB7790E954208B3
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -41,6 +41,18 @@ public class LangVO extends Lang {
 	*/
 	@ApiModelProperty(required = false,value="搜索的值" , notes = "")
 	private String searchValue;
+	
+	/**
+	 * 排序字段
+	*/
+	@ApiModelProperty(required = false,value="排序字段" , notes = "")
+	private String sortField;
+	
+	/**
+	 * 排序方式
+	*/
+	@ApiModelProperty(required = false,value="排序方式" , notes = "")
+	private String sortType;
 	
 	/**
 	 * 主键清单：用于接收批量主键参数
@@ -141,6 +153,54 @@ public class LangVO extends Lang {
 	/**
 	 * 添加 搜索的值
 	 * @param searchValue 搜索的值
+	 * @return 当前对象
+	*/
+	
+	/**
+	 * 获得 排序字段<br>
+	 * @return 排序字段
+	*/
+	public String getSortField() {
+		return sortField;
+	}
+	
+	/**
+	 * 设置 排序字段
+	 * @param sortField 排序字段
+	 * @return 当前对象
+	*/
+	public LangVO setSortField(String sortField) {
+		this.sortField=sortField;
+		return this;
+	}
+	
+	/**
+	 * 添加 排序字段
+	 * @param sortField 排序字段
+	 * @return 当前对象
+	*/
+	
+	/**
+	 * 获得 排序方式<br>
+	 * @return 排序方式
+	*/
+	public String getSortType() {
+		return sortType;
+	}
+	
+	/**
+	 * 设置 排序方式
+	 * @param sortType 排序方式
+	 * @return 当前对象
+	*/
+	public LangVO setSortType(String sortType) {
+		this.sortType=sortType;
+		return this;
+	}
+	
+	/**
+	 * 添加 排序方式
+	 * @param sortType 排序方式
 	 * @return 当前对象
 	*/
 	
