@@ -54,7 +54,7 @@ function ListPage() {
             done:function() {
             	 
             	var div=$("#layui-table-page"+this.index);
-            	var buttons=['<button type="button" class="layui-btn layui-btn-primary layui-btn-xs" ><i class="layui-icon"></i></button>'];
+            	var buttons=['<button type="button" class="layui-btn layui-btn-primary layui-btn-xs" ><i class="fa fa-cloud-download"></i></button>'];
             	div.append("<div style='float:right'>"+buttons.join("")+"</div>")
             	//debugger;
             }
