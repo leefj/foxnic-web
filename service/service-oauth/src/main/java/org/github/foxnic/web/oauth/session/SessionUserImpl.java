@@ -121,5 +121,10 @@ public class SessionUserImpl extends SessionUser implements UserDetails, Credent
 	public String getUserId() {
 		 return this.user.getId();
 	}
+
+	@Override
+	public String getLanguage() {
+		return this.user.getLanguage();
+	}
  
 }

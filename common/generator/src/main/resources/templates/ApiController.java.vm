@@ -45,6 +45,7 @@ public class #(simpleName) {
 		Result<#(poSimpleName)> result=new Result<>();
 		boolean suc=#(serviceVarName).insert(#(voVarName));
 		result.success(suc);
+		if(!suc) result.message("数据插入失败");
 		return result;
 	}
 
@@ -65,6 +66,7 @@ public class #(simpleName) {
 		Result<#(poSimpleName)> result=new Result<>();
 		boolean suc=#(serviceVarName).#(implMethod4DeleteById)(#(controllerMethodParameterPassIn4DeleteById));
 		result.success(suc);
+		if(!suc) result.message("数据删除失败");
 		return result;
 	}
 	
@@ -89,6 +91,7 @@ public class #(simpleName) {
 		Result<#(poSimpleName)> result=new Result<>();
 		boolean suc=#(serviceVarName).deleteByIdsLogical(#(idsPropertyName));
 		result.success(suc);
+		if(!suc) result.message("数据删除失败");
 		return result;
 	}
 	#end
@@ -109,6 +112,7 @@ public class #(simpleName) {
 		Result<#(poSimpleName)> result=new Result<>();
 		boolean suc=#(serviceVarName).update(#(voVarName),SaveMode.NOT_NULL_FIELDS);
 		result.success(suc);
+		if(!suc) result.message("数据更新失败");
 		return result;
 	}
 	
@@ -129,6 +133,7 @@ public class #(simpleName) {
 		Result<#(poSimpleName)> result=new Result<>();
 		boolean suc=#(serviceVarName).save(#(voVarName),SaveMode.NOT_NULL_FIELDS);
 		result.success(suc);
+		if(!suc) result.message("数据保存失败");
 		return result;
 	}
 

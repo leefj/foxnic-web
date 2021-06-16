@@ -1,10 +1,13 @@
 package org.github.foxnic.web.system.page;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
+import org.github.foxnic.web.domain.system.Config;
 import org.github.foxnic.web.proxy.system.ConfigServiceProxy;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.github.foxnic.commons.lang.StringUtil;
+import com.github.foxnic.springboot.mvc.Result;
 
 /**
  * <p>
@@ -48,6 +51,13 @@ public class ConfigPageController {
 	 */
 	@RequestMapping("/config_form.html")
 	public String form(Model model , String code) {
+		Result<Config> r=null;
+		if(!StringUtil.isBlank(code)) {
+			r=proxy().getById(code);
+			if(r!=null && r.success()) {
+				model.addAttribute("config", r.data());
+			}
+		}
 		return prefix+"/config_form";
 	}
 }

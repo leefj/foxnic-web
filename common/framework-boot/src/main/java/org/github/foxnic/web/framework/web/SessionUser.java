@@ -22,6 +22,11 @@ public abstract class SessionUser {
 	public abstract String getUsername();
 	
 	/**
+	 * 账户
+	 * */
+	public abstract String getLanguage();
+	
+	/**
 	 * 账户ID
 	 * */
 	public abstract String getUserId();

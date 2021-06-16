@@ -25,7 +25,7 @@ function initIFrame() {
 }
 //add by owen 修复 path 无法引用http://页面的问题 end
 
-layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form'], function (exports) {
+layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'], function (exports) {
     var $ = layui.$;
     var config = layui.settings;
     var admin = layui.admin;
@@ -33,6 +33,7 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form'], functi
     var laytpl = layui.laytpl;
     var element = layui.element;
     var form = layui.form;
+    var foxnic=layui.foxnic;
     
     //设置top-admin
  	window.admin=admin;

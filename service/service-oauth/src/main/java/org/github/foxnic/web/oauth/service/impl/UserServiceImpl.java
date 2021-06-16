@@ -2,29 +2,31 @@ package org.github.foxnic.web.oauth.service.impl;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER;
+import org.github.foxnic.web.constants.enums.SystemConfigEnum;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.Role;
 import org.github.foxnic.web.domain.oauth.RoleMenu;
 import org.github.foxnic.web.domain.oauth.User;
+import org.github.foxnic.web.domain.system.Config;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.oauth.service.IUserService;
+import org.github.foxnic.web.proxy.system.ConfigServiceProxy;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.data.RcdSet;
 import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.entity.CollectorUtil;
 import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.springboot.api.error.ErrorDesc;
 import com.github.foxnic.springboot.mvc.Result;
+import com.github.foxnic.springboot.spring.SpringUtil;
 import com.github.foxnic.sql.expr.ConditionExpr;
-import com.github.foxnic.sql.expr.In;
 import com.github.foxnic.sql.meta.DBField;
 
 /**
@@ -38,6 +40,9 @@ import com.github.foxnic.sql.meta.DBField;
 
 @Service("SysUserService")
 public class UserServiceImpl extends SuperService<User> implements IUserService {
+	
+	@Value("${develop.language:}")
+	private String devLang;
 	
 	/**
 	 * 注入DAO对象
@@ -218,7 +223,23 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
     	if (user!=null) {
     		dao.join(user,Role.class,Menu.class,RoleMenu.class);
     	}
-  
+    	
+    	String usrLang=user.getLanguage();
+    	if(!StringUtil.isBlank(devLang)) {
+    		user.setLanguage(devLang);
+    	} else {
+    		if(StringUtil.isBlank(usrLang)) {
+    			//获得系统配置的语言
+    	    	Result<Config> r=ConfigServiceProxy.api().getById(SystemConfigEnum.SYSTEM_LANGUAGE.code());
+    	    	String sysLang=r.data().getValue();
+    			user.setLanguage(sysLang);
+    		}
+    	}
+    	
+    	
+    	
+    	
+ 
         return user;
     }
 

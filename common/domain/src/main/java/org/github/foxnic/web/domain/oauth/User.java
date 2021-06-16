@@ -18,8 +18,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-07 14:09:39
- * @sign 0C10EC6AF551BFA61451F163DDD94986
+ * @since 2021-06-16 10:46:22
+ * @sign 77319527EB2F5B629571FA848CEDE4D3
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -72,6 +72,12 @@ public class User extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="人员ID" , notes = "人员ID")
 	private String personId;
+	
+	/**
+	 * 语言：语言
+	*/
+	@ApiModelProperty(required = false,value="语言" , notes = "语言")
+	private String language;
 	
 	/**
 	 * 员工ID：员工ID
@@ -329,6 +335,31 @@ public class User extends Entity {
 	/**
 	 * 添加 人员ID
 	 * @param personId 人员ID
+	 * @return 当前对象
+	*/
+	
+	/**
+	 * 获得 语言<br>
+	 * 属性说明 : 语言
+	 * @return 语言
+	*/
+	public String getLanguage() {
+		return language;
+	}
+	
+	/**
+	 * 设置 语言
+	 * @param language 语言
+	 * @return 当前对象
+	*/
+	public User setLanguage(String language) {
+		this.language=language;
+		return this;
+	}
+	
+	/**
+	 * 添加 语言
+	 * @param language 语言
 	 * @return 当前对象
 	*/
 	

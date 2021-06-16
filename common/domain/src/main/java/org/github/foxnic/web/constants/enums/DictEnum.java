@@ -4,7 +4,7 @@ package org.github.foxnic.web.constants.enums;
 
 
 /**
- * @since 2021-06-10 11:58:03
+ * @since 2021-06-16 14:22:44
  * @author 李方捷 , leefangjie@qq.com
  * 从 select code,name from sys_dict WHERE deleted=0 and module in ('system') 生成
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成
@@ -16,11 +16,6 @@ public enum DictEnum {
 	 * 性别
 	*/
 	SEX("sex" , "性别"),
-	
-	/**
-	 * EAM_资产安全等级
-	*/
-	EAM_SECURITY_LEVEL("eam_security_level" , "EAM_资产安全等级"),
 	
 	/**
 	 * 公司类型

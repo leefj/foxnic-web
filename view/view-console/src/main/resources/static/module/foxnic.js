@@ -28,7 +28,8 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload'], fun
     var upload = layui.upload;
     var form = layui.form;
   	var dict={};
-  	
+ 
+  	var language=settings.getLang();
   	var codeLangs=null;
   	var defaultsLangs=null;
   	
@@ -79,8 +80,7 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload'], fun
     	},
     	
     	translate:function(defaults,code) {
-//    		var language="confuse";
-			var language="defaults";
+ 
     		var item=defaultsLangs[defaults];
     		var text=null;
     		if(!item && code) {
@@ -254,6 +254,16 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload'], fun
 //    });
     
     //加载语言
+    codeLangs=localStorage.getItem("codeLangs");
+    if(codeLangs && codeLangs.length>2) {
+    	codeLangs=JSON.parse(codeLangs);
+    }
+    
+    defaultsLangs=localStorage.getItem("defaultsLangs");
+    if(defaultsLangs && defaultsLangs.length>2) {
+    	defaultsLangs=JSON.parse(defaultsLangs);
+    }
+    
     admin.request('/service-system/sys-lang/query-list', {}, function (data) {
     	data=data.data;
     	codeLangs={};
@@ -262,6 +272,8 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload'], fun
     		codeLangs[data[i].code]=data[i];
     		defaultsLangs[data[i].defaults]=data[i];
     	}
+    	localStorage.setItem("codeLangs",JSON.stringify(codeLangs));
+    	localStorage.setItem("defaultsLangs",JSON.stringify(defaultsLangs));
     });
     
     //图片预览支持

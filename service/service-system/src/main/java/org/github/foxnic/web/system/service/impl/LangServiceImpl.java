@@ -9,9 +9,11 @@ import org.github.foxnic.web.constants.enums.SystemConfigEnum;
 import org.github.foxnic.web.domain.system.Lang;
 import org.github.foxnic.web.domain.system.LangVO;
 import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.github.foxnic.web.framework.web.SessionUser;
 import org.github.foxnic.web.system.service.IConfigService;
 import org.github.foxnic.web.system.service.ILangService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.github.foxnic.commons.busi.id.IDGenerator;
@@ -37,6 +39,9 @@ import com.github.foxnic.springboot.mvc.Result;
 public class LangServiceImpl extends SuperService<Lang> implements ILangService {
 
 	private static final String NOT_SET = "#$not-set:;";
+	
+	@Value("${develop.language:}")
+	private String devLang;
 
 	@Autowired
 	private IConfigService configService;
@@ -157,9 +162,20 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 
 	@Override
 	public String translate(String defaults, String key) {
-		String sysLangValue = configService.getById(SystemConfigEnum.SYSTEM_LANGUAGE).getValue();
-		// 调试写死
-		sysLangValue = "confuse";
+		String sysLangValue = null;
+		
+		if(!StringUtil.isBlank(devLang)) {
+			sysLangValue=devLang;
+		} else {
+			SessionUser user=SessionUser.getCurrent();
+			if(user!=null) {
+				sysLangValue=user.getLanguage();
+				if(StringUtil.isBlank(sysLangValue)) {
+					sysLangValue=configService.getById(SystemConfigEnum.SYSTEM_LANGUAGE).getValue();
+				}
+			}
+		}
+
 		Language sysLang = Language.valueOf(sysLangValue);
 		return this.translate(sysLang, defaults, key);
 	}

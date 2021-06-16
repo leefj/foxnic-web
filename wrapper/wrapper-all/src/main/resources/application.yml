@@ -46,7 +46,9 @@ spring:
 #      port: 6379
 #      host: 127.0.0.1
 
-
+#设置开发选项
+develop: 
+  language: confuse
 
 security:
   # 模式：session / jwt

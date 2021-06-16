@@ -21,9 +21,7 @@ public class FoxnicWebConfigs {
 	
 	private String appConfigPrefix;
 	private ProjectConfigs projectConfigs;
-	
-	
-
+ 
 	protected GlobalSettings settings=null;
 	
 	//
@@ -33,10 +31,7 @@ public class FoxnicWebConfigs {
 	private MavenProject proxyProject;
 	private MavenProject viewProject;
 	private MavenProject wrapperProject;
-	
-	
-
-
+ 
 	//
 	private String nacosGroup;
 	private String nacosDataId;
@@ -52,18 +47,7 @@ public class FoxnicWebConfigs {
 	private YMLProperties applicationConfigs;
 	private DAO dao;
 	
-	
-//	public FoxnicWebConfigs() {
-//		this(FoxnicWebConstants.SERVICE_SYSTEM_PROJECT_FOLDER_NAME, FoxnicWebConstants.PRIMARY_DATASOURCE_CONFIG_KEY, FoxnicWebConstants.NACOS_GROUP, FoxnicWebConstants.DEFAULT_NACOS_DATA_ID);
-//	}
-//	
-//	public FoxnicWebConfigs(String serviceProjectFolderName) {
-//		this(serviceProjectFolderName, FoxnicWebConstants.PRIMARY_DATASOURCE_CONFIG_KEY, FoxnicWebConstants.NACOS_GROUP, FoxnicWebConstants.DEFAULT_NACOS_DATA_ID);
-//	}
-//	
-//	public FoxnicWebConfigs(String serviceProjectFolderName,String datasourceConfigKey,String nacosGroup,String nacosDataId) {
-//		
-	
+ 
 	public FoxnicWebConfigs(String appId) {
 		
 		System.out.println("machine Id : "+Machine.getIdentity());
@@ -135,8 +119,7 @@ public class FoxnicWebConfigs {
 		this.settings.setEnableMicroService(projectConfigs.isEnableMicroService());
  
 	}
-
-	
+ 
 	
 	private void initGlobalSettings() {
 		this.settings=new GlobalSettings();
@@ -182,9 +165,7 @@ public class FoxnicWebConfigs {
 	public MavenProject getGeneratorProject() {
 		return generatorProject;
 	}
-
-
-
+ 
 	public MavenProject getDomianProject() {
 		return domianProject;
 	}
@@ -298,10 +279,7 @@ public class FoxnicWebConfigs {
 		public String getDomainConstantsPackage() {
 			return properties.getProperty("source.domainConstantsPackage").stringValue();
 		}
-		
-		
-		
-		
+ 
 		/**
 		 * 获得应用的路径
 		 * */

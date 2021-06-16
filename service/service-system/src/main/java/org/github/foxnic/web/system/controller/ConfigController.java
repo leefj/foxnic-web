@@ -5,6 +5,8 @@ import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.springboot.api.annotations.NotNull;
+import com.github.foxnic.springboot.api.error.CommonError;
+import com.github.foxnic.springboot.api.error.ErrorDesc;
 import com.github.foxnic.springboot.mvc.Result;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.github.xiaoymin.knife4j.annotations.ApiSort;
@@ -122,6 +124,9 @@ public class ConfigController {
 		Result<Config> result=new Result<>();
 		boolean suc=configService.update(configVO,SaveMode.NOT_NULL_FIELDS);
 		result.success(suc);
+		if (!suc) {
+			ErrorDesc.fill(result, CommonError.DATA_NOT_EXISTS);
+		}
 		return result;
 	}
 	

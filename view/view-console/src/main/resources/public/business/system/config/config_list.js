@@ -7,7 +7,7 @@
 
 function ListPage() {
         
-	var settings,admin,form,table,layer,util,fox,upload,xmSelect;
+	var settings,admin,form,table,layer,util,fox,upload,xmSelect,laydate;
 	//模块基础路径
 	const moduleURL="/service-system/sys-config";
 	
@@ -18,6 +18,8 @@ function ListPage() {
      	
      	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload;
 		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
+		laydate = layui.laydate;
+		window.laydate=laydate;
 		
      	//渲染表格
      	renderTable();
@@ -39,17 +41,17 @@ function ListPage() {
 			elem: '#data-table',
             url: moduleURL +'/query-paged-list',
 			cols: [[
-			 	{ type:'checkbox' },
+			 	//{ type:'checkbox' },
                 { type: 'numbers' },
                 { field: 'code', sort: true, title: fox.translate('配置键') } ,
                 { field: 'name', sort: true, title: fox.translate('配置名') } ,
-                { field: 'type', sort: true, title: fox.translate('数据类型') } ,
-                { field: 'typeDesc', sort: true, title: fox.translate('类型描述') } ,
+               // { field: 'type', sort: true, title: fox.translate('数据类型') } ,
+               // { field: 'typeDesc', sort: true, title: fox.translate('类型描述') } ,
                 { field: 'value', sort: true, title: fox.translate('配置值') } ,
-                { field: 'valid', sort: true, title: fox.translate('是否生效'), templet: '#cell-tpl-valid' } ,
-                { field: 'notes', sort: true, title: fox.translate('说明') } ,
-                { field: 'createTime', sort: true, title: fox.translate('创建时间') , templet: function (d) { return util.toDateString(d.createTime); } } ,
-                { fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 175 }
+                { field: 'valid', sort: true, title: fox.translate('是否生效'), templet: '#cell-tpl-valid',width: 120 } ,
+                //{ field: 'notes', sort: true, title: fox.translate('说明') } ,
+                { field: 'createTime', sort: true, title: fox.translate('创建时间') , templet: function (d) { return util.toDateString(d.createTime); },width: 160 } ,
+                { fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 100 }
             ]]
         });
         //绑定 Switch 切换事件
@@ -199,7 +201,7 @@ function ListPage() {
 			title: title,
 			resize:true,
 			offset:[top,null],
-			area:["600px",height+"px"],
+			area:["600px",(height)+"px"],
 			type: 2,
 			content: '/business/system/config/config_form.html' + queryString,
 			finish: function () {
@@ -216,6 +218,6 @@ layui.config({
 	base: '/module/'
 }).extend({
 	xmSelect: 'xm-select/xm-select'
-}).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect'],function() {
+}).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect',"laydate"],function() {
 	(new ListPage()).init(layui);
 });

@@ -11,8 +11,8 @@ import org.github.foxnic.web.domain.oauth.RoleMenu;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-07 14:09:39
- * @sign 0C10EC6AF551BFA61451F163DDD94986
+ * @since 2021-06-16 10:46:22
+ * @sign 77319527EB2F5B629571FA848CEDE4D3
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -52,6 +52,11 @@ public class UserMeta {
 	 * 人员ID
 	*/
 	public static final String PERSON_ID="personId";
+	
+	/**
+	 * 语言
+	*/
+	public static final String LANGUAGE="language";
 	
 	/**
 	 * 员工ID
@@ -126,7 +131,7 @@ public class UserMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , NAME , PASSWD , SALT , PHONE , PORTRAIT_ID , PERSON_ID , EMPLOYEE_ID , VALID , LAST_LOGIN_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , ROLES , MENUS , ROLE_MENUS };
+	public static final String[] $PROPS={ ID , NAME , PASSWD , SALT , PHONE , PORTRAIT_ID , PERSON_ID , LANGUAGE , EMPLOYEE_ID , VALID , LAST_LOGIN_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , ROLES , MENUS , ROLE_MENUS };
 	
 	/**
 	 * 代理类
@@ -210,6 +215,17 @@ public class UserMeta {
 		public User setPersonId(String personId) {
 			super.change(PERSON_ID,super.getPersonId(),personId);
 			super.setPersonId(personId);
+			return this;
+		}
+		
+		/**
+		 * 设置 语言
+		 * @param language 语言
+		 * @return 当前对象
+		*/
+		public User setLanguage(String language) {
+			super.change(LANGUAGE,super.getLanguage(),language);
+			super.setLanguage(language);
 			return this;
 		}
 		

@@ -6,7 +6,7 @@
 
 function FormPage() {
 
-	var settings,admin,form,table,layer,util,fox,upload,xmSelect;
+	var settings,admin,form,table,layer,util,fox,upload,xmSelect,layedit,laydate;
 	const moduleURL="/service-system/sys-config";
 	
 	/**
@@ -15,6 +15,7 @@ function FormPage() {
 	this.init=function(layui) { 	
      	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload;
 		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
+		layedit = layui.layedit , laydate = layui.laydate;
 		
 		//渲染表单组件
 		renderFormFields();
@@ -22,8 +23,8 @@ function FormPage() {
 		//填充表单数据
 		fillFormData();
 		
-		//绑定提交事件
-		bindSubmitEvent();
+		//绑定按钮事件
+		bindButtonEvent();
 		
 		//调整窗口的高度与位置
 		adjustPopup();
@@ -36,6 +37,7 @@ function FormPage() {
 	function bindFieldEvents() {
 		form.on('radio(type)', function(data) {
 			var fmdata = form.val("data-form");
+			if(fmdata.code==null || fmdata.code=="") return ;
 			 save(fmdata,function(){
 			 	admin.putTempData('sys-config-form-data',fmdata);
 			 	location.reload();
@@ -54,7 +56,12 @@ function FormPage() {
       */
 	function renderFormFields() {
 		form.render();
-	   
+		if($("#value").attr("tag")=="date") {
+			laydate.render({
+			    elem: '#value',
+			    trigger: 'click'
+			});
+		}
 	}
 	
 	/**
@@ -85,7 +92,7 @@ function FormPage() {
 	/**
       * 保存数据，表单提交事件
       */
-    function bindSubmitEvent() {
+    function bindButtonEvent() {
     
 	    form.on('submit(submit-button)', function (data) {
 	    	//debugger;
@@ -97,6 +104,8 @@ function FormPage() {
 	        
 	        return false;
 	    });
+	    
+	    $("#cancel-button").click(function(){admin.closePopupCenter();});
 	    
     }
     
@@ -125,7 +134,8 @@ layui.config({
 	dir: layuiPath,
 	base: '/module/'
 }).extend({
-	xmSelect: 'xm-select/xm-select'
-}).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect'],function() {
+	xmSelect: 'xm-select/xm-select',
+	numberInput:'numberInput/numberInput'
+}).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect','layedit', 'laydate'],function() {
 	(new FormPage()).init(layui);
 });

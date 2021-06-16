@@ -8,8 +8,7 @@ import com.github.foxnic.springboot.mvc.Result;
 import org.github.foxnic.web.proxy.FeignConfiguration;
 
 import org.springframework.cloud.openfeign.FeignClient;
-
-
+import org.github.foxnic.web.constants.enums.SystemConfigEnum;
 import org.github.foxnic.web.domain.system.Config;
 import org.github.foxnic.web.domain.system.ConfigVO;
 import com.github.foxnic.springboot.api.proxy.APIProxy;
@@ -130,7 +129,7 @@ public interface ConfigServiceProxy {
 	*/
 	@RequestMapping(ConfigServiceProxy.GET_BY_ID)
 	Result<Config> getById(String code);
-	
+ 
 	/**
 	 * 查询全部符合条件的系统配置
 	*/
