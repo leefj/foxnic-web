@@ -67,7 +67,56 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload'], fun
 			    cfg[key]=basicConfig[key];
 			}
 			
-			cfg.autoSort=false,
+			cfg.autoSort=false;
+			
+			var userDone=cfg.done;
+			
+			function done() {
+				renderFooter(this,cfg.footer);
+				if(userDone) userDone();
+			}
+			
+			function renderFooter(it,footer) {
+
+				var url=it.url;
+				url=url.substring(0,url.lastIndexOf('/'));
+
+				var div=$("#layui-table-page"+it.index);
+				var buttons=[];
+
+				if(footer.importExcel) {
+					var exportExcelTemplateButton = '<button id="layui-table-page' + it.index + '-footer-download-excel-template"  type="button" class="layui-btn layui-btn-primary layui-btn-xs"><i class="fa fa-download"></i> 下载模版</button>';
+					buttons.push(exportExcelTemplateButton);
+					var importExcelButton = '<button id="layui-table-page' + it.index + '-footer-import-excel"  type="button" class="layui-btn layui-btn-primary layui-btn-xs"><i class="fa fa-cloud-upload"></i> 导入数据</button>';
+					buttons.push(importExcelButton);
+				}
+
+				if(footer.exportExcel) {
+					var exportExcelButton = '<button id="layui-table-page' + it.index + '-footer-download-excel"  type="button" class="layui-btn layui-btn-primary layui-btn-xs"><i class="fa fa-cloud-download"></i>  导出数据</button>';
+					buttons.push(exportExcelButton);
+				}
+
+            	div.append("<div style='float:right'>"+buttons.join("")+"</div>")
+
+
+				if(footer.importExcel) {
+					$('#layui-table-page' + it.index + '-footer-download-excel-template').click(function () {
+						foxnic.submit(url + "/export-excel-template", it.where);
+					});
+					$('#layui-table-page' + it.index + '-footer-import-excel').click(function () {
+						//foxnic.submit(url + "/export-excel-template", it.where);
+						alert("打开文件")
+					});
+				}
+				if(footer.exportExcel) {
+					$('#layui-table-page' + it.index + '-footer-download-excel').click(function () {
+						foxnic.submit(url + "/export-excel", it.where);
+					});
+				}
+ 
+			}
+			
+			cfg.done=done;
 			
     		table.render(cfg);
     	},
@@ -102,9 +151,7 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload'], fun
     		
     		//如果条目不存在，则插入
     		if(!item) {
-	    		admin.request("/service-system/sys-lang/insert", {code:code,defaults:defaults}, function (data) {
-	    		
-	    		});
+	    		admin.request("/service-system/sys-lang/insert", {code:code,defaults:defaults}, function (data) {});
     		}
     		
     		return text?text:"--";
@@ -227,7 +274,11 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload'], fun
 		},
 		//表单提交
 		submit: function (url,params) {
-        	url=url.replace("//","/");
+
+			url=url.replace("//","/");
+			url=url.replace("http:/","http://");
+			url=url.replace("https:/","https://");
+
         	var target="t-"+(new Date()).getTime();
         	var $ifr=$("<iframe id='"+target+"' name='"+target+"' style='display:none'></iframe>")
         	$("body").append($ifr);

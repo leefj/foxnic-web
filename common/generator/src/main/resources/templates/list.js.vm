@@ -48,8 +48,8 @@ function ListPage() {
             where: { #(parentIdVar) : #(parentIdVar) } ,
             #end
 			cols: [[
-			 	{ type:'checkbox' },
-                { type: 'numbers' },
+			 	{  fixed: 'left',type:'checkbox' },
+                {  fixed: 'left',type: 'numbers' },
                 #for(f : fields)
                 { field: '#(f.varName)', sort: true, title: fox.translate('#(f.label)')#(f.templet) } ,
                 #end

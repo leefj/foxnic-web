@@ -39,7 +39,7 @@ public class PortalPageController {
 	 * 系统配置 表单页面
 	 */
 	@RequestMapping("/login.html")
-	public String form(Model model) {
+	public String login(Model model) {
 		//
 		Result<Config> cfg= ConfigServiceProxy.api().getById(SystemConfigEnum.SYSTEM_TITLE.code());
 		String title=cfg.data().getValue();

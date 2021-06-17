@@ -87,6 +87,12 @@ public interface ConfigServiceProxy {
 	 * 导出Excel
 	 */
 	public static final String EXPORT_EXCEL = API_PREFIX + "export-excel";
+
+
+	/**
+	 * 导出Excel
+	 */
+	public static final String EXPORT_EXCEL_TEMPLATE = API_PREFIX + "export-excel-template";
 	
 	/**
 	 * 导入Excel

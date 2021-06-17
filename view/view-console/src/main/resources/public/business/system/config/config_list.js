@@ -51,13 +51,10 @@ function ListPage() {
                 { field: 'createTime', sort: true, title: fox.translate('创建时间') , templet: function (d) { return fox.dateFormat(d.createTime); },width: 160 } ,
                 { fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 100 }
             ]],
-            done:function() {
-            	 
-            	var div=$("#layui-table-page"+this.index);
-            	var buttons=['<button type="button" class="layui-btn layui-btn-primary layui-btn-xs" ><i class="fa fa-cloud-download"></i></button>'];
-            	div.append("<div style='float:right'>"+buttons.join("")+"</div>")
-            	//debugger;
-            }
+            footer : {
+				exportExcel : true,
+				importExcel : false
+			}
         });
         //绑定 Switch 切换事件
         fox.bindSwitchEvent("cell-tpl-valid",moduleURL +'/update','code','valid',function(r){});

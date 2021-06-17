@@ -1,19 +1,17 @@
 package org.github.foxnic.web.system.controller;
 
  
-import com.alibaba.csp.sentinel.annotation.SentinelResource;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.springboot.api.annotations.NotNull;
-import com.github.foxnic.springboot.api.error.CommonError;
-import com.github.foxnic.springboot.api.error.ErrorDesc;
-import com.github.foxnic.springboot.mvc.Result;
-import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import com.github.xiaoymin.knife4j.annotations.ApiSort;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import java.io.InputStream;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
+
+import com.github.foxnic.commons.io.StreamUtil;
+import com.github.foxnic.dao.data.Rcd;
+import com.github.foxnic.dao.excel.ExcelReader;
+import com.github.foxnic.dao.sql.SQLBuilder;
+import com.github.foxnic.sql.expr.Insert;
 import org.github.foxnic.web.domain.storage.File;
 import org.github.foxnic.web.domain.system.Config;
 import org.github.foxnic.web.domain.system.ConfigVO;
@@ -23,9 +21,31 @@ import org.github.foxnic.web.proxy.system.ConfigServiceProxy;
 import org.github.foxnic.web.system.service.IConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.github.foxnic.dao.data.PagedList;
+import com.github.foxnic.dao.data.RcdSet;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.excel.ExcelStructure;
+import com.github.foxnic.dao.excel.ExcelWriter;
+import com.github.foxnic.springboot.api.annotations.NotNull;
+import com.github.foxnic.springboot.api.error.CommonError;
+import com.github.foxnic.springboot.api.error.ErrorDesc;
+import com.github.foxnic.springboot.mvc.Result;
+import com.github.foxnic.springboot.web.DownloadUtil;
+import com.github.foxnic.sql.expr.ConditionExpr;
+import com.github.foxnic.sql.expr.Expr;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
+import com.github.xiaoymin.knife4j.annotations.ApiSort;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 /**
  * <p>
@@ -214,6 +234,59 @@ public class ConfigController {
 		PagedList<Config> list=configService.queryPagedList(sample,sample.getPageSize(),sample.getPageIndex());
 		result.success(true).data(list);
 		return result;
+	}
+	
+	/**
+	 * 导出 Excel
+	 * */
+	@SentinelResource(value = ConfigServiceProxy.EXPORT_EXCEL)
+	@RequestMapping(ConfigServiceProxy.EXPORT_EXCEL)
+	public void exportExcel(ConfigVO sample,HttpServletResponse response) throws Exception {
+ 		//生成 Excel 数据
+		ExcelWriter ew=configService.exportExcel(sample);
+		//下载
+		DownloadUtil.writeToOutput(response, ew.getWorkBook(), ew.getWorkBookName());
+
+	}
+
+
+	/**
+	 * 导出 Excel 模板
+	 * */
+	@SentinelResource(value = ConfigServiceProxy.EXPORT_EXCEL_TEMPLATE)
+	@RequestMapping(ConfigServiceProxy.EXPORT_EXCEL_TEMPLATE)
+	public void exportExcelTemplate(HttpServletResponse response) throws Exception {
+		//生成 Excel 模版
+		ExcelWriter ew=configService.exportExcelTemplate();
+		//下载
+		DownloadUtil.writeToOutput(response, ew.getWorkBook(), ew.getWorkBookName());
+	}
+
+
+
+
+	@SentinelResource(value = ConfigServiceProxy.IMPORT_EXCEL)
+	@RequestMapping(ConfigServiceProxy.IMPORT_EXCEL)
+	public Result importExcel(MultipartHttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		//获得上传的文件
+		Map<String, MultipartFile> map = request.getFileMap();
+		InputStream input=null;
+		for (MultipartFile mf : map.values()) {
+			input=StreamUtil.bytes2input(mf.getBytes());
+			break;
+		}
+
+		if(input==null) {
+			return ErrorDesc.failure().message("缺少上传的文件");
+		}
+
+		String error=configService.importExcel(input);
+		if(error==null) {
+			return ErrorDesc.success();
+		} else {
+			return ErrorDesc.failure().message(error);
+		}
 	}
 
 
