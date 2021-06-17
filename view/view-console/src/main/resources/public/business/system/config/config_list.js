@@ -59,7 +59,7 @@ function ListPage() {
         //绑定 Switch 切换事件
         fox.bindSwitchEvent("cell-tpl-valid",moduleURL +'/update','code','valid',function(r){});
         //绑定排序事件
-        table.on('sort(data-table)', function(obj){
+        table.on('sort(data-table)', function(obj) {
 		  refreshTableData(obj.field,obj.type);
         });
         
