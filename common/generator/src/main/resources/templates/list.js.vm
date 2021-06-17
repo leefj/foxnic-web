@@ -53,8 +53,21 @@ function ListPage() {
                 #for(f : fields)
                 { field: '#(f.varName)', sort: true, title: fox.translate('#(f.label)')#(f.templet) } ,
                 #end
-                { fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 175 }
+                { fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
             ]]
+	 		,footer : {
+				exportExcel : true,
+				importExcel : {
+					params : {} ,
+				 	callback : function(r) {
+						if(r.success) {
+							layer.msg(fox.translate('数据导入成功')+"!");
+						} else {
+							layer.msg(fox.translate('数据导入失败')+"!");
+						}
+					}
+			 	}
+		 	}
         });
         #if(hasLogicField)
         //绑定 Switch 切换事件
@@ -179,7 +192,7 @@ function ListPage() {
 			layer.confirm(fox.translate('确定删除已选中的')+fox.translate('#(topic)')+fox.translate('吗？'), function (i) {
 				layer.close(i);
 				layer.load(2);
-                admin.request(moduleURL+"/batch-delete", JSON.stringify({ #(idsPropertyName): JSON.stringify(ids) }), function (data) {
+                admin.request(moduleURL+"/batch-delete", { #(idsPropertyName): ids }, function (data) {
                     layer.closeAll('loading');
                     if (data.success) {
                         layer.msg(data.message, {icon: 1, time: 500});

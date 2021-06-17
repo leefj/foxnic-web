@@ -1,5 +1,6 @@
 package org.github.foxnic.web.generator.module;
 
+import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_CONFIG;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_LANG;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER;
@@ -24,7 +25,7 @@ public class SystemCodeGenerator  {
 		// 
 		g.generateSysConfig();
 //		//
-//		g.generateSysDict();
+		g.generateSysDict();
 //		//
 //		g.generateSysDictItem();
 //		//
@@ -126,11 +127,28 @@ public class SystemCodeGenerator  {
 		
 		//生成代码
 		 cfg.buildAll();
-	} 
-	
-	 
-	
-	
-	
+	}
+
+
+	private void generateSysDict() throws Exception {
+		//创建配置
+		ModuleContext cfg=createModuleConfig(FoxnicWeb.SYS_DICT.$TABLE, 5);
+
+		//文件生成覆盖模式
+		cfg.overrides()
+				.setServiceIntfAnfImpl(WriteMode.CREATE_IF_NOT_EXISTS) //服务与接口
+				.setControllerAndAgent(WriteMode.CREATE_IF_NOT_EXISTS) //Rest
+				.setPageController(WriteMode.CREATE_IF_NOT_EXISTS) //页面控制器
+				.setFormPage(WriteMode.CREATE_IF_NOT_EXISTS) //表单HTML页
+				.setListPage(WriteMode.CREATE_IF_NOT_EXISTS); //列表HTML页
+
+		//生成代码
+		cfg.buildAll();
+	}
+
+
+
+
+
 
 }

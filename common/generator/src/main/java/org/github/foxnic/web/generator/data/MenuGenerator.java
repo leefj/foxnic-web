@@ -4,6 +4,7 @@ import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
+import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_CONFIG;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_MENU;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_ROLE_MENU;
@@ -12,7 +13,11 @@ import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.generator.config.FoxnicWebConfigs;
 import org.github.foxnic.web.proxy.oauth.UserServiceProxy;
 import org.github.foxnic.web.proxy.system.ConfigServiceProxy;
+import org.github.foxnic.web.proxy.system.DictServiceProxy;
+import org.github.foxnic.web.proxy.system.LangServiceProxy;
 import org.github.foxnic.web.system.page.ConfigPageController;
+import org.github.foxnic.web.system.page.DictPageController;
+import org.github.foxnic.web.system.page.LangPageController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.github.foxnic.commons.busi.id.IDGenerator;
@@ -42,9 +47,13 @@ public class MenuGenerator {
 		
 //		generator.generate(SYS_MENU.$TABLE,MenuServiceProxy.class,MenuPageController.class,"oauth");
 		
-		generator.generate(SYS_CONFIG.$TABLE,ConfigServiceProxy.class,ConfigPageController.class,"system");
-		
-//		generator.removeByBatchId("457192643089137664");
+//		generator.generate(SYS_CONFIG.$TABLE,ConfigServiceProxy.class,ConfigPageController.class,"system");
+
+//		generator.generate(FoxnicWeb.SYS_LANG.$TABLE, LangServiceProxy.class, LangPageController.class,"system");
+
+		generator.generate(FoxnicWeb.SYS_DICT.$TABLE, DictServiceProxy.class, DictPageController.class,"system");
+
+//		generator.removeByBatchId("454325348381753344");
 		
 	}
 	

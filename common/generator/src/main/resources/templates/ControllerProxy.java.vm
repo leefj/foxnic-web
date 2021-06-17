@@ -78,6 +78,11 @@ public interface #(simpleName) {
 	 * 导出#(topic)数据(Excel)
 	 */
 	public static final String EXPORT_EXCEL = API_PREFIX + "export-excel";
+
+	/**
+	 * 下载#(topic)导入模版(Excel)
+	 */
+	public static final String EXPORT_EXCEL_TEMPLATE = API_PREFIX + "export-excel-template";
 	
 	/**
 	 * 导入#(topic)数据(Excel)
