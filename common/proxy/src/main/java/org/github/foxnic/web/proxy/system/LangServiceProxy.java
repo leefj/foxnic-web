@@ -20,7 +20,7 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  * 语言条目表  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-24 01:19:36
+ * @since 2021-06-17 11:58:03
 */
 
 @FeignClient(value = MicroServiceNames.SYSTEM, contextId = LangServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)
@@ -47,13 +47,13 @@ public interface LangServiceProxy {
 	public static final String INSERT = API_PREFIX + "insert";
 	
 	/**
-	 * 按主键删除语言条目
+	 * 删除语言条目
 	 */
 	public static final String DELETE = API_PREFIX + "delete";
 	
 	
 	/**
-	 * 按主键删除语言条目
+	 * 批量删除语言条目
 	 */
 	public static final String BATCH_DELETE = API_PREFIX + "batch-delete";
 	
@@ -70,27 +70,32 @@ public interface LangServiceProxy {
 	public static final String SAVE = API_PREFIX + "save";
 	
 	/**
-	 * 按主键获取语言条目
+	 * 获取语言条目
 	 */
 	public static final String GET_BY_ID = API_PREFIX + "get-by-id";
 	
 	/**
-	 * 查询全部符合条件的语言条目
+	 * 查询语言条目
 	 */
 	public static final String QUERY_LIST = API_PREFIX + "query-list";
 	
 	/**
-	 * 分页查询符合条件的语言条目
+	 * 分页查询语言条目
 	 */
 	public static final String QUERY_PAGED_LIST = API_PREFIX + "query-paged-list";
 	
 	/**
-	 * 导出Excel
+	 * 导出语言条目数据(Excel)
 	 */
 	public static final String EXPORT_EXCEL = API_PREFIX + "export-excel";
+
+	/**
+	 * 下载语言条目导入模版(Excel)
+	 */
+	public static final String EXPORT_EXCEL_TEMPLATE = API_PREFIX + "export-excel-template";
 	
 	/**
-	 * 导入Excel
+	 * 导入语言条目数据(Excel)
 	 */
 	public static final String IMPORT_EXCEL = API_PREFIX + "import-excel";
 	
@@ -101,14 +106,14 @@ public interface LangServiceProxy {
 	Result<Lang> insert(LangVO langVO);
 	
 	/**
-	 * 按主键删除语言条目
+	 * 删除语言条目
 	*/
 	@RequestMapping(LangServiceProxy.DELETE)
 	Result<Lang> deleteById(String code);
 	
 	
 	/**
-	 * 按主键删除语言条目
+	 * 批量删除语言条目
 	*/
 	@RequestMapping(LangServiceProxy.BATCH_DELETE)
 	Result<Lang> deleteByIds(List<String> id);
@@ -126,19 +131,19 @@ public interface LangServiceProxy {
 	Result<Lang> save(LangVO langVO);
 	
 	/**
-	 * 按主键获取语言条目
+	 * 获取语言条目
 	*/
 	@RequestMapping(LangServiceProxy.GET_BY_ID)
 	Result<Lang> getById(String code);
 	
 	/**
-	 * 查询全部符合条件的语言条目
+	 * 查询语言条目
 	*/
 	@RequestMapping(LangServiceProxy.QUERY_LIST)
 	Result<List<Lang>> queryList(LangVO sample);
 	
 	/**
-	 * 分页查询符合条件的语言条目
+	 * 分页查询语言条目
 	*/
 	@RequestMapping(LangServiceProxy.QUERY_PAGED_LIST)
 	Result<PagedList<Lang>> queryPagedList(LangVO sample);

@@ -1,9 +1,14 @@
 package org.github.foxnic.web.system.service.impl;
+import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.github.foxnic.dao.excel.ExcelStructure;
+import com.github.foxnic.dao.excel.ExcelWriter;
+import com.github.foxnic.dao.excel.ValidateResult;
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
 import org.github.foxnic.web.domain.system.Config;
 import org.github.foxnic.web.framework.dao.DBConfigs;
@@ -108,5 +113,27 @@ public class ConfigServiceImpl  extends SuperService<Config> implements IConfigS
 		cache.remove(entity.getCode());
 		return super.update(entity, mode);
 	}
-	
+
+	@Override
+	public ExcelWriter exportExcel(Config sample) {
+		return super.exportExcel(sample);
+	}
+
+	@Override
+	public ExcelWriter exportExcelTemplate() {
+		return super.exportExcelTemplate();
+	}
+
+	@Override
+	public List<ValidateResult> importExcel(InputStream input, int sheetIndex, boolean batch) {
+		return super.importExcel(input,sheetIndex,batch);
+	}
+
+	@Override
+	public ExcelStructure buildExcelStructure(boolean isForExport) {
+		return super.buildExcelStructure(isForExport);
+	}
+
+
+
 }

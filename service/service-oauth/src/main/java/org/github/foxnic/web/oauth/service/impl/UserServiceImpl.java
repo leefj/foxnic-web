@@ -14,6 +14,7 @@ import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.domain.system.Config;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.oauth.service.IUserService;
+import org.github.foxnic.web.proxy.SystemConfigUtil;
 import org.github.foxnic.web.proxy.system.ConfigServiceProxy;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -223,23 +224,19 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
     	if (user!=null) {
     		dao.join(user,Role.class,Menu.class,RoleMenu.class);
     	}
-    	
+
+    	//设置用户语言
     	String usrLang=user.getLanguage();
     	if(!StringUtil.isBlank(devLang)) {
     		user.setLanguage(devLang);
     	} else {
     		if(StringUtil.isBlank(usrLang)) {
     			//获得系统配置的语言
-    	    	Result<Config> r=ConfigServiceProxy.api().getById(SystemConfigEnum.SYSTEM_LANGUAGE.code());
-    	    	String sysLang=r.data().getValue();
+    	    	String sysLang= SystemConfigUtil.getString(SystemConfigEnum.SYSTEM_LANGUAGE);
     			user.setLanguage(sysLang);
     		}
     	}
-    	
-    	
-    	
-    	
- 
+
         return user;
     }
 

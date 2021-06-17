@@ -8,10 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 
 import com.github.foxnic.commons.io.StreamUtil;
-import com.github.foxnic.dao.data.Rcd;
-import com.github.foxnic.dao.excel.ExcelReader;
-import com.github.foxnic.dao.sql.SQLBuilder;
-import com.github.foxnic.sql.expr.Insert;
+import com.github.foxnic.dao.excel.ValidateResult;
 import org.github.foxnic.web.domain.storage.File;
 import org.github.foxnic.web.domain.system.Config;
 import org.github.foxnic.web.domain.system.ConfigVO;
@@ -26,17 +23,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.data.RcdSet;
 import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.excel.ExcelStructure;
 import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.springboot.api.annotations.NotNull;
 import com.github.foxnic.springboot.api.error.CommonError;
 import com.github.foxnic.springboot.api.error.ErrorDesc;
 import com.github.foxnic.springboot.mvc.Result;
 import com.github.foxnic.springboot.web.DownloadUtil;
-import com.github.foxnic.sql.expr.ConditionExpr;
-import com.github.foxnic.sql.expr.Expr;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.github.xiaoymin.knife4j.annotations.ApiSort;
 
@@ -281,11 +274,11 @@ public class ConfigController {
 			return ErrorDesc.failure().message("缺少上传的文件");
 		}
 
-		String error=configService.importExcel(input);
-		if(error==null) {
+		List<ValidateResult> errors=configService.importExcel(input,0,true);
+		if(errors==null || errors.isEmpty()) {
 			return ErrorDesc.success();
 		} else {
-			return ErrorDesc.failure().message(error);
+			return ErrorDesc.failure().message("导入失败").data(errors);
 		}
 	}
 
