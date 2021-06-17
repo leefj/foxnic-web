@@ -1,7 +1,7 @@
 /**
  * 语言条目 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-15 14:18:55
+ * @since 2021-06-17 15:31:14
  */
 
 
@@ -39,30 +39,46 @@ function ListPage() {
 			elem: '#data-table',
             url: moduleURL +'/query-paged-list',
 			cols: [[
-			 	{ type:'checkbox' },
-                { type: 'numbers' },
-                { field: 'code', sort: true, title: fox.translate('编码键') } ,
+			 	{  fixed: 'left',type:'checkbox' },
+                {  fixed: 'left',type: 'numbers' },
+                { field: 'code', sort: true, title: fox.translate('编码键'),hide:true } ,
                 { field: 'defaults', sort: true, title: fox.translate('默认') } ,
-                { field: 'zhCh', sort: true, title: fox.translate('简体中文(大陆)') } ,
-                { field: 'zhTw', sort: true, title: fox.translate('繁体中文(台湾)') } ,
+                { field: 'zhCh', sort: true, title: fox.translate('简体中文') } ,
+                { field: 'zhTw', sort: true, title: fox.translate('繁体中文') } ,
                 { field: 'enUs', sort: true, title: fox.translate('英文美国') } ,
                 { field: 'enUk', sort: true, title: fox.translate('英文英国') } ,
                 { field: 'confuse', sort: true, title: fox.translate('混淆专用') } ,
-                { field: 'valid', sort: true, title: fox.translate('是否有效') } ,
-                { field: 'createTime', sort: true, title: fox.translate('创建时间') , templet: function (d) { return util.toDateString(d.createTime); } } ,
-                { fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 175 }
+                //{ field: 'valid', sort: true, title: fox.translate('是否有效') } ,
+                //{ field: 'createTime', sort: true, title: fox.translate('创建时间') , templet: function (d) { return fox.dateFormat(d.createTime); } } ,
+                { fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
             ]]
+	 		,footer : {
+				exportExcel : true,
+				importExcel : {
+					params : {} ,
+				 	callback : function(r) {
+						if(r.success) {
+							layer.msg(fox.translate('数据导入成功')+"!");
+						} else {
+							layer.msg(fox.translate('数据导入失败')+"!");
+						}
+					}
+			 	}
+		 	}
         });
-        
+        //绑定排序事件
+        table.on('sort(data-table)', function(obj){
+		  refreshTableData(obj.field,obj.type);
+        });
      };
      
 	/**
       * 刷新表格数据
       */
-	function refreshTableData() {
+	function refreshTableData(sortField,sortType) {
 		var field = $('#search-field').val();
 		var value = $('#search-input').val();
-		var ps={searchField: field, searchValue: value};
+		var ps={searchField: field, searchValue: value,sortField:sortField,sortType:sortType};
 		table.reload('data-table', { where : ps });
 	}
     
@@ -127,7 +143,7 @@ function ListPage() {
 			layer.confirm(fox.translate('确定删除已选中的')+fox.translate('语言条目')+fox.translate('吗？'), function (i) {
 				layer.close(i);
 				layer.load(2);
-                admin.req(moduleURL+"/batch-delete", JSON.stringify({ codes: JSON.stringify(ids) }), function (data) {
+                admin.request(moduleURL+"/batch-delete", { codes: ids } , function (data) {
                     layer.closeAll('loading');
                     if (data.success) {
                         layer.msg(data.message, {icon: 1, time: 500});
@@ -150,8 +166,10 @@ function ListPage() {
 			var layEvent = obj.event;
 	
 			if (layEvent === 'edit') { // 修改
-				layer.load(2);
-				admin.req(moduleURL+"/get-by-id", { code : data.code }, function (data) {
+				//延迟显示加载动画，避免界面闪动
+				var task=setTimeout(function(){layer.load(2);},1000);
+				admin.request(moduleURL+"/get-by-id", { code : data.code }, function (data) {
+					clearTimeout(task);
 					layer.closeAll('loading');
 					if(data.success) {
 						 showEditForm(data.data);
@@ -165,7 +183,7 @@ function ListPage() {
 				layer.confirm(fox.translate('确定删除此')+fox.translate('语言条目')+fox.translate('吗？'), function (i) {
 					layer.close(i);
 					layer.load(2);
-					admin.req(moduleURL+"/delete", { code : data.code }, function (data) {
+					admin.request(moduleURL+"/delete", { code : data.code }, function (data) {
 						layer.closeAll('loading');
 						if (data.success) {
 							layer.msg(data.message, {icon: 1, time: 500});
@@ -186,7 +204,7 @@ function ListPage() {
      */
 	function showEditForm(data) {
 		var queryString="";
-		if(data) queryString="?" + 'code=' + data.code;
+		if(data && data.code) queryString="?" + 'code=' + data.code;
 		admin.putTempData('sys-lang-form-data', data);
 		var area=admin.getTempData('sys-lang-form-area');
 		var height= (area && area.height) ? area.height : ($(window).height()*0.6);

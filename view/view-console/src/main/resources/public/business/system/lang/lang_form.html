@@ -2,7 +2,7 @@
 /**
  * 语言条目 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-15 14:18:55
+ * @since 2021-06-17 15:31:14
  */
  -->
  <!DOCTYPE html>
@@ -15,19 +15,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="/assets/libs/layui/css/layui.css"/>
     <link rel="stylesheet" href="/assets/css/admin.css"/>
-    <link rel="stylesheet" href="/module/formSelects/formSelects-v4.css"/>
     <link rel="stylesheet" href="/assets/css/foxnic-web.css">
+    <link href="/assets/libs/font-awesome-4.7.0/css/font-awesome.min.css" th:href="@{/assets/libs/font-awesome-4.7.0/css/font-awesome.min.css}" rel="stylesheet"/>
 </head>
 
 <body>
 
-<form id="data-form" lay-filter="data-form" class="layui-form model-form">
+<form id="data-form" lay-filter="data-form" class="layui-form model-form" style="display:none">
     <input name="code" id="code"  type="hidden"/>
     
     <div class="layui-form-item">
         <label class="layui-form-label" th:text="${lang.translate('默认')}">默认</label>
         <div class="layui-input-block">
-            <input id="defaults" name="defaults" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('默认') }" type="text" class="layui-input"    />
+            <input lay-filter="defaults" id="defaults" name="defaults" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('默认') }" type="text" class="layui-input"    />
         </div>
     </div>
     
@@ -36,7 +36,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label" th:text="${lang.translate('简体中文(大陆)')}">简体中文(大陆)</label>
         <div class="layui-input-block">
-            <input id="zhCh" name="zhCh" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('简体中文(大陆)') }" type="text" class="layui-input"    />
+            <input lay-filter="zhCh" id="zhCh" name="zhCh" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('简体中文(大陆)') }" type="text" class="layui-input"    />
         </div>
     </div>
     
@@ -45,7 +45,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label" th:text="${lang.translate('繁体中文(台湾)')}">繁体中文(台湾)</label>
         <div class="layui-input-block">
-            <input id="zhTw" name="zhTw" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('繁体中文(台湾)') }" type="text" class="layui-input"    />
+            <input lay-filter="zhTw" id="zhTw" name="zhTw" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('繁体中文(台湾)') }" type="text" class="layui-input"    />
         </div>
     </div>
     
@@ -54,7 +54,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label" th:text="${lang.translate('英文美国')}">英文美国</label>
         <div class="layui-input-block">
-            <input id="enUs" name="enUs" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('英文美国') }" type="text" class="layui-input"    />
+            <input lay-filter="enUs" id="enUs" name="enUs" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('英文美国') }" type="text" class="layui-input"    />
         </div>
     </div>
     
@@ -63,7 +63,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label" th:text="${lang.translate('英文英国')}">英文英国</label>
         <div class="layui-input-block">
-            <input id="enUk" name="enUk" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('英文英国') }" type="text" class="layui-input"    />
+            <input lay-filter="enUk" id="enUk" name="enUk" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('英文英国') }" type="text" class="layui-input"    />
         </div>
     </div>
     
@@ -72,7 +72,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label" th:text="${lang.translate('混淆专用')}">混淆专用</label>
         <div class="layui-input-block">
-            <input id="confuse" name="confuse" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('混淆专用') }" type="text" class="layui-input"    />
+            <input lay-filter="confuse" id="confuse" name="confuse" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('混淆专用') }" type="text" class="layui-input"    />
         </div>
     </div>
     
@@ -81,14 +81,14 @@
     <div class="layui-form-item">
         <label class="layui-form-label" th:text="${lang.translate('是否有效')}">是否有效</label>
         <div class="layui-input-block">
-            <input id="valid" name="valid" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('是否有效') }" type="text" class="layui-input"    />
+            <input lay-filter="valid" id="valid" name="valid" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('是否有效') }" type="text" class="layui-input"    />
         </div>
     </div>
     
 	
 
     <div class="layui-form-item model-form-footer">
-        <button class="layui-btn layui-btn-primary" ew-event="closeDialog" type="button" th:text="${lang.translate('取消')}">取消</button>
+        <button class="layui-btn layui-btn-primary" id="cancel-button" lay-filter="cancel-button" type="button" th:text="${lang.translate('取消')}">取消</button>
         <button class="layui-btn"  id="submit-button" lay-filter="submit-button" lay-submit th:text="${lang.translate('保存')}">保存</button>
     </div>
 </form>

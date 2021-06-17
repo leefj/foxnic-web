@@ -56,6 +56,7 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
         		
         		pages.push(menus[i]);
         		map[menus[i].id]=menus[i];
+
         	}
         	var tops=[];
         	//填充 subMenus

@@ -72,7 +72,9 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload'], fun
 			var userDone=cfg.done;
 			
 			function done() {
-				renderFooter(this,cfg.footer);
+				if(cfg.footer) {
+					renderFooter(this,cfg.footer);
+				}
 				if(userDone) userDone();
 			}
 			
@@ -87,7 +89,7 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload'], fun
 				if(footer.importExcel) {
 					var exportExcelTemplateButton = '<button id="layui-table-page' + it.index + '-footer-download-excel-template"  type="button" class="layui-btn layui-btn-primary layui-btn-xs"><i class="fa fa-download"></i> 下载模版</button>';
 					buttons.push(exportExcelTemplateButton);
-					var importExcelButton = '<button id="layui-table-page' + it.index + '-footer-import-excel"  type="button" class="layui-btn layui-btn-primary layui-btn-xs"><i class="fa fa-cloud-upload"></i> 导入数据</button>';
+					var importExcelButton = '<button id="layui-table-page' + it.index + '-footer-import-excel"  type="button" class="layui-btn layui-btn-primary layui-btn-xs"><i class="fa fa-cloud-upload"></i> 导入数据</button>&nbsp;&nbsp;';
 					buttons.push(importExcelButton);
 				}
 
@@ -103,10 +105,19 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload'], fun
 					$('#layui-table-page' + it.index + '-footer-download-excel-template').click(function () {
 						foxnic.submit(url + "/export-excel-template", it.where);
 					});
-					$('#layui-table-page' + it.index + '-footer-import-excel').click(function () {
-						//foxnic.submit(url + "/export-excel-template", it.where);
-						alert("打开文件")
+					var ps=footer.importExcel.params;
+					if(ps && (typeof ps === "function")) {
+						ps=ps();
+					}
+					var cb=footer.importExcel.callback;
+					if(!ps) ps={};
+					foxnic.bindImportButton($('#layui-table-page' + it.index + '-footer-import-excel'),url+"/import-excel",ps,function(r) {
+						 cb && cb(r);
 					});
+					// $('#layui-table-page' + it.index + '-footer-import-excel').click(function () {
+					// 	//foxnic.submit(url + "/export-excel-template", it.where);
+					// 	alert("打开文件")
+					// });
 				}
 				if(footer.exportExcel) {
 					$('#layui-table-page' + it.index + '-footer-download-excel').click(function () {
@@ -118,7 +129,7 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload'], fun
 			
 			cfg.done=done;
 			
-    		table.render(cfg);
+    		return table.render(cfg);
     	},
     	
     	/**
@@ -151,7 +162,9 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload'], fun
     		
     		//如果条目不存在，则插入
     		if(!item) {
-	    		admin.request("/service-system/sys-lang/insert", {code:code,defaults:defaults}, function (data) {});
+	    		admin.request("/service-system/sys-lang/insert", {code:code,defaults:defaults}, function (data) {
+					localStorage.removeItem("language_timestamp");
+				});
     		}
     		
     		return text?text:"--";
@@ -163,6 +176,9 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload'], fun
     	 * */
     	bindImportButton:function(buttonEl,url,params,callback) {
  			 url=url.replace("//","/");
+			 url=url.replace("http:/","http://");
+			 url=url.replace("https:/","https://");
+			var task=null;
     		 var uploadInst = upload.render({
 			    elem: buttonEl
 			    ,url: url //改成您自己的上传接口
@@ -170,6 +186,7 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload'], fun
 			    ,accept:"file"
 			    ,headers:{token:settings.getToken()}
 			    ,before: function(obj) {
+			    	task=setTimeout(function(){layer.load(2);},500);
 			      //预读本地文件示例，不支持ie8
 			      //obj.preview(function(index, file, result){
 			      //  $(imageEl).attr('src', result); //图片链接（base64）
@@ -177,6 +194,8 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload'], fun
 			      //});
 			    }
 			    ,done: function(res){
+			    	clearTimeout(task);
+					layer.closeAll('loading');
 			      //如果上传失败
 			      if(!res.success) {
 			        return layer.msg(res.message);
@@ -186,6 +205,8 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload'], fun
 			      callback && callback(res);
 			    }
 			    ,error: function(){
+					clearTimeout(task);
+					layer.closeAll('loading');
 			    	layer.msg('上传失败');
 			      //演示失败状态，并实现重传
 			      //var demoText = $('#demoText');

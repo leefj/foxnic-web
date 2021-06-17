@@ -250,6 +250,7 @@ layui.define(['settings', 'layer'], function (exports) {
             };
             param.error = function (xhr) {
                 //param.success({code: xhr.status, msg: xhr.statusText});
+                layer.closeAll('loading');
             	layer.msg('请求异常', {icon: 2});
             };
             //发送同步ajax请求
