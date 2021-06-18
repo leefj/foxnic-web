@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.github.foxnic.springboot.mvc.Result;
 import org.springframework.http.MediaType;
 
 import com.alibaba.fastjson.JSON;

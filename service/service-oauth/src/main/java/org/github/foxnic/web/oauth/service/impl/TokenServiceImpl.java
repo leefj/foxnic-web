@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.github.foxnic.springboot.mvc.Result;
 import org.github.foxnic.web.domain.oauth.Token;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.oauth.service.ITokenService;

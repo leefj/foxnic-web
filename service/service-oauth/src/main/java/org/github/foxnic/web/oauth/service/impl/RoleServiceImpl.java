@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.github.foxnic.springboot.mvc.Result;
 import org.springframework.stereotype.Service;
 
 import com.github.foxnic.dao.data.PagedList;
