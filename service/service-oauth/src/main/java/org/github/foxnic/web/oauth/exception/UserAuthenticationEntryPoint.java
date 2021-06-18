@@ -23,8 +23,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 
 import com.github.foxnic.commons.log.Logger;
-import com.github.foxnic.springboot.api.error.CommonError;
-import com.github.foxnic.springboot.api.error.ErrorDesc;
+import com.github.foxnic.api.error.CommonError;
+import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.springboot.spring.SpringUtil;
 import com.github.foxnic.springboot.web.WebContext;
 

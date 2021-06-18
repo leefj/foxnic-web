@@ -20,8 +20,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.web.filter.GenericFilterBean;
 
-import com.github.foxnic.springboot.api.error.CommonError;
-import com.github.foxnic.springboot.api.error.ErrorDesc;
+import com.github.foxnic.api.error.CommonError;
+import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.springboot.mvc.RequestParameter;
 import com.github.foxnic.springboot.spring.SpringUtil;
 

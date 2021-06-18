@@ -1,15 +1,13 @@
 package org.github.foxnic.web.session;
 
-import com.github.foxnic.commons.reflect.ReflectUtil;
-
 public abstract class SessionUser {
 	
-	private static String SECURITY_CONTEXTHOLDER_CLASS_NAME="org.springframework.security.core.context.SecurityContextHolder";
+//	private static String SECURITY_CONTEXTHOLDER_CLASS_NAME="org.springframework.security.core.context.SecurityContextHolder";
 	
-	private static Class SECURITY_CONTEXTHOLDER_CLASS=null;
+//	private static Class SECURITY_CONTEXTHOLDER_CLASS=null;
 	
 	public SessionUser() {
-		SECURITY_CONTEXTHOLDER_CLASS=ReflectUtil.forName(SECURITY_CONTEXTHOLDER_CLASS_NAME);
+//		SECURITY_CONTEXTHOLDER_CLASS=ReflectUtil.forName(SECURITY_CONTEXTHOLDER_CLASS_NAME);
 	}
 	
 	/**

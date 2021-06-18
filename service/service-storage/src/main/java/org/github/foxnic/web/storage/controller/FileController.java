@@ -26,9 +26,9 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.springboot.api.annotations.NotNull;
-import com.github.foxnic.springboot.api.error.CommonError;
-import com.github.foxnic.springboot.api.error.ErrorDesc;
+import com.github.foxnic.api.validate.annotations.NotNull;
+import com.github.foxnic.api.error.CommonError;
+import com.github.foxnic.api.error.ErrorDesc;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.github.xiaoymin.knife4j.annotations.ApiSort;
 

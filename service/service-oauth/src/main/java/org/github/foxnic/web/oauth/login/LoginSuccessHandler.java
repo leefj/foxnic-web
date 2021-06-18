@@ -37,7 +37,7 @@ import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.commons.lang.StringUtil;
-import com.github.foxnic.springboot.api.error.ErrorDesc;
+import com.github.foxnic.api.error.ErrorDesc;
 
 /**
  * 处理登录成功的逻辑

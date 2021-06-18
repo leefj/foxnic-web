@@ -26,7 +26,7 @@ import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.springboot.spring.SpringUtil;
-import com.github.foxnic.springboot.web.MimeUtil;
+import com.github.foxnic.api.web.MimeUtil;
 
 /**
  * <p>

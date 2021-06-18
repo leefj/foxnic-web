@@ -24,7 +24,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import org.github.foxnic.web.oauth.service.IOauthClientService;
-import com.github.foxnic.springboot.api.annotations.NotNull;
+import com.github.foxnic.api.validate.annotations.NotNull;
 
 /**
  * <p>

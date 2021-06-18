@@ -49,7 +49,7 @@ function ListPage() {
                 { field: 'valid', sort: true, title: fox.translate('是否生效'), templet: '#cell-tpl-valid',width: 120 } ,
                 //{ field: 'notes', sort: true, title: fox.translate('说明') } ,
                 { field: 'createTime', sort: true, title: fox.translate('创建时间') , templet: function (d) { return fox.dateFormat(d.createTime); },width: 160 } ,
-                { fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 100 }
+                { field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 100 }
             ]],
             footer : {
 				exportExcel : true,

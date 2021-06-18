@@ -41,27 +41,29 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload'], fun
     	 * */
     	renderTable:function(cfg) {
  			var tableId=cfg.elem.substring(1);
- 			debugger;
+ 			//debugger;
  			if(window.LAYUI_TABLE_WIDTH_CONFIG) {
- 				//debugger;
+				//debugger;
 				var columnWidthConfig = LAYUI_TABLE_WIDTH_CONFIG[tableId];
-				cfg.url = settings.base_server + cfg.url;
-				var cols = cfg.cols[0];
-				var prevFlag=0,prev=null;
-				for (var i = 0; cols && i < cols.length; i++) {
-					if(cols[i].hide) continue;
-					var w = columnWidthConfig[cols[i].field];
-					if (w) {
-						cols[i].width = w;
-						console.log(cols[i].field,w);
-					}
-					if(cols[i].field=="row-ops") prevFlag=1;
-					if(prevFlag==0) {
-						prev=cols[i];
-					}
+				if (columnWidthConfig) {
+					cfg.url = settings.base_server + cfg.url;
+					var cols = cfg.cols[0];
+					var prevFlag = 0, prev = null;
+					for (var i = 0; cols && i < cols.length; i++) {
+						if (cols[i].hide) continue;
+						var w = columnWidthConfig[cols[i].field];
+						if (w) {
+							cols[i].width = w;
+							console.log(cols[i].field, w);
+						}
+						if (cols[i].field == "row-ops") prevFlag = 1;
+						if (prevFlag == 0) {
+							prev = cols[i];
+						}
 
+					}
+					if (prev) prev.width = null;
 				}
-				if(prev) prev.width=null;
 			}
 
     		
@@ -203,7 +205,7 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload'], fun
  			 url=url.replace("//","/");
 			 url=url.replace("http:/","http://");
 			 url=url.replace("https:/","https://");
-			var task=null;
+			 var task=null;
     		 var uploadInst = upload.render({
 			    elem: buttonEl
 			    ,url: url //改成您自己的上传接口
@@ -347,17 +349,28 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload'], fun
         }
     };
 
-
-
+	var mouseDownTime;
+	$(document).on("mousedown",function (e) {
+		mouseDownTime=(new Date()).getTime();
+	});
 	/**
 	 * 监听layui table 的列宽拖动时间
 	 * */
 	$(document).on("mouseup",function (e) {
 
+		var t=(new Date()).getTime();
+		t=t-mouseDownTime;
+		//console.log("click",t);
+		mouseDownTime=null;
+		if(t<500) return;
+
 		setTimeout(function (){
 
 			var tar=$(e.target);
+			//debugger
+			if(tar.parent()[0].nodeName!="TH") return;
 			var cls=tar.attr("class");
+			if(cls==null) return;
 			//console.log(cls,t);
 			var pars=tar.parents();
 			var layFilter=null;
@@ -392,7 +405,7 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload'], fun
 			var loc=location.href;
 			loc=loc.substr(loc.indexOf("//")+2);
 			loc=loc.substr(loc.indexOf("/"));
-			console.log(loc,tableId,ws);
+			console.log("save table",tableId,ws);
 
 			admin.request("/service-system/sys-db-cache/save", { id: loc+"#"+tableId , value: JSON.stringify(ws),area:loc,catalog:"layui-table-column-width",ownerType:"user" }, function (data) {});
 

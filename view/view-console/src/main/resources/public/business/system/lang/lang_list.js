@@ -50,7 +50,7 @@ function ListPage() {
                 { field: 'confuse', sort: true, title: fox.translate('混淆专用') } ,
                 //{ field: 'valid', sort: true, title: fox.translate('是否有效') } ,
                 //{ field: 'createTime', sort: true, title: fox.translate('创建时间') , templet: function (d) { return fox.dateFormat(d.createTime); } } ,
-                { fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
+                { field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
             ]]
 	 		,footer : {
 				exportExcel : true,

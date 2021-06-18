@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.github.foxnic.springboot.api.annotations.NotNull;
+import com.github.foxnic.api.validate.annotations.NotNull;
 import com.github.xiaoymin.knife4j.annotations.ApiSort;
 import com.wf.captcha.SpecCaptcha;
 import com.wf.captcha.base.Captcha;

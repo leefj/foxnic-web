@@ -13,7 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 import com.github.foxnic.commons.log.Logger;
-import com.github.foxnic.springboot.api.error.ErrorDesc;
+import com.github.foxnic.api.error.ErrorDesc;
 
 /**
  * CustomLogoutSuccessHandler

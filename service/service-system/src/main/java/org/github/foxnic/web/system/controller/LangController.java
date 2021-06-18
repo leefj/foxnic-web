@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletResponse;
 
-import com.github.foxnic.springboot.api.error.ErrorDesc;
+import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.commons.io.StreamUtil;
 import java.io.InputStream;
 import java.util.Map;
@@ -42,7 +42,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import org.github.foxnic.web.system.service.ILangService;
-import com.github.foxnic.springboot.api.annotations.NotNull;
+import com.github.foxnic.api.validate.annotations.NotNull;
 
 /**
  * <p>

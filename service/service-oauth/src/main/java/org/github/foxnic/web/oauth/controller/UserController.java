@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.springboot.api.annotations.NotNull;
+import com.github.foxnic.api.validate.annotations.NotNull;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.github.xiaoymin.knife4j.annotations.ApiSort;
 
