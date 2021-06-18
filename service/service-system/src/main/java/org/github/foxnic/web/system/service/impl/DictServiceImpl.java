@@ -8,7 +8,7 @@ import java.io.InputStream;
 
 import javax.annotation.Resource;
 
-import com.github.foxnic.springboot.mvc.Result;
+import com.github.foxnic.api.transter.Result;
 import org.springframework.stereotype.Service;
 
 import com.github.foxnic.commons.busi.id.IDGenerator;

@@ -6,7 +6,7 @@ import java.util.List;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.data.PagedList;
 
-import com.github.foxnic.springboot.mvc.Result;
+import com.github.foxnic.api.transter.Result;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

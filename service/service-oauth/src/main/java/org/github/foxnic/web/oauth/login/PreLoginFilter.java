@@ -16,14 +16,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.github.foxnic.web.domain.oauth.LoginIdentityVO;
 import org.github.foxnic.web.oauth.service.ICaptchaService;
 import org.github.foxnic.web.oauth.utils.ResponseUtil;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.web.filter.GenericFilterBean;
 
 import com.github.foxnic.springboot.api.error.CommonError;
 import com.github.foxnic.springboot.api.error.ErrorDesc;
-import com.github.foxnic.springboot.mvc.RequestParameter;
+import com.github.foxnic.api.transter.RequestParameter;
 import com.github.foxnic.springboot.spring.SpringUtil;
 
 /**

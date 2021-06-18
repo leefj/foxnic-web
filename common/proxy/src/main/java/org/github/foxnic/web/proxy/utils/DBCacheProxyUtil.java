@@ -1,15 +1,10 @@
 package org.github.foxnic.web.proxy.utils;
 
-import com.github.foxnic.commons.lang.DataParser;
-import com.github.foxnic.springboot.mvc.Result;
-import org.github.foxnic.web.constants.enums.SystemConfigEnum;
-import org.github.foxnic.web.domain.system.Config;
+import com.github.foxnic.api.transter.Result;
 import org.github.foxnic.web.domain.system.DbCache;
 import org.github.foxnic.web.domain.system.DbCacheVO;
-import org.github.foxnic.web.proxy.system.ConfigServiceProxy;
 import org.github.foxnic.web.proxy.system.DbCacheServiceProxy;
 
-import java.util.Date;
 import java.util.List;
 
 public class DBCacheProxyUtil {

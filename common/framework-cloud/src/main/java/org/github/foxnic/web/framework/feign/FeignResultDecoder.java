@@ -5,7 +5,7 @@ import java.lang.reflect.Type;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.github.foxnic.springboot.mvc.Result;
+import com.github.foxnic.api.transter.Result;
 import org.apache.commons.lang3.StringUtils;
 
 import com.alibaba.fastjson.JSON;

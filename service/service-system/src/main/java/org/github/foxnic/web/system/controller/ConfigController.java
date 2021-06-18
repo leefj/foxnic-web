@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.github.foxnic.commons.io.StreamUtil;
 import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.springboot.mvc.Result;
+import com.github.foxnic.api.transter.Result;
 import org.github.foxnic.web.domain.storage.File;
 import org.github.foxnic.web.domain.system.Config;
 import org.github.foxnic.web.domain.system.ConfigVO;

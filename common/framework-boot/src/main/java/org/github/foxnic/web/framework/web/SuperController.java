@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.github.foxnic.springboot.mvc.RequestParameter;
+import com.github.foxnic.api.transter.RequestParameter;
 
 public class SuperController {
 	

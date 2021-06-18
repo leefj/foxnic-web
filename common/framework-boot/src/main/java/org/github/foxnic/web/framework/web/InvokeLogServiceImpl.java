@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSON;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.spec.DAO;
-import com.github.foxnic.springboot.mvc.InvokeLogService;
-import com.github.foxnic.springboot.mvc.RequestParameter;
+import com.github.foxnic.api.transter.InvokeLogService;
+import com.github.foxnic.api.transter.RequestParameter;
 
 @Service
 public class InvokeLogServiceImpl implements InvokeLogService {

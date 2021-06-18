@@ -3,12 +3,11 @@ package org.github.foxnic.web.proxy.system;
 import java.util.List;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.springboot.mvc.Result;
+import com.github.foxnic.api.transter.Result;
 
 import org.github.foxnic.web.proxy.FeignConfiguration;
 
 import org.springframework.cloud.openfeign.FeignClient;
-import org.github.foxnic.web.constants.enums.SystemConfigEnum;
 import org.github.foxnic.web.domain.system.Config;
 import org.github.foxnic.web.domain.system.ConfigVO;
 import com.github.foxnic.springboot.api.proxy.APIProxy;

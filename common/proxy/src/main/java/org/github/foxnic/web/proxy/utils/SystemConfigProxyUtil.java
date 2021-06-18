@@ -1,7 +1,7 @@
 package org.github.foxnic.web.proxy.utils;
 
 import com.github.foxnic.commons.lang.DataParser;
-import com.github.foxnic.springboot.mvc.Result;
+import com.github.foxnic.api.transter.Result;
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
 import org.github.foxnic.web.domain.system.Config;
 import org.github.foxnic.web.proxy.system.ConfigServiceProxy;

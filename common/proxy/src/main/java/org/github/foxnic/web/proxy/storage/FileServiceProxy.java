@@ -3,7 +3,7 @@ package org.github.foxnic.web.proxy.storage;
 import java.util.List;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.springboot.mvc.Result;
+import com.github.foxnic.api.transter.Result;
 
 import org.github.foxnic.web.proxy.FeignConfiguration;
 

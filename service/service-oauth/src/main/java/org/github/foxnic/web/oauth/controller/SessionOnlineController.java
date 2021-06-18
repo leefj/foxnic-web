@@ -4,7 +4,7 @@ package org.github.foxnic.web.oauth.controller;
 import java.util.Date;
 import java.util.List;
 
-import com.github.foxnic.springboot.mvc.Result;
+import com.github.foxnic.api.transter.Result;
 import org.github.foxnic.web.domain.oauth.SessionOnline;
 import org.github.foxnic.web.domain.oauth.SessionOnlineVO;
 import org.github.foxnic.web.domain.oauth.meta.SessionOnlineVOMeta;

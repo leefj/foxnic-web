@@ -1,7 +1,7 @@
 package org.github.foxnic.web.oauth.service;
 import java.util.List;
 
-import com.github.foxnic.springboot.mvc.Result;
+import com.github.foxnic.api.transter.Result;
 import org.github.foxnic.web.domain.oauth.User;
 
 import com.github.foxnic.dao.data.PagedList;

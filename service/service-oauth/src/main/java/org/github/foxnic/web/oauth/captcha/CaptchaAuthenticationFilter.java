@@ -11,7 +11,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import com.github.foxnic.springboot.mvc.RequestParameter;
+import com.github.foxnic.api.transter.RequestParameter;
 
 public class CaptchaAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 

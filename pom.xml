@@ -18,7 +18,8 @@
         <module>./common/domain</module>  
         <module>./common/framework-boot</module>  
         <module>./common/proxy</module>  
-        <module>./common/framework-cloud</module>  
+        <module>./common/framework-cloud</module>
+        <module>./common/framework-view</module>
         <!-- 接口服务 -->  
         <module>./service/service-system</module>  
         <module>./service/service-oauth</module>  
