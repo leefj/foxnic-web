@@ -61,6 +61,10 @@
     <a class="layui-btn layui-btn-xs" lay-event="del" th:text="${lang.translate('删除')}">删除</a>
 </script>
 
+<script th:inline="javascript">
+    var LAYUI_TABLE_WIDTH_CONFIG= [[${layuiTableWidthConfig}]];
+</script>
+
 <script src="/business/system/lang/lang_list.js"></script>
 
 </body>

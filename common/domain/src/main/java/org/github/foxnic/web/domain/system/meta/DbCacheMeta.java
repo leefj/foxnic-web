@@ -7,8 +7,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-18 14:04:05
- * @sign A2C76885F0895AD0CC64C36208CA6B67
+ * @since 2021-06-18 21:47:50
+ * @sign 9E3EFC1C2B23901A495828F3F4C3D25C
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -25,9 +25,9 @@ public class DbCacheMeta {
 	public static final String CATALOG="catalog";
 	
 	/**
-	 * 数据分组
+	 * 数据分区
 	*/
-	public static final String GROUP="group";
+	public static final String AREA="area";
 	
 	/**
 	 * 账户ID
@@ -92,7 +92,7 @@ public class DbCacheMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , CATALOG , GROUP , OWNER_TYPE , OWNER_ID , VALUE , EXPIRE_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , CATALOG , AREA , OWNER_TYPE , OWNER_ID , VALUE , EXPIRE_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
 	
 	/**
 	 * 代理类
@@ -125,13 +125,13 @@ public class DbCacheMeta {
 		}
 		
 		/**
-		 * 设置 数据分组
-		 * @param group 数据分组
+		 * 设置 数据分区
+		 * @param area 数据分区
 		 * @return 当前对象
 		*/
-		public DbCache setGroup(String group) {
-			super.change(GROUP,super.getGroup(),group);
-			super.setGroup(group);
+		public DbCache setArea(String area) {
+			super.change(AREA,super.getArea(),area);
+			super.setArea(area);
 			return this;
 		}
 		

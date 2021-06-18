@@ -1,10 +1,10 @@
 package org.github.foxnic.web.system.page;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
+import org.github.foxnic.web.framework.view.controller.ViewController;
 import org.github.foxnic.web.proxy.system.LangServiceProxy;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * <p>
@@ -16,7 +16,7 @@ import org.github.foxnic.web.proxy.system.LangServiceProxy;
 
 @Controller("SysLangPageController")
 @RequestMapping(LangPageController.prefix)
-public class LangPageController {
+public class LangPageController extends ViewController {
 	
 	public static final String prefix="business/system/lang";
 

@@ -1,5 +1,7 @@
 package org.github.foxnic.web.proxy.api;
 
+import com.github.foxnic.api.proxy.InvokeSource;
+import com.github.foxnic.api.proxy.InvokeSourceVar;
 import com.github.foxnic.commons.cache.LocalCache;
 import com.github.foxnic.commons.reflect.ReflectUtil;
 import org.github.foxnic.web.proxy.spring.AwareHandler;
@@ -14,9 +16,11 @@ import java.lang.reflect.Proxy;
  * */
 public class APIProxy {
 
+
+
 	 @SuppressWarnings("unchecked")
     private static LocalCache<Class,Object> PROXY_CACHE=new LocalCache<>();
- 
+
 	public static <T> T get(Class<T> intfType,String controllerName){
 
         //缓存获取
@@ -70,6 +74,7 @@ class MethodProxy implements InvocationHandler {
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args)  throws Throwable {
+        InvokeSourceVar.set(InvokeSource.PROXY_INTERNAL);
         Method m=controller.getClass().getDeclaredMethod(method.getName(),method.getParameterTypes());
         Object r=m.invoke(controller,args);
         return r;

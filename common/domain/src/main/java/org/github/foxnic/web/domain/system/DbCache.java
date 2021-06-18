@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-18 14:04:05
- * @sign A2C76885F0895AD0CC64C36208CA6B67
+ * @since 2021-06-18 21:47:50
+ * @sign 9E3EFC1C2B23901A495828F3F4C3D25C
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -42,10 +42,10 @@ public class DbCache extends Entity {
 	private String catalog;
 	
 	/**
-	 * 数据分组：数据分组
+	 * 数据分区：数据分区
 	*/
-	@ApiModelProperty(required = false,value="数据分组" , notes = "数据分组")
-	private String group;
+	@ApiModelProperty(required = false,value="数据分区" , notes = "数据分区")
+	private String area;
 	
 	/**
 	 * 账户ID：账户ID
@@ -170,27 +170,27 @@ public class DbCache extends Entity {
 	*/
 	
 	/**
-	 * 获得 数据分组<br>
-	 * 属性说明 : 数据分组
-	 * @return 数据分组
+	 * 获得 数据分区<br>
+	 * 属性说明 : 数据分区
+	 * @return 数据分区
 	*/
-	public String getGroup() {
-		return group;
+	public String getArea() {
+		return area;
 	}
 	
 	/**
-	 * 设置 数据分组
-	 * @param group 数据分组
+	 * 设置 数据分区
+	 * @param area 数据分区
 	 * @return 当前对象
 	*/
-	public DbCache setGroup(String group) {
-		this.group=group;
+	public DbCache setArea(String area) {
+		this.area=area;
 		return this;
 	}
 	
 	/**
-	 * 添加 数据分组
-	 * @param group 数据分组
+	 * 添加 数据分区
+	 * @param area 数据分区
 	 * @return 当前对象
 	*/
 	

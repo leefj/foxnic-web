@@ -1,16 +1,12 @@
 package org.github.foxnic.web.system.page;
 
-import org.github.foxnic.web.domain.system.DbCache;
-import org.github.foxnic.web.proxy.utils.DBCacheProxyUtil;
-import org.github.foxnic.web.proxy.utils.SessionUserProxyUtil;
-import org.github.foxnic.web.session.SessionUser;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.ui.Model;
+import org.github.foxnic.web.framework.view.controller.ViewController;
 import org.github.foxnic.web.proxy.system.DictServiceProxy;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 /**
  * <p>
@@ -22,14 +18,12 @@ import java.util.List;
 
 @Controller("SysDictPageController")
 @RequestMapping(DictPageController.prefix)
-public class DictPageController {
+public class DictPageController extends ViewController {
 	
 	public static final String prefix="business/system/dict";
 
 	private DictServiceProxy proxy;
 
-	private SessionUser user;
-	
 	/**
 	 * 获得代理对象<br> 
 	 * 1、单体应用时，在应用内部调用；<br> 
@@ -49,10 +43,6 @@ public class DictPageController {
 	@RequestMapping("/dict_list.html")
 	public String list(Model model, HttpServletRequest request)
 	{
-
-		//String uri=request.getRequestURI();
-		//List<DbCache> layuiTableWidth= DBCacheProxyUtil.getByCatalogAndGroup("layui-table",uri);
-		//model.addAttribute("layuiTableWidth",layuiTableWidth);
 		return prefix+"/dict_list";
 	}
 
@@ -63,4 +53,6 @@ public class DictPageController {
 	public String form(Model model , String id) {
 		return prefix+"/dict_form";
 	}
+
+
 }

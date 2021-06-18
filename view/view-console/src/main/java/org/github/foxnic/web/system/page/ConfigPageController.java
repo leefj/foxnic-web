@@ -1,6 +1,7 @@
 package org.github.foxnic.web.system.page;
 
 import org.github.foxnic.web.domain.system.Config;
+import org.github.foxnic.web.framework.view.controller.ViewController;
 import org.github.foxnic.web.proxy.system.ConfigServiceProxy;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +20,7 @@ import com.github.foxnic.api.transter.Result;
 
 @Controller("SysConfigPageController")
 @RequestMapping(ConfigPageController.prefix)
-public class ConfigPageController {
+public class ConfigPageController extends ViewController {
 	
 	public static final String prefix="business/system/config";
 

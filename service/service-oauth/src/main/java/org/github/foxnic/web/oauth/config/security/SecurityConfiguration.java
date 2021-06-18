@@ -1,9 +1,5 @@
 package org.github.foxnic.web.oauth.config.security;
 
-import java.util.Collections;
-
-import javax.annotation.Resource;
-
 import org.github.foxnic.web.oauth.captcha.CaptchaAuthenticationFilter;
 import org.github.foxnic.web.oauth.captcha.CaptchaAuthenticationProvider;
 import org.github.foxnic.web.oauth.config.security.SecurityProperties.SecurityMode;
@@ -15,6 +11,7 @@ import org.github.foxnic.web.oauth.logout.UserLogoutHandler;
 import org.github.foxnic.web.oauth.logout.UserLogoutSuccessHandler;
 import org.github.foxnic.web.oauth.service.ICaptchaService;
 import org.github.foxnic.web.proxy.oauth.UserServiceProxy;
+import org.github.foxnic.web.session.SessionUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
@@ -32,12 +29,18 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import javax.annotation.Resource;
+import java.util.Collections;
 
 /**
  * CustomSpring
@@ -151,6 +154,17 @@ public class SecurityConfiguration {
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
 
+			SessionUser.configGetInService(()->{
+				SecurityContext context = SecurityContextHolder.getContext();
+				Authentication authentication=context.getAuthentication();
+				if(authentication==null || !authentication.isAuthenticated()) return null;
+				Object principal = authentication.getPrincipal();
+				if(principal instanceof  SessionUser) {
+					return (SessionUser)principal;
+				} else {
+					return null;
+				}
+			});
 			
 			//允许iframe嵌入
 			http.headers().frameOptions().disable();

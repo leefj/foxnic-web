@@ -40,8 +40,30 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload'], fun
     	 * 渲染分页的表格
     	 * */
     	renderTable:function(cfg) {
- 
-    		cfg.url=settings.base_server + cfg.url;
+ 			var tableId=cfg.elem.substring(1);
+ 			debugger;
+ 			if(window.LAYUI_TABLE_WIDTH_CONFIG) {
+ 				//debugger;
+				var columnWidthConfig = LAYUI_TABLE_WIDTH_CONFIG[tableId];
+				cfg.url = settings.base_server + cfg.url;
+				var cols = cfg.cols[0];
+				var prevFlag=0,prev=null;
+				for (var i = 0; cols && i < cols.length; i++) {
+					if(cols[i].hide) continue;
+					var w = columnWidthConfig[cols[i].field];
+					if (w) {
+						cols[i].width = w;
+						console.log(cols[i].field,w);
+					}
+					if(cols[i].field=="row-ops") prevFlag=1;
+					if(prevFlag==0) {
+						prev=cols[i];
+					}
+
+				}
+				if(prev) prev.width=null;
+			}
+
     		
     		var basicConfig={
     			method: 'POST',
@@ -51,7 +73,8 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload'], fun
 	            	limitName:"pageSize"
 	            },
 	            parseData: function(res){ //res 即为原始返回的数据
-				    return {
+				    //debugger;
+    				return {
 				      "code": res.code=="00"?0:-1, //解析接口状态
 				      "msg": res.message, //解析提示文本
 				      "count": res.data.totalRowCount, //解析数据长度
@@ -323,10 +346,60 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload'], fun
 			},1000);
         }
     };
-    
-    
-    
 
+
+
+	/**
+	 * 监听layui table 的列宽拖动时间
+	 * */
+	$(document).on("mouseup",function (e) {
+
+		setTimeout(function (){
+
+			var tar=$(e.target);
+			var cls=tar.attr("class");
+			//console.log(cls,t);
+			var pars=tar.parents();
+			var layFilter=null;
+			var tableIndex=-1;
+			for (var i = 0; i < pars.length; i++) {
+				var p=$(pars[i]);
+				layFilter=p.attr("lay-filter");
+				if( layFilter && layFilter.startWith("LAY-table-")) {
+					tableIndex=layFilter.split("-")[2];
+					break;
+				}
+				//console.log("lay-filter",layFilter);
+			}
+			if(tableIndex==-1) return;
+			//console.log("tableIndex",tableIndex);
+			var inst=table.instance[tableIndex-1];
+			var tableId=inst.config.elem[0].id;
+			//console.log("inst",inst);
+			var cols=inst.config.cols[0];
+			//debugger
+			var ws={};
+			if(cls.indexOf("layui-table-cell")==-1 || cls.indexOf("laytable-cell-")==-1) return;
+			var ths=$("th .layui-table-cell");
+			//console.log(ths.length);
+			for (var i = 0; i < ths.length; i++) {
+				var th=$(ths[i]);
+				if(cols[i] && cols[i].field && !cols[i].hide) {
+					ws[cols[i].field] = th[0].clientWidth;
+				}
+			}
+
+			var loc=location.href;
+			loc=loc.substr(loc.indexOf("//")+2);
+			loc=loc.substr(loc.indexOf("/"));
+			console.log(loc,tableId,ws);
+
+			admin.request("/service-system/sys-db-cache/save", { id: loc+"#"+tableId , value: JSON.stringify(ws),area:loc,catalog:"layui-table-column-width",ownerType:"user" }, function (data) {});
+
+
+		},100);
+
+	});
 
 	
     // foxnic 提供的事件
@@ -408,3 +481,6 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload'], fun
  
     exports('foxnic', foxnic);
 });
+
+
+

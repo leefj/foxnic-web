@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2021-06-18 14:02:58
+ * @since 2021-06-18 21:47:15
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -191,9 +191,9 @@ public class FoxnicWeb {
 		public static final DBField CATALOG = new DBField(DBDataType.STRING , "catalog","catalog","数据分类","数据分类",false,false,true);
 		
 		/**
-		 * 数据分组
+		 * 数据分区
 		*/
-		public static final DBField GROUP = new DBField(DBDataType.STRING , "group","group","数据分组","数据分组",false,false,true);
+		public static final DBField AREA = new DBField(DBDataType.STRING , "area","area","数据分区","数据分区",false,false,true);
 		
 		/**
 		 * 账户ID
@@ -256,7 +256,7 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
 		public SYS_DB_CACHE() {
-			this.init($NAME,"数据库缓存表，内存表" , ID , CATALOG , GROUP , OWNER_TYPE , OWNER_ID , VALUE , EXPIRE_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"数据库缓存表，内存表" , ID , CATALOG , AREA , OWNER_TYPE , OWNER_ID , VALUE , EXPIRE_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final SYS_DB_CACHE $TABLE=new SYS_DB_CACHE();
 	}

@@ -1,10 +1,13 @@
 package org.github.foxnic.web.proxy.utils;
 
+import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.api.transter.Result;
 import org.github.foxnic.web.domain.system.DbCache;
 import org.github.foxnic.web.domain.system.DbCacheVO;
 import org.github.foxnic.web.proxy.system.DbCacheServiceProxy;
+import org.github.foxnic.web.session.SessionUser;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public class DBCacheProxyUtil {
@@ -29,14 +32,35 @@ public class DBCacheProxyUtil {
     /**
      * 按类别和分组获取
      * */
-    public static List<DbCache> getByCatalogAndGroup(String catalog,String group) {
+    public static List<DbCache> getList(DbCacheVO sample) {
         init();
-        DbCacheVO sample=new DbCacheVO();
-        sample.setCatalog(catalog).setGroup(group);
         Result<List<DbCache>> result=proxy.queryList(sample);
         if(result==null) return null;
         if(result.failure()) return null;
         return result.data();
+    }
+
+    /**
+     * 获得行宽配置信息
+     * */
+    public static JSONObject getLayUITableWidthConfig(HttpServletRequest request, SessionUser user) {
+        if(user==null) return null;
+        String uri=request.getRequestURI();
+        DbCacheVO sample=new DbCacheVO();
+        sample.setCatalog("layui-table-column-width");
+        sample.setArea(uri);
+        sample.setOwnerType("user");
+        sample.setOwnerId(user.getUserId());
+        List<DbCache> list = DBCacheProxyUtil.getList(sample);
+        JSONObject json=new JSONObject();
+        String[] tmp=null;
+        String tableId=null;
+        for (DbCache c : list) {
+            tmp=c.getId().split("#");
+            tableId=tmp[1];
+            json.put(tableId,JSONObject.parseObject(c.getValue()));
+        }
+        return json;
     }
 
 }

@@ -1,6 +1,7 @@
 package org.github.foxnic.web.system.page;
 
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
+import org.github.foxnic.web.framework.view.controller.ViewController;
 import org.github.foxnic.web.proxy.utils.SystemConfigProxyUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller("SysPortalPageController")
 @RequestMapping(PortalPageController.prefix)
-public class PortalPageController {
+public class PortalPageController extends ViewController  {
 	
 	public static final String prefix="/";
  

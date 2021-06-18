@@ -1,12 +1,7 @@
-package org.github.foxnic.web.framework.view;
+package org.github.foxnic.web.framework.view.aspect;
 
-import java.lang.reflect.Method;
-
-import javax.annotation.PostConstruct;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
-
+import com.alibaba.fastjson.JSONObject;
+import com.github.foxnic.commons.log.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -14,8 +9,8 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.github.foxnic.web.language.LanguageService;
 import org.github.foxnic.web.proxy.spring.AwareHandler;
+import org.github.foxnic.web.proxy.utils.DBCacheProxyUtil;
 import org.github.foxnic.web.proxy.utils.EnumUtil;
-import org.github.foxnic.web.proxy.utils.SessionUserProxyUtil;
 import org.github.foxnic.web.session.SessionUser;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
@@ -27,7 +22,9 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.github.foxnic.commons.log.Logger;
+import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.Method;
 
  
 
@@ -40,6 +37,12 @@ public class PageAspector {
 	private static final String LANG = "lang";
 	
 	private static final String ENUM = "enum";
+
+	private static final String USER = "enum";
+
+	private static final String PERMISSION = "permission";
+
+	public static final String LAYUI_TABLE_WIDTH_CONFIG="layuiTableWidthConfig";
 	
 	private EnumUtil enumUtil;
 
@@ -58,12 +61,12 @@ public class PageAspector {
 	@Pointcut(value = "@annotation(org.springframework.web.bind.annotation.GetMapping)")
 	public void pointCut4GetMapping() {}
  
-	@Around("PageAspector.pointCut4RequestMapping()")
+	@Around("org.github.foxnic.web.framework.view.aspect.PageAspector.pointCut4RequestMapping()")
 	public Object processRequestMapping(ProceedingJoinPoint joinPoint) throws Throwable {
 		return processControllerMethod(joinPoint,RequestMapping.class);
 	}
  
-	@Around("PageAspector.pointCut4GetMapping()")
+	@Around("org.github.foxnic.web.framework.view.aspect.PageAspector.pointCut4GetMapping()")
 	public Object processGetMapping(ProceedingJoinPoint joinPoint) throws Throwable {
 		return processControllerMethod(joinPoint,GetMapping.class);
 	}
@@ -83,7 +86,7 @@ public class PageAspector {
 			return joinPoint.proceed();
 		}
 		
-		
+		//单体应用是可以支持，后期考虑多种模式的实现
 		if(languageService==null) {
 			languageService= AwareHandler.getBean(LanguageService.class);
 		}
@@ -92,29 +95,37 @@ public class PageAspector {
 			enumUtil=AwareHandler.getBean(EnumUtil.class);
 		}
 
-//		SessionUser user=null;
-//		HttpSession session=request.getSession();
-//		if(session!=null) {
-//			user=(SessionUser)session.getAttribute("SESSEION-USER");
-//		}
-//		if(user==null) {
-//			SessionUserProxyUtil.getSessionUser(request);
-//		}
+		//获得登录 SessionUser
+		SessionUser user=SessionUser.getCurrent();
 
-
-		
+		JSONObject widthConfig = DBCacheProxyUtil.getLayUITableWidthConfig(request,user);
 		
 		Object args[] = joinPoint.getArgs();
 		for (Object arg : args) {
 			if(arg instanceof Model ) {
 				((Model)arg).addAttribute(LANG, languageService);
 				((Model)arg).addAttribute(ENUM, enumUtil);
+				if(user!=null) {
+					((Model) arg).addAttribute(USER, user);
+					((Model) arg).addAttribute(PERMISSION, user.permission());
+				}
+				((Model)arg).addAttribute(LAYUI_TABLE_WIDTH_CONFIG, widthConfig);
 			} else if(arg instanceof ModelAndView ) {
 				((ModelAndView)arg).addObject(LANG, languageService);
 				((ModelAndView)arg).addObject(ENUM, enumUtil);
+				if(user!=null) {
+					((ModelAndView) arg).addObject(USER, user);
+					((ModelAndView) arg).addObject(PERMISSION, user.permission());
+				}
+				((ModelAndView)arg).addObject(LAYUI_TABLE_WIDTH_CONFIG, widthConfig);
 			} else if(arg instanceof ModelMap ) {
 				((ModelMap)arg).addAttribute(LANG, languageService);
 				((ModelMap)arg).addAttribute(ENUM, enumUtil);
+				if(user!=null) {
+					((ModelMap) arg).addAttribute(USER, user);
+					((ModelMap) arg).addAttribute(PERMISSION, user.permission());
+				}
+				((ModelMap)arg).addAttribute(LAYUI_TABLE_WIDTH_CONFIG, widthConfig);
 			}
 		}
 		 

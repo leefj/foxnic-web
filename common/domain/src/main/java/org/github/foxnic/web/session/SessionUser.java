@@ -1,9 +1,5 @@
 package org.github.foxnic.web.session;
 
-import java.lang.reflect.Method;
-
-import com.github.foxnic.commons.bean.BeanUtil;
-import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.commons.reflect.ReflectUtil;
 
 public abstract class SessionUser {
@@ -37,50 +33,80 @@ public abstract class SessionUser {
 	public abstract SessionPermission permission();
 
 	public abstract String getSessionOnlineId();
-	
+
+
+	public static interface GetInService {
+		SessionUser get();
+	}
+
+	public static interface GetInView{
+		SessionUser get();
+	}
+
+	private static GetInService getInService;
+	private static GetInView getInView;
+
+	public static void configGetInService(GetInService gs){
+		getInService=gs;
+	}
+	public static void configGetInView(GetInView gv){
+		getInView=gv;
+	}
 	
 	/**
 	 * 获得当前登录的账户
 	 * */
 	public static SessionUser getCurrent() {
-		 
-		if(SECURITY_CONTEXTHOLDER_CLASS==null) return null;
-		
-		Object context = getOnMethod(SECURITY_CONTEXTHOLDER_CLASS,"getContext");
-		if(context==null) return null;
-		
-		Object authentication=getOnMethod(context, "getAuthentication");
-		if(authentication==null) return null;
- 
-	    Boolean isAuthenticated= (Boolean)BeanUtil.getFieldValue(authentication, "authenticated");
-	    if(isAuthenticated==null || !isAuthenticated) return null;
- 
-        Object principal = getOnMethod(authentication, "getPrincipal");
-        
-        if(principal==null || !(principal instanceof SessionUser)) {
-        	return null;
-        }
-        SessionUser userDetail=(SessionUser)principal;
-        return userDetail;
-	}
- 
-	private static Object getOnMethod(Object target, String methodName) {
-		Method method=null;
-		Object value=null;
-		try {
-			if(target instanceof Class) {
-				method=((Class)target).getDeclaredMethod(methodName, null);
-				if(method==null) return null;
-				value=method.invoke(null);
-			} else {
-				method=target.getClass().getDeclaredMethod(methodName, null);
-				if(method==null) return null;
-				value=method.invoke(target);
-			}
-		} catch (Exception e) {
-			Logger.error(e);
+		SessionUser user=null;
+		if(getInService!=null) {
+			user=getInService.get();
 		}
-		return value;
+		if(user==null && getInView!=null) {
+			user=getInView.get();
+		}
+		return user;
 	}
+
+//	private static SessionUser getInService() {
+//
+//		if(SECURITY_CONTEXTHOLDER_CLASS==null) return null;
+//
+//		Object context = getOnMethod(SECURITY_CONTEXTHOLDER_CLASS,"getContext");
+//		if(context==null) return null;
+//
+//		Object authentication=getOnMethod(context, "getAuthentication");
+//		if(authentication==null) return null;
+//
+//		Boolean isAuthenticated= (Boolean)BeanUtil.getFieldValue(authentication, "authenticated");
+//		if(isAuthenticated==null || !isAuthenticated) return null;
+//
+//		Object principal = getOnMethod(authentication, "getPrincipal");
+//
+//		if(principal==null || !(principal instanceof SessionUser)) {
+//			return null;
+//		}
+//		SessionUser userDetail=(SessionUser)principal;
+//		return userDetail;
+//
+//	}
+
+//	private static Object getOnMethod(Object target, String methodName) {
+//		Method method=null;
+//		Object value=null;
+//		try {
+//			if(target instanceof Class) {
+//				method=((Class)target).getDeclaredMethod(methodName, null);
+//				if(method==null) return null;
+//				value=method.invoke(null);
+//			} else {
+//				method=target.getClass().getDeclaredMethod(methodName, null);
+//				if(method==null) return null;
+//				value=method.invoke(target);
+//			}
+//		} catch (Exception e) {
+//			Logger.error(e);
+//		}
+//		return value;
+//	}
 	
 }

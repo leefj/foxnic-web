@@ -1,49 +1,41 @@
 package org.github.foxnic.web.system.controller;
 
  
-import java.util.Date;
-import java.util.List;
-
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.excel.ValidateResult;
-
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.github.foxnic.api.transter.Result;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-
-import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
-import org.github.foxnic.web.framework.web.SuperController;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import javax.servlet.http.HttpServletResponse;
-
-import com.github.foxnic.springboot.api.error.ErrorDesc;
 import com.github.foxnic.commons.io.StreamUtil;
-import java.io.InputStream;
-import java.util.Map;
-
-
-import com.github.foxnic.springboot.web.DownloadUtil;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
+import com.github.foxnic.dao.data.PagedList;
+import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.excel.ExcelWriter;
-
-
-import org.github.foxnic.web.proxy.system.DbCacheServiceProxy;
-import org.github.foxnic.web.domain.system.meta.DbCacheVOMeta;
+import com.github.foxnic.dao.excel.ValidateResult;
+import com.github.foxnic.springboot.api.annotations.NotNull;
+import com.github.foxnic.springboot.api.error.ErrorDesc;
+import com.github.foxnic.springboot.web.DownloadUtil;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
+import com.github.xiaoymin.knife4j.annotations.ApiSort;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.github.foxnic.web.domain.system.DbCache;
 import org.github.foxnic.web.domain.system.DbCacheVO;
-import io.swagger.annotations.Api;
-import com.github.xiaoymin.knife4j.annotations.ApiSort;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiImplicitParam;
-import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import org.github.foxnic.web.domain.system.meta.DbCacheVOMeta;
+import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
+import org.github.foxnic.web.framework.web.SuperController;
+import org.github.foxnic.web.proxy.system.DbCacheServiceProxy;
 import org.github.foxnic.web.system.service.IDbCacheService;
-import com.github.foxnic.springboot.api.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.InputStream;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -68,7 +60,7 @@ public class DbCacheController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = DbCacheVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = DbCacheVOMeta.CATALOG , value = "数据分类" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = DbCacheVOMeta.GROUP , value = "数据分组" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = DbCacheVOMeta.AREA , value = "数据分区" , required = false , dataTypeClass=String.class , example = "/business/system/config/config_list.html"),
 		@ApiImplicitParam(name = DbCacheVOMeta.OWNER_TYPE , value = "账户ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = DbCacheVOMeta.OWNER_ID , value = "会话ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = DbCacheVOMeta.VALUE , value = "数据" , required = false , dataTypeClass=String.class),
@@ -134,7 +126,7 @@ public class DbCacheController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = DbCacheVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = DbCacheVOMeta.CATALOG , value = "数据分类" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = DbCacheVOMeta.GROUP , value = "数据分组" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = DbCacheVOMeta.AREA , value = "数据分区" , required = false , dataTypeClass=String.class , example = "/business/system/config/config_list.html"),
 		@ApiImplicitParam(name = DbCacheVOMeta.OWNER_TYPE , value = "账户ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = DbCacheVOMeta.OWNER_ID , value = "会话ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = DbCacheVOMeta.VALUE , value = "数据" , required = false , dataTypeClass=String.class),
@@ -160,7 +152,7 @@ public class DbCacheController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = DbCacheVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = DbCacheVOMeta.CATALOG , value = "数据分类" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = DbCacheVOMeta.GROUP , value = "数据分组" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = DbCacheVOMeta.AREA , value = "数据分区" , required = false , dataTypeClass=String.class , example = "/business/system/config/config_list.html"),
 		@ApiImplicitParam(name = DbCacheVOMeta.OWNER_TYPE , value = "账户ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = DbCacheVOMeta.OWNER_ID , value = "会话ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = DbCacheVOMeta.VALUE , value = "数据" , required = false , dataTypeClass=String.class),
@@ -205,7 +197,7 @@ public class DbCacheController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = DbCacheVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = DbCacheVOMeta.CATALOG , value = "数据分类" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = DbCacheVOMeta.GROUP , value = "数据分组" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = DbCacheVOMeta.AREA , value = "数据分区" , required = false , dataTypeClass=String.class , example = "/business/system/config/config_list.html"),
 		@ApiImplicitParam(name = DbCacheVOMeta.OWNER_TYPE , value = "账户ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = DbCacheVOMeta.OWNER_ID , value = "会话ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = DbCacheVOMeta.VALUE , value = "数据" , required = false , dataTypeClass=String.class),
@@ -229,7 +221,7 @@ public class DbCacheController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = DbCacheVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = DbCacheVOMeta.CATALOG , value = "数据分类" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = DbCacheVOMeta.GROUP , value = "数据分组" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = DbCacheVOMeta.AREA , value = "数据分区" , required = false , dataTypeClass=String.class , example = "/business/system/config/config_list.html"),
 		@ApiImplicitParam(name = DbCacheVOMeta.OWNER_TYPE , value = "账户ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = DbCacheVOMeta.OWNER_ID , value = "会话ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = DbCacheVOMeta.VALUE , value = "数据" , required = false , dataTypeClass=String.class),

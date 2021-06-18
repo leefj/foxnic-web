@@ -22,7 +22,7 @@ import org.springframework.web.filter.GenericFilterBean;
 
 import com.github.foxnic.springboot.api.error.CommonError;
 import com.github.foxnic.springboot.api.error.ErrorDesc;
-import com.github.foxnic.api.transter.RequestParameter;
+import com.github.foxnic.springboot.mvc.RequestParameter;
 import com.github.foxnic.springboot.spring.SpringUtil;
 
 /**
