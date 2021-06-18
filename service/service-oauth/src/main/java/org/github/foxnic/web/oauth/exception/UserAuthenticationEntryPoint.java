@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.github.foxnic.springboot.mvc.Result;
 import org.github.foxnic.web.oauth.config.security.SecurityProperties;
 import org.github.foxnic.web.oauth.utils.ResponseUtil;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.github.foxnic.springboot.mvc.Result;
 import org.github.foxnic.web.domain.storage.File;
 import org.github.foxnic.web.domain.storage.FileVO;
 import org.github.foxnic.web.domain.storage.meta.FileVOMeta;

@@ -1,6 +1,7 @@
 package org.github.foxnic.web.oauth.service;
 import java.util.List;
 
+import com.github.foxnic.springboot.mvc.Result;
 import org.github.foxnic.web.domain.oauth.User;
 
 import com.github.foxnic.dao.data.PagedList;
@@ -132,6 +133,7 @@ public interface IUserService extends ISuperService<User> {
 	 * @param user 数据对象
 	 * @return 判断结果
 	 */
+
 	Result<User> checkExists(User user);
  
 	/**

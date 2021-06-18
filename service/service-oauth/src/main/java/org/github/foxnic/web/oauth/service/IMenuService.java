@@ -1,6 +1,7 @@
 package org.github.foxnic.web.oauth.service;
 import java.util.List;
 
+import com.github.foxnic.springboot.mvc.Result;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.misc.ztree.ZTreeNode;
 
