@@ -7,9 +7,9 @@ import org.springframework.context.annotation.ComponentScan;
 
 @ComponentScan(basePackages = { FoxnicWebMeta.SERVICE_OAUTH_PACKAGE })
 @SpringBootApplication
-public class StorageApp {
+public class OAuthApp {
 	public static void main(String[] args) {
-		CloudApplication.run(StorageApp.class, args);
+		CloudApplication.run(OAuthApp.class, args);
 	}
 	
 	 

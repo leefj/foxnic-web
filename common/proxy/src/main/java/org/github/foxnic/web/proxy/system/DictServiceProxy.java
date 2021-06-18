@@ -12,7 +12,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 
 import org.github.foxnic.web.domain.system.Dict;
 import org.github.foxnic.web.domain.system.DictVO;
-import com.github.foxnic.springboot.api.proxy.APIProxy;
+import org.github.foxnic.web.proxy.api.APIProxy;
 import org.github.foxnic.web.proxy.MicroServiceNames;
 
 /**

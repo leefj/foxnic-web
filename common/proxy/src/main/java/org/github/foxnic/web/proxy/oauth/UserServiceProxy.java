@@ -15,7 +15,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.domain.oauth.UserVO;
-import com.github.foxnic.springboot.api.proxy.APIProxy;
+import org.github.foxnic.web.proxy.api.APIProxy;
 import org.github.foxnic.web.proxy.MicroServiceNames;
 
 /**
