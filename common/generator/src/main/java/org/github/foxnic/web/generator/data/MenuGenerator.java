@@ -13,9 +13,11 @@ import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.generator.config.FoxnicWebConfigs;
 import org.github.foxnic.web.proxy.oauth.UserServiceProxy;
 import org.github.foxnic.web.proxy.system.ConfigServiceProxy;
+import org.github.foxnic.web.proxy.system.DbCacheServiceProxy;
 import org.github.foxnic.web.proxy.system.DictServiceProxy;
 import org.github.foxnic.web.proxy.system.LangServiceProxy;
 import org.github.foxnic.web.system.page.ConfigPageController;
+import org.github.foxnic.web.system.page.DbCachePageController;
 import org.github.foxnic.web.system.page.DictPageController;
 import org.github.foxnic.web.system.page.LangPageController;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,7 +53,9 @@ public class MenuGenerator {
 
 //		generator.generate(FoxnicWeb.SYS_LANG.$TABLE, LangServiceProxy.class, LangPageController.class,"system");
 
-		generator.generate(FoxnicWeb.SYS_DICT.$TABLE, DictServiceProxy.class, DictPageController.class,"system");
+//		generator.generate(FoxnicWeb.SYS_DICT.$TABLE, DictServiceProxy.class, DictPageController.class,"system");
+
+		generator.generate(FoxnicWeb.SYS_DB_CACHE.$TABLE, DbCacheServiceProxy.class, DbCachePageController.class,"system");
 
 //		generator.removeByBatchId("454325348381753344");
 		

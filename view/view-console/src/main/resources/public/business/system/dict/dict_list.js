@@ -33,7 +33,7 @@ function ListPage() {
      /**
       * 渲染表格
       */
-     function renderTable() {
+    function renderTable() {
      
 		var t=fox.renderTable({
 			elem: '#data-table',
@@ -46,7 +46,7 @@ function ListPage() {
                 { field: 'code', sort: true, title: fox.translate('代码') } ,
                 { field: 'module', sort: true, title: fox.translate('模块') } ,
                 { field: 'createTime', sort: true, title: fox.translate('创建时间') , templet: function (d) { return fox.dateFormat(d.createTime); } } ,
-                { fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
+                { field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
             ]]
 	 		,footer : {}
         });
@@ -55,23 +55,55 @@ function ListPage() {
 		  refreshTableData(obj.field,obj.type);
         });
 
+		 $(document).on("mouseup",function (e) {
 
+		 	setTimeout(function (){
 
-		 $(document).on("mouseup",function (e,d,g) {
-		 	var tar=$(e.target);
-		 	var cls=tar.attr("class");
-		 	console.log(cls,t);
-		 	if(cls.indexOf("layui-table-cell")!=-1 && cls.indexOf("laytable-cell-")!=-1) {
-		 		var ths=$("th .layui-table-cell");
-		 		console.log(ths.length);
+				var tar=$(e.target);
+				var cls=tar.attr("class");
+				//console.log(cls,t);
+				var pars=tar.parents();
+				var layFilter=null;
+				var tableIndex=-1;
+				for (var i = 0; i < pars.length; i++) {
+					var p=$(pars[i]);
+					layFilter=p.attr("lay-filter");
+					if( layFilter && layFilter.startWith("LAY-table-")) {
+						tableIndex=layFilter.split("-")[2];
+						break;
+					}
+					//console.log("lay-filter",layFilter);
+				}
+				if(tableIndex==-1) return;
+				//console.log("tableIndex",tableIndex);
+				var inst=table.instance[tableIndex-1];
+				var tableId=inst.config.elem[0].id;
+				//console.log("inst",inst);
+				var cols=inst.config.cols[0];
+				//debugger
+				var ws={};
+				if(cls.indexOf("layui-table-cell")==-1 || cls.indexOf("laytable-cell-")==-1) return;
+				var ths=$("th .layui-table-cell");
+				console.log(ths.length);
 				for (var i = 0; i < ths.length; i++) {
 					var th=$(ths[i]);
-					console.log(th.attr("class"));
+					if(cols[i] && cols[i].field && !cols[i].hide) {
+						ws[cols[i].field] = th.width();
+					}
 				}
-			}
+
+				var loc=location.href;
+				loc=loc.substr(loc.indexOf("//")+2);
+				loc=loc.substr(loc.indexOf("/"));
+				console.log(loc,tableId,ws);
+
+				admin.request("/service-system/sys-db-cache/save", { id: loc+"#"+tableId+"#column-width" , value: JSON.stringify(ws),catalog:"layui-table",ownerType:"user" }, function (data) {});
+
+
+			},100);
 
 		 });
-     };
+    };
      
 	/**
       * 刷新表格数据

@@ -2,7 +2,8 @@ package org.github.foxnic.web.framework.web;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.github.foxnic.web.framework.language.LanguageService;
+import org.github.foxnic.web.language.LanguageService;
+import org.github.foxnic.web.session.SessionUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;

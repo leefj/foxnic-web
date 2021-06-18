@@ -14,7 +14,7 @@ import org.github.foxnic.web.constants.enums.MenuType;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.Role;
 import org.github.foxnic.web.domain.oauth.RoleMenu;
-import org.github.foxnic.web.framework.web.SessionPermission;
+import org.github.foxnic.web.session.SessionPermission;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.access.expression.SecurityExpressionRoot;

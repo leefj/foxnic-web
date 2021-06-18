@@ -9,7 +9,6 @@ import org.springframework.http.MediaType;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.github.foxnic.springboot.mvc.Result;
 
 public class ResponseUtil {
 

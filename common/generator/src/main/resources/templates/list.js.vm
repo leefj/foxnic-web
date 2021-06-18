@@ -38,7 +38,7 @@ function ListPage() {
      /**
       * 渲染表格
       */
-     function renderTable() {
+    function renderTable() {
      
 		fox.renderTable({
 			elem: '#data-table',
@@ -81,7 +81,7 @@ function ListPage() {
         table.on('sort(data-table)', function(obj){
 		  refreshTableData(obj.field,obj.type);
         });
-     };
+    };
      
 	/**
       * 刷新表格数据

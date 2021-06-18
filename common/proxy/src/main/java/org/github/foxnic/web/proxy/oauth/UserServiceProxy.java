@@ -1,6 +1,9 @@
 package org.github.foxnic.web.proxy.oauth;
 
 import java.util.List;
+
+import org.github.foxnic.web.session.SessionUser;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.springboot.mvc.Result;
@@ -105,8 +108,8 @@ public interface UserServiceProxy {
 	*/
 	@RequestMapping(UserServiceProxy.DELETE)
 	Result<User> deleteById(String id);
-	
-	
+
+
 	/**
 	 * 批量删除账户
 	*/
@@ -142,8 +145,13 @@ public interface UserServiceProxy {
 	*/
 	@RequestMapping(UserServiceProxy.QUERY_PAGED_LIST)
 	Result<PagedList<User>> queryPagedList(UserVO sample);
-	
-	
+
+	/**
+	 * 获得会话信息
+	 */
+	@PostMapping(UserServiceProxy.GET_SESSION_USER_URI)
+	Result<SessionUser> getSessionUser(String sessionId);
+
 	/**
 	 * 控制器类名
 	 * */
@@ -158,7 +166,7 @@ public interface UserServiceProxy {
 	/**
 	 * 帐号密码登录
 	 * */
-	public static final String GET_CURRENT_USER_URI= "/security/get-current-user";
+	public static final String GET_SESSION_USER_URI= "/security/get-session-user";
 	
 	/**
 	 * 验证码登录

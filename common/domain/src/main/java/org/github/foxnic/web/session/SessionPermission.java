@@ -1,4 +1,4 @@
-package org.github.foxnic.web.framework.web;
+package org.github.foxnic.web.session;
 
 public interface SessionPermission {
 	

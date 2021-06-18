@@ -3,8 +3,8 @@ package org.github.foxnic.web.oauth.session;
 import java.util.Collection;
 
 import org.github.foxnic.web.domain.oauth.User;
-import org.github.foxnic.web.framework.web.SessionPermission;
-import org.github.foxnic.web.framework.web.SessionUser;
+import org.github.foxnic.web.session.SessionPermission;
+import org.github.foxnic.web.session.SessionUser;
 import org.springframework.security.core.CredentialsContainer;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
@@ -85,11 +85,11 @@ public class SessionUserImpl extends SessionUser implements UserDetails, Credent
 		return user;
 	}
 
-	public String getSessionUserId() {
+	public String getSessionOnlineId() {
 		return sessionOnlineId;
 	}
 
-	public void setSessionUserId(String token) {
+	public void setSessionOnlineId(String token) {
 		this.sessionOnlineId = token;
 	}
 	

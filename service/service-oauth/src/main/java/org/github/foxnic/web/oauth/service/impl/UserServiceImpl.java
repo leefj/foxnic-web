@@ -11,11 +11,9 @@ import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.Role;
 import org.github.foxnic.web.domain.oauth.RoleMenu;
 import org.github.foxnic.web.domain.oauth.User;
-import org.github.foxnic.web.domain.system.Config;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.oauth.service.IUserService;
-import org.github.foxnic.web.proxy.SystemConfigUtil;
-import org.github.foxnic.web.proxy.system.ConfigServiceProxy;
+import org.github.foxnic.web.proxy.utils.SystemConfigProxyUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +23,6 @@ import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.springboot.api.error.ErrorDesc;
-import com.github.foxnic.springboot.mvc.Result;
-import com.github.foxnic.springboot.spring.SpringUtil;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
 
@@ -232,7 +228,7 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
     	} else {
     		if(StringUtil.isBlank(usrLang)) {
     			//获得系统配置的语言
-    	    	String sysLang= SystemConfigUtil.getString(SystemConfigEnum.SYSTEM_LANGUAGE);
+    	    	String sysLang= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_LANGUAGE);
     			user.setLanguage(sysLang);
     		}
     	}

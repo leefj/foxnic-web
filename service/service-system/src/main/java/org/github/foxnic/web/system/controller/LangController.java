@@ -6,8 +6,8 @@ import java.util.List;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.springboot.mvc.Result;
 
+import com.github.foxnic.springboot.mvc.Result;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
 import org.github.foxnic.web.framework.web.SuperController;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
+
 import javax.servlet.http.HttpServletResponse;
 
 import com.github.foxnic.springboot.api.error.ErrorDesc;
@@ -30,9 +28,6 @@ import com.github.foxnic.springboot.web.DownloadUtil;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.dao.excel.ExcelStructure;
-import java.io.InputStream;
-
 
 
 import org.github.foxnic.web.proxy.system.LangServiceProxy;
@@ -98,7 +93,7 @@ public class LangController extends SuperController {
 	*/
 	@ApiOperation(value = "删除语言条目")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = LangVOMeta.CODE , value = "编码键" , required = true , dataTypeClass=String.class , example = "01-b0ed30300c-7d2e")
+		@ApiImplicitParam(name = LangVOMeta.CODE , value = "编码键" , required = true , dataTypeClass=String.class , example = "01-b0ed30300c-7d2e"),
 	})
 	@ApiOperationSupport(order=2)
 	@NotNull(name = LangVOMeta.CODE)

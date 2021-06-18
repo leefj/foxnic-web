@@ -1,6 +1,6 @@
 package org.github.foxnic.web.system.controller;
 
- 
+
 import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.github.foxnic.commons.io.StreamUtil;
 import com.github.foxnic.dao.excel.ValidateResult;
+import com.github.foxnic.springboot.mvc.Result;
 import org.github.foxnic.web.domain.storage.File;
 import org.github.foxnic.web.domain.system.Config;
 import org.github.foxnic.web.domain.system.ConfigVO;
@@ -28,7 +29,6 @@ import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.springboot.api.annotations.NotNull;
 import com.github.foxnic.springboot.api.error.CommonError;
 import com.github.foxnic.springboot.api.error.ErrorDesc;
-import com.github.foxnic.springboot.mvc.Result;
 import com.github.foxnic.springboot.web.DownloadUtil;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.github.xiaoymin.knife4j.annotations.ApiSort;
@@ -64,8 +64,11 @@ public class ConfigController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = ConfigVOMeta.CODE , value = "配置键" , required = true , dataTypeClass=String.class , example = "system.language"),
 		@ApiImplicitParam(name = ConfigVOMeta.NAME , value = "配置名" , required = false , dataTypeClass=String.class , example = "系统默认语言"),
+		@ApiImplicitParam(name = ConfigVOMeta.TYPE , value = "数据类型" , required = false , dataTypeClass=String.class , example = "STRING"),
+		@ApiImplicitParam(name = ConfigVOMeta.TYPE_DESC , value = "类型描述" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ConfigVOMeta.VALUE , value = "配置值" , required = false , dataTypeClass=String.class , example = "defaults"),
 		@ApiImplicitParam(name = ConfigVOMeta.VALID , value = "是否生效" , required = true , dataTypeClass=Boolean.class , example = "true"),
+		@ApiImplicitParam(name = ConfigVOMeta.NOTES , value = "说明" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport(order=1)
 	@NotNull(name = ConfigVOMeta.CODE)
@@ -85,7 +88,7 @@ public class ConfigController {
 	*/
 	@ApiOperation(value = "删除系统配置")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = ConfigVOMeta.CODE , value = "配置键" , required = true , dataTypeClass=String.class , example = "system.language")
+		@ApiImplicitParam(name = ConfigVOMeta.CODE , value = "配置键" , required = true , dataTypeClass=String.class , example = "system.language"),
 	})
 	@ApiOperationSupport(order=2)
 	@NotNull(name = ConfigVOMeta.CODE)
@@ -125,8 +128,11 @@ public class ConfigController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = ConfigVOMeta.CODE , value = "配置键" , required = true , dataTypeClass=String.class , example = "system.language"),
 		@ApiImplicitParam(name = ConfigVOMeta.NAME , value = "配置名" , required = false , dataTypeClass=String.class , example = "系统默认语言"),
+		@ApiImplicitParam(name = ConfigVOMeta.TYPE , value = "数据类型" , required = false , dataTypeClass=String.class , example = "STRING"),
+		@ApiImplicitParam(name = ConfigVOMeta.TYPE_DESC , value = "类型描述" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ConfigVOMeta.VALUE , value = "配置值" , required = false , dataTypeClass=String.class , example = "defaults"),
 		@ApiImplicitParam(name = ConfigVOMeta.VALID , value = "是否生效" , required = true , dataTypeClass=Boolean.class , example = "true"),
+		@ApiImplicitParam(name = ConfigVOMeta.NOTES , value = "说明" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport( order=4 , ignoreParameters = { ConfigVOMeta.PAGE_INDEX , ConfigVOMeta.PAGE_SIZE , ConfigVOMeta.SEARCH_FIELD , ConfigVOMeta.SEARCH_VALUE , ConfigVOMeta.CODES } ) 
 	@NotNull(name = ConfigVOMeta.CODE)
@@ -151,8 +157,11 @@ public class ConfigController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = ConfigVOMeta.CODE , value = "配置键" , required = true , dataTypeClass=String.class , example = "system.language"),
 		@ApiImplicitParam(name = ConfigVOMeta.NAME , value = "配置名" , required = false , dataTypeClass=String.class , example = "系统默认语言"),
+		@ApiImplicitParam(name = ConfigVOMeta.TYPE , value = "数据类型" , required = false , dataTypeClass=String.class , example = "STRING"),
+		@ApiImplicitParam(name = ConfigVOMeta.TYPE_DESC , value = "类型描述" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ConfigVOMeta.VALUE , value = "配置值" , required = false , dataTypeClass=String.class , example = "defaults"),
 		@ApiImplicitParam(name = ConfigVOMeta.VALID , value = "是否生效" , required = true , dataTypeClass=Boolean.class , example = "true"),
+		@ApiImplicitParam(name = ConfigVOMeta.NOTES , value = "说明" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { ConfigVOMeta.PAGE_INDEX , ConfigVOMeta.PAGE_SIZE , ConfigVOMeta.SEARCH_FIELD , ConfigVOMeta.SEARCH_VALUE , ConfigVOMeta.CODES } )
 	@NotNull(name = ConfigVOMeta.CODE)
@@ -194,8 +203,11 @@ public class ConfigController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = ConfigVOMeta.CODE , value = "配置键" , required = true , dataTypeClass=String.class , example = "system.language"),
 		@ApiImplicitParam(name = ConfigVOMeta.NAME , value = "配置名" , required = false , dataTypeClass=String.class , example = "系统默认语言"),
+		@ApiImplicitParam(name = ConfigVOMeta.TYPE , value = "数据类型" , required = false , dataTypeClass=String.class , example = "STRING"),
+		@ApiImplicitParam(name = ConfigVOMeta.TYPE_DESC , value = "类型描述" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ConfigVOMeta.VALUE , value = "配置值" , required = false , dataTypeClass=String.class , example = "defaults"),
 		@ApiImplicitParam(name = ConfigVOMeta.VALID , value = "是否生效" , required = true , dataTypeClass=Boolean.class , example = "true"),
+		@ApiImplicitParam(name = ConfigVOMeta.NOTES , value = "说明" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { ConfigVOMeta.PAGE_INDEX , ConfigVOMeta.PAGE_SIZE } )
 	@SentinelResource(value = ConfigServiceProxy.QUERY_LIST)
@@ -216,8 +228,11 @@ public class ConfigController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = ConfigVOMeta.CODE , value = "配置键" , required = true , dataTypeClass=String.class , example = "system.language"),
 		@ApiImplicitParam(name = ConfigVOMeta.NAME , value = "配置名" , required = false , dataTypeClass=String.class , example = "系统默认语言"),
+		@ApiImplicitParam(name = ConfigVOMeta.TYPE , value = "数据类型" , required = false , dataTypeClass=String.class , example = "STRING"),
+		@ApiImplicitParam(name = ConfigVOMeta.TYPE_DESC , value = "类型描述" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ConfigVOMeta.VALUE , value = "配置值" , required = false , dataTypeClass=String.class , example = "defaults"),
 		@ApiImplicitParam(name = ConfigVOMeta.VALID , value = "是否生效" , required = true , dataTypeClass=Boolean.class , example = "true"),
+		@ApiImplicitParam(name = ConfigVOMeta.NOTES , value = "说明" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport(order=8)
 	@SentinelResource(value = ConfigServiceProxy.QUERY_PAGED_LIST)

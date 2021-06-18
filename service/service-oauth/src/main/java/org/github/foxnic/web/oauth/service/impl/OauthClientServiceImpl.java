@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 import com.github.foxnic.dao.data.PagedList;
@@ -12,16 +12,13 @@ import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.springboot.api.error.ErrorDesc;
-import com.github.foxnic.springboot.mvc.Result;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
 
 
 import org.github.foxnic.web.domain.oauth.OauthClient;
-import org.github.foxnic.web.domain.oauth.OauthClientVO;
 import org.github.foxnic.web.oauth.service.IOauthClientService;
 import org.github.foxnic.web.framework.dao.DBConfigs;
-import java.util.Date;
 
 /**
  * <p>

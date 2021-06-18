@@ -8,7 +8,6 @@ import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.MenuVO;
 import org.github.foxnic.web.domain.oauth.meta.MenuVOMeta;
 import org.github.foxnic.web.misc.ztree.ZTreeNode;
-import org.github.foxnic.web.misc.ztree.ZTreeNode.Transformer;
 import org.github.foxnic.web.oauth.service.IMenuService;
 import org.github.foxnic.web.proxy.oauth.MenuServiceProxy;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,6 @@ import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.springboot.api.annotations.NotNull;
-import com.github.foxnic.springboot.mvc.Result;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.github.xiaoymin.knife4j.annotations.ApiSort;
 

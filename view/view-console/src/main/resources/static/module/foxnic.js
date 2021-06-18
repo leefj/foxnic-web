@@ -128,8 +128,10 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload'], fun
 			}
 			
 			cfg.done=done;
-			
-    		return table.render(cfg);
+			if(!table.instance) table.instance=[];
+			var inst=table.render(cfg);
+			table.instance.push(inst)
+    		return inst;
     	},
     	
     	/**

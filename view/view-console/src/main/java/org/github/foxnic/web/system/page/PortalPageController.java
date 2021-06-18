@@ -1,15 +1,10 @@
 package org.github.foxnic.web.system.page;
 
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
-import org.github.foxnic.web.domain.system.Config;
-import org.github.foxnic.web.proxy.SystemConfigUtil;
-import org.github.foxnic.web.proxy.system.ConfigServiceProxy;
+import org.github.foxnic.web.proxy.utils.SystemConfigProxyUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.github.foxnic.commons.lang.StringUtil;
-import com.github.foxnic.springboot.mvc.Result;
 
 /**
  * <p>
@@ -30,7 +25,7 @@ public class PortalPageController {
 	 */
 	@RequestMapping("/index.html")
 	public String index(Model model) {
-		String title= SystemConfigUtil.getString(SystemConfigEnum.SYSTEM_TITLE);
+		String title= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_TITLE);
 		model.addAttribute("title", title);
 		return prefix+"index";
 	}
@@ -41,13 +36,13 @@ public class PortalPageController {
 	@RequestMapping("/login.html")
 	public String login(Model model) {
 		//
-		String title=SystemConfigUtil.getString(SystemConfigEnum.SYSTEM_TITLE);
+		String title= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_TITLE);
 		model.addAttribute("title", title);
 		//
-		String copyrightText=SystemConfigUtil.getString(SystemConfigEnum.SYSTEM_COPYRIGHT_TEXT);
+		String copyrightText= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_COPYRIGHT_TEXT);
 		model.addAttribute("copyrightText", copyrightText);
 		//
-		String copyrightLink=SystemConfigUtil.getString(SystemConfigEnum.SYSTEM_COPYRIGHT_LINK);
+		String copyrightLink= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_COPYRIGHT_LINK);
 		model.addAttribute("copyrightLink", copyrightLink);
 		//
 		return prefix+"login";

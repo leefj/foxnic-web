@@ -1,4 +1,4 @@
-package org.github.foxnic.web.framework.language;
+package org.github.foxnic.web.language;
 
 public interface LanguageService {
 	

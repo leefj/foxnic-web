@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
+
+import org.github.foxnic.web.oauth.login.SessionCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,16 +16,13 @@ import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.springboot.api.error.ErrorDesc;
-import com.github.foxnic.springboot.mvc.Result;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
 
 
 import org.github.foxnic.web.domain.oauth.SessionOnline;
-import org.github.foxnic.web.domain.oauth.SessionOnlineVO;
 import org.github.foxnic.web.oauth.service.ISessionOnlineService;
 import org.github.foxnic.web.framework.dao.DBConfigs;
-import java.util.Date;
 
 /**
  * <p>
@@ -42,11 +41,16 @@ public class SessionOnlineServiceImpl extends SuperService<SessionOnline> implem
 	 * */
 	@Resource(name=DBConfigs.PRIMARY_DAO) 
 	private DAO dao=null;
+
+
+	@Autowired
+	private SessionCache sessionCache;
 	
 	/**
 	 * 获得 DAO 对象
 	 * */
 	public DAO dao() { return dao; }
+
 	
 	@Override
 	public Object generateId(Field field) {
@@ -55,7 +59,7 @@ public class SessionOnlineServiceImpl extends SuperService<SessionOnline> implem
 	
 	/**
 	 * 插入实体
-	 * @param role 实体数据
+	 * @param sessionOnline 实体数据
 	 * @return 插入是否成功
 	 * */
 	@Override
@@ -65,7 +69,7 @@ public class SessionOnlineServiceImpl extends SuperService<SessionOnline> implem
 	
 	/**
 	 * 批量插入实体，事务内
-	 * @param roleList 实体数据清单
+	 * @param sessionOnlineList 实体数据清单
 	 * @return 插入是否成功
 	 * */
 	@Override
@@ -105,7 +109,7 @@ public class SessionOnlineServiceImpl extends SuperService<SessionOnline> implem
 	
 	/**
 	 * 更新实体
-	 * @param role 数据对象
+	 * @param sessionOnline 数据对象
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
@@ -116,7 +120,7 @@ public class SessionOnlineServiceImpl extends SuperService<SessionOnline> implem
 	
 	/**
 	 * 更新实体集，事务内
-	 * @param roleList 数据对象列表
+	 * @param sessionOnlineList 数据对象列表
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
@@ -195,7 +199,7 @@ public class SessionOnlineServiceImpl extends SuperService<SessionOnline> implem
 	/**
 	 * 检查 角色 是否已经存在
 	 *
-	 * @param roleVO 数据对象
+	 * @param role 数据对象
 	 * @return 判断结果
 	 */
 	public Result<SessionOnline> checkExists(SessionOnline role) {
@@ -209,6 +213,7 @@ public class SessionOnlineServiceImpl extends SuperService<SessionOnline> implem
 	public void offline(String sessionId) {
 		dao.setPrintThreadSQL(false);
 		dao.execute("update "+this.table()+" set online=0 , logout_time=now() where session_id=?",sessionId);
+		sessionCache.remove(sessionId);
 	}
 
 }

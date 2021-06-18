@@ -1,4 +1,4 @@
-package org.github.foxnic.web.framework.web;
+package org.github.foxnic.web.session;
 
 import java.lang.reflect.Method;
 
@@ -35,8 +35,8 @@ public abstract class SessionUser {
 	 * 权限对象
 	 * */
 	public abstract SessionPermission permission();
-	
-	
+
+	public abstract String getSessionOnlineId();
 	
 	
 	/**

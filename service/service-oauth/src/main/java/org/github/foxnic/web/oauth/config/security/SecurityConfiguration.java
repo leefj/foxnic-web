@@ -54,7 +54,6 @@ public class SecurityConfiguration {
 	/**
 	 * 登录前的参数转换过滤器
 	 *
-	 * @param loginPostProcessors the login post processors
 	 * @return the pre login filter
 	 */
 	@Bean

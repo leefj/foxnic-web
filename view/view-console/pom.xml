@@ -12,81 +12,14 @@
     <artifactId>view-console</artifactId>  
     <name>view-console</name>  
     <description>Console View</description>  
-    <dependencies> 
-        <dependency> 
-            <groupId>com.github.foxnic.web</groupId>  
-            <artifactId>domain</artifactId>  
-            <version>${platform.version}</version>  
-            <exclusions> 
-                <exclusion> 
-                    <groupId>com.github.xiaoymin</groupId>  
-                    <artifactId>knife4j-micro-spring-boot-starter</artifactId> 
-                </exclusion> 
-            </exclusions> 
-        </dependency>  
-        <dependency> 
-            <groupId>com.github.foxnic.web</groupId>  
-            <artifactId>proxy</artifactId>  
-            <version>${platform.version}</version> 
-        </dependency>  
-        <dependency> 
-            <groupId>com.github.ben-manes.caffeine</groupId>  
-            <artifactId>caffeine</artifactId> 
-        </dependency>  
-        <dependency> 
-            <groupId>com.github.foxnic</groupId>  
-            <artifactId>foxnic-commons</artifactId>  
-            <version>${foxnic.version}</version> 
-        </dependency>  
-        <dependency> 
-            <groupId>org.springframework.boot</groupId>  
-            <artifactId>spring-boot-starter-thymeleaf</artifactId> 
-        </dependency>  
-        <dependency> 
-            <groupId>org.springframework.boot</groupId>  
-            <artifactId>spring-boot-starter-test</artifactId>  
-            <scope>test</scope> 
-        </dependency>  
-        <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-console -->  
-        <dependency> 
-            <groupId>org.junit.platform</groupId>  
-            <artifactId>junit-platform-console</artifactId>  
-            <scope>test</scope> 
-        </dependency>  
-        <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-runner -->  
-        <dependency> 
-            <groupId>org.junit.platform</groupId>  
-            <artifactId>junit-platform-runner</artifactId>  
-            <scope>test</scope> 
-        </dependency>  
-        <dependency> 
-            <groupId>org.junit.platform</groupId>  
-            <artifactId>junit-platform-launcher</artifactId>  
-            <scope>test</scope> 
-        </dependency>  
-        <!-- https://mvnrepository.com/artifact/org.junit.vintage/junit-vintage-engine -->  
-        <dependency> 
-            <groupId>org.junit.vintage</groupId>  
-            <artifactId>junit-vintage-engine</artifactId>  
-            <scope>test</scope> 
-        </dependency>  
-        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->  
-        <dependency> 
-            <groupId>org.junit.jupiter</groupId>  
-            <artifactId>junit-jupiter-engine</artifactId>  
-            <scope>test</scope> 
-        </dependency>  
-        <dependency> 
-            <groupId>org.junit.jupiter</groupId>  
-            <artifactId>junit-jupiter</artifactId>  
-            <scope>test</scope> 
-        </dependency>  
-        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->  
-        <dependency> 
-            <groupId>org.junit.jupiter</groupId>  
-            <artifactId>junit-jupiter-api</artifactId>  
-            <scope>test</scope> 
-        </dependency> 
+    <dependencies>
+
+        <dependency>
+            <groupId>com.github.foxnic.web</groupId>
+            <artifactId>framework-view</artifactId>
+            <version>${platform.version}</version>
+        </dependency>
+
     </dependencies>  
     <repositories> 
         <repository> 

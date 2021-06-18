@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.github.foxnic.web.oauth.config.security.SecurityProperties;
 import org.github.foxnic.web.oauth.utils.ResponseUtil;
-import org.github.foxnic.web.proxy.oauth.UserServiceProxy;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.security.authentication.AccountExpiredException;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -25,7 +24,6 @@ import org.springframework.web.method.HandlerMethod;
 import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.springboot.api.error.CommonError;
 import com.github.foxnic.springboot.api.error.ErrorDesc;
-import com.github.foxnic.springboot.mvc.Result;
 import com.github.foxnic.springboot.spring.SpringUtil;
 import com.github.foxnic.springboot.web.WebContext;
 

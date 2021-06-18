@@ -1,4 +1,4 @@
-package org.github.foxnic.web.proxy;
+package org.github.foxnic.web.proxy.utils;
 
 import com.github.foxnic.commons.lang.DataParser;
 import com.github.foxnic.springboot.mvc.Result;
@@ -8,7 +8,7 @@ import org.github.foxnic.web.proxy.system.ConfigServiceProxy;
 
 import java.util.Date;
 
-public class SystemConfigUtil {
+public class SystemConfigProxyUtil {
 
     /**
      * 获取系统配置

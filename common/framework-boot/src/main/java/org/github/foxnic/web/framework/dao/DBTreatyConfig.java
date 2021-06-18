@@ -1,5 +1,7 @@
 package org.github.foxnic.web.framework.dao;
 
+import com.github.foxnic.springboot.spring.SpringUtil;
+import org.github.foxnic.web.session.SessionUser;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -40,14 +42,13 @@ public class DBTreatyConfig {
 		dbTreaty.setTrueValue(1);
 		
 		//设置获取当前用户的逻辑
-//		if(SpringUtil.isReady()) {
-//			securityService=SpringUtil.getBean(ISecurityService.class);
-//			dbTreaty.setUserIdHandler(()->{
-//				securityService=SpringUtil.getBean(ISecurityService.class);
-//				if(securityService.getSessionSubject()==null) return null;
-//				return securityService.getSessionSubject().getUserId();
-//			});
-//		}
+		if(SpringUtil.isReady()) {
+			dbTreaty.setUserIdHandler(()->{
+				SessionUser user=SessionUser.getCurrent();
+				if(user==null) return null;
+				return  user.getUserId();
+			});
+		}
 		
 		//
 		return dbTreaty;

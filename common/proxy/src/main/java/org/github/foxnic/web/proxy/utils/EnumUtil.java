@@ -1,4 +1,4 @@
-package org.github.foxnic.web.framework.misc;
+package org.github.foxnic.web.proxy.utils;
 
 import java.lang.reflect.Method;
 
@@ -12,7 +12,7 @@ import com.github.foxnic.commons.collection.MapUtil;
 import com.github.foxnic.commons.reflect.ReflectUtil;
 
 @Service
-public class EnumService {
+public class EnumUtil {
 
 	private LocalCache<String, JSONArray> cache=new LocalCache<String, JSONArray>();
 	

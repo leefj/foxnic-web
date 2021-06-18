@@ -18,7 +18,7 @@ import org.github.foxnic.web.constants.enums.MenuType;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.SessionOnline;
 import org.github.foxnic.web.domain.oauth.User;
-import org.github.foxnic.web.framework.language.LanguageService;
+import org.github.foxnic.web.language.LanguageService;
 import org.github.foxnic.web.oauth.config.security.SecurityProperties;
 import org.github.foxnic.web.oauth.config.security.SecurityProperties.SecurityMode;
 import org.github.foxnic.web.oauth.jwt.JwtTokenGenerator;
@@ -37,7 +37,6 @@ import org.springframework.stereotype.Component;
 import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.springboot.api.error.ErrorDesc;
-import com.github.foxnic.springboot.mvc.Result;
 
 /**
  * 处理登录成功的逻辑
@@ -63,6 +62,9 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
     
     @Autowired
 	private LanguageService languageService;
+
+	@Autowired
+	private SessionCache sessionCache;
  
 
 	@Override
@@ -86,9 +88,9 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         userDetailsService.update(SYS_USER.LAST_LOGIN_TIME, new Date(), securityUser.getUser().getId());
         //
         String initId=(String)request.getAttribute(SessionUserImpl.SESSION_ONLINE_ID_KEY);
-        securityUser.setSessionUserId(initId);
+        securityUser.setSessionOnlineId(initId);
         
-        ret.put("sessionId", securityUser.getSessionUserId());
+        ret.put("sessionId", securityUser.getSessionOnlineId());
    
         SessionOnline online=onlineService.getById(initId);
         if(online==null) {
@@ -118,6 +120,9 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         }
  
         Result r=ErrorDesc.success().message("登录成功").data(ret);
+
+        //放入缓存
+		sessionCache.put(online.getSessionId(),securityUser);
  
         ResponseUtil.writeOK(response, r);
 

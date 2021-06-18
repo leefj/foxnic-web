@@ -7,11 +7,11 @@ import java.util.List;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.domain.oauth.UserVO;
 import org.github.foxnic.web.domain.oauth.meta.UserVOMeta;
-import org.github.foxnic.web.framework.web.SessionUser;
 import org.github.foxnic.web.framework.web.SuperController;
+import org.github.foxnic.web.oauth.login.SessionCache;
 import org.github.foxnic.web.oauth.service.IUserService;
-import org.github.foxnic.web.oauth.session.SessionUserImpl;
 import org.github.foxnic.web.proxy.oauth.UserServiceProxy;
+import org.github.foxnic.web.session.SessionUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +20,6 @@ import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.springboot.api.annotations.NotNull;
-import com.github.foxnic.springboot.mvc.Result;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.github.xiaoymin.knife4j.annotations.ApiSort;
 
@@ -45,7 +44,8 @@ public class UserController extends SuperController {
 	@Autowired
 	private IUserService userService;
 
-	
+	@Autowired
+	private SessionCache sessionCache;
 	/**
 	 * 添加账户
 	*/
@@ -189,12 +189,12 @@ public class UserController extends SuperController {
 	*/
 	@ApiOperation(value = "获取当前登录账户")
 	@ApiOperationSupport(order=6)
-	@SentinelResource(value = UserServiceProxy.GET_CURRENT_USER_URI)
-	@PostMapping(UserServiceProxy.GET_CURRENT_USER_URI)
-	public Result<User> getCurrentUser() {
-		Result<User> result=new Result<>();
-		SessionUserImpl user=(SessionUserImpl)this.getSessionUser();
-		result.data(user.getUser());
+	@SentinelResource(value = UserServiceProxy.GET_SESSION_USER_URI)
+	@PostMapping(UserServiceProxy.GET_SESSION_USER_URI)
+	public Result<SessionUser> getSessionUser(String sessionId) {
+		Result<SessionUser> result=new Result<>();
+		SessionUser user=sessionCache.get(sessionId);
+		result.data(user);
 		return result;
 	}
 
@@ -247,8 +247,8 @@ public class UserController extends SuperController {
 		result.success(true).data(list);
 		return result;
 	}
-	
-	
+
+
 	
 
 

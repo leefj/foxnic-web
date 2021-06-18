@@ -5,9 +5,9 @@ import java.util.List;
 
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.springboot.mvc.Result;
 import com.github.foxnic.dao.excel.ValidateResult;
 
+import com.github.foxnic.springboot.mvc.Result;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
 import org.github.foxnic.web.framework.web.SuperController;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
+
 import javax.servlet.http.HttpServletResponse;
 
 import com.github.foxnic.springboot.api.error.ErrorDesc;
@@ -30,9 +28,6 @@ import com.github.foxnic.springboot.web.DownloadUtil;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.dao.excel.ExcelStructure;
-import java.io.InputStream;
-
 
 
 import org.github.foxnic.web.proxy.system.DictServiceProxy;
@@ -96,7 +91,7 @@ public class DictController extends SuperController {
 	*/
 	@ApiOperation(value = "删除数据字典")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = DictVOMeta.ID , value = "字典ID" , required = true , dataTypeClass=String.class , example = "1")
+		@ApiImplicitParam(name = DictVOMeta.ID , value = "字典ID" , required = true , dataTypeClass=String.class , example = "1"),
 	})
 	@ApiOperationSupport(order=2)
 	@NotNull(name = DictVOMeta.ID)

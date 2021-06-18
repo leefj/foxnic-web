@@ -25,7 +25,7 @@
         <module>./service/service-storage</module>  
         <!-- 界面视图 -->  
         <module>./view/view-console</module> 
-    </modules>  
+    </modules>
     <properties> 
         <skipTests>true</skipTests>  
         <encoding>1.8</encoding>  
@@ -44,9 +44,12 @@
         <seata.cloud.version>2.2.0.RELEASE</seata.cloud.version>  
         <platform.version>0.0.5.RELEASE</platform.version>  
         <foxnic.version>1.2.1.RELEASE</foxnic.version>  
-        <knife4j.version>3.0.2</knife4j.version> 
+        <knife4j.version>3.0.2</knife4j.version>
+        <servlet.api.version>4.0.1</servlet.api.version>
     </properties>  
-    <dependencies></dependencies>  
+    <dependencies>
+
+    </dependencies>
     <build> 
         <defaultGoal>compile</defaultGoal>  
         <plugins> 
