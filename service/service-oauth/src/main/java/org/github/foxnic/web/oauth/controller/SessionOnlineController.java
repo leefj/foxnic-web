@@ -1,10 +1,17 @@
 package org.github.foxnic.web.oauth.controller;
 
- 
-import java.util.Date;
-import java.util.List;
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.api.validate.annotations.NotNull;
+import com.github.foxnic.dao.data.PagedList;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
+import com.github.xiaoymin.knife4j.annotations.ApiSort;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.github.foxnic.web.domain.oauth.SessionOnline;
 import org.github.foxnic.web.domain.oauth.SessionOnlineVO;
 import org.github.foxnic.web.domain.oauth.meta.SessionOnlineVOMeta;
@@ -14,17 +21,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.alibaba.csp.sentinel.annotation.SentinelResource;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.api.validate.annotations.NotNull;
-import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import com.github.xiaoymin.knife4j.annotations.ApiSort;
-
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -49,10 +47,13 @@ public class SessionOnlineController {
 	@ApiOperation(value = "添加在线会话")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = SessionOnlineVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "450690969709314048"),
+		@ApiImplicitParam(name = SessionOnlineVOMeta.SESSION_ID , value = "会话ID" , required = false , dataTypeClass=String.class , example = "zkLB6t_aH5mAGHAeahclypHk7eUK6GXJrpFf0sk9"),
 		@ApiImplicitParam(name = SessionOnlineVOMeta.USER_ID , value = "账户ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = SessionOnlineVOMeta.LOGIN_TIME , value = "登录时间" , required = false , dataTypeClass=Date.class , example = "2021-05-28 04:05:01"),
 		@ApiImplicitParam(name = SessionOnlineVOMeta.INTERACT_TIME , value = "最近一次交互时间" , required = false , dataTypeClass=Date.class),
+		@ApiImplicitParam(name = SessionOnlineVOMeta.INTERACT_URL , value = "最后访问的地址" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = SessionOnlineVOMeta.LOGOUT_TIME , value = "登出时间" , required = false , dataTypeClass=Date.class),
+		@ApiImplicitParam(name = SessionOnlineVOMeta.SESSION_TIME , value = "会话时长" , required = false , dataTypeClass=Integer.class , example = "1200"),
 		@ApiImplicitParam(name = SessionOnlineVOMeta.ONLINE , value = "是否在线" , required = false , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiOperationSupport(order=1)
@@ -72,7 +73,7 @@ public class SessionOnlineController {
 	*/
 	@ApiOperation(value = "删除在线会话")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = SessionOnlineVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "450690969709314048")
+		@ApiImplicitParam(name = SessionOnlineVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "450690969709314048"),
 	})
 	@ApiOperationSupport(order=2)
 	@NotNull(name = SessionOnlineVOMeta.ID)
@@ -111,10 +112,13 @@ public class SessionOnlineController {
 	@ApiOperation(value = "更新在线会话")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = SessionOnlineVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "450690969709314048"),
+		@ApiImplicitParam(name = SessionOnlineVOMeta.SESSION_ID , value = "会话ID" , required = false , dataTypeClass=String.class , example = "zkLB6t_aH5mAGHAeahclypHk7eUK6GXJrpFf0sk9"),
 		@ApiImplicitParam(name = SessionOnlineVOMeta.USER_ID , value = "账户ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = SessionOnlineVOMeta.LOGIN_TIME , value = "登录时间" , required = false , dataTypeClass=Date.class , example = "2021-05-28 04:05:01"),
 		@ApiImplicitParam(name = SessionOnlineVOMeta.INTERACT_TIME , value = "最近一次交互时间" , required = false , dataTypeClass=Date.class),
+		@ApiImplicitParam(name = SessionOnlineVOMeta.INTERACT_URL , value = "最后访问的地址" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = SessionOnlineVOMeta.LOGOUT_TIME , value = "登出时间" , required = false , dataTypeClass=Date.class),
+		@ApiImplicitParam(name = SessionOnlineVOMeta.SESSION_TIME , value = "会话时长" , required = false , dataTypeClass=Integer.class , example = "1200"),
 		@ApiImplicitParam(name = SessionOnlineVOMeta.ONLINE , value = "是否在线" , required = false , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiOperationSupport( order=4 , ignoreParameters = { SessionOnlineVOMeta.PAGE_INDEX , SessionOnlineVOMeta.PAGE_SIZE , SessionOnlineVOMeta.SEARCH_FIELD , SessionOnlineVOMeta.SEARCH_VALUE , SessionOnlineVOMeta.IDS } ) 
@@ -135,10 +139,13 @@ public class SessionOnlineController {
 	@ApiOperation(value = "保存在线会话")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = SessionOnlineVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "450690969709314048"),
+		@ApiImplicitParam(name = SessionOnlineVOMeta.SESSION_ID , value = "会话ID" , required = false , dataTypeClass=String.class , example = "zkLB6t_aH5mAGHAeahclypHk7eUK6GXJrpFf0sk9"),
 		@ApiImplicitParam(name = SessionOnlineVOMeta.USER_ID , value = "账户ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = SessionOnlineVOMeta.LOGIN_TIME , value = "登录时间" , required = false , dataTypeClass=Date.class , example = "2021-05-28 04:05:01"),
 		@ApiImplicitParam(name = SessionOnlineVOMeta.INTERACT_TIME , value = "最近一次交互时间" , required = false , dataTypeClass=Date.class),
+		@ApiImplicitParam(name = SessionOnlineVOMeta.INTERACT_URL , value = "最后访问的地址" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = SessionOnlineVOMeta.LOGOUT_TIME , value = "登出时间" , required = false , dataTypeClass=Date.class),
+		@ApiImplicitParam(name = SessionOnlineVOMeta.SESSION_TIME , value = "会话时长" , required = false , dataTypeClass=Integer.class , example = "1200"),
 		@ApiImplicitParam(name = SessionOnlineVOMeta.ONLINE , value = "是否在线" , required = false , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { SessionOnlineVOMeta.PAGE_INDEX , SessionOnlineVOMeta.PAGE_SIZE , SessionOnlineVOMeta.SEARCH_FIELD , SessionOnlineVOMeta.SEARCH_VALUE , SessionOnlineVOMeta.IDS } )
@@ -178,10 +185,13 @@ public class SessionOnlineController {
 	@ApiOperation(value = "查询在线会话")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = SessionOnlineVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "450690969709314048"),
+		@ApiImplicitParam(name = SessionOnlineVOMeta.SESSION_ID , value = "会话ID" , required = false , dataTypeClass=String.class , example = "zkLB6t_aH5mAGHAeahclypHk7eUK6GXJrpFf0sk9"),
 		@ApiImplicitParam(name = SessionOnlineVOMeta.USER_ID , value = "账户ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = SessionOnlineVOMeta.LOGIN_TIME , value = "登录时间" , required = false , dataTypeClass=Date.class , example = "2021-05-28 04:05:01"),
 		@ApiImplicitParam(name = SessionOnlineVOMeta.INTERACT_TIME , value = "最近一次交互时间" , required = false , dataTypeClass=Date.class),
+		@ApiImplicitParam(name = SessionOnlineVOMeta.INTERACT_URL , value = "最后访问的地址" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = SessionOnlineVOMeta.LOGOUT_TIME , value = "登出时间" , required = false , dataTypeClass=Date.class),
+		@ApiImplicitParam(name = SessionOnlineVOMeta.SESSION_TIME , value = "会话时长" , required = false , dataTypeClass=Integer.class , example = "1200"),
 		@ApiImplicitParam(name = SessionOnlineVOMeta.ONLINE , value = "是否在线" , required = false , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { SessionOnlineVOMeta.PAGE_INDEX , SessionOnlineVOMeta.PAGE_SIZE } )
@@ -201,10 +211,13 @@ public class SessionOnlineController {
 	@ApiOperation(value = "分页查询在线会话")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = SessionOnlineVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "450690969709314048"),
+		@ApiImplicitParam(name = SessionOnlineVOMeta.SESSION_ID , value = "会话ID" , required = false , dataTypeClass=String.class , example = "zkLB6t_aH5mAGHAeahclypHk7eUK6GXJrpFf0sk9"),
 		@ApiImplicitParam(name = SessionOnlineVOMeta.USER_ID , value = "账户ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = SessionOnlineVOMeta.LOGIN_TIME , value = "登录时间" , required = false , dataTypeClass=Date.class , example = "2021-05-28 04:05:01"),
 		@ApiImplicitParam(name = SessionOnlineVOMeta.INTERACT_TIME , value = "最近一次交互时间" , required = false , dataTypeClass=Date.class),
+		@ApiImplicitParam(name = SessionOnlineVOMeta.INTERACT_URL , value = "最后访问的地址" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = SessionOnlineVOMeta.LOGOUT_TIME , value = "登出时间" , required = false , dataTypeClass=Date.class),
+		@ApiImplicitParam(name = SessionOnlineVOMeta.SESSION_TIME , value = "会话时长" , required = false , dataTypeClass=Integer.class , example = "1200"),
 		@ApiImplicitParam(name = SessionOnlineVOMeta.ONLINE , value = "是否在线" , required = false , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiOperationSupport(order=8)

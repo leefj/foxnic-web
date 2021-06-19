@@ -1,18 +1,15 @@
 package org.github.foxnic.web.generator.module;
 
+import com.github.foxnic.generator.config.ModuleContext;
+import com.github.foxnic.generator.config.WriteMode;
+import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_CONFIG;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_LANG;
-import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER;
 import org.github.foxnic.web.constants.enums.SystemConfigType;
 import org.github.foxnic.web.generator.config.FoxnicWebConfigs;
 import org.github.foxnic.web.generator.config.FoxnicWebConfigs.ProjectConfigs;
 import org.github.foxnic.web.proxy.MicroServiceNames;
-
-import com.github.foxnic.generator.config.ModuleContext;
-import com.github.foxnic.generator.config.WriteMode;
-import com.github.foxnic.sql.meta.DBTable;
-import org.github.foxnic.web.system.controller.ConfigController;
 
 
 /**
@@ -38,6 +35,8 @@ public class SystemCodeGenerator  {
 
 
 		g.generateSysDbCache();
+
+		g.generateSysInvokeLog();
 
 		
 	}
@@ -161,6 +160,23 @@ public class SystemCodeGenerator  {
 				.setPageController(WriteMode.CREATE_IF_NOT_EXISTS) //页面控制器
 				.setFormPage(WriteMode.CREATE_IF_NOT_EXISTS) //表单HTML页
 				.setListPage(WriteMode.CREATE_IF_NOT_EXISTS); //列表HTML页
+
+		//生成代码
+		cfg.buildAll();
+	}
+
+	private void generateSysInvokeLog() throws Exception {
+		//创建配置
+		ModuleContext cfg=createModuleConfig(FoxnicWeb.SYS_INVOKE_LOG.$TABLE, 5);
+
+
+		//文件生成覆盖模式
+		cfg.overrides()
+				.setServiceIntfAnfImpl(WriteMode.COVER_EXISTS_FILE) //服务与接口
+				.setControllerAndAgent(WriteMode.COVER_EXISTS_FILE) //Rest
+				.setPageController(WriteMode.COVER_EXISTS_FILE) //页面控制器
+				.setFormPage(WriteMode.COVER_EXISTS_FILE) //表单HTML页
+				.setListPage(WriteMode.COVER_EXISTS_FILE); //列表HTML页
 
 		//生成代码
 		cfg.buildAll();

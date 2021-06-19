@@ -50,7 +50,7 @@ public class DictPageController extends ViewController {
 	 * 数据字典 表单页面
 	 */
 	@RequestMapping("/dict_form.html")
-	public String form(Model model , String id) {
+	public String form(Model model , HttpServletRequest request, String id) {
 		return prefix+"/dict_form";
 	}
 

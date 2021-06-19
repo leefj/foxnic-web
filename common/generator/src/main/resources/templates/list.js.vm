@@ -53,7 +53,7 @@ function ListPage() {
                 #for(f : fields)
                 { field: '#(f.varName)', sort: true, title: fox.translate('#(f.label)')#(f.templet) } ,
                 #end
-                { fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
+                { field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
             ]]
 	 		,footer : {
 				exportExcel : true,

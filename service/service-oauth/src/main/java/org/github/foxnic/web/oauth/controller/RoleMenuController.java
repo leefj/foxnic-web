@@ -69,7 +69,7 @@ public class RoleMenuController {
 	*/
 	@ApiOperation(value = "删除角色账户关系")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = RoleMenuVOMeta.ID , value = "id" , required = true , dataTypeClass=String.class , example = "451739190648897536")
+		@ApiImplicitParam(name = RoleMenuVOMeta.ID , value = "id" , required = true , dataTypeClass=String.class , example = "451739190648897536"),
 	})
 	@ApiOperationSupport(order=2)
 	@NotNull(name = RoleMenuVOMeta.ID)

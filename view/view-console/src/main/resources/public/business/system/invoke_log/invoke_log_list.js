@@ -1,7 +1,7 @@
 /**
- * 在线会话 列表页 JS 脚本
+ * 调用统计日志 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-19 08:02:07
+ * @since 2021-06-19 08:51:16
  */
 
 
@@ -9,7 +9,7 @@ function ListPage() {
         
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect;
 	//模块基础路径
-	const moduleURL="/service-oauth/sys-session-online";
+	const moduleURL="/service-system/sys-invoke-log";
 	
 	/**
       * 入口函数，初始化
@@ -41,19 +41,33 @@ function ListPage() {
 			cols: [[
 			 	{  fixed: 'left',type:'checkbox' },
                 {  fixed: 'left',type: 'numbers' },
-                { field: 'id', sort: true, title: fox.translate('ID') , hide:true } ,
-                { field: 'sessionId', sort: true, title: fox.translate('会话ID') , hide:true } ,
-                { field: 'userId', sort: true, title: fox.translate('账户ID') } ,
-                { field: 'loginTime', sort: true, title: fox.translate('登录时间') , templet: function (d) { return fox.dateFormat(d.loginTime); } } ,
-                { field: 'interactTime', sort: true, title: fox.translate('最近交互') , templet: function (d) { return fox.dateFormat(d.interactTime); } } ,
-                { field: 'interactUrl', sort: true, title: fox.translate('最后访问') } ,
-                // { field: 'logoutTime', sort: true, title: fox.translate('登出时间') , templet: function (d) { return fox.dateFormat(d.logoutTime); } } ,
-                // { field: 'sessionTime', sort: true, title: fox.translate('会话时长') } ,
-                // { field: 'online', sort: true, title: fox.translate('是否在线') } ,
-                // { field: 'createTime', sort: true, title: fox.translate('创建时间') , templet: function (d) { return fox.dateFormat(d.createTime); } } ,
+                { field: 'hostName', sort: true, title: fox.translate('主机名称') } ,
+                { field: 'uri', sort: true, title: fox.translate('请求的URI') } ,
+                { field: 'userAgent', sort: true, title: fox.translate('UserAgent') } ,
+                { field: 'clientIp', sort: true, title: fox.translate('客户端IP') } ,
+                { field: 'token', sort: true, title: fox.translate('token值') } ,
+                { field: 'userId', sort: true, title: fox.translate('用户ID') } ,
+                { field: 'userName', sort: true, title: fox.translate('用户姓名') } ,
+                { field: 'parameter', sort: true, title: fox.translate('请求参数') } ,
+                { field: 'response', sort: true, title: fox.translate('响应数据') } ,
+                { field: 'startTime', sort: true, title: fox.translate('开始时间') } ,
+                { field: 'endTime', sort: true, title: fox.translate('结束时间') } ,
+                { field: 'exception', sort: true, title: fox.translate('异常信息') } ,
                 { field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
             ]]
-
+	 		,footer : {
+				exportExcel : true,
+				importExcel : {
+					params : {} ,
+				 	callback : function(r) {
+						if(r.success) {
+							layer.msg(fox.translate('数据导入成功')+"!");
+						} else {
+							layer.msg(fox.translate('数据导入失败')+"!");
+						}
+					}
+			 	}
+		 	}
         });
         //绑定排序事件
         table.on('sort(data-table)', function(obj){
@@ -125,11 +139,11 @@ function ListPage() {
           
 			var ids=getCheckedList("id");
             if(ids.length==0) {
-            	layer.msg(fox.translate('请选择需要删除的')+fox.translate('在线会话')+"!");
+            	layer.msg(fox.translate('请选择需要删除的')+fox.translate('调用统计日志')+"!");
             	return;
             }
             //调用批量删除接口
-			layer.confirm(fox.translate('确定删除已选中的')+fox.translate('在线会话')+fox.translate('吗？'), function (i) {
+			layer.confirm(fox.translate('确定删除已选中的')+fox.translate('调用统计日志')+fox.translate('吗？'), function (i) {
 				layer.close(i);
 				layer.load(2);
                 admin.request(moduleURL+"/batch-delete", { ids: ids }, function (data) {
@@ -169,7 +183,7 @@ function ListPage() {
 				
 			} else if (layEvent === 'del') { // 删除
 			
-				layer.confirm(fox.translate('确定删除此')+fox.translate('在线会话')+fox.translate('吗？'), function (i) {
+				layer.confirm(fox.translate('确定删除此')+fox.translate('调用统计日志')+fox.translate('吗？'), function (i) {
 					layer.close(i);
 					layer.load(2);
 					admin.request(moduleURL+"/delete", { id : data.id }, function (data) {
@@ -194,18 +208,18 @@ function ListPage() {
 	function showEditForm(data) {
 		var queryString="";
 		if(data && data.id) queryString="?" + 'id=' + data.id;
-		admin.putTempData('sys-session-online-form-data', data);
-		var area=admin.getTempData('sys-session-online-form-area');
+		admin.putTempData('sys-invoke-log-form-data', data);
+		var area=admin.getTempData('sys-invoke-log-form-area');
 		var height= (area && area.height) ? area.height : ($(window).height()*0.6);
 		var top= ($(window).height()-height)/2;
-		var title = (data && data.id) ? (fox.translate('修改')+fox.translate('在线会话')) : (fox.translate('添加')+fox.translate('在线会话'));
+		var title = (data && data.id) ? (fox.translate('修改')+fox.translate('调用统计日志')) : (fox.translate('添加')+fox.translate('调用统计日志'));
 		admin.popupCenter({
 			title: title,
 			resize:true,
 			offset:[top,null],
 			area:["500px",height+"px"],
 			type: 2,
-			content: '/business/oauth/session_online/session_online_form.html' + queryString,
+			content: '/business/system/invoke_log/invoke_log_form.html' + queryString,
 			finish: function () {
 				refreshTableData();
 			}

@@ -181,12 +181,8 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		//生成代码
 		cfg.buildAll();
 	}
- 
-	
-	 
-	
-	 
-	
+
+
 	
 	
 

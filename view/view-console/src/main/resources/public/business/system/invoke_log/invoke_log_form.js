@@ -1,13 +1,13 @@
 /**
- * 在线会话 列表页 JS 脚本
+ * 调用统计日志 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-19 08:02:07
+ * @since 2021-06-19 08:51:16
  */
 
 function FormPage() {
 
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect;
-	const moduleURL="/service-oauth/sys-session-online";
+	const moduleURL="/service-system/sys-invoke-log";
 	
 	/**
       * 入口函数，初始化
@@ -33,7 +33,7 @@ function FormPage() {
 	function adjustPopup() {
 		var height=document.body.clientHeight+58;
 		admin.changePopupArea(null,height);
-		admin.putTempData('sys-session-online-form-area', {height:height});
+		admin.putTempData('sys-invoke-log-form-area', {height:height});
 	}
 	
 	/**
@@ -48,7 +48,7 @@ function FormPage() {
       * 填充表单数据
       */
 	function fillFormData() {
-		var formData = admin.getTempData('sys-session-online-form-data');
+		var formData = admin.getTempData('sys-invoke-log-form-data');
 		var fm=$('#data-form');
 		if (formData) {
 			fm[0].reset();

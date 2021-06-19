@@ -69,7 +69,7 @@ public class RoleController {
 	*/
 	@ApiOperation(value = "删除角色")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = RoleVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "110352463290923000")
+		@ApiImplicitParam(name = RoleVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "110352463290923000"),
 	})
 	@ApiOperationSupport(order=2)
 	@NotNull(name = RoleVOMeta.ID)

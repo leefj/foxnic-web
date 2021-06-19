@@ -1,9 +1,17 @@
 package org.github.foxnic.web.oauth.controller;
 
- 
-import java.util.List;
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.api.validate.annotations.NotNull;
+import com.github.foxnic.dao.data.PagedList;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
+import com.github.xiaoymin.knife4j.annotations.ApiSort;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.github.foxnic.web.domain.oauth.Token;
 import org.github.foxnic.web.domain.oauth.TokenVO;
 import org.github.foxnic.web.domain.oauth.meta.TokenVOMeta;
@@ -13,17 +21,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.alibaba.csp.sentinel.annotation.SentinelResource;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.api.validate.annotations.NotNull;
-import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import com.github.xiaoymin.knife4j.annotations.ApiSort;
-
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -51,7 +50,11 @@ public class TokenController {
 		@ApiImplicitParam(name = TokenVOMeta.USER_ID , value = "user_id" , required = true , dataTypeClass=Integer.class),
 		@ApiImplicitParam(name = TokenVOMeta.JTI , value = "Token标识" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = TokenVOMeta.ACCESS_TOKEN , value = "访问用Token" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = TokenVOMeta.REFRESH_TOKEN , value = "刷新用Token" , required = false , dataTypeClass=String.class)
+		@ApiImplicitParam(name = TokenVOMeta.REFRESH_TOKEN , value = "刷新用Token" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = TokenVOMeta.ACCESS_TOKEN_EXPIRE_TIME , value = "访问用Token过期时间" , required = false , dataTypeClass= Date.class , example = "2021-06-03 05:06:51"),
+		@ApiImplicitParam(name = TokenVOMeta.ACCESS_TOKEN_EXPIRED , value = "访问用Token是否过期" , required = true , dataTypeClass=Integer.class , example = "false"),
+		@ApiImplicitParam(name = TokenVOMeta.REFRESH_TOKEN_EXPIRE_TIME , value = "刷新用Token过期时间" , required = false , dataTypeClass=Date.class , example = "2021-06-03 05:10:11"),
+		@ApiImplicitParam(name = TokenVOMeta.REFRESH_TOKEN_EXPIRED , value = "刷新用Token是否过期" , required = true , dataTypeClass=Integer.class , example = "false"),
 	})
 	@ApiOperationSupport(order=1)
 	@NotNull(name = TokenVOMeta.ID)
@@ -71,7 +74,7 @@ public class TokenController {
 	*/
 	@ApiOperation(value = "删除Token")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = TokenVOMeta.ID , value = "id" , required = true , dataTypeClass=String.class)
+		@ApiImplicitParam(name = TokenVOMeta.ID , value = "id" , required = true , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport(order=2)
 	@NotNull(name = TokenVOMeta.ID)
@@ -113,7 +116,11 @@ public class TokenController {
 		@ApiImplicitParam(name = TokenVOMeta.USER_ID , value = "user_id" , required = true , dataTypeClass=Integer.class),
 		@ApiImplicitParam(name = TokenVOMeta.JTI , value = "Token标识" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = TokenVOMeta.ACCESS_TOKEN , value = "访问用Token" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = TokenVOMeta.REFRESH_TOKEN , value = "刷新用Token" , required = false , dataTypeClass=String.class)
+		@ApiImplicitParam(name = TokenVOMeta.REFRESH_TOKEN , value = "刷新用Token" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = TokenVOMeta.ACCESS_TOKEN_EXPIRE_TIME , value = "访问用Token过期时间" , required = false , dataTypeClass=Date.class , example = "2021-06-03 05:06:51"),
+		@ApiImplicitParam(name = TokenVOMeta.ACCESS_TOKEN_EXPIRED , value = "访问用Token是否过期" , required = true , dataTypeClass=Integer.class , example = "false"),
+		@ApiImplicitParam(name = TokenVOMeta.REFRESH_TOKEN_EXPIRE_TIME , value = "刷新用Token过期时间" , required = false , dataTypeClass=Date.class , example = "2021-06-03 05:10:11"),
+		@ApiImplicitParam(name = TokenVOMeta.REFRESH_TOKEN_EXPIRED , value = "刷新用Token是否过期" , required = true , dataTypeClass=Integer.class , example = "false"),
 	})
 	@ApiOperationSupport( order=4 , ignoreParameters = { TokenVOMeta.PAGE_INDEX , TokenVOMeta.PAGE_SIZE , TokenVOMeta.SEARCH_FIELD , TokenVOMeta.SEARCH_VALUE , TokenVOMeta.IDS } ) 
 	@NotNull(name = TokenVOMeta.ID)
@@ -137,7 +144,11 @@ public class TokenController {
 		@ApiImplicitParam(name = TokenVOMeta.USER_ID , value = "user_id" , required = true , dataTypeClass=Integer.class),
 		@ApiImplicitParam(name = TokenVOMeta.JTI , value = "Token标识" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = TokenVOMeta.ACCESS_TOKEN , value = "访问用Token" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = TokenVOMeta.REFRESH_TOKEN , value = "刷新用Token" , required = false , dataTypeClass=String.class)
+		@ApiImplicitParam(name = TokenVOMeta.REFRESH_TOKEN , value = "刷新用Token" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = TokenVOMeta.ACCESS_TOKEN_EXPIRE_TIME , value = "访问用Token过期时间" , required = false , dataTypeClass=Date.class , example = "2021-06-03 05:06:51"),
+		@ApiImplicitParam(name = TokenVOMeta.ACCESS_TOKEN_EXPIRED , value = "访问用Token是否过期" , required = true , dataTypeClass=Integer.class , example = "false"),
+		@ApiImplicitParam(name = TokenVOMeta.REFRESH_TOKEN_EXPIRE_TIME , value = "刷新用Token过期时间" , required = false , dataTypeClass=Date.class , example = "2021-06-03 05:10:11"),
+		@ApiImplicitParam(name = TokenVOMeta.REFRESH_TOKEN_EXPIRED , value = "刷新用Token是否过期" , required = true , dataTypeClass=Integer.class , example = "false"),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { TokenVOMeta.PAGE_INDEX , TokenVOMeta.PAGE_SIZE , TokenVOMeta.SEARCH_FIELD , TokenVOMeta.SEARCH_VALUE , TokenVOMeta.IDS } )
 	@NotNull(name = TokenVOMeta.ID)
@@ -180,7 +191,11 @@ public class TokenController {
 		@ApiImplicitParam(name = TokenVOMeta.USER_ID , value = "user_id" , required = true , dataTypeClass=Integer.class),
 		@ApiImplicitParam(name = TokenVOMeta.JTI , value = "Token标识" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = TokenVOMeta.ACCESS_TOKEN , value = "访问用Token" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = TokenVOMeta.REFRESH_TOKEN , value = "刷新用Token" , required = false , dataTypeClass=String.class)
+		@ApiImplicitParam(name = TokenVOMeta.REFRESH_TOKEN , value = "刷新用Token" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = TokenVOMeta.ACCESS_TOKEN_EXPIRE_TIME , value = "访问用Token过期时间" , required = false , dataTypeClass=Date.class , example = "2021-06-03 05:06:51"),
+		@ApiImplicitParam(name = TokenVOMeta.ACCESS_TOKEN_EXPIRED , value = "访问用Token是否过期" , required = true , dataTypeClass=Integer.class , example = "false"),
+		@ApiImplicitParam(name = TokenVOMeta.REFRESH_TOKEN_EXPIRE_TIME , value = "刷新用Token过期时间" , required = false , dataTypeClass=Date.class , example = "2021-06-03 05:10:11"),
+		@ApiImplicitParam(name = TokenVOMeta.REFRESH_TOKEN_EXPIRED , value = "刷新用Token是否过期" , required = true , dataTypeClass=Integer.class , example = "false"),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { TokenVOMeta.PAGE_INDEX , TokenVOMeta.PAGE_SIZE } )
 	@SentinelResource(value = TokenServiceProxy.QUERY_LIST)
@@ -202,7 +217,11 @@ public class TokenController {
 		@ApiImplicitParam(name = TokenVOMeta.USER_ID , value = "user_id" , required = true , dataTypeClass=Integer.class),
 		@ApiImplicitParam(name = TokenVOMeta.JTI , value = "Token标识" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = TokenVOMeta.ACCESS_TOKEN , value = "访问用Token" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = TokenVOMeta.REFRESH_TOKEN , value = "刷新用Token" , required = false , dataTypeClass=String.class)
+		@ApiImplicitParam(name = TokenVOMeta.REFRESH_TOKEN , value = "刷新用Token" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = TokenVOMeta.ACCESS_TOKEN_EXPIRE_TIME , value = "访问用Token过期时间" , required = false , dataTypeClass=Date.class , example = "2021-06-03 05:06:51"),
+		@ApiImplicitParam(name = TokenVOMeta.ACCESS_TOKEN_EXPIRED , value = "访问用Token是否过期" , required = true , dataTypeClass=Integer.class , example = "false"),
+		@ApiImplicitParam(name = TokenVOMeta.REFRESH_TOKEN_EXPIRE_TIME , value = "刷新用Token过期时间" , required = false , dataTypeClass=Date.class , example = "2021-06-03 05:10:11"),
+		@ApiImplicitParam(name = TokenVOMeta.REFRESH_TOKEN_EXPIRED , value = "刷新用Token是否过期" , required = true , dataTypeClass=Integer.class , example = "false"),
 	})
 	@ApiOperationSupport(order=8)
 	@SentinelResource(value = TokenServiceProxy.QUERY_PAGED_LIST)

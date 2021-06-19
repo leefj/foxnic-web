@@ -38,7 +38,7 @@ public class PageAspector {
 	
 	private static final String ENUM = "enum";
 
-	private static final String USER = "enum";
+	private static final String USER = "user";
 
 	private static final String PERMISSION = "permission";
 

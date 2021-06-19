@@ -60,6 +60,7 @@ public class MenuController {
 		@ApiImplicitParam(name = MenuVOMeta.PATH , value = "模版路径" , required = false , dataTypeClass=String.class , example = "/pages/oauth/user/user_form.html"),
 		@ApiImplicitParam(name = MenuVOMeta.URL , value = "路由地址" , required = false , dataTypeClass=String.class , example = "#!sys_user_edit"),
 		@ApiImplicitParam(name = MenuVOMeta.PARENT_ID , value = "上级ID" , required = false , dataTypeClass=String.class , example = "451739184579739648"),
+		@ApiImplicitParam(name = MenuVOMeta.SORT , value = "显示顺序" , required = true , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiOperationSupport(order=1)
 	@NotNull(name = MenuVOMeta.ID)
@@ -84,7 +85,7 @@ public class MenuController {
 	*/
 	@ApiOperation(value = "删除菜单")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = MenuVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "451739184575545344")
+		@ApiImplicitParam(name = MenuVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "451739184575545344"),
 	})
 	@ApiOperationSupport(order=2)
 	@NotNull(name = MenuVOMeta.ID)
@@ -137,6 +138,7 @@ public class MenuController {
 		@ApiImplicitParam(name = MenuVOMeta.PATH , value = "模版路径" , required = false , dataTypeClass=String.class , example = "/pages/oauth/user/user_form.html"),
 		@ApiImplicitParam(name = MenuVOMeta.URL , value = "路由地址" , required = false , dataTypeClass=String.class , example = "#!sys_user_edit"),
 		@ApiImplicitParam(name = MenuVOMeta.PARENT_ID , value = "上级ID" , required = false , dataTypeClass=String.class , example = "451739184579739648"),
+		@ApiImplicitParam(name = MenuVOMeta.SORT , value = "显示顺序" , required = true , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiOperationSupport( order=4 , ignoreParameters = { MenuVOMeta.PAGE_INDEX , MenuVOMeta.PAGE_SIZE , MenuVOMeta.SEARCH_FIELD , MenuVOMeta.SEARCH_VALUE , MenuVOMeta.IDS } ) 
 	@NotNull(name = MenuVOMeta.ID)
@@ -166,6 +168,7 @@ public class MenuController {
 		@ApiImplicitParam(name = MenuVOMeta.PATH , value = "模版路径" , required = false , dataTypeClass=String.class , example = "/pages/oauth/user/user_form.html"),
 		@ApiImplicitParam(name = MenuVOMeta.URL , value = "路由地址" , required = false , dataTypeClass=String.class , example = "#!sys_user_edit"),
 		@ApiImplicitParam(name = MenuVOMeta.PARENT_ID , value = "上级ID" , required = false , dataTypeClass=String.class , example = "451739184579739648"),
+		@ApiImplicitParam(name = MenuVOMeta.SORT , value = "显示顺序" , required = true , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { MenuVOMeta.PAGE_INDEX , MenuVOMeta.PAGE_SIZE , MenuVOMeta.SEARCH_FIELD , MenuVOMeta.SEARCH_VALUE , MenuVOMeta.IDS } )
 	@NotNull(name = MenuVOMeta.ID)
@@ -214,6 +217,7 @@ public class MenuController {
 		@ApiImplicitParam(name = MenuVOMeta.PATH , value = "模版路径" , required = false , dataTypeClass=String.class , example = "/pages/oauth/user/user_form.html"),
 		@ApiImplicitParam(name = MenuVOMeta.URL , value = "路由地址" , required = false , dataTypeClass=String.class , example = "#!sys_user_edit"),
 		@ApiImplicitParam(name = MenuVOMeta.PARENT_ID , value = "上级ID" , required = false , dataTypeClass=String.class , example = "451739184579739648"),
+		@ApiImplicitParam(name = MenuVOMeta.SORT , value = "显示顺序" , required = true , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { MenuVOMeta.PAGE_INDEX , MenuVOMeta.PAGE_SIZE } )
 	@SentinelResource(value = MenuServiceProxy.QUERY_LIST)
@@ -275,6 +279,7 @@ public class MenuController {
 		@ApiImplicitParam(name = MenuVOMeta.PATH , value = "模版路径" , required = false , dataTypeClass=String.class , example = "/pages/oauth/user/user_form.html"),
 		@ApiImplicitParam(name = MenuVOMeta.URL , value = "路由地址" , required = false , dataTypeClass=String.class , example = "#!sys_user_edit"),
 		@ApiImplicitParam(name = MenuVOMeta.PARENT_ID , value = "上级ID" , required = false , dataTypeClass=String.class , example = "451739184579739648"),
+		@ApiImplicitParam(name = MenuVOMeta.SORT , value = "显示顺序" , required = true , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiOperationSupport(order=8)
 	@SentinelResource(value = MenuServiceProxy.QUERY_PAGED_LIST)

@@ -56,7 +56,10 @@ public class UserController extends SuperController {
 		@ApiImplicitParam(name = UserVOMeta.NAME , value = "账户" , required = false , dataTypeClass=String.class , example = "test"),
 		@ApiImplicitParam(name = UserVOMeta.PASSWD , value = "密码" , required = false , dataTypeClass=String.class , example = "******"),
 		@ApiImplicitParam(name = UserVOMeta.SALT , value = "盐" , required = false , dataTypeClass=String.class , example = "admin999"),
+		@ApiImplicitParam(name = UserVOMeta.PHONE , value = "手机号码" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = UserVOMeta.PORTRAIT_ID , value = "头像ID" , required = false , dataTypeClass=String.class , example = "1110"),
 		@ApiImplicitParam(name = UserVOMeta.PERSON_ID , value = "人员ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = UserVOMeta.LANGUAGE , value = "语言" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = UserVOMeta.EMPLOYEE_ID , value = "员工ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = UserVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class , example = "1"),
 		@ApiImplicitParam(name = UserVOMeta.LAST_LOGIN_TIME , value = "最后登录时间" , required = false , dataTypeClass=Date.class , example = "2021-05-31 03:09:23"),
@@ -79,7 +82,7 @@ public class UserController extends SuperController {
 	*/
 	@ApiOperation(value = "删除账户")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = UserVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "110588348101165000")
+		@ApiImplicitParam(name = UserVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "110588348101165000"),
 	})
 	@ApiOperationSupport(order=2)
 	@NotNull(name = UserVOMeta.ID)
@@ -121,7 +124,10 @@ public class UserController extends SuperController {
 		@ApiImplicitParam(name = UserVOMeta.NAME , value = "账户" , required = false , dataTypeClass=String.class , example = "test"),
 		@ApiImplicitParam(name = UserVOMeta.PASSWD , value = "密码" , required = false , dataTypeClass=String.class , example = "******"),
 		@ApiImplicitParam(name = UserVOMeta.SALT , value = "盐" , required = false , dataTypeClass=String.class , example = "admin999"),
+		@ApiImplicitParam(name = UserVOMeta.PHONE , value = "手机号码" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = UserVOMeta.PORTRAIT_ID , value = "头像ID" , required = false , dataTypeClass=String.class , example = "1110"),
 		@ApiImplicitParam(name = UserVOMeta.PERSON_ID , value = "人员ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = UserVOMeta.LANGUAGE , value = "语言" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = UserVOMeta.EMPLOYEE_ID , value = "员工ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = UserVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class , example = "1"),
 		@ApiImplicitParam(name = UserVOMeta.LAST_LOGIN_TIME , value = "最后登录时间" , required = false , dataTypeClass=Date.class , example = "2021-05-31 03:09:23"),
@@ -148,7 +154,10 @@ public class UserController extends SuperController {
 		@ApiImplicitParam(name = UserVOMeta.NAME , value = "账户" , required = false , dataTypeClass=String.class , example = "test"),
 		@ApiImplicitParam(name = UserVOMeta.PASSWD , value = "密码" , required = false , dataTypeClass=String.class , example = "******"),
 		@ApiImplicitParam(name = UserVOMeta.SALT , value = "盐" , required = false , dataTypeClass=String.class , example = "admin999"),
+		@ApiImplicitParam(name = UserVOMeta.PHONE , value = "手机号码" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = UserVOMeta.PORTRAIT_ID , value = "头像ID" , required = false , dataTypeClass=String.class , example = "1110"),
 		@ApiImplicitParam(name = UserVOMeta.PERSON_ID , value = "人员ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = UserVOMeta.LANGUAGE , value = "语言" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = UserVOMeta.EMPLOYEE_ID , value = "员工ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = UserVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class , example = "1"),
 		@ApiImplicitParam(name = UserVOMeta.LAST_LOGIN_TIME , value = "最后登录时间" , required = false , dataTypeClass=Date.class , example = "2021-05-31 03:09:23"),
@@ -209,7 +218,10 @@ public class UserController extends SuperController {
 		@ApiImplicitParam(name = UserVOMeta.NAME , value = "账户" , required = false , dataTypeClass=String.class , example = "test"),
 		@ApiImplicitParam(name = UserVOMeta.PASSWD , value = "密码" , required = false , dataTypeClass=String.class , example = "******"),
 		@ApiImplicitParam(name = UserVOMeta.SALT , value = "盐" , required = false , dataTypeClass=String.class , example = "admin999"),
+		@ApiImplicitParam(name = UserVOMeta.PHONE , value = "手机号码" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = UserVOMeta.PORTRAIT_ID , value = "头像ID" , required = false , dataTypeClass=String.class , example = "1110"),
 		@ApiImplicitParam(name = UserVOMeta.PERSON_ID , value = "人员ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = UserVOMeta.LANGUAGE , value = "语言" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = UserVOMeta.EMPLOYEE_ID , value = "员工ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = UserVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class , example = "1"),
 		@ApiImplicitParam(name = UserVOMeta.LAST_LOGIN_TIME , value = "最后登录时间" , required = false , dataTypeClass=Date.class , example = "2021-05-31 03:09:23"),
@@ -234,7 +246,10 @@ public class UserController extends SuperController {
 		@ApiImplicitParam(name = UserVOMeta.NAME , value = "账户" , required = false , dataTypeClass=String.class , example = "test"),
 		@ApiImplicitParam(name = UserVOMeta.PASSWD , value = "密码" , required = false , dataTypeClass=String.class , example = "******"),
 		@ApiImplicitParam(name = UserVOMeta.SALT , value = "盐" , required = false , dataTypeClass=String.class , example = "admin999"),
+		@ApiImplicitParam(name = UserVOMeta.PHONE , value = "手机号码" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = UserVOMeta.PORTRAIT_ID , value = "头像ID" , required = false , dataTypeClass=String.class , example = "1110"),
 		@ApiImplicitParam(name = UserVOMeta.PERSON_ID , value = "人员ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = UserVOMeta.LANGUAGE , value = "语言" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = UserVOMeta.EMPLOYEE_ID , value = "员工ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = UserVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class , example = "1"),
 		@ApiImplicitParam(name = UserVOMeta.LAST_LOGIN_TIME , value = "最后登录时间" , required = false , dataTypeClass=Date.class , example = "2021-05-31 03:09:23"),

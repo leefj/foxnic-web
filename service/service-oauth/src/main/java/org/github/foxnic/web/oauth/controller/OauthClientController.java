@@ -80,7 +80,7 @@ public class OauthClientController {
 	*/
 	@ApiOperation(value = "删除认证客户端")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = OauthClientVOMeta.ID , value = "客户端标识" , required = true , dataTypeClass=String.class , example = "credentials-client")
+		@ApiImplicitParam(name = OauthClientVOMeta.ID , value = "客户端标识" , required = true , dataTypeClass=String.class , example = "credentials-client"),
 	})
 	@ApiOperationSupport(order=2)
 	@NotNull(name = OauthClientVOMeta.ID)
