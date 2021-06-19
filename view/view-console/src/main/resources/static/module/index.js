@@ -52,7 +52,7 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
         		
         		if(menus[i].type!="folder" &&  menus[i].type!="page") continue;
         		if(menus[i].hidden==1) continue;
-        		if(menus[i].type=="folder") menus[i].url="#";
+        		if(menus[i].type=="folder") menus[i].url="javascript:;";
         		
         		pages.push(menus[i]);
         		map[menus[i].id]=menus[i];
@@ -189,6 +189,7 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
         // 路由加载组件
         loadView: function (menuId, menuPath, menuName) {
         	//debugger;
+            console.log(menuId,menuId);
             var contentDom = '.layui-layout-admin .layui-body';
             admin.showLoading('.layui-layout-admin .layui-body');
             var flag;  // 选项卡是否添加
@@ -217,6 +218,7 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
                 // 切换tab关闭表格内浮窗
                 $('.layui-table-tips-c').trigger('click');
                 // 解决切换tab滚动条时而消失的问题
+                //debugger
                 var $iframe = $('.layui-layout-admin .layui-body .layui-tab-content .layui-tab-item.layui-show .admin-iframe')[0];
                 if ($iframe) {
                     $iframe.style.height = "99%";
@@ -253,7 +255,7 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
         },
         //获取菜单
         getMenus: function () {
-        	debugger;
+        	//debugger;
         	var user=config.getUser();   
         	var menus=user.menus;
         	admin.putTempData("menus",menus);
