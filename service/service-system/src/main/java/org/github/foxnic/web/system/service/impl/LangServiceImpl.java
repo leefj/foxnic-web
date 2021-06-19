@@ -1,43 +1,39 @@
 package org.github.foxnic.web.system.service.impl;
 
-import java.lang.reflect.Field;
-import java.util.Date;
-import java.util.List;
-import java.io.InputStream;
-
-
-import javax.annotation.Resource;
-
+import com.github.foxnic.api.error.CommonError;
+import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.commons.busi.id.IDGenerator;
 import com.github.foxnic.commons.cache.LocalCache;
 import com.github.foxnic.commons.lang.StringUtil;
+import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.Rcd;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.SuperService;
+import com.github.foxnic.dao.excel.ExcelStructure;
+import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.api.error.CommonError;
-import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.dao.spec.DAO;
+import com.github.foxnic.sql.expr.ConditionExpr;
+import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
+import org.github.foxnic.web.constants.enums.Language;
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
+import org.github.foxnic.web.domain.system.Lang;
+import org.github.foxnic.web.domain.system.LangVO;
+import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.session.SessionUser;
 import org.github.foxnic.web.system.service.IConfigService;
+import org.github.foxnic.web.system.service.ILangService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.github.foxnic.commons.busi.id.IDGenerator;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.entity.SuperService;
-import com.github.foxnic.dao.spec.DAO;
-import com.github.foxnic.api.error.ErrorDesc;
-import com.github.foxnic.sql.expr.ConditionExpr;
-import com.github.foxnic.sql.meta.DBField;
-import com.github.foxnic.dao.excel.ExcelStructure;
-import com.github.foxnic.dao.excel.ExcelWriter;
-
-
-import org.github.foxnic.web.domain.system.Lang;
-import org.github.foxnic.web.domain.system.LangVO;
-import org.github.foxnic.web.system.service.ILangService;
-import org.github.foxnic.web.framework.dao.DBConfigs;
+import javax.annotation.Resource;
+import java.io.InputStream;
+import java.lang.reflect.Field;
+import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -309,10 +305,13 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 			SessionUser user=SessionUser.getCurrent();
 			if(user!=null) {
 				sysLangValue=user.getLanguage();
-				if(StringUtil.isBlank(sysLangValue)) {
-					sysLangValue=configService.getById(SystemConfigEnum.SYSTEM_LANGUAGE).getValue();
-				}
 			}
+		}
+		if(StringUtil.isBlank(sysLangValue)) {
+			sysLangValue=configService.getById(SystemConfigEnum.SYSTEM_LANGUAGE).getValue();
+		}
+		if(StringUtil.isBlank(sysLangValue)) {
+			sysLangValue=Language.defaults.name();
 		}
 
 		Language sysLang = Language.valueOf(sysLangValue);

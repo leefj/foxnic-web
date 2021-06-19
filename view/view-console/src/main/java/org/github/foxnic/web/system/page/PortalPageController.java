@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(PortalPageController.prefix)
 public class PortalPageController extends ViewController  {
 	
-	public static final String prefix="/";
+	public static final String prefix="";
  
 	/**
 	 * 系统配置 功能主页面

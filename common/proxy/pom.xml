@@ -5,7 +5,7 @@
     <parent> 
         <groupId>com.github.foxnic.web</groupId>  
         <artifactId>parent</artifactId>  
-        <version>0.0.5.RELEASE</version>  
+        <version>0.0.6.RELEASE</version>  
         <relativePath/>  
         <!-- lookup parent from repository --> 
     </parent>  
@@ -13,17 +13,17 @@
     <name>web-proxy</name>  
     <description>proxy</description>  
     <packaging>jar</packaging>  
-    <dependencies>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>${servlet.api.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.foxnic</groupId>
-            <artifactId>foxnic-api</artifactId>
-            <version>${foxnic.version}</version>
-        </dependency>
+    <dependencies> 
+        <dependency> 
+            <groupId>javax.servlet</groupId>  
+            <artifactId>javax.servlet-api</artifactId>  
+            <version>${servlet.api.version}</version> 
+        </dependency>  
+        <dependency> 
+            <groupId>com.github.foxnic</groupId>  
+            <artifactId>foxnic-api</artifactId>  
+            <version>${foxnic.version}</version> 
+        </dependency>  
         <dependency> 
             <groupId>com.github.foxnic.web</groupId>  
             <artifactId>domain</artifactId>  

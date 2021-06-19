@@ -5,61 +5,47 @@
     <parent> 
         <groupId>com.github.foxnic.web</groupId>  
         <artifactId>parent</artifactId>  
-        <version>0.0.5.RELEASE</version>  
+        <version>0.0.6.RELEASE</version>  
         <relativePath/>  
         <!-- lookup parent from repository --> 
     </parent>  
-    <artifactId>framework-view</artifactId>
-    <name>web-framework-view</name>
-    <description>framework-view</description>
-    <packaging>jar</packaging>
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+    <artifactId>framework-view</artifactId>  
+    <name>web-framework-view</name>  
+    <description>framework-view</description>  
+    <packaging>jar</packaging>  
+    <dependencies> 
+        <dependency> 
+            <groupId>org.springframework.boot</groupId>  
+            <artifactId>spring-boot-starter-web</artifactId> 
+        </dependency>  
+        <dependency> 
+            <groupId>org.springframework.boot</groupId>  
+            <artifactId>spring-boot-starter-thymeleaf</artifactId> 
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.github.foxnic.web</groupId>
+        <dependency> 
+            <groupId>com.github.foxnic.web</groupId>  
+            <artifactId>proxy</artifactId>  
+            <version>${platform.version}</version> 
+        </dependency>  
+        <dependency> 
+            <groupId>com.github.foxnic.web</groupId>  
             <artifactId>domain</artifactId>
             <version>${platform.version}</version>
+            <exclusions> 
+                <exclusion> 
+                    <groupId>com.github.xiaoymin</groupId>  
+                    <artifactId>knife4j-micro-spring-boot-starter</artifactId> 
+                </exclusion> 
+            </exclusions> 
         </dependency>
-        <dependency>
-            <groupId>com.github.foxnic.web</groupId>
-            <artifactId>proxy</artifactId>
-            <version>${platform.version}</version>
-        </dependency>
-
-
-        <dependency>
-            <groupId>com.github.foxnic.web</groupId>
-            <artifactId>domain</artifactId>
-            <version>${platform.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.github.xiaoymin</groupId>
-                    <artifactId>knife4j-micro-spring-boot-starter</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>com.github.foxnic.web</groupId>
-            <artifactId>proxy</artifactId>
-            <version>${platform.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.ben-manes.caffeine</groupId>
-            <artifactId>caffeine</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.github.foxnic</groupId>
-            <artifactId>foxnic-commons</artifactId>
-            <version>${foxnic.version}</version>
-        </dependency>
-
+        <dependency> 
+            <groupId>com.github.ben-manes.caffeine</groupId>  
+            <artifactId>caffeine</artifactId> 
+        </dependency>  
+        <dependency> 
+            <groupId>com.github.foxnic</groupId>  
+            <artifactId>foxnic-commons</artifactId>  
+            <version>${foxnic.version}</version> 
+        </dependency> 
     </dependencies> 
 </project>
