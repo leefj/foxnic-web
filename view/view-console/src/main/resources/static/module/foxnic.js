@@ -356,7 +356,7 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload'], fun
 	/**
 	 * 监听layui table 的列宽拖动时间
 	 * */
-	$(document).on("mouseup",function (e) {
+	$(document).on("mouseupppp",function (e) {
 
 		var t=(new Date()).getTime();
 		t=t-mouseDownTime;
