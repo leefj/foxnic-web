@@ -2,7 +2,6 @@ layui.define(['settings', 'layer'], function (exports) {
     var config = layui.settings;
     var layer = layui.layer;
     var popupRightIndex, popupCenterIndex, popupCenterParam;
-
     var admin = {
         // 设置侧栏折叠
         flexible: function (expand) {
@@ -425,12 +424,24 @@ layui.define(['settings', 'layer'], function (exports) {
         }
     };
 
-    // 所有ew-event
-    $('body').on('click', '*[ew-event]', function () {
-        var event = $(this).attr('ew-event');
-        var te = admin.events[event];
-        te && te.call(this, $(this));
-    });
+
+    //防止重复绑定 导航菜单 隐藏/显示 按钮事件
+    if(!window.EVENT_BINDED) {
+        window.EVENT_BINDED=true;
+        // 所有ew-event
+        $('body').on('click', '*[ew-event]', function () {
+            console.log("w", window, top);
+            //console.log("ec", ec);
+            // if(ec%2==0) return;
+            var event = $(this).attr('ew-event');
+            console.log("event", event);
+            var te = admin.events[event];
+            console.log("event", te);
+            te && te.call(this, $(this));
+            console.log("--------------------")
+
+        });
+    }
 
     // 移动设备遮罩层点击事件
     $('.site-mobile-shade').click(function () {
