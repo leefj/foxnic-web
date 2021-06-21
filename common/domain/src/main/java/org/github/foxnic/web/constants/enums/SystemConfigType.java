@@ -1,6 +1,8 @@
 package org.github.foxnic.web.constants.enums;
 
-public enum SystemConfigType {
+import com.github.foxnic.api.constant.CodeTextEnum;
+
+public enum SystemConfigType implements CodeTextEnum {
 	
 	STRING("字符串"),DATETIME("日期时间"),NUMBER("数字"),DICT("字典"),ENUM("枚举");
 	 
@@ -16,4 +18,5 @@ public enum SystemConfigType {
 	public String text() {
 		return text;
 	}
+
 }

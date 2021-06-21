@@ -356,14 +356,14 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload'], fun
 	/**
 	 * 监听layui table 的列宽拖动时间
 	 * */
-	$(document).on("mouseupppp",function (e) {
-
+	$(document).on("mouseup",function (e) {
+		//console.log(1)
 		var t=(new Date()).getTime();
 		t=t-mouseDownTime;
 		//console.log("click",t);
 		mouseDownTime=null;
 		if(t<500) return;
-
+		//console.log(2)
 		setTimeout(function (){
 
 			var tar=$(e.target);

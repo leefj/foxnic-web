@@ -46,7 +46,8 @@ function FormPage() {
 	}
 	
 	function adjustPopup() {
-		var height=document.body.clientHeight+58;
+		var delta=68;//此参数请按实际情况自行调整
+		var height=document.body.clientHeight+delta;
 		admin.changePopupArea(null,height);
 		admin.putTempData('sys-config-form-area', {height:height});
 	}

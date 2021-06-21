@@ -733,7 +733,7 @@ a cite{font-style: normal; *cursor:pointer;}
 .layui-form-radioed,
 .layui-form-radioed>i,
 .layui-form-radio:hover *{color: #5FB878;}
-.layui-radio-disabled>i{color: #eee !important;}
+.layui-radio-disabled>i{color: #dbdbdb !important;}
 .layui-radio-disabled *{color: #c2c2c2!important;}
 
 /* 表单方框风格 */.layui-form-pane .layui-form-label{width: 110px; padding: 8px 15px; height: 38px; line-height: 20px; border-width: 1px; border-style: solid; border-radius: 2px 0 0 2px; text-align: center; background-color: #FAFAFA; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; box-sizing: border-box;}

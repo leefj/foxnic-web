@@ -38,6 +38,8 @@ function ListPage() {
 		fox.renderTable({
 			elem: '#data-table',
             url: moduleURL +'/query-paged-list',
+			height: 'full-78',
+			limit: 50,
 			cols: [[
 			 	//{ type:'checkbox' },
                 { fixed: 'left',type: 'numbers' },
@@ -205,9 +207,9 @@ function ListPage() {
 		var title = (data && data.code) ? (fox.translate('修改')+fox.translate('系统配置')) : (fox.translate('添加')+fox.translate('系统配置'));
 		admin.popupCenter({
 			title: title,
-			resize:true,
-			offset:[top,null],
-			area:["600px",(height)+"px"],
+			resize: true,
+			offset: [top,null],
+			area: ["600px",(height)+"px"],
 			type: 2,
 			content: '/business/system/config/config_form.html' + queryString,
 			finish: function () {

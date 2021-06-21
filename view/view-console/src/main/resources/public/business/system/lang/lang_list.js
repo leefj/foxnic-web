@@ -38,6 +38,8 @@ function ListPage() {
 		fox.renderTable({
 			elem: '#data-table',
             url: moduleURL +'/query-paged-list',
+			height: 'full-78',
+			limit: 50,
 			cols: [[
 			 	{  fixed: 'left',type:'checkbox' },
                 {  fixed: 'left',type: 'numbers' },

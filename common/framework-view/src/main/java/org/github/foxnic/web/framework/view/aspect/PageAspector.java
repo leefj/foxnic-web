@@ -10,7 +10,7 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.github.foxnic.web.language.LanguageService;
 import org.github.foxnic.web.proxy.spring.AwareHandler;
 import org.github.foxnic.web.proxy.utils.DBCacheProxyUtil;
-import org.github.foxnic.web.proxy.utils.EnumUtil;
+import org.github.foxnic.web.proxy.utils.CodeTextEnumUtil;
 import org.github.foxnic.web.session.SessionUser;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
@@ -44,7 +44,7 @@ public class PageAspector {
 
 	public static final String LAYUI_TABLE_WIDTH_CONFIG="layuiTableWidthConfig";
 	
-	private EnumUtil enumUtil;
+	private CodeTextEnumUtil enumUtil;
 
 	private LanguageService languageService;
 
@@ -92,7 +92,7 @@ public class PageAspector {
 		}
 		
 		if(enumUtil==null) {
-			enumUtil=AwareHandler.getBean(EnumUtil.class);
+			enumUtil=AwareHandler.getBean(CodeTextEnumUtil.class);
 		}
 
 		//获得登录 SessionUser

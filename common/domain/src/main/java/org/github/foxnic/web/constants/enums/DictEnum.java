@@ -1,16 +1,17 @@
 package org.github.foxnic.web.constants.enums;
 
+import com.github.foxnic.api.constant.CodeTextEnum;
 
 
 
 /**
- * @since 2021-06-16 14:22:44
+ * @since 2021-06-21 11:43:06
  * @author 李方捷 , leefangjie@qq.com
  * 从 select code,name from sys_dict WHERE deleted=0 and module in ('system') 生成
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成
 */
 
-public enum DictEnum {
+public enum DictEnum implements CodeTextEnum {
 	
 	/**
 	 * 性别
@@ -61,15 +62,5 @@ public enum DictEnum {
 	
 	public String text() {
 		return text;
-	}
-	
-	/**
-	 * 从字符串转换成当前枚举类型，使用 valueOf 方法可能导致偏差，建议不要使用
-	*/
-	public static DictEnum parse(String code) {
-		for (DictEnum dn : DictEnum.values()) {
-			if(code.equals(dn.code())) return dn;
-		}
-		return null;
 	}
 }

@@ -1,15 +1,16 @@
 package org.github.foxnic.web.constants.enums.dict;
 
+import com.github.foxnic.api.constant.CodeTextEnum;
 
 
 
 /**
- * @since 2021-06-16 14:22:44
+ * @since 2021-06-21 11:43:07
  * @author 李方捷 , leefangjie@qq.com
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
 */
 
-public enum MeasureStatus {
+public enum MeasureStatus  implements CodeTextEnum {
 	
 	/**
 	 * 待测量
@@ -45,15 +46,5 @@ public enum MeasureStatus {
 	
 	public String text() {
 		return text;
-	}
-	
-	/**
-	 * 从字符串转换成当前枚举类型，使用 valueOf 方法可能导致偏差，建议不要使用
-	*/
-	public static MeasureStatus parse(String code) {
-		for (MeasureStatus dn : MeasureStatus.values()) {
-			if(code.equals(dn.code())) return dn;
-		}
-		return null;
 	}
 }

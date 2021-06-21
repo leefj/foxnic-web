@@ -13,7 +13,12 @@
     <name>web-domain</name>  
     <description>domain</description>  
     <packaging>jar</packaging>  
-    <dependencies> 
+    <dependencies>
+        <dependency>
+            <groupId>com.github.foxnic</groupId>
+            <artifactId>foxnic-api</artifactId>
+            <version>${foxnic.version}</version>
+        </dependency>
         <dependency> 
             <groupId>com.github.foxnic</groupId>  
             <artifactId>foxnic-sql</artifactId>  

@@ -1,16 +1,17 @@
 package org.github.foxnic.web.constants.enums;
 
+import com.github.foxnic.api.constant.CodeTextEnum;
 
 
 
 /**
- * @since 2021-06-16 14:22:43
+ * @since 2021-06-21 11:43:06
  * @author 李方捷 , leefangjie@qq.com
  * 从 select code,name from sys_config WHERE deleted=0 生成
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成
 */
 
-public enum SystemConfigEnum {
+public enum SystemConfigEnum implements CodeTextEnum {
 	
 	/**
 	 * 版权信息链接
@@ -26,6 +27,11 @@ public enum SystemConfigEnum {
 	 * 系统默认语言
 	*/
 	SYSTEM_LANGUAGE("system.language" , "系统默认语言"),
+	
+	/**
+	 * 首页分模块
+	*/
+	SYSTEM_PORTAL_MODULE_ENABLE("system.portal.module.enable" , "首页分模块"),
 	
 	/**
 	 * 系统名称
@@ -46,15 +52,5 @@ public enum SystemConfigEnum {
 	
 	public String text() {
 		return text;
-	}
-	
-	/**
-	 * 从字符串转换成当前枚举类型，使用 valueOf 方法可能导致偏差，建议不要使用
-	*/
-	public static SystemConfigEnum parse(String code) {
-		for (SystemConfigEnum dn : SystemConfigEnum.values()) {
-			if(code.equals(dn.code())) return dn;
-		}
-		return null;
 	}
 }

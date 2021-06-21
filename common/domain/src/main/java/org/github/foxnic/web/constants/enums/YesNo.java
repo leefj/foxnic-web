@@ -2,19 +2,23 @@ package org.github.foxnic.web.constants.enums;
 
 import com.github.foxnic.api.constant.CodeTextEnum;
 
-public enum MenuType implements CodeTextEnum {
-	folder("目录"),page("页面"),api("接口"),function("功能");
- 
+public enum YesNo implements CodeTextEnum {
+	yes("1","是"),no("0","否");
+
 	private String text;
-	private MenuType(String text)  {
+	private String code;
+
+	private YesNo(String code,String text)  {
+		this.code=code;
 		this.text=text;
 	}
 	
 	public String code() {
-		return this.name();
+		return this.code;
 	}
 	
 	public String text() {
 		return text;
 	}
+
 }

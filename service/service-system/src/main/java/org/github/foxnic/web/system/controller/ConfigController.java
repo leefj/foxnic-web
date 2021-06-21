@@ -1,44 +1,45 @@
 package org.github.foxnic.web.system.controller;
 
 
-import java.io.InputStream;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletResponse;
-
-import com.github.foxnic.commons.io.StreamUtil;
-import com.github.foxnic.dao.excel.ValidateResult;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.github.foxnic.api.constant.CodeTextEnum;
+import com.github.foxnic.api.error.CommonError;
+import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.api.validate.annotations.NotNull;
+import com.github.foxnic.commons.io.StreamUtil;
+import com.github.foxnic.commons.reflect.EnumUtil;
+import com.github.foxnic.dao.data.PagedList;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.excel.ExcelWriter;
+import com.github.foxnic.dao.excel.ValidateResult;
+import com.github.foxnic.springboot.web.DownloadUtil;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
+import com.github.xiaoymin.knife4j.annotations.ApiSort;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import org.github.foxnic.web.constants.enums.SystemConfigType;
 import org.github.foxnic.web.domain.storage.File;
 import org.github.foxnic.web.domain.system.Config;
 import org.github.foxnic.web.domain.system.ConfigVO;
 import org.github.foxnic.web.domain.system.meta.ConfigVOMeta;
 import org.github.foxnic.web.proxy.storage.FileServiceProxy;
 import org.github.foxnic.web.proxy.system.ConfigServiceProxy;
+import org.github.foxnic.web.proxy.utils.CodeTextEnumUtil;
 import org.github.foxnic.web.system.service.IConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.alibaba.csp.sentinel.annotation.SentinelResource;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.api.validate.annotations.NotNull;
-import com.github.foxnic.api.error.CommonError;
-import com.github.foxnic.api.error.ErrorDesc;
-import com.github.foxnic.springboot.web.DownloadUtil;
-import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import com.github.xiaoymin.knife4j.annotations.ApiSort;
-
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.InputStream;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -56,7 +57,10 @@ public class ConfigController {
 	@Autowired
 	private IConfigService configService;
 
-	
+
+	@Autowired
+	private CodeTextEnumUtil enumUtil;
+
 	/**
 	 * 添加系统配置
 	*/
@@ -240,6 +244,14 @@ public class ConfigController {
 	public Result<PagedList<Config>> queryPagedList(ConfigVO sample) {
 		Result<PagedList<Config>> result=new Result<>();
 		PagedList<Config> list=configService.queryPagedList(sample,sample.getPageSize(),sample.getPageIndex());
+		for (Config config : list) {
+			 if(SystemConfigType.ENUM.name().equalsIgnoreCase(config.getType())) {
+				try {
+					CodeTextEnum type= EnumUtil.parseByCode(config.getTypeDesc(),config.getValue());
+					config.setValue(type.text()+"("+type.code()+")");
+				} catch (Exception e) {}
+			 }
+		}
 		result.success(true).data(list);
 		return result;
 	}

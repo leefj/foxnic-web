@@ -1,6 +1,8 @@
 package org.github.foxnic.web.constants.enums;
 
-public enum Language {
+import com.github.foxnic.api.constant.CodeTextEnum;
+
+public enum Language implements CodeTextEnum {
 	defaults("默认语言"),zh_ch("中文简体"),zh_tw("中文繁体"),en_us("English-US"),en_uk("English-UK"),confuse("混淆");
  
 	private String text;
@@ -15,4 +17,5 @@ public enum Language {
 	public String text() {
 		return text;
 	}
+
 }
