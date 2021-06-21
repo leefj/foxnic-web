@@ -28,6 +28,8 @@ public class PortalPageController extends ViewController  {
 	public String index(Model model) {
 		String title= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_TITLE);
 		model.addAttribute("title", title);
+		String moduleEnable= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_PORTAL_MODULE_ENABLE);
+		model.addAttribute("moduleEnable", moduleEnable);
 		return prefix+"index";
 	}
 

@@ -1,21 +1,9 @@
 package org.github.foxnic.web.oauth.login;
 
-import java.io.IOException;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.alibaba.fastjson.JSONObject;
+import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER;
-import org.github.foxnic.web.constants.enums.MenuType;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.SessionOnline;
 import org.github.foxnic.web.domain.oauth.User;
@@ -35,9 +23,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
-import com.alibaba.fastjson.JSONObject;
-import com.github.foxnic.commons.lang.StringUtil;
-import com.github.foxnic.api.error.ErrorDesc;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.*;
 
 /**
  * 处理登录成功的逻辑
@@ -104,13 +94,14 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 	        online.setSessionId(request.getSession().getId());
 	        online.setSessionTime(request.getSession().getMaxInactiveInterval());
 	        List<Menu> menus=user.getMenus();
-	        
-	        for (Menu menu : menus) {
-	        	if(StringUtil.isBlank(menu.getType())) continue;
-	        	if(menu.getType().equalsIgnoreCase(MenuType.api.name())) continue;
-	        	if(menu.getType().equalsIgnoreCase(MenuType.function.name())) continue;
-	        	menu.setLabel(languageService.translate(menu.getLabel()));
-			}
+
+	        //登录成功后翻译菜单标签
+//	        for (Menu menu : menus) {
+//	        	if(StringUtil.isBlank(menu.getType())) continue;
+//	        	if(menu.getType().equalsIgnoreCase(MenuType.api.name())) continue;
+//	        	if(menu.getType().equalsIgnoreCase(MenuType.function.name())) continue;
+//	        	menu.setLabel(languageService.translate(menu.getLabel()));
+//			}
 	        
 	        onlineService.insert(online);
         }

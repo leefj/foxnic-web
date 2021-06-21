@@ -46,6 +46,8 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
         	var menus=user.user.menus;
         	var map={};
         	var pages=[];
+
+
         	
         	//过滤，并建立对照
         	for (var i = 0; i < menus.length; i++) {
@@ -53,7 +55,7 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
         		if(menus[i].type!="folder" &&  menus[i].type!="page") continue;
         		if(menus[i].hidden==1) continue;
         		if(menus[i].type=="folder") menus[i].url="javascript:;";
-        		
+                menus[i].label=foxnic.translate(menus[i].label);
         		pages.push(menus[i]);
         		map[menus[i].id]=menus[i];
 
@@ -74,77 +76,63 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
         		}
         		subMenus.push(pages[i]);
         	}
-        	
-         	pages=tops;
-        	 
-        	
-        	console.log(pages);
- 
-//        	debugger;
-        	
-        	
-//            admin.req('/service-tailoring/sys-menu/get-menu-tree', {}, function (data) {
-                //data = data[1];
-            	//debugger;
-                admin.putTempData("menus",pages);
-//                var menus = data.data;
-                // 判断权限
-//                for (var i = menus.length - 1; i >= 0; i--) {
-//                    var tempMenu = menus[i];
-//                    if (tempMenu.auth && !admin.hasPerm(tempMenu.auth)) {
-//                        menus.splice(i, 1);
-//                        continue;
-//                    }
-//                    if (!tempMenu.subMenus) {
-//                        continue;
-//                    }
-//                    for (var j = tempMenu.subMenus.length - 1; j >= 0; j--) {
-//                        var jMenus = tempMenu.subMenus[j];
-//                        if (jMenus.auth && !admin.hasPerm(jMenus.auth)) {
-//                            tempMenu.subMenus.splice(j, 1);
-//                            continue;
-//                        }
-//                        if (!jMenus.subMenus) {
-//                            continue;
-//                        }
-//                        for (var k = jMenus.subMenus.length - 1; k >= 0; k--) {
-//                            if (jMenus.subMenus[k].auth && !admin.hasPerm(jMenus.subMenus[k].auth)) {
-//                                jMenus.subMenus.splice(k, 1);
-//                                continue;
-//                            }
-//                        }
-//                    }
-//                }
-                // 去除空的目录
-//                for (var i = menus.length - 1; i >= 0; i--) {
-//                    var tempMenu = menus[i];
-//                    if (tempMenu.subMenus && tempMenu.subMenus.length <= 0) {
-//                        menus.splice(i, 1);
-//                        continue;
-//                    }
-//                    if (!tempMenu.subMenus) {
-//                        continue;
-//                    }
-//                    for (var j = tempMenu.subMenus.length - 1; j >= 0; j--) {
-//                        var jMenus = tempMenu.subMenus[j];
-//                        if (jMenus.subMenus && jMenus.subMenus.length <= 0) {
-//                            tempMenu.splice(j, 1);
-//                            continue;
-//                        }
-//                    }
-//                }
-                // 渲染
-                $('.layui-layout-admin .layui-side').load('pages/side.html', function () {
-                    laytpl(sideNav.innerHTML).render(pages, function (html) {
-                        $('#sideNav').after(html);
-                    });
-                    element.render('nav');
-                    admin.activeNav(Q.lash);
+
+
+        	//顶部导航按钮
+            if(MODULE_ENABLE==1) {
+                for (var i = 0; i < tops.length; i++) {
+                    var buttonId='nav-module-button-'+i;
+                    var textStyle="";
+                    var style="";
+                    if(i==0) {
+                            textStyle="color:#009688;";
+                            style="color:#009688;";
+                    }
+                    var button=['<li class="module-nav-item layui-nav-item" lay-unselect  index="'+i+'"  id="'+buttonId+'" style="line-height: 49px;">',
+                        '    <a  id="'+buttonId+'-a" title="'+tops[i].label+'" style="font-size: 15px;'+textStyle+'"><i class="'+tops[i].css+'" style="font-size: 17px"></i>&nbsp;&nbsp;'+tops[i].label+'</a>',
+                    '</li>' ]
+                    var b=$("#nav-modules").append(button.join("\n"));
+                }
+                $(".module-nav-item").click(function() {
+
+                    var it=$(this);
+                    var idx=it.attr("index");
+                    var topMenu=tops[idx];
+                    //重新渲染左侧导航部分
+                    index.switchNavMenu(topMenu.subMenus);
+                    //按钮
+                    var buttonId='nav-module-button-'+index.navModuleIndex+"-a";
+                    $("#"+buttonId).css("color","#333333");
+                    buttonId='nav-module-button-'+idx+"-a";
+                    $("#"+buttonId).css("color","#009688");
+
+                    index.navModuleIndex=idx;
                 });
+                pages=tops[0].subMenus;
+            } else {
+                pages=tops;
+            }
 
+        	console.log(pages);
 
-//            }, 'POST');
+            admin.putTempData("menus",tops);
+
+            //渲染
+            index.switchNavMenu(pages);
+
         },
+        navModuleIndex:0,
+        switchNavMenu:function (pages) {
+            $("#foxnic-nav-item").remove();
+            $('.layui-layout-admin .layui-side').load('pages/side.html', function () {
+                laytpl(sideNav.innerHTML).render(pages, function (html) {
+                    $('#sideNav').after(html);
+                });
+                element.render('nav');
+                admin.activeNav(Q.lash);
+            });
+        },
+
         // 路由注册
         initRouter: function () {  
 			//debugger
