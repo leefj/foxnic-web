@@ -272,8 +272,8 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
                                     //window.location = config.base_server + 'api-uaa/oauth/remove/token?redirect_uri='+loginPageUrl+'&access_token='+accessToken;
                                 } else {
                                 	//debugger;
-                                	//location.replace('login.html');
-                                    layer.msg("登出异常");
+                                	location.replace('login.html');
+                                    //layer.msg("登出异常");
                                 }
                             }, 'POST');
                        // }
