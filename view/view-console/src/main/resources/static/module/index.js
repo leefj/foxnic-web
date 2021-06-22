@@ -260,7 +260,6 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
                 var $iframe = $('.layui-layout-admin .layui-body .layui-tab-content .layui-tab-item.layui-show .admin-iframe')[0];
                 if ($iframe) {
                     $iframe.style.height = "99%";
-                    $iframe.scrollWidth;
                     $iframe.style.height = "100%";
                 }
             }
