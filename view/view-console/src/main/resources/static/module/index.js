@@ -42,7 +42,8 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
         // 渲染左侧菜单栏
         initLeftNav: function () {
         	
-        	var user=config.getUser();   
+        	var user=config.getUser();
+        	this.userId=user.user.id;
         	var menus=user.user.menus;
         	console.log("USER-MENUS",menus)
         	var map={};
@@ -51,9 +52,9 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
         	//过滤，并建立对照
         	for (var i = 0; i < menus.length; i++) {
         		//console.log(menus[i].label)
-                if(menus[i].parentId=="459710992192897024") {
-                    debugger;
-                }
+                // if(menus[i].parentId=="459710992192897024") {
+                //     debugger;
+                // }
         		if(menus[i].type!="folder" &&  menus[i].type!="page") continue;
         		if(menus[i].hidden==1) continue;
         		if(menus[i].type=="folder") menus[i].url="javascript:;";
@@ -101,7 +102,7 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
                     var idx=it.attr("index");
                     var topMenu=tops[idx];
                     //重新渲染左侧导航部分
-                    index.switchNavMenu(topMenu.subMenus);
+                    index.switchNavMenu(idx,topMenu.subMenus);
                     //按钮
                     var buttonId='nav-module-button-'+index.navModuleIndex+"-a";
                     $("#"+buttonId).css("color","#333333");
@@ -120,13 +121,34 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
             admin.putTempData("menus",tops);
 
             //渲染
-            index.switchNavMenu(pages);
+            index.switchNavMenu(0,pages);
 
         },
+        userId:null,
         navModuleIndex:0,
-        switchNavMenu:function (pages) {
+        navModuleMenuStates:null,
+        getMenuExpandStates:function (){
+            var states={};
+            var items=$(".foxnic-nav-item");
+            for (var i = 0; i < items.length; i++) {
+                var item=$(items[i]);
+                states[i]=item.attr("class");
+            }
+            return states;
+        },
+        switchNavMenu:function (idx,pages) {
+            var uid=this.userId;
+            var me=this;
             console.log("MODULE-MENUS",pages)
-            $("#foxnic-nav-item").remove();
+            //如果为 null 尝试从本地存储恢复数据
+            if(!this.navModuleMenuStates) {
+                try {
+                this.navModuleMenuStates=JSON.parse(sessionStorage.getItem("nav_module_nenu_state_"+uid));
+                } catch (e){};
+            }
+            if(this.navModuleMenuStates==null)  this.navModuleMenuStates={};
+
+            var states= this.navModuleMenuStates[idx];
             $('.layui-layout-admin .layui-side').load('pages/side.html', function () {
                 laytpl(sideNav.innerHTML).render(pages, function (html) {
                     $('#sideNav').after(html);
@@ -137,9 +159,27 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
                     var a=$(this);
                     var href=a.attr("href");
                     console.log(href);
+                    if(href.startWith("javascript:")) return;
                     //补充执行，解决tab关闭后无法打开的问题
                     Q.go(href);
+                    //点击后时，保存菜单折叠状态
+                    setTimeout(function () {
+                        states=me.getMenuExpandStates();
+                        me.navModuleMenuStates[me.navModuleIndex]=states;
+                        sessionStorage.setItem("nav_module_nenu_state_"+uid,JSON.stringify(me.navModuleMenuStates));
+                    },100);
                 });
+
+                //恢复菜单折叠状态
+                if(states) {
+                    items=$(".foxnic-nav-item");
+                    for (var i = 0; i < items.length; i++) {
+                        var item=$(items[i]);
+                        item.attr("class",states[i]);
+                    }
+                }
+
+
             });
         },
 
