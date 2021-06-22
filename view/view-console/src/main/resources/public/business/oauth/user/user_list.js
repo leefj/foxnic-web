@@ -1,7 +1,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-27 05:35:14
+ * @since 2021-06-22 16:47:50
  */
 
 
@@ -33,37 +33,58 @@ function ListPage() {
      /**
       * 渲染表格
       */
-     function renderTable() {
+    function renderTable() {
      
 		fox.renderTable({
 			elem: '#data-table',
             url: moduleURL +'/query-paged-list',
+		 	height: 'full-78',
+		 	limit: 50,
 			cols: [[
-			 	{ type:'checkbox' },
-                { type: 'numbers' },
-                { field: 'id', sort: true, title: fox.translate('ID') } ,
+				{  fixed: 'left',type: 'numbers' },
+			 	{  fixed: 'left',type:'checkbox' },
+                { field: 'id', sort: true, title: fox.translate('ID'), hide:true } ,
                 { field: 'name', sort: true, title: fox.translate('账户') } ,
-                { field: 'passwd', sort: true, title: fox.translate('密码') } ,
-                { field: 'salt', sort: true, title: fox.translate('盐') } ,
-                { field: 'mobile', sort: true, title: fox.translate('手机号码') } ,
-                { field: 'personId', sort: true, title: fox.translate('人员ID') } ,
-                { field: 'employeeId', sort: true, title: fox.translate('员工ID') } ,
-                { field: 'valid', sort: true, title: fox.translate('是否有效') } ,
-                { field: 'lastLoginTime', sort: true, title: fox.translate('最后登录时间') , templet: function (d) { return util.toDateString(d.lastLoginTime); } } ,
-                { field: 'createTime', sort: true, title: fox.translate('创建时间') , templet: function (d) { return util.toDateString(d.createTime); } } ,
-                { fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 175 }
+                { field: 'passwd', sort: true, title: fox.translate('密码'), hide:true } ,
+                { field: 'phone', sort: true, title: fox.translate('手机号码') } ,
+                { field: 'portraitId', sort: true, title: fox.translate('头像ID'), hide:true } ,
+                { field: 'personId', sort: true, title: fox.translate('人员ID'), hide:true } ,
+                { field: 'language', sort: true, title: fox.translate('语言') } ,
+                { field: 'employeeId', sort: true, title: fox.translate('员工ID'), hide:true } ,
+                { field: 'valid', sort: true, title: fox.translate('是否有效'), templet: '#cell-tpl-valid' } ,
+                { field: 'lastLoginTime', sort: true, title: fox.translate('最后登录时间') , templet: function (d) { return fox.dateFormat(d.lastLoginTime); } } ,
+                { field: 'createTime', sort: true, title: fox.translate('创建时间') , minWidth:160, templet: function (d) { return fox.dateFormat(d.createTime); } } ,
+                { field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
             ]]
+	 		,footer : {
+				exportExcel : true,
+				importExcel : {
+					params : {} ,
+				 	callback : function(r) {
+						if(r.success) {
+							layer.msg(fox.translate('数据导入成功')+"!");
+						} else {
+							layer.msg(fox.translate('数据导入失败')+"!");
+						}
+					}
+			 	}
+		 	}
         });
-        
-     };
+        //绑定 Switch 切换事件
+        fox.bindSwitchEvent("cell-tpl-valid",moduleURL +'/update','id','valid',function(r){});
+        //绑定排序事件
+        table.on('sort(data-table)', function(obj){
+		  refreshTableData(obj.field,obj.type);
+        });
+    };
      
 	/**
       * 刷新表格数据
       */
-	function refreshTableData() {
+	function refreshTableData(sortField,sortType) {
 		var field = $('#search-field').val();
 		var value = $('#search-input').val();
-		var ps={searchField: field, searchValue: value};
+		var ps={searchField: field, searchValue: value,sortField:sortField,sortType:sortType};
 		table.reload('data-table', { where : ps });
 	}
     
@@ -128,7 +149,7 @@ function ListPage() {
 			layer.confirm(fox.translate('确定删除已选中的')+fox.translate('账户')+fox.translate('吗？'), function (i) {
 				layer.close(i);
 				layer.load(2);
-                admin.req(moduleURL+"/batch-delete", JSON.stringify({ ids: JSON.stringify(ids) }), function (data) {
+                admin.request(moduleURL+"/batch-delete", { ids: ids }, function (data) {
                     layer.closeAll('loading');
                     if (data.success) {
                         layer.msg(data.message, {icon: 1, time: 500});
@@ -151,8 +172,10 @@ function ListPage() {
 			var layEvent = obj.event;
 	
 			if (layEvent === 'edit') { // 修改
-				layer.load(2);
-				admin.req(moduleURL+"/get-by-id", { id : data.id }, function (data) {
+				//延迟显示加载动画，避免界面闪动
+				var task=setTimeout(function(){layer.load(2);},1000);
+				admin.request(moduleURL+"/get-by-id", { id : data.id }, function (data) {
+					clearTimeout(task);
 					layer.closeAll('loading');
 					if(data.success) {
 						 showEditForm(data.data);
@@ -166,7 +189,7 @@ function ListPage() {
 				layer.confirm(fox.translate('确定删除此')+fox.translate('账户')+fox.translate('吗？'), function (i) {
 					layer.close(i);
 					layer.load(2);
-					admin.req(moduleURL+"/delete", { id : data.id }, function (data) {
+					admin.request(moduleURL+"/delete", { id : data.id }, function (data) {
 						layer.closeAll('loading');
 						if (data.success) {
 							layer.msg(data.message, {icon: 1, time: 500});
@@ -187,7 +210,7 @@ function ListPage() {
      */
 	function showEditForm(data) {
 		var queryString="";
-		if(data) queryString="?" + 'id=' + data.id;
+		if(data && data.id) queryString="?" + 'id=' + data.id;
 		admin.putTempData('sys-user-form-data', data);
 		var area=admin.getTempData('sys-user-form-area');
 		var height= (area && area.height) ? area.height : ($(window).height()*0.6);
@@ -195,11 +218,11 @@ function ListPage() {
 		var title = (data && data.id) ? (fox.translate('修改')+fox.translate('账户')) : (fox.translate('添加')+fox.translate('账户'));
 		admin.popupCenter({
 			title: title,
-			resize:true,
-			offset:[top,null],
-			area:["500px",height+"px"],
+			resize: true,
+			offset: [top,null],
+			area: ["500px",height+"px"],
 			type: 2,
-			content: '/pages/oauth/user/user_form.html' + queryString,
+			content: '/business/oauth/user/user_form.html' + queryString,
 			finish: function () {
 				refreshTableData();
 			}
@@ -214,6 +237,6 @@ layui.config({
 	base: '/module/'
 }).extend({
 	xmSelect: 'xm-select/xm-select'
-}).use(['table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect','form'],function() {
+}).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect'],function() {
 	(new ListPage()).init(layui);
 });

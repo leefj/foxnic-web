@@ -226,6 +226,9 @@ public class UserController extends SuperController {
 	public Result<List<User>> queryList(UserVO sample) {
 		Result<List<User>> result=new Result<>();
 		List<User> list=userService.queryList(sample);
+		for (User user : list) {
+			user.setPasswd("");
+		}
 		result.success(true).data(list);
 		return result;
 	}
@@ -253,6 +256,9 @@ public class UserController extends SuperController {
 	public Result<PagedList<User>> queryPagedList(UserVO sample) {
 		Result<PagedList<User>> result=new Result<>();
 		PagedList<User> list=userService.queryPagedList(sample,sample.getPageSize(),sample.getPageIndex());
+		for (User user : list) {
+			user.setPasswd("");
+		}
 		result.success(true).data(list);
 		return result;
 	}

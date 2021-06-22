@@ -13,7 +13,8 @@ import com.github.foxnic.generator.builder.model.PojoClassFile;
 import com.github.foxnic.generator.config.ModuleContext;
 import com.github.foxnic.generator.config.WriteMode;
 import com.github.foxnic.sql.meta.DBTable;
- 
+import org.github.foxnic.web.constants.enums.Language;
+
 
 public class OAuthCodeGenerator extends SystemCodeGenerator {
  
@@ -42,13 +43,24 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 	public void generateSysUser() throws Exception {
 		//创建配置
 		ModuleContext cfg=createModuleConfig(SYS_USER.$TABLE, 6);
-		
+
+
+		cfg.field(SYS_USER.VALID).logicField().on("有效","1").off("无效","0");
+
+		cfg.field(SYS_USER.LAST_LOGIN_TIME).hideInForm();
+		cfg.field(SYS_USER.PERSON_ID).hideInForm();
+		cfg.field(SYS_USER.PORTRAIT_ID).hideInForm();
+		cfg.field(SYS_USER.EMPLOYEE_ID).hideInForm();
+		cfg.field(SYS_USER.PASSWD).hideInForm();
+		//配置单选
+		cfg.field(SYS_USER.LANGUAGE).radioField().enumType(Language.class);
+
 		//文件生成覆盖模式
 		cfg.overrides()
 		.setServiceIntfAnfImpl(WriteMode.CREATE_IF_NOT_EXISTS) //服务与接口
 		.setControllerAndAgent(WriteMode.CREATE_IF_NOT_EXISTS) //Rest
 		.setPageController(WriteMode.CREATE_IF_NOT_EXISTS) //页面控制器
-		.setFormPage(WriteMode.CREATE_IF_NOT_EXISTS) //表单HTML页
+		.setFormPage(WriteMode.COVER_EXISTS_FILE) //表单HTML页
 		.setListPage(WriteMode.CREATE_IF_NOT_EXISTS); //列表HTML页
 		
 		
@@ -141,7 +153,7 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		//文件生成覆盖模式
 		cfg.overrides()
 		.setServiceIntfAnfImpl(WriteMode.CREATE_IF_NOT_EXISTS) //服务与接口
-		.setControllerAndAgent(WriteMode.CREATE_IF_NOT_EXISTS) //Rest
+		.setControllerAndAgent(WriteMode.IGNORE) //Rest
 		.setPageController(WriteMode.IGNORE) //页面控制器
 		.setFormPage(WriteMode.IGNORE) //表单HTML页
 		.setListPage(WriteMode.IGNORE); //列表HTML页
@@ -157,7 +169,7 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		//文件生成覆盖模式
 		cfg.overrides()
 		.setServiceIntfAnfImpl(WriteMode.CREATE_IF_NOT_EXISTS) //服务与接口
-		.setControllerAndAgent(WriteMode.CREATE_IF_NOT_EXISTS) //Rest
+		.setControllerAndAgent(WriteMode.IGNORE) //Rest
 		.setPageController(WriteMode.IGNORE) //页面控制器
 		.setFormPage(WriteMode.IGNORE) //表单HTML页
 		.setListPage(WriteMode.IGNORE); //列表HTML页
