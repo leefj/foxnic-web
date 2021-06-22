@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2021-06-18 21:47:15
+ * @since 2021-06-22 09:01:41
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -1400,11 +1400,6 @@ public class FoxnicWeb {
 		public static final DBField PASSWD = new DBField(DBDataType.STRING , "passwd","passwd","密码","密码",false,false,true);
 		
 		/**
-		 * 盐
-		*/
-		public static final DBField SALT = new DBField(DBDataType.STRING , "salt","salt","盐","盐",false,false,true);
-		
-		/**
 		 * 手机号码
 		*/
 		public static final DBField PHONE = new DBField(DBDataType.STRING , "phone","phone","手机号码","手机号码",false,false,true);
@@ -1480,7 +1475,7 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
 		public SYS_USER() {
-			this.init($NAME,"账户表" , ID , NAME , PASSWD , SALT , PHONE , PORTRAIT_ID , PERSON_ID , LANGUAGE , EMPLOYEE_ID , VALID , LAST_LOGIN_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"账户表" , ID , NAME , PASSWD , PHONE , PORTRAIT_ID , PERSON_ID , LANGUAGE , EMPLOYEE_ID , VALID , LAST_LOGIN_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final SYS_USER $TABLE=new SYS_USER();
 	}

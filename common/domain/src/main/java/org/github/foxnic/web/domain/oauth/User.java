@@ -18,8 +18,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-16 10:46:22
- * @sign 77319527EB2F5B629571FA848CEDE4D3
+ * @since 2021-06-22 09:02:27
+ * @sign 5BAD1571D2BF8AB2592B30F33CB385C3
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -48,12 +48,6 @@ public class User extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="密码" , notes = "密码")
 	private String passwd;
-	
-	/**
-	 * 盐：盐
-	*/
-	@ApiModelProperty(required = false,value="盐" , notes = "盐")
-	private String salt;
 	
 	/**
 	 * 手机号码：手机号码
@@ -235,31 +229,6 @@ public class User extends Entity {
 	/**
 	 * 添加 密码
 	 * @param passwd 密码
-	 * @return 当前对象
-	*/
-	
-	/**
-	 * 获得 盐<br>
-	 * 属性说明 : 盐
-	 * @return 盐
-	*/
-	public String getSalt() {
-		return salt;
-	}
-	
-	/**
-	 * 设置 盐
-	 * @param salt 盐
-	 * @return 当前对象
-	*/
-	public User setSalt(String salt) {
-		this.salt=salt;
-		return this;
-	}
-	
-	/**
-	 * 添加 盐
-	 * @param salt 盐
 	 * @return 当前对象
 	*/
 	

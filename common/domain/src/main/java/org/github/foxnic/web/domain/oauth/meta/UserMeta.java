@@ -11,8 +11,8 @@ import org.github.foxnic.web.domain.oauth.RoleMenu;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-16 10:46:22
- * @sign 77319527EB2F5B629571FA848CEDE4D3
+ * @since 2021-06-22 09:02:27
+ * @sign 5BAD1571D2BF8AB2592B30F33CB385C3
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -32,11 +32,6 @@ public class UserMeta {
 	 * 密码
 	*/
 	public static final String PASSWD="passwd";
-	
-	/**
-	 * 盐
-	*/
-	public static final String SALT="salt";
 	
 	/**
 	 * 手机号码
@@ -131,7 +126,7 @@ public class UserMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , NAME , PASSWD , SALT , PHONE , PORTRAIT_ID , PERSON_ID , LANGUAGE , EMPLOYEE_ID , VALID , LAST_LOGIN_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , ROLES , MENUS , ROLE_MENUS };
+	public static final String[] $PROPS={ ID , NAME , PASSWD , PHONE , PORTRAIT_ID , PERSON_ID , LANGUAGE , EMPLOYEE_ID , VALID , LAST_LOGIN_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , ROLES , MENUS , ROLE_MENUS };
 	
 	/**
 	 * 代理类
@@ -171,17 +166,6 @@ public class UserMeta {
 		public User setPasswd(String passwd) {
 			super.change(PASSWD,super.getPasswd(),passwd);
 			super.setPasswd(passwd);
-			return this;
-		}
-		
-		/**
-		 * 设置 盐
-		 * @param salt 盐
-		 * @return 当前对象
-		*/
-		public User setSalt(String salt) {
-			super.change(SALT,super.getSalt(),salt);
-			super.setSalt(salt);
 			return this;
 		}
 		

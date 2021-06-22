@@ -1,15 +1,14 @@
 package org.github.foxnic.web.oauth.service;
-import java.util.List;
-
 import com.github.foxnic.api.transter.Result;
-import org.github.foxnic.web.domain.oauth.User;
-
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.entity.ISuperService;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.expr.OrderBy;
 import com.github.foxnic.sql.meta.DBField;
+import org.github.foxnic.web.domain.oauth.User;
+
+import java.util.List;
 
 /**
  * <p>
@@ -275,5 +274,6 @@ public interface IUserService extends ISuperService<User> {
 	 * @param identity 身份表示，账户、手机号等
 	 * */
 	User getUserByIdentity(String identity);
- 
+
+    Result changePasswd(String sessionUserId, String oldpwd, String newpwd);
 }

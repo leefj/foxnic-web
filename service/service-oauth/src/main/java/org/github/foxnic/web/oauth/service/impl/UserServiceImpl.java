@@ -1,5 +1,6 @@
 package org.github.foxnic.web.oauth.service.impl;
 
+import com.github.foxnic.api.error.CommonError;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.lang.StringUtil;
@@ -20,6 +21,8 @@ import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.oauth.service.IUserService;
 import org.github.foxnic.web.proxy.utils.SystemConfigProxyUtil;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -46,7 +49,10 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 	 * */
 	@Resource(name=DBConfigs.PRIMARY_DAO) 
 	private DAO dao=null;
-	
+
+
+	private PasswordEncoder passwordEncoder;
+
 	/**
 	 * 获得 DAO 对象
 	 * */
@@ -239,5 +245,21 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 
         return user;
     }
+
+	@Override
+	public Result changePasswd(String sessionUserId, String oldpwd, String newpwd) {
+		if(passwordEncoder==null) {
+			passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+		}
+		User user=this.getById(sessionUserId);
+		boolean march = passwordEncoder.matches(oldpwd, user.getPasswd());
+		if(!march) {
+			return ErrorDesc.failure(CommonError.PASSWORD_INVALID).message("原始密码错误");
+		}
+		newpwd=passwordEncoder.encode(newpwd);
+		user.setPasswd(newpwd);
+		this.update(user,SaveMode.DIRTY_FIELDS);
+		return ErrorDesc.success().message("密码已修改，请记住您的新密码！");
+	}
 
 }

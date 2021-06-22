@@ -1,22 +1,18 @@
 package org.github.foxnic.web.proxy.oauth;
 
-import java.util.List;
-
-import org.github.foxnic.web.session.SessionUser;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.api.transter.Result;
-
-import org.github.foxnic.web.proxy.FeignConfiguration;
-
-import org.springframework.cloud.openfeign.FeignClient;
-
-
+import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.domain.oauth.UserVO;
-import org.github.foxnic.web.proxy.api.APIProxy;
+import org.github.foxnic.web.proxy.FeignConfiguration;
 import org.github.foxnic.web.proxy.MicroServiceNames;
+import org.github.foxnic.web.proxy.api.APIProxy;
+import org.github.foxnic.web.session.SessionUser;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 /**
  * <p>
@@ -96,8 +92,13 @@ public interface UserServiceProxy {
 	 * 导入账户数据(Excel)
 	 */
 	public static final String IMPORT_EXCEL = API_PREFIX + "import-excel";
-	
+
 	/**
+	 * 更改密码
+	 */
+	public static final String CHANGE_PASSWD = API_PREFIX + "change-passwd";
+
+    /**
 	 * 添加账户
 	*/
 	@RequestMapping(UserServiceProxy.INSERT)

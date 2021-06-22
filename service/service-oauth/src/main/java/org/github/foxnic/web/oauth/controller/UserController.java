@@ -1,10 +1,17 @@
 package org.github.foxnic.web.oauth.controller;
 
  
-import java.util.Date;
-import java.util.List;
-
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.api.validate.annotations.NotNull;
+import com.github.foxnic.dao.data.PagedList;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
+import com.github.xiaoymin.knife4j.annotations.ApiSort;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.domain.oauth.UserVO;
 import org.github.foxnic.web.domain.oauth.meta.UserVOMeta;
@@ -17,17 +24,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.alibaba.csp.sentinel.annotation.SentinelResource;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.api.validate.annotations.NotNull;
-import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import com.github.xiaoymin.knife4j.annotations.ApiSort;
-
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -55,7 +53,6 @@ public class UserController extends SuperController {
 		@ApiImplicitParam(name = UserVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "110588348101165000"),
 		@ApiImplicitParam(name = UserVOMeta.NAME , value = "账户" , required = false , dataTypeClass=String.class , example = "test"),
 		@ApiImplicitParam(name = UserVOMeta.PASSWD , value = "密码" , required = false , dataTypeClass=String.class , example = "******"),
-		@ApiImplicitParam(name = UserVOMeta.SALT , value = "盐" , required = false , dataTypeClass=String.class , example = "admin999"),
 		@ApiImplicitParam(name = UserVOMeta.PHONE , value = "手机号码" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = UserVOMeta.PORTRAIT_ID , value = "头像ID" , required = false , dataTypeClass=String.class , example = "1110"),
 		@ApiImplicitParam(name = UserVOMeta.PERSON_ID , value = "人员ID" , required = false , dataTypeClass=String.class),
@@ -123,7 +120,6 @@ public class UserController extends SuperController {
 		@ApiImplicitParam(name = UserVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "110588348101165000"),
 		@ApiImplicitParam(name = UserVOMeta.NAME , value = "账户" , required = false , dataTypeClass=String.class , example = "test"),
 		@ApiImplicitParam(name = UserVOMeta.PASSWD , value = "密码" , required = false , dataTypeClass=String.class , example = "******"),
-		@ApiImplicitParam(name = UserVOMeta.SALT , value = "盐" , required = false , dataTypeClass=String.class , example = "admin999"),
 		@ApiImplicitParam(name = UserVOMeta.PHONE , value = "手机号码" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = UserVOMeta.PORTRAIT_ID , value = "头像ID" , required = false , dataTypeClass=String.class , example = "1110"),
 		@ApiImplicitParam(name = UserVOMeta.PERSON_ID , value = "人员ID" , required = false , dataTypeClass=String.class),
@@ -153,7 +149,6 @@ public class UserController extends SuperController {
 		@ApiImplicitParam(name = UserVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "110588348101165000"),
 		@ApiImplicitParam(name = UserVOMeta.NAME , value = "账户" , required = false , dataTypeClass=String.class , example = "test"),
 		@ApiImplicitParam(name = UserVOMeta.PASSWD , value = "密码" , required = false , dataTypeClass=String.class , example = "******"),
-		@ApiImplicitParam(name = UserVOMeta.SALT , value = "盐" , required = false , dataTypeClass=String.class , example = "admin999"),
 		@ApiImplicitParam(name = UserVOMeta.PHONE , value = "手机号码" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = UserVOMeta.PORTRAIT_ID , value = "头像ID" , required = false , dataTypeClass=String.class , example = "1110"),
 		@ApiImplicitParam(name = UserVOMeta.PERSON_ID , value = "人员ID" , required = false , dataTypeClass=String.class),
@@ -217,7 +212,6 @@ public class UserController extends SuperController {
 		@ApiImplicitParam(name = UserVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "110588348101165000"),
 		@ApiImplicitParam(name = UserVOMeta.NAME , value = "账户" , required = false , dataTypeClass=String.class , example = "test"),
 		@ApiImplicitParam(name = UserVOMeta.PASSWD , value = "密码" , required = false , dataTypeClass=String.class , example = "******"),
-		@ApiImplicitParam(name = UserVOMeta.SALT , value = "盐" , required = false , dataTypeClass=String.class , example = "admin999"),
 		@ApiImplicitParam(name = UserVOMeta.PHONE , value = "手机号码" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = UserVOMeta.PORTRAIT_ID , value = "头像ID" , required = false , dataTypeClass=String.class , example = "1110"),
 		@ApiImplicitParam(name = UserVOMeta.PERSON_ID , value = "人员ID" , required = false , dataTypeClass=String.class),
@@ -245,7 +239,6 @@ public class UserController extends SuperController {
 		@ApiImplicitParam(name = UserVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "110588348101165000"),
 		@ApiImplicitParam(name = UserVOMeta.NAME , value = "账户" , required = false , dataTypeClass=String.class , example = "test"),
 		@ApiImplicitParam(name = UserVOMeta.PASSWD , value = "密码" , required = false , dataTypeClass=String.class , example = "******"),
-		@ApiImplicitParam(name = UserVOMeta.SALT , value = "盐" , required = false , dataTypeClass=String.class , example = "admin999"),
 		@ApiImplicitParam(name = UserVOMeta.PHONE , value = "手机号码" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = UserVOMeta.PORTRAIT_ID , value = "头像ID" , required = false , dataTypeClass=String.class , example = "1110"),
 		@ApiImplicitParam(name = UserVOMeta.PERSON_ID , value = "人员ID" , required = false , dataTypeClass=String.class),
@@ -262,6 +255,19 @@ public class UserController extends SuperController {
 		PagedList<User> list=userService.queryPagedList(sample,sample.getPageSize(),sample.getPageIndex());
 		result.success(true).data(list);
 		return result;
+	}
+
+	@ApiOperation(value = "更改当前登录用户密码")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "oldpwd" , value = "原始密码" ,required = true , dataTypeClass=String.class),
+			@ApiImplicitParam(name = "newpwd" , value = "新密码" ,required = true , dataTypeClass=String.class),
+	})
+	@NotNull(name = "oldpwd")
+	@NotNull(name = "newpwd")
+	@PostMapping(UserServiceProxy.CHANGE_PASSWD)
+	@ApiOperationSupport(order=4)
+	public  Result changePasswd(String oldpwd,String newpwd) {
+		return userService.changePasswd(this.getSessionUserId(),oldpwd,newpwd);
 	}
 
 

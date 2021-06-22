@@ -1,7 +1,5 @@
 package org.github.foxnic.web.oauth.session;
 
-import java.util.Collection;
-
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.session.SessionPermission;
 import org.github.foxnic.web.session.SessionUser;
@@ -10,6 +8,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
 
 /**
  * 
@@ -40,7 +40,6 @@ public class SessionUserImpl extends SessionUser implements UserDetails, Credent
 	@Override
 	public void eraseCredentials() {
 		this.user.setPasswd("******");
-		this.user.setSalt("******");
 	}
  
 	@Override

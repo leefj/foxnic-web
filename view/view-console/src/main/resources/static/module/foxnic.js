@@ -368,6 +368,7 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload'], fun
 
 			var tar=$(e.target);
 			//debugger
+			if(tar.parent().length==0) return;
 			if(tar.parent()[0].nodeName!="TH") return;
 			var cls=tar.attr("class");
 			if(cls==null) return;

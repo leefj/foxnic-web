@@ -1,32 +1,26 @@
 package org.github.foxnic.web.oauth.exception;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.github.foxnic.api.error.CommonError;
+import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.commons.log.Logger;
+import com.github.foxnic.springboot.spring.SpringUtil;
+import com.github.foxnic.springboot.web.WebContext;
 import org.github.foxnic.web.oauth.config.security.SecurityProperties;
 import org.github.foxnic.web.oauth.utils.ResponseUtil;
+import org.github.foxnic.web.proxy.oauth.UserServiceProxy;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.security.authentication.AccountExpiredException;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.CredentialsExpiredException;
-import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.authentication.InsufficientAuthenticationException;
-import org.springframework.security.authentication.LockedException;
+import org.springframework.security.authentication.*;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 
-import com.github.foxnic.commons.log.Logger;
-import com.github.foxnic.api.error.CommonError;
-import com.github.foxnic.api.error.ErrorDesc;
-import com.github.foxnic.springboot.spring.SpringUtil;
-import com.github.foxnic.springboot.web.WebContext;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * 认证异常处理
@@ -55,27 +49,28 @@ public class UserAuthenticationEntryPoint implements AuthenticationEntryPoint {
 		if(securityProperties==null) {
 			securityProperties=SpringUtil.getBean(SecurityProperties.class);
 		}
+
+		if(!isEndPoint(uri)) {
 		
-		//如果是静态资源，重定向到登录页
-		if(context.isStaticResource(request)) {
-			response.sendRedirect(securityProperties.getLoginPage());
-			return;
+			//如果是静态资源，重定向到登录页
+			if(context.isStaticResource(request)) {
+				response.sendRedirect(securityProperties.getLoginPage());
+				return;
+			}
+
+			HandlerMethod hm=context.getHandlerMethod(request);
+			if(hm==null) {
+				response.sendRedirect(securityProperties.getLoginPage());
+				return;
+			}
+
+			//如果未返回 Result 则不是 API 接口
+			if(!Result.class.isAssignableFrom(hm.getMethod().getReturnType())) {
+				response.sendRedirect(securityProperties.getLoginPage());
+				return;
+			}
+
 		}
-		
-	 
-		HandlerMethod hm=context.getHandlerMethod(request);
-		if(hm==null) {
-			response.sendRedirect(securityProperties.getLoginPage());
-			return;
-		}
-		
-		//如果未返回 Result 则不是 API 接口
-		if(!Result.class.isAssignableFrom(hm.getMethod().getReturnType())) {
-			response.sendRedirect(securityProperties.getLoginPage());
-			return;
-		}
-	 
-		
  
 		Result result;
         if (e instanceof UsernameNotFoundException) {
@@ -98,8 +93,12 @@ public class UserAuthenticationEntryPoint implements AuthenticationEntryPoint {
         }
         ResponseUtil.writeOK(response, result);
 	}
-	
-    @Override
+
+	private static boolean isEndPoint(String uri) {
+		return UserServiceProxy.LOGIN_URI.equals(uri) || UserServiceProxy.LOGOUT_URI.equals(uri);
+	}
+
+	@Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException, ServletException {
     	handleException(request,response,e);
     }
