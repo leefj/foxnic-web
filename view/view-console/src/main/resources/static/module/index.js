@@ -130,6 +130,13 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
                 });
                 element.render('nav');
                 admin.activeNav(Q.lash);
+                $(".foxnic-nav-item a").click(function(){
+                    var a=$(this);
+                    var href=a.attr("href");
+                    console.log(href);
+                    //补充执行，解决tab关闭后无法打开的问题
+                    Q.go(href);
+                });
             });
         },
 
@@ -302,6 +309,7 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
             // 加载主页
             if (config.pageTabs) {
                 $('.layui-layout-admin').addClass('open-tab');
+
                 element.tabAdd('admin-pagetabs', {
                     title: '<i class="layui-icon layui-icon-home"></i>',
                     content: '<div id="console"></div>',
@@ -309,6 +317,7 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
                 });
                 $('#console').load('pages/console.html', function () {
                 });
+
             } else {
                 $('.layui-layout-admin').removeClass('open-tab');
             }
@@ -326,20 +335,22 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
         },
         // 关闭选项卡
         closeTab: function (menuId) {
+            debugger;
             element.tabDelete('admin-pagetabs', menuId);
+            element.tabChange('admin-pagetabs', "");
         }
     };
 
     // tab选项卡切换监听
     element.on('tab(admin-pagetabs)', function (data) {
         var layId = $(this).attr('lay-id');
-        if(layId!="userifr") {
+        // if(layId!="userifr") {
        	 	Q.go(layId);
-        } else {
-        	var ifr=$("#"+layId);
-        	ifr.attr("src",ifr.attr("src"));
+        // } else {
+        // 	var ifr=$("#"+layId);
+        // 	ifr.attr("src",ifr.attr("src"));
         	//debugger;
-        }
+        // }
     });
 
     exports('index', index);
