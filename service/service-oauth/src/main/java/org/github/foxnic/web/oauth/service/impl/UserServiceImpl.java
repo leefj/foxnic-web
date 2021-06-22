@@ -227,6 +227,8 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
     		dao.join(user,Role.class,Menu.class,RoleMenu.class);
     	}
 
+
+
     	//设置用户语言
     	String usrLang=user.getLanguage();
     	if(!StringUtil.isBlank(devLang)) {

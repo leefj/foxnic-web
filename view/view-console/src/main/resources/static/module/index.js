@@ -44,14 +44,16 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
         	
         	var user=config.getUser();   
         	var menus=user.user.menus;
+        	console.log("USER-MENUS",menus)
         	var map={};
         	var pages=[];
 
-
-        	
         	//过滤，并建立对照
         	for (var i = 0; i < menus.length; i++) {
-        		
+        		//console.log(menus[i].label)
+                if(menus[i].parentId=="459710992192897024") {
+                    debugger;
+                }
         		if(menus[i].type!="folder" &&  menus[i].type!="page") continue;
         		if(menus[i].hidden==1) continue;
         		if(menus[i].type=="folder") menus[i].url="javascript:;";
@@ -123,6 +125,7 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
         },
         navModuleIndex:0,
         switchNavMenu:function (pages) {
+            console.log("MODULE-MENUS",pages)
             $("#foxnic-nav-item").remove();
             $('.layui-layout-admin .layui-side').load('pages/side.html', function () {
                 laytpl(sideNav.innerHTML).render(pages, function (html) {

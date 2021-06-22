@@ -25,12 +25,15 @@ public class OAuthRelationManager extends RelationManager {
 		this.property(User.class, "roles", Role.class, "角色清单", "当前用户的所有角色清单").list()
 			.using(SYS_USER.ID)
 			.addRoute(SYS_ROLE_USER.$TABLE);
+
 		
 		// 用户 - 菜单
 		this.property(User.class, "menus", Menu.class, "菜单清单", "当前用户的所有菜单清单").list()
 			.using(SYS_USER.ID)
 			.addRoute(SYS_ROLE_USER.$TABLE)
-			.addRoute(SYS_ROLE_MENU.$TABLE);
+			.addRoute(SYS_ROLE_MENU.$TABLE)
+			.addOrderBy(SYS_MENU.SORT,true,true);
+
 		
 		
 		// 用户 - 角色菜单关系
