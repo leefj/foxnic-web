@@ -1,7 +1,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-27 05:35:15
+ * @since 2021-06-22 17:27:06
  */
 
 function FormPage() {
@@ -23,7 +23,7 @@ function FormPage() {
 		fillFormData();
 		
 		//绑定提交事件
-		bindSubmitEvent();
+		bindButtonEvent();
 		
 		//调整窗口的高度与位置
 		adjustPopup();
@@ -31,7 +31,8 @@ function FormPage() {
 	}
 	
 	function adjustPopup() {
-		var height=document.body.clientHeight+58;
+		var delta=58;//此参数请按实际情况自行调整
+		var height=document.body.clientHeight+delta;
 		admin.changePopupArea(null,height);
 		admin.putTempData('sys-user-form-area', {height:height});
 	}
@@ -40,8 +41,8 @@ function FormPage() {
       * 渲染表单组件
       */
 	function renderFormFields() {
-		form.render('radio');
-	    //渲染图片字段
+		form.render();
+	   
 	}
 	
 	/**
@@ -49,28 +50,42 @@ function FormPage() {
       */
 	function fillFormData() {
 		var formData = admin.getTempData('sys-user-form-data');
-		$('#data-form').attr('method', 'POST');
+		var fm=$('#data-form');
 		if (formData) {
+			fm[0].reset();
 			form.val('data-form', formData);
 	     	//设置并显示图片
-	     	$('#data-form').attr('method', 'POST');
+	     	fm.attr('method', 'POST');
+	     	renderFormFields();
 		}
+		
+		//渐显效果
+		fm.css("opacity","0.0");
+        fm.css("display","");
+        setTimeout(function (){
+            fm.animate({
+                opacity:'1.0'
+            },100);
+        },1);
+        
 	}
 	
 	/**
       * 保存数据，表单提交事件
       */
-    function bindSubmitEvent() {
+    function bindButtonEvent() {
     
 	    form.on('submit(submit-button)', function (data) {
 	    	//debugger;
 	    	
 	    	//处理逻辑值
+		    if(!data.field.valid) data.field.valid=0;
 	    	
 	    	var api=moduleURL+"/"+(data.field.id?"update":"insert");
-	        layer.load(2);
-	        admin.req(api, JSON.stringify(data.field), function (data) {
-	            layer.closeAll('loading');
+	        var task=setTimeout(function(){layer.load(2);},1000);
+	        admin.request(api, data.field, function (data) {
+	            clearTimeout(task);
+			    layer.closeAll('loading');
 	            if (data.success) {
 	                layer.msg(data.message, {icon: 1, time: 500});
 	                admin.finishPopupCenter();
@@ -82,14 +97,18 @@ function FormPage() {
 	        return false;
 	    });
 	    
+	    //关闭窗口
+	    $("#cancel-button").click(function(){admin.closePopupCenter();});
+	    
     }
 
 }
 
 layui.config({
+	dir: layuiPath,
 	base: '/module/'
 }).extend({
-	xmSelect: '/xm-select/xm-select'
+	xmSelect: 'xm-select/xm-select'
 }).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect'],function() {
 	(new FormPage()).init(layui);
 });

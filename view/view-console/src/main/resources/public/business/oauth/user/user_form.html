@@ -2,7 +2,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-27 05:35:15
+ * @since 2021-06-22 17:27:06
  */
  -->
  <!DOCTYPE html>
@@ -15,39 +15,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="/assets/libs/layui/css/layui.css"/>
     <link rel="stylesheet" href="/assets/css/admin.css"/>
-    <link rel="stylesheet" href="/module/formSelects/formSelects-v4.css"/>
-    <link rel="stylesheet" href="/assets/libs/zTree/css/metroStyle/metroStyle.css"/>
-    <!-- 自定义主题，使用EasyWeb主题生成器生成 -->
-    <!--<link rel="stylesheet" href="assets/css/theme-blue.css"/>-->
+    <link rel="stylesheet" href="/assets/css/foxnic-web.css">
+    <link href="/assets/libs/font-awesome-4.7.0/css/font-awesome.min.css" th:href="@{/assets/libs/font-awesome-4.7.0/css/font-awesome.min.css}" rel="stylesheet"/>
 </head>
 
 <body>
 
-<form id="data-form" lay-filter="data-form" class="layui-form model-form">
+<form id="data-form" lay-filter="data-form" class="layui-form model-form" style="display:none">
     <input name="id" id="id"  type="hidden"/>
     
     <div class="layui-form-item">
         <label class="layui-form-label" th:text="${lang.translate('账户')}">账户</label>
         <div class="layui-input-block">
-            <input id="name" name="name" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('账户') }" type="text" class="layui-input"    />
-        </div>
-    </div>
-    
-	
-    
-    <div class="layui-form-item">
-        <label class="layui-form-label" th:text="${lang.translate('密码')}">密码</label>
-        <div class="layui-input-block">
-            <input id="passwd" name="passwd" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('密码') }" type="text" class="layui-input"    />
-        </div>
-    </div>
-    
-	
-    
-    <div class="layui-form-item">
-        <label class="layui-form-label" th:text="${lang.translate('盐')}">盐</label>
-        <div class="layui-input-block">
-            <input id="salt" name="salt" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('盐') }" type="text" class="layui-input"    />
+            <input lay-filter="name" id="name" name="name" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('账户') }" type="text" class="layui-input"    />
         </div>
     </div>
     
@@ -56,55 +36,37 @@
     <div class="layui-form-item">
         <label class="layui-form-label" th:text="${lang.translate('手机号码')}">手机号码</label>
         <div class="layui-input-block">
-            <input id="mobile" name="mobile" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('手机号码') }" type="text" class="layui-input"    />
+            <input lay-filter="phone" id="phone" name="phone" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('手机号码') }" type="text" class="layui-input"    />
         </div>
     </div>
     
 	
-    
+	
     <div class="layui-form-item">
-        <label class="layui-form-label" th:text="${lang.translate('人员ID')}">人员ID</label>
+        <label class="layui-form-label" th:text="${lang.translate('语言')}">语言</label>
         <div class="layui-input-block">
-            <input id="personId" name="personId" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('人员ID') }" type="text" class="layui-input"    />
+            <input type="radio" name="language" lay-filter="language" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.Language')}" th:value="${e.code}" th:title="${e.text}">
         </div>
     </div>
     
 	
-    
-    <div class="layui-form-item">
-        <label class="layui-form-label" th:text="${lang.translate('员工ID')}">员工ID</label>
-        <div class="layui-input-block">
-            <input id="employeeId" name="employeeId" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('员工ID') }" type="text" class="layui-input"    />
-        </div>
-    </div>
-    
 	
-    
     <div class="layui-form-item">
         <label class="layui-form-label" th:text="${lang.translate('是否有效')}">是否有效</label>
         <div class="layui-input-block">
-            <input id="valid" name="valid" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('是否有效') }" type="text" class="layui-input"    />
-        </div>
-    </div>
-    
-	
-    
-    <div class="layui-form-item">
-        <label class="layui-form-label" th:text="${lang.translate('最后登录时间')}">最后登录时间</label>
-        <div class="layui-input-block">
-            <input id="lastLoginTime" name="lastLoginTime" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('最后登录时间') }" type="text" class="layui-input"    />
+            <input type="checkbox" checked="" id="valid"  name="valid" lay-skin="switch" lay-filter="valid" lay-text="有效|无效" value="1">
         </div>
     </div>
     
 	
 
     <div class="layui-form-item model-form-footer">
-        <button class="layui-btn layui-btn-primary" ew-event="closeDialog" type="button" th:text="${lang.translate('取消')}">取消</button>
+        <button class="layui-btn layui-btn-primary" id="cancel-button" lay-filter="cancel-button" type="button" th:text="${lang.translate('取消')}">取消</button>
         <button class="layui-btn"  id="submit-button" lay-filter="submit-button" lay-submit th:text="${lang.translate('保存')}">保存</button>
     </div>
 </form>
 
-<script type="text/javascript" src="/module/apiUrl.js"></script>
+<script type="text/javascript" src="/module/global.js"></script>
 <script type="text/javascript" src="/assets/libs/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="/assets/libs/pandyle.min.js"></script>
 <script type="text/javascript" src="/assets/libs/layui/layui.js"></script>
