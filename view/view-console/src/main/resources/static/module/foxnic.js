@@ -39,6 +39,7 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"xmSe
 
 		renderSelectBox:function (cfg) {
 			var el=$(cfg.el);
+			if(!cfg.searchTips) cfg.searchTips="请输入关键字";
 			var data=el.attr("data");
 			var url=null;
 			try {
