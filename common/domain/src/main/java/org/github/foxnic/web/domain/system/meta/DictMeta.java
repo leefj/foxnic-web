@@ -7,8 +7,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-17 16:23:36
- * @sign 75D9C321390D6951F09EBC8A6211F416
+ * @since 2021-06-23 16:38:43
+ * @sign 5460C2E98BF18FCCBB15430AFBC4B5FE
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -18,6 +18,11 @@ public class DictMeta {
 	 * 字典ID
 	*/
 	public static final String ID="id";
+	
+	/**
+	 * 是否树形结构
+	*/
+	public static final String IS_TREE="isTree";
 	
 	/**
 	 * 字典名称
@@ -77,7 +82,7 @@ public class DictMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , NAME , CODE , MODULE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , IS_TREE , NAME , CODE , MODULE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
 	
 	/**
 	 * 代理类
@@ -95,6 +100,17 @@ public class DictMeta {
 		public Dict setId(String id) {
 			super.change(ID,super.getId(),id);
 			super.setId(id);
+			return this;
+		}
+		
+		/**
+		 * 设置 是否树形结构
+		 * @param isTree 是否树形结构
+		 * @return 当前对象
+		*/
+		public Dict setIsTree(Integer isTree) {
+			super.change(IS_TREE,super.getIsTree(),isTree);
+			super.setIsTree(isTree);
 			return this;
 		}
 		

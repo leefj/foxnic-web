@@ -19,7 +19,7 @@ String.prototype.startWith=function(str) {
 }
 
  
-layui.define(['settings', 'layer','admin','form', 'table', 'util','upload'], function (exports) {
+layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"xmSelect"], function (exports) {
 
     var settings = layui.settings;
     var layer = layui.layer;
@@ -28,6 +28,7 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload'], fun
     var upload = layui.upload;
     var form = layui.form;
     var util=layui.util;
+	var xmSelect=layui.xmSelect;
   	var dict={};
  
   	var language=settings.getLang();
@@ -35,7 +36,63 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload'], fun
   	var defaultsLangs=null;
   	
     var foxnic = {
-    	
+
+		renderSelectBox:function (cfg) {
+			var el=$(cfg.el);
+			var data=el.attr("data");
+			var url=null;
+			try {
+				data=JSON.parse(data);
+
+			} catch (e){
+				url=data;
+				data=null;
+			}
+
+			//本地数据渲染
+			if(data!=null) {
+				var opts=cfg.transform(data);
+				cfg.data= opts;
+			} else if(url!=null) {
+				cfg.remoteSearch=true;
+				cfg.filterable=true;
+				cfg.remoteMethod=function (val, cb, show, pageIndex) {
+					//debugger;
+					var ps={searchField:cfg.searchField,searchValue:val};
+					if(cfg.extraParam) {
+						var ext={};
+						if(typeof(cfg.extraParam) == 'function'){
+							ext=cfg.extraParam();
+						} else {
+							ext=cfg.extraParam;
+						}
+						for(var key in ext) { ps[key]=ext[key];}
+					}
+
+
+
+
+					admin.request(url,ps,function(r) {
+						var opts=[];
+						if(r.success) {
+							opts=cfg.transform(r.data);
+						} else {
+							opts=[{name:r.message,value:"-1"}];
+						}
+						cb(opts);
+					});
+				}
+			}
+
+			// cfg.on=function (data) {
+			// 	debugger;
+			// }
+
+			console.log("data",data);
+			console.log("opts",opts);
+
+			xmSelect.render(cfg);
+		},
     	/**
     	 * 渲染分页的表格
     	 * */

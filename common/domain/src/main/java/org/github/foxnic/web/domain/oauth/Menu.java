@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-16 10:46:24
- * @sign E3348190B28A2065193935D30AB32904
+ * @since 2021-06-23 13:07:30
+ * @sign D502E41AEE7294314FD1D88277B05752
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -44,7 +44,7 @@ public class Menu extends Entity {
 	/**
 	 * 权限：权限标识
 	*/
-	@ApiModelProperty(required = false,value="权限" , notes = "权限标识")
+	@ApiModelProperty(required = true,value="权限" , notes = "权限标识")
 	private String authority;
 	
 	/**

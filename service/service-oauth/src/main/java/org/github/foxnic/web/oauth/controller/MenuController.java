@@ -50,7 +50,7 @@ public class MenuController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = MenuVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "451739184575545344"),
 		@ApiImplicitParam(name = MenuVOMeta.BATCH_ID , value = "批次号" , required = false , dataTypeClass=String.class , example = "451739178166648832"),
-		@ApiImplicitParam(name = MenuVOMeta.AUTHORITY , value = "权限" , required = false , dataTypeClass=String.class , example = "sys_user::form::view"),
+		@ApiImplicitParam(name = MenuVOMeta.AUTHORITY , value = "权限" , required = true , dataTypeClass=String.class , example = "sys_user::form::view"),
 		@ApiImplicitParam(name = MenuVOMeta.HIDDEN , value = "是否隐藏" , required = true , dataTypeClass=Integer.class , example = "1"),
 		@ApiImplicitParam(name = MenuVOMeta.CSS , value = "样式" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = MenuVOMeta.LABEL , value = "标签" , required = false , dataTypeClass=String.class , example = "编辑账户"),
@@ -130,7 +130,7 @@ public class MenuController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = MenuVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "451739184575545344"),
 		@ApiImplicitParam(name = MenuVOMeta.BATCH_ID , value = "批次号" , required = false , dataTypeClass=String.class , example = "451739178166648832"),
-		@ApiImplicitParam(name = MenuVOMeta.AUTHORITY , value = "权限" , required = false , dataTypeClass=String.class , example = "sys_user::form::view"),
+		@ApiImplicitParam(name = MenuVOMeta.AUTHORITY , value = "权限" , required = true , dataTypeClass=String.class , example = "sys_user::form::view"),
 		@ApiImplicitParam(name = MenuVOMeta.HIDDEN , value = "是否隐藏" , required = true , dataTypeClass=Integer.class , example = "1"),
 		@ApiImplicitParam(name = MenuVOMeta.CSS , value = "样式" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = MenuVOMeta.LABEL , value = "标签" , required = false , dataTypeClass=String.class , example = "编辑账户"),
@@ -160,7 +160,7 @@ public class MenuController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = MenuVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "451739184575545344"),
 		@ApiImplicitParam(name = MenuVOMeta.BATCH_ID , value = "批次号" , required = false , dataTypeClass=String.class , example = "451739178166648832"),
-		@ApiImplicitParam(name = MenuVOMeta.AUTHORITY , value = "权限" , required = false , dataTypeClass=String.class , example = "sys_user::form::view"),
+		@ApiImplicitParam(name = MenuVOMeta.AUTHORITY , value = "权限" , required = true , dataTypeClass=String.class , example = "sys_user::form::view"),
 		@ApiImplicitParam(name = MenuVOMeta.HIDDEN , value = "是否隐藏" , required = true , dataTypeClass=Integer.class , example = "1"),
 		@ApiImplicitParam(name = MenuVOMeta.CSS , value = "样式" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = MenuVOMeta.LABEL , value = "标签" , required = false , dataTypeClass=String.class , example = "编辑账户"),
@@ -209,7 +209,7 @@ public class MenuController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = MenuVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "451739184575545344"),
 		@ApiImplicitParam(name = MenuVOMeta.BATCH_ID , value = "批次号" , required = false , dataTypeClass=String.class , example = "451739178166648832"),
-		@ApiImplicitParam(name = MenuVOMeta.AUTHORITY , value = "权限" , required = false , dataTypeClass=String.class , example = "sys_user::form::view"),
+		@ApiImplicitParam(name = MenuVOMeta.AUTHORITY , value = "权限" , required = true , dataTypeClass=String.class , example = "sys_user::form::view"),
 		@ApiImplicitParam(name = MenuVOMeta.HIDDEN , value = "是否隐藏" , required = true , dataTypeClass=Integer.class , example = "1"),
 		@ApiImplicitParam(name = MenuVOMeta.CSS , value = "样式" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = MenuVOMeta.LABEL , value = "标签" , required = false , dataTypeClass=String.class , example = "编辑账户"),
@@ -271,7 +271,7 @@ public class MenuController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = MenuVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "451739184575545344"),
 		@ApiImplicitParam(name = MenuVOMeta.BATCH_ID , value = "批次号" , required = false , dataTypeClass=String.class , example = "451739178166648832"),
-		@ApiImplicitParam(name = MenuVOMeta.AUTHORITY , value = "权限" , required = false , dataTypeClass=String.class , example = "sys_user::form::view"),
+		@ApiImplicitParam(name = MenuVOMeta.AUTHORITY , value = "权限" , required = true , dataTypeClass=String.class , example = "sys_user::form::view"),
 		@ApiImplicitParam(name = MenuVOMeta.HIDDEN , value = "是否隐藏" , required = true , dataTypeClass=Integer.class , example = "1"),
 		@ApiImplicitParam(name = MenuVOMeta.CSS , value = "样式" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = MenuVOMeta.LABEL , value = "标签" , required = false , dataTypeClass=String.class , example = "编辑账户"),

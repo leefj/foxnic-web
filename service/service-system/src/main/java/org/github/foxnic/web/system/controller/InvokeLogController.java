@@ -46,7 +46,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 调用统计日志 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-19 08:51:16
+ * @since 2021-06-23 16:38:44
 */
 
 @Api(tags = "调用统计日志")
@@ -63,14 +63,14 @@ public class InvokeLogController extends SuperController {
 	*/
 	@ApiOperation(value = "添加调用统计日志")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = InvokeLogVOMeta.HOST_NAME , value = "主机名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = InvokeLogVOMeta.URI , value = "请求的URI" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = InvokeLogVOMeta.USER_AGENT , value = "UserAgent" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = InvokeLogVOMeta.CLIENT_IP , value = "客户端IP" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = InvokeLogVOMeta.TOKEN , value = "token值" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = InvokeLogVOMeta.USER_ID , value = "用户ID" , required = false , dataTypeClass=Long.class),
-		@ApiImplicitParam(name = InvokeLogVOMeta.USER_NAME , value = "用户姓名" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = InvokeLogVOMeta.PARAMETER , value = "请求参数" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = InvokeLogVOMeta.HOST_NAME , value = "主机名称" , required = false , dataTypeClass=String.class , example = "1"),
+		@ApiImplicitParam(name = InvokeLogVOMeta.URI , value = "请求的URI" , required = false , dataTypeClass=String.class , example = "1"),
+		@ApiImplicitParam(name = InvokeLogVOMeta.USER_AGENT , value = "UserAgent" , required = false , dataTypeClass=String.class , example = "1"),
+		@ApiImplicitParam(name = InvokeLogVOMeta.CLIENT_IP , value = "客户端IP" , required = false , dataTypeClass=String.class , example = "1"),
+		@ApiImplicitParam(name = InvokeLogVOMeta.TOKEN , value = "token值" , required = false , dataTypeClass=String.class , example = "1"),
+		@ApiImplicitParam(name = InvokeLogVOMeta.USER_ID , value = "用户ID" , required = false , dataTypeClass=Long.class , example = "1"),
+		@ApiImplicitParam(name = InvokeLogVOMeta.USER_NAME , value = "用户姓名" , required = false , dataTypeClass=String.class , example = "1"),
+		@ApiImplicitParam(name = InvokeLogVOMeta.PARAMETER , value = "请求参数" , required = false , dataTypeClass=String.class , example = "1"),
 		@ApiImplicitParam(name = InvokeLogVOMeta.RESPONSE , value = "响应数据" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = InvokeLogVOMeta.START_TIME , value = "开始时间" , required = false , dataTypeClass=Timestamp.class),
 		@ApiImplicitParam(name = InvokeLogVOMeta.END_TIME , value = "结束时间" , required = false , dataTypeClass=Timestamp.class),
@@ -93,7 +93,7 @@ public class InvokeLogController extends SuperController {
 	*/
 	@ApiOperation(value = "删除调用统计日志")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = InvokeLogVOMeta.ID , value = "ID" , required = true , dataTypeClass=Long.class)
+		@ApiImplicitParam(name = InvokeLogVOMeta.ID , value = "ID" , required = true , dataTypeClass=Long.class , example = "1")
 	})
 	@ApiOperationSupport(order=2)
 	@NotNull(name = InvokeLogVOMeta.ID)
@@ -133,15 +133,15 @@ public class InvokeLogController extends SuperController {
 	*/
 	@ApiOperation(value = "更新调用统计日志")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = InvokeLogVOMeta.ID , value = "ID" , required = true , dataTypeClass=Long.class),
-		@ApiImplicitParam(name = InvokeLogVOMeta.HOST_NAME , value = "主机名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = InvokeLogVOMeta.URI , value = "请求的URI" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = InvokeLogVOMeta.USER_AGENT , value = "UserAgent" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = InvokeLogVOMeta.CLIENT_IP , value = "客户端IP" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = InvokeLogVOMeta.TOKEN , value = "token值" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = InvokeLogVOMeta.USER_ID , value = "用户ID" , required = false , dataTypeClass=Long.class),
-		@ApiImplicitParam(name = InvokeLogVOMeta.USER_NAME , value = "用户姓名" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = InvokeLogVOMeta.PARAMETER , value = "请求参数" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = InvokeLogVOMeta.ID , value = "ID" , required = true , dataTypeClass=Long.class , example = "1"),
+		@ApiImplicitParam(name = InvokeLogVOMeta.HOST_NAME , value = "主机名称" , required = false , dataTypeClass=String.class , example = "1"),
+		@ApiImplicitParam(name = InvokeLogVOMeta.URI , value = "请求的URI" , required = false , dataTypeClass=String.class , example = "1"),
+		@ApiImplicitParam(name = InvokeLogVOMeta.USER_AGENT , value = "UserAgent" , required = false , dataTypeClass=String.class , example = "1"),
+		@ApiImplicitParam(name = InvokeLogVOMeta.CLIENT_IP , value = "客户端IP" , required = false , dataTypeClass=String.class , example = "1"),
+		@ApiImplicitParam(name = InvokeLogVOMeta.TOKEN , value = "token值" , required = false , dataTypeClass=String.class , example = "1"),
+		@ApiImplicitParam(name = InvokeLogVOMeta.USER_ID , value = "用户ID" , required = false , dataTypeClass=Long.class , example = "1"),
+		@ApiImplicitParam(name = InvokeLogVOMeta.USER_NAME , value = "用户姓名" , required = false , dataTypeClass=String.class , example = "1"),
+		@ApiImplicitParam(name = InvokeLogVOMeta.PARAMETER , value = "请求参数" , required = false , dataTypeClass=String.class , example = "1"),
 		@ApiImplicitParam(name = InvokeLogVOMeta.RESPONSE , value = "响应数据" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = InvokeLogVOMeta.START_TIME , value = "开始时间" , required = false , dataTypeClass=Timestamp.class),
 		@ApiImplicitParam(name = InvokeLogVOMeta.END_TIME , value = "结束时间" , required = false , dataTypeClass=Timestamp.class),
@@ -165,15 +165,15 @@ public class InvokeLogController extends SuperController {
 	*/
 	@ApiOperation(value = "保存调用统计日志")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = InvokeLogVOMeta.ID , value = "ID" , required = true , dataTypeClass=Long.class),
-		@ApiImplicitParam(name = InvokeLogVOMeta.HOST_NAME , value = "主机名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = InvokeLogVOMeta.URI , value = "请求的URI" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = InvokeLogVOMeta.USER_AGENT , value = "UserAgent" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = InvokeLogVOMeta.CLIENT_IP , value = "客户端IP" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = InvokeLogVOMeta.TOKEN , value = "token值" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = InvokeLogVOMeta.USER_ID , value = "用户ID" , required = false , dataTypeClass=Long.class),
-		@ApiImplicitParam(name = InvokeLogVOMeta.USER_NAME , value = "用户姓名" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = InvokeLogVOMeta.PARAMETER , value = "请求参数" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = InvokeLogVOMeta.ID , value = "ID" , required = true , dataTypeClass=Long.class , example = "1"),
+		@ApiImplicitParam(name = InvokeLogVOMeta.HOST_NAME , value = "主机名称" , required = false , dataTypeClass=String.class , example = "1"),
+		@ApiImplicitParam(name = InvokeLogVOMeta.URI , value = "请求的URI" , required = false , dataTypeClass=String.class , example = "1"),
+		@ApiImplicitParam(name = InvokeLogVOMeta.USER_AGENT , value = "UserAgent" , required = false , dataTypeClass=String.class , example = "1"),
+		@ApiImplicitParam(name = InvokeLogVOMeta.CLIENT_IP , value = "客户端IP" , required = false , dataTypeClass=String.class , example = "1"),
+		@ApiImplicitParam(name = InvokeLogVOMeta.TOKEN , value = "token值" , required = false , dataTypeClass=String.class , example = "1"),
+		@ApiImplicitParam(name = InvokeLogVOMeta.USER_ID , value = "用户ID" , required = false , dataTypeClass=Long.class , example = "1"),
+		@ApiImplicitParam(name = InvokeLogVOMeta.USER_NAME , value = "用户姓名" , required = false , dataTypeClass=String.class , example = "1"),
+		@ApiImplicitParam(name = InvokeLogVOMeta.PARAMETER , value = "请求参数" , required = false , dataTypeClass=String.class , example = "1"),
 		@ApiImplicitParam(name = InvokeLogVOMeta.RESPONSE , value = "响应数据" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = InvokeLogVOMeta.START_TIME , value = "开始时间" , required = false , dataTypeClass=Timestamp.class),
 		@ApiImplicitParam(name = InvokeLogVOMeta.END_TIME , value = "结束时间" , required = false , dataTypeClass=Timestamp.class),
@@ -216,15 +216,15 @@ public class InvokeLogController extends SuperController {
 	*/
 	@ApiOperation(value = "查询调用统计日志")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = InvokeLogVOMeta.ID , value = "ID" , required = true , dataTypeClass=Long.class),
-		@ApiImplicitParam(name = InvokeLogVOMeta.HOST_NAME , value = "主机名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = InvokeLogVOMeta.URI , value = "请求的URI" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = InvokeLogVOMeta.USER_AGENT , value = "UserAgent" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = InvokeLogVOMeta.CLIENT_IP , value = "客户端IP" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = InvokeLogVOMeta.TOKEN , value = "token值" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = InvokeLogVOMeta.USER_ID , value = "用户ID" , required = false , dataTypeClass=Long.class),
-		@ApiImplicitParam(name = InvokeLogVOMeta.USER_NAME , value = "用户姓名" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = InvokeLogVOMeta.PARAMETER , value = "请求参数" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = InvokeLogVOMeta.ID , value = "ID" , required = true , dataTypeClass=Long.class , example = "1"),
+		@ApiImplicitParam(name = InvokeLogVOMeta.HOST_NAME , value = "主机名称" , required = false , dataTypeClass=String.class , example = "1"),
+		@ApiImplicitParam(name = InvokeLogVOMeta.URI , value = "请求的URI" , required = false , dataTypeClass=String.class , example = "1"),
+		@ApiImplicitParam(name = InvokeLogVOMeta.USER_AGENT , value = "UserAgent" , required = false , dataTypeClass=String.class , example = "1"),
+		@ApiImplicitParam(name = InvokeLogVOMeta.CLIENT_IP , value = "客户端IP" , required = false , dataTypeClass=String.class , example = "1"),
+		@ApiImplicitParam(name = InvokeLogVOMeta.TOKEN , value = "token值" , required = false , dataTypeClass=String.class , example = "1"),
+		@ApiImplicitParam(name = InvokeLogVOMeta.USER_ID , value = "用户ID" , required = false , dataTypeClass=Long.class , example = "1"),
+		@ApiImplicitParam(name = InvokeLogVOMeta.USER_NAME , value = "用户姓名" , required = false , dataTypeClass=String.class , example = "1"),
+		@ApiImplicitParam(name = InvokeLogVOMeta.PARAMETER , value = "请求参数" , required = false , dataTypeClass=String.class , example = "1"),
 		@ApiImplicitParam(name = InvokeLogVOMeta.RESPONSE , value = "响应数据" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = InvokeLogVOMeta.START_TIME , value = "开始时间" , required = false , dataTypeClass=Timestamp.class),
 		@ApiImplicitParam(name = InvokeLogVOMeta.END_TIME , value = "结束时间" , required = false , dataTypeClass=Timestamp.class),
@@ -246,15 +246,15 @@ public class InvokeLogController extends SuperController {
 	*/
 	@ApiOperation(value = "分页查询调用统计日志")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = InvokeLogVOMeta.ID , value = "ID" , required = true , dataTypeClass=Long.class),
-		@ApiImplicitParam(name = InvokeLogVOMeta.HOST_NAME , value = "主机名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = InvokeLogVOMeta.URI , value = "请求的URI" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = InvokeLogVOMeta.USER_AGENT , value = "UserAgent" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = InvokeLogVOMeta.CLIENT_IP , value = "客户端IP" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = InvokeLogVOMeta.TOKEN , value = "token值" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = InvokeLogVOMeta.USER_ID , value = "用户ID" , required = false , dataTypeClass=Long.class),
-		@ApiImplicitParam(name = InvokeLogVOMeta.USER_NAME , value = "用户姓名" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = InvokeLogVOMeta.PARAMETER , value = "请求参数" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = InvokeLogVOMeta.ID , value = "ID" , required = true , dataTypeClass=Long.class , example = "1"),
+		@ApiImplicitParam(name = InvokeLogVOMeta.HOST_NAME , value = "主机名称" , required = false , dataTypeClass=String.class , example = "1"),
+		@ApiImplicitParam(name = InvokeLogVOMeta.URI , value = "请求的URI" , required = false , dataTypeClass=String.class , example = "1"),
+		@ApiImplicitParam(name = InvokeLogVOMeta.USER_AGENT , value = "UserAgent" , required = false , dataTypeClass=String.class , example = "1"),
+		@ApiImplicitParam(name = InvokeLogVOMeta.CLIENT_IP , value = "客户端IP" , required = false , dataTypeClass=String.class , example = "1"),
+		@ApiImplicitParam(name = InvokeLogVOMeta.TOKEN , value = "token值" , required = false , dataTypeClass=String.class , example = "1"),
+		@ApiImplicitParam(name = InvokeLogVOMeta.USER_ID , value = "用户ID" , required = false , dataTypeClass=Long.class , example = "1"),
+		@ApiImplicitParam(name = InvokeLogVOMeta.USER_NAME , value = "用户姓名" , required = false , dataTypeClass=String.class , example = "1"),
+		@ApiImplicitParam(name = InvokeLogVOMeta.PARAMETER , value = "请求参数" , required = false , dataTypeClass=String.class , example = "1"),
 		@ApiImplicitParam(name = InvokeLogVOMeta.RESPONSE , value = "响应数据" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = InvokeLogVOMeta.START_TIME , value = "开始时间" , required = false , dataTypeClass=Timestamp.class),
 		@ApiImplicitParam(name = InvokeLogVOMeta.END_TIME , value = "结束时间" , required = false , dataTypeClass=Timestamp.class),

@@ -1,7 +1,7 @@
 /**
  * 调用统计日志 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-19 08:51:16
+ * @since 2021-06-23 16:38:44
  */
 
 
@@ -38,21 +38,23 @@ function ListPage() {
 		fox.renderTable({
 			elem: '#data-table',
             url: moduleURL +'/query-paged-list',
+		 	height: 'full-78',
+		 	limit: 50,
 			cols: [[
+				{  fixed: 'left',type: 'numbers' },
 			 	{  fixed: 'left',type:'checkbox' },
-                {  fixed: 'left',type: 'numbers' },
-                { field: 'hostName', sort: true, title: fox.translate('主机名称') } ,
-                { field: 'uri', sort: true, title: fox.translate('请求的URI') } ,
-                { field: 'userAgent', sort: true, title: fox.translate('UserAgent') } ,
-                { field: 'clientIp', sort: true, title: fox.translate('客户端IP') } ,
-                { field: 'token', sort: true, title: fox.translate('token值') } ,
-                { field: 'userId', sort: true, title: fox.translate('用户ID') } ,
-                { field: 'userName', sort: true, title: fox.translate('用户姓名') } ,
-                { field: 'parameter', sort: true, title: fox.translate('请求参数') } ,
-                { field: 'response', sort: true, title: fox.translate('响应数据') } ,
-                { field: 'startTime', sort: true, title: fox.translate('开始时间') } ,
-                { field: 'endTime', sort: true, title: fox.translate('结束时间') } ,
-                { field: 'exception', sort: true, title: fox.translate('异常信息') } ,
+                { field: 'hostName', sort: true, title: fox.translate('主机名称')} ,
+                { field: 'uri', sort: true, title: fox.translate('请求的URI')} ,
+                { field: 'userAgent', sort: true, title: fox.translate('UserAgent')} ,
+                { field: 'clientIp', sort: true, title: fox.translate('客户端IP')} ,
+                { field: 'token', sort: true, title: fox.translate('token值')} ,
+                { field: 'userId', sort: true, title: fox.translate('用户ID')} ,
+                { field: 'userName', sort: true, title: fox.translate('用户姓名')} ,
+                { field: 'parameter', sort: true, title: fox.translate('请求参数')} ,
+                { field: 'response', sort: true, title: fox.translate('响应数据')} ,
+				{ field: 'startTime', sort: true, title: fox.translate('开始时间'), templet: function (d) { return fox.dateFormat(d.; }} ,
+				{ field: 'endTime', sort: true, title: fox.translate('结束时间'), templet: function (d) { return fox.dateFormat(d.; }} ,
+                { field: 'exception', sort: true, title: fox.translate('异常信息')} ,
                 { field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
             ]]
 	 		,footer : {
@@ -215,9 +217,9 @@ function ListPage() {
 		var title = (data && data.id) ? (fox.translate('修改')+fox.translate('调用统计日志')) : (fox.translate('添加')+fox.translate('调用统计日志'));
 		admin.popupCenter({
 			title: title,
-			resize:true,
-			offset:[top,null],
-			area:["500px",height+"px"],
+			resize: true,
+			offset: [top,null],
+			area: ["500px",height+"px"],
 			type: 2,
 			content: '/business/system/invoke_log/invoke_log_form.html' + queryString,
 			finish: function () {

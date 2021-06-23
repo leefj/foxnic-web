@@ -2,7 +2,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-22 17:27:06
+ * @since 2021-06-23 17:18:08
  */
  -->
  <!DOCTYPE html>
@@ -27,7 +27,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label" th:text="${lang.translate('账户')}">账户</label>
         <div class="layui-input-block">
-            <input lay-filter="name" id="name" name="name" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('账户') }" type="text" class="layui-input"    />
+            <input lay-filter="name" id="name" name="name" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('账户') }" type="text" class="layui-input"    lay-verify="|required"   />
         </div>
     </div>
     
@@ -36,18 +36,18 @@
     <div class="layui-form-item">
         <label class="layui-form-label" th:text="${lang.translate('手机号码')}">手机号码</label>
         <div class="layui-input-block">
-            <input lay-filter="phone" id="phone" name="phone" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('手机号码') }" type="text" class="layui-input"    />
+            <input lay-filter="phone" id="phone" name="phone" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('手机号码') }" type="text" class="layui-input"    lay-verify="|required|phone"   />
         </div>
     </div>
     
 	
-	
-    <div class="layui-form-item">
-        <label class="layui-form-label" th:text="${lang.translate('语言')}">语言</label>
-        <div class="layui-input-block">
-            <input type="radio" name="language" lay-filter="language" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.Language')}" th:value="${e.code}" th:title="${e.text}">
+
+        <div class="layui-form-item">
+            <label class="layui-form-label" th:text="${lang.translate('语言')}">语言</label>
+            <div class="layui-input-block">
+                    <input type="checkbox" name="language" lay-filter="language" lay-skin="primary" th:each="e,stat:${dict.toArray('order_status')}" th:value="${e.code}" th:title="${e.text}">
+            </div>
         </div>
-    </div>
     
 	
 	
@@ -58,6 +58,15 @@
         </div>
     </div>
     
+	
+
+        <div class="layui-form-item">
+            <label class="layui-form-label" th:text="${lang.translate('角色')}">角色</label>
+            <div class="layui-input-block">
+                <div id="roleIds" th:data="${'/service-oauth/sys-role/query-list'}"></div>
+            </div>
+        </div>
+
 	
 
     <div class="layui-form-item model-form-footer">

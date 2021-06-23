@@ -7,8 +7,8 @@ import java.util.List;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-16 16:31:57
- * @sign F61D3E04EA643489A3581ACA53A9A709
+ * @since 2021-06-23 16:14:19
+ * @sign EB40EF2CD63ED42913D0632FF3E29738
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -50,9 +50,14 @@ public class UserVOMeta extends UserMeta {
 	public static final String IDS="ids";
 	
 	/**
+	 * 角色ID列表
+	*/
+	public static final String ROLE_IDS="roleIds";
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , SEARCH_VALUE , SORT_FIELD , SORT_TYPE , IDS };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , SEARCH_VALUE , SORT_FIELD , SORT_TYPE , IDS , ROLE_IDS };
 	
 	/**
 	 * 代理类
@@ -136,6 +141,17 @@ public class UserVOMeta extends UserMeta {
 		public UserVO setIds(List<String> ids) {
 			super.change(IDS,super.getIds(),ids);
 			super.setIds(ids);
+			return this;
+		}
+		
+		/**
+		 * 设置 角色ID列表
+		 * @param roleIds 角色ID列表
+		 * @return 当前对象
+		*/
+		public UserVO setRoleIds(List<String> roleIds) {
+			super.change(ROLE_IDS,super.getRoleIds(),roleIds);
+			super.setRoleIds(roleIds);
 			return this;
 		}
 	}

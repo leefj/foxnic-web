@@ -129,6 +129,7 @@ layui.define(['settings', 'layer'], function (exports) {
         		top.admin.changePopupArea(width,height);
         		return;
         	}
+        	if(!popupCenterIndex) return;
         	//debugger;
         	var layerWidth= $("#layui-layer"+popupCenterIndex).width();
         	var layerHeight=$("#layui-layer"+popupCenterIndex).height();

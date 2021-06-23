@@ -9,8 +9,8 @@ import java.util.ArrayList;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-16 16:31:57
- * @sign F61D3E04EA643489A3581ACA53A9A709
+ * @since 2021-06-23 16:14:19
+ * @sign EB40EF2CD63ED42913D0632FF3E29738
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -59,6 +59,12 @@ public class UserVO extends User {
 	*/
 	@ApiModelProperty(required = false,value="主键清单" , notes = "用于接收批量主键参数")
 	private List<String> ids;
+	
+	/**
+	 * 角色ID列表
+	*/
+	@ApiModelProperty(required = false,value="角色ID列表" , notes = "")
+	private List<String> roleIds;
 	
 	/**
 	 * 获得 页码<br>
@@ -231,6 +237,35 @@ public class UserVO extends User {
 	public UserVO addId(String id) {
 		if(this.ids==null) ids=new ArrayList<>();
 		this.ids.add(id);
+		return this;
+	}
+	
+	/**
+	 * 获得 角色ID列表<br>
+	 * @return 角色ID列表
+	*/
+	public List<String> getRoleIds() {
+		return roleIds;
+	}
+	
+	/**
+	 * 设置 角色ID列表
+	 * @param roleIds 角色ID列表
+	 * @return 当前对象
+	*/
+	public UserVO setRoleIds(List<String> roleIds) {
+		this.roleIds=roleIds;
+		return this;
+	}
+	
+	/**
+	 * 添加 角色ID列表
+	 * @param roleIds 角色ID列表
+	 * @return 当前对象
+	*/
+	public UserVO addRoleId(String roleId) {
+		if(this.roleIds==null) roleIds=new ArrayList<>();
+		this.roleIds.add(roleId);
 		return this;
 	}
 }

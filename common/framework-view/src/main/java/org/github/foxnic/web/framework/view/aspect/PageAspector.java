@@ -9,8 +9,9 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.github.foxnic.web.language.LanguageService;
 import org.github.foxnic.web.proxy.spring.AwareHandler;
-import org.github.foxnic.web.proxy.utils.DBCacheProxyUtil;
 import org.github.foxnic.web.proxy.utils.CodeTextEnumUtil;
+import org.github.foxnic.web.proxy.utils.DBCacheProxyUtil;
+import org.github.foxnic.web.proxy.utils.DictProxyUtil;
 import org.github.foxnic.web.session.SessionUser;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
@@ -40,11 +41,15 @@ public class PageAspector {
 
 	private static final String USER = "user";
 
+	private static final String DICT = "dict";
+
 	private static final String PERMISSION = "permission";
 
 	public static final String LAYUI_TABLE_WIDTH_CONFIG="layuiTableWidthConfig";
 	
 	private CodeTextEnumUtil enumUtil;
+
+	private DictProxyUtil dictUtil;
 
 	private LanguageService languageService;
 
@@ -94,6 +99,9 @@ public class PageAspector {
 		if(enumUtil==null) {
 			enumUtil=AwareHandler.getBean(CodeTextEnumUtil.class);
 		}
+		if(dictUtil==null) {
+			dictUtil=AwareHandler.getBean(DictProxyUtil.class);
+		}
 
 		//获得登录 SessionUser
 		SessionUser user=SessionUser.getCurrent();
@@ -110,6 +118,7 @@ public class PageAspector {
 					((Model) arg).addAttribute(PERMISSION, user.permission());
 				}
 				((Model)arg).addAttribute(LAYUI_TABLE_WIDTH_CONFIG, widthConfig);
+				((Model)arg).addAttribute(DICT, dictUtil);
 			} else if(arg instanceof ModelAndView ) {
 				((ModelAndView)arg).addObject(LANG, languageService);
 				((ModelAndView)arg).addObject(ENUM, enumUtil);
@@ -118,6 +127,7 @@ public class PageAspector {
 					((ModelAndView) arg).addObject(PERMISSION, user.permission());
 				}
 				((ModelAndView)arg).addObject(LAYUI_TABLE_WIDTH_CONFIG, widthConfig);
+				((ModelAndView)arg).addObject(DICT, dictUtil);
 			} else if(arg instanceof ModelMap ) {
 				((ModelMap)arg).addAttribute(LANG, languageService);
 				((ModelMap)arg).addAttribute(ENUM, enumUtil);
@@ -126,6 +136,7 @@ public class PageAspector {
 					((ModelMap) arg).addAttribute(PERMISSION, user.permission());
 				}
 				((ModelMap)arg).addAttribute(LAYUI_TABLE_WIDTH_CONFIG, widthConfig);
+				((ModelMap)arg).addAttribute(DICT, dictUtil);
 			}
 		}
 		 

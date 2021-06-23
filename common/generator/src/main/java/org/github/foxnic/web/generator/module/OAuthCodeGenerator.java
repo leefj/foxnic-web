@@ -1,19 +1,13 @@
 package org.github.foxnic.web.generator.module;
 
-import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_MENU;
-import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_OAUTH_CLIENT;
-import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_ROLE;
-import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_ROLE_MENU;
-import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_ROLE_USER;
-import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_SESSION_ONLINE;
-import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_TOKEN;
-import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER;
-
 import com.github.foxnic.generator.builder.model.PojoClassFile;
 import com.github.foxnic.generator.config.ModuleContext;
 import com.github.foxnic.generator.config.WriteMode;
 import com.github.foxnic.sql.meta.DBTable;
+import org.github.foxnic.web.constants.db.FoxnicWeb.*;
 import org.github.foxnic.web.constants.enums.Language;
+import org.github.foxnic.web.domain.oauth.meta.UserVOMeta;
+import org.github.foxnic.web.proxy.oauth.RoleServiceProxy;
 
 
 public class OAuthCodeGenerator extends SystemCodeGenerator {
@@ -44,16 +38,13 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		//创建配置
 		ModuleContext cfg=createModuleConfig(SYS_USER.$TABLE, 6);
 
+		//增加VO属性
+		cfg.getVoClassFile().addListProperty(String.class,"roleIds","角色ID列表","");
+
 
 		cfg.field(SYS_USER.VALID).logicField().on("有效","1").off("无效","0");
 
-		cfg.field(SYS_USER.LAST_LOGIN_TIME).hideInForm();
-		cfg.field(SYS_USER.PERSON_ID).hideInForm();
-		cfg.field(SYS_USER.PORTRAIT_ID).hideInForm();
-		cfg.field(SYS_USER.EMPLOYEE_ID).hideInForm();
-		cfg.field(SYS_USER.PASSWD).hideInForm();
-		//配置单选
-		cfg.field(SYS_USER.LANGUAGE).radioField().enumType(Language.class);
+
 
 		//文件生成覆盖模式
 		cfg.overrides()
@@ -72,7 +63,29 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		pojo.addSimpleProperty(String.class,"passwd","密码","");
 		pojo.addSimpleProperty(String.class,"browserId","随机ID","客户端产生的唯一ID，用于标识一次认证");
 		pojo.addSimpleProperty(String.class,"captcha","校验码/验证码","用户输入的校验码");
- 
+
+
+
+		//表单不需要显示的字段
+		cfg.field(SYS_USER.LAST_LOGIN_TIME).hideInForm();
+		cfg.field(SYS_USER.PERSON_ID).hideInForm();
+		cfg.field(SYS_USER.PORTRAIT_ID).hideInForm();
+		cfg.field(SYS_USER.EMPLOYEE_ID).hideInForm();
+		cfg.field(SYS_USER.PASSWD).hideInForm();
+		//配置校验
+		cfg.field(SYS_USER.NAME).validate().required();
+		cfg.field(SYS_USER.PHONE).validate().required().phone();
+		//配置单选
+		cfg.field(SYS_USER.LANGUAGE).radioField().enumType(Language.class);
+//		cfg.field(SYS_USER.LANGUAGE).checkField().enumType(Language.class);
+//		cfg.field(SYS_USER.LANGUAGE).checkField().dict(DictEnum.ORDER_STATUS);
+		//配置数据库表字段外的输入框
+		cfg.field(UserVOMeta.ROLE_IDS).label("角色").selectField().muliti().queryApi(RoleServiceProxy.QUERY_LIST);
+		//使用枚举
+		//cfg.field(UserVOMeta.ROLE_IDS).label("角色").selectField().muliti().enumType(Language.class);
+		//使用字典数据
+//		cfg.field(UserVOMeta.ROLE_IDS).label("角色").selectField().muliti().dict(DictEnum.COMPANY_TYPE);
+
 		//生成代码
 		cfg.buildAll();
 	}

@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-17 16:23:36
- * @sign 75D9C321390D6951F09EBC8A6211F416
+ * @since 2021-06-23 16:38:43
+ * @sign 5460C2E98BF18FCCBB15430AFBC4B5FE
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -34,6 +34,12 @@ public class Dict extends Entity {
 	@Id
 	@ApiModelProperty(required = true,value="字典ID" , notes = "字典ID")
 	private String id;
+	
+	/**
+	 * 是否树形结构：是否树形结构
+	*/
+	@ApiModelProperty(required = true,value="是否树形结构" , notes = "是否树形结构")
+	private Integer isTree;
 	
 	/**
 	 * 字典名称：字典名称
@@ -123,6 +129,31 @@ public class Dict extends Entity {
 	/**
 	 * 添加 字典ID
 	 * @param id 字典ID
+	 * @return 当前对象
+	*/
+	
+	/**
+	 * 获得 是否树形结构<br>
+	 * 属性说明 : 是否树形结构
+	 * @return 是否树形结构
+	*/
+	public Integer getIsTree() {
+		return isTree;
+	}
+	
+	/**
+	 * 设置 是否树形结构
+	 * @param isTree 是否树形结构
+	 * @return 当前对象
+	*/
+	public Dict setIsTree(Integer isTree) {
+		this.isTree=isTree;
+		return this;
+	}
+	
+	/**
+	 * 添加 是否树形结构
+	 * @param isTree 是否树形结构
 	 * @return 当前对象
 	*/
 	
