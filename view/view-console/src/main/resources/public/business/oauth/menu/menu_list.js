@@ -115,12 +115,17 @@ function ListPage() {
     }
   
     function beforeNodeRemove(treeId, treeNode) {
+    	//debugger;
 		layer.confirm('确定要删除['+treeNode.name+']菜单吗?', function(index,a,c,d) {
 			layer.close(index);
 			admin.request(moduleURL+"/delete",{id:treeNode.id},function(r) {
 				if(r.success) {
 					admin.toast().success("菜单已删除",{time:1000,position:"right-bottom"});
 					menuTree.removeNode(treeNode,false);
+					if(treeNode.parentTId) {
+						menuTree.selectNode({tId:treeNode.parentTId},false,true)
+						onNodeClick(null,treeId,menuTree.getNodeByTId(treeNode.parentTId));
+					}
 				} else {
 					admin.toast().error("删除失败 : "+r.message,{time:1000,position:"right-bottom",width:"300px"});
 				}

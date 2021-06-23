@@ -23,8 +23,14 @@
 <body>
 
 <form id="data-form" lay-filter="data-form" class="layui-form model-form">
-    <input name="id" id="id"  type="hidden"/>
-    
+
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('编号')}">编号</label>
+        <div class="layui-input-block">
+            <input id="id" name="id" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('编号') }" type="text" class="layui-input"  readonly  />
+        </div>
+    </div>
+
     <div class="layui-form-item">
         <label class="layui-form-label" th:text="${lang.translate('名称')}">名称</label>
         <div class="layui-input-block">

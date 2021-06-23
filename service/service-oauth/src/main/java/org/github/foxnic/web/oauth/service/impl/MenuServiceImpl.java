@@ -1,6 +1,7 @@
 package org.github.foxnic.web.oauth.service.impl;
 
 import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.Rcd;
 import com.github.foxnic.dao.data.RcdSet;
@@ -60,17 +61,20 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 	
 	/**
 	 * 插入实体
-	 * @param role 实体数据
+	 * @param menu 实体数据
 	 * @return 插入是否成功
 	 * */
 	@Override
 	public boolean insert(Menu menu) {
+		if(StringUtil.isBlank(menu.getAuthority())) {
+			menu.setAuthority(IDGenerator.getSUID(true));
+		}
 		return super.insert(menu);
 	}
 	
 	/**
 	 * 批量插入实体，事务内
-	 * @param roleList 实体数据清单
+	 * @param menuList 实体数据清单
 	 * @return 插入是否成功
 	 * */
 	@Override
@@ -99,7 +103,15 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 	 * @return 删除是否成功
 	 */
 	public boolean deleteByIdLogical(String id) {
-		Menu menu = new Menu();
+
+		Menu menu=this.getById(id);
+		if(menu==null) {
+			return true;
+		}
+
+		int z=dao().execute("delete from "+table()+" where "+SYS_MENU.AUTHORITY.name()+" = ? and deleted=1",menu.getAuthority());
+
+		menu = new Menu();
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null 。");
 		menu.setId(id);
 		menu.setDeleted(dao.getDBTreaty().getTrueValue());
@@ -110,7 +122,7 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 	
 	/**
 	 * 更新实体
-	 * @param role 数据对象
+	 * @param menu 数据对象
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
@@ -121,7 +133,7 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 	
 	/**
 	 * 更新实体集，事务内
-	 * @param roleList 数据对象列表
+	 * @param menuList 数据对象列表
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
@@ -200,10 +212,10 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 	/**
 	 * 检查 角色 是否已经存在
 	 *
-	 * @param roleVO 数据对象
+	 * @param menu 数据对象
 	 * @return 判断结果
 	 */
-	public Result<Menu> checkExists(Menu role) {
+	public Result<Menu> checkExists(Menu menu) {
 		//TDOD 此处添加判断段的代码
 		//boolean exists=this.checkExists(role, SYS_ROLE.NAME);
 		//return exists;

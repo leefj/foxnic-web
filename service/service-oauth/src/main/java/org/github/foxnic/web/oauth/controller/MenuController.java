@@ -1,9 +1,18 @@
 package org.github.foxnic.web.oauth.controller;
 
  
-import java.util.List;
-
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.api.validate.annotations.NotNull;
+import com.github.foxnic.commons.lang.StringUtil;
+import com.github.foxnic.dao.data.PagedList;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
+import com.github.xiaoymin.knife4j.annotations.ApiSort;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.github.foxnic.web.constants.enums.MenuType;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.MenuVO;
@@ -15,18 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.alibaba.csp.sentinel.annotation.SentinelResource;
-import com.github.foxnic.commons.lang.StringUtil;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.api.validate.annotations.NotNull;
-import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import com.github.xiaoymin.knife4j.annotations.ApiSort;
-
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import java.util.List;
 
 /**
  * <p>
@@ -93,11 +91,13 @@ public class MenuController {
 	@PostMapping(MenuServiceProxy.DELETE)
 	public Result<Menu> deleteById(String id) {
 		Result<Menu> result=new Result<>();
+
 		List children=menuService.queryChildNodes(id);
 		if(!children.isEmpty()) {
 			result.success(false).message("请先删除下级节点");
 			return result;
 		}
+
 		boolean suc=menuService.deleteByIdLogical(id);
 		result.success(suc);
 		return result;
