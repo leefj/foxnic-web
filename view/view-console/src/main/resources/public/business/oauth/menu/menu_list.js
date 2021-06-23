@@ -60,6 +60,7 @@ function ListPage() {
     
     var editingNode=null;
     function onNodeClick(event, treeId, treeNode) {
+    	if(treeNode==null) return;
     	editingNode=treeNode;
     	$("#form-view")[0].contentWindow.loadFormData(treeNode.id);
     }
