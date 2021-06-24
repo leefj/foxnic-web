@@ -7,8 +7,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-25 10:06:03
- * @sign E12FAE291AE7F958C17466DD808B16D4
+ * @since 2021-06-24 13:31:49
+ * @sign DFD858318A9E2C9E73B9C6772ACB2EAE
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -38,6 +38,11 @@ public class FileMeta {
 	 * 文件类型 , 存放文件扩展名
 	*/
 	public static final String FILE_TYPE="fileType";
+	
+	/**
+	 * 可直接下载的地址
+	*/
+	public static final String DOWNLOAD_URL="downloadUrl";
 	
 	/**
 	 * 创建人ID
@@ -82,12 +87,15 @@ public class FileMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , FILE_NAME , LOCATION , SIZE , FILE_TYPE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , FILE_NAME , LOCATION , SIZE , FILE_TYPE , DOWNLOAD_URL , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
 	
 	/**
 	 * 代理类
 	*/
 	public static class $$proxy$$ extends org.github.foxnic.web.domain.storage.File {
+
+		private static final long serialVersionUID = 1L;
+
 		
 		/**
 		 * 设置 ID
@@ -145,11 +153,22 @@ public class FileMeta {
 		}
 		
 		/**
+		 * 设置 可直接下载的地址
+		 * @param downloadUrl 可直接下载的地址
+		 * @return 当前对象
+		*/
+		public File setDownloadUrl(String downloadUrl) {
+			super.change(DOWNLOAD_URL,super.getDownloadUrl(),downloadUrl);
+			super.setDownloadUrl(downloadUrl);
+			return this;
+		}
+		
+		/**
 		 * 设置 创建人ID
 		 * @param createBy 创建人ID
 		 * @return 当前对象
 		*/
-		public File setCreateBy(Long createBy) {
+		public File setCreateBy(String createBy) {
 			super.change(CREATE_BY,super.getCreateBy(),createBy);
 			super.setCreateBy(createBy);
 			return this;
@@ -171,7 +190,7 @@ public class FileMeta {
 		 * @param updateBy 修改人ID
 		 * @return 当前对象
 		*/
-		public File setUpdateBy(Long updateBy) {
+		public File setUpdateBy(String updateBy) {
 			super.change(UPDATE_BY,super.getUpdateBy(),updateBy);
 			super.setUpdateBy(updateBy);
 			return this;
@@ -204,7 +223,7 @@ public class FileMeta {
 		 * @param deleteBy 删除人ID
 		 * @return 当前对象
 		*/
-		public File setDeleteBy(Long deleteBy) {
+		public File setDeleteBy(String deleteBy) {
 			super.change(DELETE_BY,super.getDeleteBy(),deleteBy);
 			super.setDeleteBy(deleteBy);
 			return this;
@@ -231,5 +250,5 @@ public class FileMeta {
 			super.setVersion(version);
 			return this;
 		}
-}
+	}
 }

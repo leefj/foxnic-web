@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2021-06-22 09:01:41
+ * @since 2021-06-24 11:42:51
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -277,6 +277,11 @@ public class FoxnicWeb {
 		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","字典ID","字典ID",true,false,false);
 		
 		/**
+		 * 是否树形结构
+		*/
+		public static final DBField IS_TREE = new DBField(DBDataType.INTEGER , "is_tree","isTree","是否树形结构","是否树形结构",false,false,false);
+		
+		/**
 		 * 字典名称
 		*/
 		public static final DBField NAME = new DBField(DBDataType.STRING , "name","name","字典名称","字典名称",false,false,false);
@@ -332,7 +337,7 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
 		public SYS_DICT() {
-			this.init($NAME,"数据字典" , ID , NAME , CODE , MODULE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"数据字典" , ID , IS_TREE , NAME , CODE , MODULE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final SYS_DICT $TABLE=new SYS_DICT();
 	}
@@ -361,6 +366,11 @@ public class FoxnicWeb {
 		 * 字典代码
 		*/
 		public static final DBField DICT_CODE = new DBField(DBDataType.STRING , "dict_code","dictCode","字典代码","字典代码",false,false,false);
+		
+		/**
+		 * 上级条目ID
+		*/
+		public static final DBField PARENT_ID = new DBField(DBDataType.STRING , "parent_id","parentId","上级条目ID","上级条目ID",false,false,true);
 		
 		/**
 		 * 代码
@@ -418,7 +428,7 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
 		public SYS_DICT_ITEM() {
-			this.init($NAME,"数据字典条目" , ID , DICT_ID , DICT_CODE , CODE , LABEL , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"数据字典条目" , ID , DICT_ID , DICT_CODE , PARENT_ID , CODE , LABEL , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final SYS_DICT_ITEM $TABLE=new SYS_DICT_ITEM();
 	}
@@ -704,7 +714,7 @@ public class FoxnicWeb {
 		/**
 		 * 权限，权限标识
 		*/
-		public static final DBField AUTHORITY = new DBField(DBDataType.STRING , "authority","authority","权限","权限标识",false,false,true);
+		public static final DBField AUTHORITY = new DBField(DBDataType.STRING , "authority","authority","权限","权限标识",false,false,false);
 		
 		/**
 		 * 是否隐藏
@@ -1402,7 +1412,7 @@ public class FoxnicWeb {
 		/**
 		 * 手机号码
 		*/
-		public static final DBField PHONE = new DBField(DBDataType.STRING , "phone","phone","手机号码","手机号码",false,false,true);
+		public static final DBField PHONE = new DBField(DBDataType.STRING , "phone","phone","手机号码","手机号码",false,false,false);
 		
 		/**
 		 * 头像ID

@@ -15,8 +15,8 @@ import org.github.foxnic.web.constants.enums.MenuType;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.generator.config.FoxnicWebConfigs;
 import org.github.foxnic.web.proxy.oauth.UserServiceProxy;
-import org.github.foxnic.web.proxy.system.InvokeLogServiceProxy;
-import org.github.foxnic.web.system.page.InvokeLogPageController;
+import org.github.foxnic.web.proxy.storage.FileServiceProxy;
+import org.github.foxnic.web.storage.page.FilePageController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.File;
@@ -35,7 +35,9 @@ public class MenuGenerator {
 		//
 //		generator.generate(SYS_USER.$TABLE,UserServiceProxy.class,UserPageController.class,"oauth");
 
-		generator.generate(FoxnicWeb.SYS_INVOKE_LOG.$TABLE, InvokeLogServiceProxy.class, InvokeLogPageController.class,"system");
+		//generator.generate(FoxnicWeb.SYS_INVOKE_LOG.$TABLE, InvokeLogServiceProxy.class, InvokeLogPageController.class,"system");
+
+		generator.generate(FoxnicWeb.SYS_FILE.$TABLE, FileServiceProxy.class, FilePageController.class,"system");
 
 //		generator.removeByBatchId("454325348381753344");
 		

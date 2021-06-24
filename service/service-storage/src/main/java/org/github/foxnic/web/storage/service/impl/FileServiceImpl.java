@@ -1,32 +1,28 @@
 package org.github.foxnic.web.storage.service.impl;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.lang.reflect.Field;
-import java.util.Date;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.io.IOUtils;
-import org.github.foxnic.web.domain.storage.File;
-import org.github.foxnic.web.framework.dao.DBConfigs;
-import org.github.foxnic.web.storage.service.IFileService;
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
+import com.alibaba.fastjson.JSON;
+import com.github.foxnic.api.error.CommonError;
+import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.busi.id.IDGenerator;
-import com.github.foxnic.commons.environment.OSType;
 import com.github.foxnic.commons.io.FileUtil;
-import com.github.foxnic.commons.lang.DateUtil;
 import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.dao.spec.DAO;
-import com.github.foxnic.springboot.spring.SpringUtil;
-import com.github.foxnic.api.web.MimeUtil;
+import com.github.foxnic.springboot.web.DownloadUtil;
+import org.github.foxnic.web.domain.storage.File;
+import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.github.foxnic.web.storage.service.IFileService;
+import org.github.foxnic.web.storage.support.StorageSupport;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.lang.reflect.Field;
 
 /**
  * <p>
@@ -41,17 +37,21 @@ public class FileServiceImpl extends SuperService<File> implements IFileService 
 	
 	@Resource(name=DBConfigs.PRIMARY_DAO)
 	private DAO dao=null;
-	
- 
-	private String uploadDir;
-	
-	@PostConstruct
-	private void init() {
-		uploadDir=SpringUtil.getEnvProperty("upload."+OSType.getOSType().name().toLowerCase());
-		Logger.info("uploadDir = "+uploadDir);
+	@Value("${storage.mode}")
+	private String storageMode;
+
+ 	private StorageSupport storageSupport;
+
+
+	private StorageSupport getStorageSupport() {
+		if(storageSupport==null) {
+			this.storageSupport = StorageSupport.getStorageSupport(this.storageMode);
+		}
+		return  this.storageSupport;
 	}
-	
-	
+
+
+
 	/**
 	 * 获得 DAO 对象
 	 * */
@@ -106,90 +106,49 @@ public class FileServiceImpl extends SuperService<File> implements IFileService 
 	}
 
 	@Override
-	public String uploadFile(MultipartFile file) {
-		byte[] bytes=new byte[0];
-        try {
-            bytes = file.getBytes();
-        } catch (Exception e) {
-            Logger.error("文件字节错误",e);
-        }
-        File fileinfo=new File();
-        //获取源文件名称
-        String originalFileName = file.getOriginalFilename();
-        //获取文件后缀
-        String extension = FileUtil.getExtName(originalFileName);
-       
-        fileinfo.setFileName(originalFileName);
-        fileinfo.setFileType(extension);
-        
-        String url=null;
-		try {
-			java.io.File f=FileUtil.resolveByPath(uploadDir, DateUtil.format(new Date(), "yyyyMMdd"),IDGenerator.getSnowflakeId()+"."+extension);
-			url=f.getAbsolutePath().substring(uploadDir.length());
-			fileinfo.setLocation(url);
-			if(!f.getParentFile().exists()) {
-				f.getParentFile().mkdirs();
-			}
-			FileOutputStream out=new FileOutputStream(f);
-			fileinfo.setSize(new Long(bytes.length));
-			IOUtils.write(bytes, out);
-			
-			this.insert(fileinfo);
-			
-		} catch (Exception e) {
-			Logger.error("文件写入错误",e);
-		}
-        return fileinfo.getId();
+	public File uploadFile(MultipartFile multipartFile) {
+		File fileinfo=new File();
+		//获取源文件名称
+		String originalFileName = multipartFile.getOriginalFilename();
+		//获取文件后缀
+		String extension = FileUtil.getExtName(originalFileName);
+
+		fileinfo.setFileName(originalFileName);
+		fileinfo.setFileType(extension);
+		fileinfo=this.getStorageSupport().write(fileinfo,multipartFile);
+		this.insert(fileinfo);
+		return  fileinfo;
 	}
-	
-	/**
-     *  文件下载
-     * @param fileUrl 当前对象文件路径
-     * @param response   HttpServletResponse 内置对象
-     * @throws IOException
-     */
-    public void downloadFile(String id,HttpServletResponse response)  {
-        byte[] bytes=null;
-        File file=this.getById(id);
-        if(file==null) {
-        	Logger.error("文件不存在");
-			return;
-        }
+
+	@Override
+	public void downloadFile(String id,Boolean inline,HttpServletResponse response) {
+		File fileInfo=this.getById(id);
+		Result result=null;
+
+		if(fileInfo==null) {
+			Logger.error("文件不存在");
+			result= ErrorDesc.failure(CommonError.DATA_NOT_EXISTS).message("文件不存在");
+		}
+		byte[] bytes=null;
 		try {
-			if(!OSType.isWindows()){
-				file.setLocation(file.getLocation().replace('\\','/'));
-			}
-			java.io.File f=FileUtil.resolveByPath(uploadDir, file.getLocation());
-			Logger.info(f.getAbsolutePath());
-			if(!f.exists()) {
-				Logger.error("文件不存在");
-				return;
-			}
-			FileInputStream in=new FileInputStream(f);
-			bytes =IOUtils.readFully(in, in.available());
-		} catch (IOException e) {
-			Logger.error("文件下载异常",e);
+			bytes=this.getStorageSupport().read(fileInfo);
+			DownloadUtil.writeToOutput(response,bytes,fileInfo.getFileName(),null,inline);
+			return;
+		}catch (Exception e) {
+			Logger.error(e.getMessage(),e);
+			result= ErrorDesc.failure(CommonError.FILE_INVALID).message(e.getMessage());
 		}
-		
-        try {
-        	OutputStream toClient = response.getOutputStream();
- 
-    		String contentType=MimeUtil.getFileMime(file.getFileName());
-    		 
-    		response.setContentType(contentType);
-    		response.setContentLength(bytes.length);
-    		response.setHeader("Content-Disposition",
-    				"attachment; filename=" + new String(file.getFileName().getBytes("UTF-8"), "ISO8859-1"));
-    		toClient.write(bytes);
-    		toClient.flush();
-    		toClient.close();
- 
-		} catch (Exception e) {
-			Logger.error("文件下载异常", e);
+
+		if(result!=null) {
+			try {
+				response.getWriter().write(JSON.toJSONString(result));
+			} catch (IOException e) {
+				Logger.error("下载失败，输出异常",e);
+			}
 		}
-    }
+
+	}
 
 
-	 
 
 }

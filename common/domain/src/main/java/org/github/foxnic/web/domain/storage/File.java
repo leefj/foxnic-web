@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-25 10:06:03
- * @sign E12FAE291AE7F958C17466DD808B16D4
+ * @since 2021-06-24 13:31:49
+ * @sign DFD858318A9E2C9E73B9C6772ACB2EAE
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -60,10 +60,16 @@ public class File extends Entity {
 	private String fileType;
 	
 	/**
+	 * 可直接下载的地址：可直接下载的地址
+	*/
+	@ApiModelProperty(required = false,value="可直接下载的地址" , notes = "可直接下载的地址")
+	private String downloadUrl;
+	
+	/**
 	 * 创建人ID：创建人ID
 	*/
 	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID")
-	private Long createBy;
+	private String createBy;
 	
 	/**
 	 * 创建时间：创建时间
@@ -75,7 +81,7 @@ public class File extends Entity {
 	 * 修改人ID：修改人ID
 	*/
 	@ApiModelProperty(required = false,value="修改人ID" , notes = "修改人ID")
-	private Long updateBy;
+	private String updateBy;
 	
 	/**
 	 * 修改时间：修改时间
@@ -93,7 +99,7 @@ public class File extends Entity {
 	 * 删除人ID：删除人ID
 	*/
 	@ApiModelProperty(required = false,value="删除人ID" , notes = "删除人ID")
-	private Long deleteBy;
+	private String deleteBy;
 	
 	/**
 	 * 删除时间：删除时间
@@ -233,11 +239,36 @@ public class File extends Entity {
 	*/
 	
 	/**
+	 * 获得 可直接下载的地址<br>
+	 * 属性说明 : 可直接下载的地址
+	 * @return 可直接下载的地址
+	*/
+	public String getDownloadUrl() {
+		return downloadUrl;
+	}
+	
+	/**
+	 * 设置 可直接下载的地址
+	 * @param downloadUrl 可直接下载的地址
+	 * @return 当前对象
+	*/
+	public File setDownloadUrl(String downloadUrl) {
+		this.downloadUrl=downloadUrl;
+		return this;
+	}
+	
+	/**
+	 * 添加 可直接下载的地址
+	 * @param downloadUrl 可直接下载的地址
+	 * @return 当前对象
+	*/
+	
+	/**
 	 * 获得 创建人ID<br>
 	 * 属性说明 : 创建人ID
 	 * @return 创建人ID
 	*/
-	public Long getCreateBy() {
+	public String getCreateBy() {
 		return createBy;
 	}
 	
@@ -246,7 +277,7 @@ public class File extends Entity {
 	 * @param createBy 创建人ID
 	 * @return 当前对象
 	*/
-	public File setCreateBy(Long createBy) {
+	public File setCreateBy(String createBy) {
 		this.createBy=createBy;
 		return this;
 	}
@@ -287,7 +318,7 @@ public class File extends Entity {
 	 * 属性说明 : 修改人ID
 	 * @return 修改人ID
 	*/
-	public Long getUpdateBy() {
+	public String getUpdateBy() {
 		return updateBy;
 	}
 	
@@ -296,7 +327,7 @@ public class File extends Entity {
 	 * @param updateBy 修改人ID
 	 * @return 当前对象
 	*/
-	public File setUpdateBy(Long updateBy) {
+	public File setUpdateBy(String updateBy) {
 		this.updateBy=updateBy;
 		return this;
 	}
@@ -362,7 +393,7 @@ public class File extends Entity {
 	 * 属性说明 : 删除人ID
 	 * @return 删除人ID
 	*/
-	public Long getDeleteBy() {
+	public String getDeleteBy() {
 		return deleteBy;
 	}
 	
@@ -371,7 +402,7 @@ public class File extends Entity {
 	 * @param deleteBy 删除人ID
 	 * @return 当前对象
 	*/
-	public File setDeleteBy(Long deleteBy) {
+	public File setDeleteBy(String deleteBy) {
 		this.deleteBy=deleteBy;
 		return this;
 	}

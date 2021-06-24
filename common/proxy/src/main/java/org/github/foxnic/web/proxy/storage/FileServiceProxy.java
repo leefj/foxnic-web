@@ -1,19 +1,16 @@
 package org.github.foxnic.web.proxy.storage;
 
-import java.util.List;
-import org.springframework.web.bind.annotation.RequestMapping;
-import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.api.transter.Result;
-
-import org.github.foxnic.web.proxy.FeignConfiguration;
-
-import org.springframework.cloud.openfeign.FeignClient;
-
-
+import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.domain.storage.File;
 import org.github.foxnic.web.domain.storage.FileVO;
-import org.github.foxnic.web.proxy.api.APIProxy;
+import org.github.foxnic.web.proxy.FeignConfiguration;
 import org.github.foxnic.web.proxy.MicroServiceNames;
+import org.github.foxnic.web.proxy.api.APIProxy;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 /**
  * <p>
@@ -98,6 +95,8 @@ public interface FileServiceProxy {
 	public static final String UPLOAD = API_PREFIX + "upload";
 
 	public static final String DOWNLOAD = API_PREFIX + "download";
+
+	public static final String IMAGE = API_PREFIX + "image";
 	
 	/**
 	 * 添加系统文件

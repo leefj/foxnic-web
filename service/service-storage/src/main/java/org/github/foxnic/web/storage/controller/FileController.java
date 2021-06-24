@@ -1,12 +1,20 @@
 package org.github.foxnic.web.storage.controller;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.github.foxnic.api.error.CommonError;
+import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.api.validate.annotations.NotNull;
+import com.github.foxnic.commons.lang.DataParser;
+import com.github.foxnic.dao.data.PagedList;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
+import com.github.xiaoymin.knife4j.annotations.ApiSort;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.github.foxnic.web.domain.storage.File;
 import org.github.foxnic.web.domain.storage.FileVO;
 import org.github.foxnic.web.domain.storage.meta.FileVOMeta;
@@ -20,22 +28,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.alibaba.csp.sentinel.annotation.SentinelResource;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.api.validate.annotations.NotNull;
-import com.github.foxnic.api.error.CommonError;
-import com.github.foxnic.api.error.ErrorDesc;
-import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import com.github.xiaoymin.knife4j.annotations.ApiSort;
-
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -52,13 +49,11 @@ public class FileController extends SuperController {
 	private IFileService fileService;
 
 	
-	
 	@PostMapping(FileServiceProxy.UPLOAD)
 	public void upload(MultipartHttpServletRequest request,HttpServletResponse response) throws Exception {
 		response.setContentType("text/html;charset=UTF-8"); 
 		response.setCharacterEncoding("UTF-8");
 		Map<String, MultipartFile> map = request.getFileMap();
-//		response.setCharacterEncoding("GBK");
 		if(map==null || map.size()==0) {
 			response.getWriter().write(JSON.toJSONString(ErrorDesc.failure(CommonError.FILE_INVALID)));
 			return;
@@ -80,7 +75,8 @@ public class FileController extends SuperController {
 		JSONObject ret=new JSONObject();
 		for (String f : map.keySet()) {
 			MultipartFile mf = map.get(f);
-			String id = fileService.uploadFile(mf);
+			File fileInfo=fileService.uploadFile(mf);
+			String id = fileInfo.getId();
 			ret.put("fileId",id);
 			ret.put("fileName", mf.getOriginalFilename());
 			ret.put("field",mf.getName());
@@ -90,41 +86,23 @@ public class FileController extends SuperController {
 	}
 	
 	@RequestMapping(FileServiceProxy.DOWNLOAD)
-	public void download(HttpServletRequest request,HttpServletResponse response,String id) throws Exception {
- 
-		fileService.downloadFile(id, response);
- 
+	public void download(HttpServletRequest request,HttpServletResponse response,String id,String inline) throws Exception {
+		Boolean il= DataParser.parseBoolean(inline);
+		fileService.downloadFile(id,il,response);
     }
 
-	/**
-	 * 添加系统文件
-	*/
-	@ApiOperation(value = "添加系统文件")
-	@ApiImplicitParams({
-		@ApiImplicitParam(name = FileVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "10"),
-		@ApiImplicitParam(name = FileVOMeta.FILE_NAME , value = "文件名" , required = false , dataTypeClass=String.class , example = "0273663d4b44e40d086420e6b59dd768.jpeg"),
-		@ApiImplicitParam(name = FileVOMeta.LOCATION , value = "存储位置" , required = false , dataTypeClass=String.class , example = "/20210319/425396608000065536.jpeg"),
-		@ApiImplicitParam(name = FileVOMeta.SIZE , value = "文件大小" , required = false , dataTypeClass=Long.class , example = "44781"),
-		@ApiImplicitParam(name = FileVOMeta.FILE_TYPE , value = "文件类型" , required = false , dataTypeClass=String.class , example = "jpeg"),
-	})
-	@ApiOperationSupport(order=1)
-	@NotNull(name = FileVOMeta.ID)
-	@SentinelResource(value = FileServiceProxy.INSERT)
-	@PostMapping(FileServiceProxy.INSERT)
-	public Result<File> insert(FileVO fileVO) {
-		Result<File> result=new Result<>();
-		boolean suc=fileService.insert(fileVO);
-		result.success(suc);
-		return result;
+	@RequestMapping(FileServiceProxy.IMAGE)
+	public void image(HttpServletRequest request,HttpServletResponse response,String id) throws Exception {
+		fileService.downloadFile(id,true,response);
 	}
 
-	
+
 	/**
-	 * 删除系统文件
+	 * 删除附件
 	*/
-	@ApiOperation(value = "删除系统文件")
+	@ApiOperation(value = "删除附件")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = FileVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "10")
+		@ApiImplicitParam(name = FileVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "10"),
 	})
 	@ApiOperationSupport(order=2)
 	@NotNull(name = FileVOMeta.ID)
@@ -139,10 +117,10 @@ public class FileController extends SuperController {
 	
 	
 	/**
-	 * 批量删除系统文件 <br>
+	 * 批量删除附件 <br>
 	 * 联合主键时，请自行调整实现
 	*/
-	@ApiOperation(value = "批量删除系统文件")
+	@ApiOperation(value = "批量删除附件")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = FileVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 	})
@@ -156,57 +134,12 @@ public class FileController extends SuperController {
 		result.success(suc);
 		return result;
 	}
-	
-	/**
-	 * 更新系统文件
-	*/
-	@ApiOperation(value = "更新系统文件")
-	@ApiImplicitParams({
-		@ApiImplicitParam(name = FileVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "10"),
-		@ApiImplicitParam(name = FileVOMeta.FILE_NAME , value = "文件名" , required = false , dataTypeClass=String.class , example = "0273663d4b44e40d086420e6b59dd768.jpeg"),
-		@ApiImplicitParam(name = FileVOMeta.LOCATION , value = "存储位置" , required = false , dataTypeClass=String.class , example = "/20210319/425396608000065536.jpeg"),
-		@ApiImplicitParam(name = FileVOMeta.SIZE , value = "文件大小" , required = false , dataTypeClass=Long.class , example = "44781"),
-		@ApiImplicitParam(name = FileVOMeta.FILE_TYPE , value = "文件类型" , required = false , dataTypeClass=String.class , example = "jpeg"),
-	})
-	@ApiOperationSupport( order=4 , ignoreParameters = { FileVOMeta.PAGE_INDEX , FileVOMeta.PAGE_SIZE , FileVOMeta.SEARCH_FIELD , FileVOMeta.SEARCH_VALUE , FileVOMeta.IDS } ) 
-	@NotNull(name = FileVOMeta.ID)
-	@SentinelResource(value = FileServiceProxy.UPDATE)
-	@PostMapping(FileServiceProxy.UPDATE)
-	public Result<File> update(FileVO fileVO) {
-		Result<File> result=new Result<>();
-		boolean suc=fileService.update(fileVO,SaveMode.NOT_NULL_FIELDS);
-		result.success(suc);
-		return result;
-	}
-	
-	
-	/**
-	 * 保存系统文件
-	*/
-	@ApiOperation(value = "保存系统文件")
-	@ApiImplicitParams({
-		@ApiImplicitParam(name = FileVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "10"),
-		@ApiImplicitParam(name = FileVOMeta.FILE_NAME , value = "文件名" , required = false , dataTypeClass=String.class , example = "0273663d4b44e40d086420e6b59dd768.jpeg"),
-		@ApiImplicitParam(name = FileVOMeta.LOCATION , value = "存储位置" , required = false , dataTypeClass=String.class , example = "/20210319/425396608000065536.jpeg"),
-		@ApiImplicitParam(name = FileVOMeta.SIZE , value = "文件大小" , required = false , dataTypeClass=Long.class , example = "44781"),
-		@ApiImplicitParam(name = FileVOMeta.FILE_TYPE , value = "文件类型" , required = false , dataTypeClass=String.class , example = "jpeg"),
-	})
-	@ApiOperationSupport(order=5 ,  ignoreParameters = { FileVOMeta.PAGE_INDEX , FileVOMeta.PAGE_SIZE , FileVOMeta.SEARCH_FIELD , FileVOMeta.SEARCH_VALUE , FileVOMeta.IDS } )
-	@NotNull(name = FileVOMeta.ID)
-	@SentinelResource(value = FileServiceProxy.SAVE)
-	@PostMapping(FileServiceProxy.SAVE)
-	public Result<File> save(FileVO fileVO) {
-		Result<File> result=new Result<>();
-		boolean suc=fileService.save(fileVO,SaveMode.NOT_NULL_FIELDS);
-		result.success(suc);
-		return result;
-	}
 
 	
 	/**
-	 * 获取系统文件
+	 * 获取附件信息
 	*/
-	@ApiOperation(value = "获取系统文件")
+	@ApiOperation(value = "获取附件信息")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = FileVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "1"),
 	})
@@ -223,15 +156,16 @@ public class FileController extends SuperController {
 
 	
 	/**
-	 * 查询系统文件
+	 * 查询附件信息
 	*/
-	@ApiOperation(value = "查询系统文件")
+	@ApiOperation(value = "查询附件信息")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = FileVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "10"),
 		@ApiImplicitParam(name = FileVOMeta.FILE_NAME , value = "文件名" , required = false , dataTypeClass=String.class , example = "0273663d4b44e40d086420e6b59dd768.jpeg"),
 		@ApiImplicitParam(name = FileVOMeta.LOCATION , value = "存储位置" , required = false , dataTypeClass=String.class , example = "/20210319/425396608000065536.jpeg"),
 		@ApiImplicitParam(name = FileVOMeta.SIZE , value = "文件大小" , required = false , dataTypeClass=Long.class , example = "44781"),
 		@ApiImplicitParam(name = FileVOMeta.FILE_TYPE , value = "文件类型" , required = false , dataTypeClass=String.class , example = "jpeg"),
+		@ApiImplicitParam(name = FileVOMeta.DOWNLOAD_URL , value = "可直接下载的地址" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { FileVOMeta.PAGE_INDEX , FileVOMeta.PAGE_SIZE } )
 	@SentinelResource(value = FileServiceProxy.QUERY_LIST)
@@ -245,15 +179,16 @@ public class FileController extends SuperController {
 
 	
 	/**
-	 * 分页查询系统文件
+	 * 分页查询附件
 	*/
-	@ApiOperation(value = "分页查询系统文件")
+	@ApiOperation(value = "分页查询附件信息")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = FileVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "10"),
 		@ApiImplicitParam(name = FileVOMeta.FILE_NAME , value = "文件名" , required = false , dataTypeClass=String.class , example = "0273663d4b44e40d086420e6b59dd768.jpeg"),
 		@ApiImplicitParam(name = FileVOMeta.LOCATION , value = "存储位置" , required = false , dataTypeClass=String.class , example = "/20210319/425396608000065536.jpeg"),
 		@ApiImplicitParam(name = FileVOMeta.SIZE , value = "文件大小" , required = false , dataTypeClass=Long.class , example = "44781"),
 		@ApiImplicitParam(name = FileVOMeta.FILE_TYPE , value = "文件类型" , required = false , dataTypeClass=String.class , example = "jpeg"),
+		@ApiImplicitParam(name = FileVOMeta.DOWNLOAD_URL , value = "可直接下载的地址" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport(order=8)
 	@SentinelResource(value = FileServiceProxy.QUERY_PAGED_LIST)
