@@ -19,7 +19,7 @@ String.prototype.startWith=function(str) {
 }
 
  
-layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"xmSelect"], function (exports) {
+layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"xmSelect","element"], function (exports) {
 
     var settings = layui.settings;
     var layer = layui.layer;
@@ -29,6 +29,7 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"xmSe
     var form = layui.form;
     var util=layui.util;
 	var xmSelect=layui.xmSelect;
+	var element=layui.element;
   	var dict={};
  
   	var language=settings.getLang();
@@ -312,15 +313,26 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"xmSe
     		if(!t) return "";
     		return util.toDateString(t,f);
     	},
-    	
+
+		simpleUploads:{},
     	/**
     	 * 渲染单文件上传界面
     	 * */
     	renderSimpleUpload:function(inputEl,buttonEl,imageEl,callback) {
- 
+			if(this.simpleUploads[inputEl]) return;
+
     		 var uploadInst = upload.render({
 			    elem: buttonEl
-			    ,url:  '/service-tailoring/sys-file/upload' //改成您自己的上传接口
+				,progress: function(n, elem, res, index){
+					var percent = n + '%' //获取进度百分比
+					element.progress('demo', percent); //可配合 layui 进度条元素使用
+
+					console.log(elem); //得到当前触发的元素 DOM 对象。可通过该元素定义的属性值匹配到对应的进度条。
+					console.log(res); //得到 progress 响应信息
+					console.log(index); //得到当前上传文件的索引，多文件上传时的进度条控制，如：
+					element.progress('demo-'+ index, n + '%'); //进度条
+				}
+			    ,url:  '/service-storage/sys-file/upload' //改成您自己的上传接口
 			    ,before: function(obj) {
 			      //预读本地文件示例，不支持ie8
 			      obj.preview(function(index, file, result){
@@ -347,7 +359,8 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"xmSe
 			     //   uploadInst.upload();
 			     // });
 			    }
-			  });
+    		 });
+    		 this.simpleUploads[inputEl]=uploadInst;
     	
     	},
     	/**
@@ -529,29 +542,37 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"xmSe
     
     //图片预览支持
     window.previewImage = function(obj) {
+    		if(window!=top) {
+    			top.previewImage(obj);
+    			return;
+			}
        		var src=obj.src;
        		//debugger
        		if(src.endWith("?id=undefined") || src.endWith("?id=null") || src.endWith("?id=")) return;
        		if(src.indexOf("no-image")!=-1) return;
        		var img = new Image();  
 	        img.src = obj.src;
-	        var height = img.height + 50; //获取图片高度
-	        var width = img.width; //获取图片宽度
-	        var imgHtml = "<img src='" + obj.src + "' />";  
-	        //弹出层
-	        layer.open({  
-	            type: 1,  
-	            shade: 0.8,
-	            offset: 'auto',
-	            area: [width + 'px',height+'px'],
-	            shadeClose:true,//点击外围关闭弹窗
-	            scrollbar: false,//不现实滚动条
-	            title: "图片预览", //不显示标题  
-	            content: imgHtml, //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响  
-	            cancel: function () {  
-	                //layer.msg('捕获就是从页面已经存在的元素上，包裹layer的结构', { time: 5000, icon: 6 });  
-	            }  
-	        }); 
+			img.onload = function() {
+				debugger
+				var height = img.height + 50+2; //获取图片高度
+				var width = img.width; //获取图片宽度
+				var imgHtml = "<img src='" + obj.src + "' />";
+				//弹出层
+				layer.open({
+					type: 1,
+					shade: 0.8,
+					offset: 'auto',
+					area: [width + 'px',height+'px'],
+					shadeClose:true,//点击外围关闭弹窗
+					scrollbar: false,//不现实滚动条
+					title: "图片预览", //不显示标题
+					content: imgHtml, //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响
+					cancel: function () {
+						//layer.msg('捕获就是从页面已经存在的元素上，包裹layer的结构', { time: 5000, icon: 6 });
+					}
+				});
+			}
+
        }
     
  

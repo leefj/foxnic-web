@@ -1,7 +1,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-22 16:47:50
+ * @since 2021-06-24 17:30:00
  */
 
 
@@ -43,17 +43,18 @@ function ListPage() {
 			cols: [[
 				{  fixed: 'left',type: 'numbers' },
 			 	{  fixed: 'left',type:'checkbox' },
-                { field: 'id', sort: true, title: fox.translate('ID'), hide:true } ,
-                { field: 'name', sort: true, title: fox.translate('账户') } ,
-                { field: 'passwd', sort: true, title: fox.translate('密码'), hide:true } ,
-                { field: 'phone', sort: true, title: fox.translate('手机号码') } ,
-                { field: 'portraitId', sort: true, title: fox.translate('头像ID'), hide:true } ,
-                { field: 'personId', sort: true, title: fox.translate('人员ID'), hide:true } ,
-                { field: 'language', sort: true, title: fox.translate('语言') } ,
-                { field: 'employeeId', sort: true, title: fox.translate('员工ID'), hide:true } ,
-                { field: 'valid', sort: true, title: fox.translate('是否有效'), templet: '#cell-tpl-valid' } ,
-                { field: 'lastLoginTime', sort: true, title: fox.translate('最后登录时间') , templet: function (d) { return fox.dateFormat(d.lastLoginTime); } } ,
-                { field: 'createTime', sort: true, title: fox.translate('创建时间') , minWidth:160, templet: function (d) { return fox.dateFormat(d.createTime); } } ,
+                { field: 'id', sort: true, title: fox.translate('ID')} ,
+                { field: 'name', sort: true, title: fox.translate('账户')} ,
+                { field: 'passwd', sort: true, title: fox.translate('密码')} ,
+                { field: 'phone', sort: true, title: fox.translate('手机号码')} ,
+				{ field: 'portraitId', sort: true, title: fox.translate('头像ID'), templet: function (d) { return '<img style="height: 100%;"  onclick="window.previewImage(this)"  src="/service-storage/sys-file/download?id='+ d.portraitId+'" />'; } } ,
+                { field: 'personId', sort: true, title: fox.translate('人员ID')} ,
+                { field: 'language', sort: true, title: fox.translate('语言')} ,
+                { field: 'employeeId', sort: true, title: fox.translate('员工ID')} ,
+				{ field: 'valid', sort: true, title: fox.translate('是否有效'), templet: '#cell-tpl-valid'} ,
+				{ field: 'lastLoginTime', sort: true, title: fox.translate('最后登录时间'), templet: function (d) { return fox.dateFormat(d.lastLoginTime); }} ,
+				{ field: 'createTime', sort: true, title: fox.translate('创建时间'), templet: function (d) { return fox.dateFormat(d.createTime); }} ,
+                { field: 'roleIds', sort: true, title: fox.translate('角色')} ,
                 { field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
             ]]
 	 		,footer : {

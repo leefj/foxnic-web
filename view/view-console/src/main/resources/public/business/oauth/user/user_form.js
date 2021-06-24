@@ -1,7 +1,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-24 16:34:16
+ * @since 2021-06-24 17:30:01
  */
 
 function FormPage() {
@@ -45,6 +45,8 @@ function FormPage() {
 	function renderFormFields() {
 		form.render();
 	   
+	    //渲染图片字段
+	    fox.renderSimpleUpload("#portraitId","#portraitId-button","#portraitId-image");
 		//渲染下拉字段
 		fox.renderSelectBox({
 			el: "#roleIds",
@@ -77,7 +79,10 @@ function FormPage() {
 			fm[0].reset();
 			form.val('data-form', formData);
 
-
+			//设置  头像ID  显示图片
+		    if($("#portraitId").val()) {
+		    	$("#portraitId-image").attr("src","/service-storage/sys-file/download?id="+$("#portraitId").val());
+		    }
 
 			//设置 角色 下拉框选中值
 			if (formData.roles)	{

@@ -53,7 +53,7 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		.setControllerAndAgent(WriteMode.CREATE_IF_NOT_EXISTS) //Rest
 		.setPageController(WriteMode.CREATE_IF_NOT_EXISTS) //页面控制器
 		.setFormPage(WriteMode.COVER_EXISTS_FILE) //表单HTML页
-		.setListPage(WriteMode.CREATE_IF_NOT_EXISTS); //列表HTML页
+		.setListPage(WriteMode.COVER_EXISTS_FILE); //列表HTML页
 		
 		
 		
@@ -70,7 +70,7 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		//表单不需要显示的字段
 		cfg.field(SYS_USER.LAST_LOGIN_TIME).hideInForm();
 		cfg.field(SYS_USER.PERSON_ID).hideInForm();
-		cfg.field(SYS_USER.PORTRAIT_ID).hideInForm();
+		//cfg.field(SYS_USER.PORTRAIT_ID).hideInForm();
 		cfg.field(SYS_USER.EMPLOYEE_ID).hideInForm();
 		cfg.field(SYS_USER.PASSWD).hideInForm();
 		//配置校验
@@ -86,6 +86,8 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		//cfg.field(UserVOMeta.ROLE_IDS).label("角色").selectField().muliti().enumType(Language.class);
 		//使用字典数据
 //		cfg.field(UserVOMeta.ROLE_IDS).label("角色").selectField().muliti().dict(DictEnum.COMPANY_TYPE);
+
+		cfg.field(SYS_USER.PORTRAIT_ID).imageField();
 
 		//生成代码
 		cfg.buildAll();

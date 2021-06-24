@@ -54,11 +54,11 @@ function ListPage() {
 			 	{  fixed: 'left',type:'checkbox' },
                 #for(f : fields)
 		 		#if(f.isDateField)
-				{ field: '#(f.varName)', sort: true, title: fox.translate('#(f.label)'), templet: function (d) { return fox.dateFormat(d.#(varName); }} ,
+				{ field: '#(f.varName)', sort: true, title: fox.translate('#(f.label)'), templet: function (d) { return fox.dateFormat(d.#(f.varName)); }} ,
 				#elseif(f.isImageField)
-				{ field: '#(f.varName)', sort: true, title: fox.translate('#(f.label)'), templet: function (d) { return '<img width=\"50px\" height=\"50px\" onclick=\"window.previewImage(this)\"  src=\"/service-tailoring/sys-file/download?id='+ d."+#(varName)+"+'\" />'; } ,
+				{ field: '#(f.varName)', sort: true, title: fox.translate('#(f.label)'), templet: function (d) { return '<img style="height: 100%;"  onclick="window.previewImage(this)"  src="/service-storage/sys-file/download?id='+ d.#(f.varName)+'" />'; } } ,
 				#elseif(f.isLogicField)
-				{ field: '#(f.varName)', sort: true, title: fox.translate('#(f.label)'), templet: '#cell-tpl-"+#(varName)+"'"} ,
+				{ field: '#(f.varName)', sort: true, title: fox.translate('#(f.label)'), templet: '#cell-tpl-#(f.varName)'} ,
 				#else
                 { field: '#(f.varName)', sort: true, title: fox.translate('#(f.label)')} ,
 				#end
