@@ -27,10 +27,12 @@ function FormPage() {
 	}
 	
 	function adjustPopup() {
-		var delta=58;//此参数请按实际情况自行调整
-		var height=document.body.clientHeight+delta;
-		admin.changePopupArea(null,height);
-		admin.putTempData('#(formAreaKey)', {height:height});
+		setTimeout(function () {
+			var body=$("body");
+			var bodyHeight=body.height();
+			var area=admin.changePopupArea(null,bodyHeight);
+			admin.putTempData('#(formAreaKey)', area);
+		},50);
 	}
 	
 	/**

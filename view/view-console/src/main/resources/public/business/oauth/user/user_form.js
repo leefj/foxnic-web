@@ -1,7 +1,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-23 17:23:00
+ * @since 2021-06-24 11:25:23
  */
 
 function FormPage() {
@@ -31,10 +31,12 @@ function FormPage() {
 	}
 	
 	function adjustPopup() {
-		var delta=58;//此参数请按实际情况自行调整
-		var height=document.body.clientHeight+delta;
-		admin.changePopupArea(null,height);
-		admin.putTempData('sys-user-form-area', {height:height});
+		setTimeout(function () {
+			var body=$("body");
+			var bodyHeight=body.height();
+			var area=admin.changePopupArea(null,bodyHeight);
+			admin.putTempData('sys-user-form-area', area);
+		},50);
 	}
 	
 	/**

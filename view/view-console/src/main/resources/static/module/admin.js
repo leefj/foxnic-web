@@ -125,45 +125,67 @@ layui.define(['settings', 'layer'], function (exports) {
         },
         changePopupArea: function (width,height) {
 
+
+
         	if(top && top!=window && top.admin) {
-        		top.admin.changePopupArea(width,height);
-        		return;
+                return top.admin.changePopupArea(width,height);
         	}
+
         	if(!popupCenterIndex) return;
+
+
+
         	//debugger;
-        	var layerWidth= $("#layui-layer"+popupCenterIndex).width();
-        	var layerHeight=$("#layui-layer"+popupCenterIndex).height();
-        	var layerTop= $("#layui-layer"+popupCenterIndex).offset().top;
-        	var layerLeft=$("#layui-layer"+popupCenterIndex).offset().left;
-        	var iframeWidth= $("#layui-layer-iframe"+popupCenterIndex).width();
-        	var iframeHeight=$("#layui-layer-iframe"+popupCenterIndex).height();
+            var fullHeight=$(window).height();
+            var fullWidth=$(window).width();
+            var  pop=$("#layui-layer"+popupCenterIndex);
+            var title=pop.find(".layui-layer-title");
+            var titleHeight=title.height();
+
+            height=height+titleHeight+16;
+            //限制高度
+            if(height>fullHeight*0.9) {
+                height=fullHeight*0.9;
+            }
+
+
+
+        	var layerWidth= pop.width();
+        	var layerHeight=pop.height();
+
+        	var ifr=$('#layui-layer-iframe'+popupCenterIndex);
+
+        	var layerTop= pop.offset().top;
+        	var layerLeft=pop.offset().left;
+        	var iframeWidth= ifr.width();
+        	var iframeHeight=ifr.height();
         	var dw=width-layerWidth;
         	var dh=height-layerHeight;
         	var dx=dw/2;
         	var dy=dh/2;
         	iframeWidth+=dw;
         	iframeHeight+=dh;
-        	layerTop+=dy;
-        	layerLeft+=dx;
+        	layerTop=(fullHeight-height)*0.35;
+        	layerLeft=(fullWidth-width)/2;
         	if(layerTop<0) layerTop=0;
         	if(layerLeft<0) layerLeft=0;
             if(width) {
-            	$("#layui-layer"+popupCenterIndex).animate({width:width+"px"},200,"swing",function(){
+                pop.animate({width:width+"px",left:layerLeft+"px"},200,"swing",function(){
             		//$("#layui-layer"+popupCenterIndex).animate({left:layerLeft+"px"},200,"swing");
             	});
             }
             if(height) {
-            	$("#layui-layer"+popupCenterIndex).animate({height:height+"px"},200,"swing",function(){
+                pop.animate({height:height+"px",top:layerTop+"px"},200,"swing",function(){
             		//$("#layui-layer"+popupCenterIndex).animate({top:layerTop+"px"},200,"swing");
             	});
             }
             if(width) {
-            	$("#layui-layer-iframe"+popupCenterIndex).animate({height:iframeWidth+"px"},"fast");
+                ifr.animate({height:iframeWidth+"px"},"fast");
             }
             if(height) {
-            	$("#layui-layer-iframe"+popupCenterIndex).animate({height:iframeHeight+"px"},"fast");
+                ifr.animate({height:iframeHeight+"px"},"fast");
             }
-            
+            return {width:width,height:height,left:layerLeft,top:layerTop};
         },
         // 封装layer.open
         open: function (param) {

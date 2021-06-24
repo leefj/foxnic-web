@@ -214,7 +214,7 @@ function ListPage() {
 		admin.putTempData('sys-user-form-data', data);
 		var area=admin.getTempData('sys-user-form-area');
 		var height= (area && area.height) ? area.height : ($(window).height()*0.6);
-		var top= ($(window).height()-height)/2;
+		var top= (area && area.top) ? area.top : (($(window).height()-height)/2);
 		var title = (data && data.id) ? (fox.translate('修改')+fox.translate('账户')) : (fox.translate('添加')+fox.translate('账户'));
 		admin.popupCenter({
 			title: title,
