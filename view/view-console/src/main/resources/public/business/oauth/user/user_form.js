@@ -1,7 +1,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-24 11:25:23
+ * @since 2021-06-24 16:34:16
  */
 
 function FormPage() {
@@ -57,6 +57,7 @@ function FormPage() {
 			transform: function(data) {
 				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
 				var opts=[];
+				if(!data) return opts;
 				for (var i = 0; i < data.length; i++) {
 					//请自行调整此处字段的对应关系
 					opts.push({name:data[i].name,value:data[i].id});
@@ -75,7 +76,16 @@ function FormPage() {
 		if (formData) {
 			fm[0].reset();
 			form.val('data-form', formData);
-	     	//设置并显示图片
+
+
+
+			//设置 角色 下拉框选中值
+			if (formData.roles)	{
+				var roleIdsSelect=xmSelect.get("#roleIds",true)
+				var roleIdsOpionts=roleIdsSelect.options.transform(formData.roles);
+				roleIdsSelect.setValue(roleIdsOpionts);
+			}
+
 	     	fm.attr('method', 'POST');
 	     	renderFormFields();
 		}
@@ -99,9 +109,14 @@ function FormPage() {
 	    form.on('submit(submit-button)', function (data) {
 	    	//debugger;
 	    	
-	    	//处理逻辑值
+
+			//处理 是否有效 默认值
 		    if(!data.field.valid) data.field.valid=0;
-	    	
+
+
+			//获取 角色 下拉框的值
+			data.field["roleIds"]=xmSelect.get("#roleIds",true).getValue("value");
+
 	    	var api=moduleURL+"/"+(data.field.id?"update":"insert");
 	        var task=setTimeout(function(){layer.load(2);},1000);
 	        admin.request(api, data.field, function (data) {

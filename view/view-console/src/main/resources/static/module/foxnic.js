@@ -38,6 +38,10 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"xmSe
     var foxnic = {
 
 		renderSelectBox:function (cfg) {
+
+			//不重复渲染
+			if(xmSelect.get(cfg.el,true)!=null) return;
+
 			var el=$(cfg.el);
 			if(!cfg.searchTips) cfg.searchTips="请输入关键字";
 			var data=el.attr("data");
@@ -92,7 +96,7 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"xmSe
 			console.log("data",data);
 			console.log("opts",opts);
 
-			xmSelect.render(cfg);
+			return xmSelect.render(cfg);
 		},
     	/**
     	 * 渲染分页的表格

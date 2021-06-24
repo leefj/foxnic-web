@@ -6,6 +6,7 @@ import com.github.foxnic.generator.config.WriteMode;
 import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb.*;
 import org.github.foxnic.web.constants.enums.Language;
+import org.github.foxnic.web.domain.oauth.meta.UserMeta;
 import org.github.foxnic.web.domain.oauth.meta.UserVOMeta;
 import org.github.foxnic.web.proxy.oauth.RoleServiceProxy;
 
@@ -80,7 +81,7 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 //		cfg.field(SYS_USER.LANGUAGE).checkField().enumType(Language.class);
 //		cfg.field(SYS_USER.LANGUAGE).checkField().dict(DictEnum.ORDER_STATUS);
 		//配置数据库表字段外的输入框
-		cfg.field(UserVOMeta.ROLE_IDS).label("角色").selectField().muliti().queryApi(RoleServiceProxy.QUERY_LIST);
+		cfg.field(UserVOMeta.ROLE_IDS).label("角色").selectField().muliti().queryApi(RoleServiceProxy.QUERY_LIST).fillBy(UserMeta.ROLES);
 		//使用枚举
 		//cfg.field(UserVOMeta.ROLE_IDS).label("角色").selectField().muliti().enumType(Language.class);
 		//使用字典数据

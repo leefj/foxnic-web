@@ -57,6 +57,7 @@ function FormPage() {
 			transform:function(data) {
 				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
 				var opts=[];
+				if(!data) return opts;
 				for (var i = 0; i < data.length; i++) {
 					opts.push({name:data[i].text,value:data[i].code});
 				}
@@ -69,6 +70,7 @@ function FormPage() {
 			transform: function(data) {
 				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
 				var opts=[];
+				if(!data) return opts;
 				for (var i = 0; i < data.length; i++) {
 					//请自行调整此处字段的对应关系
 					opts.push({name:data[i].name,value:data[i].id});
@@ -100,14 +102,27 @@ function FormPage() {
 		if (formData) {
 			fm[0].reset();
 			form.val('data-form', formData);
-	     	//设置并显示图片
+
 	     	#for(f : fields)
 		    #if(f.isImageField)
+			//设置  #(f.label)  显示图片
 		    if($("##(f.varName)").val()) {
 		    	$("##(f.varName)-image").attr("src","/service-storage/sys-file/download?id="+$("##(f.varName)").val());
 		    }
 		    #end
 		    #end
+
+			#for(f : fields)
+			#if(f.isSelectField)
+			//设置 #(f.label) 下拉框选中值
+			if (formData.#(f.selectField.fillBy))	{
+				var #(f.varName)Select=xmSelect.get("##(f.varName)",true)
+				var #(f.varName)Opionts=#(f.varName)Select.options.transform(formData.#(f.selectField.fillBy));
+				#(f.varName)Select.setValue(#(f.varName)Opionts);
+			}
+			#end
+			#end
+
 	     	fm.attr('method', 'POST');
 	     	renderFormFields();
 		}
@@ -131,13 +146,22 @@ function FormPage() {
 	    form.on('submit(submit-button)', function (data) {
 	    	//debugger;
 	    	
-	    	//处理逻辑值
+
 	    	#for(f : fields)
-		    #if(f.isLogicField) 
+		    #if(f.isLogicField)
+			//处理 #(f.label) 默认值
 		    if(!data.field.#(f.varName)) data.field.#(f.varName)=0;
 		    #end
 		    #end
-	    	
+
+
+			#for(f : fields)
+			#if(f.isSelectField)
+			//获取 #(f.label) 下拉框的值
+			data.field["#(f.varName)"]=xmSelect.get("##(f.varName)",true).getValue("value");
+			#end
+			#end
+
 	    	var api=moduleURL+"/"+(data.field.#(idPropertyName)?"update":"insert");
 	        var task=setTimeout(function(){layer.load(2);},1000);
 	        admin.request(api, data.field, function (data) {

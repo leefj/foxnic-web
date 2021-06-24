@@ -1,25 +1,24 @@
 package org.github.foxnic.web.oauth.service.impl;
 
-import java.util.Date;
-import java.util.List;
-
-import javax.annotation.Resource;
-
+import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
-import org.springframework.stereotype.Service;
-
+import com.github.foxnic.commons.busi.id.IDGenerator;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.dao.spec.DAO;
-import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
-
-
+import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.domain.oauth.RoleUser;
-import org.github.foxnic.web.oauth.service.IRoleUserService;
 import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.github.foxnic.web.oauth.service.IRoleUserService;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.lang.reflect.Field;
+import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -43,10 +42,15 @@ public class RoleUserServiceImpl extends SuperService<RoleUser> implements IRole
 	 * 获得 DAO 对象
 	 * */
 	public DAO dao() { return dao; }
-	
+
+	@Override
+	public Object generateId(Field field) {
+		return IDGenerator.getSnowflakeIdString();
+	}
+
 	/**
 	 * 插入实体
-	 * @param role 实体数据
+	 * @param roleUser 实体数据
 	 * @return 插入是否成功
 	 * */
 	@Override
@@ -56,7 +60,7 @@ public class RoleUserServiceImpl extends SuperService<RoleUser> implements IRole
 	
 	/**
 	 * 批量插入实体，事务内
-	 * @param roleList 实体数据清单
+	 * @param roleUserList 实体数据清单
 	 * @return 插入是否成功
 	 * */
 	@Override
@@ -182,11 +186,21 @@ public class RoleUserServiceImpl extends SuperService<RoleUser> implements IRole
 	public PagedList<RoleUser> queryPagedList(RoleUser sample, ConditionExpr condition, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, condition, pageSize, pageIndex);
 	}
-	
+
+	@Override
+	public void saveRoles(String userId, List<String> roleIds) {
+		this.dao().execute("delete from "+table()+" where "+ FoxnicWeb.SYS_ROLE_USER.USER_ID+" = ?",userId);
+		for (String roleId : roleIds) {
+			RoleUser ru=new RoleUser();
+			ru.setRoleId(roleId).setUserId(userId);
+			this.insert(ru);
+		}
+	}
+
 	/**
 	 * 检查 角色 是否已经存在
 	 *
-	 * @param roleVO 数据对象
+	 * @param role 数据对象
 	 * @return 判断结果
 	 */
 	public Result<RoleUser> checkExists(RoleUser role) {

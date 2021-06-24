@@ -13,17 +13,17 @@ import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER;
 import org.github.foxnic.web.constants.enums.Language;
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
-import org.github.foxnic.web.domain.oauth.Menu;
-import org.github.foxnic.web.domain.oauth.Role;
-import org.github.foxnic.web.domain.oauth.RoleMenu;
-import org.github.foxnic.web.domain.oauth.User;
+import org.github.foxnic.web.domain.oauth.*;
 import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.github.foxnic.web.oauth.service.IRoleUserService;
 import org.github.foxnic.web.oauth.service.IUserService;
 import org.github.foxnic.web.proxy.utils.SystemConfigProxyUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -43,6 +43,9 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 	
 	@Value("${develop.language:}")
 	private String devLang;
+
+	@Autowired
+	private IRoleUserService roleUserService;
 	
 	/**
 	 * 注入DAO对象
@@ -64,8 +67,11 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 	 * @return 插入是否成功
 	 * */
 	@Override
+	@Transactional
 	public boolean insert(User user) {
-		return super.insert(user);
+		super.insert(user);
+		saveRoles(user);
+		return true;
 	}
 	
 	/**
@@ -115,10 +121,24 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 	 * @return 保存是否成功
 	 * */
 	@Override
+	@Transactional
 	public boolean update(User user , SaveMode mode) {
-		return super.update(user , mode);
+		super.update(user , mode);
+		saveRoles(user);
+		return true;
+
 	}
-	
+
+	private void saveRoles(User user) {
+		if(user instanceof UserVO) {
+			UserVO vo=(UserVO) user;
+			List<String> roleIds=vo.getRoleIds();
+			if(roleIds!=null) {
+				roleUserService.saveRoles(user.getId(),roleIds);
+			}
+		}
+	}
+
 	/**
 	 * 更新实体集，事务内
 	 * @param userList 数据对象列表
@@ -155,7 +175,9 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 		User sample = new User();
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null ");
 		sample.setId(id);
-		return dao.queryEntity(sample);
+		User user=dao.queryEntity(sample);
+		dao.join(user,Role.class);
+		return user;
 	}
  
 	/**
