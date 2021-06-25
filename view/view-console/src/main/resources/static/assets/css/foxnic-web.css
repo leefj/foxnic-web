@@ -10,6 +10,18 @@
     border: solid #c6c6c6 1px;
     border-radius: 5px;
 }
+.layui-upload-file-name {
+    position: absolute;
+    width: 92px;
+    /*display: -webkit-box;*/
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-top: 6px;
+    text-align: center;
+    font-weight: bold;
+    color: #666666;
+}
 .layui-upload-progress {
     width: 81px;
     margin-top:-10px;
@@ -32,13 +44,10 @@
     border-radius: 5px;
 }
 
-.layui-upload-delete-button :hover {
-    color: #FF5722;
-    opacity: 1.0;
-}
 
 .layui-upload-unit {
-    margin-bottom:13px;
+    margin-top:11px;
+    margin-bottom:31px;
     margin-right:11px;
 }
 

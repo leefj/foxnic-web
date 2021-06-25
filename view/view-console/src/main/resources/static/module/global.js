@@ -17,7 +17,9 @@ var apiurls={
 		upload: "/service-storage/sys-file/upload",
 		download: "/service-storage/sys-file/download",
 		image: "/service-storage/sys-file/image",
-		remove: "/service-storage/sys-file/delete"
+		remove: "/service-storage/sys-file/delete",
+		getById:"/service-storage/sys-file/get-by-id",
+		getByIds:"/service-storage/sys-file/get-by-ids"
 	}
 }
 

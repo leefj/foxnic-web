@@ -4,6 +4,8 @@ import org.github.foxnic.web.domain.storage.File;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+
 /**
  * <p>
  *  服务接口
@@ -48,4 +50,5 @@ public interface IFileService extends ISuperService<File> {
 	 * */
 	void downloadFile(String id,Boolean inline,HttpServletResponse response);
 
+    List<File> getByIds(List<String> ids);
 }

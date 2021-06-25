@@ -333,14 +333,13 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"xmSe
 			var template=[
 				'<div class="layui-upload-unit" id="{{el}}-file-unit-{{index}}">',
 				'	<img class="layui-upload-img" onclick="window.previewImage(this)" id="{{el}}-image-{{index}}" style="" src="/assets/images/no-image-92@2x.png">',
-				'	<p id="{{el}}-text-{{index}}"></p>',
+				'	<div id="{{el}}-text-{{index}}" class="layui-upload-file-name"></div>',
 				' 	<a class="layui-upload-delete-button" id="{{el}}-delete-button-{{index}}"><i class="fa fa-remove"></i></a>',
 				'	<div class="layui-upload-progress" id="{{el}}-progress-container-{{index}}">',
 				'		<div class="layui-progress" lay-showpercent="true" lay-filter="{{el}}-progress-{{index}}">',
 				'			<div class="layui-progress-bar" lay-percent="10%"></div>',
 				'		<div>',
 				'	<div>',
-
 				'<div>'
 			];
 
@@ -365,6 +364,21 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"xmSe
 					if (data.success) {
 						layer.msg("已删除", {icon: 1, time: 500});
 						$("#"+el+"-file-unit-"+index).remove();
+
+						var fileIds=$("#"+el).attr("fileIds");
+						try {
+							fileIds=JSON.parse(fileIds);
+						} catch (e) {
+							fileIds=[];
+						};
+						var newIds=[];
+						for (var i = 0; i < fileIds.length; i++) {
+							if(fileIds[i]==fileId) continue;
+							newIds.push(fileIds[i]);
+						}
+						$("#"+el).attr("fileIds",JSON.stringify(newIds));
+						$("#"+el).val(newIds.join(","));
+
 					} else {
 						layer.msg(data.message, {icon: 2, time: 500});
 					}
@@ -384,6 +398,7 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"xmSe
 						var img=preview.find("#"+el+"-image-"+index);
 
 						img.attr('src', result); //base64 图片
+						$("#"+el+"-text-"+index).text(file.name);
 
 					});
 				},
@@ -445,6 +460,7 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"xmSe
 						removePreview($(this));
 					});
 				}
+
 			}
 
 

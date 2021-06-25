@@ -9,8 +9,11 @@ import com.github.foxnic.commons.io.FileUtil;
 import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.entity.SuperService;
+import com.github.foxnic.dao.meta.DBColumnMeta;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.springboot.web.DownloadUtil;
+import com.github.foxnic.sql.expr.Expr;
+import com.github.foxnic.sql.expr.In;
 import com.github.foxnic.sql.expr.Update;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.domain.storage.File;
@@ -177,6 +180,14 @@ public class FileServiceImpl extends SuperService<File> implements IFileService 
 
 	}
 
+	@Override
+	public List<File> getByIds(List<String> ids) {
+		DBColumnMeta pk=dao().getTableMeta(table()).getPKColumns().get(0);
+		In in=new In(pk.getColumn(),ids);
+		Expr select =new Expr("select * from "+table());
+		select.append(in.toConditionExpr().startWithWhere());
+		return dao().queryEntities(File.class,select);
+	}
 
 
 }

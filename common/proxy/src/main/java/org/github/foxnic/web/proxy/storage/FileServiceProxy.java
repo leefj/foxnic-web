@@ -70,6 +70,11 @@ public interface FileServiceProxy {
 	 * 按主键获取系统文件
 	 */
 	public static final String GET_BY_ID = API_PREFIX + "get-by-id";
+
+	/**
+	 * 按主键获取系统文件
+	 */
+	public static final String GET_BY_IDS = API_PREFIX + "get-by-ids";
 	
 	/**
 	 * 查询全部符合条件的系统文件
