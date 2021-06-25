@@ -7,8 +7,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-24 13:31:49
- * @sign DFD858318A9E2C9E73B9C6772ACB2EAE
+ * @since 2021-06-25 15:58:18
+ * @sign 4A0570F0A62F2844DDA03FDA42A57AC6
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -43,6 +43,16 @@ public class FileMeta {
 	 * 可直接下载的地址
 	*/
 	public static final String DOWNLOAD_URL="downloadUrl";
+	
+	/**
+	 * 最后访问时间
+	*/
+	public static final String LATEST_VISIT_TIME="latestVisitTime";
+	
+	/**
+	 * 下载次数
+	*/
+	public static final String DOWNLOADS="downloads";
 	
 	/**
 	 * 创建人ID
@@ -87,7 +97,7 @@ public class FileMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , FILE_NAME , LOCATION , SIZE , FILE_TYPE , DOWNLOAD_URL , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , FILE_NAME , LOCATION , SIZE , FILE_TYPE , DOWNLOAD_URL , LATEST_VISIT_TIME , DOWNLOADS , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
 	
 	/**
 	 * 代理类
@@ -160,6 +170,28 @@ public class FileMeta {
 		public File setDownloadUrl(String downloadUrl) {
 			super.change(DOWNLOAD_URL,super.getDownloadUrl(),downloadUrl);
 			super.setDownloadUrl(downloadUrl);
+			return this;
+		}
+		
+		/**
+		 * 设置 最后访问时间
+		 * @param latestVisitTime 最后访问时间
+		 * @return 当前对象
+		*/
+		public File setLatestVisitTime(Date latestVisitTime) {
+			super.change(LATEST_VISIT_TIME,super.getLatestVisitTime(),latestVisitTime);
+			super.setLatestVisitTime(latestVisitTime);
+			return this;
+		}
+		
+		/**
+		 * 设置 下载次数
+		 * @param downloads 下载次数
+		 * @return 当前对象
+		*/
+		public File setDownloads(Integer downloads) {
+			super.change(DOWNLOADS,super.getDownloads(),downloads);
+			super.setDownloads(downloads);
 			return this;
 		}
 		

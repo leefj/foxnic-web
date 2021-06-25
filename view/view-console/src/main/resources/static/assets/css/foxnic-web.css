@@ -3,3 +3,48 @@
 .layui-form-switch em {
     font-size: 14px;
 }
+
+.layui-upload-img {
+    width:92px;
+    height:92px;
+    border: solid #c6c6c6 1px;
+    border-radius: 5px;
+}
+.layui-upload-progress {
+    width: 81px;
+    margin-top:-10px;
+    margin-left: 6px
+}
+.layui-upload-delete-button {
+    display: block;
+    position: absolute;
+    margin-top:-24px;
+    margin-left: 69px;
+    color: #FF5722;
+    font-size: 16px;
+    width:15px;
+    height:17px;
+    padding-left: 2px;
+    padding-top: -0px;
+    background-color: #FFFFFF;
+    opacity: 0.0;
+    border: solid #FF5722 1px;
+    border-radius: 5px;
+}
+
+.layui-upload-delete-button :hover {
+    color: #FF5722;
+    opacity: 1.0;
+}
+
+.layui-upload-unit {
+    margin-bottom:13px;
+    margin-right:11px;
+}
+
+.layui-upload-list {
+    display: -webkit-flex; /* Safari */
+    display: flex;
+    flex-direction:row;
+    flex-wrap: wrap;
+}

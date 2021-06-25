@@ -87,7 +87,7 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		//使用字典数据
 //		cfg.field(UserVOMeta.ROLE_IDS).label("角色").selectField().muliti().dict(DictEnum.COMPANY_TYPE);
 
-		cfg.field(SYS_USER.PORTRAIT_ID).imageField();
+		cfg.field(SYS_USER.PORTRAIT_ID).imageField().count(2);
 
 		//生成代码
 		cfg.buildAll();

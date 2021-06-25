@@ -1,4 +1,5 @@
 package org.github.foxnic.web.storage.controller;
+
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -31,6 +32,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -166,6 +168,8 @@ public class FileController extends SuperController {
 		@ApiImplicitParam(name = FileVOMeta.SIZE , value = "文件大小" , required = false , dataTypeClass=Long.class , example = "44781"),
 		@ApiImplicitParam(name = FileVOMeta.FILE_TYPE , value = "文件类型" , required = false , dataTypeClass=String.class , example = "jpeg"),
 		@ApiImplicitParam(name = FileVOMeta.DOWNLOAD_URL , value = "可直接下载的地址" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = FileVOMeta.LATEST_VISIT_TIME , value = "最后访问时间" , required = false , dataTypeClass= Date.class),
+		@ApiImplicitParam(name = FileVOMeta.DOWNLOADS , value = "下载次数" , required = false , dataTypeClass=Integer.class , example = "0"),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { FileVOMeta.PAGE_INDEX , FileVOMeta.PAGE_SIZE } )
 	@SentinelResource(value = FileServiceProxy.QUERY_LIST)
@@ -189,6 +193,8 @@ public class FileController extends SuperController {
 		@ApiImplicitParam(name = FileVOMeta.SIZE , value = "文件大小" , required = false , dataTypeClass=Long.class , example = "44781"),
 		@ApiImplicitParam(name = FileVOMeta.FILE_TYPE , value = "文件类型" , required = false , dataTypeClass=String.class , example = "jpeg"),
 		@ApiImplicitParam(name = FileVOMeta.DOWNLOAD_URL , value = "可直接下载的地址" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = FileVOMeta.LATEST_VISIT_TIME , value = "最后访问时间" , required = false , dataTypeClass=Date.class),
+		@ApiImplicitParam(name = FileVOMeta.DOWNLOADS , value = "下载次数" , required = false , dataTypeClass=Integer.class , example = "0"),
 	})
 	@ApiOperationSupport(order=8)
 	@SentinelResource(value = FileServiceProxy.QUERY_PAGED_LIST)

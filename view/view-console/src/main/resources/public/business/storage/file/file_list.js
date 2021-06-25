@@ -1,7 +1,7 @@
 /**
  * 系统文件 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-24 13:31:50
+ * @since 2021-06-25 15:58:20
  */
 
 
@@ -49,7 +49,9 @@ function ListPage() {
                 { field: 'size', sort: true, title: fox.translate('文件大小')} ,
                 { field: 'fileType', sort: true, title: fox.translate('文件类型')} ,
                 { field: 'downloadUrl', sort: true, title: fox.translate('可直接下载的地址')} ,
-				{ field: 'createTime', sort: true, title: fox.translate('创建时间'), templet: function (d) { return fox.dateFormat(d.; }} ,
+				{ field: 'latestVisitTime', sort: true, title: fox.translate('最后访问时间'), templet: function (d) { return fox.dateFormat(d.latestVisitTime); }} ,
+                { field: 'downloads', sort: true, title: fox.translate('下载次数')} ,
+				{ field: 'createTime', sort: true, title: fox.translate('创建时间'), templet: function (d) { return fox.dateFormat(d.createTime); }} ,
                 { field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
             ]]
 	 		,footer : {

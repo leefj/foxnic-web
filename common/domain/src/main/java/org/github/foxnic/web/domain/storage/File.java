@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-24 13:31:49
- * @sign DFD858318A9E2C9E73B9C6772ACB2EAE
+ * @since 2021-06-25 15:58:18
+ * @sign 4A0570F0A62F2844DDA03FDA42A57AC6
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -64,6 +64,18 @@ public class File extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="可直接下载的地址" , notes = "可直接下载的地址")
 	private String downloadUrl;
+	
+	/**
+	 * 最后访问时间：最后访问时间
+	*/
+	@ApiModelProperty(required = false,value="最后访问时间" , notes = "最后访问时间")
+	private Date latestVisitTime;
+	
+	/**
+	 * 下载次数：下载次数
+	*/
+	@ApiModelProperty(required = false,value="下载次数" , notes = "下载次数")
+	private Integer downloads;
 	
 	/**
 	 * 创建人ID：创建人ID
@@ -260,6 +272,56 @@ public class File extends Entity {
 	/**
 	 * 添加 可直接下载的地址
 	 * @param downloadUrl 可直接下载的地址
+	 * @return 当前对象
+	*/
+	
+	/**
+	 * 获得 最后访问时间<br>
+	 * 属性说明 : 最后访问时间
+	 * @return 最后访问时间
+	*/
+	public Date getLatestVisitTime() {
+		return latestVisitTime;
+	}
+	
+	/**
+	 * 设置 最后访问时间
+	 * @param latestVisitTime 最后访问时间
+	 * @return 当前对象
+	*/
+	public File setLatestVisitTime(Date latestVisitTime) {
+		this.latestVisitTime=latestVisitTime;
+		return this;
+	}
+	
+	/**
+	 * 添加 最后访问时间
+	 * @param latestVisitTime 最后访问时间
+	 * @return 当前对象
+	*/
+	
+	/**
+	 * 获得 下载次数<br>
+	 * 属性说明 : 下载次数
+	 * @return 下载次数
+	*/
+	public Integer getDownloads() {
+		return downloads;
+	}
+	
+	/**
+	 * 设置 下载次数
+	 * @param downloads 下载次数
+	 * @return 当前对象
+	*/
+	public File setDownloads(Integer downloads) {
+		this.downloads=downloads;
+		return this;
+	}
+	
+	/**
+	 * 添加 下载次数
+	 * @param downloads 下载次数
 	 * @return 当前对象
 	*/
 	

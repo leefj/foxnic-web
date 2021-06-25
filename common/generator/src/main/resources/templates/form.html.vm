@@ -23,18 +23,16 @@
     #end
     #for(f : fields)
     #if(f.isImageField)
-    
+
     <div class="layui-form-item">
         <label class="layui-form-label" th:text="${lang.translate('#(f.label)')}">#(f.label)</label>
-	    <div class="layui-upload layui-input-block">
-           <input id="#(f.varName)"  name="#(f.varName)" ay-filter="#(f.varName)" style="display: none">
-		  <button type="button" class="layui-btn" id="#(f.varName)-button" th:text="${lang.translate('选择图片')}">选择图片</button>
-		  <div class="layui-upload-list">
-		    <img class="layui-upload-img" onclick="window.previewImage(this)" id="#(f.varName)-image" style="width:92px;height:92px" src="/assets/images/no-image-92@2x.png">
-		    <p id="#(f.varName)-text"></p>
-		  </div>
-		</div>
-	</div>
+        <div class="layui-upload layui-input-block">
+            <input id="#(f.varName)"  name="#(f.varName)" ay-filter="#(f.varName)" style="display: none">
+            <button type="button" class="layui-btn" id="portraitId-button" th:text="${lang.translate('选择图片')}">选择图片</button>
+            <div class="layui-upload-list" id="portraitId-file-list"></div>
+        </div>
+    </div>
+
 	
 	#else if(f.isLogicField)
 	

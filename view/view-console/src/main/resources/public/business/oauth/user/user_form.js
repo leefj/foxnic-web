@@ -1,7 +1,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-24 17:30:01
+ * @since 2021-06-25 15:03:24
  */
 
 function FormPage() {
@@ -46,10 +46,18 @@ function FormPage() {
 		form.render();
 	   
 	    //渲染图片字段
-	    fox.renderSimpleUpload("#portraitId","#portraitId-button","#portraitId-image");
+	    fox.renderFormUpload({
+			el:"portraitId",
+			upload:function (result,index,upload) {
+	    		console.log("文件上传后回调")
+			},
+			remove:function (fileId,index,upload) {
+				console.log("文件删除后回调")
+			}
+	    });
 		//渲染下拉字段
 		fox.renderSelectBox({
-			el: "#roleIds",
+			el: "roleIds",
 			radio: false,
 			filterable: true,
 			toolbar: {show:true,showIcon:true,list:[ "ALL", "CLEAR","REVERSE"]},
@@ -81,7 +89,8 @@ function FormPage() {
 
 			//设置  头像ID  显示图片
 		    if($("#portraitId").val()) {
-		    	$("#portraitId-image").attr("src","/service-storage/sys-file/download?id="+$("#portraitId").val());
+		    	fox.fillFormUpload("portraitId",$("#portraitId").val());
+		    	//$("#portraitId-image").attr("src","/service-storage/sys-file/download?id="+$("#portraitId").val());
 		    }
 
 			//设置 角色 下拉框选中值

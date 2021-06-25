@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2021-06-24 11:42:51
+ * @since 2021-06-25 15:56:43
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -469,6 +469,21 @@ public class FoxnicWeb {
 		public static final DBField FILE_TYPE = new DBField(DBDataType.STRING , "file_type","fileType","文件类型","存放文件扩展名",false,false,true);
 		
 		/**
+		 * 可直接下载的地址
+		*/
+		public static final DBField DOWNLOAD_URL = new DBField(DBDataType.STRING , "download_url","downloadUrl","可直接下载的地址","可直接下载的地址",false,false,true);
+		
+		/**
+		 * 最后访问时间
+		*/
+		public static final DBField LATEST_VISIT_TIME = new DBField(DBDataType.DATE , "latest_visit_time","latestVisitTime","最后访问时间","最后访问时间",false,false,true);
+		
+		/**
+		 * 下载次数
+		*/
+		public static final DBField DOWNLOADS = new DBField(DBDataType.INTEGER , "downloads","downloads","下载次数","下载次数",false,false,true);
+		
+		/**
 		 * 创建人ID
 		*/
 		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
@@ -509,7 +524,7 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
 		public SYS_FILE() {
-			this.init($NAME,"系统文件" , ID , FILE_NAME , LOCATION , SIZE , FILE_TYPE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"系统文件" , ID , FILE_NAME , LOCATION , SIZE , FILE_TYPE , DOWNLOAD_URL , LATEST_VISIT_TIME , DOWNLOADS , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final SYS_FILE $TABLE=new SYS_FILE();
 	}

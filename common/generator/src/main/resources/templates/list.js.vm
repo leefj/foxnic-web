@@ -56,7 +56,7 @@ function ListPage() {
 		 		#if(f.isDateField)
 				{ field: '#(f.varName)', sort: true, title: fox.translate('#(f.label)'), templet: function (d) { return fox.dateFormat(d.#(f.varName)); }} ,
 				#elseif(f.isImageField)
-				{ field: '#(f.varName)', sort: true, title: fox.translate('#(f.label)'), templet: function (d) { return '<img style="height: 100%;"  onclick="window.previewImage(this)"  src="/service-storage/sys-file/download?id='+ d.#(f.varName)+'" />'; } } ,
+				{ field: '#(f.varName)', sort: true, title: fox.translate('#(f.label)'), templet: function (d) { return '<img style="height: 100%;"  onclick="window.previewImage(this)"  src="'+apiurls.storage.image+'?id='+ d.#(f.varName)+'" />'; } } ,
 				#elseif(f.isLogicField)
 				{ field: '#(f.varName)', sort: true, title: fox.translate('#(f.label)'), templet: '#cell-tpl-#(f.varName)'} ,
 				#else

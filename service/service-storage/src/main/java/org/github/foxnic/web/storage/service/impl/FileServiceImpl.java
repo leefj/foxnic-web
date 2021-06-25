@@ -11,6 +11,8 @@ import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.springboot.web.DownloadUtil;
+import com.github.foxnic.sql.expr.Update;
+import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.domain.storage.File;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.storage.service.IFileService;
@@ -23,6 +25,9 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -102,12 +107,32 @@ public class FileServiceImpl extends SuperService<File> implements IFileService 
 		File sample = new File();
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null 。");
 		sample.setId(id);
-		return dao.queryEntity(sample);
+		File file=dao.queryEntity(sample);
+		resurgence(id,false);
+		return file;
+	}
+
+	private void resurgence(String fileId,boolean dowloads) {
+		resurgence(Arrays.asList(fileId),dowloads);
+	}
+
+	/**
+	 * 登记文件访问情况
+	 * */
+	private void resurgence(List<String> fileIds,boolean dowloads) {
+		Update update=dao().update(this.table())
+				.set(FoxnicWeb.SYS_FILE.DELETED,dao().getDBTreaty().getFalseValue())
+				.set(FoxnicWeb.SYS_FILE.LATEST_VISIT_TIME,new Date()).where().andIn("id",fileIds).top();
+		if(dowloads) {
+			update.setExpr("downloads","downloads+1");
+		}
+		update.execute();
 	}
 
 	@Override
 	public File uploadFile(MultipartFile multipartFile) {
 		File fileinfo=new File();
+		fileinfo.setDownloads(0);
 		//获取源文件名称
 		String originalFileName = multipartFile.getOriginalFilename();
 		//获取文件后缀
@@ -131,6 +156,9 @@ public class FileServiceImpl extends SuperService<File> implements IFileService 
 		}
 		byte[] bytes=null;
 		try {
+
+			resurgence(id,true);
+
 			bytes=this.getStorageSupport().read(fileInfo);
 			DownloadUtil.writeToOutput(response,bytes,fileInfo.getFileName(),null,inline);
 			return;

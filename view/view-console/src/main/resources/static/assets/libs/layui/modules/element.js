@@ -226,9 +226,19 @@ layui.define('jquery', function(exports){
     }
     )
     */
-    
+    ,clickTime:null
     //点击菜单 - a标签触发
     ,clickThis: function(){
+      var now=(new Date()).getTime();
+      //console.log("element click now : "+now)
+      //处理，莫名其妙的重复快速点击问题
+      if(this.clickTime) {
+        if(now-this.clickTime<4){
+          console.log("element click cancel")
+          return;
+        }
+      }
+      this.clickTime=now;
       var othis = $(this)
       ,parents = othis.parents(NAV_ELEM)
       ,filter = parents.attr('lay-filter')

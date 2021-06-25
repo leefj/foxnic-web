@@ -449,8 +449,8 @@ layui.define(['settings', 'layer'], function (exports) {
 
 
     //防止重复绑定 导航菜单 隐藏/显示 按钮事件
-    if(!window.EVENT_BINDED) {
-        window.EVENT_BINDED=true;
+    if(!top.EVENT_BINDED) {
+        top.EVENT_BINDED=true;
         // 所有ew-event
         $('body').on('click', '*[ew-event]', function () {
             console.log("w", window, top);

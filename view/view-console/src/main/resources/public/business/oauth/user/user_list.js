@@ -1,7 +1,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-24 17:30:00
+ * @since 2021-06-25 15:03:23
  */
 
 
@@ -47,7 +47,7 @@ function ListPage() {
                 { field: 'name', sort: true, title: fox.translate('账户')} ,
                 { field: 'passwd', sort: true, title: fox.translate('密码')} ,
                 { field: 'phone', sort: true, title: fox.translate('手机号码')} ,
-				{ field: 'portraitId', sort: true, title: fox.translate('头像ID'), templet: function (d) { return '<img style="height: 100%;"  onclick="window.previewImage(this)"  src="/service-storage/sys-file/download?id='+ d.portraitId+'" />'; } } ,
+				{ field: 'portraitId', sort: true, title: fox.translate('头像ID'), templet: function (d) { return '<img style="height: 100%;"  onclick="window.previewImage(this)"  src="'+apiurls.storage.image+'?id='+ d.portraitId+'" />'; } } ,
                 { field: 'personId', sort: true, title: fox.translate('人员ID')} ,
                 { field: 'language', sort: true, title: fox.translate('语言')} ,
                 { field: 'employeeId', sort: true, title: fox.translate('员工ID')} ,

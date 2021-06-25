@@ -1,14 +1,27 @@
 //debugger;
 var layuiPath="/assets/libs/layui/";
-var apiServerUrl=location.href;
-var i=apiServerUrl.indexOf("//");
-i=apiServerUrl.indexOf("/",i+2);
-if(i==-1) {
-	i=apiServerUrl.length;
-} else {
-	i++;
+var apiServerUrl=function () {
+	var href=location.href;
+	var i=href.indexOf("//");
+	i=href.indexOf("/",i+2);
+	if(i==-1) {
+		i=href.length;
+	} else {
+		i++;
+	}
+	href =  href.substring(0,i-1);
+	return href;
+} ();
+var apiurls={
+	storage: {
+		upload: "/service-storage/sys-file/upload",
+		download: "/service-storage/sys-file/download",
+		image: "/service-storage/sys-file/image",
+		remove: "/service-storage/sys-file/delete"
+	}
 }
-apiServerUrl =  apiServerUrl.substring(0,i-1);
+
+
 
 console.log("layuiPath",layuiPath);
 console.log("apiServerUrl",apiServerUrl);

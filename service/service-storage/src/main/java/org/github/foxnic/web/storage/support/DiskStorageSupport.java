@@ -62,6 +62,7 @@ public class DiskStorageSupport  extends  StorageSupport {
             FileOutputStream out=new FileOutputStream(f);
             fileInfo.setSize(new Long(bytes.length));
             IOUtils.write(bytes, out);
+            out.close();
 
         } catch (Exception e) {
             Logger.error("文件写入错误",e);

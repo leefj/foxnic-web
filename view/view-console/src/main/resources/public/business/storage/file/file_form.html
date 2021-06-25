@@ -2,7 +2,7 @@
 /**
  * 系统文件 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-24 13:31:50
+ * @since 2021-06-25 15:58:20
  */
  -->
  <!DOCTYPE html>
@@ -64,6 +64,24 @@
         <label class="layui-form-label" th:text="${lang.translate('可直接下载的地址')}">可直接下载的地址</label>
         <div class="layui-input-block">
             <input lay-filter="downloadUrl" id="downloadUrl" name="downloadUrl" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('可直接下载的地址') }" type="text" class="layui-input"   />
+        </div>
+    </div>
+    
+	
+    
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('最后访问时间')}">最后访问时间</label>
+        <div class="layui-input-block">
+            <input lay-filter="latestVisitTime" id="latestVisitTime" name="latestVisitTime" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('最后访问时间') }" type="text" class="layui-input"   />
+        </div>
+    </div>
+    
+	
+    
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('下载次数')}">下载次数</label>
+        <div class="layui-input-block">
+            <input lay-filter="downloads" id="downloads" name="downloads" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('下载次数') }" type="text" class="layui-input"   />
         </div>
     </div>
     

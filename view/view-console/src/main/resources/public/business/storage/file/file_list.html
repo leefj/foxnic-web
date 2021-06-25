@@ -2,7 +2,7 @@
 /**
  * 系统文件 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-24 13:31:49
+ * @since 2021-06-25 15:58:19
  */
  -->
  <!DOCTYPE html>
@@ -34,6 +34,8 @@
                 <option value="size" th:text="${lang.translate('文件大小')}">文件大小</option>
                 <option value="fileType" th:text="${lang.translate('文件类型')}">文件类型</option>
                 <option value="downloadUrl" th:text="${lang.translate('可直接下载的地址')}">可直接下载的地址</option>
+                <option value="latestVisitTime" th:text="${lang.translate('最后访问时间')}">最后访问时间</option>
+                <option value="downloads" th:text="${lang.translate('下载次数')}">下载次数</option>
             </select>&emsp;
             <input id="search-input" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入关键字')}"/>&emsp;
             <button id="search-button" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i><span th:text="${lang.translate('搜索')}">搜索</span></button>
