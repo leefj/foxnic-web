@@ -143,16 +143,16 @@ public class FileController extends SuperController {
 	*/
 	@ApiOperation(value = "获取附件信息")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = FileVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=String.class , example = "1，2"),
+		@ApiImplicitParam(name = FileVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=String.class , example = "1,2"),
 	})
 	@ApiOperationSupport(order=6)
 	@NotNull(name = FileVOMeta.IDS)
-	@SentinelResource(value = FileServiceProxy.GET_BY_ID)
-	@PostMapping(FileServiceProxy.GET_BY_ID)
-	public Result<File> getById(String id) {
-		Result<File> result=new Result<>();
-		File role=fileService.getById(id);
-		result.success(true).data(role);
+	@SentinelResource(value = FileServiceProxy.GET_BY_IDS)
+	@PostMapping(FileServiceProxy.GET_BY_IDS)
+	public Result<List<File>> getByIds(List<String> ids) {
+		Result<List<File>> result=new Result<>();
+		List<File> files=fileService.getByIds(ids);
+		result.success(true).data(files);
 		return result;
 	}
 
@@ -161,16 +161,16 @@ public class FileController extends SuperController {
 	 */
 	@ApiOperation(value = "获取附件信息")
 	@ApiImplicitParams({
-			@ApiImplicitParam(name = FileVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "1,2"),
+			@ApiImplicitParam(name = FileVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "1"),
 	})
 	@ApiOperationSupport(order=6)
 	@NotNull(name = FileVOMeta.ID)
-	@SentinelResource(value = FileServiceProxy.GET_BY_IDS)
-	@PostMapping(FileServiceProxy.GET_BY_IDS)
-	public Result<List<File>> getById(List<String> ids) {
-		Result<List<File>> result=new Result<>();
-		List<File> files=fileService.getByIds(ids);
-		result.success(true).data(files);
+	@SentinelResource(value = FileServiceProxy.GET_BY_ID)
+	@PostMapping(FileServiceProxy.GET_BY_ID)
+	public Result<File> getById(String id) {
+		Result<File> result=new Result<>();
+		File role=fileService.getById(id);
+		result.success(true).data(role);
 		return result;
 	}
 
