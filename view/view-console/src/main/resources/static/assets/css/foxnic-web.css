@@ -8,7 +8,7 @@
     width:92px;
     height:92px;
     border: solid #c6c6c6 1px;
-    border-radius: 5px;
+    border-radius: 3px;
 }
 .layui-upload-file-name {
     position: absolute;
@@ -25,23 +25,20 @@
 .layui-upload-progress {
     width: 81px;
     margin-top:-10px;
-    margin-left: 6px
+    margin-left: 6px;
 }
-.layui-upload-delete-button {
-    display: block;
+.layui-upload-button-div {
     position: absolute;
-    margin-top:-24px;
-    margin-left: 69px;
-    color: #FF5722;
-    font-size: 16px;
-    width:15px;
-    height:17px;
-    padding-left: 2px;
-    padding-top: -0px;
-    background-color: #FFFFFF;
-    opacity: 0.0;
-    border: solid #FF5722 1px;
-    border-radius: 5px;
+    margin-top:-70px;
+    margin-left:20px;
+    display: -webkit-flex; /* Safari */
+    display: flex;
+    flex-direction:column;
+}
+.layui-upload-button {
+    width: 55px;
+    margin-left: 0px;
+    margin-bottom: 8px;
 }
 
 

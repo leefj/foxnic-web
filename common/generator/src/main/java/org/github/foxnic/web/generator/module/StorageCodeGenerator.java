@@ -26,7 +26,9 @@ public class StorageCodeGenerator extends SystemCodeGenerator {
 	public void generateSysFile() throws Exception {
 		//创建配置
 		ModuleContext cfg=createModuleConfig(SYS_FILE.$TABLE, 6);
-		
+
+		cfg.getPoClassFile().addSimpleProperty(Boolean.class,"exists","是否存在与存储系统","");
+
 		//文件生成覆盖模式
 		cfg.overrides()
 		.setServiceIntfAnfImpl(WriteMode.CREATE_IF_NOT_EXISTS) //服务与接口

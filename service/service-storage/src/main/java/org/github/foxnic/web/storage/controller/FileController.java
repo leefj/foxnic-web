@@ -184,10 +184,11 @@ public class FileController extends SuperController {
 		@ApiImplicitParam(name = FileVOMeta.FILE_NAME , value = "文件名" , required = false , dataTypeClass=String.class , example = "0273663d4b44e40d086420e6b59dd768.jpeg"),
 		@ApiImplicitParam(name = FileVOMeta.LOCATION , value = "存储位置" , required = false , dataTypeClass=String.class , example = "/20210319/425396608000065536.jpeg"),
 		@ApiImplicitParam(name = FileVOMeta.SIZE , value = "文件大小" , required = false , dataTypeClass=Long.class , example = "44781"),
+		@ApiImplicitParam(name = FileVOMeta.MEDIA_TYPE , value = "媒体类型" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = FileVOMeta.FILE_TYPE , value = "文件类型" , required = false , dataTypeClass=String.class , example = "jpeg"),
 		@ApiImplicitParam(name = FileVOMeta.DOWNLOAD_URL , value = "可直接下载的地址" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = FileVOMeta.LATEST_VISIT_TIME , value = "最后访问时间" , required = false , dataTypeClass= Date.class),
-		@ApiImplicitParam(name = FileVOMeta.DOWNLOADS , value = "下载次数" , required = false , dataTypeClass=Integer.class , example = "0"),
+		@ApiImplicitParam(name = FileVOMeta.DOWNLOADS , value = "下载次数" , required = true , dataTypeClass=Integer.class , example = "0"),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { FileVOMeta.PAGE_INDEX , FileVOMeta.PAGE_SIZE } )
 	@SentinelResource(value = FileServiceProxy.QUERY_LIST)
@@ -209,10 +210,11 @@ public class FileController extends SuperController {
 		@ApiImplicitParam(name = FileVOMeta.FILE_NAME , value = "文件名" , required = false , dataTypeClass=String.class , example = "0273663d4b44e40d086420e6b59dd768.jpeg"),
 		@ApiImplicitParam(name = FileVOMeta.LOCATION , value = "存储位置" , required = false , dataTypeClass=String.class , example = "/20210319/425396608000065536.jpeg"),
 		@ApiImplicitParam(name = FileVOMeta.SIZE , value = "文件大小" , required = false , dataTypeClass=Long.class , example = "44781"),
+		@ApiImplicitParam(name = FileVOMeta.MEDIA_TYPE , value = "媒体类型" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = FileVOMeta.FILE_TYPE , value = "文件类型" , required = false , dataTypeClass=String.class , example = "jpeg"),
 		@ApiImplicitParam(name = FileVOMeta.DOWNLOAD_URL , value = "可直接下载的地址" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = FileVOMeta.LATEST_VISIT_TIME , value = "最后访问时间" , required = false , dataTypeClass=Date.class),
-		@ApiImplicitParam(name = FileVOMeta.DOWNLOADS , value = "下载次数" , required = false , dataTypeClass=Integer.class , example = "0"),
+		@ApiImplicitParam(name = FileVOMeta.DOWNLOADS , value = "下载次数" , required = true , dataTypeClass=Integer.class , example = "0"),
 	})
 	@ApiOperationSupport(order=8)
 	@SentinelResource(value = FileServiceProxy.QUERY_PAGED_LIST)

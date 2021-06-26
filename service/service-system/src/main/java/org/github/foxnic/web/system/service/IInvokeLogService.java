@@ -27,7 +27,7 @@ import java.io.InputStream;
  * 调用统计日志 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-23 16:38:44
+ * @since 2021-06-26 10:48:09
 */
 
 public interface IInvokeLogService extends ISuperService<InvokeLog> {

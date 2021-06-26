@@ -314,159 +314,6 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"xmSe
     		return util.toDateString(t,f);
     	},
 
-		formUploads:{},
-
-		fillFormUpload:function (el,fileIds) {
-			var inst=this.formUploads[el];
-			//debugger;
-			inst.fill(fileIds);
-		},
-    	/**
-    	 * 渲染单文件上传界面
-    	 * */
-    	renderFormUpload:function(cfg) {
-			var me=this;
-			var el=cfg.el;
-    		if(this.formUploads[el]) return;
-			if(!cfg.count) count=1;
-
-			var template=[
-				'<div class="layui-upload-unit" id="{{el}}-file-unit-{{index}}">',
-				'	<img class="layui-upload-img" onclick="window.previewImage(this)" id="{{el}}-image-{{index}}" style="" src="/assets/images/no-image-92@2x.png">',
-				'	<div id="{{el}}-text-{{index}}" class="layui-upload-file-name"></div>',
-				' 	<a class="layui-upload-delete-button" id="{{el}}-delete-button-{{index}}"><i class="fa fa-remove"></i></a>',
-				'	<div class="layui-upload-progress" id="{{el}}-progress-container-{{index}}">',
-				'		<div class="layui-progress" lay-showpercent="true" lay-filter="{{el}}-progress-{{index}}">',
-				'			<div class="layui-progress-bar" lay-percent="10%"></div>',
-				'		<div>',
-				'	<div>',
-				'<div>'
-			];
-
-			var fileList=$("#"+el+"-file-list");
-
-			function addPreview(index) {
-				var html=template.join("\n");
-				html=html.replace(/{{el}}/g,el);
-				html=html.replace(/{{index}}/g,index);
-				var preview=fileList.append(html);
-				return preview;
-			}
-
-			function removePreview(removeButton) {
-				//debugger;
-				var fileId=removeButton.attr("fileId");
-				var index=removeButton.attr("index");
-				var task=setTimeout(function(){layer.load(2);},1000);
-				admin.request(apiurls.storage.remove, {id:fileId}, function (data) {
-					clearTimeout(task);
-					layer.closeAll('loading');
-					if (data.success) {
-						layer.msg("已删除", {icon: 1, time: 500});
-						$("#"+el+"-file-unit-"+index).remove();
-
-						var fileIds=$("#"+el).attr("fileIds");
-						try {
-							fileIds=JSON.parse(fileIds);
-						} catch (e) {
-							fileIds=[];
-						};
-						var newIds=[];
-						for (var i = 0; i < fileIds.length; i++) {
-							if(fileIds[i]==fileId) continue;
-							newIds.push(fileIds[i]);
-						}
-						$("#"+el).attr("fileIds",JSON.stringify(newIds));
-						$("#"+el).val(newIds.join(","));
-
-					} else {
-						layer.msg(data.message, {icon: 2, time: 500});
-					}
-					cfg.remove && cfg.remove(fileId,index,upload);
-				}, 'POST');
-			}
-
-			//var currIndex=0;
-			var uploadInst = upload.render({
-				elem: "#"+el+"-button",
-				url:  apiurls.storage.upload,
-				before: function(obj) {
-					//预读本地文件示例，不支持ie8
-					obj.preview(function(index, file, result) {
-
-						var preview=addPreview(index);
-						var img=preview.find("#"+el+"-image-"+index);
-
-						img.attr('src', result); //base64 图片
-						$("#"+el+"-text-"+index).text(file.name);
-
-					});
-				},
-				progress: function(n, elem, res, index) {
-					element.progress(el+'-progress-'+ index, n + '%' ); //进度条
-				},
-				done: function(res,index, upload){
-					//如果上传失败
-					if(!res.success){
-						return layer.msg('上传失败');
-					}
-
-					setTimeout(function () {
-						$("#"+el+"-progress-container-"+index).fadeTo("slow", 0.01, function(){
-							$("#"+el+"-delete-button-"+index).fadeTo("slow", 0.8, function(){});
-						});
-
-					},500);
-
-					var fileIds=$("#"+el).attr("fileIds");
-					try {
-						fileIds=JSON.parse(fileIds);
-					} catch (e) {
-						fileIds=[];
-					};
-					fileIds.push(res.data[0].fileId);
-					$("#"+el).attr("fileIds",JSON.stringify(fileIds))
-
-					// //上传成功
-					$("#"+el).val(fileIds.join(","));
-					//处理删除按钮
-					$("#"+el+"-delete-button-"+index).attr("fileId",res.data[0].fileId);
-					$("#"+el+"-delete-button-"+index).attr("index",index);
-
-					$("#"+el+"-delete-button-"+index).click(function() {
-						removePreview($(this));
-					});
-					cfg.upload && cfg.upload(res,index, upload);
-				},
-				error: function() {
-					layer.msg('上传失败');
-				}
-			});
-
-			//填充
-			uploadInst.fill=function (value) {
-				var fileIds=value.split(",");
-				$("#"+el).attr("fileIds",JSON.stringify(fileIds));
-				//debugger;
-				for (var i = 0; i < fileIds.length; i++) {
-					var preview=addPreview(i);
-					var img=preview.find("#"+el+"-image-"+i);
-					img.attr('src', apiurls.storage.download+"?id="+fileIds[i]); //base64 图片
-					$("#"+el+"-progress-container-"+i).css("display","none");
-					$("#"+el+"-delete-button-"+i).attr("fileId",fileIds[i]);
-					$("#"+el+"-delete-button-"+i).attr("index",i);
-					$("#"+el+"-delete-button-"+i).fadeTo("slow", 0.8, function(){});
-					$("#"+el+"-delete-button-"+i).click(function() {
-						removePreview($(this));
-					});
-				}
-
-			}
-
-
-    		this.formUploads[el]=uploadInst;
-    	
-    	},
     	/**
     	 * 绑定Switch开关
     	 * */
@@ -500,8 +347,9 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"xmSe
 		       return(false);
 		},
 		//表单提交
-		submit: function (url,params) {
-
+		submit: function (url,params,method) {
+    		// debugger
+			if(!method) method="post";
 			url=url.replace("//","/");
 			url=url.replace("http:/","http://");
 			url=url.replace("https:/","https://");
@@ -510,7 +358,7 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"xmSe
         	var $ifr=$("<iframe id='"+target+"' name='"+target+"' style='display:none'></iframe>")
         	$("body").append($ifr);
 			// 构造隐藏的form表单
-			var $form = $("<form style='display:none' method='post' target='"+target+"' action='"+url+"'></form>");
+			var $form = $("<form style='display:none' method='"+method+"' target='"+target+"' action='"+url+"'></form>");
 			$("body").append($form);
 			//添加参数
 			if(!params) params={};
@@ -649,6 +497,11 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"xmSe
     		if(window!=top) {
     			top.previewImage(obj);
     			return;
+			}
+    		var it=$(obj);
+    		var fileType=it.attr("fileType");
+			if(!fileType.startWith("image/")) {
+				return;
 			}
        		var src=obj.src;
        		//debugger

@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-25 15:58:18
- * @sign 4A0570F0A62F2844DDA03FDA42A57AC6
+ * @since 2021-06-26 10:54:56
+ * @sign 87D295147A78F5F3CF92EFFDDF28E961
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -54,6 +54,12 @@ public class File extends Entity {
 	private Long size;
 	
 	/**
+	 * 媒体类型：媒体类型
+	*/
+	@ApiModelProperty(required = false,value="媒体类型" , notes = "媒体类型")
+	private String mediaType;
+	
+	/**
 	 * 文件类型：存放文件扩展名
 	*/
 	@ApiModelProperty(required = false,value="文件类型" , notes = "存放文件扩展名")
@@ -74,7 +80,7 @@ public class File extends Entity {
 	/**
 	 * 下载次数：下载次数
 	*/
-	@ApiModelProperty(required = false,value="下载次数" , notes = "下载次数")
+	@ApiModelProperty(required = true,value="下载次数" , notes = "下载次数")
 	private Integer downloads;
 	
 	/**
@@ -124,6 +130,12 @@ public class File extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
 	private Integer version;
+	
+	/**
+	 * 是否存在与存储系统
+	*/
+	@ApiModelProperty(required = false,value="是否存在与存储系统" , notes = "")
+	private Boolean exists;
 	
 	/**
 	 * 获得 ID<br>
@@ -222,6 +234,31 @@ public class File extends Entity {
 	/**
 	 * 添加 文件大小
 	 * @param size 文件大小
+	 * @return 当前对象
+	*/
+	
+	/**
+	 * 获得 媒体类型<br>
+	 * 属性说明 : 媒体类型
+	 * @return 媒体类型
+	*/
+	public String getMediaType() {
+		return mediaType;
+	}
+	
+	/**
+	 * 设置 媒体类型
+	 * @param mediaType 媒体类型
+	 * @return 当前对象
+	*/
+	public File setMediaType(String mediaType) {
+		this.mediaType=mediaType;
+		return this;
+	}
+	
+	/**
+	 * 添加 媒体类型
+	 * @param mediaType 媒体类型
 	 * @return 当前对象
 	*/
 	
@@ -522,6 +559,39 @@ public class File extends Entity {
 	/**
 	 * 添加 数据版本号
 	 * @param version 数据版本号
+	 * @return 当前对象
+	*/
+	
+	/**
+	 * 获得 是否存在与存储系统<br>
+	 * @return 是否存在与存储系统
+	*/
+	public Boolean isExists() {
+		return exists;
+	}
+	
+	/**
+	 * 获得 是否存在与存储系统<br>
+	 * 等价于 isExists 方法，为兼容 Swagger 需要
+	 * @return 是否存在与存储系统
+	*/
+	public Boolean getExists() {
+		return this.exists;
+	}
+	
+	/**
+	 * 设置 是否存在与存储系统
+	 * @param exists 是否存在与存储系统
+	 * @return 当前对象
+	*/
+	public File setExists(Boolean exists) {
+		this.exists=exists;
+		return this;
+	}
+	
+	/**
+	 * 添加 是否存在与存储系统
+	 * @param exists 是否存在与存储系统
 	 * @return 当前对象
 	*/
 

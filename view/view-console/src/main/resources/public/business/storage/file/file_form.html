@@ -2,7 +2,7 @@
 /**
  * 系统文件 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-25 15:58:20
+ * @since 2021-06-26 10:54:57
  */
  -->
  <!DOCTYPE html>
@@ -46,6 +46,15 @@
         <label class="layui-form-label" th:text="${lang.translate('文件大小')}">文件大小</label>
         <div class="layui-input-block">
             <input lay-filter="size" id="size" name="size" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('文件大小') }" type="text" class="layui-input"   />
+        </div>
+    </div>
+    
+	
+    
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('媒体类型')}">媒体类型</label>
+        <div class="layui-input-block">
+            <input lay-filter="mediaType" id="mediaType" name="mediaType" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('媒体类型') }" type="text" class="layui-input"   />
         </div>
     </div>
     

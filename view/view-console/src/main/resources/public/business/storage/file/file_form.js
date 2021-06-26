@@ -1,19 +1,19 @@
 /**
  * 系统文件 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-25 15:58:20
+ * @since 2021-06-26 10:54:57
  */
 
 function FormPage() {
 
-	var settings,admin,form,table,layer,util,fox,upload,xmSelect;
+	var settings,admin,form,table,layer,util,fox,upload,xmSelect,foxup;
 	const moduleURL="/service-storage/sys-file";
 	
 	/**
       * 入口函数，初始化
       */
 	this.init=function(layui) { 	
-     	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload;
+     	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload,foxup=layui.foxnicUpload;
 		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
 		
 		//渲染表单组件
@@ -113,7 +113,8 @@ layui.config({
 	dir: layuiPath,
 	base: '/module/'
 }).extend({
-	xmSelect: 'xm-select/xm-select'
-}).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect'],function() {
+	xmSelect: 'xm-select/xm-select',
+	foxnicUpload: 'upload/foxnic-upload'
+}).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect','foxnicUpload'],function() {
 	(new FormPage()).init(layui);
 });

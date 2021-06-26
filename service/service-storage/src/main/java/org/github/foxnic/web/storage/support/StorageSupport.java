@@ -31,4 +31,5 @@ public abstract class StorageSupport {
      * */
     public abstract  byte[] read(File fileInfo) throws Exception;
 
+    public abstract Boolean isFileExists(File fileInfo);
 }

@@ -2,14 +2,14 @@
 
 function FormPage() {
 
-	var settings,admin,form,table,layer,util,fox,upload,xmSelect;
+	var settings,admin,form,table,layer,util,fox,upload,xmSelect,foxup;
 	const moduleURL="#(moduleURL)";
 	
 	/**
       * 入口函数，初始化
       */
 	this.init=function(layui) { 	
-     	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload;
+     	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload,foxup=layui.foxnicUpload;
 		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
 		
 		//渲染表单组件
@@ -44,7 +44,7 @@ function FormPage() {
 	    #for(f : fields)
 	    #if(f.isImageField) 
 	    //渲染图片字段
-	    fox.renderFormUpload({
+		foxup.render({
 			el:"#(f.varName)",
 			upload:function (result,index,upload) {
 				console.log("文件上传后回调")
@@ -115,7 +115,7 @@ function FormPage() {
 		    #if(f.isImageField)
 			//设置  #(f.label)  显示图片
 		    if($("##(f.varName)").val()) {
-		    	$("##(f.varName)-image").attr("src","/service-storage/sys-file/download?id="+$("##(f.varName)").val());
+				foxup.fill("#(f.varName)",$("##(f.varName)").val());
 		    }
 		    #end
 		    #end
@@ -197,7 +197,8 @@ layui.config({
 	dir: layuiPath,
 	base: '/module/'
 }).extend({
-	xmSelect: 'xm-select/xm-select'
-}).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect'],function() {
+	xmSelect: 'xm-select/xm-select',
+	foxnicUpload: 'upload/foxnic-upload'
+}).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect','foxnicUpload'],function() {
 	(new FormPage()).init(layui);
 });

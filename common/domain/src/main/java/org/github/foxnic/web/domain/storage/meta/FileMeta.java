@@ -7,8 +7,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-25 15:58:18
- * @sign 4A0570F0A62F2844DDA03FDA42A57AC6
+ * @since 2021-06-26 10:54:56
+ * @sign 87D295147A78F5F3CF92EFFDDF28E961
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -33,6 +33,11 @@ public class FileMeta {
 	 * 文件大小 , 单位KB
 	*/
 	public static final String SIZE="size";
+	
+	/**
+	 * 媒体类型
+	*/
+	public static final String MEDIA_TYPE="mediaType";
 	
 	/**
 	 * 文件类型 , 存放文件扩展名
@@ -95,9 +100,14 @@ public class FileMeta {
 	public static final String VERSION="version";
 	
 	/**
+	 * 是否存在与存储系统
+	*/
+	public static final String EXISTS="exists";
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , FILE_NAME , LOCATION , SIZE , FILE_TYPE , DOWNLOAD_URL , LATEST_VISIT_TIME , DOWNLOADS , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , FILE_NAME , LOCATION , SIZE , MEDIA_TYPE , FILE_TYPE , DOWNLOAD_URL , LATEST_VISIT_TIME , DOWNLOADS , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , EXISTS };
 	
 	/**
 	 * 代理类
@@ -148,6 +158,17 @@ public class FileMeta {
 		public File setSize(Long size) {
 			super.change(SIZE,super.getSize(),size);
 			super.setSize(size);
+			return this;
+		}
+		
+		/**
+		 * 设置 媒体类型
+		 * @param mediaType 媒体类型
+		 * @return 当前对象
+		*/
+		public File setMediaType(String mediaType) {
+			super.change(MEDIA_TYPE,super.getMediaType(),mediaType);
+			super.setMediaType(mediaType);
 			return this;
 		}
 		
@@ -280,6 +301,17 @@ public class FileMeta {
 		public File setVersion(Integer version) {
 			super.change(VERSION,super.getVersion(),version);
 			super.setVersion(version);
+			return this;
+		}
+		
+		/**
+		 * 设置 是否存在与存储系统
+		 * @param exists 是否存在与存储系统
+		 * @return 当前对象
+		*/
+		public File setExists(Boolean exists) {
+			super.change(EXISTS,super.isExists(),exists);
+			super.setExists(exists);
 			return this;
 		}
 	}

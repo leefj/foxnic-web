@@ -1,7 +1,7 @@
 /**
  * 调用统计日志 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-23 16:38:44
+ * @since 2021-06-26 10:48:09
  */
 
 
@@ -52,8 +52,8 @@ function ListPage() {
                 { field: 'userName', sort: true, title: fox.translate('用户姓名')} ,
                 { field: 'parameter', sort: true, title: fox.translate('请求参数')} ,
                 { field: 'response', sort: true, title: fox.translate('响应数据')} ,
-				{ field: 'startTime', sort: true, title: fox.translate('开始时间'), templet: function (d) { return fox.dateFormat(d.; }} ,
-				{ field: 'endTime', sort: true, title: fox.translate('结束时间'), templet: function (d) { return fox.dateFormat(d.; }} ,
+				{ field: 'startTime', sort: true, title: fox.translate('开始时间'), templet: function (d) { return fox.dateFormat(d.startTime); }} ,
+				{ field: 'endTime', sort: true, title: fox.translate('结束时间'), templet: function (d) { return fox.dateFormat(d.endTime); }} ,
                 { field: 'exception', sort: true, title: fox.translate('异常信息')} ,
                 { field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
             ]]
@@ -213,7 +213,7 @@ function ListPage() {
 		admin.putTempData('sys-invoke-log-form-data', data);
 		var area=admin.getTempData('sys-invoke-log-form-area');
 		var height= (area && area.height) ? area.height : ($(window).height()*0.6);
-		var top= ($(window).height()-height)/2;
+		var top= (area && area.top) ? area.top : (($(window).height()-height)/2);
 		var title = (data && data.id) ? (fox.translate('修改')+fox.translate('调用统计日志')) : (fox.translate('添加')+fox.translate('调用统计日志'));
 		admin.popupCenter({
 			title: title,

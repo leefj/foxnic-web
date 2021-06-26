@@ -136,6 +136,7 @@ public class FileServiceImpl extends SuperService<File> implements IFileService 
 	public File uploadFile(MultipartFile multipartFile) {
 		File fileinfo=new File();
 		fileinfo.setDownloads(0);
+		fileinfo.setMediaType(multipartFile.getContentType());
 		//获取源文件名称
 		String originalFileName = multipartFile.getOriginalFilename();
 		//获取文件后缀
@@ -186,7 +187,12 @@ public class FileServiceImpl extends SuperService<File> implements IFileService 
 		In in=new In(pk.getColumn(),ids);
 		Expr select =new Expr("select * from "+table());
 		select.append(in.toConditionExpr().startWithWhere());
-		return dao().queryEntities(File.class,select);
+		List<File> files=dao().queryEntities(File.class,select);
+		for (File file : files) {
+			file.setExists(this.getStorageSupport().isFileExists(file));
+		}
+
+		return files;
 	}
 
 

@@ -79,15 +79,10 @@ public class DiskStorageSupport  extends  StorageSupport {
         byte[] bytes=null;
         String dir=this.getStorageDir();
         try {
-            if(!OSType.isWindows()){
-                fileInfo.setLocation(fileInfo.getLocation().replace('\\','/'));
-            }
-            java.io.File f= FileUtil.resolveByPath(dir, fileInfo.getLocation());
-            Logger.info(f.getAbsolutePath());
-            if(!f.exists()) {
+            if(!isFileExists(fileInfo)) {
                 throw  new RuntimeException("文件不存在");
             }
-            FileInputStream in=new FileInputStream(f);
+            FileInputStream in=new FileInputStream(getFile(fileInfo));
             bytes =IOUtils.readFully(in, in.available());
             return bytes;
         } catch (IOException e) {
@@ -95,5 +90,21 @@ public class DiskStorageSupport  extends  StorageSupport {
         }
 
 
+    }
+
+    private java.io.File getFile(File fileInfo) {
+        String dir=this.getStorageDir();
+        if(!OSType.isWindows()){
+            fileInfo.setLocation(fileInfo.getLocation().replace('\\','/'));
+        }
+        java.io.File f= FileUtil.resolveByPath(dir, fileInfo.getLocation());
+        return f;
+    }
+
+    @Override
+    public Boolean isFileExists(File fileInfo) {
+        java.io.File f= getFile(fileInfo);
+        Logger.info(f.getAbsolutePath());
+        return f.exists();
     }
 }

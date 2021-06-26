@@ -1,19 +1,19 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-25 15:03:24
+ * @since 2021-06-26 10:48:50
  */
 
 function FormPage() {
 
-	var settings,admin,form,table,layer,util,fox,upload,xmSelect;
+	var settings,admin,form,table,layer,util,fox,upload,xmSelect,foxup;
 	const moduleURL="/service-oauth/sys-user";
 	
 	/**
       * 入口函数，初始化
       */
 	this.init=function(layui) { 	
-     	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload;
+     	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload,foxup=layui.foxnicUpload;
 		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
 		
 		//渲染表单组件
@@ -46,10 +46,10 @@ function FormPage() {
 		form.render();
 	   
 	    //渲染图片字段
-	    fox.renderFormUpload({
+		foxup.render({
 			el:"portraitId",
 			upload:function (result,index,upload) {
-	    		console.log("文件上传后回调")
+				console.log("文件上传后回调")
 			},
 			remove:function (fileId,index,upload) {
 				console.log("文件删除后回调")
@@ -89,8 +89,7 @@ function FormPage() {
 
 			//设置  头像ID  显示图片
 		    if($("#portraitId").val()) {
-		    	fox.fillFormUpload("portraitId",$("#portraitId").val());
-		    	//$("#portraitId-image").attr("src","/service-storage/sys-file/download?id="+$("#portraitId").val());
+				foxup.fill("portraitId",$("#portraitId").val());
 		    }
 
 			//设置 角色 下拉框选中值
@@ -158,7 +157,8 @@ layui.config({
 	dir: layuiPath,
 	base: '/module/'
 }).extend({
-	xmSelect: 'xm-select/xm-select'
-}).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect'],function() {
+	xmSelect: 'xm-select/xm-select',
+	foxnicUpload: 'upload/foxnic-upload'
+}).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect','foxnicUpload'],function() {
 	(new FormPage()).init(layui);
 });

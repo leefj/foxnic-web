@@ -19,4 +19,9 @@ public class MongoDBStorageSupport extends  StorageSupport {
     public byte[] read(File fileInfo) {
         return new byte[0];
     }
+
+    @Override
+    public Boolean isFileExists(File fileInfo) {
+        return null;
+    }
 }
