@@ -7,7 +7,8 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"elem
     var FILE_TYPES={
         ape:"ape",ai:"ai",avi:"avi",cdr:"cdr",doc:"doc",docx:"doc",html:"html",htm:"html",ini:"ini",
         mov:"mov",mp3:"mp3",mp4:"mp4",new:"new",pdf:"pdf",ppt:"ppt",pptx:"ppt",psd:"psd",ttf:"ttf",
-        txt:"txt",zip:"zip"
+        txt:"txt",zip:"zip","7z":"7z",bin:"bin",cmd:"cmd",db:"db",dot:"dot",exe:"exe",java:"java",jar:"jar",
+        note:"note",p12:"p12",pfx:"pfx",psd:"psd",rar:"rar",sh:"sh",wav:"wav",xls:"xls",xlsx:"xls",zip:"zip"
     };
     var template=[
         '<div class="layui-upload-unit" id="{{el}}-file-unit-{{index}}">',
@@ -163,9 +164,9 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"elem
             ext = FILE_TYPES[ext];
         }
         if(ext){
-            ext="/assets/images/filetype/"+ext+".png";
+            ext="/module/upload/filetype/"+ext+".png";
         } else {
-            ext="/assets/images/filetype/txt.png";
+            ext="/module/upload/filetype/error.png";
         }
         return ext;
     }
