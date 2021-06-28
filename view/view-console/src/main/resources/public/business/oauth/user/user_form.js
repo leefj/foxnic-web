@@ -1,7 +1,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-26 10:48:50
+ * @since 2021-06-28 11:40:51
  */
 
 function FormPage() {
@@ -36,6 +36,7 @@ function FormPage() {
 			var bodyHeight=body.height();
 			var area=admin.changePopupArea(null,bodyHeight);
 			admin.putTempData('sys-user-form-area', area);
+			window.adjustPopup=adjustPopup;
 		},50);
 	}
 	
@@ -48,11 +49,16 @@ function FormPage() {
 	    //渲染图片字段
 		foxup.render({
 			el:"portraitId",
-			upload:function (result,index,upload) {
+			maxFileCount: 1,
+			displayFileName: false,
+			accept: "image",
+			acceptMime:'image/*',
+			afterUpload:function (result,index,upload) {
 				console.log("文件上传后回调")
 			},
-			remove:function (fileId,index,upload) {
-				console.log("文件删除后回调")
+			beforeRemove:function (elId,fileId,index,upload) {
+				console.log("文件删除前回调");
+				return true;
 			}
 	    });
 		//渲染下拉字段
@@ -87,7 +93,7 @@ function FormPage() {
 			fm[0].reset();
 			form.val('data-form', formData);
 
-			//设置  头像ID  显示图片
+			//设置  头像  显示附件
 		    if($("#portraitId").val()) {
 				foxup.fill("portraitId",$("#portraitId").val());
 		    }

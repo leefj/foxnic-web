@@ -156,7 +156,7 @@ public class FileServiceImpl extends SuperService<File> implements IFileService 
 
 		if(fileInfo==null) {
 			Logger.error("文件不存在");
-			result= ErrorDesc.failure(CommonError.DATA_NOT_EXISTS).message("文件不存在");
+			result= ErrorDesc.failure(CommonError.DATA_NOT_EXISTS).message("file is not exists");
 		}
 		byte[] bytes=null;
 		try {
@@ -173,6 +173,7 @@ public class FileServiceImpl extends SuperService<File> implements IFileService 
 
 		if(result!=null) {
 			try {
+				response.setCharacterEncoding("UTF-8");
 				response.getWriter().write(JSON.toJSONString(result));
 			} catch (IOException e) {
 				Logger.error("下载失败，输出异常",e);

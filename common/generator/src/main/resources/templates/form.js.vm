@@ -32,6 +32,7 @@ function FormPage() {
 			var bodyHeight=body.height();
 			var area=admin.changePopupArea(null,bodyHeight);
 			admin.putTempData('#(formAreaKey)', area);
+			window.adjustPopup=adjustPopup;
 		},50);
 	}
 	
@@ -42,15 +43,35 @@ function FormPage() {
 		form.render();
 	   
 	    #for(f : fields)
-	    #if(f.isImageField) 
+	    #if(f.isUploadField)
 	    //渲染图片字段
 		foxup.render({
 			el:"#(f.varName)",
-			upload:function (result,index,upload) {
+			maxFileCount: #(f.uploadField.maxFileCount),
+			displayFileName: #(f.uploadField.displayFileName),
+			#if(f.uploadField.fileType=="image")
+			accept: "image",
+			#else if(f.uploadField.fileType=="video")
+			accept: "video",
+			#else if(f.uploadField.fileType=="audio")
+			accept: "audio",
+			#else if(f.uploadField.fileType=="all")
+			accept: "file",
+			#else
+			accept: "file",
+			#end
+			#if(f.uploadField.getAcceptMimes(", ")!=null)
+			acceptMime:'#(f.uploadField.getAcceptMimes(", "))',
+			#end
+			#if(f.uploadField.getAcceptExts(", ")!=null)
+			exts:'#(f.uploadField.getAcceptExts(", "))',
+			#end
+			afterUpload:function (result,index,upload) {
 				console.log("文件上传后回调")
 			},
-			remove:function (fileId,index,upload) {
-				console.log("文件删除后回调")
+			beforeRemove:function (elId,fileId,index,upload) {
+				console.log("文件删除前回调");
+				return true;
 			}
 	    });
 		#else if(f.isSelectField)
@@ -112,8 +133,8 @@ function FormPage() {
 			form.val('data-form', formData);
 
 	     	#for(f : fields)
-		    #if(f.isImageField)
-			//设置  #(f.label)  显示图片
+		    #if(f.isUploadField)
+			//设置  #(f.label)  显示附件
 		    if($("##(f.varName)").val()) {
 				foxup.fill("#(f.varName)",$("##(f.varName)").val());
 		    }

@@ -48,6 +48,12 @@
     margin-right:11px;
 }
 
+.layui-upload-unit-single {
+    margin-top:11px;
+    margin-bottom:0px;
+    margin-right:11px;
+}
+
 .layui-upload-list {
     display: -webkit-flex; /* Safari */
     display: flex;

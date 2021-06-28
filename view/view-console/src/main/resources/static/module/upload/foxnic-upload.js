@@ -28,25 +28,44 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"elem
     ];
     var UPLOADS={};
 
-    function addPreview(elId,index,fileName,fileType,result,fileId) {
+    function addPreview(elId,index,fileName,fileType,result,fileId,exists) {
+        var inst=UPLOADS[elId];
+        var displayFileName=inst.config.displayFileName;
         var fileList=$("#"+elId+"-file-list");
         var html=template.join("\n");
         html=html.replace(/{{el}}/g,elId);
         html=html.replace(/{{index}}/g,index);
         var preview=fileList.append(html);
+        //debugger;
+
+        if(inst.config.maxFileCount==1) {
+            $("#"+elId+"-file-unit-"+index).css("margin-bottom","0px");
+            preview.css("margin","0px");
+        }
+        if(displayFileName===false) {
+            preview.find("#"+elId+"-text-"+index).hide();
+        }
         //
         var img=preview.find("#"+elId+"-image-"+index);
         img.attr('fileType',fileType);
         img.attr('fileName',fileName);
+        if(!fileType) {
+            fileType="image/png";
+        }
         //设置预览图
         if(fileType.startWith("image/")) {
             if(result!=null) {
                 img.attr('src', result); //base64 图片
             } else {
-                img.attr('src', apiurls.storage.image+"?id="+fileId); //base64 图片
+                if(exists) {
+                    img.attr('src', apiurls.storage.image + "?id=" + fileId); //base64 图片
+                } else {
+                    var src=getSnapshotPath(fileName,false);
+                    img.attr('src', src);
+                }
             }
         } else {
-            var src=getSnapshotPath(fileName);
+            var src=getSnapshotPath(fileName,exists);
             img.attr('src', src);
         }
 
@@ -59,11 +78,15 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"elem
 
         //
         bindImageAction(elId,index,preview);
+
+        if(window.adjustPopup) {
+            window.adjustPopup();
+        }
+
         return preview;
     }
 
-    function bindData(act,elId,index,fileId) {
-
+    function getFileIds(elId) {
         //读取JSON属性
         var fileIds=$("#"+elId).attr("fileIds");
         try {
@@ -71,6 +94,13 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"elem
         } catch (e) {
             fileIds=[];
         };
+        return fileIds;
+    }
+
+    function bindData(act,elId,index,fileId) {
+
+        //读取JSON属性
+        var fileIds=getFileIds(elId);
 
         if(act=="add") {
             fileIds.push(fileId);
@@ -90,6 +120,9 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"elem
 
         //处理删除按钮
         if(act=="add") {
+
+            $("#"+elId+"-file-list").attr("fileId",fileId);
+            $("#"+elId+"-file-list").attr("index",index);
 
             $("#"+elId+"-delete-button-"+index).attr("fileId",fileId);
             $("#"+elId+"-delete-button-"+index).attr("index",index);
@@ -119,11 +152,13 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"elem
         });
 
         $("#"+elId+"-download-button-"+index).click(function() {
-            debugger
+            //debugger
             downloadFile($(this));
         });
         $("#"+elId+"-delete-button-"+index).click(function() {
-            removePreview(elId,$(this));
+            var fileId=$(this).attr("fileId");
+            var index=$(this).attr("index");
+            removePreview(elId,fileId,index,false);
         });
     }
 
@@ -132,28 +167,44 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"elem
         window.open(apiurls.storage.download+"?id="+fileId+"&inline=0");
     }
 
-    function removePreview(elId,removeButton) {
+    function removePreview(elId,fileId,index,sclince) {
+        if(!sclince) {
+            var cb=UPLOADS[elId].config.beforeRemove;
+            cb=cb && cb(elId,fileId,index,UPLOADS[elId]);
+            if(cb===false) return;
+        }
         //debugger;
-        var fileId=removeButton.attr("fileId");
-        var index=removeButton.attr("index");
+        //var fileId=removeButton.attr("fileId");
+        //var index=removeButton.attr("index");
         var task=setTimeout(function(){layer.load(2);},1000);
         admin.request(apiurls.storage.remove, {id:fileId}, function (data) {
             clearTimeout(task);
             layer.closeAll('loading');
             if (data.success) {
-                layer.msg("已删除", {icon: 1, time: 500});
+                if(!sclince) {
+                    layer.msg("已删除", {icon: 1, time: 500});
+                }
                 $("#"+elId+"-file-unit-"+index).remove();
 
                 bindData("remove",elId,index,fileId);
 
+                if(window.adjustPopup) {
+                    window.adjustPopup();
+                }
+
             } else {
-                layer.msg(data.message, {icon: 2, time: 500});
+                if(!sclince) {
+                    layer.msg(data.message, {icon: 2, time: 500});
+                }
             }
             //cfg.remove && cfg.remove(fileId,index,upload);
         }, 'POST');
     }
 
-    function getSnapshotPath(fileName) {
+    function getSnapshotPath(fileName,exists) {
+        if(!exists) {
+            return "/module/upload/filetype/error.png";
+        }
         var ext=fileName.split(".");
         if(ext.length>1) {
             ext = ext[ext.length - 1];
@@ -190,6 +241,14 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"elem
             this.config.before=function (obj){
 
                 obj.preview(function(index, file, result) {
+                    //如果只有一个，就替换
+                    var fs=$("#"+elId+"-file-list").children();
+                    //debugger;
+                    if(me.config.maxFileCount==1 && fs.length>=me.config.maxFileCount) {
+                        var idx=$("#"+elId+"-file-list").attr("index");
+                        var fid=$("#"+elId+"-file-list").attr("fileId");
+                        removePreview(elId,fid,idx,true);
+                    }
                     addPreview(elId,index,file.name,file.type,result);
                 });
                 //
@@ -202,15 +261,16 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"elem
                 progress && progress(n, elem, res, index);
             };
             //
-            var done=this.config.done;
+            var afterUpload=this.config.afterUpload;
             this.config.done = function(res,index, upload){
                 //如果上传失败
                 // debugger
-                if(!res.success){
+                if(!res.success) {
                     return layer.msg('上传失败');
                 }
 
                 setTimeout(function () {
+                    //debugger;
                     $("#"+elId+"-progress-container-"+index).fadeTo("slow", 0.01, function(){
                         //$("#"+elId+"-progress-container-"+index).css("display","none");
                     });
@@ -219,9 +279,7 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"elem
 
                 bindData("add",elId,index,res.data[0].fileId);
 
-
-
-                done && done(res,index, upload);
+                afterUpload && afterUpload(res,index,upload);
             };
             //
             var error=this.config.error;
@@ -259,11 +317,11 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"elem
 
         for (var i = 0; i < fileIds.length; i++) {
             var info=infoMap[fileIds[i]];
-
+            //debugger;
             if(info!=null) {
-                addPreview(elId,i,info.fileName,info.mediaType,null,fileIds[i]);
+                addPreview(elId,i,info.fileName,info.mediaType,null,fileIds[i],info.exists);
             } else {
-                addPreview(elId,i,"文件不存在","error",null,null);
+                addPreview(elId,i,"文件不存在","error",null,null,false);
             }
             bindData("add",elId,i,fileIds[i]);
         }

@@ -2,7 +2,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-26 10:48:49
+ * @since 2021-06-28 11:40:50
  */
  -->
  <!DOCTYPE html>
@@ -43,10 +43,10 @@
 	
 
     <div class="layui-form-item">
-        <label class="layui-form-label" th:text="${lang.translate('头像ID')}">头像ID</label>
+        <label class="layui-form-label" th:text="${lang.translate('头像')}">头像</label>
         <div class="layui-upload layui-input-block">
-            <input id="portraitId"  name="portraitId" ay-filter="portraitId" style="display: none">
-            <button type="button" class="layui-btn" id="portraitId-button" th:text="${lang.translate('选择图片')}">选择图片</button>
+            <input id="portraitId"  name="portraitId" lay-filter="portraitId" style="display: none">
+            <button type="button" class="layui-btn" id="portraitId-button" th:text="${lang.translate('选择头像')}">选择头像</button>
             <div class="layui-upload-list" id="portraitId-file-list"></div>
         </div>
     </div>

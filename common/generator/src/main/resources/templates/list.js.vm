@@ -55,7 +55,7 @@ function ListPage() {
                 #for(f : fields)
 		 		#if(f.isDateField)
 				{ field: '#(f.varName)', sort: true, title: fox.translate('#(f.label)'), templet: function (d) { return fox.dateFormat(d.#(f.varName)); }} ,
-				#elseif(f.isImageField)
+				#elseif(f.isUploadField && f.uploadField.isImageOnly && f.uploadField.count==1)
 				{ field: '#(f.varName)', sort: true, title: fox.translate('#(f.label)'), templet: function (d) { return '<img style="height:100%;" fileType="image/png" onclick="window.previewImage(this)"  src="'+apiurls.storage.image+'?id='+ d.#(f.varName)+'" />'; } } ,
 				#elseif(f.isLogicField)
 				{ field: '#(f.varName)', sort: true, title: fox.translate('#(f.label)'), templet: '#cell-tpl-#(f.varName)'} ,

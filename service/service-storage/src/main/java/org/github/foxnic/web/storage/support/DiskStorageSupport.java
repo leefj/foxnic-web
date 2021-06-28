@@ -80,13 +80,13 @@ public class DiskStorageSupport  extends  StorageSupport {
         String dir=this.getStorageDir();
         try {
             if(!isFileExists(fileInfo)) {
-                throw  new RuntimeException("文件不存在");
+                throw  new RuntimeException("FileId = "+fileInfo.getId()+" , file is not exists");
             }
             FileInputStream in=new FileInputStream(getFile(fileInfo));
             bytes =IOUtils.readFully(in, in.available());
             return bytes;
         } catch (IOException e) {
-            throw  new RuntimeException("文件下载异常",e);
+            throw  new RuntimeException("FileId = "+fileInfo.getId()+" , file download error",e);
         }
 
 
