@@ -84,9 +84,9 @@ public class #(simpleName) extends SuperController {
 	@ApiOperationSupport(order=3) #end
 	@NotNull(name = #(voMetaSimpleName).#(idsPropertyConst))
 	#if(isEnableMicroService)
-	@SentinelResource(value = #(agentSimpleName).BATCH_DELETE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
+	@SentinelResource(value = #(agentSimpleName).DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	#end
-	@PostMapping(#(agentSimpleName).BATCH_DELETE)
+	@PostMapping(#(agentSimpleName).DELETE_BY_IDS)
 	public Result<#(poSimpleName)> deleteByIds(List<#(idsPropertyType)> #(idsPropertyName)) {
 		Result<#(poSimpleName)> result=new Result<>();
 		boolean suc=#(serviceVarName).deleteByIdsLogical(#(idsPropertyName));
@@ -159,6 +159,31 @@ public class #(simpleName) extends SuperController {
 		result.success(true).data(role);
 		return result;
 	}
+
+
+	#if(isSimplePk)
+	/**
+	 * 批量删除#(topic) <br>
+	 * 联合主键时，请自行调整实现
+	*/
+		#if(isEnableSwagger)
+		@ApiOperation(value = "批量删除#(topic)")
+		@ApiImplicitParams({
+				@ApiImplicitParam(name = #(voMetaSimpleName).#(idsPropertyConst) , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
+		})
+		@ApiOperationSupport(order=3) #end
+		@NotNull(name = #(voMetaSimpleName).#(idsPropertyConst))
+		#if(isEnableMicroService)
+		@SentinelResource(value = #(agentSimpleName).GET_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
+		#end
+	@PostMapping(#(agentSimpleName).GET_BY_IDS)
+	public Result<List<#(poSimpleName)>> getByIds(List<#(idsPropertyType)> #(idsPropertyName)) {
+		Result<List<#(poSimpleName)>> result=new Result<>();
+		List<#(poSimpleName)> list=#(serviceVarName).getByIds(#(idsPropertyName));
+		result.success(true).data(list);
+		return result;
+	}
+	#end
 
 	
 	/**
