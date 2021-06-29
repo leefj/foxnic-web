@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2021-06-28 15:06:07
+ * @since 2021-06-29 10:59:58
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -828,6 +828,7 @@ public class FoxnicWeb {
 	}
 	
 	/**
+	 * 菜单资源关系表
 	*/
 	public static class SYS_MENU_RESOURCE extends DBTable {
 		
@@ -839,7 +840,7 @@ public class FoxnicWeb {
 		/**
 		 * ID
 		*/
-		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","ID","ID",false,false,true);
+		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","ID","ID",true,false,false);
 		
 		/**
 		 * 菜单ID
@@ -892,7 +893,7 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
 		public SYS_MENU_RESOURCE() {
-			this.init($NAME,"" , ID , MENU_ID , RESOURCE_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"菜单资源关系表" , ID , MENU_ID , RESOURCE_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final SYS_MENU_RESOURCE $TABLE=new SYS_MENU_RESOURCE();
 	}
@@ -1054,9 +1055,24 @@ public class FoxnicWeb {
 		public static final DBField METHOD = new DBField(DBDataType.STRING , "method","method","HttpMethod","HttpMethod",false,false,true);
 		
 		/**
+		 * 批次号
+		*/
+		public static final DBField BATCH_ID = new DBField(DBDataType.STRING , "batch_id","batchId","批次号","批次号",false,false,true);
+		
+		/**
 		 * 创建人ID
 		*/
 		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
+		
+		/**
+		 * 来源表
+		*/
+		public static final DBField TABLE_NAME = new DBField(DBDataType.STRING , "table_name","tableName","来源表","来源表",false,false,true);
+		
+		/**
+		 * 来源模块
+		*/
+		public static final DBField MODULE = new DBField(DBDataType.STRING , "module","module","来源模块","来源模块",false,false,true);
 		
 		/**
 		 * 创建时间
@@ -1094,7 +1110,7 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
 		public SYS_RESOURZE() {
-			this.init($NAME,"系统资源" , ID , TYPE , URL , METHOD , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"系统资源" , ID , TYPE , URL , METHOD , BATCH_ID , CREATE_BY , TABLE_NAME , MODULE , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final SYS_RESOURZE $TABLE=new SYS_RESOURZE();
 	}

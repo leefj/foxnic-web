@@ -3,7 +3,7 @@ package org.github.foxnic.web.domain.oauth;
 import com.github.foxnic.dao.entity.Entity;
 import javax.persistence.Table;
 import com.github.foxnic.sql.meta.DBTable;
-import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_RESOURZE;
+import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_MENU_RESOURCE;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
@@ -16,17 +16,17 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-29 11:00:18
- * @sign E20B9BB63A4FDC052BFC2F9E2980C6F8
+ * @since 2021-06-29 10:51:09
+ * @sign 59661CB57FB3F6F0EE9EC02B08064429
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
-@Table(name = "sys_resourze")
-public class Resourze extends Entity {
+@Table(name = "sys_menu_resource")
+public class MenuResource extends Entity {
 
 	private static final long serialVersionUID = 1L;
 
-	public static final DBTable TABLE =SYS_RESOURZE.$TABLE;
+	public static final DBTable TABLE =SYS_MENU_RESOURCE.$TABLE;
 	
 	/**
 	 * ID：ID
@@ -36,46 +36,22 @@ public class Resourze extends Entity {
 	private String id;
 	
 	/**
-	 * 类型：api/page
+	 * 菜单ID：菜单ID
 	*/
-	@ApiModelProperty(required = false,value="类型" , notes = "api/page")
-	private String type;
+	@ApiModelProperty(required = false,value="菜单ID" , notes = "菜单ID")
+	private String menuId;
 	
 	/**
-	 * 地址：地址
+	 * 资源ID：资源ID
 	*/
-	@ApiModelProperty(required = false,value="地址" , notes = "地址")
-	private String url;
-	
-	/**
-	 * HttpMethod：HttpMethod
-	*/
-	@ApiModelProperty(required = false,value="HttpMethod" , notes = "HttpMethod")
-	private String method;
-	
-	/**
-	 * 批次号：批次号
-	*/
-	@ApiModelProperty(required = false,value="批次号" , notes = "批次号")
-	private String batchId;
+	@ApiModelProperty(required = false,value="资源ID" , notes = "资源ID")
+	private String resourceId;
 	
 	/**
 	 * 创建人ID：创建人ID
 	*/
 	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID")
 	private String createBy;
-	
-	/**
-	 * 来源表：来源表
-	*/
-	@ApiModelProperty(required = false,value="来源表" , notes = "来源表")
-	private String tableName;
-	
-	/**
-	 * 来源模块：来源模块
-	*/
-	@ApiModelProperty(required = false,value="来源模块" , notes = "来源模块")
-	private String module;
 	
 	/**
 	 * 创建时间：创建时间
@@ -133,7 +109,7 @@ public class Resourze extends Entity {
 	 * @param id ID
 	 * @return 当前对象
 	*/
-	public Resourze setId(String id) {
+	public MenuResource setId(String id) {
 		this.id=id;
 		return this;
 	}
@@ -145,102 +121,52 @@ public class Resourze extends Entity {
 	*/
 	
 	/**
-	 * 获得 类型<br>
-	 * 属性说明 : api/page
-	 * @return 类型
+	 * 获得 菜单ID<br>
+	 * 属性说明 : 菜单ID
+	 * @return 菜单ID
 	*/
-	public String getType() {
-		return type;
+	public String getMenuId() {
+		return menuId;
 	}
 	
 	/**
-	 * 设置 类型
-	 * @param type 类型
+	 * 设置 菜单ID
+	 * @param menuId 菜单ID
 	 * @return 当前对象
 	*/
-	public Resourze setType(String type) {
-		this.type=type;
+	public MenuResource setMenuId(String menuId) {
+		this.menuId=menuId;
 		return this;
 	}
 	
 	/**
-	 * 添加 类型
-	 * @param type 类型
+	 * 添加 菜单ID
+	 * @param menuId 菜单ID
 	 * @return 当前对象
 	*/
 	
 	/**
-	 * 获得 地址<br>
-	 * 属性说明 : 地址
-	 * @return 地址
+	 * 获得 资源ID<br>
+	 * 属性说明 : 资源ID
+	 * @return 资源ID
 	*/
-	public String getUrl() {
-		return url;
+	public String getResourceId() {
+		return resourceId;
 	}
 	
 	/**
-	 * 设置 地址
-	 * @param url 地址
+	 * 设置 资源ID
+	 * @param resourceId 资源ID
 	 * @return 当前对象
 	*/
-	public Resourze setUrl(String url) {
-		this.url=url;
+	public MenuResource setResourceId(String resourceId) {
+		this.resourceId=resourceId;
 		return this;
 	}
 	
 	/**
-	 * 添加 地址
-	 * @param url 地址
-	 * @return 当前对象
-	*/
-	
-	/**
-	 * 获得 HttpMethod<br>
-	 * 属性说明 : HttpMethod
-	 * @return HttpMethod
-	*/
-	public String getMethod() {
-		return method;
-	}
-	
-	/**
-	 * 设置 HttpMethod
-	 * @param method HttpMethod
-	 * @return 当前对象
-	*/
-	public Resourze setMethod(String method) {
-		this.method=method;
-		return this;
-	}
-	
-	/**
-	 * 添加 HttpMethod
-	 * @param method HttpMethod
-	 * @return 当前对象
-	*/
-	
-	/**
-	 * 获得 批次号<br>
-	 * 属性说明 : 批次号
-	 * @return 批次号
-	*/
-	public String getBatchId() {
-		return batchId;
-	}
-	
-	/**
-	 * 设置 批次号
-	 * @param batchId 批次号
-	 * @return 当前对象
-	*/
-	public Resourze setBatchId(String batchId) {
-		this.batchId=batchId;
-		return this;
-	}
-	
-	/**
-	 * 添加 批次号
-	 * @param batchId 批次号
+	 * 添加 资源ID
+	 * @param resourceId 资源ID
 	 * @return 当前对象
 	*/
 	
@@ -258,7 +184,7 @@ public class Resourze extends Entity {
 	 * @param createBy 创建人ID
 	 * @return 当前对象
 	*/
-	public Resourze setCreateBy(String createBy) {
+	public MenuResource setCreateBy(String createBy) {
 		this.createBy=createBy;
 		return this;
 	}
@@ -266,56 +192,6 @@ public class Resourze extends Entity {
 	/**
 	 * 添加 创建人ID
 	 * @param createBy 创建人ID
-	 * @return 当前对象
-	*/
-	
-	/**
-	 * 获得 来源表<br>
-	 * 属性说明 : 来源表
-	 * @return 来源表
-	*/
-	public String getTableName() {
-		return tableName;
-	}
-	
-	/**
-	 * 设置 来源表
-	 * @param tableName 来源表
-	 * @return 当前对象
-	*/
-	public Resourze setTableName(String tableName) {
-		this.tableName=tableName;
-		return this;
-	}
-	
-	/**
-	 * 添加 来源表
-	 * @param tableName 来源表
-	 * @return 当前对象
-	*/
-	
-	/**
-	 * 获得 来源模块<br>
-	 * 属性说明 : 来源模块
-	 * @return 来源模块
-	*/
-	public String getModule() {
-		return module;
-	}
-	
-	/**
-	 * 设置 来源模块
-	 * @param module 来源模块
-	 * @return 当前对象
-	*/
-	public Resourze setModule(String module) {
-		this.module=module;
-		return this;
-	}
-	
-	/**
-	 * 添加 来源模块
-	 * @param module 来源模块
 	 * @return 当前对象
 	*/
 	
@@ -333,7 +209,7 @@ public class Resourze extends Entity {
 	 * @param createTime 创建时间
 	 * @return 当前对象
 	*/
-	public Resourze setCreateTime(Date createTime) {
+	public MenuResource setCreateTime(Date createTime) {
 		this.createTime=createTime;
 		return this;
 	}
@@ -358,7 +234,7 @@ public class Resourze extends Entity {
 	 * @param updateBy 修改人ID
 	 * @return 当前对象
 	*/
-	public Resourze setUpdateBy(String updateBy) {
+	public MenuResource setUpdateBy(String updateBy) {
 		this.updateBy=updateBy;
 		return this;
 	}
@@ -383,7 +259,7 @@ public class Resourze extends Entity {
 	 * @param updateTime 修改时间
 	 * @return 当前对象
 	*/
-	public Resourze setUpdateTime(Date updateTime) {
+	public MenuResource setUpdateTime(Date updateTime) {
 		this.updateTime=updateTime;
 		return this;
 	}
@@ -408,7 +284,7 @@ public class Resourze extends Entity {
 	 * @param deleted 是否已删除
 	 * @return 当前对象
 	*/
-	public Resourze setDeleted(Integer deleted) {
+	public MenuResource setDeleted(Integer deleted) {
 		this.deleted=deleted;
 		return this;
 	}
@@ -433,7 +309,7 @@ public class Resourze extends Entity {
 	 * @param deleteBy 删除人ID
 	 * @return 当前对象
 	*/
-	public Resourze setDeleteBy(String deleteBy) {
+	public MenuResource setDeleteBy(String deleteBy) {
 		this.deleteBy=deleteBy;
 		return this;
 	}
@@ -458,7 +334,7 @@ public class Resourze extends Entity {
 	 * @param deleteTime 删除时间
 	 * @return 当前对象
 	*/
-	public Resourze setDeleteTime(Date deleteTime) {
+	public MenuResource setDeleteTime(Date deleteTime) {
 		this.deleteTime=deleteTime;
 		return this;
 	}
@@ -483,7 +359,7 @@ public class Resourze extends Entity {
 	 * @param version 数据版本号
 	 * @return 当前对象
 	*/
-	public Resourze setVersion(Integer version) {
+	public MenuResource setVersion(Integer version) {
 		this.version=version;
 		return this;
 	}
@@ -497,7 +373,7 @@ public class Resourze extends Entity {
 	/**
 	 * 将自己转换成指定类型的PO
 	 * @param poType  PO类型
-	 * @return Resourze , 转换好的 Resourze 对象
+	 * @return MenuResource , 转换好的 MenuResource 对象
 	*/
 	@Transient
 	public <T extends Entity> T toPO(Class<T> poType) {
@@ -507,7 +383,7 @@ public class Resourze extends Entity {
 	/**
 	 * 将自己转换成任意指定类型
 	 * @param pojoType  Pojo类型
-	 * @return Resourze , 转换好的 PoJo 对象
+	 * @return MenuResource , 转换好的 PoJo 对象
 	*/
 	@Transient
 	public <T> T toPojo(Class<T> pojoType) {
@@ -524,35 +400,35 @@ public class Resourze extends Entity {
 	}
 
 	/**
-	 * 将 Map 转换成 Resourze
-	 * @param resourzeMap 包含实体信息的 Map 对象
-	 * @return Resourze , 转换好的的 Resourze 对象
+	 * 将 Map 转换成 MenuResource
+	 * @param menuResourceMap 包含实体信息的 Map 对象
+	 * @return MenuResource , 转换好的的 MenuResource 对象
 	*/
 	@Transient
-	public static Resourze createFrom(Map<String,Object> resourzeMap) {
-		if(resourzeMap==null) return null;
-		Resourze po = EntityContext.create(Resourze.class, resourzeMap);
+	public static MenuResource createFrom(Map<String,Object> menuResourceMap) {
+		if(menuResourceMap==null) return null;
+		MenuResource po = EntityContext.create(MenuResource.class, menuResourceMap);
 		return po;
 	}
 
 	/**
-	 * 将 Pojo 转换成 Resourze
+	 * 将 Pojo 转换成 MenuResource
 	 * @param pojo 包含实体信息的 Pojo 对象
-	 * @return Resourze , 转换好的的 Resourze 对象
+	 * @return MenuResource , 转换好的的 MenuResource 对象
 	*/
 	@Transient
-	public static Resourze createFrom(Object pojo) {
+	public static MenuResource createFrom(Object pojo) {
 		if(pojo==null) return null;
-		Resourze po = EntityContext.create(Resourze.class,pojo);
+		MenuResource po = EntityContext.create(MenuResource.class,pojo);
 		return po;
 	}
 
 	/**
-	 * 创建一个 Resourze，等同于 new
-	 * @return Resourze 对象
+	 * 创建一个 MenuResource，等同于 new
+	 * @return MenuResource 对象
 	*/
 	@Transient
-	public static Resourze create() {
-		return new Resourze();
+	public static MenuResource create() {
+		return new MenuResource();
 	}
 }

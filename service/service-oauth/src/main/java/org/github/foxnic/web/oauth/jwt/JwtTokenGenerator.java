@@ -1,14 +1,8 @@
 package org.github.foxnic.web.oauth.jwt;
 
  
-import java.security.KeyPair;
-import java.security.interfaces.RSAPrivateKey;
-import java.security.interfaces.RSAPublicKey;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Map;
-import java.util.Set;
-
+import com.alibaba.fastjson.JSONObject;
+import com.github.foxnic.commons.busi.id.IDGenerator;
 import org.github.foxnic.web.oauth.config.jwt.JwtProperties;
 import org.github.foxnic.web.oauth.config.security.SecurityProperties;
 import org.github.foxnic.web.oauth.config.security.SecurityProperties.SecurityMode;
@@ -19,8 +13,11 @@ import org.springframework.security.jwt.crypto.sign.RsaVerifier;
 import org.springframework.security.jwt.crypto.sign.SignatureVerifier;
 import org.springframework.util.Assert;
 
-import com.alibaba.fastjson.JSONObject;
-import com.github.foxnic.commons.busi.id.IDGenerator;
+import java.security.KeyPair;
+import java.security.interfaces.RSAPrivateKey;
+import java.security.interfaces.RSAPublicKey;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * JwtTokenGenerator
@@ -56,8 +53,8 @@ public class JwtTokenGenerator {
      * Jwt token pair jwt token pair.
      *
      * @param aud        the aud
-     * @param roles      the roles
-     * @param additional the additional
+     * @param uid      the roles
+     * @param aud the additional
      * @return the jwt token pair
      */
     public JwtTokenPair jwtTokenPair(String uid,String aud) {
@@ -81,8 +78,8 @@ public class JwtTokenGenerator {
      *
      * @param aud        the aud
      * @param exp        the exp
-     * @param roles      the roles
-     * @param additional the additional
+     * @param type      the roles
+     * @param jti the additional
      * @return the string
      */
 	private JwtToken jwtToken(String jti,String type,String aud, String uid,int exp) {

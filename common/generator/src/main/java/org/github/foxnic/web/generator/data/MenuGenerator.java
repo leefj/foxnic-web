@@ -1,29 +1,19 @@
 package org.github.foxnic.web.generator.data;
 
 import com.github.foxnic.commons.busi.id.IDGenerator;
-import com.github.foxnic.commons.io.FileUtil;
 import com.github.foxnic.commons.lang.StringUtil;
-import com.github.foxnic.dao.data.Rcd;
-import com.github.foxnic.dao.data.RcdSet;
 import com.github.foxnic.dao.meta.DBTableMeta;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
-import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_MENU;
-import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_ROLE_MENU;
 import org.github.foxnic.web.constants.enums.MenuType;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.Resourze;
 import org.github.foxnic.web.generator.config.FoxnicWebConfigs;
 import org.github.foxnic.web.oauth.page.ResourzePageController;
 import org.github.foxnic.web.proxy.oauth.ResourzeServiceProxy;
-import org.github.foxnic.web.proxy.oauth.UserServiceProxy;
-import org.github.foxnic.web.proxy.storage.FileServiceProxy;
-import org.github.foxnic.web.storage.page.FilePageController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.io.File;
-import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,13 +52,20 @@ public class MenuGenerator {
 	
 	
 	
-	private static String CATALOG="新建:insert;删除:delete;批量删除:delete-by-ids;保存:update,save;查询:get-by-id,get-by-ids,query-list,query-paged-list;导出:export-excel;导入:export-excel-template,import-excel";
-	
-	
-	
-	
+	private static final String CATALOG=
+			"新建:insert,save;" +
+			"删除:delete;" +
+			"批量删除:delete-by-ids;" +
+			"更新:update;" +
+			"保存:update,save;" +
+			"查询列表:get-by-ids,query-list,query-paged-list;" +
+			"查看表单:get-by-id,get-by-ids;" +
+			"导出:export-excel;" +
+			"导入:export-excel-template,import-excel";
+
 	private FoxnicWebConfigs configs;
 	private DAO dao;
+
 	
 	public MenuGenerator() {
 		this.configs=new FoxnicWebConfigs("service-system");
@@ -81,19 +78,76 @@ public class MenuGenerator {
 
 		String batchId=IDGenerator.getSnowflakeIdString();
 
-		Menu indexMenu=createFromPage(page,table,batchId);
+		Menu indexMenu=createFromPage(page,table,parentId,batchId);
 
 
 
 	}
 
-	private Menu createFromPage(Class page,DBTable table,String batchId) throws Exception {
+	private Menu createFromPage(Class page,DBTable table,String parentId,String batchId) throws Exception {
 		String prefix=(String)page.getDeclaredField("prefix").get(null);
 		prefix=StringUtil.removeFirst(prefix, "/");
 		List<Menu> pages=new ArrayList<>();
 		Method[] ms=page.getDeclaredMethods();
-		Menu indexMenu=null;
+		Menu listMenu=null;
 		Menu formMenu=null;
+
+		List<Resourze> resourzes=this.getPageResources(page,table,batchId);
+		for (Resourze resourze : resourzes) {
+
+			Menu menu=new Menu();
+			menu.setId(IDGenerator.getSnowflakeIdString());
+			menu.setType(MenuType.page.name());
+			menu.setSort(0);
+
+			if(resourze.getUrl().endsWith("_list.html")) {
+				menu.setUrl("#!"+table.name().toLowerCase()+"_list");
+				menu.setLabel(getTopic(table)+"管理");
+				menu.setHidden(0);
+				listMenu=menu;
+			}
+
+			if(resourze.getUrl().endsWith("_form.html")) {
+				menu.setUrl("#!"+table.name().toLowerCase()+"_edit");
+				menu.setLabel("查看"+getTopic(table));
+				menu.setHidden(1);
+				formMenu=menu;
+			}
+		}
+
+		listMenu.setParentId(parentId);
+
+
+		Menu formFolder=new Menu();
+		formFolder.setId(IDGenerator.getSnowflakeIdString());
+		formFolder.setType(MenuType.folder.name());
+		formFolder.setSort(0);
+		formFolder.setLabel("表单");
+		formFolder.setParentId(listMenu.getId());
+
+		formMenu.setParentId(formFolder.getId());
+
+		Menu formSaveButton=new Menu();
+		formSaveButton.setId(IDGenerator.getSnowflakeIdString());
+		formSaveButton.setType(MenuType.folder.name());
+		formSaveButton.setSort(0);
+		formSaveButton.setLabel("保存");
+		formSaveButton.setParentId(listMenu.getId());
+
+
+		return  listMenu;
+	}
+
+
+
+	/**
+	 * 从页面控制器提取页面资源
+	 * */
+	private List<Resourze> getPageResources(Class page,DBTable table,String batchId) throws Exception {
+		String prefix=(String)page.getDeclaredField("prefix").get(null);
+		prefix=StringUtil.removeFirst(prefix, "/");
+		List<Resourze> resources=new ArrayList<>();
+		Method[] ms=page.getDeclaredMethods();
 
 		for (Method m : ms) {
 			RequestMapping rm=m.getAnnotation(RequestMapping.class);
@@ -106,31 +160,14 @@ public class MenuGenerator {
 			resourze.setUrl(path);
 			resourze.setType("page");
 			resourze.setMethod("GET");
+			resourze.setTableName(table.name());
+			resourze.setModule(this.getTopic(table));
+			resourze.setBatchId(batchId);
 
-			Menu menu=new Menu();
-			menu.setId(IDGenerator.getSnowflakeIdString());
-			menu.setPath(path);
-			menu.setType(MenuType.page.name());
-			if(path.endsWith("_form.html")) {
-				menu.setUrl("#!"+table.name().toLowerCase()+"_edit");
-				menu.setLabel("编辑"+getTopic(table));
-				menu.setHidden(1);
-				formMenu=menu;
-			}
-			if(path.endsWith("_list.html")) {
-				menu.setUrl("#!"+table.name().toLowerCase()+"_mngr");
-				menu.setLabel(getTopic(table)+"管理");
-				menu.setHidden(0);
-				indexMenu=menu;
-			}
-			menu.setSort(0);
-			pages.add(menu);
+			resources.add(resourze);
 		}
 
-
-
-
-		return  indexMenu;
+		return  resources;
 	}
 
 
