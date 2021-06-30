@@ -1,5 +1,6 @@
 package org.github.foxnic.web.domain.oauth;
 
+import java.util.List;
 import com.github.foxnic.dao.entity.Entity;
 import javax.persistence.Table;
 import com.github.foxnic.sql.meta.DBTable;
@@ -7,6 +8,7 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_MENU;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
+import java.util.ArrayList;
 import javax.persistence.Transient;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
@@ -16,8 +18,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-23 13:07:30
- * @sign D502E41AEE7294314FD1D88277B05752
+ * @since 2021-06-30 17:29:26
+ * @sign 69E5DC921115371F2B785C50C2E218B0
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -76,6 +78,12 @@ public class Menu extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="模版路径" , notes = "模版路径")
 	private String path;
+	
+	/**
+	 * 菜单路径的资源：菜单路径的资源
+	*/
+	@ApiModelProperty(required = false,value="菜单路径的资源" , notes = "菜单路径的资源")
+	private String pathResourceId;
 	
 	/**
 	 * 路由地址：路由地址
@@ -144,6 +152,18 @@ public class Menu extends Entity {
 	private Integer version;
 	
 	/**
+	 * 路径资源
+	*/
+	@ApiModelProperty(required = false,value="路径资源" , notes = "")
+	private Resourze pathResource;
+	
+	/**
+	 * 菜单包含的资源清单
+	*/
+	@ApiModelProperty(required = false,value="菜单包含的资源清单" , notes = "")
+	private List<Resourze> resources;
+	
+	/**
 	 * 获得 ID<br>
 	 * 属性说明 : ID
 	 * @return ID
@@ -161,12 +181,6 @@ public class Menu extends Entity {
 		this.id=id;
 		return this;
 	}
-	
-	/**
-	 * 添加 ID
-	 * @param id ID
-	 * @return 当前对象
-	*/
 	
 	/**
 	 * 获得 批次号<br>
@@ -188,12 +202,6 @@ public class Menu extends Entity {
 	}
 	
 	/**
-	 * 添加 批次号
-	 * @param batchId 批次号
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 权限<br>
 	 * 属性说明 : 权限标识
 	 * @return 权限
@@ -211,12 +219,6 @@ public class Menu extends Entity {
 		this.authority=authority;
 		return this;
 	}
-	
-	/**
-	 * 添加 权限
-	 * @param authority 权限
-	 * @return 当前对象
-	*/
 	
 	/**
 	 * 获得 是否隐藏<br>
@@ -238,12 +240,6 @@ public class Menu extends Entity {
 	}
 	
 	/**
-	 * 添加 是否隐藏
-	 * @param hidden 是否隐藏
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 样式<br>
 	 * 属性说明 : 样式
 	 * @return 样式
@@ -261,12 +257,6 @@ public class Menu extends Entity {
 		this.css=css;
 		return this;
 	}
-	
-	/**
-	 * 添加 样式
-	 * @param css 样式
-	 * @return 当前对象
-	*/
 	
 	/**
 	 * 获得 标签<br>
@@ -288,12 +278,6 @@ public class Menu extends Entity {
 	}
 	
 	/**
-	 * 添加 标签
-	 * @param label 标签
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 菜单类型<br>
 	 * 属性说明 : 菜单类型
 	 * @return 菜单类型
@@ -311,12 +295,6 @@ public class Menu extends Entity {
 		this.type=type;
 		return this;
 	}
-	
-	/**
-	 * 添加 菜单类型
-	 * @param type 菜单类型
-	 * @return 当前对象
-	*/
 	
 	/**
 	 * 获得 模版路径<br>
@@ -338,10 +316,23 @@ public class Menu extends Entity {
 	}
 	
 	/**
-	 * 添加 模版路径
-	 * @param path 模版路径
+	 * 获得 菜单路径的资源<br>
+	 * 属性说明 : 菜单路径的资源
+	 * @return 菜单路径的资源
+	*/
+	public String getPathResourceId() {
+		return pathResourceId;
+	}
+	
+	/**
+	 * 设置 菜单路径的资源
+	 * @param pathResourceId 菜单路径的资源
 	 * @return 当前对象
 	*/
+	public Menu setPathResourceId(String pathResourceId) {
+		this.pathResourceId=pathResourceId;
+		return this;
+	}
 	
 	/**
 	 * 获得 路由地址<br>
@@ -363,12 +354,6 @@ public class Menu extends Entity {
 	}
 	
 	/**
-	 * 添加 路由地址
-	 * @param url 路由地址
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 上级ID<br>
 	 * 属性说明 : 上级ID
 	 * @return 上级ID
@@ -386,12 +371,6 @@ public class Menu extends Entity {
 		this.parentId=parentId;
 		return this;
 	}
-	
-	/**
-	 * 添加 上级ID
-	 * @param parentId 上级ID
-	 * @return 当前对象
-	*/
 	
 	/**
 	 * 获得 显示顺序<br>
@@ -413,12 +392,6 @@ public class Menu extends Entity {
 	}
 	
 	/**
-	 * 添加 显示顺序
-	 * @param sort 显示顺序
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 创建人ID<br>
 	 * 属性说明 : 创建人ID
 	 * @return 创建人ID
@@ -436,12 +409,6 @@ public class Menu extends Entity {
 		this.createBy=createBy;
 		return this;
 	}
-	
-	/**
-	 * 添加 创建人ID
-	 * @param createBy 创建人ID
-	 * @return 当前对象
-	*/
 	
 	/**
 	 * 获得 创建时间<br>
@@ -463,12 +430,6 @@ public class Menu extends Entity {
 	}
 	
 	/**
-	 * 添加 创建时间
-	 * @param createTime 创建时间
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 修改人ID<br>
 	 * 属性说明 : 修改人ID
 	 * @return 修改人ID
@@ -486,12 +447,6 @@ public class Menu extends Entity {
 		this.updateBy=updateBy;
 		return this;
 	}
-	
-	/**
-	 * 添加 修改人ID
-	 * @param updateBy 修改人ID
-	 * @return 当前对象
-	*/
 	
 	/**
 	 * 获得 修改时间<br>
@@ -513,12 +468,6 @@ public class Menu extends Entity {
 	}
 	
 	/**
-	 * 添加 修改时间
-	 * @param updateTime 修改时间
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 是否已删除<br>
 	 * 属性说明 : 是否已删除
 	 * @return 是否已删除
@@ -536,12 +485,6 @@ public class Menu extends Entity {
 		this.deleted=deleted;
 		return this;
 	}
-	
-	/**
-	 * 添加 是否已删除
-	 * @param deleted 是否已删除
-	 * @return 当前对象
-	*/
 	
 	/**
 	 * 获得 删除人ID<br>
@@ -563,12 +506,6 @@ public class Menu extends Entity {
 	}
 	
 	/**
-	 * 添加 删除人ID
-	 * @param deleteBy 删除人ID
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 删除时间<br>
 	 * 属性说明 : 删除时间
 	 * @return 删除时间
@@ -586,12 +523,6 @@ public class Menu extends Entity {
 		this.deleteTime=deleteTime;
 		return this;
 	}
-	
-	/**
-	 * 添加 删除时间
-	 * @param deleteTime 删除时间
-	 * @return 当前对象
-	*/
 	
 	/**
 	 * 获得 数据版本号<br>
@@ -613,10 +544,51 @@ public class Menu extends Entity {
 	}
 	
 	/**
-	 * 添加 数据版本号
-	 * @param version 数据版本号
+	 * 获得 路径资源<br>
+	 * @return 路径资源
+	*/
+	public Resourze getPathResource() {
+		return pathResource;
+	}
+	
+	/**
+	 * 设置 路径资源
+	 * @param pathResource 路径资源
 	 * @return 当前对象
 	*/
+	public Menu setPathResource(Resourze pathResource) {
+		this.pathResource=pathResource;
+		return this;
+	}
+	
+	/**
+	 * 获得 菜单包含的资源清单<br>
+	 * @return 菜单包含的资源清单
+	*/
+	public List<Resourze> getResources() {
+		return resources;
+	}
+	
+	/**
+	 * 设置 菜单包含的资源清单
+	 * @param resources 菜单包含的资源清单
+	 * @return 当前对象
+	*/
+	public Menu setResources(List<Resourze> resources) {
+		this.resources=resources;
+		return this;
+	}
+	
+	/**
+	 * 添加 菜单包含的资源清单
+	 * @param resource 菜单包含的资源清单
+	 * @return 当前对象
+	*/
+	public Menu addResource(Resourze resource) {
+		if(this.resources==null) resources=new ArrayList<>();
+		this.resources.add(resource);
+		return this;
+	}
 
 	/**
 	 * 将自己转换成指定类型的PO

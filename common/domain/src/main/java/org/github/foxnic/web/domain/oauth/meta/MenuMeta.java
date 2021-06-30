@@ -2,13 +2,15 @@ package org.github.foxnic.web.domain.oauth.meta;
 
 import org.github.foxnic.web.domain.oauth.Menu;
 import java.util.Date;
+import org.github.foxnic.web.domain.oauth.Resourze;
+import java.util.List;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-23 13:07:31
- * @sign D502E41AEE7294314FD1D88277B05752
+ * @since 2021-06-30 17:29:26
+ * @sign 69E5DC921115371F2B785C50C2E218B0
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -53,6 +55,11 @@ public class MenuMeta {
 	 * 模版路径
 	*/
 	public static final String PATH="path";
+	
+	/**
+	 * 菜单路径的资源
+	*/
+	public static final String PATH_RESOURCE_ID="pathResourceId";
 	
 	/**
 	 * 路由地址
@@ -110,9 +117,19 @@ public class MenuMeta {
 	public static final String VERSION="version";
 	
 	/**
+	 * 路径资源
+	*/
+	public static final String PATH_RESOURCE="pathResource";
+	
+	/**
+	 * 菜单包含的资源清单
+	*/
+	public static final String RESOURCES="resources";
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , BATCH_ID , AUTHORITY , HIDDEN , CSS , LABEL , TYPE , PATH , URL , PARENT_ID , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , BATCH_ID , AUTHORITY , HIDDEN , CSS , LABEL , TYPE , PATH , PATH_RESOURCE_ID , URL , PARENT_ID , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , PATH_RESOURCE , RESOURCES };
 	
 	/**
 	 * 代理类
@@ -207,6 +224,17 @@ public class MenuMeta {
 		public Menu setPath(String path) {
 			super.change(PATH,super.getPath(),path);
 			super.setPath(path);
+			return this;
+		}
+		
+		/**
+		 * 设置 菜单路径的资源
+		 * @param pathResourceId 菜单路径的资源
+		 * @return 当前对象
+		*/
+		public Menu setPathResourceId(String pathResourceId) {
+			super.change(PATH_RESOURCE_ID,super.getPathResourceId(),pathResourceId);
+			super.setPathResourceId(pathResourceId);
 			return this;
 		}
 		
@@ -328,6 +356,28 @@ public class MenuMeta {
 		public Menu setVersion(Integer version) {
 			super.change(VERSION,super.getVersion(),version);
 			super.setVersion(version);
+			return this;
+		}
+		
+		/**
+		 * 设置 路径资源
+		 * @param pathResource 路径资源
+		 * @return 当前对象
+		*/
+		public Menu setPathResource(Resourze pathResource) {
+			super.change(PATH_RESOURCE,super.getPathResource(),pathResource);
+			super.setPathResource(pathResource);
+			return this;
+		}
+		
+		/**
+		 * 设置 菜单包含的资源清单
+		 * @param resources 菜单包含的资源清单
+		 * @return 当前对象
+		*/
+		public Menu setResources(List<Resourze> resources) {
+			super.change(RESOURCES,super.getResources(),resources);
+			super.setResources(resources);
 			return this;
 		}
 	}

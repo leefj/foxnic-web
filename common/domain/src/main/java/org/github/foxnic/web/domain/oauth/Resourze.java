@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-29 11:00:18
- * @sign E20B9BB63A4FDC052BFC2F9E2980C6F8
+ * @since 2021-06-30 14:28:59
+ * @sign 221711BB0413495D8B427FB1164925B3
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -34,6 +34,12 @@ public class Resourze extends Entity {
 	@Id
 	@ApiModelProperty(required = true,value="ID" , notes = "ID")
 	private String id;
+	
+	/**
+	 * 名称：名称
+	*/
+	@ApiModelProperty(required = false,value="名称" , notes = "名称")
+	private String name;
 	
 	/**
 	 * 类型：api/page
@@ -141,6 +147,31 @@ public class Resourze extends Entity {
 	/**
 	 * 添加 ID
 	 * @param id ID
+	 * @return 当前对象
+	*/
+	
+	/**
+	 * 获得 名称<br>
+	 * 属性说明 : 名称
+	 * @return 名称
+	*/
+	public String getName() {
+		return name;
+	}
+	
+	/**
+	 * 设置 名称
+	 * @param name 名称
+	 * @return 当前对象
+	*/
+	public Resourze setName(String name) {
+		this.name=name;
+		return this;
+	}
+	
+	/**
+	 * 添加 名称
+	 * @param name 名称
 	 * @return 当前对象
 	*/
 	

@@ -7,8 +7,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-29 11:00:18
- * @sign E20B9BB63A4FDC052BFC2F9E2980C6F8
+ * @since 2021-06-30 14:29:00
+ * @sign 221711BB0413495D8B427FB1164925B3
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -18,6 +18,11 @@ public class ResourzeMeta {
 	 * ID
 	*/
 	public static final String ID="id";
+	
+	/**
+	 * 名称
+	*/
+	public static final String NAME="name";
 	
 	/**
 	 * 类型 , api/page
@@ -92,7 +97,7 @@ public class ResourzeMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , TYPE , URL , METHOD , BATCH_ID , CREATE_BY , TABLE_NAME , MODULE , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , NAME , TYPE , URL , METHOD , BATCH_ID , CREATE_BY , TABLE_NAME , MODULE , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
 	
 	/**
 	 * 代理类
@@ -110,6 +115,17 @@ public class ResourzeMeta {
 		public Resourze setId(String id) {
 			super.change(ID,super.getId(),id);
 			super.setId(id);
+			return this;
+		}
+		
+		/**
+		 * 设置 名称
+		 * @param name 名称
+		 * @return 当前对象
+		*/
+		public Resourze setName(String name) {
+			super.change(NAME,super.getName(),name);
+			super.setName(name);
 			return this;
 		}
 		
