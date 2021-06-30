@@ -8,6 +8,7 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.*;
 import org.github.foxnic.web.constants.enums.Language;
 import org.github.foxnic.web.domain.oauth.meta.UserMeta;
 import org.github.foxnic.web.domain.oauth.meta.UserVOMeta;
+import org.github.foxnic.web.proxy.oauth.ResourzeServiceProxy;
 import org.github.foxnic.web.proxy.oauth.RoleServiceProxy;
 
 
@@ -23,7 +24,7 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 //		g.generateSysToken();
 //		g.generateSysRole();
 //		g.generateSysRoleUser();
-//		g.generateSysMenu();
+		g.generateSysMenu();
 //		g.generateSysRoleMenu();
 		
 	}
@@ -83,7 +84,7 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 //		cfg.field(SYS_USER.LANGUAGE).checkField().enumType(Language.class);
 //		cfg.field(SYS_USER.LANGUAGE).checkField().dict(DictEnum.ORDER_STATUS);
 		//配置数据库表字段外的输入框
-		cfg.field(UserVOMeta.ROLE_IDS).label("角色").selectField().muliti().queryApi(RoleServiceProxy.QUERY_LIST).fillBy(UserMeta.ROLES);
+		cfg.field(UserVOMeta.ROLE_IDS).label("角色").selectField().muliti(true).queryApi(RoleServiceProxy.QUERY_LIST).fillBy(UserMeta.ROLES);
 		//使用枚举
 		//cfg.field(UserVOMeta.ROLE_IDS).label("角色").selectField().muliti().enumType(Language.class);
 		//使用字典数据
@@ -231,13 +232,15 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 	public void generateSysMenu() throws Exception {
 		//创建配置
 		ModuleContext cfg=createModuleConfig(SYS_MENU.$TABLE, 6);
-		
+
+		cfg.field(SYS_MENU.PATH_RESOURCE_ID).selectField().queryApi(ResourzeServiceProxy.QUERY_PAGED_LIST).muliti(false);
+//		cfg.field(SYS_MENU.).selectField().queryApi(ResourzeServiceProxy.QUERY_PAGED_LIST).muliti(false);
 		//文件生成覆盖模式
 		cfg.overrides()
 		.setServiceIntfAnfImpl(WriteMode.CREATE_IF_NOT_EXISTS) //服务与接口
 		.setControllerAndAgent(WriteMode.CREATE_IF_NOT_EXISTS) //Rest
 		.setPageController(WriteMode.CREATE_IF_NOT_EXISTS) //页面控制器
-		.setFormPage(WriteMode.CREATE_IF_NOT_EXISTS) //表单HTML页
+		.setFormPage(WriteMode.WRITE_TEMP_FILE) //表单HTML页
 		.setListPage(WriteMode.CREATE_IF_NOT_EXISTS); //列表HTML页
  
 		//生成代码
