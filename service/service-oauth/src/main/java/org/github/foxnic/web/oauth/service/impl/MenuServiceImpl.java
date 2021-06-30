@@ -15,6 +15,7 @@ import com.github.foxnic.sql.meta.DBField;
 import com.github.foxnic.sql.parameter.BatchParamBuilder;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_MENU;
 import org.github.foxnic.web.domain.oauth.Menu;
+import org.github.foxnic.web.domain.oauth.Resourze;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.language.LanguageService;
 import org.github.foxnic.web.misc.ztree.ZTreeNode;
@@ -167,7 +168,9 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 		Menu sample = new Menu();
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null ");
 		sample.setId(id);
-		return dao.queryEntity(sample);
+		Menu menu = dao.queryEntity(sample);
+		dao.join(menu, Resourze.class);
+		return menu;
 	}
  
 	/**

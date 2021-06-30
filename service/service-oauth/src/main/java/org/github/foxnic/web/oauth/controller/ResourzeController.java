@@ -64,6 +64,7 @@ public class ResourzeController extends SuperController {
 	@ApiOperation(value = "添加系统资源")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = ResourzeVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "1"),
+		@ApiImplicitParam(name = ResourzeVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ResourzeVOMeta.TYPE , value = "类型" , required = false , dataTypeClass=String.class , example = "1"),
 		@ApiImplicitParam(name = ResourzeVOMeta.URL , value = "地址" , required = false , dataTypeClass=String.class , example = "1"),
 		@ApiImplicitParam(name = ResourzeVOMeta.METHOD , value = "HttpMethod" , required = false , dataTypeClass=String.class),
@@ -130,6 +131,7 @@ public class ResourzeController extends SuperController {
 	@ApiOperation(value = "更新系统资源")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = ResourzeVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "1"),
+		@ApiImplicitParam(name = ResourzeVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ResourzeVOMeta.TYPE , value = "类型" , required = false , dataTypeClass=String.class , example = "1"),
 		@ApiImplicitParam(name = ResourzeVOMeta.URL , value = "地址" , required = false , dataTypeClass=String.class , example = "1"),
 		@ApiImplicitParam(name = ResourzeVOMeta.METHOD , value = "HttpMethod" , required = false , dataTypeClass=String.class),
@@ -156,6 +158,7 @@ public class ResourzeController extends SuperController {
 	@ApiOperation(value = "保存系统资源")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = ResourzeVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "1"),
+		@ApiImplicitParam(name = ResourzeVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ResourzeVOMeta.TYPE , value = "类型" , required = false , dataTypeClass=String.class , example = "1"),
 		@ApiImplicitParam(name = ResourzeVOMeta.URL , value = "地址" , required = false , dataTypeClass=String.class , example = "1"),
 		@ApiImplicitParam(name = ResourzeVOMeta.METHOD , value = "HttpMethod" , required = false , dataTypeClass=String.class),
@@ -221,6 +224,7 @@ public class ResourzeController extends SuperController {
 	@ApiOperation(value = "查询系统资源")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = ResourzeVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "1"),
+		@ApiImplicitParam(name = ResourzeVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ResourzeVOMeta.TYPE , value = "类型" , required = false , dataTypeClass=String.class , example = "1"),
 		@ApiImplicitParam(name = ResourzeVOMeta.URL , value = "地址" , required = false , dataTypeClass=String.class , example = "1"),
 		@ApiImplicitParam(name = ResourzeVOMeta.METHOD , value = "HttpMethod" , required = false , dataTypeClass=String.class),
@@ -245,14 +249,13 @@ public class ResourzeController extends SuperController {
 	@ApiOperation(value = "分页查询系统资源")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = ResourzeVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "1"),
+		@ApiImplicitParam(name = ResourzeVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ResourzeVOMeta.TYPE , value = "类型" , required = false , dataTypeClass=String.class , example = "1"),
 		@ApiImplicitParam(name = ResourzeVOMeta.URL , value = "地址" , required = false , dataTypeClass=String.class , example = "1"),
 		@ApiImplicitParam(name = ResourzeVOMeta.METHOD , value = "HttpMethod" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ResourzeVOMeta.BATCH_ID , value = "批次号" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ResourzeVOMeta.TABLE_NAME , value = "来源表" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ResourzeVOMeta.MODULE , value = "来源模块" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ResourzeVOMeta.METHOD , value = "HttpMethod" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ResourzeVOMeta.BATCH_ID , value = "批次号" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport(order=8)
 	@SentinelResource(value = ResourzeServiceProxy.QUERY_PAGED_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
