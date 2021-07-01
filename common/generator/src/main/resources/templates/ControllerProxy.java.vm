@@ -103,14 +103,14 @@ public interface #(simpleName) {
 	 * 删除#(topic)
 	*/
 	@RequestMapping(#(agentSimpleName).DELETE)
-	Result<#(poSimpleName)> deleteById(#(controllerMethodParameterDeclare4DeleteById));
+	Result deleteById(#(controllerMethodParameterDeclare4DeleteById));
 
 	#if(isSimplePk)
 	/**
 	 * 批量删除#(topic)
 	*/
 	@RequestMapping(#(agentSimpleName).DELETE_BY_IDS)
-	Result<#(poSimpleName)> deleteByIds(List<#(pkType)> #(idPropertyName)s);
+	Result deleteByIds(List<#(pkType)> #(idPropertyName)s);
 	#end
 
 	/**

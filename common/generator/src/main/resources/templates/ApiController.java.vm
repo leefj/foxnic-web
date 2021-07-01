@@ -62,8 +62,8 @@ public class #(simpleName) extends SuperController {
 	@SentinelResource(value = #(agentSimpleName).DELETE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	#end
 	@PostMapping(#(agentSimpleName).DELETE)
-	public Result<#(poSimpleName)> deleteById(#(controllerMethodParameterDeclare4DeleteById)) {
-		Result<#(poSimpleName)> result=new Result<>();
+	public Result deleteById(#(controllerMethodParameterDeclare4DeleteById)) {
+		Result result=new Result();
 		boolean suc=#(serviceVarName).#(implMethod4DeleteById)(#(controllerMethodParameterPassIn4DeleteById));
 		result.success(suc);
 		if(!suc) result.message("数据删除失败");
@@ -87,8 +87,8 @@ public class #(simpleName) extends SuperController {
 	@SentinelResource(value = #(agentSimpleName).DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	#end
 	@PostMapping(#(agentSimpleName).DELETE_BY_IDS)
-	public Result<#(poSimpleName)> deleteByIds(List<#(idsPropertyType)> #(idsPropertyName)) {
-		Result<#(poSimpleName)> result=new Result<>();
+	public Result deleteByIds(List<#(idsPropertyType)> #(idsPropertyName)) {
+		Result result=new Result();
 		boolean suc=#(serviceVarName).deleteByIdsLogical(#(idsPropertyName));
 		result.success(suc);
 		if(!suc) result.message("数据删除失败");

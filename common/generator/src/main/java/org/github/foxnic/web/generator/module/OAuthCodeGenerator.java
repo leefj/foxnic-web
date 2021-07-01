@@ -137,7 +137,7 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		//文件生成覆盖模式
 		cfg.overrides()
 				.setServiceIntfAnfImpl(WriteMode.CREATE_IF_NOT_EXISTS) //服务与接口
-				.setControllerAndAgent(WriteMode.CREATE_IF_NOT_EXISTS) //Rest
+				.setControllerAndAgent(WriteMode.COVER_EXISTS_FILE) //Rest
 				.setPageController(WriteMode.CREATE_IF_NOT_EXISTS) //页面控制器
 				.setFormPage(WriteMode.CREATE_IF_NOT_EXISTS) //表单HTML页
 				.setListPage(WriteMode.CREATE_IF_NOT_EXISTS); //列表HTML页

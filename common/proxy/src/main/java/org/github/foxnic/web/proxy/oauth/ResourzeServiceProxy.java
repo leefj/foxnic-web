@@ -19,7 +19,7 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  * 系统资源  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-28 15:36:23
+ * @since 2021-07-01 11:24:49
 */
 
 @FeignClient(value = MicroServiceNames.OAUTH, contextId = ResourzeServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)
@@ -113,13 +113,13 @@ public interface ResourzeServiceProxy {
 	 * 删除系统资源
 	*/
 	@RequestMapping(ResourzeServiceProxy.DELETE)
-	Result<Resourze> deleteById(String id);
+	Result deleteById(String id);
 
 	/**
 	 * 批量删除系统资源
 	*/
 	@RequestMapping(ResourzeServiceProxy.DELETE_BY_IDS)
-	Result<Resourze> deleteByIds(List<String> ids);
+	Result deleteByIds(List<String> ids);
 
 	/**
 	 * 更新系统资源
