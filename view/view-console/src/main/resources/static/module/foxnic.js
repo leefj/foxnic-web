@@ -65,6 +65,12 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"xmSe
 				cfg.remoteMethod=function (val, cb, show, pageIndex) {
 					//debugger;
 					var ps={searchField:cfg.searchField,searchValue:val};
+					if(cfg.paging) {
+						if(!cfg.pageSize) ps.pageSize=10;
+						else ps.pageSize=cfg.pageSize;
+					}
+					ps.pageIndex=pageIndex;
+
 					if(cfg.extraParam) {
 						var ext={};
 						if(typeof(cfg.extraParam) == 'function'){
@@ -81,23 +87,37 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"xmSe
 					admin.request(url,ps,function(r) {
 						var opts=[];
 						if(r.success) {
-							opts=cfg.transform(r.data);
+							if(cfg.paging) {
+								opts=cfg.transform(r.data.list);
+							} else {
+								opts=cfg.transform(r.data);
+							}
+
 						} else {
 							opts=[{name:r.message,value:"-1"}];
 						}
-						cb(opts);
+						if(cfg.paging) {
+							cb(opts,r.data.pageCount);
+						} else {
+							cb(opts);
+						}
 					});
 				}
 			}
 
-			// cfg.on=function (data) {
-			// 	debugger;
-			// }
 
 			console.log("data",data);
 			console.log("opts",opts);
 
-			return xmSelect.render(cfg);
+			var inst=xmSelect.render(cfg);
+			setTimeout(function (){
+				//设置值的布局方式
+				if(cfg.valueDirection) {
+					var div = $(cfg.el + " .label-content");
+					div.css("flex-direction", cfg.valueDirection);
+				}
+			},500);
+			return inst;
 		},
     	/**
     	 * 渲染分页的表格

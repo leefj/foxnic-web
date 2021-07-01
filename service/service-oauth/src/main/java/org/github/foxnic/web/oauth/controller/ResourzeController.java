@@ -90,7 +90,7 @@ public class ResourzeController extends SuperController {
 	*/
 	@ApiOperation(value = "删除系统资源")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = ResourzeVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class)
+		@ApiImplicitParam(name = ResourzeVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport(order=2)
 	@NotNull(name = ResourzeVOMeta.ID)

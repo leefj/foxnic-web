@@ -9,7 +9,7 @@ import java.util.ArrayList;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-16 16:31:58
+ * @since 2021-07-01 11:34:08
  * @sign 869385ED987833285719A66AA481ECED
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -79,12 +79,6 @@ public class MenuVO extends Menu {
 	}
 	
 	/**
-	 * 添加 页码
-	 * @param pageIndex 页码
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 分页大小<br>
 	 * @return 分页大小
 	*/
@@ -101,12 +95,6 @@ public class MenuVO extends Menu {
 		this.pageSize=pageSize;
 		return this;
 	}
-	
-	/**
-	 * 添加 分页大小
-	 * @param pageSize 分页大小
-	 * @return 当前对象
-	*/
 	
 	/**
 	 * 获得 搜索字段<br>
@@ -127,12 +115,6 @@ public class MenuVO extends Menu {
 	}
 	
 	/**
-	 * 添加 搜索字段
-	 * @param searchField 搜索字段
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 搜索的值<br>
 	 * @return 搜索的值
 	*/
@@ -149,12 +131,6 @@ public class MenuVO extends Menu {
 		this.searchValue=searchValue;
 		return this;
 	}
-	
-	/**
-	 * 添加 搜索的值
-	 * @param searchValue 搜索的值
-	 * @return 当前对象
-	*/
 	
 	/**
 	 * 获得 排序字段<br>
@@ -175,12 +151,6 @@ public class MenuVO extends Menu {
 	}
 	
 	/**
-	 * 添加 排序字段
-	 * @param sortField 排序字段
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 排序方式<br>
 	 * @return 排序方式
 	*/
@@ -197,12 +167,6 @@ public class MenuVO extends Menu {
 		this.sortType=sortType;
 		return this;
 	}
-	
-	/**
-	 * 添加 排序方式
-	 * @param sortType 排序方式
-	 * @return 当前对象
-	*/
 	
 	/**
 	 * 获得 主键清单<br>
@@ -225,7 +189,7 @@ public class MenuVO extends Menu {
 	
 	/**
 	 * 添加 主键清单
-	 * @param ids 主键清单
+	 * @param id 主键清单
 	 * @return 当前对象
 	*/
 	public MenuVO addId(String id) {

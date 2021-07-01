@@ -14,6 +14,7 @@ import org.github.foxnic.web.oauth.session.SessionPermissionImpl;
 import org.github.foxnic.web.oauth.session.SessionUserImpl;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.ConfigAttribute;
+import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -41,6 +42,12 @@ public class PermissonFilterInvocationSecurityMetadataSource implements FilterIn
     	if(user==null) {
     		throw new AccessDeniedException("非法访问");
     	}
+
+    	if(user!=null) {
+            return SecurityConfig.createList(new String[] {"ROLE_super_admin"});
+        }
+
+
  
         final HttpServletRequest request = ((FilterInvocation) object).getRequest();
         

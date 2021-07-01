@@ -6,6 +6,7 @@ import com.github.foxnic.generator.config.WriteMode;
 import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb.*;
 import org.github.foxnic.web.constants.enums.Language;
+import org.github.foxnic.web.domain.oauth.meta.MenuMeta;
 import org.github.foxnic.web.domain.oauth.meta.UserMeta;
 import org.github.foxnic.web.domain.oauth.meta.UserVOMeta;
 import org.github.foxnic.web.proxy.oauth.ResourzeServiceProxy;
@@ -137,7 +138,7 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		//文件生成覆盖模式
 		cfg.overrides()
 				.setServiceIntfAnfImpl(WriteMode.CREATE_IF_NOT_EXISTS) //服务与接口
-				.setControllerAndAgent(WriteMode.COVER_EXISTS_FILE) //Rest
+				.setControllerAndAgent(WriteMode.CREATE_IF_NOT_EXISTS) //Rest
 				.setPageController(WriteMode.CREATE_IF_NOT_EXISTS) //页面控制器
 				.setFormPage(WriteMode.CREATE_IF_NOT_EXISTS) //表单HTML页
 				.setListPage(WriteMode.CREATE_IF_NOT_EXISTS); //列表HTML页
@@ -233,8 +234,11 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		//创建配置
 		ModuleContext cfg=createModuleConfig(SYS_MENU.$TABLE, 6);
 
-		cfg.field(SYS_MENU.PATH_RESOURCE_ID).selectField().queryApi(ResourzeServiceProxy.QUERY_PAGED_LIST).muliti(false);
-//		cfg.field(SYS_MENU.).selectField().queryApi(ResourzeServiceProxy.QUERY_PAGED_LIST).muliti(false);
+		cfg.getPoClassFile().addSimpleProperty(String.class,"path","页面路径","");
+		cfg.getPoClassFile().addListProperty(String.class,"resourceIds","资源ID清单","");
+
+		cfg.field(SYS_MENU.PATH_RESOURCE_ID).selectField().queryApi(ResourzeServiceProxy.QUERY_PAGED_LIST).muliti(false).paging(true);
+		cfg.field(MenuMeta.RESOURCE_IDS).label("资源清单").selectField().queryApi(ResourzeServiceProxy.QUERY_PAGED_LIST).muliti(true).paging(true);
 		//文件生成覆盖模式
 		cfg.overrides()
 		.setServiceIntfAnfImpl(WriteMode.CREATE_IF_NOT_EXISTS) //服务与接口

@@ -41,16 +41,62 @@ function FormPage() {
       */
 	function renderFormFields() {
 		form.render();
-//		form.render('radio');
- 
-//		formSelects.data('type', 'server', {
-// 		url: '/service-tailoring/crm-company/query-list-for-select',
-//		success: function(id, url, searchVal, result){
-//        	if(formData) {
-//        		layui.formSelects.value('companyId', [formData.companyId]);
-//        	}
-//        }
-//	});
+		//渲染下拉字段
+		fox.renderSelectBox({
+			el: "pathResourceId",
+			radio: true,
+			filterable: true,
+			paging: true,
+			pageRemote: true,
+			toolbar: {show:true,showIcon:true,list:[ "ALL", "CLEAR","REVERSE"]},
+			//转换数据
+			searchField: "name", //请自行调整用于搜索的字段名称
+			extraParam: {type:"page"}, //额外的查询参数，Object 或是 返回 Object 的函数
+			template({ item, sels, name, value }){
+				return item.url  + '<span style="position: absolute; right: 10px; color: #8799a3">'+item.tableName+'</span>'
+			},
+			transform: function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				//debugger;
+				var opts=[];
+				if(!data) return opts;
+				for (var i = 0; i < data.length; i++) {
+					//请自行调整此处字段的对应关系
+					opts.push({name:data[i].url,value:data[i].id,url:data[i].url,tableName:data[i].tableName});
+				}
+				return opts;
+			}
+		});
+
+		//渲染 resourceIds 下拉字段
+		fox.renderSelectBox({
+			el: "resourceIds",
+			radio: false,
+			filterable: true,
+			paging: true,
+			pageRemote: true,
+			autoRow: true,
+			valueDirection:"column",
+			toolbar: {show:true,showIcon:true,list:[ "ALL", "CLEAR","REVERSE"]},
+			//转换数据
+			searchField: "url", //请自行调整用于搜索的字段名称
+			extraParam: {}, //额外的查询参数，Object 或是 返回 Object 的函数
+			template({ item, sels, name, value }){
+				return '<div style="color: #8799a3">['+item.method+']&nbsp;</div>'+item.url  + '<span style="position: absolute; right: 10px; color: #8799a3">'+item.tableName+'</span>'
+			},
+			transform: function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				var opts=[];
+				if(!data) return opts;
+				for (var i = 0; i < data.length; i++) {
+					//请自行调整此处字段的对应关系
+					var txt= '['+data[i].method+'] '+data[i].url;
+					opts.push({name:txt,value:data[i].id,url:data[i].url,tableName:data[i].tableName,method:data[i].method});
+				}
+				return opts;
+			}
+		});
+
 	}
 	
 	/**

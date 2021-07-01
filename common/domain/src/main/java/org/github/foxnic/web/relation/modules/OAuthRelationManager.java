@@ -1,11 +1,7 @@
 package org.github.foxnic.web.relation.modules;
 
 import org.github.foxnic.web.constants.db.FoxnicWeb;
-import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_MENU;
-import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_ROLE;
-import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_ROLE_MENU;
-import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_ROLE_USER;
-import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER;
+import org.github.foxnic.web.constants.db.FoxnicWeb.*;
 import org.github.foxnic.web.domain.oauth.*;
 
 import com.github.foxnic.dao.relation.RelationManager;
@@ -41,12 +37,18 @@ public class OAuthRelationManager extends RelationManager {
 
 		//路径ID映射到路径资源
 		this.property(Menu.class,"pathResource", Resourze.class,"路径资源","").single()
-			.using(SYS_MENU.PATH_RESOURCE_ID);
+			.using(SYS_MENU.PATH_RESOURCE_ID).after((menu,res)->{
+				if(!res.isEmpty()) {
+					menu.setPath(res.get(0).getUrl());
+				}
+				return res;
+		});
 
 		//菜单包含的资源清单
 		this.property(Menu.class,"resources", Resourze.class,"菜单包含的资源清单","").list()
 			.using(SYS_MENU.ID)
-			.addRoute(FoxnicWeb.SYS_MENU_RESOURCE.$TABLE);
+			.addRoute(FoxnicWeb.SYS_MENU_RESOURCE.$TABLE,FoxnicWeb.SYS_MENU_RESOURCE.MENU_ID)
+			.addRoute(FoxnicWeb.SYS_RESOURZE.$TABLE,FoxnicWeb.SYS_RESOURZE.ID);
 		
 		
 

@@ -18,8 +18,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-30 17:29:26
- * @sign 69E5DC921115371F2B785C50C2E218B0
+ * @since 2021-07-01 11:53:23
+ * @sign 071824283E2A86BACB5853B761EFE875
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -72,12 +72,6 @@ public class Menu extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="菜单类型" , notes = "菜单类型")
 	private String type;
-	
-	/**
-	 * 模版路径：模版路径
-	*/
-	@ApiModelProperty(required = false,value="模版路径" , notes = "模版路径")
-	private String path;
 	
 	/**
 	 * 菜单路径的资源：菜单路径的资源
@@ -162,6 +156,18 @@ public class Menu extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="菜单包含的资源清单" , notes = "")
 	private List<Resourze> resources;
+	
+	/**
+	 * 页面路径
+	*/
+	@ApiModelProperty(required = false,value="页面路径" , notes = "")
+	private String path;
+	
+	/**
+	 * 资源ID清单
+	*/
+	@ApiModelProperty(required = false,value="资源ID清单" , notes = "")
+	private List<String> resourceIds;
 	
 	/**
 	 * 获得 ID<br>
@@ -293,25 +299,6 @@ public class Menu extends Entity {
 	*/
 	public Menu setType(String type) {
 		this.type=type;
-		return this;
-	}
-	
-	/**
-	 * 获得 模版路径<br>
-	 * 属性说明 : 模版路径
-	 * @return 模版路径
-	*/
-	public String getPath() {
-		return path;
-	}
-	
-	/**
-	 * 设置 模版路径
-	 * @param path 模版路径
-	 * @return 当前对象
-	*/
-	public Menu setPath(String path) {
-		this.path=path;
 		return this;
 	}
 	
@@ -587,6 +574,53 @@ public class Menu extends Entity {
 	public Menu addResource(Resourze resource) {
 		if(this.resources==null) resources=new ArrayList<>();
 		this.resources.add(resource);
+		return this;
+	}
+	
+	/**
+	 * 获得 页面路径<br>
+	 * @return 页面路径
+	*/
+	public String getPath() {
+		return path;
+	}
+	
+	/**
+	 * 设置 页面路径
+	 * @param path 页面路径
+	 * @return 当前对象
+	*/
+	public Menu setPath(String path) {
+		this.path=path;
+		return this;
+	}
+	
+	/**
+	 * 获得 资源ID清单<br>
+	 * @return 资源ID清单
+	*/
+	public List<String> getResourceIds() {
+		return resourceIds;
+	}
+	
+	/**
+	 * 设置 资源ID清单
+	 * @param resourceIds 资源ID清单
+	 * @return 当前对象
+	*/
+	public Menu setResourceIds(List<String> resourceIds) {
+		this.resourceIds=resourceIds;
+		return this;
+	}
+	
+	/**
+	 * 添加 资源ID清单
+	 * @param resourceId 资源ID清单
+	 * @return 当前对象
+	*/
+	public Menu addResourceId(String resourceId) {
+		if(this.resourceIds==null) resourceIds=new ArrayList<>();
+		this.resourceIds.add(resourceId);
 		return this;
 	}
 

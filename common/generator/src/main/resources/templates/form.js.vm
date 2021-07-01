@@ -75,11 +75,15 @@ function FormPage() {
 			}
 	    });
 		#else if(f.isSelectField)
-		//渲染下拉字段
+		//渲染 #(f.varName) 下拉字段
 		fox.renderSelectBox({
 			el: "#(f.varName)",
 			radio: #(!f.selectField.muliti),
 			filterable: true,
+			#if(f.selectField.paging)
+			paging: true,
+			pageRemote: true,
+			#end
 			toolbar: {show:true,showIcon:true,list:[ "ALL", "CLEAR","REVERSE"]},
 			//转换数据
 			#if(f.selectField.enumTypeName!=null)

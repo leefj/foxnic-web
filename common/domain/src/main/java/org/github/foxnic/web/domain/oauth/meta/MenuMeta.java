@@ -9,8 +9,8 @@ import java.util.List;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-30 17:29:26
- * @sign 69E5DC921115371F2B785C50C2E218B0
+ * @since 2021-07-01 11:53:23
+ * @sign 071824283E2A86BACB5853B761EFE875
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -50,11 +50,6 @@ public class MenuMeta {
 	 * 菜单类型
 	*/
 	public static final String TYPE="type";
-	
-	/**
-	 * 模版路径
-	*/
-	public static final String PATH="path";
 	
 	/**
 	 * 菜单路径的资源
@@ -127,9 +122,19 @@ public class MenuMeta {
 	public static final String RESOURCES="resources";
 	
 	/**
+	 * 页面路径
+	*/
+	public static final String PATH="path";
+	
+	/**
+	 * 资源ID清单
+	*/
+	public static final String RESOURCE_IDS="resourceIds";
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , BATCH_ID , AUTHORITY , HIDDEN , CSS , LABEL , TYPE , PATH , PATH_RESOURCE_ID , URL , PARENT_ID , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , PATH_RESOURCE , RESOURCES };
+	public static final String[] $PROPS={ ID , BATCH_ID , AUTHORITY , HIDDEN , CSS , LABEL , TYPE , PATH_RESOURCE_ID , URL , PARENT_ID , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , PATH_RESOURCE , RESOURCES , PATH , RESOURCE_IDS };
 	
 	/**
 	 * 代理类
@@ -213,17 +218,6 @@ public class MenuMeta {
 		public Menu setType(String type) {
 			super.change(TYPE,super.getType(),type);
 			super.setType(type);
-			return this;
-		}
-		
-		/**
-		 * 设置 模版路径
-		 * @param path 模版路径
-		 * @return 当前对象
-		*/
-		public Menu setPath(String path) {
-			super.change(PATH,super.getPath(),path);
-			super.setPath(path);
 			return this;
 		}
 		
@@ -378,6 +372,28 @@ public class MenuMeta {
 		public Menu setResources(List<Resourze> resources) {
 			super.change(RESOURCES,super.getResources(),resources);
 			super.setResources(resources);
+			return this;
+		}
+		
+		/**
+		 * 设置 页面路径
+		 * @param path 页面路径
+		 * @return 当前对象
+		*/
+		public Menu setPath(String path) {
+			super.change(PATH,super.getPath(),path);
+			super.setPath(path);
+			return this;
+		}
+		
+		/**
+		 * 设置 资源ID清单
+		 * @param resourceIds 资源ID清单
+		 * @return 当前对象
+		*/
+		public Menu setResourceIds(List<String> resourceIds) {
+			super.change(RESOURCE_IDS,super.getResourceIds(),resourceIds);
+			super.setResourceIds(resourceIds);
 			return this;
 		}
 	}

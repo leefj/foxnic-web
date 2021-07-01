@@ -38,8 +38,9 @@ public class MenuGenerator {
 		MenuGenerator mg=null;
 
 		mg=new MenuGenerator(FoxnicWeb.SYS_RESOURZE.$TABLE,ResourzeServiceProxy.class, ResourzePageController.class);
-//		mg.generate("oauth");
-		mg.removeByBatchId("462662997634973696");
+		mg.removeByBatchId("462947155678593024");
+		mg.generate("oauth");
+
 
 
 
@@ -171,10 +172,12 @@ public class MenuGenerator {
 				topMenu.setHidden(0);
 				topMenu.setAuthority(authorityPrefix+"mngr");
 				topMenu.setPathResourceId(resourze.getId());
+				topMenu.setParentId(parentId);
+				dao.insertEntity(topMenu);
 				break;
 			}
 		}
-		topMenu.setParentId(parentId);
+
 	}
 
 

@@ -2,7 +2,7 @@
 /**
  * 菜单 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-01 11:24:51
+ * @since 2021-07-01 13:32:26
  */
  -->
  <!DOCTYPE html>
@@ -77,15 +77,6 @@
     </div>
     
 	
-    
-    <div class="layui-form-item">
-        <label class="layui-form-label" th:text="${lang.translate('模版路径')}">模版路径</label>
-        <div class="layui-input-block">
-            <input lay-filter="path" id="path" name="path" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('模版路径') }" type="text" class="layui-input"   />
-        </div>
-    </div>
-    
-	
 
         <div class="layui-form-item">
             <label class="layui-form-label" th:text="${lang.translate('菜单路径的资源')}">菜单路径的资源</label>
@@ -121,6 +112,15 @@
         </div>
     </div>
     
+	
+
+        <div class="layui-form-item">
+            <label class="layui-form-label" th:text="${lang.translate('资源清单')}">资源清单</label>
+            <div class="layui-input-block">
+                <div id="resourceIds" th:data="${'/service-oauth/sys-resourze/query-paged-list'}"></div>
+            </div>
+        </div>
+
 	
 
     <div class="layui-form-item model-form-footer">

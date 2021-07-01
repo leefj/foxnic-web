@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2021-06-30 14:28:39
+ * @since 2021-07-01 11:29:02
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -757,11 +757,6 @@ public class FoxnicWeb {
 		public static final DBField TYPE = new DBField(DBDataType.STRING , "type","type","菜单类型","菜单类型",false,false,false);
 		
 		/**
-		 * 模版路径
-		*/
-		public static final DBField PATH = new DBField(DBDataType.STRING , "path","path","模版路径","模版路径",false,false,true);
-		
-		/**
 		 * 菜单路径的资源
 		*/
 		public static final DBField PATH_RESOURCE_ID = new DBField(DBDataType.STRING , "path_resource_id","pathResourceId","菜单路径的资源","菜单路径的资源",false,false,true);
@@ -822,7 +817,7 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
 		public SYS_MENU() {
-			this.init($NAME,"菜单表" , ID , BATCH_ID , AUTHORITY , HIDDEN , CSS , LABEL , TYPE , PATH , PATH_RESOURCE_ID , URL , PARENT_ID , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"菜单表" , ID , BATCH_ID , AUTHORITY , HIDDEN , CSS , LABEL , TYPE , PATH_RESOURCE_ID , URL , PARENT_ID , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final SYS_MENU $TABLE=new SYS_MENU();
 	}
