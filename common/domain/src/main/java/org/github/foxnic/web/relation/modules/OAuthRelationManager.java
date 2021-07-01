@@ -1,12 +1,8 @@
 package org.github.foxnic.web.relation.modules;
 
-import com.github.foxnic.dao.relation.Join;
-import com.github.foxnic.dao.relation.JoinPoint;
-import org.github.foxnic.web.constants.db.FoxnicWeb;
+import com.github.foxnic.dao.relation.RelationManager;
 import org.github.foxnic.web.constants.db.FoxnicWeb.*;
 import org.github.foxnic.web.domain.oauth.*;
-
-import com.github.foxnic.dao.relation.RelationManager;
 
 public class OAuthRelationManager extends RelationManager {
 
@@ -17,58 +13,43 @@ public class OAuthRelationManager extends RelationManager {
 	}
  
 	public void setupProperties() {
-//		// 用户 - 角色
+		// 用户 - 角色
 		this.property(User.class, "roles", Role.class, "角色清单", "当前用户的所有角色清单").list()
-			.using(SYS_USER.ID)
-			.join(SYS_USER.ID).with(SYS_ROLE_USER.USER_ID)
-			.join(SYS_ROLE_USER.ROLE_ID).with(SYS_ROLE.ID);
+			.using(SYS_USER.ID).join(SYS_ROLE_USER.USER_ID)
+			.using(SYS_ROLE_USER.ROLE_ID).join(SYS_ROLE.ID);
 
-//
-//
-//		// 用户 - 菜单
+
+
+		// 用户 - 菜单
 		this.property(User.class, "menus", Menu.class, "菜单清单", "当前用户的所有菜单清单").list()
-			.using(SYS_USER.ID)
-				.join(SYS_USER.ID).with(SYS_ROLE_USER.USER_ID)
-				.join(SYS_ROLE_USER.ROLE_ID).with(SYS_ROLE_MENU.ROLE_ID)
-				.join(SYS_ROLE_MENU.MENU_ID).with(SYS_MENU.ID)
+			.using(SYS_USER.ID).join(SYS_ROLE_USER.USER_ID)
+			.using(SYS_ROLE_USER.ROLE_ID).join(SYS_ROLE_MENU.ROLE_ID)
+			.using(SYS_ROLE_MENU.MENU_ID).join(SYS_MENU.ID)
 			.addOrderBy(SYS_MENU.SORT,true,true);
-//
-//
-//
-//		// 用户 - 角色菜单关系
+
+
+
+		// 用户 - 角色菜单关系
 		this.property(User.class, "roleMenus", RoleMenu.class, "角色菜单关系清单", "当前用户的所有角色菜单关系清单").list()
-			.using(SYS_USER.ID)
-				.join(SYS_USER.ID).with(SYS_ROLE_USER.USER_ID)
-				.join(SYS_ROLE_USER.ROLE_ID).with(SYS_ROLE_MENU.ROLE_ID)
-				;
-//
-//		//路径ID映射到路径资源
+			.using(SYS_USER.ID).join(SYS_ROLE_USER.USER_ID)
+			.using(SYS_ROLE_USER.ROLE_ID).join(SYS_ROLE_MENU.ROLE_ID);
+
+		//路径ID映射到路径资源
 		this.property(Menu.class,"pathResource", Resourze.class,"路径资源","").single()
-			.using(SYS_MENU.PATH_RESOURCE_ID)
-				.join(SYS_USER.ID).with(SYS_ROLE_USER.USER_ID)
+			.using(SYS_USER.ID).join(SYS_ROLE_USER.USER_ID)
 			.after((menu,res)->{
 				if(!res.isEmpty()) {
 					menu.setPath(res.get(0).getUrl());
 				}
-				return res;
+			return res;
 		});
+
 
 		//菜单包含的资源清单
 		this.property(Menu.class,"resources", Resourze.class,"菜单包含的资源清单","").list()
-			.using(SYS_MENU.ID)
-			.join(SYS_MENU.ID).with(SYS_MENU_RESOURCE.MENU_ID)
-		    .join(SYS_MENU_RESOURCE.RESOURCE_ID).with(SYS_RESOURZE.ID);
+			.using(SYS_MENU.ID).join(SYS_MENU_RESOURCE.MENU_ID)
+		    .using(SYS_MENU_RESOURCE.RESOURCE_ID).join(SYS_RESOURZE.ID);
 
-
-//		Join jn=new Join();
-//		jn.from(SYS_MENU.ID).join(SYS_MENU_RESOURCE.MENU_ID);
-
-
-
-//			.addRoute(FoxnicWeb.SYS_MENU_RESOURCE.$TABLE,FoxnicWeb.SYS_MENU_RESOURCE.MENU_ID)
-//			.addRoute(FoxnicWeb.SYS_RESOURZE.$TABLE,FoxnicWeb.SYS_RESOURZE.ID);
-		
-		
 
 	}
 	

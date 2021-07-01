@@ -247,6 +247,7 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
     	//授权
     	if (user!=null) {
     		dao.join(user,Role.class,Menu.class,RoleMenu.class);
+//			dao.join(user,Role.class);
     	}
 
 
