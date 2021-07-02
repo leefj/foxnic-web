@@ -49,6 +49,7 @@ spring:
 #设置开发选项
 develop: 
   language: confuse
+  start-relation-monitor: true
 
 security:
   # 模式：session / jwt

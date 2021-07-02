@@ -15,7 +15,6 @@ public class SystemRelationManager extends RelationManager {
 
 	@Override
 	protected void config() {
-		this.setupRelations();
 		this.setupProperties();
 	}
  
@@ -69,10 +68,6 @@ public class SystemRelationManager extends RelationManager {
 
 
 	}
-	
-	private void setupRelations() {
-		
-		
-	}
+
 
 }

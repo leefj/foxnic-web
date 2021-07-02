@@ -6,7 +6,9 @@ import com.github.foxnic.generator.config.WriteMode;
 import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb.*;
 import org.github.foxnic.web.constants.enums.Language;
+import org.github.foxnic.web.domain.oauth.MenuVO;
 import org.github.foxnic.web.domain.oauth.meta.MenuMeta;
+import org.github.foxnic.web.domain.oauth.meta.MenuVOMeta;
 import org.github.foxnic.web.domain.oauth.meta.UserMeta;
 import org.github.foxnic.web.domain.oauth.meta.UserVOMeta;
 import org.github.foxnic.web.proxy.oauth.ResourzeServiceProxy;
@@ -237,8 +239,8 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		cfg.getPoClassFile().addSimpleProperty(String.class,"path","页面路径","");
 		cfg.getPoClassFile().addListProperty(String.class,"resourceIds","资源ID清单","");
 
-		cfg.field(SYS_MENU.PATH_RESOURCE_ID).selectField().queryApi(ResourzeServiceProxy.QUERY_PAGED_LIST).muliti(false).paging(true);
-		cfg.field(MenuMeta.RESOURCE_IDS).label("资源清单").selectField().queryApi(ResourzeServiceProxy.QUERY_PAGED_LIST).muliti(true).paging(true);
+		cfg.field(SYS_MENU.PATH_RESOURCE_ID).selectField().queryApi(ResourzeServiceProxy.QUERY_PAGED_LIST).muliti(false).paging(true).fillBy(MenuVOMeta.PATH_RESOURCE_ID);
+		cfg.field(MenuMeta.RESOURCE_IDS).label("资源清单").selectField().queryApi(ResourzeServiceProxy.QUERY_PAGED_LIST).muliti(true).paging(true).fillBy(MenuVOMeta.RESOURCE_IDS);
 		//文件生成覆盖模式
 		cfg.overrides()
 		.setServiceIntfAnfImpl(WriteMode.CREATE_IF_NOT_EXISTS) //服务与接口

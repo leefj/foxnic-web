@@ -48,6 +48,8 @@ function FormPage() {
 			filterable: true,
 			paging: true,
 			pageRemote: true,
+			autoRow: true,
+			valueDirection:"column",
 			toolbar: {show:true,showIcon:true,list:[ "ALL", "CLEAR","REVERSE"]},
 			//转换数据
 			searchField: "name", //请自行调整用于搜索的字段名称
@@ -107,6 +109,20 @@ function FormPage() {
 		$('#data-form')[0].reset();
 		if (formData) {
 			form.val('data-form', formData);
+
+			//设置 菜单路径的资源 下拉框选中值
+			if (formData.pathResourceId)	{
+				var pathResourceIdSelect=xmSelect.get("#pathResourceId",true)
+				var pathResourceIdOpionts=pathResourceIdSelect.options.transform(formData.未指定);
+				pathResourceIdSelect.setValue(pathResourceIdOpionts);
+			}
+			//设置 资源清单 下拉框选中值
+			if (formData.未指定)	{
+				var resourceIdsSelect=xmSelect.get("#resourceIds",true)
+				var resourceIdsOpionts=resourceIdsSelect.options.transform(formData.未指定);
+				resourceIdsSelect.setValue(resourceIdsOpionts);
+			}
+
 			if(!formData.css) formData.css="";
 			$("#icon-button-el").attr("class",formData.css);
 		}

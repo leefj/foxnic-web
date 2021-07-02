@@ -34,6 +34,9 @@ public class DBConfigs {
 	
 	@Autowired
 	private DBTreaty dbTreaty;
+
+	@Value("${develop.start-relation-monitor}")
+	private  Boolean startRelationMonitor=false;
  
 	@Bean(name = PRIMARY_DATA_SOURCE_NAME)
 	@ConfigurationProperties(PRIMARY_DATASOURCE_CONFIG_KEY)
@@ -58,7 +61,11 @@ public class DBConfigs {
 			dao.setPrintSQL(printSQL);
 			dao.setPrintSQLSimple(printSQL);
 			dao.setDBTreaty(dbTreaty);
-			dao.setRelationManager(new FoxnicWebRelationManager());
+			FoxnicWebRelationManager relationManager=new FoxnicWebRelationManager();
+			if(startRelationMonitor) {
+				relationManager.startMonitor();
+			}
+			dao.setRelationManager(relationManager);
 			
 			//设置序列相关的配置
 			dao.setSequenceTable(SYS_SEQUENCE.$NAME);
