@@ -139,6 +139,7 @@ function ListPage() {
 		admin.request(moduleURL+"/update",{id:treeNode.id,label:treeNode.name},function(r){
 			if(r.success) {
 				admin.toast().success("名称已更改",{time:1000,position:"right-bottom"});
+				$("#form-view")[0].contentWindow.loadFormData(treeNode.id);
 			} else {
 				admin.toast().error("名称更改失败",{time:1000,position:"right-bottom"});
 			}

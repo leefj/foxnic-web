@@ -148,11 +148,16 @@ function FormPage() {
 			#for(f : fields)
 			#if(f.isSelectField)
 			//设置 #(f.label) 下拉框选中值
+			var #(f.varName)Select=xmSelect.get("##(f.varName)",true);
+			var #(f.varName)Opionts=[];
 			if (formData.#(f.selectField.fillBy))	{
-				var #(f.varName)Select=xmSelect.get("##(f.varName)",true)
-				var #(f.varName)Opionts=#(f.varName)Select.options.transform(formData.#(f.selectField.fillBy));
-				#(f.varName)Select.setValue(#(f.varName)Opionts);
+				#if(f.selectField.muliti)
+				#(f.varName)Opionts=#(f.varName)Select.options.transform(formData.#(f.selectField.fillBy));
+				#else
+				#(f.varName)Opionts=#(f.varName)Select.options.transform([formData.#(f.selectField.fillBy)]);
+				#end
 			}
+			#(f.varName)Select.setValue(#(f.varName)Opionts);
 			#end
 			#end
 
@@ -192,6 +197,11 @@ function FormPage() {
 			#if(f.isSelectField)
 			//获取 #(f.label) 下拉框的值
 			data.field["#(f.varName)"]=xmSelect.get("##(f.varName)",true).getValue("value");
+			#if(!f.selectField.muliti)
+			if(data.field["#(f.varName)"] && data.field["#(f.varName)"].length>0) {
+				data.field["#(f.varName)"]=data.field["#(f.varName)"][0];
+			}
+			#end
 			#end
 			#end
 

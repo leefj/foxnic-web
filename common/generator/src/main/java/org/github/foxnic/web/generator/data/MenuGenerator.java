@@ -13,8 +13,8 @@ import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.MenuResource;
 import org.github.foxnic.web.domain.oauth.Resourze;
 import org.github.foxnic.web.generator.config.FoxnicWebConfigs;
-import org.github.foxnic.web.oauth.page.ResourzePageController;
-import org.github.foxnic.web.proxy.oauth.ResourzeServiceProxy;
+import org.github.foxnic.web.oauth.page.SessionOnlinePageController;
+import org.github.foxnic.web.proxy.oauth.SessionOnlineServiceProxy;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.File;
@@ -37,9 +37,30 @@ public class MenuGenerator {
 
 		MenuGenerator mg=null;
 
-		mg=new MenuGenerator(FoxnicWeb.SYS_RESOURZE.$TABLE,ResourzeServiceProxy.class, ResourzePageController.class);
-		mg.removeByBatchId("462947155678593024");
-		mg.generate("oauth");
+		//资源
+//		mg=new MenuGenerator(SYS_RESOURZE.$TABLE,ResourzeServiceProxy.class, ResourzePageController.class);
+//		mg.generate("oauth");
+
+//		mg=new MenuGenerator(SYS_MENU.$TABLE, MenuServiceProxy.class, MenuPageController.class);
+//		mg.generate("oauth");
+
+//		mg=new MenuGenerator(SYS_ROLE.$TABLE, RoleServiceProxy.class, RolePageController.class);
+//		mg.generate("oauth");
+
+//		mg=new MenuGenerator(SYS_USER.$TABLE, UserServiceProxy.class, UserPageController.class);
+//		mg.generate("oauth");
+
+//		mg=new MenuGenerator(FoxnicWeb.SYS_CONFIG.$TABLE, ConfigServiceProxy.class, ConfigPageController.class);
+//		mg.generate("system_config");
+
+//		mg=new MenuGenerator(FoxnicWeb.SYS_LANG.$TABLE, LangServiceProxy.class, LangPageController.class);
+//		mg.generate("system_config");
+
+//		mg=new MenuGenerator(FoxnicWeb.SYS_DICT.$TABLE, DictServiceProxy.class, DictPageController.class);
+//		mg.generate("system_config");
+
+		mg=new MenuGenerator(FoxnicWeb.SYS_SESSION_ONLINE.$TABLE, SessionOnlineServiceProxy.class, SessionOnlinePageController.class);
+		mg.generate("463397133957988354");
 
 
 
@@ -100,6 +121,12 @@ public class MenuGenerator {
 	}
 
 	public void generate(String parentId) {
+		Menu parent=dao.queryEntity(Menu.create().setId(parentId));
+		if(parent==null) {
+			System.err.println("上级菜单 ID = "+parentId+" 不存在");
+			return;
+		}
+
 		try {
 			dao.beginTransaction();
 			createPageResources();
@@ -109,6 +136,7 @@ public class MenuGenerator {
 			dao.commit();
 		} catch (Exception e){
 			dao.rollback();
+			System.err.println("生成失败，数据已回滚");
 			e.printStackTrace();
 		}
 	}
@@ -146,10 +174,14 @@ public class MenuGenerator {
 				Resourze resourze=resourceMap.get(suffixes[i]);
 				if(resourze==null) {
 					System.out.println("");
+					continue;
 				}
 				MenuResource mr=new MenuResource();
 				mr.setId(IDGenerator.getSnowflakeIdString());
 				mr.setMenuId(menu.getId());
+				if(resourze.getId()==null) {
+					System.out.println("");
+				}
 				mr.setResourceId(resourze.getId());
 				this.dao.insertEntity(mr);
 			}

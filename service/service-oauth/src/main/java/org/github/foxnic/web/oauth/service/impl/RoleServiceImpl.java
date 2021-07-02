@@ -1,26 +1,22 @@
 package org.github.foxnic.web.oauth.service.impl;
 
-import java.util.Date;
-import java.util.List;
-
-import javax.annotation.Resource;
-
+import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
-import org.springframework.stereotype.Service;
-
+import com.github.foxnic.commons.collection.CollectorUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.entity.CollectorUtil;
 import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.dao.spec.DAO;
-import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
-
-
 import org.github.foxnic.web.domain.oauth.Role;
-import org.github.foxnic.web.oauth.service.IRoleService;
 import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.github.foxnic.web.oauth.service.IRoleService;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -187,7 +183,7 @@ public class RoleServiceImpl extends SuperService<Role> implements IRoleService 
 	/**
 	 * 检查 角色 是否已经存在
 	 *
-	 * @param roleVO 数据对象
+	 * @param role 数据对象
 	 * @return 判断结果
 	 */
 	public Result<Role> checkExists(Role role) {
@@ -200,7 +196,7 @@ public class RoleServiceImpl extends SuperService<Role> implements IRoleService 
 	@Override
 	public List<String> queryAllRoleCode() {
 		List<Role> roles=this.queryList(Role.create());
-		List<String> codes=CollectorUtil.collectList(roles, Role::getCode);
+		List<String> codes= CollectorUtil.collectList(roles, Role::getCode);
 		return codes;
 	}
 

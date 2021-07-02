@@ -111,17 +111,19 @@ function FormPage() {
 			form.val('data-form', formData);
 
 			//设置 菜单路径的资源 下拉框选中值
+			var pathResourceIdSelect=xmSelect.get("#pathResourceId",true);
+			var pathResourceIdOpionts=[];
 			if (formData.pathResourceId)	{
-				var pathResourceIdSelect=xmSelect.get("#pathResourceId",true)
-				var pathResourceIdOpionts=pathResourceIdSelect.options.transform(formData.未指定);
-				pathResourceIdSelect.setValue(pathResourceIdOpionts);
+				pathResourceIdOpionts=pathResourceIdSelect.options.transform([formData.pathResource]);
 			}
+			pathResourceIdSelect.setValue(pathResourceIdOpionts);
 			//设置 资源清单 下拉框选中值
-			if (formData.未指定)	{
-				var resourceIdsSelect=xmSelect.get("#resourceIds",true)
-				var resourceIdsOpionts=resourceIdsSelect.options.transform(formData.未指定);
-				resourceIdsSelect.setValue(resourceIdsOpionts);
+			var resourceIdsSelect=xmSelect.get("#resourceIds",true);
+			var resourceIdsOpionts=[];
+			if (formData.resourceIds)	{
+				resourceIdsOpionts=resourceIdsSelect.options.transform(formData.resources);
 			}
+			resourceIdsSelect.setValue(resourceIdsOpionts);
 
 			if(!formData.css) formData.css="";
 			$("#icon-button-el").attr("class",formData.css);
@@ -137,6 +139,7 @@ function FormPage() {
 				else values[id]=0;
 			}
 		}
+
 		return values;
 	}
 
@@ -154,9 +157,23 @@ function FormPage() {
     function bindSubmitEvent() {
     
 	    form.on('submit(submit-button)', function (data) {
- 
+
+			//获取 菜单路径的资源 下拉框的值
+			data.field["pathResourceId"]=xmSelect.get("#pathResourceId",true).getValue("value");
+			//获取 资源清单 下拉框的值
+			data.field["resourceIds"]=xmSelect.get("#resourceIds",true).getValue("value");
 	    	//处理逻辑值
 	    	var values=processFormValues(data.field);
+
+
+			//获取 菜单路径的资源 下拉框的值
+			data.field["pathResourceId"]=xmSelect.get("#pathResourceId",true).getValue("value");
+			if(data.field["pathResourceId"] && data.field["pathResourceId"].length>0) {
+				data.field["pathResourceId"]=data.field["pathResourceId"][0];
+			}
+			//获取 资源清单 下拉框的值
+			data.field["resourceIds"]=xmSelect.get("#resourceIds",true).getValue("value");
+
 	    	var api=moduleURL+"/"+(values.id?"update":"insert");
 	        layer.load(2);
 	        admin.request(api, data.field, function (data) {

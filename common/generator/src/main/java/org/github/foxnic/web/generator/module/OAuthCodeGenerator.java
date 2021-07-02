@@ -6,7 +6,6 @@ import com.github.foxnic.generator.config.WriteMode;
 import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb.*;
 import org.github.foxnic.web.constants.enums.Language;
-import org.github.foxnic.web.domain.oauth.MenuVO;
 import org.github.foxnic.web.domain.oauth.meta.MenuMeta;
 import org.github.foxnic.web.domain.oauth.meta.MenuVOMeta;
 import org.github.foxnic.web.domain.oauth.meta.UserMeta;
@@ -246,7 +245,7 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		.setServiceIntfAnfImpl(WriteMode.CREATE_IF_NOT_EXISTS) //服务与接口
 		.setControllerAndAgent(WriteMode.CREATE_IF_NOT_EXISTS) //Rest
 		.setPageController(WriteMode.CREATE_IF_NOT_EXISTS) //页面控制器
-		.setFormPage(WriteMode.WRITE_TEMP_FILE) //表单HTML页
+		.setFormPage(WriteMode.CREATE_IF_NOT_EXISTS) //表单HTML页
 		.setListPage(WriteMode.CREATE_IF_NOT_EXISTS); //列表HTML页
  
 		//生成代码

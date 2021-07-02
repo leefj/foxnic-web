@@ -1,5 +1,7 @@
 package org.github.foxnic.web.oauth.service.impl;
 
+import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.busi.id.IDGenerator;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.data.PagedList;
@@ -8,22 +10,20 @@ import com.github.foxnic.dao.data.RcdSet;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.dao.spec.DAO;
-import com.github.foxnic.api.error.ErrorDesc;
-import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
 import com.github.foxnic.sql.parameter.BatchParamBuilder;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_MENU;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.Resourze;
-import org.github.foxnic.web.domain.oauth.meta.MenuMeta;
-import org.github.foxnic.web.domain.oauth.meta.MenuVOMeta;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.language.LanguageService;
 import org.github.foxnic.web.misc.ztree.ZTreeNode;
+import org.github.foxnic.web.oauth.service.IMenuResourceService;
 import org.github.foxnic.web.oauth.service.IMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.lang.reflect.Field;
@@ -53,6 +53,9 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 	 * 获得 DAO 对象
 	 * */
 	public DAO dao() { return dao; }
+
+	@Autowired
+	private IMenuResourceService menuResourceService;
 	
 	@Override
 	public Object generateId(Field field) {
@@ -130,8 +133,11 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 	 * @return 保存是否成功
 	 * */
 	@Override
+	@Transactional
 	public boolean update(Menu menu , SaveMode mode) {
-		return super.update(menu , mode);
+		super.update(menu , mode);
+		menuResourceService.saveResourceIds(menu);
+		return true;
 	}
 	
 	/**
