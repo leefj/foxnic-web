@@ -1,7 +1,7 @@
 /**
  * 系统资源 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-28 15:36:24
+ * @since 2021-07-03 14:30:58
  */
 
 
@@ -43,10 +43,12 @@ function ListPage() {
 			cols: [[
 				{  fixed: 'left',type: 'numbers' },
 			 	{  fixed: 'left',type:'checkbox' },
-                { field: 'id', sort: true, title: fox.translate('ID')} ,
+                { field: 'name', sort: true, title: fox.translate('名称')} ,
                 { field: 'type', sort: true, title: fox.translate('类型')} ,
                 { field: 'url', sort: true, title: fox.translate('地址')} ,
-                { field: 'method', sort: true, title: fox.translate('HttpMethod')} ,
+                { field: 'method', sort: true, title: fox.translate('Method')} ,
+                { field: 'tableName', sort: true, title: fox.translate('数据表')} ,
+                { field: 'module', sort: true, title: fox.translate('模块')} ,
 				{ field: 'createTime', sort: true, title: fox.translate('创建时间'), templet: function (d) { return fox.dateFormat(d.createTime); }} ,
                 { field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
             ]]

@@ -1,13 +1,6 @@
 package org.github.foxnic.web.oauth.permission;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-
+import com.github.foxnic.commons.lang.StringUtil;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.oauth.service.IMenuService;
 import org.github.foxnic.web.oauth.session.SessionPermissionImpl;
@@ -20,7 +13,12 @@ import org.springframework.security.web.access.intercept.FilterInvocationSecurit
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
-import com.github.foxnic.commons.lang.StringUtil;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * 参考 ExpressionBasedFilterInvocationSecurityMetadataSource
@@ -43,6 +41,7 @@ public class PermissonFilterInvocationSecurityMetadataSource implements FilterIn
     		throw new AccessDeniedException("非法访问");
     	}
 
+//    	开放全部，调试时使用
     	if(user!=null) {
             return SecurityConfig.createList(new String[] {"ROLE_super_admin"});
         }

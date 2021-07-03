@@ -105,6 +105,7 @@ function FormPage() {
 				var opts=[];
 				if(!data) return opts;
 				for (var i = 0; i < data.length; i++) {
+					if(!data[i]) continue;
 					//请自行调整此处字段的对应关系
 					opts.push({name:data[i].name,value:data[i].id});
 				}
@@ -116,6 +117,7 @@ function FormPage() {
 				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
 				var opts=[];
 				for (var i = 0; i < data.length; i++) {
+					if(!data[i]) continue;
 					opts.push({name:data[i].text,value:data[i].code});
 				}
 				return opts;

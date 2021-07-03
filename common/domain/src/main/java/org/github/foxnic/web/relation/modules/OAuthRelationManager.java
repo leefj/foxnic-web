@@ -39,7 +39,7 @@ public class OAuthRelationManager extends RelationManager {
 				List<String> resIds= CollectorUtil.collectList(res,Resourze::getId);
 				menu.setResourceIds(resIds);
 				return res;
-		});
+		}).fork(32);
 
 
 

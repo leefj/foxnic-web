@@ -1,22 +1,4 @@
-String.prototype.endWith=function(str){
-	if(str==null||str==""||this.length==0||str.length>this.length)
-	  return false;
-	if(this.substring(this.length-str.length)==str)
-	  return true;
-	else
-	  return false;
-	return true;
-}
 
-String.prototype.startWith=function(str) {
-	if(str==null||str==""||this.length==0||str.length>this.length)
-	  return false;
-	if(this.substr(0,str.length)==str)
-	  return true;
-	else
-	  return false;
-	return true;
-}
 
  
 layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"xmSelect","element"], function (exports) {
@@ -101,7 +83,12 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"xmSe
 						} else {
 							cb(opts);
 						}
-					});
+
+						if(window.adjustPopup) {
+							window.adjustPopup();
+						}
+
+					},"POST",true);
 				}
 			}
 
@@ -254,6 +241,21 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"xmSe
     	
     	translate:function(defaults,code) {
  			//debugger
+			if(defaultsLangs==null)
+			{
+				debugger;
+				codeLangs=localStorage.getItem("language_codeLangs");
+				if(codeLangs && codeLangs.length>2) {
+					codeLangs=JSON.parse(codeLangs);
+				}
+				defaultsLangs=localStorage.getItem("language_defaultsLangs");
+				if(defaultsLangs && defaultsLangs.length>2) {
+					defaultsLangs=JSON.parse(defaultsLangs);
+				}
+			}
+			if(defaultsLangs==null){
+				return defaults;
+			}
     		var item=defaultsLangs[defaults];
     		var text=null;
     		if(!item && code) {
@@ -509,7 +511,7 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"xmSe
 	    	localStorage.setItem("language_codeLangs",JSON.stringify(codeLangs));
 	    	localStorage.setItem("language_defaultsLangs",JSON.stringify(defaultsLangs));
 	    	localStorage.setItem("language_timestamp",(new Date()).getTime());
-	    });
+	    },"POST",true);
     }
     
     //图片预览支持

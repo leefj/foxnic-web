@@ -1,27 +1,18 @@
 package org.github.foxnic.web.oauth.session;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.github.foxnic.web.constants.enums.MenuType;
+import com.github.foxnic.commons.lang.StringUtil;
 import org.github.foxnic.web.domain.oauth.Menu;
+import org.github.foxnic.web.domain.oauth.Resourze;
 import org.github.foxnic.web.domain.oauth.Role;
 import org.github.foxnic.web.domain.oauth.RoleMenu;
 import org.github.foxnic.web.session.SessionPermission;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
-import org.springframework.security.access.expression.SecurityExpressionRoot;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import com.github.foxnic.commons.lang.StringUtil;
+import javax.servlet.http.HttpServletRequest;
+import java.util.*;
 
 public class SessionPermissionImpl implements SessionPermission {
 	
@@ -55,11 +46,14 @@ public class SessionPermissionImpl implements SessionPermission {
 		}
 	}
 
-
+	/**
+	 * 初始化菜单中的权限清单
+	 * */
 	private void initAuthorities() {
 	
 		authorities=new ArrayList<SimpleGrantedAuthority>();
-		
+
+		//设置角色
 		roleIdCache=new HashMap<String, Role>();
 		for (Role role : sessionUser.getUser().getRoles()) {
 			if(StringUtil.isBlank(role.getCode())) continue;
@@ -67,11 +61,11 @@ public class SessionPermissionImpl implements SessionPermission {
 			authorities.add(auth);
 			roleIdCache.put(role.getId(), role);
 		}
-		
+
+		//设置菜单权限
 		menuPathCache=new HashMap<String, Menu>();
 		for (Menu menu : sessionUser.getUser().getMenus()) {
 			if(StringUtil.isBlank(menu.getAuthority())) continue;
-			SecurityExpressionRoot xx;
 			SimpleGrantedAuthority auth=new SimpleGrantedAuthority(menu.getAuthority());
 			authorities.add(auth);
 			menuPathCache.put(menu.getPath(), menu);
@@ -79,20 +73,21 @@ public class SessionPermissionImpl implements SessionPermission {
 		
 	}
 
-
+	/**
+	 * 初始化可以访问的请求列表
+	 * */
 	private void initRequestMatchers() {
 		requestMatchers=new HashSet<AntPathRequestMatcher>();
-		String method=null;
 		for (Menu menu : this.sessionUser.getUser().getMenus()) {
-			method="GET";
-			if(StringUtil.isBlank(menu.getPath())) continue;
-			if(MenuType.api.name().equalsIgnoreCase(menu.getType())) {
-				method="POST";
+			Resourze resourze=menu.getPathResource();
+			if(resourze!=null) {
+				requestMatchers.add(new AntPathRequestMatcher(resourze.getUrl(),resourze.getMethod(),true));
 			}
-//			if(menu.getPath().equals("/business/system/lang/lang_list.html")) {
-//				System.out.println();
-//			}
-			requestMatchers.add(new AntPathRequestMatcher(menu.getPath(),method,false));
+			if(menu.getResources()!=null) {
+				for (Resourze resource : menu.getResources()) {
+					requestMatchers.add(new AntPathRequestMatcher(resource.getUrl(),resource.getMethod(),true));
+				}
+			}
 		}
 	}
 	

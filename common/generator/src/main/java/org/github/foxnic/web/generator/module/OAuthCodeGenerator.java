@@ -5,7 +5,9 @@ import com.github.foxnic.generator.config.ModuleContext;
 import com.github.foxnic.generator.config.WriteMode;
 import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb.*;
+import org.github.foxnic.web.constants.enums.HttpMethodType;
 import org.github.foxnic.web.constants.enums.Language;
+import org.github.foxnic.web.constants.enums.ResourceType;
 import org.github.foxnic.web.domain.oauth.meta.MenuMeta;
 import org.github.foxnic.web.domain.oauth.meta.MenuVOMeta;
 import org.github.foxnic.web.domain.oauth.meta.UserMeta;
@@ -136,13 +138,22 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		//创建配置
 		ModuleContext cfg=createModuleConfig(SYS_RESOURZE.$TABLE, 6);
 
+		cfg.field(SYS_RESOURZE.ID).hideInList();
+		cfg.field(SYS_RESOURZE.METHOD).label("Method").radioField().enumType(HttpMethodType.class);
+		cfg.field(SYS_RESOURZE.TYPE).radioField().enumType(ResourceType.class);
+		cfg.field(SYS_RESOURZE.NAME).validate().required();
+		cfg.field(SYS_RESOURZE.URL).validate().required();
+		cfg.field(SYS_RESOURZE.BATCH_ID).hideInForm().hideInList();
+		cfg.field(SYS_RESOURZE.MODULE).label("模块");
+		cfg.field(SYS_RESOURZE.TABLE_NAME).label("数据表");
+
 		//文件生成覆盖模式
 		cfg.overrides()
 				.setServiceIntfAnfImpl(WriteMode.CREATE_IF_NOT_EXISTS) //服务与接口
 				.setControllerAndAgent(WriteMode.CREATE_IF_NOT_EXISTS) //Rest
 				.setPageController(WriteMode.CREATE_IF_NOT_EXISTS) //页面控制器
-				.setFormPage(WriteMode.CREATE_IF_NOT_EXISTS) //表单HTML页
-				.setListPage(WriteMode.CREATE_IF_NOT_EXISTS); //列表HTML页
+				.setFormPage(WriteMode.COVER_EXISTS_FILE) //表单HTML页
+				.setListPage(WriteMode.COVER_EXISTS_FILE); //列表HTML页
 
 		//生成代码
 		cfg.buildAll();

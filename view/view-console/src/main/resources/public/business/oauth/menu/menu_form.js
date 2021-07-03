@@ -63,8 +63,14 @@ function FormPage() {
 				var opts=[];
 				if(!data) return opts;
 				for (var i = 0; i < data.length; i++) {
+					if(!data[i]) continue;
 					//请自行调整此处字段的对应关系
-					opts.push({name:data[i].url,value:data[i].id,url:data[i].url,tableName:data[i].tableName});
+					try {
+						opts.push({name:data[i].url,value:data[i].id,url:data[i].url,tableName:data[i].tableName});
+					} catch (e) {
+						debugger
+					}
+
 				}
 				return opts;
 			}

@@ -87,6 +87,7 @@
                     withCredentials: true
                 },
                 data: obj.field,
+                async: true,
                 type: 'POST',
                 success: function (data) {
                     //console.log(JSON.stringify(data))
@@ -96,6 +97,7 @@
                     	console.log("token",data.data.token);
                         config.putToken(data.data.token);
                         config.setLang(data.data.user.language);
+                        initLanguage();
                         layer.msg('登录成功', {icon: 1, time: 500}, function () {
                             location.replace('./index.html');
                         });
@@ -134,6 +136,37 @@
                 opacity:'1.0'
             },1000);
         },500)
+
+        //
+        function initLanguage() {
+
+            localStorage.removeItem("language_codeLangs");
+            localStorage.removeItem("language_defaultsLangs");
+            localStorage.removeItem("language_timestamp");
+            $.ajax({
+                async: true,
+                type: 'POST',
+                async: true,
+                url: config.base_server + '/service-system/sys-lang/query-list',
+                success:function (data) {
+                    //debugger
+                    data=data.data;
+                    var codeLangs={};
+                    var defaultsLangs={};
+                    for (var i = 0; i < data.length; i++) {
+                        codeLangs[data[i].code]=data[i];
+                        defaultsLangs[data[i].defaults]=data[i];
+                    }
+                    localStorage.setItem("language_codeLangs",JSON.stringify(codeLangs));
+                    localStorage.setItem("language_defaultsLangs",JSON.stringify(defaultsLangs));
+                    localStorage.setItem("language_timestamp",(new Date()).getTime());
+                }
+            });
+
+        }
+
+
+
 
 
     });

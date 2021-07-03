@@ -2,7 +2,7 @@
 /**
  * 系统资源 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-28 15:36:24
+ * @since 2021-07-03 14:30:58
  */
  -->
  <!DOCTYPE html>
@@ -25,27 +25,54 @@
     <input name="id" id="id"  type="hidden"/>
     
     <div class="layui-form-item">
-        <label class="layui-form-label" th:text="${lang.translate('类型')}">类型</label>
+        <label class="layui-form-label" th:text="${lang.translate('名称')}">名称</label>
         <div class="layui-input-block">
-            <input lay-filter="type" id="type" name="type" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('类型') }" type="text" class="layui-input"   />
+            <input lay-filter="name" id="name" name="name" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('名称') }" type="text" class="layui-input"    lay-verify="|required"   />
         </div>
     </div>
     
+	
+	
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('类型')}">类型</label>
+        <div class="layui-input-block">
+            <input type="radio" name="type" lay-filter="type" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.ResourceType')}" th:value="${e.code}" th:title="${e.text}">
+        </div>
+    </div>
+
 	
     
     <div class="layui-form-item">
         <label class="layui-form-label" th:text="${lang.translate('地址')}">地址</label>
         <div class="layui-input-block">
-            <input lay-filter="url" id="url" name="url" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('地址') }" type="text" class="layui-input"   />
+            <input lay-filter="url" id="url" name="url" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('地址') }" type="text" class="layui-input"    lay-verify="|required"   />
+        </div>
+    </div>
+    
+	
+	
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('Method')}">Method</label>
+        <div class="layui-input-block">
+            <input type="radio" name="method" lay-filter="method" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.HttpMethodType')}" th:value="${e.code}" th:title="${e.text}">
+        </div>
+    </div>
+
+	
+    
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('数据表')}">数据表</label>
+        <div class="layui-input-block">
+            <input lay-filter="tableName" id="tableName" name="tableName" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('数据表') }" type="text" class="layui-input"   />
         </div>
     </div>
     
 	
     
     <div class="layui-form-item">
-        <label class="layui-form-label" th:text="${lang.translate('HttpMethod')}">HttpMethod</label>
+        <label class="layui-form-label" th:text="${lang.translate('模块')}">模块</label>
         <div class="layui-input-block">
-            <input lay-filter="method" id="method" name="method" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('HttpMethod') }" type="text" class="layui-input"   />
+            <input lay-filter="module" id="module" name="module" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('模块') }" type="text" class="layui-input"   />
         </div>
     </div>
     

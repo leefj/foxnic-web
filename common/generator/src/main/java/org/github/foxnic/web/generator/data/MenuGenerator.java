@@ -4,6 +4,8 @@ import com.github.foxnic.commons.busi.id.IDGenerator;
 import com.github.foxnic.commons.io.FileUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.project.maven.MavenProject;
+import com.github.foxnic.dao.data.Rcd;
+import com.github.foxnic.dao.data.RcdSet;
 import com.github.foxnic.dao.meta.DBTableMeta;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.sql.meta.DBTable;
@@ -12,9 +14,10 @@ import org.github.foxnic.web.constants.enums.MenuType;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.MenuResource;
 import org.github.foxnic.web.domain.oauth.Resourze;
+import org.github.foxnic.web.domain.oauth.RoleMenu;
 import org.github.foxnic.web.generator.config.FoxnicWebConfigs;
-import org.github.foxnic.web.oauth.page.SessionOnlinePageController;
-import org.github.foxnic.web.proxy.oauth.SessionOnlineServiceProxy;
+import org.github.foxnic.web.proxy.storage.FileServiceProxy;
+import org.github.foxnic.web.storage.page.FilePageController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.File;
@@ -31,7 +34,7 @@ public class MenuGenerator {
 	/**
 	 * 超级管理员角色ID
 	 * */
-	public static final String superAdminRoleId="110352963290923110";
+	public static final String SUPER_ADMIN_ROLE_ID="110352963290923110";
 	
 	public static void main(String[] args) {
 
@@ -59,8 +62,12 @@ public class MenuGenerator {
 //		mg=new MenuGenerator(FoxnicWeb.SYS_DICT.$TABLE, DictServiceProxy.class, DictPageController.class);
 //		mg.generate("system_config");
 
-		mg=new MenuGenerator(FoxnicWeb.SYS_SESSION_ONLINE.$TABLE, SessionOnlineServiceProxy.class, SessionOnlinePageController.class);
-		mg.generate("463397133957988354");
+//		mg=new MenuGenerator(FoxnicWeb.SYS_SESSION_ONLINE.$TABLE, SessionOnlineServiceProxy.class, SessionOnlinePageController.class);
+//		mg.generate("463397133957988354");
+
+		mg=new MenuGenerator(FoxnicWeb.SYS_FILE.$TABLE, FileServiceProxy.class, FilePageController.class);
+//		mg.generate("463397133957988354");
+//		mg.grantAll();
 
 
 
@@ -106,11 +113,13 @@ public class MenuGenerator {
 	private List<Resourze> resourzes=new ArrayList<>();
 	private Map<String,Resourze> resourceMap=new HashMap<>();
 	private String authorityPrefix;
+	private String roleId;
+
 	private MenuGenerator(DBTable table,Class proxyType,Class pageType) {
-		this("service-system",table,proxyType,pageType);
+		this("service-system",SUPER_ADMIN_ROLE_ID,table,proxyType,pageType);
 	}
 	
-	public MenuGenerator(String appId,DBTable table,Class proxyType,Class pageType) {
+	public MenuGenerator(String appId,String roleId,DBTable table,Class proxyType,Class pageType) {
 		this.configs=new FoxnicWebConfigs(appId);
 		this.dao=this.configs.getDAO();
 		this.table=table;
@@ -118,7 +127,22 @@ public class MenuGenerator {
 		this.pageType =pageType;
 		this.batchId=IDGenerator.getSnowflakeIdString();
 		this.authorityPrefix=table.name()+"::";
+		this.roleId=roleId;
+
 	}
+
+	public void grantAll() {
+		List<Menu> menus=dao.queryEntities(Menu.class,"SELECT * FROM sys_menu where id not in (SELECT menu_id FROM sys_role_menu)");
+		for (Menu menu : menus) {
+			RoleMenu rm=new RoleMenu();
+			rm.setId(IDGenerator.getSnowflakeIdString());
+			rm.setMenuId(menu.getId());
+			rm.setRoleId(roleId);
+			dao.insertEntity(rm);
+		}
+	}
+
+
 
 	public void generate(String parentId) {
 		Menu parent=dao.queryEntity(Menu.create().setId(parentId));
@@ -133,6 +157,7 @@ public class MenuGenerator {
 			createTopMenu(parentId);
 			createApiResource();
 			createSubMenus();
+			grant();
 			dao.commit();
 		} catch (Exception e){
 			dao.rollback();
@@ -313,133 +338,19 @@ public class MenuGenerator {
 
 
 
-//	private void grant(String batchId) {
-//
-//
-//		RcdSet menus=dao.query("select id from "+SYS_MENU.$NAME+" where batch_id=?",batchId);
-//		for (Rcd r : menus) {
-//			dao.insert(SYS_ROLE_MENU.$NAME)
-//			.set(SYS_ROLE_MENU.ID, IDGenerator.getSnowflakeId())
-//			.set(SYS_ROLE_MENU.ROLE_ID, superAdminRoleId)
-//			.set(SYS_ROLE_MENU.MENU_ID, r.getString(SYS_MENU.ID))
-//			.set(SYS_ROLE_MENU.CREATE_BY,"auto")
-//			.execute();
-//		}
-//	}
-//
-//
-//
-//	private String generateMenus(DBTable table, Class proxy, Class page, String parentId) throws Exception {
-//
-//		String authorityPrefix=table.name()+"::";
-//		//批次号
-//		String batchId=IDGenerator.getSnowflakeIdString();
-//
-//		DBTableMeta tm=dao.getTableMeta(table.name());
-//
-//		String topic=tm.getTopic();
-//		topic=StringUtil.removeLast(topic, "数据表");
-//		topic=StringUtil.removeLast(topic, "表");
-//
-//
-//		//插入模块目录
-//		Menu indexMenu=null;
-//		Menu formMenu=null;
-//
-//		String prefix=(String)page.getDeclaredField("prefix").get(null);
-//		prefix=StringUtil.removeFirst(prefix, "/");
-//		Method[] ms=page.getDeclaredMethods();
-//		for (Method m : ms) {
-//			RequestMapping rm=m.getAnnotation(RequestMapping.class);
-//			if(rm==null) continue;
-//			String path="/"+StringUtil.joinUrl(prefix,rm.value()[0]);
-//			System.out.println(path);
-//
-//
-//
-//			Menu menu=new Menu();
-//			menu.setId(IDGenerator.getSnowflakeIdString());
-//			menu.setPath(path);
-//			menu.setType(MenuType.page.name());
-//
-//			if(path.endsWith("_form.html")) {
-//				menu.setUrl("#!"+table.name().toLowerCase()+"_edit");
-//
-//				menu.setLabel("编辑"+topic);
-//				menu.setHidden(1);
-//
-//				formMenu=menu;
-//			}
-//
-//			if(path.endsWith("_list.html")) {
-//				menu.setUrl("#!"+table.name().toLowerCase()+"_mngr");
-//				menu.setLabel(topic+"管理");
-//				menu.setHidden(0);
-//				indexMenu=menu;
-//			}
-//
-//			menu.setSort(0);
-//
-//		}
-//
-//		if(formMenu==null || indexMenu==null) return null;
-//
-//		indexMenu.setAuthority(authorityPrefix+"list::view");
-//		indexMenu.setBatchId(batchId);
-//		formMenu.setBatchId(batchId);
-//		indexMenu.setParentId(parentId);
-//		formMenu.setParentId(indexMenu.getId());
-//		formMenu.setAuthority(authorityPrefix+"form::view");
-//		dao.insertEntity(formMenu);
-//		dao.insertEntity(indexMenu);
-//
-//
-//
-//		Menu api=new Menu();
-//		api.setId(IDGenerator.getSnowflakeIdString());
-//		api.setLabel("api");
-//		api.setHidden(1);
-//		api.setType(MenuType.folder.name());
-//		api.setParentId(indexMenu.getId());
-//		api.setAuthority(authorityPrefix+"apiset");
-//		api.setBatchId(batchId);
-//		api.setSort(3);
-//		dao.insertEntity(api);
-//
-//		File file=this.configs.getProxyProject().getSourceFile(UserServiceProxy.class);
-//		String source=FileUtil.readText(file);
-//		String[] lines=source.split("\n");
-//
-//
-//		Field[] fs=proxy.getDeclaredFields();
-//
-//		int sort=0;
-//		for (Field f : fs) {
-//			String name=f.getName();
-//			//排除一些无效的静态属性
-//			if(name.equals("CONTROLLER_CLASS_NAME") || name.startsWith("API_") ) continue;
-//			String value=(String)f.get(null);
-//			String doc=this.findDoc(f.getName(),source,lines);
-//			System.out.println(name + " = "+value+" , "+doc);
-//
-//			Menu rest=new Menu();
-//			rest.setId(IDGenerator.getSnowflakeIdString());
-//			rest.setType(MenuType.api.name());
-//			rest.setHidden(1);
-//			rest.setAuthority(authorityPrefix+"api::"+name.toLowerCase());
-//			rest.setParentId(api.getId());
-//			rest.setPath(value);
-//			rest.setLabel(doc);
-//			rest.setBatchId(batchId);
-//			rest.setSort(sort);
-//			dao.insertEntity(rest);
-//			sort++;
-//
-//		}
-//
-//		return batchId;
-//	}
-//
+	private void grant() {
+
+		RcdSet menus=dao.query("select id from "+ FoxnicWeb.SYS_MENU.$NAME+" where batch_id=?",batchId);
+		for (Rcd r : menus) {
+			dao.insert(FoxnicWeb.SYS_ROLE_MENU.$NAME)
+			.set(FoxnicWeb.SYS_ROLE_MENU.ID, IDGenerator.getSnowflakeId())
+			.set(FoxnicWeb.SYS_ROLE_MENU.ROLE_ID, roleId)
+			.set(FoxnicWeb.SYS_ROLE_MENU.MENU_ID, r.getString(FoxnicWeb.SYS_MENU.ID))
+			.set(FoxnicWeb.SYS_ROLE_MENU.CREATE_BY,"auto")
+			.execute();
+		}
+	}
+
 	private String findDoc(String name, String source, String[] lines) {
 		String line=null;
 		int index=-1;

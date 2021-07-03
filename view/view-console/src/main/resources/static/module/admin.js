@@ -206,7 +206,7 @@ layui.define(['settings', 'layer'], function (exports) {
             return layer.open(param);
         },
         // 封装ajax请求，返回数据类型为json
-        request: function (url, data, success, method, noHeaderToken) {
+        request: function (url, data, success, method, async) {
         	//debugger;
         	if(method==null) method="POST";
             if ('put' == method.toLowerCase()) {
@@ -221,22 +221,18 @@ layui.define(['settings', 'layer'], function (exports) {
                 url: config.base_server + url,
                 data: data,
                 type: method,
+                async: async,
                 dataType: 'json',
                 contentType: "application/json;charset=utf-8",
                 success: success,
                 beforeSend: function (xhr) {
-                    if (!noHeaderToken) {
-                        var token = config.getToken();
-                        //debugger;
-                        if (token) {
-                            //xhr.setRequestHeader('Authorization', 'Bearer ' + token.access_token);
-                        	//使用非标 token
-                        	xhr.setRequestHeader('token', token);
-                        }
-                    }
-                    var isolationVersion = config.isolationVersion;
-                    if (isolationVersion) {
-                        xhr.setRequestHeader('z-l-t-version', isolationVersion);
+
+                    var token = config.getToken();
+                    //debugger;
+                    if (token) {
+                        //xhr.setRequestHeader('Authorization', 'Bearer ' + token.access_token);
+                        //使用非标 token
+                        xhr.setRequestHeader('token', token);
                     }
                 }
             });
@@ -278,7 +274,7 @@ layui.define(['settings', 'layer'], function (exports) {
 
             };
             //发送同步ajax请求
-            param.async = false;
+            //param.async = false;
             console.log(param);
             $.ajax(param);
         },

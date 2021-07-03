@@ -79,9 +79,12 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"elem
         //
         bindImageAction(elId,index,preview);
 
-        if(window.adjustPopup) {
-            window.adjustPopup();
-        }
+        // setTimeout(function () {
+            if(window.adjustPopup) {
+                window.adjustPopup();
+            }
+        // },500);
+
 
         return preview;
     }
@@ -305,7 +308,7 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"elem
 
                 }
 
-            }, 'POST');
+            }, 'POST',true);
         }
     };
 
