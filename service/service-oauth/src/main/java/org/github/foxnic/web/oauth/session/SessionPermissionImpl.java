@@ -27,7 +27,7 @@ public class SessionPermissionImpl implements SessionPermission {
 	private Map<String,String> menuRoleRelation;
 	
 	private Map<String,Role> roleIdCache;
-	private Map<String,Menu> menuPathCache;
+	private Map<String,Menu> urlMenuCache;
 	
 	public SessionPermissionImpl(SessionUserImpl sessionUser) {
 		this.sessionUser=sessionUser;
@@ -63,12 +63,11 @@ public class SessionPermissionImpl implements SessionPermission {
 		}
 
 		//设置菜单权限
-		menuPathCache=new HashMap<String, Menu>();
+
 		for (Menu menu : sessionUser.getUser().getMenus()) {
 			if(StringUtil.isBlank(menu.getAuthority())) continue;
 			SimpleGrantedAuthority auth=new SimpleGrantedAuthority(menu.getAuthority());
 			authorities.add(auth);
-			menuPathCache.put(menu.getPath(), menu);
 		}
 		
 	}
@@ -77,15 +76,24 @@ public class SessionPermissionImpl implements SessionPermission {
 	 * 初始化可以访问的请求列表
 	 * */
 	private void initRequestMatchers() {
+		urlMenuCache =new HashMap<String, Menu>();
 		requestMatchers=new HashSet<AntPathRequestMatcher>();
 		for (Menu menu : this.sessionUser.getUser().getMenus()) {
 			Resourze resourze=menu.getPathResource();
 			if(resourze!=null) {
+//				if("/service-oauth/sys-user/query-paged-list".equals(resourze.getUrl())){
+//					System.out.println("");
+//				}
 				requestMatchers.add(new AntPathRequestMatcher(resourze.getUrl(),resourze.getMethod(),true));
+				urlMenuCache.put(resourze.getUrl(), menu);
 			}
 			if(menu.getResources()!=null) {
 				for (Resourze resource : menu.getResources()) {
+//					if("/service-oauth/sys-user/query-paged-list".equals(resource.getUrl())){
+//						System.out.println("");
+//					}
 					requestMatchers.add(new AntPathRequestMatcher(resource.getUrl(),resource.getMethod(),true));
+					urlMenuCache.put(resource.getUrl(), menu);
 				}
 			}
 		}
@@ -93,7 +101,7 @@ public class SessionPermissionImpl implements SessionPermission {
 	
 	public AntPathRequestMatcher check(HttpServletRequest request) {
 		for (AntPathRequestMatcher m : requestMatchers) {
-//			 if(m.getPattern().equals("/business/system/lang/lang_list.html")) {
+//			 if(m.getPattern().equals("/service-oauth/sys-user/query-paged-list")) {
 //				 System.out.println();
 //			 }
 			 if(m.matches(request)) {
@@ -125,7 +133,7 @@ public class SessionPermissionImpl implements SessionPermission {
 
 
 	public Role getRoleByMatcher(AntPathRequestMatcher matcher) {
-		Menu menu=menuPathCache.get(matcher.getPattern());
+		Menu menu= urlMenuCache.get(matcher.getPattern());
 		if(menu==null) return null;
 		String roleId=this.menuRoleRelation.get(menu.getId());
 		Role role=roleIdCache.get(roleId);

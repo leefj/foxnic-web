@@ -146,6 +146,10 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"xmSe
 	            },
 	            parseData: function(res){ //res 即为原始返回的数据
 				    //debugger;
+					if(!res.success) {
+						alert(res.message);
+						return null;
+					}
     				return {
 				      "code": res.code=="00"?0:-1, //解析接口状态
 				      "msg": res.message, //解析提示文本
