@@ -369,12 +369,14 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"xmSe
 		       return(false);
 		},
 		//表单提交
-		submit: function (url,params,method) {
+		submit: function (url,params,method,callback) {
     		// debugger
 			if(!method) method="post";
 			url=url.replace("//","/");
 			url=url.replace("http:/","http://");
 			url=url.replace("https:/","https://");
+
+			var task=setTimeout(function(){layer.load(2);},1000);
 
         	var target="t-"+(new Date()).getTime();
         	var $ifr=$("<iframe id='"+target+"' name='"+target+"' style='display:none'></iframe>")
@@ -390,11 +392,27 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"xmSe
 			}
 			// 提交表单
 			$form.submit();
+
+			var ifr = document.getElementById(target);
+			var timer=setInterval(function () {
+				var doc = ifr.contentDocument || ifr.contentWindow.document;
+				// Check if loading is complete
+				if (doc.readyState == 'complete' || doc.readyState == 'interactive') {
+					// do something
+					layer.closeAll('loading');
+					clearTimeout(task);
+					clearInterval(timer);
+					$form.remove();
+					$ifr.remove();
+					callback && callback();
+				}
+			},500);
+
         	//移除元素
-			setTimeout(function(){
-				$form.remove();
-				$ifr.remove();
-			},1000);
+			// setTimeout(function(){
+			// 	$form.remove();
+			// 	$ifr.remove();
+			// },1000);
         }
     };
 
