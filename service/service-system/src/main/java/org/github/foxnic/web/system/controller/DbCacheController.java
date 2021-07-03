@@ -2,14 +2,14 @@ package org.github.foxnic.web.system.controller;
 
  
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.api.validate.annotations.NotNull;
 import com.github.foxnic.commons.io.StreamUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.api.validate.annotations.NotNull;
-import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.springboot.web.DownloadUtil;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.github.xiaoymin.knife4j.annotations.ApiSort;
@@ -42,7 +42,7 @@ import java.util.Map;
  * 数据库缓存表，内存表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-18 13:12:07
+ * @since 2021-07-03 16:01:50
 */
 
 @Api(tags = "数据库缓存")
@@ -53,28 +53,26 @@ public class DbCacheController extends SuperController {
 	@Autowired
 	private IDbCacheService dbCacheService;
 
+	
 	/**
 	 * 添加数据库缓存
 	*/
 	@ApiOperation(value = "添加数据库缓存")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = DbCacheVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = DbCacheVOMeta.CATALOG , value = "数据分类" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = DbCacheVOMeta.AREA , value = "数据分区" , required = false , dataTypeClass=String.class , example = "/business/system/config/config_list.html"),
-		@ApiImplicitParam(name = DbCacheVOMeta.OWNER_TYPE , value = "账户ID" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = DbCacheVOMeta.OWNER_ID , value = "会话ID" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = DbCacheVOMeta.VALUE , value = "数据" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = DbCacheVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "/business/oauth/session_online/session_online_list.html#data-table"),
+		@ApiImplicitParam(name = DbCacheVOMeta.CATALOG , value = "数据分类" , required = false , dataTypeClass=String.class , example = "layui-table-column-width"),
+		@ApiImplicitParam(name = DbCacheVOMeta.AREA , value = "数据分区" , required = false , dataTypeClass=String.class , example = "/business/oauth/session_online/session_online_list.html"),
+		@ApiImplicitParam(name = DbCacheVOMeta.OWNER_TYPE , value = "账户ID" , required = false , dataTypeClass=String.class , example = "user"),
+		@ApiImplicitParam(name = DbCacheVOMeta.OWNER_ID , value = "会话ID" , required = false , dataTypeClass=String.class , example = "110588348101165911"),
+		@ApiImplicitParam(name = DbCacheVOMeta.VALUE , value = "数据" , required = false , dataTypeClass=String.class , example = ""),
 		@ApiImplicitParam(name = DbCacheVOMeta.EXPIRE_TIME , value = "过期时间" , required = false , dataTypeClass=Date.class),
 	})
 	@ApiOperationSupport(order=1)
 	@NotNull(name = DbCacheVOMeta.ID)
 	@SentinelResource(value = DbCacheServiceProxy.INSERT , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(DbCacheServiceProxy.INSERT)
-	public Result<DbCache> insert(DbCacheVO dbCacheVO) {
-		Result<DbCache> result=new Result<>();
-		boolean suc=dbCacheService.insert(dbCacheVO);
-		result.success(suc);
-		if(!suc) result.message("数据插入失败");
+	public Result insert(DbCacheVO dbCacheVO) {
+		Result result=dbCacheService.insert(dbCacheVO);
 		return result;
 	}
 
@@ -84,17 +82,14 @@ public class DbCacheController extends SuperController {
 	*/
 	@ApiOperation(value = "删除数据库缓存")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = DbCacheVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class),
+		@ApiImplicitParam(name = DbCacheVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "/business/oauth/session_online/session_online_list.html#data-table")
 	})
 	@ApiOperationSupport(order=2)
 	@NotNull(name = DbCacheVOMeta.ID)
 	@SentinelResource(value = DbCacheServiceProxy.DELETE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(DbCacheServiceProxy.DELETE)
-	public Result<DbCache> deleteById(String id) {
-		Result<DbCache> result=new Result<>();
-		boolean suc=dbCacheService.deleteByIdLogical(id);
-		result.success(suc);
-		if(!suc) result.message("数据删除失败");
+	public Result deleteById(String id) {
+		Result result=dbCacheService.deleteByIdLogical(id);
 		return result;
 	}
 	
@@ -109,13 +104,10 @@ public class DbCacheController extends SuperController {
 	})
 	@ApiOperationSupport(order=3) 
 	@NotNull(name = DbCacheVOMeta.IDS)
-	@SentinelResource(value = DbCacheServiceProxy.BATCH_DELETE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
-	@PostMapping(DbCacheServiceProxy.BATCH_DELETE)
-	public Result<DbCache> deleteByIds(List<String> ids) {
-		Result<DbCache> result=new Result<>();
-		boolean suc=dbCacheService.deleteByIdsLogical(ids);
-		result.success(suc);
-		if(!suc) result.message("数据删除失败");
+	@SentinelResource(value = DbCacheServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
+	@PostMapping(DbCacheServiceProxy.DELETE_BY_IDS)
+	public Result deleteByIds(List<String> ids) {
+		Result result=dbCacheService.deleteByIdsLogical(ids);
 		return result;
 	}
 	
@@ -124,23 +116,20 @@ public class DbCacheController extends SuperController {
 	*/
 	@ApiOperation(value = "更新数据库缓存")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = DbCacheVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = DbCacheVOMeta.CATALOG , value = "数据分类" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = DbCacheVOMeta.AREA , value = "数据分区" , required = false , dataTypeClass=String.class , example = "/business/system/config/config_list.html"),
-		@ApiImplicitParam(name = DbCacheVOMeta.OWNER_TYPE , value = "账户ID" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = DbCacheVOMeta.OWNER_ID , value = "会话ID" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = DbCacheVOMeta.VALUE , value = "数据" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = DbCacheVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "/business/oauth/session_online/session_online_list.html#data-table"),
+		@ApiImplicitParam(name = DbCacheVOMeta.CATALOG , value = "数据分类" , required = false , dataTypeClass=String.class , example = "layui-table-column-width"),
+		@ApiImplicitParam(name = DbCacheVOMeta.AREA , value = "数据分区" , required = false , dataTypeClass=String.class , example = "/business/oauth/session_online/session_online_list.html"),
+		@ApiImplicitParam(name = DbCacheVOMeta.OWNER_TYPE , value = "账户ID" , required = false , dataTypeClass=String.class , example = "user"),
+		@ApiImplicitParam(name = DbCacheVOMeta.OWNER_ID , value = "会话ID" , required = false , dataTypeClass=String.class , example = "110588348101165911"),
+		@ApiImplicitParam(name = DbCacheVOMeta.VALUE , value = "数据" , required = false , dataTypeClass=String.class , example = ""),
 		@ApiImplicitParam(name = DbCacheVOMeta.EXPIRE_TIME , value = "过期时间" , required = false , dataTypeClass=Date.class),
 	})
 	@ApiOperationSupport( order=4 , ignoreParameters = { DbCacheVOMeta.PAGE_INDEX , DbCacheVOMeta.PAGE_SIZE , DbCacheVOMeta.SEARCH_FIELD , DbCacheVOMeta.SEARCH_VALUE , DbCacheVOMeta.SORT_FIELD , DbCacheVOMeta.SORT_TYPE , DbCacheVOMeta.IDS , DbCacheVOMeta.SECONDS } ) 
 	@NotNull(name = DbCacheVOMeta.ID)
 	@SentinelResource(value = DbCacheServiceProxy.UPDATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(DbCacheServiceProxy.UPDATE)
-	public Result<DbCache> update(DbCacheVO dbCacheVO) {
-		Result<DbCache> result=new Result<>();
-		boolean suc=dbCacheService.update(dbCacheVO,SaveMode.NOT_NULL_FIELDS);
-		result.success(suc);
-		if(!suc) result.message("数据更新失败");
+	public Result update(DbCacheVO dbCacheVO) {
+		Result result=dbCacheService.update(dbCacheVO,SaveMode.NOT_NULL_FIELDS);
 		return result;
 	}
 	
@@ -150,23 +139,20 @@ public class DbCacheController extends SuperController {
 	*/
 	@ApiOperation(value = "保存数据库缓存")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = DbCacheVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = DbCacheVOMeta.CATALOG , value = "数据分类" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = DbCacheVOMeta.AREA , value = "数据分区" , required = false , dataTypeClass=String.class , example = "/business/system/config/config_list.html"),
-		@ApiImplicitParam(name = DbCacheVOMeta.OWNER_TYPE , value = "账户ID" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = DbCacheVOMeta.OWNER_ID , value = "会话ID" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = DbCacheVOMeta.VALUE , value = "数据" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = DbCacheVOMeta.EXPIRE_TIME , value = "过期时间" , required = false , dataTypeClass= Date.class),
+		@ApiImplicitParam(name = DbCacheVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "/business/oauth/session_online/session_online_list.html#data-table"),
+		@ApiImplicitParam(name = DbCacheVOMeta.CATALOG , value = "数据分类" , required = false , dataTypeClass=String.class , example = "layui-table-column-width"),
+		@ApiImplicitParam(name = DbCacheVOMeta.AREA , value = "数据分区" , required = false , dataTypeClass=String.class , example = "/business/oauth/session_online/session_online_list.html"),
+		@ApiImplicitParam(name = DbCacheVOMeta.OWNER_TYPE , value = "账户ID" , required = false , dataTypeClass=String.class , example = "user"),
+		@ApiImplicitParam(name = DbCacheVOMeta.OWNER_ID , value = "会话ID" , required = false , dataTypeClass=String.class , example = "110588348101165911"),
+		@ApiImplicitParam(name = DbCacheVOMeta.VALUE , value = "数据" , required = false , dataTypeClass=String.class , example = ""),
+		@ApiImplicitParam(name = DbCacheVOMeta.EXPIRE_TIME , value = "过期时间" , required = false , dataTypeClass=Date.class),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { DbCacheVOMeta.PAGE_INDEX , DbCacheVOMeta.PAGE_SIZE , DbCacheVOMeta.SEARCH_FIELD , DbCacheVOMeta.SEARCH_VALUE , DbCacheVOMeta.SORT_FIELD , DbCacheVOMeta.SORT_TYPE , DbCacheVOMeta.IDS , DbCacheVOMeta.SECONDS } )
 	@NotNull(name = DbCacheVOMeta.ID)
 	@SentinelResource(value = DbCacheServiceProxy.SAVE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(DbCacheServiceProxy.SAVE)
-	public Result<DbCache> save(DbCacheVO dbCacheVO) {
-		Result<DbCache> result=new Result<>();
-		boolean suc=dbCacheService.save(dbCacheVO,SaveMode.NOT_NULL_FIELDS);
-		result.success(suc);
-		if(!suc) result.message("数据保存失败");
+	public Result save(DbCacheVO dbCacheVO) {
+		Result result=dbCacheService.save(dbCacheVO,SaveMode.NOT_NULL_FIELDS);
 		return result;
 	}
 
@@ -189,18 +175,21 @@ public class DbCacheController extends SuperController {
 		return result;
 	}
 
+
+
+
 	
 	/**
 	 * 查询数据库缓存
 	*/
 	@ApiOperation(value = "查询数据库缓存")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = DbCacheVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = DbCacheVOMeta.CATALOG , value = "数据分类" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = DbCacheVOMeta.AREA , value = "数据分区" , required = false , dataTypeClass=String.class , example = "/business/system/config/config_list.html"),
-		@ApiImplicitParam(name = DbCacheVOMeta.OWNER_TYPE , value = "账户ID" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = DbCacheVOMeta.OWNER_ID , value = "会话ID" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = DbCacheVOMeta.VALUE , value = "数据" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = DbCacheVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "/business/oauth/session_online/session_online_list.html#data-table"),
+		@ApiImplicitParam(name = DbCacheVOMeta.CATALOG , value = "数据分类" , required = false , dataTypeClass=String.class , example = "layui-table-column-width"),
+		@ApiImplicitParam(name = DbCacheVOMeta.AREA , value = "数据分区" , required = false , dataTypeClass=String.class , example = "/business/oauth/session_online/session_online_list.html"),
+		@ApiImplicitParam(name = DbCacheVOMeta.OWNER_TYPE , value = "账户ID" , required = false , dataTypeClass=String.class , example = "user"),
+		@ApiImplicitParam(name = DbCacheVOMeta.OWNER_ID , value = "会话ID" , required = false , dataTypeClass=String.class , example = "110588348101165911"),
+		@ApiImplicitParam(name = DbCacheVOMeta.VALUE , value = "数据" , required = false , dataTypeClass=String.class , example = ""),
 		@ApiImplicitParam(name = DbCacheVOMeta.EXPIRE_TIME , value = "过期时间" , required = false , dataTypeClass=Date.class),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { DbCacheVOMeta.PAGE_INDEX , DbCacheVOMeta.PAGE_SIZE } )
@@ -219,12 +208,12 @@ public class DbCacheController extends SuperController {
 	*/
 	@ApiOperation(value = "分页查询数据库缓存")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = DbCacheVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = DbCacheVOMeta.CATALOG , value = "数据分类" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = DbCacheVOMeta.AREA , value = "数据分区" , required = false , dataTypeClass=String.class , example = "/business/system/config/config_list.html"),
-		@ApiImplicitParam(name = DbCacheVOMeta.OWNER_TYPE , value = "账户ID" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = DbCacheVOMeta.OWNER_ID , value = "会话ID" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = DbCacheVOMeta.VALUE , value = "数据" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = DbCacheVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "/business/oauth/session_online/session_online_list.html#data-table"),
+		@ApiImplicitParam(name = DbCacheVOMeta.CATALOG , value = "数据分类" , required = false , dataTypeClass=String.class , example = "layui-table-column-width"),
+		@ApiImplicitParam(name = DbCacheVOMeta.AREA , value = "数据分区" , required = false , dataTypeClass=String.class , example = "/business/oauth/session_online/session_online_list.html"),
+		@ApiImplicitParam(name = DbCacheVOMeta.OWNER_TYPE , value = "账户ID" , required = false , dataTypeClass=String.class , example = "user"),
+		@ApiImplicitParam(name = DbCacheVOMeta.OWNER_ID , value = "会话ID" , required = false , dataTypeClass=String.class , example = "110588348101165911"),
+		@ApiImplicitParam(name = DbCacheVOMeta.VALUE , value = "数据" , required = false , dataTypeClass=String.class , example = ""),
 		@ApiImplicitParam(name = DbCacheVOMeta.EXPIRE_TIME , value = "过期时间" , required = false , dataTypeClass=Date.class),
 	})
 	@ApiOperationSupport(order=8)

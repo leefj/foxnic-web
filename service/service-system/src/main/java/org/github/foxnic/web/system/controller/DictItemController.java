@@ -1,52 +1,47 @@
 package org.github.foxnic.web.system.controller;
 
  
-import java.util.List;
-
-import org.springframework.web.bind.annotation.RestController;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.api.validate.annotations.NotNull;
+import com.github.foxnic.commons.io.StreamUtil;
+import com.github.foxnic.dao.data.PagedList;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.excel.ExcelWriter;
+import com.github.foxnic.dao.excel.ValidateResult;
+import com.github.foxnic.springboot.web.DownloadUtil;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
+import com.github.xiaoymin.knife4j.annotations.ApiSort;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import org.github.foxnic.web.domain.system.DictItem;
+import org.github.foxnic.web.domain.system.DictItemVO;
+import org.github.foxnic.web.domain.system.meta.DictItemVOMeta;
+import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
+import org.github.foxnic.web.framework.web.SuperController;
+import org.github.foxnic.web.proxy.system.DictItemServiceProxy;
+import org.github.foxnic.web.system.service.IDictItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import org.github.foxnic.web.framework.web.SuperController;
-import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
 import org.springframework.web.bind.annotation.RequestMapping;
-import javax.servlet.http.HttpServletResponse;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-
-import org.github.foxnic.web.proxy.system.DictItemServiceProxy;
-import org.github.foxnic.web.domain.system.meta.DictItemVOMeta;
-import org.github.foxnic.web.domain.system.DictItem;
-import org.github.foxnic.web.domain.system.DictItemVO;
-import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.springboot.web.DownloadUtil;
-import com.github.foxnic.dao.data.PagedList;
-import java.util.Date;
-import java.sql.Timestamp;
-import com.github.foxnic.api.error.ErrorDesc;
-import com.github.foxnic.commons.io.StreamUtil;
-import java.util.Map;
-import com.github.foxnic.dao.excel.ValidateResult;
+import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
-import io.swagger.annotations.Api;
-import com.github.xiaoymin.knife4j.annotations.ApiSort;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiImplicitParam;
-import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import com.alibaba.csp.sentinel.annotation.SentinelResource;
-import org.github.foxnic.web.system.service.IDictItemService;
-import com.github.foxnic.api.validate.annotations.NotNull;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
  * 数据字典条目 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-23 16:38:44
+ * @since 2021-07-03 16:01:49
 */
 
 @Api(tags = "数据字典条目")
@@ -80,11 +75,8 @@ public class DictItemController extends SuperController {
 	@NotNull(name = DictItemVOMeta.SORT)
 	@SentinelResource(value = DictItemServiceProxy.INSERT , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(DictItemServiceProxy.INSERT)
-	public Result<DictItem> insert(DictItemVO dictItemVO) {
-		Result<DictItem> result=new Result<>();
-		boolean suc=dictItemService.insert(dictItemVO);
-		result.success(suc);
-		if(!suc) result.message("数据插入失败");
+	public Result insert(DictItemVO dictItemVO) {
+		Result result=dictItemService.insert(dictItemVO);
 		return result;
 	}
 
@@ -94,17 +86,14 @@ public class DictItemController extends SuperController {
 	*/
 	@ApiOperation(value = "删除数据字典条目")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = DictItemVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "1"),
+		@ApiImplicitParam(name = DictItemVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "1")
 	})
 	@ApiOperationSupport(order=2)
 	@NotNull(name = DictItemVOMeta.ID)
 	@SentinelResource(value = DictItemServiceProxy.DELETE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(DictItemServiceProxy.DELETE)
-	public Result<DictItem> deleteById(String id) {
-		Result<DictItem> result=new Result<>();
-		boolean suc=dictItemService.deleteByIdLogical(id);
-		result.success(suc);
-		if(!suc) result.message("数据删除失败");
+	public Result deleteById(String id) {
+		Result result=dictItemService.deleteByIdPhysical(id);
 		return result;
 	}
 	
@@ -119,13 +108,10 @@ public class DictItemController extends SuperController {
 	})
 	@ApiOperationSupport(order=3) 
 	@NotNull(name = DictItemVOMeta.IDS)
-	@SentinelResource(value = DictItemServiceProxy.BATCH_DELETE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
-	@PostMapping(DictItemServiceProxy.BATCH_DELETE)
-	public Result<DictItem> deleteByIds(List<String> ids) {
-		Result<DictItem> result=new Result<>();
-		boolean suc=dictItemService.deleteByIdsLogical(ids);
-		result.success(suc);
-		if(!suc) result.message("数据删除失败");
+	@SentinelResource(value = DictItemServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
+	@PostMapping(DictItemServiceProxy.DELETE_BY_IDS)
+	public Result deleteByIds(List<String> ids) {
+		Result result=dictItemService.deleteByIdsLogical(ids);
 		return result;
 	}
 	
@@ -151,11 +137,8 @@ public class DictItemController extends SuperController {
 	@NotNull(name = DictItemVOMeta.SORT)
 	@SentinelResource(value = DictItemServiceProxy.UPDATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(DictItemServiceProxy.UPDATE)
-	public Result<DictItem> update(DictItemVO dictItemVO) {
-		Result<DictItem> result=new Result<>();
-		boolean suc=dictItemService.update(dictItemVO,SaveMode.NOT_NULL_FIELDS);
-		result.success(suc);
-		if(!suc) result.message("数据更新失败");
+	public Result update(DictItemVO dictItemVO) {
+		Result result=dictItemService.update(dictItemVO,SaveMode.NOT_NULL_FIELDS);
 		return result;
 	}
 	
@@ -182,11 +165,8 @@ public class DictItemController extends SuperController {
 	@NotNull(name = DictItemVOMeta.SORT)
 	@SentinelResource(value = DictItemServiceProxy.SAVE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(DictItemServiceProxy.SAVE)
-	public Result<DictItem> save(DictItemVO dictItemVO) {
-		Result<DictItem> result=new Result<>();
-		boolean suc=dictItemService.save(dictItemVO,SaveMode.NOT_NULL_FIELDS);
-		result.success(suc);
-		if(!suc) result.message("数据保存失败");
+	public Result save(DictItemVO dictItemVO) {
+		Result result=dictItemService.save(dictItemVO,SaveMode.NOT_NULL_FIELDS);
 		return result;
 	}
 
@@ -209,7 +189,6 @@ public class DictItemController extends SuperController {
 		return result;
 	}
 
-	
 	/**
 	 * 查询数据字典条目
 	*/
