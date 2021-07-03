@@ -1,48 +1,40 @@
 package org.github.foxnic.web.system.controller;
 
  
-import java.util.List;
-
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.excel.ValidateResult;
-
-import com.github.foxnic.api.transter.Result;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-
-import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
-import org.github.foxnic.web.framework.web.SuperController;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import javax.servlet.http.HttpServletResponse;
-
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.api.validate.annotations.NotNull;
 import com.github.foxnic.commons.io.StreamUtil;
-import java.io.InputStream;
-import java.util.Map;
-
-
-import com.github.foxnic.springboot.web.DownloadUtil;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
+import com.github.foxnic.dao.data.PagedList;
+import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.excel.ExcelWriter;
-
-
-import org.github.foxnic.web.proxy.system.LangServiceProxy;
-import org.github.foxnic.web.domain.system.meta.LangVOMeta;
+import com.github.foxnic.dao.excel.ValidateResult;
+import com.github.foxnic.springboot.web.DownloadUtil;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
+import com.github.xiaoymin.knife4j.annotations.ApiSort;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.github.foxnic.web.domain.system.Lang;
 import org.github.foxnic.web.domain.system.LangVO;
-import io.swagger.annotations.Api;
-import com.github.xiaoymin.knife4j.annotations.ApiSort;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiImplicitParam;
-import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import org.github.foxnic.web.domain.system.meta.LangVOMeta;
+import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
+import org.github.foxnic.web.framework.web.SuperController;
+import org.github.foxnic.web.proxy.system.LangServiceProxy;
 import org.github.foxnic.web.system.service.ILangService;
-import com.github.foxnic.api.validate.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.InputStream;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -79,11 +71,8 @@ public class LangController extends SuperController {
 	@NotNull(name = LangVOMeta.CODE)
 	@SentinelResource(value = LangServiceProxy.INSERT , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(LangServiceProxy.INSERT)
-	public Result<Lang> insert(LangVO langVO) {
-		Result<Lang> result=new Result<>();
-		boolean suc=langService.insert(langVO);
-		result.success(suc);
-		if(!suc) result.message("数据插入失败");
+	public Result insert(LangVO langVO) {
+		Result result=langService.insert(langVO);
 		return result;
 	}
 
@@ -120,11 +109,8 @@ public class LangController extends SuperController {
 	@NotNull(name = LangVOMeta.CODES)
 	@SentinelResource(value = LangServiceProxy.BATCH_DELETE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(LangServiceProxy.BATCH_DELETE)
-	public Result<Lang> deleteByIds(List<String> codes) {
-		Result<Lang> result=new Result<>();
-		boolean suc=langService.deleteByIdsLogical(codes);
-		result.success(suc);
-		if(!suc) result.message("数据删除失败");
+	public Result deleteByIds(List<String> codes) {
+		Result result=langService.deleteByIdsLogical(codes);
 		return result;
 	}
 	
@@ -146,11 +132,8 @@ public class LangController extends SuperController {
 	@NotNull(name = LangVOMeta.CODE)
 	@SentinelResource(value = LangServiceProxy.UPDATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(LangServiceProxy.UPDATE)
-	public Result<Lang> update(LangVO langVO) {
-		Result<Lang> result=new Result<>();
-		boolean suc=langService.update(langVO,SaveMode.NOT_NULL_FIELDS);
-		result.success(suc);
-		if(!suc) result.message("数据更新失败");
+	public Result update(LangVO langVO) {
+		Result result=langService.update(langVO,SaveMode.NOT_NULL_FIELDS);
 		return result;
 	}
 	
@@ -173,11 +156,8 @@ public class LangController extends SuperController {
 	@NotNull(name = LangVOMeta.CODE)
 	@SentinelResource(value = LangServiceProxy.SAVE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(LangServiceProxy.SAVE)
-	public Result<Lang> save(LangVO langVO) {
-		Result<Lang> result=new Result<>();
-		boolean suc=langService.save(langVO,SaveMode.NOT_NULL_FIELDS);
-		result.success(suc);
-		if(!suc) result.message("数据保存失败");
+	public Result save(LangVO langVO) {
+		Result result=langService.save(langVO,SaveMode.NOT_NULL_FIELDS);
 		return result;
 	}
 

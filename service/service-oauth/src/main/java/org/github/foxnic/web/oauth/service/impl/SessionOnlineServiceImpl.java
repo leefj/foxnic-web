@@ -64,7 +64,7 @@ public class SessionOnlineServiceImpl extends SuperService<SessionOnline> implem
 	 * @return 插入是否成功
 	 * */
 	@Override
-	public boolean insert(SessionOnline sessionOnline) {
+	public Result insert(SessionOnline sessionOnline) {
 		return super.insert(sessionOnline);
 	}
 	
@@ -74,7 +74,7 @@ public class SessionOnlineServiceImpl extends SuperService<SessionOnline> implem
 	 * @return 插入是否成功
 	 * */
 	@Override
-	public boolean insertList(List<SessionOnline> sessionOnlineList) {
+	public Result insertList(List<SessionOnline> sessionOnlineList) {
 		return super.insertList(sessionOnlineList);
 	}
 	
@@ -115,7 +115,7 @@ public class SessionOnlineServiceImpl extends SuperService<SessionOnline> implem
 	 * @return 保存是否成功
 	 * */
 	@Override
-	public boolean update(SessionOnline sessionOnline , SaveMode mode) {
+	public Result update(SessionOnline sessionOnline , SaveMode mode) {
 		return super.update(sessionOnline , mode);
 	}
 	
@@ -126,7 +126,7 @@ public class SessionOnlineServiceImpl extends SuperService<SessionOnline> implem
 	 * @return 保存是否成功
 	 * */
 	@Override
-	public boolean updateList(List<SessionOnline> sessionOnlineList , SaveMode mode) {
+	public Result updateList(List<SessionOnline> sessionOnlineList , SaveMode mode) {
 		return super.updateList(sessionOnlineList , mode);
 	}
 	

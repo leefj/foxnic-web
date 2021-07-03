@@ -1,10 +1,7 @@
 package org.github.foxnic.web.proxy.system;
 
-import java.util.List;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.api.transter.Result;
-
+import org.github.foxnic.web.proxy.api.APIProxy;
 import org.github.foxnic.web.proxy.FeignConfiguration;
 
 import org.springframework.cloud.openfeign.FeignClient;
@@ -12,7 +9,9 @@ import org.springframework.cloud.openfeign.FeignClient;
 
 import org.github.foxnic.web.domain.system.DbCache;
 import org.github.foxnic.web.domain.system.DbCacheVO;
-import org.github.foxnic.web.proxy.api.APIProxy;
+import java.util.List;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.proxy.MicroServiceNames;
 
 /**
@@ -20,7 +19,7 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  * 数据库缓存表，内存表  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-18 13:12:07
+ * @since 2021-07-03 16:01:50
 */
 
 @FeignClient(value = MicroServiceNames.SYSTEM, contextId = DbCacheServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)
@@ -50,13 +49,12 @@ public interface DbCacheServiceProxy {
 	 * 删除数据库缓存
 	 */
 	public static final String DELETE = API_PREFIX + "delete";
-	
-	
+
 	/**
 	 * 批量删除数据库缓存
 	 */
-	public static final String BATCH_DELETE = API_PREFIX + "batch-delete";
-	
+	public static final String DELETE_BY_IDS = API_PREFIX + "delete-by-ids";
+	;
 	
 	/**
 	 * 更新数据库缓存
@@ -70,10 +68,16 @@ public interface DbCacheServiceProxy {
 	public static final String SAVE = API_PREFIX + "save";
 	
 	/**
-	 * 获取数据库缓存
+	 * 获取单个数据库缓存
 	 */
 	public static final String GET_BY_ID = API_PREFIX + "get-by-id";
-	
+
+	/**
+	 * 获取多个数据库缓存
+	 */
+	public static final String GET_BY_IDS = API_PREFIX + "get-by-ids";
+	;
+
 	/**
 	 * 查询数据库缓存
 	 */
@@ -103,39 +107,43 @@ public interface DbCacheServiceProxy {
 	 * 添加数据库缓存
 	*/
 	@RequestMapping(DbCacheServiceProxy.INSERT)
-	Result<DbCache> insert(DbCacheVO dbCacheVO);
+	Result insert(DbCacheVO dbCacheVO);
 	
 	/**
 	 * 删除数据库缓存
 	*/
 	@RequestMapping(DbCacheServiceProxy.DELETE)
-	Result<DbCache> deleteById(String id);
-	
-	
+	Result deleteById(String id);
+
 	/**
 	 * 批量删除数据库缓存
 	*/
-	@RequestMapping(DbCacheServiceProxy.BATCH_DELETE)
-	Result<DbCache> deleteByIds(List<String> id);
-	
+	@RequestMapping(DbCacheServiceProxy.DELETE_BY_IDS)
+	Result deleteByIds(List<String> ids);
+
 	/**
 	 * 更新数据库缓存
 	*/
 	@RequestMapping(DbCacheServiceProxy.UPDATE)
-	Result<DbCache> update(DbCacheVO dbCacheVO);
+	Result update(DbCacheVO dbCacheVO);
 	
 	/**
 	 * 更新数据库缓存
 	*/
 	@RequestMapping(DbCacheServiceProxy.SAVE)
-	Result<DbCache> save(DbCacheVO dbCacheVO);
+	Result save(DbCacheVO dbCacheVO);
 	
 	/**
 	 * 获取数据库缓存
 	*/
 	@RequestMapping(DbCacheServiceProxy.GET_BY_ID)
 	Result<DbCache> getById(String id);
-	
+
+	/**
+	 * 批量删除数据库缓存
+	*/
+	@RequestMapping(DbCacheServiceProxy.GET_BY_IDS)
+	Result<List<DbCache>> getByIds(List<String> ids);
 	/**
 	 * 查询数据库缓存
 	*/

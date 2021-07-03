@@ -1,19 +1,16 @@
 package org.github.foxnic.web.proxy.oauth;
 
-import java.util.List;
-import org.springframework.web.bind.annotation.RequestMapping;
-import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.api.transter.Result;
-
-import org.github.foxnic.web.proxy.FeignConfiguration;
-
-import org.springframework.cloud.openfeign.FeignClient;
-
-
+import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.domain.oauth.OauthClient;
 import org.github.foxnic.web.domain.oauth.OauthClientVO;
-import org.github.foxnic.web.proxy.api.APIProxy;
+import org.github.foxnic.web.proxy.FeignConfiguration;
 import org.github.foxnic.web.proxy.MicroServiceNames;
+import org.github.foxnic.web.proxy.api.APIProxy;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 /**
  * <p>
@@ -98,32 +95,32 @@ public interface OauthClientServiceProxy {
 	 * 添加认证客户端
 	*/
 	@RequestMapping(OauthClientServiceProxy.INSERT)
-	Result<OauthClient> insert(OauthClientVO oauthClientVO);
+	Result insert(OauthClientVO oauthClientVO);
 	
 	/**
 	 * 删除认证客户端
 	*/
 	@RequestMapping(OauthClientServiceProxy.DELETE)
-	Result<OauthClient> deleteById(String id);
+	Result deleteById(String id);
 	
 	
 	/**
 	 * 批量删除认证客户端
 	*/
 	@RequestMapping(OauthClientServiceProxy.BATCH_DELETE)
-	Result<OauthClient> deleteByIds(List<String> id);
+	Result deleteByIds(List<String> id);
 	
 	/**
 	 * 更新认证客户端
 	*/
 	@RequestMapping(OauthClientServiceProxy.UPDATE)
-	Result<OauthClient> update(OauthClientVO oauthClientVO);
+	Result update(OauthClientVO oauthClientVO);
 	
 	/**
 	 * 更新认证客户端
 	*/
 	@RequestMapping(OauthClientServiceProxy.SAVE)
-	Result<OauthClient> save(OauthClientVO oauthClientVO);
+	Result save(OauthClientVO oauthClientVO);
 	
 	/**
 	 * 获取认证客户端

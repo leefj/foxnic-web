@@ -1,17 +1,16 @@
 package org.github.foxnic.web.proxy.system;
 
-import java.util.List;
-import org.springframework.web.bind.annotation.RequestMapping;
-import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.api.transter.Result;
-
-import org.github.foxnic.web.proxy.FeignConfiguration;
-
-import org.springframework.cloud.openfeign.FeignClient;
+import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.domain.system.Config;
 import org.github.foxnic.web.domain.system.ConfigVO;
-import org.github.foxnic.web.proxy.api.APIProxy;
+import org.github.foxnic.web.proxy.FeignConfiguration;
 import org.github.foxnic.web.proxy.MicroServiceNames;
+import org.github.foxnic.web.proxy.api.APIProxy;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 /**
  * <p>
@@ -102,32 +101,32 @@ public interface ConfigServiceProxy {
 	 * 添加系统配置
 	*/
 	@RequestMapping(ConfigServiceProxy.INSERT)
-	Result<Config> insert(ConfigVO configVO);
+	Result insert(ConfigVO configVO);
 	
 	/**
 	 * 按主键删除系统配置
 	*/
 	@RequestMapping(ConfigServiceProxy.DELETE)
-	Result<Config> deleteById(String code);
+	Result deleteById(String code);
 	
 	
 	/**
 	 * 按主键删除系统配置
 	*/
 	@RequestMapping(ConfigServiceProxy.BATCH_DELETE)
-	Result<Config> deleteByIds(List<String> id);
+	Result deleteByIds(List<String> id);
 	
 	/**
 	 * 更新系统配置
 	*/
 	@RequestMapping(ConfigServiceProxy.UPDATE)
-	Result<Config> update(ConfigVO configVO);
+	Result update(ConfigVO configVO);
 	
 	/**
 	 * 更新系统配置
 	*/
 	@RequestMapping(ConfigServiceProxy.SAVE)
-	Result<Config> save(ConfigVO configVO);
+	Result save(ConfigVO configVO);
 	
 	/**
 	 * 按主键获取系统配置

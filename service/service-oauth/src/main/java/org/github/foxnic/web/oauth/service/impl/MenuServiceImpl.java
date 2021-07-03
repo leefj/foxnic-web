@@ -71,7 +71,7 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 	 * @return 插入是否成功
 	 * */
 	@Override
-	public boolean insert(Menu menu) {
+	public Result insert(Menu menu) {
 		if(StringUtil.isBlank(menu.getAuthority())) {
 			menu.setAuthority(IDGenerator.getSUID(true));
 		}
@@ -84,7 +84,7 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 	 * @return 插入是否成功
 	 * */
 	@Override
-	public boolean insertList(List<Menu> menuList) {
+	public Result insertList(List<Menu> menuList) {
 		return super.insertList(menuList);
 	}
 	
@@ -134,10 +134,12 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 	 * */
 	@Override
 	@Transactional
-	public boolean update(Menu menu , SaveMode mode) {
-		super.update(menu , mode);
-		menuResourceService.saveResourceIds(menu);
-		return true;
+	public Result update(Menu menu , SaveMode mode) {
+		Result r=super.update(menu , mode);
+		if(r.success()) {
+			menuResourceService.saveResourceIds(menu);
+		}
+		return r;
 	}
 	
 	/**
@@ -147,7 +149,7 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 	 * @return 保存是否成功
 	 * */
 	@Override
-	public boolean updateList(List<Menu> menuList , SaveMode mode) {
+	public Result updateList(List<Menu> menuList , SaveMode mode) {
 		return super.updateList(menuList , mode);
 	}
 	

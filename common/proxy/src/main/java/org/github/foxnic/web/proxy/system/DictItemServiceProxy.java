@@ -19,7 +19,7 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  * 数据字典条目  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-23 16:38:44
+ * @since 2021-07-03 16:01:49
 */
 
 @FeignClient(value = MicroServiceNames.SYSTEM, contextId = DictItemServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)
@@ -49,13 +49,12 @@ public interface DictItemServiceProxy {
 	 * 删除数据字典条目
 	 */
 	public static final String DELETE = API_PREFIX + "delete";
-	
-	
+
 	/**
 	 * 批量删除数据字典条目
 	 */
-	public static final String BATCH_DELETE = API_PREFIX + "batch-delete";
-	
+	public static final String DELETE_BY_IDS = API_PREFIX + "delete-by-ids";
+	;
 	
 	/**
 	 * 更新数据字典条目
@@ -69,10 +68,16 @@ public interface DictItemServiceProxy {
 	public static final String SAVE = API_PREFIX + "save";
 	
 	/**
-	 * 获取数据字典条目
+	 * 获取单个数据字典条目
 	 */
 	public static final String GET_BY_ID = API_PREFIX + "get-by-id";
-	
+
+	/**
+	 * 获取多个数据字典条目
+	 */
+	public static final String GET_BY_IDS = API_PREFIX + "get-by-ids";
+	;
+
 	/**
 	 * 查询数据字典条目
 	 */
@@ -102,39 +107,43 @@ public interface DictItemServiceProxy {
 	 * 添加数据字典条目
 	*/
 	@RequestMapping(DictItemServiceProxy.INSERT)
-	Result<DictItem> insert(DictItemVO dictItemVO);
+	Result insert(DictItemVO dictItemVO);
 	
 	/**
 	 * 删除数据字典条目
 	*/
 	@RequestMapping(DictItemServiceProxy.DELETE)
-	Result<DictItem> deleteById(String id);
-	
-	
+	Result deleteById(String id);
+
 	/**
 	 * 批量删除数据字典条目
 	*/
-	@RequestMapping(DictItemServiceProxy.BATCH_DELETE)
-	Result<DictItem> deleteByIds(List<String> id);
-	
+	@RequestMapping(DictItemServiceProxy.DELETE_BY_IDS)
+	Result deleteByIds(List<String> ids);
+
 	/**
 	 * 更新数据字典条目
 	*/
 	@RequestMapping(DictItemServiceProxy.UPDATE)
-	Result<DictItem> update(DictItemVO dictItemVO);
+	Result update(DictItemVO dictItemVO);
 	
 	/**
 	 * 更新数据字典条目
 	*/
 	@RequestMapping(DictItemServiceProxy.SAVE)
-	Result<DictItem> save(DictItemVO dictItemVO);
+	Result save(DictItemVO dictItemVO);
 	
 	/**
 	 * 获取数据字典条目
 	*/
 	@RequestMapping(DictItemServiceProxy.GET_BY_ID)
 	Result<DictItem> getById(String id);
-	
+
+	/**
+	 * 批量删除数据字典条目
+	*/
+	@RequestMapping(DictItemServiceProxy.GET_BY_IDS)
+	Result<List<DictItem>> getByIds(List<String> ids);
 	/**
 	 * 查询数据字典条目
 	*/

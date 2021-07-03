@@ -1,25 +1,23 @@
 package org.github.foxnic.web.proxy.oauth;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.github.foxnic.web.proxy.api.APIProxy;
-import org.github.foxnic.web.proxy.FeignConfiguration;
-
-import org.springframework.cloud.openfeign.FeignClient;
-
-
-import org.github.foxnic.web.domain.oauth.Resourze;
-import org.github.foxnic.web.domain.oauth.ResourzeVO;
-import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
+import org.github.foxnic.web.domain.oauth.Resourze;
+import org.github.foxnic.web.domain.oauth.ResourzeVO;
+import org.github.foxnic.web.proxy.FeignConfiguration;
 import org.github.foxnic.web.proxy.MicroServiceNames;
+import org.github.foxnic.web.proxy.api.APIProxy;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 /**
  * <p>
  * 系统资源  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-01 11:24:49
+ * @since 2021-07-03 15:54:43
 */
 
 @FeignClient(value = MicroServiceNames.OAUTH, contextId = ResourzeServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)
@@ -107,7 +105,7 @@ public interface ResourzeServiceProxy {
 	 * 添加系统资源
 	*/
 	@RequestMapping(ResourzeServiceProxy.INSERT)
-	Result<Resourze> insert(ResourzeVO resourzeVO);
+	Result insert(ResourzeVO resourzeVO);
 	
 	/**
 	 * 删除系统资源
@@ -125,13 +123,13 @@ public interface ResourzeServiceProxy {
 	 * 更新系统资源
 	*/
 	@RequestMapping(ResourzeServiceProxy.UPDATE)
-	Result<Resourze> update(ResourzeVO resourzeVO);
+	Result update(ResourzeVO resourzeVO);
 	
 	/**
 	 * 更新系统资源
 	*/
 	@RequestMapping(ResourzeServiceProxy.SAVE)
-	Result<Resourze> save(ResourzeVO resourzeVO);
+	Result save(ResourzeVO resourzeVO);
 	
 	/**
 	 * 获取系统资源

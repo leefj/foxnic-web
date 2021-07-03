@@ -107,32 +107,32 @@ public interface FileServiceProxy {
 	 * 添加系统文件
 	*/
 	@RequestMapping(FileServiceProxy.INSERT)
-	Result<File> insert(FileVO fileVO);
+	Result insert(FileVO fileVO);
 	
 	/**
 	 * 按主键删除系统文件
 	*/
 	@RequestMapping(FileServiceProxy.DELETE)
-	Result<File> deleteById(String id);
+	Result deleteById(String id);
 	
 	
 	/**
 	 * 按主键删除系统文件
 	*/
 	@RequestMapping(FileServiceProxy.BATCH_DELETE)
-	Result<File> deleteByIds(List<String> id);
+	Result deleteByIds(List<String> id);
 	
 	/**
 	 * 更新系统文件
 	*/
 	@RequestMapping(FileServiceProxy.UPDATE)
-	Result<File> update(FileVO fileVO);
+	Result update(FileVO fileVO);
 	
 	/**
 	 * 更新系统文件
 	*/
 	@RequestMapping(FileServiceProxy.SAVE)
-	Result<File> save(FileVO fileVO);
+	Result save(FileVO fileVO);
 	
 	/**
 	 * 按主键获取系统文件

@@ -68,10 +68,12 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 	 * */
 	@Override
 	@Transactional
-	public boolean insert(User user) {
-		super.insert(user);
-		saveRoles(user);
-		return true;
+	public Result insert(User user) {
+		Result r=super.insert(user);
+		if(r.success()) {
+			saveRoles(user);
+		}
+		return r;
 	}
 	
 	/**
@@ -80,7 +82,7 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 	 * @return 插入是否成功
 	 * */
 	@Override
-	public boolean insertList(List<User> userList) {
+	public Result insertList(List<User> userList) {
 		return super.insertList(userList);
 	}
 	
@@ -122,10 +124,12 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 	 * */
 	@Override
 	@Transactional
-	public boolean update(User user , SaveMode mode) {
-		super.update(user , mode);
-		saveRoles(user);
-		return true;
+	public Result update(User user , SaveMode mode) {
+		Result r=super.update(user , mode);
+		if(r.success()) {
+			saveRoles(user);
+		}
+		return r;
 
 	}
 
@@ -146,7 +150,7 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 	 * @return 保存是否成功
 	 * */
 	@Override
-	public boolean updateList(List<User> userList , SaveMode mode) {
+	public Result updateList(List<User> userList , SaveMode mode) {
 		return super.updateList(userList , mode);
 	}
 	

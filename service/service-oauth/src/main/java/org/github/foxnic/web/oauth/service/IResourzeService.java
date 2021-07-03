@@ -21,7 +21,7 @@ import com.github.foxnic.dao.data.SaveMode;
  * 系统资源 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-28 15:36:23
+ * @since 2021-07-03 15:54:43
 */
 
 public interface IResourzeService extends ISuperService<Resourze> {
@@ -31,14 +31,14 @@ public interface IResourzeService extends ISuperService<Resourze> {
 	 * @param resourze 实体数据
 	 * @return 插入是否成功
 	 * */
-	boolean insert(Resourze resourze);
+	Result insert(Resourze resourze);
  
 	/**
 	 * 批量插入实体，事务内
 	 * @param resourzeList 实体数据清单
 	 * @return 插入是否成功
 	 * */
-	boolean insertList(List<Resourze> resourzeList);
+	Result insertList(List<Resourze> resourzeList);
 	
 	
 		
@@ -48,7 +48,7 @@ public interface IResourzeService extends ISuperService<Resourze> {
 	 * @param id ID
 	 * @return 删除是否成功
 	 */
-	boolean deleteByIdPhysical(String id);
+	Result deleteByIdPhysical(String id);
 	
 	/**
 	 * 按主键删除 系统资源
@@ -56,21 +56,21 @@ public interface IResourzeService extends ISuperService<Resourze> {
 	 * @param id ID
 	 * @return 删除是否成功
 	 */
-	boolean deleteByIdLogical(String id);
+	Result deleteByIdLogical(String id);
 	
 	/**
 	 * 批量物理删除，仅支持单字段主键表
 	 * @param ids 主键清单
 	 * @return 是否删除成功
 	 * */
-	<T> boolean deleteByIdsPhysical(List<T> ids);
+	<T> Result deleteByIdsPhysical(List<T> ids);
 	
 	/**
 	 * 批量逻辑删除，仅支持单字段主键表
 	 * @param ids 主键清单
 	 * @return 是否删除成功
 	 * */
-	<T> boolean deleteByIdsLogical(List<T> ids);
+	<T> Result deleteByIdsLogical(List<T> ids);
 	
 		
 	/**
@@ -87,7 +87,7 @@ public interface IResourzeService extends ISuperService<Resourze> {
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	boolean update(Resourze resourze , SaveMode mode);
+	Result update(Resourze resourze , SaveMode mode);
 	
 	
 	/**
@@ -96,7 +96,7 @@ public interface IResourzeService extends ISuperService<Resourze> {
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	boolean updateList(List<Resourze> resourzeList, SaveMode mode);
+	Result updateList(List<Resourze> resourzeList, SaveMode mode);
 	
 	/**
 	 * 保存实体，如果主键值不为 null，则更新，否则插入
@@ -104,7 +104,7 @@ public interface IResourzeService extends ISuperService<Resourze> {
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	boolean save(Resourze resourze , SaveMode mode);
+	Result save(Resourze resourze , SaveMode mode);
 	
 	/**
 	 * 保存实体，如果主键值不为null，则更新，否则插入
@@ -112,7 +112,7 @@ public interface IResourzeService extends ISuperService<Resourze> {
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	boolean saveList(List<Resourze> resourzeList , SaveMode mode);
+	Result saveList(List<Resourze> resourzeList , SaveMode mode);
 	
 	/**
 	 * 检查实体中的数据字段是否已经存在

@@ -32,14 +32,14 @@ public interface IMenuResourceService extends ISuperService<MenuResource> {
 	 * @param menuResource 实体数据
 	 * @return 插入是否成功
 	 * */
-	boolean insert(MenuResource menuResource);
+	Result insert(MenuResource menuResource);
  
 	/**
 	 * 批量插入实体，事务内
 	 * @param menuResourceList 实体数据清单
 	 * @return 插入是否成功
 	 * */
-	boolean insertList(List<MenuResource> menuResourceList);
+	Result insertList(List<MenuResource> menuResourceList);
 	
 	
 		
@@ -64,14 +64,14 @@ public interface IMenuResourceService extends ISuperService<MenuResource> {
 	 * @param ids 主键清单
 	 * @return 是否删除成功
 	 * */
-	<T> boolean deleteByIdsPhysical(List<T> ids);
+	<T> Result deleteByIdsPhysical(List<T> ids);
 	
 	/**
 	 * 批量逻辑删除，仅支持单字段主键表
 	 * @param ids 主键清单
 	 * @return 是否删除成功
 	 * */
-	<T> boolean deleteByIdsLogical(List<T> ids);
+	<T> Result deleteByIdsLogical(List<T> ids);
 	
 		
 	/**
@@ -88,7 +88,7 @@ public interface IMenuResourceService extends ISuperService<MenuResource> {
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	boolean update(MenuResource menuResource , SaveMode mode);
+	Result update(MenuResource menuResource , SaveMode mode);
 	
 	
 	/**
@@ -97,7 +97,7 @@ public interface IMenuResourceService extends ISuperService<MenuResource> {
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	boolean updateList(List<MenuResource> menuResourceList, SaveMode mode);
+	Result updateList(List<MenuResource> menuResourceList, SaveMode mode);
 	
 	/**
 	 * 保存实体，如果主键值不为 null，则更新，否则插入
@@ -105,7 +105,7 @@ public interface IMenuResourceService extends ISuperService<MenuResource> {
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	boolean save(MenuResource menuResource , SaveMode mode);
+	Result save(MenuResource menuResource , SaveMode mode);
 	
 	/**
 	 * 保存实体，如果主键值不为null，则更新，否则插入
@@ -113,7 +113,7 @@ public interface IMenuResourceService extends ISuperService<MenuResource> {
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	boolean saveList(List<MenuResource> menuResourceList , SaveMode mode);
+	Result saveList(List<MenuResource> menuResourceList , SaveMode mode);
 	
 	/**
 	 * 检查实体中的数据字段是否已经存在

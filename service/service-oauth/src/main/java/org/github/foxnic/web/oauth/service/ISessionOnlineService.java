@@ -26,14 +26,14 @@ public interface ISessionOnlineService extends ISuperService<SessionOnline> {
 	 * @param sessionOnline 实体数据
 	 * @return 插入是否成功
 	 * */
-	boolean insert(SessionOnline sessionOnline);
+	Result insert(SessionOnline sessionOnline);
  
 	/**
 	 * 批量插入实体，事务内
 	 * @param sessionOnlineList 实体数据清单
 	 * @return 插入是否成功
 	 * */
-	boolean insertList(List<SessionOnline> sessionOnlineList);
+	Result insertList(List<SessionOnline> sessionOnlineList);
 	
 	
 		
@@ -59,14 +59,14 @@ public interface ISessionOnlineService extends ISuperService<SessionOnline> {
 	 * @param ids 主键清单
 	 * @return 是否删除成功
 	 * */
-	<T> boolean deleteByIdsPhysical(List<T> ids);
+	<T> Result deleteByIdsPhysical(List<T> ids);
 	
 	/**
 	 * 批量逻辑删除，仅支持单字段主键表
 	 * @param ids 主键清单
 	 * @return 是否删除成功
 	 * */
-	<T> boolean deleteByIdsLogical(List<T> ids);
+	<T> Result deleteByIdsLogical(List<T> ids);
 	
 		
 	/**
@@ -83,7 +83,7 @@ public interface ISessionOnlineService extends ISuperService<SessionOnline> {
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	boolean update(SessionOnline sessionOnline , SaveMode mode);
+	Result update(SessionOnline sessionOnline , SaveMode mode);
 	
 	
 	/**
@@ -92,15 +92,15 @@ public interface ISessionOnlineService extends ISuperService<SessionOnline> {
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	boolean updateList(List<SessionOnline> sessionOnlineList, SaveMode mode);
+	Result updateList(List<SessionOnline> sessionOnlineList, SaveMode mode);
 	
 	/**
 	 * 保存实体，如果主键值不为 null，则更新，否则插入
-	 * @param entity 实体数据
+	 * @param sessionOnline 实体数据
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	boolean save(SessionOnline sessionOnline , SaveMode mode);
+	Result save(SessionOnline sessionOnline , SaveMode mode);
 	
 	/**
 	 * 保存实体，如果主键值不为null，则更新，否则插入
@@ -108,7 +108,7 @@ public interface ISessionOnlineService extends ISuperService<SessionOnline> {
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	boolean saveList(List<SessionOnline> sessionOnlineList , SaveMode mode);
+	Result saveList(List<SessionOnline> sessionOnlineList , SaveMode mode);
 	
 	/**
 	 * 检查实体中的数据字段是否已经存在

@@ -65,15 +65,16 @@ public class MenuController {
 	@NotNull(name = MenuVOMeta.HIDDEN)
 	@SentinelResource(value = MenuServiceProxy.INSERT)
 	@PostMapping(MenuServiceProxy.INSERT)
-	public Result<Menu> insert(MenuVO menuVO) {
+	public Result insert(MenuVO menuVO) {
 		menuVO.setSort(999999);
 		if(StringUtil.isBlank(menuVO.getType())) {
 			menuVO.setType(MenuType.page.code());
 		}
 		menuVO.setLabel(menuVO.getLabel()+"-"+System.currentTimeMillis());
-		Result<Menu> result=new Result<>();
-		boolean suc=menuService.insert(menuVO);
-		result.success(suc).data(menuVO);
+		Result result=menuService.insert(menuVO);
+		if(result.success()) {
+			result.data(menuVO);
+		}
 		return result;
 	}
 
@@ -116,10 +117,8 @@ public class MenuController {
 	@NotNull(name = MenuVOMeta.IDS)
 	@SentinelResource(value = MenuServiceProxy.BATCH_DELETE)
 	@PostMapping(MenuServiceProxy.BATCH_DELETE)
-	public Result<Menu> deleteByIds(List<String> ids) {
-		Result<Menu> result=new Result<>();
-		boolean suc=menuService.deleteByIdsLogical(ids);
-		result.success(suc);
+	public Result deleteByIds(List<String> ids) {
+		Result result=menuService.deleteByIdsLogical(ids);
 		return result;
 	}
 	
@@ -145,10 +144,8 @@ public class MenuController {
 	@NotNull(name = MenuVOMeta.HIDDEN)
 	@SentinelResource(value = MenuServiceProxy.UPDATE)
 	@PostMapping(MenuServiceProxy.UPDATE)
-	public Result<Menu> update(MenuVO menuVO) {
-		Result<Menu> result=new Result<>();
-		boolean suc=menuService.update(menuVO,SaveMode.NOT_NULL_FIELDS);
-		result.success(suc);
+	public Result update(MenuVO menuVO) {
+		Result result=menuService.update(menuVO,SaveMode.NOT_NULL_FIELDS);
 		return result;
 	}
 	
@@ -175,10 +172,8 @@ public class MenuController {
 	@NotNull(name = MenuVOMeta.HIDDEN)
 	@SentinelResource(value = MenuServiceProxy.SAVE)
 	@PostMapping(MenuServiceProxy.SAVE)
-	public Result<Menu> save(MenuVO menuVO) {
-		Result<Menu> result=new Result<>();
-		boolean suc=menuService.save(menuVO,SaveMode.NOT_NULL_FIELDS);
-		result.success(suc);
+	public Result save(MenuVO menuVO) {
+		Result result=menuService.save(menuVO,SaveMode.NOT_NULL_FIELDS);
 		return result;
 	}
 

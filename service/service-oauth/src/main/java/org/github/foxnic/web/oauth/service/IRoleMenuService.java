@@ -26,14 +26,14 @@ public interface IRoleMenuService extends ISuperService<RoleMenu> {
 	 * @param roleMenu 实体数据
 	 * @return 插入是否成功
 	 * */
-	boolean insert(RoleMenu roleMenu);
+	Result insert(RoleMenu roleMenu);
  
 	/**
 	 * 批量插入实体，事务内
 	 * @param roleMenuList 实体数据清单
 	 * @return 插入是否成功
 	 * */
-	boolean insertList(List<RoleMenu> roleMenuList);
+	Result insertList(List<RoleMenu> roleMenuList);
 	
 	
 		
@@ -59,14 +59,14 @@ public interface IRoleMenuService extends ISuperService<RoleMenu> {
 	 * @param ids 主键清单
 	 * @return 是否删除成功
 	 * */
-	<T> boolean deleteByIdsPhysical(List<T> ids);
+	<T> Result deleteByIdsPhysical(List<T> ids);
 	
 	/**
 	 * 批量逻辑删除，仅支持单字段主键表
 	 * @param ids 主键清单
 	 * @return 是否删除成功
 	 * */
-	<T> boolean deleteByIdsLogical(List<T> ids);
+	<T> Result deleteByIdsLogical(List<T> ids);
 	
 		
 	/**
@@ -83,7 +83,7 @@ public interface IRoleMenuService extends ISuperService<RoleMenu> {
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	boolean update(RoleMenu roleMenu , SaveMode mode);
+	Result update(RoleMenu roleMenu , SaveMode mode);
 	
 	
 	/**
@@ -92,15 +92,15 @@ public interface IRoleMenuService extends ISuperService<RoleMenu> {
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	boolean updateList(List<RoleMenu> roleMenuList, SaveMode mode);
+	Result updateList(List<RoleMenu> roleMenuList, SaveMode mode);
 	
 	/**
 	 * 保存实体，如果主键值不为 null，则更新，否则插入
-	 * @param entity 实体数据
+	 * @param roleMenu 实体数据
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	boolean save(RoleMenu roleMenu , SaveMode mode);
+	Result save(RoleMenu roleMenu , SaveMode mode);
 	
 	/**
 	 * 保存实体，如果主键值不为null，则更新，否则插入
@@ -108,7 +108,7 @@ public interface IRoleMenuService extends ISuperService<RoleMenu> {
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	boolean saveList(List<RoleMenu> roleMenuList , SaveMode mode);
+	Result saveList(List<RoleMenu> roleMenuList , SaveMode mode);
 	
 	/**
 	 * 检查实体中的数据字段是否已经存在

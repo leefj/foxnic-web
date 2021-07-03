@@ -26,14 +26,14 @@ public interface IOauthClientService extends ISuperService<OauthClient> {
 	 * @param oauthClient 实体数据
 	 * @return 插入是否成功
 	 * */
-	boolean insert(OauthClient oauthClient);
+	Result insert(OauthClient oauthClient);
  
 	/**
 	 * 批量插入实体，事务内
 	 * @param oauthClientList 实体数据清单
 	 * @return 插入是否成功
 	 * */
-	boolean insertList(List<OauthClient> oauthClientList);
+	Result insertList(List<OauthClient> oauthClientList);
 	
 	
 		
@@ -59,14 +59,14 @@ public interface IOauthClientService extends ISuperService<OauthClient> {
 	 * @param ids 主键清单
 	 * @return 是否删除成功
 	 * */
-	<T> boolean deleteByIdsPhysical(List<T> ids);
+	<T> Result deleteByIdsPhysical(List<T> ids);
 	
 	/**
 	 * 批量逻辑删除，仅支持单字段主键表
 	 * @param ids 主键清单
 	 * @return 是否删除成功
 	 * */
-	<T> boolean deleteByIdsLogical(List<T> ids);
+	<T> Result deleteByIdsLogical(List<T> ids);
 	
 		
 	/**
@@ -83,7 +83,7 @@ public interface IOauthClientService extends ISuperService<OauthClient> {
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	boolean update(OauthClient oauthClient , SaveMode mode);
+	Result update(OauthClient oauthClient , SaveMode mode);
 	
 	
 	/**
@@ -92,15 +92,15 @@ public interface IOauthClientService extends ISuperService<OauthClient> {
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	boolean updateList(List<OauthClient> oauthClientList, SaveMode mode);
+	Result updateList(List<OauthClient> oauthClientList, SaveMode mode);
 	
 	/**
 	 * 保存实体，如果主键值不为 null，则更新，否则插入
-	 * @param entity 实体数据
+	 * @param oauthClient 实体数据
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	boolean save(OauthClient oauthClient , SaveMode mode);
+	Result save(OauthClient oauthClient , SaveMode mode);
 	
 	/**
 	 * 保存实体，如果主键值不为null，则更新，否则插入
@@ -108,7 +108,7 @@ public interface IOauthClientService extends ISuperService<OauthClient> {
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	boolean saveList(List<OauthClient> oauthClientList , SaveMode mode);
+	Result saveList(List<OauthClient> oauthClientList , SaveMode mode);
 	
 	/**
 	 * 检查实体中的数据字段是否已经存在

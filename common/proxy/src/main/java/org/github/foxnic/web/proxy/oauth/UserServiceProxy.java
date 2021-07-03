@@ -102,32 +102,32 @@ public interface UserServiceProxy {
 	 * 添加账户
 	*/
 	@RequestMapping(UserServiceProxy.INSERT)
-	Result<User> insert(UserVO userVO);
+	Result insert(UserVO userVO);
 	
 	/**
 	 * 删除账户
 	*/
 	@RequestMapping(UserServiceProxy.DELETE)
-	Result<User> deleteById(String id);
+	Result deleteById(String id);
 
 
 	/**
 	 * 批量删除账户
 	*/
 	@RequestMapping(UserServiceProxy.BATCH_DELETE)
-	Result<User> deleteByIds(List<String> id);
+	Result deleteByIds(List<String> id);
 	
 	/**
 	 * 更新账户
 	*/
 	@RequestMapping(UserServiceProxy.UPDATE)
-	Result<User> update(UserVO userVO);
+	Result update(UserVO userVO);
 	
 	/**
 	 * 更新账户
 	*/
 	@RequestMapping(UserServiceProxy.SAVE)
-	Result<User> save(UserVO userVO);
+	Result save(UserVO userVO);
 	
 	/**
 	 * 获取账户

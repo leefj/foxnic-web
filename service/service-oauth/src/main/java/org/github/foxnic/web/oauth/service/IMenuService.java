@@ -27,14 +27,14 @@ public interface IMenuService extends ISuperService<Menu> {
 	 * @param menu 实体数据
 	 * @return 插入是否成功
 	 * */
-	boolean insert(Menu menu);
+	Result insert(Menu menu);
  
 	/**
 	 * 批量插入实体，事务内
 	 * @param menuList 实体数据清单
 	 * @return 插入是否成功
 	 * */
-	boolean insertList(List<Menu> menuList);
+	Result insertList(List<Menu> menuList);
 	
 	
 		
@@ -60,14 +60,14 @@ public interface IMenuService extends ISuperService<Menu> {
 	 * @param ids 主键清单
 	 * @return 是否删除成功
 	 * */
-	<T> boolean deleteByIdsPhysical(List<T> ids);
+	<T> Result deleteByIdsPhysical(List<T> ids);
 	
 	/**
 	 * 批量逻辑删除，仅支持单字段主键表
 	 * @param ids 主键清单
 	 * @return 是否删除成功
 	 * */
-	<T> boolean deleteByIdsLogical(List<T> ids);
+	<T> Result deleteByIdsLogical(List<T> ids);
 	
 		
 	/**
@@ -84,7 +84,7 @@ public interface IMenuService extends ISuperService<Menu> {
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	boolean update(Menu menu , SaveMode mode);
+	Result update(Menu menu , SaveMode mode);
 	
 	
 	/**
@@ -93,15 +93,15 @@ public interface IMenuService extends ISuperService<Menu> {
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	boolean updateList(List<Menu> menuList, SaveMode mode);
+	Result updateList(List<Menu> menuList, SaveMode mode);
 	
 	/**
 	 * 保存实体，如果主键值不为 null，则更新，否则插入
-	 * @param entity 实体数据
+	 * @param menu 实体数据
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	boolean save(Menu menu , SaveMode mode);
+	Result save(Menu menu , SaveMode mode);
 	
 	/**
 	 * 保存实体，如果主键值不为null，则更新，否则插入
@@ -109,7 +109,7 @@ public interface IMenuService extends ISuperService<Menu> {
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	boolean saveList(List<Menu> menuList , SaveMode mode);
+	Result saveList(List<Menu> menuList , SaveMode mode);
 	
 	/**
 	 * 检查实体中的数据字段是否已经存在

@@ -1,19 +1,16 @@
 package org.github.foxnic.web.proxy.oauth;
 
-import java.util.List;
-import org.springframework.web.bind.annotation.RequestMapping;
-import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.api.transter.Result;
-
-import org.github.foxnic.web.proxy.FeignConfiguration;
-
-import org.springframework.cloud.openfeign.FeignClient;
-
-
+import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.domain.oauth.Token;
 import org.github.foxnic.web.domain.oauth.TokenVO;
-import org.github.foxnic.web.proxy.api.APIProxy;
+import org.github.foxnic.web.proxy.FeignConfiguration;
 import org.github.foxnic.web.proxy.MicroServiceNames;
+import org.github.foxnic.web.proxy.api.APIProxy;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 /**
  * <p>
@@ -98,32 +95,32 @@ public interface TokenServiceProxy {
 	 * 添加Token
 	*/
 	@RequestMapping(TokenServiceProxy.INSERT)
-	Result<Token> insert(TokenVO tokenVO);
+	Result insert(TokenVO tokenVO);
 	
 	/**
 	 * 删除Token
 	*/
 	@RequestMapping(TokenServiceProxy.DELETE)
-	Result<Token> deleteById(Integer id);
+	Result deleteById(Integer id);
 	
 	
 	/**
 	 * 批量删除Token
 	*/
 	@RequestMapping(TokenServiceProxy.BATCH_DELETE)
-	Result<Token> deleteByIds(List<Integer> id);
+	Result deleteByIds(List<Integer> id);
 	
 	/**
 	 * 更新Token
 	*/
 	@RequestMapping(TokenServiceProxy.UPDATE)
-	Result<Token> update(TokenVO tokenVO);
+	Result update(TokenVO tokenVO);
 	
 	/**
 	 * 更新Token
 	*/
 	@RequestMapping(TokenServiceProxy.SAVE)
-	Result<Token> save(TokenVO tokenVO);
+	Result save(TokenVO tokenVO);
 	
 	/**
 	 * 获取Token

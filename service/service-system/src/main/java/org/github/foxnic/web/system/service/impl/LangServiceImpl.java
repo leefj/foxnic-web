@@ -76,9 +76,9 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 	 * @return 插入是否成功
 	 * */
 	@Override
-	public boolean insert(Lang lang) {
+	public Result insert(Lang lang) {
 		boolean ex=this.checkExists(lang, FoxnicWeb.SYS_LANG.DEFAULTS);
-		if(ex) return true;
+		if(ex) return ErrorDesc.success();
 		return super.insert(lang);
 	}
 	
@@ -88,7 +88,7 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 	 * @return 插入是否成功
 	 * */
 	@Override
-	public boolean insertList(List<Lang> langList) {
+	public Result insertList(List<Lang> langList) {
 		return super.insertList(langList);
 	}
 	
@@ -129,7 +129,7 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 	 * @return 保存是否成功
 	 * */
 	@Override
-	public boolean update(Lang lang , SaveMode mode) {
+	public Result update(Lang lang , SaveMode mode) {
 		return super.update(lang , mode);
 	}
 	
@@ -140,7 +140,7 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 	 * @return 保存是否成功
 	 * */
 	@Override
-	public boolean updateList(List<Lang> langList , SaveMode mode) {
+	public Result updateList(List<Lang> langList , SaveMode mode) {
 		return super.updateList(langList , mode);
 	}
 	

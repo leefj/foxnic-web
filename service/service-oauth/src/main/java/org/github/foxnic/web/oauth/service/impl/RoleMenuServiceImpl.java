@@ -50,7 +50,7 @@ public class RoleMenuServiceImpl extends SuperService<RoleMenu> implements IRole
 	 * @return 插入是否成功
 	 * */
 	@Override
-	public boolean insert(RoleMenu roleMenu) {
+	public Result insert(RoleMenu roleMenu) {
 		return super.insert(roleMenu);
 	}
 	
@@ -60,7 +60,7 @@ public class RoleMenuServiceImpl extends SuperService<RoleMenu> implements IRole
 	 * @return 插入是否成功
 	 * */
 	@Override
-	public boolean insertList(List<RoleMenu> roleMenuList) {
+	public Result insertList(List<RoleMenu> roleMenuList) {
 		return super.insertList(roleMenuList);
 	}
 	
@@ -101,7 +101,7 @@ public class RoleMenuServiceImpl extends SuperService<RoleMenu> implements IRole
 	 * @return 保存是否成功
 	 * */
 	@Override
-	public boolean update(RoleMenu roleMenu , SaveMode mode) {
+	public Result update(RoleMenu roleMenu , SaveMode mode) {
 		return super.update(roleMenu , mode);
 	}
 	
@@ -112,7 +112,7 @@ public class RoleMenuServiceImpl extends SuperService<RoleMenu> implements IRole
 	 * @return 保存是否成功
 	 * */
 	@Override
-	public boolean updateList(List<RoleMenu> roleMenuList , SaveMode mode) {
+	public Result updateList(List<RoleMenu> roleMenuList , SaveMode mode) {
 		return super.updateList(roleMenuList , mode);
 	}
 	

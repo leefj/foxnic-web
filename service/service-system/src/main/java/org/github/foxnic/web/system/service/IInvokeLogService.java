@@ -1,33 +1,27 @@
 package org.github.foxnic.web.system.service;
 
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.entity.ISuperService;
+
 import com.github.foxnic.sql.expr.ConditionExpr;
-import com.github.foxnic.sql.expr.OrderBy;
-import com.github.foxnic.sql.meta.DBField;
-import com.github.foxnic.dao.excel.ValidateResult;
-
-import com.github.foxnic.springboot.web.DownloadUtil;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.dao.excel.ExcelStructure;
-
-
+import com.github.foxnic.dao.entity.ISuperService;
 import org.github.foxnic.web.domain.system.InvokeLog;
 import org.github.foxnic.web.domain.system.InvokeLogVO;
 import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import java.io.InputStream;
+import com.github.foxnic.sql.expr.OrderBy;
+import com.github.foxnic.sql.meta.DBField;
+import com.github.foxnic.dao.excel.ExcelWriter;
+import com.github.foxnic.dao.excel.ExcelStructure;
+import com.github.foxnic.dao.excel.ValidateResult;
+import com.github.foxnic.dao.data.SaveMode;
 
 /**
  * <p>
  * 调用统计日志 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-26 10:48:09
+ * @since 2021-07-03 16:01:50
 */
 
 public interface IInvokeLogService extends ISuperService<InvokeLog> {
@@ -37,14 +31,14 @@ public interface IInvokeLogService extends ISuperService<InvokeLog> {
 	 * @param invokeLog 实体数据
 	 * @return 插入是否成功
 	 * */
-	boolean insert(InvokeLog invokeLog);
+	Result insert(InvokeLog invokeLog);
  
 	/**
 	 * 批量插入实体，事务内
 	 * @param invokeLogList 实体数据清单
 	 * @return 插入是否成功
 	 * */
-	boolean insertList(List<InvokeLog> invokeLogList);
+	Result insertList(List<InvokeLog> invokeLogList);
 	
 	
 		
@@ -54,22 +48,21 @@ public interface IInvokeLogService extends ISuperService<InvokeLog> {
 	 * @param id ID
 	 * @return 删除是否成功
 	 */
-	boolean deleteByIdPhysical(Long id);
-	
+	Result deleteByIdPhysical(Long id);
 	
 	/**
 	 * 批量物理删除，仅支持单字段主键表
 	 * @param ids 主键清单
 	 * @return 是否删除成功
 	 * */
-	<T> boolean deleteByIdsPhysical(List<T> ids);
+	<T> Result deleteByIdsPhysical(List<T> ids);
 	
 	/**
 	 * 批量逻辑删除，仅支持单字段主键表
 	 * @param ids 主键清单
 	 * @return 是否删除成功
 	 * */
-	<T> boolean deleteByIdsLogical(List<T> ids);
+	<T> Result deleteByIdsLogical(List<T> ids);
 	
 		
 	/**
@@ -86,7 +79,7 @@ public interface IInvokeLogService extends ISuperService<InvokeLog> {
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	boolean update(InvokeLog invokeLog , SaveMode mode);
+	Result update(InvokeLog invokeLog , SaveMode mode);
 	
 	
 	/**
@@ -95,7 +88,7 @@ public interface IInvokeLogService extends ISuperService<InvokeLog> {
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	boolean updateList(List<InvokeLog> invokeLogList, SaveMode mode);
+	Result updateList(List<InvokeLog> invokeLogList, SaveMode mode);
 	
 	/**
 	 * 保存实体，如果主键值不为 null，则更新，否则插入
@@ -103,7 +96,7 @@ public interface IInvokeLogService extends ISuperService<InvokeLog> {
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	boolean save(InvokeLog invokeLog , SaveMode mode);
+	Result save(InvokeLog invokeLog , SaveMode mode);
 	
 	/**
 	 * 保存实体，如果主键值不为null，则更新，否则插入
@@ -111,7 +104,7 @@ public interface IInvokeLogService extends ISuperService<InvokeLog> {
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	boolean saveList(List<InvokeLog> invokeLogList , SaveMode mode);
+	Result saveList(List<InvokeLog> invokeLogList , SaveMode mode);
 	
 	/**
 	 * 检查实体中的数据字段是否已经存在
@@ -129,7 +122,14 @@ public interface IInvokeLogService extends ISuperService<InvokeLog> {
 	 * @return InvokeLog 数据对象
 	 */
 	InvokeLog getById(Long id);
-	
+		
+	/**
+	 * 检查实体中的数据字段是否已经存在
+	 * @param ids  主键清单
+	 * @return 实体集
+	 * */
+	List<InvokeLog> getByIds(List<Long> ids);
+
 	/**
 	 * 检查 角色 是否已经存在
 	 *

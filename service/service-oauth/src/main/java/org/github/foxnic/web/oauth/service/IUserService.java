@@ -25,14 +25,14 @@ public interface IUserService extends ISuperService<User> {
 	 * @param user 实体数据
 	 * @return 插入是否成功
 	 * */
-	boolean insert(User user);
+	Result insert(User user);
  
 	/**
 	 * 批量插入实体，事务内
 	 * @param userList 实体数据清单
 	 * @return 插入是否成功
 	 * */
-	boolean insertList(List<User> userList);
+	Result insertList(List<User> userList);
 	
 	
 		
@@ -58,14 +58,14 @@ public interface IUserService extends ISuperService<User> {
 	 * @param ids 主键清单
 	 * @return 是否删除成功
 	 * */
-	<T> boolean deleteByIdsPhysical(List<T> ids);
+	<T> Result deleteByIdsPhysical(List<T> ids);
 	
 	/**
 	 * 批量逻辑删除，仅支持单字段主键表
 	 * @param ids 主键清单
 	 * @return 是否删除成功
 	 * */
-	<T> boolean deleteByIdsLogical(List<T> ids);
+	<T> Result deleteByIdsLogical(List<T> ids);
 	
 		
 	/**
@@ -82,7 +82,7 @@ public interface IUserService extends ISuperService<User> {
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	boolean update(User user , SaveMode mode);
+	Result update(User user , SaveMode mode);
 	
 	
 	/**
@@ -91,15 +91,15 @@ public interface IUserService extends ISuperService<User> {
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	boolean updateList(List<User> userList, SaveMode mode);
+	Result updateList(List<User> userList, SaveMode mode);
 	
 	/**
 	 * 保存实体，如果主键值不为 null，则更新，否则插入
-	 * @param entity 实体数据
+	 * @param user 实体数据
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	boolean save(User user , SaveMode mode);
+	Result save(User user , SaveMode mode);
 	
 	/**
 	 * 保存实体，如果主键值不为null，则更新，否则插入
@@ -107,13 +107,13 @@ public interface IUserService extends ISuperService<User> {
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	boolean saveList(List<User> userList , SaveMode mode);
+	Result saveList(List<User> userList , SaveMode mode);
 	
 	/**
 	 * 检查实体中的数据字段是否已经存在
 	 * @param user  实体对象
 	 * @param field  字段清单，至少指定一个
-	 * @param 是否已经存在
+	 * @return  是否已经存在
 	 * */
 	boolean checkExists(User user,DBField... field);
  
@@ -249,7 +249,7 @@ public interface IUserService extends ISuperService<User> {
  
  	/**
 	 * 查询指定字段的数据清单
-	 * @param T 元素类型
+	 * @param <T> 元素类型
 	 * @param field 字段
 	 * @param type 元素类型
 	 * @param condition 条件表达式
@@ -259,7 +259,7 @@ public interface IUserService extends ISuperService<User> {
  
 	/**
 	 * 查询指定字段的数据清单
-	 * @param T 元素类型
+	 * @param <T> 元素类型
 	 * @param field 字段
 	 * @param type 元素类型
 	 * @param condition 条件表达式

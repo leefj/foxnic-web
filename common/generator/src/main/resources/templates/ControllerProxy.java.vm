@@ -97,7 +97,7 @@ public interface #(simpleName) {
 	 * 添加#(topic)
 	*/
 	@RequestMapping(#(agentSimpleName).INSERT)
-	Result<#(poSimpleName)> insert(#(voSimpleName) #(voVar));
+	Result insert(#(voSimpleName) #(voVar));
 	
 	/**
 	 * 删除#(topic)
@@ -117,13 +117,13 @@ public interface #(simpleName) {
 	 * 更新#(topic)
 	*/
 	@RequestMapping(#(agentSimpleName).UPDATE)
-	Result<#(poSimpleName)> update(#(voSimpleName) #(voVar));
+	Result update(#(voSimpleName) #(voVar));
 	
 	/**
 	 * 更新#(topic)
 	*/
 	@RequestMapping(#(agentSimpleName).SAVE)
-	Result<#(poSimpleName)> save(#(voSimpleName) #(voVar));
+	Result save(#(voSimpleName) #(voVar));
 	
 	/**
 	 * 获取#(topic)

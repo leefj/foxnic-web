@@ -60,10 +60,8 @@ public class SessionOnlineController {
 	@NotNull(name = SessionOnlineVOMeta.ID)
 	@SentinelResource(value = SessionOnlineServiceProxy.INSERT)
 	@PostMapping(SessionOnlineServiceProxy.INSERT)
-	public Result<SessionOnline> insert(SessionOnlineVO sessionOnlineVO) {
-		Result<SessionOnline> result=new Result<>();
-		boolean suc=sessionOnlineService.insert(sessionOnlineVO);
-		result.success(suc);
+	public Result insert(SessionOnlineVO sessionOnlineVO) {
+		Result result=sessionOnlineService.insert(sessionOnlineVO);
 		return result;
 	}
 
@@ -99,10 +97,8 @@ public class SessionOnlineController {
 	@NotNull(name = SessionOnlineVOMeta.IDS)
 	@SentinelResource(value = SessionOnlineServiceProxy.BATCH_DELETE)
 	@PostMapping(SessionOnlineServiceProxy.BATCH_DELETE)
-	public Result<SessionOnline> deleteByIds(List<String> ids) {
-		Result<SessionOnline> result=new Result<>();
-		boolean suc=sessionOnlineService.deleteByIdsLogical(ids);
-		result.success(suc);
+	public Result deleteByIds(List<String> ids) {
+		Result result=sessionOnlineService.deleteByIdsLogical(ids);
 		return result;
 	}
 	
@@ -125,10 +121,8 @@ public class SessionOnlineController {
 	@NotNull(name = SessionOnlineVOMeta.ID)
 	@SentinelResource(value = SessionOnlineServiceProxy.UPDATE)
 	@PostMapping(SessionOnlineServiceProxy.UPDATE)
-	public Result<SessionOnline> update(SessionOnlineVO sessionOnlineVO) {
-		Result<SessionOnline> result=new Result<>();
-		boolean suc=sessionOnlineService.update(sessionOnlineVO,SaveMode.NOT_NULL_FIELDS);
-		result.success(suc);
+	public Result update(SessionOnlineVO sessionOnlineVO) {
+		Result result=sessionOnlineService.update(sessionOnlineVO,SaveMode.NOT_NULL_FIELDS);
 		return result;
 	}
 	
@@ -152,10 +146,8 @@ public class SessionOnlineController {
 	@NotNull(name = SessionOnlineVOMeta.ID)
 	@SentinelResource(value = SessionOnlineServiceProxy.SAVE)
 	@PostMapping(SessionOnlineServiceProxy.SAVE)
-	public Result<SessionOnline> save(SessionOnlineVO sessionOnlineVO) {
-		Result<SessionOnline> result=new Result<>();
-		boolean suc=sessionOnlineService.save(sessionOnlineVO,SaveMode.NOT_NULL_FIELDS);
-		result.success(suc);
+	public Result save(SessionOnlineVO sessionOnlineVO) {
+		Result result=sessionOnlineService.save(sessionOnlineVO,SaveMode.NOT_NULL_FIELDS);
 		return result;
 	}
 

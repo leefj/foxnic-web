@@ -50,7 +50,7 @@ public class OauthClientServiceImpl extends SuperService<OauthClient> implements
 	 * @return 插入是否成功
 	 * */
 	@Override
-	public boolean insert(OauthClient oauthClient) {
+	public Result insert(OauthClient oauthClient) {
 		return super.insert(oauthClient);
 	}
 	
@@ -60,7 +60,7 @@ public class OauthClientServiceImpl extends SuperService<OauthClient> implements
 	 * @return 插入是否成功
 	 * */
 	@Override
-	public boolean insertList(List<OauthClient> oauthClientList) {
+	public Result insertList(List<OauthClient> oauthClientList) {
 		return super.insertList(oauthClientList);
 	}
 	
@@ -101,7 +101,7 @@ public class OauthClientServiceImpl extends SuperService<OauthClient> implements
 	 * @return 保存是否成功
 	 * */
 	@Override
-	public boolean update(OauthClient oauthClient , SaveMode mode) {
+	public Result update(OauthClient oauthClient , SaveMode mode) {
 		return super.update(oauthClient , mode);
 	}
 	
@@ -112,7 +112,7 @@ public class OauthClientServiceImpl extends SuperService<OauthClient> implements
 	 * @return 保存是否成功
 	 * */
 	@Override
-	public boolean updateList(List<OauthClient> oauthClientList , SaveMode mode) {
+	public Result updateList(List<OauthClient> oauthClientList , SaveMode mode) {
 		return super.updateList(oauthClientList , mode);
 	}
 	

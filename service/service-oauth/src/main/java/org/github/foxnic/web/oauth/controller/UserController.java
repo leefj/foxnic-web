@@ -66,10 +66,8 @@ public class UserController extends SuperController {
 	@NotNull(name = UserVOMeta.VALID)
 	@SentinelResource(value = UserServiceProxy.INSERT)
 	@PostMapping(UserServiceProxy.INSERT)
-	public Result<User> insert(UserVO userVO) {
-		Result<User> result=new Result<>();
-		boolean suc=userService.insert(userVO);
-		result.success(suc);
+	public Result insert(UserVO userVO) {
+		Result result=userService.insert(userVO);
 		return result;
 	}
 
@@ -105,10 +103,8 @@ public class UserController extends SuperController {
 	@NotNull(name = UserVOMeta.IDS)
 	@SentinelResource(value = UserServiceProxy.BATCH_DELETE)
 	@PostMapping(UserServiceProxy.BATCH_DELETE)
-	public Result<User> deleteByIds(List<String> ids) {
-		Result<User> result=new Result<>();
-		boolean suc=userService.deleteByIdsLogical(ids);
-		result.success(suc);
+	public Result deleteByIds(List<String> ids) {
+		Result result=userService.deleteByIdsLogical(ids);
 		return result;
 	}
 	
@@ -133,10 +129,8 @@ public class UserController extends SuperController {
 	@NotNull(name = UserVOMeta.VALID)
 	@SentinelResource(value = UserServiceProxy.UPDATE)
 	@PostMapping(UserServiceProxy.UPDATE)
-	public Result<User> update(UserVO userVO) {
-		Result<User> result=new Result<>();
-		boolean suc=userService.update(userVO,SaveMode.NOT_NULL_FIELDS);
-		result.success(suc);
+	public Result update(UserVO userVO) {
+		Result result=userService.update(userVO,SaveMode.NOT_NULL_FIELDS);
 		return result;
 	}
 	
@@ -163,9 +157,7 @@ public class UserController extends SuperController {
 	@SentinelResource(value = UserServiceProxy.SAVE)
 	@PostMapping(UserServiceProxy.SAVE)
 	public Result<User> save(UserVO userVO) {
-		Result<User> result=new Result<>();
-		boolean suc=userService.save(userVO,SaveMode.NOT_NULL_FIELDS);
-		result.success(suc);
+		Result result=userService.save(userVO,SaveMode.NOT_NULL_FIELDS);
 		return result;
 	}
 

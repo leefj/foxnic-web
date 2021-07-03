@@ -35,7 +35,7 @@ import java.util.Date;
  * 系统资源 服务实现
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-28 15:36:23
+ * @since 2021-07-03 15:54:43
 */
 
 
@@ -64,7 +64,7 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 	 * @return 插入是否成功
 	 * */
 	@Override
-	public boolean insert(Resourze resourze) {
+	public Result insert(Resourze resourze) {
 		return super.insert(resourze);
 	}
 	
@@ -74,7 +74,7 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 	 * @return 插入是否成功
 	 * */
 	@Override
-	public boolean insertList(List<Resourze> resourzeList) {
+	public Result insertList(List<Resourze> resourzeList) {
 		return super.insertList(resourzeList);
 	}
 	
@@ -85,11 +85,19 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 	 * @param id ID
 	 * @return 删除是否成功
 	 */
-	public boolean deleteByIdPhysical(String id) {
+	public Result deleteByIdPhysical(String id) {
 		Resourze resourze = new Resourze();
-		if(id==null) throw new IllegalArgumentException("id 不允许为 null ");
+		if(id==null) return ErrorDesc.failure().message("id 不允许为 null 。");
 		resourze.setId(id);
-		return dao.deleteEntity(resourze);
+		try {
+			boolean suc = dao.deleteEntity(resourze);
+			return suc?ErrorDesc.success():ErrorDesc.failure();
+		}
+		catch(Exception e) {
+			Result r= ErrorDesc.failure();
+			r.extra().setException(e);
+			return r;
+		}
 	}
 	
 	/**
@@ -98,14 +106,22 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 	 * @param id ID
 	 * @return 删除是否成功
 	 */
-	public boolean deleteByIdLogical(String id) {
+	public Result deleteByIdLogical(String id) {
 		Resourze resourze = new Resourze();
-		if(id==null) throw new IllegalArgumentException("id 不允许为 null 。");
+		if(id==null) return ErrorDesc.failure().message("id 不允许为 null 。");
 		resourze.setId(id);
 		resourze.setDeleted(dao.getDBTreaty().getTrueValue());
 		resourze.setDeleteBy((String)dao.getDBTreaty().getLoginUserId());
 		resourze.setDeleteTime(new Date());
-		return dao.updateEntity(resourze,SaveMode.NOT_NULL_FIELDS);
+		try {
+			boolean suc = dao.updateEntity(resourze,SaveMode.NOT_NULL_FIELDS);
+			return suc?ErrorDesc.success():ErrorDesc.failure();
+		}
+		catch(Exception e) {
+			Result r= ErrorDesc.failure();
+			r.extra().setException(e);
+			return r;
+		}
 	}
 	
 	/**
@@ -115,7 +131,7 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 	 * @return 保存是否成功
 	 * */
 	@Override
-	public boolean update(Resourze resourze , SaveMode mode) {
+	public Result update(Resourze resourze , SaveMode mode) {
 		return super.update(resourze , mode);
 	}
 	
@@ -126,7 +142,7 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 	 * @return 保存是否成功
 	 * */
 	@Override
-	public boolean updateList(List<Resourze> resourzeList , SaveMode mode) {
+	public Result updateList(List<Resourze> resourzeList , SaveMode mode) {
 		return super.updateList(resourzeList , mode);
 	}
 	

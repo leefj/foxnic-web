@@ -79,10 +79,8 @@ public class ConfigController {
 	@NotNull(name = ConfigVOMeta.VALID)
 	@SentinelResource(value = ConfigServiceProxy.INSERT)
 	@PostMapping(ConfigServiceProxy.INSERT)
-	public Result<Config> insert(ConfigVO configVO) {
-		Result<Config> result=new Result<>();
-		boolean suc=configService.insert(configVO);
-		result.success(suc);
+	public Result insert(ConfigVO configVO) {
+		Result result = configService.insert(configVO);
 		return result;
 	}
 
@@ -118,10 +116,8 @@ public class ConfigController {
 	@NotNull(name = ConfigVOMeta.CODES)
 	@SentinelResource(value = ConfigServiceProxy.BATCH_DELETE)
 	@PostMapping(ConfigServiceProxy.BATCH_DELETE)
-	public Result<Config> deleteByIds(List<String> codes) {
-		Result<Config> result=new Result<>();
-		boolean suc=configService.deleteByIdsLogical(codes);
-		result.success(suc);
+	public Result deleteByIds(List<String> codes) {
+		Result result=configService.deleteByIdsLogical(codes);
 		return result;
 	}
 	
@@ -143,11 +139,9 @@ public class ConfigController {
 	@NotNull(name = ConfigVOMeta.VALID)
 	@SentinelResource(value = ConfigServiceProxy.UPDATE)
 	@PostMapping(ConfigServiceProxy.UPDATE)
-	public Result<Config> update(ConfigVO configVO) {
-		Result<Config> result=new Result<>();
-		boolean suc=configService.update(configVO,SaveMode.NOT_NULL_FIELDS);
-		result.success(suc);
-		if (!suc) {
+	public Result update(ConfigVO configVO) {
+		Result result=configService.update(configVO,SaveMode.NOT_NULL_FIELDS);
+		if (!result.success()) {
 			ErrorDesc.fill(result, CommonError.DATA_NOT_EXISTS);
 		}
 		return result;
@@ -172,11 +166,8 @@ public class ConfigController {
 	@NotNull(name = ConfigVOMeta.VALID)
 	@SentinelResource(value = ConfigServiceProxy.SAVE)
 	@PostMapping(ConfigServiceProxy.SAVE)
-	public Result<Config> save(ConfigVO configVO) {
-		Result<Config> result=new Result<>();
-		boolean suc=configService.save(configVO,SaveMode.NOT_NULL_FIELDS);
-		
-		result.success(suc);
+	public Result save(ConfigVO configVO) {
+		Result result=configService.save(configVO,SaveMode.NOT_NULL_FIELDS);
 		return result;
 	}
 

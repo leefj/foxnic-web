@@ -11,14 +11,14 @@ public interface #(simpleName) extends ISuperService<#(poSimpleName)> {
 	 * @param #(poVar) 实体数据
 	 * @return 插入是否成功
 	 * */
-	boolean insert(#(poSimpleName) #(poVar));
+	Result insert(#(poSimpleName) #(poVar));
  
 	/**
 	 * 批量插入实体，事务内
 	 * @param #(poListVar) 实体数据清单
 	 * @return 插入是否成功
 	 * */
-	boolean insertList(List<#(poSimpleName)> #(poListVar));
+	Result insertList(List<#(poSimpleName)> #(poListVar));
 	
 	
 	#(deleteByIdMethods)
@@ -29,14 +29,14 @@ public interface #(simpleName) extends ISuperService<#(poSimpleName)> {
 	 * @param ids 主键清单
 	 * @return 是否删除成功
 	 * */
-	<T> boolean deleteByIdsPhysical(List<T> #(idPropertyName)s);
+	<T> Result deleteByIdsPhysical(List<T> #(idPropertyName)s);
 	
 	/**
 	 * 批量逻辑删除，仅支持单字段主键表
 	 * @param ids 主键清单
 	 * @return 是否删除成功
 	 * */
-	<T> boolean deleteByIdsLogical(List<T> #(idPropertyName)s);
+	<T> Result deleteByIdsLogical(List<T> #(idPropertyName)s);
 	#end
 	
 	#(updateByIdMethod)
@@ -47,7 +47,7 @@ public interface #(simpleName) extends ISuperService<#(poSimpleName)> {
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	boolean update(#(poSimpleName) #(poVar) , SaveMode mode);
+	Result update(#(poSimpleName) #(poVar) , SaveMode mode);
 	
 	
 	/**
@@ -56,7 +56,7 @@ public interface #(simpleName) extends ISuperService<#(poSimpleName)> {
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	boolean updateList(List<#(poSimpleName)> #(poListVar), SaveMode mode);
+	Result updateList(List<#(poSimpleName)> #(poListVar), SaveMode mode);
 	
 	/**
 	 * 保存实体，如果主键值不为 null，则更新，否则插入
@@ -64,7 +64,7 @@ public interface #(simpleName) extends ISuperService<#(poSimpleName)> {
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	boolean save(#(poSimpleName) #(poVar) , SaveMode mode);
+	Result save(#(poSimpleName) #(poVar) , SaveMode mode);
 	
 	/**
 	 * 保存实体，如果主键值不为null，则更新，否则插入
@@ -72,7 +72,7 @@ public interface #(simpleName) extends ISuperService<#(poSimpleName)> {
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	boolean saveList(List<#(poSimpleName)> #(poListVar) , SaveMode mode);
+	Result saveList(List<#(poSimpleName)> #(poListVar) , SaveMode mode);
 	
 	/**
 	 * 检查实体中的数据字段是否已经存在

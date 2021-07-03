@@ -35,7 +35,7 @@ public class #(simpleName) extends SuperService<#(poSimpleName)> implements #(in
 	 * @return 插入是否成功
 	 * */
 	@Override
-	public boolean insert(#(poSimpleName) #(poVar)) {
+	public Result insert(#(poSimpleName) #(poVar)) {
 		return super.insert(#(poVar));
 	}
 	
@@ -45,7 +45,7 @@ public class #(simpleName) extends SuperService<#(poSimpleName)> implements #(in
 	 * @return 插入是否成功
 	 * */
 	@Override
-	public boolean insertList(List<#(poSimpleName)> #(poListVar)) {
+	public Result insertList(List<#(poSimpleName)> #(poListVar)) {
 		return super.insertList(#(poListVar));
 	}
 	
@@ -58,7 +58,7 @@ public class #(simpleName) extends SuperService<#(poSimpleName)> implements #(in
 	 * @return 保存是否成功
 	 * */
 	@Override
-	public boolean update(#(poSimpleName) #(poVar) , SaveMode mode) {
+	public Result update(#(poSimpleName) #(poVar) , SaveMode mode) {
 		return super.update(#(poVar) , mode);
 	}
 	
@@ -69,7 +69,7 @@ public class #(simpleName) extends SuperService<#(poSimpleName)> implements #(in
 	 * @return 保存是否成功
 	 * */
 	@Override
-	public boolean updateList(List<#(poSimpleName)> #(poListVar) , SaveMode mode) {
+	public Result updateList(List<#(poSimpleName)> #(poListVar) , SaveMode mode) {
 		return super.updateList(#(poListVar) , mode);
 	}
 	

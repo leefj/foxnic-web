@@ -56,7 +56,7 @@ public class TokenServiceImpl extends SuperService<Token> implements ITokenServi
 	 * @return 插入是否成功
 	 * */
 	@Override
-	public boolean insert(Token token) {
+	public Result insert(Token token) {
 		return super.insert(token);
 	}
 	
@@ -66,7 +66,7 @@ public class TokenServiceImpl extends SuperService<Token> implements ITokenServi
 	 * @return 插入是否成功
 	 * */
 	@Override
-	public boolean insertList(List<Token> tokenList) {
+	public Result insertList(List<Token> tokenList) {
 		return super.insertList(tokenList);
 	}
 	
@@ -107,7 +107,7 @@ public class TokenServiceImpl extends SuperService<Token> implements ITokenServi
 	 * @return 保存是否成功
 	 * */
 	@Override
-	public boolean update(Token token , SaveMode mode) {
+	public Result update(Token token , SaveMode mode) {
 		return super.update(token , mode);
 	}
 	
@@ -118,7 +118,7 @@ public class TokenServiceImpl extends SuperService<Token> implements ITokenServi
 	 * @return 保存是否成功
 	 * */
 	@Override
-	public boolean updateList(List<Token> tokenList , SaveMode mode) {
+	public Result updateList(List<Token> tokenList , SaveMode mode) {
 		return super.updateList(tokenList , mode);
 	}
 	

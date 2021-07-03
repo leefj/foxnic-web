@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.excel.ExcelStructure;
 import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.dao.excel.ValidateResult;
@@ -103,13 +104,13 @@ public class ConfigServiceImpl  extends SuperService<Config> implements IConfigS
 	}
 	
 	@Override
-	public boolean save(Config entity, SaveMode mode) {
+	public Result save(Config entity, SaveMode mode) {
 		cache.remove(entity.getCode());
 		return super.save(entity, mode);
 	}
 	
 	@Override
-	public boolean update(Config entity, SaveMode mode) {
+	public Result update(Config entity, SaveMode mode) {
 		cache.remove(entity.getCode());
 		return super.update(entity, mode);
 	}

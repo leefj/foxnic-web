@@ -23,6 +23,9 @@ import com.github.foxnic.dao.excel.ExcelStructure;
 import java.io.InputStream;
 import com.github.foxnic.sql.meta.DBField;
 import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.meta.DBColumnMeta;
+import com.github.foxnic.sql.expr.Select;
+import java.util.ArrayList;
 import org.github.foxnic.web.system.service.IInvokeLogService;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 
@@ -31,7 +34,7 @@ import org.github.foxnic.web.framework.dao.DBConfigs;
  * 调用统计日志 服务实现
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-26 10:48:09
+ * @since 2021-07-03 16:01:50
 */
 
 
@@ -60,7 +63,7 @@ public class InvokeLogServiceImpl extends SuperService<InvokeLog> implements IIn
 	 * @return 插入是否成功
 	 * */
 	@Override
-	public boolean insert(InvokeLog invokeLog) {
+	public Result insert(InvokeLog invokeLog) {
 		return super.insert(invokeLog);
 	}
 	
@@ -70,7 +73,7 @@ public class InvokeLogServiceImpl extends SuperService<InvokeLog> implements IIn
 	 * @return 插入是否成功
 	 * */
 	@Override
-	public boolean insertList(List<InvokeLog> invokeLogList) {
+	public Result insertList(List<InvokeLog> invokeLogList) {
 		return super.insertList(invokeLogList);
 	}
 	
@@ -81,11 +84,19 @@ public class InvokeLogServiceImpl extends SuperService<InvokeLog> implements IIn
 	 * @param id ID
 	 * @return 删除是否成功
 	 */
-	public boolean deleteByIdPhysical(Long id) {
+	public Result deleteByIdPhysical(Long id) {
 		InvokeLog invokeLog = new InvokeLog();
-		if(id==null) throw new IllegalArgumentException("id 不允许为 null ");
+		if(id==null) return ErrorDesc.failure().message("id 不允许为 null 。");
 		invokeLog.setId(id);
-		return dao.deleteEntity(invokeLog);
+		try {
+			boolean suc = dao.deleteEntity(invokeLog);
+			return suc?ErrorDesc.success():ErrorDesc.failure();
+		}
+		catch(Exception e) {
+			Result r= ErrorDesc.failure();
+			r.extra().setException(e);
+			return r;
+		}
 	}
 	
 	/**
@@ -95,7 +106,7 @@ public class InvokeLogServiceImpl extends SuperService<InvokeLog> implements IIn
 	 * @return 保存是否成功
 	 * */
 	@Override
-	public boolean update(InvokeLog invokeLog , SaveMode mode) {
+	public Result update(InvokeLog invokeLog , SaveMode mode) {
 		return super.update(invokeLog , mode);
 	}
 	
@@ -106,7 +117,7 @@ public class InvokeLogServiceImpl extends SuperService<InvokeLog> implements IIn
 	 * @return 保存是否成功
 	 * */
 	@Override
-	public boolean updateList(List<InvokeLog> invokeLogList , SaveMode mode) {
+	public Result updateList(List<InvokeLog> invokeLogList , SaveMode mode) {
 		return super.updateList(invokeLogList , mode);
 	}
 	
@@ -137,7 +148,14 @@ public class InvokeLogServiceImpl extends SuperService<InvokeLog> implements IIn
 		sample.setId(id);
 		return dao.queryEntity(sample);
 	}
- 
+
+	@Override
+	public List<InvokeLog> getByIds(List<Long> ids) {
+		return new ArrayList<>(getByIdsMap(ids).values());
+	}
+
+
+
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
 	 * 

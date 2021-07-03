@@ -1,19 +1,16 @@
 package org.github.foxnic.web.proxy.oauth;
 
-import java.util.List;
-import org.springframework.web.bind.annotation.RequestMapping;
-import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.api.transter.Result;
-
-import org.github.foxnic.web.proxy.FeignConfiguration;
-
-import org.springframework.cloud.openfeign.FeignClient;
-
-
+import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.domain.oauth.RoleMenu;
 import org.github.foxnic.web.domain.oauth.RoleMenuVO;
-import org.github.foxnic.web.proxy.api.APIProxy;
+import org.github.foxnic.web.proxy.FeignConfiguration;
 import org.github.foxnic.web.proxy.MicroServiceNames;
+import org.github.foxnic.web.proxy.api.APIProxy;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 /**
  * <p>
@@ -98,32 +95,32 @@ public interface RoleMenuServiceProxy {
 	 * 添加角色账户关系
 	*/
 	@RequestMapping(RoleMenuServiceProxy.INSERT)
-	Result<RoleMenu> insert(RoleMenuVO roleMenuVO);
+	Result insert(RoleMenuVO roleMenuVO);
 	
 	/**
 	 * 删除角色账户关系
 	*/
 	@RequestMapping(RoleMenuServiceProxy.DELETE)
-	Result<RoleMenu> deleteById(String id);
+	Result deleteById(String id);
 	
 	
 	/**
 	 * 批量删除角色账户关系
 	*/
 	@RequestMapping(RoleMenuServiceProxy.BATCH_DELETE)
-	Result<RoleMenu> deleteByIds(List<String> id);
+	Result deleteByIds(List<String> id);
 	
 	/**
 	 * 更新角色账户关系
 	*/
 	@RequestMapping(RoleMenuServiceProxy.UPDATE)
-	Result<RoleMenu> update(RoleMenuVO roleMenuVO);
+	Result update(RoleMenuVO roleMenuVO);
 	
 	/**
 	 * 更新角色账户关系
 	*/
 	@RequestMapping(RoleMenuServiceProxy.SAVE)
-	Result<RoleMenu> save(RoleMenuVO roleMenuVO);
+	Result save(RoleMenuVO roleMenuVO);
 	
 	/**
 	 * 获取角色账户关系

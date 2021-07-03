@@ -1,31 +1,28 @@
 package org.github.foxnic.web.system.service.impl;
 
 
-import javax.annotation.Resource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-
-import org.github.foxnic.web.domain.system.DictItem;
-import org.github.foxnic.web.domain.system.DictItemVO;
-import java.util.List;
-import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.entity.SuperService;
-import com.github.foxnic.dao.spec.DAO;
-import java.lang.reflect.Field;
-import com.github.foxnic.commons.busi.id.IDGenerator;
-import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.dao.data.PagedList;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.SuperService;
+import com.github.foxnic.dao.excel.ExcelStructure;
 import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.dao.excel.ExcelStructure;
-import java.io.InputStream;
+import com.github.foxnic.dao.spec.DAO;
+import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
-import com.github.foxnic.dao.data.SaveMode;
-import org.github.foxnic.web.system.service.IDictItemService;
+import org.github.foxnic.web.domain.system.DictItem;
 import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.github.foxnic.web.system.service.IDictItemService;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.io.InputStream;
+import java.lang.reflect.Field;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -61,7 +58,7 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 	 * @return 插入是否成功
 	 * */
 	@Override
-	public boolean insert(DictItem dictItem) {
+	public Result insert(DictItem dictItem) {
 		return super.insert(dictItem);
 	}
 	
@@ -71,7 +68,7 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 	 * @return 插入是否成功
 	 * */
 	@Override
-	public boolean insertList(List<DictItem> dictItemList) {
+	public Result insertList(List<DictItem> dictItemList) {
 		return super.insertList(dictItemList);
 	}
 	
@@ -82,11 +79,12 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 	 * @param id ID
 	 * @return 删除是否成功
 	 */
-	public boolean deleteByIdPhysical(String id) {
+	public Result deleteByIdPhysical(String id) {
 		DictItem dictItem = new DictItem();
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null ");
 		dictItem.setId(id);
-		return dao.deleteEntity(dictItem);
+		boolean suc = dao.deleteEntity(dictItem);
+		return  suc?ErrorDesc.success():ErrorDesc.failure();
 	}
 	
 	/**
@@ -112,7 +110,7 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 	 * @return 保存是否成功
 	 * */
 	@Override
-	public boolean update(DictItem dictItem , SaveMode mode) {
+	public Result update(DictItem dictItem , SaveMode mode) {
 		return super.update(dictItem , mode);
 	}
 	
@@ -123,7 +121,7 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 	 * @return 保存是否成功
 	 * */
 	@Override
-	public boolean updateList(List<DictItem> dictItemList , SaveMode mode) {
+	public Result updateList(List<DictItem> dictItemList , SaveMode mode) {
 		return super.updateList(dictItemList , mode);
 	}
 	

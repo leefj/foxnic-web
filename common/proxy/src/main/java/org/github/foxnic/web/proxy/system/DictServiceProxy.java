@@ -1,10 +1,7 @@
 package org.github.foxnic.web.proxy.system;
 
-import java.util.List;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.api.transter.Result;
-
+import org.github.foxnic.web.proxy.api.APIProxy;
 import org.github.foxnic.web.proxy.FeignConfiguration;
 
 import org.springframework.cloud.openfeign.FeignClient;
@@ -12,7 +9,9 @@ import org.springframework.cloud.openfeign.FeignClient;
 
 import org.github.foxnic.web.domain.system.Dict;
 import org.github.foxnic.web.domain.system.DictVO;
-import org.github.foxnic.web.proxy.api.APIProxy;
+import java.util.List;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.proxy.MicroServiceNames;
 
 /**
@@ -20,7 +19,7 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  * 数据字典  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-17 16:41:53
+ * @since 2021-07-03 16:01:49
 */
 
 @FeignClient(value = MicroServiceNames.SYSTEM, contextId = DictServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)
@@ -50,13 +49,12 @@ public interface DictServiceProxy {
 	 * 删除数据字典
 	 */
 	public static final String DELETE = API_PREFIX + "delete";
-	
-	
+
 	/**
 	 * 批量删除数据字典
 	 */
-	public static final String BATCH_DELETE = API_PREFIX + "batch-delete";
-	
+	public static final String DELETE_BY_IDS = API_PREFIX + "delete-by-ids";
+	;
 	
 	/**
 	 * 更新数据字典
@@ -70,10 +68,16 @@ public interface DictServiceProxy {
 	public static final String SAVE = API_PREFIX + "save";
 	
 	/**
-	 * 获取数据字典
+	 * 获取单个数据字典
 	 */
 	public static final String GET_BY_ID = API_PREFIX + "get-by-id";
-	
+
+	/**
+	 * 获取多个数据字典
+	 */
+	public static final String GET_BY_IDS = API_PREFIX + "get-by-ids";
+	;
+
 	/**
 	 * 查询数据字典
 	 */
@@ -103,39 +107,43 @@ public interface DictServiceProxy {
 	 * 添加数据字典
 	*/
 	@RequestMapping(DictServiceProxy.INSERT)
-	Result<Dict> insert(DictVO dictVO);
+	Result insert(DictVO dictVO);
 	
 	/**
 	 * 删除数据字典
 	*/
 	@RequestMapping(DictServiceProxy.DELETE)
-	Result<Dict> deleteById(String id);
-	
-	
+	Result deleteById(String id);
+
 	/**
 	 * 批量删除数据字典
 	*/
-	@RequestMapping(DictServiceProxy.BATCH_DELETE)
-	Result<Dict> deleteByIds(List<String> id);
-	
+	@RequestMapping(DictServiceProxy.DELETE_BY_IDS)
+	Result deleteByIds(List<String> ids);
+
 	/**
 	 * 更新数据字典
 	*/
 	@RequestMapping(DictServiceProxy.UPDATE)
-	Result<Dict> update(DictVO dictVO);
+	Result update(DictVO dictVO);
 	
 	/**
 	 * 更新数据字典
 	*/
 	@RequestMapping(DictServiceProxy.SAVE)
-	Result<Dict> save(DictVO dictVO);
+	Result save(DictVO dictVO);
 	
 	/**
 	 * 获取数据字典
 	*/
 	@RequestMapping(DictServiceProxy.GET_BY_ID)
 	Result<Dict> getById(String id);
-	
+
+	/**
+	 * 批量删除数据字典
+	*/
+	@RequestMapping(DictServiceProxy.GET_BY_IDS)
+	Result<List<Dict>> getByIds(List<String> ids);
 	/**
 	 * 查询数据字典
 	*/

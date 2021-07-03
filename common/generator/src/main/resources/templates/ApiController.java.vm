@@ -41,11 +41,8 @@ public class #(simpleName) extends SuperController {
 	@SentinelResource(value = #(agentSimpleName).INSERT , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	#end
 	@PostMapping(#(agentSimpleName).INSERT)
-	public Result<#(poSimpleName)> insert(#(voSimpleName) #(voVarName)) {
-		Result<#(poSimpleName)> result=new Result<>();
-		boolean suc=#(serviceVarName).insert(#(voVarName));
-		result.success(suc);
-		if(!suc) result.message("数据插入失败");
+	public Result insert(#(voSimpleName) #(voVarName)) {
+		Result result=#(serviceVarName).insert(#(voVarName));
 		return result;
 	}
 
@@ -63,10 +60,7 @@ public class #(simpleName) extends SuperController {
 	#end
 	@PostMapping(#(agentSimpleName).DELETE)
 	public Result deleteById(#(controllerMethodParameterDeclare4DeleteById)) {
-		Result result=new Result();
-		boolean suc=#(serviceVarName).#(implMethod4DeleteById)(#(controllerMethodParameterPassIn4DeleteById));
-		result.success(suc);
-		if(!suc) result.message("数据删除失败");
+		Result result=#(serviceVarName).#(implMethod4DeleteById)(#(controllerMethodParameterPassIn4DeleteById));
 		return result;
 	}
 	
@@ -88,10 +82,7 @@ public class #(simpleName) extends SuperController {
 	#end
 	@PostMapping(#(agentSimpleName).DELETE_BY_IDS)
 	public Result deleteByIds(List<#(idsPropertyType)> #(idsPropertyName)) {
-		Result result=new Result();
-		boolean suc=#(serviceVarName).deleteByIdsLogical(#(idsPropertyName));
-		result.success(suc);
-		if(!suc) result.message("数据删除失败");
+		Result result=#(serviceVarName).deleteByIdsLogical(#(idsPropertyName));
 		return result;
 	}
 	#end
@@ -108,11 +99,8 @@ public class #(simpleName) extends SuperController {
 	@SentinelResource(value = #(agentSimpleName).UPDATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	#end
 	@PostMapping(#(agentSimpleName).UPDATE)
-	public Result<#(poSimpleName)> update(#(voSimpleName) #(voVarName)) {
-		Result<#(poSimpleName)> result=new Result<>();
-		boolean suc=#(serviceVarName).update(#(voVarName),SaveMode.NOT_NULL_FIELDS);
-		result.success(suc);
-		if(!suc) result.message("数据更新失败");
+	public Result update(#(voSimpleName) #(voVarName)) {
+		Result result=#(serviceVarName).update(#(voVarName),SaveMode.NOT_NULL_FIELDS);
 		return result;
 	}
 	
@@ -129,11 +117,8 @@ public class #(simpleName) extends SuperController {
 	@SentinelResource(value = #(agentSimpleName).SAVE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	#end
 	@PostMapping(#(agentSimpleName).SAVE)
-	public Result<#(poSimpleName)> save(#(voSimpleName) #(voVarName)) {
-		Result<#(poSimpleName)> result=new Result<>();
-		boolean suc=#(serviceVarName).save(#(voVarName),SaveMode.NOT_NULL_FIELDS);
-		result.success(suc);
-		if(!suc) result.message("数据保存失败");
+	public Result save(#(voSimpleName) #(voVarName)) {
+		Result result=#(serviceVarName).save(#(voVarName),SaveMode.NOT_NULL_FIELDS);
 		return result;
 	}
 

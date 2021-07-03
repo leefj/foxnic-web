@@ -46,7 +46,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 调用统计日志 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-26 10:48:09
+ * @since 2021-07-03 16:01:50
 */
 
 @Api(tags = "调用统计日志")
@@ -79,11 +79,8 @@ public class InvokeLogController extends SuperController {
 	@ApiOperationSupport(order=1)
 	@SentinelResource(value = InvokeLogServiceProxy.INSERT , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(InvokeLogServiceProxy.INSERT)
-	public Result<InvokeLog> insert(InvokeLogVO invokeLogVO) {
-		Result<InvokeLog> result=new Result<>();
-		boolean suc=invokeLogService.insert(invokeLogVO);
-		result.success(suc);
-		if(!suc) result.message("数据插入失败");
+	public Result insert(InvokeLogVO invokeLogVO) {
+		Result result=invokeLogService.insert(invokeLogVO);
 		return result;
 	}
 
@@ -99,11 +96,8 @@ public class InvokeLogController extends SuperController {
 	@NotNull(name = InvokeLogVOMeta.ID)
 	@SentinelResource(value = InvokeLogServiceProxy.DELETE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(InvokeLogServiceProxy.DELETE)
-	public Result<InvokeLog> deleteById(Long id) {
-		Result<InvokeLog> result=new Result<>();
-		boolean suc=invokeLogService.deleteByIdPhysical(id);
-		result.success(suc);
-		if(!suc) result.message("数据删除失败");
+	public Result deleteById(Long id) {
+		Result result=invokeLogService.deleteByIdPhysical(id);
 		return result;
 	}
 	
@@ -118,13 +112,10 @@ public class InvokeLogController extends SuperController {
 	})
 	@ApiOperationSupport(order=3) 
 	@NotNull(name = InvokeLogVOMeta.IDS)
-	@SentinelResource(value = InvokeLogServiceProxy.BATCH_DELETE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
-	@PostMapping(InvokeLogServiceProxy.BATCH_DELETE)
-	public Result<InvokeLog> deleteByIds(List<Long> ids) {
-		Result<InvokeLog> result=new Result<>();
-		boolean suc=invokeLogService.deleteByIdsLogical(ids);
-		result.success(suc);
-		if(!suc) result.message("数据删除失败");
+	@SentinelResource(value = InvokeLogServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
+	@PostMapping(InvokeLogServiceProxy.DELETE_BY_IDS)
+	public Result deleteByIds(List<Long> ids) {
+		Result result=invokeLogService.deleteByIdsLogical(ids);
 		return result;
 	}
 	
@@ -151,11 +142,8 @@ public class InvokeLogController extends SuperController {
 	@NotNull(name = InvokeLogVOMeta.ID)
 	@SentinelResource(value = InvokeLogServiceProxy.UPDATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(InvokeLogServiceProxy.UPDATE)
-	public Result<InvokeLog> update(InvokeLogVO invokeLogVO) {
-		Result<InvokeLog> result=new Result<>();
-		boolean suc=invokeLogService.update(invokeLogVO,SaveMode.NOT_NULL_FIELDS);
-		result.success(suc);
-		if(!suc) result.message("数据更新失败");
+	public Result update(InvokeLogVO invokeLogVO) {
+		Result result=invokeLogService.update(invokeLogVO,SaveMode.NOT_NULL_FIELDS);
 		return result;
 	}
 	
@@ -183,11 +171,8 @@ public class InvokeLogController extends SuperController {
 	@NotNull(name = InvokeLogVOMeta.ID)
 	@SentinelResource(value = InvokeLogServiceProxy.SAVE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(InvokeLogServiceProxy.SAVE)
-	public Result<InvokeLog> save(InvokeLogVO invokeLogVO) {
-		Result<InvokeLog> result=new Result<>();
-		boolean suc=invokeLogService.save(invokeLogVO,SaveMode.NOT_NULL_FIELDS);
-		result.success(suc);
-		if(!suc) result.message("数据保存失败");
+	public Result save(InvokeLogVO invokeLogVO) {
+		Result result=invokeLogService.save(invokeLogVO,SaveMode.NOT_NULL_FIELDS);
 		return result;
 	}
 
@@ -207,6 +192,26 @@ public class InvokeLogController extends SuperController {
 		Result<InvokeLog> result=new Result<>();
 		InvokeLog role=invokeLogService.getById(id);
 		result.success(true).data(role);
+		return result;
+	}
+
+
+	/**
+	 * 批量删除调用统计日志 <br>
+	 * 联合主键时，请自行调整实现
+	*/
+		@ApiOperation(value = "批量删除调用统计日志")
+		@ApiImplicitParams({
+				@ApiImplicitParam(name = InvokeLogVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
+		})
+		@ApiOperationSupport(order=3) 
+		@NotNull(name = InvokeLogVOMeta.IDS)
+		@SentinelResource(value = InvokeLogServiceProxy.GET_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
+	@PostMapping(InvokeLogServiceProxy.GET_BY_IDS)
+	public Result<List<InvokeLog>> getByIds(List<Long> ids) {
+		Result<List<InvokeLog>> result=new Result<>();
+		List<InvokeLog> list=invokeLogService.getByIds(ids);
+		result.success(true).data(list);
 		return result;
 	}
 

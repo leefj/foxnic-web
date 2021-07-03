@@ -61,7 +61,7 @@ public class MenuResourceServiceImpl extends SuperService<MenuResource> implemen
 	 * @return 插入是否成功
 	 * */
 	@Override
-	public boolean insert(MenuResource menuResource) {
+	public Result insert(MenuResource menuResource) {
 		return super.insert(menuResource);
 	}
 	
@@ -71,7 +71,7 @@ public class MenuResourceServiceImpl extends SuperService<MenuResource> implemen
 	 * @return 插入是否成功
 	 * */
 	@Override
-	public boolean insertList(List<MenuResource> menuResourceList) {
+	public Result insertList(List<MenuResource> menuResourceList) {
 		return super.insertList(menuResourceList);
 	}
 	
@@ -112,7 +112,7 @@ public class MenuResourceServiceImpl extends SuperService<MenuResource> implemen
 	 * @return 保存是否成功
 	 * */
 	@Override
-	public boolean update(MenuResource menuResource , SaveMode mode) {
+	public Result update(MenuResource menuResource , SaveMode mode) {
 		return super.update(menuResource , mode);
 	}
 	
@@ -123,7 +123,7 @@ public class MenuResourceServiceImpl extends SuperService<MenuResource> implemen
 	 * @return 保存是否成功
 	 * */
 	@Override
-	public boolean updateList(List<MenuResource> menuResourceList , SaveMode mode) {
+	public Result updateList(List<MenuResource> menuResourceList , SaveMode mode) {
 		return super.updateList(menuResourceList , mode);
 	}
 	

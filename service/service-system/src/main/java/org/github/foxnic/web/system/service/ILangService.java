@@ -33,14 +33,14 @@ public interface ILangService extends ISuperService<Lang> , LanguageService {
 	 * @param lang 实体数据
 	 * @return 插入是否成功
 	 * */
-	boolean insert(Lang lang);
+	Result insert(Lang lang);
  
 	/**
 	 * 批量插入实体，事务内
 	 * @param langList 实体数据清单
 	 * @return 插入是否成功
 	 * */
-	boolean insertList(List<Lang> langList);
+	Result insertList(List<Lang> langList);
 	
 	
 		
@@ -66,14 +66,14 @@ public interface ILangService extends ISuperService<Lang> , LanguageService {
 	 * @param ids 主键清单
 	 * @return 是否删除成功
 	 * */
-	<T> boolean deleteByIdsPhysical(List<T> ids);
+	<T> Result deleteByIdsPhysical(List<T> ids);
 	
 	/**
 	 * 批量逻辑删除，仅支持单字段主键表
 	 * @param ids 主键清单
 	 * @return 是否删除成功
 	 * */
-	<T> boolean deleteByIdsLogical(List<T> ids);
+	<T> Result deleteByIdsLogical(List<T> ids);
 	
 		
 	/**
@@ -90,7 +90,7 @@ public interface ILangService extends ISuperService<Lang> , LanguageService {
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	boolean update(Lang lang , SaveMode mode);
+	Result update(Lang lang , SaveMode mode);
 	
 	
 	/**
@@ -99,7 +99,7 @@ public interface ILangService extends ISuperService<Lang> , LanguageService {
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	boolean updateList(List<Lang> langList, SaveMode mode);
+	Result updateList(List<Lang> langList, SaveMode mode);
 	
 	/**
 	 * 保存实体，如果主键值不为 null，则更新，否则插入
@@ -107,7 +107,7 @@ public interface ILangService extends ISuperService<Lang> , LanguageService {
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	boolean save(Lang lang , SaveMode mode);
+	Result save(Lang lang , SaveMode mode);
 	
 	/**
 	 * 保存实体，如果主键值不为null，则更新，否则插入
@@ -115,7 +115,7 @@ public interface ILangService extends ISuperService<Lang> , LanguageService {
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	boolean saveList(List<Lang> langList , SaveMode mode);
+	Result saveList(List<Lang> langList , SaveMode mode);
 	
 	/**
 	 * 检查实体中的数据字段是否已经存在

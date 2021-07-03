@@ -1,19 +1,16 @@
 package org.github.foxnic.web.proxy.system;
 
-import java.util.List;
-import org.springframework.web.bind.annotation.RequestMapping;
-import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.api.transter.Result;
-
-import org.github.foxnic.web.proxy.FeignConfiguration;
-
-import org.springframework.cloud.openfeign.FeignClient;
-
-
+import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.domain.system.Lang;
 import org.github.foxnic.web.domain.system.LangVO;
-import org.github.foxnic.web.proxy.api.APIProxy;
+import org.github.foxnic.web.proxy.FeignConfiguration;
 import org.github.foxnic.web.proxy.MicroServiceNames;
+import org.github.foxnic.web.proxy.api.APIProxy;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 /**
  * <p>
@@ -103,32 +100,32 @@ public interface LangServiceProxy {
 	 * 添加语言条目
 	*/
 	@RequestMapping(LangServiceProxy.INSERT)
-	Result<Lang> insert(LangVO langVO);
+	Result insert(LangVO langVO);
 	
 	/**
 	 * 删除语言条目
 	*/
 	@RequestMapping(LangServiceProxy.DELETE)
-	Result<Lang> deleteById(String code);
+	Result deleteById(String code);
 	
 	
 	/**
 	 * 批量删除语言条目
 	*/
 	@RequestMapping(LangServiceProxy.BATCH_DELETE)
-	Result<Lang> deleteByIds(List<String> id);
+	Result deleteByIds(List<String> id);
 	
 	/**
 	 * 更新语言条目
 	*/
 	@RequestMapping(LangServiceProxy.UPDATE)
-	Result<Lang> update(LangVO langVO);
+	Result update(LangVO langVO);
 	
 	/**
 	 * 更新语言条目
 	*/
 	@RequestMapping(LangServiceProxy.SAVE)
-	Result<Lang> save(LangVO langVO);
+	Result save(LangVO langVO);
 	
 	/**
 	 * 获取语言条目

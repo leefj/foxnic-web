@@ -1,7 +1,7 @@
 /**
  * 调用统计日志 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-26 10:48:09
+ * @since 2021-07-03 16:01:50
  */
 
 function FormPage() {
@@ -36,6 +36,7 @@ function FormPage() {
 			var bodyHeight=body.height();
 			var area=admin.changePopupArea(null,bodyHeight);
 			admin.putTempData('sys-invoke-log-form-area', area);
+			window.adjustPopup=adjustPopup;
 		},50);
 	}
 	

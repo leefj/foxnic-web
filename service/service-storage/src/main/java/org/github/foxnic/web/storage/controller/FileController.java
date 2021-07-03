@@ -130,10 +130,8 @@ public class FileController extends SuperController {
 	@NotNull(name = FileVOMeta.IDS)
 	@SentinelResource(value = FileServiceProxy.BATCH_DELETE)
 	@PostMapping(FileServiceProxy.BATCH_DELETE)
-	public Result<File> deleteByIds(List<String> ids) {
-		Result<File> result=new Result<>();
-		boolean suc=fileService.deleteByIdsLogical(ids);
-		result.success(suc);
+	public Result deleteByIds(List<String> ids) {
+		Result result=fileService.deleteByIdsLogical(ids);
 		return result;
 	}
 

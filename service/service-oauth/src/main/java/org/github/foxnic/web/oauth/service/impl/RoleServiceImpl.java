@@ -47,7 +47,7 @@ public class RoleServiceImpl extends SuperService<Role> implements IRoleService 
 	 * @return 插入是否成功
 	 * */
 	@Override
-	public boolean insert(Role role) {
+	public Result insert(Role role) {
 		return super.insert(role);
 	}
 	
@@ -57,7 +57,7 @@ public class RoleServiceImpl extends SuperService<Role> implements IRoleService 
 	 * @return 插入是否成功
 	 * */
 	@Override
-	public boolean insertList(List<Role> roleList) {
+	public Result insertList(List<Role> roleList) {
 		return super.insertList(roleList);
 	}
 	
@@ -98,7 +98,7 @@ public class RoleServiceImpl extends SuperService<Role> implements IRoleService 
 	 * @return 保存是否成功
 	 * */
 	@Override
-	public boolean update(Role role , SaveMode mode) {
+	public Result update(Role role , SaveMode mode) {
 		return super.update(role , mode);
 	}
 	
@@ -109,7 +109,7 @@ public class RoleServiceImpl extends SuperService<Role> implements IRoleService 
 	 * @return 保存是否成功
 	 * */
 	@Override
-	public boolean updateList(List<Role> roleList , SaveMode mode) {
+	public Result updateList(List<Role> roleList , SaveMode mode) {
 		return super.updateList(roleList , mode);
 	}
 	

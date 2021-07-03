@@ -1,19 +1,16 @@
 package org.github.foxnic.web.proxy.oauth;
 
-import java.util.List;
-import org.springframework.web.bind.annotation.RequestMapping;
-import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.api.transter.Result;
-
-import org.github.foxnic.web.proxy.FeignConfiguration;
-
-import org.springframework.cloud.openfeign.FeignClient;
-
-
+import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.domain.oauth.SessionOnline;
 import org.github.foxnic.web.domain.oauth.SessionOnlineVO;
-import org.github.foxnic.web.proxy.api.APIProxy;
+import org.github.foxnic.web.proxy.FeignConfiguration;
 import org.github.foxnic.web.proxy.MicroServiceNames;
+import org.github.foxnic.web.proxy.api.APIProxy;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 /**
  * <p>
@@ -98,32 +95,32 @@ public interface SessionOnlineServiceProxy {
 	 * 添加在线会话
 	*/
 	@RequestMapping(SessionOnlineServiceProxy.INSERT)
-	Result<SessionOnline> insert(SessionOnlineVO sessionOnlineVO);
+	Result insert(SessionOnlineVO sessionOnlineVO);
 	
 	/**
 	 * 删除在线会话
 	*/
 	@RequestMapping(SessionOnlineServiceProxy.DELETE)
-	Result<SessionOnline> deleteById(String id);
+	Result deleteById(String id);
 	
 	
 	/**
 	 * 批量删除在线会话
 	*/
 	@RequestMapping(SessionOnlineServiceProxy.BATCH_DELETE)
-	Result<SessionOnline> deleteByIds(List<String> id);
+	Result deleteByIds(List<String> id);
 	
 	/**
 	 * 更新在线会话
 	*/
 	@RequestMapping(SessionOnlineServiceProxy.UPDATE)
-	Result<SessionOnline> update(SessionOnlineVO sessionOnlineVO);
+	Result update(SessionOnlineVO sessionOnlineVO);
 	
 	/**
 	 * 更新在线会话
 	*/
 	@RequestMapping(SessionOnlineServiceProxy.SAVE)
-	Result<SessionOnline> save(SessionOnlineVO sessionOnlineVO);
+	Result save(SessionOnlineVO sessionOnlineVO);
 	
 	/**
 	 * 获取在线会话

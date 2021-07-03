@@ -1,19 +1,16 @@
 package org.github.foxnic.web.proxy.oauth;
 
-import java.util.List;
-import org.springframework.web.bind.annotation.RequestMapping;
-import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.api.transter.Result;
-
-import org.github.foxnic.web.proxy.FeignConfiguration;
-
-import org.springframework.cloud.openfeign.FeignClient;
-
-
+import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.MenuVO;
-import org.github.foxnic.web.proxy.api.APIProxy;
+import org.github.foxnic.web.proxy.FeignConfiguration;
 import org.github.foxnic.web.proxy.MicroServiceNames;
+import org.github.foxnic.web.proxy.api.APIProxy;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 /**
  * <p>
@@ -110,32 +107,32 @@ public interface MenuServiceProxy {
 	 * 添加菜单
 	*/
 	@RequestMapping(MenuServiceProxy.INSERT)
-	Result<Menu> insert(MenuVO menuVO);
+	Result insert(MenuVO menuVO);
 	
 	/**
 	 * 删除菜单
 	*/
 	@RequestMapping(MenuServiceProxy.DELETE)
-	Result<Menu> deleteById(String id);
+	Result deleteById(String id);
 	
 	
 	/**
 	 * 批量删除菜单
 	*/
 	@RequestMapping(MenuServiceProxy.BATCH_DELETE)
-	Result<Menu> deleteByIds(List<String> id);
+	Result deleteByIds(List<String> id);
 	
 	/**
 	 * 更新菜单
 	*/
 	@RequestMapping(MenuServiceProxy.UPDATE)
-	Result<Menu> update(MenuVO menuVO);
+	Result update(MenuVO menuVO);
 	
 	/**
 	 * 更新菜单
 	*/
 	@RequestMapping(MenuServiceProxy.SAVE)
-	Result<Menu> save(MenuVO menuVO);
+	Result save(MenuVO menuVO);
 	
 	/**
 	 * 获取菜单

@@ -1,19 +1,16 @@
 package org.github.foxnic.web.proxy.oauth;
 
-import java.util.List;
-import org.springframework.web.bind.annotation.RequestMapping;
-import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.api.transter.Result;
-
-import org.github.foxnic.web.proxy.FeignConfiguration;
-
-import org.springframework.cloud.openfeign.FeignClient;
-
-
+import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.domain.oauth.RoleUser;
 import org.github.foxnic.web.domain.oauth.RoleUserVO;
-import org.github.foxnic.web.proxy.api.APIProxy;
+import org.github.foxnic.web.proxy.FeignConfiguration;
 import org.github.foxnic.web.proxy.MicroServiceNames;
+import org.github.foxnic.web.proxy.api.APIProxy;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 /**
  * <p>
@@ -98,32 +95,32 @@ public interface RoleUserServiceProxy {
 	 * 添加角色账户关系
 	*/
 	@RequestMapping(RoleUserServiceProxy.INSERT)
-	Result<RoleUser> insert(RoleUserVO roleUserVO);
+	Result insert(RoleUserVO roleUserVO);
 	
 	/**
 	 * 删除角色账户关系
 	*/
 	@RequestMapping(RoleUserServiceProxy.DELETE)
-	Result<RoleUser> deleteById(String id);
+	Result deleteById(String id);
 	
 	
 	/**
 	 * 批量删除角色账户关系
 	*/
 	@RequestMapping(RoleUserServiceProxy.BATCH_DELETE)
-	Result<RoleUser> deleteByIds(List<String> id);
+	Result deleteByIds(List<String> id);
 	
 	/**
 	 * 更新角色账户关系
 	*/
 	@RequestMapping(RoleUserServiceProxy.UPDATE)
-	Result<RoleUser> update(RoleUserVO roleUserVO);
+	Result update(RoleUserVO roleUserVO);
 	
 	/**
 	 * 更新角色账户关系
 	*/
 	@RequestMapping(RoleUserServiceProxy.SAVE)
-	Result<RoleUser> save(RoleUserVO roleUserVO);
+	Result save(RoleUserVO roleUserVO);
 	
 	/**
 	 * 获取角色账户关系

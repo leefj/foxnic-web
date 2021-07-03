@@ -54,7 +54,7 @@ public class RoleUserServiceImpl extends SuperService<RoleUser> implements IRole
 	 * @return 插入是否成功
 	 * */
 	@Override
-	public boolean insert(RoleUser roleUser) {
+	public Result insert(RoleUser roleUser) {
 		return super.insert(roleUser);
 	}
 	
@@ -64,7 +64,7 @@ public class RoleUserServiceImpl extends SuperService<RoleUser> implements IRole
 	 * @return 插入是否成功
 	 * */
 	@Override
-	public boolean insertList(List<RoleUser> roleUserList) {
+	public Result insertList(List<RoleUser> roleUserList) {
 		return super.insertList(roleUserList);
 	}
 	
@@ -105,7 +105,7 @@ public class RoleUserServiceImpl extends SuperService<RoleUser> implements IRole
 	 * @return 保存是否成功
 	 * */
 	@Override
-	public boolean update(RoleUser roleUser , SaveMode mode) {
+	public Result update(RoleUser roleUser , SaveMode mode) {
 		return super.update(roleUser , mode);
 	}
 	
@@ -116,7 +116,7 @@ public class RoleUserServiceImpl extends SuperService<RoleUser> implements IRole
 	 * @return 保存是否成功
 	 * */
 	@Override
-	public boolean updateList(List<RoleUser> roleUserList , SaveMode mode) {
+	public Result updateList(List<RoleUser> roleUserList , SaveMode mode) {
 		return super.updateList(roleUserList , mode);
 	}
 	

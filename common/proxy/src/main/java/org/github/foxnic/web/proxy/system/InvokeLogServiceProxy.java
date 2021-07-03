@@ -19,7 +19,7 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  * 调用统计日志  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-26 10:48:09
+ * @since 2021-07-03 16:01:50
 */
 
 @FeignClient(value = MicroServiceNames.SYSTEM, contextId = InvokeLogServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)
@@ -49,13 +49,12 @@ public interface InvokeLogServiceProxy {
 	 * 删除调用统计日志
 	 */
 	public static final String DELETE = API_PREFIX + "delete";
-	
-	
+
 	/**
 	 * 批量删除调用统计日志
 	 */
-	public static final String BATCH_DELETE = API_PREFIX + "batch-delete";
-	
+	public static final String DELETE_BY_IDS = API_PREFIX + "delete-by-ids";
+	;
 	
 	/**
 	 * 更新调用统计日志
@@ -69,10 +68,16 @@ public interface InvokeLogServiceProxy {
 	public static final String SAVE = API_PREFIX + "save";
 	
 	/**
-	 * 获取调用统计日志
+	 * 获取单个调用统计日志
 	 */
 	public static final String GET_BY_ID = API_PREFIX + "get-by-id";
-	
+
+	/**
+	 * 获取多个调用统计日志
+	 */
+	public static final String GET_BY_IDS = API_PREFIX + "get-by-ids";
+	;
+
 	/**
 	 * 查询调用统计日志
 	 */
@@ -102,39 +107,43 @@ public interface InvokeLogServiceProxy {
 	 * 添加调用统计日志
 	*/
 	@RequestMapping(InvokeLogServiceProxy.INSERT)
-	Result<InvokeLog> insert(InvokeLogVO invokeLogVO);
+	Result insert(InvokeLogVO invokeLogVO);
 	
 	/**
 	 * 删除调用统计日志
 	*/
 	@RequestMapping(InvokeLogServiceProxy.DELETE)
-	Result<InvokeLog> deleteById(Long id);
-	
-	
+	Result deleteById(Long id);
+
 	/**
 	 * 批量删除调用统计日志
 	*/
-	@RequestMapping(InvokeLogServiceProxy.BATCH_DELETE)
-	Result<InvokeLog> deleteByIds(List<Long> id);
-	
+	@RequestMapping(InvokeLogServiceProxy.DELETE_BY_IDS)
+	Result deleteByIds(List<Long> ids);
+
 	/**
 	 * 更新调用统计日志
 	*/
 	@RequestMapping(InvokeLogServiceProxy.UPDATE)
-	Result<InvokeLog> update(InvokeLogVO invokeLogVO);
+	Result update(InvokeLogVO invokeLogVO);
 	
 	/**
 	 * 更新调用统计日志
 	*/
 	@RequestMapping(InvokeLogServiceProxy.SAVE)
-	Result<InvokeLog> save(InvokeLogVO invokeLogVO);
+	Result save(InvokeLogVO invokeLogVO);
 	
 	/**
 	 * 获取调用统计日志
 	*/
 	@RequestMapping(InvokeLogServiceProxy.GET_BY_ID)
 	Result<InvokeLog> getById(Long id);
-	
+
+	/**
+	 * 批量删除调用统计日志
+	*/
+	@RequestMapping(InvokeLogServiceProxy.GET_BY_IDS)
+	Result<List<InvokeLog>> getByIds(List<Long> ids);
 	/**
 	 * 查询调用统计日志
 	*/
