@@ -1,7 +1,7 @@
 /**
  * 系统资源 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-03 15:54:44
+ * @since 2021-07-03 18:46:22
  */
 
 
@@ -44,9 +44,9 @@ function ListPage() {
 				{  fixed: 'left',type: 'numbers' },
 			 	{  fixed: 'left',type:'checkbox' },
                 { field: 'name', sort: true, title: fox.translate('名称')} ,
-                { field: 'type', sort: true, title: fox.translate('类型')} ,
+				{ field: 'type', sort: true, title: fox.translate('类型'), templet:function (d){ return fox.getEnumText(RADIO_TYPE_DATA,d.type);}} ,
                 { field: 'url', sort: true, title: fox.translate('地址')} ,
-                { field: 'method', sort: true, title: fox.translate('Method')} ,
+				{ field: 'method', sort: true, title: fox.translate('Method'), templet:function (d){ return d.method;}} ,
                 { field: 'tableName', sort: true, title: fox.translate('数据表')} ,
                 { field: 'module', sort: true, title: fox.translate('模块')} ,
 				{ field: 'createTime', sort: true, title: fox.translate('创建时间'), templet: function (d) { return fox.dateFormat(d.createTime); }} ,

@@ -243,7 +243,7 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"xmSe
  			//debugger
 			if(defaultsLangs==null)
 			{
-				debugger;
+				//debugger;
 				codeLangs=localStorage.getItem("language_codeLangs");
 				if(codeLangs && codeLangs.length>2) {
 					codeLangs=JSON.parse(codeLangs);
@@ -335,6 +335,22 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"xmSe
     		if(!t) return "";
     		return util.toDateString(t,f);
     	},
+
+		getEnumText:function (list,code){
+    		if(!list) return code;
+			for (var i = 0; i < list.length; i++) {
+				if(list[i]["code"]==code) return list[i]["text"];
+			}
+			return code;
+		},
+
+		getDoctText:function (list,code){
+			if(!list) return code;
+			for (var i = 0; i < list.length; i++) {
+				if(list[i]["code"]==code) return list[i]["text"];
+			}
+			return code;
+		},
 
     	/**
     	 * 绑定Switch开关

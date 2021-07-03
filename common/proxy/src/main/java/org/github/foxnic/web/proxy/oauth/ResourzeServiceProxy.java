@@ -1,23 +1,25 @@
 package org.github.foxnic.web.proxy.oauth;
 
-import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.dao.data.PagedList;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.github.foxnic.web.proxy.api.APIProxy;
+import org.github.foxnic.web.proxy.FeignConfiguration;
+
+import org.springframework.cloud.openfeign.FeignClient;
+
+
 import org.github.foxnic.web.domain.oauth.Resourze;
 import org.github.foxnic.web.domain.oauth.ResourzeVO;
-import org.github.foxnic.web.proxy.FeignConfiguration;
-import org.github.foxnic.web.proxy.MicroServiceNames;
-import org.github.foxnic.web.proxy.api.APIProxy;
-import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import java.util.List;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.dao.data.PagedList;
+import org.github.foxnic.web.proxy.MicroServiceNames;
 
 /**
  * <p>
  * 系统资源  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-03 15:54:43
+ * @since 2021-07-03 18:46:21
 */
 
 @FeignClient(value = MicroServiceNames.OAUTH, contextId = ResourzeServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)

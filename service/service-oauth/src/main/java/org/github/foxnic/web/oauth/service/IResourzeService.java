@@ -21,7 +21,7 @@ import com.github.foxnic.dao.data.SaveMode;
  * 系统资源 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-03 15:54:43
+ * @since 2021-07-03 18:46:21
 */
 
 public interface IResourzeService extends ISuperService<Resourze> {

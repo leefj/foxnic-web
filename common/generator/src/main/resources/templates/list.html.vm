@@ -70,7 +70,18 @@
 #end
 
 <script th:inline="javascript">
-    var LAYUI_TABLE_WIDTH_CONFIG= [[${layuiTableWidthConfig}]];
+    var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];
+    #for(f:fields)
+    #if(f.isRadioField)
+    #if(f.radioField.dictCode!=null)
+    var RADIO_#(f.varName.toUpperCase())_DATA = [[${dict.toArray('#(f.radioField.dictCode)')}]];
+    #end
+    #if(f.radioField.enumTypeName!=null)
+    var RADIO_#(f.varName.toUpperCase())_DATA = [[${enum.toArray('#(f.radioField.enumTypeName)')}]];
+    #end
+    #else if(f.isSelectField)
+    #end
+    #end
 </script>
 
 <script src="#(jsURI)"></script>

@@ -2,7 +2,7 @@
 /**
  * 系统资源 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-03 15:54:43
+ * @since 2021-07-03 18:46:21
  */
  -->
  <!DOCTYPE html>
@@ -61,7 +61,9 @@
 
 
 <script th:inline="javascript">
-    var LAYUI_TABLE_WIDTH_CONFIG= [[${layuiTableWidthConfig}]];
+    var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];
+    var RADIO_TYPE_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.ResourceType')}]];
+    var RADIO_METHOD_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.HttpMethodType')}]];
 </script>
 
 <script src="/business/oauth/resourze/resourze_list.js"></script>

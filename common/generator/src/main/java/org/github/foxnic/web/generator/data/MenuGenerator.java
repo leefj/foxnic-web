@@ -38,6 +38,7 @@ public class MenuGenerator {
 	
 	public static void main(String[] args) {
 
+
 		MenuGenerator mg=null;
 
 		//资源
