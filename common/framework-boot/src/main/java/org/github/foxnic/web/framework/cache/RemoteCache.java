@@ -33,6 +33,14 @@ public class RemoteCache<V> extends Cache<String, V> {
 		this.cache= SpringUtil.getBean(RedisUtil.class);
 		
 	}
+
+	/**
+	 * 是否可用
+	 * */
+	public  boolean isValid() {
+		if(this.cache==null) return false;
+		return this.cache.isValid();
+	}
 	
 	private String getRedisKey(String key)
 	{

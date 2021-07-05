@@ -248,6 +248,7 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 
 		cfg.getPoClassFile().addSimpleProperty(String.class,"path","页面路径","");
 		cfg.getPoClassFile().addListProperty(String.class,"resourceIds","资源ID清单","");
+		cfg.getPoClassFile().addSimpleProperty(String.class,"ancestorsNamePath","祖先名称路径","用斜杠隔开");
 
 		cfg.field(SYS_MENU.PATH_RESOURCE_ID).selectField().queryApi(ResourzeServiceProxy.QUERY_PAGED_LIST).muliti(false).paging(true).fillBy(MenuVOMeta.PATH_RESOURCE_ID);
 		cfg.field(MenuMeta.RESOURCE_IDS).label("资源清单").selectField().queryApi(ResourzeServiceProxy.QUERY_PAGED_LIST).muliti(true).paging(true).fillBy(MenuVOMeta.RESOURCE_IDS);

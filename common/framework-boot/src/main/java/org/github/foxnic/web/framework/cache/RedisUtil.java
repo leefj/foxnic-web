@@ -54,6 +54,15 @@ public class RedisUtil {
         	this.redisTemplate.setValueSerializer(VALUE_SERIALIZER);
         }
     }
+
+
+    /**
+     * redis 是否可用
+     * */
+    public boolean isValid() {
+        if(this.getConnectionFactory()==null) return false;
+        return  true;
+    }
     
     //=============================common============================  
 
