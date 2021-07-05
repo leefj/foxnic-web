@@ -1,34 +1,32 @@
 package org.github.foxnic.web.oauth.service.impl;
 
 
-import javax.annotation.Resource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-
-import org.github.foxnic.web.domain.oauth.Resourze;
-import org.github.foxnic.web.domain.oauth.ResourzeVO;
-import java.util.List;
-import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.entity.SuperService;
-import com.github.foxnic.dao.spec.DAO;
-import java.lang.reflect.Field;
-import com.github.foxnic.commons.busi.id.IDGenerator;
-import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.dao.data.PagedList;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.SuperService;
+import com.github.foxnic.dao.excel.ExcelStructure;
 import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.dao.excel.ExcelStructure;
-import java.io.InputStream;
+import com.github.foxnic.dao.spec.DAO;
+import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.meta.DBColumnMeta;
-import com.github.foxnic.sql.expr.Select;
-import java.util.ArrayList;
-import org.github.foxnic.web.oauth.service.IResourzeService;
+import org.github.foxnic.web.domain.oauth.Resourze;
 import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.github.foxnic.web.oauth.service.IResourzeService;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.util.matcher.RequestMatcher;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.io.InputStream;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -65,7 +63,11 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 	 * */
 	@Override
 	public Result insert(Resourze resourze) {
-		return super.insert(resourze);
+		Result result=super.insert(resourze);
+		if(result.success()) {
+			clearCatchedResourzes();
+		}
+		return result;
 	}
 	
 	/**
@@ -75,7 +77,11 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 	 * */
 	@Override
 	public Result insertList(List<Resourze> resourzeList) {
-		return super.insertList(resourzeList);
+		Result result= super.insertList(resourzeList);
+		if(result.success()) {
+			clearCatchedResourzes();
+		}
+		return result;
 	}
 	
 	
@@ -91,6 +97,9 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 		resourze.setId(id);
 		try {
 			boolean suc = dao.deleteEntity(resourze);
+			if(suc) {
+				clearCatchedResourzes();
+			}
 			return suc?ErrorDesc.success():ErrorDesc.failure();
 		}
 		catch(Exception e) {
@@ -115,6 +124,9 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 		resourze.setDeleteTime(new Date());
 		try {
 			boolean suc = dao.updateEntity(resourze,SaveMode.NOT_NULL_FIELDS);
+			if(suc) {
+				clearCatchedResourzes();
+			}
 			return suc?ErrorDesc.success():ErrorDesc.failure();
 		}
 		catch(Exception e) {
@@ -132,7 +144,11 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 	 * */
 	@Override
 	public Result update(Resourze resourze , SaveMode mode) {
-		return super.update(resourze , mode);
+		Result result=super.update(resourze , mode);
+		if(result.success()) {
+			clearCatchedResourzes();
+		}
+		return result;
 	}
 	
 	/**
@@ -143,7 +159,11 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 	 * */
 	@Override
 	public Result updateList(List<Resourze> resourzeList , SaveMode mode) {
-		return super.updateList(resourzeList , mode);
+		Result result=super.updateList(resourzeList , mode);
+		if(result.success()) {
+			clearCatchedResourzes();
+		}
+		return result;
 	}
 	
 	
@@ -157,6 +177,9 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null ");
 		if(!field.table().name().equals(this.table())) throw new IllegalArgumentException("更新的数据表["+field.table().name()+"]与服务对应的数据表["+this.table()+"]不一致");
 		int suc=dao.update(field.table().name()).set(field.name(), value).where().and("id = ? ",id).top().execute();
+		if(suc>0) {
+			clearCatchedResourzes();
+		}
 		return suc>0;
 	} 
 	
@@ -248,9 +271,43 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 		return super.importExcel(input,sheetIndex,batch);
 	}
 
+	private List<Resourze>  catchedResourzes=null;
+	private List<AntPathRequestMatcher>  catchedAntPathRequestMatchers=null;
+
+	private void clearCatchedResourzes() {
+		this.catchedResourzes=null;
+		this.catchedAntPathRequestMatchers=null;
+	}
+
+	@Override
+	public List<Resourze> getMatchd(HttpServletRequest request) {
+		if(catchedResourzes==null || catchedResourzes.isEmpty()) {
+			catchedResourzes = this.queryList(Resourze.create());
+			catchedAntPathRequestMatchers=new ArrayList<>();
+			for (int i = 0; i < catchedResourzes.size(); i++) {
+				Resourze resourze =catchedResourzes.get(i);
+				AntPathRequestMatcher ant=new AntPathRequestMatcher(resourze.getUrl(),resourze.getMethod(),true);
+				catchedAntPathRequestMatchers.add(ant);
+			}
+		}
+
+		//
+		List<Resourze> matchs=new ArrayList<>();
+		for (int i = 0; i < catchedResourzes.size(); i++) {
+			Resourze resourze =catchedResourzes.get(i);
+			AntPathRequestMatcher ant=catchedAntPathRequestMatchers.get(i);
+			RequestMatcher.MatchResult r=ant.matcher(request);
+			if(r.isMatch()) {
+				matchs.add(resourze);
+			}
+		}
+		return matchs;
+	}
+
 	@Override
 	public ExcelStructure buildExcelStructure(boolean isForExport) {
 		return super.buildExcelStructure(isForExport);
 	}
+
 
 }

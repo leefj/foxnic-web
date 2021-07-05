@@ -1,16 +1,16 @@
 package org.github.foxnic.web.oauth.service;
-import java.util.List;
-
 import com.github.foxnic.api.transter.Result;
-import org.github.foxnic.web.domain.oauth.Menu;
-import org.github.foxnic.web.misc.ztree.ZTreeNode;
-
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.entity.ISuperService;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.expr.OrderBy;
 import com.github.foxnic.sql.meta.DBField;
+import org.github.foxnic.web.domain.oauth.Menu;
+import org.github.foxnic.web.domain.oauth.Resourze;
+import org.github.foxnic.web.misc.ztree.ZTreeNode;
+
+import java.util.List;
 
 /**
  * <p>
@@ -276,5 +276,6 @@ public interface IMenuService extends ISuperService<Menu> {
 	List<ZTreeNode> queryChildNodes(String parentId);
 
 	Boolean saveHierarchy(List<String> ids, String parentId);
- 
+
+    List<Menu> getRelatedMenus(List<Resourze> matchs);
 }

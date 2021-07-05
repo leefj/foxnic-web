@@ -3,6 +3,7 @@ package org.github.foxnic.web.oauth.service.impl;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.commons.collection.CollectorUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.Rcd;
@@ -10,12 +11,16 @@ import com.github.foxnic.dao.data.RcdSet;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.dao.spec.DAO;
+import com.github.foxnic.dao.sql.expr.Template;
 import com.github.foxnic.sql.expr.ConditionExpr;
+import com.github.foxnic.sql.expr.In;
 import com.github.foxnic.sql.meta.DBField;
 import com.github.foxnic.sql.parameter.BatchParamBuilder;
+import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_MENU;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.Resourze;
+import org.github.foxnic.web.domain.oauth.meta.MenuMeta;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.language.LanguageService;
 import org.github.foxnic.web.misc.ztree.ZTreeNode;
@@ -28,6 +33,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -42,7 +48,9 @@ import java.util.List;
 
 @Service("SysMenuService")
 public class MenuServiceImpl extends SuperService<Menu> implements IMenuService {
-	
+
+
+
 	/**
 	 * 注入DAO对象
 	 * */
@@ -285,5 +293,46 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 		dao.batchExecute("update "+table()+" set parent_id=?,sort=? where id=?",pb.getBatchList());
 		return true;
 	}
- 
+
+	@Override
+	public List<Menu> getRelatedMenus(List<Resourze> matchs) {
+		List<String> ids=CollectorUtil.collectList(matchs,Resourze::getId);
+		//In语句构建
+		In pathResourceIds=new In(SYS_MENU.PATH_RESOURCE_ID,ids);
+		In resourceIds=new In(FoxnicWeb.SYS_MENU_RESOURCE.RESOURCE_ID,ids);
+		//模版渲染
+		Template template=dao().getTemplate("#resource-related-menus")
+				.put("path_resource_ids",pathResourceIds)
+				.put("resource_ids",resourceIds).build();
+		//执行
+		List<Menu> menus=dao().queryEntities(Menu.class,template);
+		//关联所有上级菜单
+		joinAncestors(menus);
+		for (Menu menu : menus) {
+			List<String> path=new ArrayList<>();
+			Menu p=menu;
+			while (true) {
+				path.add(p.getLabel());
+				p=p.getParent();
+				if(p==null) break;
+			}
+			Collections.reverse(path);
+			menu.setAncestorsNamePath(StringUtil.join(path," / "));
+		}
+		return menus;
+	}
+
+	private void joinAncestors(List<Menu> menus) {
+		List<Menu> parents=new ArrayList<>();
+		dao().join(menus, MenuMeta.PARENT);
+		for (Menu menu : menus) {
+			if(menu.getParent()!=null) {
+				parents.add(menu);
+			}
+		}
+		if(!parents.isEmpty()) {
+			joinAncestors(parents);
+		}
+	}
+
 }
