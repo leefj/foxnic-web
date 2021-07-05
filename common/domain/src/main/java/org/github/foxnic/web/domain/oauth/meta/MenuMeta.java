@@ -9,8 +9,8 @@ import java.util.List;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-01 11:53:23
- * @sign 071824283E2A86BACB5853B761EFE875
+ * @since 2021-07-05 16:52:36
+ * @sign 743A723F6E05153693E8885F06AE769B
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -122,6 +122,11 @@ public class MenuMeta {
 	public static final String RESOURCES="resources";
 	
 	/**
+	 * 上级菜单
+	*/
+	public static final String PARENT="parent";
+	
+	/**
 	 * 页面路径
 	*/
 	public static final String PATH="path";
@@ -132,9 +137,14 @@ public class MenuMeta {
 	public static final String RESOURCE_IDS="resourceIds";
 	
 	/**
+	 * 祖先名称路径 , 用斜杠隔开
+	*/
+	public static final String ANCESTORS_NAME_PATH="ancestorsNamePath";
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , BATCH_ID , AUTHORITY , HIDDEN , CSS , LABEL , TYPE , PATH_RESOURCE_ID , URL , PARENT_ID , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , PATH_RESOURCE , RESOURCES , PATH , RESOURCE_IDS };
+	public static final String[] $PROPS={ ID , BATCH_ID , AUTHORITY , HIDDEN , CSS , LABEL , TYPE , PATH_RESOURCE_ID , URL , PARENT_ID , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , PATH_RESOURCE , RESOURCES , PARENT , PATH , RESOURCE_IDS , ANCESTORS_NAME_PATH };
 	
 	/**
 	 * 代理类
@@ -376,6 +386,17 @@ public class MenuMeta {
 		}
 		
 		/**
+		 * 设置 上级菜单
+		 * @param parent 上级菜单
+		 * @return 当前对象
+		*/
+		public Menu setParent(Menu parent) {
+			super.change(PARENT,super.getParent(),parent);
+			super.setParent(parent);
+			return this;
+		}
+		
+		/**
 		 * 设置 页面路径
 		 * @param path 页面路径
 		 * @return 当前对象
@@ -394,6 +415,17 @@ public class MenuMeta {
 		public Menu setResourceIds(List<String> resourceIds) {
 			super.change(RESOURCE_IDS,super.getResourceIds(),resourceIds);
 			super.setResourceIds(resourceIds);
+			return this;
+		}
+		
+		/**
+		 * 设置 祖先名称路径
+		 * @param ancestorsNamePath 祖先名称路径
+		 * @return 当前对象
+		*/
+		public Menu setAncestorsNamePath(String ancestorsNamePath) {
+			super.change(ANCESTORS_NAME_PATH,super.getAncestorsNamePath(),ancestorsNamePath);
+			super.setAncestorsNamePath(ancestorsNamePath);
 			return this;
 		}
 	}

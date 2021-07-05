@@ -41,8 +41,13 @@ public class OAuthRelationManager extends RelationManager {
 				return res;
 		}).fork(32);
 
-
-
+		/**
+		 * 上级菜单
+		 * */
+		this.property(Menu.class,"parent",Menu.class,"上级菜单","").single()
+		.using(SYS_MENU.PARENT_ID).join(SYS_MENU.ID).after((menu,parents)->{
+			return parents;
+		});
 	}
 
 	/**

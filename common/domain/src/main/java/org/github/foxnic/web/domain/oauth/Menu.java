@@ -18,8 +18,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-01 11:53:23
- * @sign 071824283E2A86BACB5853B761EFE875
+ * @since 2021-07-05 16:52:36
+ * @sign 743A723F6E05153693E8885F06AE769B
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -158,6 +158,12 @@ public class Menu extends Entity {
 	private List<Resourze> resources;
 	
 	/**
+	 * 上级菜单
+	*/
+	@ApiModelProperty(required = false,value="上级菜单" , notes = "")
+	private Menu parent;
+	
+	/**
 	 * 页面路径
 	*/
 	@ApiModelProperty(required = false,value="页面路径" , notes = "")
@@ -168,6 +174,12 @@ public class Menu extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="资源ID清单" , notes = "")
 	private List<String> resourceIds;
+	
+	/**
+	 * 祖先名称路径：用斜杠隔开
+	*/
+	@ApiModelProperty(required = false,value="祖先名称路径" , notes = "用斜杠隔开")
+	private String ancestorsNamePath;
 	
 	/**
 	 * 获得 ID<br>
@@ -578,6 +590,24 @@ public class Menu extends Entity {
 	}
 	
 	/**
+	 * 获得 上级菜单<br>
+	 * @return 上级菜单
+	*/
+	public Menu getParent() {
+		return parent;
+	}
+	
+	/**
+	 * 设置 上级菜单
+	 * @param parent 上级菜单
+	 * @return 当前对象
+	*/
+	public Menu setParent(Menu parent) {
+		this.parent=parent;
+		return this;
+	}
+	
+	/**
 	 * 获得 页面路径<br>
 	 * @return 页面路径
 	*/
@@ -621,6 +651,25 @@ public class Menu extends Entity {
 	public Menu addResourceId(String resourceId) {
 		if(this.resourceIds==null) resourceIds=new ArrayList<>();
 		this.resourceIds.add(resourceId);
+		return this;
+	}
+	
+	/**
+	 * 获得 祖先名称路径<br>
+	 * 属性说明 : 用斜杠隔开
+	 * @return 祖先名称路径
+	*/
+	public String getAncestorsNamePath() {
+		return ancestorsNamePath;
+	}
+	
+	/**
+	 * 设置 祖先名称路径
+	 * @param ancestorsNamePath 祖先名称路径
+	 * @return 当前对象
+	*/
+	public Menu setAncestorsNamePath(String ancestorsNamePath) {
+		this.ancestorsNamePath=ancestorsNamePath;
 		return this;
 	}
 
