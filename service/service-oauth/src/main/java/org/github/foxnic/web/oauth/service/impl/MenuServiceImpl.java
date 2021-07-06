@@ -301,7 +301,7 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 		In pathResourceIds=new In(SYS_MENU.PATH_RESOURCE_ID,ids);
 		In resourceIds=new In(FoxnicWeb.SYS_MENU_RESOURCE.RESOURCE_ID,ids);
 		//模版渲染
-		Template template=dao().getTemplate("#resource-related-menus")
+		Template template=dao().getTemplate("#resource-related-menus",1,2)
 				.put("path_resource_ids",pathResourceIds)
 				.put("resource_ids",resourceIds).build();
 		//执行
