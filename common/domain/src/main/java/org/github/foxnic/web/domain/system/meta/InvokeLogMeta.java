@@ -7,8 +7,8 @@ import java.sql.Timestamp;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-19 08:22:05
- * @sign EF2F8E7F4D11E5D78A1DC6831B2892B6
+ * @since 2021-07-06 14:12:29
+ * @sign 259073DE4AB7614135E63D1932FCB4BE
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -18,6 +18,11 @@ public class InvokeLogMeta {
 	 * ID
 	*/
 	public static final String ID="id";
+	
+	/**
+	 * 应用名称
+	*/
+	public static final String APPLICATION="application";
 	
 	/**
 	 * 主机名称
@@ -45,6 +50,11 @@ public class InvokeLogMeta {
 	public static final String TOKEN="token";
 	
 	/**
+	 * 会话ID
+	*/
+	public static final String SESSION_ID="sessionId";
+	
+	/**
 	 * 用户ID
 	*/
 	public static final String USER_ID="userId";
@@ -53,6 +63,11 @@ public class InvokeLogMeta {
 	 * 用户姓名
 	*/
 	public static final String USER_NAME="userName";
+	
+	/**
+	 * 日志跟踪ID
+	*/
+	public static final String TID="tid";
 	
 	/**
 	 * 请求参数
@@ -82,7 +97,7 @@ public class InvokeLogMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , HOST_NAME , URI , USER_AGENT , CLIENT_IP , TOKEN , USER_ID , USER_NAME , PARAMETER , RESPONSE , START_TIME , END_TIME , EXCEPTION };
+	public static final String[] $PROPS={ ID , APPLICATION , HOST_NAME , URI , USER_AGENT , CLIENT_IP , TOKEN , SESSION_ID , USER_ID , USER_NAME , TID , PARAMETER , RESPONSE , START_TIME , END_TIME , EXCEPTION };
 	
 	/**
 	 * 代理类
@@ -100,6 +115,17 @@ public class InvokeLogMeta {
 		public InvokeLog setId(Long id) {
 			super.change(ID,super.getId(),id);
 			super.setId(id);
+			return this;
+		}
+		
+		/**
+		 * 设置 应用名称
+		 * @param application 应用名称
+		 * @return 当前对象
+		*/
+		public InvokeLog setApplication(String application) {
+			super.change(APPLICATION,super.getApplication(),application);
+			super.setApplication(application);
 			return this;
 		}
 		
@@ -159,6 +185,17 @@ public class InvokeLogMeta {
 		}
 		
 		/**
+		 * 设置 会话ID
+		 * @param sessionId 会话ID
+		 * @return 当前对象
+		*/
+		public InvokeLog setSessionId(String sessionId) {
+			super.change(SESSION_ID,super.getSessionId(),sessionId);
+			super.setSessionId(sessionId);
+			return this;
+		}
+		
+		/**
 		 * 设置 用户ID
 		 * @param userId 用户ID
 		 * @return 当前对象
@@ -177,6 +214,17 @@ public class InvokeLogMeta {
 		public InvokeLog setUserName(String userName) {
 			super.change(USER_NAME,super.getUserName(),userName);
 			super.setUserName(userName);
+			return this;
+		}
+		
+		/**
+		 * 设置 日志跟踪ID
+		 * @param tid 日志跟踪ID
+		 * @return 当前对象
+		*/
+		public InvokeLog setTid(String tid) {
+			super.change(TID,super.getTid(),tid);
+			super.setTid(tid);
 			return this;
 		}
 		

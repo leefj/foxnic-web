@@ -3,6 +3,7 @@ package org.github.foxnic.web.oauth.exception;
 import com.github.foxnic.api.error.CommonError;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.commons.collection.CollectorUtil;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.Resourze;
 import org.github.foxnic.web.oauth.service.IMenuService;
@@ -46,7 +47,7 @@ public class RequestDeniedHandler implements AccessDeniedHandler {
             result.message("资源 "+method+" , "+uri+" 未定义，请联系开发人员");
             result.addSolution("需要开发人员在开发时定义，并与菜单关联");
         } else {
-            List<Menu> menus=menuService.getRelatedMenus(matchs);
+            List<Menu> menus=menuService.getRelatedMenus(CollectorUtil.collectList(matchs,Resourze::getId));
             if(menus.isEmpty()) {
                 result.message("资源 "+method+" , "+uri+" 未关联到菜单，请联系开发人员");
                 result.addSolution("需要开发人员将资源与菜单关联");

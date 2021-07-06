@@ -2,7 +2,7 @@
 /**
  * 调用统计日志 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-06 13:35:46
+ * @since 2021-07-06 14:12:29
  */
  -->
  <!DOCTYPE html>
@@ -29,13 +29,16 @@
             <select id="search-field">
                 <option value="" th:text="${lang.translate('-请选择-')}">-请选择-</option>
                 <option value="id" th:text="${lang.translate('ID')}">ID</option>
+                <option value="application" th:text="${lang.translate('应用名称')}">应用名称</option>
                 <option value="hostName" th:text="${lang.translate('主机名称')}">主机名称</option>
                 <option value="uri" th:text="${lang.translate('请求的URI')}">请求的URI</option>
                 <option value="userAgent" th:text="${lang.translate('UserAgent')}">UserAgent</option>
                 <option value="clientIp" th:text="${lang.translate('客户端IP')}">客户端IP</option>
                 <option value="token" th:text="${lang.translate('token值')}">token值</option>
+                <option value="sessionId" th:text="${lang.translate('会话ID')}">会话ID</option>
                 <option value="userId" th:text="${lang.translate('用户ID')}">用户ID</option>
                 <option value="userName" th:text="${lang.translate('用户姓名')}">用户姓名</option>
+                <option value="tid" th:text="${lang.translate('日志跟踪ID')}">日志跟踪ID</option>
                 <option value="parameter" th:text="${lang.translate('请求参数')}">请求参数</option>
                 <option value="response" th:text="${lang.translate('响应数据')}">响应数据</option>
                 <option value="startTime" th:text="${lang.translate('开始时间')}">开始时间</option>

@@ -18,8 +18,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-19 08:22:05
- * @sign EF2F8E7F4D11E5D78A1DC6831B2892B6
+ * @since 2021-07-06 14:12:29
+ * @sign 259073DE4AB7614135E63D1932FCB4BE
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -37,6 +37,12 @@ public class InvokeLog extends Entity {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@ApiModelProperty(required = true,value="ID" , notes = "ID")
 	private Long id;
+	
+	/**
+	 * 应用名称：应用名称
+	*/
+	@ApiModelProperty(required = false,value="应用名称" , notes = "应用名称")
+	private String application;
 	
 	/**
 	 * 主机名称：主机名称
@@ -69,6 +75,12 @@ public class InvokeLog extends Entity {
 	private String token;
 	
 	/**
+	 * 会话ID：会话ID
+	*/
+	@ApiModelProperty(required = false,value="会话ID" , notes = "会话ID")
+	private String sessionId;
+	
+	/**
 	 * 用户ID：用户ID
 	*/
 	@ApiModelProperty(required = false,value="用户ID" , notes = "用户ID")
@@ -79,6 +91,12 @@ public class InvokeLog extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="用户姓名" , notes = "用户姓名")
 	private String userName;
+	
+	/**
+	 * 日志跟踪ID：日志跟踪ID
+	*/
+	@ApiModelProperty(required = false,value="日志跟踪ID" , notes = "日志跟踪ID")
+	private String tid;
 	
 	/**
 	 * 请求参数：请求参数
@@ -112,7 +130,7 @@ public class InvokeLog extends Entity {
 	
 	/**
 	 * 获得 ID<br>
-	 * 属性说明 : ID
+	 * ID
 	 * @return ID
 	*/
 	public Long getId() {
@@ -130,14 +148,27 @@ public class InvokeLog extends Entity {
 	}
 	
 	/**
-	 * 添加 ID
-	 * @param id ID
+	 * 获得 应用名称<br>
+	 * 应用名称
+	 * @return 应用名称
+	*/
+	public String getApplication() {
+		return application;
+	}
+	
+	/**
+	 * 设置 应用名称
+	 * @param application 应用名称
 	 * @return 当前对象
 	*/
+	public InvokeLog setApplication(String application) {
+		this.application=application;
+		return this;
+	}
 	
 	/**
 	 * 获得 主机名称<br>
-	 * 属性说明 : 主机名称
+	 * 主机名称
 	 * @return 主机名称
 	*/
 	public String getHostName() {
@@ -155,14 +186,8 @@ public class InvokeLog extends Entity {
 	}
 	
 	/**
-	 * 添加 主机名称
-	 * @param hostName 主机名称
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 请求的URI<br>
-	 * 属性说明 : 请求的URI
+	 * 请求的URI
 	 * @return 请求的URI
 	*/
 	public String getUri() {
@@ -180,14 +205,8 @@ public class InvokeLog extends Entity {
 	}
 	
 	/**
-	 * 添加 请求的URI
-	 * @param uri 请求的URI
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 UserAgent<br>
-	 * 属性说明 : UserAgent
+	 * UserAgent
 	 * @return UserAgent
 	*/
 	public String getUserAgent() {
@@ -205,14 +224,8 @@ public class InvokeLog extends Entity {
 	}
 	
 	/**
-	 * 添加 UserAgent
-	 * @param userAgent UserAgent
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 客户端IP<br>
-	 * 属性说明 : 客户端IP
+	 * 客户端IP
 	 * @return 客户端IP
 	*/
 	public String getClientIp() {
@@ -230,14 +243,8 @@ public class InvokeLog extends Entity {
 	}
 	
 	/**
-	 * 添加 客户端IP
-	 * @param clientIp 客户端IP
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 token值<br>
-	 * 属性说明 : token值
+	 * token值
 	 * @return token值
 	*/
 	public String getToken() {
@@ -255,14 +262,27 @@ public class InvokeLog extends Entity {
 	}
 	
 	/**
-	 * 添加 token值
-	 * @param token token值
+	 * 获得 会话ID<br>
+	 * 会话ID
+	 * @return 会话ID
+	*/
+	public String getSessionId() {
+		return sessionId;
+	}
+	
+	/**
+	 * 设置 会话ID
+	 * @param sessionId 会话ID
 	 * @return 当前对象
 	*/
+	public InvokeLog setSessionId(String sessionId) {
+		this.sessionId=sessionId;
+		return this;
+	}
 	
 	/**
 	 * 获得 用户ID<br>
-	 * 属性说明 : 用户ID
+	 * 用户ID
 	 * @return 用户ID
 	*/
 	public Long getUserId() {
@@ -280,14 +300,8 @@ public class InvokeLog extends Entity {
 	}
 	
 	/**
-	 * 添加 用户ID
-	 * @param userId 用户ID
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 用户姓名<br>
-	 * 属性说明 : 用户姓名
+	 * 用户姓名
 	 * @return 用户姓名
 	*/
 	public String getUserName() {
@@ -305,14 +319,27 @@ public class InvokeLog extends Entity {
 	}
 	
 	/**
-	 * 添加 用户姓名
-	 * @param userName 用户姓名
+	 * 获得 日志跟踪ID<br>
+	 * 日志跟踪ID
+	 * @return 日志跟踪ID
+	*/
+	public String getTid() {
+		return tid;
+	}
+	
+	/**
+	 * 设置 日志跟踪ID
+	 * @param tid 日志跟踪ID
 	 * @return 当前对象
 	*/
+	public InvokeLog setTid(String tid) {
+		this.tid=tid;
+		return this;
+	}
 	
 	/**
 	 * 获得 请求参数<br>
-	 * 属性说明 : 请求参数
+	 * 请求参数
 	 * @return 请求参数
 	*/
 	public String getParameter() {
@@ -330,14 +357,8 @@ public class InvokeLog extends Entity {
 	}
 	
 	/**
-	 * 添加 请求参数
-	 * @param parameter 请求参数
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 响应数据<br>
-	 * 属性说明 : 响应数据
+	 * 响应数据
 	 * @return 响应数据
 	*/
 	public String getResponse() {
@@ -355,14 +376,8 @@ public class InvokeLog extends Entity {
 	}
 	
 	/**
-	 * 添加 响应数据
-	 * @param response 响应数据
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 开始时间<br>
-	 * 属性说明 : 开始时间
+	 * 开始时间
 	 * @return 开始时间
 	*/
 	public Timestamp getStartTime() {
@@ -380,14 +395,8 @@ public class InvokeLog extends Entity {
 	}
 	
 	/**
-	 * 添加 开始时间
-	 * @param startTime 开始时间
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 结束时间<br>
-	 * 属性说明 : 结束时间
+	 * 结束时间
 	 * @return 结束时间
 	*/
 	public Timestamp getEndTime() {
@@ -405,14 +414,8 @@ public class InvokeLog extends Entity {
 	}
 	
 	/**
-	 * 添加 结束时间
-	 * @param endTime 结束时间
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 异常信息<br>
-	 * 属性说明 : 异常信息
+	 * 异常信息
 	 * @return 异常信息
 	*/
 	public String getException() {
@@ -428,12 +431,6 @@ public class InvokeLog extends Entity {
 		this.exception=exception;
 		return this;
 	}
-	
-	/**
-	 * 添加 异常信息
-	 * @param exception 异常信息
-	 * @return 当前对象
-	*/
 
 	/**
 	 * 将自己转换成指定类型的PO

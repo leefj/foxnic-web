@@ -1,45 +1,43 @@
 package org.github.foxnic.web.oauth.controller;
 
  
-import java.util.List;
-
-import org.springframework.web.bind.annotation.RestController;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.api.validate.annotations.NotNull;
+import com.github.foxnic.commons.io.StreamUtil;
+import com.github.foxnic.dao.data.PagedList;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.excel.ExcelWriter;
+import com.github.foxnic.dao.excel.ValidateResult;
+import com.github.foxnic.springboot.web.DownloadUtil;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
+import com.github.xiaoymin.knife4j.annotations.ApiSort;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import org.github.foxnic.web.domain.oauth.Menu;
+import org.github.foxnic.web.domain.oauth.Resourze;
+import org.github.foxnic.web.domain.oauth.ResourzeVO;
+import org.github.foxnic.web.domain.oauth.meta.ResourzeVOMeta;
+import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
+import org.github.foxnic.web.framework.web.SuperController;
+import org.github.foxnic.web.oauth.service.IMenuService;
+import org.github.foxnic.web.oauth.service.IResourzeService;
+import org.github.foxnic.web.proxy.oauth.ResourzeServiceProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import org.github.foxnic.web.framework.web.SuperController;
-import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
 import org.springframework.web.bind.annotation.RequestMapping;
-import javax.servlet.http.HttpServletResponse;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-
-import org.github.foxnic.web.proxy.oauth.ResourzeServiceProxy;
-import org.github.foxnic.web.domain.oauth.meta.ResourzeVOMeta;
-import org.github.foxnic.web.domain.oauth.Resourze;
-import org.github.foxnic.web.domain.oauth.ResourzeVO;
-import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.springboot.web.DownloadUtil;
-import com.github.foxnic.dao.data.PagedList;
-import java.util.Date;
-import java.sql.Timestamp;
-import com.github.foxnic.api.error.ErrorDesc;
-import com.github.foxnic.commons.io.StreamUtil;
-import java.util.Map;
-import com.github.foxnic.dao.excel.ValidateResult;
+import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
-import io.swagger.annotations.Api;
-import com.github.xiaoymin.knife4j.annotations.ApiSort;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiImplicitParam;
-import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import com.alibaba.csp.sentinel.annotation.SentinelResource;
-import org.github.foxnic.web.oauth.service.IResourzeService;
-import com.github.foxnic.api.validate.annotations.NotNull;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -56,6 +54,9 @@ public class ResourzeController extends SuperController {
 
 	@Autowired
 	private IResourzeService resourzeService;
+
+	@Autowired
+	private IMenuService menuService;
 
 	
 	/**
@@ -94,7 +95,16 @@ public class ResourzeController extends SuperController {
 	@SentinelResource(value = ResourzeServiceProxy.DELETE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(ResourzeServiceProxy.DELETE)
 	public Result deleteById(String id) {
-		Result result=resourzeService.deleteByIdLogical(id);
+		List<Menu> menus=menuService.getRelatedMenus(Arrays.asList(id));
+		Result result = null;
+		if(menus.size()==0) {
+			result = resourzeService.deleteByIdPhysical(id);
+		} else {
+			result = ErrorDesc.failure().message("资源已经被使用，不允许删除！");
+			for (Menu menu : menus) {
+				result.addSolution(menu.getAncestorsNamePath());
+			}
+		}
 		return result;
 	}
 	
@@ -112,7 +122,16 @@ public class ResourzeController extends SuperController {
 	@SentinelResource(value = ResourzeServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(ResourzeServiceProxy.DELETE_BY_IDS)
 	public Result deleteByIds(List<String> ids) {
-		Result result=resourzeService.deleteByIdsLogical(ids);
+		List<Menu> menus=menuService.getRelatedMenus(ids);
+		Result result = null;
+		if(menus.size()==0) {
+			result = resourzeService.deleteByIdsLogical(ids);
+		} else {
+			result = ErrorDesc.failure().message("资源已经被使用，不允许删除！");
+			for (Menu menu : menus) {
+				result.addSolution(menu.getAncestorsNamePath());
+			}
+		}
 		return result;
 	}
 	

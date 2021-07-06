@@ -2,7 +2,7 @@
 /**
  * 调用统计日志 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-06 13:35:46
+ * @since 2021-07-06 14:12:29
  */
  -->
  <!DOCTYPE html>
@@ -23,6 +23,15 @@
 
 <form id="data-form" lay-filter="data-form" class="layui-form model-form" style="display:none">
     <input name="id" id="id"  type="hidden"/>
+    
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('应用名称')}">应用名称</label>
+        <div class="layui-input-block">
+            <input lay-filter="application" id="application" name="application" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('应用名称') }" type="text" class="layui-input"   />
+        </div>
+    </div>
+    
+	
     
     <div class="layui-form-item">
         <label class="layui-form-label" th:text="${lang.translate('主机名称')}">主机名称</label>
@@ -70,6 +79,15 @@
 	
     
     <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('会话ID')}">会话ID</label>
+        <div class="layui-input-block">
+            <input lay-filter="sessionId" id="sessionId" name="sessionId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('会话ID') }" type="text" class="layui-input"   />
+        </div>
+    </div>
+    
+	
+    
+    <div class="layui-form-item">
         <label class="layui-form-label" th:text="${lang.translate('用户ID')}">用户ID</label>
         <div class="layui-input-block">
             <input lay-filter="userId" id="userId" name="userId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('用户ID') }" type="text" class="layui-input"   />
@@ -82,6 +100,15 @@
         <label class="layui-form-label" th:text="${lang.translate('用户姓名')}">用户姓名</label>
         <div class="layui-input-block">
             <input lay-filter="userName" id="userName" name="userName" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('用户姓名') }" type="text" class="layui-input"   />
+        </div>
+    </div>
+    
+	
+    
+    <div class="layui-form-item">
+        <label class="layui-form-label" th:text="${lang.translate('日志跟踪ID')}">日志跟踪ID</label>
+        <div class="layui-input-block">
+            <input lay-filter="tid" id="tid" name="tid" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('日志跟踪ID') }" type="text" class="layui-input"   />
         </div>
     </div>
     

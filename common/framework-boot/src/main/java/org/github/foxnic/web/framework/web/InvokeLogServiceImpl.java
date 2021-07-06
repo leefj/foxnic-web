@@ -1,16 +1,15 @@
 package org.github.foxnic.web.framework.web;
 
-import java.sql.Timestamp;
-
-import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_INVOKE_LOG;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.alibaba.fastjson.JSON;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.springboot.mvc.InvokeLogService;
 import com.github.foxnic.springboot.mvc.RequestParameter;
+import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_INVOKE_LOG;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.sql.Timestamp;
 
 @Service
 public class InvokeLogServiceImpl implements InvokeLogService {
@@ -19,21 +18,21 @@ public class InvokeLogServiceImpl implements InvokeLogService {
 	
 	@Autowired
 	private DAO dao=null;
-	
-//	@Autowired
-//	private ISecurityService securityService;
-	
+
 	public void start(RequestParameter request) {
 //		Insert insert=new Insert(SYS_INVOKE_LOG.$NAME);
 //		insert
+//		.set(SYS_INVOKE_LOG.ID, IDGenerator.getSnowflakeIdString())
+//		.set(SYS_INVOKE_LOG.APPLICATION, SpringUtil.getApplicationName())
 //		.set(SYS_INVOKE_LOG.HOST_NAME, Machine.getHostName())
 //		.set(SYS_INVOKE_LOG.URI,request.getRequest().getRequestURI())
+//		.set(SYS_INVOKE_LOG.USER_AGENT,request.getRequest().getHeader("User-Agent"))
 //		.set(SYS_INVOKE_LOG.CLIENT_IP, request.getRequest().getRemoteHost())
 //		.set(SYS_INVOKE_LOG.START_TIME,new Timestamp(System.currentTimeMillis()))
-//		.set(SYS_INVOKE_LOG.USER_AGENT,request.getRequest().getHeader("User-Agent"))
+//		set(SYS_INVOKE_LOG.ID)
 //		.set(SYS_INVOKE_LOG.PARAMETER, request.getRequestBody());
 //		.set(SYS_INVOKE_LOG.TOKEN, securityService.getToken());
-		
+//
 //		if(securityService.getSessionSubject()!=null && securityService.getSessionSubject().getUser()!=null) {
 //			insert
 //			.set(SYS_INVOKE_LOG.USER_ID, securityService.getSessionSubject().getUser().getId())

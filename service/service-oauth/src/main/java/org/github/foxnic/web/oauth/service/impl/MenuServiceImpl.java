@@ -3,7 +3,6 @@ package org.github.foxnic.web.oauth.service.impl;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.busi.id.IDGenerator;
-import com.github.foxnic.commons.collection.CollectorUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.Rcd;
@@ -295,11 +294,10 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 	}
 
 	@Override
-	public List<Menu> getRelatedMenus(List<Resourze> matchs) {
-		List<String> ids=CollectorUtil.collectList(matchs,Resourze::getId);
+	public List<Menu> getRelatedMenus(List<String> resourzeIds) {
 		//In语句构建
-		In pathResourceIds=new In(SYS_MENU.PATH_RESOURCE_ID,ids);
-		In resourceIds=new In(FoxnicWeb.SYS_MENU_RESOURCE.RESOURCE_ID,ids);
+		In pathResourceIds=new In(SYS_MENU.PATH_RESOURCE_ID,resourzeIds);
+		In resourceIds=new In(FoxnicWeb.SYS_MENU_RESOURCE.RESOURCE_ID,resourzeIds);
 		//模版渲染
 		Template template=dao().getTemplate("#resource-related-menus",1,2)
 				.put("path_resource_ids",pathResourceIds)

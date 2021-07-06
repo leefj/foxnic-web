@@ -149,7 +149,7 @@ function ListPage() {
                         layer.msg(data.message, {icon: 1, time: 500});
                         refreshTableData();
                     } else {
-                        layer.msg(data.message, {icon: 2, time: 500});
+                        layer.msg(data.message, {icon: 2, time: 1500});
                     }
                 });
 			});
@@ -174,7 +174,7 @@ function ListPage() {
 					if(data.success) {
 						 showEditForm(data.data);
 					} else {
-						 layer.msg(data.message, {icon: 1, time: 500});
+						 layer.msg(data.message, {icon: 1, time: 1500});
 					}
 				});
 				
@@ -189,7 +189,7 @@ function ListPage() {
 							layer.msg(data.message, {icon: 1, time: 500});
 							refreshTableData();
 						} else {
-							layer.msg(data.message, {icon: 2, time: 500});
+							layer.msg(data.message, {icon: 2, time: 1500});
 						}
 					});
 				});

@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2021-07-01 11:29:02
+ * @since 2021-07-06 14:11:16
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -550,6 +550,11 @@ public class FoxnicWeb {
 		public static final DBField ID = new DBField(DBDataType.LONG , "id","id","ID","ID",true,true,false);
 		
 		/**
+		 * 应用名称
+		*/
+		public static final DBField APPLICATION = new DBField(DBDataType.STRING , "application","application","应用名称","应用名称",false,false,true);
+		
+		/**
 		 * 主机名称
 		*/
 		public static final DBField HOST_NAME = new DBField(DBDataType.STRING , "host_name","hostName","主机名称","主机名称",false,false,true);
@@ -575,6 +580,11 @@ public class FoxnicWeb {
 		public static final DBField TOKEN = new DBField(DBDataType.STRING , "token","token","token值","token值",false,false,true);
 		
 		/**
+		 * 会话ID
+		*/
+		public static final DBField SESSION_ID = new DBField(DBDataType.STRING , "session_id","sessionId","会话ID","会话ID",false,false,true);
+		
+		/**
 		 * 用户ID
 		*/
 		public static final DBField USER_ID = new DBField(DBDataType.LONG , "user_id","userId","用户ID","用户ID",false,false,true);
@@ -583,6 +593,11 @@ public class FoxnicWeb {
 		 * 用户姓名
 		*/
 		public static final DBField USER_NAME = new DBField(DBDataType.STRING , "user_name","userName","用户姓名","用户姓名",false,false,true);
+		
+		/**
+		 * 日志跟踪ID
+		*/
+		public static final DBField TID = new DBField(DBDataType.STRING , "tid","tid","日志跟踪ID","日志跟踪ID",false,false,true);
 		
 		/**
 		 * 请求参数
@@ -610,7 +625,7 @@ public class FoxnicWeb {
 		public static final DBField EXCEPTION = new DBField(DBDataType.STRING , "exception","exception","异常信息","异常信息",false,false,true);
 		
 		public SYS_INVOKE_LOG() {
-			this.init($NAME,"调用统计日志" , ID , HOST_NAME , URI , USER_AGENT , CLIENT_IP , TOKEN , USER_ID , USER_NAME , PARAMETER , RESPONSE , START_TIME , END_TIME , EXCEPTION);
+			this.init($NAME,"调用统计日志" , ID , APPLICATION , HOST_NAME , URI , USER_AGENT , CLIENT_IP , TOKEN , SESSION_ID , USER_ID , USER_NAME , TID , PARAMETER , RESPONSE , START_TIME , END_TIME , EXCEPTION);
 		}
 		public static final SYS_INVOKE_LOG $TABLE=new SYS_INVOKE_LOG();
 	}

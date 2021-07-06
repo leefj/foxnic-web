@@ -1,7 +1,7 @@
 /**
  * 调用统计日志 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-06 13:35:46
+ * @since 2021-07-06 14:12:29
  */
 
 
@@ -43,13 +43,16 @@ function ListPage() {
 			cols: [[
 				{  fixed: 'left',type: 'numbers' },
 			 	{  fixed: 'left',type:'checkbox' },
+                { field: 'application', sort: true, title: fox.translate('应用名称')} ,
                 { field: 'hostName', sort: true, title: fox.translate('主机名称')} ,
                 { field: 'uri', sort: true, title: fox.translate('请求的URI')} ,
                 { field: 'userAgent', sort: true, title: fox.translate('UserAgent')} ,
                 { field: 'clientIp', sort: true, title: fox.translate('客户端IP')} ,
                 { field: 'token', sort: true, title: fox.translate('token值')} ,
+                { field: 'sessionId', sort: true, title: fox.translate('会话ID')} ,
                 { field: 'userId', sort: true, title: fox.translate('用户ID')} ,
                 { field: 'userName', sort: true, title: fox.translate('用户姓名')} ,
+                { field: 'tid', sort: true, title: fox.translate('日志跟踪ID')} ,
                 { field: 'parameter', sort: true, title: fox.translate('请求参数')} ,
                 { field: 'response', sort: true, title: fox.translate('响应数据')} ,
 				{ field: 'startTime', sort: true, title: fox.translate('开始时间'), templet: function (d) { return fox.dateFormat(d.startTime); }} ,

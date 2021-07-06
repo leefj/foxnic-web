@@ -7,7 +7,6 @@ import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.expr.OrderBy;
 import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.domain.oauth.Menu;
-import org.github.foxnic.web.domain.oauth.Resourze;
 import org.github.foxnic.web.misc.ztree.ZTreeNode;
 
 import java.util.List;
@@ -277,5 +276,5 @@ public interface IMenuService extends ISuperService<Menu> {
 
 	Boolean saveHierarchy(List<String> ids, String parentId);
 
-    List<Menu> getRelatedMenus(List<Resourze> matchs);
+	List<Menu> getRelatedMenus(List<String> resourzeIds);
 }

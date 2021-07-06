@@ -21,7 +21,7 @@ import com.github.foxnic.dao.data.SaveMode;
  * 调用统计日志 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-06 13:35:46
+ * @since 2021-07-06 14:12:29
 */
 
 public interface IInvokeLogService extends ISuperService<InvokeLog> {
