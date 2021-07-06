@@ -143,13 +143,14 @@ function ListPage() {
 			layer.confirm(fox.translate('确定删除已选中的')+fox.translate('系统资源')+fox.translate('吗？'), function (i) {
 				layer.close(i);
 				layer.load(2);
-                admin.request(moduleURL+"/batch-delete", { ids: ids }, function (data) {
+                admin.request(moduleURL+"/delete-by-ids", { ids: ids }, function (data) {
                     layer.closeAll('loading');
                     if (data.success) {
                         layer.msg(data.message, {icon: 1, time: 500});
                         refreshTableData();
                     } else {
-                        layer.msg(data.message, {icon: 2, time: 1500});
+						var txt=data.message+"<br>&nbsp;&nbsp;"+data.solutions.join("<br>&nbsp;&nbsp;");
+						layer.msg(txt, {icon: 2, time: 3000});
                     }
                 });
 			});
@@ -189,7 +190,9 @@ function ListPage() {
 							layer.msg(data.message, {icon: 1, time: 500});
 							refreshTableData();
 						} else {
-							layer.msg(data.message, {icon: 2, time: 1500});
+							debugger
+							var txt=data.message+"<br>&nbsp;&nbsp;"+data.solutions.join("<br>&nbsp;&nbsp;");
+							layer.msg(txt, {icon: 2, time: 3000});
 						}
 					});
 				});
