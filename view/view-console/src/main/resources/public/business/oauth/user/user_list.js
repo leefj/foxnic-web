@@ -1,7 +1,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-28 11:40:50
+ * @since 2021-07-06 16:53:31
  */
 
 
@@ -45,12 +45,9 @@ function ListPage() {
 			 	{  fixed: 'left',type:'checkbox' },
                 { field: 'id', sort: true, title: fox.translate('ID')} ,
                 { field: 'name', sort: true, title: fox.translate('账户')} ,
-                { field: 'passwd', sort: true, title: fox.translate('密码')} ,
                 { field: 'phone', sort: true, title: fox.translate('手机号码')} ,
-                { field: 'portraitId', sort: true, title: fox.translate('头像')} ,
-                { field: 'personId', sort: true, title: fox.translate('人员ID')} ,
-                { field: 'language', sort: true, title: fox.translate('语言')} ,
-                { field: 'employeeId', sort: true, title: fox.translate('员工ID')} ,
+				{ field: 'portraitId', sort: true, title: fox.translate('头像'), templet: function (d) { return '<img style="height:100%;" fileType="image/png" onclick="window.previewImage(this)"  src="'+apiurls.storage.image+'?id='+ d.portraitId+'" />'; } } ,
+				{ field: 'language', sort: true, title: fox.translate('语言'), templet:function (d){ return fox.getEnumText(RADIO_LANGUAGE_DATA,d.language);}} ,
 				{ field: 'valid', sort: true, title: fox.translate('是否有效'), templet: '#cell-tpl-valid'} ,
 				{ field: 'lastLoginTime', sort: true, title: fox.translate('最后登录时间'), templet: function (d) { return fox.dateFormat(d.lastLoginTime); }} ,
 				{ field: 'createTime', sort: true, title: fox.translate('创建时间'), templet: function (d) { return fox.dateFormat(d.createTime); }} ,
@@ -150,13 +147,13 @@ function ListPage() {
 			layer.confirm(fox.translate('确定删除已选中的')+fox.translate('账户')+fox.translate('吗？'), function (i) {
 				layer.close(i);
 				layer.load(2);
-                admin.request(moduleURL+"/batch-delete", { ids: ids }, function (data) {
+                admin.request(moduleURL+"/delete-by-id", { ids: ids }, function (data) {
                     layer.closeAll('loading');
                     if (data.success) {
                         layer.msg(data.message, {icon: 1, time: 500});
                         refreshTableData();
                     } else {
-                        layer.msg(data.message, {icon: 2, time: 500});
+                        layer.msg(data.message, {icon: 2, time: 1500});
                     }
                 });
 			});
@@ -181,7 +178,7 @@ function ListPage() {
 					if(data.success) {
 						 showEditForm(data.data);
 					} else {
-						 layer.msg(data.message, {icon: 1, time: 500});
+						 layer.msg(data.message, {icon: 1, time: 1500});
 					}
 				});
 				
@@ -196,7 +193,7 @@ function ListPage() {
 							layer.msg(data.message, {icon: 1, time: 500});
 							refreshTableData();
 						} else {
-							layer.msg(data.message, {icon: 2, time: 500});
+							layer.msg(data.message, {icon: 2, time: 1500});
 						}
 					});
 				});

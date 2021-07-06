@@ -1,22 +1,27 @@
 package org.github.foxnic.web.oauth.service;
-import java.util.List;
 
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.entity.ISuperService;
-import com.github.foxnic.api.transter.Result;
+
 import com.github.foxnic.sql.expr.ConditionExpr;
+import com.github.foxnic.dao.entity.ISuperService;
+import org.github.foxnic.web.domain.oauth.Role;
+import org.github.foxnic.web.domain.oauth.RoleVO;
+import java.util.List;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.dao.data.PagedList;
+import java.io.InputStream;
 import com.github.foxnic.sql.expr.OrderBy;
 import com.github.foxnic.sql.meta.DBField;
-
-import org.github.foxnic.web.domain.oauth.Role;
+import com.github.foxnic.dao.excel.ExcelWriter;
+import com.github.foxnic.dao.excel.ExcelStructure;
+import com.github.foxnic.dao.excel.ValidateResult;
+import com.github.foxnic.dao.data.SaveMode;
 
 /**
  * <p>
  * 角色表 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-01 09:27:28
+ * @since 2021-07-06 16:53:31
 */
 
 public interface IRoleService extends ISuperService<Role> {
@@ -43,7 +48,7 @@ public interface IRoleService extends ISuperService<Role> {
 	 * @param id ID
 	 * @return 删除是否成功
 	 */
-	boolean deleteByIdPhysical(String id);
+	Result deleteByIdPhysical(String id);
 	
 	/**
 	 * 按主键删除 角色
@@ -51,8 +56,7 @@ public interface IRoleService extends ISuperService<Role> {
 	 * @param id ID
 	 * @return 删除是否成功
 	 */
-	boolean deleteByIdLogical(String id);
-	
+	Result deleteByIdLogical(String id);
 	
 	/**
 	 * 批量物理删除，仅支持单字段主键表
@@ -114,7 +118,7 @@ public interface IRoleService extends ISuperService<Role> {
 	 * 检查实体中的数据字段是否已经存在
 	 * @param role  实体对象
 	 * @param field  字段清单，至少指定一个
-	 * @param 是否已经存在
+	 * @return 是否已经存在
 	 * */
 	boolean checkExists(Role role,DBField... field);
  
@@ -126,7 +130,14 @@ public interface IRoleService extends ISuperService<Role> {
 	 * @return Role 数据对象
 	 */
 	Role getById(String id);
-	
+		
+	/**
+	 * 检查实体中的数据字段是否已经存在
+	 * @param ids  主键清单
+	 * @return 实体集
+	 * */
+	List<Role> getByIds(List<String> ids);
+
 	/**
 	 * 检查 角色 是否已经存在
 	 *
@@ -248,7 +259,7 @@ public interface IRoleService extends ISuperService<Role> {
  
  	/**
 	 * 查询指定字段的数据清单
-	 * @param T 元素类型
+	 * @param <T> 元素类型
 	 * @param field 字段
 	 * @param type 元素类型
 	 * @param condition 条件表达式
@@ -258,7 +269,7 @@ public interface IRoleService extends ISuperService<Role> {
  
 	/**
 	 * 查询指定字段的数据清单
-	 * @param T 元素类型
+	 * @param <T> 元素类型
 	 * @param field 字段
 	 * @param type 元素类型
 	 * @param condition 条件表达式
@@ -268,8 +279,26 @@ public interface IRoleService extends ISuperService<Role> {
 	<T> List<T> queryValues(DBField field, Class<T> type, String condition,Object... ps);
 
 	/**
-	 * 获得系统的所有角色代码
+	 * 导出 Excel
 	 * */
-	List<String> queryAllRoleCode();
+	ExcelWriter exportExcel(Role sample);
+
+	/**
+	 * 导出用于数据导入的 Excel 模版
+	 * */
+	ExcelWriter  exportExcelTemplate();
+
+	/**
+	 * 构建 Excel 结构
+	 * @param  isForExport 是否用于数据导出
+	 * @return   ExcelStructure
+	 * */
+	ExcelStructure buildExcelStructure(boolean isForExport);
+
+	/**
+	 * 导入 Excel 数据
+	 * @return  错误信息，成功时返回 null
+	 * */
+	List<ValidateResult> importExcel(InputStream input,int sheetIndex,boolean batch);
  
 }

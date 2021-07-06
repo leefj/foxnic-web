@@ -79,11 +79,12 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"elem
         //
         bindImageAction(elId,index,preview);
 
-        // setTimeout(function () {
-            if(window.adjustPopup) {
-                window.adjustPopup();
-            }
+        // // setTimeout(function () {
+        //     if(window.adjustPopup) {
+        //         window.adjustPopup();
+        //     }
         // },500);
+        inst.config.afterPreview && inst.config.afterPreview(elId,index,fileId,inst);
 
 
         return preview;
@@ -171,10 +172,11 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"elem
     }
 
     function removePreview(elId,fileId,index,sclince) {
+        var beforeRemove=UPLOADS[elId].config.beforeRemove;
+        var afterRemove=UPLOADS[elId].config.afterRemove;
         if(!sclince) {
-            var cb=UPLOADS[elId].config.beforeRemove;
-            cb=cb && cb(elId,fileId,index,UPLOADS[elId]);
-            if(cb===false) return;
+            beforeRemove=beforeRemove && beforeRemove(elId,fileId,index,UPLOADS[elId]);
+            if(beforeRemove===false) return;
         }
         //debugger;
         //var fileId=removeButton.attr("fileId");
@@ -191,16 +193,12 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"elem
 
                 bindData("remove",elId,index,fileId);
 
-                if(window.adjustPopup) {
-                    window.adjustPopup();
-                }
-
             } else {
                 if(!sclince) {
                     layer.msg(data.message, {icon: 2, time: 500});
                 }
             }
-            //cfg.remove && cfg.remove(fileId,index,upload);
+            afterRemove && afterRemove(elId,fileId,index,UPLOADS[elId]);
         }, 'POST');
     }
 
@@ -305,7 +303,7 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"elem
                     data=data.data;
                     fillPreviews(elId,fileIds,data);
                 } else {
-
+                    //TODO 待实现
                 }
 
             }, 'POST',true);

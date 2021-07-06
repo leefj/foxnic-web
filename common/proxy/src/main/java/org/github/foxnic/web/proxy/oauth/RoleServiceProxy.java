@@ -1,23 +1,25 @@
 package org.github.foxnic.web.proxy.oauth;
 
-import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.dao.data.PagedList;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.github.foxnic.web.proxy.api.APIProxy;
+import org.github.foxnic.web.proxy.FeignConfiguration;
+
+import org.springframework.cloud.openfeign.FeignClient;
+
+
 import org.github.foxnic.web.domain.oauth.Role;
 import org.github.foxnic.web.domain.oauth.RoleVO;
-import org.github.foxnic.web.proxy.FeignConfiguration;
-import org.github.foxnic.web.proxy.MicroServiceNames;
-import org.github.foxnic.web.proxy.api.APIProxy;
-import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import java.util.List;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.dao.data.PagedList;
+import org.github.foxnic.web.proxy.MicroServiceNames;
 
 /**
  * <p>
  * 角色表  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-28 14:17:03
+ * @since 2021-07-06 16:52:11
 */
 
 @FeignClient(value = MicroServiceNames.OAUTH, contextId = RoleServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)
@@ -47,13 +49,12 @@ public interface RoleServiceProxy {
 	 * 删除角色
 	 */
 	public static final String DELETE = API_PREFIX + "delete";
-	
-	
+
 	/**
 	 * 批量删除角色
 	 */
-	public static final String BATCH_DELETE = API_PREFIX + "batch-delete";
-	
+	public static final String DELETE_BY_IDS = API_PREFIX + "delete-by-ids";
+	;
 	
 	/**
 	 * 更新角色
@@ -67,10 +68,16 @@ public interface RoleServiceProxy {
 	public static final String SAVE = API_PREFIX + "save";
 	
 	/**
-	 * 获取角色
+	 * 获取单个角色
 	 */
 	public static final String GET_BY_ID = API_PREFIX + "get-by-id";
-	
+
+	/**
+	 * 获取多个角色
+	 */
+	public static final String GET_BY_IDS = API_PREFIX + "get-by-ids";
+	;
+
 	/**
 	 * 查询角色
 	 */
@@ -85,6 +92,11 @@ public interface RoleServiceProxy {
 	 * 导出角色数据(Excel)
 	 */
 	public static final String EXPORT_EXCEL = API_PREFIX + "export-excel";
+
+	/**
+	 * 下载角色导入模版(Excel)
+	 */
+	public static final String EXPORT_EXCEL_TEMPLATE = API_PREFIX + "export-excel-template";
 	
 	/**
 	 * 导入角色数据(Excel)
@@ -102,14 +114,13 @@ public interface RoleServiceProxy {
 	*/
 	@RequestMapping(RoleServiceProxy.DELETE)
 	Result deleteById(String id);
-	
-	
+
 	/**
 	 * 批量删除角色
 	*/
-	@RequestMapping(RoleServiceProxy.BATCH_DELETE)
-	Result deleteByIds(List<String> id);
-	
+	@RequestMapping(RoleServiceProxy.DELETE_BY_IDS)
+	Result deleteByIds(List<String> ids);
+
 	/**
 	 * 更新角色
 	*/
@@ -127,7 +138,12 @@ public interface RoleServiceProxy {
 	*/
 	@RequestMapping(RoleServiceProxy.GET_BY_ID)
 	Result<Role> getById(String id);
-	
+
+	/**
+	 * 批量删除角色
+	*/
+	@RequestMapping(RoleServiceProxy.GET_BY_IDS)
+	Result<List<Role>> getByIds(List<String> ids);
 	/**
 	 * 查询角色
 	*/

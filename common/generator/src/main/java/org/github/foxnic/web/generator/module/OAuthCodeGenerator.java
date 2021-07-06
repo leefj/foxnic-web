@@ -22,14 +22,14 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		OAuthCodeGenerator g=new OAuthCodeGenerator();
 		g.generateSysResource();
 		g.generateSysMenuResource();
-//		g.generateSysUser();
+		g.generateSysUser();
 //		g.generateSysOAuthClient();
 //		g.generateSysSessionOnline();
 //		g.generateSysToken();
-//		g.generateSysRole();
-//		g.generateSysRoleUser();
+		g.generateSysRole();
+		g.generateSysRoleUser();
 		g.generateSysMenu();
-//		g.generateSysRoleMenu();
+		g.generateSysRoleMenu();
 		
 	}
  
@@ -50,7 +50,9 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		cfg.getVoClassFile().addListProperty(String.class,"roleIds","角色ID列表","");
 
 
-		cfg.field(SYS_USER.VALID).logicField().on("有效","1").off("无效","0");
+
+
+
 
 
 
@@ -75,8 +77,11 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 
 
 		//表单不需要显示的字段
+		cfg.field(SYS_USER.ID).hideInList().hideInForm();
+		cfg.field(SYS_USER.PASSWD).hideInList().hideInForm();
+		cfg.field(SYS_USER.EMPLOYEE_ID).hideInForm().hideInList();
 		cfg.field(SYS_USER.LAST_LOGIN_TIME).hideInForm();
-		cfg.field(SYS_USER.PERSON_ID).hideInForm();
+		cfg.field(SYS_USER.PERSON_ID).hideInForm().hideInList();
 		//cfg.field(SYS_USER.PORTRAIT_ID).hideInForm();
 		cfg.field(SYS_USER.EMPLOYEE_ID).hideInForm();
 		cfg.field(SYS_USER.PASSWD).hideInForm();
@@ -95,6 +100,7 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 //		cfg.field(UserVOMeta.ROLE_IDS).label("角色").selectField().muliti().dict(DictEnum.COMPANY_TYPE);
 
 		cfg.field(SYS_USER.PORTRAIT_ID).label("头像").uploadField().acceptSingleImage().buttonLabel("选择头像");
+		cfg.field(SYS_USER.VALID).logicField().on("有效","1").off("无效","0");
 
 		//生成代码
 		cfg.buildAll();

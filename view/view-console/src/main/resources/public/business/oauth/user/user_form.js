@@ -1,7 +1,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-28 11:40:51
+ * @since 2021-07-06 16:53:31
  */
 
 function FormPage() {
@@ -53,15 +53,22 @@ function FormPage() {
 			displayFileName: false,
 			accept: "image",
 			acceptMime:'image/*',
+			exts:'png|jpg|bmp|gif|jpeg',
+			afterPreview:function(elId,index,fileId,upload){
+				adjustPopup();
+			},
 			afterUpload:function (result,index,upload) {
 				console.log("文件上传后回调")
 			},
 			beforeRemove:function (elId,fileId,index,upload) {
 				console.log("文件删除前回调");
 				return true;
+			},
+			afterRemove:function (elId,fileId,index,upload) {
+				adjustPopup();
 			}
 	    });
-		//渲染下拉字段
+		//渲染 roleIds 下拉字段
 		fox.renderSelectBox({
 			el: "roleIds",
 			radio: false,
@@ -75,6 +82,7 @@ function FormPage() {
 				var opts=[];
 				if(!data) return opts;
 				for (var i = 0; i < data.length; i++) {
+					if(!data[i]) continue;
 					//请自行调整此处字段的对应关系
 					opts.push({name:data[i].name,value:data[i].id});
 				}
@@ -99,11 +107,12 @@ function FormPage() {
 		    }
 
 			//设置 角色 下拉框选中值
+			var roleIdsSelect=xmSelect.get("#roleIds",true);
+			var roleIdsOpionts=[];
 			if (formData.roles)	{
-				var roleIdsSelect=xmSelect.get("#roleIds",true)
-				var roleIdsOpionts=roleIdsSelect.options.transform(formData.roles);
-				roleIdsSelect.setValue(roleIdsOpionts);
+				roleIdsOpionts=roleIdsSelect.options.transform(formData.roles);
 			}
+			roleIdsSelect.setValue(roleIdsOpionts);
 
 	     	fm.attr('method', 'POST');
 	     	renderFormFields();
@@ -145,7 +154,7 @@ function FormPage() {
 	                layer.msg(data.message, {icon: 1, time: 500});
 	                admin.finishPopupCenter();
 	            } else {
-	                layer.msg(data.message, {icon: 2, time: 500});
+	                layer.msg(data.message, {icon: 2, time: 1000});
 	            }
 	        }, "POST");
 	        
