@@ -50,12 +50,18 @@ function ListPage() {
 		setTimeout(function(){
 			var toolbarHeight=$("#toolbar")[0].clientHeight;
 			var fullHeight=$(window).height();
+			var fullWidth=$(window).width();
 			var treeHeight=fullHeight-toolbarHeight-1;
 			$("#tree-container").height(treeHeight);
 			$("#form-view").height(fullHeight-6);
+			//
+			// $(".layui-col-md4").width("200px");
+			// $(".layui-col-md8").width((fullWidth-200)+"px");
+
 		},10);
-		
-		
+
+		//
+		bindSearchEvent();
      }
     
     var editingNode=null;
@@ -206,14 +212,23 @@ function ListPage() {
 	/**
 	 * 绑定搜索框事件
 	 */
+	var nodeList
 	function bindSearchEvent() {
 		//回车键查询
         $("#search-input").keydown(function(event) {
 			if(event.keyCode !=13) return;
-		  	refreshTableData();
-        });
+			nodeList=menuTree.getNodesByParamFuzzy("name",$("#search-input").val());
+			var sns=menuTree.getSelectedNodes();
+			for( var i=0;i<sns.length;  i++) {
+				menuTree.cancelSelectedNode(sns[i]);
+			}
+			for( var i=0;i<nodeList.length;  i++) {
+				menuTree.selectNode(nodeList[i],true,true);
+			}
+		});
 
 	}
+
 	
 	// 添加按钮点击事件
     $('#btn-add').click(function () {
@@ -280,7 +295,7 @@ function ListPage() {
 			type: 2,
 			content: '/business/oauth/menu/menu_form.html' + queryString,
 			finish: function () {
-				refreshTableData();
+
 			}
 		});
 	};
