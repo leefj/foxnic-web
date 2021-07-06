@@ -53,7 +53,7 @@ public class RequestDeniedHandler implements AccessDeniedHandler {
             } else {
                 result.message("资源 "+method+" , "+uri+" 未授权，需要为角色勾选相关菜单");
                 for (Menu menu : menus) {
-                    result.addSolution("请勾选菜单 : "+ menu.getAncestorsNamePath());
+                    result.addSolution("请为角色勾选菜单 : "+ menu.getAncestorsNamePath());
                 }
 
             }

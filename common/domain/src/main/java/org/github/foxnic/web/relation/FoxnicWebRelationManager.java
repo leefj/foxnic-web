@@ -21,7 +21,7 @@ public class FoxnicWebRelationManager extends RelationManager {
 			tm.doIntervalTask(new Runnable() {
 				@Override
 				public void run() {
-					doReConfigAndValidate();
+//					doReConfigAndValidate();
 				}
 			}, 5000);
 	}

@@ -86,7 +86,7 @@ public class DictItemController extends SuperController {
 	*/
 	@ApiOperation(value = "删除数据字典条目")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = DictItemVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "1")
+		@ApiImplicitParam(name = DictItemVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "1"),
 	})
 	@ApiOperationSupport(order=2)
 	@NotNull(name = DictItemVOMeta.ID)

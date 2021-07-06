@@ -317,7 +317,7 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 				if(p==null) break;
 			}
 			Collections.reverse(path);
-			menu.setAncestorsNamePath(StringUtil.join(path," / "));
+			menu.setAncestorsNamePath(StringUtil.join(path,"/"));
 		}
 		return menus;
 	}
@@ -327,7 +327,7 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 		dao().join(menus, MenuMeta.PARENT);
 		for (Menu menu : menus) {
 			if(menu.getParent()!=null) {
-				parents.add(menu);
+				parents.add(menu.getParent());
 			}
 		}
 		if(!parents.isEmpty()) {

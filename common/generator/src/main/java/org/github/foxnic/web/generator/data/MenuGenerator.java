@@ -16,8 +16,8 @@ import org.github.foxnic.web.domain.oauth.MenuResource;
 import org.github.foxnic.web.domain.oauth.Resourze;
 import org.github.foxnic.web.domain.oauth.RoleMenu;
 import org.github.foxnic.web.generator.config.FoxnicWebConfigs;
-import org.github.foxnic.web.proxy.storage.FileServiceProxy;
-import org.github.foxnic.web.storage.page.FilePageController;
+import org.github.foxnic.web.proxy.system.DbCacheServiceProxy;
+import org.github.foxnic.web.system.page.DbCachePageController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.File;
@@ -66,9 +66,12 @@ public class MenuGenerator {
 //		mg=new MenuGenerator(FoxnicWeb.SYS_SESSION_ONLINE.$TABLE, SessionOnlineServiceProxy.class, SessionOnlinePageController.class);
 //		mg.generate("463397133957988354");
 
-		mg=new MenuGenerator(FoxnicWeb.SYS_FILE.$TABLE, FileServiceProxy.class, FilePageController.class);
+//		mg=new MenuGenerator(FoxnicWeb.SYS_FILE.$TABLE, FileServiceProxy.class, FilePageController.class);
 //		mg.generate("463397133957988354");
 //		mg.grantAll();
+
+		mg=new MenuGenerator(FoxnicWeb.SYS_DB_CACHE.$TABLE, DbCacheServiceProxy.class, DbCachePageController.class);
+		mg.generate("system_config");
 
 
 
@@ -146,11 +149,14 @@ public class MenuGenerator {
 
 
 	public void generate(String parentId) {
+
 		Menu parent=dao.queryEntity(Menu.create().setId(parentId));
 		if(parent==null) {
 			System.err.println("上级菜单 ID = "+parentId+" 不存在");
 			return;
 		}
+
+		dao.execute("delete from "+ FoxnicWeb.SYS_RESOURZE.$NAME +" where deleted=1");
 
 		try {
 			dao.beginTransaction();
