@@ -1,7 +1,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-06 16:53:31
+ * @since 2021-07-08 17:22:30
  */
 
 function FormPage() {
@@ -24,10 +24,7 @@ function FormPage() {
 		
 		//绑定提交事件
 		bindButtonEvent();
-		
-		//调整窗口的高度与位置
-		adjustPopup();
-		
+
 	}
 	
 	function adjustPopup() {
@@ -96,7 +93,7 @@ function FormPage() {
       */
 	function fillFormData() {
 		var formData = admin.getTempData('sys-user-form-data');
-		//如果是新建用户
+		//如果是新建
 		if(!formData.id) {
 			adjustPopup();
 		}

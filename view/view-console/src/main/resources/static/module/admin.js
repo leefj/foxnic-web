@@ -123,12 +123,15 @@ layui.define(['settings', 'layer'], function (exports) {
         	}
             layer.close(popupCenterIndex);
         },
-        changePopupArea: function (width,height) {
-
-
-
+        changePopupArea: function (width,height,cb) {
+            $("body").attr('style', 'overflow-y:hidden');
         	if(top && top!=window && top.admin) {
-                return top.admin.changePopupArea(width,height);
+                var ret=top.admin.changePopupArea(width,height);
+                setTimeout(function (){
+                    $("body").attr('style', 'overflow-y:auto');
+                },1000);
+                return ret;
+
         	}
 
         	if(!popupCenterIndex) return;
@@ -169,6 +172,8 @@ layui.define(['settings', 'layer'], function (exports) {
         	layerLeft=(fullWidth-width)/2;
         	if(layerTop<0) layerTop=0;
         	if(layerLeft<0) layerLeft=0;
+        	// $("body").css("overflow-y","hidden");
+
             if(width) {
                 pop.animate({width:width+"px",left:layerLeft+"px"},200,"swing",function(){
             		//$("#layui-layer"+popupCenterIndex).animate({left:layerLeft+"px"},200,"swing");

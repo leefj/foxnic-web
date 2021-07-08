@@ -20,10 +20,11 @@ function FormPage() {
 		
 		//绑定提交事件
 		bindButtonEvent();
-		
+
+		#if(!hasUploadField)
 		//调整窗口的高度与位置
 		adjustPopup();
-		
+		#end
 	}
 	
 	function adjustPopup() {
@@ -139,6 +140,12 @@ function FormPage() {
       */
 	function fillFormData() {
 		var formData = admin.getTempData('#(formDataKey)');
+		#if(isSimplePK)
+		//如果是新建
+		if(!formData.#(idPropertyName)) {
+			adjustPopup();
+		}
+		#end
 		var fm=$('#data-form');
 		if (formData) {
 			fm[0].reset();

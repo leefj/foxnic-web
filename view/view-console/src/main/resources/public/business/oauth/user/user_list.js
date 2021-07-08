@@ -1,7 +1,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-06 16:53:31
+ * @since 2021-07-08 17:22:30
  */
 
 
@@ -43,15 +43,18 @@ function ListPage() {
 			cols: [[
 				{  fixed: 'left',type: 'numbers' },
 			 	{  fixed: 'left',type:'checkbox' },
-                { field: 'id', sort: true, title: fox.translate('ID')} ,
-                { field: 'name', sort: true, title: fox.translate('账户')} ,
-                { field: 'phone', sort: true, title: fox.translate('手机号码')} ,
-				{ field: 'portraitId', sort: true, title: fox.translate('头像'), templet: function (d) { return '<img id="img-'+d.portraitId+'" style="height:100%;" fileType="image/png" onclick="window.previewImage(this)"  src="'+apiurls.storage.image+'?id='+ d.portraitId+'" />'; } } ,
-				{ field: 'language', sort: true, title: fox.translate('语言'), templet:function (d){ return fox.getEnumText(RADIO_LANGUAGE_DATA,d.language);}} ,
-				{ field: 'valid', sort: true, title: fox.translate('是否有效'), templet: '#cell-tpl-valid'} ,
-				{ field: 'lastLoginTime', sort: true, title: fox.translate('最后登录时间'), templet: function (d) { return fox.dateFormat(d.lastLoginTime); }} ,
-				{ field: 'createTime', sort: true, title: fox.translate('创建时间'), templet: function (d) { return fox.dateFormat(d.createTime); }} ,
-                { field: 'roleIds', sort: true, title: fox.translate('角色')} ,
+                { field: 'id', align:"left", hide:true, sort: true, title: fox.translate('ID')} ,
+                { field: 'name', align:"left", hide:false, sort: true, title: fox.translate('账户')} ,
+                { field: 'passwd', align:"left", hide:true, sort: true, title: fox.translate('密码')} ,
+                { field: 'phone', align:"left", hide:false, sort: true, title: fox.translate('手机号码')} ,
+				{ field: 'portraitId', align:"center", hide:false, sort: true, title: fox.translate('头像'), templet: function (d) { return '<img style="height:100%;" fileType="image/png" onclick="window.previewImage(this)"  src="'+apiurls.storage.image+'?id='+ d.portraitId+'" />'; } } ,
+                { field: 'personId', align:"left", hide:true, sort: true, title: fox.translate('人员ID')} ,
+				{ field: 'language', align:"left", hide:false, sort: true, title: fox.translate('语言'), templet:function (d){ return fox.getEnumText(RADIO_LANGUAGE_DATA,d.language);}} ,
+                { field: 'employeeId', align:"left", hide:true, sort: true, title: fox.translate('员工ID')} ,
+				{ field: 'valid', align:"center", hide:false, sort: true, title: fox.translate('是否有效'), templet: '#cell-tpl-valid'} ,
+				{ field: 'lastLoginTime', align:"right", hide:false, sort: true, title: fox.translate('最后登录时间'), templet: function (d) { return fox.dateFormat(d.lastLoginTime); }} ,
+				{ field: 'createTime', align:"right", hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return fox.dateFormat(d.createTime); }} ,
+                { field: 'roleIds', align:"", hide:true, sort: true, title: fox.translate('角色')} ,
                 { field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
             ]]
 	 		,footer : {

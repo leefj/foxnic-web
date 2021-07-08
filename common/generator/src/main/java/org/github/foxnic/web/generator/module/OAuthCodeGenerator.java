@@ -54,8 +54,8 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		.setServiceIntfAnfImpl(WriteMode.CREATE_IF_NOT_EXISTS) //服务与接口
 		.setControllerAndAgent(WriteMode.CREATE_IF_NOT_EXISTS) //Rest
 		.setPageController(WriteMode.CREATE_IF_NOT_EXISTS) //页面控制器
-		.setFormPage(WriteMode.CREATE_IF_NOT_EXISTS) //表单HTML页
-		.setListPage(WriteMode.CREATE_IF_NOT_EXISTS); //列表HTML页
+		.setFormPage(WriteMode.COVER_EXISTS_FILE) //表单HTML页
+		.setListPage(WriteMode.COVER_EXISTS_FILE); //列表HTML页
 		
 
 		PojoClassFile pojo=cfg.createPojo("LoginIdentityVO");
@@ -85,14 +85,14 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 //		cfg.field(SYS_USER.LANGUAGE).checkField().enumType(Language.class);
 //		cfg.field(SYS_USER.LANGUAGE).checkField().dict(DictEnum.ORDER_STATUS);
 		//配置数据库表字段外的输入框
-		cfg.field(UserVOMeta.ROLE_IDS).label("角色").selectField().muliti(true).queryApi(RoleServiceProxy.QUERY_LIST).fillBy(UserMeta.ROLES);
+		cfg.field(UserVOMeta.ROLE_IDS).label("角色").hideInList().selectField().muliti(true).queryApi(RoleServiceProxy.QUERY_LIST).fillBy(UserMeta.ROLES);
 		//使用枚举
 		//cfg.field(UserVOMeta.ROLE_IDS).label("角色").selectField().muliti().enumType(Language.class);
 		//使用字典数据
 //		cfg.field(UserVOMeta.ROLE_IDS).label("角色").selectField().muliti().dict(DictEnum.COMPANY_TYPE);
 
-		cfg.field(SYS_USER.PORTRAIT_ID).label("头像").uploadField().acceptSingleImage().buttonLabel("选择头像");
-		cfg.field(SYS_USER.VALID).logicField().on("有效","1").off("无效","0");
+		cfg.field(SYS_USER.PORTRAIT_ID).label("头像").alignCenter().uploadField().acceptSingleImage().buttonLabel("选择头像");
+		cfg.field(SYS_USER.VALID).alignCenter().logicField().on("有效","1").off("无效","0");
 
 		//生成代码
 		cfg.buildAll();
