@@ -422,9 +422,12 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"xmSe
 					layer.closeAll('loading');
 					clearTimeout(task);
 					clearInterval(timer);
-					$form.remove();
-					$ifr.remove();
+					setTimeout(function () {
+						$form.remove();
+						$ifr.remove();
+					} , 5000);
 					callback && callback();
+					debugger;
 				}
 			},500);
 

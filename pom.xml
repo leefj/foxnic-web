@@ -46,8 +46,8 @@
         <platform.version>0.0.8.RELEASE</platform.version>  
         <foxnic.version>1.2.4.RELEASE</foxnic.version>
         <knife4j.version>3.0.2</knife4j.version>
-        <xmlbeans.version>2.6.0</xmlbeans.version>
-        <poi.version>3.17</poi.version>
+        <xmlbeans.version>4.0.0</xmlbeans.version>
+        <poi.version>4.1.2</poi.version>
         <servlet.api.version>4.0.1</servlet.api.version>
     </properties>  
     <dependencies/>  

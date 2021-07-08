@@ -96,6 +96,10 @@ function FormPage() {
       */
 	function fillFormData() {
 		var formData = admin.getTempData('sys-user-form-data');
+		//如果是新建用户
+		if(!formData.id) {
+			adjustPopup();
+		}
 		var fm=$('#data-form');
 		if (formData) {
 			fm[0].reset();

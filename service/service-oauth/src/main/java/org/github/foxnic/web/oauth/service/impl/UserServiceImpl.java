@@ -3,6 +3,7 @@ package org.github.foxnic.web.oauth.service.impl;
 import com.github.foxnic.api.error.CommonError;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.commons.busi.id.IDGenerator;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
@@ -26,6 +27,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.lang.reflect.Field;
 import java.util.Date;
 import java.util.List;
 
@@ -60,7 +62,12 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 	 * 获得 DAO 对象
 	 * */
 	public DAO dao() { return dao; }
-	
+
+	@Override
+	public Object generateId(Field field) {
+		return IDGenerator.getSnowflakeIdString();
+	}
+
 	/**
 	 * 插入实体
 	 * @param user 实体数据

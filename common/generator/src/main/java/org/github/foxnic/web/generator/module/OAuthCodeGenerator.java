@@ -49,23 +49,15 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		//增加VO属性
 		cfg.getVoClassFile().addListProperty(String.class,"roleIds","角色ID列表","");
 
-
-
-
-
-
-
-
 		//文件生成覆盖模式
 		cfg.overrides()
 		.setServiceIntfAnfImpl(WriteMode.CREATE_IF_NOT_EXISTS) //服务与接口
 		.setControllerAndAgent(WriteMode.CREATE_IF_NOT_EXISTS) //Rest
 		.setPageController(WriteMode.CREATE_IF_NOT_EXISTS) //页面控制器
-		.setFormPage(WriteMode.COVER_EXISTS_FILE) //表单HTML页
-		.setListPage(WriteMode.COVER_EXISTS_FILE); //列表HTML页
+		.setFormPage(WriteMode.CREATE_IF_NOT_EXISTS) //表单HTML页
+		.setListPage(WriteMode.CREATE_IF_NOT_EXISTS); //列表HTML页
 		
-		
-		
+
 		PojoClassFile pojo=cfg.createPojo("LoginIdentityVO");
 		pojo.setSuperType(null);
 		pojo.setDoc("用于App登录接口");
