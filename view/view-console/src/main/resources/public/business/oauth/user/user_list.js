@@ -46,7 +46,7 @@ function ListPage() {
                 { field: 'id', sort: true, title: fox.translate('ID')} ,
                 { field: 'name', sort: true, title: fox.translate('账户')} ,
                 { field: 'phone', sort: true, title: fox.translate('手机号码')} ,
-				{ field: 'portraitId', sort: true, title: fox.translate('头像'), templet: function (d) { return '<img style="height:100%;" fileType="image/png" onclick="window.previewImage(this)"  src="'+apiurls.storage.image+'?id='+ d.portraitId+'" />'; } } ,
+				{ field: 'portraitId', sort: true, title: fox.translate('头像'), templet: function (d) { return '<img id="img-'+d.portraitId+'" style="height:100%;" fileType="image/png" onclick="window.previewImage(this)"  src="'+apiurls.storage.image+'?id='+ d.portraitId+'" />'; } } ,
 				{ field: 'language', sort: true, title: fox.translate('语言'), templet:function (d){ return fox.getEnumText(RADIO_LANGUAGE_DATA,d.language);}} ,
 				{ field: 'valid', sort: true, title: fox.translate('是否有效'), templet: '#cell-tpl-valid'} ,
 				{ field: 'lastLoginTime', sort: true, title: fox.translate('最后登录时间'), templet: function (d) { return fox.dateFormat(d.lastLoginTime); }} ,

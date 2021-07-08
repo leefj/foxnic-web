@@ -561,8 +561,16 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"xmSe
     			top.previewImage(obj);
     			return;
 			}
-    		var it=$(obj);
-    		var fileType=it.attr("fileType");
+    		var it=$(obj).parent();
+			//var id=it.attr("id");
+			layer.photos({
+				shade:0.6,
+				photos: it,
+				anim: 5
+			});
+			return;
+
+		var fileType=it.attr("fileType");
 			if(!fileType.startWith("image/")) {
 				return;
 			}
