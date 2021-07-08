@@ -51,8 +51,11 @@ function FormPage() {
 			accept: "image",
 			acceptMime:'image/*',
 			exts:'png|jpg|bmp|gif|jpeg',
+			afterImageLoad:function (elId,index,fileId,upload) {
+				setTimeout(adjustPopup,100);
+			},
 			afterPreview:function(elId,index,fileId,upload){
-				adjustPopup();
+				//setTimeout(adjustPopup,1000);
 			},
 			afterUpload:function (result,index,upload) {
 				console.log("文件上传后回调")

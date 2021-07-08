@@ -49,6 +49,12 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"elem
         var img=preview.find("#"+elId+"-image-"+index);
         img.attr('fileType',fileType);
         img.attr('fileName',fileName);
+        var afterImageLoad=inst.config.afterImageLoad;
+        img.css("opacity","0.0");
+        img.on("load",function (){
+            img.animate({opacity:"1.0"},250);
+            afterImageLoad && afterImageLoad(elId,index,fileId,inst);
+        })
         if(!fileType) {
             fileType="image/png";
         }
@@ -306,7 +312,7 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"elem
                     //TODO 待实现
                 }
 
-            }, 'POST',true);
+            }, 'POST',false);
         }
     };
 

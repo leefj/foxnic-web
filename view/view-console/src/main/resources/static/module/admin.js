@@ -124,11 +124,11 @@ layui.define(['settings', 'layer'], function (exports) {
             layer.close(popupCenterIndex);
         },
         changePopupArea: function (width,height,cb) {
-            $("body").attr('style', 'overflow-y:hidden');
+            //$("body").attr('style', 'overflow-y:hidden');
         	if(top && top!=window && top.admin) {
                 var ret=top.admin.changePopupArea(width,height);
                 setTimeout(function (){
-                    $("body").attr('style', 'overflow-y:auto');
+                    //$("body").attr('style', 'overflow-y:auto');
                 },1000);
                 return ret;
 
@@ -146,6 +146,7 @@ layui.define(['settings', 'layer'], function (exports) {
             var titleHeight=title.height();
 
             height=height+titleHeight+16;
+            height=Math.ceil(height);
             //限制高度
             if(height>fullHeight-32) {
                 height=fullHeight-32;
@@ -168,11 +169,16 @@ layui.define(['settings', 'layer'], function (exports) {
         	var dy=dh/2;
         	iframeWidth+=dw;
         	iframeHeight+=dh;
+            iframeHeight=Math.ceil(iframeHeight);
+            iframeWidth=Math.ceil(iframeWidth);
         	layerTop=(fullHeight-height)*0.35;
         	layerLeft=(fullWidth-width)/2;
         	if(layerTop<0) layerTop=0;
         	if(layerLeft<0) layerLeft=0;
         	// $("body").css("overflow-y","hidden");
+
+            //修正mac
+            height+=1;
 
             if(width) {
                 pop.animate({width:width+"px",left:layerLeft+"px"},200,"swing",function(){
@@ -180,7 +186,7 @@ layui.define(['settings', 'layer'], function (exports) {
             	});
             }
             if(height) {
-                pop.animate({height:height+"px",top:layerTop+"px"},200,"swing",function(){
+                pop.animate({height:(height)+"px",top:layerTop+"px"},200,"swing",function(){
             		//$("#layui-layer"+popupCenterIndex).animate({top:layerTop+"px"},200,"swing");
             	});
             }
