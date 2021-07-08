@@ -345,6 +345,7 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"xmSe
 			for (var i = 0; i < list.length; i++) {
 				if(list[i]["code"]==code) return list[i]["text"];
 			}
+			if(!code) code="";
 			return code;
 		},
 
@@ -353,6 +354,7 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"xmSe
 			for (var i = 0; i < list.length; i++) {
 				if(list[i]["code"]==code) return list[i]["text"];
 			}
+			if(!code) code="";
 			return code;
 		},
 
