@@ -2,7 +2,7 @@
 /**
  * 角色 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-22 16:42:50
+ * @since 2021-07-09 14:46:41
  */
  -->
  <!DOCTYPE html>
@@ -24,15 +24,17 @@
 <div class="layui-card">
  
     <div class="layui-card-body">
-        <div class="layui-form toolbar">
-            <span th:text="${lang.translate('搜索')}">搜索</span>：
-            <select id="search-field">
-                <option value="" th:text="${lang.translate('-请选择-')}">-请选择-</option>
-                <option value="id" th:text="${lang.translate('ID')}">ID</option>
-                <option value="code" th:text="${lang.translate('代码')}">代码</option>
-                <option value="name" th:text="${lang.translate('名称')}">名称</option>
-            </select>&emsp;
-            <input id="search-input" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入关键字')}"/>&emsp;
+        <div class="layui-form toolbar search-bar">
+
+            <div class="search-unit">
+                <span th:text="${lang.translate('代码')}" class="search-label">代码</span><span class="search-colon">:</span>
+                <input id="code" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入代码')}"/>
+            </div>
+            <div class="search-unit">
+                <span th:text="${lang.translate('名称')}" class="search-label">名称</span><span class="search-colon">:</span>
+                <input id="name" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入名称')}"/>
+            </div>
+
             <button id="search-button" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i><span th:text="${lang.translate('搜索')}">搜索</span></button>
             <button id="add-button" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i><span th:text="${lang.translate('添加')}">添加</span></button>
             <button id="delete-button" class="layui-btn icon-btn layui-btn-danger"><i class="layui-icon">&#xe67e;</i><span th:text="${lang.translate('删除')}">删除</span></button>
@@ -56,7 +58,7 @@
 
 
 <script th:inline="javascript">
-    var LAYUI_TABLE_WIDTH_CONFIG= [[${layuiTableWidthConfig}]];
+    var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];
 </script>
 
 <script src="/business/oauth/role/role_list.js"></script>

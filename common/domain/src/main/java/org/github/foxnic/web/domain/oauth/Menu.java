@@ -18,8 +18,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-05 16:52:36
- * @sign 743A723F6E05153693E8885F06AE769B
+ * @since 2021-07-09 16:28:18
+ * @sign DCBE371ABBE01889672F8E7C47DD6A7D
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -90,6 +90,12 @@ public class Menu extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="上级ID" , notes = "上级ID")
 	private String parentId;
+	
+	/**
+	 * 层级路径：层级路径
+	*/
+	@ApiModelProperty(required = false,value="层级路径" , notes = "层级路径")
+	private String hierarchy;
 	
 	/**
 	 * 显示顺序：显示顺序
@@ -183,7 +189,7 @@ public class Menu extends Entity {
 	
 	/**
 	 * 获得 ID<br>
-	 * 属性说明 : ID
+	 * ID
 	 * @return ID
 	*/
 	public String getId() {
@@ -202,7 +208,7 @@ public class Menu extends Entity {
 	
 	/**
 	 * 获得 批次号<br>
-	 * 属性说明 : 自动生成时的批次号
+	 * 自动生成时的批次号
 	 * @return 批次号
 	*/
 	public String getBatchId() {
@@ -221,7 +227,7 @@ public class Menu extends Entity {
 	
 	/**
 	 * 获得 权限<br>
-	 * 属性说明 : 权限标识
+	 * 权限标识
 	 * @return 权限
 	*/
 	public String getAuthority() {
@@ -240,7 +246,7 @@ public class Menu extends Entity {
 	
 	/**
 	 * 获得 是否隐藏<br>
-	 * 属性说明 : 是否隐藏
+	 * 是否隐藏
 	 * @return 是否隐藏
 	*/
 	public Integer getHidden() {
@@ -259,7 +265,7 @@ public class Menu extends Entity {
 	
 	/**
 	 * 获得 样式<br>
-	 * 属性说明 : 样式
+	 * 样式
 	 * @return 样式
 	*/
 	public String getCss() {
@@ -278,7 +284,7 @@ public class Menu extends Entity {
 	
 	/**
 	 * 获得 标签<br>
-	 * 属性说明 : 标签
+	 * 标签
 	 * @return 标签
 	*/
 	public String getLabel() {
@@ -297,7 +303,7 @@ public class Menu extends Entity {
 	
 	/**
 	 * 获得 菜单类型<br>
-	 * 属性说明 : 菜单类型
+	 * 菜单类型
 	 * @return 菜单类型
 	*/
 	public String getType() {
@@ -316,7 +322,7 @@ public class Menu extends Entity {
 	
 	/**
 	 * 获得 菜单路径的资源<br>
-	 * 属性说明 : 菜单路径的资源
+	 * 菜单路径的资源
 	 * @return 菜单路径的资源
 	*/
 	public String getPathResourceId() {
@@ -335,7 +341,7 @@ public class Menu extends Entity {
 	
 	/**
 	 * 获得 路由地址<br>
-	 * 属性说明 : 路由地址
+	 * 路由地址
 	 * @return 路由地址
 	*/
 	public String getUrl() {
@@ -354,7 +360,7 @@ public class Menu extends Entity {
 	
 	/**
 	 * 获得 上级ID<br>
-	 * 属性说明 : 上级ID
+	 * 上级ID
 	 * @return 上级ID
 	*/
 	public String getParentId() {
@@ -372,8 +378,27 @@ public class Menu extends Entity {
 	}
 	
 	/**
+	 * 获得 层级路径<br>
+	 * 层级路径
+	 * @return 层级路径
+	*/
+	public String getHierarchy() {
+		return hierarchy;
+	}
+	
+	/**
+	 * 设置 层级路径
+	 * @param hierarchy 层级路径
+	 * @return 当前对象
+	*/
+	public Menu setHierarchy(String hierarchy) {
+		this.hierarchy=hierarchy;
+		return this;
+	}
+	
+	/**
 	 * 获得 显示顺序<br>
-	 * 属性说明 : 显示顺序
+	 * 显示顺序
 	 * @return 显示顺序
 	*/
 	public Integer getSort() {
@@ -392,7 +417,7 @@ public class Menu extends Entity {
 	
 	/**
 	 * 获得 创建人ID<br>
-	 * 属性说明 : 创建人ID
+	 * 创建人ID
 	 * @return 创建人ID
 	*/
 	public String getCreateBy() {
@@ -411,7 +436,7 @@ public class Menu extends Entity {
 	
 	/**
 	 * 获得 创建时间<br>
-	 * 属性说明 : 创建时间
+	 * 创建时间
 	 * @return 创建时间
 	*/
 	public Date getCreateTime() {
@@ -430,7 +455,7 @@ public class Menu extends Entity {
 	
 	/**
 	 * 获得 修改人ID<br>
-	 * 属性说明 : 修改人ID
+	 * 修改人ID
 	 * @return 修改人ID
 	*/
 	public String getUpdateBy() {
@@ -449,7 +474,7 @@ public class Menu extends Entity {
 	
 	/**
 	 * 获得 修改时间<br>
-	 * 属性说明 : 修改时间
+	 * 修改时间
 	 * @return 修改时间
 	*/
 	public Date getUpdateTime() {
@@ -468,7 +493,7 @@ public class Menu extends Entity {
 	
 	/**
 	 * 获得 是否已删除<br>
-	 * 属性说明 : 是否已删除
+	 * 是否已删除
 	 * @return 是否已删除
 	*/
 	public Integer getDeleted() {
@@ -487,7 +512,7 @@ public class Menu extends Entity {
 	
 	/**
 	 * 获得 删除人ID<br>
-	 * 属性说明 : 删除人ID
+	 * 删除人ID
 	 * @return 删除人ID
 	*/
 	public String getDeleteBy() {
@@ -506,7 +531,7 @@ public class Menu extends Entity {
 	
 	/**
 	 * 获得 删除时间<br>
-	 * 属性说明 : 删除时间
+	 * 删除时间
 	 * @return 删除时间
 	*/
 	public Date getDeleteTime() {
@@ -525,7 +550,7 @@ public class Menu extends Entity {
 	
 	/**
 	 * 获得 数据版本号<br>
-	 * 属性说明 : 数据版本号
+	 * 数据版本号
 	 * @return 数据版本号
 	*/
 	public Integer getVersion() {
@@ -656,7 +681,7 @@ public class Menu extends Entity {
 	
 	/**
 	 * 获得 祖先名称路径<br>
-	 * 属性说明 : 用斜杠隔开
+	 * 用斜杠隔开
 	 * @return 祖先名称路径
 	*/
 	public String getAncestorsNamePath() {

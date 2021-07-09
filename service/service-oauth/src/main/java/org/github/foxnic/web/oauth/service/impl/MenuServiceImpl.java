@@ -82,7 +82,9 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 		if(StringUtil.isBlank(menu.getAuthority())) {
 			menu.setAuthority(IDGenerator.getSUID(true));
 		}
-		return super.insert(menu);
+		Result result=super.insert(menu);
+		fillHierarchy(false);
+		return result;
 	}
 	
 	/**
@@ -92,7 +94,10 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 	 * */
 	@Override
 	public Result insertList(List<Menu> menuList) {
-		return super.insertList(menuList);
+		Result result=super.insertList(menuList);
+		fillHierarchy(false);
+		return result;
+
 	}
 	
 	
@@ -243,27 +248,27 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 		return ErrorDesc.success();
 	}
 	
-	private RcdSet queryChildMenus(String parentId) {
+	private RcdSet queryChildMenus(String parentId,String roleId) {
 		RcdSet menus=null;
 		if(parentId==null) {
-			menus=dao.query("select m.*,(select count(1) from sys_menu cm  where m.id=cm.parent_id and cm.deleted=0) child_count from sys_menu m where (m.parent_id is null or m.parent_id='') and m.deleted=0 order by sort asc");
+			menus=dao.query("#query-root-menus",roleId);
 		} else {
-			menus=dao.query("select m.*,(select count(1) from sys_menu cm  where m.id=cm.parent_id and cm.deleted=0) child_count from sys_menu m where m.parent_id=? and m.deleted=0 order by sort asc",parentId);
+			menus=dao.query("#query-menus-by-parent-id",roleId,parentId);
 		}
 		return menus;
 	}
 
 	@Override
-	public List<ZTreeNode> queryRootNotes() {
+	public List<ZTreeNode> queryRootNotes(String roleId) {
 		
-		RcdSet menus=queryChildMenus(null);
+		RcdSet menus=queryChildMenus(null,roleId);
 		List<ZTreeNode> nodes = toZTreeNodeList(menus);
 		return nodes;
 	}
  
 	@Override
-	public List<ZTreeNode> queryChildNodes(String parentId) {
-		RcdSet menus=queryChildMenus(parentId);
+	public List<ZTreeNode> queryChildNodes(String parentId,String roleId) {
+		RcdSet menus=queryChildMenus(parentId,roleId);
 		List<ZTreeNode> nodes = toZTreeNodeList(menus);
 		return nodes;
 	}
@@ -276,6 +281,9 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 			node.setName(m.getString(SYS_MENU.LABEL));
 			node.setParentId(m.getString(SYS_MENU.PARENT_ID));
 			node.setIsParent(m.getInteger("child_count")>0);
+			if(m.getValue("checked")!=null) {
+				node.setChecked(true);
+			}
 			nodes.add(node);
 		}
 		return nodes;
@@ -318,6 +326,21 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 			menu.setAncestorsNamePath(StringUtil.join(path,"/"));
 		}
 		return menus;
+	}
+
+	@Override
+	public int fillHierarchy(boolean reset) {
+		if(reset) {
+			dao().execute("#reset-menu-hierarchy");
+		}
+		int total=dao().execute("#update-menu-hierarchy-step1");
+		while (true) {
+			int i=dao().execute("#update-menu-hierarchy-step2");
+			total+=i;
+			if(i==0) break;
+		}
+		return total;
+
 	}
 
 	private void joinAncestors(List<Menu> menus) {

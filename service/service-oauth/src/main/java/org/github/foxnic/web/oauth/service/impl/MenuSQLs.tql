@@ -5,3 +5,33 @@ SELECT * from sys_menu where  deleted=0 and #(path_resource_ids) and #(path_reso
 union
 SELECT m.* from sys_menu m join sys_menu_resource mr on m.id=mr.menu_id  where m.deleted=0 and mr.deleted=0 and #(resource_ids)
 
+
+# 查询根节点菜单
+[query-root-menus]
+select m.*,(select count(1) from sys_menu cm  where m.id=cm.parent_id and cm.deleted=0) child_count,r.id checked from sys_menu m
+left join sys_role_menu r on r.role_id=? and m.id=r.menu_id
+where (m.parent_id is null or m.parent_id='') and m.deleted=0 order by sort asc
+
+
+# 按上级节点ID查找下级节点
+[query-menus-by-parent-id]
+select m.*,(select count(1) from sys_menu cm  where m.id=cm.parent_id and cm.deleted=0) child_count,r.id checked from sys_menu m
+left join sys_role_menu r on r.role_id=? and m.id=r.menu_id
+where m.parent_id=? and m.deleted=0 order by sort asc
+
+
+# 重置菜单层级路径
+[reset-menu-hierarchy]
+update sys_menu set hierarchy=null
+
+
+# 设置根节点菜单的层级路径
+[update-menu-hierarchy-step1]
+UPDATE sys_menu set hierarchy=id where parent_id is null or trim(parent_id)=''
+
+
+# 设置上级节点已经设置层级路径的节点的层级路径
+[update-menu-hierarchy-step2]
+UPDATE sys_menu c, sys_menu p
+SET c.hierarchy=CONCAT(p.hierarchy,"/",c.id)
+WHERE p.id=c.parent_id and c.hierarchy is null and p.hierarchy is not null

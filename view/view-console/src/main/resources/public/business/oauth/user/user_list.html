@@ -45,7 +45,7 @@
                 <div id="valid" data='[{"name":"有效","value":"1"},{"name":"无效","value":"0"}]' style="width:100px"></div>
             </div>
             <div class="search-unit">
-                <span th:text="${lang.translate('最后登录时间')}" class="search-label">最后登录时间</span><span class="search-colon">:</span>
+                <span th:text="${lang.translate('最后登录')}" class="search-label">最后登录时间</span><span class="search-colon">:</span>
                  <input type="text" id="lastLoginTime-begin" style="width: 90px" lay-verify="date" th:placeholder="${lang.translate('开始日期')}" autocomplete="off" class="layui-input search-input search-date-input"  readonly >
                  <span class="search-dash">-</span>
                  <input type="text" id="lastLoginTime-end"  style="width: 90px"  lay-verify="date" th:placeholder="${lang.translate('结束日期')}" autocomplete="off" class="layui-input search-input search-date-input" readonly>

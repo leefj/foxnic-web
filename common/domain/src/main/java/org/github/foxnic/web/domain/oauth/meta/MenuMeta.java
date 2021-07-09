@@ -9,8 +9,8 @@ import java.util.List;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-05 16:52:36
- * @sign 743A723F6E05153693E8885F06AE769B
+ * @since 2021-07-09 16:28:18
+ * @sign DCBE371ABBE01889672F8E7C47DD6A7D
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -65,6 +65,11 @@ public class MenuMeta {
 	 * 上级ID
 	*/
 	public static final String PARENT_ID="parentId";
+	
+	/**
+	 * 层级路径
+	*/
+	public static final String HIERARCHY="hierarchy";
 	
 	/**
 	 * 显示顺序
@@ -144,7 +149,7 @@ public class MenuMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , BATCH_ID , AUTHORITY , HIDDEN , CSS , LABEL , TYPE , PATH_RESOURCE_ID , URL , PARENT_ID , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , PATH_RESOURCE , RESOURCES , PARENT , PATH , RESOURCE_IDS , ANCESTORS_NAME_PATH };
+	public static final String[] $PROPS={ ID , BATCH_ID , AUTHORITY , HIDDEN , CSS , LABEL , TYPE , PATH_RESOURCE_ID , URL , PARENT_ID , HIERARCHY , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , PATH_RESOURCE , RESOURCES , PARENT , PATH , RESOURCE_IDS , ANCESTORS_NAME_PATH };
 	
 	/**
 	 * 代理类
@@ -261,6 +266,17 @@ public class MenuMeta {
 		public Menu setParentId(String parentId) {
 			super.change(PARENT_ID,super.getParentId(),parentId);
 			super.setParentId(parentId);
+			return this;
+		}
+		
+		/**
+		 * 设置 层级路径
+		 * @param hierarchy 层级路径
+		 * @return 当前对象
+		*/
+		public Menu setHierarchy(String hierarchy) {
+			super.change(HIERARCHY,super.getHierarchy(),hierarchy);
+			super.setHierarchy(hierarchy);
 			return this;
 		}
 		

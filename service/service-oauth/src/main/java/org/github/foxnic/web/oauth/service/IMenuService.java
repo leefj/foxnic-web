@@ -270,11 +270,13 @@ public interface IMenuService extends ISuperService<Menu> {
 	/**
 	 * 查询根节点
 	 * */
-	List<ZTreeNode> queryRootNotes();
+	List<ZTreeNode> queryRootNotes(String roleId);
 
-	List<ZTreeNode> queryChildNodes(String parentId);
+	List<ZTreeNode> queryChildNodes(String parentId,String roleId);
 
 	Boolean saveHierarchy(List<String> ids, String parentId);
 
 	List<Menu> getRelatedMenus(List<String> resourzeIds);
+
+	int fillHierarchy(boolean reset);
 }

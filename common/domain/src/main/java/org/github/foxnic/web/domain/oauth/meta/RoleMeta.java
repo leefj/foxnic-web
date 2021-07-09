@@ -2,13 +2,14 @@ package org.github.foxnic.web.domain.oauth.meta;
 
 import org.github.foxnic.web.domain.oauth.Role;
 import java.util.Date;
+import java.util.List;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-28 15:09:51
- * @sign 3F06962867ED89CA55599B2D287EC34B
+ * @since 2021-07-09 14:41:36
+ * @sign 1F90BD51C3FC6E1A48BF87186F8886A3
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -70,9 +71,14 @@ public class RoleMeta {
 	public static final String VERSION="version";
 	
 	/**
+	 * 所拥有的菜单ID清单
+	*/
+	public static final String MENU_IDS="menuIds";
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , CODE , NAME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , CODE , NAME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , MENU_IDS };
 	
 	/**
 	 * 代理类
@@ -200,6 +206,17 @@ public class RoleMeta {
 		public Role setVersion(Integer version) {
 			super.change(VERSION,super.getVersion(),version);
 			super.setVersion(version);
+			return this;
+		}
+		
+		/**
+		 * 设置 所拥有的菜单ID清单
+		 * @param menuIds 所拥有的菜单ID清单
+		 * @return 当前对象
+		*/
+		public Role setMenuIds(List<String> menuIds) {
+			super.change(MENU_IDS,super.getMenuIds(),menuIds);
+			super.setMenuIds(menuIds);
 			return this;
 		}
 	}

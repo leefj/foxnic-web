@@ -1,19 +1,19 @@
 /**
  * 角色 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-22 16:42:50
+ * @since 2021-07-09 14:46:41
  */
 
 function FormPage() {
 
-	var settings,admin,form,table,layer,util,fox,upload,xmSelect;
+	var settings,admin,form,table,layer,util,fox,upload,xmSelect,foxup;
 	const moduleURL="/service-oauth/sys-role";
 	
 	/**
       * 入口函数，初始化
       */
 	this.init=function(layui) { 	
-     	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload;
+     	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload,foxup=layui.foxnicUpload;
 		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
 		
 		//渲染表单组件
@@ -24,17 +24,19 @@ function FormPage() {
 		
 		//绑定提交事件
 		bindButtonEvent();
-		
+
 		//调整窗口的高度与位置
 		adjustPopup();
-		
 	}
 	
 	function adjustPopup() {
-		var delta=58;//此参数请按实际情况自行调整
-		var height=document.body.clientHeight+delta;
-		admin.changePopupArea(null,height);
-		admin.putTempData('sys-role-form-area', {height:height});
+		setTimeout(function () {
+			var body=$("body");
+			var bodyHeight=body.height();
+			var area=admin.changePopupArea(null,bodyHeight);
+			admin.putTempData('sys-role-form-area', area);
+			window.adjustPopup=adjustPopup;
+		},50);
 	}
 	
 	/**
@@ -44,17 +46,26 @@ function FormPage() {
 		form.render();
 	   
 	}
-	
+
+
+	var roleId="";
 	/**
       * 填充表单数据
       */
 	function fillFormData() {
 		var formData = admin.getTempData('sys-role-form-data');
+		roleId=formData.id;
+		//如果是新建
+		if(!formData.id) {
+			adjustPopup();
+		}
 		var fm=$('#data-form');
 		if (formData) {
 			fm[0].reset();
 			form.val('data-form', formData);
-	     	//设置并显示图片
+
+
+
 	     	fm.attr('method', 'POST');
 	     	renderFormFields();
 		}
@@ -77,9 +88,7 @@ function FormPage() {
     
 	    form.on('submit(submit-button)', function (data) {
 	    	//debugger;
-	    	
-	    	//处理逻辑值
-	    	
+
 	    	var api=moduleURL+"/"+(data.field.id?"update":"insert");
 	        var task=setTimeout(function(){layer.load(2);},1000);
 	        admin.request(api, data.field, function (data) {
@@ -89,7 +98,7 @@ function FormPage() {
 	                layer.msg(data.message, {icon: 1, time: 500});
 	                admin.finishPopupCenter();
 	            } else {
-	                layer.msg(data.message, {icon: 2, time: 500});
+	                layer.msg(data.message, {icon: 2, time: 1000});
 	            }
 	        }, "POST");
 	        
@@ -98,16 +107,51 @@ function FormPage() {
 	    
 	    //关闭窗口
 	    $("#cancel-button").click(function(){admin.closePopupCenter();});
+
+	    //
+		$("#menu-button").click(function(){
+			openMenuDialog(function (css){
+
+			});
+		});
 	    
     }
 
+	function openMenuDialog(callback) {
+		//debugger;
+		var index=admin.popupCenter({
+			type:2,
+			id:"menuDialog",
+			title: "请选择菜单",
+			content: '/business/oauth/menu/menu_dialog.html'+(roleId?('?roleId='+roleId):""),
+			area:["300px","80%"]
+		});
+
+		var task=setInterval(function (){
+			// try{
+			// 	$("#layui-layer-iframe"+index)[0].contentWindow.setLinkIn(index,function(act,css){
+			// 		admin.closePopupCenter();
+			// 		if(act=="sure") {
+			// 			callback(css);
+			// 		}
+			// 	});
+			// 	clearInterval(task);
+			// } catch (e) {}
+		},100);
+	}
+
+
+
 }
+
+
 
 layui.config({
 	dir: layuiPath,
 	base: '/module/'
 }).extend({
-	xmSelect: 'xm-select/xm-select'
-}).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect'],function() {
+	xmSelect: 'xm-select/xm-select',
+	foxnicUpload: 'upload/foxnic-upload'
+}).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect','foxnicUpload'],function() {
 	(new FormPage()).init(layui);
 });

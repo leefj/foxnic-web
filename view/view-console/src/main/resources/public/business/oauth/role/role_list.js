@@ -1,7 +1,7 @@
 /**
  * 角色 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-22 16:42:50
+ * @since 2021-07-09 14:46:41
  */
 
 
@@ -16,11 +16,13 @@ function ListPage() {
       */
 	this.init=function(layui) {
      	
-     	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload;
+     	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload,laydate= layui.laydate;
 		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
 		
      	//渲染表格
      	renderTable();
+		//初始化搜索输入框组件
+		initSearchFields();
 		//绑定搜索框事件
 		bindSearchEvent();
 		//绑定按钮事件
@@ -43,10 +45,11 @@ function ListPage() {
 			cols: [[
 				{  fixed: 'left',type: 'numbers' },
 			 	{  fixed: 'left',type:'checkbox' },
-                { field: 'id', sort: true, title: fox.translate('ID') } ,
-                { field: 'code', sort: true, title: fox.translate('代码') } ,
-                { field: 'name', sort: true, title: fox.translate('名称') } ,
-                { field: 'createTime', sort: true, title: fox.translate('创建时间') , templet: function (d) { return fox.dateFormat(d.createTime); } } ,
+                { field: 'id', align:"left", hide:true, sort: true, title: fox.translate('ID')} ,
+                { field: 'code', align:"left", hide:false, sort: true, title: fox.translate('代码')} ,
+                { field: 'name', align:"left", hide:false, sort: true, title: fox.translate('名称')} ,
+				{ field: 'createTime', align:"right", hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return fox.dateFormat(d.createTime); }} ,
+                { field: 'menuIds', align:"", hide:true, sort: true, title: fox.translate('菜单权限')} ,
                 { field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
             ]]
 	 		,footer : {
@@ -73,9 +76,10 @@ function ListPage() {
       * 刷新表格数据
       */
 	function refreshTableData(sortField,sortType) {
-		var field = $('#search-field').val();
-		var value = $('#search-input').val();
-		var ps={searchField: field, searchValue: value,sortField:sortField,sortType:sortType};
+		var value = {};
+		value.code={ value: $("#code").val() };
+		value.name={ value: $("#name").val() };
+		var ps={searchField: "$composite", searchValue: JSON.stringify(value),sortField: sortField,sortType: sortType};
 		table.reload('data-table', { where : ps });
 	}
     
@@ -99,13 +103,16 @@ function ListPage() {
 		$('#search-input').val("");
 		layui.form.render();
 	}
+
+	function initSearchFields() {
+	}
 	
 	/**
 	 * 绑定搜索框事件
 	 */
 	function bindSearchEvent() {
 		//回车键查询
-        $("#search-input").keydown(function(event) {
+        $(".search-input").keydown(function(event) {
 			if(event.keyCode !=13) return;
 		  	refreshTableData();
         });
@@ -140,13 +147,13 @@ function ListPage() {
 			layer.confirm(fox.translate('确定删除已选中的')+fox.translate('角色')+fox.translate('吗？'), function (i) {
 				layer.close(i);
 				layer.load(2);
-                admin.request(moduleURL+"/batch-delete", { ids: ids }, function (data) {
+                admin.request(moduleURL+"/delete-by-id", { ids: ids }, function (data) {
                     layer.closeAll('loading');
                     if (data.success) {
                         layer.msg(data.message, {icon: 1, time: 500});
                         refreshTableData();
                     } else {
-                        layer.msg(data.message, {icon: 2, time: 500});
+                        layer.msg(data.message, {icon: 2, time: 1500});
                     }
                 });
 			});
@@ -171,7 +178,7 @@ function ListPage() {
 					if(data.success) {
 						 showEditForm(data.data);
 					} else {
-						 layer.msg(data.message, {icon: 1, time: 500});
+						 layer.msg(data.message, {icon: 1, time: 1500});
 					}
 				});
 				
@@ -186,7 +193,7 @@ function ListPage() {
 							layer.msg(data.message, {icon: 1, time: 500});
 							refreshTableData();
 						} else {
-							layer.msg(data.message, {icon: 2, time: 500});
+							layer.msg(data.message, {icon: 2, time: 1500});
 						}
 					});
 				});
@@ -205,7 +212,7 @@ function ListPage() {
 		admin.putTempData('sys-role-form-data', data);
 		var area=admin.getTempData('sys-role-form-area');
 		var height= (area && area.height) ? area.height : ($(window).height()*0.6);
-		var top= ($(window).height()-height)/2;
+		var top= (area && area.top) ? area.top : (($(window).height()-height)/2);
 		var title = (data && data.id) ? (fox.translate('修改')+fox.translate('角色')) : (fox.translate('添加')+fox.translate('角色'));
 		admin.popupCenter({
 			title: title,
@@ -228,6 +235,6 @@ layui.config({
 	base: '/module/'
 }).extend({
 	xmSelect: 'xm-select/xm-select'
-}).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect'],function() {
+}).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect','laydate'],function() {
 	(new ListPage()).init(layui);
 });

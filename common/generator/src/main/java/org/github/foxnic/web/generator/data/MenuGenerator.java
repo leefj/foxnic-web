@@ -164,6 +164,7 @@ public class MenuGenerator {
 			createTopMenu(parentId);
 			createApiResource();
 			createSubMenus();
+			refreshHierarchy();
 			grant();
 			dao.commit();
 		} catch (Exception e){
@@ -171,6 +172,24 @@ public class MenuGenerator {
 			System.err.println("生成失败，数据已回滚");
 			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * 刷新层级路径
+	 * */
+	protected void refreshHierarchy() {
+
+		dao.execute("update sys_menu set hierarchy=id where parent_id is null or trim(parent_id)=''");
+
+		String sql="UPDATE sys_menu c, sys_menu p " +
+				"SET c.hierarchy=CONCAT(p.hierarchy,'/',c.id) " +
+				"WHERE p.id=c.parent_id and c.hierarchy is null and p.hierarchy is not null";
+		while (true) {
+			int i=dao.execute(sql);
+			if(i==0) break;
+		}
+
+
 	}
 
 	protected  String getFunctionString() {

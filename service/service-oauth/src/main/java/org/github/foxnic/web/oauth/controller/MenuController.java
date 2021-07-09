@@ -1,6 +1,6 @@
 package org.github.foxnic.web.oauth.controller;
 
- 
+
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.api.validate.annotations.NotNull;
@@ -19,6 +19,7 @@ import org.github.foxnic.web.domain.oauth.MenuVO;
 import org.github.foxnic.web.domain.oauth.meta.MenuVOMeta;
 import org.github.foxnic.web.misc.ztree.ZTreeNode;
 import org.github.foxnic.web.oauth.service.IMenuService;
+import org.github.foxnic.web.oauth.service.IRoleMenuService;
 import org.github.foxnic.web.proxy.oauth.MenuServiceProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,6 +43,9 @@ public class MenuController {
 	@Autowired
 	private IMenuService menuService;
 
+	@Autowired
+	private IRoleMenuService roleMenuService;
+
 	
 	/**
 	 * 添加菜单
@@ -58,6 +62,7 @@ public class MenuController {
 		@ApiImplicitParam(name = MenuVOMeta.PATH_RESOURCE_ID , value = "菜单路径的资源" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = MenuVOMeta.URL , value = "路由地址" , required = false , dataTypeClass=String.class , example = "#!sys_user_edit"),
 		@ApiImplicitParam(name = MenuVOMeta.PARENT_ID , value = "上级ID" , required = false , dataTypeClass=String.class , example = "451739184579739648"),
+		@ApiImplicitParam(name = MenuVOMeta.HIERARCHY , value = "层级路径" , required = false , dataTypeClass=String.class , example = "463397133957988352"),
 		@ApiImplicitParam(name = MenuVOMeta.SORT , value = "显示顺序" , required = true , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiOperationSupport(order=1)
@@ -93,7 +98,7 @@ public class MenuController {
 	public Result<Menu> deleteById(String id) {
 		Result<Menu> result=new Result<>();
 
-		List children=menuService.queryChildNodes(id);
+		List children=menuService.queryChildNodes(id,null);
 		if(!children.isEmpty()) {
 			result.success(false).message("请先删除下级节点");
 			return result;
@@ -137,6 +142,7 @@ public class MenuController {
 		@ApiImplicitParam(name = MenuVOMeta.PATH_RESOURCE_ID , value = "菜单路径的资源" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = MenuVOMeta.URL , value = "路由地址" , required = false , dataTypeClass=String.class , example = "#!sys_user_edit"),
 		@ApiImplicitParam(name = MenuVOMeta.PARENT_ID , value = "上级ID" , required = false , dataTypeClass=String.class , example = "451739184579739648"),
+		@ApiImplicitParam(name = MenuVOMeta.HIERARCHY , value = "层级路径" , required = false , dataTypeClass=String.class , example = "463397133957988352"),
 		@ApiImplicitParam(name = MenuVOMeta.SORT , value = "显示顺序" , required = true , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiOperationSupport( order=4 , ignoreParameters = { MenuVOMeta.PAGE_INDEX , MenuVOMeta.PAGE_SIZE , MenuVOMeta.SEARCH_FIELD , MenuVOMeta.SEARCH_VALUE , MenuVOMeta.IDS } ) 
@@ -165,6 +171,7 @@ public class MenuController {
 		@ApiImplicitParam(name = MenuVOMeta.PATH_RESOURCE_ID , value = "菜单路径的资源" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = MenuVOMeta.URL , value = "路由地址" , required = false , dataTypeClass=String.class , example = "#!sys_user_edit"),
 		@ApiImplicitParam(name = MenuVOMeta.PARENT_ID , value = "上级ID" , required = false , dataTypeClass=String.class , example = "451739184579739648"),
+		@ApiImplicitParam(name = MenuVOMeta.HIERARCHY , value = "层级路径" , required = false , dataTypeClass=String.class , example = "463397133957988352"),
 		@ApiImplicitParam(name = MenuVOMeta.SORT , value = "显示顺序" , required = true , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { MenuVOMeta.PAGE_INDEX , MenuVOMeta.PAGE_SIZE , MenuVOMeta.SEARCH_FIELD , MenuVOMeta.SEARCH_VALUE , MenuVOMeta.IDS } )
@@ -212,6 +219,7 @@ public class MenuController {
 		@ApiImplicitParam(name = MenuVOMeta.PATH_RESOURCE_ID , value = "菜单路径的资源" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = MenuVOMeta.URL , value = "路由地址" , required = false , dataTypeClass=String.class , example = "#!sys_user_edit"),
 		@ApiImplicitParam(name = MenuVOMeta.PARENT_ID , value = "上级ID" , required = false , dataTypeClass=String.class , example = "451739184579739648"),
+		@ApiImplicitParam(name = MenuVOMeta.HIERARCHY , value = "层级路径" , required = false , dataTypeClass=String.class , example = "463397133957988352"),
 		@ApiImplicitParam(name = MenuVOMeta.SORT , value = "显示顺序" , required = true , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { MenuVOMeta.PAGE_INDEX , MenuVOMeta.PAGE_SIZE } )
@@ -249,11 +257,19 @@ public class MenuController {
 		Result<List<ZTreeNode>> result=new Result<>();
 		List<ZTreeNode> list=null;
 		if(sample.getParentId()==null) {
-			list=menuService.queryRootNotes();
+			list=menuService.queryRootNotes(sample.getRoleId());
 		} else {
-			list=menuService.queryChildNodes(sample.getParentId());
+			list=menuService.queryChildNodes(sample.getParentId(),sample.getRoleId());
 		}
- 
+
+		//加载全部子孙节点
+		if(sample.getIsLoadAllDescendants()==1) {
+
+//			queryList()
+
+		}
+
+
 		result.success(true).data(list);
 		return result;
 	}
@@ -274,6 +290,7 @@ public class MenuController {
 		@ApiImplicitParam(name = MenuVOMeta.PATH_RESOURCE_ID , value = "菜单路径的资源" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = MenuVOMeta.URL , value = "路由地址" , required = false , dataTypeClass=String.class , example = "#!sys_user_edit"),
 		@ApiImplicitParam(name = MenuVOMeta.PARENT_ID , value = "上级ID" , required = false , dataTypeClass=String.class , example = "451739184579739648"),
+		@ApiImplicitParam(name = MenuVOMeta.HIERARCHY , value = "层级路径" , required = false , dataTypeClass=String.class , example = "463397133957988352"),
 		@ApiImplicitParam(name = MenuVOMeta.SORT , value = "显示顺序" , required = true , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiOperationSupport(order=8)

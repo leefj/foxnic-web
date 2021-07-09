@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-05-28 15:09:52
- * @sign A8B11C848685EB7CA54CFBAD270F1F01
+ * @since 2021-07-09 16:28:19
+ * @sign AFEEA517CCE106178EED9A0E486A783C
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -38,13 +38,13 @@ public class RoleMenu extends Entity {
 	/**
 	 * 角色ID：角色ID
 	*/
-	@ApiModelProperty(required = false,value="角色ID" , notes = "角色ID")
+	@ApiModelProperty(required = true,value="角色ID" , notes = "角色ID")
 	private String roleId;
 	
 	/**
 	 * 菜单ID：菜单ID
 	*/
-	@ApiModelProperty(required = false,value="菜单ID" , notes = "菜单ID")
+	@ApiModelProperty(required = true,value="菜单ID" , notes = "菜单ID")
 	private String menuId;
 	
 	/**
@@ -97,7 +97,7 @@ public class RoleMenu extends Entity {
 	
 	/**
 	 * 获得 id<br>
-	 * 属性说明 : id
+	 * id
 	 * @return id
 	*/
 	public String getId() {
@@ -115,14 +115,8 @@ public class RoleMenu extends Entity {
 	}
 	
 	/**
-	 * 添加 id
-	 * @param id id
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 角色ID<br>
-	 * 属性说明 : 角色ID
+	 * 角色ID
 	 * @return 角色ID
 	*/
 	public String getRoleId() {
@@ -140,14 +134,8 @@ public class RoleMenu extends Entity {
 	}
 	
 	/**
-	 * 添加 角色ID
-	 * @param roleId 角色ID
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 菜单ID<br>
-	 * 属性说明 : 菜单ID
+	 * 菜单ID
 	 * @return 菜单ID
 	*/
 	public String getMenuId() {
@@ -165,14 +153,8 @@ public class RoleMenu extends Entity {
 	}
 	
 	/**
-	 * 添加 菜单ID
-	 * @param menuId 菜单ID
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 创建人ID<br>
-	 * 属性说明 : 创建人ID
+	 * 创建人ID
 	 * @return 创建人ID
 	*/
 	public String getCreateBy() {
@@ -190,14 +172,8 @@ public class RoleMenu extends Entity {
 	}
 	
 	/**
-	 * 添加 创建人ID
-	 * @param createBy 创建人ID
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 创建时间<br>
-	 * 属性说明 : 创建时间
+	 * 创建时间
 	 * @return 创建时间
 	*/
 	public Date getCreateTime() {
@@ -215,14 +191,8 @@ public class RoleMenu extends Entity {
 	}
 	
 	/**
-	 * 添加 创建时间
-	 * @param createTime 创建时间
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 修改人ID<br>
-	 * 属性说明 : 修改人ID
+	 * 修改人ID
 	 * @return 修改人ID
 	*/
 	public String getUpdateBy() {
@@ -240,14 +210,8 @@ public class RoleMenu extends Entity {
 	}
 	
 	/**
-	 * 添加 修改人ID
-	 * @param updateBy 修改人ID
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 修改时间<br>
-	 * 属性说明 : 修改时间
+	 * 修改时间
 	 * @return 修改时间
 	*/
 	public Date getUpdateTime() {
@@ -265,14 +229,8 @@ public class RoleMenu extends Entity {
 	}
 	
 	/**
-	 * 添加 修改时间
-	 * @param updateTime 修改时间
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 是否已删除<br>
-	 * 属性说明 : 是否已删除
+	 * 是否已删除
 	 * @return 是否已删除
 	*/
 	public Integer getDeleted() {
@@ -290,14 +248,8 @@ public class RoleMenu extends Entity {
 	}
 	
 	/**
-	 * 添加 是否已删除
-	 * @param deleted 是否已删除
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 删除人ID<br>
-	 * 属性说明 : 删除人ID
+	 * 删除人ID
 	 * @return 删除人ID
 	*/
 	public String getDeleteBy() {
@@ -315,14 +267,8 @@ public class RoleMenu extends Entity {
 	}
 	
 	/**
-	 * 添加 删除人ID
-	 * @param deleteBy 删除人ID
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 删除时间<br>
-	 * 属性说明 : 删除时间
+	 * 删除时间
 	 * @return 删除时间
 	*/
 	public Date getDeleteTime() {
@@ -340,14 +286,8 @@ public class RoleMenu extends Entity {
 	}
 	
 	/**
-	 * 添加 删除时间
-	 * @param deleteTime 删除时间
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 数据版本号<br>
-	 * 属性说明 : 数据版本号
+	 * 数据版本号
 	 * @return 数据版本号
 	*/
 	public Integer getVersion() {
@@ -363,12 +303,6 @@ public class RoleMenu extends Entity {
 		this.version=version;
 		return this;
 	}
-	
-	/**
-	 * 添加 数据版本号
-	 * @param version 数据版本号
-	 * @return 当前对象
-	*/
 
 	/**
 	 * 将自己转换成指定类型的PO

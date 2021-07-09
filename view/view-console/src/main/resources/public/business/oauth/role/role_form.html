@@ -2,7 +2,7 @@
 /**
  * 角色 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-22 16:42:50
+ * @since 2021-07-09 14:46:41
  */
  -->
  <!DOCTYPE html>
@@ -19,24 +19,36 @@
     <link href="/assets/libs/font-awesome-4.7.0/css/font-awesome.min.css" th:href="@{/assets/libs/font-awesome-4.7.0/css/font-awesome.min.css}" rel="stylesheet"/>
 </head>
 
-<body>
+<body style="overflow-y: hidden">
 
 <form id="data-form" lay-filter="data-form" class="layui-form model-form" style="display:none">
     <input name="id" id="id"  type="hidden"/>
     
-    <div class="layui-form-item">
+    <div class="layui-form-item" >
         <label class="layui-form-label" th:text="${lang.translate('代码')}">代码</label>
         <div class="layui-input-block">
-            <input lay-filter="code" id="code" name="code" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('代码') }" type="text" class="layui-input"    />
+            <input lay-filter="code" id="code" name="code" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('代码') }" type="text" class="layui-input"   />
         </div>
     </div>
     
 	
     
-    <div class="layui-form-item">
+    <div class="layui-form-item" >
         <label class="layui-form-label" th:text="${lang.translate('名称')}">名称</label>
         <div class="layui-input-block">
-            <input lay-filter="name" id="name" name="name" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('名称') }" type="text" class="layui-input"    />
+            <input lay-filter="name" id="name" name="name" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('名称') }" type="text" class="layui-input"   />
+        </div>
+    </div>
+    
+	
+    
+    <div class="layui-form-item" >
+        <label class="layui-form-label" th:text="${lang.translate('菜单权限')}">菜单权限</label>
+        <div class="layui-input-block" style="display: none">
+            <input lay-filter="menuIds" id="menuIds" name="menuIds" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('菜单权限') }" type="text" class="layui-input"   />
+        </div>
+        <div class="layui-input-inline" style="width: 100px;">
+            <button id="menu-button" type="button" class="layui-btn"><i class="fa fa-briefcase" id="icon-button-el"></i>&nbsp;&nbsp;<span th:placeholder="${ lang.translate('请选择菜单') }">请选择菜单</span></button>
         </div>
     </div>
     

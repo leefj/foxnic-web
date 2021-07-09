@@ -9,8 +9,8 @@ import java.util.ArrayList;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-01 11:34:08
- * @sign 869385ED987833285719A66AA481ECED
+ * @since 2021-07-09 17:04:35
+ * @sign C88DC1D63B1DBF9CB9F6145A70BCC13F
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -59,6 +59,18 @@ public class MenuVO extends Menu {
 	*/
 	@ApiModelProperty(required = false,value="主键清单" , notes = "用于接收批量主键参数")
 	private List<String> ids;
+	
+	/**
+	 * 菜单角色：从前端传入，指定勾选指定角色的菜单
+	*/
+	@ApiModelProperty(required = false,value="菜单角色" , notes = "从前端传入，指定勾选指定角色的菜单")
+	private String roleId;
+	
+	/**
+	 * 是否加载所有子孙节点：1：是；0：否
+	*/
+	@ApiModelProperty(required = false,value="是否加载所有子孙节点" , notes = "1：是；0：否")
+	private Integer isLoadAllDescendants;
 	
 	/**
 	 * 获得 页码<br>
@@ -170,7 +182,7 @@ public class MenuVO extends Menu {
 	
 	/**
 	 * 获得 主键清单<br>
-	 * 属性说明 : 用于接收批量主键参数
+	 * 用于接收批量主键参数
 	 * @return 主键清单
 	*/
 	public List<String> getIds() {
@@ -195,6 +207,44 @@ public class MenuVO extends Menu {
 	public MenuVO addId(String id) {
 		if(this.ids==null) ids=new ArrayList<>();
 		this.ids.add(id);
+		return this;
+	}
+	
+	/**
+	 * 获得 菜单角色<br>
+	 * 从前端传入，指定勾选指定角色的菜单
+	 * @return 菜单角色
+	*/
+	public String getRoleId() {
+		return roleId;
+	}
+	
+	/**
+	 * 设置 菜单角色
+	 * @param roleId 菜单角色
+	 * @return 当前对象
+	*/
+	public MenuVO setRoleId(String roleId) {
+		this.roleId=roleId;
+		return this;
+	}
+	
+	/**
+	 * 获得 是否加载所有子孙节点<br>
+	 * 1：是；0：否
+	 * @return 是否加载所有子孙节点
+	*/
+	public Integer getIsLoadAllDescendants() {
+		return isLoadAllDescendants;
+	}
+	
+	/**
+	 * 设置 是否加载所有子孙节点
+	 * @param isLoadAllDescendants 是否加载所有子孙节点
+	 * @return 当前对象
+	*/
+	public MenuVO setIsLoadAllDescendants(Integer isLoadAllDescendants) {
+		this.isLoadAllDescendants=isLoadAllDescendants;
 		return this;
 	}
 }

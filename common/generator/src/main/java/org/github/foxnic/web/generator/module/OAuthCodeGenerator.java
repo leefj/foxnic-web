@@ -8,10 +8,7 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.*;
 import org.github.foxnic.web.constants.enums.HttpMethodType;
 import org.github.foxnic.web.constants.enums.Language;
 import org.github.foxnic.web.constants.enums.ResourceType;
-import org.github.foxnic.web.domain.oauth.meta.MenuMeta;
-import org.github.foxnic.web.domain.oauth.meta.MenuVOMeta;
-import org.github.foxnic.web.domain.oauth.meta.UserMeta;
-import org.github.foxnic.web.domain.oauth.meta.UserVOMeta;
+import org.github.foxnic.web.domain.oauth.meta.*;
 import org.github.foxnic.web.proxy.oauth.ResourzeServiceProxy;
 import org.github.foxnic.web.proxy.oauth.RoleServiceProxy;
 
@@ -54,8 +51,8 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		.setServiceIntfAnfImpl(WriteMode.CREATE_IF_NOT_EXISTS) //服务与接口
 		.setControllerAndAgent(WriteMode.CREATE_IF_NOT_EXISTS) //Rest
 		.setPageController(WriteMode.CREATE_IF_NOT_EXISTS) //页面控制器
-		.setFormPage(WriteMode.COVER_EXISTS_FILE) //表单HTML页
-		.setListPage(WriteMode.COVER_EXISTS_FILE); //列表HTML页
+		.setFormPage(WriteMode.CREATE_IF_NOT_EXISTS) //表单HTML页
+		.setListPage(WriteMode.CREATE_IF_NOT_EXISTS); //列表HTML页
 		
 
 		PojoClassFile pojo=cfg.createPojo("LoginIdentityVO");
@@ -195,7 +192,13 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 	public void generateSysRole() throws Exception {
 		//创建配置
 		ModuleContext cfg=createModuleConfig(SYS_ROLE.$TABLE, 6);
-		
+
+		cfg.field(SYS_ROLE.ID).hideInList().hideInSearch();
+		//增加菜单选择
+		cfg.field(RoleMeta.MENU_IDS).label("菜单权限").hideInList();
+
+		cfg.getPoClassFile().addListProperty(String.class,"menuIds","所拥有的菜单ID清单","");
+
 		//文件生成覆盖模式
 		cfg.overrides()
 		.setServiceIntfAnfImpl(WriteMode.CREATE_IF_NOT_EXISTS) //服务与接口
@@ -244,6 +247,9 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 	public void generateSysMenu() throws Exception {
 		//创建配置
 		ModuleContext cfg=createModuleConfig(SYS_MENU.$TABLE, 6);
+
+		cfg.getVoClassFile().addSimpleProperty(String.class,"roleId","菜单角色","从前端传入，指定勾选指定角色的菜单");
+		cfg.getVoClassFile().addSimpleProperty(Integer.class,"isLoadAllDescendants","是否加载所有子孙节点","1：是；0：否");
 
 		cfg.getPoClassFile().addSimpleProperty(String.class,"path","页面路径","");
 		cfg.getPoClassFile().addListProperty(String.class,"resourceIds","资源ID清单","");

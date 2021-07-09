@@ -1,9 +1,8 @@
 package org.github.foxnic.web.oauth.page;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * <p>
@@ -25,6 +24,14 @@ public class MenuPageController {
 	@RequestMapping("/menu_list.html")
 	public String list(Model model) {
 		return prefix+"/menu_list";
+	}
+
+	/**
+	 * 菜单 功能主页面
+	 */
+	@RequestMapping("/menu_dialog.html")
+	public String dialog(Model model) {
+		return prefix+"/menu_dialog";
 	}
 
 	/**

@@ -1,15 +1,14 @@
 package org.github.foxnic.web.oauth.service;
-import java.util.List;
-
+import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.entity.ISuperService;
-import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.expr.OrderBy;
 import com.github.foxnic.sql.meta.DBField;
-
 import org.github.foxnic.web.domain.oauth.RoleMenu;
+
+import java.util.List;
 
 /**
  * <p>
@@ -266,5 +265,4 @@ public interface IRoleMenuService extends ISuperService<RoleMenu> {
 	 * @return 列数据
 	 * */
 	<T> List<T> queryValues(DBField field, Class<T> type, String condition,Object... ps);
- 
 }

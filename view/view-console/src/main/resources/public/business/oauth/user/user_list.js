@@ -54,7 +54,7 @@ function ListPage() {
 				{ field: 'language', align:"left", hide:false, sort: true, title: fox.translate('语言'), templet:function (d){ return fox.getEnumText(RADIO_LANGUAGE_DATA,d.language);}} ,
                 { field: 'employeeId', align:"left", hide:true, sort: true, title: fox.translate('员工ID')} ,
 				{ field: 'valid', align:"center", hide:false, sort: true, title: fox.translate('是否有效'), templet: '#cell-tpl-valid'} ,
-				{ field: 'lastLoginTime', align:"right", hide:false, sort: true, title: fox.translate('最后登录时间'), templet: function (d) { return fox.dateFormat(d.lastLoginTime); }} ,
+				{ field: 'lastLoginTime', align:"right", hide:false, sort: true, title: fox.translate('最后登录'), templet: function (d) { return fox.dateFormat(d.lastLoginTime); }} ,
 				{ field: 'createTime', align:"right", hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return fox.dateFormat(d.createTime); }} ,
                 { field: 'roleIds', align:"", hide:true, sort: true, title: fox.translate('角色')} ,
                 { field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }

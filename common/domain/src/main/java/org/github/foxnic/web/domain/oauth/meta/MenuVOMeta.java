@@ -7,8 +7,8 @@ import java.util.List;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-01 11:34:08
- * @sign 869385ED987833285719A66AA481ECED
+ * @since 2021-07-09 17:04:35
+ * @sign C88DC1D63B1DBF9CB9F6145A70BCC13F
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -50,9 +50,19 @@ public class MenuVOMeta extends MenuMeta {
 	public static final String IDS="ids";
 	
 	/**
+	 * 菜单角色 , 从前端传入，指定勾选指定角色的菜单
+	*/
+	public static final String ROLE_ID="roleId";
+	
+	/**
+	 * 是否加载所有子孙节点 , 1：是；0：否
+	*/
+	public static final String IS_LOAD_ALL_DESCENDANTS="isLoadAllDescendants";
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , SEARCH_VALUE , SORT_FIELD , SORT_TYPE , IDS };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , SEARCH_VALUE , SORT_FIELD , SORT_TYPE , IDS , ROLE_ID , IS_LOAD_ALL_DESCENDANTS };
 	
 	/**
 	 * 代理类
@@ -136,6 +146,28 @@ public class MenuVOMeta extends MenuMeta {
 		public MenuVO setIds(List<String> ids) {
 			super.change(IDS,super.getIds(),ids);
 			super.setIds(ids);
+			return this;
+		}
+		
+		/**
+		 * 设置 菜单角色
+		 * @param roleId 菜单角色
+		 * @return 当前对象
+		*/
+		public MenuVO setRoleId(String roleId) {
+			super.change(ROLE_ID,super.getRoleId(),roleId);
+			super.setRoleId(roleId);
+			return this;
+		}
+		
+		/**
+		 * 设置 是否加载所有子孙节点
+		 * @param isLoadAllDescendants 是否加载所有子孙节点
+		 * @return 当前对象
+		*/
+		public MenuVO setIsLoadAllDescendants(Integer isLoadAllDescendants) {
+			super.change(IS_LOAD_ALL_DESCENDANTS,super.getIsLoadAllDescendants(),isLoadAllDescendants);
+			super.setIsLoadAllDescendants(isLoadAllDescendants);
 			return this;
 		}
 	}

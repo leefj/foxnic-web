@@ -74,4 +74,19 @@ public class OAuthRelationManager extends RelationManager {
 
 	}
 
+	/**
+	 * 扩展用户模型
+	 * */
+	private void setupRole() {
+
+		// 角色 - 菜单
+		this.property(Role.class, "menus", Menu.class, "菜单清单", "当前角色的所有菜单").list()
+				.using(SYS_ROLE.ID).join(SYS_ROLE_MENU.MENU_ID)
+				.using(SYS_ROLE_MENU.MENU_ID).join(SYS_ROLE.ID)
+				.after((role,menus)->{
+					role.setMenuIds(CollectorUtil.collectList(menus,Menu::getId));
+					return menus;
+				});
+	}
+
 }
