@@ -74,11 +74,12 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		cfg.field(SYS_USER.EMPLOYEE_ID).hideInForm().hideInList();
 		cfg.field(SYS_USER.LAST_LOGIN_TIME).hideInForm();
 		cfg.field(SYS_USER.PERSON_ID).hideInForm().hideInList();
-		//cfg.field(SYS_USER.PORTRAIT_ID).hideInForm();
 		cfg.field(SYS_USER.EMPLOYEE_ID).hideInForm();
 		cfg.field(SYS_USER.PASSWD).hideInForm();
 		//配置校验
 		cfg.field(SYS_USER.NAME).validate().required();
+		cfg.field(SYS_USER.NAME).search().displayAlone(true);
+
 		cfg.field(SYS_USER.PHONE).validate().required().phone();
 		//配置单选
 		cfg.field(SYS_USER.LANGUAGE).radioField().enumType(Language.class);
@@ -91,7 +92,7 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		//使用字典数据
 //		cfg.field(UserVOMeta.ROLE_IDS).label("角色").selectField().muliti().dict(DictEnum.COMPANY_TYPE);
 
-		cfg.field(SYS_USER.PORTRAIT_ID).label("头像").alignCenter().uploadField().acceptSingleImage().buttonLabel("选择头像");
+		cfg.field(SYS_USER.PORTRAIT_ID).label("头像").hideInSearch().alignCenter().uploadField().acceptSingleImage().buttonLabel("选择头像");
 		cfg.field(SYS_USER.VALID).alignCenter().logicField().on("有效","1").off("无效","0");
 
 		//生成代码

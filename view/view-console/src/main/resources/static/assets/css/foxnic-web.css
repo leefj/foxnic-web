@@ -60,3 +60,48 @@
     flex-direction:row;
     flex-wrap: wrap;
 }
+
+.search-bar {
+    display: -webkit-flex; /* Safari */
+    display: flex;
+    flex-direction:row;
+    flex-wrap: wrap;
+}
+
+.search-unit {
+    margin-bottom:8px;
+    margin-right:16px;
+    display: -webkit-flex; /* Safari */
+    display: flex;
+    flex-direction:row;
+    justify-content:center;
+    justify-content:center;
+
+}
+
+.search-label {
+    padding-top: 4px;
+}
+
+.search-colon {
+    padding-top: 4px;
+    font-weight: bold;
+    margin-left: 2px;
+    margin-right: 5px;
+}
+
+.search-dash {
+    padding-top: 4px;
+    font-weight: bold;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.search-input {
+    width: 120px;
+    height: 34px;
+}
+
+.search-date-input {
+    text-align: center;
+}

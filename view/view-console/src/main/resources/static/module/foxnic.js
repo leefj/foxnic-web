@@ -39,8 +39,12 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"xmSe
 
 			//本地数据渲染
 			if(data!=null) {
-				var opts=cfg.transform(data);
-				cfg.data= opts;
+				if(cfg.transform) {
+					var opts=cfg.transform(data);
+					cfg.data= opts;
+				} else {
+					cfg.data= data;
+				}
 			} else if(url!=null) {
 				cfg.remoteSearch=true;
 				cfg.filterable=true;

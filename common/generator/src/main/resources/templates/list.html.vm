@@ -20,15 +20,34 @@
 <div class="layui-card">
  
     <div class="layui-card-body">
-        <div class="layui-form toolbar">
-            <span th:text="${lang.translate('搜索')}">搜索</span>：
-            <select id="search-field">
-                <option value="" th:text="${lang.translate('-请选择-')}">-请选择-</option>
-                #for(f : searchFields)
-                <option value="#(f.varName)" th:text="${lang.translate('#(f.label)')}">#(f.label)</option>
+        <div class="layui-form toolbar search-bar">
+
+            #for(f : searchFields)
+            #if(!f.isHideInSearch)
+            <div class="search-unit">
+                <span th:text="${lang.translate('#(f.label)')}" class="search-label">#(f.label)</span><span class="search-colon">:</span>
+                #if(f.isLogicField)
+                <div id="#(f.varName)" data='[{"name":"#(f.logicField.labelOn)","value":"#(f.logicField.valueOn)"},{"name":"#(f.logicField.labelOff)","value":"#(f.logicField.valueOff)"}]' style="width:100px"></div>
+                #else if(f.isRadioField)
+
+                #if(f.radioField.dictCode!=null)
+                <div id="#(f.varName)" th:data="${dict.toArray('#(f.radioField.dictCode)')}" style="width:140px"></div>
                 #end
-            </select>&emsp;
-            <input id="search-input" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入关键字')}"/>&emsp;
+                #if(f.radioField.enumTypeName!=null)
+                <div id="#(f.varName)" th:data="${enum.toArray('#(f.radioField.enumTypeName)')}" style="width:140px"></div>
+                #end
+
+                #else if(f.isDateField)
+                 <input type="text" id="#(f.varName)-begin" style="width: 90px" lay-verify="date" th:placeholder="${lang.translate('开始日期')}" autocomplete="off" class="layui-input search-input search-date-input"  readonly >
+                 <span class="search-dash">-</span>
+                 <input type="text" id="#(f.varName)-end"  style="width: 90px"  lay-verify="date" th:placeholder="${lang.translate('结束日期')}" autocomplete="off" class="layui-input search-input search-date-input" readonly>
+                #else
+                <input id="#(f.varName)" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入#(f.label)')}"/>
+                #end
+            </div>
+            #end
+            #end
+
             <button id="search-button" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i><span th:text="${lang.translate('搜索')}">搜索</span></button>
             <button id="add-button" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i><span th:text="${lang.translate('添加')}">添加</span></button>
             #if(isSimplePK)

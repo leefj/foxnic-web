@@ -2,7 +2,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-08 17:22:29
+ * @since 2021-07-09 13:49:21
  */
  -->
  <!DOCTYPE html>
@@ -24,23 +24,33 @@
 <div class="layui-card">
  
     <div class="layui-card-body">
-        <div class="layui-form toolbar">
-            <span th:text="${lang.translate('搜索')}">搜索</span>：
-            <select id="search-field">
-                <option value="" th:text="${lang.translate('-请选择-')}">-请选择-</option>
-                <option value="id" th:text="${lang.translate('ID')}">ID</option>
-                <option value="name" th:text="${lang.translate('账户')}">账户</option>
-                <option value="passwd" th:text="${lang.translate('密码')}">密码</option>
-                <option value="phone" th:text="${lang.translate('手机号码')}">手机号码</option>
-                <option value="portraitId" th:text="${lang.translate('头像')}">头像</option>
-                <option value="personId" th:text="${lang.translate('人员ID')}">人员ID</option>
-                <option value="language" th:text="${lang.translate('语言')}">语言</option>
-                <option value="employeeId" th:text="${lang.translate('员工ID')}">员工ID</option>
-                <option value="valid" th:text="${lang.translate('是否有效')}">是否有效</option>
-                <option value="lastLoginTime" th:text="${lang.translate('最后登录时间')}">最后登录时间</option>
-                <option value="roleIds" th:text="${lang.translate('角色')}">角色</option>
-            </select>&emsp;
-            <input id="search-input" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入关键字')}"/>&emsp;
+        <div class="layui-form toolbar search-bar">
+
+            <div class="search-unit">
+                <span th:text="${lang.translate('账户')}" class="search-label">账户</span><span class="search-colon">:</span>
+                <input id="name" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入账户')}"/>
+            </div>
+            <div class="search-unit">
+                <span th:text="${lang.translate('手机号码')}" class="search-label">手机号码</span><span class="search-colon">:</span>
+                <input id="phone" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入手机号码')}"/>
+            </div>
+            <div class="search-unit">
+                <span th:text="${lang.translate('语言')}" class="search-label">语言</span><span class="search-colon">:</span>
+
+                <div id="language" th:data="${enum.toArray('org.github.foxnic.web.constants.enums.Language')}" style="width:140px"></div>
+
+            </div>
+            <div class="search-unit">
+                <span th:text="${lang.translate('是否有效')}" class="search-label">是否有效</span><span class="search-colon">:</span>
+                <div id="valid" data='[{"name":"有效","value":"1"},{"name":"无效","value":"0"}]' style="width:100px"></div>
+            </div>
+            <div class="search-unit">
+                <span th:text="${lang.translate('最后登录时间')}" class="search-label">最后登录时间</span><span class="search-colon">:</span>
+                 <input type="text" id="lastLoginTime-begin" style="width: 90px" lay-verify="date" th:placeholder="${lang.translate('开始日期')}" autocomplete="off" class="layui-input search-input search-date-input"  readonly >
+                 <span class="search-dash">-</span>
+                 <input type="text" id="lastLoginTime-end"  style="width: 90px"  lay-verify="date" th:placeholder="${lang.translate('结束日期')}" autocomplete="off" class="layui-input search-input search-date-input" readonly>
+            </div>
+
             <button id="search-button" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i><span th:text="${lang.translate('搜索')}">搜索</span></button>
             <button id="add-button" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i><span th:text="${lang.translate('添加')}">添加</span></button>
             <button id="delete-button" class="layui-btn icon-btn layui-btn-danger"><i class="layui-icon">&#xe67e;</i><span th:text="${lang.translate('删除')}">删除</span></button>

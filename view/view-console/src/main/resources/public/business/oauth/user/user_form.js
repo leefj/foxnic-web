@@ -1,7 +1,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-08 17:22:30
+ * @since 2021-07-09 13:49:22
  */
 
 function FormPage() {
@@ -51,11 +51,8 @@ function FormPage() {
 			accept: "image",
 			acceptMime:'image/*',
 			exts:'png|jpg|bmp|gif|jpeg',
-			afterImageLoad:function (elId,index,fileId,upload) {
-				setTimeout(adjustPopup,100);
-			},
 			afterPreview:function(elId,index,fileId,upload){
-				//setTimeout(adjustPopup,1000);
+				adjustPopup();
 			},
 			afterUpload:function (result,index,upload) {
 				console.log("文件上传后回调")

@@ -1,7 +1,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-08 17:22:30
+ * @since 2021-07-09 13:49:21
  */
 
 
@@ -16,11 +16,13 @@ function ListPage() {
       */
 	this.init=function(layui) {
      	
-     	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload;
+     	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload,laydate= layui.laydate;
 		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
 		
      	//渲染表格
      	renderTable();
+		//初始化搜索输入框组件
+		initSearchFields();
 		//绑定搜索框事件
 		bindSearchEvent();
 		//绑定按钮事件
@@ -83,9 +85,13 @@ function ListPage() {
       * 刷新表格数据
       */
 	function refreshTableData(sortField,sortType) {
-		var field = $('#search-field').val();
-		var value = $('#search-input').val();
-		var ps={searchField: field, searchValue: value,sortField:sortField,sortType:sortType};
+		var value = {};
+		value.name={ value: $("#name").val() };
+		value.phone={ value: $("#phone").val() };
+		value.language={ value: xmSelect.get("#language",true).getValue("value") };
+		value.valid={ value: xmSelect.get("#valid",true).getValue("value") };
+		value.lastLoginTime={ begin: $("#lastLoginTime-begin").val(), end: $("#lastLoginTime-end").val() };
+		var ps={searchField: "$composite", searchValue: JSON.stringify(value),sortField: sortField,sortType: sortType};
 		table.reload('data-table', { where : ps });
 	}
     
@@ -109,13 +115,44 @@ function ListPage() {
 		$('#search-input').val("");
 		layui.form.render();
 	}
+
+	function initSearchFields() {
+		//渲染 language 搜索框
+		fox.renderSelectBox({
+			el: "language",
+			size: "small",
+			radio: false,
+			toolbar: {show:true,showIcon:true,list:["CLEAR","REVERSE"]},
+			transform:function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				var opts=[];
+				if(!data) return opts;
+				for (var i = 0; i < data.length; i++) {
+					opts.push({name:data[i].text,value:data[i].code});
+				}
+				return opts;
+			}
+		});
+		//渲染 valid 搜索框
+		fox.renderSelectBox({
+			el: "valid",
+			size: "small",
+			radio: true
+		});
+			laydate.render({
+				elem: '#lastLoginTime-begin'
+			});
+			laydate.render({
+				elem: '#lastLoginTime-end'
+			});
+	}
 	
 	/**
 	 * 绑定搜索框事件
 	 */
 	function bindSearchEvent() {
 		//回车键查询
-        $("#search-input").keydown(function(event) {
+        $(".search-input").keydown(function(event) {
 			if(event.keyCode !=13) return;
 		  	refreshTableData();
         });
@@ -238,6 +275,6 @@ layui.config({
 	base: '/module/'
 }).extend({
 	xmSelect: 'xm-select/xm-select'
-}).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect'],function() {
+}).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect','laydate'],function() {
 	(new ListPage()).init(layui);
 });
