@@ -1,34 +1,34 @@
 package org.github.foxnic.web.oauth.service.impl;
 
 
-import javax.annotation.Resource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-
-import org.github.foxnic.web.domain.oauth.Role;
-import org.github.foxnic.web.domain.oauth.RoleVO;
-import java.util.List;
-import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.entity.SuperService;
-import com.github.foxnic.dao.spec.DAO;
-import java.lang.reflect.Field;
-import com.github.foxnic.commons.busi.id.IDGenerator;
-import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.dao.data.PagedList;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.SuperService;
+import com.github.foxnic.dao.excel.ExcelStructure;
 import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.dao.excel.ExcelStructure;
-import java.io.InputStream;
+import com.github.foxnic.dao.spec.DAO;
+import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.meta.DBColumnMeta;
-import com.github.foxnic.sql.expr.Select;
-import java.util.ArrayList;
-import org.github.foxnic.web.oauth.service.IRoleService;
+import org.github.foxnic.web.domain.oauth.Role;
+import org.github.foxnic.web.domain.oauth.RoleVO;
 import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.github.foxnic.web.oauth.service.IRoleMenuService;
+import org.github.foxnic.web.oauth.service.IRoleService;
+import org.github.foxnic.web.session.SessionUser;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
+import java.io.InputStream;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -52,6 +52,9 @@ public class RoleServiceImpl extends SuperService<Role> implements IRoleService 
 	 * 获得 DAO 对象
 	 * */
 	public DAO dao() { return dao; }
+
+	@Autowired
+	private IRoleMenuService roleMenuService;
 	
 	@Override
 	public Object generateId(Field field) {
@@ -131,8 +134,17 @@ public class RoleServiceImpl extends SuperService<Role> implements IRoleService 
 	 * @return 保存是否成功
 	 * */
 	@Override
+	@Transactional
 	public Result update(Role role , SaveMode mode) {
-		return super.update(role , mode);
+		Result result=super.update(role , mode);
+		if(result.success()) {
+			String userId=SessionUser.getCurrent().getUserId();
+			if (role instanceof RoleVO) {
+				RoleVO vo = (RoleVO) role;
+				roleMenuService.saveMenuIds(userId,role,vo.getMenuIds());
+			}
+		}
+		return result;
 	}
 	
 	/**

@@ -31,10 +31,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * <p>
@@ -280,6 +277,7 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 			node.setId(m.getString(SYS_MENU.ID));
 			node.setName(m.getString(SYS_MENU.LABEL));
 			node.setParentId(m.getString(SYS_MENU.PARENT_ID));
+			node.setHierarchy(m.getString(SYS_MENU.HIERARCHY));
 			node.setIsParent(m.getInteger("child_count")>0);
 			if(m.getValue("checked")!=null) {
 				node.setChecked(true);
@@ -297,7 +295,8 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 			pb.add(parentId,sort,menuId);
 			sort++;
 		}
-		dao.batchExecute("update "+table()+" set parent_id=?,sort=? where id=?",pb.getBatchList());
+		dao.batchExecute("update "+table()+" set parent_id=?,hierarchy=null,sort=? where id=?",pb.getBatchList());
+		this.fillHierarchy(false);
 		return true;
 	}
 
@@ -340,7 +339,37 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 			if(i==0) break;
 		}
 		return total;
+	}
 
+	@Override
+	public List<ZTreeNode> buildingHierarchicalRelationships(List<ZTreeNode> list,String roleId) {
+		if(list.isEmpty()) return  list;
+		//构建查询
+		ConditionExpr ce=new ConditionExpr();
+		for (ZTreeNode node : list) {
+			ce.or(SYS_MENU.HIERARCHY.name()+" like ?",node.getHierarchy()+"/%");
+		}
+		ce.startWithSpace();
+		Template template= dao.getTemplate("#query-descendants-menus",roleId);
+		template.put("descendants_condition",ce);
+		//查询所有子孙节点
+		RcdSet descendantRs=dao().query(template);
+		List<ZTreeNode> nodes= toZTreeNodeList(descendantRs);
+		//构建层级关系
+		nodes.addAll(list);
+		Map<String,ZTreeNode> map=new HashMap<>();
+		for (ZTreeNode node : nodes) {
+			map.put(node.getId(),node);
+		}
+		ZTreeNode parent=null;
+		for (ZTreeNode node : nodes) {
+			parent=map.get(node.getParentId());
+			if (parent==null) continue;
+			parent.addChild(node);
+		}
+
+
+		return list;
 	}
 
 	private void joinAncestors(List<Menu> menus) {

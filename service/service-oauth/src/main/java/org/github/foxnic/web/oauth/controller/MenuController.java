@@ -263,9 +263,9 @@ public class MenuController {
 		}
 
 		//加载全部子孙节点
-		if(sample.getIsLoadAllDescendants()==1) {
+		if(sample.getIsLoadAllDescendants()!=null && sample.getIsLoadAllDescendants()==1) {
 
-//			queryList()
+			list=menuService.buildingHierarchicalRelationships(list,sample.getRoleId());
 
 		}
 
@@ -274,7 +274,8 @@ public class MenuController {
 		return result;
 	}
 
-	
+
+
 	/**
 	 * 分页查询菜单
 	*/

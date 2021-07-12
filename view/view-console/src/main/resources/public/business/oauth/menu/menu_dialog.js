@@ -75,9 +75,15 @@ function ListPage() {
 		return childNodes;
 	}
 
-	$("#sure-button").click(function (){
-		var nodes=menuTree.getCheckedNodes();
+	$("#sure-button").click(function () {
+		var nodes=menuTree.getCheckedNodes(true);
 		console.log(nodes);
+		var menuIds=[];
+		for (let i = 0; i <nodes.length ; i++) {
+			menuIds.push(nodes[i].id);
+		}
+		admin.putTempData("selected-role-menu-ids",menuIds);
+		admin.closePopupCenter();
 	});
 
 };

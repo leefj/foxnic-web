@@ -2,16 +2,20 @@ package org.github.foxnic.web.oauth.service.impl;
 
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.commons.busi.id.IDGenerator;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
+import com.github.foxnic.sql.parameter.BatchParamBuilder;
+import org.github.foxnic.web.domain.oauth.Role;
 import org.github.foxnic.web.domain.oauth.RoleMenu;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.oauth.service.IRoleMenuService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -177,6 +181,29 @@ public class RoleMenuServiceImpl extends SuperService<RoleMenu> implements IRole
 	@Override
 	public PagedList<RoleMenu> queryPagedList(RoleMenu sample, ConditionExpr condition, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, condition, pageSize, pageIndex);
+	}
+
+	@Override
+	@Transactional
+	public void saveMenuIds(String sessionUserId,Role role, List<String> menuIds) {
+		if(menuIds==null) return;
+		dao().execute("delete from "+table()+" where role_id=?",role.getId());
+//		List<RoleMenu> rms=new ArrayList<>();
+//		for (String menuId : menuIds) {
+//			RoleMenu rm=new RoleMenu();
+//			rm.setRoleId(role.getId());
+//			rm.setMenuId(menuId);
+//			rms.add(rm);
+//		}
+//		this.insertList(rms);
+
+		BatchParamBuilder pb=new BatchParamBuilder();
+
+		for (String menuId : menuIds) {
+			pb.add(IDGenerator.getSnowflakeIdString(),menuId,role.getId(), sessionUserId,new Date());
+		}
+		this.dao().batchExecute("insert into "+table()+"(id,menu_id,role_id,create_by,create_time)  values(?,?,?,?,?)",pb.getBatchList());
+
 	}
 
 	/**

@@ -88,6 +88,10 @@ function FormPage() {
     
 	    form.on('submit(submit-button)', function (data) {
 	    	//debugger;
+			var menuIds=admin.getTempData("selected-role-menu-ids");
+			$("#menuIds").val(menuIds.join(","));
+			data.field.menuIds=menuIds.join(",");
+			console.log(data.field.menuIds);
 
 	    	var api=moduleURL+"/"+(data.field.id?"update":"insert");
 	        var task=setTimeout(function(){layer.load(2);},1000);
@@ -110,16 +114,16 @@ function FormPage() {
 
 	    //
 		$("#menu-button").click(function(){
-			openMenuDialog(function (css){
-
-			});
+			openMenuDialog(function (css){});
 		});
 	    
     }
 
+    var menuDialogIndex;
 	function openMenuDialog(callback) {
 		//debugger;
-		var index=admin.popupCenter({
+		admin.putTempData("selected-role-menu-ids",null);
+		menuDialogIndex=admin.popupCenter({
 			type:2,
 			id:"menuDialog",
 			title: "请选择菜单",
@@ -127,18 +131,11 @@ function FormPage() {
 			area:["300px","80%"]
 		});
 
-		var task=setInterval(function (){
-			// try{
-			// 	$("#layui-layer-iframe"+index)[0].contentWindow.setLinkIn(index,function(act,css){
-			// 		admin.closePopupCenter();
-			// 		if(act=="sure") {
-			// 			callback(css);
-			// 		}
-			// 	});
-			// 	clearInterval(task);
-			// } catch (e) {}
-		},100);
+
 	}
+
+
+
 
 
 

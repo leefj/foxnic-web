@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ZTreeNode {
-	
+
+	public String getHierarchy() {
+		return hierarchy;
+	}
+
 	public static interface Transformer<T> {
 		ZTreeNode transform(T data,ZTreeNode node);
 	}
@@ -30,8 +34,22 @@ public class ZTreeNode {
 	private Boolean isParent;
 	private Boolean checked;
 	private String url;
-	
- 
+	private String hierarchy;
+	private List<ZTreeNode> children;
+
+	public void addChild(ZTreeNode node) {
+		if(children==null) children=new ArrayList<>();
+		children.add(node);
+	}
+
+	public List<ZTreeNode> getChildren() {
+		return children;
+	}
+
+	public void setHierarchy(String hierarchy) {
+		this.hierarchy = hierarchy;
+	}
+
 	public String getIcon() {
 		return icon;
 	}

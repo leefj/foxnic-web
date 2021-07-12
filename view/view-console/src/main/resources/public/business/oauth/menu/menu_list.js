@@ -30,7 +30,7 @@ function ListPage() {
 				contentType:"application/json",
 				url:moduleURL+"/query-nodes",
 				autoParam:["id=parentId"],
-				otherParam:{},
+				otherParam:{isLoadAllDescendants:1},
 				dataFilter: nodeDatafilter
 			},
 			callback: {

@@ -279,4 +279,6 @@ public interface IMenuService extends ISuperService<Menu> {
 	List<Menu> getRelatedMenus(List<String> resourzeIds);
 
 	int fillHierarchy(boolean reset);
+
+	List<ZTreeNode> buildingHierarchicalRelationships(List<ZTreeNode> list,String roleId);
 }
