@@ -2,6 +2,7 @@ layui.define(['settings', 'layer'], function (exports) {
     var config = layui.settings;
     var layer = layui.layer;
     var popupRightIndex, popupCenterIndex, popupCenterParam;
+    var popupCenterIndexStack=[];
     var admin = {
         // 设置侧栏折叠
         flexible: function (expand) {
@@ -103,6 +104,7 @@ layui.define(['settings', 'layer'], function (exports) {
             param.id =param.id?param.id : 'adminPopupC';
             popupCenterParam = param;
             popupCenterIndex = admin.open(param);
+            popupCenterIndexStack.push(popupCenterIndex);
             return popupCenterIndex;
         },
         // 关闭中间弹出并且触发finish回调
@@ -113,6 +115,10 @@ layui.define(['settings', 'layer'], function (exports) {
         		return;
         	}
             layer.close(popupCenterIndex);
+            popupCenterIndexStack.pop();
+        	if(popupCenterIndexStack.length>0) {
+                popupCenterIndex = popupCenterIndexStack[popupCenterIndexStack.length - 1];
+            }
             popupCenterParam.finish ? popupCenterParam.finish() : '';
         },
         // 关闭中间弹出
@@ -121,7 +127,12 @@ layui.define(['settings', 'layer'], function (exports) {
         		top.admin.closePopupCenter();
         		return;
         	}
-            layer.close(popupCenterIndex);
+
+        	layer.close(popupCenterIndex);
+            popupCenterIndexStack.pop();
+            if(popupCenterIndexStack.length>0) {
+                popupCenterIndex = popupCenterIndexStack[popupCenterIndexStack.length - 1];
+            }
         },
         changePopupArea: function (width,height,cb) {
             //$("body").attr('style', 'overflow-y:hidden');
