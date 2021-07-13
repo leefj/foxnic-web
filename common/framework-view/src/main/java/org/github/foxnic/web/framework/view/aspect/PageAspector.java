@@ -43,7 +43,7 @@ public class PageAspector {
 
 	private static final String DICT = "dict";
 
-	private static final String PERMISSION = "permission";
+	private static final String PERMISSION = "perm";
 
 	public static final String LAYUI_TABLE_WIDTH_CONFIG="layuiTableWidthConfig";
 	

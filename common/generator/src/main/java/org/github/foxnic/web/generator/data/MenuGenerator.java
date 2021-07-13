@@ -130,7 +130,7 @@ public class MenuGenerator {
 		this.proxyType =proxyType;
 		this.pageType =pageType;
 		this.batchId=IDGenerator.getSnowflakeIdString();
-		this.authorityPrefix=table.name()+"::";
+		this.authorityPrefix=table.name()+":";
 		this.roleId=roleId;
 
 	}
