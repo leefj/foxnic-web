@@ -51,7 +51,7 @@
     
 	
 
-    <div class="layui-form-item" >
+    <div class="layui-form-item" th:style="${perm.checkAuth('sys_user:portrait')?'':'display:none'}">
         <label class="layui-form-label" th:text="${lang.translate('头像')}">头像</label>
         <div class="layui-upload layui-input-block">
             <input id="portraitId"  name="portraitId" lay-filter="portraitId" style="display: none">
