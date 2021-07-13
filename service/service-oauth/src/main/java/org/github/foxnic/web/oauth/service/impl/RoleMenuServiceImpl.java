@@ -3,11 +3,14 @@ package org.github.foxnic.web.oauth.service.impl;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.commons.collection.CollectorUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.sql.expr.ConditionExpr;
+import com.github.foxnic.sql.expr.In;
+import com.github.foxnic.sql.expr.Where;
 import com.github.foxnic.sql.meta.DBField;
 import com.github.foxnic.sql.parameter.BatchParamBuilder;
 import org.github.foxnic.web.domain.oauth.Role;
@@ -18,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -187,19 +191,38 @@ public class RoleMenuServiceImpl extends SuperService<RoleMenu> implements IRole
 	@Transactional
 	public void saveMenuIds(String sessionUserId,Role role, List<String> menuIds) {
 		if(menuIds==null) return;
-		dao().execute("delete from "+table()+" where role_id=?",role.getId());
-//		List<RoleMenu> rms=new ArrayList<>();
-//		for (String menuId : menuIds) {
-//			RoleMenu rm=new RoleMenu();
-//			rm.setRoleId(role.getId());
-//			rm.setMenuId(menuId);
-//			rms.add(rm);
-//		}
-//		this.insertList(rms);
+
+		//当前的权限
+		List<RoleMenu> currRMs= this.queryList(RoleMenu.create().setRoleId(role.getId()));
+		List<String> currMenuIds= CollectorUtil.collectList(currRMs,RoleMenu::getMenuId);
+		//搜集需要删除的权限
+		List<String> toRemove=new ArrayList<>();
+		for (String currMenuId : currMenuIds) {
+			if(!menuIds.contains(currMenuId)) {
+				toRemove.add(currMenuId);
+			}
+		}
+		//收集需要新加的部分
+		List<String> toAdd=new ArrayList<>();
+		for (String menuId : menuIds) {
+			if(!currMenuIds.contains(menuId)) {
+				toAdd.add(menuId);
+			}
+		}
+
+		if(!toRemove.isEmpty()) {
+			In in=new In("menu_id",toRemove);
+			List<In> ins=in.split(16);
+			for (In iin : ins) {
+				Where ce=new Where();
+				ce.and("role_id=?",role.getId()).and(iin);
+				dao().execute("delete from " + table() + " "+ce.getListParameterSQL(), ce.getListParameters());
+			}
+		}
 
 		BatchParamBuilder pb=new BatchParamBuilder();
 
-		for (String menuId : menuIds) {
+		for (String menuId : toAdd) {
 			pb.add(IDGenerator.getSnowflakeIdString(),menuId,role.getId(), sessionUserId,new Date());
 		}
 		this.dao().batchExecute("insert into "+table()+"(id,menu_id,role_id,create_by,create_time)  values(?,?,?,?,?)",pb.getBatchList());

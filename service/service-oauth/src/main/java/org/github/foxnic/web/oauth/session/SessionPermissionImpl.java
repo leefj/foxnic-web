@@ -28,6 +28,8 @@ public class SessionPermissionImpl implements SessionPermission {
 	
 	private Map<String,Role> roleIdCache;
 	private Map<String,Menu> urlMenuCache;
+	private Set<String> authorityKeys=new HashSet<>();
+	private Set<String> roleKeys=new HashSet<>();
 	
 	public SessionPermissionImpl(SessionUserImpl sessionUser) {
 		this.sessionUser=sessionUser;
@@ -60,6 +62,7 @@ public class SessionPermissionImpl implements SessionPermission {
 			SimpleGrantedAuthority auth=new SimpleGrantedAuthority(ROLE_PREFIX+role.getCode());
 			authorities.add(auth);
 			roleIdCache.put(role.getId(), role);
+			roleKeys.add(role.getCode());
 		}
 
 		//设置菜单权限
@@ -68,6 +71,7 @@ public class SessionPermissionImpl implements SessionPermission {
 			if(StringUtil.isBlank(menu.getAuthority())) continue;
 			SimpleGrantedAuthority auth=new SimpleGrantedAuthority(menu.getAuthority());
 			authorities.add(auth);
+			authorityKeys.add(menu.getAuthority());
 		}
 		
 	}
@@ -148,9 +152,37 @@ public class SessionPermissionImpl implements SessionPermission {
 		//此处得到其中一个即可，也不会得到多个，原因请看  initMenuRoleRelation 方法
 		return SecurityConfig.createList(new String[] {ROLE_PREFIX+role.getCode()});
 	}
-	
-	
-	
-	
 
+
+	@Override
+	public boolean checkAuth(String... menuAuthority) {
+		for (String auth : menuAuthority) {
+			if(!authorityKeys.contains(auth)) return false;
+		}
+		return true;
+	}
+
+	@Override
+	public boolean checkRole(String... roleCode) {
+		for (String role : roleCode) {
+			if(!roleKeys.contains(role)) return false;
+		}
+		return true;
+	}
+
+	@Override
+	public boolean checkAnyAuth(String... menuAuthority) {
+		for (String auth : menuAuthority) {
+			if(authorityKeys.contains(auth)) return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean checkAnyRole(String... roleCode) {
+		for (String role : roleCode) {
+			if(roleKeys.contains(role)) return true;
+		}
+		return false;
+	}
 }
