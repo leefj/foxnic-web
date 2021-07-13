@@ -1,7 +1,7 @@
 /**
  * 调用统计日志 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-06 14:12:29
+ * @since 2021-07-13 17:28:19
  */
 
 
@@ -16,11 +16,13 @@ function ListPage() {
       */
 	this.init=function(layui) {
      	
-     	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload;
+     	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload,laydate= layui.laydate;
 		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
 		
      	//渲染表格
      	renderTable();
+		//初始化搜索输入框组件
+		initSearchFields();
 		//绑定搜索框事件
 		bindSearchEvent();
 		//绑定按钮事件
@@ -43,21 +45,21 @@ function ListPage() {
 			cols: [[
 				{  fixed: 'left',type: 'numbers' },
 			 	{  fixed: 'left',type:'checkbox' },
-                { field: 'application', sort: true, title: fox.translate('应用名称')} ,
-                { field: 'hostName', sort: true, title: fox.translate('主机名称')} ,
-                { field: 'uri', sort: true, title: fox.translate('请求的URI')} ,
-                { field: 'userAgent', sort: true, title: fox.translate('UserAgent')} ,
-                { field: 'clientIp', sort: true, title: fox.translate('客户端IP')} ,
-                { field: 'token', sort: true, title: fox.translate('token值')} ,
-                { field: 'sessionId', sort: true, title: fox.translate('会话ID')} ,
-                { field: 'userId', sort: true, title: fox.translate('用户ID')} ,
-                { field: 'userName', sort: true, title: fox.translate('用户姓名')} ,
-                { field: 'tid', sort: true, title: fox.translate('日志跟踪ID')} ,
-                { field: 'parameter', sort: true, title: fox.translate('请求参数')} ,
-                { field: 'response', sort: true, title: fox.translate('响应数据')} ,
-				{ field: 'startTime', sort: true, title: fox.translate('开始时间'), templet: function (d) { return fox.dateFormat(d.startTime); }} ,
-				{ field: 'endTime', sort: true, title: fox.translate('结束时间'), templet: function (d) { return fox.dateFormat(d.endTime); }} ,
-                { field: 'exception', sort: true, title: fox.translate('异常信息')} ,
+                { field: 'application', align:"left", hide:false, sort: true, title: fox.translate('应用名称')} ,
+                { field: 'hostName', align:"left", hide:false, sort: true, title: fox.translate('主机名称')} ,
+                { field: 'uri', align:"left", hide:false, sort: true, title: fox.translate('请求的URI')} ,
+                { field: 'userAgent', align:"left", hide:false, sort: true, title: fox.translate('UserAgent')} ,
+                { field: 'clientIp', align:"left", hide:false, sort: true, title: fox.translate('客户端IP')} ,
+                { field: 'token', align:"left", hide:false, sort: true, title: fox.translate('token值')} ,
+                { field: 'sessionId', align:"left", hide:false, sort: true, title: fox.translate('会话ID')} ,
+                { field: 'userId', align:"right", hide:false, sort: true, title: fox.translate('用户ID')} ,
+                { field: 'userName', align:"left", hide:false, sort: true, title: fox.translate('用户姓名')} ,
+                { field: 'tid', align:"left", hide:false, sort: true, title: fox.translate('日志跟踪ID')} ,
+                { field: 'parameter', align:"left", hide:false, sort: true, title: fox.translate('请求参数')} ,
+                { field: 'response', align:"left", hide:false, sort: true, title: fox.translate('响应数据')} ,
+				{ field: 'startTime', align:"right", hide:false, sort: true, title: fox.translate('开始时间'), templet: function (d) { return fox.dateFormat(d.startTime); }} ,
+				{ field: 'endTime', align:"right", hide:false, sort: true, title: fox.translate('结束时间'), templet: function (d) { return fox.dateFormat(d.endTime); }} ,
+                { field: 'exception', align:"left", hide:false, sort: true, title: fox.translate('异常信息')} ,
                 { field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
             ]]
 	 		,footer : {
@@ -84,9 +86,24 @@ function ListPage() {
       * 刷新表格数据
       */
 	function refreshTableData(sortField,sortType) {
-		var field = $('#search-field').val();
-		var value = $('#search-input').val();
-		var ps={searchField: field, searchValue: value,sortField:sortField,sortType:sortType};
+		var value = {};
+		value.id={ value: $("#id").val() };
+		value.application={ value: $("#application").val() };
+		value.hostName={ value: $("#hostName").val() };
+		value.uri={ value: $("#uri").val() };
+		value.userAgent={ value: $("#userAgent").val() };
+		value.clientIp={ value: $("#clientIp").val() };
+		value.token={ value: $("#token").val() };
+		value.sessionId={ value: $("#sessionId").val() };
+		value.userId={ value: $("#userId").val() };
+		value.userName={ value: $("#userName").val() };
+		value.tid={ value: $("#tid").val() };
+		value.parameter={ value: $("#parameter").val() };
+		value.response={ value: $("#response").val() };
+		value.startTime={ begin: $("#startTime-begin").val(), end: $("#startTime-end").val() };
+		value.endTime={ begin: $("#endTime-begin").val(), end: $("#endTime-end").val() };
+		value.exception={ value: $("#exception").val() };
+		var ps={searchField: "$composite", searchValue: JSON.stringify(value),sortField: sortField,sortType: sortType};
 		table.reload('data-table', { where : ps });
 	}
     
@@ -110,13 +127,28 @@ function ListPage() {
 		$('#search-input').val("");
 		layui.form.render();
 	}
+
+	function initSearchFields() {
+			laydate.render({
+				elem: '#startTime-begin'
+			});
+			laydate.render({
+				elem: '#startTime-end'
+			});
+			laydate.render({
+				elem: '#endTime-begin'
+			});
+			laydate.render({
+				elem: '#endTime-end'
+			});
+	}
 	
 	/**
 	 * 绑定搜索框事件
 	 */
 	function bindSearchEvent() {
 		//回车键查询
-        $("#search-input").keydown(function(event) {
+        $(".search-input").keydown(function(event) {
 			if(event.keyCode !=13) return;
 		  	refreshTableData();
         });
@@ -151,13 +183,13 @@ function ListPage() {
 			layer.confirm(fox.translate('确定删除已选中的')+fox.translate('调用统计日志')+fox.translate('吗？'), function (i) {
 				layer.close(i);
 				layer.load(2);
-                admin.request(moduleURL+"/batch-delete", { ids: ids }, function (data) {
+                admin.request(moduleURL+"/delete-by-id", { ids: ids }, function (data) {
                     layer.closeAll('loading');
                     if (data.success) {
                         layer.msg(data.message, {icon: 1, time: 500});
                         refreshTableData();
                     } else {
-                        layer.msg(data.message, {icon: 2, time: 500});
+                        layer.msg(data.message, {icon: 2, time: 1500});
                     }
                 });
 			});
@@ -182,7 +214,7 @@ function ListPage() {
 					if(data.success) {
 						 showEditForm(data.data);
 					} else {
-						 layer.msg(data.message, {icon: 1, time: 500});
+						 layer.msg(data.message, {icon: 1, time: 1500});
 					}
 				});
 				
@@ -197,7 +229,7 @@ function ListPage() {
 							layer.msg(data.message, {icon: 1, time: 500});
 							refreshTableData();
 						} else {
-							layer.msg(data.message, {icon: 2, time: 500});
+							layer.msg(data.message, {icon: 2, time: 1500});
 						}
 					});
 				});
@@ -239,6 +271,6 @@ layui.config({
 	base: '/module/'
 }).extend({
 	xmSelect: 'xm-select/xm-select'
-}).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect'],function() {
+}).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect','laydate'],function() {
 	(new ListPage()).init(layui);
 });

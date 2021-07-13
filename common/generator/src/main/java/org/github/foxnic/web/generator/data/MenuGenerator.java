@@ -8,6 +8,7 @@ import com.github.foxnic.dao.data.Rcd;
 import com.github.foxnic.dao.data.RcdSet;
 import com.github.foxnic.dao.meta.DBTableMeta;
 import com.github.foxnic.dao.spec.DAO;
+import com.github.foxnic.generator.builder.business.ControllerProxyFile;
 import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.enums.MenuType;
@@ -23,10 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 public class MenuGenerator {
@@ -79,32 +77,13 @@ public class MenuGenerator {
 
 
 	}
+
+
+
+
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	protected static final String CATALOG=
-			"新建:create:/insert,/save,_form.html;" +
-			"删除:delete:/delete;" +
-			"批量删除:batch-delete:/delete-by-ids;" +
-			"更新:update:/update;" +
-			"保存:save:/update,/save;" +
-			"查询列表:query:/get-by-ids,/query-list,/query-paged-list;" +
-			"查看表单:view-form:/get-by-id,/get-by-ids,_form.html;" +
-			"导出:export:/export-excel;" +
-			"导入:import:/export-excel-template,/import-excel";
+
+
 
 	private FoxnicWebConfigs configs;
 	private DAO dao;
@@ -130,7 +109,7 @@ public class MenuGenerator {
 		this.proxyType =proxyType;
 		this.pageType =pageType;
 		this.batchId=IDGenerator.getSnowflakeIdString();
-		this.authorityPrefix=table.name()+":";
+		this.authorityPrefix=table.name().toLowerCase()+":";
 		this.roleId=roleId;
 
 	}
@@ -193,7 +172,7 @@ public class MenuGenerator {
 	}
 
 	protected  String getFunctionString() {
-		return CATALOG;
+		return ControllerProxyFile.CATALOG;
 	}
 
 
