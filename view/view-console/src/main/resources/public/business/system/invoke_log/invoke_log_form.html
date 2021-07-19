@@ -2,7 +2,7 @@
 /**
  * 调用统计日志 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-13 17:28:19
+ * @since 2021-07-19 14:42:57
  */
  -->
  <!DOCTYPE html>
@@ -161,7 +161,7 @@
 
     <div class="layui-form-item model-form-footer">
         <button class="layui-btn layui-btn-primary" id="cancel-button" lay-filter="cancel-button" type="button" th:text="${lang.translate('取消')}">取消</button>
-        <button class="layui-btn"  id="submit-button" lay-filter="submit-button" lay-submit th:text="${lang.translate('保存')}">保存</button>
+        <button th:if="${perm.checkAnyAuth('sys_invoke_log:create','sys_invoke_log:update','sys_invoke_log:save')}" class="layui-btn"  id="submit-button" lay-filter="submit-button" lay-submit th:text="${lang.translate('保存')}">保存</button>
     </div>
 </form>
 

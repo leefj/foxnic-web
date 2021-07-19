@@ -2,7 +2,7 @@
 /**
  * 数据字典 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-13 17:28:18
+ * @since 2021-07-19 14:42:55
  */
  -->
  <!DOCTYPE html>
@@ -64,8 +64,8 @@
 
 <!-- 表格操作列 -->
 <script type="text/html" id="tableOperationTemplate">
-    <a  class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit" th:text="${lang.translate('修改')}">修改</a>
-    <a th:if="${perm.checkAuth('sys_dict:delete-by-ids')}" class="layui-btn layui-btn-xs" lay-event="del" th:text="${lang.translate('删除')}">删除</a>
+    <a th:if="${perm.checkAuth('sys_dict:view-form')}" class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit" th:text="${lang.translate('修改')}">修改</a>
+    <a th:if="${perm.checkAuth('sys_dict:delete')}" class="layui-btn layui-btn-xs" lay-event="del" th:text="${lang.translate('删除')}">删除</a>
 </script>
 
 

@@ -1,4 +1,4 @@
-package org.github.foxnic.web.generator.data;
+package org.github.foxnic.web.generator.menu;
 
 import com.github.foxnic.commons.busi.id.IDGenerator;
 import com.github.foxnic.commons.io.FileUtil;

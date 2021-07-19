@@ -249,7 +249,7 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		ModuleContext cfg=createModuleConfig(SYS_MENU.$TABLE, 6);
 
 		cfg.getVoClassFile().addSimpleProperty(String.class,"roleId","菜单角色","从前端传入，指定勾选指定角色的菜单");
-		cfg.getVoClassFile().addSimpleProperty(Integer.class,"isLoadAllDescendants","是否加载所有子孙节点","1：是；0：否");
+			cfg.getVoClassFile().addSimpleProperty(Integer.class,"isLoadAllDescendants","是否加载所有子孙节点","1：是；0：否");
 
 		cfg.getPoClassFile().addSimpleProperty(String.class,"path","页面路径","");
 		cfg.getPoClassFile().addListProperty(String.class,"resourceIds","资源ID清单","");

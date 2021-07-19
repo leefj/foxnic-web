@@ -5,7 +5,7 @@
     <parent> 
         <groupId>com.github.foxnic.web</groupId>  
         <artifactId>parent</artifactId>  
-        <version>0.0.8.RELEASE</version>  
+        <version>0.0.9.RELEASE</version>  
         <relativePath/>  
         <!-- lookup parent from repository --> 
     </parent>  
@@ -130,22 +130,22 @@
             <groupId>com.alibaba</groupId>  
             <artifactId>druid-spring-boot-starter</artifactId>  
             <version>1.1.24</version> 
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
-        <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi</artifactId>
-            <version>${poi.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi-ooxml</artifactId>
-            <version>${poi.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi-ooxml-schemas</artifactId>
-            <version>${poi.version}</version>
-        </dependency>
+        </dependency>  
+        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->  
+        <dependency> 
+            <groupId>org.apache.poi</groupId>  
+            <artifactId>poi</artifactId>  
+            <version>${poi.version}</version> 
+        </dependency>  
+        <dependency> 
+            <groupId>org.apache.poi</groupId>  
+            <artifactId>poi-ooxml</artifactId>  
+            <version>${poi.version}</version> 
+        </dependency>  
+        <dependency> 
+            <groupId>org.apache.poi</groupId>  
+            <artifactId>poi-ooxml-schemas</artifactId>  
+            <version>${poi.version}</version> 
+        </dependency> 
     </dependencies> 
 </project>
