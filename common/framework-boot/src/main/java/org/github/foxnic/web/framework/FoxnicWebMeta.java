@@ -43,6 +43,12 @@ public class FoxnicWebMeta {
 	 * 存储服务
 	 * */
 	public static final String SERVICE_STORAGE_PACKAGE=BASE_PACKAGE+".storage";
+
+
+	/**
+	 * Support
+	 * */
+	public static final String WRAPPER_SUPPORT_PACKAGE=BASE_PACKAGE+".wrapper.support";
 	
 	
 	 

@@ -41,7 +41,7 @@ import java.util.Map;
  * 数据字典 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-03 16:01:49
+ * @since 2021-07-20 13:38:30
 */
 
 @Api(tags = "数据字典")
@@ -82,7 +82,7 @@ public class DictController extends SuperController {
 	*/
 	@ApiOperation(value = "删除数据字典")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = DictVOMeta.ID , value = "字典ID" , required = true , dataTypeClass=String.class , example = "1"),
+		@ApiImplicitParam(name = DictVOMeta.ID , value = "字典ID" , required = true , dataTypeClass=String.class , example = "1")
 	})
 	@ApiOperationSupport(order=2)
 	@NotNull(name = DictVOMeta.ID)
@@ -178,7 +178,24 @@ public class DictController extends SuperController {
 	}
 
 
-
+	/**
+	 * 批量删除数据字典 <br>
+	 * 联合主键时，请自行调整实现
+	*/
+		@ApiOperation(value = "批量删除数据字典")
+		@ApiImplicitParams({
+				@ApiImplicitParam(name = DictVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
+		})
+		@ApiOperationSupport(order=3) 
+		@NotNull(name = DictVOMeta.IDS)
+		@SentinelResource(value = DictServiceProxy.GET_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
+	@PostMapping(DictServiceProxy.GET_BY_IDS)
+	public Result<List<Dict>> getByIds(List<String> ids) {
+		Result<List<Dict>> result=new Result<>();
+		List<Dict> list=dictService.getByIds(ids);
+		result.success(true).data(list);
+		return result;
+	}
 
 	
 	/**

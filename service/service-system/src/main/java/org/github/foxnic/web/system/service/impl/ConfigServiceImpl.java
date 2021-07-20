@@ -1,26 +1,25 @@
 package org.github.foxnic.web.system.service.impl;
-import java.io.InputStream;
-import java.lang.reflect.Field;
-import java.util.Date;
-import java.util.List;
-
-import javax.annotation.Resource;
 
 import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.commons.cache.LocalCache;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.dao.excel.ExcelStructure;
 import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.dao.excel.ValidateResult;
+import com.github.foxnic.dao.spec.DAO;
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
 import org.github.foxnic.web.domain.system.Config;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.system.service.IConfigService;
 import org.springframework.stereotype.Service;
 
-import com.github.foxnic.commons.busi.id.IDGenerator;
-import com.github.foxnic.commons.cache.LocalCache;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.entity.SuperService;
-import com.github.foxnic.dao.spec.DAO;
+import javax.annotation.Resource;
+import java.io.InputStream;
+import java.lang.reflect.Field;
+import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -33,7 +32,7 @@ import com.github.foxnic.dao.spec.DAO;
 @Service("SysConfigServiceImpl")
 public class ConfigServiceImpl  extends SuperService<Config> implements IConfigService {
 	
-	@Resource(name=DBConfigs.PRIMARY_DAO)
+	@Resource(name= DBConfigs.PRIMARY_DAO)
 	private DAO dao=null;
 	
 	/**

@@ -1,4 +1,6 @@
 package org.github.foxnic.web.system.service;
+
+
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
@@ -19,7 +21,7 @@ import java.util.List;
  * 数据字典 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-17 16:41:53
+ * @since 2021-07-20 13:38:30
 */
 
 public interface IDictService extends ISuperService<Dict> {
@@ -46,7 +48,7 @@ public interface IDictService extends ISuperService<Dict> {
 	 * @param id 字典ID
 	 * @return 删除是否成功
 	 */
-	boolean deleteByIdPhysical(String id);
+	Result deleteByIdPhysical(String id);
 	
 	/**
 	 * 按主键删除 数据字典
@@ -55,7 +57,6 @@ public interface IDictService extends ISuperService<Dict> {
 	 * @return 删除是否成功
 	 */
 	Result deleteByIdLogical(String id);
-	
 	
 	/**
 	 * 批量物理删除，仅支持单字段主键表
@@ -129,7 +130,14 @@ public interface IDictService extends ISuperService<Dict> {
 	 * @return Dict 数据对象
 	 */
 	Dict getById(String id);
-	
+		
+	/**
+	 * 检查实体中的数据字段是否已经存在
+	 * @param ids  主键清单
+	 * @return 实体集
+	 * */
+	List<Dict> getByIds(List<String> ids);
+
 	/**
 	 * 检查 角色 是否已经存在
 	 *

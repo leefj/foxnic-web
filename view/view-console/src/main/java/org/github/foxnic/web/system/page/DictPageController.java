@@ -1,19 +1,19 @@
 package org.github.foxnic.web.system.page;
 
 import org.github.foxnic.web.framework.view.controller.ViewController;
-import org.github.foxnic.web.proxy.system.DictServiceProxy;
+
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
+import org.github.foxnic.web.proxy.system.DictServiceProxy;
 import javax.servlet.http.HttpServletRequest;
-
 /**
  * <p>
  * 数据字典 模版页面控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-17 16:41:53
+ * @since 2021-07-20 13:38:30
 */
 
 @Controller("SysDictPageController")
@@ -23,7 +23,7 @@ public class DictPageController extends ViewController {
 	public static final String prefix="business/system/dict";
 
 	private DictServiceProxy proxy;
-
+	
 	/**
 	 * 获得代理对象<br> 
 	 * 1、单体应用时，在应用内部调用；<br> 
@@ -41,8 +41,7 @@ public class DictPageController extends ViewController {
 	 * 数据字典 功能主页面
 	 */
 	@RequestMapping("/dict_list.html")
-	public String list(Model model, HttpServletRequest request)
-	{
+	public String list(Model model,HttpServletRequest request) {
 		return prefix+"/dict_list";
 	}
 
@@ -50,9 +49,7 @@ public class DictPageController extends ViewController {
 	 * 数据字典 表单页面
 	 */
 	@RequestMapping("/dict_form.html")
-	public String form(Model model , HttpServletRequest request, String id) {
+	public String form(Model model,HttpServletRequest request , String id) {
 		return prefix+"/dict_form";
 	}
-
-
 }

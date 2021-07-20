@@ -9,37 +9,22 @@
         <relativePath/>  
         <!-- lookup parent from repository --> 
     </parent>  
-    <artifactId>wrapper-service-storage</artifactId>  
-    <name>wrapper-storage</name>  
-    <description>Wrapper-Storage</description>  
+    <artifactId>wrapper-support</artifactId>  
+    <name>wrapper-support</name>  
+    <description>Wrapper-Support</description>  
     <dependencies> 
         <dependency> 
             <groupId>com.github.foxnic.web</groupId>  
-            <artifactId>framework-cloud</artifactId>  
+            <artifactId>framework-boot</artifactId>  
             <version>${platform.version}</version> 
         </dependency>  
         <dependency> 
-            <groupId>com.github.foxnic.web</groupId>  
-            <artifactId>service-storage</artifactId>  
-            <version>${platform.version}</version> 
-        </dependency>  
-        <dependency> 
-            <groupId>org.springframework.boot</groupId>  
-            <artifactId>spring-boot-starter-web</artifactId>  
-            <!-- 移除掉默认支持的 Tomcat -->  
-            <exclusions> 
-                <exclusion> 
-                    <groupId>org.springframework.boot</groupId>  
-                    <artifactId>spring-boot-starter-tomcat</artifactId> 
-                </exclusion> 
-            </exclusions> 
-        </dependency>  
-        <!-- 添加 Undertow 容器 -->  
-        <dependency> 
-            <groupId>org.springframework.boot</groupId>  
-            <artifactId>spring-boot-starter-undertow</artifactId> 
+            <groupId>mysql</groupId>  
+            <artifactId>mysql-connector-java</artifactId>  
+            <version>8.0.11</version> 
         </dependency> 
     </dependencies>  
+    <dependencyManagement/>  
     <build> 
         <defaultGoal>compile</defaultGoal>  
         <resources> 

@@ -1,11 +1,5 @@
 package org.github.foxnic.web.generator.config;
 
-import java.io.File;
-
-import org.github.foxnic.web.framework.dao.DBTreatyConfig;
-import org.github.foxnic.web.framework.nacos.NacosConfig;
-import org.github.foxnic.web.relation.FoxnicWebRelationManager;
-
 import com.alibaba.druid.pool.DruidDataSource;
 import com.github.foxnic.commons.cache.Variable;
 import com.github.foxnic.commons.io.FileUtil;
@@ -16,6 +10,11 @@ import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.dao.spec.DAOBuilder;
 import com.github.foxnic.generator.config.GlobalSettings;
 import com.github.foxnic.sql.treaty.DBTreaty;
+import org.github.foxnic.web.framework.nacos.NacosConfig;
+import org.github.foxnic.web.relation.FoxnicWebRelationManager;
+import org.github.foxnic.web.wrapper.support.datasource.DAOConfig;
+
+import java.io.File;
 
 public class FoxnicWebConfigs {
 	
@@ -148,7 +147,7 @@ public class FoxnicWebConfigs {
 		dao = (new DAOBuilder()).datasource(ds).build();
 		
 		// 设置数据库规约
-		DBTreaty dbTreaty = (new DBTreatyConfig()).getDBTreaty();
+		DBTreaty dbTreaty = (new DAOConfig()).getDBTreaty();
 		dao.setDBTreaty(dbTreaty);
 		dao.setRelationManager(new FoxnicWebRelationManager());
 		

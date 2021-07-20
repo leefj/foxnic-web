@@ -1,34 +1,41 @@
 package org.github.foxnic.web.system.service.impl;
 
-import com.github.foxnic.api.error.ErrorDesc;
-import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.commons.busi.id.IDGenerator;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.entity.SuperService;
-import com.github.foxnic.dao.excel.ExcelStructure;
-import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.dao.spec.DAO;
-import com.github.foxnic.sql.expr.ConditionExpr;
-import com.github.foxnic.sql.meta.DBField;
-import org.github.foxnic.web.domain.system.Dict;
-import org.github.foxnic.web.framework.dao.DBConfigs;
-import org.github.foxnic.web.system.service.IDictService;
-import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.io.InputStream;
-import java.lang.reflect.Field;
-import java.util.Date;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+
+import org.github.foxnic.web.domain.system.Dict;
+import org.github.foxnic.web.domain.system.DictVO;
 import java.util.List;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.dao.data.PagedList;
+import com.github.foxnic.dao.entity.SuperService;
+import com.github.foxnic.dao.spec.DAO;
+import java.lang.reflect.Field;
+import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.sql.expr.ConditionExpr;
+import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.dao.excel.ExcelWriter;
+import com.github.foxnic.dao.excel.ValidateResult;
+import com.github.foxnic.dao.excel.ExcelStructure;
+import java.io.InputStream;
+import com.github.foxnic.sql.meta.DBField;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.meta.DBColumnMeta;
+import com.github.foxnic.sql.expr.Select;
+import java.util.ArrayList;
+import org.github.foxnic.web.system.service.IDictService;
+import org.github.foxnic.web.framework.dao.DBConfigs;
+import java.util.Date;
 
 /**
  * <p>
  * 数据字典 服务实现
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-17 16:41:53
+ * @since 2021-07-20 13:38:30
 */
 
 
@@ -78,11 +85,19 @@ public class DictServiceImpl extends SuperService<Dict> implements IDictService 
 	 * @param id 字典ID
 	 * @return 删除是否成功
 	 */
-	public boolean deleteByIdPhysical(String id) {
+	public Result deleteByIdPhysical(String id) {
 		Dict dict = new Dict();
-		if(id==null) throw new IllegalArgumentException("id 不允许为 null ");
+		if(id==null) return ErrorDesc.failure().message("id 不允许为 null 。");
 		dict.setId(id);
-		return dao.deleteEntity(dict);
+		try {
+			boolean suc = dao.deleteEntity(dict);
+			return suc?ErrorDesc.success():ErrorDesc.failure();
+		}
+		catch(Exception e) {
+			Result r= ErrorDesc.failure();
+			r.extra().setException(e);
+			return r;
+		}
 	}
 	
 	/**
@@ -91,15 +106,22 @@ public class DictServiceImpl extends SuperService<Dict> implements IDictService 
 	 * @param id 字典ID
 	 * @return 删除是否成功
 	 */
-	public Result<Object> deleteByIdLogical(String id) {
+	public Result deleteByIdLogical(String id) {
 		Dict dict = new Dict();
-		if(id==null) throw new IllegalArgumentException("id 不允许为 null 。");
+		if(id==null) return ErrorDesc.failure().message("id 不允许为 null 。");
 		dict.setId(id);
 		dict.setDeleted(dao.getDBTreaty().getTrueValue());
 		dict.setDeleteBy((String)dao.getDBTreaty().getLoginUserId());
 		dict.setDeleteTime(new Date());
-		boolean suc = dao.updateEntity(dict,SaveMode.NOT_NULL_FIELDS);
-		return suc?ErrorDesc.success():ErrorDesc.failure();
+		try {
+			boolean suc = dao.updateEntity(dict,SaveMode.NOT_NULL_FIELDS);
+			return suc?ErrorDesc.success():ErrorDesc.failure();
+		}
+		catch(Exception e) {
+			Result r= ErrorDesc.failure();
+			r.extra().setException(e);
+			return r;
+		}
 	}
 	
 	/**
@@ -151,7 +173,14 @@ public class DictServiceImpl extends SuperService<Dict> implements IDictService 
 		sample.setId(id);
 		return dao.queryEntity(sample);
 	}
- 
+
+	@Override
+	public List<Dict> getByIds(List<String> ids) {
+		return new ArrayList<>(getByIdsMap(ids).values());
+	}
+
+
+
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
 	 * 
