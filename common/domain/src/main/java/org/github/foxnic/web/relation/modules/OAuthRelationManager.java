@@ -50,6 +50,8 @@ public class OAuthRelationManager extends RelationManager {
 		});
 	}
 
+
+
 	/**
 	 * 扩展用户模型
 	 * */
