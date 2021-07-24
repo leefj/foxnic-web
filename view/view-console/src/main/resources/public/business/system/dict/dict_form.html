@@ -2,7 +2,7 @@
 /**
  * 数据字典 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-20 13:38:32
+ * @since 2021-07-24 12:32:06
  */
  -->
  <!DOCTYPE html>
@@ -24,7 +24,7 @@
 <form id="data-form" lay-filter="data-form" class="layui-form model-form" style="display:none">
     <input name="id" id="id"  type="hidden"/>
     
-    <div class="layui-form-item" >
+    <div class="layui-form-item" style="display: none")>
         <label class="layui-form-label" th:text="${lang.translate('是否树形结构')}">是否树形结构</label>
         <div class="layui-input-block">
             <input lay-filter="isTree" id="isTree" name="isTree" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('是否树形结构') }" type="text" class="layui-input"   />

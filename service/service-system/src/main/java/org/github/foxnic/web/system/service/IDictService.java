@@ -1,27 +1,27 @@
 package org.github.foxnic.web.system.service;
 
 
+import com.github.foxnic.sql.expr.ConditionExpr;
+import com.github.foxnic.dao.entity.ISuperService;
+import org.github.foxnic.web.domain.system.Dict;
+import org.github.foxnic.web.domain.system.DictVO;
+import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.entity.ISuperService;
-import com.github.foxnic.dao.excel.ExcelStructure;
-import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.sql.expr.ConditionExpr;
+import java.io.InputStream;
 import com.github.foxnic.sql.expr.OrderBy;
 import com.github.foxnic.sql.meta.DBField;
-import org.github.foxnic.web.domain.system.Dict;
-
-import java.io.InputStream;
-import java.util.List;
+import com.github.foxnic.dao.excel.ExcelWriter;
+import com.github.foxnic.dao.excel.ExcelStructure;
+import com.github.foxnic.dao.excel.ValidateResult;
+import com.github.foxnic.dao.data.SaveMode;
 
 /**
  * <p>
  * 数据字典 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-20 13:38:30
+ * @since 2021-07-24 12:32:05
 */
 
 public interface IDictService extends ISuperService<Dict> {

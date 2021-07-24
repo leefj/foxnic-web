@@ -2,7 +2,7 @@
 /**
  * 数据字典 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-20 13:38:30
+ * @since 2021-07-24 12:32:05
  */
  -->
  <!DOCTYPE html>
@@ -26,14 +26,6 @@
     <div class="layui-card-body">
         <div class="layui-form toolbar search-bar">
 
-            <div class="search-unit">
-                <span th:text="${lang.translate('字典ID')}" class="search-label">字典ID</span><span class="search-colon">:</span>
-                <input id="id" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入字典ID')}"/>
-            </div>
-            <div class="search-unit">
-                <span th:text="${lang.translate('是否树形结构')}" class="search-label">是否树形结构</span><span class="search-colon">:</span>
-                <input id="isTree" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入是否树形结构')}"/>
-            </div>
             <div class="search-unit">
                 <span th:text="${lang.translate('字典名称')}" class="search-label">字典名称</span><span class="search-colon">:</span>
                 <input id="name" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入字典名称')}"/>
@@ -71,6 +63,7 @@
 
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];
+    var AUTH_PREFIX="sys_dict";
 </script>
 
 <script src="/business/system/dict/dict_list.js"></script>

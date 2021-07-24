@@ -1,7 +1,7 @@
 /**
  * 数据字典 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-20 13:38:32
+ * @since 2021-07-24 12:32:06
  */
 
 
@@ -45,8 +45,8 @@ function ListPage() {
 			cols: [[
 				{  fixed: 'left',type: 'numbers' },
 			 	{  fixed: 'left',type:'checkbox' },
-                { field: 'id', align:"left", hide:false, sort: true, title: fox.translate('字典ID')} ,
-                { field: 'isTree', align:"right", hide:false, sort: true, title: fox.translate('是否树形结构')} ,
+                { field: 'id', align:"left", hide:true, sort: true, title: fox.translate('字典ID')} ,
+                { field: 'isTree', align:"right", hide:true, sort: true, title: fox.translate('是否树形结构')} ,
                 { field: 'name', align:"left", hide:false, sort: true, title: fox.translate('字典名称')} ,
                 { field: 'code', align:"left", hide:false, sort: true, title: fox.translate('字典代码')} ,
                 { field: 'module', align:"left", hide:false, sort: true, title: fox.translate('所属模块')} ,
@@ -54,8 +54,8 @@ function ListPage() {
                 { field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
             ]]
 	 		,footer : {
-				exportExcel : true,
-				importExcel : {
+				exportExcel : admin.checkAuth(AUTH_PREFIX+":export"),
+				importExcel : admin.checkAuth(AUTH_PREFIX+":import")?{
 					params : {} ,
 				 	callback : function(r) {
 						if(r.success) {
@@ -64,7 +64,7 @@ function ListPage() {
 							layer.msg(fox.translate('数据导入失败')+"!");
 						}
 					}
-			 	}
+			 	}:false
 		 	}
         });
         //绑定排序事件
@@ -78,8 +78,6 @@ function ListPage() {
       */
 	function refreshTableData(sortField,sortType) {
 		var value = {};
-		value.id={ value: $("#id").val() };
-		value.isTree={ value: $("#isTree").val() };
 		value.name={ value: $("#name").val() };
 		value.code={ value: $("#code").val() };
 		value.module={ value: $("#module").val() };

@@ -300,17 +300,42 @@ layui.define(['settings', 'layer'], function (exports) {
             console.log(param);
             $.ajax(param);
         },
-        // 判断是否有权限
-        hasPerm: function (auth) {
-            var permissions = admin.getTempData("permissions");
-            if (permissions){
-                for (var i = 0; i < permissions.length; i++) {
-                    if (auth == permissions[i]) {
-                        return true;
-                    }
+        authorities:null,
+        initAuthorities:function () {
+            if(this.authorities!=null) {
+                return true;
+            }
+            var usr=config.getUser();
+            if(usr==null) return false;
+            usr=config.getUser().user;
+            if(usr==null) return false;
+            var menus = usr.menus;
+            if(menus==null) return false;
+            if(this.authorities==null) {
+                this.authorities={};
+                for (var i = 0; i < menus.length; i++) {
+                    this.authorities[menus[i].authority]=true;
                 }
             }
-            return false;
+            return true;
+        },
+        // 判断是否有权限
+        checkAuth: function (auth) {
+            //拦截，并由顶层弹出窗口
+            if(top && top!=window && top.admin) {
+                return top.admin.checkAuth();
+            }
+            //
+            if(this.initAuthorities()==false) {
+                return false;
+            }
+            for (var i = 0; i < arguments.length; i++) {
+                if(!this.authorities[arguments[i]]) {
+                    return false
+                }
+            }
+            //
+            return true;
         },
         // 窗口大小改变监听
         onResize: function () {

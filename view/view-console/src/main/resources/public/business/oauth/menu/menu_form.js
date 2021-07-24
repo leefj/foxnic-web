@@ -52,7 +52,7 @@ function FormPage() {
 			valueDirection:"column",
 			toolbar: {show:true,showIcon:true,list:[ "ALL", "CLEAR","REVERSE"]},
 			//转换数据
-			searchField: "name", //请自行调整用于搜索的字段名称
+			searchField: "name,url", //请自行调整用于搜索的字段名称
 			extraParam: {type:"page"}, //额外的查询参数，Object 或是 返回 Object 的函数
 			template({ item, sels, name, value }){
 				return item.url  + '<span style="position: absolute; right: 10px; color: #8799a3">'+item.tableName+'</span>'
@@ -87,7 +87,7 @@ function FormPage() {
 			valueDirection:"column",
 			toolbar: {show:true,showIcon:true,list:[ "ALL", "CLEAR","REVERSE"]},
 			//转换数据
-			searchField: "url", //请自行调整用于搜索的字段名称
+			searchField: "url,name", //请自行调整用于搜索的字段名称
 			extraParam: {}, //额外的查询参数，Object 或是 返回 Object 的函数
 			template({ item, sels, name, value }){
 				return '<div style="color: #8799a3">['+item.method+']&nbsp;</div>'+item.url  + '<span style="position: absolute; right: 10px; color: #8799a3">'+item.tableName+'</span>'

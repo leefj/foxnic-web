@@ -136,6 +136,11 @@ public class SystemCodeGenerator  {
 		//创建配置
 		ModuleContext cfg=createModuleConfig(FoxnicWeb.SYS_DICT.$TABLE, 5);
 
+		cfg.field(FoxnicWeb.SYS_DICT.ID).hideInList().hideInForm().hideInSearch();
+		cfg.field(FoxnicWeb.SYS_DICT.IS_TREE).hideInList().hideInForm().hideInSearch();
+
+
+
 		//文件生成覆盖模式
 		cfg.overrides()
 				.setServiceIntfAnfImpl(WriteMode.COVER_EXISTS_FILE) //服务与接口

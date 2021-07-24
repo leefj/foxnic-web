@@ -5,7 +5,7 @@
     <parent> 
         <groupId>com.github.foxnic.web</groupId>  
         <artifactId>parent</artifactId>  
-        <version>0.0.10.RELEASE</version>  
+        <version>0.1.0.RELEASE</version>  
         <relativePath/>  
         <!-- lookup parent from repository --> 
     </parent>  
@@ -27,6 +27,11 @@
         <dependency> 
             <groupId>com.github.ben-manes.caffeine</groupId>  
             <artifactId>caffeine</artifactId> 
+        </dependency>  
+        <dependency> 
+            <groupId>com.github.oshi</groupId>  
+            <artifactId>oshi-core</artifactId>  
+            <version>${oshi.core.version}</version> 
         </dependency>  
         <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-pool2 -->  
         <dependency> 
