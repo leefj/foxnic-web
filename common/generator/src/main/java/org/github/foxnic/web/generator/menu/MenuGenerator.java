@@ -137,6 +137,14 @@ public class MenuGenerator {
 
 		dao.execute("delete from "+ FoxnicWeb.SYS_RESOURZE.$NAME +" where deleted=1");
 
+		Rcd m=dao.queryRecord("select batch_id from sys_menu where parent_id=? and label=?",parentId,getTopMenuLabel());
+
+		if(m!=null) {
+			batchId=m.getString("batch_id");
+			System.err.println("菜单生成失败，同一父节点下已经存在同名菜单"+(batchId==null?"":(" , 已存在菜单的 batchId 为 "+batchId)));
+			return;
+		}
+
 		try {
 			dao.beginTransaction();
 			createPageResources();
@@ -151,6 +159,10 @@ public class MenuGenerator {
 			System.err.println("生成失败，数据已回滚");
 			e.printStackTrace();
 		}
+	}
+
+	private String getTopMenuLabel() {
+		return  getTopic()+"管理";
 	}
 
 	/**
@@ -230,7 +242,7 @@ public class MenuGenerator {
 				topMenu.setType(MenuType.page.name());
 				topMenu.setSort(0);
 				topMenu.setUrl("#!"+table.name().toLowerCase()+"_list");
-				topMenu.setLabel(getTopic()+"管理");
+				topMenu.setLabel(getTopMenuLabel());
 				topMenu.setHidden(0);
 				topMenu.setAuthority(authorityPrefix+"mngr");
 				topMenu.setPathResourceId(resourze.getId());
