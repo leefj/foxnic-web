@@ -24,6 +24,10 @@ function ListPage() {
 		var roleId=QueryString.GetValue('roleId');
 		if(!roleId) roleId="";
 
+		//debugger
+		//form.render("check-mode");
+		//form.render('checkbox');
+
 		var cfgs = {
 			edit: {
 				enable: false
@@ -52,6 +56,18 @@ function ListPage() {
 			}
 		};
 		menuTree=$.fn.zTree.init($("#menu-tree"), cfgs);
+
+		//树的关联选择控制
+		form.on('checkbox(check-mode)', function (data) {
+			if( data.elem.checked) {
+				menuTree.setting.check.chkboxType = { "Y" : "ps", "N" : "ps" };
+			} else {
+				menuTree.setting.check.chkboxType = { "Y" : "", "N" : "" };
+			}
+		});
+
+
+
 
 		setTimeout(function(){
 			// debugger
