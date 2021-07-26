@@ -30,7 +30,7 @@ function ListPage() {
 				contentType:"application/json",
 				url:moduleURL+"/query-nodes",
 				autoParam:["id=parentId"],
-				otherParam:{isLoadAllDescendants:1},
+				otherParam:{isLoadAllDescendants:0},
 				dataFilter: nodeDatafilter
 			},
 			callback: {
@@ -272,7 +272,7 @@ function ListPage() {
 			} else {
 				admin.toast().error("新建菜单失败",{time:1000,position:"right-bottom"});
 			}
-		});
+		},"POST",true);
     });
  
     

@@ -81,6 +81,7 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
         	}
 
 
+            var activedTopMenuIndex=0;
         	//顶部导航按钮
             if(MODULE_ENABLE==1) {
                 for (var i = 0; i < tops.length; i++) {
@@ -92,12 +93,21 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
                             style="color:#009688;";
                     }
                     var button=['<li class="module-nav-item layui-nav-item" lay-unselect  index="'+i+'"  id="'+buttonId+'" style="line-height: 49px;">',
-                        '    <a  id="'+buttonId+'-a" title="'+tops[i].label+'" style="font-size: 15px;'+textStyle+'"><i class="'+tops[i].css+'" style="font-size: 17px"></i>&nbsp;&nbsp;'+tops[i].label+'</a>',
+                        '    <a  id="'+buttonId+'-a" index="'+i+'" title="'+tops[i].label+'" style="font-size: 15px;'+textStyle+'"><i class="'+tops[i].css+'" style="font-size: 17px"></i>&nbsp;&nbsp;'+tops[i].label+'</a>',
                     '</li>' ]
                     var b=$("#nav-modules").append(button.join("\n"));
                 }
-                $(".module-nav-item").click(function() {
 
+                //debugger;
+                var activedTopMenuId=sessionStorage.getItem("nav_actived_top_menu_id_"+index.userId);
+                var activedTopMenuButton=$("#"+activedTopMenuId);
+                if(activedTopMenuButton && activedTopMenuButton.length>0) {
+                    activedTopMenuIndex=activedTopMenuButton.attr("index");
+                }
+                if(!activedTopMenuIndex) activedTopMenuIndex=0;
+                //index.navModuleIndex=activedTopMenuIndex;
+                //
+                $(".module-nav-item").click(function() {
                     var it=$(this);
                     var idx=it.attr("index");
                     var topMenu=tops[idx];
@@ -110,8 +120,11 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
                     $("#"+buttonId).css("color","#009688");
 
                     index.navModuleIndex=idx;
+                    //记住点击的顶部菜单
+                    sessionStorage.setItem("nav_actived_top_menu_id_"+index.userId,buttonId);
                 });
-                pages=tops[0].subMenus;
+                pages=tops[activedTopMenuIndex].subMenus;
+                activedTopMenuButton.click();
             } else {
                 pages=tops;
             }
@@ -121,7 +134,7 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
             admin.putTempData("menus",tops);
 
             //渲染
-            index.switchNavMenu(0,pages);
+            index.switchNavMenu(activedTopMenuIndex,pages);
 
         },
         userId:null,
@@ -143,7 +156,8 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
             //如果为 null 尝试从本地存储恢复数据
             if(!this.navModuleMenuStates) {
                 try {
-                this.navModuleMenuStates=JSON.parse(sessionStorage.getItem("nav_module_nenu_state_"+uid));
+                    this.navModuleMenuStates=JSON.parse(sessionStorage.getItem("nav_module_menu_state_"+uid));
+                    //debugger;
                 } catch (e){};
             }
             if(this.navModuleMenuStates==null)  this.navModuleMenuStates={};
@@ -159,15 +173,16 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
                     var a=$(this);
                     var href=a.attr("href");
                     console.log(href);
-                    if(href.startWith("javascript:")) return;
-                    //补充执行，解决tab关闭后无法打开的问题
-                    Q.go(href);
                     //点击后时，保存菜单折叠状态
                     setTimeout(function () {
                         states=me.getMenuExpandStates();
                         me.navModuleMenuStates[me.navModuleIndex]=states;
-                        sessionStorage.setItem("nav_module_nenu_state_"+uid,JSON.stringify(me.navModuleMenuStates));
+                        sessionStorage.setItem("nav_module_menu_state_"+uid,JSON.stringify(me.navModuleMenuStates));
                     },100);
+                    if(href.startWith("javascript:")) return;
+                    //补充执行，解决tab关闭后无法打开的问题
+                    Q.go(href);
+
                 });
 
                 //恢复菜单折叠状态
