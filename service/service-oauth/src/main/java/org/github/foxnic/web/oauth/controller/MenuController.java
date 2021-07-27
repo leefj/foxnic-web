@@ -72,6 +72,10 @@ public class MenuController {
 	@PostMapping(MenuServiceProxy.INSERT)
 	public Result insert(MenuVO menuVO) {
 		menuVO.setSort(999999);
+		if(StringUtil.isBlank(menuVO.getParentId())) {
+			menuVO.setParentId("0");
+		}
+		menuVO.setType(MenuType.folder.code());
 		if(StringUtil.isBlank(menuVO.getType())) {
 			menuVO.setType(MenuType.page.code());
 		}

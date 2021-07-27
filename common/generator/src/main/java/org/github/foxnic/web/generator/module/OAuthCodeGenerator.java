@@ -64,33 +64,87 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		pojo.addSimpleProperty(String.class,"captcha","校验码/验证码","用户输入的校验码");
 
 
+		cfg.field(SYS_USER.ID)
+				.basic().hidden(true);
+
+		cfg.field(SYS_USER.ID)
+				.basic().hidden(true);
+
+		cfg.field(SYS_USER.PASSWD)
+				.basic().hidden(true);
+
+		cfg.field(SYS_USER.EMPLOYEE_ID)
+				.basic().hidden(true);
+
+		cfg.field(SYS_USER.LAST_LOGIN_TIME)
+				.basic().hidden(true);
+
+		cfg.field(SYS_USER.PERSON_ID)
+				.basic().hidden(true);
+
+		cfg.field(SYS_USER.EMPLOYEE_ID)
+				.basic().hidden(true);
+
+		cfg.field(SYS_USER.PASSWD)
+				.basic().hidden(true);
+
+		cfg.field(SYS_USER.NAME)
+				.form().validate().required()
+				.search().displayAlone(true)
+		;
+
+		cfg.field(SYS_USER.PHONE)
+				.form().validate().required().phone();
+
+		cfg.field(SYS_USER.LANGUAGE)
+				.form().radio().enumType(Language.class);
+
+		cfg.field(UserVOMeta.ROLE_IDS)
+				.basic().label("角色")
+				.list().hidden(true)
+				.form().select().muliti(true).queryApi(RoleServiceProxy.QUERY_LIST).fillBy(UserMeta.ROLES)
+		;
+
+		cfg.field(SYS_USER.PORTRAIT_ID)
+				.basic().label("头像")
+				.search().hidden(true)
+				.list().alignCenter()
+				.form().upload().acceptSingleImage().buttonLabel("选择头像")
+		;
+
+		cfg.field(SYS_USER.VALID)
+				.list().alignCenter()
+				.form().logic().on("有效","1").off("无效","0");
 
 		//表单不需要显示的字段
-		cfg.field(SYS_USER.ID).hideInList().hideInForm();
-		cfg.field(SYS_USER.PASSWD).hideInList().hideInForm();
-		cfg.field(SYS_USER.EMPLOYEE_ID).hideInForm().hideInList();
-		cfg.field(SYS_USER.LAST_LOGIN_TIME).hideInForm();
-		cfg.field(SYS_USER.PERSON_ID).hideInForm().hideInList();
-		cfg.field(SYS_USER.EMPLOYEE_ID).hideInForm();
-		cfg.field(SYS_USER.PASSWD).hideInForm();
+//		cfg.field(SYS_USER.ID).hideInList().hideInForm();
+//		cfg.field(SYS_USER.PASSWD).hideInList().hideInForm();
+//		cfg.field(SYS_USER.EMPLOYEE_ID).hideInForm().hideInList();
+//		cfg.field(SYS_USER.LAST_LOGIN_TIME).hideInForm();
+//		cfg.field(SYS_USER.PERSON_ID).hideInForm().hideInList();
+//		cfg.field(SYS_USER.EMPLOYEE_ID).hideInForm();
+//		cfg.field(SYS_USER.PASSWD).hideInForm();
 		//配置校验
-		cfg.field(SYS_USER.NAME).validate().required();
-		cfg.field(SYS_USER.NAME).search().displayAlone(true);
+//		cfg.field(SYS_USER.NAME).validate().required();
+//		cfg.field(SYS_USER.NAME).search().displayAlone(true);
 
-		cfg.field(SYS_USER.PHONE).validate().required().phone();
+//		cfg.field(SYS_USER.PHONE).validate().required().phone();
 		//配置单选
-		cfg.field(SYS_USER.LANGUAGE).radioField().enumType(Language.class);
+//		cfg.field(SYS_USER.LANGUAGE).radioField().enumType(Language.class);
 //		cfg.field(SYS_USER.LANGUAGE).checkField().enumType(Language.class);
 //		cfg.field(SYS_USER.LANGUAGE).checkField().dict(DictEnum.ORDER_STATUS);
 		//配置数据库表字段外的输入框
-		cfg.field(UserVOMeta.ROLE_IDS).label("角色").hideInList().selectField().muliti(true).queryApi(RoleServiceProxy.QUERY_LIST).fillBy(UserMeta.ROLES);
+
+
+
+//		cfg.field(UserVOMeta.ROLE_IDS).label("角色").hideInList().selectField().muliti(true).queryApi(RoleServiceProxy.QUERY_LIST).fillBy(UserMeta.ROLES);
 		//使用枚举
 		//cfg.field(UserVOMeta.ROLE_IDS).label("角色").selectField().muliti().enumType(Language.class);
 		//使用字典数据
 //		cfg.field(UserVOMeta.ROLE_IDS).label("角色").selectField().muliti().dict(DictEnum.COMPANY_TYPE);
 
-		cfg.field(SYS_USER.PORTRAIT_ID).label("头像").hideInSearch().alignCenter().uploadField().acceptSingleImage().buttonLabel("选择头像");
-		cfg.field(SYS_USER.VALID).alignCenter().logicField().on("有效","1").off("无效","0");
+//		cfg.field(SYS_USER.PORTRAIT_ID).label("头像").hideInSearch().alignCenterInList().uploadField().acceptSingleImage().buttonLabel("选择头像");
+//		cfg.field(SYS_USER.VALID).alignCenterInList().logicField().on("有效","1").off("无效","0");
 
 		//生成代码
 		cfg.buildAll();
@@ -134,14 +188,27 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		//创建配置
 		ModuleContext cfg=createModuleConfig(SYS_RESOURZE.$TABLE, 6);
 
-		cfg.field(SYS_RESOURZE.ID).hideInList();
-		cfg.field(SYS_RESOURZE.METHOD).label("Method").radioField().enumType(HttpMethodType.class);
-		cfg.field(SYS_RESOURZE.TYPE).radioField().enumType(ResourceType.class);
-		cfg.field(SYS_RESOURZE.NAME).validate().required();
-		cfg.field(SYS_RESOURZE.URL).validate().required();
-		cfg.field(SYS_RESOURZE.BATCH_ID).hideInForm().hideInList();
-		cfg.field(SYS_RESOURZE.MODULE).label("模块");
-		cfg.field(SYS_RESOURZE.TABLE_NAME).label("数据表");
+//		cfg.field(SYS_RESOURZE.ID).hideInList();
+//		cfg.field(SYS_RESOURZE.METHOD).label("Method").radioField().enumType(HttpMethodType.class);
+//		cfg.field(SYS_RESOURZE.TYPE).radioField().enumType(ResourceType.class);
+//		cfg.field(SYS_RESOURZE.NAME).validate().required();
+//		cfg.field(SYS_RESOURZE.URL).validate().required();
+//		cfg.field(SYS_RESOURZE.BATCH_ID).hideInForm().hideInList();
+//		cfg.field(SYS_RESOURZE.MODULE).label("模块");
+//		cfg.field(SYS_RESOURZE.TABLE_NAME).label("数据表");
+
+		cfg.field(SYS_RESOURZE.ID).list().hidden(true);
+
+		cfg.field(SYS_RESOURZE.METHOD)
+				.basic().label("Method")
+				.form().radio().enumType(HttpMethodType.class);
+
+		cfg.field(SYS_RESOURZE.TYPE).form().radio().enumType(ResourceType.class);
+		cfg.field(SYS_RESOURZE.NAME).form().validate().required();
+		cfg.field(SYS_RESOURZE.URL).form().validate().required();
+		cfg.field(SYS_RESOURZE.BATCH_ID).basic().hidden(true);
+		cfg.field(SYS_RESOURZE.MODULE).basic().label("模块");
+		cfg.field(SYS_RESOURZE.TABLE_NAME).basic().label("数据表");
 
 		//文件生成覆盖模式
 		cfg.overrides()
@@ -193,9 +260,14 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		//创建配置
 		ModuleContext cfg=createModuleConfig(SYS_ROLE.$TABLE, 6);
 
-		cfg.field(SYS_ROLE.ID).hideInList().hideInSearch();
+//		cfg.field(SYS_ROLE.ID).hideInList().hideInSearch();
+//		//增加菜单选择
+//		cfg.field(RoleMeta.MENU_IDS).label("菜单权限").hideInList();
+
+		cfg.field(SYS_ROLE.ID).basic().hidden(true);
 		//增加菜单选择
-		cfg.field(RoleMeta.MENU_IDS).label("菜单权限").hideInList();
+		cfg.field(RoleMeta.MENU_IDS).basic().label("菜单权限")
+				.list().hidden(true);
 
 		cfg.getPoClassFile().addListProperty(String.class,"menuIds","所拥有的菜单ID清单","");
 
@@ -255,8 +327,13 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		cfg.getPoClassFile().addListProperty(String.class,"resourceIds","资源ID清单","");
 		cfg.getPoClassFile().addSimpleProperty(String.class,"ancestorsNamePath","祖先名称路径","用斜杠隔开");
 
-		cfg.field(SYS_MENU.PATH_RESOURCE_ID).selectField().queryApi(ResourzeServiceProxy.QUERY_PAGED_LIST).muliti(false).paging(true).fillBy(MenuVOMeta.PATH_RESOURCE_ID);
-		cfg.field(MenuMeta.RESOURCE_IDS).label("资源清单").selectField().queryApi(ResourzeServiceProxy.QUERY_PAGED_LIST).muliti(true).paging(true).fillBy(MenuVOMeta.RESOURCE_IDS);
+//		cfg.field(SYS_MENU.PATH_RESOURCE_ID).selectField().queryApi(ResourzeServiceProxy.QUERY_PAGED_LIST).muliti(false).paging(true).fillBy(MenuVOMeta.PATH_RESOURCE_ID);
+//		cfg.field(MenuMeta.RESOURCE_IDS).label("资源清单").selectField().queryApi(ResourzeServiceProxy.QUERY_PAGED_LIST).muliti(true).paging(true).fillBy(MenuVOMeta.RESOURCE_IDS);
+
+		cfg.field(SYS_MENU.PATH_RESOURCE_ID).form().select().queryApi(ResourzeServiceProxy.QUERY_PAGED_LIST).muliti(false).paging(true).fillBy(MenuVOMeta.PATH_RESOURCE_ID);
+		cfg.field(MenuMeta.RESOURCE_IDS).basic().label("资源清单")
+				.form().select().queryApi(ResourzeServiceProxy.QUERY_PAGED_LIST).muliti(true).paging(true).fillBy(MenuVOMeta.RESOURCE_IDS);
+
 		//文件生成覆盖模式
 		cfg.overrides()
 		.setServiceIntfAnfImpl(WriteMode.CREATE_IF_NOT_EXISTS) //服务与接口

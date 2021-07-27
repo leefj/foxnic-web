@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 
 
 import org.github.foxnic.web.proxy.system.DictServiceProxy;
@@ -46,7 +47,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 数据字典 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-24 12:32:05
+ * @since 2021-07-27 17:23:25
 */
 
 @Api(tags = "数据字典")
@@ -127,7 +128,7 @@ public class DictController extends SuperController {
 		@ApiImplicitParam(name = DictVOMeta.CODE , value = "字典代码" , required = true , dataTypeClass=String.class , example = "sex"),
 		@ApiImplicitParam(name = DictVOMeta.MODULE , value = "所属模块" , required = false , dataTypeClass=String.class , example = "system"),
 	})
-	@ApiOperationSupport( order=4 , ignoreParameters = { DictVOMeta.PAGE_INDEX , DictVOMeta.PAGE_SIZE , DictVOMeta.SEARCH_FIELD , DictVOMeta.SEARCH_VALUE , DictVOMeta.SORT_FIELD , DictVOMeta.SORT_TYPE , DictVOMeta.IDS } ) 
+	@ApiOperationSupport( order=4 , ignoreParameters = { DictVOMeta.PAGE_INDEX , DictVOMeta.PAGE_SIZE , DictVOMeta.SEARCH_FIELD , DictVOMeta.FUZZY_FIELD , DictVOMeta.SEARCH_VALUE , DictVOMeta.SORT_FIELD , DictVOMeta.SORT_TYPE , DictVOMeta.IDS } ) 
 	@NotNull(name = DictVOMeta.ID)
 	@NotNull(name = DictVOMeta.IS_TREE)
 	@NotNull(name = DictVOMeta.NAME)
@@ -151,7 +152,7 @@ public class DictController extends SuperController {
 		@ApiImplicitParam(name = DictVOMeta.CODE , value = "字典代码" , required = true , dataTypeClass=String.class , example = "sex"),
 		@ApiImplicitParam(name = DictVOMeta.MODULE , value = "所属模块" , required = false , dataTypeClass=String.class , example = "system"),
 	})
-	@ApiOperationSupport(order=5 ,  ignoreParameters = { DictVOMeta.PAGE_INDEX , DictVOMeta.PAGE_SIZE , DictVOMeta.SEARCH_FIELD , DictVOMeta.SEARCH_VALUE , DictVOMeta.SORT_FIELD , DictVOMeta.SORT_TYPE , DictVOMeta.IDS } )
+	@ApiOperationSupport(order=5 ,  ignoreParameters = { DictVOMeta.PAGE_INDEX , DictVOMeta.PAGE_SIZE , DictVOMeta.SEARCH_FIELD , DictVOMeta.FUZZY_FIELD , DictVOMeta.SEARCH_VALUE , DictVOMeta.SORT_FIELD , DictVOMeta.SORT_TYPE , DictVOMeta.IDS } )
 	@NotNull(name = DictVOMeta.ID)
 	@NotNull(name = DictVOMeta.IS_TREE)
 	@NotNull(name = DictVOMeta.NAME)

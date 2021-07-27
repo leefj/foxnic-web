@@ -10,7 +10,7 @@ SELECT m.* from sys_menu m join sys_menu_resource mr on m.id=mr.menu_id  where m
 [query-root-menus]
 select m.*,(select count(1) from sys_menu cm  where m.id=cm.parent_id and cm.deleted=0) child_count,r.id checked from sys_menu m
 left join sys_role_menu r on r.role_id=? and m.id=r.menu_id
-where (m.parent_id is null or m.parent_id='') and m.deleted=0 order by sort asc
+where m.parent_id='0' and m.deleted=0 order by sort asc
 
 // 查询所有子孙节点节点菜单
 [query-descendants-menus]
@@ -34,7 +34,7 @@ update sys_menu set hierarchy=null
 
 // 设置根节点菜单的层级路径
 [update-menu-hierarchy-step1]
-UPDATE sys_menu set hierarchy=id where parent_id is null or trim(parent_id)=''
+UPDATE sys_menu set hierarchy=id where parent_id='0'
 
 
 // 设置上级节点已经设置层级路径的节点的层级路径

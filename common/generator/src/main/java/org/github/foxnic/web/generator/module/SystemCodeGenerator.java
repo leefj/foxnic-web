@@ -7,9 +7,12 @@ import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_CONFIG;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_LANG;
 import org.github.foxnic.web.constants.enums.SystemConfigType;
+import org.github.foxnic.web.domain.oauth.meta.MenuMeta;
+import org.github.foxnic.web.domain.system.meta.DictMeta;
 import org.github.foxnic.web.generator.config.FoxnicWebConfigs;
 import org.github.foxnic.web.generator.config.FoxnicWebConfigs.ProjectConfigs;
 import org.github.foxnic.web.proxy.MicroServiceNames;
+import org.github.foxnic.web.proxy.oauth.MenuServiceProxy;
 
 
 /**
@@ -95,10 +98,18 @@ public class SystemCodeGenerator  {
 		//创建模块配置
 		ModuleContext cfg=createModuleConfig(SYS_CONFIG.$TABLE, 1);
 		
+//		//配置逻辑型字段
+//		cfg.field(SYS_CONFIG.VALID).logicField().off("无效", 0).on("有效", 1);
+//		//配置字段为单选框，并指定枚举选项
+//		cfg.field(SYS_CONFIG.TYPE).radioField().enumType(SystemConfigType.class);
+
 		//配置逻辑型字段
-		cfg.field(SYS_CONFIG.VALID).logicField().off("无效", 0).on("有效", 1);
+		cfg.field(SYS_CONFIG.VALID)
+				.form().logic().off("无效", 0).on("有效", 1);
 		//配置字段为单选框，并指定枚举选项
-		cfg.field(SYS_CONFIG.TYPE).radioField().enumType(SystemConfigType.class);
+		cfg.field(SYS_CONFIG.TYPE)
+				.form().radio().enumType(SystemConfigType.class);
+
 		
 		//文件生成覆盖模式
 		cfg.overrides()
@@ -136,8 +147,21 @@ public class SystemCodeGenerator  {
 		//创建配置
 		ModuleContext cfg=createModuleConfig(FoxnicWeb.SYS_DICT.$TABLE, 5);
 
-		cfg.field(FoxnicWeb.SYS_DICT.ID).hideInList().hideInForm().hideInSearch();
-		cfg.field(FoxnicWeb.SYS_DICT.IS_TREE).hideInList().hideInForm().hideInSearch();
+//		cfg.field(FoxnicWeb.SYS_DICT.ID).hideInList().hideInForm().hideInSearch();
+//		cfg.field(FoxnicWeb.SYS_DICT.IS_TREE).hideInList().hideInForm().hideInSearch();
+
+		cfg.view().field(FoxnicWeb.SYS_DICT.ID)
+				.basic().hidden();
+		cfg.view().field(FoxnicWeb.SYS_DICT.IS_TREE).basic().hidden();
+
+		cfg.view().field(FoxnicWeb.SYS_DICT.MODULE)
+				.form().select().queryApi(MenuServiceProxy.QUERY_LIST+"?parentId=0").paging(false).size(4).valueField(MenuMeta.ID).textField(MenuMeta.LABEL).fillBy(DictMeta.MODULE)
+				.form().validate().required()
+		;
+		cfg.view().field(FoxnicWeb.SYS_DICT.CODE).form().validate().required();
+		cfg.view().field(FoxnicWeb.SYS_DICT.NAME).form().validate().required();
+
+		cfg.view().formWindow().bottomSpace(256);
 
 
 

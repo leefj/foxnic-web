@@ -1,7 +1,7 @@
 /**
  * 系统文件 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-26 10:54:57
+ * @since 2021-07-27 15:48:44
  */
 
 function FormPage() {
@@ -24,10 +24,9 @@ function FormPage() {
 		
 		//绑定提交事件
 		bindButtonEvent();
-		
+
 		//调整窗口的高度与位置
 		adjustPopup();
-		
 	}
 	
 	function adjustPopup() {
@@ -36,6 +35,7 @@ function FormPage() {
 			var bodyHeight=body.height();
 			var area=admin.changePopupArea(null,bodyHeight);
 			admin.putTempData('sys-file-form-area', area);
+			window.adjustPopup=adjustPopup;
 		},50);
 	}
 	
@@ -52,6 +52,10 @@ function FormPage() {
       */
 	function fillFormData() {
 		var formData = admin.getTempData('sys-file-form-data');
+		//如果是新建
+		if(!formData.id) {
+			adjustPopup();
+		}
 		var fm=$('#data-form');
 		if (formData) {
 			fm[0].reset();
@@ -95,7 +99,7 @@ function FormPage() {
 	                layer.msg(data.message, {icon: 1, time: 500});
 	                admin.finishPopupCenter();
 	            } else {
-	                layer.msg(data.message, {icon: 2, time: 500});
+	                layer.msg(data.message, {icon: 2, time: 1000});
 	            }
 	        }, "POST");
 	        

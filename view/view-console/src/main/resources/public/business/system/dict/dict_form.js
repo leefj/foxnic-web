@@ -1,7 +1,7 @@
 /**
  * 数据字典 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-24 12:32:06
+ * @since 2021-07-27 17:23:27
  */
 
 function FormPage() {
@@ -45,6 +45,26 @@ function FormPage() {
 	function renderFormFields() {
 		form.render();
 	   
+		//渲染 module 下拉字段
+		fox.renderSelectBox({
+			el: "module",
+			radio: true,
+			filterable: true,
+			toolbar: {show:true,showIcon:true,list:[ "ALL", "CLEAR","REVERSE"]},
+			//转换数据
+			searchField: "name", //请自行调整用于搜索的字段名称
+			extraParam: {}, //额外的查询参数，Object 或是 返回 Object 的函数
+			transform: function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				var opts=[];
+				if(!data) return opts;
+				for (var i = 0; i < data.length; i++) {
+					if(!data[i]) continue;
+					opts.push({name:data[i].label,value:data[i].id});
+				}
+				return opts;
+			}
+		});
 	}
 	
 	/**
@@ -62,6 +82,13 @@ function FormPage() {
 			form.val('data-form', formData);
 
 
+			//设置 所属模块 下拉框选中值
+			var moduleSelect=xmSelect.get("#module",true);
+			var moduleOpionts=[];
+			if (formData.module)	{
+				moduleOpionts=moduleSelect.options.transform([formData.module]);
+			}
+			moduleSelect.setValue(moduleOpionts);
 
 	     	fm.attr('method', 'POST');
 	     	renderFormFields();
@@ -89,6 +116,11 @@ function FormPage() {
 
 
 
+			//获取 所属模块 下拉框的值
+			data.field["module"]=xmSelect.get("#module",true).getValue("value");
+			if(data.field["module"] && data.field["module"].length>0) {
+				data.field["module"]=data.field["module"][0];
+			}
 
 	    	var api=moduleURL+"/"+(data.field.id?"update":"insert");
 	        var task=setTimeout(function(){layer.load(2);},1000);

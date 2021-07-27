@@ -1,14 +1,5 @@
 package org.github.foxnic.web.relation.modules;
 
-import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_MENU;
-import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_ROLE;
-import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_ROLE_MENU;
-import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_ROLE_USER;
-import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER;
-import org.github.foxnic.web.domain.oauth.Menu;
-import org.github.foxnic.web.domain.oauth.Role;
-import org.github.foxnic.web.domain.oauth.User;
-
 import com.github.foxnic.dao.relation.RelationManager;
 
 public class SystemRelationManager extends RelationManager {
@@ -19,6 +10,8 @@ public class SystemRelationManager extends RelationManager {
 	}
  
 	public void setupProperties() {
+
+//		this.property()
  
 		// 关联下级菜单
 //		this.property(Menu.class, "allChildren", Menu.class, "所有下级菜单清单", "").list()

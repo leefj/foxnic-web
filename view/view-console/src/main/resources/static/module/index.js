@@ -78,6 +78,9 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
         			p.subMenus=subMenus;
         		}
         		subMenus.push(pages[i]);
+        		//如果有下级，则转为 folder
+        		p.type="folder";
+                p.url="javascript:;";
         	}
 
 
