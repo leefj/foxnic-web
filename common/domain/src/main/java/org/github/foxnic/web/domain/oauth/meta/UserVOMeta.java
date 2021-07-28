@@ -7,8 +7,8 @@ import java.util.List;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-23 16:14:19
- * @sign EB40EF2CD63ED42913D0632FF3E29738
+ * @since 2021-07-28 19:46:13
+ * @sign 8EB92A4405006DDB4A66D484B08719F4
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -28,6 +28,11 @@ public class UserVOMeta extends UserMeta {
 	 * 搜索字段
 	*/
 	public static final String SEARCH_FIELD="searchField";
+	
+	/**
+	 * 模糊搜索字段
+	*/
+	public static final String FUZZY_FIELD="fuzzyField";
 	
 	/**
 	 * 搜索的值
@@ -57,7 +62,7 @@ public class UserVOMeta extends UserMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , SEARCH_VALUE , SORT_FIELD , SORT_TYPE , IDS , ROLE_IDS };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , SORT_FIELD , SORT_TYPE , IDS , ROLE_IDS };
 	
 	/**
 	 * 代理类
@@ -97,6 +102,17 @@ public class UserVOMeta extends UserMeta {
 		public UserVO setSearchField(String searchField) {
 			super.change(SEARCH_FIELD,super.getSearchField(),searchField);
 			super.setSearchField(searchField);
+			return this;
+		}
+		
+		/**
+		 * 设置 模糊搜索字段
+		 * @param fuzzyField 模糊搜索字段
+		 * @return 当前对象
+		*/
+		public UserVO setFuzzyField(String fuzzyField) {
+			super.change(FUZZY_FIELD,super.getFuzzyField(),fuzzyField);
+			super.setFuzzyField(fuzzyField);
 			return this;
 		}
 		

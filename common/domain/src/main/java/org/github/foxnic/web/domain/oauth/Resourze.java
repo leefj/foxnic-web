@@ -16,7 +16,7 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-30 14:28:59
+ * @since 2021-07-28 19:46:12
  * @sign 221711BB0413495D8B427FB1164925B3
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -127,7 +127,7 @@ public class Resourze extends Entity {
 	
 	/**
 	 * 获得 ID<br>
-	 * 属性说明 : ID
+	 * ID
 	 * @return ID
 	*/
 	public String getId() {
@@ -145,14 +145,8 @@ public class Resourze extends Entity {
 	}
 	
 	/**
-	 * 添加 ID
-	 * @param id ID
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 名称<br>
-	 * 属性说明 : 名称
+	 * 名称
 	 * @return 名称
 	*/
 	public String getName() {
@@ -170,14 +164,8 @@ public class Resourze extends Entity {
 	}
 	
 	/**
-	 * 添加 名称
-	 * @param name 名称
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 类型<br>
-	 * 属性说明 : api/page
+	 * api/page
 	 * @return 类型
 	*/
 	public String getType() {
@@ -195,14 +183,8 @@ public class Resourze extends Entity {
 	}
 	
 	/**
-	 * 添加 类型
-	 * @param type 类型
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 地址<br>
-	 * 属性说明 : 地址
+	 * 地址
 	 * @return 地址
 	*/
 	public String getUrl() {
@@ -220,14 +202,8 @@ public class Resourze extends Entity {
 	}
 	
 	/**
-	 * 添加 地址
-	 * @param url 地址
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 HttpMethod<br>
-	 * 属性说明 : HttpMethod
+	 * HttpMethod
 	 * @return HttpMethod
 	*/
 	public String getMethod() {
@@ -245,14 +221,8 @@ public class Resourze extends Entity {
 	}
 	
 	/**
-	 * 添加 HttpMethod
-	 * @param method HttpMethod
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 批次号<br>
-	 * 属性说明 : 批次号
+	 * 批次号
 	 * @return 批次号
 	*/
 	public String getBatchId() {
@@ -270,14 +240,8 @@ public class Resourze extends Entity {
 	}
 	
 	/**
-	 * 添加 批次号
-	 * @param batchId 批次号
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 创建人ID<br>
-	 * 属性说明 : 创建人ID
+	 * 创建人ID
 	 * @return 创建人ID
 	*/
 	public String getCreateBy() {
@@ -295,14 +259,8 @@ public class Resourze extends Entity {
 	}
 	
 	/**
-	 * 添加 创建人ID
-	 * @param createBy 创建人ID
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 来源表<br>
-	 * 属性说明 : 来源表
+	 * 来源表
 	 * @return 来源表
 	*/
 	public String getTableName() {
@@ -320,14 +278,8 @@ public class Resourze extends Entity {
 	}
 	
 	/**
-	 * 添加 来源表
-	 * @param tableName 来源表
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 来源模块<br>
-	 * 属性说明 : 来源模块
+	 * 来源模块
 	 * @return 来源模块
 	*/
 	public String getModule() {
@@ -345,14 +297,8 @@ public class Resourze extends Entity {
 	}
 	
 	/**
-	 * 添加 来源模块
-	 * @param module 来源模块
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 创建时间<br>
-	 * 属性说明 : 创建时间
+	 * 创建时间
 	 * @return 创建时间
 	*/
 	public Date getCreateTime() {
@@ -370,14 +316,8 @@ public class Resourze extends Entity {
 	}
 	
 	/**
-	 * 添加 创建时间
-	 * @param createTime 创建时间
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 修改人ID<br>
-	 * 属性说明 : 修改人ID
+	 * 修改人ID
 	 * @return 修改人ID
 	*/
 	public String getUpdateBy() {
@@ -395,14 +335,8 @@ public class Resourze extends Entity {
 	}
 	
 	/**
-	 * 添加 修改人ID
-	 * @param updateBy 修改人ID
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 修改时间<br>
-	 * 属性说明 : 修改时间
+	 * 修改时间
 	 * @return 修改时间
 	*/
 	public Date getUpdateTime() {
@@ -420,14 +354,8 @@ public class Resourze extends Entity {
 	}
 	
 	/**
-	 * 添加 修改时间
-	 * @param updateTime 修改时间
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 是否已删除<br>
-	 * 属性说明 : 是否已删除
+	 * 是否已删除
 	 * @return 是否已删除
 	*/
 	public Integer getDeleted() {
@@ -445,14 +373,8 @@ public class Resourze extends Entity {
 	}
 	
 	/**
-	 * 添加 是否已删除
-	 * @param deleted 是否已删除
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 删除人ID<br>
-	 * 属性说明 : 删除人ID
+	 * 删除人ID
 	 * @return 删除人ID
 	*/
 	public String getDeleteBy() {
@@ -470,14 +392,8 @@ public class Resourze extends Entity {
 	}
 	
 	/**
-	 * 添加 删除人ID
-	 * @param deleteBy 删除人ID
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 删除时间<br>
-	 * 属性说明 : 删除时间
+	 * 删除时间
 	 * @return 删除时间
 	*/
 	public Date getDeleteTime() {
@@ -495,14 +411,8 @@ public class Resourze extends Entity {
 	}
 	
 	/**
-	 * 添加 删除时间
-	 * @param deleteTime 删除时间
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 数据版本号<br>
-	 * 属性说明 : 数据版本号
+	 * 数据版本号
 	 * @return 数据版本号
 	*/
 	public Integer getVersion() {
@@ -518,12 +428,6 @@ public class Resourze extends Entity {
 		this.version=version;
 		return this;
 	}
-	
-	/**
-	 * 添加 数据版本号
-	 * @param version 数据版本号
-	 * @return 当前对象
-	*/
 
 	/**
 	 * 将自己转换成指定类型的PO
@@ -584,6 +488,6 @@ public class Resourze extends Entity {
 	*/
 	@Transient
 	public static Resourze create() {
-		return new Resourze();
+		return EntityContext.create(Resourze.class);
 	}
 }

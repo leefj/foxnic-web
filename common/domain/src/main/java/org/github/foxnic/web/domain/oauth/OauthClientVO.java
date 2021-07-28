@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * null
  * @author 李方捷 , leefangjie@qq.com
  * @since 2021-06-16 16:31:58
- * @sign ABF65D06BF34D09D0ED1CA2ABA9BB4FB
+ * @sign ABF65D06BF34D09D0ED1CA2ABA9BB4FB1
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 

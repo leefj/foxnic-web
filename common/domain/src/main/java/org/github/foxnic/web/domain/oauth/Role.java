@@ -18,7 +18,7 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-09 14:41:36
+ * @since 2021-07-28 19:46:14
  * @sign 1F90BD51C3FC6E1A48BF87186F8886A3
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -400,6 +400,6 @@ public class Role extends Entity {
 	*/
 	@Transient
 	public static Role create() {
-		return new Role();
+		return EntityContext.create(Role.class);
 	}
 }

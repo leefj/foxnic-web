@@ -9,8 +9,8 @@ import java.util.ArrayList;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-09 17:04:35
- * @sign C88DC1D63B1DBF9CB9F6145A70BCC13F111
+ * @since 2021-07-28 19:46:14
+ * @sign 4DE29B404C4C239FB2C5437339B1D8B2
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -35,6 +35,12 @@ public class MenuVO extends Menu {
 	*/
 	@ApiModelProperty(required = false,value="搜索字段" , notes = "")
 	private String searchField;
+	
+	/**
+	 * 模糊搜索字段
+	*/
+	@ApiModelProperty(required = false,value="模糊搜索字段" , notes = "")
+	private String fuzzyField;
 	
 	/**
 	 * 搜索的值
@@ -123,6 +129,24 @@ public class MenuVO extends Menu {
 	*/
 	public MenuVO setSearchField(String searchField) {
 		this.searchField=searchField;
+		return this;
+	}
+	
+	/**
+	 * 获得 模糊搜索字段<br>
+	 * @return 模糊搜索字段
+	*/
+	public String getFuzzyField() {
+		return fuzzyField;
+	}
+	
+	/**
+	 * 设置 模糊搜索字段
+	 * @param fuzzyField 模糊搜索字段
+	 * @return 当前对象
+	*/
+	public MenuVO setFuzzyField(String fuzzyField) {
+		this.fuzzyField=fuzzyField;
 		return this;
 	}
 	

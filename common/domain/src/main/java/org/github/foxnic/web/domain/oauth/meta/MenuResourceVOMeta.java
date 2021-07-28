@@ -7,8 +7,8 @@ import java.util.List;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-29 10:51:09
- * @sign 9F49A13E147B0E0E3746A31E0B387295
+ * @since 2021-07-28 19:46:13
+ * @sign D93FBC1D08855956B34A4E9915B1982E
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -28,6 +28,11 @@ public class MenuResourceVOMeta extends MenuResourceMeta {
 	 * 搜索字段
 	*/
 	public static final String SEARCH_FIELD="searchField";
+	
+	/**
+	 * 模糊搜索字段
+	*/
+	public static final String FUZZY_FIELD="fuzzyField";
 	
 	/**
 	 * 搜索的值
@@ -52,7 +57,7 @@ public class MenuResourceVOMeta extends MenuResourceMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , SEARCH_VALUE , SORT_FIELD , SORT_TYPE , IDS };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , SORT_FIELD , SORT_TYPE , IDS };
 	
 	/**
 	 * 代理类
@@ -92,6 +97,17 @@ public class MenuResourceVOMeta extends MenuResourceMeta {
 		public MenuResourceVO setSearchField(String searchField) {
 			super.change(SEARCH_FIELD,super.getSearchField(),searchField);
 			super.setSearchField(searchField);
+			return this;
+		}
+		
+		/**
+		 * 设置 模糊搜索字段
+		 * @param fuzzyField 模糊搜索字段
+		 * @return 当前对象
+		*/
+		public MenuResourceVO setFuzzyField(String fuzzyField) {
+			super.change(FUZZY_FIELD,super.getFuzzyField(),fuzzyField);
+			super.setFuzzyField(fuzzyField);
 			return this;
 		}
 		

@@ -86,8 +86,8 @@ function ListPage() {
       */
 	function refreshTableData(sortField,sortType) {
 		var value = {};
-		value.name={ value: $("#name").val() };
-		value.phone={ value: $("#phone").val() };
+		value.name={ value: $("#name").val(), fuzzy:true };
+		value.phone={ value: $("#phone").val(),fuzzy:true };
 		value.language={ value: xmSelect.get("#language",true).getValue("value") };
 		value.valid={ value: xmSelect.get("#valid",true).getValue("value") };
 		value.lastLoginTime={ begin: $("#lastLoginTime-begin").val(), end: $("#lastLoginTime-end").val() };

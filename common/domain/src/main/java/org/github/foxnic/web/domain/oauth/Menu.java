@@ -18,7 +18,7 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-09 16:28:18
+ * @since 2021-07-28 19:46:14
  * @sign DCBE371ABBE01889672F8E7C47DD6A7D
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -757,6 +757,6 @@ public class Menu extends Entity {
 	*/
 	@Transient
 	public static Menu create() {
-		return new Menu();
+		return EntityContext.create(Menu.class);
 	}
 }

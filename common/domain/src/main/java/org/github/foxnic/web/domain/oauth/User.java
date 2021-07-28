@@ -18,7 +18,7 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-23 16:14:19
+ * @since 2021-07-28 19:46:13
  * @sign 9EA12F6E83CB4E82894A2A970438640F
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -159,7 +159,7 @@ public class User extends Entity {
 	
 	/**
 	 * 获得 ID<br>
-	 * 属性说明 : ID
+	 * ID
 	 * @return ID
 	*/
 	public String getId() {
@@ -177,14 +177,8 @@ public class User extends Entity {
 	}
 	
 	/**
-	 * 添加 ID
-	 * @param id ID
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 账户<br>
-	 * 属性说明 : 账户
+	 * 账户
 	 * @return 账户
 	*/
 	public String getName() {
@@ -202,14 +196,8 @@ public class User extends Entity {
 	}
 	
 	/**
-	 * 添加 账户
-	 * @param name 账户
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 密码<br>
-	 * 属性说明 : 密码
+	 * 密码
 	 * @return 密码
 	*/
 	public String getPasswd() {
@@ -227,14 +215,8 @@ public class User extends Entity {
 	}
 	
 	/**
-	 * 添加 密码
-	 * @param passwd 密码
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 手机号码<br>
-	 * 属性说明 : 手机号码
+	 * 手机号码
 	 * @return 手机号码
 	*/
 	public String getPhone() {
@@ -252,14 +234,8 @@ public class User extends Entity {
 	}
 	
 	/**
-	 * 添加 手机号码
-	 * @param phone 手机号码
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 头像ID<br>
-	 * 属性说明 : 头像ID
+	 * 头像ID
 	 * @return 头像ID
 	*/
 	public String getPortraitId() {
@@ -277,14 +253,8 @@ public class User extends Entity {
 	}
 	
 	/**
-	 * 添加 头像ID
-	 * @param portraitId 头像ID
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 人员ID<br>
-	 * 属性说明 : 人员ID
+	 * 人员ID
 	 * @return 人员ID
 	*/
 	public String getPersonId() {
@@ -302,14 +272,8 @@ public class User extends Entity {
 	}
 	
 	/**
-	 * 添加 人员ID
-	 * @param personId 人员ID
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 语言<br>
-	 * 属性说明 : 语言
+	 * 语言
 	 * @return 语言
 	*/
 	public String getLanguage() {
@@ -327,14 +291,8 @@ public class User extends Entity {
 	}
 	
 	/**
-	 * 添加 语言
-	 * @param language 语言
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 员工ID<br>
-	 * 属性说明 : 员工ID
+	 * 员工ID
 	 * @return 员工ID
 	*/
 	public String getEmployeeId() {
@@ -352,14 +310,8 @@ public class User extends Entity {
 	}
 	
 	/**
-	 * 添加 员工ID
-	 * @param employeeId 员工ID
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 是否有效<br>
-	 * 属性说明 : 是否有效
+	 * 是否有效
 	 * @return 是否有效
 	*/
 	public Integer getValid() {
@@ -377,14 +329,8 @@ public class User extends Entity {
 	}
 	
 	/**
-	 * 添加 是否有效
-	 * @param valid 是否有效
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 最后登录时间<br>
-	 * 属性说明 : 最后登录时间
+	 * 最后登录时间
 	 * @return 最后登录时间
 	*/
 	public Date getLastLoginTime() {
@@ -402,14 +348,8 @@ public class User extends Entity {
 	}
 	
 	/**
-	 * 添加 最后登录时间
-	 * @param lastLoginTime 最后登录时间
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 创建人ID<br>
-	 * 属性说明 : 创建人ID
+	 * 创建人ID
 	 * @return 创建人ID
 	*/
 	public String getCreateBy() {
@@ -427,14 +367,8 @@ public class User extends Entity {
 	}
 	
 	/**
-	 * 添加 创建人ID
-	 * @param createBy 创建人ID
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 创建时间<br>
-	 * 属性说明 : 创建时间
+	 * 创建时间
 	 * @return 创建时间
 	*/
 	public Date getCreateTime() {
@@ -452,14 +386,8 @@ public class User extends Entity {
 	}
 	
 	/**
-	 * 添加 创建时间
-	 * @param createTime 创建时间
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 修改人ID<br>
-	 * 属性说明 : 修改人ID
+	 * 修改人ID
 	 * @return 修改人ID
 	*/
 	public String getUpdateBy() {
@@ -477,14 +405,8 @@ public class User extends Entity {
 	}
 	
 	/**
-	 * 添加 修改人ID
-	 * @param updateBy 修改人ID
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 修改时间<br>
-	 * 属性说明 : 修改时间
+	 * 修改时间
 	 * @return 修改时间
 	*/
 	public Date getUpdateTime() {
@@ -502,14 +424,8 @@ public class User extends Entity {
 	}
 	
 	/**
-	 * 添加 修改时间
-	 * @param updateTime 修改时间
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 是否已删除<br>
-	 * 属性说明 : 是否已删除
+	 * 是否已删除
 	 * @return 是否已删除
 	*/
 	public Integer getDeleted() {
@@ -527,14 +443,8 @@ public class User extends Entity {
 	}
 	
 	/**
-	 * 添加 是否已删除
-	 * @param deleted 是否已删除
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 删除人ID<br>
-	 * 属性说明 : 删除人ID
+	 * 删除人ID
 	 * @return 删除人ID
 	*/
 	public String getDeleteBy() {
@@ -552,14 +462,8 @@ public class User extends Entity {
 	}
 	
 	/**
-	 * 添加 删除人ID
-	 * @param deleteBy 删除人ID
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 删除时间<br>
-	 * 属性说明 : 删除时间
+	 * 删除时间
 	 * @return 删除时间
 	*/
 	public Date getDeleteTime() {
@@ -577,14 +481,8 @@ public class User extends Entity {
 	}
 	
 	/**
-	 * 添加 删除时间
-	 * @param deleteTime 删除时间
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 数据版本号<br>
-	 * 属性说明 : 数据版本号
+	 * 数据版本号
 	 * @return 数据版本号
 	*/
 	public Integer getVersion() {
@@ -602,14 +500,8 @@ public class User extends Entity {
 	}
 	
 	/**
-	 * 添加 数据版本号
-	 * @param version 数据版本号
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 角色清单<br>
-	 * 属性说明 : 当前用户的所有角色清单
+	 * 当前用户的所有角色清单
 	 * @return 角色清单
 	*/
 	public List<Role> getRoles() {
@@ -628,7 +520,7 @@ public class User extends Entity {
 	
 	/**
 	 * 添加 角色清单
-	 * @param roles 角色清单
+	 * @param role 角色清单
 	 * @return 当前对象
 	*/
 	public User addRole(Role role) {
@@ -639,7 +531,7 @@ public class User extends Entity {
 	
 	/**
 	 * 获得 菜单清单<br>
-	 * 属性说明 : 当前用户的所有菜单清单
+	 * 当前用户的所有菜单清单
 	 * @return 菜单清单
 	*/
 	public List<Menu> getMenus() {
@@ -658,7 +550,7 @@ public class User extends Entity {
 	
 	/**
 	 * 添加 菜单清单
-	 * @param menus 菜单清单
+	 * @param menu 菜单清单
 	 * @return 当前对象
 	*/
 	public User addMenu(Menu menu) {
@@ -669,7 +561,7 @@ public class User extends Entity {
 	
 	/**
 	 * 获得 角色菜单关系清单<br>
-	 * 属性说明 : 当前用户的所有角色菜单关系清单
+	 * 当前用户的所有角色菜单关系清单
 	 * @return 角色菜单关系清单
 	*/
 	public List<RoleMenu> getRoleMenus() {
@@ -688,7 +580,7 @@ public class User extends Entity {
 	
 	/**
 	 * 添加 角色菜单关系清单
-	 * @param roleMenus 角色菜单关系清单
+	 * @param roleMenu 角色菜单关系清单
 	 * @return 当前对象
 	*/
 	public User addRoleMenu(RoleMenu roleMenu) {
@@ -756,6 +648,6 @@ public class User extends Entity {
 	*/
 	@Transient
 	public static User create() {
-		return new User();
+		return EntityContext.create(User.class);
 	}
 }
