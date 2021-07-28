@@ -21,7 +21,7 @@ import com.github.foxnic.dao.data.SaveMode;
  * 数据字典 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-27 17:23:25
+ * @since 2021-07-28 09:20:51
 */
 
 public interface IDictService extends ISuperService<Dict> {
@@ -145,15 +145,7 @@ public interface IDictService extends ISuperService<Dict> {
 	 * @return 判断结果
 	 */
 	Result<Dict> checkExists(Dict dict);
- 
-	/**
-	 * 根据实体数构建默认的条件表达式
-	 * @param sample 数据样例
-	 * @param stringFuzzy 字符串是否使用模糊匹配
-	 * @return ConditionExpr 条件表达式
-	 * */
-	ConditionExpr buildQueryCondition(Dict sample,boolean stringFuzzy);
-	
+
 	/**
 	 * 根据实体数构建默认的条件表达式，字符串使用模糊匹配
 	 * @param sample 数据样例
@@ -168,16 +160,7 @@ public interface IDictService extends ISuperService<Dict> {
 	 * 	@return ConditionExpr 条件表达式
 	 * */
 	ConditionExpr buildQueryCondition(Dict sample,String tableAliase);
-	
-	/**
-	 * 根据实体数构建默认的条件表达式
-	 * @param sample 数据样例
-	 * @param stringFuzzy 字符串是否使用模糊匹配
-	 * @param tableAliase 数据表别名
-	 * @return ConditionExpr 条件表达式
-	 * */
-	ConditionExpr buildQueryCondition(Dict sample,boolean stringFuzzy,String tableAliase);
-	
+
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
 	 * @param sample  查询条件

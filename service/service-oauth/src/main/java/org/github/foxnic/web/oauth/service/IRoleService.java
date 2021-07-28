@@ -1,20 +1,20 @@
 package org.github.foxnic.web.oauth.service;
 
 
-import com.github.foxnic.sql.expr.ConditionExpr;
-import com.github.foxnic.dao.entity.ISuperService;
-import org.github.foxnic.web.domain.oauth.Role;
-import org.github.foxnic.web.domain.oauth.RoleVO;
-import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
-import java.io.InputStream;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.ISuperService;
+import com.github.foxnic.dao.excel.ExcelStructure;
+import com.github.foxnic.dao.excel.ExcelWriter;
+import com.github.foxnic.dao.excel.ValidateResult;
+import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.expr.OrderBy;
 import com.github.foxnic.sql.meta.DBField;
-import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.dao.excel.ExcelStructure;
-import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.dao.data.SaveMode;
+import org.github.foxnic.web.domain.oauth.Role;
+
+import java.io.InputStream;
+import java.util.List;
 
 /**
  * <p>
@@ -146,13 +146,7 @@ public interface IRoleService extends ISuperService<Role> {
 	 */
 	Result<Role> checkExists(Role role);
  
-	/**
-	 * 根据实体数构建默认的条件表达式
-	 * @param sample 数据样例
-	 * @param stringFuzzy 字符串是否使用模糊匹配
-	 * @return ConditionExpr 条件表达式
-	 * */
-	ConditionExpr buildQueryCondition(Role sample,boolean stringFuzzy);
+
 	
 	/**
 	 * 根据实体数构建默认的条件表达式，字符串使用模糊匹配
@@ -169,15 +163,7 @@ public interface IRoleService extends ISuperService<Role> {
 	 * */
 	ConditionExpr buildQueryCondition(Role sample,String tableAliase);
 	
-	/**
-	 * 根据实体数构建默认的条件表达式
-	 * @param sample 数据样例
-	 * @param stringFuzzy 字符串是否使用模糊匹配
-	 * @param tableAliase 数据表别名
-	 * @return ConditionExpr 条件表达式
-	 * */
-	ConditionExpr buildQueryCondition(Role sample,boolean stringFuzzy,String tableAliase);
-	
+
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
 	 * @param sample  查询条件

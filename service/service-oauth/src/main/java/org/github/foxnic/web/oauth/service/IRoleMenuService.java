@@ -135,13 +135,7 @@ public interface IRoleMenuService extends ISuperService<RoleMenu> {
 	 */
 	Result<RoleMenu> checkExists(RoleMenu roleMenu);
  
-	/**
-	 * 根据实体数构建默认的条件表达式
-	 * @param sample 数据样例
-	 * @param stringFuzzy 字符串是否使用模糊匹配
-	 * @return ConditionExpr 条件表达式
-	 * */
-	ConditionExpr buildQueryCondition(RoleMenu sample,boolean stringFuzzy);
+
 	
 	/**
 	 * 根据实体数构建默认的条件表达式，字符串使用模糊匹配
@@ -158,14 +152,7 @@ public interface IRoleMenuService extends ISuperService<RoleMenu> {
 	 * */
 	ConditionExpr buildQueryCondition(RoleMenu sample,String tableAliase);
 	
-	/**
-	 * 根据实体数构建默认的条件表达式
-	 * @param sample 数据样例
-	 * @param stringFuzzy 字符串是否使用模糊匹配
-	 * @param tableAliase 数据表别名
-	 * @return ConditionExpr 条件表达式
-	 * */
-	ConditionExpr buildQueryCondition(RoleMenu sample,boolean stringFuzzy,String tableAliase);
+
 	
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配

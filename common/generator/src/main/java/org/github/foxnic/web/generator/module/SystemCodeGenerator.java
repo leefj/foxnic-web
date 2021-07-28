@@ -147,17 +147,17 @@ public class SystemCodeGenerator  {
 		//创建配置
 		ModuleContext cfg=createModuleConfig(FoxnicWeb.SYS_DICT.$TABLE, 5);
 
-//		cfg.field(FoxnicWeb.SYS_DICT.ID).hideInList().hideInForm().hideInSearch();
-//		cfg.field(FoxnicWeb.SYS_DICT.IS_TREE).hideInList().hideInForm().hideInSearch();
-
 		cfg.view().field(FoxnicWeb.SYS_DICT.ID)
 				.basic().hidden();
 		cfg.view().field(FoxnicWeb.SYS_DICT.IS_TREE).basic().hidden();
 
 		cfg.view().field(FoxnicWeb.SYS_DICT.MODULE)
-				.form().select().queryApi(MenuServiceProxy.QUERY_LIST+"?parentId=0").paging(false).size(4).valueField(MenuMeta.ID).textField(MenuMeta.LABEL).fillBy(DictMeta.MODULE)
 				.form().validate().required()
+				.form().select().queryApi(MenuServiceProxy.QUERY_LIST+"?parentId=0").paging(false).size(4)
+					.valueField(MenuMeta.ID).textField(MenuMeta.LABEL).fillBy(DictMeta.MODULE)
+
 		;
+
 		cfg.view().field(FoxnicWeb.SYS_DICT.CODE).form().validate().required();
 		cfg.view().field(FoxnicWeb.SYS_DICT.NAME).form().validate().required();
 

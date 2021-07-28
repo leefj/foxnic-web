@@ -11,7 +11,8 @@ public class SystemRelationManager extends RelationManager {
  
 	public void setupProperties() {
 
-//		this.property()
+//		this.property(Dict.class,"moduleInfo",Menu.class,"","").single()
+//				.using()
  
 		// 关联下级菜单
 //		this.property(Menu.class, "allChildren", Menu.class, "所有下级菜单清单", "").list()

@@ -133,15 +133,7 @@ public interface IRoleUserService extends ISuperService<RoleUser> {
 	 * @return 判断结果
 	 */
 	Result<RoleUser> checkExists(RoleUser roleUser);
- 
-	/**
-	 * 根据实体数构建默认的条件表达式
-	 * @param sample 数据样例
-	 * @param stringFuzzy 字符串是否使用模糊匹配
-	 * @return ConditionExpr 条件表达式
-	 * */
-	ConditionExpr buildQueryCondition(RoleUser sample,boolean stringFuzzy);
-	
+
 	/**
 	 * 根据实体数构建默认的条件表达式，字符串使用模糊匹配
 	 * @param sample 数据样例
@@ -157,14 +149,7 @@ public interface IRoleUserService extends ISuperService<RoleUser> {
 	 * */
 	ConditionExpr buildQueryCondition(RoleUser sample,String tableAliase);
 	
-	/**
-	 * 根据实体数构建默认的条件表达式
-	 * @param sample 数据样例
-	 * @param stringFuzzy 字符串是否使用模糊匹配
-	 * @param tableAliase 数据表别名
-	 * @return ConditionExpr 条件表达式
-	 * */
-	ConditionExpr buildQueryCondition(RoleUser sample,boolean stringFuzzy,String tableAliase);
+
 	
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
