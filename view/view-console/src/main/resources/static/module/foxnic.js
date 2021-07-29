@@ -50,7 +50,7 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"xmSe
 				cfg.filterable=true;
 				cfg.remoteMethod=function (val, cb, show, pageIndex) {
 					//debugger;
-					var ps={searchField:cfg.searchField,searchValue:val};
+					var ps={searchField:cfg.searchField,searchValue:val,fuzzyField:cfg.searchField};
 					if(cfg.paging) {
 						if(!cfg.pageSize) ps.pageSize=10;
 						else ps.pageSize=cfg.pageSize;
