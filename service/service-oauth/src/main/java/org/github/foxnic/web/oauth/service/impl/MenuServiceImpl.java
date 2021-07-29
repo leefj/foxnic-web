@@ -247,7 +247,7 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 	
 	private RcdSet queryChildMenus(String parentId,String roleId) {
 		RcdSet menus=null;
-		if(parentId==null) {
+		if(parentId==null || parentId.equals("0")) {
 			menus=dao.query("#query-root-menus",roleId);
 		} else {
 			menus=dao.query("#query-menus-by-parent-id",roleId,parentId);

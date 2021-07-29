@@ -1,7 +1,7 @@
 /**
  * 数据字典 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-29 15:09:19
+ * @since 2021-07-29 16:20:52
  */
 
 function FormPage() {
@@ -85,8 +85,8 @@ function FormPage() {
 			//设置 模块 下拉框选中值
 			var moduleSelect=xmSelect.get("#module",true);
 			var moduleOpionts=[];
-			if (formData.module)	{
-				moduleOpionts=moduleSelect.options.transform([formData.module]);
+			if (formData.moduleInfo)	{
+				moduleOpionts=moduleSelect.options.transform([formData.moduleInfo]);
 			}
 			moduleSelect.setValue(moduleOpionts);
 

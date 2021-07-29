@@ -61,13 +61,11 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
                 menus[i].label=foxnic.translate(menus[i].label);
         		pages.push(menus[i]);
         		map[menus[i].id]=menus[i];
-        		if(menus[i].parentId=='0') menus[i].parentId=null;
-
         	}
         	var tops=[];
         	//填充 subMenus
         	for (var i = 0; i < pages.length; i++) {
-        		if(!pages[i].parentId){
+        		if(pages[i].parentId=='0'){
         			tops.push(pages[i]);
         			continue;
         		}
