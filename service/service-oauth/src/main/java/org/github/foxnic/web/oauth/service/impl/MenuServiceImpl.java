@@ -257,8 +257,7 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 
 	@Override
 	public List<ZTreeNode> queryRootNotes(String roleId) {
-		
-		RcdSet menus=queryChildMenus(null,roleId);
+		RcdSet menus=queryChildMenus("0",roleId);
 		List<ZTreeNode> nodes = toZTreeNodeList(menus);
 		return nodes;
 	}

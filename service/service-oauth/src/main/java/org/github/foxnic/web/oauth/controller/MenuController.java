@@ -258,6 +258,9 @@ public class MenuController {
 	@SentinelResource(value = MenuServiceProxy.QUERY_NODES)
 	@PostMapping(MenuServiceProxy.QUERY_NODES)
 	public Result<List<ZTreeNode>> queryNodes(MenuVO sample) {
+
+
+
 		Result<List<ZTreeNode>> result=new Result<>();
 		List<ZTreeNode> list=null;
 		if(sample.getParentId()==null) {

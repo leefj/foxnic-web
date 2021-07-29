@@ -104,10 +104,10 @@ public class SystemCodeGenerator  {
 //		cfg.field(SYS_CONFIG.TYPE).radioField().enumType(SystemConfigType.class);
 
 		//配置逻辑型字段
-		cfg.field(SYS_CONFIG.VALID)
+		cfg.view().field(SYS_CONFIG.VALID)
 				.form().logic().off("无效", 0).on("有效", 1);
 		//配置字段为单选框，并指定枚举选项
-		cfg.field(SYS_CONFIG.TYPE)
+		cfg.view().field(SYS_CONFIG.TYPE)
 				.form().radio().enumType(SystemConfigType.class);
 
 		
@@ -152,15 +152,25 @@ public class SystemCodeGenerator  {
 		cfg.view().field(FoxnicWeb.SYS_DICT.IS_TREE).basic().hidden();
 
 		cfg.view().field(FoxnicWeb.SYS_DICT.MODULE)
+				.basic().label("模块")
 				.form().validate().required()
 				.form().select().queryApi(MenuServiceProxy.QUERY_LIST+"?parentId=0").paging(false).size(4)
 					.valueField(MenuMeta.ID).textField(MenuMeta.LABEL).fillBy(DictMeta.MODULE)
 
 		;
 
-		cfg.view().field(FoxnicWeb.SYS_DICT.CODE).form().validate().required();
-		cfg.view().field(FoxnicWeb.SYS_DICT.NAME).form().validate().required();
+		cfg.view().field(FoxnicWeb.SYS_DICT.CODE)
+				.basic().label("代码")
+				.form().validate().required()
+				.search().fuzzySearch()
+		;
 
+		cfg.view().field(FoxnicWeb.SYS_DICT.NAME)
+				.basic().label("名称")
+				.form().validate().required()
+				.search().fuzzySearch();
+
+		//
 		cfg.view().formWindow().bottomSpace(256);
 
 
