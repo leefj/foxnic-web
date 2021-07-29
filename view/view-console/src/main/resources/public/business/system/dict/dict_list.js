@@ -1,7 +1,7 @@
 /**
  * 数据字典 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-28 09:20:53
+ * @since 2021-07-29 15:09:18
  */
 
 
@@ -47,9 +47,9 @@ function ListPage() {
 			 	{  fixed: 'left',type:'checkbox' },
                 { field: 'id', align:"left", hide:true, sort: true, title: fox.translate('字典ID')} ,
                 { field: 'isTree', align:"right", hide:true, sort: true, title: fox.translate('是否树形结构')} ,
-                { field: 'name', align:"left", hide:false, sort: true, title: fox.translate('字典名称')} ,
-                { field: 'code', align:"left", hide:false, sort: true, title: fox.translate('字典代码')} ,
-                { field: 'module', align:"left", hide:false, sort: true, title: fox.translate('所属模块')} ,
+                { field: 'name', align:"left", hide:false, sort: true, title: fox.translate('名称')} ,
+                { field: 'code', align:"left", hide:false, sort: true, title: fox.translate('代码')} ,
+                { field: 'module', align:"left", hide:false, sort: true, title: fox.translate('模块')} ,
 				{ field: 'createTime', align:"right", hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return fox.dateFormat(d.createTime); }} ,
                 { field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
             ]]
@@ -78,8 +78,8 @@ function ListPage() {
       */
 	function refreshTableData(sortField,sortType) {
 		var value = {};
-		value.name={ value: $("#name").val() };
-		value.code={ value: $("#code").val() };
+		value.name={ value: $("#name").val() ,fuzzy: true };
+		value.code={ value: $("#code").val() ,fuzzy: true };
 		value.module={ value: $("#module").val() };
 		var ps={searchField: "$composite", searchValue: JSON.stringify(value),sortField: sortField,sortType: sortType};
 		table.reload('data-table', { where : ps });
