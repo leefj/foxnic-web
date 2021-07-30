@@ -1,48 +1,55 @@
 package org.github.foxnic.web.system.controller;
 
+ 
+import java.util.List;
 
-import com.alibaba.csp.sentinel.annotation.SentinelResource;
-import com.github.foxnic.api.error.ErrorDesc;
-import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.api.validate.annotations.NotNull;
-import com.github.foxnic.commons.io.StreamUtil;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.springboot.web.DownloadUtil;
-import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import com.github.xiaoymin.knife4j.annotations.ApiSort;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
-import org.github.foxnic.web.domain.oauth.Menu;
-import org.github.foxnic.web.domain.system.Dict;
-import org.github.foxnic.web.domain.system.DictVO;
-import org.github.foxnic.web.domain.system.meta.DictVOMeta;
-import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
-import org.github.foxnic.web.framework.web.SuperController;
-import org.github.foxnic.web.proxy.system.DictServiceProxy;
-import org.github.foxnic.web.system.service.IDictService;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import org.github.foxnic.web.framework.web.SuperController;
+import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.InputStream;
-import java.util.List;
+
+import org.github.foxnic.web.proxy.system.DictServiceProxy;
+import org.github.foxnic.web.domain.system.meta.DictVOMeta;
+import org.github.foxnic.web.domain.system.Dict;
+import org.github.foxnic.web.domain.system.DictVO;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.excel.ExcelWriter;
+import com.github.foxnic.springboot.web.DownloadUtil;
+import com.github.foxnic.dao.data.PagedList;
+import java.util.Date;
+import java.sql.Timestamp;
+import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.commons.io.StreamUtil;
 import java.util.Map;
+import com.github.foxnic.dao.excel.ValidateResult;
+import java.io.InputStream;
+import org.github.foxnic.web.domain.system.meta.DictMeta;
+import org.github.foxnic.web.domain.oauth.Menu;
+import io.swagger.annotations.Api;
+import com.github.xiaoymin.knife4j.annotations.ApiSort;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiImplicitParam;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import org.github.foxnic.web.system.service.IDictService;
+import com.github.foxnic.api.validate.annotations.NotNull;
 
 /**
  * <p>
  * 数据字典 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-29 15:54:21
+ * @since 2021-07-30 14:10:12
 */
 
 @Api(tags = "数据字典")
@@ -83,7 +90,7 @@ public class DictController extends SuperController {
 	*/
 	@ApiOperation(value = "删除数据字典")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = DictVOMeta.ID , value = "字典ID" , required = true , dataTypeClass=String.class , example = "1"),
+		@ApiImplicitParam(name = DictVOMeta.ID , value = "字典ID" , required = true , dataTypeClass=String.class , example = "1")
 	})
 	@ApiOperationSupport(order=2)
 	@NotNull(name = DictVOMeta.ID)
@@ -173,9 +180,10 @@ public class DictController extends SuperController {
 	@PostMapping(DictServiceProxy.GET_BY_ID)
 	public Result<Dict> getById(String id) {
 		Result<Dict> result=new Result<>();
-		Dict role=dictService.getById(id);
-		dictService.join(role, Menu.class);
-		result.success(true).data(role);
+		Dict dict=dictService.getById(id);
+		// 关联出 模块 数据
+		dictService.join(dict,DictMeta.MODULE_INFO);
+		result.success(true).data(dict);
 		return result;
 	}
 
@@ -239,7 +247,8 @@ public class DictController extends SuperController {
 	public Result<PagedList<Dict>> queryPagedList(DictVO sample) {
 		Result<PagedList<Dict>> result=new Result<>();
 		PagedList<Dict> list=dictService.queryPagedList(sample,sample.getPageSize(),sample.getPageIndex());
-		dictService.join(list,Menu.class);
+		// 关联出 模块 数据
+		dictService.join(list,DictMeta.MODULE_INFO);
 		result.success(true).data(list);
 		return result;
 	}

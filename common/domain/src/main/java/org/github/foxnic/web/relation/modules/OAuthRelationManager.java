@@ -4,6 +4,9 @@ import com.github.foxnic.commons.collection.CollectorUtil;
 import com.github.foxnic.dao.relation.RelationManager;
 import org.github.foxnic.web.constants.db.FoxnicWeb.*;
 import org.github.foxnic.web.domain.oauth.*;
+import org.github.foxnic.web.domain.oauth.meta.MenuMeta;
+import org.github.foxnic.web.domain.oauth.meta.RoleMeta;
+import org.github.foxnic.web.domain.oauth.meta.UserMeta;
 
 import java.util.List;
 
@@ -13,6 +16,7 @@ public class OAuthRelationManager extends RelationManager {
 	protected void config() {
 		this.setupMenu();
 		this.setupUser();
+		this.setupRole();
 	}
 
 	/**
@@ -21,7 +25,7 @@ public class OAuthRelationManager extends RelationManager {
 	public void setupMenu() {
 
 		//路径ID映射到路径资源
-		this.property(Menu.class,"pathResource", Resourze.class,"路径资源","").single()
+		this.property(MenuMeta.PATH_RESOURCE_PROP)
 			.using(SYS_MENU.PATH_RESOURCE_ID).join(SYS_RESOURZE.ID)
 			.after((menu,res)->{
 				if(!res.isEmpty()) {
@@ -32,7 +36,7 @@ public class OAuthRelationManager extends RelationManager {
 
 
 		//菜单包含的资源清单
-		this.property(Menu.class,"resources", Resourze.class,"菜单包含的资源清单","").list()
+		this.property(MenuMeta.RESOURCES_PROP)
 			.using(SYS_MENU.ID).join(SYS_MENU_RESOURCE.MENU_ID).condition("version is not null")
 		    .using(SYS_MENU_RESOURCE.RESOURCE_ID).join(SYS_RESOURZE.ID).condition("version is not null")
 			.addOrderBy(SYS_RESOURZE.URL,true,true).after((menu,res)->{
@@ -44,7 +48,7 @@ public class OAuthRelationManager extends RelationManager {
 		/**
 		 * 上级菜单
 		 * */
-		this.property(Menu.class,"parent",Menu.class,"上级菜单","").single()
+		this.property(MenuMeta.PARENT_PROP)
 		.using(SYS_MENU.PARENT_ID).join(SYS_MENU.ID).after((menu,parents)->{
 			return parents;
 		});
@@ -57,22 +61,22 @@ public class OAuthRelationManager extends RelationManager {
 	 * */
 	private void setupUser() {
 
-//		// 用户 - 角色
-//		this.property(User.class, "roles", Role.class, "角色清单", "当前用户的所有角色清单").list()
-//				.using(SYS_USER.ID).join(SYS_ROLE_USER.USER_ID)
-//				.using(SYS_ROLE_USER.ROLE_ID).join(SYS_ROLE.ID);
-//
-//		// 用户 - 菜单
-//		this.property(User.class, "menus", Menu.class, "菜单清单", "当前用户的所有菜单清单").list()
-//				.using(SYS_USER.ID).join(SYS_ROLE_USER.USER_ID)
-//				.using(SYS_ROLE_USER.ROLE_ID).join(SYS_ROLE_MENU.ROLE_ID)
-//				.using(SYS_ROLE_MENU.MENU_ID).join(SYS_MENU.ID)
-//				.addOrderBy(SYS_MENU.SORT,true,true);
-//
-//		// 用户 - 角色菜单关系
-//		this.property(User.class, "roleMenus", RoleMenu.class, "角色菜单关系清单", "当前用户的所有角色菜单关系清单").list()
-//				.using(SYS_USER.ID).join(SYS_ROLE_USER.USER_ID)
-//				.using(SYS_ROLE_USER.ROLE_ID).join(SYS_ROLE_MENU.ROLE_ID);
+		// 用户 - 角色
+		this.property(UserMeta.ROLES_PROP)
+				.using(SYS_USER.ID).join(SYS_ROLE_USER.USER_ID)
+				.using(SYS_ROLE_USER.ROLE_ID).join(SYS_ROLE.ID);
+
+		// 用户 - 菜单
+		this.property(UserMeta.MENUS_PROP)
+				.using(SYS_USER.ID).join(SYS_ROLE_USER.USER_ID)
+				.using(SYS_ROLE_USER.ROLE_ID).join(SYS_ROLE_MENU.ROLE_ID)
+				.using(SYS_ROLE_MENU.MENU_ID).join(SYS_MENU.ID)
+				.addOrderBy(SYS_MENU.SORT,true,true);
+
+		// 用户 - 角色菜单关系
+		this.property(UserMeta.ROLE_MENUS_PROP)
+				.using(SYS_USER.ID).join(SYS_ROLE_USER.USER_ID)
+				.using(SYS_ROLE_USER.ROLE_ID).join(SYS_ROLE_MENU.ROLE_ID);
 
 	}
 
@@ -81,14 +85,14 @@ public class OAuthRelationManager extends RelationManager {
 	 * */
 	private void setupRole() {
 
-//		// 角色 - 菜单
-//		this.property(Role.class, RoleMeta.MENU, Menu.class, "菜单清单", "当前角色的所有菜单").list()
-//				.using(SYS_ROLE.ID).join(SYS_ROLE_MENU.MENU_ID)
-//				.using(SYS_ROLE_MENU.MENU_ID).join(SYS_ROLE.ID)
-//				.after((role,menus)->{
-//					role.setMenuIds(CollectorUtil.collectList(menus,Menu::getId));
-//					return menus;
-//				});
+		// 角色 - 菜单
+		this.property(RoleMeta.MENUS_PROP)
+				.using(SYS_ROLE.ID).join(SYS_ROLE_MENU.MENU_ID)
+				.using(SYS_ROLE_MENU.MENU_ID).join(SYS_ROLE.ID)
+				.after((role,menus)->{
+					role.setMenuIds(CollectorUtil.collectList(menus,Menu::getId));
+					return menus;
+				});
 	}
 
 }

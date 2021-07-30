@@ -1,5 +1,6 @@
 package org.github.foxnic.web.domain.oauth.meta;
 
+import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.oauth.Resourze;
 import java.util.Date;
 
@@ -7,7 +8,7 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-28 19:46:12
+ * @since 2021-07-30 14:20:05
  * @sign 221711BB0413495D8B427FB1164925B3
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -20,9 +21,19 @@ public class ResourzeMeta {
 	public static final String ID="id";
 	
 	/**
+	 * ID
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Resourze,java.lang.String> ID_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Resourze.class ,ID, java.lang.String.class, "ID", "ID", java.lang.String.class, null);
+	
+	/**
 	 * 名称
 	*/
 	public static final String NAME="name";
+	
+	/**
+	 * 名称
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Resourze,java.lang.String> NAME_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Resourze.class ,NAME, java.lang.String.class, "名称", "名称", java.lang.String.class, null);
 	
 	/**
 	 * 类型 , api/page
@@ -30,9 +41,19 @@ public class ResourzeMeta {
 	public static final String TYPE="type";
 	
 	/**
+	 * 类型 , api/page
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Resourze,java.lang.String> TYPE_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Resourze.class ,TYPE, java.lang.String.class, "类型", "api/page", java.lang.String.class, null);
+	
+	/**
 	 * 地址
 	*/
 	public static final String URL="url";
+	
+	/**
+	 * 地址
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Resourze,java.lang.String> URL_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Resourze.class ,URL, java.lang.String.class, "地址", "地址", java.lang.String.class, null);
 	
 	/**
 	 * HttpMethod
@@ -40,9 +61,19 @@ public class ResourzeMeta {
 	public static final String METHOD="method";
 	
 	/**
+	 * HttpMethod
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Resourze,java.lang.String> METHOD_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Resourze.class ,METHOD, java.lang.String.class, "HttpMethod", "HttpMethod", java.lang.String.class, null);
+	
+	/**
 	 * 批次号
 	*/
 	public static final String BATCH_ID="batchId";
+	
+	/**
+	 * 批次号
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Resourze,java.lang.String> BATCH_ID_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Resourze.class ,BATCH_ID, java.lang.String.class, "批次号", "批次号", java.lang.String.class, null);
 	
 	/**
 	 * 创建人ID
@@ -50,9 +81,19 @@ public class ResourzeMeta {
 	public static final String CREATE_BY="createBy";
 	
 	/**
+	 * 创建人ID
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Resourze,java.lang.String> CREATE_BY_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Resourze.class ,CREATE_BY, java.lang.String.class, "创建人ID", "创建人ID", java.lang.String.class, null);
+	
+	/**
 	 * 来源表
 	*/
 	public static final String TABLE_NAME="tableName";
+	
+	/**
+	 * 来源表
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Resourze,java.lang.String> TABLE_NAME_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Resourze.class ,TABLE_NAME, java.lang.String.class, "来源表", "来源表", java.lang.String.class, null);
 	
 	/**
 	 * 来源模块
@@ -60,9 +101,19 @@ public class ResourzeMeta {
 	public static final String MODULE="module";
 	
 	/**
+	 * 来源模块
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Resourze,java.lang.String> MODULE_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Resourze.class ,MODULE, java.lang.String.class, "来源模块", "来源模块", java.lang.String.class, null);
+	
+	/**
 	 * 创建时间
 	*/
 	public static final String CREATE_TIME="createTime";
+	
+	/**
+	 * 创建时间
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Resourze,java.util.Date> CREATE_TIME_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Resourze.class ,CREATE_TIME, java.util.Date.class, "创建时间", "创建时间", java.util.Date.class, null);
 	
 	/**
 	 * 修改人ID
@@ -70,9 +121,19 @@ public class ResourzeMeta {
 	public static final String UPDATE_BY="updateBy";
 	
 	/**
+	 * 修改人ID
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Resourze,java.lang.String> UPDATE_BY_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Resourze.class ,UPDATE_BY, java.lang.String.class, "修改人ID", "修改人ID", java.lang.String.class, null);
+	
+	/**
 	 * 修改时间
 	*/
 	public static final String UPDATE_TIME="updateTime";
+	
+	/**
+	 * 修改时间
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Resourze,java.util.Date> UPDATE_TIME_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Resourze.class ,UPDATE_TIME, java.util.Date.class, "修改时间", "修改时间", java.util.Date.class, null);
 	
 	/**
 	 * 是否已删除
@@ -80,9 +141,19 @@ public class ResourzeMeta {
 	public static final String DELETED="deleted";
 	
 	/**
+	 * 是否已删除
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Resourze,java.lang.Integer> DELETED_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Resourze.class ,DELETED, java.lang.Integer.class, "是否已删除", "是否已删除", java.lang.Integer.class, null);
+	
+	/**
 	 * 删除人ID
 	*/
 	public static final String DELETE_BY="deleteBy";
+	
+	/**
+	 * 删除人ID
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Resourze,java.lang.String> DELETE_BY_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Resourze.class ,DELETE_BY, java.lang.String.class, "删除人ID", "删除人ID", java.lang.String.class, null);
 	
 	/**
 	 * 删除时间
@@ -90,9 +161,19 @@ public class ResourzeMeta {
 	public static final String DELETE_TIME="deleteTime";
 	
 	/**
+	 * 删除时间
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Resourze,java.util.Date> DELETE_TIME_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Resourze.class ,DELETE_TIME, java.util.Date.class, "删除时间", "删除时间", java.util.Date.class, null);
+	
+	/**
 	 * 数据版本号
 	*/
 	public static final String VERSION="version";
+	
+	/**
+	 * 数据版本号
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Resourze,java.lang.Integer> VERSION_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Resourze.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
 	 * 全部属性清单

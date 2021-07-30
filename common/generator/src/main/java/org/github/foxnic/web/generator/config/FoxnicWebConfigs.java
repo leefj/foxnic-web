@@ -116,6 +116,7 @@ public class FoxnicWebConfigs {
 		this.settings.setAuthor(author);
 		this.settings.setEnableSwagger(projectConfigs.isEnableSwagger());
 		this.settings.setEnableMicroService(projectConfigs.isEnableMicroService());
+//		this.settings.setRebuildEntity(true);
  
 	}
  

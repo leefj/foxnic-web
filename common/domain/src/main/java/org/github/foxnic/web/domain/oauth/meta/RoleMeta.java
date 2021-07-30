@@ -1,6 +1,9 @@
 package org.github.foxnic.web.domain.oauth.meta;
 
+import com.github.foxnic.api.bean.BeanProperty;
+import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.Role;
+
 import java.util.Date;
 import java.util.List;
 
@@ -8,8 +11,8 @@ import java.util.List;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-28 19:46:14
- * @sign 1F90BD51C3FC6E1A48BF87186F8886A3
+ * @since 2021-07-30 14:20:09
+ * @sign 9EE00D985B493411875B022E38370539
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -21,9 +24,19 @@ public class RoleMeta {
 	public static final String ID="id";
 	
 	/**
+	 * ID
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Role,java.lang.String> ID_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Role.class ,ID, java.lang.String.class, "ID", "ID", java.lang.String.class, null);
+	
+	/**
 	 * 代码
 	*/
 	public static final String CODE="code";
+	
+	/**
+	 * 代码
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Role,java.lang.String> CODE_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Role.class ,CODE, java.lang.String.class, "代码", "代码", java.lang.String.class, null);
 	
 	/**
 	 * 名称
@@ -31,9 +44,19 @@ public class RoleMeta {
 	public static final String NAME="name";
 	
 	/**
+	 * 名称
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Role,java.lang.String> NAME_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Role.class ,NAME, java.lang.String.class, "名称", "名称", java.lang.String.class, null);
+	
+	/**
 	 * 创建人ID
 	*/
 	public static final String CREATE_BY="createBy";
+	
+	/**
+	 * 创建人ID
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Role,java.lang.String> CREATE_BY_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Role.class ,CREATE_BY, java.lang.String.class, "创建人ID", "创建人ID", java.lang.String.class, null);
 	
 	/**
 	 * 创建时间
@@ -41,9 +64,19 @@ public class RoleMeta {
 	public static final String CREATE_TIME="createTime";
 	
 	/**
+	 * 创建时间
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Role,java.util.Date> CREATE_TIME_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Role.class ,CREATE_TIME, java.util.Date.class, "创建时间", "创建时间", java.util.Date.class, null);
+	
+	/**
 	 * 修改人ID
 	*/
 	public static final String UPDATE_BY="updateBy";
+	
+	/**
+	 * 修改人ID
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Role,java.lang.String> UPDATE_BY_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Role.class ,UPDATE_BY, java.lang.String.class, "修改人ID", "修改人ID", java.lang.String.class, null);
 	
 	/**
 	 * 修改时间
@@ -51,9 +84,19 @@ public class RoleMeta {
 	public static final String UPDATE_TIME="updateTime";
 	
 	/**
+	 * 修改时间
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Role,java.util.Date> UPDATE_TIME_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Role.class ,UPDATE_TIME, java.util.Date.class, "修改时间", "修改时间", java.util.Date.class, null);
+	
+	/**
 	 * 是否已删除
 	*/
 	public static final String DELETED="deleted";
+	
+	/**
+	 * 是否已删除
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Role,java.lang.Integer> DELETED_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Role.class ,DELETED, java.lang.Integer.class, "是否已删除", "是否已删除", java.lang.Integer.class, null);
 	
 	/**
 	 * 删除人ID
@@ -61,9 +104,19 @@ public class RoleMeta {
 	public static final String DELETE_BY="deleteBy";
 	
 	/**
+	 * 删除人ID
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Role,java.lang.String> DELETE_BY_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Role.class ,DELETE_BY, java.lang.String.class, "删除人ID", "删除人ID", java.lang.String.class, null);
+	
+	/**
 	 * 删除时间
 	*/
 	public static final String DELETE_TIME="deleteTime";
+	
+	/**
+	 * 删除时间
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Role,java.util.Date> DELETE_TIME_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Role.class ,DELETE_TIME, java.util.Date.class, "删除时间", "删除时间", java.util.Date.class, null);
 	
 	/**
 	 * 数据版本号
@@ -71,14 +124,34 @@ public class RoleMeta {
 	public static final String VERSION="version";
 	
 	/**
+	 * 数据版本号
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Role,java.lang.Integer> VERSION_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Role.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
+	
+	/**
+	 * 菜单清单 , 当前角色的所有菜单
+	*/
+	public static final String MENUS="menus";
+	
+	/**
+	 * 菜单清单 , 当前角色的所有菜单
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Role,org.github.foxnic.web.domain.oauth.Menu> MENUS_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Role.class ,MENUS, java.util.List.class, "菜单清单", "当前角色的所有菜单", org.github.foxnic.web.domain.oauth.Menu.class, null);
+	
+	/**
 	 * 所拥有的菜单ID清单
 	*/
 	public static final String MENU_IDS="menuIds";
 	
 	/**
+	 * 所拥有的菜单ID清单
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Role,java.lang.String> MENU_IDS_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Role.class ,MENU_IDS, java.util.List.class, "所拥有的菜单ID清单", "", java.lang.String.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , CODE , NAME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , MENU_IDS };
+	public static final String[] $PROPS={ ID , CODE , NAME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , MENUS , MENU_IDS };
 	
 	/**
 	 * 代理类
@@ -206,6 +279,17 @@ public class RoleMeta {
 		public Role setVersion(Integer version) {
 			super.change(VERSION,super.getVersion(),version);
 			super.setVersion(version);
+			return this;
+		}
+		
+		/**
+		 * 设置 菜单清单
+		 * @param menus 菜单清单
+		 * @return 当前对象
+		*/
+		public Role setMenus(List<Menu> menus) {
+			super.change(MENUS,super.getMenus(),menus);
+			super.setMenus(menus);
 			return this;
 		}
 		

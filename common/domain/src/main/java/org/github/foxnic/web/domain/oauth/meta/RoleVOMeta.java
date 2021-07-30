@@ -1,5 +1,6 @@
 package org.github.foxnic.web.domain.oauth.meta;
 
+import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.oauth.RoleVO;
 import java.util.List;
 
@@ -7,7 +8,7 @@ import java.util.List;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-28 19:46:14
+ * @since 2021-07-30 14:20:09
  * @sign 54B7140428326697B52B4EA2A94F489E
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -20,9 +21,19 @@ public class RoleVOMeta extends RoleMeta {
 	public static final String PAGE_INDEX="pageIndex";
 	
 	/**
+	 * 页码
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.RoleVO,java.lang.Integer> PAGE_INDEX_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.RoleVO.class ,PAGE_INDEX, java.lang.Integer.class, "页码", "", java.lang.Integer.class, null);
+	
+	/**
 	 * 分页大小
 	*/
 	public static final String PAGE_SIZE="pageSize";
+	
+	/**
+	 * 分页大小
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.RoleVO,java.lang.Integer> PAGE_SIZE_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.RoleVO.class ,PAGE_SIZE, java.lang.Integer.class, "分页大小", "", java.lang.Integer.class, null);
 	
 	/**
 	 * 搜索字段
@@ -30,9 +41,19 @@ public class RoleVOMeta extends RoleMeta {
 	public static final String SEARCH_FIELD="searchField";
 	
 	/**
+	 * 搜索字段
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.RoleVO,java.lang.String> SEARCH_FIELD_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.RoleVO.class ,SEARCH_FIELD, java.lang.String.class, "搜索字段", "", java.lang.String.class, null);
+	
+	/**
 	 * 模糊搜索字段
 	*/
 	public static final String FUZZY_FIELD="fuzzyField";
+	
+	/**
+	 * 模糊搜索字段
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.RoleVO,java.lang.String> FUZZY_FIELD_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.RoleVO.class ,FUZZY_FIELD, java.lang.String.class, "模糊搜索字段", "", java.lang.String.class, null);
 	
 	/**
 	 * 搜索的值
@@ -40,9 +61,19 @@ public class RoleVOMeta extends RoleMeta {
 	public static final String SEARCH_VALUE="searchValue";
 	
 	/**
+	 * 搜索的值
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.RoleVO,java.lang.String> SEARCH_VALUE_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.RoleVO.class ,SEARCH_VALUE, java.lang.String.class, "搜索的值", "", java.lang.String.class, null);
+	
+	/**
 	 * 排序字段
 	*/
 	public static final String SORT_FIELD="sortField";
+	
+	/**
+	 * 排序字段
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.RoleVO,java.lang.String> SORT_FIELD_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.RoleVO.class ,SORT_FIELD, java.lang.String.class, "排序字段", "", java.lang.String.class, null);
 	
 	/**
 	 * 排序方式
@@ -50,9 +81,19 @@ public class RoleVOMeta extends RoleMeta {
 	public static final String SORT_TYPE="sortType";
 	
 	/**
+	 * 排序方式
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.RoleVO,java.lang.String> SORT_TYPE_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.RoleVO.class ,SORT_TYPE, java.lang.String.class, "排序方式", "", java.lang.String.class, null);
+	
+	/**
 	 * 主键清单 , 用于接收批量主键参数
 	*/
 	public static final String IDS="ids";
+	
+	/**
+	 * 主键清单 , 用于接收批量主键参数
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.RoleVO,java.lang.String> IDS_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.RoleVO.class ,IDS, java.util.List.class, "主键清单", "用于接收批量主键参数", java.lang.String.class, null);
 	
 	/**
 	 * 全部属性清单

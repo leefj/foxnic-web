@@ -1,7 +1,7 @@
 /**
  * 数据字典 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-30 10:59:20
+ * @since 2021-07-30 14:10:13
  */
 
 
@@ -49,7 +49,7 @@ function ListPage() {
                 { field: 'isTree', align:"right", hide:true, sort: true, title: fox.translate('是否树形结构')} ,
                 { field: 'name', align:"left", hide:false, sort: true, title: fox.translate('名称')} ,
                 { field: 'code', align:"left", hide:false, sort: true, title: fox.translate('代码')} ,
-                { field: 'module', align:"left", hide:false, sort: true, title: fox.translate('模块')} ,
+				{ field: 'module', align:"left", hide:false, sort: true, title: fox.translate('模块'), templet: function (d) { return fox.joinLabel(d.moduleInfo,"label");}} ,
 				{ field: 'createTime', align:"right", hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return fox.dateFormat(d.createTime); }} ,
                 { field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
             ]]

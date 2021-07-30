@@ -2,7 +2,6 @@ package org.github.foxnic.web.relation.modules;
 
 import com.github.foxnic.dao.relation.RelationManager;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
-import org.github.foxnic.web.domain.system.Dict;
 import org.github.foxnic.web.domain.system.meta.DictMeta;
 
 public class SystemRelationManager extends RelationManager {
@@ -18,7 +17,8 @@ public class SystemRelationManager extends RelationManager {
 //		this.property(Dict.class,"moduleInfo", Menu.class,"模块对象","").single()
 //				.using(FoxnicWeb.SYS_DICT.MODULE).join(FoxnicWeb.SYS_MENU.ID);
 
-		this.property(Dict.class, DictMeta.MODULE_INFO).single()
+
+		this.property(DictMeta.MODULE_INFO_PROP)
 				.using(FoxnicWeb.SYS_DICT.MODULE).join(FoxnicWeb.SYS_MENU.ID);
  
 		// 关联下级菜单

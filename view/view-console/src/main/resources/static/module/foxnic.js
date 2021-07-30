@@ -80,7 +80,6 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"xmSe
 
 				if(!cfg.filterable) {
 					query({},function (r){
-						debugger;
 						cfg.data= r;
 						var sel=xmSelect.get(cfg.el,true);
 						var val=sel.getValue();
@@ -88,7 +87,6 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"xmSe
 						if(val) {
 							sel.setValue(val);
 						}
-
 					})
 				}
 
@@ -363,7 +361,27 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"xmSe
     		if(!t) return "";
     		return util.toDateString(t,f);
     	},
+		joinLabel(data,key,sep) {
+			if(!data) return "";
+			var label="";
+			if(!sep) sep=",";
 
+			if(Array.isArray(data)) {
+				var labels=[];
+				for (var i = 0; i < data.length; i++) {
+					if(!data[i]) continue;
+					label=data[i][key];
+					if(label) {
+						labels.push(label);
+					}
+				}
+				label=label.join(sep);
+			} else {
+				label=data[key];
+			}
+			if(!label) label="";
+			return label;
+		},
 		getEnumText:function (list,code){
     		if(!list) return code;
 			for (var i = 0; i < list.length; i++) {

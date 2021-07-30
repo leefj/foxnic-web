@@ -18,8 +18,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-28 19:46:14
- * @sign 1F90BD51C3FC6E1A48BF87186F8886A3
+ * @since 2021-07-30 14:20:09
+ * @sign 9EE00D985B493411875B022E38370539
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -96,6 +96,12 @@ public class Role extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
 	private Integer version;
+	
+	/**
+	 * 菜单清单：当前角色的所有菜单
+	*/
+	@ApiModelProperty(required = false,value="菜单清单" , notes = "当前角色的所有菜单")
+	private List<Menu> menus;
 	
 	/**
 	 * 所拥有的菜单ID清单
@@ -309,6 +315,36 @@ public class Role extends Entity {
 	*/
 	public Role setVersion(Integer version) {
 		this.version=version;
+		return this;
+	}
+	
+	/**
+	 * 获得 菜单清单<br>
+	 * 当前角色的所有菜单
+	 * @return 菜单清单
+	*/
+	public List<Menu> getMenus() {
+		return menus;
+	}
+	
+	/**
+	 * 设置 菜单清单
+	 * @param menus 菜单清单
+	 * @return 当前对象
+	*/
+	public Role setMenus(List<Menu> menus) {
+		this.menus=menus;
+		return this;
+	}
+	
+	/**
+	 * 添加 菜单清单
+	 * @param menu 菜单清单
+	 * @return 当前对象
+	*/
+	public Role addMenu(Menu menu) {
+		if(this.menus==null) menus=new ArrayList<>();
+		this.menus.add(menu);
 		return this;
 	}
 	

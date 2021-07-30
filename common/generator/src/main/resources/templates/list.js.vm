@@ -68,6 +68,12 @@ function ListPage() {
 				#end
 				#elseif(f.isLogicField)
 				{ field: '#(f.varName)', align:"#(f.alignInList)", hide:#(f.isHideInList), sort: true, title: fox.translate('#(f.labelInList)'), templet: '#cell-tpl-#(f.varName)'} ,
+				#elseif(f.isSelectField)
+				#if(f.selectField.enumTypeName!=null)
+				{ field: '#(f.varName)', align:"#(f.alignInList)", hide:#(f.isHideInList), sort: true, title: fox.translate('#(f.labelInList)')} ,
+				#else
+				{ field: '#(f.varName)', align:"#(f.alignInList)", hide:#(f.isHideInList), sort: true, title: fox.translate('#(f.labelInList)'), templet: function (d) { return fox.joinLabel(d.#(f.selectField.fillBy),"#(f.selectField.textField)");}} ,
+				#end
 				#else
                 { field: '#(f.varName)', align:"#(f.alignInList)", hide:#(f.isHideInList), sort: true, title: fox.translate('#(f.labelInList)')} ,
 				#end

@@ -1,25 +1,24 @@
 package org.github.foxnic.web.domain.system;
 
 import com.github.foxnic.dao.entity.Entity;
-import com.github.foxnic.dao.entity.EntityContext;
-import com.github.foxnic.sql.meta.DBTable;
-import io.swagger.annotations.ApiModelProperty;
-import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_DICT;
-import org.github.foxnic.web.domain.oauth.Menu;
-
-import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+import com.github.foxnic.sql.meta.DBTable;
+import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_DICT;
+import javax.persistence.Id;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
+import org.github.foxnic.web.domain.oauth.Menu;
+import javax.persistence.Transient;
 import java.util.Map;
+import com.github.foxnic.dao.entity.EntityContext;
 
 
 
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-30 10:59:18
- * @sign 05768742AB9F156D0B531435F29792F4
+ * @since 2021-07-30 14:10:12
+ * @sign 4109620D5BAE064DF07A98EEF8660689
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -110,12 +109,10 @@ public class Dict extends Entity {
 	private Integer version;
 	
 	/**
-	 * 模块对象
+	 * 关联模块
 	*/
-	@ApiModelProperty(required = false,value="模块对象" , notes = "")
+	@ApiModelProperty(required = false,value="关联模块" , notes = "")
 	private Menu moduleInfo;
-	
-
 	
 	/**
 	 * 获得 字典ID<br>
@@ -365,26 +362,22 @@ public class Dict extends Entity {
 	}
 	
 	/**
-	 * 获得 模块对象<br>
-	 * @return 模块对象
+	 * 获得 关联模块<br>
+	 * @return 关联模块
 	*/
 	public Menu getModuleInfo() {
 		return moduleInfo;
 	}
 	
 	/**
-	 * 设置 模块对象
-	 * @param moduleInfo 模块对象
+	 * 设置 关联模块
+	 * @param moduleInfo 关联模块
 	 * @return 当前对象
 	*/
 	public Dict setModuleInfo(Menu moduleInfo) {
 		this.moduleInfo=moduleInfo;
 		return this;
 	}
-	
-
-	
-
 
 	/**
 	 * 将自己转换成指定类型的PO

@@ -1,6 +1,5 @@
 package org.github.foxnic.web.domain.oauth;
 
-import java.util.List;
 import com.github.foxnic.dao.entity.Entity;
 import javax.persistence.Table;
 import com.github.foxnic.sql.meta.DBTable;
@@ -8,6 +7,7 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
+import java.util.List;
 import java.util.ArrayList;
 import javax.persistence.Transient;
 import java.util.Map;
@@ -18,7 +18,7 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-28 19:46:13
+ * @since 2021-07-30 14:20:08
  * @sign 9EA12F6E83CB4E82894A2A970438640F
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
