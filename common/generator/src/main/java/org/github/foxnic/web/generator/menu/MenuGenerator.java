@@ -17,14 +17,17 @@ import org.github.foxnic.web.domain.oauth.MenuResource;
 import org.github.foxnic.web.domain.oauth.Resourze;
 import org.github.foxnic.web.domain.oauth.RoleMenu;
 import org.github.foxnic.web.generator.config.FoxnicWebConfigs;
-import org.github.foxnic.web.proxy.system.DbCacheServiceProxy;
-import org.github.foxnic.web.system.page.DbCachePageController;
+import org.github.foxnic.web.proxy.system.DictItemServiceProxy;
+import org.github.foxnic.web.system.page.DictItemPageController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 public class MenuGenerator {
@@ -68,7 +71,10 @@ public class MenuGenerator {
 //		mg.generate("463397133957988354");
 //		mg.grantAll();
 
-		mg=new MenuGenerator(FoxnicWeb.SYS_DB_CACHE.$TABLE, DbCacheServiceProxy.class, DbCachePageController.class);
+//		mg=new MenuGenerator(FoxnicWeb.SYS_DB_CACHE.$TABLE, DbCacheServiceProxy.class, DbCachePageController.class);
+//		mg.generate("system_config");
+
+		mg=new MenuGenerator(FoxnicWeb.SYS_DICT_ITEM.$TABLE, DictItemServiceProxy.class, DictItemPageController.class);
 		mg.generate("system_config");
 
 

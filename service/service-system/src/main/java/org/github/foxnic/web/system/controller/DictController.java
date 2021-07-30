@@ -49,7 +49,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 数据字典 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-30 15:01:10
+ * @since 2021-07-31 06:03:42
 */
 
 @Api(tags = "数据字典")
@@ -71,6 +71,7 @@ public class DictController extends SuperController {
 		@ApiImplicitParam(name = DictVOMeta.NAME , value = "字典名称" , required = true , dataTypeClass=String.class , example = "性别"),
 		@ApiImplicitParam(name = DictVOMeta.CODE , value = "字典代码" , required = true , dataTypeClass=String.class , example = "sex"),
 		@ApiImplicitParam(name = DictVOMeta.MODULE , value = "所属模块" , required = false , dataTypeClass=String.class , example = "system"),
+		@ApiImplicitParam(name = DictVOMeta.NOTES , value = "备注" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport(order=1)
 	@NotNull(name = DictVOMeta.ID)
@@ -129,6 +130,7 @@ public class DictController extends SuperController {
 		@ApiImplicitParam(name = DictVOMeta.NAME , value = "字典名称" , required = true , dataTypeClass=String.class , example = "性别"),
 		@ApiImplicitParam(name = DictVOMeta.CODE , value = "字典代码" , required = true , dataTypeClass=String.class , example = "sex"),
 		@ApiImplicitParam(name = DictVOMeta.MODULE , value = "所属模块" , required = false , dataTypeClass=String.class , example = "system"),
+		@ApiImplicitParam(name = DictVOMeta.NOTES , value = "备注" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport( order=4 , ignoreParameters = { DictVOMeta.PAGE_INDEX , DictVOMeta.PAGE_SIZE , DictVOMeta.SEARCH_FIELD , DictVOMeta.FUZZY_FIELD , DictVOMeta.SEARCH_VALUE , DictVOMeta.SORT_FIELD , DictVOMeta.SORT_TYPE , DictVOMeta.IDS } ) 
 	@NotNull(name = DictVOMeta.ID)
@@ -153,6 +155,7 @@ public class DictController extends SuperController {
 		@ApiImplicitParam(name = DictVOMeta.NAME , value = "字典名称" , required = true , dataTypeClass=String.class , example = "性别"),
 		@ApiImplicitParam(name = DictVOMeta.CODE , value = "字典代码" , required = true , dataTypeClass=String.class , example = "sex"),
 		@ApiImplicitParam(name = DictVOMeta.MODULE , value = "所属模块" , required = false , dataTypeClass=String.class , example = "system"),
+		@ApiImplicitParam(name = DictVOMeta.NOTES , value = "备注" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { DictVOMeta.PAGE_INDEX , DictVOMeta.PAGE_SIZE , DictVOMeta.SEARCH_FIELD , DictVOMeta.FUZZY_FIELD , DictVOMeta.SEARCH_VALUE , DictVOMeta.SORT_FIELD , DictVOMeta.SORT_TYPE , DictVOMeta.IDS } )
 	@NotNull(name = DictVOMeta.ID)
@@ -218,6 +221,7 @@ public class DictController extends SuperController {
 		@ApiImplicitParam(name = DictVOMeta.NAME , value = "字典名称" , required = true , dataTypeClass=String.class , example = "性别"),
 		@ApiImplicitParam(name = DictVOMeta.CODE , value = "字典代码" , required = true , dataTypeClass=String.class , example = "sex"),
 		@ApiImplicitParam(name = DictVOMeta.MODULE , value = "所属模块" , required = false , dataTypeClass=String.class , example = "system"),
+		@ApiImplicitParam(name = DictVOMeta.NOTES , value = "备注" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { DictVOMeta.PAGE_INDEX , DictVOMeta.PAGE_SIZE } )
 	@SentinelResource(value = DictServiceProxy.QUERY_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
@@ -240,6 +244,7 @@ public class DictController extends SuperController {
 		@ApiImplicitParam(name = DictVOMeta.NAME , value = "字典名称" , required = true , dataTypeClass=String.class , example = "性别"),
 		@ApiImplicitParam(name = DictVOMeta.CODE , value = "字典代码" , required = true , dataTypeClass=String.class , example = "sex"),
 		@ApiImplicitParam(name = DictVOMeta.MODULE , value = "所属模块" , required = false , dataTypeClass=String.class , example = "system"),
+		@ApiImplicitParam(name = DictVOMeta.NOTES , value = "备注" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport(order=8)
 	@SentinelResource(value = DictServiceProxy.QUERY_PAGED_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )

@@ -1,19 +1,19 @@
 /**
  * 数据字典条目 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-23 16:38:44
+ * @since 2021-07-31 06:03:44
  */
 
 function FormPage() {
 
-	var settings,admin,form,table,layer,util,fox,upload,xmSelect;
+	var settings,admin,form,table,layer,util,fox,upload,xmSelect,foxup;
 	const moduleURL="/service-system/sys-dict-item";
 	
 	/**
       * 入口函数，初始化
       */
 	this.init=function(layui) { 	
-     	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload;
+     	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload,foxup=layui.foxnicUpload;
 		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
 		
 		//渲染表单组件
@@ -24,17 +24,19 @@ function FormPage() {
 		
 		//绑定提交事件
 		bindButtonEvent();
-		
+
 		//调整窗口的高度与位置
 		adjustPopup();
-		
 	}
 	
 	function adjustPopup() {
-		var delta=58;//此参数请按实际情况自行调整
-		var height=document.body.clientHeight+delta;
-		admin.changePopupArea(null,height);
-		admin.putTempData('sys-dict-item-form-area', {height:height});
+		setTimeout(function () {
+			var body=$("body");
+			var bodyHeight=body.height();
+			var area=admin.changePopupArea(null,bodyHeight);
+			admin.putTempData('sys-dict-item-form-area', area);
+			window.adjustPopup=adjustPopup;
+		},50);
 	}
 	
 	/**
@@ -50,11 +52,17 @@ function FormPage() {
       */
 	function fillFormData() {
 		var formData = admin.getTempData('sys-dict-item-form-data');
+		//如果是新建
+		if(!formData.id) {
+			adjustPopup();
+		}
 		var fm=$('#data-form');
 		if (formData) {
 			fm[0].reset();
 			form.val('data-form', formData);
-	     	//设置并显示图片
+
+
+
 	     	fm.attr('method', 'POST');
 	     	renderFormFields();
 		}
@@ -78,8 +86,10 @@ function FormPage() {
 	    form.on('submit(submit-button)', function (data) {
 	    	//debugger;
 	    	
-	    	//处理逻辑值
-	    	
+
+
+
+
 	    	var api=moduleURL+"/"+(data.field.id?"update":"insert");
 	        var task=setTimeout(function(){layer.load(2);},1000);
 	        admin.request(api, data.field, function (data) {
@@ -89,7 +99,7 @@ function FormPage() {
 	                layer.msg(data.message, {icon: 1, time: 500});
 	                admin.finishPopupCenter();
 	            } else {
-	                layer.msg(data.message, {icon: 2, time: 500});
+	                layer.msg(data.message, {icon: 2, time: 1000});
 	            }
 	        }, "POST");
 	        
@@ -107,7 +117,8 @@ layui.config({
 	dir: layuiPath,
 	base: '/module/'
 }).extend({
-	xmSelect: 'xm-select/xm-select'
-}).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect'],function() {
+	xmSelect: 'xm-select/xm-select',
+	foxnicUpload: 'upload/foxnic-upload'
+}).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect','foxnicUpload'],function() {
 	(new FormPage()).init(layui);
 });

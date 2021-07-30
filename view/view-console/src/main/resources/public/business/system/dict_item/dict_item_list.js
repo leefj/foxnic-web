@@ -1,7 +1,7 @@
 /**
  * 数据字典条目 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-23 16:38:44
+ * @since 2021-07-31 06:03:44
  */
 
 
@@ -16,11 +16,13 @@ function ListPage() {
       */
 	this.init=function(layui) {
      	
-     	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload;
+     	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload,laydate= layui.laydate;
 		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
 		
      	//渲染表格
      	renderTable();
+		//初始化搜索输入框组件
+		initSearchFields();
 		//绑定搜索框事件
 		bindSearchEvent();
 		//绑定按钮事件
@@ -43,19 +45,19 @@ function ListPage() {
 			cols: [[
 				{  fixed: 'left',type: 'numbers' },
 			 	{  fixed: 'left',type:'checkbox' },
-                { field: 'id', sort: true, title: fox.translate('ID')} ,
-                { field: 'dictId', sort: true, title: fox.translate('字典ID')} ,
-                { field: 'dictCode', sort: true, title: fox.translate('字典代码')} ,
-                { field: 'parentId', sort: true, title: fox.translate('上级条目ID')} ,
-                { field: 'code', sort: true, title: fox.translate('代码')} ,
-                { field: 'label', sort: true, title: fox.translate('标签')} ,
-                { field: 'sort', sort: true, title: fox.translate('排序')} ,
-				{ field: 'createTime', sort: true, title: fox.translate('创建时间'), templet: function (d) { return fox.dateFormat(d.; }} ,
+                { field: 'id', align:"left", hide:false, sort: true, title: fox.translate('ID')} ,
+                { field: 'dictId', align:"left", hide:false, sort: true, title: fox.translate('字典ID')} ,
+                { field: 'dictCode', align:"left", hide:false, sort: true, title: fox.translate('字典代码')} ,
+                { field: 'parentId', align:"left", hide:false, sort: true, title: fox.translate('上级条目ID')} ,
+                { field: 'code', align:"left", hide:false, sort: true, title: fox.translate('代码')} ,
+                { field: 'label', align:"left", hide:false, sort: true, title: fox.translate('标签')} ,
+                { field: 'sort', align:"right", hide:false, sort: true, title: fox.translate('排序')} ,
+				{ field: 'createTime', align:"right", hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return fox.dateFormat(d.createTime); }} ,
                 { field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
             ]]
 	 		,footer : {
-				exportExcel : true,
-				importExcel : {
+				exportExcel : admin.checkAuth(AUTH_PREFIX+":export"),
+				importExcel : admin.checkAuth(AUTH_PREFIX+":import")?{
 					params : {} ,
 				 	callback : function(r) {
 						if(r.success) {
@@ -64,7 +66,7 @@ function ListPage() {
 							layer.msg(fox.translate('数据导入失败')+"!");
 						}
 					}
-			 	}
+			 	}:false
 		 	}
         });
         //绑定排序事件
@@ -77,9 +79,15 @@ function ListPage() {
       * 刷新表格数据
       */
 	function refreshTableData(sortField,sortType) {
-		var field = $('#search-field').val();
-		var value = $('#search-input').val();
-		var ps={searchField: field, searchValue: value,sortField:sortField,sortType:sortType};
+		var value = {};
+		value.id={ value: $("#id").val() };
+		value.dictId={ value: $("#dictId").val() };
+		value.dictCode={ value: $("#dictCode").val() };
+		value.parentId={ value: $("#parentId").val() };
+		value.code={ value: $("#code").val() };
+		value.label={ value: $("#label").val() };
+		value.sort={ value: $("#sort").val() };
+		var ps={searchField: "$composite", searchValue: JSON.stringify(value),sortField: sortField,sortType: sortType};
 		table.reload('data-table', { where : ps });
 	}
     
@@ -103,13 +111,16 @@ function ListPage() {
 		$('#search-input').val("");
 		layui.form.render();
 	}
+
+	function initSearchFields() {
+	}
 	
 	/**
 	 * 绑定搜索框事件
 	 */
 	function bindSearchEvent() {
 		//回车键查询
-        $("#search-input").keydown(function(event) {
+        $(".search-input").keydown(function(event) {
 			if(event.keyCode !=13) return;
 		  	refreshTableData();
         });
@@ -144,13 +155,13 @@ function ListPage() {
 			layer.confirm(fox.translate('确定删除已选中的')+fox.translate('数据字典条目')+fox.translate('吗？'), function (i) {
 				layer.close(i);
 				layer.load(2);
-                admin.request(moduleURL+"/batch-delete", { ids: ids }, function (data) {
+                admin.request(moduleURL+"/delete-by-ids", { ids: ids }, function (data) {
                     layer.closeAll('loading');
                     if (data.success) {
                         layer.msg(data.message, {icon: 1, time: 500});
                         refreshTableData();
                     } else {
-                        layer.msg(data.message, {icon: 2, time: 500});
+                        layer.msg(data.message, {icon: 2, time: 1500});
                     }
                 });
 			});
@@ -175,7 +186,7 @@ function ListPage() {
 					if(data.success) {
 						 showEditForm(data.data);
 					} else {
-						 layer.msg(data.message, {icon: 1, time: 500});
+						 layer.msg(data.message, {icon: 1, time: 1500});
 					}
 				});
 				
@@ -190,7 +201,7 @@ function ListPage() {
 							layer.msg(data.message, {icon: 1, time: 500});
 							refreshTableData();
 						} else {
-							layer.msg(data.message, {icon: 2, time: 500});
+							layer.msg(data.message, {icon: 2, time: 1500});
 						}
 					});
 				});
@@ -209,7 +220,7 @@ function ListPage() {
 		admin.putTempData('sys-dict-item-form-data', data);
 		var area=admin.getTempData('sys-dict-item-form-area');
 		var height= (area && area.height) ? area.height : ($(window).height()*0.6);
-		var top= ($(window).height()-height)/2;
+		var top= (area && area.top) ? area.top : (($(window).height()-height)/2);
 		var title = (data && data.id) ? (fox.translate('修改')+fox.translate('数据字典条目')) : (fox.translate('添加')+fox.translate('数据字典条目'));
 		admin.popupCenter({
 			title: title,
@@ -232,6 +243,6 @@ layui.config({
 	base: '/module/'
 }).extend({
 	xmSelect: 'xm-select/xm-select'
-}).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect'],function() {
+}).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect','laydate'],function() {
 	(new ListPage()).init(layui);
 });

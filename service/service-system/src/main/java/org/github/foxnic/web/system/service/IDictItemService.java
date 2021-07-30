@@ -1,26 +1,27 @@
 package org.github.foxnic.web.system.service;
 
+
+import com.github.foxnic.sql.expr.ConditionExpr;
+import com.github.foxnic.dao.entity.ISuperService;
+import org.github.foxnic.web.domain.system.DictItem;
+import org.github.foxnic.web.domain.system.DictItemVO;
+import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.entity.ISuperService;
-import com.github.foxnic.dao.excel.ExcelStructure;
-import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.sql.expr.ConditionExpr;
+import java.io.InputStream;
 import com.github.foxnic.sql.expr.OrderBy;
 import com.github.foxnic.sql.meta.DBField;
-import org.github.foxnic.web.domain.system.DictItem;
-
-import java.io.InputStream;
-import java.util.List;
+import com.github.foxnic.dao.excel.ExcelWriter;
+import com.github.foxnic.dao.excel.ExcelStructure;
+import com.github.foxnic.dao.excel.ValidateResult;
+import com.github.foxnic.dao.data.SaveMode;
 
 /**
  * <p>
  * 数据字典条目 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-23 16:38:44
+ * @since 2021-07-31 06:03:44
 */
 
 public interface IDictItemService extends ISuperService<DictItem> {
@@ -55,8 +56,7 @@ public interface IDictItemService extends ISuperService<DictItem> {
 	 * @param id ID
 	 * @return 删除是否成功
 	 */
-	boolean deleteByIdLogical(String id);
-	
+	Result deleteByIdLogical(String id);
 	
 	/**
 	 * 批量物理删除，仅支持单字段主键表
@@ -130,7 +130,14 @@ public interface IDictItemService extends ISuperService<DictItem> {
 	 * @return DictItem 数据对象
 	 */
 	DictItem getById(String id);
-	
+		
+	/**
+	 * 检查实体中的数据字段是否已经存在
+	 * @param ids  主键清单
+	 * @return 实体集
+	 * */
+	List<DictItem> getByIds(List<String> ids);
+
 	/**
 	 * 检查 角色 是否已经存在
 	 *
@@ -138,9 +145,7 @@ public interface IDictItemService extends ISuperService<DictItem> {
 	 * @return 判断结果
 	 */
 	Result<DictItem> checkExists(DictItem dictItem);
- 
 
-	
 	/**
 	 * 根据实体数构建默认的条件表达式，字符串使用模糊匹配
 	 * @param sample 数据样例
@@ -155,9 +160,7 @@ public interface IDictItemService extends ISuperService<DictItem> {
 	 * 	@return ConditionExpr 条件表达式
 	 * */
 	ConditionExpr buildQueryCondition(DictItem sample,String tableAliase);
-	
 
-	
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
 	 * @param sample  查询条件

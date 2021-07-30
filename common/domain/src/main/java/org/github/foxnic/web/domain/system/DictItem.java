@@ -16,7 +16,7 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-23 16:38:44
+ * @since 2021-07-31 06:03:44
  * @sign 0ADD29D217E27784E0FCC43BFBB39064
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -121,7 +121,7 @@ public class DictItem extends Entity {
 	
 	/**
 	 * 获得 ID<br>
-	 * 属性说明 : ID
+	 * ID
 	 * @return ID
 	*/
 	public String getId() {
@@ -139,14 +139,8 @@ public class DictItem extends Entity {
 	}
 	
 	/**
-	 * 添加 ID
-	 * @param id ID
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 字典ID<br>
-	 * 属性说明 : 字典ID
+	 * 字典ID
 	 * @return 字典ID
 	*/
 	public String getDictId() {
@@ -164,14 +158,8 @@ public class DictItem extends Entity {
 	}
 	
 	/**
-	 * 添加 字典ID
-	 * @param dictId 字典ID
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 字典代码<br>
-	 * 属性说明 : 字典代码
+	 * 字典代码
 	 * @return 字典代码
 	*/
 	public String getDictCode() {
@@ -189,14 +177,8 @@ public class DictItem extends Entity {
 	}
 	
 	/**
-	 * 添加 字典代码
-	 * @param dictCode 字典代码
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 上级条目ID<br>
-	 * 属性说明 : 上级条目ID
+	 * 上级条目ID
 	 * @return 上级条目ID
 	*/
 	public String getParentId() {
@@ -214,14 +196,8 @@ public class DictItem extends Entity {
 	}
 	
 	/**
-	 * 添加 上级条目ID
-	 * @param parentId 上级条目ID
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 代码<br>
-	 * 属性说明 : 代码
+	 * 代码
 	 * @return 代码
 	*/
 	public String getCode() {
@@ -239,14 +215,8 @@ public class DictItem extends Entity {
 	}
 	
 	/**
-	 * 添加 代码
-	 * @param code 代码
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 标签<br>
-	 * 属性说明 : 标签
+	 * 标签
 	 * @return 标签
 	*/
 	public String getLabel() {
@@ -264,14 +234,8 @@ public class DictItem extends Entity {
 	}
 	
 	/**
-	 * 添加 标签
-	 * @param label 标签
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 排序<br>
-	 * 属性说明 : 排序
+	 * 排序
 	 * @return 排序
 	*/
 	public Integer getSort() {
@@ -289,14 +253,8 @@ public class DictItem extends Entity {
 	}
 	
 	/**
-	 * 添加 排序
-	 * @param sort 排序
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 创建人ID<br>
-	 * 属性说明 : 创建人ID
+	 * 创建人ID
 	 * @return 创建人ID
 	*/
 	public String getCreateBy() {
@@ -314,14 +272,8 @@ public class DictItem extends Entity {
 	}
 	
 	/**
-	 * 添加 创建人ID
-	 * @param createBy 创建人ID
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 创建时间<br>
-	 * 属性说明 : 创建时间
+	 * 创建时间
 	 * @return 创建时间
 	*/
 	public Date getCreateTime() {
@@ -339,14 +291,8 @@ public class DictItem extends Entity {
 	}
 	
 	/**
-	 * 添加 创建时间
-	 * @param createTime 创建时间
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 修改人ID<br>
-	 * 属性说明 : 修改人ID
+	 * 修改人ID
 	 * @return 修改人ID
 	*/
 	public String getUpdateBy() {
@@ -364,14 +310,8 @@ public class DictItem extends Entity {
 	}
 	
 	/**
-	 * 添加 修改人ID
-	 * @param updateBy 修改人ID
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 修改时间<br>
-	 * 属性说明 : 修改时间
+	 * 修改时间
 	 * @return 修改时间
 	*/
 	public Date getUpdateTime() {
@@ -389,14 +329,8 @@ public class DictItem extends Entity {
 	}
 	
 	/**
-	 * 添加 修改时间
-	 * @param updateTime 修改时间
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 是否已删除<br>
-	 * 属性说明 : 是否已删除
+	 * 是否已删除
 	 * @return 是否已删除
 	*/
 	public Integer getDeleted() {
@@ -414,14 +348,8 @@ public class DictItem extends Entity {
 	}
 	
 	/**
-	 * 添加 是否已删除
-	 * @param deleted 是否已删除
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 删除人ID<br>
-	 * 属性说明 : 删除人ID
+	 * 删除人ID
 	 * @return 删除人ID
 	*/
 	public String getDeleteBy() {
@@ -439,14 +367,8 @@ public class DictItem extends Entity {
 	}
 	
 	/**
-	 * 添加 删除人ID
-	 * @param deleteBy 删除人ID
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 删除时间<br>
-	 * 属性说明 : 删除时间
+	 * 删除时间
 	 * @return 删除时间
 	*/
 	public Date getDeleteTime() {
@@ -464,14 +386,8 @@ public class DictItem extends Entity {
 	}
 	
 	/**
-	 * 添加 删除时间
-	 * @param deleteTime 删除时间
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 数据版本号<br>
-	 * 属性说明 : 数据版本号
+	 * 数据版本号
 	 * @return 数据版本号
 	*/
 	public Integer getVersion() {
@@ -487,12 +403,6 @@ public class DictItem extends Entity {
 		this.version=version;
 		return this;
 	}
-	
-	/**
-	 * 添加 数据版本号
-	 * @param version 数据版本号
-	 * @return 当前对象
-	*/
 
 	/**
 	 * 将自己转换成指定类型的PO
@@ -553,6 +463,6 @@ public class DictItem extends Entity {
 	*/
 	@Transient
 	public static DictItem create() {
-		return new DictItem();
+		return EntityContext.create(DictItem.class);
 	}
 }

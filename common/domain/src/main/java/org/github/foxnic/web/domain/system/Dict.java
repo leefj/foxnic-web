@@ -17,8 +17,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-30 15:01:10
- * @sign 4109620D5BAE064DF07A98EEF8660689
+ * @since 2021-07-31 06:03:42
+ * @sign 0254883CA786CD609E36705BB99D73B0
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -59,6 +59,12 @@ public class Dict extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="所属模块" , notes = "所属模块")
 	private String module;
+	
+	/**
+	 * 备注：备注
+	*/
+	@ApiModelProperty(required = false,value="备注" , notes = "备注")
+	private String notes;
 	
 	/**
 	 * 创建人ID：创建人ID
@@ -206,6 +212,25 @@ public class Dict extends Entity {
 	*/
 	public Dict setModule(String module) {
 		this.module=module;
+		return this;
+	}
+	
+	/**
+	 * 获得 备注<br>
+	 * 备注
+	 * @return 备注
+	*/
+	public String getNotes() {
+		return notes;
+	}
+	
+	/**
+	 * 设置 备注
+	 * @param notes 备注
+	 * @return 当前对象
+	*/
+	public Dict setNotes(String notes) {
+		this.notes=notes;
 		return this;
 	}
 	

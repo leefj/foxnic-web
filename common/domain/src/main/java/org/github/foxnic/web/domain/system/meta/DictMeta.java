@@ -1,17 +1,16 @@
 package org.github.foxnic.web.domain.system.meta;
 
 import com.github.foxnic.api.bean.BeanProperty;
-import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.system.Dict;
-
 import java.util.Date;
+import org.github.foxnic.web.domain.oauth.Menu;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-30 15:01:10
- * @sign 4109620D5BAE064DF07A98EEF8660689
+ * @since 2021-07-31 06:03:42
+ * @sign 0254883CA786CD609E36705BB99D73B0
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -25,7 +24,7 @@ public class DictMeta {
 	/**
 	 * 字典ID , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.system.Dict,java.lang.String> ID_PROP=new BeanProperty(org.github.foxnic.web.domain.system.Dict.class ,ID, java.lang.String.class, "字典ID", "字典ID", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.system.Dict,java.lang.String> ID_PROP = new BeanProperty(org.github.foxnic.web.domain.system.Dict.class ,ID, java.lang.String.class, "字典ID", "字典ID", java.lang.String.class, null);
 	
 	/**
 	 * 是否树形结构 , 类型: java.lang.Integer
@@ -35,7 +34,7 @@ public class DictMeta {
 	/**
 	 * 是否树形结构 , 类型: java.lang.Integer
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.system.Dict,java.lang.Integer> IS_TREE_PROP=new BeanProperty(org.github.foxnic.web.domain.system.Dict.class ,IS_TREE, java.lang.Integer.class, "是否树形结构", "是否树形结构", java.lang.Integer.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.system.Dict,java.lang.Integer> IS_TREE_PROP = new BeanProperty(org.github.foxnic.web.domain.system.Dict.class ,IS_TREE, java.lang.Integer.class, "是否树形结构", "是否树形结构", java.lang.Integer.class, null);
 	
 	/**
 	 * 字典名称 , 类型: java.lang.String
@@ -45,7 +44,7 @@ public class DictMeta {
 	/**
 	 * 字典名称 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.system.Dict,java.lang.String> NAME_PROP=new BeanProperty(org.github.foxnic.web.domain.system.Dict.class ,NAME, java.lang.String.class, "字典名称", "字典名称", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.system.Dict,java.lang.String> NAME_PROP = new BeanProperty(org.github.foxnic.web.domain.system.Dict.class ,NAME, java.lang.String.class, "字典名称", "字典名称", java.lang.String.class, null);
 	
 	/**
 	 * 字典代码 , 类型: java.lang.String
@@ -55,7 +54,7 @@ public class DictMeta {
 	/**
 	 * 字典代码 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.system.Dict,java.lang.String> CODE_PROP=new BeanProperty(org.github.foxnic.web.domain.system.Dict.class ,CODE, java.lang.String.class, "字典代码", "字典代码", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.system.Dict,java.lang.String> CODE_PROP = new BeanProperty(org.github.foxnic.web.domain.system.Dict.class ,CODE, java.lang.String.class, "字典代码", "字典代码", java.lang.String.class, null);
 	
 	/**
 	 * 所属模块 , 类型: java.lang.String
@@ -65,7 +64,17 @@ public class DictMeta {
 	/**
 	 * 所属模块 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.system.Dict,java.lang.String> MODULE_PROP=new BeanProperty(org.github.foxnic.web.domain.system.Dict.class ,MODULE, java.lang.String.class, "所属模块", "所属模块", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.system.Dict,java.lang.String> MODULE_PROP = new BeanProperty(org.github.foxnic.web.domain.system.Dict.class ,MODULE, java.lang.String.class, "所属模块", "所属模块", java.lang.String.class, null);
+	
+	/**
+	 * 备注 , 类型: java.lang.String
+	*/
+	public static final String NOTES="notes";
+	
+	/**
+	 * 备注 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.Dict,java.lang.String> NOTES_PROP = new BeanProperty(org.github.foxnic.web.domain.system.Dict.class ,NOTES, java.lang.String.class, "备注", "备注", java.lang.String.class, null);
 	
 	/**
 	 * 创建人ID , 类型: java.lang.String
@@ -75,7 +84,7 @@ public class DictMeta {
 	/**
 	 * 创建人ID , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.system.Dict,java.lang.String> CREATE_BY_PROP=new BeanProperty(org.github.foxnic.web.domain.system.Dict.class ,CREATE_BY, java.lang.String.class, "创建人ID", "创建人ID", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.system.Dict,java.lang.String> CREATE_BY_PROP = new BeanProperty(org.github.foxnic.web.domain.system.Dict.class ,CREATE_BY, java.lang.String.class, "创建人ID", "创建人ID", java.lang.String.class, null);
 	
 	/**
 	 * 创建时间 , 类型: java.util.Date
@@ -85,7 +94,7 @@ public class DictMeta {
 	/**
 	 * 创建时间 , 类型: java.util.Date
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.system.Dict,java.util.Date> CREATE_TIME_PROP=new BeanProperty(org.github.foxnic.web.domain.system.Dict.class ,CREATE_TIME, java.util.Date.class, "创建时间", "创建时间", java.util.Date.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.system.Dict,java.util.Date> CREATE_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.system.Dict.class ,CREATE_TIME, java.util.Date.class, "创建时间", "创建时间", java.util.Date.class, null);
 	
 	/**
 	 * 修改人ID , 类型: java.lang.String
@@ -95,7 +104,7 @@ public class DictMeta {
 	/**
 	 * 修改人ID , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.system.Dict,java.lang.String> UPDATE_BY_PROP=new BeanProperty(org.github.foxnic.web.domain.system.Dict.class ,UPDATE_BY, java.lang.String.class, "修改人ID", "修改人ID", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.system.Dict,java.lang.String> UPDATE_BY_PROP = new BeanProperty(org.github.foxnic.web.domain.system.Dict.class ,UPDATE_BY, java.lang.String.class, "修改人ID", "修改人ID", java.lang.String.class, null);
 	
 	/**
 	 * 修改时间 , 类型: java.util.Date
@@ -105,7 +114,7 @@ public class DictMeta {
 	/**
 	 * 修改时间 , 类型: java.util.Date
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.system.Dict,java.util.Date> UPDATE_TIME_PROP=new BeanProperty(org.github.foxnic.web.domain.system.Dict.class ,UPDATE_TIME, java.util.Date.class, "修改时间", "修改时间", java.util.Date.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.system.Dict,java.util.Date> UPDATE_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.system.Dict.class ,UPDATE_TIME, java.util.Date.class, "修改时间", "修改时间", java.util.Date.class, null);
 	
 	/**
 	 * 是否已删除 , 类型: java.lang.Integer
@@ -115,7 +124,7 @@ public class DictMeta {
 	/**
 	 * 是否已删除 , 类型: java.lang.Integer
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.system.Dict,java.lang.Integer> DELETED_PROP=new BeanProperty(org.github.foxnic.web.domain.system.Dict.class ,DELETED, java.lang.Integer.class, "是否已删除", "是否已删除", java.lang.Integer.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.system.Dict,java.lang.Integer> DELETED_PROP = new BeanProperty(org.github.foxnic.web.domain.system.Dict.class ,DELETED, java.lang.Integer.class, "是否已删除", "是否已删除", java.lang.Integer.class, null);
 	
 	/**
 	 * 删除人ID , 类型: java.lang.String
@@ -125,7 +134,7 @@ public class DictMeta {
 	/**
 	 * 删除人ID , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.system.Dict,java.lang.String> DELETE_BY_PROP=new BeanProperty(org.github.foxnic.web.domain.system.Dict.class ,DELETE_BY, java.lang.String.class, "删除人ID", "删除人ID", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.system.Dict,java.lang.String> DELETE_BY_PROP = new BeanProperty(org.github.foxnic.web.domain.system.Dict.class ,DELETE_BY, java.lang.String.class, "删除人ID", "删除人ID", java.lang.String.class, null);
 	
 	/**
 	 * 删除时间 , 类型: java.util.Date
@@ -135,7 +144,7 @@ public class DictMeta {
 	/**
 	 * 删除时间 , 类型: java.util.Date
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.system.Dict,java.util.Date> DELETE_TIME_PROP=new BeanProperty(org.github.foxnic.web.domain.system.Dict.class ,DELETE_TIME, java.util.Date.class, "删除时间", "删除时间", java.util.Date.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.system.Dict,java.util.Date> DELETE_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.system.Dict.class ,DELETE_TIME, java.util.Date.class, "删除时间", "删除时间", java.util.Date.class, null);
 	
 	/**
 	 * 数据版本号 , 类型: java.lang.Integer
@@ -145,7 +154,7 @@ public class DictMeta {
 	/**
 	 * 数据版本号 , 类型: java.lang.Integer
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.system.Dict,java.lang.Integer> VERSION_PROP=new BeanProperty(org.github.foxnic.web.domain.system.Dict.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.system.Dict,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.system.Dict.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
 	 * 关联模块 , 类型: org.github.foxnic.web.domain.oauth.Menu
@@ -155,12 +164,12 @@ public class DictMeta {
 	/**
 	 * 关联模块 , 类型: org.github.foxnic.web.domain.oauth.Menu
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.system.Dict,org.github.foxnic.web.domain.oauth.Menu> MODULE_INFO_PROP=new BeanProperty(org.github.foxnic.web.domain.system.Dict.class ,MODULE_INFO, org.github.foxnic.web.domain.oauth.Menu.class, "关联模块", "", org.github.foxnic.web.domain.oauth.Menu.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.system.Dict,org.github.foxnic.web.domain.oauth.Menu> MODULE_INFO_PROP = new BeanProperty(org.github.foxnic.web.domain.system.Dict.class ,MODULE_INFO, org.github.foxnic.web.domain.oauth.Menu.class, "关联模块", "", org.github.foxnic.web.domain.oauth.Menu.class, null);
 	
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , IS_TREE , NAME , CODE , MODULE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , MODULE_INFO };
+	public static final String[] $PROPS={ ID , IS_TREE , NAME , CODE , MODULE , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , MODULE_INFO };
 	
 	/**
 	 * 代理类
@@ -222,6 +231,17 @@ public class DictMeta {
 		public Dict setModule(String module) {
 			super.change(MODULE,super.getModule(),module);
 			super.setModule(module);
+			return this;
+		}
+		
+		/**
+		 * 设置 备注
+		 * @param notes 备注
+		 * @return 当前对象
+		*/
+		public Dict setNotes(String notes) {
+			super.change(NOTES,super.getNotes(),notes);
+			super.setNotes(notes);
 			return this;
 		}
 		

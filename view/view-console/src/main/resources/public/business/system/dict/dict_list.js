@@ -1,7 +1,7 @@
 /**
  * 数据字典 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-30 15:01:11
+ * @since 2021-07-31 06:03:43
  */
 
 
@@ -50,6 +50,7 @@ function ListPage() {
                 { field: 'name', align:"left", hide:false, sort: true, title: fox.translate('名称')} ,
                 { field: 'code', align:"left", hide:false, sort: true, title: fox.translate('代码')} ,
 				{ field: 'module', align:"left", hide:false, sort: true, title: fox.translate('模块'), templet: function (d) { return fox.joinLabel(d.moduleInfo,"label");}} ,
+                { field: 'notes', align:"left", hide:false, sort: true, title: fox.translate('备注')} ,
 				{ field: 'createTime', align:"right", hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return fox.dateFormat(d.createTime); }} ,
                 { field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
             ]]
@@ -81,6 +82,7 @@ function ListPage() {
 		value.name={ value: $("#name").val() ,fuzzy: true };
 		value.code={ value: $("#code").val() ,fuzzy: true };
 		value.module={ value: xmSelect.get("#module",true).getValue("value") };
+		value.notes={ value: $("#notes").val() };
 		var ps={searchField: "$composite", searchValue: JSON.stringify(value),sortField: sortField,sortType: sortType};
 		table.reload('data-table', { where : ps });
 	}
