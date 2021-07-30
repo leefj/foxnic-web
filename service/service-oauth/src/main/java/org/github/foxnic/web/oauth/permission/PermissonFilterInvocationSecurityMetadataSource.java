@@ -7,7 +7,6 @@ import org.github.foxnic.web.oauth.session.SessionPermissionImpl;
 import org.github.foxnic.web.oauth.session.SessionUserImpl;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.ConfigAttribute;
-import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -42,9 +41,9 @@ public class PermissonFilterInvocationSecurityMetadataSource implements FilterIn
     	}
 
 //    	开放全部，调试时使用
-    	if(user!=null) {
-            return SecurityConfig.createList(new String[] {"ROLE_super_admin"});
-        }
+//    	if(user!=null) {
+//            return SecurityConfig.createList(new String[] {"ROLE_super_admin"});
+//     }
 
 
  

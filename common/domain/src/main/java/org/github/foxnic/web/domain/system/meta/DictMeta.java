@@ -1,15 +1,15 @@
 package org.github.foxnic.web.domain.system.meta;
 
 import org.github.foxnic.web.domain.system.Dict;
+
 import java.util.Date;
-import org.github.foxnic.web.domain.oauth.Menu;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-29 15:49:39
- * @sign B910310A67D7210C71E3EBCC40F72C94
+ * @since 2021-07-30 10:59:18
+ * @sign 05768742AB9F156D0B531435F29792F4
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -79,16 +79,16 @@ public class DictMeta {
 	 * 数据版本号
 	*/
 	public static final String VERSION="version";
-	
+
 	/**
-	 * 模块对象
+	 * 关联模块
 	*/
 	public static final String MODULE_INFO="moduleInfo";
 	
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , IS_TREE , NAME , CODE , MODULE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , MODULE_INFO };
+	public static final String[] $PROPS={ ID , IS_TREE , NAME , CODE , MODULE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , MODULE_INFO , MODULE_INFO };
 	
 	/**
 	 * 代理类
@@ -241,15 +241,8 @@ public class DictMeta {
 			return this;
 		}
 		
-		/**
-		 * 设置 模块对象
-		 * @param moduleInfo 模块对象
-		 * @return 当前对象
-		*/
-		public Dict setModuleInfo(Menu moduleInfo) {
-			super.change(MODULE_INFO,super.getModuleInfo(),moduleInfo);
-			super.setModuleInfo(moduleInfo);
-			return this;
-		}
+
+		
+
 	}
 }

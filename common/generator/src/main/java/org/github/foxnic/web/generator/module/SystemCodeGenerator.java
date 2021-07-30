@@ -7,6 +7,7 @@ import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_CONFIG;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_LANG;
 import org.github.foxnic.web.constants.enums.SystemConfigType;
+import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.meta.MenuMeta;
 import org.github.foxnic.web.domain.system.meta.DictMeta;
 import org.github.foxnic.web.generator.config.FoxnicWebConfigs;
@@ -147,6 +148,8 @@ public class SystemCodeGenerator  {
 		//创建配置
 		ModuleContext cfg=createModuleConfig(FoxnicWeb.SYS_DICT.$TABLE, 5);
 
+		cfg.getPoClassFile().addSimpleProperty(Menu.class,"moduleInfo","关联模块","");
+
 		cfg.view().field(FoxnicWeb.SYS_DICT.ID)
 				.basic().hidden();
 		cfg.view().field(FoxnicWeb.SYS_DICT.IS_TREE).basic().hidden();
@@ -154,8 +157,8 @@ public class SystemCodeGenerator  {
 		cfg.view().field(FoxnicWeb.SYS_DICT.MODULE)
 				.basic().label("模块")
 				.form().validate().required()
-				.form().select().queryApi(MenuServiceProxy.QUERY_LIST+"?parentId=0").paging(false).size(4)
-					.valueField(MenuMeta.ID).textField(MenuMeta.LABEL).fillBy(DictMeta.MODULE_INFO)
+				.form().select().queryApi(MenuServiceProxy.QUERY_LIST+"?parentId=0").paging(false).filter(false).toolbar(false)
+					.valueField(MenuMeta.ID).textField(MenuMeta.LABEL).fillBy(DictMeta.MODULE_INFO).muliti(false)
 
 		;
 

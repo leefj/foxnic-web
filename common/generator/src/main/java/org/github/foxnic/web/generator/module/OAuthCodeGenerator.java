@@ -8,6 +8,10 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.*;
 import org.github.foxnic.web.constants.enums.HttpMethodType;
 import org.github.foxnic.web.constants.enums.Language;
 import org.github.foxnic.web.constants.enums.ResourceType;
+import org.github.foxnic.web.domain.oauth.Menu;
+import org.github.foxnic.web.domain.oauth.Resourze;
+import org.github.foxnic.web.domain.oauth.Role;
+import org.github.foxnic.web.domain.oauth.RoleMenu;
 import org.github.foxnic.web.domain.oauth.meta.*;
 import org.github.foxnic.web.proxy.oauth.ResourzeServiceProxy;
 import org.github.foxnic.web.proxy.oauth.RoleServiceProxy;
@@ -42,6 +46,10 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 	public void generateSysUser() throws Exception {
 		//创建配置
 		ModuleContext cfg=createModuleConfig(SYS_USER.$TABLE, 6);
+
+		cfg.getPoClassFile().addListProperty( Role.class, "roles","角色清单", "当前用户的所有角色清单");
+		cfg.getPoClassFile().addListProperty( Menu.class, "menus","菜单清单", "当前用户的所有菜单清单");
+		cfg.getPoClassFile().addListProperty( RoleMenu.class, "roleMenus","角色菜单关系清单", "当前用户的所有角色菜单关系清单");
 
 		//增加VO属性
 		cfg.getVoClassFile().addListProperty(String.class,"roleIds","角色ID列表","");
@@ -260,16 +268,15 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		//创建配置
 		ModuleContext cfg=createModuleConfig(SYS_ROLE.$TABLE, 6);
 
-//		cfg.view().field(SYS_ROLE.ID).hideInList().hideInSearch();
-//		//增加菜单选择
-//		cfg.view().field(RoleMeta.MENU_IDS).label("菜单权限").hideInList();
+		cfg.getPoClassFile().addListProperty(Menu.class, "menus","菜单清单", "当前角色的所有菜单");
+		cfg.getPoClassFile().addListProperty(String.class,"menuIds","所拥有的菜单ID清单","");
 
 		cfg.view().field(SYS_ROLE.ID).basic().hidden(true);
 		//增加菜单选择
 		cfg.view().field(RoleMeta.MENU_IDS).basic().label("菜单权限")
 				.list().hidden(true);
 
-		cfg.getPoClassFile().addListProperty(String.class,"menuIds","所拥有的菜单ID清单","");
+
 
 		//文件生成覆盖模式
 		cfg.overrides()
@@ -320,12 +327,23 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		//创建配置
 		ModuleContext cfg=createModuleConfig(SYS_MENU.$TABLE, 6);
 
-		cfg.getVoClassFile().addSimpleProperty(String.class,"roleId","菜单角色","从前端传入，指定勾选指定角色的菜单");
-			cfg.getVoClassFile().addSimpleProperty(Integer.class,"isLoadAllDescendants","是否加载所有子孙节点","1：是；0：否");
+		cfg.getPoClassFile().addSimpleProperty(Resourze.class,"pathResource","路径资源","");
+		cfg.getPoClassFile().addListProperty(Resourze.class,"resources","菜单包含的资源清单","");
+		cfg.getPoClassFile().addSimpleProperty(Menu.class,"parent","上级菜单","");
 
+		//
 		cfg.getPoClassFile().addSimpleProperty(String.class,"path","页面路径","");
 		cfg.getPoClassFile().addListProperty(String.class,"resourceIds","资源ID清单","");
 		cfg.getPoClassFile().addSimpleProperty(String.class,"ancestorsNamePath","祖先名称路径","用斜杠隔开");
+
+
+
+		cfg.getVoClassFile().addSimpleProperty(String.class,"roleId","菜单角色","从前端传入，指定勾选指定角色的菜单");
+		cfg.getVoClassFile().addSimpleProperty(Integer.class,"isLoadAllDescendants","是否加载所有子孙节点","1：是；0：否");
+
+
+
+
 
 //		cfg.view().field(SYS_MENU.PATH_RESOURCE_ID).selectField().queryApi(ResourzeServiceProxy.QUERY_PAGED_LIST).muliti(false).paging(true).fillBy(MenuVOMeta.PATH_RESOURCE_ID);
 //		cfg.view().field(MenuMeta.RESOURCE_IDS).label("资源清单").selectField().queryApi(ResourzeServiceProxy.QUERY_PAGED_LIST).muliti(true).paging(true).fillBy(MenuVOMeta.RESOURCE_IDS);

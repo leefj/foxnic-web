@@ -139,12 +139,12 @@ function ListPage() {
 			size: "small",
 			radio: true
 		});
-			laydate.render({
-				elem: '#lastLoginTime-begin'
-			});
-			laydate.render({
-				elem: '#lastLoginTime-end'
-			});
+		laydate.render({
+			elem: '#lastLoginTime-begin'
+		});
+		laydate.render({
+			elem: '#lastLoginTime-end'
+		});
 	}
 	
 	/**

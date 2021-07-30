@@ -1,7 +1,7 @@
 /**
  * 数据字典 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-29 16:20:52
+ * @since 2021-07-30 10:59:20
  */
 
 function FormPage() {
@@ -49,11 +49,8 @@ function FormPage() {
 		fox.renderSelectBox({
 			el: "module",
 			radio: true,
-			filterable: true,
-			toolbar: {show:true,showIcon:true,list:[ "ALL", "CLEAR","REVERSE"]},
+			filterable: false,
 			//转换数据
-			searchField: "name", //请自行调整用于搜索的字段名称
-			extraParam: {}, //额外的查询参数，Object 或是 返回 Object 的函数
 			transform: function(data) {
 				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
 				var opts=[];

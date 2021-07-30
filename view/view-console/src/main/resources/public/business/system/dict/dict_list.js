@@ -1,7 +1,7 @@
 /**
  * 数据字典 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-29 16:20:51
+ * @since 2021-07-30 10:59:20
  */
 
 
@@ -80,7 +80,7 @@ function ListPage() {
 		var value = {};
 		value.name={ value: $("#name").val() ,fuzzy: true };
 		value.code={ value: $("#code").val() ,fuzzy: true };
-		value.module={ value: $("#module").val() };
+		value.module={ value: xmSelect.get("#module",true).getValue("value") };
 		var ps={searchField: "$composite", searchValue: JSON.stringify(value),sortField: sortField,sortType: sortType};
 		table.reload('data-table', { where : ps });
 	}
@@ -107,6 +107,24 @@ function ListPage() {
 	}
 
 	function initSearchFields() {
+		//渲染 module 下拉字段
+		fox.renderSelectBox({
+			el: "module",
+			radio: true,
+			size: "small",
+			filterable: false,
+			//转换数据
+			transform: function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				var opts=[];
+				if(!data) return opts;
+				for (var i = 0; i < data.length; i++) {
+					if(!data[i]) continue;
+					opts.push({name:data[i].label,value:data[i].id});
+				}
+				return opts;
+			}
+		});
 	}
 	
 	/**

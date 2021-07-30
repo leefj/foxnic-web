@@ -18,8 +18,8 @@ import java.util.Map;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-29 15:49:39
- * @sign B910310A67D7210C71E3EBCC40F72C94
+ * @since 2021-07-30 10:59:18
+ * @sign 05768742AB9F156D0B531435F29792F4
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -114,6 +114,8 @@ public class Dict extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="模块对象" , notes = "")
 	private Menu moduleInfo;
+	
+
 	
 	/**
 	 * 获得 字典ID<br>
@@ -379,6 +381,10 @@ public class Dict extends Entity {
 		this.moduleInfo=moduleInfo;
 		return this;
 	}
+	
+
+	
+
 
 	/**
 	 * 将自己转换成指定类型的PO

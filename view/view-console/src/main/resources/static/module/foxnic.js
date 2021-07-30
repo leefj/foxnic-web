@@ -22,6 +22,7 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"xmSe
 
 		renderSelectBox:function (cfg) {
 
+			var inst= null;
 			//不重复渲染
 			if(xmSelect.get(cfg.el,true)!=null) return;
 			if(!cfg.el.startWith("#")) cfg.el="#"+cfg.el;
@@ -46,8 +47,51 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"xmSe
 					cfg.data= data;
 				}
 			} else if(url!=null) {
+				//debugger
 				cfg.remoteSearch=true;
-				cfg.filterable=true;
+				// cfg.filterable=true;
+
+				function query(ps,cb) {
+					admin.request(url,ps,function(r) {
+						var opts=[];
+						if(r.success) {
+							if(cfg.paging) {
+								opts=cfg.transform(r.data.list);
+							} else {
+								opts=cfg.transform(r.data);
+							}
+
+						} else {
+							opts=[{name:r.message,value:"-1"}];
+						}
+						// debugger
+						if(cfg.paging) {
+							cb(opts,r.data.pageCount);
+						} else {
+							cb(opts);
+						}
+
+						if(window.adjustPopup) {
+							window.adjustPopup();
+						}
+
+					},"POST",true);
+				}
+
+				if(!cfg.filterable) {
+					query({},function (r){
+						debugger;
+						cfg.data= r;
+						var sel=xmSelect.get(cfg.el,true);
+						var val=sel.getValue();
+						xmSelect.render(cfg);
+						if(val) {
+							sel.setValue(val);
+						}
+
+					})
+				}
+
 				cfg.remoteMethod=function (val, cb, show, pageIndex) {
 					//debugger;
 					var ps={searchField:cfg.searchField,searchValue:val,fuzzyField:cfg.searchField};
@@ -67,32 +111,8 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"xmSe
 						for(var key in ext) { ps[key]=ext[key];}
 					}
 
+					query(ps,cb);
 
-
-
-					admin.request(url,ps,function(r) {
-						var opts=[];
-						if(r.success) {
-							if(cfg.paging) {
-								opts=cfg.transform(r.data.list);
-							} else {
-								opts=cfg.transform(r.data);
-							}
-
-						} else {
-							opts=[{name:r.message,value:"-1"}];
-						}
-						if(cfg.paging) {
-							cb(opts,r.data.pageCount);
-						} else {
-							cb(opts);
-						}
-
-						if(window.adjustPopup) {
-							window.adjustPopup();
-						}
-
-					},"POST",true);
 				}
 			}
 
@@ -100,7 +120,7 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"xmSe
 			console.log("data",data);
 			console.log("opts",opts);
 
-			var inst=xmSelect.render(cfg);
+			inst=xmSelect.render(cfg);
 			setTimeout(function (){
 				//设置值的布局方式
 				if(cfg.valueDirection) {

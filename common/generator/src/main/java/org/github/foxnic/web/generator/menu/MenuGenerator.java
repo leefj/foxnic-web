@@ -397,6 +397,10 @@ public class MenuGenerator {
 
 	public void removeByBatchId(String batchId)  {
 
+		if(StringUtil.isBlank(batchId)) {
+			throw new RuntimeException("未指定 batchId");
+		}
+
 		try {
 			this.dao.beginTransaction();
 			this.dao.execute("delete from sys_menu_resource where resource_id in (select id from sys_resourze where batch_id=?)",batchId);

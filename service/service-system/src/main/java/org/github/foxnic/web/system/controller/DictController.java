@@ -239,6 +239,7 @@ public class DictController extends SuperController {
 	public Result<PagedList<Dict>> queryPagedList(DictVO sample) {
 		Result<PagedList<Dict>> result=new Result<>();
 		PagedList<Dict> list=dictService.queryPagedList(sample,sample.getPageSize(),sample.getPageIndex());
+		dictService.join(list,Menu.class);
 		result.success(true).data(list);
 		return result;
 	}
