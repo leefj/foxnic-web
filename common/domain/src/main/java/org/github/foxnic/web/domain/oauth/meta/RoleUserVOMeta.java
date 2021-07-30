@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-30 14:20:09
+ * @since 2021-07-30 15:02:23
  * @sign D096DE8EBCAB7D07B98ABAD1D9DF2CA6
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -16,82 +16,82 @@ import java.util.List;
 public class RoleUserVOMeta extends RoleUserMeta {
 	
 	/**
-	 * 页码
+	 * 页码 , 类型: java.lang.Integer
 	*/
 	public static final String PAGE_INDEX="pageIndex";
 	
 	/**
-	 * 页码
+	 * 页码 , 类型: java.lang.Integer
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.oauth.RoleUserVO,java.lang.Integer> PAGE_INDEX_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.RoleUserVO.class ,PAGE_INDEX, java.lang.Integer.class, "页码", "", java.lang.Integer.class, null);
 	
 	/**
-	 * 分页大小
+	 * 分页大小 , 类型: java.lang.Integer
 	*/
 	public static final String PAGE_SIZE="pageSize";
 	
 	/**
-	 * 分页大小
+	 * 分页大小 , 类型: java.lang.Integer
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.oauth.RoleUserVO,java.lang.Integer> PAGE_SIZE_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.RoleUserVO.class ,PAGE_SIZE, java.lang.Integer.class, "分页大小", "", java.lang.Integer.class, null);
 	
 	/**
-	 * 搜索字段
+	 * 搜索字段 , 类型: java.lang.String
 	*/
 	public static final String SEARCH_FIELD="searchField";
 	
 	/**
-	 * 搜索字段
+	 * 搜索字段 , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.oauth.RoleUserVO,java.lang.String> SEARCH_FIELD_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.RoleUserVO.class ,SEARCH_FIELD, java.lang.String.class, "搜索字段", "", java.lang.String.class, null);
 	
 	/**
-	 * 模糊搜索字段
+	 * 模糊搜索字段 , 类型: java.lang.String
 	*/
 	public static final String FUZZY_FIELD="fuzzyField";
 	
 	/**
-	 * 模糊搜索字段
+	 * 模糊搜索字段 , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.oauth.RoleUserVO,java.lang.String> FUZZY_FIELD_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.RoleUserVO.class ,FUZZY_FIELD, java.lang.String.class, "模糊搜索字段", "", java.lang.String.class, null);
 	
 	/**
-	 * 搜索的值
+	 * 搜索的值 , 类型: java.lang.String
 	*/
 	public static final String SEARCH_VALUE="searchValue";
 	
 	/**
-	 * 搜索的值
+	 * 搜索的值 , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.oauth.RoleUserVO,java.lang.String> SEARCH_VALUE_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.RoleUserVO.class ,SEARCH_VALUE, java.lang.String.class, "搜索的值", "", java.lang.String.class, null);
 	
 	/**
-	 * 排序字段
+	 * 排序字段 , 类型: java.lang.String
 	*/
 	public static final String SORT_FIELD="sortField";
 	
 	/**
-	 * 排序字段
+	 * 排序字段 , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.oauth.RoleUserVO,java.lang.String> SORT_FIELD_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.RoleUserVO.class ,SORT_FIELD, java.lang.String.class, "排序字段", "", java.lang.String.class, null);
 	
 	/**
-	 * 排序方式
+	 * 排序方式 , 类型: java.lang.String
 	*/
 	public static final String SORT_TYPE="sortType";
 	
 	/**
-	 * 排序方式
+	 * 排序方式 , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.oauth.RoleUserVO,java.lang.String> SORT_TYPE_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.RoleUserVO.class ,SORT_TYPE, java.lang.String.class, "排序方式", "", java.lang.String.class, null);
 	
 	/**
-	 * 主键清单 , 用于接收批量主键参数
+	 * 主键清单 , 用于接收批量主键参数 , 集合类型: LIST , 类型: java.lang.String
 	*/
 	public static final String IDS="ids";
 	
 	/**
-	 * 主键清单 , 用于接收批量主键参数
+	 * 主键清单 , 用于接收批量主键参数 , 集合类型: LIST , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.oauth.RoleUserVO,java.lang.String> IDS_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.RoleUserVO.class ,IDS, java.util.List.class, "主键清单", "用于接收批量主键参数", java.lang.String.class, null);
 	
