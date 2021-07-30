@@ -20,6 +20,7 @@ public class SystemRelationManager extends RelationManager {
 
 		this.property(DictMeta.MODULE_INFO_PROP)
 				.using(FoxnicWeb.SYS_DICT.MODULE).join(FoxnicWeb.SYS_MENU.ID);
+
  
 		// 关联下级菜单
 //		this.property(Menu.class, "allChildren", Menu.class, "所有下级菜单清单", "").list()
