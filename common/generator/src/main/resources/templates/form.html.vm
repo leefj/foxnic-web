@@ -71,7 +71,7 @@
             </div>
         </div>
     
-    #else if(f.isMulitiLine)
+    #else if(f.isTextArea)
     
         <div class="layui-form-item" #if(f.isHideInForm)style="display: none")#end>
         <label class="layui-form-label" th:text="${lang.translate('#(f.labelInForm)')}">#(f.labelInForm)</label>
