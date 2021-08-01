@@ -1,13 +1,13 @@
 /**
- * 数据字典条目 列表页 JS 脚本
+ * 代码生成示例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-01 07:39:13
+ * @since 2021-08-01 09:56:11
  */
 
 function FormPage() {
 
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect,foxup;
-	const moduleURL="/service-system/sys-dict-item";
+	const moduleURL="/service-system/sys-code-example";
 	
 	/**
       * 入口函数，初始化
@@ -25,8 +25,6 @@ function FormPage() {
 		//绑定提交事件
 		bindButtonEvent();
 
-		//调整窗口的高度与位置
-		adjustPopup();
 	}
 	
 	function adjustPopup() {
@@ -34,7 +32,7 @@ function FormPage() {
 			var body=$("body");
 			var bodyHeight=body.height();
 			var area=admin.changePopupArea(null,bodyHeight);
-			admin.putTempData('sys-dict-item-form-area', area);
+			admin.putTempData('sys-code-example-form-area', area);
 			window.adjustPopup=adjustPopup;
 		},50);
 	}
@@ -45,13 +43,35 @@ function FormPage() {
 	function renderFormFields() {
 		form.render();
 	   
+	    //渲染图片字段
+		foxup.render({
+			el:"imageId",
+			maxFileCount: 1,
+			displayFileName: false,
+			accept: "image",
+			acceptMime:'image/*',
+			exts:'png|jpg|bmp|gif|jpeg',
+			afterPreview:function(elId,index,fileId,upload){
+				adjustPopup();
+			},
+			afterUpload:function (result,index,upload) {
+				console.log("文件上传后回调")
+			},
+			beforeRemove:function (elId,fileId,index,upload) {
+				console.log("文件删除前回调");
+				return true;
+			},
+			afterRemove:function (elId,fileId,index,upload) {
+				adjustPopup();
+			}
+	    });
 	}
 	
 	/**
       * 填充表单数据
       */
 	function fillFormData() {
-		var formData = admin.getTempData('sys-dict-item-form-data');
+		var formData = admin.getTempData('sys-code-example-form-data');
 		//如果是新建
 		if(!formData.id) {
 			adjustPopup();
@@ -61,6 +81,10 @@ function FormPage() {
 			fm[0].reset();
 			form.val('data-form', formData);
 
+			//设置  图片上传  显示附件
+		    if($("#imageId").val()) {
+				foxup.fill("imageId",$("#imageId").val());
+		    }
 
 
 	     	fm.attr('method', 'POST');

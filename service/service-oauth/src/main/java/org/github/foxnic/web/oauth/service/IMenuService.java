@@ -20,7 +20,9 @@ import java.util.List;
 */
 
 public interface IMenuService extends ISuperService<Menu> {
-	
+
+	public static final String ROOT_ID="0";
+
 	/**
 	 * 插入实体
 	 * @param menu 实体数据

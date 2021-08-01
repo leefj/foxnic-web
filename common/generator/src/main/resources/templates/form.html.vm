@@ -22,7 +22,7 @@
     <input name="#(f.varName)" id="#(f.varName)"  type="hidden"/>
     #end
     #for(f : fields)
-    #if(f.isUploadField)
+    #if(f.typeName.equals("upload"))
 
     <div class="layui-form-item" #if(f.isHideInForm)style="display: none")#end>
         <label class="layui-form-label" th:text="${lang.translate('#(f.labelInForm)')}">#(f.labelInForm)</label>
@@ -34,7 +34,7 @@
     </div>
 
 	
-	#else if(f.isLogicField)
+	#else if(f.typeName.equals("logic_switch"))
 	
     <div class="layui-form-item" #if(f.isHideInForm)style="display: none")#end>
         <label class="layui-form-label" th:text="${lang.translate('#(f.labelInForm)')}">#(f.labelInForm)</label>
@@ -43,7 +43,7 @@
         </div>
     </div>
     
-	#else if(f.isRadioField)
+	#else if(f.typeName.equals("radio_box"))
 	
     <div class="layui-form-item" #if(f.isHideInForm)style="display: none")#end>
         <label class="layui-form-label" th:text="${lang.translate('#(f.labelInForm)')}">#(f.labelInForm)</label>
@@ -57,7 +57,7 @@
         </div>
     </div>
 
-    #else if(f.isCheckField)
+    #else if(f.typeName.equals("check_box"))
 
         <div class="layui-form-item" #if(f.isHideInForm)style="display: none")#end>
             <label class="layui-form-label" th:text="${lang.translate('#(f.labelInForm)')}">#(f.labelInForm)</label>
@@ -71,7 +71,7 @@
             </div>
         </div>
     
-    #else if(f.isTextArea)
+    #else if(f.typeName.equals("textarea"))
     
         <div class="layui-form-item" #if(f.isHideInForm)style="display: none")#end>
         <label class="layui-form-label" th:text="${lang.translate('#(f.labelInForm)')}">#(f.labelInForm)</label>
@@ -80,7 +80,7 @@
         </div>
     </div>
 
-    #else if(f.isSelectField)
+    #else if(f.typeName.equals("select_box"))
 
         <div class="layui-form-item" #if(f.isHideInForm)style="display: none")#end>
             <label class="layui-form-label" th:text="${lang.translate('#(f.labelInForm)')}">#(f.labelInForm)</label>

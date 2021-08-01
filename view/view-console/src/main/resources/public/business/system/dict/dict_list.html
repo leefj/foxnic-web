@@ -2,7 +2,7 @@
 /**
  * 数据字典 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-31 06:03:43
+ * @since 2021-08-01 07:39:13
  */
  -->
  <!DOCTYPE html>
@@ -36,7 +36,7 @@
             </div>
             <div class="search-unit">
                 <span th:text="${lang.translate('模块')}" class="search-label">模块</span><span class="search-colon">:</span>
-                <div id="module" th:data="${'/service-oauth/sys-menu/query-list?parentId=0'}" style="width:140px"></div>
+                <input id="module" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入模块')}"/>
             </div>
             <div class="search-unit">
                 <span th:text="${lang.translate('备注')}" class="search-label">备注</span><span class="search-colon">:</span>

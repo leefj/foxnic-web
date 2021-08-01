@@ -143,6 +143,10 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"xmSe
 					var prevFlag = 0, prev = null;
 					for (var i = 0; cols && i < cols.length; i++) {
 						if (cols[i].hide) continue;
+						// if(cols[i].field=="createTime") {
+						// 	debugger;
+						// 	columnWidthConfig[cols[i].field]=200;
+						// }
 						var w = columnWidthConfig[cols[i].field];
 						if (w) {
 							cols[i].width = w;

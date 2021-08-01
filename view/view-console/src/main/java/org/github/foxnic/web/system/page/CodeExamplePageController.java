@@ -6,23 +6,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.github.foxnic.web.proxy.system.DictItemServiceProxy;
+import org.github.foxnic.web.proxy.system.CodeExampleServiceProxy;
 import javax.servlet.http.HttpServletRequest;
 /**
  * <p>
- * 数据字典条目 模版页面控制器
+ * 代码生成示例 模版页面控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-01 07:39:13
+ * @since 2021-08-01 09:56:11
 */
 
-@Controller("SysDictItemPageController")
-@RequestMapping(DictItemPageController.prefix)
-public class DictItemPageController extends ViewController {
+@Controller("SysCodeExamplePageController")
+@RequestMapping(CodeExamplePageController.prefix)
+public class CodeExamplePageController extends ViewController {
 	
-	public static final String prefix="business/system/dict_item";
+	public static final String prefix="business/system/code_example";
 
-	private DictItemServiceProxy proxy;
+	private CodeExampleServiceProxy proxy;
 	
 	/**
 	 * 获得代理对象<br> 
@@ -30,26 +30,26 @@ public class DictItemPageController extends ViewController {
 	 * 2、前后端分离时，通过配置，以Rest方式调用后端；<br> 
 	 * 3、微服务时，通过feign调用; <br> 
 	 * */
-	public DictItemServiceProxy proxy() {
+	public CodeExampleServiceProxy proxy() {
 		if(proxy==null) {
-			proxy=DictItemServiceProxy.api();
+			proxy=CodeExampleServiceProxy.api();
 		}
 		return proxy;
 	}
 	
 	/**
-	 * 数据字典条目 功能主页面
+	 * 代码生成示例 功能主页面
 	 */
-	@RequestMapping("/dict_item_list.html")
+	@RequestMapping("/code_example_list.html")
 	public String list(Model model,HttpServletRequest request) {
-		return prefix+"/dict_item_list";
+		return prefix+"/code_example_list";
 	}
 
 	/**
-	 * 数据字典条目 表单页面
+	 * 代码生成示例 表单页面
 	 */
-	@RequestMapping("/dict_item_form.html")
+	@RequestMapping("/code_example_form.html")
 	public String form(Model model,HttpServletRequest request , String id) {
-		return prefix+"/dict_item_form";
+		return prefix+"/code_example_form";
 	}
 }

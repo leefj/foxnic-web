@@ -9,12 +9,12 @@ import java.util.ArrayList;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-01 07:39:12
- * @sign 37E62BC9778BAE4F1A8B0AC2AB175451
+ * @since 2021-08-01 09:56:10
+ * @sign 63A4404E7D3A827B9F488C46F71B66D1
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
-public class DictVO extends Dict {
+public class CodeExampleVO extends CodeExample {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -79,7 +79,7 @@ public class DictVO extends Dict {
 	 * @param pageIndex 页码
 	 * @return 当前对象
 	*/
-	public DictVO setPageIndex(Integer pageIndex) {
+	public CodeExampleVO setPageIndex(Integer pageIndex) {
 		this.pageIndex=pageIndex;
 		return this;
 	}
@@ -97,7 +97,7 @@ public class DictVO extends Dict {
 	 * @param pageSize 分页大小
 	 * @return 当前对象
 	*/
-	public DictVO setPageSize(Integer pageSize) {
+	public CodeExampleVO setPageSize(Integer pageSize) {
 		this.pageSize=pageSize;
 		return this;
 	}
@@ -115,7 +115,7 @@ public class DictVO extends Dict {
 	 * @param searchField 搜索字段
 	 * @return 当前对象
 	*/
-	public DictVO setSearchField(String searchField) {
+	public CodeExampleVO setSearchField(String searchField) {
 		this.searchField=searchField;
 		return this;
 	}
@@ -133,7 +133,7 @@ public class DictVO extends Dict {
 	 * @param fuzzyField 模糊搜索字段
 	 * @return 当前对象
 	*/
-	public DictVO setFuzzyField(String fuzzyField) {
+	public CodeExampleVO setFuzzyField(String fuzzyField) {
 		this.fuzzyField=fuzzyField;
 		return this;
 	}
@@ -151,7 +151,7 @@ public class DictVO extends Dict {
 	 * @param searchValue 搜索的值
 	 * @return 当前对象
 	*/
-	public DictVO setSearchValue(String searchValue) {
+	public CodeExampleVO setSearchValue(String searchValue) {
 		this.searchValue=searchValue;
 		return this;
 	}
@@ -169,7 +169,7 @@ public class DictVO extends Dict {
 	 * @param sortField 排序字段
 	 * @return 当前对象
 	*/
-	public DictVO setSortField(String sortField) {
+	public CodeExampleVO setSortField(String sortField) {
 		this.sortField=sortField;
 		return this;
 	}
@@ -187,7 +187,7 @@ public class DictVO extends Dict {
 	 * @param sortType 排序方式
 	 * @return 当前对象
 	*/
-	public DictVO setSortType(String sortType) {
+	public CodeExampleVO setSortType(String sortType) {
 		this.sortType=sortType;
 		return this;
 	}
@@ -206,7 +206,7 @@ public class DictVO extends Dict {
 	 * @param ids 主键清单
 	 * @return 当前对象
 	*/
-	public DictVO setIds(List<String> ids) {
+	public CodeExampleVO setIds(List<String> ids) {
 		this.ids=ids;
 		return this;
 	}
@@ -216,7 +216,7 @@ public class DictVO extends Dict {
 	 * @param id 主键清单
 	 * @return 当前对象
 	*/
-	public DictVO addId(String id) {
+	public CodeExampleVO addId(String id) {
 		if(this.ids==null) ids=new ArrayList<>();
 		this.ids.add(id);
 		return this;

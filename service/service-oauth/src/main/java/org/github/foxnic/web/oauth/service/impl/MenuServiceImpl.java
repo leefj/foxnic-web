@@ -247,7 +247,7 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 	
 	private RcdSet queryChildMenus(String parentId,String roleId) {
 		RcdSet menus=null;
-		if(parentId==null || parentId.equals("0")) {
+		if(parentId==null || parentId.equals(IMenuService.ROOT_ID)) {
 			menus=dao.query("#query-root-menus",roleId);
 		} else {
 			menus=dao.query("#query-menus-by-parent-id",roleId,parentId);
@@ -257,7 +257,7 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 
 	@Override
 	public List<ZTreeNode> queryRootNotes(String roleId) {
-		RcdSet menus=queryChildMenus("0",roleId);
+		RcdSet menus=queryChildMenus(IMenuService.ROOT_ID,roleId);
 		List<ZTreeNode> nodes = toZTreeNodeList(menus);
 		return nodes;
 	}
@@ -289,6 +289,7 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 	@Override
 	public Boolean saveHierarchy(List<String> ids, String parentId) {	
 		BatchParamBuilder pb=new BatchParamBuilder();
+		if(parentId==null) parentId=IMenuService.ROOT_ID;
 		int sort=0;
 		for (String menuId : ids) {
 			pb.add(parentId,sort,menuId);

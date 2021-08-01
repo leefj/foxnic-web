@@ -44,7 +44,7 @@ function FormPage() {
 		form.render();
 	   
 	    #for(f : fields)
-	    #if(f.isUploadField)
+	    #if(f.typeName.equals("upload"))
 	    //渲染图片字段
 		foxup.render({
 			el:"#(f.varName)",
@@ -81,7 +81,7 @@ function FormPage() {
 				adjustPopup();
 			}
 	    });
-		#else if(f.isSelectField)
+		#else if(f.typeName.equals("select_box"))
 		//渲染 #(f.varName) 下拉字段
 		fox.renderSelectBox({
 			el: "#(f.varName)",
@@ -155,7 +155,7 @@ function FormPage() {
 			form.val('data-form', formData);
 
 	     	#for(f : fields)
-		    #if(f.isUploadField)
+		    #if(f.typeName.equals("upload"))
 			//设置  #(f.labelInForm)  显示附件
 		    if($("##(f.varName)").val()) {
 				foxup.fill("#(f.varName)",$("##(f.varName)").val());
@@ -164,7 +164,7 @@ function FormPage() {
 		    #end
 
 			#for(f : fields)
-			#if(f.isSelectField)
+			#if(f.typeName.equals("select_box"))
 			//设置 #(f.labelInForm) 下拉框选中值
 			var #(f.varName)Select=xmSelect.get("##(f.varName)",true);
 			var #(f.varName)Opionts=[];
@@ -200,7 +200,7 @@ function FormPage() {
 	    	
 
 	    	#for(f : fields)
-		    #if(f.isLogicField)
+		    #if(f.typeName.equals("logic_switch"))
 			//处理 #(f.labelInForm) 默认值
 		    if(!data.field.#(f.varName)) data.field.#(f.varName)=0;
 		    #end
@@ -208,7 +208,7 @@ function FormPage() {
 
 
 			#for(f : fields)
-			#if(f.isSelectField)
+			#if(f.typeName.equals("select_box"))
 			//获取 #(f.labelInForm) 下拉框的值
 			data.field["#(f.varName)"]=xmSelect.get("##(f.varName)",true).getValue("value");
 			#if(!f.selectField.muliti)

@@ -1,7 +1,7 @@
 /**
- * 数据字典 列表页 JS 脚本
+ * 代码生成示例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-01 07:39:13
+ * @since 2021-08-01 09:56:11
  */
 
 
@@ -9,7 +9,7 @@ function ListPage() {
         
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect;
 	//模块基础路径
-	const moduleURL="/service-system/sys-dict";
+	const moduleURL="/service-system/sys-code-example";
 	
 	/**
       * 入口函数，初始化
@@ -40,22 +40,32 @@ function ListPage() {
 		fox.renderTable({
 			elem: '#data-table',
             url: moduleURL +'/query-paged-list',
-		 	height: 'full-'+(h+38),
+		 	height: 'full-'+(h+38), // 请按工具栏等组件的实际情况调整高度
 		 	limit: 50,
 			cols: [[
 				{  fixed: 'left',type: 'numbers' },
 			 	{  fixed: 'left',type:'checkbox' },
-                { field: 'id', align:"left", hide:true, sort: true, title: fox.translate('字典ID')} ,
-                { field: 'isTree', align:"right", hide:true, sort: true, title: fox.translate('是否树形结构')} ,
-                { field: 'name', align:"left", hide:false, sort: true, title: fox.translate('名称')} ,
-                { field: 'code', align:"left", hide:false, sort: true, title: fox.translate('代码')} ,
-                { field: 'module', align:"left", hide:false, sort: true, title: fox.translate('模块')} ,
-                { field: 'notes', align:"left", hide:false, sort: true, title: fox.translate('备注')} ,
+                { field: 'id', align:"left", hide:true, sort: true, title: fox.translate('ID')} ,
+                { field: 'name', align:"left", hide:false, sort: true, title: fox.translate('单行文本')} ,
+                { field: 'notes', align:"left", hide:true, sort: true, title: fox.translate('多行文本')} ,
+				{ field: 'imageId', align:"left", hide:false, sort: true, title: fox.translate('图片上传'), templet: function (d) { return '<img style="height:100%;" fileType="image/png" onclick="window.previewImage(this)"  src="'+apiurls.storage.image+'?id='+ d.imageId+'" />'; } } ,
+                { field: 'fileIds', align:"left", hide:false, sort: true, title: fox.translate('多文件上传')} ,
+                { field: 'area', align:"right", hide:false, sort: true, title: fox.translate('整数输入')} ,
+                { field: 'weight', align:"right", hide:false, sort: true, title: fox.translate('小数输入')} ,
+                { field: 'valid', align:"right", hide:false, sort: true, title: fox.translate('逻辑值')} ,
+                { field: 'radioEnum', align:"left", hide:false, sort: true, title: fox.translate('单选框(枚举)')} ,
+                { field: 'radioDict', align:"left", hide:false, sort: true, title: fox.translate('单选框(字典)')} ,
+                { field: 'checkEnum', align:"left", hide:false, sort: true, title: fox.translate('复选框(枚举)')} ,
+                { field: 'checkDict', align:"left", hide:false, sort: true, title: fox.translate('复选框(字典)')} ,
+                { field: 'selectEnum', align:"left", hide:false, sort: true, title: fox.translate('选择框(枚举)')} ,
+                { field: 'selectDict', align:"left", hide:false, sort: true, title: fox.translate('选择框(字典)')} ,
+                { field: 'selectApi', align:"left", hide:false, sort: true, title: fox.translate('选择框(查询)')} ,
+                { field: 'birthday', align:"right", hide:false, sort: true, title: fox.translate('日期')} ,
                 { field: 'createTime', align:"right", hide:false, sort: true, title: fox.translate('创建时间')} ,
 				{ field: 'row-space', align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true},
 				{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
-            ]]
-	 		,footer : {
+            ]],
+			footer : {
 				exportExcel : admin.checkAuth(AUTH_PREFIX+":export"),
 				importExcel : admin.checkAuth(AUTH_PREFIX+":import")?{
 					params : {} ,
@@ -80,10 +90,20 @@ function ListPage() {
       */
 	function refreshTableData(sortField,sortType) {
 		var value = {};
-		value.name={ value: $("#name").val() ,fuzzy: true };
-		value.code={ value: $("#code").val() ,fuzzy: true };
-		value.module={ value: $("#module").val() };
-		value.notes={ value: $("#notes").val() };
+		value.name={ value: $("#name").val() };
+		value.imageId={ value: $("#imageId").val() };
+		value.fileIds={ value: $("#fileIds").val() };
+		value.area={ value: $("#area").val() };
+		value.weight={ value: $("#weight").val() };
+		value.valid={ value: $("#valid").val() };
+		value.radioEnum={ value: $("#radioEnum").val() };
+		value.radioDict={ value: $("#radioDict").val() };
+		value.checkEnum={ value: $("#checkEnum").val() };
+		value.checkDict={ value: $("#checkDict").val() };
+		value.selectEnum={ value: $("#selectEnum").val() };
+		value.selectDict={ value: $("#selectDict").val() };
+		value.selectApi={ value: $("#selectApi").val() };
+		value.birthday={ value: $("#birthday").val() };
 		var ps={searchField: "$composite", searchValue: JSON.stringify(value),sortField: sortField,sortType: sortType};
 		table.reload('data-table', { where : ps });
 	}
@@ -145,11 +165,11 @@ function ListPage() {
           
 			var ids=getCheckedList("id");
             if(ids.length==0) {
-            	layer.msg(fox.translate('请选择需要删除的')+fox.translate('数据字典')+"!");
+            	layer.msg(fox.translate('请选择需要删除的')+fox.translate('代码生成示例')+"!");
             	return;
             }
             //调用批量删除接口
-			layer.confirm(fox.translate('确定删除已选中的')+fox.translate('数据字典')+fox.translate('吗？'), function (i) {
+			layer.confirm(fox.translate('确定删除已选中的')+fox.translate('代码生成示例')+fox.translate('吗？'), function (i) {
 				layer.close(i);
 				layer.load(2);
                 admin.request(moduleURL+"/delete-by-ids", { ids: ids }, function (data) {
@@ -189,7 +209,7 @@ function ListPage() {
 				
 			} else if (layEvent === 'del') { // 删除
 			
-				layer.confirm(fox.translate('确定删除此')+fox.translate('数据字典')+fox.translate('吗？'), function (i) {
+				layer.confirm(fox.translate('确定删除此')+fox.translate('代码生成示例')+fox.translate('吗？'), function (i) {
 					layer.close(i);
 					layer.load(2);
 					admin.request(moduleURL+"/delete", { id : data.id }, function (data) {
@@ -214,18 +234,18 @@ function ListPage() {
 	function showEditForm(data) {
 		var queryString="";
 		if(data && data.id) queryString="?" + 'id=' + data.id;
-		admin.putTempData('sys-dict-form-data', data);
-		var area=admin.getTempData('sys-dict-form-area');
+		admin.putTempData('sys-code-example-form-data', data);
+		var area=admin.getTempData('sys-code-example-form-area');
 		var height= (area && area.height) ? area.height : ($(window).height()*0.6);
 		var top= (area && area.top) ? area.top : (($(window).height()-height)/2);
-		var title = (data && data.id) ? (fox.translate('修改')+fox.translate('数据字典')) : (fox.translate('添加')+fox.translate('数据字典'));
+		var title = (data && data.id) ? (fox.translate('修改')+fox.translate('代码生成示例')) : (fox.translate('添加')+fox.translate('代码生成示例'));
 		admin.popupCenter({
 			title: title,
 			resize: true,
 			offset: [top,null],
 			area: ["500px",height+"px"],
 			type: 2,
-			content: '/business/system/dict/dict_form.html' + queryString,
+			content: '/business/system/code_example/code_example_form.html' + queryString,
 			finish: function () {
 				refreshTableData();
 			}

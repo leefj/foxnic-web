@@ -3,8 +3,8 @@ package org.github.foxnic.web.system.service;
 
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.dao.entity.ISuperService;
-import org.github.foxnic.web.domain.system.DictItem;
-import org.github.foxnic.web.domain.system.DictItemVO;
+import org.github.foxnic.web.domain.system.CodeExample;
+import org.github.foxnic.web.domain.system.CodeExampleVO;
 import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
@@ -18,32 +18,32 @@ import com.github.foxnic.dao.data.SaveMode;
 
 /**
  * <p>
- * 数据字典条目 服务接口
+ * 代码生成示例 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-01 07:39:13
+ * @since 2021-08-01 09:56:10
 */
 
-public interface IDictItemService extends ISuperService<DictItem> {
+public interface ICodeExampleService extends ISuperService<CodeExample> {
 	
 	/**
 	 * 插入实体
-	 * @param dictItem 实体数据
+	 * @param codeExample 实体数据
 	 * @return 插入是否成功
 	 * */
-	Result insert(DictItem dictItem);
+	Result insert(CodeExample codeExample);
  
 	/**
 	 * 批量插入实体，事务内
-	 * @param dictItemList 实体数据清单
+	 * @param codeExampleList 实体数据清单
 	 * @return 插入是否成功
 	 * */
-	Result insertList(List<DictItem> dictItemList);
+	Result insertList(List<CodeExample> codeExampleList);
 	
 	
 		
 	/**
-	 * 按主键删除 数据字典条目
+	 * 按主键删除 代码生成示例
 	 *
 	 * @param id ID
 	 * @return 删除是否成功
@@ -51,7 +51,7 @@ public interface IDictItemService extends ISuperService<DictItem> {
 	Result deleteByIdPhysical(String id);
 	
 	/**
-	 * 按主键删除 数据字典条目
+	 * 按主键删除 代码生成示例
 	 *
 	 * @param id ID
 	 * @return 删除是否成功
@@ -74,7 +74,7 @@ public interface IDictItemService extends ISuperService<DictItem> {
 	
 		
 	/**
-	 * 按主键更新字段 数据字典条目
+	 * 按主键更新字段 代码生成示例
 	 *
 	 * @param id ID
 	 * @return 是否更新成功
@@ -83,75 +83,75 @@ public interface IDictItemService extends ISuperService<DictItem> {
 	
 	/**
 	 * 更新实体
-	 * @param dictItem 数据对象
+	 * @param codeExample 数据对象
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	Result update(DictItem dictItem , SaveMode mode);
+	Result update(CodeExample codeExample , SaveMode mode);
 	
 	
 	/**
 	 * 更新实体集，事务内
-	 * @param dictItemList 数据对象列表
+	 * @param codeExampleList 数据对象列表
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	Result updateList(List<DictItem> dictItemList, SaveMode mode);
+	Result updateList(List<CodeExample> codeExampleList, SaveMode mode);
 	
 	/**
 	 * 保存实体，如果主键值不为 null，则更新，否则插入
-	 * @param dictItem 实体数据
+	 * @param codeExample 实体数据
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	Result save(DictItem dictItem , SaveMode mode);
+	Result save(CodeExample codeExample , SaveMode mode);
 	
 	/**
 	 * 保存实体，如果主键值不为null，则更新，否则插入
-	 * @param dictItemList 实体数据清单
+	 * @param codeExampleList 实体数据清单
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	Result saveList(List<DictItem> dictItemList , SaveMode mode);
+	Result saveList(List<CodeExample> codeExampleList , SaveMode mode);
 	
 	/**
 	 * 检查实体中的数据字段是否已经存在
-	 * @param dictItem  实体对象
+	 * @param codeExample  实体对象
 	 * @param field  字段清单，至少指定一个
 	 * @return 是否已经存在
 	 * */
-	boolean checkExists(DictItem dictItem,DBField... field);
+	boolean checkExists(CodeExample codeExample,DBField... field);
  
 		
 	/**
-	 * 按主键获取 数据字典条目
+	 * 按主键获取 代码生成示例
 	 *
 	 * @param id ID
-	 * @return DictItem 数据对象
+	 * @return CodeExample 数据对象
 	 */
-	DictItem getById(String id);
+	CodeExample getById(String id);
 		
 	/**
 	 * 检查实体中的数据字段是否已经存在
 	 * @param ids  主键清单
 	 * @return 实体集
 	 * */
-	List<DictItem> getByIds(List<String> ids);
+	List<CodeExample> getByIds(List<String> ids);
 
 	/**
 	 * 检查 角色 是否已经存在
 	 *
-	 * @param dictItem 数据对象
+	 * @param codeExample 数据对象
 	 * @return 判断结果
 	 */
-	Result<DictItem> checkExists(DictItem dictItem);
+	Result<CodeExample> checkExists(CodeExample codeExample);
 
 	/**
 	 * 根据实体数构建默认的条件表达式，字符串使用模糊匹配
 	 * @param sample 数据样例
 	 * @return ConditionExpr 条件表达式
 	 * */
-	ConditionExpr buildQueryCondition(DictItem sample);
+	ConditionExpr buildQueryCondition(CodeExample sample);
 	
 	/**
 	 * 根据实体数构建默认的条件表达式, 字符串是否使用模糊匹配
@@ -159,14 +159,14 @@ public interface IDictItemService extends ISuperService<DictItem> {
 	 * @param tableAliase 数据表别名
 	 * 	@return ConditionExpr 条件表达式
 	 * */
-	ConditionExpr buildQueryCondition(DictItem sample,String tableAliase);
+	ConditionExpr buildQueryCondition(CodeExample sample,String tableAliase);
 
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
 	 * @param sample  查询条件
 	 * @return 查询结果
 	 * */
-	List<DictItem> queryList(DictItem sample);
+	List<CodeExample> queryList(CodeExample sample);
  
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
@@ -175,7 +175,7 @@ public interface IDictItemService extends ISuperService<DictItem> {
 	 * @param orderBy  排序
 	 * @return 查询结果
 	 * */
-	List<DictItem> queryList(DictItem sample,ConditionExpr condition,OrderBy orderBy);
+	List<CodeExample> queryList(CodeExample sample,ConditionExpr condition,OrderBy orderBy);
 	
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
@@ -183,7 +183,7 @@ public interface IDictItemService extends ISuperService<DictItem> {
 	 * @param orderBy  排序
 	 * @return 查询结果
 	 * */
-	List<DictItem> queryList(DictItem sample,OrderBy orderBy);
+	List<CodeExample> queryList(CodeExample sample,OrderBy orderBy);
 	
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
@@ -191,14 +191,14 @@ public interface IDictItemService extends ISuperService<DictItem> {
 	 * @param condition  其它条件
 	 * @return 查询结果
 	 * */
-	List<DictItem> queryList(DictItem sample,ConditionExpr condition);
+	List<CodeExample> queryList(CodeExample sample,ConditionExpr condition);
 	
 	/**
 	 * 查询单个实体
 	 * @param sample  查询条件
 	 * @return 查询结果
 	 * */
-	DictItem queryEntity(DictItem sample);
+	CodeExample queryEntity(CodeExample sample);
 	
 	/**
 	 * 分页查询实体集
@@ -207,7 +207,7 @@ public interface IDictItemService extends ISuperService<DictItem> {
 	 * @param pageIndex 页码
 	 * @return 查询结果
 	 * */
-	PagedList<DictItem> queryPagedList(DictItem sample,int pageSize,int pageIndex);
+	PagedList<CodeExample> queryPagedList(CodeExample sample,int pageSize,int pageIndex);
 	
 	/**
 	 * 分页查询实体集
@@ -218,7 +218,7 @@ public interface IDictItemService extends ISuperService<DictItem> {
 	 * @param orderBy  排序
 	 * @return 查询结果
 	 * */
-	PagedList<DictItem> queryPagedList(DictItem sample,ConditionExpr condition,OrderBy orderBy,int pageSize,int pageIndex);
+	PagedList<CodeExample> queryPagedList(CodeExample sample,ConditionExpr condition,OrderBy orderBy,int pageSize,int pageIndex);
 	
 	/**
 	 * 分页查询实体集
@@ -228,7 +228,7 @@ public interface IDictItemService extends ISuperService<DictItem> {
 	 * @param condition  其它条件
 	 * @return 查询结果
 	 * */
-	PagedList<DictItem> queryPagedList(DictItem sample,ConditionExpr condition,int pageSize,int pageIndex);
+	PagedList<CodeExample> queryPagedList(CodeExample sample,ConditionExpr condition,int pageSize,int pageIndex);
 	
 	/**
 	 * 分页查询实体集
@@ -238,7 +238,7 @@ public interface IDictItemService extends ISuperService<DictItem> {
 	 * @param orderBy  排序
 	 * @return 查询结果
 	 * */
-	PagedList<DictItem> queryPagedList(DictItem sample,OrderBy orderBy,int pageSize,int pageIndex);
+	PagedList<CodeExample> queryPagedList(CodeExample sample,OrderBy orderBy,int pageSize,int pageIndex);
  
  	/**
 	 * 查询指定字段的数据清单
@@ -264,7 +264,7 @@ public interface IDictItemService extends ISuperService<DictItem> {
 	/**
 	 * 导出 Excel
 	 * */
-	ExcelWriter exportExcel(DictItem sample);
+	ExcelWriter exportExcel(CodeExample sample);
 
 	/**
 	 * 导出用于数据导入的 Excel 模版

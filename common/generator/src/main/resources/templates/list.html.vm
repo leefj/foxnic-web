@@ -26,11 +26,11 @@
             #if(!f.isHideInSearch)
             <div class="search-unit">
                 <span th:text="${lang.translate('#(f.labelInSearch)')}" class="search-label">#(f.labelInSearch)</span><span class="search-colon">:</span>
-                #if(f.isLogicField)
+                #if(f.typeName.equals("logic_switch"))
                 <div id="#(f.varName)" data='[{"name":"#(f.logicField.labelOn)","value":"#(f.logicField.valueOn)"},{"name":"#(f.logicField.labelOff)","value":"#(f.logicField.valueOff)"}]' style="width:100px"></div>
-                #else if(f.isSelectField)
+                #else if(f.typeName.equals("select_box"))
                 <div id="#(f.varName)" th:data="#if(f.selectField.enumTypeName!=null)${enum.toArray('#(f.selectField.enumTypeName)')}#end#if(f.selectField.queryApi!=null)${'#(f.selectField.queryApi)'}#end#if(f.selectField.dictCode!=null)${dict.toArray('#(f.selectField.dictCode)')}#end" style="width:140px"></div>
-                #else if(f.isRadioField)
+                #else if(f.typeName.equals("radio_box"))
 
                 #if(f.radioField.dictCode!=null)
                 <div id="#(f.varName)" th:data="${dict.toArray('#(f.radioField.dictCode)')}" style="width:140px"></div>
@@ -39,7 +39,7 @@
                 #if(f.radioField.enumTypeName!=null)
                 <div id="#(f.varName)" th:data="${enum.toArray('#(f.radioField.enumTypeName)')}" style="width:140px"></div>
                 #end
-                #else if(f.isDateField)
+                #else if(f.typeName.equals("date_box"))
                  <input type="text" id="#(f.varName)-begin" style="width: 90px" lay-verify="date" th:placeholder="${lang.translate('开始日期')}" autocomplete="off" class="layui-input search-input search-date-input"  readonly >
                  <span class="search-dash">-</span>
                  <input type="text" id="#(f.varName)-end"  style="width: 90px"  lay-verify="date" th:placeholder="${lang.translate('结束日期')}" autocomplete="off" class="layui-input search-input search-date-input" readonly>
@@ -93,14 +93,14 @@
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];
     #for(f:fields)
-    #if(f.isRadioField)
+    #if(f.typeName.equals("radio_box"))
     #if(f.radioField.dictCode!=null)
     var RADIO_#(f.varName.toUpperCase())_DATA = [[${dict.toArray('#(f.radioField.dictCode)')}]];
     #end
     #if(f.radioField.enumTypeName!=null)
     var RADIO_#(f.varName.toUpperCase())_DATA = [[${enum.toArray('#(f.radioField.enumTypeName)')}]];
     #end
-    #else if(f.isSelectField)
+    #else if(f.typeName.equals("select_box"))
     #end
     #end
     var AUTH_PREFIX="#(authPrefix)";

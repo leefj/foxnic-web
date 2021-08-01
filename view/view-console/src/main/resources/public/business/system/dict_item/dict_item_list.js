@@ -1,7 +1,7 @@
 /**
  * 数据字典条目 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-31 06:03:44
+ * @since 2021-08-01 07:39:13
  */
 
 
@@ -52,7 +52,7 @@ function ListPage() {
                 { field: 'code', align:"left", hide:false, sort: true, title: fox.translate('代码')} ,
                 { field: 'label', align:"left", hide:false, sort: true, title: fox.translate('标签')} ,
                 { field: 'sort', align:"right", hide:false, sort: true, title: fox.translate('排序')} ,
-				{ field: 'createTime', align:"right", hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return fox.dateFormat(d.createTime); }} ,
+                { field: 'createTime', align:"right", hide:false, sort: true, title: fox.translate('创建时间')} ,
                 { field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
             ]]
 	 		,footer : {
