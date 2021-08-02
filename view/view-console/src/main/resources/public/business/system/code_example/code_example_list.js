@@ -1,7 +1,7 @@
 /**
  * 代码生成示例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-01 09:56:11
+ * @since 2021-08-02 14:59:54
  */
 
 
@@ -37,6 +37,7 @@ function ListPage() {
       */
     function renderTable() {
     	var h=$(".search-bar").height();
+    	$(".search-buttons").css("margin-top",(h-$(".search-buttons").height()-8)+"px");
 		fox.renderTable({
 			elem: '#data-table',
             url: moduleURL +'/query-paged-list',

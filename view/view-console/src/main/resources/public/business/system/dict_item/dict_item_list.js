@@ -1,7 +1,7 @@
 /**
  * 数据字典条目 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-01 07:39:13
+ * @since 2021-08-02 14:50:54
  */
 
 
@@ -36,11 +36,11 @@ function ListPage() {
       * 渲染表格
       */
     function renderTable() {
-     
+    	var h=$(".search-bar").height();
 		fox.renderTable({
 			elem: '#data-table',
             url: moduleURL +'/query-paged-list',
-		 	height: 'full-78',
+		 	height: 'full-'+(h+38), // 请按工具栏等组件的实际情况调整高度
 		 	limit: 50,
 			cols: [[
 				{  fixed: 'left',type: 'numbers' },
@@ -53,9 +53,10 @@ function ListPage() {
                 { field: 'label', align:"left", hide:false, sort: true, title: fox.translate('标签')} ,
                 { field: 'sort', align:"right", hide:false, sort: true, title: fox.translate('排序')} ,
                 { field: 'createTime', align:"right", hide:false, sort: true, title: fox.translate('创建时间')} ,
-                { field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
-            ]]
-	 		,footer : {
+				{ field: 'row-space', align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true},
+				{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
+            ]],
+			footer : {
 				exportExcel : admin.checkAuth(AUTH_PREFIX+":export"),
 				importExcel : admin.checkAuth(AUTH_PREFIX+":import")?{
 					params : {} ,

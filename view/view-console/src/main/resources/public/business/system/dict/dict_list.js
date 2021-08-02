@@ -1,7 +1,7 @@
 /**
  * 数据字典 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-01 07:39:13
+ * @since 2021-08-02 14:50:53
  */
 
 
@@ -40,7 +40,7 @@ function ListPage() {
 		fox.renderTable({
 			elem: '#data-table',
             url: moduleURL +'/query-paged-list',
-		 	height: 'full-'+(h+38),
+		 	height: 'full-'+(h+38), // 请按工具栏等组件的实际情况调整高度
 		 	limit: 50,
 			cols: [[
 				{  fixed: 'left',type: 'numbers' },
@@ -49,13 +49,13 @@ function ListPage() {
                 { field: 'isTree', align:"right", hide:true, sort: true, title: fox.translate('是否树形结构')} ,
                 { field: 'name', align:"left", hide:false, sort: true, title: fox.translate('名称')} ,
                 { field: 'code', align:"left", hide:false, sort: true, title: fox.translate('代码')} ,
-                { field: 'module', align:"left", hide:false, sort: true, title: fox.translate('模块')} ,
+				{ field: 'module', align:"left", hide:false, sort: true, title: fox.translate('模块'), templet: function (d) { return fox.joinLabel(d.moduleInfo,"label");}} ,
                 { field: 'notes', align:"left", hide:false, sort: true, title: fox.translate('备注')} ,
                 { field: 'createTime', align:"right", hide:false, sort: true, title: fox.translate('创建时间')} ,
 				{ field: 'row-space', align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true},
 				{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
-            ]]
-	 		,footer : {
+            ]],
+			footer : {
 				exportExcel : admin.checkAuth(AUTH_PREFIX+":export"),
 				importExcel : admin.checkAuth(AUTH_PREFIX+":import")?{
 					params : {} ,
@@ -82,7 +82,7 @@ function ListPage() {
 		var value = {};
 		value.name={ value: $("#name").val() ,fuzzy: true };
 		value.code={ value: $("#code").val() ,fuzzy: true };
-		value.module={ value: $("#module").val() };
+		value.module={ value: xmSelect.get("#module",true).getValue("value") };
 		value.notes={ value: $("#notes").val() };
 		var ps={searchField: "$composite", searchValue: JSON.stringify(value),sortField: sortField,sortType: sortType};
 		table.reload('data-table', { where : ps });
@@ -110,6 +110,24 @@ function ListPage() {
 	}
 
 	function initSearchFields() {
+		//渲染 module 下拉字段
+		fox.renderSelectBox({
+			el: "module",
+			radio: true,
+			size: "small",
+			filterable: false,
+			//转换数据
+			transform: function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				var opts=[];
+				if(!data) return opts;
+				for (var i = 0; i < data.length; i++) {
+					if(!data[i]) continue;
+					opts.push({name:data[i].label,value:data[i].id});
+				}
+				return opts;
+			}
+		});
 	}
 	
 	/**

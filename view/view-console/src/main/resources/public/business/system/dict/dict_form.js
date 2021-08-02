@@ -1,7 +1,7 @@
 /**
  * 数据字典 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-01 07:39:13
+ * @since 2021-08-02 14:50:54
  */
 
 function FormPage() {
@@ -45,6 +45,23 @@ function FormPage() {
 	function renderFormFields() {
 		form.render();
 	   
+		//渲染 module 下拉字段
+		fox.renderSelectBox({
+			el: "module",
+			radio: true,
+			filterable: false,
+			//转换数据
+			transform: function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				var opts=[];
+				if(!data) return opts;
+				for (var i = 0; i < data.length; i++) {
+					if(!data[i]) continue;
+					opts.push({name:data[i].label,value:data[i].id});
+				}
+				return opts;
+			}
+		});
 	}
 	
 	/**
@@ -62,6 +79,13 @@ function FormPage() {
 			form.val('data-form', formData);
 
 
+			//设置 模块 下拉框选中值
+			var moduleSelect=xmSelect.get("#module",true);
+			var moduleOpionts=[];
+			if (formData.moduleInfo)	{
+				moduleOpionts=moduleSelect.options.transform([formData.moduleInfo]);
+			}
+			moduleSelect.setValue(moduleOpionts);
 
 	     	fm.attr('method', 'POST');
 	     	renderFormFields();
@@ -89,6 +113,11 @@ function FormPage() {
 
 
 
+			//获取 模块 下拉框的值
+			data.field["module"]=xmSelect.get("#module",true).getValue("value");
+			if(data.field["module"] && data.field["module"].length>0) {
+				data.field["module"]=data.field["module"][0];
+			}
 
 	    	var api=moduleURL+"/"+(data.field.id?"update":"insert");
 	        var task=setTimeout(function(){layer.load(2);},1000);

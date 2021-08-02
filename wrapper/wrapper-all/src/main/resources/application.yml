@@ -1,10 +1,10 @@
 server:
   session: 
-    timeout: 1200s
+    timeout: 28800s
   servlet:
     session:
       # 会话超时时间，如 30s , 20m 等
-      timeout: 1200s 
+      timeout: 28800s
   port: 1899
  
 spring:
@@ -50,6 +50,8 @@ spring:
 develop: 
   language: confuse
   start-relation-monitor: true
+  deploy:
+    projects:  ../view/view-console
 
 security:
   # 模式：session / jwt

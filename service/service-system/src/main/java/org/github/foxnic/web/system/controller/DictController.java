@@ -49,7 +49,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 数据字典 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-01 07:39:12
+ * @since 2021-08-02 14:50:52
 */
 
 @Api(tags = "数据字典")
@@ -184,6 +184,8 @@ public class DictController extends SuperController {
 	public Result<Dict> getById(String id) {
 		Result<Dict> result=new Result<>();
 		Dict dict=dictService.getById(id);
+		// 关联出 模块 数据
+		dictService.join(dict,DictMeta.MODULE_INFO);
 		result.success(true).data(dict);
 		return result;
 	}
@@ -250,6 +252,8 @@ public class DictController extends SuperController {
 	public Result<PagedList<Dict>> queryPagedList(DictVO sample) {
 		Result<PagedList<Dict>> result=new Result<>();
 		PagedList<Dict> list=dictService.queryPagedList(sample,sample.getPageSize(),sample.getPageIndex());
+		// 关联出 模块 数据
+		dictService.join(list,DictMeta.MODULE_INFO);
 		result.success(true).data(list);
 		return result;
 	}

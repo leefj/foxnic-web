@@ -2,7 +2,7 @@
 /**
  * 数据字典条目 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-01 07:39:13
+ * @since 2021-08-02 14:50:54
  */
  -->
  <!DOCTYPE html>
@@ -24,41 +24,46 @@
 <div class="layui-card">
  
     <div class="layui-card-body">
-        <div class="layui-form toolbar search-bar">
+        <div class="search-bar">
+            <!-- 搜索输入区域 -->
+            <div class="layui-form toolbar search-inputs">
+                <div class="search-unit">
+                    <span th:text="${lang.translate('ID')}" class="search-label">ID</span><span class="search-colon">:</span>
+                    <input id="id" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入ID')}"/>
+                </div>
+                <div class="search-unit">
+                    <span th:text="${lang.translate('字典ID')}" class="search-label">字典ID</span><span class="search-colon">:</span>
+                    <input id="dictId" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入字典ID')}"/>
+                </div>
+                <div class="search-unit">
+                    <span th:text="${lang.translate('字典代码')}" class="search-label">字典代码</span><span class="search-colon">:</span>
+                    <input id="dictCode" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入字典代码')}"/>
+                </div>
+                <div class="search-unit">
+                    <span th:text="${lang.translate('上级条目ID')}" class="search-label">上级条目ID</span><span class="search-colon">:</span>
+                    <input id="parentId" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入上级条目ID')}"/>
+                </div>
+                <div class="search-unit">
+                    <span th:text="${lang.translate('代码')}" class="search-label">代码</span><span class="search-colon">:</span>
+                    <input id="code" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入代码')}"/>
+                </div>
+                <div class="search-unit">
+                    <span th:text="${lang.translate('标签')}" class="search-label">标签</span><span class="search-colon">:</span>
+                    <input id="label" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入标签')}"/>
+                </div>
+                <div class="search-unit">
+                    <span th:text="${lang.translate('排序')}" class="search-label">排序</span><span class="search-colon">:</span>
+                    <input id="sort" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入排序')}"/>
+                </div>
 
-            <div class="search-unit">
-                <span th:text="${lang.translate('ID')}" class="search-label">ID</span><span class="search-colon">:</span>
-                <input id="id" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入ID')}"/>
-            </div>
-            <div class="search-unit">
-                <span th:text="${lang.translate('字典ID')}" class="search-label">字典ID</span><span class="search-colon">:</span>
-                <input id="dictId" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入字典ID')}"/>
-            </div>
-            <div class="search-unit">
-                <span th:text="${lang.translate('字典代码')}" class="search-label">字典代码</span><span class="search-colon">:</span>
-                <input id="dictCode" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入字典代码')}"/>
-            </div>
-            <div class="search-unit">
-                <span th:text="${lang.translate('上级条目ID')}" class="search-label">上级条目ID</span><span class="search-colon">:</span>
-                <input id="parentId" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入上级条目ID')}"/>
-            </div>
-            <div class="search-unit">
-                <span th:text="${lang.translate('代码')}" class="search-label">代码</span><span class="search-colon">:</span>
-                <input id="code" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入代码')}"/>
-            </div>
-            <div class="search-unit">
-                <span th:text="${lang.translate('标签')}" class="search-label">标签</span><span class="search-colon">:</span>
-                <input id="label" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入标签')}"/>
-            </div>
-            <div class="search-unit">
-                <span th:text="${lang.translate('排序')}" class="search-label">排序</span><span class="search-colon">:</span>
-                <input id="sort" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入排序')}"/>
-            </div>
 
-            <button id="search-button" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i><span th:text="${lang.translate('搜索')}">搜索</span></button>
-            <button th:if="${perm.checkAuth('sys_dict_item:create')}" id="add-button" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i><span th:text="${lang.translate('添加')}">添加</span></button>
-            <button th:if="${perm.checkAuth('sys_dict_item:delete-by-ids')}" id="delete-button" class="layui-btn icon-btn layui-btn-danger"><i class="layui-icon">&#xe67e;</i><span th:text="${lang.translate('删除')}">删除</span></button>
-            
+            </div>
+            <!-- 按钮区域 -->
+            <div class="layui-form toolbar search-buttons">
+                <button id="search-button" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i><span th:text="${lang.translate('搜索')}">搜索</span></button>
+                <button th:if="${perm.checkAuth('sys_dict_item:create')}" id="add-button" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i><span th:text="${lang.translate('添加')}">添加</span></button>
+                <button th:if="${perm.checkAuth('sys_dict_item:delete-by-ids')}" id="delete-button" class="layui-btn icon-btn layui-btn-danger"><i class="layui-icon">&#xe67e;</i><span th:text="${lang.translate('删除')}">删除</span></button>
+            </div>
         </div>
 
         <table class="layui-table" id="data-table" lay-filter="data-table"></table>
