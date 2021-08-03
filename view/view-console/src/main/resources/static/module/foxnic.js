@@ -365,6 +365,18 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"xmSe
     		if(!t) return "";
     		return util.toDateString(t,f);
     	},
+		/**
+		 * 仅允许输入框输入整数
+		 * */
+		limitInput(elId,reg) {
+			$(elId).keyup(function(){
+				var val=$(this).val();
+				val=val.replace(reg,'');
+				$(this).val(val);
+			}).bind("paste",function(){  //CTR+V事件处理
+				$(this).val($(this).val().replace(reg,''));
+			})
+		},
 		joinLabel(data,key,sep) {
 			if(!data) return "";
 			var label="";

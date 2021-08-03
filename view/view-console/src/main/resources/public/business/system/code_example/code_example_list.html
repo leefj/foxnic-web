@@ -2,7 +2,7 @@
 /**
  * 代码生成示例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-02 14:59:54
+ * @since 2021-08-03 17:43:11
  */
  -->
  <!DOCTYPE html>
@@ -24,83 +24,85 @@
 <div class="layui-card">
  
     <div class="layui-card-body">
+
         <div class="search-bar">
-            <!-- 搜索输入区域 -->
-            <div class="search-input-rows">
+
+            <div class="search-input-rows" style="opacity: 0">
+                <!-- 搜索输入区域 -->
                 <div class="layui-form toolbar search-inputs">
+                    <!-- 单行文本 , name , isHideInSearch=false -->
                     <div class="search-unit">
-                        <span th:text="${lang.translate('单行文本')}" class="search-label">单行文本</span><span class="search-colon">:</span>
+                        <div class="search-label-div"><span th:text="${lang.translate('单行文本')}" class="search-label">单行文本</span><span class="search-colon">:</span></div>
                         <input id="name" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入单行文本')}"/>
                     </div>
-
+                    <!-- 多行文本 , notes , isHideInSearch=false -->
                     <div class="search-unit">
-                        <span th:text="${lang.translate('多文件上传')}" class="search-label">多文件上传</span><span class="search-colon">:</span>
-                        <input id="fileIds" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入多文件上传')}"/>
+                        <div class="search-label-div"><span th:text="${lang.translate('多行文本')}" class="search-label">多行文本</span><span class="search-colon">:</span></div>
+                        <input id="notes" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入多行文本')}"/>
                     </div>
-                </div>
-                <div class="layui-form toolbar search-inputs">
+                    <!-- 整数输入 , area , isHideInSearch=false -->
                     <div class="search-unit">
-                        <span th:text="${lang.translate('整数输入')}" class="search-label">整数输入</span><span class="search-colon">:</span>
+                        <div class="search-label-div"><span th:text="${lang.translate('整数输入')}" class="search-label">整数输入</span><span class="search-colon">:</span></div>
                         <input id="area" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入整数输入')}"/>
                     </div>
+                    <!-- 小数输入 , weight , isHideInSearch=false -->
                     <div class="search-unit">
-                        <span th:text="${lang.translate('小数输入')}" class="search-label">小数输入</span><span class="search-colon">:</span>
+                        <div class="search-label-div"><span th:text="${lang.translate('小数输入')}" class="search-label">小数输入</span><span class="search-colon">:</span></div>
                         <input id="weight" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入小数输入')}"/>
                     </div>
+                    <!-- 日期 , birthday , isHideInSearch=false -->
                     <div class="search-unit">
-                        <span th:text="${lang.translate('逻辑值')}" class="search-label">逻辑值</span><span class="search-colon">:</span>
+                        <div class="search-label-div"><span th:text="${lang.translate('日期')}" class="search-label">日期</span><span class="search-colon">:</span></div>
+                        <input id="birthday" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入日期')}"/>
+                    </div>
+
+
+                </div>
+                <!-- 搜索输入区域 -->
+                <div class="layui-form toolbar search-inputs">
+                    <!-- 单选框(枚举) , radioEnum , isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div"><span th:text="${lang.translate('单选框(枚举)')}" class="search-label">单选框(枚举)</span><span class="search-colon">:</span></div>
+                        <input id="radioEnum" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入单选框(枚举)')}"/>
+                    </div>
+                    <!-- 单选框(字典) , radioDict , isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div"><span th:text="${lang.translate('单选框(字典)')}" class="search-label">单选框(字典)</span><span class="search-colon">:</span></div>
+                        <input id="radioDict" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入单选框(字典)')}"/>
+                    </div>
+                    <!-- 逻辑值 , valid , isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div"><span th:text="${lang.translate('逻辑值')}" class="search-label">逻辑值</span><span class="search-colon">:</span></div>
                         <input id="valid" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入逻辑值')}"/>
                     </div>
 
 
                 </div>
-                <!-- 第二行 -->
+                <!-- 搜索输入区域 -->
                 <div class="layui-form toolbar search-inputs">
-
+                    <!-- 选择框(枚举) , selectEnum , isHideInSearch=false -->
                     <div class="search-unit">
-                        <span th:text="${lang.translate('复选框(枚举)')}" class="search-label">复选框(枚举)</span><span class="search-colon">:</span>
-                        <input id="checkEnum" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入复选框(枚举)')}"/>
-                    </div>
-                    <div class="search-unit">
-                        <span th:text="${lang.translate('复选框(字典)')}" class="search-label">复选框(字典)</span><span class="search-colon">:</span>
-                        <input id="checkDict" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入复选框(字典)')}"/>
-                    </div>
-                    <div class="search-unit">
-                        <span th:text="${lang.translate('选择框(枚举)')}" class="search-label">选择框(枚举)</span><span class="search-colon">:</span>
+                        <div class="search-label-div"><span th:text="${lang.translate('选择框(枚举)')}" class="search-label">选择框(枚举)</span><span class="search-colon">:</span></div>
                         <input id="selectEnum" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入选择框(枚举)')}"/>
                     </div>
-
-                </div>
-                <!-- 第3行 -->
-                <div class="layui-form toolbar search-inputs">
-
-
+                    <!-- 选择框(字典) , selectDict , isHideInSearch=false -->
                     <div class="search-unit">
-                        <span th:text="${lang.translate('选择框(字典)')}" class="search-label">选择框(字典)</span><span class="search-colon">:</span>
+                        <div class="search-label-div"><span th:text="${lang.translate('选择框(字典)')}" class="search-label">选择框(字典)</span><span class="search-colon">:</span></div>
                         <input id="selectDict" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入选择框(字典)')}"/>
                     </div>
+                    <!-- 选择框(查询) , selectApi , isHideInSearch=false -->
                     <div class="search-unit">
-                        <span th:text="${lang.translate('选择框(查询)')}" class="search-label">选择框(查询)</span><span class="search-colon">:</span>
+                        <div class="search-label-div"><span th:text="${lang.translate('选择框(查询)')}" class="search-label">选择框(查询)</span><span class="search-colon">:</span></div>
                         <input id="selectApi" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入选择框(查询)')}"/>
                     </div>
-                    <div class="search-unit">
-                        <span th:text="${lang.translate('日期')}" class="search-label">日期</span><span class="search-colon">:</span>
-                        <input id="birthday" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入日期')}"/>
-                    </div>
-                    <div class="search-unit">
-                        <span th:text="${lang.translate('日期')}" class="search-label">日期</span><span class="search-colon">:</span>
-                        <input id="birthday" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入日期')}"/>
-                    </div>
-                    <div class="search-unit">
-                        <span th:text="${lang.translate('选择框(枚举)')}" class="search-label">选择框(枚举)</span><span class="search-colon">:</span>
-                        <input id="selectEnum" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入选择框(枚举)')}"/>
-                    </div>
+
 
                 </div>
-
             </div>
+
+
             <!-- 按钮区域 -->
-            <div class="layui-form toolbar search-buttons">
+            <div class="layui-form toolbar search-buttons" style="opacity: 0">
                 <button id="search-button" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i><span th:text="${lang.translate('搜索')}">搜索</span></button>
                 <button th:if="${perm.checkAuth('sys_code_example:create')}" id="add-button" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i><span th:text="${lang.translate('添加')}">添加</span></button>
                 <button th:if="${perm.checkAuth('sys_code_example:delete-by-ids')}" id="delete-button" class="layui-btn icon-btn layui-btn-danger"><i class="layui-icon">&#xe67e;</i><span th:text="${lang.translate('删除')}">删除</span></button>

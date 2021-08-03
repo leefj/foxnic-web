@@ -88,7 +88,7 @@
     display: flex;
     flex-direction:row;
     flex-wrap: wrap;
-    float: right;
+    position: absolute;
 }
 
 .search-unit {
@@ -98,6 +98,12 @@
     display: flex;
     flex-direction:row;
     justify-content:center;
+}
+
+.search-label-div {
+    display: inline-block;
+    padding-top: 4px;
+    text-align: right;
 }
 
 .search-label {
@@ -125,4 +131,23 @@
 
 .search-date-input {
     text-align: center;
+}
+
+.advance-search-div {
+    position: absolute;
+    width: 100%;
+    display: inline-block;
+    top: 0px;
+    left: 0px;
+    background-color: #efefef;
+    border-bottom-style: solid;
+    border-bottom-color: #0C0C0C;
+    border-bottom-width: 1px;
+}
+
+.advance-search-form {
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    align-content: flex-start;
 }

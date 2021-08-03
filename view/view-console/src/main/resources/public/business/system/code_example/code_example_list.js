@@ -1,7 +1,7 @@
 /**
  * 代码生成示例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-02 14:59:54
+ * @since 2021-08-03 17:43:11
  */
 
 
@@ -36,8 +36,12 @@ function ListPage() {
       * 渲染表格
       */
     function renderTable() {
-    	var h=$(".search-bar").height();
-    	$(".search-buttons").css("margin-top",(h-$(".search-buttons").height()-8)+"px");
+		$(window).resize(function() {
+			adjustSearchElement();
+		});
+		adjustSearchElement();
+		//
+		var h=$(".search-bar").height();
 		fox.renderTable({
 			elem: '#data-table',
             url: moduleURL +'/query-paged-list',
@@ -49,8 +53,8 @@ function ListPage() {
                 { field: 'id', align:"left", hide:true, sort: true, title: fox.translate('ID')} ,
                 { field: 'name', align:"left", hide:false, sort: true, title: fox.translate('单行文本')} ,
                 { field: 'notes', align:"left", hide:true, sort: true, title: fox.translate('多行文本')} ,
-				{ field: 'imageId', align:"left", hide:false, sort: true, title: fox.translate('图片上传'), templet: function (d) { return '<img style="height:100%;" fileType="image/png" onclick="window.previewImage(this)"  src="'+apiurls.storage.image+'?id='+ d.imageId+'" />'; } } ,
-                { field: 'fileIds', align:"left", hide:false, sort: true, title: fox.translate('多文件上传')} ,
+				{ field: 'imageId', align:"left", hide:true, sort: true, title: fox.translate('图片上传'), templet: function (d) { return '<img style="height:100%;" fileType="image/png" onclick="window.previewImage(this)"  src="'+apiurls.storage.image+'?id='+ d.imageId+'" />'; } } ,
+                { field: 'fileIds', align:"left", hide:true, sort: true, title: fox.translate('多文件上传')} ,
                 { field: 'area', align:"right", hide:false, sort: true, title: fox.translate('整数输入')} ,
                 { field: 'weight', align:"right", hide:false, sort: true, title: fox.translate('小数输入')} ,
                 { field: 'valid', align:"right", hide:false, sort: true, title: fox.translate('逻辑值')} ,
@@ -85,6 +89,27 @@ function ListPage() {
 		  refreshTableData(obj.field,obj.type);
         });
     };
+
+	/**
+	 * 调整搜索相关的尺寸
+	 * */
+	function adjustSearchElement() {
+		var divs=$(".search-label-div");
+		var maxWidth=0;
+		for (var i = 0; i < divs.length; i++) {
+			var div=$(divs[i]);
+			var w=div.width();
+			if(maxWidth<w) maxWidth=w;
+		}
+		divs.width(maxWidth);
+		var h=$(".search-bar").height();
+		$(".search-buttons").css("margin-top",(h-$(".search-buttons").height()-8)+"px");
+		var ks=$(window).width()-$(".search-buttons").width()-16;
+		$(".search-buttons").css("left",ks+"px");
+		$(".search-input-rows").animate({opacity:'1.0'},0.25);
+		$(".search-buttons").animate({opacity:'1.0'},0.25);
+
+	}
      
 	/**
       * 刷新表格数据
@@ -92,15 +117,12 @@ function ListPage() {
 	function refreshTableData(sortField,sortType) {
 		var value = {};
 		value.name={ value: $("#name").val() };
-		value.imageId={ value: $("#imageId").val() };
-		value.fileIds={ value: $("#fileIds").val() };
+		value.notes={ value: $("#notes").val() };
 		value.area={ value: $("#area").val() };
 		value.weight={ value: $("#weight").val() };
 		value.valid={ value: $("#valid").val() };
 		value.radioEnum={ value: $("#radioEnum").val() };
 		value.radioDict={ value: $("#radioDict").val() };
-		value.checkEnum={ value: $("#checkEnum").val() };
-		value.checkDict={ value: $("#checkDict").val() };
 		value.selectEnum={ value: $("#selectEnum").val() };
 		value.selectDict={ value: $("#selectDict").val() };
 		value.selectApi={ value: $("#selectApi").val() };
@@ -131,6 +153,8 @@ function ListPage() {
 	}
 
 	function initSearchFields() {
+		fox.limitInput("#area",/[^0-9]/g);
+		fox.limitInput("#weight",/[^0-9.]/g);
 	}
 	
 	/**

@@ -41,7 +41,12 @@ function ListPage() {
       * 渲染表格
       */
     function renderTable() {
-    	var h=$(".search-bar").height();
+		$(window).resize(function() {
+			adjustSearchElement();
+		});
+		adjustSearchElement();
+		//
+		var h=$(".search-bar").height();
 		fox.renderTable({
 			elem: '#data-table',
             url: moduleURL +'/query-paged-list',
@@ -108,6 +113,27 @@ function ListPage() {
 		  refreshTableData(obj.field,obj.type);
         });
     };
+
+	/**
+	 * 调整搜索相关的尺寸
+	 * */
+	function adjustSearchElement() {
+		var divs=$(".search-label-div");
+		var maxWidth=0;
+		for (var i = 0; i < divs.length; i++) {
+			var div=$(divs[i]);
+			var w=div.width();
+			if(maxWidth<w) maxWidth=w;
+		}
+		divs.width(maxWidth);
+		var h=$(".search-bar").height();
+		$(".search-buttons").css("margin-top",(h-$(".search-buttons").height()-8)+"px");
+		var ks=$(window).width()-$(".search-buttons").width()-16;
+		$(".search-buttons").css("left",ks+"px");
+		$(".search-input-rows").animate({opacity:'1.0'},0.25);
+		$(".search-buttons").animate({opacity:'1.0'},0.25);
+
+	}
      
 	/**
       * 刷新表格数据
@@ -289,6 +315,15 @@ function ListPage() {
 			}
 			#end
 		});
+	#end
+	#if(f.validate!=null)
+	#if(f.validate.isInteger)
+		//只允许输入0-9的数字
+		fox.limitInput("##(f.varName)",/[^0-9]/g);
+	#else if(f.validate.isDecimal)
+		//只允许输入0-9的数字和小数点
+		fox.limitInput("##(f.varName)",/[^0-9.]/g);
+	#end
 	#end
 	#end
 	#end
