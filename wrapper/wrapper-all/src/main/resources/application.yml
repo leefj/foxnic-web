@@ -51,6 +51,8 @@ develop:
   language: confuse
   start-relation-monitor: true
   deploy:
+    enable: true
+    # 可以使用以当前项目为基础的相对路径，指定静态资源自动部署的项目目录
     projects:  ../view/view-console
 
 security:
