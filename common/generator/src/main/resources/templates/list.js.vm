@@ -132,7 +132,10 @@ function ListPage() {
 		$(".search-buttons").css("left",ks+"px");
 		$(".search-input-rows").animate({opacity:'1.0'},0.25);
 		$(".search-buttons").animate({opacity:'1.0'},0.25);
-
+		//渲染后的补充执行
+		setTimeout(function (){
+			adjustSearchElement();
+		},16);
 	}
      
 	/**

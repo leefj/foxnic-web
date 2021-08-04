@@ -1,7 +1,7 @@
 /**
  * 代码生成示例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-04 17:26:59
+ * @since 2021-08-04 17:31:42
  */
 
 
@@ -110,7 +110,10 @@ function ListPage() {
 		$(".search-buttons").css("left",ks+"px");
 		$(".search-input-rows").animate({opacity:'1.0'},0.25);
 		$(".search-buttons").animate({opacity:'1.0'},0.25);
-
+		//渲染后的补充执行
+		setTimeout(function (){
+			adjustSearchElement();
+		},16);
 	}
      
 	/**
