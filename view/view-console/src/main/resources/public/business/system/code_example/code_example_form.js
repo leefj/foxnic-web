@@ -1,7 +1,7 @@
 /**
  * 代码生成示例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-04 15:37:40
+ * @since 2021-08-04 17:27:00
  */
 
 function FormPage() {
@@ -65,6 +65,59 @@ function FormPage() {
 				adjustPopup();
 			}
 	    });
+		//渲染 selectEnum 下拉字段
+		fox.renderSelectBox({
+			el: "selectEnum",
+			radio: true,
+			filterable: false,
+			//转换数据
+			transform:function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				var opts=[];
+				if(!data) return opts;
+				for (var i = 0; i < data.length; i++) {
+					opts.push({name:data[i].text,value:data[i].code});
+				}
+				return opts;
+			}
+		});
+		//渲染 selectDict 下拉字段
+		fox.renderSelectBox({
+			el: "selectDict",
+			radio: true,
+			filterable: false,
+			//转换数据
+			transform: function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				var opts=[];
+				for (var i = 0; i < data.length; i++) {
+					if(!data[i]) continue;
+					opts.push({name:data[i].text,value:data[i].code});
+				}
+				return opts;
+			}
+		});
+		//渲染 selectApi 下拉字段
+		fox.renderSelectBox({
+			el: "selectApi",
+			radio: true,
+			filterable: true,
+			paging: true,
+			pageRemote: true,
+			//转换数据
+			searchField: "url)", //请自行调整用于搜索的字段名称
+			extraParam: {}, //额外的查询参数，Object 或是 返回 Object 的函数
+			transform: function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				var opts=[];
+				if(!data) return opts;
+				for (var i = 0; i < data.length; i++) {
+					if(!data[i]) continue;
+					opts.push({name:data[i].url,value:data[i].id});
+				}
+				return opts;
+			}
+		});
 	}
 	
 	/**
@@ -86,6 +139,27 @@ function FormPage() {
 				foxup.fill("imageId",$("#imageId").val());
 		    }
 
+			//设置 选择框(枚举) 下拉框选中值
+			var selectEnumSelect=xmSelect.get("#selectEnum",true);
+			var selectEnumOpionts=[];
+			if (formData.)	{
+				selectEnumOpionts=selectEnumSelect.options.transform([formData.]);
+			}
+			selectEnumSelect.setValue(selectEnumOpionts);
+			//设置 选择框(字典) 下拉框选中值
+			var selectDictSelect=xmSelect.get("#selectDict",true);
+			var selectDictOpionts=[];
+			if (formData.)	{
+				selectDictOpionts=selectDictSelect.options.transform([formData.]);
+			}
+			selectDictSelect.setValue(selectDictOpionts);
+			//设置 选择框(查询) 下拉框选中值
+			var selectApiSelect=xmSelect.get("#selectApi",true);
+			var selectApiOpionts=[];
+			if (formData.)	{
+				selectApiOpionts=selectApiSelect.options.transform([formData.]);
+			}
+			selectApiSelect.setValue(selectApiOpionts);
 
 	     	fm.attr('method', 'POST');
 	     	renderFormFields();
@@ -111,8 +185,25 @@ function FormPage() {
 	    	//debugger;
 	    	
 
+			//处理 逻辑值 默认值
+		    if(!data.field.valid) data.field.valid=0;
 
 
+			//获取 选择框(枚举) 下拉框的值
+			data.field["selectEnum"]=xmSelect.get("#selectEnum",true).getValue("value");
+			if(data.field["selectEnum"] && data.field["selectEnum"].length>0) {
+				data.field["selectEnum"]=data.field["selectEnum"][0];
+			}
+			//获取 选择框(字典) 下拉框的值
+			data.field["selectDict"]=xmSelect.get("#selectDict",true).getValue("value");
+			if(data.field["selectDict"] && data.field["selectDict"].length>0) {
+				data.field["selectDict"]=data.field["selectDict"][0];
+			}
+			//获取 选择框(查询) 下拉框的值
+			data.field["selectApi"]=xmSelect.get("#selectApi",true).getValue("value");
+			if(data.field["selectApi"] && data.field["selectApi"].length>0) {
+				data.field["selectApi"]=data.field["selectApi"][0];
+			}
 
 	    	var api=moduleURL+"/"+(data.field.id?"update":"insert");
 	        var task=setTimeout(function(){layer.load(2);},1000);

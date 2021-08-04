@@ -4,6 +4,11 @@ import com.github.foxnic.generator.config.ModuleContext;
 import com.github.foxnic.generator.config.WriteMode;
 import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_CODE_EXAMPLE;
+import org.github.foxnic.web.constants.enums.DictEnum;
+import org.github.foxnic.web.constants.enums.Language;
+import org.github.foxnic.web.constants.enums.SystemConfigType;
+import org.github.foxnic.web.domain.oauth.meta.ResourzeMeta;
+import org.github.foxnic.web.proxy.oauth.ResourzeServiceProxy;
 
 
 public class CodeExampleGenerator extends SystemCodeGenerator {
@@ -20,6 +25,9 @@ public class CodeExampleGenerator extends SystemCodeGenerator {
 		//创建配置
 		ModuleContext cfg=createModuleConfig(SYS_CODE_EXAMPLE.$TABLE, 6);
 
+		//设置全局搜索输入框宽度
+		cfg.view().search().inputWidth(140);
+
 		//配置在搜索、表单、列表中均隐藏
 		cfg.view().field(SYS_CODE_EXAMPLE.ID).basic().hidden();
 		//配置在列表中隐藏
@@ -27,25 +35,58 @@ public class CodeExampleGenerator extends SystemCodeGenerator {
 				//单独设置输入框在搜索工具栏的位置
 				.search().location(1,3)
 				.list().hidden();
+
+		//日期类型
 		cfg.view().field(SYS_CODE_EXAMPLE.BIRTHDAY)
+				.form().dateInput()
 				//单独设置输入框在搜索工具栏的位置
 				.search().location(1,1);
 
+		//整数类型
 		cfg.view().field(SYS_CODE_EXAMPLE.AREA)
 			.form().numberInput().integer().step(2.0).range(10.0,20.0).allowNegative(false);
 
+		//小数类型
 		cfg.view().field(SYS_CODE_EXAMPLE.WEIGHT)
 				.form().numberInput().decimal().step(0.5).range(-1.5,6.6).allowNegative(true).scale(2);
 
-		//配置为上传类型
+		//单个图片上传类型
 		cfg.view().field(SYS_CODE_EXAMPLE.IMAGE_ID)
 				.search().hidden()
 				.list().hidden()
 				.form().upload().acceptSingleImage().displayFileName(false);
 
+		//多文件上传类型
 		cfg.view().field(SYS_CODE_EXAMPLE.FILE_IDS)
 				.list().hidden()
 				.search().hidden();
+
+		//单选框，下拉数据来自枚举
+		cfg.view().field(SYS_CODE_EXAMPLE.RADIO_ENUM)
+				.form().radioBox().enumType(Language.class);
+
+		//单选框，下拉数据来自字典
+		cfg.view().field(SYS_CODE_EXAMPLE.RADIO_DICT)
+				.form().radioBox().dict(DictEnum.SEX);
+
+		//逻辑值
+		cfg.view().field(SYS_CODE_EXAMPLE.VALID)
+				.form().logicField().on("有效",1).off("无效",0);
+
+		//下拉选择，数据来自枚举
+		cfg.view().field(SYS_CODE_EXAMPLE.SELECT_ENUM)
+				.form().selectBox().enumType(SystemConfigType.class);
+
+		//下拉选择，数据来自字典
+		cfg.view().field(SYS_CODE_EXAMPLE.SELECT_DICT)
+				.form().selectBox().dict(DictEnum.ORDER_STATUS);
+
+		//下拉选择，数据来自字典
+		cfg.view().field(SYS_CODE_EXAMPLE.SELECT_API)
+				.search().inputWidth(140)
+				.form().selectBox().queryApi(ResourzeServiceProxy.QUERY_PAGED_LIST).valueField(ResourzeMeta.ID).textField(ResourzeMeta.URL).toolbar(false).paging(true);
+
+
 
 		cfg.view().formWindow();
 

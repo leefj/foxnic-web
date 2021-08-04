@@ -105,12 +105,12 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 				.form().validate().required().phone();
 
 		cfg.view().field(SYS_USER.LANGUAGE)
-				.form().radio().enumType(Language.class);
+				.form().radioBox().enumType(Language.class);
 
 		cfg.view().field(UserVOMeta.ROLE_IDS)
 				.basic().label("角色")
 				.list().hidden(true)
-				.form().select().muliti(true).queryApi(RoleServiceProxy.QUERY_LIST).fillBy(UserMeta.ROLES)
+				.form().selectBox().muliti(true).queryApi(RoleServiceProxy.QUERY_LIST).fillBy(UserMeta.ROLES)
 		;
 
 		cfg.view().field(SYS_USER.PORTRAIT_ID)
@@ -122,7 +122,7 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 
 		cfg.view().field(SYS_USER.VALID)
 				.list().alignCenter()
-				.form().logic().on("有效","1").off("无效","0");
+				.form().logicField().on("有效","1").off("无效","0");
 
 		//表单不需要显示的字段
 //		cfg.view().field(SYS_USER.ID).hideInList().hideInForm();
@@ -209,9 +209,9 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 
 		cfg.view().field(SYS_RESOURZE.METHOD)
 				.basic().label("Method")
-				.form().radio().enumType(HttpMethodType.class);
+				.form().radioBox().enumType(HttpMethodType.class);
 
-		cfg.view().field(SYS_RESOURZE.TYPE).form().radio().enumType(ResourceType.class);
+		cfg.view().field(SYS_RESOURZE.TYPE).form().radioBox().enumType(ResourceType.class);
 		cfg.view().field(SYS_RESOURZE.NAME).form().validate().required();
 		cfg.view().field(SYS_RESOURZE.URL).form().validate().required();
 		cfg.view().field(SYS_RESOURZE.BATCH_ID).basic().hidden(true);
@@ -348,9 +348,9 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 //		cfg.view().field(SYS_MENU.PATH_RESOURCE_ID).selectField().queryApi(ResourzeServiceProxy.QUERY_PAGED_LIST).muliti(false).paging(true).fillBy(MenuVOMeta.PATH_RESOURCE_ID);
 //		cfg.view().field(MenuMeta.RESOURCE_IDS).label("资源清单").selectField().queryApi(ResourzeServiceProxy.QUERY_PAGED_LIST).muliti(true).paging(true).fillBy(MenuVOMeta.RESOURCE_IDS);
 
-		cfg.view().field(SYS_MENU.PATH_RESOURCE_ID).form().select().queryApi(ResourzeServiceProxy.QUERY_PAGED_LIST).muliti(false).paging(true).fillBy(MenuVOMeta.PATH_RESOURCE_ID);
+		cfg.view().field(SYS_MENU.PATH_RESOURCE_ID).form().selectBox().queryApi(ResourzeServiceProxy.QUERY_PAGED_LIST).muliti(false).paging(true).fillBy(MenuVOMeta.PATH_RESOURCE_ID);
 		cfg.view().field(MenuMeta.RESOURCE_IDS).basic().label("资源清单")
-				.form().select().queryApi(ResourzeServiceProxy.QUERY_PAGED_LIST).muliti(true).paging(true).fillBy(MenuVOMeta.RESOURCE_IDS);
+				.form().selectBox().queryApi(ResourzeServiceProxy.QUERY_PAGED_LIST).muliti(true).paging(true).fillBy(MenuVOMeta.RESOURCE_IDS);
 
 		//文件生成覆盖模式
 		cfg.overrides()

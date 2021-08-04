@@ -2,7 +2,7 @@
 /**
  * 代码生成示例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-04 15:37:39
+ * @since 2021-08-04 17:26:58
  */
  -->
  <!DOCTYPE html>
@@ -30,70 +30,76 @@
             <div class="search-input-rows" style="opacity: 0">
                 <!-- 搜索输入区域 -->
                 <div class="layui-form toolbar search-inputs">
-                    <!-- 单行文本 , name , isHideInSearch=false -->
+                    <!-- 单行文本 , name ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div"><span th:text="${lang.translate('单行文本')}" class="search-label">单行文本</span><span class="search-colon">:</span></div>
-                        <input id="name" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入单行文本')}"/>
+                        <input id="name" class="layui-input search-input" style="width: 140px" type="text" th:placeholder="${lang.translate('请输入单行文本')}"/>
                     </div>
-                    <!-- 多行文本 , notes , isHideInSearch=false -->
+                    <!-- 多行文本 , notes ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div"><span th:text="${lang.translate('多行文本')}" class="search-label">多行文本</span><span class="search-colon">:</span></div>
-                        <input id="notes" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入多行文本')}"/>
+                        <input id="notes" class="layui-input search-input" style="width: 140px" type="text" th:placeholder="${lang.translate('请输入多行文本')}"/>
                     </div>
-                    <!-- 整数输入 , area , isHideInSearch=false -->
+                    <!-- 整数输入 , area ,typeName=number_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div"><span th:text="${lang.translate('整数输入')}" class="search-label">整数输入</span><span class="search-colon">:</span></div>
-                            <input id="area" class="layui-input search-input" type="text" autocomplete="off" input-type="number_input" th:placeholder="${lang.translate('请输入整数输入')}" integer="true" decimal="false" allow-negative="false" step="2.0" min-value="10.0" max-value="20.0"  scale="0"  />
+                            <input id="area" class="layui-input search-input" style="width: 140px" type="text" autocomplete="off" input-type="number_input" th:placeholder="${lang.translate('请输入整数输入')}" integer="true" decimal="false" allow-negative="false" step="2.0" min-value="10.0" max-value="20.0"  scale="0"  />
                     </div>
-                    <!-- 小数输入 , weight , isHideInSearch=false -->
+                    <!-- 小数输入 , weight ,typeName=number_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div"><span th:text="${lang.translate('小数输入')}" class="search-label">小数输入</span><span class="search-colon">:</span></div>
-                            <input id="weight" class="layui-input search-input" type="text" autocomplete="off" input-type="number_input" th:placeholder="${lang.translate('请输入小数输入')}" integer="false" decimal="true" allow-negative="true" step="0.5" min-value="-1.5" max-value="6.6"  scale="2"  />
+                            <input id="weight" class="layui-input search-input" style="width: 140px" type="text" autocomplete="off" input-type="number_input" th:placeholder="${lang.translate('请输入小数输入')}" integer="false" decimal="true" allow-negative="true" step="0.5" min-value="-1.5" max-value="6.6"  scale="2"  />
                     </div>
-                    <!-- 日期 , birthday , isHideInSearch=false -->
+                    <!-- 日期 , birthday ,typeName=date_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div"><span th:text="${lang.translate('日期')}" class="search-label">日期</span><span class="search-colon">:</span></div>
-                        <input id="birthday" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入日期')}"/>
+                         <input type="text" id="birthday-begin" style="width: 140px" lay-verify="date" th:placeholder="${lang.translate('开始日期')}" autocomplete="off" class="layui-input search-input search-date-input"  readonly >
+                         <span class="search-dash">-</span>
+                         <input type="text" id="birthday-end"  style="width: 140px"  lay-verify="date" th:placeholder="${lang.translate('结束日期')}" autocomplete="off" class="layui-input search-input search-date-input" readonly>
                     </div>
 
 
                 </div>
                 <!-- 搜索输入区域 -->
                 <div class="layui-form toolbar search-inputs">
-                    <!-- 单选框(枚举) , radioEnum , isHideInSearch=false -->
+                    <!-- 单选框(枚举) , radioEnum ,typeName=radio_box, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div"><span th:text="${lang.translate('单选框(枚举)')}" class="search-label">单选框(枚举)</span><span class="search-colon">:</span></div>
-                        <input id="radioEnum" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入单选框(枚举)')}"/>
+
+
+                        <div id="radioEnum" th:data="${enum.toArray('org.github.foxnic.web.constants.enums.Language')}" style="width:140px"></div>
                     </div>
-                    <!-- 单选框(字典) , radioDict , isHideInSearch=false -->
+                    <!-- 单选框(字典) , radioDict ,typeName=radio_box, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div"><span th:text="${lang.translate('单选框(字典)')}" class="search-label">单选框(字典)</span><span class="search-colon">:</span></div>
-                        <input id="radioDict" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入单选框(字典)')}"/>
+
+                        <div id="radioDict" th:data="${dict.toArray('sex')}" style="width:140px"></div>
+
                     </div>
-                    <!-- 逻辑值 , valid , isHideInSearch=false -->
+                    <!-- 逻辑值 , valid ,typeName=logic_switch, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div"><span th:text="${lang.translate('逻辑值')}" class="search-label">逻辑值</span><span class="search-colon">:</span></div>
-                        <input id="valid" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入逻辑值')}"/>
+                        <div id="valid" data='[{"name":"有效","value":"1"},{"name":"无效","value":"0"}]' style="width:140px"></div>
                     </div>
 
 
                 </div>
                 <!-- 搜索输入区域 -->
                 <div class="layui-form toolbar search-inputs">
-                    <!-- 选择框(枚举) , selectEnum , isHideInSearch=false -->
+                    <!-- 选择框(枚举) , selectEnum ,typeName=select_box, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div"><span th:text="${lang.translate('选择框(枚举)')}" class="search-label">选择框(枚举)</span><span class="search-colon">:</span></div>
-                        <input id="selectEnum" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入选择框(枚举)')}"/>
+                        <div id="selectEnum" th:data="${enum.toArray('org.github.foxnic.web.constants.enums.SystemConfigType')}" style="width:140px"></div>
                     </div>
-                    <!-- 选择框(字典) , selectDict , isHideInSearch=false -->
+                    <!-- 选择框(字典) , selectDict ,typeName=select_box, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div"><span th:text="${lang.translate('选择框(字典)')}" class="search-label">选择框(字典)</span><span class="search-colon">:</span></div>
-                        <input id="selectDict" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入选择框(字典)')}"/>
+                        <div id="selectDict" th:data="${dict.toArray('order_status')}" style="width:140px"></div>
                     </div>
-                    <!-- 选择框(查询) , selectApi , isHideInSearch=false -->
+                    <!-- 选择框(查询) , selectApi ,typeName=select_box, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div"><span th:text="${lang.translate('选择框(查询)')}" class="search-label">选择框(查询)</span><span class="search-colon">:</span></div>
-                        <input id="selectApi" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入选择框(查询)')}"/>
+                        <div id="selectApi" th:data="${'/service-oauth/sys-resourze/query-paged-list'}" style="width:140px"></div>
                     </div>
 
 
@@ -124,9 +130,15 @@
     <a th:if="${perm.checkAuth('sys_code_example:delete')}" class="layui-btn layui-btn-xs" lay-event="del" th:text="${lang.translate('删除')}">删除</a>
 </script>
 
+<!-- 表格状态列 -->
+<script type="text/html" id="cell-tpl-valid">
+    <input type="checkbox" lay-filter="cell-tpl-valid" value="{{d.id}}" lay-skin="switch" lay-text="有效|无效"  {{d.valid==1?'checked':''}}/>
+</script>
 
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];
+    var RADIO_RADIOENUM_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.Language')}]];
+    var RADIO_RADIODICT_DATA = [[${dict.toArray('sex')}]];
     var AUTH_PREFIX="sys_code_example";
 </script>
 

@@ -2,7 +2,7 @@
 /**
  * 代码生成示例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-04 15:37:40
+ * @since 2021-08-04 17:26:59
  */
  -->
  <!DOCTYPE html>
@@ -80,32 +80,32 @@
     </div>
     
 	
-    
+	
     <div class="layui-form-item" >
         <label class="layui-form-label" th:text="${lang.translate('逻辑值')}">逻辑值</label>
         <div class="layui-input-block">
-            <input lay-filter="valid" id="valid" name="valid" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('逻辑值') }" type="text" class="layui-input"   />
+            <input type="checkbox" checked="" id="valid"  name="valid" lay-skin="switch" lay-filter="valid" lay-text="有效|无效" value="1">
         </div>
     </div>
     
 	
-    
+	
     <div class="layui-form-item" >
         <label class="layui-form-label" th:text="${lang.translate('单选框(枚举)')}">单选框(枚举)</label>
         <div class="layui-input-block">
-            <input lay-filter="radioEnum" id="radioEnum" name="radioEnum" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('单选框(枚举)') }" type="text" class="layui-input"   />
+            <input type="radio" name="radioEnum" lay-filter="radioEnum" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.Language')}" th:value="${e.code}" th:title="${e.text}">
         </div>
     </div>
-    
+
 	
-    
+	
     <div class="layui-form-item" >
         <label class="layui-form-label" th:text="${lang.translate('单选框(字典)')}">单选框(字典)</label>
         <div class="layui-input-block">
-            <input lay-filter="radioDict" id="radioDict" name="radioDict" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('单选框(字典)') }" type="text" class="layui-input"   />
+            <input type="radio" name="radioDict" lay-filter="radioDict" th:each="e,stat:${dict.toArray('sex')}" th:value="${e.code}" th:title="${e.text}">
         </div>
     </div>
-    
+
 	
     
     <div class="layui-form-item" >
@@ -125,38 +125,38 @@
     </div>
     
 	
-    
-    <div class="layui-form-item" >
-        <label class="layui-form-label" th:text="${lang.translate('选择框(枚举)')}">选择框(枚举)</label>
-        <div class="layui-input-block">
-            <input lay-filter="selectEnum" id="selectEnum" name="selectEnum" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('选择框(枚举)') }" type="text" class="layui-input"   />
+
+        <div class="layui-form-item" >
+            <label class="layui-form-label" th:text="${lang.translate('选择框(枚举)')}">选择框(枚举)</label>
+            <div class="layui-input-block">
+                <div id="selectEnum" th:data="${enum.toArray('org.github.foxnic.web.constants.enums.SystemConfigType')}"></div>
+            </div>
         </div>
-    </div>
-    
+
 	
-    
-    <div class="layui-form-item" >
-        <label class="layui-form-label" th:text="${lang.translate('选择框(字典)')}">选择框(字典)</label>
-        <div class="layui-input-block">
-            <input lay-filter="selectDict" id="selectDict" name="selectDict" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('选择框(字典)') }" type="text" class="layui-input"   />
+
+        <div class="layui-form-item" >
+            <label class="layui-form-label" th:text="${lang.translate('选择框(字典)')}">选择框(字典)</label>
+            <div class="layui-input-block">
+                <div id="selectDict" th:data="${dict.toArray('order_status')}"></div>
+            </div>
         </div>
-    </div>
-    
+
 	
-    
-    <div class="layui-form-item" >
-        <label class="layui-form-label" th:text="${lang.translate('选择框(查询)')}">选择框(查询)</label>
-        <div class="layui-input-block">
-            <input lay-filter="selectApi" id="selectApi" name="selectApi" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('选择框(查询)') }" type="text" class="layui-input"   />
+
+        <div class="layui-form-item" >
+            <label class="layui-form-label" th:text="${lang.translate('选择框(查询)')}">选择框(查询)</label>
+            <div class="layui-input-block">
+                <div id="selectApi" th:data="${'/service-oauth/sys-resourze/query-paged-list'}"></div>
+            </div>
         </div>
-    </div>
-    
+
 	
     
     <div class="layui-form-item" >
         <label class="layui-form-label" th:text="${lang.translate('日期')}">日期</label>
         <div class="layui-input-block">
-            <input lay-filter="birthday" id="birthday" name="birthday" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('日期') }" type="text" class="layui-input"   />
+            <input lay-filter="birthday" id="birthday" name="birthday" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('日期') }" type="text" class="layui-input"    lay-verify="|date"   />
         </div>
     </div>
     

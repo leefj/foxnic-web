@@ -108,10 +108,10 @@ public class SystemCodeGenerator  {
 
 		//配置逻辑型字段
 		cfg.view().field(SYS_CONFIG.VALID)
-				.form().logic().off("无效", 0).on("有效", 1);
+				.form().logicField().off("无效", 0).on("有效", 1);
 		//配置字段为单选框，并指定枚举选项
 		cfg.view().field(SYS_CONFIG.TYPE)
-				.form().radio().enumType(SystemConfigType.class);
+				.form().radioBox().enumType(SystemConfigType.class);
 
 		
 		//文件生成覆盖模式
@@ -159,7 +159,7 @@ public class SystemCodeGenerator  {
 		cfg.view().field(FoxnicWeb.SYS_DICT.MODULE)
 				.basic().label("模块")
 				.form().validate().required()
-				.form().select().queryApi(MenuServiceProxy.QUERY_LIST+"?parentId=0").paging(false).filter(false).toolbar(false)
+				.form().selectBox().queryApi(MenuServiceProxy.QUERY_LIST+"?parentId=0").paging(false).filter(false).toolbar(false)
 					.valueField(MenuMeta.ID).textField(MenuMeta.LABEL).fillBy(DictMeta.MODULE_INFO).muliti(false)
 
 		;

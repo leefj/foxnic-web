@@ -148,8 +148,10 @@ public class #(simpleName) extends SuperController {
 		#if(f.typeName.equals("select_box"))
 		#if(f.selectField.enumTypeName!=null)
 		#else
+		#if(f.selectField.fillByConstName!=null)
 		// 关联出 #(f.labelInList) 数据
 		#(serviceVarName).join(#(poVarName),#(poMetaClassName).#(f.selectField.fillByConstName));
+		#end
 		#end
 		#end
 		#end
@@ -220,8 +222,10 @@ public class #(simpleName) extends SuperController {
 		#if(f.typeName.equals("select_box"))
 		#if(f.selectField.enumTypeName!=null)
 		#else
+		#if(f.selectField.fillByConstName!=null)
 		// 关联出 #(f.labelInList) 数据
 		#(serviceVarName).join(list,#(poMetaClassName).#(f.selectField.fillByConstName));
+		#end
 		#end
 		#end
 		#end
