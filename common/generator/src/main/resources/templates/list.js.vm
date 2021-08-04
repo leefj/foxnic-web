@@ -316,17 +316,9 @@ function ListPage() {
 			#end
 		});
 	#end
-	#if(f.validate!=null)
-	#if(f.validate.isInteger)
-		//只允许输入0-9的数字
-		fox.limitInput("##(f.varName)",/[^0-9]/g);
-	#else if(f.validate.isDecimal)
-		//只允许输入0-9的数字和小数点
-		fox.limitInput("##(f.varName)",/[^0-9.]/g);
 	#end
 	#end
-	#end
-	#end
+		fox.renderSearchInputs();
 	}
 	
 	/**

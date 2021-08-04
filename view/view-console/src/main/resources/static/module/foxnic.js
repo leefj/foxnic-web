@@ -365,18 +365,292 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"xmSe
     		if(!t) return "";
     		return util.toDateString(t,f);
     	},
+
+		renderSearchInputs(){
+
+			var inputs=$(".search-input");
+			for (var i = 0; i < inputs.length; i++) {
+				var input=$(inputs[i]);
+				var inputType=input.attr("input-type");
+				if(inputType=="number_input") {
+					var integer=input.attr("integer");
+					var decimal=input.attr("decimal");
+					var allowNegative=input.attr("allow-negative");
+					var minValue=input.attr("min-value");
+					var maxValue=input.attr("max-value");
+					var scale=input.attr("scale");
+					var step=input.attr("step");
+					this.renderAsNumberInput(input,decimal,scale,step,minValue,maxValue);
+					if(integer=="true") {
+						this.limitNumbrInput4Integer(input,allowNegative=="true",minValue,maxValue);
+					}
+					else if(decimal=="true") {
+						this.limitNumberInput4Decimal(input,allowNegative=="true",scale,minValue,maxValue);
+					}
+				}
+			}
+
+		},
+		renderAsNumberInput : function (input,decimal,scale,step,minValue,maxValue) {
+		step=parseFloat(step);
+		minValue=parseFloat(minValue);
+		maxValue=parseFloat(maxValue);
+		scale=parseInt(scale);
+		if(isNaN(scale)) scale=2;
+		if(!isNaN(step)) {
+			function doStep(e) {
+				var v= input.val().trim();
+				v=parseFloat(v);
+				if(e.key=="ArrowDown" || e.deltaY>0) {
+					if(isNaN(v)) {
+						if(isNaN(maxValue)) {
+							v=0
+						} else {
+							v=maxValue;
+						}
+					}
+					v-=step;
+					if(!isNaN(minValue)) {
+						if(v<minValue) v=minValue;
+					}
+					if(decimal=="true") {
+						v=Math.round(v*Math.pow(10,scale))/Math.pow(10,scale);
+					} else {
+						v=Math.round(v);
+					}
+					input.val(v);
+				}
+				if(e.key=="ArrowUp" || e.deltaY<0) {
+					if(isNaN(v)) {
+						if(isNaN(minValue)) {
+							v=0
+						} else {
+							v=minValue;
+						}
+					}
+					v+=step;
+					if(!isNaN(maxValue)) {
+						if(v>maxValue) v=maxValue;
+					}
+					if(decimal=="true") {
+						v=Math.round(v*Math.pow(10,scale))/Math.pow(10,scale);
+					} else {
+						v=Math.round(v);
+					}
+					input.val(v);
+				}
+			};
+
+			//滚轮上下滚动
+			input.hover(function(){
+				console.log("hover")
+				addHandler(document,'mousewheel');
+				addHandler(document,'DOMMouseScroll');
+			},function(){
+				removeHandler(document,'mousewheel');
+				removeHandler(document,'DOMMouseScroll');
+			});
+
+			function addHandler(element, type){
+				if (element.addEventListener){
+					element.addEventListener(type, doStep, false);
+				} else if (element.attachEvent){
+					element.attachEvent("on" + type, doStep);
+				} else {
+					element["on" + type] = doStep;
+				}
+			}
+
+			function removeHandler(element, type){
+				if (element.removeEventListener){
+					element.removeEventListener(type, doStep, false);
+				} else if (element.detachEvent){
+					element.detachEvent("on" + type, doStep);
+				} else {
+					element["on" + type] = null;
+				}
+			}
+
+			//键盘上下按键
+			input.keyup(doStep);
+		}
+	},
+
 		/**
 		 * 仅允许输入框输入整数
 		 * */
-		limitInput(elId,reg) {
-			$(elId).keyup(function(){
-				var val=$(this).val();
+		limitNumbrInput4Integer(inputId,negative,minValue,maxValue) {
+			var inst=null;
+			if(typeof(inputId)=='string') {
+				if (!inputId.startWith("#")) inputId = "#" + inputId;
+				inst=$(inputId);
+			} else {
+				inst=inputId;
+			}
+			var reg=/[^0-9]/g;
+			if(negative) { //如果负数
+				reg=/[^0-9-]/g;
+			}
+
+			function  applyValue(input,val) {
+				val=parseInt(val);
+				input.attr("val",val);
+				input.val(val);
+			}
+
+			function  revertValue(input) {
+				input.val(input.attr("val"));
+			}
+
+			function limit() {
+				var val=$(this).val().trim();
 				val=val.replace(reg,'');
-				$(this).val(val);
-			}).bind("paste",function(){  //CTR+V事件处理
-				$(this).val($(this).val().replace(reg,''));
-			})
+
+				if(""==val){
+					applyValue($(this),val);
+					return;
+				}
+
+				if(negative) {
+					if("-"==val || ""==val){
+						applyValue($(this),val);
+						return;
+					}
+					//减号只能出现在第一位
+					for (var j = 1; val.length>1 && j <val.length; j++) {
+						if(val.charAt(j)=='-') {
+							revertValue($(this));
+							return;
+						}
+					}
+				}
+
+				//检查对否能转换哼整数
+				var i=parseInt(val);
+				if(isNaN(i)) {
+					revertValue($(this));
+					return;
+				}
+
+				//范围控制
+				var delayTaskId=inst.attr("delay-task-id");
+				if(delayTaskId!="") {
+					clearTimeout(delayTaskId);
+				}
+				delayTaskId=setTimeout(function (){
+					//debugger
+					if(!isNaN(minValue)) {
+						if(i<minValue) val=minValue;
+					}
+
+					if(!isNaN(maxValue)) {
+						if(i>maxValue) val=maxValue;
+					}
+					applyValue(inst,val);
+				},1000);
+				inst.attr("delay-task-id",delayTaskId);
+ 				//
+				applyValue($(this),val);
+			}
+			//
+			inst.keyup(limit).bind("paste",limit).css("ime-mode", "disabled");
 		},
+
+		/**
+		 * 仅允许输入框输入数字
+		 * */
+		limitNumberInput4Decimal(inputId,negative,scale,minValue,maxValue) {
+			scale=parseInt(scale);
+			if(isNaN(scale)) scale=2;
+			var inst=null;
+			if(typeof(inputId)=='string') {
+				if (!inputId.startWith("#")) inputId = "#" + inputId;
+				inst=$(inputId);
+			} else {
+				inst=inputId;
+			}
+			var reg=/[^0-9.]/g;
+			if(negative) { //如果负数
+				reg=/[^0-9.-]/g;
+			}
+
+			function  applyValue(input,val) {
+				val=parseFloat(val);
+				val=Math.round(val*Math.pow(10,scale))/Math.pow(10,scale);
+				input.attr("val",val);
+				input.val(val);
+			}
+
+			function  revertValue(input) {
+				input.val(input.attr("val"));
+			}
+
+			function limit() {
+				var val=$(this).val().trim();
+				val=val.replace(reg,'');
+
+				if(""==val){
+					applyValue($(this),val);
+					return;
+				}
+
+				//只能出现一次小数点
+				var dots=0;
+				for (var i = 0; i < val.length; i++) {
+					if(val.charAt(i)=='.'){
+						dots++;
+						if(dots>=2) {
+							revertValue($(this));
+							return;
+						}
+					}
+				}
+
+				if(negative) {
+					if("-"==val || ""==val){
+						applyValue($(this),val);
+						return;
+					}
+					//减号只能出现在第一位
+					for (var j = 1; val.length>1 && j <val.length; j++) {
+						if(val.charAt(j)=='-') {
+							revertValue($(this));
+							return;
+						}
+					}
+				}
+				//
+				//检查对否能转换哼整数
+				var i=parseFloat(val);
+				if(isNaN(i)) {
+					revertValue($(this));
+					return;
+				}
+
+				//范围控制
+				var delayTaskId=inst.attr("delay-task-id");
+				if(delayTaskId!="") {
+					clearTimeout(delayTaskId);
+				}
+				delayTaskId=setTimeout(function (){
+					//debugger
+					if(!isNaN(minValue)) {
+						if(i<minValue) val=minValue;
+					}
+
+					if(!isNaN(maxValue)) {
+						if(i>maxValue) val=maxValue;
+					}
+					applyValue(inst,val);
+				},1000);
+				inst.attr("delay-task-id",delayTaskId);
+
+				applyValue($(this),val);
+			}
+			//
+			inst.keyup(limit).bind("paste",limit).css("ime-mode", "disabled");
+		},
+
 		joinLabel(data,key,sep) {
 			if(!data) return "";
 			var label="";

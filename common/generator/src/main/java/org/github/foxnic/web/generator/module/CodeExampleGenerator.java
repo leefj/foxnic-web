@@ -32,10 +32,10 @@ public class CodeExampleGenerator extends SystemCodeGenerator {
 				.search().location(1,1);
 
 		cfg.view().field(SYS_CODE_EXAMPLE.AREA)
-			.form().validate().required().integer();
+			.form().numberInput().integer().step(2.0).range(10.0,20.0).allowNegative(false);
 
 		cfg.view().field(SYS_CODE_EXAMPLE.WEIGHT)
-				.form().validate().required().decimal();
+				.form().numberInput().decimal().step(0.5).range(-1.5,6.6).allowNegative(true).scale(2);
 
 		//配置为上传类型
 		cfg.view().field(SYS_CODE_EXAMPLE.IMAGE_ID)

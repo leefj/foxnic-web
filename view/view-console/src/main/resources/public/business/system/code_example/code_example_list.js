@@ -1,7 +1,7 @@
 /**
  * 代码生成示例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-03 17:43:11
+ * @since 2021-08-04 15:37:40
  */
 
 
@@ -153,8 +153,7 @@ function ListPage() {
 	}
 
 	function initSearchFields() {
-		fox.limitInput("#area",/[^0-9]/g);
-		fox.limitInput("#weight",/[^0-9.]/g);
+		fox.renderSearchInputs();
 	}
 	
 	/**

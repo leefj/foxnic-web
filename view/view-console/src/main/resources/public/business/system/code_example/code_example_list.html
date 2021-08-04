@@ -2,7 +2,7 @@
 /**
  * 代码生成示例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-03 17:43:11
+ * @since 2021-08-04 15:37:39
  */
  -->
  <!DOCTYPE html>
@@ -43,12 +43,12 @@
                     <!-- 整数输入 , area , isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div"><span th:text="${lang.translate('整数输入')}" class="search-label">整数输入</span><span class="search-colon">:</span></div>
-                        <input id="area" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入整数输入')}"/>
+                            <input id="area" class="layui-input search-input" type="text" autocomplete="off" input-type="number_input" th:placeholder="${lang.translate('请输入整数输入')}" integer="true" decimal="false" allow-negative="false" step="2.0" min-value="10.0" max-value="20.0"  scale="0"  />
                     </div>
                     <!-- 小数输入 , weight , isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div"><span th:text="${lang.translate('小数输入')}" class="search-label">小数输入</span><span class="search-colon">:</span></div>
-                        <input id="weight" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入小数输入')}"/>
+                            <input id="weight" class="layui-input search-input" type="text" autocomplete="off" input-type="number_input" th:placeholder="${lang.translate('请输入小数输入')}" integer="false" decimal="true" allow-negative="true" step="0.5" min-value="-1.5" max-value="6.6"  scale="2"  />
                     </div>
                     <!-- 日期 , birthday , isHideInSearch=false -->
                     <div class="search-unit">
