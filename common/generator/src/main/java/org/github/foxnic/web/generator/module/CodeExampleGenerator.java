@@ -83,6 +83,9 @@ public class CodeExampleGenerator extends SystemCodeGenerator {
 				.form().selectBox().queryApi(ResourzeServiceProxy.QUERY_PAGED_LIST).valueField(ResourzeMeta.ID).textField(ResourzeMeta.URL).toolbar(false).paging(true);
 
 
+		//多行文本
+		cfg.view().field(SYS_CODE_EXAMPLE.NOTES)
+				.form().textArea();
 
 		cfg.view().formWindow();
 

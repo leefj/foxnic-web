@@ -14,12 +14,14 @@ import org.springframework.stereotype.Component;
 import java.io.File;
 import java.nio.file.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class DeployMonitor implements ApplicationListener<ApplicationStartedEvent> {
 
-    private SimpleTaskManager tm=new SimpleTaskManager(2);
+    private SimpleTaskManager tm=null;
 
     private WatchService watcher = null;
 
@@ -83,7 +85,8 @@ public class DeployMonitor implements ApplicationListener<ApplicationStartedEven
         }
     }
 
-    private int taskId=-1;
+
+    private Map<String,Integer> taskIds=new HashMap<>();
 
     public void watching() {
         while (true) {
@@ -98,12 +101,15 @@ public class DeployMonitor implements ApplicationListener<ApplicationStartedEven
                 WatchEvent.Kind<?> kind = event.kind();
                 final Path path = (Path) key.watchable();
                 final Path filename = (Path) event.context();
-                final String fullPath=String.format("%s\\%s%n", path.toString(), filename.toString()).trim();
+                final String fullPath=String.format("%s"+File.separator+"%s%n", path.toString(), filename.toString()).trim();
                 File target=new File(fullPath);
                 if(target.isDirectory()) continue;
                 if(filename.toString().trim().endsWith("~")) continue;
 //                System.err.println(fullPath);
-                tm.clearTask(taskId);
+                Integer taskId=taskIds.get(target.getAbsolutePath());
+                if(taskId!=null) {
+                    tm.clearTask(taskId);
+                }
                 taskId=tm.doDelayTask(new Runnable() {
                     @Override
                     public void run() {
@@ -114,6 +120,7 @@ public class DeployMonitor implements ApplicationListener<ApplicationStartedEven
                         }
                     }
                 }, 100);
+                taskIds.put(target.getAbsolutePath(),taskId);
             }
             // 重设WatchKey
             boolean valid = key.reset();
@@ -126,6 +133,7 @@ public class DeployMonitor implements ApplicationListener<ApplicationStartedEven
     }
 
     private void deploy(File file) {
+        if(!file.exists()) return;
         if(file.isDirectory()) return;
         MavenProject p=null;
         for (MavenProject mp : mps) {
@@ -147,6 +155,8 @@ public class DeployMonitor implements ApplicationListener<ApplicationStartedEven
     @Override
     public void onApplicationEvent(ApplicationStartedEvent event) {
         if(!enable) return;
+        //
+        tm=new SimpleTaskManager(8);
         SimpleTaskManager.doParallelTask(new Runnable() {
             @Override
             public void run() {

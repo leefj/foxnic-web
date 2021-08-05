@@ -43,14 +43,14 @@ function FormPage() {
 				$(".form-container").css("overflow-y","scroll");
 				$(".form-container").css("height",finalHeight+"px");
 			}
-		},210);
+		},250);
 	}
 	
 	/**
       * 渲染表单组件
       */
 	function renderFormFields() {
-		form.render();
+		fox.renderFormInputs(form);
 	   
 	    #for(f : fields)
 	    #if(f.typeName.equals("upload"))

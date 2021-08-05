@@ -1,7 +1,4 @@
-
-
- 
-layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"xmSelect","element"], function (exports) {
+layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "xmSelect", "element"], function (exports) {
 
     var settings = layui.settings;
     var layer = layui.layer;
@@ -9,951 +6,975 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"xmSe
     var admin = layui.admin;
     var upload = layui.upload;
     var form = layui.form;
-    var util=layui.util;
-	var xmSelect=layui.xmSelect;
-	var element=layui.element;
-  	var dict={};
- 
-  	var language=settings.getLang();
-  	var codeLangs=null;
-  	var defaultsLangs=null;
-  	
+    var util = layui.util;
+    var xmSelect = layui.xmSelect;
+    var element = layui.element;
+    var dict = {};
+
+    var language = settings.getLang();
+    var codeLangs = null;
+    var defaultsLangs = null;
+
     var foxnic = {
 
-		renderSelectBox:function (cfg) {
+        renderSelectBox: function (cfg) {
 
-			var inst= null;
-			//不重复渲染
-			if(xmSelect.get(cfg.el,true)!=null) return;
-			if(!cfg.el.startWith("#")) cfg.el="#"+cfg.el;
-			var el=$(cfg.el);
-			if(!cfg.searchTips) cfg.searchTips="请输入关键字";
-			var data=el.attr("data");
-			var url=null;
-			try {
-				data=JSON.parse(data);
+            var inst = null;
+            //不重复渲染
+            if (xmSelect.get(cfg.el, true) != null) return;
+            if (!cfg.el.startWith("#")) cfg.el = "#" + cfg.el;
+            var el = $(cfg.el);
+            if (!cfg.searchTips) cfg.searchTips = "请输入关键字";
+            var data = el.attr("data");
+            var url = null;
+            try {
+                data = JSON.parse(data);
 
-			} catch (e){
-				url=data;
-				data=null;
-			}
+            } catch (e) {
+                url = data;
+                data = null;
+            }
 
-			//本地数据渲染
-			if(data!=null) {
-				if(cfg.transform) {
-					var opts=cfg.transform(data);
-					cfg.data= opts;
-				} else {
-					cfg.data= data;
-				}
-			} else if(url!=null) {
-				//debugger
-				cfg.remoteSearch=true;
-				// cfg.filterable=true;
+            //本地数据渲染
+            if (data != null) {
+                if (cfg.transform) {
+                    var opts = cfg.transform(data);
+                    cfg.data = opts;
+                } else {
+                    cfg.data = data;
+                }
+            } else if (url != null) {
+                //debugger
+                cfg.remoteSearch = true;
 
-				function query(ps,cb) {
-					admin.request(url,ps,function(r) {
-						var opts=[];
-						if(r.success) {
-							if(cfg.paging) {
-								opts=cfg.transform(r.data.list);
-							} else {
-								opts=cfg.transform(r.data);
-							}
+                // cfg.filterable=true;
 
-						} else {
-							opts=[{name:r.message,value:"-1"}];
-						}
-						// debugger
-						if(cfg.paging) {
-							cb(opts,r.data.pageCount);
-						} else {
-							cb(opts);
-						}
+                function query(ps, cb) {
+                    admin.request(url, ps, function (r) {
+                        var opts = [];
+                        if (r.success) {
+                            if (cfg.paging) {
+                                opts = cfg.transform(r.data.list);
+                            } else {
+                                opts = cfg.transform(r.data);
+                            }
 
-						if(window.adjustPopup) {
-							window.adjustPopup();
-						}
+                        } else {
+                            opts = [{name: r.message, value: "-1"}];
+                        }
+                        // debugger
+                        if (cfg.paging) {
+                            cb(opts, r.data.pageCount);
+                        } else {
+                            cb(opts);
+                        }
 
-					},"POST",true);
-				}
+                        if (window.adjustPopup) {
+                            window.adjustPopup();
+                        }
 
-				if(!cfg.filterable) {
-					query({},function (r){
-						cfg.data= r;
-						var sel=xmSelect.get(cfg.el,true);
-						var val=sel.getValue();
-						xmSelect.render(cfg);
-						if(val) {
-							sel.setValue(val);
-						}
-					})
-				}
+                    }, "POST", true);
+                }
 
-				cfg.remoteMethod=function (val, cb, show, pageIndex) {
-					//debugger;
-					var ps={searchField:cfg.searchField,searchValue:val,fuzzyField:cfg.searchField};
-					if(cfg.paging) {
-						if(!cfg.pageSize) ps.pageSize=10;
-						else ps.pageSize=cfg.pageSize;
-					}
-					ps.pageIndex=pageIndex;
+                if (!cfg.filterable) {
+                    query({}, function (r) {
+                        cfg.data = r;
+                        var sel = xmSelect.get(cfg.el, true);
+                        var val = sel.getValue();
+                        xmSelect.render(cfg);
+                        if (val) {
+                            sel.setValue(val);
+                        }
+                    })
+                }
 
-					if(cfg.extraParam) {
-						var ext={};
-						if(typeof(cfg.extraParam) == 'function'){
-							ext=cfg.extraParam();
-						} else {
-							ext=cfg.extraParam;
-						}
-						for(var key in ext) { ps[key]=ext[key];}
-					}
+                cfg.remoteMethod = function (val, cb, show, pageIndex) {
+                    //debugger;
+                    var ps = {searchField: cfg.searchField, searchValue: val, fuzzyField: cfg.searchField};
+                    if (cfg.paging) {
+                        if (!cfg.pageSize) ps.pageSize = 10;
+                        else ps.pageSize = cfg.pageSize;
+                    }
+                    ps.pageIndex = pageIndex;
 
-					query(ps,cb);
+                    if (cfg.extraParam) {
+                        var ext = {};
+                        if (typeof (cfg.extraParam) == 'function') {
+                            ext = cfg.extraParam();
+                        } else {
+                            ext = cfg.extraParam;
+                        }
+                        for (var key in ext) {
+                            ps[key] = ext[key];
+                        }
+                    }
 
-				}
-			}
+                    query(ps, cb);
 
-
-			console.log("data",data);
-			console.log("opts",opts);
-
-			inst=xmSelect.render(cfg);
-			setTimeout(function (){
-				//设置值的布局方式
-				if(cfg.valueDirection) {
-					var div = $(cfg.el + " .label-content");
-					div.css("flex-direction", cfg.valueDirection);
-				}
-			},500);
-			return inst;
-		},
-    	/**
-    	 * 渲染分页的表格
-    	 * */
-    	renderTable:function(cfg) {
- 			var tableId=cfg.elem.substring(1);
- 			//debugger;
- 			if(window.LAYUI_TABLE_WIDTH_CONFIG) {
-				//debugger;
-				var columnWidthConfig = LAYUI_TABLE_WIDTH_CONFIG[tableId];
-				if (columnWidthConfig) {
-					cfg.url = settings.base_server + cfg.url;
-					var cols = cfg.cols[0];
-					var prevFlag = 0, prev = null;
-					for (var i = 0; cols && i < cols.length; i++) {
-						if (cols[i].hide) continue;
-						// if(cols[i].field=="createTime") {
-						// 	debugger;
-						// 	columnWidthConfig[cols[i].field]=200;
-						// }
-						var w = columnWidthConfig[cols[i].field];
-						if (w) {
-							cols[i].width = w;
-							console.log(cols[i].field, w);
-						}
-						if (cols[i].field == "row-ops") prevFlag = 1;
-						if (prevFlag == 0) {
-							prev = cols[i];
-						}
-
-					}
-					if (prev) prev.width = null;
-				}
-			}
-
-    		
-    		var basicConfig={
-    			method: 'POST',
-	    		headers:{'token':settings.getToken()},
-	            request:{
-	            	pageName:"pageIndex",
-	            	limitName:"pageSize"
-	            },
-	            parseData: function(res){ //res 即为原始返回的数据
-				    //debugger;
-					if(!res.success) {
-						alert(res.message);
-						return null;
-					}
-    				return {
-				      "code": res.code=="00"?0:-1, //解析接口状态
-				      "msg": res.message, //解析提示文本
-				      "count": res.data.totalRowCount, //解析数据长度
-				      "data": res.data.list //解析数据列表
-				    };
-				},
-	            page: true
-    		};
-
-    		//覆盖基础配置
-    		for(var key in basicConfig) {
-				if(cfg[key]!=null) continue;
-			    cfg[key]=basicConfig[key];
-			}
-			
-			cfg.autoSort=false;
-			
-			var userDone=cfg.done;
-			
-			function done() {
-				if(cfg.footer) {
-					renderFooter(this,cfg.footer);
-				}
-				if(userDone) userDone();
-			}
-			
-			function renderFooter(it,footer) {
-
-				var url=it.url;
-				url=url.substring(0,url.lastIndexOf('/'));
-
-				var div=$("#layui-table-page"+it.index);
-				var buttons=[];
-
-				if(footer.importExcel) {
-					var exportExcelTemplateButton = '<button id="layui-table-page' + it.index + '-footer-download-excel-template"  type="button" class="layui-btn layui-btn-primary layui-btn-xs"><i class="fa fa-download"></i> 下载模版</button>';
-					buttons.push(exportExcelTemplateButton);
-					var importExcelButton = '<button id="layui-table-page' + it.index + '-footer-import-excel"  type="button" class="layui-btn layui-btn-primary layui-btn-xs"><i class="fa fa-cloud-upload"></i> 导入数据</button>&nbsp;&nbsp;';
-					buttons.push(importExcelButton);
-				}
-
-				if(footer.exportExcel) {
-					var exportExcelButton = '<button id="layui-table-page' + it.index + '-footer-download-excel"  type="button" class="layui-btn layui-btn-primary layui-btn-xs"><i class="fa fa-cloud-download"></i>  导出数据</button>';
-					buttons.push(exportExcelButton);
-				}
-
-            	div.append("<div style='float:right'>"+buttons.join("")+"</div>")
+                }
+            }
 
 
-				if(footer.importExcel) {
-					$('#layui-table-page' + it.index + '-footer-download-excel-template').click(function () {
-						foxnic.submit(url + "/export-excel-template", it.where);
-					});
-					var ps=footer.importExcel.params;
-					if(ps && (typeof ps === "function")) {
-						ps=ps();
-					}
-					var cb=footer.importExcel.callback;
-					if(!ps) ps={};
-					foxnic.bindImportButton($('#layui-table-page' + it.index + '-footer-import-excel'),url+"/import-excel",ps,function(r) {
-						 cb && cb(r);
-					});
-					// $('#layui-table-page' + it.index + '-footer-import-excel').click(function () {
-					// 	//foxnic.submit(url + "/export-excel-template", it.where);
-					// 	alert("打开文件")
-					// });
-				}
-				if(footer.exportExcel) {
-					$('#layui-table-page' + it.index + '-footer-download-excel').click(function () {
-						foxnic.submit(url + "/export-excel", it.where);
-					});
-				}
- 
-			}
-			
-			cfg.done=done;
-			if(!table.instance) table.instance=[];
-			var inst=table.render(cfg);
-			table.instance.push(inst)
-    		return inst;
-    	},
-    	
-    	/**
-    	 * 字典值转换成标签
-    	 * */
-    	transDict:function(dictCode,itemCode){
-    		var map=dict[dictCode];
-    		var label=null;
-    		if(map) label=map[itemCode];
-    		return label==null?"--":label;
-    	},
-    	
-    	translate:function(defaults,code) {
- 			//debugger
-			if(defaultsLangs==null)
-			{
-				//debugger;
-				codeLangs=localStorage.getItem("language_codeLangs");
-				if(codeLangs && codeLangs.length>2) {
-					codeLangs=JSON.parse(codeLangs);
-				}
-				defaultsLangs=localStorage.getItem("language_defaultsLangs");
-				if(defaultsLangs && defaultsLangs.length>2) {
-					defaultsLangs=JSON.parse(defaultsLangs);
-				}
-			}
-			if(defaultsLangs==null){
-				return defaults;
-			}
-    		var item=defaultsLangs[defaults];
-    		var text=null;
-    		if(!item && code) {
-    			item=codeLangs[code];
-    		}
-    		if(item) {
-    			text=item[language];
-    			if(text && text!=":ns;"){
-    				return text;
-    			}
-    		}
-    		
-    		if(!text || text==":ns;") {
-    			text=defaults;
-    		}
-    		
-    		//如果条目不存在，则插入
-    		if(!item) {
-	    		admin.request("/service-system/sys-lang/insert", {code:code,defaults:defaults}, function (data) {
-					localStorage.removeItem("language_timestamp");
-				});
-    		}
-    		
-    		return text?text:"--";
-    	},
-    	
-    	
-    	/**
-    	 * 渲染文件导入按钮
-    	 * */
-    	bindImportButton:function(buttonEl,url,params,callback) {
- 			 url=url.replace("//","/");
-			 url=url.replace("http:/","http://");
-			 url=url.replace("https:/","https://");
-			 var task=null;
-    		 var uploadInst = upload.render({
-			    elem: buttonEl
-			    ,url: url //改成您自己的上传接口
-			    ,data :params
-			    ,accept:"file"
-			    ,headers:{token:settings.getToken()}
-			    ,before: function(obj) {
-			    	task=setTimeout(function(){layer.load(2);},500);
-			      //预读本地文件示例，不支持ie8
-			      //obj.preview(function(index, file, result){
-			      //  $(imageEl).attr('src', result); //图片链接（base64）
-			      //  debugger;
-			      //});
-			    }
-			    ,done: function(res){
-			    	clearTimeout(task);
-					layer.closeAll('loading');
-			      //如果上传失败
-			      if(!res.success) {
-			        return layer.msg(res.message);
-			      }
-			      //上传成功
-			      //$(inputEl).val(res.data[0].fileId);
-			      callback && callback(res);
-			    }
-			    ,error: function(){
-					clearTimeout(task);
-					layer.closeAll('loading');
-			    	layer.msg('上传失败');
-			      //演示失败状态，并实现重传
-			      //var demoText = $('#demoText');
-			      //demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
-			      //demoText.find('.demo-reload').on('click', function(){
-			      //  uploadInst.upload();
-			      //});
-			    }
-			  });
-    	
-    	},
-    	
-    	dateFormat(t,f) {
-    		if(!t) return "";
-    		return util.toDateString(t,f);
-    	},
+            console.log("data", data);
+            console.log("opts", opts);
 
-		renderSearchInputs(){
+            inst = xmSelect.render(cfg);
+            setTimeout(function () {
+                //设置值的布局方式
+                if (cfg.valueDirection) {
+                    var div = $(cfg.el + " .label-content");
+                    div.css("flex-direction", cfg.valueDirection);
+                }
+            }, 500);
+            return inst;
+        },
+        /**
+         * 渲染分页的表格
+         * */
+        renderTable: function (cfg) {
+            var tableId = cfg.elem.substring(1);
+            //debugger;
+            if (window.LAYUI_TABLE_WIDTH_CONFIG) {
+                //debugger;
+                var columnWidthConfig = LAYUI_TABLE_WIDTH_CONFIG[tableId];
+                if (columnWidthConfig) {
+                    cfg.url = settings.base_server + cfg.url;
+                    var cols = cfg.cols[0];
+                    var prevFlag = 0, prev = null;
+                    for (var i = 0; cols && i < cols.length; i++) {
+                        if (cols[i].hide) continue;
+                        // if(cols[i].field=="createTime") {
+                        // 	debugger;
+                        // 	columnWidthConfig[cols[i].field]=200;
+                        // }
+                        var w = columnWidthConfig[cols[i].field];
+                        if (w) {
+                            cols[i].width = w;
+                            console.log(cols[i].field, w);
+                        }
+                        if (cols[i].field == "row-ops") prevFlag = 1;
+                        if (prevFlag == 0) {
+                            prev = cols[i];
+                        }
 
-			var inputs=$(".search-input");
-			for (var i = 0; i < inputs.length; i++) {
-				var input=$(inputs[i]);
-				var inputType=input.attr("input-type");
-				if(inputType=="number_input") {
-					var integer=input.attr("integer");
-					var decimal=input.attr("decimal");
-					var allowNegative=input.attr("allow-negative");
-					var minValue=input.attr("min-value");
-					var maxValue=input.attr("max-value");
-					var scale=input.attr("scale");
-					var step=input.attr("step");
-					this.renderAsNumberInput(input,decimal,scale,step,minValue,maxValue);
-					if(integer=="true") {
-						this.limitNumbrInput4Integer(input,allowNegative=="true",minValue,maxValue);
-					}
-					else if(decimal=="true") {
-						this.limitNumberInput4Decimal(input,allowNegative=="true",scale,minValue,maxValue);
-					}
-				}
-			}
+                    }
+                    if (prev) prev.width = null;
+                }
+            }
 
-		},
-		renderAsNumberInput : function (input,decimal,scale,step,minValue,maxValue) {
-		step=parseFloat(step);
-		minValue=parseFloat(minValue);
-		maxValue=parseFloat(maxValue);
-		scale=parseInt(scale);
-		if(isNaN(scale)) scale=2;
-		if(!isNaN(step)) {
-			function doStep(e) {
-				var v= input.val().trim();
-				v=parseFloat(v);
-				if(e.key=="ArrowDown" || e.deltaY>0) {
-					if(isNaN(v)) {
-						if(isNaN(maxValue)) {
-							v=0
-						} else {
-							v=maxValue;
-						}
-					}
-					v-=step;
-					if(!isNaN(minValue)) {
-						if(v<minValue) v=minValue;
-					}
-					if(decimal=="true") {
-						v=Math.round(v*Math.pow(10,scale))/Math.pow(10,scale);
-					} else {
-						v=Math.round(v);
-					}
-					input.val(v);
-				}
-				if(e.key=="ArrowUp" || e.deltaY<0) {
-					if(isNaN(v)) {
-						if(isNaN(minValue)) {
-							v=0
-						} else {
-							v=minValue;
-						}
-					}
-					v+=step;
-					if(!isNaN(maxValue)) {
-						if(v>maxValue) v=maxValue;
-					}
-					if(decimal=="true") {
-						v=Math.round(v*Math.pow(10,scale))/Math.pow(10,scale);
-					} else {
-						v=Math.round(v);
-					}
-					input.val(v);
-				}
-			};
 
-			//滚轮上下滚动
-			input.hover(function(){
-				console.log("hover")
-				addHandler(document,'mousewheel');
-				addHandler(document,'DOMMouseScroll');
-			},function(){
-				removeHandler(document,'mousewheel');
-				removeHandler(document,'DOMMouseScroll');
-			});
+            var basicConfig = {
+                method: 'POST',
+                headers: {'token': settings.getToken()},
+                request: {
+                    pageName: "pageIndex",
+                    limitName: "pageSize"
+                },
+                parseData: function (res) { //res 即为原始返回的数据
+                    //debugger;
+                    if (!res.success) {
+                        alert(res.message);
+                        return null;
+                    }
+                    return {
+                        "code": res.code == "00" ? 0 : -1, //解析接口状态
+                        "msg": res.message, //解析提示文本
+                        "count": res.data.totalRowCount, //解析数据长度
+                        "data": res.data.list //解析数据列表
+                    };
+                },
+                page: true
+            };
 
-			function addHandler(element, type){
-				if (element.addEventListener){
-					element.addEventListener(type, doStep, false);
-				} else if (element.attachEvent){
-					element.attachEvent("on" + type, doStep);
-				} else {
-					element["on" + type] = doStep;
-				}
-			}
+            //覆盖基础配置
+            for (var key in basicConfig) {
+                if (cfg[key] != null) continue;
+                cfg[key] = basicConfig[key];
+            }
 
-			function removeHandler(element, type){
-				if (element.removeEventListener){
-					element.removeEventListener(type, doStep, false);
-				} else if (element.detachEvent){
-					element.detachEvent("on" + type, doStep);
-				} else {
-					element["on" + type] = null;
-				}
-			}
+            cfg.autoSort = false;
 
-			//键盘上下按键
-			input.keyup(doStep);
-		}
-	},
+            var userDone = cfg.done;
 
-		/**
-		 * 仅允许输入框输入整数
-		 * */
-		limitNumbrInput4Integer(inputId,negative,minValue,maxValue) {
-			var inst=null;
-			if(typeof(inputId)=='string') {
-				if (!inputId.startWith("#")) inputId = "#" + inputId;
-				inst=$(inputId);
-			} else {
-				inst=inputId;
-			}
-			var reg=/[^0-9]/g;
-			if(negative) { //如果负数
-				reg=/[^0-9-]/g;
-			}
+            function done() {
+                if (cfg.footer) {
+                    renderFooter(this, cfg.footer);
+                }
+                if (userDone) userDone();
+            }
 
-			function  applyValue(input,val) {
-				val=parseInt(val);
-				input.attr("val",val);
-				input.val(val);
-			}
+            function renderFooter(it, footer) {
 
-			function  revertValue(input) {
-				input.val(input.attr("val"));
-			}
+                var url = it.url;
+                url = url.substring(0, url.lastIndexOf('/'));
 
-			function limit() {
-				var val=$(this).val().trim();
-				val=val.replace(reg,'');
+                var div = $("#layui-table-page" + it.index);
+                var buttons = [];
 
-				if(""==val){
-					applyValue($(this),val);
-					return;
-				}
+                if (footer.importExcel) {
+                    var exportExcelTemplateButton = '<button id="layui-table-page' + it.index + '-footer-download-excel-template"  type="button" class="layui-btn layui-btn-primary layui-btn-xs"><i class="fa fa-download"></i> 下载模版</button>';
+                    buttons.push(exportExcelTemplateButton);
+                    var importExcelButton = '<button id="layui-table-page' + it.index + '-footer-import-excel"  type="button" class="layui-btn layui-btn-primary layui-btn-xs"><i class="fa fa-cloud-upload"></i> 导入数据</button>&nbsp;&nbsp;';
+                    buttons.push(importExcelButton);
+                }
 
-				if(negative) {
-					if("-"==val || ""==val){
-						applyValue($(this),val);
-						return;
-					}
-					//减号只能出现在第一位
-					for (var j = 1; val.length>1 && j <val.length; j++) {
-						if(val.charAt(j)=='-') {
-							revertValue($(this));
-							return;
-						}
-					}
-				}
+                if (footer.exportExcel) {
+                    var exportExcelButton = '<button id="layui-table-page' + it.index + '-footer-download-excel"  type="button" class="layui-btn layui-btn-primary layui-btn-xs"><i class="fa fa-cloud-download"></i>  导出数据</button>';
+                    buttons.push(exportExcelButton);
+                }
 
-				//检查对否能转换哼整数
-				var i=parseInt(val);
-				if(isNaN(i)) {
-					revertValue($(this));
-					return;
-				}
+                div.append("<div style='float:right'>" + buttons.join("") + "</div>")
 
-				//范围控制
-				var delayTaskId=inst.attr("delay-task-id");
-				if(delayTaskId!="") {
-					clearTimeout(delayTaskId);
-				}
-				delayTaskId=setTimeout(function (){
-					//debugger
-					if(!isNaN(minValue)) {
-						if(i<minValue) val=minValue;
-					}
 
-					if(!isNaN(maxValue)) {
-						if(i>maxValue) val=maxValue;
-					}
-					applyValue(inst,val);
-				},1000);
-				inst.attr("delay-task-id",delayTaskId);
- 				//
-				applyValue($(this),val);
-			}
-			//
-			inst.keyup(limit).bind("paste",limit).css("ime-mode", "disabled");
-		},
+                if (footer.importExcel) {
+                    $('#layui-table-page' + it.index + '-footer-download-excel-template').click(function () {
+                        foxnic.submit(url + "/export-excel-template", it.where);
+                    });
+                    var ps = footer.importExcel.params;
+                    if (ps && (typeof ps === "function")) {
+                        ps = ps();
+                    }
+                    var cb = footer.importExcel.callback;
+                    if (!ps) ps = {};
+                    foxnic.bindImportButton($('#layui-table-page' + it.index + '-footer-import-excel'), url + "/import-excel", ps, function (r) {
+                        cb && cb(r);
+                    });
+                    // $('#layui-table-page' + it.index + '-footer-import-excel').click(function () {
+                    // 	//foxnic.submit(url + "/export-excel-template", it.where);
+                    // 	alert("打开文件")
+                    // });
+                }
+                if (footer.exportExcel) {
+                    $('#layui-table-page' + it.index + '-footer-download-excel').click(function () {
+                        foxnic.submit(url + "/export-excel", it.where);
+                    });
+                }
 
-		/**
-		 * 仅允许输入框输入数字
-		 * */
-		limitNumberInput4Decimal(inputId,negative,scale,minValue,maxValue) {
-			scale=parseInt(scale);
-			if(isNaN(scale)) scale=2;
-			var inst=null;
-			if(typeof(inputId)=='string') {
-				if (!inputId.startWith("#")) inputId = "#" + inputId;
-				inst=$(inputId);
-			} else {
-				inst=inputId;
-			}
-			var reg=/[^0-9.]/g;
-			if(negative) { //如果负数
-				reg=/[^0-9.-]/g;
-			}
+            }
 
-			function  applyValue(input,val) {
-				val=parseFloat(val);
-				val=Math.round(val*Math.pow(10,scale))/Math.pow(10,scale);
-				input.attr("val",val);
-				input.val(val);
-			}
+            cfg.done = done;
+            if (!table.instance) table.instance = [];
+            var inst = table.render(cfg);
+            table.instance.push(inst)
+            return inst;
+        },
 
-			function  revertValue(input) {
-				input.val(input.attr("val"));
-			}
+        /**
+         * 字典值转换成标签
+         * */
+        transDict: function (dictCode, itemCode) {
+            var map = dict[dictCode];
+            var label = null;
+            if (map) label = map[itemCode];
+            return label == null ? "--" : label;
+        },
 
-			function limit() {
-				var val=$(this).val().trim();
-				val=val.replace(reg,'');
+        translate: function (defaults, code) {
+            //debugger
+            if (defaultsLangs == null) {
+                //debugger;
+                codeLangs = localStorage.getItem("language_codeLangs");
+                if (codeLangs && codeLangs.length > 2) {
+                    codeLangs = JSON.parse(codeLangs);
+                }
+                defaultsLangs = localStorage.getItem("language_defaultsLangs");
+                if (defaultsLangs && defaultsLangs.length > 2) {
+                    defaultsLangs = JSON.parse(defaultsLangs);
+                }
+            }
+            if (defaultsLangs == null) {
+                return defaults;
+            }
+            var item = defaultsLangs[defaults];
+            var text = null;
+            if (!item && code) {
+                item = codeLangs[code];
+            }
+            if (item) {
+                text = item[language];
+                if (text && text != ":ns;") {
+                    return text;
+                }
+            }
 
-				if(""==val){
-					applyValue($(this),val);
-					return;
-				}
+            if (!text || text == ":ns;") {
+                text = defaults;
+            }
 
-				//只能出现一次小数点
-				var dots=0;
-				for (var i = 0; i < val.length; i++) {
-					if(val.charAt(i)=='.'){
-						dots++;
-						if(dots>=2) {
-							revertValue($(this));
-							return;
-						}
-					}
-				}
+            //如果条目不存在，则插入
+            if (!item) {
+                admin.request("/service-system/sys-lang/insert", {code: code, defaults: defaults}, function (data) {
+                    localStorage.removeItem("language_timestamp");
+                });
+            }
 
-				if(negative) {
-					if("-"==val || ""==val){
-						applyValue($(this),val);
-						return;
-					}
-					//减号只能出现在第一位
-					for (var j = 1; val.length>1 && j <val.length; j++) {
-						if(val.charAt(j)=='-') {
-							revertValue($(this));
-							return;
-						}
-					}
-				}
-				//
-				//检查对否能转换哼整数
-				var i=parseFloat(val);
-				if(isNaN(i)) {
-					revertValue($(this));
-					return;
-				}
+            return text ? text : "--";
+        },
 
-				//范围控制
-				var delayTaskId=inst.attr("delay-task-id");
-				if(delayTaskId!="") {
-					clearTimeout(delayTaskId);
-				}
-				delayTaskId=setTimeout(function (){
-					//debugger
-					if(!isNaN(minValue)) {
-						if(i<minValue) val=minValue;
-					}
 
-					if(!isNaN(maxValue)) {
-						if(i>maxValue) val=maxValue;
-					}
-					applyValue(inst,val);
-				},1000);
-				inst.attr("delay-task-id",delayTaskId);
+        /**
+         * 渲染文件导入按钮
+         * */
+        bindImportButton: function (buttonEl, url, params, callback) {
+            url = url.replace("//", "/");
+            url = url.replace("http:/", "http://");
+            url = url.replace("https:/", "https://");
+            var task = null;
+            var uploadInst = upload.render({
+                elem: buttonEl
+                , url: url //改成您自己的上传接口
+                , data: params
+                , accept: "file"
+                , headers: {token: settings.getToken()}
+                , before: function (obj) {
+                    task = setTimeout(function () {
+                        layer.load(2);
+                    }, 500);
+                    //预读本地文件示例，不支持ie8
+                    //obj.preview(function(index, file, result){
+                    //  $(imageEl).attr('src', result); //图片链接（base64）
+                    //  debugger;
+                    //});
+                }
+                , done: function (res) {
+                    clearTimeout(task);
+                    layer.closeAll('loading');
+                    //如果上传失败
+                    if (!res.success) {
+                        return layer.msg(res.message);
+                    }
+                    //上传成功
+                    //$(inputEl).val(res.data[0].fileId);
+                    callback && callback(res);
+                }
+                , error: function () {
+                    clearTimeout(task);
+                    layer.closeAll('loading');
+                    layer.msg('上传失败');
+                    //演示失败状态，并实现重传
+                    //var demoText = $('#demoText');
+                    //demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                    //demoText.find('.demo-reload').on('click', function(){
+                    //  uploadInst.upload();
+                    //});
+                }
+            });
 
-				applyValue($(this),val);
-			}
-			//
-			inst.keyup(limit).bind("paste",limit).css("ime-mode", "disabled");
-		},
+        },
 
-		joinLabel(data,key,sep) {
-			if(!data) return "";
-			var label="";
-			if(!sep) sep=",";
+        dateFormat(t, f) {
+            if (!t) return "";
+            return util.toDateString(t, f);
+        },
 
-			if(Array.isArray(data)) {
-				var labels=[];
-				for (var i = 0; i < data.length; i++) {
-					if(!data[i]) continue;
-					label=data[i][key];
-					if(label) {
-						labels.push(label);
-					}
-				}
-				label=label.join(sep);
-			} else {
-				label=data[key];
-			}
-			if(!label) label="";
-			return label;
-		},
-		getEnumText:function (list,code){
-    		if(!list) return code;
-			for (var i = 0; i < list.length; i++) {
-				if(list[i]["code"]==code) return list[i]["text"];
-			}
-			if(!code) code="";
-			return code;
-		},
+        renderFormInputs(form) {
+            debugger
+            this.renderInputs($(".layui-input"));
+            form.render();
+        },
+        renderSearchInputs() {
+            this.renderInputs($(".search-input"));
+        },
 
-		getDoctText:function (list,code){
-			if(!list) return code;
-			for (var i = 0; i < list.length; i++) {
-				if(list[i]["code"]==code) return list[i]["text"];
-			}
-			if(!code) code="";
-			return code;
-		},
+        renderInputs(inputs) {
 
-    	/**
-    	 * 绑定Switch开关
-    	 * */
-    	bindSwitchEvent:function(layFilter,updateApiUrl,idProp,logicProp,callback){
-			form.on('switch('+layFilter+')', function (obj) {
-	            layer.load(2);
-	            var data={};
-	            data[idProp]=obj.elem.value;
-	            data[logicProp]=obj.elem.checked ? 1 : 0;
-	            admin.request(updateApiUrl, data, function (data) {
-	                layer.closeAll('loading');
-	                if (data.success) {
-	                    layer.msg(data.message, {icon: 1, time: 500});
-	                } else {
-	                    layer.msg(data.message, {icon: 2, time: 500});
-	                    $(obj.elem).prop('checked', !obj.elem.checked);
-	                    form.render('checkbox');
-	                }
-	                callback && callback(data);
-	            }, 'POST');
-	        });
-    	},
-    	getQueryVariable:function (variable)
-		{
-		       var query = window.location.search.substring(1);
-		       var vars = query.split("&");
-		       for (var i=0;i<vars.length;i++) {
-		               var pair = vars[i].split("=");
-		               if(pair[0] == variable){return pair[1];}
-		       }
-		       return(false);
-		},
-		//表单提交
-		submit: function (url,params,method,callback) {
-    		// debugger
-			if(!method) method="post";
-			url=url.replace("//","/");
-			url=url.replace("http:/","http://");
-			url=url.replace("https:/","https://");
+            for (var i = 0; i < inputs.length; i++) {
+                var input = $(inputs[i]);
+                var inputType = input.attr("input-type");
+                if (inputType == "number_input") {
+                    var integer = input.attr("integer");
+                    var decimal = input.attr("decimal");
+                    var allowNegative = input.attr("allow-negative");
+                    var minValue = input.attr("min-value");
+                    var maxValue = input.attr("max-value");
+                    var scale = input.attr("scale");
+                    var step = input.attr("step");
+                    this.renderAsNumberInput(input, decimal, scale, step, minValue, maxValue);
+                    if (integer == "true") {
+                        this.limitNumbrInput4Integer(input, allowNegative == "true", minValue, maxValue);
+                    } else if (decimal == "true") {
+                        this.limitNumberInput4Decimal(input, allowNegative == "true", scale, minValue, maxValue);
+                    }
+                }
+            }
 
-			var task=setTimeout(function(){layer.load(2);},1000);
+        },
+        renderAsNumberInput: function (input, decimal, scale, step, minValue, maxValue) {
+            step = parseFloat(step);
+            minValue = parseFloat(minValue);
+            maxValue = parseFloat(maxValue);
+            scale = parseInt(scale);
+            if (isNaN(scale)) scale = 2;
+            if (!isNaN(step)) {
+                function doStep(e) {
+                    var v = input.val().trim();
+                    v = parseFloat(v);
+                    if (e.key == "ArrowDown" || e.deltaY > 0) {
+                        if (isNaN(v)) {
+                            if (isNaN(maxValue)) {
+                                v = 0
+                            } else {
+                                v = maxValue;
+                            }
+                        }
+                        v -= step;
+                        if (!isNaN(minValue)) {
+                            if (v < minValue) v = minValue;
+                        }
+                        if (decimal == "true") {
+                            v = Math.round(v * Math.pow(10, scale)) / Math.pow(10, scale);
+                        } else {
+                            v = Math.round(v);
+                        }
+                        input.val(v);
+                    }
+                    if (e.key == "ArrowUp" || e.deltaY < 0) {
+                        if (isNaN(v)) {
+                            if (isNaN(minValue)) {
+                                v = 0
+                            } else {
+                                v = minValue;
+                            }
+                        }
+                        v += step;
+                        if (!isNaN(maxValue)) {
+                            if (v > maxValue) v = maxValue;
+                        }
+                        if (decimal == "true") {
+                            v = Math.round(v * Math.pow(10, scale)) / Math.pow(10, scale);
+                        } else {
+                            v = Math.round(v);
+                        }
+                        input.val(v);
+                    }
+                };
 
-        	var target="t-"+(new Date()).getTime();
-        	var $ifr=$("<iframe id='"+target+"' name='"+target+"' style='display:none'></iframe>")
-        	$("body").append($ifr);
-			// 构造隐藏的form表单
-			var $form = $("<form style='display:none' method='"+method+"' target='"+target+"' action='"+url+"'></form>");
-			$("body").append($form);
-			//添加参数
-			if(!params) params={};
-			for(var p in params) {
-				var $input = $("<input name='"+p+"' type='text' value='"+params[p]+"'></input>");
-				$form.append($input);
-			}
-			// 提交表单
-			$form.submit();
+                //滚轮上下滚动
+                input.hover(function () {
+                    console.log("hover")
+                    addHandler(document, 'mousewheel');
+                    addHandler(document, 'DOMMouseScroll');
+                }, function () {
+                    removeHandler(document, 'mousewheel');
+                    removeHandler(document, 'DOMMouseScroll');
+                });
 
-			var ifr = document.getElementById(target);
-			var timer=setInterval(function () {
-				var doc = ifr.contentDocument || ifr.contentWindow.document;
-				// Check if loading is complete
-				if (doc.readyState == 'complete' || doc.readyState == 'interactive') {
-					// do something
-					layer.closeAll('loading');
-					clearTimeout(task);
-					clearInterval(timer);
-					setTimeout(function () {
-						$form.remove();
-						$ifr.remove();
-					} , 5000);
-					callback && callback();
-					debugger;
-				}
-			},500);
+                function addHandler(element, type) {
+                    if (element.addEventListener) {
+                        element.addEventListener(type, doStep, false);
+                    } else if (element.attachEvent) {
+                        element.attachEvent("on" + type, doStep);
+                    } else {
+                        element["on" + type] = doStep;
+                    }
+                }
 
-        	//移除元素
-			// setTimeout(function(){
-			// 	$form.remove();
-			// 	$ifr.remove();
-			// },1000);
+                function removeHandler(element, type) {
+                    if (element.removeEventListener) {
+                        element.removeEventListener(type, doStep, false);
+                    } else if (element.detachEvent) {
+                        element.detachEvent("on" + type, doStep);
+                    } else {
+                        element["on" + type] = null;
+                    }
+                }
+
+                //键盘上下按键
+                input.keyup(doStep);
+            }
+        },
+
+        /**
+         * 仅允许输入框输入整数
+         * */
+        limitNumbrInput4Integer(inputId, negative, minValue, maxValue) {
+            var inst = null;
+            if (typeof (inputId) == 'string') {
+                if (!inputId.startWith("#")) inputId = "#" + inputId;
+                inst = $(inputId);
+            } else {
+                inst = inputId;
+            }
+            var reg = /[^0-9]/g;
+            if (negative) { //如果负数
+                reg = /[^0-9-]/g;
+            }
+
+            function applyValue(input, val) {
+                if(val!=null && val.length>0) {
+                    val = parseInt(val);
+                }
+                input.attr("val", val);
+                input.val(val);
+            }
+
+            function revertValue(input) {
+                input.val(input.attr("val"));
+            }
+
+            function limit() {
+                var val = $(this).val().trim();
+                val = val.replace(reg, '');
+
+                if ("" == val) {
+                    applyValue($(this), val);
+                    return;
+                }
+
+                if (negative) {
+                    if ("-" == val || "" == val) {
+                        applyValue($(this), val);
+                        return;
+                    }
+                    //减号只能出现在第一位
+                    for (var j = 1; val.length > 1 && j < val.length; j++) {
+                        if (val.charAt(j) == '-') {
+                            revertValue($(this));
+                            return;
+                        }
+                    }
+                }
+
+                //检查对否能转换哼整数
+                var i = parseInt(val);
+                if (isNaN(i)) {
+                    revertValue($(this));
+                    return;
+                }
+
+                //范围控制
+                var delayTaskId = inst.attr("delay-task-id");
+                if (delayTaskId != "") {
+                    clearTimeout(delayTaskId);
+                }
+                delayTaskId = setTimeout(function () {
+                    //debugger
+                    if (!isNaN(minValue)) {
+                        if (i < minValue) val = minValue;
+                    }
+
+                    if (!isNaN(maxValue)) {
+                        if (i > maxValue) val = maxValue;
+                    }
+                    applyValue(inst, val);
+                }, 1000);
+                inst.attr("delay-task-id", delayTaskId);
+                //
+                applyValue($(this), val);
+            }
+
+            //
+            inst.keyup(limit).bind("paste", limit).css("ime-mode", "disabled");
+        },
+
+        /**
+         * 仅允许输入框输入数字
+         * */
+        limitNumberInput4Decimal(inputId, negative, scale, minValue, maxValue) {
+            scale = parseInt(scale);
+            if (isNaN(scale)) scale = 2;
+            var inst = null;
+            if (typeof (inputId) == 'string') {
+                if (!inputId.startWith("#")) inputId = "#" + inputId;
+                inst = $(inputId);
+            } else {
+                inst = inputId;
+            }
+            var reg = /[^0-9.]/g;
+            if (negative) { //如果负数
+                reg = /[^0-9.-]/g;
+            }
+
+            function applyValue(input, val) {
+                if(val!=null && val.length>0 && !val.endWith(".")) {
+                    val = parseFloat(val);
+                    val = Math.round(val * Math.pow(10, scale)) / Math.pow(10, scale);
+                }
+                input.attr("val", val);
+                input.val(val);
+            }
+
+            function revertValue(input) {
+                input.val(input.attr("val"));
+            }
+
+            function limit() {
+                var val = $(this).val().trim();
+                val = val.replace(reg, '');
+
+                if ("" == val) {
+                    applyValue($(this), val);
+                    return;
+                }
+
+                //只能出现一次小数点
+                var dots = 0;
+                for (var i = 0; i < val.length; i++) {
+                    if (val.charAt(i) == '.') {
+                        dots++;
+                        if (dots >= 2) {
+                            revertValue($(this));
+                            return;
+                        }
+                    }
+                }
+
+                if (negative) {
+                    if ("-" == val || "" == val) {
+                        applyValue($(this), val);
+                        return;
+                    }
+                    //减号只能出现在第一位
+                    for (var j = 1; val.length > 1 && j < val.length; j++) {
+                        if (val.charAt(j) == '-') {
+                            revertValue($(this));
+                            return;
+                        }
+                    }
+                }
+                //
+                //检查对否能转换哼整数
+                var i = parseFloat(val);
+                if (isNaN(i)) {
+                    revertValue($(this));
+                    return;
+                }
+
+                //范围控制
+                var delayTaskId = inst.attr("delay-task-id");
+                if (delayTaskId != "") {
+                    clearTimeout(delayTaskId);
+                }
+                delayTaskId = setTimeout(function () {
+                    //debugger
+                    if (!isNaN(minValue)) {
+                        if (i < minValue) val = minValue;
+                    }
+
+                    if (!isNaN(maxValue)) {
+                        if (i > maxValue) val = maxValue;
+                    }
+                    applyValue(inst, val);
+                }, 1000);
+                inst.attr("delay-task-id", delayTaskId);
+
+                applyValue($(this), val);
+            }
+
+            //
+            inst.keyup(limit).bind("paste", limit).css("ime-mode", "disabled");
+        },
+
+        joinLabel(data, key, sep) {
+            if (!data) return "";
+            var label = "";
+            if (!sep) sep = ",";
+
+            if (Array.isArray(data)) {
+                var labels = [];
+                for (var i = 0; i < data.length; i++) {
+                    if (!data[i]) continue;
+                    label = data[i][key];
+                    if (label) {
+                        labels.push(label);
+                    }
+                }
+                label = label.join(sep);
+            } else {
+                label = data[key];
+            }
+            if (!label) label = "";
+            return label;
+        },
+        getEnumText: function (list, code) {
+            if (!list) return code;
+            for (var i = 0; i < list.length; i++) {
+                if (list[i]["code"] == code) return list[i]["text"];
+            }
+            if (!code) code = "";
+            return code;
+        },
+
+        getDoctText: function (list, code) {
+            if (!list) return code;
+            for (var i = 0; i < list.length; i++) {
+                if (list[i]["code"] == code) return list[i]["text"];
+            }
+            if (!code) code = "";
+            return code;
+        },
+
+        /**
+         * 绑定Switch开关
+         * */
+        bindSwitchEvent: function (layFilter, updateApiUrl, idProp, logicProp, callback) {
+            form.on('switch(' + layFilter + ')', function (obj) {
+                layer.load(2);
+                var data = {};
+                data[idProp] = obj.elem.value;
+                data[logicProp] = obj.elem.checked ? 1 : 0;
+                admin.request(updateApiUrl, data, function (data) {
+                    layer.closeAll('loading');
+                    if (data.success) {
+                        layer.msg(data.message, {icon: 1, time: 500});
+                    } else {
+                        layer.msg(data.message, {icon: 2, time: 500});
+                        $(obj.elem).prop('checked', !obj.elem.checked);
+                        form.render('checkbox');
+                    }
+                    callback && callback(data);
+                }, 'POST');
+            });
+        },
+        getQueryVariable: function (variable) {
+            var query = window.location.search.substring(1);
+            var vars = query.split("&");
+            for (var i = 0; i < vars.length; i++) {
+                var pair = vars[i].split("=");
+                if (pair[0] == variable) {
+                    return pair[1];
+                }
+            }
+            return (false);
+        },
+        //表单提交
+        submit: function (url, params, method, callback) {
+            // debugger
+            if (!method) method = "post";
+            url = url.replace("//", "/");
+            url = url.replace("http:/", "http://");
+            url = url.replace("https:/", "https://");
+
+            var task = setTimeout(function () {
+                layer.load(2);
+            }, 1000);
+
+            var target = "t-" + (new Date()).getTime();
+            var $ifr = $("<iframe id='" + target + "' name='" + target + "' style='display:none'></iframe>")
+            $("body").append($ifr);
+            // 构造隐藏的form表单
+            var $form = $("<form style='display:none' method='" + method + "' target='" + target + "' action='" + url + "'></form>");
+            $("body").append($form);
+            //添加参数
+            if (!params) params = {};
+            for (var p in params) {
+                var $input = $("<input name='" + p + "' type='text' value='" + params[p] + "'></input>");
+                $form.append($input);
+            }
+            // 提交表单
+            $form.submit();
+
+            var ifr = document.getElementById(target);
+            var timer = setInterval(function () {
+                var doc = ifr.contentDocument || ifr.contentWindow.document;
+                // Check if loading is complete
+                if (doc.readyState == 'complete' || doc.readyState == 'interactive') {
+                    // do something
+                    layer.closeAll('loading');
+                    clearTimeout(task);
+                    clearInterval(timer);
+                    setTimeout(function () {
+                        $form.remove();
+                        $ifr.remove();
+                    }, 5000);
+                    callback && callback();
+                    debugger;
+                }
+            }, 500);
+
+            //移除元素
+            // setTimeout(function(){
+            // 	$form.remove();
+            // 	$ifr.remove();
+            // },1000);
         }
     };
 
-	var mouseDownTime;
-	$(document).on("mousedown",function (e) {
-		mouseDownTime=(new Date()).getTime();
-	});
-	/**
-	 * 监听layui table 的列宽拖动时间
-	 * */
-	$(document).on("mouseup",function (e) {
-		//console.log(1)
-		var t=(new Date()).getTime();
-		t=t-mouseDownTime;
-		//console.log("click",t);
-		mouseDownTime=null;
-		if(t<500) return;
-		//console.log(2)
-		setTimeout(function (){
+    var mouseDownTime;
+    $(document).on("mousedown", function (e) {
+        mouseDownTime = (new Date()).getTime();
+    });
+    /**
+     * 监听layui table 的列宽拖动时间
+     * */
+    $(document).on("mouseup", function (e) {
+        //console.log(1)
+        var t = (new Date()).getTime();
+        t = t - mouseDownTime;
+        //console.log("click",t);
+        mouseDownTime = null;
+        if (t < 500) return;
+        //console.log(2)
+        setTimeout(function () {
 
-			var tar=$(e.target);
-			//debugger
-			if(tar.parent().length==0) return;
-			if(tar.parent()[0].nodeName!="TH") return;
-			var cls=tar.attr("class");
-			if(cls==null) return;
-			//console.log(cls,t);
-			var pars=tar.parents();
-			var layFilter=null;
-			var tableIndex=-1;
-			for (var i = 0; i < pars.length; i++) {
-				var p=$(pars[i]);
-				layFilter=p.attr("lay-filter");
-				if( layFilter && layFilter.startWith("LAY-table-")) {
-					tableIndex=layFilter.split("-")[2];
-					break;
-				}
-				//console.log("lay-filter",layFilter);
-			}
-			if(tableIndex==-1) return;
-			//console.log("tableIndex",tableIndex);
-			var inst=table.instance[tableIndex-1];
-			var tableId=inst.config.elem[0].id;
-			//console.log("inst",inst);
-			var cols=inst.config.cols[0];
-			//debugger
-			var ws={};
-			if(cls.indexOf("layui-table-cell")==-1 || cls.indexOf("laytable-cell-")==-1) return;
-			var ths=$("th .layui-table-cell");
-			//console.log(ths.length);
-			for (var i = 0; i < ths.length; i++) {
-				var th=$(ths[i]);
-				if(cols[i] && cols[i].field && !cols[i].hide) {
-					ws[cols[i].field] = th[0].clientWidth;
-				}
-			}
+            var tar = $(e.target);
+            //debugger
+            if (tar.parent().length == 0) return;
+            if (tar.parent()[0].nodeName != "TH") return;
+            var cls = tar.attr("class");
+            if (cls == null) return;
+            //console.log(cls,t);
+            var pars = tar.parents();
+            var layFilter = null;
+            var tableIndex = -1;
+            for (var i = 0; i < pars.length; i++) {
+                var p = $(pars[i]);
+                layFilter = p.attr("lay-filter");
+                if (layFilter && layFilter.startWith("LAY-table-")) {
+                    tableIndex = layFilter.split("-")[2];
+                    break;
+                }
+                //console.log("lay-filter",layFilter);
+            }
+            if (tableIndex == -1) return;
+            //console.log("tableIndex",tableIndex);
+            var inst = table.instance[tableIndex - 1];
+            var tableId = inst.config.elem[0].id;
+            //console.log("inst",inst);
+            var cols = inst.config.cols[0];
+            //debugger
+            var ws = {};
+            if (cls.indexOf("layui-table-cell") == -1 || cls.indexOf("laytable-cell-") == -1) return;
+            var ths = $("th .layui-table-cell");
+            //console.log(ths.length);
+            for (var i = 0; i < ths.length; i++) {
+                var th = $(ths[i]);
+                if (cols[i] && cols[i].field && !cols[i].hide) {
+                    ws[cols[i].field] = th[0].clientWidth;
+                }
+            }
 
-			var loc=location.href;
-			loc=loc.substr(loc.indexOf("//")+2);
-			loc=loc.substr(loc.indexOf("/"));
-			console.log("save table",tableId,ws);
+            var loc = location.href;
+            loc = loc.substr(loc.indexOf("//") + 2);
+            loc = loc.substr(loc.indexOf("/"));
+            console.log("save table", tableId, ws);
 
-			admin.request("/service-system/sys-db-cache/save", { id: loc+"#"+tableId , value: JSON.stringify(ws),area:loc,catalog:"layui-table-column-width",ownerType:"user" }, function (data) {});
+            admin.request("/service-system/sys-db-cache/save", {
+                id: loc + "#" + tableId,
+                value: JSON.stringify(ws),
+                area: loc,
+                catalog: "layui-table-column-width",
+                ownerType: "user"
+            }, function (data) {
+            });
 
 
-		},100);
+        }, 100);
 
-	});
+    });
 
-	
+
     // foxnic 提供的事件
-    foxnic.events = {
-    	
-    };
-    
-  
+    foxnic.events = {};
+
+
     //加载数据字典
 //    admin.req('/service-tailoring/sys-dict/query-all', {}, function (data) {
 //    	dict=data.data;
 //    });
-    
-    var languageTimestamp=localStorage.getItem("language_timestamp");
-    
+
+    var languageTimestamp = localStorage.getItem("language_timestamp");
+
     //加载语言
-    
-    if(languageTimestamp) {
-    	
-    	var expire=((new Date()).getTime()-languageTimestamp)/1000;
-    	
-    	if(expire < 60 * 15)
-    	{
-		    codeLangs=localStorage.getItem("language_codeLangs");
-		    if(codeLangs && codeLangs.length>2) {
-		    	codeLangs=JSON.parse(codeLangs);
-		    }
-		    
-		    defaultsLangs=localStorage.getItem("language_defaultsLangs");
-		    if(defaultsLangs && defaultsLangs.length>2) {
-		    	defaultsLangs=JSON.parse(defaultsLangs);
-		    }
-    	}
-	    
+
+    if (languageTimestamp) {
+
+        var expire = ((new Date()).getTime() - languageTimestamp) / 1000;
+
+        if (expire < 60 * 15) {
+            codeLangs = localStorage.getItem("language_codeLangs");
+            if (codeLangs && codeLangs.length > 2) {
+                codeLangs = JSON.parse(codeLangs);
+            }
+
+            defaultsLangs = localStorage.getItem("language_defaultsLangs");
+            if (defaultsLangs && defaultsLangs.length > 2) {
+                defaultsLangs = JSON.parse(defaultsLangs);
+            }
+        }
+
     }
-    
-    if(defaultsLangs==null || codeLangs==null) {
-	    admin.request('/service-system/sys-lang/query-list', {}, function (data) {
-	    	data=data.data;
-	    	codeLangs={};
-	    	defaultsLangs={};
-	    	for (var i = 0; i < data.length; i++) {
-	    		codeLangs[data[i].code]=data[i];
-	    		defaultsLangs[data[i].defaults]=data[i];
-	    	}
-	    	localStorage.setItem("language_codeLangs",JSON.stringify(codeLangs));
-	    	localStorage.setItem("language_defaultsLangs",JSON.stringify(defaultsLangs));
-	    	localStorage.setItem("language_timestamp",(new Date()).getTime());
-	    },"POST",true);
+
+    if (defaultsLangs == null || codeLangs == null) {
+        admin.request('/service-system/sys-lang/query-list', {}, function (data) {
+            data = data.data;
+            codeLangs = {};
+            defaultsLangs = {};
+            for (var i = 0; i < data.length; i++) {
+                codeLangs[data[i].code] = data[i];
+                defaultsLangs[data[i].defaults] = data[i];
+            }
+            localStorage.setItem("language_codeLangs", JSON.stringify(codeLangs));
+            localStorage.setItem("language_defaultsLangs", JSON.stringify(defaultsLangs));
+            localStorage.setItem("language_timestamp", (new Date()).getTime());
+        }, "POST", true);
     }
-    
+
     //图片预览支持
-    window.previewImage = function(obj) {
-    		if(window!=top) {
-    			top.previewImage(obj);
-    			return;
-			}
-    		var it=$(obj).parent();
-			//var id=it.attr("id");
-			layer.photos({
-				shade:0.6,
-				photos: it,
-				anim: 5
-			});
-			return;
+    window.previewImage = function (obj) {
+        if (window != top) {
+            top.previewImage(obj);
+            return;
+        }
+        var it = $(obj).parent();
+        //var id=it.attr("id");
+        layer.photos({
+            shade: 0.6,
+            photos: it,
+            anim: 5
+        });
+        return;
 
-		var fileType=it.attr("fileType");
-			if(!fileType.startWith("image/")) {
-				return;
-			}
-       		var src=obj.src;
-       		//debugger
-       		if(src.endWith("?id=undefined") || src.endWith("?id=null") || src.endWith("?id=")) return;
-       		if(src.indexOf("no-image")!=-1) return;
-       		var img = new Image();  
-	        img.src = obj.src;
-			img.onload = function() {
-				//debugger
+        var fileType = it.attr("fileType");
+        if (!fileType.startWith("image/")) {
+            return;
+        }
+        var src = obj.src;
+        //debugger
+        if (src.endWith("?id=undefined") || src.endWith("?id=null") || src.endWith("?id=")) return;
+        if (src.indexOf("no-image") != -1) return;
+        var img = new Image();
+        img.src = obj.src;
+        img.onload = function () {
+            //debugger
 
-				var fullHeight=$(window).height();
-				var fullWidth=$(window).width();
-				var ih=img.height+ 50+2
-				var iw=img.width;
-				if(ih>fullHeight) {
-					ih=(fullHeight-50-2)*0.9;
-					iw=(img.width/img.height)*ih;
-				}
-				if(iw>fullWidth) {
-					iw=fullWidth*0.9;
-					ih=(img.height/img.width)*iw;
-				}
+            var fullHeight = $(window).height();
+            var fullWidth = $(window).width();
+            var ih = img.height + 50 + 2
+            var iw = img.width;
+            if (ih > fullHeight) {
+                ih = (fullHeight - 50 - 2) * 0.9;
+                iw = (img.width / img.height) * ih;
+            }
+            if (iw > fullWidth) {
+                iw = fullWidth * 0.9;
+                ih = (img.height / img.width) * iw;
+            }
 
-				var height = ih + 50+2; //获取图片高度
-				var width = iw; //获取图片宽度
+            var height = ih + 50 + 2; //获取图片高度
+            var width = iw; //获取图片宽度
 
 
-				var imgHtml = "<img src='" + obj.src + "' style='width: "+iw+"px;height: "+ih+"px' />";
-				//弹出层
-				layer.open({
-					type: 1,
-					shade: 0.8,
-					offset: 'auto',
-					area: [width + 'px',height+'px'],
-					shadeClose:true,//点击外围关闭弹窗
-					scrollbar: false,//不现实滚动条
-					title: "图片预览", //不显示标题
-					content: imgHtml, //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响
-					cancel: function () {
-						//layer.msg('捕获就是从页面已经存在的元素上，包裹layer的结构', { time: 5000, icon: 6 });
-					}
-				});
-			}
+            var imgHtml = "<img src='" + obj.src + "' style='width: " + iw + "px;height: " + ih + "px' />";
+            //弹出层
+            layer.open({
+                type: 1,
+                shade: 0.8,
+                offset: 'auto',
+                area: [width + 'px', height + 'px'],
+                shadeClose: true,//点击外围关闭弹窗
+                scrollbar: false,//不现实滚动条
+                title: "图片预览", //不显示标题
+                content: imgHtml, //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响
+                cancel: function () {
+                    //layer.msg('捕获就是从页面已经存在的元素上，包裹layer的结构', { time: 5000, icon: 6 });
+                }
+            });
+        }
 
-       }
-    
- 
+    }
+
+
     exports('foxnic', foxnic);
 });
 

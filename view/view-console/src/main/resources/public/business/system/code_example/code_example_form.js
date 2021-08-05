@@ -1,7 +1,7 @@
 /**
  * 代码生成示例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-05 17:29:20
+ * @since 2021-08-05 19:42:57
  */
 
 function FormPage() {
@@ -35,7 +35,6 @@ function FormPage() {
 			admin.putTempData('sys-code-example-form-area', area);
 			window.adjustPopup=adjustPopup;
 			if(area.tooHeigh) {
-				debugger
 				var windowHeight=area.iframeHeight;
 				var footerHeight=$(".model-form-footer").height();
 				var finalHeight=windowHeight-footerHeight-16;
@@ -51,7 +50,7 @@ function FormPage() {
       * 渲染表单组件
       */
 	function renderFormFields() {
-		form.render();
+		fox.renderFormInputs(form);
 	   
 	    //渲染图片字段
 		foxup.render({
