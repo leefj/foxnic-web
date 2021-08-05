@@ -168,9 +168,13 @@ function FormPage() {
 			//设置 #(f.labelInForm) 下拉框选中值
 			var #(f.varName)Select=xmSelect.get("##(f.varName)",true);
 			var #(f.varName)Opionts=[];
+			#if(f.selectField.fillBy!=null)
 			if (formData.#(f.selectField.fillBy))	{
 				#(f.varName)Opionts=#(f.varName)Select.options.transform([formData.#(f.selectField.fillBy)]);
 			}
+			#else
+			console.error("代码生成时未指定  #(f.labelInForm)(#(f.varName)) 的 fillBy 属性 , 无法填充表单数值");
+			#end
 			#(f.varName)Select.setValue(#(f.varName)Opionts);
 			#end
 			#end

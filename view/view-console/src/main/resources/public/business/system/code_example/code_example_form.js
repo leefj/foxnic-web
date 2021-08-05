@@ -1,7 +1,7 @@
 /**
  * 代码生成示例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-04 17:31:43
+ * @since 2021-08-05 16:12:46
  */
 
 function FormPage() {
@@ -142,23 +142,17 @@ function FormPage() {
 			//设置 选择框(枚举) 下拉框选中值
 			var selectEnumSelect=xmSelect.get("#selectEnum",true);
 			var selectEnumOpionts=[];
-			if (formData.)	{
-				selectEnumOpionts=selectEnumSelect.options.transform([formData.]);
-			}
+			console.error("代码生成时未指定  选择框(枚举)(selectEnum) 的 fillBy 属性 , 无法填充表单数值");
 			selectEnumSelect.setValue(selectEnumOpionts);
 			//设置 选择框(字典) 下拉框选中值
 			var selectDictSelect=xmSelect.get("#selectDict",true);
 			var selectDictOpionts=[];
-			if (formData.)	{
-				selectDictOpionts=selectDictSelect.options.transform([formData.]);
-			}
+			console.error("代码生成时未指定  选择框(字典)(selectDict) 的 fillBy 属性 , 无法填充表单数值");
 			selectDictSelect.setValue(selectDictOpionts);
 			//设置 选择框(查询) 下拉框选中值
 			var selectApiSelect=xmSelect.get("#selectApi",true);
 			var selectApiOpionts=[];
-			if (formData.)	{
-				selectApiOpionts=selectApiSelect.options.transform([formData.]);
-			}
+			console.error("代码生成时未指定  选择框(查询)(selectApi) 的 fillBy 属性 , 无法填充表单数值");
 			selectApiSelect.setValue(selectApiOpionts);
 
 	     	fm.attr('method', 'POST');

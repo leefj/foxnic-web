@@ -32,15 +32,11 @@ public class CodeExampleGenerator extends SystemCodeGenerator {
 		cfg.view().field(SYS_CODE_EXAMPLE.ID).basic().hidden();
 		//配置在列表中隐藏
 		cfg.view().field(SYS_CODE_EXAMPLE.NOTES)
-				//单独设置输入框在搜索工具栏的位置
-				.search().location(1,3)
 				.list().hidden();
 
 		//日期类型
 		cfg.view().field(SYS_CODE_EXAMPLE.BIRTHDAY)
-				.form().dateInput()
-				//单独设置输入框在搜索工具栏的位置
-				.search().location(1,1);
+				.form().dateInput();
 
 		//整数类型
 		cfg.view().field(SYS_CODE_EXAMPLE.AREA)
@@ -96,6 +92,24 @@ public class CodeExampleGenerator extends SystemCodeGenerator {
 				new Object[]{SYS_CODE_EXAMPLE.RADIO_ENUM,SYS_CODE_EXAMPLE.RADIO_DICT,SYS_CODE_EXAMPLE.VALID},
 				new Object[]{SYS_CODE_EXAMPLE.SELECT_ENUM,SYS_CODE_EXAMPLE.SELECT_DICT,SYS_CODE_EXAMPLE.SELECT_API}
 		);
+
+//		//其实就是排个顺序
+//		cfg.view().form().inputColumnLayout(1,
+//				SYS_CODE_EXAMPLE.NAME,SYS_CODE_EXAMPLE.NOTES,SYS_CODE_EXAMPLE.AREA,SYS_CODE_EXAMPLE.WEIGHT,SYS_CODE_EXAMPLE.BIRTHDAY,
+//				SYS_CODE_EXAMPLE.IMAGE_ID,SYS_CODE_EXAMPLE.RADIO_ENUM,SYS_CODE_EXAMPLE.RADIO_DICT,SYS_CODE_EXAMPLE.VALID,
+//				SYS_CODE_EXAMPLE.SELECT_ENUM,SYS_CODE_EXAMPLE.SELECT_DICT,SYS_CODE_EXAMPLE.SELECT_API
+//		);
+//
+//
+//		cfg.view().form().inputColumnLayout(2,
+//				SYS_CODE_EXAMPLE.NAME,		 		SYS_CODE_EXAMPLE.NOTES,
+//				SYS_CODE_EXAMPLE.AREA,					SYS_CODE_EXAMPLE.WEIGHT,
+//				SYS_CODE_EXAMPLE.BIRTHDAY,			SYS_CODE_EXAMPLE.IMAGE_ID,
+//				SYS_CODE_EXAMPLE.RADIO_ENUM,	SYS_CODE_EXAMPLE.RADIO_DICT,
+//				SYS_CODE_EXAMPLE.VALID, 				SYS_CODE_EXAMPLE.SELECT_ENUM,
+//				SYS_CODE_EXAMPLE.SELECT_DICT,		SYS_CODE_EXAMPLE.SELECT_API
+//		);
+
 
 		//文件生成覆盖模式
 		cfg.overrides()

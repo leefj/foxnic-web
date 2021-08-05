@@ -159,8 +159,8 @@ layui.define(['settings', 'layer'], function (exports) {
             height=height+titleHeight+16;
             height=Math.ceil(height);
             //限制高度
-            if(height>fullHeight-32) {
-                height=fullHeight-32;
+            if(height>fullHeight-128) {
+                height=fullHeight-128;
             }
 
 
