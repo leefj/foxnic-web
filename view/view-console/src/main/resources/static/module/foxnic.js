@@ -368,7 +368,6 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
         },
 
         renderFormInputs(form) {
-            debugger
             this.renderInputs($(".layui-input"));
             form.render();
         },

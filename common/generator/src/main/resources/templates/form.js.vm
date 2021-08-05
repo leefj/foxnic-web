@@ -28,6 +28,8 @@ function FormPage() {
 	}
 	
 	function adjustPopup() {
+		var scroll=$(".form-container").attr("scroll");
+		if(scroll=='yes') return;
 		setTimeout(function () {
 			var body=$("body");
 			var bodyHeight=body.height();
@@ -42,6 +44,7 @@ function FormPage() {
 				$(".form-container").css("display","");
 				$(".form-container").css("overflow-y","scroll");
 				$(".form-container").css("height",finalHeight+"px");
+				$(".form-container").attr("scroll","yes");
 			}
 		},250);
 	}

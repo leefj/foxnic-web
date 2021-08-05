@@ -28,12 +28,22 @@ function FormPage() {
 	}
 	
 	function adjustPopup() {
+		var scroll=$(".form-container").attr("scroll");
+		// var overflowY=$(".form-container").css("overflow-y");
+		// console.log("overflowY="+overflowY)
+		console.log("scroll="+scroll)
+		// if(overflowY=='"scroll"') return;
+		if(scroll=='yes') return;
+		// debugger
 		setTimeout(function () {
+			// debugger
 			var body=$("body");
 			var bodyHeight=body.height();
 			var area=admin.changePopupArea(null,bodyHeight);
 			admin.putTempData('sys-code-example-form-area', area);
 			window.adjustPopup=adjustPopup;
+
+
 			if(area.tooHeigh) {
 				var windowHeight=area.iframeHeight;
 				var footerHeight=$(".model-form-footer").height();
@@ -42,6 +52,8 @@ function FormPage() {
 				$(".form-container").css("display","");
 				$(".form-container").css("overflow-y","scroll");
 				$(".form-container").css("height",finalHeight+"px");
+				$(".form-container").attr("scroll","yes");
+				console.log("to-scroll=");
 			}
 		},250);
 	}
@@ -135,7 +147,10 @@ function FormPage() {
 	function fillFormData() {
 		var formData = admin.getTempData('sys-code-example-form-data');
 		//如果是新建
+		// debugger
+		console.log("formData.id="+formData.id);
 		if(!formData.id) {
+			console.log("do first adjustPopup");
 			adjustPopup();
 		}
 		var fm=$('#data-form');

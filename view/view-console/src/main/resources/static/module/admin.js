@@ -202,10 +202,10 @@ layui.define(['settings', 'layer'], function (exports) {
             	});
             }
             if(width) {
-                ifr.animate({height:iframeWidth+"px"},"fast");
+                ifr.animate({height:iframeWidth+"px"},200);
             }
             if(height) {
-                ifr.animate({height:iframeHeight+"px"},"fast");
+                ifr.animate({height:iframeHeight+"px"},200);
             }
             return {width:width,height:height,left:layerLeft,top:layerTop,tooHeigh:tooHeigh,iframeHeight:iframeHeight};
         },
