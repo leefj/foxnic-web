@@ -2,7 +2,7 @@
 /**
  * 代码生成示例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-05 16:12:46
+ * @since 2021-08-05 17:29:20
  */
  -->
  <!DOCTYPE html>
@@ -20,10 +20,9 @@
 </head>
 
 <body style="overflow-y: hidden">
-
 <div class="form-container" style="overflow-y: scroll;width:100%;height: 600px">
-<form id="data-form" lay-filter="data-form" class="layui-form model-form" style="display:none">
 
+    <form id="data-form" lay-filter="data-form" class="layui-form model-form" style="display:none">
         <input name="id" id="id"  type="hidden"/>
 
         <div class="layui-form-item" >
@@ -163,14 +162,16 @@
         </div>
 
 
-    </div>
 
 
-</form>
+
+    </form>
+
+</div>
 
 <div class="model-form-footer">
     <button class="layui-btn layui-btn-primary" id="cancel-button" lay-filter="cancel-button" type="button" th:text="${lang.translate('取消')}">取消</button>
-    <button th:if="${perm.checkAnyAuth('sys_code_example:create','sys_code_example:update','sys_code_example:save')}" class="layui-btn"  style="margin-right:15px" id="submit-button" lay-filter="submit-button" lay-submit th:text="${lang.translate('保存')}">保存</button>
+    <button th:if="${perm.checkAnyAuth('sys_code_example:create','sys_code_example:update','sys_code_example:save')}" class="layui-btn" style="margin-right: 15px"  id="submit-button" lay-filter="submit-button" lay-submit th:text="${lang.translate('保存')}">保存</button>
 </div>
 
 <script type="text/javascript" src="/module/global.js"></script>

@@ -151,3 +151,8 @@
     flex-flow: row wrap;
     align-content: flex-start;
 }
+
+form-container {
+    width: 100%;
+    display: inline-block;
+}

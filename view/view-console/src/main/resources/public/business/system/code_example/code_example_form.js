@@ -1,7 +1,7 @@
 /**
  * 代码生成示例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-05 16:12:46
+ * @since 2021-08-05 17:29:20
  */
 
 function FormPage() {
@@ -34,7 +34,17 @@ function FormPage() {
 			var area=admin.changePopupArea(null,bodyHeight);
 			admin.putTempData('sys-code-example-form-area', area);
 			window.adjustPopup=adjustPopup;
-		},50);
+			if(area.tooHeigh) {
+				debugger
+				var windowHeight=area.iframeHeight;
+				var footerHeight=$(".model-form-footer").height();
+				var finalHeight=windowHeight-footerHeight-16;
+				//console.log("windowHeight="+windowHeight+',bodyHeight='+bodyHeight+",footerHeight="+footerHeight+",finalHeight="+finalHeight);
+				$(".form-container").css("display","");
+				$(".form-container").css("overflow-y","scroll");
+				$(".form-container").css("height",finalHeight+"px");
+			}
+		},250);
 	}
 	
 	/**

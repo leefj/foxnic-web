@@ -159,11 +159,11 @@ layui.define(['settings', 'layer'], function (exports) {
             height=height+titleHeight+16;
             height=Math.ceil(height);
             //限制高度
+            var tooHeigh=false;
             if(height>fullHeight-128) {
                 height=fullHeight-128;
+                tooHeigh=true;
             }
-
-
 
         	var layerWidth= pop.width();
         	var layerHeight=pop.height();
@@ -207,7 +207,7 @@ layui.define(['settings', 'layer'], function (exports) {
             if(height) {
                 ifr.animate({height:iframeHeight+"px"},"fast");
             }
-            return {width:width,height:height,left:layerLeft,top:layerTop};
+            return {width:width,height:height,left:layerLeft,top:layerTop,tooHeigh:tooHeigh,iframeHeight:iframeHeight};
         },
         // 封装layer.open
         open: function (param) {

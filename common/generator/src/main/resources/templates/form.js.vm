@@ -34,7 +34,16 @@ function FormPage() {
 			var area=admin.changePopupArea(null,bodyHeight);
 			admin.putTempData('#(formAreaKey)', area);
 			window.adjustPopup=adjustPopup;
-		},50);
+			if(area.tooHeigh) {
+				var windowHeight=area.iframeHeight;
+				var footerHeight=$(".model-form-footer").height();
+				var finalHeight=windowHeight-footerHeight-16;
+				//console.log("windowHeight="+windowHeight+',bodyHeight='+bodyHeight+",footerHeight="+footerHeight+",finalHeight="+finalHeight);
+				$(".form-container").css("display","");
+				$(".form-container").css("overflow-y","scroll");
+				$(".form-container").css("height",finalHeight+"px");
+			}
+		},210);
 	}
 	
 	/**
