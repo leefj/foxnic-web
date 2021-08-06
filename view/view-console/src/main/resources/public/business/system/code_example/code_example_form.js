@@ -1,7 +1,7 @@
 /**
  * 代码生成示例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-06 11:07:10
+ * @since 2021-08-06 17:58:33
  */
 
 function FormPage() {
@@ -14,7 +14,7 @@ function FormPage() {
       */
 	this.init=function(layui) { 	
      	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload,foxup=layui.foxnicUpload;
-		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
+		laydate = layui.laydate,table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
 		
 		//渲染表单组件
 		renderFormFields();
@@ -26,19 +26,24 @@ function FormPage() {
 		bindButtonEvent();
 
 	}
-	
+
+	/**
+	 * 自动调节窗口高度
+	 * */
+	var adjustPopupTask=-1;
 	function adjustPopup() {
+		clearTimeout(adjustPopupTask);
 		var scroll=$(".form-container").attr("scroll");
 		if(scroll=='yes') return;
-		setTimeout(function () {
+		adjustPopupTask=setTimeout(function () {
 			var body=$("body");
 			var bodyHeight=body.height();
-			var area=admin.changePopupArea(null,bodyHeight);
+			var footerHeight=$(".model-form-footer").height();
+			var area=admin.changePopupArea(null,bodyHeight+footerHeight);
 			admin.putTempData('sys-code-example-form-area', area);
 			window.adjustPopup=adjustPopup;
 			if(area.tooHeigh) {
 				var windowHeight=area.iframeHeight;
-				var footerHeight=$(".model-form-footer").height();
 				var finalHeight=windowHeight-footerHeight-16;
 				//console.log("windowHeight="+windowHeight+',bodyHeight='+bodyHeight+",footerHeight="+footerHeight+",finalHeight="+finalHeight);
 				$(".form-container").css("display","");
@@ -151,6 +156,10 @@ function FormPage() {
 				return opts;
 			}
 		});
+		laydate.render({
+			elem: '#birthday',
+			trigger:"click"
+		});
 	}
 	
 	/**
@@ -170,11 +179,15 @@ function FormPage() {
 			//设置  图片上传  显示附件
 		    if($("#imageId").val()) {
 				foxup.fill("imageId",$("#imageId").val());
-		    }
+		    } else {
+				adjustPopup();
+			}
 			//设置  多文件上传  显示附件
 		    if($("#fileIds").val()) {
 				foxup.fill("fileIds",$("#fileIds").val());
-		    }
+		    } else {
+				adjustPopup();
+			}
 
 			//设置 选择框(枚举) 下拉框选中值
 			var selectEnumSelect=xmSelect.get("#selectEnum",true);
@@ -214,10 +227,19 @@ function FormPage() {
     
 	    form.on('submit(submit-button)', function (data) {
 	    	//debugger;
-	    	
+			data.field = form.val("data-form");
+			//校验表单
+			if(!fox.formVerify("data-form")) return;
 
 			//处理 逻辑值 默认值
 		    if(!data.field.valid) data.field.valid=0;
+
+
+			//处理 复选框(枚举) 默认值
+			data.field["checkEnum"]=fox.getCheckedValue("checkEnum");
+			//处理 复选框(字典) 默认值
+			data.field["checkDict"]=fox.getCheckedValue("checkDict");
+
 
 
 			//获取 选择框(枚举) 下拉框的值
@@ -262,6 +284,6 @@ layui.config({
 }).extend({
 	xmSelect: 'xm-select/xm-select',
 	foxnicUpload: 'upload/foxnic-upload'
-}).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect','foxnicUpload'],function() {
+}).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect','foxnicUpload','laydate'],function() {
 	(new FormPage()).init(layui);
 });

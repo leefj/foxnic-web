@@ -45,6 +45,17 @@
                         #if(f.radioField.enumTypeName!=null)
                         <div id="#(f.varName)" th:data="${enum.toArray('#(f.radioField.enumTypeName)')}" style="width:#(f.search.inputWidth)px"></div>
                         #end
+
+                        #else if(f.typeName.equals("check_box"))
+
+                            #if(f.checkField.dictCode!=null)
+                                <div id="#(f.varName)" th:data="${dict.toArray('#(f.checkField.dictCode)')}" style="width:#(f.search.inputWidth)px"></div>
+                            #end
+
+                            #if(f.checkField.enumTypeName!=null)
+                                <div id="#(f.varName)" th:data="${enum.toArray('#(f.checkField.enumTypeName)')}" style="width:#(f.search.inputWidth)px"></div>
+                            #end
+
                         #else if(f.typeName.equals("date_input"))
                          <input type="text" id="#(f.varName)-begin" style="width: #(f.search.inputWidth)px" lay-verify="date" th:placeholder="${lang.translate('开始日期')}" autocomplete="off" class="layui-input search-input search-date-input"  readonly >
                          <span class="search-dash">-</span>
@@ -115,6 +126,13 @@
     #end
     #if(f.radioField.enumTypeName!=null)
     var RADIO_#(f.varName.toUpperCase())_DATA = [[${enum.toArray('#(f.radioField.enumTypeName)')}]];
+    #end
+    #else if(f.typeName.equals("check_box"))
+    #if(f.checkField.dictCode!=null)
+    var CHECK_#(f.varName.toUpperCase())_DATA = [[${dict.toArray('#(f.checkField.dictCode)')}]];
+    #end
+    #if(f.checkField.enumTypeName!=null)
+    var CHECK_#(f.varName.toUpperCase())_DATA = [[${enum.toArray('#(f.checkField.enumTypeName)')}]];
     #end
     #else if(f.typeName.equals("select_box"))
     #end

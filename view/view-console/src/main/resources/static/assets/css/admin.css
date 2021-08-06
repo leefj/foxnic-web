@@ -441,8 +441,9 @@ html {
 
 /* 表单弹窗样式 */
 .model-form {
-    padding-top: 15px;
-    margin-right: 30px;
+    padding-top: 0px;
+    margin-right: 4px;
+    margin-left: 4px;
 }
 
 .model-form-footer {
@@ -705,4 +706,20 @@ body.layui-fluid {
 .layui-layout-admin .layui-body.admin-iframe-body {
     padding: 0;
     overflow: hidden;
+}
+
+.layui-elem-field {
+    border-color: #ccc;
+}
+
+.form-row {
+    width: 100%;
+    display: inline-block;
+}
+
+.form-column {
+    padding-top: 16px;
+    padding-right: 26px;
+    padding-left: 4px;
+    display: inline-block;
 }

@@ -66,10 +66,17 @@ function ListPage() {
 				{ field: '#(f.varName)', align:"#(f.alignInList)", hide:#(f.isHideInList), sort: true, title: fox.translate('#(f.labelInList)'), templet: function (d) { return '<img style="height:100%;" fileType="image/png" onclick="window.previewImage(this)"  src="'+apiurls.storage.image+'?id='+ d.#(f.varName)+'" />'; } } ,
 				#elseif(f.typeName.equals("radio_box"))
 				#if(f.radioField.dictCode!=null)
-				{ field: '#(f.varName)', align:"#(f.alignInList)", hide:#(f.isHideInList), sort: true, title: fox.translate('#(f.labelInList)'), templet:function (d){ return fox.transDict(RADIO_#(f.varName.toUpperCase())_DATA,d.#(f.varName));}} ,
+				{ field: '#(f.varName)', align:"#(f.alignInList)", hide:#(f.isHideInList), sort: true, title: fox.translate('#(f.labelInList)'), templet:function (d){ return fox.getDictText(RADIO_#(f.varName.toUpperCase())_DATA,d.#(f.varName));}} ,
 				#end
 				#if(f.radioField.enumTypeName!=null)
 				{ field: '#(f.varName)', align:"#(f.alignInList)", hide:#(f.isHideInList), sort: true, title: fox.translate('#(f.labelInList)'), templet:function (d){ return fox.getEnumText(RADIO_#(f.varName.toUpperCase())_DATA,d.#(f.varName));}} ,
+				#end
+				#elseif(f.typeName.equals("check_box"))
+				#if(f.checkField.dictCode!=null)
+				{ field: '#(f.varName)', align:"#(f.alignInList)", hide:#(f.isHideInList), sort: true, title: fox.translate('#(f.labelInList)'), templet:function (d){ return fox.getDictText(CHECK_#(f.varName.toUpperCase())_DATA,d.#(f.varName));}} ,
+				#end
+				#if(f.checkField.enumTypeName!=null)
+				{ field: '#(f.varName)', align:"#(f.alignInList)", hide:#(f.isHideInList), sort: true, title: fox.translate('#(f.labelInList)'), templet:function (d){ return fox.getEnumText(CHECK_#(f.varName.toUpperCase())_DATA,d.#(f.varName));}} ,
 				#end
 				#elseif(f.typeName.equals("logic_switch"))
 				{ field: '#(f.varName)', align:"#(f.alignInList)", hide:#(f.isHideInList), sort: true, title: fox.translate('#(f.labelInList)'), templet: '#cell-tpl-#(f.varName)'} ,
@@ -257,12 +264,44 @@ function ListPage() {
 			}
 			#end
 		});
+		#else if(f.typeName.equals("check_box"))
+		//渲染 #(f.varName) 搜索框
+		fox.renderSelectBox({
+			el: "#(f.varName)",
+			size: "small",
+			radio: false,
+			//toolbar: {show:true,showIcon:true,list:["CLEAR","REVERSE"]},
+			#if(f.checkField.dictCode!=null)
+				transform: function(data) {
+					//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+					var opts=[];
+					for (var i = 0; i < data.length; i++) {
+						if(!data[i]) continue;
+						opts.push({name:data[i].text,value:data[i].code});
+					}
+					return opts;
+				}
+			#end
+			#if(f.checkField.enumTypeName!=null)
+				transform:function(data) {
+					//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+					var opts=[];
+					if(!data) return opts;
+					for (var i = 0; i < data.length; i++) {
+						opts.push({name:data[i].text,value:data[i].code});
+					}
+					return opts;
+				}
+			#end
+		});
 		#else if(f.typeName.equals("date_input"))
 		laydate.render({
-			elem: '##(f.varName)-begin'
+			elem: '##(f.varName)-begin',
+			trigger:"click"
 		});
 		laydate.render({
-			elem: '##(f.varName)-end'
+			elem: '##(f.varName)-end',
+			trigger:"click"
 		});
 		#else if(f.typeName.equals("select_box"))
 		//渲染 #(f.varName) 下拉字段
@@ -448,7 +487,7 @@ function ListPage() {
 			title: title,
 			resize: true,
 			offset: [top,null],
-			area: ["500px",height+"px"],
+			area: ["#(formWindow.width)px",height+"px"],
 			type: 2,
 			content: '#(formURI)' + queryString,
 			finish: function () {

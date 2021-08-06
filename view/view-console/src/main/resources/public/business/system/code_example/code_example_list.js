@@ -1,7 +1,7 @@
 /**
  * 代码生成示例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-06 11:07:09
+ * @since 2021-08-06 17:58:32
  */
 
 
@@ -59,9 +59,9 @@ function ListPage() {
                 { field: 'weight', align:"right", hide:false, sort: true, title: fox.translate('小数输入')} ,
 				{ field: 'valid', align:"right", hide:false, sort: true, title: fox.translate('逻辑值'), templet: '#cell-tpl-valid'} ,
 				{ field: 'radioEnum', align:"left", hide:false, sort: true, title: fox.translate('单选框(枚举)'), templet:function (d){ return fox.getEnumText(RADIO_RADIOENUM_DATA,d.radioEnum);}} ,
-				{ field: 'radioDict', align:"left", hide:false, sort: true, title: fox.translate('单选框(字典)'), templet:function (d){ return fox.transDict(RADIO_RADIODICT_DATA,d.radioDict);}} ,
-                { field: 'checkEnum', align:"left", hide:false, sort: true, title: fox.translate('复选框(枚举)')} ,
-                { field: 'checkDict', align:"left", hide:false, sort: true, title: fox.translate('复选框(字典)')} ,
+				{ field: 'radioDict', align:"left", hide:false, sort: true, title: fox.translate('单选框(字典)'), templet:function (d){ return fox.getDictText(RADIO_RADIODICT_DATA,d.radioDict);}} ,
+				{ field: 'checkEnum', align:"left", hide:false, sort: true, title: fox.translate('复选框(枚举)'), templet:function (d){ return fox.getEnumText(CHECK_CHECKENUM_DATA,d.checkEnum);}} ,
+				{ field: 'checkDict', align:"left", hide:false, sort: true, title: fox.translate('复选框(字典)'), templet:function (d){ return fox.getDictText(CHECK_CHECKDICT_DATA,d.checkDict);}} ,
 				{ field: 'selectEnum', align:"left", hide:false, sort: true, title: fox.translate('选择框(枚举)')} ,
 				{ field: 'selectDict', align:"left", hide:false, sort: true, title: fox.translate('选择框(字典)'), templet: function (d) { return fox.joinLabel(null ,"text");}} ,
 				{ field: 'selectApi', align:"left", hide:false, sort: true, title: fox.translate('选择框(查询)'), templet: function (d) { return fox.joinLabel(null ,"url");}} ,
@@ -198,6 +198,38 @@ function ListPage() {
 				return opts;
 			}
 		});
+		//渲染 checkEnum 搜索框
+		fox.renderSelectBox({
+			el: "checkEnum",
+			size: "small",
+			radio: false,
+			//toolbar: {show:true,showIcon:true,list:["CLEAR","REVERSE"]},
+				transform:function(data) {
+					//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+					var opts=[];
+					if(!data) return opts;
+					for (var i = 0; i < data.length; i++) {
+						opts.push({name:data[i].text,value:data[i].code});
+					}
+					return opts;
+				}
+		});
+		//渲染 checkDict 搜索框
+		fox.renderSelectBox({
+			el: "checkDict",
+			size: "small",
+			radio: false,
+			//toolbar: {show:true,showIcon:true,list:["CLEAR","REVERSE"]},
+				transform: function(data) {
+					//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+					var opts=[];
+					for (var i = 0; i < data.length; i++) {
+						if(!data[i]) continue;
+						opts.push({name:data[i].text,value:data[i].code});
+					}
+					return opts;
+				}
+		});
 		//渲染 selectEnum 下拉字段
 		fox.renderSelectBox({
 			el: "selectEnum",
@@ -255,10 +287,12 @@ function ListPage() {
 			}
 		});
 		laydate.render({
-			elem: '#birthday-begin'
+			elem: '#birthday-begin',
+			trigger:"click"
 		});
 		laydate.render({
-			elem: '#birthday-end'
+			elem: '#birthday-end',
+			trigger:"click"
 		});
 		fox.renderSearchInputs();
 	}
@@ -374,7 +408,7 @@ function ListPage() {
 			title: title,
 			resize: true,
 			offset: [top,null],
-			area: ["500px",height+"px"],
+			area: ["1000px",height+"px"],
 			type: 2,
 			content: '/business/system/code_example/code_example_form.html' + queryString,
 			finish: function () {

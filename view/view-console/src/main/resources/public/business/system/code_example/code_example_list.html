@@ -2,7 +2,7 @@
 /**
  * 代码生成示例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-06 11:07:08
+ * @since 2021-08-06 17:58:31
  */
  -->
  <!DOCTYPE html>
@@ -68,12 +68,14 @@
 
 
                         <div id="radioEnum" th:data="${enum.toArray('org.github.foxnic.web.constants.enums.Language')}" style="width:140px"></div>
+
                     </div>
                     <!-- 单选框(字典) , radioDict ,typeName=radio_box, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div"><span th:text="${lang.translate('单选框(字典)')}" class="search-label">单选框(字典)</span><span class="search-colon">:</span></div>
 
                         <div id="radioDict" th:data="${dict.toArray('sex')}" style="width:140px"></div>
+
 
                     </div>
                     <!-- 逻辑值 , valid ,typeName=logic_switch, isHideInSearch=false -->
@@ -84,12 +86,18 @@
                     <!-- 复选框(枚举) , checkEnum ,typeName=check_box, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div"><span th:text="${lang.translate('复选框(枚举)')}" class="search-label">复选框(枚举)</span><span class="search-colon">:</span></div>
-                        <input id="checkEnum" class="layui-input search-input" style="width: 140px" type="text" th:placeholder="${lang.translate('请输入复选框(枚举)')}"/>
+
+
+                                <div id="checkEnum" th:data="${enum.toArray('org.github.foxnic.web.constants.enums.MenuType')}" style="width:140px"></div>
+
                     </div>
                     <!-- 复选框(字典) , checkDict ,typeName=check_box, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div"><span th:text="${lang.translate('复选框(字典)')}" class="search-label">复选框(字典)</span><span class="search-colon">:</span></div>
-                        <input id="checkDict" class="layui-input search-input" style="width: 140px" type="text" th:placeholder="${lang.translate('请输入复选框(字典)')}"/>
+
+                                <div id="checkDict" th:data="${dict.toArray('measure_method')}" style="width:140px"></div>
+
+
                     </div>
 
 
@@ -149,6 +157,8 @@
     var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];
     var RADIO_RADIOENUM_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.Language')}]];
     var RADIO_RADIODICT_DATA = [[${dict.toArray('sex')}]];
+    var CHECK_CHECKENUM_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.MenuType')}]];
+    var CHECK_CHECKDICT_DATA = [[${dict.toArray('measure_method')}]];
     var AUTH_PREFIX="sys_code_example";
 </script>
 

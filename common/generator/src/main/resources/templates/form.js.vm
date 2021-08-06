@@ -10,7 +10,7 @@ function FormPage() {
       */
 	this.init=function(layui) { 	
      	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload,foxup=layui.foxnicUpload;
-		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
+		laydate = layui.laydate,table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
 		
 		//渲染表单组件
 		renderFormFields();
@@ -26,19 +26,24 @@ function FormPage() {
 		adjustPopup();
 		#end
 	}
-	
+
+	/**
+	 * 自动调节窗口高度
+	 * */
+	var adjustPopupTask=-1;
 	function adjustPopup() {
+		clearTimeout(adjustPopupTask);
 		var scroll=$(".form-container").attr("scroll");
 		if(scroll=='yes') return;
-		setTimeout(function () {
+		adjustPopupTask=setTimeout(function () {
 			var body=$("body");
 			var bodyHeight=body.height();
-			var area=admin.changePopupArea(null,bodyHeight);
+			var footerHeight=$(".model-form-footer").height();
+			var area=admin.changePopupArea(null,bodyHeight+footerHeight);
 			admin.putTempData('#(formAreaKey)', area);
 			window.adjustPopup=adjustPopup;
 			if(area.tooHeigh) {
 				var windowHeight=area.iframeHeight;
-				var footerHeight=$(".model-form-footer").height();
 				var finalHeight=windowHeight-footerHeight-16;
 				//console.log("windowHeight="+windowHeight+',bodyHeight='+bodyHeight+",footerHeight="+footerHeight+",finalHeight="+finalHeight);
 				$(".form-container").css("display","");
@@ -146,6 +151,11 @@ function FormPage() {
 			}
 			#end
 		});
+		#else if(f.typeName.equals("date_input"))
+		laydate.render({
+			elem: '##(f.varName)',
+			trigger:"click"
+		});
 	    #end
 	    #end
 	}
@@ -171,7 +181,9 @@ function FormPage() {
 			//设置  #(f.labelInForm)  显示附件
 		    if($("##(f.varName)").val()) {
 				foxup.fill("#(f.varName)",$("##(f.varName)").val());
-		    }
+		    } else {
+				adjustPopup();
+			}
 		    #end
 		    #end
 
@@ -213,7 +225,9 @@ function FormPage() {
     
 	    form.on('submit(submit-button)', function (data) {
 	    	//debugger;
-	    	
+			data.field = form.val("data-form");
+			//校验表单
+			if(!fox.formVerify("data-form")) return;
 
 	    	#for(f : fields)
 		    #if(f.typeName.equals("logic_switch"))
@@ -221,6 +235,15 @@ function FormPage() {
 		    if(!data.field.#(f.varName)) data.field.#(f.varName)=0;
 		    #end
 		    #end
+
+
+			#for(f : fields)
+			#if(f.typeName.equals("check_box"))
+			//处理 #(f.labelInForm) 默认值
+			data.field["#(f.varName)"]=fox.getCheckedValue("#(f.varName)");
+			#end
+			#end
+
 
 
 			#for(f : fields)
@@ -264,6 +287,6 @@ layui.config({
 }).extend({
 	xmSelect: 'xm-select/xm-select',
 	foxnicUpload: 'upload/foxnic-upload'
-}).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect','foxnicUpload'],function() {
+}).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect','foxnicUpload','laydate'],function() {
 	(new FormPage()).init(layui);
 });
