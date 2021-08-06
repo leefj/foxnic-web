@@ -2,7 +2,7 @@
 /**
  * 代码生成示例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-05 19:42:57
+ * @since 2021-08-06 11:07:09
  */
  -->
  <!DOCTYPE html>
@@ -37,7 +37,7 @@
             <div class="layui-form-item" >
             <label class="layui-form-label" th:text="${lang.translate('多行文本')}">多行文本</label>
             <div class="layui-input-block">
-                <textarea lay-filter="notes" id="notes" name="notes" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('多行文本') }" class="layui-textarea" ></textarea>
+                <textarea lay-filter="notes" id="notes" name="notes" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('多行文本') }" class="layui-textarea" style="height: 300px" ></textarea>
             </div>
         </div>
 
@@ -57,10 +57,13 @@
 
         <div class="layui-form-item" >
             <label class="layui-form-label" th:text="${lang.translate('多文件上传')}">多文件上传</label>
-            <div class="layui-input-block">
-                <input lay-filter="fileIds" id="fileIds" name="fileIds" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('多文件上传') }" type="text" class="layui-input"   />
+            <div class="layui-upload layui-input-block">
+                <input id="fileIds"  name="fileIds" lay-filter="fileIds" style="display: none">
+                <button type="button" class="layui-btn" id="fileIds-button" th:text="${lang.translate('选择附件')}">选择附件</button>
+                <div class="layui-upload-list" id="fileIds-file-list"></div>
             </div>
         </div>
+
 
 
 
@@ -109,21 +112,21 @@
 
 
 
-        <div class="layui-form-item" >
-            <label class="layui-form-label" th:text="${lang.translate('复选框(枚举)')}">复选框(枚举)</label>
-            <div class="layui-input-block">
-                <input lay-filter="checkEnum" id="checkEnum" name="checkEnum" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('复选框(枚举)') }" type="text" class="layui-input"   />
+            <div class="layui-form-item" >
+                <label class="layui-form-label" th:text="${lang.translate('复选框(枚举)')}">复选框(枚举)</label>
+                <div class="layui-input-block">
+                        <input type="checkbox" name="checkEnum" lay-filter="checkEnum" lay-skin="primary" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.MenuType')}" th:value="${e.code}" th:title="${e.text}">
+                </div>
             </div>
-        </div>
 
 
 
-        <div class="layui-form-item" >
-            <label class="layui-form-label" th:text="${lang.translate('复选框(字典)')}">复选框(字典)</label>
-            <div class="layui-input-block">
-                <input lay-filter="checkDict" id="checkDict" name="checkDict" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('复选框(字典)') }" type="text" class="layui-input"   />
+            <div class="layui-form-item" >
+                <label class="layui-form-label" th:text="${lang.translate('复选框(字典)')}">复选框(字典)</label>
+                <div class="layui-input-block">
+                        <input type="checkbox" name="checkDict" lay-filter="checkDict" lay-skin="primary" th:each="e,stat:${dict.toArray('measure_method')}" th:value="${e.code}" th:title="${e.text}">
+                </div>
             </div>
-        </div>
 
 
 
@@ -163,6 +166,7 @@
 
 
 
+        <div style="height: 8px"></div>
 
 
     </form>

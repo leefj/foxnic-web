@@ -77,7 +77,7 @@
             <div class="layui-form-item" #if(f.isHideInForm)style="display: none")#end>
             <label class="layui-form-label" th:text="${lang.translate('#(f.labelInForm)')}">#(f.labelInForm)</label>
             <div class="layui-input-block">
-                <textarea lay-filter="#(f.varName)" id="#(f.varName)" name="#(f.varName)" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('#(f.labelInForm)') }" class="layui-textarea" ></textarea>
+                <textarea lay-filter="#(f.varName)" id="#(f.varName)" name="#(f.varName)" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('#(f.labelInForm)') }" class="layui-textarea" style="height: #(f.textArea.height)px" ></textarea>
             </div>
         </div>
 
@@ -112,6 +112,7 @@
 
         #end
 
+        <div style="height: 8px"></div>
         #if(formWindow.bottomSpace!=null)
         <div style="height: #(formWindow.bottomSpace)px"></div>
         #end

@@ -6,6 +6,7 @@ import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_CODE_EXAMPLE;
 import org.github.foxnic.web.constants.enums.DictEnum;
 import org.github.foxnic.web.constants.enums.Language;
+import org.github.foxnic.web.constants.enums.MenuType;
 import org.github.foxnic.web.constants.enums.SystemConfigType;
 import org.github.foxnic.web.domain.oauth.meta.ResourzeMeta;
 import org.github.foxnic.web.proxy.oauth.ResourzeServiceProxy;
@@ -32,7 +33,10 @@ public class CodeExampleGenerator extends SystemCodeGenerator {
 		cfg.view().field(SYS_CODE_EXAMPLE.ID).basic().hidden();
 		//配置在列表中隐藏
 		cfg.view().field(SYS_CODE_EXAMPLE.NOTES)
+				//多行文本
+				.form().textArea().height(300)
 				.list().hidden();
+
 
 		//日期类型
 		cfg.view().field(SYS_CODE_EXAMPLE.BIRTHDAY)
@@ -55,6 +59,7 @@ public class CodeExampleGenerator extends SystemCodeGenerator {
 		//多文件上传类型
 		cfg.view().field(SYS_CODE_EXAMPLE.FILE_IDS)
 				.list().hidden()
+				.form().upload().acceptExts("doc","zip","xlsx","rar","docx").maxFileCount(4)
 				.search().hidden();
 
 		//单选框，下拉数据来自枚举
@@ -64,6 +69,14 @@ public class CodeExampleGenerator extends SystemCodeGenerator {
 		//单选框，下拉数据来自字典
 		cfg.view().field(SYS_CODE_EXAMPLE.RADIO_DICT)
 				.form().radioBox().dict(DictEnum.SEX);
+
+		//复选框，下拉数据来自枚举
+		cfg.view().field(SYS_CODE_EXAMPLE.CHECK_ENUM)
+				.form().checkBox().enumType(MenuType.class);
+
+		//复选框，下拉数据来自字典
+		cfg.view().field(SYS_CODE_EXAMPLE.CHECK_DICT)
+				.form().checkBox().dict(DictEnum.MEASURE_METHOD);
 
 		//逻辑值
 		cfg.view().field(SYS_CODE_EXAMPLE.VALID)
@@ -75,7 +88,7 @@ public class CodeExampleGenerator extends SystemCodeGenerator {
 
 		//下拉选择，数据来自字典
 		cfg.view().field(SYS_CODE_EXAMPLE.SELECT_DICT)
-				.form().selectBox().dict(DictEnum.ORDER_STATUS);
+				.form().selectBox().dict(DictEnum.ORDER_STATUS).muliti(true);
 
 		//下拉选择，数据来自字典
 		cfg.view().field(SYS_CODE_EXAMPLE.SELECT_API)
@@ -83,24 +96,24 @@ public class CodeExampleGenerator extends SystemCodeGenerator {
 				.form().selectBox().queryApi(ResourzeServiceProxy.QUERY_PAGED_LIST).valueField(ResourzeMeta.ID).textField(ResourzeMeta.URL).toolbar(false).paging(true);
 
 
-		//多行文本
-		cfg.view().field(SYS_CODE_EXAMPLE.NOTES)
-				.form().textArea();
+
 
 		cfg.view().formWindow();
 
 		//此设置用于覆盖字段的独立配置；清单中没有出现的，设置为隐藏；重复出现或不存在的字段将抛出异常；只接受 DBField 或 String 类型的元素
 		cfg.view().search().inputLayout(
 				new Object[]{SYS_CODE_EXAMPLE.NAME,SYS_CODE_EXAMPLE.NOTES,SYS_CODE_EXAMPLE.AREA,SYS_CODE_EXAMPLE.WEIGHT,SYS_CODE_EXAMPLE.BIRTHDAY},
-				new Object[]{SYS_CODE_EXAMPLE.RADIO_ENUM,SYS_CODE_EXAMPLE.RADIO_DICT,SYS_CODE_EXAMPLE.VALID},
+				new Object[]{SYS_CODE_EXAMPLE.RADIO_ENUM,SYS_CODE_EXAMPLE.RADIO_DICT,SYS_CODE_EXAMPLE.VALID,SYS_CODE_EXAMPLE.CHECK_ENUM,SYS_CODE_EXAMPLE.CHECK_DICT},
 				new Object[]{SYS_CODE_EXAMPLE.SELECT_ENUM,SYS_CODE_EXAMPLE.SELECT_DICT,SYS_CODE_EXAMPLE.SELECT_API}
 		);
 
-//		//其实就是排个顺序
+		//单列布局方式：其实就是排个顺序,并把不在清单中的字段设置成隐藏
 //		cfg.view().form().inputColumnLayout(1,
-//				SYS_CODE_EXAMPLE.NAME,SYS_CODE_EXAMPLE.NOTES,SYS_CODE_EXAMPLE.AREA,SYS_CODE_EXAMPLE.WEIGHT,SYS_CODE_EXAMPLE.BIRTHDAY,
-//				SYS_CODE_EXAMPLE.IMAGE_ID,SYS_CODE_EXAMPLE.RADIO_ENUM,SYS_CODE_EXAMPLE.RADIO_DICT,SYS_CODE_EXAMPLE.VALID,
-//				SYS_CODE_EXAMPLE.SELECT_ENUM,SYS_CODE_EXAMPLE.SELECT_DICT,SYS_CODE_EXAMPLE.SELECT_API
+//				SYS_CODE_EXAMPLE.NAME,SYS_CODE_EXAMPLE.BIRTHDAY,SYS_CODE_EXAMPLE.AREA,SYS_CODE_EXAMPLE.WEIGHT,
+//				SYS_CODE_EXAMPLE.IMAGE_ID,SYS_CODE_EXAMPLE.FILE_IDS,
+//				SYS_CODE_EXAMPLE.RADIO_ENUM,SYS_CODE_EXAMPLE.RADIO_DICT,SYS_CODE_EXAMPLE.VALID,
+//				SYS_CODE_EXAMPLE.CHECK_ENUM,SYS_CODE_EXAMPLE.CHECK_DICT,
+//				SYS_CODE_EXAMPLE.SELECT_ENUM,SYS_CODE_EXAMPLE.SELECT_DICT,SYS_CODE_EXAMPLE.SELECT_API,SYS_CODE_EXAMPLE.NOTES
 //		);
 //
 //

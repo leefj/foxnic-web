@@ -1,7 +1,7 @@
 /**
  * 代码生成示例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-05 19:42:56
+ * @since 2021-08-06 11:07:09
  */
 
 
@@ -128,6 +128,8 @@ function ListPage() {
 		value.valid={ value: xmSelect.get("#valid",true).getValue("value") };
 		value.radioEnum={ value: xmSelect.get("#radioEnum",true).getValue("value") };
 		value.radioDict={ value: xmSelect.get("#radioDict",true).getValue("value") };
+		value.checkEnum={ value: $("#checkEnum").val() };
+		value.checkDict={ value: $("#checkDict").val() };
 		value.selectEnum={ value: xmSelect.get("#selectEnum",true).getValue("value") };
 		value.selectDict={ value: xmSelect.get("#selectDict",true).getValue("value") };
 		value.selectApi={ value: xmSelect.get("#selectApi",true).getValue("value") };

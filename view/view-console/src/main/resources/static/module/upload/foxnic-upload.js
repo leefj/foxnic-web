@@ -209,6 +209,7 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"elem
     }
 
     function getSnapshotPath(fileName,exists) {
+        // debugger
         if(!exists) {
             return "/module/upload/filetype/error.png";
         }
@@ -256,7 +257,7 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"elem
                         var fid=$("#"+elId+"-file-list").attr("fileId");
                         removePreview(elId,fid,idx,true);
                     }
-                    addPreview(elId,index,file.name,file.type,result);
+                    addPreview(elId,index,file.name,file.type,result,null,true);
                 });
                 //
                 before && before(obj);
