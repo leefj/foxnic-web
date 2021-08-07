@@ -135,6 +135,12 @@
     var CHECK_#(f.varName.toUpperCase())_DATA = [[${enum.toArray('#(f.checkField.enumTypeName)')}]];
     #end
     #else if(f.typeName.equals("select_box"))
+    #if(f.selectField.dictCode!=null)
+    var SELECT_#(f.varName.toUpperCase())_DATA = [[${dict.toArray('#(f.selectField.dictCode)')}]];
+    #end
+    #if(f.selectField.enumTypeName!=null)
+    var SELECT_#(f.varName.toUpperCase())_DATA = [[${enum.toArray('#(f.selectField.enumTypeName)')}]];
+    #end
     #end
     #end
     var AUTH_PREFIX="#(authPrefix)";

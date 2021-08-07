@@ -1,7 +1,7 @@
 /**
  * 代码生成示例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-06 17:58:33
+ * @since 2021-08-07 13:20:11
  */
 
 function FormPage() {
@@ -88,7 +88,7 @@ function FormPage() {
 			maxFileCount: 4,
 			displayFileName: true,
 			accept: "file",
-			exts:'doc|zip|xlsx|rar|docx',
+			exts:'doc|zip|xlsx|rar|docx|txt|svg',
 			afterPreview:function(elId,index,fileId,upload){
 				adjustPopup();
 			},
@@ -135,15 +135,15 @@ function FormPage() {
 				return opts;
 			}
 		});
-		//渲染 selectApi 下拉字段
+		//渲染 resourceId 下拉字段
 		fox.renderSelectBox({
-			el: "selectApi",
+			el: "resourceId",
 			radio: true,
 			filterable: true,
 			paging: true,
 			pageRemote: true,
 			//转换数据
-			searchField: "url)", //请自行调整用于搜索的字段名称
+			searchField: "url", //请自行调整用于搜索的字段名称
 			extraParam: {}, //额外的查询参数，Object 或是 返回 Object 的函数
 			transform: function(data) {
 				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
@@ -159,6 +159,27 @@ function FormPage() {
 		laydate.render({
 			elem: '#birthday',
 			trigger:"click"
+		});
+		//渲染 roleIds 下拉字段
+		fox.renderSelectBox({
+			el: "roleIds",
+			radio: false,
+			filterable: true,
+			paging: true,
+			pageRemote: true,
+			//转换数据
+			searchField: "name", //请自行调整用于搜索的字段名称
+			extraParam: {}, //额外的查询参数，Object 或是 返回 Object 的函数
+			transform: function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				var opts=[];
+				if(!data) return opts;
+				for (var i = 0; i < data.length; i++) {
+					if(!data[i]) continue;
+					opts.push({name:data[i].name,value:data[i].id});
+				}
+				return opts;
+			}
 		});
 	}
 	
@@ -176,34 +197,41 @@ function FormPage() {
 			fm[0].reset();
 			form.val('data-form', formData);
 
-			//设置  图片上传  显示附件
+			//设置 图片上传 显示附件
 		    if($("#imageId").val()) {
 				foxup.fill("imageId",$("#imageId").val());
 		    } else {
 				adjustPopup();
 			}
-			//设置  多文件上传  显示附件
+			//设置 多文件上传 显示附件
 		    if($("#fileIds").val()) {
 				foxup.fill("fileIds",$("#fileIds").val());
 		    } else {
 				adjustPopup();
 			}
 
-			//设置 选择框(枚举) 下拉框选中值
-			var selectEnumSelect=xmSelect.get("#selectEnum",true);
-			var selectEnumOpionts=[];
-			console.error("代码生成时未指定  选择框(枚举)(selectEnum) 的 fillBy 属性 , 无法填充表单数值");
-			selectEnumSelect.setValue(selectEnumOpionts);
-			//设置 选择框(字典) 下拉框选中值
-			var selectDictSelect=xmSelect.get("#selectDict",true);
-			var selectDictOpionts=[];
-			console.error("代码生成时未指定  选择框(字典)(selectDict) 的 fillBy 属性 , 无法填充表单数值");
-			selectDictSelect.setValue(selectDictOpionts);
-			//设置 选择框(查询) 下拉框选中值
-			var selectApiSelect=xmSelect.get("#selectApi",true);
-			var selectApiOpionts=[];
-			console.error("代码生成时未指定  选择框(查询)(selectApi) 的 fillBy 属性 , 无法填充表单数值");
-			selectApiSelect.setValue(selectApiOpionts);
+
+			//设置 复选框(枚举) 显示复选框勾选
+		    if(formData["checkEnum"]) {
+				fox.setCheckedValue("checkEnum",formData["checkEnum"]);
+		    }
+			//设置 复选框(字典) 显示复选框勾选
+		    if(formData["checkDict"]) {
+				fox.setCheckedValue("checkDict",formData["checkDict"]);
+		    }
+
+
+			//设置  选择框(枚举) 设置下拉框勾选
+			fox.setSelectValue4Enum("#selectEnum",formData.selectEnum,SELECT_SELECTENUM_DATA);
+			//设置  选择框(字典) 设置下拉框勾选
+			fox.setSelectValue4Dict("#selectDict",formData.selectDict,SELECT_SELECTDICT_DATA);
+			//设置  选择框(查询) 设置下拉框勾选
+			fox.setSelectValue4QueryApi("#resourceId",formData.resourze);
+			//设置  角色 设置下拉框勾选
+			fox.setSelectValue4QueryApi("#roleIds",formData.roles);
+
+
+
 
 	     	fm.attr('method', 'POST');
 	     	renderFormFields();
@@ -250,10 +278,12 @@ function FormPage() {
 			//获取 选择框(字典) 下拉框的值
 			data.field["selectDict"]=xmSelect.get("#selectDict",true).getValue("value");
 			//获取 选择框(查询) 下拉框的值
-			data.field["selectApi"]=xmSelect.get("#selectApi",true).getValue("value");
-			if(data.field["selectApi"] && data.field["selectApi"].length>0) {
-				data.field["selectApi"]=data.field["selectApi"][0];
+			data.field["resourceId"]=xmSelect.get("#resourceId",true).getValue("value");
+			if(data.field["resourceId"] && data.field["resourceId"].length>0) {
+				data.field["resourceId"]=data.field["resourceId"][0];
 			}
+			//获取 角色 下拉框的值
+			data.field["roleIds"]=xmSelect.get("#roleIds",true).getValue("value");
 
 	    	var api=moduleURL+"/"+(data.field.id?"update":"insert");
 	        var task=setTimeout(function(){layer.load(2);},1000);

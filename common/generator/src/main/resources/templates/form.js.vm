@@ -125,7 +125,7 @@ function FormPage() {
 			#end
 			#if(f.selectField.queryApi!=null)
 			#if(f.selectField.filter)
-			searchField: "#(f.selectField.textField))", //请自行调整用于搜索的字段名称
+			searchField: "#(f.selectField.textField)", //请自行调整用于搜索的字段名称
 			extraParam: {}, //额外的查询参数，Object 或是 返回 Object 的函数
 			#end
 			transform: function(data) {
@@ -178,7 +178,7 @@ function FormPage() {
 
 	     	#for(f : fields)
 		    #if(f.typeName.equals("upload"))
-			//设置  #(f.labelInForm)  显示附件
+			//设置 #(f.labelInForm) 显示附件
 		    if($("##(f.varName)").val()) {
 				foxup.fill("#(f.varName)",$("##(f.varName)").val());
 		    } else {
@@ -187,21 +187,32 @@ function FormPage() {
 		    #end
 		    #end
 
+
+			#for(f : fields)
+		    #if(f.typeName.equals("check_box"))
+			//设置 #(f.labelInForm) 显示复选框勾选
+		    if(formData["#(f.varName)"]) {
+				fox.setCheckedValue("#(f.varName)",formData["#(f.varName)"]);
+		    }
+		    #end
+		    #end
+
+
 			#for(f : fields)
 			#if(f.typeName.equals("select_box"))
-			//设置 #(f.labelInForm) 下拉框选中值
-			var #(f.varName)Select=xmSelect.get("##(f.varName)",true);
-			var #(f.varName)Opionts=[];
-			#if(f.selectField.fillBy!=null)
-			if (formData.#(f.selectField.fillBy))	{
-				#(f.varName)Opionts=#(f.varName)Select.options.transform([formData.#(f.selectField.fillBy)]);
-			}
-			#else
-			console.error("代码生成时未指定  #(f.labelInForm)(#(f.varName)) 的 fillBy 属性 , 无法填充表单数值");
-			#end
-			#(f.varName)Select.setValue(#(f.varName)Opionts);
+			//设置  #(f.labelInForm) 设置下拉框勾选
+			#if(f.selectField.queryApi!=null && f.selectField.fillBy!=null)
+			fox.setSelectValue4QueryApi("##(f.varName)",formData.#(f.selectField.fillBy));
+			#elseif(f.selectField.dictCode!=null)
+			fox.setSelectValue4Dict("##(f.varName)",formData.#(f.varName),SELECT_#(f.varName.toUpperCase())_DATA);
+			#elseif(f.selectField.enumTypeName!=null)
+			fox.setSelectValue4Enum("##(f.varName)",formData.#(f.varName),SELECT_#(f.varName.toUpperCase())_DATA);
 			#end
 			#end
+			#end
+
+
+
 
 	     	fm.attr('method', 'POST');
 	     	renderFormFields();

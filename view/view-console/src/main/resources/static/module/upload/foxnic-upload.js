@@ -249,15 +249,25 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"elem
             this.config.before=function (obj){
 
                 obj.preview(function(index, file, result) {
+                    // debugger
+                    var cfg=UPLOADS[elId].config;
                     //如果只有一个，就替换
                     var fs=$("#"+elId+"-file-list").children();
                     //debugger;
-                    if(me.config.maxFileCount==1 && fs.length>=me.config.maxFileCount) {
+                    if(cfg.maxFileCount==1) {
                         var idx=$("#"+elId+"-file-list").attr("index");
                         var fid=$("#"+elId+"-file-list").attr("fileId");
                         removePreview(elId,fid,idx,true);
+                        addPreview(elId,index,file.name,file.type,result,null,true);
+                    } else if(cfg.maxFileCount>1 && fs.length>=cfg.maxFileCount) {
+                        // var idx=$("#"+elId+"-file-list").attr("index");
+                        // var fid=$("#"+elId+"-file-list").attr("fileId");
+                        // removePreview(elId,fid,idx,true);
+                        layer.msg("抱歉，最多上传 "+cfg.maxFileCount+" 个文件");
                     }
-                    addPreview(elId,index,file.name,file.type,result,null,true);
+                    else {
+                        addPreview(elId,index,file.name,file.type,result,null,true);
+                    }
                 });
                 //
                 before && before(obj);

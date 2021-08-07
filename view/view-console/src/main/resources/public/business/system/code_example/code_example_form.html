@@ -2,7 +2,7 @@
 /**
  * 代码生成示例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-06 17:58:32
+ * @since 2021-08-07 13:20:11
  */
  -->
  <!DOCTYPE html>
@@ -118,7 +118,16 @@
                     <div class="layui-form-item" >
                         <label class="layui-form-label " th:text="${lang.translate('选择框(查询)')}">选择框(查询)</label>
                         <div class="layui-input-block">
-                            <div id="selectApi" th:data="${'/service-oauth/sys-resourze/query-paged-list'}"></div>
+                            <div id="resourceId" th:data="${'/service-oauth/sys-resourze/query-paged-list'}"></div>
+                        </div>
+                    </div>
+
+
+                
+                    <div class="layui-form-item" >
+                        <label class="layui-form-label " th:text="${lang.translate('角色')}">角色</label>
+                        <div class="layui-input-block">
+                            <div id="roleIds" th:data="${'/service-oauth/sys-role/query-paged-list'}"></div>
                         </div>
                     </div>
 
@@ -255,6 +264,17 @@
 <script type="text/javascript" src="/assets/libs/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="/assets/libs/pandyle.min.js"></script>
 <script type="text/javascript" src="/assets/libs/layui/layui.js"></script>
+
+<script th:inline="javascript">
+    var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];
+    var RADIO_RADIOENUM_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.Language')}]];
+    var RADIO_RADIODICT_DATA = [[${dict.toArray('sex')}]];
+    var CHECK_CHECKENUM_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.MenuType')}]];
+    var CHECK_CHECKDICT_DATA = [[${dict.toArray('measure_method')}]];
+    var SELECT_SELECTENUM_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.SystemConfigType')}]];
+    var SELECT_SELECTDICT_DATA = [[${dict.toArray('order_status')}]];
+    var AUTH_PREFIX="sys_code_example";
+</script>
 
 <script src="/business/system/code_example/code_example_form.js"></script>
 

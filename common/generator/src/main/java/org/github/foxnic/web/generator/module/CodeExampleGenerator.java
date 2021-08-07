@@ -3,13 +3,20 @@ package org.github.foxnic.web.generator.module;
 import com.github.foxnic.generator.config.ModuleContext;
 import com.github.foxnic.generator.config.WriteMode;
 import com.github.foxnic.sql.meta.DBTable;
+import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_CODE_EXAMPLE;
 import org.github.foxnic.web.constants.enums.DictEnum;
 import org.github.foxnic.web.constants.enums.Language;
 import org.github.foxnic.web.constants.enums.MenuType;
 import org.github.foxnic.web.constants.enums.SystemConfigType;
+import org.github.foxnic.web.domain.oauth.Resourze;
+import org.github.foxnic.web.domain.oauth.Role;
 import org.github.foxnic.web.domain.oauth.meta.ResourzeMeta;
+import org.github.foxnic.web.domain.oauth.meta.RoleMeta;
+import org.github.foxnic.web.domain.system.meta.CodeExampleMeta;
+import org.github.foxnic.web.domain.system.meta.CodeExampleVOMeta;
 import org.github.foxnic.web.proxy.oauth.ResourzeServiceProxy;
+import org.github.foxnic.web.proxy.oauth.RoleServiceProxy;
 
 
 public class CodeExampleGenerator extends SystemCodeGenerator {
@@ -17,6 +24,28 @@ public class CodeExampleGenerator extends SystemCodeGenerator {
 	public static void main(String[] args) throws Exception {
 		CodeExampleGenerator g=new CodeExampleGenerator();
 		g.generateExample();
+		g.generateExampleRole();
+	}
+
+
+	public void generateExampleRole() throws Exception {
+		//创建配置
+		ModuleContext cfg = createModuleConfig(FoxnicWeb.SYS_CODE_EXAMPLE_ROLE.$TABLE, 6);
+
+		//指定该表为关系表
+		cfg.setRelationField(FoxnicWeb.SYS_CODE_EXAMPLE_ROLE.EXAMPLE_ID, FoxnicWeb.SYS_CODE_EXAMPLE_ROLE.ROLE_ID,true);
+
+		//文件生成覆盖模式
+		cfg.overrides()
+				.setServiceIntfAnfImpl(WriteMode.COVER_EXISTS_FILE) //服务与接口
+				.setControllerAndAgent(WriteMode.IGNORE) //Rest
+				.setPageController(WriteMode.IGNORE) //页面控制器
+				.setFormPage(WriteMode.IGNORE) //表单HTML页
+				.setListPage(WriteMode.IGNORE); //列表HTML页
+
+		//生成代码
+		cfg.buildAll();
+
 	}
 
 
@@ -25,6 +54,14 @@ public class CodeExampleGenerator extends SystemCodeGenerator {
 	public void generateExample() throws Exception {
 		//创建配置
 		ModuleContext cfg=createModuleConfig(SYS_CODE_EXAMPLE.$TABLE, 6);
+
+		//配置两个扩展属性
+		cfg.getPoClassFile().addSimpleProperty(Resourze.class,"resourze","关联一个资源","一对一关系属性拓展");
+		cfg.getPoClassFile().addListProperty(Role.class,"roles","关联多个角色","一对多关系属性拓展");
+		cfg.getPoClassFile().addSimpleProperty(Integer.class,"roleCountByAfter","角色的数量(Java)","关联角色数量JAva统计");
+		cfg.getPoClassFile().addSimpleProperty(Integer.class,"roleCountByJoin","角色的数量(Join)","关联角色数量Join统计");
+		//
+		cfg.getPoClassFile().addListProperty(String.class,"roleIds","角色ID列表","用于表单角色ID提交到后端");
 
 		//设置全局搜索输入框宽度
 		cfg.view().search().inputWidth(140);
@@ -65,7 +102,7 @@ public class CodeExampleGenerator extends SystemCodeGenerator {
 		//多文件上传类型
 		cfg.view().field(SYS_CODE_EXAMPLE.FILE_IDS)
 				.list().hidden()
-				.form().upload().acceptExts("doc","zip","xlsx","rar","docx").maxFileCount(4)
+				.form().upload().acceptExts("doc","zip","xlsx","rar","docx","txt","svg").maxFileCount(4)
 				.search().hidden();
 
 		//单选框，下拉数据来自枚举
@@ -96,17 +133,31 @@ public class CodeExampleGenerator extends SystemCodeGenerator {
 		cfg.view().field(SYS_CODE_EXAMPLE.SELECT_DICT)
 				.form().selectBox().dict(DictEnum.ORDER_STATUS).muliti(true);
 
-		//下拉选择，数据来自字典
-		cfg.view().field(SYS_CODE_EXAMPLE.SELECT_API)
+		//下拉选择，数据来自外部表
+		cfg.view().field(SYS_CODE_EXAMPLE.RESOURCE_ID)
 				.search().inputWidth(140)
-				.form().selectBox().queryApi(ResourzeServiceProxy.QUERY_PAGED_LIST).valueField(ResourzeMeta.ID).textField(ResourzeMeta.URL).toolbar(false).paging(true);
+				.form().selectBox().queryApi(ResourzeServiceProxy.QUERY_PAGED_LIST)
+				.valueField(ResourzeMeta.ID).textField(ResourzeMeta.URL)
+				.toolbar(false).paging(true)
+				.fillBy(CodeExampleMeta.RESOURZE)
+		;
+
+		//下拉选择，数据来自外部表
+		cfg.view().field(CodeExampleVOMeta.ROLE_IDS)
+				.basic().label("角色")
+				.search().inputWidth(140)
+				.form().selectBox().queryApi(RoleServiceProxy.QUERY_PAGED_LIST)
+					.valueField(RoleMeta.ID).textField(RoleMeta.NAME)
+					.toolbar(false).paging(true)
+					.fillBy(CodeExampleMeta.ROLES).muliti(true);
+		;
 
 
 		//此设置用于覆盖字段的独立配置；清单中没有出现的，设置为隐藏；重复出现或不存在的字段将抛出异常；只接受 DBField 或 String 类型的元素
 		cfg.view().search().inputLayout(
 				new Object[]{SYS_CODE_EXAMPLE.NAME,SYS_CODE_EXAMPLE.NOTES,SYS_CODE_EXAMPLE.AREA,SYS_CODE_EXAMPLE.WEIGHT,SYS_CODE_EXAMPLE.BIRTHDAY},
 				new Object[]{SYS_CODE_EXAMPLE.RADIO_ENUM,SYS_CODE_EXAMPLE.RADIO_DICT,SYS_CODE_EXAMPLE.VALID,SYS_CODE_EXAMPLE.CHECK_ENUM,SYS_CODE_EXAMPLE.CHECK_DICT},
-				new Object[]{SYS_CODE_EXAMPLE.SELECT_ENUM,SYS_CODE_EXAMPLE.SELECT_DICT,SYS_CODE_EXAMPLE.SELECT_API}
+				new Object[]{SYS_CODE_EXAMPLE.SELECT_ENUM,SYS_CODE_EXAMPLE.SELECT_DICT,SYS_CODE_EXAMPLE.RESOURCE_ID}
 		);
 
 //		//单列布局方式：其实就是排个顺序,并把不在清单中的字段设置成隐藏
@@ -167,7 +218,7 @@ public class CodeExampleGenerator extends SystemCodeGenerator {
 						SYS_CODE_EXAMPLE.VALID,SYS_CODE_EXAMPLE.SELECT_DICT,
 				}, new Object[] {
 						SYS_CODE_EXAMPLE.WEIGHT,SYS_CODE_EXAMPLE.CHECK_DICT,
-						SYS_CODE_EXAMPLE.SELECT_ENUM,SYS_CODE_EXAMPLE.SELECT_API
+						SYS_CODE_EXAMPLE.SELECT_ENUM,SYS_CODE_EXAMPLE.RESOURCE_ID,CodeExampleVOMeta.ROLE_IDS
 				}
 		);
 		cfg.view().form().addGroup("附件信息",
@@ -190,7 +241,7 @@ public class CodeExampleGenerator extends SystemCodeGenerator {
 
 		//文件生成覆盖模式
 		cfg.overrides()
-		.setServiceIntfAnfImpl(WriteMode.COVER_EXISTS_FILE) //服务与接口
+		.setServiceIntfAnfImpl(WriteMode.CREATE_IF_NOT_EXISTS) //服务与接口
 		.setControllerAndAgent(WriteMode.COVER_EXISTS_FILE) //Rest
 		.setPageController(WriteMode.COVER_EXISTS_FILE) //页面控制器
 		.setFormPage(WriteMode.COVER_EXISTS_FILE) //表单HTML页

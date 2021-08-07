@@ -1,7 +1,7 @@
 /**
  * 代码生成示例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-06 17:58:32
+ * @since 2021-08-07 13:20:11
  */
 
 
@@ -41,55 +41,59 @@ function ListPage() {
 		});
 		adjustSearchElement();
 		//
-		var h=$(".search-bar").height();
-		fox.renderTable({
-			elem: '#data-table',
-            url: moduleURL +'/query-paged-list',
-		 	height: 'full-'+(h+38), // 请按工具栏等组件的实际情况调整高度
-		 	limit: 50,
-			cols: [[
-				{  fixed: 'left',type: 'numbers' },
-			 	{  fixed: 'left',type:'checkbox' },
-                { field: 'id', align:"left", hide:true, sort: true, title: fox.translate('ID')} ,
-                { field: 'name', align:"left", hide:false, sort: true, title: fox.translate('单行文本')} ,
-                { field: 'notes', align:"left", hide:true, sort: true, title: fox.translate('多行文本')} ,
-				{ field: 'imageId', align:"left", hide:true, sort: true, title: fox.translate('图片上传'), templet: function (d) { return '<img style="height:100%;" fileType="image/png" onclick="window.previewImage(this)"  src="'+apiurls.storage.image+'?id='+ d.imageId+'" />'; } } ,
-                { field: 'fileIds', align:"left", hide:true, sort: true, title: fox.translate('多文件上传')} ,
-                { field: 'area', align:"right", hide:false, sort: true, title: fox.translate('整数输入')} ,
-                { field: 'weight', align:"right", hide:false, sort: true, title: fox.translate('小数输入')} ,
-				{ field: 'valid', align:"right", hide:false, sort: true, title: fox.translate('逻辑值'), templet: '#cell-tpl-valid'} ,
-				{ field: 'radioEnum', align:"left", hide:false, sort: true, title: fox.translate('单选框(枚举)'), templet:function (d){ return fox.getEnumText(RADIO_RADIOENUM_DATA,d.radioEnum);}} ,
-				{ field: 'radioDict', align:"left", hide:false, sort: true, title: fox.translate('单选框(字典)'), templet:function (d){ return fox.getDictText(RADIO_RADIODICT_DATA,d.radioDict);}} ,
-				{ field: 'checkEnum', align:"left", hide:false, sort: true, title: fox.translate('复选框(枚举)'), templet:function (d){ return fox.getEnumText(CHECK_CHECKENUM_DATA,d.checkEnum);}} ,
-				{ field: 'checkDict', align:"left", hide:false, sort: true, title: fox.translate('复选框(字典)'), templet:function (d){ return fox.getDictText(CHECK_CHECKDICT_DATA,d.checkDict);}} ,
-				{ field: 'selectEnum', align:"left", hide:false, sort: true, title: fox.translate('选择框(枚举)')} ,
-				{ field: 'selectDict', align:"left", hide:false, sort: true, title: fox.translate('选择框(字典)'), templet: function (d) { return fox.joinLabel(null ,"text");}} ,
-				{ field: 'selectApi', align:"left", hide:false, sort: true, title: fox.translate('选择框(查询)'), templet: function (d) { return fox.joinLabel(null ,"url");}} ,
-				{ field: 'birthday', align:"right", hide:false, sort: true, title: fox.translate('日期'), templet: function (d) { return fox.dateFormat(d.birthday); }} ,
-                { field: 'createTime', align:"right", hide:false, sort: true, title: fox.translate('创建时间')} ,
-				{ field: 'row-space', align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true},
-				{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
-            ]],
-			footer : {
-				exportExcel : admin.checkAuth(AUTH_PREFIX+":export"),
-				importExcel : admin.checkAuth(AUTH_PREFIX+":import")?{
-					params : {} ,
-				 	callback : function(r) {
-						if(r.success) {
-							layer.msg(fox.translate('数据导入成功')+"!");
-						} else {
-							layer.msg(fox.translate('数据导入失败')+"!");
+		function renderTableInternal() {
+			var h=$(".search-bar").height();
+			fox.renderTable({
+				elem: '#data-table',
+				url: moduleURL +'/query-paged-list',
+				height: 'full-'+(h+34),
+				limit: 50,
+				cols: [[
+					{  fixed: 'left',type: 'numbers' },
+					{  fixed: 'left',type:'checkbox' },
+					{ field: 'id', align:"left", hide:true, sort: true, title: fox.translate('ID')} ,
+					{ field: 'name', align:"left", hide:false, sort: true, title: fox.translate('单行文本')} ,
+					{ field: 'notes', align:"left", hide:true, sort: true, title: fox.translate('多行文本')} ,
+					{ field: 'imageId', align:"left", hide:true, sort: true, title: fox.translate('图片上传'), templet: function (d) { return '<img style="height:100%;" fileType="image/png" onclick="window.previewImage(this)"  src="'+apiurls.storage.image+'?id='+ d.imageId+'" />'; } } ,
+					{ field: 'fileIds', align:"left", hide:true, sort: true, title: fox.translate('多文件上传')} ,
+					{ field: 'area', align:"right", hide:false, sort: true, title: fox.translate('整数输入')} ,
+					{ field: 'weight', align:"right", hide:false, sort: true, title: fox.translate('小数输入')} ,
+					{ field: 'valid', align:"right", hide:false, sort: true, title: fox.translate('逻辑值'), templet: '#cell-tpl-valid'} ,
+					{ field: 'radioEnum', align:"left", hide:false, sort: true, title: fox.translate('单选框(枚举)'), templet:function (d){ return fox.getEnumText(RADIO_RADIOENUM_DATA,d.radioEnum);}} ,
+					{ field: 'radioDict', align:"left", hide:false, sort: true, title: fox.translate('单选框(字典)'), templet:function (d){ return fox.getDictText(RADIO_RADIODICT_DATA,d.radioDict);}} ,
+					{ field: 'checkEnum', align:"left", hide:false, sort: true, title: fox.translate('复选框(枚举)'), templet:function (d){ return fox.getEnumText(CHECK_CHECKENUM_DATA,d.checkEnum);}} ,
+					{ field: 'checkDict', align:"left", hide:false, sort: true, title: fox.translate('复选框(字典)'), templet:function (d){ return fox.getDictText(CHECK_CHECKDICT_DATA,d.checkDict);}} ,
+					{ field: 'selectEnum', align:"left", hide:false, sort: true, title: fox.translate('选择框(枚举)'), templet:function (d){ return fox.getEnumText(SELECT_SELECTENUM_DATA,d.selectEnum);}} ,
+					{ field: 'selectDict', align:"left", hide:false, sort: true, title: fox.translate('选择框(字典)'), templet:function (d){ return fox.getDictText(SELECT_SELECTDICT_DATA,d.selectDict);}} ,
+					{ field: 'resourceId', align:"left", hide:false, sort: true, title: fox.translate('选择框(查询)'), templet: function (d) { return fox.joinLabel(d.resourze,"url");}} ,
+					{ field: 'birthday', align:"right", hide:false, sort: true, title: fox.translate('日期'), templet: function (d) { return fox.dateFormat(d.birthday); }} ,
+					{ field: 'createTime', align:"right", hide:false, sort: true, title: fox.translate('创建时间')} ,
+					{ field: 'roleIds', align:"", hide:false, sort: true, title: fox.translate('角色'), templet: function (d) { return fox.joinLabel(d.roles,"name");}} ,
+					{ field: 'row-space', align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true},
+					{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
+				]],
+				footer : {
+					exportExcel : admin.checkAuth(AUTH_PREFIX+":export"),
+					importExcel : admin.checkAuth(AUTH_PREFIX+":import")?{
+						params : {} ,
+						callback : function(r) {
+							if(r.success) {
+								layer.msg(fox.translate('数据导入成功')+"!");
+							} else {
+								layer.msg(fox.translate('数据导入失败')+"!");
+							}
 						}
-					}
-			 	}:false
-		 	}
-        });
-        //绑定 Switch 切换事件
-        fox.bindSwitchEvent("cell-tpl-valid",moduleURL +'/update','id','valid',function(r){});
-        //绑定排序事件
-        table.on('sort(data-table)', function(obj){
-		  refreshTableData(obj.field,obj.type);
-        });
+					}:false
+				}
+			});
+			//绑定 Switch 切换事件
+			fox.bindSwitchEvent("cell-tpl-valid",moduleURL +'/update','id','valid',function(r){});
+			//绑定排序事件
+			table.on('sort(data-table)', function(obj){
+			  refreshTableData(obj.field,obj.type);
+			});
+		}
+		setTimeout(renderTableInternal,1);
     };
 
 	/**
@@ -132,7 +136,7 @@ function ListPage() {
 		value.checkDict={ value: $("#checkDict").val() };
 		value.selectEnum={ value: xmSelect.get("#selectEnum",true).getValue("value") };
 		value.selectDict={ value: xmSelect.get("#selectDict",true).getValue("value") };
-		value.selectApi={ value: xmSelect.get("#selectApi",true).getValue("value") };
+		value.resourceId={ value: xmSelect.get("#resourceId",true).getValue("value") };
 		value.birthday={ begin: $("#birthday-begin").val(), end: $("#birthday-end").val() };
 		var ps={searchField: "$composite", searchValue: JSON.stringify(value),sortField: sortField,sortType: sortType};
 		table.reload('data-table', { where : ps });
@@ -264,9 +268,9 @@ function ListPage() {
 				return opts;
 			}
 		});
-		//渲染 selectApi 下拉字段
+		//渲染 resourceId 下拉字段
 		fox.renderSelectBox({
-			el: "selectApi",
+			el: "resourceId",
 			radio: false,
 			size: "small",
 			filterable: true,

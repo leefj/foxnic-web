@@ -7,6 +7,10 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_CODE_EXAMPLE;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
+import org.github.foxnic.web.domain.oauth.Resourze;
+import org.github.foxnic.web.domain.oauth.Role;
+import java.util.List;
+import java.util.ArrayList;
 import javax.persistence.Transient;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
@@ -16,8 +20,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-06 17:58:29
- * @sign EAD4A8139F950ECD96025565B20C4374
+ * @since 2021-08-07 13:20:09
+ * @sign BBE3FDCF4310DA618E1031B4E81A7A25
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -117,7 +121,7 @@ public class CodeExample extends Entity {
 	 * 选择框(查询)：选择框(查询)
 	*/
 	@ApiModelProperty(required = false,value="选择框(查询)" , notes = "选择框(查询)")
-	private String selectApi;
+	private String resourceId;
 	
 	/**
 	 * 日期：日期
@@ -172,6 +176,36 @@ public class CodeExample extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
 	private Integer version;
+	
+	/**
+	 * 关联一个资源：一对一关系属性拓展
+	*/
+	@ApiModelProperty(required = false,value="关联一个资源" , notes = "一对一关系属性拓展")
+	private Resourze resourze;
+	
+	/**
+	 * 关联多个角色：一对多关系属性拓展
+	*/
+	@ApiModelProperty(required = false,value="关联多个角色" , notes = "一对多关系属性拓展")
+	private List<Role> roles;
+	
+	/**
+	 * 角色的数量(Java)：关联角色数量JAva统计
+	*/
+	@ApiModelProperty(required = false,value="角色的数量(Java)" , notes = "关联角色数量JAva统计")
+	private Integer roleCountByAfter;
+	
+	/**
+	 * 角色的数量(Join)：关联角色数量Join统计
+	*/
+	@ApiModelProperty(required = false,value="角色的数量(Join)" , notes = "关联角色数量Join统计")
+	private Integer roleCountByJoin;
+	
+	/**
+	 * 角色ID列表：用于表单角色ID提交到后端
+	*/
+	@ApiModelProperty(required = false,value="角色ID列表" , notes = "用于表单角色ID提交到后端")
+	private List<String> roleIds;
 	
 	/**
 	 * 获得 ID<br>
@@ -444,17 +478,17 @@ public class CodeExample extends Entity {
 	 * 选择框(查询)
 	 * @return 选择框(查询)
 	*/
-	public String getSelectApi() {
-		return selectApi;
+	public String getResourceId() {
+		return resourceId;
 	}
 	
 	/**
 	 * 设置 选择框(查询)
-	 * @param selectApi 选择框(查询)
+	 * @param resourceId 选择框(查询)
 	 * @return 当前对象
 	*/
-	public CodeExample setSelectApi(String selectApi) {
-		this.selectApi=selectApi;
+	public CodeExample setResourceId(String resourceId) {
+		this.resourceId=resourceId;
 		return this;
 	}
 	
@@ -626,6 +660,123 @@ public class CodeExample extends Entity {
 	*/
 	public CodeExample setVersion(Integer version) {
 		this.version=version;
+		return this;
+	}
+	
+	/**
+	 * 获得 关联一个资源<br>
+	 * 一对一关系属性拓展
+	 * @return 关联一个资源
+	*/
+	public Resourze getResourze() {
+		return resourze;
+	}
+	
+	/**
+	 * 设置 关联一个资源
+	 * @param resourze 关联一个资源
+	 * @return 当前对象
+	*/
+	public CodeExample setResourze(Resourze resourze) {
+		this.resourze=resourze;
+		return this;
+	}
+	
+	/**
+	 * 获得 关联多个角色<br>
+	 * 一对多关系属性拓展
+	 * @return 关联多个角色
+	*/
+	public List<Role> getRoles() {
+		return roles;
+	}
+	
+	/**
+	 * 设置 关联多个角色
+	 * @param roles 关联多个角色
+	 * @return 当前对象
+	*/
+	public CodeExample setRoles(List<Role> roles) {
+		this.roles=roles;
+		return this;
+	}
+	
+	/**
+	 * 添加 关联多个角色
+	 * @param role 关联多个角色
+	 * @return 当前对象
+	*/
+	public CodeExample addRole(Role role) {
+		if(this.roles==null) roles=new ArrayList<>();
+		this.roles.add(role);
+		return this;
+	}
+	
+	/**
+	 * 获得 角色的数量(Java)<br>
+	 * 关联角色数量JAva统计
+	 * @return 角色的数量(Java)
+	*/
+	public Integer getRoleCountByAfter() {
+		return roleCountByAfter;
+	}
+	
+	/**
+	 * 设置 角色的数量(Java)
+	 * @param roleCountByAfter 角色的数量(Java)
+	 * @return 当前对象
+	*/
+	public CodeExample setRoleCountByAfter(Integer roleCountByAfter) {
+		this.roleCountByAfter=roleCountByAfter;
+		return this;
+	}
+	
+	/**
+	 * 获得 角色的数量(Join)<br>
+	 * 关联角色数量Join统计
+	 * @return 角色的数量(Join)
+	*/
+	public Integer getRoleCountByJoin() {
+		return roleCountByJoin;
+	}
+	
+	/**
+	 * 设置 角色的数量(Join)
+	 * @param roleCountByJoin 角色的数量(Join)
+	 * @return 当前对象
+	*/
+	public CodeExample setRoleCountByJoin(Integer roleCountByJoin) {
+		this.roleCountByJoin=roleCountByJoin;
+		return this;
+	}
+	
+	/**
+	 * 获得 角色ID列表<br>
+	 * 用于表单角色ID提交到后端
+	 * @return 角色ID列表
+	*/
+	public List<String> getRoleIds() {
+		return roleIds;
+	}
+	
+	/**
+	 * 设置 角色ID列表
+	 * @param roleIds 角色ID列表
+	 * @return 当前对象
+	*/
+	public CodeExample setRoleIds(List<String> roleIds) {
+		this.roleIds=roleIds;
+		return this;
+	}
+	
+	/**
+	 * 添加 角色ID列表
+	 * @param roleId 角色ID列表
+	 * @return 当前对象
+	*/
+	public CodeExample addRoleId(String roleId) {
+		if(this.roleIds==null) roleIds=new ArrayList<>();
+		this.roleIds.add(roleId);
 		return this;
 	}
 

@@ -61,6 +61,10 @@
     flex-wrap: wrap;
 }
 
+.layui-table-view {
+    margin-top: 0px;
+}
+
 .search-bar {
  width: 100%;
  display:inline-block;

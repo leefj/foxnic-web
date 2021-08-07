@@ -3,13 +3,16 @@ package org.github.foxnic.web.domain.system.meta;
 import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.system.CodeExample;
 import java.util.Date;
+import org.github.foxnic.web.domain.oauth.Resourze;
+import org.github.foxnic.web.domain.oauth.Role;
+import java.util.List;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-06 17:58:29
- * @sign EAD4A8139F950ECD96025565B20C4374
+ * @since 2021-08-07 13:20:09
+ * @sign BBE3FDCF4310DA618E1031B4E81A7A25
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -158,12 +161,12 @@ public class CodeExampleMeta {
 	/**
 	 * 选择框(查询) , 类型: java.lang.String
 	*/
-	public static final String SELECT_API="selectApi";
+	public static final String RESOURCE_ID="resourceId";
 	
 	/**
 	 * 选择框(查询) , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.system.CodeExample,java.lang.String> SELECT_API_PROP = new BeanProperty(org.github.foxnic.web.domain.system.CodeExample.class ,SELECT_API, java.lang.String.class, "选择框(查询)", "选择框(查询)", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.system.CodeExample,java.lang.String> RESOURCE_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.system.CodeExample.class ,RESOURCE_ID, java.lang.String.class, "选择框(查询)", "选择框(查询)", java.lang.String.class, null);
 	
 	/**
 	 * 日期 , 类型: java.util.Date
@@ -256,9 +259,59 @@ public class CodeExampleMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.system.CodeExample,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.system.CodeExample.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
+	 * 关联一个资源 , 一对一关系属性拓展 , 类型: org.github.foxnic.web.domain.oauth.Resourze
+	*/
+	public static final String RESOURZE="resourze";
+	
+	/**
+	 * 关联一个资源 , 一对一关系属性拓展 , 类型: org.github.foxnic.web.domain.oauth.Resourze
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.CodeExample,org.github.foxnic.web.domain.oauth.Resourze> RESOURZE_PROP = new BeanProperty(org.github.foxnic.web.domain.system.CodeExample.class ,RESOURZE, org.github.foxnic.web.domain.oauth.Resourze.class, "关联一个资源", "一对一关系属性拓展", org.github.foxnic.web.domain.oauth.Resourze.class, null);
+	
+	/**
+	 * 关联多个角色 , 一对多关系属性拓展 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.oauth.Role
+	*/
+	public static final String ROLES="roles";
+	
+	/**
+	 * 关联多个角色 , 一对多关系属性拓展 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.oauth.Role
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.CodeExample,org.github.foxnic.web.domain.oauth.Role> ROLES_PROP = new BeanProperty(org.github.foxnic.web.domain.system.CodeExample.class ,ROLES, java.util.List.class, "关联多个角色", "一对多关系属性拓展", org.github.foxnic.web.domain.oauth.Role.class, null);
+	
+	/**
+	 * 角色的数量(Java) , 关联角色数量JAva统计 , 类型: java.lang.Integer
+	*/
+	public static final String ROLE_COUNT_BY_AFTER="roleCountByAfter";
+	
+	/**
+	 * 角色的数量(Java) , 关联角色数量JAva统计 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.CodeExample,java.lang.Integer> ROLE_COUNT_BY_AFTER_PROP = new BeanProperty(org.github.foxnic.web.domain.system.CodeExample.class ,ROLE_COUNT_BY_AFTER, java.lang.Integer.class, "角色的数量(Java)", "关联角色数量JAva统计", java.lang.Integer.class, null);
+	
+	/**
+	 * 角色的数量(Join) , 关联角色数量Join统计 , 类型: java.lang.Integer
+	*/
+	public static final String ROLE_COUNT_BY_JOIN="roleCountByJoin";
+	
+	/**
+	 * 角色的数量(Join) , 关联角色数量Join统计 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.CodeExample,java.lang.Integer> ROLE_COUNT_BY_JOIN_PROP = new BeanProperty(org.github.foxnic.web.domain.system.CodeExample.class ,ROLE_COUNT_BY_JOIN, java.lang.Integer.class, "角色的数量(Join)", "关联角色数量Join统计", java.lang.Integer.class, null);
+	
+	/**
+	 * 角色ID列表 , 用于表单角色ID提交到后端 , 集合类型: LIST , 类型: java.lang.String
+	*/
+	public static final String ROLE_IDS="roleIds";
+	
+	/**
+	 * 角色ID列表 , 用于表单角色ID提交到后端 , 集合类型: LIST , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.CodeExample,java.lang.String> ROLE_IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.system.CodeExample.class ,ROLE_IDS, java.util.List.class, "角色ID列表", "用于表单角色ID提交到后端", java.lang.String.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , NAME , NOTES , IMAGE_ID , FILE_IDS , AREA , WEIGHT , VALID , RADIO_ENUM , RADIO_DICT , CHECK_ENUM , CHECK_DICT , SELECT_ENUM , SELECT_DICT , SELECT_API , BIRTHDAY , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , NAME , NOTES , IMAGE_ID , FILE_IDS , AREA , WEIGHT , VALID , RADIO_ENUM , RADIO_DICT , CHECK_ENUM , CHECK_DICT , SELECT_ENUM , SELECT_DICT , RESOURCE_ID , BIRTHDAY , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , RESOURZE , ROLES , ROLE_COUNT_BY_AFTER , ROLE_COUNT_BY_JOIN , ROLE_IDS };
 	
 	/**
 	 * 代理类
@@ -424,12 +477,12 @@ public class CodeExampleMeta {
 		
 		/**
 		 * 设置 选择框(查询)
-		 * @param selectApi 选择框(查询)
+		 * @param resourceId 选择框(查询)
 		 * @return 当前对象
 		*/
-		public CodeExample setSelectApi(String selectApi) {
-			super.change(SELECT_API,super.getSelectApi(),selectApi);
-			super.setSelectApi(selectApi);
+		public CodeExample setResourceId(String resourceId) {
+			super.change(RESOURCE_ID,super.getResourceId(),resourceId);
+			super.setResourceId(resourceId);
 			return this;
 		}
 		
@@ -529,6 +582,61 @@ public class CodeExampleMeta {
 		public CodeExample setVersion(Integer version) {
 			super.change(VERSION,super.getVersion(),version);
 			super.setVersion(version);
+			return this;
+		}
+		
+		/**
+		 * 设置 关联一个资源
+		 * @param resourze 关联一个资源
+		 * @return 当前对象
+		*/
+		public CodeExample setResourze(Resourze resourze) {
+			super.change(RESOURZE,super.getResourze(),resourze);
+			super.setResourze(resourze);
+			return this;
+		}
+		
+		/**
+		 * 设置 关联多个角色
+		 * @param roles 关联多个角色
+		 * @return 当前对象
+		*/
+		public CodeExample setRoles(List<Role> roles) {
+			super.change(ROLES,super.getRoles(),roles);
+			super.setRoles(roles);
+			return this;
+		}
+		
+		/**
+		 * 设置 角色的数量(Java)
+		 * @param roleCountByAfter 角色的数量(Java)
+		 * @return 当前对象
+		*/
+		public CodeExample setRoleCountByAfter(Integer roleCountByAfter) {
+			super.change(ROLE_COUNT_BY_AFTER,super.getRoleCountByAfter(),roleCountByAfter);
+			super.setRoleCountByAfter(roleCountByAfter);
+			return this;
+		}
+		
+		/**
+		 * 设置 角色的数量(Join)
+		 * @param roleCountByJoin 角色的数量(Join)
+		 * @return 当前对象
+		*/
+		public CodeExample setRoleCountByJoin(Integer roleCountByJoin) {
+			super.change(ROLE_COUNT_BY_JOIN,super.getRoleCountByJoin(),roleCountByJoin);
+			super.setRoleCountByJoin(roleCountByJoin);
+			return this;
+		}
+		
+		/**
+		 * 设置 角色ID列表
+		 * @param roleIds 角色ID列表
+		 * @return 当前对象
+		*/
+		public CodeExample setRoleIds(List<String> roleIds) {
+			super.change(ROLE_IDS,super.getRoleIds(),roleIds);
+			super.setRoleIds(roleIds);
 			return this;
 		}
 	}

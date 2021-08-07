@@ -132,6 +132,7 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 	@Override
 	@Transactional
 	public Result update(User user , SaveMode mode) {
+
 		Result r=super.update(user , mode);
 		if(r.success()) {
 			saveRoles(user);

@@ -128,6 +128,60 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             }, 500);
             return inst;
         },
+        setSelectValue4QueryApi:function (id,value){
+            // debugger;
+            var inst=xmSelect.get(id,true);
+            var opts=[];
+            if (value) {
+                opts=inst.options.transform(Array.isArray(value)?value:[value]);
+            }
+            inst.setValue(opts);
+        },
+        setSelectValue4Dict:function (id,value,data){
+            if(!value) return;
+            var me=this;
+            function setV() {
+                var inst=xmSelect.get(id,true);
+                var opts=[];
+                if(!Array.isArray(value)){
+                    try{
+                        value=JSON.parse(value);
+                    }catch (e){
+                        value=value.split(",");
+                    }
+                }
+                var opts=[];
+                for (var i = 0; i < value.length; i++) {
+                   var name=me.getDictText(data,value[i]);
+                   opts.push({name:name,value:value[i]});
+                }
+                // debugger;
+                inst.setValue(opts);
+            }
+            setTimeout(setV,1);
+        },
+        setSelectValue4Enum:function (id,value,data){
+            if(!value) return;
+            var me=this;
+            function setV() {
+                var inst=xmSelect.get(id,true);
+                var opts=[];
+                if(!Array.isArray(value)){
+                    try{
+                        value=JSON.parse(value);
+                    }catch (e){
+                        value=value.split(",");
+                    }
+                }
+                var opts=[];
+                for (var i = 0; i < value.length; i++) {
+                    var name=me.getEnumText(data,value[i]);
+                    opts.push({name:name,value:value[i]});
+                }
+                inst.setValue(opts);
+            };
+            setTimeout(setV,1);
+        },
         /**
          * 渲染分页的表格
          * */
@@ -678,7 +732,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                         labels.push(label);
                     }
                 }
-                label = label.join(sep);
+                label = labels.join(sep);
             } else {
                 label = data[key];
             }
@@ -706,6 +760,8 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 }
                 if(texts.length>0) {
                     return texts.join(",");
+                } else {
+                    return "";
                 }
             }
 
@@ -732,6 +788,8 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 }
                 if(texts.length>0) {
                     return texts.join(",");
+                } else {
+                    return "";
                 }
             }
 
@@ -781,6 +839,29 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 data.push($(this).val());
             });
             return data;
+        },
+        /**
+         * 设置复选框的选中清单，参数为参数 name 属性
+         * */
+        setCheckedValue:function (checkBoxName,value) {
+            // debugger;
+            if(value==null) return;
+            if(!Array.isArray(value)) {
+                try {
+                    value=JSON.parse(value);
+                } catch (e){
+                    value=[];
+                }
+            }
+            $('input[name="'+checkBoxName+'"]').each(function() {
+                var v=$(this).val();
+                for (var i = 0; i < value.length; i++) {
+                    if(v==value[i]){
+                        $(this).attr("checked","yes");
+                    }
+                }
+            });
+            form.render();
         },
         /**
          * 表单验证

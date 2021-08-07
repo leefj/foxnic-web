@@ -33,6 +33,8 @@ import java.util.Map;
 import com.github.foxnic.dao.excel.ValidateResult;
 import java.io.InputStream;
 import org.github.foxnic.web.domain.system.meta.CodeExampleMeta;
+import org.github.foxnic.web.domain.oauth.Resourze;
+import org.github.foxnic.web.domain.oauth.Role;
 import io.swagger.annotations.Api;
 import com.github.xiaoymin.knife4j.annotations.ApiSort;
 import io.swagger.annotations.ApiOperation;
@@ -48,7 +50,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 代码生成示例 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-06 17:58:29
+ * @since 2021-08-07 13:20:09
 */
 
 @Api(tags = "代码生成示例")
@@ -79,7 +81,7 @@ public class CodeExampleController extends SuperController {
 		@ApiImplicitParam(name = CodeExampleVOMeta.CHECK_DICT , value = "复选框(字典)" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleVOMeta.SELECT_ENUM , value = "选择框(枚举)" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleVOMeta.SELECT_DICT , value = "选择框(字典)" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = CodeExampleVOMeta.SELECT_API , value = "选择框(查询)" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CodeExampleVOMeta.RESOURCE_ID , value = "选择框(查询)" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleVOMeta.BIRTHDAY , value = "日期" , required = false , dataTypeClass=Date.class , example = "2021-08-23 12:00:00"),
 	})
 	@ApiOperationSupport(order=1)
@@ -145,7 +147,7 @@ public class CodeExampleController extends SuperController {
 		@ApiImplicitParam(name = CodeExampleVOMeta.CHECK_DICT , value = "复选框(字典)" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleVOMeta.SELECT_ENUM , value = "选择框(枚举)" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleVOMeta.SELECT_DICT , value = "选择框(字典)" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = CodeExampleVOMeta.SELECT_API , value = "选择框(查询)" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CodeExampleVOMeta.RESOURCE_ID , value = "选择框(查询)" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleVOMeta.BIRTHDAY , value = "日期" , required = false , dataTypeClass=Date.class , example = "2021-08-23 12:00:00"),
 	})
 	@ApiOperationSupport( order=4 , ignoreParameters = { CodeExampleVOMeta.PAGE_INDEX , CodeExampleVOMeta.PAGE_SIZE , CodeExampleVOMeta.SEARCH_FIELD , CodeExampleVOMeta.FUZZY_FIELD , CodeExampleVOMeta.SEARCH_VALUE , CodeExampleVOMeta.SORT_FIELD , CodeExampleVOMeta.SORT_TYPE , CodeExampleVOMeta.IDS } ) 
@@ -177,7 +179,7 @@ public class CodeExampleController extends SuperController {
 		@ApiImplicitParam(name = CodeExampleVOMeta.CHECK_DICT , value = "复选框(字典)" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleVOMeta.SELECT_ENUM , value = "选择框(枚举)" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleVOMeta.SELECT_DICT , value = "选择框(字典)" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = CodeExampleVOMeta.SELECT_API , value = "选择框(查询)" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CodeExampleVOMeta.RESOURCE_ID , value = "选择框(查询)" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleVOMeta.BIRTHDAY , value = "日期" , required = false , dataTypeClass=Date.class , example = "2021-08-23 12:00:00"),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { CodeExampleVOMeta.PAGE_INDEX , CodeExampleVOMeta.PAGE_SIZE , CodeExampleVOMeta.SEARCH_FIELD , CodeExampleVOMeta.FUZZY_FIELD , CodeExampleVOMeta.SEARCH_VALUE , CodeExampleVOMeta.SORT_FIELD , CodeExampleVOMeta.SORT_TYPE , CodeExampleVOMeta.IDS } )
@@ -204,6 +206,10 @@ public class CodeExampleController extends SuperController {
 	public Result<CodeExample> getById(String id) {
 		Result<CodeExample> result=new Result<>();
 		CodeExample codeExample=codeExampleService.getById(id);
+		// 关联出 选择框(查询) 数据
+		codeExampleService.join(codeExample,CodeExampleMeta.RESOURZE);
+		// 关联出 角色 数据
+		codeExampleService.join(codeExample,CodeExampleMeta.ROLES);
 		result.success(true).data(codeExample);
 		return result;
 	}
@@ -248,7 +254,7 @@ public class CodeExampleController extends SuperController {
 		@ApiImplicitParam(name = CodeExampleVOMeta.CHECK_DICT , value = "复选框(字典)" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleVOMeta.SELECT_ENUM , value = "选择框(枚举)" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleVOMeta.SELECT_DICT , value = "选择框(字典)" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = CodeExampleVOMeta.SELECT_API , value = "选择框(查询)" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CodeExampleVOMeta.RESOURCE_ID , value = "选择框(查询)" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleVOMeta.BIRTHDAY , value = "日期" , required = false , dataTypeClass=Date.class , example = "2021-08-23 12:00:00"),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { CodeExampleVOMeta.PAGE_INDEX , CodeExampleVOMeta.PAGE_SIZE } )
@@ -281,7 +287,7 @@ public class CodeExampleController extends SuperController {
 		@ApiImplicitParam(name = CodeExampleVOMeta.CHECK_DICT , value = "复选框(字典)" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleVOMeta.SELECT_ENUM , value = "选择框(枚举)" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleVOMeta.SELECT_DICT , value = "选择框(字典)" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = CodeExampleVOMeta.SELECT_API , value = "选择框(查询)" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CodeExampleVOMeta.RESOURCE_ID , value = "选择框(查询)" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleVOMeta.BIRTHDAY , value = "日期" , required = false , dataTypeClass=Date.class , example = "2021-08-23 12:00:00"),
 	})
 	@ApiOperationSupport(order=8)
@@ -290,6 +296,10 @@ public class CodeExampleController extends SuperController {
 	public Result<PagedList<CodeExample>> queryPagedList(CodeExampleVO sample) {
 		Result<PagedList<CodeExample>> result=new Result<>();
 		PagedList<CodeExample> list=codeExampleService.queryPagedList(sample,sample.getPageSize(),sample.getPageIndex());
+		// 关联出 选择框(查询) 数据
+		codeExampleService.join(list,CodeExampleMeta.RESOURZE);
+		// 关联出 角色 数据
+		codeExampleService.join(list,CodeExampleMeta.ROLES);
 		result.success(true).data(list);
 		return result;
 	}

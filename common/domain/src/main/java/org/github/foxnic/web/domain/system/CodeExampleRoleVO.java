@@ -9,12 +9,12 @@ import java.util.ArrayList;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-07 13:20:09
- * @sign 63A4404E7D3A827B9F488C46F71B66D1
+ * @since 2021-08-07 13:20:12
+ * @sign 3E1A8E26D4A3EA4DF8320283E131C70E
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
-public class CodeExampleVO extends CodeExample {
+public class CodeExampleRoleVO extends CodeExampleRole {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -79,7 +79,7 @@ public class CodeExampleVO extends CodeExample {
 	 * @param pageIndex 页码
 	 * @return 当前对象
 	*/
-	public CodeExampleVO setPageIndex(Integer pageIndex) {
+	public CodeExampleRoleVO setPageIndex(Integer pageIndex) {
 		this.pageIndex=pageIndex;
 		return this;
 	}
@@ -97,7 +97,7 @@ public class CodeExampleVO extends CodeExample {
 	 * @param pageSize 分页大小
 	 * @return 当前对象
 	*/
-	public CodeExampleVO setPageSize(Integer pageSize) {
+	public CodeExampleRoleVO setPageSize(Integer pageSize) {
 		this.pageSize=pageSize;
 		return this;
 	}
@@ -115,7 +115,7 @@ public class CodeExampleVO extends CodeExample {
 	 * @param searchField 搜索字段
 	 * @return 当前对象
 	*/
-	public CodeExampleVO setSearchField(String searchField) {
+	public CodeExampleRoleVO setSearchField(String searchField) {
 		this.searchField=searchField;
 		return this;
 	}
@@ -133,7 +133,7 @@ public class CodeExampleVO extends CodeExample {
 	 * @param fuzzyField 模糊搜索字段
 	 * @return 当前对象
 	*/
-	public CodeExampleVO setFuzzyField(String fuzzyField) {
+	public CodeExampleRoleVO setFuzzyField(String fuzzyField) {
 		this.fuzzyField=fuzzyField;
 		return this;
 	}
@@ -151,7 +151,7 @@ public class CodeExampleVO extends CodeExample {
 	 * @param searchValue 搜索的值
 	 * @return 当前对象
 	*/
-	public CodeExampleVO setSearchValue(String searchValue) {
+	public CodeExampleRoleVO setSearchValue(String searchValue) {
 		this.searchValue=searchValue;
 		return this;
 	}
@@ -169,7 +169,7 @@ public class CodeExampleVO extends CodeExample {
 	 * @param sortField 排序字段
 	 * @return 当前对象
 	*/
-	public CodeExampleVO setSortField(String sortField) {
+	public CodeExampleRoleVO setSortField(String sortField) {
 		this.sortField=sortField;
 		return this;
 	}
@@ -187,7 +187,7 @@ public class CodeExampleVO extends CodeExample {
 	 * @param sortType 排序方式
 	 * @return 当前对象
 	*/
-	public CodeExampleVO setSortType(String sortType) {
+	public CodeExampleRoleVO setSortType(String sortType) {
 		this.sortType=sortType;
 		return this;
 	}
@@ -206,7 +206,7 @@ public class CodeExampleVO extends CodeExample {
 	 * @param ids 主键清单
 	 * @return 当前对象
 	*/
-	public CodeExampleVO setIds(List<String> ids) {
+	public CodeExampleRoleVO setIds(List<String> ids) {
 		this.ids=ids;
 		return this;
 	}
@@ -216,7 +216,7 @@ public class CodeExampleVO extends CodeExample {
 	 * @param id 主键清单
 	 * @return 当前对象
 	*/
-	public CodeExampleVO addId(String id) {
+	public CodeExampleRoleVO addId(String id) {
 		if(this.ids==null) ids=new ArrayList<>();
 		this.ids.add(id);
 		return this;
