@@ -2,7 +2,7 @@
 /**
  * 代码生成示例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-07 13:20:10
+ * @since 2021-08-07 21:32:07
  */
  -->
  <!DOCTYPE html>
@@ -33,29 +33,31 @@
                     <!-- 单行文本 , name ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div"><span th:text="${lang.translate('单行文本')}" class="search-label">单行文本</span><span class="search-colon">:</span></div>
-                        <input id="name" class="layui-input search-input" style="width: 140px" type="text" th:placeholder="${lang.translate('请输入单行文本')}"/>
+                        <input id="name" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
                     <!-- 多行文本 , notes ,typeName=text_area, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div"><span th:text="${lang.translate('多行文本')}" class="search-label">多行文本</span><span class="search-colon">:</span></div>
-                        <input id="notes" class="layui-input search-input" style="width: 140px" type="text" th:placeholder="${lang.translate('请输入多行文本')}"/>
+                        <input id="notes" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
                     <!-- 整数输入 , area ,typeName=number_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div"><span th:text="${lang.translate('整数输入')}" class="search-label">整数输入</span><span class="search-colon">:</span></div>
-                            <input id="area" class="layui-input search-input" style="width: 140px" type="text" autocomplete="off" input-type="number_input" th:placeholder="${lang.translate('请输入整数输入')}" integer="true" decimal="false" allow-negative="false" step="2.0" min-value="10.0" max-value="20.0"  scale="0"  />
+                            <input id="area-begin" class="layui-input search-input" style="width: 64px" type="text" autocomplete="off" input-type="number_input"  integer="true" decimal="false" allow-negative="false" step="2.0" min-value="0.0" max-value="20.0" scale="0"/>
+                            <span class="search-dash">-</span>
+                            <input id="area-end" class="layui-input search-input" style="width: 64px" type="text" autocomplete="off" input-type="number_input"  integer="true" decimal="false" allow-negative="false" step="2.0" min-value="0.0" max-value="20.0" scale="0"/>
                     </div>
                     <!-- 小数输入 , weight ,typeName=number_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div"><span th:text="${lang.translate('小数输入')}" class="search-label">小数输入</span><span class="search-colon">:</span></div>
-                            <input id="weight" class="layui-input search-input" style="width: 140px" type="text" autocomplete="off" input-type="number_input" th:placeholder="${lang.translate('请输入小数输入')}" integer="false" decimal="true" allow-negative="true" step="0.5" min-value="-1.5" max-value="6.6"  scale="2"  />
+                            <input id="weight" class="layui-input search-input" style="width: 140px" type="text" autocomplete="off" input-type="number_input" integer="false" decimal="true" allow-negative="true" step="0.5" min-value="-10.5" max-value="16.6" scale="2"/>
                     </div>
                     <!-- 日期 , birthday ,typeName=date_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div"><span th:text="${lang.translate('日期')}" class="search-label">日期</span><span class="search-colon">:</span></div>
-                         <input type="text" id="birthday-begin" style="width: 140px" lay-verify="date" th:placeholder="${lang.translate('开始日期')}" autocomplete="off" class="layui-input search-input search-date-input"  readonly >
-                         <span class="search-dash">-</span>
-                         <input type="text" id="birthday-end"  style="width: 140px"  lay-verify="date" th:placeholder="${lang.translate('结束日期')}" autocomplete="off" class="layui-input search-input search-date-input" readonly>
+                            <input type="text" id="birthday-begin" style="width: 140px" lay-verify="date" th:placeholder="${lang.translate('开始日期')}" autocomplete="off" class="layui-input search-input search-date-input"  readonly >
+                            <span class="search-dash">-</span>
+                            <input type="text" id="birthday-end"  style="width: 140px"  lay-verify="date" th:placeholder="${lang.translate('结束日期')}" autocomplete="off" class="layui-input search-input search-date-input" readonly>
                     </div>
 
 
@@ -113,6 +115,16 @@
                     <div class="search-unit">
                         <div class="search-label-div"><span th:text="${lang.translate('选择框(字典)')}" class="search-label">选择框(字典)</span><span class="search-colon">:</span></div>
                         <div id="selectDict" th:data="${dict.toArray('order_status')}" style="width:140px"></div>
+                    </div>
+
+
+                </div>
+                <!-- 搜索输入区域 -->
+                <div class="layui-form toolbar search-inputs">
+                    <!-- 角色 , roleIds ,typeName=select_box, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div"><span th:text="${lang.translate('角色')}" class="search-label">角色</span><span class="search-colon">:</span></div>
+                        <div id="roleIds" th:data="${'/service-oauth/sys-role/query-paged-list'}" style="width:140px"></div>
                     </div>
                     <!-- 选择框(查询) , resourceId ,typeName=select_box, isHideInSearch=false -->
                     <div class="search-unit">

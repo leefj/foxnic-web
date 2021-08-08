@@ -2,7 +2,7 @@
 /**
  * 代码生成示例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-07 13:20:11
+ * @since 2021-08-07 21:32:08
  */
  -->
  <!DOCTYPE html>
@@ -50,7 +50,7 @@
                     <div class="layui-form-item" >
                         <label class="layui-form-label  layui-required " th:text="${lang.translate('整数输入')}">整数输入</label>
                         <div class="layui-input-block">
-                            <input lay-filter="area" id="area" name="area" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('整数输入') }" type="text" class="layui-input"    lay-verify="|required"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="false" step="2.0" min-value="10.0" max-value="20.0"  scale="0"/>
+                            <input lay-filter="area" id="area" name="area" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('整数输入') }" type="text" class="layui-input"    lay-verify="|required"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="false" step="2.0" min-value="0.0" max-value="20.0"  scale="0"/>
                         </div>
                     </div>
 
@@ -91,7 +91,7 @@
                     <div class="layui-form-item" >
                         <label class="layui-form-label " th:text="${lang.translate('小数输入')}">小数输入</label>
                         <div class="layui-input-block">
-                            <input lay-filter="weight" id="weight" name="weight" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('小数输入') }" type="text" class="layui-input"   autocomplete="off" input-type="number_input" integer="false" decimal="true" allow-negative="true" step="0.5" min-value="-1.5" max-value="6.6"  scale="2"/>
+                            <input lay-filter="weight" id="weight" name="weight" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('小数输入') }" type="text" class="layui-input"   autocomplete="off" input-type="number_input" integer="false" decimal="true" allow-negative="true" step="0.5" min-value="-10.5" max-value="16.6"  scale="2"/>
                         </div>
                     </div>
 

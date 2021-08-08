@@ -28,25 +28,7 @@ public class CodeExampleGenerator extends SystemCodeGenerator {
 	}
 
 
-	public void generateExampleRole() throws Exception {
-		//创建配置
-		ModuleContext cfg = createModuleConfig(FoxnicWeb.SYS_CODE_EXAMPLE_ROLE.$TABLE, 6);
 
-		//指定该表为关系表
-		cfg.setRelationField(FoxnicWeb.SYS_CODE_EXAMPLE_ROLE.EXAMPLE_ID, FoxnicWeb.SYS_CODE_EXAMPLE_ROLE.ROLE_ID,true);
-
-		//文件生成覆盖模式
-		cfg.overrides()
-				.setServiceIntfAnfImpl(WriteMode.COVER_EXISTS_FILE) //服务与接口
-				.setControllerAndAgent(WriteMode.IGNORE) //Rest
-				.setPageController(WriteMode.IGNORE) //页面控制器
-				.setFormPage(WriteMode.IGNORE) //表单HTML页
-				.setListPage(WriteMode.IGNORE); //列表HTML页
-
-		//生成代码
-		cfg.buildAll();
-
-	}
 
 
 	
@@ -71,27 +53,31 @@ public class CodeExampleGenerator extends SystemCodeGenerator {
 
 		//增加必填的校验
 		cfg.view().field(SYS_CODE_EXAMPLE.NAME)
-				.form().validate().required();
+				.form().validate().required()
+				.search().fuzzySearch();
 
 		//配置在列表中隐藏
 		cfg.view().field(SYS_CODE_EXAMPLE.NOTES)
 				//多行文本
 				.form().textArea().height(120)
-				.list().hidden();
-
-
-		//日期类型
-		cfg.view().field(SYS_CODE_EXAMPLE.BIRTHDAY)
-				.form().dateInput();
+				.search().fuzzySearch()
+		;
 
 		//整数类型
 		cfg.view().field(SYS_CODE_EXAMPLE.AREA)
-			.form().numberInput().integer().step(2.0).range(10.0,20.0).allowNegative(false)
-			.form().validate().required();
+			.form().numberInput().integer().step(2.0).range(0.0,20.0).allowNegative(false)
+			.form().validate().required()
+			.search().range().inputWidth(64)
+		;
 
 		//小数类型
 		cfg.view().field(SYS_CODE_EXAMPLE.WEIGHT)
-				.form().numberInput().decimal().step(0.5).range(-1.5,6.6).allowNegative(true).scale(2);
+				.form().numberInput().decimal().step(0.5).range(-10.5,16.6).allowNegative(true).scale(2);
+
+		//日期类型
+		cfg.view().field(SYS_CODE_EXAMPLE.BIRTHDAY)
+				.form().dateInput()
+				.search().range();
 
 		//单个图片上传类型
 		cfg.view().field(SYS_CODE_EXAMPLE.IMAGE_ID)
@@ -115,11 +101,13 @@ public class CodeExampleGenerator extends SystemCodeGenerator {
 
 		//复选框，下拉数据来自枚举
 		cfg.view().field(SYS_CODE_EXAMPLE.CHECK_ENUM)
-				.form().checkBox().enumType(MenuType.class);
+				.form().checkBox().enumType(MenuType.class)
+		.search().fuzzySearchWithDoubleQM();
 
 		//复选框，下拉数据来自字典
 		cfg.view().field(SYS_CODE_EXAMPLE.CHECK_DICT)
-				.form().checkBox().dict(DictEnum.MEASURE_METHOD);
+				.form().checkBox().dict(DictEnum.MEASURE_METHOD)
+				.search().fuzzySearchWithDoubleQM();
 
 		//逻辑值
 		cfg.view().field(SYS_CODE_EXAMPLE.VALID)
@@ -131,7 +119,8 @@ public class CodeExampleGenerator extends SystemCodeGenerator {
 
 		//下拉选择，数据来自字典
 		cfg.view().field(SYS_CODE_EXAMPLE.SELECT_DICT)
-				.form().selectBox().dict(DictEnum.ORDER_STATUS).muliti(true);
+				.form().selectBox().dict(DictEnum.ORDER_STATUS).muliti(true)
+				.search().fuzzySearchWithDoubleQM();
 
 		//下拉选择，数据来自外部表
 		cfg.view().field(SYS_CODE_EXAMPLE.RESOURCE_ID)
@@ -157,7 +146,8 @@ public class CodeExampleGenerator extends SystemCodeGenerator {
 		cfg.view().search().inputLayout(
 				new Object[]{SYS_CODE_EXAMPLE.NAME,SYS_CODE_EXAMPLE.NOTES,SYS_CODE_EXAMPLE.AREA,SYS_CODE_EXAMPLE.WEIGHT,SYS_CODE_EXAMPLE.BIRTHDAY},
 				new Object[]{SYS_CODE_EXAMPLE.RADIO_ENUM,SYS_CODE_EXAMPLE.RADIO_DICT,SYS_CODE_EXAMPLE.VALID,SYS_CODE_EXAMPLE.CHECK_ENUM,SYS_CODE_EXAMPLE.CHECK_DICT},
-				new Object[]{SYS_CODE_EXAMPLE.SELECT_ENUM,SYS_CODE_EXAMPLE.SELECT_DICT,SYS_CODE_EXAMPLE.RESOURCE_ID}
+				new Object[]{SYS_CODE_EXAMPLE.SELECT_ENUM,SYS_CODE_EXAMPLE.SELECT_DICT},
+				new Object[]{CodeExampleMeta.ROLE_IDS,SYS_CODE_EXAMPLE.RESOURCE_ID}
 		);
 
 //		//单列布局方式：其实就是排个顺序,并把不在清单中的字段设置成隐藏
@@ -241,6 +231,7 @@ public class CodeExampleGenerator extends SystemCodeGenerator {
 
 		//文件生成覆盖模式
 		cfg.overrides()
+		//请勿覆盖，已有代码加入！！！！！
 		.setServiceIntfAnfImpl(WriteMode.CREATE_IF_NOT_EXISTS) //服务与接口
 		.setControllerAndAgent(WriteMode.COVER_EXISTS_FILE) //Rest
 		.setPageController(WriteMode.COVER_EXISTS_FILE) //页面控制器
@@ -252,7 +243,25 @@ public class CodeExampleGenerator extends SystemCodeGenerator {
 	}
 
 
+	public void generateExampleRole() throws Exception {
+		//创建配置
+		ModuleContext cfg = createModuleConfig(FoxnicWeb.SYS_CODE_EXAMPLE_ROLE.$TABLE, 6);
 
+		//指定该表为关系表
+		cfg.setRelationField(FoxnicWeb.SYS_CODE_EXAMPLE_ROLE.EXAMPLE_ID, FoxnicWeb.SYS_CODE_EXAMPLE_ROLE.ROLE_ID,true);
+
+		//文件生成覆盖模式
+		cfg.overrides()
+				.setServiceIntfAnfImpl(WriteMode.COVER_EXISTS_FILE) //服务与接口
+				.setControllerAndAgent(WriteMode.IGNORE) //Rest
+				.setPageController(WriteMode.IGNORE) //页面控制器
+				.setFormPage(WriteMode.IGNORE) //表单HTML页
+				.setListPage(WriteMode.IGNORE); //列表HTML页
+
+		//生成代码
+		cfg.buildAll();
+
+	}
 
 
 

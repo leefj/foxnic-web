@@ -7,7 +7,7 @@ import org.github.foxnic.web.domain.system.CodeExampleRole;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-07 13:20:12
+ * @since 2021-08-07 21:32:08
  * @sign 48709D1457DD583B776B78079BBBC0EB
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */

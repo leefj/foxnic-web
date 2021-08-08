@@ -57,13 +57,23 @@
                             #end
 
                         #else if(f.typeName.equals("date_input"))
-                         <input type="text" id="#(f.varName)-begin" style="width: #(f.search.inputWidth)px" lay-verify="date" th:placeholder="${lang.translate('开始日期')}" autocomplete="off" class="layui-input search-input search-date-input"  readonly >
-                         <span class="search-dash">-</span>
-                         <input type="text" id="#(f.varName)-end"  style="width: #(f.search.inputWidth)px"  lay-verify="date" th:placeholder="${lang.translate('结束日期')}" autocomplete="off" class="layui-input search-input search-date-input" readonly>
+                            #if(f.search.searchInRange)
+                            <input type="text" id="#(f.varName)-begin" style="width: #(f.search.inputWidth)px" lay-verify="date" th:placeholder="${lang.translate('开始日期')}" autocomplete="off" class="layui-input search-input search-date-input"  readonly >
+                            <span class="search-dash">-</span>
+                            <input type="text" id="#(f.varName)-end"  style="width: #(f.search.inputWidth)px"  lay-verify="date" th:placeholder="${lang.translate('结束日期')}" autocomplete="off" class="layui-input search-input search-date-input" readonly>
+                            #else
+                            <input type="text" id="#(f.varName)"  style="width: #(f.search.inputWidth)px"  lay-verify="date" th:placeholder="${lang.translate('请选择')}" autocomplete="off" class="layui-input search-input search-date-input" readonly>
+                            #end
                         #else if(f.typeName.equals("number_input"))
-                            <input id="#(f.varName)" class="layui-input search-input" style="width: #(f.search.inputWidth)px" type="text" autocomplete="off" input-type="number_input" th:placeholder="${lang.translate('请输入#(f.labelInSearch)')}" integer="#(f.numberInput.isInteger)" decimal="#(f.numberInput.isDecimal)" allow-negative="#(f.numberInput.allowNegative)" step="#(f.numberInput.step)" min-value="#(f.numberInput.minValue)" max-value="#(f.numberInput.maxValue)"  scale="#(f.numberInput.scale)"  />
+                            #if(f.search.searchInRange)
+                            <input id="#(f.varName)-begin" class="layui-input search-input" style="width: #(f.search.inputWidth)px" type="text" autocomplete="off" input-type="number_input"  integer="#(f.numberInput.isInteger)" decimal="#(f.numberInput.isDecimal)" allow-negative="#(f.numberInput.allowNegative)" step="#(f.numberInput.step)" min-value="#(f.numberInput.minValue)" max-value="#(f.numberInput.maxValue)" scale="#(f.numberInput.scale)"/>
+                            <span class="search-dash">-</span>
+                            <input id="#(f.varName)-end" class="layui-input search-input" style="width: #(f.search.inputWidth)px" type="text" autocomplete="off" input-type="number_input"  integer="#(f.numberInput.isInteger)" decimal="#(f.numberInput.isDecimal)" allow-negative="#(f.numberInput.allowNegative)" step="#(f.numberInput.step)" min-value="#(f.numberInput.minValue)" max-value="#(f.numberInput.maxValue)" scale="#(f.numberInput.scale)"/>
+                            #else
+                            <input id="#(f.varName)" class="layui-input search-input" style="width: #(f.search.inputWidth)px" type="text" autocomplete="off" input-type="number_input" integer="#(f.numberInput.isInteger)" decimal="#(f.numberInput.isDecimal)" allow-negative="#(f.numberInput.allowNegative)" step="#(f.numberInput.step)" min-value="#(f.numberInput.minValue)" max-value="#(f.numberInput.maxValue)" scale="#(f.numberInput.scale)"/>
+                            #end
                         #else
-                        <input id="#(f.varName)" class="layui-input search-input" style="width: #(f.search.inputWidth)px" type="text" th:placeholder="${lang.translate('请输入#(f.labelInSearch)')}"/>
+                        <input id="#(f.varName)" class="layui-input search-input" style="width: #(f.search.inputWidth)px" type="text" />
                         #end
                     </div>
                     #end

@@ -1,7 +1,7 @@
 /**
  * 代码生成示例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-07 13:20:11
+ * @since 2021-08-07 21:32:08
  */
 
 
@@ -53,7 +53,7 @@ function ListPage() {
 					{  fixed: 'left',type:'checkbox' },
 					{ field: 'id', align:"left", hide:true, sort: true, title: fox.translate('ID')} ,
 					{ field: 'name', align:"left", hide:false, sort: true, title: fox.translate('单行文本')} ,
-					{ field: 'notes', align:"left", hide:true, sort: true, title: fox.translate('多行文本')} ,
+					{ field: 'notes', align:"left", hide:false, sort: true, title: fox.translate('多行文本')} ,
 					{ field: 'imageId', align:"left", hide:true, sort: true, title: fox.translate('图片上传'), templet: function (d) { return '<img style="height:100%;" fileType="image/png" onclick="window.previewImage(this)"  src="'+apiurls.storage.image+'?id='+ d.imageId+'" />'; } } ,
 					{ field: 'fileIds', align:"left", hide:true, sort: true, title: fox.translate('多文件上传')} ,
 					{ field: 'area', align:"right", hide:false, sort: true, title: fox.translate('整数输入')} ,
@@ -125,19 +125,20 @@ function ListPage() {
       */
 	function refreshTableData(sortField,sortType) {
 		var value = {};
-		value.name={ value: $("#name").val() };
-		value.notes={ value: $("#notes").val() };
-		value.area={ value: $("#area").val() };
-		value.weight={ value: $("#weight").val() };
-		value.valid={ value: xmSelect.get("#valid",true).getValue("value") };
-		value.radioEnum={ value: xmSelect.get("#radioEnum",true).getValue("value") };
-		value.radioDict={ value: xmSelect.get("#radioDict",true).getValue("value") };
-		value.checkEnum={ value: $("#checkEnum").val() };
-		value.checkDict={ value: $("#checkDict").val() };
-		value.selectEnum={ value: xmSelect.get("#selectEnum",true).getValue("value") };
-		value.selectDict={ value: xmSelect.get("#selectDict",true).getValue("value") };
-		value.resourceId={ value: xmSelect.get("#resourceId",true).getValue("value") };
+		value.name={ value: $("#name").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" "};
+		value.notes={ value: $("#notes").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" "};
+		value.area={ begin: $("#area-begin").val(), end: $("#area-end").val() };
+		value.weight={ value: $("#weight").val()};
+		value.valid={ value: xmSelect.get("#valid",true).getValue("value")};
+		value.radioEnum={ value: xmSelect.get("#radioEnum",true).getValue("value")};
+		value.radioDict={ value: xmSelect.get("#radioDict",true).getValue("value")};
+		value.checkEnum={ value: xmSelect.get("#checkEnum",true).getValue("value") ,fuzzy: true,valuePrefix:"\"",valueSuffix:"\""};
+		value.checkDict={ value: xmSelect.get("#checkDict",true).getValue("value") ,fuzzy: true,valuePrefix:"\"",valueSuffix:"\""};
+		value.selectEnum={ value: xmSelect.get("#selectEnum",true).getValue("value")};
+		value.selectDict={ value: xmSelect.get("#selectDict",true).getValue("value") ,fuzzy: true,valuePrefix:"\"",valueSuffix:"\""};
+		value.resourceId={ value: xmSelect.get("#resourceId",true).getValue("value")};
 		value.birthday={ begin: $("#birthday-begin").val(), end: $("#birthday-end").val() };
+		value.roleIds={ value: xmSelect.get("#roleIds",true).getValue("value"),fillBy:"roles"};
 		var ps={searchField: "$composite", searchValue: JSON.stringify(value),sortField: sortField,sortType: sortType};
 		table.reload('data-table', { where : ps });
 	}
@@ -297,6 +298,28 @@ function ListPage() {
 		laydate.render({
 			elem: '#birthday-end',
 			trigger:"click"
+		});
+		//渲染 roleIds 下拉字段
+		fox.renderSelectBox({
+			el: "roleIds",
+			radio: false,
+			size: "small",
+			filterable: true,
+			paging: true,
+			pageRemote: true,
+			//转换数据
+			searchField: "name", //请自行调整用于搜索的字段名称
+			extraParam: {}, //额外的查询参数，Object 或是 返回 Object 的函数
+			transform: function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				var opts=[];
+				if(!data) return opts;
+				for (var i = 0; i < data.length; i++) {
+					if(!data[i]) continue;
+					opts.push({name:data[i].name,value:data[i].id});
+				}
+				return opts;
+			}
 		});
 		fox.renderSearchInputs();
 	}

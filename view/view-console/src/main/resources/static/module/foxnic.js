@@ -418,7 +418,11 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
 
         dateFormat(t, f) {
             if (!t) return "";
-            return util.toDateString(t, f);
+            if(Number.isInteger(t)) {
+                return util.toDateString(t, f);
+            } else {
+                return t;
+            }
         },
 
         renderFormInputs(form) {
