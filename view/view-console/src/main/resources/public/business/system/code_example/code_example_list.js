@@ -138,7 +138,7 @@ function ListPage() {
 		value.selectDict={ value: xmSelect.get("#selectDict",true).getValue("value") ,fuzzy: true,valuePrefix:"\"",valueSuffix:"\""};
 		value.resourceId={ value: xmSelect.get("#resourceId",true).getValue("value")};
 		value.birthday={ begin: $("#birthday-begin").val(), end: $("#birthday-end").val() };
-		value.roleIds={ value: xmSelect.get("#roleIds",true).getValue("value"),fillBy:"roles"};
+		value.roleIds={ value: xmSelect.get("#roleIds",true).getValue("value"),fillBy:"roles",field:"id"};
 		var ps={searchField: "$composite", searchValue: JSON.stringify(value),sortField: sortField,sortType: sortType};
 		table.reload('data-table', { where : ps });
 	}
