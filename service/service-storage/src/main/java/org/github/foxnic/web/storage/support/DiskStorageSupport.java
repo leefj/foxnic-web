@@ -80,13 +80,15 @@ public class DiskStorageSupport  extends  StorageSupport {
         String dir=this.getStorageDir();
         try {
             if(!isFileExists(fileInfo)) {
-                throw  new RuntimeException("FileId = "+fileInfo.getId()+" , file is not exists");
+//                throw  new RuntimeException("FileId = "+fileInfo.getId()+" , file is not exists");
+                return null;
             }
             FileInputStream in=new FileInputStream(getFile(fileInfo));
             bytes =IOUtils.readFully(in, in.available());
             return bytes;
         } catch (IOException e) {
-            throw  new RuntimeException("FileId = "+fileInfo.getId()+" , file download error",e);
+//            throw  new RuntimeException("FileId = "+fileInfo.getId()+" , file download error",e);
+            return null;
         }
 
 

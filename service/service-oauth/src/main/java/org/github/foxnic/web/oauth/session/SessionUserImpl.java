@@ -88,6 +88,14 @@ public class SessionUserImpl extends SessionUser implements UserDetails, Credent
 		return sessionOnlineId;
 	}
 
+	@Override
+	public String getCacheKey() {
+		if(user!=null) {
+//			return user.get.
+		}
+		return null;
+	}
+
 	public void setSessionOnlineId(String token) {
 		this.sessionOnlineId = token;
 	}

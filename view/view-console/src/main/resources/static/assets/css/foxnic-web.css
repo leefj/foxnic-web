@@ -163,18 +163,20 @@ form-container {
 
 .layui-form-label {
     width: 100px;
+    display: flex;
+    flex-direction: row-reverse;
 }
 
 .layui-input-block {
     margin-left: 130px;
 }
 
-.layui-form-label.layui-required:after {
-    content: "*";
+.layui-required {
     color: #ff5722;
-    font-size: 16px;
-    position:relative;
-    top: 5px;
-    left: 2px;
+    font-size: 18px;
+    font-weight: bold;
+    display:inline-block;
+    margin-top: 3px;
+    margin-right: 3px;
 }
 

@@ -160,11 +160,13 @@ public class FileServiceImpl extends SuperService<File> implements IFileService 
 		}
 		byte[] bytes=null;
 		try {
-
 			resurgence(id,true);
-
 			bytes=this.getStorageSupport().read(fileInfo);
-			DownloadUtil.writeToOutput(response,bytes,fileInfo.getFileName(),null,inline);
+			if(bytes==null) {
+				result= ErrorDesc.failure(CommonError.FILE_INVALID).message("file read error");
+			} else {
+				DownloadUtil.writeToOutput(response, bytes, fileInfo.getFileName(), null, inline);
+			}
 			return;
 		}catch (Exception e) {
 			Logger.error(e.getMessage(),e);

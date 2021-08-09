@@ -32,8 +32,10 @@ public abstract class SessionUser {
 
 	public abstract String getSessionOnlineId();
 
+    public abstract String getCacheKey();
 
-	public static interface GetInService {
+
+    public static interface GetInService {
 		SessionUser get();
 	}
 

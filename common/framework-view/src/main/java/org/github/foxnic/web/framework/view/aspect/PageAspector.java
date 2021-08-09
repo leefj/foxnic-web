@@ -7,11 +7,13 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.github.foxnic.web.constants.enums.SystemConfigEnum;
 import org.github.foxnic.web.language.LanguageService;
 import org.github.foxnic.web.proxy.spring.AwareHandler;
 import org.github.foxnic.web.proxy.utils.CodeTextEnumUtil;
 import org.github.foxnic.web.proxy.utils.DBCacheProxyUtil;
 import org.github.foxnic.web.proxy.utils.DictProxyUtil;
+import org.github.foxnic.web.proxy.utils.SystemConfigProxyUtil;
 import org.github.foxnic.web.session.SessionUser;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
@@ -45,6 +47,8 @@ public class PageAspector {
 
 	private static final String PERMISSION = "perm";
 
+	private static final String CACHE_KEY = "cacheKey";
+
 	public static final String LAYUI_TABLE_WIDTH_CONFIG="layuiTableWidthConfig";
 	
 	private CodeTextEnumUtil enumUtil;
@@ -52,6 +56,8 @@ public class PageAspector {
 	private DictProxyUtil dictUtil;
 
 	private LanguageService languageService;
+
+
 
 
 
@@ -90,12 +96,11 @@ public class PageAspector {
 		if(rc==null) {
 			return joinPoint.proceed();
 		}
-		
+
 		//单体应用是可以支持，后期考虑多种模式的实现
 		if(languageService==null) {
 			languageService= AwareHandler.getBean(LanguageService.class);
 		}
-		
 		if(enumUtil==null) {
 			enumUtil=AwareHandler.getBean(CodeTextEnumUtil.class);
 		}
@@ -105,6 +110,9 @@ public class PageAspector {
 
 		//获得登录 SessionUser
 		SessionUser user=SessionUser.getCurrent();
+
+		String cacheKey= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_CACHEKEY);
+		String userCacheKey=user.getCacheKey();
 
 		JSONObject widthConfig = DBCacheProxyUtil.getLayUITableWidthConfig(request,user);
 		

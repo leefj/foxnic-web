@@ -15,8 +15,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-07 21:32:08
- * @sign 48709D1457DD583B776B78079BBBC0EB
+ * @since 2021-08-09 14:43:28
+ * @sign 47C729DE9E5D71611FE1BD93AF0A8B6B
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -45,6 +45,12 @@ public class CodeExampleRole extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="角色ID" , notes = "角色ID")
 	private String roleId;
+	
+	/**
+	 * 数据版本号：数据版本号
+	*/
+	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
+	private Integer version;
 	
 	/**
 	 * 获得 主键<br>
@@ -100,6 +106,25 @@ public class CodeExampleRole extends Entity {
 	*/
 	public CodeExampleRole setRoleId(String roleId) {
 		this.roleId=roleId;
+		return this;
+	}
+	
+	/**
+	 * 获得 数据版本号<br>
+	 * 数据版本号
+	 * @return 数据版本号
+	*/
+	public Integer getVersion() {
+		return version;
+	}
+	
+	/**
+	 * 设置 数据版本号
+	 * @param version 数据版本号
+	 * @return 当前对象
+	*/
+	public CodeExampleRole setVersion(Integer version) {
+		this.version=version;
 		return this;
 	}
 

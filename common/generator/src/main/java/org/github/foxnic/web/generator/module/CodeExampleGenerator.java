@@ -124,7 +124,7 @@ public class CodeExampleGenerator extends SystemCodeGenerator {
 
 		//下拉选择，数据来自外部表
 		cfg.view().field(SYS_CODE_EXAMPLE.RESOURCE_ID)
-				.search().inputWidth(140)
+				.search().inputWidth(140).fuzzySearch()
 				.form().selectBox().queryApi(ResourzeServiceProxy.QUERY_PAGED_LIST)
 				.valueField(ResourzeMeta.ID).textField(ResourzeMeta.URL)
 				.toolbar(false).paging(true)

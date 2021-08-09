@@ -1,7 +1,7 @@
 /**
  * 代码生成示例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-07 21:32:08
+ * @since 2021-08-09 14:43:27
  */
 
 
@@ -49,8 +49,8 @@ function ListPage() {
 				height: 'full-'+(h+34),
 				limit: 50,
 				cols: [[
-					{  fixed: 'left',type: 'numbers' },
-					{  fixed: 'left',type:'checkbox' },
+					{ fixed: 'left',type: 'numbers' },
+					{ fixed: 'left',type:'checkbox' },
 					{ field: 'id', align:"left", hide:true, sort: true, title: fox.translate('ID')} ,
 					{ field: 'name', align:"left", hide:false, sort: true, title: fox.translate('单行文本')} ,
 					{ field: 'notes', align:"left", hide:false, sort: true, title: fox.translate('多行文本')} ,
@@ -136,9 +136,9 @@ function ListPage() {
 		value.checkDict={ value: xmSelect.get("#checkDict",true).getValue("value") ,fuzzy: true,valuePrefix:"\"",valueSuffix:"\""};
 		value.selectEnum={ value: xmSelect.get("#selectEnum",true).getValue("value")};
 		value.selectDict={ value: xmSelect.get("#selectDict",true).getValue("value") ,fuzzy: true,valuePrefix:"\"",valueSuffix:"\""};
-		value.resourceId={ value: xmSelect.get("#resourceId",true).getValue("value")};
+		value.resourceId={ value: $("#resourceId").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"", fillBy:"resourze",field:"url" };
 		value.birthday={ begin: $("#birthday-begin").val(), end: $("#birthday-end").val() };
-		value.roleIds={ value: xmSelect.get("#roleIds",true).getValue("value"),fillBy:"roles",field:"id"};
+		value.roleIds={ value: xmSelect.get("#roleIds",true).getValue("value"), fillBy:"roles",field:"(f.selectField.valueField)" };
 		var ps={searchField: "$composite", searchValue: JSON.stringify(value),sortField: sortField,sortType: sortType};
 		table.reload('data-table', { where : ps });
 	}
