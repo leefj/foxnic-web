@@ -28,10 +28,6 @@ public class CodeExampleGenerator extends SystemCodeGenerator {
 	}
 
 
-
-
-
-	
  
 	public void generateExample() throws Exception {
 		//创建配置
@@ -89,6 +85,7 @@ public class CodeExampleGenerator extends SystemCodeGenerator {
 		cfg.view().field(SYS_CODE_EXAMPLE.FILE_IDS)
 				.list().hidden()
 				.form().upload().acceptExts("doc","zip","xlsx","rar","docx","txt","svg").maxFileCount(4)
+				.form().validate().required()
 				.search().hidden();
 
 		//单选框，下拉数据来自枚举
@@ -97,6 +94,7 @@ public class CodeExampleGenerator extends SystemCodeGenerator {
 
 		//单选框，下拉数据来自字典
 		cfg.view().field(SYS_CODE_EXAMPLE.RADIO_DICT)
+				.form().validate().required()
 				.form().radioBox().dict(DictEnum.SEX);
 
 		//复选框，下拉数据来自枚举
@@ -107,6 +105,7 @@ public class CodeExampleGenerator extends SystemCodeGenerator {
 		//复选框，下拉数据来自字典
 		cfg.view().field(SYS_CODE_EXAMPLE.CHECK_DICT)
 				.form().checkBox().dict(DictEnum.MEASURE_METHOD)
+				.form().validate().required()
 				.search().fuzzySearchWithDoubleQM();
 
 		//逻辑值
@@ -115,10 +114,12 @@ public class CodeExampleGenerator extends SystemCodeGenerator {
 
 		//下拉选择，数据来自枚举
 		cfg.view().field(SYS_CODE_EXAMPLE.SELECT_ENUM)
+				.form().validate().required()
 				.form().selectBox().enumType(SystemConfigType.class);
 
 		//下拉选择，数据来自字典
 		cfg.view().field(SYS_CODE_EXAMPLE.SELECT_DICT)
+				.form().validate().required()
 				.form().selectBox().dict(DictEnum.ORDER_STATUS).muliti(true)
 				.search().fuzzySearchWithDoubleQM();
 

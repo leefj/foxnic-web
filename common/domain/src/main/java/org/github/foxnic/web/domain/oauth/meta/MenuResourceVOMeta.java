@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-30 15:02:21
+ * @since 2021-08-09 15:00:48
  * @sign D93FBC1D08855956B34A4E9915B1982E
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -23,7 +23,7 @@ public class MenuResourceVOMeta extends MenuResourceMeta {
 	/**
 	 * 页码 , 类型: java.lang.Integer
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.MenuResourceVO,java.lang.Integer> PAGE_INDEX_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.MenuResourceVO.class ,PAGE_INDEX, java.lang.Integer.class, "页码", "", java.lang.Integer.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.MenuResourceVO,java.lang.Integer> PAGE_INDEX_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.MenuResourceVO.class ,PAGE_INDEX, java.lang.Integer.class, "页码", "", java.lang.Integer.class, null);
 	
 	/**
 	 * 分页大小 , 类型: java.lang.Integer
@@ -33,7 +33,7 @@ public class MenuResourceVOMeta extends MenuResourceMeta {
 	/**
 	 * 分页大小 , 类型: java.lang.Integer
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.MenuResourceVO,java.lang.Integer> PAGE_SIZE_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.MenuResourceVO.class ,PAGE_SIZE, java.lang.Integer.class, "分页大小", "", java.lang.Integer.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.MenuResourceVO,java.lang.Integer> PAGE_SIZE_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.MenuResourceVO.class ,PAGE_SIZE, java.lang.Integer.class, "分页大小", "", java.lang.Integer.class, null);
 	
 	/**
 	 * 搜索字段 , 类型: java.lang.String
@@ -43,7 +43,7 @@ public class MenuResourceVOMeta extends MenuResourceMeta {
 	/**
 	 * 搜索字段 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.MenuResourceVO,java.lang.String> SEARCH_FIELD_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.MenuResourceVO.class ,SEARCH_FIELD, java.lang.String.class, "搜索字段", "", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.MenuResourceVO,java.lang.String> SEARCH_FIELD_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.MenuResourceVO.class ,SEARCH_FIELD, java.lang.String.class, "搜索字段", "", java.lang.String.class, null);
 	
 	/**
 	 * 模糊搜索字段 , 类型: java.lang.String
@@ -53,7 +53,7 @@ public class MenuResourceVOMeta extends MenuResourceMeta {
 	/**
 	 * 模糊搜索字段 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.MenuResourceVO,java.lang.String> FUZZY_FIELD_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.MenuResourceVO.class ,FUZZY_FIELD, java.lang.String.class, "模糊搜索字段", "", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.MenuResourceVO,java.lang.String> FUZZY_FIELD_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.MenuResourceVO.class ,FUZZY_FIELD, java.lang.String.class, "模糊搜索字段", "", java.lang.String.class, null);
 	
 	/**
 	 * 搜索的值 , 类型: java.lang.String
@@ -63,7 +63,7 @@ public class MenuResourceVOMeta extends MenuResourceMeta {
 	/**
 	 * 搜索的值 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.MenuResourceVO,java.lang.String> SEARCH_VALUE_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.MenuResourceVO.class ,SEARCH_VALUE, java.lang.String.class, "搜索的值", "", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.MenuResourceVO,java.lang.String> SEARCH_VALUE_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.MenuResourceVO.class ,SEARCH_VALUE, java.lang.String.class, "搜索的值", "", java.lang.String.class, null);
 	
 	/**
 	 * 排序字段 , 类型: java.lang.String
@@ -73,7 +73,7 @@ public class MenuResourceVOMeta extends MenuResourceMeta {
 	/**
 	 * 排序字段 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.MenuResourceVO,java.lang.String> SORT_FIELD_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.MenuResourceVO.class ,SORT_FIELD, java.lang.String.class, "排序字段", "", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.MenuResourceVO,java.lang.String> SORT_FIELD_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.MenuResourceVO.class ,SORT_FIELD, java.lang.String.class, "排序字段", "", java.lang.String.class, null);
 	
 	/**
 	 * 排序方式 , 类型: java.lang.String
@@ -83,7 +83,7 @@ public class MenuResourceVOMeta extends MenuResourceMeta {
 	/**
 	 * 排序方式 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.MenuResourceVO,java.lang.String> SORT_TYPE_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.MenuResourceVO.class ,SORT_TYPE, java.lang.String.class, "排序方式", "", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.MenuResourceVO,java.lang.String> SORT_TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.MenuResourceVO.class ,SORT_TYPE, java.lang.String.class, "排序方式", "", java.lang.String.class, null);
 	
 	/**
 	 * 主键清单 , 用于接收批量主键参数 , 集合类型: LIST , 类型: java.lang.String
@@ -93,7 +93,7 @@ public class MenuResourceVOMeta extends MenuResourceMeta {
 	/**
 	 * 主键清单 , 用于接收批量主键参数 , 集合类型: LIST , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.MenuResourceVO,java.lang.String> IDS_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.MenuResourceVO.class ,IDS, java.util.List.class, "主键清单", "用于接收批量主键参数", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.MenuResourceVO,java.lang.String> IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.MenuResourceVO.class ,IDS, java.util.List.class, "主键清单", "用于接收批量主键参数", java.lang.String.class, null);
 	
 	/**
 	 * 全部属性清单

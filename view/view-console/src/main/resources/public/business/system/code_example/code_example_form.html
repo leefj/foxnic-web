@@ -2,7 +2,7 @@
 /**
  * 代码生成示例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-09 14:43:27
+ * @since 2021-08-09 17:34:35
  */
  -->
  <!DOCTYPE html>
@@ -13,10 +13,11 @@
     <meta charset="utf-8"/>
 	<title th:text="${lang.translate('代码生成示例')}">代码生成示例</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="/assets/libs/layui/css/layui.css"/>
-    <link rel="stylesheet" href="/assets/css/admin.css"/>
-    <link rel="stylesheet" href="/assets/css/foxnic-web.css">
+    <link rel="stylesheet" href="/assets/libs/layui/css/layui.css" th:href="'/assets/libs/layui/css/layui.css?'+${cacheKey}"/>
+    <link rel="stylesheet" href="/assets/css/admin.css" th:href="'/assets/css/admin.css?'+${cacheKey}"/>
+    <link rel="stylesheet" href="/assets/css/foxnic-web.css" th:href="'/assets/css/foxnic-web.css?'+${cacheKey}"/>
     <link href="/assets/libs/font-awesome-4.7.0/css/font-awesome.min.css" th:href="@{/assets/libs/font-awesome-4.7.0/css/font-awesome.min.css}" rel="stylesheet"/>
+    <script th:inline="javascript">var foxnic_cachekey=[[${cacheKey}]];</script>
 </head>
 
 <body style="overflow-y: hidden">
@@ -59,7 +60,7 @@
                     <div class="layui-form-item" >
                         <div class="layui-form-label"><div th:text="${lang.translate('日期')}">日期</div></div>
                         <div class="layui-input-block">
-                            <input lay-filter="birthday" id="birthday" name="birthday"  autocomplete="off"  readonly  th:placeholder="${ lang.translate('请选择') +''+ lang.translate('日期') }" type="text" class="layui-input"    lay-verify="|date"   />
+                            <input lay-filter="birthday" id="birthday" name="birthday"  autocomplete="off"  readonly  th:placeholder="${ lang.translate('请选择') +''+ lang.translate('日期') }" type="text" class="layui-input"    lay-verify=""   />
                         </div>
                     </div>
 
@@ -75,7 +76,7 @@
 
                 
                     <div class="layui-form-item" >
-                        <div class="layui-form-label"><div th:text="${lang.translate('选择框(字典)')}">选择框(字典)</div></div>
+                        <div class="layui-form-label"><div th:text="${lang.translate('选择框(字典)')}">选择框(字典)</div><div class="layui-required">*</div></div>
                         <div class="layui-input-block">
                             <div id="selectDict" th:data="${dict.toArray('order_status')}"></div>
                         </div>
@@ -98,7 +99,7 @@
 
                 
                     <div class="layui-form-item" >
-                        <div class="layui-form-label"><div th:text="${lang.translate('复选框(字典)')}">复选框(字典)</div></div>
+                        <div class="layui-form-label"><div th:text="${lang.translate('复选框(字典)')}">复选框(字典)</div><div class="layui-required">*</div></div>
                         <div class="layui-input-block">
                                 <input type="checkbox" name="checkDict" lay-filter="checkDict" lay-skin="primary" th:each="e,stat:${dict.toArray('measure_method')}" th:value="${e.code}" th:title="${e.text}">
                         </div>
@@ -107,7 +108,7 @@
 
                 
                     <div class="layui-form-item" >
-                        <div class="layui-form-label"><div th:text="${lang.translate('选择框(枚举)')}">选择框(枚举)</div></div>
+                        <div class="layui-form-label"><div th:text="${lang.translate('选择框(枚举)')}">选择框(枚举)</div><div class="layui-required">*</div></div>
                         <div class="layui-input-block">
                             <div id="selectEnum" th:data="${enum.toArray('org.github.foxnic.web.constants.enums.SystemConfigType')}"></div>
                         </div>
@@ -161,7 +162,7 @@
 
                 
                 <div class="layui-form-item" >
-                    <div class="layui-form-label"><div th:text="${lang.translate('多文件上传')}">多文件上传</div></div>
+                    <div class="layui-form-label"><div th:text="${lang.translate('多文件上传')}">多文件上传</div><div class="layui-required">*</div></div>
                     <div class="layui-upload layui-input-block">
                         <input id="fileIds"  name="fileIds" lay-filter="fileIds" style="display: none">
                         <button type="button" class="layui-btn" id="fileIds-button" th:text="${lang.translate('选择附件')}">选择附件</button>
@@ -202,7 +203,7 @@
 
 
                 <div class="layui-form-item" >
-                    <div class="layui-form-label"><div th:text="${lang.translate('单选框(字典)')}">单选框(字典)</div></div>
+                    <div class="layui-form-label"><div th:text="${lang.translate('单选框(字典)')}">单选框(字典)</div><div class="layui-required">*</div></div>
                     <div class="layui-input-block">
                         <input type="radio" name="radioDict" lay-filter="radioDict" th:each="e,stat:${dict.toArray('sex')}" th:value="${e.code}" th:title="${e.text}">
                     </div>
@@ -260,10 +261,10 @@
     <button th:if="${perm.checkAnyAuth('sys_code_example:create','sys_code_example:update','sys_code_example:save')}" class="layui-btn" style="margin-right: 15px"  id="submit-button" lay-filter="submit-button" lay-submit th:text="${lang.translate('保存')}">保存</button>
 </div>
 
-<script type="text/javascript" src="/module/global.js"></script>
-<script type="text/javascript" src="/assets/libs/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="/assets/libs/pandyle.min.js"></script>
-<script type="text/javascript" src="/assets/libs/layui/layui.js"></script>
+<script type="text/javascript" src="/module/global.js" th:src="'/module/global.js?'+${cacheKey}"></script>
+<script type="text/javascript" src="/assets/libs/jquery-3.2.1.min.js" th:src="'/assets/libs/jquery-3.2.1.min.js?'+${cacheKey}"></script>
+<script type="text/javascript" src="/assets/libs/pandyle.min.js" th:src="'/assets/libs/pandyle.min.js?'+${cacheKey}"></script>
+<script type="text/javascript" src="/assets/libs/layui/layui.js" th:src="'/assets/libs/layui/layui.js?'+${cacheKey}"></script>
 
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];
@@ -276,7 +277,7 @@
     var AUTH_PREFIX="sys_code_example";
 </script>
 
-<script src="/business/system/code_example/code_example_form.js"></script>
+<script th:src="'/business/system/code_example/code_example_form.js?'+${cacheKey}"></script>
 
 </body>
 </html>

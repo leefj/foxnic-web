@@ -80,6 +80,7 @@ layui.define('layer', function(exports){
       
       //赋值
       layui.each(object, function(key, value){
+        debugger;
         var itemElem = itemForm.find('[name="'+ key +'"]')
         ,type;
         
@@ -90,7 +91,9 @@ layui.define('layer', function(exports){
         //如果为复选框
         if(type === 'checkbox'){
           itemElem[0].checked = value;
-        } else if(type === 'radio') { //如果为单选框
+        } else if(type === 'checkbox') {
+        }
+        else if(type === 'radio') { //如果为单选框
           itemElem.each(function(){
             if(this.value == value ){
               this.checked = true

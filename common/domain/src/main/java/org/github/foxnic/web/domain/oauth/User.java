@@ -18,8 +18,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-30 15:02:22
- * @sign 9EA12F6E83CB4E82894A2A970438640F
+ * @since 2021-08-09 15:00:49
+ * @sign 74625812E46BFC5FC6705C4D34ACFA64
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -84,6 +84,12 @@ public class User extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="是否有效" , notes = "是否有效")
 	private Integer valid;
+	
+	/**
+	 * 缓存键：改变这个值，可使浏览器重新请求静态资源
+	*/
+	@ApiModelProperty(required = false,value="缓存键" , notes = "改变这个值，可使浏览器重新请求静态资源")
+	private String cacheKey;
 	
 	/**
 	 * 最后登录时间：最后登录时间
@@ -325,6 +331,25 @@ public class User extends Entity {
 	*/
 	public User setValid(Integer valid) {
 		this.valid=valid;
+		return this;
+	}
+	
+	/**
+	 * 获得 缓存键<br>
+	 * 改变这个值，可使浏览器重新请求静态资源
+	 * @return 缓存键
+	*/
+	public String getCacheKey() {
+		return cacheKey;
+	}
+	
+	/**
+	 * 设置 缓存键
+	 * @param cacheKey 缓存键
+	 * @return 当前对象
+	*/
+	public User setCacheKey(String cacheKey) {
+		this.cacheKey=cacheKey;
 		return this;
 	}
 	

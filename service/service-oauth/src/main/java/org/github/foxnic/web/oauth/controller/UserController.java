@@ -59,6 +59,7 @@ public class UserController extends SuperController {
 		@ApiImplicitParam(name = UserVOMeta.LANGUAGE , value = "语言" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = UserVOMeta.EMPLOYEE_ID , value = "员工ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = UserVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class , example = "1"),
+		@ApiImplicitParam(name = UserVOMeta.CACHE_KEY , value = "缓存键" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = UserVOMeta.LAST_LOGIN_TIME , value = "最后登录时间" , required = false , dataTypeClass=Date.class , example = "2021-05-31 03:09:23"),
 	})
 	@ApiOperationSupport(order=1)
@@ -122,6 +123,7 @@ public class UserController extends SuperController {
 		@ApiImplicitParam(name = UserVOMeta.LANGUAGE , value = "语言" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = UserVOMeta.EMPLOYEE_ID , value = "员工ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = UserVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class , example = "1"),
+		@ApiImplicitParam(name = UserVOMeta.CACHE_KEY , value = "缓存键" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = UserVOMeta.LAST_LOGIN_TIME , value = "最后登录时间" , required = false , dataTypeClass=Date.class , example = "2021-05-31 03:09:23"),
 	})
 	@ApiOperationSupport( order=4 , ignoreParameters = { UserVOMeta.PAGE_INDEX , UserVOMeta.PAGE_SIZE , UserVOMeta.SEARCH_FIELD , UserVOMeta.SEARCH_VALUE , UserVOMeta.IDS } ) 
@@ -149,6 +151,7 @@ public class UserController extends SuperController {
 		@ApiImplicitParam(name = UserVOMeta.LANGUAGE , value = "语言" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = UserVOMeta.EMPLOYEE_ID , value = "员工ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = UserVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class , example = "1"),
+		@ApiImplicitParam(name = UserVOMeta.CACHE_KEY , value = "缓存键" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = UserVOMeta.LAST_LOGIN_TIME , value = "最后登录时间" , required = false , dataTypeClass=Date.class , example = "2021-05-31 03:09:23"),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { UserVOMeta.PAGE_INDEX , UserVOMeta.PAGE_SIZE , UserVOMeta.SEARCH_FIELD , UserVOMeta.SEARCH_VALUE , UserVOMeta.IDS } )
@@ -210,6 +213,7 @@ public class UserController extends SuperController {
 		@ApiImplicitParam(name = UserVOMeta.LANGUAGE , value = "语言" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = UserVOMeta.EMPLOYEE_ID , value = "员工ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = UserVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class , example = "1"),
+		@ApiImplicitParam(name = UserVOMeta.CACHE_KEY , value = "缓存键" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = UserVOMeta.LAST_LOGIN_TIME , value = "最后登录时间" , required = false , dataTypeClass=Date.class , example = "2021-05-31 03:09:23"),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { UserVOMeta.PAGE_INDEX , UserVOMeta.PAGE_SIZE } )
@@ -240,6 +244,7 @@ public class UserController extends SuperController {
 		@ApiImplicitParam(name = UserVOMeta.LANGUAGE , value = "语言" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = UserVOMeta.EMPLOYEE_ID , value = "员工ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = UserVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class , example = "1"),
+		@ApiImplicitParam(name = UserVOMeta.CACHE_KEY , value = "缓存键" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = UserVOMeta.LAST_LOGIN_TIME , value = "最后登录时间" , required = false , dataTypeClass=Date.class , example = "2021-05-31 03:09:23"),
 	})
 	@ApiOperationSupport(order=8)

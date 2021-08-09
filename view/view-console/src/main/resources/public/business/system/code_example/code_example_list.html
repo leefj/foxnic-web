@@ -2,7 +2,7 @@
 /**
  * 代码生成示例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-09 14:43:25
+ * @since 2021-08-09 17:34:33
  */
  -->
  <!DOCTYPE html>
@@ -13,10 +13,11 @@
     <meta charset="utf-8"/>
     <title th:text="${lang.translate('代码生成示例')}">代码生成示例</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="/assets/libs/layui/css/layui.css"/>
-    <link rel="stylesheet" href="/assets/css/admin.css"/>
-    <link rel="stylesheet" href="/assets/css/foxnic-web.css">
+    <link rel="stylesheet" href="/assets/libs/layui/css/layui.css" th:href="'/assets/libs/layui/css/layui.css?'+${cacheKey}"/>
+    <link rel="stylesheet" href="/assets/css/admin.css" th:href="'/assets/css/admin.css?'+${cacheKey}"/>
+    <link rel="stylesheet" href="/assets/css/foxnic-web.css" th:href="'/assets/css/foxnic-web.css?'+${cacheKey}">
     <link href="/assets/libs/font-awesome-4.7.0/css/font-awesome.min.css" th:href="@{/assets/libs/font-awesome-4.7.0/css/font-awesome.min.css}" rel="stylesheet"/>
+    <script th:inline="javascript">var foxnic_cachekey=[[${cacheKey}]];</script>
 </head>
 
 <body style="overflow-y: hidden">
@@ -149,10 +150,10 @@
     </div>
 </div>
 
-<script type="text/javascript" src="/module/global.js"></script>
-<script type="text/javascript" src="/assets/libs/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="/assets/libs/pandyle.min.js"></script>
-<script type="text/javascript" src="/assets/libs/layui/layui.js"></script>
+<script type="text/javascript" src="/module/global.js" th:src="'/module/global.js?'+${cacheKey}"></script>
+<script type="text/javascript" src="/assets/libs/jquery-3.2.1.min.js" th:src="'/assets/libs/jquery-3.2.1.min.js?'+${cacheKey}"></script>
+<script type="text/javascript" src="/assets/libs/pandyle.min.js" th:src="'/assets/libs/pandyle.min.js?'+${cacheKey}"></script>
+<script type="text/javascript" src="/assets/libs/layui/layui.js" th:src="'/assets/libs/layui/layui.js?'+${cacheKey}"></script>
 
 <!-- 表格操作列 -->
 <script type="text/html" id="tableOperationTemplate">
@@ -176,7 +177,7 @@
     var AUTH_PREFIX="sys_code_example";
 </script>
 
-<script src="/business/system/code_example/code_example_list.js"></script>
+<script th:src="'/business/system/code_example/code_example_list.js?'+${cacheKey}"></script>
 
 </body>
 </html>

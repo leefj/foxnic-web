@@ -140,9 +140,22 @@
 
     //静态资源host
     config.host = config.host || (dir.match(/\/\/([\s\S]+?)\//)||['//'+ location.host +'/'])[0];
-    
+
+
+    function appendCacheKey(url) {
+      if (!foxnic_cachekey) return url;
+      if(url.indexOf('?')>0) {
+        url+="&"+foxnic_cachekey;
+      } else {
+        url+="?"+foxnic_cachekey;
+      }
+      console.log(url);
+      return url;
+    }
+
     //加载完毕
     function onScriptLoad(e, url){
+
       var readyRegExp = navigator.platform === 'PLaySTATION 3' ? /^complete$/ : /^(complete|loaded)$/
       if (e.type === 'load' || (readyRegExp.test((e.currentTarget || e.srcElement).readyState))) {
         config.modules[item] = url;
@@ -187,7 +200,8 @@
       : (/^\{\/\}/.test(that.modules[item]) ? '' : (config.base || ''))
     ) + (that.modules[item] || item) + '.js';
     url = url.replace(/^\{\/\}/, '');
-    
+    // debugger
+    url=appendCacheKey(url);
     //如果扩展模块（即：非内置模块）对象已经存在，则不必再加载
     if(!config.modules[item] && layui[item]){
       config.modules[item] = url; //并记录起该扩展模块的 url

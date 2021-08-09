@@ -91,7 +91,7 @@ public class SessionUserImpl extends SessionUser implements UserDetails, Credent
 	@Override
 	public String getCacheKey() {
 		if(user!=null) {
-//			return user.get.
+			return user.getCacheKey();
 		}
 		return null;
 	}

@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-30 15:02:23
+ * @since 2021-08-09 15:00:50
  * @sign DCBE371ABBE01889672F8E7C47DD6A7D
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -25,7 +25,7 @@ public class MenuMeta {
 	/**
 	 * ID , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.lang.String> ID_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,ID, java.lang.String.class, "ID", "ID", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.lang.String> ID_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,ID, java.lang.String.class, "ID", "ID", java.lang.String.class, null);
 	
 	/**
 	 * 批次号 , 自动生成时的批次号 , 类型: java.lang.String
@@ -35,7 +35,7 @@ public class MenuMeta {
 	/**
 	 * 批次号 , 自动生成时的批次号 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.lang.String> BATCH_ID_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,BATCH_ID, java.lang.String.class, "批次号", "自动生成时的批次号", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.lang.String> BATCH_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,BATCH_ID, java.lang.String.class, "批次号", "自动生成时的批次号", java.lang.String.class, null);
 	
 	/**
 	 * 权限 , 权限标识 , 类型: java.lang.String
@@ -45,7 +45,7 @@ public class MenuMeta {
 	/**
 	 * 权限 , 权限标识 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.lang.String> AUTHORITY_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,AUTHORITY, java.lang.String.class, "权限", "权限标识", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.lang.String> AUTHORITY_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,AUTHORITY, java.lang.String.class, "权限", "权限标识", java.lang.String.class, null);
 	
 	/**
 	 * 是否隐藏 , 类型: java.lang.Integer
@@ -55,7 +55,7 @@ public class MenuMeta {
 	/**
 	 * 是否隐藏 , 类型: java.lang.Integer
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.lang.Integer> HIDDEN_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,HIDDEN, java.lang.Integer.class, "是否隐藏", "是否隐藏", java.lang.Integer.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.lang.Integer> HIDDEN_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,HIDDEN, java.lang.Integer.class, "是否隐藏", "是否隐藏", java.lang.Integer.class, null);
 	
 	/**
 	 * 样式 , 类型: java.lang.String
@@ -65,7 +65,7 @@ public class MenuMeta {
 	/**
 	 * 样式 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.lang.String> CSS_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,CSS, java.lang.String.class, "样式", "样式", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.lang.String> CSS_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,CSS, java.lang.String.class, "样式", "样式", java.lang.String.class, null);
 	
 	/**
 	 * 标签 , 类型: java.lang.String
@@ -75,7 +75,7 @@ public class MenuMeta {
 	/**
 	 * 标签 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.lang.String> LABEL_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,LABEL, java.lang.String.class, "标签", "标签", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.lang.String> LABEL_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,LABEL, java.lang.String.class, "标签", "标签", java.lang.String.class, null);
 	
 	/**
 	 * 菜单类型 , 类型: java.lang.String
@@ -85,7 +85,7 @@ public class MenuMeta {
 	/**
 	 * 菜单类型 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.lang.String> TYPE_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,TYPE, java.lang.String.class, "菜单类型", "菜单类型", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.lang.String> TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,TYPE, java.lang.String.class, "菜单类型", "菜单类型", java.lang.String.class, null);
 	
 	/**
 	 * 菜单路径的资源 , 类型: java.lang.String
@@ -95,7 +95,7 @@ public class MenuMeta {
 	/**
 	 * 菜单路径的资源 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.lang.String> PATH_RESOURCE_ID_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,PATH_RESOURCE_ID, java.lang.String.class, "菜单路径的资源", "菜单路径的资源", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.lang.String> PATH_RESOURCE_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,PATH_RESOURCE_ID, java.lang.String.class, "菜单路径的资源", "菜单路径的资源", java.lang.String.class, null);
 	
 	/**
 	 * 路由地址 , 类型: java.lang.String
@@ -105,7 +105,7 @@ public class MenuMeta {
 	/**
 	 * 路由地址 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.lang.String> URL_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,URL, java.lang.String.class, "路由地址", "路由地址", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.lang.String> URL_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,URL, java.lang.String.class, "路由地址", "路由地址", java.lang.String.class, null);
 	
 	/**
 	 * 上级ID , 类型: java.lang.String
@@ -115,7 +115,7 @@ public class MenuMeta {
 	/**
 	 * 上级ID , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.lang.String> PARENT_ID_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,PARENT_ID, java.lang.String.class, "上级ID", "上级ID", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.lang.String> PARENT_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,PARENT_ID, java.lang.String.class, "上级ID", "上级ID", java.lang.String.class, null);
 	
 	/**
 	 * 层级路径 , 类型: java.lang.String
@@ -125,7 +125,7 @@ public class MenuMeta {
 	/**
 	 * 层级路径 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.lang.String> HIERARCHY_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,HIERARCHY, java.lang.String.class, "层级路径", "层级路径", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.lang.String> HIERARCHY_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,HIERARCHY, java.lang.String.class, "层级路径", "层级路径", java.lang.String.class, null);
 	
 	/**
 	 * 显示顺序 , 类型: java.lang.Integer
@@ -135,7 +135,7 @@ public class MenuMeta {
 	/**
 	 * 显示顺序 , 类型: java.lang.Integer
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.lang.Integer> SORT_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,SORT, java.lang.Integer.class, "显示顺序", "显示顺序", java.lang.Integer.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.lang.Integer> SORT_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,SORT, java.lang.Integer.class, "显示顺序", "显示顺序", java.lang.Integer.class, null);
 	
 	/**
 	 * 创建人ID , 类型: java.lang.String
@@ -145,7 +145,7 @@ public class MenuMeta {
 	/**
 	 * 创建人ID , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.lang.String> CREATE_BY_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,CREATE_BY, java.lang.String.class, "创建人ID", "创建人ID", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.lang.String> CREATE_BY_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,CREATE_BY, java.lang.String.class, "创建人ID", "创建人ID", java.lang.String.class, null);
 	
 	/**
 	 * 创建时间 , 类型: java.util.Date
@@ -155,7 +155,7 @@ public class MenuMeta {
 	/**
 	 * 创建时间 , 类型: java.util.Date
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.util.Date> CREATE_TIME_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,CREATE_TIME, java.util.Date.class, "创建时间", "创建时间", java.util.Date.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.util.Date> CREATE_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,CREATE_TIME, java.util.Date.class, "创建时间", "创建时间", java.util.Date.class, null);
 	
 	/**
 	 * 修改人ID , 类型: java.lang.String
@@ -165,7 +165,7 @@ public class MenuMeta {
 	/**
 	 * 修改人ID , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.lang.String> UPDATE_BY_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,UPDATE_BY, java.lang.String.class, "修改人ID", "修改人ID", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.lang.String> UPDATE_BY_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,UPDATE_BY, java.lang.String.class, "修改人ID", "修改人ID", java.lang.String.class, null);
 	
 	/**
 	 * 修改时间 , 类型: java.util.Date
@@ -175,7 +175,7 @@ public class MenuMeta {
 	/**
 	 * 修改时间 , 类型: java.util.Date
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.util.Date> UPDATE_TIME_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,UPDATE_TIME, java.util.Date.class, "修改时间", "修改时间", java.util.Date.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.util.Date> UPDATE_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,UPDATE_TIME, java.util.Date.class, "修改时间", "修改时间", java.util.Date.class, null);
 	
 	/**
 	 * 是否已删除 , 类型: java.lang.Integer
@@ -185,7 +185,7 @@ public class MenuMeta {
 	/**
 	 * 是否已删除 , 类型: java.lang.Integer
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.lang.Integer> DELETED_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,DELETED, java.lang.Integer.class, "是否已删除", "是否已删除", java.lang.Integer.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.lang.Integer> DELETED_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,DELETED, java.lang.Integer.class, "是否已删除", "是否已删除", java.lang.Integer.class, null);
 	
 	/**
 	 * 删除人ID , 类型: java.lang.String
@@ -195,7 +195,7 @@ public class MenuMeta {
 	/**
 	 * 删除人ID , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.lang.String> DELETE_BY_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,DELETE_BY, java.lang.String.class, "删除人ID", "删除人ID", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.lang.String> DELETE_BY_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,DELETE_BY, java.lang.String.class, "删除人ID", "删除人ID", java.lang.String.class, null);
 	
 	/**
 	 * 删除时间 , 类型: java.util.Date
@@ -205,7 +205,7 @@ public class MenuMeta {
 	/**
 	 * 删除时间 , 类型: java.util.Date
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.util.Date> DELETE_TIME_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,DELETE_TIME, java.util.Date.class, "删除时间", "删除时间", java.util.Date.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.util.Date> DELETE_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,DELETE_TIME, java.util.Date.class, "删除时间", "删除时间", java.util.Date.class, null);
 	
 	/**
 	 * 数据版本号 , 类型: java.lang.Integer
@@ -215,7 +215,7 @@ public class MenuMeta {
 	/**
 	 * 数据版本号 , 类型: java.lang.Integer
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.lang.Integer> VERSION_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
 	 * 路径资源 , 类型: org.github.foxnic.web.domain.oauth.Resourze
@@ -225,7 +225,7 @@ public class MenuMeta {
 	/**
 	 * 路径资源 , 类型: org.github.foxnic.web.domain.oauth.Resourze
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,org.github.foxnic.web.domain.oauth.Resourze> PATH_RESOURCE_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,PATH_RESOURCE, org.github.foxnic.web.domain.oauth.Resourze.class, "路径资源", "", org.github.foxnic.web.domain.oauth.Resourze.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,org.github.foxnic.web.domain.oauth.Resourze> PATH_RESOURCE_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,PATH_RESOURCE, org.github.foxnic.web.domain.oauth.Resourze.class, "路径资源", "", org.github.foxnic.web.domain.oauth.Resourze.class, null);
 	
 	/**
 	 * 菜单包含的资源清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.oauth.Resourze
@@ -235,7 +235,7 @@ public class MenuMeta {
 	/**
 	 * 菜单包含的资源清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.oauth.Resourze
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,org.github.foxnic.web.domain.oauth.Resourze> RESOURCES_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,RESOURCES, java.util.List.class, "菜单包含的资源清单", "", org.github.foxnic.web.domain.oauth.Resourze.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,org.github.foxnic.web.domain.oauth.Resourze> RESOURCES_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,RESOURCES, java.util.List.class, "菜单包含的资源清单", "", org.github.foxnic.web.domain.oauth.Resourze.class, null);
 	
 	/**
 	 * 上级菜单 , 类型: org.github.foxnic.web.domain.oauth.Menu
@@ -245,7 +245,7 @@ public class MenuMeta {
 	/**
 	 * 上级菜单 , 类型: org.github.foxnic.web.domain.oauth.Menu
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,org.github.foxnic.web.domain.oauth.Menu> PARENT_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,PARENT, org.github.foxnic.web.domain.oauth.Menu.class, "上级菜单", "", org.github.foxnic.web.domain.oauth.Menu.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,org.github.foxnic.web.domain.oauth.Menu> PARENT_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,PARENT, org.github.foxnic.web.domain.oauth.Menu.class, "上级菜单", "", org.github.foxnic.web.domain.oauth.Menu.class, null);
 	
 	/**
 	 * 页面路径 , 类型: java.lang.String
@@ -255,7 +255,7 @@ public class MenuMeta {
 	/**
 	 * 页面路径 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.lang.String> PATH_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,PATH, java.lang.String.class, "页面路径", "", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.lang.String> PATH_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,PATH, java.lang.String.class, "页面路径", "", java.lang.String.class, null);
 	
 	/**
 	 * 资源ID清单 , 集合类型: LIST , 类型: java.lang.String
@@ -265,7 +265,7 @@ public class MenuMeta {
 	/**
 	 * 资源ID清单 , 集合类型: LIST , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.lang.String> RESOURCE_IDS_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,RESOURCE_IDS, java.util.List.class, "资源ID清单", "", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.lang.String> RESOURCE_IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,RESOURCE_IDS, java.util.List.class, "资源ID清单", "", java.lang.String.class, null);
 	
 	/**
 	 * 祖先名称路径 , 用斜杠隔开 , 类型: java.lang.String
@@ -275,7 +275,7 @@ public class MenuMeta {
 	/**
 	 * 祖先名称路径 , 用斜杠隔开 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.lang.String> ANCESTORS_NAME_PATH_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,ANCESTORS_NAME_PATH, java.lang.String.class, "祖先名称路径", "用斜杠隔开", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.lang.String> ANCESTORS_NAME_PATH_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,ANCESTORS_NAME_PATH, java.lang.String.class, "祖先名称路径", "用斜杠隔开", java.lang.String.class, null);
 	
 	/**
 	 * 全部属性清单

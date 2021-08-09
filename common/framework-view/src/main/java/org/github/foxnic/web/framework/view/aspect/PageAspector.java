@@ -1,6 +1,7 @@
 package org.github.foxnic.web.framework.view.aspect;
 
 import com.alibaba.fastjson.JSONObject;
+import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.log.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -111,8 +112,15 @@ public class PageAspector {
 		//获得登录 SessionUser
 		SessionUser user=SessionUser.getCurrent();
 
+
 		String cacheKey= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_CACHEKEY);
-		String userCacheKey=user.getCacheKey();
+		String userCacheKey=null;
+		if(user!=null) {
+			userCacheKey=user.getCacheKey();
+			if (!StringUtil.isBlank(userCacheKey)) {
+				cacheKey += userCacheKey;
+			}
+		}
 
 		JSONObject widthConfig = DBCacheProxyUtil.getLayUITableWidthConfig(request,user);
 		
@@ -127,6 +135,7 @@ public class PageAspector {
 				}
 				((Model)arg).addAttribute(LAYUI_TABLE_WIDTH_CONFIG, widthConfig);
 				((Model)arg).addAttribute(DICT, dictUtil);
+				((Model)arg).addAttribute(CACHE_KEY, cacheKey);
 			} else if(arg instanceof ModelAndView ) {
 				((ModelAndView)arg).addObject(LANG, languageService);
 				((ModelAndView)arg).addObject(ENUM, enumUtil);
@@ -136,6 +145,7 @@ public class PageAspector {
 				}
 				((ModelAndView)arg).addObject(LAYUI_TABLE_WIDTH_CONFIG, widthConfig);
 				((ModelAndView)arg).addObject(DICT, dictUtil);
+				((Model)arg).addAttribute(CACHE_KEY, cacheKey);
 			} else if(arg instanceof ModelMap ) {
 				((ModelMap)arg).addAttribute(LANG, languageService);
 				((ModelMap)arg).addAttribute(ENUM, enumUtil);
@@ -145,6 +155,7 @@ public class PageAspector {
 				}
 				((ModelMap)arg).addAttribute(LAYUI_TABLE_WIDTH_CONFIG, widthConfig);
 				((ModelMap)arg).addAttribute(DICT, dictUtil);
+				((Model)arg).addAttribute(CACHE_KEY, cacheKey);
 			}
 		}
 		 

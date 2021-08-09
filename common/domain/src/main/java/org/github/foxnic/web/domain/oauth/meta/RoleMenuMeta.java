@@ -8,7 +8,7 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-30 15:02:23
+ * @since 2021-08-09 15:00:50
  * @sign AFEEA517CCE106178EED9A0E486A783C
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -23,7 +23,7 @@ public class RoleMenuMeta {
 	/**
 	 * id , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.RoleMenu,java.lang.String> ID_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.RoleMenu.class ,ID, java.lang.String.class, "id", "id", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.RoleMenu,java.lang.String> ID_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.RoleMenu.class ,ID, java.lang.String.class, "id", "id", java.lang.String.class, null);
 	
 	/**
 	 * 角色ID , 类型: java.lang.String
@@ -33,7 +33,7 @@ public class RoleMenuMeta {
 	/**
 	 * 角色ID , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.RoleMenu,java.lang.String> ROLE_ID_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.RoleMenu.class ,ROLE_ID, java.lang.String.class, "角色ID", "角色ID", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.RoleMenu,java.lang.String> ROLE_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.RoleMenu.class ,ROLE_ID, java.lang.String.class, "角色ID", "角色ID", java.lang.String.class, null);
 	
 	/**
 	 * 菜单ID , 类型: java.lang.String
@@ -43,7 +43,7 @@ public class RoleMenuMeta {
 	/**
 	 * 菜单ID , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.RoleMenu,java.lang.String> MENU_ID_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.RoleMenu.class ,MENU_ID, java.lang.String.class, "菜单ID", "菜单ID", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.RoleMenu,java.lang.String> MENU_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.RoleMenu.class ,MENU_ID, java.lang.String.class, "菜单ID", "菜单ID", java.lang.String.class, null);
 	
 	/**
 	 * 创建人ID , 类型: java.lang.String
@@ -53,7 +53,7 @@ public class RoleMenuMeta {
 	/**
 	 * 创建人ID , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.RoleMenu,java.lang.String> CREATE_BY_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.RoleMenu.class ,CREATE_BY, java.lang.String.class, "创建人ID", "创建人ID", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.RoleMenu,java.lang.String> CREATE_BY_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.RoleMenu.class ,CREATE_BY, java.lang.String.class, "创建人ID", "创建人ID", java.lang.String.class, null);
 	
 	/**
 	 * 创建时间 , 类型: java.util.Date
@@ -63,7 +63,7 @@ public class RoleMenuMeta {
 	/**
 	 * 创建时间 , 类型: java.util.Date
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.RoleMenu,java.util.Date> CREATE_TIME_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.RoleMenu.class ,CREATE_TIME, java.util.Date.class, "创建时间", "创建时间", java.util.Date.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.RoleMenu,java.util.Date> CREATE_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.RoleMenu.class ,CREATE_TIME, java.util.Date.class, "创建时间", "创建时间", java.util.Date.class, null);
 	
 	/**
 	 * 修改人ID , 类型: java.lang.String
@@ -73,7 +73,7 @@ public class RoleMenuMeta {
 	/**
 	 * 修改人ID , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.RoleMenu,java.lang.String> UPDATE_BY_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.RoleMenu.class ,UPDATE_BY, java.lang.String.class, "修改人ID", "修改人ID", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.RoleMenu,java.lang.String> UPDATE_BY_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.RoleMenu.class ,UPDATE_BY, java.lang.String.class, "修改人ID", "修改人ID", java.lang.String.class, null);
 	
 	/**
 	 * 修改时间 , 类型: java.util.Date
@@ -83,7 +83,7 @@ public class RoleMenuMeta {
 	/**
 	 * 修改时间 , 类型: java.util.Date
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.RoleMenu,java.util.Date> UPDATE_TIME_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.RoleMenu.class ,UPDATE_TIME, java.util.Date.class, "修改时间", "修改时间", java.util.Date.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.RoleMenu,java.util.Date> UPDATE_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.RoleMenu.class ,UPDATE_TIME, java.util.Date.class, "修改时间", "修改时间", java.util.Date.class, null);
 	
 	/**
 	 * 是否已删除 , 类型: java.lang.Integer
@@ -93,7 +93,7 @@ public class RoleMenuMeta {
 	/**
 	 * 是否已删除 , 类型: java.lang.Integer
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.RoleMenu,java.lang.Integer> DELETED_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.RoleMenu.class ,DELETED, java.lang.Integer.class, "是否已删除", "是否已删除", java.lang.Integer.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.RoleMenu,java.lang.Integer> DELETED_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.RoleMenu.class ,DELETED, java.lang.Integer.class, "是否已删除", "是否已删除", java.lang.Integer.class, null);
 	
 	/**
 	 * 删除人ID , 类型: java.lang.String
@@ -103,7 +103,7 @@ public class RoleMenuMeta {
 	/**
 	 * 删除人ID , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.RoleMenu,java.lang.String> DELETE_BY_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.RoleMenu.class ,DELETE_BY, java.lang.String.class, "删除人ID", "删除人ID", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.RoleMenu,java.lang.String> DELETE_BY_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.RoleMenu.class ,DELETE_BY, java.lang.String.class, "删除人ID", "删除人ID", java.lang.String.class, null);
 	
 	/**
 	 * 删除时间 , 类型: java.util.Date
@@ -113,7 +113,7 @@ public class RoleMenuMeta {
 	/**
 	 * 删除时间 , 类型: java.util.Date
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.RoleMenu,java.util.Date> DELETE_TIME_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.RoleMenu.class ,DELETE_TIME, java.util.Date.class, "删除时间", "删除时间", java.util.Date.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.RoleMenu,java.util.Date> DELETE_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.RoleMenu.class ,DELETE_TIME, java.util.Date.class, "删除时间", "删除时间", java.util.Date.class, null);
 	
 	/**
 	 * 数据版本号 , 类型: java.lang.Integer
@@ -123,7 +123,7 @@ public class RoleMenuMeta {
 	/**
 	 * 数据版本号 , 类型: java.lang.Integer
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.RoleMenu,java.lang.Integer> VERSION_PROP=new BeanProperty(org.github.foxnic.web.domain.oauth.RoleMenu.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.RoleMenu,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.RoleMenu.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
 	 * 全部属性清单
