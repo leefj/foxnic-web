@@ -872,7 +872,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
          * @param {*} formId 表单所在容器id
          * @returns 是否通过验证
          */
-        formVerify:function(formId) {
+        formVerify:function(formId,data,validateConfig) {
             var stop = null //验证不通过状态
                 , verify = layui.form.config.verify //验证规则
                 , DANGER = 'layui-form-danger' //警示样式
@@ -880,8 +880,12 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 , verifyElem = formElem.find('*[lay-verify]') //获取需要校验的元素
                 , device = layui.device()
 
+
+
+
             //开始校验
             layui.each(verifyElem, function (_, item) {
+                // debugger;
                 var othis = $(this)
                     , vers = othis.attr('lay-verify').split('|')
                     , verType = othis.attr('lay-verType') //提示方式
@@ -938,6 +942,56 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             })
 
             if (stop) return false
+
+            function getMessage(cfg) {
+                if(cfg.inputType=="text_input" || cfg.inputType=="text_area") {
+                    return "请填写"+cfg.labelInForm;
+                }
+
+                if(cfg.inputType=="upload") {
+                    return "请在"+cfg.labelInForm+"上传文件";
+                }
+
+                if(cfg.inputType=="date_input") {
+                    return "请在"+cfg.labelInForm+"选择日期";
+                }
+
+                if(cfg.inputType=="select_box") {
+                    return "请选择"+cfg.labelInForm;
+                }
+
+                if(cfg.inputType=="radio_box" || cfg.inputType=="check_box") {
+                    return "请勾选"+cfg.labelInForm;
+                }
+
+                return "请填写"+cfg.labelInForm;
+
+            }
+
+            var message=null;
+            layui.each(validateConfig, function (f, cfg) {
+                var v=data.field[f];
+                if(cfg.required) {
+                    if(v==null) {
+                        message=getMessage(cfg);
+                        return true;
+                    }
+                    if(typeof(v)=="string" && v.trim().length==0) {
+                        message=getMessage(cfg);
+                        return true
+                    }
+                    if(Array.isArray(v) && v.length==0) {
+                        message=getMessage(cfg);
+                        return true
+                    }
+                }
+            });
+
+            if(message) {
+                layer.msg(message, { time: 2000, icon: 5 });
+                return false;
+            }
+
 
             return true
         },

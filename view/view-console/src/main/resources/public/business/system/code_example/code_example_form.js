@@ -1,7 +1,7 @@
 /**
  * 代码生成示例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-09 17:34:35
+ * @since 2021-08-09 19:59:54
  */
 
 function FormPage() {
@@ -256,8 +256,7 @@ function FormPage() {
 	    form.on('submit(submit-button)', function (data) {
 	    	//debugger;
 			data.field = form.val("data-form");
-			//校验表单
-			if(!fox.formVerify("data-form")) return;
+
 
 			//处理 逻辑值 默认值
 		    if(!data.field.valid) data.field.valid=0;
@@ -284,6 +283,9 @@ function FormPage() {
 			}
 			//获取 角色 下拉框的值
 			data.field["roleIds"]=xmSelect.get("#roleIds",true).getValue("value");
+
+			//校验表单
+			if(!fox.formVerify("data-form",data,VALIDATE_CONFIG)) return;
 
 	    	var api=moduleURL+"/"+(data.field.id?"update":"insert");
 	        var task=setTimeout(function(){layer.load(2);},1000);

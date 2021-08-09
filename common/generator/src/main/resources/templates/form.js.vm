@@ -237,8 +237,7 @@ function FormPage() {
 	    form.on('submit(submit-button)', function (data) {
 	    	//debugger;
 			data.field = form.val("data-form");
-			//校验表单
-			if(!fox.formVerify("data-form")) return;
+
 
 	    	#for(f : fields)
 		    #if(f.typeName.equals("logic_switch"))
@@ -268,6 +267,9 @@ function FormPage() {
 			#end
 			#end
 			#end
+
+			//校验表单
+			if(!fox.formVerify("data-form",data,VALIDATE_CONFIG)) return;
 
 	    	var api=moduleURL+"/"+(data.field.#(idPropertyName)?"update":"insert");
 	        var task=setTimeout(function(){layer.load(2);},1000);

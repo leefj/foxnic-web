@@ -187,6 +187,7 @@
     #end
     #end
     #end
+    var VALIDATE_CONFIG=#(validates);
     var AUTH_PREFIX="#(authPrefix)";
 </script>
 
