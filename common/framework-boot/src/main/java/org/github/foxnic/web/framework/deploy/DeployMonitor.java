@@ -50,6 +50,7 @@ public class DeployMonitor implements ApplicationListener<ApplicationStartedEven
             d=new File(d.getCanonicalPath());
             MavenProject mp=new MavenProject(d);
             mps.add(mp);
+            Logger.info("start monitor "+mp.getProjectDir().getName());
         }
         //注册监控目录
         File dir=null;
