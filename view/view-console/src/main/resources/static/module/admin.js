@@ -331,7 +331,7 @@ layui.define(['settings', 'layer'], function (exports) {
             }
             for (var i = 0; i < arguments.length; i++) {
                 if(!this.authorities[arguments[i]]) {
-                    return false
+                    return false;
                 }
             }
             //

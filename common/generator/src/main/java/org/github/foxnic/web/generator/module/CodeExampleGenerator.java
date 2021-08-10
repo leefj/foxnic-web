@@ -49,6 +49,7 @@ public class CodeExampleGenerator extends SystemCodeGenerator {
 
 		//增加必填的校验
 		cfg.view().field(SYS_CODE_EXAMPLE.NAME)
+				.list().fix(true)
 				.form().validate().required()
 				.search().fuzzySearch();
 
@@ -78,7 +79,6 @@ public class CodeExampleGenerator extends SystemCodeGenerator {
 		//单个图片上传类型
 		cfg.view().field(SYS_CODE_EXAMPLE.IMAGE_ID)
 				.search().hidden()
-				.list().hidden()
 				.form().upload().acceptSingleImage().displayFileName(false);
 
 		//多文件上传类型
@@ -136,17 +136,45 @@ public class CodeExampleGenerator extends SystemCodeGenerator {
 		cfg.view().field(CodeExampleVOMeta.ROLE_IDS)
 				.basic().label("角色")
 				.search().inputWidth(140)
+				.list().sort(false)
 				.form().selectBox().queryApi(RoleServiceProxy.QUERY_PAGED_LIST)
 					.valueField(RoleMeta.ID).textField(RoleMeta.NAME)
 					.toolbar(false).paging(true)
 					.fillBy(CodeExampleMeta.ROLES).muliti(true);
 		;
 
+		cfg.view().field(CodeExampleVOMeta.ROLE_COUNT_BY_AFTER)
+				.basic().label("角色数(Java)")
+				.list().sort(false).alignRight();
+
+		cfg.view().field(CodeExampleVOMeta.ROLE_COUNT_BY_JOIN)
+				.basic().label("角色数(SQL)")
+				.list().sort(true).alignRight();
+
+
+		//设置表格的列
+		cfg.view().list().columnLayout(
+				//常规列
+				SYS_CODE_EXAMPLE.NAME,SYS_CODE_EXAMPLE.NOTES,SYS_CODE_EXAMPLE.AREA,SYS_CODE_EXAMPLE.WEIGHT,SYS_CODE_EXAMPLE.BIRTHDAY,SYS_CODE_EXAMPLE.VALID,
+				//单选
+				SYS_CODE_EXAMPLE.RADIO_ENUM,SYS_CODE_EXAMPLE.RADIO_DICT,
+				//复选
+				SYS_CODE_EXAMPLE.CHECK_ENUM,SYS_CODE_EXAMPLE.CHECK_DICT,
+				//下拉选择
+				SYS_CODE_EXAMPLE.SELECT_ENUM,SYS_CODE_EXAMPLE.SELECT_DICT,SYS_CODE_EXAMPLE.SELECT_ENUM,
+				//外部关联
+				CodeExampleMeta.ROLE_IDS,SYS_CODE_EXAMPLE.RESOURCE_ID,
+				//统计值
+				CodeExampleVOMeta.ROLE_COUNT_BY_AFTER,CodeExampleVOMeta.ROLE_COUNT_BY_JOIN,
+				//附件
+				CodeExampleMeta.IMAGE_ID,CodeExampleMeta.FILE_IDS
+		);
 
 		//此设置用于覆盖字段的独立配置；清单中没有出现的，设置为隐藏；重复出现或不存在的字段将抛出异常；只接受 DBField 或 String 类型的元素
 		cfg.view().search().inputLayout(
-				new Object[]{SYS_CODE_EXAMPLE.NAME,SYS_CODE_EXAMPLE.NOTES,SYS_CODE_EXAMPLE.AREA,SYS_CODE_EXAMPLE.WEIGHT,SYS_CODE_EXAMPLE.BIRTHDAY},
-				new Object[]{SYS_CODE_EXAMPLE.RADIO_ENUM,SYS_CODE_EXAMPLE.RADIO_DICT,SYS_CODE_EXAMPLE.VALID,SYS_CODE_EXAMPLE.CHECK_ENUM,SYS_CODE_EXAMPLE.CHECK_DICT},
+				new Object[]{SYS_CODE_EXAMPLE.NAME,SYS_CODE_EXAMPLE.NOTES,SYS_CODE_EXAMPLE.AREA},
+				new Object[]{SYS_CODE_EXAMPLE.WEIGHT,SYS_CODE_EXAMPLE.BIRTHDAY,SYS_CODE_EXAMPLE.VALID},
+				new Object[]{SYS_CODE_EXAMPLE.RADIO_ENUM,SYS_CODE_EXAMPLE.RADIO_DICT,SYS_CODE_EXAMPLE.CHECK_ENUM,SYS_CODE_EXAMPLE.CHECK_DICT},
 				new Object[]{SYS_CODE_EXAMPLE.SELECT_ENUM,SYS_CODE_EXAMPLE.SELECT_DICT},
 				new Object[]{CodeExampleMeta.ROLE_IDS,SYS_CODE_EXAMPLE.RESOURCE_ID}
 		);

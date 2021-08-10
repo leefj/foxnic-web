@@ -2,7 +2,7 @@
 /**
  * 代码生成示例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-09 19:59:53
+ * @since 2021-08-10 17:30:46
  */
  -->
  <!DOCTYPE html>
@@ -48,6 +48,11 @@
                             <span class="search-dash">-</span>
                             <input id="area-end" class="layui-input search-input" style="width: 64px" type="text" autocomplete="off" input-type="number_input"  integer="true" decimal="false" allow-negative="false" step="2.0" min-value="0.0" max-value="20.0" scale="0"/>
                     </div>
+
+
+                </div>
+                <!-- 搜索输入区域 -->
+                <div class="layui-form toolbar search-inputs">
                     <!-- 小数输入 , weight ,typeName=number_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div"><span th:text="${lang.translate('小数输入')}" class="search-label">小数输入</span><span class="search-colon">:</span></div>
@@ -59,6 +64,11 @@
                             <input type="text" id="birthday-begin" style="width: 140px" lay-verify="date" th:placeholder="${lang.translate('开始日期')}" autocomplete="off" class="layui-input search-input search-date-input"  readonly >
                             <span class="search-dash">-</span>
                             <input type="text" id="birthday-end"  style="width: 140px"  lay-verify="date" th:placeholder="${lang.translate('结束日期')}" autocomplete="off" class="layui-input search-input search-date-input" readonly>
+                    </div>
+                    <!-- 逻辑值 , valid ,typeName=logic_switch, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div"><span th:text="${lang.translate('逻辑值')}" class="search-label">逻辑值</span><span class="search-colon">:</span></div>
+                        <div id="valid" data='[{"name":"有效","value":"1"},{"name":"无效","value":"0"}]' style="width:140px"></div>
                     </div>
 
 
@@ -80,11 +90,6 @@
                         <div id="radioDict" th:data="${dict.toArray('sex')}" style="width:140px"></div>
 
 
-                    </div>
-                    <!-- 逻辑值 , valid ,typeName=logic_switch, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div"><span th:text="${lang.translate('逻辑值')}" class="search-label">逻辑值</span><span class="search-colon">:</span></div>
-                        <div id="valid" data='[{"name":"有效","value":"1"},{"name":"无效","value":"0"}]' style="width:140px"></div>
                     </div>
                     <!-- 复选框(枚举) , checkEnum ,typeName=check_box, isHideInSearch=false -->
                     <div class="search-unit">
@@ -140,13 +145,15 @@
 
             <!-- 按钮区域 -->
             <div class="layui-form toolbar search-buttons" style="opacity: 0">
-                <button id="search-button" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i><span th:text="${lang.translate('搜索')}">搜索</span></button>
-                <button th:if="${perm.checkAuth('sys_code_example:create')}" id="add-button" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i><span th:text="${lang.translate('添加')}">添加</span></button>
-                <button th:if="${perm.checkAuth('sys_code_example:delete-by-ids')}" id="delete-button" class="layui-btn icon-btn layui-btn-danger"><i class="layui-icon">&#xe67e;</i><span th:text="${lang.translate('删除')}">删除</span></button>
+                <button id="search-button" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i>&nbsp;&nbsp;<span th:text="${lang.translate('搜索')}">搜索</span></button>
+                <button id="search-button-advance" class="layui-btn layui-btn-primary icon-btn search-button-advance"><i class="layui-icon">&#xe671;</i><span th:text="${lang.translate('更多')}">更多</span></button>
             </div>
         </div>
 
-        <table class="layui-table" id="data-table" lay-filter="data-table"></table>
+        <div style="margin-top: 40px">
+            <table class="layui-table" id="data-table" lay-filter="data-table"></table>
+        </div>
+
     </div>
 </div>
 
@@ -154,6 +161,14 @@
 <script type="text/javascript" src="/assets/libs/jquery-3.2.1.min.js" th:src="'/assets/libs/jquery-3.2.1.min.js?'+${cacheKey}"></script>
 <script type="text/javascript" src="/assets/libs/pandyle.min.js" th:src="'/assets/libs/pandyle.min.js?'+${cacheKey}"></script>
 <script type="text/javascript" src="/assets/libs/layui/layui.js" th:src="'/assets/libs/layui/layui.js?'+${cacheKey}"></script>
+
+<!-- 表格工具栏 -->
+<script type="text/html" id="toolbarTemplate">
+    <div class="layui-btn-container">
+        <button th:if="${perm.checkAuth('sys_code_example:create')}" id="add-button" class="layui-btn icon-btn layui-btn-sm" lay-event="create"><i class="layui-icon">&#xe654;</i><span th:text="${lang.translate('添加')}">添加</span></button>
+            <button th:if="${perm.checkAuth('sys_code_example:delete-by-ids')}" id="delete-button" class="layui-btn icon-btn layui-btn-danger layui-btn-sm" lay-event="batch-del"><i class="layui-icon">&#xe67e;</i><span th:text="${lang.translate('删除')}">删除</span></button>
+    </div>
+</script>
 
 <!-- 表格操作列 -->
 <script type="text/html" id="tableOperationTemplate">

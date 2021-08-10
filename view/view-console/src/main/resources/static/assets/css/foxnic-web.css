@@ -68,7 +68,8 @@
 .search-bar {
  width: 100%;
  display:inline-block;
-    vertical-align: bottom;
+ vertical-align: bottom;
+    position: absolute;top:8px;left: 0px;z-index: 100;background-color: #ffffff;
 }
 
 .search-input-rows {
@@ -83,6 +84,7 @@
     display: flex;
     flex-direction:row;
     flex-wrap: wrap;
+    margin-left: 16px;
 }
 
 
@@ -178,5 +180,9 @@ form-container {
     display:inline-block;
     margin-top: 3px;
     margin-right: 3px;
+}
+
+.search-button-advance {
+    background-color: #FAFAFA;
 }
 

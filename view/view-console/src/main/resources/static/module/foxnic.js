@@ -995,6 +995,51 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
 
             return true
         },
+        searchLayerIndex:-1,
+        switchSearchRow: function(cb) {
+            var rows=$(".search-inputs");
+            if(rows.length<=1) return;
+            var row=$(rows[1]);
+            //debugger
+            var ex=row.attr("collapsed");
+            for (var i = 0;i < rows.length; i++) {
+                if(i>0) {
+                    if(ex!="1") {
+                        $(rows[i]).hide();
+                        $(rows[i]).attr("collapsed","1");
+                    } else {
+                        $(rows[i]).show();
+                        $(rows[i]).attr("collapsed","0");
+                    }
+                }
+            }
+
+            if(ex=="1") {
+                this.searchLayerIndex=layer.open({
+                    type: 1,
+                    shade: false,
+                    offset: [0,0],
+                    closeBtn:0,
+                    isOutAnim:false,
+                    anim:false,
+                    area: ["100%",($(".search-bar").height()+16)+"px"],
+                    title: false,
+                    content: $(".search-bar"),
+                    cancel: function(){}
+                });
+            } else {
+                if(this.searchLayerIndex>-1) {
+                    //$(".search-bar").css("opacity","0");
+                    layer.close(this.searchLayerIndex);
+                    // setTimeout(function (){
+                    //     $(".search-bar").animate({opacity:1},200);
+                    // },100);
+                }
+
+            }
+
+            cb && cb(ex);
+        },
         //表单提交
         submit: function (url, params, method, callback) {
             // debugger

@@ -143,7 +143,11 @@
 
 
     function appendCacheKey(url) {
-      if (!foxnic_cachekey) return url;
+      try {
+        if (!foxnic_cachekey) return url;
+      } catch (e) {
+        return url;
+      }
       if(url.indexOf('?')>0) {
         url+="&"+foxnic_cachekey;
       } else {

@@ -80,7 +80,7 @@ layui.define('layer', function(exports){
       
       //赋值
       layui.each(object, function(key, value){
-        debugger;
+        // debugger;
         var itemElem = itemForm.find('[name="'+ key +'"]')
         ,type;
         
