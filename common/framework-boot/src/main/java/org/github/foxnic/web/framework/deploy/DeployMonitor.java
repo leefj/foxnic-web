@@ -126,7 +126,7 @@ public class DeployMonitor implements ApplicationListener<ApplicationStartedEven
             boolean valid = key.reset();
             // 如果重设失败，退出监听
             if (!valid) {
-                Logger.info("Mapper 监控异常，退出监控...");
+                Logger.info("资源监控异常，退出监控...");
                 break;
             }
         }
@@ -163,7 +163,7 @@ public class DeployMonitor implements ApplicationListener<ApplicationStartedEven
                 try {
                     regist();
                 } catch (Exception e) {
-                    Logger.error("启动Mapper监控失败",e);
+                    Logger.error("启动资源监控失败",e);
                 }
             }
         });
