@@ -66,10 +66,16 @@
 }
 
 .search-bar {
- width: 100%;
- display:inline-block;
- vertical-align: bottom;
-    position: absolute;top:8px;left: 0px;z-index: 100;background-color: #ffffff;
+    width: 100%;
+    display: inline-block;
+    vertical-align: bottom;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background-color: #ffffff;
+    z-index: 999;
+    padding-top:10px;
+    padding-bottom:4px;
 }
 
 .search-input-rows {

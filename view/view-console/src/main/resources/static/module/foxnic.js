@@ -991,11 +991,9 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 layer.msg(message, { time: 2000, icon: 5 });
                 return false;
             }
-
-
             return true
         },
-        searchLayerIndex:-1,
+        // searchLayerIndex:-1,
         switchSearchRow: function(cb) {
             var rows=$(".search-inputs");
             if(rows.length<=1) return;
@@ -1013,32 +1011,44 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     }
                 }
             }
-
             if(ex=="1") {
-                this.searchLayerIndex=layer.open({
-                    type: 1,
-                    shade: false,
-                    offset: [0,0],
-                    closeBtn:0,
-                    isOutAnim:false,
-                    anim:false,
-                    area: ["100%",($(".search-bar").height()+16)+"px"],
-                    title: false,
-                    content: $(".search-bar"),
-                    cancel: function(){}
-                });
+                $(".search-bar").css("box-shadow","1px 1px 50px rgb(0 0 0 / 30%");
+                //$(".search-bar").css("border-bottom","#eeeeee solid 1px");
             } else {
-                if(this.searchLayerIndex>-1) {
-                    //$(".search-bar").css("opacity","0");
-                    layer.close(this.searchLayerIndex);
-                    // setTimeout(function (){
-                    //     $(".search-bar").animate({opacity:1},200);
-                    // },100);
-                }
-
+                $(".search-bar").css("box-shadow","");
+                //$(".search-bar").css("border-bottom","none");
             }
 
             cb && cb(ex);
+        },
+        /**
+         * 调整搜索相关的尺寸
+         * */
+        adjustSearchElement:function() {
+            var rows=$(".search-inputs");
+            var me=this;
+            var divs=$(".search-label-div");
+
+            if(rows.length>1) {
+                var maxWidth = 0;
+                for (var i = 0; i < divs.length; i++) {
+                    var div = $(divs[i]);
+                    var w = div.width();
+                    if (maxWidth < w) maxWidth = w;
+                }
+                divs.width(maxWidth);
+            }
+
+            var h=$(".search-bar").height();
+            $(".search-buttons").css("margin-top",(h-$(".search-buttons").height()-8)+"px");
+            var ks=$(window).width()-$(".search-buttons").width()-16;
+            $(".search-buttons").css("left",ks+"px");
+            $(".search-input-rows").animate({opacity:'1.0'},0.25);
+            $(".search-buttons").animate({opacity:'1.0'},0.25);
+            //渲染后的补充执行
+            setTimeout(function (){
+                me.adjustSearchElement();
+            },16);
         },
         //表单提交
         submit: function (url, params, method, callback) {

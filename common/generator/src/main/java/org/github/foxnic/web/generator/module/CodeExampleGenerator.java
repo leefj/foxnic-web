@@ -179,6 +179,8 @@ public class CodeExampleGenerator extends SystemCodeGenerator {
 				new Object[]{CodeExampleMeta.ROLE_IDS,SYS_CODE_EXAMPLE.RESOURCE_ID}
 		);
 
+
+
 //		//单列布局方式：其实就是排个顺序,并把不在清单中的字段设置成隐藏
 //		cfg.view().formWindow().width(600);
 //		cfg.view().form().inputColumnLayout(1,

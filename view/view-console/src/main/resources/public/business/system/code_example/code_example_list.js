@@ -1,7 +1,7 @@
 /**
  * 代码生成示例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-10 17:30:47
+ * @since 2021-08-11 13:35:54
  */
 
 
@@ -37,9 +37,9 @@ function ListPage() {
       */
     function renderTable() {
 		$(window).resize(function() {
-			adjustSearchElement();
+			fox.adjustSearchElement();
 		});
-		adjustSearchElement();
+		fox.adjustSearchElement();
 		//
 		function renderTableInternal() {
 			var h=$(".search-bar").height();
@@ -101,30 +101,6 @@ function ListPage() {
     };
 
 	/**
-	 * 调整搜索相关的尺寸
-	 * */
-	function adjustSearchElement() {
-		var divs=$(".search-label-div");
-		var maxWidth=0;
-		for (var i = 0; i < divs.length; i++) {
-			var div=$(divs[i]);
-			var w=div.width();
-			if(maxWidth<w) maxWidth=w;
-		}
-		divs.width(maxWidth);
-		var h=$(".search-bar").height();
-		$(".search-buttons").css("margin-top",(h-$(".search-buttons").height()-8)+"px");
-		var ks=$(window).width()-$(".search-buttons").width()-16;
-		$(".search-buttons").css("left",ks+"px");
-		$(".search-input-rows").animate({opacity:'1.0'},0.25);
-		$(".search-buttons").animate({opacity:'1.0'},0.25);
-		//渲染后的补充执行
-		setTimeout(function (){
-			adjustSearchElement();
-		},16);
-	}
-     
-	/**
       * 刷新表格数据
       */
 	function refreshTableData(sortField,sortType) {
@@ -142,7 +118,7 @@ function ListPage() {
 		value.selectDict={ value: xmSelect.get("#selectDict",true).getValue("value") ,fuzzy: true,valuePrefix:"\"",valueSuffix:"\""};
 		value.resourceId={ value: $("#resourceId").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"", fillBy:"resourze",field:"url" };
 		value.birthday={ begin: $("#birthday-begin").val(), end: $("#birthday-end").val() };
-		value.roleIds={ value: xmSelect.get("#roleIds",true).getValue("value"), fillBy:"roles",field:"(f.selectField.valueField)" };
+		value.roleIds={ value: xmSelect.get("#roleIds",true).getValue("value"), fillBy:"roles",field:"id" };
 		var ps={searchField: "$composite", searchValue: JSON.stringify(value),sortField: sortField,sortType: sortType};
 		table.reload('data-table', { where : ps });
 	}
