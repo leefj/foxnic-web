@@ -2,7 +2,7 @@
 /**
  * 在线会话 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-19 08:02:07
+ * @since 2021-08-11 16:55:30
  */
  -->
  <!DOCTYPE html>
@@ -13,59 +13,89 @@
     <meta charset="utf-8"/>
     <title th:text="${lang.translate('在线会话')}">在线会话</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="/assets/libs/layui/css/layui.css"/>
-    <link rel="stylesheet" href="/assets/css/admin.css"/>
-    <link rel="stylesheet" href="/assets/css/foxnic-web.css">
+    <link rel="stylesheet" href="/assets/libs/layui/css/layui.css" th:href="'/assets/libs/layui/css/layui.css?'+${cacheKey}"/>
+    <link rel="stylesheet" href="/assets/css/admin.css" th:href="'/assets/css/admin.css?'+${cacheKey}"/>
+    <link rel="stylesheet" href="/assets/css/foxnic-web.css" th:href="'/assets/css/foxnic-web.css?'+${cacheKey}">
     <link href="/assets/libs/font-awesome-4.7.0/css/font-awesome.min.css" th:href="@{/assets/libs/font-awesome-4.7.0/css/font-awesome.min.css}" rel="stylesheet"/>
+    <script th:inline="javascript">var foxnic_cachekey=[[${cacheKey}]];</script>
 </head>
 
-<body>
+<body style="overflow-y: hidden">
 
 <div class="layui-card">
  
     <div class="layui-card-body">
-        <div class="layui-form toolbar">
-            <span th:text="${lang.translate('搜索')}">搜索</span>：
-            <select id="search-field">
-                <option value="" th:text="${lang.translate('-请选择-')}">-请选择-</option>
-                <option value="id" th:text="${lang.translate('ID')}">ID</option>
-                <option value="sessionId" th:text="${lang.translate('会话ID')}">会话ID</option>
-                <option value="userId" th:text="${lang.translate('账户ID')}">账户ID</option>
-                <option value="loginTime" th:text="${lang.translate('登录时间')}">登录时间</option>
-                <option value="interactTime" th:text="${lang.translate('最近一次交互时间')}">最近一次交互时间</option>
-                <option value="interactUrl" th:text="${lang.translate('最后访问的地址')}">最后访问的地址</option>
-                <option value="logoutTime" th:text="${lang.translate('登出时间')}">登出时间</option>
-                <option value="sessionTime" th:text="${lang.translate('会话时长')}">会话时长</option>
-                <option value="online" th:text="${lang.translate('是否在线')}">是否在线</option>
-            </select>&emsp;
-            <input id="search-input" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入关键字')}"/>&emsp;
-            <button id="search-button" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i><span th:text="${lang.translate('搜索')}">搜索</span></button>
-            <button id="add-button" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i><span th:text="${lang.translate('添加')}">添加</span></button>
-            <button id="delete-button" class="layui-btn icon-btn layui-btn-danger"><i class="layui-icon">&#xe67e;</i><span th:text="${lang.translate('删除')}">删除</span></button>
-            
+
+        <div class="search-bar">
+
+            <div class="search-input-rows" style="opacity: 0">
+                <!-- 搜索输入区域 -->
+                <div class="layui-form toolbar search-inputs">
+                    <!-- 登录时间 , loginTime ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div"><span th:text="${lang.translate('登录时间')}" class="search-label">登录时间</span><span class="search-colon">:</span></div>
+                        <input id="loginTime" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 登出时间 , logoutTime ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div"><span th:text="${lang.translate('登出时间')}" class="search-label">登出时间</span><span class="search-colon">:</span></div>
+                        <input id="logoutTime" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 会话时长 , sessionTime ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div"><span th:text="${lang.translate('会话时长')}" class="search-label">会话时长</span><span class="search-colon">:</span></div>
+                        <input id="sessionTime" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 是否在线 , online ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div"><span th:text="${lang.translate('是否在线')}" class="search-label">是否在线</span><span class="search-colon">:</span></div>
+                        <input id="online" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+
+
+                </div>
+            </div>
+
+
+            <!-- 按钮区域 -->
+            <div class="layui-form toolbar search-buttons" style="opacity: 0">
+                <button id="search-button" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i>&nbsp;&nbsp;<span th:text="${lang.translate('搜索')}">搜索</span></button>
+            </div>
         </div>
 
-        <table class="layui-table" id="data-table" lay-filter="data-table"></table>
+        <div style="margin-top: 44px">
+            <table class="layui-table" id="data-table" lay-filter="data-table"></table>
+        </div>
+
     </div>
 </div>
 
-<script type="text/javascript" src="/module/global.js"></script>
-<script type="text/javascript" src="/assets/libs/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="/assets/libs/pandyle.min.js"></script>
-<script type="text/javascript" src="/assets/libs/layui/layui.js"></script>
+<script type="text/javascript" src="/module/global.js" th:src="'/module/global.js?'+${cacheKey}"></script>
+<script type="text/javascript" src="/assets/libs/jquery-3.2.1.min.js" th:src="'/assets/libs/jquery-3.2.1.min.js?'+${cacheKey}"></script>
+<script type="text/javascript" src="/assets/libs/pandyle.min.js" th:src="'/assets/libs/pandyle.min.js?'+${cacheKey}"></script>
+<script type="text/javascript" src="/assets/libs/layui/layui.js" th:src="'/assets/libs/layui/layui.js?'+${cacheKey}"></script>
+
+<!-- 表格工具栏 -->
+<script type="text/html" id="toolbarTemplate">
+    <div class="layui-btn-container">
+        <button th:if="${perm.checkAuth('sys_session_online:create')}" id="add-button" class="layui-btn icon-btn layui-btn-sm" lay-event="create"><i class="layui-icon">&#xe654;</i><span th:text="${lang.translate('添加')}">添加</span></button>
+            <button th:if="${perm.checkAuth('sys_session_online:delete-by-ids')}" id="delete-button" class="layui-btn icon-btn layui-btn-danger layui-btn-sm" lay-event="batch-del"><i class="layui-icon">&#xe67e;</i><span th:text="${lang.translate('删除')}">删除</span></button>
+    </div>
+</script>
 
 <!-- 表格操作列 -->
 <script type="text/html" id="tableOperationTemplate">
-    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit" th:text="${lang.translate('修改')}">修改</a>
-    <a class="layui-btn layui-btn-xs" lay-event="del" th:text="${lang.translate('删除')}">删除</a>
+    <a th:if="${perm.checkAuth('sys_session_online:view-form')}" class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit" th:text="${lang.translate('修改')}">修改</a>
+    <a th:if="${perm.checkAuth('sys_session_online:delete')}" class="layui-btn layui-btn-xs" lay-event="del" th:text="${lang.translate('删除')}">删除</a>
 </script>
 
 
 <script th:inline="javascript">
-    var LAYUI_TABLE_WIDTH_CONFIG= [[${layuiTableWidthConfig}]];
+    var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];
+    var AUTH_PREFIX="sys_session_online";
 </script>
 
-<script src="/business/oauth/session_online/session_online_list.js"></script>
+<script th:src="'/business/oauth/session_online/session_online_list.js?'+${cacheKey}"></script>
 
 </body>
 </html>

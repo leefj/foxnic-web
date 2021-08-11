@@ -12,7 +12,7 @@ import org.github.foxnic.web.domain.oauth.RoleMenu;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-09 15:00:49
+ * @since 2021-08-11 14:14:39
  * @sign 74625812E46BFC5FC6705C4D34ACFA64
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */

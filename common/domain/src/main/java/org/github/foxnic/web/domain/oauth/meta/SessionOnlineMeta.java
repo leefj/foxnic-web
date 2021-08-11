@@ -1,5 +1,6 @@
 package org.github.foxnic.web.domain.oauth.meta;
 
+import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.oauth.SessionOnline;
 import java.util.Date;
 
@@ -7,7 +8,7 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-03 14:06:10
+ * @since 2021-08-11 16:55:28
  * @sign 2A4666C838F1AE796F066AB4F06C4627
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -15,89 +16,174 @@ import java.util.Date;
 public class SessionOnlineMeta {
 	
 	/**
-	 * ID
+	 * ID , 类型: java.lang.String
 	*/
 	public static final String ID="id";
 	
 	/**
-	 * 会话ID
+	 * ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.SessionOnline,java.lang.String> ID_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.SessionOnline.class ,ID, java.lang.String.class, "ID", "ID", java.lang.String.class, null);
+	
+	/**
+	 * 会话ID , 类型: java.lang.String
 	*/
 	public static final String SESSION_ID="sessionId";
 	
 	/**
-	 * 账户ID
+	 * 会话ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.SessionOnline,java.lang.String> SESSION_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.SessionOnline.class ,SESSION_ID, java.lang.String.class, "会话ID", "会话ID", java.lang.String.class, null);
+	
+	/**
+	 * 账户ID , 类型: java.lang.String
 	*/
 	public static final String USER_ID="userId";
 	
 	/**
-	 * 登录时间
+	 * 账户ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.SessionOnline,java.lang.String> USER_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.SessionOnline.class ,USER_ID, java.lang.String.class, "账户ID", "账户ID", java.lang.String.class, null);
+	
+	/**
+	 * 登录时间 , 类型: java.util.Date
 	*/
 	public static final String LOGIN_TIME="loginTime";
 	
 	/**
-	 * 最近一次交互时间
+	 * 登录时间 , 类型: java.util.Date
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.SessionOnline,java.util.Date> LOGIN_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.SessionOnline.class ,LOGIN_TIME, java.util.Date.class, "登录时间", "登录时间", java.util.Date.class, null);
+	
+	/**
+	 * 最近一次交互时间 , 类型: java.util.Date
 	*/
 	public static final String INTERACT_TIME="interactTime";
 	
 	/**
-	 * 最后访问的地址
+	 * 最近一次交互时间 , 类型: java.util.Date
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.SessionOnline,java.util.Date> INTERACT_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.SessionOnline.class ,INTERACT_TIME, java.util.Date.class, "最近一次交互时间", "最近一次交互时间", java.util.Date.class, null);
+	
+	/**
+	 * 最后访问的地址 , 类型: java.lang.String
 	*/
 	public static final String INTERACT_URL="interactUrl";
 	
 	/**
-	 * 登出时间
+	 * 最后访问的地址 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.SessionOnline,java.lang.String> INTERACT_URL_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.SessionOnline.class ,INTERACT_URL, java.lang.String.class, "最后访问的地址", "最后访问的地址", java.lang.String.class, null);
+	
+	/**
+	 * 登出时间 , 类型: java.util.Date
 	*/
 	public static final String LOGOUT_TIME="logoutTime";
 	
 	/**
-	 * 会话时长 , 单位秒
+	 * 登出时间 , 类型: java.util.Date
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.SessionOnline,java.util.Date> LOGOUT_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.SessionOnline.class ,LOGOUT_TIME, java.util.Date.class, "登出时间", "登出时间", java.util.Date.class, null);
+	
+	/**
+	 * 会话时长 , 单位秒 , 类型: java.lang.Integer
 	*/
 	public static final String SESSION_TIME="sessionTime";
 	
 	/**
-	 * 是否在线
+	 * 会话时长 , 单位秒 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.SessionOnline,java.lang.Integer> SESSION_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.SessionOnline.class ,SESSION_TIME, java.lang.Integer.class, "会话时长", "单位秒", java.lang.Integer.class, null);
+	
+	/**
+	 * 是否在线 , 类型: java.lang.Integer
 	*/
 	public static final String ONLINE="online";
 	
 	/**
-	 * 创建人ID
+	 * 是否在线 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.SessionOnline,java.lang.Integer> ONLINE_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.SessionOnline.class ,ONLINE, java.lang.Integer.class, "是否在线", "是否在线", java.lang.Integer.class, null);
+	
+	/**
+	 * 创建人ID , 类型: java.lang.String
 	*/
 	public static final String CREATE_BY="createBy";
 	
 	/**
-	 * 创建时间
+	 * 创建人ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.SessionOnline,java.lang.String> CREATE_BY_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.SessionOnline.class ,CREATE_BY, java.lang.String.class, "创建人ID", "创建人ID", java.lang.String.class, null);
+	
+	/**
+	 * 创建时间 , 类型: java.util.Date
 	*/
 	public static final String CREATE_TIME="createTime";
 	
 	/**
-	 * 修改人ID
+	 * 创建时间 , 类型: java.util.Date
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.SessionOnline,java.util.Date> CREATE_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.SessionOnline.class ,CREATE_TIME, java.util.Date.class, "创建时间", "创建时间", java.util.Date.class, null);
+	
+	/**
+	 * 修改人ID , 类型: java.lang.String
 	*/
 	public static final String UPDATE_BY="updateBy";
 	
 	/**
-	 * 修改时间
+	 * 修改人ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.SessionOnline,java.lang.String> UPDATE_BY_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.SessionOnline.class ,UPDATE_BY, java.lang.String.class, "修改人ID", "修改人ID", java.lang.String.class, null);
+	
+	/**
+	 * 修改时间 , 类型: java.util.Date
 	*/
 	public static final String UPDATE_TIME="updateTime";
 	
 	/**
-	 * 是否已删除
+	 * 修改时间 , 类型: java.util.Date
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.SessionOnline,java.util.Date> UPDATE_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.SessionOnline.class ,UPDATE_TIME, java.util.Date.class, "修改时间", "修改时间", java.util.Date.class, null);
+	
+	/**
+	 * 是否已删除 , 类型: java.lang.Integer
 	*/
 	public static final String DELETED="deleted";
 	
 	/**
-	 * 删除人ID
+	 * 是否已删除 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.SessionOnline,java.lang.Integer> DELETED_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.SessionOnline.class ,DELETED, java.lang.Integer.class, "是否已删除", "是否已删除", java.lang.Integer.class, null);
+	
+	/**
+	 * 删除人ID , 类型: java.lang.String
 	*/
 	public static final String DELETE_BY="deleteBy";
 	
 	/**
-	 * 删除时间
+	 * 删除人ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.SessionOnline,java.lang.String> DELETE_BY_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.SessionOnline.class ,DELETE_BY, java.lang.String.class, "删除人ID", "删除人ID", java.lang.String.class, null);
+	
+	/**
+	 * 删除时间 , 类型: java.util.Date
 	*/
 	public static final String DELETE_TIME="deleteTime";
 	
 	/**
-	 * 数据版本号
+	 * 删除时间 , 类型: java.util.Date
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.SessionOnline,java.util.Date> DELETE_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.SessionOnline.class ,DELETE_TIME, java.util.Date.class, "删除时间", "删除时间", java.util.Date.class, null);
+	
+	/**
+	 * 数据版本号 , 类型: java.lang.Integer
 	*/
 	public static final String VERSION="version";
+	
+	/**
+	 * 数据版本号 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.SessionOnline,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.SessionOnline.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
 	 * 全部属性清单

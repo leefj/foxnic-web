@@ -1,6 +1,6 @@
 package org.github.foxnic.web.oauth.controller;
 
- 
+
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.api.validate.annotations.NotNull;
@@ -12,6 +12,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.github.foxnic.web.domain.oauth.Role;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.domain.oauth.UserVO;
 import org.github.foxnic.web.domain.oauth.meta.UserVOMeta;
@@ -256,6 +257,7 @@ public class UserController extends SuperController {
 		for (User user : list) {
 			user.setPasswd("");
 		}
+		userService.join(list, Role.class);
 		result.success(true).data(list);
 		return result;
 	}

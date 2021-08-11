@@ -2,7 +2,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-09 13:49:21
+ * @since 2021-08-11 14:14:42
  */
  -->
  <!DOCTYPE html>
@@ -13,122 +13,250 @@
     <meta charset="utf-8"/>
 	<title th:text="${lang.translate('账户')}">账户</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="/assets/libs/layui/css/layui.css"/>
-    <link rel="stylesheet" href="/assets/css/admin.css"/>
-    <link rel="stylesheet" href="/assets/css/foxnic-web.css">
+    <link rel="stylesheet" href="/assets/libs/layui/css/layui.css" th:href="'/assets/libs/layui/css/layui.css?'+${cacheKey}"/>
+    <link rel="stylesheet" href="/assets/css/admin.css" th:href="'/assets/css/admin.css?'+${cacheKey}"/>
+    <link rel="stylesheet" href="/assets/css/foxnic-web.css" th:href="'/assets/css/foxnic-web.css?'+${cacheKey}"/>
     <link href="/assets/libs/font-awesome-4.7.0/css/font-awesome.min.css" th:href="@{/assets/libs/font-awesome-4.7.0/css/font-awesome.min.css}" rel="stylesheet"/>
+    <script th:inline="javascript">var foxnic_cachekey=[[${cacheKey}]];</script>
+    <style>
+        .layui-form-label {
+            width: 65px;
+        }
+        .layui-input-block {
+            margin-left: 100px;
+        }
+    </style>
 </head>
 
 <body style="overflow-y: hidden">
+<div class="form-container">
 
-<form id="data-form" lay-filter="data-form" class="layui-form model-form" style="display:none">
-    <input name="id" id="id"  type="hidden"/>
-    
-    <div class="layui-form-item" >
-        <label class="layui-form-label" th:text="${lang.translate('账户')}">账户</label>
-        <div class="layui-input-block">
-            <input lay-filter="name" id="name" name="name" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('账户') }" type="text" class="layui-input"    lay-verify="|required"   />
-        </div>
-    </div>
-    
-	
-    
-    <div class="layui-form-item" style="display: none")>
-        <label class="layui-form-label" th:text="${lang.translate('密码')}">密码</label>
-        <div class="layui-input-block">
-            <input lay-filter="passwd" id="passwd" name="passwd" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('密码') }" type="text" class="layui-input"   />
-        </div>
-    </div>
-    
-	
-    
-    <div class="layui-form-item" >
-        <label class="layui-form-label" th:text="${lang.translate('手机号码')}">手机号码</label>
-        <div class="layui-input-block">
-            <input lay-filter="phone" id="phone" name="phone" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('手机号码') }" type="text" class="layui-input"    lay-verify="|required|phone"   />
-        </div>
-    </div>
-    
-	
+    <form id="data-form" lay-filter="data-form" class="layui-form model-form" style="display:none">
+        <input name="id" id="id"  type="hidden"/>
 
-    <div class="layui-form-item" th:style="${perm.checkAuth('sys_user:portrait')?'':'display:none'}">
-        <label class="layui-form-label" th:text="${lang.translate('头像')}">头像</label>
-        <div class="layui-upload layui-input-block">
-            <input id="portraitId"  name="portraitId" lay-filter="portraitId" style="display: none">
-            <button type="button" class="layui-btn" id="portraitId-button" th:text="${lang.translate('选择头像')}">选择头像</button>
-            <div class="layui-upload-list" id="portraitId-file-list"></div>
-        </div>
-    </div>
 
-	
-	
-    
-    <div class="layui-form-item" style="display: none")>
-        <label class="layui-form-label" th:text="${lang.translate('人员ID')}">人员ID</label>
-        <div class="layui-input-block">
-            <input lay-filter="personId" id="personId" name="personId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('人员ID') }" type="text" class="layui-input"   />
-        </div>
-    </div>
-    
-	
-	
-    <div class="layui-form-item" >
-        <label class="layui-form-label" th:text="${lang.translate('语言')}">语言</label>
-        <div class="layui-input-block">
-            <input type="radio" name="language" lay-filter="language" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.Language')}" th:value="${e.code}" th:title="${e.text}">
-        </div>
-    </div>
+         <!--开始：group 循环-->
 
-	
-    
-    <div class="layui-form-item" style="display: none")>
-        <label class="layui-form-label" th:text="${lang.translate('员工ID')}">员工ID</label>
-        <div class="layui-input-block">
-            <input lay-filter="employeeId" id="employeeId" name="employeeId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('员工ID') }" type="text" class="layui-input"   />
-        </div>
-    </div>
-    
-	
-	
-    <div class="layui-form-item" >
-        <label class="layui-form-label" th:text="${lang.translate('是否有效')}">是否有效</label>
-        <div class="layui-input-block">
-            <input type="checkbox" checked="" id="valid"  name="valid" lay-skin="switch" lay-filter="valid" lay-text="有效|无效" value="1">
-        </div>
-    </div>
-    
-	
-    
-    <div class="layui-form-item" style="display: none")>
-        <label class="layui-form-label" th:text="${lang.translate('最后登录时间')}">最后登录时间</label>
-        <div class="layui-input-block">
-            <input lay-filter="lastLoginTime" id="lastLoginTime" name="lastLoginTime" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('最后登录时间') }" type="text" class="layui-input"   />
-        </div>
-    </div>
-    
-	
 
-        <div class="layui-form-item" >
-            <label class="layui-form-label" th:text="${lang.translate('角色')}">角色</label>
-            <div class="layui-input-block">
-                <div id="roleIds" th:data="${'/service-oauth/sys-role/query-list'}"></div>
+        <div class="layui-row form-row">
+
+             <!--开始：group 循环-->
+            <div class="layui-col-xs12 form-column">
+
+
+                <div class="layui-form-item" style="display: none")>
+                    <div class="layui-form-label"><div th:text="${lang.translate('ID')}">ID</div></div>
+                    <div class="layui-input-block">
+                        <input lay-filter="id" id="id" name="id" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('ID') }" type="text" class="layui-input"   />
+                    </div>
+                </div>
+
+
+                
+                <div class="layui-form-item" >
+                    <div class="layui-form-label"><div th:text="${lang.translate('账户')}">账户</div><div class="layui-required">*</div></div>
+                    <div class="layui-input-block">
+                        <input lay-filter="name" id="name" name="name" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('账户') }" type="text" class="layui-input"    lay-verify="|required"   />
+                    </div>
+                </div>
+
+
+                
+                <div class="layui-form-item" style="display: none")>
+                    <div class="layui-form-label"><div th:text="${lang.translate('密码')}">密码</div></div>
+                    <div class="layui-input-block">
+                        <input lay-filter="passwd" id="passwd" name="passwd" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('密码') }" type="text" class="layui-input"   />
+                    </div>
+                </div>
+
+
+                
+                <div class="layui-form-item" >
+                    <div class="layui-form-label"><div th:text="${lang.translate('手机')}">手机</div><div class="layui-required">*</div></div>
+                    <div class="layui-input-block">
+                        <input lay-filter="phone" id="phone" name="phone" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('手机') }" type="text" class="layui-input"    lay-verify="|required|phone"   />
+                    </div>
+                </div>
+
+
+                
+                <div class="layui-form-item" >
+                    <div class="layui-form-label"><div th:text="${lang.translate('头像')}">头像</div></div>
+                    <div class="layui-upload layui-input-block">
+                        <input id="portraitId"  name="portraitId" lay-filter="portraitId" style="display: none">
+                        <button type="button" class="layui-btn" id="portraitId-button" th:text="${lang.translate('选择头像')}">选择头像</button>
+                        <div class="layui-upload-list" id="portraitId-file-list"></div>
+                    </div>
+                </div>
+
+
+
+                
+                <div class="layui-form-item" style="display: none")>
+                    <div class="layui-form-label"><div th:text="${lang.translate('人员ID')}">人员ID</div></div>
+                    <div class="layui-input-block">
+                        <input lay-filter="personId" id="personId" name="personId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('人员ID') }" type="text" class="layui-input"   />
+                    </div>
+                </div>
+
+
+                
+                <div class="layui-form-item" >
+                    <div class="layui-form-label"><div th:text="${lang.translate('语言')}">语言</div></div>
+                    <div class="layui-input-block">
+                        <input type="radio" name="language" lay-filter="language" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.Language')}" th:value="${e.code}" th:title="${e.text}">
+                    </div>
+                </div>
+
+
+                
+                <div class="layui-form-item" style="display: none")>
+                    <div class="layui-form-label"><div th:text="${lang.translate('员工ID')}">员工ID</div></div>
+                    <div class="layui-input-block">
+                        <input lay-filter="employeeId" id="employeeId" name="employeeId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('员工ID') }" type="text" class="layui-input"   />
+                    </div>
+                </div>
+
+
+                
+                <div class="layui-form-item" >
+                    <div class="layui-form-label"><div th:text="${lang.translate('是否有效')}">是否有效</div></div>
+                    <div class="layui-input-block">
+                        <input type="checkbox" checked="" id="valid"  name="valid" lay-skin="switch" lay-filter="valid" lay-text="有效|无效" value="1">
+                    </div>
+                </div>
+
+
+                
+                <div class="layui-form-item" >
+                    <div class="layui-form-label"><div th:text="${lang.translate('缓存键')}">缓存键</div></div>
+                    <div class="layui-input-block">
+                        <input lay-filter="cacheKey" id="cacheKey" name="cacheKey" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('缓存键') }" type="text" class="layui-input"   />
+                    </div>
+                </div>
+
+
+                
+                <div class="layui-form-item" style="display: none")>
+                    <div class="layui-form-label"><div th:text="${lang.translate('最后登录时间')}">最后登录时间</div></div>
+                    <div class="layui-input-block">
+                        <input lay-filter="lastLoginTime" id="lastLoginTime" name="lastLoginTime" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('最后登录时间') }" type="text" class="layui-input"   />
+                    </div>
+                </div>
+
+
+                
+                <div class="layui-form-item" style="display: none")>
+                    <div class="layui-form-label"><div th:text="${lang.translate('创建人ID')}">创建人ID</div></div>
+                    <div class="layui-input-block">
+                        <input lay-filter="createBy" id="createBy" name="createBy" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('创建人ID') }" type="text" class="layui-input"   />
+                    </div>
+                </div>
+
+
+                
+                <div class="layui-form-item" style="display: none")>
+                    <div class="layui-form-label"><div th:text="${lang.translate('创建时间')}">创建时间</div></div>
+                    <div class="layui-input-block">
+                        <input lay-filter="createTime" id="createTime" name="createTime" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('创建时间') }" type="text" class="layui-input"   />
+                    </div>
+                </div>
+
+
+                
+                <div class="layui-form-item" style="display: none")>
+                    <div class="layui-form-label"><div th:text="${lang.translate('修改人ID')}">修改人ID</div></div>
+                    <div class="layui-input-block">
+                        <input lay-filter="updateBy" id="updateBy" name="updateBy" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('修改人ID') }" type="text" class="layui-input"   />
+                    </div>
+                </div>
+
+
+                
+                <div class="layui-form-item" style="display: none")>
+                    <div class="layui-form-label"><div th:text="${lang.translate('修改时间')}">修改时间</div></div>
+                    <div class="layui-input-block">
+                        <input lay-filter="updateTime" id="updateTime" name="updateTime" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('修改时间') }" type="text" class="layui-input"   />
+                    </div>
+                </div>
+
+
+                
+                <div class="layui-form-item" style="display: none")>
+                    <div class="layui-form-label"><div th:text="${lang.translate('是否已删除')}">是否已删除</div></div>
+                    <div class="layui-input-block">
+                        <input lay-filter="deleted" id="deleted" name="deleted" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('是否已删除') }" type="text" class="layui-input"   />
+                    </div>
+                </div>
+
+
+                
+                <div class="layui-form-item" style="display: none")>
+                    <div class="layui-form-label"><div th:text="${lang.translate('删除人ID')}">删除人ID</div></div>
+                    <div class="layui-input-block">
+                        <input lay-filter="deleteBy" id="deleteBy" name="deleteBy" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('删除人ID') }" type="text" class="layui-input"   />
+                    </div>
+                </div>
+
+
+                
+                <div class="layui-form-item" style="display: none")>
+                    <div class="layui-form-label"><div th:text="${lang.translate('删除时间')}">删除时间</div></div>
+                    <div class="layui-input-block">
+                        <input lay-filter="deleteTime" id="deleteTime" name="deleteTime" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('删除时间') }" type="text" class="layui-input"   />
+                    </div>
+                </div>
+
+
+                
+                <div class="layui-form-item" style="display: none")>
+                    <div class="layui-form-label"><div th:text="${lang.translate('数据版本号')}">数据版本号</div></div>
+                    <div class="layui-input-block">
+                        <input lay-filter="version" id="version" name="version" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('数据版本号') }" type="text" class="layui-input"   />
+                    </div>
+                </div>
+
+
+                
+                    <div class="layui-form-item" >
+                        <div class="layui-form-label"><div th:text="${lang.translate('角色')}">角色</div></div>
+                        <div class="layui-input-block">
+                            <div id="roleIds" th:data="${'/service-oauth/sys-role/query-list'}"></div>
+                        </div>
+                    </div>
+
+
+                <!--结束：栏次内字段循环-->
             </div>
+            <!--结束：栏次输入框循环-->
         </div>
+        <!--结束：group循环-->
 
-	
+        <div style="height: 8px"></div>
 
-    <div class="layui-form-item model-form-footer">
-        <button class="layui-btn layui-btn-primary" id="cancel-button" lay-filter="cancel-button" type="button" th:text="${lang.translate('取消')}">取消</button>
-        <button class="layui-btn"  id="submit-button" lay-filter="submit-button" lay-submit th:text="${lang.translate('保存')}">保存</button>
-    </div>
-</form>
 
-<script type="text/javascript" src="/module/global.js"></script>
-<script type="text/javascript" src="/assets/libs/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="/assets/libs/pandyle.min.js"></script>
-<script type="text/javascript" src="/assets/libs/layui/layui.js"></script>
+    </form>
 
-<script src="/business/oauth/user/user_form.js"></script>
+</div>
+
+<div class="model-form-footer">
+    <button class="layui-btn layui-btn-primary" id="cancel-button" lay-filter="cancel-button" type="button" th:text="${lang.translate('取消')}">取消</button>
+    <button th:if="${perm.checkAnyAuth('sys_user:create','sys_user:update','sys_user:save')}" class="layui-btn" style="margin-right: 15px"  id="submit-button" lay-filter="submit-button" lay-submit th:text="${lang.translate('保存')}">保存</button>
+</div>
+
+<script type="text/javascript" src="/module/global.js" th:src="'/module/global.js?'+${cacheKey}"></script>
+<script type="text/javascript" src="/assets/libs/jquery-3.2.1.min.js" th:src="'/assets/libs/jquery-3.2.1.min.js?'+${cacheKey}"></script>
+<script type="text/javascript" src="/assets/libs/pandyle.min.js" th:src="'/assets/libs/pandyle.min.js?'+${cacheKey}"></script>
+<script type="text/javascript" src="/assets/libs/layui/layui.js" th:src="'/assets/libs/layui/layui.js?'+${cacheKey}"></script>
+
+<script th:inline="javascript">
+    var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];
+    var RADIO_LANGUAGE_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.Language')}]];
+    var VALIDATE_CONFIG={"phone":{"phone":true,"labelInForm":"手机","inputType":"text_input","required":true},"name":{"labelInForm":"账户","inputType":"text_input","required":true}};
+    var AUTH_PREFIX="sys_user";
+</script>
+
+<script th:src="'/business/oauth/user/user_form.js?'+${cacheKey}"></script>
 
 </body>
 </html>

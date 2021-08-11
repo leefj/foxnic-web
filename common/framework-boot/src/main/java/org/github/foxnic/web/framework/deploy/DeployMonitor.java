@@ -155,6 +155,8 @@ public class DeployMonitor implements ApplicationListener<ApplicationStartedEven
 
     @Override
     public void onApplicationEvent(ApplicationStartedEvent event) {
+
+
         if(!enable) return;
         //
         tm=new SimpleTaskManager(2);

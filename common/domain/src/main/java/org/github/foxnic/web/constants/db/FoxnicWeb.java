@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2021-08-09 14:52:36
+ * @since 2021-08-11 17:32:28
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -1330,6 +1330,121 @@ public class FoxnicWeb {
 	}
 	
 	/**
+	*/
+	public static class SYS_NODE extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "sys_node";
+		
+		/**
+		 * 实例id
+		*/
+		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","实例id","实例id",true,false,false);
+		
+		/**
+		 * 主机ID
+		*/
+		public static final DBField HOST_ID = new DBField(DBDataType.STRING , "host_id","hostId","主机ID","主机ID",false,false,true);
+		
+		/**
+		 * 应用名称
+		*/
+		public static final DBField APPLICATION_NAME = new DBField(DBDataType.STRING , "application_name","applicationName","应用名称","应用名称",false,false,true);
+		
+		/**
+		 * 端口
+		*/
+		public static final DBField PORT = new DBField(DBDataType.INTEGER , "port","port","端口","端口",false,false,true);
+		
+		/**
+		 * 进程号
+		*/
+		public static final DBField PROCESS_ID = new DBField(DBDataType.STRING , "process_id","processId","进程号","进程号",false,false,true);
+		
+		/**
+		 * 启动时间
+		*/
+		public static final DBField START_TIME = new DBField(DBDataType.DATE , "start_time","startTime","启动时间","启动时间",false,false,true);
+		
+		/**
+		 * 是否启动
+		*/
+		public static final DBField IS_UP = new DBField(DBDataType.INTEGER , "is_up","isUp","是否启动","是否启动",false,false,true);
+		
+		/**
+		 * 心跳时间
+		*/
+		public static final DBField HEART_BEAT_TIME = new DBField(DBDataType.DATE , "heart_beat_time","heartBeatTime","心跳时间","心跳时间",false,false,true);
+		
+		/**
+		 * 主机名称
+		*/
+		public static final DBField HOST_NAME = new DBField(DBDataType.STRING , "host_name","hostName","主机名称","主机名称",false,false,true);
+		
+		/**
+		 * IP地址
+		*/
+		public static final DBField IP = new DBField(DBDataType.STRING , "ip","ip","IP地址","IP地址",false,false,true);
+		
+		/**
+		 * 雪花DCId
+		*/
+		public static final DBField DATACENTER_ID = new DBField(DBDataType.INTEGER , "datacenter_id","datacenterId","雪花DCId","雪花DCId",false,false,true);
+		
+		/**
+		 * 雪花WKId
+		*/
+		public static final DBField WORKER_ID = new DBField(DBDataType.INTEGER , "worker_id","workerId","雪花WKId","雪花WKId",false,false,true);
+		
+		/**
+		 * 创建人ID
+		*/
+		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
+		
+		/**
+		 * 创建时间
+		*/
+		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","创建时间","创建时间",false,false,true);
+		
+		/**
+		 * 修改人ID
+		*/
+		public static final DBField UPDATE_BY = new DBField(DBDataType.STRING , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
+		
+		/**
+		 * 修改时间
+		*/
+		public static final DBField UPDATE_TIME = new DBField(DBDataType.DATE , "update_time","updateTime","修改时间","修改时间",false,false,true);
+		
+		/**
+		 * 是否已删除
+		*/
+		public static final DBField DELETED = new DBField(DBDataType.INTEGER , "deleted","deleted","是否已删除","是否已删除",false,false,false);
+		
+		/**
+		 * 删除人ID
+		*/
+		public static final DBField DELETE_BY = new DBField(DBDataType.STRING , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
+		
+		/**
+		 * 删除时间
+		*/
+		public static final DBField DELETE_TIME = new DBField(DBDataType.DATE , "delete_time","deleteTime","删除时间","删除时间",false,false,true);
+		
+		/**
+		 * 数据版本号
+		*/
+		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
+		
+		public SYS_NODE() {
+			this.init($NAME,"" , ID , HOST_ID , APPLICATION_NAME , PORT , PROCESS_ID , START_TIME , IS_UP , HEART_BEAT_TIME , HOST_NAME , IP , DATACENTER_ID , WORKER_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+		}
+		public static final SYS_NODE $TABLE=new SYS_NODE();
+	}
+	
+	/**
 	 * 认证客户端
 	*/
 	public static class SYS_OAUTH_CLIENT extends DBTable {
@@ -1897,12 +2012,22 @@ public class FoxnicWeb {
 		public static final DBField DELETE_TIME = new DBField(DBDataType.DATE , "delete_time","deleteTime","删除时间","删除时间",false,false,true);
 		
 		/**
+		 * 主机ID
+		*/
+		public static final DBField HOST_ID = new DBField(DBDataType.STRING , "host_id","hostId","主机ID","主机ID",false,false,true);
+		
+		/**
 		 * 数据版本号
 		*/
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
+		/**
+		 * 节点实例ID
+		*/
+		public static final DBField NODE_ID = new DBField(DBDataType.STRING , "node_id","nodeId","节点实例ID","节点实例ID",false,false,true);
+		
 		public SYS_SESSION_ONLINE() {
-			this.init($NAME,"在线会话表" , ID , SESSION_ID , USER_ID , LOGIN_TIME , INTERACT_TIME , INTERACT_URL , LOGOUT_TIME , SESSION_TIME , ONLINE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"在线会话表" , ID , SESSION_ID , USER_ID , LOGIN_TIME , INTERACT_TIME , INTERACT_URL , LOGOUT_TIME , SESSION_TIME , ONLINE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , HOST_ID , VERSION , NODE_ID);
 		}
 		public static final SYS_SESSION_ONLINE $TABLE=new SYS_SESSION_ONLINE();
 	}

@@ -1,8 +1,8 @@
 layui.define(['settings', 'layer'], function (exports) {
     var config = layui.settings;
     var layer = layui.layer;
+    var popupCenterParamMap={};
     var popupRightIndex, popupCenterIndex, popupCenterParam;
-    var popupCenterIndexStack=[];
     var admin = {
         // 设置侧栏折叠
         flexible: function (expand) {
@@ -104,36 +104,41 @@ layui.define(['settings', 'layer'], function (exports) {
             param.id =param.id?param.id : 'adminPopupC';
             popupCenterParam = param;
             popupCenterIndex = admin.open(param);
-            popupCenterIndexStack.push(popupCenterIndex);
+            popupCenterParamMap[popupCenterIndex]=popupCenterParam;
             return popupCenterIndex;
         },
         // 关闭中间弹出并且触发finish回调
-        finishPopupCenter: function () {
+        finishPopupCenter: function (index) {
         	//拦截，并由顶层窗口处理
         	if(top && top!=window && top.admin) {
-        		top.admin.finishPopupCenter();
+        		top.admin.finishPopupCenter(index);
         		return;
         	}
-            layer.close(popupCenterIndex);
-            popupCenterIndexStack.pop();
-        	if(popupCenterIndexStack.length>0) {
-                popupCenterIndex = popupCenterIndexStack[popupCenterIndexStack.length - 1];
+        	if(index) {
+                layer.close(index);
+                popupCenterParam=popupCenterParamMap[index];
+            } else {
+                layer.close(popupCenterIndex);
+                popupCenterParam=popupCenterParamMap[popupCenterIndex];
             }
+
             popupCenterParam.finish ? popupCenterParam.finish() : '';
         },
         // 关闭中间弹出
-        closePopupCenter: function () {
+        closePopupCenter: function (index) {
         	if(top && top!=window && top.admin) {
-        		top.admin.closePopupCenter();
+        		top.admin.closePopupCenter(index);
         		return;
         	}
-
-        	layer.close(popupCenterIndex);
-            popupCenterIndexStack.pop();
-            if(popupCenterIndexStack.length>0) {
-                popupCenterIndex = popupCenterIndexStack[popupCenterIndexStack.length - 1];
+        	if(index) {
+                layer.close(index);
+                popupCenterParam=popupCenterParamMap[index];
+            } else {
+        	    layer.close(popupCenterIndex);
+                popupCenterParam=popupCenterParamMap[popupCenterIndex];
             }
         },
+
         changePopupArea: function (width,height,cb) {
             //$("body").attr('style', 'overflow-y:hidden');
         	if(top && top!=window && top.admin) {

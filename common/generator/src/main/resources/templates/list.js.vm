@@ -98,7 +98,7 @@ function ListPage() {
 					#end
 					#end
 					{ field: 'row-space', align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true},
-					{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
+					{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: #(operateColumnWidth) }
 				]],
 				footer : {
 					exportExcel : admin.checkAuth(AUTH_PREFIX+":export"),
@@ -531,9 +531,9 @@ function ListPage() {
 		var height= (area && area.height) ? area.height : ($(window).height()*0.6);
 		var top= (area && area.top) ? area.top : (($(window).height()-height)/2);
 		var title = (data && data.#(idPropertyName)) ? (fox.translate('修改')+fox.translate('#(topic)')) : (fox.translate('添加')+fox.translate('#(topic)'));
-		admin.popupCenter({
+		var index=admin.popupCenter({
 			title: title,
-			resize: true,
+			resize: false,
 			offset: [top,null],
 			area: ["#(formWindow.width)px",height+"px"],
 			type: 2,
@@ -542,6 +542,7 @@ function ListPage() {
 				refreshTableData();
 			}
 		});
+		admin.putTempData('#(formDataKey)-popup-index', index);
 	};
 
 };

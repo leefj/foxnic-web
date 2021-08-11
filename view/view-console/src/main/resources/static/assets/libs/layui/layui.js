@@ -153,7 +153,7 @@
       } else {
         url+="?"+foxnic_cachekey;
       }
-      console.log(url);
+      // console.log(url);
       return url;
     }
 

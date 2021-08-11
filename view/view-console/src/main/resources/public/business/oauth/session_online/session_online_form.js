@@ -1,20 +1,20 @@
 /**
  * 在线会话 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-19 08:02:07
+ * @since 2021-08-11 16:55:30
  */
 
 function FormPage() {
 
-	var settings,admin,form,table,layer,util,fox,upload,xmSelect;
+	var settings,admin,form,table,layer,util,fox,upload,xmSelect,foxup;
 	const moduleURL="/service-oauth/sys-session-online";
 	
 	/**
       * 入口函数，初始化
       */
 	this.init=function(layui) { 	
-     	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload;
-		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
+     	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload,foxup=layui.foxnicUpload;
+		laydate = layui.laydate,table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
 		
 		//渲染表单组件
 		renderFormFields();
@@ -24,23 +24,43 @@ function FormPage() {
 		
 		//绑定提交事件
 		bindButtonEvent();
-		
+
 		//调整窗口的高度与位置
 		adjustPopup();
-		
 	}
-	
+
+	/**
+	 * 自动调节窗口高度
+	 * */
+	var adjustPopupTask=-1;
 	function adjustPopup() {
-		var height=document.body.clientHeight+58;
-		admin.changePopupArea(null,height);
-		admin.putTempData('sys-session-online-form-area', {height:height});
+		clearTimeout(adjustPopupTask);
+		var scroll=$(".form-container").attr("scroll");
+		if(scroll=='yes') return;
+		adjustPopupTask=setTimeout(function () {
+			var body=$("body");
+			var bodyHeight=body.height();
+			var footerHeight=$(".model-form-footer").height();
+			var area=admin.changePopupArea(null,bodyHeight+footerHeight);
+			admin.putTempData('sys-session-online-form-area', area);
+			window.adjustPopup=adjustPopup;
+			if(area.tooHeigh) {
+				var windowHeight=area.iframeHeight;
+				var finalHeight=windowHeight-footerHeight-16;
+				//console.log("windowHeight="+windowHeight+',bodyHeight='+bodyHeight+",footerHeight="+footerHeight+",finalHeight="+finalHeight);
+				$(".form-container").css("display","");
+				$(".form-container").css("overflow-y","scroll");
+				$(".form-container").css("height",finalHeight+"px");
+				$(".form-container").attr("scroll","yes");
+			}
+		},250);
 	}
 	
 	/**
       * 渲染表单组件
       */
 	function renderFormFields() {
-		form.render();
+		fox.renderFormInputs(form);
 	   
 	}
 	
@@ -49,11 +69,23 @@ function FormPage() {
       */
 	function fillFormData() {
 		var formData = admin.getTempData('sys-session-online-form-data');
+		//如果是新建
+		if(!formData.id) {
+			adjustPopup();
+		}
 		var fm=$('#data-form');
 		if (formData) {
 			fm[0].reset();
 			form.val('data-form', formData);
-	     	//设置并显示图片
+
+
+
+
+
+
+
+
+
 	     	fm.attr('method', 'POST');
 	     	renderFormFields();
 		}
@@ -76,9 +108,18 @@ function FormPage() {
     
 	    form.on('submit(submit-button)', function (data) {
 	    	//debugger;
-	    	
-	    	//处理逻辑值
-	    	
+			data.field = form.val("data-form");
+
+
+
+
+
+
+
+
+			//校验表单
+			if(!fox.formVerify("data-form",data,VALIDATE_CONFIG)) return;
+
 	    	var api=moduleURL+"/"+(data.field.id?"update":"insert");
 	        var task=setTimeout(function(){layer.load(2);},1000);
 	        admin.request(api, data.field, function (data) {
@@ -86,9 +127,10 @@ function FormPage() {
 			    layer.closeAll('loading');
 	            if (data.success) {
 	                layer.msg(data.message, {icon: 1, time: 500});
-	                admin.finishPopupCenter();
+					var index=admin.getTempData('sys-session-online-form-data-popup-index');
+	                admin.finishPopupCenter(index);
 	            } else {
-	                layer.msg(data.message, {icon: 2, time: 500});
+	                layer.msg(data.message, {icon: 2, time: 1000});
 	            }
 	        }, "POST");
 	        
@@ -106,7 +148,8 @@ layui.config({
 	dir: layuiPath,
 	base: '/module/'
 }).extend({
-	xmSelect: 'xm-select/xm-select'
-}).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect'],function() {
+	xmSelect: 'xm-select/xm-select',
+	foxnicUpload: 'upload/foxnic-upload'
+}).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect','foxnicUpload','laydate'],function() {
 	(new FormPage()).init(layui);
 });

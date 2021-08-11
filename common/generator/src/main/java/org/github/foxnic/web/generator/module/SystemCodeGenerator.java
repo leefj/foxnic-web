@@ -26,11 +26,12 @@ public class SystemCodeGenerator  {
 		// 
 //		g.generateSysConfig();
 //		//
-		g.generateSysDict();
+//		g.generateSysDict();
 //		//
-		g.generateSysDictItem();
+//		g.generateSysDictItem();
 //		//
- 
+
+		g.generateSysNode();
  
 //		//
 //		g.generateSysArea();
@@ -48,15 +49,25 @@ public class SystemCodeGenerator  {
 	private FoxnicWebConfigs configs;
 	
  
-	public SystemCodeGenerator() {
-		this("service-system");
+
+
+	private void generateSysNode() throws Exception {
+		//创建配置
+		ModuleContext cfg=createModuleConfig(FoxnicWeb.SYS_NODE.$TABLE, 5);
+
+		//文件生成覆盖模式
+		cfg.overrides()
+				.setServiceIntfAnfImpl(WriteMode.CREATE_IF_NOT_EXISTS) //服务与接口
+				.setControllerAndAgent(WriteMode.CREATE_IF_NOT_EXISTS) //Rest
+				.setPageController(WriteMode.CREATE_IF_NOT_EXISTS) //页面控制器
+				.setFormPage(WriteMode.COVER_EXISTS_FILE) //表单HTML页
+				.setListPage(WriteMode.COVER_EXISTS_FILE); //列表HTML页
+
+		//生成代码
+		cfg.buildAll();
 	}
-	
-	public SystemCodeGenerator(String appConfigPrefix) {
-		configs=new FoxnicWebConfigs(appConfigPrefix);
-	}
-	
-	
+
+
 	protected ModuleContext createModuleConfig(DBTable table,String tablePrefix,int apiSort) {
 
 		//项目配置
@@ -243,7 +254,13 @@ public class SystemCodeGenerator  {
 	}
 
 
+	public SystemCodeGenerator() {
+		this("service-system");
+	}
 
+	public SystemCodeGenerator(String appConfigPrefix) {
+		configs=new FoxnicWebConfigs(appConfigPrefix);
+	}
 
 
 

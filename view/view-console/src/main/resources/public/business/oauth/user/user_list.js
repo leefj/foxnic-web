@@ -1,7 +1,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-09 13:49:21
+ * @since 2021-08-11 14:14:41
  */
 
 
@@ -36,61 +36,73 @@ function ListPage() {
       * 渲染表格
       */
     function renderTable() {
-     
-		fox.renderTable({
-			elem: '#data-table',
-            url: moduleURL +'/query-paged-list',
-		 	height: 'full-78',
-		 	limit: 50,
-			cols: [[
-				{  fixed: 'left',type: 'numbers' },
-			 	{  fixed: 'left',type:'checkbox' },
-                { field: 'id', align:"left", hide:true, sort: true, title: fox.translate('ID')} ,
-                { field: 'name', align:"left", hide:false, sort: true, title: fox.translate('账户')} ,
-                { field: 'passwd', align:"left", hide:true, sort: true, title: fox.translate('密码')} ,
-                { field: 'phone', align:"left", hide:false, sort: true, title: fox.translate('手机号码')} ,
-				{ field: 'portraitId', align:"center", hide:false, sort: true, title: fox.translate('头像'), templet: function (d) { return '<img style="height:100%;" fileType="image/png" onclick="window.previewImage(this)"  src="'+apiurls.storage.image+'?id='+ d.portraitId+'" />'; } } ,
-                { field: 'personId', align:"left", hide:true, sort: true, title: fox.translate('人员ID')} ,
-				{ field: 'language', align:"left", hide:false, sort: true, title: fox.translate('语言'), templet:function (d){ return fox.getEnumText(RADIO_LANGUAGE_DATA,d.language);}} ,
-                { field: 'employeeId', align:"left", hide:true, sort: true, title: fox.translate('员工ID')} ,
-				{ field: 'valid', align:"center", hide:false, sort: true, title: fox.translate('是否有效'), templet: '#cell-tpl-valid'} ,
-				{ field: 'lastLoginTime', align:"right", hide:false, sort: true, title: fox.translate('最后登录'), templet: function (d) { return fox.dateFormat(d.lastLoginTime); }} ,
-				{ field: 'createTime', align:"right", hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return fox.dateFormat(d.createTime); }} ,
-                { field: 'roleIds', align:"", hide:true, sort: true, title: fox.translate('角色')} ,
-                { field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
-            ]]
-	 		,footer : {
-				exportExcel : true,
-				importExcel : {
-					params : {} ,
-				 	callback : function(r) {
-						if(r.success) {
-							layer.msg(fox.translate('数据导入成功')+"!");
-						} else {
-							layer.msg(fox.translate('数据导入失败')+"!");
+		$(window).resize(function() {
+			fox.adjustSearchElement();
+		});
+		fox.adjustSearchElement();
+		//
+		function renderTableInternal() {
+			var h=$(".search-bar").height();
+			fox.renderTable({
+				elem: '#data-table',
+				toolbar: '#toolbarTemplate',
+				defaultToolbar: ['filter', 'print'],
+				url: moduleURL +'/query-paged-list',
+				height: 'full-'+(h+28),
+				limit: 50,
+				cols: [[
+					{ fixed: 'left',type: 'numbers' },
+					{ fixed: 'left',type:'checkbox' },
+					{ field: 'name', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('账户')} ,
+					{ field: 'portraitId', align:"center", fixed:false, hide:false, sort: true, title: fox.translate('头像'), templet: function (d) { return '<img style="height:100%;" fileType="image/png" onclick="window.previewImage(this)"  src="'+apiurls.storage.image+'?id='+ d.portraitId+'" />'; } } ,
+					{ field: 'language', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('语言'), templet:function (d){ return fox.getEnumText(RADIO_LANGUAGE_DATA,d.language);}} ,
+					{ field: 'phone', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('手机')} ,
+					{ field: 'valid', align:"center",fixed:false,  hide:false, sort: true, title: fox.translate('是否有效'), templet: '#cell-tpl-valid'} ,
+					{ field: 'roleIds', align:"",fixed:false,  hide:false, sort: true, title: fox.translate('角色'), templet: function (d) { return fox.joinLabel(d.roles,"name");}} ,
+					{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('ID')} ,
+					{ field: 'passwd', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('密码')} ,
+					{ field: 'personId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('人员ID')} ,
+					{ field: 'employeeId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('员工ID')} ,
+					{ field: 'cacheKey', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('缓存键')} ,
+					{ field: 'lastLoginTime', align:"right",fixed:false,  hide:true, sort: true, title: fox.translate('最后登录时间')} ,
+					{ field: 'createTime', align:"right",fixed:false,  hide:true, sort: true, title: fox.translate('创建时间')} ,
+					{ field: 'row-space', align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true},
+					{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
+				]],
+				footer : {
+					exportExcel : admin.checkAuth(AUTH_PREFIX+":export"),
+					importExcel : admin.checkAuth(AUTH_PREFIX+":import")?{
+						params : {} ,
+						callback : function(r) {
+							if(r.success) {
+								layer.msg(fox.translate('数据导入成功')+"!");
+							} else {
+								layer.msg(fox.translate('数据导入失败')+"!");
+							}
 						}
-					}
-			 	}
-		 	}
-        });
-        //绑定 Switch 切换事件
-        fox.bindSwitchEvent("cell-tpl-valid",moduleURL +'/update','id','valid',function(r){});
-        //绑定排序事件
-        table.on('sort(data-table)', function(obj){
-		  refreshTableData(obj.field,obj.type);
-        });
+					}:false
+				}
+			});
+			//绑定 Switch 切换事件
+			fox.bindSwitchEvent("cell-tpl-valid",moduleURL +'/update','id','valid',function(r){});
+			//绑定排序事件
+			table.on('sort(data-table)', function(obj){
+			  refreshTableData(obj.field,obj.type);
+			});
+		}
+		setTimeout(renderTableInternal,1);
     };
-     
+
 	/**
       * 刷新表格数据
       */
 	function refreshTableData(sortField,sortType) {
 		var value = {};
-		value.name={ value: $("#name").val(), fuzzy:true };
-		value.phone={ value: $("#phone").val(),fuzzy:true };
-		value.language={ value: xmSelect.get("#language",true).getValue("value") };
-		value.valid={ value: xmSelect.get("#valid",true).getValue("value") };
-		value.lastLoginTime={ begin: $("#lastLoginTime-begin").val(), end: $("#lastLoginTime-end").val() };
+		value.name={ value: $("#name").val()};
+		value.phone={ value: $("#phone").val()};
+		value.language={ value: xmSelect.get("#language",true).getValue("value")};
+		value.valid={ value: xmSelect.get("#valid",true).getValue("value")};
+		value.roleIds={ value: xmSelect.get("#roleIds",true).getValue("value"), fillBy:"roles",field:"id" };
 		var ps={searchField: "$composite", searchValue: JSON.stringify(value),sortField: sortField,sortType: sortType};
 		table.reload('data-table', { where : ps });
 	}
@@ -117,12 +129,15 @@ function ListPage() {
 	}
 
 	function initSearchFields() {
+
+		fox.switchSearchRow();
+
 		//渲染 language 搜索框
 		fox.renderSelectBox({
 			el: "language",
 			size: "small",
 			radio: false,
-			toolbar: {show:true,showIcon:true,list:["CLEAR","REVERSE"]},
+			//toolbar: {show:true,showIcon:true,list:["CLEAR","REVERSE"]},
 			transform:function(data) {
 				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
 				var opts=[];
@@ -137,14 +152,30 @@ function ListPage() {
 		fox.renderSelectBox({
 			el: "valid",
 			size: "small",
-			radio: true
+			radio: false
 		});
-		laydate.render({
-			elem: '#lastLoginTime-begin'
+		//渲染 roleIds 下拉字段
+		fox.renderSelectBox({
+			el: "roleIds",
+			radio: false,
+			size: "small",
+			filterable: true,
+			toolbar: {show:true,showIcon:true,list:["CLEAR","REVERSE"]},
+			//转换数据
+			searchField: "name", //请自行调整用于搜索的字段名称
+			extraParam: {}, //额外的查询参数，Object 或是 返回 Object 的函数
+			transform: function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				var opts=[];
+				if(!data) return opts;
+				for (var i = 0; i < data.length; i++) {
+					if(!data[i]) continue;
+					opts.push({name:data[i].name,value:data[i].id});
+				}
+				return opts;
+			}
 		});
-		laydate.render({
-			elem: '#lastLoginTime-end'
-		});
+		fox.renderSearchInputs();
 	}
 	
 	/**
@@ -161,22 +192,53 @@ function ListPage() {
         $('#search-button').click(function () {
            refreshTableData();
         });
+
+		// 搜索按钮点击事件
+		$('#search-button-advance').click(function () {
+			fox.switchSearchRow(function (ex){
+				if(ex=="1") {
+					$('#search-button-advance span').text("关闭");
+				} else {
+					$('#search-button-advance span').text("更多");
+				}
+			});
+		});
 	}
 	
 	/**
 	 * 绑定按钮事件
 	  */
 	function bindButtonEvent() {
-	
+
+		//头工具栏事件
+		table.on('toolbar(data-table)', function(obj){
+			var checkStatus = table.checkStatus(obj.config.id);
+			switch(obj.event){
+				case 'create':
+					openCreateFrom();
+					break;
+				case 'batch-del':
+					batchDelete();
+					break;
+				case 'other':
+					break;
+					//自定义头工具栏右侧图标 - 提示
+				case 'LAYTABLE_TIPS':
+					layer.alert('这是工具栏右侧自定义的一个图标按钮');
+					break;
+			};
+		});
+
+
 		//添加按钮点击事件
-        $('#add-button').click(function () {
+        function openCreateFrom() {
         	//设置新增是初始化数据
         	var data={};
             showEditForm(data);
-        });
+        };
 		
         //批量删除按钮点击事件
-        $('#delete-button').click(function () {
+        function batchDelete() {
           
 			var ids=getCheckedList("id");
             if(ids.length==0) {
@@ -187,7 +249,7 @@ function ListPage() {
 			layer.confirm(fox.translate('确定删除已选中的')+fox.translate('账户')+fox.translate('吗？'), function (i) {
 				layer.close(i);
 				layer.load(2);
-                admin.request(moduleURL+"/delete-by-id", { ids: ids }, function (data) {
+                admin.request(moduleURL+"/delete-by-ids", { ids: ids }, function (data) {
                     layer.closeAll('loading');
                     if (data.success) {
                         layer.msg(data.message, {icon: 1, time: 500});
@@ -197,7 +259,7 @@ function ListPage() {
                     }
                 });
 			});
-        });
+        }
 	}
      
     /**

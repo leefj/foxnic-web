@@ -1,24 +1,23 @@
 package org.github.foxnic.web.domain.oauth;
 
 import com.github.foxnic.dao.entity.Entity;
-import com.github.foxnic.dao.entity.EntityContext;
-import com.github.foxnic.sql.meta.DBTable;
-import io.swagger.annotations.ApiModelProperty;
-import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_SESSION_ONLINE;
-
-import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+import com.github.foxnic.sql.meta.DBTable;
+import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_SESSION_ONLINE;
+import javax.persistence.Id;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
+import javax.persistence.Transient;
 import java.util.Map;
+import com.github.foxnic.dao.entity.EntityContext;
 
 
 
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-03 14:06:10
- * @sign 2A4666C838F1AE796F066AB4F06C46271
+ * @since 2021-08-11 16:55:28
+ * @sign 2A4666C838F1AE796F066AB4F06C4627
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -134,7 +133,7 @@ public class SessionOnline extends Entity {
 	
 	/**
 	 * 获得 ID<br>
-	 * 属性说明 : ID
+	 * ID
 	 * @return ID
 	*/
 	public String getId() {
@@ -152,14 +151,8 @@ public class SessionOnline extends Entity {
 	}
 	
 	/**
-	 * 添加 ID
-	 * @param id ID
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 会话ID<br>
-	 * 属性说明 : 会话ID
+	 * 会话ID
 	 * @return 会话ID
 	*/
 	public String getSessionId() {
@@ -177,14 +170,8 @@ public class SessionOnline extends Entity {
 	}
 	
 	/**
-	 * 添加 会话ID
-	 * @param sessionId 会话ID
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 账户ID<br>
-	 * 属性说明 : 账户ID
+	 * 账户ID
 	 * @return 账户ID
 	*/
 	public String getUserId() {
@@ -202,14 +189,8 @@ public class SessionOnline extends Entity {
 	}
 	
 	/**
-	 * 添加 账户ID
-	 * @param userId 账户ID
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 登录时间<br>
-	 * 属性说明 : 登录时间
+	 * 登录时间
 	 * @return 登录时间
 	*/
 	public Date getLoginTime() {
@@ -227,14 +208,8 @@ public class SessionOnline extends Entity {
 	}
 	
 	/**
-	 * 添加 登录时间
-	 * @param loginTime 登录时间
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 最近一次交互时间<br>
-	 * 属性说明 : 最近一次交互时间
+	 * 最近一次交互时间
 	 * @return 最近一次交互时间
 	*/
 	public Date getInteractTime() {
@@ -252,14 +227,8 @@ public class SessionOnline extends Entity {
 	}
 	
 	/**
-	 * 添加 最近一次交互时间
-	 * @param interactTime 最近一次交互时间
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 最后访问的地址<br>
-	 * 属性说明 : 最后访问的地址
+	 * 最后访问的地址
 	 * @return 最后访问的地址
 	*/
 	public String getInteractUrl() {
@@ -277,14 +246,8 @@ public class SessionOnline extends Entity {
 	}
 	
 	/**
-	 * 添加 最后访问的地址
-	 * @param interactUrl 最后访问的地址
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 登出时间<br>
-	 * 属性说明 : 登出时间
+	 * 登出时间
 	 * @return 登出时间
 	*/
 	public Date getLogoutTime() {
@@ -302,14 +265,8 @@ public class SessionOnline extends Entity {
 	}
 	
 	/**
-	 * 添加 登出时间
-	 * @param logoutTime 登出时间
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 会话时长<br>
-	 * 属性说明 : 单位秒
+	 * 单位秒
 	 * @return 会话时长
 	*/
 	public Integer getSessionTime() {
@@ -327,14 +284,8 @@ public class SessionOnline extends Entity {
 	}
 	
 	/**
-	 * 添加 会话时长
-	 * @param sessionTime 会话时长
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 是否在线<br>
-	 * 属性说明 : 是否在线
+	 * 是否在线
 	 * @return 是否在线
 	*/
 	public Integer getOnline() {
@@ -352,14 +303,8 @@ public class SessionOnline extends Entity {
 	}
 	
 	/**
-	 * 添加 是否在线
-	 * @param online 是否在线
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 创建人ID<br>
-	 * 属性说明 : 创建人ID
+	 * 创建人ID
 	 * @return 创建人ID
 	*/
 	public String getCreateBy() {
@@ -377,14 +322,8 @@ public class SessionOnline extends Entity {
 	}
 	
 	/**
-	 * 添加 创建人ID
-	 * @param createBy 创建人ID
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 创建时间<br>
-	 * 属性说明 : 创建时间
+	 * 创建时间
 	 * @return 创建时间
 	*/
 	public Date getCreateTime() {
@@ -402,14 +341,8 @@ public class SessionOnline extends Entity {
 	}
 	
 	/**
-	 * 添加 创建时间
-	 * @param createTime 创建时间
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 修改人ID<br>
-	 * 属性说明 : 修改人ID
+	 * 修改人ID
 	 * @return 修改人ID
 	*/
 	public String getUpdateBy() {
@@ -427,14 +360,8 @@ public class SessionOnline extends Entity {
 	}
 	
 	/**
-	 * 添加 修改人ID
-	 * @param updateBy 修改人ID
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 修改时间<br>
-	 * 属性说明 : 修改时间
+	 * 修改时间
 	 * @return 修改时间
 	*/
 	public Date getUpdateTime() {
@@ -452,14 +379,8 @@ public class SessionOnline extends Entity {
 	}
 	
 	/**
-	 * 添加 修改时间
-	 * @param updateTime 修改时间
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 是否已删除<br>
-	 * 属性说明 : 是否已删除
+	 * 是否已删除
 	 * @return 是否已删除
 	*/
 	public Integer getDeleted() {
@@ -477,14 +398,8 @@ public class SessionOnline extends Entity {
 	}
 	
 	/**
-	 * 添加 是否已删除
-	 * @param deleted 是否已删除
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 删除人ID<br>
-	 * 属性说明 : 删除人ID
+	 * 删除人ID
 	 * @return 删除人ID
 	*/
 	public String getDeleteBy() {
@@ -502,14 +417,8 @@ public class SessionOnline extends Entity {
 	}
 	
 	/**
-	 * 添加 删除人ID
-	 * @param deleteBy 删除人ID
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 删除时间<br>
-	 * 属性说明 : 删除时间
+	 * 删除时间
 	 * @return 删除时间
 	*/
 	public Date getDeleteTime() {
@@ -527,14 +436,8 @@ public class SessionOnline extends Entity {
 	}
 	
 	/**
-	 * 添加 删除时间
-	 * @param deleteTime 删除时间
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 数据版本号<br>
-	 * 属性说明 : 数据版本号
+	 * 数据版本号
 	 * @return 数据版本号
 	*/
 	public Integer getVersion() {
@@ -550,12 +453,6 @@ public class SessionOnline extends Entity {
 		this.version=version;
 		return this;
 	}
-	
-	/**
-	 * 添加 数据版本号
-	 * @param version 数据版本号
-	 * @return 当前对象
-	*/
 
 	/**
 	 * 将自己转换成指定类型的PO
@@ -616,6 +513,6 @@ public class SessionOnline extends Entity {
 	*/
 	@Transient
 	public static SessionOnline create() {
-		return new SessionOnline();
+		return EntityContext.create(SessionOnline.class);
 	}
 }

@@ -1,7 +1,7 @@
 /**
  * 系统资源 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-03 18:46:22
+ * @since 2021-08-11 14:37:23
  */
 
 
@@ -16,11 +16,13 @@ function ListPage() {
       */
 	this.init=function(layui) {
      	
-     	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload;
+     	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload,laydate= layui.laydate;
 		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
 		
      	//渲染表格
      	renderTable();
+		//初始化搜索输入框组件
+		initSearchFields();
 		//绑定搜索框事件
 		bindSearchEvent();
 		//绑定按钮事件
@@ -34,51 +36,68 @@ function ListPage() {
       * 渲染表格
       */
     function renderTable() {
-     
-		fox.renderTable({
-			elem: '#data-table',
-            url: moduleURL +'/query-paged-list',
-		 	height: 'full-78',
-		 	limit: 50,
-			cols: [[
-				{  fixed: 'left',type: 'numbers' },
-			 	{  fixed: 'left',type:'checkbox' },
-                { field: 'name', sort: true, title: fox.translate('名称')} ,
-				{ field: 'type', sort: true, title: fox.translate('类型'), templet:function (d){ return fox.getEnumText(RADIO_TYPE_DATA,d.type);}} ,
-                { field: 'url', sort: true, title: fox.translate('地址')} ,
-				{ field: 'method', sort: true, title: fox.translate('Method'), templet:function (d){ return d.method;}} ,
-                { field: 'tableName', sort: true, title: fox.translate('数据表')} ,
-                { field: 'module', sort: true, title: fox.translate('模块')} ,
-				{ field: 'createTime', sort: true, title: fox.translate('创建时间'), templet: function (d) { return fox.dateFormat(d.createTime); }} ,
-                { field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
-            ]]
-	 		,footer : {
-				exportExcel : true,
-				importExcel : {
-					params : {} ,
-				 	callback : function(r) {
-						if(r.success) {
-							layer.msg(fox.translate('数据导入成功')+"!");
-						} else {
-							layer.msg(fox.translate('数据导入失败')+"!");
+		$(window).resize(function() {
+			fox.adjustSearchElement();
+		});
+		fox.adjustSearchElement();
+		//
+		function renderTableInternal() {
+			var h=$(".search-bar").height();
+			fox.renderTable({
+				elem: '#data-table',
+				toolbar: '#toolbarTemplate',
+				defaultToolbar: ['filter', 'print'],
+				url: moduleURL +'/query-paged-list',
+				height: 'full-'+(h+28),
+				limit: 50,
+				cols: [[
+					{ fixed: 'left',type: 'numbers' },
+					{ fixed: 'left',type:'checkbox' },
+					{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('ID')} ,
+					{ field: 'name', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('名称')} ,
+					{ field: 'type', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('类型'), templet:function (d){ return fox.getEnumText(RADIO_TYPE_DATA,d.type);}} ,
+					{ field: 'url', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('地址')} ,
+					{ field: 'method', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('Method'), templet:function (d){ return fox.getEnumText(RADIO_METHOD_DATA,d.method);}} ,
+					{ field: 'batchId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('批次号')} ,
+					{ field: 'tableName', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('数据表')} ,
+					{ field: 'module', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('模块')} ,
+					{ field: 'createTime', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('创建时间')} ,
+					{ field: 'row-space', align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true},
+					{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
+				]],
+				footer : {
+					exportExcel : admin.checkAuth(AUTH_PREFIX+":export"),
+					importExcel : admin.checkAuth(AUTH_PREFIX+":import")?{
+						params : {} ,
+						callback : function(r) {
+							if(r.success) {
+								layer.msg(fox.translate('数据导入成功')+"!");
+							} else {
+								layer.msg(fox.translate('数据导入失败')+"!");
+							}
 						}
-					}
-			 	}
-		 	}
-        });
-        //绑定排序事件
-        table.on('sort(data-table)', function(obj){
-		  refreshTableData(obj.field,obj.type);
-        });
+					}:false
+				}
+			});
+			//绑定排序事件
+			table.on('sort(data-table)', function(obj){
+			  refreshTableData(obj.field,obj.type);
+			});
+		}
+		setTimeout(renderTableInternal,1);
     };
-     
+
 	/**
       * 刷新表格数据
       */
 	function refreshTableData(sortField,sortType) {
-		var field = $('#search-field').val();
-		var value = $('#search-input').val();
-		var ps={searchField: field, searchValue: value,sortField:sortField,sortType:sortType};
+		var value = {};
+		value.name={ value: $("#name").val()};
+		value.type={ value: xmSelect.get("#type",true).getValue("value")};
+		value.url={ value: $("#url").val()};
+		value.tableName={ value: $("#tableName").val()};
+		value.module={ value: $("#module").val()};
+		var ps={searchField: "$composite", searchValue: JSON.stringify(value),sortField: sortField,sortType: sortType};
 		table.reload('data-table', { where : ps });
 	}
     
@@ -102,13 +121,36 @@ function ListPage() {
 		$('#search-input').val("");
 		layui.form.render();
 	}
+
+	function initSearchFields() {
+
+		fox.switchSearchRow();
+
+		//渲染 type 搜索框
+		fox.renderSelectBox({
+			el: "type",
+			size: "small",
+			radio: false,
+			//toolbar: {show:true,showIcon:true,list:["CLEAR","REVERSE"]},
+			transform:function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				var opts=[];
+				if(!data) return opts;
+				for (var i = 0; i < data.length; i++) {
+					opts.push({name:data[i].text,value:data[i].code});
+				}
+				return opts;
+			}
+		});
+		fox.renderSearchInputs();
+	}
 	
 	/**
 	 * 绑定搜索框事件
 	 */
 	function bindSearchEvent() {
 		//回车键查询
-        $("#search-input").keydown(function(event) {
+        $(".search-input").keydown(function(event) {
 			if(event.keyCode !=13) return;
 		  	refreshTableData();
         });
@@ -117,22 +159,53 @@ function ListPage() {
         $('#search-button').click(function () {
            refreshTableData();
         });
+
+		// 搜索按钮点击事件
+		$('#search-button-advance').click(function () {
+			fox.switchSearchRow(function (ex){
+				if(ex=="1") {
+					$('#search-button-advance span').text("关闭");
+				} else {
+					$('#search-button-advance span').text("更多");
+				}
+			});
+		});
 	}
 	
 	/**
 	 * 绑定按钮事件
 	  */
 	function bindButtonEvent() {
-	
+
+		//头工具栏事件
+		table.on('toolbar(data-table)', function(obj){
+			var checkStatus = table.checkStatus(obj.config.id);
+			switch(obj.event){
+				case 'create':
+					openCreateFrom();
+					break;
+				case 'batch-del':
+					batchDelete();
+					break;
+				case 'other':
+					break;
+					//自定义头工具栏右侧图标 - 提示
+				case 'LAYTABLE_TIPS':
+					layer.alert('这是工具栏右侧自定义的一个图标按钮');
+					break;
+			};
+		});
+
+
 		//添加按钮点击事件
-        $('#add-button').click(function () {
+        function openCreateFrom() {
         	//设置新增是初始化数据
         	var data={};
             showEditForm(data);
-        });
+        };
 		
         //批量删除按钮点击事件
-        $('#delete-button').click(function () {
+        function batchDelete() {
           
 			var ids=getCheckedList("id");
             if(ids.length==0) {
@@ -149,12 +222,11 @@ function ListPage() {
                         layer.msg(data.message, {icon: 1, time: 500});
                         refreshTableData();
                     } else {
-						var txt=data.message+"<br>&nbsp;&nbsp;"+data.solutions.join("<br>&nbsp;&nbsp;");
-						layer.msg(txt, {icon: 2, time: 3000});
+                        layer.msg(data.message, {icon: 2, time: 1500});
                     }
                 });
 			});
-        });
+        }
 	}
      
     /**
@@ -190,9 +262,7 @@ function ListPage() {
 							layer.msg(data.message, {icon: 1, time: 500});
 							refreshTableData();
 						} else {
-							debugger
-							var txt=data.message+"<br>&nbsp;&nbsp;"+data.solutions.join("<br>&nbsp;&nbsp;");
-							layer.msg(txt, {icon: 2, time: 3000});
+							layer.msg(data.message, {icon: 2, time: 1500});
 						}
 					});
 				});
@@ -234,6 +304,6 @@ layui.config({
 	base: '/module/'
 }).extend({
 	xmSelect: 'xm-select/xm-select'
-}).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect'],function() {
+}).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect','laydate'],function() {
 	(new ListPage()).init(layui);
 });
