@@ -1,26 +1,24 @@
 package org.github.foxnic.web.oauth.service.impl;
 
-import java.lang.reflect.Field;
-import java.util.Date;
-import java.util.List;
-
-import javax.annotation.Resource;
-
+import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
-import org.github.foxnic.web.domain.oauth.Token;
-import org.github.foxnic.web.framework.dao.DBConfigs;
-import org.github.foxnic.web.oauth.service.ITokenService;
-import org.springframework.stereotype.Service;
-
 import com.github.foxnic.commons.busi.id.IDGenerator;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.dao.spec.DAO;
-import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.expr.Expr;
 import com.github.foxnic.sql.meta.DBField;
+import org.github.foxnic.web.domain.oauth.Token;
+import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.github.foxnic.web.oauth.service.ITokenService;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.lang.reflect.Field;
+import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -192,7 +190,7 @@ public class TokenServiceImpl extends SuperService<Token> implements ITokenServi
 	/**
 	 * 检查 角色 是否已经存在
 	 *
-	 * @param roleVO 数据对象
+	 * @param role 数据对象
 	 * @return 判断结果
 	 */
 	public Result<Token> checkExists(Token role) {
@@ -204,6 +202,7 @@ public class TokenServiceImpl extends SuperService<Token> implements ITokenServi
 
 	@Override
 	public List<Token> queryValidTokens() {
+
 		return dao.queryEntities(Token.class,new Expr("select * from sys_token where refresh_token_expire_time>now() or access_token_expire_time>now()"));
 	}
  

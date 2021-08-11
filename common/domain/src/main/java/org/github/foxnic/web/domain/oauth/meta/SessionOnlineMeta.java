@@ -8,8 +8,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-11 16:55:28
- * @sign 2A4666C838F1AE796F066AB4F06C4627
+ * @since 2021-08-11 19:48:41
+ * @sign AD2424D0BB9BD03B471065174361A535
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -176,6 +176,16 @@ public class SessionOnlineMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.oauth.SessionOnline,java.util.Date> DELETE_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.SessionOnline.class ,DELETE_TIME, java.util.Date.class, "删除时间", "删除时间", java.util.Date.class, null);
 	
 	/**
+	 * 主机ID , 类型: java.lang.String
+	*/
+	public static final String HOST_ID="hostId";
+	
+	/**
+	 * 主机ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.SessionOnline,java.lang.String> HOST_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.SessionOnline.class ,HOST_ID, java.lang.String.class, "主机ID", "主机ID", java.lang.String.class, null);
+	
+	/**
 	 * 数据版本号 , 类型: java.lang.Integer
 	*/
 	public static final String VERSION="version";
@@ -186,9 +196,19 @@ public class SessionOnlineMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.oauth.SessionOnline,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.SessionOnline.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
+	 * 节点实例ID , 类型: java.lang.String
+	*/
+	public static final String NODE_ID="nodeId";
+	
+	/**
+	 * 节点实例ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.SessionOnline,java.lang.String> NODE_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.SessionOnline.class ,NODE_ID, java.lang.String.class, "节点实例ID", "节点实例ID", java.lang.String.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , SESSION_ID , USER_ID , LOGIN_TIME , INTERACT_TIME , INTERACT_URL , LOGOUT_TIME , SESSION_TIME , ONLINE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , SESSION_ID , USER_ID , LOGIN_TIME , INTERACT_TIME , INTERACT_URL , LOGOUT_TIME , SESSION_TIME , ONLINE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , HOST_ID , VERSION , NODE_ID };
 	
 	/**
 	 * 代理类
@@ -375,6 +395,17 @@ public class SessionOnlineMeta {
 		}
 		
 		/**
+		 * 设置 主机ID
+		 * @param hostId 主机ID
+		 * @return 当前对象
+		*/
+		public SessionOnline setHostId(String hostId) {
+			super.change(HOST_ID,super.getHostId(),hostId);
+			super.setHostId(hostId);
+			return this;
+		}
+		
+		/**
 		 * 设置 数据版本号
 		 * @param version 数据版本号
 		 * @return 当前对象
@@ -382,6 +413,17 @@ public class SessionOnlineMeta {
 		public SessionOnline setVersion(Integer version) {
 			super.change(VERSION,super.getVersion(),version);
 			super.setVersion(version);
+			return this;
+		}
+		
+		/**
+		 * 设置 节点实例ID
+		 * @param nodeId 节点实例ID
+		 * @return 当前对象
+		*/
+		public SessionOnline setNodeId(String nodeId) {
+			super.change(NODE_ID,super.getNodeId(),nodeId);
+			super.setNodeId(nodeId);
 			return this;
 		}
 	}

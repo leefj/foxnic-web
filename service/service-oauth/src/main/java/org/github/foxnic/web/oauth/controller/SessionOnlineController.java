@@ -55,6 +55,8 @@ public class SessionOnlineController {
 		@ApiImplicitParam(name = SessionOnlineVOMeta.LOGOUT_TIME , value = "登出时间" , required = false , dataTypeClass=Date.class),
 		@ApiImplicitParam(name = SessionOnlineVOMeta.SESSION_TIME , value = "会话时长" , required = false , dataTypeClass=Integer.class , example = "1200"),
 		@ApiImplicitParam(name = SessionOnlineVOMeta.ONLINE , value = "是否在线" , required = false , dataTypeClass=Integer.class , example = "1"),
+		@ApiImplicitParam(name = SessionOnlineVOMeta.HOST_ID , value = "主机ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = SessionOnlineVOMeta.NODE_ID , value = "节点实例ID" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport(order=1)
 	@NotNull(name = SessionOnlineVOMeta.ID)
@@ -116,6 +118,8 @@ public class SessionOnlineController {
 		@ApiImplicitParam(name = SessionOnlineVOMeta.LOGOUT_TIME , value = "登出时间" , required = false , dataTypeClass=Date.class),
 		@ApiImplicitParam(name = SessionOnlineVOMeta.SESSION_TIME , value = "会话时长" , required = false , dataTypeClass=Integer.class , example = "1200"),
 		@ApiImplicitParam(name = SessionOnlineVOMeta.ONLINE , value = "是否在线" , required = false , dataTypeClass=Integer.class , example = "1"),
+		@ApiImplicitParam(name = SessionOnlineVOMeta.HOST_ID , value = "主机ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = SessionOnlineVOMeta.NODE_ID , value = "节点实例ID" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport( order=4 , ignoreParameters = { SessionOnlineVOMeta.PAGE_INDEX , SessionOnlineVOMeta.PAGE_SIZE , SessionOnlineVOMeta.SEARCH_FIELD , SessionOnlineVOMeta.SEARCH_VALUE , SessionOnlineVOMeta.IDS } ) 
 	@NotNull(name = SessionOnlineVOMeta.ID)
@@ -141,6 +145,8 @@ public class SessionOnlineController {
 		@ApiImplicitParam(name = SessionOnlineVOMeta.LOGOUT_TIME , value = "登出时间" , required = false , dataTypeClass=Date.class),
 		@ApiImplicitParam(name = SessionOnlineVOMeta.SESSION_TIME , value = "会话时长" , required = false , dataTypeClass=Integer.class , example = "1200"),
 		@ApiImplicitParam(name = SessionOnlineVOMeta.ONLINE , value = "是否在线" , required = false , dataTypeClass=Integer.class , example = "1"),
+		@ApiImplicitParam(name = SessionOnlineVOMeta.HOST_ID , value = "主机ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = SessionOnlineVOMeta.NODE_ID , value = "节点实例ID" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { SessionOnlineVOMeta.PAGE_INDEX , SessionOnlineVOMeta.PAGE_SIZE , SessionOnlineVOMeta.SEARCH_FIELD , SessionOnlineVOMeta.SEARCH_VALUE , SessionOnlineVOMeta.IDS } )
 	@NotNull(name = SessionOnlineVOMeta.ID)
@@ -185,6 +191,8 @@ public class SessionOnlineController {
 		@ApiImplicitParam(name = SessionOnlineVOMeta.LOGOUT_TIME , value = "登出时间" , required = false , dataTypeClass=Date.class),
 		@ApiImplicitParam(name = SessionOnlineVOMeta.SESSION_TIME , value = "会话时长" , required = false , dataTypeClass=Integer.class , example = "1200"),
 		@ApiImplicitParam(name = SessionOnlineVOMeta.ONLINE , value = "是否在线" , required = false , dataTypeClass=Integer.class , example = "1"),
+		@ApiImplicitParam(name = SessionOnlineVOMeta.HOST_ID , value = "主机ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = SessionOnlineVOMeta.NODE_ID , value = "节点实例ID" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { SessionOnlineVOMeta.PAGE_INDEX , SessionOnlineVOMeta.PAGE_SIZE } )
 	@SentinelResource(value = SessionOnlineServiceProxy.QUERY_LIST)
@@ -210,7 +218,9 @@ public class SessionOnlineController {
 		@ApiImplicitParam(name = SessionOnlineVOMeta.INTERACT_URL , value = "最后访问的地址" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = SessionOnlineVOMeta.LOGOUT_TIME , value = "登出时间" , required = false , dataTypeClass=Date.class),
 		@ApiImplicitParam(name = SessionOnlineVOMeta.SESSION_TIME , value = "会话时长" , required = false , dataTypeClass=Integer.class , example = "1200"),
-		@ApiImplicitParam(name = SessionOnlineVOMeta.ONLINE , value = "是否在线" , required = false , dataTypeClass=Integer.class , example = "1"),
+		@ApiImplicitParam(name = SessionOnlineVOMeta.ONLINE , value = "是否在线" , required = false , dataTypeClass=Integer.class , example = "true"),
+		@ApiImplicitParam(name = SessionOnlineVOMeta.HOST_ID , value = "主机ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = SessionOnlineVOMeta.NODE_ID , value = "节点实例ID" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport(order=8)
 	@SentinelResource(value = SessionOnlineServiceProxy.QUERY_PAGED_LIST)

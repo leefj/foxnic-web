@@ -2,7 +2,7 @@
 /**
  * 在线会话 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-11 16:55:30
+ * @since 2021-08-11 19:48:42
  */
  -->
  <!DOCTYPE html>
@@ -41,15 +41,20 @@
                         <div class="search-label-div"><span th:text="${lang.translate('登出时间')}" class="search-label">登出时间</span><span class="search-colon">:</span></div>
                         <input id="logoutTime" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
-                    <!-- 会话时长 , sessionTime ,typeName=text_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div"><span th:text="${lang.translate('会话时长')}" class="search-label">会话时长</span><span class="search-colon">:</span></div>
-                        <input id="sessionTime" class="layui-input search-input" style="width: 140px" type="text" />
-                    </div>
                     <!-- 是否在线 , online ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div"><span th:text="${lang.translate('是否在线')}" class="search-label">是否在线</span><span class="search-colon">:</span></div>
                         <input id="online" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 主机ID , hostId ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div"><span th:text="${lang.translate('主机ID')}" class="search-label">主机ID</span><span class="search-colon">:</span></div>
+                        <input id="hostId" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 节点实例ID , nodeId ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div"><span th:text="${lang.translate('节点实例ID')}" class="search-label">节点实例ID</span><span class="search-colon">:</span></div>
+                        <input id="nodeId" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
 
 

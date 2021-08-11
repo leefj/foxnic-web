@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-11 16:55:28
- * @sign 2A4666C838F1AE796F066AB4F06C4627
+ * @since 2021-08-11 19:48:41
+ * @sign AD2424D0BB9BD03B471065174361A535
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -126,10 +126,22 @@ public class SessionOnline extends Entity {
 	private Date deleteTime;
 	
 	/**
+	 * 主机ID：主机ID
+	*/
+	@ApiModelProperty(required = false,value="主机ID" , notes = "主机ID")
+	private String hostId;
+	
+	/**
 	 * 数据版本号：数据版本号
 	*/
 	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
 	private Integer version;
+	
+	/**
+	 * 节点实例ID：节点实例ID
+	*/
+	@ApiModelProperty(required = false,value="节点实例ID" , notes = "节点实例ID")
+	private String nodeId;
 	
 	/**
 	 * 获得 ID<br>
@@ -436,6 +448,25 @@ public class SessionOnline extends Entity {
 	}
 	
 	/**
+	 * 获得 主机ID<br>
+	 * 主机ID
+	 * @return 主机ID
+	*/
+	public String getHostId() {
+		return hostId;
+	}
+	
+	/**
+	 * 设置 主机ID
+	 * @param hostId 主机ID
+	 * @return 当前对象
+	*/
+	public SessionOnline setHostId(String hostId) {
+		this.hostId=hostId;
+		return this;
+	}
+	
+	/**
 	 * 获得 数据版本号<br>
 	 * 数据版本号
 	 * @return 数据版本号
@@ -451,6 +482,25 @@ public class SessionOnline extends Entity {
 	*/
 	public SessionOnline setVersion(Integer version) {
 		this.version=version;
+		return this;
+	}
+	
+	/**
+	 * 获得 节点实例ID<br>
+	 * 节点实例ID
+	 * @return 节点实例ID
+	*/
+	public String getNodeId() {
+		return nodeId;
+	}
+	
+	/**
+	 * 设置 节点实例ID
+	 * @param nodeId 节点实例ID
+	 * @return 当前对象
+	*/
+	public SessionOnline setNodeId(String nodeId) {
+		this.nodeId=nodeId;
 		return this;
 	}
 

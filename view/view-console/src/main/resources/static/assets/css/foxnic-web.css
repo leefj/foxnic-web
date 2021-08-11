@@ -179,6 +179,15 @@ form-container {
     margin-left: 130px;
 }
 
+
+.layui-form-label-c1 {
+    width: 65px;
+}
+
+.layui-input-block-c1 {
+    margin-left: 100px;
+}
+
 .layui-required {
     color: #ff5722;
     font-size: 18px;

@@ -1,7 +1,7 @@
 /**
  * 在线会话 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-11 16:55:30
+ * @since 2021-08-11 19:48:43
  */
 
 
@@ -63,6 +63,8 @@ function ListPage() {
 					{ field: 'sessionTime', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('会话时长')} ,
 					{ field: 'online', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('是否在线')} ,
 					{ field: 'createTime', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('创建时间')} ,
+					{ field: 'hostId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('主机ID')} ,
+					{ field: 'nodeId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('节点实例ID')} ,
 					{ field: 'row-space', align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true},
 					{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
 				]],
@@ -95,8 +97,9 @@ function ListPage() {
 		var value = {};
 		value.loginTime={ value: $("#loginTime").val()};
 		value.logoutTime={ value: $("#logoutTime").val()};
-		value.sessionTime={ value: $("#sessionTime").val()};
 		value.online={ value: $("#online").val()};
+		value.hostId={ value: $("#hostId").val()};
+		value.nodeId={ value: $("#nodeId").val()};
 		var ps={searchField: "$composite", searchValue: JSON.stringify(value),sortField: sortField,sortType: sortType};
 		table.reload('data-table', { where : ps });
 	}
@@ -269,7 +272,7 @@ function ListPage() {
 		var title = (data && data.id) ? (fox.translate('修改')+fox.translate('在线会话')) : (fox.translate('添加')+fox.translate('在线会话'));
 		var index=admin.popupCenter({
 			title: title,
-			resize: true,
+			resize: false,
 			offset: [top,null],
 			area: ["500px",height+"px"],
 			type: 2,

@@ -1,17 +1,16 @@
 package org.github.foxnic.web.oauth.jwt;
 
-import java.util.List;
-
+import com.github.foxnic.commons.cache.LocalCache;
+import com.github.foxnic.commons.concurrent.task.SimpleTaskManager;
+import com.github.foxnic.commons.lang.DateUtil;
+import com.github.foxnic.springboot.spring.SpringUtil;
 import org.github.foxnic.web.domain.oauth.Token;
 import org.github.foxnic.web.oauth.config.security.SecurityProperties;
 import org.github.foxnic.web.oauth.service.ITokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
-import com.github.foxnic.commons.cache.LocalCache;
-import com.github.foxnic.commons.concurrent.task.SimpleTaskManager;
-import com.github.foxnic.commons.lang.DateUtil;
-import com.github.foxnic.springboot.spring.SpringUtil;
+import java.util.List;
 
 /**
  * The type Jwt token cache storage.
@@ -38,7 +37,9 @@ public class JwtTokenCacheStorage implements JwtTokenStorage {
 			public void run() {
 				 
 				tokeService=SpringUtil.getBean(ITokenService.class);
+				tokeService.dao().setPrintThreadSQL(false);
 				List<Token> tokens=tokeService.queryValidTokens();
+				tokeService.dao().setPrintThreadSQL(true);
 				for (Token token : tokens) {
 					JwtTokenPair jwtTokenPair=new JwtTokenPair(token.getJti());
 					//
