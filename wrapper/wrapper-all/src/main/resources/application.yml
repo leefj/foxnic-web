@@ -77,10 +77,6 @@ security:
 logging:
   config: classpath:logback-config.xml  
 
-#不同的节点，需要设置不同的值
-snowflake: 
-  datacenterId: 1  
-  workerId: 1
 
 management:
   endpoints:

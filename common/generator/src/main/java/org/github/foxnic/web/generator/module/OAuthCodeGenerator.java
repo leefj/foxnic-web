@@ -8,10 +8,7 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.*;
 import org.github.foxnic.web.constants.enums.HttpMethodType;
 import org.github.foxnic.web.constants.enums.Language;
 import org.github.foxnic.web.constants.enums.ResourceType;
-import org.github.foxnic.web.domain.oauth.Menu;
-import org.github.foxnic.web.domain.oauth.Resourze;
-import org.github.foxnic.web.domain.oauth.Role;
-import org.github.foxnic.web.domain.oauth.RoleMenu;
+import org.github.foxnic.web.domain.oauth.*;
 import org.github.foxnic.web.domain.oauth.meta.*;
 import org.github.foxnic.web.proxy.oauth.ResourzeServiceProxy;
 import org.github.foxnic.web.proxy.oauth.RoleServiceProxy;
@@ -124,7 +121,7 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		cfg.view().field(SYS_USER.PORTRAIT_ID)
 				.basic().label("头像")
 				.search().hidden(true)
-				.list().alignCenter()
+				.table().alignCenter()
 				.form().upload().acceptSingleImage().buttonLabel("选择头像")
 		;
 
@@ -135,7 +132,7 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 				.form().logicField().on("有效","1").off("无效","0");
 
 
-		cfg.view().list().columnLayout(SYS_USER.NAME,SYS_USER.PORTRAIT_ID,SYS_USER.LANGUAGE
+		cfg.view().table().columnLayout(SYS_USER.NAME,SYS_USER.PORTRAIT_ID,SYS_USER.LANGUAGE
 				,SYS_USER.PHONE,SYS_USER.VALID,UserVOMeta.ROLE_IDS);
 
 		//生成代码
@@ -163,6 +160,8 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 	public void generateSysSessionOnline() throws Exception {
 		//创建配置
 		ModuleContext cfg=createModuleConfig(SYS_SESSION_ONLINE.$TABLE, 6);
+
+		cfg.getPoClassFile().addSimpleProperty(User.class,"user","账户","");
 		
 		//文件生成覆盖模式
 		cfg.overrides()
@@ -178,17 +177,37 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		cfg.view().field(SYS_SESSION_ONLINE.SESSION_ID)
 			.list().hidden().search().hidden();
 
+		cfg.view().field(SYS_SESSION_ONLINE.HOST_ID)
+				.list().hidden().search().hidden();
+
+		cfg.view().field(SYS_SESSION_ONLINE.NODE_ID)
+				.list().hidden().search().hidden();
+
+
 		cfg.view().field(SYS_SESSION_ONLINE.USER_ID)
-			.list().hidden().search().hidden();
+			.list().fillBy(SessionOnlineMeta.USER,UserMeta.NAME)
+			.search().hidden();
+
+
+		cfg.view().field(SYS_SESSION_ONLINE.LOGOUT_TIME)
+				.search().hidden();
+
+		cfg.view().field(SYS_SESSION_ONLINE.LOGIN_TIME)
+				.form().dateInput()
+				.search().range();
 
 		cfg.view().field(SYS_SESSION_ONLINE.INTERACT_TIME).basic().label("最后交互")
-			.search().hidden();
+			.form().dateInput()
+			.search().range();
 
 		cfg.view().field(SYS_SESSION_ONLINE.INTERACT_URL).basic().label("最后访问")
 			.search().hidden();
 
 		cfg.view().field(SYS_SESSION_ONLINE.SESSION_TIME)
 				.search().hidden();
+
+		cfg.view().field(SYS_SESSION_ONLINE.ONLINE)
+				.list().hidden().search().hidden();
 
 		//生成代码
 		cfg.buildAll();
@@ -215,7 +234,7 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		cfg.view().field(SYS_RESOURZE.MODULE).basic().label("模块");
 		cfg.view().field(SYS_RESOURZE.TABLE_NAME).basic().label("数据表");
 
-		cfg.view().list().operateColumnWidth(125);
+		cfg.view().table().operateColumnWidth(125);
 
 		//文件生成覆盖模式
 		cfg.overrides()
@@ -278,7 +297,7 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		//增加菜单选择
 		cfg.view().field(RoleMeta.MENU_IDS).basic().label("菜单权限")
 				.search().hidden()
-				.list().hidden(true);
+				.table().hidden(true);
 
 
 

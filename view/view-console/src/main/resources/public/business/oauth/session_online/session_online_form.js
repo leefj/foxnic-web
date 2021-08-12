@@ -1,7 +1,7 @@
 /**
  * 在线会话 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-11 19:48:43
+ * @since 2021-08-12 15:18:40
  */
 
 function FormPage() {
@@ -62,6 +62,14 @@ function FormPage() {
 	function renderFormFields() {
 		fox.renderFormInputs(form);
 	   
+		laydate.render({
+			elem: '#loginTime',
+			trigger:"click"
+		});
+		laydate.render({
+			elem: '#interactTime',
+			trigger:"click"
+		});
 	}
 	
 	/**

@@ -201,3 +201,13 @@ form-container {
     background-color: #FAFAFA;
 }
 
+
+.form-group-title {
+    margin-top: 8px;
+    margin-bottom: 0px;
+}
+
+.form-group-title legend {
+    font-size: 16px;
+    color: #333;
+}

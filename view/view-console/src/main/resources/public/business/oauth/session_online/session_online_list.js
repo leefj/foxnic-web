@@ -1,7 +1,7 @@
 /**
  * 在线会话 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-11 19:48:43
+ * @since 2021-08-12 15:18:40
  */
 
 
@@ -53,18 +53,18 @@ function ListPage() {
 				cols: [[
 					{ fixed: 'left',type: 'numbers' },
 					{ fixed: 'left',type:'checkbox' },
-					{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('ID')} ,
-					{ field: 'sessionId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('会话ID')} ,
-					{ field: 'userId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('账户ID')} ,
-					{ field: 'loginTime', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('登录时间')} ,
-					{ field: 'interactTime', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('最后交互')} ,
-					{ field: 'interactUrl', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('最后访问')} ,
-					{ field: 'logoutTime', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('登出时间')} ,
-					{ field: 'sessionTime', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('会话时长')} ,
-					{ field: 'online', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('是否在线')} ,
-					{ field: 'createTime', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('创建时间')} ,
-					{ field: 'hostId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('主机ID')} ,
-					{ field: 'nodeId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('节点实例ID')} ,
+					{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('ID') } ,
+					{ field: 'sessionId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('会话ID') } ,
+					{ field: 'userId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('账户ID') , templet: function (d) { return fox.getProperty(d,["user","name"]);}  } ,
+					{ field: 'loginTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('登录时间'), templet: function (d) { return fox.dateFormat(d.loginTime); }} ,
+					{ field: 'interactTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('最后交互'), templet: function (d) { return fox.dateFormat(d.interactTime); }} ,
+					{ field: 'interactUrl', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('最后访问') } ,
+					{ field: 'logoutTime', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('登出时间') } ,
+					{ field: 'sessionTime', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('会话时长') } ,
+					{ field: 'online', align:"right",fixed:false,  hide:true, sort: true, title: fox.translate('是否在线') } ,
+					{ field: 'createTime', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('创建时间') } ,
+					{ field: 'hostId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('主机ID') } ,
+					{ field: 'nodeId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('节点实例ID') } ,
 					{ field: 'row-space', align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true},
 					{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
 				]],
@@ -95,11 +95,8 @@ function ListPage() {
       */
 	function refreshTableData(sortField,sortType) {
 		var value = {};
-		value.loginTime={ value: $("#loginTime").val()};
-		value.logoutTime={ value: $("#logoutTime").val()};
-		value.online={ value: $("#online").val()};
-		value.hostId={ value: $("#hostId").val()};
-		value.nodeId={ value: $("#nodeId").val()};
+		value.loginTime={ begin: $("#loginTime-begin").val(), end: $("#loginTime-end").val() };
+		value.interactTime={ begin: $("#interactTime-begin").val(), end: $("#interactTime-end").val() };
 		var ps={searchField: "$composite", searchValue: JSON.stringify(value),sortField: sortField,sortType: sortType};
 		table.reload('data-table', { where : ps });
 	}
@@ -129,6 +126,22 @@ function ListPage() {
 
 		fox.switchSearchRow();
 
+		laydate.render({
+			elem: '#loginTime-begin',
+			trigger:"click"
+		});
+		laydate.render({
+			elem: '#loginTime-end',
+			trigger:"click"
+		});
+		laydate.render({
+			elem: '#interactTime-begin',
+			trigger:"click"
+		});
+		laydate.render({
+			elem: '#interactTime-end',
+			trigger:"click"
+		});
 		fox.renderSearchInputs();
 	}
 	

@@ -14,6 +14,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.github.foxnic.web.domain.oauth.SessionOnline;
 import org.github.foxnic.web.domain.oauth.SessionOnlineVO;
+import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.domain.oauth.meta.SessionOnlineVOMeta;
 import org.github.foxnic.web.oauth.service.ISessionOnlineService;
 import org.github.foxnic.web.proxy.oauth.SessionOnlineServiceProxy;
@@ -226,8 +227,10 @@ public class SessionOnlineController {
 	@SentinelResource(value = SessionOnlineServiceProxy.QUERY_PAGED_LIST)
 	@PostMapping(SessionOnlineServiceProxy.QUERY_PAGED_LIST)
 	public Result<PagedList<SessionOnline>> queryPagedList(SessionOnlineVO sample) {
+		if(sample.getOnline()==null) sample.setOnline(1);
 		Result<PagedList<SessionOnline>> result=new Result<>();
 		PagedList<SessionOnline> list=sessionOnlineService.queryPagedList(sample,sample.getPageSize(),sample.getPageIndex());
+		sessionOnlineService.join(list, User.class);
 		result.success(true).data(list);
 		return result;
 	}

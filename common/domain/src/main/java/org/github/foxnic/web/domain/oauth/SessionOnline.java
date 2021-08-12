@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-11 19:48:41
- * @sign AD2424D0BB9BD03B471065174361A535
+ * @since 2021-08-12 15:18:38
+ * @sign 7E81E58C8AAAD57030261B79D93558C6
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -142,6 +142,12 @@ public class SessionOnline extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="节点实例ID" , notes = "节点实例ID")
 	private String nodeId;
+	
+	/**
+	 * 账户
+	*/
+	@ApiModelProperty(required = false,value="账户" , notes = "")
+	private User user;
 	
 	/**
 	 * 获得 ID<br>
@@ -501,6 +507,24 @@ public class SessionOnline extends Entity {
 	*/
 	public SessionOnline setNodeId(String nodeId) {
 		this.nodeId=nodeId;
+		return this;
+	}
+	
+	/**
+	 * 获得 账户<br>
+	 * @return 账户
+	*/
+	public User getUser() {
+		return user;
+	}
+	
+	/**
+	 * 设置 账户
+	 * @param user 账户
+	 * @return 当前对象
+	*/
+	public SessionOnline setUser(User user) {
+		this.user=user;
 		return this;
 	}
 

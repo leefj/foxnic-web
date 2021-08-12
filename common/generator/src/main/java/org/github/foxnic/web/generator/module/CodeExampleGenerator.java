@@ -132,28 +132,37 @@ public class CodeExampleGenerator extends SystemCodeGenerator {
 				.fillBy(CodeExampleMeta.RESOURZE)
 		;
 
+		//指定关联对象的属性填充单元格，为了避免名称重复，加一个前缀
+		String resourceNameField="res_"+ResourzeMeta.NAME;
+		cfg.view().field(resourceNameField)
+				.basic().label("资源名称")
+				.table().fillBy(CodeExampleMeta.RESOURZE,ResourzeMeta.NAME);
+
+
+
 		//下拉选择，数据来自外部表
 		cfg.view().field(CodeExampleVOMeta.ROLE_IDS)
 				.basic().label("角色")
 				.search().inputWidth(140)
-				.list().sort(false)
+				.table().sort(false)
 				.form().selectBox().queryApi(RoleServiceProxy.QUERY_PAGED_LIST)
 					.valueField(RoleMeta.ID).textField(RoleMeta.NAME)
 					.toolbar(false).paging(true)
 					.fillBy(CodeExampleMeta.ROLES).muliti(true);
 		;
 
+
 		cfg.view().field(CodeExampleVOMeta.ROLE_COUNT_BY_AFTER)
 				.basic().label("角色数(Java)")
-				.list().sort(false).alignRight();
+				.table().sort(false).alignRight();
 
 		cfg.view().field(CodeExampleVOMeta.ROLE_COUNT_BY_JOIN)
 				.basic().label("角色数(SQL)")
-				.list().sort(true).alignRight();
+				.table().sort(true).alignRight();
 
 
 		//设置表格的列
-		cfg.view().list().columnLayout(
+		cfg.view().table().columnLayout(
 				//常规列
 				SYS_CODE_EXAMPLE.NAME,SYS_CODE_EXAMPLE.NOTES,SYS_CODE_EXAMPLE.AREA,SYS_CODE_EXAMPLE.WEIGHT,SYS_CODE_EXAMPLE.BIRTHDAY,SYS_CODE_EXAMPLE.VALID,
 				//单选
@@ -163,7 +172,7 @@ public class CodeExampleGenerator extends SystemCodeGenerator {
 				//下拉选择
 				SYS_CODE_EXAMPLE.SELECT_ENUM,SYS_CODE_EXAMPLE.SELECT_DICT,SYS_CODE_EXAMPLE.SELECT_ENUM,
 				//外部关联
-				CodeExampleMeta.ROLE_IDS,SYS_CODE_EXAMPLE.RESOURCE_ID,
+				CodeExampleMeta.ROLE_IDS,SYS_CODE_EXAMPLE.RESOURCE_ID,resourceNameField,
 				//统计值
 				CodeExampleVOMeta.ROLE_COUNT_BY_AFTER,CodeExampleVOMeta.ROLE_COUNT_BY_JOIN,
 				//附件

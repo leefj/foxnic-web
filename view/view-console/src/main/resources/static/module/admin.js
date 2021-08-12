@@ -360,17 +360,35 @@ layui.define(['settings', 'layer'], function (exports) {
         removeLoading: function (element) {
             $(element + '>.admin-loading').remove();
         },
+        tempDataCache:{},
+        getKeyPart:function (key) {
+            return (key.substr(0,1)+"~"+key.substr(key.length-1)).toUpperCase();
+        },
         // 缓存临时数据
         putTempData: function (key, value) {
-            if (value) {
-                layui.sessionData('tempData', {key: key, value: value});
-            } else {
-                layui.sessionData('tempData', {key: key, remove: true});
+            //拦截，并由顶层弹出窗口
+            if(top && top!=window && top.admin) {
+                return top.admin.putTempData(key, value);
             }
+            var part=this.getKeyPart(key);
+            if (value) {
+                layui.sessionData('tempData-'+part, {key: key, value: value});
+            } else {
+                layui.sessionData('tempData-'+part, {key: key, remove: true});
+            }
+            this.tempDataCache[key]=value;
         },
         // 获取缓存临时数据
         getTempData: function (key) {
-            return layui.sessionData('tempData')[key];
+            if(top && top!=window && top.admin) {
+                return top.admin.getTempData(key);
+            }
+            var value=this.tempDataCache[key];
+            if(value!=null) return value;
+            var part=this.getKeyPart(key);
+            value=layui.sessionData('tempData-'+part)[key];
+            this.tempDataCache[key]=value;
+            return value;
         },
         // 滑动选项卡
         rollPage: function (d) {

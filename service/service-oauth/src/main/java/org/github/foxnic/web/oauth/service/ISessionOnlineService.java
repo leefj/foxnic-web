@@ -1,4 +1,5 @@
 package org.github.foxnic.web.oauth.service;
+
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
@@ -8,6 +9,7 @@ import com.github.foxnic.sql.expr.OrderBy;
 import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.domain.oauth.SessionOnline;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -253,6 +255,10 @@ public interface ISessionOnlineService extends ISuperService<SessionOnline> {
 	 * */
 	<T> List<T> queryValues(DBField field, Class<T> type, String condition,Object... ps);
 
+	/**
+	 * 记录会话交互
+	 * */
+	void  interactive(String onlineId,HttpServletRequest request);
 	/**
 	 * 标记离线
 	 * */

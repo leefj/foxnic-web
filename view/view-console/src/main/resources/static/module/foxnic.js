@@ -773,7 +773,19 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             if (!code) code = "";
             return code;
         },
-
+        /**
+         * 获得指定属性的值
+         * */
+        getProperty:function (data,path) {
+            if(!data) return"";
+            var prop,value=data;
+            for (var i = 0; i < path.length; i++) {
+                prop=path[i];
+                value=value[prop];
+                if(!value) return "";
+            }
+            return value;
+        },
         getDictText: function (list, code) {
             if (!list) return code;
             for (var i = 0; i < list.length; i++) {

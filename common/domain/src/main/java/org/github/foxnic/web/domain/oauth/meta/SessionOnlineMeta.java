@@ -3,13 +3,14 @@ package org.github.foxnic.web.domain.oauth.meta;
 import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.oauth.SessionOnline;
 import java.util.Date;
+import org.github.foxnic.web.domain.oauth.User;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-11 19:48:41
- * @sign AD2424D0BB9BD03B471065174361A535
+ * @since 2021-08-12 15:18:38
+ * @sign 7E81E58C8AAAD57030261B79D93558C6
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -206,9 +207,19 @@ public class SessionOnlineMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.oauth.SessionOnline,java.lang.String> NODE_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.SessionOnline.class ,NODE_ID, java.lang.String.class, "节点实例ID", "节点实例ID", java.lang.String.class, null);
 	
 	/**
+	 * 账户 , 类型: org.github.foxnic.web.domain.oauth.User
+	*/
+	public static final String USER="user";
+	
+	/**
+	 * 账户 , 类型: org.github.foxnic.web.domain.oauth.User
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.SessionOnline,org.github.foxnic.web.domain.oauth.User> USER_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.SessionOnline.class ,USER, org.github.foxnic.web.domain.oauth.User.class, "账户", "", org.github.foxnic.web.domain.oauth.User.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , SESSION_ID , USER_ID , LOGIN_TIME , INTERACT_TIME , INTERACT_URL , LOGOUT_TIME , SESSION_TIME , ONLINE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , HOST_ID , VERSION , NODE_ID };
+	public static final String[] $PROPS={ ID , SESSION_ID , USER_ID , LOGIN_TIME , INTERACT_TIME , INTERACT_URL , LOGOUT_TIME , SESSION_TIME , ONLINE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , HOST_ID , VERSION , NODE_ID , USER };
 	
 	/**
 	 * 代理类
@@ -424,6 +435,17 @@ public class SessionOnlineMeta {
 		public SessionOnline setNodeId(String nodeId) {
 			super.change(NODE_ID,super.getNodeId(),nodeId);
 			super.setNodeId(nodeId);
+			return this;
+		}
+		
+		/**
+		 * 设置 账户
+		 * @param user 账户
+		 * @return 当前对象
+		*/
+		public SessionOnline setUser(User user) {
+			super.change(USER,super.getUser(),user);
+			super.setUser(user);
 			return this;
 		}
 	}

@@ -1,29 +1,35 @@
 package org.github.foxnic.web.oauth.service.impl;
 
-import java.lang.reflect.Field;
-import java.util.Date;
-import java.util.List;
-
-import javax.annotation.Resource;
-
+import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
-import org.github.foxnic.web.oauth.login.SessionCache;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.commons.cache.LocalCache;
+import com.github.foxnic.commons.concurrent.task.SimpleTaskManager;
+import com.github.foxnic.commons.lang.DateUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.dao.spec.DAO;
-import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
-
-
+import com.github.foxnic.sql.parameter.BatchParamBuilder;
+import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.domain.oauth.SessionOnline;
-import org.github.foxnic.web.oauth.service.ISessionOnlineService;
 import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.github.foxnic.web.framework.starter.StartupRegister;
+import org.github.foxnic.web.oauth.login.SessionCache;
+import org.github.foxnic.web.oauth.service.ISessionOnlineService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.event.ApplicationStartedEvent;
+import org.springframework.context.ApplicationListener;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.Field;
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -35,7 +41,7 @@ import org.github.foxnic.web.framework.dao.DBConfigs;
 
 
 @Service("SysSessionOnlineService")
-public class SessionOnlineServiceImpl extends SuperService<SessionOnline> implements ISessionOnlineService {
+public class SessionOnlineServiceImpl extends SuperService<SessionOnline> implements ISessionOnlineService, ApplicationListener<ApplicationStartedEvent> {
 	
 	/**
 	 * 注入DAO对象
@@ -210,11 +216,48 @@ public class SessionOnlineServiceImpl extends SuperService<SessionOnline> implem
 		return ErrorDesc.success();
 	}
 
+	private SimpleTaskManager tm=new SimpleTaskManager(2,"session-interactive");
+	private LocalCache<String, Object[]>  interactiveInfo=new LocalCache<>();
+	public  void  interactive(String onlineId,HttpServletRequest request) {
+		String uri=request.getRequestURI().toString();
+		interactiveInfo.put(onlineId,new Object[]{uri,new Date()});
+		if(interactiveInfo.size()>512) {
+			doSessionJob();
+		}
+	}
+
+	private void doSessionJob() {
+
+		//this.dao().pausePrintThreadSQL();
+		//记录交互，如果有交互，记录交互，并标记在线
+		Set<String> keys=interactiveInfo.keys();
+		Object[] value=null;
+		BatchParamBuilder pb=new BatchParamBuilder();
+		for (String key : keys) {
+			value=interactiveInfo.remove(key);
+			pb.add(value[0],value[1],key);
+		}
+		dao.batchExecute("update "+ FoxnicWeb.SYS_SESSION_ONLINE.$NAME+" set "+FoxnicWeb.SYS_SESSION_ONLINE.INTERACT_URL+"=?,"+ FoxnicWeb.SYS_SESSION_ONLINE.INTERACT_TIME+"=?,"+FoxnicWeb.SYS_SESSION_ONLINE.ONLINE+"=1,"+FoxnicWeb.SYS_SESSION_ONLINE.LOGOUT_TIME+"=null  where id=?", pb.getBatchList());
+		//
+		dao.execute("update "+ FoxnicWeb.SYS_SESSION_ONLINE.$NAME+" set "+FoxnicWeb.SYS_SESSION_ONLINE.ONLINE+"=0,"+FoxnicWeb.SYS_SESSION_ONLINE.LOGOUT_TIME+"="+FoxnicWeb.SYS_SESSION_ONLINE.INTERACT_TIME+" where online=1 and interact_time<?",DateUtil.addMinutes(new Date(),-5));
+		//this.dao().resumePrintThreadSQL();
+	}
+
 	@Override
 	public void offline(String sessionId) {
 		dao.setPrintThreadSQL(false);
 		dao.execute("update "+this.table()+" set online=0 , logout_time=now() where session_id=?",sessionId);
 		sessionCache.remove(sessionId);
+	}
+
+	@Override
+	public void onApplicationEvent(ApplicationStartedEvent event) {
+		tm.doIntervalTask(new Runnable() {
+			@Override
+			public void run() {
+				doSessionJob();
+			}
+		}, StartupRegister.HEART_BEAT_INTERVAL);
 	}
 
 }

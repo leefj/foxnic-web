@@ -3,6 +3,7 @@ package org.github.foxnic.web.oauth.permission;
 import com.github.foxnic.commons.lang.StringUtil;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.oauth.service.IMenuService;
+import org.github.foxnic.web.oauth.service.ISessionOnlineService;
 import org.github.foxnic.web.oauth.session.SessionPermissionImpl;
 import org.github.foxnic.web.oauth.session.SessionUserImpl;
 import org.springframework.security.access.AccessDeniedException;
@@ -30,7 +31,9 @@ public class PermissonFilterInvocationSecurityMetadataSource implements FilterIn
     
     @Resource
     private IMenuService metaResourceService;
-    
+
+    @Resource
+    private ISessionOnlineService sessionOnlineService;
 
     @Override
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
@@ -45,9 +48,10 @@ public class PermissonFilterInvocationSecurityMetadataSource implements FilterIn
 //            return SecurityConfig.createList(new String[] {"ROLE_super_admin"});
 //     }
 
-
- 
         final HttpServletRequest request = ((FilterInvocation) object).getRequest();
+
+    	//记录会话交互
+        sessionOnlineService.interactive(user.getSessionOnlineId(),request);
         
         SessionPermissionImpl permission=(SessionPermissionImpl)user.permission();
         

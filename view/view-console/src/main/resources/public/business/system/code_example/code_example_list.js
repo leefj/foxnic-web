@@ -1,7 +1,7 @@
 /**
  * 代码生成示例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-11 13:35:54
+ * @since 2021-08-12 15:11:14
  */
 
 
@@ -53,10 +53,10 @@ function ListPage() {
 				cols: [[
 					{ fixed: 'left',type: 'numbers' },
 					{ fixed: 'left',type:'checkbox' },
-					{ field: 'name', align:"left",fixed:true,  hide:false, sort: true, title: fox.translate('单行文本')} ,
-					{ field: 'notes', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('多行文本')} ,
-					{ field: 'area', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('整数输入')} ,
-					{ field: 'weight', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('小数输入')} ,
+					{ field: 'name', align:"left",fixed:true,  hide:false, sort: true, title: fox.translate('单行文本') } ,
+					{ field: 'notes', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('多行文本') } ,
+					{ field: 'area', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('整数输入') } ,
+					{ field: 'weight', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('小数输入') } ,
 					{ field: 'birthday', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('日期'), templet: function (d) { return fox.dateFormat(d.birthday); }} ,
 					{ field: 'valid', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('逻辑值'), templet: '#cell-tpl-valid'} ,
 					{ field: 'radioEnum', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('单选框(枚举)'), templet:function (d){ return fox.getEnumText(RADIO_RADIOENUM_DATA,d.radioEnum);}} ,
@@ -67,12 +67,13 @@ function ListPage() {
 					{ field: 'selectDict', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('选择框(字典)'), templet:function (d){ return fox.getDictText(SELECT_SELECTDICT_DATA,d.selectDict);}} ,
 					{ field: 'roleIds', align:"",fixed:false,  hide:false, sort: false, title: fox.translate('角色'), templet: function (d) { return fox.joinLabel(d.roles,"name");}} ,
 					{ field: 'resourceId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('选择框(查询)'), templet: function (d) { return fox.joinLabel(d.resourze,"url");}} ,
-					{ field: 'roleCountByAfter', align:"right",fixed:false,  hide:false, sort: false, title: fox.translate('角色数(Java)')} ,
-					{ field: 'roleCountByJoin', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('角色数(SQL)')} ,
+					{ field: 'resName', align:"",fixed:false,  hide:false, sort: true, title: fox.translate('资源名称') , templet: function (d) { return fox.getProperty(d,["resourze","name"]);}  } ,
+					{ field: 'roleCountByAfter', align:"right",fixed:false,  hide:false, sort: false, title: fox.translate('角色数(Java)') } ,
+					{ field: 'roleCountByJoin', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('角色数(SQL)') } ,
 					{ field: 'imageId', align:"left", fixed:false, hide:false, sort: true, title: fox.translate('图片上传'), templet: function (d) { return '<img style="height:100%;" fileType="image/png" onclick="window.previewImage(this)"  src="'+apiurls.storage.image+'?id='+ d.imageId+'" />'; } } ,
-					{ field: 'fileIds', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('多文件上传')} ,
-					{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('ID')} ,
-					{ field: 'createTime', align:"right",fixed:false,  hide:true, sort: true, title: fox.translate('创建时间')} ,
+					{ field: 'fileIds', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('多文件上传') } ,
+					{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('ID') } ,
+					{ field: 'createTime', align:"right",fixed:false,  hide:true, sort: true, title: fox.translate('创建时间') } ,
 					{ field: 'row-space', align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true},
 					{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
 				]],
@@ -445,9 +446,9 @@ function ListPage() {
 		var height= (area && area.height) ? area.height : ($(window).height()*0.6);
 		var top= (area && area.top) ? area.top : (($(window).height()-height)/2);
 		var title = (data && data.id) ? (fox.translate('修改')+fox.translate('代码生成示例')) : (fox.translate('添加')+fox.translate('代码生成示例'));
-		admin.popupCenter({
+		var index=admin.popupCenter({
 			title: title,
-			resize: true,
+			resize: false,
 			offset: [top,null],
 			area: ["1000px",height+"px"],
 			type: 2,
@@ -456,6 +457,7 @@ function ListPage() {
 				refreshTableData();
 			}
 		});
+		admin.putTempData('sys-code-example-form-data-popup-index', index);
 	};
 
 };

@@ -6,6 +6,7 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.*;
 import org.github.foxnic.web.domain.oauth.*;
 import org.github.foxnic.web.domain.oauth.meta.MenuMeta;
 import org.github.foxnic.web.domain.oauth.meta.RoleMeta;
+import org.github.foxnic.web.domain.oauth.meta.SessionOnlineMeta;
 import org.github.foxnic.web.domain.oauth.meta.UserMeta;
 
 import java.util.List;
@@ -77,6 +78,10 @@ public class OAuthRelationManager extends RelationManager {
 		this.property(UserMeta.ROLE_MENUS_PROP)
 				.using(SYS_USER.ID).join(SYS_ROLE_USER.USER_ID)
 				.using(SYS_ROLE_USER.ROLE_ID).join(SYS_ROLE_MENU.ROLE_ID);
+
+		//
+		this.property(SessionOnlineMeta.USER_PROP)
+				.using(SYS_SESSION_ONLINE.USER_ID).join(SYS_USER.ID);
 
 	}
 

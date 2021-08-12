@@ -2,7 +2,7 @@
 /**
  * 在线会话 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-11 19:48:42
+ * @since 2021-08-12 15:18:40
  */
  -->
  <!DOCTYPE html>
@@ -31,30 +31,19 @@
             <div class="search-input-rows" style="opacity: 0">
                 <!-- 搜索输入区域 -->
                 <div class="layui-form toolbar search-inputs">
-                    <!-- 登录时间 , loginTime ,typeName=text_input, isHideInSearch=false -->
+                    <!-- 登录时间 , loginTime ,typeName=date_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div"><span th:text="${lang.translate('登录时间')}" class="search-label">登录时间</span><span class="search-colon">:</span></div>
-                        <input id="loginTime" class="layui-input search-input" style="width: 140px" type="text" />
+                            <input type="text" id="loginTime-begin" style="width: 140px" lay-verify="date" th:placeholder="${lang.translate('开始日期')}" autocomplete="off" class="layui-input search-input search-date-input"  readonly >
+                            <span class="search-dash">-</span>
+                            <input type="text" id="loginTime-end"  style="width: 140px"  lay-verify="date" th:placeholder="${lang.translate('结束日期')}" autocomplete="off" class="layui-input search-input search-date-input" readonly>
                     </div>
-                    <!-- 登出时间 , logoutTime ,typeName=text_input, isHideInSearch=false -->
+                    <!-- 最后交互 , interactTime ,typeName=date_input, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div"><span th:text="${lang.translate('登出时间')}" class="search-label">登出时间</span><span class="search-colon">:</span></div>
-                        <input id="logoutTime" class="layui-input search-input" style="width: 140px" type="text" />
-                    </div>
-                    <!-- 是否在线 , online ,typeName=text_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div"><span th:text="${lang.translate('是否在线')}" class="search-label">是否在线</span><span class="search-colon">:</span></div>
-                        <input id="online" class="layui-input search-input" style="width: 140px" type="text" />
-                    </div>
-                    <!-- 主机ID , hostId ,typeName=text_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div"><span th:text="${lang.translate('主机ID')}" class="search-label">主机ID</span><span class="search-colon">:</span></div>
-                        <input id="hostId" class="layui-input search-input" style="width: 140px" type="text" />
-                    </div>
-                    <!-- 节点实例ID , nodeId ,typeName=text_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div"><span th:text="${lang.translate('节点实例ID')}" class="search-label">节点实例ID</span><span class="search-colon">:</span></div>
-                        <input id="nodeId" class="layui-input search-input" style="width: 140px" type="text" />
+                        <div class="search-label-div"><span th:text="${lang.translate('最后交互')}" class="search-label">最后交互</span><span class="search-colon">:</span></div>
+                            <input type="text" id="interactTime-begin" style="width: 140px" lay-verify="date" th:placeholder="${lang.translate('开始日期')}" autocomplete="off" class="layui-input search-input search-date-input"  readonly >
+                            <span class="search-dash">-</span>
+                            <input type="text" id="interactTime-end"  style="width: 140px"  lay-verify="date" th:placeholder="${lang.translate('结束日期')}" autocomplete="off" class="layui-input search-input search-date-input" readonly>
                     </div>
 
 
