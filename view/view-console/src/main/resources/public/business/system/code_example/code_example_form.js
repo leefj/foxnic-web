@@ -1,7 +1,7 @@
 /**
  * 代码生成示例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-13 17:22:08
+ * @since 2021-08-13 17:35:37
  */
 
 function FormPage() {
@@ -247,9 +247,7 @@ function FormPage() {
                 opacity:'1.0'
             },100);
         },1);
-
-        fox.lockForm($("#data-form"),true);
-
+        
 	}
 	
 	/**
