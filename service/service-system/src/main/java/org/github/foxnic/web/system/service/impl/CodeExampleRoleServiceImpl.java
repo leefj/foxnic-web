@@ -35,7 +35,7 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.*;
  *  服务实现
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-13 09:36:55
+ * @since 2021-08-13 17:22:08
 */
 
 
@@ -67,7 +67,8 @@ public class CodeExampleRoleServiceImpl extends SuperService<CodeExampleRole> im
 	 * */
 	@Override
 	public Result insert(CodeExampleRole codeExampleRole) {
-		return super.insert(codeExampleRole);
+		Result r=super.insert(codeExampleRole);
+		return r;
 	}
 	
 	/**
@@ -110,7 +111,8 @@ public class CodeExampleRoleServiceImpl extends SuperService<CodeExampleRole> im
 	 * */
 	@Override
 	public Result update(CodeExampleRole codeExampleRole , SaveMode mode) {
-		return super.update(codeExampleRole , mode);
+		Result r=super.update(codeExampleRole , mode);
+		return r;
 	}
 	
 	/**

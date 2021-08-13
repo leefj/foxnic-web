@@ -2,7 +2,7 @@
 /**
  * 代码生成示例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-13 09:36:54
+ * @since 2021-08-13 17:22:08
  */
  -->
  <!DOCTYPE html>
@@ -60,7 +60,7 @@
                     <div class="layui-form-item" >
                         <div class="layui-form-label "><div th:text="${lang.translate('日期')}">日期</div></div>
                         <div class="layui-input-block ">
-                            <input lay-filter="birthday" id="birthday" name="birthday"  autocomplete="off"  readonly  th:placeholder="${ lang.translate('请选择') +''+ lang.translate('日期') }" type="text" class="layui-input"    lay-verify=""   />
+                            <input input-type="date" lay-filter="birthday" id="birthday" name="birthday"  autocomplete="off"  readonly  th:placeholder="${ lang.translate('请选择') +''+ lang.translate('日期') }" type="text" class="layui-input"    lay-verify=""   />
                         </div>
                     </div>
 
@@ -69,7 +69,7 @@
                 <div class="layui-form-item" >
                     <div class="layui-form-label "><div th:text="${lang.translate('逻辑值')}">逻辑值</div></div>
                     <div class="layui-input-block ">
-                        <input type="checkbox" checked="" id="valid"  name="valid" lay-skin="switch" lay-filter="valid" lay-text="有效|无效" value="1">
+                        <input input-type="switch" type="checkbox" checked="" id="valid"  name="valid" lay-skin="switch" lay-filter="valid" lay-text="有效|无效" value="1">
                     </div>
                 </div>
 
@@ -78,7 +78,7 @@
                     <div class="layui-form-item" >
                         <div class="layui-form-label "><div th:text="${lang.translate('选择框(字典)')}">选择框(字典)</div><div class="layui-required">*</div></div>
                         <div class="layui-input-block ">
-                            <div id="selectDict" th:data="${dict.toArray('order_status')}"></div>
+                            <div id="selectDict" input-type="select" th:data="${dict.toArray('order_status')}"></div>
                         </div>
                     </div>
 
@@ -101,7 +101,7 @@
                     <div class="layui-form-item" >
                         <div class="layui-form-label "><div th:text="${lang.translate('复选框(字典)')}">复选框(字典)</div><div class="layui-required">*</div></div>
                         <div class="layui-input-block ">
-                                <input type="checkbox" name="checkDict" lay-filter="checkDict" lay-skin="primary" th:each="e,stat:${dict.toArray('measure_method')}" th:value="${e.code}" th:title="${e.text}">
+                                <input input-type="checkbox" type="checkbox" name="checkDict" lay-filter="checkDict" lay-skin="primary" th:each="e,stat:${dict.toArray('measure_method')}" th:value="${e.code}" th:title="${e.text}">
                         </div>
                     </div>
 
@@ -110,7 +110,7 @@
                     <div class="layui-form-item" >
                         <div class="layui-form-label "><div th:text="${lang.translate('选择框(枚举)')}">选择框(枚举)</div><div class="layui-required">*</div></div>
                         <div class="layui-input-block ">
-                            <div id="selectEnum" th:data="${enum.toArray('org.github.foxnic.web.constants.enums.SystemConfigType')}"></div>
+                            <div id="selectEnum" input-type="select" th:data="${enum.toArray('org.github.foxnic.web.constants.enums.SystemConfigType')}"></div>
                         </div>
                     </div>
 
@@ -119,7 +119,7 @@
                     <div class="layui-form-item" >
                         <div class="layui-form-label "><div th:text="${lang.translate('选择框(查询)')}">选择框(查询)</div></div>
                         <div class="layui-input-block ">
-                            <div id="resourceId" th:data="${'/service-oauth/sys-resourze/query-paged-list'}"></div>
+                            <div id="resourceId" input-type="select" th:data="${'/service-oauth/sys-resourze/query-paged-list'}"></div>
                         </div>
                     </div>
 
@@ -128,7 +128,7 @@
                     <div class="layui-form-item" >
                         <div class="layui-form-label "><div th:text="${lang.translate('角色')}">角色</div></div>
                         <div class="layui-input-block ">
-                            <div id="roleIds" th:data="${'/service-oauth/sys-role/query-paged-list'}"></div>
+                            <div id="roleIds" input-type="select" th:data="${'/service-oauth/sys-role/query-paged-list'}"></div>
                         </div>
                     </div>
 
@@ -191,7 +191,7 @@
                 <div class="layui-form-item" >
                     <div class="layui-form-label "><div th:text="${lang.translate('单选框(枚举)')}">单选框(枚举)</div></div>
                     <div class="layui-input-block ">
-                        <input type="radio" name="radioEnum" lay-filter="radioEnum" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.Language')}" th:value="${e.code}" th:title="${e.text}">
+                        <input input-type="radio" type="radio" name="radioEnum" lay-filter="radioEnum" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.Language')}" th:value="${e.code}" th:title="${e.text}">
                     </div>
                 </div>
 
@@ -205,7 +205,7 @@
                 <div class="layui-form-item" >
                     <div class="layui-form-label "><div th:text="${lang.translate('单选框(字典)')}">单选框(字典)</div><div class="layui-required">*</div></div>
                     <div class="layui-input-block ">
-                        <input type="radio" name="radioDict" lay-filter="radioDict" th:each="e,stat:${dict.toArray('sex')}" th:value="${e.code}" th:title="${e.text}">
+                        <input input-type="radio" type="radio" name="radioDict" lay-filter="radioDict" th:each="e,stat:${dict.toArray('sex')}" th:value="${e.code}" th:title="${e.text}">
                     </div>
                 </div>
 
@@ -229,7 +229,7 @@
                     <div class="layui-form-item" >
                         <div class="layui-form-label "><div th:text="${lang.translate('复选框(枚举)')}">复选框(枚举)</div></div>
                         <div class="layui-input-block ">
-                                <input type="checkbox" name="checkEnum" lay-filter="checkEnum" lay-skin="primary" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.MenuType')}" th:value="${e.code}" th:title="${e.text}">
+                                <input input-type="checkbox" type="checkbox" name="checkEnum" lay-filter="checkEnum" lay-skin="primary" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.MenuType')}" th:value="${e.code}" th:title="${e.text}">
                         </div>
                     </div>
 
@@ -257,8 +257,7 @@
 </div>
 
 <div class="model-form-footer">
-    <button class="layui-btn layui-btn-primary" id="cancel-button" lay-filter="cancel-button" type="button" th:text="${lang.translate('取消')}">取消</button>
-    <button th:if="${perm.checkAnyAuth('sys_code_example:create','sys_code_example:update','sys_code_example:save')}" class="layui-btn" style="margin-right: 15px"  id="submit-button" lay-filter="submit-button" lay-submit th:text="${lang.translate('保存')}">保存</button>
+    <button class="layui-btn layui-btn-primary" id="cancel-button" lay-filter="cancel-button" type="button" th:text="${lang.translate('取消')}"  style="margin-right: 15px" >取消</button>
 </div>
 
 <script type="text/javascript" src="/module/global.js" th:src="'/module/global.js?'+${cacheKey}"></script>

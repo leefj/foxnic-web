@@ -50,7 +50,7 @@ public class CodeExampleGenerator extends SystemCodeGenerator {
 
 		//增加必填的校验
 		cfg.view().field(SYS_CODE_EXAMPLE.NAME)
-				.list().fix(true)
+				.table().fix(true)
 				.form().validate().required()
 				.search().fuzzySearch();
 
@@ -84,7 +84,7 @@ public class CodeExampleGenerator extends SystemCodeGenerator {
 
 		//多文件上传类型
 		cfg.view().field(SYS_CODE_EXAMPLE.FILE_IDS)
-				.list().hidden()
+				.table().hidden()
 				.form().upload().acceptExts("doc","zip","xlsx","rar","docx","txt","svg").maxFileCount(4)
 				.form().validate().required()
 				.search().hidden();
@@ -139,8 +139,6 @@ public class CodeExampleGenerator extends SystemCodeGenerator {
 				.basic().label("资源名称")
 				.table().fillBy(CodeExampleMeta.RESOURZE,ResourzeMeta.NAME);
 
-
-
 		//下拉选择，数据来自外部表
 		cfg.view().field(CodeExampleVOMeta.ROLE_IDS)
 				.basic().label("角色")
@@ -152,8 +150,8 @@ public class CodeExampleGenerator extends SystemCodeGenerator {
 					.fillBy(CodeExampleMeta.ROLES).muliti(true);
 		;
 
-		//加入服务
-		cfg.service().autoware(ICodeExampleRoleService.class);
+		//在Service实现中增加一个保存关系的操作
+		cfg.service().addRelationSaveAction(ICodeExampleRoleService.class,CodeExampleVOMeta.ROLE_IDS);
 
 		cfg.view().field(CodeExampleVOMeta.ROLE_COUNT_BY_AFTER)
 				.basic().label("角色数(Java)")
@@ -163,9 +161,19 @@ public class CodeExampleGenerator extends SystemCodeGenerator {
 				.basic().label("角色数(SQL)")
 				.table().sort(true).alignRight();
 
+		//禁用列
+		cfg.view().field(CodeExampleMeta.CREATE_TIME).table().disable(true);
+
+		//禁止新建
+		cfg.view().list().disableCreateNew();
+		cfg.view().list().disableModify();
+		cfg.view().list().disableSingleDelete();
+		cfg.view().list().disableBatchDelete();
+//		cfg.view().list().disableFormView();
+		cfg.view().list().disableSpaceColumn();
 
 		//设置表格的列
-		cfg.view().table().columnLayout(
+		cfg.view().list().columnLayout(
 				//常规列
 				SYS_CODE_EXAMPLE.NAME,SYS_CODE_EXAMPLE.NOTES,SYS_CODE_EXAMPLE.AREA,SYS_CODE_EXAMPLE.WEIGHT,SYS_CODE_EXAMPLE.BIRTHDAY,SYS_CODE_EXAMPLE.VALID,
 				//单选
