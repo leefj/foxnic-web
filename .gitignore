@@ -30,3 +30,4 @@ target
 
 *.iml
 
+/common/generator/autocode/root/sys_node.json

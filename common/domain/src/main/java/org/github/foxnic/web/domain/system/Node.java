@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-11 17:11:20
- * @sign 564C33B9ADC0126AB75C93FCDB86F2D2
+ * @since 2021-08-13 22:40:35
+ * @sign 0BB6D9F3A2F3AA3F012C793657D0F747
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -76,6 +76,30 @@ public class Node extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="心跳时间" , notes = "心跳时间")
 	private Date heartBeatTime;
+	
+	/**
+	 * 主机名称：主机名称
+	*/
+	@ApiModelProperty(required = false,value="主机名称" , notes = "主机名称")
+	private String hostName;
+	
+	/**
+	 * IP地址：IP地址
+	*/
+	@ApiModelProperty(required = false,value="IP地址" , notes = "IP地址")
+	private String ip;
+	
+	/**
+	 * 雪花DCId：雪花DCId
+	*/
+	@ApiModelProperty(required = false,value="雪花DCId" , notes = "雪花DCId")
+	private Integer datacenterId;
+	
+	/**
+	 * 雪花WKId：雪花WKId
+	*/
+	@ApiModelProperty(required = false,value="雪花WKId" , notes = "雪花WKId")
+	private Integer workerId;
 	
 	/**
 	 * 创建人ID：创建人ID
@@ -274,6 +298,82 @@ public class Node extends Entity {
 	*/
 	public Node setHeartBeatTime(Date heartBeatTime) {
 		this.heartBeatTime=heartBeatTime;
+		return this;
+	}
+	
+	/**
+	 * 获得 主机名称<br>
+	 * 主机名称
+	 * @return 主机名称
+	*/
+	public String getHostName() {
+		return hostName;
+	}
+	
+	/**
+	 * 设置 主机名称
+	 * @param hostName 主机名称
+	 * @return 当前对象
+	*/
+	public Node setHostName(String hostName) {
+		this.hostName=hostName;
+		return this;
+	}
+	
+	/**
+	 * 获得 IP地址<br>
+	 * IP地址
+	 * @return IP地址
+	*/
+	public String getIp() {
+		return ip;
+	}
+	
+	/**
+	 * 设置 IP地址
+	 * @param ip IP地址
+	 * @return 当前对象
+	*/
+	public Node setIp(String ip) {
+		this.ip=ip;
+		return this;
+	}
+	
+	/**
+	 * 获得 雪花DCId<br>
+	 * 雪花DCId
+	 * @return 雪花DCId
+	*/
+	public Integer getDatacenterId() {
+		return datacenterId;
+	}
+	
+	/**
+	 * 设置 雪花DCId
+	 * @param datacenterId 雪花DCId
+	 * @return 当前对象
+	*/
+	public Node setDatacenterId(Integer datacenterId) {
+		this.datacenterId=datacenterId;
+		return this;
+	}
+	
+	/**
+	 * 获得 雪花WKId<br>
+	 * 雪花WKId
+	 * @return 雪花WKId
+	*/
+	public Integer getWorkerId() {
+		return workerId;
+	}
+	
+	/**
+	 * 设置 雪花WKId
+	 * @param workerId 雪花WKId
+	 * @return 当前对象
+	*/
+	public Node setWorkerId(Integer workerId) {
+		this.workerId=workerId;
 		return this;
 	}
 	

@@ -1,14 +1,16 @@
 /**
  * 在线会话 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-12 15:18:40
+ * @since 2021-08-13 22:14:39
  */
 
 function FormPage() {
 
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect,foxup;
 	const moduleURL="/service-oauth/sys-session-online";
-	
+
+	const disableCreateNew=true;
+	const disableModify=true;
 	/**
       * 入口函数，初始化
       */
@@ -64,10 +66,17 @@ function FormPage() {
 	   
 		laydate.render({
 			elem: '#loginTime',
+			format:"yyyy-MM-dd HH:mm:ss",
 			trigger:"click"
 		});
 		laydate.render({
 			elem: '#interactTime',
+			format:"yyyy-MM-dd HH:mm:ss",
+			trigger:"click"
+		});
+		laydate.render({
+			elem: '#logoutTime',
+			format:"yyyy-MM-dd HH:mm:ss",
 			trigger:"click"
 		});
 	}
@@ -77,6 +86,7 @@ function FormPage() {
       */
 	function fillFormData() {
 		var formData = admin.getTempData('sys-session-online-form-data');
+
 		//如果是新建
 		if(!formData.id) {
 			adjustPopup();
@@ -106,6 +116,14 @@ function FormPage() {
                 opacity:'1.0'
             },100);
         },1);
+
+        //
+		if(disableModify) {
+			fox.lockForm($("#data-form"),true);
+		}
+
+
+
         
 	}
 	

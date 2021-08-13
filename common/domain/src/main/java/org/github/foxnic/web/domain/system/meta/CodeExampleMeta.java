@@ -11,8 +11,8 @@ import java.util.List;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-13 17:35:31
- * @sign BBE3FDCF4310DA618E1031B4E81A7A25
+ * @since 2021-08-13 21:51:24
+ * @sign ECF39AE8A87E444FDB0BE807FCE93A50
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -179,6 +179,16 @@ public class CodeExampleMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.system.CodeExample,java.util.Date> BIRTHDAY_PROP = new BeanProperty(org.github.foxnic.web.domain.system.CodeExample.class ,BIRTHDAY, java.util.Date.class, "日期", "日期", java.util.Date.class, null);
 	
 	/**
+	 * 工作时间 , 类型: java.util.Date
+	*/
+	public static final String WORK_TIME="workTime";
+	
+	/**
+	 * 工作时间 , 类型: java.util.Date
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.CodeExample,java.util.Date> WORK_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.system.CodeExample.class ,WORK_TIME, java.util.Date.class, "工作时间", "工作时间", java.util.Date.class, null);
+	
+	/**
 	 * 创建人ID , 类型: java.lang.String
 	*/
 	public static final String CREATE_BY="createBy";
@@ -311,7 +321,7 @@ public class CodeExampleMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , NAME , NOTES , IMAGE_ID , FILE_IDS , AREA , WEIGHT , VALID , RADIO_ENUM , RADIO_DICT , CHECK_ENUM , CHECK_DICT , SELECT_ENUM , SELECT_DICT , RESOURCE_ID , BIRTHDAY , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , RESOURZE , ROLES , ROLE_COUNT_BY_AFTER , ROLE_COUNT_BY_JOIN , ROLE_IDS };
+	public static final String[] $PROPS={ ID , NAME , NOTES , IMAGE_ID , FILE_IDS , AREA , WEIGHT , VALID , RADIO_ENUM , RADIO_DICT , CHECK_ENUM , CHECK_DICT , SELECT_ENUM , SELECT_DICT , RESOURCE_ID , BIRTHDAY , WORK_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , RESOURZE , ROLES , ROLE_COUNT_BY_AFTER , ROLE_COUNT_BY_JOIN , ROLE_IDS };
 	
 	/**
 	 * 代理类
@@ -494,6 +504,17 @@ public class CodeExampleMeta {
 		public CodeExample setBirthday(Date birthday) {
 			super.change(BIRTHDAY,super.getBirthday(),birthday);
 			super.setBirthday(birthday);
+			return this;
+		}
+		
+		/**
+		 * 设置 工作时间
+		 * @param workTime 工作时间
+		 * @return 当前对象
+		*/
+		public CodeExample setWorkTime(Date workTime) {
+			super.change(WORK_TIME,super.getWorkTime(),workTime);
+			super.setWorkTime(workTime);
 			return this;
 		}
 		

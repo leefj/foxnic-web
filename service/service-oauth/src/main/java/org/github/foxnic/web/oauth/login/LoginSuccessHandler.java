@@ -3,6 +3,8 @@ package org.github.foxnic.web.oauth.login;
 import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.commons.network.Machine;
+import com.github.foxnic.springboot.spring.SpringUtil;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.SessionOnline;
@@ -93,6 +95,8 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 	        online.setInteractTime(new Date());
 	        online.setSessionId(request.getSession().getId());
 	        online.setSessionTime(request.getSession().getMaxInactiveInterval());
+			online.setHostId(Machine.getIdentity());
+			online.setNodeId(SpringUtil.getNodeInstanceId());
 	        List<Menu> menus=user.getMenus();
 
 	        //登录成功后翻译菜单标签

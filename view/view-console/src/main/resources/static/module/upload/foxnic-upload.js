@@ -12,7 +12,7 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"elem
     };
     var template=[
         '<div class="layui-upload-unit" id="{{el}}-file-unit-{{index}}">',
-        '	<img class="layui-upload-img" onclick="window.previewImage(this)" id="{{el}}-image-{{index}}" style="" src="/assets/images/no-image-92@2x.png">',
+        '	<img class="layui-upload-img" onclick="window.previewImage(this)" can-preview="{{canPreview}}" id="{{el}}-image-{{index}}" style="" src="/assets/images/no-image-92@2x.png">',
         '	<div id="{{el}}-text-{{index}}" class="layui-upload-file-name"></div>',
         '	<div class="layui-upload-button-div" style="display:none" id="{{el}}-button-div-{{index}}">',
         ' 	<button type="button" class="layui-btn layui-btn-xs layui-btn-danger layui-upload-button" id="{{el}}-delete-button-{{index}}" style="margin-left:0px"><i class="fa fa-remove"></i>&nbsp;删除</button>',
@@ -35,6 +35,11 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"elem
         var html=template.join("\n");
         html=html.replace(/{{el}}/g,elId);
         html=html.replace(/{{index}}/g,index);
+        if(fileType=="png") {
+            html = html.replace(/{{canPreview}}/g, "yes");
+        } else {
+            html = html.replace(/{{canPreview}}/g, "no");
+        }
         var preview=fileList.append(html);
         //debugger;
 
@@ -149,8 +154,12 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"elem
         var actionTaskId;
         var img=preview.find("#"+elId+"-image-"+index);
         img.on("mouseenter",function (){
+            var cfg=UPLOADS[elId].config;
+            if(cfg.disabled) return;
             $("#"+elId+"-button-div-"+index).fadeTo("fast", 1.0, function(){});
         }).on("mouseleave",function (){
+            var cfg=UPLOADS[elId].config;
+            if(cfg.disabled) return;
             actionTaskId=setTimeout(function (){
                 $("#"+elId+"-button-div-"+index).fadeTo("fast", 0.0, function(){
                     $("#"+elId+"-button-div-"+index).css("display","none");
@@ -309,7 +318,10 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"elem
             var inst = upload.render(this.config);
             UPLOADS[elId]=inst;
         },
-
+        disable:function (elId){
+            var cfg=UPLOADS[elId].config;
+            cfg.disabled=true;
+        },
         fill:function (elId,fileIds) {
             //debugger;
             fileIds=fileIds.split(",");

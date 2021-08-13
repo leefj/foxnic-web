@@ -185,6 +185,7 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 
 
 		cfg.view().field(SYS_SESSION_ONLINE.USER_ID)
+			.basic().label("账户")
 			.table().fillBy(SessionOnlineMeta.USER,UserMeta.NAME)
 			.search().hidden();
 
@@ -208,6 +209,16 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 
 		cfg.view().field(SYS_SESSION_ONLINE.ONLINE)
 				.table().hidden().search().hidden();
+
+
+		cfg.view().list().disableBatchDelete();
+		cfg.view().list().disableCreateNew();
+		cfg.view().list().disableModify();
+		cfg.view().list().disableSingleDelete();
+		cfg.view().list().disableSpaceColumn();
+
+		//设置标签宽度，默认 65
+		cfg.view().form().labelWidth(85);
 
 		//生成代码
 		cfg.buildAll();
@@ -235,6 +246,8 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		cfg.view().field(SYS_RESOURZE.TABLE_NAME).basic().label("数据表");
 
 		cfg.view().list().operateColumnWidth(125);
+
+
 
 		//文件生成覆盖模式
 		cfg.overrides()

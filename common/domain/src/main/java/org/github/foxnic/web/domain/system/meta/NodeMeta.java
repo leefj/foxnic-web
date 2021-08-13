@@ -8,8 +8,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-11 17:11:20
- * @sign 564C33B9ADC0126AB75C93FCDB86F2D2
+ * @since 2021-08-13 22:40:35
+ * @sign 0BB6D9F3A2F3AA3F012C793657D0F747
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -96,6 +96,46 @@ public class NodeMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.system.Node,java.util.Date> HEART_BEAT_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.system.Node.class ,HEART_BEAT_TIME, java.util.Date.class, "心跳时间", "心跳时间", java.util.Date.class, null);
 	
 	/**
+	 * 主机名称 , 类型: java.lang.String
+	*/
+	public static final String HOST_NAME="hostName";
+	
+	/**
+	 * 主机名称 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.Node,java.lang.String> HOST_NAME_PROP = new BeanProperty(org.github.foxnic.web.domain.system.Node.class ,HOST_NAME, java.lang.String.class, "主机名称", "主机名称", java.lang.String.class, null);
+	
+	/**
+	 * IP地址 , 类型: java.lang.String
+	*/
+	public static final String IP="ip";
+	
+	/**
+	 * IP地址 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.Node,java.lang.String> IP_PROP = new BeanProperty(org.github.foxnic.web.domain.system.Node.class ,IP, java.lang.String.class, "IP地址", "IP地址", java.lang.String.class, null);
+	
+	/**
+	 * 雪花DCId , 类型: java.lang.Integer
+	*/
+	public static final String DATACENTER_ID="datacenterId";
+	
+	/**
+	 * 雪花DCId , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.Node,java.lang.Integer> DATACENTER_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.system.Node.class ,DATACENTER_ID, java.lang.Integer.class, "雪花DCId", "雪花DCId", java.lang.Integer.class, null);
+	
+	/**
+	 * 雪花WKId , 类型: java.lang.Integer
+	*/
+	public static final String WORKER_ID="workerId";
+	
+	/**
+	 * 雪花WKId , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.Node,java.lang.Integer> WORKER_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.system.Node.class ,WORKER_ID, java.lang.Integer.class, "雪花WKId", "雪花WKId", java.lang.Integer.class, null);
+	
+	/**
 	 * 创建人ID , 类型: java.lang.String
 	*/
 	public static final String CREATE_BY="createBy";
@@ -178,7 +218,7 @@ public class NodeMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , HOST_ID , APPLICATION_NAME , PORT , PROCESS_ID , START_TIME , IS_UP , HEART_BEAT_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , HOST_ID , APPLICATION_NAME , PORT , PROCESS_ID , START_TIME , IS_UP , HEART_BEAT_TIME , HOST_NAME , IP , DATACENTER_ID , WORKER_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
 	
 	/**
 	 * 代理类
@@ -273,6 +313,50 @@ public class NodeMeta {
 		public Node setHeartBeatTime(Date heartBeatTime) {
 			super.change(HEART_BEAT_TIME,super.getHeartBeatTime(),heartBeatTime);
 			super.setHeartBeatTime(heartBeatTime);
+			return this;
+		}
+		
+		/**
+		 * 设置 主机名称
+		 * @param hostName 主机名称
+		 * @return 当前对象
+		*/
+		public Node setHostName(String hostName) {
+			super.change(HOST_NAME,super.getHostName(),hostName);
+			super.setHostName(hostName);
+			return this;
+		}
+		
+		/**
+		 * 设置 IP地址
+		 * @param ip IP地址
+		 * @return 当前对象
+		*/
+		public Node setIp(String ip) {
+			super.change(IP,super.getIp(),ip);
+			super.setIp(ip);
+			return this;
+		}
+		
+		/**
+		 * 设置 雪花DCId
+		 * @param datacenterId 雪花DCId
+		 * @return 当前对象
+		*/
+		public Node setDatacenterId(Integer datacenterId) {
+			super.change(DATACENTER_ID,super.getDatacenterId(),datacenterId);
+			super.setDatacenterId(datacenterId);
+			return this;
+		}
+		
+		/**
+		 * 设置 雪花WKId
+		 * @param workerId 雪花WKId
+		 * @return 当前对象
+		*/
+		public Node setWorkerId(Integer workerId) {
+			super.change(WORKER_ID,super.getWorkerId(),workerId);
+			super.setWorkerId(workerId);
 			return this;
 		}
 		

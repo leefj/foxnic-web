@@ -50,7 +50,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 代码生成示例 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-13 17:35:34
+ * @since 2021-08-13 21:51:26
 */
 
 @Api(tags = "代码生成示例")
@@ -83,6 +83,7 @@ public class CodeExampleController extends SuperController {
 		@ApiImplicitParam(name = CodeExampleVOMeta.SELECT_DICT , value = "选择框(字典)" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleVOMeta.RESOURCE_ID , value = "选择框(查询)" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleVOMeta.BIRTHDAY , value = "日期" , required = false , dataTypeClass=Date.class , example = "2021-08-23 12:00:00"),
+		@ApiImplicitParam(name = CodeExampleVOMeta.WORK_TIME , value = "工作时间" , required = false , dataTypeClass=Date.class),
 	})
 	@ApiOperationSupport(order=1)
 	@NotNull(name = CodeExampleVOMeta.ID)
@@ -149,6 +150,7 @@ public class CodeExampleController extends SuperController {
 		@ApiImplicitParam(name = CodeExampleVOMeta.SELECT_DICT , value = "选择框(字典)" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleVOMeta.RESOURCE_ID , value = "选择框(查询)" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleVOMeta.BIRTHDAY , value = "日期" , required = false , dataTypeClass=Date.class , example = "2021-08-23 12:00:00"),
+		@ApiImplicitParam(name = CodeExampleVOMeta.WORK_TIME , value = "工作时间" , required = false , dataTypeClass=Date.class),
 	})
 	@ApiOperationSupport( order=4 , ignoreParameters = { CodeExampleVOMeta.PAGE_INDEX , CodeExampleVOMeta.PAGE_SIZE , CodeExampleVOMeta.SEARCH_FIELD , CodeExampleVOMeta.FUZZY_FIELD , CodeExampleVOMeta.SEARCH_VALUE , CodeExampleVOMeta.SORT_FIELD , CodeExampleVOMeta.SORT_TYPE , CodeExampleVOMeta.IDS } ) 
 	@NotNull(name = CodeExampleVOMeta.ID)
@@ -181,6 +183,7 @@ public class CodeExampleController extends SuperController {
 		@ApiImplicitParam(name = CodeExampleVOMeta.SELECT_DICT , value = "选择框(字典)" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleVOMeta.RESOURCE_ID , value = "选择框(查询)" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleVOMeta.BIRTHDAY , value = "日期" , required = false , dataTypeClass=Date.class , example = "2021-08-23 12:00:00"),
+		@ApiImplicitParam(name = CodeExampleVOMeta.WORK_TIME , value = "工作时间" , required = false , dataTypeClass=Date.class),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { CodeExampleVOMeta.PAGE_INDEX , CodeExampleVOMeta.PAGE_SIZE , CodeExampleVOMeta.SEARCH_FIELD , CodeExampleVOMeta.FUZZY_FIELD , CodeExampleVOMeta.SEARCH_VALUE , CodeExampleVOMeta.SORT_FIELD , CodeExampleVOMeta.SORT_TYPE , CodeExampleVOMeta.IDS } )
 	@NotNull(name = CodeExampleVOMeta.ID)
@@ -256,6 +259,7 @@ public class CodeExampleController extends SuperController {
 		@ApiImplicitParam(name = CodeExampleVOMeta.SELECT_DICT , value = "选择框(字典)" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleVOMeta.RESOURCE_ID , value = "选择框(查询)" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleVOMeta.BIRTHDAY , value = "日期" , required = false , dataTypeClass=Date.class , example = "2021-08-23 12:00:00"),
+		@ApiImplicitParam(name = CodeExampleVOMeta.WORK_TIME , value = "工作时间" , required = false , dataTypeClass=Date.class),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { CodeExampleVOMeta.PAGE_INDEX , CodeExampleVOMeta.PAGE_SIZE } )
 	@SentinelResource(value = CodeExampleServiceProxy.QUERY_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
@@ -289,6 +293,7 @@ public class CodeExampleController extends SuperController {
 		@ApiImplicitParam(name = CodeExampleVOMeta.SELECT_DICT , value = "选择框(字典)" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleVOMeta.RESOURCE_ID , value = "选择框(查询)" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleVOMeta.BIRTHDAY , value = "日期" , required = false , dataTypeClass=Date.class , example = "2021-08-23 12:00:00"),
+		@ApiImplicitParam(name = CodeExampleVOMeta.WORK_TIME , value = "工作时间" , required = false , dataTypeClass=Date.class),
 	})
 	@ApiOperationSupport(order=8)
 	@SentinelResource(value = CodeExampleServiceProxy.QUERY_PAGED_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )

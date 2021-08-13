@@ -1,7 +1,7 @@
 /**
  * sys_node 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-11 17:11:22
+ * @since 2021-08-13 22:40:35
  */
 
 
@@ -52,18 +52,20 @@ function ListPage() {
 				limit: 50,
 				cols: [[
 					{ fixed: 'left',type: 'numbers' },
-					{ fixed: 'left',type:'checkbox' },
-					{ field: 'id', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('实例id')} ,
-					{ field: 'hostId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('主机ID')} ,
-					{ field: 'applicationName', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('应用名称')} ,
-					{ field: 'port', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('端口')} ,
-					{ field: 'processId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('进程号')} ,
-					{ field: 'startTime', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('启动时间')} ,
-					{ field: 'isUp', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('是否启动')} ,
-					{ field: 'heartBeatTime', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('心跳时间')} ,
-					{ field: 'createTime', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('创建时间')} ,
-					{ field: 'row-space', align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true},
-					{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
+					{ fixed: 'left',type:'checkbox' }
+					,{ field: 'id', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('实例id') }
+					,{ field: 'hostId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('主机ID') }
+					,{ field: 'applicationName', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('应用名称') }
+					,{ field: 'port', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('端口') }
+					,{ field: 'processId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('进程号') }
+					,{ field: 'startTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('启动时间'), templet: function (d) { return fox.dateFormat(d.startTime); }}
+					,{ field: 'isUp', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('是否启动') }
+					,{ field: 'heartBeatTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('心跳时间'), templet: function (d) { return fox.dateFormat(d.heartBeatTime); }}
+					,{ field: 'hostName', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('主机名称') }
+					,{ field: 'ip', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('IP地址') }
+					,{ field: 'datacenterId', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('雪花DCId') }
+					,{ field: 'workerId', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('雪花WKId') }
+					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 60 }
 				]],
 				footer : {
 					exportExcel : admin.checkAuth(AUTH_PREFIX+":export"),
@@ -92,14 +94,7 @@ function ListPage() {
       */
 	function refreshTableData(sortField,sortType) {
 		var value = {};
-		value.id={ value: $("#id").val()};
-		value.hostId={ value: $("#hostId").val()};
-		value.applicationName={ value: $("#applicationName").val()};
-		value.port={ value: $("#port").val()};
-		value.processId={ value: $("#processId").val()};
-		value.startTime={ value: $("#startTime").val()};
-		value.isUp={ value: $("#isUp").val()};
-		value.heartBeatTime={ value: $("#heartBeatTime").val()};
+		value.applicationName={ value: $("#applicationName").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" "};
 		var ps={searchField: "$composite", searchValue: JSON.stringify(value),sortField: sortField,sortType: sortType};
 		table.reload('data-table', { where : ps });
 	}

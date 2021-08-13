@@ -2,7 +2,7 @@
 /**
  * 代码生成示例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-13 17:35:37
+ * @since 2021-08-13 21:51:28
  */
  -->
  <!DOCTYPE html>
@@ -152,7 +152,7 @@
                 <div class="layui-form-item" >
                     <div class="layui-form-label "><div th:text="${lang.translate('图片上传')}">图片上传</div></div>
                     <div class="layui-upload layui-input-block ">
-                        <input id="imageId"  name="imageId" lay-filter="imageId" style="display: none">
+                        <input input-type="upload" id="imageId"  name="imageId" lay-filter="imageId" style="display: none">
                         <button type="button" class="layui-btn" id="imageId-button" th:text="${lang.translate('选择附件')}">选择附件</button>
                         <div class="layui-upload-list" id="imageId-file-list"></div>
                     </div>
@@ -164,7 +164,7 @@
                 <div class="layui-form-item" >
                     <div class="layui-form-label "><div th:text="${lang.translate('多文件上传')}">多文件上传</div><div class="layui-required">*</div></div>
                     <div class="layui-upload layui-input-block ">
-                        <input id="fileIds"  name="fileIds" lay-filter="fileIds" style="display: none">
+                        <input input-type="upload" id="fileIds"  name="fileIds" lay-filter="fileIds" style="display: none">
                         <button type="button" class="layui-btn" id="fileIds-button" th:text="${lang.translate('选择附件')}">选择附件</button>
                         <div class="layui-upload-list" id="fileIds-file-list"></div>
                     </div>
@@ -208,6 +208,15 @@
                         <input input-type="radio" type="radio" name="radioDict" lay-filter="radioDict" th:each="e,stat:${dict.toArray('sex')}" th:value="${e.code}" th:title="${e.text}">
                     </div>
                 </div>
+
+
+                
+                    <div class="layui-form-item" >
+                        <div class="layui-form-label "><div th:text="${lang.translate('工作时间')}">工作时间</div></div>
+                        <div class="layui-input-block ">
+                            <input input-type="date" lay-filter="workTime" id="workTime" name="workTime"  autocomplete="off"  readonly  th:placeholder="${ lang.translate('请选择') +''+ lang.translate('工作时间') }" type="text" class="layui-input"   />
+                        </div>
+                    </div>
 
 
                 <!--结束：栏次内字段循环-->
@@ -257,7 +266,8 @@
 </div>
 
 <div class="model-form-footer">
-    <button class="layui-btn layui-btn-primary" id="cancel-button" lay-filter="cancel-button" type="button" th:text="${lang.translate('取消')}"  style="margin-right: 15px" >取消</button>
+    <button class="layui-btn layui-btn-primary" id="cancel-button" lay-filter="cancel-button" type="button" th:text="${lang.translate('取消')}" >取消</button>
+    <button th:if="${perm.checkAnyAuth('sys_code_example:create','sys_code_example:update','sys_code_example:save')}" class="layui-btn" style="margin-right: 15px"  id="submit-button" lay-filter="submit-button" lay-submit th:text="${lang.translate('保存')}">保存</button>
 </div>
 
 <script type="text/javascript" src="/module/global.js" th:src="'/module/global.js?'+${cacheKey}"></script>

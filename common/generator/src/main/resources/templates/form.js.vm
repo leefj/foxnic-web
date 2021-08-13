@@ -156,6 +156,7 @@ function FormPage() {
 		#else if(f.typeName.equals("date_input"))
 		laydate.render({
 			elem: '##(f.varName)',
+			format:"yyyy-MM-dd HH:mm:ss",
 			trigger:"click"
 		});
 	    #end
@@ -167,6 +168,7 @@ function FormPage() {
       */
 	function fillFormData() {
 		var formData = admin.getTempData('#(formDataKey)');
+
 		#if(isSimplePK)
 		//如果是新建
 		if(!formData.#(idPropertyName)) {
@@ -228,6 +230,14 @@ function FormPage() {
                 opacity:'1.0'
             },100);
         },1);
+
+        //
+		if(disableModify) {
+			fox.lockForm($("#data-form"),true);
+		}
+
+
+
         
 	}
 	

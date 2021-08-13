@@ -1,7 +1,7 @@
 /**
  * 在线会话 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-12 15:18:40
+ * @since 2021-08-13 22:14:38
  */
 
 
@@ -52,21 +52,20 @@ function ListPage() {
 				limit: 50,
 				cols: [[
 					{ fixed: 'left',type: 'numbers' },
-					{ fixed: 'left',type:'checkbox' },
-					{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('ID') } ,
-					{ field: 'sessionId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('会话ID') } ,
-					{ field: 'userId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('账户ID') , templet: function (d) { return fox.getProperty(d,["user","name"]);}  } ,
-					{ field: 'loginTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('登录时间'), templet: function (d) { return fox.dateFormat(d.loginTime); }} ,
-					{ field: 'interactTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('最后交互'), templet: function (d) { return fox.dateFormat(d.interactTime); }} ,
-					{ field: 'interactUrl', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('最后访问') } ,
-					{ field: 'logoutTime', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('登出时间') } ,
-					{ field: 'sessionTime', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('会话时长') } ,
-					{ field: 'online', align:"right",fixed:false,  hide:true, sort: true, title: fox.translate('是否在线') } ,
-					{ field: 'createTime', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('创建时间') } ,
-					{ field: 'hostId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('主机ID') } ,
-					{ field: 'nodeId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('节点实例ID') } ,
-					{ field: 'row-space', align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true},
-					{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
+					{ fixed: 'left',type:'checkbox' }
+					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('ID') }
+					,{ field: 'sessionId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('会话ID') }
+					,{ field: 'userId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('账户') , templet: function (d) { return fox.getProperty(d,["user","name"]);}  }
+					,{ field: 'loginTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('登录时间'), templet: function (d) { return fox.dateFormat(d.loginTime); }}
+					,{ field: 'interactTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('最后交互'), templet: function (d) { return fox.dateFormat(d.interactTime); }}
+					,{ field: 'interactUrl', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('最后访问') }
+					,{ field: 'logoutTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('登出时间'), templet: function (d) { return fox.dateFormat(d.logoutTime); }}
+					,{ field: 'sessionTime', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('会话时长') }
+					,{ field: 'online', align:"right",fixed:false,  hide:true, sort: true, title: fox.translate('是否在线') }
+					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return fox.dateFormat(d.createTime); }}
+					,{ field: 'hostId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('主机ID') }
+					,{ field: 'nodeId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('节点实例ID') }
+					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
 				]],
 				footer : {
 					exportExcel : admin.checkAuth(AUTH_PREFIX+":export"),

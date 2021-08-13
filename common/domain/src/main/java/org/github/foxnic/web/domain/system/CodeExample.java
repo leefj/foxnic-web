@@ -20,8 +20,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-13 17:35:31
- * @sign BBE3FDCF4310DA618E1031B4E81A7A25
+ * @since 2021-08-13 21:51:24
+ * @sign ECF39AE8A87E444FDB0BE807FCE93A50
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -128,6 +128,12 @@ public class CodeExample extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="日期" , notes = "日期")
 	private Date birthday;
+	
+	/**
+	 * 工作时间：工作时间
+	*/
+	@ApiModelProperty(required = false,value="工作时间" , notes = "工作时间")
+	private Date workTime;
 	
 	/**
 	 * 创建人ID：创建人ID
@@ -508,6 +514,25 @@ public class CodeExample extends Entity {
 	*/
 	public CodeExample setBirthday(Date birthday) {
 		this.birthday=birthday;
+		return this;
+	}
+	
+	/**
+	 * 获得 工作时间<br>
+	 * 工作时间
+	 * @return 工作时间
+	*/
+	public Date getWorkTime() {
+		return workTime;
+	}
+	
+	/**
+	 * 设置 工作时间
+	 * @param workTime 工作时间
+	 * @return 当前对象
+	*/
+	public CodeExample setWorkTime(Date workTime) {
+		this.workTime=workTime;
 		return this;
 	}
 	

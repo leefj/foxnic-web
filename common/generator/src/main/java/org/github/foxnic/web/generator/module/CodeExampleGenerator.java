@@ -165,17 +165,23 @@ public class CodeExampleGenerator extends SystemCodeGenerator {
 		cfg.view().field(CodeExampleMeta.CREATE_TIME).table().disable(true);
 
 		//禁止新建
-		cfg.view().list().disableCreateNew();
-		cfg.view().list().disableModify();
-		cfg.view().list().disableSingleDelete();
-		cfg.view().list().disableBatchDelete();
+//		cfg.view().list().disableCreateNew();
+		//禁止修改
+//		cfg.view().list().disableModify();
+		//禁止单行删除
+//		cfg.view().list().disableSingleDelete();
+		//禁止批量删除
+//		cfg.view().list().disableBatchDelete();
+		//禁止查看表单，同时也禁用编辑
 //		cfg.view().list().disableFormView();
-		cfg.view().list().disableSpaceColumn();
+		//禁用空白列
+//		cfg.view().list().disableSpaceColumn();
+
 
 		//设置表格的列
 		cfg.view().list().columnLayout(
 				//常规列
-				SYS_CODE_EXAMPLE.NAME,SYS_CODE_EXAMPLE.NOTES,SYS_CODE_EXAMPLE.AREA,SYS_CODE_EXAMPLE.WEIGHT,SYS_CODE_EXAMPLE.BIRTHDAY,SYS_CODE_EXAMPLE.VALID,
+				SYS_CODE_EXAMPLE.NAME,SYS_CODE_EXAMPLE.NOTES,SYS_CODE_EXAMPLE.AREA,SYS_CODE_EXAMPLE.WEIGHT,SYS_CODE_EXAMPLE.BIRTHDAY,SYS_CODE_EXAMPLE.WORK_TIME,SYS_CODE_EXAMPLE.VALID,
 				//单选
 				SYS_CODE_EXAMPLE.RADIO_ENUM,SYS_CODE_EXAMPLE.RADIO_DICT,
 				//复选
@@ -268,6 +274,7 @@ public class CodeExampleGenerator extends SystemCodeGenerator {
 						SYS_CODE_EXAMPLE.RADIO_ENUM,
 				}, new Object[] {
 						SYS_CODE_EXAMPLE.RADIO_DICT,
+						SYS_CODE_EXAMPLE.WORK_TIME
 				}
 		);
 		cfg.view().form().addGroup("扩展信息",

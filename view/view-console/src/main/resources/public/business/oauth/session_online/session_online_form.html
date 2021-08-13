@@ -2,7 +2,7 @@
 /**
  * 在线会话 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-12 15:18:40
+ * @since 2021-08-13 22:14:39
  */
  -->
  <!DOCTYPE html>
@@ -18,6 +18,14 @@
     <link rel="stylesheet" href="/assets/css/foxnic-web.css" th:href="'/assets/css/foxnic-web.css?'+${cacheKey}"/>
     <link href="/assets/libs/font-awesome-4.7.0/css/font-awesome.min.css" th:href="@{/assets/libs/font-awesome-4.7.0/css/font-awesome.min.css}" rel="stylesheet"/>
     <script th:inline="javascript">var foxnic_cachekey=[[${cacheKey}]];</script>
+    <style>
+        .layui-form-label-c1 {
+            width: 85px;
+        }
+        .layui-input-block-c1 {
+            margin-left: 120px;
+        }
+    </style>
 </head>
 
 <body style="overflow-y: hidden">
@@ -55,9 +63,9 @@
 
                 
                 <div class="layui-form-item" >
-                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('账户ID')}">账户ID</div></div>
+                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('账户')}">账户</div></div>
                     <div class="layui-input-block layui-input-block-c1">
-                        <input lay-filter="userId" id="userId" name="userId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('账户ID') }" type="text" class="layui-input"   />
+                        <input lay-filter="userId" id="userId" name="userId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('账户') }" type="text" class="layui-input"   />
                     </div>
                 </div>
 
@@ -66,7 +74,7 @@
                     <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('登录时间')}">登录时间</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="loginTime" id="loginTime" name="loginTime"  autocomplete="off"  readonly  th:placeholder="${ lang.translate('请选择') +''+ lang.translate('登录时间') }" type="text" class="layui-input"    lay-verify=""   />
+                            <input input-type="date" lay-filter="loginTime" id="loginTime" name="loginTime"  autocomplete="off"  readonly  th:placeholder="${ lang.translate('请选择') +''+ lang.translate('登录时间') }" type="text" class="layui-input"    lay-verify=""   />
                         </div>
                     </div>
 
@@ -75,7 +83,7 @@
                     <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('最后交互')}">最后交互</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="interactTime" id="interactTime" name="interactTime"  autocomplete="off"  readonly  th:placeholder="${ lang.translate('请选择') +''+ lang.translate('最后交互') }" type="text" class="layui-input"    lay-verify=""   />
+                            <input input-type="date" lay-filter="interactTime" id="interactTime" name="interactTime"  autocomplete="off"  readonly  th:placeholder="${ lang.translate('请选择') +''+ lang.translate('最后交互') }" type="text" class="layui-input"    lay-verify=""   />
                         </div>
                     </div>
 
@@ -90,30 +98,30 @@
 
 
                 
-                <div class="layui-form-item" >
-                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('登出时间')}">登出时间</div></div>
-                    <div class="layui-input-block layui-input-block-c1">
-                        <input lay-filter="logoutTime" id="logoutTime" name="logoutTime" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('登出时间') }" type="text" class="layui-input"   />
+                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('登出时间')}">登出时间</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input input-type="date" lay-filter="logoutTime" id="logoutTime" name="logoutTime"  autocomplete="off"  readonly  th:placeholder="${ lang.translate('请选择') +''+ lang.translate('登出时间') }" type="text" class="layui-input"   />
+                        </div>
                     </div>
-                </div>
 
 
                 
-                <div class="layui-form-item" >
-                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('会话时长')}">会话时长</div></div>
-                    <div class="layui-input-block layui-input-block-c1">
-                        <input lay-filter="sessionTime" id="sessionTime" name="sessionTime" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('会话时长') }" type="text" class="layui-input"   />
+                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('会话时长')}">会话时长</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input lay-filter="sessionTime" id="sessionTime" name="sessionTime" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('会话时长') }" type="text" class="layui-input"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0" min-value="" max-value=""  scale="0"/>
+                        </div>
                     </div>
-                </div>
 
 
                 
-                <div class="layui-form-item" >
-                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('是否在线')}">是否在线</div></div>
-                    <div class="layui-input-block layui-input-block-c1">
-                        <input lay-filter="online" id="online" name="online" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('是否在线') }" type="text" class="layui-input"   />
+                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('是否在线')}">是否在线</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input lay-filter="online" id="online" name="online" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('是否在线') }" type="text" class="layui-input"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0" min-value="" max-value=""  scale="0"/>
+                        </div>
                     </div>
-                </div>
 
 
                 
@@ -126,12 +134,12 @@
 
 
                 
-                <div class="layui-form-item" style="display: none")>
-                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('创建时间')}">创建时间</div></div>
-                    <div class="layui-input-block layui-input-block-c1">
-                        <input lay-filter="createTime" id="createTime" name="createTime" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('创建时间') }" type="text" class="layui-input"   />
+                    <div class="layui-form-item" style="display: none")>
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('创建时间')}">创建时间</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input input-type="date" lay-filter="createTime" id="createTime" name="createTime"  autocomplete="off"  readonly  th:placeholder="${ lang.translate('请选择') +''+ lang.translate('创建时间') }" type="text" class="layui-input"   />
+                        </div>
                     </div>
-                </div>
 
 
                 
@@ -144,21 +152,21 @@
 
 
                 
-                <div class="layui-form-item" style="display: none")>
-                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('修改时间')}">修改时间</div></div>
-                    <div class="layui-input-block layui-input-block-c1">
-                        <input lay-filter="updateTime" id="updateTime" name="updateTime" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('修改时间') }" type="text" class="layui-input"   />
+                    <div class="layui-form-item" style="display: none")>
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('修改时间')}">修改时间</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input input-type="date" lay-filter="updateTime" id="updateTime" name="updateTime"  autocomplete="off"  readonly  th:placeholder="${ lang.translate('请选择') +''+ lang.translate('修改时间') }" type="text" class="layui-input"   />
+                        </div>
                     </div>
-                </div>
 
 
                 
-                <div class="layui-form-item" style="display: none")>
-                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('是否已删除')}">是否已删除</div></div>
-                    <div class="layui-input-block layui-input-block-c1">
-                        <input lay-filter="deleted" id="deleted" name="deleted" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('是否已删除') }" type="text" class="layui-input"   />
+                    <div class="layui-form-item" style="display: none")>
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('是否已删除')}">是否已删除</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input lay-filter="deleted" id="deleted" name="deleted" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('是否已删除') }" type="text" class="layui-input"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0" min-value="" max-value=""  scale="0"/>
+                        </div>
                     </div>
-                </div>
 
 
                 
@@ -171,12 +179,12 @@
 
 
                 
-                <div class="layui-form-item" style="display: none")>
-                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('删除时间')}">删除时间</div></div>
-                    <div class="layui-input-block layui-input-block-c1">
-                        <input lay-filter="deleteTime" id="deleteTime" name="deleteTime" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('删除时间') }" type="text" class="layui-input"   />
+                    <div class="layui-form-item" style="display: none")>
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('删除时间')}">删除时间</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input input-type="date" lay-filter="deleteTime" id="deleteTime" name="deleteTime"  autocomplete="off"  readonly  th:placeholder="${ lang.translate('请选择') +''+ lang.translate('删除时间') }" type="text" class="layui-input"   />
+                        </div>
                     </div>
-                </div>
 
 
                 
@@ -189,12 +197,12 @@
 
 
                 
-                <div class="layui-form-item" style="display: none")>
-                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('数据版本号')}">数据版本号</div></div>
-                    <div class="layui-input-block layui-input-block-c1">
-                        <input lay-filter="version" id="version" name="version" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('数据版本号') }" type="text" class="layui-input"   />
+                    <div class="layui-form-item" style="display: none")>
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('数据版本号')}">数据版本号</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input lay-filter="version" id="version" name="version" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('数据版本号') }" type="text" class="layui-input"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0" min-value="" max-value=""  scale="0"/>
+                        </div>
                     </div>
-                </div>
 
 
                 
@@ -220,8 +228,7 @@
 </div>
 
 <div class="model-form-footer">
-    <button class="layui-btn layui-btn-primary" id="cancel-button" lay-filter="cancel-button" type="button" th:text="${lang.translate('取消')}">取消</button>
-    <button th:if="${perm.checkAnyAuth('sys_session_online:create','sys_session_online:update','sys_session_online:save')}" class="layui-btn" style="margin-right: 15px"  id="submit-button" lay-filter="submit-button" lay-submit th:text="${lang.translate('保存')}">保存</button>
+    <button class="layui-btn layui-btn-primary" id="cancel-button" lay-filter="cancel-button" type="button" th:text="${lang.translate('取消')}"  style="margin-right: 15px" >取消</button>
 </div>
 
 <script type="text/javascript" src="/module/global.js" th:src="'/module/global.js?'+${cacheKey}"></script>

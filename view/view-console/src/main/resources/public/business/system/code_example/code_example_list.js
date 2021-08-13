@@ -1,7 +1,7 @@
 /**
  * 代码生成示例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-13 17:35:36
+ * @since 2021-08-13 21:51:27
  */
 
 
@@ -58,6 +58,7 @@ function ListPage() {
 					,{ field: 'area', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('整数输入') }
 					,{ field: 'weight', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('小数输入') }
 					,{ field: 'birthday', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('日期'), templet: function (d) { return fox.dateFormat(d.birthday); }}
+					,{ field: 'workTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('工作时间'), templet: function (d) { return fox.dateFormat(d.workTime); }}
 					,{ field: 'valid', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('逻辑值'), templet: '#cell-tpl-valid'}
 					,{ field: 'radioEnum', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('单选框(枚举)'), templet:function (d){ return fox.getEnumText(RADIO_RADIOENUM_DATA,d.radioEnum);}}
 					,{ field: 'radioDict', align:"left", fixed:false, hide:false, sort: true, title: fox.translate('单选框(字典)'), templet:function (d){ return fox.getDictText(RADIO_RADIODICT_DATA,d.radioDict);}}
@@ -73,6 +74,7 @@ function ListPage() {
 					,{ field: 'imageId', align:"left", fixed:false, hide:false, sort: true, title: fox.translate('图片上传'), templet: function (d) { return '<img style="height:100%;" fileType="image/png" onclick="window.previewImage(this)"  src="'+apiurls.storage.image+'?id='+ d.imageId+'" />'; } }
 					,{ field: 'fileIds', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('多文件上传') }
 					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('ID') }
+					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
 				]],
 				footer : {

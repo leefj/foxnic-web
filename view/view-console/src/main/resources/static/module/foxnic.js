@@ -129,12 +129,38 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             return inst;
         },
         lockForm(fm,lock) {
-            debugger;
-            fm.find("input").attr("readonly","yes");
-            fm.find("input[type=checkbox]").attr("disabled","yes");
-            fm.find("input[type=radio]").attr("disabled","yes");
-            fm.find("button").attr("disabled","yes");
-            fm.find("button[input-type=date]").attr("disabled","yes");
+            // debugger;
+            if(lock) {
+                fm.find("input").attr("placeholder", "");
+                fm.find("input").attr("readonly", "yes");
+                fm.find("textarea").attr("placeholder", "");
+                fm.find("textarea").attr("readonly", "yes");
+                fm.find("input[type=checkbox]").attr("disabled", "yes");
+                fm.find("input[type=radio]").attr("disabled", "yes");
+                fm.find("input[input-type=date]").attr("disabled", "yes");
+                //
+                var buttons = fm.find("button");
+                buttons.attr("disabled", "yes");
+                buttons.removeClass("layui-btn-disabled");
+                buttons.addClass("layui-btn-disabled");
+
+                var selects = fm.find("div[input-type=select]");
+                for (var i = 0; i < selects.length; i++) {
+                    var id = $(selects[i]).attr("id");
+                    xmSelect.get("#" + id, true).update({disabled: true});
+                }
+                //
+                var foxup = layui.foxnicUpload;
+                if (foxup) {
+                    var ups = fm.find("input[input-type=upload]");
+                    for (var i = 0; i < ups.length; i++) {
+                        var id = $(ups[i]).attr("id");
+                        foxup.disable(id);
+                    }
+                }
+            } else {
+                console.error("暂不支持");
+            }
         },
         setSelectValue4QueryApi:function (id,value){
             // debugger;
@@ -473,6 +499,8 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             if (isNaN(scale)) scale = 2;
             if (!isNaN(step)) {
                 function doStep(e) {
+                    // debugger;
+                    if(input.attr("readonly")) return;
                     var v = input.val().trim();
                     v = parseFloat(v);
                     if (e.key == "ArrowDown" || e.deltaY > 0) {
@@ -517,6 +545,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
 
                 //滚轮上下滚动
                 input.hover(function () {
+                    if(input.attr("readonly")) return;
                     console.log("hover")
                     addHandler(document, 'mousewheel');
                     addHandler(document, 'DOMMouseScroll');
@@ -1251,6 +1280,9 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             top.previewImage(obj);
             return;
         }
+        //只有明确不允许查看，菜不查看，否则就可以查看
+        if($(obj).attr("can-preview")=="no") return;
+
         var it = $(obj).parent();
         //var id=it.attr("id");
         layer.photos({

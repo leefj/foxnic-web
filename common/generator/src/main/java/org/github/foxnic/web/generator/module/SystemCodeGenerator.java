@@ -15,6 +15,10 @@ import org.github.foxnic.web.generator.config.FoxnicWebConfigs.ProjectConfigs;
 import org.github.foxnic.web.proxy.MicroServiceNames;
 import org.github.foxnic.web.proxy.oauth.MenuServiceProxy;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 
 /**
  * 为以usr_开头的表生成代码
@@ -22,7 +26,23 @@ import org.github.foxnic.web.proxy.oauth.MenuServiceProxy;
 public class SystemCodeGenerator  {
  
 	public static void main(String[] args) throws Exception {
+
+//		GBuilder gb=new GBuilder();
+
 		SystemCodeGenerator g=new SystemCodeGenerator();
+
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		try {
+			while(true) {
+				System.out.println("What you name?");
+				String str = br.readLine();
+				System.out.println("Hello " + str + ".");
+				g.generateSysNode();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 		// 
 //		g.generateSysConfig();
 //		//
@@ -54,6 +74,27 @@ public class SystemCodeGenerator  {
 	private void generateSysNode() throws Exception {
 		//创建配置
 		ModuleContext cfg=createModuleConfig(FoxnicWeb.SYS_NODE.$TABLE, 5);
+
+		cfg.view().field(FoxnicWeb.SYS_NODE.IS_UP).search().hidden();
+		cfg.view().field(FoxnicWeb.SYS_NODE.HOST_ID).search().hidden();
+		cfg.view().field(FoxnicWeb.SYS_NODE.ID).search().hidden();
+		cfg.view().field(FoxnicWeb.SYS_NODE.PORT).search().hidden();
+		cfg.view().field(FoxnicWeb.SYS_NODE.PROCESS_ID).search().hidden();
+		cfg.view().field(FoxnicWeb.SYS_NODE.START_TIME).search().hidden();
+		cfg.view().field(FoxnicWeb.SYS_NODE.HEART_BEAT_TIME).search().hidden();
+		cfg.view().field(FoxnicWeb.SYS_NODE.HOST_NAME).search().hidden();
+		cfg.view().field(FoxnicWeb.SYS_NODE.IP).search().hidden();
+		cfg.view().field(FoxnicWeb.SYS_NODE.WORKER_ID).search().hidden();
+		cfg.view().field(FoxnicWeb.SYS_NODE.DATACENTER_ID).search().hidden();
+		cfg.view().field(FoxnicWeb.SYS_NODE.CREATE_TIME).table().disable();
+		cfg.view().field(FoxnicWeb.SYS_NODE.APPLICATION_NAME).search().inputWidth(200).fuzzySearch();
+		//
+		cfg.view().list().disableSpaceColumn();
+		cfg.view().list().disableModify();
+		cfg.view().list().disableCreateNew();
+		cfg.view().list().disableSingleDelete();
+		cfg.view().list().disableBatchDelete();
+		cfg.view().list().operateColumnWidth(60);
 
 		//文件生成覆盖模式
 		cfg.overrides()
