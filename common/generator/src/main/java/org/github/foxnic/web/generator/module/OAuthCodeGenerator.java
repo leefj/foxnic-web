@@ -128,11 +128,11 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		cfg.view().field(SYS_USER.CACHE_KEY).search().hidden();
 
 		cfg.view().field(SYS_USER.VALID)
-				.list().alignCenter()
+				.table().alignCenter()
 				.form().logicField().on("有效","1").off("无效","0");
 
 
-		cfg.view().table().columnLayout(SYS_USER.NAME,SYS_USER.PORTRAIT_ID,SYS_USER.LANGUAGE
+		cfg.view().list().columnLayout(SYS_USER.NAME,SYS_USER.PORTRAIT_ID,SYS_USER.LANGUAGE
 				,SYS_USER.PHONE,SYS_USER.VALID,UserVOMeta.ROLE_IDS);
 
 		//生成代码
@@ -172,20 +172,20 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		.setListPage(WriteMode.COVER_EXISTS_FILE); //列表HTML页
 
 		cfg.view().field(SYS_SESSION_ONLINE.ID)
-			.list().hidden().search().hidden();
+			.table().hidden().search().hidden();
 
 		cfg.view().field(SYS_SESSION_ONLINE.SESSION_ID)
-			.list().hidden().search().hidden();
+			.table().hidden().search().hidden();
 
 		cfg.view().field(SYS_SESSION_ONLINE.HOST_ID)
-				.list().hidden().search().hidden();
+				.table().hidden().search().hidden();
 
 		cfg.view().field(SYS_SESSION_ONLINE.NODE_ID)
-				.list().hidden().search().hidden();
+				.table().hidden().search().hidden();
 
 
 		cfg.view().field(SYS_SESSION_ONLINE.USER_ID)
-			.list().fillBy(SessionOnlineMeta.USER,UserMeta.NAME)
+			.table().fillBy(SessionOnlineMeta.USER,UserMeta.NAME)
 			.search().hidden();
 
 
@@ -207,7 +207,7 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 				.search().hidden();
 
 		cfg.view().field(SYS_SESSION_ONLINE.ONLINE)
-				.list().hidden().search().hidden();
+				.table().hidden().search().hidden();
 
 		//生成代码
 		cfg.buildAll();
@@ -218,7 +218,7 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		ModuleContext cfg=createModuleConfig(SYS_RESOURZE.$TABLE, 6);
 
 		cfg.view().field(SYS_RESOURZE.ID)
-				.list().hidden(true)
+				.table().hidden(true)
 				.search().hidden();
 		;
 
@@ -234,7 +234,7 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		cfg.view().field(SYS_RESOURZE.MODULE).basic().label("模块");
 		cfg.view().field(SYS_RESOURZE.TABLE_NAME).basic().label("数据表");
 
-		cfg.view().table().operateColumnWidth(125);
+		cfg.view().list().operateColumnWidth(125);
 
 		//文件生成覆盖模式
 		cfg.overrides()

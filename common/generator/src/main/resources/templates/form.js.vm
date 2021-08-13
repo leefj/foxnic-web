@@ -4,7 +4,9 @@ function FormPage() {
 
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect,foxup;
 	const moduleURL="#(moduleURL)";
-	
+
+	const disableCreateNew=#(disableCreateNew);
+	const disableModify=#(disableModify);
 	/**
       * 入口函数，初始化
       */

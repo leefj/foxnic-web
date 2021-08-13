@@ -128,6 +128,14 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             }, 500);
             return inst;
         },
+        lockForm(fm,lock) {
+            debugger;
+            fm.find("input").attr("readonly","yes");
+            fm.find("input[type=checkbox]").attr("disabled","yes");
+            fm.find("input[type=radio]").attr("disabled","yes");
+            fm.find("button").attr("disabled","yes");
+            fm.find("button[input-type=date]").attr("disabled","yes");
+        },
         setSelectValue4QueryApi:function (id,value){
             // debugger;
             var inst=xmSelect.get(id,true);
@@ -187,7 +195,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
          * */
         renderTable: function (cfg) {
             var tableId = cfg.elem.substring(1);
-            //debugger;
+            // debugger;
             if (window.LAYUI_TABLE_WIDTH_CONFIG) {
                 //debugger;
                 var columnWidthConfig = LAYUI_TABLE_WIDTH_CONFIG[tableId];
@@ -197,7 +205,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     var prevFlag = 0, prev = null;
                     for (var i = 0; cols && i < cols.length; i++) {
                         if (cols[i].hide) continue;
-                        if (cols[i].field=="row-ops") continue;
+                        if (cols[i].field==this.translate('空白列')) continue;
                         // if(cols[i].field=="createTime") {
                         // 	debugger;
                         // 	columnWidthConfig[cols[i].field]=200;
@@ -207,13 +215,13 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                             cols[i].width = w;
                             console.log(cols[i].field, w);
                         }
-                        if (cols[i].field == "row-ops") prevFlag = 1;
+                        if (cols[i].field == this.translate('空白列')) prevFlag = 1;
                         if (prevFlag == 0) {
                             prev = cols[i];
                         }
 
                     }
-                    if (prev) prev.width = null;
+                    //if (prev) prev.width = null;
                 }
             }
 
@@ -1117,8 +1125,10 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
     };
 
     var mouseDownTime;
+    var mouseDownTarget;
     $(document).on("mousedown", function (e) {
         mouseDownTime = (new Date()).getTime();
+        mouseDownTarget=e.target;
     });
     /**
      * 监听layui table 的列宽拖动时间
@@ -1133,7 +1143,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
         //console.log(2)
         setTimeout(function () {
 
-            var tar = $(e.target);
+            var tar = $(mouseDownTarget);
             //debugger
             if (tar.parent().length == 0) return;
             if (tar.parent()[0].nodeName != "TH") return;
@@ -1169,7 +1179,6 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     ws[cols[i].field] = th[0].clientWidth;
                 }
             }
-
             var loc = location.href;
             loc = loc.substr(loc.indexOf("//") + 2);
             loc = loc.substr(loc.indexOf("/"));
