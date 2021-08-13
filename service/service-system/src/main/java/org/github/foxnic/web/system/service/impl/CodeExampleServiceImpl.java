@@ -17,6 +17,7 @@ import org.github.foxnic.web.domain.system.CodeExample;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.system.service.ICodeExampleRoleService;
 import org.github.foxnic.web.system.service.ICodeExampleService;
+import org.github.foxnic.web.system.service.IConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +33,7 @@ import java.util.List;
  * 代码生成示例 服务实现
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-07 08:32:18
+ * @since 2021-08-13 09:36:50
 */
 
 
@@ -44,14 +45,22 @@ public class CodeExampleServiceImpl extends SuperService<CodeExample> implements
 	 * */
 	@Resource(name=DBConfigs.PRIMARY_DAO) 
 	private DAO dao=null;
-
-	@Autowired
-	private ICodeExampleRoleService codeExampleRoleService;
 	
 	/**
 	 * 获得 DAO 对象
 	 * */
 	public DAO dao() { return dao; }
+
+
+	@Autowired 
+	private ICodeExampleRoleService codeExampleRoleService;
+
+	@Autowired 
+	private CodeExampleRoleServiceImpl codeExampleRoleServiceImpl;
+
+	@Resource (name="uuc")
+	private IConfigService configService;
+
 	
 	@Override
 	public Object generateId(Field field) {
@@ -65,8 +74,6 @@ public class CodeExampleServiceImpl extends SuperService<CodeExample> implements
 	 * */
 	@Override
 	public Result insert(CodeExample codeExample) {
-		// 保存关系，需要手写
-		codeExampleRoleService.saveRelation(codeExample.getId(),codeExample.getRoleIds());
 		return super.insert(codeExample);
 	}
 	
@@ -134,8 +141,6 @@ public class CodeExampleServiceImpl extends SuperService<CodeExample> implements
 	 * */
 	@Override
 	public Result update(CodeExample codeExample , SaveMode mode) {
-		// 保存关系，需要手写
-		codeExampleRoleService.saveRelation(codeExample.getId(),codeExample.getRoleIds());
 		return super.update(codeExample , mode);
 	}
 	
@@ -256,5 +261,6 @@ public class CodeExampleServiceImpl extends SuperService<CodeExample> implements
 	public ExcelStructure buildExcelStructure(boolean isForExport) {
 		return super.buildExcelStructure(isForExport);
 	}
+
 
 }

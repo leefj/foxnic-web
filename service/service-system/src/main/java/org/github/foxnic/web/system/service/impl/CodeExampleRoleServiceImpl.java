@@ -35,7 +35,7 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.*;
  *  服务实现
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-12 15:11:15
+ * @since 2021-08-13 09:36:55
 */
 
 
@@ -52,6 +52,8 @@ public class CodeExampleRoleServiceImpl extends SuperService<CodeExampleRole> im
 	 * 获得 DAO 对象
 	 * */
 	public DAO dao() { return dao; }
+
+
 	
 	@Override
 	public Object generateId(Field field) {

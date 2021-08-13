@@ -17,6 +17,7 @@ import org.github.foxnic.web.domain.system.meta.CodeExampleMeta;
 import org.github.foxnic.web.domain.system.meta.CodeExampleVOMeta;
 import org.github.foxnic.web.proxy.oauth.ResourzeServiceProxy;
 import org.github.foxnic.web.proxy.oauth.RoleServiceProxy;
+import org.github.foxnic.web.system.service.ICodeExampleRoleService;
 
 
 public class CodeExampleGenerator extends SystemCodeGenerator {
@@ -151,6 +152,8 @@ public class CodeExampleGenerator extends SystemCodeGenerator {
 					.fillBy(CodeExampleMeta.ROLES).muliti(true);
 		;
 
+		//加入服务
+		cfg.service().autoware(ICodeExampleRoleService.class);
 
 		cfg.view().field(CodeExampleVOMeta.ROLE_COUNT_BY_AFTER)
 				.basic().label("角色数(Java)")
@@ -187,8 +190,6 @@ public class CodeExampleGenerator extends SystemCodeGenerator {
 				new Object[]{SYS_CODE_EXAMPLE.SELECT_ENUM,SYS_CODE_EXAMPLE.SELECT_DICT},
 				new Object[]{CodeExampleMeta.ROLE_IDS,SYS_CODE_EXAMPLE.RESOURCE_ID}
 		);
-
-
 
 //		//单列布局方式：其实就是排个顺序,并把不在清单中的字段设置成隐藏
 //		cfg.view().formWindow().width(600);
@@ -272,7 +273,7 @@ public class CodeExampleGenerator extends SystemCodeGenerator {
 		//文件生成覆盖模式
 		cfg.overrides()
 		//请勿覆盖，已有代码加入！！！！！
-		.setServiceIntfAnfImpl(WriteMode.CREATE_IF_NOT_EXISTS) //服务与接口
+		.setServiceIntfAnfImpl(WriteMode.COVER_EXISTS_FILE) //服务与接口
 		.setControllerAndAgent(WriteMode.COVER_EXISTS_FILE) //Rest
 		.setPageController(WriteMode.COVER_EXISTS_FILE) //页面控制器
 		.setFormPage(WriteMode.COVER_EXISTS_FILE) //表单HTML页
