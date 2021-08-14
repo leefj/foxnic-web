@@ -1,5 +1,6 @@
 package org.github.foxnic.web.domain.storage.meta;
 
+import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.storage.File;
 import java.util.Date;
 
@@ -7,7 +8,7 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-26 10:54:56
+ * @since 2021-08-14 11:11:47
  * @sign 87D295147A78F5F3CF92EFFDDF28E961
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -15,94 +16,184 @@ import java.util.Date;
 public class FileMeta {
 	
 	/**
-	 * ID
+	 * ID , 类型: java.lang.String
 	*/
 	public static final String ID="id";
 	
 	/**
-	 * 文件名
+	 * ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.storage.File,java.lang.String> ID_PROP = new BeanProperty(org.github.foxnic.web.domain.storage.File.class ,ID, java.lang.String.class, "ID", "ID", java.lang.String.class, null);
+	
+	/**
+	 * 文件名 , 类型: java.lang.String
 	*/
 	public static final String FILE_NAME="fileName";
 	
 	/**
-	 * 存储位置
+	 * 文件名 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.storage.File,java.lang.String> FILE_NAME_PROP = new BeanProperty(org.github.foxnic.web.domain.storage.File.class ,FILE_NAME, java.lang.String.class, "文件名", "文件名", java.lang.String.class, null);
+	
+	/**
+	 * 存储位置 , 类型: java.lang.String
 	*/
 	public static final String LOCATION="location";
 	
 	/**
-	 * 文件大小 , 单位KB
+	 * 存储位置 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.storage.File,java.lang.String> LOCATION_PROP = new BeanProperty(org.github.foxnic.web.domain.storage.File.class ,LOCATION, java.lang.String.class, "存储位置", "存储位置", java.lang.String.class, null);
+	
+	/**
+	 * 文件大小 , 单位KB , 类型: java.lang.Long
 	*/
 	public static final String SIZE="size";
 	
 	/**
-	 * 媒体类型
+	 * 文件大小 , 单位KB , 类型: java.lang.Long
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.storage.File,java.lang.Long> SIZE_PROP = new BeanProperty(org.github.foxnic.web.domain.storage.File.class ,SIZE, java.lang.Long.class, "文件大小", "单位KB", java.lang.Long.class, null);
+	
+	/**
+	 * 媒体类型 , 类型: java.lang.String
 	*/
 	public static final String MEDIA_TYPE="mediaType";
 	
 	/**
-	 * 文件类型 , 存放文件扩展名
+	 * 媒体类型 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.storage.File,java.lang.String> MEDIA_TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.storage.File.class ,MEDIA_TYPE, java.lang.String.class, "媒体类型", "媒体类型", java.lang.String.class, null);
+	
+	/**
+	 * 文件类型 , 存放文件扩展名 , 类型: java.lang.String
 	*/
 	public static final String FILE_TYPE="fileType";
 	
 	/**
-	 * 可直接下载的地址
+	 * 文件类型 , 存放文件扩展名 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.storage.File,java.lang.String> FILE_TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.storage.File.class ,FILE_TYPE, java.lang.String.class, "文件类型", "存放文件扩展名", java.lang.String.class, null);
+	
+	/**
+	 * 可直接下载的地址 , 类型: java.lang.String
 	*/
 	public static final String DOWNLOAD_URL="downloadUrl";
 	
 	/**
-	 * 最后访问时间
+	 * 可直接下载的地址 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.storage.File,java.lang.String> DOWNLOAD_URL_PROP = new BeanProperty(org.github.foxnic.web.domain.storage.File.class ,DOWNLOAD_URL, java.lang.String.class, "可直接下载的地址", "可直接下载的地址", java.lang.String.class, null);
+	
+	/**
+	 * 最后访问时间 , 类型: java.util.Date
 	*/
 	public static final String LATEST_VISIT_TIME="latestVisitTime";
 	
 	/**
-	 * 下载次数
+	 * 最后访问时间 , 类型: java.util.Date
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.storage.File,java.util.Date> LATEST_VISIT_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.storage.File.class ,LATEST_VISIT_TIME, java.util.Date.class, "最后访问时间", "最后访问时间", java.util.Date.class, null);
+	
+	/**
+	 * 下载次数 , 类型: java.lang.Integer
 	*/
 	public static final String DOWNLOADS="downloads";
 	
 	/**
-	 * 创建人ID
+	 * 下载次数 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.storage.File,java.lang.Integer> DOWNLOADS_PROP = new BeanProperty(org.github.foxnic.web.domain.storage.File.class ,DOWNLOADS, java.lang.Integer.class, "下载次数", "下载次数", java.lang.Integer.class, null);
+	
+	/**
+	 * 创建人ID , 类型: java.lang.String
 	*/
 	public static final String CREATE_BY="createBy";
 	
 	/**
-	 * 创建时间
+	 * 创建人ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.storage.File,java.lang.String> CREATE_BY_PROP = new BeanProperty(org.github.foxnic.web.domain.storage.File.class ,CREATE_BY, java.lang.String.class, "创建人ID", "创建人ID", java.lang.String.class, null);
+	
+	/**
+	 * 创建时间 , 类型: java.util.Date
 	*/
 	public static final String CREATE_TIME="createTime";
 	
 	/**
-	 * 修改人ID
+	 * 创建时间 , 类型: java.util.Date
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.storage.File,java.util.Date> CREATE_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.storage.File.class ,CREATE_TIME, java.util.Date.class, "创建时间", "创建时间", java.util.Date.class, null);
+	
+	/**
+	 * 修改人ID , 类型: java.lang.String
 	*/
 	public static final String UPDATE_BY="updateBy";
 	
 	/**
-	 * 修改时间
+	 * 修改人ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.storage.File,java.lang.String> UPDATE_BY_PROP = new BeanProperty(org.github.foxnic.web.domain.storage.File.class ,UPDATE_BY, java.lang.String.class, "修改人ID", "修改人ID", java.lang.String.class, null);
+	
+	/**
+	 * 修改时间 , 类型: java.util.Date
 	*/
 	public static final String UPDATE_TIME="updateTime";
 	
 	/**
-	 * 是否已删除
+	 * 修改时间 , 类型: java.util.Date
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.storage.File,java.util.Date> UPDATE_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.storage.File.class ,UPDATE_TIME, java.util.Date.class, "修改时间", "修改时间", java.util.Date.class, null);
+	
+	/**
+	 * 是否已删除 , 类型: java.lang.Integer
 	*/
 	public static final String DELETED="deleted";
 	
 	/**
-	 * 删除人ID
+	 * 是否已删除 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.storage.File,java.lang.Integer> DELETED_PROP = new BeanProperty(org.github.foxnic.web.domain.storage.File.class ,DELETED, java.lang.Integer.class, "是否已删除", "是否已删除", java.lang.Integer.class, null);
+	
+	/**
+	 * 删除人ID , 类型: java.lang.String
 	*/
 	public static final String DELETE_BY="deleteBy";
 	
 	/**
-	 * 删除时间
+	 * 删除人ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.storage.File,java.lang.String> DELETE_BY_PROP = new BeanProperty(org.github.foxnic.web.domain.storage.File.class ,DELETE_BY, java.lang.String.class, "删除人ID", "删除人ID", java.lang.String.class, null);
+	
+	/**
+	 * 删除时间 , 类型: java.util.Date
 	*/
 	public static final String DELETE_TIME="deleteTime";
 	
 	/**
-	 * 数据版本号
+	 * 删除时间 , 类型: java.util.Date
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.storage.File,java.util.Date> DELETE_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.storage.File.class ,DELETE_TIME, java.util.Date.class, "删除时间", "删除时间", java.util.Date.class, null);
+	
+	/**
+	 * 数据版本号 , 类型: java.lang.Integer
 	*/
 	public static final String VERSION="version";
 	
 	/**
-	 * 是否存在与存储系统
+	 * 数据版本号 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.storage.File,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.storage.File.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
+	
+	/**
+	 * 是否存在与存储系统 , 类型: java.lang.Boolean
 	*/
 	public static final String EXISTS="exists";
+	
+	/**
+	 * 是否存在与存储系统 , 类型: java.lang.Boolean
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.storage.File,java.lang.Boolean> EXISTS_PROP = new BeanProperty(org.github.foxnic.web.domain.storage.File.class ,EXISTS, java.lang.Boolean.class, "是否存在与存储系统", "", java.lang.Boolean.class, null);
 	
 	/**
 	 * 全部属性清单

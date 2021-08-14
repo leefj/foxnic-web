@@ -18,11 +18,11 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
  
 	public static void main(String[] args) throws Exception {
 		OAuthCodeGenerator g=new OAuthCodeGenerator();
-//		g.generateSysResource();  //ok
+		g.generateSysResource();  //ok
 //		g.generateSysMenuResource();
 //		g.generateSysUser(); //ok
 //		g.generateSysOAuthClient();
-		g.generateSysSessionOnline();
+//		g.generateSysSessionOnline();
 //		g.generateSysToken();
 //		g.generateSysRole();
 //		g.generateSysRoleUser();
@@ -217,7 +217,7 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		cfg.view().list().disableSingleDelete();
 		cfg.view().list().disableSpaceColumn();
 
-		//设置标签宽度，默认 65
+		//设置标签宽度
 		cfg.view().form().labelWidth(85);
 
 		//生成代码
@@ -239,11 +239,15 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 				.form().radioBox().enumType(HttpMethodType.class);
 
 		cfg.view().field(SYS_RESOURZE.TYPE).form().radioBox().enumType(ResourceType.class);
-		cfg.view().field(SYS_RESOURZE.NAME).form().validate().required();
-		cfg.view().field(SYS_RESOURZE.URL).form().validate().required();
+		cfg.view().field(SYS_RESOURZE.NAME).form().validate().required()
+		.search().fuzzySearch();
+		cfg.view().field(SYS_RESOURZE.URL).form().validate().required()
+		.search().fuzzySearch();
 		cfg.view().field(SYS_RESOURZE.BATCH_ID).basic().hidden(true);
-		cfg.view().field(SYS_RESOURZE.MODULE).basic().label("模块");
-		cfg.view().field(SYS_RESOURZE.TABLE_NAME).basic().label("数据表");
+		cfg.view().field(SYS_RESOURZE.MODULE).basic().label("模块")
+		.search().fuzzySearch();
+		cfg.view().field(SYS_RESOURZE.TABLE_NAME).basic().label("数据表")
+				.search().fuzzySearch();
 
 		cfg.view().list().operateColumnWidth(125);
 

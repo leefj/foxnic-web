@@ -1,7 +1,7 @@
 /**
  * 系统文件 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-27 15:48:44
+ * @since 2021-08-14 11:11:49
  */
 
 
@@ -36,61 +36,72 @@ function ListPage() {
       * 渲染表格
       */
     function renderTable() {
-     
-		fox.renderTable({
-			elem: '#data-table',
-            url: moduleURL +'/query-paged-list',
-		 	height: 'full-78',
-		 	limit: 50,
-			cols: [[
-				{  fixed: 'left',type: 'numbers' },
-			 	{  fixed: 'left',type:'checkbox' },
-                { field: 'id', align:"left", hide:false, sort: true, title: fox.translate('ID')} ,
-                { field: 'fileName', align:"left", hide:false, sort: true, title: fox.translate('文件名')} ,
-                { field: 'location', align:"left", hide:false, sort: true, title: fox.translate('存储位置')} ,
-                { field: 'size', align:"right", hide:false, sort: true, title: fox.translate('文件大小')} ,
-                { field: 'mediaType', align:"left", hide:false, sort: true, title: fox.translate('媒体类型')} ,
-                { field: 'fileType', align:"left", hide:false, sort: true, title: fox.translate('文件类型')} ,
-                { field: 'downloadUrl', align:"left", hide:false, sort: true, title: fox.translate('可直接下载的地址')} ,
-				{ field: 'latestVisitTime', align:"right", hide:false, sort: true, title: fox.translate('最后访问时间'), templet: function (d) { return fox.dateFormat(d.latestVisitTime); }} ,
-                { field: 'downloads', align:"right", hide:false, sort: true, title: fox.translate('下载次数')} ,
-				{ field: 'createTime', align:"right", hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return fox.dateFormat(d.createTime); }} ,
-                { field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
-            ]]
-	 		,footer : {
-				exportExcel : admin.checkAuth(AUTH_PREFIX+":export"),
-				importExcel : admin.checkAuth(AUTH_PREFIX+":import")?{
-					params : {} ,
-				 	callback : function(r) {
-						if(r.success) {
-							layer.msg(fox.translate('数据导入成功')+"!");
-						} else {
-							layer.msg(fox.translate('数据导入失败')+"!");
+		$(window).resize(function() {
+			fox.adjustSearchElement();
+		});
+		fox.adjustSearchElement();
+		//
+		function renderTableInternal() {
+			var h=$(".search-bar").height();
+			fox.renderTable({
+				elem: '#data-table',
+				toolbar: '#toolbarTemplate',
+				defaultToolbar: ['filter', 'print'],
+				url: moduleURL +'/query-paged-list',
+				height: 'full-'+(h+28),
+				limit: 50,
+				cols: [[
+					{ fixed: 'left',type: 'numbers' },
+					{ fixed: 'left',type:'checkbox' }
+					,{ field: 'id', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('ID') }
+					,{ field: 'fileName', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('文件名') }
+					,{ field: 'location', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('存储位置') }
+					,{ field: 'size', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('文件大小') }
+					,{ field: 'mediaType', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('媒体类型') }
+					,{ field: 'fileType', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('文件类型') }
+					,{ field: 'downloadUrl', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('可直接下载的地址') }
+					,{ field: 'latestVisitTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('最后访问时间'), templet: function (d) { return fox.dateFormat(d.latestVisitTime); }}
+					,{ field: 'downloads', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('下载次数') }
+					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return fox.dateFormat(d.createTime); }}
+					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
+					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
+				]],
+				footer : {
+					exportExcel : admin.checkAuth(AUTH_PREFIX+":export"),
+					importExcel : admin.checkAuth(AUTH_PREFIX+":import")?{
+						params : {} ,
+						callback : function(r) {
+							if(r.success) {
+								layer.msg(fox.translate('数据导入成功')+"!");
+							} else {
+								layer.msg(fox.translate('数据导入失败')+"!");
+							}
 						}
-					}
-			 	}:false
-		 	}
-        });
-        //绑定排序事件
-        table.on('sort(data-table)', function(obj){
-		  refreshTableData(obj.field,obj.type);
-        });
+					}:false
+				}
+			});
+			//绑定排序事件
+			table.on('sort(data-table)', function(obj){
+			  refreshTableData(obj.field,obj.type);
+			});
+		}
+		setTimeout(renderTableInternal,1);
     };
-     
+
 	/**
       * 刷新表格数据
       */
 	function refreshTableData(sortField,sortType) {
 		var value = {};
-		value.id={ value: $("#id").val() };
-		value.fileName={ value: $("#fileName").val() };
-		value.location={ value: $("#location").val() };
-		value.size={ value: $("#size").val() };
-		value.mediaType={ value: $("#mediaType").val() };
-		value.fileType={ value: $("#fileType").val() };
-		value.downloadUrl={ value: $("#downloadUrl").val() };
-		value.latestVisitTime={ begin: $("#latestVisitTime-begin").val(), end: $("#latestVisitTime-end").val() };
-		value.downloads={ value: $("#downloads").val() };
+		value.id={ value: $("#id").val()};
+		value.fileName={ value: $("#fileName").val()};
+		value.location={ value: $("#location").val()};
+		value.size={ value: $("#size").val()};
+		value.mediaType={ value: $("#mediaType").val()};
+		value.fileType={ value: $("#fileType").val()};
+		value.downloadUrl={ value: $("#downloadUrl").val()};
+		value.latestVisitTime={ value: $("#latestVisitTime").val()};
+		value.downloads={ value: $("#downloads").val()};
 		var ps={searchField: "$composite", searchValue: JSON.stringify(value),sortField: sortField,sortType: sortType};
 		table.reload('data-table', { where : ps });
 	}
@@ -117,12 +128,14 @@ function ListPage() {
 	}
 
 	function initSearchFields() {
-			laydate.render({
-				elem: '#latestVisitTime-begin'
-			});
-			laydate.render({
-				elem: '#latestVisitTime-end'
-			});
+
+		fox.switchSearchRow();
+
+		laydate.render({
+			elem: '#latestVisitTime',
+			trigger:"click"
+		});
+		fox.renderSearchInputs();
 	}
 	
 	/**
@@ -139,22 +152,53 @@ function ListPage() {
         $('#search-button').click(function () {
            refreshTableData();
         });
+
+		// 搜索按钮点击事件
+		$('#search-button-advance').click(function () {
+			fox.switchSearchRow(function (ex){
+				if(ex=="1") {
+					$('#search-button-advance span').text("关闭");
+				} else {
+					$('#search-button-advance span').text("更多");
+				}
+			});
+		});
 	}
 	
 	/**
 	 * 绑定按钮事件
 	  */
 	function bindButtonEvent() {
-	
+
+		//头工具栏事件
+		table.on('toolbar(data-table)', function(obj){
+			var checkStatus = table.checkStatus(obj.config.id);
+			switch(obj.event){
+				case 'create':
+					openCreateFrom();
+					break;
+				case 'batch-del':
+					batchDelete();
+					break;
+				case 'other':
+					break;
+					//自定义头工具栏右侧图标 - 提示
+				case 'LAYTABLE_TIPS':
+					layer.alert('这是工具栏右侧自定义的一个图标按钮');
+					break;
+			};
+		});
+
+
 		//添加按钮点击事件
-        $('#add-button').click(function () {
+        function openCreateFrom() {
         	//设置新增是初始化数据
         	var data={};
             showEditForm(data);
-        });
+        };
 		
         //批量删除按钮点击事件
-        $('#delete-button').click(function () {
+        function batchDelete() {
           
 			var ids=getCheckedList("id");
             if(ids.length==0) {
@@ -175,7 +219,7 @@ function ListPage() {
                     }
                 });
 			});
-        });
+        }
 	}
      
     /**
@@ -232,9 +276,9 @@ function ListPage() {
 		var height= (area && area.height) ? area.height : ($(window).height()*0.6);
 		var top= (area && area.top) ? area.top : (($(window).height()-height)/2);
 		var title = (data && data.id) ? (fox.translate('修改')+fox.translate('系统文件')) : (fox.translate('添加')+fox.translate('系统文件'));
-		admin.popupCenter({
+		var index=admin.popupCenter({
 			title: title,
-			resize: true,
+			resize: false,
 			offset: [top,null],
 			area: ["500px",height+"px"],
 			type: 2,
@@ -243,6 +287,7 @@ function ListPage() {
 				refreshTableData();
 			}
 		});
+		admin.putTempData('sys-file-form-data-popup-index', index);
 	};
 
 };

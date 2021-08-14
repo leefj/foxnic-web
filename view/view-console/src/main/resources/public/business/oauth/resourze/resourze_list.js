@@ -1,7 +1,7 @@
 /**
  * 系统资源 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-11 14:37:23
+ * @since 2021-08-14 11:21:24
  */
 
 
@@ -52,18 +52,18 @@ function ListPage() {
 				limit: 50,
 				cols: [[
 					{ fixed: 'left',type: 'numbers' },
-					{ fixed: 'left',type:'checkbox' },
-					{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('ID')} ,
-					{ field: 'name', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('名称')} ,
-					{ field: 'type', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('类型'), templet:function (d){ return fox.getEnumText(RADIO_TYPE_DATA,d.type);}} ,
-					{ field: 'url', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('地址')} ,
-					{ field: 'method', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('Method'), templet:function (d){ return fox.getEnumText(RADIO_METHOD_DATA,d.method);}} ,
-					{ field: 'batchId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('批次号')} ,
-					{ field: 'tableName', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('数据表')} ,
-					{ field: 'module', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('模块')} ,
-					{ field: 'createTime', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('创建时间')} ,
-					{ field: 'row-space', align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true},
-					{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
+					{ fixed: 'left',type:'checkbox' }
+					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('ID') }
+					,{ field: 'name', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('名称') }
+					,{ field: 'type', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('类型'), templet:function (d){ return fox.getEnumText(RADIO_TYPE_DATA,d.type);}}
+					,{ field: 'url', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('地址') }
+					,{ field: 'method', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('Method'), templet:function (d){ return fox.getEnumText(RADIO_METHOD_DATA,d.method);}}
+					,{ field: 'batchId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('批次号') }
+					,{ field: 'tableName', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('数据表') }
+					,{ field: 'module', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('模块') }
+					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return fox.dateFormat(d.createTime); }}
+					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
+					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
 				]],
 				footer : {
 					exportExcel : admin.checkAuth(AUTH_PREFIX+":export"),
@@ -92,11 +92,11 @@ function ListPage() {
       */
 	function refreshTableData(sortField,sortType) {
 		var value = {};
-		value.name={ value: $("#name").val()};
+		value.name={ value: $("#name").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" "};
 		value.type={ value: xmSelect.get("#type",true).getValue("value")};
-		value.url={ value: $("#url").val()};
-		value.tableName={ value: $("#tableName").val()};
-		value.module={ value: $("#module").val()};
+		value.url={ value: $("#url").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" "};
+		value.tableName={ value: $("#tableName").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" "};
+		value.module={ value: $("#module").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" "};
 		var ps={searchField: "$composite", searchValue: JSON.stringify(value),sortField: sortField,sortType: sortType};
 		table.reload('data-table', { where : ps });
 	}
@@ -283,9 +283,9 @@ function ListPage() {
 		var height= (area && area.height) ? area.height : ($(window).height()*0.6);
 		var top= (area && area.top) ? area.top : (($(window).height()-height)/2);
 		var title = (data && data.id) ? (fox.translate('修改')+fox.translate('系统资源')) : (fox.translate('添加')+fox.translate('系统资源'));
-		admin.popupCenter({
+		var index=admin.popupCenter({
 			title: title,
-			resize: true,
+			resize: false,
 			offset: [top,null],
 			area: ["500px",height+"px"],
 			type: 2,
@@ -294,6 +294,7 @@ function ListPage() {
 				refreshTableData();
 			}
 		});
+		admin.putTempData('sys-resourze-form-data-popup-index', index);
 	};
 
 };

@@ -2,7 +2,7 @@
 /**
  * 系统文件 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-27 15:48:43
+ * @since 2021-08-14 11:11:48
  */
  -->
  <!DOCTYPE html>
@@ -13,10 +13,11 @@
     <meta charset="utf-8"/>
     <title th:text="${lang.translate('系统文件')}">系统文件</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="/assets/libs/layui/css/layui.css"/>
-    <link rel="stylesheet" href="/assets/css/admin.css"/>
-    <link rel="stylesheet" href="/assets/css/foxnic-web.css">
+    <link rel="stylesheet" href="/assets/libs/layui/css/layui.css" th:href="'/assets/libs/layui/css/layui.css?'+${cacheKey}"/>
+    <link rel="stylesheet" href="/assets/css/admin.css" th:href="'/assets/css/admin.css?'+${cacheKey}"/>
+    <link rel="stylesheet" href="/assets/css/foxnic-web.css" th:href="'/assets/css/foxnic-web.css?'+${cacheKey}">
     <link href="/assets/libs/font-awesome-4.7.0/css/font-awesome.min.css" th:href="@{/assets/libs/font-awesome-4.7.0/css/font-awesome.min.css}" rel="stylesheet"/>
+    <script th:inline="javascript">var foxnic_cachekey=[[${cacheKey}]];</script>
 </head>
 
 <body style="overflow-y: hidden">
@@ -24,61 +25,88 @@
 <div class="layui-card">
  
     <div class="layui-card-body">
-        <div class="layui-form toolbar search-bar">
 
-            <div class="search-unit">
-                <span th:text="${lang.translate('')}" class="search-label"></span><span class="search-colon">:</span>
-                <input id="id" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入')}"/>
-            </div>
-            <div class="search-unit">
-                <span th:text="${lang.translate('')}" class="search-label"></span><span class="search-colon">:</span>
-                <input id="fileName" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入')}"/>
-            </div>
-            <div class="search-unit">
-                <span th:text="${lang.translate('')}" class="search-label"></span><span class="search-colon">:</span>
-                <input id="location" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入')}"/>
-            </div>
-            <div class="search-unit">
-                <span th:text="${lang.translate('')}" class="search-label"></span><span class="search-colon">:</span>
-                <input id="size" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入')}"/>
-            </div>
-            <div class="search-unit">
-                <span th:text="${lang.translate('')}" class="search-label"></span><span class="search-colon">:</span>
-                <input id="mediaType" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入')}"/>
-            </div>
-            <div class="search-unit">
-                <span th:text="${lang.translate('')}" class="search-label"></span><span class="search-colon">:</span>
-                <input id="fileType" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入')}"/>
-            </div>
-            <div class="search-unit">
-                <span th:text="${lang.translate('')}" class="search-label"></span><span class="search-colon">:</span>
-                <input id="downloadUrl" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入')}"/>
-            </div>
-            <div class="search-unit">
-                <span th:text="${lang.translate('')}" class="search-label"></span><span class="search-colon">:</span>
-                 <input type="text" id="latestVisitTime-begin" style="width: 90px" lay-verify="date" th:placeholder="${lang.translate('开始日期')}" autocomplete="off" class="layui-input search-input search-date-input"  readonly >
-                 <span class="search-dash">-</span>
-                 <input type="text" id="latestVisitTime-end"  style="width: 90px"  lay-verify="date" th:placeholder="${lang.translate('结束日期')}" autocomplete="off" class="layui-input search-input search-date-input" readonly>
-            </div>
-            <div class="search-unit">
-                <span th:text="${lang.translate('')}" class="search-label"></span><span class="search-colon">:</span>
-                <input id="downloads" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入')}"/>
+        <div class="search-bar">
+
+            <div class="search-input-rows" style="opacity: 0">
+                <!-- 搜索输入区域 -->
+                <div class="layui-form toolbar search-inputs">
+                    <!-- ID , id ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div"><span th:text="${lang.translate('ID')}" class="search-label">ID</span><span class="search-colon">:</span></div>
+                        <input id="id" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 文件名 , fileName ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div"><span th:text="${lang.translate('文件名')}" class="search-label">文件名</span><span class="search-colon">:</span></div>
+                        <input id="fileName" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 存储位置 , location ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div"><span th:text="${lang.translate('存储位置')}" class="search-label">存储位置</span><span class="search-colon">:</span></div>
+                        <input id="location" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 文件大小 , size ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div"><span th:text="${lang.translate('文件大小')}" class="search-label">文件大小</span><span class="search-colon">:</span></div>
+                        <input id="size" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 媒体类型 , mediaType ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div"><span th:text="${lang.translate('媒体类型')}" class="search-label">媒体类型</span><span class="search-colon">:</span></div>
+                        <input id="mediaType" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 文件类型 , fileType ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div"><span th:text="${lang.translate('文件类型')}" class="search-label">文件类型</span><span class="search-colon">:</span></div>
+                        <input id="fileType" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 可直接下载的地址 , downloadUrl ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div"><span th:text="${lang.translate('可直接下载的地址')}" class="search-label">可直接下载的地址</span><span class="search-colon">:</span></div>
+                        <input id="downloadUrl" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 最后访问时间 , latestVisitTime ,typeName=date_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div"><span th:text="${lang.translate('最后访问时间')}" class="search-label">最后访问时间</span><span class="search-colon">:</span></div>
+                            <input type="text" id="latestVisitTime"  style="width: 140px"  lay-verify="date" th:placeholder="${lang.translate('请选择')}" autocomplete="off" class="layui-input search-input search-date-input" readonly>
+                    </div>
+                    <!-- 下载次数 , downloads ,typeName=number_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div"><span th:text="${lang.translate('下载次数')}" class="search-label">下载次数</span><span class="search-colon">:</span></div>
+                            <input id="downloads" class="layui-input search-input" style="width: 140px" type="text" autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0" min-value="" max-value="" scale="0"/>
+                    </div>
+
+
+                </div>
             </div>
 
-            <button id="search-button" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i><span th:text="${lang.translate('搜索')}">搜索</span></button>
-            <button th:if="${perm.checkAuth('sys_file:create')}" id="add-button" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i><span th:text="${lang.translate('添加')}">添加</span></button>
-            <button th:if="${perm.checkAuth('sys_file:delete-by-ids')}" id="delete-button" class="layui-btn icon-btn layui-btn-danger"><i class="layui-icon">&#xe67e;</i><span th:text="${lang.translate('删除')}">删除</span></button>
-            
+
+            <!-- 按钮区域 -->
+            <div class="layui-form toolbar search-buttons" style="opacity: 0">
+                <button id="search-button" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i>&nbsp;&nbsp;<span th:text="${lang.translate('搜索')}">搜索</span></button>
+            </div>
         </div>
 
-        <table class="layui-table" id="data-table" lay-filter="data-table"></table>
+        <div style="margin-top: 44px">
+            <table class="layui-table" id="data-table" lay-filter="data-table"></table>
+        </div>
+
     </div>
 </div>
 
-<script type="text/javascript" src="/module/global.js"></script>
-<script type="text/javascript" src="/assets/libs/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="/assets/libs/pandyle.min.js"></script>
-<script type="text/javascript" src="/assets/libs/layui/layui.js"></script>
+<script type="text/javascript" src="/module/global.js" th:src="'/module/global.js?'+${cacheKey}"></script>
+<script type="text/javascript" src="/assets/libs/jquery-3.2.1.min.js" th:src="'/assets/libs/jquery-3.2.1.min.js?'+${cacheKey}"></script>
+<script type="text/javascript" src="/assets/libs/pandyle.min.js" th:src="'/assets/libs/pandyle.min.js?'+${cacheKey}"></script>
+<script type="text/javascript" src="/assets/libs/layui/layui.js" th:src="'/assets/libs/layui/layui.js?'+${cacheKey}"></script>
+
+<!-- 表格工具栏 -->
+<script type="text/html" id="toolbarTemplate">
+    <div class="layui-btn-container">
+        <button th:if="${perm.checkAuth('sys_file:create')}" id="add-button" class="layui-btn icon-btn layui-btn-sm" lay-event="create"><i class="layui-icon">&#xe654;</i><span th:text="${lang.translate('新建')}">新建</span></button>
+            <button th:if="${perm.checkAuth('sys_file:delete-by-ids')}" id="delete-button" class="layui-btn icon-btn layui-btn-danger layui-btn-sm" lay-event="batch-del"><i class="layui-icon">&#xe67e;</i><span th:text="${lang.translate('删除')}">删除</span></button>
+    </div>
+</script>
 
 <!-- 表格操作列 -->
 <script type="text/html" id="tableOperationTemplate">
@@ -92,7 +120,7 @@
     var AUTH_PREFIX="sys_file";
 </script>
 
-<script src="/business/storage/file/file_list.js"></script>
+<script th:src="'/business/storage/file/file_list.js?'+${cacheKey}"></script>
 
 </body>
 </html>

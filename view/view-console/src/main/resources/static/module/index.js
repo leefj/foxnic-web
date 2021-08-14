@@ -25,7 +25,7 @@ function initIFrame() {
 }
 //add by owen 修复 path 无法引用http://页面的问题 end
 
-layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'], function (exports) {
+layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic',"dropdown"], function (exports) {
     var $ = layui.$;
     var config = layui.settings;
     var admin = layui.admin;
@@ -34,6 +34,8 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
     var element = layui.element;
     var form = layui.form;
     var foxnic=layui.foxnic;
+    var dropdown=layui.dropdown;
+
     
     //设置top-admin
  	window.admin=admin;
@@ -86,6 +88,8 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
             var activedTopMenuIndex=0;
         	//顶部导航按钮
             if(MODULE_ENABLE==1) {
+                var menuItems=[];
+                var buttonLimit=4;
                 for (var i = 0; i < tops.length; i++) {
                     var buttonId='nav-module-button-'+i;
                     var textStyle="";
@@ -94,11 +98,60 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
                             textStyle="color:#009688;";
                             style="color:#009688;";
                     }
-                    var button=['<li class="module-nav-item layui-nav-item" lay-unselect  index="'+i+'"  id="'+buttonId+'" style="line-height: 49px;">',
-                        '    <a  id="'+buttonId+'-a" index="'+i+'" title="'+tops[i].label+'" style="font-size: 15px;'+textStyle+'"><i class="'+tops[i].css+'" style="font-size: 17px"></i>&nbsp;&nbsp;'+tops[i].label+'</a>',
-                    '</li>' ]
-                    var b=$("#nav-modules").append(button.join("\n"));
+
+
+                    //超出部分加入到菜单
+                    if(i>=buttonLimit){
+                        var tps=[
+                            "<div style='height:36px;margin-top:6px'>",
+                            '   <a id="'+buttonId+'-a" index="'+i+'" title="'+tops[i].label+'" style="font-size: 15px;display: flex'+textStyle+'">',
+                            '       <div style="width: 20px;text-align:center;"><i class="'+tops[i].css+'" style="font-size: 17px;"></i></div>',
+                                    '&nbsp;&nbsp;{{d.title}}',
+                            '   </a>',
+                            "<div>",
+                        ]
+                        menuItems.push({
+                            id:i,
+                            title:tops[i].label,
+                            templet:tps.join("\n")
+
+                        });
+                    } else {
+                        var button=['<li class="module-nav-item layui-nav-item" lay-unselect  index="'+i+'"  id="'+buttonId+'" style="line-height: 49px;">',
+                            '    <a id="'+buttonId+'-a" index="'+i+'" title="'+tops[i].label+'" style="font-size: 15px;'+textStyle+'"><i class="'+tops[i].css+'" style="font-size: 17px"></i>&nbsp;&nbsp;'+tops[i].label+'</a>',
+                            '</li>' ]
+                        $("#nav-modules").append(button.join("\n"));
+                    }
                 }
+                var button=['<li class="module-nav-item layui-nav-item" lay-unselect id="more-top-menu-button-li" style="line-height: 49px;">',
+                    '    <a id="more-top-menu-button-li-a" title="" style="font-size: 15px;"><i class="fa fa-chevron-circle-down" style="font-size: 17px"></i>&nbsp;&nbsp;更多</a>',
+                    '</li>' ]
+                $("#nav-modules").append(button.join("\n"));
+
+                //下拉菜单
+                dropdown.render({
+                    elem: '#more-top-menu-button-li'
+                    ,data: menuItems
+                    ,click: function(obj){
+                        // debugger
+                        var topMenu=tops[obj.id];
+                        // layer.tips('点击了：'+ obj.title, this.elem, {tips: [1, '#5FB878']})
+                        index.switchNavMenu(obj.id,topMenu.subMenus);
+                    }
+                });
+
+                // $("#more-top-menu-button-li").click(function (e){
+                //     layer.open({
+                //         title:"自定义顶部菜单",
+                //         type: 2,
+                //         area: ['420px', '360px'],
+                //         resize:false,
+                //         skin: 'layui-layer-rim', //加上边框
+                //         content: '/top-menu.html'
+                //     });
+                // });
+
+
 
                 //debugger;
                 var activedTopMenuId=sessionStorage.getItem("nav_actived_top_menu_id_"+index.userId);
@@ -111,6 +164,7 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
                 //
                 $(".module-nav-item").click(function() {
                     var it=$(this);
+                    //忽略自定义按钮事件
                     var idx=it.attr("index");
                     var topMenu=tops[idx];
                     //重新渲染左侧导航部分

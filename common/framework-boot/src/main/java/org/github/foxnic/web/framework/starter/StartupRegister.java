@@ -74,7 +74,7 @@ public class StartupRegister implements ApplicationListener<ApplicationStartedEv
                 .set(SYS_NODE.HEART_BEAT_TIME,new Date())
         .where().and("id=?",SpringUtil.getNodeInstanceId());
 
-        dao.setPrintThreadSQL(false);
+        dao.pausePrintThreadSQL();
         dao.execute(update);
     }
 

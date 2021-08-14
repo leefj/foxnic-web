@@ -94,6 +94,7 @@ public class SystemCodeGenerator  {
 		cfg.view().list().disableCreateNew();
 		cfg.view().list().disableSingleDelete();
 		cfg.view().list().disableBatchDelete();
+		//配置表格操作列宽度
 		cfg.view().list().operateColumnWidth(60);
 
 		//文件生成覆盖模式

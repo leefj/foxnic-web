@@ -1,9 +1,8 @@
 package org.github.foxnic.web.storage.page;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * <p>
@@ -17,7 +16,7 @@ import org.springframework.ui.Model;
 @RequestMapping(FilePageController.prefix)
 public class FilePageController {
 	
-	public static final String prefix="pages/storage/file";
+	public static final String prefix="business/storage/file";
 
 	/**
 	 * 系统文件 功能主页面

@@ -1,5 +1,6 @@
 package org.github.foxnic.web.domain.storage.meta;
 
+import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.storage.FileVO;
 import java.util.List;
 
@@ -7,52 +8,97 @@ import java.util.List;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-24 13:31:49
- * @sign 3981DA6954ADEFC171B2BC8BB7DA39FF
+ * @since 2021-08-14 11:11:48
+ * @sign CD1FDDA5DB3EAE72AAD3C80F971CEAA7
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
 public class FileVOMeta extends FileMeta {
 	
 	/**
-	 * 页码
+	 * 页码 , 类型: java.lang.Integer
 	*/
 	public static final String PAGE_INDEX="pageIndex";
 	
 	/**
-	 * 分页大小
+	 * 页码 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.storage.FileVO,java.lang.Integer> PAGE_INDEX_PROP = new BeanProperty(org.github.foxnic.web.domain.storage.FileVO.class ,PAGE_INDEX, java.lang.Integer.class, "页码", "", java.lang.Integer.class, null);
+	
+	/**
+	 * 分页大小 , 类型: java.lang.Integer
 	*/
 	public static final String PAGE_SIZE="pageSize";
 	
 	/**
-	 * 搜索字段
+	 * 分页大小 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.storage.FileVO,java.lang.Integer> PAGE_SIZE_PROP = new BeanProperty(org.github.foxnic.web.domain.storage.FileVO.class ,PAGE_SIZE, java.lang.Integer.class, "分页大小", "", java.lang.Integer.class, null);
+	
+	/**
+	 * 搜索字段 , 类型: java.lang.String
 	*/
 	public static final String SEARCH_FIELD="searchField";
 	
 	/**
-	 * 搜索的值
+	 * 搜索字段 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.storage.FileVO,java.lang.String> SEARCH_FIELD_PROP = new BeanProperty(org.github.foxnic.web.domain.storage.FileVO.class ,SEARCH_FIELD, java.lang.String.class, "搜索字段", "", java.lang.String.class, null);
+	
+	/**
+	 * 模糊搜索字段 , 类型: java.lang.String
+	*/
+	public static final String FUZZY_FIELD="fuzzyField";
+	
+	/**
+	 * 模糊搜索字段 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.storage.FileVO,java.lang.String> FUZZY_FIELD_PROP = new BeanProperty(org.github.foxnic.web.domain.storage.FileVO.class ,FUZZY_FIELD, java.lang.String.class, "模糊搜索字段", "", java.lang.String.class, null);
+	
+	/**
+	 * 搜索的值 , 类型: java.lang.String
 	*/
 	public static final String SEARCH_VALUE="searchValue";
 	
 	/**
-	 * 排序字段
+	 * 搜索的值 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.storage.FileVO,java.lang.String> SEARCH_VALUE_PROP = new BeanProperty(org.github.foxnic.web.domain.storage.FileVO.class ,SEARCH_VALUE, java.lang.String.class, "搜索的值", "", java.lang.String.class, null);
+	
+	/**
+	 * 排序字段 , 类型: java.lang.String
 	*/
 	public static final String SORT_FIELD="sortField";
 	
 	/**
-	 * 排序方式
+	 * 排序字段 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.storage.FileVO,java.lang.String> SORT_FIELD_PROP = new BeanProperty(org.github.foxnic.web.domain.storage.FileVO.class ,SORT_FIELD, java.lang.String.class, "排序字段", "", java.lang.String.class, null);
+	
+	/**
+	 * 排序方式 , 类型: java.lang.String
 	*/
 	public static final String SORT_TYPE="sortType";
 	
 	/**
-	 * 主键清单 , 用于接收批量主键参数
+	 * 排序方式 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.storage.FileVO,java.lang.String> SORT_TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.storage.FileVO.class ,SORT_TYPE, java.lang.String.class, "排序方式", "", java.lang.String.class, null);
+	
+	/**
+	 * 主键清单 , 用于接收批量主键参数 , 集合类型: LIST , 类型: java.lang.String
 	*/
 	public static final String IDS="ids";
 	
 	/**
+	 * 主键清单 , 用于接收批量主键参数 , 集合类型: LIST , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.storage.FileVO,java.lang.String> IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.storage.FileVO.class ,IDS, java.util.List.class, "主键清单", "用于接收批量主键参数", java.lang.String.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , SEARCH_VALUE , SORT_FIELD , SORT_TYPE , IDS };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , SORT_FIELD , SORT_TYPE , IDS };
 	
 	/**
 	 * 代理类
@@ -92,6 +138,17 @@ public class FileVOMeta extends FileMeta {
 		public FileVO setSearchField(String searchField) {
 			super.change(SEARCH_FIELD,super.getSearchField(),searchField);
 			super.setSearchField(searchField);
+			return this;
+		}
+		
+		/**
+		 * 设置 模糊搜索字段
+		 * @param fuzzyField 模糊搜索字段
+		 * @return 当前对象
+		*/
+		public FileVO setFuzzyField(String fuzzyField) {
+			super.change(FUZZY_FIELD,super.getFuzzyField(),fuzzyField);
+			super.setFuzzyField(fuzzyField);
 			return this;
 		}
 		

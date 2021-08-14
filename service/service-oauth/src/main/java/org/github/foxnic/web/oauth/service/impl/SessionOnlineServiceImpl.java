@@ -227,8 +227,7 @@ public class SessionOnlineServiceImpl extends SuperService<SessionOnline> implem
 	}
 
 	private void doSessionJob() {
-
-		//this.dao().pausePrintThreadSQL();
+		this.dao().pausePrintThreadSQL();
 		//记录交互，如果有交互，记录交互，并标记在线
 		Set<String> keys=interactiveInfo.keys();
 		Object[] value=null;
@@ -240,7 +239,7 @@ public class SessionOnlineServiceImpl extends SuperService<SessionOnline> implem
 		dao.batchExecute("update "+ FoxnicWeb.SYS_SESSION_ONLINE.$NAME+" set "+FoxnicWeb.SYS_SESSION_ONLINE.INTERACT_URL+"=?,"+ FoxnicWeb.SYS_SESSION_ONLINE.INTERACT_TIME+"=?,"+FoxnicWeb.SYS_SESSION_ONLINE.ONLINE+"=1,"+FoxnicWeb.SYS_SESSION_ONLINE.LOGOUT_TIME+"=null  where id=?", pb.getBatchList());
 		//
 		dao.execute("update "+ FoxnicWeb.SYS_SESSION_ONLINE.$NAME+" set "+FoxnicWeb.SYS_SESSION_ONLINE.ONLINE+"=0,"+FoxnicWeb.SYS_SESSION_ONLINE.LOGOUT_TIME+"="+FoxnicWeb.SYS_SESSION_ONLINE.INTERACT_TIME+" where online=1 and interact_time<?",DateUtil.addMinutes(new Date(),-5));
-		//this.dao().resumePrintThreadSQL();
+		this.dao().resumePrintThreadSQL();
 	}
 
 	@Override
