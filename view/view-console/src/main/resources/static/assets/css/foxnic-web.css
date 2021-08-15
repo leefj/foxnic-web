@@ -120,6 +120,7 @@
 
 .search-label {
     padding-top: 4px;
+    white-space: nowrap;
 }
 
 .search-colon {

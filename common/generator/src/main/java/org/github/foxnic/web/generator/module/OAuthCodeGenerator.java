@@ -95,7 +95,7 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 
 		cfg.view().field(SYS_USER.NAME)
 				.form().validate().required()
-				.search().displayAlone(true)
+				//.search().displayAlone(true)
 		;
 
 //		cfg.view().field(UserMeta.ROLES)

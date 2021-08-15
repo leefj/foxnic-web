@@ -29,6 +29,8 @@ public class StorageCodeGenerator extends SystemCodeGenerator {
 
 		cfg.getPoClassFile().addSimpleProperty(Boolean.class,"exists","是否存在与存储系统","");
 
+//		cfg.view().field("").search().displayAlone(true);
+
 		//文件生成覆盖模式
 		cfg.overrides()
 		.setServiceIntfAnfImpl(WriteMode.CREATE_IF_NOT_EXISTS) //服务与接口
@@ -36,7 +38,8 @@ public class StorageCodeGenerator extends SystemCodeGenerator {
 		.setPageController(WriteMode.CREATE_IF_NOT_EXISTS) //页面控制器
 		.setFormPage(WriteMode.COVER_EXISTS_FILE) //表单HTML页
 		.setListPage(WriteMode.COVER_EXISTS_FILE); //列表HTML页
- 
+
+
 		//生成代码
 		cfg.buildAll();
 	}
