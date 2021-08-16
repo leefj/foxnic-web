@@ -33,6 +33,7 @@ import java.util.Map;
 import com.github.foxnic.dao.excel.ValidateResult;
 import java.io.InputStream;
 import org.github.foxnic.web.domain.system.meta.DictMeta;
+import org.github.foxnic.web.domain.system.DictItem;
 import org.github.foxnic.web.domain.oauth.Menu;
 import io.swagger.annotations.Api;
 import com.github.xiaoymin.knife4j.annotations.ApiSort;
@@ -49,7 +50,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 数据字典 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-02 14:50:52
+ * @since 2021-08-16 16:13:53
 */
 
 @Api(tags = "数据字典")
@@ -66,18 +67,16 @@ public class DictController extends SuperController {
 	*/
 	@ApiOperation(value = "添加数据字典")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = DictVOMeta.ID , value = "字典ID" , required = true , dataTypeClass=String.class , example = "1"),
+		@ApiImplicitParam(name = DictVOMeta.ID , value = "字典ID" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = DictVOMeta.IS_TREE , value = "是否树形结构" , required = true , dataTypeClass=Integer.class , example = "false"),
-		@ApiImplicitParam(name = DictVOMeta.NAME , value = "字典名称" , required = true , dataTypeClass=String.class , example = "性别"),
-		@ApiImplicitParam(name = DictVOMeta.CODE , value = "字典代码" , required = true , dataTypeClass=String.class , example = "sex"),
-		@ApiImplicitParam(name = DictVOMeta.MODULE , value = "所属模块" , required = false , dataTypeClass=String.class , example = "system"),
+		@ApiImplicitParam(name = DictVOMeta.NAME , value = "字典名称" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = DictVOMeta.CODE , value = "字典代码" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = DictVOMeta.MODULE , value = "所属模块" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = DictVOMeta.NOTES , value = "备注" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport(order=1)
 	@NotNull(name = DictVOMeta.ID)
 	@NotNull(name = DictVOMeta.IS_TREE)
-	@NotNull(name = DictVOMeta.NAME)
-	@NotNull(name = DictVOMeta.CODE)
 	@SentinelResource(value = DictServiceProxy.INSERT , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(DictServiceProxy.INSERT)
 	public Result insert(DictVO dictVO) {
@@ -91,7 +90,7 @@ public class DictController extends SuperController {
 	*/
 	@ApiOperation(value = "删除数据字典")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = DictVOMeta.ID , value = "字典ID" , required = true , dataTypeClass=String.class , example = "1")
+		@ApiImplicitParam(name = DictVOMeta.ID , value = "字典ID" , required = true , dataTypeClass=String.class)
 	})
 	@ApiOperationSupport(order=2)
 	@NotNull(name = DictVOMeta.ID)
@@ -125,18 +124,16 @@ public class DictController extends SuperController {
 	*/
 	@ApiOperation(value = "更新数据字典")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = DictVOMeta.ID , value = "字典ID" , required = true , dataTypeClass=String.class , example = "1"),
+		@ApiImplicitParam(name = DictVOMeta.ID , value = "字典ID" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = DictVOMeta.IS_TREE , value = "是否树形结构" , required = true , dataTypeClass=Integer.class , example = "false"),
-		@ApiImplicitParam(name = DictVOMeta.NAME , value = "字典名称" , required = true , dataTypeClass=String.class , example = "性别"),
-		@ApiImplicitParam(name = DictVOMeta.CODE , value = "字典代码" , required = true , dataTypeClass=String.class , example = "sex"),
-		@ApiImplicitParam(name = DictVOMeta.MODULE , value = "所属模块" , required = false , dataTypeClass=String.class , example = "system"),
+		@ApiImplicitParam(name = DictVOMeta.NAME , value = "字典名称" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = DictVOMeta.CODE , value = "字典代码" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = DictVOMeta.MODULE , value = "所属模块" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = DictVOMeta.NOTES , value = "备注" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport( order=4 , ignoreParameters = { DictVOMeta.PAGE_INDEX , DictVOMeta.PAGE_SIZE , DictVOMeta.SEARCH_FIELD , DictVOMeta.FUZZY_FIELD , DictVOMeta.SEARCH_VALUE , DictVOMeta.SORT_FIELD , DictVOMeta.SORT_TYPE , DictVOMeta.IDS } ) 
 	@NotNull(name = DictVOMeta.ID)
 	@NotNull(name = DictVOMeta.IS_TREE)
-	@NotNull(name = DictVOMeta.NAME)
-	@NotNull(name = DictVOMeta.CODE)
 	@SentinelResource(value = DictServiceProxy.UPDATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(DictServiceProxy.UPDATE)
 	public Result update(DictVO dictVO) {
@@ -150,18 +147,16 @@ public class DictController extends SuperController {
 	*/
 	@ApiOperation(value = "保存数据字典")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = DictVOMeta.ID , value = "字典ID" , required = true , dataTypeClass=String.class , example = "1"),
+		@ApiImplicitParam(name = DictVOMeta.ID , value = "字典ID" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = DictVOMeta.IS_TREE , value = "是否树形结构" , required = true , dataTypeClass=Integer.class , example = "false"),
-		@ApiImplicitParam(name = DictVOMeta.NAME , value = "字典名称" , required = true , dataTypeClass=String.class , example = "性别"),
-		@ApiImplicitParam(name = DictVOMeta.CODE , value = "字典代码" , required = true , dataTypeClass=String.class , example = "sex"),
-		@ApiImplicitParam(name = DictVOMeta.MODULE , value = "所属模块" , required = false , dataTypeClass=String.class , example = "system"),
+		@ApiImplicitParam(name = DictVOMeta.NAME , value = "字典名称" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = DictVOMeta.CODE , value = "字典代码" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = DictVOMeta.MODULE , value = "所属模块" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = DictVOMeta.NOTES , value = "备注" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { DictVOMeta.PAGE_INDEX , DictVOMeta.PAGE_SIZE , DictVOMeta.SEARCH_FIELD , DictVOMeta.FUZZY_FIELD , DictVOMeta.SEARCH_VALUE , DictVOMeta.SORT_FIELD , DictVOMeta.SORT_TYPE , DictVOMeta.IDS } )
 	@NotNull(name = DictVOMeta.ID)
 	@NotNull(name = DictVOMeta.IS_TREE)
-	@NotNull(name = DictVOMeta.NAME)
-	@NotNull(name = DictVOMeta.CODE)
 	@SentinelResource(value = DictServiceProxy.SAVE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(DictServiceProxy.SAVE)
 	public Result save(DictVO dictVO) {
@@ -216,11 +211,11 @@ public class DictController extends SuperController {
 	*/
 	@ApiOperation(value = "查询数据字典")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = DictVOMeta.ID , value = "字典ID" , required = true , dataTypeClass=String.class , example = "1"),
+		@ApiImplicitParam(name = DictVOMeta.ID , value = "字典ID" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = DictVOMeta.IS_TREE , value = "是否树形结构" , required = true , dataTypeClass=Integer.class , example = "false"),
-		@ApiImplicitParam(name = DictVOMeta.NAME , value = "字典名称" , required = true , dataTypeClass=String.class , example = "性别"),
-		@ApiImplicitParam(name = DictVOMeta.CODE , value = "字典代码" , required = true , dataTypeClass=String.class , example = "sex"),
-		@ApiImplicitParam(name = DictVOMeta.MODULE , value = "所属模块" , required = false , dataTypeClass=String.class , example = "system"),
+		@ApiImplicitParam(name = DictVOMeta.NAME , value = "字典名称" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = DictVOMeta.CODE , value = "字典代码" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = DictVOMeta.MODULE , value = "所属模块" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = DictVOMeta.NOTES , value = "备注" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { DictVOMeta.PAGE_INDEX , DictVOMeta.PAGE_SIZE } )
@@ -239,11 +234,11 @@ public class DictController extends SuperController {
 	*/
 	@ApiOperation(value = "分页查询数据字典")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = DictVOMeta.ID , value = "字典ID" , required = true , dataTypeClass=String.class , example = "1"),
+		@ApiImplicitParam(name = DictVOMeta.ID , value = "字典ID" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = DictVOMeta.IS_TREE , value = "是否树形结构" , required = true , dataTypeClass=Integer.class , example = "false"),
-		@ApiImplicitParam(name = DictVOMeta.NAME , value = "字典名称" , required = true , dataTypeClass=String.class , example = "性别"),
-		@ApiImplicitParam(name = DictVOMeta.CODE , value = "字典代码" , required = true , dataTypeClass=String.class , example = "sex"),
-		@ApiImplicitParam(name = DictVOMeta.MODULE , value = "所属模块" , required = false , dataTypeClass=String.class , example = "system"),
+		@ApiImplicitParam(name = DictVOMeta.NAME , value = "字典名称" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = DictVOMeta.CODE , value = "字典代码" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = DictVOMeta.MODULE , value = "所属模块" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = DictVOMeta.NOTES , value = "备注" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport(order=8)

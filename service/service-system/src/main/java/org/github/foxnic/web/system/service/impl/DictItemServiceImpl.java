@@ -35,7 +35,7 @@ import java.util.Date;
  * 数据字典条目 服务实现
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-02 14:50:54
+ * @since 2021-08-16 14:33:51
 */
 
 
@@ -52,6 +52,8 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 	 * 获得 DAO 对象
 	 * */
 	public DAO dao() { return dao; }
+
+
 	
 	@Override
 	public Object generateId(Field field) {
@@ -65,7 +67,8 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 	 * */
 	@Override
 	public Result insert(DictItem dictItem) {
-		return super.insert(dictItem);
+		Result r=super.insert(dictItem);
+		return r;
 	}
 	
 	/**
@@ -132,7 +135,8 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 	 * */
 	@Override
 	public Result update(DictItem dictItem , SaveMode mode) {
-		return super.update(dictItem , mode);
+		Result r=super.update(dictItem , mode);
+		return r;
 	}
 	
 	/**
@@ -252,5 +256,6 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 	public ExcelStructure buildExcelStructure(boolean isForExport) {
 		return super.buildExcelStructure(isForExport);
 	}
+
 
 }

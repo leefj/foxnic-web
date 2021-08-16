@@ -2,7 +2,7 @@
 /**
  * 系统文件 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-14 11:11:49
+ * @since 2021-08-16 14:19:39
  */
  -->
  <!DOCTYPE html>
@@ -93,18 +93,18 @@
 
                 
                 <div class="layui-form-item" >
-                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('可直接下载的地址')}">可直接下载的地址</div></div>
+                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('下载地址')}">下载地址</div></div>
                     <div class="layui-input-block layui-input-block-c1">
-                        <input lay-filter="downloadUrl" id="downloadUrl" name="downloadUrl" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('可直接下载的地址') }" type="text" class="layui-input"   />
+                        <input lay-filter="downloadUrl" id="downloadUrl" name="downloadUrl" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('下载地址') }" type="text" class="layui-input"   />
                     </div>
                 </div>
 
 
                 
                     <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('最后访问时间')}">最后访问时间</div></div>
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('最后访问')}">最后访问</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input input-type="date" lay-filter="latestVisitTime" id="latestVisitTime" name="latestVisitTime"  autocomplete="off"  readonly  th:placeholder="${ lang.translate('请选择') +''+ lang.translate('最后访问时间') }" type="text" class="layui-input"   />
+                            <input input-type="date" lay-filter="latestVisitTime" id="latestVisitTime" name="latestVisitTime"  autocomplete="off"  readonly  th:placeholder="${ lang.translate('请选择') +''+ lang.translate('最后访问') }" type="text" class="layui-input"   />
                         </div>
                     </div>
 
@@ -113,7 +113,7 @@
                     <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('下载次数')}">下载次数</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="downloads" id="downloads" name="downloads" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('下载次数') }" type="text" class="layui-input"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0" min-value="" max-value=""  scale="0"/>
+                            <input lay-filter="downloads" id="downloads" name="downloads" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('下载次数') }" type="text" class="layui-input"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0"   scale="0"/>
                         </div>
                     </div>
 
@@ -158,7 +158,7 @@
                     <div class="layui-form-item" style="display: none")>
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('是否已删除')}">是否已删除</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="deleted" id="deleted" name="deleted" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('是否已删除') }" type="text" class="layui-input"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0" min-value="" max-value=""  scale="0"/>
+                            <input lay-filter="deleted" id="deleted" name="deleted" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('是否已删除') }" type="text" class="layui-input"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0"   scale="0"/>
                         </div>
                     </div>
 
@@ -185,7 +185,7 @@
                     <div class="layui-form-item" style="display: none")>
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('数据版本号')}">数据版本号</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="version" id="version" name="version" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('数据版本号') }" type="text" class="layui-input"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0" min-value="" max-value=""  scale="0"/>
+                            <input lay-filter="version" id="version" name="version" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('数据版本号') }" type="text" class="layui-input"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0"   scale="0"/>
                         </div>
                     </div>
 
@@ -204,8 +204,7 @@
 </div>
 
 <div class="model-form-footer">
-    <button class="layui-btn layui-btn-primary" id="cancel-button" lay-filter="cancel-button" type="button" th:text="${lang.translate('取消')}" >取消</button>
-    <button th:if="${perm.checkAnyAuth('sys_file:create','sys_file:update','sys_file:save')}" class="layui-btn" style="margin-right: 15px"  id="submit-button" lay-filter="submit-button" lay-submit th:text="${lang.translate('保存')}">保存</button>
+    <button class="layui-btn layui-btn-primary" id="cancel-button" lay-filter="cancel-button" type="button" th:text="${lang.translate('取消')}"  style="margin-right: 15px" >取消</button>
 </div>
 
 <script type="text/javascript" src="/module/global.js" th:src="'/module/global.js?'+${cacheKey}"></script>

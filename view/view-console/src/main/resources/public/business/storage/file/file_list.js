@@ -1,7 +1,7 @@
 /**
  * 系统文件 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-14 11:11:49
+ * @since 2021-08-16 14:19:39
  */
 
 
@@ -53,17 +53,16 @@ function ListPage() {
 				cols: [[
 					{ fixed: 'left',type: 'numbers' },
 					{ fixed: 'left',type:'checkbox' }
-					,{ field: 'id', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('ID') }
+					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('ID') }
 					,{ field: 'fileName', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('文件名') }
 					,{ field: 'location', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('存储位置') }
 					,{ field: 'size', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('文件大小') }
 					,{ field: 'mediaType', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('媒体类型') }
 					,{ field: 'fileType', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('文件类型') }
-					,{ field: 'downloadUrl', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('可直接下载的地址') }
-					,{ field: 'latestVisitTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('最后访问时间'), templet: function (d) { return fox.dateFormat(d.latestVisitTime); }}
+					,{ field: 'downloadUrl', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('下载地址') }
+					,{ field: 'latestVisitTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('最后访问'), templet: function (d) { return fox.dateFormat(d.latestVisitTime); }}
 					,{ field: 'downloads', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('下载次数') }
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return fox.dateFormat(d.createTime); }}
-					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
 				]],
 				footer : {
@@ -93,15 +92,7 @@ function ListPage() {
       */
 	function refreshTableData(sortField,sortType) {
 		var value = {};
-		value.id={ value: $("#id").val()};
-		value.fileName={ value: $("#fileName").val()};
-		value.location={ value: $("#location").val()};
-		value.size={ value: $("#size").val()};
-		value.mediaType={ value: $("#mediaType").val()};
-		value.fileType={ value: $("#fileType").val()};
-		value.downloadUrl={ value: $("#downloadUrl").val()};
-		value.latestVisitTime={ value: $("#latestVisitTime").val()};
-		value.downloads={ value: $("#downloads").val()};
+		value.fileName={ value: $("#fileName").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" "};
 		var ps={searchField: "$composite", searchValue: JSON.stringify(value),sortField: sortField,sortType: sortType};
 		table.reload('data-table', { where : ps });
 	}
@@ -131,10 +122,6 @@ function ListPage() {
 
 		fox.switchSearchRow();
 
-		laydate.render({
-			elem: '#latestVisitTime',
-			trigger:"click"
-		});
 		fox.renderSearchInputs();
 	}
 	

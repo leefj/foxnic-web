@@ -1,7 +1,7 @@
 /**
  * 系统文件 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-14 11:11:49
+ * @since 2021-08-16 14:19:39
  */
 
 function FormPage() {
@@ -9,8 +9,8 @@ function FormPage() {
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect,foxup;
 	const moduleURL="/service-storage/sys-file";
 
-	const disableCreateNew=false;
-	const disableModify=false;
+	const disableCreateNew=true;
+	const disableModify=true;
 	/**
       * 入口函数，初始化
       */

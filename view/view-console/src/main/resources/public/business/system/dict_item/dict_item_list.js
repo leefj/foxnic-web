@@ -1,7 +1,7 @@
 /**
  * 数据字典条目 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-02 14:50:54
+ * @since 2021-08-16 14:33:51
  */
 
 
@@ -36,58 +36,68 @@ function ListPage() {
       * 渲染表格
       */
     function renderTable() {
-    	var h=$(".search-bar").height();
-		fox.renderTable({
-			elem: '#data-table',
-            url: moduleURL +'/query-paged-list',
-		 	height: 'full-'+(h+38), // 请按工具栏等组件的实际情况调整高度
-		 	limit: 50,
-			cols: [[
-				{  fixed: 'left',type: 'numbers' },
-			 	{  fixed: 'left',type:'checkbox' },
-                { field: 'id', align:"left", hide:false, sort: true, title: fox.translate('ID')} ,
-                { field: 'dictId', align:"left", hide:false, sort: true, title: fox.translate('字典ID')} ,
-                { field: 'dictCode', align:"left", hide:false, sort: true, title: fox.translate('字典代码')} ,
-                { field: 'parentId', align:"left", hide:false, sort: true, title: fox.translate('上级条目ID')} ,
-                { field: 'code', align:"left", hide:false, sort: true, title: fox.translate('代码')} ,
-                { field: 'label', align:"left", hide:false, sort: true, title: fox.translate('标签')} ,
-                { field: 'sort', align:"right", hide:false, sort: true, title: fox.translate('排序')} ,
-                { field: 'createTime', align:"right", hide:false, sort: true, title: fox.translate('创建时间')} ,
-				{ field: 'row-space', align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true},
-				{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
-            ]],
-			footer : {
-				exportExcel : admin.checkAuth(AUTH_PREFIX+":export"),
-				importExcel : admin.checkAuth(AUTH_PREFIX+":import")?{
-					params : {} ,
-				 	callback : function(r) {
-						if(r.success) {
-							layer.msg(fox.translate('数据导入成功')+"!");
-						} else {
-							layer.msg(fox.translate('数据导入失败')+"!");
+		$(window).resize(function() {
+			fox.adjustSearchElement();
+		});
+		fox.adjustSearchElement();
+		//
+		function renderTableInternal() {
+			var h=$(".search-bar").height();
+			fox.renderTable({
+				elem: '#data-table',
+				toolbar: '#toolbarTemplate',
+				defaultToolbar: ['filter', 'print'],
+				url: moduleURL +'/query-paged-list',
+				height: 'full-'+(h+28),
+				limit: 50,
+				cols: [[
+					{ fixed: 'left',type: 'numbers' },
+					{ fixed: 'left',type:'checkbox' }
+					,{ field: 'id', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('ID') }
+					,{ field: 'dictId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('字典ID') }
+					,{ field: 'dictCode', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('字典代码') }
+					,{ field: 'parentId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('上级条目ID') }
+					,{ field: 'code', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('代码') }
+					,{ field: 'label', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('标签') }
+					,{ field: 'sort', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('排序') }
+					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return fox.dateFormat(d.createTime); }}
+					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
+					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
+				]],
+				footer : {
+					exportExcel : admin.checkAuth(AUTH_PREFIX+":export"),
+					importExcel : admin.checkAuth(AUTH_PREFIX+":import")?{
+						params : {} ,
+						callback : function(r) {
+							if(r.success) {
+								layer.msg(fox.translate('数据导入成功')+"!");
+							} else {
+								layer.msg(fox.translate('数据导入失败')+"!");
+							}
 						}
-					}
-			 	}:false
-		 	}
-        });
-        //绑定排序事件
-        table.on('sort(data-table)', function(obj){
-		  refreshTableData(obj.field,obj.type);
-        });
+					}:false
+				}
+			});
+			//绑定排序事件
+			table.on('sort(data-table)', function(obj){
+			  refreshTableData(obj.field,obj.type);
+			});
+		}
+		setTimeout(renderTableInternal,1);
     };
-     
+
 	/**
       * 刷新表格数据
       */
 	function refreshTableData(sortField,sortType) {
 		var value = {};
-		value.id={ value: $("#id").val() };
-		value.dictId={ value: $("#dictId").val() };
-		value.dictCode={ value: $("#dictCode").val() };
-		value.parentId={ value: $("#parentId").val() };
-		value.code={ value: $("#code").val() };
-		value.label={ value: $("#label").val() };
-		value.sort={ value: $("#sort").val() };
+		value.id={ value: $("#id").val()};
+		value.dictId={ value: $("#dictId").val()};
+		value.dictCode={ value: $("#dictCode").val()};
+		value.parentId={ value: $("#parentId").val()};
+		value.code={ value: $("#code").val()};
+		value.label={ value: $("#label").val()};
+		value.sort={ value: $("#sort").val()};
 		var ps={searchField: "$composite", searchValue: JSON.stringify(value),sortField: sortField,sortType: sortType};
 		table.reload('data-table', { where : ps });
 	}
@@ -114,6 +124,10 @@ function ListPage() {
 	}
 
 	function initSearchFields() {
+
+		fox.switchSearchRow();
+
+		fox.renderSearchInputs();
 	}
 	
 	/**
@@ -130,22 +144,53 @@ function ListPage() {
         $('#search-button').click(function () {
            refreshTableData();
         });
+
+		// 搜索按钮点击事件
+		$('#search-button-advance').click(function () {
+			fox.switchSearchRow(function (ex){
+				if(ex=="1") {
+					$('#search-button-advance span').text("关闭");
+				} else {
+					$('#search-button-advance span').text("更多");
+				}
+			});
+		});
 	}
 	
 	/**
 	 * 绑定按钮事件
 	  */
 	function bindButtonEvent() {
-	
+
+		//头工具栏事件
+		table.on('toolbar(data-table)', function(obj){
+			var checkStatus = table.checkStatus(obj.config.id);
+			switch(obj.event){
+				case 'create':
+					openCreateFrom();
+					break;
+				case 'batch-del':
+					batchDelete();
+					break;
+				case 'other':
+					break;
+					//自定义头工具栏右侧图标 - 提示
+				case 'LAYTABLE_TIPS':
+					layer.alert('这是工具栏右侧自定义的一个图标按钮');
+					break;
+			};
+		});
+
+
 		//添加按钮点击事件
-        $('#add-button').click(function () {
+        function openCreateFrom() {
         	//设置新增是初始化数据
         	var data={};
             showEditForm(data);
-        });
+        };
 		
         //批量删除按钮点击事件
-        $('#delete-button').click(function () {
+        function batchDelete() {
           
 			var ids=getCheckedList("id");
             if(ids.length==0) {
@@ -166,7 +211,7 @@ function ListPage() {
                     }
                 });
 			});
-        });
+        }
 	}
      
     /**
@@ -223,9 +268,9 @@ function ListPage() {
 		var height= (area && area.height) ? area.height : ($(window).height()*0.6);
 		var top= (area && area.top) ? area.top : (($(window).height()-height)/2);
 		var title = (data && data.id) ? (fox.translate('修改')+fox.translate('数据字典条目')) : (fox.translate('添加')+fox.translate('数据字典条目'));
-		admin.popupCenter({
+		var index=admin.popupCenter({
 			title: title,
-			resize: true,
+			resize: false,
 			offset: [top,null],
 			area: ["500px",height+"px"],
 			type: 2,
@@ -234,6 +279,7 @@ function ListPage() {
 				refreshTableData();
 			}
 		});
+		admin.putTempData('sys-dict-item-form-data-popup-index', index);
 	};
 
 };

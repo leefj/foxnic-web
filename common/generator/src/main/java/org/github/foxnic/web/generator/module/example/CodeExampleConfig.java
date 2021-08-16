@@ -35,7 +35,6 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 	@Override
 	public void configModel(PoClassFile poType, VoClassFile voType) {
 
-		System.out.println("112");
 		//配置两个扩展属性
 		poType.addSimpleProperty(Resourze.class,"resourze","关联一个资源","一对一关系属性拓展");
 		poType.addListProperty(Role.class,"roles","关联多个角色","一对多关系属性拓展");
@@ -70,7 +69,9 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 
 		//整数类型
 		view.field(TABLE.AREA)
-				.form().numberInput().integer().step(2.0).range(0.0,20.0).allowNegative(false)
+				.form().numberInput().integer().step(2.0)
+				//.range(0.0,20.0)
+				.allowNegative(false)
 				.form().validate().required()
 				.search().range().inputWidth(64)
 		;
@@ -227,7 +228,19 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 	@Override
 	public void configForm(ViewOptions view,FormOptions form) {
 
-//		//单列布局方式：其实就是排个顺序,并把不在清单中的字段设置成隐藏
+
+//		configFormLayoutA(view,form);
+
+//		configFormLayoutB(view,form);
+
+//		configFormLayoutC(view,form);
+
+
+		configFormLayoutD(view,form);
+	}
+
+	private void configFormLayoutA(ViewOptions view, FormOptions form) {
+		//		//单列布局方式：其实就是排个顺序,并把不在清单中的字段设置成隐藏
 //		cfg.view().formWindow().width(600);
 //		cfg.view().form().inputColumnLayout(1,
 //				TABLE.NAME,TABLE.BIRTHDAY,TABLE.AREA,TABLE.WEIGHT,
@@ -236,49 +249,63 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 //				TABLE.CHECK_ENUM,TABLE.CHECK_DICT,
 //				TABLE.SELECT_ENUM,TABLE.SELECT_DICT,TABLE.SELECT_API,TABLE.NOTES
 //		);
+	}
 
+	/**
+	 * 分成两栏的布局
+	 * */
+	private void configFormLayoutB(ViewOptions view, FormOptions form) {
+		view.formWindow().width(1000);
+		form.columnLayout(
+			new Object[] {
+				TABLE.NAME,TABLE.AREA,TABLE.BIRTHDAY,TABLE.RADIO_ENUM,
+				TABLE.VALID,TABLE.SELECT_DICT,TABLE.CHECK_ENUM,TABLE.NOTES
+			}, new Object[] {
+				TABLE.WEIGHT,TABLE.CHECK_DICT,TABLE.IMAGE_ID,TABLE.RADIO_DICT,
+				TABLE.SELECT_ENUM,TABLE.FILE_IDS
+				//TABLE.SELECT_API
+			}
+		);
+	}
 
-		//分成两栏的布局
-//		cfg.view().formWindow().width(1000);
-//		cfg.view().form().columnLayout(
-//			new Object[] {
-//				TABLE.NAME,TABLE.AREA,TABLE.BIRTHDAY,TABLE.RADIO_ENUM,
-//				TABLE.VALID,TABLE.SELECT_DICT,TABLE.CHECK_ENUM,TABLE.NOTES
-//			}, new Object[] {
-//				TABLE.WEIGHT,TABLE.CHECK_DICT,TABLE.IMAGE_ID,TABLE.RADIO_DICT,
-//				TABLE.SELECT_ENUM,TABLE.SELECT_API,TABLE.FILE_IDS
-//			}
-//		);
+	/**
+	 * 分成两栏的混合布局
+	 * */
+	private void configFormLayoutC(ViewOptions view, FormOptions form) {
 
+		view.formWindow().width(1000);
+		form.addGroup(null,
+				new Object[] {
+						TABLE.NAME,TABLE.AREA,TABLE.BIRTHDAY,
+						TABLE.VALID,TABLE.SELECT_DICT,TABLE.CHECK_ENUM
+				}, new Object[] {
+						TABLE.WEIGHT,TABLE.CHECK_DICT,TABLE.IMAGE_ID,
+						TABLE.SELECT_ENUM
+						//,TABLE.SELECT_API
+				}
+		);
+		form.addGroup(null,
+				new Object[] {TABLE.FILE_IDS}
+		);
+		form.addGroup(null,
+				new Object[] {
+						TABLE.RADIO_ENUM,
+				}, new Object[] {
+						TABLE.RADIO_DICT,
+				}
+		);
+		form.addGroup(null,
+				new Object[] {TABLE.NOTES}
+		);
+	}
 
-//		//分成两栏的混合布局
-//		cfg.view().formWindow().width(1000);
-//		cfg.view().form().addGroup(null,
-//				new Object[] {
-//						TABLE.NAME,TABLE.AREA,TABLE.BIRTHDAY,
-//						TABLE.VALID,TABLE.SELECT_DICT,TABLE.CHECK_ENUM
-//				}, new Object[] {
-//						TABLE.WEIGHT,TABLE.CHECK_DICT,TABLE.IMAGE_ID,
-//						TABLE.SELECT_ENUM,TABLE.SELECT_API
-//				}
-//		);
-//		cfg.view().form().addGroup(null,
-//				new Object[] {TABLE.FILE_IDS}
-//		);
-//		cfg.view().form().addGroup(null,
-//				new Object[] {
-//						TABLE.RADIO_ENUM,
-//				}, new Object[] {
-//						TABLE.RADIO_DICT,
-//				}
-//		);
-//		cfg.view().form().addGroup(null,
-//				new Object[] {TABLE.NOTES}
-//		);
-
+	/**
+	 * 分组、分栏混合布局
+	 * */
+	private void configFormLayoutD(ViewOptions view,FormOptions form) {
 
 		//分成分组布局
-		context.view().formWindow().width(1000);
+		view.formWindow().width(1000);
 		form.addGroup("基本信息",
 				new Object[] {
 						TABLE.NAME,TABLE.AREA,TABLE.BIRTHDAY,
@@ -302,6 +329,7 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 		form.addGroup("扩展信息",
 				new Object[] {TABLE.CHECK_ENUM,TABLE.NOTES}
 		);
+
 	}
 
 	@Override
@@ -315,26 +343,6 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 				new Object[]{CodeExampleMeta.ROLE_IDS,TABLE.RESOURCE_ID}
 		);
 	}
-
-
-
-
-//	public void generateExampleRole() throws Exception {
-//		//创建配置
-//		ModuleContext cfg = createModuleConfig(FoxnicWeb.TABLE_ROLE.$TABLE, 6);
-//
-//		//指定该表为关系表
-//
-//		//文件生成覆盖模式
-//
-//
-//		//生成代码
-//		cfg.buildAll();
-//
-//	}
-
-
-
 
 
 	public CodeExampleConfig() {

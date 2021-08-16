@@ -7,7 +7,9 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_DICT;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
+import java.util.List;
 import org.github.foxnic.web.domain.oauth.Menu;
+import java.util.ArrayList;
 import javax.persistence.Transient;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
@@ -17,8 +19,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-02 14:50:51
- * @sign 0254883CA786CD609E36705BB99D73B0
+ * @since 2021-08-16 16:13:53
+ * @sign 8DE50D9CCBAE865EE9312EAEEC6D015B
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -45,13 +47,13 @@ public class Dict extends Entity {
 	/**
 	 * 字典名称：字典名称
 	*/
-	@ApiModelProperty(required = true,value="字典名称" , notes = "字典名称")
+	@ApiModelProperty(required = false,value="字典名称" , notes = "字典名称")
 	private String name;
 	
 	/**
 	 * 字典代码：字典代码
 	*/
-	@ApiModelProperty(required = true,value="字典代码" , notes = "字典代码")
+	@ApiModelProperty(required = false,value="字典代码" , notes = "字典代码")
 	private String code;
 	
 	/**
@@ -113,6 +115,12 @@ public class Dict extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
 	private Integer version;
+	
+	/**
+	 * 字典项目
+	*/
+	@ApiModelProperty(required = false,value="字典项目" , notes = "")
+	private List<DictItem> items;
 	
 	/**
 	 * 关联模块
@@ -383,6 +391,35 @@ public class Dict extends Entity {
 	*/
 	public Dict setVersion(Integer version) {
 		this.version=version;
+		return this;
+	}
+	
+	/**
+	 * 获得 字典项目<br>
+	 * @return 字典项目
+	*/
+	public List<DictItem> getItems() {
+		return items;
+	}
+	
+	/**
+	 * 设置 字典项目
+	 * @param items 字典项目
+	 * @return 当前对象
+	*/
+	public Dict setItems(List<DictItem> items) {
+		this.items=items;
+		return this;
+	}
+	
+	/**
+	 * 添加 字典项目
+	 * @param item 字典项目
+	 * @return 当前对象
+	*/
+	public Dict addItem(DictItem item) {
+		if(this.items==null) items=new ArrayList<>();
+		this.items.add(item);
 		return this;
 	}
 	

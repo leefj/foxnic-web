@@ -21,7 +21,7 @@ import com.github.foxnic.dao.data.SaveMode;
  * 数据字典条目 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-02 14:50:54
+ * @since 2021-08-16 14:33:51
 */
 
 public interface IDictItemService extends ISuperService<DictItem> {
@@ -283,5 +283,6 @@ public interface IDictItemService extends ISuperService<DictItem> {
 	 * @return  错误信息，成功时返回 null
 	 * */
 	List<ValidateResult> importExcel(InputStream input,int sheetIndex,boolean batch);
+
  
 }

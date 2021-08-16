@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-02 14:50:54
- * @sign 0ADD29D217E27784E0FCC43BFBB39064
+ * @since 2021-08-16 14:33:51
+ * @sign 72FF5A33B06601D3357DF8B0EDEEF2C5
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -38,13 +38,13 @@ public class DictItem extends Entity {
 	/**
 	 * 字典ID：字典ID
 	*/
-	@ApiModelProperty(required = true,value="字典ID" , notes = "字典ID")
+	@ApiModelProperty(required = false,value="字典ID" , notes = "字典ID")
 	private String dictId;
 	
 	/**
 	 * 字典代码：字典代码
 	*/
-	@ApiModelProperty(required = true,value="字典代码" , notes = "字典代码")
+	@ApiModelProperty(required = false,value="字典代码" , notes = "字典代码")
 	private String dictCode;
 	
 	/**
@@ -56,13 +56,13 @@ public class DictItem extends Entity {
 	/**
 	 * 代码：代码
 	*/
-	@ApiModelProperty(required = true,value="代码" , notes = "代码")
+	@ApiModelProperty(required = false,value="代码" , notes = "代码")
 	private String code;
 	
 	/**
 	 * 标签：标签
 	*/
-	@ApiModelProperty(required = true,value="标签" , notes = "标签")
+	@ApiModelProperty(required = false,value="标签" , notes = "标签")
 	private String label;
 	
 	/**

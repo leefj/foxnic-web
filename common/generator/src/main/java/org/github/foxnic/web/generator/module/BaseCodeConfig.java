@@ -9,6 +9,9 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
 
 public abstract class BaseCodeConfig<T extends DBTable> extends ModuleCodeConfig<T> {
 
+    public static final String PREFIX_SYSTEM="service-system";
+    public static final String PREFIX_STORAGE="service-storage";
+
     private FoxnicWebConfigs configs;
     private int apiSort;
 

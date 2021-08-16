@@ -1,4 +1,4 @@
-package org.github.foxnic.web.generator.module;
+package org.github.foxnic.web.generator.module.oauth;
 
 import com.github.foxnic.generator.builder.model.PojoClassFile;
 import com.github.foxnic.generator.config.ModuleContext;
@@ -10,6 +10,7 @@ import org.github.foxnic.web.constants.enums.Language;
 import org.github.foxnic.web.constants.enums.ResourceType;
 import org.github.foxnic.web.domain.oauth.*;
 import org.github.foxnic.web.domain.oauth.meta.*;
+import org.github.foxnic.web.generator.module.system.SystemCodeGenerator;
 import org.github.foxnic.web.proxy.oauth.ResourzeServiceProxy;
 import org.github.foxnic.web.proxy.oauth.RoleServiceProxy;
 
@@ -249,7 +250,7 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		cfg.view().field(SYS_RESOURZE.TABLE_NAME).basic().label("数据表")
 				.search().fuzzySearch();
 
-		cfg.view().list().operateColumnWidth(125);
+		cfg.view().list().operationColumn().width(125);
 
 
 

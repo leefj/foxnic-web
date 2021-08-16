@@ -3,14 +3,16 @@ package org.github.foxnic.web.domain.system.meta;
 import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.system.Dict;
 import java.util.Date;
+import org.github.foxnic.web.domain.system.DictItem;
+import java.util.List;
 import org.github.foxnic.web.domain.oauth.Menu;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-02 14:50:51
- * @sign 0254883CA786CD609E36705BB99D73B0
+ * @since 2021-08-16 16:13:53
+ * @sign 8DE50D9CCBAE865EE9312EAEEC6D015B
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -157,6 +159,16 @@ public class DictMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.system.Dict,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.system.Dict.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
+	 * 字典项目 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.system.DictItem
+	*/
+	public static final String ITEMS="items";
+	
+	/**
+	 * 字典项目 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.system.DictItem
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.Dict,org.github.foxnic.web.domain.system.DictItem> ITEMS_PROP = new BeanProperty(org.github.foxnic.web.domain.system.Dict.class ,ITEMS, java.util.List.class, "字典项目", "", org.github.foxnic.web.domain.system.DictItem.class, null);
+	
+	/**
 	 * 关联模块 , 类型: org.github.foxnic.web.domain.oauth.Menu
 	*/
 	public static final String MODULE_INFO="moduleInfo";
@@ -169,7 +181,7 @@ public class DictMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , IS_TREE , NAME , CODE , MODULE , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , MODULE_INFO };
+	public static final String[] $PROPS={ ID , IS_TREE , NAME , CODE , MODULE , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , ITEMS , MODULE_INFO };
 	
 	/**
 	 * 代理类
@@ -330,6 +342,17 @@ public class DictMeta {
 		public Dict setVersion(Integer version) {
 			super.change(VERSION,super.getVersion(),version);
 			super.setVersion(version);
+			return this;
+		}
+		
+		/**
+		 * 设置 字典项目
+		 * @param items 字典项目
+		 * @return 当前对象
+		*/
+		public Dict setItems(List<DictItem> items) {
+			super.change(ITEMS,super.getItems(),items);
+			super.setItems(items);
 			return this;
 		}
 		

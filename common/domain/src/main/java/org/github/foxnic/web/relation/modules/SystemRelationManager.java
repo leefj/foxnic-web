@@ -14,58 +14,14 @@ public class SystemRelationManager extends RelationManager {
 	public void setupProperties() {
 
 
-//		this.property(Dict.class,"moduleInfo", Menu.class,"模块对象","").single()
-//				.using(FoxnicWeb.SYS_DICT.MODULE).join(FoxnicWeb.SYS_MENU.ID);
-
-
+		//字典 - 模块关联关系
 		this.property(DictMeta.MODULE_INFO_PROP)
 				.using(FoxnicWeb.SYS_DICT.MODULE).join(FoxnicWeb.SYS_MENU.ID);
 
- 
-		// 关联下级菜单
-//		this.property(Menu.class, "allChildren", Menu.class, "所有下级菜单清单", "").list()
-//			.using(SYS_MENU.ID).fork(32);
-//		
-//		// 关联下级菜单
-//		this.property(Menu.class, "validChildren", Menu.class, "可用的下级菜单清单", "").list()
-//			.using(SYS_MENU.ID)
-//			.addConditionEquals(SYS_MENU.DELETED, 0)
-//			.addOrderBy(SYS_MENU.CREATE_TIME, true, true);
-//		
-//		// 关联上级菜单
-//		this.property(Menu.class, "parent", Menu.class, "上级菜单", "").single()
-//			.using(SYS_MENU.PARENT_ID)
-//			.addRoute(SYS_MENU.ID);
-//
-		
-		
-//
-//		// 用户 - 角色
-//		this.property(User.class, "validRoles", Role.class, "可用角色清单", "拥有当前用户的可用角色清单").list()
-//				.addRoute(SYS_USER_ROLE.$TABLE)
-//				.addConditionEquals(SYS_USER_ROLE.DELETED, 0)
-//				.using(SYS_USER.ID)
-//				.after((user, roles) -> {
-//					// 按逻辑条件过滤
-//					roles = roles.stream().filter(r -> {
-//						return !r.isDeleted();
-//					}).collect(Collectors.toList());
-//					// 处理角色
-//					for (Role r : roles) {
-//						r.setName(r.getName() + "-" + System.currentTimeMillis());
-//					}
-//					return roles;
-//				});
-//
-//		// 角色 - 用户
-//		this.property(Role.class, "users", User.class, "用户清单", "拥有当前角色的用户清单").list()
-//		.addRoute(SYS_USER_ROLE.$TABLE)
-//		.using(SYS_ROLE.ID);
+		//字典 - 下级条目关联关系
+		this.property(DictMeta.ITEMS_PROP)
+				.using(FoxnicWeb.SYS_DICT.ID).join(FoxnicWeb.SYS_DICT_ITEM.DICT_ID);
 
-		// 账户 - 员工
-//		this.property(User.class, "employee", Employee.class, "员工", "当前账户对应的员工").single().using(SYS_USER.ID);
-		// 员工 - 账户
-//		this.property(Employee.class, "user", User.class, "账户", "当前员工对应的账户").single().using(CRM_EMPLOYEE.USER_ID);
 
 
 

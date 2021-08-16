@@ -228,10 +228,11 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 if (columnWidthConfig) {
                     cfg.url = settings.base_server + cfg.url;
                     var cols = cfg.cols[0];
-                    var prevFlag = 0, prev = null;
+                    // var prevFlag = 0, prev = null;
                     for (var i = 0; cols && i < cols.length; i++) {
                         if (cols[i].hide) continue;
                         if (cols[i].field==this.translate('空白列')) continue;
+                        if (cols[i].field=='row-ops') continue;
                         // if(cols[i].field=="createTime") {
                         // 	debugger;
                         // 	columnWidthConfig[cols[i].field]=200;
@@ -239,13 +240,12 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                         var w = columnWidthConfig[cols[i].field];
                         if (w) {
                             cols[i].width = w;
-                            console.log(cols[i].field, w);
+                            console.log(cols[i].field+".width", w);
                         }
-                        if (cols[i].field == this.translate('空白列')) prevFlag = 1;
-                        if (prevFlag == 0) {
-                            prev = cols[i];
-                        }
-
+                        // if (cols[i].field == this.translate('空白列')) prevFlag = 1;
+                        // if (prevFlag == 0) {
+                        //     prev = cols[i];
+                        // }
                     }
                     //if (prev) prev.width = null;
                 }
@@ -644,11 +644,11 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 }
                 delayTaskId = setTimeout(function () {
                     //debugger
-                    if (!isNaN(minValue)) {
+                    if (!isNaN(minValue) && minValue!=null) {
                         if (i < minValue) val = minValue;
                     }
 
-                    if (!isNaN(maxValue)) {
+                    if (!isNaN(maxValue) && maxValue != null) {
                         if (i > maxValue) val = maxValue;
                     }
                     applyValue(inst, val);
