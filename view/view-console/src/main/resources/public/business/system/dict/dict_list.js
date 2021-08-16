@@ -1,7 +1,7 @@
 /**
  * 数据字典 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-16 16:13:53
+ * @since 2021-08-16 20:37:08
  */
 
 
@@ -267,15 +267,8 @@ function ListPage() {
 				});
 				
 			}
-			else if (layEvent === 'operate-0') { // 条目
-				var index=admin.popupCenter({
-					title: "条目",
-					resize: false,
-					//offset: [top,null],
-					area: ["500px","500px"],
-					type: 2,
-					content: "business/system/dict_item/dict_item_list.html"
-				});
+			else if (layEvent === 'open-dict-item-window') { // 条目
+				openDictItemWindow(data);
 			}
 			
 		});
@@ -306,6 +299,20 @@ function ListPage() {
 		});
 		admin.putTempData('sys-dict-form-data-popup-index', index);
 	};
+
+	/**
+	 * 条目 操作
+	 */
+	function openDictItemWindow(data) {
+    var index = admin.popupCenter({
+        title: "条目",
+        resize: false,
+        //offset: [top,null],
+        area: ["500px", "500px"],
+        type: 2,
+        content: "business/system/dict_item/dict_item_list.html"
+    });
+}
 
 };
 

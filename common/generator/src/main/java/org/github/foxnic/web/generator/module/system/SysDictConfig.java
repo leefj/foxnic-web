@@ -5,6 +5,7 @@ import com.github.foxnic.generator.builder.model.VoClassFile;
 import com.github.foxnic.generator.builder.view.option.ListOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
+import com.github.foxnic.generator.util.JSFunctions;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_DICT;
 import org.github.foxnic.web.domain.oauth.Menu;
@@ -13,12 +14,16 @@ import org.github.foxnic.web.domain.system.DictItem;
 import org.github.foxnic.web.domain.system.meta.DictMeta;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 import org.github.foxnic.web.proxy.oauth.MenuServiceProxy;
-import org.github.foxnic.web.system.page.DictItemPageController;
 
 public class SysDictConfig extends BaseCodeConfig<SYS_DICT> {
 
     public SysDictConfig() {
         super(PREFIX_SYSTEM, SYS_DICT.$TABLE,"sys_", 4);
+    }
+
+    @Override
+    public void configCodeSegment() {
+        context.addJsFuncs(new JSFunctions(this.getClass(),"dict_functions.js"));
     }
 
     @Override
@@ -61,7 +66,8 @@ public class SysDictConfig extends BaseCodeConfig<SYS_DICT> {
     @Override
     public void configList(ViewOptions view, ListOptions list) {
         list.operationColumn().width(170);
-        list.operationColumn().addWindowOpenButton("条目", DictItemPageController.prefix+"/dict_item_list.html");
+        //表格操纵列增加一个按钮，并指定JS函数
+        list.operationColumn().addActionButton("条目","openDictItemWindow");
     }
 
     @Override
