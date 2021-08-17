@@ -2,7 +2,7 @@
 /**
  * sys_node 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-13 22:40:35
+ * @since 2021-08-17 14:29:31
  */
  -->
  <!DOCTYPE html>
@@ -68,7 +68,7 @@
                     <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('端口')}">端口</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="port" id="port" name="port" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('端口') }" type="text" class="layui-input"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0" min-value="" max-value=""  scale="0"/>
+                            <input lay-filter="port" id="port" name="port" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('端口') }" type="text" class="layui-input"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0"   scale="0"/>
                         </div>
                     </div>
 
@@ -95,7 +95,7 @@
                     <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('是否启动')}">是否启动</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="isUp" id="isUp" name="isUp" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('是否启动') }" type="text" class="layui-input"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0" min-value="" max-value=""  scale="0"/>
+                            <input lay-filter="isUp" id="isUp" name="isUp" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('是否启动') }" type="text" class="layui-input"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0"   scale="0"/>
                         </div>
                     </div>
 
@@ -131,7 +131,7 @@
                     <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('雪花DCId')}">雪花DCId</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="datacenterId" id="datacenterId" name="datacenterId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('雪花DCId') }" type="text" class="layui-input"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0" min-value="" max-value=""  scale="0"/>
+                            <input lay-filter="datacenterId" id="datacenterId" name="datacenterId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('雪花DCId') }" type="text" class="layui-input"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0"   scale="0"/>
                         </div>
                     </div>
 
@@ -140,7 +140,7 @@
                     <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('雪花WKId')}">雪花WKId</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="workerId" id="workerId" name="workerId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('雪花WKId') }" type="text" class="layui-input"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0" min-value="" max-value=""  scale="0"/>
+                            <input lay-filter="workerId" id="workerId" name="workerId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('雪花WKId') }" type="text" class="layui-input"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0"   scale="0"/>
                         </div>
                     </div>
 
@@ -185,7 +185,7 @@
                     <div class="layui-form-item" style="display: none")>
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('是否已删除')}">是否已删除</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="deleted" id="deleted" name="deleted" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('是否已删除') }" type="text" class="layui-input"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0" min-value="" max-value=""  scale="0"/>
+                            <input lay-filter="deleted" id="deleted" name="deleted" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('是否已删除') }" type="text" class="layui-input"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0"   scale="0"/>
                         </div>
                     </div>
 
@@ -212,7 +212,7 @@
                     <div class="layui-form-item" style="display: none")>
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('数据版本号')}">数据版本号</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="version" id="version" name="version" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('数据版本号') }" type="text" class="layui-input"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0" min-value="" max-value=""  scale="0"/>
+                            <input lay-filter="version" id="version" name="version" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('数据版本号') }" type="text" class="layui-input"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0"   scale="0"/>
                         </div>
                     </div>
 
@@ -231,7 +231,8 @@
 </div>
 
 <div class="model-form-footer">
-    <button class="layui-btn layui-btn-primary" id="cancel-button" lay-filter="cancel-button" type="button" th:text="${lang.translate('取消')}"  style="margin-right: 15px" >取消</button>
+    <button class="layui-btn layui-btn-primary" id="cancel-button" lay-filter="cancel-button" type="button" th:text="${lang.translate('取消')}" >取消</button>
+    <button th:if="${perm.checkAnyAuth('sys_node:create','sys_node:update','sys_node:save')}" class="layui-btn" style="margin-right: 15px"  id="submit-button" lay-filter="submit-button" lay-submit th:text="${lang.translate('保存')}">保存</button>
 </div>
 
 <script type="text/javascript" src="/module/global.js" th:src="'/module/global.js?'+${cacheKey}"></script>

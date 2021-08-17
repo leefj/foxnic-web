@@ -12,10 +12,6 @@ import org.github.foxnic.web.generator.config.FoxnicWebConfigs;
 import org.github.foxnic.web.generator.config.FoxnicWebConfigs.ProjectConfigs;
 import org.github.foxnic.web.proxy.MicroServiceNames;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
 
 /**
  * 为以usr_开头的表生成代码
@@ -28,22 +24,22 @@ public class SystemCodeGenerator  {
 
 		SystemCodeGenerator g=new SystemCodeGenerator();
 
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		try {
-			while(true) {
-				System.out.println("What you name?");
-				String str = br.readLine();
-				System.out.println("Hello " + str + ".");
-				g.generateSysNode();
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+//		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//		try {
+//			while(true) {
+//				System.out.println("What you name?");
+//				String str = br.readLine();
+//				System.out.println("Hello " + str + ".");
+//				g.generateSysNode();
+//			}
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 
 		// 
 //		g.generateSysConfig();
 //		//
-		g.generateSysDict();
+//		g.generateSysDict();
 //		//
 //		g.generateSysDictItem();
 //		//
@@ -85,14 +81,21 @@ public class SystemCodeGenerator  {
 		cfg.view().field(FoxnicWeb.SYS_NODE.DATACENTER_ID).search().hidden();
 		cfg.view().field(FoxnicWeb.SYS_NODE.CREATE_TIME).table().disable();
 		cfg.view().field(FoxnicWeb.SYS_NODE.APPLICATION_NAME).search().inputWidth(200).fuzzySearch();
-		//
+
+		//禁用空白列
 		cfg.view().list().disableSpaceColumn();
+		//禁用修改
 		cfg.view().list().disableModify();
+		//禁用新建
 		cfg.view().list().disableCreateNew();
+		//禁用单个删除
 		cfg.view().list().disableSingleDelete();
+		//禁用批量删除
 		cfg.view().list().disableBatchDelete();
+		//禁用表单查看
+		cfg.view().list().disableFormView();
 		//配置表格操作列宽度
-		cfg.view().list().operationColumn().width(60);
+		cfg.view().list().operationColumn().width(260);
 
 		//文件生成覆盖模式
 		cfg.overrides()

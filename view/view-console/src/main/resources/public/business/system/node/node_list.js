@@ -1,7 +1,7 @@
 /**
  * sys_node 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-13 22:40:35
+ * @since 2021-08-17 14:29:31
  */
 
 
@@ -65,7 +65,8 @@ function ListPage() {
 					,{ field: 'ip', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('IP地址') }
 					,{ field: 'datacenterId', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('雪花DCId') }
 					,{ field: 'workerId', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('雪花WKId') }
-					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 60 }
+					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
+					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 260 }
 				]],
 				footer : {
 					exportExcel : admin.checkAuth(AUTH_PREFIX+":export"),
@@ -249,7 +250,8 @@ function ListPage() {
 					});
 				});
 				
-			}  
+			}
+			
 		});
  
     };
@@ -278,6 +280,7 @@ function ListPage() {
 		});
 		admin.putTempData('sys-node-form-data-popup-index', index);
 	};
+
 
 };
 

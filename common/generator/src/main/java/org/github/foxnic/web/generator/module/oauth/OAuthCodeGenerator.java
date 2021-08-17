@@ -19,11 +19,11 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
  
 	public static void main(String[] args) throws Exception {
 		OAuthCodeGenerator g=new OAuthCodeGenerator();
-		g.generateSysResource();  //ok
+//		g.generateSysResource();  //ok
 //		g.generateSysMenuResource();
 //		g.generateSysUser(); //ok
 //		g.generateSysOAuthClient();
-//		g.generateSysSessionOnline();
+		g.generateSysSessionOnline();
 //		g.generateSysToken();
 //		g.generateSysRole();
 //		g.generateSysRoleUser();
@@ -212,11 +212,11 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 				.table().hidden().search().hidden();
 
 
-		cfg.view().list().disableBatchDelete();
-		cfg.view().list().disableCreateNew();
-		cfg.view().list().disableModify();
-		cfg.view().list().disableSingleDelete();
-		cfg.view().list().disableSpaceColumn();
+//		cfg.view().list().disableBatchDelete();
+//		cfg.view().list().disableCreateNew();
+//		cfg.view().list().disableModify();
+//		cfg.view().list().disableSingleDelete();
+//		cfg.view().list().disableSpaceColumn();
 
 		//设置标签宽度
 		cfg.view().form().labelWidth(85);

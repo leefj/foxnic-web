@@ -133,13 +133,15 @@
 	#if(isTree) 
 	<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="drill" th:text="${lang.translate('下级')}">下级</a>
 	#end
+
     #if(!disableFormView)
-    #if(disableModify)
-    <a th:if="${perm.checkAuth('#(authPrefix):view-form')}" class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit" th:text="${lang.translate('查看')}">查看</a>
-    #else
-    <a th:if="${perm.checkAuth('#(authPrefix):view-form')}" class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit" th:text="${lang.translate('修改')}">修改</a>
+    <a th:if="${perm.checkAuth('#(authPrefix):view-form')}" class="layui-btn layui-btn-primary layui-btn-xs" lay-event="view" th:text="${lang.translate('查看')}">查看</a>
     #end
+    #if(!disableModify)
+    <a th:if="${perm.checkAnyAuth('#(authPrefix):update','#(authPrefix):save')}" class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit" th:text="${lang.translate('修改')}">修改</a>
     #end
+
+
     #if(!disableSingleDelete)
     <a th:if="${perm.checkAuth('#(authPrefix):delete')}" class="layui-btn layui-btn-xs" lay-event="del" th:text="${lang.translate('删除')}">删除</a>
     #end

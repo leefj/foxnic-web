@@ -365,16 +365,18 @@ layui.define(['settings', 'layer'], function (exports) {
             return (key.substr(0,1)+"~"+key.substr(key.length-1)).toUpperCase();
         },
         // 缓存临时数据
-        putTempData: function (key, value) {
+        putTempData: function (key, value, memoyOnly) {
             //拦截，并由顶层弹出窗口
             if(top && top!=window && top.admin) {
                 return top.admin.putTempData(key, value);
             }
             var part=this.getKeyPart(key);
-            if (value) {
-                layui.sessionData('tempData-'+part, {key: key, value: value});
-            } else {
-                layui.sessionData('tempData-'+part, {key: key, remove: true});
+            if(!memoyOnly) {
+                if (value) {
+                    layui.sessionData('tempData-' + part, {key: key, value: value});
+                } else {
+                    layui.sessionData('tempData-' + part, {key: key, remove: true});
+                }
             }
             this.tempDataCache[key]=value;
         },

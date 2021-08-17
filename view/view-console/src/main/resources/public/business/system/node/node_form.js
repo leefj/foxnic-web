@@ -1,7 +1,7 @@
 /**
  * sys_node 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-13 22:40:35
+ * @since 2021-08-17 14:29:31
  */
 
 function FormPage() {
@@ -9,15 +9,20 @@ function FormPage() {
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect,foxup;
 	const moduleURL="/service-system/sys-node";
 
-	const disableCreateNew=true;
-	const disableModify=true;
+	var disableCreateNew=false;
+	var disableModify=false;
 	/**
       * 入口函数，初始化
       */
 	this.init=function(layui) { 	
      	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload,foxup=layui.foxnicUpload;
 		laydate = layui.laydate,table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
-		
+
+		//如果没有修改和保存权限，
+		if( !admin.checkAuth(AUTH_PREFIX+":update") && !admin.checkAuth(AUTH_PREFIX+":save")) {
+			disableModify=true;
+		}
+
 		//渲染表单组件
 		renderFormFields();
 		
@@ -113,9 +118,11 @@ function FormPage() {
         },1);
 
         //
-		if(disableModify) {
+		if(disableModify || disableCreateNew || ) {
 			fox.lockForm($("#data-form"),true);
 		}
+
+
 
 
 

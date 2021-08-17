@@ -1,7 +1,7 @@
 /**
  * 在线会话 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-13 22:14:38
+ * @since 2021-08-17 14:46:32
  */
 
 
@@ -65,6 +65,7 @@ function ListPage() {
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return fox.dateFormat(d.createTime); }}
 					,{ field: 'hostId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('主机ID') }
 					,{ field: 'nodeId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('节点实例ID') }
+					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
 				]],
 				footer : {
@@ -236,7 +237,7 @@ function ListPage() {
 		table.on('tool(data-table)', function (obj) {
 			var data = obj.data;
 			var layEvent = obj.event;
-	
+			admin.putTempData('sys-session-online-form-data-form-action', "",true);
 			if (layEvent === 'edit') { // 修改
 				//延迟显示加载动画，避免界面闪动
 				var task=setTimeout(function(){layer.load(2);},1000);
@@ -244,13 +245,27 @@ function ListPage() {
 					clearTimeout(task);
 					layer.closeAll('loading');
 					if(data.success) {
-						 showEditForm(data.data);
+						admin.putTempData('sys-session-online-form-data-form-action', "edit",true);
+						showEditForm(data.data);
 					} else {
 						 layer.msg(data.message, {icon: 1, time: 1500});
 					}
 				});
-				
-			} else if (layEvent === 'del') { // 删除
+			} else if (layEvent === 'view') { // 修改
+				//延迟显示加载动画，避免界面闪动
+				var task=setTimeout(function(){layer.load(2);},1000);
+				admin.request(moduleURL+"/get-by-id", { id : data.id }, function (data) {
+					clearTimeout(task);
+					layer.closeAll('loading');
+					if(data.success) {
+						admin.putTempData('sys-session-online-form-data-form-action', "view",true);
+						showEditForm(data.data);
+					} else {
+						layer.msg(data.message, {icon: 1, time: 1500});
+					}
+				});
+			}
+			else if (layEvent === 'del') { // 删除
 			
 				layer.confirm(fox.translate('确定删除此')+fox.translate('在线会话')+fox.translate('吗？'), function (i) {
 					layer.close(i);
@@ -266,7 +281,8 @@ function ListPage() {
 					});
 				});
 				
-			}  
+			}
+			
 		});
  
     };
@@ -295,6 +311,7 @@ function ListPage() {
 		});
 		admin.putTempData('sys-session-online-form-data-popup-index', index);
 	};
+
 
 };
 
