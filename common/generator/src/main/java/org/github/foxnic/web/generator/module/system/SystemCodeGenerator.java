@@ -30,7 +30,7 @@ public class SystemCodeGenerator  {
 //				System.out.println("What you name?");
 //				String str = br.readLine();
 //				System.out.println("Hello " + str + ".");
-//				g.generateSysNode();
+				g.generateSysNode();
 //			}
 //		} catch (IOException e) {
 //			e.printStackTrace();
@@ -95,7 +95,7 @@ public class SystemCodeGenerator  {
 		//禁用表单查看
 		cfg.view().list().disableFormView();
 		//配置表格操作列宽度
-		cfg.view().list().operationColumn().width(260);
+		cfg.view().list().operationColumn().width(60);
 
 		//文件生成覆盖模式
 		cfg.overrides()

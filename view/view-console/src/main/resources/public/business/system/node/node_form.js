@@ -1,7 +1,7 @@
 /**
  * sys_node 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-17 14:29:31
+ * @since 2021-08-17 14:50:00
  */
 
 function FormPage() {
@@ -9,8 +9,8 @@ function FormPage() {
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect,foxup;
 	const moduleURL="/service-system/sys-node";
 
-	var disableCreateNew=false;
-	var disableModify=false;
+	var disableCreateNew=true;
+	var disableModify=true;
 	/**
       * 入口函数，初始化
       */
@@ -20,6 +20,9 @@ function FormPage() {
 
 		//如果没有修改和保存权限，
 		if( !admin.checkAuth(AUTH_PREFIX+":update") && !admin.checkAuth(AUTH_PREFIX+":save")) {
+			disableModify=true;
+		}
+		if(admin.getTempData('sys-node-form-data-form-action')=="view") {
 			disableModify=true;
 		}
 
@@ -117,16 +120,16 @@ function FormPage() {
             },100);
         },1);
 
-        //
-		if(disableModify || disableCreateNew || ) {
+        //禁用编辑
+		if(disableModify || disableCreateNew) {
 			fox.lockForm($("#data-form"),true);
+			$("#submit-button").hide();
+			$("#cancel-button").css("margin-right","15px")
+		} else {
+			$("#submit-button").show();
+			$("#cancel-button").css("margin-right","0px")
 		}
 
-
-
-
-
-        
 	}
 	
 	/**
