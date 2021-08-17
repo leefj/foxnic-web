@@ -1,7 +1,7 @@
 /**
  * 代码生成示例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-16 19:13:51
+ * @since 2021-08-17 17:28:07
  */
 
 
@@ -10,7 +10,7 @@ function ListPage() {
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect;
 	//模块基础路径
 	const moduleURL="/service-system/sys-code-example";
-	
+	var dataTable=null;
 	/**
       * 入口函数，初始化
       */
@@ -43,7 +43,7 @@ function ListPage() {
 		//
 		function renderTableInternal() {
 			var h=$(".search-bar").height();
-			fox.renderTable({
+			dataTable=fox.renderTable({
 				elem: '#data-table',
 				toolbar: '#toolbarTemplate',
 				defaultToolbar: ['filter', 'print'],
@@ -60,10 +60,10 @@ function ListPage() {
 					,{ field: 'birthday', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('日期'), templet: function (d) { return fox.dateFormat(d.birthday); }}
 					,{ field: 'workTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('工作时间'), templet: function (d) { return fox.dateFormat(d.workTime); }}
 					,{ field: 'valid', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('逻辑值'), templet: '#cell-tpl-valid'}
-					,{ field: 'radioEnum', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('单选框(枚举)'), templet:function (d){ return fox.getEnumText(RADIO_RADIOENUM_DATA,d.radioEnum);}}
-					,{ field: 'radioDict', align:"left", fixed:false, hide:false, sort: true, title: fox.translate('单选框(字典)'), templet:function (d){ return fox.getDictText(RADIO_RADIODICT_DATA,d.radioDict);}}
+					,{ field: 'radioEnum', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('枚举'), templet:function (d){ return fox.getEnumText(RADIO_RADIOENUM_DATA,d.radioEnum);}}
+					,{ field: 'radioDict', align:"left", fixed:false, hide:false, sort: true, title: fox.translate('性别'), templet:function (d){ return fox.getDictText(RADIO_RADIODICT_DATA,d.radioDict);}}
 					,{ field: 'checkEnum', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('复选框(枚举)'), templet:function (d){ return fox.getEnumText(CHECK_CHECKENUM_DATA,d.checkEnum);}}
-					,{ field: 'checkDict', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('复选框(字典)'), templet:function (d){ return fox.getDictText(CHECK_CHECKDICT_DATA,d.checkDict);}}
+					,{ field: 'checkDict', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('状态'), templet:function (d){ return fox.getDictText(CHECK_CHECKDICT_DATA,d.checkDict);}}
 					,{ field: 'selectEnum', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('选择框(枚举)'), templet:function (d){ return fox.getEnumText(SELECT_SELECTENUM_DATA,d.selectEnum);}}
 					,{ field: 'selectDict', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('选择框(字典)'), templet:function (d){ return fox.getDictText(SELECT_SELECTDICT_DATA,d.selectDict);}}
 					,{ field: 'roleIds', align:"",fixed:false,  hide:false, sort: false, title: fox.translate('角色'), templet: function (d) { return fox.joinLabel(d.roles,"name");}}
@@ -110,17 +110,18 @@ function ListPage() {
 		value.notes={ value: $("#notes").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" "};
 		value.area={ begin: $("#area-begin").val(), end: $("#area-end").val() };
 		value.weight={ value: $("#weight").val()};
-		value.valid={ value: xmSelect.get("#valid",true).getValue("value")};
-		value.radioEnum={ value: xmSelect.get("#radioEnum",true).getValue("value")};
-		value.radioDict={ value: xmSelect.get("#radioDict",true).getValue("value")};
-		value.checkEnum={ value: xmSelect.get("#checkEnum",true).getValue("value") ,fuzzy: true,valuePrefix:"\"",valueSuffix:"\""};
-		value.checkDict={ value: xmSelect.get("#checkDict",true).getValue("value") ,fuzzy: true,valuePrefix:"\"",valueSuffix:"\""};
-		value.selectEnum={ value: xmSelect.get("#selectEnum",true).getValue("value")};
-		value.selectDict={ value: xmSelect.get("#selectDict",true).getValue("value") ,fuzzy: true,valuePrefix:"\"",valueSuffix:"\""};
+		value.valid={ value: xmSelect.get("#valid",true).getValue("value"), label:xmSelect.get("#valid",true).getValue("nameStr") };
+		value.radioEnum={ value: xmSelect.get("#radioEnum",true).getValue("value"), label:xmSelect.get("#radioEnum",true).getValue("nameStr")};
+		value.radioDict={ value: xmSelect.get("#radioDict",true).getValue("value"), label:xmSelect.get("#radioDict",true).getValue("nameStr")};
+		value.checkEnum={ value: xmSelect.get("#checkEnum",true).getValue("value") ,fuzzy: true,valuePrefix:"\"",valueSuffix:"\"", label:xmSelect.get("#checkEnum",true).getValue("nameStr")};
+		value.checkDict={ value: xmSelect.get("#checkDict",true).getValue("value") ,fuzzy: true,valuePrefix:"\"",valueSuffix:"\"", label:xmSelect.get("#checkDict",true).getValue("nameStr")};
+		value.selectEnum={ value: xmSelect.get("#selectEnum",true).getValue("value"), label:xmSelect.get("#selectEnum",true).getValue("nameStr")};
+		value.selectDict={ value: xmSelect.get("#selectDict",true).getValue("value") ,fuzzy: true,valuePrefix:"\"",valueSuffix:"\"", label:xmSelect.get("#selectDict",true).getValue("nameStr")};
 		value.resourceId={ value: $("#resourceId").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"", fillBy:"resourze",field:"url" };
 		value.birthday={ begin: $("#birthday-begin").val(), end: $("#birthday-end").val() };
-		value.roleIds={ value: xmSelect.get("#roleIds",true).getValue("value"), fillBy:"roles",field:"id" };
+		value.roleIds={ value: xmSelect.get("#roleIds",true).getValue("value"), fillBy:"roles",field:"id", label:xmSelect.get("#roleIds",true).getValue("nameStr") };
 		var ps={searchField: "$composite", searchValue: JSON.stringify(value),sortField: sortField,sortType: sortType};
+		dataTable.config.searchValue=value;
 		table.reload('data-table', { where : ps });
 	}
     
@@ -400,7 +401,7 @@ function ListPage() {
 		table.on('tool(data-table)', function (obj) {
 			var data = obj.data;
 			var layEvent = obj.event;
-	
+			admin.putTempData('sys-code-example-form-data-form-action', "",true);
 			if (layEvent === 'edit') { // 修改
 				//延迟显示加载动画，避免界面闪动
 				var task=setTimeout(function(){layer.load(2);},1000);
@@ -408,13 +409,27 @@ function ListPage() {
 					clearTimeout(task);
 					layer.closeAll('loading');
 					if(data.success) {
-						 showEditForm(data.data);
+						admin.putTempData('sys-code-example-form-data-form-action', "edit",true);
+						showEditForm(data.data);
 					} else {
 						 layer.msg(data.message, {icon: 1, time: 1500});
 					}
 				});
-				
-			} else if (layEvent === 'del') { // 删除
+			} else if (layEvent === 'view') { // 修改
+				//延迟显示加载动画，避免界面闪动
+				var task=setTimeout(function(){layer.load(2);},1000);
+				admin.request(moduleURL+"/get-by-id", { id : data.id }, function (data) {
+					clearTimeout(task);
+					layer.closeAll('loading');
+					if(data.success) {
+						admin.putTempData('sys-code-example-form-data-form-action', "view",true);
+						showEditForm(data.data);
+					} else {
+						layer.msg(data.message, {icon: 1, time: 1500});
+					}
+				});
+			}
+			else if (layEvent === 'del') { // 删除
 			
 				layer.confirm(fox.translate('确定删除此')+fox.translate('代码生成示例')+fox.translate('吗？'), function (i) {
 					layer.close(i);
@@ -460,6 +475,7 @@ function ListPage() {
 		});
 		admin.putTempData('sys-code-example-form-data-popup-index', index);
 	};
+
 
 };
 

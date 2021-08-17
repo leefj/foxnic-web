@@ -73,7 +73,7 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 				//.range(0.0,20.0)
 				.allowNegative(false)
 				.form().validate().required()
-				.search().range().inputWidth(64)
+				.search().range()
 		;
 
 		//小数类型
@@ -99,10 +99,12 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 
 		//单选框，下拉数据来自枚举
 		view.field(TABLE.RADIO_ENUM)
+				.basic().label("枚举")
 				.form().radioBox().enumType(Language.class);
 
 		//单选框，下拉数据来自字典
 		view.field(TABLE.RADIO_DICT)
+				.basic().label("性别")
 				.form().validate().required()
 				.form().radioBox().dict(DictEnum.SEX);
 
@@ -113,7 +115,8 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 
 		//复选框，下拉数据来自字典
 		view.field(TABLE.CHECK_DICT)
-				.form().checkBox().dict(DictEnum.MEASURE_METHOD)
+				.basic().label("状态")
+				.form().checkBox().dict(DictEnum.ORDER_STATUS)
 				.form().validate().required()
 				.search().fuzzySearchWithDoubleQM();
 
@@ -134,7 +137,7 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 
 		//下拉选择，数据来自外部表
 		view.field(TABLE.RESOURCE_ID)
-				.search().inputWidth(140).fuzzySearch()
+				.search().fuzzySearch()
 				.form().selectBox().queryApi(ResourzeServiceProxy.QUERY_PAGED_LIST)
 				.valueField(ResourzeMeta.ID).textField(ResourzeMeta.URL)
 				.toolbar(false).paging(true)
@@ -336,12 +339,24 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 	public void configSearch(ViewOptions view,SearchAreaOptions search) {
 		//此设置用于覆盖字段的独立配置；清单中没有出现的，设置为隐藏；重复出现或不存在的字段将抛出异常；只接受 DBField 或 String 类型的元素
 		search.inputLayout(
-				new Object[]{TABLE.NAME,TABLE.NOTES,TABLE.AREA},
-				new Object[]{TABLE.WEIGHT,TABLE.BIRTHDAY,TABLE.VALID},
-				new Object[]{TABLE.RADIO_ENUM,TABLE.RADIO_DICT,TABLE.CHECK_ENUM,TABLE.CHECK_DICT},
-				new Object[]{TABLE.SELECT_ENUM,TABLE.SELECT_DICT},
-				new Object[]{CodeExampleMeta.ROLE_IDS,TABLE.RESOURCE_ID}
+				new Object[]{CodeExampleMeta.ROLE_IDS,TABLE.NAME,TABLE.NOTES,TABLE.AREA},
+				new Object[]{TABLE.CHECK_DICT,TABLE.WEIGHT,TABLE.VALID,TABLE.RESOURCE_ID},
+				new Object[]{TABLE.RADIO_ENUM,TABLE.RADIO_DICT,TABLE.CHECK_ENUM,TABLE.SELECT_DICT},
+				new Object[]{TABLE.BIRTHDAY,TABLE.SELECT_ENUM}
 		);
+
+		//设置各个列的搜索输入框的标签宽度
+		search.labelWidth(1,50);
+		search.labelWidth(2,80);
+		search.labelWidth(3,100);
+		search.labelWidth(4,100);
+		//设置列的搜索输入框的宽度
+		search.inputWidth(4,150);
+		//对某些未对其的进行微调
+		view.field(TABLE.BIRTHDAY).search().inputWidth(180);
+		view.field(TABLE.SELECT_ENUM).search().labelWidth(100);
+		view.field(TABLE.AREA).search().inputWidth(67);
+
 	}
 
 

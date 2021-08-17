@@ -1,7 +1,7 @@
 /**
  * 代码生成示例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-16 19:13:52
+ * @since 2021-08-17 17:28:07
  */
 
 function FormPage() {
@@ -9,15 +9,23 @@ function FormPage() {
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect,foxup;
 	const moduleURL="/service-system/sys-code-example";
 
-	const disableCreateNew=false;
-	const disableModify=false;
+	var disableCreateNew=false;
+	var disableModify=false;
 	/**
       * 入口函数，初始化
       */
 	this.init=function(layui) { 	
      	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload,foxup=layui.foxnicUpload;
 		laydate = layui.laydate,table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
-		
+
+		//如果没有修改和保存权限，
+		if( !admin.checkAuth(AUTH_PREFIX+":update") && !admin.checkAuth(AUTH_PREFIX+":save")) {
+			disableModify=true;
+		}
+		if(admin.getTempData('sys-code-example-form-data-form-action')=="view") {
+			disableModify=true;
+		}
+
 		//渲染表单组件
 		renderFormFields();
 		
@@ -224,7 +232,7 @@ function FormPage() {
 		    if(formData["checkEnum"]) {
 				fox.setCheckedValue("checkEnum",formData["checkEnum"]);
 		    }
-			//设置 复选框(字典) 显示复选框勾选
+			//设置 状态 显示复选框勾选
 		    if(formData["checkDict"]) {
 				fox.setCheckedValue("checkDict",formData["checkDict"]);
 		    }
@@ -255,14 +263,16 @@ function FormPage() {
             },100);
         },1);
 
-        //
-		if(disableModify) {
+        //禁用编辑
+		if(disableModify || disableCreateNew) {
 			fox.lockForm($("#data-form"),true);
+			$("#submit-button").hide();
+			$("#cancel-button").css("margin-right","15px")
+		} else {
+			$("#submit-button").show();
+			$("#cancel-button").css("margin-right","0px")
 		}
 
-
-
-        
 	}
 	
 	/**
@@ -281,7 +291,7 @@ function FormPage() {
 
 			//处理 复选框(枚举) 默认值
 			data.field["checkEnum"]=fox.getCheckedValue("checkEnum");
-			//处理 复选框(字典) 默认值
+			//处理 状态 默认值
 			data.field["checkDict"]=fox.getCheckedValue("checkDict");
 
 

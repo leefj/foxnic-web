@@ -287,9 +287,54 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
 
             function done() {
                 if (cfg.footer) {
+                    //debugger;
+                    renderSearchContent(this);
                     renderFooter(this, cfg.footer);
                 }
                 if (userDone) userDone();
+            }
+
+            function renderSearchContent(it){
+                //debugger
+                function hasVal(val) {
+                    if(val==null) return false;
+                    if(val=="") return false;
+                    return true;
+                }
+                var values=it.searchValue;
+                if(!values) values={};
+                $(".layui-btn-container").find(".search-content-badge").remove();
+                for(var itm in values) {
+                    var label=$("."+itm+"-label").text();
+                    var v=values[itm];
+                    var t="";
+
+                    if(hasVal(v["label"])) {
+                        if(Array.isArray(v.label)) {
+                            t=v.label.join(",");
+                        } else {
+                            t=v.label;
+                        }
+                    }
+                    else if(hasVal(v["value"])) {
+                        t=v.value;
+                    }
+                    // if(hasVal(v.label)) {
+                    //     t=v.label;
+                    // }
+                    // if(hasVal(v.begin) && !hasVal(v.end)) {
+                    //     t=">"+v.begin;
+                    // }
+                    // if(!hasVal(v.begin) && hasVal(v.end)) {
+                    //     t="<"+v.end;
+                    // }
+                    // if(!hasVal(v.begin) && !hasVal(v.end)) {
+                    //     t=v.begin+"~"+v.end;
+                    // }
+
+                    if(t.length==0) continue;
+                    $(".layui-btn-container").append('<span class="layui-badge-rim search-content-badge">'+label+' : '+t+'</span>');
+                }
             }
 
             function renderFooter(it, footer) {
@@ -1075,19 +1120,19 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
          * 调整搜索相关的尺寸
          * */
         adjustSearchElement:function() {
-            var rows=$(".search-inputs");
             var me=this;
-            var divs=$(".search-label-div");
 
-            if(rows.length>1) {
-                var maxWidth = 0;
-                for (var i = 0; i < divs.length; i++) {
-                    var div = $(divs[i]);
-                    var w = div.width();
-                    if (maxWidth < w) maxWidth = w;
-                }
-                divs.width(maxWidth);
-            }
+            // var rows=$(".search-inputs");
+            // var divs=$(".search-label-div");
+            // if(rows.length>1) {
+            //     var maxWidth = 0;
+            //     for (var i = 0; i < divs.length; i++) {
+            //         var div = $(divs[i]);
+            //         var w = div.width();
+            //         if (maxWidth < w) maxWidth = w;
+            //     }
+            //     divs.width(maxWidth);
+            // }
 
             var h=$(".search-bar").height();
             $(".search-buttons").css("margin-top",(h-$(".search-buttons").height()-8)+"px");

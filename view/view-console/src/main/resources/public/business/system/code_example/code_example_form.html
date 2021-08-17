@@ -2,7 +2,7 @@
 /**
  * 代码生成示例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-16 19:13:52
+ * @since 2021-08-17 17:28:07
  */
  -->
  <!DOCTYPE html>
@@ -101,9 +101,9 @@
 
                 
                     <div class="layui-form-item" >
-                        <div class="layui-form-label "><div th:text="${lang.translate('复选框(字典)')}">复选框(字典)</div><div class="layui-required">*</div></div>
+                        <div class="layui-form-label "><div th:text="${lang.translate('状态')}">状态</div><div class="layui-required">*</div></div>
                         <div class="layui-input-block ">
-                                <input input-type="checkbox" type="checkbox" name="checkDict" lay-filter="checkDict" lay-skin="primary" th:each="e,stat:${dict.toArray('measure_method')}" th:value="${e.code}" th:title="${e.text}">
+                                <input input-type="checkbox" type="checkbox" name="checkDict" lay-filter="checkDict" lay-skin="primary" th:each="e,stat:${dict.toArray('order_status')}" th:value="${e.code}" th:title="${e.text}">
                         </div>
                     </div>
 
@@ -191,7 +191,7 @@
 
 
                 <div class="layui-form-item" >
-                    <div class="layui-form-label "><div th:text="${lang.translate('单选框(枚举)')}">单选框(枚举)</div></div>
+                    <div class="layui-form-label "><div th:text="${lang.translate('枚举')}">枚举</div></div>
                     <div class="layui-input-block ">
                         <input input-type="radio" type="radio" name="radioEnum" lay-filter="radioEnum" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.Language')}" th:value="${e.code}" th:title="${e.text}">
                     </div>
@@ -205,7 +205,7 @@
 
 
                 <div class="layui-form-item" >
-                    <div class="layui-form-label "><div th:text="${lang.translate('单选框(字典)')}">单选框(字典)</div><div class="layui-required">*</div></div>
+                    <div class="layui-form-label "><div th:text="${lang.translate('性别')}">性别</div><div class="layui-required">*</div></div>
                     <div class="layui-input-block ">
                         <input input-type="radio" type="radio" name="radioDict" lay-filter="radioDict" th:each="e,stat:${dict.toArray('sex')}" th:value="${e.code}" th:title="${e.text}">
                     </div>
@@ -269,7 +269,7 @@
 
 <div class="model-form-footer">
     <button class="layui-btn layui-btn-primary" id="cancel-button" lay-filter="cancel-button" type="button" th:text="${lang.translate('取消')}" >取消</button>
-    <button th:if="${perm.checkAnyAuth('sys_code_example:create','sys_code_example:update','sys_code_example:save')}" class="layui-btn" style="margin-right: 15px"  id="submit-button" lay-filter="submit-button" lay-submit th:text="${lang.translate('保存')}">保存</button>
+    <button th:if="${perm.checkAnyAuth('sys_code_example:create','sys_code_example:update','sys_code_example:save')}" class="layui-btn" style="margin-right: 15px;display: none;"  id="submit-button" lay-filter="submit-button" lay-submit th:text="${lang.translate('保存')}">保存</button>
 </div>
 
 <script type="text/javascript" src="/module/global.js" th:src="'/module/global.js?'+${cacheKey}"></script>
@@ -282,10 +282,10 @@
     var RADIO_RADIOENUM_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.Language')}]];
     var RADIO_RADIODICT_DATA = [[${dict.toArray('sex')}]];
     var CHECK_CHECKENUM_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.MenuType')}]];
-    var CHECK_CHECKDICT_DATA = [[${dict.toArray('measure_method')}]];
+    var CHECK_CHECKDICT_DATA = [[${dict.toArray('order_status')}]];
     var SELECT_SELECTENUM_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.SystemConfigType')}]];
     var SELECT_SELECTDICT_DATA = [[${dict.toArray('order_status')}]];
-    var VALIDATE_CONFIG={"area":{"labelInForm":"整数输入","inputType":"number_input","required":true},"birthday":{"date":true,"labelInForm":"日期","inputType":"date_input"},"checkDict":{"labelInForm":"复选框(字典)","inputType":"check_box","required":true},"fileIds":{"labelInForm":"多文件上传","inputType":"upload","required":true},"radioDict":{"labelInForm":"单选框(字典)","inputType":"radio_box","required":true},"selectDict":{"labelInForm":"选择框(字典)","inputType":"select_box","required":true},"name":{"labelInForm":"单行文本","inputType":"text_input","required":true},"selectEnum":{"labelInForm":"选择框(枚举)","inputType":"select_box","required":true}};
+    var VALIDATE_CONFIG={"area":{"labelInForm":"整数输入","inputType":"number_input","required":true},"birthday":{"date":true,"labelInForm":"日期","inputType":"date_input"},"checkDict":{"labelInForm":"状态","inputType":"check_box","required":true},"fileIds":{"labelInForm":"多文件上传","inputType":"upload","required":true},"radioDict":{"labelInForm":"性别","inputType":"radio_box","required":true},"selectDict":{"labelInForm":"选择框(字典)","inputType":"select_box","required":true},"name":{"labelInForm":"单行文本","inputType":"text_input","required":true},"selectEnum":{"labelInForm":"选择框(枚举)","inputType":"select_box","required":true}};
     var AUTH_PREFIX="sys_code_example";
 </script>
 

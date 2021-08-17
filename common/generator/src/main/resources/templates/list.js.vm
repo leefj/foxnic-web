@@ -11,7 +11,7 @@ function ListPage() {
 	#end
 	//模块基础路径
 	const moduleURL="#(moduleURL)";
-	
+	var dataTable=null;
 	/**
       * 入口函数，初始化
       */
@@ -48,7 +48,7 @@ function ListPage() {
 		//
 		function renderTableInternal() {
 			var h=$(".search-bar").height();
-			fox.renderTable({
+			dataTable=fox.renderTable({
 				elem: '#data-table',
 				toolbar: '#toolbarTemplate',
 				defaultToolbar: ['filter', 'print'],
@@ -144,21 +144,21 @@ function ListPage() {
 		#for(f : searchFields)
 		#if(!f.isHideInSearch)
 		#if(f.typeName.equals("logic_switch"))
-		value.#(f.varName)={ value: xmSelect.get("##(f.varName)",true).getValue("value")};
+		value.#(f.varName)={ value: xmSelect.get("##(f.varName)",true).getValue("value"), label:xmSelect.get("##(f.varName)",true).getValue("nameStr") };
 		#else if(f.typeName.equals("radio_box"))
-		value.#(f.varName)={ value: xmSelect.get("##(f.varName)",true).getValue("value")};
+		value.#(f.varName)={ value: xmSelect.get("##(f.varName)",true).getValue("value"), label:xmSelect.get("##(f.varName)",true).getValue("nameStr")};
 		#else if(f.typeName.equals("select_box"))
 		#if(f.selectField.queryApi!=null)
 		#if(f.search.fuzzySearch)
 		value.#(f.varName)={ value: $("##(f.varName)").val()#if(f.search!=null && f.search.fuzzySearch) ,fuzzy: true,valuePrefix:"#(f.search.valuePrefix)",valueSuffix:"#(f.search.valueSuffix)"#end, fillBy:"#(f.selectField.fillBy)",field:"#(f.selectField.textField)" };
 		#else
-		value.#(f.varName)={ value: xmSelect.get("##(f.varName)",true).getValue("value")#if(f.search!=null && f.search.fuzzySearch) ,fuzzy: true,valuePrefix:"#(f.search.valuePrefix)",valueSuffix:"#(f.search.valueSuffix)"#end, fillBy:"#(f.selectField.fillBy)",field:"#(f.selectField.valueField)" };
+		value.#(f.varName)={ value: xmSelect.get("##(f.varName)",true).getValue("value")#if(f.search!=null && f.search.fuzzySearch) ,fuzzy: true,valuePrefix:"#(f.search.valuePrefix)",valueSuffix:"#(f.search.valueSuffix)"#end, fillBy:"#(f.selectField.fillBy)",field:"#(f.selectField.valueField)", label:xmSelect.get("##(f.varName)",true).getValue("nameStr") };
 		#end
 		#else
-		value.#(f.varName)={ value: xmSelect.get("##(f.varName)",true).getValue("value")#if(f.search!=null && f.search.fuzzySearch) ,fuzzy: true,valuePrefix:"#(f.search.valuePrefix)",valueSuffix:"#(f.search.valueSuffix)"#end};
+		value.#(f.varName)={ value: xmSelect.get("##(f.varName)",true).getValue("value")#if(f.search!=null && f.search.fuzzySearch) ,fuzzy: true,valuePrefix:"#(f.search.valuePrefix)",valueSuffix:"#(f.search.valueSuffix)"#end, label:xmSelect.get("##(f.varName)",true).getValue("nameStr")};
 		#end
 		#else if(f.typeName.equals("check_box"))
-		value.#(f.varName)={ value: xmSelect.get("##(f.varName)",true).getValue("value")#if(f.search!=null && f.search.fuzzySearch) ,fuzzy: true,valuePrefix:"#(f.search.valuePrefix)",valueSuffix:"#(f.search.valueSuffix)"#end};
+		value.#(f.varName)={ value: xmSelect.get("##(f.varName)",true).getValue("value")#if(f.search!=null && f.search.fuzzySearch) ,fuzzy: true,valuePrefix:"#(f.search.valuePrefix)",valueSuffix:"#(f.search.valueSuffix)"#end, label:xmSelect.get("##(f.varName)",true).getValue("nameStr")};
 		#else if(f.typeName.equals("date_input"))
 		#if(f.search.searchInRange)
 		value.#(f.varName)={ begin: $("##(f.varName)-begin").val(), end: $("##(f.varName)-end").val() };
@@ -181,6 +181,7 @@ function ListPage() {
 		// 树形结构锁定上级ID
 		ps.#(parentIdVar)=#(parentIdVar);
 		#end
+		dataTable.config.searchValue=value;
 		table.reload('data-table', { where : ps });
 	}
     

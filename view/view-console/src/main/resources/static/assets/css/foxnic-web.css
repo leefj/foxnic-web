@@ -135,6 +135,7 @@
     font-weight: bold;
     margin-left: 5px;
     margin-right: 5px;
+    width: 6px;
 }
 
 .search-input {
@@ -144,6 +145,11 @@
 
 .search-date-input {
     text-align: center;
+}
+
+xm-select {
+    border: 1px solid #eeeeee;
+    border-radius: 1px;
 }
 
 .advance-search-div {
