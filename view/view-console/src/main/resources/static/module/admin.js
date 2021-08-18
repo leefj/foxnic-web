@@ -368,7 +368,7 @@ layui.define(['settings', 'layer'], function (exports) {
         putTempData: function (key, value, memoyOnly) {
             //拦截，并由顶层弹出窗口
             if(top && top!=window && top.admin) {
-                return top.admin.putTempData(key, value);
+                return top.admin.putTempData(key, value,memoyOnly);
             }
             var part=this.getKeyPart(key);
             if(!memoyOnly) {
@@ -379,6 +379,7 @@ layui.define(['settings', 'layer'], function (exports) {
                 }
             }
             this.tempDataCache[key]=value;
+            console.log("tempDataCache",this.tempDataCache)
         },
         // 获取缓存临时数据
         getTempData: function (key) {

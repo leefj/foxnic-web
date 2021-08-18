@@ -63,7 +63,7 @@ public class SysDictConfig extends BaseCodeConfig<SYS_DICT> {
 
     @Override
     public void configList(ViewOptions view, ListOptions list) {
-        list.operationColumn().width(170);
+        list.operationColumn().width(220);
         //表格操作列增加一个按钮，并指定JS函数
         list.operationColumn().addActionButton("条目","openDictItemWindow");
     }

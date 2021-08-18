@@ -316,6 +316,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
 
                 for(var itm in values) {
                     var label=$("."+itm+"-label").text();
+                    if(!hasVal(label)) continue;
                     var v=values[itm];
                     var t="";
 

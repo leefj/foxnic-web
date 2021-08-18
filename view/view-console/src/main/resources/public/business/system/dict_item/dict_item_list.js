@@ -1,7 +1,7 @@
 /**
  * 数据字典条目 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-18 13:00:21
+ * @since 2021-08-18 17:28:07
  */
 
 
@@ -42,6 +42,14 @@ function ListPage() {
 		fox.adjustSearchElement();
 		//
 		function renderTableInternal() {
+			var ps={};
+			var contitions={};
+			beforeDictItemDataQuery(contitions);
+			if(Object.keys(contitions).length>0) {
+				ps = {searchField: "$composite", searchValue: JSON.stringify(contitions)};
+			}
+
+
 			var h=$(".search-bar").height();
 			dataTable=fox.renderTable({
 				elem: '#data-table',
@@ -50,19 +58,20 @@ function ListPage() {
 				url: moduleURL +'/query-paged-list',
 				height: 'full-'+(h+28),
 				limit: 50,
+				where: ps,
 				cols: [[
 					{ fixed: 'left',type: 'numbers' },
 					{ fixed: 'left',type:'checkbox' }
-					,{ field: 'id', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('ID') }
-					,{ field: 'dictId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('字典ID') }
-					,{ field: 'dictCode', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('字典代码') }
-					,{ field: 'parentId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('上级条目ID') }
+					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('ID') }
+					,{ field: 'dictId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('字典ID') }
+					,{ field: 'dictCode', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('字典代码') }
+					,{ field: 'parentId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('上级条目ID') }
 					,{ field: 'code', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('代码') }
 					,{ field: 'label', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('标签') }
 					,{ field: 'sort', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('排序') }
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return fox.dateFormat(d.createTime); }}
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
-					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
+					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 120 }
 				]],
 				footer : {
 					exportExcel : admin.checkAuth(AUTH_PREFIX+":export"),
@@ -91,13 +100,9 @@ function ListPage() {
       */
 	function refreshTableData(sortField,sortType) {
 		var value = {};
-		value.id={ value: $("#id").val()};
-		value.dictId={ value: $("#dictId").val()};
-		value.dictCode={ value: $("#dictCode").val()};
-		value.parentId={ value: $("#parentId").val()};
-		value.code={ value: $("#code").val()};
-		value.label={ value: $("#label").val()};
-		value.sort={ value: $("#sort").val()};
+		value.code={ value: $("#code").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" "};
+		value.label={ value: $("#label").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" "};
+		beforeDictItemDataQuery(value);
 		var ps={searchField: "$composite", searchValue: JSON.stringify(value)};
 		if(sortField) {
 			ps.sortField=sortField;
@@ -190,6 +195,7 @@ function ListPage() {
         function openCreateFrom() {
         	//设置新增是初始化数据
         	var data={};
+			admin.putTempData('sys-dict-item-form-data-form-action', "create",true);
             showEditForm(data);
         };
 		
@@ -301,6 +307,18 @@ function ListPage() {
 		admin.putTempData('sys-dict-item-form-data-popup-index', index);
 	};
 
+
+	/**
+	 * 字典条目表查询前调用
+	 * */
+	function beforeDictItemDataQuery(conditions) {
+	    //获得缓存中的字典ID
+	    var dictIdValue=admin.getTempData("dictId");
+	    //设置固定的查询条件
+	    if(!conditions["dictId"]) conditions["dictId"]={};
+	    conditions["dictId"].value=dictIdValue;
+	}
+	;
 
 };
 

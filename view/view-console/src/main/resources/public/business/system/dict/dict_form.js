@@ -1,7 +1,7 @@
 /**
  * 数据字典 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-18 13:00:22
+ * @since 2021-08-18 17:28:05
  */
 
 function FormPage() {
@@ -96,7 +96,6 @@ function FormPage() {
       */
 	function fillFormData() {
 		var formData = admin.getTempData('sys-dict-form-data');
-
 		//如果是新建
 		if(!formData.id) {
 			adjustPopup();
@@ -186,6 +185,7 @@ function FormPage() {
 	    $("#cancel-button").click(function(){admin.closePopupCenter();});
 	    
     }
+
 
 }
 

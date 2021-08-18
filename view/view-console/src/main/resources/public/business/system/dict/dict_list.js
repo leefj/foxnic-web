@@ -1,7 +1,7 @@
 /**
  * 数据字典 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-18 13:00:22
+ * @since 2021-08-18 17:28:05
  */
 
 
@@ -42,6 +42,10 @@ function ListPage() {
 		fox.adjustSearchElement();
 		//
 		function renderTableInternal() {
+			var ps={};
+			var contitions={};
+
+
 			var h=$(".search-bar").height();
 			dataTable=fox.renderTable({
 				elem: '#data-table',
@@ -50,6 +54,7 @@ function ListPage() {
 				url: moduleURL +'/query-paged-list',
 				height: 'full-'+(h+28),
 				limit: 50,
+				where: ps,
 				cols: [[
 					{ fixed: 'left',type: 'numbers' },
 					{ fixed: 'left',type:'checkbox' }
@@ -61,7 +66,7 @@ function ListPage() {
 					,{ field: 'notes', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('备注') }
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return fox.dateFormat(d.createTime); }}
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
-					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 170 }
+					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 220 }
 				]],
 				footer : {
 					exportExcel : admin.checkAuth(AUTH_PREFIX+":export"),
@@ -204,6 +209,7 @@ function ListPage() {
         function openCreateFrom() {
         	//设置新增是初始化数据
         	var data={};
+			admin.putTempData('sys-dict-form-data-form-action', "create",true);
             showEditForm(data);
         };
 		
@@ -321,16 +327,23 @@ function ListPage() {
 	/**
 	 * 条目 操作
 	 */
+	/**
+	 * 打开字典条窗口
+	 * */
 	function openDictItemWindow(data) {
-    var index = admin.popupCenter({
-        title: "条目",
-        resize: false,
-        //offset: [top,null],
-        area: ["500px", "500px"],
-        type: 2,
-        content: "business/system/dict_item/dict_item_list.html"
-    });
-}
+	    admin.putTempData("dictId",data.id,true);
+	    var index = admin.popupCenter({
+	        title: "条目",
+	        resize: false,
+	        shade: false,
+	        id: 'dictItemsWindow',
+	        area: ["800px", "600px"],
+	        type: 2,
+	        content: "/business/system/dict_item/dict_item_list.html"
+	    });
+	}
+	
+
 
 };
 
