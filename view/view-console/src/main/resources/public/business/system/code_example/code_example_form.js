@@ -1,7 +1,7 @@
 /**
  * 代码生成示例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-18 18:57:25
+ * @since 2021-08-18 23:53:18
  */
 
 function FormPage() {
@@ -14,7 +14,7 @@ function FormPage() {
 	/**
       * 入口函数，初始化
       */
-	this.init=function(layui) { 	
+	this.init=function(layui) {
      	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload,foxup=layui.foxnicUpload;
 		laydate = layui.laydate,table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
 
@@ -28,10 +28,10 @@ function FormPage() {
 
 		//渲染表单组件
 		renderFormFields();
-		
+
 		//填充表单数据
 		fillFormData();
-		
+
 		//绑定提交事件
 		bindButtonEvent();
 
@@ -63,13 +63,13 @@ function FormPage() {
 			}
 		},250);
 	}
-	
+
 	/**
       * 渲染表单组件
       */
 	function renderFormFields() {
 		fox.renderFormInputs(form);
-	   
+
 	    //渲染图片字段
 		foxup.render({
 			el:"imageId",
@@ -198,7 +198,7 @@ function FormPage() {
 			}
 		});
 	}
-	
+
 	/**
       * 填充表单数据
       */
@@ -213,386 +213,18 @@ function FormPage() {
 			fm[0].reset();
 			form.val('data-form', formData);
 
-
-
-			//设置 复选框(枚举) 显示复选框勾选
-		    if(formData["checkEnum"]) {
-				fox.setCheckedValue("checkEnum",formData["checkEnum"]);
-		    }
-			//设置 状态 显示复选框勾选
-		    if(formData["checkDict"]) {
-				fox.setCheckedValue("checkDict",formData["checkDict"]);
-		    }
-
-
-			//设置  选择框(枚举) 设置下拉框勾选
-			fox.setSelectValue4Enum("#selectEnum",formData.selectEnum,SELECT_SELECTENUM_DATA);
-			//设置  选择框(字典) 设置下拉框勾选
-			fox.setSelectValue4Dict("#selectDict",formData.selectDict,SELECT_SELECTDICT_DATA);
-			//设置  选择框(查询) 设置下拉框勾选
-			fox.setSelectValue4QueryApi("#resourceId",formData.resourze);
-			//设置  角色 设置下拉框勾选
-			fox.setSelectValue4QueryApi("#roleIds",formData.roles);
-
-
-			//设置 复选框(枚举) 显示复选框勾选
-		    if(formData["checkEnum"]) {
-				fox.setCheckedValue("checkEnum",formData["checkEnum"]);
-		    }
-			//设置 状态 显示复选框勾选
-		    if(formData["checkDict"]) {
-				fox.setCheckedValue("checkDict",formData["checkDict"]);
-		    }
-
-
-			//设置  选择框(枚举) 设置下拉框勾选
-			fox.setSelectValue4Enum("#selectEnum",formData.selectEnum,SELECT_SELECTENUM_DATA);
-			//设置  选择框(字典) 设置下拉框勾选
-			fox.setSelectValue4Dict("#selectDict",formData.selectDict,SELECT_SELECTDICT_DATA);
-			//设置  选择框(查询) 设置下拉框勾选
-			fox.setSelectValue4QueryApi("#resourceId",formData.resourze);
-			//设置  角色 设置下拉框勾选
-			fox.setSelectValue4QueryApi("#roleIds",formData.roles);
-
-
-			//设置 复选框(枚举) 显示复选框勾选
-		    if(formData["checkEnum"]) {
-				fox.setCheckedValue("checkEnum",formData["checkEnum"]);
-		    }
-			//设置 状态 显示复选框勾选
-		    if(formData["checkDict"]) {
-				fox.setCheckedValue("checkDict",formData["checkDict"]);
-		    }
-
-
-			//设置  选择框(枚举) 设置下拉框勾选
-			fox.setSelectValue4Enum("#selectEnum",formData.selectEnum,SELECT_SELECTENUM_DATA);
-			//设置  选择框(字典) 设置下拉框勾选
-			fox.setSelectValue4Dict("#selectDict",formData.selectDict,SELECT_SELECTDICT_DATA);
-			//设置  选择框(查询) 设置下拉框勾选
-			fox.setSelectValue4QueryApi("#resourceId",formData.resourze);
-			//设置  角色 设置下拉框勾选
-			fox.setSelectValue4QueryApi("#roleIds",formData.roles);
-
-
-			//设置 复选框(枚举) 显示复选框勾选
-		    if(formData["checkEnum"]) {
-				fox.setCheckedValue("checkEnum",formData["checkEnum"]);
-		    }
-			//设置 状态 显示复选框勾选
-		    if(formData["checkDict"]) {
-				fox.setCheckedValue("checkDict",formData["checkDict"]);
-		    }
-
-
-			//设置  选择框(枚举) 设置下拉框勾选
-			fox.setSelectValue4Enum("#selectEnum",formData.selectEnum,SELECT_SELECTENUM_DATA);
-			//设置  选择框(字典) 设置下拉框勾选
-			fox.setSelectValue4Dict("#selectDict",formData.selectDict,SELECT_SELECTDICT_DATA);
-			//设置  选择框(查询) 设置下拉框勾选
-			fox.setSelectValue4QueryApi("#resourceId",formData.resourze);
-			//设置  角色 设置下拉框勾选
-			fox.setSelectValue4QueryApi("#roleIds",formData.roles);
-
-
-			//设置 复选框(枚举) 显示复选框勾选
-		    if(formData["checkEnum"]) {
-				fox.setCheckedValue("checkEnum",formData["checkEnum"]);
-		    }
-			//设置 状态 显示复选框勾选
-		    if(formData["checkDict"]) {
-				fox.setCheckedValue("checkDict",formData["checkDict"]);
-		    }
-
-
-			//设置  选择框(枚举) 设置下拉框勾选
-			fox.setSelectValue4Enum("#selectEnum",formData.selectEnum,SELECT_SELECTENUM_DATA);
-			//设置  选择框(字典) 设置下拉框勾选
-			fox.setSelectValue4Dict("#selectDict",formData.selectDict,SELECT_SELECTDICT_DATA);
-			//设置  选择框(查询) 设置下拉框勾选
-			fox.setSelectValue4QueryApi("#resourceId",formData.resourze);
-			//设置  角色 设置下拉框勾选
-			fox.setSelectValue4QueryApi("#roleIds",formData.roles);
-
-
-			//设置 复选框(枚举) 显示复选框勾选
-		    if(formData["checkEnum"]) {
-				fox.setCheckedValue("checkEnum",formData["checkEnum"]);
-		    }
-			//设置 状态 显示复选框勾选
-		    if(formData["checkDict"]) {
-				fox.setCheckedValue("checkDict",formData["checkDict"]);
-		    }
-
-
-			//设置  选择框(枚举) 设置下拉框勾选
-			fox.setSelectValue4Enum("#selectEnum",formData.selectEnum,SELECT_SELECTENUM_DATA);
-			//设置  选择框(字典) 设置下拉框勾选
-			fox.setSelectValue4Dict("#selectDict",formData.selectDict,SELECT_SELECTDICT_DATA);
-			//设置  选择框(查询) 设置下拉框勾选
-			fox.setSelectValue4QueryApi("#resourceId",formData.resourze);
-			//设置  角色 设置下拉框勾选
-			fox.setSelectValue4QueryApi("#roleIds",formData.roles);
-
-
-			//设置 复选框(枚举) 显示复选框勾选
-		    if(formData["checkEnum"]) {
-				fox.setCheckedValue("checkEnum",formData["checkEnum"]);
-		    }
-			//设置 状态 显示复选框勾选
-		    if(formData["checkDict"]) {
-				fox.setCheckedValue("checkDict",formData["checkDict"]);
-		    }
-
-
-			//设置  选择框(枚举) 设置下拉框勾选
-			fox.setSelectValue4Enum("#selectEnum",formData.selectEnum,SELECT_SELECTENUM_DATA);
-			//设置  选择框(字典) 设置下拉框勾选
-			fox.setSelectValue4Dict("#selectDict",formData.selectDict,SELECT_SELECTDICT_DATA);
-			//设置  选择框(查询) 设置下拉框勾选
-			fox.setSelectValue4QueryApi("#resourceId",formData.resourze);
-			//设置  角色 设置下拉框勾选
-			fox.setSelectValue4QueryApi("#roleIds",formData.roles);
-
-
-			//设置 复选框(枚举) 显示复选框勾选
-		    if(formData["checkEnum"]) {
-				fox.setCheckedValue("checkEnum",formData["checkEnum"]);
-		    }
-			//设置 状态 显示复选框勾选
-		    if(formData["checkDict"]) {
-				fox.setCheckedValue("checkDict",formData["checkDict"]);
-		    }
-
-
-			//设置  选择框(枚举) 设置下拉框勾选
-			fox.setSelectValue4Enum("#selectEnum",formData.selectEnum,SELECT_SELECTENUM_DATA);
-			//设置  选择框(字典) 设置下拉框勾选
-			fox.setSelectValue4Dict("#selectDict",formData.selectDict,SELECT_SELECTDICT_DATA);
-			//设置  选择框(查询) 设置下拉框勾选
-			fox.setSelectValue4QueryApi("#resourceId",formData.resourze);
-			//设置  角色 设置下拉框勾选
-			fox.setSelectValue4QueryApi("#roleIds",formData.roles);
-
-
-			//设置 复选框(枚举) 显示复选框勾选
-		    if(formData["checkEnum"]) {
-				fox.setCheckedValue("checkEnum",formData["checkEnum"]);
-		    }
-			//设置 状态 显示复选框勾选
-		    if(formData["checkDict"]) {
-				fox.setCheckedValue("checkDict",formData["checkDict"]);
-		    }
-
-
-			//设置  选择框(枚举) 设置下拉框勾选
-			fox.setSelectValue4Enum("#selectEnum",formData.selectEnum,SELECT_SELECTENUM_DATA);
-			//设置  选择框(字典) 设置下拉框勾选
-			fox.setSelectValue4Dict("#selectDict",formData.selectDict,SELECT_SELECTDICT_DATA);
-			//设置  选择框(查询) 设置下拉框勾选
-			fox.setSelectValue4QueryApi("#resourceId",formData.resourze);
-			//设置  角色 设置下拉框勾选
-			fox.setSelectValue4QueryApi("#roleIds",formData.roles);
-
-
-			//设置 复选框(枚举) 显示复选框勾选
-		    if(formData["checkEnum"]) {
-				fox.setCheckedValue("checkEnum",formData["checkEnum"]);
-		    }
-			//设置 状态 显示复选框勾选
-		    if(formData["checkDict"]) {
-				fox.setCheckedValue("checkDict",formData["checkDict"]);
-		    }
-
-
-			//设置  选择框(枚举) 设置下拉框勾选
-			fox.setSelectValue4Enum("#selectEnum",formData.selectEnum,SELECT_SELECTENUM_DATA);
-			//设置  选择框(字典) 设置下拉框勾选
-			fox.setSelectValue4Dict("#selectDict",formData.selectDict,SELECT_SELECTDICT_DATA);
-			//设置  选择框(查询) 设置下拉框勾选
-			fox.setSelectValue4QueryApi("#resourceId",formData.resourze);
-			//设置  角色 设置下拉框勾选
-			fox.setSelectValue4QueryApi("#roleIds",formData.roles);
-
-
-			//设置 复选框(枚举) 显示复选框勾选
-		    if(formData["checkEnum"]) {
-				fox.setCheckedValue("checkEnum",formData["checkEnum"]);
-		    }
-			//设置 状态 显示复选框勾选
-		    if(formData["checkDict"]) {
-				fox.setCheckedValue("checkDict",formData["checkDict"]);
-		    }
-
-
-			//设置  选择框(枚举) 设置下拉框勾选
-			fox.setSelectValue4Enum("#selectEnum",formData.selectEnum,SELECT_SELECTENUM_DATA);
-			//设置  选择框(字典) 设置下拉框勾选
-			fox.setSelectValue4Dict("#selectDict",formData.selectDict,SELECT_SELECTDICT_DATA);
-			//设置  选择框(查询) 设置下拉框勾选
-			fox.setSelectValue4QueryApi("#resourceId",formData.resourze);
-			//设置  角色 设置下拉框勾选
-			fox.setSelectValue4QueryApi("#roleIds",formData.roles);
-
-
-			//设置 复选框(枚举) 显示复选框勾选
-		    if(formData["checkEnum"]) {
-				fox.setCheckedValue("checkEnum",formData["checkEnum"]);
-		    }
-			//设置 状态 显示复选框勾选
-		    if(formData["checkDict"]) {
-				fox.setCheckedValue("checkDict",formData["checkDict"]);
-		    }
-
-
-			//设置  选择框(枚举) 设置下拉框勾选
-			fox.setSelectValue4Enum("#selectEnum",formData.selectEnum,SELECT_SELECTENUM_DATA);
-			//设置  选择框(字典) 设置下拉框勾选
-			fox.setSelectValue4Dict("#selectDict",formData.selectDict,SELECT_SELECTDICT_DATA);
-			//设置  选择框(查询) 设置下拉框勾选
-			fox.setSelectValue4QueryApi("#resourceId",formData.resourze);
-			//设置  角色 设置下拉框勾选
-			fox.setSelectValue4QueryApi("#roleIds",formData.roles);
-
-
-			//设置 复选框(枚举) 显示复选框勾选
-		    if(formData["checkEnum"]) {
-				fox.setCheckedValue("checkEnum",formData["checkEnum"]);
-		    }
-			//设置 状态 显示复选框勾选
-		    if(formData["checkDict"]) {
-				fox.setCheckedValue("checkDict",formData["checkDict"]);
-		    }
-
-
-			//设置  选择框(枚举) 设置下拉框勾选
-			fox.setSelectValue4Enum("#selectEnum",formData.selectEnum,SELECT_SELECTENUM_DATA);
-			//设置  选择框(字典) 设置下拉框勾选
-			fox.setSelectValue4Dict("#selectDict",formData.selectDict,SELECT_SELECTDICT_DATA);
-			//设置  选择框(查询) 设置下拉框勾选
-			fox.setSelectValue4QueryApi("#resourceId",formData.resourze);
-			//设置  角色 设置下拉框勾选
-			fox.setSelectValue4QueryApi("#roleIds",formData.roles);
-
-
-			//设置 复选框(枚举) 显示复选框勾选
-		    if(formData["checkEnum"]) {
-				fox.setCheckedValue("checkEnum",formData["checkEnum"]);
-		    }
-			//设置 状态 显示复选框勾选
-		    if(formData["checkDict"]) {
-				fox.setCheckedValue("checkDict",formData["checkDict"]);
-		    }
-
-
-			//设置  选择框(枚举) 设置下拉框勾选
-			fox.setSelectValue4Enum("#selectEnum",formData.selectEnum,SELECT_SELECTENUM_DATA);
-			//设置  选择框(字典) 设置下拉框勾选
-			fox.setSelectValue4Dict("#selectDict",formData.selectDict,SELECT_SELECTDICT_DATA);
-			//设置  选择框(查询) 设置下拉框勾选
-			fox.setSelectValue4QueryApi("#resourceId",formData.resourze);
-			//设置  角色 设置下拉框勾选
-			fox.setSelectValue4QueryApi("#roleIds",formData.roles);
-
-
-			//设置 复选框(枚举) 显示复选框勾选
-		    if(formData["checkEnum"]) {
-				fox.setCheckedValue("checkEnum",formData["checkEnum"]);
-		    }
-			//设置 状态 显示复选框勾选
-		    if(formData["checkDict"]) {
-				fox.setCheckedValue("checkDict",formData["checkDict"]);
-		    }
-
-
-			//设置  选择框(枚举) 设置下拉框勾选
-			fox.setSelectValue4Enum("#selectEnum",formData.selectEnum,SELECT_SELECTENUM_DATA);
-			//设置  选择框(字典) 设置下拉框勾选
-			fox.setSelectValue4Dict("#selectDict",formData.selectDict,SELECT_SELECTDICT_DATA);
-			//设置  选择框(查询) 设置下拉框勾选
-			fox.setSelectValue4QueryApi("#resourceId",formData.resourze);
-			//设置  角色 设置下拉框勾选
-			fox.setSelectValue4QueryApi("#roleIds",formData.roles);
-
-
-			//设置 复选框(枚举) 显示复选框勾选
-		    if(formData["checkEnum"]) {
-				fox.setCheckedValue("checkEnum",formData["checkEnum"]);
-		    }
-			//设置 状态 显示复选框勾选
-		    if(formData["checkDict"]) {
-				fox.setCheckedValue("checkDict",formData["checkDict"]);
-		    }
-
-
-			//设置  选择框(枚举) 设置下拉框勾选
-			fox.setSelectValue4Enum("#selectEnum",formData.selectEnum,SELECT_SELECTENUM_DATA);
-			//设置  选择框(字典) 设置下拉框勾选
-			fox.setSelectValue4Dict("#selectDict",formData.selectDict,SELECT_SELECTDICT_DATA);
-			//设置  选择框(查询) 设置下拉框勾选
-			fox.setSelectValue4QueryApi("#resourceId",formData.resourze);
-			//设置  角色 设置下拉框勾选
-			fox.setSelectValue4QueryApi("#roleIds",formData.roles);
-
-
-			//设置 复选框(枚举) 显示复选框勾选
-		    if(formData["checkEnum"]) {
-				fox.setCheckedValue("checkEnum",formData["checkEnum"]);
-		    }
-			//设置 状态 显示复选框勾选
-		    if(formData["checkDict"]) {
-				fox.setCheckedValue("checkDict",formData["checkDict"]);
-		    }
-
-
-			//设置  选择框(枚举) 设置下拉框勾选
-			fox.setSelectValue4Enum("#selectEnum",formData.selectEnum,SELECT_SELECTENUM_DATA);
-			//设置  选择框(字典) 设置下拉框勾选
-			fox.setSelectValue4Dict("#selectDict",formData.selectDict,SELECT_SELECTDICT_DATA);
-			//设置  选择框(查询) 设置下拉框勾选
-			fox.setSelectValue4QueryApi("#resourceId",formData.resourze);
-			//设置  角色 设置下拉框勾选
-			fox.setSelectValue4QueryApi("#roleIds",formData.roles);
-
-
-			//设置 复选框(枚举) 显示复选框勾选
-		    if(formData["checkEnum"]) {
-				fox.setCheckedValue("checkEnum",formData["checkEnum"]);
-		    }
-			//设置 状态 显示复选框勾选
-		    if(formData["checkDict"]) {
-				fox.setCheckedValue("checkDict",formData["checkDict"]);
-		    }
-
-
-			//设置  选择框(枚举) 设置下拉框勾选
-			fox.setSelectValue4Enum("#selectEnum",formData.selectEnum,SELECT_SELECTENUM_DATA);
-			//设置  选择框(字典) 设置下拉框勾选
-			fox.setSelectValue4Dict("#selectDict",formData.selectDict,SELECT_SELECTDICT_DATA);
-			//设置  选择框(查询) 设置下拉框勾选
-			fox.setSelectValue4QueryApi("#resourceId",formData.resourze);
-			//设置  角色 设置下拉框勾选
-			fox.setSelectValue4QueryApi("#roleIds",formData.roles);
-
-
-			//设置 复选框(枚举) 显示复选框勾选
-		    if(formData["checkEnum"]) {
-				fox.setCheckedValue("checkEnum",formData["checkEnum"]);
-		    }
-			//设置 状态 显示复选框勾选
-		    if(formData["checkDict"]) {
-				fox.setCheckedValue("checkDict",formData["checkDict"]);
-		    }
-
-
-			//设置  选择框(枚举) 设置下拉框勾选
-			fox.setSelectValue4Enum("#selectEnum",formData.selectEnum,SELECT_SELECTENUM_DATA);
-			//设置  选择框(字典) 设置下拉框勾选
-			fox.setSelectValue4Dict("#selectDict",formData.selectDict,SELECT_SELECTDICT_DATA);
-			//设置  选择框(查询) 设置下拉框勾选
-			fox.setSelectValue4QueryApi("#resourceId",formData.resourze);
-			//设置  角色 设置下拉框勾选
-			fox.setSelectValue4QueryApi("#roleIds",formData.roles);
+			//设置 图片上传 显示附件
+		    if($("#imageId").val()) {
+				foxup.fill("imageId",$("#imageId").val());
+		    } else {
+				adjustPopup();
+			}
+			//设置 多文件上传 显示附件
+		    if($("#fileIds").val()) {
+				foxup.fill("fileIds",$("#fileIds").val());
+		    } else {
+				adjustPopup();
+			}
 
 
 			//设置 复选框(枚举) 显示复选框勾选
@@ -620,7 +252,7 @@ function FormPage() {
 	     	fm.attr('method', 'POST');
 	     	renderFormFields();
 		}
-		
+
 		//渐显效果
 		fm.css("opacity","0.0");
         fm.css("display","");
@@ -641,24 +273,32 @@ function FormPage() {
 		}
 
 	}
-	
+
 	/**
       * 保存数据，表单提交事件
       */
     function bindButtonEvent() {
-    
+
 	    form.on('submit(submit-button)', function (data) {
 	    	//debugger;
 			data.field = form.val("data-form");
 
-
-
+			//处理 逻辑值 默认值
+		    if(!data.field.valid) data.field.valid=0;
 
 			//处理 复选框(枚举) 默认值
 			data.field["checkEnum"]=fox.getCheckedValue("checkEnum");
+			//处理 状态 默认值
+			data.field["checkDict"]=fox.getCheckedValue("checkDict");
 
-
-
+			//获取 选择框(枚举) 下拉框的值
+			data.field["selectEnum"]=fox.getSelectedValue("selectEnum",false);
+			//获取 选择框(字典) 下拉框的值
+			data.field["selectDict"]=fox.getSelectedValue("selectDict",true);
+			//获取 选择框(查询) 下拉框的值
+			data.field["resourceId"]=fox.getSelectedValue("resourceId",false);
+			//获取 角色 下拉框的值
+			data.field["roleIds"]=fox.getSelectedValue("roleIds",true);
 
 			//校验表单
 			if(!fox.formVerify("data-form",data,VALIDATE_CONFIG)) return;
@@ -676,13 +316,13 @@ function FormPage() {
 	                layer.msg(data.message, {icon: 2, time: 1000});
 	            }
 	        }, "POST");
-	        
+
 	        return false;
 	    });
-	    
+
 	    //关闭窗口
 	    $("#cancel-button").click(function(){admin.closePopupCenter();});
-	    
+
     }
 
 

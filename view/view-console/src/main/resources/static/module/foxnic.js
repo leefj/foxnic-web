@@ -143,21 +143,37 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 buttons.attr("disabled", "yes");
                 buttons.removeClass("layui-btn-disabled");
                 buttons.addClass("layui-btn-disabled");
-
-                var selects = fm.find("div[input-type=select]");
-                for (var i = 0; i < selects.length; i++) {
-                    var id = $(selects[i]).attr("id");
-                    xmSelect.get("#" + id, true).update({disabled: true});
-                }
-                //
-                var foxup = layui.foxnicUpload;
-                if (foxup) {
-                    var ups = fm.find("input[input-type=upload]");
-                    for (var i = 0; i < ups.length; i++) {
-                        var id = $(ups[i]).attr("id");
-                        foxup.disable(id);
+                function disableSelects() {
+                    var selects = fm.find("div[input-type=select]");
+                    for (var i = 0; i < selects.length; i++) {
+                        var id = $(selects[i]).attr("id");
+                        xmSelect.get("#" + id, true).update({disabled: true});
                     }
                 }
+                disableSelects();
+                //补刀
+                for (var i = 0; i < 20; i++) {
+                    setTimeout(disableSelects,500*i);
+                }
+
+                //
+                function disableUploads() {
+                    var foxup = layui.foxnicUpload;
+                    if (foxup) {
+                        var ups = fm.find("input[input-type=upload]");
+                        for (var i = 0; i < ups.length; i++) {
+                            var id = $(ups[i]).attr("id");
+                            foxup.disable(id);
+                        }
+                    }
+                }
+                disableUploads();
+                //补刀
+                for (var i = 0; i < 20; i++) {
+                    setTimeout(disableUploads,500*i);
+                }
+
+
             } else {
                 console.error("暂不支持");
             }
@@ -964,6 +980,20 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             return (false);
         },
         /**
+         * 获得下拉框的选中值，参数为参数 name 属性
+         * */
+        getSelectedValue:function (selectId,muliti) {
+            var inst=xmSelect.get("#"+selectId,true);
+            if(inst==null) return null;
+            var value=inst.getValue("value");
+            if(!muliti) {
+                if(value && value.length>0) {
+                    value=value[0];
+                }
+            }
+            return value;
+        },
+        /**
          * 获得复选框的选中清单，参数为参数 name 属性
          * */
         getCheckedValue:function (checkBoxName) {
@@ -1123,14 +1153,14 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             return true
         },
         // searchLayerIndex:-1,
-        switchSearchRow: function(cb) {
+        switchSearchRow: function(limit,cb) {
             var rows=$(".search-inputs");
-            if(rows.length<=1) return;
-            var row=$(rows[1]);
+            if(rows.length<=limit) return;
+            var row=$(rows[limit]);
             //debugger
             var ex=row.attr("collapsed");
             for (var i = 0;i < rows.length; i++) {
-                if(i>0) {
+                if(i>=limit) {
                     if(ex!="1") {
                         $(rows[i]).hide();
                         $(rows[i]).attr("collapsed","1");

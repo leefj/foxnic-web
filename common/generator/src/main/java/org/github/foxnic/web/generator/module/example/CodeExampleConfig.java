@@ -194,6 +194,7 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 	@Override
 	public void configList(ViewOptions view,ListOptions list) {
 
+		list.operationColumn().width(160);
 		//禁止新建
 //		cfg.view().list().disableCreateNew();
 		//禁止修改
@@ -344,6 +345,8 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 				new Object[]{TABLE.BIRTHDAY,TABLE.SELECT_ENUM}
 		);
 
+		//搜索框显示的行数,默认2
+		search.rowsDisplay(3);
 		//设置各个列的搜索输入框的标签宽度
 		search.labelWidth(1,50);
 		search.labelWidth(2,80);
