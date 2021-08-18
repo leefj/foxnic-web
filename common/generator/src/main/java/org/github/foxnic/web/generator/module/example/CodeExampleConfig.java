@@ -141,8 +141,7 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 				.form().selectBox().queryApi(ResourzeServiceProxy.QUERY_PAGED_LIST)
 				.valueField(ResourzeMeta.ID).textField(ResourzeMeta.URL)
 				.toolbar(false).paging(true)
-				.fillBy(CodeExampleMeta.RESOURZE)
-		;
+				.fillBy(CodeExampleMeta.RESOURZE);
 
 
 		view.field(resourceNameField)

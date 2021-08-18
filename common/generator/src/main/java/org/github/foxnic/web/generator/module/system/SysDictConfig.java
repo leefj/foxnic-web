@@ -43,9 +43,7 @@ public class SysDictConfig extends BaseCodeConfig<SYS_DICT> {
                 .basic().label("模块")
                 .form().validate().required()
                 .form().selectBox().queryApi(MenuServiceProxy.QUERY_LIST+"?parentId=0").paging(false).filter(false).toolbar(false)
-                .valueField(MenuMeta.ID).textField(MenuMeta.LABEL).fillBy(DictMeta.MODULE_INFO).muliti(false)
-
-        ;
+                .valueField(MenuMeta.ID).textField(MenuMeta.LABEL).fillBy(DictMeta.MODULE_INFO).muliti(false);
 
         view.field(FoxnicWeb.SYS_DICT.CODE)
                 .basic().label("代码")
@@ -66,7 +64,7 @@ public class SysDictConfig extends BaseCodeConfig<SYS_DICT> {
     @Override
     public void configList(ViewOptions view, ListOptions list) {
         list.operationColumn().width(170);
-        //表格操纵列增加一个按钮，并指定JS函数
+        //表格操作列增加一个按钮，并指定JS函数
         list.operationColumn().addActionButton("条目","openDictItemWindow");
     }
 

@@ -2,7 +2,7 @@
 /**
  * 数据字典条目 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-16 14:33:51
+ * @since 2021-08-18 13:00:21
  */
  -->
  <!DOCTYPE html>
@@ -33,37 +33,37 @@
                 <div class="layui-form toolbar search-inputs">
                     <!-- ID , id ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div"><span th:text="${lang.translate('ID')}" class="search-label">ID</span><span class="search-colon">:</span></div>
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('ID')}" class="search-label id-label">ID</span><span class="search-colon">:</span></div>
                         <input id="id" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
                     <!-- 字典ID , dictId ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div"><span th:text="${lang.translate('字典ID')}" class="search-label">字典ID</span><span class="search-colon">:</span></div>
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('字典ID')}" class="search-label dictId-label">字典ID</span><span class="search-colon">:</span></div>
                         <input id="dictId" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
                     <!-- 字典代码 , dictCode ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div"><span th:text="${lang.translate('字典代码')}" class="search-label">字典代码</span><span class="search-colon">:</span></div>
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('字典代码')}" class="search-label dictCode-label">字典代码</span><span class="search-colon">:</span></div>
                         <input id="dictCode" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
                     <!-- 上级条目ID , parentId ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div"><span th:text="${lang.translate('上级条目ID')}" class="search-label">上级条目ID</span><span class="search-colon">:</span></div>
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('上级条目ID')}" class="search-label parentId-label">上级条目ID</span><span class="search-colon">:</span></div>
                         <input id="parentId" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
                     <!-- 代码 , code ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div"><span th:text="${lang.translate('代码')}" class="search-label">代码</span><span class="search-colon">:</span></div>
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('代码')}" class="search-label code-label">代码</span><span class="search-colon">:</span></div>
                         <input id="code" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
                     <!-- 标签 , label ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div"><span th:text="${lang.translate('标签')}" class="search-label">标签</span><span class="search-colon">:</span></div>
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('标签')}" class="search-label label-label">标签</span><span class="search-colon">:</span></div>
                         <input id="label" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
                     <!-- 排序 , sort ,typeName=number_input, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div"><span th:text="${lang.translate('排序')}" class="search-label">排序</span><span class="search-colon">:</span></div>
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('排序')}" class="search-label sort-label">排序</span><span class="search-colon">:</span></div>
                             <input id="sort" class="layui-input search-input" style="width: 140px" type="text" autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0" min-value="" max-value="" scale="0"/>
                     </div>
 
@@ -94,13 +94,17 @@
 <script type="text/html" id="toolbarTemplate">
     <div class="layui-btn-container">
         <button th:if="${perm.checkAuth('sys_dict_item:create')}" id="add-button" class="layui-btn icon-btn layui-btn-sm" lay-event="create"><i class="layui-icon">&#xe654;</i><span th:text="${lang.translate('新建')}">新建</span></button>
-            <button th:if="${perm.checkAuth('sys_dict_item:delete-by-ids')}" id="delete-button" class="layui-btn icon-btn layui-btn-danger layui-btn-sm" lay-event="batch-del"><i class="layui-icon">&#xe67e;</i><span th:text="${lang.translate('删除')}">删除</span></button>
+        <button th:if="${perm.checkAuth('sys_dict_item:delete-by-ids')}" id="delete-button" class="layui-btn icon-btn layui-btn-danger layui-btn-sm" lay-event="batch-del"><i class="layui-icon">&#xe67e;</i><span th:text="${lang.translate('删除')}">删除</span></button>
     </div>
 </script>
 
 <!-- 表格操作列 -->
 <script type="text/html" id="tableOperationTemplate">
-    <a th:if="${perm.checkAuth('sys_dict_item:view-form')}" class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit" th:text="${lang.translate('修改')}">修改</a>
+
+    <a th:if="${perm.checkAuth('sys_dict_item:view-form')}" class="layui-btn layui-btn-primary layui-btn-xs" lay-event="view" th:text="${lang.translate('查看')}">查看</a>
+    <a th:if="${perm.checkAnyAuth('sys_dict_item:update','sys_dict_item:save')}" class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit" th:text="${lang.translate('修改')}">修改</a>
+
+
     <a th:if="${perm.checkAuth('sys_dict_item:delete')}" class="layui-btn layui-btn-xs" lay-event="del" th:text="${lang.translate('删除')}">删除</a>
 </script>
 

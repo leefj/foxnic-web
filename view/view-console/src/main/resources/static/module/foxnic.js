@@ -220,6 +220,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
          * 渲染分页的表格
          * */
         renderTable: function (cfg) {
+            var me=this;
             var tableId = cfg.elem.substring(1);
             // debugger;
             if (window.LAYUI_TABLE_WIDTH_CONFIG) {
@@ -295,19 +296,32 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             }
 
             function renderSearchContent(it){
+
                 //debugger
                 function hasVal(val) {
                     if(val==null) return false;
+                    if(val==undefined) return false;
                     if(val=="") return false;
+                    if(Array.isArray(val)) {
+                        if(val.length==0) return false;
+                    }
                     return true;
                 }
-                var values=it.searchValue;
-                if(!values) values={};
+
                 $(".layui-btn-container").find(".search-content-badge").remove();
+                if(!it.where) return;
+                if(!it.where.searchValue) return;
+                var values=JSON.parse(it.where.searchValue);
+                if(!values) values={};
+
                 for(var itm in values) {
                     var label=$("."+itm+"-label").text();
                     var v=values[itm];
                     var t="";
+
+                    if("name"==itm) {
+                        //debugger;
+                    }
 
                     if(hasVal(v["label"])) {
                         if(Array.isArray(v.label)) {
@@ -315,26 +329,43 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                         } else {
                             t=v.label;
                         }
+                        t=t.replace(/,/g,", ");
                     }
                     else if(hasVal(v["value"])) {
                         t=v.value;
                     }
-                    // if(hasVal(v.label)) {
-                    //     t=v.label;
-                    // }
-                    // if(hasVal(v.begin) && !hasVal(v.end)) {
-                    //     t=">"+v.begin;
-                    // }
-                    // if(!hasVal(v.begin) && hasVal(v.end)) {
-                    //     t="<"+v.end;
-                    // }
-                    // if(!hasVal(v.begin) && !hasVal(v.end)) {
-                    //     t=v.begin+"~"+v.end;
-                    // }
-
+                    else if(hasVal(v["begin"]) && !hasVal(v["end"])) {
+                        t="[ "+v.begin+", - ]";
+                    }
+                    else if(!hasVal(v["begin"]) && hasVal(v["end"])) {
+                        t="[ -, "+v.end+" ]";
+                    }
+                    else  if(hasVal(v["begin"]) && hasVal(v["end"])) {
+                        t="[ "+v.begin+", "+v.end+" ]";
+                    }
                     if(t.length==0) continue;
-                    $(".layui-btn-container").append('<span class="layui-badge-rim search-content-badge">'+label+' : '+t+'</span>');
+                    var badge=$(".layui-btn-container").append('<span var-name="'+itm+'" class="layui-badge-rim search-content-badge">'+label+' : '+t+'</span>');
+
                 }
+                //
+                $(".layui-btn-container").find(".search-content-badge").click(function (e){
+                    var varName=$(this).attr("var-name");
+                    $(this).remove();
+                    $("#"+varName).val("");
+                    $("#"+varName+"-begin").val("");
+                    $("#"+varName+"-end").val("");
+                    if(xmSelect.get("#"+varName,true)!=null) {
+                        xmSelect.get("#"+varName,true).setValue([]);
+                    }
+                    values[varName]={};
+                    //alert(varName);
+                    it.where.searchValue=JSON.stringify(values);
+                    // debugger
+                    var layFilter=$(it.elem).attr("lay-filter");
+                    //it.reload();
+                    //table.reload("data")
+                    table.reload(layFilter, { where : it.where });
+                });
             }
 
             function renderFooter(it, footer) {
@@ -523,7 +554,9 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     var decimal = input.attr("decimal");
                     var allowNegative = input.attr("allow-negative");
                     var minValue = input.attr("min-value");
+                    if(minValue=="") minValue=null;
                     var maxValue = input.attr("max-value");
+                    if(maxValue=="") maxValue=null;
                     var scale = input.attr("scale");
                     var step = input.attr("step");
                     this.renderAsNumberInput(input, decimal, scale, step, minValue, maxValue);

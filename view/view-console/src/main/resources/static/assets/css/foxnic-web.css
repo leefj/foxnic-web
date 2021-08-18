@@ -147,6 +147,13 @@
     text-align: center;
 }
 
+.search-content-badge {
+    height: 25px;
+    padding-top: 3px;
+    margin-right: 4px;
+    cursor: pointer;
+}
+
 xm-select {
     border: 1px solid #eeeeee;
     border-radius: 1px;

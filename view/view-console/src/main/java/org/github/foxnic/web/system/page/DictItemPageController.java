@@ -1,18 +1,19 @@
 package org.github.foxnic.web.system.page;
 
 import org.github.foxnic.web.framework.view.controller.ViewController;
-import org.github.foxnic.web.proxy.system.DictItemServiceProxy;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
+import org.github.foxnic.web.proxy.system.DictItemServiceProxy;
 import javax.servlet.http.HttpServletRequest;
 /**
  * <p>
  * 数据字典条目 模版页面控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-16 14:33:51
+ * @since 2021-08-18 13:00:21
 */
 
 @Controller("SysDictItemPageController")
@@ -20,7 +21,6 @@ import javax.servlet.http.HttpServletRequest;
 public class DictItemPageController extends ViewController {
 	
 	public static final String prefix="business/system/dict_item";
-
 
 	private DictItemServiceProxy proxy;
 	

@@ -1,7 +1,7 @@
 /**
  * 代码生成示例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-17 17:28:07
+ * @since 2021-08-18 11:58:28
  */
 
 
@@ -120,8 +120,11 @@ function ListPage() {
 		value.resourceId={ value: $("#resourceId").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"", fillBy:"resourze",field:"url" };
 		value.birthday={ begin: $("#birthday-begin").val(), end: $("#birthday-end").val() };
 		value.roleIds={ value: xmSelect.get("#roleIds",true).getValue("value"), fillBy:"roles",field:"id", label:xmSelect.get("#roleIds",true).getValue("nameStr") };
-		var ps={searchField: "$composite", searchValue: JSON.stringify(value),sortField: sortField,sortType: sortType};
-		dataTable.config.searchValue=value;
+		var ps={searchField: "$composite", searchValue: JSON.stringify(value)};
+		if(sortField) {
+			ps.sortField=sortField;
+			ps.sortType=sortType;
+		}
 		table.reload('data-table', { where : ps });
 	}
     
