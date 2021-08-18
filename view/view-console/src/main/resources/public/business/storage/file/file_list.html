@@ -2,7 +2,7 @@
 /**
  * 系统文件 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-16 14:19:39
+ * @since 2021-08-18 18:57:23
  */
  -->
  <!DOCTYPE html>
@@ -33,7 +33,7 @@
                 <div class="layui-form toolbar search-inputs">
                     <!-- 文件名 , fileName ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div"><span th:text="${lang.translate('文件名')}" class="search-label">文件名</span><span class="search-colon">:</span></div>
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('文件名')}" class="search-label fileName-label">文件名</span><span class="search-colon">:</span></div>
                         <input id="fileName" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
 
@@ -68,7 +68,10 @@
 
 <!-- 表格操作列 -->
 <script type="text/html" id="tableOperationTemplate">
-    <a th:if="${perm.checkAuth('sys_file:view-form')}" class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit" th:text="${lang.translate('查看')}">查看</a>
+
+    <a th:if="${perm.checkAuth('sys_file:view-form')}" class="layui-btn layui-btn-primary layui-btn-xs" lay-event="view" th:text="${lang.translate('查看')}">查看</a>
+
+
 </script>
 
 

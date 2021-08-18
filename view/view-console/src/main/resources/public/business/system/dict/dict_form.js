@@ -1,7 +1,7 @@
 /**
  * 数据字典 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-18 17:28:05
+ * @since 2021-08-18 19:03:10
  */
 
 function FormPage() {
@@ -105,6 +105,30 @@ function FormPage() {
 			fm[0].reset();
 			form.val('data-form', formData);
 
+
+
+
+
+			//设置  模块 设置下拉框勾选
+			fox.setSelectValue4QueryApi("#module",formData.moduleInfo);
+
+
+
+
+			//设置  模块 设置下拉框勾选
+			fox.setSelectValue4QueryApi("#module",formData.moduleInfo);
+
+
+
+
+			//设置  模块 设置下拉框勾选
+			fox.setSelectValue4QueryApi("#module",formData.moduleInfo);
+
+
+
+
+			//设置  模块 设置下拉框勾选
+			fox.setSelectValue4QueryApi("#module",formData.moduleInfo);
 
 
 

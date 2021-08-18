@@ -8,7 +8,6 @@ function openDictItemWindow(data) {
     var index = admin.popupCenter({
         title: "条目",
         resize: false,
-        shade: false,
         id: 'dictItemsWindow',
         area: ["800px", "600px"],
         type: 2,

@@ -1,7 +1,7 @@
 /**
  * 代码生成示例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-18 11:58:28
+ * @since 2021-08-18 18:57:25
  */
 
 
@@ -42,6 +42,10 @@ function ListPage() {
 		fox.adjustSearchElement();
 		//
 		function renderTableInternal() {
+			var ps={};
+			var contitions={};
+
+
 			var h=$(".search-bar").height();
 			dataTable=fox.renderTable({
 				elem: '#data-table',
@@ -50,6 +54,7 @@ function ListPage() {
 				url: moduleURL +'/query-paged-list',
 				height: 'full-'+(h+28),
 				limit: 50,
+				where: ps,
 				cols: [[
 					{ fixed: 'left',type: 'numbers' },
 					{ fixed: 'left',type:'checkbox' }
@@ -368,6 +373,7 @@ function ListPage() {
         function openCreateFrom() {
         	//设置新增是初始化数据
         	var data={};
+			admin.putTempData('sys-code-example-form-data-form-action', "create",true);
             showEditForm(data);
         };
 		
@@ -478,6 +484,7 @@ function ListPage() {
 		});
 		admin.putTempData('sys-code-example-form-data-popup-index', index);
 	};
+
 
 
 };

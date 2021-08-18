@@ -1,7 +1,7 @@
 /**
  * 系统文件 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-16 14:19:39
+ * @since 2021-08-18 18:57:23
  */
 
 function FormPage() {
@@ -9,15 +9,23 @@ function FormPage() {
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect,foxup;
 	const moduleURL="/service-storage/sys-file";
 
-	const disableCreateNew=true;
-	const disableModify=true;
+	var disableCreateNew=true;
+	var disableModify=true;
 	/**
       * 入口函数，初始化
       */
 	this.init=function(layui) { 	
      	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload,foxup=layui.foxnicUpload;
 		laydate = layui.laydate,table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
-		
+
+		//如果没有修改和保存权限，
+		if( !admin.checkAuth(AUTH_PREFIX+":update") && !admin.checkAuth(AUTH_PREFIX+":save")) {
+			disableModify=true;
+		}
+		if(admin.getTempData('sys-file-form-data-form-action')=="view") {
+			disableModify=true;
+		}
+
 		//渲染表单组件
 		renderFormFields();
 		
@@ -76,7 +84,6 @@ function FormPage() {
       */
 	function fillFormData() {
 		var formData = admin.getTempData('sys-file-form-data');
-
 		//如果是新建
 		if(!formData.id) {
 			adjustPopup();
@@ -85,6 +92,34 @@ function FormPage() {
 		if (formData) {
 			fm[0].reset();
 			form.val('data-form', formData);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -107,14 +142,16 @@ function FormPage() {
             },100);
         },1);
 
-        //
-		if(disableModify) {
+        //禁用编辑
+		if(disableModify || disableCreateNew) {
 			fox.lockForm($("#data-form"),true);
+			$("#submit-button").hide();
+			$("#cancel-button").css("margin-right","15px")
+		} else {
+			$("#submit-button").show();
+			$("#cancel-button").css("margin-right","0px")
 		}
 
-
-
-        
 	}
 	
 	/**
@@ -157,6 +194,7 @@ function FormPage() {
 	    $("#cancel-button").click(function(){admin.closePopupCenter();});
 	    
     }
+
 
 }
 

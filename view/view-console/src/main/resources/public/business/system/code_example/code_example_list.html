@@ -2,7 +2,7 @@
 /**
  * 代码生成示例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-18 11:58:27
+ * @since 2021-08-18 18:57:24
  */
  -->
  <!DOCTYPE html>
@@ -172,7 +172,7 @@
     <a th:if="${perm.checkAnyAuth('sys_code_example:update','sys_code_example:save')}" class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit" th:text="${lang.translate('修改')}">修改</a>
 
 
-    <a th:if="${perm.checkAuth('sys_code_example:delete')}" class="layui-btn layui-btn-xs" lay-event="del" th:text="${lang.translate('删除')}">删除</a>
+    <a th:if="${perm.checkAuth('sys_code_example:delete')}" class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del" th:text="${lang.translate('删除')}">删除</a>
 </script>
 
 <!-- 表格状态列 -->

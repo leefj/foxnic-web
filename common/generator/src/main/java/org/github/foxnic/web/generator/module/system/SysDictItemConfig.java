@@ -6,7 +6,7 @@ import com.github.foxnic.generator.builder.view.option.FormOptions;
 import com.github.foxnic.generator.builder.view.option.ListOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
-import com.github.foxnic.generator.util.JSFunctions;
+import com.github.foxnic.generator.builder.view.config.JSFunctions;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_DICT_ITEM;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;

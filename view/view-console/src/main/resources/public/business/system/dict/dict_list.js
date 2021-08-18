@@ -1,7 +1,7 @@
 /**
  * 数据字典 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-18 17:28:05
+ * @since 2021-08-18 19:03:10
  */
 
 
@@ -335,7 +335,6 @@ function ListPage() {
 	    var index = admin.popupCenter({
 	        title: "条目",
 	        resize: false,
-	        shade: false,
 	        id: 'dictItemsWindow',
 	        area: ["800px", "600px"],
 	        type: 2,

@@ -379,7 +379,7 @@ layui.define(['settings', 'layer'], function (exports) {
                 }
             }
             this.tempDataCache[key]=value;
-            console.log("tempDataCache",this.tempDataCache)
+            //console.log("tempDataCache",this.tempDataCache)
         },
         // 获取缓存临时数据
         getTempData: function (key) {
