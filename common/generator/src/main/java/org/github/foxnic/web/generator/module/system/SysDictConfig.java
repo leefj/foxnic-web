@@ -29,8 +29,7 @@ public class SysDictConfig extends BaseCodeConfig<SYS_DICT> {
 
     @Override
     public void configService(ServiceOptions service) {
-        //启用服务端缓存
-        service.enableCache(1024,1000 * 60 * 60 * 24);
+
     }
 
     @Override

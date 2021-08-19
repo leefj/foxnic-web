@@ -3,8 +3,10 @@ package org.github.foxnic.web.proxy.utils;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.commons.lang.StringUtil;
 import org.github.foxnic.web.domain.system.DictItem;
 import org.github.foxnic.web.domain.system.DictItemVO;
+import org.github.foxnic.web.domain.system.meta.DictItemMeta;
 import org.github.foxnic.web.proxy.system.DictItemServiceProxy;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,10 @@ public class DictProxyUtil {
      * */
     public static List<DictItem> getList(DictItemVO sample) {
         init();
+        if(StringUtil.isBlank(sample.getSortField())) {
+            sample.setSortField(DictItemMeta.SORT);
+            sample.setSortType("ASC");
+        }
         Result<List<DictItem>> result=proxy.queryList(sample);
         if(result==null) return null;
         if(result.failure()) return null;

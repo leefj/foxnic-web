@@ -15,10 +15,12 @@ import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.domain.system.DictItem;
+import org.github.foxnic.web.domain.system.meta.DictItemMeta;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.system.service.IDictItemService;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.io.InputStream;
 import java.lang.reflect.Field;
@@ -31,7 +33,7 @@ import java.util.List;
  * 数据字典条目 服务实现
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-19 17:09:40
+ * @since 2021-08-20 01:06:36
 */
 
 
@@ -49,6 +51,13 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 	 * */
 	public DAO dao() { return dao; }
 
+	@Override
+	@PostConstruct
+	public void initCacheIf() {
+		this.setEnableCache(true);
+		super.defineCache(1024,86400000);
+		super.registCacheHelper("queryList", DictItemMeta.DICT_CODE);
+	}
 
 
 	
@@ -65,6 +74,9 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 	@Override
 	public Result insert(DictItem dictItem) {
 		Result r=super.insert(dictItem);
+		if(r.success()){
+			super.invalidateCache(dictItem);
+		}
 		return r;
 	}
 	
@@ -189,7 +201,7 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 	 * @return 查询结果
 	 * */
 	@Override
-	@Cached
+	@Cached(helper = "queryList")
 	public List<DictItem> queryList(DictItem sample) {
 		return super.queryList(sample);
 	}

@@ -5,6 +5,7 @@
  * */
 function openDictItemWindow(data) {
     admin.putTempData("dictId",data.id,true);
+    admin.putTempData("dictCode",data.code,true);
     var index = admin.popupCenter({
         title: "条目",
         resize: false,
@@ -34,8 +35,10 @@ function beforeDictItemDataQuery(conditions) {
 function beforeDictItemDataFill(data) {
     //获得缓存中的字典ID
     var dictIdValue=admin.getTempData("dictId");
+    var dictCodeValue=admin.getTempData("dictCode");
     //设置默认值
     data["dictId"]=dictIdValue;
+    data["dictCode"]=dictCodeValue;
 }
 
 //[afterDictItemDataFill]
