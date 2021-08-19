@@ -2,7 +2,7 @@
 /**
  * 代码生成示例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-18 23:53:18
+ * @since 2021-08-19 13:40:18
  */
  -->
  <!DOCTYPE html>
@@ -39,7 +39,7 @@
                     <!-- 单行文本 , name ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style="width:80px"><span th:text="${lang.translate('单行文本')}" class="search-label name-label">单行文本</span><span class="search-colon">:</span></div>
-                        <input id="name" class="layui-input search-input" style="width: 140px" type="text" />
+                        <input id="name" class="layui-input search-input" style="width: 140px" type="text" autocomplete="" />
                     </div>
                     <!-- 多行文本 , notes ,typeName=text_area, isHideInSearch=false -->
                     <div class="search-unit">
@@ -145,7 +145,7 @@
             </div>
         </div>
 
-        <div style="margin-top: 84px">
+        <div style="margin-top: 126px">
             <table class="layui-table" id="data-table" lay-filter="data-table"></table>
         </div>
 

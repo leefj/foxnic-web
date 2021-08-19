@@ -1,7 +1,7 @@
 /**
  * 数据字典条目 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-18 22:59:54
+ * @since 2021-08-19 17:09:40
  */
 
 function FormPage() {
@@ -131,7 +131,7 @@ function FormPage() {
 	    form.on('submit(submit-button)', function (data) {
 	    	//debugger;
 			data.field = form.val("data-form");
-			
+
 
 
 
@@ -171,7 +171,7 @@ function FormPage() {
 	}
 	
 	/**
-	 * 字典条目表单填充前调用
+	 * 字典条目表单填充后调用
 	 * */
 	function afterDictItemDataFill(data) {
 	    console.log("afterDictItemDataFill",data);

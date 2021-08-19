@@ -60,6 +60,8 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 				.form().validate().required()
 				.search().fuzzySearch();
 
+
+
 		//配置在列表中隐藏
 		view.field(TABLE.NOTES)
 				//多行文本
@@ -231,6 +233,7 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 	@Override
 	public void configForm(ViewOptions view,FormOptions form) {
 
+//		view.formWindow().width(12);
 
 //		configFormLayoutA(view,form);
 
@@ -258,7 +261,7 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 	 * 分成两栏的布局
 	 * */
 	private void configFormLayoutB(ViewOptions view, FormOptions form) {
-		view.formWindow().width(1000);
+		view.formWindow().width("1000px");
 		form.columnLayout(
 			new Object[] {
 				TABLE.NAME,TABLE.AREA,TABLE.BIRTHDAY,TABLE.RADIO_ENUM,
@@ -276,7 +279,7 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 	 * */
 	private void configFormLayoutC(ViewOptions view, FormOptions form) {
 
-		view.formWindow().width(1000);
+		view.formWindow().width("1000px");
 		form.addGroup(null,
 				new Object[] {
 						TABLE.NAME,TABLE.AREA,TABLE.BIRTHDAY,
@@ -308,7 +311,7 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 	private void configFormLayoutD(ViewOptions view,FormOptions form) {
 
 		//分成分组布局
-		view.formWindow().width(1000);
+		view.formWindow().width("1000px");
 		form.addGroup("基本信息",
 				new Object[] {
 						TABLE.NAME,TABLE.AREA,TABLE.BIRTHDAY,

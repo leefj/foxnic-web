@@ -1,5 +1,6 @@
 package org.github.foxnic.web.generator.module.system;
 
+import com.github.foxnic.generator.builder.business.option.ServiceOptions;
 import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
 import com.github.foxnic.generator.builder.view.option.FormOptions;
@@ -28,6 +29,12 @@ public class SysDictItemConfig extends BaseCodeConfig<FoxnicWeb.SYS_DICT_ITEM> {
     }
 
     @Override
+    public void configService(ServiceOptions service) {
+        //启用服务端缓存
+        service.enableCache(1024,1000 * 60 * 60 * 24);
+    }
+
+    @Override
     public void configForm(ViewOptions view, FormOptions form) {
         //表单数据填充前调用
         form.jsBeforeDataFill("beforeDictItemDataFill");
@@ -43,8 +50,12 @@ public class SysDictItemConfig extends BaseCodeConfig<FoxnicWeb.SYS_DICT_ITEM> {
         view.field(SYS_DICT_ITEM.PARENT_ID).basic().hidden();
         view.field(SYS_DICT_ITEM.SORT).search().hidden();
         //
-        view.field(SYS_DICT_ITEM.CODE).search().fuzzySearch();
-        view.field(SYS_DICT_ITEM.LABEL).search().fuzzySearch();
+        view.field(SYS_DICT_ITEM.CODE)
+                .form().validate().required()
+                .search().fuzzySearch();
+        view.field(SYS_DICT_ITEM.LABEL)
+                .form().validate().required()
+                .search().fuzzySearch();
     }
 
     @Override

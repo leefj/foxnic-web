@@ -1,5 +1,6 @@
 package org.github.foxnic.web.generator.module.system;
 
+import com.github.foxnic.generator.builder.business.option.ServiceOptions;
 import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
 import com.github.foxnic.generator.builder.view.option.ListOptions;
@@ -24,6 +25,12 @@ public class SysDictConfig extends BaseCodeConfig<SYS_DICT> {
     @Override
     public void configCodeSegment() {
         context.addJsFuncs(new JSFunctions(this.getClass(),"dict_functions.js"));
+    }
+
+    @Override
+    public void configService(ServiceOptions service) {
+        //启用服务端缓存
+        service.enableCache(1024,1000 * 60 * 60 * 24);
     }
 
     @Override

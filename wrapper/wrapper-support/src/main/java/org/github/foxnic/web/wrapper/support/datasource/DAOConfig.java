@@ -8,6 +8,7 @@ import com.github.foxnic.springboot.spring.SpringUtil;
 import com.github.foxnic.sql.meta.DBDataType;
 import com.github.foxnic.sql.treaty.DBTreaty;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
+import org.github.foxnic.web.framework.cache.FoxnicDataCacheManager;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.relation.FoxnicWebRelationManager;
 import org.github.foxnic.web.session.SessionUser;
@@ -39,11 +40,17 @@ public class DAOConfig {
 			dao.setPrintSQL(printSQL);
 			dao.setPrintSQLSimple(printSQL);
 			dao.setDBTreaty(dbTreaty);
+
+			//设置关系
 			FoxnicWebRelationManager relationManager=new FoxnicWebRelationManager();
 			if(startRelationMonitor) {
 				relationManager.startMonitor();
 			}
 			dao.setRelationManager(relationManager);
+
+			//设置缓存
+			FoxnicDataCacheManager cacheManager=new FoxnicDataCacheManager();
+			dao.setDataCacheManager(cacheManager);
 
 			//设置序列相关的配置
 			dao.setSequenceTable(FoxnicWeb.SYS_SEQUENCE.$NAME);

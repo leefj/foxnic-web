@@ -1,7 +1,7 @@
 /**
  * 数据字典条目 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-18 22:59:54
+ * @since 2021-08-19 17:09:40
  */
 
 
@@ -134,7 +134,7 @@ function ListPage() {
 
 	function initSearchFields() {
 
-		fox.switchSearchRow();
+		fox.switchSearchRow(1);
 
 		fox.renderSearchInputs();
 	}
@@ -156,7 +156,7 @@ function ListPage() {
 
 		// 搜索按钮点击事件
 		$('#search-button-advance').click(function () {
-			fox.switchSearchRow(function (ex){
+			fox.switchSearchRow(1,function (ex){
 				if(ex=="1") {
 					$('#search-button-advance span').text("关闭");
 				} else {
@@ -318,7 +318,7 @@ function ListPage() {
 	    if(!conditions["dictId"]) conditions["dictId"]={};
 	    conditions["dictId"].value=dictIdValue;
 	}
-	;
+	;
 
 };
 

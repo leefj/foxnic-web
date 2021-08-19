@@ -147,7 +147,10 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     var selects = fm.find("div[input-type=select]");
                     for (var i = 0; i < selects.length; i++) {
                         var id = $(selects[i]).attr("id");
-                        xmSelect.get("#" + id, true).update({disabled: true});
+                        var inst=xmSelect.get("#" + id, true);
+                        if(inst) {
+                            inst.update({disabled: true});
+                        }
                     }
                 }
                 disableSelects();
@@ -181,6 +184,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
         setSelectValue4QueryApi:function (id,value){
             // debugger;
             var inst=xmSelect.get(id,true);
+            if(inst==null) return;
             var opts=[];
             if (value) {
                 opts=inst.options.transform(Array.isArray(value)?value:[value]);
@@ -192,6 +196,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             var me=this;
             function setV() {
                 var inst=xmSelect.get(id,true);
+                if(inst==null) return;
                 var opts=[];
                 if(!Array.isArray(value)){
                     try{
@@ -215,6 +220,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             var me=this;
             function setV() {
                 var inst=xmSelect.get(id,true);
+                if(inst==null) return;
                 var opts=[];
                 if(!Array.isArray(value)){
                     try{

@@ -40,7 +40,7 @@ function beforeDictItemDataFill(data) {
 
 //[afterDictItemDataFill]
 /**
- * 字典条目表单填充前调用
+ * 字典条目表单填充后调用
  * */
 function afterDictItemDataFill(data) {
     console.log("afterDictItemDataFill",data);
