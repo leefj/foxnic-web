@@ -95,6 +95,7 @@ public class DiskStorageSupport  extends  StorageSupport {
     }
 
     private java.io.File getFile(File fileInfo) {
+        if(fileInfo==null) return null;
         String dir=this.getStorageDir();
         if(!OSType.isWindows()){
             fileInfo.setLocation(fileInfo.getLocation().replace('\\','/'));
@@ -106,6 +107,7 @@ public class DiskStorageSupport  extends  StorageSupport {
     @Override
     public Boolean isFileExists(File fileInfo) {
         java.io.File f= getFile(fileInfo);
+        if(f==null) return false;
         Logger.info(f.getAbsolutePath());
         return f.exists();
     }
