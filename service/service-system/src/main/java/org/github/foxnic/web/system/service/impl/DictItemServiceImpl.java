@@ -51,12 +51,10 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 	 * */
 	public DAO dao() { return dao; }
 
-	@Override
+
 	@PostConstruct
-	public void initCacheIf() {
-		this.setEnableCache(true);
-		super.defineCache(1024,86400000);
-		super.registCacheHelper("queryList", DictItemMeta.DICT_CODE);
+	public void initCache() {
+		super.registCacheStrategy("queryList", true,DictItemMeta.DICT_CODE);
 	}
 
 
@@ -74,8 +72,8 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 	@Override
 	public Result insert(DictItem dictItem) {
 		Result r=super.insert(dictItem);
-		if(r.success()){
-			super.invalidateCache(dictItem);
+		if(r.success()) {
+			this.invalidateAccurateCache(dictItem);
 		}
 		return r;
 	}
@@ -98,11 +96,14 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 	 * @return 删除是否成功
 	 */
 	public Result deleteByIdPhysical(String id) {
-		DictItem dictItem = new DictItem();
 		if(id==null) return ErrorDesc.failure().message("id 不允许为 null 。");
-		dictItem.setId(id);
+		DictItem dictItem = this.getById(id);
+		if(dictItem==null) return ErrorDesc.success();
 		try {
 			boolean suc = dao.deleteEntity(dictItem);
+			if(suc) {
+				super.invalidateAccurateCache(dictItem);
+			}
 			return suc?ErrorDesc.success():ErrorDesc.failure();
 		}
 		catch(Exception e) {
@@ -111,7 +112,25 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 			return r;
 		}
 	}
-	
+
+	@Override
+	public <T> Result deleteByIdsPhysical(List<T> ids) {
+		Result r = super.deleteByIdsPhysical(ids);
+		if(r.success()) {
+			super.invalidateAccurateCache(this.getByIds((List<String>)ids));
+		}
+		return r;
+	}
+
+	@Override
+	public <T> Result deleteByIdsLogical(List<T> ids) {
+		Result r= super.deleteByIdsLogical(ids);
+		if(r.success()) {
+			super.invalidateAccurateCache(this.getByIds((List<String>)ids));
+		}
+		return r;
+	}
+
 	/**
 	 * 按主键删除 数据字典条目
 	 *
@@ -127,6 +146,9 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 		dictItem.setDeleteTime(new Date());
 		try {
 			boolean suc = dao.updateEntity(dictItem,SaveMode.NOT_NULL_FIELDS);
+			if(suc) {
+				super.invalidateAccurateCache(this.getById(id));
+			}
 			return suc?ErrorDesc.success():ErrorDesc.failure();
 		}
 		catch(Exception e) {
@@ -145,6 +167,9 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 	@Override
 	public Result update(DictItem dictItem , SaveMode mode) {
 		Result r=super.update(dictItem , mode);
+		if(r.success()){
+			this.invalidateAccurateCache(dictItem);
+		}
 		return r;
 	}
 	
@@ -170,6 +195,9 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null ");
 		if(!field.table().name().equals(this.table())) throw new IllegalArgumentException("更新的数据表["+field.table().name()+"]与服务对应的数据表["+this.table()+"]不一致");
 		int suc=dao.update(field.table().name()).set(field.name(), value).where().and("id = ? ",id).top().execute();
+		if(suc>0) {
+			this.invalidateAccurateCache(this.getById(id));
+		}
 		return suc>0;
 	} 
 	
@@ -201,7 +229,7 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 	 * @return 查询结果
 	 * */
 	@Override
-	@Cached(helper = "queryList")
+	@Cached(strategy = "queryList",expire = 1000 * 60 * 60 * 2)
 	public List<DictItem> queryList(DictItem sample) {
 		return super.queryList(sample);
 	}

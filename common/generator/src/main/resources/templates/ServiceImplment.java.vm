@@ -24,16 +24,7 @@ public class #(simpleName) extends SuperService<#(poSimpleName)> implements #(in
 	 * */
 	public DAO dao() { return dao; }
 
-	#if(cacheLocalLimit!=null)
-	@Override
-	protected void initCacheIf() {
-		this.setEnableCache(true);
-		super.defineCache(#(cacheLocalLimit),#(cacheExpire));
-	}
-	#end
-
 	#for (jd : injectDescs)
-
 	@#(jd.annTypeName) #if(jd.resourceName!=null)(name="#(jd.resourceName)")#end
 	private #(jd.typeName) #(jd.varName);
 	#end

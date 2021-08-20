@@ -87,7 +87,17 @@ public class RemoteCache<V> extends Cache<String, V> {
 	@Override
 	public void put(String key, V value) {
 		key=getRedisKey(key);
-		this.cache.set(key,value,this.expire);
+		this.cache.set(key,value);
+	}
+
+	@Override
+	public void put(String key, V value,int expire) {
+		key=getRedisKey(key);
+		if(expire>0) {
+			this.cache.set(key, value, expire);
+		} else {
+			this.cache.set(key,value);
+		}
 	}
 
 	@Override
@@ -102,8 +112,8 @@ public class RemoteCache<V> extends Cache<String, V> {
 	/**
 	 * 
 	 * */
-	public long removeKeyStartsWith(String keyPrefix) {
-		return this.cache.delKeyStartsWith(this.getRedisKey(keyPrefix));
+	public void removeKeyStarts(String keyPrefix) {
+		this.cache.delKeyStartsWith(this.getRedisKey(keyPrefix));
 	}
 	
 	@Override
@@ -127,15 +137,20 @@ public class RemoteCache<V> extends Cache<String, V> {
 
 	@Override
 	public void clear() {
-		 
 		Set<String> keys=this.cache.searchKeys(this.getName()+":*");
 		this.removeAll(keys);
-		
 	}
 
 	@Override
 	public Set<String> keys() {
-		return null;
+		Set<String> keys=this.cache.searchKeys("*");
+		return keys;
+	}
+
+	@Override
+	public Set<String> keys(String prefix) {
+		Set<String> keys=this.cache.searchKeys(prefix+":*");
+		return keys;
 	}
 
 	@Override

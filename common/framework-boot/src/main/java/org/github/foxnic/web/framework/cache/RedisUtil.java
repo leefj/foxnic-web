@@ -158,17 +158,17 @@ public class RedisUtil {
     }
 
     /**
-     * 普通缓存放入
-     * 请设置超时时间 ，此方法默认缓存30分钟超时
+     * 普通缓存放入，建议加入超时时间
+     * 请设置超时时间
      * @param key   键
      * @param value 值
      * @return true成功 false失败
-     * @deprecated 
+
      */
     public boolean set(String key, Object value) {
         try {
         	waitings.incrementAndGet();
-            redisTemplate.opsForValue().set(key, value,30,TimeUnit.MINUTES);
+            redisTemplate.opsForValue().set(key, value);
             waitings.decrementAndGet();
             return true;
         } catch (Exception e) {
@@ -179,6 +179,8 @@ public class RedisUtil {
             RedisConnectionUtils.unbindConnection(redisTemplate.getConnectionFactory());
         }
     }
+
+
 
     /**
      * 普通缓存放入并设置时间
@@ -228,7 +230,7 @@ public class RedisUtil {
      * 递减
      *
      * @param key 键
-     * @param by  要减少几(小于0)
+     * @param delta  要减少几(小于0)
      * @return
      */
     public long decr(String key, long delta) {

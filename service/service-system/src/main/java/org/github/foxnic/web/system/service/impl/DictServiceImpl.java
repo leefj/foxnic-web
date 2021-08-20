@@ -35,7 +35,7 @@ import java.util.Date;
  * 数据字典 服务实现
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-20 01:06:28
+ * @since 2021-08-20 13:32:49
 */
 
 
@@ -52,7 +52,6 @@ public class DictServiceImpl extends SuperService<Dict> implements IDictService 
 	 * 获得 DAO 对象
 	 * */
 	public DAO dao() { return dao; }
-
 
 
 	

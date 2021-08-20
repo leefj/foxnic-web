@@ -1,7 +1,7 @@
 /**
  * 数据字典 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-20 01:06:29
+ * @since 2021-08-20 13:32:51
  */
 
 
@@ -331,7 +331,6 @@ function ListPage() {
 	 * 打开字典条窗口
 	 * */
 	function openDictItemWindow(data) {
-		debugger;
 	    admin.putTempData("dictId",data.id,true);
 	    admin.putTempData("dictCode",data.code,true);
 	    var index = admin.popupCenter({
