@@ -41,8 +41,20 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * 表单数据填充后
          * */
         afterDataFill:function (data) {
-
+            //code 不允许编辑
+            if(data.id) {
+                $("#code").attr("readonly","yes");
+            }
+        },
+        /**
+         * 数据提交前，如果返回 false，停止后续步骤的执行
+         * */
+        beforeSubmit:function (data) {
+           console.log("beforeSubmit",data);
+            return true;
         }
+
+
     }
     //
     window.pageExt={form:form,list:list};

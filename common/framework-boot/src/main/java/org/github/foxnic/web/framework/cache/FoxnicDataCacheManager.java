@@ -14,6 +14,7 @@ public class FoxnicDataCacheManager extends DataCacheManager {
     @Override
     public com.github.foxnic.commons.cache.DoubleCache<String, Object> defineEntityCache(Class type, int localLimit, int expire) {
         com.github.foxnic.commons.cache.DoubleCache<String, Object> dc=caches.get(type);
+//        dc=null;
         if(dc==null) {
             String[] ns=type.getName().split("\\.");
             String cacheName="foxnic:data:"+ns[ns.length-2]+":"+ns[ns.length-1];

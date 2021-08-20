@@ -1,5 +1,6 @@
 package org.github.foxnic.web.framework.cache;
 
+import com.github.foxnic.commons.concurrent.task.SimpleTaskManager;
 import com.github.foxnic.springboot.spring.SpringUtil;
 import org.github.foxnic.web.framework.cache.redis.listener.RedisDataChangeListener;
 import org.slf4j.Logger;
@@ -53,15 +54,48 @@ public class RedisUtil {
         if(VALUE_SERIALIZER != null) {
         	this.redisTemplate.setValueSerializer(VALUE_SERIALIZER);
         }
+        //启动预判
+        SimpleTaskManager.doParallelTask(new Runnable() {
+            @Override
+            public void run() {
+                RedisUtil.this.isValid();
+            }
+        });
     }
 
 
     /**
+     * 后期可通过任务轮询 redis 是否OK
+     * */
+    private Boolean valid=null;
+    /**
      * redis 是否可用
      * */
     public boolean isValid() {
-        if(this.getConnectionFactory()==null) return false;
-        return  true;
+        if(valid!=null) return valid;
+        if(this.getConnectionFactory()==null) {
+            valid=false;
+            return valid;
+        }
+        int t=0;
+        try {
+            this.getConnectionFactory().getConnection();
+            t++;
+        } catch (Exception e) {}
+        if(t==0) {
+            try {
+                this.getConnectionFactory().getClusterConnection();
+                t++;
+            } catch (Exception e) {}
+        }
+        if(t==0) {
+            try {
+                this.getConnectionFactory().getSentinelConnection();
+                t++;
+            } catch (Exception e) {}
+        }
+        valid=t>0;
+        return  valid;
     }
     
     //=============================common============================  

@@ -136,11 +136,13 @@ function FormPage() {
 	    	//debugger;
 			data.field = form.val("data-form");
 
-
-
-
 			//校验表单
 			if(!fox.formVerify("data-form",data,VALIDATE_CONFIG)) return;
+
+			if(window.pageExt.form.beforeSubmit) {
+				var doNext=window.pageExt.form.beforeSubmit(data.field);
+				if(!doNext) return ;
+			}
 
 	    	var api=moduleURL+"/"+(data.field.id?"update":"insert");
 	        var task=setTimeout(function(){layer.load(2);},1000);

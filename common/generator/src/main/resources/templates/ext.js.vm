@@ -34,6 +34,13 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * */
         afterDataFill:function (data) {
             console.log('afterDataFill',data);
+        },
+        /**
+         * 数据提交前，如果返回 false，停止后续步骤的执行
+         * */
+        beforeSubmit:function (data) {
+            console.log("beforeSubmit",data);
+            return true;
         }
     }
     //

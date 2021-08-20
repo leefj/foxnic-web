@@ -218,6 +218,7 @@ public class CodeExampleServiceImpl extends SuperService<CodeExample> implements
 	@Override
 	public PagedList<CodeExample> queryPagedList(CodeExample sample, int pageSize, int pageIndex) {
 		//this.dao().createSequence("code_example_id", SequenceType.AI,6);
+		this.dao().setSequenceFetchSize("code_example_id",2);
 //		String id=this.dao().getNextSequenceValue ("code_example_id");
 //		System.out.println(id);
 		return super.queryPagedList(sample, pageSize, pageIndex);
