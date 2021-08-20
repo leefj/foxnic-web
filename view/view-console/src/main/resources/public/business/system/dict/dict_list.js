@@ -1,7 +1,7 @@
 /**
  * 数据字典 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-20 13:32:51
+ * @since 2021-08-20 15:41:31
  */
 
 
@@ -42,9 +42,13 @@ function ListPage() {
 		fox.adjustSearchElement();
 		//
 		function renderTableInternal() {
+
 			var ps={};
 			var contitions={};
-
+			window.pageExt.list.beforeQuery && window.pageExt.list.beforeQuery(contitions);
+			if(Object.keys(contitions).length>0) {
+				ps = {searchField: "$composite", searchValue: JSON.stringify(contitions)};
+			}
 
 			var h=$(".search-bar").height();
 			dataTable=fox.renderTable({
@@ -99,6 +103,7 @@ function ListPage() {
 		value.code={ value: $("#code").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" "};
 		value.module={ value: xmSelect.get("#module",true).getValue("value"), fillBy:"moduleInfo",field:"id", label:xmSelect.get("#module",true).getValue("nameStr") };
 		value.notes={ value: $("#notes").val()};
+		window.pageExt.list.beforeQuery && window.pageExt.list.beforeQuery(value);
 		var ps={searchField: "$composite", searchValue: JSON.stringify(value)};
 		if(sortField) {
 			ps.sortField=sortField;
@@ -292,7 +297,7 @@ function ListPage() {
 				
 			}
 			else if (layEvent === 'open-dict-item-window') { // 条目
-				openDictItemWindow(data);
+				window.pageExt.list.openDictItemWindow(data);
 			}
 			
 		});
@@ -324,35 +329,13 @@ function ListPage() {
 		admin.putTempData('sys-dict-form-data-popup-index', index);
 	};
 
-	/**
-	 * 条目 操作
-	 */
-	/**
-	 * 打开字典条窗口
-	 * */
-	function openDictItemWindow(data) {
-	    admin.putTempData("dictId",data.id,true);
-	    admin.putTempData("dictCode",data.code,true);
-	    var index = admin.popupCenter({
-	        title: "条目",
-	        resize: false,
-	        id: 'dictItemsWindow',
-	        area: ["800px", "600px"],
-	        type: 2,
-	        content: "/business/system/dict_item/dict_item_list.html"
-	    });
-	}
-	
-
-
 };
 
 
-layui.config({
-	dir: layuiPath,
-	base: '/module/'
-}).extend({
-	xmSelect: 'xm-select/xm-select'
-}).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect','laydate'],function() {
-	(new ListPage()).init(layui);
+layui.use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect','laydate'],function() {
+	var task=setInterval(function (){
+		if(!window["pageExt"]) return;
+		clearInterval(task);
+		(new ListPage()).init(layui);
+	},1);
 });

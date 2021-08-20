@@ -196,7 +196,8 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 	@Override
 	public void configList(ViewOptions view,ListOptions list) {
 
-		list.operationColumn().width(160);
+		list.operationColumn().addActionButton("测试","doTestAction");
+		list.operationColumn().width(220);
 		//禁止新建
 //		cfg.view().list().disableCreateNew();
 		//禁止修改

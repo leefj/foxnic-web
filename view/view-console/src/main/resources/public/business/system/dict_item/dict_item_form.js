@@ -1,7 +1,7 @@
 /**
  * 数据字典条目 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-20 01:06:36
+ * @since 2021-08-20 15:41:33
  */
 
 function FormPage() {
@@ -79,7 +79,9 @@ function FormPage() {
       */
 	function fillFormData() {
 		var formData = admin.getTempData('sys-dict-item-form-data');
-		beforeDictItemDataFill(formData);
+
+		window.pageExt.form.beforeDataFill && window.pageExt.form.beforeDataFill(formData);
+
 		//如果是新建
 		if(!formData.id) {
 			adjustPopup();
@@ -99,7 +101,9 @@ function FormPage() {
 
 	     	fm.attr('method', 'POST');
 	     	renderFormFields();
-			afterDictItemDataFill(formData);
+
+		window.pageExt.form.afterDataFill && window.pageExt.form.afterDataFill(formData);
+
 		}
 
 		//渐显效果
@@ -159,34 +163,12 @@ function FormPage() {
 	    $("#cancel-button").click(function(){admin.closePopupCenter();});
 
     }
-
-	/**
-	 * 字典条目表单填充前调用
-	 * */
-	function beforeDictItemDataFill(data) {
-	    //获得缓存中的字典ID
-	    var dictIdValue=admin.getTempData("dictId");
-	    var dictCodeValue=admin.getTempData("dictCode");
-	    //设置默认值
-	    data["dictId"]=dictIdValue;
-	    data["dictCode"]=dictCodeValue;
-	}
-	
-	/**
-	 * 字典条目表单填充后调用
-	 * */
-	function afterDictItemDataFill(data) {
-	    console.log("afterDictItemDataFill",data);
-	}
-
 }
 
-layui.config({
-	dir: layuiPath,
-	base: '/module/'
-}).extend({
-	xmSelect: 'xm-select/xm-select',
-	foxnicUpload: 'upload/foxnic-upload'
-}).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect','foxnicUpload','laydate'],function() {
-	(new FormPage()).init(layui);
+layui.use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect','foxnicUpload','laydate'],function() {
+	var task=setInterval(function (){
+		if(!window["pageExt"]) return;
+		clearInterval(task);
+		(new FormPage()).init(layui);
+	},1);
 });

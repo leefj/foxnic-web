@@ -1,7 +1,7 @@
 /**
  * 代码生成示例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-19 13:40:18
+ * @since 2021-08-20 15:29:26
  */
 
 function FormPage() {
@@ -328,12 +328,10 @@ function FormPage() {
 
 }
 
-layui.config({
-	dir: layuiPath,
-	base: '/module/'
-}).extend({
-	xmSelect: 'xm-select/xm-select',
-	foxnicUpload: 'upload/foxnic-upload'
-}).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect','foxnicUpload','laydate'],function() {
-	(new FormPage()).init(layui);
+layui.use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect','foxnicUpload','laydate'],function() {
+	var task=setInterval(function (){
+		if(!window["pageExt"]) return;
+		clearInterval(task);
+		(new FormPage()).init(layui);
+	},1);
 });

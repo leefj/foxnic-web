@@ -1,27 +1,27 @@
 package org.github.foxnic.web.system.service;
 
 
-import com.github.foxnic.sql.expr.ConditionExpr;
-import com.github.foxnic.dao.entity.ISuperService;
-import org.github.foxnic.web.domain.system.CodeExample;
-import org.github.foxnic.web.domain.system.CodeExampleVO;
-import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
-import java.io.InputStream;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.ISuperService;
+import com.github.foxnic.dao.excel.ExcelStructure;
+import com.github.foxnic.dao.excel.ExcelWriter;
+import com.github.foxnic.dao.excel.ValidateResult;
+import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.expr.OrderBy;
 import com.github.foxnic.sql.meta.DBField;
-import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.dao.excel.ExcelStructure;
-import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.dao.data.SaveMode;
+import org.github.foxnic.web.domain.system.CodeExample;
+
+import java.io.InputStream;
+import java.util.List;
 
 /**
  * <p>
  * 代码生成示例 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-19 13:40:12
+ * @since 2021-08-20 15:29:26
 */
 
 public interface ICodeExampleService extends ISuperService<CodeExample> {

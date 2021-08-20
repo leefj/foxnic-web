@@ -1,0 +1,41 @@
+layui.config({
+    dir: layuiPath,
+    base: '/module/'
+}).extend({
+    xmSelect: 'xm-select/xm-select',
+    foxnicUpload: 'upload/foxnic-upload'
+})
+//
+layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect','laydate','foxnicUpload'],function () {
+
+    var admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload,laydate= layui.laydate;
+    table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect,foxup=layui.foxnicUpload;
+
+    var list={
+        /**
+         * 查询前调用
+         * */
+        beforeQuery:function (condition) {
+
+        },
+        /**
+         * 打开字典条窗口
+         * */
+        openDictItemWindow: function (data) {
+            admin.putTempData("dictId",data.id,true);
+            admin.putTempData("dictCode",data.code,true);
+            var index = admin.popupCenter({
+                title: "条目",
+                resize: false,
+                id: 'dictItemsWindow',
+                area: ["800px", "600px"],
+                type: 2,
+                content: "/business/system/dict_item/dict_item_list.html"
+            });
+        }
+    }
+    //
+    var form={}
+    //
+    window.pageExt={form:form,list:list};
+});

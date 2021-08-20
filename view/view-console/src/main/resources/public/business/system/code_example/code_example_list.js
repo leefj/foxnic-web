@@ -1,7 +1,7 @@
 /**
  * 代码生成示例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-19 13:40:17
+ * @since 2021-08-20 15:29:26
  */
 
 
@@ -42,9 +42,13 @@ function ListPage() {
 		fox.adjustSearchElement();
 		//
 		function renderTableInternal() {
+
 			var ps={};
 			var contitions={};
-
+			window.pageExt.list.beforeQuery(contitions);
+			if(Object.keys(contitions).length>0) {
+				ps = {searchField: "$composite", searchValue: JSON.stringify(contitions)};
+			}
 
 			var h=$(".search-bar").height();
 			dataTable=fox.renderTable({
@@ -80,7 +84,7 @@ function ListPage() {
 					,{ field: 'fileIds', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('多文件上传') }
 					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('ID') }
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
-					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
+					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 220 }
 				]],
 				footer : {
 					exportExcel : admin.checkAuth(AUTH_PREFIX+":export"),
@@ -125,6 +129,9 @@ function ListPage() {
 		value.resourceId={ value: $("#resourceId").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"", fillBy:"resourze",field:"url" };
 		value.birthday={ begin: $("#birthday-begin").val(), end: $("#birthday-end").val() };
 		value.roleIds={ value: xmSelect.get("#roleIds",true).getValue("value"), fillBy:"roles",field:"id", label:xmSelect.get("#roleIds",true).getValue("nameStr") };
+
+		window.pageExt.list.beforeQuery(value);
+
 		var ps={searchField: "$composite", searchValue: JSON.stringify(value)};
 		if(sortField) {
 			ps.sortField=sortField;
@@ -455,6 +462,9 @@ function ListPage() {
 				});
 				
 			}
+			else if (layEvent === 'do-test-action') { // 测试
+				window.pageExt.list.doTestAction(data);
+			}
 			
 		});
  
@@ -485,16 +495,13 @@ function ListPage() {
 		admin.putTempData('sys-code-example-form-data-popup-index', index);
 	};
 
-
-
 };
 
 
-layui.config({
-	dir: layuiPath,
-	base: '/module/'
-}).extend({
-	xmSelect: 'xm-select/xm-select'
-}).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect','laydate'],function() {
-	(new ListPage()).init(layui);
+layui.use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect','laydate'],function() {
+	var task=setInterval(function (){
+		if(!window["pageExt"]) return;
+		clearInterval(task);
+		(new ListPage()).init(layui);
+	},1);
 });

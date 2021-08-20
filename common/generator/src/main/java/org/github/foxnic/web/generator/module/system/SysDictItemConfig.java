@@ -7,7 +7,6 @@ import com.github.foxnic.generator.builder.view.option.FormOptions;
 import com.github.foxnic.generator.builder.view.option.ListOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
-import com.github.foxnic.generator.builder.view.config.JSFunctions;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_DICT_ITEM;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
@@ -16,11 +15,6 @@ public class SysDictItemConfig extends BaseCodeConfig<FoxnicWeb.SYS_DICT_ITEM> {
 
     public SysDictItemConfig() {
         super("service-system", SYS_DICT_ITEM.$TABLE,"sys_", 4);
-    }
-
-    @Override
-    public void configCodeSegment() {
-        context.addJsFuncs(new JSFunctions(this.getClass(),"dict_functions.js"));
     }
 
     @Override
@@ -35,10 +29,7 @@ public class SysDictItemConfig extends BaseCodeConfig<FoxnicWeb.SYS_DICT_ITEM> {
 
     @Override
     public void configForm(ViewOptions view, FormOptions form) {
-        //表单数据填充前调用
-        form.jsBeforeDataFill("beforeDictItemDataFill");
-        //表单数据填充后调用
-        form.jsAfterDataFill("afterDictItemDataFill");
+
     }
 
     @Override
@@ -61,9 +52,6 @@ public class SysDictItemConfig extends BaseCodeConfig<FoxnicWeb.SYS_DICT_ITEM> {
     public void configList(ViewOptions view, ListOptions list) {
         list.operationColumn().width(120);
         list.disableFormView();
-        //设置查询前调用的 JS 函数
-        list.jsBeforeQuery("beforeDictItemDataQuery");
-
     }
 
     @Override
