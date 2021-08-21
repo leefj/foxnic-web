@@ -2,7 +2,7 @@
 /**
  * 代码生成示例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-20 15:29:26
+ * @since 2021-08-21 18:13:59
  */
  -->
  <!DOCTYPE html>
@@ -162,6 +162,8 @@
     <div class="layui-btn-container">
         <button th:if="${perm.checkAuth('sys_code_example:create')}" id="add-button" class="layui-btn icon-btn layui-btn-sm" lay-event="create"><i class="layui-icon">&#xe654;</i><span th:text="${lang.translate('新建')}">新建</span></button>
         <button th:if="${perm.checkAuth('sys_code_example:delete-by-ids')}" id="delete-button" class="layui-btn icon-btn layui-btn-danger layui-btn-sm" lay-event="batch-del"><i class="layui-icon">&#xe67e;</i><span th:text="${lang.translate('删除')}">删除</span></button>
+        <button id="test-tool-button1" class="layui-btn icon-btn layui-btn-sm  layui-btn-primary layui-border-red " lay-event="tool-test-tool-button1"><span th:text="${lang.translate('测试-1')}">测试-1</span></button>
+        <button id="test-tool-button2" class="layui-btn icon-btn layui-btn-sm  layui-btn-primary layui-border-blue " lay-event="tool-test-tool-button2"> <li class='fa fa-superpowers'></li> <span th:text="${lang.translate('测试-2')}">测试-2</span></button>
     </div>
 </script>
 
@@ -173,7 +175,10 @@
 
 
     <a th:if="${perm.checkAuth('sys_code_example:delete')}" class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del" th:text="${lang.translate('删除')}">删除</a>
-    <a class="layui-btn layui-btn-xs" lay-event="do-test-action" th:text="${lang.translate('测试')}">测试</a>
+
+    <a class="layui-btn layui-btn-xs  layui-btn-primary layui-border-red " lay-event="do-test-action" th:text="${lang.translate('测试')}">测试</a>
+
+    <a class="layui-btn layui-btn-xs layui-btn-primary layui-border-blue" lay-event="ops-more"><span th:text="${lang.translate('更多')}">更多</span><i class="layui-icon layui-icon-down"></i></a>
 </script>
 
 <!-- 表格状态列 -->

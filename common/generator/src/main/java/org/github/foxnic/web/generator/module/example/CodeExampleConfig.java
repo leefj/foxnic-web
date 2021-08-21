@@ -3,6 +3,7 @@ package org.github.foxnic.web.generator.module.example;
 import com.github.foxnic.generator.builder.business.option.ServiceOptions;
 import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
+import com.github.foxnic.generator.builder.view.config.ActionConfig;
 import com.github.foxnic.generator.builder.view.option.FormOptions;
 import com.github.foxnic.generator.builder.view.option.ListOptions;
 import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
@@ -195,9 +196,21 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 
 	@Override
 	public void configList(ViewOptions view,ListOptions list) {
+		//设置操作列宽度
+		list.operationColumn().width(280);
+		//增加操作列按钮
+		list.operationColumn().addActionButton("测试","doTestAction","layui-btn-primary layui-border-red");
 
-		list.operationColumn().addActionButton("测试","doTestAction");
-		list.operationColumn().width(220);
+		//添加操作列菜单
+		list.operationColumn().addActionMenu("t1","测试-1");
+		list.operationColumn().addActionMenu("t2","测试-2");
+
+		//增加工具栏按钮
+		list.addToolButton("测试-1","testToolButton1","layui-btn-primary layui-border-red");
+		//设置扩展
+		ActionConfig button= list.addToolButton("测试-2","testToolButton2","layui-btn-primary layui-border-blue");
+		button.setIconHtml("<li class='fa fa-superpowers'></li>");
+
 		//禁止新建
 //		cfg.view().list().disableCreateNew();
 		//禁止修改
