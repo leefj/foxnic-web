@@ -1,8 +1,8 @@
 <!-- 
 /**
- * 代码生成示例 列表页 JS 脚本
+ * 代码生成示例主 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-21 18:13:59
+ * @since 2021-08-22 11:20:02
  */
  -->
  <!DOCTYPE html>
@@ -11,7 +11,7 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta charset="utf-8"/>
-	<title th:text="${lang.translate('代码生成示例')}">代码生成示例</title>
+	<title th:text="${lang.translate('代码生成示例主')}">代码生成示例主</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="/assets/libs/layui/css/layui.css" th:href="'/assets/libs/layui/css/layui.css?'+${cacheKey}"/>
     <link rel="stylesheet" href="/assets/css/admin.css" th:href="'/assets/css/admin.css?'+${cacheKey}"/>
@@ -30,6 +30,7 @@
 
 
          <!--开始：group 循环-->
+
 
         <fieldset class="layui-elem-field layui-field-title form-group-title">
             <legend>基本信息</legend>
@@ -141,6 +142,7 @@
         </div>
          <!--开始：group 循环-->
 
+
         <fieldset class="layui-elem-field layui-field-title form-group-title">
             <legend>附件信息</legend>
         </fieldset>
@@ -179,6 +181,17 @@
             <!--结束：栏次输入框循环-->
         </div>
          <!--开始：group 循环-->
+
+        <fieldset class="layui-elem-field layui-field-title form-group-title">
+        <legend>部署节点</legend>
+        </fieldset>
+        <div class="layui-row form-row" style="text-align: center;">
+            <iframe js-fn="loadTest1Iframe" class="form-iframe" frameborder="0"></iframe>
+        </div>
+
+
+         <!--开始：group 循环-->
+
 
         <fieldset class="layui-elem-field layui-field-title form-group-title">
             <legend>类型信息</legend>
@@ -226,6 +239,7 @@
             <!--结束：栏次输入框循环-->
         </div>
          <!--开始：group 循环-->
+
 
         <fieldset class="layui-elem-field layui-field-title form-group-title">
             <legend>扩展信息</legend>

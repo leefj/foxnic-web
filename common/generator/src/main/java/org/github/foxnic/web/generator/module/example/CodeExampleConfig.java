@@ -325,7 +325,7 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 	private void configFormLayoutD(ViewOptions view,FormOptions form) {
 
 		//分成分组布局
-		view.formWindow().width("1000px");
+		view.formWindow().width("90%");
 		form.addGroup("基本信息",
 				new Object[] {
 						TABLE.NAME,TABLE.AREA,TABLE.BIRTHDAY,
@@ -338,6 +338,7 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 		form.addGroup("附件信息",
 				new Object[] {TABLE.IMAGE_ID,TABLE.FILE_IDS,}
 		);
+		form.addPage("部署节点","loadTest1Iframe");
 		form.addGroup("类型信息",
 				new Object[] {
 						TABLE.RADIO_ENUM,

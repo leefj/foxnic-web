@@ -17,8 +17,8 @@ import org.github.foxnic.web.domain.oauth.MenuResource;
 import org.github.foxnic.web.domain.oauth.Resourze;
 import org.github.foxnic.web.domain.oauth.RoleMenu;
 import org.github.foxnic.web.generator.config.FoxnicWebConfigs;
-import org.github.foxnic.web.proxy.system.NodeServiceProxy;
-import org.github.foxnic.web.system.page.NodePageController;
+import org.github.foxnic.web.proxy.system.CodeExampleCarServiceProxy;
+import org.github.foxnic.web.system.page.CodeExampleCarPageController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.File;
@@ -80,8 +80,11 @@ public class MenuGenerator {
 //		mg=new MenuGenerator(FoxnicWeb.SYS_CODE_EXAMPLE.$TABLE, CodeExampleServiceProxy.class, CodeExamplePageController.class);
 //		mg.generate("system_config");
 
-		mg=new MenuGenerator(FoxnicWeb.SYS_NODE.$TABLE, NodeServiceProxy.class, NodePageController.class);
-		mg.generate("463397133957988354");
+//		mg=new MenuGenerator(FoxnicWeb.SYS_NODE.$TABLE, NodeServiceProxy.class, NodePageController.class);
+//		mg.generate("463397133957988354");
+
+		mg=new MenuGenerator(FoxnicWeb.SYS_CODE_EXAMPLE_CAR.$TABLE, CodeExampleCarServiceProxy.class, CodeExampleCarPageController.class);
+		mg.generate("system_config");
 
 
 

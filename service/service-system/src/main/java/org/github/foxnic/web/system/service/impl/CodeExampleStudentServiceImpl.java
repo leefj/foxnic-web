@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
-import org.github.foxnic.web.domain.system.CodeExampleRole;
-import org.github.foxnic.web.domain.system.CodeExampleRoleVO;
+import org.github.foxnic.web.domain.system.CodeExampleStudent;
+import org.github.foxnic.web.domain.system.CodeExampleStudentVO;
 import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
@@ -26,21 +26,20 @@ import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.meta.DBColumnMeta;
 import com.github.foxnic.sql.expr.Select;
 import java.util.ArrayList;
-import org.github.foxnic.web.system.service.ICodeExampleRoleService;
+import org.github.foxnic.web.system.service.ICodeExampleStudentService;
 import org.github.foxnic.web.framework.dao.DBConfigs;
-import org.github.foxnic.web.constants.db.FoxnicWeb.*;
 
 /**
  * <p>
- * 代码示例主表角色关系表 服务实现
+ * 代码生成主表学生 服务实现
  * </p>
  * @author 李方捷 , leefangjie@qq.com
  * @since 2021-08-22 11:20:02
 */
 
 
-@Service("SysCodeExampleRoleService")
-public class CodeExampleRoleServiceImpl extends SuperService<CodeExampleRole> implements ICodeExampleRoleService {
+@Service("SysCodeExampleStudentService")
+public class CodeExampleStudentServiceImpl extends SuperService<CodeExampleStudent> implements ICodeExampleStudentService {
 	
 	/**
 	 * 注入DAO对象
@@ -62,38 +61,38 @@ public class CodeExampleRoleServiceImpl extends SuperService<CodeExampleRole> im
 	
 	/**
 	 * 插入实体
-	 * @param codeExampleRole 实体数据
+	 * @param codeExampleStudent 实体数据
 	 * @return 插入是否成功
 	 * */
 	@Override
-	public Result insert(CodeExampleRole codeExampleRole) {
-		Result r=super.insert(codeExampleRole);
+	public Result insert(CodeExampleStudent codeExampleStudent) {
+		Result r=super.insert(codeExampleStudent);
 		return r;
 	}
 	
 	/**
 	 * 批量插入实体，事务内
-	 * @param codeExampleRoleList 实体数据清单
+	 * @param codeExampleStudentList 实体数据清单
 	 * @return 插入是否成功
 	 * */
 	@Override
-	public Result insertList(List<CodeExampleRole> codeExampleRoleList) {
-		return super.insertList(codeExampleRoleList);
+	public Result insertList(List<CodeExampleStudent> codeExampleStudentList) {
+		return super.insertList(codeExampleStudentList);
 	}
 	
 	
 	/**
-	 * 按主键删除 代码示例主表角色关系
+	 * 按主键删除 代码生成主表学生
 	 *
 	 * @param id 主键
 	 * @return 删除是否成功
 	 */
 	public Result deleteByIdPhysical(String id) {
-		CodeExampleRole codeExampleRole = new CodeExampleRole();
+		CodeExampleStudent codeExampleStudent = new CodeExampleStudent();
 		if(id==null) return ErrorDesc.failure().message("id 不允许为 null 。");
-		codeExampleRole.setId(id);
+		codeExampleStudent.setId(id);
 		try {
-			boolean suc = dao.deleteEntity(codeExampleRole);
+			boolean suc = dao.deleteEntity(codeExampleStudent);
 			return suc?ErrorDesc.success():ErrorDesc.failure();
 		}
 		catch(Exception e) {
@@ -105,30 +104,30 @@ public class CodeExampleRoleServiceImpl extends SuperService<CodeExampleRole> im
 	
 	/**
 	 * 更新实体
-	 * @param codeExampleRole 数据对象
+	 * @param codeExampleStudent 数据对象
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
 	@Override
-	public Result update(CodeExampleRole codeExampleRole , SaveMode mode) {
-		Result r=super.update(codeExampleRole , mode);
+	public Result update(CodeExampleStudent codeExampleStudent , SaveMode mode) {
+		Result r=super.update(codeExampleStudent , mode);
 		return r;
 	}
 	
 	/**
 	 * 更新实体集，事务内
-	 * @param codeExampleRoleList 数据对象列表
+	 * @param codeExampleStudentList 数据对象列表
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
 	@Override
-	public Result updateList(List<CodeExampleRole> codeExampleRoleList , SaveMode mode) {
-		return super.updateList(codeExampleRoleList , mode);
+	public Result updateList(List<CodeExampleStudent> codeExampleStudentList , SaveMode mode) {
+		return super.updateList(codeExampleStudentList , mode);
 	}
 	
 	
 	/**
-	 * 按主键更新字段 代码示例主表角色关系
+	 * 按主键更新字段 代码生成主表学生
 	 *
 	 * @param id 主键
 	 * @return 是否更新成功
@@ -142,20 +141,20 @@ public class CodeExampleRoleServiceImpl extends SuperService<CodeExampleRole> im
 	
 	
 	/**
-	 * 按主键获取 代码示例主表角色关系
+	 * 按主键获取 代码生成主表学生
 	 *
 	 * @param id 主键
-	 * @return CodeExampleRole 数据对象
+	 * @return CodeExampleStudent 数据对象
 	 */
-	public CodeExampleRole getById(String id) {
-		CodeExampleRole sample = new CodeExampleRole();
+	public CodeExampleStudent getById(String id) {
+		CodeExampleStudent sample = new CodeExampleStudent();
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null ");
 		sample.setId(id);
 		return dao.queryEntity(sample);
 	}
 
 	@Override
-	public List<CodeExampleRole> getByIds(List<String> ids) {
+	public List<CodeExampleStudent> getByIds(List<String> ids) {
 		return new ArrayList<>(getByIdsMap(ids).values());
 	}
 
@@ -168,7 +167,7 @@ public class CodeExampleRoleServiceImpl extends SuperService<CodeExampleRole> im
 	 * @return 查询结果
 	 * */
 	@Override
-	public List<CodeExampleRole> queryList(CodeExampleRole sample) {
+	public List<CodeExampleStudent> queryList(CodeExampleStudent sample) {
 		return super.queryList(sample);
 	}
 	
@@ -182,7 +181,7 @@ public class CodeExampleRoleServiceImpl extends SuperService<CodeExampleRole> im
 	 * @return 查询结果
 	 * */
 	@Override
-	public PagedList<CodeExampleRole> queryPagedList(CodeExampleRole sample, int pageSize, int pageIndex) {
+	public PagedList<CodeExampleStudent> queryPagedList(CodeExampleStudent sample, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, pageSize, pageIndex);
 	}
 	
@@ -196,25 +195,25 @@ public class CodeExampleRoleServiceImpl extends SuperService<CodeExampleRole> im
 	 * @return 查询结果
 	 * */
 	@Override
-	public PagedList<CodeExampleRole> queryPagedList(CodeExampleRole sample, ConditionExpr condition, int pageSize, int pageIndex) {
+	public PagedList<CodeExampleStudent> queryPagedList(CodeExampleStudent sample, ConditionExpr condition, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, condition, pageSize, pageIndex);
 	}
 	
 	/**
 	 * 检查 角色 是否已经存在
 	 *
-	 * @param codeExampleRole 数据对象
+	 * @param codeExampleStudent 数据对象
 	 * @return 判断结果
 	 */
-	public Result<CodeExampleRole> checkExists(CodeExampleRole codeExampleRole) {
+	public Result<CodeExampleStudent> checkExists(CodeExampleStudent codeExampleStudent) {
 		//TDOD 此处添加判断段的代码
-		//boolean exists=this.checkExists(codeExampleRole, SYS_ROLE.NAME);
+		//boolean exists=this.checkExists(codeExampleStudent, SYS_ROLE.NAME);
 		//return exists;
 		return ErrorDesc.success();
 	}
 
 	@Override
-	public ExcelWriter exportExcel(CodeExampleRole sample) {
+	public ExcelWriter exportExcel(CodeExampleStudent sample) {
 		return super.exportExcel(sample);
 	}
 
@@ -233,13 +232,5 @@ public class CodeExampleRoleServiceImpl extends SuperService<CodeExampleRole> im
 		return super.buildExcelStructure(isForExport);
 	}
 
-	/**
-     * 保存关系
-     * @param exampleId 属主ID
-     * @param roleIds 角色ID清单
-     */
-	public void saveRelation(String exampleId,List<String> roleIds) {
-		super.saveRelation(SYS_CODE_EXAMPLE_ROLE.EXAMPLE_ID,exampleId, SYS_CODE_EXAMPLE_ROLE.ROLE_ID,roleIds,true);
-	}
 
 }

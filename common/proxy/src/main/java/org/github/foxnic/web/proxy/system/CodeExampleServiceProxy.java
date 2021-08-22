@@ -16,10 +16,10 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
 
 /**
  * <p>
- * 代码生成示例  控制器服务代理
+ * 代码生成示例主表  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-21 18:13:59
+ * @since 2021-08-22 11:20:02
 */
 
 @FeignClient(value = MicroServiceNames.SYSTEM, contextId = CodeExampleServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)
@@ -41,117 +41,117 @@ public interface CodeExampleServiceProxy {
 	public static final String API_PREFIX = "/" + API_BASIC_PATH + "/"+API_CONTEXT_PATH+"/";
 	
 	/**
-	 * 添加代码生成示例
+	 * 添加代码生成示例主
 	 */
 	public static final String INSERT = API_PREFIX + "insert";
 	
 	/**
-	 * 删除代码生成示例
+	 * 删除代码生成示例主
 	 */
 	public static final String DELETE = API_PREFIX + "delete";
 
 	/**
-	 * 批量删除代码生成示例
+	 * 批量删除代码生成示例主
 	 */
 	public static final String DELETE_BY_IDS = API_PREFIX + "delete-by-ids";
 	;
 	
 	/**
-	 * 更新代码生成示例
+	 * 更新代码生成示例主
 	 */
 	public static final String UPDATE = API_PREFIX + "update";
 	
 	
 	/**
-	 * 保存代码生成示例
+	 * 保存代码生成示例主
 	 */
 	public static final String SAVE = API_PREFIX + "save";
 	
 	/**
-	 * 获取单个代码生成示例
+	 * 获取单个代码生成示例主
 	 */
 	public static final String GET_BY_ID = API_PREFIX + "get-by-id";
 
 	/**
-	 * 获取多个代码生成示例
+	 * 获取多个代码生成示例主
 	 */
 	public static final String GET_BY_IDS = API_PREFIX + "get-by-ids";
 	;
 
 	/**
-	 * 查询代码生成示例
+	 * 查询代码生成示例主
 	 */
 	public static final String QUERY_LIST = API_PREFIX + "query-list";
 	
 	/**
-	 * 分页查询代码生成示例
+	 * 分页查询代码生成示例主
 	 */
 	public static final String QUERY_PAGED_LIST = API_PREFIX + "query-paged-list";
 	
 	/**
-	 * 导出代码生成示例数据(Excel)
+	 * 导出代码生成示例主数据(Excel)
 	 */
 	public static final String EXPORT_EXCEL = API_PREFIX + "export-excel";
 
 	/**
-	 * 下载代码生成示例导入模版(Excel)
+	 * 下载代码生成示例主导入模版(Excel)
 	 */
 	public static final String EXPORT_EXCEL_TEMPLATE = API_PREFIX + "export-excel-template";
 	
 	/**
-	 * 导入代码生成示例数据(Excel)
+	 * 导入代码生成示例主数据(Excel)
 	 */
 	public static final String IMPORT_EXCEL = API_PREFIX + "import-excel";
 	
 	/**
-	 * 添加代码生成示例
+	 * 添加代码生成示例主
 	*/
 	@RequestMapping(CodeExampleServiceProxy.INSERT)
 	Result insert(CodeExampleVO codeExampleVO);
 	
 	/**
-	 * 删除代码生成示例
+	 * 删除代码生成示例主
 	*/
 	@RequestMapping(CodeExampleServiceProxy.DELETE)
 	Result deleteById(String id);
 
 	/**
-	 * 批量删除代码生成示例
+	 * 批量删除代码生成示例主
 	*/
 	@RequestMapping(CodeExampleServiceProxy.DELETE_BY_IDS)
 	Result deleteByIds(List<String> ids);
 
 	/**
-	 * 更新代码生成示例
+	 * 更新代码生成示例主
 	*/
 	@RequestMapping(CodeExampleServiceProxy.UPDATE)
 	Result update(CodeExampleVO codeExampleVO);
 	
 	/**
-	 * 更新代码生成示例
+	 * 更新代码生成示例主
 	*/
 	@RequestMapping(CodeExampleServiceProxy.SAVE)
 	Result save(CodeExampleVO codeExampleVO);
 	
 	/**
-	 * 获取代码生成示例
+	 * 获取代码生成示例主
 	*/
 	@RequestMapping(CodeExampleServiceProxy.GET_BY_ID)
 	Result<CodeExample> getById(String id);
 
 	/**
-	 * 批量删除代码生成示例
+	 * 批量删除代码生成示例主
 	*/
 	@RequestMapping(CodeExampleServiceProxy.GET_BY_IDS)
 	Result<List<CodeExample>> getByIds(List<String> ids);
 	/**
-	 * 查询代码生成示例
+	 * 查询代码生成示例主
 	*/
 	@RequestMapping(CodeExampleServiceProxy.QUERY_LIST)
 	Result<List<CodeExample>> queryList(CodeExampleVO sample);
 	
 	/**
-	 * 分页查询代码生成示例
+	 * 分页查询代码生成示例主
 	*/
 	@RequestMapping(CodeExampleServiceProxy.QUERY_PAGED_LIST)
 	Result<PagedList<CodeExample>> queryPagedList(CodeExampleVO sample);

@@ -35,10 +35,10 @@ import java.util.Date;
 
 /**
  * <p>
- * 代码生成示例 服务实现
+ * 代码生成示例主表 服务实现
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-21 18:13:59
+ * @since 2021-08-22 11:20:02
 */
 
 
@@ -93,7 +93,7 @@ public class CodeExampleServiceImpl extends SuperService<CodeExample> implements
 	
 	
 	/**
-	 * 按主键删除 代码生成示例
+	 * 按主键删除 代码生成示例主
 	 *
 	 * @param id ID
 	 * @return 删除是否成功
@@ -114,7 +114,7 @@ public class CodeExampleServiceImpl extends SuperService<CodeExample> implements
 	}
 	
 	/**
-	 * 按主键删除 代码生成示例
+	 * 按主键删除 代码生成示例主
 	 *
 	 * @param id ID
 	 * @return 删除是否成功
@@ -167,7 +167,7 @@ public class CodeExampleServiceImpl extends SuperService<CodeExample> implements
 	
 	
 	/**
-	 * 按主键更新字段 代码生成示例
+	 * 按主键更新字段 代码生成示例主
 	 *
 	 * @param id ID
 	 * @return 是否更新成功
@@ -181,7 +181,7 @@ public class CodeExampleServiceImpl extends SuperService<CodeExample> implements
 	
 	
 	/**
-	 * 按主键获取 代码生成示例
+	 * 按主键获取 代码生成示例主
 	 *
 	 * @param id ID
 	 * @return CodeExample 数据对象

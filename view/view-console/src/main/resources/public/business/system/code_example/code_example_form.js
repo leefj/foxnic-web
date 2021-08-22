@@ -1,7 +1,7 @@
 /**
- * 代码生成示例 列表页 JS 脚本
+ * 代码生成示例主 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-21 18:13:59
+ * @since 2021-08-22 11:20:02
  */
 
 function FormPage() {
@@ -276,6 +276,16 @@ function FormPage() {
 		} else {
 			$("#submit-button").show();
 			$("#cancel-button").css("margin-right","0px")
+		}
+
+		//调用 iframe 加载过程
+		var formIfrs=$(".form-iframe");
+		for (var i = 0; i < formIfrs.length; i++) {
+			var jsFn=$(formIfrs[i]).attr("js-fn");
+			if(window.pageExt.form){
+				jsFn=window.pageExt.form[jsFn];
+				jsFn && jsFn($(formIfrs[i]),$(formIfrs[i])[0].contentWindow,formData);
+			}
 		}
 
 	}

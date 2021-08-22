@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2021-08-13 21:26:24
+ * @since 2021-08-22 09:00:49
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -38,9 +38,9 @@ public class FoxnicWeb {
 		
 		/**
 		 * 区域名称
-
+↵
 		*/
-		public static final DBField NAME = new DBField(DBDataType.STRING , "name","name","区域名称","区域名称",false,false,false);
+		public static final DBField NAME = new DBField(DBDataType.STRING , "name","name","区域名称","↵",false,false,true);
 		
 		/**
 		 * 等级（深度）
@@ -95,9 +95,9 @@ public class FoxnicWeb {
 		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","主键","主键",true,false,false);
 		
 		/**
-		 * 业务模块
+		 * 业务编码
 		*/
-		public static final DBField MODULE = new DBField(DBDataType.STRING , "module","module","业务模块","业务模块",false,false,true);
+		public static final DBField CODE = new DBField(DBDataType.STRING , "code","code","业务编码","业务编码",false,false,true);
 		
 		/**
 		 * 规则ID
@@ -149,7 +149,7 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","version","version",false,false,true);
 		
 		public SYS_CODE_ALLOCATION() {
-			this.init($NAME,"编码分配" , ID , MODULE , RULE_ID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"编码分配" , ID , CODE , RULE_ID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final SYS_CODE_ALLOCATION $TABLE=new SYS_CODE_ALLOCATION();
 	}
@@ -170,11 +170,6 @@ public class FoxnicWeb {
 		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","主键","主键",true,false,false);
 		
 		/**
-		 * 占位符
-		*/
-		public static final DBField CODE = new DBField(DBDataType.STRING , "code","code","占位符","占位符",false,false,true);
-		
-		/**
 		 * 编码名称
 		*/
 		public static final DBField NAME = new DBField(DBDataType.STRING , "name","name","编码名称","编码名称",false,false,true);
@@ -183,6 +178,11 @@ public class FoxnicWeb {
 		 * 编码类型
 		*/
 		public static final DBField TYPE = new DBField(DBDataType.STRING , "type","type","编码类型","编码类型",false,false,true);
+		
+		/**
+		 * 占位符
+		*/
+		public static final DBField CODE = new DBField(DBDataType.STRING , "code","code","占位符","占位符",false,false,true);
 		
 		/**
 		 * 排序
@@ -234,13 +234,13 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","version","version",false,false,true);
 		
 		public SYS_CODE_ATTR() {
-			this.init($NAME,"编码属性" , ID , CODE , NAME , TYPE , SORT , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"编码属性" , ID , NAME , TYPE , CODE , SORT , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final SYS_CODE_ATTR $TABLE=new SYS_CODE_ATTR();
 	}
 	
 	/**
-	 * 代码生成示例
+	 * 代码生成示例主表
 	*/
 	public static class SYS_CODE_EXAMPLE extends DBTable {
 		
@@ -375,12 +375,54 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
 		public SYS_CODE_EXAMPLE() {
-			this.init($NAME,"代码生成示例" , ID , NAME , NOTES , IMAGE_ID , FILE_IDS , AREA , WEIGHT , VALID , RADIO_ENUM , RADIO_DICT , CHECK_ENUM , CHECK_DICT , SELECT_ENUM , SELECT_DICT , RESOURCE_ID , BIRTHDAY , WORK_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"代码生成示例主表" , ID , NAME , NOTES , IMAGE_ID , FILE_IDS , AREA , WEIGHT , VALID , RADIO_ENUM , RADIO_DICT , CHECK_ENUM , CHECK_DICT , SELECT_ENUM , SELECT_DICT , RESOURCE_ID , BIRTHDAY , WORK_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final SYS_CODE_EXAMPLE $TABLE=new SYS_CODE_EXAMPLE();
 	}
 	
 	/**
+	 * 代码生成拥有的车辆
+	*/
+	public static class SYS_CODE_EXAMPLE_CAR extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "sys_code_example_car";
+		
+		/**
+		 * 主键
+		*/
+		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","主键","主键",true,false,false);
+		
+		/**
+		 * 属主ID
+		*/
+		public static final DBField EXAMPLE_ID = new DBField(DBDataType.STRING , "example_id","exampleId","属主ID","属主ID",false,false,true);
+		
+		/**
+		 * 车牌号
+		*/
+		public static final DBField PLATE_NUMBER = new DBField(DBDataType.STRING , "plate_number","plateNumber","车牌号","车牌号",false,false,true);
+		
+		/**
+		 * 颜色
+		*/
+		public static final DBField COLOR = new DBField(DBDataType.STRING , "color","color","颜色","颜色",false,false,true);
+		
+		/**
+		 * 数据版本号
+		*/
+		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
+		
+		public SYS_CODE_EXAMPLE_CAR() {
+			this.init($NAME,"代码生成拥有的车辆" , ID , EXAMPLE_ID , PLATE_NUMBER , COLOR , VERSION);
+		}
+		public static final SYS_CODE_EXAMPLE_CAR $TABLE=new SYS_CODE_EXAMPLE_CAR();
+	}
+	
+	/**
+	 * 代码示例主表角色关系表
 	*/
 	public static class SYS_CODE_EXAMPLE_ROLE extends DBTable {
 		
@@ -410,9 +452,50 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
 		public SYS_CODE_EXAMPLE_ROLE() {
-			this.init($NAME,"" , ID , EXAMPLE_ID , ROLE_ID , VERSION);
+			this.init($NAME,"代码示例主表角色关系表" , ID , EXAMPLE_ID , ROLE_ID , VERSION);
 		}
 		public static final SYS_CODE_EXAMPLE_ROLE $TABLE=new SYS_CODE_EXAMPLE_ROLE();
+	}
+	
+	/**
+	 * 代码生成主表学生
+	*/
+	public static class SYS_CODE_EXAMPLE_STUDENT extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "sys_code_example_student";
+		
+		/**
+		 * 主键
+		*/
+		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","主键","主键",true,false,false);
+		
+		/**
+		 * 属主ID
+		*/
+		public static final DBField EXAMPLE_ID = new DBField(DBDataType.STRING , "example_id","exampleId","属主ID","属主ID",false,false,true);
+		
+		/**
+		 * 学生姓名
+		*/
+		public static final DBField NAME = new DBField(DBDataType.STRING , "name","name","学生姓名","学生姓名",false,false,true);
+		
+		/**
+		 * 年龄
+		*/
+		public static final DBField AGE = new DBField(DBDataType.STRING , "age","age","年龄","年龄",false,false,true);
+		
+		/**
+		 * 数据版本号
+		*/
+		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
+		
+		public SYS_CODE_EXAMPLE_STUDENT() {
+			this.init($NAME,"代码生成主表学生" , ID , EXAMPLE_ID , NAME , AGE , VERSION);
+		}
+		public static final SYS_CODE_EXAMPLE_STUDENT $TABLE=new SYS_CODE_EXAMPLE_STUDENT();
 	}
 	
 	/**
@@ -436,14 +519,14 @@ public class FoxnicWeb {
 		public static final DBField NAME = new DBField(DBDataType.STRING , "name","name","编码名称","编码名称",false,false,true);
 		
 		/**
+		 * 业务模块
+		*/
+		public static final DBField MODULE_ID = new DBField(DBDataType.STRING , "module_id","moduleId","业务模块","业务模块",false,false,true);
+		
+		/**
 		 * 编码规则
 		*/
 		public static final DBField RULE = new DBField(DBDataType.STRING , "rule","rule","编码规则","编码规则",false,false,true);
-		
-		/**
-		 * 业务模块
-		*/
-		public static final DBField MODULE = new DBField(DBDataType.STRING , "module","module","业务模块","业务模块",false,false,true);
 		
 		/**
 		 * 备注
@@ -490,7 +573,7 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","version","version",false,false,true);
 		
 		public SYS_CODE_RULE() {
-			this.init($NAME,"编码规则" , ID , NAME , RULE , MODULE , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"编码规则" , ID , NAME , MODULE_ID , RULE , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final SYS_CODE_RULE $TABLE=new SYS_CODE_RULE();
 	}
@@ -700,12 +783,12 @@ public class FoxnicWeb {
 		/**
 		 * 字典名称
 		*/
-		public static final DBField NAME = new DBField(DBDataType.STRING , "name","name","字典名称","字典名称",false,false,false);
+		public static final DBField NAME = new DBField(DBDataType.STRING , "name","name","字典名称","字典名称",false,false,true);
 		
 		/**
 		 * 字典代码
 		*/
-		public static final DBField CODE = new DBField(DBDataType.STRING , "code","code","字典代码","字典代码",false,false,false);
+		public static final DBField CODE = new DBField(DBDataType.STRING , "code","code","字典代码","字典代码",false,false,true);
 		
 		/**
 		 * 所属模块
@@ -781,7 +864,7 @@ public class FoxnicWeb {
 		/**
 		 * 字典ID
 		*/
-		public static final DBField DICT_ID = new DBField(DBDataType.STRING , "dict_id","dictId","字典ID","字典ID",false,false,false);
+		public static final DBField DICT_ID = new DBField(DBDataType.STRING , "dict_id","dictId","字典ID","字典ID",false,false,true);
 		
 		/**
 		 * 字典代码
@@ -796,12 +879,12 @@ public class FoxnicWeb {
 		/**
 		 * 代码
 		*/
-		public static final DBField CODE = new DBField(DBDataType.STRING , "code","code","代码","代码",false,false,false);
+		public static final DBField CODE = new DBField(DBDataType.STRING , "code","code","代码","代码",false,false,true);
 		
 		/**
 		 * 标签
 		*/
-		public static final DBField LABEL = new DBField(DBDataType.STRING , "label","label","标签","标签",false,false,false);
+		public static final DBField LABEL = new DBField(DBDataType.STRING , "label","label","标签","标签",false,false,true);
 		
 		/**
 		 * 排序
@@ -1170,7 +1253,7 @@ public class FoxnicWeb {
 		/**
 		 * 权限，权限标识
 		*/
-		public static final DBField AUTHORITY = new DBField(DBDataType.STRING , "authority","authority","权限","权限标识",false,false,false);
+		public static final DBField AUTHORITY = new DBField(DBDataType.STRING , "authority","authority","权限","权限标识",false,false,true);
 		
 		/**
 		 * 是否隐藏
@@ -1190,7 +1273,7 @@ public class FoxnicWeb {
 		/**
 		 * 菜单类型
 		*/
-		public static final DBField TYPE = new DBField(DBDataType.STRING , "type","type","菜单类型","菜单类型",false,false,false);
+		public static final DBField TYPE = new DBField(DBDataType.STRING , "type","type","菜单类型","菜单类型",false,false,true);
 		
 		/**
 		 * 菜单路径的资源
@@ -1759,12 +1842,12 @@ public class FoxnicWeb {
 		/**
 		 * 角色ID
 		*/
-		public static final DBField ROLE_ID = new DBField(DBDataType.STRING , "role_id","roleId","角色ID","角色ID",false,false,false);
+		public static final DBField ROLE_ID = new DBField(DBDataType.STRING , "role_id","roleId","角色ID","角色ID",false,false,true);
 		
 		/**
 		 * 菜单ID
 		*/
-		public static final DBField MENU_ID = new DBField(DBDataType.STRING , "menu_id","menuId","菜单ID","菜单ID",false,false,false);
+		public static final DBField MENU_ID = new DBField(DBDataType.STRING , "menu_id","menuId","菜单ID","菜单ID",false,false,true);
 		
 		/**
 		 * 创建人ID
@@ -2054,7 +2137,7 @@ public class FoxnicWeb {
 		/**
 		 * 账户ID
 		*/
-		public static final DBField USER_ID = new DBField(DBDataType.STRING , "user_id","userId","账户ID","账户ID",false,false,false);
+		public static final DBField USER_ID = new DBField(DBDataType.STRING , "user_id","userId","账户ID","账户ID",false,false,true);
 		
 		/**
 		 * Token标识
@@ -2165,7 +2248,7 @@ public class FoxnicWeb {
 		/**
 		 * 手机号码
 		*/
-		public static final DBField PHONE = new DBField(DBDataType.STRING , "phone","phone","手机号码","手机号码",false,false,false);
+		public static final DBField PHONE = new DBField(DBDataType.STRING , "phone","phone","手机号码","手机号码",false,false,true);
 		
 		/**
 		 * 头像ID

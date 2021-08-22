@@ -47,13 +47,13 @@ import com.github.foxnic.api.validate.annotations.NotNull;
 
 /**
  * <p>
- * 代码生成示例 接口控制器
+ * 代码生成示例主表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-21 18:13:59
+ * @since 2021-08-22 11:20:02
 */
 
-@Api(tags = "代码生成示例")
+@Api(tags = "代码生成示例主")
 @ApiSort(0)
 @RestController("SysCodeExampleController")
 public class CodeExampleController extends SuperController {
@@ -63,9 +63,9 @@ public class CodeExampleController extends SuperController {
 
 	
 	/**
-	 * 添加代码生成示例
+	 * 添加代码生成示例主
 	*/
-	@ApiOperation(value = "添加代码生成示例")
+	@ApiOperation(value = "添加代码生成示例主")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = CodeExampleVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "1"),
 		@ApiImplicitParam(name = CodeExampleVOMeta.NAME , value = "单行文本" , required = false , dataTypeClass=String.class , example = "ZZ"),
@@ -96,9 +96,9 @@ public class CodeExampleController extends SuperController {
 
 	
 	/**
-	 * 删除代码生成示例
+	 * 删除代码生成示例主
 	*/
-	@ApiOperation(value = "删除代码生成示例")
+	@ApiOperation(value = "删除代码生成示例主")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = CodeExampleVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "1")
 	})
@@ -113,10 +113,10 @@ public class CodeExampleController extends SuperController {
 	
 	
 	/**
-	 * 批量删除代码生成示例 <br>
+	 * 批量删除代码生成示例主 <br>
 	 * 联合主键时，请自行调整实现
 	*/
-	@ApiOperation(value = "批量删除代码生成示例")
+	@ApiOperation(value = "批量删除代码生成示例主")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = CodeExampleVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 	})
@@ -130,9 +130,9 @@ public class CodeExampleController extends SuperController {
 	}
 	
 	/**
-	 * 更新代码生成示例
+	 * 更新代码生成示例主
 	*/
-	@ApiOperation(value = "更新代码生成示例")
+	@ApiOperation(value = "更新代码生成示例主")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = CodeExampleVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "1"),
 		@ApiImplicitParam(name = CodeExampleVOMeta.NAME , value = "单行文本" , required = false , dataTypeClass=String.class , example = "ZZ"),
@@ -163,9 +163,9 @@ public class CodeExampleController extends SuperController {
 	
 	
 	/**
-	 * 保存代码生成示例
+	 * 保存代码生成示例主
 	*/
-	@ApiOperation(value = "保存代码生成示例")
+	@ApiOperation(value = "保存代码生成示例主")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = CodeExampleVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "1"),
 		@ApiImplicitParam(name = CodeExampleVOMeta.NAME , value = "单行文本" , required = false , dataTypeClass=String.class , example = "ZZ"),
@@ -196,9 +196,9 @@ public class CodeExampleController extends SuperController {
 
 	
 	/**
-	 * 获取代码生成示例
+	 * 获取代码生成示例主
 	*/
-	@ApiOperation(value = "获取代码生成示例")
+	@ApiOperation(value = "获取代码生成示例主")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = CodeExampleVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "1"),
 	})
@@ -219,10 +219,10 @@ public class CodeExampleController extends SuperController {
 
 
 	/**
-	 * 批量删除代码生成示例 <br>
+	 * 批量删除代码生成示例主 <br>
 	 * 联合主键时，请自行调整实现
 	*/
-		@ApiOperation(value = "批量删除代码生成示例")
+		@ApiOperation(value = "批量删除代码生成示例主")
 		@ApiImplicitParams({
 				@ApiImplicitParam(name = CodeExampleVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})
@@ -239,9 +239,9 @@ public class CodeExampleController extends SuperController {
 
 	
 	/**
-	 * 查询代码生成示例
+	 * 查询代码生成示例主
 	*/
-	@ApiOperation(value = "查询代码生成示例")
+	@ApiOperation(value = "查询代码生成示例主")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = CodeExampleVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "1"),
 		@ApiImplicitParam(name = CodeExampleVOMeta.NAME , value = "单行文本" , required = false , dataTypeClass=String.class , example = "ZZ"),
@@ -273,9 +273,9 @@ public class CodeExampleController extends SuperController {
 
 	
 	/**
-	 * 分页查询代码生成示例
+	 * 分页查询代码生成示例主
 	*/
-	@ApiOperation(value = "分页查询代码生成示例")
+	@ApiOperation(value = "分页查询代码生成示例主")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = CodeExampleVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "1"),
 		@ApiImplicitParam(name = CodeExampleVOMeta.NAME , value = "单行文本" , required = false , dataTypeClass=String.class , example = "ZZ"),

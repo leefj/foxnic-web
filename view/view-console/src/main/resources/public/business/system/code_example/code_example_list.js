@@ -1,7 +1,7 @@
 /**
- * 代码生成示例 列表页 JS 脚本
+ * 代码生成示例主 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-21 18:13:59
+ * @since 2021-08-22 11:20:02
  */
 
 
@@ -394,11 +394,11 @@ function ListPage() {
           
 			var ids=getCheckedList("id");
             if(ids.length==0) {
-            	layer.msg(fox.translate('请选择需要删除的')+fox.translate('代码生成示例')+"!");
+            	layer.msg(fox.translate('请选择需要删除的')+fox.translate('代码生成示例主')+"!");
             	return;
             }
             //调用批量删除接口
-			layer.confirm(fox.translate('确定删除已选中的')+fox.translate('代码生成示例')+fox.translate('吗？'), function (i) {
+			layer.confirm(fox.translate('确定删除已选中的')+fox.translate('代码生成示例主')+fox.translate('吗？'), function (i) {
 				layer.close(i);
 				layer.load(2);
                 admin.request(moduleURL+"/delete-by-ids", { ids: ids }, function (data) {
@@ -452,7 +452,7 @@ function ListPage() {
 			}
 			else if (layEvent === 'del') { // 删除
 			
-				layer.confirm(fox.translate('确定删除此')+fox.translate('代码生成示例')+fox.translate('吗？'), function (i) {
+				layer.confirm(fox.translate('确定删除此')+fox.translate('代码生成示例主')+fox.translate('吗？'), function (i) {
 					layer.close(i);
 					layer.load(2);
 					admin.request(moduleURL+"/delete", { id : data.id }, function (data) {
@@ -498,13 +498,14 @@ function ListPage() {
 		var area=admin.getTempData('sys-code-example-form-area');
 		var height= (area && area.height) ? area.height : ($(window).height()*0.6);
 		var top= (area && area.top) ? area.top : (($(window).height()-height)/2);
-		var title = (data && data.id) ? (fox.translate('修改')+fox.translate('代码生成示例')) : (fox.translate('添加')+fox.translate('代码生成示例'));
+		var title = (data && data.id) ? (fox.translate('修改')+fox.translate('代码生成示例主')) : (fox.translate('添加')+fox.translate('代码生成示例主'));
 		var index=admin.popupCenter({
 			title: title,
 			resize: false,
 			offset: [top,null],
-			area: ["1000px",height+"px"],
+			area: ["90%",height+"px"],
 			type: 2,
+			id:"sys-code-example-form-data-win",
 			content: '/business/system/code_example/code_example_form.html' + queryString,
 			finish: function () {
 				refreshTableData();

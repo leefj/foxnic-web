@@ -25,16 +25,6 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
         moreAction:function (menu,data, it){
             console.log('moreAction',menu,data,it);
         },
-        #for(b:toolButtons)
-        #(b.functionName):function (selected,it){
-            console.log('#(b.functionName)',selected,it);
-        },
-        #end
-        #for(b:opColumnButtons)
-        #(b.functionName):function (data){
-            console.log('#(b.functionName)',data);
-        },
-        #end
         other:function(){
 
         }
@@ -60,19 +50,6 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
         beforeSubmit:function (data) {
             console.log("beforeSubmit",data);
             return true;
-        },
-        #for(g:iframes)
-        #(g.iframeLoadJsFunctionName):function (ifr,win,data) {
-            // debugger
-            console.log("#(g.iframeLoadJsFunctionName)",ifr,data);
-            //设置 iframe 高度
-            ifr.height("400px");
-            //设置地址
-            win.location="/business/system/node/node_list.html?id="+data.id;
-        },
-        #end
-        other:function(){
-
         }
     }
     //
