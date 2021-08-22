@@ -59,6 +59,19 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
         beforeSubmit:function (data) {
             console.log("beforeSubmit",data);
             return true;
+        },
+        loadTest1Iframe:function (ifr,win,data) {
+            // debugger
+            console.log("loadTest1Iframe",ifr,data);
+            //设置 iframe 高度
+            ifr.height("400px");
+            ifr.width("98%");
+            admin.putTempData("code_example_id",data.id,true);
+            //设置地址
+            win.location="/business/system/code_example_student/code_example_student_list.html";
+        },
+        other:function(){
+
         }
     }
     //
