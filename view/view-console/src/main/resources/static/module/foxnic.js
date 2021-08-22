@@ -17,8 +17,13 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
 
     var foxnic = {
 
+        selectBoxInstances:{},
+        getSelectBox:function(id){
+            if (!id.startWith("#")) id = "#" + id;
+            return this.selectBoxInstances[id];
+        },
         renderSelectBox: function (cfg) {
-
+            var me=this;
             var inst = null;
             //不重复渲染
             if (xmSelect.get(cfg.el, true) != null) return;
@@ -52,7 +57,9 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 function query(ps, cb) {
                     admin.request(url, ps, function (r) {
                         var opts = [];
+                        me.getSelectBox(cfg.el)["currentData"]=null;
                         if (r.success) {
+                            me.getSelectBox(cfg.el)["currentData"]=r.data.list;
                             if (cfg.paging) {
                                 opts = cfg.transform(r.data.list);
                             } else {
@@ -126,6 +133,11 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     div.css("flex-direction", cfg.valueDirection);
                 }
             }, 500);
+            this.selectBoxInstances[cfg.el]=inst;
+            inst.getAllData=function (){
+                if(inst.currentData!=null) return inst.currentData;
+                else return inst.options.data;
+            }
             return inst;
         },
         lockForm(fm,lock) {

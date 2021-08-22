@@ -52,6 +52,17 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * */
         afterDataFill:function (data) {
             console.log('afterDataFill',data);
+
+            //获取实例
+            var inst=fox.getSelectBox("roleIds");
+            inst.update({
+                on:function (data) {
+                    debugger;
+                    // console.dir(inst);
+                    //获得全部下拉数据
+                    console.dir(inst.getAllData());
+                }
+            });
         },
         /**
          * 数据提交前，如果返回 false，停止后续步骤的执行
