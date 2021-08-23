@@ -267,7 +267,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     for (var i = 0; cols && i < cols.length; i++) {
                         if (cols[i].hide) continue;
                         if (cols[i].field==this.translate('空白列')) continue;
-                        if (cols[i].field=='row-ops') continue;
+                        // if (cols[i].field=='row-ops') continue;
                         // if(cols[i].field=="createTime") {
                         // 	debugger;
                         // 	columnWidthConfig[cols[i].field]=200;
