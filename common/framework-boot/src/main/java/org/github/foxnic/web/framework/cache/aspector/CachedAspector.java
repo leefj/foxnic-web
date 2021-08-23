@@ -37,7 +37,7 @@ public class CachedAspector {
 
 	private Object processServiceMethod(ProceedingJoinPoint joinPoint,Cached cached) throws Throwable {
 		SuperService service=(SuperService)joinPoint.getTarget();
-		DoubleCache<String,Object> cache=service.getCache();
+		DoubleCache<String,Object> cache=service.cache();
 		CacheStrategy strategy=service.getCacheStrategy(cached.strategy());
 		if(strategy==null || cache==null) {
 			return joinPoint.proceed();

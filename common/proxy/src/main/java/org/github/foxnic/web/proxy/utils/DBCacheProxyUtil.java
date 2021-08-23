@@ -52,6 +52,11 @@ public class DBCacheProxyUtil {
         sample.setOwnerType("user");
         sample.setOwnerId(user.getUserId());
         List<DbCache> list = DBCacheProxyUtil.getList(sample);
+        //如果没有，则从任意账户获取
+        if(list==null || list.isEmpty()) {
+            sample.setOwnerId(null);
+            list = DBCacheProxyUtil.getList(sample);
+        }
         JSONObject json=new JSONObject();
         String[] tmp=null;
         String tableId=null;

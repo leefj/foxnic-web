@@ -1,5 +1,6 @@
 package org.github.foxnic.web.system.service.impl;
 
+import com.github.foxnic.api.cache.Cached;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.busi.id.IDGenerator;
@@ -15,11 +16,13 @@ import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.domain.system.DbCache;
 import org.github.foxnic.web.domain.system.DbCacheVO;
+import org.github.foxnic.web.domain.system.meta.DbCacheMeta;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.session.SessionUser;
 import org.github.foxnic.web.system.service.IDbCacheService;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.io.InputStream;
 import java.lang.reflect.Field;
@@ -48,7 +51,12 @@ public class DbCacheServiceImpl extends SuperService<DbCache> implements IDbCach
 	 * 获得 DAO 对象
 	 * */
 	public DAO dao() { return dao; }
-	
+
+	@PostConstruct
+	public void initCache() {
+		super.registCacheStrategy("queryList", true, DbCacheMeta.CATALOG,DbCacheMeta.OWNER_TYPE,DbCacheMeta.OWNER_ID);
+	}
+
 	@Override
 	public Object generateId(Field field) {
 		return IDGenerator.getSnowflakeIdString();
@@ -148,7 +156,11 @@ public class DbCacheServiceImpl extends SuperService<DbCache> implements IDbCach
 		if(dbCache instanceof  DbCacheVO) {
 			dbCache=processVO((DbCacheVO) dbCache);
 		}
-		return super.save(dbCache, mode);
+		Result r=super.save(dbCache, mode);
+		if(r.success()) {
+			this.invalidateAccurateCache(dbCache);
+		}
+		return r;
 	}
 
 	/**
@@ -202,6 +214,7 @@ public class DbCacheServiceImpl extends SuperService<DbCache> implements IDbCach
 	 * @return 查询结果
 	 * */
 	@Override
+	@Cached(strategy = "queryList",expire = 1000 * 60 * 60 * 2)
 	public List<DbCache> queryList(DbCache sample) {
 		return super.queryList(sample);
 	}

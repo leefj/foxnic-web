@@ -118,8 +118,8 @@ public class RemoteCache<V> extends Cache<String, V> {
 	
 	@Override
 	public V remove(String key) {
-		key=getRedisKey(key);
 		Object value=this.get(key);
+		key=getRedisKey(key);
 		this.cache.del(key);
 		return (V)value;
 	}
