@@ -158,6 +158,9 @@ layui.define(['settings', 'layer'], function (exports) {
             var fullHeight=$(window).height();
             var fullWidth=$(window).width();
             var  pop=$("#layui-layer"+popupCenterIndex);
+            if(pop.offset()==null) {
+                return null;
+            }
             var title=pop.find(".layui-layer-title");
             var titleHeight=title.height();
 

@@ -48,7 +48,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 代码生成拥有的车辆 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-22 11:20:02
+ * @since 2021-08-23 11:01:27
 */
 
 @Api(tags = "代码生成拥有的车辆")
@@ -92,7 +92,7 @@ public class CodeExampleCarController extends SuperController {
 	@SentinelResource(value = CodeExampleCarServiceProxy.DELETE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(CodeExampleCarServiceProxy.DELETE)
 	public Result deleteById(String id) {
-		Result result=codeExampleCarService.deleteByIdPhysical(id);
+		Result result=codeExampleCarService.deleteByIdLogical(id);
 		return result;
 	}
 	

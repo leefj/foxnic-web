@@ -28,13 +28,14 @@ import com.github.foxnic.sql.expr.Select;
 import java.util.ArrayList;
 import org.github.foxnic.web.system.service.ICodeExampleStudentService;
 import org.github.foxnic.web.framework.dao.DBConfigs;
+import java.util.Date;
 
 /**
  * <p>
  * 代码生成主表学生 服务实现
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-22 11:20:02
+ * @since 2021-08-23 11:01:26
 */
 
 
@@ -93,6 +94,30 @@ public class CodeExampleStudentServiceImpl extends SuperService<CodeExampleStude
 		codeExampleStudent.setId(id);
 		try {
 			boolean suc = dao.deleteEntity(codeExampleStudent);
+			return suc?ErrorDesc.success():ErrorDesc.failure();
+		}
+		catch(Exception e) {
+			Result r= ErrorDesc.failure();
+			r.extra().setException(e);
+			return r;
+		}
+	}
+	
+	/**
+	 * 按主键删除 代码生成主表学生
+	 *
+	 * @param id 主键
+	 * @return 删除是否成功
+	 */
+	public Result deleteByIdLogical(String id) {
+		CodeExampleStudent codeExampleStudent = new CodeExampleStudent();
+		if(id==null) return ErrorDesc.failure().message("id 不允许为 null 。");
+		codeExampleStudent.setId(id);
+		codeExampleStudent.setDeleted(dao.getDBTreaty().getTrueValue());
+		codeExampleStudent.setDeleteBy((String)dao.getDBTreaty().getLoginUserId());
+		codeExampleStudent.setDeleteTime(new Date());
+		try {
+			boolean suc = dao.updateEntity(codeExampleStudent,SaveMode.NOT_NULL_FIELDS);
 			return suc?ErrorDesc.success():ErrorDesc.failure();
 		}
 		catch(Exception e) {

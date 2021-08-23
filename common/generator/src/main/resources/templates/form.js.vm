@@ -50,6 +50,7 @@ function FormPage() {
 			var bodyHeight=body.height();
 			var footerHeight=$(".model-form-footer").height();
 			var area=admin.changePopupArea(null,bodyHeight+footerHeight);
+			if(area==null) return;
 			admin.putTempData('#(formAreaKey)', area);
 			window.adjustPopup=adjustPopup;
 			if(area.tooHeigh) {

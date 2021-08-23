@@ -48,7 +48,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 代码生成主表学生 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-22 11:20:02
+ * @since 2021-08-23 11:01:26
 */
 
 @Api(tags = "代码生成主表学生")
@@ -92,7 +92,7 @@ public class CodeExampleStudentController extends SuperController {
 	@SentinelResource(value = CodeExampleStudentServiceProxy.DELETE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(CodeExampleStudentServiceProxy.DELETE)
 	public Result deleteById(String id) {
-		Result result=codeExampleStudentService.deleteByIdPhysical(id);
+		Result result=codeExampleStudentService.deleteByIdLogical(id);
 		return result;
 	}
 	

@@ -17,6 +17,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * 查询前调用
          * */
         beforeQuery:function (conditions) {
+            //debugger;
             var codeExampleId=admin.getTempData("code_example_id")
             console.log('beforeQuery',conditions);
             conditions.exampleId={value:codeExampleId};
@@ -44,13 +45,18 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * 表单数据填充后
          * */
         afterDataFill:function (data) {
+            debugger;
             console.log('afterDataFill',data);
+
         },
         /**
          * 数据提交前，如果返回 false，停止后续步骤的执行
          * */
         beforeSubmit:function (data) {
+            //debugger
             console.log("beforeSubmit",data);
+            var exampleId=admin.getTempData("code_example_id");
+            data.exampleId=exampleId;
             return true;
         }
     }

@@ -6,6 +6,7 @@ import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_CODE_EXAMPLE_STUDENT;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.Date;
 import javax.persistence.Transient;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
@@ -15,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-22 08:53:44
- * @sign 34A6DC6B3AD32F6CD23568A0F7DE3FC8
+ * @since 2021-08-23 11:01:26
+ * @sign 27C1FEEEBFD6F8272E5D57A132496A6A
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -57,6 +58,48 @@ public class CodeExampleStudent extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
 	private Integer version;
+	
+	/**
+	 * 创建人ID：创建人ID
+	*/
+	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID")
+	private String createBy;
+	
+	/**
+	 * 创建时间：创建时间
+	*/
+	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间")
+	private Date createTime;
+	
+	/**
+	 * 修改人ID：修改人ID
+	*/
+	@ApiModelProperty(required = false,value="修改人ID" , notes = "修改人ID")
+	private String updateBy;
+	
+	/**
+	 * 修改时间：修改时间
+	*/
+	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间")
+	private Date updateTime;
+	
+	/**
+	 * 是否已删除：是否已删除
+	*/
+	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除")
+	private Integer deleted;
+	
+	/**
+	 * 删除人ID：删除人ID
+	*/
+	@ApiModelProperty(required = false,value="删除人ID" , notes = "删除人ID")
+	private String deleteBy;
+	
+	/**
+	 * 删除时间：删除时间
+	*/
+	@ApiModelProperty(required = false,value="删除时间" , notes = "删除时间")
+	private Date deleteTime;
 	
 	/**
 	 * 获得 主键<br>
@@ -150,6 +193,139 @@ public class CodeExampleStudent extends Entity {
 	*/
 	public CodeExampleStudent setVersion(Integer version) {
 		this.version=version;
+		return this;
+	}
+	
+	/**
+	 * 获得 创建人ID<br>
+	 * 创建人ID
+	 * @return 创建人ID
+	*/
+	public String getCreateBy() {
+		return createBy;
+	}
+	
+	/**
+	 * 设置 创建人ID
+	 * @param createBy 创建人ID
+	 * @return 当前对象
+	*/
+	public CodeExampleStudent setCreateBy(String createBy) {
+		this.createBy=createBy;
+		return this;
+	}
+	
+	/**
+	 * 获得 创建时间<br>
+	 * 创建时间
+	 * @return 创建时间
+	*/
+	public Date getCreateTime() {
+		return createTime;
+	}
+	
+	/**
+	 * 设置 创建时间
+	 * @param createTime 创建时间
+	 * @return 当前对象
+	*/
+	public CodeExampleStudent setCreateTime(Date createTime) {
+		this.createTime=createTime;
+		return this;
+	}
+	
+	/**
+	 * 获得 修改人ID<br>
+	 * 修改人ID
+	 * @return 修改人ID
+	*/
+	public String getUpdateBy() {
+		return updateBy;
+	}
+	
+	/**
+	 * 设置 修改人ID
+	 * @param updateBy 修改人ID
+	 * @return 当前对象
+	*/
+	public CodeExampleStudent setUpdateBy(String updateBy) {
+		this.updateBy=updateBy;
+		return this;
+	}
+	
+	/**
+	 * 获得 修改时间<br>
+	 * 修改时间
+	 * @return 修改时间
+	*/
+	public Date getUpdateTime() {
+		return updateTime;
+	}
+	
+	/**
+	 * 设置 修改时间
+	 * @param updateTime 修改时间
+	 * @return 当前对象
+	*/
+	public CodeExampleStudent setUpdateTime(Date updateTime) {
+		this.updateTime=updateTime;
+		return this;
+	}
+	
+	/**
+	 * 获得 是否已删除<br>
+	 * 是否已删除
+	 * @return 是否已删除
+	*/
+	public Integer getDeleted() {
+		return deleted;
+	}
+	
+	/**
+	 * 设置 是否已删除
+	 * @param deleted 是否已删除
+	 * @return 当前对象
+	*/
+	public CodeExampleStudent setDeleted(Integer deleted) {
+		this.deleted=deleted;
+		return this;
+	}
+	
+	/**
+	 * 获得 删除人ID<br>
+	 * 删除人ID
+	 * @return 删除人ID
+	*/
+	public String getDeleteBy() {
+		return deleteBy;
+	}
+	
+	/**
+	 * 设置 删除人ID
+	 * @param deleteBy 删除人ID
+	 * @return 当前对象
+	*/
+	public CodeExampleStudent setDeleteBy(String deleteBy) {
+		this.deleteBy=deleteBy;
+		return this;
+	}
+	
+	/**
+	 * 获得 删除时间<br>
+	 * 删除时间
+	 * @return 删除时间
+	*/
+	public Date getDeleteTime() {
+		return deleteTime;
+	}
+	
+	/**
+	 * 设置 删除时间
+	 * @param deleteTime 删除时间
+	 * @return 当前对象
+	*/
+	public CodeExampleStudent setDeleteTime(Date deleteTime) {
+		this.deleteTime=deleteTime;
 		return this;
 	}
 

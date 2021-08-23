@@ -21,7 +21,7 @@ import com.github.foxnic.dao.data.SaveMode;
  * 代码生成拥有的车辆 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-22 11:20:02
+ * @since 2021-08-23 11:01:27
 */
 
 public interface ICodeExampleCarService extends ISuperService<CodeExampleCar> {
@@ -49,6 +49,14 @@ public interface ICodeExampleCarService extends ISuperService<CodeExampleCar> {
 	 * @return 删除是否成功
 	 */
 	Result deleteByIdPhysical(String id);
+	
+	/**
+	 * 按主键删除 代码生成拥有的车辆
+	 *
+	 * @param id 主键
+	 * @return 删除是否成功
+	 */
+	Result deleteByIdLogical(String id);
 	
 	/**
 	 * 批量物理删除，仅支持单字段主键表

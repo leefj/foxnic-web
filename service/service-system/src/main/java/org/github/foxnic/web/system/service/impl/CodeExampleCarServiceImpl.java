@@ -28,13 +28,14 @@ import com.github.foxnic.sql.expr.Select;
 import java.util.ArrayList;
 import org.github.foxnic.web.system.service.ICodeExampleCarService;
 import org.github.foxnic.web.framework.dao.DBConfigs;
+import java.util.Date;
 
 /**
  * <p>
  * 代码生成拥有的车辆 服务实现
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-22 11:20:02
+ * @since 2021-08-23 11:01:27
 */
 
 
@@ -93,6 +94,30 @@ public class CodeExampleCarServiceImpl extends SuperService<CodeExampleCar> impl
 		codeExampleCar.setId(id);
 		try {
 			boolean suc = dao.deleteEntity(codeExampleCar);
+			return suc?ErrorDesc.success():ErrorDesc.failure();
+		}
+		catch(Exception e) {
+			Result r= ErrorDesc.failure();
+			r.extra().setException(e);
+			return r;
+		}
+	}
+	
+	/**
+	 * 按主键删除 代码生成拥有的车辆
+	 *
+	 * @param id 主键
+	 * @return 删除是否成功
+	 */
+	public Result deleteByIdLogical(String id) {
+		CodeExampleCar codeExampleCar = new CodeExampleCar();
+		if(id==null) return ErrorDesc.failure().message("id 不允许为 null 。");
+		codeExampleCar.setId(id);
+		codeExampleCar.setDeleted(dao.getDBTreaty().getTrueValue());
+		codeExampleCar.setDeleteBy((String)dao.getDBTreaty().getLoginUserId());
+		codeExampleCar.setDeleteTime(new Date());
+		try {
+			boolean suc = dao.updateEntity(codeExampleCar,SaveMode.NOT_NULL_FIELDS);
 			return suc?ErrorDesc.success():ErrorDesc.failure();
 		}
 		catch(Exception e) {
