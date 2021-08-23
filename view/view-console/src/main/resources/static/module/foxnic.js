@@ -423,8 +423,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     buttons.push(exportExcelButton);
                 }
 
-                div.append("<div style='float:right'>" + buttons.join("") + "</div>")
-
+                div.append("<div style='float:right;margin-right: 4px'>" + buttons.join("") + "</div>")
 
                 if (footer.importExcel) {
                     $('#layui-table-page' + it.index + '-footer-download-excel-template').click(function () {
@@ -1295,7 +1294,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
         t = t - mouseDownTime;
         //console.log("click",t);
         mouseDownTime = null;
-        if (t < 500) return;
+        //if (t < 100) return;
         //console.log(2)
         setTimeout(function () {
 
@@ -1303,6 +1302,8 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             //debugger
             if (tar.parent().length == 0) return;
             if (tar.parent()[0].nodeName != "TH") return;
+            //var table=tar.parents("table");
+            //debugger
             var cls = tar.attr("class");
             if (cls == null) return;
             //console.log(cls,t);
@@ -1321,6 +1322,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             if (tableIndex == -1) return;
             //console.log("tableIndex",tableIndex);
             var inst = table.instance[tableIndex - 1];
+            //var cfg=table.getConfiguration()
             var tableId = inst.config.elem[0].id;
             //console.log("inst",inst);
             var cols = inst.config.cols[0];
@@ -1333,6 +1335,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 var th = $(ths[i]);
                 if (cols[i] && cols[i].field && !cols[i].hide) {
                     ws[cols[i].field] = th[0].clientWidth;
+                    cols[i].width = th[0].clientWidth;
                 }
             }
             var loc = location.href;

@@ -19,7 +19,7 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  * 代码生成主表学生  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-23 11:01:26
+ * @since 2021-08-23 15:45:16
 */
 
 @FeignClient(value = MicroServiceNames.SYSTEM, contextId = CodeExampleStudentServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)

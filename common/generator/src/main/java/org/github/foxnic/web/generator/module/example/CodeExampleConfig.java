@@ -4,6 +4,7 @@ import com.github.foxnic.generator.builder.business.option.ServiceOptions;
 import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
 import com.github.foxnic.generator.builder.view.config.ActionConfig;
+import com.github.foxnic.generator.builder.view.config.Tab;
 import com.github.foxnic.generator.builder.view.option.FormOptions;
 import com.github.foxnic.generator.builder.view.option.ListOptions;
 import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
@@ -335,10 +336,21 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 						TABLE.SELECT_ENUM,TABLE.RESOURCE_ID,CodeExampleVOMeta.ROLE_IDS
 				}
 		);
+
+		//嵌入Tab，页面在 loadStudentIframe、loadCarIframe  函数中载入
+		form.addTab(
+				new Tab("学生","loadStudentIframe"),
+				new Tab("汽车","loadCarIframe")
+		);
+
 		form.addGroup("附件信息",
 				new Object[] {TABLE.IMAGE_ID,TABLE.FILE_IDS,}
 		);
+		//嵌入页面，页面在 loadTest1Iframe 函数中载入
 		form.addPage("部署节点","loadTest1Iframe");
+
+
+
 		form.addGroup("类型信息",
 				new Object[] {
 						TABLE.RADIO_ENUM,

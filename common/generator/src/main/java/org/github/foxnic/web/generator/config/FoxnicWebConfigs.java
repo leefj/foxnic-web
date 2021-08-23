@@ -15,6 +15,8 @@ import org.github.foxnic.web.relation.FoxnicWebRelationManager;
 import org.github.foxnic.web.wrapper.support.datasource.DAOConfig;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 public class FoxnicWebConfigs {
 	
@@ -126,9 +128,12 @@ public class FoxnicWebConfigs {
 		this.settings.setAuthor("李方捷");
 	}
 
+	private  static Map<String,DAO> DAOS=new HashMap<>();
+
 	private void initDAO() throws Exception {
 		
 		if(dao!=null) return;
+
 		
 		// 读取数据库配置
 		
@@ -138,7 +143,11 @@ public class FoxnicWebConfigs {
 		String url=applicationConfigs.getProperty(prefix+"url").stringValue();
 		String username=applicationConfigs.getProperty(prefix+"username").stringValue();
 		String password=applicationConfigs.getProperty(prefix+"password").stringValue();
-		
+
+		String key=url+"@"+username;
+		dao=DAOS.get(key);
+		if(dao!=null) return;
+
 		// 创建数据源
 		DruidDataSource ds = new DruidDataSource();
 		ds.setUrl(url);
@@ -151,8 +160,8 @@ public class FoxnicWebConfigs {
 		DBTreaty dbTreaty = (new DAOConfig()).getDBTreaty();
 		dao.setDBTreaty(dbTreaty);
 		dao.setRelationManager(new FoxnicWebRelationManager());
-		
- 
+
+		DAOS.put(key,dao);
 	}
 
 	private File saveRemoteConfig() {

@@ -1,3 +1,5 @@
+#(authorAndTime)
+
 layui.config({
     dir: layuiPath,
     base: '/module/'
@@ -76,6 +78,9 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             return true;
         },
         #for(g:iframes)
+        /**
+         *  加载 #(g.title)
+         */
         #(g.iframeLoadJsFunctionName):function (ifr,win,data) {
             // debugger
             console.log("#(g.iframeLoadJsFunctionName)",ifr,data);
@@ -85,6 +90,23 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             win.location="/business/system/node/node_list.html?id="+data.id;
         },
         #end
+        #for(t:tabs)
+        /**
+         *  加载 #(t.title)
+         */
+        #(t.iframeLoadJsFunctionName):function (ifr,win,data) {
+            // debugger
+            console.log("#(t.iframeLoadJsFunctionName)",ifr,data);
+            //设置 iframe 高度
+            ifr.parents(".layui-tab").height("460px");
+            ifr.height("400px");
+            //设置参数
+            admin.putTempData("code_example_id",data.id,true);
+            //设置地址
+            win.location="/business/system/code_example_car/code_example_car_list.html";
+        },
+        #end
+
         other:function(){
 
         }

@@ -1,7 +1,7 @@
 /**
  * 数据字典 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-20 15:41:31
+ * @since 2021-08-23 16:33:25
  */
 
 function FormPage() {
@@ -52,6 +52,7 @@ function FormPage() {
 			var bodyHeight=body.height();
 			var footerHeight=$(".model-form-footer").height();
 			var area=admin.changePopupArea(null,bodyHeight+footerHeight);
+			if(area==null) return;
 			admin.putTempData('sys-dict-form-area', area);
 			window.adjustPopup=adjustPopup;
 			if(area.tooHeigh) {
@@ -144,6 +145,16 @@ function FormPage() {
 			$("#cancel-button").css("margin-right","0px")
 		}
 
+		//调用 iframe 加载过程
+		var formIfrs=$(".form-iframe");
+		for (var i = 0; i < formIfrs.length; i++) {
+			var jsFn=$(formIfrs[i]).attr("js-fn");
+			if(window.pageExt.form){
+				jsFn=window.pageExt.form[jsFn];
+				jsFn && jsFn($(formIfrs[i]),$(formIfrs[i])[0].contentWindow,formData);
+			}
+		}
+
 	}
 
 	/**
@@ -162,6 +173,11 @@ function FormPage() {
 
 			//校验表单
 			if(!fox.formVerify("data-form",data,VALIDATE_CONFIG)) return;
+
+			if(window.pageExt.form.beforeSubmit) {
+				var doNext=window.pageExt.form.beforeSubmit(data.field);
+				if(!doNext) return ;
+			}
 
 	    	var api=moduleURL+"/"+(data.field.id?"update":"insert");
 	        var task=setTimeout(function(){layer.load(2);},1000);

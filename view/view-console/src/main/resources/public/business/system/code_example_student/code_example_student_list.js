@@ -1,7 +1,7 @@
 /**
  * 代码生成主表学生 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-23 11:01:26
+ * @since 2021-08-23 15:45:16
  */
 
 
@@ -50,7 +50,7 @@ function ListPage() {
 				ps = {searchField: "$composite", searchValue: JSON.stringify(contitions)};
 			}
 
-			var h=-16; 
+			var h=-28; 
 			dataTable=fox.renderTable({
 				elem: '#data-table',
 				toolbar: '#toolbarTemplate',

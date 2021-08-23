@@ -55,7 +55,7 @@ function ListPage() {
 				ps = {searchField: "$composite", searchValue: JSON.stringify(contitions)};
 			}
 
-			var h=#if(searchDisabled)-16; #else $(".search-bar").height();#end
+			var h=#if(searchDisabled)-28; #else $(".search-bar").height();#end
 			dataTable=fox.renderTable({
 				elem: '#data-table',
 				toolbar: '#toolbarTemplate',

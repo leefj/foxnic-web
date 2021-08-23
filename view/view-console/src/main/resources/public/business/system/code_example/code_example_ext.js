@@ -86,14 +86,37 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             return true;
         },
         loadTest1Iframe:function (ifr,win,data) {
+            // return;
             // debugger
             console.log("loadTest1Iframe",ifr,data);
             //设置 iframe 高度
             ifr.height("400px");
-            ifr.width("98%");
+            //设置参数
             admin.putTempData("code_example_id",data.id,true);
             //设置地址
             win.location="/business/system/code_example_student/code_example_student_list.html";
+        },
+        loadStudentIframe:function (ifr,win,data) {
+            // debugger
+            console.log("loadStudentIframe",ifr,data);
+            //设置 iframe 高度
+            ifr.parents(".layui-tab").height("460px");
+            ifr.height("400px");
+            //设置参数
+            admin.putTempData("code_example_id",data.id,true);
+            //设置地址
+            win.location="/business/system/code_example_student/code_example_student_list.html";
+        },
+        loadCarIframe:function (ifr,win,data) {
+            // debugger
+            console.log("loadCarIframe",ifr,data);
+            //设置 iframe 高度
+           ifr.parents(".layui-tab").height("460px");
+           ifr.height("400px");
+            //设置参数
+            admin.putTempData("code_example_id",data.id,true);
+            //设置地址
+            win.location="/business/system/code_example_car/code_example_car_list.html";
         },
         other:function(){
 

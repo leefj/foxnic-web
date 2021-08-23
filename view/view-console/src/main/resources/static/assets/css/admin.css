@@ -449,7 +449,7 @@ html {
 .model-form-footer {
     padding-top: 8px;
     padding-bottom: 8px;
-    border-top: #e8e8e8 solid 1px;
+    border-top: #e2e2e2 solid 1px;
     text-align: right;
     position: fixed;
     width: 100%;
@@ -709,7 +709,7 @@ body.layui-fluid {
 }
 
 .layui-elem-field {
-    border-color: #ccc;
+    border-color: #eee;
 }
 
 .form-row {

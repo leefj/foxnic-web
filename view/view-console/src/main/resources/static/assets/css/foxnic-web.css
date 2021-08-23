@@ -178,9 +178,9 @@ xm-select {
     align-content: flex-start;
 }
 
-form-container {
+.form-container {
     width: 100%;
-    display: inline-block;
+    background-color: #FFFFFF;
 }
 
 .layui-form-label {
@@ -229,6 +229,13 @@ form-container {
 .form-iframe {
     width: 100%;
     margin-top: 16px;
+    margin-bottom: 12px;
+}
+
+.form-iframe-tab {
+    width: 100%;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 .layui-card-no-shadow {
@@ -236,4 +243,14 @@ form-container {
     border-radius: 2px;
     background-color: #fff;
     box-shadow: none;
+}
+
+.layui-tab-title .layui-this {
+    color: #009688;
+    /*font-weight: bold;*/
+}
+
+.layui-layer-title {
+    font-weight: bold;
+    color: #555;
 }

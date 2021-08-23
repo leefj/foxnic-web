@@ -35,7 +35,17 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
         }
     }
     //
-    var form={}
+    var form={
+        /**
+         * 表单数据填充后
+         * */
+        afterDataFill:function (data) {
+            //code 不允许编辑
+            if(data.id) {
+                $("#code").attr("readonly","yes");
+            }
+        }
+    }
     //
     window.pageExt={form:form,list:list};
 });

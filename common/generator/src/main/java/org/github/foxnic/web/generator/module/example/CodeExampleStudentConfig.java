@@ -15,8 +15,8 @@ public class CodeExampleStudentConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE_ST
 
     @Override
     public void configFields(ViewOptions view) {
-        view.field(SYS_CODE_EXAMPLE_STUDENT.ID).basic().hidden();
-        view.field(SYS_CODE_EXAMPLE_STUDENT.EXAMPLE_ID)
+        view.field(SYS_CODE_EXAMPLE_CAR.ID).basic().hidden();
+        view.field(SYS_CODE_EXAMPLE_CAR.EXAMPLE_ID)
                 .basic().hidden();
     }
 

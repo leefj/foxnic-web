@@ -1,5 +1,7 @@
 package org.github.foxnic.web.generator.module.example;
 
+import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
+import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.*;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
@@ -11,7 +13,18 @@ public class CodeExampleCarConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE_CAR> {
     }
 
 
+    @Override
+    public void configSearch(ViewOptions view, SearchAreaOptions search) {
+        search.disable();
+        context.view().list().disableMargin();
+    }
 
+    @Override
+    public void configFields(ViewOptions view) {
+        view.field(SYS_CODE_EXAMPLE_STUDENT.ID).basic().hidden();
+        view.field(SYS_CODE_EXAMPLE_STUDENT.EXAMPLE_ID)
+                .basic().hidden();
+    }
 
     @Override
     public void configOverrides() {

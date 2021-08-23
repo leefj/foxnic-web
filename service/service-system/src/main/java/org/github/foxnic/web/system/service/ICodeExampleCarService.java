@@ -21,7 +21,7 @@ import com.github.foxnic.dao.data.SaveMode;
  * 代码生成拥有的车辆 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-23 11:01:27
+ * @since 2021-08-23 15:45:16
 */
 
 public interface ICodeExampleCarService extends ISuperService<CodeExampleCar> {

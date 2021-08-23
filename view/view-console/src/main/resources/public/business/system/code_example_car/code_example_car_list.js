@@ -1,7 +1,7 @@
 /**
  * 代码生成拥有的车辆 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-23 11:01:27
+ * @since 2021-08-23 15:45:16
  */
 
 
@@ -50,7 +50,7 @@ function ListPage() {
 				ps = {searchField: "$composite", searchValue: JSON.stringify(contitions)};
 			}
 
-			var h=$(".search-bar").height();
+			var h=-28; 
 			dataTable=fox.renderTable({
 				elem: '#data-table',
 				toolbar: '#toolbarTemplate',
@@ -62,8 +62,8 @@ function ListPage() {
 				cols: [[
 					{ fixed: 'left',type: 'numbers' },
 					{ fixed: 'left',type:'checkbox' }
-					,{ field: 'id', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('主键') }
-					,{ field: 'exampleId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('属主ID') }
+					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('主键') }
+					,{ field: 'exampleId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('属主ID') }
 					,{ field: 'plateNumber', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('车牌号') }
 					,{ field: 'color', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('颜色') }
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return fox.dateFormat(d.createTime); }}
@@ -97,8 +97,6 @@ function ListPage() {
       */
 	function refreshTableData(sortField,sortType) {
 		var value = {};
-		value.id={ value: $("#id").val()};
-		value.exampleId={ value: $("#exampleId").val()};
 		value.plateNumber={ value: $("#plateNumber").val()};
 		value.color={ value: $("#color").val()};
 		window.pageExt.list.beforeQuery && window.pageExt.list.beforeQuery(value);
@@ -107,6 +105,7 @@ function ListPage() {
 			ps.sortField=sortField;
 			ps.sortType=sortType;
 		}
+		// debugger
 		table.reload('data-table', { where : ps });
 	}
     

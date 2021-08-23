@@ -1,7 +1,7 @@
 /**
  * 数据字典条目 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-20 15:41:33
+ * @since 2021-08-23 16:33:26
  */
 
 function FormPage() {
@@ -52,6 +52,7 @@ function FormPage() {
 			var bodyHeight=body.height();
 			var footerHeight=$(".model-form-footer").height();
 			var area=admin.changePopupArea(null,bodyHeight+footerHeight);
+			if(area==null) return;
 			admin.putTempData('sys-dict-item-form-area', area);
 			window.adjustPopup=adjustPopup;
 			if(area.tooHeigh) {
@@ -125,6 +126,16 @@ function FormPage() {
 			$("#cancel-button").css("margin-right","0px")
 		}
 
+		//调用 iframe 加载过程
+		var formIfrs=$(".form-iframe");
+		for (var i = 0; i < formIfrs.length; i++) {
+			var jsFn=$(formIfrs[i]).attr("js-fn");
+			if(window.pageExt.form){
+				jsFn=window.pageExt.form[jsFn];
+				jsFn && jsFn($(formIfrs[i]),$(formIfrs[i])[0].contentWindow,formData);
+			}
+		}
+
 	}
 
 	/**
@@ -135,6 +146,9 @@ function FormPage() {
 	    form.on('submit(submit-button)', function (data) {
 	    	//debugger;
 			data.field = form.val("data-form");
+
+
+
 
 			//校验表单
 			if(!fox.formVerify("data-form",data,VALIDATE_CONFIG)) return;

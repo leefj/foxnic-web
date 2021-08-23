@@ -18,8 +18,8 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * */
         beforeQuery:function (conditions) {
             //debugger;
-            var codeExampleId=admin.getTempData("code_example_id")
             console.log('beforeQuery',conditions);
+            var codeExampleId=admin.getTempData("code_example_id")
             conditions.exampleId={value:codeExampleId};
         },
         /**
@@ -45,7 +45,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * 表单数据填充后
          * */
         afterDataFill:function (data) {
-            debugger;
+            // debugger;
             console.log('afterDataFill',data);
 
         },

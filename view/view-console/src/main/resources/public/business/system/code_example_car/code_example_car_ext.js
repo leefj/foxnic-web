@@ -18,6 +18,8 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * */
         beforeQuery:function (conditions) {
             console.log('beforeQuery',conditions);
+            var codeExampleId=admin.getTempData("code_example_id")
+            conditions.exampleId={value:codeExampleId};
         },
         /**
          * 表格右侧操作列更多按钮事件
@@ -49,6 +51,8 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * */
         beforeSubmit:function (data) {
             console.log("beforeSubmit",data);
+            var exampleId=admin.getTempData("code_example_id");
+            data.exampleId=exampleId;
             return true;
         }
     }
