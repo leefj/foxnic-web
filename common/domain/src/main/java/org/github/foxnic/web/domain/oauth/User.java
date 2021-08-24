@@ -1,25 +1,28 @@
 package org.github.foxnic.web.domain.oauth;
 
 import com.github.foxnic.dao.entity.Entity;
-import javax.persistence.Table;
+import com.github.foxnic.dao.entity.EntityContext;
 import com.github.foxnic.sql.meta.DBTable;
-import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER;
-import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
+import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER;
+import org.github.foxnic.web.domain.hrm.Employee;
+import org.github.foxnic.web.domain.hrm.Person;
+
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.ArrayList;
-import javax.persistence.Transient;
 import java.util.Map;
-import com.github.foxnic.dao.entity.EntityContext;
 
 
 
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-11 14:14:39
- * @sign 74625812E46BFC5FC6705C4D34ACFA64
+ * @since 2021-08-24 16:22:12
+ * @sign 5304F89BCC48F6C5291D1F1756E7DEEB
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -52,7 +55,7 @@ public class User extends Entity {
 	/**
 	 * 手机号码：手机号码
 	*/
-	@ApiModelProperty(required = true,value="手机号码" , notes = "手机号码")
+	@ApiModelProperty(required = false,value="手机号码" , notes = "手机号码")
 	private String phone;
 	
 	/**
@@ -162,6 +165,18 @@ public class User extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="角色菜单关系清单" , notes = "当前用户的所有角色菜单关系清单")
 	private List<RoleMenu> roleMenus;
+	
+	/**
+	 * 对应的人员：当前用户对应的人员
+	*/
+	@ApiModelProperty(required = false,value="对应的人员" , notes = "当前用户对应的人员")
+	private Person person;
+	
+	/**
+	 * 对应的员工：当前用户对应的员工
+	*/
+	@ApiModelProperty(required = false,value="对应的员工" , notes = "当前用户对应的员工")
+	private Employee employee;
 	
 	/**
 	 * 获得 ID<br>
@@ -611,6 +626,44 @@ public class User extends Entity {
 	public User addRoleMenu(RoleMenu roleMenu) {
 		if(this.roleMenus==null) roleMenus=new ArrayList<>();
 		this.roleMenus.add(roleMenu);
+		return this;
+	}
+	
+	/**
+	 * 获得 对应的人员<br>
+	 * 当前用户对应的人员
+	 * @return 对应的人员
+	*/
+	public Person getPerson() {
+		return person;
+	}
+	
+	/**
+	 * 设置 对应的人员
+	 * @param person 对应的人员
+	 * @return 当前对象
+	*/
+	public User setPerson(Person person) {
+		this.person=person;
+		return this;
+	}
+	
+	/**
+	 * 获得 对应的员工<br>
+	 * 当前用户对应的员工
+	 * @return 对应的员工
+	*/
+	public Employee getEmployee() {
+		return employee;
+	}
+	
+	/**
+	 * 设置 对应的员工
+	 * @param employee 对应的员工
+	 * @return 当前对象
+	*/
+	public User setEmployee(Employee employee) {
+		this.employee=employee;
 		return this;
 	}
 

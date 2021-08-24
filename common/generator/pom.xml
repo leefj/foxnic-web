@@ -47,7 +47,12 @@
             <groupId>com.github.foxnic.web</groupId>  
             <artifactId>service-storage</artifactId>  
             <version>${platform.version}</version> 
-        </dependency>  
+        </dependency>
+        <dependency>
+            <groupId>com.github.foxnic.web</groupId>
+            <artifactId>service-hrm</artifactId>
+            <version>${platform.version}</version>
+        </dependency>
         <dependency> 
             <groupId>com.github.foxnic.web</groupId>  
             <artifactId>view-console</artifactId>  

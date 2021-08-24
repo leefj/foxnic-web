@@ -11,6 +11,7 @@ public abstract class BaseCodeConfig<T extends DBTable> extends ModuleCodeConfig
 
     public static final String PREFIX_SYSTEM="service-system";
     public static final String PREFIX_STORAGE="service-storage";
+    public static final String PREFIX_HRM="service-hrm";
 
     private FoxnicWebConfigs configs;
     private int apiSort;

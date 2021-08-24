@@ -60,4 +60,25 @@ applications:
     viewProjectPath: /view/view-console
     viewPrefixPath: public/business/oauth
     wrapperProjectPath:  /wrapper/wrapper-service-oauth
-    
+  #HRM
+  service-hrm:
+    nacosGroup: service
+    nacosDataId: service-hrm.yml
+    serviceProjectPath:  /service/service-hrm
+    packageName: org.github.foxnic.web.hrm
+    primaryDatasourceConfigKey: spring.datasource.druid.primary
+    microServiceNameConst: HRM
+    viewProjectPath: /view/view-console
+    viewPrefixPath: public/business/hrm
+    wrapperProjectPath:  /wrapper/wrapper-all-service
+  #ACM  属性自定义服务
+  service-attribute:
+    nacosGroup: service
+    nacosDataId: service-attribute.yml
+    serviceProjectPath:  /service/service-attribute
+    packageName: org.github.foxnic.web.attribute
+    primaryDatasourceConfigKey: spring.datasource.druid.primary
+    microServiceNameConst: ACM
+    viewProjectPath: /view/view-console
+    viewPrefixPath: public/business/attribute
+    wrapperProjectPath:  /wrapper/wrapper-all-service

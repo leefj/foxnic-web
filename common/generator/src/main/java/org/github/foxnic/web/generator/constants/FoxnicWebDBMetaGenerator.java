@@ -1,9 +1,11 @@
 package org.github.foxnic.web.generator.constants;
 
-import org.github.foxnic.web.generator.config.FoxnicWebConfigs;
-
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.generator.builder.constants.DBMetaClassFile;
+import org.github.foxnic.web.generator.config.FoxnicWebConfigs;
+
+import java.util.Arrays;
+import java.util.List;
 
 
 public class FoxnicWebDBMetaGenerator  {
@@ -25,7 +27,7 @@ public class FoxnicWebDBMetaGenerator  {
 		this.dao=this.configs.getDAO();
 	}
 
- 
+ 	private List<String> hrmTables= Arrays.asList("hrm_person","hrm_employee");
 	/**
 	 * 生成DBMeta数据
 	 * */
@@ -35,6 +37,7 @@ public class FoxnicWebDBMetaGenerator  {
 		dbMetaBuilder.setTableFilter(table->{
 			table=table.toLowerCase();
 			if(table.startsWith("sys_")) return true;
+			if(hrmTables.contains(table)) return true;
 			return false;
 		});
 		dbMetaBuilder.save(true);

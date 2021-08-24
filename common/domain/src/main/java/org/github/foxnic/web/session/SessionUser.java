@@ -1,5 +1,7 @@
 package org.github.foxnic.web.session;
 
+import org.github.foxnic.web.domain.oauth.User;
+
 public abstract class SessionUser {
 	
 //	private static String SECURITY_CONTEXTHOLDER_CLASS_NAME="org.springframework.security.core.context.SecurityContextHolder";
@@ -11,12 +13,17 @@ public abstract class SessionUser {
 	}
 	
 	/**
-	 * 账户
+	 * 账户名
 	 * */
 	public abstract String getUsername();
+
+	/**
+	 * 账户对象
+	 * */
+	public abstract User getUser();
 	
 	/**
-	 * 账户
+	 * 语言
 	 * */
 	public abstract String getLanguage();
 	

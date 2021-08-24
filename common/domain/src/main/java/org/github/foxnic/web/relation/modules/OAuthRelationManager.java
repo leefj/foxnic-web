@@ -83,6 +83,14 @@ public class OAuthRelationManager extends RelationManager {
 		this.property(SessionOnlineMeta.USER_PROP)
 				.using(SYS_SESSION_ONLINE.USER_ID).join(SYS_USER.ID);
 
+		// 用户 - 人员
+		this.property(UserMeta.PERSON_PROP)
+				.using(SYS_USER.PERSON_ID).join(HRM_PERSON.ID);
+
+		// 用户 - 员工
+		this.property(UserMeta.EMPLOYEE_PROP)
+				.using(SYS_USER.EMPLOYEE_ID).join(HRM_EMPLOYEE.ID);
+
 	}
 
 	/**

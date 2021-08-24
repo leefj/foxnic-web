@@ -14,6 +14,8 @@ import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER;
 import org.github.foxnic.web.constants.enums.Language;
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
+import org.github.foxnic.web.domain.hrm.Employee;
+import org.github.foxnic.web.domain.hrm.Person;
 import org.github.foxnic.web.domain.oauth.*;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.oauth.service.IRoleUserService;
@@ -258,9 +260,18 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
     	
     	//授权
     	if (user!=null) {
+    		dao.join(user, Person.class, Employee.class);
     		dao.join(user,Role.class,Menu.class,RoleMenu.class);
 			dao.join(user.getMenus(),Resourze.class);
     	}
+
+    	//拷贝数据
+    	if(user.getEmployee()!=null && user.getPerson()!=null) {
+			user.getEmployee().setName(user.getPerson().getName());
+			user.getEmployee().setSex(user.getPerson().getSex());
+			user.getEmployee().setIdentity(user.getPerson().getIdentity());
+		}
+
 
 
 

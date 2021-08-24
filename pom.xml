@@ -24,6 +24,7 @@
         <module>./service/service-system</module>
         <module>./service/service-oauth</module>
         <module>./service/service-storage</module>
+        <module>./service/service-hrm</module>
         <!-- 界面视图 -->
         <module>./view/view-console</module>
     </modules>

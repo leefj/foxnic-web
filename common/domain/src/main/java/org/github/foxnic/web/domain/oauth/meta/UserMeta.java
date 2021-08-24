@@ -1,19 +1,22 @@
 package org.github.foxnic.web.domain.oauth.meta;
 
 import com.github.foxnic.api.bean.BeanProperty;
-import org.github.foxnic.web.domain.oauth.User;
-import java.util.Date;
-import org.github.foxnic.web.domain.oauth.Role;
-import java.util.List;
+import org.github.foxnic.web.domain.hrm.Employee;
+import org.github.foxnic.web.domain.hrm.Person;
 import org.github.foxnic.web.domain.oauth.Menu;
+import org.github.foxnic.web.domain.oauth.Role;
 import org.github.foxnic.web.domain.oauth.RoleMenu;
+import org.github.foxnic.web.domain.oauth.User;
+
+import java.util.Date;
+import java.util.List;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-11 14:14:39
- * @sign 74625812E46BFC5FC6705C4D34ACFA64
+ * @since 2021-08-24 16:22:12
+ * @sign 5304F89BCC48F6C5291D1F1756E7DEEB
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -240,9 +243,29 @@ public class UserMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.oauth.User,org.github.foxnic.web.domain.oauth.RoleMenu> ROLE_MENUS_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.User.class ,ROLE_MENUS, java.util.List.class, "角色菜单关系清单", "当前用户的所有角色菜单关系清单", org.github.foxnic.web.domain.oauth.RoleMenu.class, null);
 	
 	/**
+	 * 对应的人员 , 当前用户对应的人员 , 类型: org.github.foxnic.web.domain.hrm.Person
+	*/
+	public static final String PERSON="person";
+	
+	/**
+	 * 对应的人员 , 当前用户对应的人员 , 类型: org.github.foxnic.web.domain.hrm.Person
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.User,org.github.foxnic.web.domain.hrm.Person> PERSON_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.User.class ,PERSON, org.github.foxnic.web.domain.hrm.Person.class, "对应的人员", "当前用户对应的人员", org.github.foxnic.web.domain.hrm.Person.class, null);
+	
+	/**
+	 * 对应的员工 , 当前用户对应的员工 , 类型: org.github.foxnic.web.domain.hrm.Employee
+	*/
+	public static final String EMPLOYEE="employee";
+	
+	/**
+	 * 对应的员工 , 当前用户对应的员工 , 类型: org.github.foxnic.web.domain.hrm.Employee
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.User,org.github.foxnic.web.domain.hrm.Employee> EMPLOYEE_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.User.class ,EMPLOYEE, org.github.foxnic.web.domain.hrm.Employee.class, "对应的员工", "当前用户对应的员工", org.github.foxnic.web.domain.hrm.Employee.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , NAME , PASSWD , PHONE , PORTRAIT_ID , PERSON_ID , LANGUAGE , EMPLOYEE_ID , VALID , CACHE_KEY , LAST_LOGIN_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , ROLES , MENUS , ROLE_MENUS };
+	public static final String[] $PROPS={ ID , NAME , PASSWD , PHONE , PORTRAIT_ID , PERSON_ID , LANGUAGE , EMPLOYEE_ID , VALID , CACHE_KEY , LAST_LOGIN_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , ROLES , MENUS , ROLE_MENUS , PERSON , EMPLOYEE };
 	
 	/**
 	 * 代理类
@@ -491,6 +514,28 @@ public class UserMeta {
 		public User setRoleMenus(List<RoleMenu> roleMenus) {
 			super.change(ROLE_MENUS,super.getRoleMenus(),roleMenus);
 			super.setRoleMenus(roleMenus);
+			return this;
+		}
+		
+		/**
+		 * 设置 对应的人员
+		 * @param person 对应的人员
+		 * @return 当前对象
+		*/
+		public User setPerson(Person person) {
+			super.change(PERSON,super.getPerson(),person);
+			super.setPerson(person);
+			return this;
+		}
+		
+		/**
+		 * 设置 对应的员工
+		 * @param employee 对应的员工
+		 * @return 当前对象
+		*/
+		public User setEmployee(Employee employee) {
+			super.change(EMPLOYEE,super.getEmployee(),employee);
+			super.setEmployee(employee);
 			return this;
 		}
 	}
