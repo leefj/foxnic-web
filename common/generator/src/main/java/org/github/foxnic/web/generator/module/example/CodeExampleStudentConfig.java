@@ -1,5 +1,6 @@
 package org.github.foxnic.web.generator.module.example;
 
+import com.github.foxnic.generator.builder.view.option.FormOptions;
 import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
@@ -25,6 +26,12 @@ public class CodeExampleStudentConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE_ST
         //禁用搜索
         search.disable();
         context.view().list().disableMargin();
+    }
+
+    @Override
+    public void configForm(ViewOptions view, FormOptions form) {
+       form.disableFooter();
+       form.disableMargin();
     }
 
     @Override

@@ -20,8 +20,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-16 19:13:48
- * @sign ECF39AE8A87E444FDB0BE807FCE93A50
+ * @since 2021-08-24 13:08:57
+ * @sign 5F7A094CB85E998707BBFEADC6F55738
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -80,6 +80,12 @@ public class CodeExample extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="逻辑值" , notes = "逻辑值")
 	private Integer valid;
+	
+	/**
+	 * 对话框：对话框
+	*/
+	@ApiModelProperty(required = false,value="对话框" , notes = "对话框")
+	private String buttonInput;
 	
 	/**
 	 * 单选框(枚举)：单选框(枚举)
@@ -362,6 +368,25 @@ public class CodeExample extends Entity {
 	*/
 	public CodeExample setValid(Integer valid) {
 		this.valid=valid;
+		return this;
+	}
+	
+	/**
+	 * 获得 对话框<br>
+	 * 对话框
+	 * @return 对话框
+	*/
+	public String getButtonInput() {
+		return buttonInput;
+	}
+	
+	/**
+	 * 设置 对话框
+	 * @param buttonInput 对话框
+	 * @return 当前对象
+	*/
+	public CodeExample setButtonInput(String buttonInput) {
+		this.buttonInput=buttonInput;
 		return this;
 	}
 	

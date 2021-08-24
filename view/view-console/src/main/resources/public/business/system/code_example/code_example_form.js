@@ -1,7 +1,7 @@
 /**
  * 代码生成示例主 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-23 15:45:14
+ * @since 2021-08-24 14:28:30
  */
 
 function FormPage() {
@@ -291,6 +291,49 @@ function FormPage() {
 
 	}
 
+	function getFormData() {
+		var data=form.val("data-form");
+
+		//处理 逻辑值 默认值
+		if(!data.valid) data.valid=0;
+
+		//处理 复选框(枚举) 默认值
+		data["checkEnum"]=fox.getCheckedValue("checkEnum");
+		//处理 状态 默认值
+		data["checkDict"]=fox.getCheckedValue("checkDict");
+
+		//获取 选择框(枚举) 下拉框的值
+		data["selectEnum"]=fox.getSelectedValue("selectEnum",false);
+		//获取 选择框(字典) 下拉框的值
+		data["selectDict"]=fox.getSelectedValue("selectDict",true);
+		//获取 选择框(查询) 下拉框的值
+		data["resourceId"]=fox.getSelectedValue("resourceId",false);
+		//获取 角色 下拉框的值
+		data["roleIds"]=fox.getSelectedValue("roleIds",true);
+
+		return data;
+	}
+
+	function verifyForm(data) {
+		return fox.formVerify("data-form",data,VALIDATE_CONFIG)
+	}
+
+	function saveForm(data) {
+		var api=moduleURL+"/"+(data.id?"update":"insert");
+		var task=setTimeout(function(){layer.load(2);},1000);
+		admin.request(api, data, function (data) {
+			clearTimeout(task);
+			layer.closeAll('loading');
+			if (data.success) {
+				layer.msg(data.message, {icon: 1, time: 500});
+				var index=admin.getTempData('sys-code-example-form-data-popup-index');
+				admin.finishPopupCenter(index);
+			} else {
+				layer.msg(data.message, {icon: 2, time: 1000});
+			}
+		}, "POST");
+	}
+
 	/**
       * 保存数据，表单提交事件
       */
@@ -298,54 +341,34 @@ function FormPage() {
 
 	    form.on('submit(submit-button)', function (data) {
 	    	//debugger;
-			data.field = form.val("data-form");
-
-			//处理 逻辑值 默认值
-		    if(!data.field.valid) data.field.valid=0;
-
-			//处理 复选框(枚举) 默认值
-			data.field["checkEnum"]=fox.getCheckedValue("checkEnum");
-			//处理 状态 默认值
-			data.field["checkDict"]=fox.getCheckedValue("checkDict");
-
-			//获取 选择框(枚举) 下拉框的值
-			data.field["selectEnum"]=fox.getSelectedValue("selectEnum",false);
-			//获取 选择框(字典) 下拉框的值
-			data.field["selectDict"]=fox.getSelectedValue("selectDict",true);
-			//获取 选择框(查询) 下拉框的值
-			data.field["resourceId"]=fox.getSelectedValue("resourceId",false);
-			//获取 角色 下拉框的值
-			data.field["roleIds"]=fox.getSelectedValue("roleIds",true);
+			data.field = getFormData();
 
 			//校验表单
-			if(!fox.formVerify("data-form",data,VALIDATE_CONFIG)) return;
+			if(!verifyForm(data.field)) return;
 
 			if(window.pageExt.form.beforeSubmit) {
 				var doNext=window.pageExt.form.beforeSubmit(data.field);
 				if(!doNext) return ;
 			}
-
-	    	var api=moduleURL+"/"+(data.field.id?"update":"insert");
-	        var task=setTimeout(function(){layer.load(2);},1000);
-	        admin.request(api, data.field, function (data) {
-	            clearTimeout(task);
-			    layer.closeAll('loading');
-	            if (data.success) {
-	                layer.msg(data.message, {icon: 1, time: 500});
-					var index=admin.getTempData('sys-code-example-form-data-popup-index');
-	                admin.finishPopupCenter(index);
-	            } else {
-	                layer.msg(data.message, {icon: 2, time: 1000});
-	            }
-	        }, "POST");
-
+			saveForm(data.field);
 	        return false;
 	    });
+
+		$("#buttonInput-button").click(function(){
+			window.pageExt.form.openTestDialog && window.pageExt.form.openTestDialog(getFormData(),$("#buttonInput"),$(this));
+		});
 
 	    //关闭窗口
 	    $("#cancel-button").click(function(){admin.closePopupCenter();});
 
     }
+
+    window.module={
+		getFormData: getFormData,
+		verifyForm: verifyForm,
+		saveForm: saveForm
+	};
+
 }
 
 layui.use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect','foxnicUpload','laydate'],function() {

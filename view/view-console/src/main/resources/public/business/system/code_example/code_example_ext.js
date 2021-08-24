@@ -85,6 +85,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             console.log("beforeSubmit",data);
             return true;
         },
+
         loadTest1Iframe:function (ifr,win,data) {
             // return;
             // debugger
@@ -94,7 +95,14 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             //设置参数
             admin.putTempData("code_example_id",data.id,true);
             //设置地址
-            win.location="/business/system/code_example_student/code_example_student_list.html";
+            // win.location="/business/system/code_example_student/code_example_student_list.html";
+            ifr.height("200px");
+            win.location="/business/system/code_example_student/code_example_student_form.html";
+
+            // setInterval(function (){
+            //     win.module.refreshTableData();
+            // },10000);
+
         },
         loadStudentIframe:function (ifr,win,data) {
             // debugger
@@ -117,6 +125,16 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             admin.putTempData("code_example_id",data.id,true);
             //设置地址
             win.location="/business/system/code_example_car/code_example_car_list.html";
+        },
+        openTestDialog:function (data,input,button) {
+            console.log("openTestDialog",data,input,button);
+            top.layer.prompt(function(value, index, elem){
+                //设置隐藏域
+                input.val(value);
+                //设置按钮
+                button.text(value);
+                top.layer.close(index);
+            });
         },
         other:function(){
 

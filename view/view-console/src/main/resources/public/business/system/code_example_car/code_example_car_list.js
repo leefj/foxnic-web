@@ -1,7 +1,7 @@
 /**
  * 代码生成拥有的车辆 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-23 15:45:16
+ * @since 2021-08-24 13:34:34
  */
 
 
@@ -105,7 +105,6 @@ function ListPage() {
 			ps.sortField=sortField;
 			ps.sortType=sortType;
 		}
-		// debugger
 		table.reload('data-table', { where : ps });
 	}
     
@@ -315,6 +314,11 @@ function ListPage() {
 			}
 		});
 		admin.putTempData('sys-code-example-car-form-data-popup-index', index);
+	};
+
+	window.module={
+		refreshTableData: refreshTableData,
+		getCheckedList: getCheckedList
 	};
 
 };

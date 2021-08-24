@@ -1,7 +1,7 @@
 /**
  * 代码生成主表学生 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-23 15:45:16
+ * @since 2021-08-24 13:34:34
  */
 
 function FormPage() {
@@ -44,6 +44,7 @@ function FormPage() {
 	 * */
 	var adjustPopupTask=-1;
 	function adjustPopup() {
+		return;
 		clearTimeout(adjustPopupTask);
 		var scroll=$(".form-container").attr("scroll");
 		if(scroll=='yes') return;
@@ -138,6 +139,35 @@ function FormPage() {
 
 	}
 
+	function getFormData() {
+		var data=form.val("data-form");
+
+
+
+
+		return data;
+	}
+
+	function verifyForm(data) {
+		return fox.formVerify("data-form",data,VALIDATE_CONFIG)
+	}
+
+	function saveForm(data) {
+		var api=moduleURL+"/"+(data.id?"update":"insert");
+		var task=setTimeout(function(){layer.load(2);},1000);
+		admin.request(api, data, function (data) {
+			clearTimeout(task);
+			layer.closeAll('loading');
+			if (data.success) {
+				layer.msg(data.message, {icon: 1, time: 500});
+				var index=admin.getTempData('sys-code-example-student-form-data-popup-index');
+				admin.finishPopupCenter(index);
+			} else {
+				layer.msg(data.message, {icon: 2, time: 1000});
+			}
+		}, "POST");
+	}
+
 	/**
       * 保存数据，表单提交事件
       */
@@ -145,33 +175,16 @@ function FormPage() {
 
 	    form.on('submit(submit-button)', function (data) {
 	    	//debugger;
-			data.field = form.val("data-form");
-
-
-
+			data.field = getFormData();
 
 			//校验表单
-			if(!fox.formVerify("data-form",data,VALIDATE_CONFIG)) return;
+			if(!verifyForm(data.field)) return;
 
 			if(window.pageExt.form.beforeSubmit) {
 				var doNext=window.pageExt.form.beforeSubmit(data.field);
 				if(!doNext) return ;
 			}
-
-	    	var api=moduleURL+"/"+(data.field.id?"update":"insert");
-	        var task=setTimeout(function(){layer.load(2);},1000);
-	        admin.request(api, data.field, function (data) {
-	            clearTimeout(task);
-			    layer.closeAll('loading');
-	            if (data.success) {
-	                layer.msg(data.message, {icon: 1, time: 500});
-					var index=admin.getTempData('sys-code-example-student-form-data-popup-index');
-	                admin.finishPopupCenter(index);
-	            } else {
-	                layer.msg(data.message, {icon: 2, time: 1000});
-	            }
-	        }, "POST");
-
+			saveForm(data.field);
 	        return false;
 	    });
 
@@ -179,6 +192,13 @@ function FormPage() {
 	    $("#cancel-button").click(function(){admin.closePopupCenter();});
 
     }
+
+    window.module={
+		getFormData: getFormData,
+		verifyForm: verifyForm,
+		saveForm: saveForm
+	};
+
 }
 
 layui.use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect','foxnicUpload','laydate'],function() {

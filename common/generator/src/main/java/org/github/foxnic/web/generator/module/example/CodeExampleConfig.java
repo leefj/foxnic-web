@@ -171,6 +171,8 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 				.basic().label("角色数(SQL)")
 				.table().sort(true).alignRight();
 
+		view.field(SYS_CODE_EXAMPLE.BUTTON_INPUT).button().action("点我","openTestDialog","layui-btn-warm","<i class='layui-icon layui-icon-search'></i>");
+
 		//禁用列
 		view.field(CodeExampleMeta.CREATE_TIME).table().disable(true);
 
@@ -185,7 +187,9 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 			.setControllerAndAgent(WriteMode.COVER_EXISTS_FILE) //Rest
 			.setPageController(WriteMode.COVER_EXISTS_FILE) //页面控制器
 			.setFormPage(WriteMode.COVER_EXISTS_FILE) //表单HTML页
-			.setListPage(WriteMode.COVER_EXISTS_FILE); //列表HTML页
+			.setListPage(WriteMode.COVER_EXISTS_FILE) //列表HTML页
+			.setExtendJsFile(WriteMode.WRITE_TEMP_FILE);
+
 	}
 
 	@Override
@@ -197,6 +201,10 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 
 	@Override
 	public void configList(ViewOptions view,ListOptions list) {
+
+		//增加一个变量
+		list.addJsVariable("TEST_LIST","[[${enum.toArray('org.github.foxnic.web.constants.enums.Language')}]]","列表测试变量");
+
 		//设置操作列宽度
 		list.operationColumn().width(280);
 		//增加操作列按钮
@@ -256,6 +264,7 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 
 //		configFormLayoutC(view,form);
 
+		form.addJsVariable("TEST_FORM","[[${enum.toArray('org.github.foxnic.web.constants.enums.Language')}]]","表单测试变量");
 
 		configFormLayoutD(view,form);
 	}
@@ -337,23 +346,25 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 				}
 		);
 
+
+		//嵌入页面，页面在 loadTest1Iframe 函数中载入
+		form.addPage("部署节点","loadTest1Iframe");
+
+		form.addGroup("附件信息",
+				new Object[] {TABLE.IMAGE_ID,TABLE.FILE_IDS,}
+		);
+
 		//嵌入Tab，页面在 loadStudentIframe、loadCarIframe  函数中载入
 		form.addTab(
 				new Tab("学生","loadStudentIframe"),
 				new Tab("汽车","loadCarIframe")
 		);
 
-		form.addGroup("附件信息",
-				new Object[] {TABLE.IMAGE_ID,TABLE.FILE_IDS,}
-		);
-		//嵌入页面，页面在 loadTest1Iframe 函数中载入
-		form.addPage("部署节点","loadTest1Iframe");
-
-
 
 		form.addGroup("类型信息",
 				new Object[] {
 						TABLE.RADIO_ENUM,
+						SYS_CODE_EXAMPLE.BUTTON_INPUT
 				}, new Object[] {
 						TABLE.RADIO_DICT,
 						TABLE.WORK_TIME

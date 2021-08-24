@@ -1,7 +1,7 @@
 /**
  * 代码生成示例主 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-23 15:45:14
+ * @since 2021-08-24 14:28:29
  */
 
 
@@ -83,6 +83,7 @@ function ListPage() {
 					,{ field: 'imageId', align:"left", fixed:false, hide:false, sort: true, title: fox.translate('图片上传'), templet: function (d) { return '<img style="height:100%;" fileType="image/png" onclick="window.previewImage(this)"  src="'+apiurls.storage.image+'?id='+ d.imageId+'" />'; } }
 					,{ field: 'fileIds', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('多文件上传') }
 					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('ID') }
+					,{ field: 'buttonInput', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('对话框') }
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 280 }
 				]],
@@ -522,6 +523,11 @@ function ListPage() {
 			}
 		});
 		admin.putTempData('sys-code-example-form-data-popup-index', index);
+	};
+
+	window.module={
+		refreshTableData: refreshTableData,
+		getCheckedList: getCheckedList
 	};
 
 };

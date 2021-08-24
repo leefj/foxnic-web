@@ -1,7 +1,7 @@
 /**
  * 代码生成主表学生 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-23 15:45:16
+ * @since 2021-08-24 13:34:34
  */
 
 
@@ -314,6 +314,11 @@ function ListPage() {
 			}
 		});
 		admin.putTempData('sys-code-example-student-form-data-popup-index', index);
+	};
+
+	window.module={
+		refreshTableData: refreshTableData,
+		getCheckedList: getCheckedList
 	};
 
 };

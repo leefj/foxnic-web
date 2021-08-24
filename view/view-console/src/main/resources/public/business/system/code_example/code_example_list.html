@@ -2,7 +2,7 @@
 /**
  * 代码生成示例主 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-23 15:45:14
+ * @since 2021-08-24 14:28:30
  */
  -->
  <!DOCTYPE html>
@@ -197,6 +197,10 @@
     var SELECT_SELECTENUM_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.SystemConfigType')}]];
     var SELECT_SELECTDICT_DATA = [[${dict.toArray('order_status')}]];
     var AUTH_PREFIX="sys_code_example";
+
+    // 列表测试变量
+    var TEST_LIST = [[${enum.toArray('org.github.foxnic.web.constants.enums.Language')}]] ;
+
 </script>
 
 <script th:src="'/business/system/code_example/code_example_ext.js?'+${cacheKey}"></script>

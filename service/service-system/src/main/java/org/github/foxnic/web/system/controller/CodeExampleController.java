@@ -50,7 +50,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 代码生成示例主表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-23 15:45:14
+ * @since 2021-08-24 14:28:26
 */
 
 @Api(tags = "代码生成示例主")
@@ -75,6 +75,7 @@ public class CodeExampleController extends SuperController {
 		@ApiImplicitParam(name = CodeExampleVOMeta.AREA , value = "整数输入" , required = false , dataTypeClass=Integer.class , example = "10"),
 		@ApiImplicitParam(name = CodeExampleVOMeta.WEIGHT , value = "小数输入" , required = false , dataTypeClass=Double.class , example = "12.0"),
 		@ApiImplicitParam(name = CodeExampleVOMeta.VALID , value = "逻辑值" , required = false , dataTypeClass=Integer.class , example = "0"),
+		@ApiImplicitParam(name = CodeExampleVOMeta.BUTTON_INPUT , value = "对话框" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleVOMeta.RADIO_ENUM , value = "单选框(枚举)" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleVOMeta.RADIO_DICT , value = "单选框(字典)" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleVOMeta.CHECK_ENUM , value = "复选框(枚举)" , required = false , dataTypeClass=String.class),
@@ -142,6 +143,7 @@ public class CodeExampleController extends SuperController {
 		@ApiImplicitParam(name = CodeExampleVOMeta.AREA , value = "整数输入" , required = false , dataTypeClass=Integer.class , example = "10"),
 		@ApiImplicitParam(name = CodeExampleVOMeta.WEIGHT , value = "小数输入" , required = false , dataTypeClass=Double.class , example = "12.0"),
 		@ApiImplicitParam(name = CodeExampleVOMeta.VALID , value = "逻辑值" , required = false , dataTypeClass=Integer.class , example = "0"),
+		@ApiImplicitParam(name = CodeExampleVOMeta.BUTTON_INPUT , value = "对话框" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleVOMeta.RADIO_ENUM , value = "单选框(枚举)" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleVOMeta.RADIO_DICT , value = "单选框(字典)" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleVOMeta.CHECK_ENUM , value = "复选框(枚举)" , required = false , dataTypeClass=String.class),
@@ -175,6 +177,7 @@ public class CodeExampleController extends SuperController {
 		@ApiImplicitParam(name = CodeExampleVOMeta.AREA , value = "整数输入" , required = false , dataTypeClass=Integer.class , example = "10"),
 		@ApiImplicitParam(name = CodeExampleVOMeta.WEIGHT , value = "小数输入" , required = false , dataTypeClass=Double.class , example = "12.0"),
 		@ApiImplicitParam(name = CodeExampleVOMeta.VALID , value = "逻辑值" , required = false , dataTypeClass=Integer.class , example = "0"),
+		@ApiImplicitParam(name = CodeExampleVOMeta.BUTTON_INPUT , value = "对话框" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleVOMeta.RADIO_ENUM , value = "单选框(枚举)" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleVOMeta.RADIO_DICT , value = "单选框(字典)" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleVOMeta.CHECK_ENUM , value = "复选框(枚举)" , required = false , dataTypeClass=String.class),
@@ -251,6 +254,7 @@ public class CodeExampleController extends SuperController {
 		@ApiImplicitParam(name = CodeExampleVOMeta.AREA , value = "整数输入" , required = false , dataTypeClass=Integer.class , example = "10"),
 		@ApiImplicitParam(name = CodeExampleVOMeta.WEIGHT , value = "小数输入" , required = false , dataTypeClass=Double.class , example = "12.0"),
 		@ApiImplicitParam(name = CodeExampleVOMeta.VALID , value = "逻辑值" , required = false , dataTypeClass=Integer.class , example = "0"),
+		@ApiImplicitParam(name = CodeExampleVOMeta.BUTTON_INPUT , value = "对话框" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleVOMeta.RADIO_ENUM , value = "单选框(枚举)" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleVOMeta.RADIO_DICT , value = "单选框(字典)" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleVOMeta.CHECK_ENUM , value = "复选框(枚举)" , required = false , dataTypeClass=String.class),
@@ -285,6 +289,7 @@ public class CodeExampleController extends SuperController {
 		@ApiImplicitParam(name = CodeExampleVOMeta.AREA , value = "整数输入" , required = false , dataTypeClass=Integer.class , example = "10"),
 		@ApiImplicitParam(name = CodeExampleVOMeta.WEIGHT , value = "小数输入" , required = false , dataTypeClass=Double.class , example = "12.0"),
 		@ApiImplicitParam(name = CodeExampleVOMeta.VALID , value = "逻辑值" , required = false , dataTypeClass=Integer.class , example = "0"),
+		@ApiImplicitParam(name = CodeExampleVOMeta.BUTTON_INPUT , value = "对话框" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleVOMeta.RADIO_ENUM , value = "单选框(枚举)" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleVOMeta.RADIO_DICT , value = "单选框(字典)" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleVOMeta.CHECK_ENUM , value = "复选框(枚举)" , required = false , dataTypeClass=String.class),

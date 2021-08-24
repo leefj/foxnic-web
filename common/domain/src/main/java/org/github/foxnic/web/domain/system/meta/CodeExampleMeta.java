@@ -11,8 +11,8 @@ import java.util.List;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-16 19:13:48
- * @sign ECF39AE8A87E444FDB0BE807FCE93A50
+ * @since 2021-08-24 13:08:57
+ * @sign 5F7A094CB85E998707BBFEADC6F55738
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -97,6 +97,16 @@ public class CodeExampleMeta {
 	 * 逻辑值 , 类型: java.lang.Integer
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.system.CodeExample,java.lang.Integer> VALID_PROP = new BeanProperty(org.github.foxnic.web.domain.system.CodeExample.class ,VALID, java.lang.Integer.class, "逻辑值", "逻辑值", java.lang.Integer.class, null);
+	
+	/**
+	 * 对话框 , 类型: java.lang.String
+	*/
+	public static final String BUTTON_INPUT="buttonInput";
+	
+	/**
+	 * 对话框 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.CodeExample,java.lang.String> BUTTON_INPUT_PROP = new BeanProperty(org.github.foxnic.web.domain.system.CodeExample.class ,BUTTON_INPUT, java.lang.String.class, "对话框", "对话框", java.lang.String.class, null);
 	
 	/**
 	 * 单选框(枚举) , 类型: java.lang.String
@@ -321,7 +331,7 @@ public class CodeExampleMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , NAME , NOTES , IMAGE_ID , FILE_IDS , AREA , WEIGHT , VALID , RADIO_ENUM , RADIO_DICT , CHECK_ENUM , CHECK_DICT , SELECT_ENUM , SELECT_DICT , RESOURCE_ID , BIRTHDAY , WORK_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , RESOURZE , ROLES , ROLE_COUNT_BY_AFTER , ROLE_COUNT_BY_JOIN , ROLE_IDS };
+	public static final String[] $PROPS={ ID , NAME , NOTES , IMAGE_ID , FILE_IDS , AREA , WEIGHT , VALID , BUTTON_INPUT , RADIO_ENUM , RADIO_DICT , CHECK_ENUM , CHECK_DICT , SELECT_ENUM , SELECT_DICT , RESOURCE_ID , BIRTHDAY , WORK_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , RESOURZE , ROLES , ROLE_COUNT_BY_AFTER , ROLE_COUNT_BY_JOIN , ROLE_IDS };
 	
 	/**
 	 * 代理类
@@ -416,6 +426,17 @@ public class CodeExampleMeta {
 		public CodeExample setValid(Integer valid) {
 			super.change(VALID,super.getValid(),valid);
 			super.setValid(valid);
+			return this;
+		}
+		
+		/**
+		 * 设置 对话框
+		 * @param buttonInput 对话框
+		 * @return 当前对象
+		*/
+		public CodeExample setButtonInput(String buttonInput) {
+			super.change(BUTTON_INPUT,super.getButtonInput(),buttonInput);
+			super.setButtonInput(buttonInput);
 			return this;
 		}
 		

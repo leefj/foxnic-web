@@ -2,7 +2,7 @@
 #(authorAndTime)
  -->
  <!DOCTYPE html>
-<html>
+<html style="background-color: #FFFFFF;">
 
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -35,7 +35,7 @@
     </style>
 </head>
 
-<body style="overflow-y: hidden">
+<body style="overflow-y: hidden;">
 <div class="form-container" >
 
     <form id="data-form" lay-filter="data-form" class="layui-form model-form" style="display:none">
@@ -60,7 +60,7 @@
         #else if(g.type.equals("tab"))
 
         <div class="layui-row form-row" style="text-align: center;background-color: white;">
-            <div style="display: inline-block;margin-right: 8px;margin-left: 8px" class="layui-col-xs12">
+            <div style="display: inline-block;" class="layui-col-xs12">
                 <div class="layui-tab" style="padding-right: 8px;padding-left: 8px;height: 300px;">
                     <ul class="layui-tab-title">
                         #for(tab:g.tabs)
@@ -177,7 +177,14 @@
                             <input input-type="date" lay-filter="#(f.varName)" id="#(f.varName)" name="#(f.varName)"  autocomplete="off"  readonly  th:placeholder="${ lang.translate('请选择') +''+ lang.translate('#(f.labelInForm)') }" type="text" class="layui-input"  #if(f.validate!=null)  lay-verify="#if(f.validate.isRequired)|required#end"  #end  />
                         </div>
                     </div>
-
+                #else if(f.typeName.equals("button"))
+                    <div class="layui-form-item" #if(f.isHideInForm)style="display: none")#end>
+                        <div class="layui-form-label #if(groups.size()==1)layui-form-label-c1#end"><div th:text="${lang.translate('#(f.labelInForm)')}">#(f.labelInForm)</div>#if(f.validate!=null && f.validate.isRequired)<div class="layui-required">*</div>#end</div>
+                        <div class="layui-input-block #if(groups.size()==1)layui-input-block-c1#end">
+                            <input lay-filter="#(f.varName)" id="#(f.varName)" name="#(f.varName)"  type="hidden" class="layui-input"  #if(f.validate!=null)  lay-verify="#if(f.validate.isRequired)|required#end#if(f.validate.isPhone)|phone#end#if(f.validate.isEmail)|email#end#if(f.validate.isUrl)|url#end#if(f.validate.isDate)|date#end#if(f.validate.isIdentity)|identity#end"  #end  />
+                            <button id="#(f.varName)-button" type="button" class="layui-btn #if(f.buttonField.action.css!=null) #(f.buttonField.action.css) #end" >#if(f.buttonField.action.iconHtml!=null) #(f.buttonField.action.iconHtml) #end<span th:text="${lang.translate('#(f.buttonField.text)')}">按钮文本</span></button>
+                        </div>
+                    </div>
                 #else
 
                 <div class="layui-form-item" #if(f.isHideInForm)style="display: none")#end>
@@ -205,13 +212,14 @@
     </form>
 
 </div>
-
+#if(!footerDisabled)
 <div class="model-form-footer">
     <button class="layui-btn layui-btn-primary" id="cancel-button" lay-filter="cancel-button" type="button" th:text="${lang.translate('取消')}" #if(disableCreateNew && disableModify) style="margin-right: 15px" #end>取消</button>
     #if(!disableCreateNew || !disableModify)
     <button th:if="${perm.checkAnyAuth('#(authPrefix):create','#(authPrefix):update','#(authPrefix):save')}" class="layui-btn" style="margin-right: 15px;display: none;"  id="submit-button" lay-filter="submit-button" lay-submit th:text="${lang.translate('保存')}">保存</button>
     #end
 </div>
+#end
 
 <script type="text/javascript" src="/module/global.js" th:src="'/module/global.js?'+${cacheKey}"></script>
 <script type="text/javascript" src="/assets/libs/jquery-3.2.1.min.js" th:src="'/assets/libs/jquery-3.2.1.min.js?'+${cacheKey}"></script>
@@ -246,7 +254,15 @@
     #end
     var VALIDATE_CONFIG=#(validates);
     var AUTH_PREFIX="#(authPrefix)";
+
+    #for(v:jsVariables)
+    // #(v.note)
+    var #(v.name) = #(v.value) ;
+    #end
+
 </script>
+
+
 
 <script th:src="'#(extURI)?'+${cacheKey}"></script>
 <script th:src="'#(jsURI)?'+${cacheKey}"></script>
