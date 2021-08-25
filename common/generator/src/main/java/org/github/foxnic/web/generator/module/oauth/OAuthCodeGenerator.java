@@ -1,20 +1,17 @@
 package org.github.foxnic.web.generator.module.oauth;
 
-import com.github.foxnic.generator.builder.model.PojoClassFile;
 import com.github.foxnic.generator.config.ModuleContext;
 import com.github.foxnic.generator.config.WriteMode;
 import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb.*;
 import org.github.foxnic.web.constants.enums.HttpMethodType;
-import org.github.foxnic.web.constants.enums.Language;
 import org.github.foxnic.web.constants.enums.ResourceType;
-import org.github.foxnic.web.domain.hrm.Employee;
-import org.github.foxnic.web.domain.hrm.Person;
-import org.github.foxnic.web.domain.oauth.*;
+import org.github.foxnic.web.domain.oauth.Menu;
+import org.github.foxnic.web.domain.oauth.Resourze;
+import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.domain.oauth.meta.*;
 import org.github.foxnic.web.generator.module.system.SystemCodeGenerator;
 import org.github.foxnic.web.proxy.oauth.ResourzeServiceProxy;
-import org.github.foxnic.web.proxy.oauth.RoleServiceProxy;
 
 
 public class OAuthCodeGenerator extends SystemCodeGenerator {
@@ -23,7 +20,7 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		OAuthCodeGenerator g=new OAuthCodeGenerator();
 //		g.generateSysResource();  //ok
 //		g.generateSysMenuResource();
-		g.generateSysUser(); //ok
+//		g.generateSysUser(); //ok
 //		g.generateSysOAuthClient();
 //		g.generateSysSessionOnline();
 //		g.generateSysToken();
@@ -43,107 +40,7 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 	}
 	
  
-	public void generateSysUser() throws Exception {
-		//创建配置
-		ModuleContext cfg=createModuleConfig(SYS_USER.$TABLE, 6);
 
-		cfg.getPoClassFile().addListProperty( Role.class, "roles","角色清单", "当前用户的所有角色清单");
-		cfg.getPoClassFile().addListProperty( Menu.class, "menus","菜单清单", "当前用户的所有菜单清单");
-		cfg.getPoClassFile().addListProperty( RoleMenu.class, "roleMenus","角色菜单关系清单", "当前用户的所有角色菜单关系清单");
-		//
-		cfg.getPoClassFile().addSimpleProperty( Person.class, "person","对应的人员", "当前用户对应的人员");
-		cfg.getPoClassFile().addSimpleProperty( Employee.class, "employee","对应的员工", "当前用户对应的员工");
-
-		//增加VO属性
-		cfg.getVoClassFile().addListProperty(String.class,"roleIds","角色ID列表","");
-
-		//文件生成覆盖模式
-		cfg.overrides()
-		.setServiceIntfAnfImpl(WriteMode.CREATE_IF_NOT_EXISTS) //服务与接口
-		.setControllerAndAgent(WriteMode.CREATE_IF_NOT_EXISTS) //Rest
-		.setPageController(WriteMode.CREATE_IF_NOT_EXISTS) //页面控制器
-		.setFormPage(WriteMode.CREATE_IF_NOT_EXISTS) //表单HTML页
-		.setListPage(WriteMode.CREATE_IF_NOT_EXISTS); //列表HTML页
-		
-
-		PojoClassFile pojo=cfg.createPojo("LoginIdentityVO");
-		pojo.setSuperType(null);
-		pojo.setDoc("用于App登录接口");
-		pojo.addSimpleProperty(String.class,"identity","帐号或手机号等用于识别身份的标识","");
-		pojo.addSimpleProperty(String.class,"passwd","密码","");
-		pojo.addSimpleProperty(String.class,"browserId","随机ID","客户端产生的唯一ID，用于标识一次认证");
-		pojo.addSimpleProperty(String.class,"captcha","校验码/验证码","用户输入的校验码");
-
-
-		cfg.view().field(SYS_USER.ID)
-				.basic().hidden(true);
-
-		cfg.view().field(SYS_USER.ID)
-				.basic().hidden(true);
-
-		cfg.view().field(SYS_USER.PASSWD)
-				.basic().hidden(true);
-
-		cfg.view().field(SYS_USER.EMPLOYEE_ID)
-				.basic().hidden(true);
-
-		cfg.view().field(SYS_USER.LAST_LOGIN_TIME)
-				.basic().hidden(true);
-
-		cfg.view().field(SYS_USER.PERSON_ID)
-				.basic().hidden(true);
-
-		cfg.view().field(SYS_USER.EMPLOYEE_ID)
-				.basic().hidden(true);
-
-		cfg.view().field(SYS_USER.PASSWD)
-				.basic().hidden(true);
-
-		cfg.view().field(SYS_USER.NAME)
-				.form().validate().required()
-				//.search().displayAlone(true)
-		;
-
-//		cfg.view().field(UserMeta.ROLES)
-//				.form().validate().required()
-//				.search().displayAlone(true)
-//		;
-
-		cfg.view().field(SYS_USER.PHONE)
-				.basic().label("手机")
-				.form().validate().required().phone();
-
-		cfg.view().field(SYS_USER.LANGUAGE)
-				.form().radioBox().enumType(Language.class);
-
-		cfg.view().field(UserVOMeta.ROLE_IDS)
-				.basic().label("角色")
-//				.list().hidden(true)
-				.search().inputWidth(180)
-				.form().selectBox().muliti(true).queryApi(RoleServiceProxy.QUERY_LIST).fillBy(UserMeta.ROLES)
-				.valueField(RoleMeta.ID).textField(UserMeta.NAME)
-		;
-
-		cfg.view().field(SYS_USER.PORTRAIT_ID)
-				.basic().label("头像")
-				.search().hidden(true)
-				.table().alignCenter()
-				.form().upload().acceptSingleImage().buttonLabel("选择头像")
-		;
-
-		cfg.view().field(SYS_USER.CACHE_KEY).search().hidden();
-
-		cfg.view().field(SYS_USER.VALID)
-				.table().alignCenter()
-				.form().logicField().on("有效","1").off("无效","0");
-
-
-		cfg.view().list().columnLayout(SYS_USER.NAME,SYS_USER.PORTRAIT_ID,SYS_USER.LANGUAGE
-				,SYS_USER.PHONE,SYS_USER.VALID,UserVOMeta.ROLE_IDS);
-
-		//生成代码
-		cfg.buildAll();
-	}
 	
 	public void generateSysOAuthClient() throws Exception {
 		//创建配置

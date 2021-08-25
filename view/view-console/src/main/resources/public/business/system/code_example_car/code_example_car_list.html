@@ -94,7 +94,10 @@
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];
     var AUTH_PREFIX="sys_code_example_car";
-
+    var USER1 = [[${user}]];
+    var USER2 = [[${user.getUser()}]];
+    var USER3= [[${user.getUser().getPerson()}]];
+    var USER4= [[${user.getUser().getEmployee()}]];
 
 </script>
 

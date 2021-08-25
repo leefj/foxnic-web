@@ -30,7 +30,7 @@ public class SystemCodeGenerator  {
 //				System.out.println("What you name?");
 //				String str = br.readLine();
 //				System.out.println("Hello " + str + ".");
-				g.generateSysNode();
+//				g.generateSysNode();
 //			}
 //		} catch (IOException e) {
 //			e.printStackTrace();
