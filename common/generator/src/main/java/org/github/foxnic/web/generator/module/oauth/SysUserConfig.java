@@ -128,6 +128,8 @@ public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
     public void configList(ViewOptions view, ListOptions list) {
         list.columnLayout(SYS_USER.NAME,SYS_USER.PORTRAIT_ID,SYS_USER.LANGUAGE
                 ,SYS_USER.PHONE,SYS_USER.VALID,UserVOMeta.ROLE_IDS);
+
+        list.operationColumn().addActionButton("属主","openTenantOwner");
     }
 
     @Override
@@ -137,7 +139,8 @@ public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
             .setServiceIntfAnfImpl(WriteMode.CREATE_IF_NOT_EXISTS) //服务与接口
             .setControllerAndAgent(WriteMode.CREATE_IF_NOT_EXISTS) //Rest
             .setPageController(WriteMode.CREATE_IF_NOT_EXISTS) //页面控制器
-            .setFormPage(WriteMode.CREATE_IF_NOT_EXISTS) //表单HTML页
+            .setFormPage(WriteMode.COVER_EXISTS_FILE) //表单HTML页
+            .setExtendJsFile(WriteMode.IGNORE)
             .setListPage(WriteMode.COVER_EXISTS_FILE); //列表HTML页
     }
 

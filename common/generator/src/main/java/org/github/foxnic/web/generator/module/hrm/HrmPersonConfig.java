@@ -6,9 +6,9 @@ import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.HRM_PERSON;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
-public class PersonConfig extends BaseCodeConfig<HRM_PERSON> {
+public class HrmPersonConfig extends BaseCodeConfig<HRM_PERSON> {
 
-    public PersonConfig() {
+    public HrmPersonConfig() {
         super(PREFIX_HRM, HRM_PERSON.$TABLE,"hrm_", 4);
     }
 

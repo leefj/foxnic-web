@@ -2,7 +2,7 @@
 /**
  * 租户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-25 09:33:34
+ * @since 2021-08-25 17:20:49
  */
  -->
  <!DOCTYPE html>
@@ -15,6 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="/assets/libs/layui/css/layui.css" th:href="'/assets/libs/layui/css/layui.css?'+${cacheKey}"/>
     <link rel="stylesheet" href="/assets/css/admin.css" th:href="'/assets/css/admin.css?'+${cacheKey}"/>
+    <link rel="stylesheet" href="/assets/libs/toast/css/toast.css" type="text/css" th:href="'/assets/libs/toast/css/toast.css?'+${cacheKey}">
     <link rel="stylesheet" href="/assets/css/foxnic-web.css" th:href="'/assets/css/foxnic-web.css?'+${cacheKey}">
     <link href="/assets/libs/font-awesome-4.7.0/css/font-awesome.min.css" th:href="@{/assets/libs/font-awesome-4.7.0/css/font-awesome.min.css}" rel="stylesheet"/>
     <script th:inline="javascript">var foxnic_cachekey=[[${cacheKey}]];</script>
@@ -33,25 +34,20 @@
             <div class="search-input-rows" style="opacity: 0">
                 <!-- 搜索输入区域 -->
                 <div class="layui-form toolbar search-inputs">
-                    <!-- 主键 , id ,typeName=text_input, isHideInSearch=false -->
+                    <!-- 租户别名 , alias ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('主键')}" class="search-label id-label">主键</span><span class="search-colon">:</span></div>
-                        <input id="id" class="layui-input search-input" style="width: 140px" type="text" />
-                    </div>
-                    <!-- 别名 , alias ,typeName=text_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('别名')}" class="search-label alias-label">别名</span><span class="search-colon">:</span></div>
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('租户别名')}" class="search-label alias-label">租户别名</span><span class="search-colon">:</span></div>
                         <input id="alias" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
-                    <!-- 是否有效 , valid ,typeName=number_input, isHideInSearch=false -->
+                    <!-- 是否有效 , valid ,typeName=logic_switch, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('是否有效')}" class="search-label valid-label">是否有效</span><span class="search-colon">:</span></div>
-                            <input id="valid" class="layui-input search-input" style="width: 140px" type="text" autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0" min-value="" max-value="" scale="0"/>
+                        <div id="valid" data='[{"name":"有效","value":"1"},{"name":"无效","value":"0"}]' style="width:140px"></div>
                     </div>
-                    <!-- 公司ID , companyId ,typeName=text_input, isHideInSearch=false -->
+                    <!-- 公司 , companyId ,typeName=select_box, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('公司ID')}" class="search-label companyId-label">公司ID</span><span class="search-colon">:</span></div>
-                        <input id="companyId" class="layui-input search-input" style="width: 140px" type="text" />
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('公司')}" class="search-label companyId-label">公司</span><span class="search-colon">:</span></div>
+                        <div id="companyId" th:data="${'/service-hrm/hrm-company/query-paged-list'}" style="width:200px"></div>
                     </div>
 
 
@@ -76,6 +72,7 @@
 <script type="text/javascript" src="/assets/libs/jquery-3.2.1.min.js" th:src="'/assets/libs/jquery-3.2.1.min.js?'+${cacheKey}"></script>
 <script type="text/javascript" src="/assets/libs/pandyle.min.js" th:src="'/assets/libs/pandyle.min.js?'+${cacheKey}"></script>
 <script type="text/javascript" src="/assets/libs/layui/layui.js" th:src="'/assets/libs/layui/layui.js?'+${cacheKey}"></script>
+<script type="text/javascript" src="/assets/libs/toast/js/toast.js" th:src="'/assets/libs/toast/js/toast.js?'+${cacheKey}"></script>
 
 <!-- 表格工具栏 -->
 <script type="text/html" id="toolbarTemplate">
@@ -97,6 +94,10 @@
 
 </script>
 
+<!-- 表格状态列 -->
+<script type="text/html" id="cell-tpl-valid">
+    <input type="checkbox" lay-filter="cell-tpl-valid" value="{{d.id}}" lay-skin="switch" lay-text="有效|无效&nbsp;"  {{d.valid==1?'checked':''}}/>
+</script>
 
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];

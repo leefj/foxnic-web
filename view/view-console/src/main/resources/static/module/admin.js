@@ -63,7 +63,7 @@ layui.define(['settings', 'layer'], function (exports) {
         },
         toast:function() {
         	//https://gitee.com/wispx/toastr?_from=gitee_search
-        	//debugger;
+        	// debugger;
         	//拦截，并由顶层弹出窗口
         	if(top && top!=window && top.admin) {
         		return top.admin.toast();

@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-25 09:30:54
- * @sign 5AA8276672F806B6330E0E2308EC1ADA
+ * @since 2021-08-25 14:43:22
+ * @sign 203475EC7211C05F19C60A5FDA28165B
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -36,16 +36,16 @@ public class UserTenant extends Entity {
 	private String id;
 	
 	/**
-	 * 别名：别名
+	 * 用户ID：用户ID
 	*/
-	@ApiModelProperty(required = false,value="别名" , notes = "别名")
+	@ApiModelProperty(required = false,value="用户ID" , notes = "用户ID")
 	private String userId;
 	
 	/**
-	 * 租户ID：租户ID
+	 * 所属的租户ID：所属的租户ID
 	*/
-	@ApiModelProperty(required = false,value="租户ID" , notes = "租户ID")
-	private String tenantId;
+	@ApiModelProperty(required = false,value="所属的租户ID" , notes = "所属的租户ID")
+	private String ownerTenantId;
 	
 	/**
 	 * 是否有效：是否有效
@@ -58,6 +58,12 @@ public class UserTenant extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="是否激活" , notes = "激活时为当前默认租户")
 	private Integer activated;
+	
+	/**
+	 * 顺序：顺序
+	*/
+	@ApiModelProperty(required = false,value="顺序" , notes = "顺序")
+	private Integer sort;
 	
 	/**
 	 * 创建人ID：创建人ID
@@ -108,6 +114,12 @@ public class UserTenant extends Entity {
 	private Integer version;
 	
 	/**
+	 * 租户对象：租户对象
+	*/
+	@ApiModelProperty(required = false,value="租户对象" , notes = "租户对象")
+	private Tenant tenant;
+	
+	/**
 	 * 获得 主键<br>
 	 * 主键
 	 * @return 主键
@@ -127,17 +139,17 @@ public class UserTenant extends Entity {
 	}
 	
 	/**
-	 * 获得 别名<br>
-	 * 别名
-	 * @return 别名
+	 * 获得 用户ID<br>
+	 * 用户ID
+	 * @return 用户ID
 	*/
 	public String getUserId() {
 		return userId;
 	}
 	
 	/**
-	 * 设置 别名
-	 * @param userId 别名
+	 * 设置 用户ID
+	 * @param userId 用户ID
 	 * @return 当前对象
 	*/
 	public UserTenant setUserId(String userId) {
@@ -146,21 +158,21 @@ public class UserTenant extends Entity {
 	}
 	
 	/**
-	 * 获得 租户ID<br>
-	 * 租户ID
-	 * @return 租户ID
+	 * 获得 所属的租户ID<br>
+	 * 所属的租户ID
+	 * @return 所属的租户ID
 	*/
-	public String getTenantId() {
-		return tenantId;
+	public String getOwnerTenantId() {
+		return ownerTenantId;
 	}
 	
 	/**
-	 * 设置 租户ID
-	 * @param tenantId 租户ID
+	 * 设置 所属的租户ID
+	 * @param ownerTenantId 所属的租户ID
 	 * @return 当前对象
 	*/
-	public UserTenant setTenantId(String tenantId) {
-		this.tenantId=tenantId;
+	public UserTenant setOwnerTenantId(String ownerTenantId) {
+		this.ownerTenantId=ownerTenantId;
 		return this;
 	}
 	
@@ -199,6 +211,25 @@ public class UserTenant extends Entity {
 	*/
 	public UserTenant setActivated(Integer activated) {
 		this.activated=activated;
+		return this;
+	}
+	
+	/**
+	 * 获得 顺序<br>
+	 * 顺序
+	 * @return 顺序
+	*/
+	public Integer getSort() {
+		return sort;
+	}
+	
+	/**
+	 * 设置 顺序
+	 * @param sort 顺序
+	 * @return 当前对象
+	*/
+	public UserTenant setSort(Integer sort) {
+		this.sort=sort;
 		return this;
 	}
 	
@@ -351,6 +382,25 @@ public class UserTenant extends Entity {
 	*/
 	public UserTenant setVersion(Integer version) {
 		this.version=version;
+		return this;
+	}
+	
+	/**
+	 * 获得 租户对象<br>
+	 * 租户对象
+	 * @return 租户对象
+	*/
+	public Tenant getTenant() {
+		return tenant;
+	}
+	
+	/**
+	 * 设置 租户对象
+	 * @param tenant 租户对象
+	 * @return 当前对象
+	*/
+	public UserTenant setTenant(Tenant tenant) {
+		this.tenant=tenant;
 		return this;
 	}
 

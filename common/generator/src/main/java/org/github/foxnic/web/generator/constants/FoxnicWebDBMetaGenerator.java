@@ -27,7 +27,7 @@ public class FoxnicWebDBMetaGenerator  {
 		this.dao=this.configs.getDAO();
 	}
 
- 	private List<String> hrmTables= Arrays.asList("hrm_person","hrm_employee");
+ 	private List<String> hrmTables= Arrays.asList("hrm_person","hrm_employee","hrm_company");
 	/**
 	 * 生成DBMeta数据
 	 * */

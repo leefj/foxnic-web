@@ -3,13 +3,14 @@ package org.github.foxnic.web.domain.system.meta;
 import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.system.Tenant;
 import java.util.Date;
+import org.github.foxnic.web.domain.hrm.Company;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-25 09:30:57
- * @sign DF4BE9A4395E8152930B3DC8170D5BE9
+ * @since 2021-08-25 11:37:59
+ * @sign 9ACE928334F985B010ED01BF6B00CC72
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -136,9 +137,19 @@ public class TenantMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.system.Tenant,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.system.Tenant.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
+	 * 公司 , 租户对应的公司 , 类型: org.github.foxnic.web.domain.hrm.Company
+	*/
+	public static final String COMPANY="company";
+	
+	/**
+	 * 公司 , 租户对应的公司 , 类型: org.github.foxnic.web.domain.hrm.Company
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.Tenant,org.github.foxnic.web.domain.hrm.Company> COMPANY_PROP = new BeanProperty(org.github.foxnic.web.domain.system.Tenant.class ,COMPANY, org.github.foxnic.web.domain.hrm.Company.class, "公司", "租户对应的公司", org.github.foxnic.web.domain.hrm.Company.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , ALIAS , VALID , COMPANY_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , ALIAS , VALID , COMPANY_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , COMPANY };
 	
 	/**
 	 * 代理类
@@ -277,6 +288,17 @@ public class TenantMeta {
 		public Tenant setVersion(Integer version) {
 			super.change(VERSION,super.getVersion(),version);
 			super.setVersion(version);
+			return this;
+		}
+		
+		/**
+		 * 设置 公司
+		 * @param company 公司
+		 * @return 当前对象
+		*/
+		public Tenant setCompany(Company company) {
+			super.change(COMPANY,super.getCompany(),company);
+			super.setCompany(company);
 			return this;
 		}
 	}

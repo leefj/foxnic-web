@@ -1,4 +1,4 @@
-package org.github.foxnic.web.system.page;
+package org.github.foxnic.web.hrm.page;
 
 import org.github.foxnic.web.framework.view.controller.ViewController;
 
@@ -6,23 +6,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.github.foxnic.web.proxy.system.TenantServiceProxy;
+import org.github.foxnic.web.proxy.hrm.CompanyServiceProxy;
 import javax.servlet.http.HttpServletRequest;
 /**
  * <p>
- * 租户表 模版页面控制器
+ * 公司表 模版页面控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
  * @since 2021-08-25 17:20:49
 */
 
-@Controller("SysTenantPageController")
-@RequestMapping(TenantPageController.prefix)
-public class TenantPageController extends ViewController {
+@Controller("HrmCompanyPageController")
+@RequestMapping(CompanyPageController.prefix)
+public class CompanyPageController extends ViewController {
 	
-	public static final String prefix="business/system/tenant";
+	public static final String prefix="business/hrm/company";
 
-	private TenantServiceProxy proxy;
+	private CompanyServiceProxy proxy;
 	
 	/**
 	 * 获得代理对象<br> 
@@ -30,26 +30,26 @@ public class TenantPageController extends ViewController {
 	 * 2、前后端分离时，通过配置，以Rest方式调用后端；<br> 
 	 * 3、微服务时，通过feign调用; <br> 
 	 * */
-	public TenantServiceProxy proxy() {
+	public CompanyServiceProxy proxy() {
 		if(proxy==null) {
-			proxy=TenantServiceProxy.api();
+			proxy=CompanyServiceProxy.api();
 		}
 		return proxy;
 	}
 	
 	/**
-	 * 租户 功能主页面
+	 * 公司 功能主页面
 	 */
-	@RequestMapping("/tenant_list.html")
+	@RequestMapping("/company_list.html")
 	public String list(Model model,HttpServletRequest request) {
-		return prefix+"/tenant_list";
+		return prefix+"/company_list";
 	}
 
 	/**
-	 * 租户 表单页面
+	 * 公司 表单页面
 	 */
-	@RequestMapping("/tenant_form.html")
+	@RequestMapping("/company_form.html")
 	public String form(Model model,HttpServletRequest request , String id) {
-		return prefix+"/tenant_form";
+		return prefix+"/company_form";
 	}
 }

@@ -1,5 +1,5 @@
 /**
- * 账户 列表页 JS 脚本
+ * 公司 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
  * @since 2021-08-25 17:20:49
  */
@@ -9,7 +9,7 @@ function ListPage() {
         
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect;
 	//模块基础路径
-	const moduleURL="/service-oauth/sys-user";
+	const moduleURL="/service-hrm/hrm-company";
 	var dataTable=null;
 	/**
       * 入口函数，初始化
@@ -62,19 +62,11 @@ function ListPage() {
 				cols: [[
 					{ fixed: 'left',type: 'numbers' },
 					{ fixed: 'left',type:'checkbox' }
-					,{ field: 'name', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('账户') }
-					,{ field: 'portraitId', align:"center", fixed:false, hide:false, sort: true, title: fox.translate('头像'), templet: function (d) { return '<img style="height:100%;" fileType="image/png" onclick="window.previewImage(this)"  src="'+apiurls.storage.image+'?id='+ d.portraitId+'" />'; } }
-					,{ field: 'language', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('语言'), templet:function (d){ return fox.getEnumText(RADIO_LANGUAGE_DATA,d.language);}}
-					,{ field: 'phone', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('手机') }
-					,{ field: 'valid', align:"center",fixed:false,  hide:false, sort: true, title: fox.translate('是否有效'), templet: '#cell-tpl-valid'}
-					,{ field: 'roleIds', align:"",fixed:false,  hide:false, sort: true, title: fox.translate('角色'), templet: function (d) { return fox.joinLabel(d.roles,"name");}}
-					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('ID') }
-					,{ field: 'passwd', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('密码') }
-					,{ field: 'personId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('人员ID') }
-					,{ field: 'employeeId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('员工ID') }
-					,{ field: 'cacheKey', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('缓存键') }
-					,{ field: 'lastLoginTime', align:"right", fixed:false, hide:true, sort: true, title: fox.translate('最后登录时间'), templet: function (d) { return fox.dateFormat(d.lastLoginTime); }}
-					,{ field: 'createTime', align:"right", fixed:false, hide:true, sort: true, title: fox.translate('创建时间'), templet: function (d) { return fox.dateFormat(d.createTime); }}
+					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('主键') }
+					,{ field: 'name', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('公司名称') }
+					,{ field: 'socialCreditCode', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('社会信用代码') }
+					,{ field: 'valid', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('是否有效'), templet: '#cell-tpl-valid'}
+					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return fox.dateFormat(d.createTime); }}
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
 				]],
@@ -107,11 +99,9 @@ function ListPage() {
       */
 	function refreshTableData(sortField,sortType) {
 		var value = {};
-		value.name={ value: $("#name").val()};
-		value.phone={ value: $("#phone").val()};
-		value.language={ value: xmSelect.get("#language",true).getValue("value"), label:xmSelect.get("#language",true).getValue("nameStr")};
+		value.name={ value: $("#name").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" "};
+		value.socialCreditCode={ value: $("#socialCreditCode").val()};
 		value.valid={ value: xmSelect.get("#valid",true).getValue("value"), label:xmSelect.get("#valid",true).getValue("nameStr") };
-		value.roleIds={ value: xmSelect.get("#roleIds",true).getValue("value"), fillBy:"roles",field:"id", label:xmSelect.get("#roleIds",true).getValue("nameStr") };
 		window.pageExt.list.beforeQuery && window.pageExt.list.beforeQuery(value);
 		var ps={searchField: "$composite", searchValue: JSON.stringify(value)};
 		if(sortField) {
@@ -146,48 +136,11 @@ function ListPage() {
 
 		fox.switchSearchRow(1);
 
-		//渲染 language 搜索框
-		fox.renderSelectBox({
-			el: "language",
-			size: "small",
-			radio: false,
-			//toolbar: {show:true,showIcon:true,list:["CLEAR","REVERSE"]},
-			transform:function(data) {
-				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
-				var opts=[];
-				if(!data) return opts;
-				for (var i = 0; i < data.length; i++) {
-					opts.push({name:data[i].text,value:data[i].code});
-				}
-				return opts;
-			}
-		});
 		//渲染 valid 搜索框
 		fox.renderSelectBox({
 			el: "valid",
 			size: "small",
 			radio: false
-		});
-		//渲染 roleIds 下拉字段
-		fox.renderSelectBox({
-			el: "roleIds",
-			radio: false,
-			size: "small",
-			filterable: true,
-			toolbar: {show:true,showIcon:true,list:["CLEAR","REVERSE"]},
-			//转换数据
-			searchField: "name", //请自行调整用于搜索的字段名称
-			extraParam: {}, //额外的查询参数，Object 或是 返回 Object 的函数
-			transform: function(data) {
-				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
-				var opts=[];
-				if(!data) return opts;
-				for (var i = 0; i < data.length; i++) {
-					if(!data[i]) continue;
-					opts.push({name:data[i].name,value:data[i].id});
-				}
-				return opts;
-			}
 		});
 		fox.renderSearchInputs();
 	}
@@ -248,7 +201,7 @@ function ListPage() {
         function openCreateFrom() {
         	//设置新增是初始化数据
         	var data={};
-			admin.putTempData('sys-user-form-data-form-action', "create",true);
+			admin.putTempData('hrm-company-form-data-form-action', "create",true);
             showEditForm(data);
         };
 		
@@ -257,11 +210,11 @@ function ListPage() {
           
 			var ids=getCheckedList("id");
             if(ids.length==0) {
-            	layer.msg(fox.translate('请选择需要删除的')+fox.translate('账户')+"!");
+            	layer.msg(fox.translate('请选择需要删除的')+fox.translate('公司')+"!");
             	return;
             }
             //调用批量删除接口
-			layer.confirm(fox.translate('确定删除已选中的')+fox.translate('账户')+fox.translate('吗？'), function (i) {
+			layer.confirm(fox.translate('确定删除已选中的')+fox.translate('公司')+fox.translate('吗？'), function (i) {
 				layer.close(i);
 				if(window.pageExt.list.beforeBatchDelete) {
 					var doNext=window.pageExt.list.beforeBatchDelete(selected);
@@ -290,7 +243,7 @@ function ListPage() {
 		table.on('tool(data-table)', function (obj) {
 			var data = obj.data;
 			var layEvent = obj.event;
-			admin.putTempData('sys-user-form-data-form-action', "",true);
+			admin.putTempData('hrm-company-form-data-form-action', "",true);
 			if (layEvent === 'edit') { // 修改
 				//延迟显示加载动画，避免界面闪动
 				var task=setTimeout(function(){layer.load(2);},1000);
@@ -298,7 +251,7 @@ function ListPage() {
 					clearTimeout(task);
 					layer.closeAll('loading');
 					if(data.success) {
-						admin.putTempData('sys-user-form-data-form-action', "edit",true);
+						admin.putTempData('hrm-company-form-data-form-action', "edit",true);
 						showEditForm(data.data);
 					} else {
 						 layer.msg(data.message, {icon: 1, time: 1500});
@@ -311,7 +264,7 @@ function ListPage() {
 					clearTimeout(task);
 					layer.closeAll('loading');
 					if(data.success) {
-						admin.putTempData('sys-user-form-data-form-action', "view",true);
+						admin.putTempData('hrm-company-form-data-form-action', "view",true);
 						showEditForm(data.data);
 					} else {
 						layer.msg(data.message, {icon: 1, time: 1500});
@@ -320,7 +273,7 @@ function ListPage() {
 			}
 			else if (layEvent === 'del') { // 删除
 			
-				layer.confirm(fox.translate('确定删除此')+fox.translate('账户')+fox.translate('吗？'), function (i) {
+				layer.confirm(fox.translate('确定删除此')+fox.translate('公司')+fox.translate('吗？'), function (i) {
 					layer.close(i);
 
 					if(window.pageExt.list.beforeSingleDelete) {
@@ -341,9 +294,6 @@ function ListPage() {
 				});
 				
 			}
-			else if (layEvent === 'open-tenant-owner') { // 属主
-				window.pageExt.list.openTenantOwner(data);
-			}
 			
 		});
  
@@ -355,24 +305,24 @@ function ListPage() {
 	function showEditForm(data) {
 		var queryString="";
 		if(data && data.id) queryString="?" + 'id=' + data.id;
-		admin.putTempData('sys-user-form-data', data);
-		var area=admin.getTempData('sys-user-form-area');
+		admin.putTempData('hrm-company-form-data', data);
+		var area=admin.getTempData('hrm-company-form-area');
 		var height= (area && area.height) ? area.height : ($(window).height()*0.6);
 		var top= (area && area.top) ? area.top : (($(window).height()-height)/2);
-		var title = (data && data.id) ? (fox.translate('修改')+fox.translate('账户')) : (fox.translate('添加')+fox.translate('账户'));
+		var title = (data && data.id) ? (fox.translate('修改')+fox.translate('公司')) : (fox.translate('添加')+fox.translate('公司'));
 		var index=admin.popupCenter({
 			title: title,
 			resize: false,
 			offset: [top,null],
 			area: ["500px",height+"px"],
 			type: 2,
-			id:"sys-user-form-data-win",
-			content: '/business/oauth/user/user_form.html' + queryString,
+			id:"hrm-company-form-data-win",
+			content: '/business/hrm/company/company_form.html' + queryString,
 			finish: function () {
 				refreshTableData();
 			}
 		});
-		admin.putTempData('sys-user-form-data-popup-index', index);
+		admin.putTempData('hrm-company-form-data-popup-index', index);
 	};
 
 	window.module={

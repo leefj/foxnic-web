@@ -1054,10 +1054,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 , DANGER = 'layui-form-danger' //警示样式
                 , formElem = $('#' + formId) //当前所在表单域
                 , verifyElem = formElem.find('*[lay-verify]') //获取需要校验的元素
-                , device = layui.device()
-
-
-
+                , device = layui.device();
 
             //开始校验
             layui.each(verifyElem, function (_, item) {
@@ -1146,7 +1143,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
 
             var message=null;
             layui.each(validateConfig, function (f, cfg) {
-                var v=data.field[f];
+                var v=data[f];
                 if(cfg.required) {
                     if(v==null) {
                         message=getMessage(cfg);
@@ -1350,6 +1347,9 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 catalog: "layui-table-column-width",
                 ownerType: "user"
             }, function (data) {
+                if(admin.toast()) {
+                    admin.toast().success("列宽已调整", {time: 1000, position: "right-bottom"});
+                }
             });
 
 

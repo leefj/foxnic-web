@@ -1,5 +1,5 @@
 /**
- * 租户 列表页 JS 脚本
+ * 公司 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
  * @since 2021-08-25 17:20:49
  */

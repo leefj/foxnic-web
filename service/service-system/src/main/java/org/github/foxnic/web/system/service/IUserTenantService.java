@@ -22,7 +22,7 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.*;
  * 账户租户关系表 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-25 09:33:33
+ * @since 2021-08-25 17:20:49
 */
 
 public interface IUserTenantService extends ISuperService<UserTenant> {
@@ -287,9 +287,9 @@ public interface IUserTenantService extends ISuperService<UserTenant> {
 
 	/**
 	 * 保存关系
-	 * @param userId 别名
-	 * @param tenantIds 租户ID清单
+	 * @param userId 用户ID
+	 * @param ownerTenantIds 所属的租户ID清单
 	 */
-	void saveRelation(String userId,List<String> tenantIds);
+	void saveRelation(String userId,List<String> ownerTenantIds);
  
 }

@@ -114,6 +114,10 @@ function FormPage() {
 		//var formData = admin.getTempData('sys-menu-form-data');
 		$('#data-form')[0].reset();
 		if (formData) {
+			//debugger
+			if(formData.hidden==1)  formData.hidden=0;
+			else if(formData.hidden==0)  formData.hidden=1;
+
 			form.val('data-form', formData);
 
 			//设置 菜单路径的资源 下拉框选中值
@@ -170,7 +174,9 @@ function FormPage() {
 			data.field["resourceIds"]=xmSelect.get("#resourceIds",true).getValue("value");
 	    	//处理逻辑值
 	    	var values=processFormValues(data.field);
-
+			debugger
+			if(data.field.hidden==1)  data.field.hidden=0;
+			else if(data.field.hidden==0)  data.field.hidden=1;
 
 			//获取 菜单路径的资源 下拉框的值
 			data.field["pathResourceId"]=xmSelect.get("#pathResourceId",true).getValue("value");

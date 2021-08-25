@@ -1,10 +1,10 @@
-package org.github.foxnic.web.system.service;
+package org.github.foxnic.web.hrm.service;
 
 
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.dao.entity.ISuperService;
-import org.github.foxnic.web.domain.system.Tenant;
-import org.github.foxnic.web.domain.system.TenantVO;
+import org.github.foxnic.web.domain.hrm.Company;
+import org.github.foxnic.web.domain.hrm.CompanyVO;
 import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
@@ -18,32 +18,32 @@ import com.github.foxnic.dao.data.SaveMode;
 
 /**
  * <p>
- * 租户表 服务接口
+ * 公司表 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
  * @since 2021-08-25 17:20:49
 */
 
-public interface ITenantService extends ISuperService<Tenant> {
+public interface ICompanyService extends ISuperService<Company> {
 	
 	/**
 	 * 插入实体
-	 * @param tenant 实体数据
+	 * @param company 实体数据
 	 * @return 插入是否成功
 	 * */
-	Result insert(Tenant tenant);
+	Result insert(Company company);
  
 	/**
 	 * 批量插入实体，事务内
-	 * @param tenantList 实体数据清单
+	 * @param companyList 实体数据清单
 	 * @return 插入是否成功
 	 * */
-	Result insertList(List<Tenant> tenantList);
+	Result insertList(List<Company> companyList);
 	
 	
 		
 	/**
-	 * 按主键删除 租户
+	 * 按主键删除 公司
 	 *
 	 * @param id 主键
 	 * @return 删除是否成功
@@ -51,7 +51,7 @@ public interface ITenantService extends ISuperService<Tenant> {
 	Result deleteByIdPhysical(String id);
 	
 	/**
-	 * 按主键删除 租户
+	 * 按主键删除 公司
 	 *
 	 * @param id 主键
 	 * @return 删除是否成功
@@ -74,7 +74,7 @@ public interface ITenantService extends ISuperService<Tenant> {
 	
 		
 	/**
-	 * 按主键更新字段 租户
+	 * 按主键更新字段 公司
 	 *
 	 * @param id 主键
 	 * @return 是否更新成功
@@ -83,75 +83,75 @@ public interface ITenantService extends ISuperService<Tenant> {
 	
 	/**
 	 * 更新实体
-	 * @param tenant 数据对象
+	 * @param company 数据对象
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	Result update(Tenant tenant , SaveMode mode);
+	Result update(Company company , SaveMode mode);
 	
 	
 	/**
 	 * 更新实体集，事务内
-	 * @param tenantList 数据对象列表
+	 * @param companyList 数据对象列表
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	Result updateList(List<Tenant> tenantList, SaveMode mode);
+	Result updateList(List<Company> companyList, SaveMode mode);
 	
 	/**
 	 * 保存实体，如果主键值不为 null，则更新，否则插入
-	 * @param tenant 实体数据
+	 * @param company 实体数据
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	Result save(Tenant tenant , SaveMode mode);
+	Result save(Company company , SaveMode mode);
 	
 	/**
 	 * 保存实体，如果主键值不为null，则更新，否则插入
-	 * @param tenantList 实体数据清单
+	 * @param companyList 实体数据清单
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	Result saveList(List<Tenant> tenantList , SaveMode mode);
+	Result saveList(List<Company> companyList , SaveMode mode);
 	
 	/**
 	 * 检查实体中的数据字段是否已经存在
-	 * @param tenant  实体对象
+	 * @param company  实体对象
 	 * @param field  字段清单，至少指定一个
 	 * @return 是否已经存在
 	 * */
-	boolean checkExists(Tenant tenant,DBField... field);
+	boolean checkExists(Company company,DBField... field);
  
 		
 	/**
-	 * 按主键获取 租户
+	 * 按主键获取 公司
 	 *
 	 * @param id 主键
-	 * @return Tenant 数据对象
+	 * @return Company 数据对象
 	 */
-	Tenant getById(String id);
+	Company getById(String id);
 		
 	/**
 	 * 检查实体中的数据字段是否已经存在
 	 * @param ids  主键清单
 	 * @return 实体集
 	 * */
-	List<Tenant> getByIds(List<String> ids);
+	List<Company> getByIds(List<String> ids);
 
 	/**
 	 * 检查 角色 是否已经存在
 	 *
-	 * @param tenant 数据对象
+	 * @param company 数据对象
 	 * @return 判断结果
 	 */
-	Result<Tenant> checkExists(Tenant tenant);
+	Result<Company> checkExists(Company company);
 
 	/**
 	 * 根据实体数构建默认的条件表达式，字符串使用模糊匹配
 	 * @param sample 数据样例
 	 * @return ConditionExpr 条件表达式
 	 * */
-	ConditionExpr buildQueryCondition(Tenant sample);
+	ConditionExpr buildQueryCondition(Company sample);
 	
 	/**
 	 * 根据实体数构建默认的条件表达式, 字符串是否使用模糊匹配
@@ -159,14 +159,14 @@ public interface ITenantService extends ISuperService<Tenant> {
 	 * @param tableAliase 数据表别名
 	 * 	@return ConditionExpr 条件表达式
 	 * */
-	ConditionExpr buildQueryCondition(Tenant sample,String tableAliase);
+	ConditionExpr buildQueryCondition(Company sample,String tableAliase);
 
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
 	 * @param sample  查询条件
 	 * @return 查询结果
 	 * */
-	List<Tenant> queryList(Tenant sample);
+	List<Company> queryList(Company sample);
  
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
@@ -175,7 +175,7 @@ public interface ITenantService extends ISuperService<Tenant> {
 	 * @param orderBy  排序
 	 * @return 查询结果
 	 * */
-	List<Tenant> queryList(Tenant sample,ConditionExpr condition,OrderBy orderBy);
+	List<Company> queryList(Company sample,ConditionExpr condition,OrderBy orderBy);
 	
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
@@ -183,7 +183,7 @@ public interface ITenantService extends ISuperService<Tenant> {
 	 * @param orderBy  排序
 	 * @return 查询结果
 	 * */
-	List<Tenant> queryList(Tenant sample,OrderBy orderBy);
+	List<Company> queryList(Company sample,OrderBy orderBy);
 	
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
@@ -191,14 +191,14 @@ public interface ITenantService extends ISuperService<Tenant> {
 	 * @param condition  其它条件
 	 * @return 查询结果
 	 * */
-	List<Tenant> queryList(Tenant sample,ConditionExpr condition);
+	List<Company> queryList(Company sample,ConditionExpr condition);
 	
 	/**
 	 * 查询单个实体
 	 * @param sample  查询条件
 	 * @return 查询结果
 	 * */
-	Tenant queryEntity(Tenant sample);
+	Company queryEntity(Company sample);
 	
 	/**
 	 * 分页查询实体集
@@ -207,7 +207,7 @@ public interface ITenantService extends ISuperService<Tenant> {
 	 * @param pageIndex 页码
 	 * @return 查询结果
 	 * */
-	PagedList<Tenant> queryPagedList(Tenant sample,int pageSize,int pageIndex);
+	PagedList<Company> queryPagedList(Company sample,int pageSize,int pageIndex);
 	
 	/**
 	 * 分页查询实体集
@@ -218,7 +218,7 @@ public interface ITenantService extends ISuperService<Tenant> {
 	 * @param orderBy  排序
 	 * @return 查询结果
 	 * */
-	PagedList<Tenant> queryPagedList(Tenant sample,ConditionExpr condition,OrderBy orderBy,int pageSize,int pageIndex);
+	PagedList<Company> queryPagedList(Company sample,ConditionExpr condition,OrderBy orderBy,int pageSize,int pageIndex);
 	
 	/**
 	 * 分页查询实体集
@@ -228,7 +228,7 @@ public interface ITenantService extends ISuperService<Tenant> {
 	 * @param condition  其它条件
 	 * @return 查询结果
 	 * */
-	PagedList<Tenant> queryPagedList(Tenant sample,ConditionExpr condition,int pageSize,int pageIndex);
+	PagedList<Company> queryPagedList(Company sample,ConditionExpr condition,int pageSize,int pageIndex);
 	
 	/**
 	 * 分页查询实体集
@@ -238,7 +238,7 @@ public interface ITenantService extends ISuperService<Tenant> {
 	 * @param orderBy  排序
 	 * @return 查询结果
 	 * */
-	PagedList<Tenant> queryPagedList(Tenant sample,OrderBy orderBy,int pageSize,int pageIndex);
+	PagedList<Company> queryPagedList(Company sample,OrderBy orderBy,int pageSize,int pageIndex);
  
  	/**
 	 * 查询指定字段的数据清单
@@ -264,7 +264,7 @@ public interface ITenantService extends ISuperService<Tenant> {
 	/**
 	 * 导出 Excel
 	 * */
-	ExcelWriter exportExcel(Tenant sample);
+	ExcelWriter exportExcel(Company sample);
 
 	/**
 	 * 导出用于数据导入的 Excel 模版

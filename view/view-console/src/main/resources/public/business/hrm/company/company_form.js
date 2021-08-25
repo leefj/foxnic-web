@@ -1,5 +1,5 @@
 /**
- * 租户 列表页 JS 脚本
+ * 公司 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
  * @since 2021-08-25 17:20:49
  */
@@ -7,7 +7,7 @@
 function FormPage() {
 
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect,foxup;
-	const moduleURL="/service-system/sys-tenant";
+	const moduleURL="/service-hrm/hrm-company";
 
 	var disableCreateNew=false;
 	var disableModify=false;
@@ -22,7 +22,7 @@ function FormPage() {
 		if( !admin.checkAuth(AUTH_PREFIX+":update") && !admin.checkAuth(AUTH_PREFIX+":save")) {
 			disableModify=true;
 		}
-		if(admin.getTempData('sys-tenant-form-data-form-action')=="view") {
+		if(admin.getTempData('hrm-company-form-data-form-action')=="view") {
 			disableModify=true;
 		}
 
@@ -53,7 +53,7 @@ function FormPage() {
 			var footerHeight=$(".model-form-footer").height();
 			var area=admin.changePopupArea(null,bodyHeight+footerHeight);
 			if(area==null) return;
-			admin.putTempData('sys-tenant-form-area', area);
+			admin.putTempData('hrm-company-form-area', area);
 			window.adjustPopup=adjustPopup;
 			if(area.tooHeigh) {
 				var windowHeight=area.iframeHeight;
@@ -73,35 +73,13 @@ function FormPage() {
 	function renderFormFields() {
 		fox.renderFormInputs(form);
 
-		//渲染 companyId 下拉字段
-		fox.renderSelectBox({
-			el: "companyId",
-			radio: true,
-			filterable: true,
-			paging: true,
-			pageRemote: true,
-			toolbar: {show:true,showIcon:true,list:[ "ALL", "CLEAR","REVERSE"]},
-			//转换数据
-			searchField: "name", //请自行调整用于搜索的字段名称
-			extraParam: {}, //额外的查询参数，Object 或是 返回 Object 的函数
-			transform: function(data) {
-				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
-				var opts=[];
-				if(!data) return opts;
-				for (var i = 0; i < data.length; i++) {
-					if(!data[i]) continue;
-					opts.push({name:data[i].name,value:data[i].id});
-				}
-				return opts;
-			}
-		});
 	}
 
 	/**
       * 填充表单数据
       */
 	function fillFormData() {
-		var formData = admin.getTempData('sys-tenant-form-data');
+		var formData = admin.getTempData('hrm-company-form-data');
 
 		window.pageExt.form.beforeDataFill && window.pageExt.form.beforeDataFill(formData);
 
@@ -118,8 +96,6 @@ function FormPage() {
 
 
 
-			//设置  公司 设置下拉框勾选
-			fox.setSelectValue4QueryApi("#companyId",formData.company);
 
 
 
@@ -169,8 +145,6 @@ function FormPage() {
 		if(!data.valid) data.valid=0;
 
 
-		//获取 公司 下拉框的值
-		data["companyId"]=fox.getSelectedValue("companyId",false);
 
 		return data;
 	}
@@ -187,7 +161,7 @@ function FormPage() {
 			layer.closeAll('loading');
 			if (data.success) {
 				layer.msg(data.message, {icon: 1, time: 500});
-				var index=admin.getTempData('sys-tenant-form-data-popup-index');
+				var index=admin.getTempData('hrm-company-form-data-popup-index');
 				admin.finishPopupCenter(index);
 			} else {
 				layer.msg(data.message, {icon: 2, time: 1000});

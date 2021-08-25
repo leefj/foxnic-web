@@ -1,7 +1,7 @@
 /**
- * 租户 列表页 JS 脚本
+ * 账户租户关系 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-25 17:20:49
+ * @since 2021-08-25 14:49:44
  */
 
 layui.config({
@@ -24,6 +24,8 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * */
         beforeQuery:function (conditions) {
             console.log('beforeQuery',conditions);
+            var userId=admin.getTempData("userId");
+            conditions.userId={value:userId};
         },
         /**
          * 单行删除前调用，若返回false则不执行后续操作
@@ -69,6 +71,8 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * */
         beforeSubmit:function (data) {
             console.log("beforeSubmit",data);
+            var userId=admin.getTempData("userId");
+            data.userId=userId;
             return true;
         },
 

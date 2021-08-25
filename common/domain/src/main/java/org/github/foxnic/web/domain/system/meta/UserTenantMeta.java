@@ -3,13 +3,14 @@ package org.github.foxnic.web.domain.system.meta;
 import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.system.UserTenant;
 import java.util.Date;
+import org.github.foxnic.web.domain.system.Tenant;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-25 09:30:54
- * @sign 5AA8276672F806B6330E0E2308EC1ADA
+ * @since 2021-08-25 14:43:22
+ * @sign 203475EC7211C05F19C60A5FDA28165B
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -26,24 +27,24 @@ public class UserTenantMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.system.UserTenant,java.lang.String> ID_PROP = new BeanProperty(org.github.foxnic.web.domain.system.UserTenant.class ,ID, java.lang.String.class, "主键", "主键", java.lang.String.class, null);
 	
 	/**
-	 * 别名 , 类型: java.lang.String
+	 * 用户ID , 类型: java.lang.String
 	*/
 	public static final String USER_ID="userId";
 	
 	/**
-	 * 别名 , 类型: java.lang.String
+	 * 用户ID , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.system.UserTenant,java.lang.String> USER_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.system.UserTenant.class ,USER_ID, java.lang.String.class, "别名", "别名", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.system.UserTenant,java.lang.String> USER_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.system.UserTenant.class ,USER_ID, java.lang.String.class, "用户ID", "用户ID", java.lang.String.class, null);
 	
 	/**
-	 * 租户ID , 类型: java.lang.String
+	 * 所属的租户ID , 类型: java.lang.String
 	*/
-	public static final String TENANT_ID="tenantId";
+	public static final String OWNER_TENANT_ID="ownerTenantId";
 	
 	/**
-	 * 租户ID , 类型: java.lang.String
+	 * 所属的租户ID , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.system.UserTenant,java.lang.String> TENANT_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.system.UserTenant.class ,TENANT_ID, java.lang.String.class, "租户ID", "租户ID", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.system.UserTenant,java.lang.String> OWNER_TENANT_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.system.UserTenant.class ,OWNER_TENANT_ID, java.lang.String.class, "所属的租户ID", "所属的租户ID", java.lang.String.class, null);
 	
 	/**
 	 * 是否有效 , 类型: java.lang.Integer
@@ -64,6 +65,16 @@ public class UserTenantMeta {
 	 * 是否激活 , 激活时为当前默认租户 , 类型: java.lang.Integer
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.system.UserTenant,java.lang.Integer> ACTIVATED_PROP = new BeanProperty(org.github.foxnic.web.domain.system.UserTenant.class ,ACTIVATED, java.lang.Integer.class, "是否激活", "激活时为当前默认租户", java.lang.Integer.class, null);
+	
+	/**
+	 * 顺序 , 类型: java.lang.Integer
+	*/
+	public static final String SORT="sort";
+	
+	/**
+	 * 顺序 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.UserTenant,java.lang.Integer> SORT_PROP = new BeanProperty(org.github.foxnic.web.domain.system.UserTenant.class ,SORT, java.lang.Integer.class, "顺序", "顺序", java.lang.Integer.class, null);
 	
 	/**
 	 * 创建人ID , 类型: java.lang.String
@@ -146,9 +157,19 @@ public class UserTenantMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.system.UserTenant,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.system.UserTenant.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
+	 * 租户对象 , 类型: org.github.foxnic.web.domain.system.Tenant
+	*/
+	public static final String TENANT="tenant";
+	
+	/**
+	 * 租户对象 , 类型: org.github.foxnic.web.domain.system.Tenant
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.UserTenant,org.github.foxnic.web.domain.system.Tenant> TENANT_PROP = new BeanProperty(org.github.foxnic.web.domain.system.UserTenant.class ,TENANT, org.github.foxnic.web.domain.system.Tenant.class, "租户对象", "租户对象", org.github.foxnic.web.domain.system.Tenant.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , USER_ID , TENANT_ID , VALID , ACTIVATED , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , USER_ID , OWNER_TENANT_ID , VALID , ACTIVATED , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT };
 	
 	/**
 	 * 代理类
@@ -170,8 +191,8 @@ public class UserTenantMeta {
 		}
 		
 		/**
-		 * 设置 别名
-		 * @param userId 别名
+		 * 设置 用户ID
+		 * @param userId 用户ID
 		 * @return 当前对象
 		*/
 		public UserTenant setUserId(String userId) {
@@ -181,13 +202,13 @@ public class UserTenantMeta {
 		}
 		
 		/**
-		 * 设置 租户ID
-		 * @param tenantId 租户ID
+		 * 设置 所属的租户ID
+		 * @param ownerTenantId 所属的租户ID
 		 * @return 当前对象
 		*/
-		public UserTenant setTenantId(String tenantId) {
-			super.change(TENANT_ID,super.getTenantId(),tenantId);
-			super.setTenantId(tenantId);
+		public UserTenant setOwnerTenantId(String ownerTenantId) {
+			super.change(OWNER_TENANT_ID,super.getOwnerTenantId(),ownerTenantId);
+			super.setOwnerTenantId(ownerTenantId);
 			return this;
 		}
 		
@@ -210,6 +231,17 @@ public class UserTenantMeta {
 		public UserTenant setActivated(Integer activated) {
 			super.change(ACTIVATED,super.getActivated(),activated);
 			super.setActivated(activated);
+			return this;
+		}
+		
+		/**
+		 * 设置 顺序
+		 * @param sort 顺序
+		 * @return 当前对象
+		*/
+		public UserTenant setSort(Integer sort) {
+			super.change(SORT,super.getSort(),sort);
+			super.setSort(sort);
 			return this;
 		}
 		
@@ -298,6 +330,17 @@ public class UserTenantMeta {
 		public UserTenant setVersion(Integer version) {
 			super.change(VERSION,super.getVersion(),version);
 			super.setVersion(version);
+			return this;
+		}
+		
+		/**
+		 * 设置 租户对象
+		 * @param tenant 租户对象
+		 * @return 当前对象
+		*/
+		public UserTenant setTenant(Tenant tenant) {
+			super.change(TENANT,super.getTenant(),tenant);
+			super.setTenant(tenant);
 			return this;
 		}
 	}

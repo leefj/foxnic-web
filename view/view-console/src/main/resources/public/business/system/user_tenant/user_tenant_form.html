@@ -1,6 +1,6 @@
 <!-- 
 /**
- * 账户 列表页 JS 脚本
+ * 账户租户关系 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
  * @since 2021-08-25 17:20:49
  */
@@ -11,7 +11,7 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta charset="utf-8"/>
-	<title th:text="${lang.translate('账户')}">账户</title>
+	<title th:text="${lang.translate('账户租户关系')}">账户租户关系</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="/assets/libs/layui/css/layui.css" th:href="'/assets/libs/layui/css/layui.css?'+${cacheKey}"/>
     <link rel="stylesheet" href="/assets/css/admin.css" th:href="'/assets/css/admin.css?'+${cacheKey}"/>
@@ -20,6 +20,12 @@
     <link href="/assets/libs/font-awesome-4.7.0/css/font-awesome.min.css" th:href="@{/assets/libs/font-awesome-4.7.0/css/font-awesome.min.css}" rel="stylesheet"/>
     <script th:inline="javascript">var foxnic_cachekey=[[${cacheKey}]];</script>
     <style>
+        .layui-form-label-c1 {
+            width: 80px;
+        }
+        .layui-input-block-c1 {
+            margin-left: 115px;
+        }
     </style>
 </head>
 
@@ -41,77 +47,29 @@
 
 
                 <div class="layui-form-item" style="display: none")>
-                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('ID')}">ID</div></div>
+                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('主键')}">主键</div></div>
                     <div class="layui-input-block layui-input-block-c1">
-                        <input lay-filter="id" id="id" name="id" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('ID') }" type="text" class="layui-input"   />
-                    </div>
-                </div>
-
-
-                
-                <div class="layui-form-item" >
-                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('账户')}">账户</div><div class="layui-required">*</div></div>
-                    <div class="layui-input-block layui-input-block-c1">
-                        <input lay-filter="name" id="name" name="name" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('账户') }" type="text" class="layui-input"    lay-verify="|required"   />
+                        <input lay-filter="id" id="id" name="id" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('主键') }" type="text" class="layui-input"   />
                     </div>
                 </div>
 
 
                 
                 <div class="layui-form-item" style="display: none")>
-                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('密码')}">密码</div></div>
+                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('用户ID')}">用户ID</div></div>
                     <div class="layui-input-block layui-input-block-c1">
-                        <input lay-filter="passwd" id="passwd" name="passwd" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('密码') }" type="text" class="layui-input"   />
+                        <input lay-filter="userId" id="userId" name="userId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('用户ID') }" type="text" class="layui-input"   />
                     </div>
                 </div>
 
 
                 
-                <div class="layui-form-item" >
-                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('手机')}">手机</div><div class="layui-required">*</div></div>
-                    <div class="layui-input-block layui-input-block-c1">
-                        <input lay-filter="phone" id="phone" name="phone" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('手机') }" type="text" class="layui-input"    lay-verify="|required|phone"   />
+                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('所属租户')}">所属租户</div><div class="layui-required">*</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <div id="ownerTenantId" input-type="select" th:data="${'/service-system/sys-tenant/query-paged-list'}"></div>
+                        </div>
                     </div>
-                </div>
-
-
-                
-                <div class="layui-form-item" >
-                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('头像')}">头像</div></div>
-                    <div class="layui-upload layui-input-block layui-input-block-c1">
-                        <input input-type="upload" id="portraitId"  name="portraitId" lay-filter="portraitId" style="display: none">
-                        <button type="button" class="layui-btn" id="portraitId-button" th:text="${lang.translate('选择头像')}">选择头像</button>
-                        <div class="layui-upload-list" id="portraitId-file-list"></div>
-                    </div>
-                </div>
-
-
-
-                
-                <div class="layui-form-item" style="display: none")>
-                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('人员ID')}">人员ID</div></div>
-                    <div class="layui-input-block layui-input-block-c1">
-                        <input lay-filter="personId" id="personId" name="personId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('人员ID') }" type="text" class="layui-input"   />
-                    </div>
-                </div>
-
-
-                
-                <div class="layui-form-item" >
-                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('语言')}">语言</div></div>
-                    <div class="layui-input-block layui-input-block-c1">
-                        <input input-type="radio" type="radio" name="language" lay-filter="language" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.Language')}" th:value="${e.code}" th:title="${e.text}">
-                    </div>
-                </div>
-
-
-                
-                <div class="layui-form-item" style="display: none")>
-                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('员工ID')}">员工ID</div></div>
-                    <div class="layui-input-block layui-input-block-c1">
-                        <input lay-filter="employeeId" id="employeeId" name="employeeId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('员工ID') }" type="text" class="layui-input"   />
-                    </div>
-                </div>
 
 
                 
@@ -125,20 +83,21 @@
 
                 
                 <div class="layui-form-item" >
-                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('缓存键')}">缓存键</div></div>
+                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('默认')}">默认</div></div>
                     <div class="layui-input-block layui-input-block-c1">
-                        <input lay-filter="cacheKey" id="cacheKey" name="cacheKey" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('缓存键') }" type="text" class="layui-input"   />
+                        <input input-type="switch" type="checkbox" checked="" id="activated"  name="activated" lay-skin="switch" lay-filter="activated" lay-text="默认|可选&nbsp;" value="1">
                     </div>
                 </div>
 
 
                 
-                    <div class="layui-form-item" style="display: none")>
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('最后登录时间')}">最后登录时间</div></div>
+                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('顺序')}">顺序</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input input-type="date" lay-filter="lastLoginTime" id="lastLoginTime" name="lastLoginTime"  autocomplete="off"  readonly  th:placeholder="${ lang.translate('请选择') +''+ lang.translate('最后登录时间') }" type="text" class="layui-input"   />
+                            <input lay-filter="sort" id="sort" name="sort" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('顺序') }" type="text" class="layui-input"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0"   scale="0"/>
                         </div>
                     </div>
+
 
                 
                 <div class="layui-form-item" style="display: none")>
@@ -209,15 +168,6 @@
                     </div>
 
 
-                
-                    <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('角色')}">角色</div></div>
-                        <div class="layui-input-block layui-input-block-c1">
-                            <div id="roleIds" input-type="select" th:data="${'/service-oauth/sys-role/query-list'}"></div>
-                        </div>
-                    </div>
-
-
                 <!--结束：栏次内字段循环-->
             </div>
             <!--结束：栏次输入框循环-->
@@ -232,7 +182,7 @@
 </div>
 <div class="model-form-footer">
     <button class="layui-btn layui-btn-primary" id="cancel-button" lay-filter="cancel-button" type="button" th:text="${lang.translate('取消')}" >取消</button>
-    <button th:if="${perm.checkAnyAuth('sys_user:create','sys_user:update','sys_user:save')}" class="layui-btn" style="margin-right: 15px;display: none;"  id="submit-button" lay-filter="submit-button" lay-submit th:text="${lang.translate('保存')}">保存</button>
+    <button th:if="${perm.checkAnyAuth('sys_user_tenant:create','sys_user_tenant:update','sys_user_tenant:save')}" class="layui-btn" style="margin-right: 15px;display: none;"  id="submit-button" lay-filter="submit-button" lay-submit th:text="${lang.translate('保存')}">保存</button>
 </div>
 
 <script type="text/javascript" src="/module/global.js" th:src="'/module/global.js?'+${cacheKey}"></script>
@@ -243,17 +193,16 @@
 
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];
-    var RADIO_LANGUAGE_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.Language')}]];
-    var VALIDATE_CONFIG={"phone":{"phone":true,"labelInForm":"手机","inputType":"text_input","required":true},"name":{"labelInForm":"账户","inputType":"text_input","required":true}};
-    var AUTH_PREFIX="sys_user";
+    var VALIDATE_CONFIG={"ownerTenantId":{"labelInForm":"所属租户","inputType":"select_box","required":true}};
+    var AUTH_PREFIX="sys_user_tenant";
 
 
 </script>
 
 
 
-<script th:src="'/business/oauth/user/user_ext.js?'+${cacheKey}"></script>
-<script th:src="'/business/oauth/user/user_form.js?'+${cacheKey}"></script>
+<script th:src="'/business/system/user_tenant/user_tenant_ext.js?'+${cacheKey}"></script>
+<script th:src="'/business/system/user_tenant/user_tenant_form.js?'+${cacheKey}"></script>
 
 </body>
 </html>

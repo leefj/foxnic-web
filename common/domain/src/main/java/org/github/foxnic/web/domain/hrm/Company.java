@@ -1,13 +1,12 @@
-package org.github.foxnic.web.domain.system;
+package org.github.foxnic.web.domain.hrm;
 
 import com.github.foxnic.dao.entity.Entity;
 import javax.persistence.Table;
 import com.github.foxnic.sql.meta.DBTable;
-import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_TENANT;
+import org.github.foxnic.web.constants.db.FoxnicWeb.HRM_COMPANY;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
-import org.github.foxnic.web.domain.hrm.Company;
 import javax.persistence.Transient;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
@@ -17,17 +16,17 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-25 11:37:59
- * @sign 9ACE928334F985B010ED01BF6B00CC72
+ * @since 2021-08-25 11:31:03
+ * @sign 8F89633E87D01A32B427BE63BABF54BB
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
-@Table(name = "sys_tenant")
-public class Tenant extends Entity {
+@Table(name = "hrm_company")
+public class Company extends Entity {
 
 	private static final long serialVersionUID = 1L;
 
-	public static final DBTable TABLE =SYS_TENANT.$TABLE;
+	public static final DBTable TABLE =HRM_COMPANY.$TABLE;
 	
 	/**
 	 * 主键：主键
@@ -37,22 +36,22 @@ public class Tenant extends Entity {
 	private String id;
 	
 	/**
-	 * 别名：别名
+	 * 公司名称：公司名称
 	*/
-	@ApiModelProperty(required = false,value="别名" , notes = "别名")
-	private String alias;
+	@ApiModelProperty(required = false,value="公司名称" , notes = "公司名称")
+	private String name;
+	
+	/**
+	 * 社会信用代码：社会信用代码
+	*/
+	@ApiModelProperty(required = false,value="社会信用代码" , notes = "社会信用代码")
+	private String socialCreditCode;
 	
 	/**
 	 * 是否有效：是否有效
 	*/
 	@ApiModelProperty(required = false,value="是否有效" , notes = "是否有效")
 	private Integer valid;
-	
-	/**
-	 * 公司ID：公司ID
-	*/
-	@ApiModelProperty(required = false,value="公司ID" , notes = "公司ID")
-	private String companyId;
 	
 	/**
 	 * 创建人ID：创建人ID
@@ -103,12 +102,6 @@ public class Tenant extends Entity {
 	private Integer version;
 	
 	/**
-	 * 公司：租户对应的公司
-	*/
-	@ApiModelProperty(required = false,value="公司" , notes = "租户对应的公司")
-	private Company company;
-	
-	/**
 	 * 获得 主键<br>
 	 * 主键
 	 * @return 主键
@@ -122,27 +115,46 @@ public class Tenant extends Entity {
 	 * @param id 主键
 	 * @return 当前对象
 	*/
-	public Tenant setId(String id) {
+	public Company setId(String id) {
 		this.id=id;
 		return this;
 	}
 	
 	/**
-	 * 获得 别名<br>
-	 * 别名
-	 * @return 别名
+	 * 获得 公司名称<br>
+	 * 公司名称
+	 * @return 公司名称
 	*/
-	public String getAlias() {
-		return alias;
+	public String getName() {
+		return name;
 	}
 	
 	/**
-	 * 设置 别名
-	 * @param alias 别名
+	 * 设置 公司名称
+	 * @param name 公司名称
 	 * @return 当前对象
 	*/
-	public Tenant setAlias(String alias) {
-		this.alias=alias;
+	public Company setName(String name) {
+		this.name=name;
+		return this;
+	}
+	
+	/**
+	 * 获得 社会信用代码<br>
+	 * 社会信用代码
+	 * @return 社会信用代码
+	*/
+	public String getSocialCreditCode() {
+		return socialCreditCode;
+	}
+	
+	/**
+	 * 设置 社会信用代码
+	 * @param socialCreditCode 社会信用代码
+	 * @return 当前对象
+	*/
+	public Company setSocialCreditCode(String socialCreditCode) {
+		this.socialCreditCode=socialCreditCode;
 		return this;
 	}
 	
@@ -160,27 +172,8 @@ public class Tenant extends Entity {
 	 * @param valid 是否有效
 	 * @return 当前对象
 	*/
-	public Tenant setValid(Integer valid) {
+	public Company setValid(Integer valid) {
 		this.valid=valid;
-		return this;
-	}
-	
-	/**
-	 * 获得 公司ID<br>
-	 * 公司ID
-	 * @return 公司ID
-	*/
-	public String getCompanyId() {
-		return companyId;
-	}
-	
-	/**
-	 * 设置 公司ID
-	 * @param companyId 公司ID
-	 * @return 当前对象
-	*/
-	public Tenant setCompanyId(String companyId) {
-		this.companyId=companyId;
 		return this;
 	}
 	
@@ -198,7 +191,7 @@ public class Tenant extends Entity {
 	 * @param createBy 创建人ID
 	 * @return 当前对象
 	*/
-	public Tenant setCreateBy(String createBy) {
+	public Company setCreateBy(String createBy) {
 		this.createBy=createBy;
 		return this;
 	}
@@ -217,7 +210,7 @@ public class Tenant extends Entity {
 	 * @param createTime 创建时间
 	 * @return 当前对象
 	*/
-	public Tenant setCreateTime(Date createTime) {
+	public Company setCreateTime(Date createTime) {
 		this.createTime=createTime;
 		return this;
 	}
@@ -236,7 +229,7 @@ public class Tenant extends Entity {
 	 * @param updateBy 修改人ID
 	 * @return 当前对象
 	*/
-	public Tenant setUpdateBy(String updateBy) {
+	public Company setUpdateBy(String updateBy) {
 		this.updateBy=updateBy;
 		return this;
 	}
@@ -255,7 +248,7 @@ public class Tenant extends Entity {
 	 * @param updateTime 修改时间
 	 * @return 当前对象
 	*/
-	public Tenant setUpdateTime(Date updateTime) {
+	public Company setUpdateTime(Date updateTime) {
 		this.updateTime=updateTime;
 		return this;
 	}
@@ -274,7 +267,7 @@ public class Tenant extends Entity {
 	 * @param deleted 是否已删除
 	 * @return 当前对象
 	*/
-	public Tenant setDeleted(Integer deleted) {
+	public Company setDeleted(Integer deleted) {
 		this.deleted=deleted;
 		return this;
 	}
@@ -293,7 +286,7 @@ public class Tenant extends Entity {
 	 * @param deleteBy 删除人ID
 	 * @return 当前对象
 	*/
-	public Tenant setDeleteBy(String deleteBy) {
+	public Company setDeleteBy(String deleteBy) {
 		this.deleteBy=deleteBy;
 		return this;
 	}
@@ -312,7 +305,7 @@ public class Tenant extends Entity {
 	 * @param deleteTime 删除时间
 	 * @return 当前对象
 	*/
-	public Tenant setDeleteTime(Date deleteTime) {
+	public Company setDeleteTime(Date deleteTime) {
 		this.deleteTime=deleteTime;
 		return this;
 	}
@@ -331,34 +324,15 @@ public class Tenant extends Entity {
 	 * @param version 数据版本号
 	 * @return 当前对象
 	*/
-	public Tenant setVersion(Integer version) {
+	public Company setVersion(Integer version) {
 		this.version=version;
-		return this;
-	}
-	
-	/**
-	 * 获得 公司<br>
-	 * 租户对应的公司
-	 * @return 公司
-	*/
-	public Company getCompany() {
-		return company;
-	}
-	
-	/**
-	 * 设置 公司
-	 * @param company 公司
-	 * @return 当前对象
-	*/
-	public Tenant setCompany(Company company) {
-		this.company=company;
 		return this;
 	}
 
 	/**
 	 * 将自己转换成指定类型的PO
 	 * @param poType  PO类型
-	 * @return Tenant , 转换好的 Tenant 对象
+	 * @return Company , 转换好的 Company 对象
 	*/
 	@Transient
 	public <T extends Entity> T toPO(Class<T> poType) {
@@ -368,7 +342,7 @@ public class Tenant extends Entity {
 	/**
 	 * 将自己转换成任意指定类型
 	 * @param pojoType  Pojo类型
-	 * @return Tenant , 转换好的 PoJo 对象
+	 * @return Company , 转换好的 PoJo 对象
 	*/
 	@Transient
 	public <T> T toPojo(Class<T> pojoType) {
@@ -385,35 +359,35 @@ public class Tenant extends Entity {
 	}
 
 	/**
-	 * 将 Map 转换成 Tenant
-	 * @param tenantMap 包含实体信息的 Map 对象
-	 * @return Tenant , 转换好的的 Tenant 对象
+	 * 将 Map 转换成 Company
+	 * @param companyMap 包含实体信息的 Map 对象
+	 * @return Company , 转换好的的 Company 对象
 	*/
 	@Transient
-	public static Tenant createFrom(Map<String,Object> tenantMap) {
-		if(tenantMap==null) return null;
-		Tenant po = EntityContext.create(Tenant.class, tenantMap);
+	public static Company createFrom(Map<String,Object> companyMap) {
+		if(companyMap==null) return null;
+		Company po = EntityContext.create(Company.class, companyMap);
 		return po;
 	}
 
 	/**
-	 * 将 Pojo 转换成 Tenant
+	 * 将 Pojo 转换成 Company
 	 * @param pojo 包含实体信息的 Pojo 对象
-	 * @return Tenant , 转换好的的 Tenant 对象
+	 * @return Company , 转换好的的 Company 对象
 	*/
 	@Transient
-	public static Tenant createFrom(Object pojo) {
+	public static Company createFrom(Object pojo) {
 		if(pojo==null) return null;
-		Tenant po = EntityContext.create(Tenant.class,pojo);
+		Company po = EntityContext.create(Company.class,pojo);
 		return po;
 	}
 
 	/**
-	 * 创建一个 Tenant，等同于 new
-	 * @return Tenant 对象
+	 * 创建一个 Company，等同于 new
+	 * @return Company 对象
 	*/
 	@Transient
-	public static Tenant create() {
-		return EntityContext.create(Tenant.class);
+	public static Company create() {
+		return EntityContext.create(Company.class);
 	}
 }

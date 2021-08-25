@@ -1,7 +1,7 @@
 /**
  * 租户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-25 09:33:34
+ * @since 2021-08-25 17:20:49
  */
 
 
@@ -62,10 +62,10 @@ function ListPage() {
 				cols: [[
 					{ fixed: 'left',type: 'numbers' },
 					{ fixed: 'left',type:'checkbox' }
-					,{ field: 'id', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('主键') }
-					,{ field: 'alias', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('别名') }
-					,{ field: 'valid', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('是否有效') }
-					,{ field: 'companyId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('公司ID') }
+					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('主键') }
+					,{ field: 'alias', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('租户别名') }
+					,{ field: 'valid', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('是否有效'), templet: '#cell-tpl-valid'}
+					,{ field: 'companyId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('公司'), templet: function (d) { return fox.joinLabel(d.company,"name");}}
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return fox.dateFormat(d.createTime); }}
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
@@ -84,6 +84,8 @@ function ListPage() {
 					}:false
 				}
 			});
+			//绑定 Switch 切换事件
+			fox.bindSwitchEvent("cell-tpl-valid",moduleURL +'/update','id','valid',function(r){});
 			//绑定排序事件
 			table.on('sort(data-table)', function(obj){
 			  refreshTableData(obj.field,obj.type);
@@ -97,10 +99,9 @@ function ListPage() {
       */
 	function refreshTableData(sortField,sortType) {
 		var value = {};
-		value.id={ value: $("#id").val()};
-		value.alias={ value: $("#alias").val()};
-		value.valid={ value: $("#valid").val()};
-		value.companyId={ value: $("#companyId").val()};
+		value.alias={ value: $("#alias").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" "};
+		value.valid={ value: xmSelect.get("#valid",true).getValue("value"), label:xmSelect.get("#valid",true).getValue("nameStr") };
+		value.companyId={ value: xmSelect.get("#companyId",true).getValue("value"), fillBy:"company",field:"id", label:xmSelect.get("#companyId",true).getValue("nameStr") };
 		window.pageExt.list.beforeQuery && window.pageExt.list.beforeQuery(value);
 		var ps={searchField: "$composite", searchValue: JSON.stringify(value)};
 		if(sortField) {
@@ -135,6 +136,35 @@ function ListPage() {
 
 		fox.switchSearchRow(1);
 
+		//渲染 valid 搜索框
+		fox.renderSelectBox({
+			el: "valid",
+			size: "small",
+			radio: false
+		});
+		//渲染 companyId 下拉字段
+		fox.renderSelectBox({
+			el: "companyId",
+			radio: false,
+			size: "small",
+			filterable: true,
+			paging: true,
+			pageRemote: true,
+			toolbar: {show:true,showIcon:true,list:["CLEAR","REVERSE"]},
+			//转换数据
+			searchField: "name", //请自行调整用于搜索的字段名称
+			extraParam: {}, //额外的查询参数，Object 或是 返回 Object 的函数
+			transform: function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				var opts=[];
+				if(!data) return opts;
+				for (var i = 0; i < data.length; i++) {
+					if(!data[i]) continue;
+					opts.push({name:data[i].name,value:data[i].id});
+				}
+				return opts;
+			}
+		});
 		fox.renderSearchInputs();
 	}
 	

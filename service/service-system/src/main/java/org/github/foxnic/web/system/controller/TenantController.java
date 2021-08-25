@@ -33,6 +33,7 @@ import java.util.Map;
 import com.github.foxnic.dao.excel.ValidateResult;
 import java.io.InputStream;
 import org.github.foxnic.web.domain.system.meta.TenantMeta;
+import org.github.foxnic.web.domain.hrm.Company;
 import io.swagger.annotations.Api;
 import com.github.xiaoymin.knife4j.annotations.ApiSort;
 import io.swagger.annotations.ApiOperation;
@@ -48,7 +49,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 租户表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-25 09:33:34
+ * @since 2021-08-25 17:20:49
 */
 
 @Api(tags = "租户")
@@ -65,10 +66,10 @@ public class TenantController extends SuperController {
 	*/
 	@ApiOperation(value = "添加租户")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = TenantVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = TenantVOMeta.ALIAS , value = "别名" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = TenantVOMeta.VALID , value = "是否有效" , required = false , dataTypeClass=Integer.class),
-		@ApiImplicitParam(name = TenantVOMeta.COMPANY_ID , value = "公司ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = TenantVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "482900754319806464"),
+		@ApiImplicitParam(name = TenantVOMeta.ALIAS , value = "别名" , required = false , dataTypeClass=String.class , example = "中烨股份有限公司"),
+		@ApiImplicitParam(name = TenantVOMeta.VALID , value = "是否有效" , required = false , dataTypeClass=Integer.class , example = "1"),
+		@ApiImplicitParam(name = TenantVOMeta.COMPANY_ID , value = "公司ID" , required = false , dataTypeClass=String.class , example = "001"),
 	})
 	@ApiOperationSupport(order=1)
 	@NotNull(name = TenantVOMeta.ID)
@@ -85,7 +86,7 @@ public class TenantController extends SuperController {
 	*/
 	@ApiOperation(value = "删除租户")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = TenantVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class)
+		@ApiImplicitParam(name = TenantVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "482900754319806464")
 	})
 	@ApiOperationSupport(order=2)
 	@NotNull(name = TenantVOMeta.ID)
@@ -119,10 +120,10 @@ public class TenantController extends SuperController {
 	*/
 	@ApiOperation(value = "更新租户")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = TenantVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = TenantVOMeta.ALIAS , value = "别名" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = TenantVOMeta.VALID , value = "是否有效" , required = false , dataTypeClass=Integer.class),
-		@ApiImplicitParam(name = TenantVOMeta.COMPANY_ID , value = "公司ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = TenantVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "482900754319806464"),
+		@ApiImplicitParam(name = TenantVOMeta.ALIAS , value = "别名" , required = false , dataTypeClass=String.class , example = "中烨股份有限公司"),
+		@ApiImplicitParam(name = TenantVOMeta.VALID , value = "是否有效" , required = false , dataTypeClass=Integer.class , example = "1"),
+		@ApiImplicitParam(name = TenantVOMeta.COMPANY_ID , value = "公司ID" , required = false , dataTypeClass=String.class , example = "001"),
 	})
 	@ApiOperationSupport( order=4 , ignoreParameters = { TenantVOMeta.PAGE_INDEX , TenantVOMeta.PAGE_SIZE , TenantVOMeta.SEARCH_FIELD , TenantVOMeta.FUZZY_FIELD , TenantVOMeta.SEARCH_VALUE , TenantVOMeta.SORT_FIELD , TenantVOMeta.SORT_TYPE , TenantVOMeta.IDS } ) 
 	@NotNull(name = TenantVOMeta.ID)
@@ -139,10 +140,10 @@ public class TenantController extends SuperController {
 	*/
 	@ApiOperation(value = "保存租户")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = TenantVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = TenantVOMeta.ALIAS , value = "别名" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = TenantVOMeta.VALID , value = "是否有效" , required = false , dataTypeClass=Integer.class),
-		@ApiImplicitParam(name = TenantVOMeta.COMPANY_ID , value = "公司ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = TenantVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "482900754319806464"),
+		@ApiImplicitParam(name = TenantVOMeta.ALIAS , value = "别名" , required = false , dataTypeClass=String.class , example = "中烨股份有限公司"),
+		@ApiImplicitParam(name = TenantVOMeta.VALID , value = "是否有效" , required = false , dataTypeClass=Integer.class , example = "1"),
+		@ApiImplicitParam(name = TenantVOMeta.COMPANY_ID , value = "公司ID" , required = false , dataTypeClass=String.class , example = "001"),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { TenantVOMeta.PAGE_INDEX , TenantVOMeta.PAGE_SIZE , TenantVOMeta.SEARCH_FIELD , TenantVOMeta.FUZZY_FIELD , TenantVOMeta.SEARCH_VALUE , TenantVOMeta.SORT_FIELD , TenantVOMeta.SORT_TYPE , TenantVOMeta.IDS } )
 	@NotNull(name = TenantVOMeta.ID)
@@ -168,6 +169,8 @@ public class TenantController extends SuperController {
 	public Result<Tenant> getById(String id) {
 		Result<Tenant> result=new Result<>();
 		Tenant tenant=tenantService.getById(id);
+		// 关联出 公司 数据
+		tenantService.join(tenant,TenantMeta.COMPANY);
 		result.success(true).data(tenant);
 		return result;
 	}
@@ -198,10 +201,10 @@ public class TenantController extends SuperController {
 	*/
 	@ApiOperation(value = "查询租户")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = TenantVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = TenantVOMeta.ALIAS , value = "别名" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = TenantVOMeta.VALID , value = "是否有效" , required = false , dataTypeClass=Integer.class),
-		@ApiImplicitParam(name = TenantVOMeta.COMPANY_ID , value = "公司ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = TenantVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "482900754319806464"),
+		@ApiImplicitParam(name = TenantVOMeta.ALIAS , value = "别名" , required = false , dataTypeClass=String.class , example = "中烨股份有限公司"),
+		@ApiImplicitParam(name = TenantVOMeta.VALID , value = "是否有效" , required = false , dataTypeClass=Integer.class , example = "1"),
+		@ApiImplicitParam(name = TenantVOMeta.COMPANY_ID , value = "公司ID" , required = false , dataTypeClass=String.class , example = "001"),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { TenantVOMeta.PAGE_INDEX , TenantVOMeta.PAGE_SIZE } )
 	@SentinelResource(value = TenantServiceProxy.QUERY_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
@@ -219,10 +222,10 @@ public class TenantController extends SuperController {
 	*/
 	@ApiOperation(value = "分页查询租户")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = TenantVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = TenantVOMeta.ALIAS , value = "别名" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = TenantVOMeta.VALID , value = "是否有效" , required = false , dataTypeClass=Integer.class),
-		@ApiImplicitParam(name = TenantVOMeta.COMPANY_ID , value = "公司ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = TenantVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "482900754319806464"),
+		@ApiImplicitParam(name = TenantVOMeta.ALIAS , value = "别名" , required = false , dataTypeClass=String.class , example = "中烨股份有限公司"),
+		@ApiImplicitParam(name = TenantVOMeta.VALID , value = "是否有效" , required = false , dataTypeClass=Integer.class , example = "1"),
+		@ApiImplicitParam(name = TenantVOMeta.COMPANY_ID , value = "公司ID" , required = false , dataTypeClass=String.class , example = "001"),
 	})
 	@ApiOperationSupport(order=8)
 	@SentinelResource(value = TenantServiceProxy.QUERY_PAGED_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
@@ -230,6 +233,8 @@ public class TenantController extends SuperController {
 	public Result<PagedList<Tenant>> queryPagedList(TenantVO sample) {
 		Result<PagedList<Tenant>> result=new Result<>();
 		PagedList<Tenant> list=tenantService.queryPagedList(sample,sample.getPageSize(),sample.getPageIndex());
+		// 关联出 公司 数据
+		tenantService.join(list,TenantMeta.COMPANY);
 		result.success(true).data(list);
 		return result;
 	}

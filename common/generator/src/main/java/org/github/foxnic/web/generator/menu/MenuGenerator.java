@@ -17,8 +17,8 @@ import org.github.foxnic.web.domain.oauth.MenuResource;
 import org.github.foxnic.web.domain.oauth.Resourze;
 import org.github.foxnic.web.domain.oauth.RoleMenu;
 import org.github.foxnic.web.generator.config.FoxnicWebConfigs;
-import org.github.foxnic.web.hrm.page.EmployeePageController;
-import org.github.foxnic.web.proxy.hrm.EmployeeServiceProxy;
+import org.github.foxnic.web.hrm.page.CompanyPageController;
+import org.github.foxnic.web.proxy.hrm.CompanyServiceProxy;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.File;
@@ -89,11 +89,17 @@ public class MenuGenerator {
 //		mg=new MenuGenerator(FoxnicWeb.HRM_PERSON.$TABLE, PersonServiceProxy.class, PersonPageController.class);
 //		mg.generate("hrm");
 
-		mg=new MenuGenerator(FoxnicWeb.HRM_EMPLOYEE.$TABLE, EmployeeServiceProxy.class, EmployeePageController.class);
+//		mg=new MenuGenerator(FoxnicWeb.HRM_EMPLOYEE.$TABLE, EmployeeServiceProxy.class, EmployeePageController.class);
+//		mg.generate("hrm");
+
+//		mg=new MenuGenerator(FoxnicWeb.SYS_TENANT.$TABLE, TenantServiceProxy.class, TenantPageController.class);
+//		mg.generate("system_config");
+
+//		mg=new MenuGenerator(FoxnicWeb.SYS_USER_TENANT.$TABLE, UserTenantServiceProxy.class, UserTenantPageController.class);
+//		mg.generate("system_config");
+
+		mg=new MenuGenerator(FoxnicWeb.HRM_COMPANY.$TABLE, CompanyServiceProxy.class, CompanyPageController.class);
 		mg.generate("hrm");
-
-
-
 
 
 

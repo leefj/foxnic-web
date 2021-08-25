@@ -36,7 +36,7 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.*;
  * 账户租户关系表 服务实现
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-25 09:33:33
+ * @since 2021-08-25 17:20:49
 */
 
 
@@ -260,11 +260,11 @@ public class UserTenantServiceImpl extends SuperService<UserTenant> implements I
 
 	/**
      * 保存关系
-     * @param userId 别名
-     * @param tenantIds 租户ID清单
+     * @param userId 用户ID
+     * @param ownerTenantIds 所属的租户ID清单
      */
-	public void saveRelation(String userId,List<String> tenantIds) {
-		super.saveRelation(SYS_USER_TENANT.USER_ID,userId, SYS_USER_TENANT.TENANT_ID,tenantIds,true);
+	public void saveRelation(String userId,List<String> ownerTenantIds) {
+		super.saveRelation(SYS_USER_TENANT.USER_ID,userId, SYS_USER_TENANT.OWNER_TENANT_ID,ownerTenantIds,true);
 	}
 
 }

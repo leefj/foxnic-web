@@ -25,7 +25,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             admin.putTempData("dictId",data.id,true);
             admin.putTempData("dictCode",data.code,true);
             var index = admin.popupCenter({
-                title: "条目",
+                title: data.name+"的字典条目",
                 resize: false,
                 id: 'dictItemsWindow',
                 area: ["800px", "600px"],

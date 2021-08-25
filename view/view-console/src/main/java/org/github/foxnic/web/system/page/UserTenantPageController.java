@@ -6,23 +6,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.github.foxnic.web.proxy.system.TenantServiceProxy;
+import org.github.foxnic.web.proxy.system.UserTenantServiceProxy;
 import javax.servlet.http.HttpServletRequest;
 /**
  * <p>
- * 租户表 模版页面控制器
+ * 账户租户关系表 模版页面控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-25 17:20:49
+ * @since 2021-08-25 14:49:44
 */
 
-@Controller("SysTenantPageController")
-@RequestMapping(TenantPageController.prefix)
-public class TenantPageController extends ViewController {
+@Controller("SysUserTenantPageController")
+@RequestMapping(UserTenantPageController.prefix)
+public class UserTenantPageController extends ViewController {
 	
-	public static final String prefix="business/system/tenant";
+	public static final String prefix="business/system/user_tenant";
 
-	private TenantServiceProxy proxy;
+	private UserTenantServiceProxy proxy;
 	
 	/**
 	 * 获得代理对象<br> 
@@ -30,26 +30,26 @@ public class TenantPageController extends ViewController {
 	 * 2、前后端分离时，通过配置，以Rest方式调用后端；<br> 
 	 * 3、微服务时，通过feign调用; <br> 
 	 * */
-	public TenantServiceProxy proxy() {
+	public UserTenantServiceProxy proxy() {
 		if(proxy==null) {
-			proxy=TenantServiceProxy.api();
+			proxy=UserTenantServiceProxy.api();
 		}
 		return proxy;
 	}
 	
 	/**
-	 * 租户 功能主页面
+	 * 账户租户关系 功能主页面
 	 */
-	@RequestMapping("/tenant_list.html")
+	@RequestMapping("/user_tenant_list.html")
 	public String list(Model model,HttpServletRequest request) {
-		return prefix+"/tenant_list";
+		return prefix+"/user_tenant_list";
 	}
 
 	/**
-	 * 租户 表单页面
+	 * 账户租户关系 表单页面
 	 */
-	@RequestMapping("/tenant_form.html")
+	@RequestMapping("/user_tenant_form.html")
 	public String form(Model model,HttpServletRequest request , String id) {
-		return prefix+"/tenant_form";
+		return prefix+"/user_tenant_form";
 	}
 }

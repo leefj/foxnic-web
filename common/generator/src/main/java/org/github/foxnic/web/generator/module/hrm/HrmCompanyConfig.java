@@ -1,24 +1,17 @@
 package org.github.foxnic.web.generator.module.hrm;
 
-import com.github.foxnic.generator.builder.model.PoClassFile;
-import com.github.foxnic.generator.builder.model.VoClassFile;
 import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
-import org.github.foxnic.web.constants.db.FoxnicWeb.HRM_EMPLOYEE;
-import org.github.foxnic.web.domain.hrm.Person;
+import org.github.foxnic.web.constants.db.FoxnicWeb.HRM_COMPANY;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
-public class EmployeeConfig extends BaseCodeConfig<HRM_EMPLOYEE> {
+public class HrmCompanyConfig extends BaseCodeConfig<HRM_COMPANY> {
 
-    public EmployeeConfig() {
-        super(PREFIX_HRM, HRM_EMPLOYEE.$TABLE,"hrm_", 4);
+    public HrmCompanyConfig() {
+        super(PREFIX_HRM, HRM_COMPANY.$TABLE,"hrm_", 4);
     }
 
-    @Override
-    public void configModel(PoClassFile poType, VoClassFile voType) {
-        poType.setSuperType(Person.class);
-    }
 
     @Override
     public void configSearch(ViewOptions view, SearchAreaOptions search) {
@@ -27,11 +20,14 @@ public class EmployeeConfig extends BaseCodeConfig<HRM_EMPLOYEE> {
 
     @Override
     public void configFields(ViewOptions view) {
-//        view.field(SYS_CODE_EXAMPLE_STUDENT.ID).basic().hidden();
-//        view.field(SYS_CODE_EXAMPLE_STUDENT.EXAMPLE_ID)
-//                .basic().hidden();
-    }
 
+        view.form().labelWidth(100);
+
+        view.field(HRM_COMPANY.ID).basic().hidden();
+        view.field(HRM_COMPANY.NAME).search().fuzzySearch();
+        view.field(HRM_COMPANY.VALID).form().logicField().on("有效",1).off("无效",0);
+
+    }
     @Override
     public void configOverrides() {
         this.context.overrides()

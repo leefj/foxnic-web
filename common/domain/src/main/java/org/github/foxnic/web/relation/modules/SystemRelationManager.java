@@ -3,6 +3,8 @@ package org.github.foxnic.web.relation.modules;
 import com.github.foxnic.dao.relation.RelationManager;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.domain.system.meta.DictMeta;
+import org.github.foxnic.web.domain.system.meta.TenantMeta;
+import org.github.foxnic.web.domain.system.meta.UserTenantMeta;
 
 public class SystemRelationManager extends RelationManager {
 
@@ -22,8 +24,13 @@ public class SystemRelationManager extends RelationManager {
 		this.property(DictMeta.ITEMS_PROP)
 				.using(FoxnicWeb.SYS_DICT.ID).join(FoxnicWeb.SYS_DICT_ITEM.DICT_ID);
 
+		//租户 - 公司关联关系
+		this.property(TenantMeta.COMPANY_PROP)
+				.using(FoxnicWeb.SYS_TENANT.COMPANY_ID).join(FoxnicWeb.HRM_COMPANY.ID);
 
-
+		//用户所属租户 -租户关联关系
+		this.property(UserTenantMeta.TENANT_PROP)
+				.using(FoxnicWeb.SYS_USER_TENANT.OWNER_TENANT_ID).join(FoxnicWeb.SYS_TENANT.ID);
 
 	}
 

@@ -1,7 +1,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-24 16:22:14
+ * @since 2021-08-25 13:42:04
  */
 
 layui.config({
@@ -45,7 +45,18 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
         moreAction:function (menu,data, it){
             console.log('moreAction',menu,data,it);
         },
-        other:function(){
+        openTenantOwner:function (data){
+            admin.putTempData("userId",data.id,true);
+            var index = admin.popupCenter({
+                title: data.name+"的所属租户",
+                resize: false,
+                id: 'userTenantWindow',
+                area: ["800px", "600px"],
+                type: 2,
+                content: "/business/system/user_tenant/user_tenant_list.html"
+            });
+        },
+        other:function() {
 
         }
     }

@@ -1,10 +1,18 @@
 package org.github.foxnic.web.generator.module.system;
 
+import com.github.foxnic.generator.builder.model.PoClassFile;
+import com.github.foxnic.generator.builder.model.VoClassFile;
+import com.github.foxnic.generator.builder.view.option.FormOptions;
+import com.github.foxnic.generator.builder.view.option.ListOptions;
 import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_TENANT;
+import org.github.foxnic.web.domain.hrm.Company;
+import org.github.foxnic.web.domain.hrm.meta.CompanyMeta;
+import org.github.foxnic.web.domain.system.meta.TenantMeta;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
+import org.github.foxnic.web.proxy.hrm.CompanyServiceProxy;
 
 public class TenantConfig extends BaseCodeConfig<SYS_TENANT> {
 
@@ -12,6 +20,10 @@ public class TenantConfig extends BaseCodeConfig<SYS_TENANT> {
         super(PREFIX_SYSTEM, SYS_TENANT.$TABLE,"sys_", 4);
     }
 
+    @Override
+    public void configModel(PoClassFile poType, VoClassFile voType) {
+        poType.addSimpleProperty(Company.class,"company","公司","租户对应的公司");
+    }
 
     @Override
     public void configSearch(ViewOptions view, SearchAreaOptions search) {
@@ -20,9 +32,29 @@ public class TenantConfig extends BaseCodeConfig<SYS_TENANT> {
 
     @Override
     public void configFields(ViewOptions view) {
-//        view.field(SYS_CODE_EXAMPLE_STUDENT.ID).basic().hidden();
-//        view.field(SYS_CODE_EXAMPLE_STUDENT.EXAMPLE_ID)
-//                .basic().hidden();
+        view.field(SYS_TENANT.ID).basic().hidden();
+        view.field(SYS_TENANT.COMPANY_ID).basic().label("公司")
+                .form().selectBox()
+                .queryApi(CompanyServiceProxy.QUERY_PAGED_LIST).paging(true).size(10)
+                .textField(CompanyMeta.NAME).valueField(CompanyMeta.ID).fillBy(TenantMeta.COMPANY)
+                .search().inputWidth(200)
+                .table().fillBy(TenantMeta.COMPANY,CompanyMeta.NAME)
+        ;
+        view.field(SYS_TENANT.VALID).form().logicField().off("无效",0).on("有效",1);
+        //
+        view.field(SYS_TENANT.ALIAS)
+                .basic().label("租户别名")
+                .search().fuzzySearch();
+    }
+
+    @Override
+    public void configList(ViewOptions view, ListOptions list) {
+
+    }
+
+    @Override
+    public void configForm(ViewOptions view, FormOptions form) {
+        super.configForm(view, form);
     }
 
     @Override
