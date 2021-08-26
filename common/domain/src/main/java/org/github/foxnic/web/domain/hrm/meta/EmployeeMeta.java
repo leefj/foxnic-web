@@ -10,8 +10,8 @@ import org.github.foxnic.web.domain.hrm.Company;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-26 16:31:25
- * @sign 34A58447EDEB9EF96DF1234EAF863ABA
+ * @since 2021-08-26 20:50:10
+ * @sign 4981EDA388615A41983B8FA43A99137B
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -56,6 +56,16 @@ public class EmployeeMeta {
 	 * 公司ID , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Employee,java.lang.String> COMPANY_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Employee.class ,COMPANY_ID, java.lang.String.class, "公司ID", "公司ID", java.lang.String.class, null);
+	
+	/**
+	 * 对否开通账号 , 类型: java.lang.Integer
+	*/
+	public static final String KEEP_ACCOUNT="keepAccount";
+	
+	/**
+	 * 对否开通账号 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Employee,java.lang.Integer> KEEP_ACCOUNT_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Employee.class ,KEEP_ACCOUNT, java.lang.Integer.class, "对否开通账号", "对否开通账号", java.lang.Integer.class, null);
 	
 	/**
 	 * 创建人ID , 类型: java.lang.String
@@ -170,7 +180,7 @@ public class EmployeeMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , BADGE , PERSON_ID , COMPANY_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , PERSON , COMPANY , NAME_AND_BADGE };
+	public static final String[] $PROPS={ ID , BADGE , PERSON_ID , COMPANY_ID , KEEP_ACCOUNT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , PERSON , COMPANY , NAME_AND_BADGE };
 	
 	/**
 	 * 代理类
@@ -221,6 +231,17 @@ public class EmployeeMeta {
 		public Employee setCompanyId(String companyId) {
 			super.change(COMPANY_ID,super.getCompanyId(),companyId);
 			super.setCompanyId(companyId);
+			return this;
+		}
+		
+		/**
+		 * 设置 对否开通账号
+		 * @param keepAccount 对否开通账号
+		 * @return 当前对象
+		*/
+		public Employee setKeepAccount(Integer keepAccount) {
+			super.change(KEEP_ACCOUNT,super.getKeepAccount(),keepAccount);
+			super.setKeepAccount(keepAccount);
 			return this;
 		}
 		

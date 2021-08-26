@@ -1,7 +1,7 @@
 /**
  * 员工 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-26 17:26:53
+ * @since 2021-08-26 20:56:41
  */
 
 function FormPage() {
@@ -170,6 +170,8 @@ function FormPage() {
 	function getFormData() {
 		var data=form.val("data-form");
 
+		//处理 账号 默认值
+		if(!data.keepAccount) data.keepAccount=0;
 
 
 		//获取 所属公司 下拉框的值

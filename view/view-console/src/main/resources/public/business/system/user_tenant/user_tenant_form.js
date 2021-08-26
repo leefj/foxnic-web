@@ -1,7 +1,7 @@
 /**
  * 账户租户关系 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-26 15:35:43
+ * @since 2021-08-26 20:46:11
  */
 
 function FormPage() {
@@ -149,13 +149,12 @@ function FormPage() {
 			//设置  工号 设置下拉框勾选
 			fox.setSelectValue4QueryApi("#employeeId",formData.employee);
 
-
-
+			//处理fillBy
 
 	     	fm.attr('method', 'POST');
 	     	renderFormFields();
 
-		window.pageExt.form.afterDataFill && window.pageExt.form.afterDataFill(formData);
+			window.pageExt.form.afterDataFill && window.pageExt.form.afterDataFill(formData);
 
 		}
 

@@ -302,7 +302,7 @@
             <!--结束：栏次输入框循环-->
         </div>
         <!--结束：group循环-->
-
+        <div style="height: 8px"></div>
         <div style="height: 8px"></div>
 
 
@@ -320,6 +320,7 @@
 <script type="text/javascript" src="/assets/libs/layui/layui.js" th:src="'/assets/libs/layui/layui.js?'+${cacheKey}"></script>
 
 <script th:inline="javascript">
+
     var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];
     var RADIO_RADIOENUM_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.Language')}]];
     var RADIO_RADIODICT_DATA = [[${dict.toArray('sex')}]];

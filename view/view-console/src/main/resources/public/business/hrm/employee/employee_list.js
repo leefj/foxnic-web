@@ -1,7 +1,7 @@
 /**
  * 员工 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-26 17:26:52
+ * @since 2021-08-26 20:56:41
  */
 
 
@@ -65,6 +65,7 @@ function ListPage() {
 				cols: [[
 					{ fixed: 'left',type: 'numbers' },
 					{ fixed: 'left',type:'checkbox' }
+					,{ field: 'keepAccount', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('账号'), templet: '#cell-tpl-keepAccount'}
 					,{ field: 'companyId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('所属公司'), templet: function (d) { return fox.joinLabel(d.company,"name");}}
 					,{ field: 'badge', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('工号') }
 					,{ field: 'name', align:"",fixed:false,  hide:false, sort: true, title: fox.translate('姓名') , templet: function (d) { return fox.getProperty(d,["person","name"]);}  }
@@ -89,6 +90,8 @@ function ListPage() {
 					}:false
 				}
 			});
+			//绑定 Switch 切换事件
+			fox.bindSwitchEvent("cell-tpl-keepAccount",moduleURL +'/update','id','keepAccount',function(r){});
 			//绑定排序事件
 			table.on('sort(data-table)', function(obj){
 			  refreshTableData(obj.field,obj.type);
@@ -104,8 +107,8 @@ function ListPage() {
 		var value = {};
 		value.badge={ value: $("#badge").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" "};
 		value.companyId={ value: $("#companyId").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"", fillBy:"company",field:"name" };
+		value.keepAccount={ value: xmSelect.get("#keepAccount",true).getValue("value"), label:xmSelect.get("#keepAccount",true).getValue("nameStr") };
 		value.name={ value: $("#name").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" ",fillBy:["person","name"] };
-		value.identity={ value: $("#identity").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" ",fillBy:["person","identity"] };
 		window.pageExt.list.beforeQuery && window.pageExt.list.beforeQuery(value);
 		var ps={searchField: "$composite", searchValue: JSON.stringify(value)};
 		if(sortField) {
@@ -162,6 +165,12 @@ function ListPage() {
 				}
 				return opts;
 			}
+		});
+		//渲染 keepAccount 搜索框
+		fox.renderSelectBox({
+			el: "keepAccount",
+			size: "small",
+			radio: false
 		});
 		fox.renderSearchInputs();
 	}

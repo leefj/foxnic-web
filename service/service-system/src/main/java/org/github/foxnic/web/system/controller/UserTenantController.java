@@ -5,6 +5,7 @@ import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.api.validate.annotations.NotNull;
+import com.github.foxnic.commons.collection.CollectorUtil;
 import com.github.foxnic.commons.io.StreamUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
@@ -17,6 +18,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.github.foxnic.web.domain.hrm.Employee;
 import org.github.foxnic.web.domain.hrm.Person;
 import org.github.foxnic.web.domain.system.UserTenant;
 import org.github.foxnic.web.domain.system.UserTenantVO;
@@ -44,7 +46,7 @@ import java.util.Map;
  * </p>
  * @author 李方捷 , leefangjie@qq.com
  * @since 2021-08-26 15:18:47
- * @auto-code false
+ * @version
 */
 
 @Api(tags = "账户租户关系")
@@ -251,6 +253,10 @@ public class UserTenantController extends SuperController {
 		userTenantService.join(list,UserTenantMeta.TENANT);
 		// 关联出 工号 数据
 		userTenantService.join(list,UserTenantMeta.EMPLOYEE);
+		//
+		List<Employee> employees= CollectorUtil.collectList(list, UserTenant::getEmployee);
+		userTenantService.dao().join(employees,Person.class);
+
 		result.success(true).data(list);
 		return result;
 	}

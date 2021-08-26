@@ -62,11 +62,18 @@ public class HrmEmployeeConfig extends BaseCodeConfig<HRM_EMPLOYEE> {
             .search().fuzzySearch();
 
         view.field(PersonMeta.IDENTITY).basic().label("身份证")
-                .search().fuzzySearch()
+                .search().hidden()
                 .table().fillBy(EmployeeMeta.PERSON, PersonMeta.IDENTITY)
                 .form().fillBy(EmployeeMeta.PERSON, PersonMeta.IDENTITY)
                 .form().validate().required().identity()
         ;
+
+
+
+        view.field(HRM_EMPLOYEE.KEEP_ACCOUNT).basic().label("账号")
+        .form().hidden()
+        .form().logicField().off("关闭",0).on("开通",1);
+
     }
 
     @Override
@@ -77,8 +84,7 @@ public class HrmEmployeeConfig extends BaseCodeConfig<HRM_EMPLOYEE> {
 
     @Override
     public void configList(ViewOptions view, ListOptions list) {
-        list.columnLayout(HRM_EMPLOYEE.COMPANY_ID,HRM_EMPLOYEE.BADGE,personNameField,HRM_EMPLOYEE.CREATE_TIME);
-        list.operationColumn().addActionButton("创建账号","createUser");
+        list.columnLayout(HRM_EMPLOYEE.KEEP_ACCOUNT,HRM_EMPLOYEE.COMPANY_ID,HRM_EMPLOYEE.BADGE,personNameField,HRM_EMPLOYEE.CREATE_TIME);
     }
 
     @Override

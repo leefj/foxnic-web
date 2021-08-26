@@ -30,14 +30,23 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 $("#"+id).attr("data",url);
             }
         },
-        renderSelectBox: function (cfg) {
+        selectBoxConfigs:{},
+        renderSelectBox: function (cfg,rerender) {
             var me=this;
             var inst = null;
             //不重复渲染
-            if (xmSelect.get(cfg.el, true) != null) return;
+            if (!rerender && xmSelect.get(cfg.el, true) != null) return;
             if (!cfg.el.startWith("#")) cfg.el = "#" + cfg.el;
+            if(!rerender) {
+                this.selectBoxConfigs[cfg.el]=cfg;
+            } else {
+                cfg=this.selectBoxConfigs[cfg.el];
+            }
             var el = $(cfg.el);
             if (!cfg.searchTips) cfg.searchTips = "请输入关键字";
+            if(cfg.radio && cfg.clickClose==null) {
+                cfg.clickClose=true;
+            }
             var data = el.attr("data");
             var url = null;
             try {
@@ -144,12 +153,37 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 }
             }, 500);
             this.selectBoxInstances[cfg.el]=inst;
-            inst.getAllData=function (){
+            /**
+             * 获得全部数据
+             * */
+            inst.getAllData=function () {
                 if(inst.currentData!=null) return inst.currentData;
                 else return inst.options.data;
             }
+            /**
+             * 根据 value 获得原始数据
+             * */
+            inst.getDataByValue=function (valueField,value){
+                var all=inst.getAllData();
+                for (var i = 0; i < all.length; i++) {
+                    if(all[i][valueField]==value) return all[i];
+                }
+                return null;
+            }
             inst.setUrl =function (url) {
-                el.attr("data",url)
+                el.attr("data",url);
+                inst.refresh();
+            }
+            inst.refresh=function (param) {
+                if(param) {
+                    inst.setExtraParam(param);
+                }
+                fox.renderSelectBox({
+                    el:cfg.el
+                },true);
+            }
+            inst.setExtraParam=function (param) {
+                cfg.extraParam = param;
             }
             return inst;
         },
@@ -988,13 +1022,14 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 admin.request(updateApiUrl, data, function (data) {
                     layer.closeAll('loading');
                     if (data.success) {
-                        layer.msg(data.message, {icon: 1, time: 500});
+                        //layer.msg(data.message, {icon: 1, time: 500});
+                        admin.toast().success(data.message,{time:1000,position:"right-bottom"})
                     } else {
-                        layer.msg(data.message, {icon: 2, time: 500});
+                        layer.msg(data.message, {icon: 2, time: 3000});
                         $(obj.elem).prop('checked', !obj.elem.checked);
                         form.render('checkbox');
                     }
-                    callback && callback(data);
+                    callback && callback(data,obj);
                 }, 'POST');
             });
         },

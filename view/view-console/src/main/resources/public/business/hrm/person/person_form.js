@@ -1,7 +1,7 @@
 /**
  * 人员 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-26 15:35:44
+ * @since 2021-08-26 19:22:05
  */
 
 function FormPage() {
@@ -101,13 +101,12 @@ function FormPage() {
 
 
 
-
-
+			//处理fillBy
 
 	     	fm.attr('method', 'POST');
 	     	renderFormFields();
 
-		window.pageExt.form.afterDataFill && window.pageExt.form.afterDataFill(formData);
+			window.pageExt.form.afterDataFill && window.pageExt.form.afterDataFill(formData);
 
 		}
 

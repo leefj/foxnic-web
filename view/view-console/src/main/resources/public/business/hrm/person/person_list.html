@@ -2,7 +2,7 @@
 /**
  * 人员 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-26 15:35:44
+ * @since 2021-08-26 19:22:05
  */
  -->
  <!DOCTYPE html>
@@ -48,6 +48,11 @@
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('性别')}" class="search-label sex-label">性别</span><span class="search-colon">:</span></div>
                         <input id="sex" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 来源 , source ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('来源')}" class="search-label source-label">来源</span><span class="search-colon">:</span></div>
+                        <input id="source" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
                     <!-- 身份证号码 , identity ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">

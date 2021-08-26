@@ -1,26 +1,23 @@
 package org.github.foxnic.web.domain.hrm;
 
-import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.dao.entity.Entity;
-import com.github.foxnic.dao.entity.EntityContext;
-import com.github.foxnic.sql.meta.DBTable;
-import io.swagger.annotations.ApiModelProperty;
-import org.github.foxnic.web.constants.db.FoxnicWeb.HRM_PERSON;
-
-import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+import com.github.foxnic.sql.meta.DBTable;
+import org.github.foxnic.web.constants.db.FoxnicWeb.HRM_PERSON;
+import javax.persistence.Id;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
-import java.util.List;
+import javax.persistence.Transient;
 import java.util.Map;
+import com.github.foxnic.dao.entity.EntityContext;
 
 
 
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-24 15:35:46
- * @sign 9E16B93FCEF3608A2A3B1E23327FF41F
+ * @since 2021-08-26 19:22:05
+ * @sign 3029E40C049438C78F9853C55AD1C87E
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -51,9 +48,15 @@ public class Person extends Entity {
 	private String sex;
 	
 	/**
+	 * 来源：PersonSource枚举
+	*/
+	@ApiModelProperty(required = true,value="来源" , notes = "PersonSource枚举")
+	private String source;
+	
+	/**
 	 * 身份证号码：身份证号码
 	*/
-	@ApiModelProperty(required = false,value="身份证号码" , notes = "身份证号码")
+	@ApiModelProperty(required = true,value="身份证号码" , notes = "身份证号码")
 	private String identity;
 	
 	/**
@@ -158,6 +161,25 @@ public class Person extends Entity {
 	*/
 	public Person setSex(String sex) {
 		this.sex=sex;
+		return this;
+	}
+	
+	/**
+	 * 获得 来源<br>
+	 * PersonSource枚举
+	 * @return 来源
+	*/
+	public String getSource() {
+		return source;
+	}
+	
+	/**
+	 * 设置 来源
+	 * @param source 来源
+	 * @return 当前对象
+	*/
+	public Person setSource(String source) {
+		this.source=source;
 		return this;
 	}
 	
@@ -393,6 +415,4 @@ public class Person extends Entity {
 	public static Person create() {
 		return EntityContext.create(Person.class);
 	}
-
-
 }

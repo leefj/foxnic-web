@@ -2,7 +2,7 @@
 /**
  * 员工 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-26 17:26:53
+ * @since 2021-08-26 20:56:41
  */
  -->
  <!DOCTYPE html>
@@ -44,15 +44,15 @@
                         <div class="search-label-div" style=""><span th:text="${lang.translate('所属公司')}" class="search-label companyId-label">所属公司</span><span class="search-colon">:</span></div>
                          <input id="companyId" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
+                    <!-- 账号 , keepAccount ,typeName=logic_switch, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('账号')}" class="search-label keepAccount-label">账号</span><span class="search-colon">:</span></div>
+                        <div id="keepAccount" data='[{"name":"开通","value":"1"},{"name":"关闭","value":"0"}]' style="width:140px"></div>
+                    </div>
                     <!-- 姓名 , name ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('姓名')}" class="search-label name-label">姓名</span><span class="search-colon">:</span></div>
                         <input id="name" class="layui-input search-input" style="width: 140px" type="text" />
-                    </div>
-                    <!-- 身份证 , identity ,typeName=text_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('身份证')}" class="search-label identity-label">身份证</span><span class="search-colon">:</span></div>
-                        <input id="identity" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
 
 
@@ -100,6 +100,10 @@
 
 </script>
 
+<!-- 表格状态列 -->
+<script type="text/html" id="cell-tpl-keepAccount">
+    <input type="checkbox" lay-filter="cell-tpl-keepAccount" value="{{d.id}}" lay-skin="switch" lay-text="开通|关闭&nbsp;"  {{d.keepAccount==1?'checked':''}}/>
+</script>
 
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${pageHelper.getTableColumnWidthConfig('data-table')}]];

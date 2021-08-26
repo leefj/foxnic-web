@@ -15,6 +15,7 @@ import com.github.foxnic.dao.excel.ValidateResult;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
+import org.github.foxnic.web.constants.enums.PersonSource;
 import org.github.foxnic.web.domain.hrm.Employee;
 import org.github.foxnic.web.domain.hrm.Person;
 import org.github.foxnic.web.framework.dao.DBConfigs;
@@ -37,7 +38,7 @@ import java.util.List;
  * </p>
  * @author 李方捷 , leefangjie@qq.com
  * @since 2021-08-26 16:34:10
- * @auto-code false
+ * @version
 */
 
 
@@ -73,6 +74,7 @@ public class EmployeeServiceImpl extends SuperService<Employee> implements IEmpl
 	@Transactional
 	public Result insert(Employee employee) {
 		Person person= BeanUtil.copy(employee,Person.create(),false);
+		person.setSource(PersonSource.employee.code());
 		Result r = personService.insert(person);
 		if(r.success()) {
 			employee.setPersonId(person.getId());
@@ -165,11 +167,14 @@ public class EmployeeServiceImpl extends SuperService<Employee> implements IEmpl
 	@Override
 	@Transactional
 	public Result update(Employee employee , SaveMode mode) {
-		Person person= personService.getById(employee.getPersonId());
-		BeanUtil.copyDiff(employee,person,false);
-		person.setId(employee.getPersonId());
-		Result r = personService.updateDirtyFields(person);
-		if(r.success()) {
+		Result r=null;
+		if(employee.getPersonId()!=null) {
+			Person person = personService.getById(employee.getPersonId());
+			BeanUtil.copyDiff(employee, person, false);
+			person.setId(employee.getPersonId());
+			r = personService.updateDirtyFields(person);
+		}
+		if(r==null || r.success()) {
 			r = super.update(employee, mode);
 		}
 		return r;

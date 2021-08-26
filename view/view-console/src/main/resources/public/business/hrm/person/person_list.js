@@ -1,7 +1,7 @@
 /**
  * 人员 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-26 15:35:44
+ * @since 2021-08-26 19:22:05
  */
 
 
@@ -68,6 +68,7 @@ function ListPage() {
 					,{ field: 'id', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('主键') }
 					,{ field: 'name', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('姓名') }
 					,{ field: 'sex', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('性别') }
+					,{ field: 'source', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('来源') }
 					,{ field: 'identity', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('身份证号码') }
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return fox.dateFormat(d.createTime); }}
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
@@ -103,6 +104,7 @@ function ListPage() {
 		value.id={ value: $("#id").val()};
 		value.name={ value: $("#name").val()};
 		value.sex={ value: $("#sex").val()};
+		value.source={ value: $("#source").val()};
 		value.identity={ value: $("#identity").val()};
 		window.pageExt.list.beforeQuery && window.pageExt.list.beforeQuery(value);
 		var ps={searchField: "$composite", searchValue: JSON.stringify(value)};

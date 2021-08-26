@@ -55,6 +55,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
 
     //表单页的扩展
     var form={
+
         /**
          * 表单数据填充前
          * */

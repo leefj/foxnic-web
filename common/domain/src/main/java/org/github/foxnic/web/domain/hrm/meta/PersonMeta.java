@@ -8,8 +8,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-24 15:35:46
- * @sign 9E16B93FCEF3608A2A3B1E23327FF41F
+ * @since 2021-08-26 19:22:05
+ * @sign 3029E40C049438C78F9853C55AD1C87E
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -44,6 +44,16 @@ public class PersonMeta {
 	 * 性别 , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Person,java.lang.String> SEX_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Person.class ,SEX, java.lang.String.class, "性别", "性别", java.lang.String.class, null);
+	
+	/**
+	 * 来源 , PersonSource枚举 , 类型: java.lang.String
+	*/
+	public static final String SOURCE="source";
+	
+	/**
+	 * 来源 , PersonSource枚举 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Person,java.lang.String> SOURCE_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Person.class ,SOURCE, java.lang.String.class, "来源", "PersonSource枚举", java.lang.String.class, null);
 	
 	/**
 	 * 身份证号码 , 类型: java.lang.String
@@ -138,7 +148,7 @@ public class PersonMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , NAME , SEX , IDENTITY , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , NAME , SEX , SOURCE , IDENTITY , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
 	
 	/**
 	 * 代理类
@@ -178,6 +188,17 @@ public class PersonMeta {
 		public Person setSex(String sex) {
 			super.change(SEX,super.getSex(),sex);
 			super.setSex(sex);
+			return this;
+		}
+		
+		/**
+		 * 设置 来源
+		 * @param source 来源
+		 * @return 当前对象
+		*/
+		public Person setSource(String source) {
+			super.change(SOURCE,super.getSource(),source);
+			super.setSource(source);
 			return this;
 		}
 		

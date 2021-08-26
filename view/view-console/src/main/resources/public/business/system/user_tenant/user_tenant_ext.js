@@ -32,8 +32,15 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * */
         beforeEdit:function (data) {
             console.log('beforeEdit',data);
-            admin.putTempData("companyId",data.tenant.companyId,true);
+            if(data.tenant && data.tenant.companyId) {
+                admin.putTempData("companyId", data.tenant.companyId, true);
+            }
             return true;
+        },
+
+        afterSwitched:function (data,ctx){
+            console.log("afterSwitched",data,ctx);
+            window.module.refreshTableData();
         },
         /**
          * 单行删除前调用，若返回false则不执行后续操作
@@ -68,8 +75,11 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * */
         beforeInit:function () {
             //获取参数，并调整下拉框查询用的URL
-            var companyId=admin.getTempData("companyId");
-            fox.setSelectBoxUrl("employeeId","/service-hrm/hrm-employee/query-paged-list?companyId="+companyId);
+            // var companyId=admin.getTempData("companyId");
+            // if(!companyId) {
+            //     companyId=0;
+            // }
+            // fox.setSelectBoxUrl("employeeId","/service-hrm/hrm-employee/query-paged-list?companyId="+companyId);
         },
         /**
          * 表单数据填充前
@@ -83,10 +93,29 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
         afterDataFill:function (data) {
             console.log('afterDataFill',data);
             //如果是编辑则不可修改
+            var tenantBox=fox.getSelectBox("ownerTenantId");
+            var employeeBox=fox.getSelectBox("employeeId");
             if(data.id) {
-                var tenantBox=fox.getSelectBox("ownerTenantId");
                 tenantBox.update({disabled: true});
+            } else {
+                employeeBox.refresh({companyId:"0"})
             }
+
+            tenantBox.update({
+                on:function (a,b){
+                    if(a && a.arr && a.arr.length>0) {
+                        var d = tenantBox.getDataByValue("id", a.arr[0].value);
+                        if(d && d.company) {
+                            //employeeBox.setUrl( "/service-hrm/hrm-employee/query-paged-list?companyId=" + d.company.id);
+                            employeeBox.refresh({companyId:d.company.id});
+                            return;
+                        }
+                    }
+                    //employeeBox.setUrl( "/service-hrm/hrm-employee/query-paged-list?companyId=0");
+                    employeeBox.refresh({companyId:0});
+                }
+            });
+
         },
         /**
          * 数据提交前，如果返回 false，停止后续步骤的执行

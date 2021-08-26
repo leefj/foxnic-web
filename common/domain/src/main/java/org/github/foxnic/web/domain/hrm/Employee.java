@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-26 16:31:24
- * @sign 34A58447EDEB9EF96DF1234EAF863ABA
+ * @since 2021-08-26 20:50:10
+ * @sign 4981EDA388615A41983B8FA43A99137B
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -52,6 +52,12 @@ public class Employee extends Person {
 	*/
 	@ApiModelProperty(required = false,value="公司ID" , notes = "公司ID")
 	private String companyId;
+	
+	/**
+	 * 对否开通账号：对否开通账号
+	*/
+	@ApiModelProperty(required = false,value="对否开通账号" , notes = "对否开通账号")
+	private Integer keepAccount;
 	
 	/**
 	 * 创建人ID：创建人ID
@@ -192,6 +198,25 @@ public class Employee extends Person {
 	*/
 	public Employee setCompanyId(String companyId) {
 		this.companyId=companyId;
+		return this;
+	}
+	
+	/**
+	 * 获得 对否开通账号<br>
+	 * 对否开通账号
+	 * @return 对否开通账号
+	*/
+	public Integer getKeepAccount() {
+		return keepAccount;
+	}
+	
+	/**
+	 * 设置 对否开通账号
+	 * @param keepAccount 对否开通账号
+	 * @return 当前对象
+	*/
+	public Employee setKeepAccount(Integer keepAccount) {
+		this.keepAccount=keepAccount;
 		return this;
 	}
 	

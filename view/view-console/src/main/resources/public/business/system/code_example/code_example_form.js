@@ -348,7 +348,7 @@ function FormPage() {
 
 			if(window.pageExt.form.beforeSubmit) {
 				var doNext=window.pageExt.form.beforeSubmit(data.field);
-				if(!doNext) return ;
+				if(!doNext) return;
 			}
 			saveForm(data.field);
 	        return false;
