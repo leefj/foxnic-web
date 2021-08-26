@@ -1,41 +1,43 @@
 package org.github.foxnic.web.hrm.service.impl;
 
 
-import javax.annotation.Resource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-
-import org.github.foxnic.web.domain.hrm.Employee;
-import org.github.foxnic.web.domain.hrm.EmployeeVO;
-import java.util.List;
-import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.entity.SuperService;
-import com.github.foxnic.dao.spec.DAO;
-import java.lang.reflect.Field;
-import com.github.foxnic.commons.busi.id.IDGenerator;
-import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.commons.bean.BeanUtil;
+import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.commons.collection.CollectorUtil;
+import com.github.foxnic.dao.data.PagedList;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.SuperService;
+import com.github.foxnic.dao.excel.ExcelStructure;
 import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.dao.excel.ExcelStructure;
-import java.io.InputStream;
+import com.github.foxnic.dao.spec.DAO;
+import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.meta.DBColumnMeta;
-import com.github.foxnic.sql.expr.Select;
-import java.util.ArrayList;
-import org.github.foxnic.web.hrm.service.IEmployeeService;
+import org.github.foxnic.web.domain.hrm.Employee;
+import org.github.foxnic.web.domain.hrm.Person;
 import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.github.foxnic.web.hrm.service.IEmployeeService;
+import org.github.foxnic.web.hrm.service.IPersonService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
+import java.io.InputStream;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
  * 员工表 服务实现
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-24 16:16:27
+ * @since 2021-08-26 16:34:10
+ * @auto-code false
 */
 
 
@@ -53,6 +55,8 @@ public class EmployeeServiceImpl extends SuperService<Employee> implements IEmpl
 	 * */
 	public DAO dao() { return dao; }
 
+	@Autowired 
+	private IPersonService personService;
 
 	
 	@Override
@@ -66,8 +70,14 @@ public class EmployeeServiceImpl extends SuperService<Employee> implements IEmpl
 	 * @return 插入是否成功
 	 * */
 	@Override
+	@Transactional
 	public Result insert(Employee employee) {
-		Result r=super.insert(employee);
+		Person person= BeanUtil.copy(employee,Person.create(),false);
+		Result r = personService.insert(person);
+		if(r.success()) {
+			employee.setPersonId(person.getId());
+			r = super.insert(employee);
+		}
 		return r;
 	}
 	
@@ -88,12 +98,17 @@ public class EmployeeServiceImpl extends SuperService<Employee> implements IEmpl
 	 * @param id ID
 	 * @return 删除是否成功
 	 */
+	@Transactional
 	public Result deleteByIdPhysical(String id) {
-		Employee employee = new Employee();
+
 		if(id==null) return ErrorDesc.failure().message("id 不允许为 null 。");
-		employee.setId(id);
+		Employee employee = this.getById(id);
 		try {
 			boolean suc = dao.deleteEntity(employee);
+			if(suc) {
+				Result r=personService.deleteByIdPhysical(employee.getPersonId());
+				if(r.failure()) return r;
+			}
 			return suc?ErrorDesc.success():ErrorDesc.failure();
 		}
 		catch(Exception e) {
@@ -109,15 +124,19 @@ public class EmployeeServiceImpl extends SuperService<Employee> implements IEmpl
 	 * @param id ID
 	 * @return 删除是否成功
 	 */
+	@Transactional
 	public Result deleteByIdLogical(String id) {
-		Employee employee = new Employee();
 		if(id==null) return ErrorDesc.failure().message("id 不允许为 null 。");
-		employee.setId(id);
+		Employee employee = this.getById(id);
 		employee.setDeleted(dao.getDBTreaty().getTrueValue());
 		employee.setDeleteBy((String)dao.getDBTreaty().getLoginUserId());
 		employee.setDeleteTime(new Date());
 		try {
 			boolean suc = dao.updateEntity(employee,SaveMode.NOT_NULL_FIELDS);
+			if(suc) {
+				Result r=personService.deleteByIdLogical(employee.getPersonId());
+				if(r.failure()) return r;
+			}
 			return suc?ErrorDesc.success():ErrorDesc.failure();
 		}
 		catch(Exception e) {
@@ -126,7 +145,17 @@ public class EmployeeServiceImpl extends SuperService<Employee> implements IEmpl
 			return r;
 		}
 	}
-	
+
+	@Override
+	@Transactional
+	public <T> Result deleteByIdsLogical(List<T> ids) {
+		List<Employee> emps= this.getByIds((List<String>)ids);
+		List<String> pIds= CollectorUtil.collectList(emps,Employee::getPersonId);
+		Result r=personService.deleteByIdsLogical(pIds);
+		if(r.failure()) return  r;
+		return super.deleteByIdsLogical(ids);
+	}
+
 	/**
 	 * 更新实体
 	 * @param employee 数据对象
@@ -134,8 +163,15 @@ public class EmployeeServiceImpl extends SuperService<Employee> implements IEmpl
 	 * @return 保存是否成功
 	 * */
 	@Override
+	@Transactional
 	public Result update(Employee employee , SaveMode mode) {
-		Result r=super.update(employee , mode);
+		Person person= personService.getById(employee.getPersonId());
+		BeanUtil.copyDiff(employee,person,false);
+		person.setId(employee.getPersonId());
+		Result r = personService.updateDirtyFields(person);
+		if(r.success()) {
+			r = super.update(employee, mode);
+		}
 		return r;
 	}
 	

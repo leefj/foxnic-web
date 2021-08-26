@@ -4,13 +4,14 @@ import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.system.UserTenant;
 import java.util.Date;
 import org.github.foxnic.web.domain.system.Tenant;
+import org.github.foxnic.web.domain.hrm.Employee;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-25 14:43:22
- * @sign 203475EC7211C05F19C60A5FDA28165B
+ * @since 2021-08-26 09:23:07
+ * @sign D028BE722B4DF3D7C3FEF87B7A8DF623
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -65,6 +66,16 @@ public class UserTenantMeta {
 	 * 是否激活 , 激活时为当前默认租户 , 类型: java.lang.Integer
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.system.UserTenant,java.lang.Integer> ACTIVATED_PROP = new BeanProperty(org.github.foxnic.web.domain.system.UserTenant.class ,ACTIVATED, java.lang.Integer.class, "是否激活", "激活时为当前默认租户", java.lang.Integer.class, null);
+	
+	/**
+	 * 员工ID , 账户在指定租户下的员工ID , 类型: java.lang.String
+	*/
+	public static final String EMPLOYEE_ID="employeeId";
+	
+	/**
+	 * 员工ID , 账户在指定租户下的员工ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.UserTenant,java.lang.String> EMPLOYEE_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.system.UserTenant.class ,EMPLOYEE_ID, java.lang.String.class, "员工ID", "账户在指定租户下的员工ID", java.lang.String.class, null);
 	
 	/**
 	 * 顺序 , 类型: java.lang.Integer
@@ -167,9 +178,19 @@ public class UserTenantMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.system.UserTenant,org.github.foxnic.web.domain.system.Tenant> TENANT_PROP = new BeanProperty(org.github.foxnic.web.domain.system.UserTenant.class ,TENANT, org.github.foxnic.web.domain.system.Tenant.class, "租户对象", "租户对象", org.github.foxnic.web.domain.system.Tenant.class, null);
 	
 	/**
+	 * 当前激活的租户对应的员工 , 类型: org.github.foxnic.web.domain.hrm.Employee
+	*/
+	public static final String EMPLOYEE="employee";
+	
+	/**
+	 * 当前激活的租户对应的员工 , 类型: org.github.foxnic.web.domain.hrm.Employee
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.UserTenant,org.github.foxnic.web.domain.hrm.Employee> EMPLOYEE_PROP = new BeanProperty(org.github.foxnic.web.domain.system.UserTenant.class ,EMPLOYEE, org.github.foxnic.web.domain.hrm.Employee.class, "当前激活的租户对应的员工", "当前激活的租户对应的员工", org.github.foxnic.web.domain.hrm.Employee.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , USER_ID , OWNER_TENANT_ID , VALID , ACTIVATED , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT };
+	public static final String[] $PROPS={ ID , USER_ID , OWNER_TENANT_ID , VALID , ACTIVATED , EMPLOYEE_ID , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT , EMPLOYEE };
 	
 	/**
 	 * 代理类
@@ -231,6 +252,17 @@ public class UserTenantMeta {
 		public UserTenant setActivated(Integer activated) {
 			super.change(ACTIVATED,super.getActivated(),activated);
 			super.setActivated(activated);
+			return this;
+		}
+		
+		/**
+		 * 设置 员工ID
+		 * @param employeeId 员工ID
+		 * @return 当前对象
+		*/
+		public UserTenant setEmployeeId(String employeeId) {
+			super.change(EMPLOYEE_ID,super.getEmployeeId(),employeeId);
+			super.setEmployeeId(employeeId);
 			return this;
 		}
 		
@@ -341,6 +373,17 @@ public class UserTenantMeta {
 		public UserTenant setTenant(Tenant tenant) {
 			super.change(TENANT,super.getTenant(),tenant);
 			super.setTenant(tenant);
+			return this;
+		}
+		
+		/**
+		 * 设置 当前激活的租户对应的员工
+		 * @param employee 当前激活的租户对应的员工
+		 * @return 当前对象
+		*/
+		public UserTenant setEmployee(Employee employee) {
+			super.change(EMPLOYEE,super.getEmployee(),employee);
+			super.setEmployee(employee);
 			return this;
 		}
 	}

@@ -1,7 +1,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-25 17:20:49
+ * @since 2021-08-26 15:35:43
  */
 
 
@@ -18,7 +18,10 @@ function ListPage() {
      	
      	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload,laydate= layui.laydate;
 		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect,dropdown=layui.dropdown;;
-		
+
+		if(window.pageExt.list.beforeInit) {
+			window.pageExt.list.beforeInit();
+		}
      	//渲染表格
      	renderTable();
 		//初始化搜索输入框组件
@@ -70,8 +73,6 @@ function ListPage() {
 					,{ field: 'roleIds', align:"",fixed:false,  hide:false, sort: true, title: fox.translate('角色'), templet: function (d) { return fox.joinLabel(d.roles,"name");}}
 					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('ID') }
 					,{ field: 'passwd', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('密码') }
-					,{ field: 'personId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('人员ID') }
-					,{ field: 'employeeId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('员工ID') }
 					,{ field: 'cacheKey', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('缓存键') }
 					,{ field: 'lastLoginTime', align:"right", fixed:false, hide:true, sort: true, title: fox.translate('最后登录时间'), templet: function (d) { return fox.dateFormat(d.lastLoginTime); }}
 					,{ field: 'createTime', align:"right", fixed:false, hide:true, sort: true, title: fox.translate('创建时间'), templet: function (d) { return fox.dateFormat(d.createTime); }}
@@ -353,6 +354,10 @@ function ListPage() {
      * 打开编辑窗口
      */
 	function showEditForm(data) {
+		if(window.pageExt.list.beforeEdit) {
+			var doNext=window.pageExt.list.beforeEdit(data);
+			if(!doNext) return;
+		}
 		var queryString="";
 		if(data && data.id) queryString="?" + 'id=' + data.id;
 		admin.putTempData('sys-user-form-data', data);

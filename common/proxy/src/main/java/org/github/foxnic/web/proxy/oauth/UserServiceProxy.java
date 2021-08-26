@@ -20,6 +20,7 @@ import java.util.List;
  * </p>
  * @author 李方捷 , leefangjie@qq.com
  * @since 2021-05-28 14:17:02
+ * @auto-code false
 */
 
 @FeignClient(value = MicroServiceNames.OAUTH, contextId = UserServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)
@@ -44,6 +45,11 @@ public interface UserServiceProxy {
 	 * 添加账户
 	 */
 	public static final String INSERT = API_PREFIX + "insert";
+
+	/**
+	 * 添加账户
+	 */
+	public static final String CREATE_FROM_EMPLOYEE = API_PREFIX + "create_from_employee";
 	
 	/**
 	 * 删除账户

@@ -1,28 +1,26 @@
 package org.github.foxnic.web.domain.oauth;
 
 import com.github.foxnic.dao.entity.Entity;
-import com.github.foxnic.dao.entity.EntityContext;
-import com.github.foxnic.sql.meta.DBTable;
-import io.swagger.annotations.ApiModelProperty;
-import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER;
-import org.github.foxnic.web.domain.hrm.Employee;
-import org.github.foxnic.web.domain.hrm.Person;
-
-import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-import java.util.ArrayList;
+import com.github.foxnic.sql.meta.DBTable;
+import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER;
+import javax.persistence.Id;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 import java.util.List;
+import org.github.foxnic.web.domain.system.UserTenant;
+import java.util.ArrayList;
+import javax.persistence.Transient;
 import java.util.Map;
+import com.github.foxnic.dao.entity.EntityContext;
 
 
 
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-24 16:22:12
- * @sign 5304F89BCC48F6C5291D1F1756E7DEEB
+ * @since 2021-08-26 14:05:31
+ * @sign 7E7A57B9F48FB28790CC22A3E3243F33
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -65,22 +63,10 @@ public class User extends Entity {
 	private String portraitId;
 	
 	/**
-	 * 人员ID：人员ID
-	*/
-	@ApiModelProperty(required = false,value="人员ID" , notes = "人员ID")
-	private String personId;
-	
-	/**
 	 * 语言：语言
 	*/
 	@ApiModelProperty(required = false,value="语言" , notes = "语言")
 	private String language;
-	
-	/**
-	 * 员工ID：员工ID
-	*/
-	@ApiModelProperty(required = false,value="员工ID" , notes = "员工ID")
-	private String employeeId;
 	
 	/**
 	 * 是否有效：是否有效
@@ -167,16 +153,16 @@ public class User extends Entity {
 	private List<RoleMenu> roleMenus;
 	
 	/**
-	 * 对应的人员：当前用户对应的人员
+	 * 所属租户关系清单：可用且有效的所属租户关系清单
 	*/
-	@ApiModelProperty(required = false,value="对应的人员" , notes = "当前用户对应的人员")
-	private Person person;
+	@ApiModelProperty(required = false,value="所属租户关系清单" , notes = "可用且有效的所属租户关系清单")
+	private List<UserTenant> joinedTenants;
 	
 	/**
-	 * 对应的员工：当前用户对应的员工
+	 * 当前激活的租户：当前激活的租户
 	*/
-	@ApiModelProperty(required = false,value="对应的员工" , notes = "当前用户对应的员工")
-	private Employee employee;
+	@ApiModelProperty(required = false,value="当前激活的租户" , notes = "当前激活的租户")
+	private UserTenant activatedTenant;
 	
 	/**
 	 * 获得 ID<br>
@@ -274,25 +260,6 @@ public class User extends Entity {
 	}
 	
 	/**
-	 * 获得 人员ID<br>
-	 * 人员ID
-	 * @return 人员ID
-	*/
-	public String getPersonId() {
-		return personId;
-	}
-	
-	/**
-	 * 设置 人员ID
-	 * @param personId 人员ID
-	 * @return 当前对象
-	*/
-	public User setPersonId(String personId) {
-		this.personId=personId;
-		return this;
-	}
-	
-	/**
 	 * 获得 语言<br>
 	 * 语言
 	 * @return 语言
@@ -308,25 +275,6 @@ public class User extends Entity {
 	*/
 	public User setLanguage(String language) {
 		this.language=language;
-		return this;
-	}
-	
-	/**
-	 * 获得 员工ID<br>
-	 * 员工ID
-	 * @return 员工ID
-	*/
-	public String getEmployeeId() {
-		return employeeId;
-	}
-	
-	/**
-	 * 设置 员工ID
-	 * @param employeeId 员工ID
-	 * @return 当前对象
-	*/
-	public User setEmployeeId(String employeeId) {
-		this.employeeId=employeeId;
 		return this;
 	}
 	
@@ -630,40 +578,51 @@ public class User extends Entity {
 	}
 	
 	/**
-	 * 获得 对应的人员<br>
-	 * 当前用户对应的人员
-	 * @return 对应的人员
+	 * 获得 所属租户关系清单<br>
+	 * 可用且有效的所属租户关系清单
+	 * @return 所属租户关系清单
 	*/
-	public Person getPerson() {
-		return person;
+	public List<UserTenant> getJoinedTenants() {
+		return joinedTenants;
 	}
 	
 	/**
-	 * 设置 对应的人员
-	 * @param person 对应的人员
+	 * 设置 所属租户关系清单
+	 * @param joinedTenants 所属租户关系清单
 	 * @return 当前对象
 	*/
-	public User setPerson(Person person) {
-		this.person=person;
+	public User setJoinedTenants(List<UserTenant> joinedTenants) {
+		this.joinedTenants=joinedTenants;
 		return this;
 	}
 	
 	/**
-	 * 获得 对应的员工<br>
-	 * 当前用户对应的员工
-	 * @return 对应的员工
+	 * 添加 所属租户关系清单
+	 * @param joinedTenant 所属租户关系清单
+	 * @return 当前对象
 	*/
-	public Employee getEmployee() {
-		return employee;
+	public User addJoinedTenant(UserTenant joinedTenant) {
+		if(this.joinedTenants==null) joinedTenants=new ArrayList<>();
+		this.joinedTenants.add(joinedTenant);
+		return this;
 	}
 	
 	/**
-	 * 设置 对应的员工
-	 * @param employee 对应的员工
+	 * 获得 当前激活的租户<br>
+	 * 当前激活的租户
+	 * @return 当前激活的租户
+	*/
+	public UserTenant getActivatedTenant() {
+		return activatedTenant;
+	}
+	
+	/**
+	 * 设置 当前激活的租户
+	 * @param activatedTenant 当前激活的租户
 	 * @return 当前对象
 	*/
-	public User setEmployee(Employee employee) {
-		this.employee=employee;
+	public User setActivatedTenant(UserTenant activatedTenant) {
+		this.activatedTenant=activatedTenant;
 		return this;
 	}
 

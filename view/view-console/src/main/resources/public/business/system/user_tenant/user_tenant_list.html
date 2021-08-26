@@ -2,7 +2,7 @@
 /**
  * 账户租户关系 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-25 17:20:49
+ * @since 2021-08-26 15:35:43
  */
  -->
  <!DOCTYPE html>
@@ -51,6 +51,11 @@
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('默认')}" class="search-label activated-label">默认</span><span class="search-colon">:</span></div>
                         <div id="activated" data='[{"name":"默认","value":"1"},{"name":"可选","value":"0"}]' style="width:140px"></div>
+                    </div>
+                    <!-- 工号 , employeeId ,typeName=select_box, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('工号')}" class="search-label employeeId-label">工号</span><span class="search-colon">:</span></div>
+                        <div id="employeeId" th:data="${'/service-hrm/hrm-employee/query-paged-list'}" style="width:140px"></div>
                     </div>
                     <!-- 顺序 , sort ,typeName=number_input, isHideInSearch=false -->
                     <div class="search-unit">
@@ -111,7 +116,7 @@
 </script>
 
 <script th:inline="javascript">
-    var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];
+    var LAYUI_TABLE_WIDTH_CONFIG = [[${pageHelper.getTableColumnWidthConfig('data-table')}]];
     var AUTH_PREFIX="sys_user_tenant";
 
 

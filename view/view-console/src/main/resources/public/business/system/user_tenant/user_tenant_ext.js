@@ -28,6 +28,14 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             conditions.userId={value:userId};
         },
         /**
+         * 在新建或编辑窗口打开前调用，若返回 false 则不继续执行后续操作
+         * */
+        beforeEdit:function (data) {
+            console.log('beforeEdit',data);
+            admin.putTempData("companyId",data.tenant.companyId,true);
+            return true;
+        },
+        /**
          * 单行删除前调用，若返回false则不执行后续操作
          * */
         beforeSingleDelete:function (data) {
@@ -54,6 +62,15 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
 
     //表单页的扩展
     var form={
+
+        /**
+         * 表单初始化前调用
+         * */
+        beforeInit:function () {
+            //获取参数，并调整下拉框查询用的URL
+            var companyId=admin.getTempData("companyId");
+            fox.setSelectBoxUrl("employeeId","/service-hrm/hrm-employee/query-paged-list?companyId="+companyId);
+        },
         /**
          * 表单数据填充前
          * */
@@ -65,6 +82,11 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * */
         afterDataFill:function (data) {
             console.log('afterDataFill',data);
+            //如果是编辑则不可修改
+            if(data.id) {
+                var tenantBox=fox.getSelectBox("ownerTenantId");
+                tenantBox.update({disabled: true});
+            }
         },
         /**
          * 数据提交前，如果返回 false，停止后续步骤的执行

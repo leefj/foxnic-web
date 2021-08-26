@@ -244,7 +244,7 @@ public class SystemCodeGenerator  {
 		cfg.getVoClassFile().addSimpleProperty(Integer.class,"seconds","过期秒数","");
 		//文件生成覆盖模式
 		cfg.overrides()
-				.setServiceIntfAnfImpl(WriteMode.CREATE_IF_NOT_EXISTS) //服务与接口
+				.setServiceIntfAnfImpl(WriteMode.IGNORE) //服务与接口
 				.setControllerAndAgent(WriteMode.CREATE_IF_NOT_EXISTS) //Rest
 				.setPageController(WriteMode.CREATE_IF_NOT_EXISTS) //页面控制器
 				.setFormPage(WriteMode.CREATE_IF_NOT_EXISTS) //表单HTML页

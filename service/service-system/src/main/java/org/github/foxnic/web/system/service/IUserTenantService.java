@@ -22,7 +22,7 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.*;
  * 账户租户关系表 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-25 17:20:49
+ * @since 2021-08-26 15:35:43
 */
 
 public interface IUserTenantService extends ISuperService<UserTenant> {

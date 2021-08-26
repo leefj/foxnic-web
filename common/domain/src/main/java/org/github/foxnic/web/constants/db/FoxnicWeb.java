@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2021-08-25 14:40:12
+ * @since 2021-08-26 09:52:01
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -122,11 +122,6 @@ public class FoxnicWeb {
 		public static final DBField COMPANY_ID = new DBField(DBDataType.STRING , "company_id","companyId","公司ID","公司ID",false,false,true);
 		
 		/**
-		 * 租户ID
-		*/
-		public static final DBField TENANT_ID = new DBField(DBDataType.STRING , "tenant_id","tenantId","租户ID","租户ID",false,false,true);
-		
-		/**
 		 * 创建人ID
 		*/
 		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
@@ -167,7 +162,7 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
 		public HRM_EMPLOYEE() {
-			this.init($NAME,"员工表" , ID , BADGE , PERSON_ID , COMPANY_ID , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"员工表" , ID , BADGE , PERSON_ID , COMPANY_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final HRM_EMPLOYEE $TABLE=new HRM_EMPLOYEE();
 	}
@@ -2641,19 +2636,9 @@ public class FoxnicWeb {
 		public static final DBField PORTRAIT_ID = new DBField(DBDataType.STRING , "portrait_id","portraitId","头像ID","头像ID",false,false,true);
 		
 		/**
-		 * 人员ID
-		*/
-		public static final DBField PERSON_ID = new DBField(DBDataType.STRING , "person_id","personId","人员ID","人员ID",false,false,true);
-		
-		/**
 		 * 语言
 		*/
 		public static final DBField LANGUAGE = new DBField(DBDataType.STRING , "language","language","语言","语言",false,false,true);
-		
-		/**
-		 * 员工ID
-		*/
-		public static final DBField EMPLOYEE_ID = new DBField(DBDataType.STRING , "employee_id","employeeId","员工ID","员工ID",false,false,true);
 		
 		/**
 		 * 是否有效
@@ -2711,7 +2696,7 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
 		public SYS_USER() {
-			this.init($NAME,"账户表" , ID , NAME , PASSWD , PHONE , PORTRAIT_ID , PERSON_ID , LANGUAGE , EMPLOYEE_ID , VALID , CACHE_KEY , LAST_LOGIN_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"账户表" , ID , NAME , PASSWD , PHONE , PORTRAIT_ID , LANGUAGE , VALID , CACHE_KEY , LAST_LOGIN_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final SYS_USER $TABLE=new SYS_USER();
 	}
@@ -2750,6 +2735,11 @@ public class FoxnicWeb {
 		 * 是否激活，激活时为当前默认租户
 		*/
 		public static final DBField ACTIVATED = new DBField(DBDataType.INTEGER , "activated","activated","是否激活","激活时为当前默认租户",false,false,true);
+		
+		/**
+		 * 员工ID,账户在指定租户下的员工ID
+		*/
+		public static final DBField EMPLOYEE_ID = new DBField(DBDataType.STRING , "employee_id","employeeId","员工ID","账户在指定租户下的员工ID",false,false,true);
 		
 		/**
 		 * 顺序
@@ -2797,7 +2787,7 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
 		public SYS_USER_TENANT() {
-			this.init($NAME,"账户租户关系表" , ID , USER_ID , OWNER_TENANT_ID , VALID , ACTIVATED , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"账户租户关系表" , ID , USER_ID , OWNER_TENANT_ID , VALID , ACTIVATED , EMPLOYEE_ID , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final SYS_USER_TENANT $TABLE=new SYS_USER_TENANT();
 	}

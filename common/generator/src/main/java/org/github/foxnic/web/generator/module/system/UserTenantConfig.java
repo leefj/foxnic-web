@@ -6,10 +6,13 @@ import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER_TENANT;
+import org.github.foxnic.web.domain.hrm.Employee;
+import org.github.foxnic.web.domain.hrm.meta.EmployeeMeta;
 import org.github.foxnic.web.domain.system.Tenant;
 import org.github.foxnic.web.domain.system.meta.TenantMeta;
 import org.github.foxnic.web.domain.system.meta.UserTenantMeta;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
+import org.github.foxnic.web.proxy.hrm.EmployeeServiceProxy;
 import org.github.foxnic.web.proxy.system.TenantServiceProxy;
 
 public class UserTenantConfig extends BaseCodeConfig<SYS_USER_TENANT> {
@@ -21,6 +24,7 @@ public class UserTenantConfig extends BaseCodeConfig<SYS_USER_TENANT> {
     @Override
     public void configModel(PoClassFile poType, VoClassFile voType) {
         poType.addSimpleProperty(Tenant.class,"tenant","租户对象","租户对象");
+        poType.addSimpleProperty(Employee.class, "employee","当前激活的租户对应的员工", "当前激活的租户对应的员工");
         this.context.setRelationField(SYS_USER_TENANT.USER_ID,SYS_USER_TENANT.OWNER_TENANT_ID,true);
     }
 
@@ -48,7 +52,16 @@ public class UserTenantConfig extends BaseCodeConfig<SYS_USER_TENANT> {
                 .form().selectBox().queryApi(TenantServiceProxy.QUERY_PAGED_LIST).paging(true).size(10)
                 .valueField(TenantMeta.ID).textField(TenantMeta.ALIAS)
         .fillBy(UserTenantMeta.TENANT)
-        .table().fillBy(UserTenantMeta.TENANT,TenantMeta.ALIAS).hidden(false);
+        .table().fillBy(UserTenantMeta.TENANT,TenantMeta.ALIAS);
+
+
+        view.field(SYS_USER_TENANT.EMPLOYEE_ID)
+                .basic().label("工号")
+                .form().validate().required()
+                .form().selectBox().queryApi(EmployeeServiceProxy.QUERY_PAGED_LIST).paging(true).size(10)
+                .valueField(EmployeeMeta.ID).textField(EmployeeMeta.NAME_AND_BADGE)
+                .fillBy(UserTenantMeta.EMPLOYEE)
+                .table().fillBy(UserTenantMeta.EMPLOYEE,EmployeeMeta.NAME_AND_BADGE).hidden(false);
 
     }
 
@@ -56,8 +69,8 @@ public class UserTenantConfig extends BaseCodeConfig<SYS_USER_TENANT> {
     public void configOverrides() {
         this.context.overrides()
             .setServiceIntfAnfImpl(WriteMode.COVER_EXISTS_FILE) //服务与接口
-            .setControllerAndAgent(WriteMode.IGNORE) //Rest
-            .setPageController(WriteMode.IGNORE) //页面控制器
+            .setControllerAndAgent(WriteMode.COVER_EXISTS_FILE) //Rest
+            .setPageController(WriteMode.COVER_EXISTS_FILE) //页面控制器
             .setFormPage(WriteMode.COVER_EXISTS_FILE) //表单HTML页
             .setListPage(WriteMode.COVER_EXISTS_FILE) //列表HTML页
             .setExtendJsFile(WriteMode.CREATE_IF_NOT_EXISTS);

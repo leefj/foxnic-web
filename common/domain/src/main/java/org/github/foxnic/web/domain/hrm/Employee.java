@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-24 16:16:27
- * @sign CF889C2CF7E1172452402314DC46DBE1
+ * @since 2021-08-26 16:31:24
+ * @sign 34A58447EDEB9EF96DF1234EAF863ABA
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -52,12 +52,6 @@ public class Employee extends Person {
 	*/
 	@ApiModelProperty(required = false,value="公司ID" , notes = "公司ID")
 	private String companyId;
-	
-	/**
-	 * 租户ID：租户ID
-	*/
-	@ApiModelProperty(required = false,value="租户ID" , notes = "租户ID")
-	private String tenantId;
 	
 	/**
 	 * 创建人ID：创建人ID
@@ -106,6 +100,24 @@ public class Employee extends Person {
 	*/
 	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
 	private Integer version;
+	
+	/**
+	 * 对应的人员信息：对应的人员信息
+	*/
+	@ApiModelProperty(required = false,value="对应的人员信息" , notes = "对应的人员信息")
+	private Person person;
+	
+	/**
+	 * 所属公司：所属公司
+	*/
+	@ApiModelProperty(required = false,value="所属公司" , notes = "所属公司")
+	private Company company;
+	
+	/**
+	 * 姓名与工号：虚拟属性
+	*/
+	@ApiModelProperty(required = false,value="姓名与工号" , notes = "虚拟属性")
+	private String nameAndBadge;
 	
 	/**
 	 * 获得 ID<br>
@@ -180,25 +192,6 @@ public class Employee extends Person {
 	*/
 	public Employee setCompanyId(String companyId) {
 		this.companyId=companyId;
-		return this;
-	}
-	
-	/**
-	 * 获得 租户ID<br>
-	 * 租户ID
-	 * @return 租户ID
-	*/
-	public String getTenantId() {
-		return tenantId;
-	}
-	
-	/**
-	 * 设置 租户ID
-	 * @param tenantId 租户ID
-	 * @return 当前对象
-	*/
-	public Employee setTenantId(String tenantId) {
-		this.tenantId=tenantId;
 		return this;
 	}
 	
@@ -351,6 +344,63 @@ public class Employee extends Person {
 	*/
 	public Employee setVersion(Integer version) {
 		this.version=version;
+		return this;
+	}
+	
+	/**
+	 * 获得 对应的人员信息<br>
+	 * 对应的人员信息
+	 * @return 对应的人员信息
+	*/
+	public Person getPerson() {
+		return person;
+	}
+	
+	/**
+	 * 设置 对应的人员信息
+	 * @param person 对应的人员信息
+	 * @return 当前对象
+	*/
+	public Employee setPerson(Person person) {
+		this.person=person;
+		return this;
+	}
+	
+	/**
+	 * 获得 所属公司<br>
+	 * 所属公司
+	 * @return 所属公司
+	*/
+	public Company getCompany() {
+		return company;
+	}
+	
+	/**
+	 * 设置 所属公司
+	 * @param company 所属公司
+	 * @return 当前对象
+	*/
+	public Employee setCompany(Company company) {
+		this.company=company;
+		return this;
+	}
+	
+	/**
+	 * 获得 姓名与工号<br>
+	 * 虚拟属性
+	 * @return 姓名与工号
+	*/
+	public String getNameAndBadge() {
+		return nameAndBadge;
+	}
+	
+	/**
+	 * 设置 姓名与工号
+	 * @param nameAndBadge 姓名与工号
+	 * @return 当前对象
+	*/
+	public Employee setNameAndBadge(String nameAndBadge) {
+		this.nameAndBadge=nameAndBadge;
 		return this;
 	}
 

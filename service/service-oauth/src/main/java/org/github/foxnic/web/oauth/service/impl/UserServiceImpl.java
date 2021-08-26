@@ -265,12 +265,12 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 			dao.join(user.getMenus(),Resourze.class);
     	}
 
-    	//拷贝数据
-    	if(user.getEmployee()!=null && user.getPerson()!=null) {
-			user.getEmployee().setName(user.getPerson().getName());
-			user.getEmployee().setSex(user.getPerson().getSex());
-			user.getEmployee().setIdentity(user.getPerson().getIdentity());
-		}
+//    	//拷贝数据
+//    	if(user.getEmployee()!=null && user.getPerson()!=null) {
+//			user.getEmployee().setName(user.getPerson().getName());
+//			user.getEmployee().setSex(user.getPerson().getSex());
+//			user.getEmployee().setIdentity(user.getPerson().getIdentity());
+//		}
 
 
 

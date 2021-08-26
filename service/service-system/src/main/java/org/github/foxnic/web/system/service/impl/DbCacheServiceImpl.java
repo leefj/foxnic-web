@@ -35,6 +35,7 @@ import java.util.List;
  * </p>
  * @author 李方捷 , leefangjie@qq.com
  * @since 2021-06-18 13:12:07
+ * @auto-code false
 */
 
 
@@ -54,7 +55,7 @@ public class DbCacheServiceImpl extends SuperService<DbCache> implements IDbCach
 
 	@PostConstruct
 	public void initCache() {
-		super.registCacheStrategy("queryList", true, DbCacheMeta.CATALOG,DbCacheMeta.OWNER_TYPE,DbCacheMeta.OWNER_ID);
+		super.registCacheStrategy("queryList", true,false,DbCacheMeta.CATALOG,DbCacheMeta.AREA,DbCacheMeta.OWNER_TYPE,DbCacheMeta.OWNER_ID);
 	}
 
 	@Override
@@ -90,6 +91,7 @@ public class DbCacheServiceImpl extends SuperService<DbCache> implements IDbCach
 	 * */
 	@Override
 	public Result insert(DbCache dbCache) {
+
 		if(dbCache instanceof  DbCacheVO) {
 			dbCache=processVO((DbCacheVO) dbCache);
 		}
@@ -156,7 +158,21 @@ public class DbCacheServiceImpl extends SuperService<DbCache> implements IDbCach
 		if(dbCache instanceof  DbCacheVO) {
 			dbCache=processVO((DbCacheVO) dbCache);
 		}
-		Result r=super.save(dbCache, mode);
+		DbCache sample=new DbCache();
+		sample.setCatalog(dbCache.getCatalog());
+		sample.setArea(dbCache.getArea());
+		sample.setOwnerType(dbCache.getOwnerType());
+		if("user".equalsIgnoreCase(dbCache.getOwnerType())) {
+			sample.setOwnerId(SessionUser.getCurrent().getUserId());
+		}
+		Result r=null;
+		DbCache ex=this.queryEntity(sample);
+		if(ex!=null) {
+			ex.setValue(dbCache.getValue());
+			r=super.update(ex, mode);
+		} else {
+			r=this.insert(dbCache);
+		}
 		if(r.success()) {
 			this.invalidateAccurateCache(dbCache);
 		}

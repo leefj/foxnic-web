@@ -1,7 +1,7 @@
 /**
  * 人员 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-24 15:56:15
+ * @since 2021-08-26 15:35:44
  */
 
 function FormPage() {
@@ -24,6 +24,10 @@ function FormPage() {
 		}
 		if(admin.getTempData('hrm-person-form-data-form-action')=="view") {
 			disableModify=true;
+		}
+
+		if(window.pageExt.form.beforeInit) {
+			window.pageExt.form.beforeInit();
 		}
 
 		//渲染表单组件

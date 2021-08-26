@@ -6,6 +6,8 @@ import org.github.foxnic.web.generator.module.example.CodeExampleConfig;
 import org.github.foxnic.web.generator.module.example.CodeExampleRoleConfig;
 import org.github.foxnic.web.generator.module.example.CodeExampleStudentConfig;
 import org.github.foxnic.web.generator.module.hrm.HrmCompanyConfig;
+import org.github.foxnic.web.generator.module.hrm.HrmEmployeeConfig;
+import org.github.foxnic.web.generator.module.hrm.HrmPersonConfig;
 import org.github.foxnic.web.generator.module.oauth.SysUserConfig;
 import org.github.foxnic.web.generator.module.system.TenantConfig;
 import org.github.foxnic.web.generator.module.system.UserTenantConfig;
@@ -30,8 +32,8 @@ public class CodeStarter extends ModuleCodeGenerator {
 
     private void initHrmModules() {
         this.addConfig(new HrmCompanyConfig());
-//        this.addConfig(new HrmPersonConfig());
-//        this.addConfig(new HrmEmployeeConfig());
+        this.addConfig(new HrmPersonConfig());
+        this.addConfig(new HrmEmployeeConfig());
     }
 
     private void initOAuthModules() {

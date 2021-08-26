@@ -7,6 +7,7 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER_TENANT;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
+import org.github.foxnic.web.domain.hrm.Employee;
 import javax.persistence.Transient;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
@@ -16,8 +17,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-25 14:43:22
- * @sign 203475EC7211C05F19C60A5FDA28165B
+ * @since 2021-08-26 09:23:07
+ * @sign D028BE722B4DF3D7C3FEF87B7A8DF623
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -58,6 +59,12 @@ public class UserTenant extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="是否激活" , notes = "激活时为当前默认租户")
 	private Integer activated;
+	
+	/**
+	 * 员工ID：账户在指定租户下的员工ID
+	*/
+	@ApiModelProperty(required = false,value="员工ID" , notes = "账户在指定租户下的员工ID")
+	private String employeeId;
 	
 	/**
 	 * 顺序：顺序
@@ -118,6 +125,12 @@ public class UserTenant extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="租户对象" , notes = "租户对象")
 	private Tenant tenant;
+	
+	/**
+	 * 当前激活的租户对应的员工：当前激活的租户对应的员工
+	*/
+	@ApiModelProperty(required = false,value="当前激活的租户对应的员工" , notes = "当前激活的租户对应的员工")
+	private Employee employee;
 	
 	/**
 	 * 获得 主键<br>
@@ -211,6 +224,25 @@ public class UserTenant extends Entity {
 	*/
 	public UserTenant setActivated(Integer activated) {
 		this.activated=activated;
+		return this;
+	}
+	
+	/**
+	 * 获得 员工ID<br>
+	 * 账户在指定租户下的员工ID
+	 * @return 员工ID
+	*/
+	public String getEmployeeId() {
+		return employeeId;
+	}
+	
+	/**
+	 * 设置 员工ID
+	 * @param employeeId 员工ID
+	 * @return 当前对象
+	*/
+	public UserTenant setEmployeeId(String employeeId) {
+		this.employeeId=employeeId;
 		return this;
 	}
 	
@@ -401,6 +433,25 @@ public class UserTenant extends Entity {
 	*/
 	public UserTenant setTenant(Tenant tenant) {
 		this.tenant=tenant;
+		return this;
+	}
+	
+	/**
+	 * 获得 当前激活的租户对应的员工<br>
+	 * 当前激活的租户对应的员工
+	 * @return 当前激活的租户对应的员工
+	*/
+	public Employee getEmployee() {
+		return employee;
+	}
+	
+	/**
+	 * 设置 当前激活的租户对应的员工
+	 * @param employee 当前激活的租户对应的员工
+	 * @return 当前对象
+	*/
+	public UserTenant setEmployee(Employee employee) {
+		this.employee=employee;
 		return this;
 	}
 

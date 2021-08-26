@@ -21,7 +21,7 @@ import com.github.foxnic.dao.data.SaveMode;
  * 员工表 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-24 16:16:27
+ * @since 2021-08-26 17:26:48
 */
 
 public interface IEmployeeService extends ISuperService<Employee> {

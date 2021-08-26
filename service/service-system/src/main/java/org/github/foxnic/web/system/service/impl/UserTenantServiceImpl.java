@@ -1,42 +1,39 @@
 package org.github.foxnic.web.system.service.impl;
 
 
-import javax.annotation.Resource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-
-import org.github.foxnic.web.domain.system.UserTenant;
-import org.github.foxnic.web.domain.system.UserTenantVO;
-import java.util.List;
-import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.entity.SuperService;
-import com.github.foxnic.dao.spec.DAO;
-import java.lang.reflect.Field;
-import com.github.foxnic.commons.busi.id.IDGenerator;
-import com.github.foxnic.sql.expr.ConditionExpr;
+import com.github.foxnic.api.error.CommonError;
 import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.dao.data.PagedList;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.SuperService;
+import com.github.foxnic.dao.excel.ExcelStructure;
 import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.dao.excel.ExcelStructure;
-import java.io.InputStream;
+import com.github.foxnic.dao.spec.DAO;
+import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.meta.DBColumnMeta;
-import com.github.foxnic.sql.expr.Select;
-import java.util.ArrayList;
-import org.github.foxnic.web.system.service.IUserTenantService;
+import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER_TENANT;
+import org.github.foxnic.web.domain.system.UserTenant;
 import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.github.foxnic.web.system.service.IUserTenantService;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.io.InputStream;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Date;
-import org.github.foxnic.web.constants.db.FoxnicWeb.*;
+import java.util.List;
 
 /**
  * <p>
  * 账户租户关系表 服务实现
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-25 17:20:49
+ * @since 2021-08-26 12:47:30
+ * @auto-code false
 */
 
 
@@ -55,6 +52,8 @@ public class UserTenantServiceImpl extends SuperService<UserTenant> implements I
 	public DAO dao() { return dao; }
 
 
+
+
 	
 	@Override
 	public Object generateId(Field field) {
@@ -69,6 +68,9 @@ public class UserTenantServiceImpl extends SuperService<UserTenant> implements I
 	@Override
 	public Result insert(UserTenant userTenant) {
 		Result r=super.insert(userTenant);
+		if(r.success()) {
+			this.deactiveOthers(userTenant);
+		}
 		return r;
 	}
 	
@@ -137,6 +139,9 @@ public class UserTenantServiceImpl extends SuperService<UserTenant> implements I
 	@Override
 	public Result update(UserTenant userTenant , SaveMode mode) {
 		Result r=super.update(userTenant , mode);
+		if(r.success()) {
+			this.deactiveOthers(userTenant);
+		}
 		return r;
 	}
 	
@@ -232,10 +237,23 @@ public class UserTenantServiceImpl extends SuperService<UserTenant> implements I
 	 * @return 判断结果
 	 */
 	public Result<UserTenant> checkExists(UserTenant userTenant) {
-		//TDOD 此处添加判断段的代码
-		//boolean exists=this.checkExists(userTenant, SYS_ROLE.NAME);
-		//return exists;
-		return ErrorDesc.success();
+		boolean exists=this.checkExists(userTenant, SYS_USER_TENANT.USER_ID,SYS_USER_TENANT.OWNER_TENANT_ID);
+		if(exists) {
+			return ErrorDesc.failure(CommonError.DATA_REPETITION);
+		} else {
+			return ErrorDesc.success();
+		}
+	}
+
+	private void deactiveOthers(UserTenant userTenant) {
+		userTenant=this.getById(userTenant.getId());
+		if(userTenant.getActivated()==0) {
+			//暂不处理
+		} else {
+			dao().update(table()).set(SYS_USER_TENANT.ACTIVATED, 0)
+					.where("id!=?", userTenant.getId()).and("user_id=?", userTenant.getUserId())
+					.top().execute();
+		}
 	}
 
 	@Override

@@ -19,7 +19,10 @@ function ListPage() {
      	
      	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload,laydate= layui.laydate;
 		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect,dropdown=layui.dropdown;;
-		
+
+		if(window.pageExt.list.beforeInit) {
+			window.pageExt.list.beforeInit();
+		}
      	//渲染表格
      	renderTable();
 		#if(isTree)
@@ -181,7 +184,7 @@ function ListPage() {
 		value.#(f.varName)={ value: $("##(f.varName)").val()};
 		#end
 		#else
-		value.#(f.varName)={ value: $("##(f.varName)").val()#if(f.search!=null && f.search.fuzzySearch) ,fuzzy: true,valuePrefix:"#(f.search.valuePrefix)",valueSuffix:"#(f.search.valueSuffix) "#end};
+		value.#(f.varName)={ value: $("##(f.varName)").val()#if(f.search!=null && f.search.fuzzySearch) ,fuzzy: true,valuePrefix:"#(f.search.valuePrefix)",valueSuffix:"#(f.search.valueSuffix) "#end #if(f.listFillByPropertyNames),fillBy:#(f.listFillByPropertyNames) #end};
 		#end
 		#end
 		#end
@@ -596,6 +599,10 @@ function ListPage() {
      * 打开编辑窗口
      */
 	function showEditForm(data) {
+		if(window.pageExt.list.beforeEdit) {
+			var doNext=window.pageExt.list.beforeEdit(data);
+			if(!doNext) return;
+		}
 		var queryString="";
 		if(data && data.#(idPropertyName)) queryString="?" + #(paramQueryString);
 		admin.putTempData('#(formDataKey)', data);

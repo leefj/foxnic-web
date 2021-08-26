@@ -1,7 +1,7 @@
 /**
  * 账户租户关系 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-25 17:20:49
+ * @since 2021-08-26 15:35:43
  */
 
 function FormPage() {
@@ -24,6 +24,10 @@ function FormPage() {
 		}
 		if(admin.getTempData('sys-user-tenant-form-data-form-action')=="view") {
 			disableModify=true;
+		}
+
+		if(window.pageExt.form.beforeInit) {
+			window.pageExt.form.beforeInit();
 		}
 
 		//渲染表单组件
@@ -95,6 +99,28 @@ function FormPage() {
 				return opts;
 			}
 		});
+		//渲染 employeeId 下拉字段
+		fox.renderSelectBox({
+			el: "employeeId",
+			radio: true,
+			filterable: true,
+			paging: true,
+			pageRemote: true,
+			toolbar: {show:true,showIcon:true,list:[ "ALL", "CLEAR","REVERSE"]},
+			//转换数据
+			searchField: "nameAndBadge", //请自行调整用于搜索的字段名称
+			extraParam: {}, //额外的查询参数，Object 或是 返回 Object 的函数
+			transform: function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				var opts=[];
+				if(!data) return opts;
+				for (var i = 0; i < data.length; i++) {
+					if(!data[i]) continue;
+					opts.push({name:data[i].nameAndBadge,value:data[i].id});
+				}
+				return opts;
+			}
+		});
 	}
 
 	/**
@@ -120,6 +146,8 @@ function FormPage() {
 
 			//设置  所属租户 设置下拉框勾选
 			fox.setSelectValue4QueryApi("#ownerTenantId",formData.tenant);
+			//设置  工号 设置下拉框勾选
+			fox.setSelectValue4QueryApi("#employeeId",formData.employee);
 
 
 
@@ -173,6 +201,8 @@ function FormPage() {
 
 		//获取 所属租户 下拉框的值
 		data["ownerTenantId"]=fox.getSelectedValue("ownerTenantId",false);
+		//获取 工号 下拉框的值
+		data["employeeId"]=fox.getSelectedValue("employeeId",false);
 
 		return data;
 	}

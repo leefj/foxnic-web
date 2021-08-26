@@ -1,13 +1,22 @@
 package org.github.foxnic.web.generator.module.hrm;
 
+import com.github.foxnic.generator.builder.business.option.ServiceOptions;
 import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
+import com.github.foxnic.generator.builder.view.option.FormOptions;
+import com.github.foxnic.generator.builder.view.option.ListOptions;
 import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.HRM_EMPLOYEE;
+import org.github.foxnic.web.domain.hrm.Company;
 import org.github.foxnic.web.domain.hrm.Person;
+import org.github.foxnic.web.domain.hrm.meta.CompanyMeta;
+import org.github.foxnic.web.domain.hrm.meta.EmployeeMeta;
+import org.github.foxnic.web.domain.hrm.meta.PersonMeta;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
+import org.github.foxnic.web.hrm.service.IPersonService;
+import org.github.foxnic.web.proxy.hrm.CompanyServiceProxy;
 
 public class HrmEmployeeConfig extends BaseCodeConfig<HRM_EMPLOYEE> {
 
@@ -18,6 +27,9 @@ public class HrmEmployeeConfig extends BaseCodeConfig<HRM_EMPLOYEE> {
     @Override
     public void configModel(PoClassFile poType, VoClassFile voType) {
         poType.setSuperType(Person.class);
+        poType.addSimpleProperty( Person.class, "person","对应的人员信息", "对应的人员信息");
+        poType.addSimpleProperty( Company.class, "company","所属公司", "所属公司");
+        poType.addSimpleProperty( String.class, "nameAndBadge","姓名与工号", "虚拟属性");
     }
 
     @Override
@@ -25,11 +37,53 @@ public class HrmEmployeeConfig extends BaseCodeConfig<HRM_EMPLOYEE> {
 
     }
 
+    private String personNameField="name";
+    private String companyNameField="companyName";
+
     @Override
     public void configFields(ViewOptions view) {
-//        view.field(SYS_CODE_EXAMPLE_STUDENT.ID).basic().hidden();
-//        view.field(SYS_CODE_EXAMPLE_STUDENT.EXAMPLE_ID)
-//                .basic().hidden();
+        view.field(HRM_EMPLOYEE.ID).basic().hidden();
+        view.field(HRM_EMPLOYEE.BADGE)
+                .form().validate().required()
+                .search().fuzzySearch();
+        view.field(HRM_EMPLOYEE.PERSON_ID).basic().hidden();
+
+        view.field(HRM_EMPLOYEE.COMPANY_ID).basic().label("所属公司")
+                //.table().fillBy(EmployeeMeta.COMPANY, CompanyMeta.NAME)
+                .form().validate().required()
+                .form().selectBox().queryApi(CompanyServiceProxy.QUERY_PAGED_LIST+"?valid=1").paging(true).size(10)
+                .valueField(CompanyMeta.ID).textField(CompanyMeta.NAME).fillBy(EmployeeMeta.COMPANY)
+                .search().fuzzySearch();
+
+        view.field(personNameField).basic().label("姓名")
+                .table().fillBy(EmployeeMeta.PERSON, PersonMeta.NAME)
+                .form().validate().required()
+                .form().fillBy(EmployeeMeta.PERSON, PersonMeta.NAME)
+            .search().fuzzySearch();
+
+        view.field(PersonMeta.IDENTITY).basic().label("身份证")
+                .search().fuzzySearch()
+                .table().fillBy(EmployeeMeta.PERSON, PersonMeta.IDENTITY)
+                .form().fillBy(EmployeeMeta.PERSON, PersonMeta.IDENTITY)
+                .form().validate().required().identity()
+        ;
+    }
+
+    @Override
+    public void configForm(ViewOptions view, FormOptions form) {
+        form.labelWidth(80);
+        view.formWindow().bottomSpace(200);
+    }
+
+    @Override
+    public void configList(ViewOptions view, ListOptions list) {
+        list.columnLayout(HRM_EMPLOYEE.COMPANY_ID,HRM_EMPLOYEE.BADGE,personNameField,HRM_EMPLOYEE.CREATE_TIME);
+        list.operationColumn().addActionButton("创建账号","createUser");
+    }
+
+    @Override
+    public void configService(ServiceOptions service) {
+        service.autoware(IPersonService.class);
     }
 
     @Override

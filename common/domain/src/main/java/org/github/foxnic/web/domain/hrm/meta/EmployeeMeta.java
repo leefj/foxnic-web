@@ -3,13 +3,15 @@ package org.github.foxnic.web.domain.hrm.meta;
 import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.hrm.Employee;
 import java.util.Date;
+import org.github.foxnic.web.domain.hrm.Person;
+import org.github.foxnic.web.domain.hrm.Company;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-24 16:16:27
- * @sign CF889C2CF7E1172452402314DC46DBE1
+ * @since 2021-08-26 16:31:25
+ * @sign 34A58447EDEB9EF96DF1234EAF863ABA
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -54,16 +56,6 @@ public class EmployeeMeta {
 	 * 公司ID , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Employee,java.lang.String> COMPANY_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Employee.class ,COMPANY_ID, java.lang.String.class, "公司ID", "公司ID", java.lang.String.class, null);
-	
-	/**
-	 * 租户ID , 类型: java.lang.String
-	*/
-	public static final String TENANT_ID="tenantId";
-	
-	/**
-	 * 租户ID , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Employee,java.lang.String> TENANT_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Employee.class ,TENANT_ID, java.lang.String.class, "租户ID", "租户ID", java.lang.String.class, null);
 	
 	/**
 	 * 创建人ID , 类型: java.lang.String
@@ -146,9 +138,39 @@ public class EmployeeMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Employee,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Employee.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
+	 * 对应的人员信息 , 类型: org.github.foxnic.web.domain.hrm.Person
+	*/
+	public static final String PERSON="person";
+	
+	/**
+	 * 对应的人员信息 , 类型: org.github.foxnic.web.domain.hrm.Person
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Employee,org.github.foxnic.web.domain.hrm.Person> PERSON_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Employee.class ,PERSON, org.github.foxnic.web.domain.hrm.Person.class, "对应的人员信息", "对应的人员信息", org.github.foxnic.web.domain.hrm.Person.class, null);
+	
+	/**
+	 * 所属公司 , 类型: org.github.foxnic.web.domain.hrm.Company
+	*/
+	public static final String COMPANY="company";
+	
+	/**
+	 * 所属公司 , 类型: org.github.foxnic.web.domain.hrm.Company
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Employee,org.github.foxnic.web.domain.hrm.Company> COMPANY_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Employee.class ,COMPANY, org.github.foxnic.web.domain.hrm.Company.class, "所属公司", "所属公司", org.github.foxnic.web.domain.hrm.Company.class, null);
+	
+	/**
+	 * 姓名与工号 , 虚拟属性 , 类型: java.lang.String
+	*/
+	public static final String NAME_AND_BADGE="nameAndBadge";
+	
+	/**
+	 * 姓名与工号 , 虚拟属性 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Employee,java.lang.String> NAME_AND_BADGE_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Employee.class ,NAME_AND_BADGE, java.lang.String.class, "姓名与工号", "虚拟属性", java.lang.String.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , BADGE , PERSON_ID , COMPANY_ID , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , BADGE , PERSON_ID , COMPANY_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , PERSON , COMPANY , NAME_AND_BADGE };
 	
 	/**
 	 * 代理类
@@ -199,17 +221,6 @@ public class EmployeeMeta {
 		public Employee setCompanyId(String companyId) {
 			super.change(COMPANY_ID,super.getCompanyId(),companyId);
 			super.setCompanyId(companyId);
-			return this;
-		}
-		
-		/**
-		 * 设置 租户ID
-		 * @param tenantId 租户ID
-		 * @return 当前对象
-		*/
-		public Employee setTenantId(String tenantId) {
-			super.change(TENANT_ID,super.getTenantId(),tenantId);
-			super.setTenantId(tenantId);
 			return this;
 		}
 		
@@ -298,6 +309,39 @@ public class EmployeeMeta {
 		public Employee setVersion(Integer version) {
 			super.change(VERSION,super.getVersion(),version);
 			super.setVersion(version);
+			return this;
+		}
+		
+		/**
+		 * 设置 对应的人员信息
+		 * @param person 对应的人员信息
+		 * @return 当前对象
+		*/
+		public Employee setPerson(Person person) {
+			super.change(PERSON,super.getPerson(),person);
+			super.setPerson(person);
+			return this;
+		}
+		
+		/**
+		 * 设置 所属公司
+		 * @param company 所属公司
+		 * @return 当前对象
+		*/
+		public Employee setCompany(Company company) {
+			super.change(COMPANY,super.getCompany(),company);
+			super.setCompany(company);
+			return this;
+		}
+		
+		/**
+		 * 设置 姓名与工号
+		 * @param nameAndBadge 姓名与工号
+		 * @return 当前对象
+		*/
+		public Employee setNameAndBadge(String nameAndBadge) {
+			super.change(NAME_AND_BADGE,super.getNameAndBadge(),nameAndBadge);
+			super.setNameAndBadge(nameAndBadge);
 			return this;
 		}
 	}

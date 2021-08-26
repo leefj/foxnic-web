@@ -1,7 +1,8 @@
 /**
  * 员工 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-24 16:16:27
+ * @since 2021-08-26 17:22:30
+ * @auto-code false
  */
 
 layui.config({
@@ -20,10 +21,23 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
     //列表页的扩展
     var list={
         /**
+         * 列表页初始化前调用
+         * */
+        beforeInit:function () {
+            console.log("list:beforeInit");
+        },
+        /**
          * 查询前调用
          * */
         beforeQuery:function (conditions) {
             console.log('beforeQuery',conditions);
+        },
+        /**
+         * 在新建或编辑窗口打开前调用，若返回 false 则不继续执行后续操作
+         * */
+        beforeEdit:function (data) {
+            console.log('beforeEdit',data);
+            return true;
         },
         /**
          * 单行删除前调用，若返回false则不执行后续操作
@@ -45,6 +59,19 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
         moreAction:function (menu,data, it){
             console.log('moreAction',menu,data,it);
         },
+        createUser:function (data){
+            admin.request(api, data, function (data) {
+                clearTimeout(task);
+                layer.closeAll('loading');
+                if (data.success) {
+                    layer.msg(data.message, {icon: 1, time: 500});
+                    var index=admin.getTempData('hrm-employee-form-data-popup-index');
+                    admin.finishPopupCenter(index);
+                } else {
+                    layer.msg(data.message, {icon: 2, time: 1000});
+                }
+            }, "POST");
+        },
         other:function(){
 
         }
@@ -52,6 +79,15 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
 
     //表单页的扩展
     var form={
+        /**
+         * 表单初始化前调用
+         * */
+        beforeInit:function () {
+            //获取参数，并调整下拉框查询用的URL
+            //var companyId=admin.getTempData("companyId");
+            //fox.setSelectBoxUrl("employeeId","/service-hrm/hrm-employee/query-paged-list?companyId="+companyId);
+            console.log("form:beforeInit")
+        },
         /**
          * 表单数据填充前
          * */

@@ -43,12 +43,18 @@ public class DBCacheProxyUtil {
     /**
      * 获得行宽配置信息
      * */
-    public static JSONObject getLayUITableWidthConfig(HttpServletRequest request, SessionUser user) {
+    public static JSONObject getLayUITableWidthConfig(HttpServletRequest request, SessionUser user){
+        return getLayUITableWidthConfig(request,user,"data-table");
+    }
+    /**
+     * 获得行宽配置信息
+     * */
+    public static JSONObject getLayUITableWidthConfig(HttpServletRequest request, SessionUser user,String tableId){
         if(user==null) return null;
         String uri=request.getRequestURI();
         DbCacheVO sample=new DbCacheVO();
         sample.setCatalog("layui-table-column-width");
-        sample.setArea(uri);
+        sample.setArea(uri+"#data-table");
         sample.setOwnerType("user");
         sample.setOwnerId(user.getUserId());
         List<DbCache> list = DBCacheProxyUtil.getList(sample);
@@ -59,10 +65,7 @@ public class DBCacheProxyUtil {
         }
         JSONObject json=new JSONObject();
         String[] tmp=null;
-        String tableId=null;
         for (DbCache c : list) {
-            tmp=c.getId().split("#");
-            tableId=tmp[1];
             json.put(tableId,JSONObject.parseObject(c.getValue()));
         }
         return json;

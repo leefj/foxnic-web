@@ -2,7 +2,7 @@
 /**
  * 账户租户关系 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-25 17:20:49
+ * @since 2021-08-26 15:35:43
  */
  -->
  <!DOCTYPE html>
@@ -88,6 +88,15 @@
                         <input input-type="switch" type="checkbox" checked="" id="activated"  name="activated" lay-skin="switch" lay-filter="activated" lay-text="默认|可选&nbsp;" value="1">
                     </div>
                 </div>
+
+
+                
+                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('工号')}">工号</div><div class="layui-required">*</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <div id="employeeId" input-type="select" th:data="${'/service-hrm/hrm-employee/query-paged-list'}"></div>
+                        </div>
+                    </div>
 
 
                 
@@ -193,7 +202,7 @@
 
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];
-    var VALIDATE_CONFIG={"ownerTenantId":{"labelInForm":"所属租户","inputType":"select_box","required":true}};
+    var VALIDATE_CONFIG={"employeeId":{"labelInForm":"工号","inputType":"select_box","required":true},"ownerTenantId":{"labelInForm":"所属租户","inputType":"select_box","required":true}};
     var AUTH_PREFIX="sys_user_tenant";
 
 

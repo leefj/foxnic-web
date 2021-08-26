@@ -54,7 +54,7 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 
 	@PostConstruct
 	public void initCache() {
-		super.registCacheStrategy("queryList", true,DictItemMeta.DICT_CODE);
+		super.registCacheStrategy("queryList", true,false,DictItemMeta.DICT_CODE);
 	}
 
 
@@ -172,6 +172,8 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 		}
 		return r;
 	}
+
+
 	
 	/**
 	 * 更新实体集，事务内

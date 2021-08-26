@@ -1,22 +1,20 @@
 package org.github.foxnic.web.domain.oauth.meta;
 
 import com.github.foxnic.api.bean.BeanProperty;
-import org.github.foxnic.web.domain.hrm.Employee;
-import org.github.foxnic.web.domain.hrm.Person;
-import org.github.foxnic.web.domain.oauth.Menu;
-import org.github.foxnic.web.domain.oauth.Role;
-import org.github.foxnic.web.domain.oauth.RoleMenu;
 import org.github.foxnic.web.domain.oauth.User;
-
 import java.util.Date;
+import org.github.foxnic.web.domain.oauth.Role;
 import java.util.List;
+import org.github.foxnic.web.domain.oauth.Menu;
+import org.github.foxnic.web.domain.oauth.RoleMenu;
+import org.github.foxnic.web.domain.system.UserTenant;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-24 16:22:12
- * @sign 5304F89BCC48F6C5291D1F1756E7DEEB
+ * @since 2021-08-26 14:05:31
+ * @sign 7E7A57B9F48FB28790CC22A3E3243F33
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -73,16 +71,6 @@ public class UserMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.oauth.User,java.lang.String> PORTRAIT_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.User.class ,PORTRAIT_ID, java.lang.String.class, "头像ID", "头像ID", java.lang.String.class, null);
 	
 	/**
-	 * 人员ID , 类型: java.lang.String
-	*/
-	public static final String PERSON_ID="personId";
-	
-	/**
-	 * 人员ID , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.User,java.lang.String> PERSON_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.User.class ,PERSON_ID, java.lang.String.class, "人员ID", "人员ID", java.lang.String.class, null);
-	
-	/**
 	 * 语言 , 类型: java.lang.String
 	*/
 	public static final String LANGUAGE="language";
@@ -91,16 +79,6 @@ public class UserMeta {
 	 * 语言 , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.oauth.User,java.lang.String> LANGUAGE_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.User.class ,LANGUAGE, java.lang.String.class, "语言", "语言", java.lang.String.class, null);
-	
-	/**
-	 * 员工ID , 类型: java.lang.String
-	*/
-	public static final String EMPLOYEE_ID="employeeId";
-	
-	/**
-	 * 员工ID , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.User,java.lang.String> EMPLOYEE_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.User.class ,EMPLOYEE_ID, java.lang.String.class, "员工ID", "员工ID", java.lang.String.class, null);
 	
 	/**
 	 * 是否有效 , 类型: java.lang.Integer
@@ -243,29 +221,29 @@ public class UserMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.oauth.User,org.github.foxnic.web.domain.oauth.RoleMenu> ROLE_MENUS_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.User.class ,ROLE_MENUS, java.util.List.class, "角色菜单关系清单", "当前用户的所有角色菜单关系清单", org.github.foxnic.web.domain.oauth.RoleMenu.class, null);
 	
 	/**
-	 * 对应的人员 , 当前用户对应的人员 , 类型: org.github.foxnic.web.domain.hrm.Person
+	 * 所属租户关系清单 , 可用且有效的所属租户关系清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.system.UserTenant
 	*/
-	public static final String PERSON="person";
+	public static final String JOINED_TENANTS="joinedTenants";
 	
 	/**
-	 * 对应的人员 , 当前用户对应的人员 , 类型: org.github.foxnic.web.domain.hrm.Person
+	 * 所属租户关系清单 , 可用且有效的所属租户关系清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.system.UserTenant
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.User,org.github.foxnic.web.domain.hrm.Person> PERSON_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.User.class ,PERSON, org.github.foxnic.web.domain.hrm.Person.class, "对应的人员", "当前用户对应的人员", org.github.foxnic.web.domain.hrm.Person.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.User,org.github.foxnic.web.domain.system.UserTenant> JOINED_TENANTS_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.User.class ,JOINED_TENANTS, java.util.List.class, "所属租户关系清单", "可用且有效的所属租户关系清单", org.github.foxnic.web.domain.system.UserTenant.class, null);
 	
 	/**
-	 * 对应的员工 , 当前用户对应的员工 , 类型: org.github.foxnic.web.domain.hrm.Employee
+	 * 当前激活的租户 , 类型: org.github.foxnic.web.domain.system.UserTenant
 	*/
-	public static final String EMPLOYEE="employee";
+	public static final String ACTIVATED_TENANT="activatedTenant";
 	
 	/**
-	 * 对应的员工 , 当前用户对应的员工 , 类型: org.github.foxnic.web.domain.hrm.Employee
+	 * 当前激活的租户 , 类型: org.github.foxnic.web.domain.system.UserTenant
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.User,org.github.foxnic.web.domain.hrm.Employee> EMPLOYEE_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.User.class ,EMPLOYEE, org.github.foxnic.web.domain.hrm.Employee.class, "对应的员工", "当前用户对应的员工", org.github.foxnic.web.domain.hrm.Employee.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.User,org.github.foxnic.web.domain.system.UserTenant> ACTIVATED_TENANT_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.User.class ,ACTIVATED_TENANT, org.github.foxnic.web.domain.system.UserTenant.class, "当前激活的租户", "当前激活的租户", org.github.foxnic.web.domain.system.UserTenant.class, null);
 	
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , NAME , PASSWD , PHONE , PORTRAIT_ID , PERSON_ID , LANGUAGE , EMPLOYEE_ID , VALID , CACHE_KEY , LAST_LOGIN_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , ROLES , MENUS , ROLE_MENUS , PERSON , EMPLOYEE };
+	public static final String[] $PROPS={ ID , NAME , PASSWD , PHONE , PORTRAIT_ID , LANGUAGE , VALID , CACHE_KEY , LAST_LOGIN_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , ROLES , MENUS , ROLE_MENUS , JOINED_TENANTS , ACTIVATED_TENANT };
 	
 	/**
 	 * 代理类
@@ -331,17 +309,6 @@ public class UserMeta {
 		}
 		
 		/**
-		 * 设置 人员ID
-		 * @param personId 人员ID
-		 * @return 当前对象
-		*/
-		public User setPersonId(String personId) {
-			super.change(PERSON_ID,super.getPersonId(),personId);
-			super.setPersonId(personId);
-			return this;
-		}
-		
-		/**
 		 * 设置 语言
 		 * @param language 语言
 		 * @return 当前对象
@@ -349,17 +316,6 @@ public class UserMeta {
 		public User setLanguage(String language) {
 			super.change(LANGUAGE,super.getLanguage(),language);
 			super.setLanguage(language);
-			return this;
-		}
-		
-		/**
-		 * 设置 员工ID
-		 * @param employeeId 员工ID
-		 * @return 当前对象
-		*/
-		public User setEmployeeId(String employeeId) {
-			super.change(EMPLOYEE_ID,super.getEmployeeId(),employeeId);
-			super.setEmployeeId(employeeId);
 			return this;
 		}
 		
@@ -518,24 +474,24 @@ public class UserMeta {
 		}
 		
 		/**
-		 * 设置 对应的人员
-		 * @param person 对应的人员
+		 * 设置 所属租户关系清单
+		 * @param joinedTenants 所属租户关系清单
 		 * @return 当前对象
 		*/
-		public User setPerson(Person person) {
-			super.change(PERSON,super.getPerson(),person);
-			super.setPerson(person);
+		public User setJoinedTenants(List<UserTenant> joinedTenants) {
+			super.change(JOINED_TENANTS,super.getJoinedTenants(),joinedTenants);
+			super.setJoinedTenants(joinedTenants);
 			return this;
 		}
 		
 		/**
-		 * 设置 对应的员工
-		 * @param employee 对应的员工
+		 * 设置 当前激活的租户
+		 * @param activatedTenant 当前激活的租户
 		 * @return 当前对象
 		*/
-		public User setEmployee(Employee employee) {
-			super.change(EMPLOYEE,super.getEmployee(),employee);
-			super.setEmployee(employee);
+		public User setActivatedTenant(UserTenant activatedTenant) {
+			super.change(ACTIVATED_TENANT,super.getActivatedTenant(),activatedTenant);
+			super.setActivatedTenant(activatedTenant);
 			return this;
 		}
 	}

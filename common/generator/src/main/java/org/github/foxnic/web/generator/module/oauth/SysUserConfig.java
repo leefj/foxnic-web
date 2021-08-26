@@ -9,14 +9,13 @@ import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER;
 import org.github.foxnic.web.constants.enums.Language;
-import org.github.foxnic.web.domain.hrm.Employee;
-import org.github.foxnic.web.domain.hrm.Person;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.Role;
 import org.github.foxnic.web.domain.oauth.RoleMenu;
 import org.github.foxnic.web.domain.oauth.meta.RoleMeta;
 import org.github.foxnic.web.domain.oauth.meta.UserMeta;
 import org.github.foxnic.web.domain.oauth.meta.UserVOMeta;
+import org.github.foxnic.web.domain.system.UserTenant;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 import org.github.foxnic.web.proxy.oauth.RoleServiceProxy;
 
@@ -38,9 +37,9 @@ public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
         poType.addListProperty( Role.class, "roles","角色清单", "当前用户的所有角色清单");
         poType.addListProperty( Menu.class, "menus","菜单清单", "当前用户的所有菜单清单");
         poType.addListProperty( RoleMenu.class, "roleMenus","角色菜单关系清单", "当前用户的所有角色菜单关系清单");
-        //
-        poType.addSimpleProperty( Person.class, "person","对应的人员", "当前用户对应的人员");
-        poType.addSimpleProperty( Employee.class, "employee","对应的员工", "当前用户对应的员工");
+
+        poType.addListProperty( UserTenant.class, "joinedTenants","所属租户关系清单", "可用且有效的所属租户关系清单");
+        poType.addSimpleProperty( UserTenant.class, "activatedTenant","当前激活的租户", "当前激活的租户");
 
         //增加VO属性
         voType.addListProperty(String.class,"roleIds","角色ID列表","");
@@ -69,17 +68,17 @@ public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
         context.view().field(SYS_USER.PASSWD)
                 .basic().hidden(true);
 
-        context.view().field(SYS_USER.EMPLOYEE_ID)
-                .basic().hidden(true);
+//        context.view().field(SYS_USER.EMPLOYEE_ID)
+//                .basic().hidden(true);
 
         context.view().field(SYS_USER.LAST_LOGIN_TIME)
                 .basic().hidden(true);
 
-        context.view().field(SYS_USER.PERSON_ID)
-                .basic().hidden(true);
-
-        context.view().field(SYS_USER.EMPLOYEE_ID)
-                .basic().hidden(true);
+//        context.view().field(SYS_USER.PERSON_ID)
+//                .basic().hidden(true);
+//
+//        context.view().field(SYS_USER.EMPLOYEE_ID)
+//                .basic().hidden(true);
 
         context.view().field(SYS_USER.PASSWD)
                 .basic().hidden(true);

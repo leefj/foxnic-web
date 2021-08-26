@@ -50,6 +50,8 @@ public class PageAspector {
 
 	private static final String CACHE_KEY = "cacheKey";
 
+	private static final String PAGE_HELPER = "pageHelper";
+
 	public static final String LAYUI_TABLE_WIDTH_CONFIG="layuiTableWidthConfig";
 	
 	private CodeTextEnumUtil enumUtil;
@@ -112,6 +114,7 @@ public class PageAspector {
 		//获得登录 SessionUser
 		SessionUser user=SessionUser.getCurrent();
 
+		PageHelper pageHelper=new PageHelper(request,user);
 
 		String cacheKey= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_CACHEKEY);
 		String userCacheKey=null;
@@ -136,6 +139,7 @@ public class PageAspector {
 				((Model)arg).addAttribute(LAYUI_TABLE_WIDTH_CONFIG, widthConfig);
 				((Model)arg).addAttribute(DICT, dictUtil);
 				((Model)arg).addAttribute(CACHE_KEY, cacheKey);
+				((Model)arg).addAttribute(PAGE_HELPER, pageHelper);
 			} else if(arg instanceof ModelAndView ) {
 				((ModelAndView)arg).addObject(LANG, languageService);
 				((ModelAndView)arg).addObject(ENUM, enumUtil);
@@ -146,6 +150,7 @@ public class PageAspector {
 				((ModelAndView)arg).addObject(LAYUI_TABLE_WIDTH_CONFIG, widthConfig);
 				((ModelAndView)arg).addObject(DICT, dictUtil);
 				((Model)arg).addAttribute(CACHE_KEY, cacheKey);
+				((Model)arg).addAttribute(PAGE_HELPER, pageHelper);
 			} else if(arg instanceof ModelMap ) {
 				((ModelMap)arg).addAttribute(LANG, languageService);
 				((ModelMap)arg).addAttribute(ENUM, enumUtil);
@@ -156,6 +161,7 @@ public class PageAspector {
 				((ModelMap)arg).addAttribute(LAYUI_TABLE_WIDTH_CONFIG, widthConfig);
 				((ModelMap)arg).addAttribute(DICT, dictUtil);
 				((Model)arg).addAttribute(CACHE_KEY, cacheKey);
+				((Model)arg).addAttribute(PAGE_HELPER, pageHelper);
 			}
 		}
 		 

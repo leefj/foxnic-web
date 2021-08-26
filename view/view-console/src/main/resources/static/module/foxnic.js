@@ -22,6 +22,14 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             if (!id.startWith("#")) id = "#" + id;
             return this.selectBoxInstances[id];
         },
+        setSelectBoxUrl:function(id,url){
+            var box=this.getSelectBox(id);
+            if(box) {
+                box.setUrl(url);
+            } else {
+                $("#"+id).attr("data",url);
+            }
+        },
         renderSelectBox: function (cfg) {
             var me=this;
             var inst = null;
@@ -34,7 +42,6 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             var url = null;
             try {
                 data = JSON.parse(data);
-
             } catch (e) {
                 url = data;
                 data = null;
@@ -55,6 +62,9 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 // cfg.filterable=true;
 
                 function query(ps, cb) {
+                    //再次重新读取，更改这个值，以便级联
+                    var url = el.attr("data");
+                    // debugger;
                     admin.request(url, ps, function (r) {
                         var opts = [];
                         me.getSelectBox(cfg.el)["currentData"]=null;
@@ -137,6 +147,9 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             inst.getAllData=function (){
                 if(inst.currentData!=null) return inst.currentData;
                 else return inst.options.data;
+            }
+            inst.setUrl =function (url) {
+                el.attr("data",url)
             }
             return inst;
         },
@@ -1341,9 +1354,8 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             console.log("save table", tableId, ws);
 
             admin.request("/service-system/sys-db-cache/save", {
-                id: loc + "#" + tableId,
                 value: JSON.stringify(ws),
-                area: loc,
+                area: loc+"#"+tableId,
                 catalog: "layui-table-column-width",
                 ownerType: "user"
             }, function (data) {

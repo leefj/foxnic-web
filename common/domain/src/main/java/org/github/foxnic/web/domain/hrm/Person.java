@@ -1,15 +1,18 @@
 package org.github.foxnic.web.domain.hrm;
 
+import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.dao.entity.Entity;
-import javax.persistence.Table;
-import com.github.foxnic.sql.meta.DBTable;
-import org.github.foxnic.web.constants.db.FoxnicWeb.HRM_PERSON;
-import javax.persistence.Id;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Date;
-import javax.persistence.Transient;
-import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
+import com.github.foxnic.sql.meta.DBTable;
+import io.swagger.annotations.ApiModelProperty;
+import org.github.foxnic.web.constants.db.FoxnicWeb.HRM_PERSON;
+
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 
 
@@ -390,4 +393,6 @@ public class Person extends Entity {
 	public static Person create() {
 		return EntityContext.create(Person.class);
 	}
+
+
 }

@@ -12,6 +12,7 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
+import java.util.Collection;
 
 
 @Aspect
@@ -50,7 +51,21 @@ public class CachedAspector {
 		Object result=cache.get(key);
 		if(result==null) {
 			result = joinPoint.proceed();
-			cache.put(key,result,cached.expire());
+			boolean isEmpty=false;
+			if(result==null) {
+				isEmpty=true;
+			} else {
+				if(result instanceof Collection) {
+					isEmpty=((Collection)result).isEmpty();
+				}
+			}
+			if(strategy.isCacheEmptyResult()) {
+				cache.put(key, result, cached.expire());
+			} else {
+				if(!isEmpty) {
+					cache.put(key, result, cached.expire());
+				}
+			}
 		}
 		return result;
 	}

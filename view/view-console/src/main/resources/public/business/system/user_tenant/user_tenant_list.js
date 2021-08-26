@@ -1,7 +1,7 @@
 /**
  * 账户租户关系 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-25 17:20:49
+ * @since 2021-08-26 15:35:43
  */
 
 
@@ -18,7 +18,10 @@ function ListPage() {
      	
      	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload,laydate= layui.laydate;
 		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect,dropdown=layui.dropdown;;
-		
+
+		if(window.pageExt.list.beforeInit) {
+			window.pageExt.list.beforeInit();
+		}
      	//渲染表格
      	renderTable();
 		//初始化搜索输入框组件
@@ -67,6 +70,7 @@ function ListPage() {
 					,{ field: 'ownerTenantId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('所属租户'), templet: function (d) { return fox.joinLabel(d.tenant,"alias");}}
 					,{ field: 'valid', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('是否有效'), templet: '#cell-tpl-valid'}
 					,{ field: 'activated', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('默认'), templet: '#cell-tpl-activated'}
+					,{ field: 'employeeId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('工号'), templet: function (d) { return fox.joinLabel(d.employee,"nameAndBadge");}}
 					,{ field: 'sort', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('顺序') }
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return fox.dateFormat(d.createTime); }}
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
@@ -105,6 +109,7 @@ function ListPage() {
 		value.ownerTenantId={ value: xmSelect.get("#ownerTenantId",true).getValue("value"), fillBy:"tenant",field:"id", label:xmSelect.get("#ownerTenantId",true).getValue("nameStr") };
 		value.valid={ value: xmSelect.get("#valid",true).getValue("value"), label:xmSelect.get("#valid",true).getValue("nameStr") };
 		value.activated={ value: xmSelect.get("#activated",true).getValue("value"), label:xmSelect.get("#activated",true).getValue("nameStr") };
+		value.employeeId={ value: xmSelect.get("#employeeId",true).getValue("value"), fillBy:"employee",field:"id", label:xmSelect.get("#employeeId",true).getValue("nameStr") };
 		value.sort={ value: $("#sort").val()};
 		window.pageExt.list.beforeQuery && window.pageExt.list.beforeQuery(value);
 		var ps={searchField: "$composite", searchValue: JSON.stringify(value)};
@@ -174,6 +179,29 @@ function ListPage() {
 			el: "activated",
 			size: "small",
 			radio: false
+		});
+		//渲染 employeeId 下拉字段
+		fox.renderSelectBox({
+			el: "employeeId",
+			radio: false,
+			size: "small",
+			filterable: true,
+			paging: true,
+			pageRemote: true,
+			toolbar: {show:true,showIcon:true,list:["CLEAR","REVERSE"]},
+			//转换数据
+			searchField: "nameAndBadge", //请自行调整用于搜索的字段名称
+			extraParam: {}, //额外的查询参数，Object 或是 返回 Object 的函数
+			transform: function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				var opts=[];
+				if(!data) return opts;
+				for (var i = 0; i < data.length; i++) {
+					if(!data[i]) continue;
+					opts.push({name:data[i].nameAndBadge,value:data[i].id});
+				}
+				return opts;
+			}
 		});
 		fox.renderSearchInputs();
 	}
@@ -336,6 +364,10 @@ function ListPage() {
      * 打开编辑窗口
      */
 	function showEditForm(data) {
+		if(window.pageExt.list.beforeEdit) {
+			var doNext=window.pageExt.list.beforeEdit(data);
+			if(!doNext) return;
+		}
 		var queryString="";
 		if(data && data.id) queryString="?" + 'id=' + data.id;
 		admin.putTempData('sys-user-tenant-form-data', data);

@@ -1,7 +1,7 @@
 /**
  * 员工 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-24 16:16:29
+ * @since 2021-08-26 17:26:53
  */
 
 function FormPage() {
@@ -24,6 +24,10 @@ function FormPage() {
 		}
 		if(admin.getTempData('hrm-employee-form-data-form-action')=="view") {
 			disableModify=true;
+		}
+
+		if(window.pageExt.form.beforeInit) {
+			window.pageExt.form.beforeInit();
 		}
 
 		//渲染表单组件
@@ -73,6 +77,28 @@ function FormPage() {
 	function renderFormFields() {
 		fox.renderFormInputs(form);
 
+		//渲染 companyId 下拉字段
+		fox.renderSelectBox({
+			el: "companyId",
+			radio: true,
+			filterable: true,
+			paging: true,
+			pageRemote: true,
+			toolbar: {show:true,showIcon:true,list:[ "ALL", "CLEAR","REVERSE"]},
+			//转换数据
+			searchField: "name", //请自行调整用于搜索的字段名称
+			extraParam: {}, //额外的查询参数，Object 或是 返回 Object 的函数
+			transform: function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				var opts=[];
+				if(!data) return opts;
+				for (var i = 0; i < data.length; i++) {
+					if(!data[i]) continue;
+					opts.push({name:data[i].name,value:data[i].id});
+				}
+				return opts;
+			}
+		});
 	}
 
 	/**
@@ -96,14 +122,17 @@ function FormPage() {
 
 
 
+			//设置  所属公司 设置下拉框勾选
+			fox.setSelectValue4QueryApi("#companyId",formData.company);
 
-
-
+			//处理fillBy
+			$("#name").val(fox.getProperty(formData,["person","name"]));
+			$("#identity").val(fox.getProperty(formData,["person","identity"]));
 
 	     	fm.attr('method', 'POST');
 	     	renderFormFields();
 
-		window.pageExt.form.afterDataFill && window.pageExt.form.afterDataFill(formData);
+			window.pageExt.form.afterDataFill && window.pageExt.form.afterDataFill(formData);
 
 		}
 
@@ -143,6 +172,8 @@ function FormPage() {
 
 
 
+		//获取 所属公司 下拉框的值
+		data["companyId"]=fox.getSelectedValue("companyId",false);
 
 		return data;
 	}

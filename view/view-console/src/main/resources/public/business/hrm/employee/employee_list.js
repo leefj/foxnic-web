@@ -1,7 +1,7 @@
 /**
  * 员工 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-24 16:16:29
+ * @since 2021-08-26 17:26:52
  */
 
 
@@ -18,7 +18,10 @@ function ListPage() {
      	
      	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload,laydate= layui.laydate;
 		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect,dropdown=layui.dropdown;;
-		
+
+		if(window.pageExt.list.beforeInit) {
+			window.pageExt.list.beforeInit();
+		}
      	//渲染表格
      	renderTable();
 		//初始化搜索输入框组件
@@ -62,12 +65,13 @@ function ListPage() {
 				cols: [[
 					{ fixed: 'left',type: 'numbers' },
 					{ fixed: 'left',type:'checkbox' }
-					,{ field: 'id', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('ID') }
+					,{ field: 'companyId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('所属公司'), templet: function (d) { return fox.joinLabel(d.company,"name");}}
 					,{ field: 'badge', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('工号') }
-					,{ field: 'personId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('人员ID') }
-					,{ field: 'companyId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('公司ID') }
-					,{ field: 'tenantId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('租户ID') }
+					,{ field: 'name', align:"",fixed:false,  hide:false, sort: true, title: fox.translate('姓名') , templet: function (d) { return fox.getProperty(d,["person","name"]);}  }
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return fox.dateFormat(d.createTime); }}
+					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('ID') }
+					,{ field: 'personId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('人员ID') }
+					,{ field: 'identity', align:"",fixed:false,  hide:true, sort: true, title: fox.translate('身份证') , templet: function (d) { return fox.getProperty(d,["person","identity"]);}  }
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
 				]],
@@ -98,11 +102,10 @@ function ListPage() {
       */
 	function refreshTableData(sortField,sortType) {
 		var value = {};
-		value.id={ value: $("#id").val()};
-		value.badge={ value: $("#badge").val()};
-		value.personId={ value: $("#personId").val()};
-		value.companyId={ value: $("#companyId").val()};
-		value.tenantId={ value: $("#tenantId").val()};
+		value.badge={ value: $("#badge").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" "};
+		value.companyId={ value: $("#companyId").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"", fillBy:"company",field:"name" };
+		value.name={ value: $("#name").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" ",fillBy:["person","name"] };
+		value.identity={ value: $("#identity").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" ",fillBy:["person","identity"] };
 		window.pageExt.list.beforeQuery && window.pageExt.list.beforeQuery(value);
 		var ps={searchField: "$composite", searchValue: JSON.stringify(value)};
 		if(sortField) {
@@ -137,6 +140,29 @@ function ListPage() {
 
 		fox.switchSearchRow(1);
 
+		//渲染 companyId 下拉字段
+		fox.renderSelectBox({
+			el: "companyId",
+			radio: false,
+			size: "small",
+			filterable: true,
+			paging: true,
+			pageRemote: true,
+			toolbar: {show:true,showIcon:true,list:["CLEAR","REVERSE"]},
+			//转换数据
+			searchField: "name", //请自行调整用于搜索的字段名称
+			extraParam: {}, //额外的查询参数，Object 或是 返回 Object 的函数
+			transform: function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				var opts=[];
+				if(!data) return opts;
+				for (var i = 0; i < data.length; i++) {
+					if(!data[i]) continue;
+					opts.push({name:data[i].name,value:data[i].id});
+				}
+				return opts;
+			}
+		});
 		fox.renderSearchInputs();
 	}
 	
@@ -289,6 +315,9 @@ function ListPage() {
 				});
 				
 			}
+			else if (layEvent === 'create-user') { // 创建账号
+				window.pageExt.list.createUser(data);
+			}
 			
 		});
  
@@ -298,6 +327,10 @@ function ListPage() {
      * 打开编辑窗口
      */
 	function showEditForm(data) {
+		if(window.pageExt.list.beforeEdit) {
+			var doNext=window.pageExt.list.beforeEdit(data);
+			if(!doNext) return;
+		}
 		var queryString="";
 		if(data && data.id) queryString="?" + 'id=' + data.id;
 		admin.putTempData('hrm-employee-form-data', data);

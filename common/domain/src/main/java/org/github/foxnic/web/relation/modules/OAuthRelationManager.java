@@ -8,6 +8,7 @@ import org.github.foxnic.web.domain.oauth.meta.MenuMeta;
 import org.github.foxnic.web.domain.oauth.meta.RoleMeta;
 import org.github.foxnic.web.domain.oauth.meta.SessionOnlineMeta;
 import org.github.foxnic.web.domain.oauth.meta.UserMeta;
+import org.github.foxnic.web.domain.system.UserTenant;
 
 import java.util.List;
 
@@ -83,13 +84,25 @@ public class OAuthRelationManager extends RelationManager {
 		this.property(SessionOnlineMeta.USER_PROP)
 				.using(SYS_SESSION_ONLINE.USER_ID).join(SYS_USER.ID);
 
-		// 用户 - 人员
-		this.property(UserMeta.PERSON_PROP)
-				.using(SYS_USER.PERSON_ID).join(HRM_PERSON.ID);
+		// 用户 - 所属租户
+		this.property(UserMeta.JOINED_TENANTS_PROP)
+				.using(SYS_USER.ID).join(SYS_USER_TENANT.USER_ID).condition("valid=1")
+				.addOrderBy(SYS_USER_TENANT.ACTIVATED,false,true)
+				.addOrderBy(SYS_USER_TENANT.SORT,true,true)
+		.after((user,tenants)->{
+			for (UserTenant tenant : tenants) {
+				//设置当前激活的租户
+				if(user.getActivatedTenant()==null  && tenant.getActivated()==1) {
+					user.setActivatedTenant(tenant);
+				}
+			}
+			//设置默认激活的租户
+			if(user.getActivatedTenant()==null && tenants.size()>0) {
+				user.setActivatedTenant(tenants.get(0));
+			}
+			return tenants;
+		});
 
-		// 用户 - 员工
-		this.property(UserMeta.EMPLOYEE_PROP)
-				.using(SYS_USER.EMPLOYEE_ID).join(HRM_EMPLOYEE.ID);
 
 	}
 

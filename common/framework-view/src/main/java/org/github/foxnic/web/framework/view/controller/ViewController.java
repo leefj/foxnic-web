@@ -14,6 +14,4 @@ public class ViewController {
        return  sessionUser;
     }
 
-
-
 }
