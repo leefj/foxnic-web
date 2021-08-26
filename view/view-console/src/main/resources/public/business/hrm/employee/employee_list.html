@@ -2,7 +2,7 @@
 /**
  * 员工 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-26 20:56:41
+ * @since 2021-08-26 21:26:54
  */
  -->
  <!DOCTYPE html>
@@ -96,7 +96,6 @@
 
     <a th:if="${perm.checkAuth('hrm_employee:delete')}" class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del" th:text="${lang.translate('删除')}">删除</a>
 
-    <a class="layui-btn layui-btn-xs " lay-event="create-user" th:text="${lang.translate('创建账号')}">创建账号</a>
 
 </script>
 

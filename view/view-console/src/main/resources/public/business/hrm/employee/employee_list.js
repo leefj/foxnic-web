@@ -1,7 +1,7 @@
 /**
  * 员工 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-26 20:56:41
+ * @since 2021-08-26 21:26:54
  */
 
 
@@ -323,9 +323,6 @@ function ListPage() {
 					});
 				});
 				
-			}
-			else if (layEvent === 'create-user') { // 创建账号
-				window.pageExt.list.createUser(data);
 			}
 			
 		});
