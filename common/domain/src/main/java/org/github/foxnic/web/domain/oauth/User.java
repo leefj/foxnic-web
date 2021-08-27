@@ -1,26 +1,27 @@
 package org.github.foxnic.web.domain.oauth;
 
 import com.github.foxnic.dao.entity.Entity;
-import javax.persistence.Table;
+import com.github.foxnic.dao.entity.EntityContext;
 import com.github.foxnic.sql.meta.DBTable;
-import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER;
-import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
+import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER;
+import org.github.foxnic.web.domain.system.UserTenant;
+
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import org.github.foxnic.web.domain.system.UserTenant;
-import java.util.ArrayList;
-import javax.persistence.Transient;
 import java.util.Map;
-import com.github.foxnic.dao.entity.EntityContext;
 
 
 
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-26 14:05:31
- * @sign 7E7A57B9F48FB28790CC22A3E3243F33
+ * @since 2021-08-27 09:33:42
+ * @sign 76F486A58493248A1D2E7582DEA9458D
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -163,6 +164,12 @@ public class User extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="当前激活的租户" , notes = "当前激活的租户")
 	private UserTenant activatedTenant;
+	
+	/**
+	 * 当前激活的员工ID：当前激活的租户对应的员工ID
+	*/
+	@ApiModelProperty(required = false,value="当前激活的员工ID" , notes = "当前激活的租户对应的员工ID")
+	private String activatedEmployeeId;
 	
 	/**
 	 * 获得 ID<br>
@@ -623,6 +630,25 @@ public class User extends Entity {
 	*/
 	public User setActivatedTenant(UserTenant activatedTenant) {
 		this.activatedTenant=activatedTenant;
+		return this;
+	}
+	
+	/**
+	 * 获得 当前激活的员工ID<br>
+	 * 当前激活的租户对应的员工ID
+	 * @return 当前激活的员工ID
+	*/
+	public String getActivatedEmployeeId() {
+		return activatedEmployeeId;
+	}
+	
+	/**
+	 * 设置 当前激活的员工ID
+	 * @param activatedEmployeeId 当前激活的员工ID
+	 * @return 当前对象
+	*/
+	public User setActivatedEmployeeId(String activatedEmployeeId) {
+		this.activatedEmployeeId=activatedEmployeeId;
 		return this;
 	}
 

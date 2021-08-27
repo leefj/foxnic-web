@@ -37,10 +37,11 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             }
             return true;
         },
-
-        afterSwitched:function (data,ctx){
-            console.log("afterSwitched",data,ctx);
-            window.module.refreshTableData();
+        afterSwitched:function (id,data,ctx) {
+            console.log("afterSwitched:"+id,data,ctx);
+            if(id=="activated") {
+                window.module.refreshTableData();
+            }
         },
         /**
          * 单行删除前调用，若返回false则不执行后续操作

@@ -69,11 +69,6 @@ public class HrmEmployeeConfig extends BaseCodeConfig<HRM_EMPLOYEE> {
         ;
 
 
-
-        view.field(HRM_EMPLOYEE.KEEP_ACCOUNT).basic().label("账号")
-        .form().hidden()
-        .form().logicField().off("关闭",0).on("开通",1);
-
     }
 
     @Override
@@ -84,7 +79,7 @@ public class HrmEmployeeConfig extends BaseCodeConfig<HRM_EMPLOYEE> {
 
     @Override
     public void configList(ViewOptions view, ListOptions list) {
-        list.columnLayout(HRM_EMPLOYEE.KEEP_ACCOUNT,HRM_EMPLOYEE.COMPANY_ID,HRM_EMPLOYEE.BADGE,personNameField,HRM_EMPLOYEE.CREATE_TIME);
+        list.columnLayout(HRM_EMPLOYEE.COMPANY_ID,HRM_EMPLOYEE.BADGE,personNameField,HRM_EMPLOYEE.CREATE_TIME);
     }
 
     @Override

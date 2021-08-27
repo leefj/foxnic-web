@@ -1,7 +1,7 @@
 /**
  * 租户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-26 15:35:43
+ * @since 2021-08-27 09:33:47
  */
 
 function FormPage() {
@@ -125,13 +125,12 @@ function FormPage() {
 			//设置  公司 设置下拉框勾选
 			fox.setSelectValue4QueryApi("#companyId",formData.company);
 
-
-
+			//处理fillBy
 
 	     	fm.attr('method', 'POST');
 	     	renderFormFields();
 
-		window.pageExt.form.afterDataFill && window.pageExt.form.afterDataFill(formData);
+			window.pageExt.form.afterDataFill && window.pageExt.form.afterDataFill(formData);
 
 		}
 

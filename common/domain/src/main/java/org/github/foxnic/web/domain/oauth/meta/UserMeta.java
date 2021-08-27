@@ -13,8 +13,8 @@ import org.github.foxnic.web.domain.system.UserTenant;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-26 14:05:31
- * @sign 7E7A57B9F48FB28790CC22A3E3243F33
+ * @since 2021-08-27 09:33:42
+ * @sign 76F486A58493248A1D2E7582DEA9458D
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -241,9 +241,19 @@ public class UserMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.oauth.User,org.github.foxnic.web.domain.system.UserTenant> ACTIVATED_TENANT_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.User.class ,ACTIVATED_TENANT, org.github.foxnic.web.domain.system.UserTenant.class, "当前激活的租户", "当前激活的租户", org.github.foxnic.web.domain.system.UserTenant.class, null);
 	
 	/**
+	 * 当前激活的员工ID , 当前激活的租户对应的员工ID , 类型: java.lang.String
+	*/
+	public static final String ACTIVATED_EMPLOYEE_ID="activatedEmployeeId";
+	
+	/**
+	 * 当前激活的员工ID , 当前激活的租户对应的员工ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.User,java.lang.String> ACTIVATED_EMPLOYEE_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.User.class ,ACTIVATED_EMPLOYEE_ID, java.lang.String.class, "当前激活的员工ID", "当前激活的租户对应的员工ID", java.lang.String.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , NAME , PASSWD , PHONE , PORTRAIT_ID , LANGUAGE , VALID , CACHE_KEY , LAST_LOGIN_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , ROLES , MENUS , ROLE_MENUS , JOINED_TENANTS , ACTIVATED_TENANT };
+	public static final String[] $PROPS={ ID , NAME , PASSWD , PHONE , PORTRAIT_ID , LANGUAGE , VALID , CACHE_KEY , LAST_LOGIN_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , ROLES , MENUS , ROLE_MENUS , JOINED_TENANTS , ACTIVATED_TENANT , ACTIVATED_EMPLOYEE_ID };
 	
 	/**
 	 * 代理类
@@ -492,6 +502,17 @@ public class UserMeta {
 		public User setActivatedTenant(UserTenant activatedTenant) {
 			super.change(ACTIVATED_TENANT,super.getActivatedTenant(),activatedTenant);
 			super.setActivatedTenant(activatedTenant);
+			return this;
+		}
+		
+		/**
+		 * 设置 当前激活的员工ID
+		 * @param activatedEmployeeId 当前激活的员工ID
+		 * @return 当前对象
+		*/
+		public User setActivatedEmployeeId(String activatedEmployeeId) {
+			super.change(ACTIVATED_EMPLOYEE_ID,super.getActivatedEmployeeId(),activatedEmployeeId);
+			super.setActivatedEmployeeId(activatedEmployeeId);
 			return this;
 		}
 	}

@@ -35,7 +35,7 @@ public class SystemRelationManager extends RelationManager {
 		this.property(UserTenantMeta.TENANT_PROP)
 				.using(FoxnicWeb.SYS_USER_TENANT.OWNER_TENANT_ID).join(FoxnicWeb.SYS_TENANT.ID);
 
-		//用户所属租户 -租户关联关系
+		//用户所属租户 -员工关联关系
 		this.property(UserTenantMeta.EMPLOYEE_PROP)
 				.using(FoxnicWeb.SYS_USER_TENANT.EMPLOYEE_ID).join(FoxnicWeb.HRM_EMPLOYEE.ID);
 

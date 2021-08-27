@@ -94,6 +94,7 @@ public class OAuthRelationManager extends RelationManager {
 				//设置当前激活的租户
 				if(user.getActivatedTenant()==null  && tenant.getActivated()==1) {
 					user.setActivatedTenant(tenant);
+					user.setActivatedEmployeeId(tenant.getEmployeeId());
 				}
 			}
 			//设置默认激活的租户

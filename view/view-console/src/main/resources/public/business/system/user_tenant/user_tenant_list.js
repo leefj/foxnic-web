@@ -1,7 +1,7 @@
 /**
  * 账户租户关系 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-26 20:46:11
+ * @since 2021-08-27 09:33:47
  */
 
 
@@ -91,8 +91,12 @@ function ListPage() {
 				}
 			});
 			//绑定 Switch 切换事件
-			fox.bindSwitchEvent("cell-tpl-valid",moduleURL +'/update','id','valid',function(r){});
-			fox.bindSwitchEvent("cell-tpl-activated",moduleURL +'/update','id','activated',function(r){});
+			fox.bindSwitchEvent("cell-tpl-valid",moduleURL +'/update','id','valid',function(data,ctx){
+				window.pageExt.list.afterSwitched && window.pageExt.list.afterSwitched("valid",data,ctx);
+			});
+			fox.bindSwitchEvent("cell-tpl-activated",moduleURL +'/update','id','activated',function(data,ctx){
+				window.pageExt.list.afterSwitched && window.pageExt.list.afterSwitched("activated",data,ctx);
+			});
 			//绑定排序事件
 			table.on('sort(data-table)', function(obj){
 			  refreshTableData(obj.field,obj.type);

@@ -40,6 +40,7 @@ public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
 
         poType.addListProperty( UserTenant.class, "joinedTenants","所属租户关系清单", "可用且有效的所属租户关系清单");
         poType.addSimpleProperty( UserTenant.class, "activatedTenant","当前激活的租户", "当前激活的租户");
+        poType.addSimpleProperty( String.class, "activatedEmployeeId","当前激活的员工ID", "当前激活的租户对应的员工ID");
 
         //增加VO属性
         voType.addListProperty(String.class,"roleIds","角色ID列表","");

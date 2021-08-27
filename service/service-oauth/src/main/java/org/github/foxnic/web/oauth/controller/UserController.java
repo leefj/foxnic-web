@@ -12,7 +12,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.github.foxnic.web.domain.hrm.EmployeeVO;
 import org.github.foxnic.web.domain.oauth.Role;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.domain.oauth.UserVO;
@@ -135,20 +134,6 @@ public class UserController extends SuperController {
 		return result;
 	}
 
-
-	/**
-	 * 通过员工信息开关账户
-	 */
-	@ApiOperation(value = "通过员工信息开关账户")
-	@SentinelResource(value = UserServiceProxy.SWITCH_FROM_EMPLOYEE)
-	@PostMapping(UserServiceProxy.SWITCH_FROM_EMPLOYEE)
-	public Result switchFromEmployee(EmployeeVO employeeVO) {
-		//Result result=userService.update(userVO,SaveMode.NOT_NULL_FIELDS);
-		//return result;
-		return null;
-	}
-	
-	
 	/**
 	 * 保存账户
 	*/

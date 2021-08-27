@@ -50,7 +50,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 员工表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-26 21:26:54
+ * @since 2021-08-27 09:33:49
 */
 
 @Api(tags = "员工")
@@ -71,7 +71,6 @@ public class EmployeeController extends SuperController {
 		@ApiImplicitParam(name = EmployeeVOMeta.BADGE , value = "工号" , required = false , dataTypeClass=String.class , example = "111"),
 		@ApiImplicitParam(name = EmployeeVOMeta.PERSON_ID , value = "人员ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = EmployeeVOMeta.COMPANY_ID , value = "公司ID" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = EmployeeVOMeta.KEEP_ACCOUNT , value = "对否开通账号" , required = false , dataTypeClass=Integer.class),
 	})
 	@ApiOperationSupport(order=1)
 	@NotNull(name = EmployeeVOMeta.ID)
@@ -126,7 +125,6 @@ public class EmployeeController extends SuperController {
 		@ApiImplicitParam(name = EmployeeVOMeta.BADGE , value = "工号" , required = false , dataTypeClass=String.class , example = "111"),
 		@ApiImplicitParam(name = EmployeeVOMeta.PERSON_ID , value = "人员ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = EmployeeVOMeta.COMPANY_ID , value = "公司ID" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = EmployeeVOMeta.KEEP_ACCOUNT , value = "对否开通账号" , required = false , dataTypeClass=Integer.class),
 	})
 	@ApiOperationSupport( order=4 , ignoreParameters = { EmployeeVOMeta.PAGE_INDEX , EmployeeVOMeta.PAGE_SIZE , EmployeeVOMeta.SEARCH_FIELD , EmployeeVOMeta.FUZZY_FIELD , EmployeeVOMeta.SEARCH_VALUE , EmployeeVOMeta.SORT_FIELD , EmployeeVOMeta.SORT_TYPE , EmployeeVOMeta.IDS } ) 
 	@NotNull(name = EmployeeVOMeta.ID)
@@ -147,7 +145,6 @@ public class EmployeeController extends SuperController {
 		@ApiImplicitParam(name = EmployeeVOMeta.BADGE , value = "工号" , required = false , dataTypeClass=String.class , example = "111"),
 		@ApiImplicitParam(name = EmployeeVOMeta.PERSON_ID , value = "人员ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = EmployeeVOMeta.COMPANY_ID , value = "公司ID" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = EmployeeVOMeta.KEEP_ACCOUNT , value = "对否开通账号" , required = false , dataTypeClass=Integer.class),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { EmployeeVOMeta.PAGE_INDEX , EmployeeVOMeta.PAGE_SIZE , EmployeeVOMeta.SEARCH_FIELD , EmployeeVOMeta.FUZZY_FIELD , EmployeeVOMeta.SEARCH_VALUE , EmployeeVOMeta.SORT_FIELD , EmployeeVOMeta.SORT_TYPE , EmployeeVOMeta.IDS } )
 	@NotNull(name = EmployeeVOMeta.ID)
@@ -211,7 +208,6 @@ public class EmployeeController extends SuperController {
 		@ApiImplicitParam(name = EmployeeVOMeta.BADGE , value = "工号" , required = false , dataTypeClass=String.class , example = "111"),
 		@ApiImplicitParam(name = EmployeeVOMeta.PERSON_ID , value = "人员ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = EmployeeVOMeta.COMPANY_ID , value = "公司ID" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = EmployeeVOMeta.KEEP_ACCOUNT , value = "对否开通账号" , required = false , dataTypeClass=Integer.class),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { EmployeeVOMeta.PAGE_INDEX , EmployeeVOMeta.PAGE_SIZE } )
 	@SentinelResource(value = EmployeeServiceProxy.QUERY_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
@@ -233,7 +229,6 @@ public class EmployeeController extends SuperController {
 		@ApiImplicitParam(name = EmployeeVOMeta.BADGE , value = "工号" , required = false , dataTypeClass=String.class , example = "111"),
 		@ApiImplicitParam(name = EmployeeVOMeta.PERSON_ID , value = "人员ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = EmployeeVOMeta.COMPANY_ID , value = "公司ID" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = EmployeeVOMeta.KEEP_ACCOUNT , value = "对否开通账号" , required = false , dataTypeClass=Integer.class),
 	})
 	@ApiOperationSupport(order=8)
 	@SentinelResource(value = EmployeeServiceProxy.QUERY_PAGED_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )

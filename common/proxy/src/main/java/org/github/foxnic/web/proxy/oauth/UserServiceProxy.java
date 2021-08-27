@@ -47,11 +47,6 @@ public interface UserServiceProxy {
 	public static final String INSERT = API_PREFIX + "insert";
 
 	/**
-	 * 通过员工信息开关账户
-	 */
-	public static final String SWITCH_FROM_EMPLOYEE = API_PREFIX + "switch_from_employee";
-	
-	/**
 	 * 删除账户
 	 */
 	public static final String DELETE = API_PREFIX + "delete";
