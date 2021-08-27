@@ -1,7 +1,14 @@
 package org.github.foxnic.web.oauth.controller;
 
-import javax.servlet.http.HttpServletResponse;
-
+import com.github.foxnic.api.validate.annotations.NotNull;
+import com.github.xiaoymin.knife4j.annotations.ApiSort;
+import com.wf.captcha.SpecCaptcha;
+import com.wf.captcha.base.Captcha;
+import com.wf.captcha.utils.CaptchaUtil;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.github.foxnic.web.oauth.service.ICaptchaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,16 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.github.foxnic.api.validate.annotations.NotNull;
-import com.github.xiaoymin.knife4j.annotations.ApiSort;
-import com.wf.captcha.SpecCaptcha;
-import com.wf.captcha.base.Captcha;
-import com.wf.captcha.utils.CaptchaUtil;
-
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 验证码提供
@@ -61,6 +59,7 @@ public class CaptchaController {
         validateCodeService.saveImageCaptcha(browserId, captcha.text().toLowerCase());
         // 输出图片流
         captcha.out(response.getOutputStream());
+
     }
  
 }

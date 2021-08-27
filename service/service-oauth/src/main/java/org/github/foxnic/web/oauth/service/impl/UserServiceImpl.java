@@ -4,12 +4,14 @@ import com.github.foxnic.api.error.CommonError;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.commons.busi.id.SequenceType;
 import com.github.foxnic.commons.collection.CollectorUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.dao.spec.DAO;
+import com.github.foxnic.dao.spec.DBSequence;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER;
@@ -34,6 +36,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -221,7 +224,17 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 	 * */
 	@Override
 	public PagedList<User> queryPagedList(User sample, int pageSize, int pageIndex) {
-		return super.queryPagedList(sample, pageSize, pageIndex);
+
+		DBSequence sequence=dao().getSequence("xx");
+//		sequence.updateTenantId();
+//		if(!sequence.exists()) {
+			sequence.create(SequenceType.AI,6);
+//		}
+		System.out.println(sequence.next());
+
+		return  new PagedList<>(new ArrayList<>(),4,4,4,4);
+
+//		return super.queryPagedList(sample, pageSize, pageIndex);
 	}
 	
 	/**
