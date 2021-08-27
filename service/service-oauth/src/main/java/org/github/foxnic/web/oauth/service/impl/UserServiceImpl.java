@@ -43,6 +43,7 @@ import java.util.List;
  * </p>
  * @author 李方捷 , leefangjie@qq.com
  * @since 2021-06-01 09:27:27
+ * @version 20210827
 */
 
 
@@ -276,6 +277,17 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 			//
  			List<Employee> employees= CollectorUtil.collectList(user.getJoinedTenants(),UserTenant::getEmployee);
 			dao.join(employees, Person.class);
+		}
+
+
+ 		if(user.getActivatedTenant()!=null){
+ 			Employee employee=user.getActivatedTenant().getEmployee();
+ 			if(employee!=null) {
+ 				Person person=employee.getPerson();
+ 				if(person!=null) {
+ 					user.setActivatedEmployeeName(person.getName());
+				}
+			}
 		}
 
 
