@@ -28,6 +28,7 @@ public class FoxnicWebDBMetaGenerator  {
 	}
 
  	private List<String> hrmTables= Arrays.asList("hrm_person","hrm_employee","hrm_company");
+	private List<String> pcmTables= Arrays.asList("pcm_catalog","pcm_catalog_attribute");
 	/**
 	 * 生成DBMeta数据
 	 * */
@@ -37,6 +38,7 @@ public class FoxnicWebDBMetaGenerator  {
 		dbMetaBuilder.setTableFilter(table->{
 			table=table.toLowerCase();
 			if(table.startsWith("sys_")) return true;
+			if(pcmTables.contains(table)) return true;
 			if(hrmTables.contains(table)) return true;
 			return false;
 		});

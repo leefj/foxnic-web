@@ -4,7 +4,6 @@ import com.github.foxnic.api.error.CommonError;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.busi.id.IDGenerator;
-import com.github.foxnic.commons.collection.CollectorUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
@@ -15,12 +14,16 @@ import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER;
 import org.github.foxnic.web.constants.enums.Language;
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
-import org.github.foxnic.web.domain.hrm.Company;
 import org.github.foxnic.web.domain.hrm.Employee;
 import org.github.foxnic.web.domain.hrm.Person;
-import org.github.foxnic.web.domain.oauth.*;
-import org.github.foxnic.web.domain.system.Tenant;
-import org.github.foxnic.web.domain.system.UserTenant;
+import org.github.foxnic.web.domain.hrm.meta.EmployeeMeta;
+import org.github.foxnic.web.domain.oauth.Role;
+import org.github.foxnic.web.domain.oauth.User;
+import org.github.foxnic.web.domain.oauth.UserVO;
+import org.github.foxnic.web.domain.oauth.meta.MenuMeta;
+import org.github.foxnic.web.domain.oauth.meta.UserMeta;
+import org.github.foxnic.web.domain.system.meta.TenantMeta;
+import org.github.foxnic.web.domain.system.meta.UserTenantMeta;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.oauth.service.IRoleUserService;
 import org.github.foxnic.web.oauth.service.IUserService;
@@ -264,20 +267,31 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
     	}
     	
     	//关联相关数据
-    	if (user!=null) {
-    		dao.join(user,Role.class,Menu.class,RoleMenu.class, UserTenant.class);
-			dao.join(user.getMenus(),Resourze.class);
-    	}
+//    	if (user!=null) {
+//    		dao.join(user,Role.class,Menu.class,RoleMenu.class, UserTenant.class);
+//			dao.join(user.getMenus(),Resourze.class);
+//    	}
+//
+// 		if(user.getJoinedTenants()!=null) {
+// 			dao.join(user.getJoinedTenants(), Employee.class,Tenant.class);
+// 			//
+//			List<Tenant> tenants= CollectorUtil.collectList(user.getJoinedTenants(),UserTenant::getTenant);
+//			dao.join(tenants, Company.class);
+//			//
+// 			List<Employee> employees= CollectorUtil.collectList(user.getJoinedTenants(),UserTenant::getEmployee);
+//			dao.join(employees, Person.class);
+//		}
 
- 		if(user.getJoinedTenants()!=null) {
- 			dao.join(user.getJoinedTenants(), Employee.class,Tenant.class);
- 			//
-			List<Tenant> tenants= CollectorUtil.collectList(user.getJoinedTenants(),UserTenant::getTenant);
-			dao.join(tenants, Company.class);
-			//
- 			List<Employee> employees= CollectorUtil.collectList(user.getJoinedTenants(),UserTenant::getEmployee);
-			dao.join(employees, Person.class);
-		}
+ 		//填充账户模型
+ 		dao.fill(user)
+			.with(UserMeta.MENUS)
+			.with(UserMeta.MENUS,MenuMeta.RESOURCES)
+			.with(UserMeta.MENUS,MenuMeta.PATH_RESOURCE)
+			.with(UserMeta.ROLES)
+			.with(UserMeta.ROLE_MENUS)
+			.with(UserMeta.JOINED_TENANTS,UserTenantMeta.TENANT,TenantMeta.COMPANY)
+			.with(UserMeta.JOINED_TENANTS,UserTenantMeta.EMPLOYEE,EmployeeMeta.PERSON)
+			.execute();
 
 
  		if(user.getActivatedTenant()!=null){

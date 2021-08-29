@@ -53,6 +53,11 @@
             <artifactId>service-hrm</artifactId>
             <version>${platform.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.foxnic.web</groupId>
+            <artifactId>service-pcm</artifactId>
+            <version>${platform.version}</version>
+        </dependency>
         <dependency> 
             <groupId>com.github.foxnic.web</groupId>  
             <artifactId>view-console</artifactId>  

@@ -71,14 +71,14 @@ applications:
     viewProjectPath: /view/view-console
     viewPrefixPath: public/business/hrm
     wrapperProjectPath:  /wrapper/wrapper-all-service
-  #ACM  属性自定义服务
-  service-attribute:
+  #PCM  属性自定义服务
+  service-pcm:
     nacosGroup: service
-    nacosDataId: service-attribute.yml
-    serviceProjectPath:  /service/service-attribute
-    packageName: org.github.foxnic.web.attribute
+    nacosDataId: service-pcm.yml
+    serviceProjectPath: /service/service-pcm
+    packageName: org.github.foxnic.web.pcm
     primaryDatasourceConfigKey: spring.datasource.druid.primary
-    microServiceNameConst: ACM
+    microServiceNameConst: PCM
     viewProjectPath: /view/view-console
-    viewPrefixPath: public/business/attribute
+    viewPrefixPath: public/business/pcm
     wrapperProjectPath:  /wrapper/wrapper-all-service

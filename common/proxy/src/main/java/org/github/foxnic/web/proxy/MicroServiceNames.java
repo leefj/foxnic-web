@@ -28,5 +28,11 @@ public class MicroServiceNames {
 	 * 对应 bootstrap.yml 中 spring.application.name 属性
 	 * */
 	public static final String HRM="service-hrm";
+
+	/**
+	 * 自定义属性相关的服务 <br>
+	 * 对应 bootstrap.yml 中 spring.application.name 属性
+	 * */
+	public static final String PCM="service-pcm";
  
 }

@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2021-08-27 08:46:17
+ * @since 2021-08-28 15:28:52
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -246,6 +246,188 @@ public class FoxnicWeb {
 			this.init($NAME,"人员表" , ID , NAME , SEX , SOURCE , IDENTITY , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final HRM_PERSON $TABLE=new HRM_PERSON();
+	}
+	
+	/**
+	 * 数据存储表
+	*/
+	public static class PCM_CATALOG extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "pcm_catalog";
+		
+		/**
+		 * 主键
+		*/
+		public static final DBField ID = new DBField(DBDataType.INTEGER , "id","id","主键","主键",true,false,false);
+		
+		/**
+		 * 名称
+		*/
+		public static final DBField NAME = new DBField(DBDataType.STRING , "name","name","名称","名称",false,false,true);
+		
+		/**
+		 * 上级ID
+		*/
+		public static final DBField PARENT_ID = new DBField(DBDataType.INTEGER , "parent_id","parentId","上级ID","上级ID",false,false,true);
+		
+		/**
+		 * 存储表
+		*/
+		public static final DBField DATA_TABLE = new DBField(DBDataType.STRING , "data_table","dataTable","存储表","存储表",false,false,true);
+		
+		/**
+		 * 租户ID
+		*/
+		public static final DBField TENANT_ID = new DBField(DBDataType.INTEGER , "tenant_id","tenantId","租户ID","租户ID",false,false,false);
+		
+		/**
+		 * 创建人ID
+		*/
+		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
+		
+		/**
+		 * 创建时间
+		*/
+		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","创建时间","创建时间",false,false,true);
+		
+		/**
+		 * 修改人ID
+		*/
+		public static final DBField UPDATE_BY = new DBField(DBDataType.STRING , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
+		
+		/**
+		 * 修改时间
+		*/
+		public static final DBField UPDATE_TIME = new DBField(DBDataType.DATE , "update_time","updateTime","修改时间","修改时间",false,false,true);
+		
+		/**
+		 * 是否已删除
+		*/
+		public static final DBField DELETED = new DBField(DBDataType.INTEGER , "deleted","deleted","是否已删除","是否已删除",false,false,false);
+		
+		/**
+		 * 删除人ID
+		*/
+		public static final DBField DELETE_BY = new DBField(DBDataType.STRING , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
+		
+		/**
+		 * 删除时间
+		*/
+		public static final DBField DELETE_TIME = new DBField(DBDataType.DATE , "delete_time","deleteTime","删除时间","删除时间",false,false,true);
+		
+		/**
+		 * 数据版本号
+		*/
+		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
+		
+		public PCM_CATALOG() {
+			this.init($NAME,"数据存储表" , ID , NAME , PARENT_ID , DATA_TABLE , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+		}
+		public static final PCM_CATALOG $TABLE=new PCM_CATALOG();
+	}
+	
+	/**
+	 * 数据存储分配表
+	*/
+	public static class PCM_CATALOG_ATTRIBUTE extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "pcm_catalog_attribute";
+		
+		/**
+		 * 主键
+		*/
+		public static final DBField ID = new DBField(DBDataType.INTEGER , "id","id","主键","主键",true,false,false);
+		
+		/**
+		 * 存储ID
+		*/
+		public static final DBField STORAGE_ID = new DBField(DBDataType.INTEGER , "storage_id","storageId","存储ID","存储ID",false,false,true);
+		
+		/**
+		 * 字段名，在数据表中的真实字段名
+		*/
+		public static final DBField FIELD = new DBField(DBDataType.STRING , "field","field","字段名","在数据表中的真实字段名",false,false,true);
+		
+		/**
+		 * 名称
+		*/
+		public static final DBField NAME = new DBField(DBDataType.STRING , "name","name","名称","名称",false,false,true);
+		
+		/**
+		 * 说明
+		*/
+		public static final DBField DETAIL = new DBField(DBDataType.STRING , "detail","detail","说明","说明",false,false,true);
+		
+		/**
+		 * 数据类型
+		*/
+		public static final DBField DATA_TYPE = new DBField(DBDataType.STRING , "data_type","dataType","数据类型","数据类型",false,false,true);
+		
+		/**
+		 * 数据长度
+		*/
+		public static final DBField LENGTH = new DBField(DBDataType.INTEGER , "length","length","数据长度","数据长度",false,false,true);
+		
+		/**
+		 * 数据精度
+		*/
+		public static final DBField PRECISION = new DBField(DBDataType.INTEGER , "precision","precision","数据精度","数据精度",false,false,true);
+		
+		/**
+		 * 小数位数
+		*/
+		public static final DBField SCALE = new DBField(DBDataType.INTEGER , "scale","scale","小数位数","小数位数",false,false,true);
+		
+		/**
+		 * 创建人ID
+		*/
+		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
+		
+		/**
+		 * 创建时间
+		*/
+		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","创建时间","创建时间",false,false,true);
+		
+		/**
+		 * 修改人ID
+		*/
+		public static final DBField UPDATE_BY = new DBField(DBDataType.STRING , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
+		
+		/**
+		 * 修改时间
+		*/
+		public static final DBField UPDATE_TIME = new DBField(DBDataType.DATE , "update_time","updateTime","修改时间","修改时间",false,false,true);
+		
+		/**
+		 * 是否已删除
+		*/
+		public static final DBField DELETED = new DBField(DBDataType.INTEGER , "deleted","deleted","是否已删除","是否已删除",false,false,false);
+		
+		/**
+		 * 删除人ID
+		*/
+		public static final DBField DELETE_BY = new DBField(DBDataType.STRING , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
+		
+		/**
+		 * 删除时间
+		*/
+		public static final DBField DELETE_TIME = new DBField(DBDataType.DATE , "delete_time","deleteTime","删除时间","删除时间",false,false,true);
+		
+		/**
+		 * 数据版本号
+		*/
+		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
+		
+		public PCM_CATALOG_ATTRIBUTE() {
+			this.init($NAME,"数据存储分配表" , ID , STORAGE_ID , FIELD , NAME , DETAIL , DATA_TYPE , LENGTH , PRECISION , SCALE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+		}
+		public static final PCM_CATALOG_ATTRIBUTE $TABLE=new PCM_CATALOG_ATTRIBUTE();
 	}
 	
 	/**
@@ -2285,35 +2467,47 @@ public class FoxnicWeb {
 		public static final String $NAME = "sys_sequence";
 		
 		/**
+		 * 主键
 		*/
-		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","id","id",true,false,false);
+		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","主键","主键",true,false,false);
 		
 		/**
+		 * 序列名称
 		*/
-		public static final DBField NAME = new DBField(DBDataType.STRING , "name","name","name","name",false,false,true);
+		public static final DBField NAME = new DBField(DBDataType.STRING , "name","name","序列名称","序列名称",false,false,true);
 		
 		/**
+		 * 编码长度
 		*/
-		public static final DBField LENGTH = new DBField(DBDataType.INTEGER , "length","length","length","length",false,false,true);
+		public static final DBField LENGTH = new DBField(DBDataType.INTEGER , "length","length","编码长度","编码长度",false,false,true);
 		
 		/**
+		 * 编码分类
 		*/
-		public static final DBField CATALOG = new DBField(DBDataType.STRING , "catalog","catalog","catalog","catalog",false,false,true);
+		public static final DBField CATALOG = new DBField(DBDataType.STRING , "catalog","catalog","编码分类","编码分类",false,false,true);
 		
 		/**
+		 * 当前数值
 		*/
-		public static final DBField VALUE = new DBField(DBDataType.LONG , "value","value","value","value",false,false,true);
+		public static final DBField VALUE = new DBField(DBDataType.LONG , "value","value","当前数值","当前数值",false,false,true);
 		
 		/**
+		 * 备注
 		*/
-		public static final DBField MEMO = new DBField(DBDataType.STRING , "memo","memo","memo","memo",false,false,true);
+		public static final DBField MEMO = new DBField(DBDataType.STRING , "memo","memo","备注","备注",false,false,true);
 		
 		/**
+		 * 编码类型
 		*/
-		public static final DBField TYPE = new DBField(DBDataType.STRING , "type","type","type","type",false,false,true);
+		public static final DBField TYPE = new DBField(DBDataType.STRING , "type","type","编码类型","编码类型",false,false,true);
+		
+		/**
+		 * 租户ID
+		*/
+		public static final DBField TENANT_ID = new DBField(DBDataType.STRING , "tenant_id","tenantId","租户ID","租户ID",true,false,false);
 		
 		public SYS_SEQUENCE() {
-			this.init($NAME,"序列表" , ID , NAME , LENGTH , CATALOG , VALUE , MEMO , TYPE);
+			this.init($NAME,"序列表" , ID , NAME , LENGTH , CATALOG , VALUE , MEMO , TYPE , TENANT_ID);
 		}
 		public static final SYS_SEQUENCE $TABLE=new SYS_SEQUENCE();
 	}
