@@ -21,7 +21,7 @@ import com.github.foxnic.dao.data.SaveMode;
  * 数据存储分配表 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-28 15:45:06
+ * @since 2021-08-30 16:49:46
 */
 
 public interface ICatalogAttributeService extends ISuperService<CatalogAttribute> {
@@ -48,7 +48,7 @@ public interface ICatalogAttributeService extends ISuperService<CatalogAttribute
 	 * @param id 主键
 	 * @return 删除是否成功
 	 */
-	Result deleteByIdPhysical(Integer id);
+	Result deleteByIdPhysical(String id);
 	
 	/**
 	 * 按主键删除 数据存储分配
@@ -56,7 +56,7 @@ public interface ICatalogAttributeService extends ISuperService<CatalogAttribute
 	 * @param id 主键
 	 * @return 删除是否成功
 	 */
-	Result deleteByIdLogical(Integer id);
+	Result deleteByIdLogical(String id);
 	
 	/**
 	 * 批量物理删除，仅支持单字段主键表
@@ -79,7 +79,7 @@ public interface ICatalogAttributeService extends ISuperService<CatalogAttribute
 	 * @param id 主键
 	 * @return 是否更新成功
 	 */
-	boolean update(DBField field,Object value , Integer id);
+	boolean update(DBField field,Object value , String id);
 	
 	/**
 	 * 更新实体
@@ -129,14 +129,14 @@ public interface ICatalogAttributeService extends ISuperService<CatalogAttribute
 	 * @param id 主键
 	 * @return CatalogAttribute 数据对象
 	 */
-	CatalogAttribute getById(Integer id);
+	CatalogAttribute getById(String id);
 		
 	/**
 	 * 检查实体中的数据字段是否已经存在
 	 * @param ids  主键清单
 	 * @return 实体集
 	 * */
-	List<CatalogAttribute> getByIds(List<Integer> ids);
+	List<CatalogAttribute> getByIds(List<String> ids);
 
 	/**
 	 * 检查 角色 是否已经存在

@@ -1,7 +1,7 @@
 /**
  * 数据存储 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-28 15:45:06
+ * @since 2021-08-30 16:49:46
  */
 
 
@@ -65,11 +65,13 @@ function ListPage() {
 				cols: [[
 					{ fixed: 'left',type: 'numbers' },
 					{ fixed: 'left',type:'checkbox' }
-					,{ field: 'id', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('主键') }
+					,{ field: 'id', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('主键') }
 					,{ field: 'name', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('名称') }
-					,{ field: 'parentId', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('上级ID') }
+					,{ field: 'parentId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('上级ID') }
+					,{ field: 'sort', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('顺序') }
+					,{ field: 'hierarchy', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('层级路径') }
 					,{ field: 'dataTable', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('存储表') }
-					,{ field: 'tenantId', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('租户ID') }
+					,{ field: 'tenantId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('租户ID') }
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return fox.dateFormat(d.createTime); }}
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
@@ -104,6 +106,8 @@ function ListPage() {
 		value.id={ value: $("#id").val()};
 		value.name={ value: $("#name").val()};
 		value.parentId={ value: $("#parentId").val()};
+		value.sort={ value: $("#sort").val()};
+		value.hierarchy={ value: $("#hierarchy").val()};
 		value.dataTable={ value: $("#dataTable").val()};
 		value.tenantId={ value: $("#tenantId").val()};
 		window.pageExt.list.beforeQuery && window.pageExt.list.beforeQuery(value);

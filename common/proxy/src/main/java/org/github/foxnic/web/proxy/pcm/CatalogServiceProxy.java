@@ -1,18 +1,16 @@
 package org.github.foxnic.web.proxy.pcm;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.github.foxnic.web.proxy.api.APIProxy;
-import org.github.foxnic.web.proxy.FeignConfiguration;
-
-import org.springframework.cloud.openfeign.FeignClient;
-
-
-import org.github.foxnic.web.domain.pcm.Catalog;
-import org.github.foxnic.web.domain.pcm.CatalogVO;
-import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
+import org.github.foxnic.web.domain.pcm.Catalog;
+import org.github.foxnic.web.domain.pcm.CatalogVO;
+import org.github.foxnic.web.proxy.FeignConfiguration;
 import org.github.foxnic.web.proxy.MicroServiceNames;
+import org.github.foxnic.web.proxy.api.APIProxy;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 /**
  * <p>
@@ -20,6 +18,7 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  * </p>
  * @author 李方捷 , leefangjie@qq.com
  * @since 2021-08-28 15:45:05
+ * @version 20210830
 */
 
 @FeignClient(value = MicroServiceNames.PCM, contextId = CatalogServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)
@@ -76,12 +75,27 @@ public interface CatalogServiceProxy {
 	 * 获取多个数据存储
 	 */
 	public static final String GET_BY_IDS = API_PREFIX + "get-by-ids";
-	;
 
 	/**
 	 * 查询数据存储
 	 */
 	public static final String QUERY_LIST = API_PREFIX + "query-list";
+
+
+	/**
+	 * 查询数据存储
+	 */
+	public static final String QUERY_NODES = API_PREFIX + "query-nodes";
+
+	/**
+	 * 保存层级关系
+	 */
+	public static final String SAVE_HIERARCHY = API_PREFIX + "save-hierarchy";
+
+	/**
+	 * 查询
+	 */
+	public static final String SEARCH = API_PREFIX + "search";
 	
 	/**
 	 * 分页查询数据存储

@@ -31,6 +31,13 @@ public abstract class SessionUser {
 	 * 账户ID
 	 * */
 	public abstract String getUserId();
+
+	/**
+	 * 获得当前激活租户的ID
+	 * */
+	public String getActivatedTenantId(){
+		return this.getUser().getActivatedTenant().getOwnerTenantId();
+	}
 	
 	/**
 	 * 权限对象

@@ -8,22 +8,22 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-28 15:31:48
- * @sign 59B9D04AC78442EFB56DE3DBDF6499A4
+ * @since 2021-08-30 16:03:03
+ * @sign 3BAECD45C341C9D4AB64DDEFB2011EB6
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
 public class CatalogMeta {
 	
 	/**
-	 * 主键 , 类型: java.lang.Integer
+	 * 主键 , 类型: java.lang.String
 	*/
 	public static final String ID="id";
 	
 	/**
-	 * 主键 , 类型: java.lang.Integer
+	 * 主键 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.pcm.Catalog,java.lang.Integer> ID_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.Catalog.class ,ID, java.lang.Integer.class, "主键", "主键", java.lang.Integer.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.pcm.Catalog,java.lang.String> ID_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.Catalog.class ,ID, java.lang.String.class, "主键", "主键", java.lang.String.class, null);
 	
 	/**
 	 * 名称 , 类型: java.lang.String
@@ -36,14 +36,34 @@ public class CatalogMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.pcm.Catalog,java.lang.String> NAME_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.Catalog.class ,NAME, java.lang.String.class, "名称", "名称", java.lang.String.class, null);
 	
 	/**
-	 * 上级ID , 类型: java.lang.Integer
+	 * 上级ID , 类型: java.lang.String
 	*/
 	public static final String PARENT_ID="parentId";
 	
 	/**
-	 * 上级ID , 类型: java.lang.Integer
+	 * 上级ID , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.pcm.Catalog,java.lang.Integer> PARENT_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.Catalog.class ,PARENT_ID, java.lang.Integer.class, "上级ID", "上级ID", java.lang.Integer.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.pcm.Catalog,java.lang.String> PARENT_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.Catalog.class ,PARENT_ID, java.lang.String.class, "上级ID", "上级ID", java.lang.String.class, null);
+	
+	/**
+	 * 顺序 , 类型: java.lang.Integer
+	*/
+	public static final String SORT="sort";
+	
+	/**
+	 * 顺序 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.pcm.Catalog,java.lang.Integer> SORT_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.Catalog.class ,SORT, java.lang.Integer.class, "顺序", "顺序", java.lang.Integer.class, null);
+	
+	/**
+	 * 层级路径 , 类型: java.lang.String
+	*/
+	public static final String HIERARCHY="hierarchy";
+	
+	/**
+	 * 层级路径 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.pcm.Catalog,java.lang.String> HIERARCHY_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.Catalog.class ,HIERARCHY, java.lang.String.class, "层级路径", "层级路径", java.lang.String.class, null);
 	
 	/**
 	 * 存储表 , 类型: java.lang.String
@@ -56,14 +76,14 @@ public class CatalogMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.pcm.Catalog,java.lang.String> DATA_TABLE_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.Catalog.class ,DATA_TABLE, java.lang.String.class, "存储表", "存储表", java.lang.String.class, null);
 	
 	/**
-	 * 租户ID , 类型: java.lang.Integer
+	 * 租户ID , 类型: java.lang.String
 	*/
 	public static final String TENANT_ID="tenantId";
 	
 	/**
-	 * 租户ID , 类型: java.lang.Integer
+	 * 租户ID , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.pcm.Catalog,java.lang.Integer> TENANT_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.Catalog.class ,TENANT_ID, java.lang.Integer.class, "租户ID", "租户ID", java.lang.Integer.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.pcm.Catalog,java.lang.String> TENANT_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.Catalog.class ,TENANT_ID, java.lang.String.class, "租户ID", "租户ID", java.lang.String.class, null);
 	
 	/**
 	 * 创建人ID , 类型: java.lang.String
@@ -148,7 +168,7 @@ public class CatalogMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , NAME , PARENT_ID , DATA_TABLE , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , NAME , PARENT_ID , SORT , HIERARCHY , DATA_TABLE , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
 	
 	/**
 	 * 代理类
@@ -163,7 +183,7 @@ public class CatalogMeta {
 		 * @param id 主键
 		 * @return 当前对象
 		*/
-		public Catalog setId(Integer id) {
+		public Catalog setId(String id) {
 			super.change(ID,super.getId(),id);
 			super.setId(id);
 			return this;
@@ -185,9 +205,31 @@ public class CatalogMeta {
 		 * @param parentId 上级ID
 		 * @return 当前对象
 		*/
-		public Catalog setParentId(Integer parentId) {
+		public Catalog setParentId(String parentId) {
 			super.change(PARENT_ID,super.getParentId(),parentId);
 			super.setParentId(parentId);
+			return this;
+		}
+		
+		/**
+		 * 设置 顺序
+		 * @param sort 顺序
+		 * @return 当前对象
+		*/
+		public Catalog setSort(Integer sort) {
+			super.change(SORT,super.getSort(),sort);
+			super.setSort(sort);
+			return this;
+		}
+		
+		/**
+		 * 设置 层级路径
+		 * @param hierarchy 层级路径
+		 * @return 当前对象
+		*/
+		public Catalog setHierarchy(String hierarchy) {
+			super.change(HIERARCHY,super.getHierarchy(),hierarchy);
+			super.setHierarchy(hierarchy);
 			return this;
 		}
 		
@@ -207,7 +249,7 @@ public class CatalogMeta {
 		 * @param tenantId 租户ID
 		 * @return 当前对象
 		*/
-		public Catalog setTenantId(Integer tenantId) {
+		public Catalog setTenantId(String tenantId) {
 			super.change(TENANT_ID,super.getTenantId(),tenantId);
 			super.setTenantId(tenantId);
 			return this;

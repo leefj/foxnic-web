@@ -19,7 +19,7 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  * 数据存储分配表  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-28 15:45:06
+ * @since 2021-08-30 16:49:46
 */
 
 @FeignClient(value = MicroServiceNames.PCM, contextId = CatalogAttributeServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)
@@ -54,7 +54,6 @@ public interface CatalogAttributeServiceProxy {
 	 * 批量删除数据存储分配
 	 */
 	public static final String DELETE_BY_IDS = API_PREFIX + "delete-by-ids";
-	;
 	
 	/**
 	 * 更新数据存储分配
@@ -113,13 +112,13 @@ public interface CatalogAttributeServiceProxy {
 	 * 删除数据存储分配
 	*/
 	@RequestMapping(CatalogAttributeServiceProxy.DELETE)
-	Result deleteById(Integer id);
+	Result deleteById(String id);
 
 	/**
 	 * 批量删除数据存储分配
 	*/
 	@RequestMapping(CatalogAttributeServiceProxy.DELETE_BY_IDS)
-	Result deleteByIds(List<Integer> ids);
+	Result deleteByIds(List<String> ids);
 
 	/**
 	 * 更新数据存储分配
@@ -137,13 +136,13 @@ public interface CatalogAttributeServiceProxy {
 	 * 获取数据存储分配
 	*/
 	@RequestMapping(CatalogAttributeServiceProxy.GET_BY_ID)
-	Result<CatalogAttribute> getById(Integer id);
+	Result<CatalogAttribute> getById(String id);
 
 	/**
 	 * 批量删除数据存储分配
 	*/
 	@RequestMapping(CatalogAttributeServiceProxy.GET_BY_IDS)
-	Result<List<CatalogAttribute>> getByIds(List<Integer> ids);
+	Result<List<CatalogAttribute>> getByIds(List<String> ids);
 	/**
 	 * 查询数据存储分配
 	*/

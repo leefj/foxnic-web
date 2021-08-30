@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-28 15:45:06
- * @sign 1CA6F28658CA8671CEBB6D9C06DB57CF
+ * @since 2021-08-30 16:03:06
+ * @sign 09B69636CF0FD09D2559CCD7CD969F48
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -33,13 +33,13 @@ public class CatalogAttribute extends Entity {
 	*/
 	@Id
 	@ApiModelProperty(required = true,value="主键" , notes = "主键")
-	private Integer id;
+	private String id;
 	
 	/**
 	 * 存储ID：存储ID
 	*/
 	@ApiModelProperty(required = false,value="存储ID" , notes = "存储ID")
-	private Integer storageId;
+	private String storageId;
 	
 	/**
 	 * 字段名：在数据表中的真实字段名
@@ -136,7 +136,7 @@ public class CatalogAttribute extends Entity {
 	 * 主键
 	 * @return 主键
 	*/
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 	
@@ -145,7 +145,7 @@ public class CatalogAttribute extends Entity {
 	 * @param id 主键
 	 * @return 当前对象
 	*/
-	public CatalogAttribute setId(Integer id) {
+	public CatalogAttribute setId(String id) {
 		this.id=id;
 		return this;
 	}
@@ -155,7 +155,7 @@ public class CatalogAttribute extends Entity {
 	 * 存储ID
 	 * @return 存储ID
 	*/
-	public Integer getStorageId() {
+	public String getStorageId() {
 		return storageId;
 	}
 	
@@ -164,7 +164,7 @@ public class CatalogAttribute extends Entity {
 	 * @param storageId 存储ID
 	 * @return 当前对象
 	*/
-	public CatalogAttribute setStorageId(Integer storageId) {
+	public CatalogAttribute setStorageId(String storageId) {
 		this.storageId=storageId;
 		return this;
 	}

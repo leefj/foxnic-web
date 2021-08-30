@@ -9,8 +9,8 @@ import java.util.ArrayList;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-28 15:45:06
- * @sign EB5DCDAA897576AAB06306638251943E
+ * @since 2021-08-30 16:03:06
+ * @sign D48D796D39FCBA8955F38A20E22B6CE5
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -64,7 +64,7 @@ public class CatalogAttributeVO extends CatalogAttribute {
 	 * 主键清单：用于接收批量主键参数
 	*/
 	@ApiModelProperty(required = false,value="主键清单" , notes = "用于接收批量主键参数")
-	private List<Integer> ids;
+	private List<String> ids;
 	
 	/**
 	 * 获得 页码<br>
@@ -197,7 +197,7 @@ public class CatalogAttributeVO extends CatalogAttribute {
 	 * 用于接收批量主键参数
 	 * @return 主键清单
 	*/
-	public List<Integer> getIds() {
+	public List<String> getIds() {
 		return ids;
 	}
 	
@@ -206,7 +206,7 @@ public class CatalogAttributeVO extends CatalogAttribute {
 	 * @param ids 主键清单
 	 * @return 当前对象
 	*/
-	public CatalogAttributeVO setIds(List<Integer> ids) {
+	public CatalogAttributeVO setIds(List<String> ids) {
 		this.ids=ids;
 		return this;
 	}
@@ -216,7 +216,7 @@ public class CatalogAttributeVO extends CatalogAttribute {
 	 * @param id 主键清单
 	 * @return 当前对象
 	*/
-	public CatalogAttributeVO addId(Integer id) {
+	public CatalogAttributeVO addId(String id) {
 		if(this.ids==null) ids=new ArrayList<>();
 		this.ids.add(id);
 		return this;

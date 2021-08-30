@@ -1,7 +1,7 @@
 /**
  * 数据存储分配 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-28 15:45:06
+ * @since 2021-08-30 16:49:46
  */
 
 
@@ -65,8 +65,8 @@ function ListPage() {
 				cols: [[
 					{ fixed: 'left',type: 'numbers' },
 					{ fixed: 'left',type:'checkbox' }
-					,{ field: 'id', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('主键') }
-					,{ field: 'storageId', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('存储ID') }
+					,{ field: 'id', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('主键') }
+					,{ field: 'storageId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('存储ID') }
 					,{ field: 'field', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('字段名') }
 					,{ field: 'name', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('名称') }
 					,{ field: 'detail', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('说明') }

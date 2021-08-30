@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
  * 数据存储分配表 模版页面控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-28 15:45:06
+ * @since 2021-08-30 16:49:46
 */
 
 @Controller("PcmCatalogAttributePageController")
@@ -49,7 +49,7 @@ public class CatalogAttributePageController extends ViewController {
 	 * 数据存储分配 表单页面
 	 */
 	@RequestMapping("/catalog_attribute_form.html")
-	public String form(Model model,HttpServletRequest request , Integer id) {
+	public String form(Model model,HttpServletRequest request , String id) {
 		return prefix+"/catalog_attribute_form";
 	}
 }

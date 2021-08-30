@@ -73,7 +73,7 @@ public class MenuController {
 	public Result insert(MenuVO menuVO) {
 		menuVO.setSort(999999);
 		if(StringUtil.isBlank(menuVO.getParentId())) {
-			menuVO.setParentId("0");
+			menuVO.setParentId(IMenuService.ROOT_ID);
 		}
 		menuVO.setType(MenuType.folder.code());
 		if(StringUtil.isBlank(menuVO.getType())) {
@@ -258,8 +258,6 @@ public class MenuController {
 	@SentinelResource(value = MenuServiceProxy.QUERY_NODES)
 	@PostMapping(MenuServiceProxy.QUERY_NODES)
 	public Result<List<ZTreeNode>> queryNodes(MenuVO sample) {
-
-
 
 		Result<List<ZTreeNode>> result=new Result<>();
 		List<ZTreeNode> list=null;

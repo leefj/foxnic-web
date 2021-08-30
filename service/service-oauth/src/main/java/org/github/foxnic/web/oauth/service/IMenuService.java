@@ -261,13 +261,25 @@ public interface IMenuService extends ISuperService<Menu> {
 	 * */
 	List<ZTreeNode> queryRootNotes(String roleId);
 
+	/**
+	 * 查询下级节点
+	 * */
 	List<ZTreeNode> queryChildNodes(String parentId,String roleId);
 
+	/**
+	 * 保存层级关系
+	 * */
 	Boolean saveHierarchy(List<String> ids, String parentId);
 
-	List<Menu> getRelatedMenus(List<String> resourzeIds);
-
+	/**
+	 * 填充层级关系
+	 * */
 	int fillHierarchy(boolean reset);
 
+	/**
+	 * 构建层级关系
+	 * */
 	List<ZTreeNode> buildingHierarchicalRelationships(List<ZTreeNode> list,String roleId);
+
+	List<Menu> getRelatedMenus(List<String> resourzeIds);
 }

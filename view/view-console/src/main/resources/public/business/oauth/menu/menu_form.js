@@ -177,6 +177,7 @@ function FormPage() {
 			debugger
 			if(data.field.hidden==1)  data.field.hidden=0;
 			else if(data.field.hidden==0)  data.field.hidden=1;
+			if(data.field.hidden==null) data.field.hidden=1;
 
 			//获取 菜单路径的资源 下拉框的值
 			data.field["pathResourceId"]=xmSelect.get("#pathResourceId",true).getValue("value");

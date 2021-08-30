@@ -2,7 +2,7 @@
 /**
  * 数据存储 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-28 15:45:06
+ * @since 2021-08-30 16:49:46
  */
  -->
  <!DOCTYPE html>
@@ -34,30 +34,40 @@
             <div class="search-input-rows" style="opacity: 0">
                 <!-- 搜索输入区域 -->
                 <div class="layui-form toolbar search-inputs">
-                    <!-- 主键 , id ,typeName=number_input, isHideInSearch=false -->
+                    <!-- 主键 , id ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('主键')}" class="search-label id-label">主键</span><span class="search-colon">:</span></div>
-                            <input id="id" class="layui-input search-input" style="width: 140px" type="text" autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0" min-value="" max-value="" scale="0"/>
+                        <input id="id" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
                     <!-- 名称 , name ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('名称')}" class="search-label name-label">名称</span><span class="search-colon">:</span></div>
                         <input id="name" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
-                    <!-- 上级ID , parentId ,typeName=number_input, isHideInSearch=false -->
+                    <!-- 上级ID , parentId ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('上级ID')}" class="search-label parentId-label">上级ID</span><span class="search-colon">:</span></div>
-                            <input id="parentId" class="layui-input search-input" style="width: 140px" type="text" autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0" min-value="" max-value="" scale="0"/>
+                        <input id="parentId" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 顺序 , sort ,typeName=number_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('顺序')}" class="search-label sort-label">顺序</span><span class="search-colon">:</span></div>
+                            <input id="sort" class="layui-input search-input" style="width: 140px" type="text" autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0" min-value="" max-value="" scale="0"/>
+                    </div>
+                    <!-- 层级路径 , hierarchy ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('层级路径')}" class="search-label hierarchy-label">层级路径</span><span class="search-colon">:</span></div>
+                        <input id="hierarchy" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
                     <!-- 存储表 , dataTable ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('存储表')}" class="search-label dataTable-label">存储表</span><span class="search-colon">:</span></div>
                         <input id="dataTable" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
-                    <!-- 租户ID , tenantId ,typeName=number_input, isHideInSearch=false -->
+                    <!-- 租户ID , tenantId ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('租户ID')}" class="search-label tenantId-label">租户ID</span><span class="search-colon">:</span></div>
-                            <input id="tenantId" class="layui-input search-input" style="width: 140px" type="text" autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0" min-value="" max-value="" scale="0"/>
+                        <input id="tenantId" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
 
 

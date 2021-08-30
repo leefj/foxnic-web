@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2021-08-28 15:28:52
+ * @since 2021-08-30 16:49:36
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -261,7 +261,7 @@ public class FoxnicWeb {
 		/**
 		 * 主键
 		*/
-		public static final DBField ID = new DBField(DBDataType.INTEGER , "id","id","主键","主键",true,false,false);
+		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","主键","主键",true,false,false);
 		
 		/**
 		 * 名称
@@ -271,7 +271,17 @@ public class FoxnicWeb {
 		/**
 		 * 上级ID
 		*/
-		public static final DBField PARENT_ID = new DBField(DBDataType.INTEGER , "parent_id","parentId","上级ID","上级ID",false,false,true);
+		public static final DBField PARENT_ID = new DBField(DBDataType.STRING , "parent_id","parentId","上级ID","上级ID",false,false,true);
+		
+		/**
+		 * 顺序
+		*/
+		public static final DBField SORT = new DBField(DBDataType.INTEGER , "sort","sort","顺序","顺序",false,false,true);
+		
+		/**
+		 * 层级路径
+		*/
+		public static final DBField HIERARCHY = new DBField(DBDataType.STRING , "hierarchy","hierarchy","层级路径","层级路径",false,false,true);
 		
 		/**
 		 * 存储表
@@ -281,7 +291,7 @@ public class FoxnicWeb {
 		/**
 		 * 租户ID
 		*/
-		public static final DBField TENANT_ID = new DBField(DBDataType.INTEGER , "tenant_id","tenantId","租户ID","租户ID",false,false,false);
+		public static final DBField TENANT_ID = new DBField(DBDataType.STRING , "tenant_id","tenantId","租户ID","租户ID",false,false,false);
 		
 		/**
 		 * 创建人ID
@@ -323,8 +333,13 @@ public class FoxnicWeb {
 		*/
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
+		/**
+		 * 是否有效
+		*/
+		public static final DBField VALID = new DBField(DBDataType.INTEGER , "valid","valid","是否有效","是否有效",false,false,true);
+		
 		public PCM_CATALOG() {
-			this.init($NAME,"数据存储表" , ID , NAME , PARENT_ID , DATA_TABLE , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"数据存储表" , ID , NAME , PARENT_ID , SORT , HIERARCHY , DATA_TABLE , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , VALID);
 		}
 		public static final PCM_CATALOG $TABLE=new PCM_CATALOG();
 	}
@@ -342,12 +357,12 @@ public class FoxnicWeb {
 		/**
 		 * 主键
 		*/
-		public static final DBField ID = new DBField(DBDataType.INTEGER , "id","id","主键","主键",true,false,false);
+		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","主键","主键",true,false,false);
 		
 		/**
 		 * 存储ID
 		*/
-		public static final DBField STORAGE_ID = new DBField(DBDataType.INTEGER , "storage_id","storageId","存储ID","存储ID",false,false,true);
+		public static final DBField STORAGE_ID = new DBField(DBDataType.STRING , "storage_id","storageId","存储ID","存储ID",false,false,true);
 		
 		/**
 		 * 字段名，在数据表中的真实字段名
@@ -368,6 +383,11 @@ public class FoxnicWeb {
 		 * 数据类型
 		*/
 		public static final DBField DATA_TYPE = new DBField(DBDataType.STRING , "data_type","dataType","数据类型","数据类型",false,false,true);
+		
+		/**
+		 * 是否有效
+		*/
+		public static final DBField VALID = new DBField(DBDataType.INTEGER , "valid","valid","是否有效","是否有效",false,false,true);
 		
 		/**
 		 * 数据长度
@@ -425,7 +445,7 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
 		public PCM_CATALOG_ATTRIBUTE() {
-			this.init($NAME,"数据存储分配表" , ID , STORAGE_ID , FIELD , NAME , DETAIL , DATA_TYPE , LENGTH , PRECISION , SCALE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"数据存储分配表" , ID , STORAGE_ID , FIELD , NAME , DETAIL , DATA_TYPE , VALID , LENGTH , PRECISION , SCALE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final PCM_CATALOG_ATTRIBUTE $TABLE=new PCM_CATALOG_ATTRIBUTE();
 	}
@@ -2172,17 +2192,17 @@ public class FoxnicWeb {
 		/**
 		 * 类型，api/page
 		*/
-		public static final DBField TYPE = new DBField(DBDataType.STRING , "type","type","类型","api/page",false,false,true);
+		public static final DBField TYPE = new DBField(DBDataType.STRING , "type","type","类型","api/page",false,false,false);
 		
 		/**
 		 * 地址
 		*/
-		public static final DBField URL = new DBField(DBDataType.STRING , "url","url","地址","地址",false,false,true);
+		public static final DBField URL = new DBField(DBDataType.STRING , "url","url","地址","地址",false,false,false);
 		
 		/**
 		 * HttpMethod
 		*/
-		public static final DBField METHOD = new DBField(DBDataType.STRING , "method","method","HttpMethod","HttpMethod",false,false,true);
+		public static final DBField METHOD = new DBField(DBDataType.STRING , "method","method","HttpMethod","HttpMethod",false,false,false);
 		
 		/**
 		 * 批次号

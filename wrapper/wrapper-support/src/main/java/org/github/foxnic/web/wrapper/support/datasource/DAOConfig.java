@@ -117,7 +117,7 @@ public class DAOConfig {
 				SessionUser user=SessionUser.getCurrent();
 				if(user==null) return null;
 				if(user.getUser()!=null && user.getUser().getActivatedTenant()!=null) {
-					return user.getUser().getActivatedTenant().getOwnerTenantId();
+					return user.getActivatedTenantId();
 				}
 				return null;
 			});

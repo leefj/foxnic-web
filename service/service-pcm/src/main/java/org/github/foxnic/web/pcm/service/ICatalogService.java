@@ -1,20 +1,21 @@
 package org.github.foxnic.web.pcm.service;
 
 
-import com.github.foxnic.sql.expr.ConditionExpr;
-import com.github.foxnic.dao.entity.ISuperService;
-import org.github.foxnic.web.domain.pcm.Catalog;
-import org.github.foxnic.web.domain.pcm.CatalogVO;
-import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
-import java.io.InputStream;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.ISuperService;
+import com.github.foxnic.dao.excel.ExcelStructure;
+import com.github.foxnic.dao.excel.ExcelWriter;
+import com.github.foxnic.dao.excel.ValidateResult;
+import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.expr.OrderBy;
 import com.github.foxnic.sql.meta.DBField;
-import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.dao.excel.ExcelStructure;
-import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.dao.data.SaveMode;
+import org.github.foxnic.web.domain.pcm.Catalog;
+import org.github.foxnic.web.misc.ztree.ZTreeNode;
+
+import java.io.InputStream;
+import java.util.List;
 
 /**
  * <p>
@@ -22,10 +23,12 @@ import com.github.foxnic.dao.data.SaveMode;
  * </p>
  * @author 李方捷 , leefangjie@qq.com
  * @since 2021-08-28 15:45:04
+ * @version  20210829
 */
 
 public interface ICatalogService extends ISuperService<Catalog> {
-	
+
+	public static final String ROOT_ID="0";
 	/**
 	 * 插入实体
 	 * @param catalog 实体数据
@@ -48,7 +51,7 @@ public interface ICatalogService extends ISuperService<Catalog> {
 	 * @param id 主键
 	 * @return 删除是否成功
 	 */
-	Result deleteByIdPhysical(Integer id);
+	Result deleteByIdPhysical(String id);
 	
 	/**
 	 * 按主键删除 数据存储
@@ -56,7 +59,7 @@ public interface ICatalogService extends ISuperService<Catalog> {
 	 * @param id 主键
 	 * @return 删除是否成功
 	 */
-	Result deleteByIdLogical(Integer id);
+	Result deleteByIdLogical(String id);
 	
 	/**
 	 * 批量物理删除，仅支持单字段主键表
@@ -79,7 +82,7 @@ public interface ICatalogService extends ISuperService<Catalog> {
 	 * @param id 主键
 	 * @return 是否更新成功
 	 */
-	boolean update(DBField field,Object value , Integer id);
+	boolean update(DBField field,Object value , String id);
 	
 	/**
 	 * 更新实体
@@ -129,14 +132,14 @@ public interface ICatalogService extends ISuperService<Catalog> {
 	 * @param id 主键
 	 * @return Catalog 数据对象
 	 */
-	Catalog getById(Integer id);
+	Catalog getById(String id);
 		
 	/**
 	 * 检查实体中的数据字段是否已经存在
 	 * @param ids  主键清单
 	 * @return 实体集
 	 * */
-	List<Catalog> getByIds(List<Integer> ids);
+	List<Catalog> getByIds(List<String> ids);
 
 	/**
 	 * 检查 角色 是否已经存在
@@ -284,5 +287,32 @@ public interface ICatalogService extends ISuperService<Catalog> {
 	 * */
 	List<ValidateResult> importExcel(InputStream input,int sheetIndex,boolean batch);
 
- 
+
+	/**
+	 * 查询根节点
+	 * */
+	List<ZTreeNode> queryRootNotes();
+
+	/**
+	 * 查询下级节点
+	 * */
+	List<ZTreeNode> queryChildNodes(String parentId);
+
+	/**
+	 * 保存层级关系
+	 * */
+	Boolean saveHierarchy(List<String> ids, String parentId);
+
+	/**
+	 * 填充层级关系
+	 * */
+	int fillHierarchy(boolean reset);
+
+	/**
+	 * 构建层级关系
+	 * */
+	List<ZTreeNode> buildingHierarchicalRelationships(List<ZTreeNode> list);
+
+	/**/
+	List<String> search(String keyword);
 }

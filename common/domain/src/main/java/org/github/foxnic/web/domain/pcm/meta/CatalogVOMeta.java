@@ -8,8 +8,8 @@ import java.util.List;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-28 15:31:48
- * @sign B1BED21003BBA0915427AB4B5EB567EB
+ * @since 2021-08-30 16:03:03
+ * @sign 7DEE79351285A1B548F608E1CC986AD6
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -86,14 +86,14 @@ public class CatalogVOMeta extends CatalogMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogVO,java.lang.String> SORT_TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogVO.class ,SORT_TYPE, java.lang.String.class, "排序方式", "", java.lang.String.class, null);
 	
 	/**
-	 * 主键清单 , 用于接收批量主键参数 , 集合类型: LIST , 类型: java.lang.Integer
+	 * 主键清单 , 用于接收批量主键参数 , 集合类型: LIST , 类型: java.lang.String
 	*/
 	public static final String IDS="ids";
 	
 	/**
-	 * 主键清单 , 用于接收批量主键参数 , 集合类型: LIST , 类型: java.lang.Integer
+	 * 主键清单 , 用于接收批量主键参数 , 集合类型: LIST , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogVO,java.lang.Integer> IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogVO.class ,IDS, java.util.List.class, "主键清单", "用于接收批量主键参数", java.lang.Integer.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogVO,java.lang.String> IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogVO.class ,IDS, java.util.List.class, "主键清单", "用于接收批量主键参数", java.lang.String.class, null);
 	
 	/**
 	 * 全部属性清单
@@ -190,7 +190,7 @@ public class CatalogVOMeta extends CatalogMeta {
 		 * @param ids 主键清单
 		 * @return 当前对象
 		*/
-		public CatalogVO setIds(List<Integer> ids) {
+		public CatalogVO setIds(List<String> ids) {
 			super.change(IDS,super.getIds(),ids);
 			super.setIds(ids);
 			return this;

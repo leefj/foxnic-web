@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-28 15:31:48
- * @sign 59B9D04AC78442EFB56DE3DBDF6499A4
+ * @since 2021-08-30 16:03:03
+ * @sign 3BAECD45C341C9D4AB64DDEFB2011EB6
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -33,7 +33,7 @@ public class Catalog extends Entity {
 	*/
 	@Id
 	@ApiModelProperty(required = true,value="主键" , notes = "主键")
-	private Integer id;
+	private String id;
 	
 	/**
 	 * 名称：名称
@@ -45,7 +45,19 @@ public class Catalog extends Entity {
 	 * 上级ID：上级ID
 	*/
 	@ApiModelProperty(required = false,value="上级ID" , notes = "上级ID")
-	private Integer parentId;
+	private String parentId;
+	
+	/**
+	 * 顺序：顺序
+	*/
+	@ApiModelProperty(required = false,value="顺序" , notes = "顺序")
+	private Integer sort;
+	
+	/**
+	 * 层级路径：层级路径
+	*/
+	@ApiModelProperty(required = false,value="层级路径" , notes = "层级路径")
+	private String hierarchy;
 	
 	/**
 	 * 存储表：存储表
@@ -57,7 +69,7 @@ public class Catalog extends Entity {
 	 * 租户ID：租户ID
 	*/
 	@ApiModelProperty(required = true,value="租户ID" , notes = "租户ID")
-	private Integer tenantId;
+	private String tenantId;
 	
 	/**
 	 * 创建人ID：创建人ID
@@ -112,7 +124,7 @@ public class Catalog extends Entity {
 	 * 主键
 	 * @return 主键
 	*/
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 	
@@ -121,7 +133,7 @@ public class Catalog extends Entity {
 	 * @param id 主键
 	 * @return 当前对象
 	*/
-	public Catalog setId(Integer id) {
+	public Catalog setId(String id) {
 		this.id=id;
 		return this;
 	}
@@ -150,7 +162,7 @@ public class Catalog extends Entity {
 	 * 上级ID
 	 * @return 上级ID
 	*/
-	public Integer getParentId() {
+	public String getParentId() {
 		return parentId;
 	}
 	
@@ -159,8 +171,46 @@ public class Catalog extends Entity {
 	 * @param parentId 上级ID
 	 * @return 当前对象
 	*/
-	public Catalog setParentId(Integer parentId) {
+	public Catalog setParentId(String parentId) {
 		this.parentId=parentId;
+		return this;
+	}
+	
+	/**
+	 * 获得 顺序<br>
+	 * 顺序
+	 * @return 顺序
+	*/
+	public Integer getSort() {
+		return sort;
+	}
+	
+	/**
+	 * 设置 顺序
+	 * @param sort 顺序
+	 * @return 当前对象
+	*/
+	public Catalog setSort(Integer sort) {
+		this.sort=sort;
+		return this;
+	}
+	
+	/**
+	 * 获得 层级路径<br>
+	 * 层级路径
+	 * @return 层级路径
+	*/
+	public String getHierarchy() {
+		return hierarchy;
+	}
+	
+	/**
+	 * 设置 层级路径
+	 * @param hierarchy 层级路径
+	 * @return 当前对象
+	*/
+	public Catalog setHierarchy(String hierarchy) {
+		this.hierarchy=hierarchy;
 		return this;
 	}
 	
@@ -188,7 +238,7 @@ public class Catalog extends Entity {
 	 * 租户ID
 	 * @return 租户ID
 	*/
-	public Integer getTenantId() {
+	public String getTenantId() {
 		return tenantId;
 	}
 	
@@ -197,7 +247,7 @@ public class Catalog extends Entity {
 	 * @param tenantId 租户ID
 	 * @return 当前对象
 	*/
-	public Catalog setTenantId(Integer tenantId) {
+	public Catalog setTenantId(String tenantId) {
 		this.tenantId=tenantId;
 		return this;
 	}

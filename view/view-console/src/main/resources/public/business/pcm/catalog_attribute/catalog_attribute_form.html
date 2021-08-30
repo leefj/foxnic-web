@@ -2,7 +2,7 @@
 /**
  * 数据存储分配 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-28 15:45:06
+ * @since 2021-08-30 16:49:46
  */
  -->
  <!DOCTYPE html>
@@ -40,21 +40,21 @@
             <div class="layui-col-xs12 form-column">
 
 
-                    <div class="layui-form-item" style="display: none")>
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('主键')}">主键</div></div>
-                        <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="id" id="id" name="id" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('主键') }" type="text" class="layui-input"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0"   scale="0"/>
-                        </div>
+                <div class="layui-form-item" style="display: none")>
+                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('主键')}">主键</div></div>
+                    <div class="layui-input-block layui-input-block-c1">
+                        <input lay-filter="id" id="id" name="id" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('主键') }" type="text" class="layui-input"   />
                     </div>
+                </div>
 
 
                 
-                    <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('存储ID')}">存储ID</div></div>
-                        <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="storageId" id="storageId" name="storageId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('存储ID') }" type="text" class="layui-input"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0"   scale="0"/>
-                        </div>
+                <div class="layui-form-item" >
+                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('存储ID')}">存储ID</div></div>
+                    <div class="layui-input-block layui-input-block-c1">
+                        <input lay-filter="storageId" id="storageId" name="storageId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('存储ID') }" type="text" class="layui-input"   />
                     </div>
+                </div>
 
 
                 

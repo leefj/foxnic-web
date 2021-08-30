@@ -48,7 +48,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 数据存储分配表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-28 15:45:06
+ * @since 2021-08-30 16:49:46
 */
 
 @Api(tags = "数据存储分配")
@@ -65,8 +65,8 @@ public class CatalogAttributeController extends SuperController {
 	*/
 	@ApiOperation(value = "添加数据存储分配")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = CatalogAttributeVOMeta.ID , value = "主键" , required = true , dataTypeClass=Integer.class),
-		@ApiImplicitParam(name = CatalogAttributeVOMeta.STORAGE_ID , value = "存储ID" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = CatalogAttributeVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CatalogAttributeVOMeta.STORAGE_ID , value = "存储ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CatalogAttributeVOMeta.FIELD , value = "字段名" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CatalogAttributeVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CatalogAttributeVOMeta.DETAIL , value = "说明" , required = false , dataTypeClass=String.class),
@@ -90,13 +90,13 @@ public class CatalogAttributeController extends SuperController {
 	*/
 	@ApiOperation(value = "删除数据存储分配")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = CatalogAttributeVOMeta.ID , value = "主键" , required = true , dataTypeClass=Integer.class)
+		@ApiImplicitParam(name = CatalogAttributeVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class)
 	})
 	@ApiOperationSupport(order=2)
 	@NotNull(name = CatalogAttributeVOMeta.ID)
 	@SentinelResource(value = CatalogAttributeServiceProxy.DELETE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(CatalogAttributeServiceProxy.DELETE)
-	public Result deleteById(Integer id) {
+	public Result deleteById(String id) {
 		Result result=catalogAttributeService.deleteByIdLogical(id);
 		return result;
 	}
@@ -114,7 +114,7 @@ public class CatalogAttributeController extends SuperController {
 	@NotNull(name = CatalogAttributeVOMeta.IDS)
 	@SentinelResource(value = CatalogAttributeServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(CatalogAttributeServiceProxy.DELETE_BY_IDS)
-	public Result deleteByIds(List<Integer> ids) {
+	public Result deleteByIds(List<String> ids) {
 		Result result=catalogAttributeService.deleteByIdsLogical(ids);
 		return result;
 	}
@@ -124,8 +124,8 @@ public class CatalogAttributeController extends SuperController {
 	*/
 	@ApiOperation(value = "更新数据存储分配")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = CatalogAttributeVOMeta.ID , value = "主键" , required = true , dataTypeClass=Integer.class),
-		@ApiImplicitParam(name = CatalogAttributeVOMeta.STORAGE_ID , value = "存储ID" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = CatalogAttributeVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CatalogAttributeVOMeta.STORAGE_ID , value = "存储ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CatalogAttributeVOMeta.FIELD , value = "字段名" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CatalogAttributeVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CatalogAttributeVOMeta.DETAIL , value = "说明" , required = false , dataTypeClass=String.class),
@@ -149,8 +149,8 @@ public class CatalogAttributeController extends SuperController {
 	*/
 	@ApiOperation(value = "保存数据存储分配")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = CatalogAttributeVOMeta.ID , value = "主键" , required = true , dataTypeClass=Integer.class),
-		@ApiImplicitParam(name = CatalogAttributeVOMeta.STORAGE_ID , value = "存储ID" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = CatalogAttributeVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CatalogAttributeVOMeta.STORAGE_ID , value = "存储ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CatalogAttributeVOMeta.FIELD , value = "字段名" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CatalogAttributeVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CatalogAttributeVOMeta.DETAIL , value = "说明" , required = false , dataTypeClass=String.class),
@@ -174,13 +174,13 @@ public class CatalogAttributeController extends SuperController {
 	*/
 	@ApiOperation(value = "获取数据存储分配")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = CatalogAttributeVOMeta.ID , value = "主键" , required = true , dataTypeClass=Integer.class , example = "1"),
+		@ApiImplicitParam(name = CatalogAttributeVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "1"),
 	})
 	@ApiOperationSupport(order=6)
 	@NotNull(name = CatalogAttributeVOMeta.ID)
 	@SentinelResource(value = CatalogAttributeServiceProxy.GET_BY_ID , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(CatalogAttributeServiceProxy.GET_BY_ID)
-	public Result<CatalogAttribute> getById(Integer id) {
+	public Result<CatalogAttribute> getById(String id) {
 		Result<CatalogAttribute> result=new Result<>();
 		CatalogAttribute catalogAttribute=catalogAttributeService.getById(id);
 		result.success(true).data(catalogAttribute);
@@ -200,7 +200,7 @@ public class CatalogAttributeController extends SuperController {
 		@NotNull(name = CatalogAttributeVOMeta.IDS)
 		@SentinelResource(value = CatalogAttributeServiceProxy.GET_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(CatalogAttributeServiceProxy.GET_BY_IDS)
-	public Result<List<CatalogAttribute>> getByIds(List<Integer> ids) {
+	public Result<List<CatalogAttribute>> getByIds(List<String> ids) {
 		Result<List<CatalogAttribute>> result=new Result<>();
 		List<CatalogAttribute> list=catalogAttributeService.getByIds(ids);
 		result.success(true).data(list);
@@ -213,8 +213,8 @@ public class CatalogAttributeController extends SuperController {
 	*/
 	@ApiOperation(value = "查询数据存储分配")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = CatalogAttributeVOMeta.ID , value = "主键" , required = true , dataTypeClass=Integer.class),
-		@ApiImplicitParam(name = CatalogAttributeVOMeta.STORAGE_ID , value = "存储ID" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = CatalogAttributeVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CatalogAttributeVOMeta.STORAGE_ID , value = "存储ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CatalogAttributeVOMeta.FIELD , value = "字段名" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CatalogAttributeVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CatalogAttributeVOMeta.DETAIL , value = "说明" , required = false , dataTypeClass=String.class),
@@ -239,8 +239,8 @@ public class CatalogAttributeController extends SuperController {
 	*/
 	@ApiOperation(value = "分页查询数据存储分配")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = CatalogAttributeVOMeta.ID , value = "主键" , required = true , dataTypeClass=Integer.class),
-		@ApiImplicitParam(name = CatalogAttributeVOMeta.STORAGE_ID , value = "存储ID" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = CatalogAttributeVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CatalogAttributeVOMeta.STORAGE_ID , value = "存储ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CatalogAttributeVOMeta.FIELD , value = "字段名" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CatalogAttributeVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CatalogAttributeVOMeta.DETAIL , value = "说明" , required = false , dataTypeClass=String.class),

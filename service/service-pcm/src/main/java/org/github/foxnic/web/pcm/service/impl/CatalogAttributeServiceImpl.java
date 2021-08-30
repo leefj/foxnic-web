@@ -35,7 +35,7 @@ import java.util.Date;
  * 数据存储分配表 服务实现
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-28 15:45:06
+ * @since 2021-08-30 16:49:46
 */
 
 
@@ -88,7 +88,7 @@ public class CatalogAttributeServiceImpl extends SuperService<CatalogAttribute> 
 	 * @param id 主键
 	 * @return 删除是否成功
 	 */
-	public Result deleteByIdPhysical(Integer id) {
+	public Result deleteByIdPhysical(String id) {
 		CatalogAttribute catalogAttribute = new CatalogAttribute();
 		if(id==null) return ErrorDesc.failure().message("id 不允许为 null 。");
 		catalogAttribute.setId(id);
@@ -109,7 +109,7 @@ public class CatalogAttributeServiceImpl extends SuperService<CatalogAttribute> 
 	 * @param id 主键
 	 * @return 删除是否成功
 	 */
-	public Result deleteByIdLogical(Integer id) {
+	public Result deleteByIdLogical(String id) {
 		CatalogAttribute catalogAttribute = new CatalogAttribute();
 		if(id==null) return ErrorDesc.failure().message("id 不允许为 null 。");
 		catalogAttribute.setId(id);
@@ -157,7 +157,7 @@ public class CatalogAttributeServiceImpl extends SuperService<CatalogAttribute> 
 	 * @param id 主键
 	 * @return 是否更新成功
 	 */
-	public boolean update(DBField field,Object value , Integer id) {
+	public boolean update(DBField field,Object value , String id) {
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null ");
 		if(!field.table().name().equals(this.table())) throw new IllegalArgumentException("更新的数据表["+field.table().name()+"]与服务对应的数据表["+this.table()+"]不一致");
 		int suc=dao.update(field.table().name()).set(field.name(), value).where().and("id = ? ",id).top().execute();
@@ -171,7 +171,7 @@ public class CatalogAttributeServiceImpl extends SuperService<CatalogAttribute> 
 	 * @param id 主键
 	 * @return CatalogAttribute 数据对象
 	 */
-	public CatalogAttribute getById(Integer id) {
+	public CatalogAttribute getById(String id) {
 		CatalogAttribute sample = new CatalogAttribute();
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null ");
 		sample.setId(id);
@@ -179,7 +179,7 @@ public class CatalogAttributeServiceImpl extends SuperService<CatalogAttribute> 
 	}
 
 	@Override
-	public List<CatalogAttribute> getByIds(List<Integer> ids) {
+	public List<CatalogAttribute> getByIds(List<String> ids) {
 		return new ArrayList<>(getByIdsMap(ids).values());
 	}
 
