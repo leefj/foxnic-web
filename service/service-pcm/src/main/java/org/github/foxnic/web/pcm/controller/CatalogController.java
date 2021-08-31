@@ -186,11 +186,6 @@ public class CatalogController extends SuperController {
 	public Result<Catalog> getById(String id) {
 		Result<Catalog> result=new Result<>();
 		Catalog catalog=catalogService.getById(id);
-		List children=catalogService.queryChildNodes(id);
-		if(!children.isEmpty()) {
-			result.success(false).message("请先删除下级节点");
-			return result;
-		}
 		result.success(true).data(catalog);
 		return result;
 	}
@@ -294,9 +289,9 @@ public class CatalogController extends SuperController {
 
 
 	/**
-	 * 变更分类层级关系
+	 * 搜索分类层级
 	 */
-	@ApiOperation(value = "变更分类层级关系")
+	@ApiOperation(value = "搜索分类层级")
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "keyword" , value = "keyword" , required = true , dataTypeClass=String.class , example = "橡胶")
 	})
@@ -385,6 +380,22 @@ public class CatalogController extends SuperController {
 				return ErrorDesc.failure().message("导入失败").data(errors);
 			}
 		}
+
+
+
+	/**
+	 * 返回数据表清单
+	 */
+	@ApiOperation(value = "返回数据表清单")
+	@ApiOperationSupport(order=2)
+	@SentinelResource(value = CatalogServiceProxy.STORAGE_TABLES)
+	@PostMapping(CatalogServiceProxy.STORAGE_TABLES)
+	public Result<List<String>> storageTables() {
+		Result<List<String>> result=new Result<>();
+		List<String> tables=catalogService.getStorageTables();
+		result.data(tables);
+		return result;
+	}
 
 
 }

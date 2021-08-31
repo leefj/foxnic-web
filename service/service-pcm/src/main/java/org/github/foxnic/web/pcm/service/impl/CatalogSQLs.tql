@@ -34,6 +34,6 @@ SET c.hierarchy=CONCAT(p.hierarchy,"/",c.id)
 WHERE c.tenant_id=? and p.id=c.parent_id  and c.hierarchy is null and p.hierarchy is not null
 
 [search-catalog-hierarchy]
-select distinct hierarchy from pcm_catalog a where EXISTS (
+select distinct hierarchy from pcm_catalog a where exists (
 	select 1 from pcm_catalog b where a.id=b.parent_id and name like ? and valid=1 and deleted=0 and tenant_id=?
 ) and valid=1 and deleted=0 and tenant_id=?

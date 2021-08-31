@@ -313,6 +313,10 @@ public interface ICatalogService extends ISuperService<Catalog> {
 	 * */
 	List<ZTreeNode> buildingHierarchicalRelationships(List<ZTreeNode> list);
 
-	/**/
+	/**
+	 * 按关键字搜索，并返回匹配的层级
+	 * */
 	List<String> search(String keyword);
+
+	List<String> getStorageTables();
 }

@@ -39,6 +39,7 @@ import java.util.*;
  * </p>
  * @author 李方捷 , leefangjie@qq.com
  * @since 2021-06-01 09:27:29
+ * @version
 */
 
 
@@ -383,6 +384,12 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 		if(!parents.isEmpty()) {
 			joinAncestors(parents);
 		}
+	}
+
+	@Override
+	public List<String> search(String keyword) {
+		RcdSet rs=dao().query("#search-catalog-hierarchy","%"+keyword+"%");
+		return rs.getValueList("hierarchy",String.class);
 	}
 
 }

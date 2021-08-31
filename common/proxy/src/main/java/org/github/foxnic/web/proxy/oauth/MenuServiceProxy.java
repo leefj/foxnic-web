@@ -86,6 +86,11 @@ public interface MenuServiceProxy {
 	 * 节点层级变更
 	 */
 	public static final String SAVE_HIERARCHY = API_PREFIX + "save-hierarchy";
+
+	/**
+	 * 节点层级变更
+	 */
+	public static final String SEARCH = API_PREFIX + "search";
 	
 	 
 	/**

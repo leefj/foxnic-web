@@ -1,5 +1,6 @@
 package org.github.foxnic.web.generator.module.pcm;
 
+import com.github.foxnic.generator.builder.view.option.FormOptions;
 import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
@@ -16,6 +17,11 @@ public class PcmCatalogConfig extends BaseCodeConfig<PCM_CATALOG> {
     @Override
     public void configSearch(ViewOptions view, SearchAreaOptions search) {
 
+    }
+
+    @Override
+    public void configForm(ViewOptions view, FormOptions form) {
+        //form.disableFooter().disableMargin();
     }
 
     @Override

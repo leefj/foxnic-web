@@ -8,6 +8,7 @@ import org.github.foxnic.web.proxy.FeignConfiguration;
 import org.github.foxnic.web.proxy.MicroServiceNames;
 import org.github.foxnic.web.proxy.api.APIProxy;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -96,6 +97,12 @@ public interface CatalogServiceProxy {
 	 * 查询
 	 */
 	public static final String SEARCH = API_PREFIX + "search";
+
+
+	/**
+	 * 查询数据表
+	 */
+	public static final String STORAGE_TABLES = API_PREFIX + "storage-tables";
 	
 	/**
 	 * 分页查询数据存储
@@ -169,6 +176,12 @@ public interface CatalogServiceProxy {
 	*/
 	@RequestMapping(CatalogServiceProxy.QUERY_PAGED_LIST)
 	Result<PagedList<Catalog>> queryPagedList(CatalogVO sample);
+
+	/**
+	 * 返回数据表清单
+	 */
+	@PostMapping(CatalogServiceProxy.STORAGE_TABLES)
+	Result<List<String>> storageTables();
 	
 	
 	/**

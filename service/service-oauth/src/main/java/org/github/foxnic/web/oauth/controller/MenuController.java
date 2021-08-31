@@ -33,6 +33,7 @@ import java.util.List;
  * </p>
  * @author 李方捷 , leefangjie@qq.com
  * @since 2021-06-01 09:27:29
+ * @version
 */
 
 @Api(tags = "菜单")
@@ -329,8 +330,23 @@ public class MenuController {
 		result.success(suc);
 		return result;
 	}
-	
-	 
+
+	/**
+	 * 搜索分类层级
+	 */
+	@ApiOperation(value = "搜索分类层级")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "keyword" , value = "keyword" , required = true , dataTypeClass=String.class , example = "橡胶")
+	})
+	@ApiOperationSupport(order=2)
+	@SentinelResource(value = MenuServiceProxy.SEARCH)
+	@PostMapping(MenuServiceProxy.SEARCH)
+	public Result<List<String>> search(String keyword) {
+		Result<List<String>> result=new Result<>();
+		List<String> hierarchyList=menuService.search(keyword);
+		result.data(hierarchyList);
+		return result;
+	}
 	
 	
 

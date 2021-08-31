@@ -312,7 +312,6 @@ function ListPage() {
 		var queryString="";
 		if(data && data.id) queryString="?" + 'id=' + data.id;
 		admin.putTempData('pcm-catalog-form-data', data);
-		var area=admin.getTempData('pcm-catalog-form-area');
 		var height= (area && area.height) ? area.height : ($(window).height()*0.6);
 		var top= (area && area.top) ? area.top : (($(window).height()-height)/2);
 		var title = (data && data.id) ? (fox.translate('修改')+fox.translate('数据存储')) : (fox.translate('添加')+fox.translate('数据存储'));

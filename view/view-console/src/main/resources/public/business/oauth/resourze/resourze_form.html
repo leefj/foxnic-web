@@ -2,7 +2,7 @@
 /**
  * 系统资源 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-30 11:31:53
+ * @since 2021-08-31 09:39:25
  */
  -->
  <!DOCTYPE html>
@@ -59,7 +59,7 @@
 
                 
                 <div class="layui-form-item" >
-                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('类型')}">类型</div></div>
+                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('类型')}">类型</div><div class="layui-required">*</div></div>
                     <div class="layui-input-block layui-input-block-c1">
                         <input input-type="radio" type="radio" name="type" lay-filter="type" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.ResourceType')}" th:value="${e.code}" th:title="${e.text}">
                     </div>
@@ -77,7 +77,7 @@
 
                 
                 <div class="layui-form-item" >
-                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('Method')}">Method</div></div>
+                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('Method')}">Method</div><div class="layui-required">*</div></div>
                     <div class="layui-input-block layui-input-block-c1">
                         <input input-type="radio" type="radio" name="method" lay-filter="method" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.HttpMethodType')}" th:value="${e.code}" th:title="${e.text}">
                     </div>
@@ -207,7 +207,7 @@
     var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];
     var RADIO_TYPE_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.ResourceType')}]];
     var RADIO_METHOD_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.HttpMethodType')}]];
-    var VALIDATE_CONFIG={"name":{"labelInForm":"名称","inputType":"text_input","required":true},"url":{"labelInForm":"地址","inputType":"text_input","required":true}};
+    var VALIDATE_CONFIG={"method":{"labelInForm":"Method","inputType":"radio_box","required":true},"name":{"labelInForm":"名称","inputType":"text_input","required":true},"type":{"labelInForm":"类型","inputType":"radio_box","required":true},"url":{"labelInForm":"地址","inputType":"text_input","required":true}};
     var AUTH_PREFIX="sys_resourze";
 
 

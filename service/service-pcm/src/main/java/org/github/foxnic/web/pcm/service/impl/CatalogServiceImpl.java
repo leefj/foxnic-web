@@ -4,6 +4,7 @@ package org.github.foxnic.web.pcm.service.impl;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.commons.cache.Variable;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.Rcd;
 import com.github.foxnic.dao.data.RcdSet;
@@ -365,6 +366,23 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 		String tenantId=SessionUser.getCurrent().getActivatedTenantId();
 		RcdSet rs=dao().query("#search-catalog-hierarchy","%"+keyword+"%",tenantId,tenantId);
 		return rs.getValueList("hierarchy",String.class);
+	}
+
+	private Variable storageTables=new Variable(null,1000*60*3);
+
+	@Override
+	public List<String> getStorageTables() {
+		List<String> tables=(List)storageTables.getValue();
+		if(tables!=null) return tables;
+		tables=new ArrayList<>();
+		for (String tableName : dao().getTableNames()) {
+			if(tableName.toLowerCase().startsWith("pcm_data_")) {
+				int count=dao().queryInteger("select count(1) from "+tableName);
+				tables.add(tableName+","+count);
+			}
+		}
+		storageTables.setValue(tables);
+		return tables;
 	}
 
 	private void joinAncestors(List<Menu> menus) {

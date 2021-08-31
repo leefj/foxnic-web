@@ -139,9 +139,10 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		cfg.view().field(SYS_RESOURZE.METHOD)
 				.basic().label("Method")
 				.search().hidden()
-				.form().radioBox().enumType(HttpMethodType.class);
+				.form().radioBox().enumType(HttpMethodType.class)
+				.form().validate().required();
 
-		cfg.view().field(SYS_RESOURZE.TYPE).form().radioBox().enumType(ResourceType.class);
+		cfg.view().field(SYS_RESOURZE.TYPE).form().radioBox().enumType(ResourceType.class).form().validate().required();
 		cfg.view().field(SYS_RESOURZE.NAME).form().validate().required()
 		.search().fuzzySearch();
 		cfg.view().field(SYS_RESOURZE.URL).form().validate().required()

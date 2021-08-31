@@ -17,6 +17,7 @@ import java.util.List;
  * </p>
  * @author 李方捷 , leefangjie@qq.com
  * @since 2021-06-01 09:27:29
+ * @version
 */
 
 public interface IMenuService extends ISuperService<Menu> {
@@ -282,4 +283,9 @@ public interface IMenuService extends ISuperService<Menu> {
 	List<ZTreeNode> buildingHierarchicalRelationships(List<ZTreeNode> list,String roleId);
 
 	List<Menu> getRelatedMenus(List<String> resourzeIds);
+
+	/**
+	 * 按关键字搜索，并返回匹配的层级
+	 * */
+	List<String> search(String keyword);
 }

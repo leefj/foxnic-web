@@ -42,3 +42,9 @@ UPDATE sys_menu set hierarchy=id where parent_id='0'
 UPDATE sys_menu c, sys_menu p
 SET c.hierarchy=CONCAT(p.hierarchy,"/",c.id)
 WHERE p.id=c.parent_id and c.hierarchy is null and p.hierarchy is not null
+
+
+[search-catalog-hierarchy]
+select distinct hierarchy from sys_menu a where exists (
+    select 1 from sys_menu b where a.id=b.parent_id and label like ? and deleted=0
+) and deleted=0

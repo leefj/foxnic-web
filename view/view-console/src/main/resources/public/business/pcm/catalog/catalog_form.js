@@ -2,6 +2,7 @@
  * 数据存储 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
  * @since 2021-08-30 16:49:46
+ * @version
  */
 
 function FormPage() {
@@ -9,7 +10,6 @@ function FormPage() {
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect,foxup;
 	const moduleURL="/service-pcm/pcm-catalog";
 
-	var disableCreateNew=false;
 	var disableModify=false;
 	/**
       * 入口函数，初始化
@@ -34,7 +34,7 @@ function FormPage() {
 		renderFormFields();
 
 		//填充表单数据
-		fillFormData();
+		//fillFormData();
 
 		//绑定提交事件
 		bindButtonEvent();
@@ -48,6 +48,7 @@ function FormPage() {
 	 * */
 	var adjustPopupTask=-1;
 	function adjustPopup() {
+		return;
 		clearTimeout(adjustPopupTask);
 		var scroll=$(".form-container").attr("scroll");
 		if(scroll=='yes') return;
@@ -77,6 +78,20 @@ function FormPage() {
 	function renderFormFields() {
 		fox.renderFormInputs(form);
 
+		var tables=[];
+		for (let i = 0; i < STORAGE_TABLES.length; i++) {
+			var t=STORAGE_TABLES[i].split(",");
+			tables.push({name:t[0], value:t[0],rows:t[1]});
+		}
+		xmSelect.render({
+			el: '#dataTable',
+			radio:true,
+			clickClose:true,
+			data: tables,
+			template({ item, sels, name, value }){
+				return item.name  + '<span style="position: absolute; right: 10px; color: #8799a3">'+item.rows+'行</span>'
+			}
+		});
 	}
 
 	/**
@@ -96,57 +111,46 @@ function FormPage() {
 			fm[0].reset();
 			form.val('data-form', formData);
 
+			var inst=xmSelect.get("#dataTable",true);
+			if(formData.dataTable) {
+				inst.setValue([{name:formData.dataTable,value:formData.dataTable}]);
+				inst.update({
+					el:"#dataTable",
+					disabled: true
+				});
+			} else {
+				inst.setValue([]);
+				inst.update({
+					el:"#dataTable",
+					disabled: false
+				});
+			}
 
 
-
-
-
-			//处理fillBy
 
 	     	fm.attr('method', 'POST');
-	     	renderFormFields();
+
 
 			window.pageExt.form.afterDataFill && window.pageExt.form.afterDataFill(formData);
 
 		}
 
-		//渐显效果
-		fm.css("opacity","0.0");
-        fm.css("display","");
-        setTimeout(function (){
-            fm.animate({
-                opacity:'1.0'
-            },100);
-        },1);
-
-        //禁用编辑
-		if(disableModify || disableCreateNew) {
+        // 禁用编辑
+		if(disableModify) {
 			fox.lockForm($("#data-form"),true);
 			$("#submit-button").hide();
 			$("#cancel-button").css("margin-right","15px")
+			$(".model-form-footer").css("display","none");
 		} else {
 			$("#submit-button").show();
-			$("#cancel-button").css("margin-right","0px")
-		}
-
-		//调用 iframe 加载过程
-		var formIfrs=$(".form-iframe");
-		for (var i = 0; i < formIfrs.length; i++) {
-			var jsFn=$(formIfrs[i]).attr("js-fn");
-			if(window.pageExt.form){
-				jsFn=window.pageExt.form[jsFn];
-				jsFn && jsFn($(formIfrs[i]),$(formIfrs[i])[0].contentWindow,formData);
-			}
+			$("#cancel-button").css("margin-right","0px");
+			$(".model-form-footer").css("display","");
 		}
 
 	}
 
 	function getFormData() {
 		var data=form.val("data-form");
-
-
-
-
 		return data;
 	}
 
@@ -156,14 +160,23 @@ function FormPage() {
 
 	function saveForm(data) {
 		var api=moduleURL+"/"+(data.id?"update":"insert");
+
+		data["dataTable"]= data.select;
+		var formData=data;
 		var task=setTimeout(function(){layer.load(2);},1000);
 		admin.request(api, data, function (data) {
 			clearTimeout(task);
 			layer.closeAll('loading');
 			if (data.success) {
 				layer.msg(data.message, {icon: 1, time: 500});
-				var index=admin.getTempData('pcm-catalog-form-data-popup-index');
-				admin.finishPopupCenter(index);
+				var inst=xmSelect.get("#dataTable",true);
+				if(formData.dataTable) {
+					inst.update({
+						el:"#dataTable",
+						disabled: true
+					});
+				};
+				parent.chaneNodeName(formData.id,formData.name);
 			} else {
 				layer.msg(data.message, {icon: 2, time: 1000});
 			}
@@ -196,7 +209,18 @@ function FormPage() {
 
     }
 
+    function loadFormData(id) {
+    	admin.request(moduleURL+"/get-by-id",{id:id},function (r){
+    		if(r.success) {
+				admin.putTempData('pcm-catalog-form-data', r.data);
+				fillFormData();
+			}
+		})
+
+	}
+
     window.module={
+		loadFormData: loadFormData,
 		getFormData: getFormData,
 		verifyForm: verifyForm,
 		saveForm: saveForm

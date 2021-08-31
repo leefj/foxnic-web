@@ -212,12 +212,72 @@ function ListPage() {
 	/**
 	 * 绑定搜索框事件
 	 */
-	var nodeList
 	function bindSearchEvent() {
 		//回车键查询
-        $("#search-input").keydown(function(event) {
+		var ids=[];
+		var handled={};
+		$("#search-input").keydown(function(event) {
 			if(event.keyCode !=13) return;
-			nodeList=menuTree.getNodesByParamFuzzy("name",$("#search-input").val());
+
+			admin.request(moduleURL+"/search",{"keyword":$("#search-input").val()},function(r) {
+				if(r.success) {
+					collectExpandNodeIds(r.data);
+					if(ids.length>0) {
+						startExpandNode();
+					} else {
+						layer.msg("为找到匹配的节点", {icon: 1, time: 1000});
+					}
+				} else {
+					admin.toast().error("搜索错误",{time:1000,position:"right-bottom"});
+				}
+			});
+
+
+		});
+
+		var ids=[];
+		var handled={};
+		function startExpandNode() {
+			if(ids.length==0) {
+				highLightMatchedNodes();
+				return;
+			}
+			var id=ids.shift();
+			if(handled[id])  {
+				startExpandNode();
+				return;
+			}
+			var node=menuTree.getNodeByParam("id",id);
+			if(!node || node.open) {
+				startExpandNode();
+				return;
+			}
+			console.log("expand : "+ id);
+			menuTree.expandNode(node,true,false,true,false);
+			handled[id]=true;
+			var task=setInterval(function (){
+				node=menuTree.getNodeByParam("id",id);
+				if(node.open) {
+					clearInterval(task);
+					startExpandNode();
+				}
+			},4);
+		}
+
+		function  collectExpandNodeIds(hierarchys) {
+			var ex={};
+			for (var i = 0; i < hierarchys.length; i++) {
+				var pIds=hierarchys[i].split("/");
+				for (var j = 0; j < pIds.length; j++) {
+					if(ex[pIds[j]]) continue;
+					ids.push(pIds[j]);
+					ex[pIds[j]]=true;
+				}
+			}
+		}
+
+		function highLightMatchedNodes() {
+			var nodeList=menuTree.getNodesByParamFuzzy("name",$("#search-input").val());
 			var sns=menuTree.getSelectedNodes();
 			for( var i=0;i<sns.length;  i++) {
 				menuTree.cancelSelectedNode(sns[i]);
@@ -225,7 +285,7 @@ function ListPage() {
 			for( var i=0;i<nodeList.length;  i++) {
 				menuTree.selectNode(nodeList[i],true,true);
 			}
-		});
+		}
 
 	}
 

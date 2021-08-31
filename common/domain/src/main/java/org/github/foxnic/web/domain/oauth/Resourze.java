@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-14 11:21:23
- * @sign 221711BB0413495D8B427FB1164925B3
+ * @since 2021-08-31 09:39:22
+ * @sign 9FA34D017EDCE460E7FA8C634AF46B2D
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -44,19 +44,19 @@ public class Resourze extends Entity {
 	/**
 	 * 类型：api/page
 	*/
-	@ApiModelProperty(required = false,value="类型" , notes = "api/page")
+	@ApiModelProperty(required = true,value="类型" , notes = "api/page")
 	private String type;
 	
 	/**
 	 * 地址：地址
 	*/
-	@ApiModelProperty(required = false,value="地址" , notes = "地址")
+	@ApiModelProperty(required = true,value="地址" , notes = "地址")
 	private String url;
 	
 	/**
 	 * HttpMethod：HttpMethod
 	*/
-	@ApiModelProperty(required = false,value="HttpMethod" , notes = "HttpMethod")
+	@ApiModelProperty(required = true,value="HttpMethod" , notes = "HttpMethod")
 	private String method;
 	
 	/**

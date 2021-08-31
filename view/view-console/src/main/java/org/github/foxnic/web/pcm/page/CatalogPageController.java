@@ -1,12 +1,11 @@
 package org.github.foxnic.web.pcm.page;
 
 import org.github.foxnic.web.framework.view.controller.ViewController;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.github.foxnic.web.proxy.pcm.CatalogServiceProxy;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import javax.servlet.http.HttpServletRequest;
 /**
  * <p>
@@ -14,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
  * </p>
  * @author 李方捷 , leefangjie@qq.com
  * @since 2021-08-30 16:49:46
+ * @version
 */
 
 @Controller("PcmCatalogPageController")
@@ -50,6 +50,7 @@ public class CatalogPageController extends ViewController {
 	 */
 	@RequestMapping("/catalog_form.html")
 	public String form(Model model,HttpServletRequest request , String id) {
+		model.addAttribute("storageTables",CatalogServiceProxy.api().storageTables().data());
 		return prefix+"/catalog_form";
 	}
 }
