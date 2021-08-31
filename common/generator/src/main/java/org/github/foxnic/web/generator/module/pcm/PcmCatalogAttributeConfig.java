@@ -20,9 +20,16 @@ public class PcmCatalogAttributeConfig extends BaseCodeConfig<PCM_CATALOG_ATTRIB
 
     @Override
     public void configFields(ViewOptions view) {
-//        view.field(SYS_CODE_EXAMPLE_STUDENT.ID).basic().hidden();
-//        view.field(SYS_CODE_EXAMPLE_STUDENT.EXAMPLE_ID)
-//                .basic().hidden();
+        view.field(PCM_CATALOG_ATTRIBUTE.ID).basic().hidden();
+        view.field(PCM_CATALOG_ATTRIBUTE.CATALOG_ID).basic().hidden();
+        view.field(PCM_CATALOG_ATTRIBUTE.FIELD).basic().hidden();
+        view.field(PCM_CATALOG_ATTRIBUTE.LENGTH).search().hidden();
+        view.field(PCM_CATALOG_ATTRIBUTE.ACCURACY).search().hidden();
+        view.field(PCM_CATALOG_ATTRIBUTE.SCALE).search().hidden();
+        view.field(PCM_CATALOG_ATTRIBUTE.HINT).search().hidden();
+        view.field(PCM_CATALOG_ATTRIBUTE.NOTE).search().hidden();
+        view.field(PCM_CATALOG_ATTRIBUTE.DETAIL).search().hidden();
+        view.field(PCM_CATALOG_ATTRIBUTE.VALID).search().hidden();
     }
 
     @Override

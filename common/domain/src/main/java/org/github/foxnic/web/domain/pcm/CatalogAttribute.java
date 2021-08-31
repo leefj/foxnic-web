@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-30 16:03:06
- * @sign 09B69636CF0FD09D2559CCD7CD969F48
+ * @since 2021-09-01 06:29:45
+ * @sign 3307776D7DC398F324EF32C7E38D13B4
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -38,31 +38,25 @@ public class CatalogAttribute extends Entity {
 	/**
 	 * 存储ID：存储ID
 	*/
-	@ApiModelProperty(required = false,value="存储ID" , notes = "存储ID")
-	private String storageId;
+	@ApiModelProperty(required = true,value="存储ID" , notes = "存储ID")
+	private String catalogId;
 	
 	/**
 	 * 字段名：在数据表中的真实字段名
 	*/
-	@ApiModelProperty(required = false,value="字段名" , notes = "在数据表中的真实字段名")
+	@ApiModelProperty(required = true,value="字段名" , notes = "在数据表中的真实字段名")
 	private String field;
 	
 	/**
-	 * 名称：名称
+	 * 别名：字段别名
 	*/
-	@ApiModelProperty(required = false,value="名称" , notes = "名称")
-	private String name;
-	
-	/**
-	 * 说明：说明
-	*/
-	@ApiModelProperty(required = false,value="说明" , notes = "说明")
-	private String detail;
+	@ApiModelProperty(required = true,value="别名" , notes = "字段别名")
+	private String alias;
 	
 	/**
 	 * 数据类型：数据类型
 	*/
-	@ApiModelProperty(required = false,value="数据类型" , notes = "数据类型")
+	@ApiModelProperty(required = true,value="数据类型" , notes = "数据类型")
 	private String dataType;
 	
 	/**
@@ -75,13 +69,49 @@ public class CatalogAttribute extends Entity {
 	 * 数据精度：数据精度
 	*/
 	@ApiModelProperty(required = false,value="数据精度" , notes = "数据精度")
-	private Integer precision;
+	private Integer accuracy;
 	
 	/**
 	 * 小数位数：小数位数
 	*/
 	@ApiModelProperty(required = false,value="小数位数" , notes = "小数位数")
 	private Integer scale;
+	
+	/**
+	 * 简称：简称
+	*/
+	@ApiModelProperty(required = true,value="简称" , notes = "简称")
+	private String shortName;
+	
+	/**
+	 * 全称：全称
+	*/
+	@ApiModelProperty(required = true,value="全称" , notes = "全称")
+	private String fullName;
+	
+	/**
+	 * 提示信息：提示信息
+	*/
+	@ApiModelProperty(required = false,value="提示信息" , notes = "提示信息")
+	private String hint;
+	
+	/**
+	 * 说明：说明
+	*/
+	@ApiModelProperty(required = false,value="说明" , notes = "说明")
+	private String detail;
+	
+	/**
+	 * 备注：备注
+	*/
+	@ApiModelProperty(required = false,value="备注" , notes = "备注")
+	private String note;
+	
+	/**
+	 * 是否有效：是否有效
+	*/
+	@ApiModelProperty(required = true,value="是否有效" , notes = "是否有效")
+	private Integer valid;
 	
 	/**
 	 * 创建人ID：创建人ID
@@ -155,17 +185,17 @@ public class CatalogAttribute extends Entity {
 	 * 存储ID
 	 * @return 存储ID
 	*/
-	public String getStorageId() {
-		return storageId;
+	public String getCatalogId() {
+		return catalogId;
 	}
 	
 	/**
 	 * 设置 存储ID
-	 * @param storageId 存储ID
+	 * @param catalogId 存储ID
 	 * @return 当前对象
 	*/
-	public CatalogAttribute setStorageId(String storageId) {
-		this.storageId=storageId;
+	public CatalogAttribute setCatalogId(String catalogId) {
+		this.catalogId=catalogId;
 		return this;
 	}
 	
@@ -189,40 +219,21 @@ public class CatalogAttribute extends Entity {
 	}
 	
 	/**
-	 * 获得 名称<br>
-	 * 名称
-	 * @return 名称
+	 * 获得 别名<br>
+	 * 字段别名
+	 * @return 别名
 	*/
-	public String getName() {
-		return name;
+	public String getAlias() {
+		return alias;
 	}
 	
 	/**
-	 * 设置 名称
-	 * @param name 名称
+	 * 设置 别名
+	 * @param alias 别名
 	 * @return 当前对象
 	*/
-	public CatalogAttribute setName(String name) {
-		this.name=name;
-		return this;
-	}
-	
-	/**
-	 * 获得 说明<br>
-	 * 说明
-	 * @return 说明
-	*/
-	public String getDetail() {
-		return detail;
-	}
-	
-	/**
-	 * 设置 说明
-	 * @param detail 说明
-	 * @return 当前对象
-	*/
-	public CatalogAttribute setDetail(String detail) {
-		this.detail=detail;
+	public CatalogAttribute setAlias(String alias) {
+		this.alias=alias;
 		return this;
 	}
 	
@@ -269,17 +280,17 @@ public class CatalogAttribute extends Entity {
 	 * 数据精度
 	 * @return 数据精度
 	*/
-	public Integer getPrecision() {
-		return precision;
+	public Integer getAccuracy() {
+		return accuracy;
 	}
 	
 	/**
 	 * 设置 数据精度
-	 * @param precision 数据精度
+	 * @param accuracy 数据精度
 	 * @return 当前对象
 	*/
-	public CatalogAttribute setPrecision(Integer precision) {
-		this.precision=precision;
+	public CatalogAttribute setAccuracy(Integer accuracy) {
+		this.accuracy=accuracy;
 		return this;
 	}
 	
@@ -299,6 +310,120 @@ public class CatalogAttribute extends Entity {
 	*/
 	public CatalogAttribute setScale(Integer scale) {
 		this.scale=scale;
+		return this;
+	}
+	
+	/**
+	 * 获得 简称<br>
+	 * 简称
+	 * @return 简称
+	*/
+	public String getShortName() {
+		return shortName;
+	}
+	
+	/**
+	 * 设置 简称
+	 * @param shortName 简称
+	 * @return 当前对象
+	*/
+	public CatalogAttribute setShortName(String shortName) {
+		this.shortName=shortName;
+		return this;
+	}
+	
+	/**
+	 * 获得 全称<br>
+	 * 全称
+	 * @return 全称
+	*/
+	public String getFullName() {
+		return fullName;
+	}
+	
+	/**
+	 * 设置 全称
+	 * @param fullName 全称
+	 * @return 当前对象
+	*/
+	public CatalogAttribute setFullName(String fullName) {
+		this.fullName=fullName;
+		return this;
+	}
+	
+	/**
+	 * 获得 提示信息<br>
+	 * 提示信息
+	 * @return 提示信息
+	*/
+	public String getHint() {
+		return hint;
+	}
+	
+	/**
+	 * 设置 提示信息
+	 * @param hint 提示信息
+	 * @return 当前对象
+	*/
+	public CatalogAttribute setHint(String hint) {
+		this.hint=hint;
+		return this;
+	}
+	
+	/**
+	 * 获得 说明<br>
+	 * 说明
+	 * @return 说明
+	*/
+	public String getDetail() {
+		return detail;
+	}
+	
+	/**
+	 * 设置 说明
+	 * @param detail 说明
+	 * @return 当前对象
+	*/
+	public CatalogAttribute setDetail(String detail) {
+		this.detail=detail;
+		return this;
+	}
+	
+	/**
+	 * 获得 备注<br>
+	 * 备注
+	 * @return 备注
+	*/
+	public String getNote() {
+		return note;
+	}
+	
+	/**
+	 * 设置 备注
+	 * @param note 备注
+	 * @return 当前对象
+	*/
+	public CatalogAttribute setNote(String note) {
+		this.note=note;
+		return this;
+	}
+	
+	/**
+	 * 获得 是否有效<br>
+	 * 是否有效
+	 * @return 是否有效
+	*/
+	public Integer getValid() {
+		return valid;
+	}
+	
+	/**
+	 * 设置 是否有效
+	 * @param valid 是否有效
+	 * @return 当前对象
+	*/
+	public CatalogAttribute setValid(Integer valid) {
+		this.valid=valid;
 		return this;
 	}
 	
