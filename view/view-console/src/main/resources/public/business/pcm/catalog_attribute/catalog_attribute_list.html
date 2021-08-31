@@ -2,7 +2,7 @@
 /**
  * 数据存储分配 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-30 16:49:46
+ * @since 2021-08-31 17:13:33
  */
  -->
  <!DOCTYPE html>
@@ -49,20 +49,40 @@
                         <div class="search-label-div" style=""><span th:text="${lang.translate('字段名')}" class="search-label field-label">字段名</span><span class="search-colon">:</span></div>
                         <input id="field" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
-                    <!-- 名称 , name ,typeName=text_input, isHideInSearch=false -->
+                    <!-- 数据类型 , dataType ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('名称')}" class="search-label name-label">名称</span><span class="search-colon">:</span></div>
-                        <input id="name" class="layui-input search-input" style="width: 140px" type="text" />
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('数据类型')}" class="search-label dataType-label">数据类型</span><span class="search-colon">:</span></div>
+                        <input id="dataType" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 简称 , shortName ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('简称')}" class="search-label shortName-label">简称</span><span class="search-colon">:</span></div>
+                        <input id="shortName" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 全称 , fullName ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('全称')}" class="search-label fullName-label">全称</span><span class="search-colon">:</span></div>
+                        <input id="fullName" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 提示信息 , hint ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('提示信息')}" class="search-label hint-label">提示信息</span><span class="search-colon">:</span></div>
+                        <input id="hint" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
                     <!-- 说明 , detail ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('说明')}" class="search-label detail-label">说明</span><span class="search-colon">:</span></div>
                         <input id="detail" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
-                    <!-- 数据类型 , dataType ,typeName=text_input, isHideInSearch=false -->
+                    <!-- 备注 , note ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('数据类型')}" class="search-label dataType-label">数据类型</span><span class="search-colon">:</span></div>
-                        <input id="dataType" class="layui-input search-input" style="width: 140px" type="text" />
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('备注')}" class="search-label note-label">备注</span><span class="search-colon">:</span></div>
+                        <input id="note" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 是否有效 , valid ,typeName=number_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('是否有效')}" class="search-label valid-label">是否有效</span><span class="search-colon">:</span></div>
+                            <input id="valid" class="layui-input search-input" style="width: 140px" type="text" autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0" min-value="" max-value="" scale="0"/>
                     </div>
                     <!-- 数据长度 , length ,typeName=number_input, isHideInSearch=false -->
                     <div class="search-unit">

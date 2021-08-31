@@ -48,7 +48,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 数据存储分配表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-30 16:49:46
+ * @since 2021-08-31 17:13:30
 */
 
 @Api(tags = "数据存储分配")
@@ -68,15 +68,20 @@ public class CatalogAttributeController extends SuperController {
 		@ApiImplicitParam(name = CatalogAttributeVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CatalogAttributeVOMeta.STORAGE_ID , value = "存储ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CatalogAttributeVOMeta.FIELD , value = "字段名" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = CatalogAttributeVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = CatalogAttributeVOMeta.DETAIL , value = "说明" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CatalogAttributeVOMeta.DATA_TYPE , value = "数据类型" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CatalogAttributeVOMeta.SHORT_NAME , value = "简称" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CatalogAttributeVOMeta.FULL_NAME , value = "全称" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CatalogAttributeVOMeta.HINT , value = "提示信息" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CatalogAttributeVOMeta.DETAIL , value = "说明" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CatalogAttributeVOMeta.NOTE , value = "备注" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CatalogAttributeVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class),
 		@ApiImplicitParam(name = CatalogAttributeVOMeta.LENGTH , value = "数据长度" , required = false , dataTypeClass=Integer.class),
 		@ApiImplicitParam(name = CatalogAttributeVOMeta.PRECISION , value = "数据精度" , required = false , dataTypeClass=Integer.class),
 		@ApiImplicitParam(name = CatalogAttributeVOMeta.SCALE , value = "小数位数" , required = false , dataTypeClass=Integer.class),
 	})
 	@ApiOperationSupport(order=1)
 	@NotNull(name = CatalogAttributeVOMeta.ID)
+	@NotNull(name = CatalogAttributeVOMeta.VALID)
 	@SentinelResource(value = CatalogAttributeServiceProxy.INSERT , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(CatalogAttributeServiceProxy.INSERT)
 	public Result insert(CatalogAttributeVO catalogAttributeVO) {
@@ -127,15 +132,20 @@ public class CatalogAttributeController extends SuperController {
 		@ApiImplicitParam(name = CatalogAttributeVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CatalogAttributeVOMeta.STORAGE_ID , value = "存储ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CatalogAttributeVOMeta.FIELD , value = "字段名" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = CatalogAttributeVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = CatalogAttributeVOMeta.DETAIL , value = "说明" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CatalogAttributeVOMeta.DATA_TYPE , value = "数据类型" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CatalogAttributeVOMeta.SHORT_NAME , value = "简称" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CatalogAttributeVOMeta.FULL_NAME , value = "全称" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CatalogAttributeVOMeta.HINT , value = "提示信息" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CatalogAttributeVOMeta.DETAIL , value = "说明" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CatalogAttributeVOMeta.NOTE , value = "备注" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CatalogAttributeVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class),
 		@ApiImplicitParam(name = CatalogAttributeVOMeta.LENGTH , value = "数据长度" , required = false , dataTypeClass=Integer.class),
 		@ApiImplicitParam(name = CatalogAttributeVOMeta.PRECISION , value = "数据精度" , required = false , dataTypeClass=Integer.class),
 		@ApiImplicitParam(name = CatalogAttributeVOMeta.SCALE , value = "小数位数" , required = false , dataTypeClass=Integer.class),
 	})
 	@ApiOperationSupport( order=4 , ignoreParameters = { CatalogAttributeVOMeta.PAGE_INDEX , CatalogAttributeVOMeta.PAGE_SIZE , CatalogAttributeVOMeta.SEARCH_FIELD , CatalogAttributeVOMeta.FUZZY_FIELD , CatalogAttributeVOMeta.SEARCH_VALUE , CatalogAttributeVOMeta.SORT_FIELD , CatalogAttributeVOMeta.SORT_TYPE , CatalogAttributeVOMeta.IDS } ) 
 	@NotNull(name = CatalogAttributeVOMeta.ID)
+	@NotNull(name = CatalogAttributeVOMeta.VALID)
 	@SentinelResource(value = CatalogAttributeServiceProxy.UPDATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(CatalogAttributeServiceProxy.UPDATE)
 	public Result update(CatalogAttributeVO catalogAttributeVO) {
@@ -152,15 +162,20 @@ public class CatalogAttributeController extends SuperController {
 		@ApiImplicitParam(name = CatalogAttributeVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CatalogAttributeVOMeta.STORAGE_ID , value = "存储ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CatalogAttributeVOMeta.FIELD , value = "字段名" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = CatalogAttributeVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = CatalogAttributeVOMeta.DETAIL , value = "说明" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CatalogAttributeVOMeta.DATA_TYPE , value = "数据类型" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CatalogAttributeVOMeta.SHORT_NAME , value = "简称" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CatalogAttributeVOMeta.FULL_NAME , value = "全称" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CatalogAttributeVOMeta.HINT , value = "提示信息" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CatalogAttributeVOMeta.DETAIL , value = "说明" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CatalogAttributeVOMeta.NOTE , value = "备注" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CatalogAttributeVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class),
 		@ApiImplicitParam(name = CatalogAttributeVOMeta.LENGTH , value = "数据长度" , required = false , dataTypeClass=Integer.class),
 		@ApiImplicitParam(name = CatalogAttributeVOMeta.PRECISION , value = "数据精度" , required = false , dataTypeClass=Integer.class),
 		@ApiImplicitParam(name = CatalogAttributeVOMeta.SCALE , value = "小数位数" , required = false , dataTypeClass=Integer.class),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { CatalogAttributeVOMeta.PAGE_INDEX , CatalogAttributeVOMeta.PAGE_SIZE , CatalogAttributeVOMeta.SEARCH_FIELD , CatalogAttributeVOMeta.FUZZY_FIELD , CatalogAttributeVOMeta.SEARCH_VALUE , CatalogAttributeVOMeta.SORT_FIELD , CatalogAttributeVOMeta.SORT_TYPE , CatalogAttributeVOMeta.IDS } )
 	@NotNull(name = CatalogAttributeVOMeta.ID)
+	@NotNull(name = CatalogAttributeVOMeta.VALID)
 	@SentinelResource(value = CatalogAttributeServiceProxy.SAVE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(CatalogAttributeServiceProxy.SAVE)
 	public Result save(CatalogAttributeVO catalogAttributeVO) {
@@ -216,9 +231,13 @@ public class CatalogAttributeController extends SuperController {
 		@ApiImplicitParam(name = CatalogAttributeVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CatalogAttributeVOMeta.STORAGE_ID , value = "存储ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CatalogAttributeVOMeta.FIELD , value = "字段名" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = CatalogAttributeVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = CatalogAttributeVOMeta.DETAIL , value = "说明" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CatalogAttributeVOMeta.DATA_TYPE , value = "数据类型" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CatalogAttributeVOMeta.SHORT_NAME , value = "简称" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CatalogAttributeVOMeta.FULL_NAME , value = "全称" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CatalogAttributeVOMeta.HINT , value = "提示信息" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CatalogAttributeVOMeta.DETAIL , value = "说明" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CatalogAttributeVOMeta.NOTE , value = "备注" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CatalogAttributeVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class),
 		@ApiImplicitParam(name = CatalogAttributeVOMeta.LENGTH , value = "数据长度" , required = false , dataTypeClass=Integer.class),
 		@ApiImplicitParam(name = CatalogAttributeVOMeta.PRECISION , value = "数据精度" , required = false , dataTypeClass=Integer.class),
 		@ApiImplicitParam(name = CatalogAttributeVOMeta.SCALE , value = "小数位数" , required = false , dataTypeClass=Integer.class),
@@ -242,9 +261,13 @@ public class CatalogAttributeController extends SuperController {
 		@ApiImplicitParam(name = CatalogAttributeVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CatalogAttributeVOMeta.STORAGE_ID , value = "存储ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CatalogAttributeVOMeta.FIELD , value = "字段名" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = CatalogAttributeVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = CatalogAttributeVOMeta.DETAIL , value = "说明" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CatalogAttributeVOMeta.DATA_TYPE , value = "数据类型" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CatalogAttributeVOMeta.SHORT_NAME , value = "简称" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CatalogAttributeVOMeta.FULL_NAME , value = "全称" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CatalogAttributeVOMeta.HINT , value = "提示信息" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CatalogAttributeVOMeta.DETAIL , value = "说明" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CatalogAttributeVOMeta.NOTE , value = "备注" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CatalogAttributeVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class),
 		@ApiImplicitParam(name = CatalogAttributeVOMeta.LENGTH , value = "数据长度" , required = false , dataTypeClass=Integer.class),
 		@ApiImplicitParam(name = CatalogAttributeVOMeta.PRECISION , value = "数据精度" , required = false , dataTypeClass=Integer.class),
 		@ApiImplicitParam(name = CatalogAttributeVOMeta.SCALE , value = "小数位数" , required = false , dataTypeClass=Integer.class),

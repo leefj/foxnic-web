@@ -1,7 +1,7 @@
 /**
  * 数据存储分配 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-30 16:49:46
+ * @since 2021-08-31 17:13:32
  */
 
 
@@ -68,9 +68,13 @@ function ListPage() {
 					,{ field: 'id', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('主键') }
 					,{ field: 'storageId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('存储ID') }
 					,{ field: 'field', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('字段名') }
-					,{ field: 'name', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('名称') }
-					,{ field: 'detail', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('说明') }
 					,{ field: 'dataType', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('数据类型') }
+					,{ field: 'shortName', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('简称') }
+					,{ field: 'fullName', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('全称') }
+					,{ field: 'hint', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('提示信息') }
+					,{ field: 'detail', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('说明') }
+					,{ field: 'note', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('备注') }
+					,{ field: 'valid', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('是否有效') }
 					,{ field: 'length', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('数据长度') }
 					,{ field: 'precision', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('数据精度') }
 					,{ field: 'scale', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('小数位数') }
@@ -108,9 +112,13 @@ function ListPage() {
 		value.id={ value: $("#id").val()};
 		value.storageId={ value: $("#storageId").val()};
 		value.field={ value: $("#field").val()};
-		value.name={ value: $("#name").val()};
-		value.detail={ value: $("#detail").val()};
 		value.dataType={ value: $("#dataType").val()};
+		value.shortName={ value: $("#shortName").val()};
+		value.fullName={ value: $("#fullName").val()};
+		value.hint={ value: $("#hint").val()};
+		value.detail={ value: $("#detail").val()};
+		value.note={ value: $("#note").val()};
+		value.valid={ value: $("#valid").val()};
 		value.length={ value: $("#length").val()};
 		value.precision={ value: $("#precision").val()};
 		value.scale={ value: $("#scale").val()};

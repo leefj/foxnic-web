@@ -8,8 +8,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-30 16:03:06
- * @sign 09B69636CF0FD09D2559CCD7CD969F48
+ * @since 2021-08-31 17:13:29
+ * @sign 790E514503D150BE90719869A9254978
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -46,14 +46,44 @@ public class CatalogAttributeMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogAttribute,java.lang.String> FIELD_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogAttribute.class ,FIELD, java.lang.String.class, "字段名", "在数据表中的真实字段名", java.lang.String.class, null);
 	
 	/**
-	 * 名称 , 类型: java.lang.String
+	 * 数据类型 , 类型: java.lang.String
 	*/
-	public static final String NAME="name";
+	public static final String DATA_TYPE="dataType";
 	
 	/**
-	 * 名称 , 类型: java.lang.String
+	 * 数据类型 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogAttribute,java.lang.String> NAME_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogAttribute.class ,NAME, java.lang.String.class, "名称", "名称", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogAttribute,java.lang.String> DATA_TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogAttribute.class ,DATA_TYPE, java.lang.String.class, "数据类型", "数据类型", java.lang.String.class, null);
+	
+	/**
+	 * 简称 , 类型: java.lang.String
+	*/
+	public static final String SHORT_NAME="shortName";
+	
+	/**
+	 * 简称 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogAttribute,java.lang.String> SHORT_NAME_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogAttribute.class ,SHORT_NAME, java.lang.String.class, "简称", "简称", java.lang.String.class, null);
+	
+	/**
+	 * 全称 , 类型: java.lang.String
+	*/
+	public static final String FULL_NAME="fullName";
+	
+	/**
+	 * 全称 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogAttribute,java.lang.String> FULL_NAME_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogAttribute.class ,FULL_NAME, java.lang.String.class, "全称", "全称", java.lang.String.class, null);
+	
+	/**
+	 * 提示信息 , 类型: java.lang.String
+	*/
+	public static final String HINT="hint";
+	
+	/**
+	 * 提示信息 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogAttribute,java.lang.String> HINT_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogAttribute.class ,HINT, java.lang.String.class, "提示信息", "提示信息", java.lang.String.class, null);
 	
 	/**
 	 * 说明 , 类型: java.lang.String
@@ -66,14 +96,24 @@ public class CatalogAttributeMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogAttribute,java.lang.String> DETAIL_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogAttribute.class ,DETAIL, java.lang.String.class, "说明", "说明", java.lang.String.class, null);
 	
 	/**
-	 * 数据类型 , 类型: java.lang.String
+	 * 备注 , 类型: java.lang.String
 	*/
-	public static final String DATA_TYPE="dataType";
+	public static final String NOTE="note";
 	
 	/**
-	 * 数据类型 , 类型: java.lang.String
+	 * 备注 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogAttribute,java.lang.String> DATA_TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogAttribute.class ,DATA_TYPE, java.lang.String.class, "数据类型", "数据类型", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogAttribute,java.lang.String> NOTE_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogAttribute.class ,NOTE, java.lang.String.class, "备注", "备注", java.lang.String.class, null);
+	
+	/**
+	 * 是否有效 , 类型: java.lang.Integer
+	*/
+	public static final String VALID="valid";
+	
+	/**
+	 * 是否有效 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogAttribute,java.lang.Integer> VALID_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogAttribute.class ,VALID, java.lang.Integer.class, "是否有效", "是否有效", java.lang.Integer.class, null);
 	
 	/**
 	 * 数据长度 , 类型: java.lang.Integer
@@ -188,7 +228,7 @@ public class CatalogAttributeMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , STORAGE_ID , FIELD , NAME , DETAIL , DATA_TYPE , LENGTH , PRECISION , SCALE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , STORAGE_ID , FIELD , DATA_TYPE , SHORT_NAME , FULL_NAME , HINT , DETAIL , NOTE , VALID , LENGTH , PRECISION , SCALE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
 	
 	/**
 	 * 代理类
@@ -232,13 +272,46 @@ public class CatalogAttributeMeta {
 		}
 		
 		/**
-		 * 设置 名称
-		 * @param name 名称
+		 * 设置 数据类型
+		 * @param dataType 数据类型
 		 * @return 当前对象
 		*/
-		public CatalogAttribute setName(String name) {
-			super.change(NAME,super.getName(),name);
-			super.setName(name);
+		public CatalogAttribute setDataType(String dataType) {
+			super.change(DATA_TYPE,super.getDataType(),dataType);
+			super.setDataType(dataType);
+			return this;
+		}
+		
+		/**
+		 * 设置 简称
+		 * @param shortName 简称
+		 * @return 当前对象
+		*/
+		public CatalogAttribute setShortName(String shortName) {
+			super.change(SHORT_NAME,super.getShortName(),shortName);
+			super.setShortName(shortName);
+			return this;
+		}
+		
+		/**
+		 * 设置 全称
+		 * @param fullName 全称
+		 * @return 当前对象
+		*/
+		public CatalogAttribute setFullName(String fullName) {
+			super.change(FULL_NAME,super.getFullName(),fullName);
+			super.setFullName(fullName);
+			return this;
+		}
+		
+		/**
+		 * 设置 提示信息
+		 * @param hint 提示信息
+		 * @return 当前对象
+		*/
+		public CatalogAttribute setHint(String hint) {
+			super.change(HINT,super.getHint(),hint);
+			super.setHint(hint);
 			return this;
 		}
 		
@@ -254,13 +327,24 @@ public class CatalogAttributeMeta {
 		}
 		
 		/**
-		 * 设置 数据类型
-		 * @param dataType 数据类型
+		 * 设置 备注
+		 * @param note 备注
 		 * @return 当前对象
 		*/
-		public CatalogAttribute setDataType(String dataType) {
-			super.change(DATA_TYPE,super.getDataType(),dataType);
-			super.setDataType(dataType);
+		public CatalogAttribute setNote(String note) {
+			super.change(NOTE,super.getNote(),note);
+			super.setNote(note);
+			return this;
+		}
+		
+		/**
+		 * 设置 是否有效
+		 * @param valid 是否有效
+		 * @return 当前对象
+		*/
+		public CatalogAttribute setValid(Integer valid) {
+			super.change(VALID,super.getValid(),valid);
+			super.setValid(valid);
 			return this;
 		}
 		

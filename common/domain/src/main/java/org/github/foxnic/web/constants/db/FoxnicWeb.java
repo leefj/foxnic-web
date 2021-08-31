@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2021-08-30 16:49:36
+ * @since 2021-08-31 17:11:09
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -279,6 +279,11 @@ public class FoxnicWeb {
 		public static final DBField SORT = new DBField(DBDataType.INTEGER , "sort","sort","顺序","顺序",false,false,true);
 		
 		/**
+		 * 是否有效
+		*/
+		public static final DBField VALID = new DBField(DBDataType.INTEGER , "valid","valid","是否有效","是否有效",false,false,false);
+		
+		/**
 		 * 层级路径
 		*/
 		public static final DBField HIERARCHY = new DBField(DBDataType.STRING , "hierarchy","hierarchy","层级路径","层级路径",false,false,true);
@@ -333,13 +338,8 @@ public class FoxnicWeb {
 		*/
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
-		/**
-		 * 是否有效
-		*/
-		public static final DBField VALID = new DBField(DBDataType.INTEGER , "valid","valid","是否有效","是否有效",false,false,true);
-		
 		public PCM_CATALOG() {
-			this.init($NAME,"数据存储表" , ID , NAME , PARENT_ID , SORT , HIERARCHY , DATA_TABLE , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , VALID);
+			this.init($NAME,"数据存储表" , ID , NAME , PARENT_ID , SORT , VALID , HIERARCHY , DATA_TABLE , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final PCM_CATALOG $TABLE=new PCM_CATALOG();
 	}
@@ -370,9 +370,24 @@ public class FoxnicWeb {
 		public static final DBField FIELD = new DBField(DBDataType.STRING , "field","field","字段名","在数据表中的真实字段名",false,false,true);
 		
 		/**
-		 * 名称
+		 * 数据类型
 		*/
-		public static final DBField NAME = new DBField(DBDataType.STRING , "name","name","名称","名称",false,false,true);
+		public static final DBField DATA_TYPE = new DBField(DBDataType.STRING , "data_type","dataType","数据类型","数据类型",false,false,true);
+		
+		/**
+		 * 简称
+		*/
+		public static final DBField SHORT_NAME = new DBField(DBDataType.STRING , "short_name","shortName","简称","简称",false,false,true);
+		
+		/**
+		 * 全称
+		*/
+		public static final DBField FULL_NAME = new DBField(DBDataType.STRING , "full_name","fullName","全称","全称",false,false,true);
+		
+		/**
+		 * 提示信息
+		*/
+		public static final DBField HINT = new DBField(DBDataType.STRING , "hint","hint","提示信息","提示信息",false,false,true);
 		
 		/**
 		 * 说明
@@ -380,14 +395,14 @@ public class FoxnicWeb {
 		public static final DBField DETAIL = new DBField(DBDataType.STRING , "detail","detail","说明","说明",false,false,true);
 		
 		/**
-		 * 数据类型
+		 * 备注
 		*/
-		public static final DBField DATA_TYPE = new DBField(DBDataType.STRING , "data_type","dataType","数据类型","数据类型",false,false,true);
+		public static final DBField NOTE = new DBField(DBDataType.STRING , "note","note","备注","备注",false,false,true);
 		
 		/**
 		 * 是否有效
 		*/
-		public static final DBField VALID = new DBField(DBDataType.INTEGER , "valid","valid","是否有效","是否有效",false,false,true);
+		public static final DBField VALID = new DBField(DBDataType.INTEGER , "valid","valid","是否有效","是否有效",false,false,false);
 		
 		/**
 		 * 数据长度
@@ -445,7 +460,7 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
 		public PCM_CATALOG_ATTRIBUTE() {
-			this.init($NAME,"数据存储分配表" , ID , STORAGE_ID , FIELD , NAME , DETAIL , DATA_TYPE , VALID , LENGTH , PRECISION , SCALE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"数据存储分配表" , ID , STORAGE_ID , FIELD , DATA_TYPE , SHORT_NAME , FULL_NAME , HINT , DETAIL , NOTE , VALID , LENGTH , PRECISION , SCALE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final PCM_CATALOG_ATTRIBUTE $TABLE=new PCM_CATALOG_ATTRIBUTE();
 	}
