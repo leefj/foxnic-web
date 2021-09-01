@@ -22,8 +22,8 @@ public abstract class StorageAdapter {
         new MySQLStorageAdaptor();
     }
 
-    public static  StorageAdapter getStorageAdapter(DBType dbType) {
-        return  ADAPTERS.get(dbType);
+    public static  StorageAdapter getStorageAdapter(DAO dao) {
+        return  ADAPTERS.get(dao.getDBType());
     }
 
     private DBType dbType=null;

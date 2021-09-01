@@ -13,10 +13,13 @@ import com.github.foxnic.dao.excel.ValidateResult;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
+import org.github.foxnic.web.domain.pcm.Catalog;
 import org.github.foxnic.web.domain.pcm.CatalogAttribute;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.pcm.service.ICatalogAttributeService;
+import org.github.foxnic.web.pcm.service.ICatalogService;
 import org.github.foxnic.web.pcm.storage.model.StorageAdapter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -43,11 +46,23 @@ public class CatalogAttributeServiceImpl extends SuperService<CatalogAttribute> 
 	 * */
 	@Resource(name=DBConfigs.PRIMARY_DAO) 
 	private DAO dao=null;
-	
+
+	@Autowired
+	private ICatalogService catalogService;
+
 	/**
 	 * 获得 DAO 对象
 	 * */
 	public DAO dao() { return dao; }
+
+	public StorageAdapter getStorageAdapter() {
+		return StorageAdapter.getStorageAdapter(this.dao);
+	}
+
+
+	public Result createDBField(String table,CatalogAttribute attribute) {
+		return  getStorageAdapter().createField(this.dao(),table,attribute);
+	}
 
 
 	
@@ -65,7 +80,8 @@ public class CatalogAttributeServiceImpl extends SuperService<CatalogAttribute> 
 	public Result insert(CatalogAttribute catalogAttribute) {
 		Result r=super.insert(catalogAttribute);
 		if(r.success()) {
-			StorageAdapter.getStorageAdapter(this.dao).createField();
+			Catalog catalog=catalogService.getById(catalogAttribute.getCatalogId());
+			createDBField(catalog.getDataTable(),catalogAttribute);
 		}
 		return r;
 	}
