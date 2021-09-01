@@ -21,7 +21,7 @@ import com.github.foxnic.dao.data.SaveMode;
  * 数据存储分配表 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-01 06:29:45
+ * @since 2021-09-01 14:11:43
 */
 
 public interface ICatalogAttributeService extends ISuperService<CatalogAttribute> {

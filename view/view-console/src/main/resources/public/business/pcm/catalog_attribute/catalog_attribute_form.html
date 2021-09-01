@@ -2,7 +2,7 @@
 /**
  * 数据存储分配 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-01 06:29:47
+ * @since 2021-09-01 14:11:43
  */
  -->
  <!DOCTYPE html>
@@ -157,12 +157,12 @@
 
 
                 
-                    <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('是否有效')}">是否有效</div></div>
-                        <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="valid" id="valid" name="valid" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('是否有效') }" type="text" class="layui-input"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0"   scale="0"/>
-                        </div>
+                <div class="layui-form-item" >
+                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('是否有效')}">是否有效</div></div>
+                    <div class="layui-input-block layui-input-block-c1">
+                        <input input-type="switch" type="checkbox" checked="" id="valid"  name="valid" lay-skin="switch" lay-filter="valid" lay-text="有效|无效&nbsp;" value="1">
                     </div>
+                </div>
 
 
                 

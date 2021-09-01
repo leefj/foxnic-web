@@ -15,7 +15,7 @@ public class PcmCatalogAttributeConfig extends BaseCodeConfig<PCM_CATALOG_ATTRIB
 
     @Override
     public void configSearch(ViewOptions view, SearchAreaOptions search) {
-
+        search.inputLayout(new Object[]{PCM_CATALOG_ATTRIBUTE.SHORT_NAME,PCM_CATALOG_ATTRIBUTE.FULL_NAME,PCM_CATALOG_ATTRIBUTE.DATA_TYPE,PCM_CATALOG_ATTRIBUTE.ALIAS});
     }
 
     @Override
@@ -23,13 +23,16 @@ public class PcmCatalogAttributeConfig extends BaseCodeConfig<PCM_CATALOG_ATTRIB
         view.field(PCM_CATALOG_ATTRIBUTE.ID).basic().hidden();
         view.field(PCM_CATALOG_ATTRIBUTE.CATALOG_ID).basic().hidden();
         view.field(PCM_CATALOG_ATTRIBUTE.FIELD).basic().hidden();
-        view.field(PCM_CATALOG_ATTRIBUTE.LENGTH).search().hidden();
-        view.field(PCM_CATALOG_ATTRIBUTE.ACCURACY).search().hidden();
-        view.field(PCM_CATALOG_ATTRIBUTE.SCALE).search().hidden();
+        view.field(PCM_CATALOG_ATTRIBUTE.LENGTH).search().hidden().table().hidden();
+        view.field(PCM_CATALOG_ATTRIBUTE.ACCURACY).search().hidden().table().hidden();
+        view.field(PCM_CATALOG_ATTRIBUTE.SCALE).search().hidden().table().hidden();
         view.field(PCM_CATALOG_ATTRIBUTE.HINT).search().hidden();
-        view.field(PCM_CATALOG_ATTRIBUTE.NOTE).search().hidden();
-        view.field(PCM_CATALOG_ATTRIBUTE.DETAIL).search().hidden();
-        view.field(PCM_CATALOG_ATTRIBUTE.VALID).search().hidden();
+        view.field(PCM_CATALOG_ATTRIBUTE.NOTE).search().hidden().table().hidden();
+        view.field(PCM_CATALOG_ATTRIBUTE.DETAIL).search().hidden().table().hidden();
+
+        view.field(PCM_CATALOG_ATTRIBUTE.VALID)
+                .search().hidden()
+                .form().logicField().off("无效",0).on("有效",1);
     }
 
     @Override

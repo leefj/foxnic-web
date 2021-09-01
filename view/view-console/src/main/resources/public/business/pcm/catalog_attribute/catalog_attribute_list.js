@@ -1,7 +1,7 @@
 /**
  * 数据存储分配 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-01 06:29:47
+ * @since 2021-09-01 14:11:43
  */
 
 
@@ -70,15 +70,15 @@ function ListPage() {
 					,{ field: 'field', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('字段名') }
 					,{ field: 'alias', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('别名') }
 					,{ field: 'dataType', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('数据类型') }
-					,{ field: 'length', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('数据长度') }
-					,{ field: 'accuracy', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('数据精度') }
-					,{ field: 'scale', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('小数位数') }
+					,{ field: 'length', align:"right",fixed:false,  hide:true, sort: true, title: fox.translate('数据长度') }
+					,{ field: 'accuracy', align:"right",fixed:false,  hide:true, sort: true, title: fox.translate('数据精度') }
+					,{ field: 'scale', align:"right",fixed:false,  hide:true, sort: true, title: fox.translate('小数位数') }
 					,{ field: 'shortName', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('简称') }
 					,{ field: 'fullName', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('全称') }
 					,{ field: 'hint', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('提示信息') }
-					,{ field: 'detail', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('说明') }
-					,{ field: 'note', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('备注') }
-					,{ field: 'valid', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('是否有效') }
+					,{ field: 'detail', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('说明') }
+					,{ field: 'note', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('备注') }
+					,{ field: 'valid', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('是否有效'), templet: '#cell-tpl-valid'}
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return fox.dateFormat(d.createTime); }}
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }

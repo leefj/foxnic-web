@@ -2,7 +2,7 @@
 /**
  * 数据存储分配 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-01 06:29:47
+ * @since 2021-09-01 14:11:43
  */
  -->
  <!DOCTYPE html>
@@ -34,16 +34,6 @@
             <div class="search-input-rows" style="opacity: 0">
                 <!-- 搜索输入区域 -->
                 <div class="layui-form toolbar search-inputs">
-                    <!-- 别名 , alias ,typeName=text_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('别名')}" class="search-label alias-label">别名</span><span class="search-colon">:</span></div>
-                        <input id="alias" class="layui-input search-input" style="width: 140px" type="text" />
-                    </div>
-                    <!-- 数据类型 , dataType ,typeName=text_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('数据类型')}" class="search-label dataType-label">数据类型</span><span class="search-colon">:</span></div>
-                        <input id="dataType" class="layui-input search-input" style="width: 140px" type="text" />
-                    </div>
                     <!-- 简称 , shortName ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('简称')}" class="search-label shortName-label">简称</span><span class="search-colon">:</span></div>
@@ -53,6 +43,16 @@
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('全称')}" class="search-label fullName-label">全称</span><span class="search-colon">:</span></div>
                         <input id="fullName" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 数据类型 , dataType ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('数据类型')}" class="search-label dataType-label">数据类型</span><span class="search-colon">:</span></div>
+                        <input id="dataType" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 别名 , alias ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('别名')}" class="search-label alias-label">别名</span><span class="search-colon">:</span></div>
+                        <input id="alias" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
 
 

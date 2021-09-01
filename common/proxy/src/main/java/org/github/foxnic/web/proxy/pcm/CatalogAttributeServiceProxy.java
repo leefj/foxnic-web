@@ -19,7 +19,7 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  * 数据存储分配表  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-01 06:29:46
+ * @since 2021-09-01 14:11:43
 */
 
 @FeignClient(value = MicroServiceNames.PCM, contextId = CatalogAttributeServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)
