@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-01 06:29:45
- * @sign 3307776D7DC398F324EF32C7E38D13B4
+ * @since 2021-09-01 21:24:55
+ * @sign A1F206EF6F9B3FC7DF3528C29D470E82
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -42,16 +42,10 @@ public class CatalogAttribute extends Entity {
 	private String catalogId;
 	
 	/**
-	 * 字段名：在数据表中的真实字段名
+	 * 字段名：自定义的字段别名
 	*/
-	@ApiModelProperty(required = true,value="字段名" , notes = "在数据表中的真实字段名")
+	@ApiModelProperty(required = true,value="字段名" , notes = "自定义的字段别名")
 	private String field;
-	
-	/**
-	 * 别名：字段别名
-	*/
-	@ApiModelProperty(required = true,value="别名" , notes = "字段别名")
-	private String alias;
 	
 	/**
 	 * 数据类型：数据类型
@@ -162,6 +156,12 @@ public class CatalogAttribute extends Entity {
 	private Integer version;
 	
 	/**
+	 * 分配的字段：分配的字段
+	*/
+	@ApiModelProperty(required = false,value="分配的字段" , notes = "分配的字段")
+	private CatalogAllocation allocation;
+	
+	/**
 	 * 获得 主键<br>
 	 * 主键
 	 * @return 主键
@@ -201,7 +201,7 @@ public class CatalogAttribute extends Entity {
 	
 	/**
 	 * 获得 字段名<br>
-	 * 在数据表中的真实字段名
+	 * 自定义的字段别名
 	 * @return 字段名
 	*/
 	public String getField() {
@@ -215,25 +215,6 @@ public class CatalogAttribute extends Entity {
 	*/
 	public CatalogAttribute setField(String field) {
 		this.field=field;
-		return this;
-	}
-	
-	/**
-	 * 获得 别名<br>
-	 * 字段别名
-	 * @return 别名
-	*/
-	public String getAlias() {
-		return alias;
-	}
-	
-	/**
-	 * 设置 别名
-	 * @param alias 别名
-	 * @return 当前对象
-	*/
-	public CatalogAttribute setAlias(String alias) {
-		this.alias=alias;
 		return this;
 	}
 	
@@ -576,6 +557,25 @@ public class CatalogAttribute extends Entity {
 	*/
 	public CatalogAttribute setVersion(Integer version) {
 		this.version=version;
+		return this;
+	}
+	
+	/**
+	 * 获得 分配的字段<br>
+	 * 分配的字段
+	 * @return 分配的字段
+	*/
+	public CatalogAllocation getAllocation() {
+		return allocation;
+	}
+	
+	/**
+	 * 设置 分配的字段
+	 * @param allocation 分配的字段
+	 * @return 当前对象
+	*/
+	public CatalogAttribute setAllocation(CatalogAllocation allocation) {
+		this.allocation=allocation;
 		return this;
 	}
 

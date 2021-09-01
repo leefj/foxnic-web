@@ -1,9 +1,12 @@
 package org.github.foxnic.web.generator.module.pcm;
 
+import com.github.foxnic.generator.builder.model.PoClassFile;
+import com.github.foxnic.generator.builder.model.VoClassFile;
 import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.PCM_CATALOG_ATTRIBUTE;
+import org.github.foxnic.web.domain.pcm.CatalogAllocation;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
 public class PcmCatalogAttributeConfig extends BaseCodeConfig<PCM_CATALOG_ATTRIBUTE> {
@@ -12,10 +15,14 @@ public class PcmCatalogAttributeConfig extends BaseCodeConfig<PCM_CATALOG_ATTRIB
         super(PREFIX_PCM, PCM_CATALOG_ATTRIBUTE.$TABLE,"pcm_", 4);
     }
 
+    @Override
+    public void configModel(PoClassFile poType, VoClassFile voType) {
+        poType.addSimpleProperty(CatalogAllocation.class,"allocation","分配的字段","分配的字段");
+    }
 
     @Override
     public void configSearch(ViewOptions view, SearchAreaOptions search) {
-        search.inputLayout(new Object[]{PCM_CATALOG_ATTRIBUTE.SHORT_NAME,PCM_CATALOG_ATTRIBUTE.FULL_NAME,PCM_CATALOG_ATTRIBUTE.DATA_TYPE,PCM_CATALOG_ATTRIBUTE.ALIAS});
+        search.inputLayout(new Object[]{PCM_CATALOG_ATTRIBUTE.SHORT_NAME,PCM_CATALOG_ATTRIBUTE.FULL_NAME,PCM_CATALOG_ATTRIBUTE.DATA_TYPE,PCM_CATALOG_ATTRIBUTE.FIELD});
     }
 
     @Override

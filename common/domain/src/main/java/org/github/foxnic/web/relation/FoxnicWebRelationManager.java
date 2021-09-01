@@ -3,10 +3,7 @@ package org.github.foxnic.web.relation;
 import com.github.foxnic.commons.concurrent.task.SimpleTaskManager;
 import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.dao.relation.RelationManager;
-import org.github.foxnic.web.relation.modules.CodeExampleRelationManager;
-import org.github.foxnic.web.relation.modules.HrmRelationManager;
-import org.github.foxnic.web.relation.modules.OAuthRelationManager;
-import org.github.foxnic.web.relation.modules.SystemRelationManager;
+import org.github.foxnic.web.relation.modules.*;
 
 public class FoxnicWebRelationManager extends RelationManager {
 
@@ -15,7 +12,9 @@ public class FoxnicWebRelationManager extends RelationManager {
 				new OAuthRelationManager(),
 				new SystemRelationManager(),
 				new HrmRelationManager(),
-				new CodeExampleRelationManager()
+				new CodeExampleRelationManager(),
+				new PcmRelationManager()
+
 		);
 	}
 

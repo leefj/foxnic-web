@@ -3,13 +3,14 @@ package org.github.foxnic.web.domain.pcm.meta;
 import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.pcm.CatalogAttribute;
 import java.util.Date;
+import org.github.foxnic.web.domain.pcm.CatalogAllocation;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-01 06:29:45
- * @sign 3307776D7DC398F324EF32C7E38D13B4
+ * @since 2021-09-01 21:24:55
+ * @sign A1F206EF6F9B3FC7DF3528C29D470E82
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -36,24 +37,14 @@ public class CatalogAttributeMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogAttribute,java.lang.String> CATALOG_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogAttribute.class ,CATALOG_ID, java.lang.String.class, "存储ID", "存储ID", java.lang.String.class, null);
 	
 	/**
-	 * 字段名 , 在数据表中的真实字段名 , 类型: java.lang.String
+	 * 字段名 , 自定义的字段别名 , 类型: java.lang.String
 	*/
 	public static final String FIELD="field";
 	
 	/**
-	 * 字段名 , 在数据表中的真实字段名 , 类型: java.lang.String
+	 * 字段名 , 自定义的字段别名 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogAttribute,java.lang.String> FIELD_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogAttribute.class ,FIELD, java.lang.String.class, "字段名", "在数据表中的真实字段名", java.lang.String.class, null);
-	
-	/**
-	 * 别名 , 字段别名 , 类型: java.lang.String
-	*/
-	public static final String ALIAS="alias";
-	
-	/**
-	 * 别名 , 字段别名 , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogAttribute,java.lang.String> ALIAS_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogAttribute.class ,ALIAS, java.lang.String.class, "别名", "字段别名", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogAttribute,java.lang.String> FIELD_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogAttribute.class ,FIELD, java.lang.String.class, "字段名", "自定义的字段别名", java.lang.String.class, null);
 	
 	/**
 	 * 数据类型 , 类型: java.lang.String
@@ -236,9 +227,19 @@ public class CatalogAttributeMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogAttribute,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogAttribute.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
+	 * 分配的字段 , 类型: org.github.foxnic.web.domain.pcm.CatalogAllocation
+	*/
+	public static final String ALLOCATION="allocation";
+	
+	/**
+	 * 分配的字段 , 类型: org.github.foxnic.web.domain.pcm.CatalogAllocation
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogAttribute,org.github.foxnic.web.domain.pcm.CatalogAllocation> ALLOCATION_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogAttribute.class ,ALLOCATION, org.github.foxnic.web.domain.pcm.CatalogAllocation.class, "分配的字段", "分配的字段", org.github.foxnic.web.domain.pcm.CatalogAllocation.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , CATALOG_ID , FIELD , ALIAS , DATA_TYPE , LENGTH , ACCURACY , SCALE , SHORT_NAME , FULL_NAME , HINT , DETAIL , NOTE , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , CATALOG_ID , FIELD , DATA_TYPE , LENGTH , ACCURACY , SCALE , SHORT_NAME , FULL_NAME , HINT , DETAIL , NOTE , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , ALLOCATION };
 	
 	/**
 	 * 代理类
@@ -278,17 +279,6 @@ public class CatalogAttributeMeta {
 		public CatalogAttribute setField(String field) {
 			super.change(FIELD,super.getField(),field);
 			super.setField(field);
-			return this;
-		}
-		
-		/**
-		 * 设置 别名
-		 * @param alias 别名
-		 * @return 当前对象
-		*/
-		public CatalogAttribute setAlias(String alias) {
-			super.change(ALIAS,super.getAlias(),alias);
-			super.setAlias(alias);
 			return this;
 		}
 		
@@ -487,6 +477,17 @@ public class CatalogAttributeMeta {
 		public CatalogAttribute setVersion(Integer version) {
 			super.change(VERSION,super.getVersion(),version);
 			super.setVersion(version);
+			return this;
+		}
+		
+		/**
+		 * 设置 分配的字段
+		 * @param allocation 分配的字段
+		 * @return 当前对象
+		*/
+		public CatalogAttribute setAllocation(CatalogAllocation allocation) {
+			super.change(ALLOCATION,super.getAllocation(),allocation);
+			super.setAllocation(allocation);
 			return this;
 		}
 	}

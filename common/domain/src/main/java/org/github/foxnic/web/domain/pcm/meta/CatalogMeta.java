@@ -3,13 +3,15 @@ package org.github.foxnic.web.domain.pcm.meta;
 import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.pcm.Catalog;
 import java.util.Date;
+import org.github.foxnic.web.domain.pcm.CatalogAttribute;
+import java.util.List;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-01 06:12:37
- * @sign 768CE96F1B5E7F87BCF43E2A9266E3E9
+ * @since 2021-09-01 21:44:27
+ * @sign DAA5288A047FCB33D0D37BBFC93CF49A
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -84,6 +86,16 @@ public class CatalogMeta {
 	 * 存储表 , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.pcm.Catalog,java.lang.String> DATA_TABLE_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.Catalog.class ,DATA_TABLE, java.lang.String.class, "存储表", "存储表", java.lang.String.class, null);
+	
+	/**
+	 * 是否分配 , 或分配是否有效 , 类型: java.lang.Integer
+	*/
+	public static final String ALLOTTED="allotted";
+	
+	/**
+	 * 是否分配 , 或分配是否有效 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.pcm.Catalog,java.lang.Integer> ALLOTTED_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.Catalog.class ,ALLOTTED, java.lang.Integer.class, "是否分配", "或分配是否有效", java.lang.Integer.class, null);
 	
 	/**
 	 * 租户ID , 类型: java.lang.String
@@ -176,9 +188,19 @@ public class CatalogMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.pcm.Catalog,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.Catalog.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
+	 * 属性清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.pcm.CatalogAttribute
+	*/
+	public static final String ATTRIBUTES="attributes";
+	
+	/**
+	 * 属性清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.pcm.CatalogAttribute
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.pcm.Catalog,org.github.foxnic.web.domain.pcm.CatalogAttribute> ATTRIBUTES_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.Catalog.class ,ATTRIBUTES, java.util.List.class, "属性清单", "属性清单", org.github.foxnic.web.domain.pcm.CatalogAttribute.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , NAME , PARENT_ID , SORT , VALID , HIERARCHY , DATA_TABLE , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , NAME , PARENT_ID , SORT , VALID , HIERARCHY , DATA_TABLE , ALLOTTED , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , ATTRIBUTES };
 	
 	/**
 	 * 代理类
@@ -262,6 +284,17 @@ public class CatalogMeta {
 		public Catalog setDataTable(String dataTable) {
 			super.change(DATA_TABLE,super.getDataTable(),dataTable);
 			super.setDataTable(dataTable);
+			return this;
+		}
+		
+		/**
+		 * 设置 是否分配
+		 * @param allotted 是否分配
+		 * @return 当前对象
+		*/
+		public Catalog setAllotted(Integer allotted) {
+			super.change(ALLOTTED,super.getAllotted(),allotted);
+			super.setAllotted(allotted);
 			return this;
 		}
 		
@@ -361,6 +394,17 @@ public class CatalogMeta {
 		public Catalog setVersion(Integer version) {
 			super.change(VERSION,super.getVersion(),version);
 			super.setVersion(version);
+			return this;
+		}
+		
+		/**
+		 * 设置 属性清单
+		 * @param attributes 属性清单
+		 * @return 当前对象
+		*/
+		public Catalog setAttributes(List<CatalogAttribute> attributes) {
+			super.change(ATTRIBUTES,super.getAttributes(),attributes);
+			super.setAttributes(attributes);
 			return this;
 		}
 	}

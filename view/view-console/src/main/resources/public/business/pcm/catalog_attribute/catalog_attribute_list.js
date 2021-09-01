@@ -1,7 +1,7 @@
 /**
  * 数据存储分配 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-01 14:11:43
+ * @since 2021-09-01 21:44:29
  */
 
 
@@ -68,7 +68,6 @@ function ListPage() {
 					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('主键') }
 					,{ field: 'catalogId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('存储ID') }
 					,{ field: 'field', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('字段名') }
-					,{ field: 'alias', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('别名') }
 					,{ field: 'dataType', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('数据类型') }
 					,{ field: 'length', align:"right",fixed:false,  hide:true, sort: true, title: fox.translate('数据长度') }
 					,{ field: 'accuracy', align:"right",fixed:false,  hide:true, sort: true, title: fox.translate('数据精度') }
@@ -110,7 +109,6 @@ function ListPage() {
       */
 	function refreshTableData(sortField,sortType) {
 		var value = {};
-		value.alias={ value: $("#alias").val()};
 		value.dataType={ value: $("#dataType").val()};
 		value.shortName={ value: $("#shortName").val()};
 		value.fullName={ value: $("#fullName").val()};

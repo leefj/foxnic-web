@@ -3,12 +3,10 @@ package org.github.foxnic.web.domain.pcm;
 import com.github.foxnic.dao.entity.Entity;
 import javax.persistence.Table;
 import com.github.foxnic.sql.meta.DBTable;
-import org.github.foxnic.web.constants.db.FoxnicWeb.PCM_CATALOG;
+import org.github.foxnic.web.constants.db.FoxnicWeb.PCM_CATALOG_ALLOCATION;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
-import java.util.List;
-import java.util.ArrayList;
 import javax.persistence.Transient;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
@@ -18,17 +16,17 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-01 21:44:27
- * @sign DAA5288A047FCB33D0D37BBFC93CF49A
+ * @since 2021-09-01 21:44:30
+ * @sign 35A00AC6CAB108A1448FD61C289F7B8F
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
-@Table(name = "pcm_catalog")
-public class Catalog extends Entity {
+@Table(name = "pcm_catalog_allocation")
+public class CatalogAllocation extends Entity {
 
 	private static final long serialVersionUID = 1L;
 
-	public static final DBTable TABLE =PCM_CATALOG.$TABLE;
+	public static final DBTable TABLE =PCM_CATALOG_ALLOCATION.$TABLE;
 	
 	/**
 	 * 主键：主键
@@ -38,52 +36,28 @@ public class Catalog extends Entity {
 	private String id;
 	
 	/**
-	 * 名称：名称
+	 * 分类ID：分类ID
 	*/
-	@ApiModelProperty(required = false,value="名称" , notes = "名称")
-	private String name;
+	@ApiModelProperty(required = false,value="分类ID" , notes = "分类ID")
+	private String catalogId;
 	
 	/**
-	 * 上级ID：上级ID
+	 * 属性ID：属性ID
 	*/
-	@ApiModelProperty(required = false,value="上级ID" , notes = "上级ID")
-	private String parentId;
+	@ApiModelProperty(required = false,value="属性ID" , notes = "属性ID")
+	private String attributeId;
 	
 	/**
-	 * 顺序：顺序
+	 * 字段名：数据库字段名
 	*/
-	@ApiModelProperty(required = false,value="顺序" , notes = "顺序")
-	private Integer sort;
-	
-	/**
-	 * 是否有效：是否有效
-	*/
-	@ApiModelProperty(required = true,value="是否有效" , notes = "是否有效")
-	private Integer valid;
-	
-	/**
-	 * 层级路径：层级路径
-	*/
-	@ApiModelProperty(required = false,value="层级路径" , notes = "层级路径")
-	private String hierarchy;
-	
-	/**
-	 * 存储表：存储表
-	*/
-	@ApiModelProperty(required = false,value="存储表" , notes = "存储表")
-	private String dataTable;
+	@ApiModelProperty(required = false,value="字段名" , notes = "数据库字段名")
+	private String column;
 	
 	/**
 	 * 是否分配：或分配是否有效
 	*/
 	@ApiModelProperty(required = false,value="是否分配" , notes = "或分配是否有效")
 	private Integer allotted;
-	
-	/**
-	 * 租户ID：租户ID
-	*/
-	@ApiModelProperty(required = true,value="租户ID" , notes = "租户ID")
-	private String tenantId;
 	
 	/**
 	 * 创建人ID：创建人ID
@@ -134,12 +108,6 @@ public class Catalog extends Entity {
 	private Integer version;
 	
 	/**
-	 * 属性清单：属性清单
-	*/
-	@ApiModelProperty(required = false,value="属性清单" , notes = "属性清单")
-	private List<CatalogAttribute> attributes;
-	
-	/**
 	 * 获得 主键<br>
 	 * 主键
 	 * @return 主键
@@ -153,122 +121,65 @@ public class Catalog extends Entity {
 	 * @param id 主键
 	 * @return 当前对象
 	*/
-	public Catalog setId(String id) {
+	public CatalogAllocation setId(String id) {
 		this.id=id;
 		return this;
 	}
 	
 	/**
-	 * 获得 名称<br>
-	 * 名称
-	 * @return 名称
+	 * 获得 分类ID<br>
+	 * 分类ID
+	 * @return 分类ID
 	*/
-	public String getName() {
-		return name;
+	public String getCatalogId() {
+		return catalogId;
 	}
 	
 	/**
-	 * 设置 名称
-	 * @param name 名称
+	 * 设置 分类ID
+	 * @param catalogId 分类ID
 	 * @return 当前对象
 	*/
-	public Catalog setName(String name) {
-		this.name=name;
+	public CatalogAllocation setCatalogId(String catalogId) {
+		this.catalogId=catalogId;
 		return this;
 	}
 	
 	/**
-	 * 获得 上级ID<br>
-	 * 上级ID
-	 * @return 上级ID
+	 * 获得 属性ID<br>
+	 * 属性ID
+	 * @return 属性ID
 	*/
-	public String getParentId() {
-		return parentId;
+	public String getAttributeId() {
+		return attributeId;
 	}
 	
 	/**
-	 * 设置 上级ID
-	 * @param parentId 上级ID
+	 * 设置 属性ID
+	 * @param attributeId 属性ID
 	 * @return 当前对象
 	*/
-	public Catalog setParentId(String parentId) {
-		this.parentId=parentId;
+	public CatalogAllocation setAttributeId(String attributeId) {
+		this.attributeId=attributeId;
 		return this;
 	}
 	
 	/**
-	 * 获得 顺序<br>
-	 * 顺序
-	 * @return 顺序
+	 * 获得 字段名<br>
+	 * 数据库字段名
+	 * @return 字段名
 	*/
-	public Integer getSort() {
-		return sort;
+	public String getColumn() {
+		return column;
 	}
 	
 	/**
-	 * 设置 顺序
-	 * @param sort 顺序
+	 * 设置 字段名
+	 * @param column 字段名
 	 * @return 当前对象
 	*/
-	public Catalog setSort(Integer sort) {
-		this.sort=sort;
-		return this;
-	}
-	
-	/**
-	 * 获得 是否有效<br>
-	 * 是否有效
-	 * @return 是否有效
-	*/
-	public Integer getValid() {
-		return valid;
-	}
-	
-	/**
-	 * 设置 是否有效
-	 * @param valid 是否有效
-	 * @return 当前对象
-	*/
-	public Catalog setValid(Integer valid) {
-		this.valid=valid;
-		return this;
-	}
-	
-	/**
-	 * 获得 层级路径<br>
-	 * 层级路径
-	 * @return 层级路径
-	*/
-	public String getHierarchy() {
-		return hierarchy;
-	}
-	
-	/**
-	 * 设置 层级路径
-	 * @param hierarchy 层级路径
-	 * @return 当前对象
-	*/
-	public Catalog setHierarchy(String hierarchy) {
-		this.hierarchy=hierarchy;
-		return this;
-	}
-	
-	/**
-	 * 获得 存储表<br>
-	 * 存储表
-	 * @return 存储表
-	*/
-	public String getDataTable() {
-		return dataTable;
-	}
-	
-	/**
-	 * 设置 存储表
-	 * @param dataTable 存储表
-	 * @return 当前对象
-	*/
-	public Catalog setDataTable(String dataTable) {
-		this.dataTable=dataTable;
+	public CatalogAllocation setColumn(String column) {
+		this.column=column;
 		return this;
 	}
 	
@@ -286,27 +197,8 @@ public class Catalog extends Entity {
 	 * @param allotted 是否分配
 	 * @return 当前对象
 	*/
-	public Catalog setAllotted(Integer allotted) {
+	public CatalogAllocation setAllotted(Integer allotted) {
 		this.allotted=allotted;
-		return this;
-	}
-	
-	/**
-	 * 获得 租户ID<br>
-	 * 租户ID
-	 * @return 租户ID
-	*/
-	public String getTenantId() {
-		return tenantId;
-	}
-	
-	/**
-	 * 设置 租户ID
-	 * @param tenantId 租户ID
-	 * @return 当前对象
-	*/
-	public Catalog setTenantId(String tenantId) {
-		this.tenantId=tenantId;
 		return this;
 	}
 	
@@ -324,7 +216,7 @@ public class Catalog extends Entity {
 	 * @param createBy 创建人ID
 	 * @return 当前对象
 	*/
-	public Catalog setCreateBy(String createBy) {
+	public CatalogAllocation setCreateBy(String createBy) {
 		this.createBy=createBy;
 		return this;
 	}
@@ -343,7 +235,7 @@ public class Catalog extends Entity {
 	 * @param createTime 创建时间
 	 * @return 当前对象
 	*/
-	public Catalog setCreateTime(Date createTime) {
+	public CatalogAllocation setCreateTime(Date createTime) {
 		this.createTime=createTime;
 		return this;
 	}
@@ -362,7 +254,7 @@ public class Catalog extends Entity {
 	 * @param updateBy 修改人ID
 	 * @return 当前对象
 	*/
-	public Catalog setUpdateBy(String updateBy) {
+	public CatalogAllocation setUpdateBy(String updateBy) {
 		this.updateBy=updateBy;
 		return this;
 	}
@@ -381,7 +273,7 @@ public class Catalog extends Entity {
 	 * @param updateTime 修改时间
 	 * @return 当前对象
 	*/
-	public Catalog setUpdateTime(Date updateTime) {
+	public CatalogAllocation setUpdateTime(Date updateTime) {
 		this.updateTime=updateTime;
 		return this;
 	}
@@ -400,7 +292,7 @@ public class Catalog extends Entity {
 	 * @param deleted 是否已删除
 	 * @return 当前对象
 	*/
-	public Catalog setDeleted(Integer deleted) {
+	public CatalogAllocation setDeleted(Integer deleted) {
 		this.deleted=deleted;
 		return this;
 	}
@@ -419,7 +311,7 @@ public class Catalog extends Entity {
 	 * @param deleteBy 删除人ID
 	 * @return 当前对象
 	*/
-	public Catalog setDeleteBy(String deleteBy) {
+	public CatalogAllocation setDeleteBy(String deleteBy) {
 		this.deleteBy=deleteBy;
 		return this;
 	}
@@ -438,7 +330,7 @@ public class Catalog extends Entity {
 	 * @param deleteTime 删除时间
 	 * @return 当前对象
 	*/
-	public Catalog setDeleteTime(Date deleteTime) {
+	public CatalogAllocation setDeleteTime(Date deleteTime) {
 		this.deleteTime=deleteTime;
 		return this;
 	}
@@ -457,45 +349,15 @@ public class Catalog extends Entity {
 	 * @param version 数据版本号
 	 * @return 当前对象
 	*/
-	public Catalog setVersion(Integer version) {
+	public CatalogAllocation setVersion(Integer version) {
 		this.version=version;
-		return this;
-	}
-	
-	/**
-	 * 获得 属性清单<br>
-	 * 属性清单
-	 * @return 属性清单
-	*/
-	public List<CatalogAttribute> getAttributes() {
-		return attributes;
-	}
-	
-	/**
-	 * 设置 属性清单
-	 * @param attributes 属性清单
-	 * @return 当前对象
-	*/
-	public Catalog setAttributes(List<CatalogAttribute> attributes) {
-		this.attributes=attributes;
-		return this;
-	}
-	
-	/**
-	 * 添加 属性清单
-	 * @param attribute 属性清单
-	 * @return 当前对象
-	*/
-	public Catalog addAttribute(CatalogAttribute attribute) {
-		if(this.attributes==null) attributes=new ArrayList<>();
-		this.attributes.add(attribute);
 		return this;
 	}
 
 	/**
 	 * 将自己转换成指定类型的PO
 	 * @param poType  PO类型
-	 * @return Catalog , 转换好的 Catalog 对象
+	 * @return CatalogAllocation , 转换好的 CatalogAllocation 对象
 	*/
 	@Transient
 	public <T extends Entity> T toPO(Class<T> poType) {
@@ -505,7 +367,7 @@ public class Catalog extends Entity {
 	/**
 	 * 将自己转换成任意指定类型
 	 * @param pojoType  Pojo类型
-	 * @return Catalog , 转换好的 PoJo 对象
+	 * @return CatalogAllocation , 转换好的 PoJo 对象
 	*/
 	@Transient
 	public <T> T toPojo(Class<T> pojoType) {
@@ -522,35 +384,35 @@ public class Catalog extends Entity {
 	}
 
 	/**
-	 * 将 Map 转换成 Catalog
-	 * @param catalogMap 包含实体信息的 Map 对象
-	 * @return Catalog , 转换好的的 Catalog 对象
+	 * 将 Map 转换成 CatalogAllocation
+	 * @param catalogAllocationMap 包含实体信息的 Map 对象
+	 * @return CatalogAllocation , 转换好的的 CatalogAllocation 对象
 	*/
 	@Transient
-	public static Catalog createFrom(Map<String,Object> catalogMap) {
-		if(catalogMap==null) return null;
-		Catalog po = EntityContext.create(Catalog.class, catalogMap);
+	public static CatalogAllocation createFrom(Map<String,Object> catalogAllocationMap) {
+		if(catalogAllocationMap==null) return null;
+		CatalogAllocation po = EntityContext.create(CatalogAllocation.class, catalogAllocationMap);
 		return po;
 	}
 
 	/**
-	 * 将 Pojo 转换成 Catalog
+	 * 将 Pojo 转换成 CatalogAllocation
 	 * @param pojo 包含实体信息的 Pojo 对象
-	 * @return Catalog , 转换好的的 Catalog 对象
+	 * @return CatalogAllocation , 转换好的的 CatalogAllocation 对象
 	*/
 	@Transient
-	public static Catalog createFrom(Object pojo) {
+	public static CatalogAllocation createFrom(Object pojo) {
 		if(pojo==null) return null;
-		Catalog po = EntityContext.create(Catalog.class,pojo);
+		CatalogAllocation po = EntityContext.create(CatalogAllocation.class,pojo);
 		return po;
 	}
 
 	/**
-	 * 创建一个 Catalog，等同于 new
-	 * @return Catalog 对象
+	 * 创建一个 CatalogAllocation，等同于 new
+	 * @return CatalogAllocation 对象
 	*/
 	@Transient
-	public static Catalog create() {
-		return EntityContext.create(Catalog.class);
+	public static CatalogAllocation create() {
+		return EntityContext.create(CatalogAllocation.class);
 	}
 }

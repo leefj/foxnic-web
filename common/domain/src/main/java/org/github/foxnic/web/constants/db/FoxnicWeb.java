@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2021-09-01 06:29:03
+ * @since 2021-09-01 21:43:54
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -294,6 +294,11 @@ public class FoxnicWeb {
 		public static final DBField DATA_TABLE = new DBField(DBDataType.STRING , "data_table","dataTable","存储表","存储表",false,false,true);
 		
 		/**
+		 * 是否分配，或分配是否有效
+		*/
+		public static final DBField ALLOTTED = new DBField(DBDataType.INTEGER , "allotted","allotted","是否分配","或分配是否有效",false,false,true);
+		
+		/**
 		 * 租户ID
 		*/
 		public static final DBField TENANT_ID = new DBField(DBDataType.STRING , "tenant_id","tenantId","租户ID","租户ID",false,false,false);
@@ -339,9 +344,90 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
 		public PCM_CATALOG() {
-			this.init($NAME,"数据存储表" , ID , NAME , PARENT_ID , SORT , VALID , HIERARCHY , DATA_TABLE , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"数据存储表" , ID , NAME , PARENT_ID , SORT , VALID , HIERARCHY , DATA_TABLE , ALLOTTED , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final PCM_CATALOG $TABLE=new PCM_CATALOG();
+	}
+	
+	/**
+	 * 属性分配表
+	*/
+	public static class PCM_CATALOG_ALLOCATION extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "pcm_catalog_allocation";
+		
+		/**
+		 * 主键
+		*/
+		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","主键","主键",true,false,false);
+		
+		/**
+		 * 分类ID
+		*/
+		public static final DBField CATALOG_ID = new DBField(DBDataType.STRING , "catalog_id","catalogId","分类ID","分类ID",false,false,true);
+		
+		/**
+		 * 属性ID
+		*/
+		public static final DBField ATTRIBUTE_ID = new DBField(DBDataType.STRING , "attribute_id","attributeId","属性ID","属性ID",false,false,true);
+		
+		/**
+		 * 字段名，数据库字段名
+		*/
+		public static final DBField COLUMN = new DBField(DBDataType.STRING , "column","column","字段名","数据库字段名",false,false,true);
+		
+		/**
+		 * 是否分配，或分配是否有效
+		*/
+		public static final DBField ALLOTTED = new DBField(DBDataType.INTEGER , "allotted","allotted","是否分配","或分配是否有效",false,false,true);
+		
+		/**
+		 * 创建人ID
+		*/
+		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
+		
+		/**
+		 * 创建时间
+		*/
+		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","创建时间","创建时间",false,false,true);
+		
+		/**
+		 * 修改人ID
+		*/
+		public static final DBField UPDATE_BY = new DBField(DBDataType.STRING , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
+		
+		/**
+		 * 修改时间
+		*/
+		public static final DBField UPDATE_TIME = new DBField(DBDataType.DATE , "update_time","updateTime","修改时间","修改时间",false,false,true);
+		
+		/**
+		 * 是否已删除
+		*/
+		public static final DBField DELETED = new DBField(DBDataType.INTEGER , "deleted","deleted","是否已删除","是否已删除",false,false,false);
+		
+		/**
+		 * 删除人ID
+		*/
+		public static final DBField DELETE_BY = new DBField(DBDataType.STRING , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
+		
+		/**
+		 * 删除时间
+		*/
+		public static final DBField DELETE_TIME = new DBField(DBDataType.DATE , "delete_time","deleteTime","删除时间","删除时间",false,false,true);
+		
+		/**
+		 * 数据版本号
+		*/
+		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
+		
+		public PCM_CATALOG_ALLOCATION() {
+			this.init($NAME,"属性分配表" , ID , CATALOG_ID , ATTRIBUTE_ID , COLUMN , ALLOTTED , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+		}
+		public static final PCM_CATALOG_ALLOCATION $TABLE=new PCM_CATALOG_ALLOCATION();
 	}
 	
 	/**
@@ -365,14 +451,9 @@ public class FoxnicWeb {
 		public static final DBField CATALOG_ID = new DBField(DBDataType.STRING , "catalog_id","catalogId","存储ID","存储ID",false,false,false);
 		
 		/**
-		 * 字段名，在数据表中的真实字段名
+		 * 字段名，自定义的字段别名
 		*/
-		public static final DBField FIELD = new DBField(DBDataType.STRING , "field","field","字段名","在数据表中的真实字段名",false,false,false);
-		
-		/**
-		 * 别名，字段别名
-		*/
-		public static final DBField ALIAS = new DBField(DBDataType.STRING , "alias","alias","别名","字段别名",false,false,false);
+		public static final DBField FIELD = new DBField(DBDataType.STRING , "field","field","字段名","自定义的字段别名",false,false,false);
 		
 		/**
 		 * 数据类型
@@ -465,7 +546,7 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
 		public PCM_CATALOG_ATTRIBUTE() {
-			this.init($NAME,"数据存储分配表" , ID , CATALOG_ID , FIELD , ALIAS , DATA_TYPE , LENGTH , ACCURACY , SCALE , SHORT_NAME , FULL_NAME , HINT , DETAIL , NOTE , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"数据存储分配表" , ID , CATALOG_ID , FIELD , DATA_TYPE , LENGTH , ACCURACY , SCALE , SHORT_NAME , FULL_NAME , HINT , DETAIL , NOTE , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final PCM_CATALOG_ATTRIBUTE $TABLE=new PCM_CATALOG_ATTRIBUTE();
 	}

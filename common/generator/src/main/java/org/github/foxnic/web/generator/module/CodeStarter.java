@@ -9,6 +9,7 @@ import org.github.foxnic.web.generator.module.hrm.HrmCompanyConfig;
 import org.github.foxnic.web.generator.module.hrm.HrmEmployeeConfig;
 import org.github.foxnic.web.generator.module.hrm.HrmPersonConfig;
 import org.github.foxnic.web.generator.module.oauth.SysUserConfig;
+import org.github.foxnic.web.generator.module.pcm.PcmCatalogAllocationConfig;
 import org.github.foxnic.web.generator.module.pcm.PcmCatalogAttributeConfig;
 import org.github.foxnic.web.generator.module.pcm.PcmCatalogConfig;
 import org.github.foxnic.web.generator.module.system.TenantConfig;
@@ -36,7 +37,7 @@ public class CodeStarter extends ModuleCodeGenerator {
     private void initPcmModules() {
         this.addConfig(new PcmCatalogConfig());
         this.addConfig(new PcmCatalogAttributeConfig());
-
+        this.addConfig(new PcmCatalogAllocationConfig());
     }
 
     private void initHrmModules() {
