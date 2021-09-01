@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-31 17:13:29
- * @sign 790E514503D150BE90719869A9254978
+ * @since 2021-09-01 06:29:45
+ * @sign 3307776D7DC398F324EF32C7E38D13B4
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -38,31 +38,55 @@ public class CatalogAttribute extends Entity {
 	/**
 	 * 存储ID：存储ID
 	*/
-	@ApiModelProperty(required = false,value="存储ID" , notes = "存储ID")
-	private String storageId;
+	@ApiModelProperty(required = true,value="存储ID" , notes = "存储ID")
+	private String catalogId;
 	
 	/**
 	 * 字段名：在数据表中的真实字段名
 	*/
-	@ApiModelProperty(required = false,value="字段名" , notes = "在数据表中的真实字段名")
+	@ApiModelProperty(required = true,value="字段名" , notes = "在数据表中的真实字段名")
 	private String field;
+	
+	/**
+	 * 别名：字段别名
+	*/
+	@ApiModelProperty(required = true,value="别名" , notes = "字段别名")
+	private String alias;
 	
 	/**
 	 * 数据类型：数据类型
 	*/
-	@ApiModelProperty(required = false,value="数据类型" , notes = "数据类型")
+	@ApiModelProperty(required = true,value="数据类型" , notes = "数据类型")
 	private String dataType;
+	
+	/**
+	 * 数据长度：数据长度
+	*/
+	@ApiModelProperty(required = false,value="数据长度" , notes = "数据长度")
+	private Integer length;
+	
+	/**
+	 * 数据精度：数据精度
+	*/
+	@ApiModelProperty(required = false,value="数据精度" , notes = "数据精度")
+	private Integer accuracy;
+	
+	/**
+	 * 小数位数：小数位数
+	*/
+	@ApiModelProperty(required = false,value="小数位数" , notes = "小数位数")
+	private Integer scale;
 	
 	/**
 	 * 简称：简称
 	*/
-	@ApiModelProperty(required = false,value="简称" , notes = "简称")
+	@ApiModelProperty(required = true,value="简称" , notes = "简称")
 	private String shortName;
 	
 	/**
 	 * 全称：全称
 	*/
-	@ApiModelProperty(required = false,value="全称" , notes = "全称")
+	@ApiModelProperty(required = true,value="全称" , notes = "全称")
 	private String fullName;
 	
 	/**
@@ -88,24 +112,6 @@ public class CatalogAttribute extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="是否有效" , notes = "是否有效")
 	private Integer valid;
-	
-	/**
-	 * 数据长度：数据长度
-	*/
-	@ApiModelProperty(required = false,value="数据长度" , notes = "数据长度")
-	private Integer length;
-	
-	/**
-	 * 数据精度：数据精度
-	*/
-	@ApiModelProperty(required = false,value="数据精度" , notes = "数据精度")
-	private Integer precision;
-	
-	/**
-	 * 小数位数：小数位数
-	*/
-	@ApiModelProperty(required = false,value="小数位数" , notes = "小数位数")
-	private Integer scale;
 	
 	/**
 	 * 创建人ID：创建人ID
@@ -179,17 +185,17 @@ public class CatalogAttribute extends Entity {
 	 * 存储ID
 	 * @return 存储ID
 	*/
-	public String getStorageId() {
-		return storageId;
+	public String getCatalogId() {
+		return catalogId;
 	}
 	
 	/**
 	 * 设置 存储ID
-	 * @param storageId 存储ID
+	 * @param catalogId 存储ID
 	 * @return 当前对象
 	*/
-	public CatalogAttribute setStorageId(String storageId) {
-		this.storageId=storageId;
+	public CatalogAttribute setCatalogId(String catalogId) {
+		this.catalogId=catalogId;
 		return this;
 	}
 	
@@ -213,6 +219,25 @@ public class CatalogAttribute extends Entity {
 	}
 	
 	/**
+	 * 获得 别名<br>
+	 * 字段别名
+	 * @return 别名
+	*/
+	public String getAlias() {
+		return alias;
+	}
+	
+	/**
+	 * 设置 别名
+	 * @param alias 别名
+	 * @return 当前对象
+	*/
+	public CatalogAttribute setAlias(String alias) {
+		this.alias=alias;
+		return this;
+	}
+	
+	/**
 	 * 获得 数据类型<br>
 	 * 数据类型
 	 * @return 数据类型
@@ -228,6 +253,63 @@ public class CatalogAttribute extends Entity {
 	*/
 	public CatalogAttribute setDataType(String dataType) {
 		this.dataType=dataType;
+		return this;
+	}
+	
+	/**
+	 * 获得 数据长度<br>
+	 * 数据长度
+	 * @return 数据长度
+	*/
+	public Integer getLength() {
+		return length;
+	}
+	
+	/**
+	 * 设置 数据长度
+	 * @param length 数据长度
+	 * @return 当前对象
+	*/
+	public CatalogAttribute setLength(Integer length) {
+		this.length=length;
+		return this;
+	}
+	
+	/**
+	 * 获得 数据精度<br>
+	 * 数据精度
+	 * @return 数据精度
+	*/
+	public Integer getAccuracy() {
+		return accuracy;
+	}
+	
+	/**
+	 * 设置 数据精度
+	 * @param accuracy 数据精度
+	 * @return 当前对象
+	*/
+	public CatalogAttribute setAccuracy(Integer accuracy) {
+		this.accuracy=accuracy;
+		return this;
+	}
+	
+	/**
+	 * 获得 小数位数<br>
+	 * 小数位数
+	 * @return 小数位数
+	*/
+	public Integer getScale() {
+		return scale;
+	}
+	
+	/**
+	 * 设置 小数位数
+	 * @param scale 小数位数
+	 * @return 当前对象
+	*/
+	public CatalogAttribute setScale(Integer scale) {
+		this.scale=scale;
 		return this;
 	}
 	
@@ -342,63 +424,6 @@ public class CatalogAttribute extends Entity {
 	*/
 	public CatalogAttribute setValid(Integer valid) {
 		this.valid=valid;
-		return this;
-	}
-	
-	/**
-	 * 获得 数据长度<br>
-	 * 数据长度
-	 * @return 数据长度
-	*/
-	public Integer getLength() {
-		return length;
-	}
-	
-	/**
-	 * 设置 数据长度
-	 * @param length 数据长度
-	 * @return 当前对象
-	*/
-	public CatalogAttribute setLength(Integer length) {
-		this.length=length;
-		return this;
-	}
-	
-	/**
-	 * 获得 数据精度<br>
-	 * 数据精度
-	 * @return 数据精度
-	*/
-	public Integer getPrecision() {
-		return precision;
-	}
-	
-	/**
-	 * 设置 数据精度
-	 * @param precision 数据精度
-	 * @return 当前对象
-	*/
-	public CatalogAttribute setPrecision(Integer precision) {
-		this.precision=precision;
-		return this;
-	}
-	
-	/**
-	 * 获得 小数位数<br>
-	 * 小数位数
-	 * @return 小数位数
-	*/
-	public Integer getScale() {
-		return scale;
-	}
-	
-	/**
-	 * 设置 小数位数
-	 * @param scale 小数位数
-	 * @return 当前对象
-	*/
-	public CatalogAttribute setScale(Integer scale) {
-		this.scale=scale;
 		return this;
 	}
 	

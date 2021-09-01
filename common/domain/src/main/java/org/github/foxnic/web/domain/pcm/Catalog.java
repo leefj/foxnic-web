@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-30 16:03:03
- * @sign 3BAECD45C341C9D4AB64DDEFB2011EB6
+ * @since 2021-09-01 06:12:37
+ * @sign 768CE96F1B5E7F87BCF43E2A9266E3E9
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -52,6 +52,12 @@ public class Catalog extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="顺序" , notes = "顺序")
 	private Integer sort;
+	
+	/**
+	 * 是否有效：是否有效
+	*/
+	@ApiModelProperty(required = true,value="是否有效" , notes = "是否有效")
+	private Integer valid;
 	
 	/**
 	 * 层级路径：层级路径
@@ -192,6 +198,25 @@ public class Catalog extends Entity {
 	*/
 	public Catalog setSort(Integer sort) {
 		this.sort=sort;
+		return this;
+	}
+	
+	/**
+	 * 获得 是否有效<br>
+	 * 是否有效
+	 * @return 是否有效
+	*/
+	public Integer getValid() {
+		return valid;
+	}
+	
+	/**
+	 * 设置 是否有效
+	 * @param valid 是否有效
+	 * @return 当前对象
+	*/
+	public Catalog setValid(Integer valid) {
+		this.valid=valid;
 		return this;
 	}
 	

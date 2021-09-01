@@ -1,7 +1,7 @@
 /**
  * 数据存储分配 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-31 17:13:32
+ * @since 2021-09-01 06:29:47
  */
 
 
@@ -65,19 +65,20 @@ function ListPage() {
 				cols: [[
 					{ fixed: 'left',type: 'numbers' },
 					{ fixed: 'left',type:'checkbox' }
-					,{ field: 'id', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('主键') }
-					,{ field: 'storageId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('存储ID') }
-					,{ field: 'field', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('字段名') }
+					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('主键') }
+					,{ field: 'catalogId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('存储ID') }
+					,{ field: 'field', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('字段名') }
+					,{ field: 'alias', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('别名') }
 					,{ field: 'dataType', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('数据类型') }
+					,{ field: 'length', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('数据长度') }
+					,{ field: 'accuracy', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('数据精度') }
+					,{ field: 'scale', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('小数位数') }
 					,{ field: 'shortName', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('简称') }
 					,{ field: 'fullName', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('全称') }
 					,{ field: 'hint', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('提示信息') }
 					,{ field: 'detail', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('说明') }
 					,{ field: 'note', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('备注') }
 					,{ field: 'valid', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('是否有效') }
-					,{ field: 'length', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('数据长度') }
-					,{ field: 'precision', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('数据精度') }
-					,{ field: 'scale', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('小数位数') }
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return fox.dateFormat(d.createTime); }}
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
@@ -109,19 +110,10 @@ function ListPage() {
       */
 	function refreshTableData(sortField,sortType) {
 		var value = {};
-		value.id={ value: $("#id").val()};
-		value.storageId={ value: $("#storageId").val()};
-		value.field={ value: $("#field").val()};
+		value.alias={ value: $("#alias").val()};
 		value.dataType={ value: $("#dataType").val()};
 		value.shortName={ value: $("#shortName").val()};
 		value.fullName={ value: $("#fullName").val()};
-		value.hint={ value: $("#hint").val()};
-		value.detail={ value: $("#detail").val()};
-		value.note={ value: $("#note").val()};
-		value.valid={ value: $("#valid").val()};
-		value.length={ value: $("#length").val()};
-		value.precision={ value: $("#precision").val()};
-		value.scale={ value: $("#scale").val()};
 		window.pageExt.list.beforeQuery && window.pageExt.list.beforeQuery(value);
 		var ps={searchField: "$composite", searchValue: JSON.stringify(value)};
 		if(sortField) {

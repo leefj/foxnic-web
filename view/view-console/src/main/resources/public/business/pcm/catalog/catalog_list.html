@@ -2,7 +2,7 @@
 /**
  * 数据存储 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-30 16:49:46
+ * @since 2021-09-01 06:20:17
  */
  -->
  <!DOCTYPE html>
@@ -53,6 +53,11 @@
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('顺序')}" class="search-label sort-label">顺序</span><span class="search-colon">:</span></div>
                             <input id="sort" class="layui-input search-input" style="width: 140px" type="text" autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0" min-value="" max-value="" scale="0"/>
+                    </div>
+                    <!-- 是否有效 , valid ,typeName=number_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('是否有效')}" class="search-label valid-label">是否有效</span><span class="search-colon">:</span></div>
+                            <input id="valid" class="layui-input search-input" style="width: 140px" type="text" autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0" min-value="" max-value="" scale="0"/>
                     </div>
                     <!-- 层级路径 , hierarchy ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">

@@ -8,8 +8,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-31 17:13:29
- * @sign 790E514503D150BE90719869A9254978
+ * @since 2021-09-01 06:29:45
+ * @sign 3307776D7DC398F324EF32C7E38D13B4
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -28,12 +28,12 @@ public class CatalogAttributeMeta {
 	/**
 	 * 存储ID , 类型: java.lang.String
 	*/
-	public static final String STORAGE_ID="storageId";
+	public static final String CATALOG_ID="catalogId";
 	
 	/**
 	 * 存储ID , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogAttribute,java.lang.String> STORAGE_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogAttribute.class ,STORAGE_ID, java.lang.String.class, "存储ID", "存储ID", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogAttribute,java.lang.String> CATALOG_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogAttribute.class ,CATALOG_ID, java.lang.String.class, "存储ID", "存储ID", java.lang.String.class, null);
 	
 	/**
 	 * 字段名 , 在数据表中的真实字段名 , 类型: java.lang.String
@@ -46,6 +46,16 @@ public class CatalogAttributeMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogAttribute,java.lang.String> FIELD_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogAttribute.class ,FIELD, java.lang.String.class, "字段名", "在数据表中的真实字段名", java.lang.String.class, null);
 	
 	/**
+	 * 别名 , 字段别名 , 类型: java.lang.String
+	*/
+	public static final String ALIAS="alias";
+	
+	/**
+	 * 别名 , 字段别名 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogAttribute,java.lang.String> ALIAS_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogAttribute.class ,ALIAS, java.lang.String.class, "别名", "字段别名", java.lang.String.class, null);
+	
+	/**
 	 * 数据类型 , 类型: java.lang.String
 	*/
 	public static final String DATA_TYPE="dataType";
@@ -54,6 +64,36 @@ public class CatalogAttributeMeta {
 	 * 数据类型 , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogAttribute,java.lang.String> DATA_TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogAttribute.class ,DATA_TYPE, java.lang.String.class, "数据类型", "数据类型", java.lang.String.class, null);
+	
+	/**
+	 * 数据长度 , 类型: java.lang.Integer
+	*/
+	public static final String LENGTH="length";
+	
+	/**
+	 * 数据长度 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogAttribute,java.lang.Integer> LENGTH_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogAttribute.class ,LENGTH, java.lang.Integer.class, "数据长度", "数据长度", java.lang.Integer.class, null);
+	
+	/**
+	 * 数据精度 , 类型: java.lang.Integer
+	*/
+	public static final String ACCURACY="accuracy";
+	
+	/**
+	 * 数据精度 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogAttribute,java.lang.Integer> ACCURACY_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogAttribute.class ,ACCURACY, java.lang.Integer.class, "数据精度", "数据精度", java.lang.Integer.class, null);
+	
+	/**
+	 * 小数位数 , 类型: java.lang.Integer
+	*/
+	public static final String SCALE="scale";
+	
+	/**
+	 * 小数位数 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogAttribute,java.lang.Integer> SCALE_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogAttribute.class ,SCALE, java.lang.Integer.class, "小数位数", "小数位数", java.lang.Integer.class, null);
 	
 	/**
 	 * 简称 , 类型: java.lang.String
@@ -114,36 +154,6 @@ public class CatalogAttributeMeta {
 	 * 是否有效 , 类型: java.lang.Integer
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogAttribute,java.lang.Integer> VALID_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogAttribute.class ,VALID, java.lang.Integer.class, "是否有效", "是否有效", java.lang.Integer.class, null);
-	
-	/**
-	 * 数据长度 , 类型: java.lang.Integer
-	*/
-	public static final String LENGTH="length";
-	
-	/**
-	 * 数据长度 , 类型: java.lang.Integer
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogAttribute,java.lang.Integer> LENGTH_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogAttribute.class ,LENGTH, java.lang.Integer.class, "数据长度", "数据长度", java.lang.Integer.class, null);
-	
-	/**
-	 * 数据精度 , 类型: java.lang.Integer
-	*/
-	public static final String PRECISION="precision";
-	
-	/**
-	 * 数据精度 , 类型: java.lang.Integer
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogAttribute,java.lang.Integer> PRECISION_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogAttribute.class ,PRECISION, java.lang.Integer.class, "数据精度", "数据精度", java.lang.Integer.class, null);
-	
-	/**
-	 * 小数位数 , 类型: java.lang.Integer
-	*/
-	public static final String SCALE="scale";
-	
-	/**
-	 * 小数位数 , 类型: java.lang.Integer
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogAttribute,java.lang.Integer> SCALE_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogAttribute.class ,SCALE, java.lang.Integer.class, "小数位数", "小数位数", java.lang.Integer.class, null);
 	
 	/**
 	 * 创建人ID , 类型: java.lang.String
@@ -228,7 +238,7 @@ public class CatalogAttributeMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , STORAGE_ID , FIELD , DATA_TYPE , SHORT_NAME , FULL_NAME , HINT , DETAIL , NOTE , VALID , LENGTH , PRECISION , SCALE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , CATALOG_ID , FIELD , ALIAS , DATA_TYPE , LENGTH , ACCURACY , SCALE , SHORT_NAME , FULL_NAME , HINT , DETAIL , NOTE , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
 	
 	/**
 	 * 代理类
@@ -251,12 +261,12 @@ public class CatalogAttributeMeta {
 		
 		/**
 		 * 设置 存储ID
-		 * @param storageId 存储ID
+		 * @param catalogId 存储ID
 		 * @return 当前对象
 		*/
-		public CatalogAttribute setStorageId(String storageId) {
-			super.change(STORAGE_ID,super.getStorageId(),storageId);
-			super.setStorageId(storageId);
+		public CatalogAttribute setCatalogId(String catalogId) {
+			super.change(CATALOG_ID,super.getCatalogId(),catalogId);
+			super.setCatalogId(catalogId);
 			return this;
 		}
 		
@@ -272,6 +282,17 @@ public class CatalogAttributeMeta {
 		}
 		
 		/**
+		 * 设置 别名
+		 * @param alias 别名
+		 * @return 当前对象
+		*/
+		public CatalogAttribute setAlias(String alias) {
+			super.change(ALIAS,super.getAlias(),alias);
+			super.setAlias(alias);
+			return this;
+		}
+		
+		/**
 		 * 设置 数据类型
 		 * @param dataType 数据类型
 		 * @return 当前对象
@@ -279,6 +300,39 @@ public class CatalogAttributeMeta {
 		public CatalogAttribute setDataType(String dataType) {
 			super.change(DATA_TYPE,super.getDataType(),dataType);
 			super.setDataType(dataType);
+			return this;
+		}
+		
+		/**
+		 * 设置 数据长度
+		 * @param length 数据长度
+		 * @return 当前对象
+		*/
+		public CatalogAttribute setLength(Integer length) {
+			super.change(LENGTH,super.getLength(),length);
+			super.setLength(length);
+			return this;
+		}
+		
+		/**
+		 * 设置 数据精度
+		 * @param accuracy 数据精度
+		 * @return 当前对象
+		*/
+		public CatalogAttribute setAccuracy(Integer accuracy) {
+			super.change(ACCURACY,super.getAccuracy(),accuracy);
+			super.setAccuracy(accuracy);
+			return this;
+		}
+		
+		/**
+		 * 设置 小数位数
+		 * @param scale 小数位数
+		 * @return 当前对象
+		*/
+		public CatalogAttribute setScale(Integer scale) {
+			super.change(SCALE,super.getScale(),scale);
+			super.setScale(scale);
 			return this;
 		}
 		
@@ -345,39 +399,6 @@ public class CatalogAttributeMeta {
 		public CatalogAttribute setValid(Integer valid) {
 			super.change(VALID,super.getValid(),valid);
 			super.setValid(valid);
-			return this;
-		}
-		
-		/**
-		 * 设置 数据长度
-		 * @param length 数据长度
-		 * @return 当前对象
-		*/
-		public CatalogAttribute setLength(Integer length) {
-			super.change(LENGTH,super.getLength(),length);
-			super.setLength(length);
-			return this;
-		}
-		
-		/**
-		 * 设置 数据精度
-		 * @param precision 数据精度
-		 * @return 当前对象
-		*/
-		public CatalogAttribute setPrecision(Integer precision) {
-			super.change(PRECISION,super.getPrecision(),precision);
-			super.setPrecision(precision);
-			return this;
-		}
-		
-		/**
-		 * 设置 小数位数
-		 * @param scale 小数位数
-		 * @return 当前对象
-		*/
-		public CatalogAttribute setScale(Integer scale) {
-			super.change(SCALE,super.getScale(),scale);
-			super.setScale(scale);
 			return this;
 		}
 		

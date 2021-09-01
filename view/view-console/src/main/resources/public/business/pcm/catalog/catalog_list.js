@@ -1,7 +1,7 @@
 /**
  * 数据存储 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-30 16:49:46
+ * @since 2021-09-01 06:20:17
  */
 
 
@@ -69,6 +69,7 @@ function ListPage() {
 					,{ field: 'name', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('名称') }
 					,{ field: 'parentId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('上级ID') }
 					,{ field: 'sort', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('顺序') }
+					,{ field: 'valid', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('是否有效') }
 					,{ field: 'hierarchy', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('层级路径') }
 					,{ field: 'dataTable', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('存储表') }
 					,{ field: 'tenantId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('租户ID') }
@@ -107,6 +108,7 @@ function ListPage() {
 		value.name={ value: $("#name").val()};
 		value.parentId={ value: $("#parentId").val()};
 		value.sort={ value: $("#sort").val()};
+		value.valid={ value: $("#valid").val()};
 		value.hierarchy={ value: $("#hierarchy").val()};
 		value.dataTable={ value: $("#dataTable").val()};
 		value.tenantId={ value: $("#tenantId").val()};
@@ -312,6 +314,7 @@ function ListPage() {
 		var queryString="";
 		if(data && data.id) queryString="?" + 'id=' + data.id;
 		admin.putTempData('pcm-catalog-form-data', data);
+		var area=admin.getTempData('pcm-catalog-form-area');
 		var height= (area && area.height) ? area.height : ($(window).height()*0.6);
 		var top= (area && area.top) ? area.top : (($(window).height()-height)/2);
 		var title = (data && data.id) ? (fox.translate('修改')+fox.translate('数据存储')) : (fox.translate('添加')+fox.translate('数据存储'));

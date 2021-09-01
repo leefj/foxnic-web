@@ -8,8 +8,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-30 16:03:03
- * @sign 3BAECD45C341C9D4AB64DDEFB2011EB6
+ * @since 2021-09-01 06:12:37
+ * @sign 768CE96F1B5E7F87BCF43E2A9266E3E9
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -54,6 +54,16 @@ public class CatalogMeta {
 	 * 顺序 , 类型: java.lang.Integer
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.pcm.Catalog,java.lang.Integer> SORT_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.Catalog.class ,SORT, java.lang.Integer.class, "顺序", "顺序", java.lang.Integer.class, null);
+	
+	/**
+	 * 是否有效 , 类型: java.lang.Integer
+	*/
+	public static final String VALID="valid";
+	
+	/**
+	 * 是否有效 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.pcm.Catalog,java.lang.Integer> VALID_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.Catalog.class ,VALID, java.lang.Integer.class, "是否有效", "是否有效", java.lang.Integer.class, null);
 	
 	/**
 	 * 层级路径 , 类型: java.lang.String
@@ -168,7 +178,7 @@ public class CatalogMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , NAME , PARENT_ID , SORT , HIERARCHY , DATA_TABLE , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , NAME , PARENT_ID , SORT , VALID , HIERARCHY , DATA_TABLE , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
 	
 	/**
 	 * 代理类
@@ -219,6 +229,17 @@ public class CatalogMeta {
 		public Catalog setSort(Integer sort) {
 			super.change(SORT,super.getSort(),sort);
 			super.setSort(sort);
+			return this;
+		}
+		
+		/**
+		 * 设置 是否有效
+		 * @param valid 是否有效
+		 * @return 当前对象
+		*/
+		public Catalog setValid(Integer valid) {
+			super.change(VALID,super.getValid(),valid);
+			super.setValid(valid);
 			return this;
 		}
 		
