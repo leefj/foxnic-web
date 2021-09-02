@@ -133,8 +133,10 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                         var val = null;
                         if(sel) {
                             val = sel.getValue();
+                            sel.update({data:cfg.data});
+                        } else {
+                            xmSelect.render(cfg);
                         }
-                        xmSelect.render(cfg);
                         if(val) {
                             sel.setValue(val);
                         }
