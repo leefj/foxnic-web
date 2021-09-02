@@ -1,55 +1,48 @@
 package org.github.foxnic.web.pcm.controller;
 
  
-import java.util.List;
-
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-
-import org.github.foxnic.web.framework.web.SuperController;
-import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
-import org.springframework.web.bind.annotation.RequestMapping;
-import javax.servlet.http.HttpServletResponse;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
-
-
-import org.github.foxnic.web.proxy.pcm.CatalogAttributeServiceProxy;
-import org.github.foxnic.web.domain.pcm.meta.CatalogAttributeVOMeta;
-import org.github.foxnic.web.domain.pcm.CatalogAttribute;
-import org.github.foxnic.web.domain.pcm.CatalogAttributeVO;
+import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.api.validate.annotations.NotNull;
+import com.github.foxnic.commons.io.StreamUtil;
+import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.springboot.web.DownloadUtil;
-import com.github.foxnic.dao.data.PagedList;
-import java.util.Date;
-import java.sql.Timestamp;
-import com.github.foxnic.api.error.ErrorDesc;
-import com.github.foxnic.commons.io.StreamUtil;
-import java.util.Map;
 import com.github.foxnic.dao.excel.ValidateResult;
-import java.io.InputStream;
-import org.github.foxnic.web.domain.pcm.meta.CatalogAttributeMeta;
-import org.github.foxnic.web.domain.pcm.CatalogAllocation;
-import io.swagger.annotations.Api;
-import com.github.xiaoymin.knife4j.annotations.ApiSort;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiImplicitParam;
+import com.github.foxnic.springboot.web.DownloadUtil;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.github.xiaoymin.knife4j.annotations.ApiSort;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import org.github.foxnic.web.domain.pcm.CatalogAttribute;
+import org.github.foxnic.web.domain.pcm.CatalogAttributeVO;
+import org.github.foxnic.web.domain.pcm.meta.CatalogAttributeVOMeta;
+import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
+import org.github.foxnic.web.framework.web.SuperController;
 import org.github.foxnic.web.pcm.service.ICatalogAttributeService;
-import com.github.foxnic.api.validate.annotations.NotNull;
+import org.github.foxnic.web.proxy.pcm.CatalogAttributeServiceProxy;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.InputStream;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
  * 分类属性表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-02 16:31:40
+ * @since 2021-09-02 20:15:33
+ * @version
 */
 
 @Api(tags = "分类属性")
@@ -110,7 +103,7 @@ public class CatalogAttributeController extends SuperController {
 	@SentinelResource(value = CatalogAttributeServiceProxy.DELETE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(CatalogAttributeServiceProxy.DELETE)
 	public Result deleteById(String id) {
-		Result result=catalogAttributeService.deleteByIdLogical(id);
+		Result result=catalogAttributeService.deleteByIdPhysical(id);
 		return result;
 	}
 	
@@ -128,7 +121,7 @@ public class CatalogAttributeController extends SuperController {
 	@SentinelResource(value = CatalogAttributeServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(CatalogAttributeServiceProxy.DELETE_BY_IDS)
 	public Result deleteByIds(List<String> ids) {
-		Result result=catalogAttributeService.deleteByIdsLogical(ids);
+		Result result=catalogAttributeService.deleteByIdsPhysical(ids);
 		return result;
 	}
 	

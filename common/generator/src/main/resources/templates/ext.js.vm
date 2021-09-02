@@ -27,7 +27,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
         /**
          * 查询前调用
          * */
-        beforeQuery:function (conditions) {
+        beforeQuery:function (conditions,location) {
             console.log('beforeQuery',conditions);
         },
         /**

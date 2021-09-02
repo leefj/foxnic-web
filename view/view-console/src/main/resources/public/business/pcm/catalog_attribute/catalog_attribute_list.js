@@ -1,7 +1,7 @@
 /**
  * 分类属性 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-02 16:31:42
+ * @since 2021-09-02 20:15:34
  */
 
 
@@ -48,7 +48,9 @@ function ListPage() {
 
 			var ps={};
 			var contitions={};
-			window.pageExt.list.beforeQuery && window.pageExt.list.beforeQuery(contitions);
+			if(window.pageExt.list.beforeQuery){
+				window.pageExt.list.beforeQuery(contitions);
+			}
 			if(Object.keys(contitions).length>0) {
 				ps = {searchField: "$composite", searchValue: JSON.stringify(contitions)};
 			}
@@ -73,7 +75,7 @@ function ListPage() {
 					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('主键') }
 					,{ field: 'catalogId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('存储ID') }
 					,{ field: 'field', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('字段名') }
-					,{ field: 'versionNo', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('版本'), templet: function (d) { return fox.joinLabel(null ,"name");}}
+					,{ field: 'versionNo', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('版本') }
 					,{ field: 'dataType', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('数据类型'), templet:function (d){ return templet('dataType',fox.getEnumText(SELECT_DATATYPE_DATA,d.dataType),d);}}
 					,{ field: 'length', align:"right",fixed:false,  hide:true, sort: true, title: fox.translate('数据长度') }
 					,{ field: 'accuracy', align:"right",fixed:false,  hide:true, sort: true, title: fox.translate('数据精度') }
@@ -122,11 +124,13 @@ function ListPage() {
 	function refreshTableData(sortField,sortType) {
 		var value = {};
 		value.field={ value: $("#field").val()};
-		value.versionNo={ value: xmSelect.get("#versionNo",true).getValue("value"), fillBy:"",field:"value", label:xmSelect.get("#versionNo",true).getValue("nameStr") };
+		value.versionNo={ value: $("#versionNo").val()};
 		value.dataType={ value: xmSelect.get("#dataType",true).getValue("value"), label:xmSelect.get("#dataType",true).getValue("nameStr")};
 		value.shortName={ value: $("#shortName").val()};
 		value.fullName={ value: $("#fullName").val()};
-		window.pageExt.list.beforeQuery && window.pageExt.list.beforeQuery(value);
+		if(window.pageExt.list.beforeQuery){
+			if(!window.pageExt.list.beforeQuery(value)) return;
+		}
 		var ps={searchField: "$composite", searchValue: JSON.stringify(value)};
 		if(sortField) {
 			ps.sortField=sortField;
@@ -160,27 +164,6 @@ function ListPage() {
 
 		fox.switchSearchRow(1);
 
-		//渲染 versionNo 下拉字段
-		fox.renderSelectBox({
-			el: "versionNo",
-			radio: true,
-			clickClose:true,
-			size: "small",
-			filterable: false,
-			data:[{"name":"已生效","value":"activated"},{"name":"编辑中","value":"editing"},{"name":"李方捷","value":"lee"}],
-			//转换数据
-			transformx: function(data) {
-				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
-				debugger;
-				var opts=[];
-				if(!data) return opts;
-				for (var i = 0; i < data.length; i++) {
-					if(!data[i]) continue;
-					opts.push({name:data[i].name,value:data[i].value});
-				}
-				return opts;
-			}
-		});
 		//渲染 dataType 下拉字段
 		fox.renderSelectBox({
 			el: "dataType",

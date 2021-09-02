@@ -4,6 +4,7 @@ package org.github.foxnic.web.pcm.service.impl;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.commons.collection.CollectorUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.RcdSet;
 import com.github.foxnic.dao.data.SaveMode;
@@ -13,14 +14,17 @@ import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.dao.excel.ValidateResult;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.sql.expr.ConditionExpr;
+import com.github.foxnic.sql.expr.In;
 import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.domain.pcm.CatalogAllocation;
 import org.github.foxnic.web.domain.pcm.CatalogAttribute;
 import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.github.foxnic.web.pcm.service.ICatalogAllocationService;
 import org.github.foxnic.web.pcm.service.ICatalogAttributeService;
 import org.github.foxnic.web.pcm.service.ICatalogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.io.InputStream;
@@ -55,6 +59,10 @@ public class CatalogAttributeServiceImpl extends SuperService<CatalogAttribute> 
 
 	@Autowired
 	private ICatalogService catalogService;
+
+	@Autowired
+	private ICatalogAllocationService allocationService;
+
 
 	@Override
 	public Object generateId(Field field) {
@@ -107,10 +115,20 @@ public class CatalogAttributeServiceImpl extends SuperService<CatalogAttribute> 
 	 * @return 删除是否成功
 	 */
 	public Result deleteByIdPhysical(String id) {
-		CatalogAttribute catalogAttribute = new CatalogAttribute();
 		if(id==null) return ErrorDesc.failure().message("id 不允许为 null 。");
-		catalogAttribute.setId(id);
+		CatalogAttribute catalogAttribute = this.getById(id);
 		try {
+			if(catalogAttribute!=null){
+
+				CatalogAllocation allocation=CatalogAllocation.create()
+						.setVersionNo(catalogAttribute.getVersionNo())
+						.setCatalogId(catalogAttribute.getCatalogId())
+						.setAttributeId(catalogAttribute.getId());
+				allocation=allocationService.queryEntity(allocation);
+				allocationService.deleteByIdPhysical(allocation.getId());
+
+			}
+
 			boolean suc = dao.deleteEntity(catalogAttribute);
 			return suc?ErrorDesc.success():ErrorDesc.failure();
 		}
@@ -119,6 +137,29 @@ public class CatalogAttributeServiceImpl extends SuperService<CatalogAttribute> 
 			r.extra().setException(e);
 			return r;
 		}
+	}
+
+	/**
+	 * 按主键批量删除产品标签
+	 *
+	 * @param ids 编号 , 详情 : 编号
+	 * @return 删除完成情况
+	 */
+	@Transactional
+	public <T> Result deleteByIdsPhysical(List<T> ids) {
+		String idField=validateIds(ids);
+		In in=new In(idField,ids);
+		List<CatalogAttribute> attrs = this.queryList(in.toConditionExpr());
+		this.join(attrs,CatalogAllocation.class);
+
+		List<CatalogAllocation> allos= CollectorUtil.collectList(attrs,CatalogAttribute::getAllocation);
+		List<String> allosIds=CollectorUtil.collectList(allos,CatalogAllocation::getId);
+		catalogService.deleteByIdsPhysical(allosIds);
+
+		Integer i=dao().execute("delete from "+table()+" "+in.toConditionExpr().startWithWhere().getListParameterSQL(),in.getListParameters());
+		boolean suc= i!=null && i>0;
+		if(suc) return ErrorDesc.success();
+		else return ErrorDesc.failure();
 	}
 	
 	/**
@@ -277,7 +318,7 @@ public class CatalogAttributeServiceImpl extends SuperService<CatalogAttribute> 
 
 	@Override
 	public List<String> getAllVersions(String catalogId) {
-		RcdSet rs=dao().query("select distinct version_no from "+table()+" where catalog_id=?",catalogId);
+		RcdSet rs=dao().query("select distinct version_no from "+table()+" where catalog_id=? order by version_no desc",catalogId);
 		List<String> versions=rs.getValueList("version_no",String.class);
 		return versions;
 	}

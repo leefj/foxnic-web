@@ -2,7 +2,7 @@
 /**
  * 分类属性 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-02 16:31:43
+ * @since 2021-09-02 20:15:34
  */
  -->
  <!DOCTYPE html>
@@ -36,10 +36,10 @@
                 <div class="layui-form toolbar search-inputs">
                     <!-- 主键 , id ,typeName=text_input, isHideInSearch=true -->
                     <!-- 存储ID , catalogId ,typeName=text_input, isHideInSearch=true -->
-                    <!-- 版本 , versionNo ,typeName=select_box, isHideInSearch=false -->
+                    <!-- 版本 , versionNo ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('版本')}" class="search-label versionNo-label">版本</span><span class="search-colon">:</span></div>
-                        <div id="versionNo" th:data="${'/service-pcm/pcm-catalog/versions'}" style="width:140px"></div>
+                        <input id="versionNo" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
                     <!-- 数据长度 , length ,typeName=number_input, isHideInSearch=true -->
                     <!-- 数据精度 , accuracy ,typeName=number_input, isHideInSearch=true -->

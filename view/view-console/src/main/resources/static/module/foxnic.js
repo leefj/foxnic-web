@@ -77,7 +77,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     var url = el.attr("data");
                     // debugger;
                     admin.request(url, ps, function (r) {
-                        debugger
+                        // debugger//
                         var opts = [];
                         me.getSelectBox(cfg.el)["currentData"]=null;
                         if (r.success) {
@@ -128,12 +128,14 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
 
                     query(ps, function (r) {
                         cfg.data = r;
-                        debugger
+                        cfg.remoteSearch=false;
+                        // debugger
                         var sel = xmSelect.get(cfg.el, true);
                         var val = null;
                         if(sel) {
                             val = sel.getValue();
-                            sel.update({data:cfg.data});
+                            sel.reset();
+                            sel.update({data:cfg.data,remoteSearch:false});
                         } else {
                             xmSelect.render(cfg);
                         }
@@ -433,6 +435,10 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 if(!values) values={};
 
                 for(var itm in values) {
+                    if(cfg.ignoreSearchContent){
+                        var ignore=cfg.isIgnoreSearchContent(itm);
+                        if(ignore) continue;
+                    }
                     var label=$("."+itm+"-label").text();
                     if(!hasVal(label)) continue;
                     var v=values[itm];

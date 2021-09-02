@@ -4,6 +4,7 @@ package org.github.foxnic.web.pcm.service.impl;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.commons.busi.id.SequenceType;
 import com.github.foxnic.commons.cache.Variable;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.Rcd;
@@ -14,6 +15,7 @@ import com.github.foxnic.dao.excel.ExcelStructure;
 import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.dao.excel.ValidateResult;
 import com.github.foxnic.dao.spec.DAO;
+import com.github.foxnic.dao.spec.DBSequence;
 import com.github.foxnic.dao.sql.expr.Template;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
@@ -407,41 +409,44 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 	 * */
 	@Override
 	public Result createVersion(String catalogId) {
+		//获得激活版本
 		List<CatalogAttribute> activatedAttributes=catalogAttributeService.getAttributes(catalogId,ICatalogService.VERSION_ACTIVATED);
 		//catalogAttributeService.join(activatedAttributes, CatalogAllocation.class);
-
+		//获得编辑版本
 		List<CatalogAttribute> editingAttributes=catalogAttributeService.getAttributes(catalogId,ICatalogService.VERSION_EDITING);
+		//如果激活版本缺少属性定义
 		if(activatedAttributes.isEmpty()) return ErrorDesc.failure().message("当前版本缺少属性");
-		if(editingAttributes.isEmpty()) {
-			List<CatalogAllocation> allocations=new ArrayList<>();
-			for (CatalogAttribute attribute : activatedAttributes) {
-				attribute.setVersionNo(ICatalogService.VERSION_EDITING);
-				attribute.setSourceId(attribute.getId());
-				attribute.setId(null);
-				attribute.setCreateBy(null);
-				attribute.setCreateTime(null);
-				attribute.setUpdateBy(null);
-				attribute.setUpdateTime(null);
-				attribute.setDeleteBy(null);
-				attribute.setDeleteTime(null);
-				attribute.setVersion(0);
-				//
-				editingAttributes.add(attribute);
+		if(editingAttributes.size()>0) {
+			return ErrorDesc.failure().message("当前编辑版本已经存在属性,请删除后再创建");
+		}
+		List<CatalogAllocation> allocations=new ArrayList<>();
+		for (CatalogAttribute attribute : activatedAttributes) {
+			attribute.setVersionNo(ICatalogService.VERSION_EDITING);
+			attribute.setSourceId(attribute.getId());
+			attribute.setId(null);
+			attribute.setCreateBy(null);
+			attribute.setCreateTime(null);
+			attribute.setUpdateBy(null);
+			attribute.setUpdateTime(null);
+			attribute.setDeleteBy(null);
+			attribute.setDeleteTime(null);
+			attribute.setVersion(0);
+			//
+			editingAttributes.add(attribute);
 
-				//拷贝分配表
-				CatalogAllocation allocation=attribute.getAllocation();
-				if(allocation!=null) {
-					allocation.setVersionNo(ICatalogService.VERSION_EDITING);
-					allocation.setId(null);
-					allocation.setCreateBy(null);
-					allocation.setCreateTime(null);
-					allocation.setUpdateBy(null);
-					allocation.setUpdateTime(null);
-					allocation.setDeleteBy(null);
-					allocation.setDeleteTime(null);
-					allocation.setVersion(0);
-					allocations.add(allocation);
-				}
+			//拷贝分配表
+			CatalogAllocation allocation=attribute.getAllocation();
+			if(allocation!=null) {
+				allocation.setVersionNo(ICatalogService.VERSION_EDITING);
+				allocation.setId(null);
+				allocation.setCreateBy(null);
+				allocation.setCreateTime(null);
+				allocation.setUpdateBy(null);
+				allocation.setUpdateTime(null);
+				allocation.setDeleteBy(null);
+				allocation.setDeleteTime(null);
+				allocation.setVersion(0);
+				allocations.add(allocation);
 			}
 			//
 			catalogAttributeService.insertList(editingAttributes);
@@ -455,14 +460,31 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 	 * */
 	@Override
 	public Result applyVersion(String catalogId) {
+
+		DBSequence sequence=dao().getSequence("pcm-catalog-version-no");
+		if(!sequence.exists()){
+			sequence.create(SequenceType.DAI,3);
+		}
+
+		//
 		List<CatalogAttribute> editingAttributes=catalogAttributeService.getAttributes(catalogId,ICatalogService.VERSION_EDITING);
 		if(editingAttributes.size()==0) {
 			return ErrorDesc.failure().message("缺少字段");
 		}
-		for (CatalogAttribute attribute : editingAttributes) {
-			attribute.setVersionNo(ICatalogService.VERSION_ACTIVATED);
-		}
-		catalogAttributeService.updateList(editingAttributes,SaveMode.DIRTY_FIELDS);
+
+		//变更当前激活的版本为历史版本
+		String version=sequence.next();
+		dao().execute("update pcm_catalog_attribute set version_no=? where catalog_id=? and version_no=?",version,catalogId,ICatalogService.VERSION_ACTIVATED);
+		dao().execute("update pcm_catalog_allocation set version_no=? where catalog_id=? and version_no=?",version,catalogId,ICatalogService.VERSION_ACTIVATED);
+
+		//分配字段的存储
+
+
+		//变更当前编辑的版本为激活的版本
+		dao().execute("update pcm_catalog_attribute set version_no=? where catalog_id=? and version_no=?",ICatalogService.VERSION_ACTIVATED,catalogId,ICatalogService.VERSION_EDITING);
+		dao().execute("update pcm_catalog_allocation set version_no=? where catalog_id=? and version_no=?",ICatalogService.VERSION_ACTIVATED,catalogId,ICatalogService.VERSION_EDITING);
+
+
 		return ErrorDesc.success().message("版本已生效");
 	}
 

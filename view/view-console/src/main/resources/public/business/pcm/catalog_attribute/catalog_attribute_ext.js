@@ -28,6 +28,9 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * */
         beforeInit:function () {
 
+            var verEl=$("#versionNo").parents(".search-unit");
+            verEl.children().remove();
+            verEl.append('<button class="layui-btn layui-btn-primary version-no"><span class="version-no-text">版本</span><i class="layui-icon layui-icon-down layui-font-12"></i></button>');
         },
         /**
          * 搜索输入框初始化完毕后调用
@@ -56,8 +59,10 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
         /**
          * 查询前调用
          * */
-        beforeQuery:function (conditions) {
+        beforeQuery:function (conditions,location) {
             conditions.catalogId={value:catalogId};
+            conditions.versionNo={value:versionNo};
+            return true;
         },
         /**
          * 查询结果渲染后调用
@@ -110,7 +115,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
         doCreateVersion:function () {
             admin.request("/service-pcm/pcm-catalog/create-version",{id:catalogId},function (r) {
                 if(!r.success) {
-                    layer.msg(r.message, {icon: 2, time: 1000});
+                    layer.msg(r.message, {icon: 2, time: 3000});
                     return;
                 }
 
@@ -121,17 +126,10 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
                 layer.msg("请选择一个分类", {icon: 2, time: 1000});
                 return false;
             }
-            var versionNoBox=fox.getSelectBox("versionNo");
-            var sel=versionNoBox.getValue();
-            if(sel==null || sel.length==0) {
+            if(versionNo==null || versionNo!="editing") {
                 layer.msg("请选择编辑中的版本", {icon: 2, time: 1000});
                 return false;
             }
-            if(sel[0].value!="editing") {
-                layer.msg("请选择编辑中的版本", {icon: 2, time: 1000});
-                return false;
-            }
-
             top.layer.confirm('确定要应用当前版本吗？', {
                 btn: ['应用版本','取消'] //按钮
             }, function(){
@@ -141,7 +139,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
         doApplyVersion:function () {
             admin.request("/service-pcm/pcm-catalog/apply-version",{id:catalogId},function (r) {
                 if(!r.success) {
-                    layer.msg(r.message, {icon: 2, time: 1000});
+                    layer.msg(r.message, {icon: 2, time: 3000});
                     return;
                 }
 
@@ -192,50 +190,47 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             window.module.loadAttributes=function (id) {
                 catalogId=id;
                 admin.putTempData("catalogId",catalogId,true);
-                var versionNoBox=fox.getSelectBox("versionNo");
-                versionNoBox.refresh({id:catalogId},function (opts,data) {
-                    versionNoBox.setValue([]);
-                    debugger
+                admin.request("/service-pcm/pcm-catalog/versions",{id:catalogId},function (r){
+                    var items=[];
                     var activated=null,editing=null;
-                    for (var i = 0; i < opts.length; i++) {
-                        if(opts[i].value="activated") {
-                            activated=opts[i];
+                    for (var i = 0; i < r.data.length; i++) {
+                        items.push({title:r.data[i].name,id:r.data[i].value});
+                        if(r.data[i].value=="activated") {
+                            activated=r.data[i];
+                            //activated.disabled=true;
                         }
-                        else if(opts[i].value="editing") {
-                            editing=opts[i];
+                        else if(r.data[i].value=="editing") {
+                            editing=r.data[i];
+                            //editing.disabled=true;
                         }
-                        if(editing!=null && activated!=null) break;
                     }
 
-                    setTimeout(function () {
-                        window.module.refreshTableData();
-                        versionNo=null;
+                    if(activated!=null) {
+                        versionNo=activated.value;
+                        $(".version-no-text").text(activated.name);
 
-                        if(activated!=null) {
-                            versionNo=activated.value;
-                            //versionNoBox.setValue([activated.value]);
-                            debugger
-                        } else {
-                            if(editing!=null) {
-                                versionNo=editing.value;
-                                //versionNoBox.setValue([editing.value]);
-                                debugger
-                            }
+                    } else {
+                        if(editing!=null) {
+                            versionNo=editing.value;
+                            $(".version-no-text").text(editing.name);
                         }
-                        // versionNoBox.update({
-                        //     radio:true,
-                        //     clickClose:true,
-                        //     on:function (r) {
-                        //         debugger;
-                        //         if(r.arr && r.arr.length>0 && r.change.length>0) {
-                        //             versionNo=r.arr[0].value;
-                        //             window.module.refreshTableData();
-                        //         }
-                        //     }
-                        // })
-                    },16)
+                    }
+                    window.module.refreshTableData();
 
-                });
+                    dropdown.render({
+                        elem: '.version-no'
+                        ,data: items
+                        ,click: function(obj){
+                            debugger;
+                            $(".version-no-text").text(obj.title);
+                            versionNo=obj.id;
+                            window.module.refreshTableData();
+                        }
+                    });
+                })
+
+
+
 
             }
         }

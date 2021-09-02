@@ -1,7 +1,7 @@
 /**
  * 分类属性 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-02 16:31:43
+ * @since 2021-09-02 20:15:34
  */
 
 function FormPage() {
@@ -77,23 +77,6 @@ function FormPage() {
 	function renderFormFields() {
 		fox.renderFormInputs(form);
 
-		//渲染 versionNo 下拉字段
-		fox.renderSelectBox({
-			el: "versionNo",
-			radio: true,
-			filterable: false,
-			//转换数据
-			transform: function(data) {
-				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
-				var opts=[];
-				if(!data) return opts;
-				for (var i = 0; i < data.length; i++) {
-					if(!data[i]) continue;
-					opts.push({name:data[i].name,value:data[i].value});
-				}
-				return opts;
-			}
-		});
 		//渲染 dataType 下拉字段
 		fox.renderSelectBox({
 			el: "dataType",

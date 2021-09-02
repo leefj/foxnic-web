@@ -11,7 +11,6 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.PCM_CATALOG_ATTRIBUTE;
 import org.github.foxnic.web.domain.pcm.CatalogAllocation;
 import org.github.foxnic.web.domain.pcm.DataType;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
-import org.github.foxnic.web.proxy.pcm.CatalogServiceProxy;
 
 public class PcmCatalogAttributeConfig extends BaseCodeConfig<PCM_CATALOG_ATTRIBUTE> {
 
@@ -50,7 +49,7 @@ public class PcmCatalogAttributeConfig extends BaseCodeConfig<PCM_CATALOG_ATTRIB
         view.field(PCM_CATALOG_ATTRIBUTE.VERSION_NO)
                 .basic().label("版本")
         .form().hidden()
-        .form().hidden().selectBox().queryApi(CatalogServiceProxy.VERSIONS).valueField("value").textField("name").muliti(false).filter(false).toolbar(false);
+        .form().hidden();
 
         view.field(PCM_CATALOG_ATTRIBUTE.SOURCE_ID).basic().hidden();
         view.field(PCM_CATALOG_ATTRIBUTE.FIELD).form().validate().required()

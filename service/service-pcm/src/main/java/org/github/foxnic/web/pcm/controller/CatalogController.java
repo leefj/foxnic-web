@@ -414,24 +414,14 @@ public class CatalogController extends SuperController {
 			SelectItem item=new SelectItem();
 			item.setValue(version);
 			if(ICatalogService.VERSION_EDITING.equals(version)) {
-				item.setName("编辑中");
+				item.setName("编辑版本");
 			} else if(ICatalogService.VERSION_ACTIVATED.equals(version)) {
-				item.setName("已生效");
+				item.setName("有效版本");
 			} else {
 				item.setName(version);
 			}
 			items.add(item);
 		}
-		SelectItem item=new SelectItem();
-		item.setValue("lee");
-		item.setName("李方捷");
-		items.add(item);
-
-		SelectItem item2=new SelectItem();
-		item2.setValue("lee99");
-		item2.setName("李方鬼");
-		items.add(item2);
-
 
 		result.data(items);
 		return result;
