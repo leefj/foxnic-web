@@ -125,7 +125,9 @@ public class CatalogAttributeServiceImpl extends SuperService<CatalogAttribute> 
 						.setCatalogId(catalogAttribute.getCatalogId())
 						.setAttributeId(catalogAttribute.getId());
 				allocation=allocationService.queryEntity(allocation);
-				allocationService.deleteByIdPhysical(allocation.getId());
+				if(allocation!=null) {
+					allocationService.deleteByIdPhysical(allocation.getId());
+				}
 
 			}
 
@@ -147,13 +149,21 @@ public class CatalogAttributeServiceImpl extends SuperService<CatalogAttribute> 
 	 */
 	@Transactional
 	public <T> Result deleteByIdsPhysical(List<T> ids) {
+		if(ids.isEmpty()) {
+			return ErrorDesc.failure().message("至少指定一个ID");
+		}
 		String idField=validateIds(ids);
 		In in=new In(idField,ids);
 		List<CatalogAttribute> attrs = this.queryList(in.toConditionExpr());
 		this.join(attrs,CatalogAllocation.class);
 
 		List<CatalogAllocation> allos= CollectorUtil.collectList(attrs,CatalogAttribute::getAllocation);
-		List<String> allosIds=CollectorUtil.collectList(allos,CatalogAllocation::getId);
+		List<String> allosIds=new ArrayList<>();
+		for (CatalogAllocation allo : allos) {
+			if(allo==null) continue;
+			allosIds.add(allo.getId());
+		}
+
 		catalogService.deleteByIdsPhysical(allosIds);
 
 		Integer i=dao().execute("delete from "+table()+" "+in.toConditionExpr().startWithWhere().getListParameterSQL(),in.getListParameters());

@@ -411,7 +411,7 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 	public Result createVersion(String catalogId) {
 		//获得激活版本
 		List<CatalogAttribute> activatedAttributes=catalogAttributeService.getAttributes(catalogId,ICatalogService.VERSION_ACTIVATED);
-		//catalogAttributeService.join(activatedAttributes, CatalogAllocation.class);
+		catalogAttributeService.join(activatedAttributes, CatalogAllocation.class);
 		//获得编辑版本
 		List<CatalogAttribute> editingAttributes=catalogAttributeService.getAttributes(catalogId,ICatalogService.VERSION_EDITING);
 		//如果激活版本缺少属性定义
@@ -448,10 +448,9 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 				allocation.setVersion(0);
 				allocations.add(allocation);
 			}
-			//
-			catalogAttributeService.insertList(editingAttributes);
-			allocationService.insertList(allocations);
 		}
+		catalogAttributeService.insertList(editingAttributes);
+		allocationService.insertList(allocations);
 		return ErrorDesc.success();
 	}
 

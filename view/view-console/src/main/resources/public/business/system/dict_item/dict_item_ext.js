@@ -50,7 +50,13 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * 数据提交前，如果返回 false，停止后续步骤的执行
          * */
         beforeSubmit:function (data) {
-           console.log("beforeSubmit",data);
+            debugger
+            console.log("beforeSubmit",data);
+            var dictIdValue=admin.getTempData("dictId");
+            var dictCodeValue=admin.getTempData("dictCode");
+            //设置默认值
+            data["dictId"]=dictIdValue;
+            data["dictCode"]=dictCodeValue;
             return true;
         }
 

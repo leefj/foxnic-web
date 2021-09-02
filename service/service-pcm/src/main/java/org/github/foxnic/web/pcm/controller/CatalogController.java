@@ -409,6 +409,10 @@ public class CatalogController extends SuperController {
 	public Result<List<SelectItem>> versions(CatalogVO sample) {
 		Result<List<SelectItem>> result=new Result<>();
 		List<String> versions=catalogService.getVersions(sample.getId());
+		//如果没有版本，默认为编辑版本
+		if(versions.isEmpty()){
+			versions.add(ICatalogService.VERSION_EDITING);
+		}
 		List<SelectItem> items=new ArrayList<>();
 		for (String version : versions) {
 			SelectItem item=new SelectItem();

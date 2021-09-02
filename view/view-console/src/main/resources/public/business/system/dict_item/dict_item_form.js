@@ -2,6 +2,7 @@
  * 数据字典条目 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
  * @since 2021-08-23 16:33:26
+ * @version
  */
 
 function FormPage() {
@@ -149,14 +150,15 @@ function FormPage() {
 
 
 
-
-			//校验表单
-			if(!fox.formVerify("data-form",data,VALIDATE_CONFIG)) return;
-
 			if(window.pageExt.form.beforeSubmit) {
 				var doNext=window.pageExt.form.beforeSubmit(data.field);
 				if(!doNext) return ;
 			}
+
+			//校验表单
+			if(!fox.formVerify("data-form",data.field,VALIDATE_CONFIG)) return;
+
+
 
 	    	var api=moduleURL+"/"+(data.field.id?"update":"insert");
 	        var task=setTimeout(function(){layer.load(2);},1000);

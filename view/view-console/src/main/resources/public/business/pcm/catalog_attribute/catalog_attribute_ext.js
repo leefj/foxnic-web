@@ -20,6 +20,8 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
 
     var catalogId="-1";
     var versionNo=null;
+    var verEl=null;
+    var versionMenu=null;
 
     //列表页的扩展
     var list={
@@ -27,10 +29,18 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * 列表页初始化前调用
          * */
         beforeInit:function () {
-
-            var verEl=$("#versionNo").parents(".search-unit");
+            verEl=$("#versionNo").parents(".search-unit");
             verEl.children().remove();
             verEl.append('<button class="layui-btn layui-btn-primary version-no"><span class="version-no-text">版本</span><i class="layui-icon layui-icon-down layui-font-12"></i></button>');
+            versionMenu=dropdown.render({
+                elem: '.version-no'
+                ,data: []
+                ,click: function(obj){
+                    $(".version-no-text").text(obj.title);
+                    versionNo=obj.id;
+                    window.module.refreshTableData();
+                }
+            });
         },
         /**
          * 搜索输入框初始化完毕后调用
@@ -44,14 +54,16 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
         templet:function (field,value,r) {
             if(field=="dataType") {
                 if(r.dataType=="STRING") {
-                    return value+"("+r.length+")";
+                    value=value+"("+r.length+")";
                 } else if(r.dataType=="INTEGER") {
-                    return value+"("+r.accuracy+")";
+                    value= value+"("+r.accuracy+")";
                 } else if(r.dataType=="DECIMAL") {
-                    return value+"("+r.accuracy+","+r.scale+")";
-                } else {
-                    return value;
+                    value= value+"("+r.accuracy+","+r.scale+")";
                 }
+            }
+            //debugger
+            if(r.valid==0) {
+                return "<span style='color:#AAA'>"+value+"</span>";
             } else {
                 return value;
             }
@@ -115,34 +127,35 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
         doCreateVersion:function () {
             admin.request("/service-pcm/pcm-catalog/create-version",{id:catalogId},function (r) {
                 if(!r.success) {
-                    layer.msg(r.message, {icon: 2, time: 3000});
+                    top.layer.msg(r.message, {icon: 2, time: 3000});
                     return;
                 }
-
+                list.loadAttributes(catalogId);
             });
         },
         applyVersion:function () {
             if(catalogId=="-1") {
-                layer.msg("请选择一个分类", {icon: 2, time: 1000});
+                top.layer.msg("请选择一个分类", {icon: 2, time: 1000});
                 return false;
             }
             if(versionNo==null || versionNo!="editing") {
-                layer.msg("请选择编辑中的版本", {icon: 2, time: 1000});
+                top.layer.msg("请选择编辑中的版本", {icon: 2, time: 1000});
                 return false;
             }
-            top.layer.confirm('确定要应用当前版本吗？', {
+            var index=top.layer.confirm('确定要应用当前版本吗？', {
                 btn: ['应用版本','取消'] //按钮
             }, function(){
+                top.layer.close(index);
                 list.doApplyVersion();
             }, function(){});
         },
         doApplyVersion:function () {
             admin.request("/service-pcm/pcm-catalog/apply-version",{id:catalogId},function (r) {
                 if(!r.success) {
-                    layer.msg(r.message, {icon: 2, time: 3000});
+                    top.layer.msg(r.message, {icon: 2, time: 3000});
                     return;
                 }
-
+                list.loadAttributes(catalogId);
             });
         },
         /**
@@ -170,6 +183,10 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             }
             return true;
         },
+        afterSingleDelete:function (data){
+            this.loadAttributes(catalogId);
+            return false;
+        },
         /**
          * 批量删除前调用，若返回false则不执行后续操作
          * */
@@ -177,62 +194,58 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             console.log('beforeBatchDelete',selected);
             return true;
         },
+        afterBatchDelete:function (selected) {
+            this.loadAttributes(catalogId);
+            return false;
+        },
         /**
          * 表格右侧操作列更多按钮事件
          * */
         moreAction:function (menu,data, it){
             console.log('moreAction',menu,data,it);
         },
+        loadAttributes:function (id) {
+            if(id!=catalogId) {
+                versionNo=null;
+            }
+            catalogId=id;
+            admin.putTempData("catalogId",catalogId,true);
+            admin.request("/service-pcm/pcm-catalog/versions",{id:catalogId},function (r){
+                var items=[];
+                var activated=null,editing=null;
+                for (var i = 0; i < r.data.length; i++) {
+                    items.push({title:r.data[i].name,id:r.data[i].value});
+                    if(r.data[i].value=="activated") {
+                        activated=r.data[i];
+                        //activated.disabled=true;
+                    }
+                    else if(r.data[i].value=="editing") {
+                        editing=r.data[i];
+                        //editing.disabled=true;
+                    }
+                }
+
+                if(!versionNo) {
+                    if (activated != null) {
+                        versionNo = activated.value;
+                        $(".version-no-text").text(activated.name);
+
+                    } else {
+                        if (editing != null) {
+                            versionNo = editing.value;
+                            $(".version-no-text").text(editing.name);
+                        }
+                    }
+                }
+                window.module.refreshTableData();
+                versionMenu.reload({data:items});
+            })
+        },
         /**
          * 末尾执行
          */
         ending:function() {
-            window.module.loadAttributes=function (id) {
-                catalogId=id;
-                admin.putTempData("catalogId",catalogId,true);
-                admin.request("/service-pcm/pcm-catalog/versions",{id:catalogId},function (r){
-                    var items=[];
-                    var activated=null,editing=null;
-                    for (var i = 0; i < r.data.length; i++) {
-                        items.push({title:r.data[i].name,id:r.data[i].value});
-                        if(r.data[i].value=="activated") {
-                            activated=r.data[i];
-                            //activated.disabled=true;
-                        }
-                        else if(r.data[i].value=="editing") {
-                            editing=r.data[i];
-                            //editing.disabled=true;
-                        }
-                    }
-
-                    if(activated!=null) {
-                        versionNo=activated.value;
-                        $(".version-no-text").text(activated.name);
-
-                    } else {
-                        if(editing!=null) {
-                            versionNo=editing.value;
-                            $(".version-no-text").text(editing.name);
-                        }
-                    }
-                    window.module.refreshTableData();
-
-                    dropdown.render({
-                        elem: '.version-no'
-                        ,data: items
-                        ,click: function(obj){
-                            debugger;
-                            $(".version-no-text").text(obj.title);
-                            versionNo=obj.id;
-                            window.module.refreshTableData();
-                        }
-                    });
-                })
-
-
-
-
-            }
+            window.module.loadAttributes=this.loadAttributes;
         }
     }
 

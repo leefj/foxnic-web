@@ -49,7 +49,7 @@ public class PcmCatalogAttributeConfig extends BaseCodeConfig<PCM_CATALOG_ATTRIB
         view.field(PCM_CATALOG_ATTRIBUTE.VERSION_NO)
                 .basic().label("版本")
         .form().hidden()
-        .form().hidden();
+        .table().hidden();
 
         view.field(PCM_CATALOG_ATTRIBUTE.SOURCE_ID).basic().hidden();
         view.field(PCM_CATALOG_ATTRIBUTE.FIELD).form().validate().required()
@@ -68,7 +68,8 @@ public class PcmCatalogAttributeConfig extends BaseCodeConfig<PCM_CATALOG_ATTRIB
 
         view.field(PCM_CATALOG_ATTRIBUTE.VALID)
                 .search().hidden()
-                .form().logicField().off("无效",0).on("有效",1);
+                .form().logicField().off("无效",0).on("有效",1)
+                .table().hidden();
     }
 
     @Override
