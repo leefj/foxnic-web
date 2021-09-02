@@ -5,6 +5,7 @@ import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.busi.id.IDGenerator;
 import com.github.foxnic.dao.data.PagedList;
+import com.github.foxnic.dao.data.RcdSet;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.dao.excel.ExcelStructure;
@@ -83,6 +84,7 @@ public class CatalogAttributeServiceImpl extends SuperService<CatalogAttribute> 
 	 * */
 	@Override
 	public Result insert(CatalogAttribute catalogAttribute) {
+		catalogAttribute.setVersionNo(ICatalogService.VERSION_EDITING);
 		Result r=super.insert(catalogAttribute);
 		return r;
 	}
@@ -266,6 +268,18 @@ public class CatalogAttributeServiceImpl extends SuperService<CatalogAttribute> 
 	@Override
 	public List<ValidateResult> importExcel(InputStream input,int sheetIndex,boolean batch) {
 		return super.importExcel(input,sheetIndex,batch);
+	}
+
+	@Override
+	public List<CatalogAttribute> getAttributes(String catalogId, String versionNo) {
+		return this.queryList(CatalogAttribute.create().setCatalogId(catalogId).setVersionNo(versionNo));
+	}
+
+	@Override
+	public List<String> getAllVersions(String catalogId) {
+		RcdSet rs=dao().query("select distinct version_no from "+table()+" where catalog_id=?",catalogId);
+		List<String> versions=rs.getValueList("version_no",String.class);
+		return versions;
 	}
 
 	@Override

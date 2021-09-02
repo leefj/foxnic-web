@@ -34,6 +34,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
         renderSelectBox: function (cfg,rerender) {
             var me=this;
             var inst = null;
+            var refreshCallback=cfg.refreshCallback;
             //不重复渲染
             if (!rerender && xmSelect.get(cfg.el, true) != null) return;
             if (!cfg.el.startWith("#")) cfg.el = "#" + cfg.el;
@@ -42,6 +43,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             } else {
                 cfg=this.selectBoxConfigs[cfg.el];
             }
+            cfg.refreshCallback=refreshCallback;
             var el = $(cfg.el);
             if (!cfg.searchTips) cfg.searchTips = "请输入关键字";
             if(cfg.radio && cfg.clickClose==null) {
@@ -75,24 +77,32 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     var url = el.attr("data");
                     // debugger;
                     admin.request(url, ps, function (r) {
+                        debugger
                         var opts = [];
                         me.getSelectBox(cfg.el)["currentData"]=null;
                         if (r.success) {
                             me.getSelectBox(cfg.el)["currentData"]=r.data.list;
                             if (cfg.paging) {
-                                opts = cfg.transform(r.data.list);
+                                opts = cfg.transform && cfg.transform(r.data.list);
                             } else {
-                                opts = cfg.transform(r.data);
+                                opts = cfg.transform && cfg.transform(r.data);
                             }
 
                         } else {
                             opts = [{name: r.message, value: "-1"}];
+                        }
+                        if(!opts) {
+                            opts=r.data;
                         }
                         // debugger
                         if (cfg.paging) {
                             cb(opts, r.data.pageCount);
                         } else {
                             cb(opts);
+                        }
+                        if(cfg.refreshCallback) {
+                            cfg.refreshCallback(opts,r.data);
+                            cfg.refreshCallback=null; //不再调用第二次
                         }
 
                         if (window.adjustPopup) {
@@ -103,14 +113,32 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 }
 
                 if (!cfg.filterable) {
-                    query({}, function (r) {
+                    var ps={};
+                    if (cfg.extraParam) {
+                        var ext = {};
+                        if (typeof (cfg.extraParam) == 'function') {
+                            ext = cfg.extraParam();
+                        } else {
+                            ext = cfg.extraParam;
+                        }
+                        for (var key in ext) {
+                            ps[key] = ext[key];
+                        }
+                    }
+
+                    query(ps, function (r) {
                         cfg.data = r;
+                        debugger
                         var sel = xmSelect.get(cfg.el, true);
-                        var val = sel.getValue();
+                        var val = null;
+                        if(sel) {
+                            val = sel.getValue();
+                        }
                         xmSelect.render(cfg);
-                        if (val) {
+                        if(val) {
                             sel.setValue(val);
                         }
+
                     })
                 }
 
@@ -174,18 +202,25 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 el.attr("data",url);
                 inst.refresh();
             }
-            inst.refresh=function (param) {
+            inst.refresh=function (param,cb) {
                 if(param) {
                     inst.setExtraParam(param);
                 }
                 fox.renderSelectBox({
-                    el:cfg.el
+                    el:cfg.el,refreshCallback:cb
                 },true);
             }
             inst.setExtraParam=function (param) {
                 cfg.extraParam = param;
             }
             return inst;
+        },
+        disableButton:function (el,disable) {
+            if(disable) {
+                el.addClass("layui-btn-disabled").attr("disabled",true);
+            } else {
+                el.removeClass("layui-btn-disabled").attr("disabled",false);
+            }
         },
         lockForm(fm,lock) {
             // debugger;

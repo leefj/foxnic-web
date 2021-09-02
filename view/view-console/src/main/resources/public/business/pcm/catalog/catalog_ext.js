@@ -1,7 +1,7 @@
 /**
  * 数据存储 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-01 21:44:28
+ * @since 2021-09-02 14:29:55
  */
 
 layui.config({
@@ -32,6 +32,18 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             console.log('beforeQuery',conditions);
         },
         /**
+         * 进一步转换 list 数据
+         * */
+        templet:function (field,value,r) {
+            if(field=="dataType") {
+                if(r.dataType=="STRING") {
+                    return value+"("+r.length+")";
+                }
+            } else {
+                return value;
+            }
+        },
+        /**
          * 在新建或编辑窗口打开前调用，若返回 false 则不继续执行后续操作
          * */
         beforeEdit:function (data) {
@@ -58,7 +70,10 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
         moreAction:function (menu,data, it){
             console.log('moreAction',menu,data,it);
         },
-        other:function(){
+        /**
+         * 末尾执行
+         */
+        ending:function() {
 
         }
     }
@@ -93,8 +108,10 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             console.log("beforeSubmit",data);
             return true;
         },
-
-        other:function(){
+        /**
+         * 末尾执行
+         */
+        ending:function() {
 
         }
     }

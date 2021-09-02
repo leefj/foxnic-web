@@ -32,10 +32,10 @@ import java.util.Date;
 
 /**
  * <p>
- * 属性分配表 服务实现
+ * 分类属性分配表 服务实现
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-01 21:44:30
+ * @since 2021-09-02 14:29:59
 */
 
 
@@ -83,7 +83,7 @@ public class CatalogAllocationServiceImpl extends SuperService<CatalogAllocation
 	
 	
 	/**
-	 * 按主键删除 属性分配
+	 * 按主键删除 分类属性分配
 	 *
 	 * @param id 主键
 	 * @return 删除是否成功
@@ -104,7 +104,7 @@ public class CatalogAllocationServiceImpl extends SuperService<CatalogAllocation
 	}
 	
 	/**
-	 * 按主键删除 属性分配
+	 * 按主键删除 分类属性分配
 	 *
 	 * @param id 主键
 	 * @return 删除是否成功
@@ -152,7 +152,7 @@ public class CatalogAllocationServiceImpl extends SuperService<CatalogAllocation
 	
 	
 	/**
-	 * 按主键更新字段 属性分配
+	 * 按主键更新字段 分类属性分配
 	 *
 	 * @param id 主键
 	 * @return 是否更新成功
@@ -166,7 +166,7 @@ public class CatalogAllocationServiceImpl extends SuperService<CatalogAllocation
 	
 	
 	/**
-	 * 按主键获取 属性分配
+	 * 按主键获取 分类属性分配
 	 *
 	 * @param id 主键
 	 * @return CatalogAllocation 数据对象

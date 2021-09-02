@@ -9,8 +9,8 @@ import org.github.foxnic.web.domain.pcm.CatalogAllocation;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-01 21:24:55
- * @sign A1F206EF6F9B3FC7DF3528C29D470E82
+ * @since 2021-09-02 09:59:46
+ * @sign 7928DAAA287FCF865E39A5585CC8EEEC
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -45,6 +45,16 @@ public class CatalogAttributeMeta {
 	 * 字段名 , 自定义的字段别名 , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogAttribute,java.lang.String> FIELD_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogAttribute.class ,FIELD, java.lang.String.class, "字段名", "自定义的字段别名", java.lang.String.class, null);
+	
+	/**
+	 * 配置版本号 , 类型: java.lang.String
+	*/
+	public static final String VERSION_NO="versionNo";
+	
+	/**
+	 * 配置版本号 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogAttribute,java.lang.String> VERSION_NO_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogAttribute.class ,VERSION_NO, java.lang.String.class, "配置版本号", "配置版本号", java.lang.String.class, null);
 	
 	/**
 	 * 数据类型 , 类型: java.lang.String
@@ -147,6 +157,16 @@ public class CatalogAttributeMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogAttribute,java.lang.Integer> VALID_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogAttribute.class ,VALID, java.lang.Integer.class, "是否有效", "是否有效", java.lang.Integer.class, null);
 	
 	/**
+	 * 原属性ID , 类型: java.lang.String
+	*/
+	public static final String SOURCE_ID="sourceId";
+	
+	/**
+	 * 原属性ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogAttribute,java.lang.String> SOURCE_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogAttribute.class ,SOURCE_ID, java.lang.String.class, "原属性ID", "原属性ID", java.lang.String.class, null);
+	
+	/**
 	 * 创建人ID , 类型: java.lang.String
 	*/
 	public static final String CREATE_BY="createBy";
@@ -239,7 +259,7 @@ public class CatalogAttributeMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , CATALOG_ID , FIELD , DATA_TYPE , LENGTH , ACCURACY , SCALE , SHORT_NAME , FULL_NAME , HINT , DETAIL , NOTE , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , ALLOCATION };
+	public static final String[] $PROPS={ ID , CATALOG_ID , FIELD , VERSION_NO , DATA_TYPE , LENGTH , ACCURACY , SCALE , SHORT_NAME , FULL_NAME , HINT , DETAIL , NOTE , VALID , SOURCE_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , ALLOCATION };
 	
 	/**
 	 * 代理类
@@ -279,6 +299,17 @@ public class CatalogAttributeMeta {
 		public CatalogAttribute setField(String field) {
 			super.change(FIELD,super.getField(),field);
 			super.setField(field);
+			return this;
+		}
+		
+		/**
+		 * 设置 配置版本号
+		 * @param versionNo 配置版本号
+		 * @return 当前对象
+		*/
+		public CatalogAttribute setVersionNo(String versionNo) {
+			super.change(VERSION_NO,super.getVersionNo(),versionNo);
+			super.setVersionNo(versionNo);
 			return this;
 		}
 		
@@ -389,6 +420,17 @@ public class CatalogAttributeMeta {
 		public CatalogAttribute setValid(Integer valid) {
 			super.change(VALID,super.getValid(),valid);
 			super.setValid(valid);
+			return this;
+		}
+		
+		/**
+		 * 设置 原属性ID
+		 * @param sourceId 原属性ID
+		 * @return 当前对象
+		*/
+		public CatalogAttribute setSourceId(String sourceId) {
+			super.change(SOURCE_ID,super.getSourceId(),sourceId);
+			super.setSourceId(sourceId);
 			return this;
 		}
 		

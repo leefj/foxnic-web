@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-01 21:24:55
- * @sign A1F206EF6F9B3FC7DF3528C29D470E82
+ * @since 2021-09-02 09:59:46
+ * @sign 7928DAAA287FCF865E39A5585CC8EEEC
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -46,6 +46,12 @@ public class CatalogAttribute extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="字段名" , notes = "自定义的字段别名")
 	private String field;
+	
+	/**
+	 * 配置版本号：配置版本号
+	*/
+	@ApiModelProperty(required = false,value="配置版本号" , notes = "配置版本号")
+	private String versionNo;
 	
 	/**
 	 * 数据类型：数据类型
@@ -106,6 +112,12 @@ public class CatalogAttribute extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="是否有效" , notes = "是否有效")
 	private Integer valid;
+	
+	/**
+	 * 原属性ID：原属性ID
+	*/
+	@ApiModelProperty(required = false,value="原属性ID" , notes = "原属性ID")
+	private String sourceId;
 	
 	/**
 	 * 创建人ID：创建人ID
@@ -215,6 +227,25 @@ public class CatalogAttribute extends Entity {
 	*/
 	public CatalogAttribute setField(String field) {
 		this.field=field;
+		return this;
+	}
+	
+	/**
+	 * 获得 配置版本号<br>
+	 * 配置版本号
+	 * @return 配置版本号
+	*/
+	public String getVersionNo() {
+		return versionNo;
+	}
+	
+	/**
+	 * 设置 配置版本号
+	 * @param versionNo 配置版本号
+	 * @return 当前对象
+	*/
+	public CatalogAttribute setVersionNo(String versionNo) {
+		this.versionNo=versionNo;
 		return this;
 	}
 	
@@ -405,6 +436,25 @@ public class CatalogAttribute extends Entity {
 	*/
 	public CatalogAttribute setValid(Integer valid) {
 		this.valid=valid;
+		return this;
+	}
+	
+	/**
+	 * 获得 原属性ID<br>
+	 * 原属性ID
+	 * @return 原属性ID
+	*/
+	public String getSourceId() {
+		return sourceId;
+	}
+	
+	/**
+	 * 设置 原属性ID
+	 * @param sourceId 原属性ID
+	 * @return 当前对象
+	*/
+	public CatalogAttribute setSourceId(String sourceId) {
+		this.sourceId=sourceId;
 		return this;
 	}
 	

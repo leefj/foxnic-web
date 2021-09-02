@@ -57,7 +57,12 @@ function ListPage() {
 			if(Object.keys(contitions).length>0) {
 				ps = {searchField: "$composite", searchValue: JSON.stringify(contitions)};
 			}
-
+			var templet=window.pageExt.list.templet;
+			if(templet==null) {
+				templet=function(field,value,row) {
+					return value;
+				}
+			}
 			var h=#if(searchDisabled)-28; #else $(".search-bar").height();#end
 			dataTable=fox.renderTable({
 				elem: '#data-table',
@@ -85,20 +90,20 @@ function ListPage() {
 					,{ field: '#(f.varName)', align:"#(f.alignInList)", fixed:#(f.fixInList), hide:#(f.isHideInList), sort: #(f.sortInList), title: fox.translate('#(f.labelInList)'), templet:function (d){ return fox.getDictText(RADIO_#(f.varName.toUpperCase())_DATA,d.#(f.varName));}}
 					#end
 					#if(f.radioField.enumTypeName!=null)
-					,{ field: '#(f.varName)', align:"#(f.alignInList)",fixed:#(f.fixInList),  hide:#(f.isHideInList), sort: #(f.sortInList), title: fox.translate('#(f.labelInList)'), templet:function (d){ return fox.getEnumText(RADIO_#(f.varName.toUpperCase())_DATA,d.#(f.varName));}}
+					,{ field: '#(f.varName)', align:"#(f.alignInList)",fixed:#(f.fixInList),  hide:#(f.isHideInList), sort: #(f.sortInList), title: fox.translate('#(f.labelInList)'), templet:function (d){ return templet('#(f.varName)',fox.getEnumText(RADIO_#(f.varName.toUpperCase())_DATA,d.#(f.varName)),d);}}
 					#end
 					#elseif(f.typeName.equals("check_box"))
 					#if(f.checkField.dictCode!=null)
 					,{ field: '#(f.varName)', align:"#(f.alignInList)",fixed:#(f.fixInList),  hide:#(f.isHideInList), sort: #(f.sortInList), title: fox.translate('#(f.labelInList)'), templet:function (d){ return fox.getDictText(CHECK_#(f.varName.toUpperCase())_DATA,d.#(f.varName));}}
 					#end
 					#if(f.checkField.enumTypeName!=null)
-					,{ field: '#(f.varName)', align:"#(f.alignInList)",fixed:#(f.fixInList),  hide:#(f.isHideInList), sort: #(f.sortInList), title: fox.translate('#(f.labelInList)'), templet:function (d){ return fox.getEnumText(CHECK_#(f.varName.toUpperCase())_DATA,d.#(f.varName));}}
+					,{ field: '#(f.varName)', align:"#(f.alignInList)",fixed:#(f.fixInList),  hide:#(f.isHideInList), sort: #(f.sortInList), title: fox.translate('#(f.labelInList)'), templet:function (d){ return templet('#(f.varName)',fox.getEnumText(CHECK_#(f.varName.toUpperCase())_DATA,d.#(f.varName)),d);}}
 					#end
 					#elseif(f.typeName.equals("logic_switch"))
 					,{ field: '#(f.varName)', align:"#(f.alignInList)",fixed:#(f.fixInList),  hide:#(f.isHideInList), sort: #(f.sortInList), title: fox.translate('#(f.labelInList)'), templet: '#cell-tpl-#(f.varName)'}
 					#elseif(f.typeName.equals("select_box"))
 					#if(f.selectField.enumTypeName!=null)
-					,{ field: '#(f.varName)', align:"#(f.alignInList)",fixed:#(f.fixInList),  hide:#(f.isHideInList), sort: #(f.sortInList), title: fox.translate('#(f.labelInList)'), templet:function (d){ return fox.getEnumText(SELECT_#(f.varName.toUpperCase())_DATA,d.#(f.varName));}}
+					,{ field: '#(f.varName)', align:"#(f.alignInList)",fixed:#(f.fixInList),  hide:#(f.isHideInList), sort: #(f.sortInList), title: fox.translate('#(f.labelInList)'), templet:function (d){ return templet('#(f.varName)',fox.getEnumText(SELECT_#(f.varName.toUpperCase())_DATA,d.#(f.varName)),d);}}
 					#end
 					#if(f.selectField.dictCode!=null)
 					,{ field: '#(f.varName)', align:"#(f.alignInList)",fixed:#(f.fixInList),  hide:#(f.isHideInList), sort: #(f.sortInList), title: fox.translate('#(f.labelInList)'), templet:function (d){ return fox.getDictText(SELECT_#(f.varName.toUpperCase())_DATA,d.#(f.varName));}}
@@ -118,6 +123,7 @@ function ListPage() {
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: #(operateColumnWidth) }
 					#end
 				]],
+				done: function () { window.pageExt.list.afterQuery && window.pageExt.list.afterQuery(); },
 				footer : {
 					exportExcel : admin.checkAuth(AUTH_PREFIX+":export"),
 					importExcel : admin.checkAuth(AUTH_PREFIX+":import")?{
@@ -401,6 +407,7 @@ function ListPage() {
 	#end
 	#end
 		fox.renderSearchInputs();
+		window.pageExt.list.afterSearchInputReady && window.pageExt.list.afterSearchInputReady();
 	}
 	
 	/**
@@ -476,7 +483,12 @@ function ListPage() {
 		#if(isSimplePK)
         //批量删除按钮点击事件
         function batchDelete(selected) {
-          
+
+        	if(window.pageExt.list.beforeBatchDelete) {
+				var doNext=window.pageExt.list.beforeBatchDelete(selected);
+				if(!doNext) return;
+			}
+
 			var ids=getCheckedList("#(idPropertyName)");
             if(ids.length==0) {
             	layer.msg(fox.translate('请选择需要删除的')+fox.translate('#(topic)')+"!");
@@ -485,10 +497,6 @@ function ListPage() {
             //调用批量删除接口
 			layer.confirm(fox.translate('确定删除已选中的')+fox.translate('#(topic)')+fox.translate('吗？'), function (i) {
 				layer.close(i);
-				if(window.pageExt.list.beforeBatchDelete) {
-					var doNext=window.pageExt.list.beforeBatchDelete(selected);
-					if(!doNext) return;
-				}
 				layer.load(2);
                 admin.request(moduleURL+"/delete-by-ids", { #(idsPropertyName): ids }, function (data) {
                     layer.closeAll('loading');
@@ -542,14 +550,14 @@ function ListPage() {
 				});
 			}
 			else if (layEvent === 'del') { // 删除
-			
+
+				if(window.pageExt.list.beforeSingleDelete) {
+					var doNext=window.pageExt.list.beforeSingleDelete(data);
+					if(!doNext) return;
+				}
+
 				layer.confirm(fox.translate('确定删除此')+fox.translate('#(topic)')+fox.translate('吗？'), function (i) {
 					layer.close(i);
-
-					if(window.pageExt.list.beforeSingleDelete) {
-						var doNext=window.pageExt.list.beforeSingleDelete(data);
-						if(!doNext) return;
-					}
 
 					layer.load(2);
 					admin.request(moduleURL+"/delete", { #(paramJson) }, function (data) {
@@ -631,6 +639,8 @@ function ListPage() {
 		refreshTableData: refreshTableData,
 		getCheckedList: getCheckedList
 	};
+
+	window.pageExt.list.ending && window.pageExt.list.ending();
 
 };
 

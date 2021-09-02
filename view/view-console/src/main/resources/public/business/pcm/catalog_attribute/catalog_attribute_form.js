@@ -1,7 +1,7 @@
 /**
- * 数据存储分配 列表页 JS 脚本
+ * 分类属性 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-01 21:44:30
+ * @since 2021-09-02 16:31:43
  */
 
 function FormPage() {
@@ -77,6 +77,39 @@ function FormPage() {
 	function renderFormFields() {
 		fox.renderFormInputs(form);
 
+		//渲染 versionNo 下拉字段
+		fox.renderSelectBox({
+			el: "versionNo",
+			radio: true,
+			filterable: false,
+			//转换数据
+			transform: function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				var opts=[];
+				if(!data) return opts;
+				for (var i = 0; i < data.length; i++) {
+					if(!data[i]) continue;
+					opts.push({name:data[i].name,value:data[i].value});
+				}
+				return opts;
+			}
+		});
+		//渲染 dataType 下拉字段
+		fox.renderSelectBox({
+			el: "dataType",
+			radio: true,
+			filterable: false,
+			//转换数据
+			transform:function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				var opts=[];
+				if(!data) return opts;
+				for (var i = 0; i < data.length; i++) {
+					opts.push({name:data[i].text,value:data[i].code});
+				}
+				return opts;
+			}
+		});
 	}
 
 	/**
@@ -100,6 +133,8 @@ function FormPage() {
 
 
 
+			//设置  数据类型 设置下拉框勾选
+			fox.setSelectValue4Enum("#dataType",formData.dataType,SELECT_DATATYPE_DATA);
 
 			//处理fillBy
 
@@ -148,6 +183,8 @@ function FormPage() {
 		if(!data.valid) data.valid=0;
 
 
+		//获取 数据类型 下拉框的值
+		data["dataType"]=fox.getSelectedValue("dataType",false);
 
 		return data;
 	}
@@ -201,8 +238,11 @@ function FormPage() {
     window.module={
 		getFormData: getFormData,
 		verifyForm: verifyForm,
-		saveForm: saveForm
+		saveForm: saveForm,
+		adjustPopup: adjustPopup
 	};
+
+	window.pageExt.form.ending && window.pageExt.form.ending();
 
 }
 

@@ -71,7 +71,7 @@ function ListPage() {
     	if(treeNode==null) return;
     	editingNode=treeNode;
     	$("#basic-info-ifr")[0].contentWindow.module.loadFormData(treeNode.id);
-		$("#basic-info-ifr")[0].contentWindow.module.loadFormData(treeNode.id);
+		$("#attribute-list-ifr")[0].contentWindow.module.loadAttributes(treeNode.id);
     }
     
      

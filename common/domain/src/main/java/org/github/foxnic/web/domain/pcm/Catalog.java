@@ -18,8 +18,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-01 21:44:27
- * @sign DAA5288A047FCB33D0D37BBFC93CF49A
+ * @since 2021-09-02 14:29:55
+ * @sign 790DC80BCE8A18D7D6D7B5751CBDF2F1
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -72,12 +72,6 @@ public class Catalog extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="存储表" , notes = "存储表")
 	private String dataTable;
-	
-	/**
-	 * 是否分配：或分配是否有效
-	*/
-	@ApiModelProperty(required = false,value="是否分配" , notes = "或分配是否有效")
-	private Integer allotted;
 	
 	/**
 	 * 租户ID：租户ID
@@ -269,25 +263,6 @@ public class Catalog extends Entity {
 	*/
 	public Catalog setDataTable(String dataTable) {
 		this.dataTable=dataTable;
-		return this;
-	}
-	
-	/**
-	 * 获得 是否分配<br>
-	 * 或分配是否有效
-	 * @return 是否分配
-	*/
-	public Integer getAllotted() {
-		return allotted;
-	}
-	
-	/**
-	 * 设置 是否分配
-	 * @param allotted 是否分配
-	 * @return 当前对象
-	*/
-	public Catalog setAllotted(Integer allotted) {
-		this.allotted=allotted;
 		return this;
 	}
 	

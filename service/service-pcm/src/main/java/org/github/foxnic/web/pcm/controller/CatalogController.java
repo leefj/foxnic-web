@@ -25,6 +25,7 @@ import org.github.foxnic.web.domain.pcm.CatalogVO;
 import org.github.foxnic.web.domain.pcm.meta.CatalogVOMeta;
 import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
 import org.github.foxnic.web.framework.web.SuperController;
+import org.github.foxnic.web.misc.xmselect.SelectItem;
 import org.github.foxnic.web.misc.ztree.ZTreeNode;
 import org.github.foxnic.web.pcm.service.ICatalogService;
 import org.github.foxnic.web.proxy.pcm.CatalogServiceProxy;
@@ -37,6 +38,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -395,6 +397,67 @@ public class CatalogController extends SuperController {
 		List<String> tables=catalogService.getStorageTables();
 		result.data(tables);
 		return result;
+	}
+
+	/**
+	 * 查询分类下的版本
+	 */
+	@ApiOperation(value = "查询分类下的版本")
+	@ApiOperationSupport(order=2)
+	@SentinelResource(value = CatalogServiceProxy.VERSIONS)
+	@PostMapping(CatalogServiceProxy.VERSIONS)
+	public Result<List<SelectItem>> versions(CatalogVO sample) {
+		Result<List<SelectItem>> result=new Result<>();
+		List<String> versions=catalogService.getVersions(sample.getId());
+		List<SelectItem> items=new ArrayList<>();
+		for (String version : versions) {
+			SelectItem item=new SelectItem();
+			item.setValue(version);
+			if(ICatalogService.VERSION_EDITING.equals(version)) {
+				item.setName("编辑中");
+			} else if(ICatalogService.VERSION_ACTIVATED.equals(version)) {
+				item.setName("已生效");
+			} else {
+				item.setName(version);
+			}
+			items.add(item);
+		}
+		SelectItem item=new SelectItem();
+		item.setValue("lee");
+		item.setName("李方捷");
+		items.add(item);
+
+		SelectItem item2=new SelectItem();
+		item2.setValue("lee99");
+		item2.setName("李方鬼");
+		items.add(item2);
+
+
+		result.data(items);
+		return result;
+	}
+
+
+	/**
+	 * 创建一个编辑的版本
+	 */
+	@ApiOperation(value = "创建一个编辑的版本")
+	@ApiOperationSupport(order=2)
+	@SentinelResource(value = CatalogServiceProxy.CREATE_VERSION)
+	@PostMapping(CatalogServiceProxy.CREATE_VERSION)
+	public Result createVersion(CatalogVO sample) {
+		return catalogService.createVersion(sample.getId());
+	}
+
+	/**
+	 * 生效一个编辑中的版本
+	 */
+	@ApiOperation(value = "生效一个编辑中的版本")
+	@ApiOperationSupport(order=2)
+	@SentinelResource(value = CatalogServiceProxy.APPLY_VERSION)
+	@PostMapping(CatalogServiceProxy.APPLY_VERSION)
+	public Result applyVersion(CatalogVO sample) {
+		return catalogService.applyVersion(sample.getId());
 	}
 
 

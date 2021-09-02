@@ -2,12 +2,16 @@ package org.github.foxnic.web.generator.module.pcm;
 
 import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
+import com.github.foxnic.generator.builder.view.option.FormOptions;
+import com.github.foxnic.generator.builder.view.option.ListOptions;
 import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.PCM_CATALOG_ATTRIBUTE;
 import org.github.foxnic.web.domain.pcm.CatalogAllocation;
+import org.github.foxnic.web.domain.pcm.DataType;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
+import org.github.foxnic.web.proxy.pcm.CatalogServiceProxy;
 
 public class PcmCatalogAttributeConfig extends BaseCodeConfig<PCM_CATALOG_ATTRIBUTE> {
 
@@ -22,24 +26,61 @@ public class PcmCatalogAttributeConfig extends BaseCodeConfig<PCM_CATALOG_ATTRIB
 
     @Override
     public void configSearch(ViewOptions view, SearchAreaOptions search) {
-        search.inputLayout(new Object[]{PCM_CATALOG_ATTRIBUTE.SHORT_NAME,PCM_CATALOG_ATTRIBUTE.FULL_NAME,PCM_CATALOG_ATTRIBUTE.DATA_TYPE,PCM_CATALOG_ATTRIBUTE.FIELD});
+        search.inputLayout(new Object[]{PCM_CATALOG_ATTRIBUTE.VERSION_NO,PCM_CATALOG_ATTRIBUTE.SHORT_NAME,PCM_CATALOG_ATTRIBUTE.FULL_NAME,PCM_CATALOG_ATTRIBUTE.FIELD,PCM_CATALOG_ATTRIBUTE.DATA_TYPE});
+    }
+
+    @Override
+    public void configList(ViewOptions view, ListOptions list) {
+        list.addToolButton("创建版本","createVersion","create-version-button");
+        list.addToolButton("应用版本","applyVersion","apply-version-button");
     }
 
     @Override
     public void configFields(ViewOptions view) {
         view.field(PCM_CATALOG_ATTRIBUTE.ID).basic().hidden();
+
+        view.field(PCM_CATALOG_ATTRIBUTE.FULL_NAME).form().validate().required()
+        .search().inputWidth(100);
+        view.field(PCM_CATALOG_ATTRIBUTE.SHORT_NAME).form().validate().required()
+        .search().inputWidth(100);
+
+
         view.field(PCM_CATALOG_ATTRIBUTE.CATALOG_ID).basic().hidden();
-        view.field(PCM_CATALOG_ATTRIBUTE.FIELD).basic().hidden();
+
+        view.field(PCM_CATALOG_ATTRIBUTE.VERSION_NO)
+                .basic().label("版本")
+        .form().hidden()
+        .form().hidden().selectBox().queryApi(CatalogServiceProxy.VERSIONS).valueField("value").textField("name").muliti(false).filter(false).toolbar(false);
+
+        view.field(PCM_CATALOG_ATTRIBUTE.SOURCE_ID).basic().hidden();
+        view.field(PCM_CATALOG_ATTRIBUTE.FIELD).form().validate().required()
+        .search().inputWidth(100);
         view.field(PCM_CATALOG_ATTRIBUTE.LENGTH).search().hidden().table().hidden();
         view.field(PCM_CATALOG_ATTRIBUTE.ACCURACY).search().hidden().table().hidden();
         view.field(PCM_CATALOG_ATTRIBUTE.SCALE).search().hidden().table().hidden();
         view.field(PCM_CATALOG_ATTRIBUTE.HINT).search().hidden();
-        view.field(PCM_CATALOG_ATTRIBUTE.NOTE).search().hidden().table().hidden();
-        view.field(PCM_CATALOG_ATTRIBUTE.DETAIL).search().hidden().table().hidden();
+
+        view.field(PCM_CATALOG_ATTRIBUTE.NOTE).search().hidden().table().hidden().form().textArea().height(100);
+        view.field(PCM_CATALOG_ATTRIBUTE.DETAIL).search().hidden().table().hidden().form().label("属性说明").textArea().height(100);
+
+        view.field(PCM_CATALOG_ATTRIBUTE.DATA_TYPE)
+                .form().validate().required()
+                .form().selectBox().enumType(DataType.class).muliti(false).filter(false).toolbar(false);
 
         view.field(PCM_CATALOG_ATTRIBUTE.VALID)
                 .search().hidden()
                 .form().logicField().off("无效",0).on("有效",1);
+    }
+
+    @Override
+    public void configForm(ViewOptions view, FormOptions form) {
+        form.labelWidth(100);
+        form.columnLayout(new Object[]{
+                PCM_CATALOG_ATTRIBUTE.FULL_NAME,PCM_CATALOG_ATTRIBUTE.SHORT_NAME,
+                PCM_CATALOG_ATTRIBUTE.FIELD, PCM_CATALOG_ATTRIBUTE.VALID,
+                PCM_CATALOG_ATTRIBUTE.DATA_TYPE,PCM_CATALOG_ATTRIBUTE.LENGTH,PCM_CATALOG_ATTRIBUTE.ACCURACY,PCM_CATALOG_ATTRIBUTE.SCALE,
+                PCM_CATALOG_ATTRIBUTE.HINT,PCM_CATALOG_ATTRIBUTE.DETAIL,PCM_CATALOG_ATTRIBUTE.NOTE
+        });
     }
 
     @Override

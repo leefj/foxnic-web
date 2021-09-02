@@ -1,7 +1,7 @@
 /**
  * 数据存储 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-01 21:44:29
+ * @since 2021-09-02 14:29:57
  */
 
 
@@ -52,7 +52,12 @@ function ListPage() {
 			if(Object.keys(contitions).length>0) {
 				ps = {searchField: "$composite", searchValue: JSON.stringify(contitions)};
 			}
-
+			var templet=window.pageExt.list.templet;
+			if(templet==null) {
+				templet=function(field,value,row) {
+					return value;
+				}
+			}
 			var h=$(".search-bar").height();
 			dataTable=fox.renderTable({
 				elem: '#data-table',
@@ -72,7 +77,6 @@ function ListPage() {
 					,{ field: 'valid', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('是否有效') }
 					,{ field: 'hierarchy', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('层级路径') }
 					,{ field: 'dataTable', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('存储表') }
-					,{ field: 'allotted', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('是否分配') }
 					,{ field: 'tenantId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('租户ID') }
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return fox.dateFormat(d.createTime); }}
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
@@ -112,7 +116,6 @@ function ListPage() {
 		value.valid={ value: $("#valid").val()};
 		value.hierarchy={ value: $("#hierarchy").val()};
 		value.dataTable={ value: $("#dataTable").val()};
-		value.allotted={ value: $("#allotted").val()};
 		value.tenantId={ value: $("#tenantId").val()};
 		window.pageExt.list.beforeQuery && window.pageExt.list.beforeQuery(value);
 		var ps={searchField: "$composite", searchValue: JSON.stringify(value)};
@@ -339,6 +342,8 @@ function ListPage() {
 		refreshTableData: refreshTableData,
 		getCheckedList: getCheckedList
 	};
+
+	window.pageExt.list.ending && window.pageExt.list.ending();
 
 };
 

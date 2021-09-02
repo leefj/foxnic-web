@@ -103,6 +103,21 @@ public interface CatalogServiceProxy {
 	 * 查询数据表
 	 */
 	public static final String STORAGE_TABLES = API_PREFIX + "storage-tables";
+
+	/**
+	 * 查询版本
+	 */
+	public static final String VERSIONS = API_PREFIX + "versions";
+
+	/**
+	 * 创建一个编辑版本
+	 */
+	public static final String CREATE_VERSION = API_PREFIX + "create-version";
+
+	/**
+	 * 生效一个编辑中的版本
+	 */
+	public static final String APPLY_VERSION = API_PREFIX + "apply-version";
 	
 	/**
 	 * 分页查询数据存储

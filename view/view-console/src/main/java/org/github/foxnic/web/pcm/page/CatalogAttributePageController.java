@@ -10,10 +10,10 @@ import org.github.foxnic.web.proxy.pcm.CatalogAttributeServiceProxy;
 import javax.servlet.http.HttpServletRequest;
 /**
  * <p>
- * 数据存储分配表 模版页面控制器
+ * 分类属性表 模版页面控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-01 21:44:29
+ * @since 2021-09-02 16:31:41
 */
 
 @Controller("PcmCatalogAttributePageController")
@@ -38,7 +38,7 @@ public class CatalogAttributePageController extends ViewController {
 	}
 	
 	/**
-	 * 数据存储分配 功能主页面
+	 * 分类属性 功能主页面
 	 */
 	@RequestMapping("/catalog_attribute_list.html")
 	public String list(Model model,HttpServletRequest request) {
@@ -46,7 +46,7 @@ public class CatalogAttributePageController extends ViewController {
 	}
 
 	/**
-	 * 数据存储分配 表单页面
+	 * 分类属性 表单页面
 	 */
 	@RequestMapping("/catalog_attribute_form.html")
 	public String form(Model model,HttpServletRequest request , String id) {

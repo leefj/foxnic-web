@@ -8,8 +8,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-01 21:44:30
- * @sign 35A00AC6CAB108A1448FD61C289F7B8F
+ * @since 2021-09-02 09:09:13
+ * @sign 048D1F47FC25320BCB6CE04CBE447486
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -24,6 +24,16 @@ public class CatalogAllocationMeta {
 	 * 主键 , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogAllocation,java.lang.String> ID_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogAllocation.class ,ID, java.lang.String.class, "主键", "主键", java.lang.String.class, null);
+	
+	/**
+	 * 配置版本号 , 类型: java.lang.String
+	*/
+	public static final String VERSION_NO="versionNo";
+	
+	/**
+	 * 配置版本号 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogAllocation,java.lang.String> VERSION_NO_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogAllocation.class ,VERSION_NO, java.lang.String.class, "配置版本号", "配置版本号", java.lang.String.class, null);
 	
 	/**
 	 * 分类ID , 类型: java.lang.String
@@ -54,16 +64,6 @@ public class CatalogAllocationMeta {
 	 * 字段名 , 数据库字段名 , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogAllocation,java.lang.String> COLUMN_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogAllocation.class ,COLUMN, java.lang.String.class, "字段名", "数据库字段名", java.lang.String.class, null);
-	
-	/**
-	 * 是否分配 , 或分配是否有效 , 类型: java.lang.Integer
-	*/
-	public static final String ALLOTTED="allotted";
-	
-	/**
-	 * 是否分配 , 或分配是否有效 , 类型: java.lang.Integer
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogAllocation,java.lang.Integer> ALLOTTED_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogAllocation.class ,ALLOTTED, java.lang.Integer.class, "是否分配", "或分配是否有效", java.lang.Integer.class, null);
 	
 	/**
 	 * 创建人ID , 类型: java.lang.String
@@ -148,7 +148,7 @@ public class CatalogAllocationMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , CATALOG_ID , ATTRIBUTE_ID , COLUMN , ALLOTTED , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , VERSION_NO , CATALOG_ID , ATTRIBUTE_ID , COLUMN , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
 	
 	/**
 	 * 代理类
@@ -166,6 +166,17 @@ public class CatalogAllocationMeta {
 		public CatalogAllocation setId(String id) {
 			super.change(ID,super.getId(),id);
 			super.setId(id);
+			return this;
+		}
+		
+		/**
+		 * 设置 配置版本号
+		 * @param versionNo 配置版本号
+		 * @return 当前对象
+		*/
+		public CatalogAllocation setVersionNo(String versionNo) {
+			super.change(VERSION_NO,super.getVersionNo(),versionNo);
+			super.setVersionNo(versionNo);
 			return this;
 		}
 		
@@ -199,17 +210,6 @@ public class CatalogAllocationMeta {
 		public CatalogAllocation setColumn(String column) {
 			super.change(COLUMN,super.getColumn(),column);
 			super.setColumn(column);
-			return this;
-		}
-		
-		/**
-		 * 设置 是否分配
-		 * @param allotted 是否分配
-		 * @return 当前对象
-		*/
-		public CatalogAllocation setAllotted(Integer allotted) {
-			super.change(ALLOTTED,super.getAllotted(),allotted);
-			super.setAllotted(allotted);
 			return this;
 		}
 		

@@ -2,7 +2,7 @@
 /**
  * 数据存储 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-01 21:44:29
+ * @since 2021-09-02 14:29:57
  */
  -->
  <!DOCTYPE html>
@@ -68,11 +68,6 @@
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('存储表')}" class="search-label dataTable-label">存储表</span><span class="search-colon">:</span></div>
                         <input id="dataTable" class="layui-input search-input" style="width: 140px" type="text" />
-                    </div>
-                    <!-- 是否分配 , allotted ,typeName=number_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('是否分配')}" class="search-label allotted-label">是否分配</span><span class="search-colon">:</span></div>
-                            <input id="allotted" class="layui-input search-input" style="width: 140px" type="text" autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0" min-value="" max-value="" scale="0"/>
                     </div>
                     <!-- 租户ID , tenantId ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">

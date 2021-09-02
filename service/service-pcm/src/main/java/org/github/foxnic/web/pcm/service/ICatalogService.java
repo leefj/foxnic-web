@@ -29,6 +29,16 @@ import java.util.List;
 public interface ICatalogService extends ISuperService<Catalog> {
 
 	public static final String ROOT_ID="0";
+
+	/**
+	 * 编辑中的版本
+	 * */
+	public static final String VERSION_EDITING="editing";
+
+	/**
+	 * 激活状态的版本
+	 * */
+	public static final String VERSION_ACTIVATED="activated";
 	/**
 	 * 插入实体
 	 * @param catalog 实体数据
@@ -319,4 +329,13 @@ public interface ICatalogService extends ISuperService<Catalog> {
 	List<String> search(String keyword);
 
 	List<String> getStorageTables();
+
+	/**
+	 * 获得所有版本
+	 * */
+    List<String> getVersions(String id);
+
+	Result createVersion(String id);
+
+	Result applyVersion(String id);
 }

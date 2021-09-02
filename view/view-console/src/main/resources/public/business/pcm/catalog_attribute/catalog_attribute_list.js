@@ -1,7 +1,7 @@
 /**
- * 数据存储分配 列表页 JS 脚本
+ * 分类属性 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-01 21:44:29
+ * @since 2021-09-02 16:31:42
  */
 
 
@@ -52,7 +52,12 @@ function ListPage() {
 			if(Object.keys(contitions).length>0) {
 				ps = {searchField: "$composite", searchValue: JSON.stringify(contitions)};
 			}
-
+			var templet=window.pageExt.list.templet;
+			if(templet==null) {
+				templet=function(field,value,row) {
+					return value;
+				}
+			}
 			var h=$(".search-bar").height();
 			dataTable=fox.renderTable({
 				elem: '#data-table',
@@ -67,8 +72,9 @@ function ListPage() {
 					{ fixed: 'left',type:'checkbox' }
 					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('主键') }
 					,{ field: 'catalogId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('存储ID') }
-					,{ field: 'field', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('字段名') }
-					,{ field: 'dataType', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('数据类型') }
+					,{ field: 'field', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('字段名') }
+					,{ field: 'versionNo', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('版本'), templet: function (d) { return fox.joinLabel(null ,"name");}}
+					,{ field: 'dataType', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('数据类型'), templet:function (d){ return templet('dataType',fox.getEnumText(SELECT_DATATYPE_DATA,d.dataType),d);}}
 					,{ field: 'length', align:"right",fixed:false,  hide:true, sort: true, title: fox.translate('数据长度') }
 					,{ field: 'accuracy', align:"right",fixed:false,  hide:true, sort: true, title: fox.translate('数据精度') }
 					,{ field: 'scale', align:"right",fixed:false,  hide:true, sort: true, title: fox.translate('小数位数') }
@@ -78,10 +84,12 @@ function ListPage() {
 					,{ field: 'detail', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('说明') }
 					,{ field: 'note', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('备注') }
 					,{ field: 'valid', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('是否有效'), templet: '#cell-tpl-valid'}
+					,{ field: 'sourceId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('原属性ID') }
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return fox.dateFormat(d.createTime); }}
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
 				]],
+				done: function () { window.pageExt.list.afterQuery && window.pageExt.list.afterQuery(); },
 				footer : {
 					exportExcel : admin.checkAuth(AUTH_PREFIX+":export"),
 					importExcel : admin.checkAuth(AUTH_PREFIX+":import")?{
@@ -96,6 +104,10 @@ function ListPage() {
 					}:false
 				}
 			});
+			//绑定 Switch 切换事件
+			fox.bindSwitchEvent("cell-tpl-valid",moduleURL +'/update','id','valid',function(data,ctx){
+				window.pageExt.list.afterSwitched && window.pageExt.list.afterSwitched("valid",data,ctx);
+			});
 			//绑定排序事件
 			table.on('sort(data-table)', function(obj){
 			  refreshTableData(obj.field,obj.type);
@@ -109,7 +121,9 @@ function ListPage() {
       */
 	function refreshTableData(sortField,sortType) {
 		var value = {};
-		value.dataType={ value: $("#dataType").val()};
+		value.field={ value: $("#field").val()};
+		value.versionNo={ value: xmSelect.get("#versionNo",true).getValue("value"), fillBy:"",field:"value", label:xmSelect.get("#versionNo",true).getValue("nameStr") };
+		value.dataType={ value: xmSelect.get("#dataType",true).getValue("value"), label:xmSelect.get("#dataType",true).getValue("nameStr")};
 		value.shortName={ value: $("#shortName").val()};
 		value.fullName={ value: $("#fullName").val()};
 		window.pageExt.list.beforeQuery && window.pageExt.list.beforeQuery(value);
@@ -146,7 +160,46 @@ function ListPage() {
 
 		fox.switchSearchRow(1);
 
+		//渲染 versionNo 下拉字段
+		fox.renderSelectBox({
+			el: "versionNo",
+			radio: true,
+			clickClose:true,
+			size: "small",
+			filterable: false,
+			data:[{"name":"已生效","value":"activated"},{"name":"编辑中","value":"editing"},{"name":"李方捷","value":"lee"}],
+			//转换数据
+			transformx: function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				debugger;
+				var opts=[];
+				if(!data) return opts;
+				for (var i = 0; i < data.length; i++) {
+					if(!data[i]) continue;
+					opts.push({name:data[i].name,value:data[i].value});
+				}
+				return opts;
+			}
+		});
+		//渲染 dataType 下拉字段
+		fox.renderSelectBox({
+			el: "dataType",
+			radio: false,
+			size: "small",
+			filterable: false,
+			//转换数据
+			transform:function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				var opts=[];
+				if(!data) return opts;
+				for (var i = 0; i < data.length; i++) {
+					opts.push({name:data[i].text,value:data[i].code});
+				}
+				return opts;
+			}
+		});
 		fox.renderSearchInputs();
+		window.pageExt.list.afterSearchInputReady && window.pageExt.list.afterSearchInputReady();
 	}
 	
 	/**
@@ -192,6 +245,12 @@ function ListPage() {
 				case 'batch-del':
 					batchDelete(selected);
 					break;
+				case 'tool-create-version':
+					window.pageExt.list.createVersion && window.pageExt.list.createVersion(selected,obj);
+					break;
+				case 'tool-apply-version':
+					window.pageExt.list.applyVersion && window.pageExt.list.applyVersion(selected,obj);
+					break;
 				case 'refresh-data':
 					refreshTableData();
 					break;
@@ -211,19 +270,20 @@ function ListPage() {
 		
         //批量删除按钮点击事件
         function batchDelete(selected) {
-          
+
+        	if(window.pageExt.list.beforeBatchDelete) {
+				var doNext=window.pageExt.list.beforeBatchDelete(selected);
+				if(!doNext) return;
+			}
+
 			var ids=getCheckedList("id");
             if(ids.length==0) {
-            	layer.msg(fox.translate('请选择需要删除的')+fox.translate('数据存储分配')+"!");
+            	layer.msg(fox.translate('请选择需要删除的')+fox.translate('分类属性')+"!");
             	return;
             }
             //调用批量删除接口
-			layer.confirm(fox.translate('确定删除已选中的')+fox.translate('数据存储分配')+fox.translate('吗？'), function (i) {
+			layer.confirm(fox.translate('确定删除已选中的')+fox.translate('分类属性')+fox.translate('吗？'), function (i) {
 				layer.close(i);
-				if(window.pageExt.list.beforeBatchDelete) {
-					var doNext=window.pageExt.list.beforeBatchDelete(selected);
-					if(!doNext) return;
-				}
 				layer.load(2);
                 admin.request(moduleURL+"/delete-by-ids", { ids: ids }, function (data) {
                     layer.closeAll('loading');
@@ -276,14 +336,14 @@ function ListPage() {
 				});
 			}
 			else if (layEvent === 'del') { // 删除
-			
-				layer.confirm(fox.translate('确定删除此')+fox.translate('数据存储分配')+fox.translate('吗？'), function (i) {
-					layer.close(i);
 
-					if(window.pageExt.list.beforeSingleDelete) {
-						var doNext=window.pageExt.list.beforeSingleDelete(data);
-						if(!doNext) return;
-					}
+				if(window.pageExt.list.beforeSingleDelete) {
+					var doNext=window.pageExt.list.beforeSingleDelete(data);
+					if(!doNext) return;
+				}
+
+				layer.confirm(fox.translate('确定删除此')+fox.translate('分类属性')+fox.translate('吗？'), function (i) {
+					layer.close(i);
 
 					layer.load(2);
 					admin.request(moduleURL+"/delete", { id : data.id }, function (data) {
@@ -317,7 +377,7 @@ function ListPage() {
 		var area=admin.getTempData('pcm-catalog-attribute-form-area');
 		var height= (area && area.height) ? area.height : ($(window).height()*0.6);
 		var top= (area && area.top) ? area.top : (($(window).height()-height)/2);
-		var title = (data && data.id) ? (fox.translate('修改')+fox.translate('数据存储分配')) : (fox.translate('添加')+fox.translate('数据存储分配'));
+		var title = (data && data.id) ? (fox.translate('修改')+fox.translate('分类属性')) : (fox.translate('添加')+fox.translate('分类属性'));
 		var index=admin.popupCenter({
 			title: title,
 			resize: false,
@@ -337,6 +397,8 @@ function ListPage() {
 		refreshTableData: refreshTableData,
 		getCheckedList: getCheckedList
 	};
+
+	window.pageExt.list.ending && window.pageExt.list.ending();
 
 };
 

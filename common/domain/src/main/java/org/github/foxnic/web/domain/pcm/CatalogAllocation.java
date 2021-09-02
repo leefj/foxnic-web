@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-01 21:44:30
- * @sign 35A00AC6CAB108A1448FD61C289F7B8F
+ * @since 2021-09-02 09:09:13
+ * @sign 048D1F47FC25320BCB6CE04CBE447486
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -36,6 +36,12 @@ public class CatalogAllocation extends Entity {
 	private String id;
 	
 	/**
+	 * 配置版本号：配置版本号
+	*/
+	@ApiModelProperty(required = false,value="配置版本号" , notes = "配置版本号")
+	private String versionNo;
+	
+	/**
 	 * 分类ID：分类ID
 	*/
 	@ApiModelProperty(required = false,value="分类ID" , notes = "分类ID")
@@ -52,12 +58,6 @@ public class CatalogAllocation extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="字段名" , notes = "数据库字段名")
 	private String column;
-	
-	/**
-	 * 是否分配：或分配是否有效
-	*/
-	@ApiModelProperty(required = false,value="是否分配" , notes = "或分配是否有效")
-	private Integer allotted;
 	
 	/**
 	 * 创建人ID：创建人ID
@@ -127,6 +127,25 @@ public class CatalogAllocation extends Entity {
 	}
 	
 	/**
+	 * 获得 配置版本号<br>
+	 * 配置版本号
+	 * @return 配置版本号
+	*/
+	public String getVersionNo() {
+		return versionNo;
+	}
+	
+	/**
+	 * 设置 配置版本号
+	 * @param versionNo 配置版本号
+	 * @return 当前对象
+	*/
+	public CatalogAllocation setVersionNo(String versionNo) {
+		this.versionNo=versionNo;
+		return this;
+	}
+	
+	/**
 	 * 获得 分类ID<br>
 	 * 分类ID
 	 * @return 分类ID
@@ -180,25 +199,6 @@ public class CatalogAllocation extends Entity {
 	*/
 	public CatalogAllocation setColumn(String column) {
 		this.column=column;
-		return this;
-	}
-	
-	/**
-	 * 获得 是否分配<br>
-	 * 或分配是否有效
-	 * @return 是否分配
-	*/
-	public Integer getAllotted() {
-		return allotted;
-	}
-	
-	/**
-	 * 设置 是否分配
-	 * @param allotted 是否分配
-	 * @return 当前对象
-	*/
-	public CatalogAllocation setAllotted(Integer allotted) {
-		this.allotted=allotted;
 		return this;
 	}
 	

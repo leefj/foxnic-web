@@ -18,15 +18,22 @@ import com.github.foxnic.dao.sql.expr.Template;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
 import com.github.foxnic.sql.parameter.BatchParamBuilder;
-import org.github.foxnic.web.constants.db.FoxnicWeb.*;
+import org.github.foxnic.web.constants.db.FoxnicWeb.PCM_CATALOG;
+import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_MENU;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.meta.MenuMeta;
 import org.github.foxnic.web.domain.pcm.Catalog;
+import org.github.foxnic.web.domain.pcm.CatalogAllocation;
+import org.github.foxnic.web.domain.pcm.CatalogAttribute;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.misc.ztree.ZTreeNode;
+import org.github.foxnic.web.pcm.service.ICatalogAllocationService;
+import org.github.foxnic.web.pcm.service.ICatalogAttributeService;
 import org.github.foxnic.web.pcm.service.ICatalogService;
 import org.github.foxnic.web.session.SessionUser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.io.InputStream;
@@ -57,6 +64,11 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 	 * */
 	public DAO dao() { return dao; }
 
+	@Autowired
+	private ICatalogAttributeService catalogAttributeService;
+
+	@Autowired
+	private ICatalogAllocationService allocationService;
 
 
 	@Override
@@ -384,6 +396,88 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 		storageTables.setValue(tables);
 		return tables;
 	}
+
+	@Override
+	public List<String> getVersions(String id) {
+		return catalogAttributeService.getAllVersions(id);
+	}
+
+	/**
+	 * 复制一个生效的版本用于编辑
+	 * */
+	@Override
+	public Result createVersion(String catalogId) {
+		List<CatalogAttribute> activatedAttributes=catalogAttributeService.getAttributes(catalogId,ICatalogService.VERSION_ACTIVATED);
+		//catalogAttributeService.join(activatedAttributes, CatalogAllocation.class);
+
+		List<CatalogAttribute> editingAttributes=catalogAttributeService.getAttributes(catalogId,ICatalogService.VERSION_EDITING);
+		if(activatedAttributes.isEmpty()) return ErrorDesc.failure().message("当前版本缺少属性");
+		if(editingAttributes.isEmpty()) {
+			List<CatalogAllocation> allocations=new ArrayList<>();
+			for (CatalogAttribute attribute : activatedAttributes) {
+				attribute.setVersionNo(ICatalogService.VERSION_EDITING);
+				attribute.setSourceId(attribute.getId());
+				attribute.setId(null);
+				attribute.setCreateBy(null);
+				attribute.setCreateTime(null);
+				attribute.setUpdateBy(null);
+				attribute.setUpdateTime(null);
+				attribute.setDeleteBy(null);
+				attribute.setDeleteTime(null);
+				attribute.setVersion(0);
+				//
+				editingAttributes.add(attribute);
+
+				//拷贝分配表
+				CatalogAllocation allocation=attribute.getAllocation();
+				if(allocation!=null) {
+					allocation.setVersionNo(ICatalogService.VERSION_EDITING);
+					allocation.setId(null);
+					allocation.setCreateBy(null);
+					allocation.setCreateTime(null);
+					allocation.setUpdateBy(null);
+					allocation.setUpdateTime(null);
+					allocation.setDeleteBy(null);
+					allocation.setDeleteTime(null);
+					allocation.setVersion(0);
+					allocations.add(allocation);
+				}
+			}
+			//
+			catalogAttributeService.insertList(editingAttributes);
+			allocationService.insertList(allocations);
+		}
+		return ErrorDesc.success();
+	}
+
+	/**
+	 * 把正在编辑的版本应用为生效的版本
+	 * */
+	@Override
+	public Result applyVersion(String catalogId) {
+		List<CatalogAttribute> editingAttributes=catalogAttributeService.getAttributes(catalogId,ICatalogService.VERSION_EDITING);
+		if(editingAttributes.size()==0) {
+			return ErrorDesc.failure().message("缺少字段");
+		}
+		for (CatalogAttribute attribute : editingAttributes) {
+			attribute.setVersionNo(ICatalogService.VERSION_ACTIVATED);
+		}
+		catalogAttributeService.updateList(editingAttributes,SaveMode.DIRTY_FIELDS);
+		return ErrorDesc.success().message("版本已生效");
+	}
+
+
+
+	/**
+	 * 从当前版本克隆一个新的编辑中的版本
+	 * */
+	@Transactional
+	public boolean cloneEditingVersionIf(String catalogId) {
+
+ 		return true;
+	}
+
+
 
 	private void joinAncestors(List<Menu> menus) {
 		List<Menu> parents=new ArrayList<>();

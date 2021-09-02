@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2021-09-01 21:43:54
+ * @since 2021-09-02 14:29:27
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -294,11 +294,6 @@ public class FoxnicWeb {
 		public static final DBField DATA_TABLE = new DBField(DBDataType.STRING , "data_table","dataTable","存储表","存储表",false,false,true);
 		
 		/**
-		 * 是否分配，或分配是否有效
-		*/
-		public static final DBField ALLOTTED = new DBField(DBDataType.INTEGER , "allotted","allotted","是否分配","或分配是否有效",false,false,true);
-		
-		/**
 		 * 租户ID
 		*/
 		public static final DBField TENANT_ID = new DBField(DBDataType.STRING , "tenant_id","tenantId","租户ID","租户ID",false,false,false);
@@ -344,13 +339,13 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
 		public PCM_CATALOG() {
-			this.init($NAME,"数据存储表" , ID , NAME , PARENT_ID , SORT , VALID , HIERARCHY , DATA_TABLE , ALLOTTED , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"数据存储表" , ID , NAME , PARENT_ID , SORT , VALID , HIERARCHY , DATA_TABLE , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final PCM_CATALOG $TABLE=new PCM_CATALOG();
 	}
 	
 	/**
-	 * 属性分配表
+	 * 分类属性分配表
 	*/
 	public static class PCM_CATALOG_ALLOCATION extends DBTable {
 		
@@ -363,6 +358,11 @@ public class FoxnicWeb {
 		 * 主键
 		*/
 		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","主键","主键",true,false,false);
+		
+		/**
+		 * 配置版本号
+		*/
+		public static final DBField VERSION_NO = new DBField(DBDataType.STRING , "version_no","versionNo","配置版本号","配置版本号",false,false,true);
 		
 		/**
 		 * 分类ID
@@ -378,11 +378,6 @@ public class FoxnicWeb {
 		 * 字段名，数据库字段名
 		*/
 		public static final DBField COLUMN = new DBField(DBDataType.STRING , "column","column","字段名","数据库字段名",false,false,true);
-		
-		/**
-		 * 是否分配，或分配是否有效
-		*/
-		public static final DBField ALLOTTED = new DBField(DBDataType.INTEGER , "allotted","allotted","是否分配","或分配是否有效",false,false,true);
 		
 		/**
 		 * 创建人ID
@@ -425,13 +420,13 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
 		public PCM_CATALOG_ALLOCATION() {
-			this.init($NAME,"属性分配表" , ID , CATALOG_ID , ATTRIBUTE_ID , COLUMN , ALLOTTED , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"分类属性分配表" , ID , VERSION_NO , CATALOG_ID , ATTRIBUTE_ID , COLUMN , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final PCM_CATALOG_ALLOCATION $TABLE=new PCM_CATALOG_ALLOCATION();
 	}
 	
 	/**
-	 * 数据存储分配表
+	 * 分类属性表
 	*/
 	public static class PCM_CATALOG_ATTRIBUTE extends DBTable {
 		
@@ -454,6 +449,11 @@ public class FoxnicWeb {
 		 * 字段名，自定义的字段别名
 		*/
 		public static final DBField FIELD = new DBField(DBDataType.STRING , "field","field","字段名","自定义的字段别名",false,false,false);
+		
+		/**
+		 * 配置版本号
+		*/
+		public static final DBField VERSION_NO = new DBField(DBDataType.STRING , "version_no","versionNo","配置版本号","配置版本号",false,false,true);
 		
 		/**
 		 * 数据类型
@@ -506,6 +506,11 @@ public class FoxnicWeb {
 		public static final DBField VALID = new DBField(DBDataType.INTEGER , "valid","valid","是否有效","是否有效",false,false,false);
 		
 		/**
+		 * 原属性ID
+		*/
+		public static final DBField SOURCE_ID = new DBField(DBDataType.STRING , "source_id","sourceId","原属性ID","原属性ID",false,false,true);
+		
+		/**
 		 * 创建人ID
 		*/
 		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
@@ -546,7 +551,7 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
 		public PCM_CATALOG_ATTRIBUTE() {
-			this.init($NAME,"数据存储分配表" , ID , CATALOG_ID , FIELD , DATA_TYPE , LENGTH , ACCURACY , SCALE , SHORT_NAME , FULL_NAME , HINT , DETAIL , NOTE , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"分类属性表" , ID , CATALOG_ID , FIELD , VERSION_NO , DATA_TYPE , LENGTH , ACCURACY , SCALE , SHORT_NAME , FULL_NAME , HINT , DETAIL , NOTE , VALID , SOURCE_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final PCM_CATALOG_ATTRIBUTE $TABLE=new PCM_CATALOG_ATTRIBUTE();
 	}

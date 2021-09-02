@@ -10,8 +10,8 @@ import java.util.List;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-01 21:44:27
- * @sign DAA5288A047FCB33D0D37BBFC93CF49A
+ * @since 2021-09-02 14:29:55
+ * @sign 790DC80BCE8A18D7D6D7B5751CBDF2F1
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -86,16 +86,6 @@ public class CatalogMeta {
 	 * 存储表 , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.pcm.Catalog,java.lang.String> DATA_TABLE_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.Catalog.class ,DATA_TABLE, java.lang.String.class, "存储表", "存储表", java.lang.String.class, null);
-	
-	/**
-	 * 是否分配 , 或分配是否有效 , 类型: java.lang.Integer
-	*/
-	public static final String ALLOTTED="allotted";
-	
-	/**
-	 * 是否分配 , 或分配是否有效 , 类型: java.lang.Integer
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.pcm.Catalog,java.lang.Integer> ALLOTTED_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.Catalog.class ,ALLOTTED, java.lang.Integer.class, "是否分配", "或分配是否有效", java.lang.Integer.class, null);
 	
 	/**
 	 * 租户ID , 类型: java.lang.String
@@ -200,7 +190,7 @@ public class CatalogMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , NAME , PARENT_ID , SORT , VALID , HIERARCHY , DATA_TABLE , ALLOTTED , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , ATTRIBUTES };
+	public static final String[] $PROPS={ ID , NAME , PARENT_ID , SORT , VALID , HIERARCHY , DATA_TABLE , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , ATTRIBUTES };
 	
 	/**
 	 * 代理类
@@ -284,17 +274,6 @@ public class CatalogMeta {
 		public Catalog setDataTable(String dataTable) {
 			super.change(DATA_TABLE,super.getDataTable(),dataTable);
 			super.setDataTable(dataTable);
-			return this;
-		}
-		
-		/**
-		 * 设置 是否分配
-		 * @param allotted 是否分配
-		 * @return 当前对象
-		*/
-		public Catalog setAllotted(Integer allotted) {
-			super.change(ALLOTTED,super.getAllotted(),allotted);
-			super.setAllotted(allotted);
 			return this;
 		}
 		
