@@ -3,18 +3,14 @@ package org.github.foxnic.web.pcm.storage.mysql.types;
 import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.dao.spec.DAO;
 import org.github.foxnic.web.domain.pcm.CatalogAttribute;
-import org.github.foxnic.web.pcm.storage.model.types.AbstractString;
+import org.github.foxnic.web.pcm.storage.model.types.AbstractInteger;
 
-public class MySQLString extends AbstractString {
+public class MySQLInteger extends AbstractInteger {
 
     @Override
     public boolean createDBField(DAO dao,String table,String fieldName, CatalogAttribute attribute) {
         try {
-            if(attribute.getLength()>4096) {
-                dao.execute("alter table "+table+" add column "+fieldName+" text null");
-            } else {
-                dao.execute("alter table "+table+" add column "+fieldName+" varchar("+attribute.getLength()+") null");
-            }
+            dao.execute("alter table "+table+" add column "+fieldName+" integer("+attribute.getLength()+") null");
             return true;
         } catch (Exception e) {
             Logger.exception("创建字段异常",e);

@@ -150,12 +150,27 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             }, function(){});
         },
         doApplyVersion:function () {
+            var task=setTimeout(function(){layer.load(2);},1000);
             admin.request("/service-pcm/pcm-catalog/apply-version",{id:catalogId},function (r) {
+                clearTimeout(task);
+                layer.closeAll('loading');
                 if(!r.success) {
-                    top.layer.msg(r.message, {icon: 2, time: 3000});
+                    var details=[];
+                    if(r.errors && r.errors.length>0) {
+                        for (var i = 0; i < r.errors.length; i++) {
+                            details.push("&nbsp;&nbsp;"+(i+1)+"."+r.errors[i].message);
+                        }
+                    }
+                    var msg=r.message;
+                    if(details.length>0) {
+                        msg+=":<br>"+details.join("<br>");
+                    }
+                    top.layer.msg(msg, {icon: 2, time: 3000});
                     return;
                 }
                 list.loadAttributes(catalogId);
+
+                top.layer.msg("版本应用成功", {icon: 1, time: 1000});
             });
         },
         /**

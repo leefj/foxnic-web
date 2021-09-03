@@ -79,13 +79,6 @@ public class CatalogAttributeServiceImpl extends SuperService<CatalogAttribute> 
 	}
 
 	/**
-	 * 分配表字段
-	 * */
-	public Result allotColumn() {
-		return ErrorDesc.success();
-	}
-
-	/**
 	 * 插入实体
 	 * @param catalogAttribute 实体数据
 	 * @return 插入是否成功

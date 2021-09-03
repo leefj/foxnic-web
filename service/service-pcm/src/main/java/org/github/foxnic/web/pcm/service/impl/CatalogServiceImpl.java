@@ -32,6 +32,7 @@ import org.github.foxnic.web.misc.ztree.ZTreeNode;
 import org.github.foxnic.web.pcm.service.ICatalogAllocationService;
 import org.github.foxnic.web.pcm.service.ICatalogAttributeService;
 import org.github.foxnic.web.pcm.service.ICatalogService;
+import org.github.foxnic.web.pcm.storage.model.FieldManager;
 import org.github.foxnic.web.session.SessionUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -70,7 +71,7 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 	private ICatalogAttributeService catalogAttributeService;
 
 	@Autowired
-	private ICatalogAllocationService allocationService;
+	private ICatalogAllocationService catalogAllocationService;
 
 
 	@Override
@@ -450,7 +451,7 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 			}
 		}
 		catalogAttributeService.insertList(editingAttributes);
-		allocationService.insertList(allocations);
+		catalogAllocationService.insertList(allocations);
 		return ErrorDesc.success();
 	}
 
@@ -458,30 +459,48 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 	 * 把正在编辑的版本应用为生效的版本
 	 * */
 	@Override
-	public Result applyVersion(String catalogId) {
+	public synchronized Result applyVersion(String catalogId) {
 
 		DBSequence sequence=dao().getSequence("pcm-catalog-version-no");
 		if(!sequence.exists()){
 			sequence.create(SequenceType.DAI,3);
 		}
-
+		Catalog catalog=this.getById(catalogId);
 		//
 		List<CatalogAttribute> editingAttributes=catalogAttributeService.getAttributes(catalogId,ICatalogService.VERSION_EDITING);
 		if(editingAttributes.size()==0) {
 			return ErrorDesc.failure().message("缺少字段");
 		}
+		catalogAttributeService.join(editingAttributes,CatalogAllocation.class);
 
-		//变更当前激活的版本为历史版本
-		String version=sequence.next();
-		dao().execute("update pcm_catalog_attribute set version_no=? where catalog_id=? and version_no=?",version,catalogId,ICatalogService.VERSION_ACTIVATED);
-		dao().execute("update pcm_catalog_allocation set version_no=? where catalog_id=? and version_no=?",version,catalogId,ICatalogService.VERSION_ACTIVATED);
+		//分配存储字段
+		FieldManager fieldManager=new FieldManager(this.dao(),catalog.getDataTable(),editingAttributes,catalogAttributeService,catalogAllocationService);
+ 		//校验并分配字段
+		Result result=fieldManager.verifyAndAllotAttributes();
+		if(result.failure()) {
+			return result;
+		}
 
-		//分配字段的存储
+//		fieldManager.applyAllotedFields();
+//
+//
+//		//变更当前激活的版本为历史版本
+//		String version=sequence.next();
+//
+//		try {
+//			dao.beginTransaction();
+//			dao().execute("update pcm_catalog_attribute set version_no=? where catalog_id=? and version_no=?",version,catalogId,ICatalogService.VERSION_ACTIVATED);
+//			dao().execute("update pcm_catalog_allocation set version_no=? where catalog_id=? and version_no=?",version,catalogId,ICatalogService.VERSION_ACTIVATED);
+//
+//			//变更当前编辑的版本为激活的版本
+//			dao().execute("update pcm_catalog_attribute set version_no=? where catalog_id=? and version_no=?",ICatalogService.VERSION_ACTIVATED,catalogId,ICatalogService.VERSION_EDITING);
+//			dao().execute("update pcm_catalog_allocation set version_no=? where catalog_id=? and version_no=?",ICatalogService.VERSION_ACTIVATED,catalogId,ICatalogService.VERSION_EDITING);
+//			dao.commit();
+//		} catch (Exception e) {
+//			dao.rollback();
+//			throw new RuntimeException(e);
+//		}
 
-
-		//变更当前编辑的版本为激活的版本
-		dao().execute("update pcm_catalog_attribute set version_no=? where catalog_id=? and version_no=?",ICatalogService.VERSION_ACTIVATED,catalogId,ICatalogService.VERSION_EDITING);
-		dao().execute("update pcm_catalog_allocation set version_no=? where catalog_id=? and version_no=?",ICatalogService.VERSION_ACTIVATED,catalogId,ICatalogService.VERSION_EDITING);
 
 
 		return ErrorDesc.success().message("版本已生效");

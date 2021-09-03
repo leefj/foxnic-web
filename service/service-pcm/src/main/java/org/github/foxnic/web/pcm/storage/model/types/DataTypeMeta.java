@@ -9,22 +9,15 @@ public class DataTypeMeta {
         return type;
     }
 
-    public Class[] getParamTypes() {
-        return paramTypes;
-    }
-
-    private Class[] paramTypes;
-
     public DataType getDataType() {
         return dataType;
     }
 
     private DataType dataType;
 
-
-    public DataTypeMeta(DataType dataType, Class<? extends AbstractType> type, Class[] params) {
+    public DataTypeMeta(DataType dataType, Class<? extends AbstractType> type) {
         this.type=type;
-        this.paramTypes =params;
+        this.dataType=dataType;
     }
 
 }
