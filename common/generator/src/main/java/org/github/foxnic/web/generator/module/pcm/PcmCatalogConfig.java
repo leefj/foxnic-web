@@ -1,6 +1,7 @@
 package org.github.foxnic.web.generator.module.pcm;
 
 import com.github.foxnic.generator.builder.model.PoClassFile;
+import com.github.foxnic.generator.builder.model.PojoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
 import com.github.foxnic.generator.builder.view.option.FormOptions;
 import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
@@ -18,7 +19,17 @@ public class PcmCatalogConfig extends BaseCodeConfig<PCM_CATALOG> {
 
     @Override
     public void configModel(PoClassFile poType, VoClassFile voType) {
-        poType.addListProperty(CatalogAttribute.class,"attributes","属性清单","属性清单");
+
+        poType.addListProperty(CatalogAttribute.class,"attributes","当前有效的属性清单","当前有效的属性清单");
+
+        PojoClassFile pojo=context.createPojo("DataQueryVo");
+        pojo.setSuperType(null);
+        pojo.setDoc("用于PCM数据查询");
+        pojo.addSimpleProperty(String.class,"tenantId","租户ID","");
+        pojo.addSimpleProperty(String.class,"catalogId","类目ID","");
+        pojo.addListProperty(String.class,"ids","数据的ID清单","");
+        pojo.addListProperty(String.class,"ownerIds","所有者单据ID清单","");
+
     }
 
     @Override

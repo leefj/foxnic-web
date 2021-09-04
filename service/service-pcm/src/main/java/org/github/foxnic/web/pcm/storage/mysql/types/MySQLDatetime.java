@@ -1,5 +1,7 @@
 package org.github.foxnic.web.pcm.storage.mysql.types;
 
+import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.dao.spec.DAO;
 import org.github.foxnic.web.domain.pcm.CatalogAttribute;
@@ -8,13 +10,13 @@ import org.github.foxnic.web.pcm.storage.model.types.AbstractDatetime;
 public class MySQLDatetime extends AbstractDatetime {
 
     @Override
-    public boolean createDBField(DAO dao,String table,String fieldName, CatalogAttribute attribute) {
+    public Result createDBField(DAO dao, String table, String fieldName, CatalogAttribute attribute) {
         try {
             dao.execute("alter table "+table+" add column "+fieldName+" datetime null");
-            return true;
+            return ErrorDesc.success();
         } catch (Exception e) {
             Logger.exception("创建字段异常",e);
-            return false;
+            return handleException(e,fieldName,attribute);
         }
     }
 }

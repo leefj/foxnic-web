@@ -1,7 +1,7 @@
 /**
  * 分类属性 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-03 05:42:13
+ * @since 2021-09-04 13:42:05
  */
 
 
@@ -88,10 +88,11 @@ function ListPage() {
 					,{ field: 'valid', align:"right",fixed:false,  hide:true, sort: true, title: fox.translate('是否有效'), templet: '#cell-tpl-valid'}
 					,{ field: 'sourceId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('原属性ID') , templet: function (d) { return templet('sourceId',d.sourceId,d);}  }
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime),d); }}
+					,{ field: 'catalogName', align:"",fixed:false,  hide:false, sort: true, title: fox.translate('类目') , templet: function (d) { return templet('catalogName',fox.getProperty(d,["catalog","name"]),d);} }
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
 				]],
-				done: function () { window.pageExt.list.afterQuery && window.pageExt.list.afterQuery(); },
+				done: function (data) { window.pageExt.list.afterQuery && window.pageExt.list.afterQuery(data); },
 				footer : {
 					exportExcel : admin.checkAuth(AUTH_PREFIX+":export"),
 					importExcel : admin.checkAuth(AUTH_PREFIX+":import")?{

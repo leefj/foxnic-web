@@ -372,6 +372,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 }
             }
 
+            var data=null;
 
             var basicConfig = {
                 method: 'POST',
@@ -382,6 +383,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 },
                 parseData: function (res) { //res 即为原始返回的数据
                     //debugger;
+                    data=res.data.list;
                     if (!res.success) {
                         alert(res.message);
                         return null;
@@ -412,7 +414,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     renderSearchContent(this);
                     renderFooter(this, cfg.footer);
                 }
-                if (userDone) userDone();
+                if (userDone) userDone(data);
             }
 
             function renderSearchContent(it){

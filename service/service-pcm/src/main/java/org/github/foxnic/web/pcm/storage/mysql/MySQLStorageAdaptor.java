@@ -25,7 +25,7 @@ public class MySQLStorageAdaptor extends StorageAdapter {
     @Override
     public Result createTemporaryTable(DAO dao,String temporaryTable) {
         try {
-            dao.execute("create temporary table "+temporaryTable+"(id int primary key) Engine=InnoDB default charset utf8");
+            dao.execute("create table "+temporaryTable+"(id int primary key) Engine=InnoDB default charset utf8");
             return ErrorDesc.success();
         } catch (Exception e) {
             return ErrorDesc.failure().message("创建临时表失败");
@@ -36,5 +36,10 @@ public class MySQLStorageAdaptor extends StorageAdapter {
     @Override
     public Result verifyField(DAO dao, String temporaryTable,CatalogAttribute attribute) {
         return this.createField(dao,temporaryTable,attribute,false);
+    }
+
+    @Override
+    public void dropTemporaryTable(DAO dao, String temporaryTable) {
+        dao.execute("drop table "+temporaryTable);
     }
 }

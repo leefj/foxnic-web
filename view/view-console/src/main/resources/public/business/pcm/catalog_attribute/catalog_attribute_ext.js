@@ -79,8 +79,8 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
         /**
          * 查询结果渲染后调用
          * */
-        afterQuery : function () {
-
+        afterQuery : function (data) {
+            //debugger
             if(catalogId=="-1" || versionNo==null) {
 
                 fox.disableButton($('.create-new-button'),true);
@@ -94,6 +94,12 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
                 fox.disableButton($('.apply-version-button'),false);
                 fox.disableButton($('.create-new-button'),false);
                 fox.disableButton($('.batch-delete-button'),false);
+                for (var i = 0; i < data.length; i++) {
+                    if(data[i].catalogId!=catalogId) {
+                        fox.disableButton($('.ops-delete-button').filter("[data-id='"+data[i].id+"']"), true);
+                        fox.disableButton($('.ops-edit-button').filter("[data-id='"+data[i].id+"']"), true);
+                    }
+                }
             } else {
                 fox.disableButton($('.ops-delete-button'),true);
                 fox.disableButton($('.ops-edit-button'),true);
@@ -107,6 +113,8 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             } else {
                 fox.disableButton($('.create-version-button'),true);
             }
+
+
 
 
 
@@ -151,7 +159,9 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
         },
         doApplyVersion:function () {
             var task=setTimeout(function(){layer.load(2);},1000);
+            fox.disableButton($('.apply-version-button'),true);
             admin.request("/service-pcm/pcm-catalog/apply-version",{id:catalogId},function (r) {
+                fox.disableButton($('.apply-version-button'),false);
                 clearTimeout(task);
                 layer.closeAll('loading');
                 if(!r.success) {
@@ -168,6 +178,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
                     top.layer.msg(msg, {icon: 2, time: 3000});
                     return;
                 }
+                debugger;
                 list.loadAttributes(catalogId);
 
                 top.layer.msg("版本应用成功", {icon: 1, time: 1000});
@@ -264,6 +275,8 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
         }
     }
 
+    var isCreateNew;
+
     //表单页的扩展
     var form={
         /**
@@ -279,8 +292,13 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             console.log('beforeDataFill',data);
 
         },
+        setDefaultIf:function(input,defval) {
+            if(!input.val()) {
+                input.val(defval)
+            }
+        },
         switchParam:function (sel) {
-
+            // debugger
             var lengthEl=$("#length").parents(".layui-form-item");
             var accuracyEl=$("#accuracy").parents(".layui-form-item");
             var scaleEl=$("#scale").parents(".layui-form-item");
@@ -295,19 +313,21 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
                 lengthEl.show();
                 accuracyEl.hide();
                 scaleEl.hide();
-                lengthEl.find("input").val(64);
+                this.setDefaultIf(lengthEl.find("input"),64);
             } else if(type=="INTEGER") {
                 lengthEl.hide();
                 accuracyEl.show();
                 scaleEl.hide();
-                accuracyEl.find("input").val(11);
+                this.setDefaultIf(accuracyEl.find("input"),11);
             } else if(type=="DECIMAL") {
                 lengthEl.hide();
                 accuracyEl.show();
                 scaleEl.show();
-                accuracyEl.find("input").val(11);
-                scaleEl.find("input").val(2);
-            } else if(type=="DATE") {
+
+                this.setDefaultIf(accuracyEl.find("input"),11);
+                this.setDefaultIf(scaleEl.find("input"),2);
+
+            } else if(type=="DATE_TIME") {
                 lengthEl.hide();
                 accuracyEl.hide();
                 scaleEl.hide();
@@ -323,19 +343,32 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
         /**
          * 表单数据填充后
          * */
-        afterDataFill:function (data) {
-            var me=this;
-            console.log('afterDataFill',data);
-             var dataTypeBox=fox.getSelectBox("dataType");
-             dataTypeBox.update({
-                 on:function (e) {
-                     me.switchParam(e.arr);
+        afterDataFill: function (data) {
+            var me = this;
+            console.log('afterDataFill', data);
+            var dataTypeBox = fox.getSelectBox("dataType");
+            dataTypeBox.update({
+                disabled:data.id,
+                on: function (e) {
+                    me.switchParam(e.arr);
                 }
-             });
-             var first=SELECT_DATATYPE_DATA[0];
-             var val=[{value:first.code,name:first.text}];
+            });
+            var selected
+            if(!data.id) {
+                selected = SELECT_DATATYPE_DATA[0];
+            } else {
+                for (let i = 0; i < SELECT_DATATYPE_DATA.length; i++) {
+                   if(SELECT_DATATYPE_DATA[i].code==data.dataType) {
+                       selected = SELECT_DATATYPE_DATA[i];
+                       break;
+                   }
+                }
+            }
+            var val = [{value: selected.code, name: selected.text}];
             dataTypeBox.setValue(val);
+
             me.switchParam(val);
+
         },
         /**
          * 数据提交前，如果返回 false，停止后续步骤的执行

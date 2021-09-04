@@ -1,6 +1,5 @@
 package org.github.foxnic.web.pcm.storage.model;
 
-import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.dao.spec.DAO;
@@ -66,16 +65,12 @@ public abstract class StorageAdapter {
         boolean suc=false;
         String fieldName=null;
         if(useAllocation) {
-            fieldName=attribute.getAllocation().getColumn();
+            fieldName=attribute.getAllocation().getColumnName();
         } else {
             fieldName=attribute.getField();
         }
-        suc=typeImpl.createDBField(dao, table,fieldName,attribute);
-        if(suc) {
-            return ErrorDesc.success();
-        } else {
-            return ErrorDesc.failure().message("属性:"+attribute.getFullName()+"("+fieldName+") 配置错误").data(attribute);
-        }
+        return  typeImpl.createDBField(dao, table,fieldName,attribute);
     }
 
+    public abstract void dropTemporaryTable(DAO dao, String temporaryTable);
 }

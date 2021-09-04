@@ -3,14 +3,15 @@ package org.github.foxnic.web.domain.pcm.meta;
 import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.pcm.CatalogAttribute;
 import java.util.Date;
+import org.github.foxnic.web.domain.pcm.Catalog;
 import org.github.foxnic.web.domain.pcm.CatalogAllocation;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-02 09:59:46
- * @sign 7928DAAA287FCF865E39A5585CC8EEEC
+ * @since 2021-09-04 13:16:55
+ * @sign E1E3DC4CC8A1AC45FC072D54FAE0C519
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -247,6 +248,16 @@ public class CatalogAttributeMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogAttribute,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogAttribute.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
+	 * 类目对象 , 类型: org.github.foxnic.web.domain.pcm.Catalog
+	*/
+	public static final String CATALOG="catalog";
+	
+	/**
+	 * 类目对象 , 类型: org.github.foxnic.web.domain.pcm.Catalog
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogAttribute,org.github.foxnic.web.domain.pcm.Catalog> CATALOG_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogAttribute.class ,CATALOG, org.github.foxnic.web.domain.pcm.Catalog.class, "类目对象", "类目对象", org.github.foxnic.web.domain.pcm.Catalog.class, null);
+	
+	/**
 	 * 分配的字段 , 类型: org.github.foxnic.web.domain.pcm.CatalogAllocation
 	*/
 	public static final String ALLOCATION="allocation";
@@ -257,9 +268,29 @@ public class CatalogAttributeMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogAttribute,org.github.foxnic.web.domain.pcm.CatalogAllocation> ALLOCATION_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogAttribute.class ,ALLOCATION, org.github.foxnic.web.domain.pcm.CatalogAllocation.class, "分配的字段", "分配的字段", org.github.foxnic.web.domain.pcm.CatalogAllocation.class, null);
 	
 	/**
+	 * 重新分配前的字段 , 用于字段参数变更时登记 , 类型: org.github.foxnic.web.domain.pcm.CatalogAllocation
+	*/
+	public static final String ALLOCATION_BEFORE="allocationBefore";
+	
+	/**
+	 * 重新分配前的字段 , 用于字段参数变更时登记 , 类型: org.github.foxnic.web.domain.pcm.CatalogAllocation
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogAttribute,org.github.foxnic.web.domain.pcm.CatalogAllocation> ALLOCATION_BEFORE_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogAttribute.class ,ALLOCATION_BEFORE, org.github.foxnic.web.domain.pcm.CatalogAllocation.class, "重新分配前的字段", "用于字段参数变更时登记", org.github.foxnic.web.domain.pcm.CatalogAllocation.class, null);
+	
+	/**
+	 * 来源 , 上一个版本的配置信息 , 类型: org.github.foxnic.web.domain.pcm.CatalogAttribute
+	*/
+	public static final String SOURCE_ATTR="sourceAttr";
+	
+	/**
+	 * 来源 , 上一个版本的配置信息 , 类型: org.github.foxnic.web.domain.pcm.CatalogAttribute
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogAttribute,org.github.foxnic.web.domain.pcm.CatalogAttribute> SOURCE_ATTR_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogAttribute.class ,SOURCE_ATTR, org.github.foxnic.web.domain.pcm.CatalogAttribute.class, "来源", "上一个版本的配置信息", org.github.foxnic.web.domain.pcm.CatalogAttribute.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , CATALOG_ID , FIELD , VERSION_NO , DATA_TYPE , LENGTH , ACCURACY , SCALE , SHORT_NAME , FULL_NAME , HINT , DETAIL , NOTE , VALID , SOURCE_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , ALLOCATION };
+	public static final String[] $PROPS={ ID , CATALOG_ID , FIELD , VERSION_NO , DATA_TYPE , LENGTH , ACCURACY , SCALE , SHORT_NAME , FULL_NAME , HINT , DETAIL , NOTE , VALID , SOURCE_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , CATALOG , ALLOCATION , ALLOCATION_BEFORE , SOURCE_ATTR };
 	
 	/**
 	 * 代理类
@@ -523,6 +554,17 @@ public class CatalogAttributeMeta {
 		}
 		
 		/**
+		 * 设置 类目对象
+		 * @param catalog 类目对象
+		 * @return 当前对象
+		*/
+		public CatalogAttribute setCatalog(Catalog catalog) {
+			super.change(CATALOG,super.getCatalog(),catalog);
+			super.setCatalog(catalog);
+			return this;
+		}
+		
+		/**
 		 * 设置 分配的字段
 		 * @param allocation 分配的字段
 		 * @return 当前对象
@@ -530,6 +572,28 @@ public class CatalogAttributeMeta {
 		public CatalogAttribute setAllocation(CatalogAllocation allocation) {
 			super.change(ALLOCATION,super.getAllocation(),allocation);
 			super.setAllocation(allocation);
+			return this;
+		}
+		
+		/**
+		 * 设置 重新分配前的字段
+		 * @param allocationBefore 重新分配前的字段
+		 * @return 当前对象
+		*/
+		public CatalogAttribute setAllocationBefore(CatalogAllocation allocationBefore) {
+			super.change(ALLOCATION_BEFORE,super.getAllocationBefore(),allocationBefore);
+			super.setAllocationBefore(allocationBefore);
+			return this;
+		}
+		
+		/**
+		 * 设置 来源
+		 * @param sourceAttr 来源
+		 * @return 当前对象
+		*/
+		public CatalogAttribute setSourceAttr(CatalogAttribute sourceAttr) {
+			super.change(SOURCE_ATTR,super.getSourceAttr(),sourceAttr);
+			super.setSourceAttr(sourceAttr);
 			return this;
 		}
 	}

@@ -8,8 +8,12 @@ import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.PCM_CATALOG_ATTRIBUTE;
+import org.github.foxnic.web.domain.pcm.Catalog;
 import org.github.foxnic.web.domain.pcm.CatalogAllocation;
+import org.github.foxnic.web.domain.pcm.CatalogAttribute;
 import org.github.foxnic.web.domain.pcm.DataType;
+import org.github.foxnic.web.domain.pcm.meta.CatalogAttributeMeta;
+import org.github.foxnic.web.domain.pcm.meta.CatalogMeta;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
 public class PcmCatalogAttributeConfig extends BaseCodeConfig<PCM_CATALOG_ATTRIBUTE> {
@@ -20,7 +24,10 @@ public class PcmCatalogAttributeConfig extends BaseCodeConfig<PCM_CATALOG_ATTRIB
 
     @Override
     public void configModel(PoClassFile poType, VoClassFile voType) {
+        poType.addSimpleProperty(Catalog.class,"catalog","类目对象","类目对象");
         poType.addSimpleProperty(CatalogAllocation.class,"allocation","分配的字段","分配的字段");
+        poType.addSimpleProperty(CatalogAllocation.class,"allocationBefore","重新分配前的字段","用于字段参数变更时登记");
+        poType.addSimpleProperty(CatalogAttribute.class,"sourceAttr","来源","上一个版本的配置信息");
     }
 
     @Override
@@ -33,6 +40,8 @@ public class PcmCatalogAttributeConfig extends BaseCodeConfig<PCM_CATALOG_ATTRIB
         list.addToolButton("创建版本","createVersion","create-version-button");
         list.addToolButton("应用版本","applyVersion","apply-version-button");
     }
+
+    private String catalogName="catalogName";
 
     @Override
     public void configFields(ViewOptions view) {
@@ -61,6 +70,8 @@ public class PcmCatalogAttributeConfig extends BaseCodeConfig<PCM_CATALOG_ATTRIB
 
         view.field(PCM_CATALOG_ATTRIBUTE.NOTE).search().hidden().table().hidden().form().textArea().height(100);
         view.field(PCM_CATALOG_ATTRIBUTE.DETAIL).search().hidden().table().hidden().form().label("属性说明").textArea().height(100);
+
+        view.field(catalogName).basic().label("类目").table().fillBy(CatalogAttributeMeta.CATALOG, CatalogMeta.NAME);
 
         view.field(PCM_CATALOG_ATTRIBUTE.DATA_TYPE)
                 .form().validate().required()

@@ -18,8 +18,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-02 14:29:55
- * @sign 790DC80BCE8A18D7D6D7B5751CBDF2F1
+ * @since 2021-09-04 12:08:37
+ * @sign 06AC377D331FDFE700584F5BCC914E7A
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -128,9 +128,9 @@ public class Catalog extends Entity {
 	private Integer version;
 	
 	/**
-	 * 属性清单：属性清单
+	 * 当前有效的属性清单：当前有效的属性清单
 	*/
-	@ApiModelProperty(required = false,value="属性清单" , notes = "属性清单")
+	@ApiModelProperty(required = false,value="当前有效的属性清单" , notes = "当前有效的属性清单")
 	private List<CatalogAttribute> attributes;
 	
 	/**
@@ -438,17 +438,17 @@ public class Catalog extends Entity {
 	}
 	
 	/**
-	 * 获得 属性清单<br>
-	 * 属性清单
-	 * @return 属性清单
+	 * 获得 当前有效的属性清单<br>
+	 * 当前有效的属性清单
+	 * @return 当前有效的属性清单
 	*/
 	public List<CatalogAttribute> getAttributes() {
 		return attributes;
 	}
 	
 	/**
-	 * 设置 属性清单
-	 * @param attributes 属性清单
+	 * 设置 当前有效的属性清单
+	 * @param attributes 当前有效的属性清单
 	 * @return 当前对象
 	*/
 	public Catalog setAttributes(List<CatalogAttribute> attributes) {
@@ -457,8 +457,8 @@ public class Catalog extends Entity {
 	}
 	
 	/**
-	 * 添加 属性清单
-	 * @param attribute 属性清单
+	 * 添加 当前有效的属性清单
+	 * @param attribute 当前有效的属性清单
 	 * @return 当前对象
 	*/
 	public Catalog addAttribute(CatalogAttribute attribute) {

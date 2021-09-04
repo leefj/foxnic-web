@@ -2,6 +2,7 @@ package org.github.foxnic.web.pcm.controller;
 
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.github.foxnic.api.error.CommonError;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.api.validate.annotations.NotNull;
@@ -21,7 +22,9 @@ import io.swagger.annotations.ApiOperation;
 import org.github.foxnic.web.domain.oauth.MenuVO;
 import org.github.foxnic.web.domain.oauth.meta.MenuVOMeta;
 import org.github.foxnic.web.domain.pcm.Catalog;
+import org.github.foxnic.web.domain.pcm.CatalogData;
 import org.github.foxnic.web.domain.pcm.CatalogVO;
+import org.github.foxnic.web.domain.pcm.DataQueryVo;
 import org.github.foxnic.web.domain.pcm.meta.CatalogVOMeta;
 import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
 import org.github.foxnic.web.framework.web.SuperController;
@@ -39,6 +42,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -452,6 +456,105 @@ public class CatalogController extends SuperController {
 	@PostMapping(CatalogServiceProxy.APPLY_VERSION)
 	public Result applyVersion(CatalogVO sample) {
 		return catalogService.applyVersion(sample.getId());
+	}
+
+
+	/**
+	 * 查询分类数据
+	 */
+	@ApiOperation(value = "查询分类数据")
+	@ApiOperationSupport(order=2)
+	@SentinelResource(value = CatalogServiceProxy.QUERY_DATA)
+	@PostMapping(CatalogServiceProxy.QUERY_DATA)
+	public Result queryData(DataQueryVo dataQueryVo) {
+		if(StringUtil.isBlank(dataQueryVo.getTenantId())){
+			return ErrorDesc.failure(CommonError.PARAM_INVALID).message("缺少租户参数");
+		}
+		if(StringUtil.isBlank(dataQueryVo.getCatalogId())){
+			return ErrorDesc.failure(CommonError.PARAM_INVALID).message("缺少类目ID");
+		}
+		if(dataQueryVo.getOwnerIds()==null || dataQueryVo.getOwnerIds().isEmpty()){
+			return ErrorDesc.failure(CommonError.PARAM_INVALID).message("缺少所有者ID");
+		}
+
+		if(dataQueryVo.getOwnerIds()!=null && !dataQueryVo.getOwnerIds().isEmpty()
+		&& dataQueryVo.getIds()!=null && !dataQueryVo.getIds().isEmpty()){
+			return ErrorDesc.failure(CommonError.PARAM_INVALID).message("不能同时指定 ids 和 ownerIds 参数");
+		}
+
+		return catalogService.queryData(dataQueryVo);
+	}
+
+
+
+	/**
+	 * 保存多个分类数据
+	 */
+	@ApiOperation(value = "保存多个分类数据")
+	@ApiOperationSupport(order=2)
+	@SentinelResource(value = CatalogServiceProxy.SAVE_DATA_LIST)
+	@PostMapping(CatalogServiceProxy.SAVE_DATA_LIST)
+	public Result saveDataList(List<CatalogData> catalogDataList) {
+		Result result=new Result();
+		int i=0;
+		for (CatalogData dataQueryVo : catalogDataList) {
+			if(StringUtil.isBlank(dataQueryVo.getTenantId())){
+				result.addError(ErrorDesc.failure(CommonError.PARAM_INVALID).message("第"+i+"行，缺少租户参数"));
+			}
+			if(StringUtil.isBlank(dataQueryVo.getCatalogId())){
+				result.addError(ErrorDesc.failure(CommonError.PARAM_INVALID).message("第"+i+"行，缺少类目ID"));
+			}
+			if(StringUtil.isBlank(dataQueryVo.getOwnerId())){
+				result.addError(ErrorDesc.failure(CommonError.PARAM_INVALID).message("第"+i+"行，缺少所有者ID"));
+			}
+		}
+		if(result.hasSubError()){
+			return result;
+		}
+
+		return catalogService.saveDataList(catalogDataList);
+	}
+
+	/**
+	 * 保存单个分类数据
+	 */
+	@ApiOperation(value = "保存单个分类数据")
+	@ApiOperationSupport(order=2)
+	@SentinelResource(value = CatalogServiceProxy.SAVE_DATA)
+	@PostMapping(CatalogServiceProxy.SAVE_DATA)
+	public Result saveData(CatalogData catalogData) {
+		Result result=new Result();
+		if(StringUtil.isBlank(catalogData.getTenantId())){
+			result.addError(ErrorDesc.failure(CommonError.PARAM_INVALID).message("缺少租户参数"));
+		}
+		if(StringUtil.isBlank(catalogData.getCatalogId())){
+			result.addError(ErrorDesc.failure(CommonError.PARAM_INVALID).message("缺少类目ID"));
+		}
+		if(StringUtil.isBlank(catalogData.getOwnerId())){
+			result.addError(ErrorDesc.failure(CommonError.PARAM_INVALID).message("缺少所有者ID"));
+		}
+		if(result.hasSubError()){
+			return result;
+		}
+		return catalogService.saveDataList(Arrays.asList(catalogData));
+	}
+
+
+	/**
+	 * 保存单个分类数据
+	 */
+	@ApiOperation(value = "保存单个分类数据")
+	@ApiOperationSupport(order=2)
+	@SentinelResource(value = CatalogServiceProxy.DELETE_DATA)
+	@PostMapping(CatalogServiceProxy.DELETE_DATA)
+	public Result deleteData(DataQueryVo dataQueryVo) {
+		if(dataQueryVo.getIds()==null || dataQueryVo.getIds().isEmpty()) {
+			return ErrorDesc.failure(CommonError.PARAM_INVALID).message("至少指定一个id值");
+		}
+		if(StringUtil.isBlank(dataQueryVo.getCatalogId())){
+			return ErrorDesc.failure(CommonError.PARAM_INVALID).message("缺少类目ID");
+		}
+		return catalogService.deleteData(dataQueryVo);
 	}
 
 

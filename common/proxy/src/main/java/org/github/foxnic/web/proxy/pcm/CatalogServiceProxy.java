@@ -118,6 +118,26 @@ public interface CatalogServiceProxy {
 	 * 生效一个编辑中的版本
 	 */
 	public static final String APPLY_VERSION = API_PREFIX + "apply-version";
+
+	/**
+	 * 查询类目下的数据
+	 */
+	public static final String QUERY_DATA = API_PREFIX + "query-data";
+
+	/**
+	 * 保存类目下的数据
+	 */
+	public static final String SAVE_DATA = API_PREFIX + "save-data";
+
+	/**
+	 * 删除类目下的数据
+	 */
+	public static final String DELETE_DATA = API_PREFIX + "delete-data";
+
+	/**
+	 * 保存类目下的数据
+	 */
+	public static final String SAVE_DATA_LIST = API_PREFIX + "save-data-list";
 	
 	/**
 	 * 分页查询数据存储

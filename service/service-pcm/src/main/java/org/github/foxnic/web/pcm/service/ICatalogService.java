@@ -12,6 +12,8 @@ import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.expr.OrderBy;
 import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.domain.pcm.Catalog;
+import org.github.foxnic.web.domain.pcm.CatalogData;
+import org.github.foxnic.web.domain.pcm.DataQueryVo;
 import org.github.foxnic.web.misc.ztree.ZTreeNode;
 
 import java.io.InputStream;
@@ -338,4 +340,13 @@ public interface ICatalogService extends ISuperService<Catalog> {
 	Result createVersion(String id);
 
 	Result applyVersion(String id);
+
+	/**
+	 * 查询类目下指定ID的数据
+	 * */
+    Result queryData(DataQueryVo dataQueryVo);
+
+	Result saveDataList(List<CatalogData> catalogDataList);
+
+	Result deleteData(DataQueryVo dataQueryVo);
 }

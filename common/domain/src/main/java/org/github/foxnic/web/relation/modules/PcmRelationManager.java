@@ -16,6 +16,15 @@ public class PcmRelationManager extends RelationManager {
 		this.property(CatalogMeta.ATTRIBUTES_PROP)
 		.using(PCM_CATALOG.ID).join(PCM_CATALOG_ATTRIBUTE.CATALOG_ID);
 
+
+		//属性 - 属性分类来源
+		this.property(CatalogAttributeMeta.CATALOG_PROP)
+				.using(PCM_CATALOG_ATTRIBUTE.CATALOG_ID).join(PCM_CATALOG.ID);
+
+		//属性 - 属性来源
+		this.property(CatalogAttributeMeta.SOURCE_ATTR_PROP)
+				.using(PCM_CATALOG_ATTRIBUTE.SOURCE_ID).join(PCM_CATALOG_ATTRIBUTE.ID);
+
 		//属性对应的字段分配
 		this.property(CatalogAttributeMeta.ALLOCATION_PROP)
 				.using(PCM_CATALOG_ATTRIBUTE.CATALOG_ID,PCM_CATALOG_ATTRIBUTE.VERSION_NO, PCM_CATALOG_ATTRIBUTE.ID)

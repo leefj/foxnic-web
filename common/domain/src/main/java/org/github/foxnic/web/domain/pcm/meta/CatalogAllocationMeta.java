@@ -8,8 +8,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-02 09:09:13
- * @sign 048D1F47FC25320BCB6CE04CBE447486
+ * @since 2021-09-04 07:11:08
+ * @sign F97C366A5B8944ED082379361BD145E3
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -58,12 +58,12 @@ public class CatalogAllocationMeta {
 	/**
 	 * 字段名 , 数据库字段名 , 类型: java.lang.String
 	*/
-	public static final String COLUMN="column";
+	public static final String COLUMN_NAME="columnName";
 	
 	/**
 	 * 字段名 , 数据库字段名 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogAllocation,java.lang.String> COLUMN_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogAllocation.class ,COLUMN, java.lang.String.class, "字段名", "数据库字段名", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogAllocation,java.lang.String> COLUMN_NAME_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogAllocation.class ,COLUMN_NAME, java.lang.String.class, "字段名", "数据库字段名", java.lang.String.class, null);
 	
 	/**
 	 * 创建人ID , 类型: java.lang.String
@@ -148,7 +148,7 @@ public class CatalogAllocationMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , VERSION_NO , CATALOG_ID , ATTRIBUTE_ID , COLUMN , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , VERSION_NO , CATALOG_ID , ATTRIBUTE_ID , COLUMN_NAME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
 	
 	/**
 	 * 代理类
@@ -204,12 +204,12 @@ public class CatalogAllocationMeta {
 		
 		/**
 		 * 设置 字段名
-		 * @param column 字段名
+		 * @param columnName 字段名
 		 * @return 当前对象
 		*/
-		public CatalogAllocation setColumn(String column) {
-			super.change(COLUMN,super.getColumn(),column);
-			super.setColumn(column);
+		public CatalogAllocation setColumnName(String columnName) {
+			super.change(COLUMN_NAME,super.getColumnName(),columnName);
+			super.setColumnName(columnName);
 			return this;
 		}
 		

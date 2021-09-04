@@ -1,11 +1,13 @@
 package org.github.foxnic.web.pcm.service.impl;
 
 
+import com.github.foxnic.api.error.CommonError;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.busi.id.IDGenerator;
 import com.github.foxnic.commons.busi.id.SequenceType;
 import com.github.foxnic.commons.cache.Variable;
+import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.Rcd;
 import com.github.foxnic.dao.data.RcdSet;
@@ -17,16 +19,16 @@ import com.github.foxnic.dao.excel.ValidateResult;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.dao.spec.DBSequence;
 import com.github.foxnic.dao.sql.expr.Template;
-import com.github.foxnic.sql.expr.ConditionExpr;
+import com.github.foxnic.sql.expr.*;
 import com.github.foxnic.sql.meta.DBField;
 import com.github.foxnic.sql.parameter.BatchParamBuilder;
 import org.github.foxnic.web.constants.db.FoxnicWeb.PCM_CATALOG;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_MENU;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.meta.MenuMeta;
-import org.github.foxnic.web.domain.pcm.Catalog;
-import org.github.foxnic.web.domain.pcm.CatalogAllocation;
-import org.github.foxnic.web.domain.pcm.CatalogAttribute;
+import org.github.foxnic.web.domain.pcm.*;
+import org.github.foxnic.web.domain.pcm.meta.CatalogAttributeMeta;
+import org.github.foxnic.web.domain.pcm.meta.CatalogMeta;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.misc.ztree.ZTreeNode;
 import org.github.foxnic.web.pcm.service.ICatalogAllocationService;
@@ -38,6 +40,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.io.InputStream;
 import java.lang.reflect.Field;
@@ -77,6 +80,11 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 	@Override
 	public Object generateId(Field field) {
 		return IDGenerator.getSnowflakeIdString();
+	}
+
+	@PostConstruct
+	public void initCache() {
+		super.registCacheStrategy("catalogs", true,false, CatalogMeta.ID);
 	}
 
 	/**
@@ -471,40 +479,54 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 		if(editingAttributes.size()==0) {
 			return ErrorDesc.failure().message("缺少字段");
 		}
-		catalogAttributeService.join(editingAttributes,CatalogAllocation.class);
+		catalogAttributeService.join(editingAttributes, CatalogAttributeMeta.SOURCE_ATTR,CatalogAttributeMeta.ALLOCATION);
 
 		//分配存储字段
-		FieldManager fieldManager=new FieldManager(this.dao(),catalog.getDataTable(),editingAttributes,catalogAttributeService,catalogAllocationService);
+		FieldManager fieldManager=new FieldManager(this.dao(),catalog,editingAttributes,catalogAttributeService,catalogAllocationService);
  		//校验并分配字段
 		Result result=fieldManager.verifyAndAllotAttributes();
 		if(result.failure()) {
 			return result;
 		}
 
-//		fieldManager.applyAllotedFields();
-//
-//
-//		//变更当前激活的版本为历史版本
-//		String version=sequence.next();
-//
-//		try {
-//			dao.beginTransaction();
-//			dao().execute("update pcm_catalog_attribute set version_no=? where catalog_id=? and version_no=?",version,catalogId,ICatalogService.VERSION_ACTIVATED);
-//			dao().execute("update pcm_catalog_allocation set version_no=? where catalog_id=? and version_no=?",version,catalogId,ICatalogService.VERSION_ACTIVATED);
-//
-//			//变更当前编辑的版本为激活的版本
-//			dao().execute("update pcm_catalog_attribute set version_no=? where catalog_id=? and version_no=?",ICatalogService.VERSION_ACTIVATED,catalogId,ICatalogService.VERSION_EDITING);
-//			dao().execute("update pcm_catalog_allocation set version_no=? where catalog_id=? and version_no=?",ICatalogService.VERSION_ACTIVATED,catalogId,ICatalogService.VERSION_EDITING);
-//			dao.commit();
-//		} catch (Exception e) {
-//			dao.rollback();
-//			throw new RuntimeException(e);
-//		}
+		//变更当前激活的版本为历史版本
+		String version=sequence.next();
 
+		try {
+			dao.beginTransaction();
+			dao().execute("update pcm_catalog_attribute set version_no=? where catalog_id=? and version_no=?",version,catalogId,ICatalogService.VERSION_ACTIVATED);
+			dao().execute("update pcm_catalog_allocation set version_no=? where catalog_id=? and version_no=?",version,catalogId,ICatalogService.VERSION_ACTIVATED);
 
+			//变更当前编辑的版本为激活的版本
+			dao().execute("update pcm_catalog_attribute set version_no=? where catalog_id=? and version_no=?",ICatalogService.VERSION_ACTIVATED,catalogId,ICatalogService.VERSION_EDITING);
+			dao().execute("update pcm_catalog_allocation set version_no=? where catalog_id=? and version_no=?",ICatalogService.VERSION_ACTIVATED,catalogId,ICatalogService.VERSION_EDITING);
+			dao.commit();
+		} catch (Exception e) {
+			dao.rollback();
+			throw new RuntimeException(e);
+		}
 
+		//使缓存
+		getCachedCatalog(catalogId);
+		//
 		return ErrorDesc.success().message("版本已生效");
 	}
+
+	private Catalog getCachedCatalog(String catalogId) {
+		Catalog catalog=(Catalog)this.cache().get(catalogId);
+		if(catalog!=null) return catalog;
+		//
+		catalog=this.getById(catalogId);
+		if(catalog==null) return null;
+		List<CatalogAttribute> attributes=catalogAttributeService.getAttributes(catalogId,ICatalogService.VERSION_ACTIVATED);
+		catalogAttributeService.join(attributes,CatalogAttributeMeta.ALLOCATION);
+		catalog.setAttributes(attributes);
+		//
+		this.cache().put(catalogId,catalog);
+		//
+		return catalog;
+	}
+
 
 
 
@@ -530,6 +552,110 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 		if(!parents.isEmpty()) {
 			joinAncestors(parents);
 		}
+	}
+
+
+
+	@Override
+	public Result queryData(DataQueryVo dataQueryVo) {
+
+		Catalog catalog=this.getCachedCatalog(dataQueryVo.getCatalogId());
+		if(catalog==null) {
+			return ErrorDesc.failure().message("类目ID ["+dataQueryVo.getCatalogId()+"] 错误");
+		}
+		//构建查询语句需要的字段
+		Select select=new Select(catalog.getDataTable());
+		select.selects("id","tenant_id","catalog_id","owner_id")
+		.selects("create_time","update_time","version");
+		List<CatalogAttribute> attributes=catalog.getAttributes();
+		for (CatalogAttribute attribute : attributes) {
+			select.select(attribute.getAllocation().getColumnName(),attribute.getField());
+		}
+
+		//构建查询条件
+		ConditionExpr ce=new ConditionExpr("tenant_id=? and catalog_id=? and deleted=0",dataQueryVo.getTenantId(),dataQueryVo.getCatalogId());
+		In in=null;
+		if(dataQueryVo.getIds()!=null && !dataQueryVo.getIds().isEmpty()) {
+			in=new In("id",dataQueryVo.getIds());
+		} else if(dataQueryVo.getOwnerIds()!=null && !dataQueryVo.getOwnerIds().isEmpty()) {
+			in=new In("owner_id",dataQueryVo.getOwnerIds());
+		}
+		if(in!=null){
+			select.where().and(ce).and(in);
+		}
+		//TODO 此处可能存在单次查询数据量过大的问题，晚些处理
+		RcdSet rs= dao().query(select);
+		return ErrorDesc.success().data(rs.toJSONArrayWithJSONObject());
+	}
+
+	@Override
+	public Result saveDataList(List<CatalogData> catalogDataList) {
+
+		Catalog catalog=null;
+		List<CatalogAttribute> attributes=null;
+		Map<String,Object> data=null;
+		List<SQL> sqls=new ArrayList<>();
+		int i=0;
+		for (CatalogData catalogData : catalogDataList) {
+			catalog=this.getCachedCatalog(catalogData.getCatalogId());
+			if(catalog==null) {
+				return ErrorDesc.failure().message("类目ID ["+catalogData.getCatalogId()+"] 错误");
+			}
+			attributes=catalog.getAttributes();
+			if(attributes==null || attributes.isEmpty()) {
+				return ErrorDesc.failure().message("类目ID ["+catalogData.getCatalogId()+"] 缺少属性定义");
+			}
+			data=catalogData.getData();
+			if(data==null || data.isEmpty()) {
+				return ErrorDesc.failure().message((catalogDataList.size()>0?("第"+i+"行,"):"")+"缺少需要保存的data数据");
+			}
+			Setter setter=null;
+			if(StringUtil.isBlank(catalogData.getId())){
+				catalogData.setId(IDGenerator.getSnowflakeIdString());
+				setter=new Insert(catalog.getDataTable());
+				setter.set("id",catalogData.getId());
+				setter.set("catalog_id",catalog.getId());
+				setter.set("owner_id",catalogData.getOwnerId());
+				setter.set("tenant_id",catalogData.getTenantId());
+				setter.set("deleted",0);
+				setter.set("version",1);
+				setter.set("create_time",new Date());
+			} else {
+				Update update=new Update(catalog.getDataTable());
+				update.where("id=?",catalogData.getId());
+				update.setExpr("version","version+1");
+				update.set("update_time",new Date());
+				setter=update;
+			}
+			sqls.add((SQL)setter);
+			for (CatalogAttribute attribute : attributes) {
+				setter.set(attribute.getAllocation().getColumnName(),data.get(attribute.getField()));
+			}
+			i++;
+		}
+		//保存数据
+		try {
+			dao().batchExecute(sqls);
+			return ErrorDesc.success().message("数据已保存").data(catalogDataList);
+		} catch (Exception e) {
+			return ErrorDesc.exception(e).message("数据保存失败");
+		}
+	}
+
+	@Override
+	public Result deleteData(DataQueryVo dataQueryVo) {
+		if(dataQueryVo.getIds()==null || dataQueryVo.getIds().isEmpty()) {
+			return ErrorDesc.failure(CommonError.PARAM_INVALID).message("至少指定一个id值");
+		}
+		Catalog catalog=this.getCachedCatalog(dataQueryVo.getCatalogId());
+		if(catalog==null) {
+			return ErrorDesc.failure().message("类目ID ["+dataQueryVo.getCatalogId()+"] 错误");
+		}
+		In in=new In("id",dataQueryVo.getIds());
+		Expr expr=new Expr("update "+catalog.getDataTable()+" set deleted=1 , delete_time=? ",new Date());
+		expr.append(in.toConditionExpr().startWithWhere());
+		this.dao().execute(expr);
+		return ErrorDesc.success();
 	}
 
 

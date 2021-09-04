@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-02 09:59:46
- * @sign 7928DAAA287FCF865E39A5585CC8EEEC
+ * @since 2021-09-04 13:16:55
+ * @sign E1E3DC4CC8A1AC45FC072D54FAE0C519
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -50,7 +50,7 @@ public class CatalogAttribute extends Entity {
 	/**
 	 * 配置版本号：配置版本号
 	*/
-	@ApiModelProperty(required = false,value="配置版本号" , notes = "配置版本号")
+	@ApiModelProperty(required = true,value="配置版本号" , notes = "配置版本号")
 	private String versionNo;
 	
 	/**
@@ -168,10 +168,28 @@ public class CatalogAttribute extends Entity {
 	private Integer version;
 	
 	/**
+	 * 类目对象：类目对象
+	*/
+	@ApiModelProperty(required = false,value="类目对象" , notes = "类目对象")
+	private Catalog catalog;
+	
+	/**
 	 * 分配的字段：分配的字段
 	*/
 	@ApiModelProperty(required = false,value="分配的字段" , notes = "分配的字段")
 	private CatalogAllocation allocation;
+	
+	/**
+	 * 重新分配前的字段：用于字段参数变更时登记
+	*/
+	@ApiModelProperty(required = false,value="重新分配前的字段" , notes = "用于字段参数变更时登记")
+	private CatalogAllocation allocationBefore;
+	
+	/**
+	 * 来源：上一个版本的配置信息
+	*/
+	@ApiModelProperty(required = false,value="来源" , notes = "上一个版本的配置信息")
+	private CatalogAttribute sourceAttr;
 	
 	/**
 	 * 获得 主键<br>
@@ -611,6 +629,25 @@ public class CatalogAttribute extends Entity {
 	}
 	
 	/**
+	 * 获得 类目对象<br>
+	 * 类目对象
+	 * @return 类目对象
+	*/
+	public Catalog getCatalog() {
+		return catalog;
+	}
+	
+	/**
+	 * 设置 类目对象
+	 * @param catalog 类目对象
+	 * @return 当前对象
+	*/
+	public CatalogAttribute setCatalog(Catalog catalog) {
+		this.catalog=catalog;
+		return this;
+	}
+	
+	/**
 	 * 获得 分配的字段<br>
 	 * 分配的字段
 	 * @return 分配的字段
@@ -626,6 +663,44 @@ public class CatalogAttribute extends Entity {
 	*/
 	public CatalogAttribute setAllocation(CatalogAllocation allocation) {
 		this.allocation=allocation;
+		return this;
+	}
+	
+	/**
+	 * 获得 重新分配前的字段<br>
+	 * 用于字段参数变更时登记
+	 * @return 重新分配前的字段
+	*/
+	public CatalogAllocation getAllocationBefore() {
+		return allocationBefore;
+	}
+	
+	/**
+	 * 设置 重新分配前的字段
+	 * @param allocationBefore 重新分配前的字段
+	 * @return 当前对象
+	*/
+	public CatalogAttribute setAllocationBefore(CatalogAllocation allocationBefore) {
+		this.allocationBefore=allocationBefore;
+		return this;
+	}
+	
+	/**
+	 * 获得 来源<br>
+	 * 上一个版本的配置信息
+	 * @return 来源
+	*/
+	public CatalogAttribute getSourceAttr() {
+		return sourceAttr;
+	}
+	
+	/**
+	 * 设置 来源
+	 * @param sourceAttr 来源
+	 * @return 当前对象
+	*/
+	public CatalogAttribute setSourceAttr(CatalogAttribute sourceAttr) {
+		this.sourceAttr=sourceAttr;
 		return this;
 	}
 

@@ -10,8 +10,8 @@ import java.util.List;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-02 14:29:55
- * @sign 790DC80BCE8A18D7D6D7B5751CBDF2F1
+ * @since 2021-09-04 12:08:37
+ * @sign 06AC377D331FDFE700584F5BCC914E7A
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -178,14 +178,14 @@ public class CatalogMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.pcm.Catalog,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.Catalog.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
-	 * 属性清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.pcm.CatalogAttribute
+	 * 当前有效的属性清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.pcm.CatalogAttribute
 	*/
 	public static final String ATTRIBUTES="attributes";
 	
 	/**
-	 * 属性清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.pcm.CatalogAttribute
+	 * 当前有效的属性清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.pcm.CatalogAttribute
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.pcm.Catalog,org.github.foxnic.web.domain.pcm.CatalogAttribute> ATTRIBUTES_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.Catalog.class ,ATTRIBUTES, java.util.List.class, "属性清单", "属性清单", org.github.foxnic.web.domain.pcm.CatalogAttribute.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.pcm.Catalog,org.github.foxnic.web.domain.pcm.CatalogAttribute> ATTRIBUTES_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.Catalog.class ,ATTRIBUTES, java.util.List.class, "当前有效的属性清单", "当前有效的属性清单", org.github.foxnic.web.domain.pcm.CatalogAttribute.class, null);
 	
 	/**
 	 * 全部属性清单
@@ -377,8 +377,8 @@ public class CatalogMeta {
 		}
 		
 		/**
-		 * 设置 属性清单
-		 * @param attributes 属性清单
+		 * 设置 当前有效的属性清单
+		 * @param attributes 当前有效的属性清单
 		 * @return 当前对象
 		*/
 		public Catalog setAttributes(List<CatalogAttribute> attributes) {

@@ -17,6 +17,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.github.foxnic.web.domain.pcm.Catalog;
 import org.github.foxnic.web.domain.pcm.CatalogAttribute;
 import org.github.foxnic.web.domain.pcm.CatalogAttributeVO;
 import org.github.foxnic.web.domain.pcm.meta.CatalogAttributeVOMeta;
@@ -297,6 +298,7 @@ public class CatalogAttributeController extends SuperController {
 	public Result<PagedList<CatalogAttribute>> queryPagedList(CatalogAttributeVO sample) {
 		Result<PagedList<CatalogAttribute>> result=new Result<>();
 		PagedList<CatalogAttribute> list=catalogAttributeService.queryPagedList(sample,sample.getPageSize(),sample.getPageIndex());
+		catalogAttributeService.join(list, Catalog.class);
 		result.success(true).data(list);
 		return result;
 	}

@@ -1,6 +1,7 @@
 package org.github.foxnic.web.pcm.service.impl;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.busi.id.IDGenerator;
@@ -14,10 +15,13 @@ import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.dao.excel.ValidateResult;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.sql.expr.ConditionExpr;
+import com.github.foxnic.sql.expr.Expr;
 import com.github.foxnic.sql.expr.In;
 import com.github.foxnic.sql.meta.DBField;
+import org.github.foxnic.web.domain.pcm.Catalog;
 import org.github.foxnic.web.domain.pcm.CatalogAllocation;
 import org.github.foxnic.web.domain.pcm.CatalogAttribute;
+import org.github.foxnic.web.domain.pcm.CatalogAttributeVO;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.pcm.service.ICatalogAllocationService;
 import org.github.foxnic.web.pcm.service.ICatalogAttributeService;
@@ -269,7 +273,35 @@ public class CatalogAttributeServiceImpl extends SuperService<CatalogAttribute> 
 	 * */
 	@Override
 	public PagedList<CatalogAttribute> queryPagedList(CatalogAttribute sample, int pageSize, int pageIndex) {
-		return super.queryPagedList(sample, pageSize, pageIndex);
+
+		JSONObject param=JSONObject.parseObject(((CatalogAttributeVO)sample).getSearchValue());
+		//提取当前类目与版本
+		String catalogId=param.getJSONObject("catalogId").getString("value");
+		String versionNo=param.getJSONObject("versionNo").getString("value");
+		//移除，使其不再参与查询
+		param.remove("catalogId");
+		param.remove("versionNo");
+		((CatalogAttributeVO)sample).setSearchValue(param.toJSONString());
+
+		//分解上级ID
+		Catalog catalog=catalogService.getById(catalogId);
+		if(catalog==null) {
+			return new PagedList<CatalogAttribute>(new ArrayList<>(),pageSize,pageIndex,0,0);
+		}
+		String[] catalogIds=catalog.getHierarchy().split("/");
+
+		//查询条件
+		ConditionExpr catalogLimit=new ConditionExpr();
+		for (int i = 0; i < catalogIds.length-1; i++) {
+			catalogLimit.or("(catalog_id=? and version_no=?)",catalogIds[i],ICatalogService.VERSION_ACTIVATED);
+		}
+		catalogLimit.or("(catalog_id=? and version_no=?)",catalogIds[catalogIds.length-1],versionNo);
+
+		ConditionExpr ceThis=this.buildQueryCondition(sample);
+		ceThis.and(catalogLimit);
+		Expr select=new Expr("select * from "+this.table()+" t");
+		select.append(ceThis.startWithWhere());
+		return dao.queryPagedEntities(CatalogAttribute.class,pageSize,pageIndex,select);
 	}
 	
 	/**

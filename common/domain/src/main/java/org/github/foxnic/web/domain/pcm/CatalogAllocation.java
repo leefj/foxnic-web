@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-02 09:09:13
- * @sign 048D1F47FC25320BCB6CE04CBE447486
+ * @since 2021-09-04 07:11:08
+ * @sign F97C366A5B8944ED082379361BD145E3
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -57,7 +57,7 @@ public class CatalogAllocation extends Entity {
 	 * 字段名：数据库字段名
 	*/
 	@ApiModelProperty(required = false,value="字段名" , notes = "数据库字段名")
-	private String column;
+	private String columnName;
 	
 	/**
 	 * 创建人ID：创建人ID
@@ -188,17 +188,17 @@ public class CatalogAllocation extends Entity {
 	 * 数据库字段名
 	 * @return 字段名
 	*/
-	public String getColumn() {
-		return column;
+	public String getColumnName() {
+		return columnName;
 	}
 	
 	/**
 	 * 设置 字段名
-	 * @param column 字段名
+	 * @param columnName 字段名
 	 * @return 当前对象
 	*/
-	public CatalogAllocation setColumn(String column) {
-		this.column=column;
+	public CatalogAllocation setColumnName(String columnName) {
+		this.columnName=columnName;
 		return this;
 	}
 	
