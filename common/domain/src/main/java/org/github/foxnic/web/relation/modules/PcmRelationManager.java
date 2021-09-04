@@ -4,6 +4,7 @@ import com.github.foxnic.dao.relation.RelationManager;
 import org.github.foxnic.web.constants.db.FoxnicWeb.PCM_CATALOG;
 import org.github.foxnic.web.constants.db.FoxnicWeb.PCM_CATALOG_ALLOCATION;
 import org.github.foxnic.web.constants.db.FoxnicWeb.PCM_CATALOG_ATTRIBUTE;
+import org.github.foxnic.web.domain.pcm.meta.CatalogAllocationMeta;
 import org.github.foxnic.web.domain.pcm.meta.CatalogAttributeMeta;
 import org.github.foxnic.web.domain.pcm.meta.CatalogMeta;
 
@@ -29,6 +30,10 @@ public class PcmRelationManager extends RelationManager {
 		this.property(CatalogAttributeMeta.ALLOCATION_PROP)
 				.using(PCM_CATALOG_ATTRIBUTE.CATALOG_ID,PCM_CATALOG_ATTRIBUTE.VERSION_NO, PCM_CATALOG_ATTRIBUTE.ID)
 				.join(PCM_CATALOG_ALLOCATION.CATALOG_ID,PCM_CATALOG_ALLOCATION.VERSION_NO,PCM_CATALOG_ALLOCATION.ATTRIBUTE_ID);
+
+		//字段分配 - 属性定义
+		this.property(CatalogAllocationMeta.ATTRIBUTE_PROP)
+				.using(PCM_CATALOG_ALLOCATION.ATTRIBUTE_ID).join(PCM_CATALOG_ATTRIBUTE.ID);
 
 	}
  

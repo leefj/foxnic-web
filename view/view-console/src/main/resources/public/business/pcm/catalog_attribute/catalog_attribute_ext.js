@@ -138,6 +138,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
                     top.layer.msg(r.message, {icon: 2, time: 3000});
                     return;
                 }
+                versionNo=null;
                 list.loadAttributes(catalogId);
             });
         },
@@ -178,7 +179,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
                     top.layer.msg(msg, {icon: 2, time: 3000});
                     return;
                 }
-                debugger;
+                versionNo=null;
                 list.loadAttributes(catalogId);
 
                 top.layer.msg("版本应用成功", {icon: 1, time: 1000});

@@ -19,6 +19,7 @@ import com.github.foxnic.dao.excel.ValidateResult;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.dao.spec.DBSequence;
 import com.github.foxnic.dao.sql.expr.Template;
+import com.github.foxnic.sql.data.DataNameFormat;
 import com.github.foxnic.sql.expr.*;
 import com.github.foxnic.sql.meta.DBField;
 import com.github.foxnic.sql.parameter.BatchParamBuilder;
@@ -27,8 +28,8 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_MENU;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.meta.MenuMeta;
 import org.github.foxnic.web.domain.pcm.*;
+import org.github.foxnic.web.domain.pcm.meta.CatalogAllocationMeta;
 import org.github.foxnic.web.domain.pcm.meta.CatalogAttributeMeta;
-import org.github.foxnic.web.domain.pcm.meta.CatalogMeta;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.misc.ztree.ZTreeNode;
 import org.github.foxnic.web.pcm.service.ICatalogAllocationService;
@@ -40,7 +41,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.io.InputStream;
 import java.lang.reflect.Field;
@@ -80,11 +80,6 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 	@Override
 	public Object generateId(Field field) {
 		return IDGenerator.getSnowflakeIdString();
-	}
-
-	@PostConstruct
-	public void initCache() {
-		super.registCacheStrategy("catalogs", true,false, CatalogMeta.ID);
 	}
 
 	/**
@@ -474,15 +469,32 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 			sequence.create(SequenceType.DAI,3);
 		}
 		Catalog catalog=this.getById(catalogId);
-		//
+		if(StringUtil.isBlank(catalog.getDataTable())) {
+			return ErrorDesc.failure().message("未指定存储表");
+		}
+
+		//获得来自父类目继承的属性
+		List<CatalogAttribute> attributes=new ArrayList<>();
+		String[] parentCatalogIds=catalog.getHierarchy().split("/");
+		for (int i = 0; i < parentCatalogIds.length-1; i++) {
+			attributes.addAll(catalogAttributeService.getAttributes(parentCatalogIds[i],ICatalogService.VERSION_ACTIVATED));
+		}
+		//归集到当前类目下
+		for (CatalogAttribute attribute : attributes) {
+			attribute.setCatalogId(catalogId);
+			attribute.setVersionNo(ICatalogService.VERSION_EDITING);
+		}
+
+		//当前类目的属性
 		List<CatalogAttribute> editingAttributes=catalogAttributeService.getAttributes(catalogId,ICatalogService.VERSION_EDITING);
 		if(editingAttributes.size()==0) {
 			return ErrorDesc.failure().message("缺少字段");
 		}
 		catalogAttributeService.join(editingAttributes, CatalogAttributeMeta.SOURCE_ATTR,CatalogAttributeMeta.ALLOCATION);
+		attributes.addAll(editingAttributes);
 
 		//分配存储字段
-		FieldManager fieldManager=new FieldManager(this.dao(),catalog,editingAttributes,catalogAttributeService,catalogAllocationService);
+		FieldManager fieldManager=new FieldManager(this.dao(),catalog,attributes,catalogAttributeService,catalogAllocationService);
  		//校验并分配字段
 		Result result=fieldManager.verifyAndAllotAttributes();
 		if(result.failure()) {
@@ -494,12 +506,12 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 
 		try {
 			dao.beginTransaction();
-			dao().execute("update pcm_catalog_attribute set version_no=? where catalog_id=? and version_no=?",version,catalogId,ICatalogService.VERSION_ACTIVATED);
-			dao().execute("update pcm_catalog_allocation set version_no=? where catalog_id=? and version_no=?",version,catalogId,ICatalogService.VERSION_ACTIVATED);
+			dao().execute("update pcm_catalog_attribute set version_no=?,update_time=? where catalog_id=? and version_no=?",version,new Date(),catalogId,ICatalogService.VERSION_ACTIVATED);
+			dao().execute("update pcm_catalog_allocation set version_no=?,update_time=? where catalog_id=? and version_no=?",version,new Date(),catalogId,ICatalogService.VERSION_ACTIVATED);
 
 			//变更当前编辑的版本为激活的版本
-			dao().execute("update pcm_catalog_attribute set version_no=? where catalog_id=? and version_no=?",ICatalogService.VERSION_ACTIVATED,catalogId,ICatalogService.VERSION_EDITING);
-			dao().execute("update pcm_catalog_allocation set version_no=? where catalog_id=? and version_no=?",ICatalogService.VERSION_ACTIVATED,catalogId,ICatalogService.VERSION_EDITING);
+			dao().execute("update pcm_catalog_attribute set version_no=?,update_time=? where catalog_id=? and version_no=?",ICatalogService.VERSION_ACTIVATED,new Date(),catalogId,ICatalogService.VERSION_EDITING);
+			dao().execute("update pcm_catalog_allocation set version_no=?,update_time=? where catalog_id=? and version_no=?",ICatalogService.VERSION_ACTIVATED,new Date(),catalogId,ICatalogService.VERSION_EDITING);
 			dao.commit();
 		} catch (Exception e) {
 			dao.rollback();
@@ -525,6 +537,17 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 		this.cache().put(catalogId,catalog);
 		//
 		return catalog;
+	}
+
+	private List<CatalogAllocation> getCachedAllocations(String catalogId) {
+		String key=catalogId+":allocations";
+		List<CatalogAllocation> list=(List<CatalogAllocation>)this.cache().get(key);
+		list=null;
+		if(list!=null) return list;
+		list=catalogAllocationService.queryList("catalog_id=? and version_no=?",catalogId,ICatalogService.VERSION_ACTIVATED);
+		catalogAllocationService.join(list, CatalogAllocationMeta.ATTRIBUTE);
+		this.cache().put(key,list);
+		return list;
 	}
 
 
@@ -567,9 +590,12 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 		Select select=new Select(catalog.getDataTable());
 		select.selects("id","tenant_id","catalog_id","owner_id")
 		.selects("create_time","update_time","version");
-		List<CatalogAttribute> attributes=catalog.getAttributes();
-		for (CatalogAttribute attribute : attributes) {
-			select.select(attribute.getAllocation().getColumnName(),attribute.getField());
+
+		List<CatalogAllocation> allocations=this.getCachedAllocations(catalog.getId());
+
+//		List<CatalogAttribute> attributes=catalog.getAttributes();
+		for (CatalogAllocation allocation : allocations) {
+			select.select(allocation.getColumnName(),allocation.getAttribute().getField());
 		}
 
 		//构建查询条件
@@ -585,6 +611,7 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 		}
 		//TODO 此处可能存在单次查询数据量过大的问题，晚些处理
 		RcdSet rs= dao().query(select);
+		rs.setDataNameFormat(DataNameFormat.NONE);
 		return ErrorDesc.success().data(rs.toJSONArrayWithJSONObject());
 	}
 
@@ -592,7 +619,7 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 	public Result saveDataList(List<CatalogData> catalogDataList) {
 
 		Catalog catalog=null;
-		List<CatalogAttribute> attributes=null;
+
 		Map<String,Object> data=null;
 		List<SQL> sqls=new ArrayList<>();
 		int i=0;
@@ -601,10 +628,12 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 			if(catalog==null) {
 				return ErrorDesc.failure().message("类目ID ["+catalogData.getCatalogId()+"] 错误");
 			}
-			attributes=catalog.getAttributes();
-			if(attributes==null || attributes.isEmpty()) {
-				return ErrorDesc.failure().message("类目ID ["+catalogData.getCatalogId()+"] 缺少属性定义");
+			List<CatalogAllocation> allocations=this.getCachedAllocations(catalog.getId());
+
+			if(allocations==null || allocations.isEmpty()) {
+				return ErrorDesc.failure().message("类目ID ["+catalogData.getCatalogId()+"] 存储未正确分配");
 			}
+
 			data=catalogData.getData();
 			if(data==null || data.isEmpty()) {
 				return ErrorDesc.failure().message((catalogDataList.size()>0?("第"+i+"行,"):"")+"缺少需要保存的data数据");
@@ -628,8 +657,8 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 				setter=update;
 			}
 			sqls.add((SQL)setter);
-			for (CatalogAttribute attribute : attributes) {
-				setter.set(attribute.getAllocation().getColumnName(),data.get(attribute.getField()));
+			for (CatalogAllocation allocation : allocations) {
+				setter.set(allocation.getColumnName(),data.get(allocation.getAttribute().getField()));
 			}
 			i++;
 		}

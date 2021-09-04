@@ -2,6 +2,7 @@
  * 数据存储 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
  * @since 2021-09-04 13:16:09
+ * @version
  */
 
 layui.config({
@@ -115,6 +116,13 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * */
         afterDataFill:function (data) {
             console.log('afterDataFill',data);
+            //debugger
+            if(!data.id) {
+                $("#id").parents(".layui-form-item").hide();
+            } else {
+                $("#id").attr("readonly","yes");
+                $("#id").parents(".layui-form-item").show();
+            }
         },
         /**
          * 数据提交前，如果返回 false，停止后续步骤的执行

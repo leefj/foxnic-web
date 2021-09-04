@@ -17,6 +17,7 @@ import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.expr.Expr;
 import com.github.foxnic.sql.expr.In;
+import com.github.foxnic.sql.expr.OrderBy;
 import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.domain.pcm.Catalog;
 import org.github.foxnic.web.domain.pcm.CatalogAllocation;
@@ -301,6 +302,10 @@ public class CatalogAttributeServiceImpl extends SuperService<CatalogAttribute> 
 		ceThis.and(catalogLimit);
 		Expr select=new Expr("select * from "+this.table()+" t");
 		select.append(ceThis.startWithWhere());
+
+		OrderBy orderBy=this.buildOrderBy(sample);
+		select.append(orderBy);
+
 		return dao.queryPagedEntities(CatalogAttribute.class,pageSize,pageIndex,select);
 	}
 	

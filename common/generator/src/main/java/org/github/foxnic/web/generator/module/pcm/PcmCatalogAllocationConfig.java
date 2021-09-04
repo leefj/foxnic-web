@@ -1,10 +1,13 @@
 package org.github.foxnic.web.generator.module.pcm;
 
+import com.github.foxnic.generator.builder.model.PoClassFile;
+import com.github.foxnic.generator.builder.model.VoClassFile;
 import com.github.foxnic.generator.builder.view.option.FormOptions;
 import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.PCM_CATALOG_ALLOCATION;
+import org.github.foxnic.web.domain.pcm.CatalogAttribute;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
 public class PcmCatalogAllocationConfig extends BaseCodeConfig<PCM_CATALOG_ALLOCATION> {
@@ -13,6 +16,10 @@ public class PcmCatalogAllocationConfig extends BaseCodeConfig<PCM_CATALOG_ALLOC
         super(PREFIX_PCM, PCM_CATALOG_ALLOCATION.$TABLE,"pcm_", 4);
     }
 
+    @Override
+    public void configModel(PoClassFile poType, VoClassFile voType) {
+        poType.addSimpleProperty(CatalogAttribute.class,"attribute","与之关联的属性","与之关联的属性");
+    }
 
     @Override
     public void configSearch(ViewOptions view, SearchAreaOptions search) {

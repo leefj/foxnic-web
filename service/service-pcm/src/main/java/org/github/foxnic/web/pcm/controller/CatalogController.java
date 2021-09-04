@@ -422,9 +422,9 @@ public class CatalogController extends SuperController {
 			SelectItem item=new SelectItem();
 			item.setValue(version);
 			if(ICatalogService.VERSION_EDITING.equals(version)) {
-				item.setName("编辑版本");
+				item.setName("编辑版");
 			} else if(ICatalogService.VERSION_ACTIVATED.equals(version)) {
-				item.setName("有效版本");
+				item.setName("生效版");
 			} else {
 				item.setName(version);
 			}

@@ -3,13 +3,14 @@ package org.github.foxnic.web.domain.pcm.meta;
 import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.pcm.CatalogAllocation;
 import java.util.Date;
+import org.github.foxnic.web.domain.pcm.CatalogAttribute;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-04 07:11:08
- * @sign F97C366A5B8944ED082379361BD145E3
+ * @since 2021-09-04 21:24:28
+ * @sign 259C8B3F3ADA55C10426FC1ACCFCF5A4
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -146,9 +147,19 @@ public class CatalogAllocationMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogAllocation,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogAllocation.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
+	 * 与之关联的属性 , 类型: org.github.foxnic.web.domain.pcm.CatalogAttribute
+	*/
+	public static final String ATTRIBUTE="attribute";
+	
+	/**
+	 * 与之关联的属性 , 类型: org.github.foxnic.web.domain.pcm.CatalogAttribute
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogAllocation,org.github.foxnic.web.domain.pcm.CatalogAttribute> ATTRIBUTE_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogAllocation.class ,ATTRIBUTE, org.github.foxnic.web.domain.pcm.CatalogAttribute.class, "与之关联的属性", "与之关联的属性", org.github.foxnic.web.domain.pcm.CatalogAttribute.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , VERSION_NO , CATALOG_ID , ATTRIBUTE_ID , COLUMN_NAME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , VERSION_NO , CATALOG_ID , ATTRIBUTE_ID , COLUMN_NAME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , ATTRIBUTE };
 	
 	/**
 	 * 代理类
@@ -298,6 +309,17 @@ public class CatalogAllocationMeta {
 		public CatalogAllocation setVersion(Integer version) {
 			super.change(VERSION,super.getVersion(),version);
 			super.setVersion(version);
+			return this;
+		}
+		
+		/**
+		 * 设置 与之关联的属性
+		 * @param attribute 与之关联的属性
+		 * @return 当前对象
+		*/
+		public CatalogAllocation setAttribute(CatalogAttribute attribute) {
+			super.change(ATTRIBUTE,super.getAttribute(),attribute);
+			super.setAttribute(attribute);
 			return this;
 		}
 	}

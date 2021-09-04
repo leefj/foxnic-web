@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-04 07:11:08
- * @sign F97C366A5B8944ED082379361BD145E3
+ * @since 2021-09-04 21:24:28
+ * @sign 259C8B3F3ADA55C10426FC1ACCFCF5A4
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -38,25 +38,25 @@ public class CatalogAllocation extends Entity {
 	/**
 	 * 配置版本号：配置版本号
 	*/
-	@ApiModelProperty(required = false,value="配置版本号" , notes = "配置版本号")
+	@ApiModelProperty(required = true,value="配置版本号" , notes = "配置版本号")
 	private String versionNo;
 	
 	/**
 	 * 分类ID：分类ID
 	*/
-	@ApiModelProperty(required = false,value="分类ID" , notes = "分类ID")
+	@ApiModelProperty(required = true,value="分类ID" , notes = "分类ID")
 	private String catalogId;
 	
 	/**
 	 * 属性ID：属性ID
 	*/
-	@ApiModelProperty(required = false,value="属性ID" , notes = "属性ID")
+	@ApiModelProperty(required = true,value="属性ID" , notes = "属性ID")
 	private String attributeId;
 	
 	/**
 	 * 字段名：数据库字段名
 	*/
-	@ApiModelProperty(required = false,value="字段名" , notes = "数据库字段名")
+	@ApiModelProperty(required = true,value="字段名" , notes = "数据库字段名")
 	private String columnName;
 	
 	/**
@@ -106,6 +106,12 @@ public class CatalogAllocation extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
 	private Integer version;
+	
+	/**
+	 * 与之关联的属性：与之关联的属性
+	*/
+	@ApiModelProperty(required = false,value="与之关联的属性" , notes = "与之关联的属性")
+	private CatalogAttribute attribute;
 	
 	/**
 	 * 获得 主键<br>
@@ -351,6 +357,25 @@ public class CatalogAllocation extends Entity {
 	*/
 	public CatalogAllocation setVersion(Integer version) {
 		this.version=version;
+		return this;
+	}
+	
+	/**
+	 * 获得 与之关联的属性<br>
+	 * 与之关联的属性
+	 * @return 与之关联的属性
+	*/
+	public CatalogAttribute getAttribute() {
+		return attribute;
+	}
+	
+	/**
+	 * 设置 与之关联的属性
+	 * @param attribute 与之关联的属性
+	 * @return 当前对象
+	*/
+	public CatalogAllocation setAttribute(CatalogAttribute attribute) {
+		this.attribute=attribute;
 		return this;
 	}
 
