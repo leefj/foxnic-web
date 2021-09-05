@@ -167,7 +167,7 @@ public class CatalogAttributeServiceImpl extends SuperService<CatalogAttribute> 
 
 		for (CatalogAttribute attr : attrs) {
 			if(!attr.getCatalogId().equals(thisCatalog.getId())) {
-				return ErrorDesc.failure().message("无法删除非当前类目下的属性");
+				return ErrorDesc.failure().message("无法删除从上级继承的属性");
 			}
 		}
 
