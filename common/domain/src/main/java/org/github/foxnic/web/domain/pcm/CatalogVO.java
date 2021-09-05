@@ -9,8 +9,8 @@ import java.util.ArrayList;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-30 16:03:03
- * @sign 7DEE79351285A1B548F608E1CC986AD6
+ * @since 2021-09-05 07:52:24
+ * @sign 0201E9AECDF41BA2A58675297C3DD038
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -65,6 +65,12 @@ public class CatalogVO extends Catalog {
 	*/
 	@ApiModelProperty(required = false,value="主键清单" , notes = "用于接收批量主键参数")
 	private List<String> ids;
+	
+	/**
+	 * 是否加载所有子孙节点：1：是；0：否
+	*/
+	@ApiModelProperty(required = false,value="是否加载所有子孙节点" , notes = "1：是；0：否")
+	private Integer isLoadAllDescendants;
 	
 	/**
 	 * 获得 页码<br>
@@ -219,6 +225,25 @@ public class CatalogVO extends Catalog {
 	public CatalogVO addId(String id) {
 		if(this.ids==null) ids=new ArrayList<>();
 		this.ids.add(id);
+		return this;
+	}
+	
+	/**
+	 * 获得 是否加载所有子孙节点<br>
+	 * 1：是；0：否
+	 * @return 是否加载所有子孙节点
+	*/
+	public Integer getIsLoadAllDescendants() {
+		return isLoadAllDescendants;
+	}
+	
+	/**
+	 * 设置 是否加载所有子孙节点
+	 * @param isLoadAllDescendants 是否加载所有子孙节点
+	 * @return 当前对象
+	*/
+	public CatalogVO setIsLoadAllDescendants(Integer isLoadAllDescendants) {
+		this.isLoadAllDescendants=isLoadAllDescendants;
 		return this;
 	}
 }

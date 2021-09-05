@@ -81,7 +81,9 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 			menu.setAuthority(IDGenerator.getSUID(true));
 		}
 		Result result=super.insert(menu);
-		fillHierarchy(false);
+		if(result.success()) {
+			fillHierarchy(false);
+		}
 		return result;
 	}
 	

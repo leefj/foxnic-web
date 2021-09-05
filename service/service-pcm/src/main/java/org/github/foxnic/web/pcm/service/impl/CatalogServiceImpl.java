@@ -39,7 +39,6 @@ import org.github.foxnic.web.pcm.storage.model.FieldManager;
 import org.github.foxnic.web.session.SessionUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.io.InputStream;
@@ -89,7 +88,11 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 	 * */
 	@Override
 	public Result insert(Catalog catalog) {
+		catalog.setValid(1);
 		Result r=super.insert(catalog);
+		if(r.success()) {
+			this.fillHierarchy(false);
+		}
 		return r;
 	}
 
@@ -100,7 +103,11 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 	 * */
 	@Override
 	public Result insertList(List<Catalog> catalogList) {
-		return super.insertList(catalogList);
+		Result r=super.insertList(catalogList);
+		if(r.success()) {
+			this.fillHierarchy(false);
+		}
+		return r;
 	}
 
 
@@ -357,7 +364,7 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 			ce.or(SYS_MENU.HIERARCHY.name()+" like ?",node.getHierarchy()+"/%");
 		}
 		ce.startWithSpace();
-		Template template= dao.getTemplate("#query-descendants-menus");
+		Template template= dao.getTemplate("#query-descendants-catalogs");
 		template.put("descendants_condition",ce);
 		//查询所有子孙节点
 		RcdSet descendantRs=dao().query(template);
@@ -518,8 +525,10 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 			throw new RuntimeException(e);
 		}
 
-		//使缓存
-		getCachedCatalog(catalogId);
+		//移除缓存
+		this.cache().remove(catalogId);
+		this.cache().remove(catalogId+":allocations");
+
 		//
 		return ErrorDesc.success().message("版本已生效");
 	}
@@ -552,18 +561,6 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 
 
 
-
-	/**
-	 * 从当前版本克隆一个新的编辑中的版本
-	 * */
-	@Transactional
-	public boolean cloneEditingVersionIf(String catalogId) {
-
- 		return true;
-	}
-
-
-
 	private void joinAncestors(List<Menu> menus) {
 		List<Menu> parents=new ArrayList<>();
 		dao().join(menus, MenuMeta.PARENT);
@@ -585,6 +582,9 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 		Catalog catalog=this.getCachedCatalog(dataQueryVo.getCatalogId());
 		if(catalog==null) {
 			return ErrorDesc.failure().message("类目ID ["+dataQueryVo.getCatalogId()+"] 错误");
+		}
+		if(!catalog.getTenantId().equals(dataQueryVo.getTenantId())){
+			return ErrorDesc.failure().message("类目ID ["+dataQueryVo.getCatalogId()+"] 未在指定的租户 ["+dataQueryVo.getTenantId()+"] 定义");
 		}
 		//构建查询语句需要的字段
 		Select select=new Select(catalog.getDataTable());
@@ -627,6 +627,9 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 			catalog=this.getCachedCatalog(catalogData.getCatalogId());
 			if(catalog==null) {
 				return ErrorDesc.failure().message("类目ID ["+catalogData.getCatalogId()+"] 错误");
+			}
+			if(!catalog.getTenantId().equals(catalogData.getTenantId())){
+				return ErrorDesc.failure().message("类目ID ["+catalogData.getCatalogId()+"] 未在指定的租户 ["+catalogData.getTenantId()+"] 定义");
 			}
 			List<CatalogAllocation> allocations=this.getCachedAllocations(catalog.getId());
 
@@ -679,6 +682,9 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 		Catalog catalog=this.getCachedCatalog(dataQueryVo.getCatalogId());
 		if(catalog==null) {
 			return ErrorDesc.failure().message("类目ID ["+dataQueryVo.getCatalogId()+"] 错误");
+		}
+		if(!catalog.getTenantId().equals(dataQueryVo.getTenantId())){
+			return ErrorDesc.failure().message("类目ID ["+dataQueryVo.getCatalogId()+"] 未在指定的租户 ["+dataQueryVo.getTenantId()+"] 定义");
 		}
 		In in=new In("id",dataQueryVo.getIds());
 		Expr expr=new Expr("update "+catalog.getDataTable()+" set deleted=1 , delete_time=? ",new Date());

@@ -29,6 +29,9 @@ public class PcmCatalogConfig extends BaseCodeConfig<PCM_CATALOG> {
         pojo.addSimpleProperty(String.class,"catalogId","类目ID","");
         pojo.addListProperty(String.class,"ids","数据的ID清单","");
         pojo.addListProperty(String.class,"ownerIds","所有者单据ID清单","");
+        //
+        voType.addSimpleProperty(Integer.class,"isLoadAllDescendants","是否加载所有子孙节点","1：是；0：否");
+
 
     }
 

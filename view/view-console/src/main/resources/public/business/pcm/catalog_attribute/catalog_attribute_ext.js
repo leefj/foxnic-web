@@ -138,7 +138,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
                     top.layer.msg(r.message, {icon: 2, time: 3000});
                     return;
                 }
-                versionNo=null;
+                versionNo="editing";
                 list.loadAttributes(catalogId);
             });
         },

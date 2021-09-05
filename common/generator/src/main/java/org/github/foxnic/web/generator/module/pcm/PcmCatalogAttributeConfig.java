@@ -39,6 +39,8 @@ public class PcmCatalogAttributeConfig extends BaseCodeConfig<PCM_CATALOG_ATTRIB
     public void configList(ViewOptions view, ListOptions list) {
         list.addToolButton("创建版本","createVersion","create-version-button");
         list.addToolButton("应用版本","applyVersion","apply-version-button");
+        list.columnLayout(PCM_CATALOG_ATTRIBUTE.FIELD,PCM_CATALOG_ATTRIBUTE.DATA_TYPE,
+                PCM_CATALOG_ATTRIBUTE.SHORT_NAME,PCM_CATALOG_ATTRIBUTE.FULL_NAME,catalogName);
     }
 
     private String catalogName="catalogName";
@@ -71,7 +73,7 @@ public class PcmCatalogAttributeConfig extends BaseCodeConfig<PCM_CATALOG_ATTRIB
         view.field(PCM_CATALOG_ATTRIBUTE.NOTE).search().hidden().table().hidden().form().textArea().height(100);
         view.field(PCM_CATALOG_ATTRIBUTE.DETAIL).search().hidden().table().hidden().form().label("属性说明").textArea().height(100);
 
-        view.field(catalogName).basic().label("类目").table().fillBy(CatalogAttributeMeta.CATALOG, CatalogMeta.NAME);
+        view.field(catalogName).basic().label("所属类目").table().fillBy(CatalogAttributeMeta.CATALOG, CatalogMeta.NAME);
 
         view.field(PCM_CATALOG_ATTRIBUTE.DATA_TYPE)
                 .form().validate().required()

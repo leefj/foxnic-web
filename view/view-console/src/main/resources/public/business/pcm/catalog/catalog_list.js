@@ -1,7 +1,7 @@
 /**
  * 数据存储 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-04 13:16:09
+ * @since 2021-09-05 07:52:26
  */
 
 
@@ -84,7 +84,7 @@ function ListPage() {
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
 				]],
-				done: function () { window.pageExt.list.afterQuery && window.pageExt.list.afterQuery(); },
+				done: function (data) { window.pageExt.list.afterQuery && window.pageExt.list.afterQuery(data); },
 				footer : {
 					exportExcel : admin.checkAuth(AUTH_PREFIX+":export"),
 					importExcel : admin.checkAuth(AUTH_PREFIX+":import")?{

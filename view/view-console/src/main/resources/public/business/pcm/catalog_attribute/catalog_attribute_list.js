@@ -1,7 +1,7 @@
 /**
  * 分类属性 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-04 13:42:05
+ * @since 2021-09-05 12:31:23
  */
 
 
@@ -72,23 +72,23 @@ function ListPage() {
 				cols: [[
 					{ fixed: 'left',type: 'numbers' },
 					{ fixed: 'left',type:'checkbox' }
+					,{ field: 'field', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('字段名') , templet: function (d) { return templet('field',d.field,d);}  }
+					,{ field: 'dataType', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('数据类型'), templet:function (d){ return templet('dataType',fox.getEnumText(SELECT_DATATYPE_DATA,d.dataType),d);}}
+					,{ field: 'shortName', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('简称') , templet: function (d) { return templet('shortName',d.shortName,d);}  }
+					,{ field: 'fullName', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('全称') , templet: function (d) { return templet('fullName',d.fullName,d);}  }
+					,{ field: 'catalogName', align:"",fixed:false,  hide:false, sort: true, title: fox.translate('所属类目') , templet: function (d) { return templet('catalogName',fox.getProperty(d,["catalog","name"]),d);} }
 					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('主键') , templet: function (d) { return templet('id',d.id,d);}  }
 					,{ field: 'catalogId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('存储ID') , templet: function (d) { return templet('catalogId',d.catalogId,d);}  }
-					,{ field: 'field', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('字段名') , templet: function (d) { return templet('field',d.field,d);}  }
 					,{ field: 'versionNo', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('版本') , templet: function (d) { return templet('versionNo',d.versionNo,d);}  }
-					,{ field: 'dataType', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('数据类型'), templet:function (d){ return templet('dataType',fox.getEnumText(SELECT_DATATYPE_DATA,d.dataType),d);}}
 					,{ field: 'length', align:"right",fixed:false,  hide:true, sort: true, title: fox.translate('数据长度') , templet: function (d) { return templet('length',d.length,d);}  }
 					,{ field: 'accuracy', align:"right",fixed:false,  hide:true, sort: true, title: fox.translate('数据精度') , templet: function (d) { return templet('accuracy',d.accuracy,d);}  }
 					,{ field: 'scale', align:"right",fixed:false,  hide:true, sort: true, title: fox.translate('小数位数') , templet: function (d) { return templet('scale',d.scale,d);}  }
-					,{ field: 'shortName', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('简称') , templet: function (d) { return templet('shortName',d.shortName,d);}  }
-					,{ field: 'fullName', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('全称') , templet: function (d) { return templet('fullName',d.fullName,d);}  }
-					,{ field: 'hint', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('提示信息') , templet: function (d) { return templet('hint',d.hint,d);}  }
+					,{ field: 'hint', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('提示信息') , templet: function (d) { return templet('hint',d.hint,d);}  }
 					,{ field: 'detail', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('说明') , templet: function (d) { return templet('detail',d.detail,d);}  }
 					,{ field: 'note', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('备注') , templet: function (d) { return templet('note',d.note,d);}  }
 					,{ field: 'valid', align:"right",fixed:false,  hide:true, sort: true, title: fox.translate('是否有效'), templet: '#cell-tpl-valid'}
 					,{ field: 'sourceId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('原属性ID') , templet: function (d) { return templet('sourceId',d.sourceId,d);}  }
-					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime),d); }}
-					,{ field: 'catalogName', align:"",fixed:false,  hide:false, sort: true, title: fox.translate('类目') , templet: function (d) { return templet('catalogName',fox.getProperty(d,["catalog","name"]),d);} }
+					,{ field: 'createTime', align:"right", fixed:false, hide:true, sort: true, title: fox.translate('创建时间'), templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime),d); }}
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
 				]],

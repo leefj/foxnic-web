@@ -19,7 +19,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.github.foxnic.web.domain.oauth.MenuVO;
 import org.github.foxnic.web.domain.oauth.meta.MenuVOMeta;
 import org.github.foxnic.web.domain.pcm.Catalog;
 import org.github.foxnic.web.domain.pcm.CatalogData;
@@ -253,7 +252,7 @@ public class CatalogController extends SuperController {
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { CatalogVOMeta.PAGE_INDEX , CatalogVOMeta.PAGE_SIZE } )
 	@SentinelResource(value = CatalogServiceProxy.QUERY_NODES , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(CatalogServiceProxy.QUERY_NODES)
-	public Result<List<ZTreeNode>> queryNodes(MenuVO sample) {
+	public Result<List<ZTreeNode>> queryNodes(CatalogVO sample) {
 
 		Result<List<ZTreeNode>> result=new Result<>();
 		List<ZTreeNode> list=null;
@@ -262,6 +261,7 @@ public class CatalogController extends SuperController {
 		} else {
 			list=catalogService.queryChildNodes(sample.getParentId());
 		}
+
 		//加载全部子孙节点
 		if(sample.getIsLoadAllDescendants()!=null && sample.getIsLoadAllDescendants()==1) {
 

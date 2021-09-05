@@ -8,8 +8,8 @@ import java.util.List;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-30 16:03:03
- * @sign 7DEE79351285A1B548F608E1CC986AD6
+ * @since 2021-09-05 07:52:24
+ * @sign 0201E9AECDF41BA2A58675297C3DD038
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -96,9 +96,19 @@ public class CatalogVOMeta extends CatalogMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogVO,java.lang.String> IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogVO.class ,IDS, java.util.List.class, "主键清单", "用于接收批量主键参数", java.lang.String.class, null);
 	
 	/**
+	 * 是否加载所有子孙节点 , 1：是；0：否 , 类型: java.lang.Integer
+	*/
+	public static final String IS_LOAD_ALL_DESCENDANTS="isLoadAllDescendants";
+	
+	/**
+	 * 是否加载所有子孙节点 , 1：是；0：否 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogVO,java.lang.Integer> IS_LOAD_ALL_DESCENDANTS_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogVO.class ,IS_LOAD_ALL_DESCENDANTS, java.lang.Integer.class, "是否加载所有子孙节点", "1：是；0：否", java.lang.Integer.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , SORT_FIELD , SORT_TYPE , IDS };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , SORT_FIELD , SORT_TYPE , IDS , IS_LOAD_ALL_DESCENDANTS };
 	
 	/**
 	 * 代理类
@@ -193,6 +203,17 @@ public class CatalogVOMeta extends CatalogMeta {
 		public CatalogVO setIds(List<String> ids) {
 			super.change(IDS,super.getIds(),ids);
 			super.setIds(ids);
+			return this;
+		}
+		
+		/**
+		 * 设置 是否加载所有子孙节点
+		 * @param isLoadAllDescendants 是否加载所有子孙节点
+		 * @return 当前对象
+		*/
+		public CatalogVO setIsLoadAllDescendants(Integer isLoadAllDescendants) {
+			super.change(IS_LOAD_ALL_DESCENDANTS,super.getIsLoadAllDescendants(),isLoadAllDescendants);
+			super.setIsLoadAllDescendants(isLoadAllDescendants);
 			return this;
 		}
 	}

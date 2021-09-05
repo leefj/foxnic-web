@@ -14,10 +14,7 @@ import com.github.foxnic.dao.excel.ExcelStructure;
 import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.dao.excel.ValidateResult;
 import com.github.foxnic.dao.spec.DAO;
-import com.github.foxnic.sql.expr.ConditionExpr;
-import com.github.foxnic.sql.expr.Expr;
-import com.github.foxnic.sql.expr.In;
-import com.github.foxnic.sql.expr.OrderBy;
+import com.github.foxnic.sql.expr.*;
 import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.domain.pcm.Catalog;
 import org.github.foxnic.web.domain.pcm.CatalogAllocation;
@@ -152,8 +149,27 @@ public class CatalogAttributeServiceImpl extends SuperService<CatalogAttribute> 
 		}
 		String idField=validateIds(ids);
 		In in=new In(idField,ids);
+
+
 		List<CatalogAttribute> attrs = this.queryList(in.toConditionExpr());
-		this.join(attrs,CatalogAllocation.class);
+		this.join(attrs,CatalogAllocation.class,Catalog.class);
+
+		//获得当前类目
+		List<Catalog> catalogs=CollectorUtil.collectList(attrs,CatalogAttribute::getCatalog);
+		Catalog thisCatalog=null;
+		String thisHierarchy="";
+		for (Catalog catalog : catalogs) {
+			if(catalog.getHierarchy().length()>thisHierarchy.length()){
+				thisCatalog=catalog;
+				thisHierarchy=thisCatalog.getHierarchy();
+			}
+		}
+
+		for (CatalogAttribute attr : attrs) {
+			if(!attr.getCatalogId().equals(thisCatalog.getId())) {
+				return ErrorDesc.failure().message("无法删除非当前类目下的属性");
+			}
+		}
 
 		List<CatalogAllocation> allos= CollectorUtil.collectList(attrs,CatalogAttribute::getAllocation);
 		List<String> allosIds=new ArrayList<>();
@@ -162,9 +178,15 @@ public class CatalogAttributeServiceImpl extends SuperService<CatalogAttribute> 
 			allosIds.add(allo.getId());
 		}
 
-		catalogService.deleteByIdsPhysical(allosIds);
+		//批量删除的时候要把继承过来的属性排除
 
-		Integer i=dao().execute("delete from "+table()+" "+in.toConditionExpr().startWithWhere().getListParameterSQL(),in.getListParameters());
+
+		//
+		catalogService.deleteByIdsPhysical(allosIds);
+		//
+		Delete delete=new Delete(this.table());
+		delete.where().and(in);
+		Integer i=dao().execute(delete);
 		boolean suc= i!=null && i>0;
 		if(suc) return ErrorDesc.success();
 		else return ErrorDesc.failure();
