@@ -392,8 +392,8 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 				n=map.get(n.getParentId());
 				if(n==null) break;
 			}
-			Collections.reverse(node.getNamePath());
-
+			Collections.reverse(node.getNamePathArray());
+			node.setNamePath(StringUtil.join(node.getNamePathArray(),"/"));
 		}
 
 

@@ -39,7 +39,8 @@ public class ZTreeNode {
 
 	private int depth;
 	private String hierarchy;
-	private List<String> namePath=new ArrayList<>();
+	private List<String> namePathArray =new ArrayList<>();
+	private String namePath;
 	private List<ZTreeNode> children;
 
 
@@ -112,12 +113,12 @@ public class ZTreeNode {
 		this.parentId = parentId;
 	}
 
-	public List<String> getNamePath() {
-		return namePath;
+	public List<String> getNamePathArray() {
+		return namePathArray;
 	}
 
 	public void addNamePath(String namePath) {
-		this.namePath.add(namePath);
+		this.namePathArray.add(namePath);
 	}
 
 	public int getDepth() {
@@ -126,6 +127,14 @@ public class ZTreeNode {
 
 	public void setDepth(int depth) {
 		this.depth = depth;
+	}
+
+	public String getNamePath() {
+		return namePath;
+	}
+
+	public void setNamePath(String namePath) {
+		this.namePath = namePath;
 	}
 	
 }
