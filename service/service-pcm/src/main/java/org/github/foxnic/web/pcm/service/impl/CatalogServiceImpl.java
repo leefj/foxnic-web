@@ -320,6 +320,7 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 			node.setName(m.getString(PCM_CATALOG.NAME));
 			node.setParentId(m.getString(PCM_CATALOG.PARENT_ID));
 			node.setHierarchy(m.getString(PCM_CATALOG.HIERARCHY));
+			node.setDepth(node.getHierarchy().split("/").length);
 			node.setIsParent(m.getInteger("child_count")>0);
 			nodes.add(node);
 		}
@@ -378,9 +379,23 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 		ZTreeNode parent=null;
 		for (ZTreeNode node : nodes) {
 			parent=map.get(node.getParentId());
-			if (parent==null) continue;
+			if (parent==null){
+				continue;
+			}
 			parent.addChild(node);
 		}
+
+		for (ZTreeNode node : nodes) {
+			ZTreeNode n=node;
+			while (true) {
+				node.addNamePath(n.getName());
+				n=map.get(n.getParentId());
+				if(n==null) break;
+			}
+			Collections.reverse(node.getNamePath());
+
+		}
+
 
 
 		return list;
@@ -691,6 +706,14 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 		expr.append(in.toConditionExpr().startWithWhere());
 		this.dao().execute(expr);
 		return ErrorDesc.success();
+	}
+
+	@Override
+	public int getDataCount(String id) {
+		Catalog catalog=this.getCachedCatalog(id);
+		if(catalog.getDataTable()==null) return 0;
+		 int count=dao().queryInteger("select count(1) from "+catalog.getDataTable()+" where catalog_id=? and deleted=0",id);
+		 return count;
 	}
 
 

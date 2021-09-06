@@ -86,7 +86,8 @@ public class FileController extends SuperController {
 		}
 		response.getWriter().write(JSON.toJSONString(ErrorDesc.success().data(list)));
 	}
-	
+
+	@SentinelResource(value = FileServiceProxy.DOWNLOAD)
 	@RequestMapping(FileServiceProxy.DOWNLOAD)
 	public void download(HttpServletRequest request,HttpServletResponse response,String id,String inline) throws Exception {
 		Boolean il= DataParser.parseBoolean(inline);
@@ -97,6 +98,8 @@ public class FileController extends SuperController {
 	public void image(HttpServletRequest request,HttpServletResponse response,String id) throws Exception {
 		fileService.downloadFile(id,true,response);
 	}
+
+
 
 
 	/**
@@ -172,6 +175,21 @@ public class FileController extends SuperController {
 		return result;
 	}
 
+
+	/**
+	 * 获取附件Base64数据
+	 */
+	@ApiOperation(value = "获取附件Base64数据")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = FileVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "1"),
+	})
+	@ApiOperationSupport(order=6)
+	@NotNull(name = FileVOMeta.ID)
+	@SentinelResource(value = FileServiceProxy.FILE_DATA)
+	@RequestMapping(FileServiceProxy.FILE_DATA)
+	public Result<String> getFileData(String id) {
+		return fileService.getFileData(id);
+	}
 	
 	/**
 	 * 查询附件信息

@@ -105,34 +105,21 @@ public class CatalogController extends SuperController {
 	@SentinelResource(value = CatalogServiceProxy.DELETE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(CatalogServiceProxy.DELETE)
 	public Result deleteById(String id) {
-		Result result = null;
+		Result result = new Result();
 		List children=catalogService.queryChildNodes(id);
 		if(!children.isEmpty()) {
 			result.success(false).message("请先删除下级节点");
 			return result;
 		}
+		int dataCount=catalogService.getDataCount(id);
+		if(dataCount>0) {
+			result.success(false).message("请先删除分类数据");
+			return result;
+		}
 		result=catalogService.deleteByIdLogical(id);
 		return result;
 	}
-	
-	
-	/**
-	 * 批量删除数据存储 <br>
-	 * 联合主键时，请自行调整实现
-	*/
-	@ApiOperation(value = "批量删除数据存储")
-	@ApiImplicitParams({
-		@ApiImplicitParam(name = CatalogVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
-	})
-	@ApiOperationSupport(order=3) 
-	@NotNull(name = CatalogVOMeta.IDS)
-	@SentinelResource(value = CatalogServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
-	@PostMapping(CatalogServiceProxy.DELETE_BY_IDS)
-	public Result deleteByIds(List<Integer> ids) {
-		Result result=catalogService.deleteByIdsLogical(ids);
-		return result;
-	}
-	
+
 	/**
 	 * 更新数据存储
 	*/
@@ -264,9 +251,7 @@ public class CatalogController extends SuperController {
 
 		//加载全部子孙节点
 		if(sample.getIsLoadAllDescendants()!=null && sample.getIsLoadAllDescendants()==1) {
-
-			list=catalogService.buildingHierarchicalRelationships(list);
-
+			list = catalogService.buildingHierarchicalRelationships(list);
 		}
 		result.success(true).data(list);
 		return result;
@@ -541,9 +526,9 @@ public class CatalogController extends SuperController {
 
 
 	/**
-	 * 保存单个分类数据
+	 * 删除分类数据
 	 */
-	@ApiOperation(value = "保存单个分类数据")
+	@ApiOperation(value = "删除分类数据")
 	@ApiOperationSupport(order=2)
 	@SentinelResource(value = CatalogServiceProxy.DELETE_DATA)
 	@PostMapping(CatalogServiceProxy.DELETE_DATA)

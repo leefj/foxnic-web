@@ -5,6 +5,7 @@ import com.github.foxnic.api.error.CommonError;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.commons.encrypt.Base64Util;
 import com.github.foxnic.commons.io.FileUtil;
 import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.dao.data.SaveMode;
@@ -150,6 +151,34 @@ public class FileServiceImpl extends SuperService<File> implements IFileService 
 	}
 
 	@Override
+	public byte[] getBytes(File fileInfo) {
+		byte[] bytes=null;
+		try {
+			resurgence(fileInfo.getId(),true);
+			bytes=this.getStorageSupport().read(fileInfo);
+		} catch (Exception e) {
+			Logger.error(e.getMessage(),e);
+		}
+		return bytes;
+	}
+
+	@Override
+	public Result<String> getFileData(String id) {
+		File fileInfo=this.getById(id);
+		if(fileInfo==null) {
+			return ErrorDesc.failure(CommonError.FILE_INVALID);
+		}
+		byte[] data=this.getBytes(fileInfo);
+		if(data==null) {
+			return ErrorDesc.failure(CommonError.FILE_INVALID);
+		}
+		Result<String> result=new Result<>();
+		result.success(true);
+		result.data(Base64Util.encodeToString(data));
+		return result;
+	}
+
+	@Override
 	public void downloadFile(String id,Boolean inline,HttpServletResponse response) {
 		File fileInfo=this.getById(id);
 		Result result=null;
@@ -160,8 +189,7 @@ public class FileServiceImpl extends SuperService<File> implements IFileService 
 		}
 		byte[] bytes=null;
 		try {
-			resurgence(id,true);
-			bytes=this.getStorageSupport().read(fileInfo);
+			bytes=this.getBytes(fileInfo);
 			if(bytes==null) {
 				result= ErrorDesc.failure(CommonError.FILE_INVALID).message("file read error");
 			} else {
@@ -197,6 +225,8 @@ public class FileServiceImpl extends SuperService<File> implements IFileService 
 
 		return files;
 	}
+
+
 
 
 }

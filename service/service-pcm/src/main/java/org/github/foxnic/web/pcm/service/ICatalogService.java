@@ -349,4 +349,6 @@ public interface ICatalogService extends ISuperService<Catalog> {
 	Result saveDataList(List<CatalogData> catalogDataList);
 
 	Result deleteData(DataQueryVo dataQueryVo);
+
+    int getDataCount(String id);
 }

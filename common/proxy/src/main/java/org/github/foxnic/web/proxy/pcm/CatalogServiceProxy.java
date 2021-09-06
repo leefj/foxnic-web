@@ -3,7 +3,9 @@ package org.github.foxnic.web.proxy.pcm;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.domain.pcm.Catalog;
+import org.github.foxnic.web.domain.pcm.CatalogData;
 import org.github.foxnic.web.domain.pcm.CatalogVO;
+import org.github.foxnic.web.domain.pcm.DataQueryVo;
 import org.github.foxnic.web.proxy.FeignConfiguration;
 import org.github.foxnic.web.proxy.MicroServiceNames;
 import org.github.foxnic.web.proxy.api.APIProxy;
@@ -217,8 +219,33 @@ public interface CatalogServiceProxy {
 	 */
 	@PostMapping(CatalogServiceProxy.STORAGE_TABLES)
 	Result<List<String>> storageTables();
-	
-	
+
+
+	/**
+	 * 删除分类数据
+	 */
+	@PostMapping(CatalogServiceProxy.DELETE_DATA)
+	Result deleteData(DataQueryVo dataQueryVo);
+
+	/**
+	 * 保存单个分类数据
+	 */
+	@PostMapping(CatalogServiceProxy.SAVE_DATA)
+	Result saveData(CatalogData catalogData);
+
+
+	/**
+	 * 保存多个分类数据
+	 */
+	@PostMapping(CatalogServiceProxy.SAVE_DATA_LIST)
+	Result saveDataList(List<CatalogData> catalogDataList);
+
+	/**
+	 * 查询分类数据
+	 */
+	@PostMapping(CatalogServiceProxy.QUERY_DATA)
+	Result queryData(DataQueryVo dataQueryVo);
+
 	/**
 	 * 控制器类名
 	 * */

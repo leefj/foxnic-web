@@ -1,4 +1,5 @@
 package org.github.foxnic.web.storage.service;
+import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.entity.ISuperService;
 import org.github.foxnic.web.domain.storage.File;
 import org.springframework.web.multipart.MultipartFile;
@@ -44,11 +45,17 @@ public interface IFileService extends ISuperService<File> {
 	 * 保存文件
 	 * */
 	File uploadFile(MultipartFile mf);
-	
+
+	/**
+	 * 获得文件数据
+	 * */
+	byte[] getBytes(File fileInfo);
 	/**
 	 * 文件下载
 	 * */
 	void downloadFile(String id,Boolean inline,HttpServletResponse response);
 
     List<File> getByIds(List<String> ids);
+
+	Result<String> getFileData(String id);
 }

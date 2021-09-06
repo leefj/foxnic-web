@@ -101,6 +101,8 @@ public interface FileServiceProxy {
 
 	public static final String DOWNLOAD = API_PREFIX + "download";
 
+	public static final String FILE_DATA = API_PREFIX + "data";
+
 	public static final String IMAGE = API_PREFIX + "image";
 	
 	/**
@@ -151,7 +153,11 @@ public interface FileServiceProxy {
 	*/
 	@RequestMapping(FileServiceProxy.QUERY_PAGED_LIST)
 	Result<PagedList<File>> queryPagedList(FileVO sample);
-	
+
+	@RequestMapping(FileServiceProxy.FILE_DATA)
+	Result<String> getFileData(String id);
+
+
 	
 	/**
 	 * 控制器类名

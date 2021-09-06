@@ -34,8 +34,14 @@ public class ZTreeNode {
 	private Boolean isParent;
 	private Boolean checked;
 	private String url;
+
+
+
+	private int depth;
 	private String hierarchy;
+	private List<String> namePath=new ArrayList<>();
 	private List<ZTreeNode> children;
+
 
 	public void addChild(ZTreeNode node) {
 		if(children==null) children=new ArrayList<>();
@@ -104,6 +110,22 @@ public class ZTreeNode {
 
 	public void setParentId(String parentId) {
 		this.parentId = parentId;
+	}
+
+	public List<String> getNamePath() {
+		return namePath;
+	}
+
+	public void addNamePath(String namePath) {
+		this.namePath.add(namePath);
+	}
+
+	public int getDepth() {
+		return depth;
+	}
+
+	public void setDepth(int depth) {
+		this.depth = depth;
 	}
 	
 }
