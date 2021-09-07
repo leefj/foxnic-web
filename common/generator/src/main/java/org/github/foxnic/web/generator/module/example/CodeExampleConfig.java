@@ -60,6 +60,7 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 		view.field(TABLE.NAME)
 				.table().fix(true)
 				.form().validate().required()
+				.form().textInput().defaultText("这是默认文本")
 				.search().fuzzySearch();
 
 
@@ -67,7 +68,7 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 		//配置在列表中隐藏
 		view.field(TABLE.NOTES)
 				//多行文本
-				.form().textArea().height(120)
+				.form().textArea().height(120).defaultText("这是默认文本")
 				.search().fuzzySearch()
 		;
 
@@ -86,7 +87,7 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 
 		//日期类型
 		view.field(TABLE.BIRTHDAY)
-				.form().dateInput()
+				.form().dateInput().format("yyyy-MM-dd").defaultNow()
 				.search().range();
 
 		//单个图片上传类型

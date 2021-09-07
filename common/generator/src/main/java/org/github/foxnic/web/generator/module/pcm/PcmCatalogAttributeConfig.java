@@ -54,7 +54,9 @@ public class PcmCatalogAttributeConfig extends BaseCodeConfig<PCM_CATALOG_ATTRIB
         view.field(PCM_CATALOG_ATTRIBUTE.SHORT_NAME).form().validate().required()
         .search().inputWidth(100);
 
-        view.field(PCM_CATALOG_ATTRIBUTE.NOT_NULL).form().validate().required()
+        view.field(PCM_CATALOG_ATTRIBUTE.NOT_NULL)
+                .table().alignCenter()
+                .form().validate().required()
                 .form().logicField().on("必填",1).off("可空",0);
 
 

@@ -2,7 +2,7 @@
 /**
  * 代码生成示例主 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-24 14:28:30
+ * @since 2021-09-07 21:32:01
  */
  -->
  <!DOCTYPE html>
@@ -15,6 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="/assets/libs/layui/css/layui.css" th:href="'/assets/libs/layui/css/layui.css?'+${cacheKey}"/>
     <link rel="stylesheet" href="/assets/css/admin.css" th:href="'/assets/css/admin.css?'+${cacheKey}"/>
+    <link rel="stylesheet" href="/assets/libs/toast/css/toast.css" type="text/css" th:href="'/assets/libs/toast/css/toast.css?'+${cacheKey}">
     <link rel="stylesheet" href="/assets/css/foxnic-web.css" th:href="'/assets/css/foxnic-web.css?'+${cacheKey}">
     <link href="/assets/libs/font-awesome-4.7.0/css/font-awesome.min.css" th:href="@{/assets/libs/font-awesome-4.7.0/css/font-awesome.min.css}" rel="stylesheet"/>
     <script th:inline="javascript">var foxnic_cachekey=[[${cacheKey}]];</script>
@@ -33,11 +34,19 @@
             <div class="search-input-rows" style="opacity: 0">
                 <!-- 搜索输入区域 -->
                 <div class="layui-form toolbar search-inputs">
+                    <!-- ID , id ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 图片上传 , imageId ,typeName=upload, isHideInSearch=true -->
+                    <!-- 多文件上传 , fileIds ,typeName=upload, isHideInSearch=true -->
+                    <!-- 对话框 , buttonInput ,typeName=button, isHideInSearch=true -->
+                    <!-- 工作时间 , workTime ,typeName=date_input, isHideInSearch=true -->
+                    <!-- 资源名称 , resName ,typeName=text_input, isHideInSearch=true -->
                     <!-- 角色 , roleIds ,typeName=select_box, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style="width:50px"><span th:text="${lang.translate('角色')}" class="search-label roleIds-label">角色</span><span class="search-colon">:</span></div>
                         <div id="roleIds" th:data="${'/service-oauth/sys-role/query-paged-list'}" style="width:140px"></div>
                     </div>
+                    <!-- 角色数(Java) , roleCountByAfter ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 角色数(SQL) , roleCountByJoin ,typeName=text_input, isHideInSearch=true -->
                     <!-- 单行文本 , name ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style="width:80px"><span th:text="${lang.translate('单行文本')}" class="search-label name-label">单行文本</span><span class="search-colon">:</span></div>
@@ -158,12 +167,13 @@
 <script type="text/javascript" src="/assets/libs/jquery-3.2.1.min.js" th:src="'/assets/libs/jquery-3.2.1.min.js?'+${cacheKey}"></script>
 <script type="text/javascript" src="/assets/libs/pandyle.min.js" th:src="'/assets/libs/pandyle.min.js?'+${cacheKey}"></script>
 <script type="text/javascript" src="/assets/libs/layui/layui.js" th:src="'/assets/libs/layui/layui.js?'+${cacheKey}"></script>
+<script type="text/javascript" src="/assets/libs/toast/js/toast.js" th:src="'/assets/libs/toast/js/toast.js?'+${cacheKey}"></script>
 
 <!-- 表格工具栏 -->
 <script type="text/html" id="toolbarTemplate">
     <div class="layui-btn-container">
-        <button th:if="${perm.checkAuth('sys_code_example:create')}" id="add-button" class="layui-btn icon-btn layui-btn-sm" lay-event="create"><i class="layui-icon">&#xe654;</i><span th:text="${lang.translate('新建')}">新建</span></button>
-        <button th:if="${perm.checkAuth('sys_code_example:delete-by-ids')}" id="delete-button" class="layui-btn icon-btn layui-btn-danger layui-btn-sm" lay-event="batch-del"><i class="layui-icon">&#xe67e;</i><span th:text="${lang.translate('删除')}">删除</span></button>
+        <button th:if="${perm.checkAuth('sys_code_example:create')}" id="add-button" class="layui-btn icon-btn layui-btn-sm create-new-button" lay-event="create"><i class="layui-icon">&#xe654;</i><span th:text="${lang.translate('新建')}">新建</span></button>
+        <button th:if="${perm.checkAuth('sys_code_example:delete-by-ids')}" id="delete-button" class="layui-btn icon-btn layui-btn-danger layui-btn-sm batch-delete-button" lay-event="batch-del"><i class="layui-icon">&#xe67e;</i><span th:text="${lang.translate('删除')}">删除</span></button>
         <button id="test-tool-button1" class="layui-btn icon-btn layui-btn-sm  layui-btn-primary layui-border-red " lay-event="tool-test-tool-button1"><span th:text="${lang.translate('测试-1')}">测试-1</span></button>
         <button id="test-tool-button2" class="layui-btn icon-btn layui-btn-sm  layui-btn-primary layui-border-blue " lay-event="tool-test-tool-button2"> <li class='fa fa-superpowers'></li> <span th:text="${lang.translate('测试-2')}">测试-2</span></button>
     </div>
@@ -172,24 +182,24 @@
 <!-- 表格操作列 -->
 <script type="text/html" id="tableOperationTemplate">
 
-    <a th:if="${perm.checkAuth('sys_code_example:view-form')}" class="layui-btn layui-btn-primary layui-btn-xs" lay-event="view" th:text="${lang.translate('查看')}">查看</a>
-    <a th:if="${perm.checkAnyAuth('sys_code_example:update','sys_code_example:save')}" class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit" th:text="${lang.translate('修改')}">修改</a>
+    <button th:if="${perm.checkAuth('sys_code_example:view-form')}" class="layui-btn layui-btn-primary layui-btn-xs ops-view-button" lay-event="view" th:text="${lang.translate('查看')}" data-id="{{d.id}}">查看</button>
+    <button th:if="${perm.checkAnyAuth('sys_code_example:update','sys_code_example:save')}" class="layui-btn layui-btn-primary layui-btn-xs ops-edit-button" lay-event="edit" th:text="${lang.translate('修改')}" data-id="{{d.id}}">修改</button>
 
 
-    <a th:if="${perm.checkAuth('sys_code_example:delete')}" class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del" th:text="${lang.translate('删除')}">删除</a>
+    <button th:if="${perm.checkAuth('sys_code_example:delete')}" class="layui-btn layui-btn-xs layui-btn-danger ops-delete-button" lay-event="del" th:text="${lang.translate('删除')}" data-id="{{d.id}}">删除</button>
 
-    <a class="layui-btn layui-btn-xs  layui-btn-primary layui-border-red " lay-event="do-test-action" th:text="${lang.translate('测试')}">测试</a>
+    <button class="layui-btn layui-btn-xs  layui-btn-primary layui-border-red " lay-event="do-test-action" th:text="${lang.translate('测试')}" data-id="{{d.id}}">测试</button>
 
-    <a class="layui-btn layui-btn-xs layui-btn-primary layui-border-blue" lay-event="ops-more"><span th:text="${lang.translate('更多')}">更多</span><i class="layui-icon layui-icon-down"></i></a>
+    <button class="layui-btn layui-btn-xs layui-btn-primary layui-border-blue" lay-event="ops-more" data-id="{{d.id}}"><span th:text="${lang.translate('更多')}">更多</span><i class="layui-icon layui-icon-down"></i></button>
 </script>
 
 <!-- 表格状态列 -->
 <script type="text/html" id="cell-tpl-valid">
-    <input type="checkbox" lay-filter="cell-tpl-valid" value="{{d.id}}" lay-skin="switch" lay-text="有效|无效"  {{d.valid==1?'checked':''}}/>
+    <input type="checkbox" class="switch-valid list-checkbox" lay-filter="cell-tpl-valid" value="{{d.id}}" lay-skin="switch" lay-text="有效|无效&nbsp;"  {{d.valid==1?'checked':''}} data-id="{{d.id}}"/>
 </script>
 
 <script th:inline="javascript">
-    var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];
+    var LAYUI_TABLE_WIDTH_CONFIG = [[${pageHelper.getTableColumnWidthConfig('data-table')}]];
     var RADIO_RADIOENUM_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.Language')}]];
     var RADIO_RADIODICT_DATA = [[${dict.toArray('sex')}]];
     var CHECK_CHECKENUM_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.MenuType')}]];

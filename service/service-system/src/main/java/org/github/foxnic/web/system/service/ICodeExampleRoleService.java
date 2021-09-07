@@ -22,7 +22,7 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.*;
  * 代码示例主表角色关系表 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-24 13:34:34
+ * @since 2021-09-07 21:32:00
 */
 
 public interface ICodeExampleRoleService extends ISuperService<CodeExampleRole> {

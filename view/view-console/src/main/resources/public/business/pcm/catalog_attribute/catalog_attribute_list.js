@@ -1,7 +1,7 @@
 /**
  * 分类属性 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-07 15:37:24
+ * @since 2021-09-07 20:45:50
  */
 
 
@@ -74,7 +74,7 @@ function ListPage() {
 					{ fixed: 'left',type:'checkbox' }
 					,{ field: 'field', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('字段名') , templet: function (d) { return templet('field',d.field,d);}  }
 					,{ field: 'dataType', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('数据类型'), templet:function (d){ return templet('dataType',fox.getEnumText(SELECT_DATATYPE_DATA,d.dataType),d);}}
-					,{ field: 'notNull', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('是否必填'), templet: '#cell-tpl-notNull'}
+					,{ field: 'notNull', align:"center",fixed:false,  hide:false, sort: true, title: fox.translate('是否必填'), templet: '#cell-tpl-notNull'}
 					,{ field: 'shortName', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('简称') , templet: function (d) { return templet('shortName',d.shortName,d);}  }
 					,{ field: 'fullName', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('全称') , templet: function (d) { return templet('fullName',d.fullName,d);}  }
 					,{ field: 'catalogName', align:"",fixed:false,  hide:false, sort: true, title: fox.translate('所属类目') , templet: function (d) { return templet('catalogName',fox.getProperty(d,["catalog","name"]),d);} }
@@ -313,7 +313,7 @@ function ListPage() {
 						 layer.msg(data.message, {icon: 1, time: 1500});
 					}
 				});
-			} else if (layEvent === 'view') { // 修改
+			} else if (layEvent === 'view') { // 查看
 				//延迟显示加载动画，避免界面闪动
 				var task=setTimeout(function(){layer.load(2);},1000);
 				admin.request(moduleURL+"/get-by-id", { id : data.id }, function (data) {
@@ -367,13 +367,18 @@ function ListPage() {
 			var doNext=window.pageExt.list.beforeEdit(data);
 			if(!doNext) return;
 		}
+		var action=admin.getTempData('pcm-catalog-attribute-form-data-form-action');
 		var queryString="";
 		if(data && data.id) queryString="?" + 'id=' + data.id;
 		admin.putTempData('pcm-catalog-attribute-form-data', data);
 		var area=admin.getTempData('pcm-catalog-attribute-form-area');
 		var height= (area && area.height) ? area.height : ($(window).height()*0.6);
 		var top= (area && area.top) ? area.top : (($(window).height()-height)/2);
-		var title = (data && data.id) ? (fox.translate('修改')+fox.translate('分类属性')) : (fox.translate('添加')+fox.translate('分类属性'));
+		var title = fox.translate('分类属性');
+		if(action=="create") title=fox.translate('添加')+title;
+		else if(action=="edit") title=fox.translate('修改')+title;
+		else if(action=="view") title=fox.translate('查看')+title;
+
 		var index=admin.popupCenter({
 			title: title,
 			resize: false,

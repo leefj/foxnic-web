@@ -100,12 +100,14 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
                         fox.disableButton($('.ops-delete-button').filter("[data-id='"+data[i].id+"']"), true);
                         fox.disableButton($('.ops-edit-button').filter("[data-id='"+data[i].id+"']"), true);
                         $("input.list-checkbox[type=checkbox]").filter("[data-id='"+data[i].id+"']").attr("disabled", "yes");
+                        $("input.list-checkbox[type=checkbox]").filter("[data-id='"+data[i].id+"']").siblings("div").css("opacity",0.6);
                     }
                 }
             }
             //如果是生效版本
             else {
                 $("input.list-checkbox[type=checkbox]").attr("disabled", "yes");
+                $("input.list-checkbox[type=checkbox]").siblings("div").css("opacity",0.6);
                 fox.disableButton($('.ops-delete-button'),true);
                 fox.disableButton($('.ops-edit-button'),true);
                 fox.disableButton($('.apply-version-button'),true);
@@ -194,14 +196,14 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * 在新建或编辑窗口打开前调用，若返回 false 则不继续执行后续操作
          * */
         beforeEdit:function (data) {
-            if(catalogId=="-1") {
-                layer.msg("请选择一个分类！", {icon: 2, time: 1000});
-                return false;
-            }
-            if(data && data.versionNo=="activated") {
-                layer.msg("不允许编辑！", {icon: 2, time: 1000});
-                return false;
-            }
+            // if(catalogId=="-1") {
+            //     layer.msg("请选择一个分类！", {icon: 2, time: 1000});
+            //     return false;
+            // }
+            // if(data && data.versionNo=="activated") {
+            //     layer.msg("不允许编辑！", {icon: 2, time: 1000});
+            //     return false;
+            // }
             return true;
         },
         /**

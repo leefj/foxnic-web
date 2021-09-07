@@ -1,7 +1,7 @@
 /**
  * 代码生成示例主 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-24 14:28:30
+ * @since 2021-09-07 21:32:01
  */
 
 function FormPage() {
@@ -24,6 +24,10 @@ function FormPage() {
 		}
 		if(admin.getTempData('sys-code-example-form-data-form-action')=="view") {
 			disableModify=true;
+		}
+
+		if(window.pageExt.form.beforeInit) {
+			window.pageExt.form.beforeInit();
 		}
 
 		//渲染表单组件
@@ -169,7 +173,8 @@ function FormPage() {
 		});
 		laydate.render({
 			elem: '#birthday',
-			format:"yyyy-MM-dd HH:mm:ss",
+			format:"yyyy-MM-dd",
+			value:new Date(),
 			trigger:"click"
 		});
 		laydate.render({
@@ -250,13 +255,12 @@ function FormPage() {
 			//设置  角色 设置下拉框勾选
 			fox.setSelectValue4QueryApi("#roleIds",formData.roles);
 
-
-
+			//处理fillBy
 
 	     	fm.attr('method', 'POST');
 	     	renderFormFields();
 
-		window.pageExt.form.afterDataFill && window.pageExt.form.afterDataFill(formData);
+			window.pageExt.form.afterDataFill && window.pageExt.form.afterDataFill(formData);
 
 		}
 
@@ -343,13 +347,13 @@ function FormPage() {
 	    	//debugger;
 			data.field = getFormData();
 
+			if(window.pageExt.form.beforeSubmit) {
+				var doNext=window.pageExt.form.beforeSubmit(data.field);
+				if(!doNext) return ;
+			}
 			//校验表单
 			if(!verifyForm(data.field)) return;
 
-			if(window.pageExt.form.beforeSubmit) {
-				var doNext=window.pageExt.form.beforeSubmit(data.field);
-				if(!doNext) return;
-			}
 			saveForm(data.field);
 	        return false;
 	    });
@@ -366,8 +370,11 @@ function FormPage() {
     window.module={
 		getFormData: getFormData,
 		verifyForm: verifyForm,
-		saveForm: saveForm
+		saveForm: saveForm,
+		adjustPopup: adjustPopup
 	};
+
+	window.pageExt.form.ending && window.pageExt.form.ending();
 
 }
 

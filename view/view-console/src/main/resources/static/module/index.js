@@ -99,7 +99,6 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
                             style="color:#009688;";
                     }
 
-
                     //超出部分加入到菜单
                     if(i>=buttonLimit){
                         var tps=[
@@ -123,8 +122,8 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
                         $("#nav-modules").append(button.join("\n"));
                     }
                 }
-                var button=['<li class="module-nav-item layui-nav-item" lay-unselect id="more-top-menu-button-li" style="line-height: 49px;">',
-                    '    <a id="more-top-menu-button-li-a" title="" style="font-size: 15px;"><i class="fa fa-chevron-circle-down" style="font-size: 17px"></i>&nbsp;&nbsp;更多</a>',
+                var button=['<li class="module-nav-item layui-nav-item" lay-unselect index="1024" id="more-top-menu-button-li" style="line-height: 49px;">',
+                    '    <a id="nav-module-button-1024-a" title="" style="font-size: 15px;"><i class="fa fa-chevron-circle-down" style="font-size: 17px"></i>&nbsp;&nbsp;<span id="more-top-text">更多</span></a>',
                     '</li>' ]
                 $("#nav-modules").append(button.join("\n"));
 
@@ -136,7 +135,18 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
                         // debugger
                         var topMenu=tops[obj.id];
                         // layer.tips('点击了：'+ obj.title, this.elem, {tips: [1, '#5FB878']})
+                        var buttonId='nav-module-button-'+index.navModuleIndex+"-a";
+                        $("#"+buttonId).css("color","#333333");
                         index.switchNavMenu(obj.id,topMenu.subMenus);
+
+                        index.navModuleIndex=1024;
+                        buttonId='nav-module-button-'+index.navModuleIndex+"-a";
+                        $("#"+buttonId).css("color","#009688");
+
+                        $("#more-top-text").text(obj.title);
+
+
+
                     }
                 });
 
@@ -166,9 +176,15 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
                     var it=$(this);
                     //忽略自定义按钮事件
                     var idx=it.attr("index");
+                    //点了更多菜单本身的情况
+                    if(idx=="1024") return;
                     var topMenu=tops[idx];
                     //重新渲染左侧导航部分
-                    index.switchNavMenu(idx,topMenu.subMenus);
+                    try {
+                        index.switchNavMenu(idx, topMenu.subMenus);
+                    }catch (e){
+                        debugger;
+                    }
                     //按钮
                     var buttonId='nav-module-button-'+index.navModuleIndex+"-a";
                     $("#"+buttonId).css("color","#333333");
