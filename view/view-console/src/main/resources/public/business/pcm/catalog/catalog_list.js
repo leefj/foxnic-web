@@ -1,7 +1,7 @@
 /**
  * 数据存储 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-05 07:52:26
+ * @since 2021-09-07 14:27:49
  */
 
 
@@ -73,6 +73,7 @@ function ListPage() {
 					{ fixed: 'left',type: 'numbers' },
 					{ fixed: 'left',type:'checkbox' }
 					,{ field: 'id', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('主键') , templet: function (d) { return templet('id',d.id,d);}  }
+					,{ field: 'code', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('代码') , templet: function (d) { return templet('code',d.code,d);}  }
 					,{ field: 'name', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('名称') , templet: function (d) { return templet('name',d.name,d);}  }
 					,{ field: 'parentId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('上级ID') , templet: function (d) { return templet('parentId',d.parentId,d);}  }
 					,{ field: 'sort', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('顺序') , templet: function (d) { return templet('sort',d.sort,d);}  }
@@ -113,6 +114,7 @@ function ListPage() {
 	function refreshTableData(sortField,sortType) {
 		var value = {};
 		value.id={ value: $("#id").val()};
+		value.code={ value: $("#code").val()};
 		value.name={ value: $("#name").val()};
 		value.parentId={ value: $("#parentId").val()};
 		value.sort={ value: $("#sort").val()};

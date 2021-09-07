@@ -10,8 +10,8 @@ import org.github.foxnic.web.domain.pcm.CatalogAllocation;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-04 13:16:55
- * @sign E1E3DC4CC8A1AC45FC072D54FAE0C519
+ * @since 2021-09-07 14:27:52
+ * @sign 4B72B5DF22D7867AAF885DFB64DCE09D
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -46,6 +46,16 @@ public class CatalogAttributeMeta {
 	 * 字段名 , 自定义的字段别名 , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogAttribute,java.lang.String> FIELD_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogAttribute.class ,FIELD, java.lang.String.class, "字段名", "自定义的字段别名", java.lang.String.class, null);
+	
+	/**
+	 * 是否必填 , 类型: java.lang.Integer
+	*/
+	public static final String NOT_NULL="notNull";
+	
+	/**
+	 * 是否必填 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogAttribute,java.lang.Integer> NOT_NULL_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogAttribute.class ,NOT_NULL, java.lang.Integer.class, "是否必填", "是否必填", java.lang.Integer.class, null);
 	
 	/**
 	 * 配置版本号 , 类型: java.lang.String
@@ -290,7 +300,7 @@ public class CatalogAttributeMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , CATALOG_ID , FIELD , VERSION_NO , DATA_TYPE , LENGTH , ACCURACY , SCALE , SHORT_NAME , FULL_NAME , HINT , DETAIL , NOTE , VALID , SOURCE_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , CATALOG , ALLOCATION , ALLOCATION_BEFORE , SOURCE_ATTR };
+	public static final String[] $PROPS={ ID , CATALOG_ID , FIELD , NOT_NULL , VERSION_NO , DATA_TYPE , LENGTH , ACCURACY , SCALE , SHORT_NAME , FULL_NAME , HINT , DETAIL , NOTE , VALID , SOURCE_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , CATALOG , ALLOCATION , ALLOCATION_BEFORE , SOURCE_ATTR };
 	
 	/**
 	 * 代理类
@@ -330,6 +340,17 @@ public class CatalogAttributeMeta {
 		public CatalogAttribute setField(String field) {
 			super.change(FIELD,super.getField(),field);
 			super.setField(field);
+			return this;
+		}
+		
+		/**
+		 * 设置 是否必填
+		 * @param notNull 是否必填
+		 * @return 当前对象
+		*/
+		public CatalogAttribute setNotNull(Integer notNull) {
+			super.change(NOT_NULL,super.getNotNull(),notNull);
+			super.setNotNull(notNull);
 			return this;
 		}
 		

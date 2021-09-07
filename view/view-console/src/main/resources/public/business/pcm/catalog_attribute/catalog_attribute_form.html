@@ -2,7 +2,7 @@
 /**
  * 分类属性 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-05 12:31:24
+ * @since 2021-09-07 15:37:24
  */
  -->
  <!DOCTYPE html>
@@ -74,7 +74,16 @@
 
                 
                 <div class="layui-form-item" >
-                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('是否有效')}">是否有效</div></div>
+                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('是否必填')}">是否必填</div><div class="layui-required">*</div></div>
+                    <div class="layui-input-block layui-input-block-c1">
+                        <input input-type="switch" type="checkbox" checked="" id="notNull"  name="notNull" lay-skin="switch" lay-filter="notNull" lay-text="必填|可空&nbsp;" value="1">
+                    </div>
+                </div>
+
+
+                
+                <div class="layui-form-item" >
+                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('是否有效')}">是否有效</div><div class="layui-required">*</div></div>
                     <div class="layui-input-block layui-input-block-c1">
                         <input input-type="switch" type="checkbox" checked="" id="valid"  name="valid" lay-skin="switch" lay-filter="valid" lay-text="有效|无效&nbsp;" value="1">
                     </div>
@@ -118,10 +127,10 @@
 
 
                 
-                <div class="layui-form-item" >
+                    <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('提示信息')}">提示信息</div></div>
                     <div class="layui-input-block layui-input-block-c1">
-                        <input lay-filter="hint" id="hint" name="hint" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('提示信息') }" type="text" class="layui-input"   />
+                        <textarea lay-filter="hint" id="hint" name="hint" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('提示信息') }" class="layui-textarea" style="height: 120px" ></textarea>
                     </div>
                 </div>
 
@@ -170,7 +179,7 @@
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];
     var SELECT_DATATYPE_DATA = [[${enum.toArray('org.github.foxnic.web.domain.pcm.DataType')}]];
-    var VALIDATE_CONFIG={"field":{"labelInForm":"字段名","inputType":"text_input","required":true},"dataType":{"labelInForm":"数据类型","inputType":"select_box","required":true},"fullName":{"labelInForm":"全称","inputType":"text_input","required":true},"shortName":{"labelInForm":"简称","inputType":"text_input","required":true}};
+    var VALIDATE_CONFIG={"valid":{"labelInForm":"是否有效","inputType":"logic_switch","required":true},"catalogId":{"labelInForm":"存储ID","inputType":"text_input","required":true},"field":{"labelInForm":"字段名","inputType":"text_input","required":true},"notNull":{"labelInForm":"是否必填","inputType":"logic_switch","required":true},"dataType":{"labelInForm":"数据类型","inputType":"select_box","required":true},"versionNo":{"labelInForm":"版本","inputType":"text_input","required":true},"fullName":{"labelInForm":"全称","inputType":"text_input","required":true},"shortName":{"labelInForm":"简称","inputType":"text_input","required":true}};
     var AUTH_PREFIX="pcm_catalog_attribute";
 
 

@@ -1,7 +1,7 @@
 /**
  * 分类属性 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-05 12:31:23
+ * @since 2021-09-07 15:37:24
  */
 
 
@@ -74,6 +74,7 @@ function ListPage() {
 					{ fixed: 'left',type:'checkbox' }
 					,{ field: 'field', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('字段名') , templet: function (d) { return templet('field',d.field,d);}  }
 					,{ field: 'dataType', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('数据类型'), templet:function (d){ return templet('dataType',fox.getEnumText(SELECT_DATATYPE_DATA,d.dataType),d);}}
+					,{ field: 'notNull', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('是否必填'), templet: '#cell-tpl-notNull'}
 					,{ field: 'shortName', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('简称') , templet: function (d) { return templet('shortName',d.shortName,d);}  }
 					,{ field: 'fullName', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('全称') , templet: function (d) { return templet('fullName',d.fullName,d);}  }
 					,{ field: 'catalogName', align:"",fixed:false,  hide:false, sort: true, title: fox.translate('所属类目') , templet: function (d) { return templet('catalogName',fox.getProperty(d,["catalog","name"]),d);} }
@@ -108,6 +109,9 @@ function ListPage() {
 				}
 			});
 			//绑定 Switch 切换事件
+			fox.bindSwitchEvent("cell-tpl-notNull",moduleURL +'/update','id','notNull',function(data,ctx){
+				window.pageExt.list.afterSwitched && window.pageExt.list.afterSwitched("notNull",data,ctx);
+			});
 			fox.bindSwitchEvent("cell-tpl-valid",moduleURL +'/update','id','valid',function(data,ctx){
 				window.pageExt.list.afterSwitched && window.pageExt.list.afterSwitched("valid",data,ctx);
 			});

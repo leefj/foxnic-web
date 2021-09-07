@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-04 13:16:55
- * @sign E1E3DC4CC8A1AC45FC072D54FAE0C519
+ * @since 2021-09-07 14:27:52
+ * @sign 4B72B5DF22D7867AAF885DFB64DCE09D
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -46,6 +46,12 @@ public class CatalogAttribute extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="字段名" , notes = "自定义的字段别名")
 	private String field;
+	
+	/**
+	 * 是否必填：是否必填
+	*/
+	@ApiModelProperty(required = true,value="是否必填" , notes = "是否必填")
+	private Integer notNull;
 	
 	/**
 	 * 配置版本号：配置版本号
@@ -245,6 +251,25 @@ public class CatalogAttribute extends Entity {
 	*/
 	public CatalogAttribute setField(String field) {
 		this.field=field;
+		return this;
+	}
+	
+	/**
+	 * 获得 是否必填<br>
+	 * 是否必填
+	 * @return 是否必填
+	*/
+	public Integer getNotNull() {
+		return notNull;
+	}
+	
+	/**
+	 * 设置 是否必填
+	 * @param notNull 是否必填
+	 * @return 当前对象
+	*/
+	public CatalogAttribute setNotNull(Integer notNull) {
+		this.notNull=notNull;
 		return this;
 	}
 	

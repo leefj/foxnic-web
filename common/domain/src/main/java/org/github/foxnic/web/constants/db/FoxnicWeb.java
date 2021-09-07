@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2021-09-04 07:10:42
+ * @since 2021-09-07 14:27:12
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -264,6 +264,11 @@ public class FoxnicWeb {
 		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","主键","主键",true,false,false);
 		
 		/**
+		 * 代码
+		*/
+		public static final DBField CODE = new DBField(DBDataType.STRING , "code","code","代码","代码",false,false,true);
+		
+		/**
 		 * 名称
 		*/
 		public static final DBField NAME = new DBField(DBDataType.STRING , "name","name","名称","名称",false,false,true);
@@ -339,7 +344,7 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
 		public PCM_CATALOG() {
-			this.init($NAME,"数据存储表" , ID , NAME , PARENT_ID , SORT , VALID , HIERARCHY , DATA_TABLE , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"数据存储表" , ID , CODE , NAME , PARENT_ID , SORT , VALID , HIERARCHY , DATA_TABLE , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final PCM_CATALOG $TABLE=new PCM_CATALOG();
 	}
@@ -362,22 +367,22 @@ public class FoxnicWeb {
 		/**
 		 * 配置版本号
 		*/
-		public static final DBField VERSION_NO = new DBField(DBDataType.STRING , "version_no","versionNo","配置版本号","配置版本号",false,false,true);
+		public static final DBField VERSION_NO = new DBField(DBDataType.STRING , "version_no","versionNo","配置版本号","配置版本号",false,false,false);
 		
 		/**
 		 * 分类ID
 		*/
-		public static final DBField CATALOG_ID = new DBField(DBDataType.STRING , "catalog_id","catalogId","分类ID","分类ID",false,false,true);
+		public static final DBField CATALOG_ID = new DBField(DBDataType.STRING , "catalog_id","catalogId","分类ID","分类ID",false,false,false);
 		
 		/**
 		 * 属性ID
 		*/
-		public static final DBField ATTRIBUTE_ID = new DBField(DBDataType.STRING , "attribute_id","attributeId","属性ID","属性ID",false,false,true);
+		public static final DBField ATTRIBUTE_ID = new DBField(DBDataType.STRING , "attribute_id","attributeId","属性ID","属性ID",false,false,false);
 		
 		/**
 		 * 字段名，数据库字段名
 		*/
-		public static final DBField COLUMN_NAME = new DBField(DBDataType.STRING , "column_name","columnName","字段名","数据库字段名",false,false,true);
+		public static final DBField COLUMN_NAME = new DBField(DBDataType.STRING , "column_name","columnName","字段名","数据库字段名",false,false,false);
 		
 		/**
 		 * 创建人ID
@@ -451,9 +456,14 @@ public class FoxnicWeb {
 		public static final DBField FIELD = new DBField(DBDataType.STRING , "field","field","字段名","自定义的字段别名",false,false,false);
 		
 		/**
+		 * 是否必填
+		*/
+		public static final DBField NOT_NULL = new DBField(DBDataType.INTEGER , "not_null","notNull","是否必填","是否必填",false,false,false);
+		
+		/**
 		 * 配置版本号
 		*/
-		public static final DBField VERSION_NO = new DBField(DBDataType.STRING , "version_no","versionNo","配置版本号","配置版本号",false,false,true);
+		public static final DBField VERSION_NO = new DBField(DBDataType.STRING , "version_no","versionNo","配置版本号","配置版本号",false,false,false);
 		
 		/**
 		 * 数据类型
@@ -551,7 +561,7 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
 		public PCM_CATALOG_ATTRIBUTE() {
-			this.init($NAME,"分类属性表" , ID , CATALOG_ID , FIELD , VERSION_NO , DATA_TYPE , LENGTH , ACCURACY , SCALE , SHORT_NAME , FULL_NAME , HINT , DETAIL , NOTE , VALID , SOURCE_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"分类属性表" , ID , CATALOG_ID , FIELD , NOT_NULL , VERSION_NO , DATA_TYPE , LENGTH , ACCURACY , SCALE , SHORT_NAME , FULL_NAME , HINT , DETAIL , NOTE , VALID , SOURCE_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final PCM_CATALOG_ATTRIBUTE $TABLE=new PCM_CATALOG_ATTRIBUTE();
 	}

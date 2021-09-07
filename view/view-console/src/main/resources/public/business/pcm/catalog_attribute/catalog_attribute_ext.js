@@ -81,13 +81,14 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * */
         afterQuery : function (data) {
             //debugger
+            //如果未指定分类
             if(catalogId=="-1" || versionNo==null) {
-
                 fox.disableButton($('.create-new-button'),true);
                 fox.disableButton($('.batch-delete-button'),true);
             }
 
             //debugger
+            //如果当前为编辑版本
             if(versionNo=="editing") {
                 fox.disableButton($('.ops-delete-button'),false);
                 fox.disableButton($('.ops-edit-button'),false);
@@ -98,9 +99,13 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
                     if(data[i].catalogId!=catalogId) {
                         fox.disableButton($('.ops-delete-button').filter("[data-id='"+data[i].id+"']"), true);
                         fox.disableButton($('.ops-edit-button').filter("[data-id='"+data[i].id+"']"), true);
+                        $("input.list-checkbox[type=checkbox]").filter("[data-id='"+data[i].id+"']").attr("disabled", "yes");
                     }
                 }
-            } else {
+            }
+            //如果是生效版本
+            else {
+                $("input.list-checkbox[type=checkbox]").attr("disabled", "yes");
                 fox.disableButton($('.ops-delete-button'),true);
                 fox.disableButton($('.ops-edit-button'),true);
                 fox.disableButton($('.apply-version-button'),true);

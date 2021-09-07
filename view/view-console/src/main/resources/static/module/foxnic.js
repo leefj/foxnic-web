@@ -1372,8 +1372,10 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
 
     var mouseDownTime;
     var mouseDownTarget;
+    var mouseX;
     $(document).on("mousedown", function (e) {
         mouseDownTime = (new Date()).getTime();
+        mouseX=e.screenX;
         mouseDownTarget=e.target;
     });
     /**
@@ -1385,12 +1387,17 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
         t = t - mouseDownTime;
         //console.log("click",t);
         mouseDownTime = null;
-        //if (t < 100) return;
+        //if (t < 10) return;
+        //通过位移来判断，最好是通过对比数值的方式，如果有变化就保存
+        if(Math.abs(mouseX-e.screenX)==0) {
+            return;
+        }
+        mouseX=-1;
         //console.log(2)
         setTimeout(function () {
 
             var tar = $(mouseDownTarget);
-            //debugger
+            // debugger
             if (tar.parent().length == 0) return;
             if (tar.parent()[0].nodeName != "TH") return;
             //var table=tar.parents("table");

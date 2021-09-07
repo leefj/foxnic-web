@@ -2,7 +2,7 @@
 /**
  * 分类属性 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-05 12:31:24
+ * @since 2021-09-07 15:37:24
  */
  -->
  <!DOCTYPE html>
@@ -36,6 +36,7 @@
                 <div class="layui-form toolbar search-inputs">
                     <!-- 主键 , id ,typeName=text_input, isHideInSearch=true -->
                     <!-- 存储ID , catalogId ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 是否必填 , notNull ,typeName=logic_switch, isHideInSearch=true -->
                     <!-- 版本 , versionNo ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('版本')}" class="search-label versionNo-label">版本</span><span class="search-colon">:</span></div>
@@ -44,7 +45,7 @@
                     <!-- 数据长度 , length ,typeName=number_input, isHideInSearch=true -->
                     <!-- 数据精度 , accuracy ,typeName=number_input, isHideInSearch=true -->
                     <!-- 小数位数 , scale ,typeName=number_input, isHideInSearch=true -->
-                    <!-- 提示信息 , hint ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 提示信息 , hint ,typeName=text_area, isHideInSearch=true -->
                     <!-- 说明 , detail ,typeName=text_area, isHideInSearch=true -->
                     <!-- 备注 , note ,typeName=text_area, isHideInSearch=true -->
                     <!-- 是否有效 , valid ,typeName=logic_switch, isHideInSearch=true -->
@@ -118,8 +119,11 @@
 </script>
 
 <!-- 表格状态列 -->
+<script type="text/html" id="cell-tpl-notNull">
+    <input type="checkbox" class="switch-notNull list-checkbox" lay-filter="cell-tpl-notNull" value="{{d.id}}" lay-skin="switch" lay-text="必填|可空&nbsp;"  {{d.notNull==1?'checked':''}} data-id="{{d.id}}"/>
+</script>
 <script type="text/html" id="cell-tpl-valid">
-    <input type="checkbox" class="switch-valid" lay-filter="cell-tpl-valid" value="{{d.id}}" lay-skin="switch" lay-text="有效|无效&nbsp;"  {{d.valid==1?'checked':''}}/>
+    <input type="checkbox" class="switch-valid list-checkbox" lay-filter="cell-tpl-valid" value="{{d.id}}" lay-skin="switch" lay-text="有效|无效&nbsp;"  {{d.valid==1?'checked':''}} data-id="{{d.id}}"/>
 </script>
 
 <script th:inline="javascript">

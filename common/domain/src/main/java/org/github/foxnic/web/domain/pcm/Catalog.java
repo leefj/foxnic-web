@@ -18,8 +18,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-04 12:08:37
- * @sign 06AC377D331FDFE700584F5BCC914E7A
+ * @since 2021-09-07 14:27:45
+ * @sign A691F97150E99623F311A3AA59BA7203
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -36,6 +36,12 @@ public class Catalog extends Entity {
 	@Id
 	@ApiModelProperty(required = true,value="主键" , notes = "主键")
 	private String id;
+	
+	/**
+	 * 代码：代码
+	*/
+	@ApiModelProperty(required = false,value="代码" , notes = "代码")
+	private String code;
 	
 	/**
 	 * 名称：名称
@@ -149,6 +155,25 @@ public class Catalog extends Entity {
 	*/
 	public Catalog setId(String id) {
 		this.id=id;
+		return this;
+	}
+	
+	/**
+	 * 获得 代码<br>
+	 * 代码
+	 * @return 代码
+	*/
+	public String getCode() {
+		return code;
+	}
+	
+	/**
+	 * 设置 代码
+	 * @param code 代码
+	 * @return 当前对象
+	*/
+	public Catalog setCode(String code) {
+		this.code=code;
 		return this;
 	}
 	

@@ -711,7 +711,7 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 	@Override
 	public int getDataCount(String id) {
 		Catalog catalog=this.getCachedCatalog(id);
-		if(catalog.getDataTable()==null) return 0;
+		if(StringUtil.isBlank(catalog.getDataTable())) return 0;
 		 int count=dao().queryInteger("select count(1) from "+catalog.getDataTable()+" where catalog_id=? and deleted=0",id);
 		 return count;
 	}

@@ -39,7 +39,7 @@ public class PcmCatalogAttributeConfig extends BaseCodeConfig<PCM_CATALOG_ATTRIB
     public void configList(ViewOptions view, ListOptions list) {
         list.addToolButton("创建版本","createVersion","create-version-button");
         list.addToolButton("应用版本","applyVersion","apply-version-button");
-        list.columnLayout(PCM_CATALOG_ATTRIBUTE.FIELD,PCM_CATALOG_ATTRIBUTE.DATA_TYPE,
+        list.columnLayout(PCM_CATALOG_ATTRIBUTE.FIELD,PCM_CATALOG_ATTRIBUTE.DATA_TYPE,PCM_CATALOG_ATTRIBUTE.NOT_NULL,
                 PCM_CATALOG_ATTRIBUTE.SHORT_NAME,PCM_CATALOG_ATTRIBUTE.FULL_NAME,catalogName);
     }
 
@@ -53,6 +53,9 @@ public class PcmCatalogAttributeConfig extends BaseCodeConfig<PCM_CATALOG_ATTRIB
         .search().inputWidth(100);
         view.field(PCM_CATALOG_ATTRIBUTE.SHORT_NAME).form().validate().required()
         .search().inputWidth(100);
+
+        view.field(PCM_CATALOG_ATTRIBUTE.NOT_NULL).form().validate().required()
+                .form().logicField().on("必填",1).off("可空",0);
 
 
         view.field(PCM_CATALOG_ATTRIBUTE.CATALOG_ID).basic().hidden();
@@ -90,7 +93,7 @@ public class PcmCatalogAttributeConfig extends BaseCodeConfig<PCM_CATALOG_ATTRIB
         form.labelWidth(100);
         form.columnLayout(new Object[]{
                 PCM_CATALOG_ATTRIBUTE.FULL_NAME,PCM_CATALOG_ATTRIBUTE.SHORT_NAME,
-                PCM_CATALOG_ATTRIBUTE.FIELD, PCM_CATALOG_ATTRIBUTE.VALID,
+                PCM_CATALOG_ATTRIBUTE.FIELD, PCM_CATALOG_ATTRIBUTE.NOT_NULL,PCM_CATALOG_ATTRIBUTE.VALID,
                 PCM_CATALOG_ATTRIBUTE.DATA_TYPE,PCM_CATALOG_ATTRIBUTE.LENGTH,PCM_CATALOG_ATTRIBUTE.ACCURACY,PCM_CATALOG_ATTRIBUTE.SCALE,
                 PCM_CATALOG_ATTRIBUTE.HINT,PCM_CATALOG_ATTRIBUTE.DETAIL,PCM_CATALOG_ATTRIBUTE.NOTE
         });

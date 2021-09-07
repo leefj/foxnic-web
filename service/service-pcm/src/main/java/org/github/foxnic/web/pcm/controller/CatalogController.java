@@ -20,15 +20,13 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.github.foxnic.web.domain.oauth.meta.MenuVOMeta;
-import org.github.foxnic.web.domain.pcm.Catalog;
-import org.github.foxnic.web.domain.pcm.CatalogData;
-import org.github.foxnic.web.domain.pcm.CatalogVO;
-import org.github.foxnic.web.domain.pcm.DataQueryVo;
+import org.github.foxnic.web.domain.pcm.*;
 import org.github.foxnic.web.domain.pcm.meta.CatalogVOMeta;
 import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
 import org.github.foxnic.web.framework.web.SuperController;
 import org.github.foxnic.web.misc.xmselect.SelectItem;
 import org.github.foxnic.web.misc.ztree.ZTreeNode;
+import org.github.foxnic.web.pcm.service.ICatalogAttributeService;
 import org.github.foxnic.web.pcm.service.ICatalogService;
 import org.github.foxnic.web.proxy.pcm.CatalogServiceProxy;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +59,9 @@ public class CatalogController extends SuperController {
 
 	@Autowired
 	private ICatalogService catalogService;
+
+	@Autowired
+	private ICatalogAttributeService attributeService;
 
 	
 	/**
@@ -111,12 +112,17 @@ public class CatalogController extends SuperController {
 			result.success(false).message("请先删除下级节点");
 			return result;
 		}
+		List<CatalogAttribute> attributes=attributeService.queryList(CatalogAttribute.create().setCatalogId(id));
+		if(attributes.size()>0) {
+			result.success(false).message("请先删除定义的属性");
+			return result;
+		}
 		int dataCount=catalogService.getDataCount(id);
 		if(dataCount>0) {
 			result.success(false).message("请先删除分类数据");
 			return result;
 		}
-		result=catalogService.deleteByIdLogical(id);
+		result=catalogService.deleteByIdPhysical(id);
 		return result;
 	}
 

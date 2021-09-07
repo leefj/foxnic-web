@@ -2,7 +2,7 @@
 /**
  * 数据存储 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-05 07:52:26
+ * @since 2021-09-07 14:27:50
  */
  -->
  <!DOCTYPE html>
@@ -39,6 +39,11 @@
                         <div class="search-label-div" style=""><span th:text="${lang.translate('主键')}" class="search-label id-label">主键</span><span class="search-colon">:</span></div>
                         <input id="id" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
+                    <!-- 代码 , code ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('代码')}" class="search-label code-label">代码</span><span class="search-colon">:</span></div>
+                        <input id="code" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
                     <!-- 名称 , name ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('名称')}" class="search-label name-label">名称</span><span class="search-colon">:</span></div>
@@ -59,7 +64,7 @@
                         <div class="search-label-div" style=""><span th:text="${lang.translate('是否有效')}" class="search-label valid-label">是否有效</span><span class="search-colon">:</span></div>
                             <input id="valid" class="layui-input search-input" style="width: 140px" type="text" autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0" min-value="" max-value="" scale="0"/>
                     </div>
-                    <!-- 层级路径 , hierarchy ,typeName=text_input, isHideInSearch=false -->
+                    <!-- 层级路径 , hierarchy ,typeName=text_area, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('层级路径')}" class="search-label hierarchy-label">层级路径</span><span class="search-colon">:</span></div>
                         <input id="hierarchy" class="layui-input search-input" style="width: 140px" type="text" />
