@@ -19,7 +19,7 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  * 代码生成主表学生  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-24 13:34:34
+ * @since 2021-09-08 14:58:27
 */
 
 @FeignClient(value = MicroServiceNames.SYSTEM, contextId = CodeExampleStudentServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)
@@ -54,7 +54,6 @@ public interface CodeExampleStudentServiceProxy {
 	 * 批量删除代码生成主表学生
 	 */
 	public static final String DELETE_BY_IDS = API_PREFIX + "delete-by-ids";
-	;
 	
 	/**
 	 * 更新代码生成主表学生

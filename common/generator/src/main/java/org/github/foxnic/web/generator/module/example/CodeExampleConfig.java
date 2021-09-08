@@ -15,6 +15,7 @@ import org.github.foxnic.web.constants.enums.DictEnum;
 import org.github.foxnic.web.constants.enums.Language;
 import org.github.foxnic.web.constants.enums.MenuType;
 import org.github.foxnic.web.constants.enums.SystemConfigType;
+import org.github.foxnic.web.constants.enums.dict.Sex;
 import org.github.foxnic.web.domain.oauth.Resourze;
 import org.github.foxnic.web.domain.oauth.Role;
 import org.github.foxnic.web.domain.oauth.meta.ResourzeMeta;
@@ -76,6 +77,7 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 		view.field(TABLE.AREA)
 				.form().numberInput().integer().step(2.0)
 				//.range(0.0,20.0)
+				.defaultValue(9)
 				.allowNegative(false)
 				.form().validate().required()
 				.search().range()
@@ -83,7 +85,7 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 
 		//小数类型
 		view.field(TABLE.WEIGHT)
-				.form().numberInput().decimal().step(0.5).range(-10.5,16.6).allowNegative(true).scale(2);
+				.form().numberInput().decimal().step(0.5).range(-10.5,16.6).allowNegative(true).scale(2).defaultValue(3.14);
 
 		//日期类型
 		view.field(TABLE.BIRTHDAY)
@@ -105,39 +107,40 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 		//单选框，下拉数据来自枚举
 		view.field(TABLE.RADIO_ENUM)
 				.basic().label("枚举")
-				.form().radioBox().enumType(Language.class);
+				.form().radioBox().enumType(Language.class).defaultIndex(2);
 
 		//单选框，下拉数据来自字典
 		view.field(TABLE.RADIO_DICT)
 				.basic().label("性别")
 				.form().validate().required()
-				.form().radioBox().dict(DictEnum.SEX);
+				.form().radioBox().dict(DictEnum.SEX).defaultValue(Sex.M);
 
 		//复选框，下拉数据来自枚举
 		view.field(TABLE.CHECK_ENUM)
-				.form().checkBox().enumType(MenuType.class)
+				.form().checkBox().enumType(MenuType.class).defaultIndex(0,1)
 				.search().fuzzySearchWithDoubleQM();
 
 		//复选框，下拉数据来自字典
 		view.field(TABLE.CHECK_DICT)
 				.basic().label("状态")
-				.form().checkBox().dict(DictEnum.ORDER_STATUS)
+				.form().checkBox().dict(DictEnum.ORDER_STATUS).defaultValue("todo","done")
 				.form().validate().required()
 				.search().fuzzySearchWithDoubleQM();
 
+
 		//逻辑值
 		view.field(TABLE.VALID)
-				.form().logicField().on("有效",1).off("无效",0);
+				.form().logicField().on("有效",1).off("无效",0).defaultValue(false);
 
 		//下拉选择，数据来自枚举
 		view.field(TABLE.SELECT_ENUM)
 				.form().validate().required()
-				.form().selectBox().enumType(SystemConfigType.class);
+				.form().selectBox().enumType(SystemConfigType.class).defaultValue(SystemConfigType.DATETIME);
 
 		//下拉选择，数据来自字典
 		view.field(TABLE.SELECT_DICT)
 				.form().validate().required()
-				.form().selectBox().dict(DictEnum.ORDER_STATUS).muliti(true)
+				.form().selectBox().dict(DictEnum.ORDER_STATUS).muliti(true).defaultIndex(0,1)
 				.search().fuzzySearchWithDoubleQM();
 
 		//下拉选择，数据来自外部表
@@ -145,7 +148,7 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 				.search().fuzzySearch()
 				.form().selectBox().queryApi(ResourzeServiceProxy.QUERY_PAGED_LIST)
 				.valueField(ResourzeMeta.ID).textField(ResourzeMeta.URL)
-				.toolbar(false).paging(true)
+				.toolbar(false).paging(true).defaultIndex(1)
 				.fillBy(CodeExampleMeta.RESOURZE);
 
 
@@ -160,7 +163,7 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 				.table().sort(false)
 				.form().selectBox().queryApi(RoleServiceProxy.QUERY_PAGED_LIST)
 				.valueField(RoleMeta.ID).textField(RoleMeta.NAME)
-				.toolbar(false).paging(true)
+				.toolbar(false).paging(true).defaultIndex(0)
 				.fillBy(CodeExampleMeta.ROLES).muliti(true);
 		;
 

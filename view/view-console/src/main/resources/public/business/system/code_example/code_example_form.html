@@ -2,7 +2,7 @@
 /**
  * 代码生成示例主 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-07 21:32:01
+ * @since 2021-09-08 15:57:10
  */
  -->
  <!DOCTYPE html>
@@ -53,7 +53,7 @@
                     <div class="layui-form-item" >
                         <div class="layui-form-label "><div th:text="${lang.translate('整数输入')}">整数输入</div><div class="layui-required">*</div></div>
                         <div class="layui-input-block ">
-                            <input lay-filter="area" id="area" name="area" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('整数输入') }" type="text" class="layui-input"    lay-verify="|required"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="false" step="2.0"   scale="0"/>
+                            <input lay-filter="area" id="area" name="area" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('整数输入') }" type="text" class="layui-input"    lay-verify="|required"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="false" step="2.0"   scale="0"  value="9.0" />
                         </div>
                     </div>
 
@@ -70,7 +70,7 @@
                 <div class="layui-form-item" >
                     <div class="layui-form-label "><div th:text="${lang.translate('逻辑值')}">逻辑值</div></div>
                     <div class="layui-input-block ">
-                        <input input-type="switch" type="checkbox" checked="" id="valid"  name="valid" lay-skin="switch" lay-filter="valid" lay-text="有效|无效&nbsp;" value="1">
+                        <input input-type="switch" type="checkbox" id="valid"  name="valid" lay-skin="switch" lay-filter="valid" lay-text="有效|无效&nbsp;" value="0" >
                     </div>
                 </div>
 
@@ -93,7 +93,7 @@
                     <div class="layui-form-item" >
                         <div class="layui-form-label "><div th:text="${lang.translate('小数输入')}">小数输入</div></div>
                         <div class="layui-input-block ">
-                            <input lay-filter="weight" id="weight" name="weight" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('小数输入') }" type="text" class="layui-input"   autocomplete="off" input-type="number_input" integer="false" decimal="true" allow-negative="true" step="0.5"   min-value="-10.5"  max-value="16.6"  scale="2"/>
+                            <input lay-filter="weight" id="weight" name="weight" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('小数输入') }" type="text" class="layui-input"   autocomplete="off" input-type="number_input" integer="false" decimal="true" allow-negative="true" step="0.5"   min-value="-10.5"  max-value="16.6"  scale="2"  value="3.14" />
                         </div>
                     </div>
 
@@ -102,7 +102,7 @@
                     <div class="layui-form-item" >
                         <div class="layui-form-label "><div th:text="${lang.translate('状态')}">状态</div><div class="layui-required">*</div></div>
                         <div class="layui-input-block ">
-                                <input input-type="checkbox" type="checkbox" name="checkDict" lay-filter="checkDict" lay-skin="primary" th:each="e,stat:${dict.toArray('order_status')}" th:value="${e.code}" th:title="${e.text}">
+                                <input input-type="checkbox" type="checkbox" name="checkDict" lay-filter="checkDict" lay-skin="primary" th:each="e,stat:${dict.toArray('order_status')}" th:value="${e.code}" th:title="${e.text}" th:checked="${pageHelper.checkDefault(e.code,stat.index,'todo,done','')?'yes':'no'}">
                         </div>
                     </div>
 
@@ -227,7 +227,7 @@
                 <div class="layui-form-item" >
                     <div class="layui-form-label "><div th:text="${lang.translate('枚举')}">枚举</div></div>
                     <div class="layui-input-block ">
-                        <input input-type="radio" type="radio" name="radioEnum" lay-filter="radioEnum" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.Language')}" th:value="${e.code}" th:title="${e.text}">
+                        <input input-type="radio" type="radio" name="radioEnum" lay-filter="radioEnum" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.Language')}" th:value="${e.code}" th:title="${e.text}" th:checked="${(e.code=='' || stat.index==2)?'yes':'no'}">
                     </div>
                 </div>
 
@@ -249,7 +249,7 @@
                 <div class="layui-form-item" >
                     <div class="layui-form-label "><div th:text="${lang.translate('性别')}">性别</div><div class="layui-required">*</div></div>
                     <div class="layui-input-block ">
-                        <input input-type="radio" type="radio" name="radioDict" lay-filter="radioDict" th:each="e,stat:${dict.toArray('sex')}" th:value="${e.code}" th:title="${e.text}">
+                        <input input-type="radio" type="radio" name="radioDict" lay-filter="radioDict" th:each="e,stat:${dict.toArray('sex')}" th:value="${e.code}" th:title="${e.text}"  th:checked="${(e.code=='M' || stat.index==-1)?'yes':'no'}">
                     </div>
                 </div>
 
@@ -282,7 +282,7 @@
                     <div class="layui-form-item" >
                         <div class="layui-form-label "><div th:text="${lang.translate('复选框(枚举)')}">复选框(枚举)</div></div>
                         <div class="layui-input-block ">
-                                <input input-type="checkbox" type="checkbox" name="checkEnum" lay-filter="checkEnum" lay-skin="primary" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.MenuType')}" th:value="${e.code}" th:title="${e.text}">
+                                <input input-type="checkbox" type="checkbox" name="checkEnum" lay-filter="checkEnum" lay-skin="primary" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.MenuType')}" th:value="${e.code}" th:title="${e.text}" th:checked="${pageHelper.checkDefault(e.code,stat.index,'','0,1')?'yes':'no'}">
                         </div>
                     </div>
 
