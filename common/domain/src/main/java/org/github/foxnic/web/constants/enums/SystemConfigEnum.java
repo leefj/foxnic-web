@@ -5,7 +5,7 @@ import com.github.foxnic.api.constant.CodeTextEnum;
 
 
 /**
- * @since 2021-08-17 15:38:36
+ * @since 2021-09-09 20:16:25
  * @author 李方捷 , leefangjie@qq.com
  * 从 select code,name from sys_config WHERE deleted=0 生成
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成
@@ -29,9 +29,19 @@ public enum SystemConfigEnum implements CodeTextEnum {
 	SYSTEM_COPYRIGHT_TEXT("system.copyright.text" , "版权信息文本"),
 	
 	/**
+	 * 创建员工时同步创建账户
+	*/
+	SYSTEM_EMPLOYEE_CREATEUSER("system.employee.createUser" , "创建员工时同步创建账户"),
+	
+	/**
 	 * 系统默认语言
 	*/
 	SYSTEM_LANGUAGE("system.language" , "系统默认语言"),
+	
+	/**
+	 * 默认密码
+	*/
+	SYSTEM_PASSWORD_DEFAULT("system.password.default" , "默认密码"),
 	
 	/**
 	 * 首页分模块

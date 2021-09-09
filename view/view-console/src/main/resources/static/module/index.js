@@ -122,33 +122,36 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
                         $("#nav-modules").append(button.join("\n"));
                     }
                 }
-                var button=['<li class="module-nav-item layui-nav-item" lay-unselect index="1024" id="more-top-menu-button-li" style="line-height: 49px;">',
-                    '    <a id="nav-module-button-1024-a" title="" style="font-size: 15px;"><i class="fa fa-chevron-circle-down" style="font-size: 17px"></i>&nbsp;&nbsp;<span id="more-top-text">更多</span></a>',
-                    '</li>' ]
-                $("#nav-modules").append(button.join("\n"));
+                if(menuItems.length>0) {
 
-                //下拉菜单
-                dropdown.render({
-                    elem: '#more-top-menu-button-li'
-                    ,data: menuItems
-                    ,click: function(obj){
-                        // debugger
-                        var topMenu=tops[obj.id];
-                        // layer.tips('点击了：'+ obj.title, this.elem, {tips: [1, '#5FB878']})
-                        var buttonId='nav-module-button-'+index.navModuleIndex+"-a";
-                        $("#"+buttonId).css("color","#333333");
-                        index.switchNavMenu(obj.id,topMenu.subMenus);
-
-                        index.navModuleIndex=1024;
-                        buttonId='nav-module-button-'+index.navModuleIndex+"-a";
-                        $("#"+buttonId).css("color","#009688");
-
-                        $("#more-top-text").text(obj.title);
+                    var button=['<li class="module-nav-item layui-nav-item" lay-unselect index="1024" id="more-top-menu-button-li" style="line-height: 49px;">',
+                        '    <a id="nav-module-button-1024-a" title="" style="font-size: 15px;"><i class="fa fa-chevron-circle-down" style="font-size: 17px"></i>&nbsp;&nbsp;<span id="more-top-text">更多</span></a>',
+                        '</li>' ]
+                    $("#nav-modules").append(button.join("\n"));
 
 
+                    //下拉菜单
+                    dropdown.render({
+                        elem: '#more-top-menu-button-li'
+                        , data: menuItems
+                        , click: function (obj) {
+                            // debugger
+                            var topMenu = tops[obj.id];
+                            // layer.tips('点击了：'+ obj.title, this.elem, {tips: [1, '#5FB878']})
+                            var buttonId = 'nav-module-button-' + index.navModuleIndex + "-a";
+                            $("#" + buttonId).css("color", "#333333");
+                            index.switchNavMenu(obj.id, topMenu.subMenus);
 
-                    }
-                });
+                            index.navModuleIndex = 1024;
+                            buttonId = 'nav-module-button-' + index.navModuleIndex + "-a";
+                            $("#" + buttonId).css("color", "#009688");
+
+                            $("#more-top-text").text(obj.title);
+
+
+                        }
+                    });
+                }
 
                 // $("#more-top-menu-button-li").click(function (e){
                 //     layer.open({

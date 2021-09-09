@@ -5,7 +5,7 @@ import com.github.foxnic.api.constant.CodeTextEnum;
 
 
 /**
- * @since 2021-08-17 15:38:37
+ * @since 2021-09-09 20:16:26
  * @author 李方捷 , leefangjie@qq.com
  * 从 select code,name from sys_dict WHERE deleted=0 and module in ('system') 生成
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成

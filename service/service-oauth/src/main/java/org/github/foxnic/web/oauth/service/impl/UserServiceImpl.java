@@ -68,6 +68,13 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 
 	private PasswordEncoder passwordEncoder;
 
+	public PasswordEncoder getPasswordEncoder() {
+		if(passwordEncoder==null) {
+			passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+		}
+		return passwordEncoder;
+	}
+
 	/**
 	 * 获得 DAO 对象
 	 * */
@@ -86,6 +93,11 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 	@Override
 	@Transactional
 	public Result insert(User user) {
+		if(StringUtil.isBlank(user.getPasswd())){
+			String defaultPasswd=SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_PASSWORD_DEFAULT);
+			defaultPasswd=getPasswordEncoder().encode(defaultPasswd);
+			user.setPasswd(defaultPasswd);
+		}
 		Result r=super.insert(user);
 		if(r.success()) {
 			saveRoles(user);
@@ -328,9 +340,7 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 
 	@Override
 	public Result changePasswd(String sessionUserId, String oldpwd, String newpwd) {
-		if(passwordEncoder==null) {
-			passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-		}
+		PasswordEncoder passwordEncoder=getPasswordEncoder();
 		User user=this.getById(sessionUserId);
 		boolean march = passwordEncoder.matches(oldpwd, user.getPasswd());
 		if(!march) {

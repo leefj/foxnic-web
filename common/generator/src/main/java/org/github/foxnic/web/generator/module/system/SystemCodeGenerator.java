@@ -37,7 +37,7 @@ public class SystemCodeGenerator  {
 //		}
 
 		// 
-//		g.generateSysConfig();
+		g.generateSysConfig();
 //		//
 //		g.generateSysDict();
 //		//
@@ -154,26 +154,38 @@ public class SystemCodeGenerator  {
 		//创建模块配置
 		ModuleContext cfg=createModuleConfig(SYS_CONFIG.$TABLE, 1);
 		
-//		//配置逻辑型字段
-//		cfg.field(SYS_CONFIG.VALID).logicField().off("无效", 0).on("有效", 1);
-//		//配置字段为单选框，并指定枚举选项
-//		cfg.field(SYS_CONFIG.TYPE).radioField().enumType(SystemConfigType.class);
 
 		//配置逻辑型字段
 		cfg.view().field(SYS_CONFIG.VALID)
+				.search().hidden()
 				.form().logicField().off("无效", 0).on("有效", 1);
 		//配置字段为单选框，并指定枚举选项
 		cfg.view().field(SYS_CONFIG.TYPE)
+				.table().hidden()
 				.form().radioBox().enumType(SystemConfigType.class);
 
+		cfg.view().field(SYS_CONFIG.TYPE_DESC)
+				.search().hidden()
+				.table().hidden();
+
+		cfg.view().field(SYS_CONFIG.VALUE)
+				.search().hidden();
+
+		cfg.view().field(SYS_CONFIG.NOTES)
+				.table().hidden()
+				.search().hidden();
+
+
+		cfg.view().list().disableCreateNew().disableBatchDelete().disableSingleDelete();
+		cfg.view().form().labelWidth(80);
 		
 		//文件生成覆盖模式
 		cfg.overrides()
 		.setServiceIntfAnfImpl(WriteMode.CREATE_IF_NOT_EXISTS) //服务与接口
 		.setControllerAndAgent(WriteMode.CREATE_IF_NOT_EXISTS) //Rest
 		.setPageController(WriteMode.CREATE_IF_NOT_EXISTS) //页面控制器
-		.setFormPage(WriteMode.CREATE_IF_NOT_EXISTS) //表单HTML页
-		.setListPage(WriteMode.CREATE_IF_NOT_EXISTS); //列表HTML页
+		.setFormPage(WriteMode.COVER_EXISTS_FILE) //表单HTML页
+		.setListPage(WriteMode.COVER_EXISTS_FILE); //列表HTML页
 		
  
 		//生成代码
