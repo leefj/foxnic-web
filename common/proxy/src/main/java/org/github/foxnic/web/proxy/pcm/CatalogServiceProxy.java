@@ -6,6 +6,7 @@ import org.github.foxnic.web.domain.pcm.Catalog;
 import org.github.foxnic.web.domain.pcm.CatalogData;
 import org.github.foxnic.web.domain.pcm.CatalogVO;
 import org.github.foxnic.web.domain.pcm.DataQueryVo;
+import org.github.foxnic.web.misc.ztree.ZTreeNode;
 import org.github.foxnic.web.proxy.FeignConfiguration;
 import org.github.foxnic.web.proxy.MicroServiceNames;
 import org.github.foxnic.web.proxy.api.APIProxy;
@@ -214,6 +215,11 @@ public interface CatalogServiceProxy {
 	@RequestMapping(CatalogServiceProxy.QUERY_PAGED_LIST)
 	Result<PagedList<Catalog>> queryPagedList(CatalogVO sample);
 
+	/**
+	 * 查询节点
+	 * */
+	@PostMapping(CatalogServiceProxy.QUERY_NODES)
+	Result<List<ZTreeNode>> queryNodes(CatalogVO sample);
 	/**
 	 * 返回数据表清单
 	 */
