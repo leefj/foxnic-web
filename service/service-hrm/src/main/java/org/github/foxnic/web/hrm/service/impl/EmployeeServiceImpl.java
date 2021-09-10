@@ -16,11 +16,20 @@ import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.constants.enums.PersonSource;
+import org.github.foxnic.web.constants.enums.SystemConfigEnum;
+import org.github.foxnic.web.constants.enums.YesNo;
 import org.github.foxnic.web.domain.hrm.Employee;
 import org.github.foxnic.web.domain.hrm.Person;
+import org.github.foxnic.web.domain.oauth.User;
+import org.github.foxnic.web.domain.oauth.UserVO;
+import org.github.foxnic.web.domain.system.UserTenantVO;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.hrm.service.IEmployeeService;
 import org.github.foxnic.web.hrm.service.IPersonService;
+import org.github.foxnic.web.proxy.oauth.UserServiceProxy;
+import org.github.foxnic.web.proxy.system.UserTenantServiceProxy;
+import org.github.foxnic.web.proxy.utils.SystemConfigProxyUtil;
+import org.github.foxnic.web.session.SessionUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -73,12 +82,40 @@ public class EmployeeServiceImpl extends SuperService<Employee> implements IEmpl
 	@Override
 	@Transactional
 	public Result insert(Employee employee) {
+
+		User user = null;
+		//如果系统配置是在创建员工是创建账户
+		if(SystemConfigProxyUtil.getEnum(SystemConfigEnum.SYSTEM_EMPLOYEE_CREATEUSER, YesNo.class)==YesNo.yes) {
+			UserVO userVO=new UserVO();
+			userVO.setName(employee.getPhone());
+			userVO.setPhone(employee.getPhone());
+			Result ur=UserServiceProxy.api().insert(userVO);
+			if(ur.failure()) {
+				return ur;
+			}
+			user=(User)ur.data();
+		}
+
+		//指定默认的归属公司
+		employee.setCompanyId(SessionUser.getCurrent().getActivatedCompanyId());
 		Person person= BeanUtil.copy(employee,Person.create(),false);
 		person.setSource(PersonSource.employee.code());
 		Result r = personService.insert(person);
 		if(r.success()) {
 			employee.setPersonId(person.getId());
 			r = super.insert(employee);
+			//如果账户创建成功，则绑定员工与账户的关系
+			if(r.success() && user!=null) {
+				UserTenantVO userTenant=new UserTenantVO();
+				userTenant.setUserId(user.getId());
+				userTenant.setOwnerTenantId(SessionUser.getCurrent().getActivatedTenantId());
+				userTenant.setEmployeeId(employee.getId());
+				userTenant.setActivated(1);
+				r=UserTenantServiceProxy.api().insert(userTenant);
+				if(r.failure()) {
+					return r;
+				}
+			}
 		}
 		return r;
 	}
@@ -248,6 +285,7 @@ public class EmployeeServiceImpl extends SuperService<Employee> implements IEmpl
 	 * */
 	@Override
 	public PagedList<Employee> queryPagedList(Employee sample, int pageSize, int pageIndex) {
+
 		return super.queryPagedList(sample, pageSize, pageIndex);
 	}
 	

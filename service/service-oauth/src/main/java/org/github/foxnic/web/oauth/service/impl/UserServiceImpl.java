@@ -102,6 +102,8 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 		if(r.success()) {
 			saveRoles(user);
 		}
+		user.setPasswd("******");
+		r.data(user);
 		return r;
 	}
 	

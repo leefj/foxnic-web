@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-27 08:49:14
- * @sign 34A58447EDEB9EF96DF1234EAF863ABA
+ * @since 2021-09-10 14:39:38
+ * @sign F60923BA070070B83AB2F8F465A66C66
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -42,10 +42,22 @@ public class Employee extends Person {
 	private String badge;
 	
 	/**
+	 * 手机号：手机号
+	*/
+	@ApiModelProperty(required = false,value="手机号" , notes = "手机号")
+	private String phone;
+	
+	/**
 	 * 人员ID：人员ID
 	*/
 	@ApiModelProperty(required = false,value="人员ID" , notes = "人员ID")
 	private String personId;
+	
+	/**
+	 * 租户ID：租户ID
+	*/
+	@ApiModelProperty(required = false,value="租户ID" , notes = "租户ID")
+	private String tenantId;
 	
 	/**
 	 * 公司ID：公司ID
@@ -158,6 +170,25 @@ public class Employee extends Person {
 	}
 	
 	/**
+	 * 获得 手机号<br>
+	 * 手机号
+	 * @return 手机号
+	*/
+	public String getPhone() {
+		return phone;
+	}
+	
+	/**
+	 * 设置 手机号
+	 * @param phone 手机号
+	 * @return 当前对象
+	*/
+	public Employee setPhone(String phone) {
+		this.phone=phone;
+		return this;
+	}
+	
+	/**
 	 * 获得 人员ID<br>
 	 * 人员ID
 	 * @return 人员ID
@@ -173,6 +204,25 @@ public class Employee extends Person {
 	*/
 	public Employee setPersonId(String personId) {
 		this.personId=personId;
+		return this;
+	}
+	
+	/**
+	 * 获得 租户ID<br>
+	 * 租户ID
+	 * @return 租户ID
+	*/
+	public String getTenantId() {
+		return tenantId;
+	}
+	
+	/**
+	 * 设置 租户ID
+	 * @param tenantId 租户ID
+	 * @return 当前对象
+	*/
+	public Employee setTenantId(String tenantId) {
+		this.tenantId=tenantId;
 		return this;
 	}
 	

@@ -10,8 +10,8 @@ import org.github.foxnic.web.domain.hrm.Company;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-27 08:49:14
- * @sign 34A58447EDEB9EF96DF1234EAF863ABA
+ * @since 2021-09-10 14:39:38
+ * @sign F60923BA070070B83AB2F8F465A66C66
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -38,6 +38,16 @@ public class EmployeeMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Employee,java.lang.String> BADGE_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Employee.class ,BADGE, java.lang.String.class, "工号", "工号", java.lang.String.class, null);
 	
 	/**
+	 * 手机号 , 类型: java.lang.String
+	*/
+	public static final String PHONE="phone";
+	
+	/**
+	 * 手机号 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Employee,java.lang.String> PHONE_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Employee.class ,PHONE, java.lang.String.class, "手机号", "手机号", java.lang.String.class, null);
+	
+	/**
 	 * 人员ID , 类型: java.lang.String
 	*/
 	public static final String PERSON_ID="personId";
@@ -46,6 +56,16 @@ public class EmployeeMeta {
 	 * 人员ID , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Employee,java.lang.String> PERSON_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Employee.class ,PERSON_ID, java.lang.String.class, "人员ID", "人员ID", java.lang.String.class, null);
+	
+	/**
+	 * 租户ID , 类型: java.lang.String
+	*/
+	public static final String TENANT_ID="tenantId";
+	
+	/**
+	 * 租户ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Employee,java.lang.String> TENANT_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Employee.class ,TENANT_ID, java.lang.String.class, "租户ID", "租户ID", java.lang.String.class, null);
 	
 	/**
 	 * 公司ID , 类型: java.lang.String
@@ -170,7 +190,7 @@ public class EmployeeMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , BADGE , PERSON_ID , COMPANY_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , PERSON , COMPANY , NAME_AND_BADGE };
+	public static final String[] $PROPS={ ID , BADGE , PHONE , PERSON_ID , TENANT_ID , COMPANY_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , PERSON , COMPANY , NAME_AND_BADGE };
 	
 	/**
 	 * 代理类
@@ -203,6 +223,17 @@ public class EmployeeMeta {
 		}
 		
 		/**
+		 * 设置 手机号
+		 * @param phone 手机号
+		 * @return 当前对象
+		*/
+		public Employee setPhone(String phone) {
+			super.change(PHONE,super.getPhone(),phone);
+			super.setPhone(phone);
+			return this;
+		}
+		
+		/**
 		 * 设置 人员ID
 		 * @param personId 人员ID
 		 * @return 当前对象
@@ -210,6 +241,17 @@ public class EmployeeMeta {
 		public Employee setPersonId(String personId) {
 			super.change(PERSON_ID,super.getPersonId(),personId);
 			super.setPersonId(personId);
+			return this;
+		}
+		
+		/**
+		 * 设置 租户ID
+		 * @param tenantId 租户ID
+		 * @return 当前对象
+		*/
+		public Employee setTenantId(String tenantId) {
+			super.change(TENANT_ID,super.getTenantId(),tenantId);
+			super.setTenantId(tenantId);
 			return this;
 		}
 		

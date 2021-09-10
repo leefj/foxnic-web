@@ -1,7 +1,9 @@
 package org.github.foxnic.web.proxy.utils;
 
-import com.github.foxnic.commons.lang.DataParser;
+import com.github.foxnic.api.constant.CodeTextEnum;
 import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.commons.lang.DataParser;
+import com.github.foxnic.commons.reflect.EnumUtil;
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
 import org.github.foxnic.web.domain.system.Config;
 import org.github.foxnic.web.proxy.system.ConfigServiceProxy;
@@ -18,6 +20,11 @@ public class SystemConfigProxyUtil {
         if(result==null) return null;
         if(result.failure()) return  null;
         return result.data().getValue();
+    }
+
+    public static <T extends CodeTextEnum> T getEnum(SystemConfigEnum key,Class<T> type) {
+        String value=getString(key);
+        return  (T)EnumUtil.parseByCode(type,value);
     }
 
     /**

@@ -38,6 +38,13 @@ public abstract class SessionUser {
 	public String getActivatedTenantId(){
 		return this.getUser().getActivatedTenant().getOwnerTenantId();
 	}
+
+	/**
+	 * 获得当前激活租户对应公司的ID
+	 * */
+	public String getActivatedCompanyId(){
+		return this.getUser().getActivatedTenant().getTenant().getCompanyId();
+	}
 	
 	/**
 	 * 权限对象
