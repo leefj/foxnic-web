@@ -285,8 +285,8 @@ public class EmployeeServiceImpl extends SuperService<Employee> implements IEmpl
 	 * */
 	@Override
 	public PagedList<Employee> queryPagedList(Employee sample, int pageSize, int pageIndex) {
-
-		return super.queryPagedList(sample, pageSize, pageIndex);
+		ConditionExpr expr=new ConditionExpr("company_id=?",SessionUser.getCurrent().getActivatedCompanyId());
+		return super.queryPagedList(sample,expr, pageSize, pageIndex);
 	}
 	
 	/**

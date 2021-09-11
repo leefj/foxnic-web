@@ -17,6 +17,7 @@ import org.github.foxnic.web.constants.enums.SystemConfigEnum;
 import org.github.foxnic.web.domain.hrm.Employee;
 import org.github.foxnic.web.domain.hrm.Person;
 import org.github.foxnic.web.domain.hrm.meta.EmployeeMeta;
+import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.Role;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.domain.oauth.UserVO;
@@ -28,6 +29,7 @@ import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.oauth.service.IRoleUserService;
 import org.github.foxnic.web.oauth.service.IUserService;
 import org.github.foxnic.web.proxy.utils.SystemConfigProxyUtil;
+import org.github.foxnic.web.session.DynamicHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -37,6 +39,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -280,14 +283,14 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
     		user=dao.queryEntity(User.class, new ConditionExpr(SYS_USER.PHONE+" = ?",identity));
     	}
     	
-    	//关联相关数据
+//    	//关联相关数据
 //    	if (user!=null) {
-//    		dao.join(user,Role.class,Menu.class,RoleMenu.class, UserTenant.class);
-//			dao.join(user.getMenus(),Resourze.class);
+//    		dao.join(user,Role.class,Menu.class, RoleMenu.class, UserTenant.class);
+//			dao.join(user.getMenus(), Resourze.class);
 //    	}
 //
 // 		if(user.getJoinedTenants()!=null) {
-// 			dao.join(user.getJoinedTenants(), Employee.class,Tenant.class);
+// 			dao.join(user.getJoinedTenants(), Employee.class, Tenant.class);
 // 			//
 //			List<Tenant> tenants= CollectorUtil.collectList(user.getJoinedTenants(),UserTenant::getTenant);
 //			dao.join(tenants, Company.class);
@@ -299,14 +302,31 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
  		//填充账户模型
  		dao.fill(user)
 			.with(UserMeta.MENUS)
-			.with(UserMeta.MENUS,MenuMeta.RESOURCES)
+			.with(UserMeta.MENUS, MenuMeta.RESOURCES)
 			.with(UserMeta.MENUS,MenuMeta.PATH_RESOURCE)
 			.with(UserMeta.ROLES)
 			.with(UserMeta.ROLE_MENUS)
-			.with(UserMeta.JOINED_TENANTS,UserTenantMeta.TENANT,TenantMeta.COMPANY)
-			.with(UserMeta.JOINED_TENANTS,UserTenantMeta.EMPLOYEE,EmployeeMeta.PERSON)
+			.with(UserMeta.JOINED_TENANTS, UserTenantMeta.TENANT, TenantMeta.COMPANY)
+			.with(UserMeta.JOINED_TENANTS,UserTenantMeta.EMPLOYEE, EmployeeMeta.PERSON)
 			.execute();
 
+
+		List<Menu> remMenus=new ArrayList<>();
+		for (Menu menu : user.getMenus()) {
+			if(!StringUtil.isBlank(menu.getDynamicHandler())) {
+				DynamicHandler dy=DynamicHandler.getHandler(menu.getDynamicHandler());
+				boolean has=dy.hasPermission(menu,user);
+				if(!has) {
+					remMenus.add(menu);
+				}
+				String title=dy.getLabel(menu,user);
+				menu.setLabel(title);
+			}
+		}
+
+		for (Menu remMenu : remMenus) {
+			user.getMenus().remove(remMenu);
+		}
 
  		if(user.getActivatedTenant()!=null){
  			Employee employee=user.getActivatedTenant().getEmployee();

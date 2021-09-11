@@ -109,6 +109,13 @@
             <div id="resourceIds" th:data="${'/service-oauth/sys-resourze/query-paged-list'}"></div>
         </div>
     </div>
+
+    <div class="layui-form-item" >
+        <div class="layui-form-label"><div th:text="${lang.translate('动态控制')}">动态控制</div></div>
+        <div class="layui-input-block">
+            <input lay-filter="dynamicHandler" id="dynamicHandler" name="dynamicHandler" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('动态控制类') }" type="text" class="layui-input"  />
+        </div>
+    </div>
     
 	
     

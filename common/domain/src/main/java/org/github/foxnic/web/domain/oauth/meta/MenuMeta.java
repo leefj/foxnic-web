@@ -10,8 +10,8 @@ import java.util.List;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-11 13:56:00
- * @sign DCBE371ABBE01889672F8E7C47DD6A7D
+ * @since 2021-09-11 16:59:29
+ * @sign F2E163360CF0B9A395D17010D8DCDD56
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -116,6 +116,16 @@ public class MenuMeta {
 	 * 上级ID , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.lang.String> PARENT_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,PARENT_ID, java.lang.String.class, "上级ID", "上级ID", java.lang.String.class, null);
+	
+	/**
+	 * 动态控制类 , 类型: java.lang.String
+	*/
+	public static final String DYNAMIC_HANDLER="dynamicHandler";
+	
+	/**
+	 * 动态控制类 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.lang.String> DYNAMIC_HANDLER_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,DYNAMIC_HANDLER, java.lang.String.class, "动态控制类", "动态控制类", java.lang.String.class, null);
 	
 	/**
 	 * 层级路径 , 类型: java.lang.String
@@ -280,7 +290,7 @@ public class MenuMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , BATCH_ID , AUTHORITY , HIDDEN , CSS , LABEL , TYPE , PATH_RESOURCE_ID , URL , PARENT_ID , HIERARCHY , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , PATH_RESOURCE , RESOURCES , PARENT , PATH , RESOURCE_IDS , ANCESTORS_NAME_PATH };
+	public static final String[] $PROPS={ ID , BATCH_ID , AUTHORITY , HIDDEN , CSS , LABEL , TYPE , PATH_RESOURCE_ID , URL , PARENT_ID , DYNAMIC_HANDLER , HIERARCHY , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , PATH_RESOURCE , RESOURCES , PARENT , PATH , RESOURCE_IDS , ANCESTORS_NAME_PATH };
 	
 	/**
 	 * 代理类
@@ -397,6 +407,17 @@ public class MenuMeta {
 		public Menu setParentId(String parentId) {
 			super.change(PARENT_ID,super.getParentId(),parentId);
 			super.setParentId(parentId);
+			return this;
+		}
+		
+		/**
+		 * 设置 动态控制类
+		 * @param dynamicHandler 动态控制类
+		 * @return 当前对象
+		*/
+		public Menu setDynamicHandler(String dynamicHandler) {
+			super.change(DYNAMIC_HANDLER,super.getDynamicHandler(),dynamicHandler);
+			super.setDynamicHandler(dynamicHandler);
 			return this;
 		}
 		

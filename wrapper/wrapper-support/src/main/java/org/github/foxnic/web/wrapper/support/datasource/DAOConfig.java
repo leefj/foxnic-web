@@ -1,9 +1,5 @@
 package org.github.foxnic.web.wrapper.support.datasource;
 
-import com.alibaba.druid.pool.DruidDataSource;
-import com.github.foxnic.commons.encrypt.AESUtil;
-import com.github.foxnic.commons.environment.OSType;
-import com.github.foxnic.commons.io.FileUtil;
 import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.dao.spec.DAOBuilder;
@@ -24,7 +20,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
 import javax.sql.DataSource;
-import java.io.File;
 
 @Configuration
 public class DAOConfig {
@@ -43,7 +38,7 @@ public class DAOConfig {
 			if(printSQL==null) printSQL=false;
 
  			//解密数据库配置信息，并重新设置数据库连接
-			decrypt(dataSource,DatasourceConfig.PRIMARY_DATASOURCE_CONFIG_KEY);
+			DBConfigs.reset(dataSource,DatasourceConfig.PRIMARY_DATASOURCE_CONFIG_KEY);
 
 			DAO dao= (new DAOBuilder().datasource(dataSource)).build();
 			dao.setPrintSQL(printSQL);
@@ -136,28 +131,6 @@ public class DAOConfig {
 		return dbTreaty;
 	}
 
-	/**
-	 * 解密数据库配置信息，并重新设置数据库连接
-	 * */
-	public void decrypt(DataSource dataSource,String prefix) {
-		//
-		OSType osType=OSType.getOSType();
-		String file=SpringUtil.getEnvProperty(DatasourceConfig.PRIMARY_DATASOURCE_CONFIG_KEY+".encrypt-file."+ osType.name().toLowerCase());
-		String passwd= FileUtil.readText(new File(file));
-		//
-		AESUtil aes=new AESUtil(passwd);
-		//
-		String dbPassed=SpringUtil.getEnvProperty(DatasourceConfig.PRIMARY_DATASOURCE_CONFIG_KEY+".password");
-		//
-		if(dataSource instanceof DruidDataSource) {
-			DruidDataSource dds=(DruidDataSource) dataSource;
-			String url=aes.decryptData(dds.getUrl());
-			String username=aes.decryptData(dds.getUsername());
-			dds.setUrl(url);
-			dds.setUsername(username);
-			dbPassed=aes.decryptData(dbPassed);
-			dds.setPassword(dbPassed);
-		}
-	}
+
 	
 }

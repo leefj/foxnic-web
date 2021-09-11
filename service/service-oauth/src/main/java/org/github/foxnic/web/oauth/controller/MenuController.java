@@ -55,7 +55,7 @@ public class MenuController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = MenuVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "451739184575545344"),
 		@ApiImplicitParam(name = MenuVOMeta.BATCH_ID , value = "批次号" , required = false , dataTypeClass=String.class , example = "451739178166648832"),
-		@ApiImplicitParam(name = MenuVOMeta.AUTHORITY , value = "权限" , required = true , dataTypeClass=String.class , example = "sys_user::form::view"),
+		@ApiImplicitParam(name = MenuVOMeta.AUTHORITY , value = "权限" , required = false , dataTypeClass=String.class , example = "sys_user::form::view"),
 		@ApiImplicitParam(name = MenuVOMeta.HIDDEN , value = "是否隐藏" , required = true , dataTypeClass=Integer.class , example = "1"),
 		@ApiImplicitParam(name = MenuVOMeta.CSS , value = "样式" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = MenuVOMeta.LABEL , value = "标签" , required = false , dataTypeClass=String.class , example = "编辑账户"),
@@ -63,6 +63,7 @@ public class MenuController {
 		@ApiImplicitParam(name = MenuVOMeta.PATH_RESOURCE_ID , value = "菜单路径的资源" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = MenuVOMeta.URL , value = "路由地址" , required = false , dataTypeClass=String.class , example = "#!sys_user_edit"),
 		@ApiImplicitParam(name = MenuVOMeta.PARENT_ID , value = "上级ID" , required = false , dataTypeClass=String.class , example = "451739184579739648"),
+		@ApiImplicitParam(name = MenuVOMeta.DYNAMIC_HANDLER , value = "动态控制类" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = MenuVOMeta.HIERARCHY , value = "层级路径" , required = false , dataTypeClass=String.class , example = "463397133957988352"),
 		@ApiImplicitParam(name = MenuVOMeta.SORT , value = "显示顺序" , required = true , dataTypeClass=Integer.class , example = "1"),
 	})
@@ -139,7 +140,7 @@ public class MenuController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = MenuVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "451739184575545344"),
 		@ApiImplicitParam(name = MenuVOMeta.BATCH_ID , value = "批次号" , required = false , dataTypeClass=String.class , example = "451739178166648832"),
-		@ApiImplicitParam(name = MenuVOMeta.AUTHORITY , value = "权限" , required = true , dataTypeClass=String.class , example = "sys_user::form::view"),
+		@ApiImplicitParam(name = MenuVOMeta.AUTHORITY , value = "权限" , required = false , dataTypeClass=String.class , example = "sys_user::form::view"),
 		@ApiImplicitParam(name = MenuVOMeta.HIDDEN , value = "是否隐藏" , required = true , dataTypeClass=Integer.class , example = "1"),
 		@ApiImplicitParam(name = MenuVOMeta.CSS , value = "样式" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = MenuVOMeta.LABEL , value = "标签" , required = false , dataTypeClass=String.class , example = "编辑账户"),
@@ -147,6 +148,7 @@ public class MenuController {
 		@ApiImplicitParam(name = MenuVOMeta.PATH_RESOURCE_ID , value = "菜单路径的资源" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = MenuVOMeta.URL , value = "路由地址" , required = false , dataTypeClass=String.class , example = "#!sys_user_edit"),
 		@ApiImplicitParam(name = MenuVOMeta.PARENT_ID , value = "上级ID" , required = false , dataTypeClass=String.class , example = "451739184579739648"),
+		@ApiImplicitParam(name = MenuVOMeta.DYNAMIC_HANDLER , value = "动态控制类" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = MenuVOMeta.HIERARCHY , value = "层级路径" , required = false , dataTypeClass=String.class , example = "463397133957988352"),
 		@ApiImplicitParam(name = MenuVOMeta.SORT , value = "显示顺序" , required = true , dataTypeClass=Integer.class , example = "1"),
 	})
@@ -168,7 +170,7 @@ public class MenuController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = MenuVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "451739184575545344"),
 		@ApiImplicitParam(name = MenuVOMeta.BATCH_ID , value = "批次号" , required = false , dataTypeClass=String.class , example = "451739178166648832"),
-		@ApiImplicitParam(name = MenuVOMeta.AUTHORITY , value = "权限" , required = true , dataTypeClass=String.class , example = "sys_user::form::view"),
+		@ApiImplicitParam(name = MenuVOMeta.AUTHORITY , value = "权限" , required = false , dataTypeClass=String.class , example = "sys_user::form::view"),
 		@ApiImplicitParam(name = MenuVOMeta.HIDDEN , value = "是否隐藏" , required = true , dataTypeClass=Integer.class , example = "1"),
 		@ApiImplicitParam(name = MenuVOMeta.CSS , value = "样式" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = MenuVOMeta.LABEL , value = "标签" , required = false , dataTypeClass=String.class , example = "编辑账户"),
@@ -176,6 +178,7 @@ public class MenuController {
 		@ApiImplicitParam(name = MenuVOMeta.PATH_RESOURCE_ID , value = "菜单路径的资源" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = MenuVOMeta.URL , value = "路由地址" , required = false , dataTypeClass=String.class , example = "#!sys_user_edit"),
 		@ApiImplicitParam(name = MenuVOMeta.PARENT_ID , value = "上级ID" , required = false , dataTypeClass=String.class , example = "451739184579739648"),
+		@ApiImplicitParam(name = MenuVOMeta.DYNAMIC_HANDLER , value = "动态控制类" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = MenuVOMeta.HIERARCHY , value = "层级路径" , required = false , dataTypeClass=String.class , example = "463397133957988352"),
 		@ApiImplicitParam(name = MenuVOMeta.SORT , value = "显示顺序" , required = true , dataTypeClass=Integer.class , example = "1"),
 	})
@@ -216,7 +219,7 @@ public class MenuController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = MenuVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "451739184575545344"),
 		@ApiImplicitParam(name = MenuVOMeta.BATCH_ID , value = "批次号" , required = false , dataTypeClass=String.class , example = "451739178166648832"),
-		@ApiImplicitParam(name = MenuVOMeta.AUTHORITY , value = "权限" , required = true , dataTypeClass=String.class , example = "sys_user::form::view"),
+		@ApiImplicitParam(name = MenuVOMeta.AUTHORITY , value = "权限" , required = false , dataTypeClass=String.class , example = "sys_user::form::view"),
 		@ApiImplicitParam(name = MenuVOMeta.HIDDEN , value = "是否隐藏" , required = true , dataTypeClass=Integer.class , example = "1"),
 		@ApiImplicitParam(name = MenuVOMeta.CSS , value = "样式" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = MenuVOMeta.LABEL , value = "标签" , required = false , dataTypeClass=String.class , example = "编辑账户"),
@@ -224,6 +227,7 @@ public class MenuController {
 		@ApiImplicitParam(name = MenuVOMeta.PATH_RESOURCE_ID , value = "菜单路径的资源" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = MenuVOMeta.URL , value = "路由地址" , required = false , dataTypeClass=String.class , example = "#!sys_user_edit"),
 		@ApiImplicitParam(name = MenuVOMeta.PARENT_ID , value = "上级ID" , required = false , dataTypeClass=String.class , example = "451739184579739648"),
+		@ApiImplicitParam(name = MenuVOMeta.DYNAMIC_HANDLER , value = "动态控制类" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = MenuVOMeta.HIERARCHY , value = "层级路径" , required = false , dataTypeClass=String.class , example = "463397133957988352"),
 		@ApiImplicitParam(name = MenuVOMeta.SORT , value = "显示顺序" , required = true , dataTypeClass=Integer.class , example = "1"),
 	})
@@ -289,7 +293,7 @@ public class MenuController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = MenuVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "451739184575545344"),
 		@ApiImplicitParam(name = MenuVOMeta.BATCH_ID , value = "批次号" , required = false , dataTypeClass=String.class , example = "451739178166648832"),
-		@ApiImplicitParam(name = MenuVOMeta.AUTHORITY , value = "权限" , required = true , dataTypeClass=String.class , example = "sys_user::form::view"),
+		@ApiImplicitParam(name = MenuVOMeta.AUTHORITY , value = "权限" , required = false , dataTypeClass=String.class , example = "sys_user::form::view"),
 		@ApiImplicitParam(name = MenuVOMeta.HIDDEN , value = "是否隐藏" , required = true , dataTypeClass=Integer.class , example = "1"),
 		@ApiImplicitParam(name = MenuVOMeta.CSS , value = "样式" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = MenuVOMeta.LABEL , value = "标签" , required = false , dataTypeClass=String.class , example = "编辑账户"),
@@ -297,6 +301,7 @@ public class MenuController {
 		@ApiImplicitParam(name = MenuVOMeta.PATH_RESOURCE_ID , value = "菜单路径的资源" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = MenuVOMeta.URL , value = "路由地址" , required = false , dataTypeClass=String.class , example = "#!sys_user_edit"),
 		@ApiImplicitParam(name = MenuVOMeta.PARENT_ID , value = "上级ID" , required = false , dataTypeClass=String.class , example = "451739184579739648"),
+		@ApiImplicitParam(name = MenuVOMeta.DYNAMIC_HANDLER , value = "动态控制类" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = MenuVOMeta.HIERARCHY , value = "层级路径" , required = false , dataTypeClass=String.class , example = "463397133957988352"),
 		@ApiImplicitParam(name = MenuVOMeta.SORT , value = "显示顺序" , required = true , dataTypeClass=Integer.class , example = "1"),
 	})

@@ -5,7 +5,7 @@ import com.github.foxnic.api.constant.CodeTextEnum;
 
 
 /**
- * @since 2021-09-09 20:16:25
+ * @since 2021-09-11 14:38:34
  * @author 李方捷 , leefangjie@qq.com
  * 从 select code,name from sys_config WHERE deleted=0 生成
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成
@@ -39,9 +39,9 @@ public enum SystemConfigEnum implements CodeTextEnum {
 	SYSTEM_LANGUAGE("system.language" , "系统默认语言"),
 	
 	/**
-	 * 默认密码
+	 * 账户默认密码
 	*/
-	SYSTEM_PASSWORD_DEFAULT("system.password.default" , "默认密码"),
+	SYSTEM_PASSWORD_DEFAULT("system.password.default" , "账户默认密码"),
 	
 	/**
 	 * 首页分模块
@@ -52,6 +52,21 @@ public enum SystemConfigEnum implements CodeTextEnum {
 	 * 系统名称
 	*/
 	SYSTEM_TITLE("system.title" , "系统名称"),
+	
+	/**
+	 * 版本代码
+	*/
+	SYSTEM_VERSION_CODE("system.version.code" , "版本代码"),
+	
+	/**
+	 * 版本名称
+	*/
+	SYSTEM_VERSION_NAME("system.version.name" , "版本名称"),
+	
+	/**
+	 * 版本类型
+	*/
+	SYSTEM_VERSION_TYPE("system.version.type" , "版本类型"),
 	;
 	
 	private String code;

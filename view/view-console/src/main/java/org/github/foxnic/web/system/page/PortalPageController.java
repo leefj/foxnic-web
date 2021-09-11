@@ -1,6 +1,7 @@
 package org.github.foxnic.web.system.page;
 
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
+import org.github.foxnic.web.constants.enums.VersionType;
 import org.github.foxnic.web.framework.view.controller.ViewController;
 import org.github.foxnic.web.proxy.utils.SystemConfigProxyUtil;
 import org.springframework.stereotype.Controller;
@@ -27,6 +28,12 @@ public class PortalPageController extends ViewController  {
 	@RequestMapping("/index.html")
 	public String index(Model model) {
 		String title= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_TITLE);
+		String versionCode= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_VERSION_CODE);
+		String versionName= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_VERSION_NAME);
+		VersionType versionType=SystemConfigProxyUtil.getEnum(SystemConfigEnum.SYSTEM_VERSION_TYPE,VersionType.class);
+		if(versionType!=VersionType.PROD) {
+			title+="("+versionName+"_"+versionCode+")";
+		}
 		model.addAttribute("title", title);
 		String moduleEnable= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_PORTAL_MODULE_ENABLE);
 		model.addAttribute("moduleEnable", moduleEnable);
@@ -39,8 +46,16 @@ public class PortalPageController extends ViewController  {
 	@RequestMapping("/login.html")
 	public String login(Model model) {
 		//
-		String title= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_TITLE);
-		model.addAttribute("title", title);
+		String shortTitle= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_TITLE);
+		String versionCode= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_VERSION_CODE);
+		String versionName= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_VERSION_NAME);
+		VersionType versionType=SystemConfigProxyUtil.getEnum(SystemConfigEnum.SYSTEM_VERSION_TYPE,VersionType.class);
+		String fullTitle=shortTitle;
+		if(versionType!=VersionType.PROD) {
+			fullTitle+="("+versionName+"_"+versionCode+")";
+		}
+		model.addAttribute("shortTitle", shortTitle);
+		model.addAttribute("fullTitle", fullTitle);
 		//
 		String copyrightText= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_COPYRIGHT_TEXT);
 		model.addAttribute("copyrightText", copyrightText);

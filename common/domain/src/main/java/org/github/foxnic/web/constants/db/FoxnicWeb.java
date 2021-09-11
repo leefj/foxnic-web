@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2021-09-10 13:21:08
+ * @since 2021-09-11 16:58:46
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -122,6 +122,11 @@ public class FoxnicWeb {
 		public static final DBField PERSON_ID = new DBField(DBDataType.STRING , "person_id","personId","人员ID","人员ID",false,false,true);
 		
 		/**
+		 * 租户ID
+		*/
+		public static final DBField TENANT_ID = new DBField(DBDataType.STRING , "tenant_id","tenantId","租户ID","租户ID",false,false,true);
+		
+		/**
 		 * 公司ID
 		*/
 		public static final DBField COMPANY_ID = new DBField(DBDataType.STRING , "company_id","companyId","公司ID","公司ID",false,false,true);
@@ -167,7 +172,7 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
 		public HRM_EMPLOYEE() {
-			this.init($NAME,"员工表" , ID , BADGE , PHONE , PERSON_ID , COMPANY_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"员工表" , ID , BADGE , PHONE , PERSON_ID , TENANT_ID , COMPANY_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final HRM_EMPLOYEE $TABLE=new HRM_EMPLOYEE();
 	}
@@ -1922,6 +1927,11 @@ public class FoxnicWeb {
 		public static final DBField PARENT_ID = new DBField(DBDataType.STRING , "parent_id","parentId","上级ID","上级ID",false,false,true);
 		
 		/**
+		 * 动态控制类
+		*/
+		public static final DBField DYNAMIC_HANDLER = new DBField(DBDataType.STRING , "dynamic_handler","dynamicHandler","动态控制类","动态控制类",false,false,true);
+		
+		/**
 		 * 层级路径
 		*/
 		public static final DBField HIERARCHY = new DBField(DBDataType.STRING , "hierarchy","hierarchy","层级路径","层级路径",false,false,true);
@@ -1972,7 +1982,7 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
 		public SYS_MENU() {
-			this.init($NAME,"菜单表" , ID , BATCH_ID , AUTHORITY , HIDDEN , CSS , LABEL , TYPE , PATH_RESOURCE_ID , URL , PARENT_ID , HIERARCHY , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"菜单表" , ID , BATCH_ID , AUTHORITY , HIDDEN , CSS , LABEL , TYPE , PATH_RESOURCE_ID , URL , PARENT_ID , DYNAMIC_HANDLER , HIERARCHY , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final SYS_MENU $TABLE=new SYS_MENU();
 	}
@@ -2610,7 +2620,12 @@ public class FoxnicWeb {
 		/**
 		 * 主键
 		*/
-		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","主键","主键",true,false,false);
+		public static final DBField PK = new DBField(DBDataType.STRING , "pk","pk","主键","主键",true,false,false);
+		
+		/**
+		 * 序列ID
+		*/
+		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","序列ID","序列ID",false,false,false);
 		
 		/**
 		 * 序列名称
@@ -2645,10 +2660,15 @@ public class FoxnicWeb {
 		/**
 		 * 租户ID
 		*/
-		public static final DBField TENANT_ID = new DBField(DBDataType.STRING , "tenant_id","tenantId","租户ID","租户ID",true,false,false);
+		public static final DBField TENANT_ID = new DBField(DBDataType.STRING , "tenant_id","tenantId","租户ID","租户ID",false,false,false);
+		
+		/**
+		 * 每次取数的个数
+		*/
+		public static final DBField FETCH_SIZE = new DBField(DBDataType.INTEGER , "fetch_size","fetchSize","每次取数的个数","每次取数的个数",false,false,false);
 		
 		public SYS_SEQUENCE() {
-			this.init($NAME,"序列表" , ID , NAME , LENGTH , CATALOG , VALUE , MEMO , TYPE , TENANT_ID);
+			this.init($NAME,"序列表" , PK , ID , NAME , LENGTH , CATALOG , VALUE , MEMO , TYPE , TENANT_ID , FETCH_SIZE);
 		}
 		public static final SYS_SEQUENCE $TABLE=new SYS_SEQUENCE();
 	}

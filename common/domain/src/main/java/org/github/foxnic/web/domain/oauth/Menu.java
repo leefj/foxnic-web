@@ -18,8 +18,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-11 13:56:00
- * @sign DCBE371ABBE01889672F8E7C47DD6A7D
+ * @since 2021-09-11 16:59:29
+ * @sign F2E163360CF0B9A395D17010D8DCDD56
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -46,7 +46,7 @@ public class Menu extends Entity {
 	/**
 	 * 权限：权限标识
 	*/
-	@ApiModelProperty(required = true,value="权限" , notes = "权限标识")
+	@ApiModelProperty(required = false,value="权限" , notes = "权限标识")
 	private String authority;
 	
 	/**
@@ -70,7 +70,7 @@ public class Menu extends Entity {
 	/**
 	 * 菜单类型：菜单类型
 	*/
-	@ApiModelProperty(required = true,value="菜单类型" , notes = "菜单类型")
+	@ApiModelProperty(required = false,value="菜单类型" , notes = "菜单类型")
 	private String type;
 	
 	/**
@@ -90,6 +90,12 @@ public class Menu extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="上级ID" , notes = "上级ID")
 	private String parentId;
+	
+	/**
+	 * 动态控制类：动态控制类
+	*/
+	@ApiModelProperty(required = false,value="动态控制类" , notes = "动态控制类")
+	private String dynamicHandler;
 	
 	/**
 	 * 层级路径：层级路径
@@ -374,6 +380,25 @@ public class Menu extends Entity {
 	*/
 	public Menu setParentId(String parentId) {
 		this.parentId=parentId;
+		return this;
+	}
+	
+	/**
+	 * 获得 动态控制类<br>
+	 * 动态控制类
+	 * @return 动态控制类
+	*/
+	public String getDynamicHandler() {
+		return dynamicHandler;
+	}
+	
+	/**
+	 * 设置 动态控制类
+	 * @param dynamicHandler 动态控制类
+	 * @return 当前对象
+	*/
+	public Menu setDynamicHandler(String dynamicHandler) {
+		this.dynamicHandler=dynamicHandler;
 		return this;
 	}
 	

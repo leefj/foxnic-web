@@ -17,8 +17,8 @@ import org.github.foxnic.web.domain.oauth.MenuResource;
 import org.github.foxnic.web.domain.oauth.Resourze;
 import org.github.foxnic.web.domain.oauth.RoleMenu;
 import org.github.foxnic.web.generator.config.FoxnicWebConfigs;
-import org.github.foxnic.web.pcm.page.CatalogAttributePageController;
-import org.github.foxnic.web.proxy.pcm.CatalogAttributeServiceProxy;
+import org.github.foxnic.web.proxy.system.SequenceServiceProxy;
+import org.github.foxnic.web.system.page.SequencePageController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.File;
@@ -105,12 +105,13 @@ public class MenuGenerator {
 //		mg=new MenuGenerator(FoxnicWeb.PCM_CATALOG.$TABLE, CatalogServiceProxy.class, CatalogPageController.class);
 //		mg.generate("484683104078794753");
 
-		mg=new MenuGenerator(FoxnicWeb.PCM_CATALOG_ATTRIBUTE.$TABLE, CatalogAttributeServiceProxy.class, CatalogAttributePageController.class);
-		mg.generate("484683104078794753");
+//		mg=new MenuGenerator(FoxnicWeb.PCM_CATALOG_ATTRIBUTE.$TABLE, CatalogAttributeServiceProxy.class, CatalogAttributePageController.class);
+//		mg.generate("484683104078794753");
 
 
 
-
+		mg=new MenuGenerator(FoxnicWeb.SYS_SEQUENCE.$TABLE, SequenceServiceProxy.class, SequencePageController.class);
+		mg.generate("system_config");
 
 
 

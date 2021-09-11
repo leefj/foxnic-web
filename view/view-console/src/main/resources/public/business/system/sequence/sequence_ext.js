@@ -1,4 +1,8 @@
-#(authorAndTime)
+/**
+ * 序列 列表页 JS 脚本
+ * @author 李方捷 , leefangjie@qq.com
+ * @since 2021-09-11 14:01:28
+ */
 
 layui.config({
     dir: layuiPath,
@@ -82,30 +86,6 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
         moreAction:function (menu,data, it){
             console.log('moreAction',menu,data,it);
         },
-        #for(b:toolButtons)
-        #(b.functionName):function (selected,it){
-            console.log('#(b.functionName)',selected,it);
-        },
-        #end
-        #for(b:opColumnButtons)
-        #(b.functionName):function (data){
-            console.log('#(b.functionName)',data);
-        },
-        #end
-        #for(f : fields)
-        #if(f.typeName.equals("button"))
-        #(f.buttonField.action.functionName):function (data,input,button) {
-            console.log("#(f.buttonField.action.functionName)",data,input,button);
-            top.layer.prompt(function(value, index, elem){
-                //设置隐藏域
-                input.val(value);
-                //设置按钮
-                button.text(value);
-                top.layer.close(index);
-            });
-        },
-        #end
-        #end
         /**
          * 末尾执行
          */
@@ -144,35 +124,6 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             console.log("beforeSubmit",data);
             return true;
         },
-        #for(g:iframes)
-        /**
-         *  加载 #(g.title)
-         */
-        #(g.iframeLoadJsFunctionName):function (ifr,win,data) {
-            // debugger
-            console.log("#(g.iframeLoadJsFunctionName)",ifr,data);
-            //设置 iframe 高度
-            ifr.height("400px");
-            //设置地址
-            win.location="/business/system/node/node_list.html?id="+data.id;
-        },
-        #end
-        #for(t:tabs)
-        /**
-         *  加载 #(t.title)
-         */
-        #(t.iframeLoadJsFunctionName):function (ifr,win,data) {
-            // debugger
-            console.log("#(t.iframeLoadJsFunctionName)",ifr,data);
-            //设置 iframe 高度
-            ifr.parents(".layui-tab").height("460px");
-            ifr.height("400px");
-            //设置参数
-            admin.putTempData("code_example_id",data.id,true);
-            //设置地址
-            win.location="/business/system/code_example_car/code_example_car_list.html";
-        },
-        #end
         /**
          * 末尾执行
          */

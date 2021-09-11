@@ -42,8 +42,8 @@ layui.define(['settings', 'layer'], function (exports) {
                 type:2,
                 title: "请选择图标",
                 content: '/module/icon/icon.html',
-                area:["80%","80%"],
-                offset:["10%","10%"]
+                area:["510px","90%"],
+                offset:["5%",null]
             });
 
             var task=setInterval(function (){

@@ -11,7 +11,7 @@ public class EncryptUtil {
         String passwd= FileUtil.readText(new File("d:/foxnic/encrypt.txt"));
         AESUtil aes=new AESUtil(passwd);
         String user="root";
-        String pwd="root_pwd";
+        String pwd="rxoxoxt_pxwxd";
         String url="jdbc:mysql://39.105.191.22:3306/eam?useSSL=false&serverTimezone=Hongkong&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&allowPublicKeyRetrieval=true&tinyInt1isBit=false";
         user=aes.encryptData(user);
         pwd=aes.encryptData(pwd);
