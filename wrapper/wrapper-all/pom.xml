@@ -85,18 +85,14 @@
                 </includes> 
             </resource> 
         </resources>  
-        <plugins> 
+        <plugins>
             <plugin> 
                 <groupId>org.springframework.boot</groupId>  
                 <artifactId>spring-boot-maven-plugin</artifactId>  
                 <configuration> 
-                    <fork>true</fork>  
-                    <includes> 
-                        <include> 
-                            <groupId>nothing</groupId>  
-                            <artifactId>nothing</artifactId> 
-                        </include> 
-                    </includes> 
+                    <fork>true</fork>
+                    <mainClass>org.github.foxnic.web.wrapper.WrapperAllApp</mainClass>
+                    <layout>ZIP</layout>
                 </configuration>  
                 <executions> 
                     <execution> 
