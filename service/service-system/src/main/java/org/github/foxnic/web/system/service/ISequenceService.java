@@ -21,7 +21,7 @@ import com.github.foxnic.dao.data.SaveMode;
  * 序列表 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-11 16:26:09
+ * @since 2021-09-12 09:25:41
 */
 
 public interface ISequenceService extends ISuperService<Sequence> {
