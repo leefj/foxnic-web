@@ -38,7 +38,11 @@ public class DBConfigs {
         //
         OSType osType=OSType.getOSType();
         String file= getProperty(prefix,"encrypt.file."+ osType.name().toLowerCase(),ymlcfg);
-        String passwd= FileUtil.readText(new File(file));
+        File f=new File(file);
+        if(!f.exists()){
+            throw new RuntimeException(file+ " 文件不存在");
+        }
+        String passwd= FileUtil.readText(f);
         //
         AESUtil aes=new AESUtil(passwd);
         //

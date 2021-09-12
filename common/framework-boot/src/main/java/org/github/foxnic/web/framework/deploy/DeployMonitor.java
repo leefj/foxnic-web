@@ -42,6 +42,10 @@ public class DeployMonitor implements ApplicationListener<ApplicationStartedEven
         //
         Class startupClass=SpringUtil.getStartupClass();
         MavenProject wrapper=new MavenProject(startupClass);
+        if(wrapper.getIdentityFile()==null) {
+            Logger.info("非开发环境，不启动资源部署监控");
+            return;
+        }
         mps.add(wrapper);
         //搜集监控项目
         String[] dirs=projects.split(",");
