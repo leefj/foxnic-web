@@ -10,9 +10,11 @@ import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.dao.spec.DAOBuilder;
 import com.github.foxnic.generator.config.GlobalSettings;
 import com.github.foxnic.sql.treaty.DBTreaty;
+import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.framework.nacos.NacosConfig;
 import org.github.foxnic.web.relation.FoxnicWebRelationManager;
 import org.github.foxnic.web.wrapper.support.datasource.DAOConfig;
+import org.github.foxnic.web.wrapper.support.datasource.DatasourceConfig;
 
 import java.io.File;
 import java.util.HashMap;
@@ -144,6 +146,8 @@ public class FoxnicWebConfigs {
 		String username=applicationConfigs.getProperty(prefix+"username").stringValue();
 		String password=applicationConfigs.getProperty(prefix+"password").stringValue();
 
+
+
 		String key=url+"@"+username;
 		dao=DAOS.get(key);
 		if(dao!=null) return;
@@ -154,6 +158,9 @@ public class FoxnicWebConfigs {
 		ds.setDriverClassName(driver);
 		ds.setUsername(username);
 		ds.setPassword(password);
+
+		DBConfigs.reset(ds, DatasourceConfig.PRIMARY_DATASOURCE_CONFIG_KEY,applicationConfigs);
+
 		dao = (new DAOBuilder()).datasource(ds).build();
 		
 		// 设置数据库规约
