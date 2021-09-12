@@ -1,12 +1,12 @@
 package org.github.foxnic.web.oauth.config.security;
 
-import javax.servlet.http.HttpServletRequest;
-
+import com.github.foxnic.commons.lang.ArrayUtil;
+import com.github.foxnic.springboot.spring.SpringUtil;
+import com.github.foxnic.springboot.web.WebContext;
 import org.github.foxnic.web.oauth.controller.CaptchaController;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-import com.github.foxnic.commons.lang.ArrayUtil;
-import com.github.foxnic.springboot.web.WebContext;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 外部配置
@@ -86,6 +86,9 @@ public class SecurityProperties {
 	}
 
 	public SecurityMode getSecurityMode() {
+    	if(securityMode==null) {
+			securityMode= SpringUtil.getEnvProperty("security.mode");
+		}
 		if(securityModeEnum==null) securityModeEnum=SecurityMode.valueOf(securityMode.toUpperCase());
 		return securityModeEnum;
 	}
