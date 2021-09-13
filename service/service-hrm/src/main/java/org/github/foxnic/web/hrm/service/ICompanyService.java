@@ -21,7 +21,7 @@ import com.github.foxnic.dao.data.SaveMode;
  * 公司表 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-27 09:33:48
+ * @since 2021-09-13 15:09:51
 */
 
 public interface ICompanyService extends ISuperService<Company> {

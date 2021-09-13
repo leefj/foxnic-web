@@ -296,9 +296,8 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
         /**
          * 表单数据填充前
          * */
-        beforeDataFill:function (data) {
+        afterDataFill:function (data) {
             console.log('beforeDataFill',data);
-
         },
         setDefaultIf:function(input,defval) {
             if(!input.val()) {
@@ -306,7 +305,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             }
         },
         switchParam:function (sel) {
-            // debugger
+            debugger
             var lengthEl=$("#length").parents(".layui-form-item");
             var accuracyEl=$("#accuracy").parents(".layui-form-item");
             var scaleEl=$("#scale").parents(".layui-form-item");
@@ -351,7 +350,8 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
         /**
          * 表单数据填充后
          * */
-        afterDataFill: function (data) {
+        beforeDataFill: function (data) {
+            debugger
             var me = this;
             console.log('afterDataFill', data);
             var dataTypeBox = fox.getSelectBox("dataType");
@@ -361,7 +361,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
                     me.switchParam(e.arr);
                 }
             });
-            var selected
+            var selected=null;
             if(!data.id) {
                 selected = SELECT_DATATYPE_DATA[0];
             } else {

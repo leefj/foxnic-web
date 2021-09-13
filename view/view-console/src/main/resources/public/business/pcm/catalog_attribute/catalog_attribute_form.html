@@ -2,7 +2,7 @@
 /**
  * 分类属性 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-07 20:45:50
+ * @since 2021-09-13 15:41:39
  */
  -->
  <!DOCTYPE html>
@@ -33,8 +33,8 @@
 <div class="form-container" >
 
     <form id="data-form" lay-filter="data-form" class="layui-form model-form" style="display:none">
-        <input name="id" id="id"  type="hidden"/>
 
+        <input name="id" id="id"  type="hidden"/>
 
          <!--开始：group 循环-->
 
@@ -45,38 +45,32 @@
              <!--开始：group 循环-->
             <div class="layui-col-xs12 form-column">
 
-
-                <div class="layui-form-item" >
-                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('全称')}">全称</div><div class="layui-required">*</div></div>
-                    <div class="layui-input-block layui-input-block-c1">
-                        <input lay-filter="fullName" id="fullName" name="fullName" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('全称') }" type="text" class="layui-input"    lay-verify="|required"   />
+                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('全称')}">全称</div><div class="layui-required">*</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input lay-filter="fullName" id="fullName" name="fullName" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('全称') }" type="text" class="layui-input"    lay-verify="|required"  />
+                        </div>
                     </div>
-                </div>
 
-
-                
-                <div class="layui-form-item" >
-                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('简称')}">简称</div><div class="layui-required">*</div></div>
-                    <div class="layui-input-block layui-input-block-c1">
-                        <input lay-filter="shortName" id="shortName" name="shortName" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('简称') }" type="text" class="layui-input"    lay-verify="|required"   />
+                                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('简称')}">简称</div><div class="layui-required">*</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input lay-filter="shortName" id="shortName" name="shortName" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('简称') }" type="text" class="layui-input"    lay-verify="|required"  />
+                        </div>
                     </div>
-                </div>
 
-
-                
-                <div class="layui-form-item" >
-                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('字段名')}">字段名</div><div class="layui-required">*</div></div>
-                    <div class="layui-input-block layui-input-block-c1">
-                        <input lay-filter="field" id="field" name="field" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('字段名') }" type="text" class="layui-input"    lay-verify="|required"   />
+                                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('字段名')}">字段名</div><div class="layui-required">*</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input lay-filter="field" id="field" name="field" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('字段名') }" type="text" class="layui-input"    lay-verify="|required"  />
+                        </div>
                     </div>
-                </div>
-
 
                 
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('是否必填')}">是否必填</div><div class="layui-required">*</div></div>
                     <div class="layui-input-block layui-input-block-c1">
-                        <input input-type="switch" type="checkbox" checked="" id="notNull"  name="notNull" lay-skin="switch" lay-filter="notNull" lay-text="必填|可空&nbsp;" value="1">
+                        <input input-type="switch" type="checkbox" id="notNull"  name="notNull" lay-skin="switch" lay-filter="notNull" lay-text="必填|可空&nbsp;" value="0" >
                     </div>
                 </div>
 
@@ -85,7 +79,7 @@
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('是否有效')}">是否有效</div><div class="layui-required">*</div></div>
                     <div class="layui-input-block layui-input-block-c1">
-                        <input input-type="switch" type="checkbox" checked="" id="valid"  name="valid" lay-skin="switch" lay-filter="valid" lay-text="有效|无效&nbsp;" value="1">
+                        <input input-type="switch" type="checkbox" id="valid"  name="valid" lay-skin="switch" lay-filter="valid" lay-text="有效|无效&nbsp;" value="0" >
                     </div>
                 </div>
 
@@ -103,7 +97,7 @@
                     <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('数据长度')}">数据长度</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="length" id="length" name="length" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('数据长度') }" type="text" class="layui-input"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0"   scale="0"/>
+                            <input lay-filter="length" id="length" name="length" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('数据长度') }" type="text" class="layui-input"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0"   scale="0" />
                         </div>
                     </div>
 
@@ -112,7 +106,7 @@
                     <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('数据精度')}">数据精度</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="accuracy" id="accuracy" name="accuracy" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('数据精度') }" type="text" class="layui-input"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0"   scale="0"/>
+                            <input lay-filter="accuracy" id="accuracy" name="accuracy" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('数据精度') }" type="text" class="layui-input"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0"   scale="0" />
                         </div>
                     </div>
 
@@ -121,19 +115,17 @@
                     <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('小数位数')}">小数位数</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="scale" id="scale" name="scale" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('小数位数') }" type="text" class="layui-input"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0"   scale="0"/>
+                            <input lay-filter="scale" id="scale" name="scale" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('小数位数') }" type="text" class="layui-input"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0"   scale="0" />
                         </div>
                     </div>
 
 
-                
-                    <div class="layui-form-item" >
-                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('提示信息')}">提示信息</div></div>
-                    <div class="layui-input-block layui-input-block-c1">
-                        <textarea lay-filter="hint" id="hint" name="hint" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('提示信息') }" class="layui-textarea" style="height: 120px" ></textarea>
+                                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('提示信息')}">提示信息</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input lay-filter="hint" id="hint" name="hint" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('提示信息') }" type="text" class="layui-input"  />
+                        </div>
                     </div>
-                </div>
-
 
                 
                     <div class="layui-form-item" >
@@ -179,7 +171,7 @@
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];
     var SELECT_DATATYPE_DATA = [[${enum.toArray('org.github.foxnic.web.domain.pcm.DataType')}]];
-    var VALIDATE_CONFIG={"valid":{"labelInForm":"是否有效","inputType":"logic_switch","required":true},"catalogId":{"labelInForm":"存储ID","inputType":"text_input","required":true},"field":{"labelInForm":"字段名","inputType":"text_input","required":true},"notNull":{"labelInForm":"是否必填","inputType":"logic_switch","required":true},"dataType":{"labelInForm":"数据类型","inputType":"select_box","required":true},"versionNo":{"labelInForm":"版本","inputType":"text_input","required":true},"fullName":{"labelInForm":"全称","inputType":"text_input","required":true},"shortName":{"labelInForm":"简称","inputType":"text_input","required":true}};
+    var VALIDATE_CONFIG={"valid":{"labelInForm":"是否有效","inputType":"logic_switch","required":true},"field":{"labelInForm":"字段名","inputType":"text_input","required":true},"notNull":{"labelInForm":"是否必填","inputType":"logic_switch","required":true},"dataType":{"labelInForm":"数据类型","inputType":"select_box","required":true},"fullName":{"labelInForm":"全称","inputType":"text_input","required":true},"shortName":{"labelInForm":"简称","inputType":"text_input","required":true}};
     var AUTH_PREFIX="pcm_catalog_attribute";
 
 

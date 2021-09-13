@@ -10,8 +10,8 @@ import org.github.foxnic.web.domain.hrm.Company;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-10 14:39:38
- * @sign F60923BA070070B83AB2F8F465A66C66
+ * @since 2021-09-13 15:09:52
+ * @sign C481A721BC769C887037B0237BAD4A94
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -58,16 +58,6 @@ public class EmployeeMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Employee,java.lang.String> PERSON_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Employee.class ,PERSON_ID, java.lang.String.class, "人员ID", "人员ID", java.lang.String.class, null);
 	
 	/**
-	 * 租户ID , 类型: java.lang.String
-	*/
-	public static final String TENANT_ID="tenantId";
-	
-	/**
-	 * 租户ID , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Employee,java.lang.String> TENANT_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Employee.class ,TENANT_ID, java.lang.String.class, "租户ID", "租户ID", java.lang.String.class, null);
-	
-	/**
 	 * 公司ID , 类型: java.lang.String
 	*/
 	public static final String COMPANY_ID="companyId";
@@ -76,6 +66,26 @@ public class EmployeeMeta {
 	 * 公司ID , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Employee,java.lang.String> COMPANY_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Employee.class ,COMPANY_ID, java.lang.String.class, "公司ID", "公司ID", java.lang.String.class, null);
+	
+	/**
+	 * 状态 , 字典代码：employee_status , 类型: java.lang.String
+	*/
+	public static final String STATUS="status";
+	
+	/**
+	 * 状态 , 字典代码：employee_status , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Employee,java.lang.String> STATUS_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Employee.class ,STATUS, java.lang.String.class, "状态", "字典代码：employee_status", java.lang.String.class, null);
+	
+	/**
+	 * 租户ID , 类型: java.lang.String
+	*/
+	public static final String TENANT_ID="tenantId";
+	
+	/**
+	 * 租户ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Employee,java.lang.String> TENANT_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Employee.class ,TENANT_ID, java.lang.String.class, "租户ID", "租户ID", java.lang.String.class, null);
 	
 	/**
 	 * 创建人ID , 类型: java.lang.String
@@ -190,7 +200,7 @@ public class EmployeeMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , BADGE , PHONE , PERSON_ID , TENANT_ID , COMPANY_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , PERSON , COMPANY , NAME_AND_BADGE };
+	public static final String[] $PROPS={ ID , BADGE , PHONE , PERSON_ID , COMPANY_ID , STATUS , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , PERSON , COMPANY , NAME_AND_BADGE };
 	
 	/**
 	 * 代理类
@@ -245,17 +255,6 @@ public class EmployeeMeta {
 		}
 		
 		/**
-		 * 设置 租户ID
-		 * @param tenantId 租户ID
-		 * @return 当前对象
-		*/
-		public Employee setTenantId(String tenantId) {
-			super.change(TENANT_ID,super.getTenantId(),tenantId);
-			super.setTenantId(tenantId);
-			return this;
-		}
-		
-		/**
 		 * 设置 公司ID
 		 * @param companyId 公司ID
 		 * @return 当前对象
@@ -263,6 +262,28 @@ public class EmployeeMeta {
 		public Employee setCompanyId(String companyId) {
 			super.change(COMPANY_ID,super.getCompanyId(),companyId);
 			super.setCompanyId(companyId);
+			return this;
+		}
+		
+		/**
+		 * 设置 状态
+		 * @param status 状态
+		 * @return 当前对象
+		*/
+		public Employee setStatus(String status) {
+			super.change(STATUS,super.getStatus(),status);
+			super.setStatus(status);
+			return this;
+		}
+		
+		/**
+		 * 设置 租户ID
+		 * @param tenantId 租户ID
+		 * @return 当前对象
+		*/
+		public Employee setTenantId(String tenantId) {
+			super.change(TENANT_ID,super.getTenantId(),tenantId);
+			super.setTenantId(tenantId);
 			return this;
 		}
 		

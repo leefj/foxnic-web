@@ -75,7 +75,8 @@ public class PcmCatalogAttributeConfig extends BaseCodeConfig<PCM_CATALOG_ATTRIB
         view.field(PCM_CATALOG_ATTRIBUTE.SCALE).search().hidden().table().hidden();
         view.field(PCM_CATALOG_ATTRIBUTE.HINT).search().hidden();
 
-        view.field(PCM_CATALOG_ATTRIBUTE.NOTE).search().hidden().table().hidden().form().textArea().height(100);
+        view.field(PCM_CATALOG_ATTRIBUTE.NOTE).search().hidden().table().hidden()
+                .form().textArea().height(100);
         view.field(PCM_CATALOG_ATTRIBUTE.DETAIL).search().hidden().table().hidden().form().label("属性说明").textArea().height(100);
 
         view.field(catalogName).basic().label("所属类目").table().fillBy(CatalogAttributeMeta.CATALOG, CatalogMeta.NAME);

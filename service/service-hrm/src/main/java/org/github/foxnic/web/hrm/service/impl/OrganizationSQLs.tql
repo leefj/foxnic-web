@@ -1,0 +1,39 @@
+
+// 查询根节点菜单
+[query-root-catalogs]
+select m.*,(select count(1) from pcm_catalog cm  where m.id=cm.parent_id and cm.deleted=0) child_count from pcm_catalog m
+where m.parent_id='0' and tenant_id=? and m.deleted=0 order by sort asc
+
+// 查询所有子孙节点节点菜单
+[query-descendants-catalogs]
+select m.*,(select count(1) from pcm_catalog cm  where m.id=cm.parent_id and cm.deleted=0) child_count from pcm_catalog m
+where m.deleted=0 and (#(descendants_condition))
+order by parent_id , sort asc
+
+
+// 按上级节点ID查找下级节点
+[query-catalogs-by-parent-id]
+select m.*,(select count(1) from pcm_catalog cm  where m.id=cm.parent_id and cm.deleted=0) child_count from pcm_catalog m
+where m.parent_id=? and m.deleted=0 order by sort asc
+
+
+// 重置菜单层级路径1
+[reset-catalog-hierarchy]
+update pcm_catalog set hierarchy=null and tenant_id=?
+
+
+// 设置根节点菜单的层级路径
+[update-catalog-hierarchy-step1]
+UPDATE pcm_catalog set hierarchy=id where parent_id=? and tenant_id=?
+
+
+// 设置上级节点已经设置层级路径的节点的层级路径
+[update-catalog-hierarchy-step2]
+UPDATE pcm_catalog c, pcm_catalog p
+SET c.hierarchy=CONCAT(p.hierarchy,"/",c.id)
+WHERE c.tenant_id=? and p.id=c.parent_id  and c.hierarchy is null and p.hierarchy is not null
+
+[search-catalog-hierarchy]
+select distinct hierarchy from pcm_catalog a where exists (
+	select 1 from pcm_catalog b where a.id=b.parent_id and name like ? and valid=1 and deleted=0 and tenant_id=?
+) and valid=1 and deleted=0 and tenant_id=?

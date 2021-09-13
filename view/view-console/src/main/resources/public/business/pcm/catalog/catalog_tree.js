@@ -70,6 +70,7 @@ function ListPage() {
     function onNodeClick(event, treeId, treeNode) {
     	if(treeNode==null) return;
     	editingNode=treeNode;
+    	debugger
     	$("#basic-info-ifr")[0].contentWindow.module.loadFormData(treeNode.id);
 		$("#attribute-list-ifr")[0].contentWindow.module.loadAttributes(treeNode.id);
     }

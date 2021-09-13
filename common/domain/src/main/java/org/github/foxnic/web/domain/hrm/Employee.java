@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-10 14:39:38
- * @sign F60923BA070070B83AB2F8F465A66C66
+ * @since 2021-09-13 15:09:52
+ * @sign C481A721BC769C887037B0237BAD4A94
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -54,16 +54,22 @@ public class Employee extends Person {
 	private String personId;
 	
 	/**
-	 * 租户ID：租户ID
-	*/
-	@ApiModelProperty(required = false,value="租户ID" , notes = "租户ID")
-	private String tenantId;
-	
-	/**
 	 * 公司ID：公司ID
 	*/
 	@ApiModelProperty(required = false,value="公司ID" , notes = "公司ID")
 	private String companyId;
+	
+	/**
+	 * 状态：字典代码：employee_status
+	*/
+	@ApiModelProperty(required = false,value="状态" , notes = "字典代码：employee_status")
+	private String status;
+	
+	/**
+	 * 租户ID：租户ID
+	*/
+	@ApiModelProperty(required = false,value="租户ID" , notes = "租户ID")
+	private String tenantId;
 	
 	/**
 	 * 创建人ID：创建人ID
@@ -208,25 +214,6 @@ public class Employee extends Person {
 	}
 	
 	/**
-	 * 获得 租户ID<br>
-	 * 租户ID
-	 * @return 租户ID
-	*/
-	public String getTenantId() {
-		return tenantId;
-	}
-	
-	/**
-	 * 设置 租户ID
-	 * @param tenantId 租户ID
-	 * @return 当前对象
-	*/
-	public Employee setTenantId(String tenantId) {
-		this.tenantId=tenantId;
-		return this;
-	}
-	
-	/**
 	 * 获得 公司ID<br>
 	 * 公司ID
 	 * @return 公司ID
@@ -242,6 +229,44 @@ public class Employee extends Person {
 	*/
 	public Employee setCompanyId(String companyId) {
 		this.companyId=companyId;
+		return this;
+	}
+	
+	/**
+	 * 获得 状态<br>
+	 * 字典代码：employee_status
+	 * @return 状态
+	*/
+	public String getStatus() {
+		return status;
+	}
+	
+	/**
+	 * 设置 状态
+	 * @param status 状态
+	 * @return 当前对象
+	*/
+	public Employee setStatus(String status) {
+		this.status=status;
+		return this;
+	}
+	
+	/**
+	 * 获得 租户ID<br>
+	 * 租户ID
+	 * @return 租户ID
+	*/
+	public String getTenantId() {
+		return tenantId;
+	}
+	
+	/**
+	 * 设置 租户ID
+	 * @param tenantId 租户ID
+	 * @return 当前对象
+	*/
+	public Employee setTenantId(String tenantId) {
+		this.tenantId=tenantId;
 		return this;
 	}
 	
