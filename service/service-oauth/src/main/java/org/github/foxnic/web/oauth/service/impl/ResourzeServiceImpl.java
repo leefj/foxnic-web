@@ -283,11 +283,13 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 	public List<Resourze> getMatchd(HttpServletRequest request) {
 		if(catchedResourzes==null || catchedResourzes.isEmpty() || catchedAntPathRequestMatchers==null || catchedAntPathRequestMatchers.isEmpty()) {
 			//载入所有资源
-			catchedResourzes = this.queryList(Resourze.create());
+			catchedResourzes = this.queryList(new ConditionExpr("length(url)>0 and length(url)>0"));
 			//转换成 AntPathRequestMatcher 列表
 			catchedAntPathRequestMatchers=new ArrayList<>();
 			for (int i = 0; i < catchedResourzes.size(); i++) {
 				Resourze resourze =catchedResourzes.get(i);
+//				if(StringUtil.isBlank(resourze.getUrl())) continue;
+//				if(StringUtil.isBlank(resourze.getMethod())) continue;
 				AntPathRequestMatcher ant=new AntPathRequestMatcher(resourze.getUrl(),resourze.getMethod(),true);
 				catchedAntPathRequestMatchers.add(ant);
 			}
@@ -299,6 +301,9 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 			Resourze resourze =catchedResourzes.get(i);
 			AntPathRequestMatcher ant=catchedAntPathRequestMatchers.get(i);
 			RequestMatcher.MatchResult r=ant.matcher(request);
+			if(r==null) {
+				System.out.println("111");
+			}
 			if(r.isMatch()) {
 				matchs.add(resourze);
 			}

@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-13 15:09:51
- * @sign B3B9B54E01DE3C61E0D4414158D71397
+ * @since 2021-09-13 20:35:02
+ * @sign 94AFB7B942D188DD2E5E74ADFA2EEBE6
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -34,6 +34,12 @@ public class Organization extends Entity {
 	@Id
 	@ApiModelProperty(required = true,value="ID" , notes = "ID")
 	private String id;
+	
+	/**
+	 * 代码：代码
+	*/
+	@ApiModelProperty(required = false,value="代码" , notes = "代码")
+	private String code;
 	
 	/**
 	 * 简称：简称
@@ -70,6 +76,12 @@ public class Organization extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="层级路径" , notes = "层级路径")
 	private String hierarchy;
+	
+	/**
+	 * 排序：排序
+	*/
+	@ApiModelProperty(required = false,value="排序" , notes = "排序")
+	private Integer sort;
 	
 	/**
 	 * 总公司ID：总公司ID
@@ -147,6 +159,25 @@ public class Organization extends Entity {
 	*/
 	public Organization setId(String id) {
 		this.id=id;
+		return this;
+	}
+	
+	/**
+	 * 获得 代码<br>
+	 * 代码
+	 * @return 代码
+	*/
+	public String getCode() {
+		return code;
+	}
+	
+	/**
+	 * 设置 代码
+	 * @param code 代码
+	 * @return 当前对象
+	*/
+	public Organization setCode(String code) {
+		this.code=code;
 		return this;
 	}
 	
@@ -261,6 +292,25 @@ public class Organization extends Entity {
 	*/
 	public Organization setHierarchy(String hierarchy) {
 		this.hierarchy=hierarchy;
+		return this;
+	}
+	
+	/**
+	 * 获得 排序<br>
+	 * 排序
+	 * @return 排序
+	*/
+	public Integer getSort() {
+		return sort;
+	}
+	
+	/**
+	 * 设置 排序
+	 * @param sort 排序
+	 * @return 当前对象
+	*/
+	public Organization setSort(Integer sort) {
+		this.sort=sort;
 		return this;
 	}
 	

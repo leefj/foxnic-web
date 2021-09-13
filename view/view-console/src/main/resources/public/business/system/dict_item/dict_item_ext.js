@@ -22,6 +22,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             //设置固定的查询条件
             if(!conditions["dictId"]) conditions["dictId"]={};
             conditions["dictId"].value=dictIdValue;
+            return true;
         }
     }
 

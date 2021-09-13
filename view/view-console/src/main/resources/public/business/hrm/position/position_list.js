@@ -1,7 +1,7 @@
 /**
  * 岗位 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-13 15:09:52
+ * @since 2021-09-13 19:48:15
  */
 
 
@@ -79,6 +79,7 @@ function ListPage() {
 					,{ field: 'fullName', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('全称') , templet: function (d) { return templet('fullName',d.fullName,d);}  }
 					,{ field: 'shortName', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('简称') , templet: function (d) { return templet('shortName',d.shortName,d);}  }
 					,{ field: 'valid', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('是否有效') , templet: function (d) { return templet('valid',d.valid,d);}  }
+					,{ field: 'sort', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('排序') , templet: function (d) { return templet('sort',d.sort,d);}  }
 					,{ field: 'companyId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('总公司ID') , templet: function (d) { return templet('companyId',d.companyId,d);}  }
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime),d); }}
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
@@ -118,6 +119,7 @@ function ListPage() {
 		value.fullName={ value: $("#fullName").val()};
 		value.shortName={ value: $("#shortName").val()};
 		value.valid={ value: $("#valid").val()};
+		value.sort={ value: $("#sort").val()};
 		value.companyId={ value: $("#companyId").val()};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value)) return;

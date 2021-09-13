@@ -1,7 +1,7 @@
 /**
  * 数据字典 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-23 16:33:25
+ * @since 2021-09-13 20:08:34
  */
 
 function FormPage() {
@@ -24,6 +24,10 @@ function FormPage() {
 		}
 		if(admin.getTempData('sys-dict-form-data-form-action')=="view") {
 			disableModify=true;
+		}
+
+		if(window.pageExt.form.beforeInit) {
+			window.pageExt.form.beforeInit();
 		}
 
 		//渲染表单组件
@@ -81,11 +85,13 @@ function FormPage() {
 			//转换数据
 			transform: function(data) {
 				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				var defaultValues="".split(",");
+				var defaultIndexs="".split(",");
 				var opts=[];
 				if(!data) return opts;
 				for (var i = 0; i < data.length; i++) {
 					if(!data[i]) continue;
-					opts.push({name:data[i].label,value:data[i].id});
+					opts.push({name:data[i].label,value:data[i].id,selected:(defaultValues.indexOf(data[i].id)!=-1 || defaultIndexs.indexOf(""+i)!=-1)});
 				}
 				return opts;
 			}
@@ -100,12 +106,14 @@ function FormPage() {
 
 		window.pageExt.form.beforeDataFill && window.pageExt.form.beforeDataFill(formData);
 
+		var hasData=true;
 		//如果是新建
-		if(!formData.id) {
+		if(!formData || !formData.id) {
 			adjustPopup();
+			hasData=false;
 		}
 		var fm=$('#data-form');
-		if (formData) {
+		if (hasData) {
 			fm[0].reset();
 			form.val('data-form', formData);
 
@@ -116,13 +124,12 @@ function FormPage() {
 			//设置  模块 设置下拉框勾选
 			fox.setSelectValue4QueryApi("#module",formData.moduleInfo);
 
-
-
+			//处理fillBy
 
 	     	fm.attr('method', 'POST');
 	     	renderFormFields();
 
-		window.pageExt.form.afterDataFill && window.pageExt.form.afterDataFill(formData);
+			window.pageExt.form.afterDataFill && window.pageExt.form.afterDataFill(formData);
 
 		}
 
@@ -136,7 +143,7 @@ function FormPage() {
         },1);
 
         //禁用编辑
-		if(disableModify || disableCreateNew) {
+		if((hasData && disableModify) || (!hasData &&disableCreateNew)) {
 			fox.lockForm($("#data-form"),true);
 			$("#submit-button").hide();
 			$("#cancel-button").css("margin-right","15px")
@@ -157,6 +164,37 @@ function FormPage() {
 
 	}
 
+	function getFormData() {
+		var data=form.val("data-form");
+
+
+
+		//获取 模块 下拉框的值
+		data["module"]=fox.getSelectedValue("module",false);
+
+		return data;
+	}
+
+	function verifyForm(data) {
+		return fox.formVerify("data-form",data,VALIDATE_CONFIG)
+	}
+
+	function saveForm(data) {
+		var api=moduleURL+"/"+(data.id?"update":"insert");
+		var task=setTimeout(function(){layer.load(2);},1000);
+		admin.request(api, data, function (data) {
+			clearTimeout(task);
+			layer.closeAll('loading');
+			if (data.success) {
+				layer.msg(data.message, {icon: 1, time: 500});
+				var index=admin.getTempData('sys-dict-form-data-popup-index');
+				admin.finishPopupCenter(index);
+			} else {
+				layer.msg(data.message, {icon: 2, time: 1000});
+			}
+		}, "POST");
+	}
+
 	/**
       * 保存数据，表单提交事件
       */
@@ -164,42 +202,34 @@ function FormPage() {
 
 	    form.on('submit(submit-button)', function (data) {
 	    	//debugger;
-			data.field = form.val("data-form");
-
-
-
-			//获取 模块 下拉框的值
-			data.field["module"]=fox.getSelectedValue("module",false);
-
-			//校验表单
-			if(!fox.formVerify("data-form",data,VALIDATE_CONFIG)) return;
+			data.field = getFormData();
 
 			if(window.pageExt.form.beforeSubmit) {
 				var doNext=window.pageExt.form.beforeSubmit(data.field);
 				if(!doNext) return ;
 			}
+			//校验表单
+			if(!verifyForm(data.field)) return;
 
-	    	var api=moduleURL+"/"+(data.field.id?"update":"insert");
-	        var task=setTimeout(function(){layer.load(2);},1000);
-	        admin.request(api, data.field, function (data) {
-	            clearTimeout(task);
-			    layer.closeAll('loading');
-	            if (data.success) {
-	                layer.msg(data.message, {icon: 1, time: 500});
-					var index=admin.getTempData('sys-dict-form-data-popup-index');
-	                admin.finishPopupCenter(index);
-	            } else {
-	                layer.msg(data.message, {icon: 2, time: 1000});
-	            }
-	        }, "POST");
-
+			saveForm(data.field);
 	        return false;
 	    });
+
 
 	    //关闭窗口
 	    $("#cancel-button").click(function(){admin.closePopupCenter();});
 
     }
+
+    window.module={
+		getFormData: getFormData,
+		verifyForm: verifyForm,
+		saveForm: saveForm,
+		adjustPopup: adjustPopup
+	};
+
+	window.pageExt.form.ending && window.pageExt.form.ending();
+
 }
 
 layui.use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect','foxnicUpload','laydate'],function() {

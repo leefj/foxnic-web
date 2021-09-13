@@ -24,7 +24,6 @@ import com.github.foxnic.sql.expr.*;
 import com.github.foxnic.sql.meta.DBField;
 import com.github.foxnic.sql.parameter.BatchParamBuilder;
 import org.github.foxnic.web.constants.db.FoxnicWeb.PCM_CATALOG;
-import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_MENU;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.meta.MenuMeta;
 import org.github.foxnic.web.domain.pcm.*;
@@ -287,7 +286,7 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 	}
 
 
-	private RcdSet queryChildMenus(String parentId) {
+	private RcdSet queryChildCatalogs(String parentId) {
 		RcdSet nodes=null;
 		if(parentId==null || parentId.equals(ICatalogService.ROOT_ID)) {
 			String tenantId= SessionUser.getCurrent().getActivatedTenantId();
@@ -300,14 +299,14 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 
 	@Override
 	public List<ZTreeNode> queryRootNotes() {
-		RcdSet menus=queryChildMenus(ICatalogService.ROOT_ID);
+		RcdSet menus= queryChildCatalogs(ICatalogService.ROOT_ID);
 		List<ZTreeNode> nodes = toZTreeNodeList(menus);
 		return nodes;
 	}
 
 	@Override
 	public List<ZTreeNode> queryChildNodes(String parentId) {
-		RcdSet menus=queryChildMenus(parentId);
+		RcdSet menus= queryChildCatalogs(parentId);
 		List<ZTreeNode> nodes = toZTreeNodeList(menus);
 		return nodes;
 	}
@@ -320,7 +319,9 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 			node.setName(m.getString(PCM_CATALOG.NAME));
 			node.setParentId(m.getString(PCM_CATALOG.PARENT_ID));
 			node.setHierarchy(m.getString(PCM_CATALOG.HIERARCHY));
-			node.setDepth(node.getHierarchy().split("/").length);
+			if(StringUtil.hasContent(node.getHierarchy())) {
+				node.setDepth(node.getHierarchy().split("/").length);
+			}
 			node.setIsParent(m.getInteger("child_count")>0);
 			nodes.add(node);
 		}
@@ -362,7 +363,7 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 		//构建查询
 		ConditionExpr ce=new ConditionExpr();
 		for (ZTreeNode node : list) {
-			ce.or(SYS_MENU.HIERARCHY.name()+" like ?",node.getHierarchy()+"/%");
+			ce.or(PCM_CATALOG.HIERARCHY.name()+" like ?",node.getHierarchy()+"/%");
 		}
 		ce.startWithSpace();
 		Template template= dao.getTemplate("#query-descendants-catalogs");

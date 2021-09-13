@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-13 15:09:52
- * @sign F73FD3507684E9F98EC495C697EEDEC1
+ * @since 2021-09-13 19:48:15
+ * @sign 3531C3881F1DCEB32985DE4B9B4921FE
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -64,6 +64,12 @@ public class Position extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="是否有效" , notes = "是否有效")
 	private Integer valid;
+	
+	/**
+	 * 排序：排序
+	*/
+	@ApiModelProperty(required = false,value="排序" , notes = "排序")
+	private Integer sort;
 	
 	/**
 	 * 总公司ID：总公司ID
@@ -236,6 +242,25 @@ public class Position extends Entity {
 	*/
 	public Position setValid(Integer valid) {
 		this.valid=valid;
+		return this;
+	}
+	
+	/**
+	 * 获得 排序<br>
+	 * 排序
+	 * @return 排序
+	*/
+	public Integer getSort() {
+		return sort;
+	}
+	
+	/**
+	 * 设置 排序
+	 * @param sort 排序
+	 * @return 当前对象
+	*/
+	public Position setSort(Integer sort) {
+		this.sort=sort;
 		return this;
 	}
 	

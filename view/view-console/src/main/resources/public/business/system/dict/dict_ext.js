@@ -16,7 +16,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * 查询前调用
          * */
         beforeQuery:function (condition) {
-
+            return true;
         },
         /**
          * 打开字典条窗口

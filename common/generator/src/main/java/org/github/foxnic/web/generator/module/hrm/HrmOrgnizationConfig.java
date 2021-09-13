@@ -1,9 +1,11 @@
 package org.github.foxnic.web.generator.module.hrm;
 
+import com.github.foxnic.generator.builder.view.option.FormOptions;
 import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.HRM_ORGANIZATION;
+import org.github.foxnic.web.constants.enums.DictEnum;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
 public class HrmOrgnizationConfig extends BaseCodeConfig<HRM_ORGANIZATION> {
@@ -21,13 +23,41 @@ public class HrmOrgnizationConfig extends BaseCodeConfig<HRM_ORGANIZATION> {
     @Override
     public void configFields(ViewOptions view) {
 
-        view.form().labelWidth(100);
+        view.form().labelWidth(70);
 
-//        view.field(HRM_COMPANY.ID).basic().hidden();
-//        view.field(HRM_COMPANY.NAME).search().fuzzySearch();
-//        view.field(HRM_COMPANY.VALID).form().logicField().on("有效",1).off("无效",0);
+        view.field(HRM_ORGANIZATION.ID).basic().hidden();
+
+        view.field(HRM_ORGANIZATION.FULL_NAME)
+                .form().validate().required();
+
+
+        view.field(HRM_ORGANIZATION.TYPE).basic().label("类型")
+                .form().validate().required()
+                .form().radioBox().dict(DictEnum.ORG_NODE_TYPE);
+
+        view.field(HRM_ORGANIZATION.VALID)
+                .form().validate().required()
+                .form().logicField().on("有效",1).off("无效",0).defaultValue(true);
+
+        view.field(HRM_ORGANIZATION.PARENT_ID).basic().hidden();
+        view.field(HRM_ORGANIZATION.ID).basic().hidden();
+
+        view.field(HRM_ORGANIZATION.HIERARCHY).basic().hidden();
+
+        view.field(HRM_ORGANIZATION.COMPANY_ID).basic().hidden();
+
+        view.field(HRM_ORGANIZATION.SORT).basic().hidden();
 
     }
+
+    @Override
+    public void configForm(ViewOptions view, FormOptions form) {
+        form.columnLayout(new Object[]{
+                HRM_ORGANIZATION.FULL_NAME,HRM_ORGANIZATION.SHORT_NAME,HRM_ORGANIZATION.CODE,
+                HRM_ORGANIZATION.TYPE,HRM_ORGANIZATION.VALID
+        });
+    }
+
     @Override
     public void configOverrides() {
         this.context.overrides()

@@ -1,7 +1,9 @@
 package org.github.foxnic.web.misc.ztree;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ZTreeNode {
 
@@ -34,8 +36,7 @@ public class ZTreeNode {
 	private Boolean isParent;
 	private Boolean checked;
 	private String url;
-
-
+	private String type;
 
 	private int depth;
 	private String hierarchy;
@@ -43,6 +44,19 @@ public class ZTreeNode {
 	private String namePath;
 	private List<ZTreeNode> children;
 
+	private Map<String,Object> extra;
+
+	/**
+	 * 设置额外的数据
+	 */
+	public void setExtra(String key,Object data) {
+		if(extra==null) extra=new HashMap<>();
+		extra.put(key,data);
+	}
+
+	public Map<String, Object> getExtra() {
+		return extra;
+	}
 
 	public void addChild(ZTreeNode node) {
 		if(children==null) children=new ArrayList<>();
@@ -136,5 +150,12 @@ public class ZTreeNode {
 	public void setNamePath(String namePath) {
 		this.namePath = namePath;
 	}
-	
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 }

@@ -1,7 +1,8 @@
 /**
  * 组织层级 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-13 15:09:51
+ * @since 2021-09-13 20:56:47
+ * @version
  */
 
 function FormPage() {
@@ -82,8 +83,8 @@ function FormPage() {
 	/**
       * 填充表单数据
       */
-	function fillFormData() {
-		var formData = admin.getTempData('hrm-organization-form-data');
+	function fillFormData(formData) {
+		//var formData = admin.getTempData('hrm-organization-form-data');
 
 		window.pageExt.form.beforeDataFill && window.pageExt.form.beforeDataFill(formData);
 
@@ -146,6 +147,8 @@ function FormPage() {
 	function getFormData() {
 		var data=form.val("data-form");
 
+		//处理 是否有效 默认值
+		if(!data.valid) data.valid=0;
 
 
 
@@ -159,13 +162,16 @@ function FormPage() {
 	function saveForm(data) {
 		var api=moduleURL+"/"+(data.id?"update":"insert");
 		var task=setTimeout(function(){layer.load(2);},1000);
-		admin.request(api, data, function (data) {
+		admin.request(api, data, function (ret) {
 			clearTimeout(task);
 			layer.closeAll('loading');
-			if (data.success) {
+			if (ret.success) {
 				layer.msg(data.message, {icon: 1, time: 500});
-				var index=admin.getTempData('hrm-organization-form-data-popup-index');
-				admin.finishPopupCenter(index);
+				var name=data.fullName;
+				if(data.shortName) {
+					name=data.shortName;
+				}
+				parent.changeNodeName(data.id,name);
 			} else {
 				layer.msg(data.message, {icon: 2, time: 1000});
 			}
@@ -198,11 +204,28 @@ function FormPage() {
 
     }
 
+    function loadFormData(id) {
+		var task=setTimeout(function(){layer.load(2);},1000);
+		admin.request(moduleURL+"/get-by-id", { id : id }, function (data) {
+			clearTimeout(task);
+			layer.closeAll('loading');
+			if(data.success) {
+				// admin.putTempData('hrm-organization-form-data-form-action', "view",true);
+				//showEditForm(data.data);
+				fillFormData(data.data);
+				$(".model-form-footer").show();
+			} else {
+				layer.msg(data.message, {icon: 1, time: 1500});
+			}
+		});
+	}
+
     window.module={
 		getFormData: getFormData,
 		verifyForm: verifyForm,
 		saveForm: saveForm,
-		adjustPopup: adjustPopup
+		adjustPopup: adjustPopup,
+		loadFormData:loadFormData
 	};
 
 	window.pageExt.form.ending && window.pageExt.form.ending();

@@ -78,6 +78,9 @@ public class OrganizationController extends SuperController {
 	@PostMapping(OrganizationServiceProxy.INSERT)
 	public Result insert(OrganizationVO organizationVO) {
 		Result result=organizationService.insert(organizationVO);
+		if(result.success()) {
+			result.data(organizationVO);
+		}
 		return result;
 	}
 
@@ -280,6 +283,23 @@ public class OrganizationController extends SuperController {
 		result.success(true).data(list);
 		return result;
 
+	}
+
+	/**
+	 * 搜索分类层级
+	 */
+	@ApiOperation(value = "搜索分类层级")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "keyword" , value = "keyword" , required = true , dataTypeClass=String.class , example = "橡胶")
+	})
+	@ApiOperationSupport(order=2)
+	@SentinelResource(value = OrganizationServiceProxy.SEARCH)
+	@PostMapping(OrganizationServiceProxy.SEARCH)
+	public Result<List<String>> search(String keyword) {
+		Result<List<String>> result=new Result<>();
+		List<String> hierarchyList=organizationService.search(keyword);
+		result.data(hierarchyList);
+		return result;
 	}
 
 

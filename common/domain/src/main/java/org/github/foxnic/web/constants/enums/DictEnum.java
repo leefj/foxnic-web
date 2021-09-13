@@ -5,9 +5,9 @@ import com.github.foxnic.api.constant.CodeTextEnum;
 
 
 /**
- * @since 2021-09-11 14:38:35
+ * @since 2021-09-13 20:13:15
  * @author 李方捷 , leefangjie@qq.com
- * 从 select code,name from sys_dict WHERE deleted=0 and module in ('system') 生成
+ * 从 select code,name from sys_dict WHERE deleted=0 and module in ('system','hrm') 生成
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成
 */
 
@@ -22,6 +22,11 @@ public enum DictEnum implements CodeTextEnum {
 	 * 订单状态
 	*/
 	ORDER_STATUS("order_status" , "订单状态"),
+	
+	/**
+	 * 组织节点类型
+	*/
+	ORG_NODE_TYPE("org_node_type" , "组织节点类型"),
 	;
 	
 	private String code;

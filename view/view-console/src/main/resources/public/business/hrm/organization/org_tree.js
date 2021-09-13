@@ -7,9 +7,9 @@
 
 function ListPage() {
         
-	var settings,admin,form,table,layer,util,fox,upload,xmSelect;
+	var settings,admin,form,table,layer,util,fox,upload,xmSelect,dropdown;
 	//模块基础路径
-	const moduleURL="/service-pcm/pcm-catalog";
+	const moduleURL="/service-hrm/hrm-organization";
 	
 	var menuTree;
 	
@@ -20,10 +20,11 @@ function ListPage() {
  
      	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload;
 		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
- 
+ 		dropdown=layui.dropdown;
      	var cfgs = {
      		edit: {
-				enable: true
+				enable: true,
+				showRenameBtn:false
 			},
 			async: {
 				enable: true,
@@ -54,8 +55,15 @@ function ListPage() {
 			var treeHeight=fullHeight-toolbarHeight-1;
 			$("#tree-container").height(treeHeight);
 			// $("#form-view").height(fullHeight-6);
-			$("#basic-info-ifr").height(fullHeight-70);
-			$("#attribute-list-ifr").height(fullHeight-70);
+
+			$("#org-basic-info-ifr").height(fullHeight-70);
+			$("#org-basic-info-ifr").show();
+
+			$("#pos-basic-info-ifr").height(fullHeight-70);
+			$("#pos-basic-info-ifr").show();
+
+			$("#employee-list-ifr").height(fullHeight-70);
+			$("#employee-list-ifr").show();
 			//
 			// $(".layui-col-md4").width("200px");
 			// $(".layui-col-md8").width((fullWidth-200)+"px");
@@ -64,14 +72,37 @@ function ListPage() {
 
 		//
 		bindSearchEvent();
+
+		renderMenu();
      }
+
+     function renderMenu() {
+		 //初演示
+		 dropdown.render({
+			 elem: '#btn-add'
+			 ,data: [{
+				 title: '添加组织'
+				 ,id: "org"
+			 },{
+				 title: '添加岗位'
+				 ,id: "pos"
+			 }]
+			 ,click: function(obj){
+				 if(obj.id=="org"){
+					 createOrg();
+				 } else if(obj.id=="pos") {
+					 createPos();
+				 }
+			 }
+		 });
+	 }
     
     var editingNode=null;
     function onNodeClick(event, treeId, treeNode) {
     	if(treeNode==null) return;
     	editingNode=treeNode;
-    	$("#basic-info-ifr")[0].contentWindow.module.loadFormData(treeNode.id);
-		$("#attribute-list-ifr")[0].contentWindow.module.loadAttributes(treeNode.id);
+    	$("#org-basic-info-ifr")[0].contentWindow.module.loadFormData(treeNode.id);
+		//$("#attribute-list-ifr")[0].contentWindow.module.loadAttributes(treeNode.id);
     }
     
      
@@ -145,7 +176,19 @@ function ListPage() {
     }
      
 	function onNodeRename (event, treeId, treeNode, isCancel) {
-		admin.request(moduleURL+"/update",{id:treeNode.id,name:treeNode.name},function(r){
+
+    	var ps={id:treeNode.id};
+    	if(treeNode.extra.originalName==treeNode.extra.fullName) {
+			ps.fullName=treeNode.name;
+			treeNode.extra.fullName=treeNode.name;
+		}
+		if(treeNode.extra.originalName==treeNode.extra.shortName) {
+			ps.shortName=treeNode.name;
+			treeNode.extra.shortName=treeNode.name;
+		}
+		treeNode.extra.originalName=treeNode.name;
+    	//
+    	admin.request(moduleURL+"/update",ps,function(r){
 			if(r.success) {
 				admin.toast().success("名称已更改",{time:1000,position:"right-bottom"});
 				$("#form-view")[0].contentWindow.loadFormData(treeNode.id);
@@ -182,13 +225,13 @@ function ListPage() {
 			 
 	}
 	
-	function chaneNodeName(id,name) {
+	function changeNodeName(id,name) {
 		if(editingNode==null) return;
 		if(editingNode.id!=id) return;
 		editingNode.name=name;
 		menuTree.updateNode(editingNode);
 	}
-	window.chaneNodeName=chaneNodeName;
+	window.changeNodeName=changeNodeName;
 	
 	function removeHoverDom(treeId, treeNode) {
 			//if (treeNode.parentTId && treeNode.getParentNode().id!=1) return;
@@ -294,8 +337,8 @@ function ListPage() {
 
 
 
-	// 添加按钮点击事件
-    $('#btn-add').click(function () {
+	// 添加组织
+    function createOrg () {
         var nodes=menuTree.getSelectedNodes();
  
         //默认根节点
@@ -310,7 +353,7 @@ function ListPage() {
 				//debugger
 				if(treeNode==null) {
 					//debugger;
-					menuTree.addNodes(null,{id:r.data.id,name:r.data.name});
+					menuTree.addNodes(null,{id:r.data.id,name:r.data.fullName});
 					return;
 				}
 				// debugger
@@ -337,7 +380,52 @@ function ListPage() {
 				admin.toast().error("新建菜单失败",{time:1000,position:"right-bottom"});
 			}
 		},"POST",true);
-    });
+    };
+
+	// 添加组织
+	function createPos () {
+		var nodes=menuTree.getSelectedNodes();
+
+		//默认根节点
+		var treeNode=null;
+		if(nodes && nodes.length>0) {
+			treeNode=nodes[0];
+		}
+
+		admin.request("/service-hrm/hrm-position/insert",{orgId:treeNode?treeNode.id:null,name:"新岗位"},function(r) {
+			if(r.success) {
+				admin.toast().success("菜单已创建",{time:1000,position:"right-bottom"});
+				//debugger
+				if(treeNode==null) {
+					//debugger;
+					menuTree.addNodes(null,{id:r.data.id,name:r.data.fullName});
+					return;
+				}
+				// debugger
+				var isLeaf=!treeNode.isParent;
+				treeNode.isParent=true;
+				menuTree.updateNode(treeNode)
+				if(isLeaf) {
+					menuTree.reAsyncChildNodes(treeNode,"refresh",false);
+				} else {
+					if(!treeNode.open ) {
+						//展开节点
+						menuTree.expandNode(treeNode,true,false,true,false);
+					} else {
+						if(treeNode.children && treeNode.children.length>0) {
+							menuTree.addNodes(treeNode,{id:r.data.id,name:r.data.name,parentId:r.data.parentId});
+							//menuTree.selectNode(newNode,false);
+						} else {
+							menuTree.reAsyncChildNodes(treeNode,"refresh",true);
+						}
+
+					}
+				}
+			} else {
+				admin.toast().error("新建岗位失败",{time:1000,position:"right-bottom"});
+			}
+		},"POST",true);
+	};
  
     
     /**

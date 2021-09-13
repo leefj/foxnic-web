@@ -17,8 +17,8 @@ import org.github.foxnic.web.domain.oauth.MenuResource;
 import org.github.foxnic.web.domain.oauth.Resourze;
 import org.github.foxnic.web.domain.oauth.RoleMenu;
 import org.github.foxnic.web.generator.config.FoxnicWebConfigs;
-import org.github.foxnic.web.hrm.page.OrganizationPageController;
-import org.github.foxnic.web.proxy.hrm.OrganizationServiceProxy;
+import org.github.foxnic.web.hrm.page.PositionPageController;
+import org.github.foxnic.web.proxy.hrm.PositionServiceProxy;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.File;
@@ -114,7 +114,10 @@ public class MenuGenerator {
 //		mg.generate("system_config");
 
 
-		mg=new MenuGenerator(FoxnicWeb.HRM_ORGANIZATION.$TABLE, OrganizationServiceProxy.class, OrganizationPageController.class);
+//		mg=new MenuGenerator(FoxnicWeb.HRM_ORGANIZATION.$TABLE, OrganizationServiceProxy.class, OrganizationPageController.class);
+//		mg.generate("hrm");
+
+		mg=new MenuGenerator(FoxnicWeb.HRM_POSITION.$TABLE, PositionServiceProxy.class, PositionPageController.class);
 		mg.generate("hrm");
 
 

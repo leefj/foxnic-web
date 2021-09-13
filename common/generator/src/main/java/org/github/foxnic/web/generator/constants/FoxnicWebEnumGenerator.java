@@ -1,15 +1,6 @@
 package org.github.foxnic.web.generator.constants;
 
-import java.util.List;
-import java.util.Map;
-
 import com.github.foxnic.api.constant.CodeTextEnum;
-import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_CONFIG;
-import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_DICT;
-import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_DICT_ITEM;
-import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_ROLE;
-import org.github.foxnic.web.generator.config.FoxnicWebConfigs;
-
 import com.github.foxnic.commons.code.JavaClassFile;
 import com.github.foxnic.commons.lang.DateUtil;
 import com.github.foxnic.commons.project.maven.MavenProject;
@@ -21,6 +12,13 @@ import com.github.foxnic.generator.config.EnumConfig;
 import com.github.foxnic.generator.config.GlobalSettings;
 import com.github.foxnic.sql.entity.naming.DefaultNameConvertor;
 import com.github.foxnic.sql.expr.ConditionExpr;
+import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_CONFIG;
+import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_DICT;
+import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_DICT_ITEM;
+import org.github.foxnic.web.generator.config.FoxnicWebConfigs;
+
+import java.util.List;
+import java.util.Map;
 
 public class FoxnicWebEnumGenerator  {
 	
@@ -55,11 +53,11 @@ public class FoxnicWebEnumGenerator  {
 		new EnumClassFile(dao,configs.getDomianProject(),info,dcp,"SystemConfigEnum").save(true);
 		
 		//字典 sys_dict
-		info=new EnumConfig(SYS_DICT.CODE, SYS_DICT.NAME , new ConditionExpr("deleted=0 and module in ('system')"));
+		info=new EnumConfig(SYS_DICT.CODE, SYS_DICT.NAME , new ConditionExpr("deleted=0 and module in ('system','hrm')"));
 		new EnumClassFile(dao,configs.getDomianProject(),info,dcp,"DictEnum").save(true);
 		
 		//生成字典枚举
-		RcdSet rs=dao.query("select * from sys_dict_item where deleted=0 and dict_id in (select id from sys_dict where deleted=0 and module in ('system') ) order by dict_code,sort asc");
+		RcdSet rs=dao.query("select * from sys_dict_item where deleted=0 and dict_id in (select id from sys_dict where deleted=0 and module in ('system','hrm') ) order by dict_code,sort asc");
 		Map<String,List<Rcd>> gps=rs.getGroupedMap(SYS_DICT_ITEM.DICT_CODE,String.class);
 		for (String dictCode : gps.keySet()) {
 			List<Rcd> g=gps.get(dictCode);

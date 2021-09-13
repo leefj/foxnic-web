@@ -8,8 +8,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-13 15:09:51
- * @sign B3B9B54E01DE3C61E0D4414158D71397
+ * @since 2021-09-13 20:35:02
+ * @sign 94AFB7B942D188DD2E5E74ADFA2EEBE6
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -24,6 +24,16 @@ public class OrganizationMeta {
 	 * ID , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Organization,java.lang.String> ID_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Organization.class ,ID, java.lang.String.class, "ID", "ID", java.lang.String.class, null);
+	
+	/**
+	 * 代码 , 类型: java.lang.String
+	*/
+	public static final String CODE="code";
+	
+	/**
+	 * 代码 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Organization,java.lang.String> CODE_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Organization.class ,CODE, java.lang.String.class, "代码", "代码", java.lang.String.class, null);
 	
 	/**
 	 * 简称 , 类型: java.lang.String
@@ -84,6 +94,16 @@ public class OrganizationMeta {
 	 * 层级路径 , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Organization,java.lang.String> HIERARCHY_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Organization.class ,HIERARCHY, java.lang.String.class, "层级路径", "层级路径", java.lang.String.class, null);
+	
+	/**
+	 * 排序 , 类型: java.lang.Integer
+	*/
+	public static final String SORT="sort";
+	
+	/**
+	 * 排序 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Organization,java.lang.Integer> SORT_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Organization.class ,SORT, java.lang.Integer.class, "排序", "排序", java.lang.Integer.class, null);
 	
 	/**
 	 * 总公司ID , 类型: java.lang.String
@@ -188,7 +208,7 @@ public class OrganizationMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , SHORT_NAME , FULL_NAME , TYPE , PARENT_ID , VALID , HIERARCHY , COMPANY_ID , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , CODE , SHORT_NAME , FULL_NAME , TYPE , PARENT_ID , VALID , HIERARCHY , SORT , COMPANY_ID , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
 	
 	/**
 	 * 代理类
@@ -206,6 +226,17 @@ public class OrganizationMeta {
 		public Organization setId(String id) {
 			super.change(ID,super.getId(),id);
 			super.setId(id);
+			return this;
+		}
+		
+		/**
+		 * 设置 代码
+		 * @param code 代码
+		 * @return 当前对象
+		*/
+		public Organization setCode(String code) {
+			super.change(CODE,super.getCode(),code);
+			super.setCode(code);
 			return this;
 		}
 		
@@ -272,6 +303,17 @@ public class OrganizationMeta {
 		public Organization setHierarchy(String hierarchy) {
 			super.change(HIERARCHY,super.getHierarchy(),hierarchy);
 			super.setHierarchy(hierarchy);
+			return this;
+		}
+		
+		/**
+		 * 设置 排序
+		 * @param sort 排序
+		 * @return 当前对象
+		*/
+		public Organization setSort(Integer sort) {
+			super.change(SORT,super.getSort(),sort);
+			super.setSort(sort);
 			return this;
 		}
 		

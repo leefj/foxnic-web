@@ -1,34 +1,37 @@
 package org.github.foxnic.web.hrm.service.impl;
 
 
-import javax.annotation.Resource;
+import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.commons.lang.StringUtil;
+import com.github.foxnic.dao.data.PagedList;
+import com.github.foxnic.dao.data.Rcd;
+import com.github.foxnic.dao.data.RcdSet;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.SuperService;
+import com.github.foxnic.dao.excel.ExcelStructure;
+import com.github.foxnic.dao.excel.ExcelWriter;
+import com.github.foxnic.dao.excel.ValidateResult;
+import com.github.foxnic.dao.spec.DAO;
+import com.github.foxnic.dao.sql.expr.Template;
+import com.github.foxnic.sql.expr.ConditionExpr;
+import com.github.foxnic.sql.meta.DBField;
+import com.github.foxnic.sql.parameter.BatchParamBuilder;
+import org.github.foxnic.web.constants.db.FoxnicWeb.*;
+import org.github.foxnic.web.domain.hrm.Organization;
+import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.github.foxnic.web.hrm.service.IOrganizationService;
+import org.github.foxnic.web.hrm.service.IPositionService;
+import org.github.foxnic.web.misc.ztree.ZTreeNode;
+import org.github.foxnic.web.session.SessionUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
-import org.github.foxnic.web.domain.hrm.Organization;
-import org.github.foxnic.web.domain.hrm.OrganizationVO;
-import java.util.List;
-import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.entity.SuperService;
-import com.github.foxnic.dao.spec.DAO;
-import java.lang.reflect.Field;
-import com.github.foxnic.commons.busi.id.IDGenerator;
-import com.github.foxnic.sql.expr.ConditionExpr;
-import com.github.foxnic.api.error.ErrorDesc;
-import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.dao.excel.ExcelStructure;
+import javax.annotation.Resource;
 import java.io.InputStream;
-import com.github.foxnic.sql.meta.DBField;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.meta.DBColumnMeta;
-import com.github.foxnic.sql.expr.Select;
-import java.util.ArrayList;
-import org.github.foxnic.web.hrm.service.IOrganizationService;
-import org.github.foxnic.web.framework.dao.DBConfigs;
-import java.util.Date;
+import java.lang.reflect.Field;
+import java.util.*;
 
 /**
  * <p>
@@ -36,6 +39,7 @@ import java.util.Date;
  * </p>
  * @author 李方捷 , leefangjie@qq.com
  * @since 2021-09-13 15:09:51
+ * @version
 */
 
 
@@ -54,6 +58,9 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 	public DAO dao() { return dao; }
 
 
+	@Autowired
+	private IPositionService positionService;
+
 	
 	@Override
 	public Object generateId(Field field) {
@@ -67,6 +74,13 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 	 * */
 	@Override
 	public Result insert(Organization organization) {
+		if(StringUtil.isBlank(organization.getParentId())) {
+			organization.setParentId(IOrganizationService.ROOT_ID);
+		}
+		organization.setCompanyId(SessionUser.getCurrent().getActivatedCompanyId());
+		if(StringUtil.isBlank(organization.getFullName())) {
+			organization.setFullName("新节点");
+		}
 		Result r=super.insert(organization);
 		return r;
 	}
@@ -255,6 +269,140 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 	@Override
 	public ExcelStructure buildExcelStructure(boolean isForExport) {
 		return super.buildExcelStructure(isForExport);
+	}
+
+	@Override
+	public List<String> search(String keyword) {
+		String tenantId= SessionUser.getCurrent().getActivatedTenantId();
+		RcdSet rs=dao().query("#search-catalog-hierarchy","%"+keyword+"%",tenantId,tenantId);
+		return rs.getValueList("hierarchy",String.class);
+	}
+
+	private RcdSet queryChildOrgs(String parentId) {
+		RcdSet nodes=null;
+		String tenantId= SessionUser.getCurrent().getActivatedTenantId();
+		String companyId=SessionUser.getCurrent().getActivatedCompanyId();
+		if(parentId==null || parentId.equals(IOrganizationService.ROOT_ID)) {
+			nodes=dao.query("#query-root-orgs",companyId,tenantId);
+		} else {
+			nodes=dao.query("#query-orgs-by-parent-id",companyId,tenantId,parentId);
+		}
+		return nodes;
+	}
+
+	@Override
+	public List<ZTreeNode> queryRootNotes() {
+		RcdSet menus= queryChildOrgs(IOrganizationService.ROOT_ID);
+		List<ZTreeNode> nodes = toZTreeNodeList(menus);
+		return nodes;
+	}
+
+	@Override
+	public List<ZTreeNode> queryChildNodes(String parentId) {
+		RcdSet menus= queryChildOrgs(parentId);
+		List<ZTreeNode> nodes = toZTreeNodeList(menus);
+		return nodes;
+	}
+
+	private List<ZTreeNode> toZTreeNodeList(RcdSet menus) {
+		List<ZTreeNode> nodes=new ArrayList<ZTreeNode>();
+		for (Rcd m : menus) {
+			ZTreeNode node=new ZTreeNode();
+			node.setId(m.getString(HRM_ORGANIZATION.ID));
+			String shortName=m.getString(HRM_ORGANIZATION.SHORT_NAME);
+			String fullName=m.getString(HRM_ORGANIZATION.FULL_NAME);
+
+			node.setName(fullName);
+			if(StringUtil.hasContent(shortName)){
+				node.setName(shortName);
+			}
+			node.setExtra("fullName",fullName);
+			node.setExtra("shortName",shortName);
+			node.setExtra("originalName",node.getName());
+			node.setParentId(m.getString(HRM_ORGANIZATION.PARENT_ID));
+			node.setHierarchy(m.getString(HRM_ORGANIZATION.HIERARCHY));
+			if(StringUtil.hasContent(node.getHierarchy())) {
+				node.setDepth(node.getHierarchy().split("/").length);
+			}
+			node.setIsParent(m.getInteger("child_count")>0);
+			node.setType(m.getString(HRM_ORGANIZATION.TYPE));
+			nodes.add(node);
+		}
+		return nodes;
+	}
+
+	@Override
+	public Boolean saveHierarchy(List<String> ids, String parentId) {
+		BatchParamBuilder pb=new BatchParamBuilder();
+		if(parentId==null) parentId=IOrganizationService.ROOT_ID;
+		int sort=0;
+		for (String menuId : ids) {
+			pb.add(parentId,sort,menuId);
+			sort++;
+		}
+		dao.batchExecute("update "+table()+" set parent_id=?,hierarchy=null,sort=? where id=?",pb.getBatchList());
+		this.fillHierarchy(false);
+		return true;
+	}
+
+	@Override
+	public int fillHierarchy(boolean reset) {
+		String tenantId=SessionUser.getCurrent().getActivatedTenantId();
+		if(reset) {
+			dao().execute("#reset-catalog-hierarchy",tenantId);
+		}
+		int total=dao().execute("#update-catalog-hierarchy-step1",IOrganizationService.ROOT_ID,tenantId);
+		while (true) {
+			int i=dao().execute("#update-catalog-hierarchy-step2",tenantId);
+			total+=i;
+			if(i==0) break;
+		}
+		return total;
+	}
+
+	@Override
+	public List<ZTreeNode> buildingHierarchicalRelationships(List<ZTreeNode> list) {
+		if(list.isEmpty()) return  list;
+		//构建查询
+		ConditionExpr ce=new ConditionExpr();
+		for (ZTreeNode node : list) {
+			ce.or(HRM_ORGANIZATION.HIERARCHY.name()+" like ?",node.getHierarchy()+"/%");
+		}
+		ce.startWithSpace();
+		Template template= dao.getTemplate("#query-descendants-catalogs");
+		template.put("descendants_condition",ce);
+		//查询所有子孙节点
+		RcdSet descendantRs=dao().query(template);
+		List<ZTreeNode> nodes= toZTreeNodeList(descendantRs);
+		//构建层级关系
+		nodes.addAll(list);
+		Map<String, ZTreeNode> map=new HashMap<>();
+		for (ZTreeNode node : nodes) {
+			map.put(node.getId(),node);
+		}
+		ZTreeNode parent=null;
+		for (ZTreeNode node : nodes) {
+			parent=map.get(node.getParentId());
+			if (parent==null){
+				continue;
+			}
+			parent.addChild(node);
+		}
+
+		for (ZTreeNode node : nodes) {
+			ZTreeNode n=node;
+			while (true) {
+				node.addNamePath(n.getName());
+				n=map.get(n.getParentId());
+				if(n==null) break;
+			}
+			Collections.reverse(node.getNamePathArray());
+			node.setNamePath(StringUtil.join(node.getNamePathArray(),"/"));
+		}
+
+
+
+		return list;
 	}
 
 

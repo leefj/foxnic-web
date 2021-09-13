@@ -86,7 +86,10 @@ public interface OrganizationServiceProxy {
 	 */
 	public static final String QUERY_NODES = API_PREFIX + "query-nodes";
 
-
+	/**
+	 * 搜索节点
+	 */
+	public static final String SEARCH = API_PREFIX + "search";
 	
 	/**
 	 * 分页查询组织层级

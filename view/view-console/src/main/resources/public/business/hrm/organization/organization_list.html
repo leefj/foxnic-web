@@ -2,7 +2,7 @@
 /**
  * 组织层级 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-13 15:09:51
+ * @since 2021-09-13 20:56:47
  */
  -->
  <!DOCTYPE html>
@@ -34,10 +34,11 @@
             <div class="search-input-rows" style="opacity: 0">
                 <!-- 搜索输入区域 -->
                 <div class="layui-form toolbar search-inputs">
-                    <!-- ID , id ,typeName=text_input, isHideInSearch=false -->
+                    <!-- ID , id ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 代码 , code ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('ID')}" class="search-label id-label">ID</span><span class="search-colon">:</span></div>
-                        <input id="id" class="layui-input search-input" style="width: 140px" type="text" />
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('代码')}" class="search-label code-label">代码</span><span class="search-colon">:</span></div>
+                        <input id="code" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
                     <!-- 简称 , shortName ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
@@ -49,31 +50,23 @@
                         <div class="search-label-div" style=""><span th:text="${lang.translate('全称')}" class="search-label fullName-label">全称</span><span class="search-colon">:</span></div>
                         <input id="fullName" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
-                    <!-- 组织类型 , type ,typeName=text_input, isHideInSearch=false -->
+                    <!-- 类型 , type ,typeName=radio_box, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('组织类型')}" class="search-label type-label">组织类型</span><span class="search-colon">:</span></div>
-                        <input id="type" class="layui-input search-input" style="width: 140px" type="text" />
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('类型')}" class="search-label type-label">类型</span><span class="search-colon">:</span></div>
+
+                        <div id="type" th:data="${dict.toArray('org_node_type')}" style="width:140px"></div>
+
+
                     </div>
-                    <!-- 上级ID , parentId ,typeName=text_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('上级ID')}" class="search-label parentId-label">上级ID</span><span class="search-colon">:</span></div>
-                        <input id="parentId" class="layui-input search-input" style="width: 140px" type="text" />
-                    </div>
-                    <!-- 是否有效 , valid ,typeName=number_input, isHideInSearch=false -->
+                    <!-- 上级ID , parentId ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 是否有效 , valid ,typeName=logic_switch, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('是否有效')}" class="search-label valid-label">是否有效</span><span class="search-colon">:</span></div>
-                            <input id="valid" class="layui-input search-input" style="width: 140px" type="text" autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0" min-value="" max-value="" scale="0"/>
+                        <div id="valid" data='[{"name":"有效","value":"1"},{"name":"无效","value":"0"}]' style="width:140px"></div>
                     </div>
-                    <!-- 层级路径 , hierarchy ,typeName=text_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('层级路径')}" class="search-label hierarchy-label">层级路径</span><span class="search-colon">:</span></div>
-                        <input id="hierarchy" class="layui-input search-input" style="width: 140px" type="text" />
-                    </div>
-                    <!-- 总公司ID , companyId ,typeName=text_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('总公司ID')}" class="search-label companyId-label">总公司ID</span><span class="search-colon">:</span></div>
-                        <input id="companyId" class="layui-input search-input" style="width: 140px" type="text" />
-                    </div>
+                    <!-- 层级路径 , hierarchy ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 排序 , sort ,typeName=number_input, isHideInSearch=true -->
+                    <!-- 总公司ID , companyId ,typeName=text_input, isHideInSearch=true -->
 
 
                 </div>
@@ -119,9 +112,14 @@
 
 </script>
 
+<!-- 表格状态列 -->
+<script type="text/html" id="cell-tpl-valid">
+    <input type="checkbox" class="switch-valid list-checkbox" lay-filter="cell-tpl-valid" value="{{d.id}}" lay-skin="switch" lay-text="有效|无效&nbsp;"  {{d.valid==1?'checked':''}} data-id="{{d.id}}"/>
+</script>
 
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${pageHelper.getTableColumnWidthConfig('data-table')}]];
+    var RADIO_TYPE_DATA = [[${dict.toArray('org_node_type')}]];
     var AUTH_PREFIX="hrm_organization";
 
 

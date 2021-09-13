@@ -1,20 +1,21 @@
 package org.github.foxnic.web.hrm.service;
 
 
-import com.github.foxnic.sql.expr.ConditionExpr;
-import com.github.foxnic.dao.entity.ISuperService;
-import org.github.foxnic.web.domain.hrm.Organization;
-import org.github.foxnic.web.domain.hrm.OrganizationVO;
-import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
-import java.io.InputStream;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.ISuperService;
+import com.github.foxnic.dao.excel.ExcelStructure;
+import com.github.foxnic.dao.excel.ExcelWriter;
+import com.github.foxnic.dao.excel.ValidateResult;
+import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.expr.OrderBy;
 import com.github.foxnic.sql.meta.DBField;
-import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.dao.excel.ExcelStructure;
-import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.dao.data.SaveMode;
+import org.github.foxnic.web.domain.hrm.Organization;
+import org.github.foxnic.web.misc.ztree.ZTreeNode;
+
+import java.io.InputStream;
+import java.util.List;
 
 /**
  * <p>
@@ -22,10 +23,13 @@ import com.github.foxnic.dao.data.SaveMode;
  * </p>
  * @author 李方捷 , leefangjie@qq.com
  * @since 2021-09-13 15:09:51
+ * @version
 */
 
 public interface IOrganizationService extends ISuperService<Organization> {
-	
+
+	public  final static String ROOT_ID="0";
+
 	/**
 	 * 插入实体
 	 * @param organization 实体数据
@@ -284,5 +288,35 @@ public interface IOrganizationService extends ISuperService<Organization> {
 	 * */
 	List<ValidateResult> importExcel(InputStream input,int sheetIndex,boolean batch);
 
- 
+
+	/**
+	 * 查询根节点
+	 * */
+	List<ZTreeNode> queryRootNotes();
+
+	/**
+	 * 查询下级节点
+	 * */
+	List<ZTreeNode> queryChildNodes(String parentId);
+
+	/**
+	 * 保存层级关系
+	 * */
+	Boolean saveHierarchy(List<String> ids, String parentId);
+
+	/**
+	 * 填充层级关系
+	 * */
+	int fillHierarchy(boolean reset);
+
+	/**
+	 * 构建层级关系
+	 * */
+	List<ZTreeNode> buildingHierarchicalRelationships(List<ZTreeNode> list);
+
+	/**
+	 * 按关键字搜索，并返回匹配的层级
+	 * */
+	List<String> search(String keyword);
+
 }

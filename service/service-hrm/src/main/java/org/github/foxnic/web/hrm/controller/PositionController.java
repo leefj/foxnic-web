@@ -1,54 +1,47 @@
 package org.github.foxnic.web.hrm.controller;
 
  
-import java.util.List;
-
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-
-import org.github.foxnic.web.framework.web.SuperController;
-import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
-import org.springframework.web.bind.annotation.RequestMapping;
-import javax.servlet.http.HttpServletResponse;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
-
-
-import org.github.foxnic.web.proxy.hrm.PositionServiceProxy;
-import org.github.foxnic.web.domain.hrm.meta.PositionVOMeta;
-import org.github.foxnic.web.domain.hrm.Position;
-import org.github.foxnic.web.domain.hrm.PositionVO;
+import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.api.validate.annotations.NotNull;
+import com.github.foxnic.commons.io.StreamUtil;
+import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.springboot.web.DownloadUtil;
-import com.github.foxnic.dao.data.PagedList;
-import java.util.Date;
-import java.sql.Timestamp;
-import com.github.foxnic.api.error.ErrorDesc;
-import com.github.foxnic.commons.io.StreamUtil;
-import java.util.Map;
 import com.github.foxnic.dao.excel.ValidateResult;
-import java.io.InputStream;
-import org.github.foxnic.web.domain.hrm.meta.PositionMeta;
-import io.swagger.annotations.Api;
-import com.github.xiaoymin.knife4j.annotations.ApiSort;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiImplicitParam;
+import com.github.foxnic.springboot.web.DownloadUtil;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.github.xiaoymin.knife4j.annotations.ApiSort;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import org.github.foxnic.web.domain.hrm.Position;
+import org.github.foxnic.web.domain.hrm.PositionVO;
+import org.github.foxnic.web.domain.hrm.meta.PositionVOMeta;
+import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
+import org.github.foxnic.web.framework.web.SuperController;
 import org.github.foxnic.web.hrm.service.IPositionService;
-import com.github.foxnic.api.validate.annotations.NotNull;
+import org.github.foxnic.web.proxy.hrm.PositionServiceProxy;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.InputStream;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
  * 岗位表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-13 15:09:52
+ * @since 2021-09-13 19:48:15
 */
 
 @Api(tags = "岗位")
@@ -71,6 +64,7 @@ public class PositionController extends SuperController {
 		@ApiImplicitParam(name = PositionVOMeta.FULL_NAME , value = "全称" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = PositionVOMeta.SHORT_NAME , value = "简称" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = PositionVOMeta.VALID , value = "是否有效" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = PositionVOMeta.SORT , value = "排序" , required = false , dataTypeClass=Integer.class),
 		@ApiImplicitParam(name = PositionVOMeta.COMPANY_ID , value = "总公司ID" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport(order=1)
@@ -130,6 +124,7 @@ public class PositionController extends SuperController {
 		@ApiImplicitParam(name = PositionVOMeta.FULL_NAME , value = "全称" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = PositionVOMeta.SHORT_NAME , value = "简称" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = PositionVOMeta.VALID , value = "是否有效" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = PositionVOMeta.SORT , value = "排序" , required = false , dataTypeClass=Integer.class),
 		@ApiImplicitParam(name = PositionVOMeta.COMPANY_ID , value = "总公司ID" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport( order=4 , ignoreParameters = { PositionVOMeta.PAGE_INDEX , PositionVOMeta.PAGE_SIZE , PositionVOMeta.SEARCH_FIELD , PositionVOMeta.FUZZY_FIELD , PositionVOMeta.SEARCH_VALUE , PositionVOMeta.SORT_FIELD , PositionVOMeta.SORT_TYPE , PositionVOMeta.IDS } ) 
@@ -155,6 +150,7 @@ public class PositionController extends SuperController {
 		@ApiImplicitParam(name = PositionVOMeta.FULL_NAME , value = "全称" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = PositionVOMeta.SHORT_NAME , value = "简称" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = PositionVOMeta.VALID , value = "是否有效" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = PositionVOMeta.SORT , value = "排序" , required = false , dataTypeClass=Integer.class),
 		@ApiImplicitParam(name = PositionVOMeta.COMPANY_ID , value = "总公司ID" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { PositionVOMeta.PAGE_INDEX , PositionVOMeta.PAGE_SIZE , PositionVOMeta.SEARCH_FIELD , PositionVOMeta.FUZZY_FIELD , PositionVOMeta.SEARCH_VALUE , PositionVOMeta.SORT_FIELD , PositionVOMeta.SORT_TYPE , PositionVOMeta.IDS } )
@@ -219,6 +215,7 @@ public class PositionController extends SuperController {
 		@ApiImplicitParam(name = PositionVOMeta.FULL_NAME , value = "全称" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = PositionVOMeta.SHORT_NAME , value = "简称" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = PositionVOMeta.VALID , value = "是否有效" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = PositionVOMeta.SORT , value = "排序" , required = false , dataTypeClass=Integer.class),
 		@ApiImplicitParam(name = PositionVOMeta.COMPANY_ID , value = "总公司ID" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { PositionVOMeta.PAGE_INDEX , PositionVOMeta.PAGE_SIZE } )
@@ -243,6 +240,7 @@ public class PositionController extends SuperController {
 		@ApiImplicitParam(name = PositionVOMeta.FULL_NAME , value = "全称" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = PositionVOMeta.SHORT_NAME , value = "简称" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = PositionVOMeta.VALID , value = "是否有效" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = PositionVOMeta.SORT , value = "排序" , required = false , dataTypeClass=Integer.class),
 		@ApiImplicitParam(name = PositionVOMeta.COMPANY_ID , value = "总公司ID" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport(order=8)

@@ -8,8 +8,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-13 15:09:52
- * @sign F73FD3507684E9F98EC495C697EEDEC1
+ * @since 2021-09-13 19:48:15
+ * @sign 3531C3881F1DCEB32985DE4B9B4921FE
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -74,6 +74,16 @@ public class PositionMeta {
 	 * 是否有效 , 类型: java.lang.Integer
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Position,java.lang.Integer> VALID_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Position.class ,VALID, java.lang.Integer.class, "是否有效", "是否有效", java.lang.Integer.class, null);
+	
+	/**
+	 * 排序 , 类型: java.lang.Integer
+	*/
+	public static final String SORT="sort";
+	
+	/**
+	 * 排序 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Position,java.lang.Integer> SORT_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Position.class ,SORT, java.lang.Integer.class, "排序", "排序", java.lang.Integer.class, null);
 	
 	/**
 	 * 总公司ID , 类型: java.lang.String
@@ -178,7 +188,7 @@ public class PositionMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , ORG_ID , CODE , FULL_NAME , SHORT_NAME , VALID , COMPANY_ID , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , ORG_ID , CODE , FULL_NAME , SHORT_NAME , VALID , SORT , COMPANY_ID , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
 	
 	/**
 	 * 代理类
@@ -251,6 +261,17 @@ public class PositionMeta {
 		public Position setValid(Integer valid) {
 			super.change(VALID,super.getValid(),valid);
 			super.setValid(valid);
+			return this;
+		}
+		
+		/**
+		 * 设置 排序
+		 * @param sort 排序
+		 * @return 当前对象
+		*/
+		public Position setSort(Integer sort) {
+			super.change(SORT,super.getSort(),sort);
+			super.setSort(sort);
 			return this;
 		}
 		
