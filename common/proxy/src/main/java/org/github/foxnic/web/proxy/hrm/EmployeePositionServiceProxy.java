@@ -19,7 +19,7 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  *   控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-13 19:48:16
+ * @since 2021-09-14 21:43:33
 */
 
 @FeignClient(value = MicroServiceNames.HRM, contextId = EmployeePositionServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)
@@ -112,13 +112,13 @@ public interface EmployeePositionServiceProxy {
 	 * 删除hrm_employee_position
 	*/
 	@RequestMapping(EmployeePositionServiceProxy.DELETE)
-	Result deleteById(Integer id);
+	Result deleteById(String id);
 
 	/**
 	 * 批量删除hrm_employee_position
 	*/
 	@RequestMapping(EmployeePositionServiceProxy.DELETE_BY_IDS)
-	Result deleteByIds(List<Integer> ids);
+	Result deleteByIds(List<String> ids);
 
 	/**
 	 * 更新hrm_employee_position
@@ -136,13 +136,13 @@ public interface EmployeePositionServiceProxy {
 	 * 获取hrm_employee_position
 	*/
 	@RequestMapping(EmployeePositionServiceProxy.GET_BY_ID)
-	Result<EmployeePosition> getById(Integer id);
+	Result<EmployeePosition> getById(String id);
 
 	/**
 	 * 批量删除hrm_employee_position
 	*/
 	@RequestMapping(EmployeePositionServiceProxy.GET_BY_IDS)
-	Result<List<EmployeePosition>> getByIds(List<Integer> ids);
+	Result<List<EmployeePosition>> getByIds(List<String> ids);
 	/**
 	 * 查询hrm_employee_position
 	*/

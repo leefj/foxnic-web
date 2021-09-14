@@ -22,7 +22,7 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.*;
  *  服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-13 19:48:16
+ * @since 2021-09-14 21:43:33
 */
 
 public interface IEmployeePositionService extends ISuperService<EmployeePosition> {
@@ -49,7 +49,7 @@ public interface IEmployeePositionService extends ISuperService<EmployeePosition
 	 * @param id 主键
 	 * @return 删除是否成功
 	 */
-	Result deleteByIdPhysical(Integer id);
+	Result deleteByIdPhysical(String id);
 	
 	/**
 	 * 按主键删除 hrm_employee_position
@@ -57,7 +57,7 @@ public interface IEmployeePositionService extends ISuperService<EmployeePosition
 	 * @param id 主键
 	 * @return 删除是否成功
 	 */
-	Result deleteByIdLogical(Integer id);
+	Result deleteByIdLogical(String id);
 	
 	/**
 	 * 批量物理删除，仅支持单字段主键表
@@ -80,7 +80,7 @@ public interface IEmployeePositionService extends ISuperService<EmployeePosition
 	 * @param id 主键
 	 * @return 是否更新成功
 	 */
-	boolean update(DBField field,Object value , Integer id);
+	boolean update(DBField field,Object value , String id);
 	
 	/**
 	 * 更新实体
@@ -130,14 +130,14 @@ public interface IEmployeePositionService extends ISuperService<EmployeePosition
 	 * @param id 主键
 	 * @return EmployeePosition 数据对象
 	 */
-	EmployeePosition getById(Integer id);
+	EmployeePosition getById(String id);
 		
 	/**
 	 * 检查实体中的数据字段是否已经存在
 	 * @param ids  主键清单
 	 * @return 实体集
 	 * */
-	List<EmployeePosition> getByIds(List<Integer> ids);
+	List<EmployeePosition> getByIds(List<String> ids);
 
 	/**
 	 * 检查 角色 是否已经存在
@@ -290,6 +290,6 @@ public interface IEmployeePositionService extends ISuperService<EmployeePosition
 	 * @param employeeId 员工ID
 	 * @param positionIds 岗位ID清单
 	 */
-	void saveRelation(Integer employeeId,List<Integer> positionIds);
+	void saveRelation(String employeeId,List<String> positionIds);
  
 }

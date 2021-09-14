@@ -78,11 +78,15 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 		if(StringUtil.isBlank(organization.getParentId())) {
 			organization.setParentId(IOrganizationService.ROOT_ID);
 		}
+		if(StringUtil.isBlank(organization.getType())) {
+			organization.setType(OrgNodeType.DEPT.code());
+		}
 		organization.setCompanyId(SessionUser.getCurrent().getActivatedCompanyId());
 		if(StringUtil.isBlank(organization.getFullName())) {
 			organization.setFullName("新节点");
 		}
 		Result r=super.insert(organization);
+		this.fillHierarchy(false);
 		return r;
 	}
 	
@@ -154,9 +158,12 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 			organization.setCode(null);
 		}
 		//如果上级是部门，那么不允许下级勾选公司
-		Organization parent=this.getById(organization.getParentId());
-		if(OrgNodeType.COM.code().equals(organization.getType()) && (parent!=null && OrgNodeType.DEPT.code().equals(parent.getType()))) {
-			return ErrorDesc.failure().message("部门下不允许设置公司");
+		Organization org=this.getById(organization.getId());
+		if(org.getParentId()!=null) {
+			Organization parent = this.getById(org.getParentId());
+			if (OrgNodeType.COM.code().equals(organization.getType()) && (parent != null && OrgNodeType.DEPT.code().equals(parent.getType()))) {
+				return ErrorDesc.failure().message("部门下不允许设置公司");
+			}
 		}
 		Result r=super.update(organization , mode);
 		return r;
@@ -283,7 +290,7 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 	@Override
 	public List<String> search(String keyword) {
 		String tenantId= SessionUser.getCurrent().getActivatedTenantId();
-		RcdSet rs=dao().query("#search-catalog-hierarchy","%"+keyword+"%",tenantId,tenantId);
+		RcdSet rs=dao().query("#search-org-hierarchy","%"+keyword+"%","%"+keyword+"%",tenantId,"%"+keyword+"%","%"+keyword+"%",tenantId,tenantId);
 		return rs.getValueList("hierarchy",String.class);
 	}
 
@@ -346,15 +353,40 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 
 	@Override
 	public Boolean saveHierarchy(List<String> ids, String parentId) {
+
+		List<String> orgIds=new ArrayList<>();
+		List<String> posIds=new ArrayList<>();
+		for (String id : ids) {
+			String[] tmp=id.split(",");
+			if(OrgNodeType.DEPT.code().equals(tmp[1])){
+				orgIds.add(tmp[0]);
+			} else if(OrgNodeType.COM.code().equals(tmp[1])){
+				orgIds.add(tmp[0]);
+			} else if("pos".equals(tmp[1])){
+				posIds.add(tmp[0]);
+			}
+		}
+
+
 		BatchParamBuilder pb=new BatchParamBuilder();
 		if(parentId==null) parentId=IOrganizationService.ROOT_ID;
 		int sort=0;
-		for (String menuId : ids) {
-			pb.add(parentId,sort,menuId);
+		for (String orgId : orgIds) {
+			pb.add(parentId,sort,orgId);
 			sort++;
 		}
 		dao.batchExecute("update "+table()+" set parent_id=?,hierarchy=null,sort=? where id=?",pb.getBatchList());
 		this.fillHierarchy(false);
+
+		//
+		pb=new BatchParamBuilder();
+		sort=0;
+		for (String posId : posIds) {
+			pb.add(parentId,sort,posId);
+			sort++;
+		}
+		dao.batchExecute("update "+positionService.table()+" set org_id=?,sort=? where id=?",pb.getBatchList());
+
 		return true;
 	}
 

@@ -8,42 +8,42 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-13 15:09:54
- * @sign 410AEBCFE231D939025621C93B017CE8
+ * @since 2021-09-14 21:43:33
+ * @sign ED18762E4C112BBA43618A0F314A38BB
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
 public class EmployeePositionMeta {
 	
 	/**
-	 * 主键 , 类型: java.lang.Integer
+	 * 主键 , 类型: java.lang.String
 	*/
 	public static final String ID="id";
 	
 	/**
-	 * 主键 , 类型: java.lang.Integer
+	 * 主键 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.hrm.EmployeePosition,java.lang.Integer> ID_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.EmployeePosition.class ,ID, java.lang.Integer.class, "主键", "主键", java.lang.Integer.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.EmployeePosition,java.lang.String> ID_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.EmployeePosition.class ,ID, java.lang.String.class, "主键", "主键", java.lang.String.class, null);
 	
 	/**
-	 * 员工ID , 类型: java.lang.Integer
+	 * 员工ID , 类型: java.lang.String
 	*/
 	public static final String EMPLOYEE_ID="employeeId";
 	
 	/**
-	 * 员工ID , 类型: java.lang.Integer
+	 * 员工ID , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.hrm.EmployeePosition,java.lang.Integer> EMPLOYEE_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.EmployeePosition.class ,EMPLOYEE_ID, java.lang.Integer.class, "员工ID", "员工ID", java.lang.Integer.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.EmployeePosition,java.lang.String> EMPLOYEE_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.EmployeePosition.class ,EMPLOYEE_ID, java.lang.String.class, "员工ID", "员工ID", java.lang.String.class, null);
 	
 	/**
-	 * 岗位ID , 类型: java.lang.Integer
+	 * 岗位ID , 类型: java.lang.String
 	*/
 	public static final String POSITION_ID="positionId";
 	
 	/**
-	 * 岗位ID , 类型: java.lang.Integer
+	 * 岗位ID , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.hrm.EmployeePosition,java.lang.Integer> POSITION_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.EmployeePosition.class ,POSITION_ID, java.lang.Integer.class, "岗位ID", "岗位ID", java.lang.Integer.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.EmployeePosition,java.lang.String> POSITION_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.EmployeePosition.class ,POSITION_ID, java.lang.String.class, "岗位ID", "岗位ID", java.lang.String.class, null);
 	
 	/**
 	 * 是否主刚 , 类型: java.lang.Integer
@@ -153,7 +153,7 @@ public class EmployeePositionMeta {
 		 * @param id 主键
 		 * @return 当前对象
 		*/
-		public EmployeePosition setId(Integer id) {
+		public EmployeePosition setId(String id) {
 			super.change(ID,super.getId(),id);
 			super.setId(id);
 			return this;
@@ -164,7 +164,7 @@ public class EmployeePositionMeta {
 		 * @param employeeId 员工ID
 		 * @return 当前对象
 		*/
-		public EmployeePosition setEmployeeId(Integer employeeId) {
+		public EmployeePosition setEmployeeId(String employeeId) {
 			super.change(EMPLOYEE_ID,super.getEmployeeId(),employeeId);
 			super.setEmployeeId(employeeId);
 			return this;
@@ -175,7 +175,7 @@ public class EmployeePositionMeta {
 		 * @param positionId 岗位ID
 		 * @return 当前对象
 		*/
-		public EmployeePosition setPositionId(Integer positionId) {
+		public EmployeePosition setPositionId(String positionId) {
 			super.change(POSITION_ID,super.getPositionId(),positionId);
 			super.setPositionId(positionId);
 			return this;

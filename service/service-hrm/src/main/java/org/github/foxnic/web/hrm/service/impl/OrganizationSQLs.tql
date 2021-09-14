@@ -2,38 +2,46 @@
 // 查询根节点菜单
 [query-root-orgs]
 select m.*,(select count(1) from hrm_organization cm  where m.id=cm.parent_id and cm.deleted=0) child_count,(select count(1) from hrm_position cm  where m.id=cm.org_id and cm.deleted=0) position_count from hrm_organization m
-where m.parent_id='0' and company_id=? and tenant_id=? and m.deleted=0 order by sort asc
+where m.parent_id='0' and company_id=? and tenant_id=? and m.deleted=0 order by type asc, sort asc
 
 // 查询所有子孙节点节点菜单
 [query-descendants-orgs]
 select m.*,(select count(1) from hrm_organization cm  where m.id=cm.parent_id and cm.deleted=0) child_count,(select count(1) from hrm_position cm  where m.id=cm.org_id and cm.deleted=0) position_count from hrm_organization m
 where m.deleted=0 and (#(descendants_condition))
-order by parent_id , sort asc
+order by parent_id ,type asc, sort asc
 
 
 // 按上级节点ID查找下级节点
 [query-orgs-by-parent-id]
 select m.*,(select count(1) from hrm_organization cm  where m.id=cm.parent_id and cm.deleted=0) child_count,(select count(1) from hrm_position cm  where m.id=cm.org_id and cm.deleted=0) position_count from hrm_organization m
-where m.company_id=? and m.tenant_id=? and m.parent_id=? and m.deleted=0 order by sort asc
+where m.company_id=? and m.tenant_id=? and m.parent_id=? and m.deleted=0 order by type asc,sort asc
 
 
 // 重置菜单层级路径
 [reset-org-hierarchy]
-update pcm_catalog set hierarchy=null and tenant_id=?
+update hrm_organization set hierarchy=null and tenant_id=?
 
 
 // 设置根节点菜单的层级路径
 [update-org-hierarchy-step1]
-UPDATE pcm_catalog set hierarchy=id where parent_id=? and tenant_id=?
+UPDATE hrm_organization set hierarchy=id where parent_id=? and tenant_id=?
 
 
 // 设置上级节点已经设置层级路径的节点的层级路径
 [update-org-hierarchy-step2]
-UPDATE pcm_catalog c, pcm_catalog p
+UPDATE hrm_organization c, hrm_organization p
 SET c.hierarchy=CONCAT(p.hierarchy,"/",c.id)
 WHERE c.tenant_id=? and p.id=c.parent_id  and c.hierarchy is null and p.hierarchy is not null
 
 [search-org-hierarchy]
-select distinct hierarchy from pcm_catalog a where exists (
-	select 1 from pcm_catalog b where a.id=b.parent_id and name like ? and valid=1 and deleted=0 and tenant_id=?
-) and valid=1 and deleted=0 and tenant_id=?
+select distinct hierarchy from hrm_organization a where
+(
+    exists (
+	    select 1 from hrm_organization b where a.id=b.parent_id and (full_name like ? or short_name like ?) and valid=1 and deleted=0 and tenant_id=?
+    )
+    or
+    exists (
+	    select 1 from hrm_position b where a.id=b.org_id and (full_name like ? or short_name like ?) and valid=1 and deleted=0 and tenant_id=?
+    )
+)
+and valid=1 and deleted=0 and tenant_id=?

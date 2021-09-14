@@ -1,7 +1,7 @@
 /**
  * hrm_employee_position 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-13 19:48:17
+ * @since 2021-09-14 21:43:33
  */
 
 layui.config({
@@ -123,6 +123,12 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
         beforeSubmit:function (data) {
             console.log("beforeSubmit",data);
             return true;
+        },
+        /**
+         * 数据提交后执行
+         * */
+        afterSubmitt:function (param,result) {
+            console.log("afterSubmitt",param,result);
         },
         /**
          * 末尾执行

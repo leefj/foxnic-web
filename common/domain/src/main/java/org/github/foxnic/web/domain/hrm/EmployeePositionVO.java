@@ -9,8 +9,8 @@ import java.util.ArrayList;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-13 15:09:54
- * @sign 88CCF17BE517A38688251C009DF6427F
+ * @since 2021-09-14 21:43:33
+ * @sign CD4886FD5D881E21377FBD8409FC71E5
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -64,7 +64,7 @@ public class EmployeePositionVO extends EmployeePosition {
 	 * 主键清单：用于接收批量主键参数
 	*/
 	@ApiModelProperty(required = false,value="主键清单" , notes = "用于接收批量主键参数")
-	private List<Integer> ids;
+	private List<String> ids;
 	
 	/**
 	 * 获得 页码<br>
@@ -197,7 +197,7 @@ public class EmployeePositionVO extends EmployeePosition {
 	 * 用于接收批量主键参数
 	 * @return 主键清单
 	*/
-	public List<Integer> getIds() {
+	public List<String> getIds() {
 		return ids;
 	}
 	
@@ -206,7 +206,7 @@ public class EmployeePositionVO extends EmployeePosition {
 	 * @param ids 主键清单
 	 * @return 当前对象
 	*/
-	public EmployeePositionVO setIds(List<Integer> ids) {
+	public EmployeePositionVO setIds(List<String> ids) {
 		this.ids=ids;
 		return this;
 	}
@@ -216,7 +216,7 @@ public class EmployeePositionVO extends EmployeePosition {
 	 * @param id 主键清单
 	 * @return 当前对象
 	*/
-	public EmployeePositionVO addId(Integer id) {
+	public EmployeePositionVO addId(String id) {
 		if(this.ids==null) ids=new ArrayList<>();
 		this.ids.add(id);
 		return this;

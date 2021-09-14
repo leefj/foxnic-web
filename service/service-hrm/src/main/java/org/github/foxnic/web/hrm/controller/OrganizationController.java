@@ -19,6 +19,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.github.foxnic.web.domain.hrm.Organization;
 import org.github.foxnic.web.domain.hrm.OrganizationVO;
+import org.github.foxnic.web.domain.hrm.Position;
 import org.github.foxnic.web.domain.hrm.meta.OrganizationVOMeta;
 import org.github.foxnic.web.domain.pcm.Catalog;
 import org.github.foxnic.web.domain.pcm.CatalogVO;
@@ -26,6 +27,7 @@ import org.github.foxnic.web.domain.pcm.meta.CatalogVOMeta;
 import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
 import org.github.foxnic.web.framework.web.SuperController;
 import org.github.foxnic.web.hrm.service.IOrganizationService;
+import org.github.foxnic.web.hrm.service.IPositionService;
 import org.github.foxnic.web.misc.ztree.ZTreeNode;
 import org.github.foxnic.web.proxy.hrm.OrganizationServiceProxy;
 import org.github.foxnic.web.proxy.pcm.CatalogServiceProxy;
@@ -57,6 +59,9 @@ public class OrganizationController extends SuperController {
 
 	@Autowired
 	private IOrganizationService organizationService;
+
+	@Autowired
+	private IPositionService positionService;
 
 	
 	/**
@@ -98,7 +103,20 @@ public class OrganizationController extends SuperController {
 	@SentinelResource(value = OrganizationServiceProxy.DELETE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(OrganizationServiceProxy.DELETE)
 	public Result deleteById(String id) {
-		Result result=organizationService.deleteByIdLogical(id);
+		Result result=new Result();
+		Organization organization=organizationService.getById(id);
+		List<Organization> children=organizationService.queryList(Organization.create().setParentId(organization.getId()));
+		if(!children.isEmpty()) {
+			result.success(false).message("请先删除子节点");
+			return result;
+		}
+		List<Position> positions=positionService.queryPositions(organization.getId());
+		if(!positions.isEmpty()) {
+			result.success(false).message("请先删除子节点");
+			return result;
+		}
+
+		result=organizationService.deleteByIdLogical(id);
 		return result;
 	}
 	

@@ -1,6 +1,6 @@
 package org.github.foxnic.web.hrm.controller;
 
- 
+
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
@@ -17,11 +17,13 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.github.foxnic.web.domain.hrm.EmployeePosition;
 import org.github.foxnic.web.domain.hrm.Position;
 import org.github.foxnic.web.domain.hrm.PositionVO;
 import org.github.foxnic.web.domain.hrm.meta.PositionVOMeta;
 import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
 import org.github.foxnic.web.framework.web.SuperController;
+import org.github.foxnic.web.hrm.service.IEmployeePositionService;
 import org.github.foxnic.web.hrm.service.IPositionService;
 import org.github.foxnic.web.proxy.hrm.PositionServiceProxy;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +54,9 @@ public class PositionController extends SuperController {
 
 	@Autowired
 	private IPositionService positionService;
+
+	@Autowired
+	private IEmployeePositionService employeePositionService;
 
 	
 	/**
@@ -89,7 +94,13 @@ public class PositionController extends SuperController {
 	@SentinelResource(value = PositionServiceProxy.DELETE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(PositionServiceProxy.DELETE)
 	public Result deleteById(String id) {
-		Result result=positionService.deleteByIdLogical(id);
+		Result result=new Result();
+		//TODO 优化此处性能
+		List<EmployeePosition> eps=employeePositionService.queryList(EmployeePosition.create().setPositionId(id));
+		if(!eps.isEmpty()){
+			result.success(false).message("不允许删除带员工的职位");
+		}
+		result=positionService.deleteByIdLogical(id);
 		return result;
 	}
 	

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
  *  模版页面控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-13 19:48:17
+ * @since 2021-09-14 21:43:33
 */
 
 @Controller("HrmEmployeePositionPageController")
@@ -49,7 +49,7 @@ public class EmployeePositionPageController extends ViewController {
 	 * hrm_employee_position 表单页面
 	 */
 	@RequestMapping("/employee_position_form.html")
-	public String form(Model model,HttpServletRequest request , Integer id) {
+	public String form(Model model,HttpServletRequest request , String id) {
 		return prefix+"/employee_position_form";
 	}
 }

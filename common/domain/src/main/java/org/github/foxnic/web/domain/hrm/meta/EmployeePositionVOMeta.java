@@ -8,8 +8,8 @@ import java.util.List;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-13 15:09:54
- * @sign 88CCF17BE517A38688251C009DF6427F
+ * @since 2021-09-14 21:43:33
+ * @sign CD4886FD5D881E21377FBD8409FC71E5
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -86,14 +86,14 @@ public class EmployeePositionVOMeta extends EmployeePositionMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.hrm.EmployeePositionVO,java.lang.String> SORT_TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.EmployeePositionVO.class ,SORT_TYPE, java.lang.String.class, "排序方式", "", java.lang.String.class, null);
 	
 	/**
-	 * 主键清单 , 用于接收批量主键参数 , 集合类型: LIST , 类型: java.lang.Integer
+	 * 主键清单 , 用于接收批量主键参数 , 集合类型: LIST , 类型: java.lang.String
 	*/
 	public static final String IDS="ids";
 	
 	/**
-	 * 主键清单 , 用于接收批量主键参数 , 集合类型: LIST , 类型: java.lang.Integer
+	 * 主键清单 , 用于接收批量主键参数 , 集合类型: LIST , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.hrm.EmployeePositionVO,java.lang.Integer> IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.EmployeePositionVO.class ,IDS, java.util.List.class, "主键清单", "用于接收批量主键参数", java.lang.Integer.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.EmployeePositionVO,java.lang.String> IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.EmployeePositionVO.class ,IDS, java.util.List.class, "主键清单", "用于接收批量主键参数", java.lang.String.class, null);
 	
 	/**
 	 * 全部属性清单
@@ -190,7 +190,7 @@ public class EmployeePositionVOMeta extends EmployeePositionMeta {
 		 * @param ids 主键清单
 		 * @return 当前对象
 		*/
-		public EmployeePositionVO setIds(List<Integer> ids) {
+		public EmployeePositionVO setIds(List<String> ids) {
 			super.change(IDS,super.getIds(),ids);
 			super.setIds(ids);
 			return this;

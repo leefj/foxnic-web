@@ -37,6 +37,8 @@ function ListPage() {
 			callback: {
 				onRename : onNodeRename,
 				beforeRemove : beforeNodeRemove,
+				beforeDrop: beforeNodeDrop,
+				beforeDrag: beforeNodeDrag,
 				onDrop : onNodeDrop,
 				onClick: onNodeClick
 			},
@@ -84,7 +86,7 @@ function ListPage() {
 				 title: '添加组织'
 				 ,id: "org"
 			 },{
-				 title: '添加岗位'
+				 title: '添加职位'
 				 ,id: "pos"
 			 }]
 			 ,click: function(obj){
@@ -121,7 +123,21 @@ function ListPage() {
 
 
     }
-    
+
+	function beforeNodeDrag(treeId, treeNodes) {
+		if(treeNodes.length!=1) return false;
+		else return true;
+	};
+
+	function beforeNodeDrop(treeId, treeNodes, targetNode, moveType) {
+		//不能将节点拖放至职位节点内
+		if (moveType == "inner" && targetNode.type == "pos") return false;
+		//如果拖放的节点是职位节点，那么不能将这个节点拖放至任意公司或部门节点前
+		if(treeNodes[0].type=="pos") {
+			if (moveType == "prev" && (targetNode.type == "dept" || targetNode.type == "com")) return false;
+		}
+		return true;
+	};
      
     function onNodeDrop(event, treeId, treeNodes, targetNode, moveType) {
  
@@ -129,6 +145,7 @@ function ListPage() {
 		//移动节点
     	if(moveType=="inner" || moveType=="prev" || moveType=="next") { // 调整节点顺序
     		var parentNode=treeNodes[0].getParentNode();
+
 	    	var siblings=null;
 	    	var parentId=null;
 	    	//非根节点
@@ -154,31 +171,36 @@ function ListPage() {
 	    		}
 	    	}
 	    	for (var i = 0; i < siblings.length; i++) {
-				ids.push(siblings[i].id);
+				ids.push(siblings[i].id+","+siblings[i].type);
 			}
-    		saveHierarchy(ids,parentId);
+    		saveHierarchy(ids,parentId,parentNode);
     	}  else {
     		debugger;
     	}
     }
     
-    function saveHierarchy(ids,parentId) {
+    function saveHierarchy(ids,parentId,parentNode) {
     	admin.request(moduleURL+"/save-hierarchy",{"ids":ids,parentId:parentId},function(r) {
 			if(r.success) {
 				admin.toast().success("已调整",{time:1000,position:"right-bottom"});
 			} else {
 				admin.toast().error("调整失败",{time:1000,position:"right-bottom"});
 			}
+			//menuTree.reAsyncChildNodes(parentNode,"refresh",true);
 		});
     }
   
     function beforeNodeRemove(treeId, treeNode) {
     	//debugger;
-		layer.confirm('确定要删除['+treeNode.name+']菜单吗?', function(index,a,c,d) {
+		var prefix=moduleURL;
+		if(treeNode.type=="pos") {
+			prefix="/service-hrm/hrm-position";
+		}
+		layer.confirm('确定要删除['+treeNode.name+']吗?', function(index,a,c,d) {
 			layer.close(index);
-			admin.request(moduleURL+"/delete",{id:treeNode.id},function(r) {
+			admin.request(prefix+"/delete",{id:treeNode.id},function(r) {
 				if(r.success) {
-					admin.toast().success("菜单已删除",{time:1000,position:"right-bottom"});
+					admin.toast().success(treeNode.name+"已删除",{time:1000,position:"right-bottom"});
 					menuTree.removeNode(treeNode,false);
 					if(treeNode.parentTId) {
 						menuTree.selectNode({tId:treeNode.parentTId},false,true)
@@ -220,7 +242,17 @@ function ListPage() {
      	childNodes=childNodes.data;
 		if (!childNodes) return null;
 		for (var i=0, l=childNodes.length; i<l; i++) {
-		 
+		 //debugger;
+			 if(childNodes[i].type=="com") {
+				 childNodes[i].iconSkin="icon_com";
+			 }
+			 if(childNodes[i].type=="dept") {
+				 childNodes[i].iconSkin="icon_dept";
+			 }
+			 if(childNodes[i].type=="pos") {
+				 childNodes[i].iconSkin="icon_pos";
+			 }
+
 		}
 		return childNodes;
 	}
@@ -363,14 +395,19 @@ function ListPage() {
         if(nodes && nodes.length>0) {
          	treeNode=nodes[0];
         }
+
+		if(treeNode.type=="pos") {
+			admin.toast().error("创建组织节点错误，请指定上级部门或公司",{time:1000,position:"right-bottom"});
+			return;
+		}
  
         admin.request(moduleURL+"/insert",{parentId:treeNode?treeNode.id:null,name:"新分类"},function(r) {
 			if(r.success) {
-				admin.toast().success("菜单已创建",{time:1000,position:"right-bottom"});
-				//debugger
+				admin.toast().success("组织节点已创建",{time:1000,position:"right-bottom"});
+				// debugger
 				if(treeNode==null) {
-					//debugger;
-					menuTree.addNodes(null,{id:r.data.id,name:r.data.fullName});
+					// debugger;
+					menuTree.addNodes(null,{id:r.data.id,name:r.data.fullName,iconSkin:"icon_dept"});
 					return;
 				}
 				// debugger
@@ -385,7 +422,7 @@ function ListPage() {
 						menuTree.expandNode(treeNode,true,false,true,false);
 					} else {
 						if(treeNode.children && treeNode.children.length>0) {
-							menuTree.addNodes(treeNode,{id:r.data.id,name:r.data.name,parentId:r.data.parentId});
+							menuTree.addNodes(treeNode,{id:r.data.id,name:r.data.fullName,parentId:r.data.parentId,iconSkin:"icon_dept"});
 							//menuTree.selectNode(newNode,false);
 						} else {
 							menuTree.reAsyncChildNodes(treeNode,"refresh",true);
@@ -409,13 +446,18 @@ function ListPage() {
 			treeNode=nodes[0];
 		}
 
-		admin.request("/service-hrm/hrm-position/insert",{orgId:treeNode?treeNode.id:null,name:"新岗位"},function(r) {
+		if(treeNode.type=="pos") {
+			admin.toast().error("创建职位错误，请指定上级部门或公司",{time:1000,position:"right-bottom"});
+			return;
+		}
+
+		admin.request("/service-hrm/hrm-position/insert",{orgId:treeNode?treeNode.id:null,name:"新职位"},function(r) {
 			if(r.success) {
-				admin.toast().success("菜单已创建",{time:1000,position:"right-bottom"});
-				//debugger
+				admin.toast().success("职位已创建",{time:1000,position:"right-bottom"});
+				// debugger
 				if(treeNode==null) {
 					//debugger;
-					menuTree.addNodes(null,{id:r.data.id,name:r.data.fullName});
+					menuTree.addNodes(null,{id:r.data.id,name:r.data.fullName,iconSkin:"icon_pos"});
 					return;
 				}
 				// debugger
@@ -430,7 +472,7 @@ function ListPage() {
 						menuTree.expandNode(treeNode,true,false,true,false);
 					} else {
 						if(treeNode.children && treeNode.children.length>0) {
-							menuTree.addNodes(treeNode,{id:r.data.id,name:r.data.name,parentId:r.data.parentId});
+							menuTree.addNodes(treeNode,{id:r.data.id,name:r.data.fullName,parentId:r.data.orgId,iconSkin:"icon_pos"});
 							//menuTree.selectNode(newNode,false);
 						} else {
 							menuTree.reAsyncChildNodes(treeNode,"refresh",true);
@@ -439,7 +481,7 @@ function ListPage() {
 					}
 				}
 			} else {
-				admin.toast().error("新建岗位失败",{time:1000,position:"right-bottom"});
+				admin.toast().error("新建职位失败",{time:1000,position:"right-bottom"});
 			}
 		},"POST",true);
 	};

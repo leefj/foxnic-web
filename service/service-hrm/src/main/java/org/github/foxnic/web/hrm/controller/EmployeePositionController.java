@@ -48,7 +48,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  *  接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-13 19:48:16
+ * @since 2021-09-14 21:43:33
 */
 
 @Api(tags = "hrm_employee_position")
@@ -65,9 +65,9 @@ public class EmployeePositionController extends SuperController {
 	*/
 	@ApiOperation(value = "添加hrm_employee_position")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = EmployeePositionVOMeta.ID , value = "主键" , required = true , dataTypeClass=Integer.class),
-		@ApiImplicitParam(name = EmployeePositionVOMeta.EMPLOYEE_ID , value = "员工ID" , required = true , dataTypeClass=Integer.class),
-		@ApiImplicitParam(name = EmployeePositionVOMeta.POSITION_ID , value = "岗位ID" , required = true , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = EmployeePositionVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
+		@ApiImplicitParam(name = EmployeePositionVOMeta.EMPLOYEE_ID , value = "员工ID" , required = true , dataTypeClass=String.class),
+		@ApiImplicitParam(name = EmployeePositionVOMeta.POSITION_ID , value = "岗位ID" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = EmployeePositionVOMeta.PRIMARY , value = "是否主刚" , required = false , dataTypeClass=Integer.class),
 	})
 	@ApiOperationSupport(order=1)
@@ -87,13 +87,13 @@ public class EmployeePositionController extends SuperController {
 	*/
 	@ApiOperation(value = "删除hrm_employee_position")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = EmployeePositionVOMeta.ID , value = "主键" , required = true , dataTypeClass=Integer.class)
+		@ApiImplicitParam(name = EmployeePositionVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class)
 	})
 	@ApiOperationSupport(order=2)
 	@NotNull(name = EmployeePositionVOMeta.ID)
 	@SentinelResource(value = EmployeePositionServiceProxy.DELETE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(EmployeePositionServiceProxy.DELETE)
-	public Result deleteById(Integer id) {
+	public Result deleteById(String id) {
 		Result result=employeePositionService.deleteByIdLogical(id);
 		return result;
 	}
@@ -111,7 +111,7 @@ public class EmployeePositionController extends SuperController {
 	@NotNull(name = EmployeePositionVOMeta.IDS)
 	@SentinelResource(value = EmployeePositionServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(EmployeePositionServiceProxy.DELETE_BY_IDS)
-	public Result deleteByIds(List<Integer> ids) {
+	public Result deleteByIds(List<String> ids) {
 		Result result=employeePositionService.deleteByIdsLogical(ids);
 		return result;
 	}
@@ -121,9 +121,9 @@ public class EmployeePositionController extends SuperController {
 	*/
 	@ApiOperation(value = "更新hrm_employee_position")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = EmployeePositionVOMeta.ID , value = "主键" , required = true , dataTypeClass=Integer.class),
-		@ApiImplicitParam(name = EmployeePositionVOMeta.EMPLOYEE_ID , value = "员工ID" , required = true , dataTypeClass=Integer.class),
-		@ApiImplicitParam(name = EmployeePositionVOMeta.POSITION_ID , value = "岗位ID" , required = true , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = EmployeePositionVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
+		@ApiImplicitParam(name = EmployeePositionVOMeta.EMPLOYEE_ID , value = "员工ID" , required = true , dataTypeClass=String.class),
+		@ApiImplicitParam(name = EmployeePositionVOMeta.POSITION_ID , value = "岗位ID" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = EmployeePositionVOMeta.PRIMARY , value = "是否主刚" , required = false , dataTypeClass=Integer.class),
 	})
 	@ApiOperationSupport( order=4 , ignoreParameters = { EmployeePositionVOMeta.PAGE_INDEX , EmployeePositionVOMeta.PAGE_SIZE , EmployeePositionVOMeta.SEARCH_FIELD , EmployeePositionVOMeta.FUZZY_FIELD , EmployeePositionVOMeta.SEARCH_VALUE , EmployeePositionVOMeta.SORT_FIELD , EmployeePositionVOMeta.SORT_TYPE , EmployeePositionVOMeta.IDS } ) 
@@ -143,9 +143,9 @@ public class EmployeePositionController extends SuperController {
 	*/
 	@ApiOperation(value = "保存hrm_employee_position")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = EmployeePositionVOMeta.ID , value = "主键" , required = true , dataTypeClass=Integer.class),
-		@ApiImplicitParam(name = EmployeePositionVOMeta.EMPLOYEE_ID , value = "员工ID" , required = true , dataTypeClass=Integer.class),
-		@ApiImplicitParam(name = EmployeePositionVOMeta.POSITION_ID , value = "岗位ID" , required = true , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = EmployeePositionVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
+		@ApiImplicitParam(name = EmployeePositionVOMeta.EMPLOYEE_ID , value = "员工ID" , required = true , dataTypeClass=String.class),
+		@ApiImplicitParam(name = EmployeePositionVOMeta.POSITION_ID , value = "岗位ID" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = EmployeePositionVOMeta.PRIMARY , value = "是否主刚" , required = false , dataTypeClass=Integer.class),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { EmployeePositionVOMeta.PAGE_INDEX , EmployeePositionVOMeta.PAGE_SIZE , EmployeePositionVOMeta.SEARCH_FIELD , EmployeePositionVOMeta.FUZZY_FIELD , EmployeePositionVOMeta.SEARCH_VALUE , EmployeePositionVOMeta.SORT_FIELD , EmployeePositionVOMeta.SORT_TYPE , EmployeePositionVOMeta.IDS } )
@@ -165,13 +165,13 @@ public class EmployeePositionController extends SuperController {
 	*/
 	@ApiOperation(value = "获取hrm_employee_position")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = EmployeePositionVOMeta.ID , value = "主键" , required = true , dataTypeClass=Integer.class , example = "1"),
+		@ApiImplicitParam(name = EmployeePositionVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "1"),
 	})
 	@ApiOperationSupport(order=6)
 	@NotNull(name = EmployeePositionVOMeta.ID)
 	@SentinelResource(value = EmployeePositionServiceProxy.GET_BY_ID , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(EmployeePositionServiceProxy.GET_BY_ID)
-	public Result<EmployeePosition> getById(Integer id) {
+	public Result<EmployeePosition> getById(String id) {
 		Result<EmployeePosition> result=new Result<>();
 		EmployeePosition employeePosition=employeePositionService.getById(id);
 		result.success(true).data(employeePosition);
@@ -191,7 +191,7 @@ public class EmployeePositionController extends SuperController {
 		@NotNull(name = EmployeePositionVOMeta.IDS)
 		@SentinelResource(value = EmployeePositionServiceProxy.GET_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(EmployeePositionServiceProxy.GET_BY_IDS)
-	public Result<List<EmployeePosition>> getByIds(List<Integer> ids) {
+	public Result<List<EmployeePosition>> getByIds(List<String> ids) {
 		Result<List<EmployeePosition>> result=new Result<>();
 		List<EmployeePosition> list=employeePositionService.getByIds(ids);
 		result.success(true).data(list);
@@ -204,9 +204,9 @@ public class EmployeePositionController extends SuperController {
 	*/
 	@ApiOperation(value = "查询hrm_employee_position")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = EmployeePositionVOMeta.ID , value = "主键" , required = true , dataTypeClass=Integer.class),
-		@ApiImplicitParam(name = EmployeePositionVOMeta.EMPLOYEE_ID , value = "员工ID" , required = true , dataTypeClass=Integer.class),
-		@ApiImplicitParam(name = EmployeePositionVOMeta.POSITION_ID , value = "岗位ID" , required = true , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = EmployeePositionVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
+		@ApiImplicitParam(name = EmployeePositionVOMeta.EMPLOYEE_ID , value = "员工ID" , required = true , dataTypeClass=String.class),
+		@ApiImplicitParam(name = EmployeePositionVOMeta.POSITION_ID , value = "岗位ID" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = EmployeePositionVOMeta.PRIMARY , value = "是否主刚" , required = false , dataTypeClass=Integer.class),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { EmployeePositionVOMeta.PAGE_INDEX , EmployeePositionVOMeta.PAGE_SIZE } )
@@ -225,9 +225,9 @@ public class EmployeePositionController extends SuperController {
 	*/
 	@ApiOperation(value = "分页查询hrm_employee_position")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = EmployeePositionVOMeta.ID , value = "主键" , required = true , dataTypeClass=Integer.class),
-		@ApiImplicitParam(name = EmployeePositionVOMeta.EMPLOYEE_ID , value = "员工ID" , required = true , dataTypeClass=Integer.class),
-		@ApiImplicitParam(name = EmployeePositionVOMeta.POSITION_ID , value = "岗位ID" , required = true , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = EmployeePositionVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
+		@ApiImplicitParam(name = EmployeePositionVOMeta.EMPLOYEE_ID , value = "员工ID" , required = true , dataTypeClass=String.class),
+		@ApiImplicitParam(name = EmployeePositionVOMeta.POSITION_ID , value = "岗位ID" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = EmployeePositionVOMeta.PRIMARY , value = "是否主刚" , required = false , dataTypeClass=Integer.class),
 	})
 	@ApiOperationSupport(order=8)

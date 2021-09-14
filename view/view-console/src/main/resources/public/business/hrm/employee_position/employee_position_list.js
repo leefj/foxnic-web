@@ -1,7 +1,7 @@
 /**
  * hrm_employee_position 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-13 19:48:17
+ * @since 2021-09-14 21:43:35
  */
 
 
@@ -73,9 +73,9 @@ function ListPage() {
 				cols: [[
 					{ fixed: 'left',type: 'numbers' },
 					{ fixed: 'left',type:'checkbox' }
-					,{ field: 'id', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('主键') , templet: function (d) { return templet('id',d.id,d);}  }
-					,{ field: 'employeeId', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('员工ID') , templet: function (d) { return templet('employeeId',d.employeeId,d);}  }
-					,{ field: 'positionId', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('岗位ID') , templet: function (d) { return templet('positionId',d.positionId,d);}  }
+					,{ field: 'id', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('主键') , templet: function (d) { return templet('id',d.id,d);}  }
+					,{ field: 'employeeId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('员工ID') , templet: function (d) { return templet('employeeId',d.employeeId,d);}  }
+					,{ field: 'positionId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('岗位ID') , templet: function (d) { return templet('positionId',d.positionId,d);}  }
 					,{ field: 'primary', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('是否主刚') , templet: function (d) { return templet('primary',d.primary,d);}  }
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime),d); }}
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}

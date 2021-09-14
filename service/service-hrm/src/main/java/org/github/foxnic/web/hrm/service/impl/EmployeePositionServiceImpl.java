@@ -36,7 +36,7 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.*;
  *  服务实现
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-13 19:48:16
+ * @since 2021-09-14 21:43:33
 */
 
 
@@ -89,7 +89,7 @@ public class EmployeePositionServiceImpl extends SuperService<EmployeePosition> 
 	 * @param id 主键
 	 * @return 删除是否成功
 	 */
-	public Result deleteByIdPhysical(Integer id) {
+	public Result deleteByIdPhysical(String id) {
 		EmployeePosition employeePosition = new EmployeePosition();
 		if(id==null) return ErrorDesc.failure().message("id 不允许为 null 。");
 		employeePosition.setId(id);
@@ -110,7 +110,7 @@ public class EmployeePositionServiceImpl extends SuperService<EmployeePosition> 
 	 * @param id 主键
 	 * @return 删除是否成功
 	 */
-	public Result deleteByIdLogical(Integer id) {
+	public Result deleteByIdLogical(String id) {
 		EmployeePosition employeePosition = new EmployeePosition();
 		if(id==null) return ErrorDesc.failure().message("id 不允许为 null 。");
 		employeePosition.setId(id);
@@ -158,7 +158,7 @@ public class EmployeePositionServiceImpl extends SuperService<EmployeePosition> 
 	 * @param id 主键
 	 * @return 是否更新成功
 	 */
-	public boolean update(DBField field,Object value , Integer id) {
+	public boolean update(DBField field,Object value , String id) {
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null ");
 		if(!field.table().name().equals(this.table())) throw new IllegalArgumentException("更新的数据表["+field.table().name()+"]与服务对应的数据表["+this.table()+"]不一致");
 		int suc=dao.update(field.table().name()).set(field.name(), value).where().and("id = ? ",id).top().execute();
@@ -172,7 +172,7 @@ public class EmployeePositionServiceImpl extends SuperService<EmployeePosition> 
 	 * @param id 主键
 	 * @return EmployeePosition 数据对象
 	 */
-	public EmployeePosition getById(Integer id) {
+	public EmployeePosition getById(String id) {
 		EmployeePosition sample = new EmployeePosition();
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null ");
 		sample.setId(id);
@@ -180,7 +180,7 @@ public class EmployeePositionServiceImpl extends SuperService<EmployeePosition> 
 	}
 
 	@Override
-	public List<EmployeePosition> getByIds(List<Integer> ids) {
+	public List<EmployeePosition> getByIds(List<String> ids) {
 		return new ArrayList<>(getByIdsMap(ids).values());
 	}
 
@@ -263,7 +263,7 @@ public class EmployeePositionServiceImpl extends SuperService<EmployeePosition> 
      * @param employeeId 员工ID
      * @param positionIds 岗位ID清单
      */
-	public void saveRelation(Integer employeeId,List<Integer> positionIds) {
+	public void saveRelation(String employeeId,List<String> positionIds) {
 		super.saveRelation(HRM_EMPLOYEE_POSITION.EMPLOYEE_ID,employeeId, HRM_EMPLOYEE_POSITION.POSITION_ID,positionIds,true);
 	}
 

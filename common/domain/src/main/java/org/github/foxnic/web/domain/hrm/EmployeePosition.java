@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-13 15:09:54
- * @sign 410AEBCFE231D939025621C93B017CE8
+ * @since 2021-09-14 21:43:33
+ * @sign ED18762E4C112BBA43618A0F314A38BB
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -33,19 +33,19 @@ public class EmployeePosition extends Entity {
 	*/
 	@Id
 	@ApiModelProperty(required = true,value="主键" , notes = "主键")
-	private Integer id;
+	private String id;
 	
 	/**
 	 * 员工ID：员工ID
 	*/
 	@ApiModelProperty(required = true,value="员工ID" , notes = "员工ID")
-	private Integer employeeId;
+	private String employeeId;
 	
 	/**
 	 * 岗位ID：岗位ID
 	*/
 	@ApiModelProperty(required = true,value="岗位ID" , notes = "岗位ID")
-	private Integer positionId;
+	private String positionId;
 	
 	/**
 	 * 是否主刚：是否主刚
@@ -106,7 +106,7 @@ public class EmployeePosition extends Entity {
 	 * 主键
 	 * @return 主键
 	*/
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 	
@@ -115,7 +115,7 @@ public class EmployeePosition extends Entity {
 	 * @param id 主键
 	 * @return 当前对象
 	*/
-	public EmployeePosition setId(Integer id) {
+	public EmployeePosition setId(String id) {
 		this.id=id;
 		return this;
 	}
@@ -125,7 +125,7 @@ public class EmployeePosition extends Entity {
 	 * 员工ID
 	 * @return 员工ID
 	*/
-	public Integer getEmployeeId() {
+	public String getEmployeeId() {
 		return employeeId;
 	}
 	
@@ -134,7 +134,7 @@ public class EmployeePosition extends Entity {
 	 * @param employeeId 员工ID
 	 * @return 当前对象
 	*/
-	public EmployeePosition setEmployeeId(Integer employeeId) {
+	public EmployeePosition setEmployeeId(String employeeId) {
 		this.employeeId=employeeId;
 		return this;
 	}
@@ -144,7 +144,7 @@ public class EmployeePosition extends Entity {
 	 * 岗位ID
 	 * @return 岗位ID
 	*/
-	public Integer getPositionId() {
+	public String getPositionId() {
 		return positionId;
 	}
 	
@@ -153,7 +153,7 @@ public class EmployeePosition extends Entity {
 	 * @param positionId 岗位ID
 	 * @return 当前对象
 	*/
-	public EmployeePosition setPositionId(Integer positionId) {
+	public EmployeePosition setPositionId(String positionId) {
 		this.positionId=positionId;
 		return this;
 	}

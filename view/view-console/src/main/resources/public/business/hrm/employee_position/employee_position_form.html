@@ -2,7 +2,7 @@
 /**
  * hrm_employee_position 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-13 19:48:17
+ * @since 2021-09-14 21:43:35
  */
  -->
  <!DOCTYPE html>
@@ -44,32 +44,26 @@
              <!--开始：group 循环-->
             <div class="layui-col-xs12 form-column">
 
-
                     <div class="layui-form-item" style="display: none">
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('主键')}">主键</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="id" id="id" name="id" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('主键') }" type="text" class="layui-input"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0"   scale="0" />
+                            <input lay-filter="id" id="id" name="id" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('主键') }" type="text" class="layui-input"  />
                         </div>
                     </div>
 
-
-                
-                    <div class="layui-form-item" >
+                                    <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('员工ID')}">员工ID</div><div class="layui-required">*</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="employeeId" id="employeeId" name="employeeId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('员工ID') }" type="text" class="layui-input"    lay-verify="|required"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0"   scale="0" />
+                            <input lay-filter="employeeId" id="employeeId" name="employeeId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('员工ID') }" type="text" class="layui-input"    lay-verify="|required"  />
                         </div>
                     </div>
 
-
-                
-                    <div class="layui-form-item" >
+                                    <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('岗位ID')}">岗位ID</div><div class="layui-required">*</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="positionId" id="positionId" name="positionId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('岗位ID') }" type="text" class="layui-input"    lay-verify="|required"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0"   scale="0" />
+                            <input lay-filter="positionId" id="positionId" name="positionId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('岗位ID') }" type="text" class="layui-input"    lay-verify="|required"  />
                         </div>
                     </div>
-
 
                 
                     <div class="layui-form-item" >
@@ -105,7 +99,7 @@
 
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];
-    var VALIDATE_CONFIG={"positionId":{"labelInForm":"岗位ID","inputType":"number_input","required":true},"employeeId":{"labelInForm":"员工ID","inputType":"number_input","required":true}};
+    var VALIDATE_CONFIG={"positionId":{"labelInForm":"岗位ID","inputType":"text_input","required":true},"employeeId":{"labelInForm":"员工ID","inputType":"text_input","required":true}};
     var AUTH_PREFIX="hrm_employee_position";
 
 

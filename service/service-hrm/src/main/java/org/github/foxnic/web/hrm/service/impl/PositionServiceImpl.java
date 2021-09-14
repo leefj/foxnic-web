@@ -13,6 +13,7 @@ import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.dao.excel.ValidateResult;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.sql.expr.ConditionExpr;
+import com.github.foxnic.sql.expr.OrderBy;
 import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.domain.hrm.Position;
 import org.github.foxnic.web.framework.dao.DBConfigs;
@@ -77,6 +78,8 @@ public class PositionServiceImpl extends SuperService<Position> implements IPosi
 		}
 		position.setCompanyId(SessionUser.getCurrent().getActivatedCompanyId());
 		Result r=super.insert(position);
+		position=this.getById(position.getId());
+		r.data(position);
 		return r;
 	}
 	
@@ -263,7 +266,7 @@ public class PositionServiceImpl extends SuperService<Position> implements IPosi
 
 	@Override
 	public List<Position> queryPositions(String orgId) {
-		return this.queryList("company_id=? and org_id=?",SessionUser.getCurrent().getActivatedCompanyId(), orgId);
+		return this.queryList(new ConditionExpr("company_id=? and org_id=?",SessionUser.getCurrent().getActivatedCompanyId(), orgId), OrderBy.byAscNullsLast("sort"));
 	}
 
 	@Override

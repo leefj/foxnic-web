@@ -2,7 +2,7 @@
 /**
  * hrm_employee_position 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-13 19:48:17
+ * @since 2021-09-14 21:43:35
  */
  -->
  <!DOCTYPE html>
@@ -34,20 +34,20 @@
             <div class="search-input-rows" style="opacity: 0">
                 <!-- 搜索输入区域 -->
                 <div class="layui-form toolbar search-inputs">
-                    <!-- 主键 , id ,typeName=number_input, isHideInSearch=false -->
+                    <!-- 主键 , id ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('主键')}" class="search-label id-label">主键</span><span class="search-colon">:</span></div>
-                            <input id="id" class="layui-input search-input" style="width: 140px" type="text" autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0" min-value="" max-value="" scale="0"/>
+                        <input id="id" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
-                    <!-- 员工ID , employeeId ,typeName=number_input, isHideInSearch=false -->
+                    <!-- 员工ID , employeeId ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('员工ID')}" class="search-label employeeId-label">员工ID</span><span class="search-colon">:</span></div>
-                            <input id="employeeId" class="layui-input search-input" style="width: 140px" type="text" autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0" min-value="" max-value="" scale="0"/>
+                        <input id="employeeId" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
-                    <!-- 岗位ID , positionId ,typeName=number_input, isHideInSearch=false -->
+                    <!-- 岗位ID , positionId ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('岗位ID')}" class="search-label positionId-label">岗位ID</span><span class="search-colon">:</span></div>
-                            <input id="positionId" class="layui-input search-input" style="width: 140px" type="text" autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0" min-value="" max-value="" scale="0"/>
+                        <input id="positionId" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
                     <!-- 是否主刚 , primary ,typeName=number_input, isHideInSearch=false -->
                     <div class="search-unit">
