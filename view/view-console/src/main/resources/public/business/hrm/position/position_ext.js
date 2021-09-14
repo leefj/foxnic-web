@@ -1,7 +1,8 @@
 /**
  * 岗位 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-13 19:48:15
+ * @since 2021-09-14 17:09:53
+ * @version
  */
 
 layui.config({
@@ -17,6 +18,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
     var admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload,laydate= layui.laydate,dropdown=layui.dropdown;
     table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect,foxup=layui.foxnicUpload;
 
+    const moduleURL="/service-hrm/hrm-position";
     //列表页的扩展
     var list={
         /**
@@ -125,10 +127,35 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             return true;
         },
         /**
+         * 数据提交后执行
+         * */
+        afterSubmit:function (param,result) {
+            // debugger
+            console.log("beforeSubmit",param,result);
+            if(!result.success) return;
+            var name=param.fullName;
+            if(param.shortName) {
+                name=param.shortName;
+            }
+            parent.changeNodeName(param.id,name);
+        },
+        loadFormData:function(id) {
+            var task=setTimeout(function(){layer.load(2);},1000);
+            admin.request(moduleURL+"/get-by-id", { id : id }, function (data) {
+                clearTimeout(task);
+                layer.closeAll('loading');
+                if(data.success) {
+                    window.module.fillFormData(data.data);
+                } else {
+                    layer.msg(data.message, {icon: 1, time: 1500});
+                }
+            });
+        },
+        /**
          * 末尾执行
          */
         ending:function() {
-
+            window.module.loadFormData=this.loadFormData;
         }
     }
     //

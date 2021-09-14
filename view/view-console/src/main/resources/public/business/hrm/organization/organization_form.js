@@ -1,8 +1,7 @@
 /**
  * 组织层级 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-13 20:56:47
- * @version
+ * @since 2021-09-14 17:05:20
  */
 
 function FormPage() {
@@ -84,7 +83,9 @@ function FormPage() {
       * 填充表单数据
       */
 	function fillFormData(formData) {
-		//var formData = admin.getTempData('hrm-organization-form-data');
+		if(!formData) {
+			formData = admin.getTempData('hrm-organization-form-data');
+		}
 
 		window.pageExt.form.beforeDataFill && window.pageExt.form.beforeDataFill(formData);
 
@@ -159,22 +160,20 @@ function FormPage() {
 		return fox.formVerify("data-form",data,VALIDATE_CONFIG)
 	}
 
-	function saveForm(data) {
-		var api=moduleURL+"/"+(data.id?"update":"insert");
+	function saveForm(param) {
+		var api=moduleURL+"/"+(param.id?"update":"insert");
 		var task=setTimeout(function(){layer.load(2);},1000);
-		admin.request(api, data, function (ret) {
+		admin.request(api, param, function (data) {
 			clearTimeout(task);
 			layer.closeAll('loading');
-			if (ret.success) {
+			if (data.success) {
 				layer.msg(data.message, {icon: 1, time: 500});
-				var name=data.fullName;
-				if(data.shortName) {
-					name=data.shortName;
-				}
-				parent.changeNodeName(data.id,name);
+				var index=admin.getTempData('hrm-organization-form-data-popup-index');
+				admin.finishPopupCenter(index);
 			} else {
 				layer.msg(data.message, {icon: 2, time: 1000});
 			}
+			window.pageExt.form.afterSubmit && window.pageExt.form.afterSubmit(param,data);
 		}, "POST");
 	}
 
@@ -204,28 +203,12 @@ function FormPage() {
 
     }
 
-    function loadFormData(id) {
-		var task=setTimeout(function(){layer.load(2);},1000);
-		admin.request(moduleURL+"/get-by-id", { id : id }, function (data) {
-			clearTimeout(task);
-			layer.closeAll('loading');
-			if(data.success) {
-				// admin.putTempData('hrm-organization-form-data-form-action', "view",true);
-				//showEditForm(data.data);
-				fillFormData(data.data);
-				$(".model-form-footer").show();
-			} else {
-				layer.msg(data.message, {icon: 1, time: 1500});
-			}
-		});
-	}
-
     window.module={
 		getFormData: getFormData,
 		verifyForm: verifyForm,
 		saveForm: saveForm,
-		adjustPopup: adjustPopup,
-		loadFormData:loadFormData
+		fillFormData: fillFormData,
+		adjustPopup: adjustPopup
 	};
 
 	window.pageExt.form.ending && window.pageExt.form.ending();

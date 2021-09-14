@@ -2,7 +2,7 @@
 /**
  * 岗位 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-13 19:48:15
+ * @since 2021-09-14 17:09:53
  */
  -->
  <!DOCTYPE html>
@@ -34,19 +34,11 @@
             <div class="search-input-rows" style="opacity: 0">
                 <!-- 搜索输入区域 -->
                 <div class="layui-form toolbar search-inputs">
-                    <!-- 主键 , id ,typeName=text_input, isHideInSearch=false -->
+                    <!-- 主键 , id ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 所属组织ID , orgId ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 代码 , code ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('主键')}" class="search-label id-label">主键</span><span class="search-colon">:</span></div>
-                        <input id="id" class="layui-input search-input" style="width: 140px" type="text" />
-                    </div>
-                    <!-- 所属组织ID , orgId ,typeName=text_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('所属组织ID')}" class="search-label orgId-label">所属组织ID</span><span class="search-colon">:</span></div>
-                        <input id="orgId" class="layui-input search-input" style="width: 140px" type="text" />
-                    </div>
-                    <!-- 岗位代码 , code ,typeName=text_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('岗位代码')}" class="search-label code-label">岗位代码</span><span class="search-colon">:</span></div>
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('代码')}" class="search-label code-label">代码</span><span class="search-colon">:</span></div>
                         <input id="code" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
                     <!-- 全称 , fullName ,typeName=text_input, isHideInSearch=false -->
@@ -59,21 +51,13 @@
                         <div class="search-label-div" style=""><span th:text="${lang.translate('简称')}" class="search-label shortName-label">简称</span><span class="search-colon">:</span></div>
                         <input id="shortName" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
-                    <!-- 是否有效 , valid ,typeName=number_input, isHideInSearch=false -->
+                    <!-- 是否有效 , valid ,typeName=logic_switch, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('是否有效')}" class="search-label valid-label">是否有效</span><span class="search-colon">:</span></div>
-                            <input id="valid" class="layui-input search-input" style="width: 140px" type="text" autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0" min-value="" max-value="" scale="0"/>
+                        <div id="valid" data='[{"name":"有效","value":"1"},{"name":"无效","value":"0"}]' style="width:140px"></div>
                     </div>
-                    <!-- 排序 , sort ,typeName=number_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('排序')}" class="search-label sort-label">排序</span><span class="search-colon">:</span></div>
-                            <input id="sort" class="layui-input search-input" style="width: 140px" type="text" autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0" min-value="" max-value="" scale="0"/>
-                    </div>
-                    <!-- 总公司ID , companyId ,typeName=text_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('总公司ID')}" class="search-label companyId-label">总公司ID</span><span class="search-colon">:</span></div>
-                        <input id="companyId" class="layui-input search-input" style="width: 140px" type="text" />
-                    </div>
+                    <!-- 排序 , sort ,typeName=number_input, isHideInSearch=true -->
+                    <!-- 总公司ID , companyId ,typeName=text_input, isHideInSearch=true -->
 
 
                 </div>
@@ -119,6 +103,10 @@
 
 </script>
 
+<!-- 表格状态列 -->
+<script type="text/html" id="cell-tpl-valid">
+    <input type="checkbox" class="switch-valid list-checkbox" lay-filter="cell-tpl-valid" value="{{d.id}}" lay-skin="switch" lay-text="有效|无效&nbsp;"  {{d.valid==1?'checked':''}} data-id="{{d.id}}"/>
+</script>
 
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${pageHelper.getTableColumnWidthConfig('data-table')}]];

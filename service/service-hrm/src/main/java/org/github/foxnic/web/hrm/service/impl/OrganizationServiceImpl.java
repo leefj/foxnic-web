@@ -19,6 +19,7 @@ import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
 import com.github.foxnic.sql.parameter.BatchParamBuilder;
 import org.github.foxnic.web.constants.db.FoxnicWeb.*;
+import org.github.foxnic.web.constants.enums.dict.OrgNodeType;
 import org.github.foxnic.web.domain.hrm.Organization;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.hrm.service.IOrganizationService;
@@ -149,6 +150,14 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 	 * */
 	@Override
 	public Result update(Organization organization , SaveMode mode) {
+		if(StringUtil.isBlank(organization.getCode())) {
+			organization.setCode(null);
+		}
+		//如果上级是部门，那么不允许下级勾选公司
+		Organization parent=this.getById(organization.getParentId());
+		if(OrgNodeType.COM.code().equals(organization.getType()) && (parent!=null && OrgNodeType.DEPT.code().equals(parent.getType()))) {
+			return ErrorDesc.failure().message("部门下不允许设置公司");
+		}
 		Result r=super.update(organization , mode);
 		return r;
 	}
@@ -301,6 +310,8 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 	public List<ZTreeNode> queryChildNodes(String parentId) {
 		RcdSet menus= queryChildOrgs(parentId);
 		List<ZTreeNode> nodes = toZTreeNodeList(menus);
+		List<ZTreeNode> positionNodes=positionService.queryPositionNodes(parentId);
+		nodes.addAll(positionNodes);
 		return nodes;
 	}
 
@@ -324,7 +335,9 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 			if(StringUtil.hasContent(node.getHierarchy())) {
 				node.setDepth(node.getHierarchy().split("/").length);
 			}
-			node.setIsParent(m.getInteger("child_count")>0);
+			int nc=m.getInteger("child_count");
+			int pc=m.getInteger("position_count");
+			node.setIsParent((nc+pc)>0);
 			node.setType(m.getString(HRM_ORGANIZATION.TYPE));
 			nodes.add(node);
 		}
@@ -349,11 +362,11 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 	public int fillHierarchy(boolean reset) {
 		String tenantId=SessionUser.getCurrent().getActivatedTenantId();
 		if(reset) {
-			dao().execute("#reset-catalog-hierarchy",tenantId);
+			dao().execute("#reset-org-hierarchy",tenantId);
 		}
-		int total=dao().execute("#update-catalog-hierarchy-step1",IOrganizationService.ROOT_ID,tenantId);
+		int total=dao().execute("#update-org-hierarchy-step1",IOrganizationService.ROOT_ID,tenantId);
 		while (true) {
-			int i=dao().execute("#update-catalog-hierarchy-step2",tenantId);
+			int i=dao().execute("#update-org-hierarchy-step2",tenantId);
 			total+=i;
 			if(i==0) break;
 		}

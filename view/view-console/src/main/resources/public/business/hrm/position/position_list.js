@@ -1,7 +1,7 @@
 /**
  * 岗位 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-13 19:48:15
+ * @since 2021-09-14 17:09:53
  */
 
 
@@ -73,14 +73,14 @@ function ListPage() {
 				cols: [[
 					{ fixed: 'left',type: 'numbers' },
 					{ fixed: 'left',type:'checkbox' }
-					,{ field: 'id', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('主键') , templet: function (d) { return templet('id',d.id,d);}  }
-					,{ field: 'orgId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('所属组织ID') , templet: function (d) { return templet('orgId',d.orgId,d);}  }
-					,{ field: 'code', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('岗位代码') , templet: function (d) { return templet('code',d.code,d);}  }
+					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('主键') , templet: function (d) { return templet('id',d.id,d);}  }
+					,{ field: 'orgId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('所属组织ID') , templet: function (d) { return templet('orgId',d.orgId,d);}  }
+					,{ field: 'code', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('代码') , templet: function (d) { return templet('code',d.code,d);}  }
 					,{ field: 'fullName', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('全称') , templet: function (d) { return templet('fullName',d.fullName,d);}  }
 					,{ field: 'shortName', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('简称') , templet: function (d) { return templet('shortName',d.shortName,d);}  }
-					,{ field: 'valid', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('是否有效') , templet: function (d) { return templet('valid',d.valid,d);}  }
-					,{ field: 'sort', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('排序') , templet: function (d) { return templet('sort',d.sort,d);}  }
-					,{ field: 'companyId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('总公司ID') , templet: function (d) { return templet('companyId',d.companyId,d);}  }
+					,{ field: 'valid', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('是否有效'), templet: '#cell-tpl-valid'}
+					,{ field: 'sort', align:"right",fixed:false,  hide:true, sort: true, title: fox.translate('排序') , templet: function (d) { return templet('sort',d.sort,d);}  }
+					,{ field: 'companyId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('总公司ID') , templet: function (d) { return templet('companyId',d.companyId,d);}  }
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime),d); }}
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
@@ -100,6 +100,10 @@ function ListPage() {
 					}:false
 				}
 			});
+			//绑定 Switch 切换事件
+			fox.bindSwitchEvent("cell-tpl-valid",moduleURL +'/update','id','valid',function(data,ctx){
+				window.pageExt.list.afterSwitched && window.pageExt.list.afterSwitched("valid",data,ctx);
+			});
 			//绑定排序事件
 			table.on('sort(data-table)', function(obj){
 			  refreshTableData(obj.field,obj.type);
@@ -113,14 +117,10 @@ function ListPage() {
       */
 	function refreshTableData(sortField,sortType) {
 		var value = {};
-		value.id={ value: $("#id").val()};
-		value.orgId={ value: $("#orgId").val()};
 		value.code={ value: $("#code").val()};
 		value.fullName={ value: $("#fullName").val()};
 		value.shortName={ value: $("#shortName").val()};
-		value.valid={ value: $("#valid").val()};
-		value.sort={ value: $("#sort").val()};
-		value.companyId={ value: $("#companyId").val()};
+		value.valid={ value: xmSelect.get("#valid",true).getValue("value"), label:xmSelect.get("#valid",true).getValue("nameStr") };
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value)) return;
 		}
@@ -157,6 +157,12 @@ function ListPage() {
 
 		fox.switchSearchRow(1);
 
+		//渲染 valid 搜索框
+		fox.renderSelectBox({
+			el: "valid",
+			size: "small",
+			radio: false
+		});
 		fox.renderSearchInputs();
 		window.pageExt.list.afterSearchInputReady && window.pageExt.list.afterSearchInputReady();
 	}

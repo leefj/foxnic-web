@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-13 19:48:15
- * @sign 3531C3881F1DCEB32985DE4B9B4921FE
+ * @since 2021-09-14 16:37:01
+ * @sign D80144E27CFD036CB3195545248251FD
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -56,7 +56,7 @@ public class Position extends Entity {
 	/**
 	 * 简称：简称
 	*/
-	@ApiModelProperty(required = true,value="简称" , notes = "简称")
+	@ApiModelProperty(required = false,value="简称" , notes = "简称")
 	private String shortName;
 	
 	/**

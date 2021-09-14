@@ -20,6 +20,7 @@ import io.swagger.annotations.ApiOperation;
 import org.github.foxnic.web.domain.hrm.Organization;
 import org.github.foxnic.web.domain.hrm.OrganizationVO;
 import org.github.foxnic.web.domain.hrm.meta.OrganizationVOMeta;
+import org.github.foxnic.web.domain.pcm.Catalog;
 import org.github.foxnic.web.domain.pcm.CatalogVO;
 import org.github.foxnic.web.domain.pcm.meta.CatalogVOMeta;
 import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
@@ -302,7 +303,24 @@ public class OrganizationController extends SuperController {
 		return result;
 	}
 
-
+	/**
+	 * 变更分类层级关系
+	 */
+	@ApiOperation(value = "变更分类层级关系")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "ids" , value = "ID" , required = true , dataTypeClass=String.class , example = "451739184575545344"),
+			@ApiImplicitParam(name = OrganizationVOMeta.PARENT_ID , value = "新的上级节点ID" , required = true , dataTypeClass=String.class , example = "451739184575545344")
+	})
+	@ApiOperationSupport(order=2)
+	@NotNull(name = "ids")
+	@SentinelResource(value = OrganizationServiceProxy.SAVE_HIERARCHY)
+	@PostMapping(OrganizationServiceProxy.SAVE_HIERARCHY)
+	public Result<Catalog> changeParent(List<String> ids, String parentId) {
+		Result<Catalog> result=new Result<>();
+		Boolean suc=organizationService.saveHierarchy(ids,parentId);
+		result.success(suc);
+		return result;
+	}
 
 	/**
 	 * 导出 Excel

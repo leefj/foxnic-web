@@ -7,7 +7,7 @@
 
 function ListPage() {
         
-	var settings,admin,form,table,layer,util,fox,upload,xmSelect,dropdown;
+	var settings,admin,form,table,layer,util,fox,upload,xmSelect,dropdown,element;
 	//模块基础路径
 	const moduleURL="/service-hrm/hrm-organization";
 	
@@ -20,7 +20,7 @@ function ListPage() {
  
      	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload;
 		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
- 		dropdown=layui.dropdown;
+ 		dropdown=layui.dropdown,element=layui.element;
      	var cfgs = {
      		edit: {
 				enable: true,
@@ -101,8 +101,25 @@ function ListPage() {
     function onNodeClick(event, treeId, treeNode) {
     	if(treeNode==null) return;
     	editingNode=treeNode;
-    	$("#org-basic-info-ifr")[0].contentWindow.module.loadFormData(treeNode.id);
-		//$("#attribute-list-ifr")[0].contentWindow.module.loadAttributes(treeNode.id);
+    	if(editingNode.type=="pos") {
+			$("#org-li").hide();
+			$("#pos-li").show();
+			element.tabChange("rightTab", "pos-li");
+			$("#pos-basic-info-ifr")[0].contentWindow.module.loadFormData(treeNode.id);
+		} else {
+			$("#org-li").show();
+			$("#pos-li").hide();
+			element.tabChange("rightTab", "org-li");
+			if(editingNode.type=="com") {
+				$("#org-li").text("公司信息");
+			}
+			if(editingNode.type=="dept") {
+				$("#org-li").text("部门信息");
+			}
+			$("#org-basic-info-ifr")[0].contentWindow.module.loadFormData(treeNode.id);
+		}
+
+
     }
     
      
@@ -459,6 +476,6 @@ layui.config({
 	base: '/module/'
 }).extend({
 	xmSelect: 'xm-select/xm-select'
-}).use(['form', 'table', 'util', 'settings',  'upload','foxnic','xmSelect',"dropdown"],function() {
+}).use(['form', 'table', 'util', 'settings',  'upload','foxnic','xmSelect',"dropdown","element"],function() {
 	(new ListPage()).init(layui);
 });

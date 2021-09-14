@@ -2,6 +2,7 @@
  * 组织层级 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
  * @since 2021-09-13 20:56:47
+ * @version
  */
 
 layui.config({
@@ -16,6 +17,8 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
 
     var admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload,laydate= layui.laydate,dropdown=layui.dropdown;
     table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect,foxup=layui.foxnicUpload;
+
+    const moduleURL="/service-hrm/hrm-organization";
 
     //列表页的扩展
     var list={
@@ -104,6 +107,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             //var companyId=admin.getTempData("companyId");
             //fox.setSelectBoxUrl("employeeId","/service-hrm/hrm-employee/query-paged-list?companyId="+companyId);
             console.log("form:beforeInit")
+            $("#cancel-button").hide();
         },
         /**
          * 表单数据填充前
@@ -124,11 +128,34 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             console.log("beforeSubmit",data);
             return true;
         },
+        afterSubmit:function (param,result) {
+            // debugger
+            console.log("beforeSubmit",param,result);
+            if(!result.success) return;
+            var name=param.fullName;
+            if(param.shortName) {
+                name=param.shortName;
+            }
+            parent.changeNodeName(param.id,name);
+        },
+
+        loadFormData:function(id) {
+            var task=setTimeout(function(){layer.load(2);},1000);
+            admin.request(moduleURL+"/get-by-id", { id : id }, function (data) {
+                clearTimeout(task);
+                layer.closeAll('loading');
+                if(data.success) {
+                    window.module.fillFormData(data.data);
+                } else {
+                    layer.msg(data.message, {icon: 1, time: 1500});
+                }
+            });
+        },
         /**
          * 末尾执行
          */
         ending:function() {
-
+            window.module.loadFormData=this.loadFormData;
         }
     }
     //

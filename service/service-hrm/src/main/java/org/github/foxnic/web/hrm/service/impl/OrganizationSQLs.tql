@@ -1,19 +1,19 @@
 
 // 查询根节点菜单
 [query-root-orgs]
-select m.*,(select count(1) from hrm_organization cm  where m.id=cm.parent_id and cm.deleted=0) child_count from hrm_organization m
+select m.*,(select count(1) from hrm_organization cm  where m.id=cm.parent_id and cm.deleted=0) child_count,(select count(1) from hrm_position cm  where m.id=cm.org_id and cm.deleted=0) position_count from hrm_organization m
 where m.parent_id='0' and company_id=? and tenant_id=? and m.deleted=0 order by sort asc
 
 // 查询所有子孙节点节点菜单
 [query-descendants-orgs]
-select m.*,(select count(1) from hrm_organization cm  where m.id=cm.parent_id and cm.deleted=0) child_count from hrm_organization m
+select m.*,(select count(1) from hrm_organization cm  where m.id=cm.parent_id and cm.deleted=0) child_count,(select count(1) from hrm_position cm  where m.id=cm.org_id and cm.deleted=0) position_count from hrm_organization m
 where m.deleted=0 and (#(descendants_condition))
 order by parent_id , sort asc
 
 
 // 按上级节点ID查找下级节点
 [query-orgs-by-parent-id]
-select m.*,(select count(1) from hrm_organization cm  where m.id=cm.parent_id and cm.deleted=0) child_count from hrm_organization m
+select m.*,(select count(1) from hrm_organization cm  where m.id=cm.parent_id and cm.deleted=0) child_count,(select count(1) from hrm_position cm  where m.id=cm.org_id and cm.deleted=0) position_count from hrm_organization m
 where m.company_id=? and m.tenant_id=? and m.parent_id=? and m.deleted=0 order by sort asc
 
 

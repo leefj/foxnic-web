@@ -2,8 +2,7 @@
 /**
  * 组织层级 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-13 20:56:47
- * @version
+ * @since 2021-09-14 17:05:20
  */
  -->
  <!DOCTYPE html>
@@ -97,7 +96,8 @@
     </form>
 
 </div>
-<div class="model-form-footer" style="display: none;">
+<div class="model-form-footer">
+    <button class="layui-btn layui-btn-primary" id="cancel-button" lay-filter="cancel-button" type="button" th:text="${lang.translate('取消')}" >取消</button>
     <button th:if="${perm.checkAnyAuth('hrm_organization:create','hrm_organization:update','hrm_organization:save')}" class="layui-btn" style="margin-right: 15px;display: none;"  id="submit-button" lay-filter="submit-button" lay-submit th:text="${lang.translate('保存')}">保存</button>
 </div>
 

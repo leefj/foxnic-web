@@ -1,5 +1,6 @@
 package org.github.foxnic.web.generator.module.hrm;
 
+import com.github.foxnic.generator.builder.view.option.FormOptions;
 import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
@@ -21,13 +22,28 @@ public class HrmPositionConfig extends BaseCodeConfig<HRM_POSITION> {
     @Override
     public void configFields(ViewOptions view) {
 
-        view.form().labelWidth(100);
+        view.form().labelWidth(70);
 
-//        view.field(HRM_COMPANY.ID).basic().hidden();
-//        view.field(HRM_COMPANY.NAME).search().fuzzySearch();
-//        view.field(HRM_COMPANY.VALID).form().logicField().on("有效",1).off("无效",0);
+        view.field(HRM_POSITION.ID).basic().hidden();
+        view.field(HRM_POSITION.ORG_ID).basic().hidden();
+        view.field(HRM_POSITION.VALID)
+                .form().validate().required()
+                .form().logicField().on("有效",1).off("无效",0).defaultValue(true);
+        view.field(HRM_POSITION.COMPANY_ID).basic().hidden();
+
+        view.field(HRM_POSITION.SORT).basic().hidden();
+        view.field(HRM_POSITION.CODE).basic().label("代码");
+
 
     }
+
+    @Override
+    public void configForm(ViewOptions view, FormOptions form) {
+        form.columnLayout(new Object[]{
+                HRM_POSITION.FULL_NAME,HRM_POSITION.SHORT_NAME,HRM_POSITION.CODE,HRM_POSITION.VALID
+        });
+    }
+
     @Override
     public void configOverrides() {
         this.context.overrides()

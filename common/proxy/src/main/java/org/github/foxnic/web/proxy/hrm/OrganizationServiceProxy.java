@@ -90,6 +90,12 @@ public interface OrganizationServiceProxy {
 	 * 搜索节点
 	 */
 	public static final String SEARCH = API_PREFIX + "search";
+
+	/**
+	 * 保存层级关系
+	 */
+	public static final String SAVE_HIERARCHY = API_PREFIX + "save-hierarchy";
+
 	
 	/**
 	 * 分页查询组织层级

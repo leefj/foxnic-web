@@ -144,6 +144,12 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             console.log("beforeSubmit",data);
             return true;
         },
+        /**
+         * 数据提交后执行
+         * */
+        afterSubmitt:function (param,result) {
+            console.log("afterSubmitt",param,result);
+        },
         #for(g:iframes)
         /**
          *  加载 #(g.title)

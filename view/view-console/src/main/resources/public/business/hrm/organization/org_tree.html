@@ -3,6 +3,7 @@
  * 菜单 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
  * @since 2021-06-08 10:22:55
+ * @version
  */
  -->
  <!DOCTYPE html>
@@ -58,20 +59,20 @@
    </div>
    <div class="right-tab" style="margin-left: 8px;margin-right: 8px">
 
-       <div class="layui-tab" lay-filter="docDemoTabBrief" style="margin-top:6px;">
+       <div class="layui-tab" lay-filter="rightTab" style="margin-top:6px;">
            <ul class="layui-tab-title">
-               <li class="layui-this" id="org-tab">部门信息</li>
-               <li id="pos-tab">岗位信息</li>
-               <li id="emp-tab">员工</li>
+               <li   id="org-li" lay-id="org-li" style="display: none">部门信息</li>
+               <li  id="pos-li" lay-id="pos-li" style="display: none">岗位信息</li>
+               <li  id="emp-li" lay-id="emp-li" class="layui-this">员工</li>
            </ul>
            <div class="layui-tab-content" style="height: 100px;">
-               <div class="layui-tab-item layui-show">
+               <div class="layui-tab-item">
                    <iframe style="display: none" id="org-basic-info-ifr" src="/business/hrm/organization/organization_form.html" frameborder=0 width="100%"></iframe>
                </div>
                <div class="layui-tab-item">
-                   <iframe id="pos-basic-info-ifr" src1="/business/pcm/catalog_attribute/catalog_attribute_list.html" frameborder=0 width="100%"></iframe>
+                   <iframe id="pos-basic-info-ifr" src="/business/hrm/position/position_form.html" frameborder=0 width="100%"></iframe>
                </div>
-               <div class="layui-tab-item">
+               <div class="layui-tab-item layui-show">
                    <iframe id="employee-list-ifr" src1="" frameborder=0 width="100%"></iframe>
                </div>
            </div>

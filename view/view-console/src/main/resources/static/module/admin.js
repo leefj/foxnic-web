@@ -121,8 +121,9 @@ layui.define(['settings', 'layer'], function (exports) {
                 layer.close(popupCenterIndex);
                 popupCenterParam=popupCenterParamMap[popupCenterIndex];
             }
-
-            popupCenterParam.finish ? popupCenterParam.finish() : '';
+            if(popupCenterParam) {
+                popupCenterParam.finish ? popupCenterParam.finish() : '';
+            }
         },
         // 关闭中间弹出
         closePopupCenter: function (index) {

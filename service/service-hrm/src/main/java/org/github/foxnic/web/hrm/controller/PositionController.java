@@ -42,6 +42,7 @@ import java.util.Map;
  * </p>
  * @author 李方捷 , leefangjie@qq.com
  * @since 2021-09-13 19:48:15
+ * @version
 */
 
 @Api(tags = "岗位")
@@ -68,9 +69,6 @@ public class PositionController extends SuperController {
 		@ApiImplicitParam(name = PositionVOMeta.COMPANY_ID , value = "总公司ID" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport(order=1)
-	@NotNull(name = PositionVOMeta.ID)
-	@NotNull(name = PositionVOMeta.FULL_NAME)
-	@NotNull(name = PositionVOMeta.SHORT_NAME)
 	@SentinelResource(value = PositionServiceProxy.INSERT , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(PositionServiceProxy.INSERT)
 	public Result insert(PositionVO positionVO) {
