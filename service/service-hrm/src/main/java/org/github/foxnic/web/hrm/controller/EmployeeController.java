@@ -35,6 +35,8 @@ import java.io.InputStream;
 import org.github.foxnic.web.domain.hrm.meta.EmployeeMeta;
 import org.github.foxnic.web.domain.hrm.Person;
 import org.github.foxnic.web.domain.hrm.Company;
+import org.github.foxnic.web.domain.hrm.Position;
+import org.github.foxnic.web.domain.hrm.Organization;
 import io.swagger.annotations.Api;
 import com.github.xiaoymin.knife4j.annotations.ApiSort;
 import io.swagger.annotations.ApiOperation;
@@ -50,7 +52,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 员工表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-15 15:14:05
+ * @since 2021-09-15 16:24:05
 */
 
 @Api(tags = "员工")

@@ -29,7 +29,7 @@ public class OAuthRelationManager extends RelationManager {
 		//路径ID映射到路径资源
 		this.property(MenuMeta.PATH_RESOURCE_PROP)
 			.using(SYS_MENU.PATH_RESOURCE_ID).join(SYS_RESOURZE.ID)
-			.after((menu,res)->{
+			.after((menu,res,m)->{
 				if(!res.isEmpty()) {
 					menu.setPath(res.get(0).getUrl());
 				}
@@ -41,7 +41,7 @@ public class OAuthRelationManager extends RelationManager {
 		this.property(MenuMeta.RESOURCES_PROP)
 			.using(SYS_MENU.ID).join(SYS_MENU_RESOURCE.MENU_ID).condition("version is not null")
 		    .using(SYS_MENU_RESOURCE.RESOURCE_ID).join(SYS_RESOURZE.ID).condition("version is not null")
-			.addOrderBy(SYS_RESOURZE.URL,true,true).after((menu,res)->{
+			.addOrderBy(SYS_RESOURZE.URL,true,true).after((menu,res,m)->{
 				List<String> resIds= CollectorUtil.collectList(res,Resourze::getId);
 				menu.setResourceIds(resIds);
 				return res;
@@ -51,7 +51,7 @@ public class OAuthRelationManager extends RelationManager {
 		 * 上级菜单
 		 * */
 		this.property(MenuMeta.PARENT_PROP)
-		.using(SYS_MENU.PARENT_ID).join(SYS_MENU.ID).after((menu,parents)->{
+		.using(SYS_MENU.PARENT_ID).join(SYS_MENU.ID).after((menu,parents,m)->{
 			return parents;
 		});
 	}
@@ -89,7 +89,7 @@ public class OAuthRelationManager extends RelationManager {
 				.using(SYS_USER.ID).join(SYS_USER_TENANT.USER_ID).condition("valid=1")
 				.addOrderBy(SYS_USER_TENANT.ACTIVATED,false,true)
 				.addOrderBy(SYS_USER_TENANT.SORT,true,true)
-		.after((user,tenants)->{
+		.after((user,tenants,m)->{
 			for (UserTenant tenant : tenants) {
 				//设置当前激活的租户
 				if(user.getActivatedTenant()==null  && tenant.getActivated()==1) {
@@ -116,7 +116,7 @@ public class OAuthRelationManager extends RelationManager {
 		this.property(RoleMeta.MENUS_PROP)
 				.using(SYS_ROLE.ID).join(SYS_ROLE_MENU.MENU_ID)
 				.using(SYS_ROLE_MENU.MENU_ID).join(SYS_ROLE.ID)
-				.after((role,menus)->{
+				.after((role,menus,m)->{
 					role.setMenuIds(CollectorUtil.collectList(menus,Menu::getId));
 					return menus;
 				});

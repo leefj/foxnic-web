@@ -27,7 +27,7 @@ public class CodeExampleRelationManager extends RelationManager {
 		this.property(CodeExampleMeta.ROLES_PROP)
 			.using(SYS_CODE_EXAMPLE.ID).join(SYS_CODE_EXAMPLE_ROLE.EXAMPLE_ID).condition("version > ?",-1)
 			.using(SYS_CODE_EXAMPLE_ROLE.ROLE_ID).join(SYS_ROLE.ID).condition("version > ?",-2)
-			.after((example,roles)->{
+			.after((example,roles,map)->{
 				//统计角色数量
 				example.setRoleCountByAfter(roles.size());
 				return roles;

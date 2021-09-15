@@ -6,6 +6,8 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.HRM_EMPLOYEE;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
+import java.util.List;
+import java.util.ArrayList;
 import javax.persistence.Transient;
 import com.github.foxnic.dao.entity.Entity;
 import java.util.Map;
@@ -16,8 +18,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-13 15:09:52
- * @sign C481A721BC769C887037B0237BAD4A94
+ * @since 2021-09-15 16:24:02
+ * @sign E9E4ED58EC6FE7932872E9C7FD324419
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -136,6 +138,30 @@ public class Employee extends Person {
 	*/
 	@ApiModelProperty(required = false,value="姓名与工号" , notes = "虚拟属性")
 	private String nameAndBadge;
+	
+	/**
+	 * 职位清单：作为员工时，所属的职位清单
+	*/
+	@ApiModelProperty(required = false,value="职位清单" , notes = "作为员工时，所属的职位清单")
+	private List<Position> positions;
+	
+	/**
+	 * 组织清单：作为员工时，所属的组织清单
+	*/
+	@ApiModelProperty(required = false,value="组织清单" , notes = "作为员工时，所属的组织清单")
+	private List<Organization> organizations;
+	
+	/**
+	 * 主职：作为员工时，所属的主职
+	*/
+	@ApiModelProperty(required = false,value="主职" , notes = "作为员工时，所属的主职")
+	private Position primaryPosition;
+	
+	/**
+	 * 主职部门：作为员工时，所属的主职部门
+	*/
+	@ApiModelProperty(required = false,value="主职部门" , notes = "作为员工时，所属的主职部门")
+	private Organization primaryOrganization;
 	
 	/**
 	 * 获得 ID<br>
@@ -476,6 +502,104 @@ public class Employee extends Person {
 	*/
 	public Employee setNameAndBadge(String nameAndBadge) {
 		this.nameAndBadge=nameAndBadge;
+		return this;
+	}
+	
+	/**
+	 * 获得 职位清单<br>
+	 * 作为员工时，所属的职位清单
+	 * @return 职位清单
+	*/
+	public List<Position> getPositions() {
+		return positions;
+	}
+	
+	/**
+	 * 设置 职位清单
+	 * @param positions 职位清单
+	 * @return 当前对象
+	*/
+	public Employee setPositions(List<Position> positions) {
+		this.positions=positions;
+		return this;
+	}
+	
+	/**
+	 * 添加 职位清单
+	 * @param position 职位清单
+	 * @return 当前对象
+	*/
+	public Employee addPosition(Position position) {
+		if(this.positions==null) positions=new ArrayList<>();
+		this.positions.add(position);
+		return this;
+	}
+	
+	/**
+	 * 获得 组织清单<br>
+	 * 作为员工时，所属的组织清单
+	 * @return 组织清单
+	*/
+	public List<Organization> getOrganizations() {
+		return organizations;
+	}
+	
+	/**
+	 * 设置 组织清单
+	 * @param organizations 组织清单
+	 * @return 当前对象
+	*/
+	public Employee setOrganizations(List<Organization> organizations) {
+		this.organizations=organizations;
+		return this;
+	}
+	
+	/**
+	 * 添加 组织清单
+	 * @param organization 组织清单
+	 * @return 当前对象
+	*/
+	public Employee addOrganization(Organization organization) {
+		if(this.organizations==null) organizations=new ArrayList<>();
+		this.organizations.add(organization);
+		return this;
+	}
+	
+	/**
+	 * 获得 主职<br>
+	 * 作为员工时，所属的主职
+	 * @return 主职
+	*/
+	public Position getPrimaryPosition() {
+		return primaryPosition;
+	}
+	
+	/**
+	 * 设置 主职
+	 * @param primaryPosition 主职
+	 * @return 当前对象
+	*/
+	public Employee setPrimaryPosition(Position primaryPosition) {
+		this.primaryPosition=primaryPosition;
+		return this;
+	}
+	
+	/**
+	 * 获得 主职部门<br>
+	 * 作为员工时，所属的主职部门
+	 * @return 主职部门
+	*/
+	public Organization getPrimaryOrganization() {
+		return primaryOrganization;
+	}
+	
+	/**
+	 * 设置 主职部门
+	 * @param primaryOrganization 主职部门
+	 * @return 当前对象
+	*/
+	public Employee setPrimaryOrganization(Organization primaryOrganization) {
+		this.primaryOrganization=primaryOrganization;
 		return this;
 	}
 

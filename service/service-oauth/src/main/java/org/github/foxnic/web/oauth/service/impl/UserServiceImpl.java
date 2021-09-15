@@ -4,6 +4,7 @@ import com.github.foxnic.api.error.CommonError;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.commons.collection.CollectorUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
@@ -23,6 +24,7 @@ import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.domain.oauth.UserVO;
 import org.github.foxnic.web.domain.oauth.meta.MenuMeta;
 import org.github.foxnic.web.domain.oauth.meta.UserMeta;
+import org.github.foxnic.web.domain.system.UserTenant;
 import org.github.foxnic.web.domain.system.meta.TenantMeta;
 import org.github.foxnic.web.domain.system.meta.UserTenantMeta;
 import org.github.foxnic.web.framework.dao.DBConfigs;
@@ -310,6 +312,10 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 			.with(UserMeta.JOINED_TENANTS,UserTenantMeta.EMPLOYEE, EmployeeMeta.PERSON)
 			.execute();
 
+
+		List<UserTenant> uts=user.getJoinedTenants();
+	 	List<Employee> emps= CollectorUtil.collectList(uts,UserTenant::getEmployee);
+	 	dao.join(emps,EmployeeMeta.POSITIONS);
 
 		List<Menu> remMenus=new ArrayList<>();
 		for (Menu menu : user.getMenus()) {

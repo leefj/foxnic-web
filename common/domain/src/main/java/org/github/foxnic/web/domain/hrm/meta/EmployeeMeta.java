@@ -5,13 +5,16 @@ import org.github.foxnic.web.domain.hrm.Employee;
 import java.util.Date;
 import org.github.foxnic.web.domain.hrm.Person;
 import org.github.foxnic.web.domain.hrm.Company;
+import org.github.foxnic.web.domain.hrm.Position;
+import java.util.List;
+import org.github.foxnic.web.domain.hrm.Organization;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-13 15:09:52
- * @sign C481A721BC769C887037B0237BAD4A94
+ * @since 2021-09-15 16:24:02
+ * @sign E9E4ED58EC6FE7932872E9C7FD324419
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -198,9 +201,49 @@ public class EmployeeMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Employee,java.lang.String> NAME_AND_BADGE_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Employee.class ,NAME_AND_BADGE, java.lang.String.class, "姓名与工号", "虚拟属性", java.lang.String.class, null);
 	
 	/**
+	 * 职位清单 , 作为员工时，所属的职位清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.hrm.Position
+	*/
+	public static final String POSITIONS="positions";
+	
+	/**
+	 * 职位清单 , 作为员工时，所属的职位清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.hrm.Position
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Employee,org.github.foxnic.web.domain.hrm.Position> POSITIONS_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Employee.class ,POSITIONS, java.util.List.class, "职位清单", "作为员工时，所属的职位清单", org.github.foxnic.web.domain.hrm.Position.class, null);
+	
+	/**
+	 * 组织清单 , 作为员工时，所属的组织清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.hrm.Organization
+	*/
+	public static final String ORGANIZATIONS="organizations";
+	
+	/**
+	 * 组织清单 , 作为员工时，所属的组织清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.hrm.Organization
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Employee,org.github.foxnic.web.domain.hrm.Organization> ORGANIZATIONS_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Employee.class ,ORGANIZATIONS, java.util.List.class, "组织清单", "作为员工时，所属的组织清单", org.github.foxnic.web.domain.hrm.Organization.class, null);
+	
+	/**
+	 * 主职 , 作为员工时，所属的主职 , 类型: org.github.foxnic.web.domain.hrm.Position
+	*/
+	public static final String PRIMARY_POSITION="primaryPosition";
+	
+	/**
+	 * 主职 , 作为员工时，所属的主职 , 类型: org.github.foxnic.web.domain.hrm.Position
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Employee,org.github.foxnic.web.domain.hrm.Position> PRIMARY_POSITION_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Employee.class ,PRIMARY_POSITION, org.github.foxnic.web.domain.hrm.Position.class, "主职", "作为员工时，所属的主职", org.github.foxnic.web.domain.hrm.Position.class, null);
+	
+	/**
+	 * 主职部门 , 作为员工时，所属的主职部门 , 类型: org.github.foxnic.web.domain.hrm.Organization
+	*/
+	public static final String PRIMARY_ORGANIZATION="primaryOrganization";
+	
+	/**
+	 * 主职部门 , 作为员工时，所属的主职部门 , 类型: org.github.foxnic.web.domain.hrm.Organization
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Employee,org.github.foxnic.web.domain.hrm.Organization> PRIMARY_ORGANIZATION_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Employee.class ,PRIMARY_ORGANIZATION, org.github.foxnic.web.domain.hrm.Organization.class, "主职部门", "作为员工时，所属的主职部门", org.github.foxnic.web.domain.hrm.Organization.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , BADGE , PHONE , PERSON_ID , COMPANY_ID , STATUS , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , PERSON , COMPANY , NAME_AND_BADGE };
+	public static final String[] $PROPS={ ID , BADGE , PHONE , PERSON_ID , COMPANY_ID , STATUS , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , PERSON , COMPANY , NAME_AND_BADGE , POSITIONS , ORGANIZATIONS , PRIMARY_POSITION , PRIMARY_ORGANIZATION };
 	
 	/**
 	 * 代理类
@@ -405,6 +448,50 @@ public class EmployeeMeta {
 		public Employee setNameAndBadge(String nameAndBadge) {
 			super.change(NAME_AND_BADGE,super.getNameAndBadge(),nameAndBadge);
 			super.setNameAndBadge(nameAndBadge);
+			return this;
+		}
+		
+		/**
+		 * 设置 职位清单
+		 * @param positions 职位清单
+		 * @return 当前对象
+		*/
+		public Employee setPositions(List<Position> positions) {
+			super.change(POSITIONS,super.getPositions(),positions);
+			super.setPositions(positions);
+			return this;
+		}
+		
+		/**
+		 * 设置 组织清单
+		 * @param organizations 组织清单
+		 * @return 当前对象
+		*/
+		public Employee setOrganizations(List<Organization> organizations) {
+			super.change(ORGANIZATIONS,super.getOrganizations(),organizations);
+			super.setOrganizations(organizations);
+			return this;
+		}
+		
+		/**
+		 * 设置 主职
+		 * @param primaryPosition 主职
+		 * @return 当前对象
+		*/
+		public Employee setPrimaryPosition(Position primaryPosition) {
+			super.change(PRIMARY_POSITION,super.getPrimaryPosition(),primaryPosition);
+			super.setPrimaryPosition(primaryPosition);
+			return this;
+		}
+		
+		/**
+		 * 设置 主职部门
+		 * @param primaryOrganization 主职部门
+		 * @return 当前对象
+		*/
+		public Employee setPrimaryOrganization(Organization primaryOrganization) {
+			super.change(PRIMARY_ORGANIZATION,super.getPrimaryOrganization(),primaryOrganization);
+			super.setPrimaryOrganization(primaryOrganization);
 			return this;
 		}
 	}
