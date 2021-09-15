@@ -12,7 +12,7 @@ function ListPage() {
 	const moduleURL="/service-hrm/hrm-organization";
 	
 	var menuTree;
-	
+	var activedTab;
 	/**
       * 入口函数，初始化
       */
@@ -76,6 +76,12 @@ function ListPage() {
 		bindSearchEvent();
 
 		renderMenu();
+
+		element.on('tab(rightTab)', function(data) {
+			var el=$(data.elem).find(".layui-show");
+			activedTab=el.attr("type");
+		});
+
      }
 
      function renderMenu() {
@@ -106,12 +112,16 @@ function ListPage() {
     	if(editingNode.type=="pos") {
 			$("#org-li").hide();
 			$("#pos-li").show();
-			element.tabChange("rightTab", "pos-li");
+			if(activedTab!="emp") {
+				element.tabChange("rightTab", "pos-li");
+			}
 			$("#pos-basic-info-ifr")[0].contentWindow.module.loadFormData(treeNode.id);
 		} else {
 			$("#org-li").show();
 			$("#pos-li").hide();
-			element.tabChange("rightTab", "org-li");
+			if(activedTab!="emp") {
+				element.tabChange("rightTab", "org-li");
+			}
 			if(editingNode.type=="com") {
 				$("#org-li").text("公司信息");
 			}
@@ -120,6 +130,8 @@ function ListPage() {
 			}
 			$("#org-basic-info-ifr")[0].contentWindow.module.loadFormData(treeNode.id);
 		}
+    	//
+		$("#employee-list-ifr")[0].contentWindow.module.lockRange(editingNode.type,treeNode.id);
 
 
     }

@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-14 21:43:33
- * @sign ED18762E4C112BBA43618A0F314A38BB
+ * @since 2021-09-15 15:51:33
+ * @sign BF3B5685BBCE444146DEAE6EEA2C4615
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -51,7 +51,7 @@ public class EmployeePosition extends Entity {
 	 * 是否主刚：是否主刚
 	*/
 	@ApiModelProperty(required = false,value="是否主刚" , notes = "是否主刚")
-	private Integer primary;
+	private Integer isPrimary;
 	
 	/**
 	 * 创建人ID：创建人ID
@@ -163,17 +163,17 @@ public class EmployeePosition extends Entity {
 	 * 是否主刚
 	 * @return 是否主刚
 	*/
-	public Integer getPrimary() {
-		return primary;
+	public Integer getIsPrimary() {
+		return isPrimary;
 	}
 	
 	/**
 	 * 设置 是否主刚
-	 * @param primary 是否主刚
+	 * @param isPrimary 是否主刚
 	 * @return 当前对象
 	*/
-	public EmployeePosition setPrimary(Integer primary) {
-		this.primary=primary;
+	public EmployeePosition setIsPrimary(Integer isPrimary) {
+		this.isPrimary=isPrimary;
 		return this;
 	}
 	

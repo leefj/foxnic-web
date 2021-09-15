@@ -1,35 +1,33 @@
 package org.github.foxnic.web.hrm.service.impl;
 
 
-import javax.annotation.Resource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-
-import org.github.foxnic.web.domain.hrm.EmployeePosition;
-import org.github.foxnic.web.domain.hrm.EmployeePositionVO;
-import java.util.List;
-import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.entity.SuperService;
-import com.github.foxnic.dao.spec.DAO;
-import java.lang.reflect.Field;
-import com.github.foxnic.commons.busi.id.IDGenerator;
-import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.dao.data.PagedList;
+import com.github.foxnic.dao.data.Rcd;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.SuperService;
+import com.github.foxnic.dao.excel.ExcelStructure;
 import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.dao.excel.ExcelStructure;
-import java.io.InputStream;
+import com.github.foxnic.dao.spec.DAO;
+import com.github.foxnic.sql.expr.ConditionExpr;
+import com.github.foxnic.sql.expr.OrderBy;
 import com.github.foxnic.sql.meta.DBField;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.meta.DBColumnMeta;
-import com.github.foxnic.sql.expr.Select;
-import java.util.ArrayList;
-import org.github.foxnic.web.hrm.service.IEmployeePositionService;
+import org.github.foxnic.web.constants.db.FoxnicWeb.HRM_EMPLOYEE_POSITION;
+import org.github.foxnic.web.domain.hrm.EmployeePosition;
 import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.github.foxnic.web.hrm.service.IEmployeePositionService;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
+import java.io.InputStream;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Date;
-import org.github.foxnic.web.constants.db.FoxnicWeb.*;
+import java.util.List;
 
 /**
  * <p>
@@ -37,6 +35,7 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.*;
  * </p>
  * @author 李方捷 , leefangjie@qq.com
  * @since 2021-09-14 21:43:33
+ * @version
 */
 
 
@@ -265,6 +264,26 @@ public class EmployeePositionServiceImpl extends SuperService<EmployeePosition> 
      */
 	public void saveRelation(String employeeId,List<String> positionIds) {
 		super.saveRelation(HRM_EMPLOYEE_POSITION.EMPLOYEE_ID,employeeId, HRM_EMPLOYEE_POSITION.POSITION_ID,positionIds,true);
+	}
+
+	@Override
+	@Transactional
+	/**
+	 * 如果没有主岗有找一个最早创建的作为主岗
+	 * */
+	public void activePrimaryPosition(String employeeId) {
+		int ex=dao().queryInteger("select count(1) from "+table()+" where employee_id=? and is_primary=1 and deleted=0",employeeId);
+		if(ex==0) {
+			Rcd ep=dao().queryRecord("select * from "+table()+" where  employee_id=? "+(OrderBy.byAscNullsLast("create_time").getSQL()),employeeId);
+			this.dao().update(this.table()).set("is_primary",1).where("id=?",ep.getString("id")).top().execute();
+		}
+	}
+
+	@Override
+	@Transactional
+	public void activePrimaryPosition(String employeeId,String positionId) {
+		this.dao().update(this.table()).set("is_primary",0).where("employee_id=?",employeeId).top().execute();
+		this.dao().update(this.table()).set("is_primary",1).where("employee_id=? and position_id=?",employeeId,positionId).top().execute();
 	}
 
 }

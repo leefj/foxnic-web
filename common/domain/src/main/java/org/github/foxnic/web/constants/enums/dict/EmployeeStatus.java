@@ -10,27 +10,22 @@ import com.github.foxnic.api.constant.CodeTextEnum;
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
 */
 
-public enum OrderStatus  implements CodeTextEnum {
+public enum EmployeeStatus  implements CodeTextEnum {
 	
 	/**
-	 * 未完成
+	 * 在职
 	*/
-	TODO("todo" , "未完成"),
+	ACTIVE("active" , "在职"),
 	
 	/**
-	 * 已完成
+	 * 离职
 	*/
-	DONE("done" , "已完成"),
-	
-	/**
-	 * 已废弃
-	*/
-	ABADON("abadon" , "已废弃"),
+	LEAVE("leave" , "离职"),
 	;
 	
 	private String code;
 	private String text;
-	private OrderStatus(String code,String text)  {
+	private EmployeeStatus(String code,String text)  {
 		this.code=code;
 		this.text=text;
 	}

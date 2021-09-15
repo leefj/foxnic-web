@@ -6,6 +6,7 @@ import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.commons.busi.id.IDGenerator;
 import com.github.foxnic.commons.collection.CollectorUtil;
+import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.entity.SuperService;
@@ -14,18 +15,20 @@ import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.dao.excel.ValidateResult;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.sql.expr.ConditionExpr;
+import com.github.foxnic.sql.expr.Expr;
 import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.constants.enums.PersonSource;
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
 import org.github.foxnic.web.constants.enums.YesNo;
 import org.github.foxnic.web.domain.hrm.Employee;
+import org.github.foxnic.web.domain.hrm.EmployeePosition;
+import org.github.foxnic.web.domain.hrm.EmployeeVO;
 import org.github.foxnic.web.domain.hrm.Person;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.domain.oauth.UserVO;
 import org.github.foxnic.web.domain.system.UserTenantVO;
 import org.github.foxnic.web.framework.dao.DBConfigs;
-import org.github.foxnic.web.hrm.service.IEmployeeService;
-import org.github.foxnic.web.hrm.service.IPersonService;
+import org.github.foxnic.web.hrm.service.*;
 import org.github.foxnic.web.proxy.oauth.UserServiceProxy;
 import org.github.foxnic.web.proxy.system.UserTenantServiceProxy;
 import org.github.foxnic.web.proxy.utils.SystemConfigProxyUtil;
@@ -68,6 +71,15 @@ public class EmployeeServiceImpl extends SuperService<Employee> implements IEmpl
 	@Autowired 
 	private IPersonService personService;
 
+	@Autowired
+	private IEmployeePositionService employeePositionService;
+
+	@Autowired
+	private IPositionService positionService;
+
+	@Autowired
+	private IOrganizationService organizationService;
+
 	
 	@Override
 	public Object generateId(Field field) {
@@ -106,6 +118,17 @@ public class EmployeeServiceImpl extends SuperService<Employee> implements IEmpl
 			r = super.insert(employee);
 			//如果账户创建成功，则绑定员工与账户的关系
 			if(r.success() && user!=null) {
+				//保存员工岗位关系
+				if(employee instanceof EmployeeVO) {
+					EmployeeVO vo=(EmployeeVO) employee;
+					if(!StringUtil.isBlank(vo.getPositionId())) {
+						EmployeePosition ep=new EmployeePosition();
+						ep.setEmployeeId(employee.getId()).setPositionId(vo.getPositionId());
+						employeePositionService.insert(ep);
+						//激活主岗
+						employeePositionService.activePrimaryPosition(employee.getId());
+					}
+				}
 				UserTenantVO userTenant=new UserTenantVO();
 				userTenant.setUserId(user.getId());
 				userTenant.setOwnerTenantId(SessionUser.getCurrent().getActivatedTenantId());
@@ -285,8 +308,26 @@ public class EmployeeServiceImpl extends SuperService<Employee> implements IEmpl
 	 * */
 	@Override
 	public PagedList<Employee> queryPagedList(Employee sample, int pageSize, int pageIndex) {
-		ConditionExpr expr=new ConditionExpr("company_id=?",SessionUser.getCurrent().getActivatedCompanyId());
-		return super.queryPagedList(sample,expr, pageSize, pageIndex);
+
+		Expr select=new Expr("select * from "+table()+" t ");
+		ConditionExpr expr=new ConditionExpr("t.company_id=?",SessionUser.getCurrent().getActivatedCompanyId());
+		//限定到部门或岗位
+		if(sample instanceof EmployeeVO) {
+			EmployeeVO vo=(EmployeeVO) sample;
+			if(!StringUtil.isBlank(vo.getOrgId())) {
+				expr.and("exists(select 1 from hrm_position p,hrm_employee_position ep where p.id=ep.position_id and ep.employee_id=t.id and ep.deleted=0 and p.deleted=0 and org_id=?)",vo.getOrgId());
+			}
+			if(!StringUtil.isBlank(vo.getPositionId())) {
+				expr.and("exists(select 1 from hrm_employee_position p where p.employee_id=t.id and p.deleted=0 and position_id=?)",vo.getPositionId());
+			}
+			vo.setOrgId(null);
+			vo.setPositionId(null);
+		}
+		ConditionExpr base=this.buildQueryCondition(sample,"t");
+		expr.and(base);
+		select.append(expr.startWithWhere());
+		PagedList<Employee> pagedList=this.dao().queryPagedEntities(Employee.class,pageSize,pageIndex,select);
+		return pagedList;
 	}
 	
 	/**

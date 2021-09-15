@@ -79,13 +79,13 @@
                <li  id="emp-li" lay-id="emp-li" class="layui-this">员工</li>
            </ul>
            <div class="layui-tab-content" style="height: 100px;">
-               <div class="layui-tab-item">
+               <div class="layui-tab-item" type="org">
                    <iframe style="display: none" id="org-basic-info-ifr" src="/business/hrm/organization/organization_form.html" frameborder=0 width="100%"></iframe>
                </div>
-               <div class="layui-tab-item">
+               <div class="layui-tab-item" type="pos">
                    <iframe id="pos-basic-info-ifr" src="/business/hrm/position/position_form.html" frameborder=0 width="100%"></iframe>
                </div>
-               <div class="layui-tab-item layui-show">
+               <div class="layui-tab-item layui-show" type="emp">
                    <iframe id="employee-list-ifr" src="/business/hrm/employee/employee_list.html" frameborder=0 width="100%"></iframe>
                </div>
            </div>

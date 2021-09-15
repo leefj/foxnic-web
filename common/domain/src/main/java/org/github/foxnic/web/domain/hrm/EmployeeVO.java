@@ -9,8 +9,8 @@ import java.util.ArrayList;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-24 15:55:08
- * @sign DC150EB3F215E94B1A00FD5D769767EB
+ * @since 2021-09-15 14:06:17
+ * @sign ADA6898F7417C92D44787EFF995122E7
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -65,6 +65,18 @@ public class EmployeeVO extends Employee {
 	*/
 	@ApiModelProperty(required = false,value="主键清单" , notes = "用于接收批量主键参数")
 	private List<String> ids;
+	
+	/**
+	 * 所属组织ID
+	*/
+	@ApiModelProperty(required = false,value="所属组织ID" , notes = "")
+	private String orgId;
+	
+	/**
+	 * 职位ID
+	*/
+	@ApiModelProperty(required = false,value="职位ID" , notes = "")
+	private String positionId;
 	
 	/**
 	 * 获得 页码<br>
@@ -219,6 +231,42 @@ public class EmployeeVO extends Employee {
 	public EmployeeVO addId(String id) {
 		if(this.ids==null) ids=new ArrayList<>();
 		this.ids.add(id);
+		return this;
+	}
+	
+	/**
+	 * 获得 所属组织ID<br>
+	 * @return 所属组织ID
+	*/
+	public String getOrgId() {
+		return orgId;
+	}
+	
+	/**
+	 * 设置 所属组织ID
+	 * @param orgId 所属组织ID
+	 * @return 当前对象
+	*/
+	public EmployeeVO setOrgId(String orgId) {
+		this.orgId=orgId;
+		return this;
+	}
+	
+	/**
+	 * 获得 职位ID<br>
+	 * @return 职位ID
+	*/
+	public String getPositionId() {
+		return positionId;
+	}
+	
+	/**
+	 * 设置 职位ID
+	 * @param positionId 职位ID
+	 * @return 当前对象
+	*/
+	public EmployeeVO setPositionId(String positionId) {
+		this.positionId=positionId;
 		return this;
 	}
 }

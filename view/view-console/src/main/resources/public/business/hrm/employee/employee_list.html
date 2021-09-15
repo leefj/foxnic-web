@@ -2,7 +2,7 @@
 /**
  * 员工 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-13 19:48:16
+ * @since 2021-09-15 15:14:05
  */
  -->
  <!DOCTYPE html>
@@ -47,10 +47,13 @@
                     </div>
                     <!-- 人员ID , personId ,typeName=text_input, isHideInSearch=true -->
                     <!-- 公司ID , companyId ,typeName=text_input, isHideInSearch=true -->
-                    <!-- 状态 , status ,typeName=text_input, isHideInSearch=false -->
+                    <!-- 状态 , status ,typeName=radio_box, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('状态')}" class="search-label status-label">状态</span><span class="search-colon">:</span></div>
-                        <input id="status" class="layui-input search-input" style="width: 140px" type="text" />
+
+                        <div id="status" th:data="${dict.toArray('employee_status')}" style="width:140px"></div>
+
+
                     </div>
                     <!-- 姓名 , name ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
@@ -106,6 +109,7 @@
 
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${pageHelper.getTableColumnWidthConfig('data-table')}]];
+    var RADIO_STATUS_DATA = [[${dict.toArray('employee_status')}]];
     var AUTH_PREFIX="hrm_employee";
 
 

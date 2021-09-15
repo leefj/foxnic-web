@@ -8,8 +8,8 @@ import java.util.List;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-24 15:55:08
- * @sign DC150EB3F215E94B1A00FD5D769767EB
+ * @since 2021-09-15 14:06:17
+ * @sign ADA6898F7417C92D44787EFF995122E7
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -96,9 +96,29 @@ public class EmployeeVOMeta extends EmployeeMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.hrm.EmployeeVO,java.lang.String> IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.EmployeeVO.class ,IDS, java.util.List.class, "主键清单", "用于接收批量主键参数", java.lang.String.class, null);
 	
 	/**
+	 * 所属组织ID , 类型: java.lang.String
+	*/
+	public static final String ORG_ID="orgId";
+	
+	/**
+	 * 所属组织ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.EmployeeVO,java.lang.String> ORG_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.EmployeeVO.class ,ORG_ID, java.lang.String.class, "所属组织ID", "", java.lang.String.class, null);
+	
+	/**
+	 * 职位ID , 类型: java.lang.String
+	*/
+	public static final String POSITION_ID="positionId";
+	
+	/**
+	 * 职位ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.EmployeeVO,java.lang.String> POSITION_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.EmployeeVO.class ,POSITION_ID, java.lang.String.class, "职位ID", "", java.lang.String.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , SORT_FIELD , SORT_TYPE , IDS };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , SORT_FIELD , SORT_TYPE , IDS , ORG_ID , POSITION_ID };
 	
 	/**
 	 * 代理类
@@ -193,6 +213,28 @@ public class EmployeeVOMeta extends EmployeeMeta {
 		public EmployeeVO setIds(List<String> ids) {
 			super.change(IDS,super.getIds(),ids);
 			super.setIds(ids);
+			return this;
+		}
+		
+		/**
+		 * 设置 所属组织ID
+		 * @param orgId 所属组织ID
+		 * @return 当前对象
+		*/
+		public EmployeeVO setOrgId(String orgId) {
+			super.change(ORG_ID,super.getOrgId(),orgId);
+			super.setOrgId(orgId);
+			return this;
+		}
+		
+		/**
+		 * 设置 职位ID
+		 * @param positionId 职位ID
+		 * @return 当前对象
+		*/
+		public EmployeeVO setPositionId(String positionId) {
+			super.change(POSITION_ID,super.getPositionId(),positionId);
+			super.setPositionId(positionId);
 			return this;
 		}
 	}

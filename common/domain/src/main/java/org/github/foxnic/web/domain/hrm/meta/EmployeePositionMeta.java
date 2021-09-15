@@ -8,8 +8,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-14 21:43:33
- * @sign ED18762E4C112BBA43618A0F314A38BB
+ * @since 2021-09-15 15:51:33
+ * @sign BF3B5685BBCE444146DEAE6EEA2C4615
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -48,12 +48,12 @@ public class EmployeePositionMeta {
 	/**
 	 * 是否主刚 , 类型: java.lang.Integer
 	*/
-	public static final String PRIMARY="primary";
+	public static final String IS_PRIMARY="isPrimary";
 	
 	/**
 	 * 是否主刚 , 类型: java.lang.Integer
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.hrm.EmployeePosition,java.lang.Integer> PRIMARY_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.EmployeePosition.class ,PRIMARY, java.lang.Integer.class, "是否主刚", "是否主刚", java.lang.Integer.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.EmployeePosition,java.lang.Integer> IS_PRIMARY_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.EmployeePosition.class ,IS_PRIMARY, java.lang.Integer.class, "是否主刚", "是否主刚", java.lang.Integer.class, null);
 	
 	/**
 	 * 创建人ID , 类型: java.lang.String
@@ -138,7 +138,7 @@ public class EmployeePositionMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , EMPLOYEE_ID , POSITION_ID , PRIMARY , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , EMPLOYEE_ID , POSITION_ID , IS_PRIMARY , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
 	
 	/**
 	 * 代理类
@@ -183,12 +183,12 @@ public class EmployeePositionMeta {
 		
 		/**
 		 * 设置 是否主刚
-		 * @param primary 是否主刚
+		 * @param isPrimary 是否主刚
 		 * @return 当前对象
 		*/
-		public EmployeePosition setPrimary(Integer primary) {
-			super.change(PRIMARY,super.getPrimary(),primary);
-			super.setPrimary(primary);
+		public EmployeePosition setIsPrimary(Integer isPrimary) {
+			super.change(IS_PRIMARY,super.getIsPrimary(),isPrimary);
+			super.setIsPrimary(isPrimary);
 			return this;
 		}
 		

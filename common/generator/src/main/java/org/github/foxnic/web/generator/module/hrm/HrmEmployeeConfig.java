@@ -9,6 +9,8 @@ import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.HRM_EMPLOYEE;
+import org.github.foxnic.web.constants.enums.DictEnum;
+import org.github.foxnic.web.constants.enums.dict.EmployeeStatus;
 import org.github.foxnic.web.domain.hrm.Company;
 import org.github.foxnic.web.domain.hrm.Person;
 import org.github.foxnic.web.domain.hrm.meta.EmployeeMeta;
@@ -28,6 +30,9 @@ public class HrmEmployeeConfig extends BaseCodeConfig<HRM_EMPLOYEE> {
         poType.addSimpleProperty( Person.class, "person","对应的人员信息", "对应的人员信息");
         poType.addSimpleProperty( Company.class, "company","所属公司", "所属公司");
         poType.addSimpleProperty( String.class, "nameAndBadge","姓名与工号", "虚拟属性");
+        //
+        voType.addSimpleProperty(String.class, "orgId","所属组织ID","");
+        voType.addSimpleProperty(String.class, "positionId","职位ID","");
     }
 
     @Override
@@ -70,14 +75,23 @@ public class HrmEmployeeConfig extends BaseCodeConfig<HRM_EMPLOYEE> {
                 .form().validate().required().identity()
         ;
 
-
+        view.field(HRM_EMPLOYEE.STATUS)
+                .form().radioBox().dict(DictEnum.EMPLOYEE_STATUS).defaultValue(EmployeeStatus.ACTIVE)
+                .form().validate().required()
+        ;
 
     }
 
     @Override
     public void configForm(ViewOptions view, FormOptions form) {
         form.labelWidth(80);
-        view.formWindow().bottomSpace(200);
+        form.columnLayout(new Object[] {
+                PersonMeta.NAME,
+                HRM_EMPLOYEE.BADGE,
+                HRM_EMPLOYEE.STATUS,
+                HRM_EMPLOYEE.PHONE,
+                PersonMeta.IDENTITY
+        });
     }
 
     @Override

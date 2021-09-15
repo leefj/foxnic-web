@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2021-09-14 21:43:07
+ * @since 2021-09-15 15:51:08
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -209,7 +209,7 @@ public class FoxnicWeb {
 		/**
 		 * 是否主刚
 		*/
-		public static final DBField PRIMARY = new DBField(DBDataType.INTEGER , "primary","primary","是否主刚","是否主刚",false,false,true);
+		public static final DBField IS_PRIMARY = new DBField(DBDataType.INTEGER , "is_primary","isPrimary","是否主刚","是否主刚",false,false,true);
 		
 		/**
 		 * 创建人ID
@@ -252,7 +252,7 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
 		public HRM_EMPLOYEE_POSITION() {
-			this.init($NAME,"" , ID , EMPLOYEE_ID , POSITION_ID , PRIMARY , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"" , ID , EMPLOYEE_ID , POSITION_ID , IS_PRIMARY , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final HRM_EMPLOYEE_POSITION $TABLE=new HRM_EMPLOYEE_POSITION();
 	}

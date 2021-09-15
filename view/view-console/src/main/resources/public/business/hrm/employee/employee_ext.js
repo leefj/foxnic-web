@@ -18,6 +18,8 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
     var admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload,laydate= layui.laydate,dropdown=layui.dropdown;
     table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect,foxup=layui.foxnicUpload;
 
+    var lockedType, lockedId;
+
     //列表页的扩展
     var list={
         /**
@@ -28,10 +30,30 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
         },
         /**
          * 查询前调用
+         * @param conditions 复合查询条件
+         * @param param 请求参数
          * */
-        beforeQuery:function (conditions) {
-            console.log('beforeQuery',conditions);
+        beforeQuery:function (conditions,param,location) {
+            //debugger
+            console.log('beforeQuery',conditions,param);
+            if(lockedType=="pos") {
+                param.positionId=lockedId;
+            }
+            if(lockedType=="com" || lockedType=="dept") {
+                param.orgId=lockedId;
+            }
             return true;
+        },
+        afterQuery:function (){
+            if(!lockedType) {
+                fox.disableButton($("#add-button"),true);
+            }
+            if(lockedType=="dept" || lockedType=="com") {
+                fox.disableButton($("#add-button"),true);
+            }
+            if(lockedType=="pos") {
+                fox.disableButton($("#add-button"),false);
+            }
         },
         /**
          * 在新建或编辑窗口打开前调用，若返回 false 则不继续执行后续操作
@@ -73,8 +95,20 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
                 }
             }, "POST");
         },
-        other:function(){
-
+        lockRange:function (type,id) {
+            lockedType=type;
+            lockedId=id;
+            admin.putTempData("lockedPositionId",null,true);
+            if(lockedType=="pos") {
+                admin.putTempData("lockedPositionId",lockedId,true);
+            }
+            window.module.refreshTableData();
+        },
+        /**
+         * 末尾执行
+         */
+        ending:function() {
+            window.module.lockRange=this.lockRange;
         }
     }
 
@@ -106,10 +140,14 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * */
         beforeSubmit:function (data) {
             console.log("beforeSubmit",data);
+            debugger;
+            data.positionId= admin.getTempData("lockedPositionId");;
             return true;
         },
-
-        other:function(){
+        /**
+         * 末尾执行
+         */
+        ending:function() {
 
         }
     }
