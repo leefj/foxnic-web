@@ -8,8 +8,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-23 11:01:27
- * @sign E24C1D90784E34F0E7FA203F34888F20
+ * @since 2021-09-15 21:04:09
+ * @sign 2274B271EF242228DD5E8955910ACAFD
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -136,9 +136,79 @@ public class CodeExampleCarMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.system.CodeExampleCar,java.util.Date> DELETE_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.system.CodeExampleCar.class ,DELETE_TIME, java.util.Date.class, "删除时间", "删除时间", java.util.Date.class, null);
 	
 	/**
+	 * 职位单选 , 类型: java.lang.String
+	*/
+	public static final String POSITION_ID="positionId";
+	
+	/**
+	 * 职位单选 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.CodeExampleCar,java.lang.String> POSITION_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.system.CodeExampleCar.class ,POSITION_ID, java.lang.String.class, "职位单选", "职位单选", java.lang.String.class, null);
+	
+	/**
+	 * 组织单选 , 类型: java.lang.String
+	*/
+	public static final String ORG_ID="orgId";
+	
+	/**
+	 * 组织单选 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.CodeExampleCar,java.lang.String> ORG_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.system.CodeExampleCar.class ,ORG_ID, java.lang.String.class, "组织单选", "组织单选", java.lang.String.class, null);
+	
+	/**
+	 * 员工单选 , 类型: java.lang.String
+	*/
+	public static final String EMP_ID="empId";
+	
+	/**
+	 * 员工单选 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.CodeExampleCar,java.lang.String> EMP_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.system.CodeExampleCar.class ,EMP_ID, java.lang.String.class, "员工单选", "员工单选", java.lang.String.class, null);
+	
+	/**
+	 * 职位单选 , 类型: java.lang.String
+	*/
+	public static final String POSITION_IDS="positionIds";
+	
+	/**
+	 * 职位单选 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.CodeExampleCar,java.lang.String> POSITION_IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.system.CodeExampleCar.class ,POSITION_IDS, java.lang.String.class, "职位单选", "职位单选", java.lang.String.class, null);
+	
+	/**
+	 * 组织单选 , 类型: java.lang.String
+	*/
+	public static final String ORG_IDS="orgIds";
+	
+	/**
+	 * 组织单选 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.CodeExampleCar,java.lang.String> ORG_IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.system.CodeExampleCar.class ,ORG_IDS, java.lang.String.class, "组织单选", "组织单选", java.lang.String.class, null);
+	
+	/**
+	 * 员工单选 , 类型: java.lang.String
+	*/
+	public static final String EMP_IDS="empIds";
+	
+	/**
+	 * 员工单选 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.CodeExampleCar,java.lang.String> EMP_IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.system.CodeExampleCar.class ,EMP_IDS, java.lang.String.class, "员工单选", "员工单选", java.lang.String.class, null);
+	
+	/**
+	 * 员工下拉 , 类型: java.lang.String
+	*/
+	public static final String SELECT_EMP_ID="selectEmpId";
+	
+	/**
+	 * 员工下拉 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.CodeExampleCar,java.lang.String> SELECT_EMP_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.system.CodeExampleCar.class ,SELECT_EMP_ID, java.lang.String.class, "员工下拉", "员工下拉", java.lang.String.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , EXAMPLE_ID , PLATE_NUMBER , COLOR , VERSION , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME };
+	public static final String[] $PROPS={ ID , EXAMPLE_ID , PLATE_NUMBER , COLOR , VERSION , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , POSITION_ID , ORG_ID , EMP_ID , POSITION_IDS , ORG_IDS , EMP_IDS , SELECT_EMP_ID };
 	
 	/**
 	 * 代理类
@@ -277,6 +347,83 @@ public class CodeExampleCarMeta {
 		public CodeExampleCar setDeleteTime(Date deleteTime) {
 			super.change(DELETE_TIME,super.getDeleteTime(),deleteTime);
 			super.setDeleteTime(deleteTime);
+			return this;
+		}
+		
+		/**
+		 * 设置 职位单选
+		 * @param positionId 职位单选
+		 * @return 当前对象
+		*/
+		public CodeExampleCar setPositionId(String positionId) {
+			super.change(POSITION_ID,super.getPositionId(),positionId);
+			super.setPositionId(positionId);
+			return this;
+		}
+		
+		/**
+		 * 设置 组织单选
+		 * @param orgId 组织单选
+		 * @return 当前对象
+		*/
+		public CodeExampleCar setOrgId(String orgId) {
+			super.change(ORG_ID,super.getOrgId(),orgId);
+			super.setOrgId(orgId);
+			return this;
+		}
+		
+		/**
+		 * 设置 员工单选
+		 * @param empId 员工单选
+		 * @return 当前对象
+		*/
+		public CodeExampleCar setEmpId(String empId) {
+			super.change(EMP_ID,super.getEmpId(),empId);
+			super.setEmpId(empId);
+			return this;
+		}
+		
+		/**
+		 * 设置 职位单选
+		 * @param positionIds 职位单选
+		 * @return 当前对象
+		*/
+		public CodeExampleCar setPositionIds(String positionIds) {
+			super.change(POSITION_IDS,super.getPositionIds(),positionIds);
+			super.setPositionIds(positionIds);
+			return this;
+		}
+		
+		/**
+		 * 设置 组织单选
+		 * @param orgIds 组织单选
+		 * @return 当前对象
+		*/
+		public CodeExampleCar setOrgIds(String orgIds) {
+			super.change(ORG_IDS,super.getOrgIds(),orgIds);
+			super.setOrgIds(orgIds);
+			return this;
+		}
+		
+		/**
+		 * 设置 员工单选
+		 * @param empIds 员工单选
+		 * @return 当前对象
+		*/
+		public CodeExampleCar setEmpIds(String empIds) {
+			super.change(EMP_IDS,super.getEmpIds(),empIds);
+			super.setEmpIds(empIds);
+			return this;
+		}
+		
+		/**
+		 * 设置 员工下拉
+		 * @param selectEmpId 员工下拉
+		 * @return 当前对象
+		*/
+		public CodeExampleCar setSelectEmpId(String selectEmpId) {
+			super.change(SELECT_EMP_ID,super.getSelectEmpId(),selectEmpId);
+			super.setSelectEmpId(selectEmpId);
 			return this;
 		}
 	}

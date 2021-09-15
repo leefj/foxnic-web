@@ -372,7 +372,11 @@ function FormPage() {
 		#for(f : fields)
 		#if(f.typeName.equals("button"))
 		$("##(f.varName)-button").click(function(){
+			#if(f.buttonField.action.isFunctionInExt)
 			window.pageExt.form.#(f.buttonField.action.functionName) && window.pageExt.form.#(f.buttonField.action.functionName)(getFormData(),$("##(f.varName)"),$(this));
+			#else
+			#(f.buttonField.action.functionName) && #(f.buttonField.action.functionName)(getFormData(),$("##(f.varName)"),$(this));
+			#end
 		});
 		#end
 		#end

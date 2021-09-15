@@ -1,4 +1,8 @@
-#(authorAndTime)
+/**
+ * 代码生成示例主 列表页 JS 脚本
+ * @author 李方捷 , leefangjie@qq.com
+ * @since 2021-09-15 21:11:33
+ */
 
 layui.config({
     dir: layuiPath,
@@ -85,16 +89,25 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
         moreAction:function (menu,data, it){
             console.log('moreAction',menu,data,it);
         },
-        #for(b:toolButtons)
-        #(b.functionName):function (selected,it){
-            console.log('#(b.functionName)',selected,it);
+        testToolButton1:function (selected,it){
+            console.log('testToolButton1',selected,it);
         },
-        #end
-        #for(b:opColumnButtons)
-        #(b.functionName):function (data){
-            console.log('#(b.functionName)',data);
+        testToolButton2:function (selected,it){
+            console.log('testToolButton2',selected,it);
         },
-        #end
+        doTestAction:function (data){
+            console.log('doTestAction',data);
+        },
+        openTestDialog:function (data,input,button) {
+            console.log("openTestDialog",data,input,button);
+            top.layer.prompt(function(value, index, elem){
+                //设置隐藏域
+                input.val(value);
+                //设置按钮
+                button.text(value);
+                top.layer.close(index);
+            });
+        },
         /**
          * 末尾执行
          */
@@ -136,44 +149,26 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
         /**
          * 数据提交后执行
          * */
-        afterSubmit:function (param,result) {
+        afterSubmitt:function (param,result) {
             console.log("afterSubmitt",param,result);
         },
-        #for(f : fields)
-        #if(f.typeName.equals("button") && f.buttonField.action.isFunctionInExt)
-        #(f.buttonField.action.functionName):function (data,input,button) {
-            console.log("#(f.buttonField.action.functionName)",data,input,button);
-            top.layer.prompt(function(value, index, elem){
-                //设置隐藏域
-                input.val(value);
-                //设置按钮
-                button.text(value);
-                top.layer.close(index);
-            });
-        },
-        #end
-        #end
-
-        #for(g:iframes)
         /**
-         *  加载 #(g.title)
+         *  加载 部署节点
          */
-        #(g.iframeLoadJsFunctionName):function (ifr,win,data) {
+        loadTest1Iframe:function (ifr,win,data) {
             // debugger
-            console.log("#(g.iframeLoadJsFunctionName)",ifr,data);
+            console.log("loadTest1Iframe",ifr,data);
             //设置 iframe 高度
             ifr.height("400px");
             //设置地址
             win.location="/business/system/node/node_list.html?id="+data.id;
         },
-        #end
-        #for(t:tabs)
         /**
-         *  加载 #(t.title)
+         *  加载 学生
          */
-        #(t.iframeLoadJsFunctionName):function (ifr,win,data) {
+        loadStudentIframe:function (ifr,win,data) {
             // debugger
-            console.log("#(t.iframeLoadJsFunctionName)",ifr,data);
+            console.log("loadStudentIframe",ifr,data);
             //设置 iframe 高度
             ifr.parents(".layui-tab").height("460px");
             ifr.height("400px");
@@ -182,7 +177,20 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             //设置地址
             win.location="/business/system/code_example_car/code_example_car_list.html";
         },
-        #end
+        /**
+         *  加载 汽车
+         */
+        loadCarIframe:function (ifr,win,data) {
+            // debugger
+            console.log("loadCarIframe",ifr,data);
+            //设置 iframe 高度
+            ifr.parents(".layui-tab").height("460px");
+            ifr.height("400px");
+            //设置参数
+            admin.putTempData("code_example_id",data.id,true);
+            //设置地址
+            win.location="/business/system/code_example_car/code_example_car_list.html";
+        },
         /**
          * 末尾执行
          */

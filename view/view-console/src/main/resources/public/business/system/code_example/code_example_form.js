@@ -1,7 +1,7 @@
 /**
  * 代码生成示例主 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-08 15:57:10
+ * @since 2021-09-15 21:11:36
  */
 
 function FormPage() {
@@ -216,17 +216,21 @@ function FormPage() {
 	/**
       * 填充表单数据
       */
-	function fillFormData() {
-		var formData = admin.getTempData('sys-code-example-form-data');
+	function fillFormData(formData) {
+		if(!formData) {
+			formData = admin.getTempData('sys-code-example-form-data');
+		}
 
 		window.pageExt.form.beforeDataFill && window.pageExt.form.beforeDataFill(formData);
 
+		var hasData=true;
 		//如果是新建
 		if(!formData || !formData.id) {
 			adjustPopup();
+			hasData=false;
 		}
 		var fm=$('#data-form');
-		if (formData) {
+		if (hasData) {
 			fm[0].reset();
 			form.val('data-form', formData);
 
@@ -282,7 +286,7 @@ function FormPage() {
         },1);
 
         //禁用编辑
-		if(disableModify || disableCreateNew) {
+		if((hasData && disableModify) || (!hasData &&disableCreateNew)) {
 			fox.lockForm($("#data-form"),true);
 			$("#submit-button").hide();
 			$("#cancel-button").css("margin-right","15px")
@@ -330,10 +334,10 @@ function FormPage() {
 		return fox.formVerify("data-form",data,VALIDATE_CONFIG)
 	}
 
-	function saveForm(data) {
-		var api=moduleURL+"/"+(data.id?"update":"insert");
+	function saveForm(param) {
+		var api=moduleURL+"/"+(param.id?"update":"insert");
 		var task=setTimeout(function(){layer.load(2);},1000);
-		admin.request(api, data, function (data) {
+		admin.request(api, param, function (data) {
 			clearTimeout(task);
 			layer.closeAll('loading');
 			if (data.success) {
@@ -343,6 +347,7 @@ function FormPage() {
 			} else {
 				layer.msg(data.message, {icon: 2, time: 1000});
 			}
+			window.pageExt.form.afterSubmit && window.pageExt.form.afterSubmit(param,data);
 		}, "POST");
 	}
 
@@ -379,6 +384,7 @@ function FormPage() {
 		getFormData: getFormData,
 		verifyForm: verifyForm,
 		saveForm: saveForm,
+		fillFormData: fillFormData,
 		adjustPopup: adjustPopup
 	};
 

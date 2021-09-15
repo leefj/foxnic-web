@@ -2,7 +2,7 @@
 /**
  * 代码生成拥有的车辆 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-08 14:58:28
+ * @since 2021-09-15 21:35:50
  */
  -->
  <!DOCTYPE html>
@@ -27,7 +27,6 @@
 <div class="form-container" >
 
     <form id="data-form" lay-filter="data-form" class="layui-form model-form" style="display:none">
-        <input name="id" id="id"  type="hidden"/>
 
 
          <!--开始：group 循环-->
@@ -67,66 +66,53 @@
                         </div>
                     </div>
 
-                
-                    <div class="layui-form-item" style="display: none">
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('数据版本号')}">数据版本号</div><div class="layui-required">*</div></div>
+                                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('职位单选')}">职位单选</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="version" id="version" name="version" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('数据版本号') }" type="text" class="layui-input"    lay-verify="|required"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0"   scale="0" />
+                            <input lay-filter="positionId" id="positionId" name="positionId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('职位单选') }" type="text" class="layui-input"  />
                         </div>
                     </div>
 
-
-                                    <div class="layui-form-item" style="display: none">
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('创建人ID')}">创建人ID</div></div>
+                                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('组织单选')}">组织单选</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="createBy" id="createBy" name="createBy" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('创建人ID') }" type="text" class="layui-input"  />
+                            <input lay-filter="orgId" id="orgId" name="orgId"  type="hidden" class="layui-input"   />
+                            <button id="orgId-button" type="button" class="layui-btn   " > <i class='layui-icon layui-icon-search'></i> <span th:text="${lang.translate('请选择部门')}">按钮文本</span></button>
                         </div>
                     </div>
 
-                
-                    <div class="layui-form-item" style="display: none">
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('创建时间')}">创建时间</div></div>
+                                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('员工单选')}">员工单选</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input input-type="date" lay-filter="createTime" id="createTime" name="createTime"  autocomplete="off"  readonly  th:placeholder="${ lang.translate('请选择') +''+ lang.translate('创建时间') }" type="text" class="layui-input"   />
+                            <input lay-filter="empId" id="empId" name="empId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('员工单选') }" type="text" class="layui-input"  />
                         </div>
                     </div>
 
-                                    <div class="layui-form-item" style="display: none">
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('修改人ID')}">修改人ID</div></div>
+                                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('职位单选')}">职位单选</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="updateBy" id="updateBy" name="updateBy" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('修改人ID') }" type="text" class="layui-input"  />
+                            <input lay-filter="positionIds" id="positionIds" name="positionIds" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('职位单选') }" type="text" class="layui-input"  />
                         </div>
                     </div>
 
-                
-                    <div class="layui-form-item" style="display: none">
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('修改时间')}">修改时间</div></div>
+                                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('组织单选')}">组织单选</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input input-type="date" lay-filter="updateTime" id="updateTime" name="updateTime"  autocomplete="off"  readonly  th:placeholder="${ lang.translate('请选择') +''+ lang.translate('修改时间') }" type="text" class="layui-input"   />
+                            <input lay-filter="orgIds" id="orgIds" name="orgIds" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('组织单选') }" type="text" class="layui-input"  />
                         </div>
                     </div>
 
-                
-                    <div class="layui-form-item" style="display: none">
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('是否已删除')}">是否已删除</div><div class="layui-required">*</div></div>
+                                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('员工单选')}">员工单选</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="deleted" id="deleted" name="deleted" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('是否已删除') }" type="text" class="layui-input"    lay-verify="|required"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0"   scale="0" />
+                            <input lay-filter="empIds" id="empIds" name="empIds" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('员工单选') }" type="text" class="layui-input"  />
                         </div>
                     </div>
 
-
-                                    <div class="layui-form-item" style="display: none">
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('删除人ID')}">删除人ID</div></div>
+                                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('员工下拉')}">员工下拉</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="deleteBy" id="deleteBy" name="deleteBy" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('删除人ID') }" type="text" class="layui-input"  />
-                        </div>
-                    </div>
-
-                
-                    <div class="layui-form-item" style="display: none">
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('删除时间')}">删除时间</div></div>
-                        <div class="layui-input-block layui-input-block-c1">
-                            <input input-type="date" lay-filter="deleteTime" id="deleteTime" name="deleteTime"  autocomplete="off"  readonly  th:placeholder="${ lang.translate('请选择') +''+ lang.translate('删除时间') }" type="text" class="layui-input"   />
+                            <input lay-filter="selectEmpId" id="selectEmpId" name="selectEmpId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('员工下拉') }" type="text" class="layui-input"  />
                         </div>
                     </div>
 

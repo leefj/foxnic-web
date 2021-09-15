@@ -34,7 +34,7 @@ public class OAuthRelationManager extends RelationManager {
 					menu.setPath(res.get(0).getUrl());
 				}
 			return res;
-		});
+		}).fork(128);
 
 
 		//菜单包含的资源清单
@@ -45,7 +45,7 @@ public class OAuthRelationManager extends RelationManager {
 				List<String> resIds= CollectorUtil.collectList(res,Resourze::getId);
 				menu.setResourceIds(resIds);
 				return res;
-		}).fork(32);
+		}).fork(128);
 
 		/**
 		 * 上级菜单
@@ -73,12 +73,12 @@ public class OAuthRelationManager extends RelationManager {
 				.using(SYS_USER.ID).join(SYS_ROLE_USER.USER_ID)
 				.using(SYS_ROLE_USER.ROLE_ID).join(SYS_ROLE_MENU.ROLE_ID)
 				.using(SYS_ROLE_MENU.MENU_ID).join(SYS_MENU.ID)
-				.addOrderBy(SYS_MENU.SORT,true,true);
+				.addOrderBy(SYS_MENU.SORT,true,true).fork(128);
 
 		// 用户 - 角色菜单关系
 		this.property(UserMeta.ROLE_MENUS_PROP)
 				.using(SYS_USER.ID).join(SYS_ROLE_USER.USER_ID)
-				.using(SYS_ROLE_USER.ROLE_ID).join(SYS_ROLE_MENU.ROLE_ID);
+				.using(SYS_ROLE_USER.ROLE_ID).join(SYS_ROLE_MENU.ROLE_ID).fork(128);
 
 		//
 		this.property(SessionOnlineMeta.USER_PROP)
@@ -119,7 +119,7 @@ public class OAuthRelationManager extends RelationManager {
 				.after((role,menus,m)->{
 					role.setMenuIds(CollectorUtil.collectList(menus,Menu::getId));
 					return menus;
-				});
+				}).fork(128);
 	}
 
 }

@@ -21,9 +21,14 @@ public class CodeExampleCarConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE_CAR> {
 
     @Override
     public void configFields(ViewOptions view) {
-        view.field(SYS_CODE_EXAMPLE_STUDENT.ID).basic().hidden();
-        view.field(SYS_CODE_EXAMPLE_STUDENT.EXAMPLE_ID)
+        view.field(SYS_CODE_EXAMPLE_CAR.ID).basic().hidden();
+        view.field(SYS_CODE_EXAMPLE_CAR.EXAMPLE_ID)
                 .basic().hidden();
+
+        view.field(SYS_CODE_EXAMPLE_CAR.ORG_ID)
+                .form().button().chooseOrgNode(true);
+
+
     }
 
     @Override
@@ -33,7 +38,9 @@ public class CodeExampleCarConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE_CAR> {
             .setControllerAndAgent(WriteMode.COVER_EXISTS_FILE) //Rest
             .setPageController(WriteMode.COVER_EXISTS_FILE) //页面控制器
             .setFormPage(WriteMode.COVER_EXISTS_FILE) //表单HTML页
-            .setListPage(WriteMode.COVER_EXISTS_FILE); //列表HTML页
+            .setListPage(WriteMode.COVER_EXISTS_FILE) //列表HTML页
+            .setExtendJsFile(WriteMode.WRITE_TEMP_FILE)
+        ;
     }
 
 }

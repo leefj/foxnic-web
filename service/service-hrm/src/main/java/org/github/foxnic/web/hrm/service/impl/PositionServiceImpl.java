@@ -266,7 +266,7 @@ public class PositionServiceImpl extends SuperService<Position> implements IPosi
 
 	@Override
 	public List<Position> queryPositions(String orgId) {
-		return this.queryList(new ConditionExpr("company_id=? and org_id=?",SessionUser.getCurrent().getActivatedCompanyId(), orgId), OrderBy.byAscNullsLast("sort"));
+		return this.queryList(new ConditionExpr("company_id=? and org_id=? and deleted=0",SessionUser.getCurrent().getActivatedCompanyId(), orgId), OrderBy.byAscNullsLast("sort"));
 	}
 
 	@Override

@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-23 11:01:27
- * @sign E24C1D90784E34F0E7FA203F34888F20
+ * @since 2021-09-15 21:04:09
+ * @sign 2274B271EF242228DD5E8955910ACAFD
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -100,6 +100,48 @@ public class CodeExampleCar extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="删除时间" , notes = "删除时间")
 	private Date deleteTime;
+	
+	/**
+	 * 职位单选：职位单选
+	*/
+	@ApiModelProperty(required = false,value="职位单选" , notes = "职位单选")
+	private String positionId;
+	
+	/**
+	 * 组织单选：组织单选
+	*/
+	@ApiModelProperty(required = false,value="组织单选" , notes = "组织单选")
+	private String orgId;
+	
+	/**
+	 * 员工单选：员工单选
+	*/
+	@ApiModelProperty(required = false,value="员工单选" , notes = "员工单选")
+	private String empId;
+	
+	/**
+	 * 职位单选：职位单选
+	*/
+	@ApiModelProperty(required = false,value="职位单选" , notes = "职位单选")
+	private String positionIds;
+	
+	/**
+	 * 组织单选：组织单选
+	*/
+	@ApiModelProperty(required = false,value="组织单选" , notes = "组织单选")
+	private String orgIds;
+	
+	/**
+	 * 员工单选：员工单选
+	*/
+	@ApiModelProperty(required = false,value="员工单选" , notes = "员工单选")
+	private String empIds;
+	
+	/**
+	 * 员工下拉：员工下拉
+	*/
+	@ApiModelProperty(required = false,value="员工下拉" , notes = "员工下拉")
+	private String selectEmpId;
 	
 	/**
 	 * 获得 主键<br>
@@ -326,6 +368,139 @@ public class CodeExampleCar extends Entity {
 	*/
 	public CodeExampleCar setDeleteTime(Date deleteTime) {
 		this.deleteTime=deleteTime;
+		return this;
+	}
+	
+	/**
+	 * 获得 职位单选<br>
+	 * 职位单选
+	 * @return 职位单选
+	*/
+	public String getPositionId() {
+		return positionId;
+	}
+	
+	/**
+	 * 设置 职位单选
+	 * @param positionId 职位单选
+	 * @return 当前对象
+	*/
+	public CodeExampleCar setPositionId(String positionId) {
+		this.positionId=positionId;
+		return this;
+	}
+	
+	/**
+	 * 获得 组织单选<br>
+	 * 组织单选
+	 * @return 组织单选
+	*/
+	public String getOrgId() {
+		return orgId;
+	}
+	
+	/**
+	 * 设置 组织单选
+	 * @param orgId 组织单选
+	 * @return 当前对象
+	*/
+	public CodeExampleCar setOrgId(String orgId) {
+		this.orgId=orgId;
+		return this;
+	}
+	
+	/**
+	 * 获得 员工单选<br>
+	 * 员工单选
+	 * @return 员工单选
+	*/
+	public String getEmpId() {
+		return empId;
+	}
+	
+	/**
+	 * 设置 员工单选
+	 * @param empId 员工单选
+	 * @return 当前对象
+	*/
+	public CodeExampleCar setEmpId(String empId) {
+		this.empId=empId;
+		return this;
+	}
+	
+	/**
+	 * 获得 职位单选<br>
+	 * 职位单选
+	 * @return 职位单选
+	*/
+	public String getPositionIds() {
+		return positionIds;
+	}
+	
+	/**
+	 * 设置 职位单选
+	 * @param positionIds 职位单选
+	 * @return 当前对象
+	*/
+	public CodeExampleCar setPositionIds(String positionIds) {
+		this.positionIds=positionIds;
+		return this;
+	}
+	
+	/**
+	 * 获得 组织单选<br>
+	 * 组织单选
+	 * @return 组织单选
+	*/
+	public String getOrgIds() {
+		return orgIds;
+	}
+	
+	/**
+	 * 设置 组织单选
+	 * @param orgIds 组织单选
+	 * @return 当前对象
+	*/
+	public CodeExampleCar setOrgIds(String orgIds) {
+		this.orgIds=orgIds;
+		return this;
+	}
+	
+	/**
+	 * 获得 员工单选<br>
+	 * 员工单选
+	 * @return 员工单选
+	*/
+	public String getEmpIds() {
+		return empIds;
+	}
+	
+	/**
+	 * 设置 员工单选
+	 * @param empIds 员工单选
+	 * @return 当前对象
+	*/
+	public CodeExampleCar setEmpIds(String empIds) {
+		this.empIds=empIds;
+		return this;
+	}
+	
+	/**
+	 * 获得 员工下拉<br>
+	 * 员工下拉
+	 * @return 员工下拉
+	*/
+	public String getSelectEmpId() {
+		return selectEmpId;
+	}
+	
+	/**
+	 * 设置 员工下拉
+	 * @param selectEmpId 员工下拉
+	 * @return 当前对象
+	*/
+	public CodeExampleCar setSelectEmpId(String selectEmpId) {
+		this.selectEmpId=selectEmpId;
 		return this;
 	}
 

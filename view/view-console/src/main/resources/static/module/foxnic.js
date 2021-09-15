@@ -1317,6 +1317,17 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 me.adjustSearchElement();
             },16);
         },
+        chooseOrgNode:function (fromData,inputEl,buttonEl,opts){
+
+            var dialogIndex=admin.popupCenter({
+                type:2,
+                id:"menuDialog",
+                title: "请选组织节点",
+                content: '/business/hrm/organization/org_dialog.html',
+                area:["400px","80%"]
+            });
+
+        },
         //表单提交
         submit: function (url, params, method, callback) {
             // debugger

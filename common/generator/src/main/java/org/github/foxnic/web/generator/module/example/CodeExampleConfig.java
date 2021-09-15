@@ -175,7 +175,8 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 				.basic().label("角色数(SQL)")
 				.table().sort(true).alignRight();
 
-		view.field(SYS_CODE_EXAMPLE.BUTTON_INPUT).button().action("点我","openTestDialog","layui-btn-warm","<i class='layui-icon layui-icon-search'></i>");
+		view.field(SYS_CODE_EXAMPLE.BUTTON_INPUT).form()
+				.button().action("点我!","openTestDialog","layui-btn-warm","<i class='layui-icon layui-icon-search'></i>");
 
 		//禁用列
 		view.field(CodeExampleMeta.CREATE_TIME).table().disable(true);

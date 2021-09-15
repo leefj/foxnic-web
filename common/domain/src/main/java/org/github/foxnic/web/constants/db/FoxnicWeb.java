@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2021-09-15 15:51:08
+ * @since 2021-09-15 20:57:46
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -1308,8 +1308,43 @@ public class FoxnicWeb {
 		*/
 		public static final DBField DELETE_TIME = new DBField(DBDataType.DATE , "delete_time","deleteTime","删除时间","删除时间",false,false,true);
 		
+		/**
+		 * 职位单选
+		*/
+		public static final DBField POSITION_ID = new DBField(DBDataType.STRING , "position_id","positionId","职位单选","职位单选",false,false,true);
+		
+		/**
+		 * 组织单选
+		*/
+		public static final DBField ORG_ID = new DBField(DBDataType.STRING , "org_id","orgId","组织单选","组织单选",false,false,true);
+		
+		/**
+		 * 员工单选
+		*/
+		public static final DBField EMP_ID = new DBField(DBDataType.STRING , "emp_id","empId","员工单选","员工单选",false,false,true);
+		
+		/**
+		 * 职位单选
+		*/
+		public static final DBField POSITION_IDS = new DBField(DBDataType.STRING , "position_ids","positionIds","职位单选","职位单选",false,false,true);
+		
+		/**
+		 * 组织单选
+		*/
+		public static final DBField ORG_IDS = new DBField(DBDataType.STRING , "org_ids","orgIds","组织单选","组织单选",false,false,true);
+		
+		/**
+		 * 员工单选
+		*/
+		public static final DBField EMP_IDS = new DBField(DBDataType.STRING , "emp_ids","empIds","员工单选","员工单选",false,false,true);
+		
+		/**
+		 * 员工下拉
+		*/
+		public static final DBField SELECT_EMP_ID = new DBField(DBDataType.STRING , "select_emp_id","selectEmpId","员工下拉","员工下拉",false,false,true);
+		
 		public SYS_CODE_EXAMPLE_CAR() {
-			this.init($NAME,"代码生成拥有的车辆" , ID , EXAMPLE_ID , PLATE_NUMBER , COLOR , VERSION , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME);
+			this.init($NAME,"代码生成拥有的车辆" , ID , EXAMPLE_ID , PLATE_NUMBER , COLOR , VERSION , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , POSITION_ID , ORG_ID , EMP_ID , POSITION_IDS , ORG_IDS , EMP_IDS , SELECT_EMP_ID);
 		}
 		public static final SYS_CODE_EXAMPLE_CAR $TABLE=new SYS_CODE_EXAMPLE_CAR();
 	}

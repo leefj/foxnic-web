@@ -2,7 +2,7 @@
 /**
  * 代码生成拥有的车辆 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-08 14:58:28
+ * @since 2021-09-15 21:35:50
  */
  -->
  <!DOCTYPE html>
@@ -48,6 +48,41 @@
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('颜色')}" class="search-label color-label">颜色</span><span class="search-colon">:</span></div>
                         <input id="color" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 职位单选 , positionId ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('职位单选')}" class="search-label positionId-label">职位单选</span><span class="search-colon">:</span></div>
+                        <input id="positionId" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 组织单选 , orgId ,typeName=button, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('组织单选')}" class="search-label orgId-label">组织单选</span><span class="search-colon">:</span></div>
+                        <input id="orgId" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 员工单选 , empId ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('员工单选')}" class="search-label empId-label">员工单选</span><span class="search-colon">:</span></div>
+                        <input id="empId" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 职位单选 , positionIds ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('职位单选')}" class="search-label positionIds-label">职位单选</span><span class="search-colon">:</span></div>
+                        <input id="positionIds" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 组织单选 , orgIds ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('组织单选')}" class="search-label orgIds-label">组织单选</span><span class="search-colon">:</span></div>
+                        <input id="orgIds" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 员工单选 , empIds ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('员工单选')}" class="search-label empIds-label">员工单选</span><span class="search-colon">:</span></div>
+                        <input id="empIds" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 员工下拉 , selectEmpId ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('员工下拉')}" class="search-label selectEmpId-label">员工下拉</span><span class="search-colon">:</span></div>
+                        <input id="selectEmpId" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
 
 

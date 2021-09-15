@@ -155,7 +155,7 @@ function FormPage() {
 				id:"menuDialog",
 				title: "请选择菜单",
 				content: '/business/oauth/menu/menu_dialog.html'+(roleId?('?roleId='+roleId):""),
-				area:["300px","80%"]
+				area:["400px","80%"]
 			});
 
 		}
