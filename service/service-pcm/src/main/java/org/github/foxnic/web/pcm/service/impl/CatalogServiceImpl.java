@@ -298,7 +298,10 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 	}
 
 	@Override
-	public List<ZTreeNode> queryRootNotes() {
+	public List<ZTreeNode> queryRootNotes(String rootId) {
+		if(StringUtil.isBlank(rootId)) {
+			rootId=ICatalogService.ROOT_ID;
+		}
 		RcdSet menus= queryChildCatalogs(ICatalogService.ROOT_ID);
 		List<ZTreeNode> nodes = toZTreeNodeList(menus);
 		return nodes;

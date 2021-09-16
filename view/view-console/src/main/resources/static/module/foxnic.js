@@ -1318,7 +1318,10 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             },16);
         },
         chooseOrgNode:function (fromData,inputEl,buttonEl,opts){
-
+            if(!opts) opts={};
+            var value=inputEl.val();
+            admin.putTempData("org-dialog-value",value,true);
+            admin.putTempData("org-dialog-options",opts,true);
             var dialogIndex=admin.popupCenter({
                 type:2,
                 id:"menuDialog",
@@ -1326,7 +1329,19 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 content: '/business/hrm/organization/org_dialog.html',
                 area:["400px","80%"]
             });
-
+            admin.putTempData("org-dialog-index",dialogIndex,true);
+            window.chooseOrgNodeCallbackEvent=function(ids,nodes) {
+                inputEl.val(ids.join(","));
+                console.log("ids="+ids.join(","))
+                var names=[];
+                for (var i = 0; i < nodes.length; i++) {
+                    names.push(nodes[i].name);
+                }
+                buttonEl.find("span").text(names.join(","));
+                if(opts.callback) {
+                    opts.callback(ids,nodes,fromData,inputEl,buttonEl);
+                }
+            }
         },
         //表单提交
         submit: function (url, params, method, callback) {

@@ -1,5 +1,7 @@
 package org.github.foxnic.web.generator.module.hrm;
 
+import com.github.foxnic.generator.builder.model.PoClassFile;
+import com.github.foxnic.generator.builder.model.VoClassFile;
 import com.github.foxnic.generator.builder.view.option.FormOptions;
 import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
@@ -14,6 +16,14 @@ public class HrmOrgnizationConfig extends BaseCodeConfig<HRM_ORGANIZATION> {
         super(PREFIX_HRM, HRM_ORGANIZATION.$TABLE,"hrm_", 4);
     }
 
+
+    @Override
+    public void configModel(PoClassFile poType, VoClassFile voType) {
+
+        voType.addSimpleProperty(Integer.class,"isLoadAllDescendants","是否加载所有子孙节点","1：是；0：否");
+        voType.addSimpleProperty(String.class,"rootId","根节点ID","根节点ID");
+
+    }
 
     @Override
     public void configSearch(ViewOptions view, SearchAreaOptions search) {

@@ -66,6 +66,16 @@
        	<ul id="menu-tree" class="ztree"></ul>
        </div>
    </div>
+     <div class="layui-form-item model-form-footer" style="border-top: 1px #eee solid;margin-bottom:0px;padding-top: 8px;padding-left: 8px;padding-right:0px">
+         <form class="layui-form layui-form-pane" action="">
+             <!--
+             <div style="float: left">
+                 <input type="checkbox" lay-filter="check-mode" id="check-mode" title="关联选择" lay-skin="primary" checked >
+             </div>
+             -->
+             <button class="layui-btn"  id="sure-button" lay-filter="sure-button" lay-submit th:text="${lang.translate('确定')}"  style="margin-right: 24px">确定</button>
+         </form>
+     </div>
  </div>
 
 

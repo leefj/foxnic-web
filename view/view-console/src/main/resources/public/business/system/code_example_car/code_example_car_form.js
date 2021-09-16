@@ -1,7 +1,7 @@
 /**
  * 代码生成拥有的车辆 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-15 21:35:50
+ * @since 2021-09-16 17:31:57
  */
 
 function FormPage() {
@@ -195,8 +195,21 @@ function FormPage() {
 	        return false;
 	    });
 
+		// 请选择职位对话框
+		$("#positionId-button").click(function(){
+			fox.chooseOrgNode && fox.chooseOrgNode(getFormData(),$("#positionId"),$(this),{
+				single:true,
+				targetType:"pos",
+				callback:function(ids,nodes,fromData,inputEl,buttonEl){}
+			});
+		});
+		// 请选择部门对话框
 		$("#orgId-button").click(function(){
-			fox.chooseOrgNode && fox.chooseOrgNode(getFormData(),$("#orgId"),$(this));
+			fox.chooseOrgNode && fox.chooseOrgNode(getFormData(),$("#orgId"),$(this),{
+				single:true,
+				targetType:"org",
+				callback:function(ids,nodes,fromData,inputEl,buttonEl){}
+			});
 		});
 
 	    //关闭窗口

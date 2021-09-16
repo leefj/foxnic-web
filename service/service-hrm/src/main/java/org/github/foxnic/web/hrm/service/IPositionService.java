@@ -16,6 +16,7 @@ import org.github.foxnic.web.misc.ztree.ZTreeNode;
 
 import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -288,5 +289,7 @@ public interface IPositionService extends ISuperService<Position> {
 
 	List<Position> queryPositions(String orgId);
 
-	List<ZTreeNode> queryPositionNodes(String orgId);
+	List<ZTreeNode> queryGroupedPositionNodes(String orgId);
+
+	Map<String,List<ZTreeNode>> queryGroupedPositionNodes();
 }

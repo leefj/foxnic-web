@@ -4,6 +4,7 @@ package org.github.foxnic.web.hrm.service.impl;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.commons.collection.CollectorUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
@@ -28,6 +29,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -270,13 +272,16 @@ public class PositionServiceImpl extends SuperService<Position> implements IPosi
 	}
 
 	@Override
-	public List<ZTreeNode> queryPositionNodes(String orgId) {
+	public List<ZTreeNode> queryGroupedPositionNodes(String orgId) {
 		List<Position> positions=queryPositions(orgId);
+		return toZTreeNodeList(positions);
+	}
+
+	private List<ZTreeNode> toZTreeNodeList(List<Position> positions) {
 		List<ZTreeNode> nodes=new ArrayList<ZTreeNode>();
 		for (Position position : positions) {
 			ZTreeNode node=new ZTreeNode();
 			node.setId(position.getId());
-
 			node.setName(position.getFullName());
 			if(StringUtil.hasContent(position.getShortName())){
 				node.setName(position.getShortName());
@@ -284,12 +289,22 @@ public class PositionServiceImpl extends SuperService<Position> implements IPosi
 			node.setExtra("fullName",position.getFullName());
 			node.setExtra("shortName",position.getShortName());
 			node.setExtra("originalName",node.getName());
-			node.setParentId(orgId);
+			node.setParentId(position.getOrgId());
 			node.setIsParent(false);
 			node.setType("pos");
 			nodes.add(node);
 		}
-		return nodes;
+		return  nodes;
+	}
+
+	@Override
+	public Map<String, List<ZTreeNode>> queryGroupedPositionNodes() {
+		ConditionExpr expr=new ConditionExpr("company_id=? and deleted=0",SessionUser.getCurrent().getActivatedCompanyId());
+//		In in=new In("org_id",orgIds);
+//		expr.and(in);
+		List<Position> positions = this.queryList(expr, OrderBy.byAscNullsLast("sort"));
+		List<ZTreeNode> nodes=toZTreeNodeList(positions);
+		return CollectorUtil.groupBy(nodes,ZTreeNode::getParentId);
 	}
 
 	@Override

@@ -64,6 +64,7 @@ public class ZTreeNode {
 	}
 
 	public List<ZTreeNode> getChildren() {
+		if(children==null) children=new ArrayList<>();
 		return children;
 	}
 

@@ -1,7 +1,7 @@
 /**
  * 组织层级 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-14 17:05:20
+ * @since 2021-09-16 13:01:47
  */
 
 
@@ -49,7 +49,7 @@ function ListPage() {
 			var ps={};
 			var contitions={};
 			if(window.pageExt.list.beforeQuery){
-				window.pageExt.list.beforeQuery(contitions);
+				window.pageExt.list.beforeQuery(contitions,ps,"tableInit");
 			}
 			if(Object.keys(contitions).length>0) {
 				ps = {searchField: "$composite", searchValue: JSON.stringify(contitions)};
@@ -124,10 +124,11 @@ function ListPage() {
 		value.fullName={ value: $("#fullName").val()};
 		value.type={ value: xmSelect.get("#type",true).getValue("value"), label:xmSelect.get("#type",true).getValue("nameStr")};
 		value.valid={ value: xmSelect.get("#valid",true).getValue("value"), label:xmSelect.get("#valid",true).getValue("nameStr") };
+		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
-			if(!window.pageExt.list.beforeQuery(value)) return;
+			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;
 		}
-		var ps={searchField: "$composite", searchValue: JSON.stringify(value)};
+		ps.searchValue=JSON.stringify(value);
 		if(sortField) {
 			ps.sortField=sortField;
 			ps.sortType=sortType;

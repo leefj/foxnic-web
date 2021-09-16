@@ -250,7 +250,7 @@ public class CatalogController extends SuperController {
 		Result<List<ZTreeNode>> result=new Result<>();
 		List<ZTreeNode> list=null;
 		if(sample.getParentId()==null) {
-			list=catalogService.queryRootNotes();
+			list=catalogService.queryRootNotes(sample.getRootId());
 		} else {
 			list=catalogService.queryChildNodes(sample.getParentId());
 		}

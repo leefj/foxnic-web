@@ -9,8 +9,8 @@ import java.util.ArrayList;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-13 15:09:51
- * @sign 81410B536CF05C15D32DC1DADB32DB93
+ * @since 2021-09-16 13:01:44
+ * @sign 3177C6804E73E487E59DEE7E72C104C9
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -65,6 +65,18 @@ public class OrganizationVO extends Organization {
 	*/
 	@ApiModelProperty(required = false,value="主键清单" , notes = "用于接收批量主键参数")
 	private List<String> ids;
+	
+	/**
+	 * 是否加载所有子孙节点：1：是；0：否
+	*/
+	@ApiModelProperty(required = false,value="是否加载所有子孙节点" , notes = "1：是；0：否")
+	private Integer isLoadAllDescendants;
+	
+	/**
+	 * 根节点ID：根节点ID
+	*/
+	@ApiModelProperty(required = false,value="根节点ID" , notes = "根节点ID")
+	private String rootId;
 	
 	/**
 	 * 获得 页码<br>
@@ -219,6 +231,44 @@ public class OrganizationVO extends Organization {
 	public OrganizationVO addId(String id) {
 		if(this.ids==null) ids=new ArrayList<>();
 		this.ids.add(id);
+		return this;
+	}
+	
+	/**
+	 * 获得 是否加载所有子孙节点<br>
+	 * 1：是；0：否
+	 * @return 是否加载所有子孙节点
+	*/
+	public Integer getIsLoadAllDescendants() {
+		return isLoadAllDescendants;
+	}
+	
+	/**
+	 * 设置 是否加载所有子孙节点
+	 * @param isLoadAllDescendants 是否加载所有子孙节点
+	 * @return 当前对象
+	*/
+	public OrganizationVO setIsLoadAllDescendants(Integer isLoadAllDescendants) {
+		this.isLoadAllDescendants=isLoadAllDescendants;
+		return this;
+	}
+	
+	/**
+	 * 获得 根节点ID<br>
+	 * 根节点ID
+	 * @return 根节点ID
+	*/
+	public String getRootId() {
+		return rootId;
+	}
+	
+	/**
+	 * 设置 根节点ID
+	 * @param rootId 根节点ID
+	 * @return 当前对象
+	*/
+	public OrganizationVO setRootId(String rootId) {
+		this.rootId=rootId;
 		return this;
 	}
 }

@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-14 16:48:57
- * @sign 1C37F47E6F762FBBF003527D502008D9
+ * @since 2021-09-16 13:01:44
+ * @sign 65D778A40A46082B5564A0749E981F84
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -56,7 +56,7 @@ public class Organization extends Entity {
 	/**
 	 * 组织类型：公司(com)或部门(dept)
 	*/
-	@ApiModelProperty(required = false,value="组织类型" , notes = "公司(com)或部门(dept)")
+	@ApiModelProperty(required = true,value="组织类型" , notes = "公司(com)或部门(dept)")
 	private String type;
 	
 	/**

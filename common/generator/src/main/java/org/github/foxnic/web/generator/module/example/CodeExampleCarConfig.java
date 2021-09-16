@@ -26,7 +26,10 @@ public class CodeExampleCarConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE_CAR> {
                 .basic().hidden();
 
         view.field(SYS_CODE_EXAMPLE_CAR.ORG_ID)
-                .form().button().chooseOrgNode(true);
+                .form().button().chooseOrganization(true);
+
+        view.field(SYS_CODE_EXAMPLE_CAR.POSITION_ID)
+                .form().button().choosePosition(true);
 
 
     }

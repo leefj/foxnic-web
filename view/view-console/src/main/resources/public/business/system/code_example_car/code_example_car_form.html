@@ -2,7 +2,7 @@
 /**
  * 代码生成拥有的车辆 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-15 21:35:50
+ * @since 2021-09-16 17:31:57
  */
  -->
  <!DOCTYPE html>
@@ -69,7 +69,8 @@
                                     <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('职位单选')}">职位单选</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="positionId" id="positionId" name="positionId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('职位单选') }" type="text" class="layui-input"  />
+                            <input lay-filter="positionId" id="positionId" name="positionId"  type="hidden" class="layui-input"   />
+                            <button id="positionId-button" type="button" class="layui-btn   " > <i class='layui-icon layui-icon-search'></i> <span th:text="${lang.translate('请选择职位')}">按钮文本</span></button>
                         </div>
                     </div>
 

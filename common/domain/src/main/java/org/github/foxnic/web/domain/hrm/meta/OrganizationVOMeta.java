@@ -8,8 +8,8 @@ import java.util.List;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-13 15:09:51
- * @sign 81410B536CF05C15D32DC1DADB32DB93
+ * @since 2021-09-16 13:01:44
+ * @sign 3177C6804E73E487E59DEE7E72C104C9
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -96,9 +96,29 @@ public class OrganizationVOMeta extends OrganizationMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.hrm.OrganizationVO,java.lang.String> IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.OrganizationVO.class ,IDS, java.util.List.class, "主键清单", "用于接收批量主键参数", java.lang.String.class, null);
 	
 	/**
+	 * 是否加载所有子孙节点 , 1：是；0：否 , 类型: java.lang.Integer
+	*/
+	public static final String IS_LOAD_ALL_DESCENDANTS="isLoadAllDescendants";
+	
+	/**
+	 * 是否加载所有子孙节点 , 1：是；0：否 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.OrganizationVO,java.lang.Integer> IS_LOAD_ALL_DESCENDANTS_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.OrganizationVO.class ,IS_LOAD_ALL_DESCENDANTS, java.lang.Integer.class, "是否加载所有子孙节点", "1：是；0：否", java.lang.Integer.class, null);
+	
+	/**
+	 * 根节点ID , 类型: java.lang.String
+	*/
+	public static final String ROOT_ID="rootId";
+	
+	/**
+	 * 根节点ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.OrganizationVO,java.lang.String> ROOT_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.OrganizationVO.class ,ROOT_ID, java.lang.String.class, "根节点ID", "根节点ID", java.lang.String.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , SORT_FIELD , SORT_TYPE , IDS };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , SORT_FIELD , SORT_TYPE , IDS , IS_LOAD_ALL_DESCENDANTS , ROOT_ID };
 	
 	/**
 	 * 代理类
@@ -193,6 +213,28 @@ public class OrganizationVOMeta extends OrganizationMeta {
 		public OrganizationVO setIds(List<String> ids) {
 			super.change(IDS,super.getIds(),ids);
 			super.setIds(ids);
+			return this;
+		}
+		
+		/**
+		 * 设置 是否加载所有子孙节点
+		 * @param isLoadAllDescendants 是否加载所有子孙节点
+		 * @return 当前对象
+		*/
+		public OrganizationVO setIsLoadAllDescendants(Integer isLoadAllDescendants) {
+			super.change(IS_LOAD_ALL_DESCENDANTS,super.getIsLoadAllDescendants(),isLoadAllDescendants);
+			super.setIsLoadAllDescendants(isLoadAllDescendants);
+			return this;
+		}
+		
+		/**
+		 * 设置 根节点ID
+		 * @param rootId 根节点ID
+		 * @return 当前对象
+		*/
+		public OrganizationVO setRootId(String rootId) {
+			super.change(ROOT_ID,super.getRootId(),rootId);
+			super.setRootId(rootId);
 			return this;
 		}
 	}

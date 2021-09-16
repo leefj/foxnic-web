@@ -22,15 +22,12 @@ import org.github.foxnic.web.domain.hrm.OrganizationVO;
 import org.github.foxnic.web.domain.hrm.Position;
 import org.github.foxnic.web.domain.hrm.meta.OrganizationVOMeta;
 import org.github.foxnic.web.domain.pcm.Catalog;
-import org.github.foxnic.web.domain.pcm.CatalogVO;
-import org.github.foxnic.web.domain.pcm.meta.CatalogVOMeta;
 import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
 import org.github.foxnic.web.framework.web.SuperController;
 import org.github.foxnic.web.hrm.service.IOrganizationService;
 import org.github.foxnic.web.hrm.service.IPositionService;
 import org.github.foxnic.web.misc.ztree.ZTreeNode;
 import org.github.foxnic.web.proxy.hrm.OrganizationServiceProxy;
-import org.github.foxnic.web.proxy.pcm.CatalogServiceProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -282,15 +279,15 @@ public class OrganizationController extends SuperController {
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = OrganizationVOMeta.PARENT_ID , value = "上级ID" , required = false , dataTypeClass=Integer.class),
 	})
-	@ApiOperationSupport(order=5 ,  ignoreParameters = { CatalogVOMeta.PAGE_INDEX , CatalogVOMeta.PAGE_SIZE } )
-	@SentinelResource(value = CatalogServiceProxy.QUERY_NODES , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
+	@ApiOperationSupport(order=5 ,  ignoreParameters = { OrganizationVOMeta.PAGE_INDEX , OrganizationVOMeta.PAGE_SIZE } )
+	@SentinelResource(value = OrganizationServiceProxy.QUERY_NODES , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(OrganizationServiceProxy.QUERY_NODES)
-	public Result<List<ZTreeNode>> queryNodes(CatalogVO sample) {
+	public Result<List<ZTreeNode>> queryNodes(OrganizationVO sample) {
 
 		Result<List<ZTreeNode>> result=new Result<>();
 		List<ZTreeNode> list=null;
 		if(sample.getParentId()==null) {
-			list=organizationService.queryRootNotes();
+			list=organizationService.queryRootNotes(sample.getRootId());
 		} else {
 			list=organizationService.queryChildNodes(sample.getParentId());
 		}

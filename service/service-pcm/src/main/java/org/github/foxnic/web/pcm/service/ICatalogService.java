@@ -303,7 +303,7 @@ public interface ICatalogService extends ISuperService<Catalog> {
 	/**
 	 * 查询根节点
 	 * */
-	List<ZTreeNode> queryRootNotes();
+	List<ZTreeNode> queryRootNotes(String rootId);
 
 	/**
 	 * 查询下级节点

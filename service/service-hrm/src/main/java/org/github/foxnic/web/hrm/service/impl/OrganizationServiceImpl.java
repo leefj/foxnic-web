@@ -307,8 +307,11 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 	}
 
 	@Override
-	public List<ZTreeNode> queryRootNotes() {
-		RcdSet menus= queryChildOrgs(IOrganizationService.ROOT_ID);
+	public List<ZTreeNode> queryRootNotes(String rootId) {
+		if(StringUtil.isBlank(rootId)) {
+			rootId=IOrganizationService.ROOT_ID;
+		}
+		RcdSet menus= queryChildOrgs(rootId);
 		List<ZTreeNode> nodes = toZTreeNodeList(menus);
 		return nodes;
 	}
@@ -317,7 +320,7 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 	public List<ZTreeNode> queryChildNodes(String parentId) {
 		RcdSet menus= queryChildOrgs(parentId);
 		List<ZTreeNode> nodes = toZTreeNodeList(menus);
-		List<ZTreeNode> positionNodes=positionService.queryPositionNodes(parentId);
+		List<ZTreeNode> positionNodes=positionService.queryGroupedPositionNodes(parentId);
 		nodes.addAll(positionNodes);
 		return nodes;
 	}
@@ -414,11 +417,12 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 			ce.or(HRM_ORGANIZATION.HIERARCHY.name()+" like ?",node.getHierarchy()+"/%");
 		}
 		ce.startWithSpace();
-		Template template= dao.getTemplate("#query-descendants-catalogs");
+		Template template= dao.getTemplate("#query-descendants-orgs");
 		template.put("descendants_condition",ce);
 		//查询所有子孙节点
 		RcdSet descendantRs=dao().query(template);
 		List<ZTreeNode> nodes= toZTreeNodeList(descendantRs);
+		Map<String,List<ZTreeNode>> posNodes = positionService.queryGroupedPositionNodes();
 		//构建层级关系
 		nodes.addAll(list);
 		Map<String, ZTreeNode> map=new HashMap<>();
@@ -433,7 +437,17 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 			}
 			parent.addChild(node);
 		}
+		//追加岗位
+		for (Map.Entry<String, List<ZTreeNode>> e : posNodes.entrySet()) {
+			parent=map.get(e.getKey());
+			if(parent==null) continue;
+			if(e.getValue()!=null && !e.getValue().isEmpty()) {
+				parent.getChildren().addAll(e.getValue());
+				parent.setIsParent(true);
+			}
+		}
 
+		//构建路径
 		for (ZTreeNode node : nodes) {
 			ZTreeNode n=node;
 			while (true) {

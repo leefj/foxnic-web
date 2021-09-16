@@ -13,19 +13,28 @@ function ListPage() {
 	
 	var menuTree;
 	var activedTab;
+	var inputValue;
 	/**
       * 入口函数，初始化
       */
 	this.init=function(layui) {
- 
+		var targetType=admin.getTempData("org-dialog-options");
      	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload;
 		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
  		dropdown=layui.dropdown,element=layui.element;
+
+ 		var checkOptions={enable: true,autoCheckTrigger: true,chkboxType : { "Y" : "", "N" : "" }};
+ 		if(targetType.single) {
+			checkOptions.chkStyle="radio";
+			checkOptions.radioType="all";
+		}
+
      	var cfgs = {
      		edit: {
 				enable: false,
 				showRenameBtn:false
 			},
+			check: checkOptions,
 			async: {
 				enable: true,
 				contentType:"application/json",
@@ -35,21 +44,29 @@ function ListPage() {
 				dataFilter: nodeDatafilter
 			},
 			callback: {
-				onRename : onNodeRename,
-				beforeRemove : beforeNodeRemove,
-				beforeDrop: beforeNodeDrop,
-				beforeDrag: beforeNodeDrag,
-				onDrop : onNodeDrop,
-				onClick: onNodeClick
+				onAsyncSuccess:onAsyncSuccess
 			},
 			view: {
-				addHoverDom: addHoverDom,
-				removeHoverDom: removeHoverDom
+
 			}
 		};
+
+		inputValue=admin.getTempData("org-dialog-value");
+		try {
+			if(inputValue.indexOf("[")>-1 && inputValue.indexOf("]")>-1 ) {
+				inputValue = JSON.parse(inputValue);
+			} else {
+				inputValue=inputValue.split(",");
+			}
+			if(!Array.isArray(inputValue)) {
+				inputValue=[inputValue+""];
+			}
+		} catch (e) {
+			inputValue=inputValue.split(",");
+		}
+
 		menuTree=$.fn.zTree.init($("#menu-tree"), cfgs);
-		
-		
+
 		setTimeout(function(){
 			var toolbarHeight=$("#toolbar")[0].clientHeight;
 			var fullHeight=$(window).height();
@@ -75,187 +92,58 @@ function ListPage() {
 		//
 		bindSearchEvent();
 
-		renderMenu();
 
-		element.on('tab(rightTab)', function(data) {
-			var el=$(data.elem).find(".layui-show");
-			activedTab=el.attr("type");
-		});
 
      }
 
-     function renderMenu() {
-		 //初演示
-		 dropdown.render({
-			 elem: '#btn-add'
-			 ,data: [{
-				 title: '添加组织'
-				 ,id: "org"
-			 },{
-				 title: '添加职位'
-				 ,id: "pos"
-			 }]
-			 ,click: function(obj){
-				 if(obj.id=="org"){
-					 createOrg();
-				 } else if(obj.id=="pos") {
-					 createPos();
+     var selectNodes={};
+     function onAsyncSuccess() {
+		//debugger
+		 var task=setTimeout(function (){
+			 var nodes = menuTree.getNodes();
+			 console.log("nodes = "+nodes.length);
+			 if(nodes.length>0) {
+				 clearTimeout(task);
+				 for (var i = 0; i < inputValue.length; i++) {
+					 var n=menuTree.getNodeByParam("id",inputValue[i]);
+					 if(n==null) continue;
+					 var p=menuTree.getNodeByParam("id",n.parentId);
+					 if(p==null) continue;
+					 expandNode(p);
 				 }
 			 }
-		 });
+		 },100);
 	 }
-    
-    var editingNode=null;
-    function onNodeClick(event, treeId, treeNode) {
-    	return;
-    	if(treeNode==null) return;
-    	editingNode=treeNode;
-    	if(editingNode.type=="pos") {
-			$("#org-li").hide();
-			$("#pos-li").show();
-			if(activedTab!="emp") {
-				element.tabChange("rightTab", "pos-li");
-			}
-			$("#pos-basic-info-ifr")[0].contentWindow.module.loadFormData(treeNode.id);
-		} else {
-			$("#org-li").show();
-			$("#pos-li").hide();
-			if(activedTab!="emp") {
-				element.tabChange("rightTab", "org-li");
-			}
-			if(editingNode.type=="com") {
-				$("#org-li").text("公司信息");
-			}
-			if(editingNode.type=="dept") {
-				$("#org-li").text("部门信息");
-			}
-			$("#org-basic-info-ifr")[0].contentWindow.module.loadFormData(treeNode.id);
-		}
-    	//
-		$("#employee-list-ifr")[0].contentWindow.module.lockRange(editingNode.type,treeNode.id);
+
+     function  expandNode(n) {
+     	// debugger
+		 if(n==null) return;
+		 var p=menuTree.getNodeByParam("id",n.parentId);
+		 if(p) {
+			expandNode(p);
+		 }
+		 menuTree.expandNode(n,true,false,true);
 
 
-    }
 
-	function beforeNodeDrag(treeId, treeNodes) {
-		if(treeNodes.length!=1) return false;
-		else return true;
-	};
+	 }
 
-	function beforeNodeDrop(treeId, treeNodes, targetNode, moveType) {
-		//不能将节点拖放至职位节点内
-		if (moveType == "inner" && targetNode.type == "pos") return false;
-		//如果拖放的节点是职位节点，那么不能将这个节点拖放至任意公司或部门节点前
-		if(treeNodes[0].type=="pos") {
-			if (moveType == "prev" && (targetNode.type == "dept" || targetNode.type == "com")) return false;
-		}
-		return true;
-	};
-     
-    function onNodeDrop(event, treeId, treeNodes, targetNode, moveType) {
- 
-		var ids=[];
-		//移动节点
-    	if(moveType=="inner" || moveType=="prev" || moveType=="next") { // 调整节点顺序
-    		var parentNode=treeNodes[0].getParentNode();
 
-	    	var siblings=null;
-	    	var parentId=null;
-	    	//非根节点
-	    	if(parentNode!=null) {
-	    		siblings=parentNode.children;
-	    		parentId=parentNode.id;
-	    	} else {
-	    		//根节点
-	    		siblings=[];
-	    		var prev=null;
-	    		var curr=treeNodes[0];
-	    		while(true) {
-	    			prev=curr.getPreNode();
-	    			if(prev==null) break;
-	    			curr=prev;
-	    		}
-	    		var next=null;
-	    		while(true) {
-	    			siblings.push(curr);
-	    			next=curr.getNextNode();
-	    			if(next==null) break;
-	    			curr=next;
-	    		}
-	    	}
-	    	for (var i = 0; i < siblings.length; i++) {
-				ids.push(siblings[i].id+","+siblings[i].type);
-			}
-    		saveHierarchy(ids,parentId,parentNode);
-    	}  else {
-    		debugger;
-    	}
-    }
-    
-    function saveHierarchy(ids,parentId,parentNode) {
-    	admin.request(moduleURL+"/save-hierarchy",{"ids":ids,parentId:parentId},function(r) {
-			if(r.success) {
-				admin.toast().success("已调整",{time:1000,position:"right-bottom"});
-			} else {
-				admin.toast().error("调整失败",{time:1000,position:"right-bottom"});
-			}
-			//menuTree.reAsyncChildNodes(parentNode,"refresh",true);
-		});
-    }
-  
-    function beforeNodeRemove(treeId, treeNode) {
-    	//debugger;
-		var prefix=moduleURL;
-		if(treeNode.type=="pos") {
-			prefix="/service-hrm/hrm-position";
-		}
-		layer.confirm('确定要删除['+treeNode.name+']吗?', function(index,a,c,d) {
-			layer.close(index);
-			admin.request(prefix+"/delete",{id:treeNode.id},function(r) {
-				if(r.success) {
-					admin.toast().success(treeNode.name+"已删除",{time:1000,position:"right-bottom"});
-					menuTree.removeNode(treeNode,false);
-					if(treeNode.parentTId) {
-						menuTree.selectNode({tId:treeNode.parentTId},false,true)
-						onNodeClick(null,treeId,menuTree.getNodeByTId(treeNode.parentTId));
-					}
-				} else {
-					admin.toast().error("删除失败 : "+r.message,{time:1000,position:"right-bottom",width:"300px"});
-				}
-			});
-		});
-    	return false;
-    }
-     
-	function onNodeRename (event, treeId, treeNode, isCancel) {
-
-    	var ps={id:treeNode.id};
-    	if(treeNode.extra.originalName==treeNode.extra.fullName) {
-			ps.fullName=treeNode.name;
-			treeNode.extra.fullName=treeNode.name;
-		}
-		if(treeNode.extra.originalName==treeNode.extra.shortName) {
-			ps.shortName=treeNode.name;
-			treeNode.extra.shortName=treeNode.name;
-		}
-		treeNode.extra.originalName=treeNode.name;
-    	//
-    	admin.request(moduleURL+"/update",ps,function(r){
-			if(r.success) {
-				admin.toast().success("名称已更改",{time:1000,position:"right-bottom"});
-				$("#form-view")[0].contentWindow.loadFormData(treeNode.id);
-			} else {
-				admin.toast().error("名称更改失败",{time:1000,position:"right-bottom"});
-			}
-		});
-	}
-     
 	function nodeDatafilter(treeId, parentNode, childNodes) {
      	//debugger;
-     	childNodes=childNodes.data;
+		//第一次数据到达时，否则即递归调用
+		if(!Array.isArray(childNodes)) {
+			childNodes = childNodes.data;
+		}
 		if (!childNodes) return null;
 		for (var i=0, l=childNodes.length; i<l; i++) {
-		 //debugger;
+			// if("490260566036717569"==childNodes[i].id) {
+			// 	debugger;
+			// }
+			if(inputValue.indexOf(childNodes[i].id)!=-1) {
+				childNodes[i].checked=true;
+				selectNodes[childNodes[i].id]=childNodes[i];
+			}
 			 if(childNodes[i].type=="com") {
 				 childNodes[i].iconSkin="icon_com";
 			 }
@@ -264,6 +152,9 @@ function ListPage() {
 			 }
 			 if(childNodes[i].type=="pos") {
 				 childNodes[i].iconSkin="icon_pos";
+			 }
+			 if(childNodes[i].children) {
+				 nodeDatafilter(treeId,childNodes[i],childNodes[i].children);
 			 }
 
 		}
@@ -399,105 +290,23 @@ function ListPage() {
 
 
 
-	// 添加组织
-    function createOrg () {
-        var nodes=menuTree.getSelectedNodes();
- 
-        //默认根节点
-        var treeNode=null;
-        if(nodes && nodes.length>0) {
-         	treeNode=nodes[0];
-        }
-
-		if(treeNode.type=="pos") {
-			admin.toast().error("创建组织节点错误，请指定上级部门或公司",{time:1000,position:"right-bottom"});
-			return;
+	$("#sure-button").click(function () {
+		var nodes=menuTree.getCheckedNodes(true);
+		console.log(nodes);
+		var orgIds=[];
+		var orgNodes=[];
+		for (let i = 0; i <nodes.length ; i++) {
+			orgIds.push(nodes[i].id);
+			orgNodes.push(nodes[i]);
 		}
- 
-        admin.request(moduleURL+"/insert",{parentId:treeNode?treeNode.id:null,name:"新分类"},function(r) {
-			if(r.success) {
-				admin.toast().success("组织节点已创建",{time:1000,position:"right-bottom"});
-				// debugger
-				if(treeNode==null) {
-					// debugger;
-					menuTree.addNodes(null,{id:r.data.id,name:r.data.fullName,iconSkin:"icon_dept"});
-					return;
-				}
-				// debugger
-				var isLeaf=!treeNode.isParent;
-				treeNode.isParent=true;
-				menuTree.updateNode(treeNode)
-				if(isLeaf) {
-					menuTree.reAsyncChildNodes(treeNode,"refresh",false);
-				} else {
-					if(!treeNode.open ) {
-						//展开节点
-						menuTree.expandNode(treeNode,true,false,true,false);
-					} else {
-						if(treeNode.children && treeNode.children.length>0) {
-							menuTree.addNodes(treeNode,{id:r.data.id,name:r.data.fullName,parentId:r.data.parentId,iconSkin:"icon_dept"});
-							//menuTree.selectNode(newNode,false);
-						} else {
-							menuTree.reAsyncChildNodes(treeNode,"refresh",true);
-						}
-						
-					}
-				}
-			} else {
-				admin.toast().error("新建菜单失败",{time:1000,position:"right-bottom"});
-			}
-		},"POST",true);
-    };
-
-	// 添加组织
-	function createPos () {
-		var nodes=menuTree.getSelectedNodes();
-
-		//默认根节点
-		var treeNode=null;
-		if(nodes && nodes.length>0) {
-			treeNode=nodes[0];
+		var par=parent;
+		if(par[0]) par=par[0];
+		if(par.chooseOrgNodeCallbackEvent) {
+			par.chooseOrgNodeCallbackEvent(orgIds,orgNodes);
 		}
-
-		if(treeNode.type=="pos") {
-			admin.toast().error("创建职位错误，请指定上级部门或公司",{time:1000,position:"right-bottom"});
-			return;
-		}
-
-		admin.request("/service-hrm/hrm-position/insert",{orgId:treeNode?treeNode.id:null,name:"新职位"},function(r) {
-			if(r.success) {
-				admin.toast().success("职位已创建",{time:1000,position:"right-bottom"});
-				// debugger
-				if(treeNode==null) {
-					//debugger;
-					menuTree.addNodes(null,{id:r.data.id,name:r.data.fullName,iconSkin:"icon_pos"});
-					return;
-				}
-				// debugger
-				var isLeaf=!treeNode.isParent;
-				treeNode.isParent=true;
-				menuTree.updateNode(treeNode)
-				if(isLeaf) {
-					menuTree.reAsyncChildNodes(treeNode,"refresh",false);
-				} else {
-					if(!treeNode.open ) {
-						//展开节点
-						menuTree.expandNode(treeNode,true,false,true,false);
-					} else {
-						if(treeNode.children && treeNode.children.length>0) {
-							menuTree.addNodes(treeNode,{id:r.data.id,name:r.data.fullName,parentId:r.data.orgId,iconSkin:"icon_pos"});
-							//menuTree.selectNode(newNode,false);
-						} else {
-							menuTree.reAsyncChildNodes(treeNode,"refresh",true);
-						}
-
-					}
-				}
-			} else {
-				admin.toast().error("新建职位失败",{time:1000,position:"right-bottom"});
-			}
-		},"POST",true);
-	};
+		var menuDialogIndex=admin.getTempData("org-dialog-index");
+		admin.closePopupCenter(menuDialogIndex);
+	});
  
     
     /**
