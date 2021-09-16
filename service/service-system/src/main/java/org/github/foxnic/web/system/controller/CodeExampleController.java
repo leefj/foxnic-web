@@ -50,7 +50,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 代码生成示例主表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-15 21:11:32
+ * @since 2021-09-16 19:31:18
 */
 
 @Api(tags = "代码生成示例主")
@@ -87,7 +87,6 @@ public class CodeExampleController extends SuperController {
 		@ApiImplicitParam(name = CodeExampleVOMeta.WORK_TIME , value = "工作时间" , required = false , dataTypeClass=Date.class),
 	})
 	@ApiOperationSupport(order=1)
-	@NotNull(name = CodeExampleVOMeta.ID)
 	@SentinelResource(value = CodeExampleServiceProxy.INSERT , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(CodeExampleServiceProxy.INSERT)
 	public Result insert(CodeExampleVO codeExampleVO) {

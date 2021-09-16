@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2021-09-15 20:57:46
+ * @since 2021-09-16 19:22:38
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -1324,19 +1324,19 @@ public class FoxnicWeb {
 		public static final DBField EMP_ID = new DBField(DBDataType.STRING , "emp_id","empId","员工单选","员工单选",false,false,true);
 		
 		/**
-		 * 职位单选
+		 * 职位多选
 		*/
-		public static final DBField POSITION_IDS = new DBField(DBDataType.STRING , "position_ids","positionIds","职位单选","职位单选",false,false,true);
+		public static final DBField POSITION_IDS = new DBField(DBDataType.STRING , "position_ids","positionIds","职位多选","职位多选",false,false,true);
 		
 		/**
-		 * 组织单选
+		 * 组织多选
 		*/
-		public static final DBField ORG_IDS = new DBField(DBDataType.STRING , "org_ids","orgIds","组织单选","组织单选",false,false,true);
+		public static final DBField ORG_IDS = new DBField(DBDataType.STRING , "org_ids","orgIds","组织多选","组织多选",false,false,true);
 		
 		/**
-		 * 员工单选
+		 * 员工多选
 		*/
-		public static final DBField EMP_IDS = new DBField(DBDataType.STRING , "emp_ids","empIds","员工单选","员工单选",false,false,true);
+		public static final DBField EMP_IDS = new DBField(DBDataType.STRING , "emp_ids","empIds","员工多选","员工多选",false,false,true);
 		
 		/**
 		 * 员工下拉

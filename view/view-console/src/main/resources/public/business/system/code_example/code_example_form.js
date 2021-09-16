@@ -1,7 +1,7 @@
 /**
  * 代码生成示例主 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-15 21:11:36
+ * @since 2021-09-16 19:31:20
  */
 
 function FormPage() {
@@ -371,6 +371,7 @@ function FormPage() {
 	        return false;
 	    });
 
+		// 点我!对话框
 		$("#buttonInput-button").click(function(){
 			window.pageExt.form.openTestDialog && window.pageExt.form.openTestDialog(getFormData(),$("#buttonInput"),$(this));
 		});

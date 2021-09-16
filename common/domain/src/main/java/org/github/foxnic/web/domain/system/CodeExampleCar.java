@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-15 21:04:09
- * @sign 2274B271EF242228DD5E8955910ACAFD
+ * @since 2021-09-16 19:23:02
+ * @sign DD39AF146896BF72E88C6A74EEEDA389
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -120,21 +120,21 @@ public class CodeExampleCar extends Entity {
 	private String empId;
 	
 	/**
-	 * 职位单选：职位单选
+	 * 职位多选：职位多选
 	*/
-	@ApiModelProperty(required = false,value="职位单选" , notes = "职位单选")
+	@ApiModelProperty(required = false,value="职位多选" , notes = "职位多选")
 	private String positionIds;
 	
 	/**
-	 * 组织单选：组织单选
+	 * 组织多选：组织多选
 	*/
-	@ApiModelProperty(required = false,value="组织单选" , notes = "组织单选")
+	@ApiModelProperty(required = false,value="组织多选" , notes = "组织多选")
 	private String orgIds;
 	
 	/**
-	 * 员工单选：员工单选
+	 * 员工多选：员工多选
 	*/
-	@ApiModelProperty(required = false,value="员工单选" , notes = "员工单选")
+	@ApiModelProperty(required = false,value="员工多选" , notes = "员工多选")
 	private String empIds;
 	
 	/**
@@ -429,17 +429,17 @@ public class CodeExampleCar extends Entity {
 	}
 	
 	/**
-	 * 获得 职位单选<br>
-	 * 职位单选
-	 * @return 职位单选
+	 * 获得 职位多选<br>
+	 * 职位多选
+	 * @return 职位多选
 	*/
 	public String getPositionIds() {
 		return positionIds;
 	}
 	
 	/**
-	 * 设置 职位单选
-	 * @param positionIds 职位单选
+	 * 设置 职位多选
+	 * @param positionIds 职位多选
 	 * @return 当前对象
 	*/
 	public CodeExampleCar setPositionIds(String positionIds) {
@@ -448,17 +448,17 @@ public class CodeExampleCar extends Entity {
 	}
 	
 	/**
-	 * 获得 组织单选<br>
-	 * 组织单选
-	 * @return 组织单选
+	 * 获得 组织多选<br>
+	 * 组织多选
+	 * @return 组织多选
 	*/
 	public String getOrgIds() {
 		return orgIds;
 	}
 	
 	/**
-	 * 设置 组织单选
-	 * @param orgIds 组织单选
+	 * 设置 组织多选
+	 * @param orgIds 组织多选
 	 * @return 当前对象
 	*/
 	public CodeExampleCar setOrgIds(String orgIds) {
@@ -467,17 +467,17 @@ public class CodeExampleCar extends Entity {
 	}
 	
 	/**
-	 * 获得 员工单选<br>
-	 * 员工单选
-	 * @return 员工单选
+	 * 获得 员工多选<br>
+	 * 员工多选
+	 * @return 员工多选
 	*/
 	public String getEmpIds() {
 		return empIds;
 	}
 	
 	/**
-	 * 设置 员工单选
-	 * @param empIds 员工单选
+	 * 设置 员工多选
+	 * @param empIds 员工多选
 	 * @return 当前对象
 	*/
 	public CodeExampleCar setEmpIds(String empIds) {

@@ -1,7 +1,7 @@
 /**
  * 代码生成拥有的车辆 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-16 17:31:57
+ * @since 2021-09-16 19:31:21
  */
 
 
@@ -81,9 +81,9 @@ function ListPage() {
 					,{ field: 'positionId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('职位单选') , templet: function (d) { return templet('positionId',d.positionId,d);}  }
 					,{ field: 'orgId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('组织单选') , templet: function (d) { return templet('orgId',d.orgId,d);}  }
 					,{ field: 'empId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('员工单选') , templet: function (d) { return templet('empId',d.empId,d);}  }
-					,{ field: 'positionIds', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('职位单选') , templet: function (d) { return templet('positionIds',d.positionIds,d);}  }
-					,{ field: 'orgIds', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('组织单选') , templet: function (d) { return templet('orgIds',d.orgIds,d);}  }
-					,{ field: 'empIds', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('员工单选') , templet: function (d) { return templet('empIds',d.empIds,d);}  }
+					,{ field: 'positionIds', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('职位多选') , templet: function (d) { return templet('positionIds',d.positionIds,d);}  }
+					,{ field: 'orgIds', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('组织多选') , templet: function (d) { return templet('orgIds',d.orgIds,d);}  }
+					,{ field: 'empIds', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('员工多选') , templet: function (d) { return templet('empIds',d.empIds,d);}  }
 					,{ field: 'selectEmpId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('员工下拉') , templet: function (d) { return templet('selectEmpId',d.selectEmpId,d);}  }
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }

@@ -12,19 +12,21 @@ function ListPage() {
 	const moduleURL="/service-hrm/hrm-organization";
 	
 	var menuTree;
-	var activedTab;
 	var inputValue;
+	var options;
 	/**
       * 入口函数，初始化
       */
 	this.init=function(layui) {
-		var targetType=admin.getTempData("org-dialog-options");
+
      	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload;
 		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
  		dropdown=layui.dropdown,element=layui.element;
 
+		options=admin.getTempData("org-dialog-options");
+
  		var checkOptions={enable: true,autoCheckTrigger: true,chkboxType : { "Y" : "", "N" : "" }};
- 		if(targetType.single) {
+ 		if(options.single) {
 			checkOptions.chkStyle="radio";
 			checkOptions.radioType="all";
 		}
@@ -140,22 +142,27 @@ function ListPage() {
 			// if("490260566036717569"==childNodes[i].id) {
 			// 	debugger;
 			// }
-			if(inputValue.indexOf(childNodes[i].id)!=-1) {
+		 	if(inputValue.indexOf(childNodes[i].id)!=-1) {
 				childNodes[i].checked=true;
 				selectNodes[childNodes[i].id]=childNodes[i];
 			}
-			 if(childNodes[i].type=="com") {
-				 childNodes[i].iconSkin="icon_com";
-			 }
-			 if(childNodes[i].type=="dept") {
-				 childNodes[i].iconSkin="icon_dept";
-			 }
-			 if(childNodes[i].type=="pos") {
-				 childNodes[i].iconSkin="icon_pos";
-			 }
-			 if(childNodes[i].children) {
-				 nodeDatafilter(treeId,childNodes[i],childNodes[i].children);
-			 }
+			if(childNodes[i].type=="com") {
+			 childNodes[i].iconSkin="icon_com";
+			}
+			if(childNodes[i].type=="dept") {
+			 childNodes[i].iconSkin="icon_dept";
+			}
+			if(childNodes[i].type=="pos") {
+			 childNodes[i].iconSkin="icon_pos";
+			}
+			if(childNodes[i].children) {
+			 nodeDatafilter(treeId,childNodes[i],childNodes[i].children);
+			}
+			if(options.targetType=="pos") {
+				if(childNodes[i].type=="dept" || childNodes[i].type=="com") {
+					childNodes[i].chkDisabled=true;
+				}
+			}
 
 		}
 		return childNodes;

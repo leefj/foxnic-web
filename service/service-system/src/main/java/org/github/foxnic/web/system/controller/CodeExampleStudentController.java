@@ -48,7 +48,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 代码生成主表学生 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-15 21:04:13
+ * @since 2021-09-16 19:31:20
 */
 
 @Api(tags = "代码生成主表学生")
@@ -71,7 +71,6 @@ public class CodeExampleStudentController extends SuperController {
 		@ApiImplicitParam(name = CodeExampleStudentVOMeta.AGE , value = "年龄" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport(order=1)
-	@NotNull(name = CodeExampleStudentVOMeta.ID)
 	@SentinelResource(value = CodeExampleStudentServiceProxy.INSERT , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(CodeExampleStudentServiceProxy.INSERT)
 	public Result insert(CodeExampleStudentVO codeExampleStudentVO) {

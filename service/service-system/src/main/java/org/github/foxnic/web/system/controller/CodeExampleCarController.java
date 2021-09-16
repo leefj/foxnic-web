@@ -1,54 +1,47 @@
 package org.github.foxnic.web.system.controller;
 
  
-import java.util.List;
-
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-
-import org.github.foxnic.web.framework.web.SuperController;
-import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
-import org.springframework.web.bind.annotation.RequestMapping;
-import javax.servlet.http.HttpServletResponse;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
-
-
-import org.github.foxnic.web.proxy.system.CodeExampleCarServiceProxy;
-import org.github.foxnic.web.domain.system.meta.CodeExampleCarVOMeta;
-import org.github.foxnic.web.domain.system.CodeExampleCar;
-import org.github.foxnic.web.domain.system.CodeExampleCarVO;
+import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.api.validate.annotations.NotNull;
+import com.github.foxnic.commons.io.StreamUtil;
+import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.springboot.web.DownloadUtil;
-import com.github.foxnic.dao.data.PagedList;
-import java.util.Date;
-import java.sql.Timestamp;
-import com.github.foxnic.api.error.ErrorDesc;
-import com.github.foxnic.commons.io.StreamUtil;
-import java.util.Map;
 import com.github.foxnic.dao.excel.ValidateResult;
-import java.io.InputStream;
-import org.github.foxnic.web.domain.system.meta.CodeExampleCarMeta;
-import io.swagger.annotations.Api;
-import com.github.xiaoymin.knife4j.annotations.ApiSort;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiImplicitParam;
+import com.github.foxnic.springboot.web.DownloadUtil;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.github.xiaoymin.knife4j.annotations.ApiSort;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import org.github.foxnic.web.domain.system.CodeExampleCar;
+import org.github.foxnic.web.domain.system.CodeExampleCarVO;
+import org.github.foxnic.web.domain.system.meta.CodeExampleCarVOMeta;
+import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
+import org.github.foxnic.web.framework.web.SuperController;
+import org.github.foxnic.web.proxy.system.CodeExampleCarServiceProxy;
 import org.github.foxnic.web.system.service.ICodeExampleCarService;
-import com.github.foxnic.api.validate.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.InputStream;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
  * 代码生成拥有的车辆 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-16 17:31:57
+ * @since 2021-09-16 19:31:21
 */
 
 @Api(tags = "代码生成拥有的车辆")
@@ -72,13 +65,12 @@ public class CodeExampleCarController extends SuperController {
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.POSITION_ID , value = "职位单选" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.ORG_ID , value = "组织单选" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.EMP_ID , value = "员工单选" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = CodeExampleCarVOMeta.POSITION_IDS , value = "职位单选" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = CodeExampleCarVOMeta.ORG_IDS , value = "组织单选" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = CodeExampleCarVOMeta.EMP_IDS , value = "员工单选" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CodeExampleCarVOMeta.POSITION_IDS , value = "职位多选" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CodeExampleCarVOMeta.ORG_IDS , value = "组织多选" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CodeExampleCarVOMeta.EMP_IDS , value = "员工多选" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.SELECT_EMP_ID , value = "员工下拉" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport(order=1)
-	@NotNull(name = CodeExampleCarVOMeta.ID)
 	@SentinelResource(value = CodeExampleCarServiceProxy.INSERT , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(CodeExampleCarServiceProxy.INSERT)
 	public Result insert(CodeExampleCarVO codeExampleCarVO) {
@@ -133,9 +125,9 @@ public class CodeExampleCarController extends SuperController {
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.POSITION_ID , value = "职位单选" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.ORG_ID , value = "组织单选" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.EMP_ID , value = "员工单选" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = CodeExampleCarVOMeta.POSITION_IDS , value = "职位单选" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = CodeExampleCarVOMeta.ORG_IDS , value = "组织单选" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = CodeExampleCarVOMeta.EMP_IDS , value = "员工单选" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CodeExampleCarVOMeta.POSITION_IDS , value = "职位多选" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CodeExampleCarVOMeta.ORG_IDS , value = "组织多选" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CodeExampleCarVOMeta.EMP_IDS , value = "员工多选" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.SELECT_EMP_ID , value = "员工下拉" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport( order=4 , ignoreParameters = { CodeExampleCarVOMeta.PAGE_INDEX , CodeExampleCarVOMeta.PAGE_SIZE , CodeExampleCarVOMeta.SEARCH_FIELD , CodeExampleCarVOMeta.FUZZY_FIELD , CodeExampleCarVOMeta.SEARCH_VALUE , CodeExampleCarVOMeta.SORT_FIELD , CodeExampleCarVOMeta.SORT_TYPE , CodeExampleCarVOMeta.IDS } ) 
@@ -160,9 +152,9 @@ public class CodeExampleCarController extends SuperController {
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.POSITION_ID , value = "职位单选" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.ORG_ID , value = "组织单选" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.EMP_ID , value = "员工单选" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = CodeExampleCarVOMeta.POSITION_IDS , value = "职位单选" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = CodeExampleCarVOMeta.ORG_IDS , value = "组织单选" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = CodeExampleCarVOMeta.EMP_IDS , value = "员工单选" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CodeExampleCarVOMeta.POSITION_IDS , value = "职位多选" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CodeExampleCarVOMeta.ORG_IDS , value = "组织多选" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CodeExampleCarVOMeta.EMP_IDS , value = "员工多选" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.SELECT_EMP_ID , value = "员工下拉" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { CodeExampleCarVOMeta.PAGE_INDEX , CodeExampleCarVOMeta.PAGE_SIZE , CodeExampleCarVOMeta.SEARCH_FIELD , CodeExampleCarVOMeta.FUZZY_FIELD , CodeExampleCarVOMeta.SEARCH_VALUE , CodeExampleCarVOMeta.SORT_FIELD , CodeExampleCarVOMeta.SORT_TYPE , CodeExampleCarVOMeta.IDS } )
@@ -226,9 +218,9 @@ public class CodeExampleCarController extends SuperController {
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.POSITION_ID , value = "职位单选" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.ORG_ID , value = "组织单选" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.EMP_ID , value = "员工单选" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = CodeExampleCarVOMeta.POSITION_IDS , value = "职位单选" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = CodeExampleCarVOMeta.ORG_IDS , value = "组织单选" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = CodeExampleCarVOMeta.EMP_IDS , value = "员工单选" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CodeExampleCarVOMeta.POSITION_IDS , value = "职位多选" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CodeExampleCarVOMeta.ORG_IDS , value = "组织多选" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CodeExampleCarVOMeta.EMP_IDS , value = "员工多选" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.SELECT_EMP_ID , value = "员工下拉" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { CodeExampleCarVOMeta.PAGE_INDEX , CodeExampleCarVOMeta.PAGE_SIZE } )
@@ -254,9 +246,9 @@ public class CodeExampleCarController extends SuperController {
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.POSITION_ID , value = "职位单选" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.ORG_ID , value = "组织单选" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.EMP_ID , value = "员工单选" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = CodeExampleCarVOMeta.POSITION_IDS , value = "职位单选" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = CodeExampleCarVOMeta.ORG_IDS , value = "组织单选" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = CodeExampleCarVOMeta.EMP_IDS , value = "员工单选" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CodeExampleCarVOMeta.POSITION_IDS , value = "职位多选" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CodeExampleCarVOMeta.ORG_IDS , value = "组织多选" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CodeExampleCarVOMeta.EMP_IDS , value = "员工多选" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.SELECT_EMP_ID , value = "员工下拉" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport(order=8)

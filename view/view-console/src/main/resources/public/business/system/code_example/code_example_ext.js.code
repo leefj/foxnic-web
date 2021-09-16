@@ -1,7 +1,7 @@
 /**
  * 代码生成示例主 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-15 21:11:33
+ * @since 2021-09-16 19:31:18
  */
 
 layui.config({
@@ -98,16 +98,6 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
         doTestAction:function (data){
             console.log('doTestAction',data);
         },
-        openTestDialog:function (data,input,button) {
-            console.log("openTestDialog",data,input,button);
-            top.layer.prompt(function(value, index, elem){
-                //设置隐藏域
-                input.val(value);
-                //设置按钮
-                button.text(value);
-                top.layer.close(index);
-            });
-        },
         /**
          * 末尾执行
          */
@@ -149,9 +139,20 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
         /**
          * 数据提交后执行
          * */
-        afterSubmitt:function (param,result) {
+        afterSubmit:function (param,result) {
             console.log("afterSubmitt",param,result);
         },
+        openTestDialog:function (data,input,button) {
+            console.log("openTestDialog",data,input,button);
+            top.layer.prompt(function(value, index, elem){
+                //设置隐藏域
+                input.val(value);
+                //设置按钮
+                button.text(value);
+                top.layer.close(index);
+            });
+        },
+
         /**
          *  加载 部署节点
          */

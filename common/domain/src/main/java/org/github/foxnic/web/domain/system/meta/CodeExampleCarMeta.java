@@ -8,8 +8,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-15 21:04:09
- * @sign 2274B271EF242228DD5E8955910ACAFD
+ * @since 2021-09-16 19:23:02
+ * @sign DD39AF146896BF72E88C6A74EEEDA389
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -166,34 +166,34 @@ public class CodeExampleCarMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.system.CodeExampleCar,java.lang.String> EMP_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.system.CodeExampleCar.class ,EMP_ID, java.lang.String.class, "员工单选", "员工单选", java.lang.String.class, null);
 	
 	/**
-	 * 职位单选 , 类型: java.lang.String
+	 * 职位多选 , 类型: java.lang.String
 	*/
 	public static final String POSITION_IDS="positionIds";
 	
 	/**
-	 * 职位单选 , 类型: java.lang.String
+	 * 职位多选 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.system.CodeExampleCar,java.lang.String> POSITION_IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.system.CodeExampleCar.class ,POSITION_IDS, java.lang.String.class, "职位单选", "职位单选", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.system.CodeExampleCar,java.lang.String> POSITION_IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.system.CodeExampleCar.class ,POSITION_IDS, java.lang.String.class, "职位多选", "职位多选", java.lang.String.class, null);
 	
 	/**
-	 * 组织单选 , 类型: java.lang.String
+	 * 组织多选 , 类型: java.lang.String
 	*/
 	public static final String ORG_IDS="orgIds";
 	
 	/**
-	 * 组织单选 , 类型: java.lang.String
+	 * 组织多选 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.system.CodeExampleCar,java.lang.String> ORG_IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.system.CodeExampleCar.class ,ORG_IDS, java.lang.String.class, "组织单选", "组织单选", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.system.CodeExampleCar,java.lang.String> ORG_IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.system.CodeExampleCar.class ,ORG_IDS, java.lang.String.class, "组织多选", "组织多选", java.lang.String.class, null);
 	
 	/**
-	 * 员工单选 , 类型: java.lang.String
+	 * 员工多选 , 类型: java.lang.String
 	*/
 	public static final String EMP_IDS="empIds";
 	
 	/**
-	 * 员工单选 , 类型: java.lang.String
+	 * 员工多选 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.system.CodeExampleCar,java.lang.String> EMP_IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.system.CodeExampleCar.class ,EMP_IDS, java.lang.String.class, "员工单选", "员工单选", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.system.CodeExampleCar,java.lang.String> EMP_IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.system.CodeExampleCar.class ,EMP_IDS, java.lang.String.class, "员工多选", "员工多选", java.lang.String.class, null);
 	
 	/**
 	 * 员工下拉 , 类型: java.lang.String
@@ -384,8 +384,8 @@ public class CodeExampleCarMeta {
 		}
 		
 		/**
-		 * 设置 职位单选
-		 * @param positionIds 职位单选
+		 * 设置 职位多选
+		 * @param positionIds 职位多选
 		 * @return 当前对象
 		*/
 		public CodeExampleCar setPositionIds(String positionIds) {
@@ -395,8 +395,8 @@ public class CodeExampleCarMeta {
 		}
 		
 		/**
-		 * 设置 组织单选
-		 * @param orgIds 组织单选
+		 * 设置 组织多选
+		 * @param orgIds 组织多选
 		 * @return 当前对象
 		*/
 		public CodeExampleCar setOrgIds(String orgIds) {
@@ -406,8 +406,8 @@ public class CodeExampleCarMeta {
 		}
 		
 		/**
-		 * 设置 员工单选
-		 * @param empIds 员工单选
+		 * 设置 员工多选
+		 * @param empIds 员工多选
 		 * @return 当前对象
 		*/
 		public CodeExampleCar setEmpIds(String empIds) {
