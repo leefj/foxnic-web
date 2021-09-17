@@ -49,7 +49,7 @@ public abstract class SessionUser {
 	}
 
 	/**
-	 * 获得当前激活租户对应所在公司的职位ID
+	 * 获得当前激活租户对应所在公司的岗位ID
 	 * */
 	public String getPrimaryPositionId(){
 		//此处这样写的原因是，这个配置是一定存在的，如果因为不存在而发生异常，一定是配置错误了，即使这里不报错，其它地方也要报错的

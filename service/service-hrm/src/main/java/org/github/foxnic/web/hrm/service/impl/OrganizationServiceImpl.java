@@ -339,7 +339,7 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 	public List<ZTreeNode> queryChildNodes(String parentId,String targetType) {
 		RcdSet menus= queryChildOrgs(parentId,targetType);
 		List<ZTreeNode> nodes = toZTreeNodeList(menus);
-		//如果未指定或指定职位模式时查询职位信息
+		//如果未指定或指定岗位模式时查询岗位信息
 		if(StringUtil.isBlank(targetType) || "pos".equals(targetType)) {
 			List<ZTreeNode> positionNodes = positionService.queryGroupedPositionNodes(parentId);
 			nodes.addAll(positionNodes);
@@ -456,7 +456,7 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 		List<ZTreeNode> nodes= toZTreeNodeList(descendantRs);
 
 		Map<String,List<ZTreeNode>> posNodes = null;
-		//判断是否需要职位数据
+		//判断是否需要岗位数据
 		if(StringUtil.isBlank(targetType) || "pos".equals(targetType)) {
 			posNodes = positionService.queryGroupedPositionNodes();
 		}

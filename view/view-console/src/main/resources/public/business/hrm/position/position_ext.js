@@ -26,6 +26,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * */
         beforeInit:function () {
             console.log("list:beforeInit");
+
         },
         afterSearchInputReady: function() {
             console.log("list:afterSearchInputReady");
@@ -105,7 +106,8 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             //获取参数，并调整下拉框查询用的URL
             //var companyId=admin.getTempData("companyId");
             //fox.setSelectBoxUrl("employeeId","/service-hrm/hrm-employee/query-paged-list?companyId="+companyId);
-            console.log("form:beforeInit")
+            console.log("form:beforeInit");
+            $("#cancel-button").hide();
         },
         /**
          * 表单数据填充前

@@ -78,10 +78,10 @@ function ListPage() {
 					,{ field: 'plateNumber', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('牌号') , templet: function (d) { return templet('plateNumber',d.plateNumber,d);}  }
 					,{ field: 'color', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('规格') , templet: function (d) { return templet('color',d.color,d);}  }
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime),d); }}
-					,{ field: 'positionId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('职位单选') , templet: function (d) { return templet('positionId',d.positionId,d);}  }
+					,{ field: 'positionId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('岗位单选') , templet: function (d) { return templet('positionId',d.positionId,d);}  }
 					,{ field: 'orgId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('组织单选') , templet: function (d) { return templet('orgId',d.orgId,d);}  }
 					,{ field: 'empId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('员工单选') , templet: function (d) { return templet('empId',d.empId,d);}  }
-					,{ field: 'positionIds', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('职位多选') , templet: function (d) { return templet('positionIds',d.positionIds,d);}  }
+					,{ field: 'positionIds', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('岗位多选') , templet: function (d) { return templet('positionIds',d.positionIds,d);}  }
 					,{ field: 'orgIds', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('组织多选') , templet: function (d) { return templet('orgIds',d.orgIds,d);}  }
 					,{ field: 'empIds', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('员工多选') , templet: function (d) { return templet('empIds',d.empIds,d);}  }
 					,{ field: 'selectEmpId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('员工下拉') , templet: function (d) { return templet('selectEmpId',d.selectEmpId,d);}  }

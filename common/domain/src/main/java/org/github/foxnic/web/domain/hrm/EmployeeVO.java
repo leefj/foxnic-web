@@ -73,9 +73,9 @@ public class EmployeeVO extends Employee {
 	private String orgId;
 	
 	/**
-	 * 职位ID
+	 * 岗位ID
 	*/
-	@ApiModelProperty(required = false,value="职位ID" , notes = "")
+	@ApiModelProperty(required = false,value="岗位ID" , notes = "")
 	private String positionId;
 	
 	/**
@@ -253,16 +253,16 @@ public class EmployeeVO extends Employee {
 	}
 	
 	/**
-	 * 获得 职位ID<br>
-	 * @return 职位ID
+	 * 获得 岗位ID<br>
+	 * @return 岗位ID
 	*/
 	public String getPositionId() {
 		return positionId;
 	}
 	
 	/**
-	 * 设置 职位ID
-	 * @param positionId 职位ID
+	 * 设置 岗位ID
+	 * @param positionId 岗位ID
 	 * @return 当前对象
 	*/
 	public EmployeeVO setPositionId(String positionId) {

@@ -140,9 +140,9 @@ public class Employee extends Person {
 	private String nameAndBadge;
 	
 	/**
-	 * 职位清单：作为员工时，所属的职位清单
+	 * 岗位清单：作为员工时，所属的岗位清单
 	*/
-	@ApiModelProperty(required = false,value="职位清单" , notes = "作为员工时，所属的职位清单")
+	@ApiModelProperty(required = false,value="岗位清单" , notes = "作为员工时，所属的岗位清单")
 	private List<Position> positions;
 	
 	/**
@@ -506,17 +506,17 @@ public class Employee extends Person {
 	}
 	
 	/**
-	 * 获得 职位清单<br>
-	 * 作为员工时，所属的职位清单
-	 * @return 职位清单
+	 * 获得 岗位清单<br>
+	 * 作为员工时，所属的岗位清单
+	 * @return 岗位清单
 	*/
 	public List<Position> getPositions() {
 		return positions;
 	}
 	
 	/**
-	 * 设置 职位清单
-	 * @param positions 职位清单
+	 * 设置 岗位清单
+	 * @param positions 岗位清单
 	 * @return 当前对象
 	*/
 	public Employee setPositions(List<Position> positions) {
@@ -525,8 +525,8 @@ public class Employee extends Person {
 	}
 	
 	/**
-	 * 添加 职位清单
-	 * @param position 职位清单
+	 * 添加 岗位清单
+	 * @param position 岗位清单
 	 * @return 当前对象
 	*/
 	public Employee addPosition(Position position) {

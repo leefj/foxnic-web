@@ -73,7 +73,7 @@ public class PositionServiceImpl extends SuperService<Position> implements IPosi
 			return  ErrorDesc.failure().message("请指定上级组织节点");
 		}
 		if(StringUtil.isBlank(position.getFullName())) {
-			position.setFullName("新职位");
+			position.setFullName("新岗位");
 		}
 		if(position.getValid()==null) {
 			position.setValid(1);

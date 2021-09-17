@@ -201,14 +201,14 @@ public class EmployeeMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Employee,java.lang.String> NAME_AND_BADGE_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Employee.class ,NAME_AND_BADGE, java.lang.String.class, "姓名与工号", "虚拟属性", java.lang.String.class, null);
 	
 	/**
-	 * 职位清单 , 作为员工时，所属的职位清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.hrm.Position
+	 * 岗位清单 , 作为员工时，所属的岗位清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.hrm.Position
 	*/
 	public static final String POSITIONS="positions";
 	
 	/**
-	 * 职位清单 , 作为员工时，所属的职位清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.hrm.Position
+	 * 岗位清单 , 作为员工时，所属的岗位清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.hrm.Position
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Employee,org.github.foxnic.web.domain.hrm.Position> POSITIONS_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Employee.class ,POSITIONS, java.util.List.class, "职位清单", "作为员工时，所属的职位清单", org.github.foxnic.web.domain.hrm.Position.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Employee,org.github.foxnic.web.domain.hrm.Position> POSITIONS_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Employee.class ,POSITIONS, java.util.List.class, "岗位清单", "作为员工时，所属的岗位清单", org.github.foxnic.web.domain.hrm.Position.class, null);
 	
 	/**
 	 * 组织清单 , 作为员工时，所属的组织清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.hrm.Organization
@@ -452,8 +452,8 @@ public class EmployeeMeta {
 		}
 		
 		/**
-		 * 设置 职位清单
-		 * @param positions 职位清单
+		 * 设置 岗位清单
+		 * @param positions 岗位清单
 		 * @return 当前对象
 		*/
 		public Employee setPositions(List<Position> positions) {

@@ -102,9 +102,9 @@ public class CodeExampleCar extends Entity {
 	private Date deleteTime;
 	
 	/**
-	 * 职位单选：职位单选
+	 * 岗位单选：岗位单选
 	*/
-	@ApiModelProperty(required = false,value="职位单选" , notes = "职位单选")
+	@ApiModelProperty(required = false,value="岗位单选" , notes = "岗位单选")
 	private String positionId;
 	
 	/**
@@ -120,9 +120,9 @@ public class CodeExampleCar extends Entity {
 	private String empId;
 	
 	/**
-	 * 职位多选：职位多选
+	 * 岗位多选：岗位多选
 	*/
-	@ApiModelProperty(required = false,value="职位多选" , notes = "职位多选")
+	@ApiModelProperty(required = false,value="岗位多选" , notes = "岗位多选")
 	private String positionIds;
 	
 	/**
@@ -390,17 +390,17 @@ public class CodeExampleCar extends Entity {
 	}
 	
 	/**
-	 * 获得 职位单选<br>
-	 * 职位单选
-	 * @return 职位单选
+	 * 获得 岗位单选<br>
+	 * 岗位单选
+	 * @return 岗位单选
 	*/
 	public String getPositionId() {
 		return positionId;
 	}
 	
 	/**
-	 * 设置 职位单选
-	 * @param positionId 职位单选
+	 * 设置 岗位单选
+	 * @param positionId 岗位单选
 	 * @return 当前对象
 	*/
 	public CodeExampleCar setPositionId(String positionId) {
@@ -447,17 +447,17 @@ public class CodeExampleCar extends Entity {
 	}
 	
 	/**
-	 * 获得 职位多选<br>
-	 * 职位多选
-	 * @return 职位多选
+	 * 获得 岗位多选<br>
+	 * 岗位多选
+	 * @return 岗位多选
 	*/
 	public String getPositionIds() {
 		return positionIds;
 	}
 	
 	/**
-	 * 设置 职位多选
-	 * @param positionIds 职位多选
+	 * 设置 岗位多选
+	 * @param positionIds 岗位多选
 	 * @return 当前对象
 	*/
 	public CodeExampleCar setPositionIds(String positionIds) {

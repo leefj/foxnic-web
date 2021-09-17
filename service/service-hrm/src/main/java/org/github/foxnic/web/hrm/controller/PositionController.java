@@ -98,7 +98,7 @@ public class PositionController extends SuperController {
 		//TODO 优化此处性能
 		List<EmployeePosition> eps=employeePositionService.queryList(EmployeePosition.create().setPositionId(id));
 		if(!eps.isEmpty()){
-			result.success(false).message("不允许删除带员工的职位");
+			result.success(false).message("不允许删除带员工的岗位");
 		}
 		result=positionService.deleteByIdLogical(id);
 		return result;

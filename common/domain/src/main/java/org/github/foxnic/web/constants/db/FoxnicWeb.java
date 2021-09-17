@@ -1309,9 +1309,9 @@ public class FoxnicWeb {
 		public static final DBField DELETE_TIME = new DBField(DBDataType.DATE , "delete_time","deleteTime","删除时间","删除时间",false,false,true);
 		
 		/**
-		 * 职位单选
+		 * 岗位单选
 		*/
-		public static final DBField POSITION_ID = new DBField(DBDataType.STRING , "position_id","positionId","职位单选","职位单选",false,false,true);
+		public static final DBField POSITION_ID = new DBField(DBDataType.STRING , "position_id","positionId","岗位单选","岗位单选",false,false,true);
 		
 		/**
 		 * 组织单选
@@ -1324,9 +1324,9 @@ public class FoxnicWeb {
 		public static final DBField EMP_ID = new DBField(DBDataType.STRING , "emp_id","empId","员工单选","员工单选",false,false,true);
 		
 		/**
-		 * 职位多选
+		 * 岗位多选
 		*/
-		public static final DBField POSITION_IDS = new DBField(DBDataType.STRING , "position_ids","positionIds","职位多选","职位多选",false,false,true);
+		public static final DBField POSITION_IDS = new DBField(DBDataType.STRING , "position_ids","positionIds","岗位多选","岗位多选",false,false,true);
 		
 		/**
 		 * 组织多选

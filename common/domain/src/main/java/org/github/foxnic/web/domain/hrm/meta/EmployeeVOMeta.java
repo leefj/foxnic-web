@@ -106,14 +106,14 @@ public class EmployeeVOMeta extends EmployeeMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.hrm.EmployeeVO,java.lang.String> ORG_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.EmployeeVO.class ,ORG_ID, java.lang.String.class, "所属组织ID", "", java.lang.String.class, null);
 	
 	/**
-	 * 职位ID , 类型: java.lang.String
+	 * 岗位ID , 类型: java.lang.String
 	*/
 	public static final String POSITION_ID="positionId";
 	
 	/**
-	 * 职位ID , 类型: java.lang.String
+	 * 岗位ID , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.hrm.EmployeeVO,java.lang.String> POSITION_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.EmployeeVO.class ,POSITION_ID, java.lang.String.class, "职位ID", "", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.EmployeeVO,java.lang.String> POSITION_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.EmployeeVO.class ,POSITION_ID, java.lang.String.class, "岗位ID", "", java.lang.String.class, null);
 	
 	/**
 	 * 全部属性清单
@@ -228,8 +228,8 @@ public class EmployeeVOMeta extends EmployeeMeta {
 		}
 		
 		/**
-		 * 设置 职位ID
-		 * @param positionId 职位ID
+		 * 设置 岗位ID
+		 * @param positionId 岗位ID
 		 * @return 当前对象
 		*/
 		public EmployeeVO setPositionId(String positionId) {

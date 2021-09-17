@@ -32,13 +32,13 @@ public class HrmEmployeeConfig extends BaseCodeConfig<HRM_EMPLOYEE> {
         poType.addSimpleProperty( Person.class, "person","对应的人员信息", "对应的人员信息");
         poType.addSimpleProperty( Company.class, "company","所属公司", "所属公司");
         poType.addSimpleProperty( String.class, "nameAndBadge","姓名与工号", "虚拟属性");
-        poType.addListProperty( Position.class, "positions","职位清单", "作为员工时，所属的职位清单");
+        poType.addListProperty( Position.class, "positions","岗位清单", "作为员工时，所属的岗位清单");
         poType.addListProperty( Organization.class, "organizations","组织清单", "作为员工时，所属的组织清单");
         poType.addSimpleProperty( Position.class, "primaryPosition","主职", "作为员工时，所属的主职");
         poType.addSimpleProperty( Organization.class, "primaryOrganization","主职部门", "作为员工时，所属的主职部门");
         //
         voType.addSimpleProperty(String.class, "orgId","所属组织ID","");
-        voType.addSimpleProperty(String.class, "positionId","职位ID","");
+        voType.addSimpleProperty(String.class, "positionId","岗位ID","");
     }
 
     @Override

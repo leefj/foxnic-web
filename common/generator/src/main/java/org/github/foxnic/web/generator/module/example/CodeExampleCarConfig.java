@@ -49,11 +49,11 @@ public class CodeExampleCarConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE_CAR> {
         view.field(SYS_CODE_EXAMPLE_CAR.DEPT_IDS)
                 .form().button().chooseDepartment(false);
 
-        //单选职位
+        //单选岗位
         view.field(SYS_CODE_EXAMPLE_CAR.POSITION_ID)
                 .form().button().choosePosition(true);
 
-        //多选职位
+        //多选岗位
         view.field(SYS_CODE_EXAMPLE_CAR.POSITION_IDS)
                 .form().button().choosePosition(false);
 
@@ -82,7 +82,7 @@ public class CodeExampleCarConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE_CAR> {
 
                 }
         );
-        form.addGroup("选职位",
+        form.addGroup("选岗位",
                 new Object[] {
                         SYS_CODE_EXAMPLE_CAR.POSITION_ID
                 }, new Object[] {

@@ -199,7 +199,7 @@ function FormPage() {
 	        return false;
 	    });
 
-		// 请选择职位对话框
+		// 请选择岗位对话框
 		$("#positionId-button").click(function(){
 			fox.chooseOrgNode && fox.chooseOrgNode(getFormData(),$("#positionId"),$(this),{
 				single:true,
@@ -219,7 +219,7 @@ function FormPage() {
 				callback:function(ids,nodes,fromData,inputEl,buttonEl){}
 			});
 		});
-		// 请选择职位对话框
+		// 请选择岗位对话框
 		$("#positionIds-button").click(function(){
 			fox.chooseOrgNode && fox.chooseOrgNode(getFormData(),$("#positionIds"),$(this),{
 				single:false,
