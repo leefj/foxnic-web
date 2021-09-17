@@ -1,9 +1,10 @@
 package org.github.foxnic.web.generator.module.example;
 
+import com.github.foxnic.generator.builder.view.option.FormOptions;
 import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
-import org.github.foxnic.web.constants.db.FoxnicWeb.*;
+import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_CODE_EXAMPLE_CAR;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
 public class CodeExampleCarConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE_CAR> {
@@ -25,13 +26,76 @@ public class CodeExampleCarConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE_CAR> {
         view.field(SYS_CODE_EXAMPLE_CAR.EXAMPLE_ID)
                 .basic().hidden();
 
+        view.field(SYS_CODE_EXAMPLE_CAR.PLATE_NUMBER).basic().label("牌号");
+        view.field(SYS_CODE_EXAMPLE_CAR.COLOR).basic().label("规格");
+
+        //单选组织，包括公司和部门
         view.field(SYS_CODE_EXAMPLE_CAR.ORG_ID)
                 .form().button().chooseOrganization(true);
 
+        //多选组织，包括公司和部门
+        view.field(SYS_CODE_EXAMPLE_CAR.ORG_IDS)
+                .form().button().chooseOrganization(false);
+
+        //单选组织，包括公司和部门，并指定根节点
+        view.field(SYS_CODE_EXAMPLE_CAR.SUB_ORG_ID)
+                .form().button().chooseOrganization(true,"shanghai");
+
+        //单选组织，仅公司
+        view.field(SYS_CODE_EXAMPLE_CAR.COM_ID)
+                .form().button().chooseCompany(true);
+
+        //多选组织，仅部门
+        view.field(SYS_CODE_EXAMPLE_CAR.DEPT_IDS)
+                .form().button().chooseDepartment(false);
+
+        //单选职位
         view.field(SYS_CODE_EXAMPLE_CAR.POSITION_ID)
                 .form().button().choosePosition(true);
 
+        //多选职位
+        view.field(SYS_CODE_EXAMPLE_CAR.POSITION_IDS)
+                .form().button().choosePosition(false);
 
+    }
+
+    @Override
+    public void configForm(ViewOptions view, FormOptions form) {
+
+        view.formWindow().width("80%");
+
+        form.addGroup("基本信息",
+                new Object[] {
+                        SYS_CODE_EXAMPLE_CAR.PLATE_NUMBER
+                }, new Object[] {
+                        SYS_CODE_EXAMPLE_CAR.COLOR
+                }
+        );
+        form.addGroup("选组织节点",
+                new Object[] {
+                        SYS_CODE_EXAMPLE_CAR.ORG_ID,
+                        SYS_CODE_EXAMPLE_CAR.SUB_ORG_ID,
+                        SYS_CODE_EXAMPLE_CAR.DEPT_IDS
+                }, new Object[] {
+                        SYS_CODE_EXAMPLE_CAR.ORG_IDS,
+                        SYS_CODE_EXAMPLE_CAR.COM_ID,
+
+                }
+        );
+        form.addGroup("选职位",
+                new Object[] {
+                        SYS_CODE_EXAMPLE_CAR.POSITION_ID
+                }, new Object[] {
+                        SYS_CODE_EXAMPLE_CAR.POSITION_IDS
+                }
+        );
+        form.addGroup("选员工",
+                new Object[] {
+                        SYS_CODE_EXAMPLE_CAR.EMP_ID
+                }, new Object[] {
+                        SYS_CODE_EXAMPLE_CAR.EMP_IDS
+                }
+        );
     }
 
     @Override

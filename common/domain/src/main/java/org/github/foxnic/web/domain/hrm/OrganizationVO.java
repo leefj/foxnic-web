@@ -9,8 +9,8 @@ import java.util.ArrayList;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-16 13:01:44
- * @sign 3177C6804E73E487E59DEE7E72C104C9
+ * @since 2021-09-17 13:17:56
+ * @sign CA3E22C36303981DAFE1E771E81B86E0
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -73,10 +73,16 @@ public class OrganizationVO extends Organization {
 	private Integer isLoadAllDescendants;
 	
 	/**
-	 * 根节点ID：根节点ID
+	 * 根节点id或code：根节点id
 	*/
-	@ApiModelProperty(required = false,value="根节点ID" , notes = "根节点ID")
-	private String rootId;
+	@ApiModelProperty(required = false,value="根节点id或code" , notes = "根节点id")
+	private String root;
+	
+	/**
+	 * 呈现模式：呈现模式:pos,org,com,dept
+	*/
+	@ApiModelProperty(required = false,value="呈现模式" , notes = "呈现模式:pos,org,com,dept")
+	private String targetType;
 	
 	/**
 	 * 获得 页码<br>
@@ -254,21 +260,40 @@ public class OrganizationVO extends Organization {
 	}
 	
 	/**
-	 * 获得 根节点ID<br>
-	 * 根节点ID
-	 * @return 根节点ID
+	 * 获得 根节点id或code<br>
+	 * 根节点id
+	 * @return 根节点id或code
 	*/
-	public String getRootId() {
-		return rootId;
+	public String getRoot() {
+		return root;
 	}
 	
 	/**
-	 * 设置 根节点ID
-	 * @param rootId 根节点ID
+	 * 设置 根节点id或code
+	 * @param root 根节点id或code
 	 * @return 当前对象
 	*/
-	public OrganizationVO setRootId(String rootId) {
-		this.rootId=rootId;
+	public OrganizationVO setRoot(String root) {
+		this.root=root;
+		return this;
+	}
+	
+	/**
+	 * 获得 呈现模式<br>
+	 * 呈现模式:pos,org,com,dept
+	 * @return 呈现模式
+	*/
+	public String getTargetType() {
+		return targetType;
+	}
+	
+	/**
+	 * 设置 呈现模式
+	 * @param targetType 呈现模式
+	 * @return 当前对象
+	*/
+	public OrganizationVO setTargetType(String targetType) {
+		this.targetType=targetType;
 		return this;
 	}
 }

@@ -89,6 +89,11 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 	public Result insert(Catalog catalog) {
 		catalog.setValid(1);
 		Result r=super.insert(catalog);
+		catalog = this.getById(catalog.getId());
+		if(StringUtil.isBlank(catalog.getCode())) {
+			catalog.setCode(catalog.getId());
+			this.updateDirtyFields(catalog);
+		}
 		if(r.success()) {
 			this.fillHierarchy(false);
 		}
@@ -298,11 +303,24 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 	}
 
 	@Override
-	public List<ZTreeNode> queryRootNotes(String rootId) {
-		if(StringUtil.isBlank(rootId)) {
-			rootId=ICatalogService.ROOT_ID;
+	public List<ZTreeNode> queryRootNotes(String root) {
+
+		if(StringUtil.isBlank(root)) {
+			root=ICatalogService.ROOT_ID;
+		} else {
+			Catalog catalog=this.getById(root);
+			if(catalog==null) {
+				catalog=this.queryEntity(new ConditionExpr("code=?",root));
+				if(catalog!=null) {
+					root=catalog.getId();
+				}
+			}
+			if(StringUtil.isBlank(root)) {
+				root=ICatalogService.ROOT_ID;
+			}
 		}
-		RcdSet menus= queryChildCatalogs(ICatalogService.ROOT_ID);
+
+		RcdSet menus= queryChildCatalogs(root);
 		List<ZTreeNode> nodes = toZTreeNodeList(menus);
 		return nodes;
 	}

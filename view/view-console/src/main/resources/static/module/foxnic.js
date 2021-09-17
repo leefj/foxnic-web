@@ -1343,6 +1343,79 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 }
             }
         },
+        fillDialogButtons:function () {
+            this.fillOrgOrPosDialogButtons("org");
+            this.fillOrgOrPosDialogButtons("pos");
+        },
+        fillOrgOrPosDialogButtons:function (type) {
+            var orgEls=$("button[action-type='"+type+"-dialog']");
+            orgEls.find("i").css("opacity",0.0);
+            orgEls.find("span").css("opacity",0.0);
+            //debugger;
+            var allIds=[];
+            var map={};
+            for (var i = 0; i <orgEls.length ; i++) {
+                var orgEl=$(orgEls[i]);
+                var id=orgEl.attr("id");
+                id=id.substring(0,id.length-7);
+                var input=$("#"+id);
+                var value=input.val();
+                if(!value) continue;
+                if(Array.isArray(value))
+                {
+
+                } else {
+                    value.trim()
+                    if(value.startWith("[") && value.endWith("]")) {
+                        value=JSON.parse(value);
+                    } else {
+                        value=value.split(",");
+                    }
+                    map[id]=value;
+                    for (var j = 0; j < value.length; j++) {
+                        allIds.push(value[j]);
+                    }
+                }
+            }
+            var url=""
+            if(type=="org") {
+                url="/service-hrm/hrm-organization/get-by-ids";
+            }
+            if(type=="pos") {
+                url="/service-hrm/hrm-position/get-by-ids";
+            }
+
+            admin.request(url,allIds,function (r){
+                if(r.success) {
+                    var datamap={};
+                    for (var i = 0; i < r.data.length; i++) {
+                        datamap[r.data[i].id]=r.data[i];
+                    }
+                    //debugger;
+                    for(var id in map) {
+                        //debugger;
+                        var names=[];
+                        var ids=map[id];
+                        for (var i = 0; i < ids.length; i++) {
+                            var org=datamap[ids[i]];
+                            if(!org) {
+                                names.push(ids[i]);
+                                continue;
+                            }
+                            var name=org.fullName;
+                            if(org.shortName) {
+                                name=org.shortName;
+                            }
+                            names.push(name);
+                        }
+                        $("#"+id+"-button").find("span").text(names.join(","));
+
+                    }
+                }
+                orgEls.find("i").animate({opacity:1.0},300,"swing");  //.css("opacity",0.0);
+                orgEls.find("span").animate({opacity:1.0},300,"swing");//.css("opacity",0.0);
+            },"post",true);
+        },
         //表单提交
         submit: function (url, params, method, callback) {
             // debugger

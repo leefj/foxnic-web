@@ -287,14 +287,14 @@ public class OrganizationController extends SuperController {
 		Result<List<ZTreeNode>> result=new Result<>();
 		List<ZTreeNode> list=null;
 		if(sample.getParentId()==null) {
-			list=organizationService.queryRootNotes(sample.getRootId());
+			list=organizationService.queryRootNotes(sample.getRoot(),sample.getTargetType());
 		} else {
-			list=organizationService.queryChildNodes(sample.getParentId());
+			list=organizationService.queryChildNodes(sample.getParentId(),sample.getTargetType());
 		}
 
 		//加载全部子孙节点
 		if(sample.getIsLoadAllDescendants()!=null && sample.getIsLoadAllDescendants()==1) {
-			list = organizationService.buildingHierarchicalRelationships(list);
+			list = organizationService.buildingHierarchicalRelationships(list,sample.getTargetType());
 		}
 		result.success(true).data(list);
 		return result;

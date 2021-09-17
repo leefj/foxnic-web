@@ -1,7 +1,7 @@
 /**
  * 代码生成拥有的车辆 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-16 19:31:21
+ * @since 2021-09-17 14:54:48
  */
 
 
@@ -75,8 +75,8 @@ function ListPage() {
 					{ fixed: 'left',type:'checkbox' }
 					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('主键') , templet: function (d) { return templet('id',d.id,d);}  }
 					,{ field: 'exampleId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('属主ID') , templet: function (d) { return templet('exampleId',d.exampleId,d);}  }
-					,{ field: 'plateNumber', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('车牌号') , templet: function (d) { return templet('plateNumber',d.plateNumber,d);}  }
-					,{ field: 'color', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('颜色') , templet: function (d) { return templet('color',d.color,d);}  }
+					,{ field: 'plateNumber', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('牌号') , templet: function (d) { return templet('plateNumber',d.plateNumber,d);}  }
+					,{ field: 'color', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('规格') , templet: function (d) { return templet('color',d.color,d);}  }
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime),d); }}
 					,{ field: 'positionId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('职位单选') , templet: function (d) { return templet('positionId',d.positionId,d);}  }
 					,{ field: 'orgId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('组织单选') , templet: function (d) { return templet('orgId',d.orgId,d);}  }
@@ -85,6 +85,9 @@ function ListPage() {
 					,{ field: 'orgIds', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('组织多选') , templet: function (d) { return templet('orgIds',d.orgIds,d);}  }
 					,{ field: 'empIds', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('员工多选') , templet: function (d) { return templet('empIds',d.empIds,d);}  }
 					,{ field: 'selectEmpId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('员工下拉') , templet: function (d) { return templet('selectEmpId',d.selectEmpId,d);}  }
+					,{ field: 'comId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('公司单选') , templet: function (d) { return templet('comId',d.comId,d);}  }
+					,{ field: 'deptIds', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('部门多选') , templet: function (d) { return templet('deptIds',d.deptIds,d);}  }
+					,{ field: 'subOrgId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('限定上级') , templet: function (d) { return templet('subOrgId',d.subOrgId,d);}  }
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
 				]],
@@ -125,6 +128,9 @@ function ListPage() {
 		value.orgIds={ value: $("#orgIds").val()};
 		value.empIds={ value: $("#empIds").val()};
 		value.selectEmpId={ value: $("#selectEmpId").val()};
+		value.comId={ value: $("#comId").val()};
+		value.deptIds={ value: $("#deptIds").val()};
+		value.subOrgId={ value: $("#subOrgId").val()};
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;
@@ -353,7 +359,7 @@ function ListPage() {
 			title: title,
 			resize: false,
 			offset: [top,null],
-			area: ["500px",height+"px"],
+			area: ["80%",height+"px"],
 			type: 2,
 			id:"sys-code-example-car-form-data-win",
 			content: '/business/system/code_example_car/code_example_car_form.html' + queryString,

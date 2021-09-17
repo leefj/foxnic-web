@@ -20,6 +20,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             console.log('beforeQuery',conditions);
             var codeExampleId=admin.getTempData("code_example_id")
             conditions.exampleId={value:codeExampleId};
+            return true;
         },
         /**
          * 表格右侧操作列更多按钮事件

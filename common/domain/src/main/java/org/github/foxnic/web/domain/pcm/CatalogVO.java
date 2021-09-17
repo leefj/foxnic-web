@@ -9,8 +9,8 @@ import java.util.ArrayList;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-16 13:03:47
- * @sign 031350BE97ABB534490660B3A4C00FF0
+ * @since 2021-09-17 13:18:32
+ * @sign 5415A99B6780BC75F9076FEE372CF30B
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -73,10 +73,10 @@ public class CatalogVO extends Catalog {
 	private Integer isLoadAllDescendants;
 	
 	/**
-	 * 根节点ID：根节点ID
+	 * 根节点id或code：根节点id或code
 	*/
-	@ApiModelProperty(required = false,value="根节点ID" , notes = "根节点ID")
-	private String rootId;
+	@ApiModelProperty(required = false,value="根节点id或code" , notes = "根节点id或code")
+	private String root;
 	
 	/**
 	 * 获得 页码<br>
@@ -254,21 +254,21 @@ public class CatalogVO extends Catalog {
 	}
 	
 	/**
-	 * 获得 根节点ID<br>
-	 * 根节点ID
-	 * @return 根节点ID
+	 * 获得 根节点id或code<br>
+	 * 根节点id或code
+	 * @return 根节点id或code
 	*/
-	public String getRootId() {
-		return rootId;
+	public String getRoot() {
+		return root;
 	}
 	
 	/**
-	 * 设置 根节点ID
-	 * @param rootId 根节点ID
+	 * 设置 根节点id或code
+	 * @param root 根节点id或code
 	 * @return 当前对象
 	*/
-	public CatalogVO setRootId(String rootId) {
-		this.rootId=rootId;
+	public CatalogVO setRoot(String root) {
+		this.root=root;
 		return this;
 	}
 }

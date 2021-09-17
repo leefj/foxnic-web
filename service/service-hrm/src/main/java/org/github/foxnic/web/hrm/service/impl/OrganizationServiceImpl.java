@@ -18,7 +18,7 @@ import com.github.foxnic.dao.sql.expr.Template;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
 import com.github.foxnic.sql.parameter.BatchParamBuilder;
-import org.github.foxnic.web.constants.db.FoxnicWeb.*;
+import org.github.foxnic.web.constants.db.FoxnicWeb.HRM_ORGANIZATION;
 import org.github.foxnic.web.constants.enums.dict.OrgNodeType;
 import org.github.foxnic.web.domain.hrm.Organization;
 import org.github.foxnic.web.framework.dao.DBConfigs;
@@ -294,7 +294,7 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 		return rs.getValueList("hierarchy",String.class);
 	}
 
-	private RcdSet queryChildOrgs(String parentId) {
+	private RcdSet queryChildOrgs(String parentId,String targetType) {
 		RcdSet nodes=null;
 		String tenantId= SessionUser.getCurrent().getActivatedTenantId();
 		String companyId=SessionUser.getCurrent().getActivatedCompanyId();
@@ -307,21 +307,43 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 	}
 
 	@Override
-	public List<ZTreeNode> queryRootNotes(String rootId) {
-		if(StringUtil.isBlank(rootId)) {
-			rootId=IOrganizationService.ROOT_ID;
+	public List<ZTreeNode> queryRootNotes(String root,String targetType) {
+		Organization organization=null;
+		if(StringUtil.isBlank(root)) {
+			root=IOrganizationService.ROOT_ID;
+		} else {
+			organization=this.getById(root);
+			if(organization==null) {
+				organization=this.queryEntity(new ConditionExpr("code=?",root));
+				if(organization!=null) {
+					root=organization.getId();
+				}
+			}
+			if(StringUtil.isBlank(root)) {
+				root=IOrganizationService.ROOT_ID;
+			}
 		}
-		RcdSet menus= queryChildOrgs(rootId);
-		List<ZTreeNode> nodes = toZTreeNodeList(menus);
+
+		RcdSet orgs = null;
+		if (organization != null) {
+			orgs = queryChildOrgs(organization.getParentId(), targetType);
+			orgs = orgs.filter("id", organization.getId());
+		} else {
+			orgs = queryChildOrgs(root, targetType);
+		}
+		List<ZTreeNode> nodes = toZTreeNodeList(orgs);
 		return nodes;
 	}
 
 	@Override
-	public List<ZTreeNode> queryChildNodes(String parentId) {
-		RcdSet menus= queryChildOrgs(parentId);
+	public List<ZTreeNode> queryChildNodes(String parentId,String targetType) {
+		RcdSet menus= queryChildOrgs(parentId,targetType);
 		List<ZTreeNode> nodes = toZTreeNodeList(menus);
-		List<ZTreeNode> positionNodes=positionService.queryGroupedPositionNodes(parentId);
-		nodes.addAll(positionNodes);
+		//如果未指定或指定职位模式时查询职位信息
+		if(StringUtil.isBlank(targetType) || "pos".equals(targetType)) {
+			List<ZTreeNode> positionNodes = positionService.queryGroupedPositionNodes(parentId);
+			nodes.addAll(positionNodes);
+		}
 		return nodes;
 	}
 
@@ -409,41 +431,61 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 	}
 
 	@Override
-	public List<ZTreeNode> buildingHierarchicalRelationships(List<ZTreeNode> list) {
+	public List<ZTreeNode> buildingHierarchicalRelationships(List<ZTreeNode> list,String targetType) {
 		if(list.isEmpty()) return  list;
 		//构建查询
 		ConditionExpr ce=new ConditionExpr();
+		ConditionExpr ors=new ConditionExpr();
 		for (ZTreeNode node : list) {
-			ce.or(HRM_ORGANIZATION.HIERARCHY.name()+" like ?",node.getHierarchy()+"/%");
+			ors.or(HRM_ORGANIZATION.HIERARCHY.name()+" like ?",node.getHierarchy()+"/%");
 		}
+		ce.and(ors);
 		ce.startWithSpace();
+
+		if(targetType.equals("com")) {
+			ce.and("type=?",targetType);
+		}
+		if(targetType.equals("dept")) {
+			ce.and("type=?",targetType);
+		}
+
 		Template template= dao.getTemplate("#query-descendants-orgs");
 		template.put("descendants_condition",ce);
 		//查询所有子孙节点
 		RcdSet descendantRs=dao().query(template);
 		List<ZTreeNode> nodes= toZTreeNodeList(descendantRs);
-		Map<String,List<ZTreeNode>> posNodes = positionService.queryGroupedPositionNodes();
+
+		Map<String,List<ZTreeNode>> posNodes = null;
+		//判断是否需要职位数据
+		if(StringUtil.isBlank(targetType) || "pos".equals(targetType)) {
+			posNodes = positionService.queryGroupedPositionNodes();
+		}
 		//构建层级关系
 		nodes.addAll(list);
 		Map<String, ZTreeNode> map=new HashMap<>();
 		for (ZTreeNode node : nodes) {
+			node.setIsParent(false);
 			map.put(node.getId(),node);
 		}
 		ZTreeNode parent=null;
 		for (ZTreeNode node : nodes) {
+
 			parent=map.get(node.getParentId());
 			if (parent==null){
 				continue;
 			}
 			parent.addChild(node);
+			parent.setIsParent(true);
 		}
 		//追加岗位
-		for (Map.Entry<String, List<ZTreeNode>> e : posNodes.entrySet()) {
-			parent=map.get(e.getKey());
-			if(parent==null) continue;
-			if(e.getValue()!=null && !e.getValue().isEmpty()) {
-				parent.getChildren().addAll(e.getValue());
-				parent.setIsParent(true);
+		if(posNodes!=null) {
+			for (Map.Entry<String, List<ZTreeNode>> e : posNodes.entrySet()) {
+				parent = map.get(e.getKey());
+				if (parent == null) continue;
+				if (e.getValue() != null && !e.getValue().isEmpty()) {
+					parent.getChildren().addAll(e.getValue());
+					parent.setIsParent(true);
+				}
 			}
 		}
 

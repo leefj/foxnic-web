@@ -42,7 +42,7 @@ function ListPage() {
 				contentType:"application/json",
 				url:moduleURL+"/query-nodes",
 				autoParam:["id=parentId"],
-				otherParam:{isLoadAllDescendants:0,isLoadAllDescendants:1},
+				otherParam:{isLoadAllDescendants:1,targetType:options.targetType,root:options.root},
 				dataFilter: nodeDatafilter
 			},
 			callback: {
@@ -160,6 +160,11 @@ function ListPage() {
 			}
 			if(options.targetType=="pos") {
 				if(childNodes[i].type=="dept" || childNodes[i].type=="com") {
+					childNodes[i].chkDisabled=true;
+				}
+			}
+			if(options.targetType=="dept") {
+				if(childNodes[i].type=="com") {
 					childNodes[i].chkDisabled=true;
 				}
 			}

@@ -1,7 +1,7 @@
 /**
  * 代码生成拥有的车辆 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-16 19:31:21
+ * @since 2021-09-17 14:54:48
  */
 
 function FormPage() {
@@ -107,8 +107,12 @@ function FormPage() {
 
 			//处理fillBy
 
+			//
 	     	fm.attr('method', 'POST');
+
 	     	renderFormFields();
+
+			fox.fillDialogButtons();
 
 			window.pageExt.form.afterDataFill && window.pageExt.form.afterDataFill(formData);
 
@@ -199,14 +203,68 @@ function FormPage() {
 		$("#positionId-button").click(function(){
 			fox.chooseOrgNode && fox.chooseOrgNode(getFormData(),$("#positionId"),$(this),{
 				single:true,
+				//限制浏览的范围，指定根节点 id 或 code ，优先匹配ID
+				root: "",
 				targetType:"pos",
 				callback:function(ids,nodes,fromData,inputEl,buttonEl){}
 			});
 		});
-		// 请选择部门对话框
+		// 请选择组织节点对话框
 		$("#orgId-button").click(function(){
 			fox.chooseOrgNode && fox.chooseOrgNode(getFormData(),$("#orgId"),$(this),{
 				single:true,
+				//限制浏览的范围，指定根节点 id 或 code ，优先匹配ID
+				root: "",
+				targetType:"org",
+				callback:function(ids,nodes,fromData,inputEl,buttonEl){}
+			});
+		});
+		// 请选择职位对话框
+		$("#positionIds-button").click(function(){
+			fox.chooseOrgNode && fox.chooseOrgNode(getFormData(),$("#positionIds"),$(this),{
+				single:false,
+				//限制浏览的范围，指定根节点 id 或 code ，优先匹配ID
+				root: "",
+				targetType:"pos",
+				callback:function(ids,nodes,fromData,inputEl,buttonEl){}
+			});
+		});
+		// 请选择组织节点对话框
+		$("#orgIds-button").click(function(){
+			fox.chooseOrgNode && fox.chooseOrgNode(getFormData(),$("#orgIds"),$(this),{
+				single:false,
+				//限制浏览的范围，指定根节点 id 或 code ，优先匹配ID
+				root: "",
+				targetType:"org",
+				callback:function(ids,nodes,fromData,inputEl,buttonEl){}
+			});
+		});
+		// 请选择公司对话框
+		$("#comId-button").click(function(){
+			fox.chooseOrgNode && fox.chooseOrgNode(getFormData(),$("#comId"),$(this),{
+				single:true,
+				//限制浏览的范围，指定根节点 id 或 code ，优先匹配ID
+				root: "",
+				targetType:"com",
+				callback:function(ids,nodes,fromData,inputEl,buttonEl){}
+			});
+		});
+		// 请选择部门对话框
+		$("#deptIds-button").click(function(){
+			fox.chooseOrgNode && fox.chooseOrgNode(getFormData(),$("#deptIds"),$(this),{
+				single:false,
+				//限制浏览的范围，指定根节点 id 或 code ，优先匹配ID
+				root: "",
+				targetType:"dept",
+				callback:function(ids,nodes,fromData,inputEl,buttonEl){}
+			});
+		});
+		// 请选择组织节点对话框
+		$("#subOrgId-button").click(function(){
+			fox.chooseOrgNode && fox.chooseOrgNode(getFormData(),$("#subOrgId"),$(this),{
+				single:true,
+				//限制浏览的范围，指定根节点 id 或 code ，优先匹配ID
+				root: "shanghai",
 				targetType:"org",
 				callback:function(ids,nodes,fromData,inputEl,buttonEl){}
 			});

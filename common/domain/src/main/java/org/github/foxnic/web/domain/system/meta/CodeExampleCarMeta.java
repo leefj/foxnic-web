@@ -8,8 +8,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-16 19:23:02
- * @sign DD39AF146896BF72E88C6A74EEEDA389
+ * @since 2021-09-17 10:51:07
+ * @sign EA50B9726A86DAB9B9276E14AC5A58DF
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -206,9 +206,39 @@ public class CodeExampleCarMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.system.CodeExampleCar,java.lang.String> SELECT_EMP_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.system.CodeExampleCar.class ,SELECT_EMP_ID, java.lang.String.class, "员工下拉", "员工下拉", java.lang.String.class, null);
 	
 	/**
+	 * 公司单选 , 类型: java.lang.String
+	*/
+	public static final String COM_ID="comId";
+	
+	/**
+	 * 公司单选 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.CodeExampleCar,java.lang.String> COM_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.system.CodeExampleCar.class ,COM_ID, java.lang.String.class, "公司单选", "公司单选", java.lang.String.class, null);
+	
+	/**
+	 * 部门多选 , 类型: java.lang.String
+	*/
+	public static final String DEPT_IDS="deptIds";
+	
+	/**
+	 * 部门多选 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.CodeExampleCar,java.lang.String> DEPT_IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.system.CodeExampleCar.class ,DEPT_IDS, java.lang.String.class, "部门多选", "部门多选", java.lang.String.class, null);
+	
+	/**
+	 * 限定上级 , 类型: java.lang.String
+	*/
+	public static final String SUB_ORG_ID="subOrgId";
+	
+	/**
+	 * 限定上级 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.CodeExampleCar,java.lang.String> SUB_ORG_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.system.CodeExampleCar.class ,SUB_ORG_ID, java.lang.String.class, "限定上级", "限定上级", java.lang.String.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , EXAMPLE_ID , PLATE_NUMBER , COLOR , VERSION , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , POSITION_ID , ORG_ID , EMP_ID , POSITION_IDS , ORG_IDS , EMP_IDS , SELECT_EMP_ID };
+	public static final String[] $PROPS={ ID , EXAMPLE_ID , PLATE_NUMBER , COLOR , VERSION , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , POSITION_ID , ORG_ID , EMP_ID , POSITION_IDS , ORG_IDS , EMP_IDS , SELECT_EMP_ID , COM_ID , DEPT_IDS , SUB_ORG_ID };
 	
 	/**
 	 * 代理类
@@ -424,6 +454,39 @@ public class CodeExampleCarMeta {
 		public CodeExampleCar setSelectEmpId(String selectEmpId) {
 			super.change(SELECT_EMP_ID,super.getSelectEmpId(),selectEmpId);
 			super.setSelectEmpId(selectEmpId);
+			return this;
+		}
+		
+		/**
+		 * 设置 公司单选
+		 * @param comId 公司单选
+		 * @return 当前对象
+		*/
+		public CodeExampleCar setComId(String comId) {
+			super.change(COM_ID,super.getComId(),comId);
+			super.setComId(comId);
+			return this;
+		}
+		
+		/**
+		 * 设置 部门多选
+		 * @param deptIds 部门多选
+		 * @return 当前对象
+		*/
+		public CodeExampleCar setDeptIds(String deptIds) {
+			super.change(DEPT_IDS,super.getDeptIds(),deptIds);
+			super.setDeptIds(deptIds);
+			return this;
+		}
+		
+		/**
+		 * 设置 限定上级
+		 * @param subOrgId 限定上级
+		 * @return 当前对象
+		*/
+		public CodeExampleCar setSubOrgId(String subOrgId) {
+			super.change(SUB_ORG_ID,super.getSubOrgId(),subOrgId);
+			super.setSubOrgId(subOrgId);
 			return this;
 		}
 	}

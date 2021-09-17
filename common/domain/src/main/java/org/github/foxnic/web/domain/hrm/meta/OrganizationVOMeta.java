@@ -8,8 +8,8 @@ import java.util.List;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-16 13:01:44
- * @sign 3177C6804E73E487E59DEE7E72C104C9
+ * @since 2021-09-17 13:17:56
+ * @sign CA3E22C36303981DAFE1E771E81B86E0
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -106,19 +106,29 @@ public class OrganizationVOMeta extends OrganizationMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.hrm.OrganizationVO,java.lang.Integer> IS_LOAD_ALL_DESCENDANTS_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.OrganizationVO.class ,IS_LOAD_ALL_DESCENDANTS, java.lang.Integer.class, "是否加载所有子孙节点", "1：是；0：否", java.lang.Integer.class, null);
 	
 	/**
-	 * 根节点ID , 类型: java.lang.String
+	 * 根节点id或code , 根节点id , 类型: java.lang.String
 	*/
-	public static final String ROOT_ID="rootId";
+	public static final String ROOT="root";
 	
 	/**
-	 * 根节点ID , 类型: java.lang.String
+	 * 根节点id或code , 根节点id , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.hrm.OrganizationVO,java.lang.String> ROOT_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.OrganizationVO.class ,ROOT_ID, java.lang.String.class, "根节点ID", "根节点ID", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.OrganizationVO,java.lang.String> ROOT_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.OrganizationVO.class ,ROOT, java.lang.String.class, "根节点id或code", "根节点id", java.lang.String.class, null);
+	
+	/**
+	 * 呈现模式 , 呈现模式:pos,org,com,dept , 类型: java.lang.String
+	*/
+	public static final String TARGET_TYPE="targetType";
+	
+	/**
+	 * 呈现模式 , 呈现模式:pos,org,com,dept , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.OrganizationVO,java.lang.String> TARGET_TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.OrganizationVO.class ,TARGET_TYPE, java.lang.String.class, "呈现模式", "呈现模式:pos,org,com,dept", java.lang.String.class, null);
 	
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , SORT_FIELD , SORT_TYPE , IDS , IS_LOAD_ALL_DESCENDANTS , ROOT_ID };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , SORT_FIELD , SORT_TYPE , IDS , IS_LOAD_ALL_DESCENDANTS , ROOT , TARGET_TYPE };
 	
 	/**
 	 * 代理类
@@ -228,13 +238,24 @@ public class OrganizationVOMeta extends OrganizationMeta {
 		}
 		
 		/**
-		 * 设置 根节点ID
-		 * @param rootId 根节点ID
+		 * 设置 根节点id或code
+		 * @param root 根节点id或code
 		 * @return 当前对象
 		*/
-		public OrganizationVO setRootId(String rootId) {
-			super.change(ROOT_ID,super.getRootId(),rootId);
-			super.setRootId(rootId);
+		public OrganizationVO setRoot(String root) {
+			super.change(ROOT,super.getRoot(),root);
+			super.setRoot(root);
+			return this;
+		}
+		
+		/**
+		 * 设置 呈现模式
+		 * @param targetType 呈现模式
+		 * @return 当前对象
+		*/
+		public OrganizationVO setTargetType(String targetType) {
+			super.change(TARGET_TYPE,super.getTargetType(),targetType);
+			super.setTargetType(targetType);
 			return this;
 		}
 	}

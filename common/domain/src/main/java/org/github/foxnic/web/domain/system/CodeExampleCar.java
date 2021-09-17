@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-16 19:23:02
- * @sign DD39AF146896BF72E88C6A74EEEDA389
+ * @since 2021-09-17 10:51:07
+ * @sign EA50B9726A86DAB9B9276E14AC5A58DF
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -142,6 +142,24 @@ public class CodeExampleCar extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="员工下拉" , notes = "员工下拉")
 	private String selectEmpId;
+	
+	/**
+	 * 公司单选：公司单选
+	*/
+	@ApiModelProperty(required = false,value="公司单选" , notes = "公司单选")
+	private String comId;
+	
+	/**
+	 * 部门多选：部门多选
+	*/
+	@ApiModelProperty(required = false,value="部门多选" , notes = "部门多选")
+	private String deptIds;
+	
+	/**
+	 * 限定上级：限定上级
+	*/
+	@ApiModelProperty(required = false,value="限定上级" , notes = "限定上级")
+	private String subOrgId;
 	
 	/**
 	 * 获得 主键<br>
@@ -501,6 +519,63 @@ public class CodeExampleCar extends Entity {
 	*/
 	public CodeExampleCar setSelectEmpId(String selectEmpId) {
 		this.selectEmpId=selectEmpId;
+		return this;
+	}
+	
+	/**
+	 * 获得 公司单选<br>
+	 * 公司单选
+	 * @return 公司单选
+	*/
+	public String getComId() {
+		return comId;
+	}
+	
+	/**
+	 * 设置 公司单选
+	 * @param comId 公司单选
+	 * @return 当前对象
+	*/
+	public CodeExampleCar setComId(String comId) {
+		this.comId=comId;
+		return this;
+	}
+	
+	/**
+	 * 获得 部门多选<br>
+	 * 部门多选
+	 * @return 部门多选
+	*/
+	public String getDeptIds() {
+		return deptIds;
+	}
+	
+	/**
+	 * 设置 部门多选
+	 * @param deptIds 部门多选
+	 * @return 当前对象
+	*/
+	public CodeExampleCar setDeptIds(String deptIds) {
+		this.deptIds=deptIds;
+		return this;
+	}
+	
+	/**
+	 * 获得 限定上级<br>
+	 * 限定上级
+	 * @return 限定上级
+	*/
+	public String getSubOrgId() {
+		return subOrgId;
+	}
+	
+	/**
+	 * 设置 限定上级
+	 * @param subOrgId 限定上级
+	 * @return 当前对象
+	*/
+	public CodeExampleCar setSubOrgId(String subOrgId) {
+		this.subOrgId=subOrgId;
 		return this;
 	}
 

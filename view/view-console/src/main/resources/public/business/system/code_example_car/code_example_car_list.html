@@ -2,7 +2,7 @@
 /**
  * 代码生成拥有的车辆 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-16 19:31:21
+ * @since 2021-09-17 14:54:48
  */
  -->
  <!DOCTYPE html>
@@ -39,14 +39,14 @@
                 <div class="layui-form toolbar search-inputs">
                     <!-- 主键 , id ,typeName=text_input, isHideInSearch=true -->
                     <!-- 属主ID , exampleId ,typeName=text_input, isHideInSearch=true -->
-                    <!-- 车牌号 , plateNumber ,typeName=text_input, isHideInSearch=false -->
+                    <!-- 牌号 , plateNumber ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('车牌号')}" class="search-label plateNumber-label">车牌号</span><span class="search-colon">:</span></div>
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('牌号')}" class="search-label plateNumber-label">牌号</span><span class="search-colon">:</span></div>
                         <input id="plateNumber" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
-                    <!-- 颜色 , color ,typeName=text_input, isHideInSearch=false -->
+                    <!-- 规格 , color ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('颜色')}" class="search-label color-label">颜色</span><span class="search-colon">:</span></div>
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('规格')}" class="search-label color-label">规格</span><span class="search-colon">:</span></div>
                         <input id="color" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
                     <!-- 职位单选 , positionId ,typeName=button, isHideInSearch=false -->
@@ -64,12 +64,12 @@
                         <div class="search-label-div" style=""><span th:text="${lang.translate('员工单选')}" class="search-label empId-label">员工单选</span><span class="search-colon">:</span></div>
                         <input id="empId" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
-                    <!-- 职位多选 , positionIds ,typeName=text_input, isHideInSearch=false -->
+                    <!-- 职位多选 , positionIds ,typeName=button, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('职位多选')}" class="search-label positionIds-label">职位多选</span><span class="search-colon">:</span></div>
                         <input id="positionIds" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
-                    <!-- 组织多选 , orgIds ,typeName=text_input, isHideInSearch=false -->
+                    <!-- 组织多选 , orgIds ,typeName=button, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('组织多选')}" class="search-label orgIds-label">组织多选</span><span class="search-colon">:</span></div>
                         <input id="orgIds" class="layui-input search-input" style="width: 140px" type="text" />
@@ -83,6 +83,21 @@
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('员工下拉')}" class="search-label selectEmpId-label">员工下拉</span><span class="search-colon">:</span></div>
                         <input id="selectEmpId" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 公司单选 , comId ,typeName=button, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('公司单选')}" class="search-label comId-label">公司单选</span><span class="search-colon">:</span></div>
+                        <input id="comId" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 部门多选 , deptIds ,typeName=button, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('部门多选')}" class="search-label deptIds-label">部门多选</span><span class="search-colon">:</span></div>
+                        <input id="deptIds" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 限定上级 , subOrgId ,typeName=button, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('限定上级')}" class="search-label subOrgId-label">限定上级</span><span class="search-colon">:</span></div>
+                        <input id="subOrgId" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
 
 

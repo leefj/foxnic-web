@@ -8,8 +8,8 @@ import java.util.List;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-16 13:03:47
- * @sign 031350BE97ABB534490660B3A4C00FF0
+ * @since 2021-09-17 13:18:32
+ * @sign 5415A99B6780BC75F9076FEE372CF30B
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -106,19 +106,19 @@ public class CatalogVOMeta extends CatalogMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogVO,java.lang.Integer> IS_LOAD_ALL_DESCENDANTS_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogVO.class ,IS_LOAD_ALL_DESCENDANTS, java.lang.Integer.class, "是否加载所有子孙节点", "1：是；0：否", java.lang.Integer.class, null);
 	
 	/**
-	 * 根节点ID , 类型: java.lang.String
+	 * 根节点id或code , 类型: java.lang.String
 	*/
-	public static final String ROOT_ID="rootId";
+	public static final String ROOT="root";
 	
 	/**
-	 * 根节点ID , 类型: java.lang.String
+	 * 根节点id或code , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogVO,java.lang.String> ROOT_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogVO.class ,ROOT_ID, java.lang.String.class, "根节点ID", "根节点ID", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogVO,java.lang.String> ROOT_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogVO.class ,ROOT, java.lang.String.class, "根节点id或code", "根节点id或code", java.lang.String.class, null);
 	
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , SORT_FIELD , SORT_TYPE , IDS , IS_LOAD_ALL_DESCENDANTS , ROOT_ID };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , SORT_FIELD , SORT_TYPE , IDS , IS_LOAD_ALL_DESCENDANTS , ROOT };
 	
 	/**
 	 * 代理类
@@ -228,13 +228,13 @@ public class CatalogVOMeta extends CatalogMeta {
 		}
 		
 		/**
-		 * 设置 根节点ID
-		 * @param rootId 根节点ID
+		 * 设置 根节点id或code
+		 * @param root 根节点id或code
 		 * @return 当前对象
 		*/
-		public CatalogVO setRootId(String rootId) {
-			super.change(ROOT_ID,super.getRootId(),rootId);
-			super.setRootId(rootId);
+		public CatalogVO setRoot(String root) {
+			super.change(ROOT,super.getRoot(),root);
+			super.setRoot(root);
 			return this;
 		}
 	}

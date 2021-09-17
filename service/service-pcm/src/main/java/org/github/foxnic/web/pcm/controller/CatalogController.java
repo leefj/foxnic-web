@@ -247,13 +247,15 @@ public class CatalogController extends SuperController {
 	@PostMapping(CatalogServiceProxy.QUERY_NODES)
 	public Result<List<ZTreeNode>> queryNodes(CatalogVO sample) {
 
+
 		Result<List<ZTreeNode>> result=new Result<>();
 		List<ZTreeNode> list=null;
 		if(sample.getParentId()==null) {
-			list=catalogService.queryRootNotes(sample.getRootId());
+			list=catalogService.queryRootNotes(sample.getRoot());
 		} else {
 			list=catalogService.queryChildNodes(sample.getParentId());
 		}
+
 
 		//加载全部子孙节点
 		if(sample.getIsLoadAllDescendants()!=null && sample.getIsLoadAllDescendants()==1) {

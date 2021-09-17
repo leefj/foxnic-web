@@ -2,7 +2,7 @@
 /**
  * 代码生成拥有的车辆 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-16 19:31:21
+ * @since 2021-09-17 14:54:48
  */
  -->
  <!DOCTYPE html>
@@ -28,92 +28,169 @@
 
     <form id="data-form" lay-filter="data-form" class="layui-form model-form" style="display:none">
 
+        <input name="id" id="id"  type="hidden"/>
 
          <!--开始：group 循环-->
 
 
+        <fieldset class="layui-elem-field layui-field-title form-group-title">
+            <legend>基本信息</legend>
+        </fieldset>
 
         <div class="layui-row form-row">
 
              <!--开始：group 循环-->
-            <div class="layui-col-xs12 form-column">
+            <div class="layui-col-xs6 form-column">
 
-                    <div class="layui-form-item" style="display: none">
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('主键')}">主键</div></div>
-                        <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="id" id="id" name="id" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('主键') }" type="text" class="layui-input"  />
+                    <div class="layui-form-item" >
+                        <div class="layui-form-label "><div th:text="${lang.translate('牌号')}">牌号</div></div>
+                        <div class="layui-input-block ">
+                            <input lay-filter="plateNumber" id="plateNumber" name="plateNumber" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('牌号') }" type="text" class="layui-input"  />
                         </div>
                     </div>
 
-                                    <div class="layui-form-item" style="display: none">
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('属主ID')}">属主ID</div></div>
-                        <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="exampleId" id="exampleId" name="exampleId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('属主ID') }" type="text" class="layui-input"  />
+                <!--结束：栏次内字段循环-->
+            </div>
+             <!--开始：group 循环-->
+            <div class="layui-col-xs6 form-column">
+
+                    <div class="layui-form-item" >
+                        <div class="layui-form-label "><div th:text="${lang.translate('规格')}">规格</div></div>
+                        <div class="layui-input-block ">
+                            <input lay-filter="color" id="color" name="color" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('规格') }" type="text" class="layui-input"  />
                         </div>
                     </div>
 
-                                    <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('车牌号')}">车牌号</div></div>
-                        <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="plateNumber" id="plateNumber" name="plateNumber" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('车牌号') }" type="text" class="layui-input"  />
-                        </div>
-                    </div>
+                <!--结束：栏次内字段循环-->
+            </div>
+            <!--结束：栏次输入框循环-->
+        </div>
+         <!--开始：group 循环-->
 
-                                    <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('颜色')}">颜色</div></div>
-                        <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="color" id="color" name="color" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('颜色') }" type="text" class="layui-input"  />
-                        </div>
-                    </div>
 
-                                    <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('职位单选')}">职位单选</div></div>
-                        <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="positionId" id="positionId" name="positionId"  type="hidden" class="layui-input"   />
-                            <button id="positionId-button" type="button" class="layui-btn   " > <i class='layui-icon layui-icon-search'></i> <span th:text="${lang.translate('请选择职位')}">按钮文本</span></button>
-                        </div>
-                    </div>
+        <fieldset class="layui-elem-field layui-field-title form-group-title">
+            <legend>选组织节点</legend>
+        </fieldset>
 
-                                    <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('组织单选')}">组织单选</div></div>
-                        <div class="layui-input-block layui-input-block-c1">
+        <div class="layui-row form-row">
+
+             <!--开始：group 循环-->
+            <div class="layui-col-xs6 form-column">
+
+                    <div class="layui-form-item" >
+                        <div class="layui-form-label "><div th:text="${lang.translate('组织单选')}">组织单选</div></div>
+                        <div class="layui-input-block ">
                             <input lay-filter="orgId" id="orgId" name="orgId"  type="hidden" class="layui-input"   />
-                            <button id="orgId-button" type="button" class="layui-btn   " > <i class='layui-icon layui-icon-search'></i> <span th:text="${lang.translate('请选择部门')}">按钮文本</span></button>
+                            <button id="orgId-button" type="button" action-type="org-dialog" class="layui-btn   " style="width: 100%"> <i class='layui-icon layui-icon-search'></i> <span th:text="${lang.translate('请选择组织节点')}">按钮文本</span></button>
                         </div>
                     </div>
 
                                     <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('员工单选')}">员工单选</div></div>
-                        <div class="layui-input-block layui-input-block-c1">
+                        <div class="layui-form-label "><div th:text="${lang.translate('限定上级')}">限定上级</div></div>
+                        <div class="layui-input-block ">
+                            <input lay-filter="subOrgId" id="subOrgId" name="subOrgId"  type="hidden" class="layui-input"   />
+                            <button id="subOrgId-button" type="button" action-type="org-dialog" class="layui-btn   " style="width: 100%"> <i class='layui-icon layui-icon-search'></i> <span th:text="${lang.translate('请选择组织节点')}">按钮文本</span></button>
+                        </div>
+                    </div>
+
+                                    <div class="layui-form-item" >
+                        <div class="layui-form-label "><div th:text="${lang.translate('部门多选')}">部门多选</div></div>
+                        <div class="layui-input-block ">
+                            <input lay-filter="deptIds" id="deptIds" name="deptIds"  type="hidden" class="layui-input"   />
+                            <button id="deptIds-button" type="button" action-type="org-dialog" class="layui-btn   " style="width: 100%"> <i class='layui-icon layui-icon-search'></i> <span th:text="${lang.translate('请选择部门')}">按钮文本</span></button>
+                        </div>
+                    </div>
+
+                <!--结束：栏次内字段循环-->
+            </div>
+             <!--开始：group 循环-->
+            <div class="layui-col-xs6 form-column">
+
+                    <div class="layui-form-item" >
+                        <div class="layui-form-label "><div th:text="${lang.translate('组织多选')}">组织多选</div></div>
+                        <div class="layui-input-block ">
+                            <input lay-filter="orgIds" id="orgIds" name="orgIds"  type="hidden" class="layui-input"   />
+                            <button id="orgIds-button" type="button" action-type="org-dialog" class="layui-btn   " style="width: 100%"> <i class='layui-icon layui-icon-search'></i> <span th:text="${lang.translate('请选择组织节点')}">按钮文本</span></button>
+                        </div>
+                    </div>
+
+                                    <div class="layui-form-item" >
+                        <div class="layui-form-label "><div th:text="${lang.translate('公司单选')}">公司单选</div></div>
+                        <div class="layui-input-block ">
+                            <input lay-filter="comId" id="comId" name="comId"  type="hidden" class="layui-input"   />
+                            <button id="comId-button" type="button" action-type="org-dialog" class="layui-btn   " style="width: 100%"> <i class='layui-icon layui-icon-search'></i> <span th:text="${lang.translate('请选择公司')}">按钮文本</span></button>
+                        </div>
+                    </div>
+
+                <!--结束：栏次内字段循环-->
+            </div>
+            <!--结束：栏次输入框循环-->
+        </div>
+         <!--开始：group 循环-->
+
+
+        <fieldset class="layui-elem-field layui-field-title form-group-title">
+            <legend>选职位</legend>
+        </fieldset>
+
+        <div class="layui-row form-row">
+
+             <!--开始：group 循环-->
+            <div class="layui-col-xs6 form-column">
+
+                    <div class="layui-form-item" >
+                        <div class="layui-form-label "><div th:text="${lang.translate('职位单选')}">职位单选</div></div>
+                        <div class="layui-input-block ">
+                            <input lay-filter="positionId" id="positionId" name="positionId"  type="hidden" class="layui-input"   />
+                            <button id="positionId-button" type="button" action-type="pos-dialog" class="layui-btn   " style="width: 100%"> <i class='layui-icon layui-icon-search'></i> <span th:text="${lang.translate('请选择职位')}">按钮文本</span></button>
+                        </div>
+                    </div>
+
+                <!--结束：栏次内字段循环-->
+            </div>
+             <!--开始：group 循环-->
+            <div class="layui-col-xs6 form-column">
+
+                    <div class="layui-form-item" >
+                        <div class="layui-form-label "><div th:text="${lang.translate('职位多选')}">职位多选</div></div>
+                        <div class="layui-input-block ">
+                            <input lay-filter="positionIds" id="positionIds" name="positionIds"  type="hidden" class="layui-input"   />
+                            <button id="positionIds-button" type="button" action-type="pos-dialog" class="layui-btn   " style="width: 100%"> <i class='layui-icon layui-icon-search'></i> <span th:text="${lang.translate('请选择职位')}">按钮文本</span></button>
+                        </div>
+                    </div>
+
+                <!--结束：栏次内字段循环-->
+            </div>
+            <!--结束：栏次输入框循环-->
+        </div>
+         <!--开始：group 循环-->
+
+
+        <fieldset class="layui-elem-field layui-field-title form-group-title">
+            <legend>选员工</legend>
+        </fieldset>
+
+        <div class="layui-row form-row">
+
+             <!--开始：group 循环-->
+            <div class="layui-col-xs6 form-column">
+
+                    <div class="layui-form-item" >
+                        <div class="layui-form-label "><div th:text="${lang.translate('员工单选')}">员工单选</div></div>
+                        <div class="layui-input-block ">
                             <input lay-filter="empId" id="empId" name="empId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('员工单选') }" type="text" class="layui-input"  />
                         </div>
                     </div>
 
-                                    <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('职位多选')}">职位多选</div></div>
-                        <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="positionIds" id="positionIds" name="positionIds" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('职位多选') }" type="text" class="layui-input"  />
-                        </div>
-                    </div>
+                <!--结束：栏次内字段循环-->
+            </div>
+             <!--开始：group 循环-->
+            <div class="layui-col-xs6 form-column">
 
-                                    <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('组织多选')}">组织多选</div></div>
-                        <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="orgIds" id="orgIds" name="orgIds" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('组织多选') }" type="text" class="layui-input"  />
-                        </div>
-                    </div>
-
-                                    <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('员工多选')}">员工多选</div></div>
-                        <div class="layui-input-block layui-input-block-c1">
+                    <div class="layui-form-item" >
+                        <div class="layui-form-label "><div th:text="${lang.translate('员工多选')}">员工多选</div></div>
+                        <div class="layui-input-block ">
                             <input lay-filter="empIds" id="empIds" name="empIds" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('员工多选') }" type="text" class="layui-input"  />
-                        </div>
-                    </div>
-
-                                    <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('员工下拉')}">员工下拉</div></div>
-                        <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="selectEmpId" id="selectEmpId" name="selectEmpId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('员工下拉') }" type="text" class="layui-input"  />
                         </div>
                     </div>
 

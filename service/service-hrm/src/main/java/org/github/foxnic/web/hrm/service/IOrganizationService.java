@@ -292,12 +292,12 @@ public interface IOrganizationService extends ISuperService<Organization> {
 	/**
 	 * 查询根节点
 	 * */
-	List<ZTreeNode> queryRootNotes(String rootId);
+	List<ZTreeNode> queryRootNotes(String root,String targetType);
 
 	/**
 	 * 查询下级节点
 	 * */
-	List<ZTreeNode> queryChildNodes(String parentId);
+	List<ZTreeNode> queryChildNodes(String parentId,String targetType);
 
 	/**
 	 * 保存层级关系
@@ -312,7 +312,7 @@ public interface IOrganizationService extends ISuperService<Organization> {
 	/**
 	 * 构建层级关系
 	 * */
-	List<ZTreeNode> buildingHierarchicalRelationships(List<ZTreeNode> list);
+	List<ZTreeNode> buildingHierarchicalRelationships(List<ZTreeNode> list,String targetType);
 
 	/**
 	 * 按关键字搜索，并返回匹配的层级
