@@ -304,11 +304,11 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 
 	@Override
 	public List<ZTreeNode> queryRootNotes(String root) {
-
+		Catalog catalog = null;
 		if(StringUtil.isBlank(root)) {
 			root=ICatalogService.ROOT_ID;
 		} else {
-			Catalog catalog=this.getById(root);
+			catalog=this.getById(root);
 			if(catalog==null) {
 				catalog=this.queryEntity(new ConditionExpr("code=?",root));
 				if(catalog!=null) {
@@ -319,9 +319,14 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 				root=ICatalogService.ROOT_ID;
 			}
 		}
-
-		RcdSet menus= queryChildCatalogs(root);
-		List<ZTreeNode> nodes = toZTreeNodeList(menus);
+		RcdSet catalogs = null;
+		if(catalog!=null) {
+			catalogs = queryChildCatalogs(catalog.getParentId());
+			catalogs = catalogs.filter("id", catalog.getId());
+		} else {
+			catalogs = queryChildCatalogs(root);
+		}
+		List<ZTreeNode> nodes = toZTreeNodeList(catalogs);
 		return nodes;
 	}
 

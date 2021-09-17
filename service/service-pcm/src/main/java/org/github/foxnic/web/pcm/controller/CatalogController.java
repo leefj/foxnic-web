@@ -247,7 +247,6 @@ public class CatalogController extends SuperController {
 	@PostMapping(CatalogServiceProxy.QUERY_NODES)
 	public Result<List<ZTreeNode>> queryNodes(CatalogVO sample) {
 
-
 		Result<List<ZTreeNode>> result=new Result<>();
 		List<ZTreeNode> list=null;
 		if(sample.getParentId()==null) {

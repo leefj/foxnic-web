@@ -282,7 +282,8 @@ public class CatalogAttributeServiceImpl extends SuperService<CatalogAttribute> 
 	 * */
 	@Override
 	public List<CatalogAttribute> queryList(CatalogAttribute sample) {
-		return super.queryList(sample);
+		PagedList<CatalogAttribute> attributes=this.queryPagedList(sample,10000,1);
+		return attributes.getList();
 	}
 	
 	
@@ -299,12 +300,25 @@ public class CatalogAttributeServiceImpl extends SuperService<CatalogAttribute> 
 
 		JSONObject param=JSONObject.parseObject(((CatalogAttributeVO)sample).getSearchValue());
 		//提取当前类目与版本
-		String catalogId=param.getJSONObject("catalogId").getString("value");
-		String versionNo=param.getJSONObject("versionNo").getString("value");
-		//移除，使其不再参与查询
-		param.remove("catalogId");
-		param.remove("versionNo");
-		((CatalogAttributeVO)sample).setSearchValue(param.toJSONString());
+		String catalogId = null;
+		String versionNo = null;
+		if(param!=null) {
+			catalogId = param.getJSONObject("catalogId").getString("value");
+			versionNo = param.getJSONObject("versionNo").getString("value");
+			//移除，使其不再参与查询
+			param.remove("catalogId");
+			param.remove("versionNo");
+			((CatalogAttributeVO)sample).setSearchValue(param.toJSONString());
+		}
+		if(catalogId==null) catalogId=sample.getCatalogId();
+		if(versionNo==null) versionNo=sample.getVersionNo();
+		sample.setCatalogId(null).setVersionNo(null);
+
+		if(versionNo==null) {
+			versionNo=ICatalogService.VERSION_ACTIVATED;
+		}
+
+
 
 		//分解上级ID
 		Catalog catalog=catalogService.getById(catalogId);
