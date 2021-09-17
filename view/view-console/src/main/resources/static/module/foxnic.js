@@ -382,7 +382,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     limitName: "pageSize"
                 },
                 parseData: function (res) { //res 即为原始返回的数据
-                    //debugger;
+                    // debugger;
 
                     if (!res.success) {
                         alert(res.message);
@@ -543,7 +543,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 }
 
             }
-
+            // debugger
             cfg.done = done;
             if (!table.instance) table.instance = [];
             var inst = table.render(cfg);

@@ -442,10 +442,10 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 		ce.and(ors);
 		ce.startWithSpace();
 
-		if(targetType.equals("com")) {
+		if("com".equals(targetType)) {
 			ce.and("type=?",targetType);
 		}
-		if(targetType.equals("dept")) {
+		if("dept".equals(targetType)) {
 			ce.and("type=?",targetType);
 		}
 

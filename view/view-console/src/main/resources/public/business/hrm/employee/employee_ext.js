@@ -96,6 +96,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             }, "POST");
         },
         lockRange:function (type,id) {
+            debugger
             lockedType=type;
             lockedId=id;
             admin.putTempData("lockedPositionId",null,true);

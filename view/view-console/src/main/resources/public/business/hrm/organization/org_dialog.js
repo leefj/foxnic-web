@@ -156,7 +156,7 @@ function ListPage() {
 			 childNodes[i].iconSkin="icon_pos";
 			}
 			if(childNodes[i].children) {
-			 nodeDatafilter(treeId,childNodes[i],childNodes[i].children);
+				nodeDatafilter(treeId,childNodes[i],childNodes[i].children);
 			}
 			if(options.targetType=="pos") {
 				if(childNodes[i].type=="dept" || childNodes[i].type=="com") {
@@ -173,44 +173,12 @@ function ListPage() {
 		return childNodes;
 	}
 	
-	function addHoverDom(treeId, treeNode) {
-		if(!treeNode.isParent) return;
-		var aObj = $("#" + treeNode.tId + "_a");
-		if ($("#diyBtn_"+treeNode.id).length>0) return;
-		//var editStr = "<span class='button icon01' id='diyBtn_" +treeNode.id+ "' title='"+treeNode.name+"' onfocus='this.blur();'></span>";
-		var editStr = "<image tid='"+treeNode.tId+"' style='margin-top:2px' id='diyBtn_" +treeNode.id+ "' src='/assets/libs/zTree/images/refresh-16.png'  onfocus='this.blur();'/>"
-		aObj.after(editStr);
-		var btn = $("#diyBtn_"+treeNode.id);
-		if (btn) btn.bind("click", function() {
-			var it=$(this);
-			var tid=it.attr("tid");
-			var node=menuTree.getNodeByTId(tid);
-			menuTree.reAsyncChildNodes(node,'refresh');
-		});
-			 
-	}
+
 	
-	function changeNodeName(id,name) {
-		if(editingNode==null) return;
-		if(editingNode.id!=id) return;
-		editingNode.name=name;
-		menuTree.updateNode(editingNode);
-	}
-	window.changeNodeName=changeNodeName;
-	
-	function removeHoverDom(treeId, treeNode) {
-			//if (treeNode.parentTId && treeNode.getParentNode().id!=1) return;
-//			if (treeNode.id == 15) {
-//				$("#diyBtn1_"+treeNode.id).unbind().remove();
-//				$("#diyBtn2_"+treeNode.id).unbind().remove();
-//			} else {
-				$("#diyBtn_"+treeNode.id).unbind().remove();
-//				$("#diyBtn_space_" +treeNode.id).unbind().remove();
-//			}
-		}
+
      
       
-	
+
 	/**
 	 * 重置搜索框
 	 */

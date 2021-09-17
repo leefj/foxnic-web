@@ -1,12 +1,11 @@
 package org.github.foxnic.web.hrm.page;
 
 import org.github.foxnic.web.framework.view.controller.ViewController;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.github.foxnic.web.proxy.hrm.EmployeeServiceProxy;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import javax.servlet.http.HttpServletRequest;
 /**
  * <p>
@@ -52,4 +51,22 @@ public class EmployeePageController extends ViewController {
 	public String form(Model model,HttpServletRequest request , String id) {
 		return prefix+"/employee_form";
 	}
+
+	/**
+	 * 员工对话框 待选人员
+	 */
+	@RequestMapping("/emp_dialog_list.html")
+	public String dialogList(Model model,HttpServletRequest request) {
+		return prefix+"/emp_dialog_list";
+	}
+
+	/**
+	 * 员工对话框 已选人员
+	 */
+	@RequestMapping("/emp_dialog_selected_list.html")
+	public String dialogSelectList(Model model,HttpServletRequest request) {
+		return prefix+"/emp_dialog_selected_list";
+	}
+
+
 }
