@@ -17,7 +17,7 @@ public class CodeExampleCarConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE_CAR> {
     @Override
     public void configSearch(ViewOptions view, SearchAreaOptions search) {
         search.inputLayout(new Object[]{SYS_CODE_EXAMPLE_CAR.PLATE_NUMBER,SYS_CODE_EXAMPLE_CAR.ORG_IDS});
-        context.view().list().disableMargin();
+//        context.view().list().disableMargin();
     }
 
     @Override

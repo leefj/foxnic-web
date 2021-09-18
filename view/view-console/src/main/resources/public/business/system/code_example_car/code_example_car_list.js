@@ -1,7 +1,7 @@
 /**
  * 代码生成拥有的车辆 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-18 15:03:45
+ * @since 2021-09-18 20:14:28
  */
 
 
@@ -120,7 +120,7 @@ function ListPage() {
 	function refreshTableData(sortField,sortType) {
 		var value = {};
 		value.plateNumber={ value: $("#plateNumber").val()};
-		value.orgIds={ value: $("#orgIds").val()};
+		value.orgIds={ value: $("#orgIds").val(),label:$("#orgIds-button").text()};
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;
@@ -186,6 +186,22 @@ function ListPage() {
 					$('#search-button-advance span').text("更多");
 				}
 			});
+		});
+
+		// 请选择组织节点对话框
+		$("#orgIds-button").click(function(){
+			var orgIdsDialogOptions={
+				field:"orgIds",
+				inputEl:$("#orgIds"),
+				buttonEl:$(this),
+				single:false,
+				//限制浏览的范围，指定根节点 id 或 code ，优先匹配ID
+				root: "",
+				targetType:"org",
+				prepose:function(param){ return window.pageExt.list.beforeDialog && window.pageExt.list.beforeDialog(param);},
+				callback:function(param){ window.pageExt.list.afterDialog && window.pageExt.list.afterDialog(param);}
+			};
+			fox.chooseOrgNode(orgIdsDialogOptions);
 		});
 	}
 	

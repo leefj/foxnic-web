@@ -1,7 +1,7 @@
 /**
  * 代码生成拥有的车辆 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-18 15:03:45
+ * @since 2021-09-18 20:14:28
  */
 
 function FormPage() {
@@ -199,73 +199,115 @@ function FormPage() {
 
 		// 请选择岗位对话框
 		$("#positionId-button").click(function(){
-			fox.chooseOrgNode && fox.chooseOrgNode(getFormData(),$("#positionId"),$(this),{
+			var positionIdDialogOptions={
+				field:"positionId",
+				formData:getFormData(),
+				inputEl:$("#positionId"),
+				buttonEl:$(this),
 				single:true,
 				//限制浏览的范围，指定根节点 id 或 code ，优先匹配ID
 				root: "",
 				targetType:"pos",
-				callback:function(ids,nodes,fromData,inputEl,buttonEl){ window.pageExt.form.dialog && window.pageExt.form.dialog({field:"positionId",selectedIds:ids,selectedNodes:nodes,formData:fromData,inputEl:inputEl,buttonEl:buttonEl});}
-			});
+				prepose:function(param){ return window.pageExt.form.beforeDialog && window.pageExt.form.beforeDialog(param);},
+				callback:function(param){ window.pageExt.form.afterDialog && window.pageExt.form.afterDialog(param);}
+			};
+			fox.chooseOrgNode(positionIdDialogOptions);
 		});
 		// 请选择组织节点对话框
 		$("#orgId-button").click(function(){
-			fox.chooseOrgNode && fox.chooseOrgNode(getFormData(),$("#orgId"),$(this),{
+			var orgIdDialogOptions={
+				field:"orgId",
+				formData:getFormData(),
+				inputEl:$("#orgId"),
+				buttonEl:$(this),
 				single:true,
 				//限制浏览的范围，指定根节点 id 或 code ，优先匹配ID
 				root: "",
 				targetType:"org",
-				callback:function(ids,nodes,fromData,inputEl,buttonEl){ window.pageExt.form.dialog && window.pageExt.form.dialog({field:"orgId",selectedIds:ids,selectedNodes:nodes,formData:fromData,inputEl:inputEl,buttonEl:buttonEl});}
-			});
+				prepose:function(param){ return window.pageExt.form.beforeDialog && window.pageExt.form.beforeDialog(param);},
+				callback:function(param){ window.pageExt.form.afterDialog && window.pageExt.form.afterDialog(param);}
+			};
+			fox.chooseOrgNode(orgIdDialogOptions);
 		});
 		// 请选择岗位对话框
 		$("#positionIds-button").click(function(){
-			fox.chooseOrgNode && fox.chooseOrgNode(getFormData(),$("#positionIds"),$(this),{
+			var positionIdsDialogOptions={
+				field:"positionIds",
+				formData:getFormData(),
+				inputEl:$("#positionIds"),
+				buttonEl:$(this),
 				single:false,
 				//限制浏览的范围，指定根节点 id 或 code ，优先匹配ID
 				root: "",
 				targetType:"pos",
-				callback:function(ids,nodes,fromData,inputEl,buttonEl){ window.pageExt.form.dialog && window.pageExt.form.dialog({field:"positionIds",selectedIds:ids,selectedNodes:nodes,formData:fromData,inputEl:inputEl,buttonEl:buttonEl});}
-			});
+				prepose:function(param){ return window.pageExt.form.beforeDialog && window.pageExt.form.beforeDialog(param);},
+				callback:function(param){ window.pageExt.form.afterDialog && window.pageExt.form.afterDialog(param);}
+			};
+			fox.chooseOrgNode(positionIdsDialogOptions);
 		});
 		// 请选择组织节点对话框
 		$("#orgIds-button").click(function(){
-			fox.chooseOrgNode && fox.chooseOrgNode(getFormData(),$("#orgIds"),$(this),{
+			var orgIdsDialogOptions={
+				field:"orgIds",
+				formData:getFormData(),
+				inputEl:$("#orgIds"),
+				buttonEl:$(this),
 				single:false,
 				//限制浏览的范围，指定根节点 id 或 code ，优先匹配ID
 				root: "",
 				targetType:"org",
-				callback:function(ids,nodes,fromData,inputEl,buttonEl){ window.pageExt.form.dialog && window.pageExt.form.dialog({field:"orgIds",selectedIds:ids,selectedNodes:nodes,formData:fromData,inputEl:inputEl,buttonEl:buttonEl});}
-			});
+				prepose:function(param){ return window.pageExt.form.beforeDialog && window.pageExt.form.beforeDialog(param);},
+				callback:function(param){ window.pageExt.form.afterDialog && window.pageExt.form.afterDialog(param);}
+			};
+			fox.chooseOrgNode(orgIdsDialogOptions);
 		});
 		// 请选择公司对话框
 		$("#comId-button").click(function(){
-			fox.chooseOrgNode && fox.chooseOrgNode(getFormData(),$("#comId"),$(this),{
+			var comIdDialogOptions={
+				field:"comId",
+				formData:getFormData(),
+				inputEl:$("#comId"),
+				buttonEl:$(this),
 				single:true,
 				//限制浏览的范围，指定根节点 id 或 code ，优先匹配ID
 				root: "",
 				targetType:"com",
-				callback:function(ids,nodes,fromData,inputEl,buttonEl){ window.pageExt.form.dialog && window.pageExt.form.dialog({field:"comId",selectedIds:ids,selectedNodes:nodes,formData:fromData,inputEl:inputEl,buttonEl:buttonEl});}
-			});
+				prepose:function(param){ return window.pageExt.form.beforeDialog && window.pageExt.form.beforeDialog(param);},
+				callback:function(param){ window.pageExt.form.afterDialog && window.pageExt.form.afterDialog(param);}
+			};
+			fox.chooseOrgNode(comIdDialogOptions);
 		});
 		// 请选择部门对话框
 		$("#deptIds-button").click(function(){
-			fox.chooseOrgNode && fox.chooseOrgNode(getFormData(),$("#deptIds"),$(this),{
+			var deptIdsDialogOptions={
+				field:"deptIds",
+				formData:getFormData(),
+				inputEl:$("#deptIds"),
+				buttonEl:$(this),
 				single:false,
 				//限制浏览的范围，指定根节点 id 或 code ，优先匹配ID
 				root: "",
 				targetType:"dept",
-				callback:function(ids,nodes,fromData,inputEl,buttonEl){ window.pageExt.form.dialog && window.pageExt.form.dialog({field:"deptIds",selectedIds:ids,selectedNodes:nodes,formData:fromData,inputEl:inputEl,buttonEl:buttonEl});}
-			});
+				prepose:function(param){ return window.pageExt.form.beforeDialog && window.pageExt.form.beforeDialog(param);},
+				callback:function(param){ window.pageExt.form.afterDialog && window.pageExt.form.afterDialog(param);}
+			};
+			fox.chooseOrgNode(deptIdsDialogOptions);
 		});
 		// 请选择组织节点对话框
 		$("#subOrgId-button").click(function(){
-			fox.chooseOrgNode && fox.chooseOrgNode(getFormData(),$("#subOrgId"),$(this),{
+			var subOrgIdDialogOptions={
+				field:"subOrgId",
+				formData:getFormData(),
+				inputEl:$("#subOrgId"),
+				buttonEl:$(this),
 				single:true,
 				//限制浏览的范围，指定根节点 id 或 code ，优先匹配ID
 				root: "shanghai",
 				targetType:"org",
-				callback:function(ids,nodes,fromData,inputEl,buttonEl){ window.pageExt.form.dialog && window.pageExt.form.dialog({field:"subOrgId",selectedIds:ids,selectedNodes:nodes,formData:fromData,inputEl:inputEl,buttonEl:buttonEl});}
-			});
+				prepose:function(param){ return window.pageExt.form.beforeDialog && window.pageExt.form.beforeDialog(param);},
+				callback:function(param){ window.pageExt.form.afterDialog && window.pageExt.form.afterDialog(param);}
+			};
+			fox.chooseOrgNode(subOrgIdDialogOptions);
 		});
 
 	    //关闭窗口

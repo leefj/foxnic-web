@@ -1,7 +1,7 @@
 /**
  * 代码生成拥有的车辆 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-18 15:03:45
+ * @since 2021-09-18 20:14:28
  */
 
 layui.config({
@@ -27,6 +27,34 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
         },
         afterSearchInputReady: function() {
             console.log("list:afterSearchInputReady");
+        },
+        /**
+         * 对话框之前调用，如果返回 null 则不打开对话框
+         * */
+        beforeDialog:function (param){
+            param.title="覆盖对话框标题";
+            return param;
+        },
+        /**
+         * 对话框回调，表单域以及按钮 会自动改变为选中的值，此处处理额外的逻辑即可
+         * */
+        afterDialog:function (param,result) {
+            console.log('dialog',param,result);
+            // debugger;
+            window.module.refreshTableData();
+        },
+        /**
+         * 对话框打开之前调用，如果返回 null 则不打开对话框
+         * */
+        beforeDialog:function (param){
+            param.title="覆盖对话框标题";
+            return param;
+        },
+        /**
+         * 对话框回调，表单域以及按钮 会自动改变为选中的值，此处处理额外的逻辑即可
+         * */
+        afterDialog:function (param,result) {
+            console.log('dialog',param,result);
         },
         /**
          * 查询前调用
@@ -121,11 +149,18 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             console.log('afterDataFill',data);
         },
         /**
-         * 对话框回调，表单域以及按钮 框架会自动改变为选中的值，此处用于处理额外的业务逻辑
+         * 对话框打开之前调用，如果返回 null 则不打开对话框
          * */
-        dialog:function (param) {
-            console.log('dialog',param);
+        beforeDialog:function (param){
+            param.title="覆盖对话框标题";
+            return param;
         },
+        /**
+         * 对话框回调，表单域以及按钮 会自动改变为选中的值，此处处理额外的逻辑即可
+         * */
+        afterDialog:function (param,result) {
+            console.log('dialog',param,result);
+        }
         /**
          * 数据提交前，如果返回 false，停止后续步骤的执行
          * */

@@ -438,6 +438,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 if(!values) values={};
 
                 for(var itm in values) {
+                    debugger
                     if(cfg.ignoreSearchContent){
                         var ignore=cfg.isIgnoreSearchContent(itm);
                         if(ignore) continue;
@@ -1317,32 +1318,43 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 me.adjustSearchElement();
             },16);
         },
-        chooseOrgNode:function (fromData,inputEl,buttonEl,opts){
-            if(!opts) opts={};
-            var value=inputEl.val();
+        chooseOrgNode:function (param){
+            //fromData,inputEl,buttonEl
+            if(param.prepose){
+                param=param.prepose(param);
+                if(!param) return;
+            }
+            var title=param.title;
+            if(!title) {
+                title="请选组织节点";
+            }
+
+            var value=param.inputEl.val();
+            param.chooseOrgNodeCallbackEvent=function(ids,nodes) {
+                // debugger;
+                param.inputEl.val(ids.join(","));
+                console.log("ids="+ids.join(","))
+                var names=[];
+                for (var i = 0; i < nodes.length; i++) {
+                    // debugger
+                    names.push(nodes[i].name);
+                }
+                param.buttonEl.find("span").text(names.join(","));
+                if(param.callback) {
+                    param.callback(param,{field:param.field,selectedIds:ids,selectedNodes:nodes,fromData:param.fromData,inputEl:param.inputEl,buttonEl:param.buttonEl});
+                }
+            }
             admin.putTempData("org-dialog-value",value,true);
-            admin.putTempData("org-dialog-options",opts,true);
+            admin.putTempData("org-dialog-options",param,true);
             var dialogIndex=admin.popupCenter({
                 type:2,
-                id:"menuDialog",
-                title: "请选组织节点",
+                id:"orgDialog",
+                title: title,
                 content: '/business/hrm/organization/org_dialog.html',
                 area:["400px","80%"]
             });
             admin.putTempData("org-dialog-index",dialogIndex,true);
-            window.chooseOrgNodeCallbackEvent=function(ids,nodes) {
-                inputEl.val(ids.join(","));
-                console.log("ids="+ids.join(","))
-                var names=[];
-                for (var i = 0; i < nodes.length; i++) {
-                    debugger
-                    names.push(nodes[i].name);
-                }
-                buttonEl.find("span").text(names.join(","));
-                if(opts.callback) {
-                    opts.callback(ids,nodes,fromData,inputEl,buttonEl);
-                }
-            }
+
         },
         fillDialogButtons:function () {
             this.fillOrgOrPosDialogButtons("org");

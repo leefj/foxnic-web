@@ -23,6 +23,21 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             return true;
         },
         /**
+         * 对话框之前调用，如果返回 null 则不打开对话框
+         * */
+        beforeDialog:function (param){
+            param.title="覆盖对话框标题";
+            return param;
+        },
+        /**
+         * 对话框回调，表单域以及按钮 会自动改变为选中的值，此处处理额外的逻辑即可
+         * */
+        afterDialog:function (param,result) {
+            console.log('dialog',param,result);
+            // debugger;
+            window.module.refreshTableData();
+        },
+        /**
          * 表格右侧操作列更多按钮事件
          * */
         moreAction:function (menu,data, it){
@@ -57,10 +72,17 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             return true;
         },
         /**
+         * 对话框之前调用，如果返回 null 则不打开对话框
+         * */
+        beforeDialog:function (param){
+          param.title="覆盖对话框标题";
+          return param;
+        },
+        /**
          * 对话框回调，表单域以及按钮 会自动改变为选中的值，此处处理额外的逻辑即可
          * */
-        dialog:function (param) {
-            console.log('dialog',param);
+        afterDialog:function (param,result) {
+            console.log('dialog',param,result);
         }
     }
     //

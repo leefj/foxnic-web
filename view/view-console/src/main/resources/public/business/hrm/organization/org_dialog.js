@@ -271,6 +271,7 @@ function ListPage() {
 
 
 	$("#sure-button").click(function () {
+		// debugger
 		var nodes=menuTree.getCheckedNodes(true);
 		console.log(nodes);
 		var orgIds=[];
@@ -279,11 +280,11 @@ function ListPage() {
 			orgIds.push(nodes[i].id);
 			orgNodes.push(nodes[i]);
 		}
-		var par=parent;
-		if(par[0]) par=par[0];
-		if(par.chooseOrgNodeCallbackEvent) {
-			par.chooseOrgNodeCallbackEvent(orgIds,orgNodes);
-		}
+		// var par=parent;
+		// if(par[0]) par=par[0];
+		// if(par.chooseOrgNodeCallbackEvent) {
+		options.chooseOrgNodeCallbackEvent(orgIds,orgNodes);
+		// }
 		var menuDialogIndex=admin.getTempData("org-dialog-index");
 		admin.closePopupCenter(menuDialogIndex);
 	});
