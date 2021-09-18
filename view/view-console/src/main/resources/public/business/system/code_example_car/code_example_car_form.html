@@ -2,7 +2,7 @@
 /**
  * 代码生成拥有的车辆 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-17 14:54:48
+ * @since 2021-09-18 15:03:45
  */
  -->
  <!DOCTYPE html>
@@ -139,7 +139,7 @@
             <div class="layui-col-xs6 form-column">
 
                     <div class="layui-form-item" >
-                        <div class="layui-form-label "><div th:text="${lang.translate('岗位单选')}">岗位单选</div></div>
+                        <div class="layui-form-label "><div th:text="${lang.translate('职位单选')}">职位单选</div></div>
                         <div class="layui-input-block ">
                             <input lay-filter="positionId" id="positionId" name="positionId"  type="hidden" class="layui-input"   />
                             <button id="positionId-button" type="button" action-type="pos-dialog" class="layui-btn   " style="width: 100%"> <i class='layui-icon layui-icon-search'></i> <span th:text="${lang.translate('请选择岗位')}">按钮文本</span></button>
@@ -152,7 +152,7 @@
             <div class="layui-col-xs6 form-column">
 
                     <div class="layui-form-item" >
-                        <div class="layui-form-label "><div th:text="${lang.translate('岗位多选')}">岗位多选</div></div>
+                        <div class="layui-form-label "><div th:text="${lang.translate('职位多选')}">职位多选</div></div>
                         <div class="layui-input-block ">
                             <input lay-filter="positionIds" id="positionIds" name="positionIds"  type="hidden" class="layui-input"   />
                             <button id="positionIds-button" type="button" action-type="pos-dialog" class="layui-btn   " style="width: 100%"> <i class='layui-icon layui-icon-search'></i> <span th:text="${lang.translate('请选择岗位')}">按钮文本</span></button>

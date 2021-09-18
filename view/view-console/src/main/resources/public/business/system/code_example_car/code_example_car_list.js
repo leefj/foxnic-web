@@ -1,7 +1,7 @@
 /**
  * 代码生成拥有的车辆 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-17 14:54:48
+ * @since 2021-09-18 15:03:45
  */
 
 
@@ -61,7 +61,7 @@ function ListPage() {
 					return value;
 				}
 			}
-			var h=-28; 
+			var h=$(".search-bar").height();
 			dataTable=fox.renderTable({
 				elem: '#data-table',
 				toolbar: '#toolbarTemplate',
@@ -78,10 +78,10 @@ function ListPage() {
 					,{ field: 'plateNumber', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('牌号') , templet: function (d) { return templet('plateNumber',d.plateNumber,d);}  }
 					,{ field: 'color', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('规格') , templet: function (d) { return templet('color',d.color,d);}  }
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime),d); }}
-					,{ field: 'positionId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('岗位单选') , templet: function (d) { return templet('positionId',d.positionId,d);}  }
+					,{ field: 'positionId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('职位单选') , templet: function (d) { return templet('positionId',d.positionId,d);}  }
 					,{ field: 'orgId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('组织单选') , templet: function (d) { return templet('orgId',d.orgId,d);}  }
 					,{ field: 'empId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('员工单选') , templet: function (d) { return templet('empId',d.empId,d);}  }
-					,{ field: 'positionIds', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('岗位多选') , templet: function (d) { return templet('positionIds',d.positionIds,d);}  }
+					,{ field: 'positionIds', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('职位多选') , templet: function (d) { return templet('positionIds',d.positionIds,d);}  }
 					,{ field: 'orgIds', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('组织多选') , templet: function (d) { return templet('orgIds',d.orgIds,d);}  }
 					,{ field: 'empIds', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('员工多选') , templet: function (d) { return templet('empIds',d.empIds,d);}  }
 					,{ field: 'selectEmpId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('员工下拉') , templet: function (d) { return templet('selectEmpId',d.selectEmpId,d);}  }
@@ -120,17 +120,7 @@ function ListPage() {
 	function refreshTableData(sortField,sortType) {
 		var value = {};
 		value.plateNumber={ value: $("#plateNumber").val()};
-		value.color={ value: $("#color").val()};
-		value.positionId={ value: $("#positionId").val()};
-		value.orgId={ value: $("#orgId").val()};
-		value.empId={ value: $("#empId").val()};
-		value.positionIds={ value: $("#positionIds").val()};
 		value.orgIds={ value: $("#orgIds").val()};
-		value.empIds={ value: $("#empIds").val()};
-		value.selectEmpId={ value: $("#selectEmpId").val()};
-		value.comId={ value: $("#comId").val()};
-		value.deptIds={ value: $("#deptIds").val()};
-		value.subOrgId={ value: $("#subOrgId").val()};
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;

@@ -1,7 +1,7 @@
 /**
  * 代码生成拥有的车辆 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-17 14:54:48
+ * @since 2021-09-18 15:03:45
  */
 
 layui.config({
@@ -119,6 +119,12 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * */
         afterDataFill:function (data) {
             console.log('afterDataFill',data);
+        },
+        /**
+         * 对话框回调，表单域以及按钮 框架会自动改变为选中的值，此处用于处理额外的业务逻辑
+         * */
+        dialog:function (param) {
+            console.log('dialog',param);
         },
         /**
          * 数据提交前，如果返回 false，停止后续步骤的执行

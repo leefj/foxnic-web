@@ -1,7 +1,7 @@
 /**
  * 代码生成拥有的车辆 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-17 14:54:48
+ * @since 2021-09-18 15:03:45
  */
 
 function FormPage() {
@@ -109,10 +109,8 @@ function FormPage() {
 
 			//
 	     	fm.attr('method', 'POST');
-
+	     	fox.fillDialogButtons();
 	     	renderFormFields();
-
-			fox.fillDialogButtons();
 
 			window.pageExt.form.afterDataFill && window.pageExt.form.afterDataFill(formData);
 
@@ -206,7 +204,7 @@ function FormPage() {
 				//限制浏览的范围，指定根节点 id 或 code ，优先匹配ID
 				root: "",
 				targetType:"pos",
-				callback:function(ids,nodes,fromData,inputEl,buttonEl){}
+				callback:function(ids,nodes,fromData,inputEl,buttonEl){ window.pageExt.form.dialog && window.pageExt.form.dialog({field:"positionId",selectedIds:ids,selectedNodes:nodes,formData:fromData,inputEl:inputEl,buttonEl:buttonEl});}
 			});
 		});
 		// 请选择组织节点对话框
@@ -216,7 +214,7 @@ function FormPage() {
 				//限制浏览的范围，指定根节点 id 或 code ，优先匹配ID
 				root: "",
 				targetType:"org",
-				callback:function(ids,nodes,fromData,inputEl,buttonEl){}
+				callback:function(ids,nodes,fromData,inputEl,buttonEl){ window.pageExt.form.dialog && window.pageExt.form.dialog({field:"orgId",selectedIds:ids,selectedNodes:nodes,formData:fromData,inputEl:inputEl,buttonEl:buttonEl});}
 			});
 		});
 		// 请选择岗位对话框
@@ -226,7 +224,7 @@ function FormPage() {
 				//限制浏览的范围，指定根节点 id 或 code ，优先匹配ID
 				root: "",
 				targetType:"pos",
-				callback:function(ids,nodes,fromData,inputEl,buttonEl){}
+				callback:function(ids,nodes,fromData,inputEl,buttonEl){ window.pageExt.form.dialog && window.pageExt.form.dialog({field:"positionIds",selectedIds:ids,selectedNodes:nodes,formData:fromData,inputEl:inputEl,buttonEl:buttonEl});}
 			});
 		});
 		// 请选择组织节点对话框
@@ -236,7 +234,7 @@ function FormPage() {
 				//限制浏览的范围，指定根节点 id 或 code ，优先匹配ID
 				root: "",
 				targetType:"org",
-				callback:function(ids,nodes,fromData,inputEl,buttonEl){}
+				callback:function(ids,nodes,fromData,inputEl,buttonEl){ window.pageExt.form.dialog && window.pageExt.form.dialog({field:"orgIds",selectedIds:ids,selectedNodes:nodes,formData:fromData,inputEl:inputEl,buttonEl:buttonEl});}
 			});
 		});
 		// 请选择公司对话框
@@ -246,7 +244,7 @@ function FormPage() {
 				//限制浏览的范围，指定根节点 id 或 code ，优先匹配ID
 				root: "",
 				targetType:"com",
-				callback:function(ids,nodes,fromData,inputEl,buttonEl){}
+				callback:function(ids,nodes,fromData,inputEl,buttonEl){ window.pageExt.form.dialog && window.pageExt.form.dialog({field:"comId",selectedIds:ids,selectedNodes:nodes,formData:fromData,inputEl:inputEl,buttonEl:buttonEl});}
 			});
 		});
 		// 请选择部门对话框
@@ -256,7 +254,7 @@ function FormPage() {
 				//限制浏览的范围，指定根节点 id 或 code ，优先匹配ID
 				root: "",
 				targetType:"dept",
-				callback:function(ids,nodes,fromData,inputEl,buttonEl){}
+				callback:function(ids,nodes,fromData,inputEl,buttonEl){ window.pageExt.form.dialog && window.pageExt.form.dialog({field:"deptIds",selectedIds:ids,selectedNodes:nodes,formData:fromData,inputEl:inputEl,buttonEl:buttonEl});}
 			});
 		});
 		// 请选择组织节点对话框
@@ -266,7 +264,7 @@ function FormPage() {
 				//限制浏览的范围，指定根节点 id 或 code ，优先匹配ID
 				root: "shanghai",
 				targetType:"org",
-				callback:function(ids,nodes,fromData,inputEl,buttonEl){}
+				callback:function(ids,nodes,fromData,inputEl,buttonEl){ window.pageExt.form.dialog && window.pageExt.form.dialog({field:"subOrgId",selectedIds:ids,selectedNodes:nodes,formData:fromData,inputEl:inputEl,buttonEl:buttonEl});}
 			});
 		});
 

@@ -55,6 +55,12 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             var exampleId=admin.getTempData("code_example_id");
             data.exampleId=exampleId;
             return true;
+        },
+        /**
+         * 对话框回调，表单域以及按钮 会自动改变为选中的值，此处处理额外的逻辑即可
+         * */
+        dialog:function (param) {
+            console.log('dialog',param);
         }
     }
     //

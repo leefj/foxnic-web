@@ -36,7 +36,7 @@
             flex:1;
         }
         .right-tab {
-            width: 620px;
+            flex:1;
             background-color: #ffffff;
             border-left: 1px #e6e6e6 solid;
         }
@@ -75,10 +75,12 @@
    </div>
    <!-- 外面再一层DIV 就无法显示表格数据行，不知道为啥 -->
 
-   <iframe class="mid-tab" id="employee-list-ifr" src="/business/hrm/employee/emp_dialog_list.html" frameborder=0 width="100%"></iframe>
-
-   <iframe class="right-tab" id="employee-selected-list-ifr" src="/business/hrm/employee/emp_dialog_selected_list.html" frameborder=0 width="100%"></iframe>
-
+     <div class="mid-tab">
+   <iframe  id="employee-list-ifr" src="/business/hrm/employee/emp_dialog_list.html" frameborder=0 width="100%"></iframe>
+     </div>
+     <div class="right-tab">
+   <iframe  id="employee-selected-list-ifr" src="/business/hrm/employee/emp_dialog_selected_list.html" frameborder=0 width="100%"></iframe>
+     </div>
  </div>
 
 

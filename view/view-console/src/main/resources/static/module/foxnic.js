@@ -1335,6 +1335,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 console.log("ids="+ids.join(","))
                 var names=[];
                 for (var i = 0; i < nodes.length; i++) {
+                    debugger
                     names.push(nodes[i].name);
                 }
                 buttonEl.find("span").text(names.join(","));

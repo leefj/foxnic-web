@@ -127,6 +127,12 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             console.log('afterDataFill',data);
         },
         /**
+         * 对话框回调，表单域以及按钮 框架会自动改变为选中的值，此处用于处理额外的业务逻辑
+         * */
+        dialog:function (param) {
+            console.log('dialog',param);
+        },
+        /**
          * 数据提交前，如果返回 false，停止后续步骤的执行
          * */
         beforeSubmit:function (data) {

@@ -48,7 +48,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 代码生成拥有的车辆 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-17 14:54:48
+ * @since 2021-09-18 15:03:45
 */
 
 @Api(tags = "代码生成拥有的车辆")
@@ -69,10 +69,10 @@ public class CodeExampleCarController extends SuperController {
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.EXAMPLE_ID , value = "属主ID" , required = false , dataTypeClass=String.class , example = "476069797533057024"),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.PLATE_NUMBER , value = "车牌号" , required = false , dataTypeClass=String.class , example = "110352963290923110"),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.COLOR , value = "颜色" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = CodeExampleCarVOMeta.POSITION_ID , value = "岗位单选" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CodeExampleCarVOMeta.POSITION_ID , value = "职位单选" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.ORG_ID , value = "组织单选" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.EMP_ID , value = "员工单选" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = CodeExampleCarVOMeta.POSITION_IDS , value = "岗位多选" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CodeExampleCarVOMeta.POSITION_IDS , value = "职位多选" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.ORG_IDS , value = "组织多选" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.EMP_IDS , value = "员工多选" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.SELECT_EMP_ID , value = "员工下拉" , required = false , dataTypeClass=String.class),
@@ -132,10 +132,10 @@ public class CodeExampleCarController extends SuperController {
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.EXAMPLE_ID , value = "属主ID" , required = false , dataTypeClass=String.class , example = "476069797533057024"),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.PLATE_NUMBER , value = "车牌号" , required = false , dataTypeClass=String.class , example = "110352963290923110"),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.COLOR , value = "颜色" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = CodeExampleCarVOMeta.POSITION_ID , value = "岗位单选" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CodeExampleCarVOMeta.POSITION_ID , value = "职位单选" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.ORG_ID , value = "组织单选" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.EMP_ID , value = "员工单选" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = CodeExampleCarVOMeta.POSITION_IDS , value = "岗位多选" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CodeExampleCarVOMeta.POSITION_IDS , value = "职位多选" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.ORG_IDS , value = "组织多选" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.EMP_IDS , value = "员工多选" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.SELECT_EMP_ID , value = "员工下拉" , required = false , dataTypeClass=String.class),
@@ -162,10 +162,10 @@ public class CodeExampleCarController extends SuperController {
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.EXAMPLE_ID , value = "属主ID" , required = false , dataTypeClass=String.class , example = "476069797533057024"),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.PLATE_NUMBER , value = "车牌号" , required = false , dataTypeClass=String.class , example = "110352963290923110"),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.COLOR , value = "颜色" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = CodeExampleCarVOMeta.POSITION_ID , value = "岗位单选" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CodeExampleCarVOMeta.POSITION_ID , value = "职位单选" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.ORG_ID , value = "组织单选" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.EMP_ID , value = "员工单选" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = CodeExampleCarVOMeta.POSITION_IDS , value = "岗位多选" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CodeExampleCarVOMeta.POSITION_IDS , value = "职位多选" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.ORG_IDS , value = "组织多选" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.EMP_IDS , value = "员工多选" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.SELECT_EMP_ID , value = "员工下拉" , required = false , dataTypeClass=String.class),
@@ -231,10 +231,10 @@ public class CodeExampleCarController extends SuperController {
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.EXAMPLE_ID , value = "属主ID" , required = false , dataTypeClass=String.class , example = "476069797533057024"),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.PLATE_NUMBER , value = "车牌号" , required = false , dataTypeClass=String.class , example = "110352963290923110"),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.COLOR , value = "颜色" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = CodeExampleCarVOMeta.POSITION_ID , value = "岗位单选" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CodeExampleCarVOMeta.POSITION_ID , value = "职位单选" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.ORG_ID , value = "组织单选" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.EMP_ID , value = "员工单选" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = CodeExampleCarVOMeta.POSITION_IDS , value = "岗位多选" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CodeExampleCarVOMeta.POSITION_IDS , value = "职位多选" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.ORG_IDS , value = "组织多选" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.EMP_IDS , value = "员工多选" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.SELECT_EMP_ID , value = "员工下拉" , required = false , dataTypeClass=String.class),
@@ -262,10 +262,10 @@ public class CodeExampleCarController extends SuperController {
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.EXAMPLE_ID , value = "属主ID" , required = false , dataTypeClass=String.class , example = "476069797533057024"),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.PLATE_NUMBER , value = "车牌号" , required = false , dataTypeClass=String.class , example = "110352963290923110"),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.COLOR , value = "颜色" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = CodeExampleCarVOMeta.POSITION_ID , value = "岗位单选" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CodeExampleCarVOMeta.POSITION_ID , value = "职位单选" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.ORG_ID , value = "组织单选" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.EMP_ID , value = "员工单选" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = CodeExampleCarVOMeta.POSITION_IDS , value = "岗位多选" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = CodeExampleCarVOMeta.POSITION_IDS , value = "职位多选" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.ORG_IDS , value = "组织多选" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.EMP_IDS , value = "员工多选" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.SELECT_EMP_ID , value = "员工下拉" , required = false , dataTypeClass=String.class),

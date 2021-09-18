@@ -6,11 +6,11 @@
 
 
 function ListPage() {
-        
+
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect,dropdown,element;
 	//模块基础路径
 	const moduleURL="/service-hrm/hrm-organization";
-	
+
 	var menuTree;
 	var activedTab;
 	/**
@@ -42,8 +42,8 @@ function ListPage() {
 			}
 		};
 		menuTree=$.fn.zTree.init($("#menu-tree"), cfgs);
-		
-		
+
+
 		setTimeout(function(){
 			var toolbarHeight=$("#toolbar")[0].clientHeight;
 			var fullHeight=$(window).height();
@@ -55,11 +55,11 @@ function ListPage() {
 			// $("#org-basic-info-ifr").height(fullHeight-70);
 			// $("#org-basic-info-ifr").show();
 
-			// $("#pos-basic-info-ifr").height(fullHeight-70);
-			// $("#pos-basic-info-ifr").show();
+			$("#employee-selected-list-ifr").height(fullHeight-4);
+			$("#employee-selected-list-ifr").show();
 
-			// $("#employee-list-ifr").height(fullHeight-70);
-			// $("#employee-list-ifr").show();
+			$("#employee-list-ifr").height(fullHeight-4);
+			$("#employee-list-ifr").show();
 			//
 			// $(".layui-col-md4").width("200px");
 			// $(".layui-col-md8").width((fullWidth-200)+"px");
@@ -71,15 +71,15 @@ function ListPage() {
 
 
 
-		element.on('tab(rightTab)', function(data) {
-			var el=$(data.elem).find(".layui-show");
-			activedTab=el.attr("type");
-		});
+		// element.on('tab(rightTab)', function(data) {
+		// 	var el=$(data.elem).find(".layui-show");
+		// 	activedTab=el.attr("type");
+		// });
 
      }
 
 
-    
+
     var editingNode=null;
     function onNodeClick(event, treeId, treeNode) {
     	if(treeNode==null) return;
@@ -114,7 +114,7 @@ function ListPage() {
     }
 
 
-     
+
 	function nodeDatafilter(treeId, parentNode, childNodes) {
 
 		if(!Array.isArray(childNodes)) {
@@ -140,13 +140,13 @@ function ListPage() {
 		}
 		return childNodes;
 	}
-	
 
-	
 
-     
-      
-	
+
+
+
+
+
 	/**
 	 * 重置搜索框
 	 */
