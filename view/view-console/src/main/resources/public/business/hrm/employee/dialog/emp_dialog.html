@@ -27,19 +27,17 @@
             width: 100%;
             align-items:top;
         }
-        .left-tree {
-            width: 280px;
-            background-color: #ffffff;
+        .source-area {
+            flex:1;
             border-right: 1px #e6e6e6 solid;
         }
-        .mid-tab {
-            flex:1;
-        }
-        .right-tab {
-            flex:1;
+
+        .result-area {
+            width: 480px;
             background-color: #ffffff;
             border-left: 1px #e6e6e6 solid;
         }
+
         .ztree li span.button.icon_com_ico_docu{margin-right:2px; background: url(/assets/icons/gongsi.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle;background-size: 100% auto;}
         .ztree li span.button.icon_com_ico_close{margin-right:2px; background: url(/assets/icons/gongsi.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle;background-size: 100% auto;}
         .ztree li span.button.icon_com_ico_open{margin-right:2px; background: url(/assets/icons/gongsi.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle;background-size: 100% auto;}
@@ -52,36 +50,44 @@
         .ztree li span.button.icon_pos_ico_close{margin-right:2px; background: url(/assets/icons/yuangongtongxinlu.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle;background-size: 100% auto;}
         .ztree li span.button.icon_pos_ico_open{margin-right:2px; background: url(/assets/icons/yuangongtongxinlu.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle;background-size: 100% auto;}
 
+        .layui-tab-title .layui-this:after {
+            height: 45px;
+        }
+        .layui-tab-title li {
+            line-height: 45px;
+        }
 
     </style>
 </head>
 
-<body>
+<body style="overflow: hidden;">
 
 
- <div class="top-container">
-   <div class="left-tree">
-		<div class="layui-form toolbar" style="padding:6px; border-bottom:1px #e6e6e6 solid; " id="toolbar">
-           <table style="width: 100%"><tr>
-               <td>
-                <input id="search-input" class="layui-input search-input" type="text" placeholder="请输入关键字" style="width: 100%"/>
-               </td>
+<div class="top-container">
 
-           </tr></table>
-       </div>
-       <div id="tree-container" style="overflow:auto;height:800px">
-       	<ul id="menu-tree" class="ztree"></ul>
-       </div>
-   </div>
-   <!-- 外面再一层DIV 就无法显示表格数据行，不知道为啥 -->
+    <div class="layui-tab source-area" lay-filter="rightTab" style="margin-top:6px;">
+        <ul class="layui-tab-title" style="height: 44px">
+            <li id="org-li" lay-id="org-li">常用</li>
+            <li id="pos-li" lay-id="pos-li" class="layui-this">组织架构</li>
+        </ul>
+        <div class="layui-tab-content" style="height:1000px;padding:0px">
+            <div class="layui-tab-item">
+                常用
+<!--                <iframe style="display: none" id="org-basic-info-ifr" src="/business/hrm/organization/organization_form.html" frameborder=0 width="100%"></iframe>-->
+            </div>
+            <div class="layui-tab-item layui-show">
+                <iframe id="org-view-ifr" src="/business/hrm/employee/dialog/emp_dialog_org.html" frameborder=0 width="100%"></iframe>
+            </div>
+        </div>
+    </div>
 
-     <div class="mid-tab">
-   <iframe  id="employee-list-ifr" src="/business/hrm/employee/emp_dialog_list.html" frameborder=0 width="100%"></iframe>
-     </div>
-     <div class="right-tab">
-   <iframe  id="employee-selected-list-ifr" src="/business/hrm/employee/emp_dialog_selected_list.html" frameborder=0 width="100%"></iframe>
-     </div>
- </div>
+    <div style="width: 8px"></div>
+
+    <div class="result-area">
+        <iframe  id="result-list-ifr" src="/business/hrm/employee/dialog/emp_dialog_selected_list.html" frameborder=0 width="100%"></iframe>
+    </div>
+
+</div>
 
 
 <script type="text/javascript" src="/module/global.js" th:src="'/module/global.js?'+${cacheKey}"></script>
@@ -91,7 +97,7 @@
 <script type="text/javascript" src="/assets/libs/layui/layui.js" th:src="'/assets/libs/layui/layui.js?'+${cacheKey}"></script>
 <script type="text/javascript" src="/assets/libs/zTree/js/jquery.ztree.all-3.5.min.js" th:src="'/assets/libs/zTree/js/jquery.ztree.all-3.5.min.js?'+${cacheKey}"></script>
  
-<script src="/business/hrm/employee/emp_dialog.js" th:src="'/business/hrm/employee/emp_dialog.js?'+${cacheKey}"></script>
+<script src="/business/hrm/employee/dialog/emp_dialog.js" th:src="'/business/hrm/employee/dialog/emp_dialog.js?'+${cacheKey}"></script>
 
 </body>
 </html>

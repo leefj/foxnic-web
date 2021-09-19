@@ -20,6 +20,9 @@
     <link href="/assets/libs/font-awesome-4.7.0/css/font-awesome.min.css" th:href="@{/assets/libs/font-awesome-4.7.0/css/font-awesome.min.css}" rel="stylesheet"/>
     <script th:inline="javascript">var foxnic_cachekey=[[${cacheKey}]];</script>
     <style>
+        .layui-table-view {
+            border-style: none;
+        }
     </style>
 </head>
 
@@ -27,9 +30,9 @@
 
 <div class="layui-card">
  
-    <div class="layui-card-body" style="">
+    <div class="layui-card-body" style="padding:0px">
 
-        <div class="search-bar" style="">
+        <div class="search-bar" style="display: none;">
 
             <div class="search-input-rows" style="opacity: 0">
                 <!-- 搜索输入区域 -->
@@ -59,8 +62,8 @@
             </div>
         </div>
 
-        <div style="margin-top: 42px ">
-            <table class="layui-table" id="selected-data-table" lay-filter="selected-data-table"></table>
+        <div style="margin-top: 0px ">
+            <table class="layui-table" id="selected-data-table" lay-filter="selected-data-table" style="margin:0px"></table>
         </div>
 
     </div>
@@ -94,7 +97,7 @@
 
 
 <script th:inline="javascript">
-    var LAYUI_TABLE_WIDTH_CONFIG = [[${pageHelper.getTableColumnWidthConfig('data-table')}]];
+    var LAYUI_TABLE_WIDTH_CONFIG = [[${pageHelper.getTableColumnWidthConfig('selected-data-table')}]];
     var RADIO_STATUS_DATA = [[${dict.toArray('employee_status')}]];
     var AUTH_PREFIX="hrm_employee";
 
@@ -102,7 +105,7 @@
 </script>
 
 <script th:src="'/business/hrm/employee/employee_ext.js?'+${cacheKey}"></script>
-<script th:src="'/business/hrm/employee/emp_dialog_selected_list.js?'+${cacheKey}"></script>
+<script th:src="'/business/hrm/employee/dialog/emp_dialog_selected_list.js?'+${cacheKey}"></script>
 
 </body>
 </html>

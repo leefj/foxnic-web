@@ -54,7 +54,7 @@ public class DBCacheProxyUtil {
         String uri=request.getRequestURI();
         DbCacheVO sample=new DbCacheVO();
         sample.setCatalog("layui-table-column-width");
-        sample.setArea(uri+"#data-table");
+        sample.setArea(uri+"#"+tableId);
         sample.setOwnerType("user");
         sample.setOwnerId(user.getUserId());
         List<DbCache> list = DBCacheProxyUtil.getList(sample);

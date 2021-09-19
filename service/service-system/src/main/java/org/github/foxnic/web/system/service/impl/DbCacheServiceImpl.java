@@ -1,5 +1,6 @@
 package org.github.foxnic.web.system.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.github.foxnic.api.cache.Cached;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
@@ -170,12 +171,14 @@ public class DbCacheServiceImpl extends SuperService<DbCache> implements IDbCach
 		if(ex!=null) {
 			ex.setValue(dbCache.getValue());
 			r=super.update(ex, mode);
+			this.cache().remove(ex.getId());
 		} else {
 			r=this.insert(dbCache);
 		}
 		if(r.success()) {
 			this.invalidateAccurateCache(dbCache);
 		}
+
 		return r;
 	}
 
@@ -232,6 +235,7 @@ public class DbCacheServiceImpl extends SuperService<DbCache> implements IDbCach
 	@Override
 	@Cached(strategy = "queryList",expire = 1000 * 60 * 60 * 2)
 	public List<DbCache> queryList(DbCache sample) {
+		System.out.println(JSON.toJSONString(sample));
 		return super.queryList(sample);
 	}
 	

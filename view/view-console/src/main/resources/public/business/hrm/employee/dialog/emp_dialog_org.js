@@ -50,21 +50,21 @@ function ListPage() {
 			var fullWidth=$(window).width();
 			var treeHeight=fullHeight-toolbarHeight-1;
 			$("#tree-container").height(treeHeight);
-			// $("#form-view").height(fullHeight-6);
-
-			// $("#org-basic-info-ifr").height(fullHeight-70);
-			// $("#org-basic-info-ifr").show();
-
-			$("#employee-selected-list-ifr").height(fullHeight-4);
-			$("#employee-selected-list-ifr").show();
-
-			$("#employee-list-ifr").height(fullHeight-4);
-			$("#employee-list-ifr").show();
+			// // $("#form-view").height(fullHeight-6);
 			//
+			// // $("#org-basic-info-ifr").height(fullHeight-70);
+			// // $("#org-basic-info-ifr").show();
+			//
+			// $("#employee-list-ifr").height(fullHeight-0);
+			// $("#employee-selected-list-ifr").show();
+			//
+			// $("#employee-list-ifr").height(fullHeight-0);
+			// $("#employee-list-ifr").show();
+			// //
 			// $(".layui-col-md4").width("200px");
 			// $(".layui-col-md8").width((fullWidth-200)+"px");
 
-		},10);
+		},128);
 
 		//
 		bindSearchEvent();
@@ -106,9 +106,9 @@ function ListPage() {
 			// $("#org-basic-info-ifr")[0].contentWindow.module.loadFormData(treeNode.id);
 		// }
     	//
-		debugger;
+		// debugger;
 		$("#employee-list-ifr")[0].contentWindow.module.lockRange(editingNode.type,treeNode.id);
-		$("#employee-selected-list-ifr")[0].contentWindow.module.lockRange(editingNode.type,treeNode.id);
+		// $("#employee-selected-list-ifr")[0].contentWindow.module.lockRange(editingNode.type,treeNode.id);
 
 
     }

@@ -55,17 +55,17 @@ public class EmployeePageController extends ViewController {
 	/**
 	 * 员工对话框 待选人员
 	 */
-	@RequestMapping("/emp_dialog_list.html")
+	@RequestMapping("/dialog/emp_dialog_list.html")
 	public String dialogList(Model model,HttpServletRequest request) {
-		return prefix+"/emp_dialog_list";
+		return prefix+"/dialog/emp_dialog_list";
 	}
 
 	/**
 	 * 员工对话框 已选人员
 	 */
-	@RequestMapping("/emp_dialog_selected_list.html")
+	@RequestMapping("/dialog/emp_dialog_selected_list.html")
 	public String dialogSelectList(Model model,HttpServletRequest request) {
-		return prefix+"/emp_dialog_selected_list";
+		return prefix+"/dialog/emp_dialog_selected_list";
 	}
 
 

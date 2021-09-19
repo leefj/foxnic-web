@@ -45,7 +45,7 @@ function ListPage() {
 		fox.adjustSearchElement();
 		//
 		function renderTableInternal() {
-			// debugger
+
 			var ps={};
 			var contitions={};
 			if(window.pageExt.list.beforeQuery){
@@ -63,11 +63,11 @@ function ListPage() {
 			}
 			var h=$(".search-bar").height();
 			dataTable=fox.renderTable({
-				elem: '#selected-data-table',
+				elem: '#data-table',
 				toolbar: '#toolbarTemplate',
 				defaultToolbar: [{title: '刷新数据',layEvent: 'refresh-data',icon: 'layui-icon-refresh-3'}],
 				url: moduleURL +'/query-paged-list',
-				height: 'full-'+(h+28),
+				height: 'full-'+(h+20),
 				limit: 50,
 				where: ps,
 				cols: [[
@@ -92,7 +92,7 @@ function ListPage() {
 				}
 			});
 			//绑定排序事件
-			table.on('sort(selected-data-table)', function(obj){
+			table.on('sort(data-table)', function(obj){
 			  refreshTableData(obj.field,obj.type);
 			});
 		}
@@ -117,7 +117,7 @@ function ListPage() {
 			ps.sortField=sortField;
 			ps.sortType=sortType;
 		}
-		table.reload('selected-data-table', { where : ps });
+		table.reload('data-table', { where : ps });
 	}
     
 	
@@ -125,7 +125,7 @@ function ListPage() {
 	  * 获得已经选中行的数据,不传入 field 时，返回所有选中的记录，指定 field 时 返回指定的字段集合
 	  */
 	function getCheckedList(field) {
-		var checkStatus = table.checkStatus('selected-data-table');
+		var checkStatus = table.checkStatus('data-table');
 		var data = checkStatus.data;
 		if(!field) return data;
 		for(var i=0;i<data.length;i++) data[i]=data[i][field];
@@ -198,7 +198,7 @@ function ListPage() {
 	function bindButtonEvent() {
 
 		//头工具栏事件
-		table.on('toolbar(selected-data-table)', function(obj){
+		table.on('toolbar(data-table)', function(obj){
 			var checkStatus = table.checkStatus(obj.config.id);
 			var selected=getCheckedList("id");
 			switch(obj.event){
@@ -265,7 +265,7 @@ function ListPage() {
      */
     function bindRowOperationEvent() {
 		// 工具条点击事件
-		table.on('tool(selected-data-table)', function (obj) {
+		table.on('tool(data-table)', function (obj) {
 			var data = obj.data;
 			var layEvent = obj.event;
 			admin.putTempData('hrm-employee-form-data-form-action', "",true);

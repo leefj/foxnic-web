@@ -1,6 +1,5 @@
 package org.github.foxnic.web.framework.view.aspect;
 
-import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.log.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -12,7 +11,6 @@ import org.github.foxnic.web.constants.enums.SystemConfigEnum;
 import org.github.foxnic.web.language.LanguageService;
 import org.github.foxnic.web.proxy.spring.AwareHandler;
 import org.github.foxnic.web.proxy.utils.CodeTextEnumUtil;
-import org.github.foxnic.web.proxy.utils.DBCacheProxyUtil;
 import org.github.foxnic.web.proxy.utils.DictProxyUtil;
 import org.github.foxnic.web.proxy.utils.SystemConfigProxyUtil;
 import org.github.foxnic.web.session.SessionUser;
@@ -125,7 +123,7 @@ public class PageAspector {
 			}
 		}
 
-		JSONObject widthConfig = DBCacheProxyUtil.getLayUITableWidthConfig(request,user);
+		//JSONObject widthConfig = DBCacheProxyUtil.getLayUITableWidthConfig(request,user);
 		
 		Object args[] = joinPoint.getArgs();
 		for (Object arg : args) {
@@ -136,7 +134,7 @@ public class PageAspector {
 					((Model) arg).addAttribute(USER, user);
 					((Model) arg).addAttribute(PERMISSION, user.permission());
 				}
-				((Model)arg).addAttribute(LAYUI_TABLE_WIDTH_CONFIG, widthConfig);
+				//((Model)arg).addAttribute(LAYUI_TABLE_WIDTH_CONFIG, widthConfig);
 				((Model)arg).addAttribute(DICT, dictUtil);
 				((Model)arg).addAttribute(CACHE_KEY, cacheKey);
 				((Model)arg).addAttribute(PAGE_HELPER, pageHelper);
@@ -147,7 +145,7 @@ public class PageAspector {
 					((ModelAndView) arg).addObject(USER, user);
 					((ModelAndView) arg).addObject(PERMISSION, user.permission());
 				}
-				((ModelAndView)arg).addObject(LAYUI_TABLE_WIDTH_CONFIG, widthConfig);
+				//((ModelAndView)arg).addObject(LAYUI_TABLE_WIDTH_CONFIG, widthConfig);
 				((ModelAndView)arg).addObject(DICT, dictUtil);
 				((Model)arg).addAttribute(CACHE_KEY, cacheKey);
 				((Model)arg).addAttribute(PAGE_HELPER, pageHelper);
@@ -158,7 +156,7 @@ public class PageAspector {
 					((ModelMap) arg).addAttribute(USER, user);
 					((ModelMap) arg).addAttribute(PERMISSION, user.permission());
 				}
-				((ModelMap)arg).addAttribute(LAYUI_TABLE_WIDTH_CONFIG, widthConfig);
+				//((ModelMap)arg).addAttribute(LAYUI_TABLE_WIDTH_CONFIG, widthConfig);
 				((ModelMap)arg).addAttribute(DICT, dictUtil);
 				((Model)arg).addAttribute(CACHE_KEY, cacheKey);
 				((Model)arg).addAttribute(PAGE_HELPER, pageHelper);

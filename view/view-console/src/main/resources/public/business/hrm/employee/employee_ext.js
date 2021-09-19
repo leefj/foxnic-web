@@ -54,6 +54,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             if(lockedType=="pos") {
                 fox.disableButton($("#add-button"),false);
             }
+
         },
         /**
          * 在新建或编辑窗口打开前调用，若返回 false 则不继续执行后续操作
