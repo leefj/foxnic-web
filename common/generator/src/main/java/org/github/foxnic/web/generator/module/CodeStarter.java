@@ -45,6 +45,8 @@ public class CodeStarter extends ModuleCodeGenerator {
         this.addConfig(new HrmEmployeeConfig());
         this.addConfig(new HrmEmployeePositionConfig());
         this.addConfig(new HrmPersonConfig());
+        this.addConfig(new HrmFavouriteGroupConfig());
+        this.addConfig(new HrmFavouriteGroupItemConfig());
 
     }
 

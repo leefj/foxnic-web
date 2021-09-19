@@ -1,4 +1,4 @@
-package org.github.foxnic.web.constants.enums;
+package org.github.foxnic.web.constants.enums.hrm;
 
 import com.github.foxnic.api.constant.CodeTextEnum;
 

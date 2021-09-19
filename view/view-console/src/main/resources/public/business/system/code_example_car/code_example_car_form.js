@@ -1,7 +1,7 @@
 /**
  * 代码生成拥有的车辆 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-18 20:14:28
+ * @since 2021-09-19 12:49:49
  */
 
 function FormPage() {
@@ -229,6 +229,22 @@ function FormPage() {
 			};
 			fox.chooseOrgNode(orgIdDialogOptions);
 		});
+		// 请选择人员对话框
+		$("#empId-button").click(function(){
+				var empIdDialogOptions={
+				field:"empId",
+				formData:getFormData(),
+				inputEl:$("#empId"),
+				buttonEl:$(this),
+				single:true,
+				//限制浏览的范围，指定根节点 id 或 code ，优先匹配ID
+				root: "",
+				targetType:"emp",
+				prepose:function(param){ return window.pageExt.form.beforeDialog && window.pageExt.form.beforeDialog(param);},
+				callback:function(param){ window.pageExt.form.afterDialog && window.pageExt.form.afterDialog(param);}
+			};
+				fox.chooseEmployee(empIdDialogOptions);
+		});
 		// 请选择岗位对话框
 		$("#positionIds-button").click(function(){
 			var positionIdsDialogOptions={
@@ -260,6 +276,22 @@ function FormPage() {
 				callback:function(param){ window.pageExt.form.afterDialog && window.pageExt.form.afterDialog(param);}
 			};
 			fox.chooseOrgNode(orgIdsDialogOptions);
+		});
+		// 请选择人员对话框
+		$("#empIds-button").click(function(){
+				var empIdsDialogOptions={
+				field:"empIds",
+				formData:getFormData(),
+				inputEl:$("#empIds"),
+				buttonEl:$(this),
+				single:false,
+				//限制浏览的范围，指定根节点 id 或 code ，优先匹配ID
+				root: "",
+				targetType:"emp",
+				prepose:function(param){ return window.pageExt.form.beforeDialog && window.pageExt.form.beforeDialog(param);},
+				callback:function(param){ window.pageExt.form.afterDialog && window.pageExt.form.afterDialog(param);}
+			};
+				fox.chooseEmployee(empIdsDialogOptions);
 		});
 		// 请选择公司对话框
 		$("#comId-button").click(function(){

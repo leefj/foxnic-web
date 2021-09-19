@@ -1,6 +1,6 @@
 package org.github.foxnic.web.language;
 
-import org.github.foxnic.web.constants.enums.Language;
+import org.github.foxnic.web.constants.enums.system.Language;
 
 public interface LanguageService {
 	

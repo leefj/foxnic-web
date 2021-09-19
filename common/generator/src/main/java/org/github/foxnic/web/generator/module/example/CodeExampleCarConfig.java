@@ -57,6 +57,16 @@ public class CodeExampleCarConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE_CAR> {
         view.field(SYS_CODE_EXAMPLE_CAR.POSITION_IDS)
                 .form().button().choosePosition(false);
 
+        //单选员工
+        view.field(SYS_CODE_EXAMPLE_CAR.EMP_ID)
+                .form().button().chooseEmployee(true);
+
+        //多选员工
+        view.field(SYS_CODE_EXAMPLE_CAR.EMP_IDS)
+                .form().button().chooseEmployee(false);
+
+
+
     }
 
     @Override

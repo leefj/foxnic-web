@@ -321,17 +321,17 @@
 
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];
-    var RADIO_RADIOENUM_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.Language')}]];
+    var RADIO_RADIOENUM_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.system.Language')}]];
     var RADIO_RADIODICT_DATA = [[${dict.toArray('sex')}]];
-    var CHECK_CHECKENUM_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.MenuType')}]];
+    var CHECK_CHECKENUM_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.system.MenuType')}]];
     var CHECK_CHECKDICT_DATA = [[${dict.toArray('order_status')}]];
-    var SELECT_SELECTENUM_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.SystemConfigType')}]];
+    var SELECT_SELECTENUM_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.system.SystemConfigType')}]];
     var SELECT_SELECTDICT_DATA = [[${dict.toArray('order_status')}]];
     var VALIDATE_CONFIG={"area":{"labelInForm":"整数输入","inputType":"number_input","required":true},"birthday":{"date":true,"labelInForm":"日期","inputType":"date_input"},"checkDict":{"labelInForm":"状态","inputType":"check_box","required":true},"fileIds":{"labelInForm":"多文件上传","inputType":"upload","required":true},"radioDict":{"labelInForm":"性别","inputType":"radio_box","required":true},"selectDict":{"labelInForm":"选择框(字典)","inputType":"select_box","required":true},"name":{"labelInForm":"单行文本","inputType":"text_input","required":true},"selectEnum":{"labelInForm":"选择框(枚举)","inputType":"select_box","required":true}};
     var AUTH_PREFIX="sys_code_example";
 
     // 表单测试变量
-    var TEST_FORM = [[${enum.toArray('org.github.foxnic.web.constants.enums.Language')}]] ;
+    var TEST_FORM = [[${enum.toArray('org.github.foxnic.web.constants.enums.system.Language')}]] ;
 
 </script>
 

@@ -200,16 +200,16 @@
 
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${pageHelper.getTableColumnWidthConfig('data-table')}]];
-    var RADIO_RADIOENUM_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.Language')}]];
+    var RADIO_RADIOENUM_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.system.Language')}]];
     var RADIO_RADIODICT_DATA = [[${dict.toArray('sex')}]];
-    var CHECK_CHECKENUM_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.MenuType')}]];
+    var CHECK_CHECKENUM_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.system.MenuType')}]];
     var CHECK_CHECKDICT_DATA = [[${dict.toArray('order_status')}]];
-    var SELECT_SELECTENUM_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.SystemConfigType')}]];
+    var SELECT_SELECTENUM_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.system.SystemConfigType')}]];
     var SELECT_SELECTDICT_DATA = [[${dict.toArray('order_status')}]];
     var AUTH_PREFIX="sys_code_example";
 
     // 列表测试变量
-    var TEST_LIST = [[${enum.toArray('org.github.foxnic.web.constants.enums.Language')}]] ;
+    var TEST_LIST = [[${enum.toArray('org.github.foxnic.web.constants.enums.system.Language')}]] ;
 
 </script>
 

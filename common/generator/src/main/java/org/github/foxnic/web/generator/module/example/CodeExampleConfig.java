@@ -12,9 +12,9 @@ import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_CODE_EXAMPLE;
 import org.github.foxnic.web.constants.enums.DictEnum;
-import org.github.foxnic.web.constants.enums.Language;
-import org.github.foxnic.web.constants.enums.MenuType;
-import org.github.foxnic.web.constants.enums.SystemConfigType;
+import org.github.foxnic.web.constants.enums.system.Language;
+import org.github.foxnic.web.constants.enums.system.MenuType;
+import org.github.foxnic.web.constants.enums.system.SystemConfigType;
 import org.github.foxnic.web.constants.enums.dict.Sex;
 import org.github.foxnic.web.domain.oauth.Resourze;
 import org.github.foxnic.web.domain.oauth.Role;
@@ -208,7 +208,7 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 	public void configList(ViewOptions view,ListOptions list) {
 
 		//增加一个变量
-		list.addJsVariable("TEST_LIST","[[${enum.toArray('org.github.foxnic.web.constants.enums.Language')}]]","列表测试变量");
+		list.addJsVariable("TEST_LIST","[[${enum.toArray('org.github.foxnic.web.constants.enums.system.Language')}]]","列表测试变量");
 
 		//设置操作列宽度
 		list.operationColumn().width(280);
@@ -269,7 +269,7 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 
 //		configFormLayoutC(view,form);
 
-		form.addJsVariable("TEST_FORM","[[${enum.toArray('org.github.foxnic.web.constants.enums.Language')}]]","表单测试变量");
+		form.addJsVariable("TEST_FORM","[[${enum.toArray('org.github.foxnic.web.constants.enums.system.Language')}]]","表单测试变量");
 
 		configFormLayoutD(view,form);
 	}

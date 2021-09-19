@@ -1,7 +1,7 @@
 package org.github.foxnic.web.system.page;
 
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
-import org.github.foxnic.web.constants.enums.VersionType;
+import org.github.foxnic.web.constants.enums.system.VersionType;
 import org.github.foxnic.web.framework.view.controller.ViewController;
 import org.github.foxnic.web.proxy.utils.SystemConfigProxyUtil;
 import org.springframework.stereotype.Controller;

@@ -50,44 +50,140 @@
         .ztree li span.button.icon_pos_ico_close{margin-right:2px; background: url(/assets/icons/yuangongtongxinlu.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle;background-size: 100% auto;}
         .ztree li span.button.icon_pos_ico_open{margin-right:2px; background: url(/assets/icons/yuangongtongxinlu.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle;background-size: 100% auto;}
 
-        .layui-tab-title .layui-this:after {
-            height: 45px;
+        .result-area {
+            width: 330px;
         }
-        .layui-tab-title li {
-            line-height: 45px;
+        .result-area .layui-table-view {
+            border-style: none;
+            margin-bottom: 0px;
+        }
+
+
+
+        .org-view {
+            display: -webkit-flex; /* Safari */
+            display: flex;
+            width: 100%;
+            align-items:top;
+        }
+        .emp-list-view {
+            flex:1;
+            /*border-right: 1px #e6e6e6 solid;*/
+        }
+        .emp-list-view .layui-table-view {
+            border-style: none;
+            margin-bottom: 0px;
+        }
+
+        .org-tree {
+            width: 230px;
+            background-color: #ffffff;
+            border-right: 1px #e6e6e6 solid;
+        }
+
+        .layui-table-page {
+            text-align: center;
+        }
+        .layui-table-page .layui-laypage span {
+            margin-left: 6px;
+        }
+        .switch-button {
+            width: 32px;
+            padding: 0 10px 0 6px;
+            margin-left:0px;
+            vertical-align: middle;
+        }
+
+        .clear-button {
+            width: 36px;
+            padding: 0px 0px 1px 1px;
+            margin-left:0px;
+            vertical-align: middle;
         }
 
     </style>
 </head>
 
-<body style="overflow: hidden;">
+<body style="overflow:hidden;">
 
 
 <div class="top-container">
-
-    <div class="layui-tab source-area" lay-filter="rightTab" style="margin-top:6px;">
-        <ul class="layui-tab-title" style="height: 44px">
-            <li id="org-li" lay-id="org-li">常用</li>
-            <li id="pos-li" lay-id="pos-li" class="layui-this">组织架构</li>
-        </ul>
-        <div class="layui-tab-content" style="height:1000px;padding:0px">
-            <div class="layui-tab-item">
-                常用
-<!--                <iframe style="display: none" id="org-basic-info-ifr" src="/business/hrm/organization/organization_form.html" frameborder=0 width="100%"></iframe>-->
-            </div>
-            <div class="layui-tab-item layui-show">
-                <iframe id="org-view-ifr" src="/business/hrm/employee/dialog/emp_dialog_org.html" frameborder=0 width="100%"></iframe>
+    <div class="source-area" style="padding-top:0px;">
+        <div class="layui-tab" lay-filter="sourceTab">
+            <ul class="layui-tab-title">
+                <li id="org-li" lay-id="org-li">常用</li>
+                <li id="pos-li" lay-id="pos-li" class="layui-this">组织架构</li>
+            </ul>
+            <div class="layui-tab-content" style="height:1000px;padding:0px">
+                <div class="layui-tab-item">
+                    我的常用人员，待实现...
+                </div>
+                <div class="layui-tab-item layui-show">
+                    <div class="org-view">
+                        <div class="org-tree">
+                            <div class="layui-form toolbar" style="padding:6px; border-bottom:1px #e6e6e6 solid; " id="org-oolbar">
+                                <input id="org-search-input" class="layui-input search-input" type="text" placeholder="请输入关键字" style="width: 100%"/>
+                            </div>
+                            <div id="tree-container" style="overflow:auto;height:800px">
+                                <ul id="menu-tree" class="ztree"></ul>
+                            </div>
+                        </div>
+                        <div class="emp-list-view">
+                            <div class="layui-form toolbar" style="padding:6px; border-bottom:1px #e6e6e6 solid; " id="emp-toolbar">
+                                <input id="emp-search-input" class="layui-input search-input" type="text" placeholder="请输入关键字" style="width: 100%"/>
+                            </div>
+                            <table class="layui-table" id="emp-table" lay-filter="emp-table" style="margin:0px"></table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <div style="width: 8px"></div>
+    <div style="width: 48px;display: flex;display: -webkit-flex;flex-direction:column;justify-content:center;">
 
+        <button type="button" class="layui-btn layui-btn-sm layui-btn-primary switch-button" style="margin-left: 8px;margin-bottom: 6px;">
+            <i class="layui-icon layui-icon-right"></i>
+        </button>
+        <button type="button" class="layui-btn layui-btn-sm layui-btn-primary switch-button" style="margin-left: 8px">
+            <i class="layui-icon layui-icon-left"></i>
+        </button>
+
+
+    </div>
+
+    <!-- 选择的结果 -->
     <div class="result-area">
-        <iframe  id="result-list-ifr" src="/business/hrm/employee/dialog/emp_dialog_selected_list.html" frameborder=0 width="100%"></iframe>
+        <div class="layui-form toolbar" style="padding:6px; border-bottom:1px #e6e6e6 solid; display: flex" id="result-toolbar">
+            <input id="result-search-input" class="layui-input search-input" type="text" placeholder="请输入关键字" style="flex: 1"/>
+            <button type="button" class="layui-btn layui-btn-primary clear-button" style="margin-left: 8px;">
+                <i class="layui-icon layui-icon-delete" style="font-size: 24px"></i>
+            </button>
+        </div>
+        <table class="layui-table" id="selected-data-table" lay-filter="selected-data-table" style="margin:0px"></table>
     </div>
 
 </div>
+
+<div class="layui-form-item model-form-footer" style="border-top: 1px #e6e6e6 solid;margin-bottom:0px;padding-top: 8px;padding-left: 8px;padding-right:0px">
+    <form class="layui-form layui-form-pane" action="" onsubmit="return false;">
+        <!--
+        <div style="float: left">
+            <input type="checkbox" lay-filter="check-mode" id="check-mode" title="关联选择" lay-skin="primary" checked >
+        </div>
+        -->
+        <button class="layui-btn"  id="sure-button" lay-filter="sure-button" lay-submit th:text="${lang.translate('确定')}"  style="margin-right: 24px">确定</button>
+    </form>
+</div>
+
+<!-- 表格工具栏 -->
+<script type="text/html" id="selectedToolbarTemplate">
+    <div class="layui-btn-container">
+        <button th:if="${perm.checkAuth('hrm_employee:create')}" id="add-button" class="layui-btn icon-btn layui-btn-sm create-new-button" lay-event="create"><i class="layui-icon">&#xe654;</i><span th:text="${lang.translate('新建')}">新建</span></button>
+        <button th:if="${perm.checkAuth('hrm_employee:delete-by-ids')}" id="delete-button" class="layui-btn icon-btn layui-btn-danger layui-btn-sm batch-delete-button" lay-event="batch-del"><i class="layui-icon">&#xe67e;</i><span th:text="${lang.translate('删除')}">删除</span></button>
+    </div>
+</script>
+
 
 
 <script type="text/javascript" src="/module/global.js" th:src="'/module/global.js?'+${cacheKey}"></script>

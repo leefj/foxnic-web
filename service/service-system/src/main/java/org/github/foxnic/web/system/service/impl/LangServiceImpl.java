@@ -17,7 +17,7 @@ import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
-import org.github.foxnic.web.constants.enums.Language;
+import org.github.foxnic.web.constants.enums.system.Language;
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
 import org.github.foxnic.web.domain.system.Lang;
 import org.github.foxnic.web.domain.system.LangVO;

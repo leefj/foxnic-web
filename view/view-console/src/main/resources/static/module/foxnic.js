@@ -398,6 +398,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 },
                 page: true
             };
+            // debugger;
 
             //覆盖基础配置
             for (var key in basicConfig) {
@@ -438,7 +439,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 if(!values) values={};
 
                 for(var itm in values) {
-                    debugger
+                    // debugger
                     if(cfg.ignoreSearchContent){
                         var ignore=cfg.isIgnoreSearchContent(itm);
                         if(ignore) continue;
@@ -1326,7 +1327,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             }
             var title=param.title;
             if(!title) {
-                title="请选组织节点";
+                title="请选择组织节点";
             }
 
             var value=param.inputEl.val();
@@ -1350,8 +1351,48 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 type:2,
                 id:"orgDialog",
                 title: title,
+                offset: 'auto',
                 content: '/business/hrm/organization/org_dialog.html',
                 area:["400px","80%"]
+            });
+            admin.putTempData("org-dialog-index",dialogIndex,true);
+
+        },
+        chooseEmployee:function (param){
+            //fromData,inputEl,buttonEl
+            if(param.prepose){
+                param=param.prepose(param);
+                if(!param) return;
+            }
+            var title=param.title;
+            if(!title) {
+                title="请选择人员";
+            }
+
+            var value=param.inputEl.val();
+            param.chooseOrgNodeCallbackEvent=function(ids,nodes) {
+                // debugger;
+                param.inputEl.val(ids.join(","));
+                console.log("ids="+ids.join(","))
+                var names=[];
+                for (var i = 0; i < nodes.length; i++) {
+                    // debugger
+                    names.push(nodes[i].name);
+                }
+                param.buttonEl.find("span").text(names.join(","));
+                if(param.callback) {
+                    param.callback(param,{field:param.field,selectedIds:ids,selectedNodes:nodes,fromData:param.fromData,inputEl:param.inputEl,buttonEl:param.buttonEl});
+                }
+            }
+            admin.putTempData("org-dialog-value",value,true);
+            admin.putTempData("org-dialog-options",param,true);
+            var dialogIndex=admin.popupCenter({
+                type:2,
+                id:"orgDialog",
+                title: title,
+                content: '/business/hrm/employee/dialog/emp_dialog.html',
+                offset: 'auto',
+                area:["950px","90%"]
             });
             admin.putTempData("org-dialog-index",dialogIndex,true);
 

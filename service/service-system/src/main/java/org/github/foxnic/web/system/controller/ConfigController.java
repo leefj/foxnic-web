@@ -20,7 +20,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.github.foxnic.web.constants.enums.SystemConfigType;
+import org.github.foxnic.web.constants.enums.system.SystemConfigType;
 import org.github.foxnic.web.domain.storage.File;
 import org.github.foxnic.web.domain.system.Config;
 import org.github.foxnic.web.domain.system.ConfigVO;

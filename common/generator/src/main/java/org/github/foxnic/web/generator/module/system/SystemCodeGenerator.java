@@ -6,7 +6,7 @@ import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_CONFIG;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_LANG;
-import org.github.foxnic.web.constants.enums.SystemConfigType;
+import org.github.foxnic.web.constants.enums.system.SystemConfigType;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.generator.config.FoxnicWebConfigs;
 import org.github.foxnic.web.generator.config.FoxnicWebConfigs.ProjectConfigs;

@@ -1,7 +1,7 @@
 package org.github.foxnic.web.system.permision;
 
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
-import org.github.foxnic.web.constants.enums.VersionType;
+import org.github.foxnic.web.constants.enums.system.VersionType;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.proxy.utils.SystemConfigProxyUtil;

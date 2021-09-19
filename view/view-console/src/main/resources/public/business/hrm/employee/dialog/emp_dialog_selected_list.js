@@ -93,7 +93,7 @@ function ListPage() {
 			});
 			//绑定排序事件
 			table.on('sort(selected-data-table)', function(obj){
-			  refreshTableData(obj.field,obj.type);
+			  refreshSelectedTableData(obj.field,obj.type);
 			});
 		}
 		setTimeout(renderTableInternal,1);
