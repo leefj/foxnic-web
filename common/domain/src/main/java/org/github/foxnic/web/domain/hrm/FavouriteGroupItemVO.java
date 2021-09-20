@@ -9,8 +9,8 @@ import java.util.ArrayList;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-19 11:51:18
- * @sign 83B0BCB92776816D8E9A449D867960E5
+ * @since 2021-09-20 08:59:05
+ * @sign 64EFE233868550E1913ACC0B034990F8
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -65,6 +65,12 @@ public class FavouriteGroupItemVO extends FavouriteGroupItem {
 	*/
 	@ApiModelProperty(required = false,value="主键清单" , notes = "用于接收批量主键参数")
 	private List<String> ids;
+	
+	/**
+	 * 初始化的人员清单：初始化的人员清单
+	*/
+	@ApiModelProperty(required = false,value="初始化的人员清单" , notes = "初始化的人员清单")
+	private List<String> initEmpIds;
 	
 	/**
 	 * 获得 页码<br>
@@ -219,6 +225,36 @@ public class FavouriteGroupItemVO extends FavouriteGroupItem {
 	public FavouriteGroupItemVO addId(String id) {
 		if(this.ids==null) ids=new ArrayList<>();
 		this.ids.add(id);
+		return this;
+	}
+	
+	/**
+	 * 获得 初始化的人员清单<br>
+	 * 初始化的人员清单
+	 * @return 初始化的人员清单
+	*/
+	public List<String> getInitEmpIds() {
+		return initEmpIds;
+	}
+	
+	/**
+	 * 设置 初始化的人员清单
+	 * @param initEmpIds 初始化的人员清单
+	 * @return 当前对象
+	*/
+	public FavouriteGroupItemVO setInitEmpIds(List<String> initEmpIds) {
+		this.initEmpIds=initEmpIds;
+		return this;
+	}
+	
+	/**
+	 * 添加 初始化的人员清单
+	 * @param initEmpId 初始化的人员清单
+	 * @return 当前对象
+	*/
+	public FavouriteGroupItemVO addInitEmpId(String initEmpId) {
+		if(this.initEmpIds==null) initEmpIds=new ArrayList<>();
+		this.initEmpIds.add(initEmpId);
 		return this;
 	}
 }

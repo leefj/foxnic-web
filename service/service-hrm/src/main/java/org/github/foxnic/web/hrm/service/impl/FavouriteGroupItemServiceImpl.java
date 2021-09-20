@@ -1,65 +1,75 @@
 package org.github.foxnic.web.hrm.service.impl;
 
 
-import javax.annotation.Resource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-
-import org.github.foxnic.web.domain.hrm.FavouriteGroupItem;
-import org.github.foxnic.web.domain.hrm.FavouriteGroupItemVO;
-import java.util.List;
-import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.entity.SuperService;
-import com.github.foxnic.dao.spec.DAO;
-import java.lang.reflect.Field;
-import com.github.foxnic.commons.busi.id.IDGenerator;
-import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.commons.collection.CollectorUtil;
+import com.github.foxnic.dao.data.PagedList;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.SuperService;
+import com.github.foxnic.dao.excel.ExcelStructure;
 import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.dao.excel.ExcelStructure;
-import java.io.InputStream;
+import com.github.foxnic.dao.spec.DAO;
+import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.meta.DBColumnMeta;
-import com.github.foxnic.sql.expr.Select;
-import java.util.ArrayList;
-import org.github.foxnic.web.hrm.service.IFavouriteGroupItemService;
+import com.github.foxnic.sql.parameter.BatchParamBuilder;
+import org.github.foxnic.web.constants.enums.hrm.FavouriteItemType;
+import org.github.foxnic.web.domain.hrm.Employee;
+import org.github.foxnic.web.domain.hrm.FavouriteGroupItem;
+import org.github.foxnic.web.domain.hrm.FavouriteGroupItemVO;
+import org.github.foxnic.web.domain.hrm.meta.EmployeeMeta;
 import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.github.foxnic.web.hrm.service.IEmployeeService;
+import org.github.foxnic.web.hrm.service.IFavouriteGroupItemService;
+import org.github.foxnic.web.session.SessionUser;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
+import java.io.InputStream;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
  * 常用人员分组条目表 服务实现
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-19 12:12:43
+ * @since 2021-09-20 06:14:04
+ * @version
 */
 
 
 @Service("HrmFavouriteGroupItemService")
 public class FavouriteGroupItemServiceImpl extends SuperService<FavouriteGroupItem> implements IFavouriteGroupItemService {
-	
+
 	/**
 	 * 注入DAO对象
 	 * */
-	@Resource(name=DBConfigs.PRIMARY_DAO) 
+	@Resource(name=DBConfigs.PRIMARY_DAO)
 	private DAO dao=null;
-	
+
 	/**
 	 * 获得 DAO 对象
 	 * */
 	public DAO dao() { return dao; }
 
 
-	
+	@Autowired
+	private IEmployeeService employeeService;
+
+
 	@Override
 	public Object generateId(Field field) {
 		return IDGenerator.getSnowflakeIdString();
 	}
-	
+
 	/**
 	 * 插入实体
 	 * @param favouriteGroupItem 实体数据
@@ -70,7 +80,7 @@ public class FavouriteGroupItemServiceImpl extends SuperService<FavouriteGroupIt
 		Result r=super.insert(favouriteGroupItem);
 		return r;
 	}
-	
+
 	/**
 	 * 批量插入实体，事务内
 	 * @param favouriteGroupItemList 实体数据清单
@@ -80,8 +90,8 @@ public class FavouriteGroupItemServiceImpl extends SuperService<FavouriteGroupIt
 	public Result insertList(List<FavouriteGroupItem> favouriteGroupItemList) {
 		return super.insertList(favouriteGroupItemList);
 	}
-	
-	
+
+
 	/**
 	 * 按主键删除 常用人员分组条目
 	 *
@@ -102,7 +112,7 @@ public class FavouriteGroupItemServiceImpl extends SuperService<FavouriteGroupIt
 			return r;
 		}
 	}
-	
+
 	/**
 	 * 按主键删除 常用人员分组条目
 	 *
@@ -126,7 +136,7 @@ public class FavouriteGroupItemServiceImpl extends SuperService<FavouriteGroupIt
 			return r;
 		}
 	}
-	
+
 	/**
 	 * 更新实体
 	 * @param favouriteGroupItem 数据对象
@@ -138,7 +148,7 @@ public class FavouriteGroupItemServiceImpl extends SuperService<FavouriteGroupIt
 		Result r=super.update(favouriteGroupItem , mode);
 		return r;
 	}
-	
+
 	/**
 	 * 更新实体集，事务内
 	 * @param favouriteGroupItemList 数据对象列表
@@ -149,8 +159,8 @@ public class FavouriteGroupItemServiceImpl extends SuperService<FavouriteGroupIt
 	public Result updateList(List<FavouriteGroupItem> favouriteGroupItemList , SaveMode mode) {
 		return super.updateList(favouriteGroupItemList , mode);
 	}
-	
-	
+
+
 	/**
 	 * 按主键更新字段 常用人员分组条目
 	 *
@@ -162,9 +172,9 @@ public class FavouriteGroupItemServiceImpl extends SuperService<FavouriteGroupIt
 		if(!field.table().name().equals(this.table())) throw new IllegalArgumentException("更新的数据表["+field.table().name()+"]与服务对应的数据表["+this.table()+"]不一致");
 		int suc=dao.update(field.table().name()).set(field.name(), value).where().and("id = ? ",id).top().execute();
 		return suc>0;
-	} 
-	
-	
+	}
+
+
 	/**
 	 * 按主键获取 常用人员分组条目
 	 *
@@ -187,7 +197,7 @@ public class FavouriteGroupItemServiceImpl extends SuperService<FavouriteGroupIt
 
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @return 查询结果
 	 * */
@@ -195,11 +205,11 @@ public class FavouriteGroupItemServiceImpl extends SuperService<FavouriteGroupIt
 	public List<FavouriteGroupItem> queryList(FavouriteGroupItem sample) {
 		return super.queryList(sample);
 	}
-	
-	
+
+
 	/**
 	 * 分页查询实体集，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @param pageSize 分页条数
 	 * @param pageIndex 页码
@@ -209,10 +219,10 @@ public class FavouriteGroupItemServiceImpl extends SuperService<FavouriteGroupIt
 	public PagedList<FavouriteGroupItem> queryPagedList(FavouriteGroupItem sample, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, pageSize, pageIndex);
 	}
-	
+
 	/**
 	 * 分页查询实体集，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @param condition 其它条件
 	 * @param pageSize 分页条数
@@ -223,7 +233,7 @@ public class FavouriteGroupItemServiceImpl extends SuperService<FavouriteGroupIt
 	public PagedList<FavouriteGroupItem> queryPagedList(FavouriteGroupItem sample, ConditionExpr condition, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, condition, pageSize, pageIndex);
 	}
-	
+
 	/**
 	 * 检查 角色 是否已经存在
 	 *
@@ -253,7 +263,73 @@ public class FavouriteGroupItemServiceImpl extends SuperService<FavouriteGroupIt
 	}
 
 	@Override
+	public Result inserts(List<FavouriteGroupItemVO> list) {
+		// 目前仅针对临时分组，后续改进
+		String temporaryGroupId=SessionUser.getCurrent().getActivatedEmployeeId()+"-temporary";
+		List<FavouriteGroupItem> exList=this.queryList(FavouriteGroupItem.create().setGroupId(temporaryGroupId));
+		Map<String,FavouriteGroupItem> exMap= CollectorUtil.collectMap(exList,FavouriteGroupItem::getTargetId,itm->{return itm;});
+		BatchParamBuilder pb=new BatchParamBuilder();
+		for (FavouriteGroupItemVO item : list) {
+			//如果已经存在，则不处理
+			if(exMap.get(item.getTargetId())!=null) continue;
+			if(item.getTemporary()==1){
+				item.setGroupId(temporaryGroupId);
+			}
+//			item.setCompanyId(SessionUser.getCurrent().getActivatedCompanyId());
+//			FavouriteGroupItem exItem=this.queryEntity(item);
+//			if(exItem==null) {
+//				this.insert(item);
+//			}
+			pb.add(IDGenerator.getSnowflakeIdString(),item.getTargetId(),item.getTargetType(),item.getTargetName(),item.getGroupId(),SessionUser.getCurrent().getActivatedEmployeeId(),
+			item.getTemporary(),SessionUser.getCurrent().getActivatedCompanyId(),SessionUser.getCurrent().getActivatedTenantId()
+					,SessionUser.getCurrent().getUserId(),new Date()
+			);
+		}
+		if(pb.size()>0) {
+			dao().batchExecute("INSERT INTO hrm_favourite_group_item " +
+					"(id, target_id, target_type, target_name, group_id, employee_id, temporary, company_id, tenant_id, create_by, create_time, deleted,version) " +
+					"VALUES (?,?,?,?,?,?,?,?,?,?,?,0,1)", pb.getBatchList());
+		}
+		return ErrorDesc.success();
+	}
+
+	@Override
+	public Result removeAll(FavouriteGroupItemVO vo) {
+		// 目前仅针对临时分组，后续改进
+		String temporaryGroupId=SessionUser.getCurrent().getActivatedEmployeeId()+"-temporary";
+		vo.setGroupId(temporaryGroupId);
+		vo.setTargetId(SessionUser.getCurrent().getActivatedTenantId());
+		this.dao().execute("delete from hrm_favourite_group_item where temporary=1 and group_id=? and tenant_id=?",temporaryGroupId,SessionUser.getCurrent().getActivatedTenantId());
+		return ErrorDesc.success();
+	}
+
+	@Override
+	@Transactional
+	public void initEmployees(List<String> initEmpIds) {
+		FavouriteGroupItemVO vo=new FavouriteGroupItemVO();
+		vo.setTemporary(1);
+		this.removeAll(vo);
+		List<Employee> emps=employeeService.getByIds(initEmpIds);
+		employeeService.join(emps, EmployeeMeta.PERSON);
+		List<FavouriteGroupItemVO> items=new ArrayList<>();
+		for (Employee emp : emps) {
+			FavouriteGroupItemVO itm=new FavouriteGroupItemVO();
+			itm.setTemporary(1);
+			itm.setTargetId(emp.getId());
+			if(emp.getPerson()!=null) {
+				itm.setTargetName(emp.getPerson().getName());
+			} else {
+				itm.setTargetName(emp.getId());
+			}
+			itm.setTargetType(FavouriteItemType.employee.code());
+			items.add(itm);
+		}
+		this.inserts(items);
+	}
+
+	@Override
 	public ExcelStructure buildExcelStructure(boolean isForExport) {
+
 		return super.buildExcelStructure(isForExport);
 	}
 

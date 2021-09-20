@@ -190,6 +190,8 @@ public class EmployeeController extends SuperController {
 	public Result<List<Employee>> getByIds(List<String> ids) {
 		Result<List<Employee>> result=new Result<>();
 		List<Employee> list=employeeService.getByIds(ids);
+			// 关联出 姓名 数据
+		employeeService.join(list,EmployeeMeta.PERSON);
 		result.success(true).data(list);
 		return result;
 	}

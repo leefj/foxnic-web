@@ -1,27 +1,29 @@
 package org.github.foxnic.web.hrm.service;
 
 
-import com.github.foxnic.sql.expr.ConditionExpr;
-import com.github.foxnic.dao.entity.ISuperService;
-import org.github.foxnic.web.domain.hrm.FavouriteGroupItem;
-import org.github.foxnic.web.domain.hrm.FavouriteGroupItemVO;
-import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
-import java.io.InputStream;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.ISuperService;
+import com.github.foxnic.dao.excel.ExcelStructure;
+import com.github.foxnic.dao.excel.ExcelWriter;
+import com.github.foxnic.dao.excel.ValidateResult;
+import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.expr.OrderBy;
 import com.github.foxnic.sql.meta.DBField;
-import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.dao.excel.ExcelStructure;
-import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.dao.data.SaveMode;
+import org.github.foxnic.web.domain.hrm.FavouriteGroupItem;
+import org.github.foxnic.web.domain.hrm.FavouriteGroupItemVO;
+
+import java.io.InputStream;
+import java.util.List;
 
 /**
  * <p>
  * 常用人员分组条目表 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-19 12:12:42
+ * @since 2021-09-20 06:14:04
+ * @version
 */
 
 public interface IFavouriteGroupItemService extends ISuperService<FavouriteGroupItem> {
@@ -284,5 +286,10 @@ public interface IFavouriteGroupItemService extends ISuperService<FavouriteGroup
 	 * */
 	List<ValidateResult> importExcel(InputStream input,int sheetIndex,boolean batch);
 
- 
+
+    Result inserts(List<FavouriteGroupItemVO> list);
+
+	Result removeAll(FavouriteGroupItemVO vo);
+
+    void initEmployees(List<String> initEmpIds);
 }

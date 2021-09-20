@@ -3,13 +3,14 @@ package org.github.foxnic.web.domain.hrm.meta;
 import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.hrm.FavouriteGroupItem;
 import java.util.Date;
+import org.github.foxnic.web.domain.hrm.Employee;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-19 12:12:42
- * @sign 48CA3EE3BC615EDAD2D357041F263517
+ * @since 2021-09-20 06:12:37
+ * @sign 4148054337F801F7EBB7B1A828385A53
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -44,6 +45,16 @@ public class FavouriteGroupItemMeta {
 	 * 对象类型 , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.hrm.FavouriteGroupItem,java.lang.String> TARGET_TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.FavouriteGroupItem.class ,TARGET_TYPE, java.lang.String.class, "对象类型", "对象类型", java.lang.String.class, null);
+	
+	/**
+	 * 对象名称 , 类型: java.lang.String
+	*/
+	public static final String TARGET_NAME="targetName";
+	
+	/**
+	 * 对象名称 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.FavouriteGroupItem,java.lang.String> TARGET_NAME_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.FavouriteGroupItem.class ,TARGET_NAME, java.lang.String.class, "对象名称", "对象名称", java.lang.String.class, null);
 	
 	/**
 	 * 层级路径 , 类型: java.lang.String
@@ -186,9 +197,39 @@ public class FavouriteGroupItemMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.hrm.FavouriteGroupItem,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.FavouriteGroupItem.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
+	 * 关联的员工 , 类型: org.github.foxnic.web.domain.hrm.Employee
+	*/
+	public static final String EMPLOYEE="employee";
+	
+	/**
+	 * 关联的员工 , 类型: org.github.foxnic.web.domain.hrm.Employee
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.FavouriteGroupItem,org.github.foxnic.web.domain.hrm.Employee> EMPLOYEE_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.FavouriteGroupItem.class ,EMPLOYEE, org.github.foxnic.web.domain.hrm.Employee.class, "关联的员工", "", org.github.foxnic.web.domain.hrm.Employee.class, null);
+	
+	/**
+	 * 关联的部门 , 类型: org.github.foxnic.web.domain.hrm.Employee
+	*/
+	public static final String ORGANIZATION="organization";
+	
+	/**
+	 * 关联的部门 , 类型: org.github.foxnic.web.domain.hrm.Employee
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.FavouriteGroupItem,org.github.foxnic.web.domain.hrm.Employee> ORGANIZATION_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.FavouriteGroupItem.class ,ORGANIZATION, org.github.foxnic.web.domain.hrm.Employee.class, "关联的部门", "", org.github.foxnic.web.domain.hrm.Employee.class, null);
+	
+	/**
+	 * 关联的岗位 , 类型: org.github.foxnic.web.domain.hrm.Employee
+	*/
+	public static final String POSITION="position";
+	
+	/**
+	 * 关联的岗位 , 类型: org.github.foxnic.web.domain.hrm.Employee
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.FavouriteGroupItem,org.github.foxnic.web.domain.hrm.Employee> POSITION_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.FavouriteGroupItem.class ,POSITION, org.github.foxnic.web.domain.hrm.Employee.class, "关联的岗位", "", org.github.foxnic.web.domain.hrm.Employee.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , TARGET_ID , TARGET_TYPE , GROUP_ID , SORT , EMPLOYEE_ID , TEMPORARY , COMPANY_ID , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , TARGET_ID , TARGET_TYPE , TARGET_NAME , GROUP_ID , SORT , EMPLOYEE_ID , TEMPORARY , COMPANY_ID , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , EMPLOYEE , ORGANIZATION , POSITION };
 	
 	/**
 	 * 代理类
@@ -228,6 +269,17 @@ public class FavouriteGroupItemMeta {
 		public FavouriteGroupItem setTargetType(String targetType) {
 			super.change(TARGET_TYPE,super.getTargetType(),targetType);
 			super.setTargetType(targetType);
+			return this;
+		}
+		
+		/**
+		 * 设置 对象名称
+		 * @param targetName 对象名称
+		 * @return 当前对象
+		*/
+		public FavouriteGroupItem setTargetName(String targetName) {
+			super.change(TARGET_NAME,super.getTargetName(),targetName);
+			super.setTargetName(targetName);
 			return this;
 		}
 		
@@ -382,6 +434,39 @@ public class FavouriteGroupItemMeta {
 		public FavouriteGroupItem setVersion(Integer version) {
 			super.change(VERSION,super.getVersion(),version);
 			super.setVersion(version);
+			return this;
+		}
+		
+		/**
+		 * 设置 关联的员工
+		 * @param employee 关联的员工
+		 * @return 当前对象
+		*/
+		public FavouriteGroupItem setEmployee(Employee employee) {
+			super.change(EMPLOYEE,super.getEmployee(),employee);
+			super.setEmployee(employee);
+			return this;
+		}
+		
+		/**
+		 * 设置 关联的部门
+		 * @param organization 关联的部门
+		 * @return 当前对象
+		*/
+		public FavouriteGroupItem setOrganization(Employee organization) {
+			super.change(ORGANIZATION,super.getOrganization(),organization);
+			super.setOrganization(organization);
+			return this;
+		}
+		
+		/**
+		 * 设置 关联的岗位
+		 * @param position 关联的岗位
+		 * @return 当前对象
+		*/
+		public FavouriteGroupItem setPosition(Employee position) {
+			super.change(POSITION,super.getPosition(),position);
+			super.setPosition(position);
 			return this;
 		}
 	}

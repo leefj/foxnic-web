@@ -42,7 +42,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label" th:text="${lang.translate('菜单类型')}">类型</label>
         <div class="layui-input-block">
-	      <input type="radio" name="type" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.MenuType')}" th:value="${e.code}" th:title="${e.text}">
+	      <input type="radio" name="type" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.system.MenuType')}" th:value="${e.code}" th:title="${e.text}">
         </div>
     </div>
     

@@ -2,7 +2,7 @@
 /**
  * 常用人员分组条目 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-19 12:12:46
+ * @since 2021-09-20 08:59:07
  */
  -->
  <!DOCTYPE html>
@@ -48,6 +48,11 @@
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('对象类型')}" class="search-label targetType-label">对象类型</span><span class="search-colon">:</span></div>
                         <input id="targetType" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 对象名称 , targetName ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('对象名称')}" class="search-label targetName-label">对象名称</span><span class="search-colon">:</span></div>
+                        <input id="targetName" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
                     <!-- 层级路径 , groupId ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">

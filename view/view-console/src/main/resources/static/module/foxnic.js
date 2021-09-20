@@ -1340,6 +1340,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     // debugger
                     names.push(nodes[i].name);
                 }
+
                 param.buttonEl.find("span").text(names.join(","));
                 if(param.callback) {
                     param.callback(param,{field:param.field,selectedIds:ids,selectedNodes:nodes,fromData:param.fromData,inputEl:param.inputEl,buttonEl:param.buttonEl});
@@ -1368,24 +1369,24 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             if(!title) {
                 title="请选择人员";
             }
-
+            // debugger;
             var value=param.inputEl.val();
-            param.chooseOrgNodeCallbackEvent=function(ids,nodes) {
+            param.chooseEmployeeCallbackEvent=function(ids,nodes) {
                 // debugger;
                 param.inputEl.val(ids.join(","));
                 console.log("ids="+ids.join(","))
                 var names=[];
                 for (var i = 0; i < nodes.length; i++) {
                     // debugger
-                    names.push(nodes[i].name);
+                    names.push(nodes[i].targetName);
                 }
                 param.buttonEl.find("span").text(names.join(","));
                 if(param.callback) {
                     param.callback(param,{field:param.field,selectedIds:ids,selectedNodes:nodes,fromData:param.fromData,inputEl:param.inputEl,buttonEl:param.buttonEl});
                 }
             }
-            admin.putTempData("org-dialog-value",value,true);
-            admin.putTempData("org-dialog-options",param,true);
+            admin.putTempData("employee-dialog-value",value,true);
+            admin.putTempData("employee-dialog-options",param,true);
             var dialogIndex=admin.popupCenter({
                 type:2,
                 id:"orgDialog",
@@ -1394,12 +1395,76 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 offset: 'auto',
                 area:["950px","90%"]
             });
-            admin.putTempData("org-dialog-index",dialogIndex,true);
+            admin.putTempData("employee-dialog-index",dialogIndex,true);
 
         },
         fillDialogButtons:function () {
             this.fillOrgOrPosDialogButtons("org");
             this.fillOrgOrPosDialogButtons("pos");
+            this.fillEmployeeDialogButtons("pos");
+        },
+        fillEmployeeDialogButtons:function () {
+            var orgEls=$("button[action-type='emp-dialog']");
+            orgEls.find("i").css("opacity",0.0);
+            orgEls.find("span").css("opacity",0.0);
+            //debugger;
+            var allIds=[];
+            var map={};
+            for (var i = 0; i <orgEls.length ; i++) {
+                var orgEl=$(orgEls[i]);
+                var id=orgEl.attr("id");
+                id=id.substring(0,id.length-7);
+                var input=$("#"+id);
+                var value=input.val();
+                if(!value) continue;
+                if(Array.isArray(value))
+                {
+
+                } else {
+                    value.trim()
+                    if(value.startWith("[") && value.endWith("]")) {
+                        value=JSON.parse(value);
+                    } else {
+                        value=value.split(",");
+                    }
+                    map[id]=value;
+                    for (var j = 0; j < value.length; j++) {
+                        allIds.push(value[j]);
+                    }
+                }
+            }
+
+
+            var url="/service-hrm/hrm-employee/get-by-ids";
+
+
+            admin.request(url,allIds,function (r){
+                if(r.success) {
+                    var datamap={};
+                    for (var i = 0; i < r.data.length; i++) {
+                        datamap[r.data[i].id]=r.data[i].person.name;
+                    }
+                    //debugger;
+                    for(var id in map) {
+                        // debugger;
+                        var names=[];
+                        var ids=map[id];
+                        for (var i = 0; i < ids.length; i++) {
+                            var emp=datamap[ids[i]];
+                            //如果人员不存在，就用ID填充
+                            if(!emp) {
+                                names.push(ids[i]);
+                                continue;
+                            }
+                            names.push(emp);
+                        }
+                        $("#"+id+"-button").find("span").text(names.join(","));
+
+                    }
+                }
+                orgEls.find("i").animate({opacity:1.0},300,"swing");  //.css("opacity",0.0);
+                orgEls.find("span").animate({opacity:1.0},300,"swing");//.css("opacity",0.0);
+            },"post",true);
         },
         fillOrgOrPosDialogButtons:function (type) {
             var orgEls=$("button[action-type='"+type+"-dialog']");
@@ -1452,6 +1517,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                         var ids=map[id];
                         for (var i = 0; i < ids.length; i++) {
                             var org=datamap[ids[i]];
+                            //如果人员不存在，就用ID填充
                             if(!org) {
                                 names.push(ids[i]);
                                 continue;
@@ -1724,6 +1790,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
 
     }
 
+    window.fox=foxnic;
 
     exports('foxnic', foxnic);
 });

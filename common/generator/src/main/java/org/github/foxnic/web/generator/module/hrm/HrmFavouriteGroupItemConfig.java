@@ -17,6 +17,9 @@ public class HrmFavouriteGroupItemConfig extends BaseCodeConfig<HRM_FAVOURITE_GR
 
     @Override
     public void configModel(PoClassFile poType, VoClassFile voType) {
+
+        voType.addListProperty(String.class,"initEmpIds","初始化的人员清单","初始化的人员清单");
+
         poType.addSimpleProperty(Employee.class,"employee","关联的员工","");
         poType.addSimpleProperty(Employee.class,"organization","关联的部门","");
         poType.addSimpleProperty(Employee.class,"position","关联的岗位","");

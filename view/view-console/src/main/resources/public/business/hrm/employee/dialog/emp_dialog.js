@@ -13,6 +13,8 @@ function ListPage() {
 
 	var orgTree;
 	var editingNode=null;
+	var options;
+	var inputValue;
 	/**
       * 入口函数，初始化
       */
@@ -22,6 +24,25 @@ function ListPage() {
 		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
  		dropdown=layui.dropdown,element=layui.element;
 
+		options=admin.getTempData("employee-dialog-options");
+		inputValue=admin.getTempData("employee-dialog-value");
+		// debugger;
+		try {
+			if(inputValue.indexOf("[")>-1 && inputValue.indexOf("]")>-1 ) {
+				inputValue = JSON.parse(inputValue);
+			} else {
+				inputValue=inputValue.split(",");
+			}
+			if(!Array.isArray(inputValue)) {
+				inputValue=[inputValue+""];
+			}
+		} catch (e) {
+			inputValue=inputValue.split(",");
+		}
+		//再转换一下，可能有点多此一举了
+		if(options.single && inputValue.length>0) {
+			inputValue=[inputValue[0]];
+		}
 
 
 		setTimeout(function(){
@@ -71,7 +92,7 @@ function ListPage() {
 				 contentType:"application/json",
 				 url:moduleURL+"/query-nodes",
 				 autoParam:["id=parentId"],
-				 otherParam:{isLoadAllDescendants:1},
+				 otherParam:{isLoadAllDescendants:1,root:options.root},
 				 dataFilter: nodeDatafilter
 			 },
 			 callback: {
@@ -267,7 +288,10 @@ function ListPage() {
 				cols: [[
 					{type:'numbers'},
 					{type:'checkbox'}
-					,{ field: '人员', align:"left",unresize:true, fixed:false,hide:false, sort: false, title: fox.translate('人员') , templet: function (d) { return templet('name',fox.getProperty(d,["person","name"]),d);} }
+					,{ field: '人员', align:"left",unresize:true, fixed:false,hide:false, sort: false, title: fox.translate('人员') ,
+						templet: function (d) {
+						return "<span id='emp-name-"+d.id+"'>"+templet('name',fox.getProperty(d,["person","name"]),d)+"</span>";
+					 } }
 					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('ID') , templet: function (d) { return templet('id',d.id,d);}  }
 				]],
 				page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
@@ -299,7 +323,7 @@ function ListPage() {
 	 */
 	function refreshEmployeeTableData(sortField,sortType) {
 		var value = {};
-		value.name={ value: $("#emp-search-input").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" ",fillBy:["person","name"]};
+		value.name={ value: $("#emp-search-input").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"",fillBy:["person","name"]};
 		var ps={searchField:"$composite"};
 		ps.searchValue=JSON.stringify(value);
 		if(sortField) {
@@ -323,7 +347,7 @@ function ListPage() {
 	});
 
 
-
+	var selectedData;
 	/**
 	 * 渲染表格
 	 */
@@ -336,8 +360,8 @@ function ListPage() {
 		//
 		function renderTableInternal() {
 			// debugger
-			const moduleURL="/service-hrm/hrm-employee";
-			var ps={};
+			const moduleURL="/service-hrm/hrm-favourite-group-item";
+			var ps={pageSize:1000};
 			var contitions={};
 			// if(window.pageExt.list.beforeQuery){
 			// 	window.pageExt.list.beforeQuery(contitions,ps,"tableInit");
@@ -345,6 +369,11 @@ function ListPage() {
 			if(Object.keys(contitions).length>0) {
 				ps = {searchField: "$composite", searchValue: JSON.stringify(contitions)};
 			}
+
+			ps.sortField="createTime";
+			ps.sortType="desc";
+			ps.initEmpIds=inputValue?inputValue.join(","):null;
+			// debugger;
 			// var templet=window.pageExt.list.templet;
 			// if(templet==null) {
 			var templet=function(field,value,row) {
@@ -364,18 +393,20 @@ function ListPage() {
 				cols: [[
 					{type:'numbers'},
 					{type:'checkbox'}
-					,{ field: '已选人员',unresize:true, align:"",fixed:false,  hide:false, sort: false, title: fox.translate('已选人员') , templet: function (d) { return templet('name',fox.getProperty(d,["person","name"]),d);} }
+					,{ field: '已选人员',unresize:true, align:"",fixed:false,  hide:false, sort: false, title: fox.translate('已选人员') , templet: function (d) { return templet('name',d.targetName,d);} }
 					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('ID') , templet: function (d) { return templet('id',d.id,d);}  }
 				]],
-				page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
-					layout: ['page','count'] //自定义分页布局
-					//,curr: 5 //设定初始在第 5 页
-					,groups: 3 //只显示 1 个连续页码
-					,first: "1" //不显示首页
-					,last: "末页" //不显示尾页
-
-				},
+				page:false,
+				// page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
+				// 	layout: ['page','count'] //自定义分页布局
+				// 	//,curr: 5 //设定初始在第 5 页
+				// 	,groups: 3 //只显示 1 个连续页码
+				// 	,first: "1" //不显示首页
+				// 	,last: "末页" //不显示尾页
+				//
+				// },
 				done: function (data) {
+					selectedData=data;
 					// window.pageExt.list.afterQuery && window.pageExt.list.afterQuery(data);
 				},
 				footer : {
@@ -391,11 +422,110 @@ function ListPage() {
 		setTimeout(renderTableInternal,1);
 	};
 
+	/**
+	 * 刷新表格数据
+	 */
+	function refreshSelectedTableData(sortField,sortType) {
+		var value = {};
+		value.targetName={ value: $("#result-search-input").val() ,fuzzy: true,valuePrefix:"",valueSuffix:""};
+		var ps={searchField:"$composite"};
+		ps.searchValue=JSON.stringify(value);
+		ps.pageSize=1000;
+		ps.sortField="createTime";
+		ps.sortType="desc";
+		// if(editingNode!=null) {
+		// 	if(editingNode.type=="dept"|| editingNode.type=="com"){
+		// 		ps.orgId=editingNode.id;
+		// 	}
+		// 	if(editingNode.type=="pos"){
+		// 		ps.positionId=editingNode.id;
+		// 	}
+		// }
+		table.reload('selected-data-table', { where : ps });
+	}
+
+	$("#result-search-input").keydown(function(event) {
+		if(event.keyCode !=13) return;
+		refreshSelectedTableData();
+	});
+
+
+	/**
+	 * 获得已经选中行的数据,不传入 field 时，返回所有选中的记录，指定 field 时 返回指定的字段集合
+	 */
+	function getCheckedList(field,tableId) {
+		var checkStatus = table.checkStatus(tableId);
+		var data = checkStatus.data;
+		if(!field) return data;
+		for(var i=0;i<data.length;i++) data[i]=data[i][field];
+		return data;
+	}
+
+
+	$("#add-employee-item").click(function (){
+		//如果是单选
+		if(options.single && selectedData.length>=1) {
+			top.layer.msg(fox.translate('仅允许选择一人!'));
+			return;
+		}
+		// debugger;
+		var ids=getCheckedList("id","emp-table");
+		var items=[];
+		for (var i = 0; i < ids.length; i++) {
+			//var idEl=$("td[data-field=id]").find("td[data-content="+ids[i]+"]");
+			var nameEL=$("#emp-name-"+ids[i])
+
+			items.push({targetId:ids[i],temporary:1,targetName:nameEL.text(),targetType:"employee"});
+			if(options.single && items.length>=1){
+				break;
+			}
+		}
+		admin.post("/service-hrm/hrm-favourite-group-item/inserts",items,function (r){
+			refreshSelectedTableData();
+		},{loading:true,els:[$("#add-employee-item"),$("#remove-result-item"),$("#remove-all-result"),$("#sure-button")]});
+	});
+
+	$("#remove-result-item").click(function (){
+		// debugger;
+		var ids=getCheckedList("id","selected-data-table");
+		admin.post("/service-hrm/hrm-favourite-group-item/delete-by-ids",ids,function (r){
+			refreshSelectedTableData();
+		},{loading:true,els:[$("#add-employee-item"),$("#remove-result-item"),$("#remove-all-result"),$("#sure-button")]});
+	});
+
+	$("#remove-all-result").click(function (){
+		//debugger;
+
+		var ids=[];
+		for (var i = 0; i < selectedData.length; i++) {
+			ids.push(selectedData[i].id);
+		}
+		admin.post("/service-hrm/hrm-favourite-group-item/remove-all",{temporary:1},function (r){
+			refreshSelectedTableData();
+		},{loading:true,els:[$("#add-employee-item"),$("#remove-result-item"),$("#remove-all-result"),$("#sure-button")]});
+	});
+
+	$("#sure-button").click(function (){
+
+		var ids=[];
+
+		for (let i = 0; i <selectedData.length ; i++) {
+			ids.push(selectedData[i].targetId);
+		}
+
+		options.chooseEmployeeCallbackEvent(ids,selectedData);
+		// }
+		var menuDialogIndex=admin.getTempData("employee-dialog-index");
+		// debugger
+		admin.post("/service-hrm/hrm-favourite-group-item/remove-all",{temporary:1},function (r){});
+		setTimeout(function (){
+			admin.closePopupCenter(menuDialogIndex);
+		},8)
 
 
 
 
-
+	});
 
 
 

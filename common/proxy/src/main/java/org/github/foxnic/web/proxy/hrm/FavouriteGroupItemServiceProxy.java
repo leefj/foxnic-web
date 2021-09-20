@@ -1,25 +1,24 @@
 package org.github.foxnic.web.proxy.hrm;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.github.foxnic.web.proxy.api.APIProxy;
-import org.github.foxnic.web.proxy.FeignConfiguration;
-
-import org.springframework.cloud.openfeign.FeignClient;
-
-
-import org.github.foxnic.web.domain.hrm.FavouriteGroupItem;
-import org.github.foxnic.web.domain.hrm.FavouriteGroupItemVO;
-import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
+import org.github.foxnic.web.domain.hrm.FavouriteGroupItem;
+import org.github.foxnic.web.domain.hrm.FavouriteGroupItemVO;
+import org.github.foxnic.web.proxy.FeignConfiguration;
 import org.github.foxnic.web.proxy.MicroServiceNames;
+import org.github.foxnic.web.proxy.api.APIProxy;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 /**
  * <p>
  * 常用人员分组条目表  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-19 12:12:43
+ * @since 2021-09-20 06:14:04
+ * @version
 */
 
 @FeignClient(value = MicroServiceNames.HRM, contextId = FavouriteGroupItemServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)
@@ -44,6 +43,16 @@ public interface FavouriteGroupItemServiceProxy {
 	 * 添加常用人员分组条目
 	 */
 	public static final String INSERT = API_PREFIX + "insert";
+
+	/**
+	 * 批量添加常用人员分组条目
+	 */
+	public static final String INSERTS = API_PREFIX + "inserts";
+
+	/**
+	 * 清除常用人员分组条目
+	 */
+	public static final String REMOVE_ALL = API_PREFIX + "remove-all";
 	
 	/**
 	 * 删除常用人员分组条目

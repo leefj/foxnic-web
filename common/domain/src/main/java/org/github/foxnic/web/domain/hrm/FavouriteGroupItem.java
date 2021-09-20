@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-19 12:12:42
- * @sign 48CA3EE3BC615EDAD2D357041F263517
+ * @since 2021-09-20 06:12:37
+ * @sign 4148054337F801F7EBB7B1A828385A53
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -46,6 +46,12 @@ public class FavouriteGroupItem extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="对象类型" , notes = "对象类型")
 	private String targetType;
+	
+	/**
+	 * 对象名称：对象名称
+	*/
+	@ApiModelProperty(required = false,value="对象名称" , notes = "对象名称")
+	private String targetName;
 	
 	/**
 	 * 层级路径：层级路径
@@ -132,6 +138,24 @@ public class FavouriteGroupItem extends Entity {
 	private Integer version;
 	
 	/**
+	 * 关联的员工
+	*/
+	@ApiModelProperty(required = false,value="关联的员工" , notes = "")
+	private Employee employee;
+	
+	/**
+	 * 关联的部门
+	*/
+	@ApiModelProperty(required = false,value="关联的部门" , notes = "")
+	private Employee organization;
+	
+	/**
+	 * 关联的岗位
+	*/
+	@ApiModelProperty(required = false,value="关联的岗位" , notes = "")
+	private Employee position;
+	
+	/**
 	 * 获得 主键<br>
 	 * 主键
 	 * @return 主键
@@ -185,6 +209,25 @@ public class FavouriteGroupItem extends Entity {
 	*/
 	public FavouriteGroupItem setTargetType(String targetType) {
 		this.targetType=targetType;
+		return this;
+	}
+	
+	/**
+	 * 获得 对象名称<br>
+	 * 对象名称
+	 * @return 对象名称
+	*/
+	public String getTargetName() {
+		return targetName;
+	}
+	
+	/**
+	 * 设置 对象名称
+	 * @param targetName 对象名称
+	 * @return 当前对象
+	*/
+	public FavouriteGroupItem setTargetName(String targetName) {
+		this.targetName=targetName;
 		return this;
 	}
 	
@@ -451,6 +494,60 @@ public class FavouriteGroupItem extends Entity {
 	*/
 	public FavouriteGroupItem setVersion(Integer version) {
 		this.version=version;
+		return this;
+	}
+	
+	/**
+	 * 获得 关联的员工<br>
+	 * @return 关联的员工
+	*/
+	public Employee getEmployee() {
+		return employee;
+	}
+	
+	/**
+	 * 设置 关联的员工
+	 * @param employee 关联的员工
+	 * @return 当前对象
+	*/
+	public FavouriteGroupItem setEmployee(Employee employee) {
+		this.employee=employee;
+		return this;
+	}
+	
+	/**
+	 * 获得 关联的部门<br>
+	 * @return 关联的部门
+	*/
+	public Employee getOrganization() {
+		return organization;
+	}
+	
+	/**
+	 * 设置 关联的部门
+	 * @param organization 关联的部门
+	 * @return 当前对象
+	*/
+	public FavouriteGroupItem setOrganization(Employee organization) {
+		this.organization=organization;
+		return this;
+	}
+	
+	/**
+	 * 获得 关联的岗位<br>
+	 * @return 关联的岗位
+	*/
+	public Employee getPosition() {
+		return position;
+	}
+	
+	/**
+	 * 设置 关联的岗位
+	 * @param position 关联的岗位
+	 * @return 当前对象
+	*/
+	public FavouriteGroupItem setPosition(Employee position) {
+		this.position=position;
 		return this;
 	}
 

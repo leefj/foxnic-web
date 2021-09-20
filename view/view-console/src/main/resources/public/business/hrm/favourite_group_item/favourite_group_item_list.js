@@ -1,7 +1,7 @@
 /**
  * 常用人员分组条目 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-19 12:12:45
+ * @since 2021-09-20 08:59:07
  */
 
 
@@ -76,6 +76,7 @@ function ListPage() {
 					,{ field: 'id', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('主键') , templet: function (d) { return templet('id',d.id,d);}  }
 					,{ field: 'targetId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('对象ID') , templet: function (d) { return templet('targetId',d.targetId,d);}  }
 					,{ field: 'targetType', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('对象类型') , templet: function (d) { return templet('targetType',d.targetType,d);}  }
+					,{ field: 'targetName', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('对象名称') , templet: function (d) { return templet('targetName',d.targetName,d);}  }
 					,{ field: 'groupId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('层级路径') , templet: function (d) { return templet('groupId',d.groupId,d);}  }
 					,{ field: 'sort', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('排序') , templet: function (d) { return templet('sort',d.sort,d);}  }
 					,{ field: 'employeeId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('所有者ID') , templet: function (d) { return templet('employeeId',d.employeeId,d);}  }
@@ -116,6 +117,7 @@ function ListPage() {
 		value.id={ value: $("#id").val()};
 		value.targetId={ value: $("#targetId").val()};
 		value.targetType={ value: $("#targetType").val()};
+		value.targetName={ value: $("#targetName").val()};
 		value.groupId={ value: $("#groupId").val()};
 		value.sort={ value: $("#sort").val()};
 		value.employeeId={ value: $("#employeeId").val()};

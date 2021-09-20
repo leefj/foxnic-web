@@ -2,7 +2,7 @@
 /**
  * 常用人员分组条目 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-19 12:12:45
+ * @since 2021-09-20 08:59:07
  */
  -->
  <!DOCTYPE html>
@@ -56,6 +56,13 @@
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('对象类型')}">对象类型</div><div class="layui-required">*</div></div>
                         <div class="layui-input-block layui-input-block-c1">
                             <input lay-filter="targetType" id="targetType" name="targetType" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('对象类型') }" type="text" class="layui-input"    lay-verify="|required"  />
+                        </div>
+                    </div>
+
+                                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('对象名称')}">对象名称</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input lay-filter="targetName" id="targetName" name="targetName" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('对象名称') }" type="text" class="layui-input"  />
                         </div>
                     </div>
 

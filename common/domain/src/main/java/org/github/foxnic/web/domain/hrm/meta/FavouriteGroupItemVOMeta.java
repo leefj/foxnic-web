@@ -8,8 +8,8 @@ import java.util.List;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-19 11:51:18
- * @sign 83B0BCB92776816D8E9A449D867960E5
+ * @since 2021-09-20 08:59:05
+ * @sign 64EFE233868550E1913ACC0B034990F8
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -96,9 +96,19 @@ public class FavouriteGroupItemVOMeta extends FavouriteGroupItemMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.hrm.FavouriteGroupItemVO,java.lang.String> IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.FavouriteGroupItemVO.class ,IDS, java.util.List.class, "主键清单", "用于接收批量主键参数", java.lang.String.class, null);
 	
 	/**
+	 * 初始化的人员清单 , 集合类型: LIST , 类型: java.lang.String
+	*/
+	public static final String INIT_EMP_IDS="initEmpIds";
+	
+	/**
+	 * 初始化的人员清单 , 集合类型: LIST , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.FavouriteGroupItemVO,java.lang.String> INIT_EMP_IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.FavouriteGroupItemVO.class ,INIT_EMP_IDS, java.util.List.class, "初始化的人员清单", "初始化的人员清单", java.lang.String.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , SORT_FIELD , SORT_TYPE , IDS };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , SORT_FIELD , SORT_TYPE , IDS , INIT_EMP_IDS };
 	
 	/**
 	 * 代理类
@@ -193,6 +203,17 @@ public class FavouriteGroupItemVOMeta extends FavouriteGroupItemMeta {
 		public FavouriteGroupItemVO setIds(List<String> ids) {
 			super.change(IDS,super.getIds(),ids);
 			super.setIds(ids);
+			return this;
+		}
+		
+		/**
+		 * 设置 初始化的人员清单
+		 * @param initEmpIds 初始化的人员清单
+		 * @return 当前对象
+		*/
+		public FavouriteGroupItemVO setInitEmpIds(List<String> initEmpIds) {
+			super.change(INIT_EMP_IDS,super.getInitEmpIds(),initEmpIds);
+			super.setInitEmpIds(initEmpIds);
 			return this;
 		}
 	}

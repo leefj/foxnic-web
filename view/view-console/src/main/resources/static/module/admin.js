@@ -236,6 +236,32 @@ layui.define(['settings', 'layer'], function (exports) {
             //debugger;
             return layer.open(param);
         },
+        post: function (url, data, success,opt) {
+            if(!opt) opt={};
+            var task;
+            if(opt.loading) {
+                task=setTimeout(function(){layer.load(2);},1000);
+            }
+            if(opt.els) {
+                for (var i = 0; i < opt.els.length; i++) {
+                    //暂时支持button
+                    fox.disableButton(opt.els[i],true);
+                }
+            }
+            admin.request(url,data,function (r){
+                if(task) {
+                    clearTimeout(task);
+                    layer.closeAll('loading');
+                }
+                if(opt.els) {
+                    for (var i = 0; i < opt.els.length; i++) {
+                        //暂时支持button
+                        fox.disableButton(opt.els[i],false);
+                    }
+                }
+                success && success(r);
+            },"POST",opt.async);
+        },
         // 封装ajax请求，返回数据类型为json
         request: function (url, data, success, method, async) {
         	//debugger;

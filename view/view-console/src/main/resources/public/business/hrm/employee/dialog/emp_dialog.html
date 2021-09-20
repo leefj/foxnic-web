@@ -140,12 +140,13 @@
         </div>
     </div>
 
+    <!-- 左右按钮 -->
     <div style="width: 48px;display: flex;display: -webkit-flex;flex-direction:column;justify-content:center;">
 
-        <button type="button" class="layui-btn layui-btn-sm layui-btn-primary switch-button" style="margin-left: 8px;margin-bottom: 6px;">
+        <button id="add-employee-item" type="button" class="layui-btn layui-btn-sm layui-btn-primary switch-button" style="margin-left: 8px;margin-bottom: 6px;">
             <i class="layui-icon layui-icon-right"></i>
         </button>
-        <button type="button" class="layui-btn layui-btn-sm layui-btn-primary switch-button" style="margin-left: 8px">
+        <button id="remove-result-item" type="button" class="layui-btn layui-btn-sm layui-btn-primary switch-button" style="margin-left: 8px">
             <i class="layui-icon layui-icon-left"></i>
         </button>
 
@@ -156,7 +157,7 @@
     <div class="result-area">
         <div class="layui-form toolbar" style="padding:6px; border-bottom:1px #e6e6e6 solid; display: flex" id="result-toolbar">
             <input id="result-search-input" class="layui-input search-input" type="text" placeholder="请输入关键字" style="flex: 1"/>
-            <button type="button" class="layui-btn layui-btn-primary clear-button" style="margin-left: 8px;">
+            <button type="button" id="remove-all-result" class="layui-btn layui-btn-primary clear-button" style="margin-left: 8px;">
                 <i class="layui-icon layui-icon-delete" style="font-size: 24px"></i>
             </button>
         </div>
