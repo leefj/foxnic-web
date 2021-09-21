@@ -99,10 +99,7 @@
 
     <button th:if="${perm.checkAuth('hrm_employee:view-form')}" class="layui-btn layui-btn-primary layui-btn-xs ops-view-button" lay-event="view" th:text="${lang.translate('查看')}" data-id="{{d.id}}">查看</button>
     <button th:if="${perm.checkAnyAuth('hrm_employee:update','hrm_employee:save')}" class="layui-btn layui-btn-primary layui-btn-xs ops-edit-button" lay-event="edit" th:text="${lang.translate('修改')}" data-id="{{d.id}}">修改</button>
-
-
     <button th:if="${perm.checkAuth('hrm_employee:delete')}" class="layui-btn layui-btn-xs layui-btn-danger ops-delete-button" lay-event="del" th:text="${lang.translate('删除')}" data-id="{{d.id}}">删除</button>
-
 
 </script>
 
@@ -116,7 +113,7 @@
 </script>
 
 <script th:src="'/business/hrm/employee/employee_ext.js?'+${cacheKey}"></script>
-<script th:src="'/business/hrm/employee/emp_dialog_selected_list.js?'+${cacheKey}"></script>
+<script th:src="'/business/hrm/employee/employee_list.js?'+${cacheKey}"></script>
 
 </body>
 </html>

@@ -75,7 +75,7 @@
     <div class="layui-form-item" >
         <label class="layui-form-label" th:text="${lang.translate('语言')}">语言</label>
         <div class="layui-input-block">
-            <input type="radio" name="language" lay-filter="language" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.Language')}" th:value="${e.code}" th:title="${e.text}">
+            <input type="radio" name="language" lay-filter="language" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.system.Language')}" th:value="${e.code}" th:title="${e.text}">
         </div>
     </div>
 
