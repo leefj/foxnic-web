@@ -1,7 +1,7 @@
 /**
  * 代码生成拥有的车辆 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-19 12:49:49
+ * @since 2021-09-22 16:34:40
  */
 
 
@@ -78,16 +78,16 @@ function ListPage() {
 					,{ field: 'plateNumber', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('牌号') , templet: function (d) { return templet('plateNumber',d.plateNumber,d);}  }
 					,{ field: 'color', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('规格') , templet: function (d) { return templet('color',d.color,d);}  }
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime),d); }}
-					,{ field: 'positionId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('岗位单选') , templet: function (d) { return templet('positionId',d.positionId,d);}  }
-					,{ field: 'orgId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('组织单选') , templet: function (d) { return templet('orgId',d.orgId,d);}  }
-					,{ field: 'empId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('员工单选') , templet: function (d) { return templet('empId',d.empId,d);}  }
+					,{ field: 'positionId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('岗位单选') , templet: function (d) { return templet('positionId',fox.getProperty(d,["position","fullName"]),d);} }
+					,{ field: 'orgId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('组织单选') , templet: function (d) { return templet('orgId',fox.getProperty(d,["organization","fullName"]),d);} }
+					,{ field: 'empId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('员工单选') , templet: function (d) { return templet('empId',fox.getProperty(d,["employee","person","name"]),d);} }
 					,{ field: 'positionIds', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('岗位多选') , templet: function (d) { return templet('positionIds',d.positionIds,d);}  }
 					,{ field: 'orgIds', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('组织多选') , templet: function (d) { return templet('orgIds',d.orgIds,d);}  }
 					,{ field: 'empIds', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('员工多选') , templet: function (d) { return templet('empIds',d.empIds,d);}  }
 					,{ field: 'selectEmpId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('员工下拉') , templet: function (d) { return templet('selectEmpId',d.selectEmpId,d);}  }
-					,{ field: 'comId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('公司单选') , templet: function (d) { return templet('comId',d.comId,d);}  }
+					,{ field: 'comId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('公司单选') , templet: function (d) { return templet('comId',fox.getProperty(d,["company","fullName"]),d);} }
 					,{ field: 'deptIds', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('部门多选') , templet: function (d) { return templet('deptIds',d.deptIds,d);}  }
-					,{ field: 'subOrgId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('限定上级') , templet: function (d) { return templet('subOrgId',d.subOrgId,d);}  }
+					,{ field: 'subOrgId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('限定上级') , templet: function (d) { return templet('subOrgId',fox.getProperty(d,["subOrganization","fullName"]),d);} }
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
 				]],
@@ -119,8 +119,9 @@ function ListPage() {
       */
 	function refreshTableData(sortField,sortType) {
 		var value = {};
-		value.plateNumber={ value: $("#plateNumber").val()};
-		value.orgIds={ value: $("#orgIds").val(),label:$("#orgIds-button").text()};
+		value.plateNumber={ inputType:"button",value: $("#plateNumber").val()};
+		value.orgId={ inputType:"button",value: $("#orgId").val(),fillBy:["organization","fullName"] ,label:$("#orgId-button").text()};
+		value.empId={ inputType:"button",value: $("#empId").val(),fillBy:["employee","person","name"] ,label:$("#empId-button").text()};
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;
@@ -189,19 +190,34 @@ function ListPage() {
 		});
 
 		// 请选择组织节点对话框
-		$("#orgIds-button").click(function(){
-			var orgIdsDialogOptions={
-				field:"orgIds",
-				inputEl:$("#orgIds"),
+		$("#orgId-button").click(function(){
+			var orgIdDialogOptions={
+				field:"orgId",
+				inputEl:$("#orgId"),
 				buttonEl:$(this),
-				single:false,
+				single:true,
 				//限制浏览的范围，指定根节点 id 或 code ，优先匹配ID
 				root: "",
 				targetType:"org",
 				prepose:function(param){ return window.pageExt.list.beforeDialog && window.pageExt.list.beforeDialog(param);},
 				callback:function(param){ window.pageExt.list.afterDialog && window.pageExt.list.afterDialog(param);}
 			};
-			fox.chooseOrgNode(orgIdsDialogOptions);
+			fox.chooseOrgNode(orgIdDialogOptions);
+		});
+		// 请选择人员对话框
+		$("#empId-button").click(function(){
+				var empIdDialogOptions={
+				field:"empId",
+				inputEl:$("#empId"),
+				buttonEl:$(this),
+				single:true,
+				//限制浏览的范围，指定根节点 id 或 code ，优先匹配ID
+				root: "",
+				targetType:"emp",
+				prepose:function(param){ return window.pageExt.list.beforeDialog && window.pageExt.list.beforeDialog(param);},
+				callback:function(param){ window.pageExt.list.afterDialog && window.pageExt.list.afterDialog(param);}
+			};
+			fox.chooseEmployee(empIdDialogOptions);
 		});
 	}
 	

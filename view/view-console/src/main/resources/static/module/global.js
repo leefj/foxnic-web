@@ -17,6 +17,20 @@ QueryString = {
 }
 QueryString.Initial();
 
+TypeUtil={
+	isArray:function (data) {
+		return Array.isArray(data);
+	},
+	isNumber:function (data) {
+		if (parseFloat(data).toString() == 'NaN') {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+}
+
 
 String.prototype.endWith=function(str){
 	if(str==null||str==""||this.length==0||str.length>this.length)
@@ -62,6 +76,8 @@ var apiurls={
 		getByIds:"/service-storage/sys-file/get-by-ids"
 	}
 }
+
+
 
 
 

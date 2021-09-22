@@ -18,6 +18,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * */
         beforeQuery:function (conditions) {
             console.log('beforeQuery',conditions);
+            return true;
         },
         /**
          * 单行删除前调用，若返回false则不执行后续操作

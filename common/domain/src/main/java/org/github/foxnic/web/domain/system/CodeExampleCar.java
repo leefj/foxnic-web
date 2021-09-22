@@ -1,23 +1,27 @@
 package org.github.foxnic.web.domain.system;
 
 import com.github.foxnic.dao.entity.Entity;
-import javax.persistence.Table;
-import com.github.foxnic.sql.meta.DBTable;
-import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_CODE_EXAMPLE_CAR;
-import javax.persistence.Id;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Date;
-import javax.persistence.Transient;
-import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
+import com.github.foxnic.sql.meta.DBTable;
+import io.swagger.annotations.ApiModelProperty;
+import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_CODE_EXAMPLE_CAR;
+import org.github.foxnic.web.domain.hrm.Employee;
+import org.github.foxnic.web.domain.hrm.Organization;
+import org.github.foxnic.web.domain.hrm.Position;
+
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import java.util.Date;
+import java.util.Map;
 
 
 
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-17 10:51:07
- * @sign EA50B9726A86DAB9B9276E14AC5A58DF
+ * @since 2021-09-22 15:26:07
+ * @sign 66CEC4EC000471F3E4D053047A2B8D18
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -160,6 +164,36 @@ public class CodeExampleCar extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="限定上级" , notes = "限定上级")
 	private String subOrgId;
+	
+	/**
+	 * 关联组织：关联组织
+	*/
+	@ApiModelProperty(required = false,value="关联组织" , notes = "关联组织")
+	private Organization organization;
+	
+	/**
+	 * 关联组织：关联组织
+	*/
+	@ApiModelProperty(required = false,value="关联组织" , notes = "关联组织")
+	private Organization subOrganization;
+	
+	/**
+	 * 关联公司：关联公司
+	*/
+	@ApiModelProperty(required = false,value="关联公司" , notes = "关联公司")
+	private Organization company;
+	
+	/**
+	 * 关联岗位：关联岗位
+	*/
+	@ApiModelProperty(required = false,value="关联岗位" , notes = "关联岗位")
+	private Position position;
+	
+	/**
+	 * 关联人员：关联人员
+	*/
+	@ApiModelProperty(required = false,value="关联人员" , notes = "关联人员")
+	private Employee employee;
 	
 	/**
 	 * 获得 主键<br>
@@ -576,6 +610,101 @@ public class CodeExampleCar extends Entity {
 	*/
 	public CodeExampleCar setSubOrgId(String subOrgId) {
 		this.subOrgId=subOrgId;
+		return this;
+	}
+	
+	/**
+	 * 获得 关联组织<br>
+	 * 关联组织
+	 * @return 关联组织
+	*/
+	public Organization getOrganization() {
+		return organization;
+	}
+	
+	/**
+	 * 设置 关联组织
+	 * @param organization 关联组织
+	 * @return 当前对象
+	*/
+	public CodeExampleCar setOrganization(Organization organization) {
+		this.organization=organization;
+		return this;
+	}
+	
+	/**
+	 * 获得 关联组织<br>
+	 * 关联组织
+	 * @return 关联组织
+	*/
+	public Organization getSubOrganization() {
+		return subOrganization;
+	}
+	
+	/**
+	 * 设置 关联组织
+	 * @param subOrganization 关联组织
+	 * @return 当前对象
+	*/
+	public CodeExampleCar setSubOrganization(Organization subOrganization) {
+		this.subOrganization=subOrganization;
+		return this;
+	}
+	
+	/**
+	 * 获得 关联公司<br>
+	 * 关联公司
+	 * @return 关联公司
+	*/
+	public Organization getCompany() {
+		return company;
+	}
+	
+	/**
+	 * 设置 关联公司
+	 * @param company 关联公司
+	 * @return 当前对象
+	*/
+	public CodeExampleCar setCompany(Organization company) {
+		this.company=company;
+		return this;
+	}
+	
+	/**
+	 * 获得 关联岗位<br>
+	 * 关联岗位
+	 * @return 关联岗位
+	*/
+	public Position getPosition() {
+		return position;
+	}
+	
+	/**
+	 * 设置 关联岗位
+	 * @param position 关联岗位
+	 * @return 当前对象
+	*/
+	public CodeExampleCar setPosition(Position position) {
+		this.position=position;
+		return this;
+	}
+	
+	/**
+	 * 获得 关联人员<br>
+	 * 关联人员
+	 * @return 关联人员
+	*/
+	public Employee getEmployee() {
+		return employee;
+	}
+	
+	/**
+	 * 设置 关联人员
+	 * @param employee 关联人员
+	 * @return 当前对象
+	*/
+	public CodeExampleCar setEmployee(Employee employee) {
+		this.employee=employee;
 		return this;
 	}
 

@@ -2,7 +2,7 @@
 /**
  * 代码生成示例主 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-16 19:31:19
+ * @since 2021-09-22 15:13:55
  */
  -->
  <!DOCTYPE html>
@@ -111,7 +111,7 @@
                     <div class="layui-form-item" >
                         <div class="layui-form-label "><div th:text="${lang.translate('选择框(枚举)')}">选择框(枚举)</div><div class="layui-required">*</div></div>
                         <div class="layui-input-block ">
-                            <div id="selectEnum" input-type="select" th:data="${enum.toArray('org.github.foxnic.web.constants.enums.SystemConfigType')}"></div>
+                            <div id="selectEnum" input-type="select" th:data="${enum.toArray('org.github.foxnic.web.constants.enums.system.SystemConfigType')}"></div>
                         </div>
                     </div>
 
@@ -236,7 +236,7 @@
                         <div class="layui-form-label "><div th:text="${lang.translate('对话框')}">对话框</div></div>
                         <div class="layui-input-block ">
                             <input lay-filter="buttonInput" id="buttonInput" name="buttonInput"  type="hidden" class="layui-input"   />
-                            <button id="buttonInput-button" type="button" class="layui-btn  layui-btn-warm " > <i class='layui-icon layui-icon-search'></i> <span th:text="${lang.translate('点我!')}">按钮文本</span></button>
+                            <button id="buttonInput-button" type="button" action-type="" class="layui-btn  layui-btn-warm " style="width: 100%"> <i class='layui-icon layui-icon-search'></i> <span th:text="${lang.translate('点我!')}">按钮文本</span></button>
                         </div>
                     </div>
 
@@ -282,7 +282,7 @@
                     <div class="layui-form-item" >
                         <div class="layui-form-label "><div th:text="${lang.translate('复选框(枚举)')}">复选框(枚举)</div></div>
                         <div class="layui-input-block ">
-                                <input input-type="checkbox" type="checkbox" name="checkEnum" lay-filter="checkEnum" lay-skin="primary" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.MenuType')}" th:value="${e.code}" th:title="${e.text}" th:checked="${pageHelper.checkDefault(e.code,stat.index,'','0,1')?'yes':'no'}">
+                                <input input-type="checkbox" type="checkbox" name="checkEnum" lay-filter="checkEnum" lay-skin="primary" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.system.MenuType')}" th:value="${e.code}" th:title="${e.text}" th:checked="${pageHelper.checkDefault(e.code,stat.index,'','0,1')?'yes':'no'}">
                         </div>
                     </div>
 

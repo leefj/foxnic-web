@@ -236,16 +236,24 @@ layui.define(['settings', 'layer'], function (exports) {
             //debugger;
             return layer.open(param);
         },
+        /**
+         * opt.delayLoading  指定延迟显示loading界面的毫秒数
+         * opt.elms  请求时，需要锁定界面元素清单
+         * */
         post: function (url, data, success,opt) {
             if(!opt) opt={};
             var task;
-            if(opt.loading) {
-                task=setTimeout(function(){layer.load(2);},1000);
+            var delay=1000;
+            if(TypeUtil.isNumber(opt.delayLoading)) {
+                delay=parseFloat(opt.delayLoading);
             }
-            if(opt.els) {
-                for (var i = 0; i < opt.els.length; i++) {
+            if(opt.delayLoading) {
+                task=setTimeout(function(){layer.load(2);},delay);
+            }
+            if(opt.elms) {
+                for (var i = 0; i < opt.elms.length; i++) {
                     //暂时支持button
-                    fox.disableButton(opt.els[i],true);
+                    fox.disableButton(opt.elms[i],true);
                 }
             }
             admin.request(url,data,function (r){
@@ -253,10 +261,10 @@ layui.define(['settings', 'layer'], function (exports) {
                     clearTimeout(task);
                     layer.closeAll('loading');
                 }
-                if(opt.els) {
-                    for (var i = 0; i < opt.els.length; i++) {
+                if(opt.elms) {
+                    for (var i = 0; i < opt.elms.length; i++) {
                         //暂时支持button
-                        fox.disableButton(opt.els[i],false);
+                        fox.disableButton(opt.elms[i],false);
                     }
                 }
                 success && success(r);

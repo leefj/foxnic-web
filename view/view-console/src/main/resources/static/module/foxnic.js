@@ -448,9 +448,13 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     if(!hasVal(label)) continue;
                     var v=values[itm];
                     var t="";
+                    var inputType=v["inputType"];
+                    if(inputType=="button" && !hasVal(v["value"])) {
+                        continue;
+                    }
 
-                    if("name"==itm) {
-                        //debugger;
+                    if("orgId"==itm) {
+                        debugger;
                     }
 
                     if(hasVal(v["label"])) {
@@ -1340,8 +1344,11 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     // debugger
                     names.push(nodes[i].name);
                 }
-
-                param.buttonEl.find("span").text(names.join(","));
+                if (names.length>0) {
+                    param.buttonEl.find("span").text(names.join(","));
+                } else {
+                    param.buttonEl.find("span").text(param.buttonEl.find("span").attr("default-label"));
+                }
                 if(param.callback) {
                     param.callback(param,{field:param.field,selectedIds:ids,selectedNodes:nodes,fromData:param.fromData,inputEl:param.inputEl,buttonEl:param.buttonEl});
                 }
@@ -1380,7 +1387,11 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     // debugger
                     names.push(nodes[i].targetName);
                 }
-                param.buttonEl.find("span").text(names.join(","));
+                if (names.length>0) {
+                    param.buttonEl.find("span").text(names.join(","));
+                } else {
+                    param.buttonEl.find("span").text(param.buttonEl.find("span").attr("default-label"));
+                }
                 if(param.callback) {
                     param.callback(param,{field:param.field,selectedIds:ids,selectedNodes:nodes,fromData:param.fromData,inputEl:param.inputEl,buttonEl:param.buttonEl});
                 }

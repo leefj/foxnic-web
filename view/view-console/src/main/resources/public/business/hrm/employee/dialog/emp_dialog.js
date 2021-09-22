@@ -25,6 +25,9 @@ function ListPage() {
  		dropdown=layui.dropdown,element=layui.element;
 
 		options=admin.getTempData("employee-dialog-options");
+		if(!options) {
+			options={single:false};
+		}
 		inputValue=admin.getTempData("employee-dialog-value");
 		// debugger;
 		try {
@@ -37,10 +40,12 @@ function ListPage() {
 				inputValue=[inputValue+""];
 			}
 		} catch (e) {
-			inputValue=inputValue.split(",");
+			if(inputValue) {
+				inputValue = inputValue.split(",");
+			}
 		}
 		//再转换一下，可能有点多此一举了
-		if(options.single && inputValue.length>0) {
+		if(options && options.single && inputValue.length>0) {
 			inputValue=[inputValue[0]];
 		}
 
@@ -314,6 +319,15 @@ function ListPage() {
 			table.on('sort(emp-table)', function(obj){
 				refreshEmployeeTableData(obj.field,obj.type);
 			});
+			//触发行双击事件
+			table.on('rowDouble(emp-table)', function(obj){
+				// debugger
+				var nameEL=$("#emp-name-"+obj.data.id);
+				var items=[{targetId:obj.data.id,temporary:1,targetName:nameEL.text(),targetType:"employee"}];
+				admin.post("/service-hrm/hrm-favourite-group-item/inserts",items,function (r){
+					refreshSelectedTableData();
+				},{delayLoading:500,elms:[$("#add-employee-item"),$("#remove-result-item"),$("#remove-all-result"),$("#sure-button")]});
+			});
 		}
 		setTimeout(renderTableInternal,1);
 	};
@@ -418,6 +432,13 @@ function ListPage() {
 			table.on('sort(selected-data-table)', function(obj){
 				refreshTableData(obj.field,obj.type);
 			});
+			//触发行双击事件
+			table.on('rowDouble(selected-data-table)', function(obj){
+				// debugger
+				admin.post("/service-hrm/hrm-favourite-group-item/delete-by-ids",[obj.data.id],function (r){
+					refreshSelectedTableData();
+				},{delayLoading:500,elms:[$("#add-employee-item"),$("#remove-result-item"),$("#remove-all-result"),$("#sure-button")]});
+			});
 		}
 		setTimeout(renderTableInternal,1);
 	};
@@ -462,6 +483,7 @@ function ListPage() {
 	}
 
 
+
 	$("#add-employee-item").click(function (){
 		//如果是单选
 		if(options.single && selectedData.length>=1) {
@@ -482,7 +504,7 @@ function ListPage() {
 		}
 		admin.post("/service-hrm/hrm-favourite-group-item/inserts",items,function (r){
 			refreshSelectedTableData();
-		},{loading:true,els:[$("#add-employee-item"),$("#remove-result-item"),$("#remove-all-result"),$("#sure-button")]});
+		},{delayLoading:1000,elms:[$("#add-employee-item"),$("#remove-result-item"),$("#remove-all-result"),$("#sure-button")]});
 	});
 
 	$("#remove-result-item").click(function (){
@@ -490,7 +512,7 @@ function ListPage() {
 		var ids=getCheckedList("id","selected-data-table");
 		admin.post("/service-hrm/hrm-favourite-group-item/delete-by-ids",ids,function (r){
 			refreshSelectedTableData();
-		},{loading:true,els:[$("#add-employee-item"),$("#remove-result-item"),$("#remove-all-result"),$("#sure-button")]});
+		},{delayLoading:1000,elms:[$("#add-employee-item"),$("#remove-result-item"),$("#remove-all-result"),$("#sure-button")]});
 	});
 
 	$("#remove-all-result").click(function (){
@@ -502,7 +524,7 @@ function ListPage() {
 		}
 		admin.post("/service-hrm/hrm-favourite-group-item/remove-all",{temporary:1},function (r){
 			refreshSelectedTableData();
-		},{loading:true,els:[$("#add-employee-item"),$("#remove-result-item"),$("#remove-all-result"),$("#sure-button")]});
+		},{delayLoading:true,elms:[$("#add-employee-item"),$("#remove-result-item"),$("#remove-all-result"),$("#sure-button")]});
 	});
 
 	$("#sure-button").click(function (){

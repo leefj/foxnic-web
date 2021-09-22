@@ -2,7 +2,7 @@
 /**
  * 代码生成示例主 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-16 19:31:18
+ * @since 2021-09-22 15:13:56
  */
  -->
  <!DOCTYPE html>
@@ -118,7 +118,7 @@
                         <div class="search-label-div" style="width:100px"><span th:text="${lang.translate('复选框(枚举)')}" class="search-label checkEnum-label">复选框(枚举)</span><span class="search-colon">:</span></div>
 
 
-                                <div id="checkEnum" th:data="${enum.toArray('org.github.foxnic.web.constants.enums.MenuType')}" style="width:140px"></div>
+                                <div id="checkEnum" th:data="${enum.toArray('org.github.foxnic.web.constants.enums.system.MenuType')}" style="width:140px"></div>
 
                     </div>
                     <!-- 选择框(字典) , selectDict ,typeName=select_box, isHideInSearch=false -->
@@ -141,7 +141,7 @@
                     <!-- 选择框(枚举) , selectEnum ,typeName=select_box, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style="width:100px"><span th:text="${lang.translate('选择框(枚举)')}" class="search-label selectEnum-label">选择框(枚举)</span><span class="search-colon">:</span></div>
-                        <div id="selectEnum" th:data="${enum.toArray('org.github.foxnic.web.constants.enums.SystemConfigType')}" style="width:140px"></div>
+                        <div id="selectEnum" th:data="${enum.toArray('org.github.foxnic.web.constants.enums.system.SystemConfigType')}" style="width:140px"></div>
                     </div>
 
 

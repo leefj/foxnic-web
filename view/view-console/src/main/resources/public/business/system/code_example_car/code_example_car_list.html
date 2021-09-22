@@ -2,7 +2,7 @@
 /**
  * 代码生成拥有的车辆 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-19 12:49:49
+ * @since 2021-09-22 16:34:40
  */
  -->
  <!DOCTYPE html>
@@ -43,19 +43,24 @@
                     </div>
                     <!-- 规格 , color ,typeName=text_input, isHideInSearch=true -->
                     <!-- 岗位单选 , positionId ,typeName=button, isHideInSearch=true -->
-                    <!-- 组织单选 , orgId ,typeName=button, isHideInSearch=true -->
-                    <!-- 员工单选 , empId ,typeName=button, isHideInSearch=true -->
                     <!-- 岗位多选 , positionIds ,typeName=button, isHideInSearch=true -->
+                    <!-- 组织多选 , orgIds ,typeName=button, isHideInSearch=true -->
                     <!-- 员工多选 , empIds ,typeName=button, isHideInSearch=true -->
                     <!-- 员工下拉 , selectEmpId ,typeName=text_input, isHideInSearch=true -->
                     <!-- 公司单选 , comId ,typeName=button, isHideInSearch=true -->
                     <!-- 部门多选 , deptIds ,typeName=button, isHideInSearch=true -->
                     <!-- 限定上级 , subOrgId ,typeName=button, isHideInSearch=true -->
-                    <!-- 组织多选 , orgIds ,typeName=button, isHideInSearch=false -->
+                    <!-- 组织单选 , orgId ,typeName=button, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('组织多选')}" class="search-label orgIds-label">组织多选</span><span class="search-colon">:</span></div>
-                            <input lay-filter="orgIds" id="orgIds" name="orgIds"  type="hidden" class="layui-input"   />
-                            <button id="orgIds-button" type="button" action-type="org-dialog" class="layui-btn layui-btn-primary   " style="width: 100%"> <i class='layui-icon layui-icon-search'></i> <span th:text="${lang.translate('请选择组织节点')}">按钮文本</span></button>
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('组织单选')}" class="search-label orgId-label">组织单选</span><span class="search-colon">:</span></div>
+                            <input lay-filter="orgId" id="orgId" name="orgId"  type="hidden" class="layui-input"   />
+                            <button id="orgId-button" type="button" action-type="org-dialog" class="layui-btn layui-btn-primary   " style="width: 100%"> <i class='layui-icon layui-icon-search'></i> <span th:text="${lang.translate('请选择组织节点')}" th:default-label="${lang.translate('请选择组织节点')}">按钮文本</span></button>
+                    </div>
+                    <!-- 员工单选 , empId ,typeName=button, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('员工单选')}" class="search-label empId-label">员工单选</span><span class="search-colon">:</span></div>
+                            <input lay-filter="empId" id="empId" name="empId"  type="hidden" class="layui-input"   />
+                            <button id="empId-button" type="button" action-type="emp-dialog" class="layui-btn layui-btn-primary   " style="width: 100%"> <i class='layui-icon layui-icon-search'></i> <span th:text="${lang.translate('请选择人员')}" th:default-label="${lang.translate('请选择人员')}">按钮文本</span></button>
                     </div>
 
 

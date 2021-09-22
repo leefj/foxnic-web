@@ -19,11 +19,9 @@ public class HrmOrgnizationConfig extends BaseCodeConfig<HRM_ORGANIZATION> {
 
     @Override
     public void configModel(PoClassFile poType, VoClassFile voType) {
-
         voType.addSimpleProperty(Integer.class,"isLoadAllDescendants","是否加载所有子孙节点","1：是；0：否");
         voType.addSimpleProperty(String.class,"root","根节点id或code","根节点id");
         voType.addSimpleProperty(String.class,"targetType","呈现模式","呈现模式:pos,org,com,dept");
-
     }
 
     @Override

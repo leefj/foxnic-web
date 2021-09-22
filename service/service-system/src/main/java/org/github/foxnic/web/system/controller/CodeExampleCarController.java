@@ -19,6 +19,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.github.foxnic.web.domain.system.CodeExampleCar;
 import org.github.foxnic.web.domain.system.CodeExampleCarVO;
+import org.github.foxnic.web.domain.system.meta.CodeExampleCarMeta;
 import org.github.foxnic.web.domain.system.meta.CodeExampleCarVOMeta;
 import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
 import org.github.foxnic.web.framework.web.SuperController;
@@ -41,7 +42,7 @@ import java.util.Map;
  * 代码生成拥有的车辆 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-19 12:49:49
+ * @since 2021-09-22 16:34:40
 */
 
 @Api(tags = "代码生成拥有的车辆")
@@ -190,6 +191,16 @@ public class CodeExampleCarController extends SuperController {
 	public Result<CodeExampleCar> getById(String id) {
 		Result<CodeExampleCar> result=new Result<>();
 		CodeExampleCar codeExampleCar=codeExampleCarService.getById(id);
+		// 关联出 岗位单选 数据
+		codeExampleCarService.join(codeExampleCar,CodeExampleCarMeta.POSITION);
+		// 关联出 组织单选 数据
+		codeExampleCarService.join(codeExampleCar,CodeExampleCarMeta.ORGANIZATION);
+		// 关联出 员工单选 数据
+		codeExampleCarService.join(codeExampleCar,CodeExampleCarMeta.EMPLOYEE);
+		// 关联出 公司单选 数据
+		codeExampleCarService.join(codeExampleCar,CodeExampleCarMeta.COMPANY);
+		// 关联出 限定上级 数据
+		codeExampleCarService.join(codeExampleCar,CodeExampleCarMeta.SUB_ORGANIZATION);
 		result.success(true).data(codeExampleCar);
 		return result;
 	}
@@ -272,6 +283,16 @@ public class CodeExampleCarController extends SuperController {
 	public Result<PagedList<CodeExampleCar>> queryPagedList(CodeExampleCarVO sample) {
 		Result<PagedList<CodeExampleCar>> result=new Result<>();
 		PagedList<CodeExampleCar> list=codeExampleCarService.queryPagedList(sample,sample.getPageSize(),sample.getPageIndex());
+		// 关联出 岗位单选 数据
+		codeExampleCarService.join(list,CodeExampleCarMeta.POSITION);
+		// 关联出 组织单选 数据
+		codeExampleCarService.join(list,CodeExampleCarMeta.ORGANIZATION);
+		// 关联出 员工单选 数据
+		codeExampleCarService.join(list,CodeExampleCarMeta.EMPLOYEE);
+		// 关联出 公司单选 数据
+		codeExampleCarService.join(list,CodeExampleCarMeta.COMPANY);
+		// 关联出 限定上级 数据
+		codeExampleCarService.join(list,CodeExampleCarMeta.SUB_ORGANIZATION);
 		result.success(true).data(list);
 		return result;
 	}
@@ -302,7 +323,6 @@ public class CodeExampleCarController extends SuperController {
 			//下载
 			DownloadUtil.writeToOutput(response, ew.getWorkBook(), ew.getWorkBookName());
 		}
-
 
 
 

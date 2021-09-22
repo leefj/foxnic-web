@@ -3,13 +3,16 @@ package org.github.foxnic.web.domain.system.meta;
 import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.system.CodeExampleCar;
 import java.util.Date;
+import org.github.foxnic.web.domain.hrm.Organization;
+import org.github.foxnic.web.domain.hrm.Position;
+import org.github.foxnic.web.domain.hrm.Employee;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-17 10:51:07
- * @sign EA50B9726A86DAB9B9276E14AC5A58DF
+ * @since 2021-09-22 15:26:07
+ * @sign 66CEC4EC000471F3E4D053047A2B8D18
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -236,9 +239,59 @@ public class CodeExampleCarMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.system.CodeExampleCar,java.lang.String> SUB_ORG_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.system.CodeExampleCar.class ,SUB_ORG_ID, java.lang.String.class, "限定上级", "限定上级", java.lang.String.class, null);
 	
 	/**
+	 * 关联组织 , 类型: org.github.foxnic.web.domain.hrm.Organization
+	*/
+	public static final String ORGANIZATION="organization";
+	
+	/**
+	 * 关联组织 , 类型: org.github.foxnic.web.domain.hrm.Organization
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.CodeExampleCar,org.github.foxnic.web.domain.hrm.Organization> ORGANIZATION_PROP = new BeanProperty(org.github.foxnic.web.domain.system.CodeExampleCar.class ,ORGANIZATION, org.github.foxnic.web.domain.hrm.Organization.class, "关联组织", "关联组织", org.github.foxnic.web.domain.hrm.Organization.class, null);
+	
+	/**
+	 * 关联组织 , 类型: org.github.foxnic.web.domain.hrm.Organization
+	*/
+	public static final String SUB_ORGANIZATION="subOrganization";
+	
+	/**
+	 * 关联组织 , 类型: org.github.foxnic.web.domain.hrm.Organization
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.CodeExampleCar,org.github.foxnic.web.domain.hrm.Organization> SUB_ORGANIZATION_PROP = new BeanProperty(org.github.foxnic.web.domain.system.CodeExampleCar.class ,SUB_ORGANIZATION, org.github.foxnic.web.domain.hrm.Organization.class, "关联组织", "关联组织", org.github.foxnic.web.domain.hrm.Organization.class, null);
+	
+	/**
+	 * 关联公司 , 类型: org.github.foxnic.web.domain.hrm.Organization
+	*/
+	public static final String COMPANY="company";
+	
+	/**
+	 * 关联公司 , 类型: org.github.foxnic.web.domain.hrm.Organization
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.CodeExampleCar,org.github.foxnic.web.domain.hrm.Organization> COMPANY_PROP = new BeanProperty(org.github.foxnic.web.domain.system.CodeExampleCar.class ,COMPANY, org.github.foxnic.web.domain.hrm.Organization.class, "关联公司", "关联公司", org.github.foxnic.web.domain.hrm.Organization.class, null);
+	
+	/**
+	 * 关联岗位 , 类型: org.github.foxnic.web.domain.hrm.Position
+	*/
+	public static final String POSITION="position";
+	
+	/**
+	 * 关联岗位 , 类型: org.github.foxnic.web.domain.hrm.Position
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.CodeExampleCar,org.github.foxnic.web.domain.hrm.Position> POSITION_PROP = new BeanProperty(org.github.foxnic.web.domain.system.CodeExampleCar.class ,POSITION, org.github.foxnic.web.domain.hrm.Position.class, "关联岗位", "关联岗位", org.github.foxnic.web.domain.hrm.Position.class, null);
+	
+	/**
+	 * 关联人员 , 类型: org.github.foxnic.web.domain.hrm.Employee
+	*/
+	public static final String EMPLOYEE="employee";
+	
+	/**
+	 * 关联人员 , 类型: org.github.foxnic.web.domain.hrm.Employee
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.CodeExampleCar,org.github.foxnic.web.domain.hrm.Employee> EMPLOYEE_PROP = new BeanProperty(org.github.foxnic.web.domain.system.CodeExampleCar.class ,EMPLOYEE, org.github.foxnic.web.domain.hrm.Employee.class, "关联人员", "关联人员", org.github.foxnic.web.domain.hrm.Employee.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , EXAMPLE_ID , PLATE_NUMBER , COLOR , VERSION , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , POSITION_ID , ORG_ID , EMP_ID , POSITION_IDS , ORG_IDS , EMP_IDS , SELECT_EMP_ID , COM_ID , DEPT_IDS , SUB_ORG_ID };
+	public static final String[] $PROPS={ ID , EXAMPLE_ID , PLATE_NUMBER , COLOR , VERSION , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , POSITION_ID , ORG_ID , EMP_ID , POSITION_IDS , ORG_IDS , EMP_IDS , SELECT_EMP_ID , COM_ID , DEPT_IDS , SUB_ORG_ID , ORGANIZATION , SUB_ORGANIZATION , COMPANY , POSITION , EMPLOYEE };
 	
 	/**
 	 * 代理类
@@ -487,6 +540,61 @@ public class CodeExampleCarMeta {
 		public CodeExampleCar setSubOrgId(String subOrgId) {
 			super.change(SUB_ORG_ID,super.getSubOrgId(),subOrgId);
 			super.setSubOrgId(subOrgId);
+			return this;
+		}
+		
+		/**
+		 * 设置 关联组织
+		 * @param organization 关联组织
+		 * @return 当前对象
+		*/
+		public CodeExampleCar setOrganization(Organization organization) {
+			super.change(ORGANIZATION,super.getOrganization(),organization);
+			super.setOrganization(organization);
+			return this;
+		}
+		
+		/**
+		 * 设置 关联组织
+		 * @param subOrganization 关联组织
+		 * @return 当前对象
+		*/
+		public CodeExampleCar setSubOrganization(Organization subOrganization) {
+			super.change(SUB_ORGANIZATION,super.getSubOrganization(),subOrganization);
+			super.setSubOrganization(subOrganization);
+			return this;
+		}
+		
+		/**
+		 * 设置 关联公司
+		 * @param company 关联公司
+		 * @return 当前对象
+		*/
+		public CodeExampleCar setCompany(Organization company) {
+			super.change(COMPANY,super.getCompany(),company);
+			super.setCompany(company);
+			return this;
+		}
+		
+		/**
+		 * 设置 关联岗位
+		 * @param position 关联岗位
+		 * @return 当前对象
+		*/
+		public CodeExampleCar setPosition(Position position) {
+			super.change(POSITION,super.getPosition(),position);
+			super.setPosition(position);
+			return this;
+		}
+		
+		/**
+		 * 设置 关联人员
+		 * @param employee 关联人员
+		 * @return 当前对象
+		*/
+		public CodeExampleCar setEmployee(Employee employee) {
+			super.change(EMPLOYEE,super.getEmployee(),employee);
+			super.setEmployee(employee);
 			return this;
 		}
 	}
