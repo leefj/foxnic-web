@@ -299,12 +299,15 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
                             data.path.startWith("http://") ?  admin.putTempData("params",data.path) : null ;
 
                             var menuId = data.url.substring(2);
-                            //debugger;
+                            // debugger;
 //                            while(data.path.startWith("/")) {
 //                            	data.path=data.path.substring(1);
 //                            }
                             //add by owen 修复 path 无法引用http://页面的问题
                             var menuPath = data.path.startWith("http://") ? 'pages/tpl/iframe.html' : data.path
+                            if(data.params) {
+                                menuPath+="?"+data.params;
+                            }
                             index.loadView(menuId, menuPath, data.label);
                         }
                     });
@@ -346,7 +349,7 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
                 // 切换tab关闭表格内浮窗
                 $('.layui-table-tips-c').trigger('click');
                 // 解决切换tab滚动条时而消失的问题
-                //debugger
+                debugger
                 var $iframe = $('.layui-layout-admin .layui-body .layui-tab-content .layui-tab-item.layui-show .admin-iframe')[0];
                 if ($iframe) {
                     $iframe.style.height = "99%";

@@ -18,8 +18,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-11 16:59:29
- * @sign F2E163360CF0B9A395D17010D8DCDD56
+ * @since 2021-09-22 21:05:48
+ * @sign B6B30676345DE1928EFFD9568699AA3B
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -84,6 +84,12 @@ public class Menu extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="路由地址" , notes = "路由地址")
 	private String url;
+	
+	/**
+	 * 页面参数：页面参数
+	*/
+	@ApiModelProperty(required = false,value="页面参数" , notes = "页面参数")
+	private String params;
 	
 	/**
 	 * 上级ID：上级ID
@@ -361,6 +367,25 @@ public class Menu extends Entity {
 	*/
 	public Menu setUrl(String url) {
 		this.url=url;
+		return this;
+	}
+	
+	/**
+	 * 获得 页面参数<br>
+	 * 页面参数
+	 * @return 页面参数
+	*/
+	public String getParams() {
+		return params;
+	}
+	
+	/**
+	 * 设置 页面参数
+	 * @param params 页面参数
+	 * @return 当前对象
+	*/
+	public Menu setParams(String params) {
+		this.params=params;
 		return this;
 	}
 	

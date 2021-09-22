@@ -10,8 +10,8 @@ import java.util.List;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-11 16:59:29
- * @sign F2E163360CF0B9A395D17010D8DCDD56
+ * @since 2021-09-22 21:05:48
+ * @sign B6B30676345DE1928EFFD9568699AA3B
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -106,6 +106,16 @@ public class MenuMeta {
 	 * 路由地址 , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.lang.String> URL_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,URL, java.lang.String.class, "路由地址", "路由地址", java.lang.String.class, null);
+	
+	/**
+	 * 页面参数 , 类型: java.lang.String
+	*/
+	public static final String PARAMS="params";
+	
+	/**
+	 * 页面参数 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Menu,java.lang.String> PARAMS_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.Menu.class ,PARAMS, java.lang.String.class, "页面参数", "页面参数", java.lang.String.class, null);
 	
 	/**
 	 * 上级ID , 类型: java.lang.String
@@ -290,7 +300,7 @@ public class MenuMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , BATCH_ID , AUTHORITY , HIDDEN , CSS , LABEL , TYPE , PATH_RESOURCE_ID , URL , PARENT_ID , DYNAMIC_HANDLER , HIERARCHY , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , PATH_RESOURCE , RESOURCES , PARENT , PATH , RESOURCE_IDS , ANCESTORS_NAME_PATH };
+	public static final String[] $PROPS={ ID , BATCH_ID , AUTHORITY , HIDDEN , CSS , LABEL , TYPE , PATH_RESOURCE_ID , URL , PARAMS , PARENT_ID , DYNAMIC_HANDLER , HIERARCHY , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , PATH_RESOURCE , RESOURCES , PARENT , PATH , RESOURCE_IDS , ANCESTORS_NAME_PATH };
 	
 	/**
 	 * 代理类
@@ -396,6 +406,17 @@ public class MenuMeta {
 		public Menu setUrl(String url) {
 			super.change(URL,super.getUrl(),url);
 			super.setUrl(url);
+			return this;
+		}
+		
+		/**
+		 * 设置 页面参数
+		 * @param params 页面参数
+		 * @return 当前对象
+		*/
+		public Menu setParams(String params) {
+			super.change(PARAMS,super.getParams(),params);
+			super.setParams(params);
 			return this;
 		}
 		

@@ -18,7 +18,7 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
  
 	public static void main(String[] args) throws Exception {
 		OAuthCodeGenerator g=new OAuthCodeGenerator();
-		g.generateSysResource();  //ok
+//		g.generateSysResource();  //ok
 //		g.generateSysMenuResource();
 //		g.generateSysUser(); //ok
 //		g.generateSysOAuthClient();
@@ -26,7 +26,7 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 //		g.generateSysToken();
 //		g.generateSysRole();
 //		g.generateSysRoleUser();
-//		g.generateSysMenu();
+		g.generateSysMenu();
 //		g.generateSysRoleMenu();
 		
 	}

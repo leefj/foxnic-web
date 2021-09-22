@@ -1,6 +1,6 @@
 QueryString = {
 	data: {},
-	Initial: function() {
+	initial: function() {
 		var aPairs, aTmp;
 		var queryString = new String(window.location.search);
 		queryString = queryString.substr(1, queryString.length); //remove   "?"
@@ -10,12 +10,12 @@ QueryString = {
 			this.data[aTmp[0]] = aTmp[1];
 		}
 	},
-	GetValue: function(key) {
+	get: function(key) {
 		if(!this.data[key]) return null;
 		return this.data[key];
 	}
 }
-QueryString.Initial();
+QueryString.initial();
 
 TypeUtil={
 	isArray:function (data) {

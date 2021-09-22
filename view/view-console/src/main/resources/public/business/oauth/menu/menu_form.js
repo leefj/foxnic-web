@@ -21,6 +21,19 @@ function FormPage() {
 
 		//绑定提交事件
 		bindSubmitEvent();
+
+		setTimeout(function(){
+			// var toolbarHeight=$("#toolbar")[0].clientHeight;
+			var fullHeight=$(window).height();
+			// var fullWidth=$(window).width();
+			// var treeHeight=fullHeight-toolbarHeight;
+			$("#container").height(fullHeight-90);
+			// $("#form-view").height(fullHeight);
+			//
+			// $(".layui-col-md4").width("200px");
+			// $(".layui-col-md8").width((fullWidth-200)+"px");
+
+		},10);
  
 	}
 	

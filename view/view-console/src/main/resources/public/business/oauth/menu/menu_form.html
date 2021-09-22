@@ -17,11 +17,25 @@
     <link rel="stylesheet" href="/assets/css/admin.css"/>
     <link rel="stylesheet" href="/assets/css/foxnic-web.css">
     <link href="/assets/libs/font-awesome-4.7.0/css/font-awesome.min.css" th:href="@{/assets/libs/font-awesome-4.7.0/css/font-awesome.min.css}" rel="stylesheet"/>
+<style>
+    html {
+        background-color: #fff;
+        color: #666;
+    }
+    .model-form {
+        margin-left: 0px;
+    }
+</style>
 </head>
 
-<body>
+<body style="overflow: hidden">
 
-<form id="data-form" lay-filter="data-form" class="layui-form model-form">
+<fieldset class="layui-elem-field layui-field-title form-group-title" style="margin-top: 10px;margin-bottom: 10px;margin-right: 8px;margin-left: 8px">
+    <legend>编辑菜单</legend>
+</fieldset>
+
+<div id="container" style="width: 100%;overflow: auto">
+<form id="data-form" lay-filter="data-form" class="layui-form model-form" style="width: 95%">
 
     <div class="layui-form-item">
         <label class="layui-form-label" th:text="${lang.translate('编号')}">编号</label>
@@ -71,11 +85,11 @@
     </div>
  
     <div class="layui-form-item">
-        <label class="layui-form-label" th:text="${lang.translate('样式')}">样式</label>
+        <label class="layui-form-label" th:text="${lang.translate('菜单图标')}">样式</label>
         <div class="layui-input-inline" style="width: 200px;display: none;">
             <input id="css" name="css" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('样式') }" type="text" class="layui-input"    />
         </div>
-        <div class="layui-input-inline" style="width: 100px;">
+        <div class="layui-input-inline" style="width: 100px;padding-left: 6px">
             <button id="icon-button" type="button" class="layui-btn"><i class="fa fa-briefcase" id="icon-button-el"></i>&nbsp;&nbsp;<span th:placeholder="${ lang.translate('请选择图标') }">请选择图标</span></button>
         </div>
 
@@ -93,6 +107,13 @@
         <label class="layui-form-label" th:text="${lang.translate('页面路径')}">页面路径</label>
         <div class="layui-input-block">
             <div id="pathResourceId" th:data="${'/service-oauth/sys-resourze/query-paged-list'}"></div>
+        </div>
+    </div>
+
+    <div class="layui-form-item" >
+        <div class="layui-form-label"><div th:text="${lang.translate('页面参数')}">页面参数</div></div>
+        <div class="layui-input-block">
+            <input lay-filter="params" id="params" name="params" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('页面参数') }" type="text" class="layui-input"  />
         </div>
     </div>
  
@@ -126,10 +147,11 @@
         </div>
     </div>
  
-    <div class="model-form-footer" style="padding-top: 8px;padding-bottom: 2px;">
-        <button class="layui-btn"  id="submit-button" lay-filter="submit-button" lay-submit th:text="${lang.translate('保存')}" style="margin-right: 16px">保存</button>
+    <div class="model-form-footer" style="padding-top: 6px;padding-bottom:2px;margin-bottom:2px;margin-left: 2px;margin-right: 2px">
+        <button class="layui-btn"  id="submit-button" lay-filter="submit-button" lay-submit th:text="${lang.translate('保存')}" style="margin-right: 16px;margin-bottom: 4px">保存</button>
     </div>
 </form>
+</div>
 
 <script type="text/javascript" src="/module/global.js"></script>
 <script type="text/javascript" src="/assets/libs/jquery-3.2.1.min.js"></script>
