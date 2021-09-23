@@ -1,11 +1,11 @@
 package org.github.foxnic.web.constants.enums;
 
 import com.github.foxnic.api.constant.CodeTextEnum;
-
+import com.github.foxnic.commons.reflect.EnumUtil;
 
 
 /**
- * @since 2021-09-15 15:06:56
+ * @since 2021-09-23 19:39:32
  * @author 李方捷 , leefangjie@qq.com
  * 从 select code,name from sys_dict WHERE deleted=0 and module in ('system','hrm') 生成
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成
@@ -47,5 +47,12 @@ public enum DictEnum implements CodeTextEnum {
 	
 	public String text() {
 		return text;
+	}
+	
+	/**
+	 * 从字符串转换成当前枚举类型
+	*/
+	public static DictEnum parseByCode(String code) {
+		return (DictEnum) EnumUtil.parseByCode(DictEnum.values(),code);
 	}
 }

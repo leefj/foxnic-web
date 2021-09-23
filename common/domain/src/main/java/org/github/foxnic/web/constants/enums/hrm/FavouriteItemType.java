@@ -1,6 +1,7 @@
 package org.github.foxnic.web.constants.enums.hrm;
 
 import com.github.foxnic.api.constant.CodeTextEnum;
+import com.github.foxnic.commons.reflect.EnumUtil;
 
 public enum FavouriteItemType implements CodeTextEnum {
 	employee("员工"),organization("组织"),position("岗位");
@@ -16,6 +17,10 @@ public enum FavouriteItemType implements CodeTextEnum {
 	
 	public String text() {
 		return text;
+	}
+
+	public static FavouriteItemType parseByCode(String code) {
+		return (FavouriteItemType)EnumUtil.parseByCode(FavouriteItemType.values(),code);
 	}
 
 }

@@ -1,6 +1,7 @@
 package org.github.foxnic.web.constants.enums.system;
 
 import com.github.foxnic.api.constant.CodeTextEnum;
+import com.github.foxnic.commons.reflect.EnumUtil;
 
 public enum VersionType implements CodeTextEnum {
 
@@ -19,6 +20,10 @@ public enum VersionType implements CodeTextEnum {
 	
 	public String text() {
 		return text;
+	}
+
+	public static VersionType parseByCode(String code) {
+		return (VersionType) EnumUtil.parseByCode(VersionType.values(),code);
 	}
 
 }

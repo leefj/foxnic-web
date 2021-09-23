@@ -1,11 +1,11 @@
 package org.github.foxnic.web.constants.enums;
 
 import com.github.foxnic.api.constant.CodeTextEnum;
-
+import com.github.foxnic.commons.reflect.EnumUtil;
 
 
 /**
- * @since 2021-09-15 15:06:55
+ * @since 2021-09-23 19:39:31
  * @author 李方捷 , leefangjie@qq.com
  * 从 select code,name from sys_config WHERE deleted=0 生成
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成
@@ -82,5 +82,12 @@ public enum SystemConfigEnum implements CodeTextEnum {
 	
 	public String text() {
 		return text;
+	}
+	
+	/**
+	 * 从字符串转换成当前枚举类型
+	*/
+	public static SystemConfigEnum parseByCode(String code) {
+		return (SystemConfigEnum) EnumUtil.parseByCode(SystemConfigEnum.values(),code);
 	}
 }

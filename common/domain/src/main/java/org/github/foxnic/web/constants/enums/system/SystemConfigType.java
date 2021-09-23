@@ -1,6 +1,7 @@
 package org.github.foxnic.web.constants.enums.system;
 
 import com.github.foxnic.api.constant.CodeTextEnum;
+import com.github.foxnic.commons.reflect.EnumUtil;
 
 public enum SystemConfigType implements CodeTextEnum {
 	
@@ -19,4 +20,7 @@ public enum SystemConfigType implements CodeTextEnum {
 		return text;
 	}
 
+	public static SystemConfigType parseByCode(String code) {
+		return (SystemConfigType) EnumUtil.parseByCode(SystemConfigType.values(),code);
+	}
 }

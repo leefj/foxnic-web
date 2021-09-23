@@ -20,10 +20,7 @@ import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.constants.enums.hrm.PersonSource;
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
 import org.github.foxnic.web.constants.enums.system.YesNo;
-import org.github.foxnic.web.domain.hrm.Employee;
-import org.github.foxnic.web.domain.hrm.EmployeePosition;
-import org.github.foxnic.web.domain.hrm.EmployeeVO;
-import org.github.foxnic.web.domain.hrm.Person;
+import org.github.foxnic.web.domain.hrm.*;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.domain.oauth.UserVO;
 import org.github.foxnic.web.domain.system.UserTenantVO;
@@ -315,7 +312,10 @@ public class EmployeeServiceImpl extends SuperService<Employee> implements IEmpl
 		if(sample instanceof EmployeeVO) {
 			EmployeeVO vo=(EmployeeVO) sample;
 			if(!StringUtil.isBlank(vo.getOrgId())) {
-				expr.and("exists(select 1 from hrm_position p,hrm_employee_position ep where p.id=ep.position_id and ep.employee_id=t.id and ep.deleted=0 and p.deleted=0 and org_id=?)",vo.getOrgId());
+				Organization organization=organizationService.getById(vo.getOrgId());
+				if(organization!=null) {
+					expr.and("exists(select 1 from hrm_position p,hrm_employee_position ep,hrm_organization org where org.id=p.org_id and p.id=ep.position_id and ep.employee_id=t.id and ep.deleted=0 and p.deleted=0 and (org.hierarchy like ? or p.org_id=?))", organization.getHierarchy()+"/%",organization.getId());
+				}
 			}
 			if(!StringUtil.isBlank(vo.getPositionId())) {
 				expr.and("exists(select 1 from hrm_employee_position p where p.employee_id=t.id and p.deleted=0 and position_id=?)",vo.getPositionId());
