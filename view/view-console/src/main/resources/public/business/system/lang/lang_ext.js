@@ -1,4 +1,8 @@
-#(authorAndTime)
+/**
+ * 语言条目 列表页 JS 脚本
+ * @author 李方捷 , leefangjie@qq.com
+ * @since 2021-09-24 16:04:22
+ */
 
 layui.config({
     dir: layuiPath,
@@ -103,7 +107,6 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * 列表操作栏按钮事件前调用，如果返回 false 则不执行后续代码
          * */
         beforeRowOperationEvent:function (data,obj) {
-            console.log('beforeRowOperationEvent',data,obj);
             return true;
         },
         /**
@@ -112,16 +115,6 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
         moreAction:function (menu,data, it){
             console.log('moreAction',menu,data,it);
         },
-        #for(b:toolButtons)
-        #(b.functionName):function (selected,it){
-            console.log('#(b.functionName)',selected,it);
-        },
-        #end
-        #for(b:opColumnButtons)
-        #(b.functionName):function (data){
-            console.log('#(b.functionName)',data);
-        },
-        #end
         /**
          * 末尾执行
          */
@@ -179,50 +172,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
         afterSubmit:function (param,result) {
             console.log("afterSubmitt",param,result);
         },
-        #for(f : fields)
-        #if(f.typeName.equals("button") && f.buttonField.action.isFunctionInExt)
-        #(f.buttonField.action.functionName):function (data,input,button) {
-            console.log("#(f.buttonField.action.functionName)",data,input,button);
-            top.layer.prompt(function(value, index, elem){
-                //设置隐藏域
-                input.val(value);
-                //设置按钮
-                button.text(value);
-                top.layer.close(index);
-            });
-        },
-        #end
-        #end
 
-        #for(g:iframes)
-        /**
-         *  加载 #(g.title)
-         */
-        #(g.iframeLoadJsFunctionName):function (ifr,win,data) {
-            // debugger
-            console.log("#(g.iframeLoadJsFunctionName)",ifr,data);
-            //设置 iframe 高度
-            ifr.height("400px");
-            //设置地址
-            win.location="/business/system/node/node_list.html?id="+data.id;
-        },
-        #end
-        #for(t:tabs)
-        /**
-         *  加载 #(t.title)
-         */
-        #(t.iframeLoadJsFunctionName):function (ifr,win,data) {
-            // debugger
-            console.log("#(t.iframeLoadJsFunctionName)",ifr,data);
-            //设置 iframe 高度
-            ifr.parents(".layui-tab").height("460px");
-            ifr.height("400px");
-            //设置参数
-            admin.putTempData("code_example_id",data.id,true);
-            //设置地址
-            win.location="/business/system/code_example_car/code_example_car_list.html";
-        },
-        #end
         /**
          * 末尾执行
          */

@@ -37,7 +37,7 @@ public class SystemCodeGenerator  {
 //		}
 
 		// 
-		g.generateSysConfig();
+//		g.generateSysConfig();
 //		//
 //		g.generateSysDict();
 //		//
@@ -49,7 +49,7 @@ public class SystemCodeGenerator  {
 //		//
 //		g.generateSysArea();
 //		//
-//		g.generateSysLang();
+		g.generateSysLang();
 
 
 //		g.generateSysDbCache();
@@ -197,14 +197,29 @@ public class SystemCodeGenerator  {
 	private void generateSysLang() throws Exception {
 		//创建配置
 		ModuleContext cfg=createModuleConfig(SYS_LANG.$TABLE, 5);
-		
+
+		cfg.view().field(SYS_LANG.CODE).basic().label("编码").search().fuzzySearch();
+		cfg.view().field(SYS_LANG.DEFAULTS).basic().label("默认值").search().fuzzySearch();
+
+		cfg.view().field(SYS_LANG.ZH_CH).search().hidden();
+		cfg.view().field(SYS_LANG.ZH_TW).search().hidden();
+		cfg.view().field(SYS_LANG.EN_UK).search().hidden();
+		cfg.view().field(SYS_LANG.EN_US).search().hidden();
+		cfg.view().field(SYS_LANG.CONFUSE).search().hidden();
+
+		cfg.view().field(SYS_LANG.VALID).search().hidden()
+		.form().logicField().off("无效",0).on("有效",1).defaultValue(true);
+
+		cfg.view().list().disableFormView();
+		cfg.view().form().labelWidth(120);
+
 		//文件生成覆盖模式
 		cfg.overrides()
 		.setServiceIntfAnfImpl(WriteMode.CREATE_IF_NOT_EXISTS) //服务与接口
 		.setControllerAndAgent(WriteMode.CREATE_IF_NOT_EXISTS) //Rest
 		.setPageController(WriteMode.CREATE_IF_NOT_EXISTS) //页面控制器
-		.setFormPage(WriteMode.CREATE_IF_NOT_EXISTS) //表单HTML页
-		.setListPage(WriteMode.CREATE_IF_NOT_EXISTS); //列表HTML页
+		.setFormPage(WriteMode.COVER_EXISTS_FILE) //表单HTML页
+		.setListPage(WriteMode.COVER_EXISTS_FILE); //列表HTML页
 		
 		//生成代码
 		 cfg.buildAll();
@@ -254,13 +269,21 @@ public class SystemCodeGenerator  {
 		ModuleContext cfg=createModuleConfig(FoxnicWeb.SYS_DB_CACHE.$TABLE, 5);
 
 		cfg.getVoClassFile().addSimpleProperty(Integer.class,"seconds","过期秒数","");
+
+		cfg.view().field(FoxnicWeb.SYS_DB_CACHE.ID).search().hidden();
+		cfg.view().field(FoxnicWeb.SYS_DB_CACHE.EXPIRE_TIME).search().hidden();
+		cfg.view().field(FoxnicWeb.SYS_DB_CACHE.OWNER_TYPE).basic().label("所有者类型").search().fuzzySearch();
+		cfg.view().field(FoxnicWeb.SYS_DB_CACHE.OWNER_ID).basic().label("所有者ID").search().fuzzySearch();
+		cfg.view().field(FoxnicWeb.SYS_DB_CACHE.VALUE).search().fuzzySearch();
+
+		cfg.view().list().disableCreateNew().disableFormView();
 		//文件生成覆盖模式
 		cfg.overrides()
 				.setServiceIntfAnfImpl(WriteMode.IGNORE) //服务与接口
 				.setControllerAndAgent(WriteMode.CREATE_IF_NOT_EXISTS) //Rest
 				.setPageController(WriteMode.CREATE_IF_NOT_EXISTS) //页面控制器
-				.setFormPage(WriteMode.CREATE_IF_NOT_EXISTS) //表单HTML页
-				.setListPage(WriteMode.CREATE_IF_NOT_EXISTS); //列表HTML页
+				.setFormPage(WriteMode.COVER_EXISTS_FILE) //表单HTML页
+				.setListPage(WriteMode.COVER_EXISTS_FILE); //列表HTML页
 
 		//生成代码
 		cfg.buildAll();

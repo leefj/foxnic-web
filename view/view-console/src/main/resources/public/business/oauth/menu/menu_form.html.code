@@ -2,7 +2,7 @@
 /**
  * 菜单 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-22 21:05:50
+ * @since 2021-09-24 15:44:02
  */
  -->
  <!DOCTYPE html>
@@ -76,16 +76,16 @@
                     </div>
 
                                     <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('标签')}">标签</div></div>
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('标签')}">标签</div><div class="layui-required">*</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="label" id="label" name="label" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('标签') }" type="text" class="layui-input"  />
+                            <input lay-filter="label" id="label" name="label" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('标签') }" type="text" class="layui-input"    lay-verify="|required"  />
                         </div>
                     </div>
 
                                     <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('菜单类型')}">菜单类型</div></div>
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('菜单类型')}">菜单类型</div><div class="layui-required">*</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="type" id="type" name="type" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('菜单类型') }" type="text" class="layui-input"  />
+                            <input lay-filter="type" id="type" name="type" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('菜单类型') }" type="text" class="layui-input"    lay-verify="|required"  />
                         </div>
                     </div>
 
@@ -176,7 +176,7 @@
 
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];
-    var VALIDATE_CONFIG={"hidden":{"labelInForm":"是否隐藏","inputType":"number_input","required":true},"sort":{"labelInForm":"显示顺序","inputType":"number_input","required":true}};
+    var VALIDATE_CONFIG={"hidden":{"labelInForm":"是否隐藏","inputType":"number_input","required":true},"label":{"labelInForm":"标签","inputType":"text_input","required":true},"sort":{"labelInForm":"显示顺序","inputType":"number_input","required":true},"type":{"labelInForm":"菜单类型","inputType":"text_input","required":true}};
     var AUTH_PREFIX="sys_menu";
 
 

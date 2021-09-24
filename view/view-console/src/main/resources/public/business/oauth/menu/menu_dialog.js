@@ -21,7 +21,7 @@ function ListPage() {
 		admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload;
 		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
 
-		var roleId=QueryString.GetValue('roleId');
+		var roleId=QueryString.get('roleId');
 		if(!roleId) roleId="";
 
 		//debugger

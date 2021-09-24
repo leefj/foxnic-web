@@ -9,8 +9,8 @@ import java.util.ArrayList;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-18 13:12:07
- * @sign 4141B260D141B30E2ECC19DFB10301CA
+ * @since 2021-09-24 14:46:24
+ * @sign F0052B52EC964712A31307C397B9EE47
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -35,6 +35,12 @@ public class DbCacheVO extends DbCache {
 	*/
 	@ApiModelProperty(required = false,value="搜索字段" , notes = "")
 	private String searchField;
+	
+	/**
+	 * 模糊搜索字段
+	*/
+	@ApiModelProperty(required = false,value="模糊搜索字段" , notes = "")
+	private String fuzzyField;
 	
 	/**
 	 * 搜索的值
@@ -85,12 +91,6 @@ public class DbCacheVO extends DbCache {
 	}
 	
 	/**
-	 * 添加 页码
-	 * @param pageIndex 页码
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 分页大小<br>
 	 * @return 分页大小
 	*/
@@ -107,12 +107,6 @@ public class DbCacheVO extends DbCache {
 		this.pageSize=pageSize;
 		return this;
 	}
-	
-	/**
-	 * 添加 分页大小
-	 * @param pageSize 分页大小
-	 * @return 当前对象
-	*/
 	
 	/**
 	 * 获得 搜索字段<br>
@@ -133,10 +127,22 @@ public class DbCacheVO extends DbCache {
 	}
 	
 	/**
-	 * 添加 搜索字段
-	 * @param searchField 搜索字段
+	 * 获得 模糊搜索字段<br>
+	 * @return 模糊搜索字段
+	*/
+	public String getFuzzyField() {
+		return fuzzyField;
+	}
+	
+	/**
+	 * 设置 模糊搜索字段
+	 * @param fuzzyField 模糊搜索字段
 	 * @return 当前对象
 	*/
+	public DbCacheVO setFuzzyField(String fuzzyField) {
+		this.fuzzyField=fuzzyField;
+		return this;
+	}
 	
 	/**
 	 * 获得 搜索的值<br>
@@ -157,12 +163,6 @@ public class DbCacheVO extends DbCache {
 	}
 	
 	/**
-	 * 添加 搜索的值
-	 * @param searchValue 搜索的值
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 排序字段<br>
 	 * @return 排序字段
 	*/
@@ -179,12 +179,6 @@ public class DbCacheVO extends DbCache {
 		this.sortField=sortField;
 		return this;
 	}
-	
-	/**
-	 * 添加 排序字段
-	 * @param sortField 排序字段
-	 * @return 当前对象
-	*/
 	
 	/**
 	 * 获得 排序方式<br>
@@ -205,14 +199,8 @@ public class DbCacheVO extends DbCache {
 	}
 	
 	/**
-	 * 添加 排序方式
-	 * @param sortType 排序方式
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 主键清单<br>
-	 * 属性说明 : 用于接收批量主键参数
+	 * 用于接收批量主键参数
 	 * @return 主键清单
 	*/
 	public List<String> getIds() {
@@ -231,7 +219,7 @@ public class DbCacheVO extends DbCache {
 	
 	/**
 	 * 添加 主键清单
-	 * @param ids 主键清单
+	 * @param id 主键清单
 	 * @return 当前对象
 	*/
 	public DbCacheVO addId(String id) {
@@ -257,10 +245,4 @@ public class DbCacheVO extends DbCache {
 		this.seconds=seconds;
 		return this;
 	}
-	
-	/**
-	 * 添加 过期秒数
-	 * @param seconds 过期秒数
-	 * @return 当前对象
-	*/
 }

@@ -1669,6 +1669,9 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             var loc = location.href;
             loc = loc.substr(loc.indexOf("//") + 2);
             loc = loc.substr(loc.indexOf("/"));
+            if(loc.indexOf("?")>0) {
+                loc = loc.substr(0,loc.indexOf("?"));
+            }
             console.log("save table", tableId, ws);
 
             admin.request("/service-system/sys-db-cache/save", {

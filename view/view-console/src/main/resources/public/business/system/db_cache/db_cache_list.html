@@ -2,7 +2,7 @@
 /**
  * 数据库缓存 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-18 13:15:22
+ * @since 2021-09-24 14:52:26
  */
  -->
  <!DOCTYPE html>
@@ -13,51 +13,107 @@
     <meta charset="utf-8"/>
     <title th:text="${lang.translate('数据库缓存')}">数据库缓存</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="/assets/libs/layui/css/layui.css"/>
-    <link rel="stylesheet" href="/assets/css/admin.css"/>
-    <link rel="stylesheet" href="/assets/css/foxnic-web.css">
+    <link rel="stylesheet" href="/assets/libs/layui/css/layui.css" th:href="'/assets/libs/layui/css/layui.css?'+${cacheKey}"/>
+    <link rel="stylesheet" href="/assets/css/admin.css" th:href="'/assets/css/admin.css?'+${cacheKey}"/>
+    <link rel="stylesheet" href="/assets/libs/toast/css/toast.css" type="text/css" th:href="'/assets/libs/toast/css/toast.css?'+${cacheKey}">
+    <link rel="stylesheet" href="/assets/css/foxnic-web.css" th:href="'/assets/css/foxnic-web.css?'+${cacheKey}">
     <link href="/assets/libs/font-awesome-4.7.0/css/font-awesome.min.css" th:href="@{/assets/libs/font-awesome-4.7.0/css/font-awesome.min.css}" rel="stylesheet"/>
+    <script th:inline="javascript">var foxnic_cachekey=[[${cacheKey}]];</script>
+    <style>
+    </style>
 </head>
 
-<body>
+<body style="overflow-y: hidden">
 
 <div class="layui-card">
  
-    <div class="layui-card-body">
-        <div class="layui-form toolbar">
-            <span th:text="${lang.translate('搜索')}">搜索</span>：
-            <select id="search-field">
-                <option value="" th:text="${lang.translate('-请选择-')}">-请选择-</option>
-                <option value="id" th:text="${lang.translate('ID')}">ID</option>
-                <option value="catalog" th:text="${lang.translate('数据分类')}">数据分类</option>
-                <option value="ownerType" th:text="${lang.translate('账户ID')}">账户ID</option>
-                <option value="ownerId" th:text="${lang.translate('会话ID')}">会话ID</option>
-                <option value="value" th:text="${lang.translate('数据')}">数据</option>
-                <option value="expireTime" th:text="${lang.translate('过期时间')}">过期时间</option>
-            </select>&emsp;
-            <input id="search-input" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入关键字')}"/>&emsp;
-            <button id="search-button" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i><span th:text="${lang.translate('搜索')}">搜索</span></button>
-            <button id="add-button" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i><span th:text="${lang.translate('添加')}">添加</span></button>
-            <button id="delete-button" class="layui-btn icon-btn layui-btn-danger"><i class="layui-icon">&#xe67e;</i><span th:text="${lang.translate('删除')}">删除</span></button>
-            
+    <div class="layui-card-body" style="">
+
+        <div class="search-bar" style="">
+
+            <div class="search-input-rows" style="opacity: 0">
+                <!-- 搜索输入区域 -->
+                <div class="layui-form toolbar search-inputs">
+                    <!-- ID , id ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 数据分类 , catalog ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('数据分类')}" class="search-label catalog-label">数据分类</span><span class="search-colon">:</span></div>
+                        <input id="catalog" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 数据分区 , area ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('数据分区')}" class="search-label area-label">数据分区</span><span class="search-colon">:</span></div>
+                        <input id="area" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 所有者类型 , ownerType ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('所有者类型')}" class="search-label ownerType-label">所有者类型</span><span class="search-colon">:</span></div>
+                        <input id="ownerType" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 所有者ID , ownerId ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('所有者ID')}" class="search-label ownerId-label">所有者ID</span><span class="search-colon">:</span></div>
+                        <input id="ownerId" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 数据 , value ,typeName=text_area, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('数据')}" class="search-label value-label">数据</span><span class="search-colon">:</span></div>
+                        <input id="value" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 过期时间 , expireTime ,typeName=date_input, isHideInSearch=true -->
+
+
+                </div>
+            </div>
+
+
+            <!-- 按钮区域 -->
+            <div class="layui-form toolbar search-buttons" style="opacity: 0">
+                <button id="search-button" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i>&nbsp;&nbsp;<span th:text="${lang.translate('搜索')}">搜索</span></button>
+            </div>
         </div>
 
-        <table class="layui-table" id="data-table" lay-filter="data-table"></table>
+        <div style="margin-top: 42px ">
+            <table class="layui-table" id="data-table" lay-filter="data-table"></table>
+        </div>
+
     </div>
 </div>
 
-<script type="text/javascript" src="/module/global.js"></script>
-<script type="text/javascript" src="/assets/libs/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="/assets/libs/pandyle.min.js"></script>
-<script type="text/javascript" src="/assets/libs/layui/layui.js"></script>
+<script type="text/javascript" src="/module/global.js" th:src="'/module/global.js?'+${cacheKey}"></script>
+<script type="text/javascript" src="/assets/libs/jquery-3.2.1.min.js" th:src="'/assets/libs/jquery-3.2.1.min.js?'+${cacheKey}"></script>
+<script type="text/javascript" src="/assets/libs/pandyle.min.js" th:src="'/assets/libs/pandyle.min.js?'+${cacheKey}"></script>
+<script type="text/javascript" src="/assets/libs/layui/layui.js" th:src="'/assets/libs/layui/layui.js?'+${cacheKey}"></script>
+<script type="text/javascript" src="/assets/libs/toast/js/toast.js" th:src="'/assets/libs/toast/js/toast.js?'+${cacheKey}"></script>
+
+<!-- 表格工具栏 -->
+<script type="text/html" id="toolbarTemplate">
+    <div class="layui-btn-container">
+        <button th:if="${perm.checkAuth('sys_db_cache:delete-by-ids')}" id="delete-button" class="layui-btn icon-btn layui-btn-danger layui-btn-sm batch-delete-button" lay-event="batch-del"><i class="layui-icon">&#xe67e;</i><span th:text="${lang.translate('删除')}">删除</span></button>
+    </div>
+</script>
 
 <!-- 表格操作列 -->
 <script type="text/html" id="tableOperationTemplate">
-    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit" th:text="${lang.translate('修改')}">修改</a>
-    <a class="layui-btn layui-btn-xs" lay-event="del" th:text="${lang.translate('删除')}">删除</a>
+
+    <button th:if="${perm.checkAnyAuth('sys_db_cache:update','sys_db_cache:save')}" class="layui-btn layui-btn-primary layui-btn-xs ops-edit-button" lay-event="edit" th:text="${lang.translate('修改')}" data-id="{{d.id}}">修改</button>
+
+
+    <button th:if="${perm.checkAuth('sys_db_cache:delete')}" class="layui-btn layui-btn-xs layui-btn-danger ops-delete-button" lay-event="del" th:text="${lang.translate('删除')}" data-id="{{d.id}}">删除</button>
+
+
 </script>
 
-<script src="/business/system/db_cache/db_cache_list.js"></script>
+
+<script th:inline="javascript">
+    var LAYUI_TABLE_WIDTH_CONFIG = [[${pageHelper.getTableColumnWidthConfig('data-table')}]];
+    var AUTH_PREFIX="sys_db_cache";
+
+
+</script>
+
+<script th:src="'/business/system/db_cache/db_cache_ext.js?'+${cacheKey}"></script>
+<script th:src="'/business/system/db_cache/db_cache_list.js?'+${cacheKey}"></script>
 
 </body>
 </html>

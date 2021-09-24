@@ -13,7 +13,7 @@ function FormPage() {
       * 入口函数，初始化
       */
 	this.init=function(layui) { 	
-     	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload;
+     	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload, dropdown=layui.dropdown;
 		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
 		
 		//渲染表单组件
@@ -34,6 +34,22 @@ function FormPage() {
 			// $(".layui-col-md8").width((fullWidth-200)+"px");
 
 		},10);
+
+
+		//右键菜单
+		dropdown.render({
+			elem: '#container' //也可绑定到 document，从而重置整个右键
+			,trigger: 'contextmenu' //contextmenu
+			,isAllowSpread: false //禁止菜单组展开收缩
+			//,style: 'width: 200px' //定义宽度，默认自适应
+			,id: 'test777' //定义唯一索引
+			,data: [{
+				id:"save",title: '保存'
+			}],click: function(obj, othis){
+				if(obj.id === 'save'){
+					saveForm();
+				}
+			}});
  
 	}
 	
@@ -180,44 +196,63 @@ function FormPage() {
     function bindSubmitEvent() {
     
 	    form.on('submit(submit-button)', function (data) {
-
-			//获取 菜单路径的资源 下拉框的值
-			data.field["pathResourceId"]=xmSelect.get("#pathResourceId",true).getValue("value");
-			//获取 资源清单 下拉框的值
-			data.field["resourceIds"]=xmSelect.get("#resourceIds",true).getValue("value");
-	    	//处理逻辑值
-	    	var values=processFormValues(data.field);
-			debugger
-			if(data.field.hidden==1)  data.field.hidden=0;
-			else if(data.field.hidden==0)  data.field.hidden=1;
-			if(data.field.hidden==null) data.field.hidden=1;
-
-			//获取 菜单路径的资源 下拉框的值
-			data.field["pathResourceId"]=xmSelect.get("#pathResourceId",true).getValue("value");
-			if(data.field["pathResourceId"] && data.field["pathResourceId"].length>0) {
-				data.field["pathResourceId"]=data.field["pathResourceId"][0];
-			}
-			//获取 资源清单 下拉框的值
-			data.field["resourceIds"]=xmSelect.get("#resourceIds",true).getValue("value");
-
-	    	var api=moduleURL+"/"+(values.id?"update":"insert");
-	        layer.load(2);
-	        admin.request(api, data.field, function (data) {
-	            layer.closeAll('loading');
-	            if (data.success) {
-	            	if(parent) {
-	            		parent.chaneNodeName(values.id,values.label);
-	            	}
-	                layer.msg(data.message, {icon: 1, time: 500});
-	            } else {
-	                layer.msg(data.message, {icon: 2, time: 500});
-	            }
-	        }, "POST");
-	        
+			saveForm(data);
 	        return false;
 	    });
 	    
     }
+
+	function getFormData() {
+		var data=form.val("data-form");
+		return data;
+	}
+
+	function verifyForm(data) {
+		return fox.formVerify("data-form",data,VALIDATE_CONFIG)
+	}
+
+    function saveForm(data) {
+    	if(!data) data={field:getFormData()};
+    	if(!data.field.id) {
+			top.layer.msg(fox.translate('不允许保存')+"!");
+			return;
+		}
+		//获取 菜单路径的资源 下拉框的值
+		data.field["pathResourceId"]=xmSelect.get("#pathResourceId",true).getValue("value");
+		//获取 资源清单 下拉框的值
+		data.field["resourceIds"]=xmSelect.get("#resourceIds",true).getValue("value");
+		//处理逻辑值
+		var values=processFormValues(data.field);
+		// debugger
+		if(data.field.hidden==1)  data.field.hidden=0;
+		else if(data.field.hidden==0)  data.field.hidden=1;
+		if(data.field.hidden==null) data.field.hidden=1;
+
+		//获取 菜单路径的资源 下拉框的值
+		data.field["pathResourceId"]=xmSelect.get("#pathResourceId",true).getValue("value");
+		if(data.field["pathResourceId"] && data.field["pathResourceId"].length>0) {
+			data.field["pathResourceId"]=data.field["pathResourceId"][0];
+		}
+		//获取 资源清单 下拉框的值
+		data.field["resourceIds"]=xmSelect.get("#resourceIds",true).getValue("value");
+
+		//校验表单
+		if(!verifyForm(data.field)) return;
+
+		var api=moduleURL+"/"+(values.id?"update":"insert");
+		layer.load(2);
+		admin.request(api, data.field, function (data) {
+			layer.closeAll('loading');
+			if (data.success) {
+				if(parent) {
+					parent.chaneNodeName(values.id,values.label);
+				}
+				layer.msg("菜单信息已保存", {icon: 1, time: 500});
+			} else {
+				layer.msg(data.message, {icon: 2, time: 500});
+			}
+		}, "POST");
+	}
 
 }
 
@@ -226,6 +261,6 @@ layui.config({
 	base: '/module/'
 }).extend({
 	xmSelect: 'xm-select/xm-select'
-}).use(['form', 'table', 'util', 'settings', 'upload','foxnic','xmSelect'],function() {
+}).use(['form', 'table', 'util', 'settings', 'upload','foxnic','xmSelect',"dropdown"],function() {
 	(new FormPage()).init(layui);
 });

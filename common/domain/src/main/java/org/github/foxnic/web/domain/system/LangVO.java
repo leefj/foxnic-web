@@ -9,8 +9,8 @@ import java.util.ArrayList;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-16 16:32:23
- * @sign C13F1A2A1FF57C36BAB7790E954208B3
+ * @since 2021-09-24 16:04:22
+ * @sign B690DB5884369909DD2AE193FBE487FE
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -35,6 +35,12 @@ public class LangVO extends Lang {
 	*/
 	@ApiModelProperty(required = false,value="搜索字段" , notes = "")
 	private String searchField;
+	
+	/**
+	 * 模糊搜索字段
+	*/
+	@ApiModelProperty(required = false,value="模糊搜索字段" , notes = "")
+	private String fuzzyField;
 	
 	/**
 	 * 搜索的值
@@ -79,12 +85,6 @@ public class LangVO extends Lang {
 	}
 	
 	/**
-	 * 添加 页码
-	 * @param pageIndex 页码
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 分页大小<br>
 	 * @return 分页大小
 	*/
@@ -101,12 +101,6 @@ public class LangVO extends Lang {
 		this.pageSize=pageSize;
 		return this;
 	}
-	
-	/**
-	 * 添加 分页大小
-	 * @param pageSize 分页大小
-	 * @return 当前对象
-	*/
 	
 	/**
 	 * 获得 搜索字段<br>
@@ -127,10 +121,22 @@ public class LangVO extends Lang {
 	}
 	
 	/**
-	 * 添加 搜索字段
-	 * @param searchField 搜索字段
+	 * 获得 模糊搜索字段<br>
+	 * @return 模糊搜索字段
+	*/
+	public String getFuzzyField() {
+		return fuzzyField;
+	}
+	
+	/**
+	 * 设置 模糊搜索字段
+	 * @param fuzzyField 模糊搜索字段
 	 * @return 当前对象
 	*/
+	public LangVO setFuzzyField(String fuzzyField) {
+		this.fuzzyField=fuzzyField;
+		return this;
+	}
 	
 	/**
 	 * 获得 搜索的值<br>
@@ -151,12 +157,6 @@ public class LangVO extends Lang {
 	}
 	
 	/**
-	 * 添加 搜索的值
-	 * @param searchValue 搜索的值
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 排序字段<br>
 	 * @return 排序字段
 	*/
@@ -173,12 +173,6 @@ public class LangVO extends Lang {
 		this.sortField=sortField;
 		return this;
 	}
-	
-	/**
-	 * 添加 排序字段
-	 * @param sortField 排序字段
-	 * @return 当前对象
-	*/
 	
 	/**
 	 * 获得 排序方式<br>
@@ -199,14 +193,8 @@ public class LangVO extends Lang {
 	}
 	
 	/**
-	 * 添加 排序方式
-	 * @param sortType 排序方式
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 主键清单<br>
-	 * 属性说明 : 用于接收批量主键参数
+	 * 用于接收批量主键参数
 	 * @return 主键清单
 	*/
 	public List<String> getCodes() {
@@ -225,7 +213,7 @@ public class LangVO extends Lang {
 	
 	/**
 	 * 添加 主键清单
-	 * @param codes 主键清单
+	 * @param code 主键清单
 	 * @return 当前对象
 	*/
 	public LangVO addCode(String code) {

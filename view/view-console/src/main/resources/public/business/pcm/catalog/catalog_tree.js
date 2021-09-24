@@ -1,5 +1,5 @@
 /**
- * 菜单 列表页 JS 脚本
+ * 类目 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
  * @since 2021-06-08 10:22:55
  */
@@ -127,11 +127,11 @@ function ListPage() {
   
     function beforeNodeRemove(treeId, treeNode) {
     	//debugger;
-		layer.confirm('确定要删除['+treeNode.name+']菜单吗?', function(index,a,c,d) {
+		layer.confirm('确定要删除['+treeNode.name+']类目吗?', function(index,a,c,d) {
 			layer.close(index);
 			admin.request(moduleURL+"/delete",{id:treeNode.id},function(r) {
 				if(r.success) {
-					admin.toast().success("菜单已删除",{time:1000,position:"right-bottom"});
+					admin.toast().success("类目已删除",{time:1000,position:"right-bottom"});
 					menuTree.removeNode(treeNode,false);
 					if(treeNode.parentTId) {
 						menuTree.selectNode({tId:treeNode.parentTId},false,true)
@@ -307,7 +307,7 @@ function ListPage() {
  
         admin.request(moduleURL+"/insert",{parentId:treeNode?treeNode.id:null,name:"新分类"},function(r) {
 			if(r.success) {
-				admin.toast().success("菜单已创建",{time:1000,position:"right-bottom"});
+				admin.toast().success("类目已创建",{time:1000,position:"right-bottom"});
 				//debugger
 				if(treeNode==null) {
 					//debugger;
@@ -335,7 +335,7 @@ function ListPage() {
 					}
 				}
 			} else {
-				admin.toast().error("新建菜单失败",{time:1000,position:"right-bottom"});
+				admin.toast().error("新建类目失败",{time:1000,position:"right-bottom"});
 			}
 		},"POST",true);
     });
@@ -351,7 +351,7 @@ function ListPage() {
 		var area=admin.getTempData('sys-menu-form-area');
 		var height= (area && area.height) ? area.height : ($(window).height()*0.6);
 		var top= ($(window).height()-height)/2;
-		var title = (data && data.id) ? (fox.translate('修改')+fox.translate('菜单')) : (fox.translate('添加')+fox.translate('菜单'));
+		var title = (data && data.id) ? (fox.translate('修改')+fox.translate('类目')) : (fox.translate('添加')+fox.translate('类目'));
 		admin.popupCenter({
 			title: title,
 			resize:true,

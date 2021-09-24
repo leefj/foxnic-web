@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-07 16:28:27
- * @sign 4EE7C2D62B94951A69C4A46593A4B10B
+ * @since 2021-09-24 16:04:21
+ * @sign 156511DAFD6AE18675C799B682CF724E
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -74,7 +74,7 @@ public class Lang extends Entity {
 	/**
 	 * 是否有效：是否有效
 	*/
-	@ApiModelProperty(required = false,value="是否有效" , notes = "是否有效")
+	@ApiModelProperty(required = true,value="是否有效" , notes = "是否有效")
 	private Integer valid;
 	
 	/**
@@ -127,7 +127,7 @@ public class Lang extends Entity {
 	
 	/**
 	 * 获得 编码键<br>
-	 * 属性说明 : 编码键
+	 * 编码键
 	 * @return 编码键
 	*/
 	public String getCode() {
@@ -145,14 +145,8 @@ public class Lang extends Entity {
 	}
 	
 	/**
-	 * 添加 编码键
-	 * @param code 编码键
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 默认<br>
-	 * 属性说明 : 默认
+	 * 默认
 	 * @return 默认
 	*/
 	public String getDefaults() {
@@ -170,14 +164,8 @@ public class Lang extends Entity {
 	}
 	
 	/**
-	 * 添加 默认
-	 * @param defaults 默认
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 简体中文(大陆)<br>
-	 * 属性说明 : 简体中文(大陆)
+	 * 简体中文(大陆)
 	 * @return 简体中文(大陆)
 	*/
 	public String getZhCh() {
@@ -195,14 +183,8 @@ public class Lang extends Entity {
 	}
 	
 	/**
-	 * 添加 简体中文(大陆)
-	 * @param zhCh 简体中文(大陆)
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 繁体中文(台湾)<br>
-	 * 属性说明 : 繁体中文(台湾)
+	 * 繁体中文(台湾)
 	 * @return 繁体中文(台湾)
 	*/
 	public String getZhTw() {
@@ -220,14 +202,8 @@ public class Lang extends Entity {
 	}
 	
 	/**
-	 * 添加 繁体中文(台湾)
-	 * @param zhTw 繁体中文(台湾)
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 英文美国<br>
-	 * 属性说明 : 英文美国
+	 * 英文美国
 	 * @return 英文美国
 	*/
 	public String getEnUs() {
@@ -245,14 +221,8 @@ public class Lang extends Entity {
 	}
 	
 	/**
-	 * 添加 英文美国
-	 * @param enUs 英文美国
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 英文英国<br>
-	 * 属性说明 : 英文英国
+	 * 英文英国
 	 * @return 英文英国
 	*/
 	public String getEnUk() {
@@ -270,14 +240,8 @@ public class Lang extends Entity {
 	}
 	
 	/**
-	 * 添加 英文英国
-	 * @param enUk 英文英国
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 混淆专用<br>
-	 * 属性说明 : 混淆专用
+	 * 混淆专用
 	 * @return 混淆专用
 	*/
 	public String getConfuse() {
@@ -295,14 +259,8 @@ public class Lang extends Entity {
 	}
 	
 	/**
-	 * 添加 混淆专用
-	 * @param confuse 混淆专用
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 是否有效<br>
-	 * 属性说明 : 是否有效
+	 * 是否有效
 	 * @return 是否有效
 	*/
 	public Integer getValid() {
@@ -320,14 +278,8 @@ public class Lang extends Entity {
 	}
 	
 	/**
-	 * 添加 是否有效
-	 * @param valid 是否有效
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 创建人ID<br>
-	 * 属性说明 : 创建人ID
+	 * 创建人ID
 	 * @return 创建人ID
 	*/
 	public String getCreateBy() {
@@ -345,14 +297,8 @@ public class Lang extends Entity {
 	}
 	
 	/**
-	 * 添加 创建人ID
-	 * @param createBy 创建人ID
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 创建时间<br>
-	 * 属性说明 : 创建时间
+	 * 创建时间
 	 * @return 创建时间
 	*/
 	public Date getCreateTime() {
@@ -370,14 +316,8 @@ public class Lang extends Entity {
 	}
 	
 	/**
-	 * 添加 创建时间
-	 * @param createTime 创建时间
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 修改人ID<br>
-	 * 属性说明 : 修改人ID
+	 * 修改人ID
 	 * @return 修改人ID
 	*/
 	public String getUpdateBy() {
@@ -395,14 +335,8 @@ public class Lang extends Entity {
 	}
 	
 	/**
-	 * 添加 修改人ID
-	 * @param updateBy 修改人ID
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 修改时间<br>
-	 * 属性说明 : 修改时间
+	 * 修改时间
 	 * @return 修改时间
 	*/
 	public Date getUpdateTime() {
@@ -420,14 +354,8 @@ public class Lang extends Entity {
 	}
 	
 	/**
-	 * 添加 修改时间
-	 * @param updateTime 修改时间
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 是否已删除<br>
-	 * 属性说明 : 是否已删除
+	 * 是否已删除
 	 * @return 是否已删除
 	*/
 	public Integer getDeleted() {
@@ -445,14 +373,8 @@ public class Lang extends Entity {
 	}
 	
 	/**
-	 * 添加 是否已删除
-	 * @param deleted 是否已删除
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 删除人ID<br>
-	 * 属性说明 : 删除人ID
+	 * 删除人ID
 	 * @return 删除人ID
 	*/
 	public String getDeleteBy() {
@@ -470,14 +392,8 @@ public class Lang extends Entity {
 	}
 	
 	/**
-	 * 添加 删除人ID
-	 * @param deleteBy 删除人ID
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 删除时间<br>
-	 * 属性说明 : 删除时间
+	 * 删除时间
 	 * @return 删除时间
 	*/
 	public Date getDeleteTime() {
@@ -495,14 +411,8 @@ public class Lang extends Entity {
 	}
 	
 	/**
-	 * 添加 删除时间
-	 * @param deleteTime 删除时间
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 数据版本号<br>
-	 * 属性说明 : 数据版本号
+	 * 数据版本号
 	 * @return 数据版本号
 	*/
 	public Integer getVersion() {
@@ -518,12 +428,6 @@ public class Lang extends Entity {
 		this.version=version;
 		return this;
 	}
-	
-	/**
-	 * 添加 数据版本号
-	 * @param version 数据版本号
-	 * @return 当前对象
-	*/
 
 	/**
 	 * 将自己转换成指定类型的PO
@@ -584,6 +488,6 @@ public class Lang extends Entity {
 	*/
 	@Transient
 	public static Lang create() {
-		return new Lang();
+		return EntityContext.create(Lang.class);
 	}
 }

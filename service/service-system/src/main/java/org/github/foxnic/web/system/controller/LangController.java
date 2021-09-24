@@ -65,7 +65,7 @@ public class LangController extends SuperController {
 		@ApiImplicitParam(name = LangVOMeta.EN_US , value = "英文美国" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = LangVOMeta.EN_UK , value = "英文英国" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = LangVOMeta.CONFUSE , value = "混淆专用" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = LangVOMeta.VALID , value = "是否有效" , required = false , dataTypeClass=Integer.class , example = "true"),
+		@ApiImplicitParam(name = LangVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class , example = "true"),
 	})
 	@ApiOperationSupport(order=1)
 	@NotNull(name = LangVOMeta.CODE)
@@ -126,7 +126,7 @@ public class LangController extends SuperController {
 		@ApiImplicitParam(name = LangVOMeta.EN_US , value = "英文美国" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = LangVOMeta.EN_UK , value = "英文英国" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = LangVOMeta.CONFUSE , value = "混淆专用" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = LangVOMeta.VALID , value = "是否有效" , required = false , dataTypeClass=Integer.class , example = "true"),
+		@ApiImplicitParam(name = LangVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class , example = "true"),
 	})
 	@ApiOperationSupport( order=4 , ignoreParameters = { LangVOMeta.PAGE_INDEX , LangVOMeta.PAGE_SIZE , LangVOMeta.SEARCH_FIELD , LangVOMeta.SEARCH_VALUE , LangVOMeta.SORT_FIELD , LangVOMeta.SORT_TYPE , LangVOMeta.CODES } ) 
 	@NotNull(name = LangVOMeta.CODE)
@@ -150,7 +150,7 @@ public class LangController extends SuperController {
 		@ApiImplicitParam(name = LangVOMeta.EN_US , value = "英文美国" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = LangVOMeta.EN_UK , value = "英文英国" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = LangVOMeta.CONFUSE , value = "混淆专用" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = LangVOMeta.VALID , value = "是否有效" , required = false , dataTypeClass=Integer.class , example = "true"),
+		@ApiImplicitParam(name = LangVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class , example = "true"),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { LangVOMeta.PAGE_INDEX , LangVOMeta.PAGE_SIZE , LangVOMeta.SEARCH_FIELD , LangVOMeta.SEARCH_VALUE , LangVOMeta.SORT_FIELD , LangVOMeta.SORT_TYPE , LangVOMeta.CODES } )
 	@NotNull(name = LangVOMeta.CODE)
@@ -193,7 +193,7 @@ public class LangController extends SuperController {
 		@ApiImplicitParam(name = LangVOMeta.EN_US , value = "英文美国" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = LangVOMeta.EN_UK , value = "英文英国" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = LangVOMeta.CONFUSE , value = "混淆专用" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = LangVOMeta.VALID , value = "是否有效" , required = false , dataTypeClass=Integer.class , example = "true"),
+		@ApiImplicitParam(name = LangVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class , example = "true"),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { LangVOMeta.PAGE_INDEX , LangVOMeta.PAGE_SIZE } )
 	@SentinelResource(value = LangServiceProxy.QUERY_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
@@ -218,7 +218,7 @@ public class LangController extends SuperController {
 		@ApiImplicitParam(name = LangVOMeta.EN_US , value = "英文美国" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = LangVOMeta.EN_UK , value = "英文英国" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = LangVOMeta.CONFUSE , value = "混淆专用" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = LangVOMeta.VALID , value = "是否有效" , required = false , dataTypeClass=Integer.class , example = "true"),
+		@ApiImplicitParam(name = LangVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class , example = "true"),
 	})
 	@ApiOperationSupport(order=8)
 	@SentinelResource(value = LangServiceProxy.QUERY_PAGED_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )

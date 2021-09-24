@@ -364,16 +364,12 @@ layui.define(['settings', 'layer'], function (exports) {
         },
         // 判断是否有权限
         checkAuth: function (auth) {
-            //拦截，并由顶层弹出窗口
-            if(top && top!=window && top.admin) {
-                return top.admin.checkAuth();
-            }
-            //
-            if(this.initAuthorities()==false) {
+            // debugger
+            if(top.admin.initAuthorities()==false) {
                 return false;
             }
             for (var i = 0; i < arguments.length; i++) {
-                if(!this.authorities[arguments[i]]) {
+                if(!top.admin.authorities[arguments[i]]) {
                     return false;
                 }
             }

@@ -45,18 +45,18 @@
     </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label" th:text="${lang.translate('名称')}">名称</label>
+        <div class="layui-form-label"><div th:text="${lang.translate('名称')}">名称</div><div class="layui-required">*</div></div>
         <div class="layui-input-block">
-            <input id="label" name="label" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('名称') }" type="text" class="layui-input"    />
+            <input id="label" name="label" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('名称') }" type="text" class="layui-input"   lay-verify="|required"  />
         </div>
     </div>
     
 	
     
     <div class="layui-form-item">
-        <label class="layui-form-label" th:text="${lang.translate('菜单类型')}">类型</label>
+        <div class="layui-form-label"><div th:text="${lang.translate('菜单类型')}">菜单类型</div><div class="layui-required">*</div></div>
         <div class="layui-input-block">
-	      <input type="radio" name="type" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.system.MenuType')}" th:value="${e.code}" th:title="${e.text}">
+	      <input type="radio" name="type" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.system.MenuType')}" th:value="${e.code}" th:title="${e.text}"  lay-verify="|required" >
         </div>
     </div>
     
@@ -157,6 +157,14 @@
 <script type="text/javascript" src="/assets/libs/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="/assets/libs/pandyle.min.js"></script>
 <script type="text/javascript" src="/assets/libs/layui/layui.js"></script>
+
+<script th:inline="javascript">
+    var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];
+    var VALIDATE_CONFIG={"hidden":{"labelInForm":"是否隐藏","inputType":"number_input","required":true},"label":{"labelInForm":"标签","inputType":"text_input","required":true},"sort":{"labelInForm":"显示顺序","inputType":"number_input","required":false},"type":{"labelInForm":"菜单类型","inputType":"text_input","required":true}};
+    var AUTH_PREFIX="sys_menu";
+
+
+</script>
 
 <script src="/business/oauth/menu/menu_form.js"></script>
 

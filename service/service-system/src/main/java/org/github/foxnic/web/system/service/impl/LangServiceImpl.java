@@ -254,7 +254,6 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 		}
 		// 获取缓存数据
 		String item = itemCache.get(cacheKey);
-//		String item = null;
 		if (item != null) {
 			if(NOT_SET.equals(item)) {
 				return StringUtil.isBlank(defaults) ? code : defaults;

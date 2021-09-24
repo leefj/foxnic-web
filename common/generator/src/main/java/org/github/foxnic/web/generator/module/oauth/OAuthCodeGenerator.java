@@ -296,6 +296,9 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		cfg.view().field(MenuMeta.RESOURCE_IDS).basic().label("资源清单")
 				.form().selectBox().queryApi(ResourzeServiceProxy.QUERY_PAGED_LIST).muliti(true).paging(true).fillBy(MenuVOMeta.RESOURCE_IDS);
 
+		cfg.view().field(SYS_MENU.LABEL).form().validate().required();
+		cfg.view().field(SYS_MENU.TYPE).form().validate().required();
+
 		//文件生成覆盖模式
 		cfg.overrides()
 		.setServiceIntfAnfImpl(WriteMode.CREATE_IF_NOT_EXISTS) //服务与接口

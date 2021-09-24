@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * null
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-18 21:47:50
- * @sign 9E3EFC1C2B23901A495828F3F4C3D25C
+ * @since 2021-09-24 14:49:50
+ * @sign 3A8B41A72461E5B4C8303ED20DE35DE6
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -48,15 +48,15 @@ public class DbCache extends Entity {
 	private String area;
 	
 	/**
-	 * 账户ID：账户ID
+	 * 所有者类型：所有者类型
 	*/
-	@ApiModelProperty(required = false,value="账户ID" , notes = "账户ID")
+	@ApiModelProperty(required = false,value="所有者类型" , notes = "所有者类型")
 	private String ownerType;
 	
 	/**
-	 * 会话ID：会话ID
+	 * 所有者ID：所有者ID
 	*/
-	@ApiModelProperty(required = false,value="会话ID" , notes = "会话ID")
+	@ApiModelProperty(required = false,value="所有者ID" , notes = "所有者ID")
 	private String ownerId;
 	
 	/**
@@ -121,7 +121,7 @@ public class DbCache extends Entity {
 	
 	/**
 	 * 获得 ID<br>
-	 * 属性说明 : ID
+	 * ID
 	 * @return ID
 	*/
 	public String getId() {
@@ -139,14 +139,8 @@ public class DbCache extends Entity {
 	}
 	
 	/**
-	 * 添加 ID
-	 * @param id ID
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 数据分类<br>
-	 * 属性说明 : 数据分类
+	 * 数据分类
 	 * @return 数据分类
 	*/
 	public String getCatalog() {
@@ -164,14 +158,8 @@ public class DbCache extends Entity {
 	}
 	
 	/**
-	 * 添加 数据分类
-	 * @param catalog 数据分类
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 数据分区<br>
-	 * 属性说明 : 数据分区
+	 * 数据分区
 	 * @return 数据分区
 	*/
 	public String getArea() {
@@ -189,23 +177,17 @@ public class DbCache extends Entity {
 	}
 	
 	/**
-	 * 添加 数据分区
-	 * @param area 数据分区
-	 * @return 当前对象
-	*/
-	
-	/**
-	 * 获得 账户ID<br>
-	 * 属性说明 : 账户ID
-	 * @return 账户ID
+	 * 获得 所有者类型<br>
+	 * 所有者类型
+	 * @return 所有者类型
 	*/
 	public String getOwnerType() {
 		return ownerType;
 	}
 	
 	/**
-	 * 设置 账户ID
-	 * @param ownerType 账户ID
+	 * 设置 所有者类型
+	 * @param ownerType 所有者类型
 	 * @return 当前对象
 	*/
 	public DbCache setOwnerType(String ownerType) {
@@ -214,23 +196,17 @@ public class DbCache extends Entity {
 	}
 	
 	/**
-	 * 添加 账户ID
-	 * @param ownerType 账户ID
-	 * @return 当前对象
-	*/
-	
-	/**
-	 * 获得 会话ID<br>
-	 * 属性说明 : 会话ID
-	 * @return 会话ID
+	 * 获得 所有者ID<br>
+	 * 所有者ID
+	 * @return 所有者ID
 	*/
 	public String getOwnerId() {
 		return ownerId;
 	}
 	
 	/**
-	 * 设置 会话ID
-	 * @param ownerId 会话ID
+	 * 设置 所有者ID
+	 * @param ownerId 所有者ID
 	 * @return 当前对象
 	*/
 	public DbCache setOwnerId(String ownerId) {
@@ -239,14 +215,8 @@ public class DbCache extends Entity {
 	}
 	
 	/**
-	 * 添加 会话ID
-	 * @param ownerId 会话ID
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 数据<br>
-	 * 属性说明 : 数据
+	 * 数据
 	 * @return 数据
 	*/
 	public String getValue() {
@@ -264,14 +234,8 @@ public class DbCache extends Entity {
 	}
 	
 	/**
-	 * 添加 数据
-	 * @param value 数据
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 过期时间<br>
-	 * 属性说明 : 过期时间
+	 * 过期时间
 	 * @return 过期时间
 	*/
 	public Date getExpireTime() {
@@ -289,14 +253,8 @@ public class DbCache extends Entity {
 	}
 	
 	/**
-	 * 添加 过期时间
-	 * @param expireTime 过期时间
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 创建人ID<br>
-	 * 属性说明 : 创建人ID
+	 * 创建人ID
 	 * @return 创建人ID
 	*/
 	public String getCreateBy() {
@@ -314,14 +272,8 @@ public class DbCache extends Entity {
 	}
 	
 	/**
-	 * 添加 创建人ID
-	 * @param createBy 创建人ID
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 创建时间<br>
-	 * 属性说明 : 创建时间
+	 * 创建时间
 	 * @return 创建时间
 	*/
 	public Date getCreateTime() {
@@ -339,14 +291,8 @@ public class DbCache extends Entity {
 	}
 	
 	/**
-	 * 添加 创建时间
-	 * @param createTime 创建时间
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 修改人ID<br>
-	 * 属性说明 : 修改人ID
+	 * 修改人ID
 	 * @return 修改人ID
 	*/
 	public String getUpdateBy() {
@@ -364,14 +310,8 @@ public class DbCache extends Entity {
 	}
 	
 	/**
-	 * 添加 修改人ID
-	 * @param updateBy 修改人ID
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 修改时间<br>
-	 * 属性说明 : 修改时间
+	 * 修改时间
 	 * @return 修改时间
 	*/
 	public Date getUpdateTime() {
@@ -389,14 +329,8 @@ public class DbCache extends Entity {
 	}
 	
 	/**
-	 * 添加 修改时间
-	 * @param updateTime 修改时间
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 是否已删除<br>
-	 * 属性说明 : 是否已删除
+	 * 是否已删除
 	 * @return 是否已删除
 	*/
 	public Integer getDeleted() {
@@ -414,14 +348,8 @@ public class DbCache extends Entity {
 	}
 	
 	/**
-	 * 添加 是否已删除
-	 * @param deleted 是否已删除
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 删除人ID<br>
-	 * 属性说明 : 删除人ID
+	 * 删除人ID
 	 * @return 删除人ID
 	*/
 	public String getDeleteBy() {
@@ -439,14 +367,8 @@ public class DbCache extends Entity {
 	}
 	
 	/**
-	 * 添加 删除人ID
-	 * @param deleteBy 删除人ID
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 删除时间<br>
-	 * 属性说明 : 删除时间
+	 * 删除时间
 	 * @return 删除时间
 	*/
 	public Date getDeleteTime() {
@@ -464,14 +386,8 @@ public class DbCache extends Entity {
 	}
 	
 	/**
-	 * 添加 删除时间
-	 * @param deleteTime 删除时间
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 数据版本号<br>
-	 * 属性说明 : 数据版本号
+	 * 数据版本号
 	 * @return 数据版本号
 	*/
 	public Integer getVersion() {
@@ -487,12 +403,6 @@ public class DbCache extends Entity {
 		this.version=version;
 		return this;
 	}
-	
-	/**
-	 * 添加 数据版本号
-	 * @param version 数据版本号
-	 * @return 当前对象
-	*/
 
 	/**
 	 * 将自己转换成指定类型的PO
@@ -553,6 +463,6 @@ public class DbCache extends Entity {
 	*/
 	@Transient
 	public static DbCache create() {
-		return new DbCache();
+		return EntityContext.create(DbCache.class);
 	}
 }
