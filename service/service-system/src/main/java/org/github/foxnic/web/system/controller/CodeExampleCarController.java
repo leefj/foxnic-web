@@ -1,48 +1,57 @@
 package org.github.foxnic.web.system.controller;
 
  
-import com.alibaba.csp.sentinel.annotation.SentinelResource;
-import com.github.foxnic.api.error.ErrorDesc;
-import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.api.validate.annotations.NotNull;
-import com.github.foxnic.commons.io.StreamUtil;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.springboot.web.DownloadUtil;
-import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import com.github.xiaoymin.knife4j.annotations.ApiSort;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
-import org.github.foxnic.web.domain.system.CodeExampleCar;
-import org.github.foxnic.web.domain.system.CodeExampleCarVO;
-import org.github.foxnic.web.domain.system.meta.CodeExampleCarMeta;
-import org.github.foxnic.web.domain.system.meta.CodeExampleCarVOMeta;
-import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
-import org.github.foxnic.web.framework.web.SuperController;
-import org.github.foxnic.web.proxy.system.CodeExampleCarServiceProxy;
-import org.github.foxnic.web.system.service.ICodeExampleCarService;
+import java.util.List;
+
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import org.github.foxnic.web.framework.web.SuperController;
+import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.InputStream;
-import java.util.List;
+
+import org.github.foxnic.web.proxy.system.CodeExampleCarServiceProxy;
+import org.github.foxnic.web.domain.system.meta.CodeExampleCarVOMeta;
+import org.github.foxnic.web.domain.system.CodeExampleCar;
+import org.github.foxnic.web.domain.system.CodeExampleCarVO;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.excel.ExcelWriter;
+import com.github.foxnic.springboot.web.DownloadUtil;
+import com.github.foxnic.dao.data.PagedList;
+import java.util.Date;
+import java.sql.Timestamp;
+import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.commons.io.StreamUtil;
 import java.util.Map;
+import com.github.foxnic.dao.excel.ValidateResult;
+import java.io.InputStream;
+import org.github.foxnic.web.domain.system.meta.CodeExampleCarMeta;
+import org.github.foxnic.web.domain.hrm.Organization;
+import org.github.foxnic.web.domain.hrm.Position;
+import org.github.foxnic.web.domain.hrm.Employee;
+import io.swagger.annotations.Api;
+import com.github.xiaoymin.knife4j.annotations.ApiSort;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiImplicitParam;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import org.github.foxnic.web.system.service.ICodeExampleCarService;
+import com.github.foxnic.api.validate.annotations.NotNull;
 
 /**
  * <p>
  * 代码生成拥有的车辆 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-22 16:34:40
+ * @since 2021-09-26 16:39:07
 */
 
 @Api(tags = "代码生成拥有的车辆")
@@ -330,25 +339,25 @@ public class CodeExampleCarController extends SuperController {
 	@RequestMapping(CodeExampleCarServiceProxy.IMPORT_EXCEL)
 	public Result importExcel(MultipartHttpServletRequest request, HttpServletResponse response) throws Exception {
 
-			//获得上传的文件
-			Map<String, MultipartFile> map = request.getFileMap();
-			InputStream input=null;
-			for (MultipartFile mf : map.values()) {
-				input=StreamUtil.bytes2input(mf.getBytes());
-				break;
-			}
-
-			if(input==null) {
-				return ErrorDesc.failure().message("缺少上传的文件");
-			}
-
-			List<ValidateResult> errors=codeExampleCarService.importExcel(input,0,true);
-			if(errors==null || errors.isEmpty()) {
-				return ErrorDesc.success();
-			} else {
-				return ErrorDesc.failure().message("导入失败").data(errors);
-			}
+		//获得上传的文件
+		Map<String, MultipartFile> map = request.getFileMap();
+		InputStream input=null;
+		for (MultipartFile mf : map.values()) {
+			input=StreamUtil.bytes2input(mf.getBytes());
+			break;
 		}
+
+		if(input==null) {
+			return ErrorDesc.failure().message("缺少上传的文件");
+		}
+
+		List<ValidateResult> errors=codeExampleCarService.importExcel(input,0,true);
+		if(errors==null || errors.isEmpty()) {
+			return ErrorDesc.success();
+		} else {
+			return ErrorDesc.failure().message("导入失败").data(errors);
+		}
+	}
 
 
 }

@@ -1,7 +1,7 @@
 /**
  * 代码生成拥有的车辆 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-22 16:34:40
+ * @since 2021-09-26 16:39:07
  */
 
 
@@ -46,14 +46,14 @@ function ListPage() {
 		//
 		function renderTableInternal() {
 
-			var ps={};
+			var ps={searchField: "$composite"};
 			var contitions={};
+
 			if(window.pageExt.list.beforeQuery){
 				window.pageExt.list.beforeQuery(contitions,ps,"tableInit");
 			}
-			if(Object.keys(contitions).length>0) {
-				ps = {searchField: "$composite", searchValue: JSON.stringify(contitions)};
-			}
+			ps.searchValue=JSON.stringify(contitions);
+
 			var templet=window.pageExt.list.templet;
 			if(templet==null) {
 				templet=function(field,value,row) {
@@ -62,7 +62,7 @@ function ListPage() {
 				}
 			}
 			var h=$(".search-bar").height();
-			dataTable=fox.renderTable({
+			var tableConfig={
 				elem: '#data-table',
 				toolbar: '#toolbarTemplate',
 				defaultToolbar: ['filter', 'print',{title: '刷新数据',layEvent: 'refresh-data',icon: 'layui-icon-refresh-3'}],
@@ -105,11 +105,14 @@ function ListPage() {
 						}
 					}:false
 				}
-			});
+			};
+			window.pageExt.list.beforeTableRender && window.pageExt.list.beforeTableRender(tableConfig);
+			dataTable=fox.renderTable(tableConfig);
 			//绑定排序事件
 			table.on('sort(data-table)', function(obj){
 			  refreshTableData(obj.field,obj.type);
 			});
+			window.pageExt.list.afterTableRender && window.pageExt.list.afterTableRender();
 		}
 		setTimeout(renderTableInternal,1);
     };
@@ -195,7 +198,7 @@ function ListPage() {
 				field:"orgId",
 				inputEl:$("#orgId"),
 				buttonEl:$(this),
-				single:true,
+				single:false,
 				//限制浏览的范围，指定根节点 id 或 code ，优先匹配ID
 				root: "",
 				targetType:"org",
@@ -210,7 +213,7 @@ function ListPage() {
 				field:"empId",
 				inputEl:$("#empId"),
 				buttonEl:$(this),
-				single:true,
+				single:false,
 				//限制浏览的范围，指定根节点 id 或 code ，优先匹配ID
 				root: "",
 				targetType:"emp",
@@ -230,6 +233,10 @@ function ListPage() {
 		table.on('toolbar(data-table)', function(obj){
 			var checkStatus = table.checkStatus(obj.config.id);
 			var selected=getCheckedList("id");
+			if(window.pageExt.list.beforeToolBarButtonEvent) {
+				var doNext=window.pageExt.list.beforeToolBarButtonEvent(selected,obj);
+				if(!doNext) return;
+			}
 			switch(obj.event){
 				case 'create':
 					openCreateFrom();
@@ -297,6 +304,12 @@ function ListPage() {
 		table.on('tool(data-table)', function (obj) {
 			var data = obj.data;
 			var layEvent = obj.event;
+
+			if(window.pageExt.list.beforeRowOperationEvent) {
+				var doNext=window.pageExt.list.beforeRowOperationEvent(data,obj);
+				if(!doNext) return;
+			}
+
 			admin.putTempData('sys-code-example-car-form-data-form-action', "",true);
 			if (layEvent === 'edit') { // 修改
 				//延迟显示加载动画，避免界面闪动

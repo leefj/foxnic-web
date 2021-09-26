@@ -712,6 +712,8 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 function doStep(e) {
                     // debugger;
                     if(input.attr("readonly")) return;
+                    var f=$(document.activeElement);
+                    if(f && f.length>0 &&  input[0]!=f[0]) return;
                     var v = input.val().trim();
                     v = parseFloat(v);
                     if (e.key == "ArrowDown" || e.deltaY > 0) {
@@ -761,9 +763,11 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     addHandler(document, 'mousewheel');
                     addHandler(document, 'DOMMouseScroll');
                 }, function () {
+                    if(input.attr("readonly")) return;
                     removeHandler(document, 'mousewheel');
                     removeHandler(document, 'DOMMouseScroll');
                 });
+
 
                 function addHandler(element, type) {
                     if (element.addEventListener) {
@@ -1396,17 +1400,21 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     param.callback(param,{field:param.field,selectedIds:ids,selectedNodes:nodes,fromData:param.fromData,inputEl:param.inputEl,buttonEl:param.buttonEl});
                 }
             }
+
             admin.putTempData("employee-dialog-value",value,true);
             admin.putTempData("employee-dialog-options",param,true);
-            var dialogIndex=admin.popupCenter({
-                type:2,
-                id:"orgDialog",
-                title: title,
-                content: '/business/hrm/employee/dialog/emp_dialog.html',
-                offset: 'auto',
-                area:["950px","90%"]
+
+            admin.post("/service-hrm/hrm-favourite-group-item/remove-all",{temporary:1},function (r){
+                var dialogIndex=admin.popupCenter({
+                    type:2,
+                    id:"orgDialog",
+                    title: title,
+                    content: '/business/hrm/employee/dialog/emp_dialog.html',
+                    offset: 'auto',
+                    area:["950px","90%"]
+                });
+                admin.putTempData("employee-dialog-index",dialogIndex,true);
             });
-            admin.putTempData("employee-dialog-index",dialogIndex,true);
 
         },
         fillDialogButtons:function () {
