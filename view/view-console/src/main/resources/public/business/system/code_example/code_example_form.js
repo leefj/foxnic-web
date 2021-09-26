@@ -1,7 +1,7 @@
 /**
  * 代码生成示例主 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-26 10:42:40
+ * @since 2021-09-26 21:00:24
  */
 
 function FormPage() {
@@ -180,7 +180,7 @@ function FormPage() {
 		laydate.render({
 			elem: '#birthday',
 			format:"yyyy-MM-dd",
-			value:new Date(),
+			value:$('#birthday').val()?$('#birthday').val():new Date(),
 			trigger:"click"
 		});
 		laydate.render({
@@ -256,6 +256,15 @@ function FormPage() {
 		    if(formData["checkDict"]) {
 				fox.setCheckedValue("checkDict",formData["checkDict"]);
 		    }
+
+			//设置 日期 显示复选框勾选
+			if(formData["birthday"]) {
+				$("#birthday").val(fox.dateFormat(formData["birthday"],"yyyy-MM-dd"));
+			}
+			//设置 工作时间 显示复选框勾选
+			if(formData["workTime"]) {
+				$("#workTime").val(fox.dateFormat(formData["workTime"],"yyyy-MM-dd HH:mm:ss"));
+			}
 
 
 			//设置  选择框(枚举) 设置下拉框勾选

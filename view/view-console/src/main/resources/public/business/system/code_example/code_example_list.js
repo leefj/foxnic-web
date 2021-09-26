@@ -1,7 +1,7 @@
 /**
  * 代码生成示例主 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-26 10:42:40
+ * @since 2021-09-26 21:00:24
  */
 
 
@@ -77,8 +77,8 @@ function ListPage() {
 					,{ field: 'notes', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('多行文本') , templet: function (d) { return templet('notes',d.notes,d);}  }
 					,{ field: 'area', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('整数输入') , templet: function (d) { return templet('area',d.area,d);}  }
 					,{ field: 'weight', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('小数输入') , templet: function (d) { return templet('weight',d.weight,d);}  }
-					,{ field: 'birthday', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('日期'), templet: function (d) { return templet('birthday',fox.dateFormat(d.birthday),d); }}
-					,{ field: 'workTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('工作时间'), templet: function (d) { return templet('workTime',fox.dateFormat(d.workTime),d); }}
+					,{ field: 'birthday', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('日期'), templet: function (d) { return templet('birthday',fox.dateFormat(d.birthday,"yyyy-MM-dd"),d); }}
+					,{ field: 'workTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('工作时间'), templet: function (d) { return templet('workTime',fox.dateFormat(d.workTime,"yyyy-MM-dd HH:mm:ss"),d); }}
 					,{ field: 'valid', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('逻辑值'), templet: '#cell-tpl-valid'}
 					,{ field: 'radioEnum', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('枚举'), templet:function (d){ return templet('radioEnum',fox.getEnumText(RADIO_RADIOENUM_DATA,d.radioEnum),d);}}
 					,{ field: 'radioDict', align:"left", fixed:false, hide:false, sort: true, title: fox.translate('性别'), templet:function (d){ return templet('radioDict',fox.getDictText(RADIO_RADIODICT_DATA,d.radioDict),d);}}

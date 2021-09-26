@@ -661,10 +661,15 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
         },
 
         dateFormat(t, f) {
+            // debugger;
             if (!t) return "";
+            // debugger;
             if(Number.isInteger(t)) {
                 return util.toDateString(t, f);
-            } else {
+            } else if(f && f.length!=t.length) {
+                return util.toDateString(t, f);
+            }
+            else {
                 return t;
             }
         },

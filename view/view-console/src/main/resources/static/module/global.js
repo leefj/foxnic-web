@@ -27,6 +27,9 @@ TypeUtil={
 		} else {
 			return true;
 		}
+	},
+	isInteger:function (data) {
+		return Number.isInteger(data);
 	}
 
 }
@@ -51,6 +54,13 @@ String.prototype.startWith=function(str) {
 		return false;
 	return true;
 }
+
+Array.prototype.removeAt = function(index) {
+	if (isNaN(index) || index >= this.length) {
+		return false;
+	}
+	this.splice(index, 1);
+};
 
 //debugger;
 var layuiPath="/assets/libs/layui/";
