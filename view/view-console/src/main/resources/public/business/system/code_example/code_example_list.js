@@ -1,7 +1,7 @@
 /**
  * 代码生成示例主 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-22 15:13:54
+ * @since 2021-09-26 10:42:40
  */
 
 
@@ -46,14 +46,14 @@ function ListPage() {
 		//
 		function renderTableInternal() {
 
-			var ps={};
+			var ps={searchField: "$composite"};
 			var contitions={};
+
 			if(window.pageExt.list.beforeQuery){
 				window.pageExt.list.beforeQuery(contitions,ps,"tableInit");
 			}
-			if(Object.keys(contitions).length>0) {
-				ps = {searchField: "$composite", searchValue: JSON.stringify(contitions)};
-			}
+			ps.searchValue=JSON.stringify(contitions);
+
 			var templet=window.pageExt.list.templet;
 			if(templet==null) {
 				templet=function(field,value,row) {
@@ -62,7 +62,7 @@ function ListPage() {
 				}
 			}
 			var h=$(".search-bar").height();
-			dataTable=fox.renderTable({
+			var tableConfig={
 				elem: '#data-table',
 				toolbar: '#toolbarTemplate',
 				defaultToolbar: ['filter', 'print',{title: '刷新数据',layEvent: 'refresh-data',icon: 'layui-icon-refresh-3'}],
@@ -112,7 +112,9 @@ function ListPage() {
 						}
 					}:false
 				}
-			});
+			};
+			window.pageExt.list.beforeTableRender && window.pageExt.list.beforeTableRender(tableConfig);
+			dataTable=fox.renderTable(tableConfig);
 			//绑定 Switch 切换事件
 			fox.bindSwitchEvent("cell-tpl-valid",moduleURL +'/update','id','valid',function(data,ctx){
 				window.pageExt.list.afterSwitched && window.pageExt.list.afterSwitched("valid",data,ctx);
@@ -121,6 +123,7 @@ function ListPage() {
 			table.on('sort(data-table)', function(obj){
 			  refreshTableData(obj.field,obj.type);
 			});
+			window.pageExt.list.afterTableRender && window.pageExt.list.afterTableRender();
 		}
 		setTimeout(renderTableInternal,1);
     };
@@ -130,20 +133,20 @@ function ListPage() {
       */
 	function refreshTableData(sortField,sortType) {
 		var value = {};
-		value.name={ value: $("#name").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" "};
-		value.notes={ value: $("#notes").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" "};
-		value.area={ begin: $("#area-begin").val(), end: $("#area-end").val() };
-		value.weight={ value: $("#weight").val()};
-		value.valid={ value: xmSelect.get("#valid",true).getValue("value"), label:xmSelect.get("#valid",true).getValue("nameStr") };
-		value.radioEnum={ value: xmSelect.get("#radioEnum",true).getValue("value"), label:xmSelect.get("#radioEnum",true).getValue("nameStr")};
-		value.radioDict={ value: xmSelect.get("#radioDict",true).getValue("value"), label:xmSelect.get("#radioDict",true).getValue("nameStr")};
-		value.checkEnum={ value: xmSelect.get("#checkEnum",true).getValue("value") ,fuzzy: true,valuePrefix:"\"",valueSuffix:"\"", label:xmSelect.get("#checkEnum",true).getValue("nameStr")};
-		value.checkDict={ value: xmSelect.get("#checkDict",true).getValue("value") ,fuzzy: true,valuePrefix:"\"",valueSuffix:"\"", label:xmSelect.get("#checkDict",true).getValue("nameStr")};
-		value.selectEnum={ value: xmSelect.get("#selectEnum",true).getValue("value"), label:xmSelect.get("#selectEnum",true).getValue("nameStr")};
-		value.selectDict={ value: xmSelect.get("#selectDict",true).getValue("value") ,fuzzy: true,valuePrefix:"\"",valueSuffix:"\"", label:xmSelect.get("#selectDict",true).getValue("nameStr")};
-		value.resourceId={ value: $("#resourceId").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"", fillBy:"resourze",field:"url" };
-		value.birthday={ begin: $("#birthday-begin").val(), end: $("#birthday-end").val() };
-		value.roleIds={ value: xmSelect.get("#roleIds",true).getValue("value"), fillBy:"roles",field:"id", label:xmSelect.get("#roleIds",true).getValue("nameStr") };
+		value.name={ inputType:"button",value: $("#name").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" "};
+		value.notes={ inputType:"button",value: $("#notes").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" "};
+		value.area={ inputType:"number_input", begin: $("#area-begin").val(), end: $("#area-end").val() };
+		value.weight={ inputType:"number_input", value: $("#weight").val()};
+		value.valid={ inputType:"logic_switch",value: xmSelect.get("#valid",true).getValue("value"), label:xmSelect.get("#valid",true).getValue("nameStr") };
+		value.radioEnum={ inputType:"radio_box", value: xmSelect.get("#radioEnum",true).getValue("value"), label:xmSelect.get("#radioEnum",true).getValue("nameStr")};
+		value.radioDict={ inputType:"radio_box", value: xmSelect.get("#radioDict",true).getValue("value"), label:xmSelect.get("#radioDict",true).getValue("nameStr")};
+		value.checkEnum={ inputType:"check_box", value: xmSelect.get("#checkEnum",true).getValue("value") ,fuzzy: true,valuePrefix:"\"",valueSuffix:"\"", label:xmSelect.get("#checkEnum",true).getValue("nameStr")};
+		value.checkDict={ inputType:"check_box", value: xmSelect.get("#checkDict",true).getValue("value") ,fuzzy: true,valuePrefix:"\"",valueSuffix:"\"", label:xmSelect.get("#checkDict",true).getValue("nameStr")};
+		value.selectEnum={ inputType:"select_box", value: xmSelect.get("#selectEnum",true).getValue("value"), label:xmSelect.get("#selectEnum",true).getValue("nameStr")};
+		value.selectDict={ inputType:"select_box", value: xmSelect.get("#selectDict",true).getValue("value") ,fuzzy: true,valuePrefix:"\"",valueSuffix:"\"", label:xmSelect.get("#selectDict",true).getValue("nameStr")};
+		value.resourceId={ inputType:"select_box", value: $("#resourceId").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"", fillBy:"resourze",field:"url" };
+		value.birthday={ inputType:"date_input", begin: $("#birthday-begin").val(), end: $("#birthday-end").val() };
+		value.roleIds={ inputType:"select_box", value: xmSelect.get("#roleIds",true).getValue("value"), fillBy:"roles",field:"id", label:xmSelect.get("#roleIds",true).getValue("nameStr") };
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;
@@ -378,6 +381,10 @@ function ListPage() {
 		table.on('toolbar(data-table)', function(obj){
 			var checkStatus = table.checkStatus(obj.config.id);
 			var selected=getCheckedList("id");
+			if(window.pageExt.list.beforeToolBarButtonEvent) {
+				var doNext=window.pageExt.list.beforeToolBarButtonEvent(selected,obj);
+				if(!doNext) return;
+			}
 			switch(obj.event){
 				case 'create':
 					openCreateFrom();
@@ -451,6 +458,12 @@ function ListPage() {
 		table.on('tool(data-table)', function (obj) {
 			var data = obj.data;
 			var layEvent = obj.event;
+
+			if(window.pageExt.list.beforeRowOperationEvent) {
+				var doNext=window.pageExt.list.beforeRowOperationEvent(data,obj);
+				if(!doNext) return;
+			}
+
 			admin.putTempData('sys-code-example-form-data-form-action', "",true);
 			if (layEvent === 'edit') { // 修改
 				//延迟显示加载动画，避免界面闪动

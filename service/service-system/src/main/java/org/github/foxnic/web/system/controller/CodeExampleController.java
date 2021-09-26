@@ -50,7 +50,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 代码生成示例主表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-22 15:13:50
+ * @since 2021-09-26 10:42:40
 */
 
 @Api(tags = "代码生成示例主")
@@ -346,25 +346,25 @@ public class CodeExampleController extends SuperController {
 	@RequestMapping(CodeExampleServiceProxy.IMPORT_EXCEL)
 	public Result importExcel(MultipartHttpServletRequest request, HttpServletResponse response) throws Exception {
 
-			//获得上传的文件
-			Map<String, MultipartFile> map = request.getFileMap();
-			InputStream input=null;
-			for (MultipartFile mf : map.values()) {
-				input=StreamUtil.bytes2input(mf.getBytes());
-				break;
-			}
-
-			if(input==null) {
-				return ErrorDesc.failure().message("缺少上传的文件");
-			}
-
-			List<ValidateResult> errors=codeExampleService.importExcel(input,0,true);
-			if(errors==null || errors.isEmpty()) {
-				return ErrorDesc.success();
-			} else {
-				return ErrorDesc.failure().message("导入失败").data(errors);
-			}
+		//获得上传的文件
+		Map<String, MultipartFile> map = request.getFileMap();
+		InputStream input=null;
+		for (MultipartFile mf : map.values()) {
+			input=StreamUtil.bytes2input(mf.getBytes());
+			break;
 		}
+
+		if(input==null) {
+			return ErrorDesc.failure().message("缺少上传的文件");
+		}
+
+		List<ValidateResult> errors=codeExampleService.importExcel(input,0,true);
+		if(errors==null || errors.isEmpty()) {
+			return ErrorDesc.success();
+		} else {
+			return ErrorDesc.failure().message("导入失败").data(errors);
+		}
+	}
 
 
 }

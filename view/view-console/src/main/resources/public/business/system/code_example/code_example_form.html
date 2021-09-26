@@ -2,7 +2,7 @@
 /**
  * 代码生成示例主 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-22 15:13:55
+ * @since 2021-09-26 10:42:40
  */
  -->
  <!DOCTYPE html>
@@ -236,7 +236,7 @@
                         <div class="layui-form-label "><div th:text="${lang.translate('对话框')}">对话框</div></div>
                         <div class="layui-input-block ">
                             <input lay-filter="buttonInput" id="buttonInput" name="buttonInput"  type="hidden" class="layui-input"   />
-                            <button id="buttonInput-button" type="button" action-type="" class="layui-btn  layui-btn-warm " style="width: 100%"> <i class='layui-icon layui-icon-search'></i> <span th:text="${lang.translate('点我!')}">按钮文本</span></button>
+                            <button id="buttonInput-button" type="button" action-type="" class="layui-btn  layui-btn-warm " style="width: 100%"> <i class='layui-icon layui-icon-search'></i> <span th:text="${lang.translate('点我!')}" th:default-label="${lang.translate('点我!')}">按钮文本</span></button>
                         </div>
                     </div>
 
