@@ -10,6 +10,7 @@ import com.github.foxnic.dao.meta.DBTableMeta;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.generator.builder.business.ControllerProxyFile;
 import com.github.foxnic.sql.meta.DBTable;
+import org.github.foxnic.web.changes.page.ChangeInstancePageController;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.enums.system.MenuType;
 import org.github.foxnic.web.domain.oauth.Menu;
@@ -17,8 +18,7 @@ import org.github.foxnic.web.domain.oauth.MenuResource;
 import org.github.foxnic.web.domain.oauth.Resourze;
 import org.github.foxnic.web.domain.oauth.RoleMenu;
 import org.github.foxnic.web.generator.config.FoxnicWebConfigs;
-import org.github.foxnic.web.hrm.page.PositionPageController;
-import org.github.foxnic.web.proxy.hrm.PositionServiceProxy;
+import org.github.foxnic.web.proxy.changes.ChangeInstanceServiceProxy;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.File;
@@ -117,8 +117,16 @@ public class MenuGenerator {
 //		mg=new MenuGenerator(FoxnicWeb.HRM_ORGANIZATION.$TABLE, OrganizationServiceProxy.class, OrganizationPageController.class);
 //		mg.generate("hrm");
 
-		mg=new MenuGenerator(FoxnicWeb.HRM_POSITION.$TABLE, PositionServiceProxy.class, PositionPageController.class);
-		mg.generate("hrm");
+//		mg=new MenuGenerator(FoxnicWeb.HRM_POSITION.$TABLE, PositionServiceProxy.class, PositionPageController.class);
+//		mg.generate("hrm");
+
+
+//		mg=new MenuGenerator(FoxnicWeb.CHS_CHANGE_DEFINITION.$TABLE, ChangeDefinitionServiceProxy.class, ChangeDefinitionPageController.class);
+//		mg.generate("494903523763298304");
+
+		mg=new MenuGenerator(FoxnicWeb.CHS_CHANGE_INSTANCE.$TABLE, ChangeInstanceServiceProxy.class, ChangeInstancePageController.class);
+		mg.generate("494903523763298304");
+
 
 
 
