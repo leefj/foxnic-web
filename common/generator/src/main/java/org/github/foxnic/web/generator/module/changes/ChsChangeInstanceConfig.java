@@ -6,6 +6,7 @@ import com.github.foxnic.generator.builder.view.option.ListOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.*;
+import org.github.foxnic.web.constants.enums.changes.ChangeStatus;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
 
@@ -17,12 +18,12 @@ public class ChsChangeInstanceConfig extends BaseCodeConfig<CHS_CHANGE_INSTANCE>
 
 	@Override
 	public void configModel(PoClassFile poType, VoClassFile voType) {
-
+		poType.shadow(CHS_CHANGE_INSTANCE.STATUS, ChangeStatus.class,"statusEnum");
 	}
 
 	@Override
 	public void configFields(ViewOptions view) {
-
+		
 	}
 
 	@Override

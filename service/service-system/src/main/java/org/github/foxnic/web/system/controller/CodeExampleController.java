@@ -296,6 +296,10 @@ public class CodeExampleController extends SuperController {
 	@SentinelResource(value = CodeExampleServiceProxy.QUERY_PAGED_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(CodeExampleServiceProxy.QUERY_PAGED_LIST)
 	public Result<PagedList<CodeExample>> queryPagedList(CodeExampleVO sample) {
+
+		//获得复合查询参数
+		sample.getCompositeParameter().getValue("companyId");
+
 		Result<PagedList<CodeExample>> result=new Result<>();
 		PagedList<CodeExample> list=codeExampleService.queryPagedList(sample,sample.getPageSize(),sample.getPageIndex());
 		// 关联出 选择框(查询) 数据

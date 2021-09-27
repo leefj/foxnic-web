@@ -1,22 +1,26 @@
 package org.github.foxnic.web.domain.changes;
 
+import com.github.foxnic.commons.lang.StringUtil;
+import com.github.foxnic.commons.reflect.EnumUtil;
 import com.github.foxnic.dao.entity.Entity;
-import javax.persistence.Table;
-import com.github.foxnic.sql.meta.DBTable;
-import org.github.foxnic.web.constants.db.FoxnicWeb.CHS_CHANGE_INSTANCE;
-import javax.persistence.Id;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Date;
-import javax.persistence.Transient;
-import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
+import com.github.foxnic.sql.meta.DBTable;
+import io.swagger.annotations.ApiModelProperty;
+import org.github.foxnic.web.constants.db.FoxnicWeb.CHS_CHANGE_INSTANCE;
+import org.github.foxnic.web.constants.enums.changes.ChangeStatus;
+
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import java.util.Date;
+import java.util.Map;
 
 
 
 /**
  * 变更实例
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-27 16:04:54
+ * @since 2021-09-27 17:36:54
  * @sign 8452C649CECFDA30595A045A1C7D77FE
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -118,6 +122,8 @@ public class ChangeInstance extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="变更状态" , notes = "变更状态")
 	private String status;
+	@Transient
+	private ChangeStatus statusEnum;
 	
 	/**
 	 * 获得 主键<br>
@@ -393,6 +399,10 @@ public class ChangeInstance extends Entity {
 	public String getStatus() {
 		return status;
 	}
+	@Transient
+	public ChangeStatus getStatusEnum() {
+		return statusEnum ;
+	}
 	
 	/**
 	 * 设置 变更状态
@@ -401,6 +411,10 @@ public class ChangeInstance extends Entity {
 	*/
 	public ChangeInstance setStatus(String status) {
 		this.status=status;
+		this.statusEnum= (ChangeStatus) EnumUtil.parseByCode(ChangeStatus.values(),status) ;
+		if(StringUtil.hasContent(status) && this.status==null) {
+			throw new IllegalArgumentException("");
+		}
 		return this;
 	}
 
