@@ -54,6 +54,11 @@ public class FoxnicWebMeta {
 	 * */
 	public static final String SERVICE_PCM_PACKAGE=BASE_PACKAGE+".pcm";
 
+	/**
+	 * 数据变更服务
+	 * */
+	public static final String SERVICE_CHANGES_PACKAGE=BASE_PACKAGE+".changes";
+
 
 	/**
 	 * Support

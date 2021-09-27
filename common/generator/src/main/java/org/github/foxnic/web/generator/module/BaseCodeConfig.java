@@ -14,6 +14,7 @@ public abstract class BaseCodeConfig<T extends DBTable> extends ModuleCodeConfig
     public static final String PREFIX_HRM="service-hrm";
     public static final String PREFIX_OAUTH="service-oauth";
     public static final String PREFIX_PCM="service-pcm";
+    public static final String PREFIX_CHANGES="service-changes";
 
 
     private FoxnicWebConfigs configs;

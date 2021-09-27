@@ -82,3 +82,14 @@ applications:
     viewProjectPath: /view/view-console
     viewPrefixPath: public/business/pcm
     wrapperProjectPath:  /wrapper/wrapper-all-service
+  #Changes  变更服务
+  service-changes:
+    nacosGroup: service
+    nacosDataId: service-changes.yml
+    serviceProjectPath: /service/service-changes
+    packageName: org.github.foxnic.web.changes
+    primaryDatasourceConfigKey: spring.datasource.druid.primary
+    microServiceNameConst: CHS
+    viewProjectPath: /view/view-console
+    viewPrefixPath: public/business/changes
+    wrapperProjectPath:  /wrapper/wrapper-all-service

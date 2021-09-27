@@ -41,6 +41,7 @@ public class FoxnicWebDBMetaGenerator  {
 		dbMetaBuilder.setTableFilter(table->{
 			table=table.toLowerCase();
 			if(table.startsWith("sys_")) return true;
+			if(table.startsWith("chs_")) return true;
 			if(pcmTables.contains(table)) return true;
 			if(hrmTables.contains(table)) return true;
 			return false;

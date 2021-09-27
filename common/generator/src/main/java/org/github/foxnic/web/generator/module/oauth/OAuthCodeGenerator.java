@@ -4,8 +4,8 @@ import com.github.foxnic.generator.config.ModuleContext;
 import com.github.foxnic.generator.config.WriteMode;
 import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb.*;
-import org.github.foxnic.web.constants.enums.system.HttpMethodType;
 import org.github.foxnic.web.constants.enums.hrm.ResourceType;
+import org.github.foxnic.web.constants.enums.system.HttpMethodType;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.Resourze;
 import org.github.foxnic.web.domain.oauth.User;
@@ -274,6 +274,9 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		cfg.getPoClassFile().addSimpleProperty(Resourze.class,"pathResource","路径资源","");
 		cfg.getPoClassFile().addListProperty(Resourze.class,"resources","菜单包含的资源清单","");
 		cfg.getPoClassFile().addSimpleProperty(Menu.class,"parent","上级菜单","");
+
+
+//		cfg.getPoClassFile().shadow(SYS_MENU.TYPE, MenuType.class,"menuTypeEnum");
 
 		//
 		cfg.getPoClassFile().addSimpleProperty(String.class,"path","页面路径","");

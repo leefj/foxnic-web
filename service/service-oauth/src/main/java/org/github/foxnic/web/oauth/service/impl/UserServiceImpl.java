@@ -29,7 +29,7 @@ import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.oauth.service.IRoleUserService;
 import org.github.foxnic.web.oauth.service.IUserService;
 import org.github.foxnic.web.proxy.utils.SystemConfigProxyUtil;
-import org.github.foxnic.web.session.DynamicHandler;
+import org.github.foxnic.web.session.DynamicMenuHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -319,7 +319,7 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 		List<Menu> remMenus=new ArrayList<>();
 		for (Menu menu : user.getMenus()) {
 			if(!StringUtil.isBlank(menu.getDynamicHandler())) {
-				DynamicHandler dy=DynamicHandler.getHandler(menu.getDynamicHandler());
+				DynamicMenuHandler dy= DynamicMenuHandler.getHandler(menu.getDynamicHandler());
 				boolean has=dy.hasPermission(menu,user);
 				if(!has) {
 					remMenus.add(menu);

@@ -34,5 +34,11 @@ public class MicroServiceNames {
 	 * 对应 bootstrap.yml 中 spring.application.name 属性
 	 * */
 	public static final String PCM="service-pcm";
+
+	/**
+	 * 数据变更相关的服务 <br>
+	 * 对应 bootstrap.yml 中 spring.application.name 属性
+	 * */
+	public static final String CHS="service-changes";
  
 }

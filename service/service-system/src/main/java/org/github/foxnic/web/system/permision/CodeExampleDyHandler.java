@@ -5,9 +5,9 @@ import org.github.foxnic.web.constants.enums.system.VersionType;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.proxy.utils.SystemConfigProxyUtil;
-import org.github.foxnic.web.session.DynamicHandler;
+import org.github.foxnic.web.session.DynamicMenuHandler;
 
-public class CodeExampleDyHandler extends DynamicHandler {
+public class CodeExampleDyHandler extends DynamicMenuHandler {
 
     @Override
     public boolean hasPermission(Menu menu, User user) {

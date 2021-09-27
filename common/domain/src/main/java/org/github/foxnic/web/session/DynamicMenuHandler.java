@@ -6,17 +6,17 @@ import com.github.foxnic.commons.reflect.ReflectUtil;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.User;
 
-public abstract class DynamicHandler {
+public abstract class DynamicMenuHandler {
 
-    private static LocalCache<String,DynamicHandler> HANDLERS=new LocalCache<>();
+    private static LocalCache<String, DynamicMenuHandler> HANDLERS=new LocalCache<>();
 
-    public static DynamicHandler getHandler(String clsName) {
+    public static DynamicMenuHandler getHandler(String clsName) {
 
-        DynamicHandler handler= HANDLERS.get(clsName);
+        DynamicMenuHandler handler= HANDLERS.get(clsName);
         if(handler==null) {
             Class clz= ReflectUtil.forName(clsName);
             try {
-                handler = (DynamicHandler) clz.newInstance();
+                handler = (DynamicMenuHandler) clz.newInstance();
                 HANDLERS.put(clsName,handler);
             }catch (Exception e){
                 Logger.exception("创建失败",e);

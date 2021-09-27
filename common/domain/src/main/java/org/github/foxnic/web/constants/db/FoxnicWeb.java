@@ -7,13 +7,265 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2021-09-20 06:13:52
+ * @since 2021-09-27 16:02:42
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
 */
 
 public class FoxnicWeb {
+	
+	/**
+	*/
+	public static class CHS_CHANGE_DATA extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "chs_change_data";
+		
+		/**
+		 * 主键
+		*/
+		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","主键","主键",true,false,false);
+		
+		/**
+		 * 变更ID
+		*/
+		public static final DBField INSTANCE_ID = new DBField(DBDataType.STRING , "instance_id","instanceId","变更ID","变更ID",false,false,true);
+		
+		/**
+		 * 实体类名
+		*/
+		public static final DBField DATA_TYPE = new DBField(DBDataType.STRING , "data_type","dataType","实体类名","实体类名",false,false,true);
+		
+		/**
+		 * 变更时间点，0，变更前；1，变更后
+		*/
+		public static final DBField TIME_POINT = new DBField(DBDataType.INTEGER , "time_point","timePoint","变更时间点","0，变更前；1，变更后",false,false,true);
+		
+		/**
+		 * 数据，JSON格式
+		*/
+		public static final DBField DATA = new DBField(DBDataType.STRING , "data","data","数据","JSON格式",false,false,true);
+		
+		/**
+		 * 创建人ID
+		*/
+		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
+		
+		/**
+		 * 创建时间
+		*/
+		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","创建时间","创建时间",false,false,true);
+		
+		/**
+		 * 修改人ID
+		*/
+		public static final DBField UPDATE_BY = new DBField(DBDataType.STRING , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
+		
+		/**
+		 * 修改时间
+		*/
+		public static final DBField UPDATE_TIME = new DBField(DBDataType.DATE , "update_time","updateTime","修改时间","修改时间",false,false,true);
+		
+		/**
+		 * 是否已删除
+		*/
+		public static final DBField DELETED = new DBField(DBDataType.INTEGER , "deleted","deleted","是否已删除","是否已删除",false,false,false);
+		
+		/**
+		 * 删除人ID
+		*/
+		public static final DBField DELETE_BY = new DBField(DBDataType.STRING , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
+		
+		/**
+		 * 删除时间
+		*/
+		public static final DBField DELETE_TIME = new DBField(DBDataType.DATE , "delete_time","deleteTime","删除时间","删除时间",false,false,true);
+		
+		/**
+		 * 数据版本号
+		*/
+		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
+		
+		public CHS_CHANGE_DATA() {
+			this.init($NAME,"" , ID , INSTANCE_ID , DATA_TYPE , TIME_POINT , DATA , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+		}
+		public static final CHS_CHANGE_DATA $TABLE=new CHS_CHANGE_DATA();
+	}
+	
+	/**
+	 * 变更定义表
+	*/
+	public static class CHS_CHANGE_DEFINITION extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "chs_change_definition";
+		
+		/**
+		 * 主键
+		*/
+		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","主键","主键",true,false,false);
+		
+		/**
+		 * 名称
+		*/
+		public static final DBField NAME = new DBField(DBDataType.STRING , "name","name","名称","名称",false,false,true);
+		
+		/**
+		 * 编码
+		*/
+		public static final DBField CODE = new DBField(DBDataType.STRING , "code","code","编码","编码",false,false,true);
+		
+		/**
+		 * 是否有效
+		*/
+		public static final DBField VALID = new DBField(DBDataType.INTEGER , "valid","valid","是否有效","是否有效",false,false,false);
+		
+		/**
+		 * 租户ID
+		*/
+		public static final DBField TENANT_ID = new DBField(DBDataType.STRING , "tenant_id","tenantId","租户ID","租户ID",false,false,false);
+		
+		/**
+		 * 创建人ID
+		*/
+		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
+		
+		/**
+		 * 创建时间
+		*/
+		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","创建时间","创建时间",false,false,true);
+		
+		/**
+		 * 修改人ID
+		*/
+		public static final DBField UPDATE_BY = new DBField(DBDataType.STRING , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
+		
+		/**
+		 * 修改时间
+		*/
+		public static final DBField UPDATE_TIME = new DBField(DBDataType.DATE , "update_time","updateTime","修改时间","修改时间",false,false,true);
+		
+		/**
+		 * 是否已删除
+		*/
+		public static final DBField DELETED = new DBField(DBDataType.INTEGER , "deleted","deleted","是否已删除","是否已删除",false,false,false);
+		
+		/**
+		 * 删除人ID
+		*/
+		public static final DBField DELETE_BY = new DBField(DBDataType.STRING , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
+		
+		/**
+		 * 删除时间
+		*/
+		public static final DBField DELETE_TIME = new DBField(DBDataType.DATE , "delete_time","deleteTime","删除时间","删除时间",false,false,true);
+		
+		/**
+		 * 数据版本号
+		*/
+		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
+		
+		public CHS_CHANGE_DEFINITION() {
+			this.init($NAME,"变更定义表" , ID , NAME , CODE , VALID , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+		}
+		public static final CHS_CHANGE_DEFINITION $TABLE=new CHS_CHANGE_DEFINITION();
+	}
+	
+	/**
+	 * 变更实例表
+	*/
+	public static class CHS_CHANGE_INSTANCE extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "chs_change_instance";
+		
+		/**
+		 * 主键
+		*/
+		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","主键","主键",true,false,false);
+		
+		/**
+		 * 变更定义ID
+		*/
+		public static final DBField DEFINITION_ID = new DBField(DBDataType.STRING , "definition_id","definitionId","变更定义ID","变更定义ID",false,false,true);
+		
+		/**
+		 * 变更对象的数据表
+		*/
+		public static final DBField TARGET_TABLE = new DBField(DBDataType.STRING , "target_table","targetTable","变更对象的数据表","变更对象的数据表",false,false,true);
+		
+		/**
+		 * 变更对象类型
+		*/
+		public static final DBField TARGET_TYPE = new DBField(DBDataType.STRING , "target_type","targetType","变更对象类型","变更对象类型",false,false,true);
+		
+		/**
+		 * 变更对象ID
+		*/
+		public static final DBField TARGET_ID = new DBField(DBDataType.INTEGER , "target_id","targetId","变更对象ID","变更对象ID",false,false,true);
+		
+		/**
+		 * 租户ID
+		*/
+		public static final DBField TENANT_ID = new DBField(DBDataType.STRING , "tenant_id","tenantId","租户ID","租户ID",false,false,false);
+		
+		/**
+		 * 创建人ID
+		*/
+		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
+		
+		/**
+		 * 创建时间
+		*/
+		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","创建时间","创建时间",false,false,true);
+		
+		/**
+		 * 修改人ID
+		*/
+		public static final DBField UPDATE_BY = new DBField(DBDataType.STRING , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
+		
+		/**
+		 * 修改时间
+		*/
+		public static final DBField UPDATE_TIME = new DBField(DBDataType.DATE , "update_time","updateTime","修改时间","修改时间",false,false,true);
+		
+		/**
+		 * 是否已删除
+		*/
+		public static final DBField DELETED = new DBField(DBDataType.INTEGER , "deleted","deleted","是否已删除","是否已删除",false,false,false);
+		
+		/**
+		 * 删除人ID
+		*/
+		public static final DBField DELETE_BY = new DBField(DBDataType.STRING , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
+		
+		/**
+		 * 删除时间
+		*/
+		public static final DBField DELETE_TIME = new DBField(DBDataType.DATE , "delete_time","deleteTime","删除时间","删除时间",false,false,true);
+		
+		/**
+		 * 数据版本号
+		*/
+		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
+		
+		/**
+		 * 变更状态
+		*/
+		public static final DBField STATUS = new DBField(DBDataType.STRING , "status","status","变更状态","变更状态",false,false,true);
+		
+		public CHS_CHANGE_INSTANCE() {
+			this.init($NAME,"变更实例表" , ID , DEFINITION_ID , TARGET_TABLE , TARGET_TYPE , TARGET_ID , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , STATUS);
+		}
+		public static final CHS_CHANGE_INSTANCE $TABLE=new CHS_CHANGE_INSTANCE();
+	}
 	
 	/**
 	 * 公司表
@@ -1961,14 +2213,14 @@ public class FoxnicWeb {
 		public static final DBField AREA = new DBField(DBDataType.STRING , "area","area","数据分区","数据分区",false,false,true);
 		
 		/**
-		 * 账户ID
+		 * 所有者类型
 		*/
-		public static final DBField OWNER_TYPE = new DBField(DBDataType.STRING , "owner_type","ownerType","账户ID","账户ID",false,false,true);
+		public static final DBField OWNER_TYPE = new DBField(DBDataType.STRING , "owner_type","ownerType","所有者类型","所有者类型",false,false,true);
 		
 		/**
-		 * 会话ID
+		 * 所有者ID
 		*/
-		public static final DBField OWNER_ID = new DBField(DBDataType.STRING , "owner_id","ownerId","会话ID","会话ID",false,false,true);
+		public static final DBField OWNER_ID = new DBField(DBDataType.STRING , "owner_id","ownerId","所有者ID","所有者ID",false,false,true);
 		
 		/**
 		 * 数据
@@ -2448,7 +2700,7 @@ public class FoxnicWeb {
 		/**
 		 * 是否有效
 		*/
-		public static final DBField VALID = new DBField(DBDataType.INTEGER , "valid","valid","是否有效","是否有效",false,false,true);
+		public static final DBField VALID = new DBField(DBDataType.INTEGER , "valid","valid","是否有效","是否有效",false,false,false);
 		
 		/**
 		 * 创建人ID
@@ -2552,6 +2804,11 @@ public class FoxnicWeb {
 		public static final DBField URL = new DBField(DBDataType.STRING , "url","url","路由地址","路由地址",false,false,true);
 		
 		/**
+		 * 页面参数
+		*/
+		public static final DBField PARAMS = new DBField(DBDataType.STRING , "params","params","页面参数","页面参数",false,false,true);
+		
+		/**
 		 * 上级ID
 		*/
 		public static final DBField PARENT_ID = new DBField(DBDataType.STRING , "parent_id","parentId","上级ID","上级ID",false,false,true);
@@ -2612,7 +2869,7 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
 		public SYS_MENU() {
-			this.init($NAME,"菜单表" , ID , BATCH_ID , AUTHORITY , HIDDEN , CSS , LABEL , TYPE , PATH_RESOURCE_ID , URL , PARENT_ID , DYNAMIC_HANDLER , HIERARCHY , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"菜单表" , ID , BATCH_ID , AUTHORITY , HIDDEN , CSS , LABEL , TYPE , PATH_RESOURCE_ID , URL , PARAMS , PARENT_ID , DYNAMIC_HANDLER , HIERARCHY , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final SYS_MENU $TABLE=new SYS_MENU();
 	}
