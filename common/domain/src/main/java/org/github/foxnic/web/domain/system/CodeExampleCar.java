@@ -1,27 +1,26 @@
 package org.github.foxnic.web.domain.system;
 
 import com.github.foxnic.dao.entity.Entity;
-import com.github.foxnic.dao.entity.EntityContext;
+import javax.persistence.Table;
 import com.github.foxnic.sql.meta.DBTable;
-import io.swagger.annotations.ApiModelProperty;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_CODE_EXAMPLE_CAR;
-import org.github.foxnic.web.domain.hrm.Employee;
+import javax.persistence.Id;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Date;
 import org.github.foxnic.web.domain.hrm.Organization;
 import org.github.foxnic.web.domain.hrm.Position;
-
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.github.foxnic.web.domain.hrm.Employee;
 import javax.persistence.Transient;
-import java.util.Date;
 import java.util.Map;
+import com.github.foxnic.dao.entity.EntityContext;
 
 
 
 /**
- * null
+ * 代码生成拥有的车辆
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-22 15:26:07
- * @sign 66CEC4EC000471F3E4D053047A2B8D18
+ * @since 2021-09-27 13:58:09
+ * @sign 200EBBE1F5C5228B9E91FB19A6ABC9B1
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 

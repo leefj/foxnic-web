@@ -1115,6 +1115,8 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             if(!muliti) {
                 if(value && value.length>0) {
                     value=value[0];
+                } else {
+                    return null;
                 }
             }
             return value;

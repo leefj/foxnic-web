@@ -1,7 +1,7 @@
 /**
  * 代码生成拥有的车辆 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-26 16:39:07
+ * @since 2021-09-27 13:58:09
  */
 
 
@@ -77,7 +77,7 @@ function ListPage() {
 					,{ field: 'exampleId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('属主ID') , templet: function (d) { return templet('exampleId',d.exampleId,d);}  }
 					,{ field: 'plateNumber', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('牌号') , templet: function (d) { return templet('plateNumber',d.plateNumber,d);}  }
 					,{ field: 'color', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('规格') , templet: function (d) { return templet('color',d.color,d);}  }
-					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime),d); }}
+					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }}
 					,{ field: 'positionId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('岗位单选') , templet: function (d) { return templet('positionId',fox.getProperty(d,["position","fullName"]),d);} }
 					,{ field: 'orgId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('组织单选') , templet: function (d) { return templet('orgId',fox.getProperty(d,["organization","fullName"]),d);} }
 					,{ field: 'empId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('员工单选') , templet: function (d) { return templet('empId',fox.getProperty(d,["employee","person","name"]),d);} }

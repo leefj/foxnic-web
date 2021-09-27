@@ -1,16 +1,20 @@
 package org.github.foxnic.web.domain.system;
 
+import com.github.foxnic.api.model.CompositeParameter;
+import com.github.foxnic.commons.bean.BeanUtil;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.List;
+
+import javax.persistence.Transient;
 import java.util.ArrayList;
+import java.util.List;
 
 
 
 /**
- * null
+ * 代码生成示例主
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-16 19:13:48
- * @sign 63A4404E7D3A827B9F488C46F71B66D1
+ * @since 2021-09-27 13:53:28
+ * @sign 859AD2D0CF5FC36E6CB3E995BD3DD560
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -220,5 +224,17 @@ public class CodeExampleVO extends CodeExample {
 		if(this.ids==null) ids=new ArrayList<>();
 		this.ids.add(id);
 		return this;
+	}
+	@Transient
+	private CompositeParameter $compositeParameter;
+	/**
+	 * 获得解析后的复合查询参数
+	 */
+	@Transient
+	public CompositeParameter getCompositeParameter() {
+		if($compositeParameter!=null) return  $compositeParameter;
+		if(!"$composite".equals(this.getSearchField())) return null;
+		$compositeParameter=new CompositeParameter(this.getSearchValue(),BeanUtil.toMap(this));
+		return  $compositeParameter;
 	}
 }

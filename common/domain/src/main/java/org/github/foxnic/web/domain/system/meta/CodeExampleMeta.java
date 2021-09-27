@@ -1,18 +1,19 @@
 package org.github.foxnic.web.domain.system.meta;
 
 import com.github.foxnic.api.bean.BeanProperty;
-import org.github.foxnic.web.domain.system.CodeExample;
-import java.util.Date;
 import org.github.foxnic.web.domain.oauth.Resourze;
 import org.github.foxnic.web.domain.oauth.Role;
+import org.github.foxnic.web.domain.system.CodeExample;
+
+import java.util.Date;
 import java.util.List;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-24 13:08:57
- * @sign 5F7A094CB85E998707BBFEADC6F55738
+ * @since 2021-09-27 13:50:33
+ * @sign 7BD1AD1C1873179E4C5895D8CF8F4C3211
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 

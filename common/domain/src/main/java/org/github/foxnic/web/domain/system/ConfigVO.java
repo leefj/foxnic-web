@@ -1,9 +1,9 @@
 package org.github.foxnic.web.domain.system;
 
 import io.swagger.annotations.ApiModelProperty;
-import java.util.List;
-import java.util.ArrayList;
 
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -155,7 +155,7 @@ public class ConfigVO extends Config {
 		this.searchValue=searchValue;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 排序字段<br>
 	 * @return 排序字段
