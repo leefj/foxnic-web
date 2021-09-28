@@ -87,9 +87,14 @@ public interface CatalogServiceProxy {
 
 
 	/**
-	 * 查询数据存储
+	 * 查询分层节点
 	 */
 	public static final String QUERY_NODES = API_PREFIX + "query-nodes";
+
+	/**
+	 * 查询展平的节点
+	 */
+	public static final String QUERY_NODES_FLATTEN = API_PREFIX + "query-nodes-flatten";
 
 	/**
 	 * 保存层级关系
@@ -216,10 +221,17 @@ public interface CatalogServiceProxy {
 	Result<PagedList<Catalog>> queryPagedList(CatalogVO sample);
 
 	/**
-	 * 查询节点
+	 * 查询分层节点
 	 * */
 	@PostMapping(CatalogServiceProxy.QUERY_NODES)
 	Result<List<ZTreeNode>> queryNodes(CatalogVO sample);
+
+
+	/**
+	 * 查询组节点(展平)
+	 */
+	@RequestMapping(CatalogServiceProxy.QUERY_NODES_FLATTEN)
+	Result<List<ZTreeNode>> queryNodesFlatten(CatalogVO sample);
 	/**
 	 * 返回数据表清单
 	 */

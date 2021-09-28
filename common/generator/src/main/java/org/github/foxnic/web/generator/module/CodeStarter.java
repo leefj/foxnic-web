@@ -1,9 +1,7 @@
 package org.github.foxnic.web.generator.module;
 
 import com.github.foxnic.generator.util.ModuleCodeGenerator;
-import org.github.foxnic.web.generator.module.changes.ChsChangeInstanceConfig;
-import org.github.foxnic.web.generator.module.changes.ChsChangeDataConfig;
-import org.github.foxnic.web.generator.module.changes.ChsChangeDefinitionConfig;
+import org.github.foxnic.web.generator.module.changes.*;
 import org.github.foxnic.web.generator.module.example.CodeExampleCarConfig;
 import org.github.foxnic.web.generator.module.example.CodeExampleConfig;
 import org.github.foxnic.web.generator.module.example.CodeExampleRoleConfig;
@@ -33,12 +31,15 @@ public class CodeStarter extends ModuleCodeGenerator {
 //        initHrmModules();
 //        initExampleModules();
         initChangeModules();
+
     }
 
     private void  initChangeModules() {
         this.addConfig(new ChsChangeDefinitionConfig());
         this.addConfig(new ChsChangeInstanceConfig());
         this.addConfig(new ChsChangeDataConfig());
+        this.addConfig(new ChsExampleOrderConfig());
+        this.addConfig(new ChsExampleOrderItemConfig());
     }
 
     private void initPcmModules() {

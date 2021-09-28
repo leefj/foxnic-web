@@ -7,6 +7,7 @@ import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.busi.id.IDGenerator;
 import com.github.foxnic.commons.busi.id.SequenceType;
 import com.github.foxnic.commons.cache.Variable;
+import com.github.foxnic.commons.collection.CollectorUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.Rcd;
@@ -741,6 +742,53 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 		if(StringUtil.isBlank(catalog.getDataTable())) return 0;
 		 int count=dao().queryInteger("select count(1) from "+catalog.getDataTable()+" where catalog_id=? and deleted=0",id);
 		 return count;
+	}
+
+	@Override
+	public List<ZTreeNode> queryNodesFlatten(CatalogVO sample) {
+
+		if (StringUtil.isBlank(sample.getTenantId())) {
+			throw new IllegalArgumentException("请指定租户ID");
+		}
+
+		List<Catalog> catalogs=this.queryList(sample);
+		Map<String,Catalog> orgMap= CollectorUtil.collectMap(catalogs,Catalog::getId,(org)->{return org;});
+		if(catalogs.isEmpty()) return new ArrayList<>();
+		Set<String> ids=new HashSet<>();
+		for (Catalog org : catalogs) {
+			ids.add(org.getId());
+			String[] hierarchyArr=org.getHierarchy().split("/");
+			for (String id : hierarchyArr) {
+				ids.add(id);
+			}
+		}
+
+		Expr expr=new Expr("select a.*,(select count(1) from "+this.table()+" b where a.parent_id=b.id and deleted=0) child_count from "+this.table()+" a where deleted=0 and tenant_id=?",sample.getTenantId());
+		In in=new In("id",ids);
+		expr.append(in.toConditionExpr().startWithAnd());
+		RcdSet rs=dao().query(expr);
+		List<ZTreeNode> nodes=toZTreeNodeList(rs);
+		List<ZTreeNode> list=new ArrayList<>();
+		Map<String,ZTreeNode> nodeMap= CollectorUtil.collectMap(nodes,ZTreeNode::getId,(node)->{return node;});
+
+		//构建路径
+		for (ZTreeNode node : nodes) {
+			ZTreeNode n=node;
+			while (true) {
+				node.addNamePath(n.getName());
+				n=nodeMap.get(n.getParentId());
+				if(n==null) break;
+			}
+			Collections.reverse(node.getNamePathArray());
+			node.setNamePath(StringUtil.join(node.getNamePathArray(),"/"));
+
+			Catalog org=orgMap.get(node.getId());
+			if(org!=null) {
+				node.setData(org);
+				list.add(node);
+			}
+		}
+		return list;
 	}
 
 

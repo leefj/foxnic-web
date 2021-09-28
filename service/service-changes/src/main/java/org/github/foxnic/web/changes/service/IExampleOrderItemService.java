@@ -1,65 +1,49 @@
-package org.github.foxnic.web.pcm.service;
+package org.github.foxnic.web.changes.service;
 
 
+import com.github.foxnic.sql.expr.ConditionExpr;
+import com.github.foxnic.dao.entity.ISuperService;
+import org.github.foxnic.web.domain.changes.ExampleOrderItem;
+import org.github.foxnic.web.domain.changes.ExampleOrderItemVO;
+import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.entity.ISuperService;
-import com.github.foxnic.dao.excel.ExcelStructure;
-import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.sql.expr.ConditionExpr;
+import java.io.InputStream;
 import com.github.foxnic.sql.expr.OrderBy;
 import com.github.foxnic.sql.meta.DBField;
-import org.github.foxnic.web.domain.pcm.Catalog;
-import org.github.foxnic.web.domain.pcm.CatalogData;
-import org.github.foxnic.web.domain.pcm.CatalogVO;
-import org.github.foxnic.web.domain.pcm.DataQueryVo;
-import org.github.foxnic.web.misc.ztree.ZTreeNode;
-
-import java.io.InputStream;
-import java.util.List;
+import com.github.foxnic.dao.excel.ExcelWriter;
+import com.github.foxnic.dao.excel.ExcelStructure;
+import com.github.foxnic.dao.excel.ValidateResult;
+import com.github.foxnic.dao.data.SaveMode;
 
 /**
  * <p>
- * 数据存储表 服务接口
+ * 变更示例订单明细表 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-28 15:45:04
- * @version  20210829
+ * @since 2021-09-28 14:30:20
 */
 
-public interface ICatalogService extends ISuperService<Catalog> {
-
-	public static final String ROOT_ID="0";
-
-	/**
-	 * 编辑中的版本
-	 * */
-	public static final String VERSION_EDITING="editing";
-
-	/**
-	 * 激活状态的版本
-	 * */
-	public static final String VERSION_ACTIVATED="activated";
+public interface IExampleOrderItemService extends ISuperService<ExampleOrderItem> {
+	
 	/**
 	 * 插入实体
-	 * @param catalog 实体数据
+	 * @param exampleOrderItem 实体数据
 	 * @return 插入是否成功
 	 * */
-	Result insert(Catalog catalog);
+	Result insert(ExampleOrderItem exampleOrderItem);
  
 	/**
 	 * 批量插入实体，事务内
-	 * @param catalogList 实体数据清单
+	 * @param exampleOrderItemList 实体数据清单
 	 * @return 插入是否成功
 	 * */
-	Result insertList(List<Catalog> catalogList);
+	Result insertList(List<ExampleOrderItem> exampleOrderItemList);
 	
 	
 		
 	/**
-	 * 按主键删除 数据存储
+	 * 按主键删除 变更示例订单明细
 	 *
 	 * @param id 主键
 	 * @return 删除是否成功
@@ -67,7 +51,7 @@ public interface ICatalogService extends ISuperService<Catalog> {
 	Result deleteByIdPhysical(String id);
 	
 	/**
-	 * 按主键删除 数据存储
+	 * 按主键删除 变更示例订单明细
 	 *
 	 * @param id 主键
 	 * @return 删除是否成功
@@ -90,7 +74,7 @@ public interface ICatalogService extends ISuperService<Catalog> {
 	
 		
 	/**
-	 * 按主键更新字段 数据存储
+	 * 按主键更新字段 变更示例订单明细
 	 *
 	 * @param id 主键
 	 * @return 是否更新成功
@@ -99,75 +83,75 @@ public interface ICatalogService extends ISuperService<Catalog> {
 	
 	/**
 	 * 更新实体
-	 * @param catalog 数据对象
+	 * @param exampleOrderItem 数据对象
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	Result update(Catalog catalog , SaveMode mode);
+	Result update(ExampleOrderItem exampleOrderItem , SaveMode mode);
 	
 	
 	/**
 	 * 更新实体集，事务内
-	 * @param catalogList 数据对象列表
+	 * @param exampleOrderItemList 数据对象列表
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	Result updateList(List<Catalog> catalogList, SaveMode mode);
+	Result updateList(List<ExampleOrderItem> exampleOrderItemList, SaveMode mode);
 	
 	/**
 	 * 保存实体，如果主键值不为 null，则更新，否则插入
-	 * @param catalog 实体数据
+	 * @param exampleOrderItem 实体数据
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	Result save(Catalog catalog , SaveMode mode);
+	Result save(ExampleOrderItem exampleOrderItem , SaveMode mode);
 	
 	/**
 	 * 保存实体，如果主键值不为null，则更新，否则插入
-	 * @param catalogList 实体数据清单
+	 * @param exampleOrderItemList 实体数据清单
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	Result saveList(List<Catalog> catalogList , SaveMode mode);
+	Result saveList(List<ExampleOrderItem> exampleOrderItemList , SaveMode mode);
 	
 	/**
 	 * 检查实体中的数据字段是否已经存在
-	 * @param catalog  实体对象
+	 * @param exampleOrderItem  实体对象
 	 * @param field  字段清单，至少指定一个
 	 * @return 是否已经存在
 	 * */
-	boolean checkExists(Catalog catalog,DBField... field);
+	boolean checkExists(ExampleOrderItem exampleOrderItem,DBField... field);
  
 		
 	/**
-	 * 按主键获取 数据存储
+	 * 按主键获取 变更示例订单明细
 	 *
 	 * @param id 主键
-	 * @return Catalog 数据对象
+	 * @return ExampleOrderItem 数据对象
 	 */
-	Catalog getById(String id);
+	ExampleOrderItem getById(String id);
 		
 	/**
 	 * 检查实体中的数据字段是否已经存在
 	 * @param ids  主键清单
 	 * @return 实体集
 	 * */
-	List<Catalog> getByIds(List<String> ids);
+	List<ExampleOrderItem> getByIds(List<String> ids);
 
 	/**
 	 * 检查 角色 是否已经存在
 	 *
-	 * @param catalog 数据对象
+	 * @param exampleOrderItem 数据对象
 	 * @return 判断结果
 	 */
-	Result<Catalog> checkExists(Catalog catalog);
+	Result<ExampleOrderItem> checkExists(ExampleOrderItem exampleOrderItem);
 
 	/**
 	 * 根据实体数构建默认的条件表达式，字符串使用模糊匹配
 	 * @param sample 数据样例
 	 * @return ConditionExpr 条件表达式
 	 * */
-	ConditionExpr buildQueryCondition(Catalog sample);
+	ConditionExpr buildQueryCondition(ExampleOrderItem sample);
 	
 	/**
 	 * 根据实体数构建默认的条件表达式, 字符串是否使用模糊匹配
@@ -175,14 +159,14 @@ public interface ICatalogService extends ISuperService<Catalog> {
 	 * @param tableAliase 数据表别名
 	 * 	@return ConditionExpr 条件表达式
 	 * */
-	ConditionExpr buildQueryCondition(Catalog sample,String tableAliase);
+	ConditionExpr buildQueryCondition(ExampleOrderItem sample,String tableAliase);
 
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
 	 * @param sample  查询条件
 	 * @return 查询结果
 	 * */
-	List<Catalog> queryList(Catalog sample);
+	List<ExampleOrderItem> queryList(ExampleOrderItem sample);
  
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
@@ -191,7 +175,7 @@ public interface ICatalogService extends ISuperService<Catalog> {
 	 * @param orderBy  排序
 	 * @return 查询结果
 	 * */
-	List<Catalog> queryList(Catalog sample,ConditionExpr condition,OrderBy orderBy);
+	List<ExampleOrderItem> queryList(ExampleOrderItem sample,ConditionExpr condition,OrderBy orderBy);
 	
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
@@ -199,7 +183,7 @@ public interface ICatalogService extends ISuperService<Catalog> {
 	 * @param orderBy  排序
 	 * @return 查询结果
 	 * */
-	List<Catalog> queryList(Catalog sample,OrderBy orderBy);
+	List<ExampleOrderItem> queryList(ExampleOrderItem sample,OrderBy orderBy);
 	
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
@@ -207,14 +191,14 @@ public interface ICatalogService extends ISuperService<Catalog> {
 	 * @param condition  其它条件
 	 * @return 查询结果
 	 * */
-	List<Catalog> queryList(Catalog sample,ConditionExpr condition);
+	List<ExampleOrderItem> queryList(ExampleOrderItem sample,ConditionExpr condition);
 	
 	/**
 	 * 查询单个实体
 	 * @param sample  查询条件
 	 * @return 查询结果
 	 * */
-	Catalog queryEntity(Catalog sample);
+	ExampleOrderItem queryEntity(ExampleOrderItem sample);
 	
 	/**
 	 * 分页查询实体集
@@ -223,7 +207,7 @@ public interface ICatalogService extends ISuperService<Catalog> {
 	 * @param pageIndex 页码
 	 * @return 查询结果
 	 * */
-	PagedList<Catalog> queryPagedList(Catalog sample,int pageSize,int pageIndex);
+	PagedList<ExampleOrderItem> queryPagedList(ExampleOrderItem sample,int pageSize,int pageIndex);
 	
 	/**
 	 * 分页查询实体集
@@ -234,7 +218,7 @@ public interface ICatalogService extends ISuperService<Catalog> {
 	 * @param orderBy  排序
 	 * @return 查询结果
 	 * */
-	PagedList<Catalog> queryPagedList(Catalog sample,ConditionExpr condition,OrderBy orderBy,int pageSize,int pageIndex);
+	PagedList<ExampleOrderItem> queryPagedList(ExampleOrderItem sample,ConditionExpr condition,OrderBy orderBy,int pageSize,int pageIndex);
 	
 	/**
 	 * 分页查询实体集
@@ -244,7 +228,7 @@ public interface ICatalogService extends ISuperService<Catalog> {
 	 * @param condition  其它条件
 	 * @return 查询结果
 	 * */
-	PagedList<Catalog> queryPagedList(Catalog sample,ConditionExpr condition,int pageSize,int pageIndex);
+	PagedList<ExampleOrderItem> queryPagedList(ExampleOrderItem sample,ConditionExpr condition,int pageSize,int pageIndex);
 	
 	/**
 	 * 分页查询实体集
@@ -254,7 +238,7 @@ public interface ICatalogService extends ISuperService<Catalog> {
 	 * @param orderBy  排序
 	 * @return 查询结果
 	 * */
-	PagedList<Catalog> queryPagedList(Catalog sample,OrderBy orderBy,int pageSize,int pageIndex);
+	PagedList<ExampleOrderItem> queryPagedList(ExampleOrderItem sample,OrderBy orderBy,int pageSize,int pageIndex);
  
  	/**
 	 * 查询指定字段的数据清单
@@ -280,7 +264,7 @@ public interface ICatalogService extends ISuperService<Catalog> {
 	/**
 	 * 导出 Excel
 	 * */
-	ExcelWriter exportExcel(Catalog sample);
+	ExcelWriter exportExcel(ExampleOrderItem sample);
 
 	/**
 	 * 导出用于数据导入的 Excel 模版
@@ -300,58 +284,5 @@ public interface ICatalogService extends ISuperService<Catalog> {
 	 * */
 	List<ValidateResult> importExcel(InputStream input,int sheetIndex,boolean batch);
 
-
-	/**
-	 * 查询根节点
-	 * */
-	List<ZTreeNode> queryRootNotes(String rootId);
-
-	/**
-	 * 查询下级节点
-	 * */
-	List<ZTreeNode> queryChildNodes(String parentId);
-
-	/**
-	 * 保存层级关系
-	 * */
-	Boolean saveHierarchy(List<String> ids, String parentId);
-
-	/**
-	 * 填充层级关系
-	 * */
-	int fillHierarchy(boolean reset);
-
-	/**
-	 * 构建层级关系
-	 * */
-	List<ZTreeNode> buildingHierarchicalRelationships(List<ZTreeNode> list);
-
-	/**
-	 * 按关键字搜索，并返回匹配的层级
-	 * */
-	List<String> search(String keyword);
-
-	List<String> getStorageTables();
-
-	/**
-	 * 获得所有版本
-	 * */
-    List<String> getVersions(String id);
-
-	Result createVersion(String id);
-
-	Result applyVersion(String id);
-
-	/**
-	 * 查询类目下指定ID的数据
-	 * */
-    Result queryData(DataQueryVo dataQueryVo);
-
-	Result saveDataList(List<CatalogData> catalogDataList);
-
-	Result deleteData(DataQueryVo dataQueryVo);
-
-    int getDataCount(String id);
-
-    List<ZTreeNode> queryNodesFlatten(CatalogVO sample);
+ 
 }

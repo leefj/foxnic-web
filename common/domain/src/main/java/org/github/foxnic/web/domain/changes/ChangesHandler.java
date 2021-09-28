@@ -1,8 +1,10 @@
 package org.github.foxnic.web.domain.changes;
 
+import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.cache.LocalCache;
 import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.commons.reflect.ReflectUtil;
+import org.github.foxnic.web.constants.enums.changes.ChangeStatus;
 
 public abstract class ChangesHandler {
 
@@ -26,10 +28,12 @@ public abstract class ChangesHandler {
     /**
      * 应用变更
      * @param  instance 变更实例
-     * @param  before 变更前的数据
-     * @param  after 变更后的数据
+     * @param  dataBefore 变更前的数据
+     * @param  dataAfter 变更后的数据
      * @param  delta  变更后的数据差异
+     * @param  statusBefore  审批前的状态
+     * @param  statusAfter  审批后的状态
      * */
-    public abstract boolean applyChanges(ChangeInstance instance,DataUnit before,DataUnit after,DataDelta delta);
+    public abstract Result onStatusChange(ChangeInstance instance, DataUnit dataBefore, DataUnit dataAfter, DataDelta delta, ChangeStatus statusBefore,ChangeStatus statusAfter);
 
 }

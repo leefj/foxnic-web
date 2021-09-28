@@ -232,9 +232,25 @@ public class CatalogController extends SuperController {
 
 
 	/**
-	 * 查询数据存储
+	 * 查询组节点(展平)
 	 */
-	@ApiOperation(value = "查询数据存储")
+	@ApiOperation(value = "查询分层的节点")
+	@ApiOperationSupport(order=5 ,  ignoreParameters = { CatalogVOMeta.PAGE_INDEX , CatalogVOMeta.PAGE_SIZE } )
+	@SentinelResource(value = CatalogServiceProxy.QUERY_NODES_FLATTEN , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
+	@PostMapping(CatalogServiceProxy.QUERY_NODES_FLATTEN)
+	Result<List<ZTreeNode>> queryNodesFlatten(CatalogVO sample) {
+		Result<List<ZTreeNode>> result=new Result<>();
+		List<ZTreeNode> list=catalogService.queryNodesFlatten(sample);
+		result.data(list);
+		result.success(true);
+		return result;
+	}
+
+
+	/**
+	 * 查询分层的节点
+	 */
+	@ApiOperation(value = "查询分层的节点")
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = CatalogVOMeta.ID , value = "主键" , required = true , dataTypeClass=Integer.class),
 			@ApiImplicitParam(name = CatalogVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class),

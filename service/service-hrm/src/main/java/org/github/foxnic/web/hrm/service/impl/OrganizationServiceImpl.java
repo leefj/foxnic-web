@@ -79,6 +79,7 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 	 * */
 	@Override
 	public Result insert(Organization organization) {
+
 		if(StringUtil.isBlank(organization.getParentId())) {
 			organization.setParentId(IOrganizationService.ROOT_ID);
 		}
@@ -300,6 +301,11 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 
 	@Override
 	public List<ZTreeNode> queryNodesFlatten(OrganizationVO sample) {
+
+		if (StringUtil.isBlank(sample.getTenantId())) {
+			throw new IllegalArgumentException("请指定租户ID");
+		}
+
 		List<Organization> orgs=this.queryList(sample);
 		Map<String,Organization> orgMap=CollectorUtil.collectMap(orgs,Organization::getId,(org)->{return org;});
 		if(orgs.isEmpty()) return new ArrayList<>();
@@ -312,7 +318,7 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 			}
 		}
 
-		Expr expr=new Expr("select a.*,(select count(1) from hrm_organization b where a.parent_id=b.id and deleted=0) child_count from hrm_organization a where deleted=0");
+		Expr expr=new Expr("select a.*,(select count(1) from hrm_organization b where a.parent_id=b.id and deleted=0) child_count from hrm_organization a where deleted=0 and tenant_id=?",sample.getTenantId());
 		In in=new In("id",ids);
 		expr.append(in.toConditionExpr().startWithAnd());
 		RcdSet rs=dao().query(expr);
