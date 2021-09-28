@@ -273,9 +273,25 @@ public class OrganizationController extends SuperController {
 
 
 	/**
-	 * 查询数据存储
+	 * 查询组织节点(展平)
 	 */
-	@ApiOperation(value = "查询组织节点")
+	@ApiOperation(value = "查询组织节点(展平)")
+	@ApiOperationSupport(order=5 ,  ignoreParameters = { OrganizationVOMeta.PAGE_INDEX , OrganizationVOMeta.PAGE_SIZE } )
+	@SentinelResource(value = OrganizationServiceProxy.QUERY_NODES_FLATTEN , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
+	@PostMapping(OrganizationServiceProxy.QUERY_NODES_FLATTEN)
+	public Result<List<ZTreeNode>> queryNodesFlatten(OrganizationVO sample) {
+		Result<List<ZTreeNode>> result=new Result<>();
+		List<ZTreeNode> list=organizationService.queryNodesFlatten(sample);
+		result.data(list);
+		result.success(true);
+		return result;
+	}
+
+
+	/**
+	 * 查询组织节点(带层级)
+	 */
+	@ApiOperation(value = "查询组织节点(带层级)")
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = OrganizationVOMeta.PARENT_ID , value = "上级ID" , required = false , dataTypeClass=Integer.class),
 	})

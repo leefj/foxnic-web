@@ -20,7 +20,7 @@ import java.util.Map;
 /**
  * 变更实例
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-27 17:36:54
+ * @since 2021-09-28 09:10:34
  * @sign 8452C649CECFDA30595A045A1C7D77FE
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -399,6 +399,12 @@ public class ChangeInstance extends Entity {
 	public String getStatus() {
 		return status;
 	}
+	
+	/**
+	 * 获得 变更状态 的投影属性<br>
+	 * 等价于 getStatus 方法，获得对应的枚举类型
+	 * @return 变更状态
+	*/
 	@Transient
 	public ChangeStatus getStatusEnum() {
 		return statusEnum ;
@@ -412,9 +418,24 @@ public class ChangeInstance extends Entity {
 	public ChangeInstance setStatus(String status) {
 		this.status=status;
 		this.statusEnum= (ChangeStatus) EnumUtil.parseByCode(ChangeStatus.values(),status) ;
-		if(StringUtil.hasContent(status) && this.status==null) {
-			throw new IllegalArgumentException("");
+		if(StringUtil.hasContent(status) && this.statusEnum==null) {
+			throw new IllegalArgumentException( status + " is not one of ChangeStatus");
 		}
+		return this;
+	}
+	
+	/**
+	 * 设置 变更状态的投影属性，等同于设置 变更状态
+	 * @param statusEnum 变更状态
+	 * @return 当前对象
+	*/
+	public ChangeInstance setStatusEnum(ChangeStatus statusEnum) {
+		if(statusEnum==null) {
+			this.status=null;
+		} else {
+			this.status=statusEnum.code();
+		}
+		this.statusEnum=statusEnum;
 		return this;
 	}
 

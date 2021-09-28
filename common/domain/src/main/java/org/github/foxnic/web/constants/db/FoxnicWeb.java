@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2021-09-27 16:02:42
+ * @since 2021-09-27 16:49:23
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -116,9 +116,14 @@ public class FoxnicWeb {
 		public static final DBField NAME = new DBField(DBDataType.STRING , "name","name","名称","名称",false,false,true);
 		
 		/**
-		 * 编码
+		 * 代码
 		*/
-		public static final DBField CODE = new DBField(DBDataType.STRING , "code","code","编码","编码",false,false,true);
+		public static final DBField CODE = new DBField(DBDataType.STRING , "code","code","代码","代码",false,false,true);
+		
+		/**
+		 * 处理类
+		*/
+		public static final DBField HANDLER = new DBField(DBDataType.STRING , "handler","handler","处理类","处理类",false,false,true);
 		
 		/**
 		 * 是否有效
@@ -171,7 +176,7 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
 		public CHS_CHANGE_DEFINITION() {
-			this.init($NAME,"变更定义表" , ID , NAME , CODE , VALID , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"变更定义表" , ID , NAME , CODE , HANDLER , VALID , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final CHS_CHANGE_DEFINITION $TABLE=new CHS_CHANGE_DEFINITION();
 	}

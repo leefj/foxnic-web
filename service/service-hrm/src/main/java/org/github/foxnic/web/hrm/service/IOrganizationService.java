@@ -12,6 +12,7 @@ import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.expr.OrderBy;
 import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.domain.hrm.Organization;
+import org.github.foxnic.web.domain.hrm.OrganizationVO;
 import org.github.foxnic.web.misc.ztree.ZTreeNode;
 
 import java.io.InputStream;
@@ -319,4 +320,5 @@ public interface IOrganizationService extends ISuperService<Organization> {
 	 * */
 	List<String> search(String keyword);
 
+	List<ZTreeNode> queryNodesFlatten(OrganizationVO sample);
 }

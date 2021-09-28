@@ -1,18 +1,16 @@
 package org.github.foxnic.web.proxy.hrm;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.github.foxnic.web.proxy.api.APIProxy;
-import org.github.foxnic.web.proxy.FeignConfiguration;
-
-import org.springframework.cloud.openfeign.FeignClient;
-
-
-import org.github.foxnic.web.domain.hrm.Employee;
-import org.github.foxnic.web.domain.hrm.EmployeeVO;
-import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
+import org.github.foxnic.web.domain.hrm.Employee;
+import org.github.foxnic.web.domain.hrm.EmployeeVO;
+import org.github.foxnic.web.proxy.FeignConfiguration;
 import org.github.foxnic.web.proxy.MicroServiceNames;
+import org.github.foxnic.web.proxy.api.APIProxy;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 /**
  * <p>
@@ -75,7 +73,16 @@ public interface EmployeeServiceProxy {
 	 * 获取多个员工
 	 */
 	public static final String GET_BY_IDS = API_PREFIX + "get-by-ids";
-	;
+
+	/**
+	 * 获取单个员工
+	 */
+	public static final String GET_BY_BADGE = API_PREFIX + "get-by-badge";
+
+	/**
+	 * 获取多个员工
+	 */
+	public static final String GET_BY_BADGES = API_PREFIX + "get-by-badges";
 
 	/**
 	 * 查询员工
@@ -143,6 +150,19 @@ public interface EmployeeServiceProxy {
 	*/
 	@RequestMapping(EmployeeServiceProxy.GET_BY_IDS)
 	Result<List<Employee>> getByIds(List<String> ids);
+
+
+	/**
+	 * 获取员工
+	 */
+	@RequestMapping(EmployeeServiceProxy.GET_BY_BADGE)
+	Result<Employee> getByBadge(String badge);
+
+	/**
+	 * 批量删除员工
+	 */
+	@RequestMapping(EmployeeServiceProxy.GET_BY_BADGES)
+	Result<List<Employee>> getByBadges(List<String> badges);
 	/**
 	 * 查询员工
 	*/

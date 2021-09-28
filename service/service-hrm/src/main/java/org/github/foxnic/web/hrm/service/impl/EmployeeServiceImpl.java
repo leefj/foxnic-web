@@ -16,6 +16,8 @@ import com.github.foxnic.dao.excel.ValidateResult;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.expr.Expr;
+import com.github.foxnic.sql.expr.In;
+import com.github.foxnic.sql.expr.Select;
 import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.constants.enums.hrm.PersonSource;
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
@@ -370,6 +372,29 @@ public class EmployeeServiceImpl extends SuperService<Employee> implements IEmpl
 	@Override
 	public List<ValidateResult> importExcel(InputStream input,int sheetIndex,boolean batch) {
 		return super.importExcel(input,sheetIndex,batch);
+	}
+
+	/**
+	 * 按工号获取员工
+	 */
+	@Override
+	public Employee getByBadge(String badge) {
+		String companyId=SessionUser.getCurrent().getActivatedCompanyId();
+		Employee sample=Employee.create().setCompanyId(companyId).setBadge(badge);
+		return this.queryEntity(sample);
+	}
+
+	/**
+	 * 批量按工号获取员工 <br>
+	 */
+	@Override
+	public List<Employee> getByBadges(List<String> badges) {
+		if(badges==null || badges.isEmpty()) return new ArrayList<>();
+		String companyId=SessionUser.getCurrent().getActivatedCompanyId();
+		Select select=new Select(this.table());
+		In in=new In("badge",badges);
+		select.where().and("company_id=? and deleted=0",companyId).and(in);
+		return dao().queryEntities(Employee.class,select);
 	}
 
 	@Override

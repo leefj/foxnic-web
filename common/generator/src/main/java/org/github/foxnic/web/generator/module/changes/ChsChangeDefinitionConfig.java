@@ -2,6 +2,7 @@ package org.github.foxnic.web.generator.module.changes;
 
 import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
+import com.github.foxnic.generator.builder.view.option.FormOptions;
 import com.github.foxnic.generator.builder.view.option.ListOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
@@ -22,7 +23,16 @@ public class ChsChangeDefinitionConfig extends BaseCodeConfig<CHS_CHANGE_DEFINIT
 
 	@Override
 	public void configFields(ViewOptions view) {
+		view.field(CHS_CHANGE_DEFINITION.ID).basic().hidden();
+		view.field(CHS_CHANGE_DEFINITION.VALID).form().logicField().on("有效",1).off("无效",0).defaultValue(true)
+		.search().hidden();
+		view.field(CHS_CHANGE_DEFINITION.HANDLER).search().hidden();
 
+	}
+
+	@Override
+	public void configForm(ViewOptions view, FormOptions form) {
+		form.labelWidth(100);
 	}
 
 	@Override

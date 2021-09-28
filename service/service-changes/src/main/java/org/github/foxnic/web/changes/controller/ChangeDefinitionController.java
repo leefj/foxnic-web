@@ -48,7 +48,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 变更定义表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-27 16:04:50
+ * @since 2021-09-28 11:52:37
 */
 
 @Api(tags = "变更定义")
@@ -67,7 +67,8 @@ public class ChangeDefinitionController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = ChangeDefinitionVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ChangeDefinitionVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeDefinitionVOMeta.CODE , value = "编码" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeDefinitionVOMeta.CODE , value = "代码" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeDefinitionVOMeta.HANDLER , value = "处理类" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ChangeDefinitionVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class),
 	})
 	@ApiOperationSupport(order=1)
@@ -121,7 +122,8 @@ public class ChangeDefinitionController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = ChangeDefinitionVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ChangeDefinitionVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeDefinitionVOMeta.CODE , value = "编码" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeDefinitionVOMeta.CODE , value = "代码" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeDefinitionVOMeta.HANDLER , value = "处理类" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ChangeDefinitionVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class),
 	})
 	@ApiOperationSupport( order=4 , ignoreParameters = { ChangeDefinitionVOMeta.PAGE_INDEX , ChangeDefinitionVOMeta.PAGE_SIZE , ChangeDefinitionVOMeta.SEARCH_FIELD , ChangeDefinitionVOMeta.FUZZY_FIELD , ChangeDefinitionVOMeta.SEARCH_VALUE , ChangeDefinitionVOMeta.SORT_FIELD , ChangeDefinitionVOMeta.SORT_TYPE , ChangeDefinitionVOMeta.IDS } ) 
@@ -142,7 +144,8 @@ public class ChangeDefinitionController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = ChangeDefinitionVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ChangeDefinitionVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeDefinitionVOMeta.CODE , value = "编码" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeDefinitionVOMeta.CODE , value = "代码" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeDefinitionVOMeta.HANDLER , value = "处理类" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ChangeDefinitionVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { ChangeDefinitionVOMeta.PAGE_INDEX , ChangeDefinitionVOMeta.PAGE_SIZE , ChangeDefinitionVOMeta.SEARCH_FIELD , ChangeDefinitionVOMeta.FUZZY_FIELD , ChangeDefinitionVOMeta.SEARCH_VALUE , ChangeDefinitionVOMeta.SORT_FIELD , ChangeDefinitionVOMeta.SORT_TYPE , ChangeDefinitionVOMeta.IDS } )
@@ -176,10 +179,10 @@ public class ChangeDefinitionController extends SuperController {
 
 
 	/**
-	 * 批量删除变更定义 <br>
+	 * 批量获取变更定义 <br>
 	 * 联合主键时，请自行调整实现
 	*/
-		@ApiOperation(value = "批量删除变更定义")
+		@ApiOperation(value = "批量获取变更定义")
 		@ApiImplicitParams({
 				@ApiImplicitParam(name = ChangeDefinitionVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})
@@ -202,7 +205,8 @@ public class ChangeDefinitionController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = ChangeDefinitionVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ChangeDefinitionVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeDefinitionVOMeta.CODE , value = "编码" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeDefinitionVOMeta.CODE , value = "代码" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeDefinitionVOMeta.HANDLER , value = "处理类" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ChangeDefinitionVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { ChangeDefinitionVOMeta.PAGE_INDEX , ChangeDefinitionVOMeta.PAGE_SIZE } )
@@ -223,7 +227,8 @@ public class ChangeDefinitionController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = ChangeDefinitionVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ChangeDefinitionVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeDefinitionVOMeta.CODE , value = "编码" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeDefinitionVOMeta.CODE , value = "代码" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeDefinitionVOMeta.HANDLER , value = "处理类" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ChangeDefinitionVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class),
 	})
 	@ApiOperationSupport(order=8)

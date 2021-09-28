@@ -21,7 +21,7 @@ import com.github.foxnic.dao.data.SaveMode;
  * 变更实例表 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-27 16:04:54
+ * @since 2021-09-28 09:10:34
 */
 
 public interface IChangeInstanceService extends ISuperService<ChangeInstance> {

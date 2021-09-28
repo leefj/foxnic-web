@@ -43,6 +43,7 @@ import java.util.Map;
  * </p>
  * @author 李方捷 , leefangjie@qq.com
  * @since 2021-09-15 16:24:05
+ * @version
 */
 
 @Api(tags = "员工")
@@ -195,6 +196,51 @@ public class EmployeeController extends SuperController {
 		result.success(true).data(list);
 		return result;
 	}
+
+
+
+	/**
+	 * 按工号获取员工
+	 */
+	@ApiOperation(value = "按工号获取员工")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = EmployeeVOMeta.BADGE , value = "工号" , required = true , dataTypeClass=String.class , example = "1"),
+	})
+	@ApiOperationSupport(order=6)
+	@NotNull(name = EmployeeVOMeta.BADGE)
+	@SentinelResource(value = EmployeeServiceProxy.GET_BY_BADGE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
+	@PostMapping(EmployeeServiceProxy.GET_BY_BADGE)
+	public Result<Employee> getByBadge(String badge) {
+		Result<Employee> result=new Result<>();
+		Employee employee=employeeService.getByBadge(badge);
+		// 关联出 姓名 数据
+		employeeService.join(employee,EmployeeMeta.PERSON);
+		result.success(true).data(employee);
+		return result;
+	}
+
+
+	/**
+	 * 批量按工号获取员工 <br>
+	 */
+	@ApiOperation(value = "批量按工号获取员工")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "badges" , value = "工号清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
+	})
+	@ApiOperationSupport(order=3)
+	@NotNull(name = "badges")
+	@SentinelResource(value = EmployeeServiceProxy.GET_BY_BADGES , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
+	@PostMapping(EmployeeServiceProxy.GET_BY_BADGES)
+	public Result<List<Employee>> getByBadges(List<String> badges) {
+		Result<List<Employee>> result=new Result<>();
+		List<Employee> list=employeeService.getByBadges(badges);
+		// 关联出 姓名 数据
+		employeeService.join(list,EmployeeMeta.PERSON);
+		result.success(true).data(list);
+		return result;
+	}
+
+
 
 	
 	/**

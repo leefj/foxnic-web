@@ -4,6 +4,7 @@ package org.github.foxnic.web.hrm.service.impl;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.commons.collection.CollectorUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.Rcd;
@@ -16,11 +17,14 @@ import com.github.foxnic.dao.excel.ValidateResult;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.dao.sql.expr.Template;
 import com.github.foxnic.sql.expr.ConditionExpr;
+import com.github.foxnic.sql.expr.Expr;
+import com.github.foxnic.sql.expr.In;
 import com.github.foxnic.sql.meta.DBField;
 import com.github.foxnic.sql.parameter.BatchParamBuilder;
 import org.github.foxnic.web.constants.db.FoxnicWeb.HRM_ORGANIZATION;
 import org.github.foxnic.web.constants.enums.dict.OrgNodeType;
 import org.github.foxnic.web.domain.hrm.Organization;
+import org.github.foxnic.web.domain.hrm.OrganizationVO;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.hrm.service.IOrganizationService;
 import org.github.foxnic.web.hrm.service.IPositionService;
@@ -294,6 +298,48 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 		return rs.getValueList("hierarchy",String.class);
 	}
 
+	@Override
+	public List<ZTreeNode> queryNodesFlatten(OrganizationVO sample) {
+		List<Organization> orgs=this.queryList(sample);
+		Map<String,Organization> orgMap=CollectorUtil.collectMap(orgs,Organization::getId,(org)->{return org;});
+		if(orgs.isEmpty()) return new ArrayList<>();
+		Set<String> ids=new HashSet<>();
+		for (Organization org : orgs) {
+			ids.add(org.getId());
+			String[] hierarchyArr=org.getHierarchy().split("/");
+			for (String id : hierarchyArr) {
+				ids.add(id);
+			}
+		}
+
+		Expr expr=new Expr("select a.*,(select count(1) from hrm_organization b where a.parent_id=b.id and deleted=0) child_count from hrm_organization a where deleted=0");
+		In in=new In("id",ids);
+		expr.append(in.toConditionExpr().startWithAnd());
+		RcdSet rs=dao().query(expr);
+		List<ZTreeNode> nodes=toZTreeNodeList(rs);
+		List<ZTreeNode> list=new ArrayList<>();
+		Map<String,ZTreeNode> nodeMap= CollectorUtil.collectMap(nodes,ZTreeNode::getId,(node)->{return node;});
+
+		//构建路径
+		for (ZTreeNode node : nodes) {
+			ZTreeNode n=node;
+			while (true) {
+				node.addNamePath(n.getName());
+				n=nodeMap.get(n.getParentId());
+				if(n==null) break;
+			}
+			Collections.reverse(node.getNamePathArray());
+			node.setNamePath(StringUtil.join(node.getNamePathArray(),"/"));
+
+			Organization org=orgMap.get(node.getId());
+			if(org!=null) {
+				node.setData(org);
+				list.add(node);
+			}
+		}
+		return list;
+	}
+
 	private RcdSet queryChildOrgs(String parentId,String targetType) {
 		RcdSet nodes=null;
 		String tenantId= SessionUser.getCurrent().getActivatedTenantId();
@@ -367,8 +413,10 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 			if(StringUtil.hasContent(node.getHierarchy())) {
 				node.setDepth(node.getHierarchy().split("/").length);
 			}
-			int nc=m.getInteger("child_count");
-			int pc=m.getInteger("position_count");
+			Integer nc=m.getInteger("child_count");
+			if(nc==null) nc=0;
+			Integer pc=m.getInteger("position_count");
+			if(pc==null) pc=0;
 			node.setIsParent((nc+pc)>0);
 			node.setType(m.getString(HRM_ORGANIZATION.TYPE));
 			nodes.add(node);

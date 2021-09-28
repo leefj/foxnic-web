@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 变更定义
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-27 15:32:09
- * @sign 2081956F235B30BCE0FFB84A973DE757
+ * @since 2021-09-27 16:50:18
+ * @sign 5A584BB8A05090DD1314629262217301
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -42,10 +42,16 @@ public class ChangeDefinition extends Entity {
 	private String name;
 	
 	/**
-	 * 编码：编码
+	 * 代码：代码
 	*/
-	@ApiModelProperty(required = false,value="编码" , notes = "编码")
+	@ApiModelProperty(required = false,value="代码" , notes = "代码")
 	private String code;
+	
+	/**
+	 * 处理类：处理类
+	*/
+	@ApiModelProperty(required = false,value="处理类" , notes = "处理类")
+	private String handler;
 	
 	/**
 	 * 是否有效：是否有效
@@ -146,21 +152,40 @@ public class ChangeDefinition extends Entity {
 	}
 	
 	/**
-	 * 获得 编码<br>
-	 * 编码
-	 * @return 编码
+	 * 获得 代码<br>
+	 * 代码
+	 * @return 代码
 	*/
 	public String getCode() {
 		return code;
 	}
 	
 	/**
-	 * 设置 编码
-	 * @param code 编码
+	 * 设置 代码
+	 * @param code 代码
 	 * @return 当前对象
 	*/
 	public ChangeDefinition setCode(String code) {
 		this.code=code;
+		return this;
+	}
+	
+	/**
+	 * 获得 处理类<br>
+	 * 处理类
+	 * @return 处理类
+	*/
+	public String getHandler() {
+		return handler;
+	}
+	
+	/**
+	 * 设置 处理类
+	 * @param handler 处理类
+	 * @return 当前对象
+	*/
+	public ChangeDefinition setHandler(String handler) {
+		this.handler=handler;
 		return this;
 	}
 	

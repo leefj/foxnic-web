@@ -1,7 +1,7 @@
 /**
  * 变更定义 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-27 16:04:54
+ * @since 2021-09-28 11:52:41
  */
 
 function FormPage() {
@@ -151,6 +151,8 @@ function FormPage() {
 	function getFormData() {
 		var data=form.val("data-form");
 
+		//处理 是否有效 默认值
+		if(!data.valid) data.valid=0;
 
 
 

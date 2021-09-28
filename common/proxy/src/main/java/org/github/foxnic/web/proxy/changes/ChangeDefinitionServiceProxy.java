@@ -19,7 +19,7 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  * 变更定义表  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-27 16:04:50
+ * @since 2021-09-28 11:52:37
 */
 
 @FeignClient(value = MicroServiceNames.CHS, contextId = ChangeDefinitionServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)
@@ -75,7 +75,6 @@ public interface ChangeDefinitionServiceProxy {
 	 * 获取多个变更定义
 	 */
 	public static final String GET_BY_IDS = API_PREFIX + "get-by-ids";
-	;
 
 	/**
 	 * 查询变更定义

@@ -4,6 +4,7 @@ import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.domain.hrm.Organization;
 import org.github.foxnic.web.domain.hrm.OrganizationVO;
+import org.github.foxnic.web.misc.ztree.ZTreeNode;
 import org.github.foxnic.web.proxy.FeignConfiguration;
 import org.github.foxnic.web.proxy.MicroServiceNames;
 import org.github.foxnic.web.proxy.api.APIProxy;
@@ -82,9 +83,14 @@ public interface OrganizationServiceProxy {
 	public static final String QUERY_LIST = API_PREFIX + "query-list";
 
 	/**
-	 * 查询组织节点
+	 * 查询组织节点(带层级)
 	 */
 	public static final String QUERY_NODES = API_PREFIX + "query-nodes";
+
+	/**
+	 * 查询组织节点(展平)
+	 */
+	public static final String QUERY_NODES_FLATTEN = API_PREFIX + "query-nodes-flatten";
 
 	/**
 	 * 搜索节点
@@ -169,8 +175,19 @@ public interface OrganizationServiceProxy {
 	*/
 	@RequestMapping(OrganizationServiceProxy.QUERY_PAGED_LIST)
 	Result<PagedList<Organization>> queryPagedList(OrganizationVO sample);
-	
-	
+
+	/**
+	 * 查询组织树(带层级)
+	 */
+	@RequestMapping(OrganizationServiceProxy.QUERY_NODES)
+	Result<List<ZTreeNode>> queryNodes(OrganizationVO sample);
+
+	/**
+	 * 查询组节点(展平)
+	 */
+	@RequestMapping(OrganizationServiceProxy.QUERY_NODES_FLATTEN)
+	Result<List<ZTreeNode>> queryNodesFlatten(OrganizationVO sample);
+
 	/**
 	 * 控制器类名
 	 * */

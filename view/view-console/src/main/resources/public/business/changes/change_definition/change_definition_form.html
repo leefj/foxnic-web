@@ -2,7 +2,7 @@
 /**
  * 变更定义 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-27 16:04:53
+ * @since 2021-09-28 11:52:40
  */
  -->
  <!DOCTYPE html>
@@ -20,6 +20,12 @@
     <link href="/assets/libs/font-awesome-4.7.0/css/font-awesome.min.css" th:href="@{/assets/libs/font-awesome-4.7.0/css/font-awesome.min.css}" rel="stylesheet"/>
     <script th:inline="javascript">var foxnic_cachekey=[[${cacheKey}]];</script>
     <style>
+        .layui-form-label-c1 {
+            width: 100px;
+        }
+        .layui-input-block-c1 {
+            margin-left: 135px;
+        }
     </style>
 </head>
 
@@ -53,19 +59,26 @@
                     </div>
 
                                     <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('编码')}">编码</div></div>
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('代码')}">代码</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="code" id="code" name="code" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('编码') }" type="text" class="layui-input"  />
+                            <input lay-filter="code" id="code" name="code" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('代码') }" type="text" class="layui-input"  />
+                        </div>
+                    </div>
+
+                                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('处理类')}">处理类</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input lay-filter="handler" id="handler" name="handler" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('处理类') }" type="text" class="layui-input"  />
                         </div>
                     </div>
 
                 
-                    <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('是否有效')}">是否有效</div><div class="layui-required">*</div></div>
-                        <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="valid" id="valid" name="valid" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('是否有效') }" type="text" class="layui-input"    lay-verify="|required"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0"   scale="0" />
-                        </div>
+                <div class="layui-form-item" >
+                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('是否有效')}">是否有效</div><div class="layui-required">*</div></div>
+                    <div class="layui-input-block layui-input-block-c1">
+                        <input input-type="switch" type="checkbox" checked="yes"id="valid"  name="valid" lay-skin="switch" lay-filter="valid" lay-text="有效|无效&nbsp;" value="1">
                     </div>
+                </div>
 
 
                 <!--结束：栏次内字段循环-->
@@ -93,7 +106,7 @@
 
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];
-    var VALIDATE_CONFIG={"valid":{"labelInForm":"是否有效","inputType":"number_input","required":true}};
+    var VALIDATE_CONFIG={"valid":{"labelInForm":"是否有效","inputType":"logic_switch","required":true}};
     var AUTH_PREFIX="chs_change_definition";
 
 

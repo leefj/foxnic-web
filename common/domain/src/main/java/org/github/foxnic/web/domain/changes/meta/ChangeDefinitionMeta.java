@@ -8,8 +8,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-27 15:32:09
- * @sign 2081956F235B30BCE0FFB84A973DE757
+ * @since 2021-09-27 16:50:18
+ * @sign 5A584BB8A05090DD1314629262217301
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -36,14 +36,24 @@ public class ChangeDefinitionMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeDefinition,java.lang.String> NAME_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeDefinition.class ,NAME, java.lang.String.class, "名称", "名称", java.lang.String.class, null);
 	
 	/**
-	 * 编码 , 类型: java.lang.String
+	 * 代码 , 类型: java.lang.String
 	*/
 	public static final String CODE="code";
 	
 	/**
-	 * 编码 , 类型: java.lang.String
+	 * 代码 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeDefinition,java.lang.String> CODE_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeDefinition.class ,CODE, java.lang.String.class, "编码", "编码", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeDefinition,java.lang.String> CODE_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeDefinition.class ,CODE, java.lang.String.class, "代码", "代码", java.lang.String.class, null);
+	
+	/**
+	 * 处理类 , 类型: java.lang.String
+	*/
+	public static final String HANDLER="handler";
+	
+	/**
+	 * 处理类 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeDefinition,java.lang.String> HANDLER_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeDefinition.class ,HANDLER, java.lang.String.class, "处理类", "处理类", java.lang.String.class, null);
 	
 	/**
 	 * 是否有效 , 类型: java.lang.Integer
@@ -148,7 +158,7 @@ public class ChangeDefinitionMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , NAME , CODE , VALID , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , NAME , CODE , HANDLER , VALID , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
 	
 	/**
 	 * 代理类
@@ -181,13 +191,24 @@ public class ChangeDefinitionMeta {
 		}
 		
 		/**
-		 * 设置 编码
-		 * @param code 编码
+		 * 设置 代码
+		 * @param code 代码
 		 * @return 当前对象
 		*/
 		public ChangeDefinition setCode(String code) {
 			super.change(CODE,super.getCode(),code);
 			super.setCode(code);
+			return this;
+		}
+		
+		/**
+		 * 设置 处理类
+		 * @param handler 处理类
+		 * @return 当前对象
+		*/
+		public ChangeDefinition setHandler(String handler) {
+			super.change(HANDLER,super.getHandler(),handler);
+			super.setHandler(handler);
 			return this;
 		}
 		

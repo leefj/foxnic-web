@@ -1,20 +1,20 @@
 package org.github.foxnic.web.hrm.service;
 
 
-import com.github.foxnic.sql.expr.ConditionExpr;
-import com.github.foxnic.dao.entity.ISuperService;
-import org.github.foxnic.web.domain.hrm.Employee;
-import org.github.foxnic.web.domain.hrm.EmployeeVO;
-import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
-import java.io.InputStream;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.ISuperService;
+import com.github.foxnic.dao.excel.ExcelStructure;
+import com.github.foxnic.dao.excel.ExcelWriter;
+import com.github.foxnic.dao.excel.ValidateResult;
+import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.expr.OrderBy;
 import com.github.foxnic.sql.meta.DBField;
-import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.dao.excel.ExcelStructure;
-import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.dao.data.SaveMode;
+import org.github.foxnic.web.domain.hrm.Employee;
+
+import java.io.InputStream;
+import java.util.List;
 
 /**
  * <p>
@@ -22,6 +22,7 @@ import com.github.foxnic.dao.data.SaveMode;
  * </p>
  * @author 李方捷 , leefangjie@qq.com
  * @since 2021-09-15 16:24:02
+ * @version
 */
 
 public interface IEmployeeService extends ISuperService<Employee> {
@@ -284,5 +285,13 @@ public interface IEmployeeService extends ISuperService<Employee> {
 	 * */
 	List<ValidateResult> importExcel(InputStream input,int sheetIndex,boolean batch);
 
- 
+	/**
+	 * 按工号获取员工
+	 */
+    Employee getByBadge(String badge);
+
+	/**
+	 * 批量按工号获取员工 <br>
+	 */
+	List<Employee> getByBadges(List<String> badges);
 }
