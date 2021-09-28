@@ -17,6 +17,7 @@ public class CodeTextEnumUtil {
 	 * 将符合规范的枚举转换成 JSONArray
 	 * */
 	public JSONArray toArray(String enumName) throws Exception {
+
 		if(StringUtil.isBlank(enumName)) {
 			return new JSONArray();
 		}
