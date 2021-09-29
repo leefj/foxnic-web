@@ -8,8 +8,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-27 16:50:18
- * @sign 5A584BB8A05090DD1314629262217301
+ * @since 2021-09-29 13:19:44
+ * @sign 6BA1322C0249570603B4040D0908B8E0
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -64,16 +64,6 @@ public class ChangeDefinitionMeta {
 	 * 是否有效 , 类型: java.lang.Integer
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeDefinition,java.lang.Integer> VALID_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeDefinition.class ,VALID, java.lang.Integer.class, "是否有效", "是否有效", java.lang.Integer.class, null);
-	
-	/**
-	 * 租户ID , 类型: java.lang.String
-	*/
-	public static final String TENANT_ID="tenantId";
-	
-	/**
-	 * 租户ID , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeDefinition,java.lang.String> TENANT_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeDefinition.class ,TENANT_ID, java.lang.String.class, "租户ID", "租户ID", java.lang.String.class, null);
 	
 	/**
 	 * 创建人ID , 类型: java.lang.String
@@ -158,7 +148,7 @@ public class ChangeDefinitionMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , NAME , CODE , HANDLER , VALID , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , NAME , CODE , HANDLER , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
 	
 	/**
 	 * 代理类
@@ -220,17 +210,6 @@ public class ChangeDefinitionMeta {
 		public ChangeDefinition setValid(Integer valid) {
 			super.change(VALID,super.getValid(),valid);
 			super.setValid(valid);
-			return this;
-		}
-		
-		/**
-		 * 设置 租户ID
-		 * @param tenantId 租户ID
-		 * @return 当前对象
-		*/
-		public ChangeDefinition setTenantId(String tenantId) {
-			super.change(TENANT_ID,super.getTenantId(),tenantId);
-			super.setTenantId(tenantId);
 			return this;
 		}
 		

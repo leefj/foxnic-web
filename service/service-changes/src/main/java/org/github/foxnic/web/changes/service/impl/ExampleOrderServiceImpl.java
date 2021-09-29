@@ -14,11 +14,11 @@ import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.changes.service.IExampleOrderService;
-import org.github.foxnic.web.constants.enums.changes.ChangeStatus;
 import org.github.foxnic.web.constants.enums.changes.ChangeType;
+import org.github.foxnic.web.domain.changes.ChangeInstance;
 import org.github.foxnic.web.domain.changes.ChangeRequest;
 import org.github.foxnic.web.domain.changes.ExampleOrder;
-import org.github.foxnic.web.framework.change.ChangesUtil;
+import org.github.foxnic.web.framework.change.ChangesAssistant;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.springframework.stereotype.Service;
 
@@ -68,22 +68,18 @@ public class ExampleOrderServiceImpl extends SuperService<ExampleOrder> implemen
 	@Override
 	public Result insert(ExampleOrder exampleOrder) {
 
-		exampleOrder.setChsTypeEnum(ChangeType.create);
-		exampleOrder.setChsStatusEnum(ChangeStatus.changing);
-		exampleOrder.setChsVersion(1);
-		exampleOrder.setChsSourceId(null);
-
-
 		Result r=super.insert(exampleOrder);
 
 		if(r.success()) {
-			ChangesUtil changesUtil=new ChangesUtil(this);
-
-			ChangeRequest request=new ChangeRequest();
-			request.setChangeDefinitionCode("EXAMPLE_ORDER_CHANGE");
-			request.setTargetId(exampleOrder.getId());
-			request.setTargetType(ExampleOrder.class);
-			changesUtil.requestChange(request);
+			//创建变更辅助工具
+			ChangesAssistant assistant=new ChangesAssistant(this);
+			ChangeRequest request=new ChangeRequest("EXAMPLE_ORDER_CHANGE", ChangeType.create);
+			request.setDataId(null,exampleOrder.getId());
+			request.setDataType(ExampleOrder.class);
+			Result<ChangeInstance> result= assistant.request(request);
+			if(result.failure()) {
+				return result;
+			}
 		}
 
 		return r;

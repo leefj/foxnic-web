@@ -9,8 +9,8 @@ import java.math.BigDecimal;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-28 16:53:43
- * @sign 7FD46182CA6BE308FCCE27AA231CDABE
+ * @since 2021-09-29 11:52:15
+ * @sign 09AE6B4779AD93B4CA38B3E0EBF427D3
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -117,16 +117,6 @@ public class ExampleOrderMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.changes.ExampleOrder,java.lang.Integer> CHS_VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ExampleOrder.class ,CHS_VERSION, java.lang.Integer.class, "变更版本号", "变更版本号", java.lang.Integer.class, null);
 	
 	/**
-	 * 来源ID , 类型: java.lang.String
-	*/
-	public static final String CHS_SOURCE_ID="chsSourceId";
-	
-	/**
-	 * 来源ID , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.changes.ExampleOrder,java.lang.String> CHS_SOURCE_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ExampleOrder.class ,CHS_SOURCE_ID, java.lang.String.class, "来源ID", "来源ID", java.lang.String.class, null);
-	
-	/**
 	 * 租户ID , 类型: java.lang.String
 	*/
 	public static final String TENANT_ID="tenantId";
@@ -217,9 +207,59 @@ public class ExampleOrderMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.changes.ExampleOrder,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ExampleOrder.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
+	 * 来源ID , 类型: java.lang.String
+	*/
+	public static final String SOURCE_ID="sourceId";
+	
+	/**
+	 * 来源ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ExampleOrder,java.lang.String> SOURCE_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ExampleOrder.class ,SOURCE_ID, java.lang.String.class, "来源ID", "来源ID", java.lang.String.class, null);
+	
+	/**
+	 * 变更ID , 类型: java.lang.String
+	*/
+	public static final String CHS_ID="chsId";
+	
+	/**
+	 * 变更ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ExampleOrder,java.lang.String> CHS_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ExampleOrder.class ,CHS_ID, java.lang.String.class, "变更ID", "变更ID", java.lang.String.class, null);
+	
+	/**
+	 * 流程ID , 类型: java.lang.String
+	*/
+	public static final String PROC_ID="procId";
+	
+	/**
+	 * 流程ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ExampleOrder,java.lang.String> PROC_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ExampleOrder.class ,PROC_ID, java.lang.String.class, "流程ID", "流程ID", java.lang.String.class, null);
+	
+	/**
+	 * 流程概要 , 类型: java.lang.String
+	*/
+	public static final String PROC_SUMMARY="procSummary";
+	
+	/**
+	 * 流程概要 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ExampleOrder,java.lang.String> PROC_SUMMARY_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ExampleOrder.class ,PROC_SUMMARY, java.lang.String.class, "流程概要", "流程概要", java.lang.String.class, null);
+	
+	/**
+	 * 审批节点概要 , 类型: java.lang.String
+	*/
+	public static final String PROC_NODE_SUMMARY="procNodeSummary";
+	
+	/**
+	 * 审批节点概要 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ExampleOrder,java.lang.String> PROC_NODE_SUMMARY_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ExampleOrder.class ,PROC_NODE_SUMMARY, java.lang.String.class, "审批节点概要", "审批节点概要", java.lang.String.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , TITLE , CODE , ORDER_TIME , BUYER_ID , ADDRESS , AMOUNT , CHS_TYPE , CHS_STATUS , CHS_VERSION , CHS_SOURCE_ID , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , TITLE , CODE , ORDER_TIME , BUYER_ID , ADDRESS , AMOUNT , CHS_TYPE , CHS_STATUS , CHS_VERSION , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , SOURCE_ID , CHS_ID , PROC_ID , PROC_SUMMARY , PROC_NODE_SUMMARY };
 	
 	/**
 	 * 代理类
@@ -340,17 +380,6 @@ public class ExampleOrderMeta {
 		}
 		
 		/**
-		 * 设置 来源ID
-		 * @param chsSourceId 来源ID
-		 * @return 当前对象
-		*/
-		public ExampleOrder setChsSourceId(String chsSourceId) {
-			super.change(CHS_SOURCE_ID,super.getChsSourceId(),chsSourceId);
-			super.setChsSourceId(chsSourceId);
-			return this;
-		}
-		
-		/**
 		 * 设置 租户ID
 		 * @param tenantId 租户ID
 		 * @return 当前对象
@@ -446,6 +475,61 @@ public class ExampleOrderMeta {
 		public ExampleOrder setVersion(Integer version) {
 			super.change(VERSION,super.getVersion(),version);
 			super.setVersion(version);
+			return this;
+		}
+		
+		/**
+		 * 设置 来源ID
+		 * @param sourceId 来源ID
+		 * @return 当前对象
+		*/
+		public ExampleOrder setSourceId(String sourceId) {
+			super.change(SOURCE_ID,super.getSourceId(),sourceId);
+			super.setSourceId(sourceId);
+			return this;
+		}
+		
+		/**
+		 * 设置 变更ID
+		 * @param chsId 变更ID
+		 * @return 当前对象
+		*/
+		public ExampleOrder setChsId(String chsId) {
+			super.change(CHS_ID,super.getChsId(),chsId);
+			super.setChsId(chsId);
+			return this;
+		}
+		
+		/**
+		 * 设置 流程ID
+		 * @param procId 流程ID
+		 * @return 当前对象
+		*/
+		public ExampleOrder setProcId(String procId) {
+			super.change(PROC_ID,super.getProcId(),procId);
+			super.setProcId(procId);
+			return this;
+		}
+		
+		/**
+		 * 设置 流程概要
+		 * @param procSummary 流程概要
+		 * @return 当前对象
+		*/
+		public ExampleOrder setProcSummary(String procSummary) {
+			super.change(PROC_SUMMARY,super.getProcSummary(),procSummary);
+			super.setProcSummary(procSummary);
+			return this;
+		}
+		
+		/**
+		 * 设置 审批节点概要
+		 * @param procNodeSummary 审批节点概要
+		 * @return 当前对象
+		*/
+		public ExampleOrder setProcNodeSummary(String procNodeSummary) {
+			super.change(PROC_NODE_SUMMARY,super.getProcNodeSummary(),procNodeSummary);
+			super.setProcNodeSummary(procNodeSummary);
 			return this;
 		}
 	}

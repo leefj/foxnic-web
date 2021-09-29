@@ -1,7 +1,9 @@
 package org.github.foxnic.web.domain.changes;
 
 import com.github.foxnic.dao.entity.Entity;
+import org.github.foxnic.web.constants.enums.changes.ChangeType;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,36 +11,44 @@ import java.util.Map;
 public class ChangeRequest {
 
     private String changeDefinitionCode;
-    private String targetId;
-    private String targetType;
-    private String targetTable;
+    private String dataIdBefore;
+
+    private String dataIdAfter;
+    private String dataType;
+    private String dataTable;
+    private ChangeType type;
+    private Date startTime=new Date();
+
     private Map<String,List<? extends Entity>> dataBefore=new HashMap<>();
     private Map<String,List<? extends Entity>> dataAfter=new HashMap<>();
 
     private Entity targetData;
 
+    public ChangeRequest(String changeDefinitionCode,ChangeType type) {
+        this.changeDefinitionCode = changeDefinitionCode;
+        this.type = type;
+    }
+
+
     public String getChangeDefinitionCode() {
         return changeDefinitionCode;
     }
 
-    public void setChangeDefinitionCode(String changeDefinitionCode) {
-        this.changeDefinitionCode = changeDefinitionCode;
+    public String getDataType() {
+        return dataType;
     }
 
-    public String getTargetType() {
-        return targetType;
+    public void setDataType(Class<? extends Entity> dataType) {
+        this.dataType = dataType.getName();
     }
 
-    public void setTargetType(Class<? extends Entity> targetType) {
-        this.targetType = targetType.getName();
+    public String getDataIdBefore() {
+        return dataIdBefore;
     }
 
-    public String getTargetId() {
-        return targetId;
-    }
-
-    public void setTargetId(String targetId) {
-        this.targetId = targetId;
+    public void setDataId(String dataIdBefore,String dataIdAfter) {
+        this.dataIdBefore = dataIdBefore;
+        this.dataIdAfter = dataIdAfter;
     }
 
     private void setDataBefore(Class<? extends Entity> dataType, List<? extends Entity> list) {
@@ -65,12 +75,28 @@ public class ChangeRequest {
         return dataAfter;
     }
 
-    public String getTargetTable() {
-        return targetTable;
+    public String getDataTable() {
+        return dataTable;
     }
 
-    public void setTargetTable(String targetTable) {
-        this.targetTable = targetTable;
+    public void setDataTable(String dataTable) {
+        this.dataTable = dataTable;
+    }
+
+    public String getDataIdAfter() {
+        return dataIdAfter;
+    }
+
+    public ChangeType getType() {
+        return type;
+    }
+
+    public Date getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
     }
 
 }

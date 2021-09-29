@@ -2,7 +2,7 @@
 /**
  * 变更实例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-28 09:10:34
+ * @since 2021-09-29 16:26:07
  */
  -->
  <!DOCTYPE html>
@@ -44,25 +44,60 @@
                         <div class="search-label-div" style=""><span th:text="${lang.translate('变更定义ID')}" class="search-label definitionId-label">变更定义ID</span><span class="search-colon">:</span></div>
                         <input id="definitionId" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
-                    <!-- 变更对象的数据表 , targetTable ,typeName=text_input, isHideInSearch=false -->
+                    <!-- 变更对象的数据表 , dataTable ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('变更对象的数据表')}" class="search-label targetTable-label">变更对象的数据表</span><span class="search-colon">:</span></div>
-                        <input id="targetTable" class="layui-input search-input" style="width: 140px" type="text" />
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('变更对象的数据表')}" class="search-label dataTable-label">变更对象的数据表</span><span class="search-colon">:</span></div>
+                        <input id="dataTable" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
-                    <!-- 变更对象类型 , targetType ,typeName=text_input, isHideInSearch=false -->
+                    <!-- 变更对象实体类型 , dataType ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('变更对象类型')}" class="search-label targetType-label">变更对象类型</span><span class="search-colon">:</span></div>
-                        <input id="targetType" class="layui-input search-input" style="width: 140px" type="text" />
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('变更对象实体类型')}" class="search-label dataType-label">变更对象实体类型</span><span class="search-colon">:</span></div>
+                        <input id="dataType" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
-                    <!-- 变更对象ID , targetId ,typeName=number_input, isHideInSearch=false -->
+                    <!-- 变更前业务数据ID , dataIdBefore ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('变更对象ID')}" class="search-label targetId-label">变更对象ID</span><span class="search-colon">:</span></div>
-                            <input id="targetId" class="layui-input search-input" style="width: 140px" type="text" autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0" min-value="" max-value="" scale="0"/>
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('变更前业务数据ID')}" class="search-label dataIdBefore-label">变更前业务数据ID</span><span class="search-colon">:</span></div>
+                        <input id="dataIdBefore" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 变更后对象ID , dataIdAfter ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('变更后对象ID')}" class="search-label dataIdAfter-label">变更后对象ID</span><span class="search-colon">:</span></div>
+                        <input id="dataIdAfter" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
                     <!-- 变更状态 , status ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('变更状态')}" class="search-label status-label">变更状态</span><span class="search-colon">:</span></div>
                         <input id="status" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 变更类型 , type ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('变更类型')}" class="search-label type-label">变更类型</span><span class="search-colon">:</span></div>
+                        <input id="type" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 流程ID , processId ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('流程ID')}" class="search-label processId-label">流程ID</span><span class="search-colon">:</span></div>
+                        <input id="processId" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 当前审批节点 , processNodeSummary ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('当前审批节点')}" class="search-label processNodeSummary-label">当前审批节点</span><span class="search-colon">:</span></div>
+                        <input id="processNodeSummary" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 流程概要 , processSummary ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('流程概要')}" class="search-label processSummary-label">流程概要</span><span class="search-colon">:</span></div>
+                        <input id="processSummary" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 变更开始时间 , startTime ,typeName=date_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('变更开始时间')}" class="search-label startTime-label">变更开始时间</span><span class="search-colon">:</span></div>
+                            <input type="text" id="startTime"  style="width: 140px"  lay-verify="date" th:placeholder="${lang.translate('请选择')}" autocomplete="off" class="layui-input search-input search-date-input" readonly>
+                    </div>
+                    <!-- 变更结束时间 , finishTime ,typeName=date_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('变更结束时间')}" class="search-label finishTime-label">变更结束时间</span><span class="search-colon">:</span></div>
+                            <input type="text" id="finishTime"  style="width: 140px"  lay-verify="date" th:placeholder="${lang.translate('请选择')}" autocomplete="off" class="layui-input search-input search-date-input" readonly>
                     </div>
 
 

@@ -48,7 +48,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 变更定义表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-28 11:52:37
+ * @since 2021-09-29 16:26:06
 */
 
 @Api(tags = "变更定义")
@@ -65,11 +65,11 @@ public class ChangeDefinitionController extends SuperController {
 	*/
 	@ApiOperation(value = "添加变更定义")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = ChangeDefinitionVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeDefinitionVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeDefinitionVOMeta.CODE , value = "代码" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeDefinitionVOMeta.HANDLER , value = "处理类" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeDefinitionVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = ChangeDefinitionVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "495265596145934336"),
+		@ApiImplicitParam(name = ChangeDefinitionVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class , example = "订单变更(测试)"),
+		@ApiImplicitParam(name = ChangeDefinitionVOMeta.CODE , value = "代码" , required = false , dataTypeClass=String.class , example = "EXAMPLE_ORDER_CHANGE"),
+		@ApiImplicitParam(name = ChangeDefinitionVOMeta.HANDLER , value = "处理类" , required = false , dataTypeClass=String.class , example = "org.github.foxnic.web.changes.service.impl.ExampleOrderChangesHandler"),
+		@ApiImplicitParam(name = ChangeDefinitionVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiOperationSupport(order=1)
 	@NotNull(name = ChangeDefinitionVOMeta.VALID)
@@ -86,7 +86,7 @@ public class ChangeDefinitionController extends SuperController {
 	*/
 	@ApiOperation(value = "删除变更定义")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = ChangeDefinitionVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class)
+		@ApiImplicitParam(name = ChangeDefinitionVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "495265596145934336")
 	})
 	@ApiOperationSupport(order=2)
 	@NotNull(name = ChangeDefinitionVOMeta.ID)
@@ -120,11 +120,11 @@ public class ChangeDefinitionController extends SuperController {
 	*/
 	@ApiOperation(value = "更新变更定义")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = ChangeDefinitionVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeDefinitionVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeDefinitionVOMeta.CODE , value = "代码" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeDefinitionVOMeta.HANDLER , value = "处理类" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeDefinitionVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = ChangeDefinitionVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "495265596145934336"),
+		@ApiImplicitParam(name = ChangeDefinitionVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class , example = "订单变更(测试)"),
+		@ApiImplicitParam(name = ChangeDefinitionVOMeta.CODE , value = "代码" , required = false , dataTypeClass=String.class , example = "EXAMPLE_ORDER_CHANGE"),
+		@ApiImplicitParam(name = ChangeDefinitionVOMeta.HANDLER , value = "处理类" , required = false , dataTypeClass=String.class , example = "org.github.foxnic.web.changes.service.impl.ExampleOrderChangesHandler"),
+		@ApiImplicitParam(name = ChangeDefinitionVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiOperationSupport( order=4 , ignoreParameters = { ChangeDefinitionVOMeta.PAGE_INDEX , ChangeDefinitionVOMeta.PAGE_SIZE , ChangeDefinitionVOMeta.SEARCH_FIELD , ChangeDefinitionVOMeta.FUZZY_FIELD , ChangeDefinitionVOMeta.SEARCH_VALUE , ChangeDefinitionVOMeta.SORT_FIELD , ChangeDefinitionVOMeta.SORT_TYPE , ChangeDefinitionVOMeta.IDS } ) 
 	@NotNull(name = ChangeDefinitionVOMeta.ID)
@@ -142,11 +142,11 @@ public class ChangeDefinitionController extends SuperController {
 	*/
 	@ApiOperation(value = "保存变更定义")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = ChangeDefinitionVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeDefinitionVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeDefinitionVOMeta.CODE , value = "代码" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeDefinitionVOMeta.HANDLER , value = "处理类" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeDefinitionVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = ChangeDefinitionVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "495265596145934336"),
+		@ApiImplicitParam(name = ChangeDefinitionVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class , example = "订单变更(测试)"),
+		@ApiImplicitParam(name = ChangeDefinitionVOMeta.CODE , value = "代码" , required = false , dataTypeClass=String.class , example = "EXAMPLE_ORDER_CHANGE"),
+		@ApiImplicitParam(name = ChangeDefinitionVOMeta.HANDLER , value = "处理类" , required = false , dataTypeClass=String.class , example = "org.github.foxnic.web.changes.service.impl.ExampleOrderChangesHandler"),
+		@ApiImplicitParam(name = ChangeDefinitionVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { ChangeDefinitionVOMeta.PAGE_INDEX , ChangeDefinitionVOMeta.PAGE_SIZE , ChangeDefinitionVOMeta.SEARCH_FIELD , ChangeDefinitionVOMeta.FUZZY_FIELD , ChangeDefinitionVOMeta.SEARCH_VALUE , ChangeDefinitionVOMeta.SORT_FIELD , ChangeDefinitionVOMeta.SORT_TYPE , ChangeDefinitionVOMeta.IDS } )
 	@NotNull(name = ChangeDefinitionVOMeta.ID)
@@ -203,11 +203,11 @@ public class ChangeDefinitionController extends SuperController {
 	*/
 	@ApiOperation(value = "查询变更定义")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = ChangeDefinitionVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeDefinitionVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeDefinitionVOMeta.CODE , value = "代码" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeDefinitionVOMeta.HANDLER , value = "处理类" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeDefinitionVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = ChangeDefinitionVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "495265596145934336"),
+		@ApiImplicitParam(name = ChangeDefinitionVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class , example = "订单变更(测试)"),
+		@ApiImplicitParam(name = ChangeDefinitionVOMeta.CODE , value = "代码" , required = false , dataTypeClass=String.class , example = "EXAMPLE_ORDER_CHANGE"),
+		@ApiImplicitParam(name = ChangeDefinitionVOMeta.HANDLER , value = "处理类" , required = false , dataTypeClass=String.class , example = "org.github.foxnic.web.changes.service.impl.ExampleOrderChangesHandler"),
+		@ApiImplicitParam(name = ChangeDefinitionVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { ChangeDefinitionVOMeta.PAGE_INDEX , ChangeDefinitionVOMeta.PAGE_SIZE } )
 	@SentinelResource(value = ChangeDefinitionServiceProxy.QUERY_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
@@ -225,11 +225,11 @@ public class ChangeDefinitionController extends SuperController {
 	*/
 	@ApiOperation(value = "分页查询变更定义")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = ChangeDefinitionVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeDefinitionVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeDefinitionVOMeta.CODE , value = "代码" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeDefinitionVOMeta.HANDLER , value = "处理类" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeDefinitionVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = ChangeDefinitionVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "495265596145934336"),
+		@ApiImplicitParam(name = ChangeDefinitionVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class , example = "订单变更(测试)"),
+		@ApiImplicitParam(name = ChangeDefinitionVOMeta.CODE , value = "代码" , required = false , dataTypeClass=String.class , example = "EXAMPLE_ORDER_CHANGE"),
+		@ApiImplicitParam(name = ChangeDefinitionVOMeta.HANDLER , value = "处理类" , required = false , dataTypeClass=String.class , example = "org.github.foxnic.web.changes.service.impl.ExampleOrderChangesHandler"),
+		@ApiImplicitParam(name = ChangeDefinitionVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiOperationSupport(order=8)
 	@SentinelResource(value = ChangeDefinitionServiceProxy.QUERY_PAGED_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )

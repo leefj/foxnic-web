@@ -1,25 +1,25 @@
 package org.github.foxnic.web.proxy.changes;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.github.foxnic.web.proxy.api.APIProxy;
-import org.github.foxnic.web.proxy.FeignConfiguration;
-
-import org.springframework.cloud.openfeign.FeignClient;
-
-
-import org.github.foxnic.web.domain.changes.ChangeInstance;
-import org.github.foxnic.web.domain.changes.ChangeInstanceVO;
-import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
+import org.github.foxnic.web.domain.changes.ChangeInstance;
+import org.github.foxnic.web.domain.changes.ChangeInstanceVO;
+import org.github.foxnic.web.domain.changes.ChangeRequest;
+import org.github.foxnic.web.proxy.FeignConfiguration;
 import org.github.foxnic.web.proxy.MicroServiceNames;
+import org.github.foxnic.web.proxy.api.APIProxy;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 /**
  * <p>
  * 变更实例表  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-28 09:10:34
+ * @since 2021-09-29 10:50:33
+ * @version
 */
 
 @FeignClient(value = MicroServiceNames.CHS, contextId = ChangeInstanceServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)
@@ -44,6 +44,11 @@ public interface ChangeInstanceServiceProxy {
 	 * 添加变更实例
 	 */
 	public static final String INSERT = API_PREFIX + "insert";
+
+	/**
+	 * 请求变更
+	 */
+	public static final String REQUEST = API_PREFIX + "request";
 	
 	/**
 	 * 删除变更实例
@@ -75,7 +80,6 @@ public interface ChangeInstanceServiceProxy {
 	 * 获取多个变更实例
 	 */
 	public static final String GET_BY_IDS = API_PREFIX + "get-by-ids";
-	;
 
 	/**
 	 * 查询变更实例
@@ -103,10 +107,10 @@ public interface ChangeInstanceServiceProxy {
 	public static final String IMPORT_EXCEL = API_PREFIX + "import-excel";
 	
 	/**
-	 * 添加变更实例
+	 * 请求变更
 	*/
-	@RequestMapping(ChangeInstanceServiceProxy.INSERT)
-	Result insert(ChangeInstanceVO changeInstanceVO);
+	@RequestMapping(ChangeInstanceServiceProxy.REQUEST)
+	Result<ChangeInstance> request(ChangeRequest request);
 	
 	/**
 	 * 删除变更实例

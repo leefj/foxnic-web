@@ -1,54 +1,50 @@
 package org.github.foxnic.web.changes.controller;
 
  
-import java.util.List;
-
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-
-import org.github.foxnic.web.framework.web.SuperController;
-import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
-import org.springframework.web.bind.annotation.RequestMapping;
-import javax.servlet.http.HttpServletResponse;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
-
-
-import org.github.foxnic.web.proxy.changes.ChangeInstanceServiceProxy;
-import org.github.foxnic.web.domain.changes.meta.ChangeInstanceVOMeta;
-import org.github.foxnic.web.domain.changes.ChangeInstance;
-import org.github.foxnic.web.domain.changes.ChangeInstanceVO;
+import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.api.validate.annotations.NotNull;
+import com.github.foxnic.commons.io.StreamUtil;
+import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.springboot.web.DownloadUtil;
-import com.github.foxnic.dao.data.PagedList;
-import java.util.Date;
-import java.sql.Timestamp;
-import com.github.foxnic.api.error.ErrorDesc;
-import com.github.foxnic.commons.io.StreamUtil;
-import java.util.Map;
 import com.github.foxnic.dao.excel.ValidateResult;
-import java.io.InputStream;
-import org.github.foxnic.web.domain.changes.meta.ChangeInstanceMeta;
-import io.swagger.annotations.Api;
-import com.github.xiaoymin.knife4j.annotations.ApiSort;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiImplicitParam;
+import com.github.foxnic.springboot.web.DownloadUtil;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.github.xiaoymin.knife4j.annotations.ApiSort;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.github.foxnic.web.changes.service.IChangeInstanceService;
-import com.github.foxnic.api.validate.annotations.NotNull;
+import org.github.foxnic.web.domain.changes.ChangeInstance;
+import org.github.foxnic.web.domain.changes.ChangeInstanceVO;
+import org.github.foxnic.web.domain.changes.ChangeRequest;
+import org.github.foxnic.web.domain.changes.meta.ChangeInstanceVOMeta;
+import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
+import org.github.foxnic.web.framework.web.SuperController;
+import org.github.foxnic.web.proxy.changes.ChangeInstanceServiceProxy;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.InputStream;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
  * 变更实例表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-28 09:10:34
+ * @since 2021-09-29 10:50:33
+ * @version
 */
 
 @Api(tags = "变更实例")
@@ -59,24 +55,16 @@ public class ChangeInstanceController extends SuperController {
 	@Autowired
 	private IChangeInstanceService changeInstanceService;
 
-	
 	/**
-	 * 添加变更实例
-	*/
+	 * 请求一次变更
+	 */
 	@ApiOperation(value = "添加变更实例")
-	@ApiImplicitParams({
-		@ApiImplicitParam(name = ChangeInstanceVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeInstanceVOMeta.DEFINITION_ID , value = "变更定义ID" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeInstanceVOMeta.TARGET_TABLE , value = "变更对象的数据表" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeInstanceVOMeta.TARGET_TYPE , value = "变更对象类型" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeInstanceVOMeta.TARGET_ID , value = "变更对象ID" , required = false , dataTypeClass=Integer.class),
-		@ApiImplicitParam(name = ChangeInstanceVOMeta.STATUS , value = "变更状态" , required = false , dataTypeClass=String.class),
-	})
+	@ApiImplicitParams({})
 	@ApiOperationSupport(order=1)
-	@SentinelResource(value = ChangeInstanceServiceProxy.INSERT , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
-	@PostMapping(ChangeInstanceServiceProxy.INSERT)
-	public Result insert(ChangeInstanceVO changeInstanceVO) {
-		Result result=changeInstanceService.insert(changeInstanceVO);
+	@SentinelResource(value = ChangeInstanceServiceProxy.REQUEST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
+	@PostMapping(ChangeInstanceServiceProxy.REQUEST)
+	public Result<ChangeInstance> request(ChangeRequest request) {
+		Result<ChangeInstance> result=changeInstanceService.request(request);
 		return result;
 	}
 
@@ -122,10 +110,17 @@ public class ChangeInstanceController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = ChangeInstanceVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ChangeInstanceVOMeta.DEFINITION_ID , value = "变更定义ID" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeInstanceVOMeta.TARGET_TABLE , value = "变更对象的数据表" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeInstanceVOMeta.TARGET_TYPE , value = "变更对象类型" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeInstanceVOMeta.TARGET_ID , value = "变更对象ID" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = ChangeInstanceVOMeta.DATA_TABLE , value = "变更对象的数据表" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeInstanceVOMeta.DATA_TYPE , value = "变更对象实体类型" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeInstanceVOMeta.DATA_ID_BEFORE , value = "变更前业务数据ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeInstanceVOMeta.DATA_ID_AFTER , value = "变更后对象ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ChangeInstanceVOMeta.STATUS , value = "变更状态" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeInstanceVOMeta.TYPE , value = "变更类型" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeInstanceVOMeta.PROCESS_ID , value = "流程ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeInstanceVOMeta.PROCESS_NODE_SUMMARY , value = "当前审批节点" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeInstanceVOMeta.PROCESS_SUMMARY , value = "流程概要" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeInstanceVOMeta.START_TIME , value = "变更开始时间" , required = false , dataTypeClass=Date.class),
+		@ApiImplicitParam(name = ChangeInstanceVOMeta.FINISH_TIME , value = "变更结束时间" , required = false , dataTypeClass=Date.class),
 	})
 	@ApiOperationSupport( order=4 , ignoreParameters = { ChangeInstanceVOMeta.PAGE_INDEX , ChangeInstanceVOMeta.PAGE_SIZE , ChangeInstanceVOMeta.SEARCH_FIELD , ChangeInstanceVOMeta.FUZZY_FIELD , ChangeInstanceVOMeta.SEARCH_VALUE , ChangeInstanceVOMeta.SORT_FIELD , ChangeInstanceVOMeta.SORT_TYPE , ChangeInstanceVOMeta.IDS } ) 
 	@NotNull(name = ChangeInstanceVOMeta.ID)
@@ -144,10 +139,17 @@ public class ChangeInstanceController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = ChangeInstanceVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ChangeInstanceVOMeta.DEFINITION_ID , value = "变更定义ID" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeInstanceVOMeta.TARGET_TABLE , value = "变更对象的数据表" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeInstanceVOMeta.TARGET_TYPE , value = "变更对象类型" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeInstanceVOMeta.TARGET_ID , value = "变更对象ID" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = ChangeInstanceVOMeta.DATA_TABLE , value = "变更对象的数据表" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeInstanceVOMeta.DATA_TYPE , value = "变更对象实体类型" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeInstanceVOMeta.DATA_ID_BEFORE , value = "变更前业务数据ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeInstanceVOMeta.DATA_ID_AFTER , value = "变更后对象ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ChangeInstanceVOMeta.STATUS , value = "变更状态" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeInstanceVOMeta.TYPE , value = "变更类型" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeInstanceVOMeta.PROCESS_ID , value = "流程ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeInstanceVOMeta.PROCESS_NODE_SUMMARY , value = "当前审批节点" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeInstanceVOMeta.PROCESS_SUMMARY , value = "流程概要" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeInstanceVOMeta.START_TIME , value = "变更开始时间" , required = false , dataTypeClass=Date.class),
+		@ApiImplicitParam(name = ChangeInstanceVOMeta.FINISH_TIME , value = "变更结束时间" , required = false , dataTypeClass=Date.class),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { ChangeInstanceVOMeta.PAGE_INDEX , ChangeInstanceVOMeta.PAGE_SIZE , ChangeInstanceVOMeta.SEARCH_FIELD , ChangeInstanceVOMeta.FUZZY_FIELD , ChangeInstanceVOMeta.SEARCH_VALUE , ChangeInstanceVOMeta.SORT_FIELD , ChangeInstanceVOMeta.SORT_TYPE , ChangeInstanceVOMeta.IDS } )
 	@NotNull(name = ChangeInstanceVOMeta.ID)
@@ -179,10 +181,10 @@ public class ChangeInstanceController extends SuperController {
 
 
 	/**
-	 * 批量删除变更实例 <br>
+	 * 批量获取变更实例 <br>
 	 * 联合主键时，请自行调整实现
 	*/
-		@ApiOperation(value = "批量删除变更实例")
+		@ApiOperation(value = "批量获取变更实例")
 		@ApiImplicitParams({
 				@ApiImplicitParam(name = ChangeInstanceVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})
@@ -205,10 +207,17 @@ public class ChangeInstanceController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = ChangeInstanceVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ChangeInstanceVOMeta.DEFINITION_ID , value = "变更定义ID" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeInstanceVOMeta.TARGET_TABLE , value = "变更对象的数据表" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeInstanceVOMeta.TARGET_TYPE , value = "变更对象类型" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeInstanceVOMeta.TARGET_ID , value = "变更对象ID" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = ChangeInstanceVOMeta.DATA_TABLE , value = "变更对象的数据表" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeInstanceVOMeta.DATA_TYPE , value = "变更对象实体类型" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeInstanceVOMeta.DATA_ID_BEFORE , value = "变更前业务数据ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeInstanceVOMeta.DATA_ID_AFTER , value = "变更后对象ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ChangeInstanceVOMeta.STATUS , value = "变更状态" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeInstanceVOMeta.TYPE , value = "变更类型" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeInstanceVOMeta.PROCESS_ID , value = "流程ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeInstanceVOMeta.PROCESS_NODE_SUMMARY , value = "当前审批节点" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeInstanceVOMeta.PROCESS_SUMMARY , value = "流程概要" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeInstanceVOMeta.START_TIME , value = "变更开始时间" , required = false , dataTypeClass=Date.class),
+		@ApiImplicitParam(name = ChangeInstanceVOMeta.FINISH_TIME , value = "变更结束时间" , required = false , dataTypeClass=Date.class),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { ChangeInstanceVOMeta.PAGE_INDEX , ChangeInstanceVOMeta.PAGE_SIZE } )
 	@SentinelResource(value = ChangeInstanceServiceProxy.QUERY_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
@@ -228,10 +237,17 @@ public class ChangeInstanceController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = ChangeInstanceVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ChangeInstanceVOMeta.DEFINITION_ID , value = "变更定义ID" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeInstanceVOMeta.TARGET_TABLE , value = "变更对象的数据表" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeInstanceVOMeta.TARGET_TYPE , value = "变更对象类型" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeInstanceVOMeta.TARGET_ID , value = "变更对象ID" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = ChangeInstanceVOMeta.DATA_TABLE , value = "变更对象的数据表" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeInstanceVOMeta.DATA_TYPE , value = "变更对象实体类型" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeInstanceVOMeta.DATA_ID_BEFORE , value = "变更前业务数据ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeInstanceVOMeta.DATA_ID_AFTER , value = "变更后对象ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ChangeInstanceVOMeta.STATUS , value = "变更状态" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeInstanceVOMeta.TYPE , value = "变更类型" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeInstanceVOMeta.PROCESS_ID , value = "流程ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeInstanceVOMeta.PROCESS_NODE_SUMMARY , value = "当前审批节点" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeInstanceVOMeta.PROCESS_SUMMARY , value = "流程概要" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeInstanceVOMeta.START_TIME , value = "变更开始时间" , required = false , dataTypeClass=Date.class),
+		@ApiImplicitParam(name = ChangeInstanceVOMeta.FINISH_TIME , value = "变更结束时间" , required = false , dataTypeClass=Date.class),
 	})
 	@ApiOperationSupport(order=8)
 	@SentinelResource(value = ChangeInstanceServiceProxy.QUERY_PAGED_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )

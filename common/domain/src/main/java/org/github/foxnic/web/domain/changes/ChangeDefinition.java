@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 变更定义
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-27 16:50:18
- * @sign 5A584BB8A05090DD1314629262217301
+ * @since 2021-09-29 13:19:44
+ * @sign 6BA1322C0249570603B4040D0908B8E0
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -58,12 +58,6 @@ public class ChangeDefinition extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="是否有效" , notes = "是否有效")
 	private Integer valid;
-	
-	/**
-	 * 租户ID：租户ID
-	*/
-	@ApiModelProperty(required = true,value="租户ID" , notes = "租户ID")
-	private String tenantId;
 	
 	/**
 	 * 创建人ID：创建人ID
@@ -205,25 +199,6 @@ public class ChangeDefinition extends Entity {
 	*/
 	public ChangeDefinition setValid(Integer valid) {
 		this.valid=valid;
-		return this;
-	}
-	
-	/**
-	 * 获得 租户ID<br>
-	 * 租户ID
-	 * @return 租户ID
-	*/
-	public String getTenantId() {
-		return tenantId;
-	}
-	
-	/**
-	 * 设置 租户ID
-	 * @param tenantId 租户ID
-	 * @return 当前对象
-	*/
-	public ChangeDefinition setTenantId(String tenantId) {
-		this.tenantId=tenantId;
 		return this;
 	}
 	

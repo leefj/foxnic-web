@@ -1,41 +1,50 @@
 package org.github.foxnic.web.changes.service.impl;
 
 
-import javax.annotation.Resource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-
-import org.github.foxnic.web.domain.changes.ChangeInstance;
-import org.github.foxnic.web.domain.changes.ChangeInstanceVO;
-import java.util.List;
-import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.entity.SuperService;
-import com.github.foxnic.dao.spec.DAO;
-import java.lang.reflect.Field;
-import com.github.foxnic.commons.busi.id.IDGenerator;
-import com.github.foxnic.sql.expr.ConditionExpr;
+import com.alibaba.fastjson.JSON;
 import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.dao.data.PagedList;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.SuperService;
+import com.github.foxnic.dao.excel.ExcelStructure;
 import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.dao.excel.ExcelStructure;
-import java.io.InputStream;
+import com.github.foxnic.dao.spec.DAO;
+import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.meta.DBColumnMeta;
-import com.github.foxnic.sql.expr.Select;
-import java.util.ArrayList;
+import org.github.foxnic.web.changes.service.IChangeDefinitionService;
+import org.github.foxnic.web.changes.service.IChangeEventService;
 import org.github.foxnic.web.changes.service.IChangeInstanceService;
+import org.github.foxnic.web.constants.enums.changes.ChangeEventType;
+import org.github.foxnic.web.constants.enums.changes.ChangeStatus;
+import org.github.foxnic.web.domain.changes.ChangeDefinition;
+import org.github.foxnic.web.domain.changes.ChangeEvent;
+import org.github.foxnic.web.domain.changes.ChangeInstance;
+import org.github.foxnic.web.domain.changes.ChangeRequest;
+import org.github.foxnic.web.framework.cache.RedisUtil;
+import org.github.foxnic.web.framework.change.ChangesAssistant;
 import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
+import java.io.InputStream;
+import java.lang.reflect.Field;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
  * 变更实例表 服务实现
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-28 09:10:34
+ * @since 2021-09-29 10:50:33
+ * @version
 */
 
 
@@ -53,13 +62,20 @@ public class ChangeInstanceServiceImpl extends SuperService<ChangeInstance> impl
 	 * */
 	public DAO dao() { return dao; }
 
-
+	@Autowired
+	private IChangeDefinitionService definitionService;
+	@Autowired
+	private IChangeEventService eventService;
 	
 	@Override
 	public Object generateId(Field field) {
 		return IDGenerator.getSnowflakeIdString();
 	}
-	
+
+
+	@Autowired
+	private  RedisUtil redis;
+
 	/**
 	 * 插入实体
 	 * @param changeInstance 实体数据
@@ -250,6 +266,52 @@ public class ChangeInstanceServiceImpl extends SuperService<ChangeInstance> impl
 	@Override
 	public List<ValidateResult> importExcel(InputStream input,int sheetIndex,boolean batch) {
 		return super.importExcel(input,sheetIndex,batch);
+	}
+
+
+	@Override
+	@Transactional
+	public Result<ChangeInstance> request(ChangeRequest request) {
+		Result<ChangeInstance> result=new Result<>();
+
+		ChangeDefinition definition=definitionService.getByCode(request.getChangeDefinitionCode());
+		if(definition==null) {
+			result.success(false).message("变更 "+request.getChangeDefinitionCode()+" 未定义");
+			return result;
+		}
+
+		ChangeInstance instance=new ChangeInstance();
+		instance.setDefinitionId(definition.getId());
+		instance.setDataTable(request.getDataTable());
+		instance.setDataType(request.getDataType());
+		instance.setDataIdBefore(request.getDataIdBefore());
+		instance.setDataIdAfter(request.getDataIdAfter());
+		instance.setStatusEnum(ChangeStatus.changing);
+		instance.setTypeEnum(request.getType());
+		instance.setStartTime(request.getStartTime());
+		//
+		Result cr=this.insert(instance);
+		if(cr.success()) {
+			ChangeEvent event=new ChangeEvent();
+			event.setNotifyTime(new Timestamp(System.currentTimeMillis()));
+			event.setInstanceId(instance.getId());
+			event.setEventTypeEnum(ChangeEventType.create_success);
+			event.setInstance(instance);
+			event.setDefinition(definition);
+			String notifyData= JSON.toJSONString(event);
+			event.setNotifyData(notifyData);
+			eventService.insert(event);
+			event.setNotifyData(null);
+			//
+			redis.set(ChangesAssistant.CHANGES_NOTIFY_PREFIX+event.getId(),event,30);
+			redis.notifyDataChange(ChangesAssistant.CHANGES_CHANNEL_EVENT_PREFIX+event.getId());
+		} else {
+			result.success(false).message("变更实例创建失败");
+			return result;
+		}
+		//
+		result.success(true).data(instance);
+		return result;
 	}
 
 	@Override

@@ -1,27 +1,27 @@
 package org.github.foxnic.web.domain.changes;
 
-import com.github.foxnic.commons.lang.StringUtil;
-import com.github.foxnic.commons.reflect.EnumUtil;
 import com.github.foxnic.dao.entity.Entity;
-import com.github.foxnic.dao.entity.EntityContext;
-import com.github.foxnic.sql.meta.DBTable;
-import io.swagger.annotations.ApiModelProperty;
-import org.github.foxnic.web.constants.db.FoxnicWeb.CHS_CHANGE_INSTANCE;
-import org.github.foxnic.web.constants.enums.changes.ChangeStatus;
-
-import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+import com.github.foxnic.sql.meta.DBTable;
+import org.github.foxnic.web.constants.db.FoxnicWeb.CHS_CHANGE_INSTANCE;
+import javax.persistence.Id;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
+import org.github.foxnic.web.constants.enums.changes.ChangeStatus;
+import javax.persistence.Transient;
+import org.github.foxnic.web.constants.enums.changes.ChangeType;
+import com.github.foxnic.commons.reflect.EnumUtil;
+import com.github.foxnic.commons.lang.StringUtil;
 import java.util.Map;
+import com.github.foxnic.dao.entity.EntityContext;
 
 
 
 /**
  * 变更实例
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-28 09:10:34
- * @sign 8452C649CECFDA30595A045A1C7D77FE
+ * @since 2021-09-29 16:23:14
+ * @sign 4AF0C245C7C2525880DDB741A9EFE87F
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -49,19 +49,25 @@ public class ChangeInstance extends Entity {
 	 * 变更对象的数据表：变更对象的数据表
 	*/
 	@ApiModelProperty(required = false,value="变更对象的数据表" , notes = "变更对象的数据表")
-	private String targetTable;
+	private String dataTable;
 	
 	/**
-	 * 变更对象类型：变更对象类型
+	 * 变更对象实体类型：变更对象实体类型
 	*/
-	@ApiModelProperty(required = false,value="变更对象类型" , notes = "变更对象类型")
-	private String targetType;
+	@ApiModelProperty(required = false,value="变更对象实体类型" , notes = "变更对象实体类型")
+	private String dataType;
 	
 	/**
-	 * 变更对象ID：变更对象ID
+	 * 变更前业务数据ID：变更前业务数据ID
 	*/
-	@ApiModelProperty(required = false,value="变更对象ID" , notes = "变更对象ID")
-	private Integer targetId;
+	@ApiModelProperty(required = false,value="变更前业务数据ID" , notes = "变更前业务数据ID")
+	private String dataIdBefore;
+	
+	/**
+	 * 变更后对象ID：变更后对象ID
+	*/
+	@ApiModelProperty(required = false,value="变更后对象ID" , notes = "变更后对象ID")
+	private String dataIdAfter;
 	
 	/**
 	 * 租户ID：租户ID
@@ -126,6 +132,44 @@ public class ChangeInstance extends Entity {
 	private ChangeStatus statusEnum;
 	
 	/**
+	 * 变更类型：变更类型
+	*/
+	@ApiModelProperty(required = false,value="变更类型" , notes = "变更类型")
+	private String type;
+	@Transient
+	private ChangeType typeEnum;
+	
+	/**
+	 * 流程ID：流程ID
+	*/
+	@ApiModelProperty(required = false,value="流程ID" , notes = "流程ID")
+	private String processId;
+	
+	/**
+	 * 当前审批节点：对于当前审批节点的描述性信息
+	*/
+	@ApiModelProperty(required = false,value="当前审批节点" , notes = "对于当前审批节点的描述性信息")
+	private String processNodeSummary;
+	
+	/**
+	 * 流程概要：针对流程审批的概要描述
+	*/
+	@ApiModelProperty(required = false,value="流程概要" , notes = "针对流程审批的概要描述")
+	private String processSummary;
+	
+	/**
+	 * 变更开始时间：变更开始时间
+	*/
+	@ApiModelProperty(required = false,value="变更开始时间" , notes = "变更开始时间")
+	private Date startTime;
+	
+	/**
+	 * 变更结束时间：变更结束时间
+	*/
+	@ApiModelProperty(required = false,value="变更结束时间" , notes = "变更结束时间")
+	private Date finishTime;
+	
+	/**
 	 * 获得 主键<br>
 	 * 主键
 	 * @return 主键
@@ -168,55 +212,74 @@ public class ChangeInstance extends Entity {
 	 * 变更对象的数据表
 	 * @return 变更对象的数据表
 	*/
-	public String getTargetTable() {
-		return targetTable;
+	public String getDataTable() {
+		return dataTable;
 	}
 	
 	/**
 	 * 设置 变更对象的数据表
-	 * @param targetTable 变更对象的数据表
+	 * @param dataTable 变更对象的数据表
 	 * @return 当前对象
 	*/
-	public ChangeInstance setTargetTable(String targetTable) {
-		this.targetTable=targetTable;
+	public ChangeInstance setDataTable(String dataTable) {
+		this.dataTable=dataTable;
 		return this;
 	}
 	
 	/**
-	 * 获得 变更对象类型<br>
-	 * 变更对象类型
-	 * @return 变更对象类型
+	 * 获得 变更对象实体类型<br>
+	 * 变更对象实体类型
+	 * @return 变更对象实体类型
 	*/
-	public String getTargetType() {
-		return targetType;
+	public String getDataType() {
+		return dataType;
 	}
 	
 	/**
-	 * 设置 变更对象类型
-	 * @param targetType 变更对象类型
+	 * 设置 变更对象实体类型
+	 * @param dataType 变更对象实体类型
 	 * @return 当前对象
 	*/
-	public ChangeInstance setTargetType(String targetType) {
-		this.targetType=targetType;
+	public ChangeInstance setDataType(String dataType) {
+		this.dataType=dataType;
 		return this;
 	}
 	
 	/**
-	 * 获得 变更对象ID<br>
-	 * 变更对象ID
-	 * @return 变更对象ID
+	 * 获得 变更前业务数据ID<br>
+	 * 变更前业务数据ID
+	 * @return 变更前业务数据ID
 	*/
-	public Integer getTargetId() {
-		return targetId;
+	public String getDataIdBefore() {
+		return dataIdBefore;
 	}
 	
 	/**
-	 * 设置 变更对象ID
-	 * @param targetId 变更对象ID
+	 * 设置 变更前业务数据ID
+	 * @param dataIdBefore 变更前业务数据ID
 	 * @return 当前对象
 	*/
-	public ChangeInstance setTargetId(Integer targetId) {
-		this.targetId=targetId;
+	public ChangeInstance setDataIdBefore(String dataIdBefore) {
+		this.dataIdBefore=dataIdBefore;
+		return this;
+	}
+	
+	/**
+	 * 获得 变更后对象ID<br>
+	 * 变更后对象ID
+	 * @return 变更后对象ID
+	*/
+	public String getDataIdAfter() {
+		return dataIdAfter;
+	}
+	
+	/**
+	 * 设置 变更后对象ID
+	 * @param dataIdAfter 变更后对象ID
+	 * @return 当前对象
+	*/
+	public ChangeInstance setDataIdAfter(String dataIdAfter) {
+		this.dataIdAfter=dataIdAfter;
 		return this;
 	}
 	
@@ -429,6 +492,7 @@ public class ChangeInstance extends Entity {
 	 * @param statusEnum 变更状态
 	 * @return 当前对象
 	*/
+	@Transient
 	public ChangeInstance setStatusEnum(ChangeStatus statusEnum) {
 		if(statusEnum==null) {
 			this.status=null;
@@ -436,6 +500,150 @@ public class ChangeInstance extends Entity {
 			this.status=statusEnum.code();
 		}
 		this.statusEnum=statusEnum;
+		return this;
+	}
+	
+	/**
+	 * 获得 变更类型<br>
+	 * 变更类型
+	 * @return 变更类型
+	*/
+	public String getType() {
+		return type;
+	}
+	
+	/**
+	 * 获得 变更类型 的投影属性<br>
+	 * 等价于 getType 方法，获得对应的枚举类型
+	 * @return 变更类型
+	*/
+	@Transient
+	public ChangeType getTypeEnum() {
+		return typeEnum ;
+	}
+	
+	/**
+	 * 设置 变更类型
+	 * @param type 变更类型
+	 * @return 当前对象
+	*/
+	public ChangeInstance setType(String type) {
+		this.type=type;
+		this.typeEnum= (ChangeType) EnumUtil.parseByCode(ChangeType.values(),type) ;
+		if(StringUtil.hasContent(type) && this.typeEnum==null) {
+			throw new IllegalArgumentException( type + " is not one of ChangeType");
+		}
+		return this;
+	}
+	
+	/**
+	 * 设置 变更类型的投影属性，等同于设置 变更类型
+	 * @param typeEnum 变更类型
+	 * @return 当前对象
+	*/
+	@Transient
+	public ChangeInstance setTypeEnum(ChangeType typeEnum) {
+		if(typeEnum==null) {
+			this.type=null;
+		} else {
+			this.type=typeEnum.code();
+		}
+		this.typeEnum=typeEnum;
+		return this;
+	}
+	
+	/**
+	 * 获得 流程ID<br>
+	 * 流程ID
+	 * @return 流程ID
+	*/
+	public String getProcessId() {
+		return processId;
+	}
+	
+	/**
+	 * 设置 流程ID
+	 * @param processId 流程ID
+	 * @return 当前对象
+	*/
+	public ChangeInstance setProcessId(String processId) {
+		this.processId=processId;
+		return this;
+	}
+	
+	/**
+	 * 获得 当前审批节点<br>
+	 * 对于当前审批节点的描述性信息
+	 * @return 当前审批节点
+	*/
+	public String getProcessNodeSummary() {
+		return processNodeSummary;
+	}
+	
+	/**
+	 * 设置 当前审批节点
+	 * @param processNodeSummary 当前审批节点
+	 * @return 当前对象
+	*/
+	public ChangeInstance setProcessNodeSummary(String processNodeSummary) {
+		this.processNodeSummary=processNodeSummary;
+		return this;
+	}
+	
+	/**
+	 * 获得 流程概要<br>
+	 * 针对流程审批的概要描述
+	 * @return 流程概要
+	*/
+	public String getProcessSummary() {
+		return processSummary;
+	}
+	
+	/**
+	 * 设置 流程概要
+	 * @param processSummary 流程概要
+	 * @return 当前对象
+	*/
+	public ChangeInstance setProcessSummary(String processSummary) {
+		this.processSummary=processSummary;
+		return this;
+	}
+	
+	/**
+	 * 获得 变更开始时间<br>
+	 * 变更开始时间
+	 * @return 变更开始时间
+	*/
+	public Date getStartTime() {
+		return startTime;
+	}
+	
+	/**
+	 * 设置 变更开始时间
+	 * @param startTime 变更开始时间
+	 * @return 当前对象
+	*/
+	public ChangeInstance setStartTime(Date startTime) {
+		this.startTime=startTime;
+		return this;
+	}
+	
+	/**
+	 * 获得 变更结束时间<br>
+	 * 变更结束时间
+	 * @return 变更结束时间
+	*/
+	public Date getFinishTime() {
+		return finishTime;
+	}
+	
+	/**
+	 * 设置 变更结束时间
+	 * @param finishTime 变更结束时间
+	 * @return 当前对象
+	*/
+	public ChangeInstance setFinishTime(Date finishTime) {
+		this.finishTime=finishTime;
 		return this;
 	}
 

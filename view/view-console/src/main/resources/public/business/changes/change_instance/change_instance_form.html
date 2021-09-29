@@ -2,7 +2,7 @@
 /**
  * 变更实例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-28 09:10:34
+ * @since 2021-09-29 16:26:07
  */
  -->
  <!DOCTYPE html>
@@ -55,30 +55,79 @@
                                     <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('变更对象的数据表')}">变更对象的数据表</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="targetTable" id="targetTable" name="targetTable" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('变更对象的数据表') }" type="text" class="layui-input"  />
+                            <input lay-filter="dataTable" id="dataTable" name="dataTable" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('变更对象的数据表') }" type="text" class="layui-input"  />
                         </div>
                     </div>
 
                                     <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('变更对象类型')}">变更对象类型</div></div>
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('变更对象实体类型')}">变更对象实体类型</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="targetType" id="targetType" name="targetType" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('变更对象类型') }" type="text" class="layui-input"  />
+                            <input lay-filter="dataType" id="dataType" name="dataType" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('变更对象实体类型') }" type="text" class="layui-input"  />
                         </div>
                     </div>
 
-                
-                    <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('变更对象ID')}">变更对象ID</div></div>
+                                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('变更前业务数据ID')}">变更前业务数据ID</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="targetId" id="targetId" name="targetId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('变更对象ID') }" type="text" class="layui-input"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0"   scale="0" />
+                            <input lay-filter="dataIdBefore" id="dataIdBefore" name="dataIdBefore" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('变更前业务数据ID') }" type="text" class="layui-input"  />
                         </div>
                     </div>
 
+                                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('变更后对象ID')}">变更后对象ID</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input lay-filter="dataIdAfter" id="dataIdAfter" name="dataIdAfter" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('变更后对象ID') }" type="text" class="layui-input"  />
+                        </div>
+                    </div>
 
                                     <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('变更状态')}">变更状态</div></div>
                         <div class="layui-input-block layui-input-block-c1">
                             <input lay-filter="status" id="status" name="status" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('变更状态') }" type="text" class="layui-input"  />
+                        </div>
+                    </div>
+
+                                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('变更类型')}">变更类型</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input lay-filter="type" id="type" name="type" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('变更类型') }" type="text" class="layui-input"  />
+                        </div>
+                    </div>
+
+                                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('流程ID')}">流程ID</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input lay-filter="processId" id="processId" name="processId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('流程ID') }" type="text" class="layui-input"  />
+                        </div>
+                    </div>
+
+                                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('当前审批节点')}">当前审批节点</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input lay-filter="processNodeSummary" id="processNodeSummary" name="processNodeSummary" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('当前审批节点') }" type="text" class="layui-input"  />
+                        </div>
+                    </div>
+
+                                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('流程概要')}">流程概要</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input lay-filter="processSummary" id="processSummary" name="processSummary" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('流程概要') }" type="text" class="layui-input"  />
+                        </div>
+                    </div>
+
+                
+                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('变更开始时间')}">变更开始时间</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input input-type="date" lay-filter="startTime" id="startTime" name="startTime"  autocomplete="off"  readonly  th:placeholder="${ lang.translate('请选择') +''+ lang.translate('变更开始时间') }" type="text" class="layui-input"   />
+                        </div>
+                    </div>
+
+                
+                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('变更结束时间')}">变更结束时间</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input input-type="date" lay-filter="finishTime" id="finishTime" name="finishTime"  autocomplete="off"  readonly  th:placeholder="${ lang.translate('请选择') +''+ lang.translate('变更结束时间') }" type="text" class="layui-input"   />
                         </div>
                     </div>
 

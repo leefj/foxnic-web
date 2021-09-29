@@ -8,8 +8,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-28 09:10:34
- * @sign 8452C649CECFDA30595A045A1C7D77FE
+ * @since 2021-09-29 16:23:14
+ * @sign 4AF0C245C7C2525880DDB741A9EFE87F
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -38,32 +38,42 @@ public class ChangeInstanceMeta {
 	/**
 	 * 变更对象的数据表 , 类型: java.lang.String
 	*/
-	public static final String TARGET_TABLE="targetTable";
+	public static final String DATA_TABLE="dataTable";
 	
 	/**
 	 * 变更对象的数据表 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeInstance,java.lang.String> TARGET_TABLE_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeInstance.class ,TARGET_TABLE, java.lang.String.class, "变更对象的数据表", "变更对象的数据表", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeInstance,java.lang.String> DATA_TABLE_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeInstance.class ,DATA_TABLE, java.lang.String.class, "变更对象的数据表", "变更对象的数据表", java.lang.String.class, null);
 	
 	/**
-	 * 变更对象类型 , 类型: java.lang.String
+	 * 变更对象实体类型 , 类型: java.lang.String
 	*/
-	public static final String TARGET_TYPE="targetType";
+	public static final String DATA_TYPE="dataType";
 	
 	/**
-	 * 变更对象类型 , 类型: java.lang.String
+	 * 变更对象实体类型 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeInstance,java.lang.String> TARGET_TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeInstance.class ,TARGET_TYPE, java.lang.String.class, "变更对象类型", "变更对象类型", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeInstance,java.lang.String> DATA_TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeInstance.class ,DATA_TYPE, java.lang.String.class, "变更对象实体类型", "变更对象实体类型", java.lang.String.class, null);
 	
 	/**
-	 * 变更对象ID , 类型: java.lang.Integer
+	 * 变更前业务数据ID , 类型: java.lang.String
 	*/
-	public static final String TARGET_ID="targetId";
+	public static final String DATA_ID_BEFORE="dataIdBefore";
 	
 	/**
-	 * 变更对象ID , 类型: java.lang.Integer
+	 * 变更前业务数据ID , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeInstance,java.lang.Integer> TARGET_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeInstance.class ,TARGET_ID, java.lang.Integer.class, "变更对象ID", "变更对象ID", java.lang.Integer.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeInstance,java.lang.String> DATA_ID_BEFORE_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeInstance.class ,DATA_ID_BEFORE, java.lang.String.class, "变更前业务数据ID", "变更前业务数据ID", java.lang.String.class, null);
+	
+	/**
+	 * 变更后对象ID , 类型: java.lang.String
+	*/
+	public static final String DATA_ID_AFTER="dataIdAfter";
+	
+	/**
+	 * 变更后对象ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeInstance,java.lang.String> DATA_ID_AFTER_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeInstance.class ,DATA_ID_AFTER, java.lang.String.class, "变更后对象ID", "变更后对象ID", java.lang.String.class, null);
 	
 	/**
 	 * 租户ID , 类型: java.lang.String
@@ -166,9 +176,69 @@ public class ChangeInstanceMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeInstance,java.lang.String> STATUS_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeInstance.class ,STATUS, java.lang.String.class, "变更状态", "变更状态", java.lang.String.class, null);
 	
 	/**
+	 * 变更类型 , 类型: java.lang.String
+	*/
+	public static final String TYPE="type";
+	
+	/**
+	 * 变更类型 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeInstance,java.lang.String> TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeInstance.class ,TYPE, java.lang.String.class, "变更类型", "变更类型", java.lang.String.class, null);
+	
+	/**
+	 * 流程ID , 类型: java.lang.String
+	*/
+	public static final String PROCESS_ID="processId";
+	
+	/**
+	 * 流程ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeInstance,java.lang.String> PROCESS_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeInstance.class ,PROCESS_ID, java.lang.String.class, "流程ID", "流程ID", java.lang.String.class, null);
+	
+	/**
+	 * 当前审批节点 , 对于当前审批节点的描述性信息 , 类型: java.lang.String
+	*/
+	public static final String PROCESS_NODE_SUMMARY="processNodeSummary";
+	
+	/**
+	 * 当前审批节点 , 对于当前审批节点的描述性信息 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeInstance,java.lang.String> PROCESS_NODE_SUMMARY_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeInstance.class ,PROCESS_NODE_SUMMARY, java.lang.String.class, "当前审批节点", "对于当前审批节点的描述性信息", java.lang.String.class, null);
+	
+	/**
+	 * 流程概要 , 针对流程审批的概要描述 , 类型: java.lang.String
+	*/
+	public static final String PROCESS_SUMMARY="processSummary";
+	
+	/**
+	 * 流程概要 , 针对流程审批的概要描述 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeInstance,java.lang.String> PROCESS_SUMMARY_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeInstance.class ,PROCESS_SUMMARY, java.lang.String.class, "流程概要", "针对流程审批的概要描述", java.lang.String.class, null);
+	
+	/**
+	 * 变更开始时间 , 类型: java.util.Date
+	*/
+	public static final String START_TIME="startTime";
+	
+	/**
+	 * 变更开始时间 , 类型: java.util.Date
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeInstance,java.util.Date> START_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeInstance.class ,START_TIME, java.util.Date.class, "变更开始时间", "变更开始时间", java.util.Date.class, null);
+	
+	/**
+	 * 变更结束时间 , 类型: java.util.Date
+	*/
+	public static final String FINISH_TIME="finishTime";
+	
+	/**
+	 * 变更结束时间 , 类型: java.util.Date
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeInstance,java.util.Date> FINISH_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeInstance.class ,FINISH_TIME, java.util.Date.class, "变更结束时间", "变更结束时间", java.util.Date.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , DEFINITION_ID , TARGET_TABLE , TARGET_TYPE , TARGET_ID , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , STATUS };
+	public static final String[] $PROPS={ ID , DEFINITION_ID , DATA_TABLE , DATA_TYPE , DATA_ID_BEFORE , DATA_ID_AFTER , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , STATUS , TYPE , PROCESS_ID , PROCESS_NODE_SUMMARY , PROCESS_SUMMARY , START_TIME , FINISH_TIME };
 	
 	/**
 	 * 代理类
@@ -202,34 +272,45 @@ public class ChangeInstanceMeta {
 		
 		/**
 		 * 设置 变更对象的数据表
-		 * @param targetTable 变更对象的数据表
+		 * @param dataTable 变更对象的数据表
 		 * @return 当前对象
 		*/
-		public ChangeInstance setTargetTable(String targetTable) {
-			super.change(TARGET_TABLE,super.getTargetTable(),targetTable);
-			super.setTargetTable(targetTable);
+		public ChangeInstance setDataTable(String dataTable) {
+			super.change(DATA_TABLE,super.getDataTable(),dataTable);
+			super.setDataTable(dataTable);
 			return this;
 		}
 		
 		/**
-		 * 设置 变更对象类型
-		 * @param targetType 变更对象类型
+		 * 设置 变更对象实体类型
+		 * @param dataType 变更对象实体类型
 		 * @return 当前对象
 		*/
-		public ChangeInstance setTargetType(String targetType) {
-			super.change(TARGET_TYPE,super.getTargetType(),targetType);
-			super.setTargetType(targetType);
+		public ChangeInstance setDataType(String dataType) {
+			super.change(DATA_TYPE,super.getDataType(),dataType);
+			super.setDataType(dataType);
 			return this;
 		}
 		
 		/**
-		 * 设置 变更对象ID
-		 * @param targetId 变更对象ID
+		 * 设置 变更前业务数据ID
+		 * @param dataIdBefore 变更前业务数据ID
 		 * @return 当前对象
 		*/
-		public ChangeInstance setTargetId(Integer targetId) {
-			super.change(TARGET_ID,super.getTargetId(),targetId);
-			super.setTargetId(targetId);
+		public ChangeInstance setDataIdBefore(String dataIdBefore) {
+			super.change(DATA_ID_BEFORE,super.getDataIdBefore(),dataIdBefore);
+			super.setDataIdBefore(dataIdBefore);
+			return this;
+		}
+		
+		/**
+		 * 设置 变更后对象ID
+		 * @param dataIdAfter 变更后对象ID
+		 * @return 当前对象
+		*/
+		public ChangeInstance setDataIdAfter(String dataIdAfter) {
+			super.change(DATA_ID_AFTER,super.getDataIdAfter(),dataIdAfter);
+			super.setDataIdAfter(dataIdAfter);
 			return this;
 		}
 		
@@ -340,6 +421,72 @@ public class ChangeInstanceMeta {
 		public ChangeInstance setStatus(String status) {
 			super.change(STATUS,super.getStatus(),status);
 			super.setStatus(status);
+			return this;
+		}
+		
+		/**
+		 * 设置 变更类型
+		 * @param type 变更类型
+		 * @return 当前对象
+		*/
+		public ChangeInstance setType(String type) {
+			super.change(TYPE,super.getType(),type);
+			super.setType(type);
+			return this;
+		}
+		
+		/**
+		 * 设置 流程ID
+		 * @param processId 流程ID
+		 * @return 当前对象
+		*/
+		public ChangeInstance setProcessId(String processId) {
+			super.change(PROCESS_ID,super.getProcessId(),processId);
+			super.setProcessId(processId);
+			return this;
+		}
+		
+		/**
+		 * 设置 当前审批节点
+		 * @param processNodeSummary 当前审批节点
+		 * @return 当前对象
+		*/
+		public ChangeInstance setProcessNodeSummary(String processNodeSummary) {
+			super.change(PROCESS_NODE_SUMMARY,super.getProcessNodeSummary(),processNodeSummary);
+			super.setProcessNodeSummary(processNodeSummary);
+			return this;
+		}
+		
+		/**
+		 * 设置 流程概要
+		 * @param processSummary 流程概要
+		 * @return 当前对象
+		*/
+		public ChangeInstance setProcessSummary(String processSummary) {
+			super.change(PROCESS_SUMMARY,super.getProcessSummary(),processSummary);
+			super.setProcessSummary(processSummary);
+			return this;
+		}
+		
+		/**
+		 * 设置 变更开始时间
+		 * @param startTime 变更开始时间
+		 * @return 当前对象
+		*/
+		public ChangeInstance setStartTime(Date startTime) {
+			super.change(START_TIME,super.getStartTime(),startTime);
+			super.setStartTime(startTime);
+			return this;
+		}
+		
+		/**
+		 * 设置 变更结束时间
+		 * @param finishTime 变更结束时间
+		 * @return 当前对象
+		*/
+		public ChangeInstance setFinishTime(Date finishTime) {
+			super.change(FINISH_TIME,super.getFinishTime(),finishTime);
+			super.setFinishTime(finishTime);
 			return this;
 		}
 	}

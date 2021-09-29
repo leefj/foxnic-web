@@ -2,7 +2,7 @@
 /**
  * 变更示例订单 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-28 16:54:58
+ * @since 2021-09-29 16:26:08
  */
  -->
  <!DOCTYPE html>
@@ -41,13 +41,17 @@
                         <input id="title" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
                     <!-- 下单时间 , orderTime ,typeName=date_input, isHideInSearch=true -->
-                    <!-- 买家ID , buyerId ,typeName=button, isHideInSearch=true -->
+                    <!-- 买家 , buyerId ,typeName=button, isHideInSearch=true -->
                     <!-- 收件地址 , address ,typeName=text_input, isHideInSearch=true -->
                     <!-- 总金额 , amount ,typeName=number_input, isHideInSearch=true -->
                     <!-- 变更类型 , chsType ,typeName=text_input, isHideInSearch=true -->
                     <!-- 变更状态 , chsStatus ,typeName=text_input, isHideInSearch=true -->
                     <!-- 变更版本号 , chsVersion ,typeName=number_input, isHideInSearch=true -->
-                    <!-- 来源ID , chsSourceId ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 来源ID , sourceId ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 变更ID , chsId ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 流程ID , procId ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 流程概要 , procSummary ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 审批节点概要 , procNodeSummary ,typeName=text_input, isHideInSearch=true -->
                     <!-- 订单编号 , code ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('订单编号')}" class="search-label code-label">订单编号</span><span class="search-colon">:</span></div>

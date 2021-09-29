@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
 
@@ -20,10 +19,10 @@ public class RedisDataChangeListener implements MessageListener {
 
 	public static final String DATA_CHANGE_NOTIFY_CHANEL_KEY="chanel:data-change";
 	
-	private HashMap<String, DataChangeHandler> handlers=new HashMap<>();
+	private List<DataChangeHandler> handlers=new ArrayList<>();
 	
-	public void setHandler(String key, DataChangeHandler handler) {
-		handlers.put(key, handler);
+	public void addHandler(DataChangeHandler handler) {
+		handlers.add(handler);
 	}
 	
 	@Override
@@ -35,24 +34,14 @@ public class RedisDataChangeListener implements MessageListener {
 		parts.addAll(Arrays.asList(key.split(":")));
 		parts.remove(0);
 		key=StringUtil.join(parts,":");
-		DataChangeHandler handler=handlers.get(key);
-		if(handler==null) {
-			Logger.error("Handler 未设置 , key="+key);
-			return;
-		}
-		try {
-			handler.handle(key, SpringUtil.getBean(RedisUtil.class));
-		} catch (Exception e) {
-			Logger.error("Handler 处理错误 , key="+key,e);
+		for (DataChangeHandler handler : handlers) {
+			if(!handler.match(key)) continue;
+			try {
+				handler.handle(key, SpringUtil.getBean(RedisUtil.class));
+			} catch (Exception e) {
+				Logger.error("Handler 处理错误 , key="+key,e);
+			}
 		}
 	}
 
-	public boolean hasHandler(String key) {
-		DataChangeHandler handler=handlers.get(key);
-		return handler!=null;
-	}
-
-	
-
-	
 }

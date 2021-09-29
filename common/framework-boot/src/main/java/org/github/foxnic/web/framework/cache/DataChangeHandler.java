@@ -7,4 +7,9 @@ public abstract class DataChangeHandler {
 	 * */
 	public abstract void handle(String key,RedisUtil redis);
 
+	/**
+	 * 是否匹配，若匹配执行 handle
+	 * */
+	public abstract boolean match(String key);
+
 }

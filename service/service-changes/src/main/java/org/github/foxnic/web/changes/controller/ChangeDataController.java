@@ -48,7 +48,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  *  接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-27 16:50:24
+ * @since 2021-09-29 16:26:07
 */
 
 @Api(tags = "chs_change_data")
@@ -176,10 +176,10 @@ public class ChangeDataController extends SuperController {
 
 
 	/**
-	 * 批量删除chs_change_data <br>
+	 * 批量获取chs_change_data <br>
 	 * 联合主键时，请自行调整实现
 	*/
-		@ApiOperation(value = "批量删除chs_change_data")
+		@ApiOperation(value = "批量获取chs_change_data")
 		@ApiImplicitParams({
 				@ApiImplicitParam(name = ChangeDataVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})

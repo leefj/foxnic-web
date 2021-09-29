@@ -34,10 +34,16 @@ public class ChsExampleOrderConfig extends BaseCodeConfig<CHS_EXAMPLE_ORDER> {
 		view.field(CHS_EXAMPLE_ORDER.ORDER_TIME).form().dateInput().format("yyyy-MM-dd");
 
 		view.field(CHS_EXAMPLE_ORDER.CHS_STATUS).form().hidden();
-		view.field(CHS_EXAMPLE_ORDER.CHS_SOURCE_ID).form().hidden();
+		view.field(CHS_EXAMPLE_ORDER.SOURCE_ID).form().hidden();
 		view.field(CHS_EXAMPLE_ORDER.CHS_TYPE).form().hidden();
 		view.field(CHS_EXAMPLE_ORDER.CHS_VERSION).form().hidden();
-		view.field(CHS_EXAMPLE_ORDER.BUYER_ID).form().button().chooseEmployee(true);
+		view.field(CHS_EXAMPLE_ORDER.AMOUNT).form().hidden();
+		view.field(CHS_EXAMPLE_ORDER.SOURCE_ID).form().hidden();
+		view.field(CHS_EXAMPLE_ORDER.PROC_ID).form().hidden();
+		view.field(CHS_EXAMPLE_ORDER.PROC_NODE_SUMMARY).form().hidden();
+		view.field(CHS_EXAMPLE_ORDER.PROC_SUMMARY).form().hidden();
+		view.field(CHS_EXAMPLE_ORDER.BUYER_ID).basic().label("买家").form().button().chooseEmployee(true);
+		view.field(CHS_EXAMPLE_ORDER.CHS_ID).form().hidden();
 
 	}
 

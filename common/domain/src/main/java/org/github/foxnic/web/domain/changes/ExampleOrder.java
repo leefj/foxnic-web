@@ -21,8 +21,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 变更示例订单
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-28 16:53:43
- * @sign 7FD46182CA6BE308FCCE27AA231CDABE
+ * @since 2021-09-29 11:52:15
+ * @sign 09AE6B4779AD93B4CA38B3E0EBF427D3
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -99,12 +99,6 @@ public class ExampleOrder extends Entity {
 	private Integer chsVersion;
 	
 	/**
-	 * 来源ID：来源ID
-	*/
-	@ApiModelProperty(required = false,value="来源ID" , notes = "来源ID")
-	private String chsSourceId;
-	
-	/**
 	 * 租户ID：租户ID
 	*/
 	@ApiModelProperty(required = true,value="租户ID" , notes = "租户ID")
@@ -157,6 +151,36 @@ public class ExampleOrder extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
 	private Integer version;
+	
+	/**
+	 * 来源ID：来源ID
+	*/
+	@ApiModelProperty(required = false,value="来源ID" , notes = "来源ID")
+	private String sourceId;
+	
+	/**
+	 * 变更ID：变更ID
+	*/
+	@ApiModelProperty(required = false,value="变更ID" , notes = "变更ID")
+	private String chsId;
+	
+	/**
+	 * 流程ID：流程ID
+	*/
+	@ApiModelProperty(required = false,value="流程ID" , notes = "流程ID")
+	private String procId;
+	
+	/**
+	 * 流程概要：流程概要
+	*/
+	@ApiModelProperty(required = false,value="流程概要" , notes = "流程概要")
+	private String procSummary;
+	
+	/**
+	 * 审批节点概要：审批节点概要
+	*/
+	@ApiModelProperty(required = false,value="审批节点概要" , notes = "审批节点概要")
+	private String procNodeSummary;
 	
 	/**
 	 * 获得 主键<br>
@@ -409,25 +433,6 @@ public class ExampleOrder extends Entity {
 	}
 	
 	/**
-	 * 获得 来源ID<br>
-	 * 来源ID
-	 * @return 来源ID
-	*/
-	public String getChsSourceId() {
-		return chsSourceId;
-	}
-	
-	/**
-	 * 设置 来源ID
-	 * @param chsSourceId 来源ID
-	 * @return 当前对象
-	*/
-	public ExampleOrder setChsSourceId(String chsSourceId) {
-		this.chsSourceId=chsSourceId;
-		return this;
-	}
-	
-	/**
 	 * 获得 租户ID<br>
 	 * 租户ID
 	 * @return 租户ID
@@ -595,6 +600,101 @@ public class ExampleOrder extends Entity {
 	*/
 	public ExampleOrder setVersion(Integer version) {
 		this.version=version;
+		return this;
+	}
+	
+	/**
+	 * 获得 来源ID<br>
+	 * 来源ID
+	 * @return 来源ID
+	*/
+	public String getSourceId() {
+		return sourceId;
+	}
+	
+	/**
+	 * 设置 来源ID
+	 * @param sourceId 来源ID
+	 * @return 当前对象
+	*/
+	public ExampleOrder setSourceId(String sourceId) {
+		this.sourceId=sourceId;
+		return this;
+	}
+	
+	/**
+	 * 获得 变更ID<br>
+	 * 变更ID
+	 * @return 变更ID
+	*/
+	public String getChsId() {
+		return chsId;
+	}
+	
+	/**
+	 * 设置 变更ID
+	 * @param chsId 变更ID
+	 * @return 当前对象
+	*/
+	public ExampleOrder setChsId(String chsId) {
+		this.chsId=chsId;
+		return this;
+	}
+	
+	/**
+	 * 获得 流程ID<br>
+	 * 流程ID
+	 * @return 流程ID
+	*/
+	public String getProcId() {
+		return procId;
+	}
+	
+	/**
+	 * 设置 流程ID
+	 * @param procId 流程ID
+	 * @return 当前对象
+	*/
+	public ExampleOrder setProcId(String procId) {
+		this.procId=procId;
+		return this;
+	}
+	
+	/**
+	 * 获得 流程概要<br>
+	 * 流程概要
+	 * @return 流程概要
+	*/
+	public String getProcSummary() {
+		return procSummary;
+	}
+	
+	/**
+	 * 设置 流程概要
+	 * @param procSummary 流程概要
+	 * @return 当前对象
+	*/
+	public ExampleOrder setProcSummary(String procSummary) {
+		this.procSummary=procSummary;
+		return this;
+	}
+	
+	/**
+	 * 获得 审批节点概要<br>
+	 * 审批节点概要
+	 * @return 审批节点概要
+	*/
+	public String getProcNodeSummary() {
+		return procNodeSummary;
+	}
+	
+	/**
+	 * 设置 审批节点概要
+	 * @param procNodeSummary 审批节点概要
+	 * @return 当前对象
+	*/
+	public ExampleOrder setProcNodeSummary(String procNodeSummary) {
+		this.procNodeSummary=procNodeSummary;
 		return this;
 	}
 

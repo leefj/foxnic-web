@@ -1,27 +1,29 @@
 package org.github.foxnic.web.changes.service;
 
 
-import com.github.foxnic.sql.expr.ConditionExpr;
-import com.github.foxnic.dao.entity.ISuperService;
-import org.github.foxnic.web.domain.changes.ChangeInstance;
-import org.github.foxnic.web.domain.changes.ChangeInstanceVO;
-import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
-import java.io.InputStream;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.ISuperService;
+import com.github.foxnic.dao.excel.ExcelStructure;
+import com.github.foxnic.dao.excel.ExcelWriter;
+import com.github.foxnic.dao.excel.ValidateResult;
+import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.expr.OrderBy;
 import com.github.foxnic.sql.meta.DBField;
-import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.dao.excel.ExcelStructure;
-import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.dao.data.SaveMode;
+import org.github.foxnic.web.domain.changes.ChangeInstance;
+import org.github.foxnic.web.domain.changes.ChangeRequest;
+
+import java.io.InputStream;
+import java.util.List;
 
 /**
  * <p>
  * 变更实例表 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-28 09:10:34
+ * @since 2021-09-29 10:50:33
+ * @version
 */
 
 public interface IChangeInstanceService extends ISuperService<ChangeInstance> {
@@ -284,5 +286,6 @@ public interface IChangeInstanceService extends ISuperService<ChangeInstance> {
 	 * */
 	List<ValidateResult> importExcel(InputStream input,int sheetIndex,boolean batch);
 
- 
+
+    Result<ChangeInstance> request(ChangeRequest request);
 }

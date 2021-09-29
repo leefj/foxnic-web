@@ -1,7 +1,7 @@
 /**
  * 变更实例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-28 09:10:34
+ * @since 2021-09-29 16:26:07
  */
 
 function FormPage() {
@@ -77,6 +77,16 @@ function FormPage() {
 	function renderFormFields() {
 		fox.renderFormInputs(form);
 
+		laydate.render({
+			elem: '#startTime',
+			format:"yyyy-MM-dd HH:mm:ss",
+			trigger:"click"
+		});
+		laydate.render({
+			elem: '#finishTime',
+			format:"yyyy-MM-dd HH:mm:ss",
+			trigger:"click"
+		});
 	}
 
 	/**
@@ -103,6 +113,14 @@ function FormPage() {
 
 
 
+			//设置 变更开始时间 显示复选框勾选
+			if(formData["startTime"]) {
+				$("#startTime").val(fox.dateFormat(formData["startTime"],"yyyy-MM-dd HH:mm:ss"));
+			}
+			//设置 变更结束时间 显示复选框勾选
+			if(formData["finishTime"]) {
+				$("#finishTime").val(fox.dateFormat(formData["finishTime"],"yyyy-MM-dd HH:mm:ss"));
+			}
 
 
 

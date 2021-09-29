@@ -5,6 +5,7 @@ import com.github.foxnic.springboot.spring.SpringUtil;
 import org.github.foxnic.web.framework.cache.redis.listener.RedisDataChangeListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisConnectionUtils;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -22,7 +23,15 @@ import java.util.concurrent.atomic.AtomicLong;
  
 @Component
 public class RedisUtil {
-	
+
+    private static  RedisUtil instance = null;
+
+    public static RedisUtil instance() {
+        if(instance!=null) return instance;
+        instance = SpringUtil.getBean(RedisUtil.class);
+        return instance;
+    }
+
 	/**
 	 * 默认 GenericJackson2JsonRedisSerializer ，值存为json，并支持泛型反序列化
 	 * */
@@ -221,7 +230,7 @@ public class RedisUtil {
      *
      * @param key   键
      * @param value 值
-     * @param time  时间(秒) time要大于0 如果time小于等于0 将设置无限期
+     * @param time  时间(单位:秒) time要大于0 如果time小于等于0 将设置无限期
      * @return true成功 false 失败
      */
     public boolean set(String key, Object value, long time) {
@@ -912,22 +921,15 @@ public class RedisUtil {
 	   redisTemplate.convertAndSend(RedisDataChangeListener.DATA_CHANGE_NOTIFY_CHANEL_KEY, "key:"+key);
    }
    
-   
-    
+
+   @Autowired
+   private RedisDataChangeListener redisDataChangeListener;
+
    /**
     * 设置数据变更的通知处理器
     * */
-   public void setDataChangeHandler(String key,DataChangeHandler handler) {
-	   RedisDataChangeListener dcl= SpringUtil.getBean(RedisDataChangeListener.class);
-	   dcl.setHandler(key,handler);
+   public void addDataChangeHandler(DataChangeHandler handler) {
+       redisDataChangeListener.addHandler(handler);
    }
-   
-   /**
-    * 判断是否已经设置了数据变更的通知处理器
-    * */
-   public boolean hasDataChangeHandler(String key) {
-	   RedisDataChangeListener dcl=SpringUtil.getBean(RedisDataChangeListener.class);
-	   return dcl.hasHandler(key);
-   }
- 
+
 } 

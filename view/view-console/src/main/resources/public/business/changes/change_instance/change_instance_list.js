@@ -1,7 +1,7 @@
 /**
  * 变更实例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-28 09:10:34
+ * @since 2021-09-29 16:26:07
  */
 
 
@@ -75,11 +75,18 @@ function ListPage() {
 					{ fixed: 'left',type:'checkbox' }
 					,{ field: 'id', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('主键') , templet: function (d) { return templet('id',d.id,d);}  }
 					,{ field: 'definitionId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('变更定义ID') , templet: function (d) { return templet('definitionId',d.definitionId,d);}  }
-					,{ field: 'targetTable', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('变更对象的数据表') , templet: function (d) { return templet('targetTable',d.targetTable,d);}  }
-					,{ field: 'targetType', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('变更对象类型') , templet: function (d) { return templet('targetType',d.targetType,d);}  }
-					,{ field: 'targetId', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('变更对象ID') , templet: function (d) { return templet('targetId',d.targetId,d);}  }
+					,{ field: 'dataTable', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('变更对象的数据表') , templet: function (d) { return templet('dataTable',d.dataTable,d);}  }
+					,{ field: 'dataType', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('变更对象实体类型') , templet: function (d) { return templet('dataType',d.dataType,d);}  }
+					,{ field: 'dataIdBefore', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('变更前业务数据ID') , templet: function (d) { return templet('dataIdBefore',d.dataIdBefore,d);}  }
+					,{ field: 'dataIdAfter', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('变更后对象ID') , templet: function (d) { return templet('dataIdAfter',d.dataIdAfter,d);}  }
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }}
 					,{ field: 'status', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('变更状态') , templet: function (d) { return templet('status',d.status,d);}  }
+					,{ field: 'type', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('变更类型') , templet: function (d) { return templet('type',d.type,d);}  }
+					,{ field: 'processId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('流程ID') , templet: function (d) { return templet('processId',d.processId,d);}  }
+					,{ field: 'processNodeSummary', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('当前审批节点') , templet: function (d) { return templet('processNodeSummary',d.processNodeSummary,d);}  }
+					,{ field: 'processSummary', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('流程概要') , templet: function (d) { return templet('processSummary',d.processSummary,d);}  }
+					,{ field: 'startTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('变更开始时间'), templet: function (d) { return templet('startTime',fox.dateFormat(d.startTime,"yyyy-MM-dd HH:mm:ss"),d); }}
+					,{ field: 'finishTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('变更结束时间'), templet: function (d) { return templet('finishTime',fox.dateFormat(d.finishTime,"yyyy-MM-dd HH:mm:ss"),d); }}
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
 				]],
@@ -116,10 +123,17 @@ function ListPage() {
 		var value = {};
 		value.id={ inputType:"button",value: $("#id").val()};
 		value.definitionId={ inputType:"button",value: $("#definitionId").val()};
-		value.targetTable={ inputType:"button",value: $("#targetTable").val()};
-		value.targetType={ inputType:"button",value: $("#targetType").val()};
-		value.targetId={ inputType:"number_input", value: $("#targetId").val()};
+		value.dataTable={ inputType:"button",value: $("#dataTable").val()};
+		value.dataType={ inputType:"button",value: $("#dataType").val()};
+		value.dataIdBefore={ inputType:"button",value: $("#dataIdBefore").val()};
+		value.dataIdAfter={ inputType:"button",value: $("#dataIdAfter").val()};
 		value.status={ inputType:"button",value: $("#status").val()};
+		value.type={ inputType:"button",value: $("#type").val()};
+		value.processId={ inputType:"button",value: $("#processId").val()};
+		value.processNodeSummary={ inputType:"button",value: $("#processNodeSummary").val()};
+		value.processSummary={ inputType:"button",value: $("#processSummary").val()};
+		value.startTime={ inputType:"date_input", value: $("#startTime").val()};
+		value.finishTime={ inputType:"date_input", value: $("#finishTime").val()};
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;
@@ -157,6 +171,14 @@ function ListPage() {
 
 		fox.switchSearchRow(1);
 
+		laydate.render({
+			elem: '#startTime',
+			trigger:"click"
+		});
+		laydate.render({
+			elem: '#finishTime',
+			trigger:"click"
+		});
 		fox.renderSearchInputs();
 		window.pageExt.list.afterSearchInputReady && window.pageExt.list.afterSearchInputReady();
 	}

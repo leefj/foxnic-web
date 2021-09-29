@@ -1,49 +1,55 @@
 package org.github.foxnic.web.changes.controller;
 
  
-import com.alibaba.csp.sentinel.annotation.SentinelResource;
-import com.github.foxnic.api.error.ErrorDesc;
-import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.api.validate.annotations.NotNull;
-import com.github.foxnic.commons.io.StreamUtil;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.springboot.web.DownloadUtil;
-import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import com.github.xiaoymin.knife4j.annotations.ApiSort;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
-import org.github.foxnic.web.changes.service.IExampleOrderService;
-import org.github.foxnic.web.domain.changes.ExampleOrder;
-import org.github.foxnic.web.domain.changes.ExampleOrderVO;
-import org.github.foxnic.web.domain.changes.meta.ExampleOrderVOMeta;
-import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
-import org.github.foxnic.web.framework.web.SuperController;
-import org.github.foxnic.web.proxy.changes.ExampleOrderServiceProxy;
+import java.util.List;
+
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import org.github.foxnic.web.framework.web.SuperController;
+import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.InputStream;
-import java.math.BigDecimal;
+
+import org.github.foxnic.web.proxy.changes.ExampleOrderServiceProxy;
+import org.github.foxnic.web.domain.changes.meta.ExampleOrderVOMeta;
+import org.github.foxnic.web.domain.changes.ExampleOrder;
+import org.github.foxnic.web.domain.changes.ExampleOrderVO;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.excel.ExcelWriter;
+import com.github.foxnic.springboot.web.DownloadUtil;
+import com.github.foxnic.dao.data.PagedList;
 import java.util.Date;
-import java.util.List;
+import java.sql.Timestamp;
+import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.commons.io.StreamUtil;
 import java.util.Map;
+import com.github.foxnic.dao.excel.ValidateResult;
+import java.io.InputStream;
+import org.github.foxnic.web.domain.changes.meta.ExampleOrderMeta;
+import java.math.BigDecimal;
+import io.swagger.annotations.Api;
+import com.github.xiaoymin.knife4j.annotations.ApiSort;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiImplicitParam;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import org.github.foxnic.web.changes.service.IExampleOrderService;
+import com.github.foxnic.api.validate.annotations.NotNull;
 
 /**
  * <p>
  * 变更示例订单表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-28 16:54:53
+ * @since 2021-09-29 16:26:08
 */
 
 @Api(tags = "变更示例订单")
@@ -70,7 +76,11 @@ public class ExampleOrderController extends SuperController {
 		@ApiImplicitParam(name = ExampleOrderVOMeta.CHS_TYPE , value = "变更类型" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ExampleOrderVOMeta.CHS_STATUS , value = "变更状态" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ExampleOrderVOMeta.CHS_VERSION , value = "变更版本号" , required = false , dataTypeClass=Integer.class),
-		@ApiImplicitParam(name = ExampleOrderVOMeta.CHS_SOURCE_ID , value = "来源ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ExampleOrderVOMeta.SOURCE_ID , value = "来源ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ExampleOrderVOMeta.CHS_ID , value = "变更ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ExampleOrderVOMeta.PROC_ID , value = "流程ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ExampleOrderVOMeta.PROC_SUMMARY , value = "流程概要" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ExampleOrderVOMeta.PROC_NODE_SUMMARY , value = "审批节点概要" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport(order=1)
 	@SentinelResource(value = ExampleOrderServiceProxy.INSERT , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
@@ -130,7 +140,11 @@ public class ExampleOrderController extends SuperController {
 		@ApiImplicitParam(name = ExampleOrderVOMeta.CHS_TYPE , value = "变更类型" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ExampleOrderVOMeta.CHS_STATUS , value = "变更状态" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ExampleOrderVOMeta.CHS_VERSION , value = "变更版本号" , required = false , dataTypeClass=Integer.class),
-		@ApiImplicitParam(name = ExampleOrderVOMeta.CHS_SOURCE_ID , value = "来源ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ExampleOrderVOMeta.SOURCE_ID , value = "来源ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ExampleOrderVOMeta.CHS_ID , value = "变更ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ExampleOrderVOMeta.PROC_ID , value = "流程ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ExampleOrderVOMeta.PROC_SUMMARY , value = "流程概要" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ExampleOrderVOMeta.PROC_NODE_SUMMARY , value = "审批节点概要" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport( order=4 , ignoreParameters = { ExampleOrderVOMeta.PAGE_INDEX , ExampleOrderVOMeta.PAGE_SIZE , ExampleOrderVOMeta.SEARCH_FIELD , ExampleOrderVOMeta.FUZZY_FIELD , ExampleOrderVOMeta.SEARCH_VALUE , ExampleOrderVOMeta.SORT_FIELD , ExampleOrderVOMeta.SORT_TYPE , ExampleOrderVOMeta.IDS } ) 
 	@NotNull(name = ExampleOrderVOMeta.ID)
@@ -157,7 +171,11 @@ public class ExampleOrderController extends SuperController {
 		@ApiImplicitParam(name = ExampleOrderVOMeta.CHS_TYPE , value = "变更类型" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ExampleOrderVOMeta.CHS_STATUS , value = "变更状态" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ExampleOrderVOMeta.CHS_VERSION , value = "变更版本号" , required = false , dataTypeClass=Integer.class),
-		@ApiImplicitParam(name = ExampleOrderVOMeta.CHS_SOURCE_ID , value = "来源ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ExampleOrderVOMeta.SOURCE_ID , value = "来源ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ExampleOrderVOMeta.CHS_ID , value = "变更ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ExampleOrderVOMeta.PROC_ID , value = "流程ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ExampleOrderVOMeta.PROC_SUMMARY , value = "流程概要" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ExampleOrderVOMeta.PROC_NODE_SUMMARY , value = "审批节点概要" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { ExampleOrderVOMeta.PAGE_INDEX , ExampleOrderVOMeta.PAGE_SIZE , ExampleOrderVOMeta.SEARCH_FIELD , ExampleOrderVOMeta.FUZZY_FIELD , ExampleOrderVOMeta.SEARCH_VALUE , ExampleOrderVOMeta.SORT_FIELD , ExampleOrderVOMeta.SORT_TYPE , ExampleOrderVOMeta.IDS } )
 	@NotNull(name = ExampleOrderVOMeta.ID)
@@ -223,7 +241,11 @@ public class ExampleOrderController extends SuperController {
 		@ApiImplicitParam(name = ExampleOrderVOMeta.CHS_TYPE , value = "变更类型" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ExampleOrderVOMeta.CHS_STATUS , value = "变更状态" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ExampleOrderVOMeta.CHS_VERSION , value = "变更版本号" , required = false , dataTypeClass=Integer.class),
-		@ApiImplicitParam(name = ExampleOrderVOMeta.CHS_SOURCE_ID , value = "来源ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ExampleOrderVOMeta.SOURCE_ID , value = "来源ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ExampleOrderVOMeta.CHS_ID , value = "变更ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ExampleOrderVOMeta.PROC_ID , value = "流程ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ExampleOrderVOMeta.PROC_SUMMARY , value = "流程概要" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ExampleOrderVOMeta.PROC_NODE_SUMMARY , value = "审批节点概要" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { ExampleOrderVOMeta.PAGE_INDEX , ExampleOrderVOMeta.PAGE_SIZE } )
 	@SentinelResource(value = ExampleOrderServiceProxy.QUERY_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
@@ -251,19 +273,16 @@ public class ExampleOrderController extends SuperController {
 		@ApiImplicitParam(name = ExampleOrderVOMeta.CHS_TYPE , value = "变更类型" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ExampleOrderVOMeta.CHS_STATUS , value = "变更状态" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ExampleOrderVOMeta.CHS_VERSION , value = "变更版本号" , required = false , dataTypeClass=Integer.class),
-		@ApiImplicitParam(name = ExampleOrderVOMeta.CHS_SOURCE_ID , value = "来源ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ExampleOrderVOMeta.SOURCE_ID , value = "来源ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ExampleOrderVOMeta.CHS_ID , value = "变更ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ExampleOrderVOMeta.PROC_ID , value = "流程ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ExampleOrderVOMeta.PROC_SUMMARY , value = "流程概要" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ExampleOrderVOMeta.PROC_NODE_SUMMARY , value = "审批节点概要" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport(order=8)
 	@SentinelResource(value = ExampleOrderServiceProxy.QUERY_PAGED_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(ExampleOrderServiceProxy.QUERY_PAGED_LIST)
 	public Result<PagedList<ExampleOrder>> queryPagedList(ExampleOrderVO sample) {
-
-//		RcdSet rs=exampleOrderService.dao().query("select * from sys_user");
-//		rs.removeColumn("id");
-//		for (Rcd r : rs) {
-//			SQLBuilder.buildInsert(r,"sys_user",exampleOrderService.dao(),true);
-//		}
-
 		Result<PagedList<ExampleOrder>> result=new Result<>();
 		PagedList<ExampleOrder> list=exampleOrderService.queryPagedList(sample,sample.getPageSize(),sample.getPageIndex());
 		result.success(true).data(list);
