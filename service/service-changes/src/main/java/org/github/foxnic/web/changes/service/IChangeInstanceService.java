@@ -12,7 +12,7 @@ import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.expr.OrderBy;
 import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.domain.changes.ChangeInstance;
-import org.github.foxnic.web.domain.changes.ChangeRequest;
+import org.github.foxnic.web.domain.changes.ChangeRequestBody;
 
 import java.io.InputStream;
 import java.util.List;
@@ -287,5 +287,5 @@ public interface IChangeInstanceService extends ISuperService<ChangeInstance> {
 	List<ValidateResult> importExcel(InputStream input,int sheetIndex,boolean batch);
 
 
-    Result<ChangeInstance> request(ChangeRequest request);
+    Result<ChangeInstance> request(ChangeRequestBody request);
 }

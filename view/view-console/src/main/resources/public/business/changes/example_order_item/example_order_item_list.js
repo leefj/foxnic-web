@@ -1,7 +1,7 @@
 /**
  * 变更示例订单明细 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-30 09:31:33
+ * @since 2021-09-30 11:31:54
  */
 
 
@@ -61,7 +61,7 @@ function ListPage() {
 					return value;
 				}
 			}
-			var h=$(".search-bar").height();
+			var h=-28; 
 			var tableConfig={
 				elem: '#data-table',
 				toolbar: '#toolbarTemplate',
@@ -73,12 +73,12 @@ function ListPage() {
 				cols: [[
 					{ fixed: 'left',type: 'numbers' },
 					{ fixed: 'left',type:'checkbox' }
-					,{ field: 'id', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('主键') , templet: function (d) { return templet('id',d.id,d);}  }
 					,{ field: 'productName', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('商品名称') , templet: function (d) { return templet('productName',d.productName,d);}  }
-					,{ field: 'skuName', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('规格名称') , templet: function (d) { return templet('skuName',d.skuName,d);}  }
 					,{ field: 'price', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('单价') , templet: function (d) { return templet('price',d.price,d);}  }
 					,{ field: 'quantity', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('数量') , templet: function (d) { return templet('quantity',d.quantity,d);}  }
-					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }}
+					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('主键') , templet: function (d) { return templet('id',d.id,d);}  }
+					,{ field: 'orderId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('订单ID') , templet: function (d) { return templet('orderId',d.orderId,d);}  }
+					,{ field: 'createTime', align:"right", fixed:false, hide:true, sort: true, title: fox.translate('创建时间'), templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }}
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
 				]],
@@ -114,8 +114,8 @@ function ListPage() {
 	function refreshTableData(sortField,sortType) {
 		var value = {};
 		value.id={ inputType:"button",value: $("#id").val()};
+		value.orderId={ inputType:"button",value: $("#orderId").val()};
 		value.productName={ inputType:"button",value: $("#productName").val()};
-		value.skuName={ inputType:"button",value: $("#skuName").val()};
 		value.price={ inputType:"number_input", value: $("#price").val()};
 		value.quantity={ inputType:"number_input", value: $("#quantity").val()};
 		var ps={searchField:"$composite"};

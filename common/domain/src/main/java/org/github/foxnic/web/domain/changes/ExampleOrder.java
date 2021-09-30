@@ -11,8 +11,10 @@ import java.math.BigDecimal;
 import org.github.foxnic.web.constants.enums.changes.ChangeType;
 import javax.persistence.Transient;
 import org.github.foxnic.web.constants.enums.changes.ChangeStatus;
+import java.util.List;
 import com.github.foxnic.commons.reflect.EnumUtil;
 import com.github.foxnic.commons.lang.StringUtil;
+import java.util.ArrayList;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
 
@@ -21,8 +23,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 变更示例订单
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-29 11:52:15
- * @sign 09AE6B4779AD93B4CA38B3E0EBF427D3
+ * @since 2021-09-30 10:24:21
+ * @sign 9B0D224725AE9D00DE96DB8F8D493737
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -181,6 +183,12 @@ public class ExampleOrder extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="审批节点概要" , notes = "审批节点概要")
 	private String procNodeSummary;
+	
+	/**
+	 * 订单明细：订单明细
+	*/
+	@ApiModelProperty(required = false,value="订单明细" , notes = "订单明细")
+	private List<ExampleOrderItem> items;
 	
 	/**
 	 * 获得 主键<br>
@@ -695,6 +703,36 @@ public class ExampleOrder extends Entity {
 	*/
 	public ExampleOrder setProcNodeSummary(String procNodeSummary) {
 		this.procNodeSummary=procNodeSummary;
+		return this;
+	}
+	
+	/**
+	 * 获得 订单明细<br>
+	 * 订单明细
+	 * @return 订单明细
+	*/
+	public List<ExampleOrderItem> getItems() {
+		return items;
+	}
+	
+	/**
+	 * 设置 订单明细
+	 * @param items 订单明细
+	 * @return 当前对象
+	*/
+	public ExampleOrder setItems(List<ExampleOrderItem> items) {
+		this.items=items;
+		return this;
+	}
+	
+	/**
+	 * 添加 订单明细
+	 * @param item 订单明细
+	 * @return 当前对象
+	*/
+	public ExampleOrder addItem(ExampleOrderItem item) {
+		if(this.items==null) items=new ArrayList<>();
+		this.items.add(item);
 		return this;
 	}
 

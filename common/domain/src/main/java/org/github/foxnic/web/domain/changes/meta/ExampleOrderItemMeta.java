@@ -9,8 +9,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-28 14:30:20
- * @sign F0511135F00CABE253BD808717747AEC
+ * @since 2021-09-30 10:35:49
+ * @sign CF78FFFD63BEDD2E8DCF2E469FF81870
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -27,6 +27,16 @@ public class ExampleOrderItemMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.changes.ExampleOrderItem,java.lang.String> ID_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ExampleOrderItem.class ,ID, java.lang.String.class, "主键", "主键", java.lang.String.class, null);
 	
 	/**
+	 * 订单ID , 类型: java.lang.String
+	*/
+	public static final String ORDER_ID="orderId";
+	
+	/**
+	 * 订单ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ExampleOrderItem,java.lang.String> ORDER_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ExampleOrderItem.class ,ORDER_ID, java.lang.String.class, "订单ID", "订单ID", java.lang.String.class, null);
+	
+	/**
 	 * 商品名称 , 类型: java.lang.String
 	*/
 	public static final String PRODUCT_NAME="productName";
@@ -35,16 +45,6 @@ public class ExampleOrderItemMeta {
 	 * 商品名称 , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.changes.ExampleOrderItem,java.lang.String> PRODUCT_NAME_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ExampleOrderItem.class ,PRODUCT_NAME, java.lang.String.class, "商品名称", "商品名称", java.lang.String.class, null);
-	
-	/**
-	 * 规格名称 , 类型: java.lang.String
-	*/
-	public static final String SKU_NAME="skuName";
-	
-	/**
-	 * 规格名称 , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.changes.ExampleOrderItem,java.lang.String> SKU_NAME_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ExampleOrderItem.class ,SKU_NAME, java.lang.String.class, "规格名称", "规格名称", java.lang.String.class, null);
 	
 	/**
 	 * 单价 , 类型: java.math.BigDecimal
@@ -159,7 +159,7 @@ public class ExampleOrderItemMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , PRODUCT_NAME , SKU_NAME , PRICE , QUANTITY , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , ORDER_ID , PRODUCT_NAME , PRICE , QUANTITY , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
 	
 	/**
 	 * 代理类
@@ -181,6 +181,17 @@ public class ExampleOrderItemMeta {
 		}
 		
 		/**
+		 * 设置 订单ID
+		 * @param orderId 订单ID
+		 * @return 当前对象
+		*/
+		public ExampleOrderItem setOrderId(String orderId) {
+			super.change(ORDER_ID,super.getOrderId(),orderId);
+			super.setOrderId(orderId);
+			return this;
+		}
+		
+		/**
 		 * 设置 商品名称
 		 * @param productName 商品名称
 		 * @return 当前对象
@@ -188,17 +199,6 @@ public class ExampleOrderItemMeta {
 		public ExampleOrderItem setProductName(String productName) {
 			super.change(PRODUCT_NAME,super.getProductName(),productName);
 			super.setProductName(productName);
-			return this;
-		}
-		
-		/**
-		 * 设置 规格名称
-		 * @param skuName 规格名称
-		 * @return 当前对象
-		*/
-		public ExampleOrderItem setSkuName(String skuName) {
-			super.change(SKU_NAME,super.getSkuName(),skuName);
-			super.setSkuName(skuName);
 			return this;
 		}
 		

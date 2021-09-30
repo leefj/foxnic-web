@@ -4,13 +4,15 @@ import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.changes.ExampleOrder;
 import java.util.Date;
 import java.math.BigDecimal;
+import org.github.foxnic.web.domain.changes.ExampleOrderItem;
+import java.util.List;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-29 11:52:15
- * @sign 09AE6B4779AD93B4CA38B3E0EBF427D3
+ * @since 2021-09-30 10:24:21
+ * @sign 9B0D224725AE9D00DE96DB8F8D493737
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -257,9 +259,19 @@ public class ExampleOrderMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.changes.ExampleOrder,java.lang.String> PROC_NODE_SUMMARY_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ExampleOrder.class ,PROC_NODE_SUMMARY, java.lang.String.class, "审批节点概要", "审批节点概要", java.lang.String.class, null);
 	
 	/**
+	 * 订单明细 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.changes.ExampleOrderItem
+	*/
+	public static final String ITEMS="items";
+	
+	/**
+	 * 订单明细 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.changes.ExampleOrderItem
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ExampleOrder,org.github.foxnic.web.domain.changes.ExampleOrderItem> ITEMS_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ExampleOrder.class ,ITEMS, java.util.List.class, "订单明细", "订单明细", org.github.foxnic.web.domain.changes.ExampleOrderItem.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , TITLE , CODE , ORDER_TIME , BUYER_ID , ADDRESS , AMOUNT , CHS_TYPE , CHS_STATUS , CHS_VERSION , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , SOURCE_ID , CHS_ID , PROC_ID , PROC_SUMMARY , PROC_NODE_SUMMARY };
+	public static final String[] $PROPS={ ID , TITLE , CODE , ORDER_TIME , BUYER_ID , ADDRESS , AMOUNT , CHS_TYPE , CHS_STATUS , CHS_VERSION , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , SOURCE_ID , CHS_ID , PROC_ID , PROC_SUMMARY , PROC_NODE_SUMMARY , ITEMS };
 	
 	/**
 	 * 代理类
@@ -530,6 +542,17 @@ public class ExampleOrderMeta {
 		public ExampleOrder setProcNodeSummary(String procNodeSummary) {
 			super.change(PROC_NODE_SUMMARY,super.getProcNodeSummary(),procNodeSummary);
 			super.setProcNodeSummary(procNodeSummary);
+			return this;
+		}
+		
+		/**
+		 * 设置 订单明细
+		 * @param items 订单明细
+		 * @return 当前对象
+		*/
+		public ExampleOrder setItems(List<ExampleOrderItem> items) {
+			super.change(ITEMS,super.getItems(),items);
+			super.setItems(items);
 			return this;
 		}
 	}

@@ -1,7 +1,7 @@
 /**
  * 变更示例订单 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-30 09:23:43
+ * @since 2021-09-30 11:31:54
  */
 
 
@@ -80,8 +80,8 @@ function ListPage() {
 					,{ field: 'buyerId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('买家') , templet: function (d) { return templet('buyerId',d.buyerId,d);}  }
 					,{ field: 'address', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('收件地址') , templet: function (d) { return templet('address',d.address,d);}  }
 					,{ field: 'amount', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('总金额') , templet: function (d) { return templet('amount',d.amount,d);}  }
-					,{ field: 'chsType', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('变更类型') , templet: function (d) { return templet('chsType',d.chsType,d);}  }
-					,{ field: 'chsStatus', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('变更状态') , templet: function (d) { return templet('chsStatus',d.chsStatus,d);}  }
+					,{ field: 'chsType', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('变更类型'), templet:function (d){ return templet('chsType',fox.getEnumText(RADIO_CHSTYPE_DATA,d.chsType),d);}}
+					,{ field: 'chsStatus', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('变更状态'), templet:function (d){ return templet('chsStatus',fox.getEnumText(RADIO_CHSSTATUS_DATA,d.chsStatus),d);}}
 					,{ field: 'chsVersion', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('变更版本号') , templet: function (d) { return templet('chsVersion',d.chsVersion,d);}  }
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }}
 					,{ field: 'sourceId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('来源ID') , templet: function (d) { return templet('sourceId',d.sourceId,d);}  }
@@ -125,6 +125,8 @@ function ListPage() {
 		var value = {};
 		value.title={ inputType:"button",value: $("#title").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" "};
 		value.code={ inputType:"button",value: $("#code").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" "};
+		value.chsType={ inputType:"radio_box", value: xmSelect.get("#chsType",true).getValue("value"), label:xmSelect.get("#chsType",true).getValue("nameStr")};
+		value.chsStatus={ inputType:"radio_box", value: xmSelect.get("#chsStatus",true).getValue("value"), label:xmSelect.get("#chsStatus",true).getValue("nameStr")};
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;
@@ -162,6 +164,38 @@ function ListPage() {
 
 		fox.switchSearchRow(1);
 
+		//渲染 chsType 搜索框
+		fox.renderSelectBox({
+			el: "chsType",
+			size: "small",
+			radio: false,
+			//toolbar: {show:true,showIcon:true,list:["CLEAR","REVERSE"]},
+			transform:function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				var opts=[];
+				if(!data) return opts;
+				for (var i = 0; i < data.length; i++) {
+					opts.push({name:data[i].text,value:data[i].code});
+				}
+				return opts;
+			}
+		});
+		//渲染 chsStatus 搜索框
+		fox.renderSelectBox({
+			el: "chsStatus",
+			size: "small",
+			radio: false,
+			//toolbar: {show:true,showIcon:true,list:["CLEAR","REVERSE"]},
+			transform:function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				var opts=[];
+				if(!data) return opts;
+				for (var i = 0; i < data.length; i++) {
+					opts.push({name:data[i].text,value:data[i].code});
+				}
+				return opts;
+			}
+		});
 		fox.renderSearchInputs();
 		window.pageExt.list.afterSearchInputReady && window.pageExt.list.afterSearchInputReady();
 	}
@@ -337,6 +371,9 @@ function ListPage() {
 					});
 				});
 				
+			}
+			else if (layEvent === 'open-details') { // 明细
+				window.pageExt.list.openDetails(data);
 			}
 			
 		});

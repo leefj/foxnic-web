@@ -17,8 +17,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 变更示例订单明细
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-28 14:30:20
- * @sign F0511135F00CABE253BD808717747AEC
+ * @since 2021-09-30 10:35:49
+ * @sign CF78FFFD63BEDD2E8DCF2E469FF81870
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -37,16 +37,16 @@ public class ExampleOrderItem extends Entity {
 	private String id;
 	
 	/**
+	 * 订单ID：订单ID
+	*/
+	@ApiModelProperty(required = false,value="订单ID" , notes = "订单ID")
+	private String orderId;
+	
+	/**
 	 * 商品名称：商品名称
 	*/
 	@ApiModelProperty(required = false,value="商品名称" , notes = "商品名称")
 	private String productName;
-	
-	/**
-	 * 规格名称：规格名称
-	*/
-	@ApiModelProperty(required = false,value="规格名称" , notes = "规格名称")
-	private String skuName;
 	
 	/**
 	 * 单价：单价
@@ -134,6 +134,25 @@ public class ExampleOrderItem extends Entity {
 	}
 	
 	/**
+	 * 获得 订单ID<br>
+	 * 订单ID
+	 * @return 订单ID
+	*/
+	public String getOrderId() {
+		return orderId;
+	}
+	
+	/**
+	 * 设置 订单ID
+	 * @param orderId 订单ID
+	 * @return 当前对象
+	*/
+	public ExampleOrderItem setOrderId(String orderId) {
+		this.orderId=orderId;
+		return this;
+	}
+	
+	/**
 	 * 获得 商品名称<br>
 	 * 商品名称
 	 * @return 商品名称
@@ -149,25 +168,6 @@ public class ExampleOrderItem extends Entity {
 	*/
 	public ExampleOrderItem setProductName(String productName) {
 		this.productName=productName;
-		return this;
-	}
-	
-	/**
-	 * 获得 规格名称<br>
-	 * 规格名称
-	 * @return 规格名称
-	*/
-	public String getSkuName() {
-		return skuName;
-	}
-	
-	/**
-	 * 设置 规格名称
-	 * @param skuName 规格名称
-	 * @return 当前对象
-	*/
-	public ExampleOrderItem setSkuName(String skuName) {
-		this.skuName=skuName;
 		return this;
 	}
 	

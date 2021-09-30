@@ -7,6 +7,7 @@ import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.busi.id.IDGenerator;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.Entity;
 import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.dao.excel.ExcelStructure;
 import com.github.foxnic.dao.excel.ExcelWriter;
@@ -14,15 +15,13 @@ import com.github.foxnic.dao.excel.ValidateResult;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
+import org.github.foxnic.web.changes.service.IChangeDataService;
 import org.github.foxnic.web.changes.service.IChangeDefinitionService;
 import org.github.foxnic.web.changes.service.IChangeEventService;
 import org.github.foxnic.web.changes.service.IChangeInstanceService;
 import org.github.foxnic.web.constants.enums.changes.ChangeEventType;
 import org.github.foxnic.web.constants.enums.changes.ChangeStatus;
-import org.github.foxnic.web.domain.changes.ChangeDefinition;
-import org.github.foxnic.web.domain.changes.ChangeEvent;
-import org.github.foxnic.web.domain.changes.ChangeInstance;
-import org.github.foxnic.web.domain.changes.ChangeRequest;
+import org.github.foxnic.web.domain.changes.*;
 import org.github.foxnic.web.framework.cache.RedisUtil;
 import org.github.foxnic.web.framework.change.ChangesAssistant;
 import org.github.foxnic.web.framework.dao.DBConfigs;
@@ -37,6 +36,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -64,8 +64,12 @@ public class ChangeInstanceServiceImpl extends SuperService<ChangeInstance> impl
 
 	@Autowired
 	private IChangeDefinitionService definitionService;
+
 	@Autowired
 	private IChangeEventService eventService;
+
+	@Autowired
+	private IChangeDataService dataService;
 	
 	@Override
 	public Object generateId(Field field) {
@@ -271,7 +275,7 @@ public class ChangeInstanceServiceImpl extends SuperService<ChangeInstance> impl
 
 	@Override
 	@Transactional
-	public Result<ChangeInstance> request(ChangeRequest request) {
+	public Result<ChangeInstance> request(ChangeRequestBody request) {
 		Result<ChangeInstance> result=new Result<>();
 
 		ChangeDefinition definition=definitionService.getByCode(request.getChangeDefinitionCode());
@@ -282,15 +286,39 @@ public class ChangeInstanceServiceImpl extends SuperService<ChangeInstance> impl
 
 		ChangeInstance instance=new ChangeInstance();
 		instance.setDefinitionId(definition.getId());
-		instance.setDataTable(request.getDataTable());
-		instance.setDataType(request.getDataType());
-		instance.setDataIdBefore(request.getDataIdBefore());
-		instance.setDataIdAfter(request.getDataIdAfter());
-		instance.setStatusEnum(ChangeStatus.changing);
+		instance.setStatusEnum(ChangeStatus.approving);
 		instance.setTypeEnum(request.getType());
 		instance.setStartTime(request.getStartTime());
 		//
 		Result cr=this.insert(instance);
+
+
+		//保存变更前的数据
+		if(request.getDataBefore()!=null && !request.getDataBefore().isEmpty()) {
+			Map<String, List<? extends Entity>> dataMap=request.getDataBefore();
+			for (Map.Entry<String, List<? extends Entity>> e : dataMap.entrySet()) {
+				ChangeData changeData=new ChangeData();
+				changeData.setDataType(e.getKey());
+				changeData.setData(JSON.toJSONString(e.getValue()));
+				changeData.setInstanceId(instance.getId());
+				changeData.setTimePoint(0);
+				dataService.insert(changeData);
+			}
+		}
+		//保存变更后的数据
+		if(request.getDataAfter()!=null && !request.getDataAfter().isEmpty()) {
+			Map<String, List<? extends Entity>> dataMap=request.getDataAfter();
+			for (Map.Entry<String, List<? extends Entity>> e : dataMap.entrySet()) {
+				ChangeData changeData=new ChangeData();
+				changeData.setDataType(e.getKey());
+				changeData.setData(JSON.toJSONString(e.getValue()));
+				changeData.setInstanceId(instance.getId());
+				changeData.setTimePoint(1);
+				dataService.insert(changeData);
+			}
+		}
+
+
 		if(cr.success()) {
 			ChangeEvent event=new ChangeEvent();
 			event.setNotifyTime(new Timestamp(System.currentTimeMillis()));

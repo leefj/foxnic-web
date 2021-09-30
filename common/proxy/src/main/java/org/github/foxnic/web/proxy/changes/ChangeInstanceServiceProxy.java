@@ -4,7 +4,7 @@ import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.domain.changes.ChangeInstance;
 import org.github.foxnic.web.domain.changes.ChangeInstanceVO;
-import org.github.foxnic.web.domain.changes.ChangeRequest;
+import org.github.foxnic.web.domain.changes.ChangeRequestBody;
 import org.github.foxnic.web.proxy.FeignConfiguration;
 import org.github.foxnic.web.proxy.MicroServiceNames;
 import org.github.foxnic.web.proxy.api.APIProxy;
@@ -110,7 +110,7 @@ public interface ChangeInstanceServiceProxy {
 	 * 请求变更
 	*/
 	@RequestMapping(ChangeInstanceServiceProxy.REQUEST)
-	Result<ChangeInstance> request(ChangeRequest request);
+	Result<ChangeInstance> request(ChangeRequestBody request);
 	
 	/**
 	 * 删除变更实例

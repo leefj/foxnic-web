@@ -1,7 +1,8 @@
 /**
  * 变更示例订单明细 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-30 09:31:31
+ * @since 2021-09-30 10:35:49
+ * @version
  */
 
 layui.config({
@@ -24,6 +25,12 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * */
         beforeInit:function () {
             console.log("list:beforeInit");
+            $("#sure-button").click(function (){
+                admin.closePopupCenter(admin.getTempData("example-order-details-dialog-index"));
+                //在订单明细种取出订单表格刷新函数，执行刷新
+                var fn=admin.getTempData("refresh-example-order");
+                fn();
+            })
         },
         /**
          * 表格渲染前调用
@@ -31,6 +38,8 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * */
         beforeTableRender:function (cfg){
             console.log("list:beforeTableRender",cfg);
+            cfg.page=false;
+            cfg.height='full-48';
         },
         /**
          * 表格渲染后调用
@@ -62,6 +71,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * */
         beforeQuery:function (conditions,param,location) {
             console.log('beforeQuery',conditions,param,location);
+            conditions.orderId=admin.getTempData("example-order-id");
             return true;
         },
         /**
@@ -178,6 +188,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * */
         beforeSubmit:function (data) {
             console.log("beforeSubmit",data);
+            data.orderId=admin.getTempData("example-order-id");
             return true;
         },
         /**

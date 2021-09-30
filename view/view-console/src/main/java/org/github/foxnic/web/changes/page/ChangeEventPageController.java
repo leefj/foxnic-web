@@ -10,10 +10,10 @@ import org.github.foxnic.web.proxy.changes.ChangeEventServiceProxy;
 import javax.servlet.http.HttpServletRequest;
 /**
  * <p>
- *  模版页面控制器
+ * 变更事件表 模版页面控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-30 09:33:16
+ * @since 2021-09-30 11:31:55
 */
 
 @Controller("ChsChangeEventPageController")
@@ -38,7 +38,7 @@ public class ChangeEventPageController extends ViewController {
 	}
 	
 	/**
-	 * chs_change_event 功能主页面
+	 * 变更事件 功能主页面
 	 */
 	@RequestMapping("/change_event_list.html")
 	public String list(Model model,HttpServletRequest request) {
@@ -46,7 +46,7 @@ public class ChangeEventPageController extends ViewController {
 	}
 
 	/**
-	 * chs_change_event 表单页面
+	 * 变更事件 表单页面
 	 */
 	@RequestMapping("/change_event_form.html")
 	public String form(Model model,HttpServletRequest request , String id) {

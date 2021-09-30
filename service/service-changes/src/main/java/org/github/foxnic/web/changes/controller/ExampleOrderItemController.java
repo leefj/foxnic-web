@@ -49,7 +49,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 变更示例订单明细表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-30 09:31:31
+ * @since 2021-09-30 11:31:54
 */
 
 @Api(tags = "变更示例订单明细")
@@ -66,11 +66,11 @@ public class ExampleOrderItemController extends SuperController {
 	*/
 	@ApiOperation(value = "添加变更示例订单明细")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = ExampleOrderItemVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ExampleOrderItemVOMeta.PRODUCT_NAME , value = "商品名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ExampleOrderItemVOMeta.SKU_NAME , value = "规格名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ExampleOrderItemVOMeta.PRICE , value = "单价" , required = false , dataTypeClass=BigDecimal.class),
-		@ApiImplicitParam(name = ExampleOrderItemVOMeta.QUANTITY , value = "数量" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = ExampleOrderItemVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "495902826594041856"),
+		@ApiImplicitParam(name = ExampleOrderItemVOMeta.ORDER_ID , value = "订单ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ExampleOrderItemVOMeta.PRODUCT_NAME , value = "商品名称" , required = false , dataTypeClass=String.class , example = "乙二醇"),
+		@ApiImplicitParam(name = ExampleOrderItemVOMeta.PRICE , value = "单价" , required = false , dataTypeClass=BigDecimal.class , example = "5"),
+		@ApiImplicitParam(name = ExampleOrderItemVOMeta.QUANTITY , value = "数量" , required = false , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiOperationSupport(order=1)
 	@SentinelResource(value = ExampleOrderItemServiceProxy.INSERT , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
@@ -86,7 +86,7 @@ public class ExampleOrderItemController extends SuperController {
 	*/
 	@ApiOperation(value = "删除变更示例订单明细")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = ExampleOrderItemVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class)
+		@ApiImplicitParam(name = ExampleOrderItemVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "495902826594041856")
 	})
 	@ApiOperationSupport(order=2)
 	@NotNull(name = ExampleOrderItemVOMeta.ID)
@@ -120,11 +120,11 @@ public class ExampleOrderItemController extends SuperController {
 	*/
 	@ApiOperation(value = "更新变更示例订单明细")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = ExampleOrderItemVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ExampleOrderItemVOMeta.PRODUCT_NAME , value = "商品名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ExampleOrderItemVOMeta.SKU_NAME , value = "规格名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ExampleOrderItemVOMeta.PRICE , value = "单价" , required = false , dataTypeClass=BigDecimal.class),
-		@ApiImplicitParam(name = ExampleOrderItemVOMeta.QUANTITY , value = "数量" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = ExampleOrderItemVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "495902826594041856"),
+		@ApiImplicitParam(name = ExampleOrderItemVOMeta.ORDER_ID , value = "订单ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ExampleOrderItemVOMeta.PRODUCT_NAME , value = "商品名称" , required = false , dataTypeClass=String.class , example = "乙二醇"),
+		@ApiImplicitParam(name = ExampleOrderItemVOMeta.PRICE , value = "单价" , required = false , dataTypeClass=BigDecimal.class , example = "5"),
+		@ApiImplicitParam(name = ExampleOrderItemVOMeta.QUANTITY , value = "数量" , required = false , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiOperationSupport( order=4 , ignoreParameters = { ExampleOrderItemVOMeta.PAGE_INDEX , ExampleOrderItemVOMeta.PAGE_SIZE , ExampleOrderItemVOMeta.SEARCH_FIELD , ExampleOrderItemVOMeta.FUZZY_FIELD , ExampleOrderItemVOMeta.SEARCH_VALUE , ExampleOrderItemVOMeta.SORT_FIELD , ExampleOrderItemVOMeta.SORT_TYPE , ExampleOrderItemVOMeta.IDS } ) 
 	@NotNull(name = ExampleOrderItemVOMeta.ID)
@@ -141,11 +141,11 @@ public class ExampleOrderItemController extends SuperController {
 	*/
 	@ApiOperation(value = "保存变更示例订单明细")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = ExampleOrderItemVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ExampleOrderItemVOMeta.PRODUCT_NAME , value = "商品名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ExampleOrderItemVOMeta.SKU_NAME , value = "规格名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ExampleOrderItemVOMeta.PRICE , value = "单价" , required = false , dataTypeClass=BigDecimal.class),
-		@ApiImplicitParam(name = ExampleOrderItemVOMeta.QUANTITY , value = "数量" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = ExampleOrderItemVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "495902826594041856"),
+		@ApiImplicitParam(name = ExampleOrderItemVOMeta.ORDER_ID , value = "订单ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ExampleOrderItemVOMeta.PRODUCT_NAME , value = "商品名称" , required = false , dataTypeClass=String.class , example = "乙二醇"),
+		@ApiImplicitParam(name = ExampleOrderItemVOMeta.PRICE , value = "单价" , required = false , dataTypeClass=BigDecimal.class , example = "5"),
+		@ApiImplicitParam(name = ExampleOrderItemVOMeta.QUANTITY , value = "数量" , required = false , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { ExampleOrderItemVOMeta.PAGE_INDEX , ExampleOrderItemVOMeta.PAGE_SIZE , ExampleOrderItemVOMeta.SEARCH_FIELD , ExampleOrderItemVOMeta.FUZZY_FIELD , ExampleOrderItemVOMeta.SEARCH_VALUE , ExampleOrderItemVOMeta.SORT_FIELD , ExampleOrderItemVOMeta.SORT_TYPE , ExampleOrderItemVOMeta.IDS } )
 	@NotNull(name = ExampleOrderItemVOMeta.ID)
@@ -201,11 +201,11 @@ public class ExampleOrderItemController extends SuperController {
 	*/
 	@ApiOperation(value = "查询变更示例订单明细")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = ExampleOrderItemVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ExampleOrderItemVOMeta.PRODUCT_NAME , value = "商品名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ExampleOrderItemVOMeta.SKU_NAME , value = "规格名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ExampleOrderItemVOMeta.PRICE , value = "单价" , required = false , dataTypeClass=BigDecimal.class),
-		@ApiImplicitParam(name = ExampleOrderItemVOMeta.QUANTITY , value = "数量" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = ExampleOrderItemVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "495902826594041856"),
+		@ApiImplicitParam(name = ExampleOrderItemVOMeta.ORDER_ID , value = "订单ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ExampleOrderItemVOMeta.PRODUCT_NAME , value = "商品名称" , required = false , dataTypeClass=String.class , example = "乙二醇"),
+		@ApiImplicitParam(name = ExampleOrderItemVOMeta.PRICE , value = "单价" , required = false , dataTypeClass=BigDecimal.class , example = "5"),
+		@ApiImplicitParam(name = ExampleOrderItemVOMeta.QUANTITY , value = "数量" , required = false , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { ExampleOrderItemVOMeta.PAGE_INDEX , ExampleOrderItemVOMeta.PAGE_SIZE } )
 	@SentinelResource(value = ExampleOrderItemServiceProxy.QUERY_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
@@ -223,11 +223,11 @@ public class ExampleOrderItemController extends SuperController {
 	*/
 	@ApiOperation(value = "分页查询变更示例订单明细")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = ExampleOrderItemVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ExampleOrderItemVOMeta.PRODUCT_NAME , value = "商品名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ExampleOrderItemVOMeta.SKU_NAME , value = "规格名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ExampleOrderItemVOMeta.PRICE , value = "单价" , required = false , dataTypeClass=BigDecimal.class),
-		@ApiImplicitParam(name = ExampleOrderItemVOMeta.QUANTITY , value = "数量" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = ExampleOrderItemVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "495902826594041856"),
+		@ApiImplicitParam(name = ExampleOrderItemVOMeta.ORDER_ID , value = "订单ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ExampleOrderItemVOMeta.PRODUCT_NAME , value = "商品名称" , required = false , dataTypeClass=String.class , example = "乙二醇"),
+		@ApiImplicitParam(name = ExampleOrderItemVOMeta.PRICE , value = "单价" , required = false , dataTypeClass=BigDecimal.class , example = "5"),
+		@ApiImplicitParam(name = ExampleOrderItemVOMeta.QUANTITY , value = "数量" , required = false , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiOperationSupport(order=8)
 	@SentinelResource(value = ExampleOrderItemServiceProxy.QUERY_PAGED_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )

@@ -4,13 +4,10 @@ import com.github.foxnic.api.constant.CodeTextEnum;
 import com.github.foxnic.commons.reflect.EnumUtil;
 
 public enum ChangeStatus implements CodeTextEnum {
-	none("无变更"),changing("变更中"),done("已完成"),reject("驳回");
+	prepare("待审批"),approving("审批中"),pass("已通过"),reject("已驳回"),abandon("已废弃");
 
 	private String text;
 	private ChangeStatus(String text)  {
-
-
-
 		this.text=text;
 	}
 	

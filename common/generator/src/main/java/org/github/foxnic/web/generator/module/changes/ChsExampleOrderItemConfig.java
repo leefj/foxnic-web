@@ -2,7 +2,9 @@ package org.github.foxnic.web.generator.module.changes;
 
 import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
+import com.github.foxnic.generator.builder.view.option.FormOptions;
 import com.github.foxnic.generator.builder.view.option.ListOptions;
+import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.CHS_EXAMPLE_ORDER_ITEM;
@@ -26,8 +28,21 @@ public class ChsExampleOrderItemConfig extends BaseCodeConfig<CHS_EXAMPLE_ORDER_
 	}
 
 	@Override
-	public void configList(ViewOptions view, ListOptions list) {
+	public void configForm(ViewOptions view, FormOptions form) {
+		form.columnLayout(new Object[]{
+				CHS_EXAMPLE_ORDER_ITEM.PRODUCT_NAME,CHS_EXAMPLE_ORDER_ITEM.PRICE,CHS_EXAMPLE_ORDER_ITEM.QUANTITY
+		});
+	}
 
+	@Override
+	public void configList(ViewOptions view, ListOptions list) {
+		list.disableMargin();
+		list.columnLayout(CHS_EXAMPLE_ORDER_ITEM.PRODUCT_NAME,CHS_EXAMPLE_ORDER_ITEM.PRICE,CHS_EXAMPLE_ORDER_ITEM.QUANTITY);
+	}
+
+	@Override
+	public void configSearch(ViewOptions view, SearchAreaOptions search) {
+		search.disable();
 	}
 
 	@Override

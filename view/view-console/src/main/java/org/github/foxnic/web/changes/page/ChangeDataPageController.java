@@ -10,10 +10,10 @@ import org.github.foxnic.web.proxy.changes.ChangeDataServiceProxy;
 import javax.servlet.http.HttpServletRequest;
 /**
  * <p>
- *  模版页面控制器
+ * 变更数据表 模版页面控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-30 09:23:41
+ * @since 2021-09-30 11:31:52
 */
 
 @Controller("ChsChangeDataPageController")
@@ -38,7 +38,7 @@ public class ChangeDataPageController extends ViewController {
 	}
 	
 	/**
-	 * chs_change_data 功能主页面
+	 * 变更 功能主页面
 	 */
 	@RequestMapping("/change_data_list.html")
 	public String list(Model model,HttpServletRequest request) {
@@ -46,7 +46,7 @@ public class ChangeDataPageController extends ViewController {
 	}
 
 	/**
-	 * chs_change_data 表单页面
+	 * 变更 表单页面
 	 */
 	@RequestMapping("/change_data_form.html")
 	public String form(Model model,HttpServletRequest request , String id) {

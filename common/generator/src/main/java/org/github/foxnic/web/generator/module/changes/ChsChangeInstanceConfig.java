@@ -21,6 +21,7 @@ public class ChsChangeInstanceConfig extends BaseCodeConfig<CHS_CHANGE_INSTANCE>
 	public void configModel(PoClassFile poType, VoClassFile voType) {
 		poType.shadow(CHS_CHANGE_INSTANCE.STATUS, ChangeStatus.class,"statusEnum");
 		poType.shadow(CHS_CHANGE_INSTANCE.TYPE, ChangeType.class,"typeEnum");
+		poType.addListProperty();
 	}
 
 	@Override

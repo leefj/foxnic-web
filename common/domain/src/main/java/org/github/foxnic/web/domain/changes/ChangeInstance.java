@@ -20,8 +20,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 变更实例
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-29 16:23:14
- * @sign 4AF0C245C7C2525880DDB741A9EFE87F
+ * @since 2021-09-30 11:31:52
+ * @sign 6DAC43C985E1A262826F2366E2A69113
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -44,30 +44,6 @@ public class ChangeInstance extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="变更定义ID" , notes = "变更定义ID")
 	private String definitionId;
-	
-	/**
-	 * 变更对象的数据表：变更对象的数据表
-	*/
-	@ApiModelProperty(required = false,value="变更对象的数据表" , notes = "变更对象的数据表")
-	private String dataTable;
-	
-	/**
-	 * 变更对象实体类型：变更对象实体类型
-	*/
-	@ApiModelProperty(required = false,value="变更对象实体类型" , notes = "变更对象实体类型")
-	private String dataType;
-	
-	/**
-	 * 变更前业务数据ID：变更前业务数据ID
-	*/
-	@ApiModelProperty(required = false,value="变更前业务数据ID" , notes = "变更前业务数据ID")
-	private String dataIdBefore;
-	
-	/**
-	 * 变更后对象ID：变更后对象ID
-	*/
-	@ApiModelProperty(required = false,value="变更后对象ID" , notes = "变更后对象ID")
-	private String dataIdAfter;
 	
 	/**
 	 * 租户ID：租户ID
@@ -204,82 +180,6 @@ public class ChangeInstance extends Entity {
 	*/
 	public ChangeInstance setDefinitionId(String definitionId) {
 		this.definitionId=definitionId;
-		return this;
-	}
-	
-	/**
-	 * 获得 变更对象的数据表<br>
-	 * 变更对象的数据表
-	 * @return 变更对象的数据表
-	*/
-	public String getDataTable() {
-		return dataTable;
-	}
-	
-	/**
-	 * 设置 变更对象的数据表
-	 * @param dataTable 变更对象的数据表
-	 * @return 当前对象
-	*/
-	public ChangeInstance setDataTable(String dataTable) {
-		this.dataTable=dataTable;
-		return this;
-	}
-	
-	/**
-	 * 获得 变更对象实体类型<br>
-	 * 变更对象实体类型
-	 * @return 变更对象实体类型
-	*/
-	public String getDataType() {
-		return dataType;
-	}
-	
-	/**
-	 * 设置 变更对象实体类型
-	 * @param dataType 变更对象实体类型
-	 * @return 当前对象
-	*/
-	public ChangeInstance setDataType(String dataType) {
-		this.dataType=dataType;
-		return this;
-	}
-	
-	/**
-	 * 获得 变更前业务数据ID<br>
-	 * 变更前业务数据ID
-	 * @return 变更前业务数据ID
-	*/
-	public String getDataIdBefore() {
-		return dataIdBefore;
-	}
-	
-	/**
-	 * 设置 变更前业务数据ID
-	 * @param dataIdBefore 变更前业务数据ID
-	 * @return 当前对象
-	*/
-	public ChangeInstance setDataIdBefore(String dataIdBefore) {
-		this.dataIdBefore=dataIdBefore;
-		return this;
-	}
-	
-	/**
-	 * 获得 变更后对象ID<br>
-	 * 变更后对象ID
-	 * @return 变更后对象ID
-	*/
-	public String getDataIdAfter() {
-		return dataIdAfter;
-	}
-	
-	/**
-	 * 设置 变更后对象ID
-	 * @param dataIdAfter 变更后对象ID
-	 * @return 当前对象
-	*/
-	public ChangeInstance setDataIdAfter(String dataIdAfter) {
-		this.dataIdAfter=dataIdAfter;
 		return this;
 	}
 	

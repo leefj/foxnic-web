@@ -1,51 +1,59 @@
 package org.github.foxnic.web.changes.controller;
 
  
-import com.alibaba.csp.sentinel.annotation.SentinelResource;
-import com.github.foxnic.api.error.ErrorDesc;
-import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.api.validate.annotations.NotNull;
-import com.github.foxnic.commons.io.StreamUtil;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.springboot.web.DownloadUtil;
-import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import com.github.xiaoymin.knife4j.annotations.ApiSort;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
-import org.github.foxnic.web.changes.service.IChangeEventService;
-import org.github.foxnic.web.domain.changes.ChangeEvent;
-import org.github.foxnic.web.domain.changes.ChangeEventVO;
-import org.github.foxnic.web.domain.changes.meta.ChangeEventVOMeta;
-import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
-import org.github.foxnic.web.framework.web.SuperController;
-import org.github.foxnic.web.proxy.changes.ChangeEventServiceProxy;
+import java.util.List;
+
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import org.github.foxnic.web.framework.web.SuperController;
+import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.InputStream;
+
+import org.github.foxnic.web.proxy.changes.ChangeEventServiceProxy;
+import org.github.foxnic.web.domain.changes.meta.ChangeEventVOMeta;
+import org.github.foxnic.web.domain.changes.ChangeEvent;
+import org.github.foxnic.web.domain.changes.ChangeEventVO;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.excel.ExcelWriter;
+import com.github.foxnic.springboot.web.DownloadUtil;
+import com.github.foxnic.dao.data.PagedList;
+import java.util.Date;
 import java.sql.Timestamp;
-import java.util.List;
+import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.commons.io.StreamUtil;
 import java.util.Map;
+import com.github.foxnic.dao.excel.ValidateResult;
+import java.io.InputStream;
+import org.github.foxnic.web.domain.changes.meta.ChangeEventMeta;
+import org.github.foxnic.web.domain.changes.ChangeDefinition;
+import org.github.foxnic.web.domain.changes.ChangeInstance;
+import io.swagger.annotations.Api;
+import com.github.xiaoymin.knife4j.annotations.ApiSort;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiImplicitParam;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import org.github.foxnic.web.changes.service.IChangeEventService;
+import com.github.foxnic.api.validate.annotations.NotNull;
 
 /**
  * <p>
- *  接口控制器
+ * 变更事件表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-30 09:33:16
+ * @since 2021-09-30 11:31:55
 */
 
-@Api(tags = "chs_change_event")
+@Api(tags = "变更事件")
 @ApiSort(0)
 @RestController("ChsChangeEventController")
 public class ChangeEventController extends SuperController {
@@ -55,9 +63,9 @@ public class ChangeEventController extends SuperController {
 
 	
 	/**
-	 * 添加chs_change_event
+	 * 添加变更事件
 	*/
-	@ApiOperation(value = "添加chs_change_event")
+	@ApiOperation(value = "添加变更事件")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = ChangeEventVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "495885237524365312"),
 		@ApiImplicitParam(name = ChangeEventVOMeta.INSTANCE_ID , value = "变更ID" , required = false , dataTypeClass=String.class , example = "495885237344010240"),
@@ -78,9 +86,9 @@ public class ChangeEventController extends SuperController {
 
 	
 	/**
-	 * 删除chs_change_event
+	 * 删除变更事件
 	*/
-	@ApiOperation(value = "删除chs_change_event")
+	@ApiOperation(value = "删除变更事件")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = ChangeEventVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "495885237524365312")
 	})
@@ -95,10 +103,10 @@ public class ChangeEventController extends SuperController {
 	
 	
 	/**
-	 * 批量删除chs_change_event <br>
+	 * 批量删除变更事件 <br>
 	 * 联合主键时，请自行调整实现
 	*/
-	@ApiOperation(value = "批量删除chs_change_event")
+	@ApiOperation(value = "批量删除变更事件")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = ChangeEventVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 	})
@@ -112,9 +120,9 @@ public class ChangeEventController extends SuperController {
 	}
 	
 	/**
-	 * 更新chs_change_event
+	 * 更新变更事件
 	*/
-	@ApiOperation(value = "更新chs_change_event")
+	@ApiOperation(value = "更新变更事件")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = ChangeEventVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "495885237524365312"),
 		@ApiImplicitParam(name = ChangeEventVOMeta.INSTANCE_ID , value = "变更ID" , required = false , dataTypeClass=String.class , example = "495885237344010240"),
@@ -136,9 +144,9 @@ public class ChangeEventController extends SuperController {
 	
 	
 	/**
-	 * 保存chs_change_event
+	 * 保存变更事件
 	*/
-	@ApiOperation(value = "保存chs_change_event")
+	@ApiOperation(value = "保存变更事件")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = ChangeEventVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "495885237524365312"),
 		@ApiImplicitParam(name = ChangeEventVOMeta.INSTANCE_ID , value = "变更ID" , required = false , dataTypeClass=String.class , example = "495885237344010240"),
@@ -160,9 +168,9 @@ public class ChangeEventController extends SuperController {
 
 	
 	/**
-	 * 获取chs_change_event
+	 * 获取变更事件
 	*/
-	@ApiOperation(value = "获取chs_change_event")
+	@ApiOperation(value = "获取变更事件")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = ChangeEventVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "1"),
 	})
@@ -179,10 +187,10 @@ public class ChangeEventController extends SuperController {
 
 
 	/**
-	 * 批量获取chs_change_event <br>
+	 * 批量获取变更事件 <br>
 	 * 联合主键时，请自行调整实现
 	*/
-		@ApiOperation(value = "批量获取chs_change_event")
+		@ApiOperation(value = "批量获取变更事件")
 		@ApiImplicitParams({
 				@ApiImplicitParam(name = ChangeEventVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})
@@ -199,9 +207,9 @@ public class ChangeEventController extends SuperController {
 
 	
 	/**
-	 * 查询chs_change_event
+	 * 查询变更事件
 	*/
-	@ApiOperation(value = "查询chs_change_event")
+	@ApiOperation(value = "查询变更事件")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = ChangeEventVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "495885237524365312"),
 		@ApiImplicitParam(name = ChangeEventVOMeta.INSTANCE_ID , value = "变更ID" , required = false , dataTypeClass=String.class , example = "495885237344010240"),
@@ -224,9 +232,9 @@ public class ChangeEventController extends SuperController {
 
 	
 	/**
-	 * 分页查询chs_change_event
+	 * 分页查询变更事件
 	*/
-	@ApiOperation(value = "分页查询chs_change_event")
+	@ApiOperation(value = "分页查询变更事件")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = ChangeEventVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "495885237524365312"),
 		@ApiImplicitParam(name = ChangeEventVOMeta.INSTANCE_ID , value = "变更ID" , required = false , dataTypeClass=String.class , example = "495885237344010240"),

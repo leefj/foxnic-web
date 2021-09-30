@@ -6,6 +6,7 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_CODE_EXAMPLE;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_CODE_EXAMPLE_ROLE;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_RESOURZE;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_ROLE;
+import org.github.foxnic.web.domain.changes.meta.ExampleOrderMeta;
 import org.github.foxnic.web.domain.hrm.Employee;
 import org.github.foxnic.web.domain.hrm.Organization;
 import org.github.foxnic.web.domain.hrm.Position;
@@ -19,10 +20,23 @@ public class CodeExampleRelationManager extends RelationManager {
 
 	@Override
 	protected void config() {
-		this.setupProperties();
+		this.setupCodeProperties();
+		this.setupChangeProperties();
 	}
- 
-	public void setupProperties() {
+
+	/**
+	 * 变更示例的相关配置
+	 * */
+	public void setupChangeProperties() {
+		//关联
+		this.property(ExampleOrderMeta.ITEMS_PROP)
+				.using(FoxnicWeb.CHS_EXAMPLE_ORDER.ID).join(FoxnicWeb.CHS_EXAMPLE_ORDER_ITEM.ORDER_ID);
+	}
+
+	/**
+	 * 代码生成的相关配置
+	 * */
+	public void setupCodeProperties() {
 
 
 		//关联

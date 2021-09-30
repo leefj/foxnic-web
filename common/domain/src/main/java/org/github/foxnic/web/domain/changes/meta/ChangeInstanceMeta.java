@@ -8,8 +8,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-29 16:23:14
- * @sign 4AF0C245C7C2525880DDB741A9EFE87F
+ * @since 2021-09-30 11:31:52
+ * @sign 6DAC43C985E1A262826F2366E2A69113
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -34,46 +34,6 @@ public class ChangeInstanceMeta {
 	 * 变更定义ID , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeInstance,java.lang.String> DEFINITION_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeInstance.class ,DEFINITION_ID, java.lang.String.class, "变更定义ID", "变更定义ID", java.lang.String.class, null);
-	
-	/**
-	 * 变更对象的数据表 , 类型: java.lang.String
-	*/
-	public static final String DATA_TABLE="dataTable";
-	
-	/**
-	 * 变更对象的数据表 , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeInstance,java.lang.String> DATA_TABLE_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeInstance.class ,DATA_TABLE, java.lang.String.class, "变更对象的数据表", "变更对象的数据表", java.lang.String.class, null);
-	
-	/**
-	 * 变更对象实体类型 , 类型: java.lang.String
-	*/
-	public static final String DATA_TYPE="dataType";
-	
-	/**
-	 * 变更对象实体类型 , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeInstance,java.lang.String> DATA_TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeInstance.class ,DATA_TYPE, java.lang.String.class, "变更对象实体类型", "变更对象实体类型", java.lang.String.class, null);
-	
-	/**
-	 * 变更前业务数据ID , 类型: java.lang.String
-	*/
-	public static final String DATA_ID_BEFORE="dataIdBefore";
-	
-	/**
-	 * 变更前业务数据ID , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeInstance,java.lang.String> DATA_ID_BEFORE_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeInstance.class ,DATA_ID_BEFORE, java.lang.String.class, "变更前业务数据ID", "变更前业务数据ID", java.lang.String.class, null);
-	
-	/**
-	 * 变更后对象ID , 类型: java.lang.String
-	*/
-	public static final String DATA_ID_AFTER="dataIdAfter";
-	
-	/**
-	 * 变更后对象ID , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeInstance,java.lang.String> DATA_ID_AFTER_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeInstance.class ,DATA_ID_AFTER, java.lang.String.class, "变更后对象ID", "变更后对象ID", java.lang.String.class, null);
 	
 	/**
 	 * 租户ID , 类型: java.lang.String
@@ -238,7 +198,7 @@ public class ChangeInstanceMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , DEFINITION_ID , DATA_TABLE , DATA_TYPE , DATA_ID_BEFORE , DATA_ID_AFTER , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , STATUS , TYPE , PROCESS_ID , PROCESS_NODE_SUMMARY , PROCESS_SUMMARY , START_TIME , FINISH_TIME };
+	public static final String[] $PROPS={ ID , DEFINITION_ID , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , STATUS , TYPE , PROCESS_ID , PROCESS_NODE_SUMMARY , PROCESS_SUMMARY , START_TIME , FINISH_TIME };
 	
 	/**
 	 * 代理类
@@ -267,50 +227,6 @@ public class ChangeInstanceMeta {
 		public ChangeInstance setDefinitionId(String definitionId) {
 			super.change(DEFINITION_ID,super.getDefinitionId(),definitionId);
 			super.setDefinitionId(definitionId);
-			return this;
-		}
-		
-		/**
-		 * 设置 变更对象的数据表
-		 * @param dataTable 变更对象的数据表
-		 * @return 当前对象
-		*/
-		public ChangeInstance setDataTable(String dataTable) {
-			super.change(DATA_TABLE,super.getDataTable(),dataTable);
-			super.setDataTable(dataTable);
-			return this;
-		}
-		
-		/**
-		 * 设置 变更对象实体类型
-		 * @param dataType 变更对象实体类型
-		 * @return 当前对象
-		*/
-		public ChangeInstance setDataType(String dataType) {
-			super.change(DATA_TYPE,super.getDataType(),dataType);
-			super.setDataType(dataType);
-			return this;
-		}
-		
-		/**
-		 * 设置 变更前业务数据ID
-		 * @param dataIdBefore 变更前业务数据ID
-		 * @return 当前对象
-		*/
-		public ChangeInstance setDataIdBefore(String dataIdBefore) {
-			super.change(DATA_ID_BEFORE,super.getDataIdBefore(),dataIdBefore);
-			super.setDataIdBefore(dataIdBefore);
-			return this;
-		}
-		
-		/**
-		 * 设置 变更后对象ID
-		 * @param dataIdAfter 变更后对象ID
-		 * @return 当前对象
-		*/
-		public ChangeInstance setDataIdAfter(String dataIdAfter) {
-			super.change(DATA_ID_AFTER,super.getDataIdAfter(),dataIdAfter);
-			super.setDataIdAfter(dataIdAfter);
 			return this;
 		}
 		

@@ -1,7 +1,7 @@
 /**
- * chs_change_event 列表页 JS 脚本
+ * 变更事件 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-30 09:33:20
+ * @since 2021-09-30 11:31:55
  */
 
 function FormPage() {

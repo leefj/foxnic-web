@@ -1,41 +1,39 @@
 package org.github.foxnic.web.changes.service.impl;
 
 
-import javax.annotation.Resource;
+import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.dao.data.PagedList;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.SuperService;
+import com.github.foxnic.dao.excel.ExcelStructure;
+import com.github.foxnic.dao.excel.ExcelWriter;
+import com.github.foxnic.dao.excel.ValidateResult;
+import com.github.foxnic.dao.spec.DAO;
+import com.github.foxnic.sql.expr.ConditionExpr;
+import com.github.foxnic.sql.meta.DBField;
+import org.github.foxnic.web.changes.service.IExampleOrderItemService;
+import org.github.foxnic.web.changes.service.IExampleOrderService;
+import org.github.foxnic.web.domain.changes.ExampleOrderItem;
+import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
-import org.github.foxnic.web.domain.changes.ExampleOrderItem;
-import org.github.foxnic.web.domain.changes.ExampleOrderItemVO;
-import java.util.List;
-import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.entity.SuperService;
-import com.github.foxnic.dao.spec.DAO;
-import java.lang.reflect.Field;
-import com.github.foxnic.commons.busi.id.IDGenerator;
-import com.github.foxnic.sql.expr.ConditionExpr;
-import com.github.foxnic.api.error.ErrorDesc;
-import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.dao.excel.ExcelStructure;
+import javax.annotation.Resource;
 import java.io.InputStream;
-import com.github.foxnic.sql.meta.DBField;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.meta.DBColumnMeta;
-import com.github.foxnic.sql.expr.Select;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
-import org.github.foxnic.web.changes.service.IExampleOrderItemService;
-import org.github.foxnic.web.framework.dao.DBConfigs;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
  * 变更示例订单明细表 服务实现
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-30 09:31:31
+ * @since 2021-09-30 10:24:22
+ * @version
 */
 
 
@@ -53,6 +51,8 @@ public class ExampleOrderItemServiceImpl extends SuperService<ExampleOrderItem> 
 	 * */
 	public DAO dao() { return dao; }
 
+	@Autowired
+	private IExampleOrderService orderService;
 
 	
 	@Override
@@ -68,6 +68,7 @@ public class ExampleOrderItemServiceImpl extends SuperService<ExampleOrderItem> 
 	@Override
 	public Result insert(ExampleOrderItem exampleOrderItem) {
 		Result r=super.insert(exampleOrderItem);
+		orderService.calcAmount(exampleOrderItem.getOrderId());
 		return r;
 	}
 	
@@ -94,6 +95,7 @@ public class ExampleOrderItemServiceImpl extends SuperService<ExampleOrderItem> 
 		exampleOrderItem.setId(id);
 		try {
 			boolean suc = dao.deleteEntity(exampleOrderItem);
+			orderService.calcAmount(exampleOrderItem.getOrderId());
 			return suc?ErrorDesc.success():ErrorDesc.failure();
 		}
 		catch(Exception e) {
@@ -118,6 +120,7 @@ public class ExampleOrderItemServiceImpl extends SuperService<ExampleOrderItem> 
 		exampleOrderItem.setDeleteTime(new Date());
 		try {
 			boolean suc = dao.updateEntity(exampleOrderItem,SaveMode.NOT_NULL_FIELDS);
+			orderService.calcAmount(exampleOrderItem.getOrderId());
 			return suc?ErrorDesc.success():ErrorDesc.failure();
 		}
 		catch(Exception e) {
@@ -136,6 +139,7 @@ public class ExampleOrderItemServiceImpl extends SuperService<ExampleOrderItem> 
 	@Override
 	public Result update(ExampleOrderItem exampleOrderItem , SaveMode mode) {
 		Result r=super.update(exampleOrderItem , mode);
+		orderService.calcAmount(exampleOrderItem.getOrderId());
 		return r;
 	}
 	

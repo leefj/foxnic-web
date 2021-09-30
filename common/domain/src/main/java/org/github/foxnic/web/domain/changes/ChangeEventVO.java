@@ -10,10 +10,10 @@ import com.github.foxnic.commons.bean.BeanUtil;
 
 
 /**
- * chs_change_event
+ * 变更事件
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-29 16:16:33
- * @sign 8F967D123E14E01C1DD2FB93B55EF36A
+ * @since 2021-09-30 10:24:23
+ * @sign 4BD2B25CC945FABDC68168775DF562D4
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 

@@ -9,6 +9,7 @@ import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.CHS_EXAMPLE_ORDER;
 import org.github.foxnic.web.constants.enums.changes.ChangeStatus;
 import org.github.foxnic.web.constants.enums.changes.ChangeType;
+import org.github.foxnic.web.domain.changes.ExampleOrderItem;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
 
@@ -22,6 +23,7 @@ public class ChsExampleOrderConfig extends BaseCodeConfig<CHS_EXAMPLE_ORDER> {
 	public void configModel(PoClassFile poType, VoClassFile voType) {
 		poType.shadow(CHS_EXAMPLE_ORDER.CHS_STATUS, ChangeStatus.class);
 		poType.shadow(CHS_EXAMPLE_ORDER.CHS_TYPE, ChangeType.class);
+		poType.addListProperty(ExampleOrderItem.class,"items","订单明细","订单明细");
 	}
 
 	@Override
@@ -33,9 +35,18 @@ public class ChsExampleOrderConfig extends BaseCodeConfig<CHS_EXAMPLE_ORDER> {
 
 		view.field(CHS_EXAMPLE_ORDER.ORDER_TIME).form().dateInput().format("yyyy-MM-dd");
 
-		view.field(CHS_EXAMPLE_ORDER.CHS_STATUS).form().hidden();
+		//变更状态
+		view.field(CHS_EXAMPLE_ORDER.CHS_STATUS)
+				.form().radioBox().enumType(ChangeStatus.class)
+				.form().hidden();
+
 		view.field(CHS_EXAMPLE_ORDER.SOURCE_ID).form().hidden();
-		view.field(CHS_EXAMPLE_ORDER.CHS_TYPE).form().hidden();
+
+		//变更类型
+		view.field(CHS_EXAMPLE_ORDER.CHS_TYPE)
+				.form().radioBox().enumType(ChangeType.class)
+				.form().hidden();
+
 		view.field(CHS_EXAMPLE_ORDER.CHS_VERSION).form().hidden();
 		view.field(CHS_EXAMPLE_ORDER.AMOUNT).form().hidden();
 		view.field(CHS_EXAMPLE_ORDER.SOURCE_ID).form().hidden();
@@ -49,12 +60,13 @@ public class ChsExampleOrderConfig extends BaseCodeConfig<CHS_EXAMPLE_ORDER> {
 
 	@Override
 	public void configSearch(ViewOptions view, SearchAreaOptions search) {
-		search.inputLayout(new Object[]{CHS_EXAMPLE_ORDER.TITLE,CHS_EXAMPLE_ORDER.CODE});
+		search.inputLayout(new Object[]{CHS_EXAMPLE_ORDER.TITLE,CHS_EXAMPLE_ORDER.CODE,CHS_EXAMPLE_ORDER.CHS_TYPE,CHS_EXAMPLE_ORDER.CHS_STATUS});
 	}
 
 	@Override
 	public void configList(ViewOptions view, ListOptions list) {
-		list.addToolButton("创建变更","startChange","");
+		list.addToolButton("提交审批","startChange","");
+		list.operationColumn().addActionButton("明细","openDetails");
 	}
 
 	@Override

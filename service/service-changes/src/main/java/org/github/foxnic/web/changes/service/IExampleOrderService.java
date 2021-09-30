@@ -1,27 +1,28 @@
 package org.github.foxnic.web.changes.service;
 
 
-import com.github.foxnic.sql.expr.ConditionExpr;
-import com.github.foxnic.dao.entity.ISuperService;
-import org.github.foxnic.web.domain.changes.ExampleOrder;
-import org.github.foxnic.web.domain.changes.ExampleOrderVO;
-import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
-import java.io.InputStream;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.ISuperService;
+import com.github.foxnic.dao.excel.ExcelStructure;
+import com.github.foxnic.dao.excel.ExcelWriter;
+import com.github.foxnic.dao.excel.ValidateResult;
+import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.expr.OrderBy;
 import com.github.foxnic.sql.meta.DBField;
-import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.dao.excel.ExcelStructure;
-import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.dao.data.SaveMode;
+import org.github.foxnic.web.domain.changes.ExampleOrder;
+
+import java.io.InputStream;
+import java.util.List;
 
 /**
  * <p>
  * 变更示例订单表 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-30 09:23:42
+ * @since 2021-09-30 10:24:21
+ * @version
 */
 
 public interface IExampleOrderService extends ISuperService<ExampleOrder> {
@@ -284,5 +285,7 @@ public interface IExampleOrderService extends ISuperService<ExampleOrder> {
 	 * */
 	List<ValidateResult> importExcel(InputStream input,int sheetIndex,boolean batch);
 
- 
+	void calcAmount(String orderId);
+
+    Result startApprove(List<String> ids);
 }

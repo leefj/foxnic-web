@@ -2,7 +2,7 @@
 /**
  * 变更实例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-30 09:23:41
+ * @since 2021-09-30 11:31:52
  */
  -->
  <!DOCTYPE html>
@@ -49,34 +49,6 @@
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('变更定义ID')}">变更定义ID</div></div>
                         <div class="layui-input-block layui-input-block-c1">
                             <input lay-filter="definitionId" id="definitionId" name="definitionId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('变更定义ID') }" type="text" class="layui-input"  />
-                        </div>
-                    </div>
-
-                                    <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('变更对象的数据表')}">变更对象的数据表</div></div>
-                        <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="dataTable" id="dataTable" name="dataTable" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('变更对象的数据表') }" type="text" class="layui-input"  />
-                        </div>
-                    </div>
-
-                                    <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('变更对象实体类型')}">变更对象实体类型</div></div>
-                        <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="dataType" id="dataType" name="dataType" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('变更对象实体类型') }" type="text" class="layui-input"  />
-                        </div>
-                    </div>
-
-                                    <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('变更前业务数据ID')}">变更前业务数据ID</div></div>
-                        <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="dataIdBefore" id="dataIdBefore" name="dataIdBefore" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('变更前业务数据ID') }" type="text" class="layui-input"  />
-                        </div>
-                    </div>
-
-                                    <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('变更后对象ID')}">变更后对象ID</div></div>
-                        <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="dataIdAfter" id="dataIdAfter" name="dataIdAfter" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('变更后对象ID') }" type="text" class="layui-input"  />
                         </div>
                     </div>
 

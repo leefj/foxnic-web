@@ -2,7 +2,7 @@
 /**
  * 变更示例订单明细 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-30 09:31:34
+ * @since 2021-09-30 11:31:54
  */
  -->
  <!DOCTYPE html>
@@ -20,16 +20,19 @@
     <link href="/assets/libs/font-awesome-4.7.0/css/font-awesome.min.css" th:href="@{/assets/libs/font-awesome-4.7.0/css/font-awesome.min.css}" rel="stylesheet"/>
     <script th:inline="javascript">var foxnic_cachekey=[[${cacheKey}]];</script>
     <style>
+        .layui-card-body .layui-table {
+            margin:0px;
+        }
     </style>
 </head>
 
 <body style="overflow-y: hidden">
 
-<div class="layui-card">
+<div class="layui-card-no-shadow ">
  
-    <div class="layui-card-body" style="">
+    <div class="layui-card-body" style="padding:0px">
 
-        <div class="search-bar" style="">
+        <div class="search-bar" style=" display: none; ">
 
             <div class="search-input-rows" style="opacity: 0">
                 <!-- 搜索输入区域 -->
@@ -39,15 +42,15 @@
                         <div class="search-label-div" style=""><span th:text="${lang.translate('主键')}" class="search-label id-label">主键</span><span class="search-colon">:</span></div>
                         <input id="id" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
+                    <!-- 订单ID , orderId ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('订单ID')}" class="search-label orderId-label">订单ID</span><span class="search-colon">:</span></div>
+                        <input id="orderId" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
                     <!-- 商品名称 , productName ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('商品名称')}" class="search-label productName-label">商品名称</span><span class="search-colon">:</span></div>
                         <input id="productName" class="layui-input search-input" style="width: 140px" type="text" />
-                    </div>
-                    <!-- 规格名称 , skuName ,typeName=text_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('规格名称')}" class="search-label skuName-label">规格名称</span><span class="search-colon">:</span></div>
-                        <input id="skuName" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
                     <!-- 单价 , price ,typeName=number_input, isHideInSearch=false -->
                     <div class="search-unit">
@@ -71,7 +74,7 @@
             </div>
         </div>
 
-        <div style="margin-top: 42px ">
+        <div style="margin-top: 0px ">
             <table class="layui-table" id="data-table" lay-filter="data-table"></table>
         </div>
 

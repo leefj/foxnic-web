@@ -1,57 +1,50 @@
 package org.github.foxnic.web.changes.controller;
 
  
-import java.util.List;
-
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-
-import org.github.foxnic.web.framework.web.SuperController;
-import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
-import org.springframework.web.bind.annotation.RequestMapping;
-import javax.servlet.http.HttpServletResponse;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
-
-
-import org.github.foxnic.web.proxy.changes.ChangeDataServiceProxy;
-import org.github.foxnic.web.domain.changes.meta.ChangeDataVOMeta;
-import org.github.foxnic.web.domain.changes.ChangeData;
-import org.github.foxnic.web.domain.changes.ChangeDataVO;
+import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.api.validate.annotations.NotNull;
+import com.github.foxnic.commons.io.StreamUtil;
+import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.springboot.web.DownloadUtil;
-import com.github.foxnic.dao.data.PagedList;
-import java.util.Date;
-import java.sql.Timestamp;
-import com.github.foxnic.api.error.ErrorDesc;
-import com.github.foxnic.commons.io.StreamUtil;
-import java.util.Map;
 import com.github.foxnic.dao.excel.ValidateResult;
-import java.io.InputStream;
-import org.github.foxnic.web.domain.changes.meta.ChangeDataMeta;
-import io.swagger.annotations.Api;
-import com.github.xiaoymin.knife4j.annotations.ApiSort;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiImplicitParam;
+import com.github.foxnic.springboot.web.DownloadUtil;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.github.xiaoymin.knife4j.annotations.ApiSort;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.github.foxnic.web.changes.service.IChangeDataService;
-import com.github.foxnic.api.validate.annotations.NotNull;
+import org.github.foxnic.web.domain.changes.ChangeData;
+import org.github.foxnic.web.domain.changes.ChangeDataVO;
+import org.github.foxnic.web.domain.changes.meta.ChangeDataVOMeta;
+import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
+import org.github.foxnic.web.framework.web.SuperController;
+import org.github.foxnic.web.proxy.changes.ChangeDataServiceProxy;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.InputStream;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
- *  接口控制器
+ * 变更数据表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-30 09:23:41
+ * @since 2021-09-30 11:31:52
 */
 
-@Api(tags = "chs_change_data")
+@Api(tags = "变更")
 @ApiSort(0)
 @RestController("ChsChangeDataController")
 public class ChangeDataController extends SuperController {
@@ -61,9 +54,9 @@ public class ChangeDataController extends SuperController {
 
 	
 	/**
-	 * 添加chs_change_data
+	 * 添加变更
 	*/
-	@ApiOperation(value = "添加chs_change_data")
+	@ApiOperation(value = "添加变更")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = ChangeDataVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ChangeDataVOMeta.INSTANCE_ID , value = "变更ID" , required = false , dataTypeClass=String.class),
@@ -81,9 +74,9 @@ public class ChangeDataController extends SuperController {
 
 	
 	/**
-	 * 删除chs_change_data
+	 * 删除变更
 	*/
-	@ApiOperation(value = "删除chs_change_data")
+	@ApiOperation(value = "删除变更")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = ChangeDataVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class)
 	})
@@ -98,10 +91,10 @@ public class ChangeDataController extends SuperController {
 	
 	
 	/**
-	 * 批量删除chs_change_data <br>
+	 * 批量删除变更 <br>
 	 * 联合主键时，请自行调整实现
 	*/
-	@ApiOperation(value = "批量删除chs_change_data")
+	@ApiOperation(value = "批量删除变更")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = ChangeDataVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 	})
@@ -115,9 +108,9 @@ public class ChangeDataController extends SuperController {
 	}
 	
 	/**
-	 * 更新chs_change_data
+	 * 更新变更
 	*/
-	@ApiOperation(value = "更新chs_change_data")
+	@ApiOperation(value = "更新变更")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = ChangeDataVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ChangeDataVOMeta.INSTANCE_ID , value = "变更ID" , required = false , dataTypeClass=String.class),
@@ -136,9 +129,9 @@ public class ChangeDataController extends SuperController {
 	
 	
 	/**
-	 * 保存chs_change_data
+	 * 保存变更
 	*/
-	@ApiOperation(value = "保存chs_change_data")
+	@ApiOperation(value = "保存变更")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = ChangeDataVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ChangeDataVOMeta.INSTANCE_ID , value = "变更ID" , required = false , dataTypeClass=String.class),
@@ -157,9 +150,9 @@ public class ChangeDataController extends SuperController {
 
 	
 	/**
-	 * 获取chs_change_data
+	 * 获取变更
 	*/
-	@ApiOperation(value = "获取chs_change_data")
+	@ApiOperation(value = "获取变更")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = ChangeDataVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "1"),
 	})
@@ -176,10 +169,10 @@ public class ChangeDataController extends SuperController {
 
 
 	/**
-	 * 批量获取chs_change_data <br>
+	 * 批量获取变更 <br>
 	 * 联合主键时，请自行调整实现
 	*/
-		@ApiOperation(value = "批量获取chs_change_data")
+		@ApiOperation(value = "批量获取变更")
 		@ApiImplicitParams({
 				@ApiImplicitParam(name = ChangeDataVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})
@@ -196,9 +189,9 @@ public class ChangeDataController extends SuperController {
 
 	
 	/**
-	 * 查询chs_change_data
+	 * 查询变更
 	*/
-	@ApiOperation(value = "查询chs_change_data")
+	@ApiOperation(value = "查询变更")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = ChangeDataVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ChangeDataVOMeta.INSTANCE_ID , value = "变更ID" , required = false , dataTypeClass=String.class),
@@ -218,9 +211,9 @@ public class ChangeDataController extends SuperController {
 
 	
 	/**
-	 * 分页查询chs_change_data
+	 * 分页查询变更
 	*/
-	@ApiOperation(value = "分页查询chs_change_data")
+	@ApiOperation(value = "分页查询变更")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = ChangeDataVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ChangeDataVOMeta.INSTANCE_ID , value = "变更ID" , required = false , dataTypeClass=String.class),

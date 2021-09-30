@@ -32,10 +32,10 @@ import java.util.Date;
 
 /**
  * <p>
- *  服务实现
+ * 变更事件表 服务实现
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-30 09:33:16
+ * @since 2021-09-30 11:31:55
 */
 
 
@@ -83,7 +83,7 @@ public class ChangeEventServiceImpl extends SuperService<ChangeEvent> implements
 	
 	
 	/**
-	 * 按主键删除 chs_change_event
+	 * 按主键删除 变更事件
 	 *
 	 * @param id 主键
 	 * @return 删除是否成功
@@ -104,7 +104,7 @@ public class ChangeEventServiceImpl extends SuperService<ChangeEvent> implements
 	}
 	
 	/**
-	 * 按主键删除 chs_change_event
+	 * 按主键删除 变更事件
 	 *
 	 * @param id 主键
 	 * @return 删除是否成功
@@ -152,7 +152,7 @@ public class ChangeEventServiceImpl extends SuperService<ChangeEvent> implements
 	
 	
 	/**
-	 * 按主键更新字段 chs_change_event
+	 * 按主键更新字段 变更事件
 	 *
 	 * @param id 主键
 	 * @return 是否更新成功
@@ -166,7 +166,7 @@ public class ChangeEventServiceImpl extends SuperService<ChangeEvent> implements
 	
 	
 	/**
-	 * 按主键获取 chs_change_event
+	 * 按主键获取 变更事件
 	 *
 	 * @param id 主键
 	 * @return ChangeEvent 数据对象

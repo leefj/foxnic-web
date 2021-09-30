@@ -1,4 +1,4 @@
-package org.github.foxnic.web.changes.service.handler;
+package org.github.foxnic.web.changes.handler;
 
 import org.github.foxnic.web.changes.service.IChangeEventService;
 import org.github.foxnic.web.domain.changes.ChangeEvent;

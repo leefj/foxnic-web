@@ -14,10 +14,10 @@ import com.github.foxnic.dao.entity.EntityContext;
 
 
 /**
- * chs_change_data
+ * 变更
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-27 16:04:55
- * @sign 2D48FD94F0B616A99819B24974E5102C
+ * @since 2021-09-30 10:24:20
+ * @sign FD4C7E948E7B4F19F0110D171AC391E3
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 

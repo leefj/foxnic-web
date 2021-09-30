@@ -1,7 +1,8 @@
 /**
  * 变更示例订单 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-30 09:23:42
+ * @since 2021-09-30 10:09:27
+ * @version
  */
 
 layui.config({
@@ -131,6 +132,28 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
         },
         startChange:function (selected,it){
             console.log('startChange',selected,it);
+            if(selected==null || selected.length==0) {
+                top.layer.msg("请勾选待审订单",{time:1000});
+                return;
+            }
+            admin.post("/service-changes/chs-example-order/start-approve",selected,function (r){
+                debugger;
+            },{delayLoading:500,elms:[]});
+
+        },
+        openDetails:function (data){
+            admin.putTempData("example-order-id",data.id,true);
+            var dialogIndex=admin.popupCenter({
+                type:2,
+                id:"exampleOrderDetails",
+                title: "订单明细",
+                offset: 'auto',
+                content: '/business/changes/example_order_item/example_order_item_list.html',
+                area:["600px","80%"]
+            });
+            admin.putTempData("example-order-details-dialog-index",dialogIndex,true);
+            //把订单表格刷新函数放入缓存
+            admin.putTempData("refresh-example-order",window.module.refreshTableData,true);
         },
         /**
          * 末尾执行

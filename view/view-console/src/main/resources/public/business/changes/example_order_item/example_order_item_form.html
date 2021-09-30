@@ -2,7 +2,7 @@
 /**
  * 变更示例订单明细 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-30 09:31:34
+ * @since 2021-09-30 11:31:54
  */
  -->
  <!DOCTYPE html>
@@ -28,6 +28,7 @@
 
     <form id="data-form" lay-filter="data-form" class="layui-form model-form" style="display:none">
 
+        <input name="id" id="id"  type="hidden"/>
 
          <!--开始：group 循环-->
 
@@ -38,24 +39,10 @@
              <!--开始：group 循环-->
             <div class="layui-col-xs12 form-column">
 
-                    <div class="layui-form-item" style="display: none">
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('主键')}">主键</div></div>
-                        <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="id" id="id" name="id" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('主键') }" type="text" class="layui-input"  />
-                        </div>
-                    </div>
-
-                                    <div class="layui-form-item" >
+                    <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('商品名称')}">商品名称</div></div>
                         <div class="layui-input-block layui-input-block-c1">
                             <input lay-filter="productName" id="productName" name="productName" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('商品名称') }" type="text" class="layui-input"  />
-                        </div>
-                    </div>
-
-                                    <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('规格名称')}">规格名称</div></div>
-                        <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="skuName" id="skuName" name="skuName" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('规格名称') }" type="text" class="layui-input"  />
                         </div>
                     </div>
 

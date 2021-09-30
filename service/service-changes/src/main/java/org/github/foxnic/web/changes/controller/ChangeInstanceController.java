@@ -20,7 +20,7 @@ import io.swagger.annotations.ApiOperation;
 import org.github.foxnic.web.changes.service.IChangeInstanceService;
 import org.github.foxnic.web.domain.changes.ChangeInstance;
 import org.github.foxnic.web.domain.changes.ChangeInstanceVO;
-import org.github.foxnic.web.domain.changes.ChangeRequest;
+import org.github.foxnic.web.domain.changes.ChangeRequestBody;
 import org.github.foxnic.web.domain.changes.meta.ChangeInstanceVOMeta;
 import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
 import org.github.foxnic.web.framework.web.SuperController;
@@ -63,7 +63,7 @@ public class ChangeInstanceController extends SuperController {
 	@ApiOperationSupport(order=1)
 	@SentinelResource(value = ChangeInstanceServiceProxy.REQUEST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(ChangeInstanceServiceProxy.REQUEST)
-	public Result<ChangeInstance> request(ChangeRequest request) {
+	public Result<ChangeInstance> request(ChangeRequestBody request) {
 		Result<ChangeInstance> result=changeInstanceService.request(request);
 		return result;
 	}
@@ -110,10 +110,6 @@ public class ChangeInstanceController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = ChangeInstanceVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ChangeInstanceVOMeta.DEFINITION_ID , value = "变更定义ID" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeInstanceVOMeta.DATA_TABLE , value = "变更对象的数据表" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeInstanceVOMeta.DATA_TYPE , value = "变更对象实体类型" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeInstanceVOMeta.DATA_ID_BEFORE , value = "变更前业务数据ID" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeInstanceVOMeta.DATA_ID_AFTER , value = "变更后对象ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ChangeInstanceVOMeta.STATUS , value = "变更状态" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ChangeInstanceVOMeta.TYPE , value = "变更类型" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ChangeInstanceVOMeta.PROCESS_ID , value = "流程ID" , required = false , dataTypeClass=String.class),
@@ -139,10 +135,6 @@ public class ChangeInstanceController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = ChangeInstanceVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ChangeInstanceVOMeta.DEFINITION_ID , value = "变更定义ID" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeInstanceVOMeta.DATA_TABLE , value = "变更对象的数据表" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeInstanceVOMeta.DATA_TYPE , value = "变更对象实体类型" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeInstanceVOMeta.DATA_ID_BEFORE , value = "变更前业务数据ID" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeInstanceVOMeta.DATA_ID_AFTER , value = "变更后对象ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ChangeInstanceVOMeta.STATUS , value = "变更状态" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ChangeInstanceVOMeta.TYPE , value = "变更类型" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ChangeInstanceVOMeta.PROCESS_ID , value = "流程ID" , required = false , dataTypeClass=String.class),
@@ -207,10 +199,6 @@ public class ChangeInstanceController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = ChangeInstanceVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ChangeInstanceVOMeta.DEFINITION_ID , value = "变更定义ID" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeInstanceVOMeta.DATA_TABLE , value = "变更对象的数据表" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeInstanceVOMeta.DATA_TYPE , value = "变更对象实体类型" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeInstanceVOMeta.DATA_ID_BEFORE , value = "变更前业务数据ID" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeInstanceVOMeta.DATA_ID_AFTER , value = "变更后对象ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ChangeInstanceVOMeta.STATUS , value = "变更状态" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ChangeInstanceVOMeta.TYPE , value = "变更类型" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ChangeInstanceVOMeta.PROCESS_ID , value = "流程ID" , required = false , dataTypeClass=String.class),
@@ -237,10 +225,6 @@ public class ChangeInstanceController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = ChangeInstanceVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ChangeInstanceVOMeta.DEFINITION_ID , value = "变更定义ID" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeInstanceVOMeta.DATA_TABLE , value = "变更对象的数据表" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeInstanceVOMeta.DATA_TYPE , value = "变更对象实体类型" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeInstanceVOMeta.DATA_ID_BEFORE , value = "变更前业务数据ID" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeInstanceVOMeta.DATA_ID_AFTER , value = "变更后对象ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ChangeInstanceVOMeta.STATUS , value = "变更状态" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ChangeInstanceVOMeta.TYPE , value = "变更类型" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ChangeInstanceVOMeta.PROCESS_ID , value = "流程ID" , required = false , dataTypeClass=String.class),

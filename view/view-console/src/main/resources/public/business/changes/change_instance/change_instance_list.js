@@ -1,7 +1,7 @@
 /**
  * 变更实例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-30 09:23:41
+ * @since 2021-09-30 11:31:52
  */
 
 
@@ -75,10 +75,6 @@ function ListPage() {
 					{ fixed: 'left',type:'checkbox' }
 					,{ field: 'id', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('主键') , templet: function (d) { return templet('id',d.id,d);}  }
 					,{ field: 'definitionId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('变更定义ID') , templet: function (d) { return templet('definitionId',d.definitionId,d);}  }
-					,{ field: 'dataTable', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('变更对象的数据表') , templet: function (d) { return templet('dataTable',d.dataTable,d);}  }
-					,{ field: 'dataType', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('变更对象实体类型') , templet: function (d) { return templet('dataType',d.dataType,d);}  }
-					,{ field: 'dataIdBefore', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('变更前业务数据ID') , templet: function (d) { return templet('dataIdBefore',d.dataIdBefore,d);}  }
-					,{ field: 'dataIdAfter', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('变更后对象ID') , templet: function (d) { return templet('dataIdAfter',d.dataIdAfter,d);}  }
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }}
 					,{ field: 'status', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('变更状态') , templet: function (d) { return templet('status',d.status,d);}  }
 					,{ field: 'type', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('变更类型') , templet: function (d) { return templet('type',d.type,d);}  }
@@ -123,10 +119,6 @@ function ListPage() {
 		var value = {};
 		value.id={ inputType:"button",value: $("#id").val()};
 		value.definitionId={ inputType:"button",value: $("#definitionId").val()};
-		value.dataTable={ inputType:"button",value: $("#dataTable").val()};
-		value.dataType={ inputType:"button",value: $("#dataType").val()};
-		value.dataIdBefore={ inputType:"button",value: $("#dataIdBefore").val()};
-		value.dataIdAfter={ inputType:"button",value: $("#dataIdAfter").val()};
 		value.status={ inputType:"button",value: $("#status").val()};
 		value.type={ inputType:"button",value: $("#type").val()};
 		value.processId={ inputType:"button",value: $("#processId").val()};

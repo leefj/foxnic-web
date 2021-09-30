@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2021-09-30 09:17:10
+ * @since 2021-09-30 11:31:05
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -16,6 +16,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 public class FoxnicWeb {
 	
 	/**
+	 * 变更数据表
 	*/
 	public static class CHS_CHANGE_DATA extends DBTable {
 		
@@ -90,7 +91,7 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
 		public CHS_CHANGE_DATA() {
-			this.init($NAME,"" , ID , INSTANCE_ID , DATA_TYPE , TIME_POINT , DATA , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"变更数据表" , ID , INSTANCE_ID , DATA_TYPE , TIME_POINT , DATA , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final CHS_CHANGE_DATA $TABLE=new CHS_CHANGE_DATA();
 	}
@@ -177,6 +178,7 @@ public class FoxnicWeb {
 	}
 	
 	/**
+	 * 变更事件表
 	*/
 	public static class CHS_CHANGE_EVENT extends DBTable {
 		
@@ -266,7 +268,7 @@ public class FoxnicWeb {
 		public static final DBField SUCCESS = new DBField(DBDataType.INTEGER , "success","success","是否成功","失败时查看 response_data",false,false,true);
 		
 		public CHS_CHANGE_EVENT() {
-			this.init($NAME,"" , ID , INSTANCE_ID , EVENT_TYPE , NOTIFY_TIME , NOTIFY_DATA , RESPONSE_DATA , RESPONSE_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , SUCCESS);
+			this.init($NAME,"变更事件表" , ID , INSTANCE_ID , EVENT_TYPE , NOTIFY_TIME , NOTIFY_DATA , RESPONSE_DATA , RESPONSE_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , SUCCESS);
 		}
 		public static final CHS_CHANGE_EVENT $TABLE=new CHS_CHANGE_EVENT();
 	}
@@ -290,26 +292,6 @@ public class FoxnicWeb {
 		 * 变更定义ID
 		*/
 		public static final DBField DEFINITION_ID = new DBField(DBDataType.STRING , "definition_id","definitionId","变更定义ID","变更定义ID",false,false,true);
-		
-		/**
-		 * 变更对象的数据表
-		*/
-		public static final DBField DATA_TABLE = new DBField(DBDataType.STRING , "data_table","dataTable","变更对象的数据表","变更对象的数据表",false,false,true);
-		
-		/**
-		 * 变更对象实体类型
-		*/
-		public static final DBField DATA_TYPE = new DBField(DBDataType.STRING , "data_type","dataType","变更对象实体类型","变更对象实体类型",false,false,true);
-		
-		/**
-		 * 变更前业务数据ID
-		*/
-		public static final DBField DATA_ID_BEFORE = new DBField(DBDataType.STRING , "data_id_before","dataIdBefore","变更前业务数据ID","变更前业务数据ID",false,false,true);
-		
-		/**
-		 * 变更后对象ID
-		*/
-		public static final DBField DATA_ID_AFTER = new DBField(DBDataType.STRING , "data_id_after","dataIdAfter","变更后对象ID","变更后对象ID",false,false,true);
 		
 		/**
 		 * 租户ID
@@ -392,7 +374,7 @@ public class FoxnicWeb {
 		public static final DBField FINISH_TIME = new DBField(DBDataType.DATE , "finish_time","finishTime","变更结束时间","变更结束时间",false,false,true);
 		
 		public CHS_CHANGE_INSTANCE() {
-			this.init($NAME,"变更实例表" , ID , DEFINITION_ID , DATA_TABLE , DATA_TYPE , DATA_ID_BEFORE , DATA_ID_AFTER , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , STATUS , TYPE , PROCESS_ID , PROCESS_NODE_SUMMARY , PROCESS_SUMMARY , START_TIME , FINISH_TIME);
+			this.init($NAME,"变更实例表" , ID , DEFINITION_ID , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , STATUS , TYPE , PROCESS_ID , PROCESS_NODE_SUMMARY , PROCESS_SUMMARY , START_TIME , FINISH_TIME);
 		}
 		public static final CHS_CHANGE_INSTANCE $TABLE=new CHS_CHANGE_INSTANCE();
 	}
@@ -549,14 +531,14 @@ public class FoxnicWeb {
 		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","主键","主键",true,false,false);
 		
 		/**
+		 * 订单ID
+		*/
+		public static final DBField ORDER_ID = new DBField(DBDataType.STRING , "order_id","orderId","订单ID","订单ID",false,false,true);
+		
+		/**
 		 * 商品名称
 		*/
 		public static final DBField PRODUCT_NAME = new DBField(DBDataType.STRING , "product_name","productName","商品名称","商品名称",false,false,true);
-		
-		/**
-		 * 规格名称
-		*/
-		public static final DBField SKU_NAME = new DBField(DBDataType.STRING , "sku_name","skuName","规格名称","规格名称",false,false,true);
 		
 		/**
 		 * 单价
@@ -614,7 +596,7 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
 		public CHS_EXAMPLE_ORDER_ITEM() {
-			this.init($NAME,"变更示例订单明细表" , ID , PRODUCT_NAME , SKU_NAME , PRICE , QUANTITY , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"变更示例订单明细表" , ID , ORDER_ID , PRODUCT_NAME , PRICE , QUANTITY , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final CHS_EXAMPLE_ORDER_ITEM $TABLE=new CHS_EXAMPLE_ORDER_ITEM();
 	}

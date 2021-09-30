@@ -4,6 +4,7 @@ package org.github.foxnic.web.changes.service.impl;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.commons.collection.CollectorUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.entity.SuperService;
@@ -13,13 +14,17 @@ import com.github.foxnic.dao.excel.ValidateResult;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
+import org.github.foxnic.web.changes.service.IExampleOrderItemService;
 import org.github.foxnic.web.changes.service.IExampleOrderService;
+import org.github.foxnic.web.constants.db.FoxnicWeb;
+import org.github.foxnic.web.constants.enums.changes.ChangeStatus;
 import org.github.foxnic.web.constants.enums.changes.ChangeType;
-import org.github.foxnic.web.domain.changes.ChangeInstance;
-import org.github.foxnic.web.domain.changes.ChangeRequest;
+import org.github.foxnic.web.domain.changes.ChangeRequestBody;
 import org.github.foxnic.web.domain.changes.ExampleOrder;
+import org.github.foxnic.web.domain.changes.ExampleOrderItem;
 import org.github.foxnic.web.framework.change.ChangesAssistant;
 import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -53,6 +58,9 @@ public class ExampleOrderServiceImpl extends SuperService<ExampleOrder> implemen
 	 * */
 	public DAO dao() { return dao; }
 
+	@Autowired
+	private IExampleOrderItemService orderItemService;
+
 
 	
 	@Override
@@ -67,21 +75,13 @@ public class ExampleOrderServiceImpl extends SuperService<ExampleOrder> implemen
 	 * */
 	@Override
 	public Result insert(ExampleOrder exampleOrder) {
-
+		//创建订单，标记变更状态等信息
+		exampleOrder.setChsVersion(1);
+		exampleOrder.setChsStatusEnum(ChangeStatus.prepare);
+		exampleOrder.setChsTypeEnum(ChangeType.create);
+		exampleOrder.setProcSummary("采购下单");
+		exampleOrder.setOrderTime(new Date());
 		Result r=super.insert(exampleOrder);
-
-		if(r.success()) {
-			//创建变更辅助工具
-			ChangesAssistant assistant=new ChangesAssistant(this);
-			ChangeRequest request=new ChangeRequest("EXAMPLE_ORDER_CHANGE", ChangeType.create);
-			request.setDataId(null,exampleOrder.getId());
-			request.setDataType(ExampleOrder.class);
-			Result<ChangeInstance> result= assistant.request(request);
-			if(result.failure()) {
-				return result;
-			}
-		}
-
 		return r;
 	}
 	
@@ -265,6 +265,39 @@ public class ExampleOrderServiceImpl extends SuperService<ExampleOrder> implemen
 	public List<ValidateResult> importExcel(InputStream input,int sheetIndex,boolean batch) {
 		return super.importExcel(input,sheetIndex,batch);
 	}
+
+	@Override
+	public void calcAmount(String orderId) {
+		Double amount=dao.queryDouble("select sum(price * quantity) from "+orderItemService.table()+" where order_id=? and deleted=0",orderId);
+		this.update(FoxnicWeb.CHS_EXAMPLE_ORDER.AMOUNT,amount,orderId);
+	}
+
+	@Override
+	public Result startApprove(List<String> ids) {
+
+		//变更后数据
+		List<ExampleOrder> ordersAfter=this.getByIds(ids);
+		this.join(ordersAfter, ExampleOrderItem.class);
+
+		//变更前数据
+		List<String> idsBefore= CollectorUtil.collectList(ordersAfter,ExampleOrder::getSourceId);
+		List<ExampleOrder> ordersBefore=this.getByIds(idsBefore);
+		this.join(ordersBefore, ExampleOrderItem.class);
+
+		//创建变更辅助工具
+		ChangesAssistant assistant=new ChangesAssistant(this);
+		ChangeRequestBody requestBody=new ChangeRequestBody("EXAMPLE_ORDER_CHANGE", ChangeType.create);
+
+		//设置变更前数据
+		requestBody.setDataBefore(ExampleOrder.class,ordersBefore);
+		//设置变更后数据
+		requestBody.setDataAfter(ExampleOrder.class,ordersAfter);
+
+		Result result= assistant.request(requestBody);
+		return result;
+	}
+
+
 
 	@Override
 	public ExcelStructure buildExcelStructure(boolean isForExport) {
