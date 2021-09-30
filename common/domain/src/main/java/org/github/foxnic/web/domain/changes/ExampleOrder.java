@@ -1,31 +1,31 @@
 package org.github.foxnic.web.domain.changes;
 
-import com.github.foxnic.commons.lang.StringUtil;
-import com.github.foxnic.commons.reflect.EnumUtil;
 import com.github.foxnic.dao.entity.Entity;
-import com.github.foxnic.dao.entity.EntityContext;
-import com.github.foxnic.sql.meta.DBTable;
-import io.swagger.annotations.ApiModelProperty;
-import org.github.foxnic.web.constants.db.FoxnicWeb.CHS_EXAMPLE_ORDER;
-import org.github.foxnic.web.constants.enums.changes.ChangeStatus;
-import org.github.foxnic.web.constants.enums.changes.ChangeType;
-
-import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-import java.math.BigDecimal;
-import java.util.ArrayList;
+import com.github.foxnic.sql.meta.DBTable;
+import org.github.foxnic.web.constants.db.FoxnicWeb.CHS_EXAMPLE_ORDER;
+import javax.persistence.Id;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
+import java.math.BigDecimal;
+import org.github.foxnic.web.constants.enums.changes.ChangeType;
+import javax.persistence.Transient;
+import org.github.foxnic.web.constants.enums.changes.ChangeStatus;
 import java.util.List;
+import org.github.foxnic.web.domain.hrm.Employee;
+import com.github.foxnic.commons.reflect.EnumUtil;
+import com.github.foxnic.commons.lang.StringUtil;
+import java.util.ArrayList;
 import java.util.Map;
+import com.github.foxnic.dao.entity.EntityContext;
 
 
 
 /**
  * 变更示例订单
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-30 16:34:12
- * @sign 9B0D224725AE9D00DE96DB8F8D493737
+ * @since 2021-10-01 03:20:26
+ * @sign 5034186998748DD73FF7B4B86DC6540D
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -186,10 +186,40 @@ public class ExampleOrder extends Entity {
 	private String procNodeSummary;
 	
 	/**
+	 * 最后审批人账户ID：最后审批人账户ID
+	*/
+	@ApiModelProperty(required = false,value="最后审批人账户ID" , notes = "最后审批人账户ID")
+	private String latestApproverId;
+	
+	/**
+	 * 下一节点审批人：下一节点审批人
+	*/
+	@ApiModelProperty(required = false,value="下一节点审批人" , notes = "下一节点审批人")
+	private String nextNodeApproverIds;
+	
+	/**
+	 * 下一个审批节点审批人姓名：用逗号隔开
+	*/
+	@ApiModelProperty(required = false,value="下一个审批节点审批人姓名" , notes = "用逗号隔开")
+	private String nextNodeApproverNames;
+	
+	/**
+	 * 最后审批人姓名：最后审批人姓名
+	*/
+	@ApiModelProperty(required = false,value="最后审批人姓名" , notes = "最后审批人姓名")
+	private String latestApproverName;
+	
+	/**
 	 * 订单明细：订单明细
 	*/
 	@ApiModelProperty(required = false,value="订单明细" , notes = "订单明细")
 	private List<ExampleOrderItem> items;
+	
+	/**
+	 * 采购人：采购人
+	*/
+	@ApiModelProperty(required = false,value="采购人" , notes = "采购人")
+	private Employee buyerEmployee;
 	
 	/**
 	 * 获得 主键<br>
@@ -368,9 +398,9 @@ public class ExampleOrder extends Entity {
 	@Transient
 	public ExampleOrder setChsTypeEnum(ChangeType chsTypeEnum) {
 		if(chsTypeEnum==null) {
-			this.chsType=null;
+			this.setChsType(null);
 		} else {
-			this.chsType=chsTypeEnum.code();
+			this.setChsType(chsTypeEnum.code());
 		}
 		this.chsTypeEnum=chsTypeEnum;
 		return this;
@@ -420,9 +450,9 @@ public class ExampleOrder extends Entity {
 	@Transient
 	public ExampleOrder setChsStatusEnum(ChangeStatus chsStatusEnum) {
 		if(chsStatusEnum==null) {
-			this.chsStatus=null;
+			this.setChsStatus(null);
 		} else {
-			this.chsStatus=chsStatusEnum.code();
+			this.setChsStatus(chsStatusEnum.code());
 		}
 		this.chsStatusEnum=chsStatusEnum;
 		return this;
@@ -714,6 +744,82 @@ public class ExampleOrder extends Entity {
 	}
 	
 	/**
+	 * 获得 最后审批人账户ID<br>
+	 * 最后审批人账户ID
+	 * @return 最后审批人账户ID
+	*/
+	public String getLatestApproverId() {
+		return latestApproverId;
+	}
+	
+	/**
+	 * 设置 最后审批人账户ID
+	 * @param latestApproverId 最后审批人账户ID
+	 * @return 当前对象
+	*/
+	public ExampleOrder setLatestApproverId(String latestApproverId) {
+		this.latestApproverId=latestApproverId;
+		return this;
+	}
+	
+	/**
+	 * 获得 下一节点审批人<br>
+	 * 下一节点审批人
+	 * @return 下一节点审批人
+	*/
+	public String getNextNodeApproverIds() {
+		return nextNodeApproverIds;
+	}
+	
+	/**
+	 * 设置 下一节点审批人
+	 * @param nextNodeApproverIds 下一节点审批人
+	 * @return 当前对象
+	*/
+	public ExampleOrder setNextNodeApproverIds(String nextNodeApproverIds) {
+		this.nextNodeApproverIds=nextNodeApproverIds;
+		return this;
+	}
+	
+	/**
+	 * 获得 下一个审批节点审批人姓名<br>
+	 * 用逗号隔开
+	 * @return 下一个审批节点审批人姓名
+	*/
+	public String getNextNodeApproverNames() {
+		return nextNodeApproverNames;
+	}
+	
+	/**
+	 * 设置 下一个审批节点审批人姓名
+	 * @param nextNodeApproverNames 下一个审批节点审批人姓名
+	 * @return 当前对象
+	*/
+	public ExampleOrder setNextNodeApproverNames(String nextNodeApproverNames) {
+		this.nextNodeApproverNames=nextNodeApproverNames;
+		return this;
+	}
+	
+	/**
+	 * 获得 最后审批人姓名<br>
+	 * 最后审批人姓名
+	 * @return 最后审批人姓名
+	*/
+	public String getLatestApproverName() {
+		return latestApproverName;
+	}
+	
+	/**
+	 * 设置 最后审批人姓名
+	 * @param latestApproverName 最后审批人姓名
+	 * @return 当前对象
+	*/
+	public ExampleOrder setLatestApproverName(String latestApproverName) {
+		this.latestApproverName=latestApproverName;
+		return this;
+	}
+	
+	/**
 	 * 获得 订单明细<br>
 	 * 订单明细
 	 * @return 订单明细
@@ -740,6 +846,25 @@ public class ExampleOrder extends Entity {
 	public ExampleOrder addItem(ExampleOrderItem item) {
 		if(this.items==null) items=new ArrayList<>();
 		this.items.add(item);
+		return this;
+	}
+	
+	/**
+	 * 获得 采购人<br>
+	 * 采购人
+	 * @return 采购人
+	*/
+	public Employee getBuyerEmployee() {
+		return buyerEmployee;
+	}
+	
+	/**
+	 * 设置 采购人
+	 * @param buyerEmployee 采购人
+	 * @return 当前对象
+	*/
+	public ExampleOrder setBuyerEmployee(Employee buyerEmployee) {
+		this.buyerEmployee=buyerEmployee;
 		return this;
 	}
 

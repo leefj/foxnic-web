@@ -137,8 +137,13 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
                 return;
             }
             admin.post("/service-changes/chs-example-order/start-approve",selected,function (r){
-                debugger;
-            },{delayLoading:500,elms:[]});
+                if(r.success) {
+                    top.layer.msg("采购订单已提交审批",{time:1000});
+                    window.module.refreshTableData();
+                } else {
+                    top.layer.msg(r.message,{time:1000});
+                }
+            },{delayLoading:500,elms:[$("button")]});
 
         },
         openDetails:function (data){

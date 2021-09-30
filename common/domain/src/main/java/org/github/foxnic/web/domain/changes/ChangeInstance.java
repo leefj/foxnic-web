@@ -22,7 +22,7 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 变更实例
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-30 15:47:58
+ * @since 2021-10-01 02:25:44
  * @sign 5ADCE3B012B389153C056CFD62DBD6E2
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -384,7 +384,10 @@ public class ChangeInstance extends Entity {
 	*/
 	@Transient
 	public ChangeStatus getStatusEnum() {
-		return statusEnum ;
+		if(this.statusEnum==null) {
+			this.statusEnum = (ChangeStatus) EnumUtil.parseByCode(ChangeStatus.values(),status);
+		}
+		return this.statusEnum ;
 	}
 	
 	/**
@@ -409,9 +412,9 @@ public class ChangeInstance extends Entity {
 	@Transient
 	public ChangeInstance setStatusEnum(ChangeStatus statusEnum) {
 		if(statusEnum==null) {
-			this.status=null;
+			this.setStatus(null);
 		} else {
-			this.status=statusEnum.code();
+			this.setStatus(statusEnum.code());
 		}
 		this.statusEnum=statusEnum;
 		return this;
@@ -433,7 +436,10 @@ public class ChangeInstance extends Entity {
 	*/
 	@Transient
 	public ChangeType getTypeEnum() {
-		return typeEnum ;
+		if(this.typeEnum==null) {
+			this.typeEnum = (ChangeType) EnumUtil.parseByCode(ChangeType.values(),type);
+		}
+		return this.typeEnum ;
 	}
 	
 	/**
@@ -458,9 +464,9 @@ public class ChangeInstance extends Entity {
 	@Transient
 	public ChangeInstance setTypeEnum(ChangeType typeEnum) {
 		if(typeEnum==null) {
-			this.type=null;
+			this.setType(null);
 		} else {
-			this.type=typeEnum.code();
+			this.setType(typeEnum.code());
 		}
 		this.typeEnum=typeEnum;
 		return this;

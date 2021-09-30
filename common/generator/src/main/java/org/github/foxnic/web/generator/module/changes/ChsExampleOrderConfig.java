@@ -2,6 +2,7 @@ package org.github.foxnic.web.generator.module.changes;
 
 import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
+import com.github.foxnic.generator.builder.view.option.FormOptions;
 import com.github.foxnic.generator.builder.view.option.ListOptions;
 import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
@@ -10,6 +11,10 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.CHS_EXAMPLE_ORDER;
 import org.github.foxnic.web.constants.enums.changes.ChangeStatus;
 import org.github.foxnic.web.constants.enums.changes.ChangeType;
 import org.github.foxnic.web.domain.changes.ExampleOrderItem;
+import org.github.foxnic.web.domain.changes.meta.ExampleOrderMeta;
+import org.github.foxnic.web.domain.hrm.Employee;
+import org.github.foxnic.web.domain.hrm.meta.EmployeeMeta;
+import org.github.foxnic.web.domain.hrm.meta.PersonMeta;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
 
@@ -24,6 +29,7 @@ public class ChsExampleOrderConfig extends BaseCodeConfig<CHS_EXAMPLE_ORDER> {
 		poType.shadow(CHS_EXAMPLE_ORDER.CHS_STATUS, ChangeStatus.class);
 		poType.shadow(CHS_EXAMPLE_ORDER.CHS_TYPE, ChangeType.class);
 		poType.addListProperty(ExampleOrderItem.class,"items","订单明细","订单明细");
+		poType.addSimpleProperty(Employee.class,"buyerEmployee","采购人","采购人");
 	}
 
 	@Override
@@ -47,14 +53,21 @@ public class ChsExampleOrderConfig extends BaseCodeConfig<CHS_EXAMPLE_ORDER> {
 				.form().radioBox().enumType(ChangeType.class)
 				.form().hidden();
 
-		view.field(CHS_EXAMPLE_ORDER.CHS_VERSION).form().hidden();
+		view.field(CHS_EXAMPLE_ORDER.CHS_VERSION).basic().label("版本").form().hidden();
 		view.field(CHS_EXAMPLE_ORDER.AMOUNT).form().hidden();
 		view.field(CHS_EXAMPLE_ORDER.SOURCE_ID).form().hidden();
 		view.field(CHS_EXAMPLE_ORDER.PROC_ID).form().hidden();
 		view.field(CHS_EXAMPLE_ORDER.PROC_NODE_SUMMARY).form().hidden();
 		view.field(CHS_EXAMPLE_ORDER.PROC_SUMMARY).form().hidden();
-		view.field(CHS_EXAMPLE_ORDER.BUYER_ID).basic().label("买家").form().button().chooseEmployee(true);
+		view.field(CHS_EXAMPLE_ORDER.BUYER_ID)
+				.basic().label("买家")
+				.table().fillBy(ExampleOrderMeta.BUYER_EMPLOYEE, EmployeeMeta.PERSON, PersonMeta.NAME)
+				.form().button().chooseEmployee(true);
 		view.field(CHS_EXAMPLE_ORDER.CHS_ID).form().hidden();
+		view.field(CHS_EXAMPLE_ORDER.LATEST_APPROVER_ID).basic().hidden().label("最后审批人");
+		view.field(CHS_EXAMPLE_ORDER.LATEST_APPROVER_NAME).form().hidden();
+		view.field(CHS_EXAMPLE_ORDER.NEXT_NODE_APPROVER_IDS).basic().hidden();
+		view.field(CHS_EXAMPLE_ORDER.NEXT_NODE_APPROVER_NAMES).basic().label("下一审批人").form().hidden();
 
 	}
 
@@ -67,6 +80,11 @@ public class ChsExampleOrderConfig extends BaseCodeConfig<CHS_EXAMPLE_ORDER> {
 	public void configList(ViewOptions view, ListOptions list) {
 		list.addToolButton("提交审批","startChange","");
 		list.operationColumn().addActionButton("明细","openDetails");
+	}
+
+	@Override
+	public void configForm(ViewOptions view, FormOptions form) {
+		view.formWindow().bottomSpace(200);
 	}
 
 	@Override

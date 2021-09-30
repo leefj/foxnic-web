@@ -272,9 +272,14 @@ public class ExampleOrderServiceImpl extends SuperService<ExampleOrder> implemen
 		this.update(FoxnicWeb.CHS_EXAMPLE_ORDER.AMOUNT,amount,orderId);
 	}
 
+	/**
+	 * 启动审批
+	 * */
 	@Override
 	public Result startApprove(List<String> ids) {
 
+		//在变更类型定义中定义的代码
+		String changeDefinitionCode="EXAMPLE_ORDER_CHANGE";
 		//变更后数据
 		List<ExampleOrder> ordersAfter=this.getByIds(ids);
 		if(ordersAfter.size()==0) {
@@ -296,13 +301,13 @@ public class ExampleOrderServiceImpl extends SuperService<ExampleOrder> implemen
 
 		//创建变更辅助工具
 		ChangesAssistant assistant=new ChangesAssistant(this);
-		ChangeRequestBody requestBody=new ChangeRequestBody("EXAMPLE_ORDER_CHANGE", ChangeType.create);
+		ChangeRequestBody requestBody=new ChangeRequestBody(changeDefinitionCode, ChangeType.create);
 
 		//设置变更前数据
 		requestBody.setDataBefore(ExampleOrder.class,ordersBefore);
 		//设置变更后数据
 		requestBody.setDataAfter(ExampleOrder.class,ordersAfter);
-
+		//发起审批
 		Result result= assistant.request(requestBody);
 		return result;
 	}

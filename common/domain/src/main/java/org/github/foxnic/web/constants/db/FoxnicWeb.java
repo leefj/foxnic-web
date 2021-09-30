@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2021-09-30 11:31:05
+ * @since 2021-10-01 02:52:56
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -223,6 +223,36 @@ public class FoxnicWeb {
 		public static final DBField RESPONSE_TIME = new DBField(DBDataType.TIMESTAME , "response_time","responseTime","回调接收时间","回调接收时间",false,false,true);
 		
 		/**
+		 * 审批人账户ID，执行操作的账户ID
+		*/
+		public static final DBField APPROVER_ID = new DBField(DBDataType.STRING , "approver_id","approverId","审批人账户ID","执行操作的账户ID",false,false,true);
+		
+		/**
+		 * 审批人姓名，执行操作的人的姓名
+		*/
+		public static final DBField APPROVER_NAME = new DBField(DBDataType.STRING , "approver_name","approverName","审批人姓名","执行操作的人的姓名",false,false,true);
+		
+		/**
+		 * 下一个审批节点ID
+		*/
+		public static final DBField NEXT_NODE_ID = new DBField(DBDataType.STRING , "next_node_id","nextNodeId","下一个审批节点ID","下一个审批节点ID",false,false,true);
+		
+		/**
+		 * 下一个审批节点审批人账户ID，用逗号隔开
+		*/
+		public static final DBField NEXT_NODE_APPROVER_IDS = new DBField(DBDataType.STRING , "next_node_approver_ids","nextNodeApproverIds","下一个审批节点审批人账户ID","用逗号隔开",false,false,true);
+		
+		/**
+		 * 下一个审批节点审批人姓名，用逗号隔开
+		*/
+		public static final DBField NEXT_NODE_APPROVER_NAMES = new DBField(DBDataType.STRING , "next_node_approver_names","nextNodeApproverNames","下一个审批节点审批人姓名","用逗号隔开",false,false,true);
+		
+		/**
+		 * 是否成功，失败时查看 response_data 
+		*/
+		public static final DBField SUCCESS = new DBField(DBDataType.INTEGER , "success","success","是否成功","失败时查看 response_data",false,false,true);
+		
+		/**
 		 * 创建人ID
 		*/
 		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
@@ -262,13 +292,8 @@ public class FoxnicWeb {
 		*/
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
-		/**
-		 * 是否成功，失败时查看 response_data 
-		*/
-		public static final DBField SUCCESS = new DBField(DBDataType.INTEGER , "success","success","是否成功","失败时查看 response_data",false,false,true);
-		
 		public CHS_CHANGE_EVENT() {
-			this.init($NAME,"变更事件表" , ID , INSTANCE_ID , EVENT_TYPE , NOTIFY_TIME , NOTIFY_DATA , RESPONSE_DATA , RESPONSE_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , SUCCESS);
+			this.init($NAME,"变更事件表" , ID , INSTANCE_ID , EVENT_TYPE , NOTIFY_TIME , NOTIFY_DATA , RESPONSE_DATA , RESPONSE_TIME , APPROVER_ID , APPROVER_NAME , NEXT_NODE_ID , NEXT_NODE_APPROVER_IDS , NEXT_NODE_APPROVER_NAMES , SUCCESS , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final CHS_CHANGE_EVENT $TABLE=new CHS_CHANGE_EVENT();
 	}
@@ -509,8 +534,28 @@ public class FoxnicWeb {
 		*/
 		public static final DBField PROC_NODE_SUMMARY = new DBField(DBDataType.STRING , "proc_node_summary","procNodeSummary","审批节点概要","审批节点概要",false,false,true);
 		
+		/**
+		 * 最后审批人账户ID
+		*/
+		public static final DBField LATEST_APPROVER_ID = new DBField(DBDataType.STRING , "latest_approver_id","latestApproverId","最后审批人账户ID","最后审批人账户ID",false,false,true);
+		
+		/**
+		 * 下一节点审批人
+		*/
+		public static final DBField NEXT_NODE_APPROVER_IDS = new DBField(DBDataType.STRING , "next_node_approver_ids","nextNodeApproverIds","下一节点审批人","下一节点审批人",false,false,true);
+		
+		/**
+		 * 下一个审批节点审批人姓名，用逗号隔开
+		*/
+		public static final DBField NEXT_NODE_APPROVER_NAMES = new DBField(DBDataType.STRING , "next_node_approver_names","nextNodeApproverNames","下一个审批节点审批人姓名","用逗号隔开",false,false,true);
+		
+		/**
+		 * 最后审批人姓名
+		*/
+		public static final DBField LATEST_APPROVER_NAME = new DBField(DBDataType.STRING , "latest_approver_name","latestApproverName","最后审批人姓名","最后审批人姓名",false,false,true);
+		
 		public CHS_EXAMPLE_ORDER() {
-			this.init($NAME,"变更示例订单表" , ID , TITLE , CODE , ORDER_TIME , BUYER_ID , ADDRESS , AMOUNT , CHS_TYPE , CHS_STATUS , CHS_VERSION , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , SOURCE_ID , CHS_ID , PROC_ID , PROC_SUMMARY , PROC_NODE_SUMMARY);
+			this.init($NAME,"变更示例订单表" , ID , TITLE , CODE , ORDER_TIME , BUYER_ID , ADDRESS , AMOUNT , CHS_TYPE , CHS_STATUS , CHS_VERSION , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , SOURCE_ID , CHS_ID , PROC_ID , PROC_SUMMARY , PROC_NODE_SUMMARY , LATEST_APPROVER_ID , NEXT_NODE_APPROVER_IDS , NEXT_NODE_APPROVER_NAMES , LATEST_APPROVER_NAME);
 		}
 		public static final CHS_EXAMPLE_ORDER $TABLE=new CHS_EXAMPLE_ORDER();
 	}

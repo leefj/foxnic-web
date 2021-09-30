@@ -6,13 +6,14 @@ import java.util.Date;
 import java.math.BigDecimal;
 import org.github.foxnic.web.domain.changes.ExampleOrderItem;
 import java.util.List;
+import org.github.foxnic.web.domain.hrm.Employee;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-30 16:34:12
- * @sign 9B0D224725AE9D00DE96DB8F8D493737
+ * @since 2021-10-01 03:20:26
+ * @sign 5034186998748DD73FF7B4B86DC6540D
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -259,6 +260,46 @@ public class ExampleOrderMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.changes.ExampleOrder,java.lang.String> PROC_NODE_SUMMARY_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ExampleOrder.class ,PROC_NODE_SUMMARY, java.lang.String.class, "审批节点概要", "审批节点概要", java.lang.String.class, null);
 	
 	/**
+	 * 最后审批人账户ID , 类型: java.lang.String
+	*/
+	public static final String LATEST_APPROVER_ID="latestApproverId";
+	
+	/**
+	 * 最后审批人账户ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ExampleOrder,java.lang.String> LATEST_APPROVER_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ExampleOrder.class ,LATEST_APPROVER_ID, java.lang.String.class, "最后审批人账户ID", "最后审批人账户ID", java.lang.String.class, null);
+	
+	/**
+	 * 下一节点审批人 , 类型: java.lang.String
+	*/
+	public static final String NEXT_NODE_APPROVER_IDS="nextNodeApproverIds";
+	
+	/**
+	 * 下一节点审批人 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ExampleOrder,java.lang.String> NEXT_NODE_APPROVER_IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ExampleOrder.class ,NEXT_NODE_APPROVER_IDS, java.lang.String.class, "下一节点审批人", "下一节点审批人", java.lang.String.class, null);
+	
+	/**
+	 * 下一个审批节点审批人姓名 , 用逗号隔开 , 类型: java.lang.String
+	*/
+	public static final String NEXT_NODE_APPROVER_NAMES="nextNodeApproverNames";
+	
+	/**
+	 * 下一个审批节点审批人姓名 , 用逗号隔开 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ExampleOrder,java.lang.String> NEXT_NODE_APPROVER_NAMES_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ExampleOrder.class ,NEXT_NODE_APPROVER_NAMES, java.lang.String.class, "下一个审批节点审批人姓名", "用逗号隔开", java.lang.String.class, null);
+	
+	/**
+	 * 最后审批人姓名 , 类型: java.lang.String
+	*/
+	public static final String LATEST_APPROVER_NAME="latestApproverName";
+	
+	/**
+	 * 最后审批人姓名 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ExampleOrder,java.lang.String> LATEST_APPROVER_NAME_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ExampleOrder.class ,LATEST_APPROVER_NAME, java.lang.String.class, "最后审批人姓名", "最后审批人姓名", java.lang.String.class, null);
+	
+	/**
 	 * 订单明细 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.changes.ExampleOrderItem
 	*/
 	public static final String ITEMS="items";
@@ -269,9 +310,19 @@ public class ExampleOrderMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.changes.ExampleOrder,org.github.foxnic.web.domain.changes.ExampleOrderItem> ITEMS_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ExampleOrder.class ,ITEMS, java.util.List.class, "订单明细", "订单明细", org.github.foxnic.web.domain.changes.ExampleOrderItem.class, null);
 	
 	/**
+	 * 采购人 , 类型: org.github.foxnic.web.domain.hrm.Employee
+	*/
+	public static final String BUYER_EMPLOYEE="buyerEmployee";
+	
+	/**
+	 * 采购人 , 类型: org.github.foxnic.web.domain.hrm.Employee
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ExampleOrder,org.github.foxnic.web.domain.hrm.Employee> BUYER_EMPLOYEE_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ExampleOrder.class ,BUYER_EMPLOYEE, org.github.foxnic.web.domain.hrm.Employee.class, "采购人", "采购人", org.github.foxnic.web.domain.hrm.Employee.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , TITLE , CODE , ORDER_TIME , BUYER_ID , ADDRESS , AMOUNT , CHS_TYPE , CHS_STATUS , CHS_VERSION , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , SOURCE_ID , CHS_ID , PROC_ID , PROC_SUMMARY , PROC_NODE_SUMMARY , ITEMS };
+	public static final String[] $PROPS={ ID , TITLE , CODE , ORDER_TIME , BUYER_ID , ADDRESS , AMOUNT , CHS_TYPE , CHS_STATUS , CHS_VERSION , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , SOURCE_ID , CHS_ID , PROC_ID , PROC_SUMMARY , PROC_NODE_SUMMARY , LATEST_APPROVER_ID , NEXT_NODE_APPROVER_IDS , NEXT_NODE_APPROVER_NAMES , LATEST_APPROVER_NAME , ITEMS , BUYER_EMPLOYEE };
 	
 	/**
 	 * 代理类
@@ -546,6 +597,50 @@ public class ExampleOrderMeta {
 		}
 		
 		/**
+		 * 设置 最后审批人账户ID
+		 * @param latestApproverId 最后审批人账户ID
+		 * @return 当前对象
+		*/
+		public ExampleOrder setLatestApproverId(String latestApproverId) {
+			super.change(LATEST_APPROVER_ID,super.getLatestApproverId(),latestApproverId);
+			super.setLatestApproverId(latestApproverId);
+			return this;
+		}
+		
+		/**
+		 * 设置 下一节点审批人
+		 * @param nextNodeApproverIds 下一节点审批人
+		 * @return 当前对象
+		*/
+		public ExampleOrder setNextNodeApproverIds(String nextNodeApproverIds) {
+			super.change(NEXT_NODE_APPROVER_IDS,super.getNextNodeApproverIds(),nextNodeApproverIds);
+			super.setNextNodeApproverIds(nextNodeApproverIds);
+			return this;
+		}
+		
+		/**
+		 * 设置 下一个审批节点审批人姓名
+		 * @param nextNodeApproverNames 下一个审批节点审批人姓名
+		 * @return 当前对象
+		*/
+		public ExampleOrder setNextNodeApproverNames(String nextNodeApproverNames) {
+			super.change(NEXT_NODE_APPROVER_NAMES,super.getNextNodeApproverNames(),nextNodeApproverNames);
+			super.setNextNodeApproverNames(nextNodeApproverNames);
+			return this;
+		}
+		
+		/**
+		 * 设置 最后审批人姓名
+		 * @param latestApproverName 最后审批人姓名
+		 * @return 当前对象
+		*/
+		public ExampleOrder setLatestApproverName(String latestApproverName) {
+			super.change(LATEST_APPROVER_NAME,super.getLatestApproverName(),latestApproverName);
+			super.setLatestApproverName(latestApproverName);
+			return this;
+		}
+		
+		/**
 		 * 设置 订单明细
 		 * @param items 订单明细
 		 * @return 当前对象
@@ -553,6 +648,17 @@ public class ExampleOrderMeta {
 		public ExampleOrder setItems(List<ExampleOrderItem> items) {
 			super.change(ITEMS,super.getItems(),items);
 			super.setItems(items);
+			return this;
+		}
+		
+		/**
+		 * 设置 采购人
+		 * @param buyerEmployee 采购人
+		 * @return 当前对象
+		*/
+		public ExampleOrder setBuyerEmployee(Employee buyerEmployee) {
+			super.change(BUYER_EMPLOYEE,super.getBuyerEmployee(),buyerEmployee);
+			super.setBuyerEmployee(buyerEmployee);
 			return this;
 		}
 	}

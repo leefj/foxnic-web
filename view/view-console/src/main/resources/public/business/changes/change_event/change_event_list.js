@@ -1,7 +1,7 @@
 /**
  * 变更事件 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-30 11:31:55
+ * @since 2021-10-01 02:53:28
  */
 
 
@@ -80,8 +80,13 @@ function ListPage() {
 					,{ field: 'notifyData', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('数据') , templet: function (d) { return templet('notifyData',d.notifyData,d);}  }
 					,{ field: 'responseData', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('相应的数据') , templet: function (d) { return templet('responseData',d.responseData,d);}  }
 					,{ field: 'responseTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('回调接收时间'), templet: function (d) { return templet('responseTime',fox.dateFormat(d.responseTime,"yyyy-MM-dd HH:mm:ss"),d); }}
-					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }}
+					,{ field: 'approverId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('审批人账户ID') , templet: function (d) { return templet('approverId',d.approverId,d);}  }
+					,{ field: 'approverName', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('审批人姓名') , templet: function (d) { return templet('approverName',d.approverName,d);}  }
+					,{ field: 'nextNodeId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('下一个审批节点ID') , templet: function (d) { return templet('nextNodeId',d.nextNodeId,d);}  }
+					,{ field: 'nextNodeApproverIds', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('下一个审批节点审批人账户ID') , templet: function (d) { return templet('nextNodeApproverIds',d.nextNodeApproverIds,d);}  }
+					,{ field: 'nextNodeApproverNames', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('下一个审批节点审批人姓名') , templet: function (d) { return templet('nextNodeApproverNames',d.nextNodeApproverNames,d);}  }
 					,{ field: 'success', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('是否成功') , templet: function (d) { return templet('success',d.success,d);}  }
+					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }}
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
 				]],
@@ -123,6 +128,11 @@ function ListPage() {
 		value.notifyData={ inputType:"button",value: $("#notifyData").val()};
 		value.responseData={ inputType:"button",value: $("#responseData").val()};
 		value.responseTime={ inputType:"date_input", value: $("#responseTime").val()};
+		value.approverId={ inputType:"button",value: $("#approverId").val()};
+		value.approverName={ inputType:"button",value: $("#approverName").val()};
+		value.nextNodeId={ inputType:"button",value: $("#nextNodeId").val()};
+		value.nextNodeApproverIds={ inputType:"button",value: $("#nextNodeApproverIds").val()};
+		value.nextNodeApproverNames={ inputType:"button",value: $("#nextNodeApproverNames").val()};
 		value.success={ inputType:"number_input", value: $("#success").val()};
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){

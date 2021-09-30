@@ -25,6 +25,7 @@ import org.github.foxnic.web.domain.changes.*;
 import org.github.foxnic.web.framework.cache.RedisUtil;
 import org.github.foxnic.web.framework.change.ChangesAssistant;
 import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.github.foxnic.web.session.SessionUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -332,6 +333,8 @@ public class ChangeInstanceServiceImpl extends SuperService<ChangeInstance> impl
 			event.setEventTypeEnum(ChangeEventType.create_success);
 			event.setInstance(instance);
 			event.setDefinition(definition);
+			event.setApproverId(SessionUser.getCurrent().getUserId());
+			event.setApproverName(SessionUser.getCurrent().getRealName());
 			String notifyData= JSON.toJSONString(event);
 			event.setNotifyData(notifyData);
 			Result er=eventService.insert(event);

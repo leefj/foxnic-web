@@ -20,8 +20,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 变更事件
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-30 10:24:23
- * @sign E3C21D86FA903D986626E09FCE39A70C
+ * @since 2021-10-01 02:53:28
+ * @sign 4E4C6B68202F809CC0F4F107C9AF7F84
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -78,6 +78,42 @@ public class ChangeEvent extends Entity {
 	private Timestamp responseTime;
 	
 	/**
+	 * 审批人账户ID：执行操作的账户ID
+	*/
+	@ApiModelProperty(required = false,value="审批人账户ID" , notes = "执行操作的账户ID")
+	private String approverId;
+	
+	/**
+	 * 审批人姓名：执行操作的人的姓名
+	*/
+	@ApiModelProperty(required = false,value="审批人姓名" , notes = "执行操作的人的姓名")
+	private String approverName;
+	
+	/**
+	 * 下一个审批节点ID：下一个审批节点ID
+	*/
+	@ApiModelProperty(required = false,value="下一个审批节点ID" , notes = "下一个审批节点ID")
+	private String nextNodeId;
+	
+	/**
+	 * 下一个审批节点审批人账户ID：用逗号隔开
+	*/
+	@ApiModelProperty(required = false,value="下一个审批节点审批人账户ID" , notes = "用逗号隔开")
+	private String nextNodeApproverIds;
+	
+	/**
+	 * 下一个审批节点审批人姓名：用逗号隔开
+	*/
+	@ApiModelProperty(required = false,value="下一个审批节点审批人姓名" , notes = "用逗号隔开")
+	private String nextNodeApproverNames;
+	
+	/**
+	 * 是否成功：失败时查看 response_data
+	*/
+	@ApiModelProperty(required = false,value="是否成功" , notes = "失败时查看 response_data")
+	private Integer success;
+	
+	/**
 	 * 创建人ID：创建人ID
 	*/
 	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID")
@@ -124,12 +160,6 @@ public class ChangeEvent extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
 	private Integer version;
-	
-	/**
-	 * 是否成功：失败时查看 response_data
-	*/
-	@ApiModelProperty(required = false,value="是否成功" , notes = "失败时查看 response_data")
-	private Integer success;
 	
 	/**
 	 * 变更定义
@@ -197,7 +227,10 @@ public class ChangeEvent extends Entity {
 	*/
 	@Transient
 	public ChangeEventType getEventTypeEnum() {
-		return eventTypeEnum ;
+		if(this.eventTypeEnum==null) {
+			this.eventTypeEnum = (ChangeEventType) EnumUtil.parseByCode(ChangeEventType.values(),eventType);
+		}
+		return this.eventTypeEnum ;
 	}
 	
 	/**
@@ -222,9 +255,9 @@ public class ChangeEvent extends Entity {
 	@Transient
 	public ChangeEvent setEventTypeEnum(ChangeEventType eventTypeEnum) {
 		if(eventTypeEnum==null) {
-			this.eventType=null;
+			this.setEventType(null);
 		} else {
-			this.eventType=eventTypeEnum.code();
+			this.setEventType(eventTypeEnum.code());
 		}
 		this.eventTypeEnum=eventTypeEnum;
 		return this;
@@ -303,6 +336,120 @@ public class ChangeEvent extends Entity {
 	*/
 	public ChangeEvent setResponseTime(Timestamp responseTime) {
 		this.responseTime=responseTime;
+		return this;
+	}
+	
+	/**
+	 * 获得 审批人账户ID<br>
+	 * 执行操作的账户ID
+	 * @return 审批人账户ID
+	*/
+	public String getApproverId() {
+		return approverId;
+	}
+	
+	/**
+	 * 设置 审批人账户ID
+	 * @param approverId 审批人账户ID
+	 * @return 当前对象
+	*/
+	public ChangeEvent setApproverId(String approverId) {
+		this.approverId=approverId;
+		return this;
+	}
+	
+	/**
+	 * 获得 审批人姓名<br>
+	 * 执行操作的人的姓名
+	 * @return 审批人姓名
+	*/
+	public String getApproverName() {
+		return approverName;
+	}
+	
+	/**
+	 * 设置 审批人姓名
+	 * @param approverName 审批人姓名
+	 * @return 当前对象
+	*/
+	public ChangeEvent setApproverName(String approverName) {
+		this.approverName=approverName;
+		return this;
+	}
+	
+	/**
+	 * 获得 下一个审批节点ID<br>
+	 * 下一个审批节点ID
+	 * @return 下一个审批节点ID
+	*/
+	public String getNextNodeId() {
+		return nextNodeId;
+	}
+	
+	/**
+	 * 设置 下一个审批节点ID
+	 * @param nextNodeId 下一个审批节点ID
+	 * @return 当前对象
+	*/
+	public ChangeEvent setNextNodeId(String nextNodeId) {
+		this.nextNodeId=nextNodeId;
+		return this;
+	}
+	
+	/**
+	 * 获得 下一个审批节点审批人账户ID<br>
+	 * 用逗号隔开
+	 * @return 下一个审批节点审批人账户ID
+	*/
+	public String getNextNodeApproverIds() {
+		return nextNodeApproverIds;
+	}
+	
+	/**
+	 * 设置 下一个审批节点审批人账户ID
+	 * @param nextNodeApproverIds 下一个审批节点审批人账户ID
+	 * @return 当前对象
+	*/
+	public ChangeEvent setNextNodeApproverIds(String nextNodeApproverIds) {
+		this.nextNodeApproverIds=nextNodeApproverIds;
+		return this;
+	}
+	
+	/**
+	 * 获得 下一个审批节点审批人姓名<br>
+	 * 用逗号隔开
+	 * @return 下一个审批节点审批人姓名
+	*/
+	public String getNextNodeApproverNames() {
+		return nextNodeApproverNames;
+	}
+	
+	/**
+	 * 设置 下一个审批节点审批人姓名
+	 * @param nextNodeApproverNames 下一个审批节点审批人姓名
+	 * @return 当前对象
+	*/
+	public ChangeEvent setNextNodeApproverNames(String nextNodeApproverNames) {
+		this.nextNodeApproverNames=nextNodeApproverNames;
+		return this;
+	}
+	
+	/**
+	 * 获得 是否成功<br>
+	 * 失败时查看 response_data
+	 * @return 是否成功
+	*/
+	public Integer getSuccess() {
+		return success;
+	}
+	
+	/**
+	 * 设置 是否成功
+	 * @param success 是否成功
+	 * @return 当前对象
+	*/
+	public ChangeEvent setSuccess(Integer success) {
+		this.success=success;
 		return this;
 	}
 	
@@ -455,25 +602,6 @@ public class ChangeEvent extends Entity {
 	*/
 	public ChangeEvent setVersion(Integer version) {
 		this.version=version;
-		return this;
-	}
-	
-	/**
-	 * 获得 是否成功<br>
-	 * 失败时查看 response_data
-	 * @return 是否成功
-	*/
-	public Integer getSuccess() {
-		return success;
-	}
-	
-	/**
-	 * 设置 是否成功
-	 * @param success 是否成功
-	 * @return 当前对象
-	*/
-	public ChangeEvent setSuccess(Integer success) {
-		this.success=success;
 		return this;
 	}
 	

@@ -20,7 +20,9 @@ import io.swagger.annotations.ApiOperation;
 import org.github.foxnic.web.changes.service.IExampleOrderService;
 import org.github.foxnic.web.domain.changes.ExampleOrder;
 import org.github.foxnic.web.domain.changes.ExampleOrderVO;
+import org.github.foxnic.web.domain.changes.meta.ExampleOrderMeta;
 import org.github.foxnic.web.domain.changes.meta.ExampleOrderVOMeta;
+import org.github.foxnic.web.domain.hrm.meta.EmployeeMeta;
 import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
 import org.github.foxnic.web.framework.web.SuperController;
 import org.github.foxnic.web.proxy.changes.ExampleOrderServiceProxy;
@@ -296,6 +298,7 @@ public class ExampleOrderController extends SuperController {
 	public Result<PagedList<ExampleOrder>> queryPagedList(ExampleOrderVO sample) {
 		Result<PagedList<ExampleOrder>> result=new Result<>();
 		PagedList<ExampleOrder> list=exampleOrderService.queryPagedList(sample,sample.getPageSize(),sample.getPageIndex());
+		exampleOrderService.dao().fill(list).with(ExampleOrderMeta.BUYER_EMPLOYEE, EmployeeMeta.PERSON).execute();
 		result.success(true).data(list);
 		return result;
 	}

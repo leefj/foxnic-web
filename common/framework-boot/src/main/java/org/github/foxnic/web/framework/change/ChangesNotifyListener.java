@@ -3,6 +3,7 @@ package org.github.foxnic.web.framework.change;
 import com.alibaba.fastjson.JSON;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.commons.reflect.ReflectUtil;
 import com.github.foxnic.springboot.spring.SpringUtil;
 import org.github.foxnic.web.domain.changes.ChangeEvent;
@@ -40,6 +41,7 @@ public class ChangesNotifyListener extends DataChangeHandler implements Applicat
         try {
             result = handlerBean.onEvent(event);
         }catch (Exception e) {
+            Logger.exception("审批回调异常",e);
             result= ErrorDesc.exception(e);
         }
         ChangeEvent response=new ChangeEvent();

@@ -1,47 +1,54 @@
 package org.github.foxnic.web.changes.controller;
 
  
-import com.alibaba.csp.sentinel.annotation.SentinelResource;
-import com.github.foxnic.api.error.ErrorDesc;
-import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.api.validate.annotations.NotNull;
-import com.github.foxnic.commons.io.StreamUtil;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.springboot.web.DownloadUtil;
-import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import com.github.xiaoymin.knife4j.annotations.ApiSort;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
-import org.github.foxnic.web.changes.service.IChangeDataService;
-import org.github.foxnic.web.domain.changes.ChangeData;
-import org.github.foxnic.web.domain.changes.ChangeDataVO;
-import org.github.foxnic.web.domain.changes.meta.ChangeDataVOMeta;
-import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
-import org.github.foxnic.web.framework.web.SuperController;
-import org.github.foxnic.web.proxy.changes.ChangeDataServiceProxy;
+import java.util.List;
+
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import org.github.foxnic.web.framework.web.SuperController;
+import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.InputStream;
-import java.util.List;
+
+import org.github.foxnic.web.proxy.changes.ChangeDataServiceProxy;
+import org.github.foxnic.web.domain.changes.meta.ChangeDataVOMeta;
+import org.github.foxnic.web.domain.changes.ChangeData;
+import org.github.foxnic.web.domain.changes.ChangeDataVO;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.excel.ExcelWriter;
+import com.github.foxnic.springboot.web.DownloadUtil;
+import com.github.foxnic.dao.data.PagedList;
+import java.util.Date;
+import java.sql.Timestamp;
+import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.commons.io.StreamUtil;
 import java.util.Map;
+import com.github.foxnic.dao.excel.ValidateResult;
+import java.io.InputStream;
+import org.github.foxnic.web.domain.changes.meta.ChangeDataMeta;
+import io.swagger.annotations.Api;
+import com.github.xiaoymin.knife4j.annotations.ApiSort;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiImplicitParam;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import org.github.foxnic.web.changes.service.IChangeDataService;
+import com.github.foxnic.api.validate.annotations.NotNull;
 
 /**
  * <p>
  * 变更数据表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-30 11:31:52
+ * @since 2021-10-01 02:53:27
 */
 
 @Api(tags = "变更")
@@ -58,11 +65,11 @@ public class ChangeDataController extends SuperController {
 	*/
 	@ApiOperation(value = "添加变更")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = ChangeDataVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeDataVOMeta.INSTANCE_ID , value = "变更ID" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeDataVOMeta.DATA_TYPE , value = "实体类名" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeDataVOMeta.TIME_POINT , value = "变更时间点" , required = false , dataTypeClass=Integer.class),
-		@ApiImplicitParam(name = ChangeDataVOMeta.DATA , value = "数据" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeDataVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "495946157751541760"),
+		@ApiImplicitParam(name = ChangeDataVOMeta.INSTANCE_ID , value = "变更ID" , required = false , dataTypeClass=String.class , example = "495946157269196800"),
+		@ApiImplicitParam(name = ChangeDataVOMeta.DATA_TYPE , value = "实体类名" , required = false , dataTypeClass=String.class , example = "org.github.foxnic.web.domain.changes.ExampleOrder"),
+		@ApiImplicitParam(name = ChangeDataVOMeta.TIME_POINT , value = "变更时间点" , required = false , dataTypeClass=Integer.class , example = "0"),
+		@ApiImplicitParam(name = ChangeDataVOMeta.DATA , value = "数据" , required = false , dataTypeClass=String.class , example = "[]"),
 	})
 	@ApiOperationSupport(order=1)
 	@SentinelResource(value = ChangeDataServiceProxy.INSERT , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
@@ -78,7 +85,7 @@ public class ChangeDataController extends SuperController {
 	*/
 	@ApiOperation(value = "删除变更")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = ChangeDataVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class)
+		@ApiImplicitParam(name = ChangeDataVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "495946157751541760")
 	})
 	@ApiOperationSupport(order=2)
 	@NotNull(name = ChangeDataVOMeta.ID)
@@ -112,11 +119,11 @@ public class ChangeDataController extends SuperController {
 	*/
 	@ApiOperation(value = "更新变更")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = ChangeDataVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeDataVOMeta.INSTANCE_ID , value = "变更ID" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeDataVOMeta.DATA_TYPE , value = "实体类名" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeDataVOMeta.TIME_POINT , value = "变更时间点" , required = false , dataTypeClass=Integer.class),
-		@ApiImplicitParam(name = ChangeDataVOMeta.DATA , value = "数据" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeDataVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "495946157751541760"),
+		@ApiImplicitParam(name = ChangeDataVOMeta.INSTANCE_ID , value = "变更ID" , required = false , dataTypeClass=String.class , example = "495946157269196800"),
+		@ApiImplicitParam(name = ChangeDataVOMeta.DATA_TYPE , value = "实体类名" , required = false , dataTypeClass=String.class , example = "org.github.foxnic.web.domain.changes.ExampleOrder"),
+		@ApiImplicitParam(name = ChangeDataVOMeta.TIME_POINT , value = "变更时间点" , required = false , dataTypeClass=Integer.class , example = "0"),
+		@ApiImplicitParam(name = ChangeDataVOMeta.DATA , value = "数据" , required = false , dataTypeClass=String.class , example = "[]"),
 	})
 	@ApiOperationSupport( order=4 , ignoreParameters = { ChangeDataVOMeta.PAGE_INDEX , ChangeDataVOMeta.PAGE_SIZE , ChangeDataVOMeta.SEARCH_FIELD , ChangeDataVOMeta.FUZZY_FIELD , ChangeDataVOMeta.SEARCH_VALUE , ChangeDataVOMeta.SORT_FIELD , ChangeDataVOMeta.SORT_TYPE , ChangeDataVOMeta.IDS } ) 
 	@NotNull(name = ChangeDataVOMeta.ID)
@@ -133,11 +140,11 @@ public class ChangeDataController extends SuperController {
 	*/
 	@ApiOperation(value = "保存变更")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = ChangeDataVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeDataVOMeta.INSTANCE_ID , value = "变更ID" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeDataVOMeta.DATA_TYPE , value = "实体类名" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeDataVOMeta.TIME_POINT , value = "变更时间点" , required = false , dataTypeClass=Integer.class),
-		@ApiImplicitParam(name = ChangeDataVOMeta.DATA , value = "数据" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeDataVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "495946157751541760"),
+		@ApiImplicitParam(name = ChangeDataVOMeta.INSTANCE_ID , value = "变更ID" , required = false , dataTypeClass=String.class , example = "495946157269196800"),
+		@ApiImplicitParam(name = ChangeDataVOMeta.DATA_TYPE , value = "实体类名" , required = false , dataTypeClass=String.class , example = "org.github.foxnic.web.domain.changes.ExampleOrder"),
+		@ApiImplicitParam(name = ChangeDataVOMeta.TIME_POINT , value = "变更时间点" , required = false , dataTypeClass=Integer.class , example = "0"),
+		@ApiImplicitParam(name = ChangeDataVOMeta.DATA , value = "数据" , required = false , dataTypeClass=String.class , example = "[]"),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { ChangeDataVOMeta.PAGE_INDEX , ChangeDataVOMeta.PAGE_SIZE , ChangeDataVOMeta.SEARCH_FIELD , ChangeDataVOMeta.FUZZY_FIELD , ChangeDataVOMeta.SEARCH_VALUE , ChangeDataVOMeta.SORT_FIELD , ChangeDataVOMeta.SORT_TYPE , ChangeDataVOMeta.IDS } )
 	@NotNull(name = ChangeDataVOMeta.ID)
@@ -193,11 +200,11 @@ public class ChangeDataController extends SuperController {
 	*/
 	@ApiOperation(value = "查询变更")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = ChangeDataVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeDataVOMeta.INSTANCE_ID , value = "变更ID" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeDataVOMeta.DATA_TYPE , value = "实体类名" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeDataVOMeta.TIME_POINT , value = "变更时间点" , required = false , dataTypeClass=Integer.class),
-		@ApiImplicitParam(name = ChangeDataVOMeta.DATA , value = "数据" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeDataVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "495946157751541760"),
+		@ApiImplicitParam(name = ChangeDataVOMeta.INSTANCE_ID , value = "变更ID" , required = false , dataTypeClass=String.class , example = "495946157269196800"),
+		@ApiImplicitParam(name = ChangeDataVOMeta.DATA_TYPE , value = "实体类名" , required = false , dataTypeClass=String.class , example = "org.github.foxnic.web.domain.changes.ExampleOrder"),
+		@ApiImplicitParam(name = ChangeDataVOMeta.TIME_POINT , value = "变更时间点" , required = false , dataTypeClass=Integer.class , example = "0"),
+		@ApiImplicitParam(name = ChangeDataVOMeta.DATA , value = "数据" , required = false , dataTypeClass=String.class , example = "[]"),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { ChangeDataVOMeta.PAGE_INDEX , ChangeDataVOMeta.PAGE_SIZE } )
 	@SentinelResource(value = ChangeDataServiceProxy.QUERY_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
@@ -215,11 +222,11 @@ public class ChangeDataController extends SuperController {
 	*/
 	@ApiOperation(value = "分页查询变更")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = ChangeDataVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeDataVOMeta.INSTANCE_ID , value = "变更ID" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeDataVOMeta.DATA_TYPE , value = "实体类名" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = ChangeDataVOMeta.TIME_POINT , value = "变更时间点" , required = false , dataTypeClass=Integer.class),
-		@ApiImplicitParam(name = ChangeDataVOMeta.DATA , value = "数据" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeDataVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "495946157751541760"),
+		@ApiImplicitParam(name = ChangeDataVOMeta.INSTANCE_ID , value = "变更ID" , required = false , dataTypeClass=String.class , example = "495946157269196800"),
+		@ApiImplicitParam(name = ChangeDataVOMeta.DATA_TYPE , value = "实体类名" , required = false , dataTypeClass=String.class , example = "org.github.foxnic.web.domain.changes.ExampleOrder"),
+		@ApiImplicitParam(name = ChangeDataVOMeta.TIME_POINT , value = "变更时间点" , required = false , dataTypeClass=Integer.class , example = "0"),
+		@ApiImplicitParam(name = ChangeDataVOMeta.DATA , value = "数据" , required = false , dataTypeClass=String.class , example = "[]"),
 	})
 	@ApiOperationSupport(order=8)
 	@SentinelResource(value = ChangeDataServiceProxy.QUERY_PAGED_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )

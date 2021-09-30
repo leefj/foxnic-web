@@ -28,9 +28,12 @@ public class CodeExampleRelationManager extends RelationManager {
 	 * 变更示例的相关配置
 	 * */
 	public void setupChangeProperties() {
-		//关联
+		//关联订单-订单明细
 		this.property(ExampleOrderMeta.ITEMS_PROP)
 				.using(FoxnicWeb.CHS_EXAMPLE_ORDER.ID).join(FoxnicWeb.CHS_EXAMPLE_ORDER_ITEM.ORDER_ID);
+		//关联订单-下单人员
+		this.property(ExampleOrderMeta.BUYER_EMPLOYEE_PROP)
+				.using(FoxnicWeb.CHS_EXAMPLE_ORDER.BUYER_ID).join(FoxnicWeb.HRM_EMPLOYEE.ID);
 	}
 
 	/**

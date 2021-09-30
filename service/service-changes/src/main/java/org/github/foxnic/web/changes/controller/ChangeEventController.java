@@ -50,7 +50,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 变更事件表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-30 11:31:55
+ * @since 2021-10-01 02:53:28
 */
 
 @Api(tags = "变更事件")
@@ -74,6 +74,11 @@ public class ChangeEventController extends SuperController {
 		@ApiImplicitParam(name = ChangeEventVOMeta.NOTIFY_DATA , value = "数据" , required = false , dataTypeClass=String.class , example = "{\"definition\":{\"code\":\"EXAMPLE_ORDER_CHANGE\",\"createBy\":\"110588348101165911\",\"createTime\":1632816520000,\"deleted\":0,\"handler\":\"org.github.foxnic.web.changes.service.handler.ExampleOrderChangesHandler\",\"id\":\"495265596145934336\",\"name\":\"订单变更(测试)\",\"valid\":1,\"version\":1},\"eventType\":\"create_success\",\"eventTypeEnum\":\"create_success\",\"instance\":{\"dataIdAfter\":\"495885236844888064\",\"dataTable\":\"chs_example_order\",\"dataType\":\"org.github.foxnic.web.domain.changes.ExampleOrder\",\"definitionId\":\"495265596145934336\",\"id\":\"495885237344010240\",\"startTime\":1632964253607,\"status\":\"changing\",\"statusEnum\":\"changing\",\"type\":\"create\",\"typeEnum\":\"create\"},\"instanceId\":\"495885237344010240\",\"notifyTime\":1632964253727}"),
 		@ApiImplicitParam(name = ChangeEventVOMeta.RESPONSE_DATA , value = "相应的数据" , required = false , dataTypeClass=String.class , example = "{\"code\":\"00\",\"message\":\"操作成功\",\"success\":true}"),
 		@ApiImplicitParam(name = ChangeEventVOMeta.RESPONSE_TIME , value = "回调接收时间" , required = false , dataTypeClass=Timestamp.class , example = "2021-09-30 09:10:53.777"),
+		@ApiImplicitParam(name = ChangeEventVOMeta.APPROVER_ID , value = "审批人账户ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeEventVOMeta.APPROVER_NAME , value = "审批人姓名" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeEventVOMeta.NEXT_NODE_ID , value = "下一个审批节点ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeEventVOMeta.NEXT_NODE_APPROVER_IDS , value = "下一个审批节点审批人账户ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeEventVOMeta.NEXT_NODE_APPROVER_NAMES , value = "下一个审批节点审批人姓名" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ChangeEventVOMeta.SUCCESS , value = "是否成功" , required = false , dataTypeClass=Integer.class),
 	})
 	@ApiOperationSupport(order=1)
@@ -131,6 +136,11 @@ public class ChangeEventController extends SuperController {
 		@ApiImplicitParam(name = ChangeEventVOMeta.NOTIFY_DATA , value = "数据" , required = false , dataTypeClass=String.class , example = "{\"definition\":{\"code\":\"EXAMPLE_ORDER_CHANGE\",\"createBy\":\"110588348101165911\",\"createTime\":1632816520000,\"deleted\":0,\"handler\":\"org.github.foxnic.web.changes.service.handler.ExampleOrderChangesHandler\",\"id\":\"495265596145934336\",\"name\":\"订单变更(测试)\",\"valid\":1,\"version\":1},\"eventType\":\"create_success\",\"eventTypeEnum\":\"create_success\",\"instance\":{\"dataIdAfter\":\"495885236844888064\",\"dataTable\":\"chs_example_order\",\"dataType\":\"org.github.foxnic.web.domain.changes.ExampleOrder\",\"definitionId\":\"495265596145934336\",\"id\":\"495885237344010240\",\"startTime\":1632964253607,\"status\":\"changing\",\"statusEnum\":\"changing\",\"type\":\"create\",\"typeEnum\":\"create\"},\"instanceId\":\"495885237344010240\",\"notifyTime\":1632964253727}"),
 		@ApiImplicitParam(name = ChangeEventVOMeta.RESPONSE_DATA , value = "相应的数据" , required = false , dataTypeClass=String.class , example = "{\"code\":\"00\",\"message\":\"操作成功\",\"success\":true}"),
 		@ApiImplicitParam(name = ChangeEventVOMeta.RESPONSE_TIME , value = "回调接收时间" , required = false , dataTypeClass=Timestamp.class , example = "2021-09-30 09:10:53.777"),
+		@ApiImplicitParam(name = ChangeEventVOMeta.APPROVER_ID , value = "审批人账户ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeEventVOMeta.APPROVER_NAME , value = "审批人姓名" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeEventVOMeta.NEXT_NODE_ID , value = "下一个审批节点ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeEventVOMeta.NEXT_NODE_APPROVER_IDS , value = "下一个审批节点审批人账户ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeEventVOMeta.NEXT_NODE_APPROVER_NAMES , value = "下一个审批节点审批人姓名" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ChangeEventVOMeta.SUCCESS , value = "是否成功" , required = false , dataTypeClass=Integer.class),
 	})
 	@ApiOperationSupport( order=4 , ignoreParameters = { ChangeEventVOMeta.PAGE_INDEX , ChangeEventVOMeta.PAGE_SIZE , ChangeEventVOMeta.SEARCH_FIELD , ChangeEventVOMeta.FUZZY_FIELD , ChangeEventVOMeta.SEARCH_VALUE , ChangeEventVOMeta.SORT_FIELD , ChangeEventVOMeta.SORT_TYPE , ChangeEventVOMeta.IDS } ) 
@@ -155,6 +165,11 @@ public class ChangeEventController extends SuperController {
 		@ApiImplicitParam(name = ChangeEventVOMeta.NOTIFY_DATA , value = "数据" , required = false , dataTypeClass=String.class , example = "{\"definition\":{\"code\":\"EXAMPLE_ORDER_CHANGE\",\"createBy\":\"110588348101165911\",\"createTime\":1632816520000,\"deleted\":0,\"handler\":\"org.github.foxnic.web.changes.service.handler.ExampleOrderChangesHandler\",\"id\":\"495265596145934336\",\"name\":\"订单变更(测试)\",\"valid\":1,\"version\":1},\"eventType\":\"create_success\",\"eventTypeEnum\":\"create_success\",\"instance\":{\"dataIdAfter\":\"495885236844888064\",\"dataTable\":\"chs_example_order\",\"dataType\":\"org.github.foxnic.web.domain.changes.ExampleOrder\",\"definitionId\":\"495265596145934336\",\"id\":\"495885237344010240\",\"startTime\":1632964253607,\"status\":\"changing\",\"statusEnum\":\"changing\",\"type\":\"create\",\"typeEnum\":\"create\"},\"instanceId\":\"495885237344010240\",\"notifyTime\":1632964253727}"),
 		@ApiImplicitParam(name = ChangeEventVOMeta.RESPONSE_DATA , value = "相应的数据" , required = false , dataTypeClass=String.class , example = "{\"code\":\"00\",\"message\":\"操作成功\",\"success\":true}"),
 		@ApiImplicitParam(name = ChangeEventVOMeta.RESPONSE_TIME , value = "回调接收时间" , required = false , dataTypeClass=Timestamp.class , example = "2021-09-30 09:10:53.777"),
+		@ApiImplicitParam(name = ChangeEventVOMeta.APPROVER_ID , value = "审批人账户ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeEventVOMeta.APPROVER_NAME , value = "审批人姓名" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeEventVOMeta.NEXT_NODE_ID , value = "下一个审批节点ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeEventVOMeta.NEXT_NODE_APPROVER_IDS , value = "下一个审批节点审批人账户ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeEventVOMeta.NEXT_NODE_APPROVER_NAMES , value = "下一个审批节点审批人姓名" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ChangeEventVOMeta.SUCCESS , value = "是否成功" , required = false , dataTypeClass=Integer.class),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { ChangeEventVOMeta.PAGE_INDEX , ChangeEventVOMeta.PAGE_SIZE , ChangeEventVOMeta.SEARCH_FIELD , ChangeEventVOMeta.FUZZY_FIELD , ChangeEventVOMeta.SEARCH_VALUE , ChangeEventVOMeta.SORT_FIELD , ChangeEventVOMeta.SORT_TYPE , ChangeEventVOMeta.IDS } )
@@ -218,6 +233,11 @@ public class ChangeEventController extends SuperController {
 		@ApiImplicitParam(name = ChangeEventVOMeta.NOTIFY_DATA , value = "数据" , required = false , dataTypeClass=String.class , example = "{\"definition\":{\"code\":\"EXAMPLE_ORDER_CHANGE\",\"createBy\":\"110588348101165911\",\"createTime\":1632816520000,\"deleted\":0,\"handler\":\"org.github.foxnic.web.changes.service.handler.ExampleOrderChangesHandler\",\"id\":\"495265596145934336\",\"name\":\"订单变更(测试)\",\"valid\":1,\"version\":1},\"eventType\":\"create_success\",\"eventTypeEnum\":\"create_success\",\"instance\":{\"dataIdAfter\":\"495885236844888064\",\"dataTable\":\"chs_example_order\",\"dataType\":\"org.github.foxnic.web.domain.changes.ExampleOrder\",\"definitionId\":\"495265596145934336\",\"id\":\"495885237344010240\",\"startTime\":1632964253607,\"status\":\"changing\",\"statusEnum\":\"changing\",\"type\":\"create\",\"typeEnum\":\"create\"},\"instanceId\":\"495885237344010240\",\"notifyTime\":1632964253727}"),
 		@ApiImplicitParam(name = ChangeEventVOMeta.RESPONSE_DATA , value = "相应的数据" , required = false , dataTypeClass=String.class , example = "{\"code\":\"00\",\"message\":\"操作成功\",\"success\":true}"),
 		@ApiImplicitParam(name = ChangeEventVOMeta.RESPONSE_TIME , value = "回调接收时间" , required = false , dataTypeClass=Timestamp.class , example = "2021-09-30 09:10:53.777"),
+		@ApiImplicitParam(name = ChangeEventVOMeta.APPROVER_ID , value = "审批人账户ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeEventVOMeta.APPROVER_NAME , value = "审批人姓名" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeEventVOMeta.NEXT_NODE_ID , value = "下一个审批节点ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeEventVOMeta.NEXT_NODE_APPROVER_IDS , value = "下一个审批节点审批人账户ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeEventVOMeta.NEXT_NODE_APPROVER_NAMES , value = "下一个审批节点审批人姓名" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ChangeEventVOMeta.SUCCESS , value = "是否成功" , required = false , dataTypeClass=Integer.class),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { ChangeEventVOMeta.PAGE_INDEX , ChangeEventVOMeta.PAGE_SIZE } )
@@ -243,6 +263,11 @@ public class ChangeEventController extends SuperController {
 		@ApiImplicitParam(name = ChangeEventVOMeta.NOTIFY_DATA , value = "数据" , required = false , dataTypeClass=String.class , example = "{\"definition\":{\"code\":\"EXAMPLE_ORDER_CHANGE\",\"createBy\":\"110588348101165911\",\"createTime\":1632816520000,\"deleted\":0,\"handler\":\"org.github.foxnic.web.changes.service.handler.ExampleOrderChangesHandler\",\"id\":\"495265596145934336\",\"name\":\"订单变更(测试)\",\"valid\":1,\"version\":1},\"eventType\":\"create_success\",\"eventTypeEnum\":\"create_success\",\"instance\":{\"dataIdAfter\":\"495885236844888064\",\"dataTable\":\"chs_example_order\",\"dataType\":\"org.github.foxnic.web.domain.changes.ExampleOrder\",\"definitionId\":\"495265596145934336\",\"id\":\"495885237344010240\",\"startTime\":1632964253607,\"status\":\"changing\",\"statusEnum\":\"changing\",\"type\":\"create\",\"typeEnum\":\"create\"},\"instanceId\":\"495885237344010240\",\"notifyTime\":1632964253727}"),
 		@ApiImplicitParam(name = ChangeEventVOMeta.RESPONSE_DATA , value = "相应的数据" , required = false , dataTypeClass=String.class , example = "{\"code\":\"00\",\"message\":\"操作成功\",\"success\":true}"),
 		@ApiImplicitParam(name = ChangeEventVOMeta.RESPONSE_TIME , value = "回调接收时间" , required = false , dataTypeClass=Timestamp.class , example = "2021-09-30 09:10:53.777"),
+		@ApiImplicitParam(name = ChangeEventVOMeta.APPROVER_ID , value = "审批人账户ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeEventVOMeta.APPROVER_NAME , value = "审批人姓名" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeEventVOMeta.NEXT_NODE_ID , value = "下一个审批节点ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeEventVOMeta.NEXT_NODE_APPROVER_IDS , value = "下一个审批节点审批人账户ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = ChangeEventVOMeta.NEXT_NODE_APPROVER_NAMES , value = "下一个审批节点审批人姓名" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = ChangeEventVOMeta.SUCCESS , value = "是否成功" , required = false , dataTypeClass=Integer.class),
 	})
 	@ApiOperationSupport(order=8)

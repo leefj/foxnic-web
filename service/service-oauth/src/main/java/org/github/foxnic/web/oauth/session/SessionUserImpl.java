@@ -1,5 +1,6 @@
 package org.github.foxnic.web.oauth.session;
 
+import com.github.foxnic.commons.lang.StringUtil;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.session.SessionPermission;
 import org.github.foxnic.web.session.SessionUser;
@@ -55,6 +56,14 @@ public class SessionUserImpl extends SessionUser implements UserDetails, Credent
 	@Override
 	public String getUsername() {
 		return this.user.getName();
+	}
+
+	@Override
+	public String getRealName() {
+		if(StringUtil.hasContent(this.user.getActivatedEmployeeName())){
+			return this.user.getActivatedEmployeeName();
+		}
+		return this.getUsername();
 	}
 
 	@Override

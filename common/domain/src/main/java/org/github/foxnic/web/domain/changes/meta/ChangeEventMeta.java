@@ -11,8 +11,8 @@ import org.github.foxnic.web.domain.changes.ChangeInstance;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-30 10:24:23
- * @sign E3C21D86FA903D986626E09FCE39A70C
+ * @since 2021-10-01 02:53:28
+ * @sign 4E4C6B68202F809CC0F4F107C9AF7F84
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -87,6 +87,66 @@ public class ChangeEventMeta {
 	 * 回调接收时间 , 类型: java.sql.Timestamp
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeEvent,java.sql.Timestamp> RESPONSE_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeEvent.class ,RESPONSE_TIME, java.sql.Timestamp.class, "回调接收时间", "回调接收时间", java.sql.Timestamp.class, null);
+	
+	/**
+	 * 审批人账户ID , 执行操作的账户ID , 类型: java.lang.String
+	*/
+	public static final String APPROVER_ID="approverId";
+	
+	/**
+	 * 审批人账户ID , 执行操作的账户ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeEvent,java.lang.String> APPROVER_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeEvent.class ,APPROVER_ID, java.lang.String.class, "审批人账户ID", "执行操作的账户ID", java.lang.String.class, null);
+	
+	/**
+	 * 审批人姓名 , 执行操作的人的姓名 , 类型: java.lang.String
+	*/
+	public static final String APPROVER_NAME="approverName";
+	
+	/**
+	 * 审批人姓名 , 执行操作的人的姓名 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeEvent,java.lang.String> APPROVER_NAME_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeEvent.class ,APPROVER_NAME, java.lang.String.class, "审批人姓名", "执行操作的人的姓名", java.lang.String.class, null);
+	
+	/**
+	 * 下一个审批节点ID , 类型: java.lang.String
+	*/
+	public static final String NEXT_NODE_ID="nextNodeId";
+	
+	/**
+	 * 下一个审批节点ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeEvent,java.lang.String> NEXT_NODE_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeEvent.class ,NEXT_NODE_ID, java.lang.String.class, "下一个审批节点ID", "下一个审批节点ID", java.lang.String.class, null);
+	
+	/**
+	 * 下一个审批节点审批人账户ID , 用逗号隔开 , 类型: java.lang.String
+	*/
+	public static final String NEXT_NODE_APPROVER_IDS="nextNodeApproverIds";
+	
+	/**
+	 * 下一个审批节点审批人账户ID , 用逗号隔开 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeEvent,java.lang.String> NEXT_NODE_APPROVER_IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeEvent.class ,NEXT_NODE_APPROVER_IDS, java.lang.String.class, "下一个审批节点审批人账户ID", "用逗号隔开", java.lang.String.class, null);
+	
+	/**
+	 * 下一个审批节点审批人姓名 , 用逗号隔开 , 类型: java.lang.String
+	*/
+	public static final String NEXT_NODE_APPROVER_NAMES="nextNodeApproverNames";
+	
+	/**
+	 * 下一个审批节点审批人姓名 , 用逗号隔开 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeEvent,java.lang.String> NEXT_NODE_APPROVER_NAMES_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeEvent.class ,NEXT_NODE_APPROVER_NAMES, java.lang.String.class, "下一个审批节点审批人姓名", "用逗号隔开", java.lang.String.class, null);
+	
+	/**
+	 * 是否成功 , 失败时查看 response_data , 类型: java.lang.Integer
+	*/
+	public static final String SUCCESS="success";
+	
+	/**
+	 * 是否成功 , 失败时查看 response_data , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeEvent,java.lang.Integer> SUCCESS_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeEvent.class ,SUCCESS, java.lang.Integer.class, "是否成功", "失败时查看 response_data", java.lang.Integer.class, null);
 	
 	/**
 	 * 创建人ID , 类型: java.lang.String
@@ -169,16 +229,6 @@ public class ChangeEventMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeEvent,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeEvent.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
-	 * 是否成功 , 失败时查看 response_data , 类型: java.lang.Integer
-	*/
-	public static final String SUCCESS="success";
-	
-	/**
-	 * 是否成功 , 失败时查看 response_data , 类型: java.lang.Integer
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeEvent,java.lang.Integer> SUCCESS_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeEvent.class ,SUCCESS, java.lang.Integer.class, "是否成功", "失败时查看 response_data", java.lang.Integer.class, null);
-	
-	/**
 	 * 变更定义 , 类型: org.github.foxnic.web.domain.changes.ChangeDefinition
 	*/
 	public static final String DEFINITION="definition";
@@ -201,7 +251,7 @@ public class ChangeEventMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , INSTANCE_ID , EVENT_TYPE , NOTIFY_TIME , NOTIFY_DATA , RESPONSE_DATA , RESPONSE_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , SUCCESS , DEFINITION , INSTANCE };
+	public static final String[] $PROPS={ ID , INSTANCE_ID , EVENT_TYPE , NOTIFY_TIME , NOTIFY_DATA , RESPONSE_DATA , RESPONSE_TIME , APPROVER_ID , APPROVER_NAME , NEXT_NODE_ID , NEXT_NODE_APPROVER_IDS , NEXT_NODE_APPROVER_NAMES , SUCCESS , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , DEFINITION , INSTANCE };
 	
 	/**
 	 * 代理类
@@ -285,6 +335,72 @@ public class ChangeEventMeta {
 		public ChangeEvent setResponseTime(Timestamp responseTime) {
 			super.change(RESPONSE_TIME,super.getResponseTime(),responseTime);
 			super.setResponseTime(responseTime);
+			return this;
+		}
+		
+		/**
+		 * 设置 审批人账户ID
+		 * @param approverId 审批人账户ID
+		 * @return 当前对象
+		*/
+		public ChangeEvent setApproverId(String approverId) {
+			super.change(APPROVER_ID,super.getApproverId(),approverId);
+			super.setApproverId(approverId);
+			return this;
+		}
+		
+		/**
+		 * 设置 审批人姓名
+		 * @param approverName 审批人姓名
+		 * @return 当前对象
+		*/
+		public ChangeEvent setApproverName(String approverName) {
+			super.change(APPROVER_NAME,super.getApproverName(),approverName);
+			super.setApproverName(approverName);
+			return this;
+		}
+		
+		/**
+		 * 设置 下一个审批节点ID
+		 * @param nextNodeId 下一个审批节点ID
+		 * @return 当前对象
+		*/
+		public ChangeEvent setNextNodeId(String nextNodeId) {
+			super.change(NEXT_NODE_ID,super.getNextNodeId(),nextNodeId);
+			super.setNextNodeId(nextNodeId);
+			return this;
+		}
+		
+		/**
+		 * 设置 下一个审批节点审批人账户ID
+		 * @param nextNodeApproverIds 下一个审批节点审批人账户ID
+		 * @return 当前对象
+		*/
+		public ChangeEvent setNextNodeApproverIds(String nextNodeApproverIds) {
+			super.change(NEXT_NODE_APPROVER_IDS,super.getNextNodeApproverIds(),nextNodeApproverIds);
+			super.setNextNodeApproverIds(nextNodeApproverIds);
+			return this;
+		}
+		
+		/**
+		 * 设置 下一个审批节点审批人姓名
+		 * @param nextNodeApproverNames 下一个审批节点审批人姓名
+		 * @return 当前对象
+		*/
+		public ChangeEvent setNextNodeApproverNames(String nextNodeApproverNames) {
+			super.change(NEXT_NODE_APPROVER_NAMES,super.getNextNodeApproverNames(),nextNodeApproverNames);
+			super.setNextNodeApproverNames(nextNodeApproverNames);
+			return this;
+		}
+		
+		/**
+		 * 设置 是否成功
+		 * @param success 是否成功
+		 * @return 当前对象
+		*/
+		public ChangeEvent setSuccess(Integer success) {
+			super.change(SUCCESS,super.getSuccess(),success);
+			super.setSuccess(success);
 			return this;
 		}
 		
@@ -373,17 +489,6 @@ public class ChangeEventMeta {
 		public ChangeEvent setVersion(Integer version) {
 			super.change(VERSION,super.getVersion(),version);
 			super.setVersion(version);
-			return this;
-		}
-		
-		/**
-		 * 设置 是否成功
-		 * @param success 是否成功
-		 * @return 当前对象
-		*/
-		public ChangeEvent setSuccess(Integer success) {
-			super.change(SUCCESS,super.getSuccess(),success);
-			super.setSuccess(success);
 			return this;
 		}
 		

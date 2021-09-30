@@ -2,7 +2,7 @@
 /**
  * 变更示例订单 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-30 16:34:20
+ * @since 2021-10-01 03:24:16
  */
  -->
  <!DOCTYPE html>
@@ -44,12 +44,16 @@
                     <!-- 买家 , buyerId ,typeName=button, isHideInSearch=true -->
                     <!-- 收件地址 , address ,typeName=text_input, isHideInSearch=true -->
                     <!-- 总金额 , amount ,typeName=number_input, isHideInSearch=true -->
-                    <!-- 变更版本号 , chsVersion ,typeName=number_input, isHideInSearch=true -->
+                    <!-- 版本 , chsVersion ,typeName=number_input, isHideInSearch=true -->
                     <!-- 来源ID , sourceId ,typeName=text_input, isHideInSearch=true -->
                     <!-- 变更ID , chsId ,typeName=text_input, isHideInSearch=true -->
                     <!-- 流程ID , procId ,typeName=text_input, isHideInSearch=true -->
                     <!-- 流程概要 , procSummary ,typeName=text_input, isHideInSearch=true -->
                     <!-- 审批节点概要 , procNodeSummary ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 最后审批人 , latestApproverId ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 下一节点审批人 , nextNodeApproverIds ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 下一审批人 , nextNodeApproverNames ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 最后审批人姓名 , latestApproverName ,typeName=text_input, isHideInSearch=true -->
                     <!-- 订单编号 , code ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('订单编号')}" class="search-label code-label">订单编号</span><span class="search-colon">:</span></div>

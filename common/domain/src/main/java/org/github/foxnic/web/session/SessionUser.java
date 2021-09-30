@@ -18,6 +18,11 @@ public abstract class SessionUser {
 	public abstract String getUsername();
 
 	/**
+	 * 真实姓名
+	 * */
+	public abstract String getRealName();
+
+	/**
 	 * 账户对象
 	 * */
 	public abstract User getUser();

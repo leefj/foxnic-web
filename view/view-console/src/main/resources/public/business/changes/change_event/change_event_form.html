@@ -2,7 +2,7 @@
 /**
  * 变更事件 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-30 11:31:55
+ * @since 2021-10-01 02:53:28
  */
  -->
  <!DOCTYPE html>
@@ -90,6 +90,41 @@
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('回调接收时间')}">回调接收时间</div></div>
                         <div class="layui-input-block layui-input-block-c1">
                             <input input-type="date" lay-filter="responseTime" id="responseTime" name="responseTime"  autocomplete="off"  readonly  th:placeholder="${ lang.translate('请选择') +''+ lang.translate('回调接收时间') }" type="text" class="layui-input"   />
+                        </div>
+                    </div>
+
+                                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('审批人账户ID')}">审批人账户ID</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input lay-filter="approverId" id="approverId" name="approverId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('审批人账户ID') }" type="text" class="layui-input"  />
+                        </div>
+                    </div>
+
+                                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('审批人姓名')}">审批人姓名</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input lay-filter="approverName" id="approverName" name="approverName" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('审批人姓名') }" type="text" class="layui-input"  />
+                        </div>
+                    </div>
+
+                                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('下一个审批节点ID')}">下一个审批节点ID</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input lay-filter="nextNodeId" id="nextNodeId" name="nextNodeId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('下一个审批节点ID') }" type="text" class="layui-input"  />
+                        </div>
+                    </div>
+
+                                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('下一个审批节点审批人账户ID')}">下一个审批节点审批人账户ID</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input lay-filter="nextNodeApproverIds" id="nextNodeApproverIds" name="nextNodeApproverIds" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('下一个审批节点审批人账户ID') }" type="text" class="layui-input"  />
+                        </div>
+                    </div>
+
+                                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('下一个审批节点审批人姓名')}">下一个审批节点审批人姓名</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input lay-filter="nextNodeApproverNames" id="nextNodeApproverNames" name="nextNodeApproverNames" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('下一个审批节点审批人姓名') }" type="text" class="layui-input"  />
                         </div>
                     </div>
 
