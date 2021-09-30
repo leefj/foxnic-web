@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2021-09-29 16:25:27
+ * @since 2021-09-30 09:17:10
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -211,6 +211,16 @@ public class FoxnicWeb {
 		public static final DBField NOTIFY_DATA = new DBField(DBDataType.STRING , "notify_data","notifyData","数据","通知到消费方的数据，JSON格式",false,false,true);
 		
 		/**
+		 * 相应的数据
+		*/
+		public static final DBField RESPONSE_DATA = new DBField(DBDataType.STRING , "response_data","responseData","相应的数据","相应的数据",false,false,true);
+		
+		/**
+		 * 回调接收时间
+		*/
+		public static final DBField RESPONSE_TIME = new DBField(DBDataType.TIMESTAME , "response_time","responseTime","回调接收时间","回调接收时间",false,false,true);
+		
+		/**
 		 * 创建人ID
 		*/
 		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
@@ -251,17 +261,12 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
 		/**
-		 * 相应的数据
+		 * 是否成功，失败时查看 response_data 
 		*/
-		public static final DBField RESPONSE_DATA = new DBField(DBDataType.STRING , "response_data","responseData","相应的数据","相应的数据",false,false,true);
-		
-		/**
-		 * 回调接收时间
-		*/
-		public static final DBField RESPONSE_TIME = new DBField(DBDataType.TIMESTAME , "response_time","responseTime","回调接收时间","回调接收时间",false,false,true);
+		public static final DBField SUCCESS = new DBField(DBDataType.INTEGER , "success","success","是否成功","失败时查看 response_data",false,false,true);
 		
 		public CHS_CHANGE_EVENT() {
-			this.init($NAME,"" , ID , INSTANCE_ID , EVENT_TYPE , NOTIFY_TIME , NOTIFY_DATA , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , RESPONSE_DATA , RESPONSE_TIME);
+			this.init($NAME,"" , ID , INSTANCE_ID , EVENT_TYPE , NOTIFY_TIME , NOTIFY_DATA , RESPONSE_DATA , RESPONSE_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , SUCCESS);
 		}
 		public static final CHS_CHANGE_EVENT $TABLE=new CHS_CHANGE_EVENT();
 	}

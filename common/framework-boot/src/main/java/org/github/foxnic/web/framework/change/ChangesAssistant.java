@@ -12,11 +12,12 @@ import java.lang.reflect.Method;
 
 public class ChangesAssistant {
 
-    public static final String CHANGES_CHANNEL_EVENT_PREFIX = "foxnic.channel.changes:";
-    public static final String CHANGES_NOTIFY_PREFIX = "foxnic:changes:instance:notify:";
+    public static final long  EXPIRE_SECONDS=60 * 30;
+    public static final String CHANGES_CHANNEL_EVENT_PREFIX = "foxnic:channel:changes:notify:";
+    public static final String CHANGES_NOTIFY_PREFIX = "foxnic:changes:event:notify:";
 
-    public static final String CHANGES_CHANNEL_RESPONSE_PREFIX = "foxnic.channel.changes:response";
-    public static final String CHANGES_RESPONSE_PREFIX = "foxnic:changes:instance:response:";
+    public static final String CHANGES_CHANNEL_RESPONSE_PREFIX = "foxnic:channel:changes:response:";
+    public static final String CHANGES_RESPONSE_PREFIX = "foxnic:changes:event:response:";
 
     private static final String PROXY_NAME="org.github.foxnic.web.proxy.changes.ChangeInstanceServiceProxy";
 

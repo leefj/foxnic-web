@@ -2,7 +2,7 @@
 /**
  * chs_change_event 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-29 16:28:18
+ * @since 2021-09-30 09:33:20
  */
  -->
  <!DOCTYPE html>
@@ -68,6 +68,11 @@
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('回调接收时间')}" class="search-label responseTime-label">回调接收时间</span><span class="search-colon">:</span></div>
                             <input type="text" id="responseTime"  style="width: 140px"  lay-verify="date" th:placeholder="${lang.translate('请选择')}" autocomplete="off" class="layui-input search-input search-date-input" readonly>
+                    </div>
+                    <!-- 是否成功 , success ,typeName=number_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('是否成功')}" class="search-label success-label">是否成功</span><span class="search-colon">:</span></div>
+                            <input id="success" class="layui-input search-input" style="width: 140px" type="text" autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0" min-value="" max-value="" scale="0"/>
                     </div>
 
 

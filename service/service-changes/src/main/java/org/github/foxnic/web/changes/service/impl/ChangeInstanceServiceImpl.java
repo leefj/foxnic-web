@@ -300,11 +300,18 @@ public class ChangeInstanceServiceImpl extends SuperService<ChangeInstance> impl
 			event.setDefinition(definition);
 			String notifyData= JSON.toJSONString(event);
 			event.setNotifyData(notifyData);
-			eventService.insert(event);
+			Result er=eventService.insert(event);
 			event.setNotifyData(null);
+			if(er.failure()) {
+				return er;
+			}
 			//
-			redis.set(ChangesAssistant.CHANGES_NOTIFY_PREFIX+event.getId(),event,30);
-			redis.notifyDataChange(ChangesAssistant.CHANGES_CHANNEL_EVENT_PREFIX+event.getId());
+			boolean suc=redis.set(ChangesAssistant.CHANGES_NOTIFY_PREFIX+event.getId(),event,ChangesAssistant.EXPIRE_SECONDS);
+			if(suc) {
+				redis.notifyDataChange(ChangesAssistant.CHANGES_CHANNEL_EVENT_PREFIX + event.getId());
+			} else {
+				throw new RuntimeException("data notify error");
+			}
 		} else {
 			result.success(false).message("变更实例创建失败");
 			return result;

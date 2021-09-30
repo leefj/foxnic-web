@@ -1,6 +1,7 @@
 package org.github.foxnic.web.framework.change;
 
 import com.alibaba.fastjson.JSON;
+import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.reflect.ReflectUtil;
 import com.github.foxnic.springboot.spring.SpringUtil;
@@ -20,8 +21,8 @@ public class ChangesNotifyListener extends DataChangeHandler implements Applicat
 
     @Override
     public void handle(String key, RedisUtil redis) {
-        String chsId=key.split(":")[1];
-        key=ChangesAssistant.CHANGES_NOTIFY_PREFIX+chsId;
+        String eventId=key.substring(key.lastIndexOf(":")+1);
+        key=ChangesAssistant.CHANGES_NOTIFY_PREFIX+eventId;
         ChangeEvent event=(ChangeEvent)redis.get(key);
         String handler=event.getDefinition().getHandler();
         Class<? extends ChangesHandler> handlerType= ReflectUtil.forName(handler);
@@ -35,14 +36,24 @@ public class ChangesNotifyListener extends DataChangeHandler implements Applicat
         if(handlerBean==null) {
             throw new IllegalArgumentException( handler +" 不是 Spring Bean");
         }
-        Result result=handlerBean.onEvent(event);
+        Result result = null ;
+        try {
+            result = handlerBean.onEvent(event);
+        }catch (Exception e) {
+            result= ErrorDesc.exception(e);
+        }
         ChangeEvent response=new ChangeEvent();
         response.setId(event.getId());
         response.setResponseTime(new Timestamp(System.currentTimeMillis()));
+        response.setSuccess(result.success()?1:0);
         response.setResponseData(JSON.toJSONString(result));
         //结果反馈
-        redis.set(ChangesAssistant.CHANGES_RESPONSE_PREFIX+response.getId(),response,30);
-        redis.notifyDataChange(ChangesAssistant.CHANGES_CHANNEL_RESPONSE_PREFIX+response.getId());
+        boolean suc=redis.set(ChangesAssistant.CHANGES_RESPONSE_PREFIX+response.getId(),response,ChangesAssistant.EXPIRE_SECONDS);
+        if(suc) {
+            redis.notifyDataChange(ChangesAssistant.CHANGES_CHANNEL_RESPONSE_PREFIX + response.getId());
+        } else {
+            throw new RuntimeException("data response error");
+        }
     }
 
     @Override

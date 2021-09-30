@@ -18,8 +18,8 @@ public class ChangesResponseListener extends DataChangeHandler implements Applic
 
     @Override
     public void handle(String key, RedisUtil redis) {
-        String chsId=key.split(":")[1];
-        key= ChangesAssistant.CHANGES_RESPONSE_PREFIX+chsId;
+        String eventId=key.substring(key.lastIndexOf(":")+1);
+        key= ChangesAssistant.CHANGES_RESPONSE_PREFIX+eventId;
         ChangeEvent event=(ChangeEvent)redis.get(key);
         eventService.updateNotNullFields(event);
     }

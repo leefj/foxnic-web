@@ -20,8 +20,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * chs_change_event
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-29 16:28:18
- * @sign 63A7F26E7A9AF55CEA3C1409036EB185
+ * @since 2021-09-30 09:18:40
+ * @sign 0C855A869D6A3D8E46CCAEAA0FE45B05
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -64,6 +64,18 @@ public class ChangeEvent extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="数据" , notes = "通知到消费方的数据，JSON格式")
 	private String notifyData;
+	
+	/**
+	 * 相应的数据：相应的数据
+	*/
+	@ApiModelProperty(required = false,value="相应的数据" , notes = "相应的数据")
+	private String responseData;
+	
+	/**
+	 * 回调接收时间：回调接收时间
+	*/
+	@ApiModelProperty(required = false,value="回调接收时间" , notes = "回调接收时间")
+	private Timestamp responseTime;
 	
 	/**
 	 * 创建人ID：创建人ID
@@ -114,16 +126,10 @@ public class ChangeEvent extends Entity {
 	private Integer version;
 	
 	/**
-	 * 相应的数据：相应的数据
+	 * 是否成功：失败时查看 response_data
 	*/
-	@ApiModelProperty(required = false,value="相应的数据" , notes = "相应的数据")
-	private String responseData;
-	
-	/**
-	 * 回调接收时间：回调接收时间
-	*/
-	@ApiModelProperty(required = false,value="回调接收时间" , notes = "回调接收时间")
-	private Timestamp responseTime;
+	@ApiModelProperty(required = false,value="是否成功" , notes = "失败时查看 response_data")
+	private Integer success;
 	
 	/**
 	 * 变更定义
@@ -259,6 +265,44 @@ public class ChangeEvent extends Entity {
 	*/
 	public ChangeEvent setNotifyData(String notifyData) {
 		this.notifyData=notifyData;
+		return this;
+	}
+	
+	/**
+	 * 获得 相应的数据<br>
+	 * 相应的数据
+	 * @return 相应的数据
+	*/
+	public String getResponseData() {
+		return responseData;
+	}
+	
+	/**
+	 * 设置 相应的数据
+	 * @param responseData 相应的数据
+	 * @return 当前对象
+	*/
+	public ChangeEvent setResponseData(String responseData) {
+		this.responseData=responseData;
+		return this;
+	}
+	
+	/**
+	 * 获得 回调接收时间<br>
+	 * 回调接收时间
+	 * @return 回调接收时间
+	*/
+	public Timestamp getResponseTime() {
+		return responseTime;
+	}
+	
+	/**
+	 * 设置 回调接收时间
+	 * @param responseTime 回调接收时间
+	 * @return 当前对象
+	*/
+	public ChangeEvent setResponseTime(Timestamp responseTime) {
+		this.responseTime=responseTime;
 		return this;
 	}
 	
@@ -415,40 +459,21 @@ public class ChangeEvent extends Entity {
 	}
 	
 	/**
-	 * 获得 相应的数据<br>
-	 * 相应的数据
-	 * @return 相应的数据
+	 * 获得 是否成功<br>
+	 * 失败时查看 response_data
+	 * @return 是否成功
 	*/
-	public String getResponseData() {
-		return responseData;
+	public Integer getSuccess() {
+		return success;
 	}
 	
 	/**
-	 * 设置 相应的数据
-	 * @param responseData 相应的数据
+	 * 设置 是否成功
+	 * @param success 是否成功
 	 * @return 当前对象
 	*/
-	public ChangeEvent setResponseData(String responseData) {
-		this.responseData=responseData;
-		return this;
-	}
-	
-	/**
-	 * 获得 回调接收时间<br>
-	 * 回调接收时间
-	 * @return 回调接收时间
-	*/
-	public Timestamp getResponseTime() {
-		return responseTime;
-	}
-	
-	/**
-	 * 设置 回调接收时间
-	 * @param responseTime 回调接收时间
-	 * @return 当前对象
-	*/
-	public ChangeEvent setResponseTime(Timestamp responseTime) {
-		this.responseTime=responseTime;
+	public ChangeEvent setSuccess(Integer success) {
+		this.success=success;
 		return this;
 	}
 	

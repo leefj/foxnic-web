@@ -11,8 +11,8 @@ import org.github.foxnic.web.domain.changes.ChangeInstance;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-29 16:28:18
- * @sign 63A7F26E7A9AF55CEA3C1409036EB185
+ * @since 2021-09-30 09:18:40
+ * @sign 0C855A869D6A3D8E46CCAEAA0FE45B05
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -67,6 +67,26 @@ public class ChangeEventMeta {
 	 * 数据 , 通知到消费方的数据，JSON格式 , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeEvent,java.lang.String> NOTIFY_DATA_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeEvent.class ,NOTIFY_DATA, java.lang.String.class, "数据", "通知到消费方的数据，JSON格式", java.lang.String.class, null);
+	
+	/**
+	 * 相应的数据 , 类型: java.lang.String
+	*/
+	public static final String RESPONSE_DATA="responseData";
+	
+	/**
+	 * 相应的数据 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeEvent,java.lang.String> RESPONSE_DATA_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeEvent.class ,RESPONSE_DATA, java.lang.String.class, "相应的数据", "相应的数据", java.lang.String.class, null);
+	
+	/**
+	 * 回调接收时间 , 类型: java.sql.Timestamp
+	*/
+	public static final String RESPONSE_TIME="responseTime";
+	
+	/**
+	 * 回调接收时间 , 类型: java.sql.Timestamp
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeEvent,java.sql.Timestamp> RESPONSE_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeEvent.class ,RESPONSE_TIME, java.sql.Timestamp.class, "回调接收时间", "回调接收时间", java.sql.Timestamp.class, null);
 	
 	/**
 	 * 创建人ID , 类型: java.lang.String
@@ -149,24 +169,14 @@ public class ChangeEventMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeEvent,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeEvent.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
-	 * 相应的数据 , 类型: java.lang.String
+	 * 是否成功 , 失败时查看 response_data , 类型: java.lang.Integer
 	*/
-	public static final String RESPONSE_DATA="responseData";
+	public static final String SUCCESS="success";
 	
 	/**
-	 * 相应的数据 , 类型: java.lang.String
+	 * 是否成功 , 失败时查看 response_data , 类型: java.lang.Integer
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeEvent,java.lang.String> RESPONSE_DATA_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeEvent.class ,RESPONSE_DATA, java.lang.String.class, "相应的数据", "相应的数据", java.lang.String.class, null);
-	
-	/**
-	 * 回调接收时间 , 类型: java.sql.Timestamp
-	*/
-	public static final String RESPONSE_TIME="responseTime";
-	
-	/**
-	 * 回调接收时间 , 类型: java.sql.Timestamp
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeEvent,java.sql.Timestamp> RESPONSE_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeEvent.class ,RESPONSE_TIME, java.sql.Timestamp.class, "回调接收时间", "回调接收时间", java.sql.Timestamp.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeEvent,java.lang.Integer> SUCCESS_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeEvent.class ,SUCCESS, java.lang.Integer.class, "是否成功", "失败时查看 response_data", java.lang.Integer.class, null);
 	
 	/**
 	 * 变更定义 , 类型: org.github.foxnic.web.domain.changes.ChangeDefinition
@@ -191,7 +201,7 @@ public class ChangeEventMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , INSTANCE_ID , EVENT_TYPE , NOTIFY_TIME , NOTIFY_DATA , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , RESPONSE_DATA , RESPONSE_TIME , DEFINITION , INSTANCE };
+	public static final String[] $PROPS={ ID , INSTANCE_ID , EVENT_TYPE , NOTIFY_TIME , NOTIFY_DATA , RESPONSE_DATA , RESPONSE_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , SUCCESS , DEFINITION , INSTANCE };
 	
 	/**
 	 * 代理类
@@ -253,6 +263,28 @@ public class ChangeEventMeta {
 		public ChangeEvent setNotifyData(String notifyData) {
 			super.change(NOTIFY_DATA,super.getNotifyData(),notifyData);
 			super.setNotifyData(notifyData);
+			return this;
+		}
+		
+		/**
+		 * 设置 相应的数据
+		 * @param responseData 相应的数据
+		 * @return 当前对象
+		*/
+		public ChangeEvent setResponseData(String responseData) {
+			super.change(RESPONSE_DATA,super.getResponseData(),responseData);
+			super.setResponseData(responseData);
+			return this;
+		}
+		
+		/**
+		 * 设置 回调接收时间
+		 * @param responseTime 回调接收时间
+		 * @return 当前对象
+		*/
+		public ChangeEvent setResponseTime(Timestamp responseTime) {
+			super.change(RESPONSE_TIME,super.getResponseTime(),responseTime);
+			super.setResponseTime(responseTime);
 			return this;
 		}
 		
@@ -345,24 +377,13 @@ public class ChangeEventMeta {
 		}
 		
 		/**
-		 * 设置 相应的数据
-		 * @param responseData 相应的数据
+		 * 设置 是否成功
+		 * @param success 是否成功
 		 * @return 当前对象
 		*/
-		public ChangeEvent setResponseData(String responseData) {
-			super.change(RESPONSE_DATA,super.getResponseData(),responseData);
-			super.setResponseData(responseData);
-			return this;
-		}
-		
-		/**
-		 * 设置 回调接收时间
-		 * @param responseTime 回调接收时间
-		 * @return 当前对象
-		*/
-		public ChangeEvent setResponseTime(Timestamp responseTime) {
-			super.change(RESPONSE_TIME,super.getResponseTime(),responseTime);
-			super.setResponseTime(responseTime);
+		public ChangeEvent setSuccess(Integer success) {
+			super.change(SUCCESS,super.getSuccess(),success);
+			super.setSuccess(success);
 			return this;
 		}
 		

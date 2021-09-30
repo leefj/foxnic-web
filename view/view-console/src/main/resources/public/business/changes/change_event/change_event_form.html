@@ -2,7 +2,7 @@
 /**
  * chs_change_event 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-29 16:28:18
+ * @since 2021-09-30 09:33:19
  */
  -->
  <!DOCTYPE html>
@@ -92,6 +92,15 @@
                             <input input-type="date" lay-filter="responseTime" id="responseTime" name="responseTime"  autocomplete="off"  readonly  th:placeholder="${ lang.translate('请选择') +''+ lang.translate('回调接收时间') }" type="text" class="layui-input"   />
                         </div>
                     </div>
+
+                
+                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('是否成功')}">是否成功</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input lay-filter="success" id="success" name="success" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('是否成功') }" type="text" class="layui-input"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0"   scale="0" />
+                        </div>
+                    </div>
+
 
                 <!--结束：栏次内字段循环-->
             </div>

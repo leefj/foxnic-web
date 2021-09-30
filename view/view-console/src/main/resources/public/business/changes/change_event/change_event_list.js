@@ -1,7 +1,7 @@
 /**
  * chs_change_event 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-29 16:28:18
+ * @since 2021-09-30 09:33:18
  */
 
 
@@ -78,9 +78,10 @@ function ListPage() {
 					,{ field: 'eventType', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('实体类名') , templet: function (d) { return templet('eventType',d.eventType,d);}  }
 					,{ field: 'notifyTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('通知发送时间'), templet: function (d) { return templet('notifyTime',fox.dateFormat(d.notifyTime,"yyyy-MM-dd HH:mm:ss"),d); }}
 					,{ field: 'notifyData', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('数据') , templet: function (d) { return templet('notifyData',d.notifyData,d);}  }
-					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }}
 					,{ field: 'responseData', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('相应的数据') , templet: function (d) { return templet('responseData',d.responseData,d);}  }
 					,{ field: 'responseTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('回调接收时间'), templet: function (d) { return templet('responseTime',fox.dateFormat(d.responseTime,"yyyy-MM-dd HH:mm:ss"),d); }}
+					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }}
+					,{ field: 'success', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('是否成功') , templet: function (d) { return templet('success',d.success,d);}  }
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
 				]],
@@ -122,6 +123,7 @@ function ListPage() {
 		value.notifyData={ inputType:"button",value: $("#notifyData").val()};
 		value.responseData={ inputType:"button",value: $("#responseData").val()};
 		value.responseTime={ inputType:"date_input", value: $("#responseTime").val()};
+		value.success={ inputType:"number_input", value: $("#success").val()};
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;
