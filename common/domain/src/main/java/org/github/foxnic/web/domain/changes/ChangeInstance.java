@@ -10,8 +10,10 @@ import java.util.Date;
 import org.github.foxnic.web.constants.enums.changes.ChangeStatus;
 import javax.persistence.Transient;
 import org.github.foxnic.web.constants.enums.changes.ChangeType;
+import java.util.List;
 import com.github.foxnic.commons.reflect.EnumUtil;
 import com.github.foxnic.commons.lang.StringUtil;
+import java.util.ArrayList;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
 
@@ -20,8 +22,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 变更实例
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-30 11:31:52
- * @sign 6DAC43C985E1A262826F2366E2A69113
+ * @since 2021-09-30 15:47:58
+ * @sign 5ADCE3B012B389153C056CFD62DBD6E2
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -144,6 +146,18 @@ public class ChangeInstance extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="变更结束时间" , notes = "变更结束时间")
 	private Date finishTime;
+	
+	/**
+	 * 变更前的数据：变更前的数据
+	*/
+	@ApiModelProperty(required = false,value="变更前的数据" , notes = "变更前的数据")
+	private List<ChangeData> dataBefore;
+	
+	/**
+	 * 变更后的数据：变更后的数据
+	*/
+	@ApiModelProperty(required = false,value="变更后的数据" , notes = "变更后的数据")
+	private List<ChangeData> dataAfter;
 	
 	/**
 	 * 获得 主键<br>
@@ -544,6 +558,66 @@ public class ChangeInstance extends Entity {
 	*/
 	public ChangeInstance setFinishTime(Date finishTime) {
 		this.finishTime=finishTime;
+		return this;
+	}
+	
+	/**
+	 * 获得 变更前的数据<br>
+	 * 变更前的数据
+	 * @return 变更前的数据
+	*/
+	public List<ChangeData> getDataBefore() {
+		return dataBefore;
+	}
+	
+	/**
+	 * 设置 变更前的数据
+	 * @param dataBefore 变更前的数据
+	 * @return 当前对象
+	*/
+	public ChangeInstance setDataBefore(List<ChangeData> dataBefore) {
+		this.dataBefore=dataBefore;
+		return this;
+	}
+	
+	/**
+	 * 添加 变更前的数据
+	 * @param entity 变更前的数据
+	 * @return 当前对象
+	*/
+	public ChangeInstance addDataBefore(ChangeData entity) {
+		if(this.dataBefore==null) dataBefore=new ArrayList<>();
+		this.dataBefore.add(entity);
+		return this;
+	}
+	
+	/**
+	 * 获得 变更后的数据<br>
+	 * 变更后的数据
+	 * @return 变更后的数据
+	*/
+	public List<ChangeData> getDataAfter() {
+		return dataAfter;
+	}
+	
+	/**
+	 * 设置 变更后的数据
+	 * @param dataAfter 变更后的数据
+	 * @return 当前对象
+	*/
+	public ChangeInstance setDataAfter(List<ChangeData> dataAfter) {
+		this.dataAfter=dataAfter;
+		return this;
+	}
+	
+	/**
+	 * 添加 变更后的数据
+	 * @param entity 变更后的数据
+	 * @return 当前对象
+	*/
+	public ChangeInstance addDataAfter(ChangeData entity) {
+		if(this.dataAfter==null) dataAfter=new ArrayList<>();
+		this.dataAfter.add(entity);
 		return this;
 	}
 

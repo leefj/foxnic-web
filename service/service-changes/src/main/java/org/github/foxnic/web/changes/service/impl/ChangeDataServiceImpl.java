@@ -1,34 +1,29 @@
 package org.github.foxnic.web.changes.service.impl;
 
 
-import javax.annotation.Resource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-
-import org.github.foxnic.web.domain.changes.ChangeData;
-import org.github.foxnic.web.domain.changes.ChangeDataVO;
-import java.util.List;
-import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.entity.SuperService;
-import com.github.foxnic.dao.spec.DAO;
-import java.lang.reflect.Field;
-import com.github.foxnic.commons.busi.id.IDGenerator;
-import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.dao.data.PagedList;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.SuperService;
+import com.github.foxnic.dao.excel.ExcelStructure;
 import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.dao.excel.ExcelStructure;
-import java.io.InputStream;
+import com.github.foxnic.dao.spec.DAO;
+import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.meta.DBColumnMeta;
-import com.github.foxnic.sql.expr.Select;
-import java.util.ArrayList;
 import org.github.foxnic.web.changes.service.IChangeDataService;
+import org.github.foxnic.web.domain.changes.ChangeData;
 import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.io.InputStream;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -250,6 +245,11 @@ public class ChangeDataServiceImpl extends SuperService<ChangeData> implements I
 	@Override
 	public List<ValidateResult> importExcel(InputStream input,int sheetIndex,boolean batch) {
 		return super.importExcel(input,sheetIndex,batch);
+	}
+
+	@Override
+	public List<ChangeData> getListByInstanceId(String instanceId) {
+		return this.queryList(ChangeData.create().setInstanceId(instanceId));
 	}
 
 	@Override

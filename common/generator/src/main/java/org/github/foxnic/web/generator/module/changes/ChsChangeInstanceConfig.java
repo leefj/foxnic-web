@@ -8,6 +8,7 @@ import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.CHS_CHANGE_INSTANCE;
 import org.github.foxnic.web.constants.enums.changes.ChangeStatus;
 import org.github.foxnic.web.constants.enums.changes.ChangeType;
+import org.github.foxnic.web.domain.changes.ChangeData;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
 
@@ -21,7 +22,8 @@ public class ChsChangeInstanceConfig extends BaseCodeConfig<CHS_CHANGE_INSTANCE>
 	public void configModel(PoClassFile poType, VoClassFile voType) {
 		poType.shadow(CHS_CHANGE_INSTANCE.STATUS, ChangeStatus.class,"statusEnum");
 		poType.shadow(CHS_CHANGE_INSTANCE.TYPE, ChangeType.class,"typeEnum");
-		poType.addListProperty();
+		poType.addListProperty(ChangeData.class,"dataBefore","变更前的数据","变更前的数据");
+		poType.addListProperty(ChangeData.class,"dataAfter","变更后的数据","变更后的数据");
 	}
 
 	@Override

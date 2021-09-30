@@ -277,6 +277,16 @@ public class ExampleOrderServiceImpl extends SuperService<ExampleOrder> implemen
 
 		//变更后数据
 		List<ExampleOrder> ordersAfter=this.getByIds(ids);
+		if(ordersAfter.size()==0) {
+			return ErrorDesc.failure().message("订单不存在");
+		}
+		//校验是否勾选的订单都处于待审批状态
+		for (ExampleOrder order : ordersAfter) {
+			if(order.getChsStatusEnum()!=ChangeStatus.prepare) {
+				return ErrorDesc.failure().message("订单状态错误");
+			}
+		}
+		//关联订单明细
 		this.join(ordersAfter, ExampleOrderItem.class);
 
 		//变更前数据

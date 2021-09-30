@@ -3,13 +3,15 @@ package org.github.foxnic.web.domain.changes.meta;
 import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.changes.ChangeInstance;
 import java.util.Date;
+import org.github.foxnic.web.domain.changes.ChangeData;
+import java.util.List;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-30 11:31:52
- * @sign 6DAC43C985E1A262826F2366E2A69113
+ * @since 2021-09-30 15:47:58
+ * @sign 5ADCE3B012B389153C056CFD62DBD6E2
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -196,9 +198,29 @@ public class ChangeInstanceMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeInstance,java.util.Date> FINISH_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeInstance.class ,FINISH_TIME, java.util.Date.class, "变更结束时间", "变更结束时间", java.util.Date.class, null);
 	
 	/**
+	 * 变更前的数据 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.changes.ChangeData
+	*/
+	public static final String DATA_BEFORE="dataBefore";
+	
+	/**
+	 * 变更前的数据 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.changes.ChangeData
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeInstance,org.github.foxnic.web.domain.changes.ChangeData> DATA_BEFORE_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeInstance.class ,DATA_BEFORE, java.util.List.class, "变更前的数据", "变更前的数据", org.github.foxnic.web.domain.changes.ChangeData.class, null);
+	
+	/**
+	 * 变更后的数据 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.changes.ChangeData
+	*/
+	public static final String DATA_AFTER="dataAfter";
+	
+	/**
+	 * 变更后的数据 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.changes.ChangeData
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeInstance,org.github.foxnic.web.domain.changes.ChangeData> DATA_AFTER_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeInstance.class ,DATA_AFTER, java.util.List.class, "变更后的数据", "变更后的数据", org.github.foxnic.web.domain.changes.ChangeData.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , DEFINITION_ID , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , STATUS , TYPE , PROCESS_ID , PROCESS_NODE_SUMMARY , PROCESS_SUMMARY , START_TIME , FINISH_TIME };
+	public static final String[] $PROPS={ ID , DEFINITION_ID , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , STATUS , TYPE , PROCESS_ID , PROCESS_NODE_SUMMARY , PROCESS_SUMMARY , START_TIME , FINISH_TIME , DATA_BEFORE , DATA_AFTER };
 	
 	/**
 	 * 代理类
@@ -403,6 +425,28 @@ public class ChangeInstanceMeta {
 		public ChangeInstance setFinishTime(Date finishTime) {
 			super.change(FINISH_TIME,super.getFinishTime(),finishTime);
 			super.setFinishTime(finishTime);
+			return this;
+		}
+		
+		/**
+		 * 设置 变更前的数据
+		 * @param dataBefore 变更前的数据
+		 * @return 当前对象
+		*/
+		public ChangeInstance setDataBefore(List<ChangeData> dataBefore) {
+			super.change(DATA_BEFORE,super.getDataBefore(),dataBefore);
+			super.setDataBefore(dataBefore);
+			return this;
+		}
+		
+		/**
+		 * 设置 变更后的数据
+		 * @param dataAfter 变更后的数据
+		 * @return 当前对象
+		*/
+		public ChangeInstance setDataAfter(List<ChangeData> dataAfter) {
+			super.change(DATA_AFTER,super.getDataAfter(),dataAfter);
+			super.setDataAfter(dataAfter);
 			return this;
 		}
 	}

@@ -296,6 +296,7 @@ public class ChangeInstanceServiceImpl extends SuperService<ChangeInstance> impl
 		//保存变更前的数据
 		if(request.getDataBefore()!=null && !request.getDataBefore().isEmpty()) {
 			Map<String, List<? extends Entity>> dataMap=request.getDataBefore();
+			List<ChangeData> dataBefore=new ArrayList<>();
 			for (Map.Entry<String, List<? extends Entity>> e : dataMap.entrySet()) {
 				ChangeData changeData=new ChangeData();
 				changeData.setDataType(e.getKey());
@@ -303,11 +304,14 @@ public class ChangeInstanceServiceImpl extends SuperService<ChangeInstance> impl
 				changeData.setInstanceId(instance.getId());
 				changeData.setTimePoint(0);
 				dataService.insert(changeData);
+				dataBefore.add(changeData);
 			}
+			instance.setDataBefore(dataBefore);
 		}
 		//保存变更后的数据
 		if(request.getDataAfter()!=null && !request.getDataAfter().isEmpty()) {
 			Map<String, List<? extends Entity>> dataMap=request.getDataAfter();
+			List<ChangeData> dataAfter=new ArrayList<>();
 			for (Map.Entry<String, List<? extends Entity>> e : dataMap.entrySet()) {
 				ChangeData changeData=new ChangeData();
 				changeData.setDataType(e.getKey());
@@ -315,7 +319,9 @@ public class ChangeInstanceServiceImpl extends SuperService<ChangeInstance> impl
 				changeData.setInstanceId(instance.getId());
 				changeData.setTimePoint(1);
 				dataService.insert(changeData);
+				dataAfter.add(changeData);
 			}
+			instance.setDataAfter(dataAfter);
 		}
 
 
