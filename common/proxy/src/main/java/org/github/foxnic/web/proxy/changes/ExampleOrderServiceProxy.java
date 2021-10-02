@@ -76,9 +76,20 @@ public interface ExampleOrderServiceProxy {
 	public static final String GET_BY_IDS = API_PREFIX + "get-by-ids";
 
 	/**
-	 * 开始提交审批
+	 * 启动流程审批
 	 */
-	public static final String START_APPROVE = API_PREFIX + "start-approve";
+	public static final String START_PROCESS = API_PREFIX + "start-process";
+
+	/**
+	 * 节点审批
+	 */
+	public static final String APPROVE = API_PREFIX + "approve";
+
+	/**
+	 * 起草
+	 */
+	public static final String DRAFT = API_PREFIX + "draft";
+
 
 
 	/**

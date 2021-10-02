@@ -12,8 +12,8 @@ import org.github.foxnic.web.domain.hrm.Employee;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-01 03:20:26
- * @sign 5034186998748DD73FF7B4B86DC6540D
+ * @since 2021-10-02 08:50:55
+ * @sign 7D9B96AB853530FD4D6F5B17F7A499D3
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -222,42 +222,22 @@ public class ExampleOrderMeta {
 	/**
 	 * 变更ID , 类型: java.lang.String
 	*/
-	public static final String CHS_ID="chsId";
+	public static final String CHANGE_INSTANCE_ID="changeInstanceId";
 	
 	/**
 	 * 变更ID , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.changes.ExampleOrder,java.lang.String> CHS_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ExampleOrder.class ,CHS_ID, java.lang.String.class, "变更ID", "变更ID", java.lang.String.class, null);
-	
-	/**
-	 * 流程ID , 类型: java.lang.String
-	*/
-	public static final String PROC_ID="procId";
-	
-	/**
-	 * 流程ID , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.changes.ExampleOrder,java.lang.String> PROC_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ExampleOrder.class ,PROC_ID, java.lang.String.class, "流程ID", "流程ID", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ExampleOrder,java.lang.String> CHANGE_INSTANCE_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ExampleOrder.class ,CHANGE_INSTANCE_ID, java.lang.String.class, "变更ID", "变更ID", java.lang.String.class, null);
 	
 	/**
 	 * 流程概要 , 类型: java.lang.String
 	*/
-	public static final String PROC_SUMMARY="procSummary";
+	public static final String SUMMARY="summary";
 	
 	/**
 	 * 流程概要 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.changes.ExampleOrder,java.lang.String> PROC_SUMMARY_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ExampleOrder.class ,PROC_SUMMARY, java.lang.String.class, "流程概要", "流程概要", java.lang.String.class, null);
-	
-	/**
-	 * 审批节点概要 , 类型: java.lang.String
-	*/
-	public static final String PROC_NODE_SUMMARY="procNodeSummary";
-	
-	/**
-	 * 审批节点概要 , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.changes.ExampleOrder,java.lang.String> PROC_NODE_SUMMARY_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ExampleOrder.class ,PROC_NODE_SUMMARY, java.lang.String.class, "审批节点概要", "审批节点概要", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ExampleOrder,java.lang.String> SUMMARY_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ExampleOrder.class ,SUMMARY, java.lang.String.class, "流程概要", "流程概要", java.lang.String.class, null);
 	
 	/**
 	 * 最后审批人账户ID , 类型: java.lang.String
@@ -270,26 +250,6 @@ public class ExampleOrderMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.changes.ExampleOrder,java.lang.String> LATEST_APPROVER_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ExampleOrder.class ,LATEST_APPROVER_ID, java.lang.String.class, "最后审批人账户ID", "最后审批人账户ID", java.lang.String.class, null);
 	
 	/**
-	 * 下一节点审批人 , 类型: java.lang.String
-	*/
-	public static final String NEXT_NODE_APPROVER_IDS="nextNodeApproverIds";
-	
-	/**
-	 * 下一节点审批人 , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.changes.ExampleOrder,java.lang.String> NEXT_NODE_APPROVER_IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ExampleOrder.class ,NEXT_NODE_APPROVER_IDS, java.lang.String.class, "下一节点审批人", "下一节点审批人", java.lang.String.class, null);
-	
-	/**
-	 * 下一个审批节点审批人姓名 , 用逗号隔开 , 类型: java.lang.String
-	*/
-	public static final String NEXT_NODE_APPROVER_NAMES="nextNodeApproverNames";
-	
-	/**
-	 * 下一个审批节点审批人姓名 , 用逗号隔开 , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.changes.ExampleOrder,java.lang.String> NEXT_NODE_APPROVER_NAMES_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ExampleOrder.class ,NEXT_NODE_APPROVER_NAMES, java.lang.String.class, "下一个审批节点审批人姓名", "用逗号隔开", java.lang.String.class, null);
-	
-	/**
 	 * 最后审批人姓名 , 类型: java.lang.String
 	*/
 	public static final String LATEST_APPROVER_NAME="latestApproverName";
@@ -298,6 +258,26 @@ public class ExampleOrderMeta {
 	 * 最后审批人姓名 , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.changes.ExampleOrder,java.lang.String> LATEST_APPROVER_NAME_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ExampleOrder.class ,LATEST_APPROVER_NAME, java.lang.String.class, "最后审批人姓名", "最后审批人姓名", java.lang.String.class, null);
+	
+	/**
+	 * 下一节点审批人 , 类型: java.lang.String
+	*/
+	public static final String NEXT_APPROVER_IDS="nextApproverIds";
+	
+	/**
+	 * 下一节点审批人 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ExampleOrder,java.lang.String> NEXT_APPROVER_IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ExampleOrder.class ,NEXT_APPROVER_IDS, java.lang.String.class, "下一节点审批人", "下一节点审批人", java.lang.String.class, null);
+	
+	/**
+	 * 下一个审批节点审批人姓名 , 用逗号隔开 , 类型: java.lang.String
+	*/
+	public static final String NEXT_APPROVER_NAMES="nextApproverNames";
+	
+	/**
+	 * 下一个审批节点审批人姓名 , 用逗号隔开 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ExampleOrder,java.lang.String> NEXT_APPROVER_NAMES_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ExampleOrder.class ,NEXT_APPROVER_NAMES, java.lang.String.class, "下一个审批节点审批人姓名", "用逗号隔开", java.lang.String.class, null);
 	
 	/**
 	 * 订单明细 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.changes.ExampleOrderItem
@@ -322,7 +302,7 @@ public class ExampleOrderMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , TITLE , CODE , ORDER_TIME , BUYER_ID , ADDRESS , AMOUNT , CHS_TYPE , CHS_STATUS , CHS_VERSION , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , SOURCE_ID , CHS_ID , PROC_ID , PROC_SUMMARY , PROC_NODE_SUMMARY , LATEST_APPROVER_ID , NEXT_NODE_APPROVER_IDS , NEXT_NODE_APPROVER_NAMES , LATEST_APPROVER_NAME , ITEMS , BUYER_EMPLOYEE };
+	public static final String[] $PROPS={ ID , TITLE , CODE , ORDER_TIME , BUYER_ID , ADDRESS , AMOUNT , CHS_TYPE , CHS_STATUS , CHS_VERSION , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , SOURCE_ID , CHANGE_INSTANCE_ID , SUMMARY , LATEST_APPROVER_ID , LATEST_APPROVER_NAME , NEXT_APPROVER_IDS , NEXT_APPROVER_NAMES , ITEMS , BUYER_EMPLOYEE };
 	
 	/**
 	 * 代理类
@@ -554,45 +534,23 @@ public class ExampleOrderMeta {
 		
 		/**
 		 * 设置 变更ID
-		 * @param chsId 变更ID
+		 * @param changeInstanceId 变更ID
 		 * @return 当前对象
 		*/
-		public ExampleOrder setChsId(String chsId) {
-			super.change(CHS_ID,super.getChsId(),chsId);
-			super.setChsId(chsId);
-			return this;
-		}
-		
-		/**
-		 * 设置 流程ID
-		 * @param procId 流程ID
-		 * @return 当前对象
-		*/
-		public ExampleOrder setProcId(String procId) {
-			super.change(PROC_ID,super.getProcId(),procId);
-			super.setProcId(procId);
+		public ExampleOrder setChangeInstanceId(String changeInstanceId) {
+			super.change(CHANGE_INSTANCE_ID,super.getChangeInstanceId(),changeInstanceId);
+			super.setChangeInstanceId(changeInstanceId);
 			return this;
 		}
 		
 		/**
 		 * 设置 流程概要
-		 * @param procSummary 流程概要
+		 * @param summary 流程概要
 		 * @return 当前对象
 		*/
-		public ExampleOrder setProcSummary(String procSummary) {
-			super.change(PROC_SUMMARY,super.getProcSummary(),procSummary);
-			super.setProcSummary(procSummary);
-			return this;
-		}
-		
-		/**
-		 * 设置 审批节点概要
-		 * @param procNodeSummary 审批节点概要
-		 * @return 当前对象
-		*/
-		public ExampleOrder setProcNodeSummary(String procNodeSummary) {
-			super.change(PROC_NODE_SUMMARY,super.getProcNodeSummary(),procNodeSummary);
-			super.setProcNodeSummary(procNodeSummary);
+		public ExampleOrder setSummary(String summary) {
+			super.change(SUMMARY,super.getSummary(),summary);
+			super.setSummary(summary);
 			return this;
 		}
 		
@@ -608,28 +566,6 @@ public class ExampleOrderMeta {
 		}
 		
 		/**
-		 * 设置 下一节点审批人
-		 * @param nextNodeApproverIds 下一节点审批人
-		 * @return 当前对象
-		*/
-		public ExampleOrder setNextNodeApproverIds(String nextNodeApproverIds) {
-			super.change(NEXT_NODE_APPROVER_IDS,super.getNextNodeApproverIds(),nextNodeApproverIds);
-			super.setNextNodeApproverIds(nextNodeApproverIds);
-			return this;
-		}
-		
-		/**
-		 * 设置 下一个审批节点审批人姓名
-		 * @param nextNodeApproverNames 下一个审批节点审批人姓名
-		 * @return 当前对象
-		*/
-		public ExampleOrder setNextNodeApproverNames(String nextNodeApproverNames) {
-			super.change(NEXT_NODE_APPROVER_NAMES,super.getNextNodeApproverNames(),nextNodeApproverNames);
-			super.setNextNodeApproverNames(nextNodeApproverNames);
-			return this;
-		}
-		
-		/**
 		 * 设置 最后审批人姓名
 		 * @param latestApproverName 最后审批人姓名
 		 * @return 当前对象
@@ -637,6 +573,28 @@ public class ExampleOrderMeta {
 		public ExampleOrder setLatestApproverName(String latestApproverName) {
 			super.change(LATEST_APPROVER_NAME,super.getLatestApproverName(),latestApproverName);
 			super.setLatestApproverName(latestApproverName);
+			return this;
+		}
+		
+		/**
+		 * 设置 下一节点审批人
+		 * @param nextApproverIds 下一节点审批人
+		 * @return 当前对象
+		*/
+		public ExampleOrder setNextApproverIds(String nextApproverIds) {
+			super.change(NEXT_APPROVER_IDS,super.getNextApproverIds(),nextApproverIds);
+			super.setNextApproverIds(nextApproverIds);
+			return this;
+		}
+		
+		/**
+		 * 设置 下一个审批节点审批人姓名
+		 * @param nextApproverNames 下一个审批节点审批人姓名
+		 * @return 当前对象
+		*/
+		public ExampleOrder setNextApproverNames(String nextApproverNames) {
+			super.change(NEXT_APPROVER_NAMES,super.getNextApproverNames(),nextApproverNames);
+			super.setNextApproverNames(nextApproverNames);
 			return this;
 		}
 		

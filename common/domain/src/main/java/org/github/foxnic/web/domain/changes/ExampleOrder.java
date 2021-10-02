@@ -10,7 +10,7 @@ import java.util.Date;
 import java.math.BigDecimal;
 import org.github.foxnic.web.constants.enums.changes.ChangeType;
 import javax.persistence.Transient;
-import org.github.foxnic.web.constants.enums.changes.ChangeStatus;
+import org.github.foxnic.web.constants.enums.changes.ApprovalStatus;
 import java.util.List;
 import org.github.foxnic.web.domain.hrm.Employee;
 import com.github.foxnic.commons.reflect.EnumUtil;
@@ -24,8 +24,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 变更示例订单
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-01 03:20:26
- * @sign 5034186998748DD73FF7B4B86DC6540D
+ * @since 2021-10-02 08:50:55
+ * @sign 7D9B96AB853530FD4D6F5B17F7A499D3
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -93,7 +93,7 @@ public class ExampleOrder extends Entity {
 	@ApiModelProperty(required = false,value="变更状态" , notes = "变更状态")
 	private String chsStatus;
 	@Transient
-	private ChangeStatus chsStatusEnum;
+	private ApprovalStatus chsStatusEnum;
 	
 	/**
 	 * 变更版本号：变更版本号
@@ -165,25 +165,13 @@ public class ExampleOrder extends Entity {
 	 * 变更ID：变更ID
 	*/
 	@ApiModelProperty(required = false,value="变更ID" , notes = "变更ID")
-	private String chsId;
-	
-	/**
-	 * 流程ID：流程ID
-	*/
-	@ApiModelProperty(required = false,value="流程ID" , notes = "流程ID")
-	private String procId;
+	private String changeInstanceId;
 	
 	/**
 	 * 流程概要：流程概要
 	*/
 	@ApiModelProperty(required = false,value="流程概要" , notes = "流程概要")
-	private String procSummary;
-	
-	/**
-	 * 审批节点概要：审批节点概要
-	*/
-	@ApiModelProperty(required = false,value="审批节点概要" , notes = "审批节点概要")
-	private String procNodeSummary;
+	private String summary;
 	
 	/**
 	 * 最后审批人账户ID：最后审批人账户ID
@@ -192,22 +180,22 @@ public class ExampleOrder extends Entity {
 	private String latestApproverId;
 	
 	/**
+	 * 最后审批人姓名：最后审批人姓名
+	*/
+	@ApiModelProperty(required = false,value="最后审批人姓名" , notes = "最后审批人姓名")
+	private String latestApproverName;
+	
+	/**
 	 * 下一节点审批人：下一节点审批人
 	*/
 	@ApiModelProperty(required = false,value="下一节点审批人" , notes = "下一节点审批人")
-	private String nextNodeApproverIds;
+	private String nextApproverIds;
 	
 	/**
 	 * 下一个审批节点审批人姓名：用逗号隔开
 	*/
 	@ApiModelProperty(required = false,value="下一个审批节点审批人姓名" , notes = "用逗号隔开")
-	private String nextNodeApproverNames;
-	
-	/**
-	 * 最后审批人姓名：最后审批人姓名
-	*/
-	@ApiModelProperty(required = false,value="最后审批人姓名" , notes = "最后审批人姓名")
-	private String latestApproverName;
+	private String nextApproverNames;
 	
 	/**
 	 * 订单明细：订单明细
@@ -421,9 +409,9 @@ public class ExampleOrder extends Entity {
 	 * @return 变更状态
 	*/
 	@Transient
-	public ChangeStatus getChsStatusEnum() {
+	public ApprovalStatus getChsStatusEnum() {
 		if(this.chsStatusEnum==null) {
-			this.chsStatusEnum = (ChangeStatus) EnumUtil.parseByCode(ChangeStatus.values(),chsStatus);
+			this.chsStatusEnum = (ApprovalStatus) EnumUtil.parseByCode(ApprovalStatus.values(),chsStatus);
 		}
 		return this.chsStatusEnum ;
 	}
@@ -435,9 +423,9 @@ public class ExampleOrder extends Entity {
 	*/
 	public ExampleOrder setChsStatus(String chsStatus) {
 		this.chsStatus=chsStatus;
-		this.chsStatusEnum= (ChangeStatus) EnumUtil.parseByCode(ChangeStatus.values(),chsStatus) ;
+		this.chsStatusEnum= (ApprovalStatus) EnumUtil.parseByCode(ApprovalStatus.values(),chsStatus) ;
 		if(StringUtil.hasContent(chsStatus) && this.chsStatusEnum==null) {
-			throw new IllegalArgumentException( chsStatus + " is not one of ChangeStatus");
+			throw new IllegalArgumentException( chsStatus + " is not one of ApprovalStatus");
 		}
 		return this;
 	}
@@ -448,7 +436,7 @@ public class ExampleOrder extends Entity {
 	 * @return 当前对象
 	*/
 	@Transient
-	public ExampleOrder setChsStatusEnum(ChangeStatus chsStatusEnum) {
+	public ExampleOrder setChsStatusEnum(ApprovalStatus chsStatusEnum) {
 		if(chsStatusEnum==null) {
 			this.setChsStatus(null);
 		} else {
@@ -672,36 +660,17 @@ public class ExampleOrder extends Entity {
 	 * 变更ID
 	 * @return 变更ID
 	*/
-	public String getChsId() {
-		return chsId;
+	public String getChangeInstanceId() {
+		return changeInstanceId;
 	}
 	
 	/**
 	 * 设置 变更ID
-	 * @param chsId 变更ID
+	 * @param changeInstanceId 变更ID
 	 * @return 当前对象
 	*/
-	public ExampleOrder setChsId(String chsId) {
-		this.chsId=chsId;
-		return this;
-	}
-	
-	/**
-	 * 获得 流程ID<br>
-	 * 流程ID
-	 * @return 流程ID
-	*/
-	public String getProcId() {
-		return procId;
-	}
-	
-	/**
-	 * 设置 流程ID
-	 * @param procId 流程ID
-	 * @return 当前对象
-	*/
-	public ExampleOrder setProcId(String procId) {
-		this.procId=procId;
+	public ExampleOrder setChangeInstanceId(String changeInstanceId) {
+		this.changeInstanceId=changeInstanceId;
 		return this;
 	}
 	
@@ -710,36 +679,17 @@ public class ExampleOrder extends Entity {
 	 * 流程概要
 	 * @return 流程概要
 	*/
-	public String getProcSummary() {
-		return procSummary;
+	public String getSummary() {
+		return summary;
 	}
 	
 	/**
 	 * 设置 流程概要
-	 * @param procSummary 流程概要
+	 * @param summary 流程概要
 	 * @return 当前对象
 	*/
-	public ExampleOrder setProcSummary(String procSummary) {
-		this.procSummary=procSummary;
-		return this;
-	}
-	
-	/**
-	 * 获得 审批节点概要<br>
-	 * 审批节点概要
-	 * @return 审批节点概要
-	*/
-	public String getProcNodeSummary() {
-		return procNodeSummary;
-	}
-	
-	/**
-	 * 设置 审批节点概要
-	 * @param procNodeSummary 审批节点概要
-	 * @return 当前对象
-	*/
-	public ExampleOrder setProcNodeSummary(String procNodeSummary) {
-		this.procNodeSummary=procNodeSummary;
+	public ExampleOrder setSummary(String summary) {
+		this.summary=summary;
 		return this;
 	}
 	
@@ -763,44 +713,6 @@ public class ExampleOrder extends Entity {
 	}
 	
 	/**
-	 * 获得 下一节点审批人<br>
-	 * 下一节点审批人
-	 * @return 下一节点审批人
-	*/
-	public String getNextNodeApproverIds() {
-		return nextNodeApproverIds;
-	}
-	
-	/**
-	 * 设置 下一节点审批人
-	 * @param nextNodeApproverIds 下一节点审批人
-	 * @return 当前对象
-	*/
-	public ExampleOrder setNextNodeApproverIds(String nextNodeApproverIds) {
-		this.nextNodeApproverIds=nextNodeApproverIds;
-		return this;
-	}
-	
-	/**
-	 * 获得 下一个审批节点审批人姓名<br>
-	 * 用逗号隔开
-	 * @return 下一个审批节点审批人姓名
-	*/
-	public String getNextNodeApproverNames() {
-		return nextNodeApproverNames;
-	}
-	
-	/**
-	 * 设置 下一个审批节点审批人姓名
-	 * @param nextNodeApproverNames 下一个审批节点审批人姓名
-	 * @return 当前对象
-	*/
-	public ExampleOrder setNextNodeApproverNames(String nextNodeApproverNames) {
-		this.nextNodeApproverNames=nextNodeApproverNames;
-		return this;
-	}
-	
-	/**
 	 * 获得 最后审批人姓名<br>
 	 * 最后审批人姓名
 	 * @return 最后审批人姓名
@@ -816,6 +728,44 @@ public class ExampleOrder extends Entity {
 	*/
 	public ExampleOrder setLatestApproverName(String latestApproverName) {
 		this.latestApproverName=latestApproverName;
+		return this;
+	}
+	
+	/**
+	 * 获得 下一节点审批人<br>
+	 * 下一节点审批人
+	 * @return 下一节点审批人
+	*/
+	public String getNextApproverIds() {
+		return nextApproverIds;
+	}
+	
+	/**
+	 * 设置 下一节点审批人
+	 * @param nextApproverIds 下一节点审批人
+	 * @return 当前对象
+	*/
+	public ExampleOrder setNextApproverIds(String nextApproverIds) {
+		this.nextApproverIds=nextApproverIds;
+		return this;
+	}
+	
+	/**
+	 * 获得 下一个审批节点审批人姓名<br>
+	 * 用逗号隔开
+	 * @return 下一个审批节点审批人姓名
+	*/
+	public String getNextApproverNames() {
+		return nextApproverNames;
+	}
+	
+	/**
+	 * 设置 下一个审批节点审批人姓名
+	 * @param nextApproverNames 下一个审批节点审批人姓名
+	 * @return 当前对象
+	*/
+	public ExampleOrder setNextApproverNames(String nextApproverNames) {
+		this.nextApproverNames=nextApproverNames;
 		return this;
 	}
 	

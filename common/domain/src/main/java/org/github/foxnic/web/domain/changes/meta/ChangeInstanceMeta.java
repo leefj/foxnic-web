@@ -4,14 +4,13 @@ import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.changes.ChangeInstance;
 import java.util.Date;
 import org.github.foxnic.web.domain.changes.ChangeData;
-import java.util.List;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-01 02:25:44
- * @sign 5ADCE3B012B389153C056CFD62DBD6E2
+ * @since 2021-10-02 20:13:17
+ * @sign 2A35A398DFBBB05ABF93E23279AA4E58
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -36,6 +35,36 @@ public class ChangeInstanceMeta {
 	 * 变更定义ID , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeInstance,java.lang.String> DEFINITION_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeInstance.class ,DEFINITION_ID, java.lang.String.class, "变更定义ID", "变更定义ID", java.lang.String.class, null);
+	
+	/**
+	 * 审批模式 , 类型: java.lang.String
+	*/
+	public static final String MODE="mode";
+	
+	/**
+	 * 审批模式 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeInstance,java.lang.String> MODE_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeInstance.class ,MODE, java.lang.String.class, "审批模式", "审批模式", java.lang.String.class, null);
+	
+	/**
+	 * 起草人ID , 类型: java.lang.String
+	*/
+	public static final String DRAFTER_ID="drafterId";
+	
+	/**
+	 * 起草人ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeInstance,java.lang.String> DRAFTER_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeInstance.class ,DRAFTER_ID, java.lang.String.class, "起草人ID", "起草人ID", java.lang.String.class, null);
+	
+	/**
+	 * 起草人姓名 , 类型: java.lang.String
+	*/
+	public static final String DRAFTER_NAME="drafterName";
+	
+	/**
+	 * 起草人姓名 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeInstance,java.lang.String> DRAFTER_NAME_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeInstance.class ,DRAFTER_NAME, java.lang.String.class, "起草人姓名", "起草人姓名", java.lang.String.class, null);
 	
 	/**
 	 * 租户ID , 类型: java.lang.String
@@ -198,29 +227,69 @@ public class ChangeInstanceMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeInstance,java.util.Date> FINISH_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeInstance.class ,FINISH_TIME, java.util.Date.class, "变更结束时间", "变更结束时间", java.util.Date.class, null);
 	
 	/**
-	 * 变更前的数据 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.changes.ChangeData
+	 * 下一个审批节点审批人账户ID , 用逗号隔开,适用简单模式 , 类型: java.lang.String
+	*/
+	public static final String SIMPLE_NEXT_APPROVER_IDS="simpleNextApproverIds";
+	
+	/**
+	 * 下一个审批节点审批人账户ID , 用逗号隔开,适用简单模式 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeInstance,java.lang.String> SIMPLE_NEXT_APPROVER_IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeInstance.class ,SIMPLE_NEXT_APPROVER_IDS, java.lang.String.class, "下一个审批节点审批人账户ID", "用逗号隔开,适用简单模式", java.lang.String.class, null);
+	
+	/**
+	 * 下一个审批节点审批人姓名 , 用逗号隔开,适用简单模式 , 类型: java.lang.String
+	*/
+	public static final String SIMPLE_NEXT_APPROVER_NAMES="simpleNextApproverNames";
+	
+	/**
+	 * 下一个审批节点审批人姓名 , 用逗号隔开,适用简单模式 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeInstance,java.lang.String> SIMPLE_NEXT_APPROVER_NAMES_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeInstance.class ,SIMPLE_NEXT_APPROVER_NAMES, java.lang.String.class, "下一个审批节点审批人姓名", "用逗号隔开,适用简单模式", java.lang.String.class, null);
+	
+	/**
+	 * 下一节点审批逻辑 , 适用简单模式 , 类型: java.lang.String
+	*/
+	public static final String SIMPLE_APPROVE_LOGIC="simpleApproveLogic";
+	
+	/**
+	 * 下一节点审批逻辑 , 适用简单模式 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeInstance,java.lang.String> SIMPLE_APPROVE_LOGIC_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeInstance.class ,SIMPLE_APPROVE_LOGIC, java.lang.String.class, "下一节点审批逻辑", "适用简单模式", java.lang.String.class, null);
+	
+	/**
+	 * 简单模式的节点ID , 类型: java.lang.String
+	*/
+	public static final String SIMPLE_NODE_ID="simpleNodeId";
+	
+	/**
+	 * 简单模式的节点ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeInstance,java.lang.String> SIMPLE_NODE_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeInstance.class ,SIMPLE_NODE_ID, java.lang.String.class, "简单模式的节点ID", "简单模式的节点ID", java.lang.String.class, null);
+	
+	/**
+	 * 变更前的数据 , 类型: org.github.foxnic.web.domain.changes.ChangeData
 	*/
 	public static final String DATA_BEFORE="dataBefore";
 	
 	/**
-	 * 变更前的数据 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.changes.ChangeData
+	 * 变更前的数据 , 类型: org.github.foxnic.web.domain.changes.ChangeData
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeInstance,org.github.foxnic.web.domain.changes.ChangeData> DATA_BEFORE_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeInstance.class ,DATA_BEFORE, java.util.List.class, "变更前的数据", "变更前的数据", org.github.foxnic.web.domain.changes.ChangeData.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeInstance,org.github.foxnic.web.domain.changes.ChangeData> DATA_BEFORE_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeInstance.class ,DATA_BEFORE, org.github.foxnic.web.domain.changes.ChangeData.class, "变更前的数据", "变更前的数据", org.github.foxnic.web.domain.changes.ChangeData.class, null);
 	
 	/**
-	 * 变更后的数据 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.changes.ChangeData
+	 * 变更后的数据 , 类型: org.github.foxnic.web.domain.changes.ChangeData
 	*/
 	public static final String DATA_AFTER="dataAfter";
 	
 	/**
-	 * 变更后的数据 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.changes.ChangeData
+	 * 变更后的数据 , 类型: org.github.foxnic.web.domain.changes.ChangeData
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeInstance,org.github.foxnic.web.domain.changes.ChangeData> DATA_AFTER_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeInstance.class ,DATA_AFTER, java.util.List.class, "变更后的数据", "变更后的数据", org.github.foxnic.web.domain.changes.ChangeData.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeInstance,org.github.foxnic.web.domain.changes.ChangeData> DATA_AFTER_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeInstance.class ,DATA_AFTER, org.github.foxnic.web.domain.changes.ChangeData.class, "变更后的数据", "变更后的数据", org.github.foxnic.web.domain.changes.ChangeData.class, null);
 	
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , DEFINITION_ID , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , STATUS , TYPE , PROCESS_ID , PROCESS_NODE_SUMMARY , PROCESS_SUMMARY , START_TIME , FINISH_TIME , DATA_BEFORE , DATA_AFTER };
+	public static final String[] $PROPS={ ID , DEFINITION_ID , MODE , DRAFTER_ID , DRAFTER_NAME , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , STATUS , TYPE , PROCESS_ID , PROCESS_NODE_SUMMARY , PROCESS_SUMMARY , START_TIME , FINISH_TIME , SIMPLE_NEXT_APPROVER_IDS , SIMPLE_NEXT_APPROVER_NAMES , SIMPLE_APPROVE_LOGIC , SIMPLE_NODE_ID , DATA_BEFORE , DATA_AFTER };
 	
 	/**
 	 * 代理类
@@ -249,6 +318,39 @@ public class ChangeInstanceMeta {
 		public ChangeInstance setDefinitionId(String definitionId) {
 			super.change(DEFINITION_ID,super.getDefinitionId(),definitionId);
 			super.setDefinitionId(definitionId);
+			return this;
+		}
+		
+		/**
+		 * 设置 审批模式
+		 * @param mode 审批模式
+		 * @return 当前对象
+		*/
+		public ChangeInstance setMode(String mode) {
+			super.change(MODE,super.getMode(),mode);
+			super.setMode(mode);
+			return this;
+		}
+		
+		/**
+		 * 设置 起草人ID
+		 * @param drafterId 起草人ID
+		 * @return 当前对象
+		*/
+		public ChangeInstance setDrafterId(String drafterId) {
+			super.change(DRAFTER_ID,super.getDrafterId(),drafterId);
+			super.setDrafterId(drafterId);
+			return this;
+		}
+		
+		/**
+		 * 设置 起草人姓名
+		 * @param drafterName 起草人姓名
+		 * @return 当前对象
+		*/
+		public ChangeInstance setDrafterName(String drafterName) {
+			super.change(DRAFTER_NAME,super.getDrafterName(),drafterName);
+			super.setDrafterName(drafterName);
 			return this;
 		}
 		
@@ -429,11 +531,55 @@ public class ChangeInstanceMeta {
 		}
 		
 		/**
+		 * 设置 下一个审批节点审批人账户ID
+		 * @param simpleNextApproverIds 下一个审批节点审批人账户ID
+		 * @return 当前对象
+		*/
+		public ChangeInstance setSimpleNextApproverIds(String simpleNextApproverIds) {
+			super.change(SIMPLE_NEXT_APPROVER_IDS,super.getSimpleNextApproverIds(),simpleNextApproverIds);
+			super.setSimpleNextApproverIds(simpleNextApproverIds);
+			return this;
+		}
+		
+		/**
+		 * 设置 下一个审批节点审批人姓名
+		 * @param simpleNextApproverNames 下一个审批节点审批人姓名
+		 * @return 当前对象
+		*/
+		public ChangeInstance setSimpleNextApproverNames(String simpleNextApproverNames) {
+			super.change(SIMPLE_NEXT_APPROVER_NAMES,super.getSimpleNextApproverNames(),simpleNextApproverNames);
+			super.setSimpleNextApproverNames(simpleNextApproverNames);
+			return this;
+		}
+		
+		/**
+		 * 设置 下一节点审批逻辑
+		 * @param simpleApproveLogic 下一节点审批逻辑
+		 * @return 当前对象
+		*/
+		public ChangeInstance setSimpleApproveLogic(String simpleApproveLogic) {
+			super.change(SIMPLE_APPROVE_LOGIC,super.getSimpleApproveLogic(),simpleApproveLogic);
+			super.setSimpleApproveLogic(simpleApproveLogic);
+			return this;
+		}
+		
+		/**
+		 * 设置 简单模式的节点ID
+		 * @param simpleNodeId 简单模式的节点ID
+		 * @return 当前对象
+		*/
+		public ChangeInstance setSimpleNodeId(String simpleNodeId) {
+			super.change(SIMPLE_NODE_ID,super.getSimpleNodeId(),simpleNodeId);
+			super.setSimpleNodeId(simpleNodeId);
+			return this;
+		}
+		
+		/**
 		 * 设置 变更前的数据
 		 * @param dataBefore 变更前的数据
 		 * @return 当前对象
 		*/
-		public ChangeInstance setDataBefore(List<ChangeData> dataBefore) {
+		public ChangeInstance setDataBefore(ChangeData dataBefore) {
 			super.change(DATA_BEFORE,super.getDataBefore(),dataBefore);
 			super.setDataBefore(dataBefore);
 			return this;
@@ -444,7 +590,7 @@ public class ChangeInstanceMeta {
 		 * @param dataAfter 变更后的数据
 		 * @return 当前对象
 		*/
-		public ChangeInstance setDataAfter(List<ChangeData> dataAfter) {
+		public ChangeInstance setDataAfter(ChangeData dataAfter) {
 			super.change(DATA_AFTER,super.getDataAfter(),dataAfter);
 			super.setDataAfter(dataAfter);
 			return this;

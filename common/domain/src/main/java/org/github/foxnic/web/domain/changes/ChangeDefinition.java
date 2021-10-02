@@ -6,8 +6,11 @@ import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb.CHS_CHANGE_DEFINITION;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.Date;
+import org.github.foxnic.web.constants.enums.changes.ApprovalMode;
 import javax.persistence.Transient;
+import java.util.Date;
+import com.github.foxnic.commons.reflect.EnumUtil;
+import com.github.foxnic.commons.lang.StringUtil;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
 
@@ -16,8 +19,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 变更定义
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-01 02:21:10
- * @sign 6BA1322C0249570603B4040D0908B8E0
+ * @since 2021-10-02 09:07:40
+ * @sign 3218AA84200BE1D2A45EC967705EEF21
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -48,10 +51,30 @@ public class ChangeDefinition extends Entity {
 	private String code;
 	
 	/**
-	 * 处理类：处理类
+	 * 审批模式：审批模式
 	*/
-	@ApiModelProperty(required = false,value="处理类" , notes = "处理类")
-	private String handler;
+	@ApiModelProperty(required = false,value="审批模式" , notes = "审批模式")
+	private String mode;
+	@Transient
+	private ApprovalMode modeEnum;
+	
+	/**
+	 * 默认审批人ID：适用于简单审批模式
+	*/
+	@ApiModelProperty(required = false,value="默认审批人ID" , notes = "适用于简单审批模式")
+	private String simpleApproverIds;
+	
+	/**
+	 * 审批逻辑：适用于简单审批模式
+	*/
+	@ApiModelProperty(required = false,value="审批逻辑" , notes = "适用于简单审批模式")
+	private String simpleApprovalLogic;
+	
+	/**
+	 * 审批处理类：审批处理类
+	*/
+	@ApiModelProperty(required = false,value="审批处理类" , notes = "审批处理类")
+	private String simpleHandler;
 	
 	/**
 	 * 是否有效：是否有效
@@ -165,21 +188,111 @@ public class ChangeDefinition extends Entity {
 	}
 	
 	/**
-	 * 获得 处理类<br>
-	 * 处理类
-	 * @return 处理类
+	 * 获得 审批模式<br>
+	 * 审批模式
+	 * @return 审批模式
 	*/
-	public String getHandler() {
-		return handler;
+	public String getMode() {
+		return mode;
 	}
 	
 	/**
-	 * 设置 处理类
-	 * @param handler 处理类
+	 * 获得 审批模式 的投影属性<br>
+	 * 等价于 getMode 方法，获得对应的枚举类型
+	 * @return 审批模式
+	*/
+	@Transient
+	public ApprovalMode getModeEnum() {
+		if(this.modeEnum==null) {
+			this.modeEnum = (ApprovalMode) EnumUtil.parseByCode(ApprovalMode.values(),mode);
+		}
+		return this.modeEnum ;
+	}
+	
+	/**
+	 * 设置 审批模式
+	 * @param mode 审批模式
 	 * @return 当前对象
 	*/
-	public ChangeDefinition setHandler(String handler) {
-		this.handler=handler;
+	public ChangeDefinition setMode(String mode) {
+		this.mode=mode;
+		this.modeEnum= (ApprovalMode) EnumUtil.parseByCode(ApprovalMode.values(),mode) ;
+		if(StringUtil.hasContent(mode) && this.modeEnum==null) {
+			throw new IllegalArgumentException( mode + " is not one of ApprovalMode");
+		}
+		return this;
+	}
+	
+	/**
+	 * 设置 审批模式的投影属性，等同于设置 审批模式
+	 * @param modeEnum 审批模式
+	 * @return 当前对象
+	*/
+	@Transient
+	public ChangeDefinition setModeEnum(ApprovalMode modeEnum) {
+		if(modeEnum==null) {
+			this.setMode(null);
+		} else {
+			this.setMode(modeEnum.code());
+		}
+		this.modeEnum=modeEnum;
+		return this;
+	}
+	
+	/**
+	 * 获得 默认审批人ID<br>
+	 * 适用于简单审批模式
+	 * @return 默认审批人ID
+	*/
+	public String getSimpleApproverIds() {
+		return simpleApproverIds;
+	}
+	
+	/**
+	 * 设置 默认审批人ID
+	 * @param simpleApproverIds 默认审批人ID
+	 * @return 当前对象
+	*/
+	public ChangeDefinition setSimpleApproverIds(String simpleApproverIds) {
+		this.simpleApproverIds=simpleApproverIds;
+		return this;
+	}
+	
+	/**
+	 * 获得 审批逻辑<br>
+	 * 适用于简单审批模式
+	 * @return 审批逻辑
+	*/
+	public String getSimpleApprovalLogic() {
+		return simpleApprovalLogic;
+	}
+	
+	/**
+	 * 设置 审批逻辑
+	 * @param simpleApprovalLogic 审批逻辑
+	 * @return 当前对象
+	*/
+	public ChangeDefinition setSimpleApprovalLogic(String simpleApprovalLogic) {
+		this.simpleApprovalLogic=simpleApprovalLogic;
+		return this;
+	}
+	
+	/**
+	 * 获得 审批处理类<br>
+	 * 审批处理类
+	 * @return 审批处理类
+	*/
+	public String getSimpleHandler() {
+		return simpleHandler;
+	}
+	
+	/**
+	 * 设置 审批处理类
+	 * @param simpleHandler 审批处理类
+	 * @return 当前对象
+	*/
+	public ChangeDefinition setSimpleHandler(String simpleHandler) {
+		this.simpleHandler=simpleHandler;
 		return this;
 	}
 	

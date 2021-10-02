@@ -11,11 +11,10 @@ import org.github.foxnic.web.framework.cache.DataChangeHandler;
 import org.github.foxnic.web.framework.cache.RedisUtil;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.ApplicationListener;
-import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
 
-@Component
+//@Component
 public class ChangesNotifyListener extends DataChangeHandler implements ApplicationListener<ApplicationStartedEvent> {
 
 
@@ -25,7 +24,7 @@ public class ChangesNotifyListener extends DataChangeHandler implements Applicat
         String eventId=key.substring(key.lastIndexOf(":")+1);
         key=ChangesAssistant.CHANGES_NOTIFY_PREFIX+eventId;
         ChangeEvent event=(ChangeEvent)redis.get(key);
-        String handler=event.getDefinition().getHandler();
+        String handler=event.getDefinition().getSimpleHandler();
         Class<? extends ChangesHandler> handlerType= ReflectUtil.forName(handler);
         if(handler==null) {
             throw new IllegalArgumentException( handler +" 未定义");

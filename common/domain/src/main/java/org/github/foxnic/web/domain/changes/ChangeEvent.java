@@ -6,9 +6,10 @@ import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb.CHS_CHANGE_EVENT;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
-import org.github.foxnic.web.constants.enums.changes.ChangeEventType;
+import org.github.foxnic.web.constants.enums.changes.ApprovalEventType;
 import javax.persistence.Transient;
 import java.sql.Timestamp;
+import org.github.foxnic.web.constants.enums.changes.ApprovalAction;
 import java.util.Date;
 import com.github.foxnic.commons.reflect.EnumUtil;
 import com.github.foxnic.commons.lang.StringUtil;
@@ -20,8 +21,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 变更事件
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-01 02:53:28
- * @sign 4E4C6B68202F809CC0F4F107C9AF7F84
+ * @since 2021-10-02 20:13:19
+ * @sign ED8F1BFCD67A9A6A0F3CEAF96B646A60
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -46,12 +47,18 @@ public class ChangeEvent extends Entity {
 	private String instanceId;
 	
 	/**
-	 * 实体类名：实体类名
+	 * 事件类型：事件类型
 	*/
-	@ApiModelProperty(required = false,value="实体类名" , notes = "实体类名")
+	@ApiModelProperty(required = false,value="事件类型" , notes = "事件类型")
 	private String eventType;
 	@Transient
-	private ChangeEventType eventTypeEnum;
+	private ApprovalEventType eventTypeEnum;
+	
+	/**
+	 * 请求的数据：请求的数据
+	*/
+	@ApiModelProperty(required = false,value="请求的数据" , notes = "请求的数据")
+	private String requestData;
 	
 	/**
 	 * 通知发送时间：通知发送时间
@@ -66,9 +73,9 @@ public class ChangeEvent extends Entity {
 	private String notifyData;
 	
 	/**
-	 * 相应的数据：相应的数据
+	 * 响应的数据：响应的数据
 	*/
-	@ApiModelProperty(required = false,value="相应的数据" , notes = "相应的数据")
+	@ApiModelProperty(required = false,value="响应的数据" , notes = "响应的数据")
 	private String responseData;
 	
 	/**
@@ -90,28 +97,42 @@ public class ChangeEvent extends Entity {
 	private String approverName;
 	
 	/**
-	 * 下一个审批节点ID：下一个审批节点ID
+	 * 审批意见：审批意见
 	*/
-	@ApiModelProperty(required = false,value="下一个审批节点ID" , notes = "下一个审批节点ID")
-	private String nextNodeId;
+	@ApiModelProperty(required = false,value="审批意见" , notes = "审批意见")
+	private String opinion;
+	
+	/**
+	 * 审批动作：审批动作
+	*/
+	@ApiModelProperty(required = false,value="审批动作" , notes = "审批动作")
+	private String approveAction;
+	@Transient
+	private ApprovalAction approveActionEnum;
 	
 	/**
 	 * 下一个审批节点审批人账户ID：用逗号隔开
 	*/
 	@ApiModelProperty(required = false,value="下一个审批节点审批人账户ID" , notes = "用逗号隔开")
-	private String nextNodeApproverIds;
+	private String simpleNextApproverIds;
 	
 	/**
 	 * 下一个审批节点审批人姓名：用逗号隔开
 	*/
 	@ApiModelProperty(required = false,value="下一个审批节点审批人姓名" , notes = "用逗号隔开")
-	private String nextNodeApproverNames;
+	private String simpleNextApproverNames;
 	
 	/**
 	 * 是否成功：失败时查看 response_data
 	*/
 	@ApiModelProperty(required = false,value="是否成功" , notes = "失败时查看 response_data")
 	private Integer success;
+	
+	/**
+	 * 错误信息：错误信息
+	*/
+	@ApiModelProperty(required = false,value="错误信息" , notes = "错误信息")
+	private String errors;
 	
 	/**
 	 * 创建人ID：创建人ID
@@ -160,6 +181,12 @@ public class ChangeEvent extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
 	private Integer version;
+	
+	/**
+	 * 简单模式的节点ID：简单模式的节点ID
+	*/
+	@ApiModelProperty(required = false,value="简单模式的节点ID" , notes = "简单模式的节点ID")
+	private String simpleNodeId;
 	
 	/**
 	 * 变更定义
@@ -212,54 +239,73 @@ public class ChangeEvent extends Entity {
 	}
 	
 	/**
-	 * 获得 实体类名<br>
-	 * 实体类名
-	 * @return 实体类名
+	 * 获得 事件类型<br>
+	 * 事件类型
+	 * @return 事件类型
 	*/
 	public String getEventType() {
 		return eventType;
 	}
 	
 	/**
-	 * 获得 实体类名 的投影属性<br>
+	 * 获得 事件类型 的投影属性<br>
 	 * 等价于 getEventType 方法，获得对应的枚举类型
-	 * @return 实体类名
+	 * @return 事件类型
 	*/
 	@Transient
-	public ChangeEventType getEventTypeEnum() {
+	public ApprovalEventType getEventTypeEnum() {
 		if(this.eventTypeEnum==null) {
-			this.eventTypeEnum = (ChangeEventType) EnumUtil.parseByCode(ChangeEventType.values(),eventType);
+			this.eventTypeEnum = (ApprovalEventType) EnumUtil.parseByCode(ApprovalEventType.values(),eventType);
 		}
 		return this.eventTypeEnum ;
 	}
 	
 	/**
-	 * 设置 实体类名
-	 * @param eventType 实体类名
+	 * 设置 事件类型
+	 * @param eventType 事件类型
 	 * @return 当前对象
 	*/
 	public ChangeEvent setEventType(String eventType) {
 		this.eventType=eventType;
-		this.eventTypeEnum= (ChangeEventType) EnumUtil.parseByCode(ChangeEventType.values(),eventType) ;
+		this.eventTypeEnum= (ApprovalEventType) EnumUtil.parseByCode(ApprovalEventType.values(),eventType) ;
 		if(StringUtil.hasContent(eventType) && this.eventTypeEnum==null) {
-			throw new IllegalArgumentException( eventType + " is not one of ChangeEventType");
+			throw new IllegalArgumentException( eventType + " is not one of ApprovalEventType");
 		}
 		return this;
 	}
 	
 	/**
-	 * 设置 实体类名的投影属性，等同于设置 实体类名
-	 * @param eventTypeEnum 实体类名
+	 * 设置 事件类型的投影属性，等同于设置 事件类型
+	 * @param eventTypeEnum 事件类型
 	 * @return 当前对象
 	*/
 	@Transient
-	public ChangeEvent setEventTypeEnum(ChangeEventType eventTypeEnum) {
+	public ChangeEvent setEventTypeEnum(ApprovalEventType eventTypeEnum) {
 		if(eventTypeEnum==null) {
 			this.setEventType(null);
 		} else {
 			this.setEventType(eventTypeEnum.code());
 		}
 		this.eventTypeEnum=eventTypeEnum;
+		return this;
+	}
+	
+	/**
+	 * 获得 请求的数据<br>
+	 * 请求的数据
+	 * @return 请求的数据
+	*/
+	public String getRequestData() {
+		return requestData;
+	}
+	
+	/**
+	 * 设置 请求的数据
+	 * @param requestData 请求的数据
+	 * @return 当前对象
+	*/
+	public ChangeEvent setRequestData(String requestData) {
+		this.requestData=requestData;
 		return this;
 	}
 	
@@ -302,17 +348,17 @@ public class ChangeEvent extends Entity {
 	}
 	
 	/**
-	 * 获得 相应的数据<br>
-	 * 相应的数据
-	 * @return 相应的数据
+	 * 获得 响应的数据<br>
+	 * 响应的数据
+	 * @return 响应的数据
 	*/
 	public String getResponseData() {
 		return responseData;
 	}
 	
 	/**
-	 * 设置 相应的数据
-	 * @param responseData 相应的数据
+	 * 设置 响应的数据
+	 * @param responseData 响应的数据
 	 * @return 当前对象
 	*/
 	public ChangeEvent setResponseData(String responseData) {
@@ -378,21 +424,73 @@ public class ChangeEvent extends Entity {
 	}
 	
 	/**
-	 * 获得 下一个审批节点ID<br>
-	 * 下一个审批节点ID
-	 * @return 下一个审批节点ID
+	 * 获得 审批意见<br>
+	 * 审批意见
+	 * @return 审批意见
 	*/
-	public String getNextNodeId() {
-		return nextNodeId;
+	public String getOpinion() {
+		return opinion;
 	}
 	
 	/**
-	 * 设置 下一个审批节点ID
-	 * @param nextNodeId 下一个审批节点ID
+	 * 设置 审批意见
+	 * @param opinion 审批意见
 	 * @return 当前对象
 	*/
-	public ChangeEvent setNextNodeId(String nextNodeId) {
-		this.nextNodeId=nextNodeId;
+	public ChangeEvent setOpinion(String opinion) {
+		this.opinion=opinion;
+		return this;
+	}
+	
+	/**
+	 * 获得 审批动作<br>
+	 * 审批动作
+	 * @return 审批动作
+	*/
+	public String getApproveAction() {
+		return approveAction;
+	}
+	
+	/**
+	 * 获得 审批动作 的投影属性<br>
+	 * 等价于 getApproveAction 方法，获得对应的枚举类型
+	 * @return 审批动作
+	*/
+	@Transient
+	public ApprovalAction getApproveActionEnum() {
+		if(this.approveActionEnum==null) {
+			this.approveActionEnum = (ApprovalAction) EnumUtil.parseByCode(ApprovalAction.values(),approveAction);
+		}
+		return this.approveActionEnum ;
+	}
+	
+	/**
+	 * 设置 审批动作
+	 * @param approveAction 审批动作
+	 * @return 当前对象
+	*/
+	public ChangeEvent setApproveAction(String approveAction) {
+		this.approveAction=approveAction;
+		this.approveActionEnum= (ApprovalAction) EnumUtil.parseByCode(ApprovalAction.values(),approveAction) ;
+		if(StringUtil.hasContent(approveAction) && this.approveActionEnum==null) {
+			throw new IllegalArgumentException( approveAction + " is not one of ApprovalAction");
+		}
+		return this;
+	}
+	
+	/**
+	 * 设置 审批动作的投影属性，等同于设置 审批动作
+	 * @param approveActionEnum 审批动作
+	 * @return 当前对象
+	*/
+	@Transient
+	public ChangeEvent setApproveActionEnum(ApprovalAction approveActionEnum) {
+		if(approveActionEnum==null) {
+			this.setApproveAction(null);
+		} else {
+			this.setApproveAction(approveActionEnum.code());
+		}
+		this.approveActionEnum=approveActionEnum;
 		return this;
 	}
 	
@@ -401,17 +499,17 @@ public class ChangeEvent extends Entity {
 	 * 用逗号隔开
 	 * @return 下一个审批节点审批人账户ID
 	*/
-	public String getNextNodeApproverIds() {
-		return nextNodeApproverIds;
+	public String getSimpleNextApproverIds() {
+		return simpleNextApproverIds;
 	}
 	
 	/**
 	 * 设置 下一个审批节点审批人账户ID
-	 * @param nextNodeApproverIds 下一个审批节点审批人账户ID
+	 * @param simpleNextApproverIds 下一个审批节点审批人账户ID
 	 * @return 当前对象
 	*/
-	public ChangeEvent setNextNodeApproverIds(String nextNodeApproverIds) {
-		this.nextNodeApproverIds=nextNodeApproverIds;
+	public ChangeEvent setSimpleNextApproverIds(String simpleNextApproverIds) {
+		this.simpleNextApproverIds=simpleNextApproverIds;
 		return this;
 	}
 	
@@ -420,17 +518,17 @@ public class ChangeEvent extends Entity {
 	 * 用逗号隔开
 	 * @return 下一个审批节点审批人姓名
 	*/
-	public String getNextNodeApproverNames() {
-		return nextNodeApproverNames;
+	public String getSimpleNextApproverNames() {
+		return simpleNextApproverNames;
 	}
 	
 	/**
 	 * 设置 下一个审批节点审批人姓名
-	 * @param nextNodeApproverNames 下一个审批节点审批人姓名
+	 * @param simpleNextApproverNames 下一个审批节点审批人姓名
 	 * @return 当前对象
 	*/
-	public ChangeEvent setNextNodeApproverNames(String nextNodeApproverNames) {
-		this.nextNodeApproverNames=nextNodeApproverNames;
+	public ChangeEvent setSimpleNextApproverNames(String simpleNextApproverNames) {
+		this.simpleNextApproverNames=simpleNextApproverNames;
 		return this;
 	}
 	
@@ -450,6 +548,25 @@ public class ChangeEvent extends Entity {
 	*/
 	public ChangeEvent setSuccess(Integer success) {
 		this.success=success;
+		return this;
+	}
+	
+	/**
+	 * 获得 错误信息<br>
+	 * 错误信息
+	 * @return 错误信息
+	*/
+	public String getErrors() {
+		return errors;
+	}
+	
+	/**
+	 * 设置 错误信息
+	 * @param errors 错误信息
+	 * @return 当前对象
+	*/
+	public ChangeEvent setErrors(String errors) {
+		this.errors=errors;
 		return this;
 	}
 	
@@ -602,6 +719,25 @@ public class ChangeEvent extends Entity {
 	*/
 	public ChangeEvent setVersion(Integer version) {
 		this.version=version;
+		return this;
+	}
+	
+	/**
+	 * 获得 简单模式的节点ID<br>
+	 * 简单模式的节点ID
+	 * @return 简单模式的节点ID
+	*/
+	public String getSimpleNodeId() {
+		return simpleNodeId;
+	}
+	
+	/**
+	 * 设置 简单模式的节点ID
+	 * @param simpleNodeId 简单模式的节点ID
+	 * @return 当前对象
+	*/
+	public ChangeEvent setSimpleNodeId(String simpleNodeId) {
+		this.simpleNodeId=simpleNodeId;
 		return this;
 	}
 	

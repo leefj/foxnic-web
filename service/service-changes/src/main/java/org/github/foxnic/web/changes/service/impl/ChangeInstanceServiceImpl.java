@@ -5,9 +5,10 @@ import com.alibaba.fastjson.JSON;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.commons.collection.CollectorUtil;
+import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.entity.Entity;
 import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.dao.excel.ExcelStructure;
 import com.github.foxnic.dao.excel.ExcelWriter;
@@ -15,16 +16,14 @@ import com.github.foxnic.dao.excel.ValidateResult;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
-import org.github.foxnic.web.changes.service.IChangeDataService;
-import org.github.foxnic.web.changes.service.IChangeDefinitionService;
-import org.github.foxnic.web.changes.service.IChangeEventService;
-import org.github.foxnic.web.changes.service.IChangeInstanceService;
-import org.github.foxnic.web.constants.enums.changes.ChangeEventType;
-import org.github.foxnic.web.constants.enums.changes.ChangeStatus;
+import org.github.foxnic.web.changes.service.*;
+import org.github.foxnic.web.constants.enums.changes.*;
 import org.github.foxnic.web.domain.changes.*;
+import org.github.foxnic.web.domain.hrm.Employee;
 import org.github.foxnic.web.framework.cache.RedisUtil;
 import org.github.foxnic.web.framework.change.ChangesAssistant;
 import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.github.foxnic.web.proxy.hrm.EmployeeServiceProxy;
 import org.github.foxnic.web.session.SessionUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,10 +33,7 @@ import javax.annotation.Resource;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <p>
@@ -71,6 +67,9 @@ public class ChangeInstanceServiceImpl extends SuperService<ChangeInstance> impl
 
 	@Autowired
 	private IChangeDataService dataService;
+
+	@Autowired
+	private IChangeBillService billService;
 	
 	@Override
 	public Object generateId(Field field) {
@@ -273,76 +272,170 @@ public class ChangeInstanceServiceImpl extends SuperService<ChangeInstance> impl
 		return super.importExcel(input,sheetIndex,batch);
 	}
 
-
+	/**
+	 * 发起变更请求
+	 * */
 	@Override
 	@Transactional
-	public Result<ChangeInstance> request(ChangeRequestBody request) {
-		Result<ChangeInstance> result=new Result<>();
+	public Result<ChangeEvent> request(ChangeRequestBody request) {
+		Result<ChangeEvent> result=new Result<>();
+
+		if(StringUtil.isBlank(request.getApproverId()) || StringUtil.isBlank(request.getApproverName())) {
+			result.success(false).message("未指定当前审批人");
+			//
+			return result;
+		}
+
+		String simpleNodeId=IDGenerator.getSnowflakeIdString();
+
+		ChangeEvent event=new ChangeEvent();
+		event.setNotifyTime(new Timestamp(System.currentTimeMillis()));
+		event.setApproverId(request.getApproverId());
+		event.setApproverName(request.getApproverName());
+		event.setRequestData(JSON.toJSONString(request));
+		event.setOpinion(request.getOpinion());
+		event.setSimpleNodeId(simpleNodeId);
 
 		ChangeDefinition definition=definitionService.getByCode(request.getChangeDefinitionCode());
 		if(definition==null) {
 			result.success(false).message("变更 "+request.getChangeDefinitionCode()+" 未定义");
+			//
+			event.setEventTypeEnum(ApprovalEventType.internal_error);
+			event.setSuccess(0);
+			event.setErrors(JSON.toJSONString(result));
+			eventService.insert(event);
+			//
 			return result;
 		}
 
+		if(definition.getValid()==0) {
+			result.success(false).message("变更 "+request.getChangeDefinitionCode()+" 未启用");
+			//
+			event.setEventTypeEnum(ApprovalEventType.internal_error);
+			event.setSuccess(0);
+			event.setErrors(JSON.toJSONString(result));
+			eventService.insert(event);
+			//
+			return result;
+		}
+
+		if(definition.getModeEnum()== ApprovalMode.bpm) {
+			result.success(false).message("暂不支持流程引擎模式");
+			return result;
+		}
+
+		if(definition.getModeEnum() == ApprovalMode.simple && request.getDataAfter().size()>1) {
+			result.success(false).message("简单模式不是单据的合并审批");
+			return result;
+		}
+
+		//设置默认审批人
+		if(request.getNextNodeApproverIds()==null) {
+			String defaultApproverIds=definition.getSimpleApproverIds();
+			if(defaultApproverIds!=null) {
+				request.setNextNodeApproverIds(Arrays.asList(defaultApproverIds.split(",")));
+			}
+		}
+
+		//审批人判断
+		if(request.getNextNodeApproverIds()==null || request.getNextNodeApproverIds().isEmpty()) {
+			result.success(false).message("未指定审批人");
+			//
+			event.setEventTypeEnum(ApprovalEventType.internal_error);
+			event.setSuccess(0);
+			event.setErrors(JSON.toJSONString(result));
+			eventService.insert(event);
+			//
+			return result;
+		}
+
+		//转换审批人
+		Result<List<Employee>> employeeResult=EmployeeServiceProxy.api().getByIds(request.getNextNodeApproverIds());
+		if(employeeResult.failure()) {
+			return result.success(false).message(employeeResult.message());
+		}
+		Map<String,String> empNames= CollectorUtil.collectMap(employeeResult.data(),Employee::getId,(emp)->{
+			if(emp.getPerson()!=null) return emp.getPerson().getName();
+			return emp.getId();
+		});
+		List<String> nextNodeApproverNames=new ArrayList<>();
+		for (String id : request.getNextNodeApproverIds()) {
+			String name=empNames.get(id);
+			if(name!=null) nextNodeApproverNames.add(name);
+			else nextNodeApproverNames.add(id);
+		}
+		event.setSimpleNextApproverIds(StringUtil.join(request.getNextNodeApproverIds()));
+		event.setSimpleNextApproverNames(StringUtil.join(nextNodeApproverNames,","));
+
+
+		//设置变更实例
 		ChangeInstance instance=new ChangeInstance();
 		instance.setDefinitionId(definition.getId());
-		instance.setStatusEnum(ChangeStatus.approving);
+		instance.setMode(definition.getMode());
+		instance.setStatusEnum(ApprovalStatus.approving);
 		instance.setTypeEnum(request.getType());
 		instance.setStartTime(request.getStartTime());
+		instance.setDrafterId(request.getApproverId());
+		instance.setDrafterName(request.getApproverName());
+
+
+		if(instance.getModeEnum()==ApprovalMode.simple) {
+			instance.setSimpleNodeId(simpleNodeId);
+			instance.setSimpleApproveLogic(definition.getSimpleApprovalLogic());
+			instance.setSimpleNextApproverIds(event.getSimpleNextApproverIds());
+			instance.setSimpleNextApproverNames(event.getSimpleNextApproverNames());
+		}
 		//
 		Result cr=this.insert(instance);
+		if(cr.failure()) {
+			return cr;
+		}
 
+		ChangeBill changeBill=new ChangeBill();
+		for (String billId : request.getBillIds()) {
+			changeBill.setInstanceId(instance.getId());
+			changeBill.setBillId(billId);
+			billService.insert(changeBill);
+		}
 
 		//保存变更前的数据
 		if(request.getDataBefore()!=null && !request.getDataBefore().isEmpty()) {
-			Map<String, List<? extends Entity>> dataMap=request.getDataBefore();
-			List<ChangeData> dataBefore=new ArrayList<>();
-			for (Map.Entry<String, List<? extends Entity>> e : dataMap.entrySet()) {
-				ChangeData changeData=new ChangeData();
-				changeData.setDataType(e.getKey());
-				changeData.setData(JSON.toJSONString(e.getValue()));
-				changeData.setInstanceId(instance.getId());
-				changeData.setTimePoint(0);
-				dataService.insert(changeData);
-				dataBefore.add(changeData);
-			}
-			instance.setDataBefore(dataBefore);
+			ChangeData changeData=new ChangeData();
+			changeData.setDataType(request.getDataType());
+			changeData.setData(JSON.toJSONString(request.getDataBefore()));
+			changeData.setInstanceId(instance.getId());
+			changeData.setTimePoint(0);
+			dataService.insert(changeData);
+			instance.setDataBefore(changeData);
 		}
 		//保存变更后的数据
 		if(request.getDataAfter()!=null && !request.getDataAfter().isEmpty()) {
-			Map<String, List<? extends Entity>> dataMap=request.getDataAfter();
-			List<ChangeData> dataAfter=new ArrayList<>();
-			for (Map.Entry<String, List<? extends Entity>> e : dataMap.entrySet()) {
-				ChangeData changeData=new ChangeData();
-				changeData.setDataType(e.getKey());
-				changeData.setData(JSON.toJSONString(e.getValue()));
-				changeData.setInstanceId(instance.getId());
-				changeData.setTimePoint(1);
-				dataService.insert(changeData);
-				dataAfter.add(changeData);
-			}
-			instance.setDataAfter(dataAfter);
+
+			ChangeData changeData=new ChangeData();
+			changeData.setDataType(request.getDataType());
+			changeData.setData(JSON.toJSONString(request.getDataAfter()));
+			changeData.setInstanceId(instance.getId());
+			changeData.setTimePoint(1);
+			dataService.insert(changeData);
+			instance.setDataAfter(changeData);
 		}
 
 
 		if(cr.success()) {
-			ChangeEvent event=new ChangeEvent();
 			event.setNotifyTime(new Timestamp(System.currentTimeMillis()));
 			event.setInstanceId(instance.getId());
-			event.setEventTypeEnum(ChangeEventType.create_success);
+			event.setEventTypeEnum(ApprovalEventType.create_success);
+			event.setApproveActionEnum(ApprovalAction.submit);
 			event.setInstance(instance);
 			event.setDefinition(definition);
 			event.setApproverId(SessionUser.getCurrent().getUserId());
 			event.setApproverName(SessionUser.getCurrent().getRealName());
-			String notifyData= JSON.toJSONString(event);
-			event.setNotifyData(notifyData);
+			event.setNotifyData(JSON.toJSONString(event));
 			Result er=eventService.insert(event);
-			event.setNotifyData(null);
 			if(er.failure()) {
-				return er;
+				throw new RuntimeException("保存变更事件失败");
 			}
-			//
+			//通过redis发送变更事件
 			boolean suc=redis.set(ChangesAssistant.CHANGES_NOTIFY_PREFIX+event.getId(),event,ChangesAssistant.EXPIRE_SECONDS);
 			if(suc) {
 				redis.notifyDataChange(ChangesAssistant.CHANGES_CHANNEL_EVENT_PREFIX + event.getId());
@@ -354,8 +447,156 @@ public class ChangeInstanceServiceImpl extends SuperService<ChangeInstance> impl
 			return result;
 		}
 		//
-		result.success(true).data(instance);
+		result.success(true).data(event);
 		return result;
+	}
+
+	@Override
+	public Result<ChangeEvent> approve(ChangeApproveBody request) {
+
+		Result<ChangeEvent> result=new Result<>();
+
+		ChangeInstance instance=this.getById(request.getChangeInstanceId());
+		if(instance==null) {
+			return result.success(false).message("流程实例不存在");
+		}
+
+		ChangeDefinition definition=definitionService.getByCode(request.getChangeDefinitionCode());
+
+		ChangeEvent event=new ChangeEvent();
+		event.setNotifyTime(new Timestamp(System.currentTimeMillis()));
+		event.setApproverId(request.getApproverId());
+		event.setApproverName(request.getApproverName());
+		event.setRequestData(JSON.toJSONString(request));
+		event.setNotifyTime(new Timestamp(System.currentTimeMillis()));
+		event.setInstanceId(instance.getId());
+		event.setEventTypeEnum(ApprovalEventType.revoke_success);
+		event.setInstance(instance);
+		event.setApproveActionEnum(request.getApprovalAction());
+		event.setDefinition(definition);
+		event.setApproverId(SessionUser.getCurrent().getUserId());
+		event.setApproverName(SessionUser.getCurrent().getRealName());
+		event.setNotifyData(JSON.toJSONString(event));
+		event.setOpinion(request.getOpinion());
+
+		List<String> nextApproverIds = Arrays.asList(instance.getSimpleNextApproverIds().split(","));
+
+		String simpleNodeId=IDGenerator.getSnowflakeIdString();
+
+		//撤回
+		if(request.getApprovalAction()== ApprovalAction.revoke) {
+			//检查当前状态:可撤回审批中的流程，其它状态的不可撤回
+			if(instance.getStatusEnum() != ApprovalStatus.approving) {
+				return result.success(false).message("当前审批状态无法撤回流程");
+			}
+			//可操作人判定
+			if(!instance.getDrafterId().equals(request.getApproverId())){
+				return result.success(false).message("您不是当前审批的起草人，无权撤回流程");
+			}
+			//切换节点
+			event.setSimpleNodeId(simpleNodeId);
+			instance.setSimpleNodeId(simpleNodeId);
+			//设置审批动作后的状态
+			instance.setStatusEnum(ApprovalStatus.drafting);
+			this.updateDirtyFields(instance);
+		}
+		//废弃
+		if(request.getApprovalAction()== ApprovalAction.abandon) {
+			//检查当前状态:已废弃、已通过的 不允许废弃
+			if(instance.getStatusEnum() == ApprovalStatus.abandoned || instance.getStatusEnum() == ApprovalStatus.passed) {
+				return result.success(false).message("当前审批状态无法废弃流程");
+			}
+			//可操作人判定
+			if(!instance.getDrafterId().equals(request.getApproverId())){
+				return result.success(false).message("您不是当前审批的起草人，无权废弃流程");
+			}
+			//切换节点
+			event.setSimpleNodeId(simpleNodeId);
+			instance.setSimpleNodeId(simpleNodeId);
+			//设置审批动作后的状态
+			instance.setStatusEnum(ApprovalStatus.abandoned);
+			this.updateDirtyFields(instance);
+		}
+
+		//驳回
+		if(request.getApprovalAction()== ApprovalAction.reject) {
+			//检查当前状态:已废弃、已通过的 不允许废弃
+			if(instance.getStatusEnum() != ApprovalStatus.approving) {
+				return result.success(false).message("当前审批状态无法驳回");
+			}
+			//可操作人判定
+			if(!nextApproverIds.contains(request.getApproverId())) {
+				return result.success(false).message("您不是当前审批人，不允许驳回");
+			}
+			//切换节点
+			event.setSimpleNodeId(simpleNodeId);
+			instance.setSimpleNodeId(simpleNodeId);
+			//设置审批动作后的状态
+			instance.setStatusEnum(ApprovalStatus.rejected);
+			this.updateDirtyFields(instance);
+		}
+
+		//驳回
+		if(request.getApprovalAction()== ApprovalAction.submit) {
+			//检查当前状态:已废弃、已通过的 不允许废弃
+			if(instance.getStatusEnum() != ApprovalStatus.approving && instance.getStatusEnum() != ApprovalStatus.rejected) {
+				return result.success(false).message("当前审批状态无法提交");
+			}
+			//可操作人判定
+			if(!instance.getDrafterId().equals(request.getApproverId())){
+				return result.success(false).message("您不是当前审批的起草人，无权再次提交流程");
+			}
+			//切换节点
+			event.setSimpleNodeId(simpleNodeId);
+			instance.setSimpleNodeId(simpleNodeId);
+			//设置审批动作后的状态
+			instance.setStatusEnum(ApprovalStatus.approving);
+			this.updateDirtyFields(instance);
+		}
+
+		//同意
+		if(request.getApprovalAction()== ApprovalAction.agree) {
+			//检查当前状态:不是审批中的不允许同意
+			if(instance.getStatusEnum() != ApprovalStatus.approving) {
+				return result.success(false).message("当前审批状态无法同意");
+			}
+			//可操作人判定
+			if(!nextApproverIds.contains(request.getApproverId())) {
+				return result.success(false).message("您不是当前审批人，不允许同意");
+			}
+
+			if(instance.getSimpleApproveLogicEnum()== ApprovalLogic.any) {
+				//切换节点
+				event.setSimpleNodeId(simpleNodeId);
+				instance.setSimpleNodeId(simpleNodeId);
+				//设置审批动作后的状态
+				instance.setStatusEnum(ApprovalStatus.passed);
+			} else if(instance.getSimpleApproveLogicEnum()== ApprovalLogic.all) {
+				//检查是否全员通过
+				List<ChangeEvent> events=eventService.queryList(
+						ChangeEvent.create()
+							.setInstanceId(instance.getId())
+							.setSimpleNodeId(instance.getSimpleNodeId())
+							.setApproveActionEnum(ApprovalAction.agree)
+				);
+				List<String> agreedApproverIds = CollectorUtil.collectList(events,ChangeEvent::getApproverId);
+				nextApproverIds.removeAll(agreedApproverIds);
+				if(nextApproverIds.isEmpty()){
+					//切换节点
+					event.setSimpleNodeId(simpleNodeId);
+					instance.setSimpleNodeId(simpleNodeId);
+					//设置审批动作后的状态
+					instance.setStatusEnum(ApprovalStatus.passed);
+				}
+			}
+			this.updateDirtyFields(instance);
+		}
+
+		//
+		Result er=eventService.insert(event);
+		if(er.failure()) return er;
+		//
+		return result.success(true).data(event);
 	}
 
 	@Override

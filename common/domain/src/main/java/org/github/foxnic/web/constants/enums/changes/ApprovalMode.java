@@ -3,11 +3,14 @@ package org.github.foxnic.web.constants.enums.changes;
 import com.github.foxnic.api.constant.CodeTextEnum;
 import com.github.foxnic.commons.reflect.EnumUtil;
 
-public enum ChangeEventType implements CodeTextEnum {
-	create_success("创建成功"),create_failure("创建失败");
+/**
+ * 审批状态
+ * */
+public enum ApprovalMode implements CodeTextEnum {
+	simple("简单模式"),bpm("流程引擎");
 
 	private String text;
-	private ChangeEventType(String text)  {
+	private ApprovalMode(String text)  {
 		this.text=text;
 	}
 	
@@ -19,8 +22,8 @@ public enum ChangeEventType implements CodeTextEnum {
 		return text;
 	}
 
-	public static ChangeEventType parseByCode(String code) {
-		return (ChangeEventType) EnumUtil.parseByCode(ChangeEventType.values(),code);
+	public static ApprovalMode parseByCode(String code) {
+		return (ApprovalMode) EnumUtil.parseByCode(ApprovalMode.values(),code);
 	}
 
 }

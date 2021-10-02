@@ -3,20 +3,26 @@ package org.github.foxnic.web.domain.changes;
 import com.github.foxnic.dao.entity.Entity;
 import org.github.foxnic.web.constants.enums.changes.ChangeType;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ChangeRequestBody {
 
     private String changeDefinitionCode;
     private ChangeType type;
     private Date startTime=new Date();
+    private String dataType;
 
-    private Map<String,List<? extends Entity>> dataBefore=new HashMap<>();
-    private Map<String,List<? extends Entity>> dataAfter=new HashMap<>();
+    private List<? extends Entity> dataBefore=new ArrayList<>();
+    private List<? extends Entity> dataAfter=new ArrayList<>();
 
+    private List<String> nextNodeApproverIds;
+
+    private String approverId;
+    private String approverName;
+
+    private List<String> billIds;
+
+    private String opinion;
 
     public ChangeRequestBody(String changeDefinitionCode, ChangeType type) {
         this.changeDefinitionCode = changeDefinitionCode;
@@ -27,19 +33,27 @@ public class ChangeRequestBody {
         return changeDefinitionCode;
     }
 
-    public void setDataBefore(Class<? extends Entity> dataType, List<? extends Entity> list) {
-        dataBefore.put(dataType.getName(),list);
+    public void setDataBefore(List<? extends Entity> list) {
+        dataBefore=list;
     }
 
-    public void setDataAfter(Class<? extends Entity> dataType, List<? extends Entity> list) {
-        dataAfter.put(dataType.getName(),list);
+    public void setDataAfter(List<? extends Entity> list) {
+        dataAfter=list;
     }
 
-    public Map<String, List<? extends Entity>> getDataBefore() {
+    public void setDataBefore(Entity entity) {
+        dataBefore=Arrays.asList(entity);
+    }
+
+    public void setDataAfter(Entity entity) {
+        dataAfter=Arrays.asList(entity);
+    }
+
+    public List<? extends Entity> getDataBefore() {
         return dataBefore;
     }
 
-    public Map<String, List<? extends Entity>> getDataAfter() {
+    public List<? extends Entity> getDataAfter() {
         return dataAfter;
     }
 
@@ -55,4 +69,52 @@ public class ChangeRequestBody {
         this.startTime = startTime;
     }
 
+
+    public List<String> getNextNodeApproverIds() {
+        return nextNodeApproverIds;
+    }
+
+    public void setNextNodeApproverIds(List<String> nextNodeApproverIds) {
+        this.nextNodeApproverIds = nextNodeApproverIds;
+    }
+
+    public String getApproverId() {
+        return approverId;
+    }
+
+    public void setApproverId(String approverId) {
+        this.approverId = approverId;
+    }
+
+    public String getApproverName() {
+        return approverName;
+    }
+
+    public void setApproverName(String approverName) {
+        this.approverName = approverName;
+    }
+
+    public List<String> getBillIds() {
+        return billIds;
+    }
+
+    public void setBillIds(List<String> billIds) {
+        this.billIds = billIds;
+    }
+
+    public void setDataType(Class<? extends Entity> dataType) {
+        this.dataType = dataType.getName();
+    }
+
+    public String getDataType() {
+        return dataType;
+    }
+
+    public String getOpinion() {
+        return opinion;
+    }
+
+    public void setOpinion(String opinion) {
+        this.opinion = opinion;
+    }
 }

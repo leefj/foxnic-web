@@ -1,7 +1,7 @@
 /**
  * 变更实例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-01 02:53:26
+ * @since 2021-10-02 20:13:17
  */
 
 
@@ -75,6 +75,9 @@ function ListPage() {
 					{ fixed: 'left',type:'checkbox' }
 					,{ field: 'id', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('主键') , templet: function (d) { return templet('id',d.id,d);}  }
 					,{ field: 'definitionId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('变更定义ID') , templet: function (d) { return templet('definitionId',d.definitionId,d);}  }
+					,{ field: 'mode', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('审批模式') , templet: function (d) { return templet('mode',d.mode,d);}  }
+					,{ field: 'drafterId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('起草人ID') , templet: function (d) { return templet('drafterId',d.drafterId,d);}  }
+					,{ field: 'drafterName', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('起草人姓名') , templet: function (d) { return templet('drafterName',d.drafterName,d);}  }
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }}
 					,{ field: 'status', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('变更状态') , templet: function (d) { return templet('status',d.status,d);}  }
 					,{ field: 'type', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('变更类型') , templet: function (d) { return templet('type',d.type,d);}  }
@@ -83,6 +86,10 @@ function ListPage() {
 					,{ field: 'processSummary', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('流程概要') , templet: function (d) { return templet('processSummary',d.processSummary,d);}  }
 					,{ field: 'startTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('变更开始时间'), templet: function (d) { return templet('startTime',fox.dateFormat(d.startTime,"yyyy-MM-dd HH:mm:ss"),d); }}
 					,{ field: 'finishTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('变更结束时间'), templet: function (d) { return templet('finishTime',fox.dateFormat(d.finishTime,"yyyy-MM-dd HH:mm:ss"),d); }}
+					,{ field: 'simpleNextApproverIds', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('下一个审批节点审批人账户ID') , templet: function (d) { return templet('simpleNextApproverIds',d.simpleNextApproverIds,d);}  }
+					,{ field: 'simpleNextApproverNames', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('下一个审批节点审批人姓名') , templet: function (d) { return templet('simpleNextApproverNames',d.simpleNextApproverNames,d);}  }
+					,{ field: 'simpleApproveLogic', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('下一节点审批逻辑') , templet: function (d) { return templet('simpleApproveLogic',d.simpleApproveLogic,d);}  }
+					,{ field: 'simpleNodeId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('简单模式的节点ID') , templet: function (d) { return templet('simpleNodeId',d.simpleNodeId,d);}  }
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
 				]],
@@ -119,6 +126,9 @@ function ListPage() {
 		var value = {};
 		value.id={ inputType:"button",value: $("#id").val()};
 		value.definitionId={ inputType:"button",value: $("#definitionId").val()};
+		value.mode={ inputType:"button",value: $("#mode").val()};
+		value.drafterId={ inputType:"button",value: $("#drafterId").val()};
+		value.drafterName={ inputType:"button",value: $("#drafterName").val()};
 		value.status={ inputType:"button",value: $("#status").val()};
 		value.type={ inputType:"button",value: $("#type").val()};
 		value.processId={ inputType:"button",value: $("#processId").val()};
@@ -126,6 +136,10 @@ function ListPage() {
 		value.processSummary={ inputType:"button",value: $("#processSummary").val()};
 		value.startTime={ inputType:"date_input", value: $("#startTime").val()};
 		value.finishTime={ inputType:"date_input", value: $("#finishTime").val()};
+		value.simpleNextApproverIds={ inputType:"button",value: $("#simpleNextApproverIds").val()};
+		value.simpleNextApproverNames={ inputType:"button",value: $("#simpleNextApproverNames").val()};
+		value.simpleApproveLogic={ inputType:"button",value: $("#simpleApproveLogic").val()};
+		value.simpleNodeId={ inputType:"button",value: $("#simpleNodeId").val()};
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;

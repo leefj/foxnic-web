@@ -2,7 +2,7 @@
 /**
  * 变更实例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-01 02:53:26
+ * @since 2021-10-02 20:13:17
  */
  -->
  <!DOCTYPE html>
@@ -49,6 +49,27 @@
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('变更定义ID')}">变更定义ID</div></div>
                         <div class="layui-input-block layui-input-block-c1">
                             <input lay-filter="definitionId" id="definitionId" name="definitionId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('变更定义ID') }" type="text" class="layui-input"  />
+                        </div>
+                    </div>
+
+                                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('审批模式')}">审批模式</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input lay-filter="mode" id="mode" name="mode" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('审批模式') }" type="text" class="layui-input"  />
+                        </div>
+                    </div>
+
+                                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('起草人ID')}">起草人ID</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input lay-filter="drafterId" id="drafterId" name="drafterId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('起草人ID') }" type="text" class="layui-input"  />
+                        </div>
+                    </div>
+
+                                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('起草人姓名')}">起草人姓名</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input lay-filter="drafterName" id="drafterName" name="drafterName" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('起草人姓名') }" type="text" class="layui-input"  />
                         </div>
                     </div>
 
@@ -100,6 +121,34 @@
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('变更结束时间')}">变更结束时间</div></div>
                         <div class="layui-input-block layui-input-block-c1">
                             <input input-type="date" lay-filter="finishTime" id="finishTime" name="finishTime"  autocomplete="off"  readonly  th:placeholder="${ lang.translate('请选择') +''+ lang.translate('变更结束时间') }" type="text" class="layui-input"   />
+                        </div>
+                    </div>
+
+                                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('下一个审批节点审批人账户ID')}">下一个审批节点审批人账户ID</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input lay-filter="simpleNextApproverIds" id="simpleNextApproverIds" name="simpleNextApproverIds" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('下一个审批节点审批人账户ID') }" type="text" class="layui-input"  />
+                        </div>
+                    </div>
+
+                                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('下一个审批节点审批人姓名')}">下一个审批节点审批人姓名</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input lay-filter="simpleNextApproverNames" id="simpleNextApproverNames" name="simpleNextApproverNames" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('下一个审批节点审批人姓名') }" type="text" class="layui-input"  />
+                        </div>
+                    </div>
+
+                                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('下一节点审批逻辑')}">下一节点审批逻辑</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input lay-filter="simpleApproveLogic" id="simpleApproveLogic" name="simpleApproveLogic" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('下一节点审批逻辑') }" type="text" class="layui-input"  />
+                        </div>
+                    </div>
+
+                                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('简单模式的节点ID')}">简单模式的节点ID</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input lay-filter="simpleNodeId" id="simpleNodeId" name="simpleNodeId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('简单模式的节点ID') }" type="text" class="layui-input"  />
                         </div>
                     </div>
 

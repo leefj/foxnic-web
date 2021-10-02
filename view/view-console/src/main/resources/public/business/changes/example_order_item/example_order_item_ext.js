@@ -30,7 +30,9 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
                 //在订单明细种取出订单表格刷新函数，执行刷新
                 var fn=admin.getTempData("refresh-example-order");
                 fn();
-            })
+            });
+
+
         },
         /**
          * 表格渲染前调用
@@ -72,13 +74,21 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
         beforeQuery:function (conditions,param,location) {
             console.log('beforeQuery',conditions,param,location);
             conditions.orderId=admin.getTempData("example-order-id");
+
             return true;
         },
         /**
          * 查询结果渲染后调用
          * */
         afterQuery : function (data) {
-
+            var order=admin.getTempData("example-order");
+            if(order.chsStatus=="approving" || order.chsStatus=="pass") {
+                fox.disableButton($('.ops-delete-button'), true);
+                fox.disableButton($('.ops-edit-button'), true);
+                fox.disableButton($('.ops-edit-button'), true);
+                fox.disableButton($('#add-button'), true);
+                fox.disableButton($('#delete-button'), true);
+            }
         },
         /**
          * 进一步转换 list 数据

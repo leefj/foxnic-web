@@ -7,6 +7,8 @@ import com.github.foxnic.generator.builder.view.option.ListOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.CHS_CHANGE_DEFINITION;
+import org.github.foxnic.web.constants.enums.changes.ApprovalLogic;
+import org.github.foxnic.web.constants.enums.changes.ApprovalMode;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
 
@@ -18,7 +20,7 @@ public class ChsChangeDefinitionConfig extends BaseCodeConfig<CHS_CHANGE_DEFINIT
 
 	@Override
 	public void configModel(PoClassFile poType, VoClassFile voType) {
-
+		poType.shadow(CHS_CHANGE_DEFINITION.MODE,ApprovalMode.class);
 	}
 
 	@Override
@@ -26,7 +28,18 @@ public class ChsChangeDefinitionConfig extends BaseCodeConfig<CHS_CHANGE_DEFINIT
 		view.field(CHS_CHANGE_DEFINITION.ID).basic().hidden();
 		view.field(CHS_CHANGE_DEFINITION.VALID).form().logicField().on("有效",1).off("无效",0).defaultValue(true)
 		.search().hidden();
-		view.field(CHS_CHANGE_DEFINITION.HANDLER).search().hidden();
+		view.field(CHS_CHANGE_DEFINITION.SIMPLE_HANDLER).basic().hidden();
+		view.field(CHS_CHANGE_DEFINITION.MODE).form().radioBox().enumType(ApprovalMode.class).defaultValue(ApprovalMode.simple);
+		view.field(CHS_CHANGE_DEFINITION.SIMPLE_APPROVER_IDS)
+			.table().hidden()
+			.search().hidden()
+			.form().button().chooseEmployee(false);
+		;
+		view.field(CHS_CHANGE_DEFINITION.SIMPLE_APPROVAL_LOGIC)
+			.table().hidden()
+			.search().hidden()
+			.form().radioBox().enumType(ApprovalLogic.class).defaultValue(ApprovalLogic.any)
+		;
 
 	}
 

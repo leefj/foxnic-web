@@ -2,7 +2,7 @@
 /**
  * 变更实例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-01 02:53:26
+ * @since 2021-10-02 20:13:17
  */
  -->
  <!DOCTYPE html>
@@ -44,6 +44,21 @@
                         <div class="search-label-div" style=""><span th:text="${lang.translate('变更定义ID')}" class="search-label definitionId-label">变更定义ID</span><span class="search-colon">:</span></div>
                         <input id="definitionId" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
+                    <!-- 审批模式 , mode ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('审批模式')}" class="search-label mode-label">审批模式</span><span class="search-colon">:</span></div>
+                        <input id="mode" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 起草人ID , drafterId ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('起草人ID')}" class="search-label drafterId-label">起草人ID</span><span class="search-colon">:</span></div>
+                        <input id="drafterId" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 起草人姓名 , drafterName ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('起草人姓名')}" class="search-label drafterName-label">起草人姓名</span><span class="search-colon">:</span></div>
+                        <input id="drafterName" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
                     <!-- 变更状态 , status ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('变更状态')}" class="search-label status-label">变更状态</span><span class="search-colon">:</span></div>
@@ -78,6 +93,26 @@
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('变更结束时间')}" class="search-label finishTime-label">变更结束时间</span><span class="search-colon">:</span></div>
                             <input type="text" id="finishTime"  style="width: 140px"  lay-verify="date" th:placeholder="${lang.translate('请选择')}" autocomplete="off" class="layui-input search-input search-date-input" readonly>
+                    </div>
+                    <!-- 下一个审批节点审批人账户ID , simpleNextApproverIds ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('下一个审批节点审批人账户ID')}" class="search-label simpleNextApproverIds-label">下一个审批节点审批人账户ID</span><span class="search-colon">:</span></div>
+                        <input id="simpleNextApproverIds" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 下一个审批节点审批人姓名 , simpleNextApproverNames ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('下一个审批节点审批人姓名')}" class="search-label simpleNextApproverNames-label">下一个审批节点审批人姓名</span><span class="search-colon">:</span></div>
+                        <input id="simpleNextApproverNames" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 下一节点审批逻辑 , simpleApproveLogic ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('下一节点审批逻辑')}" class="search-label simpleApproveLogic-label">下一节点审批逻辑</span><span class="search-colon">:</span></div>
+                        <input id="simpleApproveLogic" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 简单模式的节点ID , simpleNodeId ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('简单模式的节点ID')}" class="search-label simpleNodeId-label">简单模式的节点ID</span><span class="search-colon">:</span></div>
+                        <input id="simpleNodeId" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
 
 

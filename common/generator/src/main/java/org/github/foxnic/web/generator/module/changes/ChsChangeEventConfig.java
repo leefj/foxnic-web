@@ -6,7 +6,8 @@ import com.github.foxnic.generator.builder.view.option.ListOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.CHS_CHANGE_EVENT;
-import org.github.foxnic.web.constants.enums.changes.ChangeEventType;
+import org.github.foxnic.web.constants.enums.changes.ApprovalAction;
+import org.github.foxnic.web.constants.enums.changes.ApprovalEventType;
 import org.github.foxnic.web.domain.changes.ChangeDefinition;
 import org.github.foxnic.web.domain.changes.ChangeInstance;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
@@ -22,7 +23,8 @@ public class ChsChangeEventConfig extends BaseCodeConfig<CHS_CHANGE_EVENT> {
 	public void configModel(PoClassFile poType, VoClassFile voType) {
 		poType.addSimpleProperty(ChangeDefinition.class,"definition","变更定义","");
 		poType.addSimpleProperty(ChangeInstance.class,"instance","变更实例","");
-		poType.shadow(CHS_CHANGE_EVENT.EVENT_TYPE, ChangeEventType.class);
+		poType.shadow(CHS_CHANGE_EVENT.EVENT_TYPE, ApprovalEventType.class);
+		poType.shadow(CHS_CHANGE_EVENT.APPROVE_ACTION, ApprovalAction.class);
 	}
 
 	@Override

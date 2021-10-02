@@ -11,8 +11,8 @@ import org.github.foxnic.web.domain.changes.ChangeInstance;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-01 02:53:28
- * @sign 4E4C6B68202F809CC0F4F107C9AF7F84
+ * @since 2021-10-02 20:13:19
+ * @sign ED8F1BFCD67A9A6A0F3CEAF96B646A60
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -39,14 +39,24 @@ public class ChangeEventMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeEvent,java.lang.String> INSTANCE_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeEvent.class ,INSTANCE_ID, java.lang.String.class, "变更ID", "变更ID", java.lang.String.class, null);
 	
 	/**
-	 * 实体类名 , 类型: java.lang.String
+	 * 事件类型 , 类型: java.lang.String
 	*/
 	public static final String EVENT_TYPE="eventType";
 	
 	/**
-	 * 实体类名 , 类型: java.lang.String
+	 * 事件类型 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeEvent,java.lang.String> EVENT_TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeEvent.class ,EVENT_TYPE, java.lang.String.class, "实体类名", "实体类名", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeEvent,java.lang.String> EVENT_TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeEvent.class ,EVENT_TYPE, java.lang.String.class, "事件类型", "事件类型", java.lang.String.class, null);
+	
+	/**
+	 * 请求的数据 , 类型: java.lang.String
+	*/
+	public static final String REQUEST_DATA="requestData";
+	
+	/**
+	 * 请求的数据 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeEvent,java.lang.String> REQUEST_DATA_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeEvent.class ,REQUEST_DATA, java.lang.String.class, "请求的数据", "请求的数据", java.lang.String.class, null);
 	
 	/**
 	 * 通知发送时间 , 类型: java.sql.Timestamp
@@ -69,14 +79,14 @@ public class ChangeEventMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeEvent,java.lang.String> NOTIFY_DATA_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeEvent.class ,NOTIFY_DATA, java.lang.String.class, "数据", "通知到消费方的数据，JSON格式", java.lang.String.class, null);
 	
 	/**
-	 * 相应的数据 , 类型: java.lang.String
+	 * 响应的数据 , 类型: java.lang.String
 	*/
 	public static final String RESPONSE_DATA="responseData";
 	
 	/**
-	 * 相应的数据 , 类型: java.lang.String
+	 * 响应的数据 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeEvent,java.lang.String> RESPONSE_DATA_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeEvent.class ,RESPONSE_DATA, java.lang.String.class, "相应的数据", "相应的数据", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeEvent,java.lang.String> RESPONSE_DATA_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeEvent.class ,RESPONSE_DATA, java.lang.String.class, "响应的数据", "响应的数据", java.lang.String.class, null);
 	
 	/**
 	 * 回调接收时间 , 类型: java.sql.Timestamp
@@ -109,34 +119,44 @@ public class ChangeEventMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeEvent,java.lang.String> APPROVER_NAME_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeEvent.class ,APPROVER_NAME, java.lang.String.class, "审批人姓名", "执行操作的人的姓名", java.lang.String.class, null);
 	
 	/**
-	 * 下一个审批节点ID , 类型: java.lang.String
+	 * 审批意见 , 类型: java.lang.String
 	*/
-	public static final String NEXT_NODE_ID="nextNodeId";
+	public static final String OPINION="opinion";
 	
 	/**
-	 * 下一个审批节点ID , 类型: java.lang.String
+	 * 审批意见 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeEvent,java.lang.String> NEXT_NODE_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeEvent.class ,NEXT_NODE_ID, java.lang.String.class, "下一个审批节点ID", "下一个审批节点ID", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeEvent,java.lang.String> OPINION_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeEvent.class ,OPINION, java.lang.String.class, "审批意见", "审批意见", java.lang.String.class, null);
+	
+	/**
+	 * 审批动作 , 类型: java.lang.String
+	*/
+	public static final String APPROVE_ACTION="approveAction";
+	
+	/**
+	 * 审批动作 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeEvent,java.lang.String> APPROVE_ACTION_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeEvent.class ,APPROVE_ACTION, java.lang.String.class, "审批动作", "审批动作", java.lang.String.class, null);
 	
 	/**
 	 * 下一个审批节点审批人账户ID , 用逗号隔开 , 类型: java.lang.String
 	*/
-	public static final String NEXT_NODE_APPROVER_IDS="nextNodeApproverIds";
+	public static final String SIMPLE_NEXT_APPROVER_IDS="simpleNextApproverIds";
 	
 	/**
 	 * 下一个审批节点审批人账户ID , 用逗号隔开 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeEvent,java.lang.String> NEXT_NODE_APPROVER_IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeEvent.class ,NEXT_NODE_APPROVER_IDS, java.lang.String.class, "下一个审批节点审批人账户ID", "用逗号隔开", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeEvent,java.lang.String> SIMPLE_NEXT_APPROVER_IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeEvent.class ,SIMPLE_NEXT_APPROVER_IDS, java.lang.String.class, "下一个审批节点审批人账户ID", "用逗号隔开", java.lang.String.class, null);
 	
 	/**
 	 * 下一个审批节点审批人姓名 , 用逗号隔开 , 类型: java.lang.String
 	*/
-	public static final String NEXT_NODE_APPROVER_NAMES="nextNodeApproverNames";
+	public static final String SIMPLE_NEXT_APPROVER_NAMES="simpleNextApproverNames";
 	
 	/**
 	 * 下一个审批节点审批人姓名 , 用逗号隔开 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeEvent,java.lang.String> NEXT_NODE_APPROVER_NAMES_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeEvent.class ,NEXT_NODE_APPROVER_NAMES, java.lang.String.class, "下一个审批节点审批人姓名", "用逗号隔开", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeEvent,java.lang.String> SIMPLE_NEXT_APPROVER_NAMES_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeEvent.class ,SIMPLE_NEXT_APPROVER_NAMES, java.lang.String.class, "下一个审批节点审批人姓名", "用逗号隔开", java.lang.String.class, null);
 	
 	/**
 	 * 是否成功 , 失败时查看 response_data , 类型: java.lang.Integer
@@ -147,6 +167,16 @@ public class ChangeEventMeta {
 	 * 是否成功 , 失败时查看 response_data , 类型: java.lang.Integer
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeEvent,java.lang.Integer> SUCCESS_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeEvent.class ,SUCCESS, java.lang.Integer.class, "是否成功", "失败时查看 response_data", java.lang.Integer.class, null);
+	
+	/**
+	 * 错误信息 , 类型: java.lang.String
+	*/
+	public static final String ERRORS="errors";
+	
+	/**
+	 * 错误信息 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeEvent,java.lang.String> ERRORS_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeEvent.class ,ERRORS, java.lang.String.class, "错误信息", "错误信息", java.lang.String.class, null);
 	
 	/**
 	 * 创建人ID , 类型: java.lang.String
@@ -229,6 +259,16 @@ public class ChangeEventMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeEvent,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeEvent.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
+	 * 简单模式的节点ID , 类型: java.lang.String
+	*/
+	public static final String SIMPLE_NODE_ID="simpleNodeId";
+	
+	/**
+	 * 简单模式的节点ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeEvent,java.lang.String> SIMPLE_NODE_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeEvent.class ,SIMPLE_NODE_ID, java.lang.String.class, "简单模式的节点ID", "简单模式的节点ID", java.lang.String.class, null);
+	
+	/**
 	 * 变更定义 , 类型: org.github.foxnic.web.domain.changes.ChangeDefinition
 	*/
 	public static final String DEFINITION="definition";
@@ -251,7 +291,7 @@ public class ChangeEventMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , INSTANCE_ID , EVENT_TYPE , NOTIFY_TIME , NOTIFY_DATA , RESPONSE_DATA , RESPONSE_TIME , APPROVER_ID , APPROVER_NAME , NEXT_NODE_ID , NEXT_NODE_APPROVER_IDS , NEXT_NODE_APPROVER_NAMES , SUCCESS , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , DEFINITION , INSTANCE };
+	public static final String[] $PROPS={ ID , INSTANCE_ID , EVENT_TYPE , REQUEST_DATA , NOTIFY_TIME , NOTIFY_DATA , RESPONSE_DATA , RESPONSE_TIME , APPROVER_ID , APPROVER_NAME , OPINION , APPROVE_ACTION , SIMPLE_NEXT_APPROVER_IDS , SIMPLE_NEXT_APPROVER_NAMES , SUCCESS , ERRORS , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , SIMPLE_NODE_ID , DEFINITION , INSTANCE };
 	
 	/**
 	 * 代理类
@@ -284,13 +324,24 @@ public class ChangeEventMeta {
 		}
 		
 		/**
-		 * 设置 实体类名
-		 * @param eventType 实体类名
+		 * 设置 事件类型
+		 * @param eventType 事件类型
 		 * @return 当前对象
 		*/
 		public ChangeEvent setEventType(String eventType) {
 			super.change(EVENT_TYPE,super.getEventType(),eventType);
 			super.setEventType(eventType);
+			return this;
+		}
+		
+		/**
+		 * 设置 请求的数据
+		 * @param requestData 请求的数据
+		 * @return 当前对象
+		*/
+		public ChangeEvent setRequestData(String requestData) {
+			super.change(REQUEST_DATA,super.getRequestData(),requestData);
+			super.setRequestData(requestData);
 			return this;
 		}
 		
@@ -317,8 +368,8 @@ public class ChangeEventMeta {
 		}
 		
 		/**
-		 * 设置 相应的数据
-		 * @param responseData 相应的数据
+		 * 设置 响应的数据
+		 * @param responseData 响应的数据
 		 * @return 当前对象
 		*/
 		public ChangeEvent setResponseData(String responseData) {
@@ -361,35 +412,46 @@ public class ChangeEventMeta {
 		}
 		
 		/**
-		 * 设置 下一个审批节点ID
-		 * @param nextNodeId 下一个审批节点ID
+		 * 设置 审批意见
+		 * @param opinion 审批意见
 		 * @return 当前对象
 		*/
-		public ChangeEvent setNextNodeId(String nextNodeId) {
-			super.change(NEXT_NODE_ID,super.getNextNodeId(),nextNodeId);
-			super.setNextNodeId(nextNodeId);
+		public ChangeEvent setOpinion(String opinion) {
+			super.change(OPINION,super.getOpinion(),opinion);
+			super.setOpinion(opinion);
+			return this;
+		}
+		
+		/**
+		 * 设置 审批动作
+		 * @param approveAction 审批动作
+		 * @return 当前对象
+		*/
+		public ChangeEvent setApproveAction(String approveAction) {
+			super.change(APPROVE_ACTION,super.getApproveAction(),approveAction);
+			super.setApproveAction(approveAction);
 			return this;
 		}
 		
 		/**
 		 * 设置 下一个审批节点审批人账户ID
-		 * @param nextNodeApproverIds 下一个审批节点审批人账户ID
+		 * @param simpleNextApproverIds 下一个审批节点审批人账户ID
 		 * @return 当前对象
 		*/
-		public ChangeEvent setNextNodeApproverIds(String nextNodeApproverIds) {
-			super.change(NEXT_NODE_APPROVER_IDS,super.getNextNodeApproverIds(),nextNodeApproverIds);
-			super.setNextNodeApproverIds(nextNodeApproverIds);
+		public ChangeEvent setSimpleNextApproverIds(String simpleNextApproverIds) {
+			super.change(SIMPLE_NEXT_APPROVER_IDS,super.getSimpleNextApproverIds(),simpleNextApproverIds);
+			super.setSimpleNextApproverIds(simpleNextApproverIds);
 			return this;
 		}
 		
 		/**
 		 * 设置 下一个审批节点审批人姓名
-		 * @param nextNodeApproverNames 下一个审批节点审批人姓名
+		 * @param simpleNextApproverNames 下一个审批节点审批人姓名
 		 * @return 当前对象
 		*/
-		public ChangeEvent setNextNodeApproverNames(String nextNodeApproverNames) {
-			super.change(NEXT_NODE_APPROVER_NAMES,super.getNextNodeApproverNames(),nextNodeApproverNames);
-			super.setNextNodeApproverNames(nextNodeApproverNames);
+		public ChangeEvent setSimpleNextApproverNames(String simpleNextApproverNames) {
+			super.change(SIMPLE_NEXT_APPROVER_NAMES,super.getSimpleNextApproverNames(),simpleNextApproverNames);
+			super.setSimpleNextApproverNames(simpleNextApproverNames);
 			return this;
 		}
 		
@@ -401,6 +463,17 @@ public class ChangeEventMeta {
 		public ChangeEvent setSuccess(Integer success) {
 			super.change(SUCCESS,super.getSuccess(),success);
 			super.setSuccess(success);
+			return this;
+		}
+		
+		/**
+		 * 设置 错误信息
+		 * @param errors 错误信息
+		 * @return 当前对象
+		*/
+		public ChangeEvent setErrors(String errors) {
+			super.change(ERRORS,super.getErrors(),errors);
+			super.setErrors(errors);
 			return this;
 		}
 		
@@ -489,6 +562,17 @@ public class ChangeEventMeta {
 		public ChangeEvent setVersion(Integer version) {
 			super.change(VERSION,super.getVersion(),version);
 			super.setVersion(version);
+			return this;
+		}
+		
+		/**
+		 * 设置 简单模式的节点ID
+		 * @param simpleNodeId 简单模式的节点ID
+		 * @return 当前对象
+		*/
+		public ChangeEvent setSimpleNodeId(String simpleNodeId) {
+			super.change(SIMPLE_NODE_ID,super.getSimpleNodeId(),simpleNodeId);
+			super.setSimpleNodeId(simpleNodeId);
 			return this;
 		}
 		

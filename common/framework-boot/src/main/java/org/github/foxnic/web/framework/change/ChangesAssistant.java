@@ -4,7 +4,8 @@ import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.reflect.ReflectUtil;
 import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.dao.spec.DAO;
-import org.github.foxnic.web.domain.changes.ChangeInstance;
+import org.github.foxnic.web.domain.changes.ChangeApproveBody;
+import org.github.foxnic.web.domain.changes.ChangeEvent;
 import org.github.foxnic.web.domain.changes.ChangeRequestBody;
 
 import java.lang.reflect.Method;
@@ -21,36 +22,51 @@ public class ChangesAssistant {
     private static final String PROXY_NAME="org.github.foxnic.web.proxy.changes.ChangeInstanceServiceProxy";
 
     private DAO dao;
-    private Object proxy;
-    private Method methodRequest=null;
+    private static Object proxy;
+    private static Method methodRequest=null;
+    private static Method methodApprove=null;
 
     /**
      * 从变更主表对用的 Service 创建变更工具
      * */
     public ChangesAssistant(SuperService service) {
         this.dao=service.dao();
-        Class proxyType= ReflectUtil.forName(PROXY_NAME);
-        try {
-            Method api=proxyType.getDeclaredMethod("api");
-            proxy= api.invoke(null);
-            methodRequest=proxy.getClass().getMethod("request", ChangeRequestBody.class);
-        } catch (Exception e) {
-            throw new IllegalArgumentException(e);
+        if(proxy==null) {
+            Class proxyType = ReflectUtil.forName(PROXY_NAME);
+            try {
+                Method api = proxyType.getDeclaredMethod("api");
+                proxy = api.invoke(null);
+                methodRequest = proxy.getClass().getMethod("request", ChangeRequestBody.class);
+                methodApprove = proxy.getClass().getMethod("approve", ChangeApproveBody.class);
+            } catch (Exception e) {
+                throw new IllegalArgumentException(e);
+            }
         }
     }
 
     /**
      * 启动变更
      * */
-    public Result request(ChangeRequestBody request) {
-        Result<ChangeInstance>  result = null;
+    public Result<ChangeEvent> request(ChangeRequestBody request) {
+        Result<ChangeEvent>  result = null;
         try {
-            result = (Result<ChangeInstance>)methodRequest.invoke(proxy,request);
+            result = (Result<ChangeEvent>)methodRequest.invoke(proxy,request);
             return result;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-
+    /**
+     * 变更审批
+     * */
+    public Result<ChangeEvent> approve(ChangeApproveBody approveBody) {
+        Result<ChangeEvent>  result = null;
+        try {
+            result = (Result<ChangeEvent>)methodApprove.invoke(proxy,approveBody);
+            return result;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

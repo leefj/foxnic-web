@@ -2,9 +2,7 @@ package org.github.foxnic.web.proxy.changes;
 
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
-import org.github.foxnic.web.domain.changes.ChangeInstance;
-import org.github.foxnic.web.domain.changes.ChangeInstanceVO;
-import org.github.foxnic.web.domain.changes.ChangeRequestBody;
+import org.github.foxnic.web.domain.changes.*;
 import org.github.foxnic.web.proxy.FeignConfiguration;
 import org.github.foxnic.web.proxy.MicroServiceNames;
 import org.github.foxnic.web.proxy.api.APIProxy;
@@ -49,6 +47,11 @@ public interface ChangeInstanceServiceProxy {
 	 * 请求变更
 	 */
 	public static final String REQUEST = API_PREFIX + "request";
+
+	/**
+	 * 变更审批
+	 */
+	public static final String APPROVE = API_PREFIX + "approve";
 	
 	/**
 	 * 删除变更实例
@@ -105,12 +108,18 @@ public interface ChangeInstanceServiceProxy {
 	 * 导入变更实例数据(Excel)
 	 */
 	public static final String IMPORT_EXCEL = API_PREFIX + "import-excel";
-	
+
 	/**
 	 * 请求变更
-	*/
+	 */
 	@RequestMapping(ChangeInstanceServiceProxy.REQUEST)
-	Result<ChangeInstance> request(ChangeRequestBody request);
+	Result<ChangeEvent> request(ChangeRequestBody request);
+
+	/**
+	 * 变更审批
+	 */
+	@RequestMapping(ChangeInstanceServiceProxy.APPROVE)
+	Result<ChangeEvent> approve(ChangeApproveBody request);
 	
 	/**
 	 * 删除变更实例

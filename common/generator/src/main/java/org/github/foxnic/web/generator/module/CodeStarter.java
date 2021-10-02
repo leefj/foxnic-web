@@ -41,6 +41,7 @@ public class CodeStarter extends ModuleCodeGenerator {
         this.addConfig(new ChsExampleOrderConfig());
         this.addConfig(new ChsExampleOrderItemConfig());
         this.addConfig(new ChsChangeEventConfig());
+        this.addConfig(new ChsInstanceBillConfig());
     }
 
     private void initPcmModules() {

@@ -238,7 +238,7 @@ public class CatalogController extends SuperController {
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { CatalogVOMeta.PAGE_INDEX , CatalogVOMeta.PAGE_SIZE } )
 	@SentinelResource(value = CatalogServiceProxy.QUERY_NODES_FLATTEN , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(CatalogServiceProxy.QUERY_NODES_FLATTEN)
-	Result<List<ZTreeNode>> queryNodesFlatten(CatalogVO sample) {
+	public Result<List<ZTreeNode>> queryNodesFlatten(CatalogVO sample) {
 		Result<List<ZTreeNode>> result=new Result<>();
 		List<ZTreeNode> list=catalogService.queryNodesFlatten(sample);
 		result.data(list);

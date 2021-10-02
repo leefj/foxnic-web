@@ -2,7 +2,7 @@
 /**
  * 变更事件 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-01 02:53:28
+ * @since 2021-10-02 20:13:19
  */
  -->
  <!DOCTYPE html>
@@ -53,11 +53,20 @@
                     </div>
 
                                     <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('实体类名')}">实体类名</div></div>
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('事件类型')}">事件类型</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="eventType" id="eventType" name="eventType" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('实体类名') }" type="text" class="layui-input"  />
+                            <input lay-filter="eventType" id="eventType" name="eventType" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('事件类型') }" type="text" class="layui-input"  />
                         </div>
                     </div>
+
+                
+                    <div class="layui-form-item" >
+                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('请求的数据')}">请求的数据</div></div>
+                    <div class="layui-input-block layui-input-block-c1">
+                        <textarea lay-filter="requestData" id="requestData" name="requestData" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('请求的数据') }" class="layui-textarea" style="height: 120px" ></textarea>
+                    </div>
+                </div>
+
 
                 
                     <div class="layui-form-item" >
@@ -78,9 +87,9 @@
 
                 
                     <div class="layui-form-item" >
-                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('相应的数据')}">相应的数据</div></div>
+                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('响应的数据')}">响应的数据</div></div>
                     <div class="layui-input-block layui-input-block-c1">
-                        <textarea lay-filter="responseData" id="responseData" name="responseData" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('相应的数据') }" class="layui-textarea" style="height: 120px" ></textarea>
+                        <textarea lay-filter="responseData" id="responseData" name="responseData" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('响应的数据') }" class="layui-textarea" style="height: 120px" ></textarea>
                     </div>
                 </div>
 
@@ -107,24 +116,33 @@
                         </div>
                     </div>
 
+                
+                    <div class="layui-form-item" >
+                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('审批意见')}">审批意见</div></div>
+                    <div class="layui-input-block layui-input-block-c1">
+                        <textarea lay-filter="opinion" id="opinion" name="opinion" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('审批意见') }" class="layui-textarea" style="height: 120px" ></textarea>
+                    </div>
+                </div>
+
+
                                     <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('下一个审批节点ID')}">下一个审批节点ID</div></div>
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('审批动作')}">审批动作</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="nextNodeId" id="nextNodeId" name="nextNodeId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('下一个审批节点ID') }" type="text" class="layui-input"  />
+                            <input lay-filter="approveAction" id="approveAction" name="approveAction" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('审批动作') }" type="text" class="layui-input"  />
                         </div>
                     </div>
 
                                     <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('下一个审批节点审批人账户ID')}">下一个审批节点审批人账户ID</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="nextNodeApproverIds" id="nextNodeApproverIds" name="nextNodeApproverIds" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('下一个审批节点审批人账户ID') }" type="text" class="layui-input"  />
+                            <input lay-filter="simpleNextApproverIds" id="simpleNextApproverIds" name="simpleNextApproverIds" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('下一个审批节点审批人账户ID') }" type="text" class="layui-input"  />
                         </div>
                     </div>
 
                                     <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('下一个审批节点审批人姓名')}">下一个审批节点审批人姓名</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="nextNodeApproverNames" id="nextNodeApproverNames" name="nextNodeApproverNames" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('下一个审批节点审批人姓名') }" type="text" class="layui-input"  />
+                            <input lay-filter="simpleNextApproverNames" id="simpleNextApproverNames" name="simpleNextApproverNames" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('下一个审批节点审批人姓名') }" type="text" class="layui-input"  />
                         </div>
                     </div>
 
@@ -136,6 +154,22 @@
                         </div>
                     </div>
 
+
+                
+                    <div class="layui-form-item" >
+                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('错误信息')}">错误信息</div></div>
+                    <div class="layui-input-block layui-input-block-c1">
+                        <textarea lay-filter="errors" id="errors" name="errors" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('错误信息') }" class="layui-textarea" style="height: 120px" ></textarea>
+                    </div>
+                </div>
+
+
+                                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('简单模式的节点ID')}">简单模式的节点ID</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input lay-filter="simpleNodeId" id="simpleNodeId" name="simpleNodeId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('简单模式的节点ID') }" type="text" class="layui-input"  />
+                        </div>
+                    </div>
 
                 <!--结束：栏次内字段循环-->
             </div>

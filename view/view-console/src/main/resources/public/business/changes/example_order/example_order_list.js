@@ -1,7 +1,7 @@
 /**
  * 变更示例订单 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-01 03:24:16
+ * @since 2021-10-02 20:35:02
  */
 
 
@@ -85,14 +85,12 @@ function ListPage() {
 					,{ field: 'chsVersion', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('版本') , templet: function (d) { return templet('chsVersion',d.chsVersion,d);}  }
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }}
 					,{ field: 'sourceId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('来源ID') , templet: function (d) { return templet('sourceId',d.sourceId,d);}  }
-					,{ field: 'chsId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('变更ID') , templet: function (d) { return templet('chsId',d.chsId,d);}  }
-					,{ field: 'procId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('流程ID') , templet: function (d) { return templet('procId',d.procId,d);}  }
-					,{ field: 'procSummary', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('流程概要') , templet: function (d) { return templet('procSummary',d.procSummary,d);}  }
-					,{ field: 'procNodeSummary', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('审批节点概要') , templet: function (d) { return templet('procNodeSummary',d.procNodeSummary,d);}  }
+					,{ field: 'changeInstanceId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('变更ID') , templet: function (d) { return templet('changeInstanceId',d.changeInstanceId,d);}  }
+					,{ field: 'summary', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('流程概要') , templet: function (d) { return templet('summary',d.summary,d);}  }
 					,{ field: 'latestApproverId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('最后审批人') , templet: function (d) { return templet('latestApproverId',d.latestApproverId,d);}  }
-					,{ field: 'nextNodeApproverIds', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('下一节点审批人') , templet: function (d) { return templet('nextNodeApproverIds',d.nextNodeApproverIds,d);}  }
-					,{ field: 'nextNodeApproverNames', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('下一审批人') , templet: function (d) { return templet('nextNodeApproverNames',d.nextNodeApproverNames,d);}  }
 					,{ field: 'latestApproverName', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('最后审批人姓名') , templet: function (d) { return templet('latestApproverName',d.latestApproverName,d);}  }
+					,{ field: 'nextApproverIds', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('下一节点审批人') , templet: function (d) { return templet('nextApproverIds',d.nextApproverIds,d);}  }
+					,{ field: 'nextApproverNames', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('下一审批人') , templet: function (d) { return templet('nextApproverNames',d.nextApproverNames,d);}  }
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
 				]],
@@ -252,8 +250,23 @@ function ListPage() {
 				case 'batch-del':
 					batchDelete(selected);
 					break;
-				case 'tool-start-change':
-					window.pageExt.list.startChange && window.pageExt.list.startChange(selected,obj);
+				case 'tool-draft-process':
+					window.pageExt.list.draftProcess && window.pageExt.list.draftProcess(selected,obj);
+					break;
+				case 'tool-start-process':
+					window.pageExt.list.startProcess && window.pageExt.list.startProcess(selected,obj);
+					break;
+				case 'tool-revoke-process':
+					window.pageExt.list.revokeProcess && window.pageExt.list.revokeProcess(selected,obj);
+					break;
+				case 'tool-abandon-process':
+					window.pageExt.list.abandonProcess && window.pageExt.list.abandonProcess(selected,obj);
+					break;
+				case 'tool-agree-node':
+					window.pageExt.list.agreeNode && window.pageExt.list.agreeNode(selected,obj);
+					break;
+				case 'tool-reject-node':
+					window.pageExt.list.rejectNode && window.pageExt.list.rejectNode(selected,obj);
 					break;
 				case 'refresh-data':
 					refreshTableData();

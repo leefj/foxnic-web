@@ -2,7 +2,7 @@
 /**
  * 变更示例订单 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-01 03:24:16
+ * @since 2021-10-02 20:35:02
  */
  -->
  <!DOCTYPE html>
@@ -104,7 +104,7 @@
                 <div class="layui-form-item" style="display: none">
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('变更状态')}">变更状态</div></div>
                     <div class="layui-input-block layui-input-block-c1">
-                        <input input-type="radio" type="radio" name="chsStatus" lay-filter="chsStatus" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.changes.ChangeStatus')}" th:value="${e.code}" th:title="${e.text}" th:checked="${(e.code=='' || stat.index==-1)?'yes':'no'}">
+                        <input input-type="radio" type="radio" name="chsStatus" lay-filter="chsStatus" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.changes.ApprovalStatus')}" th:value="${e.code}" th:title="${e.text}" th:checked="${(e.code=='' || stat.index==-1)?'yes':'no'}">
                     </div>
                 </div>
 
@@ -128,28 +128,14 @@
                                     <div class="layui-form-item" style="display: none">
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('变更ID')}">变更ID</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="chsId" id="chsId" name="chsId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('变更ID') }" type="text" class="layui-input"  />
-                        </div>
-                    </div>
-
-                                    <div class="layui-form-item" style="display: none">
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('流程ID')}">流程ID</div></div>
-                        <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="procId" id="procId" name="procId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('流程ID') }" type="text" class="layui-input"  />
+                            <input lay-filter="changeInstanceId" id="changeInstanceId" name="changeInstanceId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('变更ID') }" type="text" class="layui-input"  />
                         </div>
                     </div>
 
                                     <div class="layui-form-item" style="display: none">
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('流程概要')}">流程概要</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="procSummary" id="procSummary" name="procSummary" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('流程概要') }" type="text" class="layui-input"  />
-                        </div>
-                    </div>
-
-                                    <div class="layui-form-item" style="display: none">
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('审批节点概要')}">审批节点概要</div></div>
-                        <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="procNodeSummary" id="procNodeSummary" name="procNodeSummary" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('审批节点概要') }" type="text" class="layui-input"  />
+                            <input lay-filter="summary" id="summary" name="summary" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('流程概要') }" type="text" class="layui-input"  />
                         </div>
                     </div>
 
@@ -161,23 +147,23 @@
                     </div>
 
                                     <div class="layui-form-item" style="display: none">
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('最后审批人姓名')}">最后审批人姓名</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input lay-filter="latestApproverName" id="latestApproverName" name="latestApproverName" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('最后审批人姓名') }" type="text" class="layui-input"  />
+                        </div>
+                    </div>
+
+                                    <div class="layui-form-item" style="display: none">
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('下一节点审批人')}">下一节点审批人</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="nextNodeApproverIds" id="nextNodeApproverIds" name="nextNodeApproverIds" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('下一节点审批人') }" type="text" class="layui-input"  />
+                            <input lay-filter="nextApproverIds" id="nextApproverIds" name="nextApproverIds" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('下一节点审批人') }" type="text" class="layui-input"  />
                         </div>
                     </div>
 
                                     <div class="layui-form-item" style="display: none">
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('下一审批人')}">下一审批人</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="nextNodeApproverNames" id="nextNodeApproverNames" name="nextNodeApproverNames" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('下一审批人') }" type="text" class="layui-input"  />
-                        </div>
-                    </div>
-
-                                    <div class="layui-form-item" style="display: none">
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('最后审批人姓名')}">最后审批人姓名</div></div>
-                        <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="latestApproverName" id="latestApproverName" name="latestApproverName" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('最后审批人姓名') }" type="text" class="layui-input"  />
+                            <input lay-filter="nextApproverNames" id="nextApproverNames" name="nextApproverNames" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('下一审批人') }" type="text" class="layui-input"  />
                         </div>
                     </div>
 
@@ -208,7 +194,7 @@
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];
     var RADIO_CHSTYPE_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.changes.ChangeType')}]];
-    var RADIO_CHSSTATUS_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.changes.ChangeStatus')}]];
+    var RADIO_CHSSTATUS_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.changes.ApprovalStatus')}]];
     var VALIDATE_CONFIG={"orderTime":{"date":true,"labelInForm":"下单时间","inputType":"date_input"}};
     var AUTH_PREFIX="chs_example_order";
 

@@ -21,7 +21,7 @@ import com.github.foxnic.dao.data.SaveMode;
  * 变更事件表 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-01 02:53:28
+ * @since 2021-10-02 20:13:19
 */
 
 public interface IChangeEventService extends ISuperService<ChangeEvent> {

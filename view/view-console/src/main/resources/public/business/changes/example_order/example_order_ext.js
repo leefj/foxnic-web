@@ -69,6 +69,15 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * 查询结果渲染后调用
          * */
         afterQuery : function (data) {
+            // debugger
+            for (var i = 0; i < data.length; i++) {
+                //如果审批中或审批通过的不允许编辑
+                if(data[i].chsStatus=="approving" || data[i].chsStatus=="pass" || data[i].chsStatus=="abandoned") {
+                    fox.disableButton($('.ops-delete-button').filter("[data-id='" + data[i].id + "']"), true);
+                    fox.disableButton($('.ops-edit-button').filter("[data-id='" + data[i].id + "']"), true);
+                    fox.disableButton($('.ops-edit-button').filter("[data-id='" + data[i].id + "']"), true);
+                }
+            }
 
         },
         /**
@@ -130,22 +139,104 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
         moreAction:function (menu,data, it){
             console.log('moreAction',menu,data,it);
         },
-        startChange:function (selected,it){
+        startProcess:function (selected,it){
             console.log('startChange',selected,it);
             if(selected==null || selected.length==0) {
                 top.layer.msg("请勾选待审订单",{time:1000});
                 return;
             }
-            admin.post("/service-changes/chs-example-order/start-approve",selected,function (r){
+            var changeInstanceIds=window.module.getCheckedList("changeInstanceId");
+            var startFlag=true;
+            var changeInstanceIdCount=0;
+            for (var i = 0; i < changeInstanceIds.length; i++) {
+                if(changeInstanceIds[i]){
+                    changeInstanceIdCount++;
+                }
+            }
+            if(changeInstanceIdCount!=0 && changeInstanceIdCount!=changeInstanceIds.length){
+                top.layer.msg("您选择的审批单据流程状态不一致，无法提交流程",{time:2000});
+                return;
+            }
+
+            if(changeInstanceIdCount==changeInstanceIds.length){
+                this.submitProcess();
+                return;
+            }
+
+
+            admin.post("/service-changes/chs-example-order/start-process",{billIds:selected,opinion:"请领导批准！"},function (r){
                 if(r.success) {
                     top.layer.msg("采购订单已提交审批",{time:1000});
                     window.module.refreshTableData();
                 } else {
-                    top.layer.msg(r.message,{time:1000});
+                    var errs=[];
+                    for (var i = 0; i < r.errors.length; i++) {
+                      if(errs.indexOf(r.errors[i].message)==-1) {
+                          errs.push(r.errors[i].message);
+                      }
+                    }
+                    top.layer.msg((selected.length>errs.length?"部分订单提交失败:<br>":"订单提交失败:<br>")+errs.join("<br>"),{time:2000});
                 }
             },{delayLoading:500,elms:[$("button")]});
 
         },
+        draftProcess:function (selected,it){
+
+            admin.post("/service-changes/chs-example-order/draft",{billIds:selected,opinion:"起草！"},function (r){
+                if(r.success) {
+                    top.layer.msg("采购订单已处于变更起草状态",{time:1000});
+                    window.module.refreshTableData();
+                } else {
+                    var errs=[];
+                    for (var i = 0; i < r.errors.length; i++) {
+                        if(errs.indexOf(r.errors[i].message)==-1) {
+                            errs.push(r.errors[i].message);
+                        }
+                    }
+                    top.layer.msg(errs.join("<br>"),{time:2000});
+                }
+            },{delayLoading:500,elms:[$("button")]});
+
+        },
+        submitProcess:function (selected,it){
+            this.approve("submit","修改草稿后再次提交");
+        },
+        revokeProcess:function (selected,it){
+          this.approve("revoke","我要废弃流程");
+        },
+        abandonProcess:function (selected,it){
+            this.approve("abandon","我要撤回流程");
+        },
+        rejectNode:function (selected,it){
+            this.approve("reject","老子不同意");
+        },
+        agreeNode:function (selected,it){
+            this.approve("agree","同意!");
+        },
+        approve:function (approveAction,opinion){
+            console.log('revokeProcess',selected);
+            var selected=window.module.getCheckedList("changeInstanceId");
+            if(selected==null || selected.length==0) {
+                top.layer.msg("请勾选订单",{time:1000});
+                return;
+            }
+            admin.post("/service-changes/chs-example-order/approve",{instanceIds:selected,action:approveAction,opinion:opinion},function (r){
+                if(r.success) {
+                    top.layer.msg("已处理",{time:1000});
+                    window.module.refreshTableData();
+                } else {
+                    var errs=[];
+                    for (var i = 0; i < r.errors.length; i++) {
+                        if(errs.indexOf(r.errors[i].message)==-1) {
+                            errs.push(r.errors[i].message);
+                        }
+                    }
+                    top.layer.msg((selected.length>errs.length?"部分订单提交失败:<br>":"订单提交失败:<br>")+errs.join("<br>"),{time:2000});
+                }
+            },{delayLoading:500,elms:[$("button")]});
+        },
+
+
         openDetails:function (data){
             admin.putTempData("example-order-id",data.id,true);
             var dialogIndex=admin.popupCenter({
@@ -157,6 +248,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
                 area:["600px","80%"]
             });
             admin.putTempData("example-order-details-dialog-index",dialogIndex,true);
+            admin.putTempData("example-order",data,true);
             //把订单表格刷新函数放入缓存
             admin.putTempData("refresh-example-order",window.module.refreshTableData,true);
         },

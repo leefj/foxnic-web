@@ -6,14 +6,14 @@ import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb.CHS_CHANGE_INSTANCE;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.Date;
-import org.github.foxnic.web.constants.enums.changes.ChangeStatus;
+import org.github.foxnic.web.constants.enums.changes.ApprovalMode;
 import javax.persistence.Transient;
+import java.util.Date;
+import org.github.foxnic.web.constants.enums.changes.ApprovalStatus;
 import org.github.foxnic.web.constants.enums.changes.ChangeType;
-import java.util.List;
+import org.github.foxnic.web.constants.enums.changes.ApprovalLogic;
 import com.github.foxnic.commons.reflect.EnumUtil;
 import com.github.foxnic.commons.lang.StringUtil;
-import java.util.ArrayList;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
 
@@ -22,8 +22,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 变更实例
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-01 02:25:44
- * @sign 5ADCE3B012B389153C056CFD62DBD6E2
+ * @since 2021-10-02 20:13:17
+ * @sign 2A35A398DFBBB05ABF93E23279AA4E58
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -46,6 +46,26 @@ public class ChangeInstance extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="变更定义ID" , notes = "变更定义ID")
 	private String definitionId;
+	
+	/**
+	 * 审批模式：审批模式
+	*/
+	@ApiModelProperty(required = false,value="审批模式" , notes = "审批模式")
+	private String mode;
+	@Transient
+	private ApprovalMode modeEnum;
+	
+	/**
+	 * 起草人ID：起草人ID
+	*/
+	@ApiModelProperty(required = false,value="起草人ID" , notes = "起草人ID")
+	private String drafterId;
+	
+	/**
+	 * 起草人姓名：起草人姓名
+	*/
+	@ApiModelProperty(required = false,value="起草人姓名" , notes = "起草人姓名")
+	private String drafterName;
 	
 	/**
 	 * 租户ID：租户ID
@@ -107,7 +127,7 @@ public class ChangeInstance extends Entity {
 	@ApiModelProperty(required = false,value="变更状态" , notes = "变更状态")
 	private String status;
 	@Transient
-	private ChangeStatus statusEnum;
+	private ApprovalStatus statusEnum;
 	
 	/**
 	 * 变更类型：变更类型
@@ -148,16 +168,42 @@ public class ChangeInstance extends Entity {
 	private Date finishTime;
 	
 	/**
+	 * 下一个审批节点审批人账户ID：用逗号隔开,适用简单模式
+	*/
+	@ApiModelProperty(required = false,value="下一个审批节点审批人账户ID" , notes = "用逗号隔开,适用简单模式")
+	private String simpleNextApproverIds;
+	
+	/**
+	 * 下一个审批节点审批人姓名：用逗号隔开,适用简单模式
+	*/
+	@ApiModelProperty(required = false,value="下一个审批节点审批人姓名" , notes = "用逗号隔开,适用简单模式")
+	private String simpleNextApproverNames;
+	
+	/**
+	 * 下一节点审批逻辑：适用简单模式
+	*/
+	@ApiModelProperty(required = false,value="下一节点审批逻辑" , notes = "适用简单模式")
+	private String simpleApproveLogic;
+	@Transient
+	private ApprovalLogic simpleApproveLogicEnum;
+	
+	/**
+	 * 简单模式的节点ID：简单模式的节点ID
+	*/
+	@ApiModelProperty(required = false,value="简单模式的节点ID" , notes = "简单模式的节点ID")
+	private String simpleNodeId;
+	
+	/**
 	 * 变更前的数据：变更前的数据
 	*/
 	@ApiModelProperty(required = false,value="变更前的数据" , notes = "变更前的数据")
-	private List<ChangeData> dataBefore;
+	private ChangeData dataBefore;
 	
 	/**
 	 * 变更后的数据：变更后的数据
 	*/
 	@ApiModelProperty(required = false,value="变更后的数据" , notes = "变更后的数据")
-	private List<ChangeData> dataAfter;
+	private ChangeData dataAfter;
 	
 	/**
 	 * 获得 主键<br>
@@ -194,6 +240,96 @@ public class ChangeInstance extends Entity {
 	*/
 	public ChangeInstance setDefinitionId(String definitionId) {
 		this.definitionId=definitionId;
+		return this;
+	}
+	
+	/**
+	 * 获得 审批模式<br>
+	 * 审批模式
+	 * @return 审批模式
+	*/
+	public String getMode() {
+		return mode;
+	}
+	
+	/**
+	 * 获得 审批模式 的投影属性<br>
+	 * 等价于 getMode 方法，获得对应的枚举类型
+	 * @return 审批模式
+	*/
+	@Transient
+	public ApprovalMode getModeEnum() {
+		if(this.modeEnum==null) {
+			this.modeEnum = (ApprovalMode) EnumUtil.parseByCode(ApprovalMode.values(),mode);
+		}
+		return this.modeEnum ;
+	}
+	
+	/**
+	 * 设置 审批模式
+	 * @param mode 审批模式
+	 * @return 当前对象
+	*/
+	public ChangeInstance setMode(String mode) {
+		this.mode=mode;
+		this.modeEnum= (ApprovalMode) EnumUtil.parseByCode(ApprovalMode.values(),mode) ;
+		if(StringUtil.hasContent(mode) && this.modeEnum==null) {
+			throw new IllegalArgumentException( mode + " is not one of ApprovalMode");
+		}
+		return this;
+	}
+	
+	/**
+	 * 设置 审批模式的投影属性，等同于设置 审批模式
+	 * @param modeEnum 审批模式
+	 * @return 当前对象
+	*/
+	@Transient
+	public ChangeInstance setModeEnum(ApprovalMode modeEnum) {
+		if(modeEnum==null) {
+			this.setMode(null);
+		} else {
+			this.setMode(modeEnum.code());
+		}
+		this.modeEnum=modeEnum;
+		return this;
+	}
+	
+	/**
+	 * 获得 起草人ID<br>
+	 * 起草人ID
+	 * @return 起草人ID
+	*/
+	public String getDrafterId() {
+		return drafterId;
+	}
+	
+	/**
+	 * 设置 起草人ID
+	 * @param drafterId 起草人ID
+	 * @return 当前对象
+	*/
+	public ChangeInstance setDrafterId(String drafterId) {
+		this.drafterId=drafterId;
+		return this;
+	}
+	
+	/**
+	 * 获得 起草人姓名<br>
+	 * 起草人姓名
+	 * @return 起草人姓名
+	*/
+	public String getDrafterName() {
+		return drafterName;
+	}
+	
+	/**
+	 * 设置 起草人姓名
+	 * @param drafterName 起草人姓名
+	 * @return 当前对象
+	*/
+	public ChangeInstance setDrafterName(String drafterName) {
+		this.drafterName=drafterName;
 		return this;
 	}
 	
@@ -383,9 +519,9 @@ public class ChangeInstance extends Entity {
 	 * @return 变更状态
 	*/
 	@Transient
-	public ChangeStatus getStatusEnum() {
+	public ApprovalStatus getStatusEnum() {
 		if(this.statusEnum==null) {
-			this.statusEnum = (ChangeStatus) EnumUtil.parseByCode(ChangeStatus.values(),status);
+			this.statusEnum = (ApprovalStatus) EnumUtil.parseByCode(ApprovalStatus.values(),status);
 		}
 		return this.statusEnum ;
 	}
@@ -397,9 +533,9 @@ public class ChangeInstance extends Entity {
 	*/
 	public ChangeInstance setStatus(String status) {
 		this.status=status;
-		this.statusEnum= (ChangeStatus) EnumUtil.parseByCode(ChangeStatus.values(),status) ;
+		this.statusEnum= (ApprovalStatus) EnumUtil.parseByCode(ApprovalStatus.values(),status) ;
 		if(StringUtil.hasContent(status) && this.statusEnum==null) {
-			throw new IllegalArgumentException( status + " is not one of ChangeStatus");
+			throw new IllegalArgumentException( status + " is not one of ApprovalStatus");
 		}
 		return this;
 	}
@@ -410,7 +546,7 @@ public class ChangeInstance extends Entity {
 	 * @return 当前对象
 	*/
 	@Transient
-	public ChangeInstance setStatusEnum(ChangeStatus statusEnum) {
+	public ChangeInstance setStatusEnum(ApprovalStatus statusEnum) {
 		if(statusEnum==null) {
 			this.setStatus(null);
 		} else {
@@ -568,11 +704,120 @@ public class ChangeInstance extends Entity {
 	}
 	
 	/**
+	 * 获得 下一个审批节点审批人账户ID<br>
+	 * 用逗号隔开,适用简单模式
+	 * @return 下一个审批节点审批人账户ID
+	*/
+	public String getSimpleNextApproverIds() {
+		return simpleNextApproverIds;
+	}
+	
+	/**
+	 * 设置 下一个审批节点审批人账户ID
+	 * @param simpleNextApproverIds 下一个审批节点审批人账户ID
+	 * @return 当前对象
+	*/
+	public ChangeInstance setSimpleNextApproverIds(String simpleNextApproverIds) {
+		this.simpleNextApproverIds=simpleNextApproverIds;
+		return this;
+	}
+	
+	/**
+	 * 获得 下一个审批节点审批人姓名<br>
+	 * 用逗号隔开,适用简单模式
+	 * @return 下一个审批节点审批人姓名
+	*/
+	public String getSimpleNextApproverNames() {
+		return simpleNextApproverNames;
+	}
+	
+	/**
+	 * 设置 下一个审批节点审批人姓名
+	 * @param simpleNextApproverNames 下一个审批节点审批人姓名
+	 * @return 当前对象
+	*/
+	public ChangeInstance setSimpleNextApproverNames(String simpleNextApproverNames) {
+		this.simpleNextApproverNames=simpleNextApproverNames;
+		return this;
+	}
+	
+	/**
+	 * 获得 下一节点审批逻辑<br>
+	 * 适用简单模式
+	 * @return 下一节点审批逻辑
+	*/
+	public String getSimpleApproveLogic() {
+		return simpleApproveLogic;
+	}
+	
+	/**
+	 * 获得 下一节点审批逻辑 的投影属性<br>
+	 * 等价于 getSimpleApproveLogic 方法，获得对应的枚举类型
+	 * @return 下一节点审批逻辑
+	*/
+	@Transient
+	public ApprovalLogic getSimpleApproveLogicEnum() {
+		if(this.simpleApproveLogicEnum==null) {
+			this.simpleApproveLogicEnum = (ApprovalLogic) EnumUtil.parseByCode(ApprovalLogic.values(),simpleApproveLogic);
+		}
+		return this.simpleApproveLogicEnum ;
+	}
+	
+	/**
+	 * 设置 下一节点审批逻辑
+	 * @param simpleApproveLogic 下一节点审批逻辑
+	 * @return 当前对象
+	*/
+	public ChangeInstance setSimpleApproveLogic(String simpleApproveLogic) {
+		this.simpleApproveLogic=simpleApproveLogic;
+		this.simpleApproveLogicEnum= (ApprovalLogic) EnumUtil.parseByCode(ApprovalLogic.values(),simpleApproveLogic) ;
+		if(StringUtil.hasContent(simpleApproveLogic) && this.simpleApproveLogicEnum==null) {
+			throw new IllegalArgumentException( simpleApproveLogic + " is not one of ApprovalLogic");
+		}
+		return this;
+	}
+	
+	/**
+	 * 设置 下一节点审批逻辑的投影属性，等同于设置 下一节点审批逻辑
+	 * @param simpleApproveLogicEnum 下一节点审批逻辑
+	 * @return 当前对象
+	*/
+	@Transient
+	public ChangeInstance setSimpleApproveLogicEnum(ApprovalLogic simpleApproveLogicEnum) {
+		if(simpleApproveLogicEnum==null) {
+			this.setSimpleApproveLogic(null);
+		} else {
+			this.setSimpleApproveLogic(simpleApproveLogicEnum.code());
+		}
+		this.simpleApproveLogicEnum=simpleApproveLogicEnum;
+		return this;
+	}
+	
+	/**
+	 * 获得 简单模式的节点ID<br>
+	 * 简单模式的节点ID
+	 * @return 简单模式的节点ID
+	*/
+	public String getSimpleNodeId() {
+		return simpleNodeId;
+	}
+	
+	/**
+	 * 设置 简单模式的节点ID
+	 * @param simpleNodeId 简单模式的节点ID
+	 * @return 当前对象
+	*/
+	public ChangeInstance setSimpleNodeId(String simpleNodeId) {
+		this.simpleNodeId=simpleNodeId;
+		return this;
+	}
+	
+	/**
 	 * 获得 变更前的数据<br>
 	 * 变更前的数据
 	 * @return 变更前的数据
 	*/
-	public List<ChangeData> getDataBefore() {
+	public ChangeData getDataBefore() {
 		return dataBefore;
 	}
 	
@@ -581,19 +826,8 @@ public class ChangeInstance extends Entity {
 	 * @param dataBefore 变更前的数据
 	 * @return 当前对象
 	*/
-	public ChangeInstance setDataBefore(List<ChangeData> dataBefore) {
+	public ChangeInstance setDataBefore(ChangeData dataBefore) {
 		this.dataBefore=dataBefore;
-		return this;
-	}
-	
-	/**
-	 * 添加 变更前的数据
-	 * @param entity 变更前的数据
-	 * @return 当前对象
-	*/
-	public ChangeInstance addDataBefore(ChangeData entity) {
-		if(this.dataBefore==null) dataBefore=new ArrayList<>();
-		this.dataBefore.add(entity);
 		return this;
 	}
 	
@@ -602,7 +836,7 @@ public class ChangeInstance extends Entity {
 	 * 变更后的数据
 	 * @return 变更后的数据
 	*/
-	public List<ChangeData> getDataAfter() {
+	public ChangeData getDataAfter() {
 		return dataAfter;
 	}
 	
@@ -611,19 +845,8 @@ public class ChangeInstance extends Entity {
 	 * @param dataAfter 变更后的数据
 	 * @return 当前对象
 	*/
-	public ChangeInstance setDataAfter(List<ChangeData> dataAfter) {
+	public ChangeInstance setDataAfter(ChangeData dataAfter) {
 		this.dataAfter=dataAfter;
-		return this;
-	}
-	
-	/**
-	 * 添加 变更后的数据
-	 * @param entity 变更后的数据
-	 * @return 当前对象
-	*/
-	public ChangeInstance addDataAfter(ChangeData entity) {
-		if(this.dataAfter==null) dataAfter=new ArrayList<>();
-		this.dataAfter.add(entity);
 		return this;
 	}
 

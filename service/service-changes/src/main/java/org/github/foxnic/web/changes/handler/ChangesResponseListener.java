@@ -8,9 +8,8 @@ import org.github.foxnic.web.framework.change.ChangesAssistant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.ApplicationListener;
-import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class ChangesResponseListener extends DataChangeHandler implements ApplicationListener<ApplicationStartedEvent> {
 
     @Autowired

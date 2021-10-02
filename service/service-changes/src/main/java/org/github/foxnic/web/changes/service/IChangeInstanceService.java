@@ -11,6 +11,8 @@ import com.github.foxnic.dao.excel.ValidateResult;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.expr.OrderBy;
 import com.github.foxnic.sql.meta.DBField;
+import org.github.foxnic.web.domain.changes.ChangeApproveBody;
+import org.github.foxnic.web.domain.changes.ChangeEvent;
 import org.github.foxnic.web.domain.changes.ChangeInstance;
 import org.github.foxnic.web.domain.changes.ChangeRequestBody;
 
@@ -287,5 +289,7 @@ public interface IChangeInstanceService extends ISuperService<ChangeInstance> {
 	List<ValidateResult> importExcel(InputStream input,int sheetIndex,boolean batch);
 
 
-    Result<ChangeInstance> request(ChangeRequestBody request);
+    Result<ChangeEvent> request(ChangeRequestBody request);
+
+    Result<ChangeEvent> approve(ChangeApproveBody request);
 }

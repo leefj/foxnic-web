@@ -3,6 +3,9 @@ package org.github.foxnic.web.constants.enums.changes;
 import com.github.foxnic.api.constant.CodeTextEnum;
 import com.github.foxnic.commons.reflect.EnumUtil;
 
+/**
+ * 变更类型
+ * */
 public enum ChangeType implements CodeTextEnum {
 	create("新增"),modify("调整"),drop("作废");
 

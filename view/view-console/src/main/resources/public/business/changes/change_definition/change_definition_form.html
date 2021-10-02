@@ -2,7 +2,7 @@
 /**
  * 变更定义 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-01 02:53:26
+ * @since 2021-10-02 20:13:17
  */
  -->
  <!DOCTYPE html>
@@ -65,10 +65,36 @@
                         </div>
                     </div>
 
+                
+                <div class="layui-form-item" >
+                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('审批模式')}">审批模式</div></div>
+                    <div class="layui-input-block layui-input-block-c1">
+                        <input input-type="radio" type="radio" name="mode" lay-filter="mode" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.changes.ApprovalMode')}" th:value="${e.code}" th:title="${e.text}" th:checked="${(e.code=='simple' || stat.index==-1)?'yes':'no'}">
+                    </div>
+                </div>
+
+
                                     <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('处理类')}">处理类</div></div>
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('默认审批人ID')}">默认审批人ID</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="handler" id="handler" name="handler" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('处理类') }" type="text" class="layui-input"  />
+                            <input lay-filter="simpleApproverIds" id="simpleApproverIds" name="simpleApproverIds"  type="hidden" class="layui-input"   />
+                            <button id="simpleApproverIds-button" type="button" action-type="emp-dialog" class="layui-btn   " style="width: 100%"> <i class='layui-icon layui-icon-search'></i> <span th:text="${lang.translate('请选择人员')}" th:default-label="${lang.translate('请选择人员')}">按钮文本</span></button>
+                        </div>
+                    </div>
+
+                
+                <div class="layui-form-item" >
+                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('审批逻辑')}">审批逻辑</div></div>
+                    <div class="layui-input-block layui-input-block-c1">
+                        <input input-type="radio" type="radio" name="simpleApprovalLogic" lay-filter="simpleApprovalLogic" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.changes.ApprovalLogic')}" th:value="${e.code}" th:title="${e.text}" th:checked="${(e.code=='any' || stat.index==-1)?'yes':'no'}">
+                    </div>
+                </div>
+
+
+                                    <div class="layui-form-item" style="display: none">
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('审批处理类')}">审批处理类</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input lay-filter="simpleHandler" id="simpleHandler" name="simpleHandler" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('审批处理类') }" type="text" class="layui-input"  />
                         </div>
                     </div>
 
@@ -106,6 +132,8 @@
 
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];
+    var RADIO_MODE_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.changes.ApprovalMode')}]];
+    var RADIO_SIMPLEAPPROVALLOGIC_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.changes.ApprovalLogic')}]];
     var VALIDATE_CONFIG={"valid":{"labelInForm":"是否有效","inputType":"logic_switch","required":true}};
     var AUTH_PREFIX="chs_change_definition";
 

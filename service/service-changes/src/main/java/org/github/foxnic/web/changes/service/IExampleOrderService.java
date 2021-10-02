@@ -12,6 +12,8 @@ import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.expr.OrderBy;
 import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.domain.changes.ExampleOrder;
+import org.github.foxnic.web.domain.changes.ProcessApproveVO;
+import org.github.foxnic.web.domain.changes.ProcessStartVO;
 
 import java.io.InputStream;
 import java.util.List;
@@ -287,5 +289,9 @@ public interface IExampleOrderService extends ISuperService<ExampleOrder> {
 
 	void calcAmount(String orderId);
 
-    Result startApprove(List<String> ids);
+    Result startProcess(ProcessStartVO startVO);
+
+	Result approve(ProcessApproveVO approveVO);
+
+	Result draft(ProcessStartVO startVO);
 }

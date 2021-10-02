@@ -13,26 +13,25 @@ import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.dao.excel.ValidateResult;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.sql.expr.ConditionExpr;
+import com.github.foxnic.sql.expr.In;
 import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.changes.service.IExampleOrderItemService;
 import org.github.foxnic.web.changes.service.IExampleOrderService;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
-import org.github.foxnic.web.constants.enums.changes.ChangeStatus;
+import org.github.foxnic.web.constants.enums.changes.ApprovalAction;
+import org.github.foxnic.web.constants.enums.changes.ApprovalStatus;
 import org.github.foxnic.web.constants.enums.changes.ChangeType;
-import org.github.foxnic.web.domain.changes.ChangeRequestBody;
-import org.github.foxnic.web.domain.changes.ExampleOrder;
-import org.github.foxnic.web.domain.changes.ExampleOrderItem;
+import org.github.foxnic.web.domain.changes.*;
 import org.github.foxnic.web.framework.change.ChangesAssistant;
 import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.github.foxnic.web.session.SessionUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.io.InputStream;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * <p>
@@ -46,7 +45,8 @@ import java.util.List;
 
 @Service("ChsExampleOrderService")
 public class ExampleOrderServiceImpl extends SuperService<ExampleOrder> implements IExampleOrderService {
-	
+	//在变更类型定义中定义的代码
+	public static final String CHANGE_DEFINITION_CODE="EXAMPLE_ORDER_CHANGE";
 	/**
 	 * 注入DAO对象
 	 * */
@@ -77,9 +77,7 @@ public class ExampleOrderServiceImpl extends SuperService<ExampleOrder> implemen
 	public Result insert(ExampleOrder exampleOrder) {
 		//创建订单，标记变更状态等信息
 		exampleOrder.setChsVersion(1);
-		exampleOrder.setChsStatusEnum(ChangeStatus.prepare);
 		exampleOrder.setChsTypeEnum(ChangeType.create);
-		exampleOrder.setProcSummary("采购下单");
 		exampleOrder.setOrderTime(new Date());
 		Result r=super.insert(exampleOrder);
 		return r;
@@ -272,46 +270,174 @@ public class ExampleOrderServiceImpl extends SuperService<ExampleOrder> implemen
 		this.update(FoxnicWeb.CHS_EXAMPLE_ORDER.AMOUNT,amount,orderId);
 	}
 
+
+	private void syncOrder(String id,ChangeEvent event) {
+		ExampleOrder order4Update=ExampleOrder.create();
+		order4Update.setId(id)
+				//设置变更ID
+				.setChangeInstanceId(event.getInstance().getId())
+				//更新订单状态
+				.setChsStatusEnum(event.getInstance().getStatusEnum())
+				//更新订单最后审批人
+				.setLatestApproverId(event.getApproverId())
+				.setLatestApproverName(event.getApproverName())
+				//设置下一节点审批人
+				.setNextApproverIds(event.getSimpleNextApproverIds())
+				.setNextApproverNames(event.getSimpleNextApproverNames())
+				//更新订单流程概要
+				.setSummary(event.getDefinition().getName()+","+event.getApproveActionEnum().text());
+		//执行更新
+		this.update(order4Update,SaveMode.BESET_FIELDS);
+	}
+
+	/**
+	 * 批量启动审批
+	 * */
+	@Override
+	public Result startProcess(ProcessStartVO startVO) {
+		Result result=new Result();
+		for (String id : startVO.getBillIds()) {
+			Result<ChangeEvent> r=startProcess(id);
+			if(r.failure()) {
+				result.addError(r);
+			} else {
+				// 处理逻辑
+				ChangeEvent event=r.data();
+				syncOrder(id,event);
+			}
+		}
+		return result;
+	}
+
 	/**
 	 * 启动审批
 	 * */
-	@Override
-	public Result startApprove(List<String> ids) {
+	public Result startProcess(String id) {
 
-		//在变更类型定义中定义的代码
-		String changeDefinitionCode="EXAMPLE_ORDER_CHANGE";
 		//变更后数据
-		List<ExampleOrder> ordersAfter=this.getByIds(ids);
-		if(ordersAfter.size()==0) {
+		ExampleOrder orderAfter=this.getById(id);
+		if(orderAfter==null) {
 			return ErrorDesc.failure().message("订单不存在");
 		}
 		//校验是否勾选的订单都处于待审批状态
-		for (ExampleOrder order : ordersAfter) {
-			if(order.getChsStatusEnum()!=ChangeStatus.prepare) {
-				return ErrorDesc.failure().message("订单状态错误");
-			}
+		if(orderAfter.getChsStatusEnum()!= ApprovalStatus.drafting) {
+			return ErrorDesc.failure().message("订单状态错误,无法提交审批");
 		}
 		//关联订单明细
-		this.join(ordersAfter, ExampleOrderItem.class);
+		this.join(orderAfter, ExampleOrderItem.class);
+		List<String> billIds=Arrays.asList(orderAfter.getId());
 
 		//变更前数据
-		List<String> idsBefore= CollectorUtil.collectList(ordersAfter,ExampleOrder::getSourceId);
-		List<ExampleOrder> ordersBefore=this.getByIds(idsBefore);
-		this.join(ordersBefore, ExampleOrderItem.class);
+		ExampleOrder orderBefore=this.getById(orderAfter.getSourceId());
+		this.join(orderBefore, ExampleOrderItem.class);
+
 
 		//创建变更辅助工具
 		ChangesAssistant assistant=new ChangesAssistant(this);
-		ChangeRequestBody requestBody=new ChangeRequestBody(changeDefinitionCode, ChangeType.create);
+		ChangeRequestBody requestBody=new ChangeRequestBody(CHANGE_DEFINITION_CODE, ChangeType.create);
 
-		//设置变更前数据
-		requestBody.setDataBefore(ExampleOrder.class,ordersBefore);
-		//设置变更后数据
-		requestBody.setDataAfter(ExampleOrder.class,ordersAfter);
+		//设置当前提交人
+		requestBody.setApproverId(SessionUser.getCurrent().getActivatedEmployeeId());
+		requestBody.setApproverName(SessionUser.getCurrent().getRealName());
+
+		//可按数据情况，设置不同的审批人；若未设置审批人，则按变更配置中的审批人执行；
+		//后续可按审批人对接待办体系
+//		List<String> randomApproverIds= Arrays.asList("488441114123046912");
+		requestBody.setNextNodeApproverIds(null);
+		requestBody.setDataType(ExampleOrder.class);
+		//设置变更前数据,simple审批模式仅支持单据的独立审批
+		requestBody.setDataBefore(orderBefore);
+		//设置变更后数据,simple审批模式仅支持单据的独立审批
+		requestBody.setDataAfter(orderAfter);
+		//设置审批单据号
+		requestBody.setBillIds(billIds);
+		//设置审批意见
+		requestBody.setOpinion(requestBody.getOpinion());
 		//发起审批
 		Result result= assistant.request(requestBody);
 		return result;
 	}
 
+	@Override
+	public Result approve(ProcessApproveVO approveVO) {
+		Result result=new Result();
+		if(approveVO.getInstanceIds()==null || approveVO.getInstanceIds().isEmpty()) {
+			return result.success(false).message("至少指定一个变更ID");
+		}
+
+		In in=new In(FoxnicWeb.CHS_EXAMPLE_ORDER.CHANGE_INSTANCE_ID,approveVO.getInstanceIds());
+
+		List<ExampleOrder> orders=this.queryList(in.toConditionExpr());
+		Map<String,List<ExampleOrder>> ordersMap= CollectorUtil.groupBy(orders,ExampleOrder::getChangeInstanceId);
+
+		for (Map.Entry<String,List<ExampleOrder>> e : ordersMap.entrySet()) {
+			Result<ChangeEvent > r=this.approve(e.getKey(),e.getValue(),approveVO.getAction(),approveVO.getOpinion());
+			if(r.failure()){
+				result.addError(r);
+			} else {
+				//同步订状态
+				ChangeEvent event=r.data();
+				for (ExampleOrder exampleOrder : e.getValue()) {
+					syncOrder(exampleOrder.getId(),event);
+				}
+			}
+		}
+		return result;
+	}
+
+
+	public Result approve(String instanceId, List<ExampleOrder> orders,String approveAction,String opinion) {
+
+		ApprovalAction action=ApprovalAction.parseByCode(approveAction);
+		//审批数据
+
+		if(orders==null || orders.isEmpty()) {
+			return ErrorDesc.failure().message("订单不存在");
+		}
+		ExampleOrder order=orders.get(0);
+
+		ChangeApproveBody approveBody=new ChangeApproveBody(CHANGE_DEFINITION_CODE);
+		//设置变更ID
+		approveBody.setChangeInstanceId(order.getChangeInstanceId());
+		//设置当前提交人
+		approveBody.setApproverId(SessionUser.getCurrent().getActivatedEmployeeId());
+		approveBody.setApproverName(SessionUser.getCurrent().getRealName());
+		approveBody.setApprovalAction(action);
+		//设置审批意见
+		approveBody.setOpinion(opinion);
+
+		//创建变更辅助工具
+		ChangesAssistant assistant=new ChangesAssistant(this);
+		//发起审批
+		Result result= assistant.approve(approveBody);
+		//
+		return result;
+	}
+
+	/**
+	 * 改变订单审批状态，使其变成可编辑的草稿；具体需要使其以何种方式转换成草稿视业务而定
+	 * */
+	@Override
+	public Result draft(ProcessStartVO startVO) {
+		List<ExampleOrder> orders=this.getByIds(startVO.getBillIds());
+		Result result = new Result();
+		for (ExampleOrder order : orders) {
+			if(order.getChsStatusEnum()==null || order.getChsStatusEnum()==ApprovalStatus.passed || order.getChsStatusEnum()==ApprovalStatus.abandoned) {
+				order.setChangeInstanceId(null);
+				order.setChsStatusEnum(ApprovalStatus.drafting);
+				order.setSummary("起草");
+			} else {
+				result.addError(ErrorDesc.failure().message("当前审批状态不允许起草"));
+			}
+		}
+		if(result.failure()) {
+			return result;
+		}
+
+		this.updateList(orders,SaveMode.DIRTY_FIELDS);
+
+		return result;
+	}
 
 
 	@Override

@@ -1,7 +1,7 @@
 /**
  * 变更定义 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-01 02:53:25
+ * @since 2021-10-02 20:13:16
  */
 
 
@@ -76,7 +76,10 @@ function ListPage() {
 					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('主键') , templet: function (d) { return templet('id',d.id,d);}  }
 					,{ field: 'name', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('名称') , templet: function (d) { return templet('name',d.name,d);}  }
 					,{ field: 'code', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('代码') , templet: function (d) { return templet('code',d.code,d);}  }
-					,{ field: 'handler', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('处理类') , templet: function (d) { return templet('handler',d.handler,d);}  }
+					,{ field: 'mode', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('审批模式'), templet:function (d){ return templet('mode',fox.getEnumText(RADIO_MODE_DATA,d.mode),d);}}
+					,{ field: 'simpleApproverIds', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('默认审批人ID') , templet: function (d) { return templet('simpleApproverIds',d.simpleApproverIds,d);}  }
+					,{ field: 'simpleApprovalLogic', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('审批逻辑'), templet:function (d){ return templet('simpleApprovalLogic',fox.getEnumText(RADIO_SIMPLEAPPROVALLOGIC_DATA,d.simpleApprovalLogic),d);}}
+					,{ field: 'simpleHandler', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('审批处理类') , templet: function (d) { return templet('simpleHandler',d.simpleHandler,d);}  }
 					,{ field: 'valid', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('是否有效'), templet: '#cell-tpl-valid'}
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }}
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
@@ -119,6 +122,7 @@ function ListPage() {
 		var value = {};
 		value.name={ inputType:"button",value: $("#name").val()};
 		value.code={ inputType:"button",value: $("#code").val()};
+		value.mode={ inputType:"radio_box", value: xmSelect.get("#mode",true).getValue("value"), label:xmSelect.get("#mode",true).getValue("nameStr")};
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;
@@ -156,6 +160,22 @@ function ListPage() {
 
 		fox.switchSearchRow(1);
 
+		//渲染 mode 搜索框
+		fox.renderSelectBox({
+			el: "mode",
+			size: "small",
+			radio: false,
+			//toolbar: {show:true,showIcon:true,list:["CLEAR","REVERSE"]},
+			transform:function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				var opts=[];
+				if(!data) return opts;
+				for (var i = 0; i < data.length; i++) {
+					opts.push({name:data[i].text,value:data[i].code});
+				}
+				return opts;
+			}
+		});
 		fox.renderSearchInputs();
 		window.pageExt.list.afterSearchInputReady && window.pageExt.list.afterSearchInputReady();
 	}

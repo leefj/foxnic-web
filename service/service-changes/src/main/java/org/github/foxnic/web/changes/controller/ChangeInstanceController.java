@@ -18,9 +18,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.github.foxnic.web.changes.service.IChangeInstanceService;
-import org.github.foxnic.web.domain.changes.ChangeInstance;
-import org.github.foxnic.web.domain.changes.ChangeInstanceVO;
-import org.github.foxnic.web.domain.changes.ChangeRequestBody;
+import org.github.foxnic.web.domain.changes.*;
 import org.github.foxnic.web.domain.changes.meta.ChangeInstanceVOMeta;
 import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
 import org.github.foxnic.web.framework.web.SuperController;
@@ -56,15 +54,28 @@ public class ChangeInstanceController extends SuperController {
 	private IChangeInstanceService changeInstanceService;
 
 	/**
-	 * 请求一次变更
+	 * 发起一次变更请求
 	 */
-	@ApiOperation(value = "添加变更实例")
+	@ApiOperation(value = "发起一次变更请求")
 	@ApiImplicitParams({})
 	@ApiOperationSupport(order=1)
 	@SentinelResource(value = ChangeInstanceServiceProxy.REQUEST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(ChangeInstanceServiceProxy.REQUEST)
-	public Result<ChangeInstance> request(ChangeRequestBody request) {
-		Result<ChangeInstance> result=changeInstanceService.request(request);
+	public Result<ChangeEvent> request(ChangeRequestBody request) {
+		Result<ChangeEvent> result=changeInstanceService.request(request);
+		return result;
+	}
+
+	/**
+	 * 提交一次审批
+	 */
+	@ApiOperation(value = "提交一次审批")
+	@ApiImplicitParams({})
+	@ApiOperationSupport(order=1)
+	@SentinelResource(value = ChangeInstanceServiceProxy.APPROVE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
+	@PostMapping(ChangeInstanceServiceProxy.APPROVE)
+	public Result<ChangeEvent> approve(ChangeApproveBody request) {
+		Result<ChangeEvent> result=changeInstanceService.approve(request);
 		return result;
 	}
 
