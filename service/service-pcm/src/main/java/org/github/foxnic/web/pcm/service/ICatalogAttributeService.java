@@ -294,4 +294,9 @@ public interface ICatalogAttributeService extends ISuperService<CatalogAttribute
 	List<CatalogAttribute> getAttributes(String catalogId,String versionNo);
 
     List<String> getAllVersions(String id);
+
+    /**
+	 * 是否存在生效版本
+	 * */
+	boolean hasActivatedVersions(String id);
 }

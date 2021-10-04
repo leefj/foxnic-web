@@ -629,6 +629,9 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 		if(!catalog.getTenantId().equals(dataQueryVo.getTenantId())){
 			return ErrorDesc.failure().message("类目ID ["+dataQueryVo.getCatalogId()+"] 未在指定的租户 ["+dataQueryVo.getTenantId()+"] 定义");
 		}
+		if(!catalogAttributeService.hasActivatedVersions(catalog.getId())){
+			return ErrorDesc.failure().message("类目 ["+catalog.getName()+"] 缺少有效版本");
+		}
 		//构建查询语句需要的字段
 		Select select=new Select(catalog.getDataTable());
 		select.selects("id","tenant_id","catalog_id","owner_id")
@@ -673,6 +676,9 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 			}
 			if(!catalog.getTenantId().equals(catalogData.getTenantId())){
 				return ErrorDesc.failure().message("类目ID ["+catalogData.getCatalogId()+"] 未在指定的租户 ["+catalogData.getTenantId()+"] 定义");
+			}
+			if(!catalogAttributeService.hasActivatedVersions(catalog.getId())){
+				return ErrorDesc.failure().message("类目 ["+catalog.getName()+"] 缺少有效版本");
 			}
 			List<CatalogAllocation> allocations=this.getCachedAllocations(catalog.getId());
 
@@ -721,6 +727,9 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 	public Result deleteData(DataQueryVo dataQueryVo) {
 		if(dataQueryVo.getIds()==null || dataQueryVo.getIds().isEmpty()) {
 			return ErrorDesc.failure(CommonError.PARAM_INVALID).message("至少指定一个id值");
+		}
+		if(dataQueryVo.getTenantId()==null || StringUtil.isBlank(dataQueryVo.getTenantId())) {
+			return ErrorDesc.failure(CommonError.PARAM_INVALID).message("请指定租户ID");
 		}
 		Catalog catalog=this.getCachedCatalog(dataQueryVo.getCatalogId());
 		if(catalog==null) {

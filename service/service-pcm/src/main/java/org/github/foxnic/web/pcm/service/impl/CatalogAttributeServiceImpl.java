@@ -298,7 +298,10 @@ public class CatalogAttributeServiceImpl extends SuperService<CatalogAttribute> 
 	@Override
 	public PagedList<CatalogAttribute> queryPagedList(CatalogAttribute sample, int pageSize, int pageIndex) {
 
-		JSONObject param=JSONObject.parseObject(((CatalogAttributeVO)sample).getSearchValue());
+		JSONObject param=null;
+		if(sample instanceof CatalogAttributeVO) {
+			param=JSONObject.parseObject(((CatalogAttributeVO) sample).getSearchValue());
+		}
 		//提取当前类目与版本
 		String catalogId = null;
 		String versionNo = null;
@@ -398,6 +401,13 @@ public class CatalogAttributeServiceImpl extends SuperService<CatalogAttribute> 
 		List<String> versions=rs.getValueList("version_no",String.class);
 		return versions;
 	}
+
+	@Override
+	public boolean hasActivatedVersions(String catalogId) {
+		Integer c=dao().queryInteger("select count(1) from "+table()+" where catalog_id=? and version_no=? order by version_no desc",catalogId,ICatalogService.VERSION_ACTIVATED);
+		return c!=null && c>0;
+	}
+
 
 	@Override
 	public ExcelStructure buildExcelStructure(boolean isForExport) {
