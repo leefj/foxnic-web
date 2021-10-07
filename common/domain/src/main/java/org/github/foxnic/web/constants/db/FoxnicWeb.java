@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2021-10-02 20:12:28
+ * @since 2021-10-07 09:47:14
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -16,6 +16,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 public class FoxnicWeb {
 	
 	/**
+	 * 变更单据关系表
 	*/
 	public static class CHS_CHANGE_BILL extends DBTable {
 		
@@ -45,7 +46,7 @@ public class FoxnicWeb {
 		public static final DBField BILL_ID = new DBField(DBDataType.STRING , "bill_id","billId","变更单据ID","变更单据ID",false,false,true);
 		
 		public CHS_CHANGE_BILL() {
-			this.init($NAME,"" , ID , DEFINITION_ID , INSTANCE_ID , BILL_ID);
+			this.init($NAME,"变更单据关系表" , ID , DEFINITION_ID , INSTANCE_ID , BILL_ID);
 		}
 		public static final CHS_CHANGE_BILL $TABLE=new CHS_CHANGE_BILL();
 	}
