@@ -1,30 +1,30 @@
 package org.github.foxnic.web.proxy;
 
 public class MicroServiceNames {
-	
+
 	/**
-	 * 系统相关的服务 <br> 
+	 * 系统相关的服务 <br>
 	 * 对应 bootstrap.yml 中 spring.application.name 属性
 	 * */
 	public static final String SYSTEM="service-system";
-	
-	
+
+
 	/**
-	 * 认证中心服务 <br> 
+	 * 认证中心服务 <br>
 	 * 对应 bootstrap.yml 中 spring.application.name 属性
 	 * */
 	public static final String OAUTH="service-oauth";
-	
-	
-	
+
+
+
 	/**
-	 * 存储相关的服务 <br> 
+	 * 存储相关的服务 <br>
 	 * 对应 bootstrap.yml 中 spring.application.name 属性
 	 * */
 	public static final String STORAGE="service-storage";
-	
+
 	/**
-	 * 组织人事相关的服务 <br> 
+	 * 组织人事相关的服务 <br>
 	 * 对应 bootstrap.yml 中 spring.application.name 属性
 	 * */
 	public static final String HRM="service-hrm";
@@ -40,5 +40,11 @@ public class MicroServiceNames {
 	 * 对应 bootstrap.yml 中 spring.application.name 属性
 	 * */
 	public static final String CHS="service-changes";
- 
+
+	/**
+	 * 流程相关的服务 <br>
+	 * 对应 bootstrap.yml 中 spring.application.name 属性
+	 * */
+	public static final String BPM="service-bpm";
+
 }

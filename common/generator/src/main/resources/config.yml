@@ -1,11 +1,11 @@
 
 settings:
-  enableMicroService: true 
+  enableMicroService: true
   enableSwagger: true
 
 
 #源代码相关的部分
-source: 
+source:
   #DAO常量名
   daoNameConst: org.github.foxnic.web.framework.dao.DBConfigs.PRIMARY_DAO
   #系统常量包名
@@ -19,16 +19,16 @@ authors:
   D11C00DED5F5C932: 金杰 , maillank@qq.com
 
 
-compoments: 
+compoments:
   domain: /common/domain
   proxy: /common/proxy
-  
+
 
 
 #应用清单
-applications: 
+applications:
   #系统服务
-  service-system:  
+  service-system:
     nacosGroup: service
     nacosDataId: service-system.yml
     serviceProjectPath:  /service/service-system
@@ -39,7 +39,7 @@ applications:
     viewPrefixPath: public/business/system
     wrapperProjectPath:  /wrapper/wrapper-service-system
   #存储服务
-  service-storage:  
+  service-storage:
     nacosGroup: service
     nacosDataId: service-storage.yml
     serviceProjectPath:  /service/service-storage
@@ -50,7 +50,7 @@ applications:
     viewPrefixPath: public/business/storage
     wrapperProjectPath:  /wrapper/wrapper-all-service
   #存储服务
-  service-oauth:  
+  service-oauth:
     nacosGroup: service
     nacosDataId: service-oauth.yml
     serviceProjectPath:  /service/service-oauth
@@ -93,3 +93,15 @@ applications:
     viewProjectPath: /view/view-console
     viewPrefixPath: public/business/changes
     wrapperProjectPath:  /wrapper/wrapper-all-service
+  #Changes  变更服务
+  service-bpm:
+    nacosGroup: service
+    nacosDataId: service-bpm.yml
+    serviceProjectPath: /service/service-bpm
+    packageName: org.github.foxnic.web.bpm
+    primaryDatasourceConfigKey: spring.datasource.druid.primary
+    microServiceNameConst: BPM
+    viewProjectPath: /view/view-console
+    viewPrefixPath: public/business/bpm
+    wrapperProjectPath:  /wrapper/wrapper-all-service
+

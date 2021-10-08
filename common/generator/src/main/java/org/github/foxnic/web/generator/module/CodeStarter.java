@@ -1,6 +1,8 @@
 package org.github.foxnic.web.generator.module;
 
 import com.github.foxnic.generator.util.ModuleCodeGenerator;
+import org.github.foxnic.web.generator.module.bpm.BPMRoleConfig;
+import org.github.foxnic.web.generator.module.bpm.BPMRoleEmployeeConfig;
 import org.github.foxnic.web.generator.module.changes.*;
 import org.github.foxnic.web.generator.module.example.CodeExampleCarConfig;
 import org.github.foxnic.web.generator.module.example.CodeExampleConfig;
@@ -30,8 +32,14 @@ public class CodeStarter extends ModuleCodeGenerator {
 //        initSystemModules();
 //        initHrmModules();
 //        initExampleModules();
-        initChangeModules();
+//        initChangeModules();
+        initWorkflowModules();
 
+    }
+
+    private void initWorkflowModules() {
+        this.addConfig(new BPMRoleConfig());
+        this.addConfig(new BPMRoleEmployeeConfig());
     }
 
     private void  initChangeModules() {

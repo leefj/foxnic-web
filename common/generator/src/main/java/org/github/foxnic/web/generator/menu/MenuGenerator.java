@@ -34,7 +34,7 @@ public class MenuGenerator {
 	 * 超级管理员角色ID
 	 * */
 	public static final String SUPER_ADMIN_ROLE_ID="110352963290923110";
-	
+
 	public static void main(String[] args) {
 
 
@@ -132,6 +132,13 @@ public class MenuGenerator {
 //		mg.generate("495201409763901440");
 
 
+//		mg=new MenuGenerator(FoxnicWeb.BPM_ROLE.$TABLE, RoleServiceProxy.class, RolePageController.class);
+//		mg.generate("494903523763298304");
+
+//		mg=new MenuGenerator(FoxnicWeb.BPM_ROLE_EMPLOYEE.$TABLE, RoleEmployeeServiceProxy.class, RoleEmployeePageController.class);
+//		mg.generate("494903523763298304");
+
+
 
 
 	}
@@ -139,7 +146,7 @@ public class MenuGenerator {
 
 
 
-	
+
 
 
 
@@ -159,7 +166,7 @@ public class MenuGenerator {
 	private MenuGenerator(DBTable table,Class proxyType,Class pageType) {
 		this("service-system",SUPER_ADMIN_ROLE_ID,table,proxyType,pageType);
 	}
-	
+
 	public MenuGenerator(String appId,String roleId,DBTable table,Class proxyType,Class pageType) {
 		this.configs=new FoxnicWebConfigs(appId);
 		this.dao=this.configs.getDAO();
@@ -473,7 +480,7 @@ public class MenuGenerator {
 
 
 	}
-	
-	
+
+
 
 }

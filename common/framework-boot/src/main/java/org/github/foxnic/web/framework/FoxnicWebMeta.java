@@ -10,29 +10,29 @@ public class FoxnicWebMeta {
 	 * 基础包
 	 * */
 	public static final String BASE_PACKAGE="org.github.foxnic.web";
- 
+
 	/**
 	 * Feign代理包
 	 * */
 	public static final String PROXY_PACKAGE=BASE_PACKAGE+".proxy";
-	
+
 	/**
 	 * 公共框架包
 	 * */
 	public static final String FRAMEWORK_PACKAGE=BASE_PACKAGE+".framework";
-	
+
 	/**
 	 * 实体包
 	 * */
 	public static final String DOMAIN_PACKAGE=BASE_PACKAGE+".doman";
-	
-	
+
+
 	/**
 	 * 系统服务
 	 * */
 	public static final String SERVICE_SYSTEM_PACKAGE=BASE_PACKAGE+".system";
-	
-	
+
+
 	/**
 	 * 认证服务
 	 * */
@@ -59,14 +59,19 @@ public class FoxnicWebMeta {
 	 * */
 	public static final String SERVICE_CHANGES_PACKAGE=BASE_PACKAGE+".changes";
 
+	/**
+	 * 数据变更服务
+	 * */
+	public static final String SERVICE_BPM_PACKAGE=BASE_PACKAGE+".bpm";
+
 
 	/**
 	 * Support
 	 * */
 	public static final String WRAPPER_SUPPORT_PACKAGE=BASE_PACKAGE+".wrapper.support";
-	
-	
-	 
- 
-	
+
+
+
+
+
 }

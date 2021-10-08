@@ -15,6 +15,7 @@ public abstract class BaseCodeConfig<T extends DBTable> extends ModuleCodeConfig
     public static final String PREFIX_OAUTH="service-oauth";
     public static final String PREFIX_PCM="service-pcm";
     public static final String PREFIX_CHANGES="service-changes";
+    public static final String PREFIX_BPM="service-bpm";
 
 
     private FoxnicWebConfigs configs;
