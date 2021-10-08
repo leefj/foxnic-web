@@ -1,25 +1,24 @@
 package org.github.foxnic.web.proxy.bpm;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.github.foxnic.web.proxy.api.APIProxy;
-import org.github.foxnic.web.proxy.FeignConfiguration;
-
-import org.springframework.cloud.openfeign.FeignClient;
-
-
-import org.github.foxnic.web.domain.bpm.RoleEmployee;
-import org.github.foxnic.web.domain.bpm.RoleEmployeeVO;
-import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
+import org.github.foxnic.web.domain.bpm.RoleEmployee;
+import org.github.foxnic.web.domain.bpm.RoleEmployeeVO;
+import org.github.foxnic.web.proxy.FeignConfiguration;
 import org.github.foxnic.web.proxy.MicroServiceNames;
+import org.github.foxnic.web.proxy.api.APIProxy;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 /**
  * <p>
  * 流程角色员工关系表  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-08 17:28:36
+ * @since 2021-10-08 20:22:21
+ * @version
 */
 
 @FeignClient(value = MicroServiceNames.BPM, contextId = RoleEmployeeServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)
@@ -44,6 +43,11 @@ public interface RoleEmployeeServiceProxy {
 	 * 添加流程角色员工关系
 	 */
 	public static final String INSERT = API_PREFIX + "insert";
+
+	/**
+	 * 添加流程角色员工关系
+	 */
+	public static final String INSERTS = API_PREFIX + "inserts";
 	
 	/**
 	 * 删除流程角色员工关系

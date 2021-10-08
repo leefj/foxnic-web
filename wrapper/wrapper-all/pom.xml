@@ -43,6 +43,11 @@
             <artifactId>service-changes</artifactId>
             <version>${platform.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.foxnic.web</groupId>
+            <artifactId>service-bpm</artifactId>
+            <version>${platform.version}</version>
+        </dependency>
         <dependency> 
             <groupId>com.github.foxnic.web</groupId>  
             <artifactId>view-console</artifactId>  

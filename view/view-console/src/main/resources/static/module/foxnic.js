@@ -1388,10 +1388,15 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 title="请选择人员";
             }
             // debugger;
-            var value=param.inputEl.val();
+            var value = null;
+            if(param.inputEl) {
+                value = param.inputEl.val();
+            }
             param.chooseEmployeeCallbackEvent=function(ids,nodes) {
                 // debugger;
-                param.inputEl.val(ids.join(","));
+                if(param.inputEl) {
+                    param.inputEl.val(ids.join(","));
+                }
                 console.log("ids="+ids.join(","))
                 var names=[];
                 for (var i = 0; i < nodes.length; i++) {
@@ -1399,9 +1404,13 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     names.push(nodes[i].targetName);
                 }
                 if (names.length>0) {
-                    param.buttonEl.find("span").text(names.join(","));
+                    if(param.buttonEl) {
+                        param.buttonEl.find("span").text(names.join(","));
+                    }
                 } else {
-                    param.buttonEl.find("span").text(param.buttonEl.find("span").attr("default-label"));
+                    if(param.buttonEl) {
+                        param.buttonEl.find("span").text(param.buttonEl.find("span").attr("default-label"));
+                    }
                 }
                 if(param.callback) {
                     param.callback(param,{field:param.field,selectedIds:ids,selectedNodes:nodes,fromData:param.fromData,inputEl:param.inputEl,buttonEl:param.buttonEl});

@@ -6,6 +6,7 @@ import com.github.foxnic.generator.builder.view.option.ListOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_ROLE;
+import org.github.foxnic.web.domain.bpm.meta.RoleMeta;
 import org.github.foxnic.web.domain.hrm.Employee;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
@@ -25,15 +26,23 @@ public class BPMRoleConfig extends BaseCodeConfig<BPM_ROLE> {
 	@Override
 	public void configFields(ViewOptions view) {
 		view.field(BPM_ROLE.ID).search().hidden();
-		view.field(BPM_ROLE.VALID).search().hidden()
-		.form().logicField().on("有效",1).off("停用",0);
-		view.field(BPM_ROLE.CODE).search().fuzzySearch();
-		view.field(BPM_ROLE.NAME).search().fuzzySearch();
+		view.field(BPM_ROLE.VALID).basic().label("状态").search().hidden()
+		.form().logicField().on("启用",1).off("停用",0).defaultValue(true)
+		.table().alignCenter();
+
+		view.field(BPM_ROLE.CODE).basic().label("代码").search().fuzzySearch()
+		.form().validate().required();
+		view.field(BPM_ROLE.NAME).basic().label("名称").search().fuzzySearch()
+		.form().validate().required();
+
+		view.field(RoleMeta.EMP_COUNT).basic().label("成员数").table().alignRight()
+		.form().hidden();
 	}
 
 	@Override
 	public void configList(ViewOptions view, ListOptions list) {
-
+		list.columnLayout(BPM_ROLE.CODE,BPM_ROLE.NAME,BPM_ROLE.VALID,RoleMeta.EMP_COUNT,BPM_ROLE.CREATE_TIME);
+		list.operationColumn().addActionButton("成员","openEmployees");
 	}
 
 	@Override

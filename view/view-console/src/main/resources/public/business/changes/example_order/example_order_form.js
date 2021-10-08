@@ -209,7 +209,7 @@ function FormPage() {
 
 		// 请选择人员对话框
 		$("#buyerId-button").click(function(){
-				var buyerIdDialogOptions={
+			var buyerIdDialogOptions={
 				field:"buyerId",
 				formData:getFormData(),
 				inputEl:$("#buyerId"),

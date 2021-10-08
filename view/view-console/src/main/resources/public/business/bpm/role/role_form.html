@@ -2,7 +2,7 @@
 /**
  * 流程角色 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-08 17:28:35
+ * @since 2021-10-08 20:48:42
  */
  -->
  <!DOCTYPE html>
@@ -46,27 +46,34 @@
                     </div>
 
                                     <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('角色代码')}">角色代码</div></div>
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('代码')}">代码</div><div class="layui-required">*</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="code" id="code" name="code" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('角色代码') }" type="text" class="layui-input"  />
+                            <input lay-filter="code" id="code" name="code" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('代码') }" type="text" class="layui-input"    lay-verify="|required"  />
                         </div>
                     </div>
 
                                     <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('角色名称')}">角色名称</div></div>
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('名称')}">名称</div><div class="layui-required">*</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="name" id="name" name="name" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('角色名称') }" type="text" class="layui-input"  />
+                            <input lay-filter="name" id="name" name="name" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('名称') }" type="text" class="layui-input"    lay-verify="|required"  />
                         </div>
                     </div>
 
                 
                 <div class="layui-form-item" >
-                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('是否有效')}">是否有效</div><div class="layui-required">*</div></div>
+                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('状态')}">状态</div><div class="layui-required">*</div></div>
                     <div class="layui-input-block layui-input-block-c1">
-                        <input input-type="switch" type="checkbox" id="valid"  name="valid" lay-skin="switch" lay-filter="valid" lay-text="有效|停用&nbsp;" value="0" >
+                        <input input-type="switch" type="checkbox" checked="yes"id="valid"  name="valid" lay-skin="switch" lay-filter="valid" lay-text="启用|停用&nbsp;" value="1">
                     </div>
                 </div>
 
+
+                                    <div class="layui-form-item" style="display: none">
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('成员数')}">成员数</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input lay-filter="empCount" id="empCount" name="empCount" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('成员数') }" type="text" class="layui-input"  />
+                        </div>
+                    </div>
 
                 <!--结束：栏次内字段循环-->
             </div>
@@ -93,7 +100,7 @@
 
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];
-    var VALIDATE_CONFIG={"valid":{"labelInForm":"是否有效","inputType":"logic_switch","required":true}};
+    var VALIDATE_CONFIG={"valid":{"labelInForm":"状态","inputType":"logic_switch","required":true},"code":{"labelInForm":"代码","inputType":"text_input","required":true},"name":{"labelInForm":"名称","inputType":"text_input","required":true}};
     var AUTH_PREFIX="bpm_role";
 
 

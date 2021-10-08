@@ -1,7 +1,7 @@
 /**
  * 流程角色员工关系 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-08 17:28:36
+ * @since 2021-10-08 20:22:21
  */
 
 
@@ -73,10 +73,14 @@ function ListPage() {
 				cols: [[
 					{ fixed: 'left',type: 'numbers' },
 					{ fixed: 'left',type:'checkbox' }
-					,{ field: 'id', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('主键') , templet: function (d) { return templet('id',d.id,d);}  }
-					,{ field: 'roleId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('角色ID') , templet: function (d) { return templet('roleId',d.roleId,d);}  }
-					,{ field: 'employeeId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('角色名称') , templet: function (d) { return templet('employeeId',d.employeeId,d);}  }
-					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }}
+					,{ field: 'badge', align:"",fixed:false,  hide:false, sort: true, title: fox.translate('工号') , templet: function (d) { return templet('badge',d.badge,d);}  }
+					,{ field: 'name', align:"",fixed:false,  hide:false, sort: true, title: fox.translate('姓名') , templet: function (d) { return templet('name',d.name,d);}  }
+					,{ field: 'positionName', align:"",fixed:false,  hide:false, sort: true, title: fox.translate('岗位') , templet: function (d) { return templet('positionName',d.positionName,d);}  }
+					,{ field: 'deptName', align:"",fixed:false,  hide:false, sort: true, title: fox.translate('部门') , templet: function (d) { return templet('deptName',d.deptName,d);}  }
+					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('主键') , templet: function (d) { return templet('id',d.id,d);}  }
+					,{ field: 'roleId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('角色ID') , templet: function (d) { return templet('roleId',d.roleId,d);}  }
+					,{ field: 'employeeId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('员工ID') , templet: function (d) { return templet('employeeId',d.employeeId,d);}  }
+					,{ field: 'createTime', align:"right", fixed:false, hide:true, sort: true, title: fox.translate('创建时间'), templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }}
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
 				]],
@@ -111,9 +115,10 @@ function ListPage() {
       */
 	function refreshTableData(sortField,sortType) {
 		var value = {};
-		value.id={ inputType:"button",value: $("#id").val()};
-		value.roleId={ inputType:"button",value: $("#roleId").val()};
-		value.employeeId={ inputType:"button",value: $("#employeeId").val()};
+		value.name={ inputType:"button",value: $("#name").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" "};
+		value.badge={ inputType:"button",value: $("#badge").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" "};
+		value.positionName={ inputType:"button",value: $("#positionName").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" "};
+		value.deptName={ inputType:"button",value: $("#deptName").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" "};
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;

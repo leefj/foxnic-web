@@ -1,7 +1,8 @@
 /**
  * 流程角色员工关系 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-08 17:28:36
+ * @since 2021-10-08 20:22:21
+ * @version
  */
 
 layui.config({
@@ -81,8 +82,34 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * 在新建或编辑窗口打开前调用，若返回 false 则不继续执行后续操作
          * */
         beforeEdit:function (data) {
+            // debugger
+            var me=this;
             console.log('beforeEdit',data);
-            return true;
+            if(!data.id) {
+                var buyerIdDialogOptions={
+                    single:false,
+                    targetType:"emp",
+                    prepose:function(param){ return window.pageExt.form.beforeDialog && window.pageExt.form.beforeDialog(param);},
+                    callback:function(param,result){
+
+                        me.addEmployees(result.selectedIds);
+                    }
+                };
+                fox.chooseEmployee(buyerIdDialogOptions);
+                return false;
+            } else {
+                return true;
+            }
+        },
+        addEmployees:function (empIds) {
+            var roleId=admin.getTempData("bpm-role-id");
+            var ps=[];
+            for (var i = 0; i < empIds.length; i++) {
+                ps.push({roleId:roleId,employeeId:empIds[i]});
+            }
+            //
+            admin.post("/service-bpm/bpm-role-employee/inserts",ps,function (r){},{delayLoading:2000,elms:[]});
+            debugger;
         },
         /**
          * 单行删除前调用，若返回false则不执行后续操作

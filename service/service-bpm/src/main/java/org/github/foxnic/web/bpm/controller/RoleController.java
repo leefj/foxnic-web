@@ -49,7 +49,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 流程角色表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-08 17:28:33
+ * @since 2021-10-08 20:48:40
 */
 
 @Api(tags = "流程角色")
@@ -66,10 +66,10 @@ public class RoleController extends SuperController {
 	*/
 	@ApiOperation(value = "添加流程角色")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = RoleVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = RoleVOMeta.CODE , value = "角色代码" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = RoleVOMeta.NAME , value = "角色名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = RoleVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = RoleVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "498946989573017600"),
+		@ApiImplicitParam(name = RoleVOMeta.CODE , value = "角色代码" , required = false , dataTypeClass=String.class , example = "drafter"),
+		@ApiImplicitParam(name = RoleVOMeta.NAME , value = "角色名称" , required = false , dataTypeClass=String.class , example = "起草人"),
+		@ApiImplicitParam(name = RoleVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiOperationSupport(order=1)
 	@NotNull(name = RoleVOMeta.VALID)
@@ -86,7 +86,7 @@ public class RoleController extends SuperController {
 	*/
 	@ApiOperation(value = "删除流程角色")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = RoleVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class)
+		@ApiImplicitParam(name = RoleVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "498946989573017600")
 	})
 	@ApiOperationSupport(order=2)
 	@NotNull(name = RoleVOMeta.ID)
@@ -120,10 +120,10 @@ public class RoleController extends SuperController {
 	*/
 	@ApiOperation(value = "更新流程角色")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = RoleVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = RoleVOMeta.CODE , value = "角色代码" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = RoleVOMeta.NAME , value = "角色名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = RoleVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = RoleVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "498946989573017600"),
+		@ApiImplicitParam(name = RoleVOMeta.CODE , value = "角色代码" , required = false , dataTypeClass=String.class , example = "drafter"),
+		@ApiImplicitParam(name = RoleVOMeta.NAME , value = "角色名称" , required = false , dataTypeClass=String.class , example = "起草人"),
+		@ApiImplicitParam(name = RoleVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiOperationSupport( order=4 , ignoreParameters = { RoleVOMeta.PAGE_INDEX , RoleVOMeta.PAGE_SIZE , RoleVOMeta.SEARCH_FIELD , RoleVOMeta.FUZZY_FIELD , RoleVOMeta.SEARCH_VALUE , RoleVOMeta.SORT_FIELD , RoleVOMeta.SORT_TYPE , RoleVOMeta.IDS } ) 
 	@NotNull(name = RoleVOMeta.ID)
@@ -141,10 +141,10 @@ public class RoleController extends SuperController {
 	*/
 	@ApiOperation(value = "保存流程角色")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = RoleVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = RoleVOMeta.CODE , value = "角色代码" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = RoleVOMeta.NAME , value = "角色名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = RoleVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = RoleVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "498946989573017600"),
+		@ApiImplicitParam(name = RoleVOMeta.CODE , value = "角色代码" , required = false , dataTypeClass=String.class , example = "drafter"),
+		@ApiImplicitParam(name = RoleVOMeta.NAME , value = "角色名称" , required = false , dataTypeClass=String.class , example = "起草人"),
+		@ApiImplicitParam(name = RoleVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { RoleVOMeta.PAGE_INDEX , RoleVOMeta.PAGE_SIZE , RoleVOMeta.SEARCH_FIELD , RoleVOMeta.FUZZY_FIELD , RoleVOMeta.SEARCH_VALUE , RoleVOMeta.SORT_FIELD , RoleVOMeta.SORT_TYPE , RoleVOMeta.IDS } )
 	@NotNull(name = RoleVOMeta.ID)
@@ -201,10 +201,10 @@ public class RoleController extends SuperController {
 	*/
 	@ApiOperation(value = "查询流程角色")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = RoleVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = RoleVOMeta.CODE , value = "角色代码" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = RoleVOMeta.NAME , value = "角色名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = RoleVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = RoleVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "498946989573017600"),
+		@ApiImplicitParam(name = RoleVOMeta.CODE , value = "角色代码" , required = false , dataTypeClass=String.class , example = "drafter"),
+		@ApiImplicitParam(name = RoleVOMeta.NAME , value = "角色名称" , required = false , dataTypeClass=String.class , example = "起草人"),
+		@ApiImplicitParam(name = RoleVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { RoleVOMeta.PAGE_INDEX , RoleVOMeta.PAGE_SIZE } )
 	@SentinelResource(value = RoleServiceProxy.QUERY_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
@@ -222,10 +222,10 @@ public class RoleController extends SuperController {
 	*/
 	@ApiOperation(value = "分页查询流程角色")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = RoleVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = RoleVOMeta.CODE , value = "角色代码" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = RoleVOMeta.NAME , value = "角色名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = RoleVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = RoleVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "498946989573017600"),
+		@ApiImplicitParam(name = RoleVOMeta.CODE , value = "角色代码" , required = false , dataTypeClass=String.class , example = "drafter"),
+		@ApiImplicitParam(name = RoleVOMeta.NAME , value = "角色名称" , required = false , dataTypeClass=String.class , example = "起草人"),
+		@ApiImplicitParam(name = RoleVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiOperationSupport(order=8)
 	@SentinelResource(value = RoleServiceProxy.QUERY_PAGED_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )

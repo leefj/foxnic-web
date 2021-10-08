@@ -2,7 +2,7 @@
 /**
  * 流程角色员工关系 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-08 17:28:36
+ * @since 2021-10-08 20:22:21
  */
  -->
  <!DOCTYPE html>
@@ -34,20 +34,28 @@
             <div class="search-input-rows" style="opacity: 0">
                 <!-- 搜索输入区域 -->
                 <div class="layui-form toolbar search-inputs">
-                    <!-- 主键 , id ,typeName=text_input, isHideInSearch=false -->
+                    <!-- 主键 , id ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 角色ID , roleId ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 员工ID , employeeId ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 姓名 , name ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('主键')}" class="search-label id-label">主键</span><span class="search-colon">:</span></div>
-                        <input id="id" class="layui-input search-input" style="width: 140px" type="text" />
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('姓名')}" class="search-label name-label">姓名</span><span class="search-colon">:</span></div>
+                        <input id="name" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
-                    <!-- 角色ID , roleId ,typeName=text_input, isHideInSearch=false -->
+                    <!-- 工号 , badge ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('角色ID')}" class="search-label roleId-label">角色ID</span><span class="search-colon">:</span></div>
-                        <input id="roleId" class="layui-input search-input" style="width: 140px" type="text" />
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('工号')}" class="search-label badge-label">工号</span><span class="search-colon">:</span></div>
+                        <input id="badge" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
-                    <!-- 角色名称 , employeeId ,typeName=text_input, isHideInSearch=false -->
+                    <!-- 岗位 , positionName ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('角色名称')}" class="search-label employeeId-label">角色名称</span><span class="search-colon">:</span></div>
-                        <input id="employeeId" class="layui-input search-input" style="width: 140px" type="text" />
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('岗位')}" class="search-label positionName-label">岗位</span><span class="search-colon">:</span></div>
+                        <input id="positionName" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 部门 , deptName ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('部门')}" class="search-label deptName-label">部门</span><span class="search-colon">:</span></div>
+                        <input id="deptName" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
 
 

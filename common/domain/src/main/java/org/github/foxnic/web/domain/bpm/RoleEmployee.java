@@ -1,23 +1,24 @@
 package org.github.foxnic.web.domain.bpm;
 
 import com.github.foxnic.dao.entity.Entity;
-import javax.persistence.Table;
-import com.github.foxnic.sql.meta.DBTable;
-import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_ROLE_EMPLOYEE;
-import javax.persistence.Id;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.Date;
-import javax.persistence.Transient;
-import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
+import com.github.foxnic.sql.meta.DBTable;
+import io.swagger.annotations.ApiModelProperty;
+import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_ROLE_EMPLOYEE;
+
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import java.util.Date;
+import java.util.Map;
 
 
 
 /**
  * 流程角色员工关系
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-08 17:28:36
- * @sign 47F5B84112D70C6882027733FAAFAA72
+ * @since 2021-10-08 20:08:44
+ * @sign D7F1BD15352E3886593120D9727CD2B8
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -42,9 +43,9 @@ public class RoleEmployee extends Entity {
 	private String roleId;
 	
 	/**
-	 * 角色名称：角色名称
+	 * 员工ID：员工ID
 	*/
-	@ApiModelProperty(required = false,value="角色名称" , notes = "角色名称")
+	@ApiModelProperty(required = false,value="员工ID" , notes = "员工ID")
 	private String employeeId;
 	
 	/**
@@ -98,17 +99,17 @@ public class RoleEmployee extends Entity {
 	}
 	
 	/**
-	 * 获得 角色名称<br>
-	 * 角色名称
-	 * @return 角色名称
+	 * 获得 员工ID<br>
+	 * 员工ID
+	 * @return 员工ID
 	*/
 	public String getEmployeeId() {
 		return employeeId;
 	}
 	
 	/**
-	 * 设置 角色名称
-	 * @param employeeId 角色名称
+	 * 设置 员工ID
+	 * @param employeeId 员工ID
 	 * @return 当前对象
 	*/
 	public RoleEmployee setEmployeeId(String employeeId) {

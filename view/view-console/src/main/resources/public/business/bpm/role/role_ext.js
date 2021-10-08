@@ -1,7 +1,8 @@
 /**
  * 流程角色 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-08 17:28:33
+ * @since 2021-10-08 20:00:58
+ * @version
  */
 
 layui.config({
@@ -128,6 +129,20 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * */
         moreAction:function (menu,data, it){
             console.log('moreAction',menu,data,it);
+        },
+        openEmployees:function (data){
+            console.log('openEmployees',data);
+            admin.putTempData("refreshRoles",window.module.refreshTableData,true);
+            admin.putTempData("bpm-role-id",data.id,true);
+            var dialogIndex=admin.popupCenter({
+                type:2,
+                id:"roleEmployeeDialog",
+                title: "角色成员",
+                offset: 'auto',
+                content: '/business/bpm/role_employee/role_employee_list.html',
+                area:["80%","80%"]
+            });
+            admin.putTempData("employee-dialog-index",dialogIndex,true);
         },
         /**
          * 末尾执行

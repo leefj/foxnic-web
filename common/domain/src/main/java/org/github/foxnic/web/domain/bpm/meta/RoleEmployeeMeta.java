@@ -8,8 +8,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-08 17:28:36
- * @sign 47F5B84112D70C6882027733FAAFAA72
+ * @since 2021-10-08 20:08:44
+ * @sign D7F1BD15352E3886593120D9727CD2B8
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -36,14 +36,14 @@ public class RoleEmployeeMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.RoleEmployee,java.lang.String> ROLE_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.RoleEmployee.class ,ROLE_ID, java.lang.String.class, "角色ID", "角色ID", java.lang.String.class, null);
 	
 	/**
-	 * 角色名称 , 类型: java.lang.String
+	 * 员工ID , 类型: java.lang.String
 	*/
 	public static final String EMPLOYEE_ID="employeeId";
 	
 	/**
-	 * 角色名称 , 类型: java.lang.String
+	 * 员工ID , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.RoleEmployee,java.lang.String> EMPLOYEE_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.RoleEmployee.class ,EMPLOYEE_ID, java.lang.String.class, "角色名称", "角色名称", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.RoleEmployee,java.lang.String> EMPLOYEE_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.RoleEmployee.class ,EMPLOYEE_ID, java.lang.String.class, "员工ID", "员工ID", java.lang.String.class, null);
 	
 	/**
 	 * 创建人ID , 类型: java.lang.String
@@ -101,8 +101,8 @@ public class RoleEmployeeMeta {
 		}
 		
 		/**
-		 * 设置 角色名称
-		 * @param employeeId 角色名称
+		 * 设置 员工ID
+		 * @param employeeId 员工ID
 		 * @return 当前对象
 		*/
 		public RoleEmployee setEmployeeId(String employeeId) {

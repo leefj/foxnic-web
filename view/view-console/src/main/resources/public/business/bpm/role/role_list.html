@@ -2,7 +2,7 @@
 /**
  * 流程角色 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-08 17:28:34
+ * @since 2021-10-08 20:48:42
  */
  -->
  <!DOCTYPE html>
@@ -35,17 +35,22 @@
                 <!-- 搜索输入区域 -->
                 <div class="layui-form toolbar search-inputs">
                     <!-- 主键 , id ,typeName=text_input, isHideInSearch=true -->
-                    <!-- 角色代码 , code ,typeName=text_input, isHideInSearch=false -->
+                    <!-- 代码 , code ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('角色代码')}" class="search-label code-label">角色代码</span><span class="search-colon">:</span></div>
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('代码')}" class="search-label code-label">代码</span><span class="search-colon">:</span></div>
                         <input id="code" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
-                    <!-- 角色名称 , name ,typeName=text_input, isHideInSearch=false -->
+                    <!-- 名称 , name ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('角色名称')}" class="search-label name-label">角色名称</span><span class="search-colon">:</span></div>
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('名称')}" class="search-label name-label">名称</span><span class="search-colon">:</span></div>
                         <input id="name" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
-                    <!-- 是否有效 , valid ,typeName=logic_switch, isHideInSearch=true -->
+                    <!-- 状态 , valid ,typeName=logic_switch, isHideInSearch=true -->
+                    <!-- 成员数 , empCount ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('成员数')}" class="search-label empCount-label">成员数</span><span class="search-colon">:</span></div>
+                        <input id="empCount" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
 
 
                 </div>
@@ -88,12 +93,13 @@
 
     <button th:if="${perm.checkAuth('bpm_role:delete')}" class="layui-btn layui-btn-xs layui-btn-danger ops-delete-button" lay-event="del" th:text="${lang.translate('删除')}" data-id="{{d.id}}">删除</button>
 
+    <button class="layui-btn layui-btn-xs " lay-event="open-employees" th:text="${lang.translate('成员')}" data-id="{{d.id}}">成员</button>
 
 </script>
 
 <!-- 表格状态列 -->
 <script type="text/html" id="cell-tpl-valid">
-    <input type="checkbox" class="switch-valid list-checkbox" lay-filter="cell-tpl-valid" value="{{d.id}}" lay-skin="switch" lay-text="有效|停用&nbsp;"  {{d.valid==1?'checked':''}} data-id="{{d.id}}"/>
+    <input type="checkbox" class="switch-valid list-checkbox" lay-filter="cell-tpl-valid" value="{{d.id}}" lay-skin="switch" lay-text="启用|停用&nbsp;"  {{d.valid==1?'checked':''}} data-id="{{d.id}}"/>
 </script>
 
 <script th:inline="javascript">

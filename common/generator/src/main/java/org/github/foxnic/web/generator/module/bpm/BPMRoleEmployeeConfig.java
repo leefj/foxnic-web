@@ -5,6 +5,7 @@ import com.github.foxnic.generator.builder.model.VoClassFile;
 import com.github.foxnic.generator.builder.view.option.ListOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
+import org.github.foxnic.web.constants.db.FoxnicWeb.*;
 import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_ROLE_EMPLOYEE;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
@@ -22,12 +23,18 @@ public class BPMRoleEmployeeConfig extends BaseCodeConfig<BPM_ROLE_EMPLOYEE> {
 
 	@Override
 	public void configFields(ViewOptions view) {
-
+		view.field(BPM_ROLE_EMPLOYEE.ID).search().hidden();
+		view.field(BPM_ROLE_EMPLOYEE.ROLE_ID).search().hidden();
+		view.field(BPM_ROLE_EMPLOYEE.EMPLOYEE_ID).search().hidden();
+		view.field(HRM_PERSON.NAME).basic().label("姓名").search().fuzzySearch();
+		view.field(HRM_EMPLOYEE.BADGE).basic().label("工号").search().fuzzySearch();
+		view.field("positionName").basic().label("岗位").search().fuzzySearch();
+		view.field("deptName").basic().label("部门").search().fuzzySearch();
 	}
 
 	@Override
 	public void configList(ViewOptions view, ListOptions list) {
-
+		list.columnLayout(HRM_EMPLOYEE.BADGE,HRM_PERSON.NAME,"positionName","deptName");
 	}
 
 	@Override

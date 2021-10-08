@@ -2,7 +2,7 @@
 /**
  * 流程角色员工关系 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-08 17:28:36
+ * @since 2021-10-08 20:22:21
  */
  -->
  <!DOCTYPE html>
@@ -53,9 +53,37 @@
                     </div>
 
                                     <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('角色名称')}">角色名称</div></div>
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('员工ID')}">员工ID</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="employeeId" id="employeeId" name="employeeId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('角色名称') }" type="text" class="layui-input"  />
+                            <input lay-filter="employeeId" id="employeeId" name="employeeId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('员工ID') }" type="text" class="layui-input"  />
+                        </div>
+                    </div>
+
+                                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('姓名')}">姓名</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input lay-filter="name" id="name" name="name" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('姓名') }" type="text" class="layui-input"  />
+                        </div>
+                    </div>
+
+                                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('工号')}">工号</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input lay-filter="badge" id="badge" name="badge" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('工号') }" type="text" class="layui-input"  />
+                        </div>
+                    </div>
+
+                                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('岗位')}">岗位</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input lay-filter="positionName" id="positionName" name="positionName" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('岗位') }" type="text" class="layui-input"  />
+                        </div>
+                    </div>
+
+                                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('部门')}">部门</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input lay-filter="deptName" id="deptName" name="deptName" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('部门') }" type="text" class="layui-input"  />
                         </div>
                     </div>
 

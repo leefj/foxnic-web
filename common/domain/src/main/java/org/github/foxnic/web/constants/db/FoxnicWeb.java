@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2021-10-08 17:16:22
+ * @since 2021-10-08 20:08:21
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -112,9 +112,9 @@ public class FoxnicWeb {
 		public static final DBField ROLE_ID = new DBField(DBDataType.STRING , "role_id","roleId","角色ID","角色ID",false,false,true);
 		
 		/**
-		 * 角色名称
+		 * 员工ID
 		*/
-		public static final DBField EMPLOYEE_ID = new DBField(DBDataType.STRING , "employee_id","employeeId","角色名称","角色名称",false,false,true);
+		public static final DBField EMPLOYEE_ID = new DBField(DBDataType.STRING , "employee_id","employeeId","员工ID","员工ID",false,false,true);
 		
 		/**
 		 * 创建人ID

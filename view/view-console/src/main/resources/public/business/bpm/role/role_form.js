@@ -1,7 +1,7 @@
 /**
  * 流程角色 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-08 17:28:36
+ * @since 2021-10-08 20:48:42
  */
 
 function FormPage() {
@@ -151,7 +151,7 @@ function FormPage() {
 	function getFormData() {
 		var data=form.val("data-form");
 
-		//处理 是否有效 默认值
+		//处理 状态 默认值
 		if(!data.valid) data.valid=0;
 
 

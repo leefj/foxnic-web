@@ -1,7 +1,7 @@
 /**
  * 流程角色 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-08 17:28:35
+ * @since 2021-10-08 20:48:41
  */
 
 
@@ -73,11 +73,12 @@ function ListPage() {
 				cols: [[
 					{ fixed: 'left',type: 'numbers' },
 					{ fixed: 'left',type:'checkbox' }
-					,{ field: 'id', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('主键') , templet: function (d) { return templet('id',d.id,d);}  }
-					,{ field: 'code', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('角色代码') , templet: function (d) { return templet('code',d.code,d);}  }
-					,{ field: 'name', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('角色名称') , templet: function (d) { return templet('name',d.name,d);}  }
-					,{ field: 'valid', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('是否有效'), templet: '#cell-tpl-valid'}
+					,{ field: 'code', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('代码') , templet: function (d) { return templet('code',d.code,d);}  }
+					,{ field: 'name', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('名称') , templet: function (d) { return templet('name',d.name,d);}  }
+					,{ field: 'valid', align:"center",fixed:false,  hide:false, sort: true, title: fox.translate('状态'), templet: '#cell-tpl-valid'}
+					,{ field: 'empCount', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('成员数') , templet: function (d) { return templet('empCount',d.empCount,d);}  }
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }}
+					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('主键') , templet: function (d) { return templet('id',d.id,d);}  }
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
 				]],
@@ -118,6 +119,7 @@ function ListPage() {
 		var value = {};
 		value.code={ inputType:"button",value: $("#code").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" "};
 		value.name={ inputType:"button",value: $("#name").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" "};
+		value.empCount={ inputType:"button",value: $("#empCount").val()};
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;
@@ -327,6 +329,9 @@ function ListPage() {
 					});
 				});
 				
+			}
+			else if (layEvent === 'open-employees') { // 成员
+				window.pageExt.list.openEmployees(data);
 			}
 			
 		});
