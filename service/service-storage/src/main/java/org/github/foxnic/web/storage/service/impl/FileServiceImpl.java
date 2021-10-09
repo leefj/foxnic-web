@@ -189,13 +189,15 @@ public class FileServiceImpl extends SuperService<File> implements IFileService 
 		}
 		byte[] bytes=null;
 		try {
-			bytes=this.getBytes(fileInfo);
-			if(bytes==null) {
-				result= ErrorDesc.failure(CommonError.FILE_INVALID).message("file read error");
-			} else {
-				DownloadUtil.writeToOutput(response, bytes, fileInfo.getFileName(), null, inline);
+			if(fileInfo!=null) {
+				bytes = this.getBytes(fileInfo);
+				if (bytes == null) {
+					result = ErrorDesc.failure(CommonError.FILE_INVALID).message("file read error");
+				} else {
+					DownloadUtil.writeToOutput(response, bytes, fileInfo.getFileName(), null, inline);
+				}
+				return;
 			}
-			return;
 		}catch (Exception e) {
 			Logger.error("文件下载失败 , fileId="+fileInfo.getId());
 			result= ErrorDesc.failure(CommonError.FILE_INVALID).message(e.getMessage());
@@ -206,7 +208,7 @@ public class FileServiceImpl extends SuperService<File> implements IFileService 
 				response.setCharacterEncoding("UTF-8");
 				response.getWriter().write(JSON.toJSONString(result));
 			} catch (IOException e) {
-				Logger.error("下载失败，输出异常",e);
+				Logger.error("下载失败，输出异常 , fileId="+fileInfo.getId());
 			}
 		}
 
