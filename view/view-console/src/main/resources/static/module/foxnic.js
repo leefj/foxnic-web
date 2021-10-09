@@ -1033,13 +1033,30 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
         /**
          * 获得指定属性的值
          * */
-        getProperty:function (data,path) {
-            if(!data) return"";
+        getProperty:function (data,path,start) {
+            //debugger
+            if(!data) return "";
+            if(!start) start=0;
             var prop,value=data;
-            for (var i = 0; i < path.length; i++) {
+            for (var i = start; i < path.length; i++) {
                 prop=path[i];
                 value=value[prop];
                 if(!value) return "";
+                if(TypeUtil.isArray(value) && value.length>0){
+                    var rets=[];
+                    for (var j = 0; j < value.length; j++) {
+                        var ret=this.getProperty(value[j],path,i+1);
+                        if(TypeUtil.isArray(ret)) {
+                            for (let k = 0; k < ret.length; k++) {
+                                rets.push(ret[k]);
+                            }
+                        } else {
+                            rets.push(ret);
+                        }
+                    }
+                    value=rets.join(",");
+                    return value;
+                }
             }
             return value;
         },

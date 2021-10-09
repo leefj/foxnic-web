@@ -2,9 +2,10 @@ package org.github.foxnic.web.relation.modules;
 
 import com.github.foxnic.dao.relation.RelationManager;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
+import org.github.foxnic.web.domain.bpm.Role;
 import org.github.foxnic.web.domain.bpm.RoleEmployee;
+import org.github.foxnic.web.domain.bpm.meta.RoleEmployeeMeta;
 import org.github.foxnic.web.domain.bpm.meta.RoleMeta;
-import org.github.foxnic.web.domain.oauth.Role;
 
 public class BpmRelationManager extends RelationManager {
 
@@ -24,6 +25,10 @@ public class BpmRelationManager extends RelationManager {
 		;
 
 
+		//角色员工关系 - 员工
+		this.property(RoleEmployeeMeta.EMPLOYEE_PROP)
+				.using(FoxnicWeb.BPM_ROLE_EMPLOYEE.EMPLOYEE_ID).join(FoxnicWeb.HRM_EMPLOYEE.ID)
+		;
 
 
 	}

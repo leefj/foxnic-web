@@ -13,7 +13,7 @@ public class HrmRelationManager extends RelationManager {
 	protected void config() {
 		this.setupEmployeeProperties();
 	}
- 
+
 	public void setupEmployeeProperties() {
 
 		//员工 - 人员关联关系
@@ -42,9 +42,11 @@ public class HrmRelationManager extends RelationManager {
 				.after((employee,positions,m)->{
 					for (Position position : positions) {
 						//如果是主岗，设置员工主岗
-						if(m.get(position).getBoolean("pri")) {
+						Boolean pri=m.get(position).getBoolean("pri");
+						if(pri==null) pri=false;
+						if(pri) {
 							employee.setPrimaryPosition(position);
-							}
+						}
 					}
 					return positions;
 				});
@@ -57,7 +59,9 @@ public class HrmRelationManager extends RelationManager {
 				.after((employee,orgs,m)->{
 					for (Organization org : orgs) {
 						//如果是主岗，设置员工主岗
-						if(m.get(org).getBoolean("pri")) {
+						Boolean pri=m.get(org).getBoolean("pri");
+						if(pri==null) pri=false;
+						if(pri) {
 							employee.setPrimaryOrganization(org);
 						}
 					}

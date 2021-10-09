@@ -7,6 +7,12 @@ import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.*;
 import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_ROLE_EMPLOYEE;
+import org.github.foxnic.web.domain.bpm.meta.RoleEmployeeMeta;
+import org.github.foxnic.web.domain.hrm.Employee;
+import org.github.foxnic.web.domain.hrm.meta.EmployeeMeta;
+import org.github.foxnic.web.domain.hrm.meta.OrganizationMeta;
+import org.github.foxnic.web.domain.hrm.meta.PersonMeta;
+import org.github.foxnic.web.domain.hrm.meta.PositionMeta;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
 
@@ -18,7 +24,7 @@ public class BPMRoleEmployeeConfig extends BaseCodeConfig<BPM_ROLE_EMPLOYEE> {
 
 	@Override
 	public void configModel(PoClassFile poType, VoClassFile voType) {
-
+		poType.addSimpleProperty(Employee.class,"employee","员工","员工");
 	}
 
 	@Override
@@ -26,10 +32,18 @@ public class BPMRoleEmployeeConfig extends BaseCodeConfig<BPM_ROLE_EMPLOYEE> {
 		view.field(BPM_ROLE_EMPLOYEE.ID).search().hidden();
 		view.field(BPM_ROLE_EMPLOYEE.ROLE_ID).search().hidden();
 		view.field(BPM_ROLE_EMPLOYEE.EMPLOYEE_ID).search().hidden();
-		view.field(HRM_PERSON.NAME).basic().label("姓名").search().fuzzySearch();
-		view.field(HRM_EMPLOYEE.BADGE).basic().label("工号").search().fuzzySearch();
-		view.field("positionName").basic().label("岗位").search().fuzzySearch();
-		view.field("deptName").basic().label("部门").search().fuzzySearch();
+
+		view.field(HRM_PERSON.NAME).basic().label("姓名").search().fuzzySearch()
+				.table().fillBy(RoleEmployeeMeta.EMPLOYEE,EmployeeMeta.PERSON, PersonMeta.NAME);
+
+		view.field(HRM_EMPLOYEE.BADGE).basic().label("工号").search().fuzzySearch()
+				.table().fillBy(RoleEmployeeMeta.EMPLOYEE,EmployeeMeta.BADGE);
+
+		view.field("positionName").basic().label("岗位").search().fuzzySearch()
+				.table().fillBy(RoleEmployeeMeta.EMPLOYEE,EmployeeMeta.POSITIONS, PositionMeta.FULL_NAME);
+
+		view.field("deptName").basic().label("部门").search().fuzzySearch()
+				.table().fillBy(RoleEmployeeMeta.EMPLOYEE,EmployeeMeta.ORGANIZATIONS, OrganizationMeta.FULL_NAME);
 	}
 
 	@Override

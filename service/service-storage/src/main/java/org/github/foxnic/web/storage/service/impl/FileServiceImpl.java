@@ -43,7 +43,7 @@ import java.util.List;
 
 @Service("SysFileServiceImpl")
 public class FileServiceImpl extends SuperService<File> implements IFileService {
-	
+
 	@Resource(name=DBConfigs.PRIMARY_DAO)
 	private DAO dao=null;
 	@Value("${storage.mode}")
@@ -65,7 +65,7 @@ public class FileServiceImpl extends SuperService<File> implements IFileService 
 	 * 获得 DAO 对象
 	 * */
 	public DAO dao() { return dao; }
-	
+
 	/**
 	 * 生成主键值
 	 * */
@@ -73,7 +73,7 @@ public class FileServiceImpl extends SuperService<File> implements IFileService 
 	public Object generateId(Field field) {
 		return IDGenerator.getSnowflakeIdString();
 	}
-	
+
 	/**
 	 * 按主键删除sys_file
 	 *
@@ -86,7 +86,7 @@ public class FileServiceImpl extends SuperService<File> implements IFileService 
 		file.setId(id);
 		return dao.deleteEntity(file);
 	}
-	
+
 	/**
 	 * 按主键删除sys_file
 	 *
@@ -100,7 +100,7 @@ public class FileServiceImpl extends SuperService<File> implements IFileService 
 		file.setDeleted(1);
 		return dao.updateEntity(file,SaveMode.NOT_NULL_FIELDS);
 	}
-	
+
 	/**
 	 * 按主键获取sys_file
 	 *
@@ -157,7 +157,7 @@ public class FileServiceImpl extends SuperService<File> implements IFileService 
 			resurgence(fileInfo.getId(),true);
 			bytes=this.getStorageSupport().read(fileInfo);
 		} catch (Exception e) {
-			Logger.error(e.getMessage(),e);
+			Logger.error("文件读取失败,fileId="+fileInfo.getId());
 		}
 		return bytes;
 	}
@@ -197,7 +197,7 @@ public class FileServiceImpl extends SuperService<File> implements IFileService 
 			}
 			return;
 		}catch (Exception e) {
-			Logger.error(e.getMessage(),e);
+			Logger.error("文件下载失败 , fileId="+fileInfo.getId());
 			result= ErrorDesc.failure(CommonError.FILE_INVALID).message(e.getMessage());
 		}
 

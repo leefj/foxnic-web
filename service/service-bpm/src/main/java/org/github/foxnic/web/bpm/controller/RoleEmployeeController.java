@@ -1,6 +1,6 @@
 package org.github.foxnic.web.bpm.controller;
 
- 
+
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
@@ -20,7 +20,9 @@ import io.swagger.annotations.ApiOperation;
 import org.github.foxnic.web.bpm.service.IRoleEmployeeService;
 import org.github.foxnic.web.domain.bpm.RoleEmployee;
 import org.github.foxnic.web.domain.bpm.RoleEmployeeVO;
+import org.github.foxnic.web.domain.bpm.meta.RoleEmployeeMeta;
 import org.github.foxnic.web.domain.bpm.meta.RoleEmployeeVOMeta;
+import org.github.foxnic.web.domain.hrm.meta.EmployeeMeta;
 import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
 import org.github.foxnic.web.framework.web.SuperController;
 import org.github.foxnic.web.proxy.bpm.RoleEmployeeServiceProxy;
@@ -54,7 +56,7 @@ public class RoleEmployeeController extends SuperController {
 	@Autowired
 	private IRoleEmployeeService roleEmployeeService;
 
-	
+
 	/**
 	 * 添加流程角色员工关系
 	*/
@@ -89,7 +91,7 @@ public class RoleEmployeeController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 删除流程角色员工关系
 	*/
@@ -105,8 +107,8 @@ public class RoleEmployeeController extends SuperController {
 		Result result=roleEmployeeService.deleteByIdPhysical(id);
 		return result;
 	}
-	
-	
+
+
 	/**
 	 * 批量删除流程角色员工关系 <br>
 	 * 联合主键时，请自行调整实现
@@ -115,7 +117,7 @@ public class RoleEmployeeController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = RoleEmployeeVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 	})
-	@ApiOperationSupport(order=3) 
+	@ApiOperationSupport(order=3)
 	@NotNull(name = RoleEmployeeVOMeta.IDS)
 	@SentinelResource(value = RoleEmployeeServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(RoleEmployeeServiceProxy.DELETE_BY_IDS)
@@ -123,7 +125,7 @@ public class RoleEmployeeController extends SuperController {
 		Result result=roleEmployeeService.deleteByIdsLogical(ids);
 		return result;
 	}
-	
+
 	/**
 	 * 更新流程角色员工关系
 	*/
@@ -133,7 +135,7 @@ public class RoleEmployeeController extends SuperController {
 		@ApiImplicitParam(name = RoleEmployeeVOMeta.ROLE_ID , value = "角色ID" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = RoleEmployeeVOMeta.EMPLOYEE_ID , value = "员工ID" , required = false , dataTypeClass=String.class),
 	})
-	@ApiOperationSupport( order=4 , ignoreParameters = { RoleEmployeeVOMeta.PAGE_INDEX , RoleEmployeeVOMeta.PAGE_SIZE , RoleEmployeeVOMeta.SEARCH_FIELD , RoleEmployeeVOMeta.FUZZY_FIELD , RoleEmployeeVOMeta.SEARCH_VALUE , RoleEmployeeVOMeta.SORT_FIELD , RoleEmployeeVOMeta.SORT_TYPE , RoleEmployeeVOMeta.IDS } ) 
+	@ApiOperationSupport( order=4 , ignoreParameters = { RoleEmployeeVOMeta.PAGE_INDEX , RoleEmployeeVOMeta.PAGE_SIZE , RoleEmployeeVOMeta.SEARCH_FIELD , RoleEmployeeVOMeta.FUZZY_FIELD , RoleEmployeeVOMeta.SEARCH_VALUE , RoleEmployeeVOMeta.SORT_FIELD , RoleEmployeeVOMeta.SORT_TYPE , RoleEmployeeVOMeta.IDS } )
 	@NotNull(name = RoleEmployeeVOMeta.ID)
 	@SentinelResource(value = RoleEmployeeServiceProxy.UPDATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(RoleEmployeeServiceProxy.UPDATE)
@@ -141,8 +143,8 @@ public class RoleEmployeeController extends SuperController {
 		Result result=roleEmployeeService.update(roleEmployeeVO,SaveMode.NOT_NULL_FIELDS);
 		return result;
 	}
-	
-	
+
+
 	/**
 	 * 保存流程角色员工关系
 	*/
@@ -161,7 +163,7 @@ public class RoleEmployeeController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 获取流程角色员工关系
 	*/
@@ -189,7 +191,7 @@ public class RoleEmployeeController extends SuperController {
 		@ApiImplicitParams({
 				@ApiImplicitParam(name = RoleEmployeeVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})
-		@ApiOperationSupport(order=3) 
+		@ApiOperationSupport(order=3)
 		@NotNull(name = RoleEmployeeVOMeta.IDS)
 		@SentinelResource(value = RoleEmployeeServiceProxy.GET_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(RoleEmployeeServiceProxy.GET_BY_IDS)
@@ -200,7 +202,7 @@ public class RoleEmployeeController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 查询流程角色员工关系
 	*/
@@ -220,7 +222,7 @@ public class RoleEmployeeController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 分页查询流程角色员工关系
 	*/
@@ -236,6 +238,13 @@ public class RoleEmployeeController extends SuperController {
 	public Result<PagedList<RoleEmployee>> queryPagedList(RoleEmployeeVO sample) {
 		Result<PagedList<RoleEmployee>> result=new Result<>();
 		PagedList<RoleEmployee> list=roleEmployeeService.queryPagedList(sample,sample.getPageSize(),sample.getPageIndex());
+		//
+		roleEmployeeService.dao().fill(list)
+			.with(RoleEmployeeMeta.EMPLOYEE,EmployeeMeta.PERSON)
+			.with(RoleEmployeeMeta.EMPLOYEE, EmployeeMeta.POSITIONS)
+			.with(RoleEmployeeMeta.EMPLOYEE, EmployeeMeta.ORGANIZATIONS)
+			.execute();
+		//
 		result.success(true).data(list);
 		return result;
 	}

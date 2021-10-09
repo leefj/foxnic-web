@@ -63,6 +63,8 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * */
         beforeQuery:function (conditions,param,location) {
             console.log('beforeQuery',conditions,param,location);
+            var roleId=admin.getTempData("bpm-role-id");
+            param.roleId=roleId;
             return true;
         },
         /**
@@ -109,7 +111,8 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             }
             //
             admin.post("/service-bpm/bpm-role-employee/inserts",ps,function (r){},{delayLoading:2000,elms:[]});
-            debugger;
+            //debugger;
+            window.module.refreshTableData();
         },
         /**
          * 单行删除前调用，若返回false则不执行后续操作

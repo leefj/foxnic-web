@@ -1,12 +1,12 @@
 /**
  * 流程角色员工关系 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-08 20:22:21
+ * @since 2021-10-09 14:09:49
  */
 
 
 function ListPage() {
-        
+
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect;
 	//模块基础路径
 	const moduleURL="/service-bpm/bpm-role-employee";
@@ -15,7 +15,7 @@ function ListPage() {
       * 入口函数，初始化
       */
 	this.init=function(layui) {
-     	
+
      	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload,laydate= layui.laydate;
 		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect,dropdown=layui.dropdown;;
 
@@ -33,8 +33,8 @@ function ListPage() {
 		//绑定行操作按钮事件
     	bindRowOperationEvent();
      }
-     
-     
+
+
      /**
       * 渲染表格
       */
@@ -73,10 +73,10 @@ function ListPage() {
 				cols: [[
 					{ fixed: 'left',type: 'numbers' },
 					{ fixed: 'left',type:'checkbox' }
-					,{ field: 'badge', align:"",fixed:false,  hide:false, sort: true, title: fox.translate('工号') , templet: function (d) { return templet('badge',d.badge,d);}  }
-					,{ field: 'name', align:"",fixed:false,  hide:false, sort: true, title: fox.translate('姓名') , templet: function (d) { return templet('name',d.name,d);}  }
-					,{ field: 'positionName', align:"",fixed:false,  hide:false, sort: true, title: fox.translate('岗位') , templet: function (d) { return templet('positionName',d.positionName,d);}  }
-					,{ field: 'deptName', align:"",fixed:false,  hide:false, sort: true, title: fox.translate('部门') , templet: function (d) { return templet('deptName',d.deptName,d);}  }
+					,{ field: 'badge', align:"",fixed:false,  hide:false, sort: true, title: fox.translate('工号') , templet: function (d) { return templet('badge',fox.getProperty(d,["employee","badge"]),d);} }
+					,{ field: 'name', align:"",fixed:false,  hide:false, sort: true, title: fox.translate('姓名') , templet: function (d) { return templet('name',fox.getProperty(d,["employee","person","name"]),d);} }
+					,{ field: 'positionName', align:"",fixed:false,  hide:false, sort: true, title: fox.translate('岗位') , templet: function (d) { return templet('positionName',fox.getProperty(d,["employee","positions","fullName"]),d);} }
+					,{ field: 'deptName', align:"",fixed:false,  hide:false, sort: true, title: fox.translate('部门') , templet: function (d) { return templet('deptName',fox.getProperty(d,["employee","organizations","fullName"]),d);} }
 					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('主键') , templet: function (d) { return templet('id',d.id,d);}  }
 					,{ field: 'roleId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('角色ID') , templet: function (d) { return templet('roleId',d.roleId,d);}  }
 					,{ field: 'employeeId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('员工ID') , templet: function (d) { return templet('employeeId',d.employeeId,d);}  }
@@ -115,10 +115,10 @@ function ListPage() {
       */
 	function refreshTableData(sortField,sortType) {
 		var value = {};
-		value.name={ inputType:"button",value: $("#name").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" "};
-		value.badge={ inputType:"button",value: $("#badge").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" "};
-		value.positionName={ inputType:"button",value: $("#positionName").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" "};
-		value.deptName={ inputType:"button",value: $("#deptName").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" "};
+		value.name={ inputType:"button",value: $("#name").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" ",fillBy:["employee","person","name"] };
+		value.badge={ inputType:"button",value: $("#badge").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" ",fillBy:["employee","badge"] };
+		value.positionName={ inputType:"button",value: $("#positionName").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" ",fillBy:["employee","positions","fullName"] };
+		value.deptName={ inputType:"button",value: $("#deptName").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" ",fillBy:["employee","organizations","fullName"] };
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;
@@ -130,8 +130,8 @@ function ListPage() {
 		}
 		table.reload('data-table', { where : ps });
 	}
-    
-	
+
+
 	/**
 	  * 获得已经选中行的数据,不传入 field 时，返回所有选中的记录，指定 field 时 返回指定的字段集合
 	  */
@@ -142,7 +142,7 @@ function ListPage() {
 		for(var i=0;i<data.length;i++) data[i]=data[i][field];
 		return data;
 	}
-	
+
 	/**
 	 * 重置搜索框
 	 */
@@ -159,7 +159,7 @@ function ListPage() {
 		fox.renderSearchInputs();
 		window.pageExt.list.afterSearchInputReady && window.pageExt.list.afterSearchInputReady();
 	}
-	
+
 	/**
 	 * 绑定搜索框事件
 	 */
@@ -187,7 +187,7 @@ function ListPage() {
 		});
 
 	}
-	
+
 	/**
 	 * 绑定按钮事件
 	  */
@@ -224,7 +224,7 @@ function ListPage() {
 			admin.putTempData('bpm-role-employee-form-data-form-action', "create",true);
             showEditForm(data);
         };
-		
+
         //批量删除按钮点击事件
         function batchDelete(selected) {
 
@@ -259,7 +259,7 @@ function ListPage() {
 			});
         }
 	}
-     
+
     /**
      * 绑定行操作按钮事件
      */
@@ -327,13 +327,13 @@ function ListPage() {
 						}
 					});
 				});
-				
+
 			}
-			
+
 		});
- 
+
     };
-    
+
     /**
      * 打开编辑窗口
      */

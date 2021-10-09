@@ -13,7 +13,8 @@ public class FoxnicWebRelationManager extends RelationManager {
 				new SystemRelationManager(),
 				new HrmRelationManager(),
 				new CodeExampleRelationManager(),
-				new PcmRelationManager()
+				new PcmRelationManager(),
+				new BpmRelationManager()
 
 		);
 	}
@@ -28,19 +29,19 @@ public class FoxnicWebRelationManager extends RelationManager {
 			}, 5000);
 	}
 
-	
+
 	protected void doReConfigAndValidate() {
 		FoxnicWebRelationManager.this.reconfig();
 		Logger.info("FoxnicWebRelationManager Reconfig");
 	}
 
-	
+
 	@Override
 	protected void config() {}
 
-	 
 
- 
-	 
+
+
+
 
 }

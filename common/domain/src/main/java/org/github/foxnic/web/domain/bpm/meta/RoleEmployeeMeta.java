@@ -3,13 +3,14 @@ package org.github.foxnic.web.domain.bpm.meta;
 import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.bpm.RoleEmployee;
 import java.util.Date;
+import org.github.foxnic.web.domain.hrm.Employee;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-08 20:08:44
- * @sign D7F1BD15352E3886593120D9727CD2B8
+ * @since 2021-10-09 13:37:28
+ * @sign CB14BF0C93B6D60266E70E09FDA95CA5
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -66,9 +67,19 @@ public class RoleEmployeeMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.RoleEmployee,java.util.Date> CREATE_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.RoleEmployee.class ,CREATE_TIME, java.util.Date.class, "创建时间", "创建时间", java.util.Date.class, null);
 	
 	/**
+	 * 员工 , 类型: org.github.foxnic.web.domain.hrm.Employee
+	*/
+	public static final String EMPLOYEE="employee";
+	
+	/**
+	 * 员工 , 类型: org.github.foxnic.web.domain.hrm.Employee
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.RoleEmployee,org.github.foxnic.web.domain.hrm.Employee> EMPLOYEE_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.RoleEmployee.class ,EMPLOYEE, org.github.foxnic.web.domain.hrm.Employee.class, "员工", "员工", org.github.foxnic.web.domain.hrm.Employee.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , ROLE_ID , EMPLOYEE_ID , CREATE_BY , CREATE_TIME };
+	public static final String[] $PROPS={ ID , ROLE_ID , EMPLOYEE_ID , CREATE_BY , CREATE_TIME , EMPLOYEE };
 	
 	/**
 	 * 代理类
@@ -130,6 +141,17 @@ public class RoleEmployeeMeta {
 		public RoleEmployee setCreateTime(Date createTime) {
 			super.change(CREATE_TIME,super.getCreateTime(),createTime);
 			super.setCreateTime(createTime);
+			return this;
+		}
+		
+		/**
+		 * 设置 员工
+		 * @param employee 员工
+		 * @return 当前对象
+		*/
+		public RoleEmployee setEmployee(Employee employee) {
+			super.change(EMPLOYEE,super.getEmployee(),employee);
+			super.setEmployee(employee);
 			return this;
 		}
 	}
