@@ -1416,9 +1416,11 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 }
                 console.log("ids="+ids.join(","))
                 var names=[];
+                var ns=[];
                 for (var i = 0; i < nodes.length; i++) {
                     // debugger
                     names.push(nodes[i].targetName);
+                    ns.push({targetId:nodes[i].targetId,targetType:nodes[i].targetType});
                 }
                 if (names.length>0) {
                     if(param.buttonEl) {
@@ -1430,7 +1432,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     }
                 }
                 if(param.callback) {
-                    param.callback(param,{field:param.field,selectedIds:ids,selectedNodes:nodes,fromData:param.fromData,inputEl:param.inputEl,buttonEl:param.buttonEl});
+                    param.callback(param,{field:param.field,selectedIds:ids,selected:ns,fromData:param.fromData,inputEl:param.inputEl,buttonEl:param.buttonEl});
                 }
             }
 
@@ -1459,9 +1461,12 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             var orgEls=$("button[action-type='emp-dialog']");
             orgEls.find("i").css("opacity",0.0);
             orgEls.find("span").css("opacity",0.0);
-            //debugger;
-            var allIds=[];
+            // debugger;
             var map={};
+            //
+            // var empIds=[];
+            // var bpmRoleIds=[];
+            //
             for (var i = 0; i <orgEls.length ; i++) {
                 var orgEl=$(orgEls[i]);
                 var id=orgEl.attr("id");
@@ -1471,52 +1476,40 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 if(!value) continue;
                 if(Array.isArray(value))
                 {
-
+                    //暂不处理
                 } else {
                     value.trim()
                     if(value.startWith("[") && value.endWith("]")) {
                         value=JSON.parse(value);
+                        // for (var j = 0; j < value.length; j++) {
+                        //     if(value[j].targetType=="employee") empIds.push(value[j].targetId);
+                        //     else if(value[j].targetType=="bpm_role") bpmRoleIds.push(value[j].targetId);
+                        // }
                     } else {
                         value=value.split(",");
+                        // for (var j = 0; j < value.length; j++) empIds.push(value[j]);
                     }
                     map[id]=value;
-                    for (var j = 0; j < value.length; j++) {
-                        allIds.push(value[j]);
-                    }
+
                 }
             }
 
+            map["xxx"]=["491963945599369216","491964680416264192"];
 
-            var url="/service-hrm/hrm-employee/get-by-ids";
+
+            var url="/service-hrm/hrm-favourite-group-item/get-by-id";
 
 
-            admin.request(url,allIds,function (r){
+            admin.request(url, {id:JSON.stringify(map)},function (r){
                 if(r.success) {
-                    var datamap={};
-                    for (var i = 0; i < r.data.length; i++) {
-                        datamap[r.data[i].id]=r.data[i].person.name;
-                    }
-                    //debugger;
-                    for(var id in map) {
-                        // debugger;
-                        var names=[];
-                        var ids=map[id];
-                        for (var i = 0; i < ids.length; i++) {
-                            var emp=datamap[ids[i]];
-                            //如果人员不存在，就用ID填充
-                            if(!emp) {
-                                names.push(ids[i]);
-                                continue;
-                            }
-                            names.push(emp);
-                        }
-                        $("#"+id+"-button").find("span").text(names.join(","));
-
+                    for(var id in r.data) {
+                        $("#"+id+"-button").find("span").text(r.data[id].join(","));
                     }
                 }
                 orgEls.find("i").animate({opacity:1.0},300,"swing");  //.css("opacity",0.0);
                 orgEls.find("span").animate({opacity:1.0},300,"swing");//.css("opacity",0.0);
             },"post",true);
+
         },
         fillOrgOrPosDialogButtons:function (type) {
             var orgEls=$("button[action-type='"+type+"-dialog']");

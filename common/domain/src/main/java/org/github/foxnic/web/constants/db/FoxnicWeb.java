@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2021-10-08 20:08:21
+ * @since 2021-10-10 13:30:53
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -285,11 +285,6 @@ public class FoxnicWeb {
 		public static final DBField SIMPLE_APPROVER_IDS = new DBField(DBDataType.STRING , "simple_approver_ids","simpleApproverIds","默认审批人ID","适用于简单审批模式",false,false,true);
 		
 		/**
-		 * 审批逻辑,适用于简单审批模式
-		*/
-		public static final DBField SIMPLE_APPROVAL_LOGIC = new DBField(DBDataType.STRING , "simple_approval_logic","simpleApprovalLogic","审批逻辑","适用于简单审批模式",false,false,true);
-		
-		/**
 		 * 审批处理类
 		*/
 		public static final DBField SIMPLE_HANDLER = new DBField(DBDataType.STRING , "simple_handler","simpleHandler","审批处理类","审批处理类",false,false,true);
@@ -340,7 +335,7 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
 		public CHS_CHANGE_DEFINITION() {
-			this.init($NAME,"变更定义表" , ID , NAME , CODE , MODE , SIMPLE_APPROVER_IDS , SIMPLE_APPROVAL_LOGIC , SIMPLE_HANDLER , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"变更定义表" , ID , NAME , CODE , MODE , SIMPLE_APPROVER_IDS , SIMPLE_HANDLER , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final CHS_CHANGE_DEFINITION $TABLE=new CHS_CHANGE_DEFINITION();
 	}
@@ -612,17 +607,12 @@ public class FoxnicWeb {
 		public static final DBField SIMPLE_NEXT_APPROVER_NAMES = new DBField(DBDataType.STRING , "simple_next_approver_names","simpleNextApproverNames","下一个审批节点审批人姓名","用逗号隔开,适用简单模式",false,false,true);
 		
 		/**
-		 * 下一节点审批逻辑,适用简单模式
-		*/
-		public static final DBField SIMPLE_APPROVE_LOGIC = new DBField(DBDataType.STRING , "simple_approve_logic","simpleApproveLogic","下一节点审批逻辑","适用简单模式",false,false,true);
-		
-		/**
 		 * 简单模式的节点ID
 		*/
 		public static final DBField SIMPLE_NODE_ID = new DBField(DBDataType.STRING , "simple_node_id","simpleNodeId","简单模式的节点ID","简单模式的节点ID",false,false,true);
 		
 		public CHS_CHANGE_INSTANCE() {
-			this.init($NAME,"变更实例表" , ID , DEFINITION_ID , MODE , DRAFTER_ID , DRAFTER_NAME , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , STATUS , TYPE , PROCESS_ID , PROCESS_NODE_SUMMARY , PROCESS_SUMMARY , START_TIME , FINISH_TIME , SIMPLE_NEXT_APPROVER_IDS , SIMPLE_NEXT_APPROVER_NAMES , SIMPLE_APPROVE_LOGIC , SIMPLE_NODE_ID);
+			this.init($NAME,"变更实例表" , ID , DEFINITION_ID , MODE , DRAFTER_ID , DRAFTER_NAME , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , STATUS , TYPE , PROCESS_ID , PROCESS_NODE_SUMMARY , PROCESS_SUMMARY , START_TIME , FINISH_TIME , SIMPLE_NEXT_APPROVER_IDS , SIMPLE_NEXT_APPROVER_NAMES , SIMPLE_NODE_ID);
 		}
 		public static final CHS_CHANGE_INSTANCE $TABLE=new CHS_CHANGE_INSTANCE();
 	}

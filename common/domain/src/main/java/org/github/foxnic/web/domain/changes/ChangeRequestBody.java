@@ -2,6 +2,7 @@ package org.github.foxnic.web.domain.changes;
 
 import com.github.foxnic.dao.entity.Entity;
 import org.github.foxnic.web.constants.enums.changes.ChangeType;
+import org.github.foxnic.web.domain.bpm.Appover;
 
 import java.util.*;
 
@@ -15,7 +16,8 @@ public class ChangeRequestBody {
     private List<? extends Entity> dataBefore=new ArrayList<>();
     private List<? extends Entity> dataAfter=new ArrayList<>();
 
-    private List<String> nextNodeApproverIds;
+    private List<Appover> nextNodeAppovers;
+
 
     private String approverId;
     private String approverName;
@@ -69,13 +71,12 @@ public class ChangeRequestBody {
         this.startTime = startTime;
     }
 
-
-    public List<String> getNextNodeApproverIds() {
-        return nextNodeApproverIds;
+    public List<Appover> getNextNodeAppovers() {
+        return nextNodeAppovers;
     }
 
-    public void setNextNodeApproverIds(List<String> nextNodeApproverIds) {
-        this.nextNodeApproverIds = nextNodeApproverIds;
+    public void setNextNodeAppovers(List<Appover> nextNodeAppovers) {
+        this.nextNodeAppovers = nextNodeAppovers;
     }
 
     public String getApproverId() {

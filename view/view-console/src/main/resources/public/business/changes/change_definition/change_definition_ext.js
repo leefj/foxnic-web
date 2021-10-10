@@ -1,7 +1,8 @@
 /**
  * 变更定义 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-02 20:13:15
+ * @since 2021-10-10 09:40:21
+ * @version
  */
 
 layui.config({
@@ -172,6 +173,8 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * */
         afterDialog:function (param,result) {
             console.log('dialog',param,result);
+            debugger
+            param.inputEl.val(JSON.stringify(result.selected));
         },
         /**
          * 数据提交前，如果返回 false，停止后续步骤的执行

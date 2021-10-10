@@ -11,7 +11,6 @@ import javax.persistence.Transient;
 import java.util.Date;
 import org.github.foxnic.web.constants.enums.changes.ApprovalStatus;
 import org.github.foxnic.web.constants.enums.changes.ChangeType;
-import org.github.foxnic.web.constants.enums.changes.ApprovalLogic;
 import com.github.foxnic.commons.reflect.EnumUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import java.util.Map;
@@ -22,8 +21,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 变更实例
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-02 20:13:17
- * @sign 2A35A398DFBBB05ABF93E23279AA4E58
+ * @since 2021-10-10 13:32:40
+ * @sign 28FF5AA328387E83F6D41F2F9C2B76BB
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -178,14 +177,6 @@ public class ChangeInstance extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="下一个审批节点审批人姓名" , notes = "用逗号隔开,适用简单模式")
 	private String simpleNextApproverNames;
-	
-	/**
-	 * 下一节点审批逻辑：适用简单模式
-	*/
-	@ApiModelProperty(required = false,value="下一节点审批逻辑" , notes = "适用简单模式")
-	private String simpleApproveLogic;
-	@Transient
-	private ApprovalLogic simpleApproveLogicEnum;
 	
 	/**
 	 * 简单模式的节点ID：简单模式的节点ID
@@ -738,58 +729,6 @@ public class ChangeInstance extends Entity {
 	*/
 	public ChangeInstance setSimpleNextApproverNames(String simpleNextApproverNames) {
 		this.simpleNextApproverNames=simpleNextApproverNames;
-		return this;
-	}
-	
-	/**
-	 * 获得 下一节点审批逻辑<br>
-	 * 适用简单模式
-	 * @return 下一节点审批逻辑
-	*/
-	public String getSimpleApproveLogic() {
-		return simpleApproveLogic;
-	}
-	
-	/**
-	 * 获得 下一节点审批逻辑 的投影属性<br>
-	 * 等价于 getSimpleApproveLogic 方法，获得对应的枚举类型
-	 * @return 下一节点审批逻辑
-	*/
-	@Transient
-	public ApprovalLogic getSimpleApproveLogicEnum() {
-		if(this.simpleApproveLogicEnum==null) {
-			this.simpleApproveLogicEnum = (ApprovalLogic) EnumUtil.parseByCode(ApprovalLogic.values(),simpleApproveLogic);
-		}
-		return this.simpleApproveLogicEnum ;
-	}
-	
-	/**
-	 * 设置 下一节点审批逻辑
-	 * @param simpleApproveLogic 下一节点审批逻辑
-	 * @return 当前对象
-	*/
-	public ChangeInstance setSimpleApproveLogic(String simpleApproveLogic) {
-		this.simpleApproveLogic=simpleApproveLogic;
-		this.simpleApproveLogicEnum= (ApprovalLogic) EnumUtil.parseByCode(ApprovalLogic.values(),simpleApproveLogic) ;
-		if(StringUtil.hasContent(simpleApproveLogic) && this.simpleApproveLogicEnum==null) {
-			throw new IllegalArgumentException( simpleApproveLogic + " is not one of ApprovalLogic");
-		}
-		return this;
-	}
-	
-	/**
-	 * 设置 下一节点审批逻辑的投影属性，等同于设置 下一节点审批逻辑
-	 * @param simpleApproveLogicEnum 下一节点审批逻辑
-	 * @return 当前对象
-	*/
-	@Transient
-	public ChangeInstance setSimpleApproveLogicEnum(ApprovalLogic simpleApproveLogicEnum) {
-		if(simpleApproveLogicEnum==null) {
-			this.setSimpleApproveLogic(null);
-		} else {
-			this.setSimpleApproveLogic(simpleApproveLogicEnum.code());
-		}
-		this.simpleApproveLogicEnum=simpleApproveLogicEnum;
 		return this;
 	}
 	

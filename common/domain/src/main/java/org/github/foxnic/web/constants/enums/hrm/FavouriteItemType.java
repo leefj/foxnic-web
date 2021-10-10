@@ -4,7 +4,7 @@ import com.github.foxnic.api.constant.CodeTextEnum;
 import com.github.foxnic.commons.reflect.EnumUtil;
 
 public enum FavouriteItemType implements CodeTextEnum {
-	employee("员工"),organization("组织"),position("岗位");
+	employee("员工"),organization("组织"),position("岗位"),bpm_role("流程角色");
 
 	private String text;
 	private FavouriteItemType(String text)  {

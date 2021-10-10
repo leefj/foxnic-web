@@ -3,14 +3,17 @@ package org.github.foxnic.web.domain.hrm;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
+import com.github.foxnic.api.model.CompositeParameter;
+import javax.persistence.Transient;
+import com.github.foxnic.commons.bean.BeanUtil;
 
 
 
 /**
- * null
+ * 常用人员分组条目
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-20 08:59:05
- * @sign 64EFE233868550E1913ACC0B034990F8
+ * @since 2021-10-10 11:00:37
+ * @sign 8A9BA407E44A5328F26388CA8D042F50
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -70,7 +73,7 @@ public class FavouriteGroupItemVO extends FavouriteGroupItem {
 	 * 初始化的人员清单：初始化的人员清单
 	*/
 	@ApiModelProperty(required = false,value="初始化的人员清单" , notes = "初始化的人员清单")
-	private List<String> initEmpIds;
+	private String initValue;
 	
 	/**
 	 * 获得 页码<br>
@@ -233,28 +236,29 @@ public class FavouriteGroupItemVO extends FavouriteGroupItem {
 	 * 初始化的人员清单
 	 * @return 初始化的人员清单
 	*/
-	public List<String> getInitEmpIds() {
-		return initEmpIds;
+	public String getInitValue() {
+		return initValue;
 	}
 	
 	/**
 	 * 设置 初始化的人员清单
-	 * @param initEmpIds 初始化的人员清单
+	 * @param initValue 初始化的人员清单
 	 * @return 当前对象
 	*/
-	public FavouriteGroupItemVO setInitEmpIds(List<String> initEmpIds) {
-		this.initEmpIds=initEmpIds;
+	public FavouriteGroupItemVO setInitValue(String initValue) {
+		this.initValue=initValue;
 		return this;
 	}
-	
+	@Transient
+	private CompositeParameter $compositeParameter;
 	/**
-	 * 添加 初始化的人员清单
-	 * @param initEmpId 初始化的人员清单
-	 * @return 当前对象
-	*/
-	public FavouriteGroupItemVO addInitEmpId(String initEmpId) {
-		if(this.initEmpIds==null) initEmpIds=new ArrayList<>();
-		this.initEmpIds.add(initEmpId);
-		return this;
+	 * 获得解析后的复合查询参数
+	 */
+	@Transient
+	public CompositeParameter getCompositeParameter() {
+		if($compositeParameter!=null) return  $compositeParameter;
+		if(!"$composite".equals(this.getSearchField())) return null;
+		$compositeParameter=new CompositeParameter(this.getSearchValue(),BeanUtil.toMap(this));
+		return  $compositeParameter;
 	}
 }

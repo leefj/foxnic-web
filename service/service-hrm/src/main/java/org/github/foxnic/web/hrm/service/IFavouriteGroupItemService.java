@@ -1,6 +1,7 @@
 package org.github.foxnic.web.hrm.service;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
@@ -132,6 +133,14 @@ public interface IFavouriteGroupItemService extends ISuperService<FavouriteGroup
 	 * @return FavouriteGroupItem 数据对象
 	 */
 	FavouriteGroupItem getById(String id);
+
+	/**
+	 * 转换数据
+	 *
+	 * @param info 主键
+	 * @return FavouriteGroupItem 数据对象
+	 */
+	JSONObject translate(String info);
 		
 	/**
 	 * 检查实体中的数据字段是否已经存在
@@ -291,5 +300,5 @@ public interface IFavouriteGroupItemService extends ISuperService<FavouriteGroup
 
 	Result removeAll(FavouriteGroupItemVO vo);
 
-    void initEmployees(List<String> initEmpIds);
+    void initEmployees(String initValue);
 }

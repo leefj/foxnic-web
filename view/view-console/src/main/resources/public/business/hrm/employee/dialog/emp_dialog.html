@@ -58,7 +58,10 @@
             margin-bottom: 0px;
         }
 
-
+        .bpm-role-view .layui-table-view {
+            border-style: none;
+            margin-bottom: 0px;
+        }
 
         .org-view {
             display: -webkit-flex; /* Safari */
@@ -113,11 +116,15 @@
             <ul class="layui-tab-title">
                 <li id="org-li" lay-id="org-li">常用</li>
                 <li id="pos-li" lay-id="pos-li" class="layui-this">组织架构</li>
+                <li id="bpm-role-li" lay-id="pos-li">流程角色</li>
             </ul>
             <div class="layui-tab-content" style="height:1000px;padding:0px">
+                <!-- 常用 -->
                 <div class="layui-tab-item">
                     我的常用人员，待实现...
                 </div>
+
+                <!-- 组织架构 -->
                 <div class="layui-tab-item layui-show">
                     <div class="org-view">
                         <div class="org-tree">
@@ -135,6 +142,13 @@
                             <table class="layui-table" id="emp-table" lay-filter="emp-table" style="margin:0px"></table>
                         </div>
                     </div>
+                </div>
+                <!-- 流程角色 -->
+                <div class="layui-tab-item bpm-role-view">
+                    <div class="layui-form toolbar" style="padding:6px; border-bottom:1px #e6e6e6 solid; display: flex" id="bpm-role-toolbar">
+                        <input id="bpm-role-search-input" class="layui-input search-input" type="text" placeholder="请输入关键字" style="flex: 1"/>
+                    </div>
+                    <table class="layui-table" id="bpm-role-table" lay-filter="bpm-role-table" style="margin:0px"></table>
                 </div>
             </div>
         </div>

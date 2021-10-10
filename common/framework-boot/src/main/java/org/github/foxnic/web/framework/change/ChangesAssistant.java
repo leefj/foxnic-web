@@ -4,6 +4,7 @@ import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.reflect.ReflectUtil;
 import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.dao.spec.DAO;
+import org.github.foxnic.web.domain.bpm.Appover;
 import org.github.foxnic.web.domain.changes.ChangeApproveBody;
 import org.github.foxnic.web.domain.changes.ChangeEvent;
 import org.github.foxnic.web.domain.changes.ChangeRequestBody;
@@ -19,7 +20,10 @@ public class ChangesAssistant {
     public static final String CHANGES_CHANNEL_RESPONSE_PREFIX = "foxnic:channel:changes:response:";
     public static final String CHANGES_RESPONSE_PREFIX = "foxnic:changes:event:response:";
 
-    private static final String PROXY_NAME="org.github.foxnic.web.proxy.changes.ChangeInstanceServiceProxy";
+    private static final String CHANGES_PROXY_NAME ="org.github.foxnic.web.proxy.changes.ChangeInstanceServiceProxy";
+
+    private static final String EMPLOYEE_PROXY_NAME ="org.github.foxnic.web.proxy.changes.ChangeInstanceServiceProxy";
+    private static final String BPM_ROLE_PROXY_NAME ="org.github.foxnic.web.proxy.changes.ChangeInstanceServiceProxy";
 
     private DAO dao;
     private static Object proxy;
@@ -32,7 +36,7 @@ public class ChangesAssistant {
     public ChangesAssistant(SuperService service) {
         this.dao=service.dao();
         if(proxy==null) {
-            Class proxyType = ReflectUtil.forName(PROXY_NAME);
+            Class proxyType = ReflectUtil.forName(CHANGES_PROXY_NAME);
             try {
                 Method api = proxyType.getDeclaredMethod("api");
                 proxy = api.invoke(null);
@@ -69,4 +73,27 @@ public class ChangesAssistant {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * 获得审批人
+     * */
+    public Appover getEmployeeApproverById(String id) {
+        return null;
+    }
+
+    /**
+     * 通过获得审批角色
+     * */
+    public Appover getBpmRoleApproverById(String id) {
+        return null;
+    }
+
+    /**
+     * 通过获得审批角色
+     * */
+    public Appover getBpmRoleApproverByCode(String code) {
+        return null;
+    }
+
+
 }

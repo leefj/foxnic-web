@@ -8,8 +8,8 @@ import java.util.List;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-20 08:59:05
- * @sign 64EFE233868550E1913ACC0B034990F8
+ * @since 2021-10-10 11:00:37
+ * @sign 8A9BA407E44A5328F26388CA8D042F50
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -96,19 +96,19 @@ public class FavouriteGroupItemVOMeta extends FavouriteGroupItemMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.hrm.FavouriteGroupItemVO,java.lang.String> IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.FavouriteGroupItemVO.class ,IDS, java.util.List.class, "主键清单", "用于接收批量主键参数", java.lang.String.class, null);
 	
 	/**
-	 * 初始化的人员清单 , 集合类型: LIST , 类型: java.lang.String
+	 * 初始化的人员清单 , 类型: java.lang.String
 	*/
-	public static final String INIT_EMP_IDS="initEmpIds";
+	public static final String INIT_VALUE="initValue";
 	
 	/**
-	 * 初始化的人员清单 , 集合类型: LIST , 类型: java.lang.String
+	 * 初始化的人员清单 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.hrm.FavouriteGroupItemVO,java.lang.String> INIT_EMP_IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.FavouriteGroupItemVO.class ,INIT_EMP_IDS, java.util.List.class, "初始化的人员清单", "初始化的人员清单", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.FavouriteGroupItemVO,java.lang.String> INIT_VALUE_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.FavouriteGroupItemVO.class ,INIT_VALUE, java.lang.String.class, "初始化的人员清单", "初始化的人员清单", java.lang.String.class, null);
 	
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , SORT_FIELD , SORT_TYPE , IDS , INIT_EMP_IDS };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , SORT_FIELD , SORT_TYPE , IDS , INIT_VALUE };
 	
 	/**
 	 * 代理类
@@ -208,12 +208,12 @@ public class FavouriteGroupItemVOMeta extends FavouriteGroupItemMeta {
 		
 		/**
 		 * 设置 初始化的人员清单
-		 * @param initEmpIds 初始化的人员清单
+		 * @param initValue 初始化的人员清单
 		 * @return 当前对象
 		*/
-		public FavouriteGroupItemVO setInitEmpIds(List<String> initEmpIds) {
-			super.change(INIT_EMP_IDS,super.getInitEmpIds(),initEmpIds);
-			super.setInitEmpIds(initEmpIds);
+		public FavouriteGroupItemVO setInitValue(String initValue) {
+			super.change(INIT_VALUE,super.getInitValue(),initValue);
+			super.setInitValue(initValue);
 			return this;
 		}
 	}

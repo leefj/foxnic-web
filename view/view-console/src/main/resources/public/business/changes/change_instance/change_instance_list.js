@@ -1,7 +1,7 @@
 /**
  * 变更实例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-02 20:13:17
+ * @since 2021-10-10 13:32:40
  */
 
 
@@ -88,7 +88,6 @@ function ListPage() {
 					,{ field: 'finishTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('变更结束时间'), templet: function (d) { return templet('finishTime',fox.dateFormat(d.finishTime,"yyyy-MM-dd HH:mm:ss"),d); }}
 					,{ field: 'simpleNextApproverIds', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('下一个审批节点审批人账户ID') , templet: function (d) { return templet('simpleNextApproverIds',d.simpleNextApproverIds,d);}  }
 					,{ field: 'simpleNextApproverNames', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('下一个审批节点审批人姓名') , templet: function (d) { return templet('simpleNextApproverNames',d.simpleNextApproverNames,d);}  }
-					,{ field: 'simpleApproveLogic', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('下一节点审批逻辑') , templet: function (d) { return templet('simpleApproveLogic',d.simpleApproveLogic,d);}  }
 					,{ field: 'simpleNodeId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('简单模式的节点ID') , templet: function (d) { return templet('simpleNodeId',d.simpleNodeId,d);}  }
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
@@ -138,7 +137,6 @@ function ListPage() {
 		value.finishTime={ inputType:"date_input", value: $("#finishTime").val()};
 		value.simpleNextApproverIds={ inputType:"button",value: $("#simpleNextApproverIds").val()};
 		value.simpleNextApproverNames={ inputType:"button",value: $("#simpleNextApproverNames").val()};
-		value.simpleApproveLogic={ inputType:"button",value: $("#simpleApproveLogic").val()};
 		value.simpleNodeId={ inputType:"button",value: $("#simpleNodeId").val()};
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){

@@ -7,7 +7,6 @@ import com.github.foxnic.generator.builder.view.option.ListOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.CHS_CHANGE_INSTANCE;
-import org.github.foxnic.web.constants.enums.changes.ApprovalLogic;
 import org.github.foxnic.web.constants.enums.changes.ApprovalMode;
 import org.github.foxnic.web.constants.enums.changes.ApprovalStatus;
 import org.github.foxnic.web.constants.enums.changes.ChangeType;
@@ -26,7 +25,7 @@ public class ChsChangeInstanceConfig extends BaseCodeConfig<CHS_CHANGE_INSTANCE>
 		poType.shadow(CHS_CHANGE_INSTANCE.STATUS, ApprovalStatus.class);
 		poType.shadow(CHS_CHANGE_INSTANCE.TYPE, ChangeType.class);
 		poType.shadow(CHS_CHANGE_INSTANCE.MODE, ApprovalMode.class);
-		poType.shadow(CHS_CHANGE_INSTANCE.SIMPLE_APPROVE_LOGIC, ApprovalLogic.class);
+//		poType.shadow(CHS_CHANGE_INSTANCE.SIMPLE_APPROVE_LOGIC, ApprovalLogic.class);
 		poType.addSimpleProperty(ChangeData.class,"dataBefore","变更前的数据","变更前的数据");
 		poType.addSimpleProperty(ChangeData.class,"dataAfter","变更后的数据","变更后的数据");
 

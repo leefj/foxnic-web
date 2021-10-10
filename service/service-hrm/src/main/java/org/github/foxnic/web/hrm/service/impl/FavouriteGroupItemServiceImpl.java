@@ -1,10 +1,13 @@
 package org.github.foxnic.web.hrm.service.impl;
 
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.busi.id.IDGenerator;
 import com.github.foxnic.commons.collection.CollectorUtil;
+import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.entity.SuperService;
@@ -16,6 +19,7 @@ import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
 import com.github.foxnic.sql.parameter.BatchParamBuilder;
 import org.github.foxnic.web.constants.enums.hrm.FavouriteItemType;
+import org.github.foxnic.web.domain.bpm.Role;
 import org.github.foxnic.web.domain.hrm.Employee;
 import org.github.foxnic.web.domain.hrm.FavouriteGroupItem;
 import org.github.foxnic.web.domain.hrm.FavouriteGroupItemVO;
@@ -23,6 +27,8 @@ import org.github.foxnic.web.domain.hrm.meta.EmployeeMeta;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.hrm.service.IEmployeeService;
 import org.github.foxnic.web.hrm.service.IFavouriteGroupItemService;
+import org.github.foxnic.web.hrm.service.IPositionService;
+import org.github.foxnic.web.proxy.bpm.RoleServiceProxy;
 import org.github.foxnic.web.session.SessionUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,10 +37,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.io.InputStream;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <p>
@@ -63,6 +66,9 @@ public class FavouriteGroupItemServiceImpl extends SuperService<FavouriteGroupIt
 
 	@Autowired
 	private IEmployeeService employeeService;
+
+	@Autowired
+	private IPositionService positionService;
 
 
 	@Override
@@ -182,10 +188,54 @@ public class FavouriteGroupItemServiceImpl extends SuperService<FavouriteGroupIt
 	 * @return FavouriteGroupItem 数据对象
 	 */
 	public FavouriteGroupItem getById(String id) {
-		FavouriteGroupItem sample = new FavouriteGroupItem();
-		if(id==null) throw new IllegalArgumentException("id 不允许为 null ");
-		sample.setId(id);
-		return dao.queryEntity(sample);
+		return null;
+	}
+
+	@Override
+	public JSONObject translate(String info) {
+		//转换成对象列表
+		JSONObject map=JSONObject.parseObject(info);
+		List<FavouriteGroupItem> allItems=new ArrayList<>();
+		Map<String,List<String>> elIdMap=new HashMap<>();
+		for (String key : map.keySet()) {
+			JSONArray arr=map.getJSONArray(key);
+			List<String> ids=new ArrayList<>();
+			elIdMap.put(key,ids);
+			for (Object o : arr) {
+				if(o instanceof String) {
+					FavouriteGroupItem fii=new FavouriteGroupItem();
+					fii.setTargetType(FavouriteItemType.employee.code());
+					fii.setTargetId((String)o);
+					allItems.add(fii);
+					ids.add(fii.getTargetId());
+				} else if(o instanceof JSONObject) {
+					JSONObject jo=(JSONObject)o;
+					FavouriteGroupItem fii=new FavouriteGroupItem();
+					fii.setTargetType(FavouriteItemType.parseByCode(jo.getString("targetType")).code());
+					fii.setTargetId(jo.getString("targetId"));
+					allItems.add(fii);
+					ids.add(fii.getTargetId());
+				}
+			}
+		}
+		//对象查询
+		Map<String,String> names=translateNames(allItems);
+
+		//结果汇总
+		JSONObject result=new JSONObject();
+		String name=null;
+		for (Map.Entry<String, List<String>> e : elIdMap.entrySet()) {
+			List<String> ids=e.getValue();
+			List<String> idNames=new ArrayList<>();
+			for (String id : ids) {
+				name=names.get(id);
+				if(name==null) name=id;
+				idNames.add(name);
+			}
+			result.put(e.getKey(),idNames);
+		}
+
+		return result;
 	}
 
 	@Override
@@ -305,26 +355,95 @@ public class FavouriteGroupItemServiceImpl extends SuperService<FavouriteGroupIt
 
 	@Override
 	@Transactional
-	public void initEmployees(List<String> initEmpIds) {
+	public void initEmployees(String initValue) {
+
+		if(StringUtil.isBlank(initValue)) return;
+
 		FavouriteGroupItemVO vo=new FavouriteGroupItemVO();
 		vo.setTemporary(1);
 		this.removeAll(vo);
-		List<Employee> emps=employeeService.getByIds(initEmpIds);
-		employeeService.join(emps, EmployeeMeta.PERSON);
-		List<FavouriteGroupItemVO> items=new ArrayList<>();
-		for (Employee emp : emps) {
-			FavouriteGroupItemVO itm=new FavouriteGroupItemVO();
-			itm.setTemporary(1);
-			itm.setTargetId(emp.getId());
-			if(emp.getPerson()!=null) {
-				itm.setTargetName(emp.getPerson().getName());
-			} else {
-				itm.setTargetName(emp.getId());
+
+
+
+//		List<Employee> emps=employeeService.getByIds(null);
+//		employeeService.join(emps, EmployeeMeta.PERSON);
+//		List<FavouriteGroupItemVO> items=new ArrayList<>();
+//		for (Employee emp : emps) {
+//			FavouriteGroupItemVO itm=new FavouriteGroupItemVO();
+//			itm.setTemporary(1);
+//			itm.setTargetId(emp.getId());
+//			if(emp.getPerson()!=null) {
+//				itm.setTargetName(emp.getPerson().getName());
+//			} else {
+//				itm.setTargetName(emp.getId());
+//			}
+//			itm.setTargetType(FavouriteItemType.employee.code());
+//			items.add(itm);
+//		}
+//		this.inserts(items);
+
+
+		//转换成对象列表
+		JSONArray arr=JSONArray.parseArray(initValue);
+		List<FavouriteGroupItem> allItems=new ArrayList<>();
+		String temporaryGroupId=SessionUser.getCurrent().getActivatedEmployeeId()+"-temporary";
+		for (Object o : arr) {
+			if(o instanceof String) {
+				FavouriteGroupItem fii=new FavouriteGroupItem();
+				fii.setTargetType(FavouriteItemType.employee.code());
+				fii.setTargetId((String)o);
+				fii.setTemporary(1);
+				fii.setGroupId(temporaryGroupId);
+				allItems.add(fii);
+			} else if(o instanceof JSONObject) {
+				JSONObject jo=(JSONObject)o;
+				FavouriteGroupItem fii=new FavouriteGroupItem();
+				fii.setTargetType(FavouriteItemType.parseByCode(jo.getString("targetType")).code());
+				fii.setTargetId(jo.getString("targetId"));
+				fii.setTemporary(1);
+				fii.setGroupId(temporaryGroupId);
+				allItems.add(fii);
 			}
-			itm.setTargetType(FavouriteItemType.employee.code());
-			items.add(itm);
 		}
-		this.inserts(items);
+
+		//获得名称对照
+		Map<String,String> names=translateNames(allItems);
+		//填充名称
+		String name=null;
+		for (FavouriteGroupItem item : allItems) {
+			name=names.get(item.getTargetId());
+			if(name==null) name=item.getTargetId();
+			item.setTargetName(name);
+		}
+		//执行插入
+		this.insertList(allItems);
+
+	}
+
+	private Map<String,String> translateNames(List<FavouriteGroupItem> allItems) {
+		//分组
+		Map<String,List<FavouriteGroupItem>> gMap=CollectorUtil.groupBy(allItems,FavouriteGroupItem::getTargetType);
+		//对象查询
+		Map<String,String> names=new HashMap<>();
+		for (String targetTypeStr : gMap.keySet()) {
+			FavouriteItemType targetType=FavouriteItemType.parseByCode(targetTypeStr);
+			List<FavouriteGroupItem> items=gMap.get(targetTypeStr);
+			List<String> ids=CollectorUtil.collectList(items,FavouriteGroupItem::getTargetId);
+			if(targetType==FavouriteItemType.employee){
+				List<Employee> employees=employeeService.getByIds(ids);
+				employeeService.join(employees,EmployeeMeta.PERSON);
+				for (Employee employee : employees) {
+					names.put(employee.getId(),employee.getPerson().getName());
+				}
+			} else if(targetType==FavouriteItemType.bpm_role){
+				Result<List<Role>> rr= RoleServiceProxy.api().getByIds(ids);
+				List<Role> roles=rr.data();
+				for (Role role : roles) {
+					names.put(role.getId(),role.getName());
+				}
+			}
+		}
+		return names;
 	}
 
 	@Override

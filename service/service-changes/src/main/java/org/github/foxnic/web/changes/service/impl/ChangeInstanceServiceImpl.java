@@ -5,7 +5,6 @@ import com.alibaba.fastjson.JSON;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.busi.id.IDGenerator;
-import com.github.foxnic.commons.collection.CollectorUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
@@ -17,13 +16,14 @@ import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.changes.service.*;
-import org.github.foxnic.web.constants.enums.changes.*;
+import org.github.foxnic.web.constants.enums.changes.ApprovalAction;
+import org.github.foxnic.web.constants.enums.changes.ApprovalEventType;
+import org.github.foxnic.web.constants.enums.changes.ApprovalMode;
+import org.github.foxnic.web.constants.enums.changes.ApprovalStatus;
 import org.github.foxnic.web.domain.changes.*;
-import org.github.foxnic.web.domain.hrm.Employee;
 import org.github.foxnic.web.framework.cache.RedisUtil;
 import org.github.foxnic.web.framework.change.ChangesAssistant;
 import org.github.foxnic.web.framework.dao.DBConfigs;
-import org.github.foxnic.web.proxy.hrm.EmployeeServiceProxy;
 import org.github.foxnic.web.session.SessionUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,7 +33,10 @@ import javax.annotation.Resource;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.sql.Timestamp;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -330,15 +333,18 @@ public class ChangeInstanceServiceImpl extends SuperService<ChangeInstance> impl
 		}
 
 		//设置默认审批人
-		if(request.getNextNodeApproverIds()==null) {
+		if(request.getNextNodeAppovers()==null) {
 			String defaultApproverIds=definition.getSimpleApproverIds();
 			if(defaultApproverIds!=null) {
-				request.setNextNodeApproverIds(Arrays.asList(defaultApproverIds.split(",")));
+				//TODO 待处理
+				//request.setNextNodeEmployeeApproverIds(Arrays.asList(defaultApproverIds.split(",")));
 			}
 		}
 
+
+
 		//审批人判断
-		if(request.getNextNodeApproverIds()==null || request.getNextNodeApproverIds().isEmpty()) {
+		if(request.getNextNodeAppovers()==null || request.getNextNodeAppovers().isEmpty()) {
 			result.success(false).message("未指定审批人");
 			//
 			event.setEventTypeEnum(ApprovalEventType.internal_error);
@@ -350,22 +356,22 @@ public class ChangeInstanceServiceImpl extends SuperService<ChangeInstance> impl
 		}
 
 		//转换审批人
-		Result<List<Employee>> employeeResult=EmployeeServiceProxy.api().getByIds(request.getNextNodeApproverIds());
-		if(employeeResult.failure()) {
-			return result.success(false).message(employeeResult.message());
-		}
-		Map<String,String> empNames= CollectorUtil.collectMap(employeeResult.data(),Employee::getId,(emp)->{
-			if(emp.getPerson()!=null) return emp.getPerson().getName();
-			return emp.getId();
-		});
-		List<String> nextNodeApproverNames=new ArrayList<>();
-		for (String id : request.getNextNodeApproverIds()) {
-			String name=empNames.get(id);
-			if(name!=null) nextNodeApproverNames.add(name);
-			else nextNodeApproverNames.add(id);
-		}
-		event.setSimpleNextApproverIds(StringUtil.join(request.getNextNodeApproverIds()));
-		event.setSimpleNextApproverNames(StringUtil.join(nextNodeApproverNames,","));
+//		Result<List<Employee>> employeeResult=EmployeeServiceProxy.api().getByIds(request.getNextNodeEmployeeApproverIds());
+//		if(employeeResult.failure()) {
+//			return result.success(false).message(employeeResult.message());
+//		}
+//		Map<String,String> empNames= CollectorUtil.collectMap(employeeResult.data(),Employee::getId,(emp)->{
+//			if(emp.getPerson()!=null) return emp.getPerson().getName();
+//			return emp.getId();
+//		});
+//		List<String> nextNodeApproverNames=new ArrayList<>();
+//		for (String id : request.getNextNodeEmployeeApproverIds()) {
+//			String name=empNames.get(id);
+//			if(name!=null) nextNodeApproverNames.add(name);
+//			else nextNodeApproverNames.add(id);
+//		}
+//		event.setSimpleNextApproverIds(StringUtil.join(request.getNextNodeEmployeeApproverIds()));
+//		event.setSimpleNextApproverNames(StringUtil.join(nextNodeApproverNames,","));
 
 
 		//设置变更实例
@@ -381,7 +387,7 @@ public class ChangeInstanceServiceImpl extends SuperService<ChangeInstance> impl
 
 		if(instance.getModeEnum()==ApprovalMode.simple) {
 			instance.setSimpleNodeId(simpleNodeId);
-			instance.setSimpleApproveLogic(definition.getSimpleApprovalLogic());
+//			instance.setSimpleApproveLogic(definition.getSimpleApprovalLogic());
 			instance.setSimpleNextApproverIds(event.getSimpleNextApproverIds());
 			instance.setSimpleNextApproverNames(event.getSimpleNextApproverNames());
 		}
@@ -450,6 +456,10 @@ public class ChangeInstanceServiceImpl extends SuperService<ChangeInstance> impl
 		result.success(true).data(event);
 		return result;
 	}
+
+//	private boolean checkApprover() {
+//
+//	}
 
 	@Override
 	public Result<ChangeEvent> approve(ChangeApproveBody request) {
@@ -565,30 +575,30 @@ public class ChangeInstanceServiceImpl extends SuperService<ChangeInstance> impl
 				return result.success(false).message("您不是当前审批人，不允许同意");
 			}
 
-			if(instance.getSimpleApproveLogicEnum()== ApprovalLogic.any) {
+//			if(instance.getSimpleApproveLogicEnum()== ApprovalLogic.any) {
 				//切换节点
 				event.setSimpleNodeId(simpleNodeId);
 				instance.setSimpleNodeId(simpleNodeId);
 				//设置审批动作后的状态
 				instance.setStatusEnum(ApprovalStatus.passed);
-			} else if(instance.getSimpleApproveLogicEnum()== ApprovalLogic.all) {
-				//检查是否全员通过
-				List<ChangeEvent> events=eventService.queryList(
-						ChangeEvent.create()
-							.setInstanceId(instance.getId())
-							.setSimpleNodeId(instance.getSimpleNodeId())
-							.setApproveActionEnum(ApprovalAction.agree)
-				);
-				List<String> agreedApproverIds = CollectorUtil.collectList(events,ChangeEvent::getApproverId);
-				nextApproverIds.removeAll(agreedApproverIds);
-				if(nextApproverIds.isEmpty()){
-					//切换节点
-					event.setSimpleNodeId(simpleNodeId);
-					instance.setSimpleNodeId(simpleNodeId);
-					//设置审批动作后的状态
-					instance.setStatusEnum(ApprovalStatus.passed);
-				}
-			}
+//			} else if(instance.getSimpleApproveLogicEnum()== ApprovalLogic.all) {
+//				//检查是否全员通过
+//				List<ChangeEvent> events=eventService.queryList(
+//						ChangeEvent.create()
+//							.setInstanceId(instance.getId())
+//							.setSimpleNodeId(instance.getSimpleNodeId())
+//							.setApproveActionEnum(ApprovalAction.agree)
+//				);
+//				List<String> agreedApproverIds = CollectorUtil.collectList(events,ChangeEvent::getApproverId);
+//				nextApproverIds.removeAll(agreedApproverIds);
+//				if(nextApproverIds.isEmpty()){
+//					//切换节点
+//					event.setSimpleNodeId(simpleNodeId);
+//					instance.setSimpleNodeId(simpleNodeId);
+//					//设置审批动作后的状态
+//					instance.setStatusEnum(ApprovalStatus.passed);
+//				}
+//			}
 			this.updateDirtyFields(instance);
 		}
 

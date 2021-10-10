@@ -342,8 +342,8 @@ public class ExampleOrderServiceImpl extends SuperService<ExampleOrder> implemen
 
 		//可按数据情况，设置不同的审批人；若未设置审批人，则按变更配置中的审批人执行；
 		//后续可按审批人对接待办体系
-//		List<String> randomApproverIds= Arrays.asList("488441114123046912");
-		requestBody.setNextNodeApproverIds(null);
+		requestBody.setNextNodeAppovers(null);
+
 		requestBody.setDataType(ExampleOrder.class);
 		//设置变更前数据,simple审批模式仅支持单据的独立审批
 		requestBody.setDataBefore(orderBefore);

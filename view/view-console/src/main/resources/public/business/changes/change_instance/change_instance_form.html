@@ -2,7 +2,7 @@
 /**
  * 变更实例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-02 20:13:17
+ * @since 2021-10-10 13:32:40
  */
  -->
  <!DOCTYPE html>
@@ -135,13 +135,6 @@
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('下一个审批节点审批人姓名')}">下一个审批节点审批人姓名</div></div>
                         <div class="layui-input-block layui-input-block-c1">
                             <input lay-filter="simpleNextApproverNames" id="simpleNextApproverNames" name="simpleNextApproverNames" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('下一个审批节点审批人姓名') }" type="text" class="layui-input"  />
-                        </div>
-                    </div>
-
-                                    <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('下一节点审批逻辑')}">下一节点审批逻辑</div></div>
-                        <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="simpleApproveLogic" id="simpleApproveLogic" name="simpleApproveLogic" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('下一节点审批逻辑') }" type="text" class="layui-input"  />
                         </div>
                     </div>
 

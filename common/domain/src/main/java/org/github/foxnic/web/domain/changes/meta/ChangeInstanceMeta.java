@@ -9,8 +9,8 @@ import org.github.foxnic.web.domain.changes.ChangeData;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-02 20:13:17
- * @sign 2A35A398DFBBB05ABF93E23279AA4E58
+ * @since 2021-10-10 13:32:40
+ * @sign 28FF5AA328387E83F6D41F2F9C2B76BB
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -247,16 +247,6 @@ public class ChangeInstanceMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeInstance,java.lang.String> SIMPLE_NEXT_APPROVER_NAMES_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeInstance.class ,SIMPLE_NEXT_APPROVER_NAMES, java.lang.String.class, "下一个审批节点审批人姓名", "用逗号隔开,适用简单模式", java.lang.String.class, null);
 	
 	/**
-	 * 下一节点审批逻辑 , 适用简单模式 , 类型: java.lang.String
-	*/
-	public static final String SIMPLE_APPROVE_LOGIC="simpleApproveLogic";
-	
-	/**
-	 * 下一节点审批逻辑 , 适用简单模式 , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeInstance,java.lang.String> SIMPLE_APPROVE_LOGIC_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeInstance.class ,SIMPLE_APPROVE_LOGIC, java.lang.String.class, "下一节点审批逻辑", "适用简单模式", java.lang.String.class, null);
-	
-	/**
 	 * 简单模式的节点ID , 类型: java.lang.String
 	*/
 	public static final String SIMPLE_NODE_ID="simpleNodeId";
@@ -289,7 +279,7 @@ public class ChangeInstanceMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , DEFINITION_ID , MODE , DRAFTER_ID , DRAFTER_NAME , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , STATUS , TYPE , PROCESS_ID , PROCESS_NODE_SUMMARY , PROCESS_SUMMARY , START_TIME , FINISH_TIME , SIMPLE_NEXT_APPROVER_IDS , SIMPLE_NEXT_APPROVER_NAMES , SIMPLE_APPROVE_LOGIC , SIMPLE_NODE_ID , DATA_BEFORE , DATA_AFTER };
+	public static final String[] $PROPS={ ID , DEFINITION_ID , MODE , DRAFTER_ID , DRAFTER_NAME , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , STATUS , TYPE , PROCESS_ID , PROCESS_NODE_SUMMARY , PROCESS_SUMMARY , START_TIME , FINISH_TIME , SIMPLE_NEXT_APPROVER_IDS , SIMPLE_NEXT_APPROVER_NAMES , SIMPLE_NODE_ID , DATA_BEFORE , DATA_AFTER };
 	
 	/**
 	 * 代理类
@@ -549,17 +539,6 @@ public class ChangeInstanceMeta {
 		public ChangeInstance setSimpleNextApproverNames(String simpleNextApproverNames) {
 			super.change(SIMPLE_NEXT_APPROVER_NAMES,super.getSimpleNextApproverNames(),simpleNextApproverNames);
 			super.setSimpleNextApproverNames(simpleNextApproverNames);
-			return this;
-		}
-		
-		/**
-		 * 设置 下一节点审批逻辑
-		 * @param simpleApproveLogic 下一节点审批逻辑
-		 * @return 当前对象
-		*/
-		public ChangeInstance setSimpleApproveLogic(String simpleApproveLogic) {
-			super.change(SIMPLE_APPROVE_LOGIC,super.getSimpleApproveLogic(),simpleApproveLogic);
-			super.setSimpleApproveLogic(simpleApproveLogic);
 			return this;
 		}
 		

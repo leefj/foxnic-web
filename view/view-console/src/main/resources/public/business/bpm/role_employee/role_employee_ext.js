@@ -110,9 +110,11 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
                 ps.push({roleId:roleId,employeeId:empIds[i]});
             }
             //
-            admin.post("/service-bpm/bpm-role-employee/inserts",ps,function (r){},{delayLoading:2000,elms:[]});
+            admin.post("/service-bpm/bpm-role-employee/inserts",ps,function (r){
+                window.module.refreshTableData();
+            },{delayLoading:2000,elms:[]});
             //debugger;
-            window.module.refreshTableData();
+
         },
         /**
          * 单行删除前调用，若返回false则不执行后续操作

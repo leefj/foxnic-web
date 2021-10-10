@@ -2,6 +2,7 @@ package org.github.foxnic.web.hrm.controller;
 
  
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.api.validate.annotations.NotNull;
@@ -209,10 +210,10 @@ public class FavouriteGroupItemController extends SuperController {
 	@NotNull(name = FavouriteGroupItemVOMeta.ID)
 	@SentinelResource(value = FavouriteGroupItemServiceProxy.GET_BY_ID , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(FavouriteGroupItemServiceProxy.GET_BY_ID)
-	public Result<FavouriteGroupItem> getById(String id) {
-		Result<FavouriteGroupItem> result=new Result<>();
-		FavouriteGroupItem favouriteGroupItem=favouriteGroupItemService.getById(id);
-		result.success(true).data(favouriteGroupItem);
+	public Result getById(String id) {
+		Result result=new Result<>();
+		JSONObject r =favouriteGroupItemService.translate(id);
+		result.success(true).data(r);
 		return result;
 	}
 
@@ -283,9 +284,9 @@ public class FavouriteGroupItemController extends SuperController {
 	@PostMapping(FavouriteGroupItemServiceProxy.QUERY_PAGED_LIST)
 	public Result<PagedList<FavouriteGroupItem>> queryPagedList(FavouriteGroupItemVO sample) {
 
-		if(sample.getInitEmpIds()!=null && !sample.getInitEmpIds().isEmpty()) {
-			favouriteGroupItemService.initEmployees(sample.getInitEmpIds());
-		}
+
+		favouriteGroupItemService.initEmployees(sample.getInitValue());
+
 
 		Result<PagedList<FavouriteGroupItem>> result=new Result<>();
 		PagedList<FavouriteGroupItem> list=favouriteGroupItemService.queryPagedList(sample,sample.getPageSize(),sample.getPageIndex());

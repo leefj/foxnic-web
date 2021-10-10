@@ -8,8 +8,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-02 09:07:40
- * @sign 3218AA84200BE1D2A45EC967705EEF21
+ * @since 2021-10-10 13:32:35
+ * @sign 8C37BCD7F59AAF2FF2FA80FD19792D42
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -64,16 +64,6 @@ public class ChangeDefinitionMeta {
 	 * 默认审批人ID , 适用于简单审批模式 , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeDefinition,java.lang.String> SIMPLE_APPROVER_IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeDefinition.class ,SIMPLE_APPROVER_IDS, java.lang.String.class, "默认审批人ID", "适用于简单审批模式", java.lang.String.class, null);
-	
-	/**
-	 * 审批逻辑 , 适用于简单审批模式 , 类型: java.lang.String
-	*/
-	public static final String SIMPLE_APPROVAL_LOGIC="simpleApprovalLogic";
-	
-	/**
-	 * 审批逻辑 , 适用于简单审批模式 , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeDefinition,java.lang.String> SIMPLE_APPROVAL_LOGIC_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeDefinition.class ,SIMPLE_APPROVAL_LOGIC, java.lang.String.class, "审批逻辑", "适用于简单审批模式", java.lang.String.class, null);
 	
 	/**
 	 * 审批处理类 , 类型: java.lang.String
@@ -178,7 +168,7 @@ public class ChangeDefinitionMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , NAME , CODE , MODE , SIMPLE_APPROVER_IDS , SIMPLE_APPROVAL_LOGIC , SIMPLE_HANDLER , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , NAME , CODE , MODE , SIMPLE_APPROVER_IDS , SIMPLE_HANDLER , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
 	
 	/**
 	 * 代理类
@@ -240,17 +230,6 @@ public class ChangeDefinitionMeta {
 		public ChangeDefinition setSimpleApproverIds(String simpleApproverIds) {
 			super.change(SIMPLE_APPROVER_IDS,super.getSimpleApproverIds(),simpleApproverIds);
 			super.setSimpleApproverIds(simpleApproverIds);
-			return this;
-		}
-		
-		/**
-		 * 设置 审批逻辑
-		 * @param simpleApprovalLogic 审批逻辑
-		 * @return 当前对象
-		*/
-		public ChangeDefinition setSimpleApprovalLogic(String simpleApprovalLogic) {
-			super.change(SIMPLE_APPROVAL_LOGIC,super.getSimpleApprovalLogic(),simpleApprovalLogic);
-			super.setSimpleApprovalLogic(simpleApprovalLogic);
 			return this;
 		}
 		

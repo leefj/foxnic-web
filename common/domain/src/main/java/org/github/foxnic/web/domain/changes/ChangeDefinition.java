@@ -19,8 +19,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 变更定义
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-02 09:07:40
- * @sign 3218AA84200BE1D2A45EC967705EEF21
+ * @since 2021-10-10 13:32:35
+ * @sign 8C37BCD7F59AAF2FF2FA80FD19792D42
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -63,12 +63,6 @@ public class ChangeDefinition extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="默认审批人ID" , notes = "适用于简单审批模式")
 	private String simpleApproverIds;
-	
-	/**
-	 * 审批逻辑：适用于简单审批模式
-	*/
-	@ApiModelProperty(required = false,value="审批逻辑" , notes = "适用于简单审批模式")
-	private String simpleApprovalLogic;
 	
 	/**
 	 * 审批处理类：审批处理类
@@ -255,25 +249,6 @@ public class ChangeDefinition extends Entity {
 	*/
 	public ChangeDefinition setSimpleApproverIds(String simpleApproverIds) {
 		this.simpleApproverIds=simpleApproverIds;
-		return this;
-	}
-	
-	/**
-	 * 获得 审批逻辑<br>
-	 * 适用于简单审批模式
-	 * @return 审批逻辑
-	*/
-	public String getSimpleApprovalLogic() {
-		return simpleApprovalLogic;
-	}
-	
-	/**
-	 * 设置 审批逻辑
-	 * @param simpleApprovalLogic 审批逻辑
-	 * @return 当前对象
-	*/
-	public ChangeDefinition setSimpleApprovalLogic(String simpleApprovalLogic) {
-		this.simpleApprovalLogic=simpleApprovalLogic;
 		return this;
 	}
 	

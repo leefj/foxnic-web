@@ -85,7 +85,11 @@ public class RoleEmployeeController extends SuperController {
 	public Result insertList(List<RoleEmployeeVO> roleEmployeeVOs) {
 		List<RoleEmployee> emps=new ArrayList<>();
 		for (RoleEmployeeVO roleEmployeeVO : roleEmployeeVOs) {
-			emps.add(roleEmployeeVO.toPO(RoleEmployee.class));
+			RoleEmployee roleEmployee=RoleEmployee.create().setRoleId(roleEmployeeVO.getRoleId()).setEmployeeId(roleEmployeeVO.getEmployeeId());
+			RoleEmployee ex=roleEmployeeService.queryEntity(roleEmployee);
+			if(ex==null) {
+				emps.add(roleEmployee);
+			}
 		}
 		Result result=roleEmployeeService.insertList(emps);
 		return result;
@@ -122,7 +126,7 @@ public class RoleEmployeeController extends SuperController {
 	@SentinelResource(value = RoleEmployeeServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(RoleEmployeeServiceProxy.DELETE_BY_IDS)
 	public Result deleteByIds(List<String> ids) {
-		Result result=roleEmployeeService.deleteByIdsLogical(ids);
+		Result result=roleEmployeeService.deleteByIdsPhysical(ids);
 		return result;
 	}
 
