@@ -8,8 +8,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-10 13:32:35
- * @sign 8C37BCD7F59AAF2FF2FA80FD19792D42
+ * @since 2021-10-11 15:25:34
+ * @sign F79F9D021164E40A2E8498B8925D21D2
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -56,24 +56,14 @@ public class ChangeDefinitionMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeDefinition,java.lang.String> MODE_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeDefinition.class ,MODE, java.lang.String.class, "审批模式", "审批模式", java.lang.String.class, null);
 	
 	/**
-	 * 默认审批人ID , 适用于简单审批模式 , 类型: java.lang.String
+	 * 默认审批人信息JSONArray格式 , 适用于简单审批模式 , 类型: java.lang.String
 	*/
-	public static final String SIMPLE_APPROVER_IDS="simpleApproverIds";
+	public static final String SIMPLE_APPROVERS="simpleApprovers";
 	
 	/**
-	 * 默认审批人ID , 适用于简单审批模式 , 类型: java.lang.String
+	 * 默认审批人信息JSONArray格式 , 适用于简单审批模式 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeDefinition,java.lang.String> SIMPLE_APPROVER_IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeDefinition.class ,SIMPLE_APPROVER_IDS, java.lang.String.class, "默认审批人ID", "适用于简单审批模式", java.lang.String.class, null);
-	
-	/**
-	 * 审批处理类 , 类型: java.lang.String
-	*/
-	public static final String SIMPLE_HANDLER="simpleHandler";
-	
-	/**
-	 * 审批处理类 , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeDefinition,java.lang.String> SIMPLE_HANDLER_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeDefinition.class ,SIMPLE_HANDLER, java.lang.String.class, "审批处理类", "审批处理类", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeDefinition,java.lang.String> SIMPLE_APPROVERS_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeDefinition.class ,SIMPLE_APPROVERS, java.lang.String.class, "默认审批人信息JSONArray格式", "适用于简单审批模式", java.lang.String.class, null);
 	
 	/**
 	 * 是否有效 , 类型: java.lang.Integer
@@ -168,7 +158,7 @@ public class ChangeDefinitionMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , NAME , CODE , MODE , SIMPLE_APPROVER_IDS , SIMPLE_HANDLER , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , NAME , CODE , MODE , SIMPLE_APPROVERS , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
 	
 	/**
 	 * 代理类
@@ -223,24 +213,13 @@ public class ChangeDefinitionMeta {
 		}
 		
 		/**
-		 * 设置 默认审批人ID
-		 * @param simpleApproverIds 默认审批人ID
+		 * 设置 默认审批人信息JSONArray格式
+		 * @param simpleApprovers 默认审批人信息JSONArray格式
 		 * @return 当前对象
 		*/
-		public ChangeDefinition setSimpleApproverIds(String simpleApproverIds) {
-			super.change(SIMPLE_APPROVER_IDS,super.getSimpleApproverIds(),simpleApproverIds);
-			super.setSimpleApproverIds(simpleApproverIds);
-			return this;
-		}
-		
-		/**
-		 * 设置 审批处理类
-		 * @param simpleHandler 审批处理类
-		 * @return 当前对象
-		*/
-		public ChangeDefinition setSimpleHandler(String simpleHandler) {
-			super.change(SIMPLE_HANDLER,super.getSimpleHandler(),simpleHandler);
-			super.setSimpleHandler(simpleHandler);
+		public ChangeDefinition setSimpleApprovers(String simpleApprovers) {
+			super.change(SIMPLE_APPROVERS,super.getSimpleApprovers(),simpleApprovers);
+			super.setSimpleApprovers(simpleApprovers);
 			return this;
 		}
 		

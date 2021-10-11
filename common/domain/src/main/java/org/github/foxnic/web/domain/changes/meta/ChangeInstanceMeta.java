@@ -9,8 +9,8 @@ import org.github.foxnic.web.domain.changes.ChangeData;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-10 13:32:40
- * @sign 28FF5AA328387E83F6D41F2F9C2B76BB
+ * @since 2021-10-11 15:25:41
+ * @sign A9C490B03CAE27C97AE285B3993E2F3D
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -227,24 +227,14 @@ public class ChangeInstanceMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeInstance,java.util.Date> FINISH_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeInstance.class ,FINISH_TIME, java.util.Date.class, "变更结束时间", "变更结束时间", java.util.Date.class, null);
 	
 	/**
-	 * 下一个审批节点审批人账户ID , 用逗号隔开,适用简单模式 , 类型: java.lang.String
+	 * 默认审批人信息JSONArray格式 , 适用于简单审批模式 , 类型: java.lang.String
 	*/
-	public static final String SIMPLE_NEXT_APPROVER_IDS="simpleNextApproverIds";
+	public static final String SIMPLE_APPROVERS="simpleApprovers";
 	
 	/**
-	 * 下一个审批节点审批人账户ID , 用逗号隔开,适用简单模式 , 类型: java.lang.String
+	 * 默认审批人信息JSONArray格式 , 适用于简单审批模式 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeInstance,java.lang.String> SIMPLE_NEXT_APPROVER_IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeInstance.class ,SIMPLE_NEXT_APPROVER_IDS, java.lang.String.class, "下一个审批节点审批人账户ID", "用逗号隔开,适用简单模式", java.lang.String.class, null);
-	
-	/**
-	 * 下一个审批节点审批人姓名 , 用逗号隔开,适用简单模式 , 类型: java.lang.String
-	*/
-	public static final String SIMPLE_NEXT_APPROVER_NAMES="simpleNextApproverNames";
-	
-	/**
-	 * 下一个审批节点审批人姓名 , 用逗号隔开,适用简单模式 , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeInstance,java.lang.String> SIMPLE_NEXT_APPROVER_NAMES_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeInstance.class ,SIMPLE_NEXT_APPROVER_NAMES, java.lang.String.class, "下一个审批节点审批人姓名", "用逗号隔开,适用简单模式", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeInstance,java.lang.String> SIMPLE_APPROVERS_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeInstance.class ,SIMPLE_APPROVERS, java.lang.String.class, "默认审批人信息JSONArray格式", "适用于简单审批模式", java.lang.String.class, null);
 	
 	/**
 	 * 简单模式的节点ID , 类型: java.lang.String
@@ -279,7 +269,7 @@ public class ChangeInstanceMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , DEFINITION_ID , MODE , DRAFTER_ID , DRAFTER_NAME , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , STATUS , TYPE , PROCESS_ID , PROCESS_NODE_SUMMARY , PROCESS_SUMMARY , START_TIME , FINISH_TIME , SIMPLE_NEXT_APPROVER_IDS , SIMPLE_NEXT_APPROVER_NAMES , SIMPLE_NODE_ID , DATA_BEFORE , DATA_AFTER };
+	public static final String[] $PROPS={ ID , DEFINITION_ID , MODE , DRAFTER_ID , DRAFTER_NAME , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , STATUS , TYPE , PROCESS_ID , PROCESS_NODE_SUMMARY , PROCESS_SUMMARY , START_TIME , FINISH_TIME , SIMPLE_APPROVERS , SIMPLE_NODE_ID , DATA_BEFORE , DATA_AFTER };
 	
 	/**
 	 * 代理类
@@ -521,24 +511,13 @@ public class ChangeInstanceMeta {
 		}
 		
 		/**
-		 * 设置 下一个审批节点审批人账户ID
-		 * @param simpleNextApproverIds 下一个审批节点审批人账户ID
+		 * 设置 默认审批人信息JSONArray格式
+		 * @param simpleApprovers 默认审批人信息JSONArray格式
 		 * @return 当前对象
 		*/
-		public ChangeInstance setSimpleNextApproverIds(String simpleNextApproverIds) {
-			super.change(SIMPLE_NEXT_APPROVER_IDS,super.getSimpleNextApproverIds(),simpleNextApproverIds);
-			super.setSimpleNextApproverIds(simpleNextApproverIds);
-			return this;
-		}
-		
-		/**
-		 * 设置 下一个审批节点审批人姓名
-		 * @param simpleNextApproverNames 下一个审批节点审批人姓名
-		 * @return 当前对象
-		*/
-		public ChangeInstance setSimpleNextApproverNames(String simpleNextApproverNames) {
-			super.change(SIMPLE_NEXT_APPROVER_NAMES,super.getSimpleNextApproverNames(),simpleNextApproverNames);
-			super.setSimpleNextApproverNames(simpleNextApproverNames);
+		public ChangeInstance setSimpleApprovers(String simpleApprovers) {
+			super.change(SIMPLE_APPROVERS,super.getSimpleApprovers(),simpleApprovers);
+			super.setSimpleApprovers(simpleApprovers);
 			return this;
 		}
 		

@@ -1,6 +1,6 @@
 package org.github.foxnic.web.changes.controller;
 
- 
+
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
@@ -59,7 +59,7 @@ public class ExampleOrderController extends SuperController {
 	@Autowired
 	private IExampleOrderService exampleOrderService;
 
-	
+
 	/**
 	 * 添加变更示例订单
 	*/
@@ -85,7 +85,7 @@ public class ExampleOrderController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 删除变更示例订单
 	*/
@@ -101,8 +101,8 @@ public class ExampleOrderController extends SuperController {
 		Result result=exampleOrderService.deleteByIdLogical(id);
 		return result;
 	}
-	
-	
+
+
 	/**
 	 * 批量删除变更示例订单 <br>
 	 * 联合主键时，请自行调整实现
@@ -111,7 +111,7 @@ public class ExampleOrderController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = ExampleOrderVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 	})
-	@ApiOperationSupport(order=3) 
+	@ApiOperationSupport(order=3)
 	@NotNull(name = ExampleOrderVOMeta.IDS)
 	@SentinelResource(value = ExampleOrderServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(ExampleOrderServiceProxy.DELETE_BY_IDS)
@@ -119,7 +119,7 @@ public class ExampleOrderController extends SuperController {
 		Result result=exampleOrderService.deleteByIdsLogical(ids);
 		return result;
 	}
-	
+
 	/**
 	 * 更新变更示例订单
 	*/
@@ -137,7 +137,7 @@ public class ExampleOrderController extends SuperController {
 		@ApiImplicitParam(name = ExampleOrderVOMeta.CHS_VERSION , value = "变更版本号" , required = false , dataTypeClass=Integer.class , example = "1"),
 		@ApiImplicitParam(name = ExampleOrderVOMeta.SOURCE_ID , value = "来源ID" , required = false , dataTypeClass=String.class),
 	})
-	@ApiOperationSupport( order=4 , ignoreParameters = { ExampleOrderVOMeta.PAGE_INDEX , ExampleOrderVOMeta.PAGE_SIZE , ExampleOrderVOMeta.SEARCH_FIELD , ExampleOrderVOMeta.FUZZY_FIELD , ExampleOrderVOMeta.SEARCH_VALUE , ExampleOrderVOMeta.SORT_FIELD , ExampleOrderVOMeta.SORT_TYPE , ExampleOrderVOMeta.IDS } ) 
+	@ApiOperationSupport( order=4 , ignoreParameters = { ExampleOrderVOMeta.PAGE_INDEX , ExampleOrderVOMeta.PAGE_SIZE , ExampleOrderVOMeta.SEARCH_FIELD , ExampleOrderVOMeta.FUZZY_FIELD , ExampleOrderVOMeta.SEARCH_VALUE , ExampleOrderVOMeta.SORT_FIELD , ExampleOrderVOMeta.SORT_TYPE , ExampleOrderVOMeta.IDS } )
 	@NotNull(name = ExampleOrderVOMeta.ID)
 	@SentinelResource(value = ExampleOrderServiceProxy.UPDATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(ExampleOrderServiceProxy.UPDATE)
@@ -145,8 +145,8 @@ public class ExampleOrderController extends SuperController {
 		Result result=exampleOrderService.update(exampleOrderVO,SaveMode.NOT_NULL_FIELDS);
 		return result;
 	}
-	
-	
+
+
 	/**
 	 * 保存变更示例订单
 	*/
@@ -173,7 +173,7 @@ public class ExampleOrderController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 获取变更示例订单
 	*/
@@ -201,7 +201,7 @@ public class ExampleOrderController extends SuperController {
 		@ApiImplicitParams({
 				@ApiImplicitParam(name = ExampleOrderVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})
-		@ApiOperationSupport(order=3) 
+		@ApiOperationSupport(order=3)
 		@NotNull(name = ExampleOrderVOMeta.IDS)
 		@SentinelResource(value = ExampleOrderServiceProxy.GET_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(ExampleOrderServiceProxy.GET_BY_IDS)
@@ -225,6 +225,9 @@ public class ExampleOrderController extends SuperController {
 	@SentinelResource(value = ExampleOrderServiceProxy.START_PROCESS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(ExampleOrderServiceProxy.START_PROCESS)
 	public Result startProcess(ProcessStartVO startVO) {
+		if(startVO.getBillIds()==null || startVO.getBillIds().isEmpty()) {
+			return ErrorDesc.failure().message("缺少审批单据");
+		}
 		return exampleOrderService.startProcess(startVO);
 	}
 
@@ -258,7 +261,7 @@ public class ExampleOrderController extends SuperController {
 		return exampleOrderService.draft(startVO);
 	}
 
-	
+
 	/**
 	 * 查询变更示例订单
 	*/
@@ -286,7 +289,7 @@ public class ExampleOrderController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 分页查询变更示例订单
 	*/

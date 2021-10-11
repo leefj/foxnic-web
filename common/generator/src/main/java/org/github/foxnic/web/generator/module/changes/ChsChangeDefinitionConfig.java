@@ -28,8 +28,7 @@ public class ChsChangeDefinitionConfig extends BaseCodeConfig<CHS_CHANGE_DEFINIT
 		view.field(CHS_CHANGE_DEFINITION.VALID).form().logicField().on("有效",1).off("无效",0).defaultValue(true)
 		.search().hidden();
 
-		//暂时不用
-		view.field(CHS_CHANGE_DEFINITION.SIMPLE_HANDLER).basic().hidden();
+
 
 		view.field(CHS_CHANGE_DEFINITION.CODE)
 				.form().validate().required()
@@ -44,7 +43,7 @@ public class ChsChangeDefinitionConfig extends BaseCodeConfig<CHS_CHANGE_DEFINIT
 			.form().validate().required()
 		;
 
-		view.field(CHS_CHANGE_DEFINITION.SIMPLE_APPROVER_IDS)
+		view.field(CHS_CHANGE_DEFINITION.SIMPLE_APPROVERS)
 			.basic().label("审批人")
 			.table().hidden()
 			.search().hidden()

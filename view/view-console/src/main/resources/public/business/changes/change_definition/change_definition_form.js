@@ -1,7 +1,7 @@
 /**
  * 变更定义 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-10 13:32:38
+ * @since 2021-10-11 15:25:39
  */
 
 function FormPage() {
@@ -201,11 +201,11 @@ function FormPage() {
 	    });
 
 		// 请选择人员对话框
-		$("#simpleApproverIds-button").click(function(){
-				var simpleApproverIdsDialogOptions={
-				field:"simpleApproverIds",
+		$("#simpleApprovers-button").click(function(){
+				var simpleApproversDialogOptions={
+				field:"simpleApprovers",
 				formData:getFormData(),
-				inputEl:$("#simpleApproverIds"),
+				inputEl:$("#simpleApprovers"),
 				buttonEl:$(this),
 				single:false,
 				//限制浏览的范围，指定根节点 id 或 code ，优先匹配ID
@@ -214,7 +214,7 @@ function FormPage() {
 				prepose:function(param){ return window.pageExt.form.beforeDialog && window.pageExt.form.beforeDialog(param);},
 				callback:function(param,result){ window.pageExt.form.afterDialog && window.pageExt.form.afterDialog(param,result);}
 			};
-			fox.chooseEmployee(simpleApproverIdsDialogOptions);
+			fox.chooseEmployee(simpleApproversDialogOptions);
 		});
 
 	    //关闭窗口

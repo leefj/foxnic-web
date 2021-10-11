@@ -1,20 +1,20 @@
 package org.github.foxnic.web.bpm.service;
 
 
-import com.github.foxnic.sql.expr.ConditionExpr;
-import com.github.foxnic.dao.entity.ISuperService;
-import org.github.foxnic.web.domain.bpm.Role;
-import org.github.foxnic.web.domain.bpm.RoleVO;
-import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
-import java.io.InputStream;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.ISuperService;
+import com.github.foxnic.dao.excel.ExcelStructure;
+import com.github.foxnic.dao.excel.ExcelWriter;
+import com.github.foxnic.dao.excel.ValidateResult;
+import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.expr.OrderBy;
 import com.github.foxnic.sql.meta.DBField;
-import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.dao.excel.ExcelStructure;
-import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.dao.data.SaveMode;
+import org.github.foxnic.web.domain.bpm.Role;
+
+import java.io.InputStream;
+import java.util.List;
 
 /**
  * <p>
@@ -25,23 +25,23 @@ import com.github.foxnic.dao.data.SaveMode;
 */
 
 public interface IRoleService extends ISuperService<Role> {
-	
+
 	/**
 	 * 插入实体
 	 * @param role 实体数据
 	 * @return 插入是否成功
 	 * */
 	Result insert(Role role);
- 
+
 	/**
 	 * 批量插入实体，事务内
 	 * @param roleList 实体数据清单
 	 * @return 插入是否成功
 	 * */
 	Result insertList(List<Role> roleList);
-	
-	
-		
+
+
+
 	/**
 	 * 按主键删除 流程角色
 	 *
@@ -49,7 +49,7 @@ public interface IRoleService extends ISuperService<Role> {
 	 * @return 删除是否成功
 	 */
 	Result deleteByIdPhysical(String id);
-	
+
 	/**
 	 * 按主键删除 流程角色
 	 *
@@ -57,22 +57,22 @@ public interface IRoleService extends ISuperService<Role> {
 	 * @return 删除是否成功
 	 */
 	Result deleteByIdLogical(String id);
-	
+
 	/**
 	 * 批量物理删除，仅支持单字段主键表
 	 * @param ids 主键清单
 	 * @return 是否删除成功
 	 * */
 	<T> Result deleteByIdsPhysical(List<T> ids);
-	
+
 	/**
 	 * 批量逻辑删除，仅支持单字段主键表
 	 * @param ids 主键清单
 	 * @return 是否删除成功
 	 * */
 	<T> Result deleteByIdsLogical(List<T> ids);
-	
-		
+
+
 	/**
 	 * 按主键更新字段 流程角色
 	 *
@@ -80,7 +80,7 @@ public interface IRoleService extends ISuperService<Role> {
 	 * @return 是否更新成功
 	 */
 	boolean update(DBField field,Object value , String id);
-	
+
 	/**
 	 * 更新实体
 	 * @param role 数据对象
@@ -88,8 +88,8 @@ public interface IRoleService extends ISuperService<Role> {
 	 * @return 保存是否成功
 	 * */
 	Result update(Role role , SaveMode mode);
-	
-	
+
+
 	/**
 	 * 更新实体集，事务内
 	 * @param roleList 数据对象列表
@@ -97,7 +97,7 @@ public interface IRoleService extends ISuperService<Role> {
 	 * @return 保存是否成功
 	 * */
 	Result updateList(List<Role> roleList, SaveMode mode);
-	
+
 	/**
 	 * 保存实体，如果主键值不为 null，则更新，否则插入
 	 * @param role 实体数据
@@ -105,7 +105,7 @@ public interface IRoleService extends ISuperService<Role> {
 	 * @return 保存是否成功
 	 * */
 	Result save(Role role , SaveMode mode);
-	
+
 	/**
 	 * 保存实体，如果主键值不为null，则更新，否则插入
 	 * @param roleList 实体数据清单
@@ -113,7 +113,7 @@ public interface IRoleService extends ISuperService<Role> {
 	 * @return 保存是否成功
 	 * */
 	Result saveList(List<Role> roleList , SaveMode mode);
-	
+
 	/**
 	 * 检查实体中的数据字段是否已经存在
 	 * @param role  实体对象
@@ -121,8 +121,8 @@ public interface IRoleService extends ISuperService<Role> {
 	 * @return 是否已经存在
 	 * */
 	boolean checkExists(Role role,DBField... field);
- 
-		
+
+
 	/**
 	 * 按主键获取 流程角色
 	 *
@@ -130,7 +130,7 @@ public interface IRoleService extends ISuperService<Role> {
 	 * @return Role 数据对象
 	 */
 	Role getById(String id);
-		
+
 	/**
 	 * 检查实体中的数据字段是否已经存在
 	 * @param ids  主键清单
@@ -152,7 +152,7 @@ public interface IRoleService extends ISuperService<Role> {
 	 * @return ConditionExpr 条件表达式
 	 * */
 	ConditionExpr buildQueryCondition(Role sample);
-	
+
 	/**
 	 * 根据实体数构建默认的条件表达式, 字符串是否使用模糊匹配
 	 * @param sample 数据样例
@@ -167,7 +167,7 @@ public interface IRoleService extends ISuperService<Role> {
 	 * @return 查询结果
 	 * */
 	List<Role> queryList(Role sample);
- 
+
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
 	 * @param sample  查询条件
@@ -176,7 +176,7 @@ public interface IRoleService extends ISuperService<Role> {
 	 * @return 查询结果
 	 * */
 	List<Role> queryList(Role sample,ConditionExpr condition,OrderBy orderBy);
-	
+
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
 	 * @param sample  查询条件
@@ -184,7 +184,7 @@ public interface IRoleService extends ISuperService<Role> {
 	 * @return 查询结果
 	 * */
 	List<Role> queryList(Role sample,OrderBy orderBy);
-	
+
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
 	 * @param sample  查询条件
@@ -192,14 +192,14 @@ public interface IRoleService extends ISuperService<Role> {
 	 * @return 查询结果
 	 * */
 	List<Role> queryList(Role sample,ConditionExpr condition);
-	
+
 	/**
 	 * 查询单个实体
 	 * @param sample  查询条件
 	 * @return 查询结果
 	 * */
 	Role queryEntity(Role sample);
-	
+
 	/**
 	 * 分页查询实体集
 	 * @param sample  查询条件
@@ -208,7 +208,7 @@ public interface IRoleService extends ISuperService<Role> {
 	 * @return 查询结果
 	 * */
 	PagedList<Role> queryPagedList(Role sample,int pageSize,int pageIndex);
-	
+
 	/**
 	 * 分页查询实体集
 	 * @param sample  查询条件
@@ -219,7 +219,7 @@ public interface IRoleService extends ISuperService<Role> {
 	 * @return 查询结果
 	 * */
 	PagedList<Role> queryPagedList(Role sample,ConditionExpr condition,OrderBy orderBy,int pageSize,int pageIndex);
-	
+
 	/**
 	 * 分页查询实体集
 	 * @param sample  查询条件
@@ -229,7 +229,7 @@ public interface IRoleService extends ISuperService<Role> {
 	 * @return 查询结果
 	 * */
 	PagedList<Role> queryPagedList(Role sample,ConditionExpr condition,int pageSize,int pageIndex);
-	
+
 	/**
 	 * 分页查询实体集
 	 * @param sample  查询条件
@@ -239,7 +239,7 @@ public interface IRoleService extends ISuperService<Role> {
 	 * @return 查询结果
 	 * */
 	PagedList<Role> queryPagedList(Role sample,OrderBy orderBy,int pageSize,int pageIndex);
- 
+
  	/**
 	 * 查询指定字段的数据清单
 	 * @param <T> 元素类型
@@ -249,7 +249,7 @@ public interface IRoleService extends ISuperService<Role> {
 	 * @return 列数据
 	 * */
 	<T> List<T> queryValues(DBField field,Class<T> type, ConditionExpr condition);
- 
+
 	/**
 	 * 查询指定字段的数据清单
 	 * @param <T> 元素类型
@@ -284,5 +284,8 @@ public interface IRoleService extends ISuperService<Role> {
 	 * */
 	List<ValidateResult> importExcel(InputStream input,int sheetIndex,boolean batch);
 
- 
+
+    List<Role> getByCodes(List<String> codes);
+
+    List<Role> getEmployeeRoles(String employeeId);
 }

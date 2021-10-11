@@ -19,8 +19,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 变更定义
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-10 13:32:35
- * @sign 8C37BCD7F59AAF2FF2FA80FD19792D42
+ * @since 2021-10-11 15:25:34
+ * @sign F79F9D021164E40A2E8498B8925D21D2
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -59,16 +59,10 @@ public class ChangeDefinition extends Entity {
 	private ApprovalMode modeEnum;
 	
 	/**
-	 * 默认审批人ID：适用于简单审批模式
+	 * 默认审批人信息JSONArray格式：适用于简单审批模式
 	*/
-	@ApiModelProperty(required = false,value="默认审批人ID" , notes = "适用于简单审批模式")
-	private String simpleApproverIds;
-	
-	/**
-	 * 审批处理类：审批处理类
-	*/
-	@ApiModelProperty(required = false,value="审批处理类" , notes = "审批处理类")
-	private String simpleHandler;
+	@ApiModelProperty(required = false,value="默认审批人信息JSONArray格式" , notes = "适用于简单审批模式")
+	private String simpleApprovers;
 	
 	/**
 	 * 是否有效：是否有效
@@ -234,40 +228,21 @@ public class ChangeDefinition extends Entity {
 	}
 	
 	/**
-	 * 获得 默认审批人ID<br>
+	 * 获得 默认审批人信息JSONArray格式<br>
 	 * 适用于简单审批模式
-	 * @return 默认审批人ID
+	 * @return 默认审批人信息JSONArray格式
 	*/
-	public String getSimpleApproverIds() {
-		return simpleApproverIds;
+	public String getSimpleApprovers() {
+		return simpleApprovers;
 	}
 	
 	/**
-	 * 设置 默认审批人ID
-	 * @param simpleApproverIds 默认审批人ID
+	 * 设置 默认审批人信息JSONArray格式
+	 * @param simpleApprovers 默认审批人信息JSONArray格式
 	 * @return 当前对象
 	*/
-	public ChangeDefinition setSimpleApproverIds(String simpleApproverIds) {
-		this.simpleApproverIds=simpleApproverIds;
-		return this;
-	}
-	
-	/**
-	 * 获得 审批处理类<br>
-	 * 审批处理类
-	 * @return 审批处理类
-	*/
-	public String getSimpleHandler() {
-		return simpleHandler;
-	}
-	
-	/**
-	 * 设置 审批处理类
-	 * @param simpleHandler 审批处理类
-	 * @return 当前对象
-	*/
-	public ChangeDefinition setSimpleHandler(String simpleHandler) {
-		this.simpleHandler=simpleHandler;
+	public ChangeDefinition setSimpleApprovers(String simpleApprovers) {
+		this.simpleApprovers=simpleApprovers;
 		return this;
 	}
 	

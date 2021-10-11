@@ -21,8 +21,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 变更实例
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-10 13:32:40
- * @sign 28FF5AA328387E83F6D41F2F9C2B76BB
+ * @since 2021-10-11 15:25:41
+ * @sign A9C490B03CAE27C97AE285B3993E2F3D
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -167,16 +167,10 @@ public class ChangeInstance extends Entity {
 	private Date finishTime;
 	
 	/**
-	 * 下一个审批节点审批人账户ID：用逗号隔开,适用简单模式
+	 * 默认审批人信息JSONArray格式：适用于简单审批模式
 	*/
-	@ApiModelProperty(required = false,value="下一个审批节点审批人账户ID" , notes = "用逗号隔开,适用简单模式")
-	private String simpleNextApproverIds;
-	
-	/**
-	 * 下一个审批节点审批人姓名：用逗号隔开,适用简单模式
-	*/
-	@ApiModelProperty(required = false,value="下一个审批节点审批人姓名" , notes = "用逗号隔开,适用简单模式")
-	private String simpleNextApproverNames;
+	@ApiModelProperty(required = false,value="默认审批人信息JSONArray格式" , notes = "适用于简单审批模式")
+	private String simpleApprovers;
 	
 	/**
 	 * 简单模式的节点ID：简单模式的节点ID
@@ -695,40 +689,21 @@ public class ChangeInstance extends Entity {
 	}
 	
 	/**
-	 * 获得 下一个审批节点审批人账户ID<br>
-	 * 用逗号隔开,适用简单模式
-	 * @return 下一个审批节点审批人账户ID
+	 * 获得 默认审批人信息JSONArray格式<br>
+	 * 适用于简单审批模式
+	 * @return 默认审批人信息JSONArray格式
 	*/
-	public String getSimpleNextApproverIds() {
-		return simpleNextApproverIds;
+	public String getSimpleApprovers() {
+		return simpleApprovers;
 	}
 	
 	/**
-	 * 设置 下一个审批节点审批人账户ID
-	 * @param simpleNextApproverIds 下一个审批节点审批人账户ID
+	 * 设置 默认审批人信息JSONArray格式
+	 * @param simpleApprovers 默认审批人信息JSONArray格式
 	 * @return 当前对象
 	*/
-	public ChangeInstance setSimpleNextApproverIds(String simpleNextApproverIds) {
-		this.simpleNextApproverIds=simpleNextApproverIds;
-		return this;
-	}
-	
-	/**
-	 * 获得 下一个审批节点审批人姓名<br>
-	 * 用逗号隔开,适用简单模式
-	 * @return 下一个审批节点审批人姓名
-	*/
-	public String getSimpleNextApproverNames() {
-		return simpleNextApproverNames;
-	}
-	
-	/**
-	 * 设置 下一个审批节点审批人姓名
-	 * @param simpleNextApproverNames 下一个审批节点审批人姓名
-	 * @return 当前对象
-	*/
-	public ChangeInstance setSimpleNextApproverNames(String simpleNextApproverNames) {
-		this.simpleNextApproverNames=simpleNextApproverNames;
+	public ChangeInstance setSimpleApprovers(String simpleApprovers) {
+		this.simpleApprovers=simpleApprovers;
 		return this;
 	}
 	

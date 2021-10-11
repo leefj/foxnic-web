@@ -1,7 +1,7 @@
 /**
  * 变更定义 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-10 13:32:37
+ * @since 2021-10-11 15:25:38
  */
 
 
@@ -77,8 +77,7 @@ function ListPage() {
 					,{ field: 'name', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('名称') , templet: function (d) { return templet('name',d.name,d);}  }
 					,{ field: 'code', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('代码') , templet: function (d) { return templet('code',d.code,d);}  }
 					,{ field: 'mode', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('审批模式'), templet:function (d){ return templet('mode',fox.getEnumText(RADIO_MODE_DATA,d.mode),d);}}
-					,{ field: 'simpleApproverIds', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('审批人') , templet: function (d) { return templet('simpleApproverIds',d.simpleApproverIds,d);}  }
-					,{ field: 'simpleHandler', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('审批处理类') , templet: function (d) { return templet('simpleHandler',d.simpleHandler,d);}  }
+					,{ field: 'simpleApprovers', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('审批人') , templet: function (d) { return templet('simpleApprovers',d.simpleApprovers,d);}  }
 					,{ field: 'valid', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('是否有效'), templet: '#cell-tpl-valid'}
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }}
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}

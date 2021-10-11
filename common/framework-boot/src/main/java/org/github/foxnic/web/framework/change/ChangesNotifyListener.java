@@ -24,7 +24,7 @@ public class ChangesNotifyListener extends DataChangeHandler implements Applicat
         String eventId=key.substring(key.lastIndexOf(":")+1);
         key=ChangesAssistant.CHANGES_NOTIFY_PREFIX+eventId;
         ChangeEvent event=(ChangeEvent)redis.get(key);
-        String handler=event.getDefinition().getSimpleHandler();
+        String handler=null; //event.getDefinition().getSimpleHandler();
         Class<? extends ChangesHandler> handlerType= ReflectUtil.forName(handler);
         if(handler==null) {
             throw new IllegalArgumentException( handler +" 未定义");

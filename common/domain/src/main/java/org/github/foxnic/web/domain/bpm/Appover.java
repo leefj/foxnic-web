@@ -8,13 +8,15 @@ import org.github.foxnic.web.constants.enums.bpm.ApproverType;
 public class Appover {
 
     private String id;
+    private String code;
     private String name;
     private ApproverType type;
 
-    public Appover(String id,String name,ApproverType type) {
+    public Appover(String id,String code,String name,ApproverType type) {
         this.id=id;
         this.type=type;
         this.name=name;
+        this.code=code;
     }
 
     public String getId() {
@@ -25,4 +27,11 @@ public class Appover {
         return type;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public String getName() {
+        return name;
+    }
 }
