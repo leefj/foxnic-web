@@ -15,6 +15,7 @@ function ListPage() {
 	var editingNode=null;
 	var options;
 	var inputValue;
+	var tabs;
 	/**
       * 入口函数，初始化
       */
@@ -25,6 +26,9 @@ function ListPage() {
  		dropdown=layui.dropdown,element=layui.element;
 
 		options=admin.getTempData("employee-dialog-options");
+		tabs=options.tabs;
+		if(!tabs) tabs={};
+
 		if(!options) {
 			options={single:false};
 		}
@@ -48,6 +52,8 @@ function ListPage() {
 		if(options && options.single && inputValue.length>0) {
 			inputValue=[inputValue[0]];
 		}
+
+
 
 		setTimeout(function(){
 			// var toolbarHeight=$("#toolbar")[0].clientHeight;
@@ -81,7 +87,15 @@ function ListPage() {
 
 		renderOrgTree();
 
-		renderBpmRoleTable();
+		if(tabs.bpmRole) {
+			$(".bpm-role-view").show();
+			$("#bpm-role-li").css("display","");
+			$("#bpm-role-li").animate({opacity:1.0},300,"swing");
+			renderBpmRoleTable();
+		} else {
+			$(".bpm-role-view").remove();
+			$("#bpm-role-li").remove();
+		}
 
 		bindOrgTreeSearchEvent();
 

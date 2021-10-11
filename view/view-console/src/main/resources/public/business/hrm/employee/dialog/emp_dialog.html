@@ -116,7 +116,7 @@
             <ul class="layui-tab-title">
                 <li id="org-li" lay-id="org-li">常用</li>
                 <li id="pos-li" lay-id="pos-li" class="layui-this">组织架构</li>
-                <li id="bpm-role-li" lay-id="pos-li">流程角色</li>
+                <li id="bpm-role-li" lay-id="pos-li" style="display:none;opacity: 0.0">流程角色</li>
             </ul>
             <div class="layui-tab-content" style="height:1000px;padding:0px">
                 <!-- 常用 -->
@@ -144,7 +144,7 @@
                     </div>
                 </div>
                 <!-- 流程角色 -->
-                <div class="layui-tab-item bpm-role-view">
+                <div class="layui-tab-item bpm-role-view" style="display:none">
                     <div class="layui-form toolbar" style="padding:6px; border-bottom:1px #e6e6e6 solid; display: flex" id="bpm-role-toolbar">
                         <input id="bpm-role-search-input" class="layui-input search-input" type="text" placeholder="请输入关键字" style="flex: 1"/>
                     </div>

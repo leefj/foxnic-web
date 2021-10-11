@@ -15,7 +15,7 @@ layui.config({
 //
 layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect','laydate','foxnicUpload','dropdown'],function () {
 
-    var admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload,laydate= layui.laydate,dropdown=layui.dropdown;
+    var admin = layui.admin,settings = layui.settings,fm = layui.form,upload = layui.upload,laydate= layui.laydate,dropdown=layui.dropdown;
     table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect,foxup=layui.foxnicUpload;
 
     //列表页的扩展
@@ -160,12 +160,19 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * */
         afterDataFill:function (data) {
             console.log('afterDataFill',data);
+            if(data.mode=="simple") {
+                $("#simpleApprovers").parents(".layui-form-item").show();
+            } else if(data.mode=="bpm") {
+                $("#simpleApprovers").parents(".layui-form-item").hide();
+            }
+            window.module.adjustPopup();
         },
         /**
          * 对话框打开之前调用，如果返回 null 则不打开对话框
          * */
         beforeDialog:function (param){
             param.title="覆盖对话框标题";
+            param.tabs={bpmRole:true};
             return param;
         },
         /**
@@ -194,6 +201,16 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * 末尾执行
          */
         ending:function() {
+
+            fm.on('radio(mode)', function (data) {
+                if(data.value=="simple") {
+                  $("#simpleApprovers").parents(".layui-form-item").show();
+                } else if(data.value=="bpm") {
+                  $("#simpleApprovers").parents(".layui-form-item").hide();
+                }
+                window.module.adjustPopup();
+            });
+
 
         }
     }

@@ -1011,7 +1011,13 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
 
             var codes=null;
             try {
-                codes=JSON.parse(code);
+                if(code){
+                    if(code.startWith("[") && code.endWith("]")) {
+                        codes = JSON.parse(code);
+                    } else {
+                        codes = code.split(",");
+                    }
+                }
             } catch (e){}
             if(codes!=null) {
                 var texts=[];
@@ -1065,11 +1071,18 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             for (var i = 0; i < list.length; i++) {
                 if (list[i]["code"] == code) return list[i]["text"];
             }
-
             var codes=null;
             try {
-                codes=JSON.parse(code);
-            } catch (e){}
+                if(code){
+                    if(code.startWith("[") && code.endWith("]")) {
+                        codes = JSON.parse(code);
+                    } else {
+                        codes = code.split(",");
+                    }
+                }
+            } catch (e){
+                debugger;
+            }
             if(codes!=null) {
                 var texts=[];
                 var text=null;
@@ -1136,6 +1149,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     return "";
                 }
             }
+            if(TypeUtil.isArray(value)) return value.join(",");
             return value;
         },
         /**
@@ -1436,7 +1450,6 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     param.callback(param,{field:param.field,selectedIds:ids,selected:ns,fromData:param.fromData,inputEl:param.inputEl,buttonEl:param.buttonEl});
                 }
             }
-
             admin.putTempData("employee-dialog-value",value,true);
             admin.putTempData("employee-dialog-options",param,true);
 

@@ -91,9 +91,9 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
                 var buyerIdDialogOptions={
                     single:false,
                     targetType:"emp",
+                    tabs:{bpmRole:true},
                     prepose:function(param){ return window.pageExt.form.beforeDialog && window.pageExt.form.beforeDialog(param);},
                     callback:function(param,result){
-
                         me.addEmployees(result.selectedIds);
                     }
                 };

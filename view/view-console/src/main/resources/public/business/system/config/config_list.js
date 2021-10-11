@@ -364,7 +364,7 @@ function ListPage() {
 			title: title,
 			resize: false,
 			offset: [top,null],
-			area: ["500px",height+"px"],
+			area: ["600px",height+"px"],
 			type: 2,
 			id:"sys-config-form-data-win",
 			content: '/business/system/config/config_form.html' + queryString,
