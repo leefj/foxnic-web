@@ -21,10 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Component
 public class SimpleApproval implements IApproval {
@@ -198,7 +195,7 @@ public class SimpleApproval implements IApproval {
             instance.setSimpleNodeId(simpleNodeId);
             //设置审批动作后的状态
             instance.setStatusEnum(ApprovalStatus.drafting);
-
+            instance.setFinishTime(null);
             changeInstanceService.updateDirtyFields(instance);
         }
         //废弃
@@ -219,6 +216,7 @@ public class SimpleApproval implements IApproval {
             instance.setSimpleNodeId(simpleNodeId);
             //设置审批动作后的状态
             instance.setStatusEnum(ApprovalStatus.abandoned);
+            instance.setFinishTime(new Date());
             changeInstanceService.updateDirtyFields(instance);
         }
         //驳回
@@ -261,6 +259,7 @@ public class SimpleApproval implements IApproval {
             instance.setSimpleNodeId(simpleNodeId);
             //设置审批动作后的状态
             instance.setStatusEnum(ApprovalStatus.approving);
+            instance.setFinishTime(null);
             changeInstanceService.updateDirtyFields(instance);
         }
         //同意
@@ -281,6 +280,7 @@ public class SimpleApproval implements IApproval {
             instance.setSimpleNodeId(simpleNodeId);
             //设置审批动作后的状态
             instance.setStatusEnum(ApprovalStatus.passed);
+            instance.setFinishTime(new Date());
             changeInstanceService.updateDirtyFields(instance);
         }
         //

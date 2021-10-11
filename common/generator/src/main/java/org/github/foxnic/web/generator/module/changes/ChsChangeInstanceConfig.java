@@ -46,12 +46,39 @@ public class ChsChangeInstanceConfig extends BaseCodeConfig<CHS_CHANGE_INSTANCE>
 
 	@Override
 	public void configFields(ViewOptions view) {
-		
+		view.field(CHS_CHANGE_INSTANCE.ID).basic().hidden();
+		view.field(CHS_CHANGE_INSTANCE.DEFINITION_ID).basic().hidden();
+		view.field(CHS_CHANGE_INSTANCE.DRAFTER_ID).basic().hidden();
+		view.field(CHS_CHANGE_INSTANCE.CREATE_TIME).basic().hidden();
+		view.field(CHS_CHANGE_INSTANCE.DRAFTER_NAME).basic().label("起草人");
+		view.field(CHS_CHANGE_INSTANCE.PROCESS_ID)
+				.table().hidden()
+				.search().hidden();
+		view.field(CHS_CHANGE_INSTANCE.PROCESS_SUMMARY)
+				.table().hidden()
+				.search().hidden();
+		view.field(CHS_CHANGE_INSTANCE.PROCESS_NODE_SUMMARY)
+				.table().hidden()
+				.search().hidden();
+
+		view.field(CHS_CHANGE_INSTANCE.SIMPLE_APPROVERS)
+				.table().hidden()
+				.search().hidden();
+		view.field(CHS_CHANGE_INSTANCE.SIMPLE_NODE_ID).basic().hidden();
+
+		view.field(CHS_CHANGE_INSTANCE.START_TIME).basic().label("发起时间").search().hidden().form().dateInput().format("yyyy-MM-dd HH:mm:ss");
+		view.field(CHS_CHANGE_INSTANCE.FINISH_TIME).basic().label("结束时间").search().hidden().form().dateInput().format("yyyy-MM-dd HH:mm:ss");
+
+		view.field(CHS_CHANGE_INSTANCE.MODE).form().radioBox().enumType(ApprovalMode.class);
+		view.field(CHS_CHANGE_INSTANCE.STATUS).form().radioBox().enumType(ApprovalStatus.class);
+		view.field(CHS_CHANGE_INSTANCE.TYPE).form().radioBox().enumType(ChangeType.class);
+
+
 	}
 
 	@Override
 	public void configList(ViewOptions view, ListOptions list) {
-
+//		list.columnLayout("");
 	}
 
 	@Override

@@ -1,7 +1,7 @@
 /**
  * 变更实例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-11 15:25:41
+ * @since 2021-10-11 20:43:42
  */
 
 
@@ -73,21 +73,21 @@ function ListPage() {
 				cols: [[
 					{ fixed: 'left',type: 'numbers' },
 					{ fixed: 'left',type:'checkbox' }
-					,{ field: 'id', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('主键') , templet: function (d) { return templet('id',d.id,d);}  }
-					,{ field: 'definitionId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('变更定义ID') , templet: function (d) { return templet('definitionId',d.definitionId,d);}  }
-					,{ field: 'mode', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('审批模式') , templet: function (d) { return templet('mode',d.mode,d);}  }
-					,{ field: 'drafterId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('起草人ID') , templet: function (d) { return templet('drafterId',d.drafterId,d);}  }
-					,{ field: 'drafterName', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('起草人姓名') , templet: function (d) { return templet('drafterName',d.drafterName,d);}  }
-					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }}
-					,{ field: 'status', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('变更状态') , templet: function (d) { return templet('status',d.status,d);}  }
-					,{ field: 'type', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('变更类型') , templet: function (d) { return templet('type',d.type,d);}  }
-					,{ field: 'processId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('流程ID') , templet: function (d) { return templet('processId',d.processId,d);}  }
-					,{ field: 'processNodeSummary', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('当前审批节点') , templet: function (d) { return templet('processNodeSummary',d.processNodeSummary,d);}  }
-					,{ field: 'processSummary', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('流程概要') , templet: function (d) { return templet('processSummary',d.processSummary,d);}  }
-					,{ field: 'startTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('变更开始时间'), templet: function (d) { return templet('startTime',fox.dateFormat(d.startTime,"yyyy-MM-dd HH:mm:ss"),d); }}
-					,{ field: 'finishTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('变更结束时间'), templet: function (d) { return templet('finishTime',fox.dateFormat(d.finishTime,"yyyy-MM-dd HH:mm:ss"),d); }}
-					,{ field: 'simpleApprovers', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('默认审批人信息JSONArray格式') , templet: function (d) { return templet('simpleApprovers',d.simpleApprovers,d);}  }
-					,{ field: 'simpleNodeId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('简单模式的节点ID') , templet: function (d) { return templet('simpleNodeId',d.simpleNodeId,d);}  }
+					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('主键') , templet: function (d) { return templet('id',d.id,d);}  }
+					,{ field: 'definitionId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('变更定义ID') , templet: function (d) { return templet('definitionId',d.definitionId,d);}  }
+					,{ field: 'mode', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('审批模式'), templet:function (d){ return templet('mode',fox.getEnumText(RADIO_MODE_DATA,d.mode),d);}}
+					,{ field: 'drafterId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('起草人ID') , templet: function (d) { return templet('drafterId',d.drafterId,d);}  }
+					,{ field: 'drafterName', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('起草人') , templet: function (d) { return templet('drafterName',d.drafterName,d);}  }
+					,{ field: 'createTime', align:"right", fixed:false, hide:true, sort: true, title: fox.translate('创建时间'), templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }}
+					,{ field: 'status', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('变更状态'), templet:function (d){ return templet('status',fox.getEnumText(RADIO_STATUS_DATA,d.status),d);}}
+					,{ field: 'type', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('变更类型'), templet:function (d){ return templet('type',fox.getEnumText(RADIO_TYPE_DATA,d.type),d);}}
+					,{ field: 'processId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('流程ID') , templet: function (d) { return templet('processId',d.processId,d);}  }
+					,{ field: 'processNodeSummary', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('当前审批节点') , templet: function (d) { return templet('processNodeSummary',d.processNodeSummary,d);}  }
+					,{ field: 'processSummary', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('流程概要') , templet: function (d) { return templet('processSummary',d.processSummary,d);}  }
+					,{ field: 'startTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('发起时间'), templet: function (d) { return templet('startTime',fox.dateFormat(d.startTime,"yyyy-MM-dd HH:mm:ss"),d); }}
+					,{ field: 'finishTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('结束时间'), templet: function (d) { return templet('finishTime',fox.dateFormat(d.finishTime,"yyyy-MM-dd HH:mm:ss"),d); }}
+					,{ field: 'simpleApprovers', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('默认审批人信息JSONArray格式') , templet: function (d) { return templet('simpleApprovers',d.simpleApprovers,d);}  }
+					,{ field: 'simpleNodeId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('简单模式的节点ID') , templet: function (d) { return templet('simpleNodeId',d.simpleNodeId,d);}  }
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
 				]],
@@ -122,20 +122,10 @@ function ListPage() {
       */
 	function refreshTableData(sortField,sortType) {
 		var value = {};
-		value.id={ inputType:"button",value: $("#id").val()};
-		value.definitionId={ inputType:"button",value: $("#definitionId").val()};
-		value.mode={ inputType:"button",value: $("#mode").val()};
-		value.drafterId={ inputType:"button",value: $("#drafterId").val()};
+		value.mode={ inputType:"radio_box", value: xmSelect.get("#mode",true).getValue("value"), label:xmSelect.get("#mode",true).getValue("nameStr")};
 		value.drafterName={ inputType:"button",value: $("#drafterName").val()};
-		value.status={ inputType:"button",value: $("#status").val()};
-		value.type={ inputType:"button",value: $("#type").val()};
-		value.processId={ inputType:"button",value: $("#processId").val()};
-		value.processNodeSummary={ inputType:"button",value: $("#processNodeSummary").val()};
-		value.processSummary={ inputType:"button",value: $("#processSummary").val()};
-		value.startTime={ inputType:"date_input", value: $("#startTime").val()};
-		value.finishTime={ inputType:"date_input", value: $("#finishTime").val()};
-		value.simpleApprovers={ inputType:"button",value: $("#simpleApprovers").val()};
-		value.simpleNodeId={ inputType:"button",value: $("#simpleNodeId").val()};
+		value.status={ inputType:"radio_box", value: xmSelect.get("#status",true).getValue("value"), label:xmSelect.get("#status",true).getValue("nameStr")};
+		value.type={ inputType:"radio_box", value: xmSelect.get("#type",true).getValue("value"), label:xmSelect.get("#type",true).getValue("nameStr")};
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;
@@ -173,13 +163,53 @@ function ListPage() {
 
 		fox.switchSearchRow(1);
 
-		laydate.render({
-			elem: '#startTime',
-			trigger:"click"
+		//渲染 mode 搜索框
+		fox.renderSelectBox({
+			el: "mode",
+			size: "small",
+			radio: false,
+			//toolbar: {show:true,showIcon:true,list:["CLEAR","REVERSE"]},
+			transform:function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				var opts=[];
+				if(!data) return opts;
+				for (var i = 0; i < data.length; i++) {
+					opts.push({name:data[i].text,value:data[i].code});
+				}
+				return opts;
+			}
 		});
-		laydate.render({
-			elem: '#finishTime',
-			trigger:"click"
+		//渲染 status 搜索框
+		fox.renderSelectBox({
+			el: "status",
+			size: "small",
+			radio: false,
+			//toolbar: {show:true,showIcon:true,list:["CLEAR","REVERSE"]},
+			transform:function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				var opts=[];
+				if(!data) return opts;
+				for (var i = 0; i < data.length; i++) {
+					opts.push({name:data[i].text,value:data[i].code});
+				}
+				return opts;
+			}
+		});
+		//渲染 type 搜索框
+		fox.renderSelectBox({
+			el: "type",
+			size: "small",
+			radio: false,
+			//toolbar: {show:true,showIcon:true,list:["CLEAR","REVERSE"]},
+			transform:function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				var opts=[];
+				if(!data) return opts;
+				for (var i = 0; i < data.length; i++) {
+					opts.push({name:data[i].text,value:data[i].code});
+				}
+				return opts;
+			}
 		});
 		fox.renderSearchInputs();
 		window.pageExt.list.afterSearchInputReady && window.pageExt.list.afterSearchInputReady();

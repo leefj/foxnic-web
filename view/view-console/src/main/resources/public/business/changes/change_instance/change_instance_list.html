@@ -2,7 +2,7 @@
 /**
  * 变更实例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-11 15:25:41
+ * @since 2021-10-11 20:43:42
  */
  -->
  <!DOCTYPE html>
@@ -34,76 +34,45 @@
             <div class="search-input-rows" style="opacity: 0">
                 <!-- 搜索输入区域 -->
                 <div class="layui-form toolbar search-inputs">
-                    <!-- 主键 , id ,typeName=text_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('主键')}" class="search-label id-label">主键</span><span class="search-colon">:</span></div>
-                        <input id="id" class="layui-input search-input" style="width: 140px" type="text" />
-                    </div>
-                    <!-- 变更定义ID , definitionId ,typeName=text_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('变更定义ID')}" class="search-label definitionId-label">变更定义ID</span><span class="search-colon">:</span></div>
-                        <input id="definitionId" class="layui-input search-input" style="width: 140px" type="text" />
-                    </div>
-                    <!-- 审批模式 , mode ,typeName=text_input, isHideInSearch=false -->
+                    <!-- 主键 , id ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 变更定义ID , definitionId ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 审批模式 , mode ,typeName=radio_box, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('审批模式')}" class="search-label mode-label">审批模式</span><span class="search-colon">:</span></div>
-                        <input id="mode" class="layui-input search-input" style="width: 140px" type="text" />
+
+
+                        <div id="mode" th:data="${enum.toArray('org.github.foxnic.web.constants.enums.changes.ApprovalMode')}" style="width:140px"></div>
+
                     </div>
-                    <!-- 起草人ID , drafterId ,typeName=text_input, isHideInSearch=false -->
+                    <!-- 起草人ID , drafterId ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 起草人 , drafterName ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('起草人ID')}" class="search-label drafterId-label">起草人ID</span><span class="search-colon">:</span></div>
-                        <input id="drafterId" class="layui-input search-input" style="width: 140px" type="text" />
-                    </div>
-                    <!-- 起草人姓名 , drafterName ,typeName=text_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('起草人姓名')}" class="search-label drafterName-label">起草人姓名</span><span class="search-colon">:</span></div>
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('起草人')}" class="search-label drafterName-label">起草人</span><span class="search-colon">:</span></div>
                         <input id="drafterName" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
-                    <!-- 变更状态 , status ,typeName=text_input, isHideInSearch=false -->
+                    <!-- 变更状态 , status ,typeName=radio_box, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('变更状态')}" class="search-label status-label">变更状态</span><span class="search-colon">:</span></div>
-                        <input id="status" class="layui-input search-input" style="width: 140px" type="text" />
+
+
+                        <div id="status" th:data="${enum.toArray('org.github.foxnic.web.constants.enums.changes.ApprovalStatus')}" style="width:140px"></div>
+
                     </div>
-                    <!-- 变更类型 , type ,typeName=text_input, isHideInSearch=false -->
+                    <!-- 变更类型 , type ,typeName=radio_box, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('变更类型')}" class="search-label type-label">变更类型</span><span class="search-colon">:</span></div>
-                        <input id="type" class="layui-input search-input" style="width: 140px" type="text" />
+
+
+                        <div id="type" th:data="${enum.toArray('org.github.foxnic.web.constants.enums.changes.ChangeType')}" style="width:140px"></div>
+
                     </div>
-                    <!-- 流程ID , processId ,typeName=text_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('流程ID')}" class="search-label processId-label">流程ID</span><span class="search-colon">:</span></div>
-                        <input id="processId" class="layui-input search-input" style="width: 140px" type="text" />
-                    </div>
-                    <!-- 当前审批节点 , processNodeSummary ,typeName=text_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('当前审批节点')}" class="search-label processNodeSummary-label">当前审批节点</span><span class="search-colon">:</span></div>
-                        <input id="processNodeSummary" class="layui-input search-input" style="width: 140px" type="text" />
-                    </div>
-                    <!-- 流程概要 , processSummary ,typeName=text_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('流程概要')}" class="search-label processSummary-label">流程概要</span><span class="search-colon">:</span></div>
-                        <input id="processSummary" class="layui-input search-input" style="width: 140px" type="text" />
-                    </div>
-                    <!-- 变更开始时间 , startTime ,typeName=date_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('变更开始时间')}" class="search-label startTime-label">变更开始时间</span><span class="search-colon">:</span></div>
-                            <input type="text" id="startTime"  style="width: 140px"  lay-verify="date" th:placeholder="${lang.translate('请选择')}" autocomplete="off" class="layui-input search-input search-date-input" readonly>
-                    </div>
-                    <!-- 变更结束时间 , finishTime ,typeName=date_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('变更结束时间')}" class="search-label finishTime-label">变更结束时间</span><span class="search-colon">:</span></div>
-                            <input type="text" id="finishTime"  style="width: 140px"  lay-verify="date" th:placeholder="${lang.translate('请选择')}" autocomplete="off" class="layui-input search-input search-date-input" readonly>
-                    </div>
-                    <!-- 默认审批人信息JSONArray格式 , simpleApprovers ,typeName=text_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('默认审批人信息JSONArray格式')}" class="search-label simpleApprovers-label">默认审批人信息JSONArray格式</span><span class="search-colon">:</span></div>
-                        <input id="simpleApprovers" class="layui-input search-input" style="width: 140px" type="text" />
-                    </div>
-                    <!-- 简单模式的节点ID , simpleNodeId ,typeName=text_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('简单模式的节点ID')}" class="search-label simpleNodeId-label">简单模式的节点ID</span><span class="search-colon">:</span></div>
-                        <input id="simpleNodeId" class="layui-input search-input" style="width: 140px" type="text" />
-                    </div>
+                    <!-- 流程ID , processId ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 当前审批节点 , processNodeSummary ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 流程概要 , processSummary ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 发起时间 , startTime ,typeName=date_input, isHideInSearch=true -->
+                    <!-- 结束时间 , finishTime ,typeName=date_input, isHideInSearch=true -->
+                    <!-- 默认审批人信息JSONArray格式 , simpleApprovers ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 简单模式的节点ID , simpleNodeId ,typeName=text_input, isHideInSearch=true -->
 
 
                 </div>
@@ -152,6 +121,9 @@
 
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${pageHelper.getTableColumnWidthConfig('data-table')}]];
+    var RADIO_MODE_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.changes.ApprovalMode')}]];
+    var RADIO_STATUS_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.changes.ApprovalStatus')}]];
+    var RADIO_TYPE_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.changes.ChangeType')}]];
     var AUTH_PREFIX="chs_change_instance";
 
 

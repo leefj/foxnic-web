@@ -1,7 +1,7 @@
 /**
  * 变更实例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-11 15:25:41
+ * @since 2021-10-11 20:43:42
  */
 
 function FormPage() {
@@ -113,11 +113,11 @@ function FormPage() {
 
 
 
-			//设置 变更开始时间 显示复选框勾选
+			//设置 发起时间 显示复选框勾选
 			if(formData["startTime"]) {
 				$("#startTime").val(fox.dateFormat(formData["startTime"],"yyyy-MM-dd HH:mm:ss"));
 			}
-			//设置 变更结束时间 显示复选框勾选
+			//设置 结束时间 显示复选框勾选
 			if(formData["finishTime"]) {
 				$("#finishTime").val(fox.dateFormat(formData["finishTime"],"yyyy-MM-dd HH:mm:ss"));
 			}

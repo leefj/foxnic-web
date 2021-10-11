@@ -2,7 +2,7 @@
 /**
  * 变更实例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-11 15:25:41
+ * @since 2021-10-11 20:43:42
  */
  -->
  <!DOCTYPE html>
@@ -45,21 +45,23 @@
                         </div>
                     </div>
 
-                                    <div class="layui-form-item" >
+                                    <div class="layui-form-item" style="display: none">
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('变更定义ID')}">变更定义ID</div></div>
                         <div class="layui-input-block layui-input-block-c1">
                             <input lay-filter="definitionId" id="definitionId" name="definitionId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('变更定义ID') }" type="text" class="layui-input"  />
                         </div>
                     </div>
 
-                                    <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('审批模式')}">审批模式</div></div>
-                        <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="mode" id="mode" name="mode" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('审批模式') }" type="text" class="layui-input"  />
-                        </div>
+                
+                <div class="layui-form-item" >
+                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('审批模式')}">审批模式</div></div>
+                    <div class="layui-input-block layui-input-block-c1">
+                        <input input-type="radio" type="radio" name="mode" lay-filter="mode" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.changes.ApprovalMode')}" th:value="${e.code}" th:title="${e.text}" th:checked="${(e.code=='' || stat.index==-1)?'yes':'no'}">
                     </div>
+                </div>
 
-                                    <div class="layui-form-item" >
+
+                                    <div class="layui-form-item" style="display: none">
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('起草人ID')}">起草人ID</div></div>
                         <div class="layui-input-block layui-input-block-c1">
                             <input lay-filter="drafterId" id="drafterId" name="drafterId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('起草人ID') }" type="text" class="layui-input"  />
@@ -67,25 +69,29 @@
                     </div>
 
                                     <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('起草人姓名')}">起草人姓名</div></div>
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('起草人')}">起草人</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="drafterName" id="drafterName" name="drafterName" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('起草人姓名') }" type="text" class="layui-input"  />
+                            <input lay-filter="drafterName" id="drafterName" name="drafterName" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('起草人') }" type="text" class="layui-input"  />
                         </div>
                     </div>
 
-                                    <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('变更状态')}">变更状态</div></div>
-                        <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="status" id="status" name="status" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('变更状态') }" type="text" class="layui-input"  />
-                        </div>
+                
+                <div class="layui-form-item" >
+                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('变更状态')}">变更状态</div></div>
+                    <div class="layui-input-block layui-input-block-c1">
+                        <input input-type="radio" type="radio" name="status" lay-filter="status" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.changes.ApprovalStatus')}" th:value="${e.code}" th:title="${e.text}" th:checked="${(e.code=='' || stat.index==-1)?'yes':'no'}">
                     </div>
+                </div>
 
-                                    <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('变更类型')}">变更类型</div></div>
-                        <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="type" id="type" name="type" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('变更类型') }" type="text" class="layui-input"  />
-                        </div>
+
+                
+                <div class="layui-form-item" >
+                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('变更类型')}">变更类型</div></div>
+                    <div class="layui-input-block layui-input-block-c1">
+                        <input input-type="radio" type="radio" name="type" lay-filter="type" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.changes.ChangeType')}" th:value="${e.code}" th:title="${e.text}" th:checked="${(e.code=='' || stat.index==-1)?'yes':'no'}">
                     </div>
+                </div>
+
 
                                     <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('流程ID')}">流程ID</div></div>
@@ -110,17 +116,17 @@
 
                 
                     <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('变更开始时间')}">变更开始时间</div></div>
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('发起时间')}">发起时间</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input input-type="date" lay-filter="startTime" id="startTime" name="startTime"  autocomplete="off"  readonly  th:placeholder="${ lang.translate('请选择') +''+ lang.translate('变更开始时间') }" type="text" class="layui-input"   />
+                            <input input-type="date" lay-filter="startTime" id="startTime" name="startTime"  autocomplete="off"  readonly  th:placeholder="${ lang.translate('请选择') +''+ lang.translate('发起时间') }" type="text" class="layui-input"    lay-verify=""   />
                         </div>
                     </div>
 
                 
                     <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('变更结束时间')}">变更结束时间</div></div>
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('结束时间')}">结束时间</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input input-type="date" lay-filter="finishTime" id="finishTime" name="finishTime"  autocomplete="off"  readonly  th:placeholder="${ lang.translate('请选择') +''+ lang.translate('变更结束时间') }" type="text" class="layui-input"   />
+                            <input input-type="date" lay-filter="finishTime" id="finishTime" name="finishTime"  autocomplete="off"  readonly  th:placeholder="${ lang.translate('请选择') +''+ lang.translate('结束时间') }" type="text" class="layui-input"    lay-verify=""   />
                         </div>
                     </div>
 
@@ -131,7 +137,7 @@
                         </div>
                     </div>
 
-                                    <div class="layui-form-item" >
+                                    <div class="layui-form-item" style="display: none">
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('简单模式的节点ID')}">简单模式的节点ID</div></div>
                         <div class="layui-input-block layui-input-block-c1">
                             <input lay-filter="simpleNodeId" id="simpleNodeId" name="simpleNodeId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('简单模式的节点ID') }" type="text" class="layui-input"  />
@@ -163,7 +169,10 @@
 
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];
-    var VALIDATE_CONFIG={};
+    var RADIO_MODE_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.changes.ApprovalMode')}]];
+    var RADIO_STATUS_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.changes.ApprovalStatus')}]];
+    var RADIO_TYPE_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.changes.ChangeType')}]];
+    var VALIDATE_CONFIG={"finishTime":{"date":true,"labelInForm":"结束时间","inputType":"date_input"},"startTime":{"date":true,"labelInForm":"发起时间","inputType":"date_input"}};
     var AUTH_PREFIX="chs_change_instance";
 
 
