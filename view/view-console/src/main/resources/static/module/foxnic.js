@@ -1127,13 +1127,13 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
          * */
         getSelectedValue:function (selectId,muliti) {
             var inst=xmSelect.get("#"+selectId,true);
-            if(inst==null) return null;
+            if(inst==null) return "";
             var value=inst.getValue("value");
             if(!muliti) {
                 if(value && value.length>0) {
                     value=value[0];
                 } else {
-                    return null;
+                    return "";
                 }
             }
             return value;
@@ -1146,7 +1146,8 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             $('input[name="'+checkBoxName+'"]:checked').each(function() {
                 data.push($(this).val());
             });
-            return data;
+            if(data.length==0) return "";
+            else return data.join(",");
         },
         /**
          * 设置复选框的选中清单，参数为参数 name 属性
