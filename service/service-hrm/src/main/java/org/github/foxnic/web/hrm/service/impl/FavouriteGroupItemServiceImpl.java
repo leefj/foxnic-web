@@ -390,6 +390,7 @@ public class FavouriteGroupItemServiceImpl extends SuperService<FavouriteGroupIt
 		for (Object o : arr) {
 			if(o instanceof String) {
 				FavouriteGroupItem fii=new FavouriteGroupItem();
+				fii.setId(IDGenerator.getSnowflakeIdString());
 				fii.setTargetType(FavouriteItemType.employee.code());
 				fii.setTargetId((String)o);
 				fii.setTemporary(1);
@@ -398,6 +399,7 @@ public class FavouriteGroupItemServiceImpl extends SuperService<FavouriteGroupIt
 			} else if(o instanceof JSONObject) {
 				JSONObject jo=(JSONObject)o;
 				FavouriteGroupItem fii=new FavouriteGroupItem();
+				fii.setId(IDGenerator.getSnowflakeIdString());
 				fii.setTargetType(FavouriteItemType.parseByCode(jo.getString("targetType")).code());
 				fii.setTargetId(jo.getString("targetId"));
 				fii.setTemporary(1);

@@ -13,7 +13,7 @@ import javax.sql.DataSource;
 
 @Configuration
 public class DatasourceConfig {
-	
+
 	public static final String PRIMARY_DATASOURCE_CONFIG_KEY = "spring.datasource.druid.primary";
 	public static final String PRIMARY_DATA_SOURCE_NAME = "primaryDataSource";
 
@@ -22,13 +22,12 @@ public class DatasourceConfig {
 	public DruidDataSource primaryDataSource() {
 		return DruidDataSourceBuilder.create().build();
 	}
-	
+
 	@Bean
 	@Primary
 	public DataSourceTransactionManager primaryTransactionManager(
 			@Qualifier(PRIMARY_DATA_SOURCE_NAME) DataSource dataSource) {
 		return new DataSourceTransactionManager(dataSource);
 	}
-
 
 }
