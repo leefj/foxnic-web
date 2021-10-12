@@ -1,5 +1,8 @@
 package org.github.foxnic.web.generator.module.bpm;
 
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.generator.builder.business.option.ControllerOptions;
+import com.github.foxnic.generator.builder.business.option.ServiceOptions;
 import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
 import com.github.foxnic.generator.builder.view.option.ListOptions;
@@ -15,6 +18,21 @@ public class BPMRoleConfig extends BaseCodeConfig<BPM_ROLE> {
 
 	public BPMRoleConfig() {
 		super(PREFIX_BPM,BPM_ROLE.$TABLE,"bpm_", 3);
+	}
+
+	@Override
+	public void configService(ServiceOptions service) {
+
+	}
+
+	@Override
+	public void configController(ControllerOptions controller) {
+		//指定控制器中的保存模式
+		controller.saveMode(SaveMode.BESET_FIELDS);
+		//指定控制器中的删除模式
+		controller.usePhysicalDelete();
+		//加入批量插入接口
+		controller.batchInsert();
 	}
 
 	@Override

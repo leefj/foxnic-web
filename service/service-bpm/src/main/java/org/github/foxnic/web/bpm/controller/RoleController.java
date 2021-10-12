@@ -20,7 +20,6 @@ import io.swagger.annotations.ApiOperation;
 import org.github.foxnic.web.bpm.service.IRoleService;
 import org.github.foxnic.web.domain.bpm.Role;
 import org.github.foxnic.web.domain.bpm.RoleVO;
-import org.github.foxnic.web.domain.bpm.meta.RoleMeta;
 import org.github.foxnic.web.domain.bpm.meta.RoleVOMeta;
 import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
 import org.github.foxnic.web.framework.web.SuperController;
@@ -34,6 +33,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -42,7 +42,7 @@ import java.util.Map;
  * 流程角色表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-08 20:48:40
+ * @since 2021-10-12 14:40:22
 */
 
 @Api(tags = "流程角色")
@@ -73,6 +73,24 @@ public class RoleController extends SuperController {
 		return result;
 	}
 
+	/**
+	 * 批量添加流程角色
+	*/
+	@ApiOperation(value = "添加流程角色")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = RoleVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "498946989573017600"),
+		@ApiImplicitParam(name = RoleVOMeta.CODE , value = "角色代码" , required = false , dataTypeClass=String.class , example = "drafter"),
+		@ApiImplicitParam(name = RoleVOMeta.NAME , value = "角色名称" , required = false , dataTypeClass=String.class , example = "起草人"),
+		@ApiImplicitParam(name = RoleVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class , example = "1"),
+	})
+	@ApiOperationSupport(order=1)
+	@SentinelResource(value = RoleServiceProxy.INSERTS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
+	@PostMapping(RoleServiceProxy.INSERTS)
+	public Result insert(List<RoleVO> roleVOs) {
+		Result result=roleService.insertList(new ArrayList<>(roleVOs));
+		return result;
+	}
+
 
 	/**
 	 * 删除流程角色
@@ -86,7 +104,7 @@ public class RoleController extends SuperController {
 	@SentinelResource(value = RoleServiceProxy.DELETE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(RoleServiceProxy.DELETE)
 	public Result deleteById(String id) {
-		Result result=roleService.deleteByIdLogical(id);
+		Result result=roleService.deleteByIdPhysical(id);
 		return result;
 	}
 
@@ -104,7 +122,7 @@ public class RoleController extends SuperController {
 	@SentinelResource(value = RoleServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(RoleServiceProxy.DELETE_BY_IDS)
 	public Result deleteByIds(List<String> ids) {
-		Result result=roleService.deleteByIdsLogical(ids);
+		Result result=roleService.deleteByIdsPhysical(ids);
 		return result;
 	}
 
@@ -124,7 +142,7 @@ public class RoleController extends SuperController {
 	@SentinelResource(value = RoleServiceProxy.UPDATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(RoleServiceProxy.UPDATE)
 	public Result update(RoleVO roleVO) {
-		Result result=roleService.update(roleVO,SaveMode.NOT_NULL_FIELDS);
+		Result result=roleService.update(roleVO,SaveMode.BESET_FIELDS);
 		return result;
 	}
 
@@ -145,7 +163,7 @@ public class RoleController extends SuperController {
 	@SentinelResource(value = RoleServiceProxy.SAVE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(RoleServiceProxy.SAVE)
 	public Result save(RoleVO roleVO) {
-		Result result=roleService.save(roleVO,SaveMode.NOT_NULL_FIELDS);
+		Result result=roleService.save(roleVO,SaveMode.BESET_FIELDS);
 		return result;
 	}
 
@@ -190,44 +208,6 @@ public class RoleController extends SuperController {
 
 
 	/**
-	 * 批量获取流程角色 <br>
-	 * 联合主键时，请自行调整实现
-	 */
-	@ApiOperation(value = "批量获取流程角色")
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "codes" , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
-	})
-	@ApiOperationSupport(order=3)
-	@NotNull(name = "codes")
-	@SentinelResource(value = "codes" , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
-	@PostMapping(RoleServiceProxy.GET_BY_CODES)
-	public Result<List<Role>> getByCodes(List<String> codes) {
-		Result<List<Role>> result=new Result<>();
-		List<Role> list=roleService.getByCodes(codes);
-		result.success(true).data(list);
-		return result;
-	}
-
-	/**
-	 * 获得员工所属的流程角色
-	 */
-	@ApiOperation(value = "获得员工所属的流程角色")
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "employeeId" , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
-	})
-	@ApiOperationSupport(order=3)
-	@NotNull(name = "employeeId")
-	@SentinelResource(value = "employeeId" , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
-	@PostMapping(RoleServiceProxy.GET_EMPLOYEE_ROLES)
-	public Result<List<Role>> getEmployeeRoles(String employeeId) {
-		Result<List<Role>> result=new Result<>();
-		List<Role> list=roleService.getEmployeeRoles(employeeId);
-		result.success(true).data(list);
-		return result;
-	}
-
-
-	/**
 	 * 查询流程角色
 	*/
 	@ApiOperation(value = "查询流程角色")
@@ -264,7 +244,6 @@ public class RoleController extends SuperController {
 	public Result<PagedList<Role>> queryPagedList(RoleVO sample) {
 		Result<PagedList<Role>> result=new Result<>();
 		PagedList<Role> list=roleService.queryPagedList(sample,sample.getPageSize(),sample.getPageIndex());
-		roleService.join(list, RoleMeta.EMP_COUNT);
 		result.success(true).data(list);
 		return result;
 	}

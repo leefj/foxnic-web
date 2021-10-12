@@ -32,12 +32,12 @@ public class CodeStarter extends ModuleCodeGenerator {
 //        initSystemModules();
 //        initHrmModules();
 //        initExampleModules();
-        initChangeModules();
-//        initWorkflowModules();
+//        initChangeModules();
+        initBpmModules();
 
     }
 
-    private void initWorkflowModules() {
+    private void initBpmModules() {
         this.addConfig(new BPMRoleConfig());
         this.addConfig(new BPMRoleEmployeeConfig());
     }

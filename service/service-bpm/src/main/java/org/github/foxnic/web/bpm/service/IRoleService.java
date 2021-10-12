@@ -22,6 +22,7 @@ import java.util.List;
  * </p>
  * @author 李方捷 , leefangjie@qq.com
  * @since 2021-10-08 20:48:40
+ * @version
 */
 
 public interface IRoleService extends ISuperService<Role> {
