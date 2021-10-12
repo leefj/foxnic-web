@@ -34,23 +34,23 @@ function ListPage() {
 		}
 		inputValue=admin.getTempData("employee-dialog-value");
 		// debugger;
-		try {
-			if(inputValue.indexOf("[")>-1 && inputValue.indexOf("]")>-1 ) {
-				inputValue = JSON.parse(inputValue);
-			} else {
-				inputValue=inputValue.split(",");
-			}
-			if(!Array.isArray(inputValue)) {
-				inputValue=[inputValue+""];
-			}
-		} catch (e) {
-			if(inputValue) {
+		if(inputValue) {
+			try {
+				if (inputValue.indexOf("[") > -1 && inputValue.indexOf("]") > -1) {
+					inputValue = JSON.parse(inputValue);
+				} else {
+					inputValue = inputValue.split(",");
+				}
+				if (!Array.isArray(inputValue)) {
+					inputValue = [inputValue + ""];
+				}
+			} catch (e) {
 				inputValue = inputValue.split(",");
 			}
-		}
-		//再转换一下，可能有点多此一举了
-		if(options && options.single && inputValue.length>0) {
-			inputValue=[inputValue[0]];
+			//再转换一下，可能有点多此一举了
+			if (options && options.single && inputValue.length > 0) {
+				inputValue = [inputValue[0]];
+			}
 		}
 
 
@@ -511,7 +511,10 @@ function ListPage() {
 
 			ps.sortField="createTime";
 			ps.sortType="desc";
-			ps.initValue=JSON.stringify(inputValue);
+			// debugger
+			if(inputValue) {
+				ps.initValue = JSON.stringify(inputValue);
+			}
 			// debugger;
 			// var templet=window.pageExt.list.templet;
 			// if(templet==null) {
