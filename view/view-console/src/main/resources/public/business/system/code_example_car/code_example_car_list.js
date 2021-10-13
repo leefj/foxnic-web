@@ -1,7 +1,7 @@
 /**
  * 代码生成拥有的车辆 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-27 13:58:09
+ * @since 2021-10-13 09:42:34
  */
 
 
@@ -122,7 +122,7 @@ function ListPage() {
       */
 	function refreshTableData(sortField,sortType) {
 		var value = {};
-		value.plateNumber={ inputType:"button",value: $("#plateNumber").val()};
+		value.plateNumber={ inputType:"button",value: $("#plateNumber").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" "};
 		value.orgId={ inputType:"button",value: $("#orgId").val(),fillBy:["organization","fullName"] ,label:$("#orgId-button").text()};
 		value.empId={ inputType:"button",value: $("#empId").val(),fillBy:["employee","person","name"] ,label:$("#empId-button").text()};
 		var ps={searchField:"$composite"};
@@ -203,7 +203,7 @@ function ListPage() {
 				root: "",
 				targetType:"org",
 				prepose:function(param){ return window.pageExt.list.beforeDialog && window.pageExt.list.beforeDialog(param);},
-				callback:function(param){ window.pageExt.list.afterDialog && window.pageExt.list.afterDialog(param);}
+				callback:function(param,result){ window.pageExt.list.afterDialog && window.pageExt.list.afterDialog(param,result);}
 			};
 			fox.chooseOrgNode(orgIdDialogOptions);
 		});
@@ -218,7 +218,7 @@ function ListPage() {
 				root: "",
 				targetType:"emp",
 				prepose:function(param){ return window.pageExt.list.beforeDialog && window.pageExt.list.beforeDialog(param);},
-				callback:function(param){ window.pageExt.list.afterDialog && window.pageExt.list.afterDialog(param);}
+				callback:function(param,result){ window.pageExt.list.afterDialog && window.pageExt.list.afterDialog(param,result);}
 			};
 			fox.chooseEmployee(empIdDialogOptions);
 		});

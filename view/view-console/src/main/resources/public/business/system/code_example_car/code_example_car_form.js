@@ -1,7 +1,7 @@
 /**
  * 代码生成拥有的车辆 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-27 13:58:09
+ * @since 2021-10-13 09:42:34
  */
 
 function FormPage() {
@@ -210,7 +210,7 @@ function FormPage() {
 				root: "",
 				targetType:"pos",
 				prepose:function(param){ return window.pageExt.form.beforeDialog && window.pageExt.form.beforeDialog(param);},
-				callback:function(param){ window.pageExt.form.afterDialog && window.pageExt.form.afterDialog(param);}
+				callback:function(param,result){ window.pageExt.form.afterDialog && window.pageExt.form.afterDialog(param,result);}
 			};
 			fox.chooseOrgNode(positionIdDialogOptions);
 		});
@@ -226,7 +226,7 @@ function FormPage() {
 				root: "",
 				targetType:"org",
 				prepose:function(param){ return window.pageExt.form.beforeDialog && window.pageExt.form.beforeDialog(param);},
-				callback:function(param){ window.pageExt.form.afterDialog && window.pageExt.form.afterDialog(param);}
+				callback:function(param,result){ window.pageExt.form.afterDialog && window.pageExt.form.afterDialog(param,result);}
 			};
 			fox.chooseOrgNode(orgIdDialogOptions);
 		});
@@ -242,7 +242,7 @@ function FormPage() {
 				root: "",
 				targetType:"emp",
 				prepose:function(param){ return window.pageExt.form.beforeDialog && window.pageExt.form.beforeDialog(param);},
-				callback:function(param){ window.pageExt.form.afterDialog && window.pageExt.form.afterDialog(param);}
+				callback:function(param,result){ window.pageExt.form.afterDialog && window.pageExt.form.afterDialog(param,result);}
 			};
 			fox.chooseEmployee(empIdDialogOptions);
 		});
@@ -258,7 +258,7 @@ function FormPage() {
 				root: "",
 				targetType:"pos",
 				prepose:function(param){ return window.pageExt.form.beforeDialog && window.pageExt.form.beforeDialog(param);},
-				callback:function(param){ window.pageExt.form.afterDialog && window.pageExt.form.afterDialog(param);}
+				callback:function(param,result){ window.pageExt.form.afterDialog && window.pageExt.form.afterDialog(param,result);}
 			};
 			fox.chooseOrgNode(positionIdsDialogOptions);
 		});
@@ -274,7 +274,7 @@ function FormPage() {
 				root: "",
 				targetType:"org",
 				prepose:function(param){ return window.pageExt.form.beforeDialog && window.pageExt.form.beforeDialog(param);},
-				callback:function(param){ window.pageExt.form.afterDialog && window.pageExt.form.afterDialog(param);}
+				callback:function(param,result){ window.pageExt.form.afterDialog && window.pageExt.form.afterDialog(param,result);}
 			};
 			fox.chooseOrgNode(orgIdsDialogOptions);
 		});
@@ -290,7 +290,7 @@ function FormPage() {
 				root: "",
 				targetType:"emp",
 				prepose:function(param){ return window.pageExt.form.beforeDialog && window.pageExt.form.beforeDialog(param);},
-				callback:function(param){ window.pageExt.form.afterDialog && window.pageExt.form.afterDialog(param);}
+				callback:function(param,result){ window.pageExt.form.afterDialog && window.pageExt.form.afterDialog(param,result);}
 			};
 			fox.chooseEmployee(empIdsDialogOptions);
 		});
@@ -306,7 +306,7 @@ function FormPage() {
 				root: "",
 				targetType:"com",
 				prepose:function(param){ return window.pageExt.form.beforeDialog && window.pageExt.form.beforeDialog(param);},
-				callback:function(param){ window.pageExt.form.afterDialog && window.pageExt.form.afterDialog(param);}
+				callback:function(param,result){ window.pageExt.form.afterDialog && window.pageExt.form.afterDialog(param,result);}
 			};
 			fox.chooseOrgNode(comIdDialogOptions);
 		});
@@ -322,7 +322,7 @@ function FormPage() {
 				root: "",
 				targetType:"dept",
 				prepose:function(param){ return window.pageExt.form.beforeDialog && window.pageExt.form.beforeDialog(param);},
-				callback:function(param){ window.pageExt.form.afterDialog && window.pageExt.form.afterDialog(param);}
+				callback:function(param,result){ window.pageExt.form.afterDialog && window.pageExt.form.afterDialog(param,result);}
 			};
 			fox.chooseOrgNode(deptIdsDialogOptions);
 		});
@@ -338,7 +338,7 @@ function FormPage() {
 				root: "shanghai",
 				targetType:"org",
 				prepose:function(param){ return window.pageExt.form.beforeDialog && window.pageExt.form.beforeDialog(param);},
-				callback:function(param){ window.pageExt.form.afterDialog && window.pageExt.form.afterDialog(param);}
+				callback:function(param,result){ window.pageExt.form.afterDialog && window.pageExt.form.afterDialog(param,result);}
 			};
 			fox.chooseOrgNode(subOrgIdDialogOptions);
 		});

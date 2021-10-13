@@ -1,6 +1,6 @@
 package org.github.foxnic.web.system.controller;
 
- 
+
 import java.util.List;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -51,7 +51,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 代码生成拥有的车辆 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-27 13:58:09
+ * @since 2021-10-13 09:42:34
 */
 
 @Api(tags = "代码生成拥有的车辆")
@@ -62,7 +62,7 @@ public class CodeExampleCarController extends SuperController {
 	@Autowired
 	private ICodeExampleCarService codeExampleCarService;
 
-	
+
 	/**
 	 * 添加代码生成拥有的车辆
 	*/
@@ -91,7 +91,8 @@ public class CodeExampleCarController extends SuperController {
 		return result;
 	}
 
-	
+
+
 	/**
 	 * 删除代码生成拥有的车辆
 	*/
@@ -107,8 +108,8 @@ public class CodeExampleCarController extends SuperController {
 		Result result=codeExampleCarService.deleteByIdLogical(id);
 		return result;
 	}
-	
-	
+
+
 	/**
 	 * 批量删除代码生成拥有的车辆 <br>
 	 * 联合主键时，请自行调整实现
@@ -125,7 +126,7 @@ public class CodeExampleCarController extends SuperController {
 		Result result=codeExampleCarService.deleteByIdsLogical(ids);
 		return result;
 	}
-	
+
 	/**
 	 * 更新代码生成拥有的车辆
 	*/
@@ -146,7 +147,7 @@ public class CodeExampleCarController extends SuperController {
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.DEPT_IDS , value = "部门多选" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.SUB_ORG_ID , value = "限定上级" , required = false , dataTypeClass=String.class),
 	})
-	@ApiOperationSupport( order=4 , ignoreParameters = { CodeExampleCarVOMeta.PAGE_INDEX , CodeExampleCarVOMeta.PAGE_SIZE , CodeExampleCarVOMeta.SEARCH_FIELD , CodeExampleCarVOMeta.FUZZY_FIELD , CodeExampleCarVOMeta.SEARCH_VALUE , CodeExampleCarVOMeta.SORT_FIELD , CodeExampleCarVOMeta.SORT_TYPE , CodeExampleCarVOMeta.IDS } ) 
+	@ApiOperationSupport( order=4 , ignoreParameters = { CodeExampleCarVOMeta.PAGE_INDEX , CodeExampleCarVOMeta.PAGE_SIZE , CodeExampleCarVOMeta.SEARCH_FIELD , CodeExampleCarVOMeta.FUZZY_FIELD , CodeExampleCarVOMeta.SEARCH_VALUE , CodeExampleCarVOMeta.SORT_FIELD , CodeExampleCarVOMeta.SORT_TYPE , CodeExampleCarVOMeta.IDS } )
 	@NotNull(name = CodeExampleCarVOMeta.ID)
 	@SentinelResource(value = CodeExampleCarServiceProxy.UPDATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(CodeExampleCarServiceProxy.UPDATE)
@@ -154,8 +155,8 @@ public class CodeExampleCarController extends SuperController {
 		Result result=codeExampleCarService.update(codeExampleCarVO,SaveMode.NOT_NULL_FIELDS);
 		return result;
 	}
-	
-	
+
+
 	/**
 	 * 保存代码生成拥有的车辆
 	*/
@@ -185,7 +186,7 @@ public class CodeExampleCarController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 获取代码生成拥有的车辆
 	*/
@@ -216,10 +217,10 @@ public class CodeExampleCarController extends SuperController {
 
 
 	/**
-	 * 批量删除代码生成拥有的车辆 <br>
+	 * 批量获取代码生成拥有的车辆 <br>
 	 * 联合主键时，请自行调整实现
 	*/
-		@ApiOperation(value = "批量删除代码生成拥有的车辆")
+		@ApiOperation(value = "批量获取代码生成拥有的车辆")
 		@ApiImplicitParams({
 				@ApiImplicitParam(name = CodeExampleCarVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})
@@ -234,7 +235,7 @@ public class CodeExampleCarController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 查询代码生成拥有的车辆
 	*/
@@ -265,7 +266,7 @@ public class CodeExampleCarController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 分页查询代码生成拥有的车辆
 	*/

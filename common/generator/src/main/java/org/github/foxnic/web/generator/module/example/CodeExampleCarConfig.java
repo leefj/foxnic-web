@@ -44,7 +44,7 @@ public class CodeExampleCarConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE_CAR> {
         view.field(SYS_CODE_EXAMPLE_CAR.EXAMPLE_ID)
                 .basic().hidden();
 
-        view.field(SYS_CODE_EXAMPLE_CAR.PLATE_NUMBER).basic().label("牌号");
+        view.field(SYS_CODE_EXAMPLE_CAR.PLATE_NUMBER).basic().label("牌号").search().fuzzySearch();
         view.field(SYS_CODE_EXAMPLE_CAR.COLOR).basic().label("规格");
 
         //单选组织，包括公司和部门
