@@ -28,7 +28,7 @@ public class BPMRoleConfig extends BaseCodeConfig<BPM_ROLE> {
 	@Override
 	public void configController(ControllerOptions controller) {
 		//指定控制器中的保存模式
-		controller.saveMode(SaveMode.BESET_FIELDS);
+		controller.saveMode(SaveMode.NOT_NULL_FIELDS);
 		//指定控制器中的删除模式
 		controller.usePhysicalDelete();
 		//加入批量插入接口

@@ -47,4 +47,10 @@ public class MicroServiceNames {
 	 * */
 	public static final String BPM="service-bpm";
 
+	/**
+	 *数据权限相关的服务 <br>
+	 * 对应 bootstrap.yml 中 spring.application.name 属性
+	 * */
+	public static final String DATA_PERM="service-dataperm";
+
 }

@@ -104,4 +104,15 @@ applications:
     viewProjectPath: /view/view-console
     viewPrefixPath: public/business/bpm
     wrapperProjectPath:  /wrapper/wrapper-all-service
+  #数据权限
+  service-dataperm:
+    nacosGroup: service
+    nacosDataId: service-dataperm.yml
+    serviceProjectPath: /service/service-dataperm
+    packageName: org.github.foxnic.web.dataperm
+    primaryDatasourceConfigKey: spring.datasource.druid.primary
+    microServiceNameConst: DATA_PERM
+    viewProjectPath: /view/view-console
+    viewPrefixPath: public/business/dataperm
+    wrapperProjectPath:  /wrapper/wrapper-all-service
 

@@ -64,6 +64,11 @@ public class FoxnicWebMeta {
 	 * */
 	public static final String SERVICE_BPM_PACKAGE=BASE_PACKAGE+".bpm";
 
+	/**
+	 * 数据权限
+	 * */
+	public static final String SERVICE_DATA_PERM_PACKAGE=BASE_PACKAGE+".dataperm";
+
 
 	/**
 	 * Support

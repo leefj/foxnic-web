@@ -4,6 +4,7 @@ import com.github.foxnic.generator.util.ModuleCodeGenerator;
 import org.github.foxnic.web.generator.module.bpm.BPMRoleConfig;
 import org.github.foxnic.web.generator.module.bpm.BPMRoleEmployeeConfig;
 import org.github.foxnic.web.generator.module.changes.*;
+import org.github.foxnic.web.generator.module.dataperm.*;
 import org.github.foxnic.web.generator.module.example.CodeExampleCarConfig;
 import org.github.foxnic.web.generator.module.example.CodeExampleConfig;
 import org.github.foxnic.web.generator.module.example.CodeExampleRoleConfig;
@@ -31,10 +32,20 @@ public class CodeStarter extends ModuleCodeGenerator {
 //        initOAuthModules();
 //        initSystemModules();
 //        initHrmModules();
-        initExampleModules();
+//        initExampleModules();
 //        initChangeModules();
 //        initBpmModules();
+        initDatapermModules();
 
+    }
+
+    private void initDatapermModules() {
+        this.addConfig(new DPSubjectConfig());
+        this.addConfig(new DPSubjectPropertyConfig());
+        //
+        this.addConfig(new DPRuleConfig());
+        this.addConfig(new DPRuleRangeConfig());
+        this.addConfig(new DPRuleCondition());
     }
 
     private void initBpmModules() {
