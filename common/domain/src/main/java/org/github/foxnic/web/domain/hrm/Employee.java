@@ -16,10 +16,10 @@ import com.github.foxnic.dao.entity.EntityContext;
 
 
 /**
- * null
+ * 员工
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-15 16:24:02
- * @sign E9E4ED58EC6FE7932872E9C7FD324419
+ * @since 2021-10-14 15:44:27
+ * @sign B223CD1D23A93230D22B06BA12A6CAE0
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 

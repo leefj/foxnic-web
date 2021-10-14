@@ -3,13 +3,15 @@ package org.github.foxnic.web.domain.dataperm.meta;
 import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.dataperm.RuleRange;
 import java.util.Date;
+import org.github.foxnic.web.domain.dataperm.RuleCondition;
+import java.util.List;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-13 15:51:45
- * @sign 6C6A83AE9052AE5E42D54EC666B5D1BD
+ * @since 2021-10-14 16:09:13
+ * @sign B29D829F94A79E511ACB1E3E46DF1689
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -136,9 +138,19 @@ public class RuleRangeMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.RuleRange,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.RuleRange.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
+	 * 条件列表 , 用于构建条件语句 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.dataperm.RuleCondition
+	*/
+	public static final String CONDITIONS="conditions";
+	
+	/**
+	 * 条件列表 , 用于构建条件语句 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.dataperm.RuleCondition
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.RuleRange,org.github.foxnic.web.domain.dataperm.RuleCondition> CONDITIONS_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.RuleRange.class ,CONDITIONS, java.util.List.class, "条件列表", "用于构建条件语句", org.github.foxnic.web.domain.dataperm.RuleCondition.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , RULE_ID , NAME , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , RULE_ID , NAME , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , CONDITIONS };
 	
 	/**
 	 * 代理类
@@ -277,6 +289,17 @@ public class RuleRangeMeta {
 		public RuleRange setVersion(Integer version) {
 			super.change(VERSION,super.getVersion(),version);
 			super.setVersion(version);
+			return this;
+		}
+		
+		/**
+		 * 设置 条件列表
+		 * @param conditions 条件列表
+		 * @return 当前对象
+		*/
+		public RuleRange setConditions(List<RuleCondition> conditions) {
+			super.change(CONDITIONS,super.getConditions(),conditions);
+			super.setConditions(conditions);
 			return this;
 		}
 	}

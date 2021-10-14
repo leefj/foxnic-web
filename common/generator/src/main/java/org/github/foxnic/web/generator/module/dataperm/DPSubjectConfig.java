@@ -8,6 +8,7 @@ import com.github.foxnic.generator.builder.view.option.ListOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.DP_SUBJECT;
+import org.github.foxnic.web.domain.dataperm.SubjectProperty;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
 
@@ -21,8 +22,7 @@ public class DPSubjectConfig extends BaseCodeConfig<DP_SUBJECT> {
 
 	@Override
 	public void configModel(PoClassFile poType, VoClassFile voType) {
-//		poType.addSimpleProperty(Integer.class,"empCount","员工数量","员工数量");
-//		poType.addListProperty(Employee.class,"employees","关联员工清单","关联员工清单");
+		poType.addListProperty(SubjectProperty.class,"properties","属性列表","属性列表");
 	}
 
 	@Override

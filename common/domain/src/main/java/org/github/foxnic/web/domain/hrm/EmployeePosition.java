@@ -14,10 +14,10 @@ import com.github.foxnic.dao.entity.EntityContext;
 
 
 /**
- * null
+ * 员工岗位关系
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-15 15:51:33
- * @sign BF3B5685BBCE444146DEAE6EEA2C4615
+ * @since 2021-10-14 15:44:29
+ * @sign A18AF0E2C35B082207814ED6F30A2145
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -48,9 +48,9 @@ public class EmployeePosition extends Entity {
 	private String positionId;
 	
 	/**
-	 * 是否主刚：是否主刚
+	 * 是否主岗：是否主岗
 	*/
-	@ApiModelProperty(required = false,value="是否主刚" , notes = "是否主刚")
+	@ApiModelProperty(required = false,value="是否主岗" , notes = "是否主岗")
 	private Integer isPrimary;
 	
 	/**
@@ -159,17 +159,17 @@ public class EmployeePosition extends Entity {
 	}
 	
 	/**
-	 * 获得 是否主刚<br>
-	 * 是否主刚
-	 * @return 是否主刚
+	 * 获得 是否主岗<br>
+	 * 是否主岗
+	 * @return 是否主岗
 	*/
 	public Integer getIsPrimary() {
 		return isPrimary;
 	}
 	
 	/**
-	 * 设置 是否主刚
-	 * @param isPrimary 是否主刚
+	 * 设置 是否主岗
+	 * @param isPrimary 是否主岗
 	 * @return 当前对象
 	*/
 	public EmployeePosition setIsPrimary(Integer isPrimary) {

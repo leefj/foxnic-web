@@ -6,18 +6,18 @@
 
 
 function ListPage() {
-        
+
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect,dropdown,element;
 	//模块基础路径
 	const moduleURL="/service-hrm/hrm-organization";
-	
+
 	var menuTree;
 	var activedTab;
 	/**
       * 入口函数，初始化
       */
 	this.init=function(layui) {
- 
+
      	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload;
 		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
  		dropdown=layui.dropdown,element=layui.element;
@@ -48,8 +48,8 @@ function ListPage() {
 			}
 		};
 		menuTree=$.fn.zTree.init($("#menu-tree"), cfgs);
-		
-		
+
+
 		setTimeout(function(){
 			var toolbarHeight=$("#toolbar")[0].clientHeight;
 			var fullHeight=$(window).height();
@@ -104,7 +104,7 @@ function ListPage() {
 			 }
 		 });
 	 }
-    
+
     var editingNode=null;
     function onNodeClick(event, treeId, treeNode) {
     	if(treeNode==null) return;
@@ -150,9 +150,9 @@ function ListPage() {
 		}
 		return true;
 	};
-     
+
     function onNodeDrop(event, treeId, treeNodes, targetNode, moveType) {
- 
+
 		var ids=[];
 		//移动节点
     	if(moveType=="inner" || moveType=="prev" || moveType=="next") { // 调整节点顺序
@@ -190,7 +190,7 @@ function ListPage() {
     		debugger;
     	}
     }
-    
+
     function saveHierarchy(ids,parentId,parentNode) {
     	admin.request(moduleURL+"/save-hierarchy",{"ids":ids,parentId:parentId},function(r) {
 			if(r.success) {
@@ -201,7 +201,7 @@ function ListPage() {
 			//menuTree.reAsyncChildNodes(parentNode,"refresh",true);
 		});
     }
-  
+
     function beforeNodeRemove(treeId, treeNode) {
     	//debugger;
 		var prefix=moduleURL;
@@ -225,7 +225,7 @@ function ListPage() {
 		});
     	return false;
     }
-     
+
 	function onNodeRename (event, treeId, treeNode, isCancel) {
 
     	var ps={id:treeNode.id};
@@ -248,7 +248,7 @@ function ListPage() {
 			}
 		});
 	}
-     
+
 	function nodeDatafilter(treeId, parentNode, childNodes) {
      	//debugger;
      	childNodes=childNodes.data;
@@ -268,7 +268,7 @@ function ListPage() {
 		}
 		return childNodes;
 	}
-	
+
 	function addHoverDom(treeId, treeNode) {
 		if(!treeNode.isParent) return;
 		var aObj = $("#" + treeNode.tId + "_a");
@@ -283,9 +283,9 @@ function ListPage() {
 			var node=menuTree.getNodeByTId(tid);
 			menuTree.reAsyncChildNodes(node,'refresh');
 		});
-			 
+
 	}
-	
+
 	function changeNodeName(id,name) {
 		if(editingNode==null) return;
 		if(editingNode.id!=id) return;
@@ -293,7 +293,7 @@ function ListPage() {
 		menuTree.updateNode(editingNode);
 	}
 	window.changeNodeName=changeNodeName;
-	
+
 	function removeHoverDom(treeId, treeNode) {
 			//if (treeNode.parentTId && treeNode.getParentNode().id!=1) return;
 //			if (treeNode.id == 15) {
@@ -304,9 +304,9 @@ function ListPage() {
 //				$("#diyBtn_space_" +treeNode.id).unbind().remove();
 //			}
 		}
-     
-      
-	
+
+
+
 	/**
 	 * 重置搜索框
 	 */
@@ -401,19 +401,20 @@ function ListPage() {
 	// 添加组织
     function createOrg () {
         var nodes=menuTree.getSelectedNodes();
- 
+
         //默认根节点
         var treeNode=null;
         if(nodes && nodes.length>0) {
          	treeNode=nodes[0];
         }
 
-		if(treeNode.type=="pos") {
+		if(treeNode && treeNode.type=="pos") {
 			admin.toast().error("创建组织节点错误，请指定上级部门或公司",{time:1000,position:"right-bottom"});
 			return;
 		}
- 
-        admin.request(moduleURL+"/insert",{parentId:treeNode?treeNode.id:null,name:"新分类"},function(r) {
+
+
+        admin.request(moduleURL+"/insert",{parentId:treeNode?treeNode.id:null,name:"新组织节点"},function(r) {
 			if(r.success) {
 				admin.toast().success("组织节点已创建",{time:1000,position:"right-bottom"});
 				// debugger
@@ -439,11 +440,11 @@ function ListPage() {
 						} else {
 							menuTree.reAsyncChildNodes(treeNode,"refresh",true);
 						}
-						
+
 					}
 				}
 			} else {
-				admin.toast().error("新建菜单失败",{time:1000,position:"right-bottom"});
+				admin.toast().error("新建组织节点失败",{time:1000,position:"right-bottom"});
 			}
 		},"POST",true);
     };
@@ -496,8 +497,8 @@ function ListPage() {
 			}
 		},"POST",true);
 	};
- 
-    
+
+
     /**
      * 打开编辑窗口
      */

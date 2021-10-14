@@ -1,6 +1,6 @@
 package org.github.foxnic.web.hrm.controller;
 
- 
+
 import java.util.List;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -48,7 +48,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 人员表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-13 19:48:17
+ * @since 2021-10-14 15:44:30
 */
 
 @Api(tags = "人员")
@@ -59,7 +59,7 @@ public class PersonController extends SuperController {
 	@Autowired
 	private IPersonService personService;
 
-	
+
 	/**
 	 * 添加人员
 	*/
@@ -72,7 +72,6 @@ public class PersonController extends SuperController {
 		@ApiImplicitParam(name = PersonVOMeta.IDENTITY , value = "身份证号码" , required = true , dataTypeClass=String.class , example = "330219198444152524"),
 	})
 	@ApiOperationSupport(order=1)
-	@NotNull(name = PersonVOMeta.ID)
 	@NotNull(name = PersonVOMeta.SOURCE)
 	@NotNull(name = PersonVOMeta.IDENTITY)
 	@SentinelResource(value = PersonServiceProxy.INSERT , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
@@ -82,7 +81,8 @@ public class PersonController extends SuperController {
 		return result;
 	}
 
-	
+
+
 	/**
 	 * 删除人员
 	*/
@@ -98,8 +98,8 @@ public class PersonController extends SuperController {
 		Result result=personService.deleteByIdLogical(id);
 		return result;
 	}
-	
-	
+
+
 	/**
 	 * 批量删除人员 <br>
 	 * 联合主键时，请自行调整实现
@@ -116,7 +116,7 @@ public class PersonController extends SuperController {
 		Result result=personService.deleteByIdsLogical(ids);
 		return result;
 	}
-	
+
 	/**
 	 * 更新人员
 	*/
@@ -128,7 +128,7 @@ public class PersonController extends SuperController {
 		@ApiImplicitParam(name = PersonVOMeta.SOURCE , value = "来源" , required = true , dataTypeClass=String.class , example = "employee"),
 		@ApiImplicitParam(name = PersonVOMeta.IDENTITY , value = "身份证号码" , required = true , dataTypeClass=String.class , example = "330219198444152524"),
 	})
-	@ApiOperationSupport( order=4 , ignoreParameters = { PersonVOMeta.PAGE_INDEX , PersonVOMeta.PAGE_SIZE , PersonVOMeta.SEARCH_FIELD , PersonVOMeta.FUZZY_FIELD , PersonVOMeta.SEARCH_VALUE , PersonVOMeta.SORT_FIELD , PersonVOMeta.SORT_TYPE , PersonVOMeta.IDS } ) 
+	@ApiOperationSupport( order=4 , ignoreParameters = { PersonVOMeta.PAGE_INDEX , PersonVOMeta.PAGE_SIZE , PersonVOMeta.SEARCH_FIELD , PersonVOMeta.FUZZY_FIELD , PersonVOMeta.SEARCH_VALUE , PersonVOMeta.SORT_FIELD , PersonVOMeta.SORT_TYPE , PersonVOMeta.IDS } )
 	@NotNull(name = PersonVOMeta.ID)
 	@NotNull(name = PersonVOMeta.SOURCE)
 	@NotNull(name = PersonVOMeta.IDENTITY)
@@ -138,8 +138,8 @@ public class PersonController extends SuperController {
 		Result result=personService.update(personVO,SaveMode.NOT_NULL_FIELDS);
 		return result;
 	}
-	
-	
+
+
 	/**
 	 * 保存人员
 	*/
@@ -162,7 +162,7 @@ public class PersonController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 获取人员
 	*/
@@ -183,10 +183,10 @@ public class PersonController extends SuperController {
 
 
 	/**
-	 * 批量删除人员 <br>
+	 * 批量获取人员 <br>
 	 * 联合主键时，请自行调整实现
 	*/
-		@ApiOperation(value = "批量删除人员")
+		@ApiOperation(value = "批量获取人员")
 		@ApiImplicitParams({
 				@ApiImplicitParam(name = PersonVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})
@@ -201,7 +201,7 @@ public class PersonController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 查询人员
 	*/
@@ -223,7 +223,7 @@ public class PersonController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 分页查询人员
 	*/
@@ -274,30 +274,29 @@ public class PersonController extends SuperController {
 
 
 
-
 	@SentinelResource(value = PersonServiceProxy.IMPORT_EXCEL , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@RequestMapping(PersonServiceProxy.IMPORT_EXCEL)
 	public Result importExcel(MultipartHttpServletRequest request, HttpServletResponse response) throws Exception {
 
-			//获得上传的文件
-			Map<String, MultipartFile> map = request.getFileMap();
-			InputStream input=null;
-			for (MultipartFile mf : map.values()) {
-				input=StreamUtil.bytes2input(mf.getBytes());
-				break;
-			}
-
-			if(input==null) {
-				return ErrorDesc.failure().message("缺少上传的文件");
-			}
-
-			List<ValidateResult> errors=personService.importExcel(input,0,true);
-			if(errors==null || errors.isEmpty()) {
-				return ErrorDesc.success();
-			} else {
-				return ErrorDesc.failure().message("导入失败").data(errors);
-			}
+		//获得上传的文件
+		Map<String, MultipartFile> map = request.getFileMap();
+		InputStream input=null;
+		for (MultipartFile mf : map.values()) {
+			input=StreamUtil.bytes2input(mf.getBytes());
+			break;
 		}
+
+		if(input==null) {
+			return ErrorDesc.failure().message("缺少上传的文件");
+		}
+
+		List<ValidateResult> errors=personService.importExcel(input,0,true);
+		if(errors==null || errors.isEmpty()) {
+			return ErrorDesc.success();
+		} else {
+			return ErrorDesc.failure().message("导入失败").data(errors);
+		}
+	}
 
 
 }

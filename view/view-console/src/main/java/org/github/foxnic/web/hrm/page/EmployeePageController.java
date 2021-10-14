@@ -1,18 +1,19 @@
 package org.github.foxnic.web.hrm.page;
 
 import org.github.foxnic.web.framework.view.controller.ViewController;
-import org.github.foxnic.web.proxy.hrm.EmployeeServiceProxy;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
+import org.github.foxnic.web.proxy.hrm.EmployeeServiceProxy;
 import javax.servlet.http.HttpServletRequest;
 /**
  * <p>
  * 员工表 模版页面控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-15 16:24:05
+ * @since 2021-10-14 15:44:29
 */
 
 @Controller("HrmEmployeePageController")
@@ -51,22 +52,4 @@ public class EmployeePageController extends ViewController {
 	public String form(Model model,HttpServletRequest request , String id) {
 		return prefix+"/employee_form";
 	}
-
-	/**
-	 * 员工对话框 待选人员
-	 */
-	@RequestMapping("/dialog/emp_dialog_list.html")
-	public String dialogList(Model model,HttpServletRequest request) {
-		return prefix+"/dialog/emp_dialog_list";
-	}
-
-	/**
-	 * 员工对话框 已选人员
-	 */
-	@RequestMapping("/dialog/emp_dialog_selected_list.html")
-	public String dialogSelectList(Model model,HttpServletRequest request) {
-		return prefix+"/dialog/emp_dialog_selected_list";
-	}
-
-
 }

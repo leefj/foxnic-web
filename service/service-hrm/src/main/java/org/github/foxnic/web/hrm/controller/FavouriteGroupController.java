@@ -1,6 +1,6 @@
 package org.github.foxnic.web.hrm.controller;
 
- 
+
 import java.util.List;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -48,7 +48,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 常用人员分组表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-19 11:51:12
+ * @since 2021-10-14 15:44:30
 */
 
 @Api(tags = "常用人员分组")
@@ -59,7 +59,7 @@ public class FavouriteGroupController extends SuperController {
 	@Autowired
 	private IFavouriteGroupService favouriteGroupService;
 
-	
+
 	/**
 	 * 添加常用人员分组
 	*/
@@ -84,7 +84,8 @@ public class FavouriteGroupController extends SuperController {
 		return result;
 	}
 
-	
+
+
 	/**
 	 * 删除常用人员分组
 	*/
@@ -100,8 +101,8 @@ public class FavouriteGroupController extends SuperController {
 		Result result=favouriteGroupService.deleteByIdLogical(id);
 		return result;
 	}
-	
-	
+
+
 	/**
 	 * 批量删除常用人员分组 <br>
 	 * 联合主键时，请自行调整实现
@@ -118,7 +119,7 @@ public class FavouriteGroupController extends SuperController {
 		Result result=favouriteGroupService.deleteByIdsLogical(ids);
 		return result;
 	}
-	
+
 	/**
 	 * 更新常用人员分组
 	*/
@@ -132,7 +133,7 @@ public class FavouriteGroupController extends SuperController {
 		@ApiImplicitParam(name = FavouriteGroupVOMeta.SORT , value = "排序" , required = false , dataTypeClass=Integer.class),
 		@ApiImplicitParam(name = FavouriteGroupVOMeta.COMPANY_ID , value = "总公司ID" , required = false , dataTypeClass=String.class),
 	})
-	@ApiOperationSupport( order=4 , ignoreParameters = { FavouriteGroupVOMeta.PAGE_INDEX , FavouriteGroupVOMeta.PAGE_SIZE , FavouriteGroupVOMeta.SEARCH_FIELD , FavouriteGroupVOMeta.FUZZY_FIELD , FavouriteGroupVOMeta.SEARCH_VALUE , FavouriteGroupVOMeta.SORT_FIELD , FavouriteGroupVOMeta.SORT_TYPE , FavouriteGroupVOMeta.IDS } ) 
+	@ApiOperationSupport( order=4 , ignoreParameters = { FavouriteGroupVOMeta.PAGE_INDEX , FavouriteGroupVOMeta.PAGE_SIZE , FavouriteGroupVOMeta.SEARCH_FIELD , FavouriteGroupVOMeta.FUZZY_FIELD , FavouriteGroupVOMeta.SEARCH_VALUE , FavouriteGroupVOMeta.SORT_FIELD , FavouriteGroupVOMeta.SORT_TYPE , FavouriteGroupVOMeta.IDS } )
 	@NotNull(name = FavouriteGroupVOMeta.ID)
 	@NotNull(name = FavouriteGroupVOMeta.NAME)
 	@NotNull(name = FavouriteGroupVOMeta.PARENT_ID)
@@ -143,8 +144,8 @@ public class FavouriteGroupController extends SuperController {
 		Result result=favouriteGroupService.update(favouriteGroupVO,SaveMode.NOT_NULL_FIELDS);
 		return result;
 	}
-	
-	
+
+
 	/**
 	 * 保存常用人员分组
 	*/
@@ -170,7 +171,7 @@ public class FavouriteGroupController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 获取常用人员分组
 	*/
@@ -191,10 +192,10 @@ public class FavouriteGroupController extends SuperController {
 
 
 	/**
-	 * 批量删除常用人员分组 <br>
+	 * 批量获取常用人员分组 <br>
 	 * 联合主键时，请自行调整实现
 	*/
-		@ApiOperation(value = "批量删除常用人员分组")
+		@ApiOperation(value = "批量获取常用人员分组")
 		@ApiImplicitParams({
 				@ApiImplicitParam(name = FavouriteGroupVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})
@@ -209,7 +210,7 @@ public class FavouriteGroupController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 查询常用人员分组
 	*/
@@ -233,7 +234,7 @@ public class FavouriteGroupController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 分页查询常用人员分组
 	*/
@@ -286,30 +287,29 @@ public class FavouriteGroupController extends SuperController {
 
 
 
-
 	@SentinelResource(value = FavouriteGroupServiceProxy.IMPORT_EXCEL , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@RequestMapping(FavouriteGroupServiceProxy.IMPORT_EXCEL)
 	public Result importExcel(MultipartHttpServletRequest request, HttpServletResponse response) throws Exception {
 
-			//获得上传的文件
-			Map<String, MultipartFile> map = request.getFileMap();
-			InputStream input=null;
-			for (MultipartFile mf : map.values()) {
-				input=StreamUtil.bytes2input(mf.getBytes());
-				break;
-			}
-
-			if(input==null) {
-				return ErrorDesc.failure().message("缺少上传的文件");
-			}
-
-			List<ValidateResult> errors=favouriteGroupService.importExcel(input,0,true);
-			if(errors==null || errors.isEmpty()) {
-				return ErrorDesc.success();
-			} else {
-				return ErrorDesc.failure().message("导入失败").data(errors);
-			}
+		//获得上传的文件
+		Map<String, MultipartFile> map = request.getFileMap();
+		InputStream input=null;
+		for (MultipartFile mf : map.values()) {
+			input=StreamUtil.bytes2input(mf.getBytes());
+			break;
 		}
+
+		if(input==null) {
+			return ErrorDesc.failure().message("缺少上传的文件");
+		}
+
+		List<ValidateResult> errors=favouriteGroupService.importExcel(input,0,true);
+		if(errors==null || errors.isEmpty()) {
+			return ErrorDesc.success();
+		} else {
+			return ErrorDesc.failure().message("导入失败").data(errors);
+		}
+	}
 
 
 }

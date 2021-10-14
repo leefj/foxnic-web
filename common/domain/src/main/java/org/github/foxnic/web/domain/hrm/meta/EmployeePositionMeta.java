@@ -8,8 +8,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-15 15:51:33
- * @sign BF3B5685BBCE444146DEAE6EEA2C4615
+ * @since 2021-10-14 15:44:29
+ * @sign A18AF0E2C35B082207814ED6F30A2145
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -46,14 +46,14 @@ public class EmployeePositionMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.hrm.EmployeePosition,java.lang.String> POSITION_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.EmployeePosition.class ,POSITION_ID, java.lang.String.class, "岗位ID", "岗位ID", java.lang.String.class, null);
 	
 	/**
-	 * 是否主刚 , 类型: java.lang.Integer
+	 * 是否主岗 , 类型: java.lang.Integer
 	*/
 	public static final String IS_PRIMARY="isPrimary";
 	
 	/**
-	 * 是否主刚 , 类型: java.lang.Integer
+	 * 是否主岗 , 类型: java.lang.Integer
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.hrm.EmployeePosition,java.lang.Integer> IS_PRIMARY_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.EmployeePosition.class ,IS_PRIMARY, java.lang.Integer.class, "是否主刚", "是否主刚", java.lang.Integer.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.EmployeePosition,java.lang.Integer> IS_PRIMARY_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.EmployeePosition.class ,IS_PRIMARY, java.lang.Integer.class, "是否主岗", "是否主岗", java.lang.Integer.class, null);
 	
 	/**
 	 * 创建人ID , 类型: java.lang.String
@@ -182,8 +182,8 @@ public class EmployeePositionMeta {
 		}
 		
 		/**
-		 * 设置 是否主刚
-		 * @param isPrimary 是否主刚
+		 * 设置 是否主岗
+		 * @param isPrimary 是否主岗
 		 * @return 当前对象
 		*/
 		public EmployeePosition setIsPrimary(Integer isPrimary) {

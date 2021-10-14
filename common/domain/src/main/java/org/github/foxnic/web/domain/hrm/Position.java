@@ -14,10 +14,10 @@ import com.github.foxnic.dao.entity.EntityContext;
 
 
 /**
- * null
+ * 岗位
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-14 16:37:01
- * @sign D80144E27CFD036CB3195545248251FD
+ * @since 2021-10-14 13:41:04
+ * @sign 40BAF15CCDD1E31E013A9B4FC6929EB2
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -130,6 +130,12 @@ public class Position extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
 	private Integer version;
+	
+	/**
+	 * 岗位类型：关联字典 position_type
+	*/
+	@ApiModelProperty(required = false,value="岗位类型" , notes = "关联字典 position_type")
+	private String type;
 	
 	/**
 	 * 获得 主键<br>
@@ -451,6 +457,25 @@ public class Position extends Entity {
 	*/
 	public Position setVersion(Integer version) {
 		this.version=version;
+		return this;
+	}
+	
+	/**
+	 * 获得 岗位类型<br>
+	 * 关联字典 position_type
+	 * @return 岗位类型
+	*/
+	public String getType() {
+		return type;
+	}
+	
+	/**
+	 * 设置 岗位类型
+	 * @param type 岗位类型
+	 * @return 当前对象
+	*/
+	public Position setType(String type) {
+		this.type=type;
 		return this;
 	}
 

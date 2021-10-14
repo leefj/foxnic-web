@@ -1,7 +1,7 @@
 /**
  * 组织层级 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-17 13:18:14
+ * @since 2021-10-14 15:44:26
  */
 
 function FormPage() {
@@ -105,9 +105,12 @@ function FormPage() {
 
 
 
+
 			//处理fillBy
 
+			//
 	     	fm.attr('method', 'POST');
+	     	fox.fillDialogButtons();
 	     	renderFormFields();
 
 			window.pageExt.form.afterDataFill && window.pageExt.form.afterDataFill(formData);

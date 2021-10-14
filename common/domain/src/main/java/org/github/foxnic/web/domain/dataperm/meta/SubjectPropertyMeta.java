@@ -8,8 +8,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-13 15:46:37
- * @sign 215C37DE9A88E60F9A6963A69DC9C290
+ * @since 2021-10-14 16:09:12
+ * @sign A64BB9EEB4F53E546B2921D9B80DF24E
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -64,6 +64,16 @@ public class SubjectPropertyMeta {
 	 * 是否生效 , 类型: java.lang.Integer
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.SubjectProperty,java.lang.Integer> VALID_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.SubjectProperty.class ,VALID, java.lang.Integer.class, "是否生效", "是否生效", java.lang.Integer.class, null);
+	
+	/**
+	 * 顺序 , 类型: java.lang.Integer
+	*/
+	public static final String SORT="sort";
+	
+	/**
+	 * 顺序 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.SubjectProperty,java.lang.Integer> SORT_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.SubjectProperty.class ,SORT, java.lang.Integer.class, "顺序", "顺序", java.lang.Integer.class, null);
 	
 	/**
 	 * 创建人ID , 类型: java.lang.String
@@ -148,7 +158,7 @@ public class SubjectPropertyMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , SUBJECT_ID , NAME , PROPERTY , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , SUBJECT_ID , NAME , PROPERTY , VALID , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
 	
 	/**
 	 * 代理类
@@ -210,6 +220,17 @@ public class SubjectPropertyMeta {
 		public SubjectProperty setValid(Integer valid) {
 			super.change(VALID,super.getValid(),valid);
 			super.setValid(valid);
+			return this;
+		}
+		
+		/**
+		 * 设置 顺序
+		 * @param sort 顺序
+		 * @return 当前对象
+		*/
+		public SubjectProperty setSort(Integer sort) {
+			super.change(SORT,super.getSort(),sort);
+			super.setSort(sort);
 			return this;
 		}
 		

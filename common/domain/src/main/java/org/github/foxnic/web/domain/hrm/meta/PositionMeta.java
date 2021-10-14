@@ -8,8 +8,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-14 16:37:01
- * @sign D80144E27CFD036CB3195545248251FD
+ * @since 2021-10-14 13:41:04
+ * @sign 40BAF15CCDD1E31E013A9B4FC6929EB2
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -186,9 +186,19 @@ public class PositionMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Position,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Position.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
+	 * 岗位类型 , 关联字典 position_type , 类型: java.lang.String
+	*/
+	public static final String TYPE="type";
+	
+	/**
+	 * 岗位类型 , 关联字典 position_type , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Position,java.lang.String> TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Position.class ,TYPE, java.lang.String.class, "岗位类型", "关联字典 position_type", java.lang.String.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , ORG_ID , CODE , FULL_NAME , SHORT_NAME , VALID , SORT , COMPANY_ID , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , ORG_ID , CODE , FULL_NAME , SHORT_NAME , VALID , SORT , COMPANY_ID , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TYPE };
 	
 	/**
 	 * 代理类
@@ -382,6 +392,17 @@ public class PositionMeta {
 		public Position setVersion(Integer version) {
 			super.change(VERSION,super.getVersion(),version);
 			super.setVersion(version);
+			return this;
+		}
+		
+		/**
+		 * 设置 岗位类型
+		 * @param type 岗位类型
+		 * @return 当前对象
+		*/
+		public Position setType(String type) {
+			super.change(TYPE,super.getType(),type);
+			super.setType(type);
 			return this;
 		}
 	}

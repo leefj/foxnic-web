@@ -1,7 +1,7 @@
 /**
  * 岗位 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-14 17:09:53
+ * @since 2021-10-14 15:44:27
  */
 
 function FormPage() {
@@ -77,6 +77,24 @@ function FormPage() {
 	function renderFormFields() {
 		fox.renderFormInputs(form);
 
+		//渲染 type 下拉字段
+		fox.renderSelectBox({
+			el: "type",
+			radio: true,
+			filterable: false,
+			//转换数据
+			transform: function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				var defaultValues="".split(",");
+				var defaultIndexs="".split(",");
+				var opts=[];
+				for (var i = 0; i < data.length; i++) {
+					if(!data[i]) continue;
+					opts.push({name:data[i].text,value:data[i].code,selected:(defaultValues.indexOf(data[i].code)!=-1 || defaultIndexs.indexOf(""+i)!=-1)});
+				}
+				return opts;
+			}
+		});
 	}
 
 	/**
@@ -105,9 +123,14 @@ function FormPage() {
 
 
 
+			//设置  岗位类型 设置下拉框勾选
+			fox.setSelectValue4Dict("#type",formData.type,SELECT_TYPE_DATA);
+
 			//处理fillBy
 
+			//
 	     	fm.attr('method', 'POST');
+	     	fox.fillDialogButtons();
 	     	renderFormFields();
 
 			window.pageExt.form.afterDataFill && window.pageExt.form.afterDataFill(formData);
@@ -152,6 +175,8 @@ function FormPage() {
 		if(!data.valid) data.valid=0;
 
 
+		//获取 岗位类型 下拉框的值
+		data["type"]=fox.getSelectedValue("type",false);
 
 		return data;
 	}
@@ -166,7 +191,6 @@ function FormPage() {
 		admin.request(api, param, function (data) {
 			clearTimeout(task);
 			layer.closeAll('loading');
-			// debugger
 			if (data.success) {
 				layer.msg(data.message, {icon: 1, time: 500});
 				var index=admin.getTempData('hrm-position-form-data-popup-index');

@@ -45,7 +45,13 @@ public class CodeStarter extends ModuleCodeGenerator {
         //
         this.addConfig(new DPRuleConfig());
         this.addConfig(new DPRuleRangeConfig());
-        this.addConfig(new DPRuleCondition());
+        this.addConfig(new DPRuleConditionConfig());
+        //
+        this.addConfig(new DPExampleOrderConfig());
+        this.addConfig(new DPExampleProductConfig());
+        this.addConfig(new DPExampleShopConfig());
+        this.addConfig(new DPExampleCatalogConfig());
+        this.addConfig(new DPExampleBrandConfig());
     }
 
     private void initBpmModules() {

@@ -8,6 +8,7 @@ import com.github.foxnic.generator.builder.view.option.ListOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.DP_RULE;
+import org.github.foxnic.web.domain.dataperm.RuleRange;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
 
@@ -21,8 +22,7 @@ public class DPRuleConfig extends BaseCodeConfig<DP_RULE> {
 
 	@Override
 	public void configModel(PoClassFile poType, VoClassFile voType) {
-//		poType.addSimpleProperty(Integer.class,"empCount","员工数量","员工数量");
-//		poType.addListProperty(Employee.class,"employees","关联员工清单","关联员工清单");
+		poType.addListProperty(RuleRange.class,"ranges","约束范围列表","约束范围列表");
 	}
 
 	@Override

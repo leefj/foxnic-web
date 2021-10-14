@@ -48,7 +48,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 数据权限主体属性表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-13 15:51:45
+ * @since 2021-10-14 16:24:44
 */
 
 @Api(tags = "数据权限主体属性")
@@ -70,6 +70,7 @@ public class SubjectPropertyController extends SuperController {
 		@ApiImplicitParam(name = SubjectPropertyVOMeta.NAME , value = "属性名称" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = SubjectPropertyVOMeta.PROPERTY , value = "属性" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = SubjectPropertyVOMeta.VALID , value = "是否生效" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = SubjectPropertyVOMeta.SORT , value = "顺序" , required = false , dataTypeClass=Integer.class),
 	})
 	@ApiOperationSupport(order=1)
 	@SentinelResource(value = SubjectPropertyServiceProxy.INSERT , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
@@ -125,6 +126,7 @@ public class SubjectPropertyController extends SuperController {
 		@ApiImplicitParam(name = SubjectPropertyVOMeta.NAME , value = "属性名称" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = SubjectPropertyVOMeta.PROPERTY , value = "属性" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = SubjectPropertyVOMeta.VALID , value = "是否生效" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = SubjectPropertyVOMeta.SORT , value = "顺序" , required = false , dataTypeClass=Integer.class),
 	})
 	@ApiOperationSupport( order=4 , ignoreParameters = { SubjectPropertyVOMeta.PAGE_INDEX , SubjectPropertyVOMeta.PAGE_SIZE , SubjectPropertyVOMeta.SEARCH_FIELD , SubjectPropertyVOMeta.FUZZY_FIELD , SubjectPropertyVOMeta.SEARCH_VALUE , SubjectPropertyVOMeta.SORT_FIELD , SubjectPropertyVOMeta.SORT_TYPE , SubjectPropertyVOMeta.IDS } )
 	@NotNull(name = SubjectPropertyVOMeta.ID)
@@ -146,6 +148,7 @@ public class SubjectPropertyController extends SuperController {
 		@ApiImplicitParam(name = SubjectPropertyVOMeta.NAME , value = "属性名称" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = SubjectPropertyVOMeta.PROPERTY , value = "属性" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = SubjectPropertyVOMeta.VALID , value = "是否生效" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = SubjectPropertyVOMeta.SORT , value = "顺序" , required = false , dataTypeClass=Integer.class),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { SubjectPropertyVOMeta.PAGE_INDEX , SubjectPropertyVOMeta.PAGE_SIZE , SubjectPropertyVOMeta.SEARCH_FIELD , SubjectPropertyVOMeta.FUZZY_FIELD , SubjectPropertyVOMeta.SEARCH_VALUE , SubjectPropertyVOMeta.SORT_FIELD , SubjectPropertyVOMeta.SORT_TYPE , SubjectPropertyVOMeta.IDS } )
 	@NotNull(name = SubjectPropertyVOMeta.ID)
@@ -206,6 +209,7 @@ public class SubjectPropertyController extends SuperController {
 		@ApiImplicitParam(name = SubjectPropertyVOMeta.NAME , value = "属性名称" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = SubjectPropertyVOMeta.PROPERTY , value = "属性" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = SubjectPropertyVOMeta.VALID , value = "是否生效" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = SubjectPropertyVOMeta.SORT , value = "顺序" , required = false , dataTypeClass=Integer.class),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { SubjectPropertyVOMeta.PAGE_INDEX , SubjectPropertyVOMeta.PAGE_SIZE } )
 	@SentinelResource(value = SubjectPropertyServiceProxy.QUERY_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
@@ -228,6 +232,7 @@ public class SubjectPropertyController extends SuperController {
 		@ApiImplicitParam(name = SubjectPropertyVOMeta.NAME , value = "属性名称" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = SubjectPropertyVOMeta.PROPERTY , value = "属性" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = SubjectPropertyVOMeta.VALID , value = "是否生效" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = SubjectPropertyVOMeta.SORT , value = "顺序" , required = false , dataTypeClass=Integer.class),
 	})
 	@ApiOperationSupport(order=8)
 	@SentinelResource(value = SubjectPropertyServiceProxy.QUERY_PAGED_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )

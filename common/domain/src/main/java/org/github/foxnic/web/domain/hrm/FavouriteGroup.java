@@ -14,10 +14,10 @@ import com.github.foxnic.dao.entity.EntityContext;
 
 
 /**
- * null
+ * 常用人员分组
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-19 11:51:12
- * @sign F2847B342D1C5A2D9576FC297C972D11
+ * @since 2021-10-14 15:44:30
+ * @sign 516025767FD94F663365E4FD5450DB71
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 

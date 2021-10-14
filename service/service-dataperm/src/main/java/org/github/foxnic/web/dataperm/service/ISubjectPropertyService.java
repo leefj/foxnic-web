@@ -21,7 +21,7 @@ import com.github.foxnic.dao.data.SaveMode;
  * 数据权限主体属性表 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-13 15:51:45
+ * @since 2021-10-14 16:24:44
 */
 
 public interface ISubjectPropertyService extends ISuperService<SubjectProperty> {

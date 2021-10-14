@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 数据权限主体属性
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-13 15:46:37
- * @sign 215C37DE9A88E60F9A6963A69DC9C290
+ * @since 2021-10-14 16:09:12
+ * @sign A64BB9EEB4F53E546B2921D9B80DF24E
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -58,6 +58,12 @@ public class SubjectProperty extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="是否生效" , notes = "是否生效")
 	private Integer valid;
+	
+	/**
+	 * 顺序：顺序
+	*/
+	@ApiModelProperty(required = false,value="顺序" , notes = "顺序")
+	private Integer sort;
 	
 	/**
 	 * 创建人ID：创建人ID
@@ -199,6 +205,25 @@ public class SubjectProperty extends Entity {
 	*/
 	public SubjectProperty setValid(Integer valid) {
 		this.valid=valid;
+		return this;
+	}
+	
+	/**
+	 * 获得 顺序<br>
+	 * 顺序
+	 * @return 顺序
+	*/
+	public Integer getSort() {
+		return sort;
+	}
+	
+	/**
+	 * 设置 顺序
+	 * @param sort 顺序
+	 * @return 当前对象
+	*/
+	public SubjectProperty setSort(Integer sort) {
+		this.sort=sort;
 		return this;
 	}
 	

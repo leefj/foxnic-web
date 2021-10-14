@@ -2,7 +2,7 @@
 /**
  * 岗位 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-14 17:09:53
+ * @since 2021-10-14 15:44:27
  */
  -->
  <!DOCTYPE html>
@@ -67,6 +67,15 @@
                     </div>
 
                 
+                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('岗位类型')}">岗位类型</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <div id="type" input-type="select" th:data="${dict.toArray('position_type')}"></div>
+                        </div>
+                    </div>
+
+
+                
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('是否有效')}">是否有效</div><div class="layui-required">*</div></div>
                     <div class="layui-input-block layui-input-block-c1">
@@ -100,6 +109,7 @@
 
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];
+    var SELECT_TYPE_DATA = [[${dict.toArray('position_type')}]];
     var VALIDATE_CONFIG={"valid":{"labelInForm":"是否有效","inputType":"logic_switch","required":true},"fullName":{"labelInForm":"全称","inputType":"text_input","required":true}};
     var AUTH_PREFIX="hrm_position";
 

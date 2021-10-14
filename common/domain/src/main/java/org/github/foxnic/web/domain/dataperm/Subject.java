@@ -7,6 +7,8 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.DP_SUBJECT;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
+import java.util.List;
+import java.util.ArrayList;
 import javax.persistence.Transient;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
@@ -16,8 +18,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 数据权限主体
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-13 15:41:11
- * @sign 97C0EF0BA2D32616FA8B52BC20304494
+ * @since 2021-10-14 16:09:09
+ * @sign 07189CDF29FF14C509B15C0E9FCF3971
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -112,6 +114,12 @@ public class Subject extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
 	private Integer version;
+	
+	/**
+	 * 属性列表：属性列表
+	*/
+	@ApiModelProperty(required = false,value="属性列表" , notes = "属性列表")
+	private List<SubjectProperty> properties;
 	
 	/**
 	 * 获得 主键<br>
@@ -376,6 +384,36 @@ public class Subject extends Entity {
 	*/
 	public Subject setVersion(Integer version) {
 		this.version=version;
+		return this;
+	}
+	
+	/**
+	 * 获得 属性列表<br>
+	 * 属性列表
+	 * @return 属性列表
+	*/
+	public List<SubjectProperty> getProperties() {
+		return properties;
+	}
+	
+	/**
+	 * 设置 属性列表
+	 * @param properties 属性列表
+	 * @return 当前对象
+	*/
+	public Subject setProperties(List<SubjectProperty> properties) {
+		this.properties=properties;
+		return this;
+	}
+	
+	/**
+	 * 添加 属性列表
+	 * @param propertie 属性列表
+	 * @return 当前对象
+	*/
+	public Subject addPropertie(SubjectProperty propertie) {
+		if(this.properties==null) properties=new ArrayList<>();
+		this.properties.add(propertie);
 		return this;
 	}
 

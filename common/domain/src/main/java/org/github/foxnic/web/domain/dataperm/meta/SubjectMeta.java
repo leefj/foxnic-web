@@ -3,13 +3,15 @@ package org.github.foxnic.web.domain.dataperm.meta;
 import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.dataperm.Subject;
 import java.util.Date;
+import org.github.foxnic.web.domain.dataperm.SubjectProperty;
+import java.util.List;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-13 15:41:11
- * @sign 97C0EF0BA2D32616FA8B52BC20304494
+ * @since 2021-10-14 16:09:09
+ * @sign 07189CDF29FF14C509B15C0E9FCF3971
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -156,9 +158,19 @@ public class SubjectMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.Subject,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.Subject.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
+	 * 属性列表 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.dataperm.SubjectProperty
+	*/
+	public static final String PROPERTIES="properties";
+	
+	/**
+	 * 属性列表 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.dataperm.SubjectProperty
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.Subject,org.github.foxnic.web.domain.dataperm.SubjectProperty> PROPERTIES_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.Subject.class ,PROPERTIES, java.util.List.class, "属性列表", "属性列表", org.github.foxnic.web.domain.dataperm.SubjectProperty.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , CODE , NAME , GETTER , TYPE , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , CODE , NAME , GETTER , TYPE , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , PROPERTIES };
 	
 	/**
 	 * 代理类
@@ -319,6 +331,17 @@ public class SubjectMeta {
 		public Subject setVersion(Integer version) {
 			super.change(VERSION,super.getVersion(),version);
 			super.setVersion(version);
+			return this;
+		}
+		
+		/**
+		 * 设置 属性列表
+		 * @param properties 属性列表
+		 * @return 当前对象
+		*/
+		public Subject setProperties(List<SubjectProperty> properties) {
+			super.change(PROPERTIES,super.getProperties(),properties);
+			super.setProperties(properties);
 			return this;
 		}
 	}

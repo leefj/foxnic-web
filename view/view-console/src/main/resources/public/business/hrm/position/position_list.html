@@ -2,7 +2,7 @@
 /**
  * 岗位 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-14 17:09:53
+ * @since 2021-10-14 15:44:27
  */
  -->
  <!DOCTYPE html>
@@ -58,6 +58,11 @@
                     </div>
                     <!-- 排序 , sort ,typeName=number_input, isHideInSearch=true -->
                     <!-- 总公司ID , companyId ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 岗位类型 , type ,typeName=select_box, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('岗位类型')}" class="search-label type-label">岗位类型</span><span class="search-colon">:</span></div>
+                        <div id="type" th:data="${dict.toArray('position_type')}" style="width:140px"></div>
+                    </div>
 
 
                 </div>
@@ -110,6 +115,7 @@
 
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${pageHelper.getTableColumnWidthConfig('data-table')}]];
+    var SELECT_TYPE_DATA = [[${dict.toArray('position_type')}]];
     var AUTH_PREFIX="hrm_position";
 
 

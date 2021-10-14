@@ -7,6 +7,8 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.DP_RULE_RANGE;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
+import java.util.List;
+import java.util.ArrayList;
 import javax.persistence.Transient;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
@@ -16,8 +18,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 数据权限规则范围
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-13 15:51:45
- * @sign 6C6A83AE9052AE5E42D54EC666B5D1BD
+ * @since 2021-10-14 16:09:13
+ * @sign B29D829F94A79E511ACB1E3E46DF1689
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -100,6 +102,12 @@ public class RuleRange extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
 	private Integer version;
+	
+	/**
+	 * 条件列表：用于构建条件语句
+	*/
+	@ApiModelProperty(required = false,value="条件列表" , notes = "用于构建条件语句")
+	private List<RuleCondition> conditions;
 	
 	/**
 	 * 获得 主键<br>
@@ -326,6 +334,36 @@ public class RuleRange extends Entity {
 	*/
 	public RuleRange setVersion(Integer version) {
 		this.version=version;
+		return this;
+	}
+	
+	/**
+	 * 获得 条件列表<br>
+	 * 用于构建条件语句
+	 * @return 条件列表
+	*/
+	public List<RuleCondition> getConditions() {
+		return conditions;
+	}
+	
+	/**
+	 * 设置 条件列表
+	 * @param conditions 条件列表
+	 * @return 当前对象
+	*/
+	public RuleRange setConditions(List<RuleCondition> conditions) {
+		this.conditions=conditions;
+		return this;
+	}
+	
+	/**
+	 * 添加 条件列表
+	 * @param condition 条件列表
+	 * @return 当前对象
+	*/
+	public RuleRange addCondition(RuleCondition condition) {
+		if(this.conditions==null) conditions=new ArrayList<>();
+		this.conditions.add(condition);
 		return this;
 	}
 

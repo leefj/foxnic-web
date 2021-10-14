@@ -7,22 +7,19 @@ import com.github.foxnic.generator.builder.model.VoClassFile;
 import com.github.foxnic.generator.builder.view.option.ListOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
-import org.github.foxnic.web.constants.db.FoxnicWeb.DP_RULE_CONDITION;
+import org.github.foxnic.web.constants.db.FoxnicWeb.DP_EXAMPLE_SHOP;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
 
-public class DPRuleCondition extends BaseCodeConfig<DP_RULE_CONDITION> {
+public class DPExampleShopConfig extends BaseCodeConfig<DP_EXAMPLE_SHOP> {
 
-	public DPRuleCondition() {
-		super(PREFIX_DATA_PERM,DP_RULE_CONDITION.$TABLE,"dp_", 3);
+	public DPExampleShopConfig() {
+		super(PREFIX_DATA_PERM,DP_EXAMPLE_SHOP.$TABLE,"dp_", 3);
 	}
-
-
 
 	@Override
 	public void configModel(PoClassFile poType, VoClassFile voType) {
-//		poType.addSimpleProperty(Integer.class,"empCount","员工数量","员工数量");
-//		poType.addListProperty(Employee.class,"employees","关联员工清单","关联员工清单");
+
 	}
 
 	@Override

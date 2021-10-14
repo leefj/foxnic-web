@@ -3,13 +3,15 @@ package org.github.foxnic.web.domain.dataperm.meta;
 import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.dataperm.Rule;
 import java.util.Date;
+import org.github.foxnic.web.domain.dataperm.RuleRange;
+import java.util.List;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-13 15:51:45
- * @sign EFFD774F0EF55EDAD7B5008397BCF3B1
+ * @since 2021-10-14 16:09:13
+ * @sign 5E663349F8BD254EC5BAF43E71F896B4
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -146,9 +148,19 @@ public class RuleMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.Rule,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.Rule.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
+	 * 约束范围列表 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.dataperm.RuleRange
+	*/
+	public static final String RANGES="ranges";
+	
+	/**
+	 * 约束范围列表 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.dataperm.RuleRange
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.Rule,org.github.foxnic.web.domain.dataperm.RuleRange> RANGES_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.Rule.class ,RANGES, java.util.List.class, "约束范围列表", "约束范围列表", org.github.foxnic.web.domain.dataperm.RuleRange.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , CODE , NAME , DATA_TABLE , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , CODE , NAME , DATA_TABLE , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , RANGES };
 	
 	/**
 	 * 代理类
@@ -298,6 +310,17 @@ public class RuleMeta {
 		public Rule setVersion(Integer version) {
 			super.change(VERSION,super.getVersion(),version);
 			super.setVersion(version);
+			return this;
+		}
+		
+		/**
+		 * 设置 约束范围列表
+		 * @param ranges 约束范围列表
+		 * @return 当前对象
+		*/
+		public Rule setRanges(List<RuleRange> ranges) {
+			super.change(RANGES,super.getRanges(),ranges);
+			super.setRanges(ranges);
 			return this;
 		}
 	}

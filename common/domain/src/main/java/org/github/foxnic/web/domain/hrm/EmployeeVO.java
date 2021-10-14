@@ -3,14 +3,17 @@ package org.github.foxnic.web.domain.hrm;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
+import com.github.foxnic.api.model.CompositeParameter;
+import javax.persistence.Transient;
+import com.github.foxnic.commons.bean.BeanUtil;
 
 
 
 /**
- * null
+ * 员工
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-15 14:06:17
- * @sign ADA6898F7417C92D44787EFF995122E7
+ * @since 2021-10-14 15:44:27
+ * @sign 7A7E6A82D643B0FA58FC7427BF545AB9
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -268,5 +271,17 @@ public class EmployeeVO extends Employee {
 	public EmployeeVO setPositionId(String positionId) {
 		this.positionId=positionId;
 		return this;
+	}
+	@Transient
+	private CompositeParameter $compositeParameter;
+	/**
+	 * 获得解析后的复合查询参数
+	 */
+	@Transient
+	public CompositeParameter getCompositeParameter() {
+		if($compositeParameter!=null) return  $compositeParameter;
+		if(!"$composite".equals(this.getSearchField())) return null;
+		$compositeParameter=new CompositeParameter(this.getSearchValue(),BeanUtil.toMap(this));
+		return  $compositeParameter;
 	}
 }

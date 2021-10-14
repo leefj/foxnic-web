@@ -1,7 +1,7 @@
 /**
  * 数据权限主体属性 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-13 15:51:45
+ * @since 2021-10-14 16:24:44
  */
 
 
@@ -78,6 +78,7 @@ function ListPage() {
 					,{ field: 'name', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('属性名称') , templet: function (d) { return templet('name',d.name,d);}  }
 					,{ field: 'property', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('属性') , templet: function (d) { return templet('property',d.property,d);}  }
 					,{ field: 'valid', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('是否生效') , templet: function (d) { return templet('valid',d.valid,d);}  }
+					,{ field: 'sort', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('顺序') , templet: function (d) { return templet('sort',d.sort,d);}  }
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }}
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
@@ -118,6 +119,7 @@ function ListPage() {
 		value.name={ inputType:"button",value: $("#name").val()};
 		value.property={ inputType:"button",value: $("#property").val()};
 		value.valid={ inputType:"number_input", value: $("#valid").val()};
+		value.sort={ inputType:"number_input", value: $("#sort").val()};
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;

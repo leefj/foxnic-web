@@ -7,6 +7,8 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.DP_RULE;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
+import java.util.List;
+import java.util.ArrayList;
 import javax.persistence.Transient;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
@@ -16,8 +18,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 数据权限规则
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-13 15:51:45
- * @sign EFFD774F0EF55EDAD7B5008397BCF3B1
+ * @since 2021-10-14 16:09:13
+ * @sign 5E663349F8BD254EC5BAF43E71F896B4
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -106,6 +108,12 @@ public class Rule extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
 	private Integer version;
+	
+	/**
+	 * 约束范围列表：约束范围列表
+	*/
+	@ApiModelProperty(required = false,value="约束范围列表" , notes = "约束范围列表")
+	private List<RuleRange> ranges;
 	
 	/**
 	 * 获得 主键<br>
@@ -351,6 +359,36 @@ public class Rule extends Entity {
 	*/
 	public Rule setVersion(Integer version) {
 		this.version=version;
+		return this;
+	}
+	
+	/**
+	 * 获得 约束范围列表<br>
+	 * 约束范围列表
+	 * @return 约束范围列表
+	*/
+	public List<RuleRange> getRanges() {
+		return ranges;
+	}
+	
+	/**
+	 * 设置 约束范围列表
+	 * @param ranges 约束范围列表
+	 * @return 当前对象
+	*/
+	public Rule setRanges(List<RuleRange> ranges) {
+		this.ranges=ranges;
+		return this;
+	}
+	
+	/**
+	 * 添加 约束范围列表
+	 * @param range 约束范围列表
+	 * @return 当前对象
+	*/
+	public Rule addRange(RuleRange range) {
+		if(this.ranges==null) ranges=new ArrayList<>();
+		this.ranges.add(range);
 		return this;
 	}
 
