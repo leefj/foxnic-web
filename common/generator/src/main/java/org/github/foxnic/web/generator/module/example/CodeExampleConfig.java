@@ -149,7 +149,7 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 				.form().selectBox().queryApi(ResourzeServiceProxy.QUERY_PAGED_LIST)
 				.valueField(ResourzeMeta.ID).textField(ResourzeMeta.URL)
 				.toolbar(false).paging(true).defaultIndex(1)
-				.fillBy(CodeExampleMeta.RESOURZE);
+				.fillWith(CodeExampleMeta.RESOURZE);
 
 
 		view.field(resourceNameField)
@@ -164,7 +164,7 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 				.form().selectBox().queryApi(RoleServiceProxy.QUERY_PAGED_LIST)
 				.valueField(RoleMeta.ID).textField(RoleMeta.NAME)
 				.toolbar(false).paging(true).defaultIndex(0)
-				.fillBy(CodeExampleMeta.ROLES).muliti(true);
+				.fillWith(CodeExampleMeta.ROLES).muliti(true);
 		;
 
 		view.field(CodeExampleVOMeta.ROLE_COUNT_BY_AFTER)
@@ -413,6 +413,6 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 	}
 
 
-	
+
 
 }

@@ -51,7 +51,7 @@ public class UserTenantConfig extends BaseCodeConfig<SYS_USER_TENANT> {
                 .form().validate().required()
                 .form().selectBox().queryApi(TenantServiceProxy.QUERY_PAGED_LIST).paging(true).size(10)
                 .valueField(TenantMeta.ID).textField(TenantMeta.ALIAS)
-        .fillBy(UserTenantMeta.TENANT)
+        .fillWith(UserTenantMeta.TENANT)
         .table().fillBy(UserTenantMeta.TENANT,TenantMeta.ALIAS);
 
 
@@ -60,7 +60,7 @@ public class UserTenantConfig extends BaseCodeConfig<SYS_USER_TENANT> {
                 .form().validate().required()
                 .form().selectBox().queryApi(EmployeeServiceProxy.QUERY_PAGED_LIST).paging(true).size(10)
                 .valueField(EmployeeMeta.ID).textField(EmployeeMeta.NAME_AND_BADGE)
-                .fillBy(UserTenantMeta.EMPLOYEE)
+                .fillWith(UserTenantMeta.EMPLOYEE)
                 .table().fillBy(UserTenantMeta.EMPLOYEE,EmployeeMeta.NAME_AND_BADGE).hidden(false);
 
     }

@@ -2,7 +2,7 @@
 /**
  * 销售订单 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-14 16:24:45
+ * @since 2021-10-15 15:10:30
  */
  -->
  <!DOCTYPE html>
@@ -46,9 +46,9 @@
                     </div>
 
                                     <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('商品ID')}">商品ID</div></div>
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('品名')}">品名</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="productId" id="productId" name="productId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('商品ID') }" type="text" class="layui-input"  />
+                            <input lay-filter="productId" id="productId" name="productId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('品名') }" type="text" class="layui-input"  />
                         </div>
                     </div>
 
@@ -79,17 +79,19 @@
                     </div>
 
 
-                                    <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('上级ID')}">上级ID</div></div>
+                
+                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('店铺')}">店铺</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="shopId" id="shopId" name="shopId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('上级ID') }" type="text" class="layui-input"  />
+                            <div id="shopId" input-type="select" th:data="${'/service-dataperm/dp-example-shop/query-list'}"></div>
                         </div>
                     </div>
 
+
                                     <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('销售人员ID')}">销售人员ID</div></div>
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('导购')}">导购</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="salesId" id="salesId" name="salesId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('销售人员ID') }" type="text" class="layui-input"  />
+                            <input lay-filter="salesId" id="salesId" name="salesId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('导购') }" type="text" class="layui-input"  />
                         </div>
                     </div>
 
@@ -106,8 +108,7 @@
 
 </div>
 <div class="model-form-footer">
-    <button class="layui-btn layui-btn-primary" id="cancel-button" lay-filter="cancel-button" type="button" th:text="${lang.translate('取消')}" >取消</button>
-    <button th:if="${perm.checkAnyAuth('dp_example_order:create','dp_example_order:update','dp_example_order:save')}" class="layui-btn" style="margin-right: 15px;display: none;"  id="submit-button" lay-filter="submit-button" lay-submit th:text="${lang.translate('保存')}">保存</button>
+    <button class="layui-btn layui-btn-primary" id="cancel-button" lay-filter="cancel-button" type="button" th:text="${lang.translate('取消')}"  style="margin-right: 15px" >取消</button>
 </div>
 
 <script type="text/javascript" src="/module/global.js" th:src="'/module/global.js?'+${cacheKey}"></script>

@@ -1,7 +1,7 @@
 /**
  * 销售订单 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-14 16:24:45
+ * @since 2021-10-15 15:10:30
  */
 
 function FormPage() {
@@ -9,8 +9,8 @@ function FormPage() {
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect,foxup;
 	const moduleURL="/service-dataperm/dp-example-order";
 
-	var disableCreateNew=false;
-	var disableModify=false;
+	var disableCreateNew=true;
+	var disableModify=true;
 	/**
       * 入口函数，初始化
       */
@@ -77,6 +77,25 @@ function FormPage() {
 	function renderFormFields() {
 		fox.renderFormInputs(form);
 
+		//渲染 shopId 下拉字段
+		fox.renderSelectBox({
+			el: "shopId",
+			radio: true,
+			filterable: false,
+			//转换数据
+			transform: function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				var defaultValues="".split(",");
+				var defaultIndexs="".split(",");
+				var opts=[];
+				if(!data) return opts;
+				for (var i = 0; i < data.length; i++) {
+					if(!data[i]) continue;
+					opts.push({name:data[i].name,value:data[i].orgId,selected:(defaultValues.indexOf(data[i].orgId)!=-1 || defaultIndexs.indexOf(""+i)!=-1)});
+				}
+				return opts;
+			}
+		});
 	}
 
 	/**
@@ -105,6 +124,8 @@ function FormPage() {
 
 
 
+			//设置  店铺 设置下拉框勾选
+			fox.setSelectValue4QueryApi("#shopId",formData.shop);
 
 			//处理fillBy
 
@@ -153,6 +174,8 @@ function FormPage() {
 
 
 
+		//获取 店铺 下拉框的值
+		data["shopId"]=fox.getSelectedValue("shopId",false);
 
 		return data;
 	}

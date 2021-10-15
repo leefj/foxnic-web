@@ -12,11 +12,13 @@ import com.github.foxnic.generator.builder.business.ControllerProxyFile;
 import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.enums.system.MenuType;
+import org.github.foxnic.web.dataperm.page.ExampleOrderPageController;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.MenuResource;
 import org.github.foxnic.web.domain.oauth.Resourze;
 import org.github.foxnic.web.domain.oauth.RoleMenu;
 import org.github.foxnic.web.generator.config.FoxnicWebConfigs;
+import org.github.foxnic.web.proxy.dataperm.ExampleOrderServiceProxy;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.File;
@@ -39,6 +41,22 @@ public class MenuGenerator {
 
 
 		MenuGenerator mg=null;
+
+
+		mg=new MenuGenerator(FoxnicWeb.DP_EXAMPLE_ORDER.$TABLE, ExampleOrderServiceProxy.class, ExampleOrderPageController.class);
+		mg.generate("501073274482987009");
+
+//		mg=new MenuGenerator(FoxnicWeb.DP_RULE_CONDITION.$TABLE, RuleConditionServiceProxy.class, RuleConditionPageController.class);
+//		mg.generate("501068138247360512");
+
+//		mg=new MenuGenerator(FoxnicWeb.DP_RULE_RANGE.$TABLE, RuleRangeServiceProxy.class, RuleRangePageController.class);
+//		mg.generate("501068138247360512");
+
+//		mg=new MenuGenerator(FoxnicWeb.DP_RULE.$TABLE, RuleServiceProxy.class, RulePageController.class);
+//		mg.generate("501068138247360512");
+
+//		mg=new MenuGenerator(FoxnicWeb.DP_SUBJECT_PROPERTY.$TABLE, SubjectPropertyServiceProxy.class, SubjectPropertyPageController.class);
+//		mg.generate("501068138247360512");
 
 		//资源
 //		mg=new MenuGenerator(SYS_RESOURZE.$TABLE,ResourzeServiceProxy.class, ResourzePageController.class);
@@ -137,6 +155,9 @@ public class MenuGenerator {
 
 //		mg=new MenuGenerator(FoxnicWeb.BPM_ROLE_EMPLOYEE.$TABLE, RoleEmployeeServiceProxy.class, RoleEmployeePageController.class);
 //		mg.generate("494903523763298304");
+
+//		mg=new MenuGenerator(FoxnicWeb.DP_SUBJECT.$TABLE, SubjectServiceProxy.class, SubjectPageController.class);
+//		mg.generate("501068138247360512");
 
 
 
@@ -431,8 +452,10 @@ public class MenuGenerator {
 
 	private void grant() {
 
-		RcdSet menus=dao.query("select id from "+ FoxnicWeb.SYS_MENU.$NAME+" where batch_id=?",batchId);
+		RcdSet menus=dao.query("select id,label from "+ FoxnicWeb.SYS_MENU.$NAME+" where batch_id=?",batchId);
 		for (Rcd r : menus) {
+			//导入导出默认不授权
+			if( "导入".equals(r.getString("label")) || "导出".equals(r.getString("label"))) continue;
 			dao.insert(FoxnicWeb.SYS_ROLE_MENU.$NAME)
 			.set(FoxnicWeb.SYS_ROLE_MENU.ID, IDGenerator.getSnowflakeId())
 			.set(FoxnicWeb.SYS_ROLE_MENU.ROLE_ID, roleId)

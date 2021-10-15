@@ -12,8 +12,8 @@ import org.github.foxnic.web.domain.hrm.Employee;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-14 16:09:13
- * @sign C981CFF9C2FFB3E8CD1D15782FDA64B4
+ * @since 2021-10-14 16:57:39
+ * @sign F4D68BC19FA0EA49D24E1285B74C5739
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -70,14 +70,14 @@ public class ExampleOrderMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.ExampleOrder,java.math.BigDecimal> AMOUNT_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.ExampleOrder.class ,AMOUNT, java.math.BigDecimal.class, "金额", "金额", java.math.BigDecimal.class, null);
 	
 	/**
-	 * 上级ID , 类型: java.lang.String
+	 * 店铺ID , 类型: java.lang.String
 	*/
 	public static final String SHOP_ID="shopId";
 	
 	/**
-	 * 上级ID , 类型: java.lang.String
+	 * 店铺ID , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.ExampleOrder,java.lang.String> SHOP_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.ExampleOrder.class ,SHOP_ID, java.lang.String.class, "上级ID", "上级ID", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.ExampleOrder,java.lang.String> SHOP_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.ExampleOrder.class ,SHOP_ID, java.lang.String.class, "店铺ID", "店铺ID", java.lang.String.class, null);
 	
 	/**
 	 * 销售人员ID , 类型: java.lang.String
@@ -268,8 +268,8 @@ public class ExampleOrderMeta {
 		}
 		
 		/**
-		 * 设置 上级ID
-		 * @param shopId 上级ID
+		 * 设置 店铺ID
+		 * @param shopId 店铺ID
 		 * @return 当前对象
 		*/
 		public ExampleOrder setShopId(String shopId) {

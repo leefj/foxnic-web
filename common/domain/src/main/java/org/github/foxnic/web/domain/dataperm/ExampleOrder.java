@@ -18,8 +18,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 销售订单
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-14 16:09:13
- * @sign C981CFF9C2FFB3E8CD1D15782FDA64B4
+ * @since 2021-10-14 16:57:39
+ * @sign F4D68BC19FA0EA49D24E1285B74C5739
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -62,9 +62,9 @@ public class ExampleOrder extends Entity {
 	private BigDecimal amount;
 	
 	/**
-	 * 上级ID：上级ID
+	 * 店铺ID：店铺ID
 	*/
-	@ApiModelProperty(required = false,value="上级ID" , notes = "上级ID")
+	@ApiModelProperty(required = false,value="店铺ID" , notes = "店铺ID")
 	private String shopId;
 	
 	/**
@@ -235,17 +235,17 @@ public class ExampleOrder extends Entity {
 	}
 	
 	/**
-	 * 获得 上级ID<br>
-	 * 上级ID
-	 * @return 上级ID
+	 * 获得 店铺ID<br>
+	 * 店铺ID
+	 * @return 店铺ID
 	*/
 	public String getShopId() {
 		return shopId;
 	}
 	
 	/**
-	 * 设置 上级ID
-	 * @param shopId 上级ID
+	 * 设置 店铺ID
+	 * @param shopId 店铺ID
 	 * @return 当前对象
 	*/
 	public ExampleOrder setShopId(String shopId) {

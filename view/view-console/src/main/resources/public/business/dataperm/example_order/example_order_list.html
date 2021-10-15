@@ -2,7 +2,7 @@
 /**
  * 销售订单 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-14 16:24:45
+ * @since 2021-10-15 15:10:30
  */
  -->
  <!DOCTYPE html>
@@ -34,14 +34,10 @@
             <div class="search-input-rows" style="opacity: 0">
                 <!-- 搜索输入区域 -->
                 <div class="layui-form toolbar search-inputs">
-                    <!-- 主键 , id ,typeName=text_input, isHideInSearch=false -->
+                    <!-- 主键 , id ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 品名 , productId ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('主键')}" class="search-label id-label">主键</span><span class="search-colon">:</span></div>
-                        <input id="id" class="layui-input search-input" style="width: 140px" type="text" />
-                    </div>
-                    <!-- 商品ID , productId ,typeName=text_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('商品ID')}" class="search-label productId-label">商品ID</span><span class="search-colon">:</span></div>
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('品名')}" class="search-label productId-label">品名</span><span class="search-colon">:</span></div>
                         <input id="productId" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
                     <!-- 售价 , price ,typeName=number_input, isHideInSearch=false -->
@@ -59,14 +55,14 @@
                         <div class="search-label-div" style=""><span th:text="${lang.translate('金额')}" class="search-label amount-label">金额</span><span class="search-colon">:</span></div>
                             <input id="amount" class="layui-input search-input" style="width: 140px" type="text" autocomplete="off" input-type="number_input" integer="false" decimal="true" allow-negative="true" step="1.0" min-value="" max-value="" scale="0"/>
                     </div>
-                    <!-- 上级ID , shopId ,typeName=text_input, isHideInSearch=false -->
+                    <!-- 店铺 , shopId ,typeName=select_box, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('上级ID')}" class="search-label shopId-label">上级ID</span><span class="search-colon">:</span></div>
-                        <input id="shopId" class="layui-input search-input" style="width: 140px" type="text" />
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('店铺')}" class="search-label shopId-label">店铺</span><span class="search-colon">:</span></div>
+                        <div id="shopId" th:data="${'/service-dataperm/dp-example-shop/query-list'}" style="width:140px"></div>
                     </div>
-                    <!-- 销售人员ID , salesId ,typeName=text_input, isHideInSearch=false -->
+                    <!-- 导购 , salesId ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('销售人员ID')}" class="search-label salesId-label">销售人员ID</span><span class="search-colon">:</span></div>
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('导购')}" class="search-label salesId-label">导购</span><span class="search-colon">:</span></div>
                         <input id="salesId" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
 
@@ -97,19 +93,14 @@
 <!-- 表格工具栏 -->
 <script type="text/html" id="toolbarTemplate">
     <div class="layui-btn-container">
-        <button th:if="${perm.checkAuth('dp_example_order:create')}" id="add-button" class="layui-btn icon-btn layui-btn-sm create-new-button" lay-event="create"><i class="layui-icon">&#xe654;</i><span th:text="${lang.translate('新建')}">新建</span></button>
-        <button th:if="${perm.checkAuth('dp_example_order:delete-by-ids')}" id="delete-button" class="layui-btn icon-btn layui-btn-danger layui-btn-sm batch-delete-button" lay-event="batch-del"><i class="layui-icon">&#xe67e;</i><span th:text="${lang.translate('删除')}">删除</span></button>
     </div>
 </script>
 
 <!-- 表格操作列 -->
 <script type="text/html" id="tableOperationTemplate">
 
-    <button th:if="${perm.checkAuth('dp_example_order:view-form')}" class="layui-btn layui-btn-primary layui-btn-xs ops-view-button" lay-event="view" th:text="${lang.translate('查看')}" data-id="{{d.id}}">查看</button>
-    <button th:if="${perm.checkAnyAuth('dp_example_order:update','dp_example_order:save')}" class="layui-btn layui-btn-primary layui-btn-xs ops-edit-button" lay-event="edit" th:text="${lang.translate('修改')}" data-id="{{d.id}}">修改</button>
 
 
-    <button th:if="${perm.checkAuth('dp_example_order:delete')}" class="layui-btn layui-btn-xs layui-btn-danger ops-delete-button" lay-event="del" th:text="${lang.translate('删除')}" data-id="{{d.id}}">删除</button>
 
 
 </script>

@@ -36,7 +36,7 @@ public class TenantConfig extends BaseCodeConfig<SYS_TENANT> {
         view.field(SYS_TENANT.COMPANY_ID).basic().label("公司")
                 .form().selectBox()
                 .queryApi(CompanyServiceProxy.QUERY_PAGED_LIST).paging(true).size(10)
-                .textField(CompanyMeta.NAME).valueField(CompanyMeta.ID).fillBy(TenantMeta.COMPANY)
+                .textField(CompanyMeta.NAME).valueField(CompanyMeta.ID).fillWith(TenantMeta.COMPANY)
                 .search().inputWidth(200)
                 .table().fillBy(TenantMeta.COMPANY,CompanyMeta.NAME)
         ;

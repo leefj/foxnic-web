@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2021-10-14 15:55:07
+ * @since 2021-10-14 16:57:12
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -1012,9 +1012,9 @@ public class FoxnicWeb {
 		public static final DBField AMOUNT = new DBField(DBDataType.DECIMAL , "amount","amount","金额","金额",false,false,true);
 		
 		/**
-		 * 上级ID
+		 * 店铺ID
 		*/
-		public static final DBField SHOP_ID = new DBField(DBDataType.STRING , "shop_id","shopId","上级ID","上级ID",false,false,true);
+		public static final DBField SHOP_ID = new DBField(DBDataType.STRING , "shop_id","shopId","店铺ID","店铺ID",false,false,true);
 		
 		/**
 		 * 销售人员ID

@@ -37,6 +37,9 @@ import java.math.BigDecimal;
 import org.github.foxnic.web.domain.dataperm.ExampleShop;
 import org.github.foxnic.web.domain.dataperm.ExampleProduct;
 import org.github.foxnic.web.domain.hrm.Employee;
+import org.github.foxnic.web.domain.dataperm.meta.ExampleProductMeta;
+import org.github.foxnic.web.domain.hrm.meta.EmployeeMeta;
+import org.github.foxnic.web.domain.hrm.meta.PersonMeta;
 import io.swagger.annotations.Api;
 import com.github.xiaoymin.knife4j.annotations.ApiSort;
 import io.swagger.annotations.ApiOperation;
@@ -52,7 +55,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 销售订单表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-14 16:24:45
+ * @since 2021-10-15 15:10:27
 */
 
 @Api(tags = "销售订单")
@@ -74,7 +77,7 @@ public class ExampleOrderController extends SuperController {
 		@ApiImplicitParam(name = ExampleOrderVOMeta.PRICE , value = "售价" , required = false , dataTypeClass=BigDecimal.class , example = "53.19"),
 		@ApiImplicitParam(name = ExampleOrderVOMeta.QUANTITY , value = "数量" , required = false , dataTypeClass=Integer.class , example = "93"),
 		@ApiImplicitParam(name = ExampleOrderVOMeta.AMOUNT , value = "金额" , required = false , dataTypeClass=BigDecimal.class , example = "4946.41"),
-		@ApiImplicitParam(name = ExampleOrderVOMeta.SHOP_ID , value = "上级ID" , required = false , dataTypeClass=String.class , example = "500998069018431488"),
+		@ApiImplicitParam(name = ExampleOrderVOMeta.SHOP_ID , value = "店铺ID" , required = false , dataTypeClass=String.class , example = "500998069018431488"),
 		@ApiImplicitParam(name = ExampleOrderVOMeta.SALES_ID , value = "销售人员ID" , required = false , dataTypeClass=String.class , example = "501032360024739840"),
 	})
 	@ApiOperationSupport(order=1)
@@ -131,7 +134,7 @@ public class ExampleOrderController extends SuperController {
 		@ApiImplicitParam(name = ExampleOrderVOMeta.PRICE , value = "售价" , required = false , dataTypeClass=BigDecimal.class , example = "53.19"),
 		@ApiImplicitParam(name = ExampleOrderVOMeta.QUANTITY , value = "数量" , required = false , dataTypeClass=Integer.class , example = "93"),
 		@ApiImplicitParam(name = ExampleOrderVOMeta.AMOUNT , value = "金额" , required = false , dataTypeClass=BigDecimal.class , example = "4946.41"),
-		@ApiImplicitParam(name = ExampleOrderVOMeta.SHOP_ID , value = "上级ID" , required = false , dataTypeClass=String.class , example = "500998069018431488"),
+		@ApiImplicitParam(name = ExampleOrderVOMeta.SHOP_ID , value = "店铺ID" , required = false , dataTypeClass=String.class , example = "500998069018431488"),
 		@ApiImplicitParam(name = ExampleOrderVOMeta.SALES_ID , value = "销售人员ID" , required = false , dataTypeClass=String.class , example = "501032360024739840"),
 	})
 	@ApiOperationSupport( order=4 , ignoreParameters = { ExampleOrderVOMeta.PAGE_INDEX , ExampleOrderVOMeta.PAGE_SIZE , ExampleOrderVOMeta.SEARCH_FIELD , ExampleOrderVOMeta.FUZZY_FIELD , ExampleOrderVOMeta.SEARCH_VALUE , ExampleOrderVOMeta.SORT_FIELD , ExampleOrderVOMeta.SORT_TYPE , ExampleOrderVOMeta.IDS } )
@@ -154,7 +157,7 @@ public class ExampleOrderController extends SuperController {
 		@ApiImplicitParam(name = ExampleOrderVOMeta.PRICE , value = "售价" , required = false , dataTypeClass=BigDecimal.class , example = "53.19"),
 		@ApiImplicitParam(name = ExampleOrderVOMeta.QUANTITY , value = "数量" , required = false , dataTypeClass=Integer.class , example = "93"),
 		@ApiImplicitParam(name = ExampleOrderVOMeta.AMOUNT , value = "金额" , required = false , dataTypeClass=BigDecimal.class , example = "4946.41"),
-		@ApiImplicitParam(name = ExampleOrderVOMeta.SHOP_ID , value = "上级ID" , required = false , dataTypeClass=String.class , example = "500998069018431488"),
+		@ApiImplicitParam(name = ExampleOrderVOMeta.SHOP_ID , value = "店铺ID" , required = false , dataTypeClass=String.class , example = "500998069018431488"),
 		@ApiImplicitParam(name = ExampleOrderVOMeta.SALES_ID , value = "销售人员ID" , required = false , dataTypeClass=String.class , example = "501032360024739840"),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { ExampleOrderVOMeta.PAGE_INDEX , ExampleOrderVOMeta.PAGE_SIZE , ExampleOrderVOMeta.SEARCH_FIELD , ExampleOrderVOMeta.FUZZY_FIELD , ExampleOrderVOMeta.SEARCH_VALUE , ExampleOrderVOMeta.SORT_FIELD , ExampleOrderVOMeta.SORT_TYPE , ExampleOrderVOMeta.IDS } )
@@ -181,6 +184,14 @@ public class ExampleOrderController extends SuperController {
 	public Result<ExampleOrder> getById(String id) {
 		Result<ExampleOrder> result=new Result<>();
 		ExampleOrder exampleOrder=exampleOrderService.getById(id);
+
+		// join 关联的对象
+		exampleOrderService.dao().fill(exampleOrder)
+			.with(ExampleOrderMeta.SALES, EmployeeMeta.PERSON)
+			.with(ExampleOrderMeta.PRODUCT)
+			.with(ExampleOrderMeta.SHOP)
+			.execute();
+
 		result.success(true).data(exampleOrder);
 		return result;
 	}
@@ -201,6 +212,14 @@ public class ExampleOrderController extends SuperController {
 	public Result<List<ExampleOrder>> getByIds(List<String> ids) {
 		Result<List<ExampleOrder>> result=new Result<>();
 		List<ExampleOrder> list=exampleOrderService.getByIds(ids);
+
+		// join 关联的对象
+		exampleOrderService.dao().fill(list)
+			.with(ExampleOrderMeta.SALES, EmployeeMeta.PERSON)
+			.with(ExampleOrderMeta.PRODUCT)
+			.with(ExampleOrderMeta.SHOP)
+			.execute();
+
 		result.success(true).data(list);
 		return result;
 	}
@@ -216,7 +235,7 @@ public class ExampleOrderController extends SuperController {
 		@ApiImplicitParam(name = ExampleOrderVOMeta.PRICE , value = "售价" , required = false , dataTypeClass=BigDecimal.class , example = "53.19"),
 		@ApiImplicitParam(name = ExampleOrderVOMeta.QUANTITY , value = "数量" , required = false , dataTypeClass=Integer.class , example = "93"),
 		@ApiImplicitParam(name = ExampleOrderVOMeta.AMOUNT , value = "金额" , required = false , dataTypeClass=BigDecimal.class , example = "4946.41"),
-		@ApiImplicitParam(name = ExampleOrderVOMeta.SHOP_ID , value = "上级ID" , required = false , dataTypeClass=String.class , example = "500998069018431488"),
+		@ApiImplicitParam(name = ExampleOrderVOMeta.SHOP_ID , value = "店铺ID" , required = false , dataTypeClass=String.class , example = "500998069018431488"),
 		@ApiImplicitParam(name = ExampleOrderVOMeta.SALES_ID , value = "销售人员ID" , required = false , dataTypeClass=String.class , example = "501032360024739840"),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { ExampleOrderVOMeta.PAGE_INDEX , ExampleOrderVOMeta.PAGE_SIZE } )
@@ -226,6 +245,14 @@ public class ExampleOrderController extends SuperController {
 		Result<List<ExampleOrder>> result=new Result<>();
 		List<ExampleOrder> list=exampleOrderService.queryList(sample);
 		result.success(true).data(list);
+
+		// join 关联的对象
+		exampleOrderService.dao().fill(list)
+			.with(ExampleOrderMeta.SALES, EmployeeMeta.PERSON)
+			.with(ExampleOrderMeta.PRODUCT)
+			.with(ExampleOrderMeta.SHOP)
+			.execute();
+
 		return result;
 	}
 
@@ -240,7 +267,7 @@ public class ExampleOrderController extends SuperController {
 		@ApiImplicitParam(name = ExampleOrderVOMeta.PRICE , value = "售价" , required = false , dataTypeClass=BigDecimal.class , example = "53.19"),
 		@ApiImplicitParam(name = ExampleOrderVOMeta.QUANTITY , value = "数量" , required = false , dataTypeClass=Integer.class , example = "93"),
 		@ApiImplicitParam(name = ExampleOrderVOMeta.AMOUNT , value = "金额" , required = false , dataTypeClass=BigDecimal.class , example = "4946.41"),
-		@ApiImplicitParam(name = ExampleOrderVOMeta.SHOP_ID , value = "上级ID" , required = false , dataTypeClass=String.class , example = "500998069018431488"),
+		@ApiImplicitParam(name = ExampleOrderVOMeta.SHOP_ID , value = "店铺ID" , required = false , dataTypeClass=String.class , example = "500998069018431488"),
 		@ApiImplicitParam(name = ExampleOrderVOMeta.SALES_ID , value = "销售人员ID" , required = false , dataTypeClass=String.class , example = "501032360024739840"),
 	})
 	@ApiOperationSupport(order=8)
@@ -249,6 +276,14 @@ public class ExampleOrderController extends SuperController {
 	public Result<PagedList<ExampleOrder>> queryPagedList(ExampleOrderVO sample) {
 		Result<PagedList<ExampleOrder>> result=new Result<>();
 		PagedList<ExampleOrder> list=exampleOrderService.queryPagedList(sample,sample.getPageSize(),sample.getPageIndex());
+
+		// join 关联的对象
+		exampleOrderService.dao().fill(list)
+			.with(ExampleOrderMeta.SALES, EmployeeMeta.PERSON)
+			.with(ExampleOrderMeta.PRODUCT)
+			.with(ExampleOrderMeta.SHOP)
+			.execute();
+
 		result.success(true).data(list);
 		return result;
 	}

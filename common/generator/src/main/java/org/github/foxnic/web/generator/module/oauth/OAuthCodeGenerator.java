@@ -15,7 +15,7 @@ import org.github.foxnic.web.proxy.oauth.ResourzeServiceProxy;
 
 
 public class OAuthCodeGenerator extends SystemCodeGenerator {
- 
+
 	public static void main(String[] args) throws Exception {
 		OAuthCodeGenerator g=new OAuthCodeGenerator();
 //		g.generateSysResource();  //ok
@@ -28,44 +28,44 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 //		g.generateSysRoleUser();
 		g.generateSysMenu();
 //		g.generateSysRoleMenu();
-		
+
 	}
- 
+
 	public OAuthCodeGenerator() {
 		super("service-oauth");
 	}
- 
+
 	public ModuleContext createModuleConfig(DBTable table,int apiSort) {
 		return createModuleConfig(table, "sys_", apiSort);
 	}
-	
- 
 
-	
+
+
+
 	public void generateSysOAuthClient() throws Exception {
 		//创建配置
 		ModuleContext cfg=createModuleConfig(SYS_OAUTH_CLIENT.$TABLE, 7);
-		
+
 		//文件生成覆盖模式
 		cfg.overrides()
 		.setServiceIntfAnfImpl(WriteMode.CREATE_IF_NOT_EXISTS) //服务与接口
 		.setControllerAndAgent(WriteMode.CREATE_IF_NOT_EXISTS) //Rest
 		.setPageController(WriteMode.CREATE_IF_NOT_EXISTS) //页面控制器
 		.setFormPage(WriteMode.CREATE_IF_NOT_EXISTS) //表单HTML页
-		.setListPage(WriteMode.CREATE_IF_NOT_EXISTS); //列表HTML页	
- 
+		.setListPage(WriteMode.CREATE_IF_NOT_EXISTS); //列表HTML页
+
 		//生成代码
 		cfg.buildAll();
 	}
-	
-	
-	
+
+
+
 	public void generateSysSessionOnline() throws Exception {
 		//创建配置
 		ModuleContext cfg=createModuleConfig(SYS_SESSION_ONLINE.$TABLE, 6);
 
 		cfg.getPoClassFile().addSimpleProperty(User.class,"user","账户","");
-		
+
 		//文件生成覆盖模式
 		cfg.overrides()
 		.setServiceIntfAnfImpl(WriteMode.CREATE_IF_NOT_EXISTS) //服务与接口
@@ -184,12 +184,12 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		//生成代码
 		cfg.buildAll();
 	}
-	
-	
+
+
 	public void generateSysToken() throws Exception {
 		//创建配置
 		ModuleContext cfg=createModuleConfig(SYS_TOKEN.$TABLE, 6);
-		
+
 		//文件生成覆盖模式
 		cfg.overrides()
 		.setServiceIntfAnfImpl(WriteMode.CREATE_IF_NOT_EXISTS) //服务与接口
@@ -197,12 +197,12 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		.setPageController(WriteMode.CREATE_IF_NOT_EXISTS) //页面控制器
 		.setFormPage(WriteMode.CREATE_IF_NOT_EXISTS) //表单HTML页
 		.setListPage(WriteMode.CREATE_IF_NOT_EXISTS); //列表HTML页
- 
+
 		//生成代码
 		cfg.buildAll();
 	}
-	
-	
+
+
 	public void generateSysRole() throws Exception {
 		//创建配置
 		ModuleContext cfg=createModuleConfig(SYS_ROLE.$TABLE, 6);
@@ -229,16 +229,16 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		.setPageController(WriteMode.CREATE_IF_NOT_EXISTS) //页面控制器
 		.setFormPage(WriteMode.CREATE_IF_NOT_EXISTS) //表单HTML页
 		.setListPage(WriteMode.CREATE_IF_NOT_EXISTS); //列表HTML页
- 
+
 		//生成代码
 		cfg.buildAll();
 	}
-	
-	
+
+
 	public void generateSysRoleUser() throws Exception {
 		//创建配置
 		ModuleContext cfg=createModuleConfig(SYS_ROLE_USER.$TABLE, 6);
-		
+
 		//文件生成覆盖模式
 		cfg.overrides()
 		.setServiceIntfAnfImpl(WriteMode.CREATE_IF_NOT_EXISTS) //服务与接口
@@ -246,15 +246,15 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		.setPageController(WriteMode.IGNORE) //页面控制器
 		.setFormPage(WriteMode.IGNORE) //表单HTML页
 		.setListPage(WriteMode.IGNORE); //列表HTML页
- 
+
 		//生成代码
 		cfg.buildAll();
 	}
-	
+
 	public void generateSysRoleMenu() throws Exception {
 		//创建配置
 		ModuleContext cfg=createModuleConfig(SYS_ROLE_MENU.$TABLE, 6);
-		
+
 		//文件生成覆盖模式
 		cfg.overrides()
 		.setServiceIntfAnfImpl(WriteMode.CREATE_IF_NOT_EXISTS) //服务与接口
@@ -262,11 +262,11 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		.setPageController(WriteMode.IGNORE) //页面控制器
 		.setFormPage(WriteMode.IGNORE) //表单HTML页
 		.setListPage(WriteMode.IGNORE); //列表HTML页
- 
+
 		//生成代码
 		cfg.buildAll();
 	}
-	
+
 	public void generateSysMenu() throws Exception {
 		//创建配置
 		ModuleContext cfg=createModuleConfig(SYS_MENU.$TABLE, 6);
@@ -295,9 +295,9 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 //		cfg.view().field(SYS_MENU.PATH_RESOURCE_ID).selectField().queryApi(ResourzeServiceProxy.QUERY_PAGED_LIST).muliti(false).paging(true).fillBy(MenuVOMeta.PATH_RESOURCE_ID);
 //		cfg.view().field(MenuMeta.RESOURCE_IDS).label("资源清单").selectField().queryApi(ResourzeServiceProxy.QUERY_PAGED_LIST).muliti(true).paging(true).fillBy(MenuVOMeta.RESOURCE_IDS);
 
-		cfg.view().field(SYS_MENU.PATH_RESOURCE_ID).form().selectBox().queryApi(ResourzeServiceProxy.QUERY_PAGED_LIST).muliti(false).paging(true).fillBy(MenuVOMeta.PATH_RESOURCE_ID);
+		cfg.view().field(SYS_MENU.PATH_RESOURCE_ID).form().selectBox().queryApi(ResourzeServiceProxy.QUERY_PAGED_LIST).muliti(false).paging(true).fillWith(MenuVOMeta.PATH_RESOURCE_ID);
 		cfg.view().field(MenuMeta.RESOURCE_IDS).basic().label("资源清单")
-				.form().selectBox().queryApi(ResourzeServiceProxy.QUERY_PAGED_LIST).muliti(true).paging(true).fillBy(MenuVOMeta.RESOURCE_IDS);
+				.form().selectBox().queryApi(ResourzeServiceProxy.QUERY_PAGED_LIST).muliti(true).paging(true).fillWith(MenuVOMeta.RESOURCE_IDS);
 
 		cfg.view().field(SYS_MENU.LABEL).form().validate().required();
 		cfg.view().field(SYS_MENU.TYPE).form().validate().required();
@@ -309,13 +309,13 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		.setPageController(WriteMode.CREATE_IF_NOT_EXISTS) //页面控制器
 		.setFormPage(WriteMode.WRITE_TEMP_FILE) //表单HTML页
 		.setListPage(WriteMode.CREATE_IF_NOT_EXISTS); //列表HTML页
- 
+
 		//生成代码
 		cfg.buildAll();
 	}
 
 
-	
-	
+
+
 
 }

@@ -21,7 +21,7 @@ public class DataPermRelationManager extends RelationManager {
 
 		//订单 - 店铺
 		this.property(ExampleOrderMeta.SHOP_PROP)
-				.using(FoxnicWeb.DP_EXAMPLE_ORDER.SHOP_ID).join(FoxnicWeb.DP_EXAMPLE_SHOP.ID)
+				.using(FoxnicWeb.DP_EXAMPLE_ORDER.SHOP_ID).join(FoxnicWeb.DP_EXAMPLE_SHOP.ORG_ID)
 		;
 
 		//订单 - 导购

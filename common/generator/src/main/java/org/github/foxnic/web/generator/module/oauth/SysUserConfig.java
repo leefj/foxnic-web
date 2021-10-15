@@ -106,7 +106,7 @@ public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
                 .basic().label("角色")
 //				.list().hidden(true)
                 .search().inputWidth(180)
-                .form().selectBox().muliti(true).queryApi(RoleServiceProxy.QUERY_LIST).fillBy(UserMeta.ROLES)
+                .form().selectBox().muliti(true).queryApi(RoleServiceProxy.QUERY_LIST).fillWith(UserMeta.ROLES)
                 .valueField(RoleMeta.ID).textField(UserMeta.NAME)
         ;
 

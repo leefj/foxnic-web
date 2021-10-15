@@ -10,8 +10,14 @@ import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.DP_EXAMPLE_ORDER;
 import org.github.foxnic.web.domain.dataperm.ExampleProduct;
 import org.github.foxnic.web.domain.dataperm.ExampleShop;
+import org.github.foxnic.web.domain.dataperm.meta.ExampleOrderMeta;
+import org.github.foxnic.web.domain.dataperm.meta.ExampleProductMeta;
+import org.github.foxnic.web.domain.dataperm.meta.ExampleShopMeta;
 import org.github.foxnic.web.domain.hrm.Employee;
+import org.github.foxnic.web.domain.hrm.meta.EmployeeMeta;
+import org.github.foxnic.web.domain.hrm.meta.PersonMeta;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
+import org.github.foxnic.web.proxy.dataperm.ExampleShopServiceProxy;
 
 
 public class DPExampleOrderConfig extends BaseCodeConfig<DP_EXAMPLE_ORDER> {
@@ -29,20 +35,61 @@ public class DPExampleOrderConfig extends BaseCodeConfig<DP_EXAMPLE_ORDER> {
 
 	@Override
 	public void configService(ServiceOptions service) {
+
 	}
 
 	@Override
 	public void configController(ControllerOptions controller) {
+
+		// 为 queryPagedList 加入 join (覆盖默认)
+		controller.fillQueryPagedList()
+				.with(ExampleOrderMeta.SALES,EmployeeMeta.PERSON)
+				.with(ExampleOrderMeta.PRODUCT)
+				.with(ExampleOrderMeta.SHOP)
+		;
+
+		// 为 queryList 加入 join
+		controller.fillQueryList()
+				.with(ExampleOrderMeta.SALES,EmployeeMeta.PERSON)
+				.with(ExampleOrderMeta.PRODUCT)
+				.with(ExampleOrderMeta.SHOP)
+		;
+
+		// 为 getById 加入 join (覆盖默认)
+		controller.fillGetById()
+				.with(ExampleOrderMeta.SALES,EmployeeMeta.PERSON)
+				.with(ExampleOrderMeta.PRODUCT)
+				.with(ExampleOrderMeta.SHOP)
+		;
+
+		// 为 getByIds 加入 join
+		controller.fillGetByIds()
+				.with(ExampleOrderMeta.SALES,EmployeeMeta.PERSON)
+				.with(ExampleOrderMeta.PRODUCT)
+				.with(ExampleOrderMeta.SHOP)
+		;
 	}
 
 	@Override
 	public void configFields(ViewOptions view) {
+		view.field(DP_EXAMPLE_ORDER.ID).basic().hidden();
+		view.field(DP_EXAMPLE_ORDER.PRODUCT_ID).basic().label("品名").table().fillBy(ExampleOrderMeta.PRODUCT,ExampleProductMeta.NAME);
+
+		view.field(DP_EXAMPLE_ORDER.SHOP_ID).basic().label("店铺")
+				.form().selectBox().queryApi(ExampleShopServiceProxy.QUERY_LIST).paging(false).textField(ExampleShopMeta.NAME).valueField(ExampleShopMeta.ORG_ID).toolbar(false).filter(false)
+				.fillWith(ExampleOrderMeta.SHOP);
+
+
+		view.field(DP_EXAMPLE_ORDER.SALES_ID).basic().label("导购")
+				.table()
+				.fillBy(ExampleOrderMeta.SALES,
+						EmployeeMeta.PERSON, PersonMeta.NAME);
 
 	}
 
 	@Override
 	public void configList(ViewOptions view, ListOptions list) {
-
+		list.disableFormView().disableModify().disableCreateNew().disableBatchDelete().disableSingleDelete();
 	}
 
 	@Override
