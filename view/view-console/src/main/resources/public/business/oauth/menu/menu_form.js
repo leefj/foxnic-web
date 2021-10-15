@@ -3,19 +3,19 @@
  * @author 李方捷 , leefangjie@qq.com
  * @since 2021-06-08 10:22:55
  */
- 
+
 function FormPage() {
 
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect;
 	const moduleURL="/service-oauth/sys-menu";
-	
+
 	/**
       * 入口函数，初始化
       */
-	this.init=function(layui) { 	
+	this.init=function(layui) {
      	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload, dropdown=layui.dropdown;
 		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
-		
+
 		//渲染表单组件
 		renderFormFields();
 
@@ -50,9 +50,9 @@ function FormPage() {
 					saveForm();
 				}
 			}});
- 
+
 	}
-	
+
 	function loadFormData(id) {
 		admin.request(moduleURL+"/get-by-id",{id:id},function(r) {
 			if(r.success) {
@@ -62,9 +62,9 @@ function FormPage() {
 			}
 		});
 	};
-	
+
 	window.loadFormData=loadFormData;
- 
+
 	/**
       * 渲染表单组件
       */
@@ -78,10 +78,11 @@ function FormPage() {
 			paging: true,
 			pageRemote: true,
 			autoRow: true,
+			pageSize: 20,
 			valueDirection:"column",
 			toolbar: {show:true,showIcon:true,list:[ "ALL", "CLEAR","REVERSE"]},
 			//转换数据
-			searchField: "name,url", //请自行调整用于搜索的字段名称
+			searchField: "name,url,module", //请自行调整用于搜索的字段名称
 			extraParam: {type:"page"}, //额外的查询参数，Object 或是 返回 Object 的函数
 			template({ item, sels, name, value }){
 				return item.url  + '<span style="position: absolute; right: 10px; color: #8799a3">'+item.tableName+'</span>'
@@ -113,10 +114,11 @@ function FormPage() {
 			paging: true,
 			pageRemote: true,
 			autoRow: true,
+			pageSize: 50,
 			valueDirection:"column",
 			toolbar: {show:true,showIcon:true,list:[ "ALL", "CLEAR","REVERSE"]},
 			//转换数据
-			searchField: "url,name", //请自行调整用于搜索的字段名称
+			searchField: "url,name,module", //请自行调整用于搜索的字段名称
 			extraParam: {}, //额外的查询参数，Object 或是 返回 Object 的函数
 			template({ item, sels, name, value }){
 				return '<div style="color: #8799a3">['+item.method+']&nbsp;</div>'+item.url  + '<span style="position: absolute; right: 10px; color: #8799a3">'+item.tableName+'</span>'
@@ -135,7 +137,7 @@ function FormPage() {
 		});
 
 	}
-	
+
 	/**
       * 填充表单数据
       */
@@ -189,17 +191,17 @@ function FormPage() {
 			$("#icon-button-el").attr("class",css);
 		});
 	});
-	
+
 	/**
       * 保存数据，表单提交事件
       */
     function bindSubmitEvent() {
-    
+
 	    form.on('submit(submit-button)', function (data) {
 			saveForm(data);
 	        return false;
 	    });
-	    
+
     }
 
 	function getFormData() {

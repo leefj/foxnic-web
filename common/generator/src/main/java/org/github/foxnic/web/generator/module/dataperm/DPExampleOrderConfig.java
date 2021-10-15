@@ -41,33 +41,33 @@ public class DPExampleOrderConfig extends BaseCodeConfig<DP_EXAMPLE_ORDER> {
 	@Override
 	public void configController(ControllerOptions controller) {
 
-		// 为 queryPagedList 加入 join (覆盖默认)
-		controller.fillQueryPagedList()
-				.with(ExampleOrderMeta.SALES,EmployeeMeta.PERSON)
-				.with(ExampleOrderMeta.PRODUCT)
-				.with(ExampleOrderMeta.SHOP)
-		;
-
-		// 为 queryList 加入 join
-		controller.fillQueryList()
-				.with(ExampleOrderMeta.SALES,EmployeeMeta.PERSON)
-				.with(ExampleOrderMeta.PRODUCT)
-				.with(ExampleOrderMeta.SHOP)
-		;
-
-		// 为 getById 加入 join (覆盖默认)
-		controller.fillGetById()
-				.with(ExampleOrderMeta.SALES,EmployeeMeta.PERSON)
-				.with(ExampleOrderMeta.PRODUCT)
-				.with(ExampleOrderMeta.SHOP)
-		;
-
-		// 为 getByIds 加入 join
-		controller.fillGetByIds()
-				.with(ExampleOrderMeta.SALES,EmployeeMeta.PERSON)
-				.with(ExampleOrderMeta.PRODUCT)
-				.with(ExampleOrderMeta.SHOP)
-		;
+//		// 为 queryPagedList 加入 join (覆盖默认)
+//		controller.fillQueryPagedList()
+//				.with(ExampleOrderMeta.SALES,EmployeeMeta.PERSON)
+//				.with(ExampleOrderMeta.PRODUCT)
+//				.with(ExampleOrderMeta.SHOP)
+//		;
+//
+//		// 为 queryList 加入 join
+//		controller.fillQueryList()
+//				.with(ExampleOrderMeta.SALES,EmployeeMeta.PERSON)
+//				.with(ExampleOrderMeta.PRODUCT)
+//				.with(ExampleOrderMeta.SHOP)
+//		;
+//
+//		// 为 getById 加入 join (覆盖默认)
+//		controller.fillGetById()
+//				.with(ExampleOrderMeta.SALES,EmployeeMeta.PERSON)
+//				.with(ExampleOrderMeta.PRODUCT)
+//				.with(ExampleOrderMeta.SHOP)
+//		;
+//
+//		// 为 getByIds 加入 join
+//		controller.fillGetByIds()
+//				.with(ExampleOrderMeta.SALES,EmployeeMeta.PERSON)
+//				.with(ExampleOrderMeta.PRODUCT)
+//				.with(ExampleOrderMeta.SHOP)
+//		;
 	}
 
 	@Override
@@ -76,7 +76,8 @@ public class DPExampleOrderConfig extends BaseCodeConfig<DP_EXAMPLE_ORDER> {
 		view.field(DP_EXAMPLE_ORDER.PRODUCT_ID).basic().label("品名").table().fillBy(ExampleOrderMeta.PRODUCT,ExampleProductMeta.NAME);
 
 		view.field(DP_EXAMPLE_ORDER.SHOP_ID).basic().label("店铺")
-				.form().selectBox().queryApi(ExampleShopServiceProxy.QUERY_LIST).paging(false).textField(ExampleShopMeta.NAME).valueField(ExampleShopMeta.ORG_ID).toolbar(false).filter(false)
+				.form().selectBox().queryApi(ExampleShopServiceProxy.QUERY_LIST).paging(false)
+				.textField(ExampleShopMeta.NAME).valueField(ExampleShopMeta.ORG_ID).toolbar(false).filter(false)
 				.fillWith(ExampleOrderMeta.SHOP);
 
 
