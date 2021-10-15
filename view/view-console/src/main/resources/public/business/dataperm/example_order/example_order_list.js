@@ -1,7 +1,7 @@
 /**
  * 销售订单 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-15 15:48:10
+ * @since 2021-10-15 17:31:19
  */
 
 
@@ -81,7 +81,6 @@ function ListPage() {
 					,{ field: 'shopId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('店铺'), templet: function (d) { return templet('shopId',fox.joinLabel(d.shop,"name"),d);}}
 					,{ field: 'salesId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('导购') , templet: function (d) { return templet('salesId',fox.getProperty(d,["sales","person","name"]),d);} }
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }}
-					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 				]],
 				done: function (data) { window.pageExt.list.afterQuery && window.pageExt.list.afterQuery(data); },
 				footer : {
@@ -118,7 +117,7 @@ function ListPage() {
 		value.price={ inputType:"number_input", value: $("#price").val()};
 		value.quantity={ inputType:"number_input", value: $("#quantity").val()};
 		value.amount={ inputType:"number_input", value: $("#amount").val()};
-		value.shopId={ inputType:"select_box", value: xmSelect.get("#shopId",true).getValue("value"), fillWith:"shop",field:"orgId", label:xmSelect.get("#shopId",true).getValue("nameStr") };
+		value.shopId={ inputType:"select_box", value: $("#shopId").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"", fillWith:"shop",field:"shop_id"};
 		value.salesId={ inputType:"button",value: $("#salesId").val(),fillBy:["sales","person","name"] };
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){

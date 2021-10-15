@@ -76,6 +76,7 @@ public class DPExampleOrderConfig extends BaseCodeConfig<DP_EXAMPLE_ORDER> {
 		view.field(DP_EXAMPLE_ORDER.PRODUCT_ID).basic().label("品名").table().fillBy(ExampleOrderMeta.PRODUCT,ExampleProductMeta.NAME);
 
 		view.field(DP_EXAMPLE_ORDER.SHOP_ID).basic().label("店铺")
+				.search().fuzzySearch().field(DP_EXAMPLE_ORDER.SHOP_ID)
 				.form().selectBox().queryApi(ExampleShopServiceProxy.QUERY_LIST).paging(false)
 				.textField(ExampleShopMeta.NAME).valueField(ExampleShopMeta.ORG_ID).toolbar(false).filter(false)
 				.fillWith(ExampleOrderMeta.SHOP);
@@ -90,7 +91,7 @@ public class DPExampleOrderConfig extends BaseCodeConfig<DP_EXAMPLE_ORDER> {
 
 	@Override
 	public void configList(ViewOptions view, ListOptions list) {
-		list.disableFormView().disableModify().disableCreateNew().disableBatchDelete().disableSingleDelete();
+		list.disableFormView().disableModify().disableCreateNew().disableBatchDelete().disableSingleDelete().disableSpaceColumn();
 	}
 
 	@Override
