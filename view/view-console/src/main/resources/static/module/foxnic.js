@@ -1139,6 +1139,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
          * 获得下拉框的选中值，参数为参数 name 属性
          * */
         getSelectedValue:function (selectId,muliti) {
+            if(selectId.startWith("#")) selectId=selectId.substr(1);
             var inst=xmSelect.get("#"+selectId,true);
             if(inst==null) return "";
             var value=inst.getValue("value");

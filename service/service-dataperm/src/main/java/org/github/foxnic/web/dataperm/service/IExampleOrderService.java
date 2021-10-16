@@ -21,7 +21,7 @@ import com.github.foxnic.dao.data.SaveMode;
  * 销售订单表 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-15 15:48:09
+ * @since 2021-10-16 14:53:49
 */
 
 public interface IExampleOrderService extends ISuperService<ExampleOrder> {

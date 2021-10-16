@@ -1,7 +1,7 @@
 /**
  * 销售订单 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-15 17:31:19
+ * @since 2021-10-16 14:53:51
  */
 
 
@@ -111,14 +111,11 @@ function ListPage() {
 	/**
       * 刷新表格数据
       */
-	function refreshTableData(sortField,sortType) {
+	function refreshTableData(sortField,sortType,reset) {
 		var value = {};
-		value.productId={ inputType:"button",value: $("#productId").val(),fillBy:["product","name"] };
-		value.price={ inputType:"number_input", value: $("#price").val()};
-		value.quantity={ inputType:"number_input", value: $("#quantity").val()};
-		value.amount={ inputType:"number_input", value: $("#amount").val()};
-		value.shopId={ inputType:"select_box", value: $("#shopId").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"", fillWith:"shop",field:"shop_id"};
-		value.salesId={ inputType:"button",value: $("#salesId").val(),fillBy:["sales","person","name"] };
+		value.productId={ inputType:"button",value: $("#productId").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" ",fillBy:["product","name"] ,field:"name"};
+		value.shopId={ inputType:"select_box", value: xmSelect.get("#shopId",true).getValue("value"), fillWith:"shop",field:"shop_id", label:xmSelect.get("#shopId",true).getValue("nameStr") };
+		value.salesId={ inputType:"button",value: $("#salesId").val(),fillBy:["sales","person","name"] ,label:$("#salesId-button").text() };
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;
@@ -128,7 +125,11 @@ function ListPage() {
 			ps.sortField=sortField;
 			ps.sortType=sortType;
 		}
-		table.reload('data-table', { where : ps });
+		if(reset) {
+			table.reload('data-table', { where : ps , page:{ curr:1 } });
+		} else {
+			table.reload('data-table', { where : ps });
+		}
 	}
 
 
@@ -159,7 +160,7 @@ function ListPage() {
 		//渲染 shopId 下拉字段
 		fox.renderSelectBox({
 			el: "shopId",
-			radio: false,
+			radio: true,
 			size: "small",
 			filterable: false,
 			//转换数据
@@ -185,12 +186,12 @@ function ListPage() {
 		//回车键查询
         $(".search-input").keydown(function(event) {
 			if(event.keyCode !=13) return;
-		  	refreshTableData();
+		  	refreshTableData(null,null,true);
         });
 
         // 搜索按钮点击事件
         $('#search-button').click(function () {
-           refreshTableData();
+			refreshTableData(null,null,true);
         });
 
 		// 搜索按钮点击事件
@@ -204,6 +205,21 @@ function ListPage() {
 			});
 		});
 
+		// 请选择人员对话框
+		$("#salesId-button").click(function(){
+				var salesIdDialogOptions={
+				field:"salesId",
+				inputEl:$("#salesId"),
+				buttonEl:$(this),
+				single:false,
+				//限制浏览的范围，指定根节点 id 或 code ，优先匹配ID
+				root: "",
+				targetType:"emp",
+				prepose:function(param){ return window.pageExt.list.beforeDialog && window.pageExt.list.beforeDialog(param);},
+				callback:function(param,result){ window.pageExt.list.afterDialog && window.pageExt.list.afterDialog(param,result);}
+			};
+			fox.chooseEmployee(salesIdDialogOptions);
+		});
 	}
 
 	/**

@@ -1,7 +1,8 @@
 /**
  * 销售订单 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-15 15:48:10
+ * @since 2021-10-16 13:55:21
+ * @version
  */
 
 layui.config({
@@ -45,7 +46,8 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * 对话框打开之前调用，如果返回 null 则不打开对话框
          * */
         beforeDialog:function (param){
-            param.title="覆盖对话框标题";
+            param.title="请选择导购";
+            param.root=fox.getSelectedValue("#shopId",false);
             return param;
         },
         /**

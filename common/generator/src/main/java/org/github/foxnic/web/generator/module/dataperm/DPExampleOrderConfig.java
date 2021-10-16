@@ -7,6 +7,7 @@ import com.github.foxnic.generator.builder.model.VoClassFile;
 import com.github.foxnic.generator.builder.view.option.ListOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
+import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.DP_EXAMPLE_ORDER;
 import org.github.foxnic.web.domain.dataperm.ExampleProduct;
 import org.github.foxnic.web.domain.dataperm.ExampleShop;
@@ -73,18 +74,25 @@ public class DPExampleOrderConfig extends BaseCodeConfig<DP_EXAMPLE_ORDER> {
 	@Override
 	public void configFields(ViewOptions view) {
 		view.field(DP_EXAMPLE_ORDER.ID).basic().hidden();
-		view.field(DP_EXAMPLE_ORDER.PRODUCT_ID).basic().label("品名").table().fillBy(ExampleOrderMeta.PRODUCT,ExampleProductMeta.NAME);
+		view.field(DP_EXAMPLE_ORDER.PRICE).search().hidden();
+		view.field(DP_EXAMPLE_ORDER.QUANTITY).search().hidden();
+		view.field(DP_EXAMPLE_ORDER.AMOUNT).search().hidden();
+
+		view.field(DP_EXAMPLE_ORDER.PRODUCT_ID).basic().label("品名")
+				.search().fuzzySearch().on(FoxnicWeb.DP_EXAMPLE_PRODUCT.NAME)
+				.table().fillBy(ExampleOrderMeta.PRODUCT,ExampleProductMeta.NAME);
 
 		view.field(DP_EXAMPLE_ORDER.SHOP_ID).basic().label("店铺")
-				.search().fuzzySearch().field(DP_EXAMPLE_ORDER.SHOP_ID)
+				.search().on(DP_EXAMPLE_ORDER.SHOP_ID)
 				.form().selectBox().queryApi(ExampleShopServiceProxy.QUERY_LIST).paging(false)
-				.textField(ExampleShopMeta.NAME).valueField(ExampleShopMeta.ORG_ID).toolbar(false).filter(false)
+				.textField(ExampleShopMeta.NAME).valueField(ExampleShopMeta.ORG_ID).toolbar(false).filter(false).muliti(false,false)
 				.fillWith(ExampleOrderMeta.SHOP);
 
 
+
 		view.field(DP_EXAMPLE_ORDER.SALES_ID).basic().label("导购")
-				.table()
-				.fillBy(ExampleOrderMeta.SALES,
+				.form().button().chooseEmployee(true)
+				.table().fillBy(ExampleOrderMeta.SALES,
 						EmployeeMeta.PERSON, PersonMeta.NAME);
 
 	}
