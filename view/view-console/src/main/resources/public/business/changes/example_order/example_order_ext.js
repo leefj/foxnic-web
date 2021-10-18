@@ -139,10 +139,14 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
         moreAction:function (menu,data, it){
             console.log('moreAction',menu,data,it);
         },
-        startProcess:function (selected,it){
+        startProcess:function (selected,it) {
             console.log('startChange',selected,it);
             if(selected==null || selected.length==0) {
                 top.layer.msg("请勾选待审订单",{time:1000});
+                return;
+            }
+            if(selected.length>1) {
+                top.layer.msg("不支持合并审批",{time:1000});
                 return;
             }
             var changeInstanceIds=window.module.getCheckedList("changeInstanceId");
@@ -180,23 +184,22 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             },{delayLoading:500,elms:[$("button")]});
 
         },
-        draftProcess:function (selected,it){
-
-            admin.post("/service-changes/chs-example-order/draft",{billIds:selected,opinion:"起草！"},function (r){
-                if(r.success) {
-                    top.layer.msg("采购订单已处于变更起草状态",{time:1000});
-                    window.module.refreshTableData();
-                } else {
-                    var errs=[];
-                    for (var i = 0; i < r.errors.length; i++) {
-                        if(errs.indexOf(r.errors[i].message)==-1) {
-                            errs.push(r.errors[i].message);
-                        }
-                    }
-                    top.layer.msg(errs.join("<br>"),{time:2000});
-                }
-            },{delayLoading:500,elms:[$("button")]});
-
+        draftProcess:function (selected,it) {
+            debugger
+            var changeInstanceIds=window.module.getCheckedList("changeInstanceId");
+            if(selected==null || selected.length==0) {
+                top.layer.msg("请勾选待审订单",{time:1000});
+                return;
+            }
+            if(selected.length>1) {
+                top.layer.msg("不支持合并审批",{time:1000});
+                return;
+            }
+            if(changeInstanceIds[0]) {
+                this.approve("draft","修改草稿后再次提交");
+            } else {
+                this.startProcess(selected,it);
+            }
         },
         submitProcess:function (selected,it){
             this.approve("submit","修改草稿后再次提交");

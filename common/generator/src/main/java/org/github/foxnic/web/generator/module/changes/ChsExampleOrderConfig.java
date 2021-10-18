@@ -76,8 +76,9 @@ public class ChsExampleOrderConfig extends BaseCodeConfig<CHS_EXAMPLE_ORDER> {
 
 	@Override
 	public void configList(ViewOptions view, ListOptions list) {
+//		list.mulitiSelect(false);
 		list.addToolButton("起草","draftProcess","");
-		list.addToolButton("提交","startProcess","");
+		list.addToolButton("提交","submitProcess","");
 		list.addToolButton("撤回","revokeProcess","");
 		list.addToolButton("作废","abandonProcess","");
 		list.addToolButton("同意","agreeNode","");

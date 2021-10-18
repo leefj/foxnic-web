@@ -86,22 +86,15 @@ public interface ExampleOrderServiceProxy {
 	public static final String APPROVE = API_PREFIX + "approve";
 
 	/**
-	 * 起草
-	 */
-	public static final String DRAFT = API_PREFIX + "draft";
-
-
-
-	/**
 	 * 查询变更示例订单
 	 */
 	public static final String QUERY_LIST = API_PREFIX + "query-list";
-	
+
 	/**
 	 * 分页查询变更示例订单
 	 */
 	public static final String QUERY_PAGED_LIST = API_PREFIX + "query-paged-list";
-	
+
 	/**
 	 * 导出变更示例订单数据(Excel)
 	 */
@@ -111,18 +104,18 @@ public interface ExampleOrderServiceProxy {
 	 * 下载变更示例订单导入模版(Excel)
 	 */
 	public static final String EXPORT_EXCEL_TEMPLATE = API_PREFIX + "export-excel-template";
-	
+
 	/**
 	 * 导入变更示例订单数据(Excel)
 	 */
 	public static final String IMPORT_EXCEL = API_PREFIX + "import-excel";
-	
+
 	/**
 	 * 添加变更示例订单
 	*/
 	@RequestMapping(ExampleOrderServiceProxy.INSERT)
 	Result insert(ExampleOrderVO exampleOrderVO);
-	
+
 	/**
 	 * 删除变更示例订单
 	*/
@@ -140,13 +133,13 @@ public interface ExampleOrderServiceProxy {
 	*/
 	@RequestMapping(ExampleOrderServiceProxy.UPDATE)
 	Result update(ExampleOrderVO exampleOrderVO);
-	
+
 	/**
 	 * 更新变更示例订单
 	*/
 	@RequestMapping(ExampleOrderServiceProxy.SAVE)
 	Result save(ExampleOrderVO exampleOrderVO);
-	
+
 	/**
 	 * 获取变更示例订单
 	*/
@@ -163,14 +156,14 @@ public interface ExampleOrderServiceProxy {
 	*/
 	@RequestMapping(ExampleOrderServiceProxy.QUERY_LIST)
 	Result<List<ExampleOrder>> queryList(ExampleOrderVO sample);
-	
+
 	/**
 	 * 分页查询变更示例订单
 	*/
 	@RequestMapping(ExampleOrderServiceProxy.QUERY_PAGED_LIST)
 	Result<PagedList<ExampleOrder>> queryPagedList(ExampleOrderVO sample);
-	
-	
+
+
 	/**
 	 * 控制器类名
 	 * */

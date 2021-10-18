@@ -247,22 +247,6 @@ public class ExampleOrderController extends SuperController {
 	}
 
 	/**
-	 * 起草流程 <br>
-	 */
-	@ApiOperation(value = "起草流程")
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = ExampleOrderVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
-	})
-	@ApiOperationSupport(order=3)
-	@NotNull(name = ExampleOrderVOMeta.IDS)
-	@SentinelResource(value = ExampleOrderServiceProxy.DRAFT , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
-	@PostMapping(ExampleOrderServiceProxy.DRAFT)
-	public Result draft(ProcessStartVO startVO) {
-		return exampleOrderService.draft(startVO);
-	}
-
-
-	/**
 	 * 查询变更示例订单
 	*/
 	@ApiOperation(value = "查询变更示例订单")

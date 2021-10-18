@@ -1,7 +1,7 @@
 /**
  * 变更示例订单 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-02 20:35:02
+ * @since 2021-10-18 15:44:30
  */
 
 function FormPage() {
@@ -209,7 +209,7 @@ function FormPage() {
 
 		// 请选择人员对话框
 		$("#buyerId-button").click(function(){
-			var buyerIdDialogOptions={
+				var buyerIdDialogOptions={
 				field:"buyerId",
 				formData:getFormData(),
 				inputEl:$("#buyerId"),
@@ -219,7 +219,7 @@ function FormPage() {
 				root: "",
 				targetType:"emp",
 				prepose:function(param){ return window.pageExt.form.beforeDialog && window.pageExt.form.beforeDialog(param);},
-				callback:function(param){ window.pageExt.form.afterDialog && window.pageExt.form.afterDialog(param);}
+				callback:function(param,result){ window.pageExt.form.afterDialog && window.pageExt.form.afterDialog(param,result);}
 			};
 			fox.chooseEmployee(buyerIdDialogOptions);
 		});

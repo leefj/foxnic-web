@@ -1,12 +1,12 @@
 /**
  * 变更示例订单 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-02 20:35:02
+ * @since 2021-10-18 15:44:30
  */
 
 
 function ListPage() {
-        
+
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect;
 	//模块基础路径
 	const moduleURL="/service-changes/chs-example-order";
@@ -15,7 +15,7 @@ function ListPage() {
       * 入口函数，初始化
       */
 	this.init=function(layui) {
-     	
+
      	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload,laydate= layui.laydate;
 		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect,dropdown=layui.dropdown;;
 
@@ -33,8 +33,8 @@ function ListPage() {
 		//绑定行操作按钮事件
     	bindRowOperationEvent();
      }
-     
-     
+
+
      /**
       * 渲染表格
       */
@@ -72,7 +72,7 @@ function ListPage() {
 				where: ps,
 				cols: [[
 					{ fixed: 'left',type: 'numbers' },
-					{ fixed: 'left',type:'checkbox' }
+					{ fixed: 'left',type:'checkbox'}
 					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('主键') , templet: function (d) { return templet('id',d.id,d);}  }
 					,{ field: 'title', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('标题') , templet: function (d) { return templet('title',d.title,d);}  }
 					,{ field: 'code', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('订单编号') , templet: function (d) { return templet('code',d.code,d);}  }
@@ -123,12 +123,12 @@ function ListPage() {
 	/**
       * 刷新表格数据
       */
-	function refreshTableData(sortField,sortType) {
+	function refreshTableData(sortField,sortType,reset) {
 		var value = {};
 		value.title={ inputType:"button",value: $("#title").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" "};
 		value.code={ inputType:"button",value: $("#code").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" "};
-		value.chsType={ inputType:"radio_box", value: xmSelect.get("#chsType",true).getValue("value"), label:xmSelect.get("#chsType",true).getValue("nameStr")};
-		value.chsStatus={ inputType:"radio_box", value: xmSelect.get("#chsStatus",true).getValue("value"), label:xmSelect.get("#chsStatus",true).getValue("nameStr")};
+		value.chsType={ inputType:"radio_box", value: xmSelect.get("#chsType",true).getValue("value"), label:xmSelect.get("#chsType",true).getValue("nameStr") };
+		value.chsStatus={ inputType:"radio_box", value: xmSelect.get("#chsStatus",true).getValue("value"), label:xmSelect.get("#chsStatus",true).getValue("nameStr") };
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;
@@ -138,10 +138,14 @@ function ListPage() {
 			ps.sortField=sortField;
 			ps.sortType=sortType;
 		}
-		table.reload('data-table', { where : ps });
+		if(reset) {
+			table.reload('data-table', { where : ps , page:{ curr:1 } });
+		} else {
+			table.reload('data-table', { where : ps });
+		}
 	}
-    
-	
+
+
 	/**
 	  * 获得已经选中行的数据,不传入 field 时，返回所有选中的记录，指定 field 时 返回指定的字段集合
 	  */
@@ -152,7 +156,7 @@ function ListPage() {
 		for(var i=0;i<data.length;i++) data[i]=data[i][field];
 		return data;
 	}
-	
+
 	/**
 	 * 重置搜索框
 	 */
@@ -201,7 +205,7 @@ function ListPage() {
 		fox.renderSearchInputs();
 		window.pageExt.list.afterSearchInputReady && window.pageExt.list.afterSearchInputReady();
 	}
-	
+
 	/**
 	 * 绑定搜索框事件
 	 */
@@ -209,12 +213,12 @@ function ListPage() {
 		//回车键查询
         $(".search-input").keydown(function(event) {
 			if(event.keyCode !=13) return;
-		  	refreshTableData();
+		  	refreshTableData(null,null,true);
         });
 
         // 搜索按钮点击事件
         $('#search-button').click(function () {
-           refreshTableData();
+			refreshTableData(null,null,true);
         });
 
 		// 搜索按钮点击事件
@@ -229,7 +233,7 @@ function ListPage() {
 		});
 
 	}
-	
+
 	/**
 	 * 绑定按钮事件
 	  */
@@ -253,8 +257,8 @@ function ListPage() {
 				case 'tool-draft-process':
 					window.pageExt.list.draftProcess && window.pageExt.list.draftProcess(selected,obj);
 					break;
-				case 'tool-start-process':
-					window.pageExt.list.startProcess && window.pageExt.list.startProcess(selected,obj);
+				case 'tool-submit-process':
+					window.pageExt.list.submitProcess && window.pageExt.list.submitProcess(selected,obj);
 					break;
 				case 'tool-revoke-process':
 					window.pageExt.list.revokeProcess && window.pageExt.list.revokeProcess(selected,obj);
@@ -284,7 +288,7 @@ function ListPage() {
 			admin.putTempData('chs-example-order-form-data-form-action', "create",true);
             showEditForm(data);
         };
-		
+
         //批量删除按钮点击事件
         function batchDelete(selected) {
 
@@ -319,7 +323,7 @@ function ListPage() {
 			});
         }
 	}
-     
+
     /**
      * 绑定行操作按钮事件
      */
@@ -387,16 +391,16 @@ function ListPage() {
 						}
 					});
 				});
-				
+
 			}
 			else if (layEvent === 'open-details') { // 明细
 				window.pageExt.list.openDetails(data);
 			}
 			
 		});
- 
+
     };
-    
+
     /**
      * 打开编辑窗口
      */

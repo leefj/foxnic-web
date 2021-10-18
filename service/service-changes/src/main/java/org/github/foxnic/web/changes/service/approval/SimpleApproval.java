@@ -81,7 +81,7 @@ public class SimpleApproval implements IApproval {
         ChangeInstance instance=new ChangeInstance();
         instance.setDefinitionId(definition.getId());
         instance.setMode(definition.getMode());
-        instance.setStatusEnum(ApprovalStatus.approving);
+        instance.setStatusEnum(ApprovalStatus.drafting);
         instance.setTypeEnum(request.getType());
         instance.setStartTime(request.getStartTime());
         instance.setDrafterId(request.getApproverId());
@@ -130,7 +130,7 @@ public class SimpleApproval implements IApproval {
         event.setNotifyTime(new Timestamp(System.currentTimeMillis()));
         event.setInstanceId(instance.getId());
         event.setEventTypeEnum(ApprovalEventType.create_success);
-        event.setApproveActionEnum(ApprovalAction.submit);
+        event.setApproveActionEnum(ApprovalAction.draft);
         event.setInstance(instance);
         event.setDefinition(definition);
         event.setApproverId(SessionUser.getCurrent().getUserId());
@@ -175,8 +175,29 @@ public class SimpleApproval implements IApproval {
 
         //创建虚拟节点ID
         String simpleNodeId=IDGenerator.getSnowflakeIdString();
+        //起草
+        if(request.getApprovalAction()== ApprovalAction.draft) {
+            //检查当前状态:已废弃、已通过的 不允许废弃
+            if(instance.getStatusEnum() == ApprovalStatus.approving  // 审批中的不能直接起草
+                    || instance.getStatusEnum() == ApprovalStatus.passed  // 已通过的不允许再次起草
+            ) {
+                return result.success(false).message("当前审批状态["+instance.getStatusEnum().text()+"]无法再次回到起草节点");
+            }
+            //可操作人判定
+            if(!instance.getDrafterId().equals(request.getApproverId())) {
+                return result.success(false).message("非起草人，无权重新起草流程");
+            }
+            //切换节点
+            event.setSimpleNodeId(simpleNodeId);
+            event.setEventTypeEnum(ApprovalEventType.draft_success);
+            instance.setSimpleNodeId(simpleNodeId);
+            //设置审批动作后的状态
+            instance.setStatusEnum(ApprovalStatus.drafting);
+            instance.setFinishTime(new Date());
+            changeInstanceService.updateDirtyFields(instance);
+        }
         //撤回
-        if(request.getApprovalAction()== ApprovalAction.revoke) {
+        else if(request.getApprovalAction()== ApprovalAction.revoke) {
             //检查当前状态:可撤回审批中的流程，其它状态的不可撤回
             if(instance.getStatusEnum() == ApprovalStatus.passed  //已通过，不允许撤回
                     || instance.getStatusEnum() == ApprovalStatus.abandoned  // 已废弃，不允许撤回
@@ -239,7 +260,7 @@ public class SimpleApproval implements IApproval {
             instance.setStatusEnum(ApprovalStatus.rejected);
             changeInstanceService.updateDirtyFields(instance);
         }
-        //驳回
+        //提交
         else if(request.getApprovalAction()== ApprovalAction.submit) {
             //检查当前状态:已废弃、已通过的 不允许废弃
             if( instance.getStatusEnum() == ApprovalStatus.abandoned  // 废弃的不允许再次提交，要先起草，再提交

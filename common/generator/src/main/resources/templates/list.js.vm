@@ -81,7 +81,7 @@ function ListPage() {
 				#end
 				cols: [[
 					{ fixed: 'left',type: 'numbers' },
-					{ fixed: 'left',type:'checkbox' }
+					{ fixed: 'left',type:#if(mulitiSelect)'checkbox'#else'radio'#end }
 					#for(f : fields)
 					#if(!f.disableInList)
 					#if(f.typeName.equals("date_input"))

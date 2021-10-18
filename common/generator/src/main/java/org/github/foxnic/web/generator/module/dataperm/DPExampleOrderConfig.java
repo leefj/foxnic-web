@@ -73,6 +73,7 @@ public class DPExampleOrderConfig extends BaseCodeConfig<DP_EXAMPLE_ORDER> {
 
 	@Override
 	public void configFields(ViewOptions view) {
+
 		view.field(DP_EXAMPLE_ORDER.ID).basic().hidden();
 		view.field(DP_EXAMPLE_ORDER.PRICE).search().hidden();
 		view.field(DP_EXAMPLE_ORDER.QUANTITY).search().hidden();
@@ -87,6 +88,9 @@ public class DPExampleOrderConfig extends BaseCodeConfig<DP_EXAMPLE_ORDER> {
 				.form().selectBox().queryApi(ExampleShopServiceProxy.QUERY_LIST).paging(false)
 				.textField(ExampleShopMeta.NAME).valueField(ExampleShopMeta.ORG_ID).toolbar(false).filter(false).muliti(false,false)
 				.fillWith(ExampleOrderMeta.SHOP);
+
+//		view.field(FoxnicWeb.DP_EXAMPLE_PRODUCT.BRAND_ID).basic().label("品牌");
+
 
 
 

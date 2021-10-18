@@ -19,7 +19,6 @@ import org.github.foxnic.web.changes.service.IExampleOrderItemService;
 import org.github.foxnic.web.changes.service.IExampleOrderService;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.enums.changes.ApprovalAction;
-import org.github.foxnic.web.constants.enums.changes.ApprovalStatus;
 import org.github.foxnic.web.constants.enums.changes.ChangeType;
 import org.github.foxnic.web.domain.bpm.Appover;
 import org.github.foxnic.web.domain.changes.*;
@@ -320,10 +319,7 @@ public class ExampleOrderServiceImpl extends SuperService<ExampleOrder> implemen
 		if(orderAfter==null) {
 			return ErrorDesc.failure().message("订单不存在");
 		}
-		//校验是否勾选的订单都处于待审批状态
-		if(orderAfter.getChsStatusEnum()!= ApprovalStatus.drafting) {
-			return ErrorDesc.failure().message("订单状态错误,无法提交审批");
-		}
+
 		//关联订单明细
 		this.join(orderAfter, ExampleOrderItem.class);
 		List<String> billIds=Arrays.asList(orderAfter.getId());
@@ -424,32 +420,6 @@ public class ExampleOrderServiceImpl extends SuperService<ExampleOrder> implemen
 		//
 		return result;
 	}
-
-	/**
-	 * 改变订单审批状态，使其变成可编辑的草稿；具体需要使其以何种方式转换成草稿视业务而定
-	 * */
-	@Override
-	public Result draft(ProcessStartVO startVO) {
-		List<ExampleOrder> orders=this.getByIds(startVO.getBillIds());
-		Result result = new Result();
-		for (ExampleOrder order : orders) {
-			if(order.getChsStatusEnum()==null || order.getChsStatusEnum()==ApprovalStatus.passed || order.getChsStatusEnum()==ApprovalStatus.abandoned) {
-				order.setChangeInstanceId(null);
-				order.setChsStatusEnum(ApprovalStatus.drafting);
-				order.setSummary("起草");
-			} else {
-				result.addError(ErrorDesc.failure().message("当前审批状态不允许起草"));
-			}
-		}
-		if(result.failure()) {
-			return result;
-		}
-
-		this.updateList(orders,SaveMode.DIRTY_FIELDS);
-
-		return result;
-	}
-
 
 	@Override
 	public ExcelStructure buildExcelStructure(boolean isForExport) {

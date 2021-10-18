@@ -2,7 +2,7 @@
 /**
  * 变更示例订单 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-02 20:35:02
+ * @since 2021-10-18 15:44:30
  */
  -->
  <!DOCTYPE html>
@@ -104,7 +104,7 @@
         <button th:if="${perm.checkAuth('chs_example_order:create')}" id="add-button" class="layui-btn icon-btn layui-btn-sm create-new-button" lay-event="create"><i class="layui-icon">&#xe654;</i><span th:text="${lang.translate('新建')}">新建</span></button>
         <button th:if="${perm.checkAuth('chs_example_order:delete-by-ids')}" id="delete-button" class="layui-btn icon-btn layui-btn-danger layui-btn-sm batch-delete-button" lay-event="batch-del"><i class="layui-icon">&#xe67e;</i><span th:text="${lang.translate('删除')}">删除</span></button>
         <button id="draft-process" class="layui-btn icon-btn layui-btn-sm   " lay-event="tool-draft-process"><span th:text="${lang.translate('起草')}">起草</span></button>
-        <button id="start-process" class="layui-btn icon-btn layui-btn-sm   " lay-event="tool-start-process"><span th:text="${lang.translate('提交')}">提交</span></button>
+        <button id="submit-process" class="layui-btn icon-btn layui-btn-sm   " lay-event="tool-submit-process"><span th:text="${lang.translate('提交')}">提交</span></button>
         <button id="revoke-process" class="layui-btn icon-btn layui-btn-sm   " lay-event="tool-revoke-process"><span th:text="${lang.translate('撤回')}">撤回</span></button>
         <button id="abandon-process" class="layui-btn icon-btn layui-btn-sm   " lay-event="tool-abandon-process"><span th:text="${lang.translate('作废')}">作废</span></button>
         <button id="agree-node" class="layui-btn icon-btn layui-btn-sm   " lay-event="tool-agree-node"><span th:text="${lang.translate('同意')}">同意</span></button>
