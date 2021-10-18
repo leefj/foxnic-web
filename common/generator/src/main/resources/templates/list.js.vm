@@ -165,7 +165,7 @@ function ListPage() {
 	/**
       * 刷新表格数据
       */
-	function refreshTableData(sortField,sortType) {
+	function refreshTableData(sortField,sortType,reset) {
 		var value = {};
 		#for(f : searchFields)
 		#if(!f.isHideInSearch)
@@ -217,7 +217,11 @@ function ListPage() {
 		// 树形结构锁定上级ID
 		ps.#(parentIdVar)=#(parentIdVar);
 		#end
-		table.reload('data-table', { where : ps });
+		if(reset) {
+			table.reload('data-table', { where : ps , page:{ curr:1 } });
+		} else {
+			table.reload('data-table', { where : ps });
+		}
 	}
 
     #if(isTree)
@@ -364,7 +368,7 @@ function ListPage() {
 		//渲染 #(f.varName) 下拉字段
 		fox.renderSelectBox({
 			el: "#(f.varName)",
-			radio: false,
+			radio: #(!f.selectField.searchMuliti),
 			size: "small",
 			filterable: #(f.selectField.filter),
 			#if(f.selectField.paging)
@@ -428,12 +432,12 @@ function ListPage() {
 		//回车键查询
         $(".search-input").keydown(function(event) {
 			if(event.keyCode !=13) return;
-		  	refreshTableData();
+		  	refreshTableData(null,null,true);
         });
 
         // 搜索按钮点击事件
         $('#search-button').click(function () {
-           refreshTableData();
+			refreshTableData(null,null,true);
         });
 
 		// 搜索按钮点击事件

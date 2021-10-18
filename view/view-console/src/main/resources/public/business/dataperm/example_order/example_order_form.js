@@ -1,7 +1,7 @@
 /**
  * 销售订单 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-15 17:31:22
+ * @since 2021-10-17 07:10:24
  */
 
 function FormPage() {
@@ -221,6 +221,22 @@ function FormPage() {
 	        return false;
 	    });
 
+		// 请选择人员对话框
+		$("#salesId-button").click(function(){
+				var salesIdDialogOptions={
+				field:"salesId",
+				formData:getFormData(),
+				inputEl:$("#salesId"),
+				buttonEl:$(this),
+				single:true,
+				//限制浏览的范围，指定根节点 id 或 code ，优先匹配ID
+				root: "",
+				targetType:"emp",
+				prepose:function(param){ return window.pageExt.form.beforeDialog && window.pageExt.form.beforeDialog(param);},
+				callback:function(param,result){ window.pageExt.form.afterDialog && window.pageExt.form.afterDialog(param,result);}
+			};
+			fox.chooseEmployee(salesIdDialogOptions);
+		});
 
 	    //关闭窗口
 	    $("#cancel-button").click(function(){admin.closePopupCenter();});

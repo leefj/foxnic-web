@@ -393,6 +393,9 @@ function ListPage() {
 			const moduleURL="/service-hrm/hrm-employee";
 			var ps={};
 			var contitions={};
+			if(options.root) {
+				ps.orgId=options.root;
+			}
 			// if(window.pageExt.list.beforeQuery){
 			// 	window.pageExt.list.beforeQuery(contitions,ps,"tableInit");
 			// }
