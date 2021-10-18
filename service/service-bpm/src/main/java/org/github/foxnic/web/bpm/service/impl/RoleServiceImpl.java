@@ -266,7 +266,6 @@ public class RoleServiceImpl extends SuperService<Role> implements IRoleService 
 
 	@Override
 	public List<Role> getEmployeeRoles(String employeeId) {
-		employeeId="490542186383806464";
 		List<RoleEmployee> res= roleEmployeeService.queryList(RoleEmployee.create().setEmployeeId(employeeId));
 		if(res==null || res.isEmpty()) return null;
 		Set<String> roleIds=CollectorUtil.collectSet(res,RoleEmployee::getRoleId);

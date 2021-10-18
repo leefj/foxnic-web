@@ -17,7 +17,8 @@ import java.util.List;
  * 流程角色表  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-12 14:40:22
+ * @since 2021-10-08 20:48:40
+ * @version
 */
 
 @FeignClient(value = MicroServiceNames.BPM, contextId = RoleServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)
@@ -43,11 +44,6 @@ public interface RoleServiceProxy {
 	 */
 	public static final String INSERT = API_PREFIX + "insert";
 
-	/**
-	 * 批量添加流程角色
-	 */
-	public static final String INSERTS = API_PREFIX + "inserts";
-	;
 	/**
 	 * 删除流程角色
 	 */
@@ -78,6 +74,18 @@ public interface RoleServiceProxy {
 	 * 获取多个流程角色
 	 */
 	public static final String GET_BY_IDS = API_PREFIX + "get-by-ids";
+
+	/**
+	 * 获取多个流程角色
+	 */
+	public static final String GET_BY_CODES = API_PREFIX + "get-by-codes";
+
+	/**
+	 * 获得员工所属的流程角色
+	 */
+	public static final String GET_EMPLOYEE_ROLES = API_PREFIX + "get_employee_roles";
+
+
 
 	/**
 	 * 查询流程角色
@@ -121,6 +129,12 @@ public interface RoleServiceProxy {
 	*/
 	@RequestMapping(RoleServiceProxy.DELETE_BY_IDS)
 	Result deleteByIds(List<String> ids);
+
+	@RequestMapping(RoleServiceProxy.GET_BY_CODES)
+	Result<List<Role>> getByCodes(List<String> codes);
+
+	@RequestMapping(RoleServiceProxy.GET_EMPLOYEE_ROLES)
+	Result<List<Role>> getEmployeeRoles(String employeeId);
 
 	/**
 	 * 更新流程角色
