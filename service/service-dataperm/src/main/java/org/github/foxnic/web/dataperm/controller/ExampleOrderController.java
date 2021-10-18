@@ -38,6 +38,7 @@ import org.github.foxnic.web.domain.dataperm.ExampleShop;
 import org.github.foxnic.web.domain.dataperm.ExampleProduct;
 import org.github.foxnic.web.domain.hrm.Employee;
 import org.github.foxnic.web.domain.dataperm.meta.ExampleProductMeta;
+import org.github.foxnic.web.domain.dataperm.meta.ExampleBrandMeta;
 import org.github.foxnic.web.domain.hrm.meta.EmployeeMeta;
 import org.github.foxnic.web.domain.hrm.meta.PersonMeta;
 import io.swagger.annotations.Api;
@@ -55,7 +56,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 销售订单表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-18 09:17:48
+ * @since 2021-10-18 17:32:26
 */
 
 @Api(tags = "销售订单")
@@ -188,6 +189,7 @@ public class ExampleOrderController extends SuperController {
 		// join 关联的对象
 		exampleOrderService.dao().fill(exampleOrder)
 			.with(ExampleOrderMeta.PRODUCT)
+			.with(ExampleOrderMeta.PRODUCT,ExampleProductMeta.BRAND)
 			.with(ExampleOrderMeta.SALES,EmployeeMeta.PERSON)
 			.with(ExampleOrderMeta.SHOP)
 			.execute();
@@ -264,6 +266,7 @@ public class ExampleOrderController extends SuperController {
 		// join 关联的对象
 		exampleOrderService.dao().fill(list)
 			.with(ExampleOrderMeta.PRODUCT)
+			.with(ExampleOrderMeta.PRODUCT,ExampleProductMeta.BRAND)
 			.with(ExampleOrderMeta.SALES,EmployeeMeta.PERSON)
 			.with(ExampleOrderMeta.SHOP)
 			.execute();

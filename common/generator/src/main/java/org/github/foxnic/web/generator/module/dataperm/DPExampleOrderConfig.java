@@ -11,6 +11,7 @@ import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.DP_EXAMPLE_ORDER;
 import org.github.foxnic.web.domain.dataperm.ExampleProduct;
 import org.github.foxnic.web.domain.dataperm.ExampleShop;
+import org.github.foxnic.web.domain.dataperm.meta.ExampleBrandMeta;
 import org.github.foxnic.web.domain.dataperm.meta.ExampleOrderMeta;
 import org.github.foxnic.web.domain.dataperm.meta.ExampleProductMeta;
 import org.github.foxnic.web.domain.dataperm.meta.ExampleShopMeta;
@@ -18,6 +19,7 @@ import org.github.foxnic.web.domain.hrm.Employee;
 import org.github.foxnic.web.domain.hrm.meta.EmployeeMeta;
 import org.github.foxnic.web.domain.hrm.meta.PersonMeta;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
+import org.github.foxnic.web.proxy.dataperm.ExampleBrandServiceProxy;
 import org.github.foxnic.web.proxy.dataperm.ExampleShopServiceProxy;
 
 
@@ -89,7 +91,10 @@ public class DPExampleOrderConfig extends BaseCodeConfig<DP_EXAMPLE_ORDER> {
 				.textField(ExampleShopMeta.NAME).valueField(ExampleShopMeta.ORG_ID).toolbar(false).filter(false).muliti(false,false)
 				.fillWith(ExampleOrderMeta.SHOP);
 
-//		view.field(FoxnicWeb.DP_EXAMPLE_PRODUCT.BRAND_ID).basic().label("品牌");
+		view.field(FoxnicWeb.DP_EXAMPLE_PRODUCT.BRAND_ID).basic().label("品牌")
+				.table().fillBy(ExampleOrderMeta.PRODUCT,ExampleProductMeta.BRAND,ExampleBrandMeta.NAME)
+				.form().selectBox().queryApi(ExampleBrandServiceProxy.QUERY_LIST).paging(false).textField(ExampleBrandMeta.NAME).valueField(ExampleBrandMeta.ID)
+				.toolbar(false).filter(false).muliti(false,false);
 
 
 

@@ -2,7 +2,7 @@
 /**
  * 销售订单 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-18 09:17:48
+ * @since 2021-10-18 17:32:26
  */
  -->
  <!DOCTYPE html>
@@ -53,6 +53,11 @@
                         <div class="search-label-div" style=""><span th:text="${lang.translate('导购')}" class="search-label salesId-label">导购</span><span class="search-colon">:</span></div>
                             <input lay-filter="salesId" id="salesId" name="salesId"  type="hidden" class="layui-input"   />
                             <button id="salesId-button" type="button" action-type="emp-dialog" class="layui-btn layui-btn-primary   " style="width: 100%"> <i class='layui-icon layui-icon-search'></i> <span th:text="${lang.translate('请选择人员')}" th:default-label="${lang.translate('请选择人员')}">按钮文本</span></button>
+                    </div>
+                    <!-- 品牌 , brandId ,typeName=select_box, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('品牌')}" class="search-label brandId-label">品牌</span><span class="search-colon">:</span></div>
+                        <div id="brandId" th:data="${'/service-dataperm/dp-example-brand/query-list'}" style="width:140px"></div>
                     </div>
 
 
