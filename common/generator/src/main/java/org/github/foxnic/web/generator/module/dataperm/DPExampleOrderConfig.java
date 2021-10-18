@@ -97,8 +97,6 @@ public class DPExampleOrderConfig extends BaseCodeConfig<DP_EXAMPLE_ORDER> {
 				.toolbar(false).filter(false).muliti(false,false);
 
 
-
-
 		view.field(DP_EXAMPLE_ORDER.SALES_ID).basic().label("导购")
 				.form().button().chooseEmployee(true)
 				.table().fillBy(ExampleOrderMeta.SALES,

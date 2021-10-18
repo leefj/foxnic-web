@@ -112,7 +112,7 @@ function ListPage() {
 					,{ field: '#(f.varName)', align:"#(f.alignInList)",fixed:#(f.fixInList),  hide:#(f.isHideInList), sort: #(f.sortInList), title: fox.translate('#(f.labelInList)'), templet:function (d){ return templet('#(f.varName)',fox.getDictText(SELECT_#(f.varName.toUpperCase())_DATA,d.#(f.varName)),d);}}
 					#end
 					#if(f.selectField.queryApi!=null)
-					,{ field: '#(f.varName)', align:"#(f.alignInList)",fixed:#(f.fixInList),  hide:#(f.isHideInList), sort: #(f.sortInList), title: fox.translate('#(f.labelInList)'), templet: function (d) { return templet('#(f.varName)', fox.joinLabel(#if(f.selectField.fillWith!=null)d.#(f.selectField.fillWith)#else fox.getProperty(d,#(f.listFillByPropertyNames)) #end,"#(f.selectField.textField)"),d);}}
+					,{ field: '#(f.varName)', align:"#(f.alignInList)",fixed:#(f.fixInList),  hide:#(f.isHideInList), sort: #(f.sortInList), title: fox.translate('#(f.labelInList)'), templet: function (d) { return templet('#(f.varName)' #if(f.selectField.fillWith!=null),fox.joinLabel(d.#(f.selectField.fillWith),"#(f.selectField.textField)")#end #if(f.listFillByPropertyNames!=null),fox.getProperty(d,#(f.listFillByPropertyNames))#end,d);}}
 					#end
 					#else
 					,{ field: '#(f.varName)', align:"#(f.alignInList)",fixed:#(f.fixInList),  hide:#(f.isHideInList), sort: #(f.sortInList), title: fox.translate('#(f.labelInList)') #if(f.listFillByPropertyNames!=null), templet: function (d) { return templet('#(f.varName)',fox.getProperty(d,#(f.listFillByPropertyNames)),d);} #else , templet: function (d) { return templet('#(f.varName)',d.#(f.varName),d);}  #end}

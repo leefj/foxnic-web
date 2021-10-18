@@ -1,7 +1,7 @@
 /**
  * 销售订单 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-18 17:32:26
+ * @since 2021-10-18 21:04:26
  */
 
 
@@ -78,10 +78,10 @@ function ListPage() {
 					,{ field: 'price', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('售价') , templet: function (d) { return templet('price',d.price,d);}  }
 					,{ field: 'quantity', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('数量') , templet: function (d) { return templet('quantity',d.quantity,d);}  }
 					,{ field: 'amount', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('金额') , templet: function (d) { return templet('amount',d.amount,d);}  }
-					,{ field: 'shopId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('店铺'), templet: function (d) { return templet('shopId', fox.joinLabel(d.shop,"name"),d);}}
+					,{ field: 'shopId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('店铺'), templet: function (d) { return templet('shopId' ,fox.joinLabel(d.shop,"name"),d);}}
 					,{ field: 'salesId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('导购') , templet: function (d) { return templet('salesId',fox.getProperty(d,["sales","person","name"]),d);} }
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }}
-					,{ field: 'brandId', align:"",fixed:false,  hide:false, sort: true, title: fox.translate('品牌'), templet: function (d) { return templet('brandId', fox.joinLabel(fox.getProperty(d,["product","brand","name"]) ,"name"),d);}}
+					,{ field: 'brandId', align:"",fixed:false,  hide:false, sort: true, title: fox.translate('品牌'), templet: function (d) { return templet('brandId' ,fox.getProperty(d,["product","brand","name"]),d);}}
 				]],
 				done: function (data) { window.pageExt.list.afterQuery && window.pageExt.list.afterQuery(data); },
 				footer : {
