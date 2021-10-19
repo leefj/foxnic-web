@@ -92,6 +92,7 @@ public class DPExampleOrderConfig extends BaseCodeConfig<DP_EXAMPLE_ORDER> {
 				.fillWith(ExampleOrderMeta.SHOP);
 
 		view.field(FoxnicWeb.DP_EXAMPLE_PRODUCT.BRAND_ID).basic().label("品牌")
+				.search().on(FoxnicWeb.DP_EXAMPLE_BRAND.ID)
 				.table().fillBy(ExampleOrderMeta.PRODUCT,ExampleProductMeta.BRAND,ExampleBrandMeta.NAME)
 				.form().selectBox().queryApi(ExampleBrandServiceProxy.QUERY_LIST).paging(false).textField(ExampleBrandMeta.NAME).valueField(ExampleBrandMeta.ID)
 				.toolbar(false).filter(false).muliti(false,false);

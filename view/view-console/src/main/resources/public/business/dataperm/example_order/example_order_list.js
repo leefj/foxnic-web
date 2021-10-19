@@ -1,7 +1,7 @@
 /**
  * 销售订单 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-18 21:04:26
+ * @since 2021-10-19 14:06:41
  */
 
 
@@ -114,10 +114,10 @@ function ListPage() {
       */
 	function refreshTableData(sortField,sortType,reset) {
 		var value = {};
-		value.productId={ inputType:"button",value: $("#productId").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" ",fillBy:["product","name"] ,field:"name"};
-		value.shopId={ inputType:"select_box", value: xmSelect.get("#shopId",true).getValue("value") ,fillBy:["shop"]  ,field:"shop_id", label:xmSelect.get("#shopId",true).getValue("nameStr") };
+		value.productId={ inputType:"button",value: $("#productId").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" ",fillBy:["product","name"] ,field:"dp_example_product.name"};
+		value.shopId={ inputType:"select_box", value: xmSelect.get("#shopId",true).getValue("value") ,fillBy:["shop"]  ,field:"dp_example_order.shop_id", label:xmSelect.get("#shopId",true).getValue("nameStr") };
 		value.salesId={ inputType:"button",value: $("#salesId").val(),fillBy:["sales","person","name"] ,label:$("#salesId-button").text() };
-		value.brandId={ inputType:"select_box", value: xmSelect.get("#brandId",true).getValue("value")  ,fillBy:["product","brand","name"] , label:xmSelect.get("#brandId",true).getValue("nameStr") };
+		value.brandId={ inputType:"select_box", value: xmSelect.get("#brandId",true).getValue("value")  ,fillBy:["product","brand","name"] ,field:"dp_example_brand.id", label:xmSelect.get("#brandId",true).getValue("nameStr") };
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;

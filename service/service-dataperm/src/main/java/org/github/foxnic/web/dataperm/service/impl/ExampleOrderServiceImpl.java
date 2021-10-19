@@ -1,65 +1,60 @@
 package org.github.foxnic.web.dataperm.service.impl;
 
 
-import javax.annotation.Resource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-
-import org.github.foxnic.web.domain.dataperm.ExampleOrder;
-import org.github.foxnic.web.domain.dataperm.ExampleOrderVO;
-import java.util.List;
-import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.entity.SuperService;
-import com.github.foxnic.dao.spec.DAO;
-import java.lang.reflect.Field;
-import com.github.foxnic.commons.busi.id.IDGenerator;
-import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.dao.data.PagedList;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.SuperService;
+import com.github.foxnic.dao.excel.ExcelStructure;
 import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.dao.excel.ExcelStructure;
-import java.io.InputStream;
+import com.github.foxnic.dao.spec.DAO;
+import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.meta.DBColumnMeta;
-import com.github.foxnic.sql.expr.Select;
-import java.util.ArrayList;
 import org.github.foxnic.web.dataperm.service.IExampleOrderService;
+import org.github.foxnic.web.domain.dataperm.ExampleOrder;
 import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.io.InputStream;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
  * 销售订单表 服务实现
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-18 21:04:26
+ * @since 2021-10-19 14:06:38
 */
 
 
 @Service("DpExampleOrderService")
 public class ExampleOrderServiceImpl extends SuperService<ExampleOrder> implements IExampleOrderService {
-	
+
 	/**
 	 * 注入DAO对象
 	 * */
-	@Resource(name=DBConfigs.PRIMARY_DAO) 
+	@Resource(name=DBConfigs.PRIMARY_DAO)
 	private DAO dao=null;
-	
+
 	/**
 	 * 获得 DAO 对象
 	 * */
 	public DAO dao() { return dao; }
 
 
-	
+
 	@Override
 	public Object generateId(Field field) {
 		return IDGenerator.getSnowflakeIdString();
 	}
-	
+
 	/**
 	 * 插入实体
 	 * @param exampleOrder 实体数据
@@ -70,7 +65,7 @@ public class ExampleOrderServiceImpl extends SuperService<ExampleOrder> implemen
 		Result r=super.insert(exampleOrder);
 		return r;
 	}
-	
+
 	/**
 	 * 批量插入实体，事务内
 	 * @param exampleOrderList 实体数据清单
@@ -80,8 +75,8 @@ public class ExampleOrderServiceImpl extends SuperService<ExampleOrder> implemen
 	public Result insertList(List<ExampleOrder> exampleOrderList) {
 		return super.insertList(exampleOrderList);
 	}
-	
-	
+
+
 	/**
 	 * 按主键删除 销售订单
 	 *
@@ -102,7 +97,7 @@ public class ExampleOrderServiceImpl extends SuperService<ExampleOrder> implemen
 			return r;
 		}
 	}
-	
+
 	/**
 	 * 按主键删除 销售订单
 	 *
@@ -126,7 +121,7 @@ public class ExampleOrderServiceImpl extends SuperService<ExampleOrder> implemen
 			return r;
 		}
 	}
-	
+
 	/**
 	 * 更新实体
 	 * @param exampleOrder 数据对象
@@ -138,7 +133,7 @@ public class ExampleOrderServiceImpl extends SuperService<ExampleOrder> implemen
 		Result r=super.update(exampleOrder , mode);
 		return r;
 	}
-	
+
 	/**
 	 * 更新实体集，事务内
 	 * @param exampleOrderList 数据对象列表
@@ -149,8 +144,8 @@ public class ExampleOrderServiceImpl extends SuperService<ExampleOrder> implemen
 	public Result updateList(List<ExampleOrder> exampleOrderList , SaveMode mode) {
 		return super.updateList(exampleOrderList , mode);
 	}
-	
-	
+
+
 	/**
 	 * 按主键更新字段 销售订单
 	 *
@@ -162,9 +157,9 @@ public class ExampleOrderServiceImpl extends SuperService<ExampleOrder> implemen
 		if(!field.table().name().equals(this.table())) throw new IllegalArgumentException("更新的数据表["+field.table().name()+"]与服务对应的数据表["+this.table()+"]不一致");
 		int suc=dao.update(field.table().name()).set(field.name(), value).where().and("id = ? ",id).top().execute();
 		return suc>0;
-	} 
-	
-	
+	}
+
+
 	/**
 	 * 按主键获取 销售订单
 	 *
@@ -187,7 +182,7 @@ public class ExampleOrderServiceImpl extends SuperService<ExampleOrder> implemen
 
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @return 查询结果
 	 * */
@@ -195,11 +190,11 @@ public class ExampleOrderServiceImpl extends SuperService<ExampleOrder> implemen
 	public List<ExampleOrder> queryList(ExampleOrder sample) {
 		return super.queryList(sample);
 	}
-	
-	
+
+
 	/**
 	 * 分页查询实体集，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @param pageSize 分页条数
 	 * @param pageIndex 页码
@@ -209,10 +204,10 @@ public class ExampleOrderServiceImpl extends SuperService<ExampleOrder> implemen
 	public PagedList<ExampleOrder> queryPagedList(ExampleOrder sample, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, pageSize, pageIndex);
 	}
-	
+
 	/**
 	 * 分页查询实体集，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @param condition 其它条件
 	 * @param pageSize 分页条数
@@ -223,7 +218,7 @@ public class ExampleOrderServiceImpl extends SuperService<ExampleOrder> implemen
 	public PagedList<ExampleOrder> queryPagedList(ExampleOrder sample, ConditionExpr condition, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, condition, pageSize, pageIndex);
 	}
-	
+
 	/**
 	 * 检查 角色 是否已经存在
 	 *
