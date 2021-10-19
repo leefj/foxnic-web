@@ -11,15 +11,13 @@ import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.DP_EXAMPLE_ORDER;
 import org.github.foxnic.web.domain.dataperm.ExampleProduct;
 import org.github.foxnic.web.domain.dataperm.ExampleShop;
-import org.github.foxnic.web.domain.dataperm.meta.ExampleBrandMeta;
-import org.github.foxnic.web.domain.dataperm.meta.ExampleOrderMeta;
-import org.github.foxnic.web.domain.dataperm.meta.ExampleProductMeta;
-import org.github.foxnic.web.domain.dataperm.meta.ExampleShopMeta;
+import org.github.foxnic.web.domain.dataperm.meta.*;
 import org.github.foxnic.web.domain.hrm.Employee;
 import org.github.foxnic.web.domain.hrm.meta.EmployeeMeta;
 import org.github.foxnic.web.domain.hrm.meta.PersonMeta;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 import org.github.foxnic.web.proxy.dataperm.ExampleBrandServiceProxy;
+import org.github.foxnic.web.proxy.dataperm.ExampleCatalogServiceProxy;
 import org.github.foxnic.web.proxy.dataperm.ExampleShopServiceProxy;
 
 
@@ -83,7 +81,7 @@ public class DPExampleOrderConfig extends BaseCodeConfig<DP_EXAMPLE_ORDER> {
 
 		view.field(DP_EXAMPLE_ORDER.PRODUCT_ID).basic().label("品名")
 				.search().fuzzySearch().on(FoxnicWeb.DP_EXAMPLE_PRODUCT.NAME)
-				.table().fillBy(ExampleOrderMeta.PRODUCT,ExampleProductMeta.NAME);
+				.table().fillBy(ExampleOrderMeta.PRODUCT, ExampleProductMeta.NAME);
 
 		view.field(DP_EXAMPLE_ORDER.SHOP_ID).basic().label("店铺")
 				.search().on(DP_EXAMPLE_ORDER.SHOP_ID)
@@ -92,10 +90,18 @@ public class DPExampleOrderConfig extends BaseCodeConfig<DP_EXAMPLE_ORDER> {
 				.fillWith(ExampleOrderMeta.SHOP);
 
 		view.field(FoxnicWeb.DP_EXAMPLE_PRODUCT.BRAND_ID).basic().label("品牌")
-				.search().on(FoxnicWeb.DP_EXAMPLE_BRAND.ID)
-				.table().fillBy(ExampleOrderMeta.PRODUCT,ExampleProductMeta.BRAND,ExampleBrandMeta.NAME)
+				.search().on(FoxnicWeb.DP_EXAMPLE_PRODUCT.BRAND_ID)
+				.table().fillBy(ExampleOrderMeta.PRODUCT,ExampleProductMeta.BRAND, ExampleBrandMeta.NAME)
 				.form().selectBox().queryApi(ExampleBrandServiceProxy.QUERY_LIST).paging(false).textField(ExampleBrandMeta.NAME).valueField(ExampleBrandMeta.ID)
 				.toolbar(false).filter(false).muliti(false,false);
+
+
+		view.field(FoxnicWeb.DP_EXAMPLE_PRODUCT.BIG_CATA_ID).basic().label("大类")
+				.search().on(FoxnicWeb.DP_EXAMPLE_PRODUCT.BIG_CATA_ID)
+				.table().fillBy(ExampleOrderMeta.PRODUCT,ExampleProductMeta.BIG_CATALOG,ExampleBrandMeta.NAME)
+				.form().selectBox().queryApi(ExampleCatalogServiceProxy.QUERY_LIST+"?parentId=0").paging(false).textField(ExampleCatalogMeta.NAME).valueField(ExampleCatalogMeta.ID)
+				.toolbar(false).filter(false);
+
 
 
 		view.field(DP_EXAMPLE_ORDER.SALES_ID).basic().label("导购")

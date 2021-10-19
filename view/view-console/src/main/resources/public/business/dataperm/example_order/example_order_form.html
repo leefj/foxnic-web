@@ -2,7 +2,7 @@
 /**
  * 销售订单 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-19 14:06:41
+ * @since 2021-10-19 19:20:59
  */
  -->
  <!DOCTYPE html>
@@ -101,6 +101,15 @@
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('品牌')}">品牌</div></div>
                         <div class="layui-input-block layui-input-block-c1">
                             <div id="brandId" input-type="select" th:data="${'/service-dataperm/dp-example-brand/query-list'}"></div>
+                        </div>
+                    </div>
+
+
+                
+                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('大类')}">大类</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <div id="bigCataId" input-type="select" th:data="${'/service-dataperm/dp-example-catalog/query-list?parentId=0'}"></div>
                         </div>
                     </div>
 

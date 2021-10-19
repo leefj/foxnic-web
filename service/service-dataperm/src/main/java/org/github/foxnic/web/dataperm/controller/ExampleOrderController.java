@@ -1,62 +1,51 @@
 package org.github.foxnic.web.dataperm.controller;
 
 
-import java.util.List;
-
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-
-import org.github.foxnic.web.framework.web.SuperController;
-import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
-import org.springframework.web.bind.annotation.RequestMapping;
-import javax.servlet.http.HttpServletResponse;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
-
-
-import org.github.foxnic.web.proxy.dataperm.ExampleOrderServiceProxy;
-import org.github.foxnic.web.domain.dataperm.meta.ExampleOrderVOMeta;
-import org.github.foxnic.web.domain.dataperm.ExampleOrder;
-import org.github.foxnic.web.domain.dataperm.ExampleOrderVO;
+import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.api.validate.annotations.NotNull;
+import com.github.foxnic.commons.io.StreamUtil;
+import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.springboot.web.DownloadUtil;
-import com.github.foxnic.dao.data.PagedList;
-import java.util.Date;
-import java.sql.Timestamp;
-import com.github.foxnic.api.error.ErrorDesc;
-import com.github.foxnic.commons.io.StreamUtil;
-import java.util.Map;
 import com.github.foxnic.dao.excel.ValidateResult;
-import java.io.InputStream;
-import org.github.foxnic.web.domain.dataperm.meta.ExampleOrderMeta;
-import java.math.BigDecimal;
-import org.github.foxnic.web.domain.dataperm.ExampleShop;
-import org.github.foxnic.web.domain.dataperm.ExampleProduct;
-import org.github.foxnic.web.domain.hrm.Employee;
-import org.github.foxnic.web.domain.dataperm.meta.ExampleProductMeta;
-import org.github.foxnic.web.domain.dataperm.meta.ExampleBrandMeta;
-import org.github.foxnic.web.domain.hrm.meta.EmployeeMeta;
-import org.github.foxnic.web.domain.hrm.meta.PersonMeta;
-import io.swagger.annotations.Api;
-import com.github.xiaoymin.knife4j.annotations.ApiSort;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiImplicitParam;
+import com.github.foxnic.springboot.web.DownloadUtil;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.github.xiaoymin.knife4j.annotations.ApiSort;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.github.foxnic.web.dataperm.service.IExampleOrderService;
-import com.github.foxnic.api.validate.annotations.NotNull;
+import org.github.foxnic.web.domain.dataperm.ExampleOrder;
+import org.github.foxnic.web.domain.dataperm.ExampleOrderVO;
+import org.github.foxnic.web.domain.dataperm.meta.ExampleOrderMeta;
+import org.github.foxnic.web.domain.dataperm.meta.ExampleOrderVOMeta;
+import org.github.foxnic.web.domain.dataperm.meta.ExampleProductMeta;
+import org.github.foxnic.web.domain.hrm.meta.EmployeeMeta;
+import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
+import org.github.foxnic.web.framework.web.SuperController;
+import org.github.foxnic.web.proxy.dataperm.ExampleOrderServiceProxy;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.InputStream;
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
  * 销售订单表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-19 14:06:38
+ * @since 2021-10-19 19:20:59
 */
 
 @Api(tags = "销售订单")
@@ -116,7 +105,7 @@ public class ExampleOrderController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = ExampleOrderVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 	})
-	@ApiOperationSupport(order=3) 
+	@ApiOperationSupport(order=3)
 	@NotNull(name = ExampleOrderVOMeta.IDS)
 	@SentinelResource(value = ExampleOrderServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(ExampleOrderServiceProxy.DELETE_BY_IDS)
@@ -190,6 +179,7 @@ public class ExampleOrderController extends SuperController {
 		exampleOrderService.dao().fill(exampleOrder)
 			.with(ExampleOrderMeta.PRODUCT)
 			.with(ExampleOrderMeta.PRODUCT,ExampleProductMeta.BRAND)
+			.with(ExampleOrderMeta.PRODUCT,ExampleProductMeta.BIG_CATALOG)
 			.with(ExampleOrderMeta.SALES,EmployeeMeta.PERSON)
 			.with(ExampleOrderMeta.SHOP)
 			.execute();
@@ -207,7 +197,7 @@ public class ExampleOrderController extends SuperController {
 		@ApiImplicitParams({
 				@ApiImplicitParam(name = ExampleOrderVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})
-		@ApiOperationSupport(order=3) 
+		@ApiOperationSupport(order=3)
 		@NotNull(name = ExampleOrderVOMeta.IDS)
 		@SentinelResource(value = ExampleOrderServiceProxy.GET_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(ExampleOrderServiceProxy.GET_BY_IDS)
@@ -267,6 +257,7 @@ public class ExampleOrderController extends SuperController {
 		exampleOrderService.dao().fill(list)
 			.with(ExampleOrderMeta.PRODUCT)
 			.with(ExampleOrderMeta.PRODUCT,ExampleProductMeta.BRAND)
+			.with(ExampleOrderMeta.PRODUCT,ExampleProductMeta.BIG_CATALOG)
 			.with(ExampleOrderMeta.SALES,EmployeeMeta.PERSON)
 			.with(ExampleOrderMeta.SHOP)
 			.execute();

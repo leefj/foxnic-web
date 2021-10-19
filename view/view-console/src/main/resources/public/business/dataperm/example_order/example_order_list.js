@@ -1,7 +1,7 @@
 /**
  * 销售订单 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-19 14:06:41
+ * @since 2021-10-19 19:20:59
  */
 
 
@@ -82,6 +82,7 @@ function ListPage() {
 					,{ field: 'salesId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('导购') , templet: function (d) { return templet('salesId',fox.getProperty(d,["sales","person","name"]),d);} }
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }}
 					,{ field: 'brandId', align:"",fixed:false,  hide:false, sort: true, title: fox.translate('品牌'), templet: function (d) { return templet('brandId' ,fox.getProperty(d,["product","brand","name"]),d);}}
+					,{ field: 'bigCataId', align:"",fixed:false,  hide:false, sort: true, title: fox.translate('大类'), templet: function (d) { return templet('bigCataId' ,fox.getProperty(d,["product","bigCatalog","name"]),d);}}
 				]],
 				done: function (data) { window.pageExt.list.afterQuery && window.pageExt.list.afterQuery(data); },
 				footer : {
@@ -114,10 +115,11 @@ function ListPage() {
       */
 	function refreshTableData(sortField,sortType,reset) {
 		var value = {};
-		value.productId={ inputType:"button",value: $("#productId").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" ",fillBy:["product","name"] ,field:"dp_example_product.name"};
+		value.productId={ inputType:"button",value: $("#productId").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" ,fillBy:["product","name"] ,field:"dp_example_product.name"};
 		value.shopId={ inputType:"select_box", value: xmSelect.get("#shopId",true).getValue("value") ,fillBy:["shop"]  ,field:"dp_example_order.shop_id", label:xmSelect.get("#shopId",true).getValue("nameStr") };
 		value.salesId={ inputType:"button",value: $("#salesId").val(),fillBy:["sales","person","name"] ,label:$("#salesId-button").text() };
-		value.brandId={ inputType:"select_box", value: xmSelect.get("#brandId",true).getValue("value")  ,fillBy:["product","brand","name"] ,field:"dp_example_brand.id", label:xmSelect.get("#brandId",true).getValue("nameStr") };
+		value.brandId={ inputType:"select_box", value: xmSelect.get("#brandId",true).getValue("value")  ,fillBy:["product","brand","name"] ,field:"dp_example_product.brand_id", label:xmSelect.get("#brandId",true).getValue("nameStr") };
+		value.bigCataId={ inputType:"select_box", value: xmSelect.get("#bigCataId",true).getValue("value")  ,fillBy:["product","bigCatalog","name"] ,field:"dp_example_product.big_cata_id", label:xmSelect.get("#bigCataId",true).getValue("nameStr") };
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;
@@ -181,6 +183,24 @@ function ListPage() {
 		fox.renderSelectBox({
 			el: "brandId",
 			radio: true,
+			size: "small",
+			filterable: false,
+			//转换数据
+			transform: function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				var opts=[];
+				if(!data) return opts;
+				for (var i = 0; i < data.length; i++) {
+					if(!data[i]) continue;
+					opts.push({name:data[i].name,value:data[i].id});
+				}
+				return opts;
+			}
+		});
+		//渲染 bigCataId 下拉字段
+		fox.renderSelectBox({
+			el: "bigCataId",
+			radio: false,
 			size: "small",
 			filterable: false,
 			//转换数据

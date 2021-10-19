@@ -198,9 +198,9 @@ function ListPage() {
 		value.#(f.varName)={ inputType:"number_input", value: $("##(f.varName)").val() #if(f.searchField!=null),field:"#(f.searchField)"#end};
 		#end
 		#else if(f.typeName.equals("button"))
-		value.#(f.varName)={ inputType:"button",value: $("##(f.varName)").val()#if(f.search!=null && f.search.fuzzySearch) ,fuzzy: true,valuePrefix:"#(f.search.valuePrefix)",valueSuffix:"#(f.search.valueSuffix) "#end #if(f.listFillByPropertyNames),fillBy:#(f.listFillByPropertyNames) #end,label:$("##(f.varName)-button").text() #if(f.searchField!=null),field:"#(f.searchField)"#end };
+		value.#(f.varName)={ inputType:"button",value: $("##(f.varName)").val()#if(f.search!=null && f.search.fuzzySearch) ,fuzzy: true,valuePrefix:"#(f.search.valuePrefix)",valueSuffix:"#(f.search.valueSuffix)" #end #if(f.listFillByPropertyNames),fillBy:#(f.listFillByPropertyNames) #end,label:$("##(f.varName)-button").text() #if(f.searchField!=null),field:"#(f.searchField)"#end };
 		#else
-		value.#(f.varName)={ inputType:"button",value: $("##(f.varName)").val()#if(f.search!=null && f.search.fuzzySearch) ,fuzzy: true,valuePrefix:"#(f.search.valuePrefix)",valueSuffix:"#(f.search.valueSuffix) "#end #if(f.listFillByPropertyNames),fillBy:#(f.listFillByPropertyNames) #end #if(f.searchField!=null),field:"#(f.searchField)"#end};
+		value.#(f.varName)={ inputType:"button",value: $("##(f.varName)").val()#if(f.search!=null && f.search.fuzzySearch) ,fuzzy: true,valuePrefix:"#(f.search.valuePrefix)",valueSuffix:"#(f.search.valueSuffix)" #end #if(f.listFillByPropertyNames),fillBy:#(f.listFillByPropertyNames) #end #if(f.searchField!=null),field:"#(f.searchField)"#end};
 		#end
 		#end
 		#end

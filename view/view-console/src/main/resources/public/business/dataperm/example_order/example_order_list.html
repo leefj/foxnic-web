@@ -2,7 +2,7 @@
 /**
  * 销售订单 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-19 14:06:42
+ * @since 2021-10-19 19:20:59
  */
  -->
  <!DOCTYPE html>
@@ -58,6 +58,11 @@
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('品牌')}" class="search-label brandId-label">品牌</span><span class="search-colon">:</span></div>
                         <div id="brandId" th:data="${'/service-dataperm/dp-example-brand/query-list'}" style="width:140px"></div>
+                    </div>
+                    <!-- 大类 , bigCataId ,typeName=select_box, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('大类')}" class="search-label bigCataId-label">大类</span><span class="search-colon">:</span></div>
+                        <div id="bigCataId" th:data="${'/service-dataperm/dp-example-catalog/query-list?parentId=0'}" style="width:140px"></div>
                     </div>
 
 

@@ -1,7 +1,7 @@
 /**
  * 销售订单 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-19 14:06:42
+ * @since 2021-10-19 19:20:59
  */
 
 function FormPage() {
@@ -115,6 +115,25 @@ function FormPage() {
 				return opts;
 			}
 		});
+		//渲染 bigCataId 下拉字段
+		fox.renderSelectBox({
+			el: "bigCataId",
+			radio: true,
+			filterable: false,
+			//转换数据
+			transform: function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				var defaultValues="".split(",");
+				var defaultIndexs="".split(",");
+				var opts=[];
+				if(!data) return opts;
+				for (var i = 0; i < data.length; i++) {
+					if(!data[i]) continue;
+					opts.push({name:data[i].name,value:data[i].id,selected:(defaultValues.indexOf(data[i].id)!=-1 || defaultIndexs.indexOf(""+i)!=-1)});
+				}
+				return opts;
+			}
+		});
 	}
 
 	/**
@@ -146,6 +165,7 @@ function FormPage() {
 			//设置  店铺 设置下拉框勾选
 			fox.setSelectValue4QueryApi("#shopId",formData.shop);
 			//设置  品牌 设置下拉框勾选
+			//设置  大类 设置下拉框勾选
 
 			//处理fillBy
 
@@ -198,6 +218,8 @@ function FormPage() {
 		data["shopId"]=fox.getSelectedValue("shopId",false);
 		//获取 品牌 下拉框的值
 		data["brandId"]=fox.getSelectedValue("brandId",false);
+		//获取 大类 下拉框的值
+		data["bigCataId"]=fox.getSelectedValue("bigCataId",false);
 
 		return data;
 	}
