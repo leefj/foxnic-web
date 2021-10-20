@@ -232,7 +232,7 @@ public class CodeExampleCarVO extends CodeExampleCar {
 	@Transient
 	public CompositeParameter getCompositeParameter() {
 		if($compositeParameter!=null) return  $compositeParameter;
-		if(!"$composite".equals(this.getSearchField())) return null;
+		
 		$compositeParameter=new CompositeParameter(this.getSearchValue(),BeanUtil.toMap(this));
 		return  $compositeParameter;
 	}

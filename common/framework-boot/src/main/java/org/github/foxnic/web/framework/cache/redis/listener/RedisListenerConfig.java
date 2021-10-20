@@ -19,24 +19,25 @@ public class RedisListenerConfig {
 	{
 
 		RedisUtil redis= SpringUtil.getBean(RedisUtil.class);
-		RedisMessageListenerContainer container=new RedisMessageListenerContainer();
-		if(redis==null || redis.getConnectionFactory()==null) {
+
+		if(redis==null || redis.getConnectionFactory()==null || !redis.isValid()) {
 			Logger.error("redis 配置错误，无法进行 notify 操作");
-			return container;
+			return null;
 		}
-		
+
+
 		TreeMap cfg=SpringUtil.getEnvProperties("spring.redis");
 		if(cfg==null || cfg.isEmpty()) {
 			Logger.error("redis 配置错误，无法进行 notify 操作");
-			return container;
+			return null;
 		}
- 
+		RedisMessageListenerContainer container=new RedisMessageListenerContainer();
 		container.setConnectionFactory(redis.getConnectionFactory());
 		RedisDataChangeListener dcl=SpringUtil.getBean(RedisDataChangeListener.class);
 		container.addMessageListener(dcl, new ChannelTopic(RedisDataChangeListener.DATA_CHANGE_NOTIFY_CHANEL_KEY));
 		return container;
 	}
-	
-	
-	
+
+
+
 }
