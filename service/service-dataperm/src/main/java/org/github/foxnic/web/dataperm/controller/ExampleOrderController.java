@@ -56,7 +56,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 销售订单表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-20 15:51:46
+ * @since 2021-10-21 17:01:52
 */
 
 @Api(tags = "销售订单")
@@ -77,7 +77,7 @@ public class ExampleOrderController extends SuperController {
 		@ApiImplicitParam(name = ExampleOrderVOMeta.PRODUCT_ID , value = "商品ID" , required = false , dataTypeClass=String.class , example = "501041838359052288"),
 		@ApiImplicitParam(name = ExampleOrderVOMeta.PRICE , value = "售价" , required = false , dataTypeClass=BigDecimal.class , example = "53.19"),
 		@ApiImplicitParam(name = ExampleOrderVOMeta.QUANTITY , value = "数量" , required = false , dataTypeClass=Integer.class , example = "93"),
-		@ApiImplicitParam(name = ExampleOrderVOMeta.AMOUNT , value = "金额" , required = false , dataTypeClass=BigDecimal.class , example = "4946.41"),
+		@ApiImplicitParam(name = ExampleOrderVOMeta.AMOUNT , value = "金额" , required = false , dataTypeClass=BigDecimal.class , example = "4946.67"),
 		@ApiImplicitParam(name = ExampleOrderVOMeta.SHOP_ID , value = "店铺ID" , required = false , dataTypeClass=String.class , example = "500998069018431488"),
 		@ApiImplicitParam(name = ExampleOrderVOMeta.SALES_ID , value = "销售人员ID" , required = false , dataTypeClass=String.class , example = "501032360024739840"),
 	})
@@ -134,7 +134,7 @@ public class ExampleOrderController extends SuperController {
 		@ApiImplicitParam(name = ExampleOrderVOMeta.PRODUCT_ID , value = "商品ID" , required = false , dataTypeClass=String.class , example = "501041838359052288"),
 		@ApiImplicitParam(name = ExampleOrderVOMeta.PRICE , value = "售价" , required = false , dataTypeClass=BigDecimal.class , example = "53.19"),
 		@ApiImplicitParam(name = ExampleOrderVOMeta.QUANTITY , value = "数量" , required = false , dataTypeClass=Integer.class , example = "93"),
-		@ApiImplicitParam(name = ExampleOrderVOMeta.AMOUNT , value = "金额" , required = false , dataTypeClass=BigDecimal.class , example = "4946.41"),
+		@ApiImplicitParam(name = ExampleOrderVOMeta.AMOUNT , value = "金额" , required = false , dataTypeClass=BigDecimal.class , example = "4946.67"),
 		@ApiImplicitParam(name = ExampleOrderVOMeta.SHOP_ID , value = "店铺ID" , required = false , dataTypeClass=String.class , example = "500998069018431488"),
 		@ApiImplicitParam(name = ExampleOrderVOMeta.SALES_ID , value = "销售人员ID" , required = false , dataTypeClass=String.class , example = "501032360024739840"),
 	})
@@ -157,7 +157,7 @@ public class ExampleOrderController extends SuperController {
 		@ApiImplicitParam(name = ExampleOrderVOMeta.PRODUCT_ID , value = "商品ID" , required = false , dataTypeClass=String.class , example = "501041838359052288"),
 		@ApiImplicitParam(name = ExampleOrderVOMeta.PRICE , value = "售价" , required = false , dataTypeClass=BigDecimal.class , example = "53.19"),
 		@ApiImplicitParam(name = ExampleOrderVOMeta.QUANTITY , value = "数量" , required = false , dataTypeClass=Integer.class , example = "93"),
-		@ApiImplicitParam(name = ExampleOrderVOMeta.AMOUNT , value = "金额" , required = false , dataTypeClass=BigDecimal.class , example = "4946.41"),
+		@ApiImplicitParam(name = ExampleOrderVOMeta.AMOUNT , value = "金额" , required = false , dataTypeClass=BigDecimal.class , example = "4946.67"),
 		@ApiImplicitParam(name = ExampleOrderVOMeta.SHOP_ID , value = "店铺ID" , required = false , dataTypeClass=String.class , example = "500998069018431488"),
 		@ApiImplicitParam(name = ExampleOrderVOMeta.SALES_ID , value = "销售人员ID" , required = false , dataTypeClass=String.class , example = "501032360024739840"),
 	})
@@ -229,7 +229,7 @@ public class ExampleOrderController extends SuperController {
 		@ApiImplicitParam(name = ExampleOrderVOMeta.PRODUCT_ID , value = "商品ID" , required = false , dataTypeClass=String.class , example = "501041838359052288"),
 		@ApiImplicitParam(name = ExampleOrderVOMeta.PRICE , value = "售价" , required = false , dataTypeClass=BigDecimal.class , example = "53.19"),
 		@ApiImplicitParam(name = ExampleOrderVOMeta.QUANTITY , value = "数量" , required = false , dataTypeClass=Integer.class , example = "93"),
-		@ApiImplicitParam(name = ExampleOrderVOMeta.AMOUNT , value = "金额" , required = false , dataTypeClass=BigDecimal.class , example = "4946.41"),
+		@ApiImplicitParam(name = ExampleOrderVOMeta.AMOUNT , value = "金额" , required = false , dataTypeClass=BigDecimal.class , example = "4946.67"),
 		@ApiImplicitParam(name = ExampleOrderVOMeta.SHOP_ID , value = "店铺ID" , required = false , dataTypeClass=String.class , example = "500998069018431488"),
 		@ApiImplicitParam(name = ExampleOrderVOMeta.SALES_ID , value = "销售人员ID" , required = false , dataTypeClass=String.class , example = "501032360024739840"),
 	})
@@ -253,7 +253,7 @@ public class ExampleOrderController extends SuperController {
 		@ApiImplicitParam(name = ExampleOrderVOMeta.PRODUCT_ID , value = "商品ID" , required = false , dataTypeClass=String.class , example = "501041838359052288"),
 		@ApiImplicitParam(name = ExampleOrderVOMeta.PRICE , value = "售价" , required = false , dataTypeClass=BigDecimal.class , example = "53.19"),
 		@ApiImplicitParam(name = ExampleOrderVOMeta.QUANTITY , value = "数量" , required = false , dataTypeClass=Integer.class , example = "93"),
-		@ApiImplicitParam(name = ExampleOrderVOMeta.AMOUNT , value = "金额" , required = false , dataTypeClass=BigDecimal.class , example = "4946.41"),
+		@ApiImplicitParam(name = ExampleOrderVOMeta.AMOUNT , value = "金额" , required = false , dataTypeClass=BigDecimal.class , example = "4946.67"),
 		@ApiImplicitParam(name = ExampleOrderVOMeta.SHOP_ID , value = "店铺ID" , required = false , dataTypeClass=String.class , example = "500998069018431488"),
 		@ApiImplicitParam(name = ExampleOrderVOMeta.SALES_ID , value = "销售人员ID" , required = false , dataTypeClass=String.class , example = "501032360024739840"),
 	})
