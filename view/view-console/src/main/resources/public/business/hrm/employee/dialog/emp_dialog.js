@@ -450,6 +450,10 @@ function ListPage() {
 			//触发行双击事件
 			table.on('rowDouble(emp-table)', function(obj){
 				// debugger
+				if(options.single && selectedData.length>=1) {
+					top.layer.msg(fox.translate('只允许选择1个')+"!");
+					return;
+				}
 				var nameEL=$("#emp-name-"+obj.data.id);
 				var items=[{targetId:obj.data.id,temporary:1,targetName:nameEL.text(),targetType:"employee"}];
 				admin.post("/service-hrm/hrm-favourite-group-item/inserts",items,function (r){

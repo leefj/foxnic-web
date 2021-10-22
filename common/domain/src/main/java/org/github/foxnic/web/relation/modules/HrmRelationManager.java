@@ -4,6 +4,7 @@ import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.relation.RelationManager;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.domain.hrm.Organization;
+import org.github.foxnic.web.domain.hrm.Person;
 import org.github.foxnic.web.domain.hrm.Position;
 import org.github.foxnic.web.domain.hrm.meta.EmployeeMeta;
 
@@ -21,7 +22,11 @@ public class HrmRelationManager extends RelationManager {
 				.using(FoxnicWeb.HRM_EMPLOYEE.PERSON_ID).join(FoxnicWeb.HRM_PERSON.ID).after((employee, personList,m) -> {
 					//设置属性
 					if(personList!=null && personList.size()>0){
-						String str=personList.get(0).getName();
+						Person person=personList.get(0);
+						String str=person.getName();
+						employee.setName(str);
+						employee.setSex(person.getSex());
+						employee.setIdentity(person.getIdentity());
 						if(!StringUtil.isBlank(employee.getBadge())) {
 							str=str+"("+employee.getBadge()+")";
 						}

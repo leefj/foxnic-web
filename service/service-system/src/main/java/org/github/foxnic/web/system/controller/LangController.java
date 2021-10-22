@@ -72,6 +72,9 @@ public class LangController extends SuperController {
 	@SentinelResource(value = LangServiceProxy.INSERT , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(LangServiceProxy.INSERT)
 	public Result insert(LangVO langVO) {
+		if(langVO.getValid()==null) {
+			langVO.setValid(1);
+		}
 		Result result=langService.insert(langVO);
 		return result;
 	}
