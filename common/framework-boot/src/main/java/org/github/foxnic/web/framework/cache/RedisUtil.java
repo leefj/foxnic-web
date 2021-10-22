@@ -895,13 +895,12 @@ public class RedisUtil {
 	* 创建锁
     *
     * @param key         锁的Key
-    * @param value       值(随便写毫无意义)
     * @param releaseTime 锁过期时间 防止死锁 , 单位：秒
     * @return 是否加锁成功
     */
-   public boolean lock(String key, Object value, int releaseTime) {
+   public boolean lock(String key,int releaseTime) {
        // 尝试获取锁
-       Boolean flag = redisTemplate.opsForValue().setIfAbsent(key, value, releaseTime, TimeUnit.SECONDS);
+       Boolean flag = redisTemplate.opsForValue().setIfAbsent(key, 0, releaseTime, TimeUnit.SECONDS);
        // 判断结果
        return flag != null && flag;
    }
