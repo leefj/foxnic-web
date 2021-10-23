@@ -1,14 +1,14 @@
 /**
  * 代码生成拥有的车辆 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-13 09:42:34
+ * @since 2021-10-22 21:30:46
  */
 
 function FormPage() {
 
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect,foxup;
 	const moduleURL="/service-system/sys-code-example-car";
-
+	var action=null;
 	var disableCreateNew=false;
 	var disableModify=false;
 	/**
@@ -18,11 +18,12 @@ function FormPage() {
      	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload,foxup=layui.foxnicUpload;
 		laydate = layui.laydate,table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
 
+		action=admin.getTempData('sys-code-example-car-form-data-form-action');
 		//如果没有修改和保存权限，
 		if( !admin.checkAuth(AUTH_PREFIX+":update") && !admin.checkAuth(AUTH_PREFIX+":save")) {
 			disableModify=true;
 		}
-		if(admin.getTempData('sys-code-example-car-form-data-form-action')=="view") {
+		if(action=="view") {
 			disableModify=true;
 		}
 

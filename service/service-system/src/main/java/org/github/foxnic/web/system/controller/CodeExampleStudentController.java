@@ -1,6 +1,6 @@
 package org.github.foxnic.web.system.controller;
 
- 
+
 import java.util.List;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -48,7 +48,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 代码生成主表学生 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-27 13:58:09
+ * @since 2021-10-22 21:30:45
 */
 
 @Api(tags = "代码生成主表学生")
@@ -59,7 +59,7 @@ public class CodeExampleStudentController extends SuperController {
 	@Autowired
 	private ICodeExampleStudentService codeExampleStudentService;
 
-	
+
 	/**
 	 * 添加代码生成主表学生
 	*/
@@ -78,7 +78,8 @@ public class CodeExampleStudentController extends SuperController {
 		return result;
 	}
 
-	
+
+
 	/**
 	 * 删除代码生成主表学生
 	*/
@@ -94,8 +95,8 @@ public class CodeExampleStudentController extends SuperController {
 		Result result=codeExampleStudentService.deleteByIdLogical(id);
 		return result;
 	}
-	
-	
+
+
 	/**
 	 * 批量删除代码生成主表学生 <br>
 	 * 联合主键时，请自行调整实现
@@ -112,7 +113,7 @@ public class CodeExampleStudentController extends SuperController {
 		Result result=codeExampleStudentService.deleteByIdsLogical(ids);
 		return result;
 	}
-	
+
 	/**
 	 * 更新代码生成主表学生
 	*/
@@ -123,7 +124,7 @@ public class CodeExampleStudentController extends SuperController {
 		@ApiImplicitParam(name = CodeExampleStudentVOMeta.NAME , value = "学生姓名" , required = false , dataTypeClass=String.class , example = "110352963290923110"),
 		@ApiImplicitParam(name = CodeExampleStudentVOMeta.AGE , value = "年龄" , required = false , dataTypeClass=String.class),
 	})
-	@ApiOperationSupport( order=4 , ignoreParameters = { CodeExampleStudentVOMeta.PAGE_INDEX , CodeExampleStudentVOMeta.PAGE_SIZE , CodeExampleStudentVOMeta.SEARCH_FIELD , CodeExampleStudentVOMeta.FUZZY_FIELD , CodeExampleStudentVOMeta.SEARCH_VALUE , CodeExampleStudentVOMeta.SORT_FIELD , CodeExampleStudentVOMeta.SORT_TYPE , CodeExampleStudentVOMeta.IDS } ) 
+	@ApiOperationSupport( order=4 , ignoreParameters = { CodeExampleStudentVOMeta.PAGE_INDEX , CodeExampleStudentVOMeta.PAGE_SIZE , CodeExampleStudentVOMeta.SEARCH_FIELD , CodeExampleStudentVOMeta.FUZZY_FIELD , CodeExampleStudentVOMeta.SEARCH_VALUE , CodeExampleStudentVOMeta.SORT_FIELD , CodeExampleStudentVOMeta.SORT_TYPE , CodeExampleStudentVOMeta.IDS } )
 	@NotNull(name = CodeExampleStudentVOMeta.ID)
 	@SentinelResource(value = CodeExampleStudentServiceProxy.UPDATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(CodeExampleStudentServiceProxy.UPDATE)
@@ -131,8 +132,8 @@ public class CodeExampleStudentController extends SuperController {
 		Result result=codeExampleStudentService.update(codeExampleStudentVO,SaveMode.NOT_NULL_FIELDS);
 		return result;
 	}
-	
-	
+
+
 	/**
 	 * 保存代码生成主表学生
 	*/
@@ -152,7 +153,7 @@ public class CodeExampleStudentController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 获取代码生成主表学生
 	*/
@@ -167,16 +168,21 @@ public class CodeExampleStudentController extends SuperController {
 	public Result<CodeExampleStudent> getById(String id) {
 		Result<CodeExampleStudent> result=new Result<>();
 		CodeExampleStudent codeExampleStudent=codeExampleStudentService.getById(id);
+
+		// join 关联的对象
+		codeExampleStudentService.dao().fill(codeExampleStudent)
+			.execute();
+
 		result.success(true).data(codeExampleStudent);
 		return result;
 	}
 
 
 	/**
-	 * 批量删除代码生成主表学生 <br>
+	 * 批量获取代码生成主表学生 <br>
 	 * 联合主键时，请自行调整实现
 	*/
-		@ApiOperation(value = "批量删除代码生成主表学生")
+		@ApiOperation(value = "批量获取代码生成主表学生")
 		@ApiImplicitParams({
 				@ApiImplicitParam(name = CodeExampleStudentVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})
@@ -191,7 +197,7 @@ public class CodeExampleStudentController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 查询代码生成主表学生
 	*/
@@ -212,7 +218,7 @@ public class CodeExampleStudentController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 分页查询代码生成主表学生
 	*/
@@ -229,6 +235,11 @@ public class CodeExampleStudentController extends SuperController {
 	public Result<PagedList<CodeExampleStudent>> queryPagedList(CodeExampleStudentVO sample) {
 		Result<PagedList<CodeExampleStudent>> result=new Result<>();
 		PagedList<CodeExampleStudent> list=codeExampleStudentService.queryPagedList(sample,sample.getPageSize(),sample.getPageIndex());
+
+		// join 关联的对象
+		codeExampleStudentService.dao().fill(list)
+			.execute();
+
 		result.success(true).data(list);
 		return result;
 	}

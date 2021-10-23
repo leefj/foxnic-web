@@ -19,32 +19,33 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  * 代码生成示例主表  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-27 13:58:08
+ * @since 2021-10-22 21:30:45
 */
 
 @FeignClient(value = MicroServiceNames.SYSTEM, contextId = CodeExampleServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)
 public interface CodeExampleServiceProxy {
-	
+
 	/**
 	 * 基础路径 , service-system
 	*/
 	public static final String API_BASIC_PATH = "service-system";
-	
+
 	/**
 	 * API 上下文路径 , sys-code-example
 	*/
 	public static final String API_CONTEXT_PATH = "sys-code-example";
-	
+
 	/**
 	 * API 基础路径 , 由 API_BASIC_PATH 和 API_CONTEXT_PATH 两部分组成
 	*/
 	public static final String API_PREFIX = "/" + API_BASIC_PATH + "/"+API_CONTEXT_PATH+"/";
-	
+
 	/**
 	 * 添加代码生成示例主
 	 */
 	public static final String INSERT = API_PREFIX + "insert";
-	
+
+;
 	/**
 	 * 删除代码生成示例主
 	 */
@@ -54,18 +55,18 @@ public interface CodeExampleServiceProxy {
 	 * 批量删除代码生成示例主
 	 */
 	public static final String DELETE_BY_IDS = API_PREFIX + "delete-by-ids";
-	
+
 	/**
 	 * 更新代码生成示例主
 	 */
 	public static final String UPDATE = API_PREFIX + "update";
-	
-	
+
+
 	/**
 	 * 保存代码生成示例主
 	 */
 	public static final String SAVE = API_PREFIX + "save";
-	
+
 	/**
 	 * 获取单个代码生成示例主
 	 */
@@ -75,18 +76,17 @@ public interface CodeExampleServiceProxy {
 	 * 获取多个代码生成示例主
 	 */
 	public static final String GET_BY_IDS = API_PREFIX + "get-by-ids";
-	;
 
 	/**
 	 * 查询代码生成示例主
 	 */
 	public static final String QUERY_LIST = API_PREFIX + "query-list";
-	
+
 	/**
 	 * 分页查询代码生成示例主
 	 */
 	public static final String QUERY_PAGED_LIST = API_PREFIX + "query-paged-list";
-	
+
 	/**
 	 * 导出代码生成示例主数据(Excel)
 	 */
@@ -96,18 +96,18 @@ public interface CodeExampleServiceProxy {
 	 * 下载代码生成示例主导入模版(Excel)
 	 */
 	public static final String EXPORT_EXCEL_TEMPLATE = API_PREFIX + "export-excel-template";
-	
+
 	/**
 	 * 导入代码生成示例主数据(Excel)
 	 */
 	public static final String IMPORT_EXCEL = API_PREFIX + "import-excel";
-	
+
 	/**
 	 * 添加代码生成示例主
 	*/
 	@RequestMapping(CodeExampleServiceProxy.INSERT)
 	Result insert(CodeExampleVO codeExampleVO);
-	
+
 	/**
 	 * 删除代码生成示例主
 	*/
@@ -125,13 +125,13 @@ public interface CodeExampleServiceProxy {
 	*/
 	@RequestMapping(CodeExampleServiceProxy.UPDATE)
 	Result update(CodeExampleVO codeExampleVO);
-	
+
 	/**
 	 * 更新代码生成示例主
 	*/
 	@RequestMapping(CodeExampleServiceProxy.SAVE)
 	Result save(CodeExampleVO codeExampleVO);
-	
+
 	/**
 	 * 获取代码生成示例主
 	*/
@@ -148,14 +148,14 @@ public interface CodeExampleServiceProxy {
 	*/
 	@RequestMapping(CodeExampleServiceProxy.QUERY_LIST)
 	Result<List<CodeExample>> queryList(CodeExampleVO sample);
-	
+
 	/**
 	 * 分页查询代码生成示例主
 	*/
 	@RequestMapping(CodeExampleServiceProxy.QUERY_PAGED_LIST)
 	Result<PagedList<CodeExample>> queryPagedList(CodeExampleVO sample);
-	
-	
+
+
 	/**
 	 * 控制器类名
 	 * */

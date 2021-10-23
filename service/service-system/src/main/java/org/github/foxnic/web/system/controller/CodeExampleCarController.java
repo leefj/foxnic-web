@@ -36,6 +36,10 @@ import org.github.foxnic.web.domain.system.meta.CodeExampleCarMeta;
 import org.github.foxnic.web.domain.hrm.Organization;
 import org.github.foxnic.web.domain.hrm.Position;
 import org.github.foxnic.web.domain.hrm.Employee;
+import org.github.foxnic.web.domain.hrm.meta.OrganizationMeta;
+import org.github.foxnic.web.domain.hrm.meta.PositionMeta;
+import org.github.foxnic.web.domain.hrm.meta.EmployeeMeta;
+import org.github.foxnic.web.domain.hrm.meta.PersonMeta;
 import io.swagger.annotations.Api;
 import com.github.xiaoymin.knife4j.annotations.ApiSort;
 import io.swagger.annotations.ApiOperation;
@@ -51,7 +55,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 代码生成拥有的车辆 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-13 09:42:34
+ * @since 2021-10-22 21:30:46
 */
 
 @Api(tags = "代码生成拥有的车辆")
@@ -201,16 +205,16 @@ public class CodeExampleCarController extends SuperController {
 	public Result<CodeExampleCar> getById(String id) {
 		Result<CodeExampleCar> result=new Result<>();
 		CodeExampleCar codeExampleCar=codeExampleCarService.getById(id);
-		// 关联出 岗位单选 数据
-		codeExampleCarService.join(codeExampleCar,CodeExampleCarMeta.POSITION);
-		// 关联出 组织单选 数据
-		codeExampleCarService.join(codeExampleCar,CodeExampleCarMeta.ORGANIZATION);
-		// 关联出 员工单选 数据
-		codeExampleCarService.join(codeExampleCar,CodeExampleCarMeta.EMPLOYEE);
-		// 关联出 公司单选 数据
-		codeExampleCarService.join(codeExampleCar,CodeExampleCarMeta.COMPANY);
-		// 关联出 限定上级 数据
-		codeExampleCarService.join(codeExampleCar,CodeExampleCarMeta.SUB_ORGANIZATION);
+
+		// join 关联的对象
+		codeExampleCarService.dao().fill(codeExampleCar)
+			.with(CodeExampleCarMeta.ORGANIZATION)
+			.with(CodeExampleCarMeta.SUB_ORGANIZATION)
+			.with(CodeExampleCarMeta.COMPANY)
+			.with(CodeExampleCarMeta.POSITION)
+			.with(CodeExampleCarMeta.EMPLOYEE,EmployeeMeta.PERSON)
+			.execute();
+
 		result.success(true).data(codeExampleCar);
 		return result;
 	}
@@ -293,16 +297,16 @@ public class CodeExampleCarController extends SuperController {
 	public Result<PagedList<CodeExampleCar>> queryPagedList(CodeExampleCarVO sample) {
 		Result<PagedList<CodeExampleCar>> result=new Result<>();
 		PagedList<CodeExampleCar> list=codeExampleCarService.queryPagedList(sample,sample.getPageSize(),sample.getPageIndex());
-		// 关联出 岗位单选 数据
-		codeExampleCarService.join(list,CodeExampleCarMeta.POSITION);
-		// 关联出 组织单选 数据
-		codeExampleCarService.join(list,CodeExampleCarMeta.ORGANIZATION);
-		// 关联出 员工单选 数据
-		codeExampleCarService.join(list,CodeExampleCarMeta.EMPLOYEE);
-		// 关联出 公司单选 数据
-		codeExampleCarService.join(list,CodeExampleCarMeta.COMPANY);
-		// 关联出 限定上级 数据
-		codeExampleCarService.join(list,CodeExampleCarMeta.SUB_ORGANIZATION);
+
+		// join 关联的对象
+		codeExampleCarService.dao().fill(list)
+			.with(CodeExampleCarMeta.ORGANIZATION)
+			.with(CodeExampleCarMeta.SUB_ORGANIZATION)
+			.with(CodeExampleCarMeta.COMPANY)
+			.with(CodeExampleCarMeta.POSITION)
+			.with(CodeExampleCarMeta.EMPLOYEE,EmployeeMeta.PERSON)
+			.execute();
+
 		result.success(true).data(list);
 		return result;
 	}

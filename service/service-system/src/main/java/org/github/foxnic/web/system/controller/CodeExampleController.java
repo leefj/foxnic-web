@@ -1,49 +1,57 @@
 package org.github.foxnic.web.system.controller;
 
- 
-import com.alibaba.csp.sentinel.annotation.SentinelResource;
-import com.github.foxnic.api.error.ErrorDesc;
-import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.api.validate.annotations.NotNull;
-import com.github.foxnic.commons.io.StreamUtil;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.springboot.web.DownloadUtil;
-import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import com.github.xiaoymin.knife4j.annotations.ApiSort;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
-import org.github.foxnic.web.domain.system.CodeExample;
-import org.github.foxnic.web.domain.system.CodeExampleVO;
-import org.github.foxnic.web.domain.system.meta.CodeExampleMeta;
-import org.github.foxnic.web.domain.system.meta.CodeExampleVOMeta;
-import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
-import org.github.foxnic.web.framework.web.SuperController;
-import org.github.foxnic.web.proxy.system.CodeExampleServiceProxy;
-import org.github.foxnic.web.system.service.ICodeExampleService;
+
+import java.util.List;
+
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import org.github.foxnic.web.framework.web.SuperController;
+import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.InputStream;
+
+import org.github.foxnic.web.proxy.system.CodeExampleServiceProxy;
+import org.github.foxnic.web.domain.system.meta.CodeExampleVOMeta;
+import org.github.foxnic.web.domain.system.CodeExample;
+import org.github.foxnic.web.domain.system.CodeExampleVO;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.excel.ExcelWriter;
+import com.github.foxnic.springboot.web.DownloadUtil;
+import com.github.foxnic.dao.data.PagedList;
 import java.util.Date;
-import java.util.List;
+import java.sql.Timestamp;
+import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.commons.io.StreamUtil;
 import java.util.Map;
+import com.github.foxnic.dao.excel.ValidateResult;
+import java.io.InputStream;
+import org.github.foxnic.web.domain.system.meta.CodeExampleMeta;
+import org.github.foxnic.web.domain.oauth.Resourze;
+import org.github.foxnic.web.domain.oauth.Role;
+import org.github.foxnic.web.domain.oauth.meta.ResourzeMeta;
+import io.swagger.annotations.Api;
+import com.github.xiaoymin.knife4j.annotations.ApiSort;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiImplicitParam;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import org.github.foxnic.web.system.service.ICodeExampleService;
+import com.github.foxnic.api.validate.annotations.NotNull;
 
 /**
  * <p>
  * 代码生成示例主表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-27 13:58:08
+ * @since 2021-10-22 21:30:45
 */
 
 @Api(tags = "代码生成示例主")
@@ -54,7 +62,7 @@ public class CodeExampleController extends SuperController {
 	@Autowired
 	private ICodeExampleService codeExampleService;
 
-	
+
 	/**
 	 * 添加代码生成示例主
 	*/
@@ -87,7 +95,8 @@ public class CodeExampleController extends SuperController {
 		return result;
 	}
 
-	
+
+
 	/**
 	 * 删除代码生成示例主
 	*/
@@ -103,8 +112,8 @@ public class CodeExampleController extends SuperController {
 		Result result=codeExampleService.deleteByIdLogical(id);
 		return result;
 	}
-	
-	
+
+
 	/**
 	 * 批量删除代码生成示例主 <br>
 	 * 联合主键时，请自行调整实现
@@ -121,7 +130,7 @@ public class CodeExampleController extends SuperController {
 		Result result=codeExampleService.deleteByIdsLogical(ids);
 		return result;
 	}
-	
+
 	/**
 	 * 更新代码生成示例主
 	*/
@@ -146,7 +155,7 @@ public class CodeExampleController extends SuperController {
 		@ApiImplicitParam(name = CodeExampleVOMeta.BIRTHDAY , value = "日期" , required = false , dataTypeClass=Date.class , example = "2021-08-23 12:00:00"),
 		@ApiImplicitParam(name = CodeExampleVOMeta.WORK_TIME , value = "工作时间" , required = false , dataTypeClass=Date.class),
 	})
-	@ApiOperationSupport( order=4 , ignoreParameters = { CodeExampleVOMeta.PAGE_INDEX , CodeExampleVOMeta.PAGE_SIZE , CodeExampleVOMeta.SEARCH_FIELD , CodeExampleVOMeta.FUZZY_FIELD , CodeExampleVOMeta.SEARCH_VALUE , CodeExampleVOMeta.SORT_FIELD , CodeExampleVOMeta.SORT_TYPE , CodeExampleVOMeta.IDS } ) 
+	@ApiOperationSupport( order=4 , ignoreParameters = { CodeExampleVOMeta.PAGE_INDEX , CodeExampleVOMeta.PAGE_SIZE , CodeExampleVOMeta.SEARCH_FIELD , CodeExampleVOMeta.FUZZY_FIELD , CodeExampleVOMeta.SEARCH_VALUE , CodeExampleVOMeta.SORT_FIELD , CodeExampleVOMeta.SORT_TYPE , CodeExampleVOMeta.IDS } )
 	@NotNull(name = CodeExampleVOMeta.ID)
 	@SentinelResource(value = CodeExampleServiceProxy.UPDATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(CodeExampleServiceProxy.UPDATE)
@@ -154,8 +163,8 @@ public class CodeExampleController extends SuperController {
 		Result result=codeExampleService.update(codeExampleVO,SaveMode.NOT_NULL_FIELDS);
 		return result;
 	}
-	
-	
+
+
 	/**
 	 * 保存代码生成示例主
 	*/
@@ -189,7 +198,7 @@ public class CodeExampleController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 获取代码生成示例主
 	*/
@@ -204,20 +213,24 @@ public class CodeExampleController extends SuperController {
 	public Result<CodeExample> getById(String id) {
 		Result<CodeExample> result=new Result<>();
 		CodeExample codeExample=codeExampleService.getById(id);
-		// 关联出 选择框(查询) 数据
-		codeExampleService.join(codeExample,CodeExampleMeta.RESOURZE);
-		// 关联出 角色 数据
-		codeExampleService.join(codeExample,CodeExampleMeta.ROLES);
+
+		// join 关联的对象
+		codeExampleService.dao().fill(codeExample)
+			.with(CodeExampleMeta.RESOURZE)
+			.with(CodeExampleMeta.RESOURZE)
+			.with(CodeExampleMeta.ROLES)
+			.execute();
+
 		result.success(true).data(codeExample);
 		return result;
 	}
 
 
 	/**
-	 * 批量删除代码生成示例主 <br>
+	 * 批量获取代码生成示例主 <br>
 	 * 联合主键时，请自行调整实现
 	*/
-		@ApiOperation(value = "批量删除代码生成示例主")
+		@ApiOperation(value = "批量获取代码生成示例主")
 		@ApiImplicitParams({
 				@ApiImplicitParam(name = CodeExampleVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})
@@ -232,7 +245,7 @@ public class CodeExampleController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 查询代码生成示例主
 	*/
@@ -267,7 +280,7 @@ public class CodeExampleController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 分页查询代码生成示例主
 	*/
@@ -296,16 +309,16 @@ public class CodeExampleController extends SuperController {
 	@SentinelResource(value = CodeExampleServiceProxy.QUERY_PAGED_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(CodeExampleServiceProxy.QUERY_PAGED_LIST)
 	public Result<PagedList<CodeExample>> queryPagedList(CodeExampleVO sample) {
-
-		//获得复合查询参数
-		sample.getCompositeParameter().getValue("companyId");
-
 		Result<PagedList<CodeExample>> result=new Result<>();
 		PagedList<CodeExample> list=codeExampleService.queryPagedList(sample,sample.getPageSize(),sample.getPageIndex());
-		// 关联出 选择框(查询) 数据
-		codeExampleService.join(list,CodeExampleMeta.RESOURZE);
-		// 关联出 角色 数据
-		codeExampleService.join(list,CodeExampleMeta.ROLES);
+
+		// join 关联的对象
+		codeExampleService.dao().fill(list)
+			.with(CodeExampleMeta.RESOURZE)
+			.with(CodeExampleMeta.RESOURZE)
+			.with(CodeExampleMeta.ROLES)
+			.execute();
+
 		result.success(true).data(list);
 		return result;
 	}

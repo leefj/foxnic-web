@@ -151,6 +151,7 @@ function FormPage() {
 	function getFormData() {
 		var data=form.val("data-form");
 
+		debugger;
 		//处理 是否有效 默认值
 		if(!data.valid) data.valid=0;
 
