@@ -2,7 +2,7 @@
 /**
  * 序列 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-12 09:25:41
+ * @since 2021-10-23 14:14:09
  */
  -->
  <!DOCTYPE html>
@@ -46,6 +46,13 @@
             <div class="layui-col-xs12 form-column">
 
                     <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('Key')}">Key</div><div class="layui-required">*</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input lay-filter="id" id="id" name="id" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('Key') }" type="text" class="layui-input"    lay-verify="|required"  />
+                        </div>
+                    </div>
+
+                                    <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('名称')}">名称</div><div class="layui-required">*</div></div>
                         <div class="layui-input-block layui-input-block-c1">
                             <input lay-filter="name" id="name" name="name" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('名称') }" type="text" class="layui-input"    lay-verify="|required"  />

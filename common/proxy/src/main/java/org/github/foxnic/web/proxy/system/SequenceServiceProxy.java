@@ -19,32 +19,33 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  * 序列表  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-12 09:25:41
+ * @since 2021-10-23 14:14:07
 */
 
 @FeignClient(value = MicroServiceNames.SYSTEM, contextId = SequenceServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)
 public interface SequenceServiceProxy {
-	
+
 	/**
 	 * 基础路径 , service-system
 	*/
 	public static final String API_BASIC_PATH = "service-system";
-	
+
 	/**
 	 * API 上下文路径 , sys-sequence
 	*/
 	public static final String API_CONTEXT_PATH = "sys-sequence";
-	
+
 	/**
 	 * API 基础路径 , 由 API_BASIC_PATH 和 API_CONTEXT_PATH 两部分组成
 	*/
 	public static final String API_PREFIX = "/" + API_BASIC_PATH + "/"+API_CONTEXT_PATH+"/";
-	
+
 	/**
 	 * 添加序列
 	 */
 	public static final String INSERT = API_PREFIX + "insert";
-	
+
+;
 	/**
 	 * 删除序列
 	 */
@@ -54,18 +55,18 @@ public interface SequenceServiceProxy {
 	 * 批量删除序列
 	 */
 	public static final String DELETE_BY_IDS = API_PREFIX + "delete-by-ids";
-	
+
 	/**
 	 * 更新序列
 	 */
 	public static final String UPDATE = API_PREFIX + "update";
-	
-	
+
+
 	/**
 	 * 保存序列
 	 */
 	public static final String SAVE = API_PREFIX + "save";
-	
+
 	/**
 	 * 获取单个序列
 	 */
@@ -75,18 +76,17 @@ public interface SequenceServiceProxy {
 	 * 获取多个序列
 	 */
 	public static final String GET_BY_IDS = API_PREFIX + "get-by-ids";
-	;
 
 	/**
 	 * 查询序列
 	 */
 	public static final String QUERY_LIST = API_PREFIX + "query-list";
-	
+
 	/**
 	 * 分页查询序列
 	 */
 	public static final String QUERY_PAGED_LIST = API_PREFIX + "query-paged-list";
-	
+
 	/**
 	 * 导出序列数据(Excel)
 	 */
@@ -96,18 +96,18 @@ public interface SequenceServiceProxy {
 	 * 下载序列导入模版(Excel)
 	 */
 	public static final String EXPORT_EXCEL_TEMPLATE = API_PREFIX + "export-excel-template";
-	
+
 	/**
 	 * 导入序列数据(Excel)
 	 */
 	public static final String IMPORT_EXCEL = API_PREFIX + "import-excel";
-	
+
 	/**
 	 * 添加序列
 	*/
 	@RequestMapping(SequenceServiceProxy.INSERT)
 	Result insert(SequenceVO sequenceVO);
-	
+
 	/**
 	 * 删除序列
 	*/
@@ -125,13 +125,13 @@ public interface SequenceServiceProxy {
 	*/
 	@RequestMapping(SequenceServiceProxy.UPDATE)
 	Result update(SequenceVO sequenceVO);
-	
+
 	/**
 	 * 更新序列
 	*/
 	@RequestMapping(SequenceServiceProxy.SAVE)
 	Result save(SequenceVO sequenceVO);
-	
+
 	/**
 	 * 获取序列
 	*/
@@ -148,14 +148,14 @@ public interface SequenceServiceProxy {
 	*/
 	@RequestMapping(SequenceServiceProxy.QUERY_LIST)
 	Result<List<Sequence>> queryList(SequenceVO sample);
-	
+
 	/**
 	 * 分页查询序列
 	*/
 	@RequestMapping(SequenceServiceProxy.QUERY_PAGED_LIST)
 	Result<PagedList<Sequence>> queryPagedList(SequenceVO sample);
-	
-	
+
+
 	/**
 	 * 控制器类名
 	 * */

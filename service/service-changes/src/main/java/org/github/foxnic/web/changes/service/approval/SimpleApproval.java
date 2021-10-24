@@ -41,6 +41,9 @@ public class SimpleApproval implements IApproval {
     @Autowired
     private IChangeDataService changeDataService;
 
+    @Autowired
+    private IChangeApproverService approverService;
+
 
     @Override
     public Result<ChangeEvent> request(ChangeRequestBody request, ChangeDefinition definition) {
@@ -77,6 +80,9 @@ public class SimpleApproval implements IApproval {
             return result;
         }
 
+
+
+
         //创建并设置变更实例
         ChangeInstance instance=new ChangeInstance();
         instance.setDefinitionId(definition.getId());
@@ -89,11 +95,28 @@ public class SimpleApproval implements IApproval {
         instance.setSimpleNodeId(simpleNodeId);
         instance.setSimpleApprovers(JSON.toJSONString(appovers));
 
+
+
+
         //保存变更实例
         Result cr=changeInstanceService.insert(instance);
         if(cr.failure()) {
             return cr.message("变更实例保存失败");
         }
+
+        //保存审批人
+        List<ChangeApprover> changeApprovers=new ArrayList<>();
+        for (Appover appover : appovers) {
+            ChangeApprover changeApprover=new ChangeApprover();
+            changeApprover.setId(IDGenerator.getSnowflakeIdString());
+            changeApprover.setDefinitionId(definition.getId());
+            changeApprover.setInstanceId(instance.getId());
+            changeApprover.setApproverTypeEnum(appover.getType());
+            changeApprover.setApproverId(appover.getId());
+            changeApprover.setNodeId(simpleNodeId);
+            changeApprovers.add(changeApprover);
+        }
+        approverService.insertList(changeApprovers);
 
         //保存变更单据号
         for (String billId : request.getBillIds()) {

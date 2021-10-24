@@ -1,16 +1,16 @@
 /**
- * 序列 列表页 JS 脚本
+ * 变更单据关系 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-23 14:14:09
+ * @since 2021-10-23 14:31:44
  */
 
 function FormPage() {
 
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect,foxup;
-	const moduleURL="/service-system/sys-sequence";
+	const moduleURL="/service-changes/chs-change-approver";
 	var action=null;
 	var disableCreateNew=false;
-	var disableModify=true;
+	var disableModify=false;
 	/**
       * 入口函数，初始化
       */
@@ -18,7 +18,7 @@ function FormPage() {
      	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload,foxup=layui.foxnicUpload;
 		laydate = layui.laydate,table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
 
-		action=admin.getTempData('sys-sequence-form-data-form-action');
+		action=admin.getTempData('chs-change-approver-form-data-form-action');
 		//如果没有修改和保存权限
 		if( !admin.checkAuth(AUTH_PREFIX+":update") && !admin.checkAuth(AUTH_PREFIX+":save")) {
 			disableModify=true;
@@ -58,7 +58,7 @@ function FormPage() {
 			var footerHeight=$(".model-form-footer").height();
 			var area=admin.changePopupArea(null,bodyHeight+footerHeight);
 			if(area==null) return;
-			admin.putTempData('sys-sequence-form-area', area);
+			admin.putTempData('chs-change-approver-form-area', area);
 			window.adjustPopup=adjustPopup;
 			if(area.tooHeigh) {
 				var windowHeight=area.iframeHeight;
@@ -85,14 +85,14 @@ function FormPage() {
       */
 	function fillFormData(formData) {
 		if(!formData) {
-			formData = admin.getTempData('sys-sequence-form-data');
+			formData = admin.getTempData('chs-change-approver-form-data');
 		}
 
 		window.pageExt.form.beforeDataFill && window.pageExt.form.beforeDataFill(formData);
 
 		var hasData=true;
 		//如果是新建
-		if(!formData || !formData.pk) {
+		if(!formData || !formData.id) {
 			adjustPopup();
 			hasData=false;
 		}
@@ -163,14 +163,14 @@ function FormPage() {
 	}
 
 	function saveForm(param) {
-		var api=moduleURL+"/"+(param.pk?"update":"insert");
+		var api=moduleURL+"/"+(param.id?"update":"insert");
 		var task=setTimeout(function(){layer.load(2);},1000);
 		admin.request(api, param, function (data) {
 			clearTimeout(task);
 			layer.closeAll('loading');
 			if (data.success) {
 				layer.msg(data.message, {icon: 1, time: 500});
-				var index=admin.getTempData('sys-sequence-form-data-popup-index');
+				var index=admin.getTempData('chs-change-approver-form-data-popup-index');
 				admin.finishPopupCenter(index);
 			} else {
 				layer.msg(data.message, {icon: 2, time: 1000});

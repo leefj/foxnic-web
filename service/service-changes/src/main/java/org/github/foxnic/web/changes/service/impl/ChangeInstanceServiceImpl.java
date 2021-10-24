@@ -58,14 +58,6 @@ public class ChangeInstanceServiceImpl extends SuperService<ChangeInstance> impl
 	@Autowired
 	private IChangeDefinitionService definitionService;
 
-	@Autowired
-	private IChangeEventService eventService;
-
-	@Autowired
-	private IChangeDataService dataService;
-
-	@Autowired
-	private IChangeBillService billService;
 
 	@Autowired
 	private SimpleApproval simpleApproval;

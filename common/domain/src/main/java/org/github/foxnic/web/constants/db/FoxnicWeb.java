@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2021-10-14 16:57:12
+ * @since 2021-10-23 14:29:31
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -135,6 +135,92 @@ public class FoxnicWeb {
 	/**
 	 * 变更单据关系表
 	*/
+	public static class CHS_CHANGE_APPROVER extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "chs_change_approver";
+		
+		/**
+		 * 主键
+		*/
+		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","主键","主键",true,false,false);
+		
+		/**
+		 * 变更定义ID
+		*/
+		public static final DBField DEFINITION_ID = new DBField(DBDataType.STRING , "definition_id","definitionId","变更定义ID","变更定义ID",false,false,true);
+		
+		/**
+		 * 变更实例ID
+		*/
+		public static final DBField INSTANCE_ID = new DBField(DBDataType.STRING , "instance_id","instanceId","变更实例ID","变更实例ID",false,false,true);
+		
+		/**
+		 * 审批人ID
+		*/
+		public static final DBField APPROVER_ID = new DBField(DBDataType.STRING , "approver_id","approverId","审批人ID","审批人ID",false,false,true);
+		
+		/**
+		 * 审批人类型，参考枚举 ApproverType
+		*/
+		public static final DBField APPROVER_TYPE = new DBField(DBDataType.STRING , "approver_type","approverType","审批人类型","参考枚举 ApproverType",false,false,true);
+		
+		/**
+		 * 节点ID
+		*/
+		public static final DBField NODE_ID = new DBField(DBDataType.STRING , "node_id","nodeId","节点ID","节点ID",false,false,true);
+		
+		/**
+		 * 创建人ID
+		*/
+		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
+		
+		/**
+		 * 创建时间
+		*/
+		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","创建时间","创建时间",false,false,true);
+		
+		/**
+		 * 修改人ID
+		*/
+		public static final DBField UPDATE_BY = new DBField(DBDataType.STRING , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
+		
+		/**
+		 * 修改时间
+		*/
+		public static final DBField UPDATE_TIME = new DBField(DBDataType.DATE , "update_time","updateTime","修改时间","修改时间",false,false,true);
+		
+		/**
+		 * 是否已删除
+		*/
+		public static final DBField DELETED = new DBField(DBDataType.INTEGER , "deleted","deleted","是否已删除","是否已删除",false,false,false);
+		
+		/**
+		 * 删除人ID
+		*/
+		public static final DBField DELETE_BY = new DBField(DBDataType.STRING , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
+		
+		/**
+		 * 删除时间
+		*/
+		public static final DBField DELETE_TIME = new DBField(DBDataType.DATE , "delete_time","deleteTime","删除时间","删除时间",false,false,true);
+		
+		/**
+		 * 数据版本号
+		*/
+		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
+		
+		public CHS_CHANGE_APPROVER() {
+			this.init($NAME,"变更单据关系表" , ID , DEFINITION_ID , INSTANCE_ID , APPROVER_ID , APPROVER_TYPE , NODE_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+		}
+		public static final CHS_CHANGE_APPROVER $TABLE=new CHS_CHANGE_APPROVER();
+	}
+	
+	/**
+	 * 变更单据关系表
+	*/
 	public static class CHS_CHANGE_BILL extends DBTable {
 		
 		/**
@@ -162,8 +248,48 @@ public class FoxnicWeb {
 		*/
 		public static final DBField BILL_ID = new DBField(DBDataType.STRING , "bill_id","billId","变更单据ID","变更单据ID",false,false,true);
 		
+		/**
+		 * 创建人ID
+		*/
+		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
+		
+		/**
+		 * 创建时间
+		*/
+		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","创建时间","创建时间",false,false,true);
+		
+		/**
+		 * 修改人ID
+		*/
+		public static final DBField UPDATE_BY = new DBField(DBDataType.STRING , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
+		
+		/**
+		 * 修改时间
+		*/
+		public static final DBField UPDATE_TIME = new DBField(DBDataType.DATE , "update_time","updateTime","修改时间","修改时间",false,false,true);
+		
+		/**
+		 * 是否已删除
+		*/
+		public static final DBField DELETED = new DBField(DBDataType.INTEGER , "deleted","deleted","是否已删除","是否已删除",false,false,false);
+		
+		/**
+		 * 删除人ID
+		*/
+		public static final DBField DELETE_BY = new DBField(DBDataType.STRING , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
+		
+		/**
+		 * 删除时间
+		*/
+		public static final DBField DELETE_TIME = new DBField(DBDataType.DATE , "delete_time","deleteTime","删除时间","删除时间",false,false,true);
+		
+		/**
+		 * 数据版本号
+		*/
+		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
+		
 		public CHS_CHANGE_BILL() {
-			this.init($NAME,"变更单据关系表" , ID , DEFINITION_ID , INSTANCE_ID , BILL_ID);
+			this.init($NAME,"变更单据关系表" , ID , DEFINITION_ID , INSTANCE_ID , BILL_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final CHS_CHANGE_BILL $TABLE=new CHS_CHANGE_BILL();
 	}

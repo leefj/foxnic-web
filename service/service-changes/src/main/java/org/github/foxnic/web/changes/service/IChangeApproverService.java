@@ -1,10 +1,10 @@
-package org.github.foxnic.web.system.service;
+package org.github.foxnic.web.changes.service;
 
 
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.dao.entity.ISuperService;
-import org.github.foxnic.web.domain.system.Sequence;
-import org.github.foxnic.web.domain.system.SequenceVO;
+import org.github.foxnic.web.domain.changes.ChangeApprover;
+import org.github.foxnic.web.domain.changes.ChangeApproverVO;
 import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
@@ -18,132 +18,140 @@ import com.github.foxnic.dao.data.SaveMode;
 
 /**
  * <p>
- * 序列表 服务接口
+ * 变更单据关系表 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-23 14:14:07
+ * @since 2021-10-23 14:31:42
 */
 
-public interface ISequenceService extends ISuperService<Sequence> {
+public interface IChangeApproverService extends ISuperService<ChangeApprover> {
 
 	/**
 	 * 插入实体
-	 * @param sequence 实体数据
+	 * @param changeApprover 实体数据
 	 * @return 插入是否成功
 	 * */
-	Result insert(Sequence sequence);
+	Result insert(ChangeApprover changeApprover);
 
 	/**
 	 * 批量插入实体，事务内
-	 * @param sequenceList 实体数据清单
+	 * @param changeApproverList 实体数据清单
 	 * @return 插入是否成功
 	 * */
-	Result insertList(List<Sequence> sequenceList);
+	Result insertList(List<ChangeApprover> changeApproverList);
 
 
 		
 	/**
-	 * 按主键删除 序列
+	 * 按主键删除 变更单据关系
 	 *
-	 * @param pk 主键
+	 * @param id 主键
 	 * @return 删除是否成功
 	 */
-	Result deleteByIdPhysical(String pk);
+	Result deleteByIdPhysical(String id);
+	
+	/**
+	 * 按主键删除 变更单据关系
+	 *
+	 * @param id 主键
+	 * @return 删除是否成功
+	 */
+	Result deleteByIdLogical(String id);
 
 	/**
 	 * 批量物理删除，仅支持单字段主键表
-	 * @param pks 主键清单
+	 * @param ids 主键清单
 	 * @return 是否删除成功
 	 * */
-	<T> Result deleteByIdsPhysical(List<T> pks);
+	<T> Result deleteByIdsPhysical(List<T> ids);
 
 	/**
 	 * 批量逻辑删除，仅支持单字段主键表
-	 * @param pks 主键清单
+	 * @param ids 主键清单
 	 * @return 是否删除成功
 	 * */
-	<T> Result deleteByIdsLogical(List<T> pks);
+	<T> Result deleteByIdsLogical(List<T> ids);
 
 		
 	/**
-	 * 按主键更新字段 序列
+	 * 按主键更新字段 变更单据关系
 	 *
-	 * @param pk 主键
+	 * @param id 主键
 	 * @return 是否更新成功
 	 */
-	boolean update(DBField field,Object value , String pk);
+	boolean update(DBField field,Object value , String id);
 
 	/**
 	 * 更新实体
-	 * @param sequence 数据对象
+	 * @param changeApprover 数据对象
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	Result update(Sequence sequence , SaveMode mode);
+	Result update(ChangeApprover changeApprover , SaveMode mode);
 
 
 	/**
 	 * 更新实体集，事务内
-	 * @param sequenceList 数据对象列表
+	 * @param changeApproverList 数据对象列表
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	Result updateList(List<Sequence> sequenceList, SaveMode mode);
+	Result updateList(List<ChangeApprover> changeApproverList, SaveMode mode);
 
 	/**
 	 * 保存实体，如果主键值不为 null，则更新，否则插入
-	 * @param sequence 实体数据
+	 * @param changeApprover 实体数据
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	Result save(Sequence sequence , SaveMode mode);
+	Result save(ChangeApprover changeApprover , SaveMode mode);
 
 	/**
 	 * 保存实体，如果主键值不为null，则更新，否则插入
-	 * @param sequenceList 实体数据清单
+	 * @param changeApproverList 实体数据清单
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
-	Result saveList(List<Sequence> sequenceList , SaveMode mode);
+	Result saveList(List<ChangeApprover> changeApproverList , SaveMode mode);
 
 	/**
 	 * 检查实体中的数据字段是否已经存在
-	 * @param sequence  实体对象
+	 * @param changeApprover  实体对象
 	 * @param field  字段清单，至少指定一个
 	 * @return 是否已经存在
 	 * */
-	boolean checkExists(Sequence sequence,DBField... field);
+	boolean checkExists(ChangeApprover changeApprover,DBField... field);
 
 		
 	/**
-	 * 按主键获取 序列
+	 * 按主键获取 变更单据关系
 	 *
-	 * @param pk 主键
-	 * @return Sequence 数据对象
+	 * @param id 主键
+	 * @return ChangeApprover 数据对象
 	 */
-	Sequence getById(String pk);
+	ChangeApprover getById(String id);
 
 	/**
 	 * 检查实体中的数据字段是否已经存在
-	 * @param pks  主键清单
+	 * @param ids  主键清单
 	 * @return 实体集
 	 * */
-	List<Sequence> getByIds(List<String> pks);
+	List<ChangeApprover> getByIds(List<String> ids);
 
 	/**
 	 * 检查 角色 是否已经存在
 	 *
-	 * @param sequence 数据对象
+	 * @param changeApprover 数据对象
 	 * @return 判断结果
 	 */
-	Result<Sequence> checkExists(Sequence sequence);
+	Result<ChangeApprover> checkExists(ChangeApprover changeApprover);
 
 	/**
 	 * 根据实体数构建默认的条件表达式, 不支持 Join 其它表
 	 * @param sample 数据样例
 	 * @return ConditionExpr 条件表达式
 	 * */
-	ConditionExpr buildQueryCondition(Sequence sample);
+	ConditionExpr buildQueryCondition(ChangeApprover sample);
 
 	/**
 	 * 根据实体数构建默认的条件表达式, 不支持 Join 其它表
@@ -151,14 +159,14 @@ public interface ISequenceService extends ISuperService<Sequence> {
 	 * @param tableAliase 数据表别名
 	 * 	@return ConditionExpr 条件表达式
 	 * */
-	ConditionExpr buildQueryCondition(Sequence sample,String tableAliase);
+	ConditionExpr buildQueryCondition(ChangeApprover sample,String tableAliase);
 
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
 	 * @param sample  查询条件
 	 * @return 查询结果
 	 * */
-	List<Sequence> queryList(Sequence sample);
+	List<ChangeApprover> queryList(ChangeApprover sample);
 
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
@@ -167,7 +175,7 @@ public interface ISequenceService extends ISuperService<Sequence> {
 	 * @param orderBy  排序
 	 * @return 查询结果
 	 * */
-	List<Sequence> queryList(Sequence sample,ConditionExpr condition,OrderBy orderBy);
+	List<ChangeApprover> queryList(ChangeApprover sample,ConditionExpr condition,OrderBy orderBy);
 
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
@@ -175,7 +183,7 @@ public interface ISequenceService extends ISuperService<Sequence> {
 	 * @param orderBy  排序
 	 * @return 查询结果
 	 * */
-	List<Sequence> queryList(Sequence sample,OrderBy orderBy);
+	List<ChangeApprover> queryList(ChangeApprover sample,OrderBy orderBy);
 
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
@@ -183,14 +191,14 @@ public interface ISequenceService extends ISuperService<Sequence> {
 	 * @param condition  其它条件
 	 * @return 查询结果
 	 * */
-	List<Sequence> queryList(Sequence sample,ConditionExpr condition);
+	List<ChangeApprover> queryList(ChangeApprover sample,ConditionExpr condition);
 
 	/**
 	 * 查询单个实体
 	 * @param sample  查询条件
 	 * @return 查询结果
 	 * */
-	Sequence queryEntity(Sequence sample);
+	ChangeApprover queryEntity(ChangeApprover sample);
 
 	/**
 	 * 分页查询实体集
@@ -199,7 +207,7 @@ public interface ISequenceService extends ISuperService<Sequence> {
 	 * @param pageIndex 页码
 	 * @return 查询结果
 	 * */
-	PagedList<Sequence> queryPagedList(Sequence sample,int pageSize,int pageIndex);
+	PagedList<ChangeApprover> queryPagedList(ChangeApprover sample,int pageSize,int pageIndex);
 
 	/**
 	 * 分页查询实体集
@@ -210,7 +218,7 @@ public interface ISequenceService extends ISuperService<Sequence> {
 	 * @param orderBy  排序
 	 * @return 查询结果
 	 * */
-	PagedList<Sequence> queryPagedList(Sequence sample,ConditionExpr condition,OrderBy orderBy,int pageSize,int pageIndex);
+	PagedList<ChangeApprover> queryPagedList(ChangeApprover sample,ConditionExpr condition,OrderBy orderBy,int pageSize,int pageIndex);
 
 	/**
 	 * 分页查询实体集
@@ -220,7 +228,7 @@ public interface ISequenceService extends ISuperService<Sequence> {
 	 * @param condition  其它条件
 	 * @return 查询结果
 	 * */
-	PagedList<Sequence> queryPagedList(Sequence sample,ConditionExpr condition,int pageSize,int pageIndex);
+	PagedList<ChangeApprover> queryPagedList(ChangeApprover sample,ConditionExpr condition,int pageSize,int pageIndex);
 
 	/**
 	 * 分页查询实体集
@@ -230,7 +238,7 @@ public interface ISequenceService extends ISuperService<Sequence> {
 	 * @param orderBy  排序
 	 * @return 查询结果
 	 * */
-	PagedList<Sequence> queryPagedList(Sequence sample,OrderBy orderBy,int pageSize,int pageIndex);
+	PagedList<ChangeApprover> queryPagedList(ChangeApprover sample,OrderBy orderBy,int pageSize,int pageIndex);
 
  	/**
 	 * 查询指定字段的数据清单
@@ -256,7 +264,7 @@ public interface ISequenceService extends ISuperService<Sequence> {
 	/**
 	 * 导出 Excel
 	 * */
-	ExcelWriter exportExcel(Sequence sample);
+	ExcelWriter exportExcel(ChangeApprover sample);
 
 	/**
 	 * 导出用于数据导入的 Excel 模版

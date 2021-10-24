@@ -1,4 +1,4 @@
-package org.github.foxnic.web.domain.system;
+package org.github.foxnic.web.domain.changes;
 
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
@@ -10,14 +10,14 @@ import com.github.foxnic.commons.bean.BeanUtil;
 
 
 /**
- * 序列
+ * 变更单据关系
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-23 14:14:07
- * @sign 518BCD7879CDFEBBC250BBE4386131B6
+ * @since 2021-10-23 14:20:13
+ * @sign 00801F58BECEB2247FE4E74531499DDF
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
-public class SequenceVO extends Sequence {
+public class ChangeApproverVO extends ChangeApprover {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -67,7 +67,7 @@ public class SequenceVO extends Sequence {
 	 * 主键清单：用于接收批量主键参数
 	*/
 	@ApiModelProperty(required = false,value="主键清单" , notes = "用于接收批量主键参数")
-	private List<String> pks;
+	private List<String> ids;
 	
 	/**
 	 * 获得 页码<br>
@@ -82,7 +82,7 @@ public class SequenceVO extends Sequence {
 	 * @param pageIndex 页码
 	 * @return 当前对象
 	*/
-	public SequenceVO setPageIndex(Integer pageIndex) {
+	public ChangeApproverVO setPageIndex(Integer pageIndex) {
 		this.pageIndex=pageIndex;
 		return this;
 	}
@@ -100,7 +100,7 @@ public class SequenceVO extends Sequence {
 	 * @param pageSize 分页大小
 	 * @return 当前对象
 	*/
-	public SequenceVO setPageSize(Integer pageSize) {
+	public ChangeApproverVO setPageSize(Integer pageSize) {
 		this.pageSize=pageSize;
 		return this;
 	}
@@ -118,7 +118,7 @@ public class SequenceVO extends Sequence {
 	 * @param searchField 搜索字段
 	 * @return 当前对象
 	*/
-	public SequenceVO setSearchField(String searchField) {
+	public ChangeApproverVO setSearchField(String searchField) {
 		this.searchField=searchField;
 		return this;
 	}
@@ -136,7 +136,7 @@ public class SequenceVO extends Sequence {
 	 * @param fuzzyField 模糊搜索字段
 	 * @return 当前对象
 	*/
-	public SequenceVO setFuzzyField(String fuzzyField) {
+	public ChangeApproverVO setFuzzyField(String fuzzyField) {
 		this.fuzzyField=fuzzyField;
 		return this;
 	}
@@ -154,7 +154,7 @@ public class SequenceVO extends Sequence {
 	 * @param searchValue 搜索的值
 	 * @return 当前对象
 	*/
-	public SequenceVO setSearchValue(String searchValue) {
+	public ChangeApproverVO setSearchValue(String searchValue) {
 		this.searchValue=searchValue;
 		return this;
 	}
@@ -172,7 +172,7 @@ public class SequenceVO extends Sequence {
 	 * @param sortField 排序字段
 	 * @return 当前对象
 	*/
-	public SequenceVO setSortField(String sortField) {
+	public ChangeApproverVO setSortField(String sortField) {
 		this.sortField=sortField;
 		return this;
 	}
@@ -190,7 +190,7 @@ public class SequenceVO extends Sequence {
 	 * @param sortType 排序方式
 	 * @return 当前对象
 	*/
-	public SequenceVO setSortType(String sortType) {
+	public ChangeApproverVO setSortType(String sortType) {
 		this.sortType=sortType;
 		return this;
 	}
@@ -200,28 +200,28 @@ public class SequenceVO extends Sequence {
 	 * 用于接收批量主键参数
 	 * @return 主键清单
 	*/
-	public List<String> getPks() {
-		return pks;
+	public List<String> getIds() {
+		return ids;
 	}
 	
 	/**
 	 * 设置 主键清单
-	 * @param pks 主键清单
+	 * @param ids 主键清单
 	 * @return 当前对象
 	*/
-	public SequenceVO setPks(List<String> pks) {
-		this.pks=pks;
+	public ChangeApproverVO setIds(List<String> ids) {
+		this.ids=ids;
 		return this;
 	}
 	
 	/**
 	 * 添加 主键清单
-	 * @param pk 主键清单
+	 * @param id 主键清单
 	 * @return 当前对象
 	*/
-	public SequenceVO addPk(String pk) {
-		if(this.pks==null) pks=new ArrayList<>();
-		this.pks.add(pk);
+	public ChangeApproverVO addId(String id) {
+		if(this.ids==null) ids=new ArrayList<>();
+		this.ids.add(id);
 		return this;
 	}
 	@Transient
