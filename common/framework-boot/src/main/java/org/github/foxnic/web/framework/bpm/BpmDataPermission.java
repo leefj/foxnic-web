@@ -1,4 +1,4 @@
-package org.github.foxnic.web.framework;
+package org.github.foxnic.web.framework.bpm;
 
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;

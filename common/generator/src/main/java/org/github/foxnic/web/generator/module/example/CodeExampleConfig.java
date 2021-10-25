@@ -10,6 +10,7 @@ import com.github.foxnic.generator.builder.view.option.ListOptions;
 import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
+import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_CODE_EXAMPLE;
 import org.github.foxnic.web.constants.enums.DictEnum;
 import org.github.foxnic.web.constants.enums.system.Language;
@@ -33,7 +34,7 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 	/**
 	 * 指定关联对象的属性填充单元格，为了避免名称重复，加一个前缀
 	 */
-	private String resourceNameField="res_"+ResourzeMeta.NAME;
+//	private String resourceNameField="res_"+ResourzeMeta.NAME;
 
 	@Override
 	public void configModel(PoClassFile poType, VoClassFile voType) {
@@ -145,16 +146,17 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 
 		//下拉选择，数据来自外部表
 		view.field(TABLE.RESOURCE_ID)
-				.search().fuzzySearch()
+				.search().fuzzySearch().on(FoxnicWeb.SYS_RESOURZE.URL)
+				.table().fillBy(CodeExampleMeta.RESOURZE,ResourzeMeta.NAME)
 				.form().selectBox().queryApi(ResourzeServiceProxy.QUERY_PAGED_LIST)
 				.valueField(ResourzeMeta.ID).textField(ResourzeMeta.URL)
-				.toolbar(false).paging(true).defaultIndex(1)
-				.fillWith(CodeExampleMeta.RESOURZE);
+				.toolbar(false).paging(true).defaultIndex(1);
+				//.fillWith(CodeExampleMeta.RESOURZE);
 
 
-		view.field(resourceNameField)
-				.basic().label("资源名称")
-				.table().fillBy(CodeExampleMeta.RESOURZE,ResourzeMeta.NAME);
+//		view.field(resourceNameField)
+//				.basic().label("资源名称")
+//				.table().fillBy(CodeExampleMeta.RESOURZE,ResourzeMeta.NAME);
 
 		//下拉选择，数据来自外部表
 		view.field(CodeExampleVOMeta.ROLE_IDS)
@@ -249,7 +251,7 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 			//下拉选择
 			TABLE.SELECT_ENUM,TABLE.SELECT_DICT,TABLE.SELECT_ENUM,
 			//外部关联
-			CodeExampleMeta.ROLE_IDS,TABLE.RESOURCE_ID,resourceNameField,
+			CodeExampleMeta.ROLE_IDS,TABLE.RESOURCE_ID,TABLE.RESOURCE_ID,
 			//统计值
 			CodeExampleVOMeta.ROLE_COUNT_BY_AFTER,CodeExampleVOMeta.ROLE_COUNT_BY_JOIN,
 			//附件

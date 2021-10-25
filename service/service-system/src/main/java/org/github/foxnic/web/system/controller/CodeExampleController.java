@@ -51,7 +51,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 代码生成示例主表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-22 21:30:45
+ * @since 2021-10-25 10:35:50
 */
 
 @Api(tags = "代码生成示例主")
@@ -217,7 +217,6 @@ public class CodeExampleController extends SuperController {
 		// join 关联的对象
 		codeExampleService.dao().fill(codeExample)
 			.with(CodeExampleMeta.RESOURZE)
-			.with(CodeExampleMeta.RESOURZE)
 			.with(CodeExampleMeta.ROLES)
 			.execute();
 
@@ -314,7 +313,6 @@ public class CodeExampleController extends SuperController {
 
 		// join 关联的对象
 		codeExampleService.dao().fill(list)
-			.with(CodeExampleMeta.RESOURZE)
 			.with(CodeExampleMeta.RESOURZE)
 			.with(CodeExampleMeta.ROLES)
 			.execute();

@@ -1,7 +1,7 @@
 /**
  * 代码生成示例主 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-22 21:30:45
+ * @since 2021-10-25 10:35:50
  */
 
 
@@ -88,8 +88,7 @@ function ListPage() {
 					,{ field: 'selectEnum', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('选择框(枚举)'), templet:function (d){ return templet('selectEnum',fox.getEnumText(SELECT_SELECTENUM_DATA,d.selectEnum),d);}}
 					,{ field: 'selectDict', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('选择框(字典)'), templet:function (d){ return templet('selectDict',fox.getDictText(SELECT_SELECTDICT_DATA,d.selectDict),d);}}
 					,{ field: 'roleIds', align:"",fixed:false,  hide:false, sort: false, title: fox.translate('角色'), templet: function (d) { return templet('roleIds' ,fox.joinLabel(d.roles,"name"),d);}}
-					,{ field: 'resourceId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('选择框(查询)'), templet: function (d) { return templet('resourceId' ,fox.joinLabel(d.resourze,"url"),d);}}
-					,{ field: 'resName', align:"",fixed:false,  hide:false, sort: true, title: fox.translate('资源名称') , templet: function (d) { return templet('resName',fox.getProperty(d,["resourze","name"]),d);} }
+					,{ field: 'resourceId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('选择框(查询)'), templet: function (d) { return templet('resourceId' ,fox.getProperty(d,["resourze","name"]),d);}}
 					,{ field: 'roleCountByAfter', align:"right",fixed:false,  hide:false, sort: false, title: fox.translate('角色数(Java)') , templet: function (d) { return templet('roleCountByAfter',d.roleCountByAfter,d);}  }
 					,{ field: 'roleCountByJoin', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('角色数(SQL)') , templet: function (d) { return templet('roleCountByJoin',d.roleCountByJoin,d);}  }
 					,{ field: 'imageId', align:"left", fixed:false, hide:false, sort: true, title: fox.translate('图片上传'), templet: function (d) { return '<img style="height:100%;" fileType="image/png" onclick="window.previewImage(this)"  src="'+apiurls.storage.image+'?id='+ d.imageId+'" />'; } }
@@ -145,7 +144,7 @@ function ListPage() {
 		value.checkDict={ inputType:"check_box", value: xmSelect.get("#checkDict",true).getValue("value") ,fuzzy: true,valuePrefix:"\"",valueSuffix:"\"", label:xmSelect.get("#checkDict",true).getValue("nameStr") };
 		value.selectEnum={ inputType:"select_box", value: xmSelect.get("#selectEnum",true).getValue("value"), label:xmSelect.get("#selectEnum",true).getValue("nameStr") ,field:"code"};
 		value.selectDict={ inputType:"select_box", value: xmSelect.get("#selectDict",true).getValue("value") ,fuzzy: true,valuePrefix:"\"",valueSuffix:"\"", label:xmSelect.get("#selectDict",true).getValue("nameStr") ,field:"text"};
-		value.resourceId={ inputType:"select_box", value: $("#resourceId").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" ,fillBy:["resourze"] ,field:"url"};
+		value.resourceId={ inputType:"select_box", value: $("#resourceId").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" ,fillBy:["resourze","name"] ,field:"sys_resourze.url"};
 		value.birthday={ inputType:"date_input", begin: $("#birthday-begin").val(), end: $("#birthday-end").val() };
 		value.roleIds={ inputType:"select_box", value: xmSelect.get("#roleIds",true).getValue("value") ,fillBy:["roles"]  ,field:"id", label:xmSelect.get("#roleIds",true).getValue("nameStr") };
 		var ps={searchField:"$composite"};

@@ -1,7 +1,7 @@
 /**
  * 代码生成示例主 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-22 21:30:45
+ * @since 2021-10-25 10:35:50
  */
 
 function FormPage() {
@@ -19,7 +19,7 @@ function FormPage() {
 		laydate = layui.laydate,table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
 
 		action=admin.getTempData('sys-code-example-form-data-form-action');
-		//如果没有修改和保存权限，
+		//如果没有修改和保存权限
 		if( !admin.checkAuth(AUTH_PREFIX+":update") && !admin.checkAuth(AUTH_PREFIX+":save")) {
 			disableModify=true;
 		}
@@ -285,7 +285,6 @@ function FormPage() {
 			//设置  选择框(字典) 设置下拉框勾选
 			fox.setSelectValue4Dict("#selectDict",formData.selectDict,SELECT_SELECTDICT_DATA);
 			//设置  选择框(查询) 设置下拉框勾选
-			fox.setSelectValue4QueryApi("#resourceId",formData.resourze);
 			//设置  角色 设置下拉框勾选
 			fox.setSelectValue4QueryApi("#roleIds",formData.roles);
 
