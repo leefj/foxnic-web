@@ -11,6 +11,7 @@ import com.github.foxnic.sql.expr.Insert;
 import com.github.foxnic.sql.expr.Update;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_NODE;
 import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.github.foxnic.web.framework.environment.Environment;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
@@ -34,6 +35,7 @@ public class StartupRegister implements ApplicationListener<ApplicationStartedEv
 
     @Override
     public void onApplicationEvent(ApplicationStartedEvent event) {
+        Environment.getEnvironment().ready();
         SimpleTaskManager tm=new SimpleTaskManager(1);
         tm.doIntervalTask(new Runnable() {
             @Override

@@ -13,6 +13,7 @@ public class BpmDataPermission {
      * @return 条件表达式
      * */
     public static ConditionExpr getDrafterLimitCondition(String mainTableAlias,DBField drafterField,String drafterEmployeeId) {
+
         ConditionExpr conditionExpr=new ConditionExpr(mainTableAlias+"."+drafterField.name()+" = ?",drafterEmployeeId);
         conditionExpr.startWithAnd();
         return conditionExpr;

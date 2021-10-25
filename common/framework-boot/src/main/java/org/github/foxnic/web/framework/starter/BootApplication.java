@@ -5,6 +5,7 @@ import com.github.foxnic.commons.io.FileUtil;
 import com.github.foxnic.springboot.starter.FoxnicApplication;
 import org.aspectj.weaver.ast.Test;
 import org.github.foxnic.web.framework.FoxnicWebMeta;
+import org.github.foxnic.web.framework.environment.Environment;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
@@ -16,13 +17,9 @@ import java.util.Enumeration;
 
 @ComponentScan(basePackages = {FoxnicWebMeta.FRAMEWORK_PACKAGE,FoxnicWebMeta.PROXY_PACKAGE})
 public class BootApplication {
-	
+
 	public static ConfigurableApplicationContext run(Class<?> bootType, String... args) {
-//		try {
-//			printJar();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
+		Environment.getEnvironment().init();
 		ConfigurableApplicationContext context=new SpringApplication(new Class[] {FoxnicApplication.class,BootApplication.class,bootType}).run(args);
 		return context;
     }
