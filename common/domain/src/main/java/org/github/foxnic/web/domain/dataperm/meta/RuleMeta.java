@@ -10,8 +10,8 @@ import java.util.List;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-14 16:09:13
- * @sign 5E663349F8BD254EC5BAF43E71F896B4
+ * @since 2021-10-25 17:27:22
+ * @sign 47980DB2204741C994171AA4432259F1
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -58,6 +58,16 @@ public class RuleMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.Rule,java.lang.String> DATA_TABLE_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.Rule.class ,DATA_TABLE, java.lang.String.class, "数据表", "数据表", java.lang.String.class, null);
 	
 	/**
+	 * 规则版本号 , 类型: java.lang.Integer
+	*/
+	public static final String VERSION_NO="versionNo";
+	
+	/**
+	 * 规则版本号 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.Rule,java.lang.Integer> VERSION_NO_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.Rule.class ,VERSION_NO, java.lang.Integer.class, "规则版本号", "规则版本号", java.lang.Integer.class, null);
+	
+	/**
 	 * 是否生效 , 相同的代码仅可以有一个是生效的 , 类型: java.lang.Integer
 	*/
 	public static final String VALID="valid";
@@ -66,6 +76,16 @@ public class RuleMeta {
 	 * 是否生效 , 相同的代码仅可以有一个是生效的 , 类型: java.lang.Integer
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.Rule,java.lang.Integer> VALID_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.Rule.class ,VALID, java.lang.Integer.class, "是否生效", "相同的代码仅可以有一个是生效的", java.lang.Integer.class, null);
+	
+	/**
+	 * 备注 , 类型: java.lang.String
+	*/
+	public static final String NOTES="notes";
+	
+	/**
+	 * 备注 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.Rule,java.lang.String> NOTES_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.Rule.class ,NOTES, java.lang.String.class, "备注", "备注", java.lang.String.class, null);
 	
 	/**
 	 * 创建人ID , 类型: java.lang.String
@@ -160,7 +180,7 @@ public class RuleMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , CODE , NAME , DATA_TABLE , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , RANGES };
+	public static final String[] $PROPS={ ID , CODE , NAME , DATA_TABLE , VERSION_NO , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , RANGES };
 	
 	/**
 	 * 代理类
@@ -215,6 +235,17 @@ public class RuleMeta {
 		}
 		
 		/**
+		 * 设置 规则版本号
+		 * @param versionNo 规则版本号
+		 * @return 当前对象
+		*/
+		public Rule setVersionNo(Integer versionNo) {
+			super.change(VERSION_NO,super.getVersionNo(),versionNo);
+			super.setVersionNo(versionNo);
+			return this;
+		}
+		
+		/**
 		 * 设置 是否生效
 		 * @param valid 是否生效
 		 * @return 当前对象
@@ -222,6 +253,17 @@ public class RuleMeta {
 		public Rule setValid(Integer valid) {
 			super.change(VALID,super.getValid(),valid);
 			super.setValid(valid);
+			return this;
+		}
+		
+		/**
+		 * 设置 备注
+		 * @param notes 备注
+		 * @return 当前对象
+		*/
+		public Rule setNotes(String notes) {
+			super.change(NOTES,super.getNotes(),notes);
+			super.setNotes(notes);
 			return this;
 		}
 		

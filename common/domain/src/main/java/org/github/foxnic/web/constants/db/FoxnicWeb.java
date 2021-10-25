@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2021-10-23 14:29:31
+ * @since 2021-10-25 17:26:23
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -628,9 +628,9 @@ public class FoxnicWeb {
 		public static final DBField MODE = new DBField(DBDataType.STRING , "mode","mode","审批模式","审批模式",false,false,true);
 		
 		/**
-		 * 起草人ID
+		 * 起草人ID,员工ID
 		*/
-		public static final DBField DRAFTER_ID = new DBField(DBDataType.STRING , "drafter_id","drafterId","起草人ID","起草人ID",false,false,true);
+		public static final DBField DRAFTER_ID = new DBField(DBDataType.STRING , "drafter_id","drafterId","起草人ID","员工ID",false,false,true);
 		
 		/**
 		 * 起草人姓名
@@ -1386,9 +1386,19 @@ public class FoxnicWeb {
 		public static final DBField DATA_TABLE = new DBField(DBDataType.STRING , "data_table","dataTable","数据表","数据表",false,false,true);
 		
 		/**
+		 * 规则版本号
+		*/
+		public static final DBField VERSION_NO = new DBField(DBDataType.INTEGER , "version_no","versionNo","规则版本号","规则版本号",false,false,true);
+		
+		/**
 		 * 是否生效,相同的代码仅可以有一个是生效的
 		*/
 		public static final DBField VALID = new DBField(DBDataType.INTEGER , "valid","valid","是否生效","相同的代码仅可以有一个是生效的",false,false,true);
+		
+		/**
+		 * 备注
+		*/
+		public static final DBField NOTES = new DBField(DBDataType.STRING , "notes","notes","备注","备注",false,false,true);
 		
 		/**
 		 * 创建人ID
@@ -1431,7 +1441,7 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
 		public DP_RULE() {
-			this.init($NAME,"数据权限规则表" , ID , CODE , NAME , DATA_TABLE , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"数据权限规则表" , ID , CODE , NAME , DATA_TABLE , VERSION_NO , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final DP_RULE $TABLE=new DP_RULE();
 	}
@@ -1629,9 +1639,9 @@ public class FoxnicWeb {
 		public static final DBField NAME = new DBField(DBDataType.STRING , "name","name","名称","名称",false,false,true);
 		
 		/**
-		 * Subject对象获取类名称
+		 * Subject 对象获取类名称
 		*/
-		public static final DBField GETTER = new DBField(DBDataType.STRING , "getter","getter","Subject对象获取类名称","Subject对象获取类名称",false,false,true);
+		public static final DBField GETTER = new DBField(DBDataType.STRING , "getter","getter","Subject","对象获取类名称",false,false,true);
 		
 		/**
 		 * 类型

@@ -18,8 +18,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 数据权限规则
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-14 16:09:13
- * @sign 5E663349F8BD254EC5BAF43E71F896B4
+ * @since 2021-10-25 17:27:22
+ * @sign 47980DB2204741C994171AA4432259F1
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -56,10 +56,22 @@ public class Rule extends Entity {
 	private String dataTable;
 	
 	/**
+	 * 规则版本号：规则版本号
+	*/
+	@ApiModelProperty(required = false,value="规则版本号" , notes = "规则版本号")
+	private Integer versionNo;
+	
+	/**
 	 * 是否生效：相同的代码仅可以有一个是生效的
 	*/
 	@ApiModelProperty(required = false,value="是否生效" , notes = "相同的代码仅可以有一个是生效的")
 	private Integer valid;
+	
+	/**
+	 * 备注：备注
+	*/
+	@ApiModelProperty(required = false,value="备注" , notes = "备注")
+	private String notes;
 	
 	/**
 	 * 创建人ID：创建人ID
@@ -192,6 +204,25 @@ public class Rule extends Entity {
 	}
 	
 	/**
+	 * 获得 规则版本号<br>
+	 * 规则版本号
+	 * @return 规则版本号
+	*/
+	public Integer getVersionNo() {
+		return versionNo;
+	}
+	
+	/**
+	 * 设置 规则版本号
+	 * @param versionNo 规则版本号
+	 * @return 当前对象
+	*/
+	public Rule setVersionNo(Integer versionNo) {
+		this.versionNo=versionNo;
+		return this;
+	}
+	
+	/**
 	 * 获得 是否生效<br>
 	 * 相同的代码仅可以有一个是生效的
 	 * @return 是否生效
@@ -207,6 +238,25 @@ public class Rule extends Entity {
 	*/
 	public Rule setValid(Integer valid) {
 		this.valid=valid;
+		return this;
+	}
+	
+	/**
+	 * 获得 备注<br>
+	 * 备注
+	 * @return 备注
+	*/
+	public String getNotes() {
+		return notes;
+	}
+	
+	/**
+	 * 设置 备注
+	 * @param notes 备注
+	 * @return 当前对象
+	*/
+	public Rule setNotes(String notes) {
+		this.notes=notes;
 		return this;
 	}
 	

@@ -4,6 +4,7 @@ import com.github.foxnic.generator.builder.business.option.ControllerOptions;
 import com.github.foxnic.generator.builder.business.option.ServiceOptions;
 import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
+import com.github.foxnic.generator.builder.view.option.FormOptions;
 import com.github.foxnic.generator.builder.view.option.ListOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
@@ -27,15 +28,24 @@ public class DPRuleConfig extends BaseCodeConfig<DP_RULE> {
 
 	@Override
 	public void configService(ServiceOptions service) {
+
 	}
 
 	@Override
 	public void configController(ControllerOptions controller) {
+
 	}
 
 	@Override
 	public void configFields(ViewOptions view) {
 
+	}
+
+	@Override
+	public void configForm(ViewOptions view, FormOptions form) {
+		form.columnLayout(new Object[] {
+				DP_RULE.DATA_TABLE,DP_RULE.CODE,DP_RULE.NAME,DP_RULE.VALID,DP_RULE.NOTES
+		});
 	}
 
 	@Override

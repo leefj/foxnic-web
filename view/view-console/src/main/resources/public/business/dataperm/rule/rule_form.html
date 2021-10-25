@@ -2,7 +2,7 @@
 /**
  * 数据权限规则 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-14 16:24:45
+ * @since 2021-10-25 17:27:25
  */
  -->
  <!DOCTYPE html>
@@ -28,6 +28,7 @@
 
     <form id="data-form" lay-filter="data-form" class="layui-form model-form" style="display:none">
 
+        <input name="id" id="id"  type="hidden"/>
 
          <!--开始：group 循环-->
 
@@ -38,10 +39,10 @@
              <!--开始：group 循环-->
             <div class="layui-col-xs12 form-column">
 
-                    <div class="layui-form-item" style="display: none">
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('主键')}">主键</div></div>
+                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('数据表')}">数据表</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="id" id="id" name="id" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('主键') }" type="text" class="layui-input"  />
+                            <input lay-filter="dataTable" id="dataTable" name="dataTable" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('数据表') }" type="text" class="layui-input"  />
                         </div>
                     </div>
 
@@ -59,13 +60,6 @@
                         </div>
                     </div>
 
-                                    <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('数据表')}">数据表</div></div>
-                        <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="dataTable" id="dataTable" name="dataTable" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('数据表') }" type="text" class="layui-input"  />
-                        </div>
-                    </div>
-
                 
                     <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('是否生效')}">是否生效</div></div>
@@ -74,6 +68,13 @@
                         </div>
                     </div>
 
+
+                                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('备注')}">备注</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input lay-filter="notes" id="notes" name="notes" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('备注') }" type="text" class="layui-input"  />
+                        </div>
+                    </div>
 
                 <!--结束：栏次内字段循环-->
             </div>

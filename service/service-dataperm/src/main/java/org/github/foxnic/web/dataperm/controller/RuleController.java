@@ -49,7 +49,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 数据权限规则表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-14 16:24:45
+ * @since 2021-10-25 17:27:22
 */
 
 @Api(tags = "数据权限规则")
@@ -70,7 +70,9 @@ public class RuleController extends SuperController {
 		@ApiImplicitParam(name = RuleVOMeta.CODE , value = "代码" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = RuleVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = RuleVOMeta.DATA_TABLE , value = "数据表" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = RuleVOMeta.VERSION_NO , value = "规则版本号" , required = false , dataTypeClass=Integer.class),
 		@ApiImplicitParam(name = RuleVOMeta.VALID , value = "是否生效" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = RuleVOMeta.NOTES , value = "备注" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport(order=1)
 	@SentinelResource(value = RuleServiceProxy.INSERT , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
@@ -125,7 +127,9 @@ public class RuleController extends SuperController {
 		@ApiImplicitParam(name = RuleVOMeta.CODE , value = "代码" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = RuleVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = RuleVOMeta.DATA_TABLE , value = "数据表" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = RuleVOMeta.VERSION_NO , value = "规则版本号" , required = false , dataTypeClass=Integer.class),
 		@ApiImplicitParam(name = RuleVOMeta.VALID , value = "是否生效" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = RuleVOMeta.NOTES , value = "备注" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport( order=4 , ignoreParameters = { RuleVOMeta.PAGE_INDEX , RuleVOMeta.PAGE_SIZE , RuleVOMeta.SEARCH_FIELD , RuleVOMeta.FUZZY_FIELD , RuleVOMeta.SEARCH_VALUE , RuleVOMeta.SORT_FIELD , RuleVOMeta.SORT_TYPE , RuleVOMeta.IDS } )
 	@NotNull(name = RuleVOMeta.ID)
@@ -146,7 +150,9 @@ public class RuleController extends SuperController {
 		@ApiImplicitParam(name = RuleVOMeta.CODE , value = "代码" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = RuleVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = RuleVOMeta.DATA_TABLE , value = "数据表" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = RuleVOMeta.VERSION_NO , value = "规则版本号" , required = false , dataTypeClass=Integer.class),
 		@ApiImplicitParam(name = RuleVOMeta.VALID , value = "是否生效" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = RuleVOMeta.NOTES , value = "备注" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { RuleVOMeta.PAGE_INDEX , RuleVOMeta.PAGE_SIZE , RuleVOMeta.SEARCH_FIELD , RuleVOMeta.FUZZY_FIELD , RuleVOMeta.SEARCH_VALUE , RuleVOMeta.SORT_FIELD , RuleVOMeta.SORT_TYPE , RuleVOMeta.IDS } )
 	@NotNull(name = RuleVOMeta.ID)
@@ -172,6 +178,11 @@ public class RuleController extends SuperController {
 	public Result<Rule> getById(String id) {
 		Result<Rule> result=new Result<>();
 		Rule rule=ruleService.getById(id);
+
+		// join 关联的对象
+		ruleService.dao().fill(rule)
+			.execute();
+
 		result.success(true).data(rule);
 		return result;
 	}
@@ -206,7 +217,9 @@ public class RuleController extends SuperController {
 		@ApiImplicitParam(name = RuleVOMeta.CODE , value = "代码" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = RuleVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = RuleVOMeta.DATA_TABLE , value = "数据表" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = RuleVOMeta.VERSION_NO , value = "规则版本号" , required = false , dataTypeClass=Integer.class),
 		@ApiImplicitParam(name = RuleVOMeta.VALID , value = "是否生效" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = RuleVOMeta.NOTES , value = "备注" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { RuleVOMeta.PAGE_INDEX , RuleVOMeta.PAGE_SIZE } )
 	@SentinelResource(value = RuleServiceProxy.QUERY_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
@@ -228,7 +241,9 @@ public class RuleController extends SuperController {
 		@ApiImplicitParam(name = RuleVOMeta.CODE , value = "代码" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = RuleVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = RuleVOMeta.DATA_TABLE , value = "数据表" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = RuleVOMeta.VERSION_NO , value = "规则版本号" , required = false , dataTypeClass=Integer.class),
 		@ApiImplicitParam(name = RuleVOMeta.VALID , value = "是否生效" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = RuleVOMeta.NOTES , value = "备注" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport(order=8)
 	@SentinelResource(value = RuleServiceProxy.QUERY_PAGED_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
@@ -236,6 +251,11 @@ public class RuleController extends SuperController {
 	public Result<PagedList<Rule>> queryPagedList(RuleVO sample) {
 		Result<PagedList<Rule>> result=new Result<>();
 		PagedList<Rule> list=ruleService.queryPagedList(sample,sample.getPageSize(),sample.getPageIndex());
+
+		// join 关联的对象
+		ruleService.dao().fill(list)
+			.execute();
+
 		result.success(true).data(list);
 		return result;
 	}
