@@ -1,7 +1,7 @@
 /**
  * 代码生成示例主 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-25 10:35:50
+ * @since 2021-10-25 13:06:39
  */
 
 
@@ -146,7 +146,7 @@ function ListPage() {
 		value.selectDict={ inputType:"select_box", value: xmSelect.get("#selectDict",true).getValue("value") ,fuzzy: true,valuePrefix:"\"",valueSuffix:"\"", label:xmSelect.get("#selectDict",true).getValue("nameStr") ,field:"text"};
 		value.resourceId={ inputType:"select_box", value: $("#resourceId").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" ,fillBy:["resourze","name"] ,field:"sys_resourze.url"};
 		value.birthday={ inputType:"date_input", begin: $("#birthday-begin").val(), end: $("#birthday-end").val() };
-		value.roleIds={ inputType:"select_box", value: xmSelect.get("#roleIds",true).getValue("value") ,fillBy:["roles"]  ,field:"id", label:xmSelect.get("#roleIds",true).getValue("nameStr") };
+		value.roleIds={ inputType:"select_box", value: xmSelect.get("#roleIds",true).getValue("value") ,fillBy:["roles"]  ,field:"sys_code_example_role.role_id", label:xmSelect.get("#roleIds",true).getValue("nameStr") };
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;

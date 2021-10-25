@@ -161,7 +161,7 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 		//下拉选择，数据来自外部表
 		view.field(CodeExampleVOMeta.ROLE_IDS)
 				.basic().label("角色")
-				.search().inputWidth(140)
+				.search().inputWidth(140).on(FoxnicWeb.SYS_CODE_EXAMPLE_ROLE.ROLE_ID)
 				.table().sort(false)
 				.form().selectBox().queryApi(RoleServiceProxy.QUERY_PAGED_LIST)
 				.valueField(RoleMeta.ID).textField(RoleMeta.NAME)

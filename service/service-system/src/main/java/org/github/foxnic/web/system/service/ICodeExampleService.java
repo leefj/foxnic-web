@@ -21,7 +21,7 @@ import com.github.foxnic.dao.data.SaveMode;
  * 代码生成示例主表 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-25 10:35:50
+ * @since 2021-10-25 13:06:39
 */
 
 public interface ICodeExampleService extends ISuperService<CodeExample> {
