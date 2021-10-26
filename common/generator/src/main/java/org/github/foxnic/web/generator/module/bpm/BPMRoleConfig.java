@@ -48,7 +48,7 @@ public class BPMRoleConfig extends BaseCodeConfig<BPM_ROLE> {
 		.form().logicField().on("启用",1).off("停用",0).defaultValue(true)
 		.table().alignCenter();
 
-		view.field(BPM_ROLE.CODE).basic().label("代码").search().fuzzySearch()
+		view.field(BPM_ROLE.CODE).basic().label("代码").search().fuzzySearch().on(BPM_ROLE.NAME)
 		.form().validate().required();
 		view.field(BPM_ROLE.NAME).basic().label("名称").search().fuzzySearch()
 		.form().validate().required();
