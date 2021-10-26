@@ -9,7 +9,7 @@ function ListPage() {
 
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect;
 	//模块基础路径
-	const moduleURL="/service-oauth/sys-menu";
+	const moduleURL="/service-dataperm/dp-rule-condition";
 
 	var menuTree;
 
@@ -48,15 +48,11 @@ function ListPage() {
 
 
 		setTimeout(function(){
-			var toolbarHeight=$("#toolbar")[0].clientHeight;
 			var fullHeight=$(window).height();
 			var fullWidth=$(window).width();
-			var treeHeight=fullHeight-toolbarHeight;
+			var treeHeight=fullHeight;
 			$("#tree-container").height(treeHeight-1);
 			$("#form-view").height(fullHeight);
-			//
-			// $(".layui-col-md4").width("200px");
-			// $(".layui-col-md8").width((fullWidth-200)+"px");
 
 		},10);
 

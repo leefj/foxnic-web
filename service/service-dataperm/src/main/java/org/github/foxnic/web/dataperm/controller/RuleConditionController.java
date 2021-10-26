@@ -338,10 +338,15 @@ public class RuleConditionController extends SuperController {
 	@SentinelResource(value = RuleConditionServiceProxy.QUERY_NODES , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(RuleConditionServiceProxy.QUERY_NODES)
 	public Result<List<ZTreeNode>> queryNodes(RuleConditionVO sample) {
-		Result<List<RuleCondition>> result=new Result<>();
-		List<RuleCondition> list=ruleConditionService.queryList(sample);
+		Result<List<ZTreeNode>> result=new Result<>();
+		List<ZTreeNode> list=null;
+		if(sample.getParentId()==null) {
+			list=ruleConditionService.queryRootNotes(sample.getRangeId());
+		} else {
+			list=ruleConditionService.queryChildNodes(sample.getParentId(),sample.getRangeId());
+		}
 		result.success(true).data(list);
-		return null;
+		return result;
 	}
 
 

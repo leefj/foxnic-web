@@ -274,15 +274,15 @@ public class RuleConditionServiceImpl extends SuperService<RuleCondition> implem
 	}
 
 	@Override
-	public List<ZTreeNode> queryRootNotes(String roleId) {
-		RcdSet menus=queryChildMenus(IRuleConditionService.ROOT_ID,roleId);
+	public List<ZTreeNode> queryRootNotes(String rangeId) {
+		RcdSet menus=queryChildMenus(IRuleConditionService.ROOT_ID, rangeId);
 		List<ZTreeNode> nodes = toZTreeNodeList(menus);
 		return nodes;
 	}
 
 	@Override
-	public List<ZTreeNode> queryChildNodes(String parentId,String roleId) {
-		RcdSet menus=queryChildMenus(parentId,roleId);
+	public List<ZTreeNode> queryChildNodes(String parentId,String rangeId) {
+		RcdSet menus=queryChildMenus(parentId, rangeId);
 		List<ZTreeNode> nodes = toZTreeNodeList(menus);
 		return nodes;
 	}

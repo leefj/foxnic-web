@@ -292,12 +292,12 @@ public interface IRuleConditionService extends ISuperService<RuleCondition> {
 	/**
 	 * 查询根节点
 	 * */
-	List<ZTreeNode> queryRootNotes(String roleId);
+	List<ZTreeNode> queryRootNotes(String rangeId);
 
 	/**
 	 * 查询下级节点
 	 * */
-	List<ZTreeNode> queryChildNodes(String parentId, String roleId);
+	List<ZTreeNode> queryChildNodes(String parentId, String rangeId);
 
 	/**
 	 * 保存层级关系
