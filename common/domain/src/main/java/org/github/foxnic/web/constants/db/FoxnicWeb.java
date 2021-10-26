@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2021-10-25 17:26:23
+ * @since 2021-10-26 16:32:10
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -1381,11 +1381,6 @@ public class FoxnicWeb {
 		public static final DBField NAME = new DBField(DBDataType.STRING , "name","name","名称","名称",false,false,true);
 		
 		/**
-		 * 数据表
-		*/
-		public static final DBField DATA_TABLE = new DBField(DBDataType.STRING , "data_table","dataTable","数据表","数据表",false,false,true);
-		
-		/**
 		 * 规则版本号
 		*/
 		public static final DBField VERSION_NO = new DBField(DBDataType.INTEGER , "version_no","versionNo","规则版本号","规则版本号",false,false,true);
@@ -1441,7 +1436,7 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
 		public DP_RULE() {
-			this.init($NAME,"数据权限规则表" , ID , CODE , NAME , DATA_TABLE , VERSION_NO , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"数据权限规则表" , ID , CODE , NAME , VERSION_NO , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final DP_RULE $TABLE=new DP_RULE();
 	}
@@ -1467,6 +1462,11 @@ public class FoxnicWeb {
 		public static final DBField RANGE_ID = new DBField(DBDataType.STRING , "range_id","rangeId","range","id",false,false,true);
 		
 		/**
+		 * 层级路径
+		*/
+		public static final DBField HIERARCHY = new DBField(DBDataType.STRING , "hierarchy","hierarchy","层级路径","层级路径",false,false,true);
+		
+		/**
 		 * 上级ID
 		*/
 		public static final DBField PARENT_ID = new DBField(DBDataType.STRING , "parent_id","parentId","上级ID","上级ID",false,false,true);
@@ -1477,14 +1477,19 @@ public class FoxnicWeb {
 		public static final DBField DATA_TABLE = new DBField(DBDataType.STRING , "data_table","dataTable","数据表","数据表",false,false,true);
 		
 		/**
-		 * 表达式类型
+		 * 节点类型，逻辑组/表达式
 		*/
-		public static final DBField EXPR_TYPE = new DBField(DBDataType.STRING , "expr_type","exprType","表达式类型","表达式类型",false,false,true);
+		public static final DBField TYPE = new DBField(DBDataType.STRING , "type","type","节点类型","逻辑组/表达式",false,false,false);
 		
 		/**
-		 * 逻辑关系可选值  and/or
+		 * 前置逻辑关系  and/or
 		*/
-		public static final DBField LOGIC = new DBField(DBDataType.STRING , "logic","logic","逻辑关系可选值","and/or",false,false,true);
+		public static final DBField LOGIC = new DBField(DBDataType.STRING , "logic","logic","前置逻辑关系","and/or",false,false,true);
+		
+		/**
+		 * 表达式
+		*/
+		public static final DBField EXPR = new DBField(DBDataType.STRING , "expr","expr","表达式","表达式",false,false,true);
 		
 		/**
 		 * 是否生效,相同的代码仅可以有一个是生效的
@@ -1531,8 +1536,13 @@ public class FoxnicWeb {
 		*/
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
+		/**
+		 * 变量
+		*/
+		public static final DBField VARIABLES = new DBField(DBDataType.STRING , "variables","variables","变量","变量",false,false,true);
+		
 		public DP_RULE_CONDITION() {
-			this.init($NAME,"数据权限规则范围条件表" , ID , RANGE_ID , PARENT_ID , DATA_TABLE , EXPR_TYPE , LOGIC , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"数据权限规则范围条件表" , ID , RANGE_ID , HIERARCHY , PARENT_ID , DATA_TABLE , TYPE , LOGIC , EXPR , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , VARIABLES);
 		}
 		public static final DP_RULE_CONDITION $TABLE=new DP_RULE_CONDITION();
 	}

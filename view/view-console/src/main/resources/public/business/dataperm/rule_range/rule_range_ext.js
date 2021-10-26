@@ -1,7 +1,8 @@
 /**
  * 数据权限规则范围 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-14 16:24:45
+ * @since 2021-10-26 14:18:31
+ * @version
  */
 
 layui.config({
@@ -128,6 +129,17 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * */
         moreAction:function (menu,data, it){
             console.log('moreAction',menu,data,it);
+        },
+        openConditions:function (data){
+            var dialogIndex=admin.popupCenter({
+                type:2,
+                id:"ruleConditionDialog",
+                title: "查询条件",
+                offset: 'auto',
+                content: '/business/dataperm/rule_condition/rule_condition_list.html',
+                area:["80%","500px"]
+            });
+            admin.putTempData("org-dialog-index",dialogIndex,true);
         },
         /**
          * 末尾执行

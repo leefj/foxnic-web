@@ -8,8 +8,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-13 15:51:46
- * @sign BD026648FFC1F832F36F9BB7E937310F
+ * @since 2021-10-26 14:45:04
+ * @sign BE706E416D2ED3B88AA071415B78A4B1
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -56,24 +56,34 @@ public class RuleConditionMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.RuleCondition,java.lang.String> DATA_TABLE_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.RuleCondition.class ,DATA_TABLE, java.lang.String.class, "数据表", "数据表", java.lang.String.class, null);
 	
 	/**
-	 * 表达式类型 , 类型: java.lang.String
+	 * 节点类型 , 逻辑组/表达式 , 类型: java.lang.String
 	*/
-	public static final String EXPR_TYPE="exprType";
+	public static final String TYPE="type";
 	
 	/**
-	 * 表达式类型 , 类型: java.lang.String
+	 * 节点类型 , 逻辑组/表达式 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.RuleCondition,java.lang.String> EXPR_TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.RuleCondition.class ,EXPR_TYPE, java.lang.String.class, "表达式类型", "表达式类型", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.RuleCondition,java.lang.String> TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.RuleCondition.class ,TYPE, java.lang.String.class, "节点类型", "逻辑组/表达式", java.lang.String.class, null);
 	
 	/**
-	 * 逻辑关系可选值 , and/or , 类型: java.lang.String
+	 * 前置逻辑关系 , and/or , 类型: java.lang.String
 	*/
 	public static final String LOGIC="logic";
 	
 	/**
-	 * 逻辑关系可选值 , and/or , 类型: java.lang.String
+	 * 前置逻辑关系 , and/or , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.RuleCondition,java.lang.String> LOGIC_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.RuleCondition.class ,LOGIC, java.lang.String.class, "逻辑关系可选值", "and/or", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.RuleCondition,java.lang.String> LOGIC_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.RuleCondition.class ,LOGIC, java.lang.String.class, "前置逻辑关系", "and/or", java.lang.String.class, null);
+	
+	/**
+	 * 表达式 , 类型: java.lang.String
+	*/
+	public static final String EXPR="expr";
+	
+	/**
+	 * 表达式 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.RuleCondition,java.lang.String> EXPR_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.RuleCondition.class ,EXPR, java.lang.String.class, "表达式", "表达式", java.lang.String.class, null);
 	
 	/**
 	 * 是否生效 , 相同的代码仅可以有一个是生效的 , 类型: java.lang.Integer
@@ -166,9 +176,19 @@ public class RuleConditionMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.RuleCondition,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.RuleCondition.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
+	 * 变量 , 类型: java.lang.String
+	*/
+	public static final String VARIABLES="variables";
+	
+	/**
+	 * 变量 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.RuleCondition,java.lang.String> VARIABLES_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.RuleCondition.class ,VARIABLES, java.lang.String.class, "变量", "变量", java.lang.String.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , RANGE_ID , PARENT_ID , DATA_TABLE , EXPR_TYPE , LOGIC , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , RANGE_ID , PARENT_ID , DATA_TABLE , TYPE , LOGIC , EXPR , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , VARIABLES };
 	
 	/**
 	 * 代理类
@@ -223,24 +243,35 @@ public class RuleConditionMeta {
 		}
 		
 		/**
-		 * 设置 表达式类型
-		 * @param exprType 表达式类型
+		 * 设置 节点类型
+		 * @param type 节点类型
 		 * @return 当前对象
 		*/
-		public RuleCondition setExprType(String exprType) {
-			super.change(EXPR_TYPE,super.getExprType(),exprType);
-			super.setExprType(exprType);
+		public RuleCondition setType(String type) {
+			super.change(TYPE,super.getType(),type);
+			super.setType(type);
 			return this;
 		}
 		
 		/**
-		 * 设置 逻辑关系可选值
-		 * @param logic 逻辑关系可选值
+		 * 设置 前置逻辑关系
+		 * @param logic 前置逻辑关系
 		 * @return 当前对象
 		*/
 		public RuleCondition setLogic(String logic) {
 			super.change(LOGIC,super.getLogic(),logic);
 			super.setLogic(logic);
+			return this;
+		}
+		
+		/**
+		 * 设置 表达式
+		 * @param expr 表达式
+		 * @return 当前对象
+		*/
+		public RuleCondition setExpr(String expr) {
+			super.change(EXPR,super.getExpr(),expr);
+			super.setExpr(expr);
 			return this;
 		}
 		
@@ -340,6 +371,17 @@ public class RuleConditionMeta {
 		public RuleCondition setVersion(Integer version) {
 			super.change(VERSION,super.getVersion(),version);
 			super.setVersion(version);
+			return this;
+		}
+		
+		/**
+		 * 设置 变量
+		 * @param variables 变量
+		 * @return 当前对象
+		*/
+		public RuleCondition setVariables(String variables) {
+			super.change(VARIABLES,super.getVariables(),variables);
+			super.setVariables(variables);
 			return this;
 		}
 	}

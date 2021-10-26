@@ -38,19 +38,21 @@ public class DPRuleConfig extends BaseCodeConfig<DP_RULE> {
 
 	@Override
 	public void configFields(ViewOptions view) {
-
+		view.field(DP_RULE.ID).search().hidden();
+		view.field(DP_RULE.VERSION_NO).basic().label("版本").search().hidden();
+		view.field(DP_RULE.VALID).basic().label("生效").form().logicField().off("否",0).on("是",1).defaultValue(false);
 	}
 
 	@Override
 	public void configForm(ViewOptions view, FormOptions form) {
 		form.columnLayout(new Object[] {
-				DP_RULE.DATA_TABLE,DP_RULE.CODE,DP_RULE.NAME,DP_RULE.VALID,DP_RULE.NOTES
+				DP_RULE.CODE,DP_RULE.NAME,DP_RULE.VALID,DP_RULE.NOTES
 		});
 	}
 
 	@Override
 	public void configList(ViewOptions view, ListOptions list) {
-
+		list.operationColumn().addActionButton("范围","openRanges");
 	}
 
 	@Override

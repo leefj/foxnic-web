@@ -2,7 +2,7 @@
 /**
  * 数据权限规则 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-25 17:27:25
+ * @since 2021-10-26 14:18:29
  */
  -->
  <!DOCTYPE html>
@@ -40,13 +40,6 @@
             <div class="layui-col-xs12 form-column">
 
                     <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('数据表')}">数据表</div></div>
-                        <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="dataTable" id="dataTable" name="dataTable" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('数据表') }" type="text" class="layui-input"  />
-                        </div>
-                    </div>
-
-                                    <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('代码')}">代码</div></div>
                         <div class="layui-input-block layui-input-block-c1">
                             <input lay-filter="code" id="code" name="code" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('代码') }" type="text" class="layui-input"  />
@@ -61,12 +54,12 @@
                     </div>
 
                 
-                    <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('是否生效')}">是否生效</div></div>
-                        <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="valid" id="valid" name="valid" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('是否生效') }" type="text" class="layui-input"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0"   scale="0" />
-                        </div>
+                <div class="layui-form-item" >
+                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('生效')}">生效</div></div>
+                    <div class="layui-input-block layui-input-block-c1">
+                        <input input-type="switch" type="checkbox" id="valid"  name="valid" lay-skin="switch" lay-filter="valid" lay-text="是|否&nbsp;">
                     </div>
+                </div>
 
 
                                     <div class="layui-form-item" >

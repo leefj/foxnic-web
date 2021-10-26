@@ -49,7 +49,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 数据权限规则表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-25 17:27:22
+ * @since 2021-10-26 14:18:29
 */
 
 @Api(tags = "数据权限规则")
@@ -66,12 +66,11 @@ public class RuleController extends SuperController {
 	*/
 	@ApiOperation(value = "添加数据权限规则")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = RuleVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = RuleVOMeta.CODE , value = "代码" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = RuleVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = RuleVOMeta.DATA_TABLE , value = "数据表" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = RuleVOMeta.VERSION_NO , value = "规则版本号" , required = false , dataTypeClass=Integer.class),
-		@ApiImplicitParam(name = RuleVOMeta.VALID , value = "是否生效" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = RuleVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "505378699583950848"),
+		@ApiImplicitParam(name = RuleVOMeta.CODE , value = "代码" , required = false , dataTypeClass=String.class , example = "chs_instance_mine"),
+		@ApiImplicitParam(name = RuleVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class , example = "我发起的流程"),
+		@ApiImplicitParam(name = RuleVOMeta.VERSION_NO , value = "规则版本号" , required = false , dataTypeClass=Integer.class , example = "1"),
+		@ApiImplicitParam(name = RuleVOMeta.VALID , value = "是否生效" , required = false , dataTypeClass=Integer.class , example = "0"),
 		@ApiImplicitParam(name = RuleVOMeta.NOTES , value = "备注" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport(order=1)
@@ -89,7 +88,7 @@ public class RuleController extends SuperController {
 	*/
 	@ApiOperation(value = "删除数据权限规则")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = RuleVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class)
+		@ApiImplicitParam(name = RuleVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "505378699583950848")
 	})
 	@ApiOperationSupport(order=2)
 	@NotNull(name = RuleVOMeta.ID)
@@ -123,12 +122,11 @@ public class RuleController extends SuperController {
 	*/
 	@ApiOperation(value = "更新数据权限规则")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = RuleVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = RuleVOMeta.CODE , value = "代码" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = RuleVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = RuleVOMeta.DATA_TABLE , value = "数据表" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = RuleVOMeta.VERSION_NO , value = "规则版本号" , required = false , dataTypeClass=Integer.class),
-		@ApiImplicitParam(name = RuleVOMeta.VALID , value = "是否生效" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = RuleVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "505378699583950848"),
+		@ApiImplicitParam(name = RuleVOMeta.CODE , value = "代码" , required = false , dataTypeClass=String.class , example = "chs_instance_mine"),
+		@ApiImplicitParam(name = RuleVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class , example = "我发起的流程"),
+		@ApiImplicitParam(name = RuleVOMeta.VERSION_NO , value = "规则版本号" , required = false , dataTypeClass=Integer.class , example = "1"),
+		@ApiImplicitParam(name = RuleVOMeta.VALID , value = "是否生效" , required = false , dataTypeClass=Integer.class , example = "0"),
 		@ApiImplicitParam(name = RuleVOMeta.NOTES , value = "备注" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport( order=4 , ignoreParameters = { RuleVOMeta.PAGE_INDEX , RuleVOMeta.PAGE_SIZE , RuleVOMeta.SEARCH_FIELD , RuleVOMeta.FUZZY_FIELD , RuleVOMeta.SEARCH_VALUE , RuleVOMeta.SORT_FIELD , RuleVOMeta.SORT_TYPE , RuleVOMeta.IDS } )
@@ -146,12 +144,11 @@ public class RuleController extends SuperController {
 	*/
 	@ApiOperation(value = "保存数据权限规则")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = RuleVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = RuleVOMeta.CODE , value = "代码" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = RuleVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = RuleVOMeta.DATA_TABLE , value = "数据表" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = RuleVOMeta.VERSION_NO , value = "规则版本号" , required = false , dataTypeClass=Integer.class),
-		@ApiImplicitParam(name = RuleVOMeta.VALID , value = "是否生效" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = RuleVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "505378699583950848"),
+		@ApiImplicitParam(name = RuleVOMeta.CODE , value = "代码" , required = false , dataTypeClass=String.class , example = "chs_instance_mine"),
+		@ApiImplicitParam(name = RuleVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class , example = "我发起的流程"),
+		@ApiImplicitParam(name = RuleVOMeta.VERSION_NO , value = "规则版本号" , required = false , dataTypeClass=Integer.class , example = "1"),
+		@ApiImplicitParam(name = RuleVOMeta.VALID , value = "是否生效" , required = false , dataTypeClass=Integer.class , example = "0"),
 		@ApiImplicitParam(name = RuleVOMeta.NOTES , value = "备注" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { RuleVOMeta.PAGE_INDEX , RuleVOMeta.PAGE_SIZE , RuleVOMeta.SEARCH_FIELD , RuleVOMeta.FUZZY_FIELD , RuleVOMeta.SEARCH_VALUE , RuleVOMeta.SORT_FIELD , RuleVOMeta.SORT_TYPE , RuleVOMeta.IDS } )
@@ -213,12 +210,11 @@ public class RuleController extends SuperController {
 	*/
 	@ApiOperation(value = "查询数据权限规则")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = RuleVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = RuleVOMeta.CODE , value = "代码" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = RuleVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = RuleVOMeta.DATA_TABLE , value = "数据表" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = RuleVOMeta.VERSION_NO , value = "规则版本号" , required = false , dataTypeClass=Integer.class),
-		@ApiImplicitParam(name = RuleVOMeta.VALID , value = "是否生效" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = RuleVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "505378699583950848"),
+		@ApiImplicitParam(name = RuleVOMeta.CODE , value = "代码" , required = false , dataTypeClass=String.class , example = "chs_instance_mine"),
+		@ApiImplicitParam(name = RuleVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class , example = "我发起的流程"),
+		@ApiImplicitParam(name = RuleVOMeta.VERSION_NO , value = "规则版本号" , required = false , dataTypeClass=Integer.class , example = "1"),
+		@ApiImplicitParam(name = RuleVOMeta.VALID , value = "是否生效" , required = false , dataTypeClass=Integer.class , example = "0"),
 		@ApiImplicitParam(name = RuleVOMeta.NOTES , value = "备注" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { RuleVOMeta.PAGE_INDEX , RuleVOMeta.PAGE_SIZE } )
@@ -237,12 +233,11 @@ public class RuleController extends SuperController {
 	*/
 	@ApiOperation(value = "分页查询数据权限规则")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = RuleVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = RuleVOMeta.CODE , value = "代码" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = RuleVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = RuleVOMeta.DATA_TABLE , value = "数据表" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = RuleVOMeta.VERSION_NO , value = "规则版本号" , required = false , dataTypeClass=Integer.class),
-		@ApiImplicitParam(name = RuleVOMeta.VALID , value = "是否生效" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = RuleVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "505378699583950848"),
+		@ApiImplicitParam(name = RuleVOMeta.CODE , value = "代码" , required = false , dataTypeClass=String.class , example = "chs_instance_mine"),
+		@ApiImplicitParam(name = RuleVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class , example = "我发起的流程"),
+		@ApiImplicitParam(name = RuleVOMeta.VERSION_NO , value = "规则版本号" , required = false , dataTypeClass=Integer.class , example = "1"),
+		@ApiImplicitParam(name = RuleVOMeta.VALID , value = "是否生效" , required = false , dataTypeClass=Integer.class , example = "0"),
 		@ApiImplicitParam(name = RuleVOMeta.NOTES , value = "备注" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport(order=8)

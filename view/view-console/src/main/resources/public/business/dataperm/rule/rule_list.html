@@ -2,7 +2,7 @@
 /**
  * 数据权限规则 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-25 17:27:25
+ * @since 2021-10-26 14:18:29
  */
  -->
  <!DOCTYPE html>
@@ -34,11 +34,7 @@
             <div class="search-input-rows" style="opacity: 0">
                 <!-- 搜索输入区域 -->
                 <div class="layui-form toolbar search-inputs">
-                    <!-- 主键 , id ,typeName=text_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('主键')}" class="search-label id-label">主键</span><span class="search-colon">:</span></div>
-                        <input id="id" class="layui-input search-input" style="width: 140px" type="text" />
-                    </div>
+                    <!-- 主键 , id ,typeName=text_input, isHideInSearch=true -->
                     <!-- 代码 , code ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('代码')}" class="search-label code-label">代码</span><span class="search-colon">:</span></div>
@@ -49,20 +45,11 @@
                         <div class="search-label-div" style=""><span th:text="${lang.translate('名称')}" class="search-label name-label">名称</span><span class="search-colon">:</span></div>
                         <input id="name" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
-                    <!-- 数据表 , dataTable ,typeName=text_input, isHideInSearch=false -->
+                    <!-- 版本 , versionNo ,typeName=number_input, isHideInSearch=true -->
+                    <!-- 生效 , valid ,typeName=logic_switch, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('数据表')}" class="search-label dataTable-label">数据表</span><span class="search-colon">:</span></div>
-                        <input id="dataTable" class="layui-input search-input" style="width: 140px" type="text" />
-                    </div>
-                    <!-- 规则版本号 , versionNo ,typeName=number_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('规则版本号')}" class="search-label versionNo-label">规则版本号</span><span class="search-colon">:</span></div>
-                            <input id="versionNo" class="layui-input search-input" style="width: 140px" type="text" autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0" min-value="" max-value="" scale="0"/>
-                    </div>
-                    <!-- 是否生效 , valid ,typeName=number_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('是否生效')}" class="search-label valid-label">是否生效</span><span class="search-colon">:</span></div>
-                            <input id="valid" class="layui-input search-input" style="width: 140px" type="text" autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0" min-value="" max-value="" scale="0"/>
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('生效')}" class="search-label valid-label">生效</span><span class="search-colon">:</span></div>
+                        <div id="valid" data='[{"name":"是","value":"1"},{"name":"否","value":"0"}]' style="width:140px"></div>
                     </div>
                     <!-- 备注 , notes ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
@@ -111,9 +98,14 @@
 
     <button th:if="${perm.checkAuth('dp_rule:delete')}" class="layui-btn layui-btn-xs layui-btn-danger ops-delete-button" lay-event="del" th:text="${lang.translate('删除')}" data-id="{{d.id}}">删除</button>
 
+    <button class="layui-btn layui-btn-xs " lay-event="open-ranges" th:text="${lang.translate('范围')}" data-id="{{d.id}}">范围</button>
 
 </script>
 
+<!-- 表格状态列 -->
+<script type="text/html" id="cell-tpl-valid">
+    <input type="checkbox" class="switch-valid list-checkbox" lay-filter="cell-tpl-valid" value="{{d.id}}" lay-skin="switch" lay-text="是|否&nbsp;"  {{d.valid==1?'checked':''}} data-id="{{d.id}}"/>
+</script>
 
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${pageHelper.getTableColumnWidthConfig('data-table')}]];

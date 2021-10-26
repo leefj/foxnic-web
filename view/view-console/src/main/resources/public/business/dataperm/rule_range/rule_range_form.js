@@ -1,14 +1,14 @@
 /**
  * 数据权限规则范围 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-14 16:24:45
+ * @since 2021-10-26 14:18:31
  */
 
 function FormPage() {
 
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect,foxup;
 	const moduleURL="/service-dataperm/dp-rule-range";
-
+	var action=null;
 	var disableCreateNew=false;
 	var disableModify=false;
 	/**
@@ -18,11 +18,12 @@ function FormPage() {
      	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload,foxup=layui.foxnicUpload;
 		laydate = layui.laydate,table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
 
-		//如果没有修改和保存权限，
+		action=admin.getTempData('dp-rule-range-form-data-form-action');
+		//如果没有修改和保存权限
 		if( !admin.checkAuth(AUTH_PREFIX+":update") && !admin.checkAuth(AUTH_PREFIX+":save")) {
 			disableModify=true;
 		}
-		if(admin.getTempData('dp-rule-range-form-data-form-action')=="view") {
+		if(action=="view") {
 			disableModify=true;
 		}
 
@@ -151,6 +152,8 @@ function FormPage() {
 	function getFormData() {
 		var data=form.val("data-form");
 
+		//处理 生效 默认值
+		if(!data.valid) data.valid=0;
 
 
 

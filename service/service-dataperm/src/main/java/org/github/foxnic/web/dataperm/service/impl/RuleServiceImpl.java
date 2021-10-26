@@ -4,21 +4,23 @@ package org.github.foxnic.web.dataperm.service.impl;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.busi.id.IDGenerator;
-import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.dao.excel.ExcelStructure;
 import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.dao.meta.DBTableMeta;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
+import org.github.foxnic.web.dataperm.service.IRuleRangeService;
 import org.github.foxnic.web.dataperm.service.IRuleService;
 import org.github.foxnic.web.domain.dataperm.Rule;
+import org.github.foxnic.web.domain.dataperm.RuleRange;
 import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.io.InputStream;
@@ -46,6 +48,9 @@ public class RuleServiceImpl extends SuperService<Rule> implements IRuleService 
 	@Resource(name=DBConfigs.PRIMARY_DAO)
 	private DAO dao=null;
 
+	@Autowired
+	private IRuleRangeService ruleRangeService;
+
 	/**
 	 * 获得 DAO 对象
 	 * */
@@ -64,18 +69,20 @@ public class RuleServiceImpl extends SuperService<Rule> implements IRuleService 
 	 * @return 插入是否成功
 	 * */
 	@Override
+	@Transactional
 	public Result insert(Rule rule) {
-		DBTableMeta tm=this.dao().getTableMeta(rule.getDataTable());
-		if(tm==null) {
-			return  ErrorDesc.failure().message("数据表不存在");
-		}
-		if(StringUtil.isBlank(rule.getCode())) {
-			rule.setCode(tm.getTableName().toUpperCase());
-		}
-		if(StringUtil.isBlank(rule.getName())) {
-			rule.setCode(tm.getTopic());
+		rule.setVersionNo(1);
+		if(rule.getValid()==1) {
+			rule.setValid(0);
 		}
 		Result r=super.insert(rule);
+		if(r.success()) {
+			RuleRange range=new RuleRange();
+			range.setRuleId(rule.getId());
+			range.setValid(1);
+			range.setName("默认范围");
+			ruleRangeService.insert(range);
+		}
 		return r;
 	}
 

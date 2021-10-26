@@ -6,8 +6,12 @@ import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb.DP_RULE_CONDITION;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.Date;
+import org.github.foxnic.web.constants.enums.dataperm.ConditionNodeType;
 import javax.persistence.Transient;
+import org.github.foxnic.web.constants.enums.dataperm.LogicType;
+import java.util.Date;
+import com.github.foxnic.commons.reflect.EnumUtil;
+import com.github.foxnic.commons.lang.StringUtil;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
 
@@ -16,8 +20,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 数据权限规则范围条件
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-13 15:51:45
- * @sign BD026648FFC1F832F36F9BB7E937310F
+ * @since 2021-10-26 14:45:04
+ * @sign BE706E416D2ED3B88AA071415B78A4B1
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -54,16 +58,26 @@ public class RuleCondition extends Entity {
 	private String dataTable;
 	
 	/**
-	 * 表达式类型：表达式类型
+	 * 节点类型：逻辑组/表达式
 	*/
-	@ApiModelProperty(required = false,value="表达式类型" , notes = "表达式类型")
-	private String exprType;
+	@ApiModelProperty(required = true,value="节点类型" , notes = "逻辑组/表达式")
+	private String type;
+	@Transient
+	private ConditionNodeType typeEnum;
 	
 	/**
-	 * 逻辑关系可选值：and/or
+	 * 前置逻辑关系：and/or
 	*/
-	@ApiModelProperty(required = false,value="逻辑关系可选值" , notes = "and/or")
+	@ApiModelProperty(required = false,value="前置逻辑关系" , notes = "and/or")
 	private String logic;
+	@Transient
+	private LogicType logicEnum;
+	
+	/**
+	 * 表达式：表达式
+	*/
+	@ApiModelProperty(required = false,value="表达式" , notes = "表达式")
+	private String expr;
 	
 	/**
 	 * 是否生效：相同的代码仅可以有一个是生效的
@@ -118,6 +132,12 @@ public class RuleCondition extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
 	private Integer version;
+	
+	/**
+	 * 变量：变量
+	*/
+	@ApiModelProperty(required = false,value="变量" , notes = "变量")
+	private String variables;
 	
 	/**
 	 * 获得 主键<br>
@@ -196,40 +216,125 @@ public class RuleCondition extends Entity {
 	}
 	
 	/**
-	 * 获得 表达式类型<br>
-	 * 表达式类型
-	 * @return 表达式类型
+	 * 获得 节点类型<br>
+	 * 逻辑组/表达式
+	 * @return 节点类型
 	*/
-	public String getExprType() {
-		return exprType;
+	public String getType() {
+		return type;
 	}
 	
 	/**
-	 * 设置 表达式类型
-	 * @param exprType 表达式类型
+	 * 获得 节点类型 的投影属性<br>
+	 * 等价于 getType 方法，获得对应的枚举类型
+	 * @return 节点类型
+	*/
+	@Transient
+	public ConditionNodeType getTypeEnum() {
+		if(this.typeEnum==null) {
+			this.typeEnum = (ConditionNodeType) EnumUtil.parseByCode(ConditionNodeType.values(),type);
+		}
+		return this.typeEnum ;
+	}
+	
+	/**
+	 * 设置 节点类型
+	 * @param type 节点类型
 	 * @return 当前对象
 	*/
-	public RuleCondition setExprType(String exprType) {
-		this.exprType=exprType;
+	public RuleCondition setType(String type) {
+		this.type=type;
+		this.typeEnum= (ConditionNodeType) EnumUtil.parseByCode(ConditionNodeType.values(),type) ;
+		if(StringUtil.hasContent(type) && this.typeEnum==null) {
+			throw new IllegalArgumentException( type + " is not one of ConditionNodeType");
+		}
 		return this;
 	}
 	
 	/**
-	 * 获得 逻辑关系可选值<br>
+	 * 设置 节点类型的投影属性，等同于设置 节点类型
+	 * @param typeEnum 节点类型
+	 * @return 当前对象
+	*/
+	@Transient
+	public RuleCondition setTypeEnum(ConditionNodeType typeEnum) {
+		if(typeEnum==null) {
+			this.setType(null);
+		} else {
+			this.setType(typeEnum.code());
+		}
+		this.typeEnum=typeEnum;
+		return this;
+	}
+	
+	/**
+	 * 获得 前置逻辑关系<br>
 	 * and/or
-	 * @return 逻辑关系可选值
+	 * @return 前置逻辑关系
 	*/
 	public String getLogic() {
 		return logic;
 	}
 	
 	/**
-	 * 设置 逻辑关系可选值
-	 * @param logic 逻辑关系可选值
+	 * 获得 前置逻辑关系 的投影属性<br>
+	 * 等价于 getLogic 方法，获得对应的枚举类型
+	 * @return 前置逻辑关系
+	*/
+	@Transient
+	public LogicType getLogicEnum() {
+		if(this.logicEnum==null) {
+			this.logicEnum = (LogicType) EnumUtil.parseByCode(LogicType.values(),logic);
+		}
+		return this.logicEnum ;
+	}
+	
+	/**
+	 * 设置 前置逻辑关系
+	 * @param logic 前置逻辑关系
 	 * @return 当前对象
 	*/
 	public RuleCondition setLogic(String logic) {
 		this.logic=logic;
+		this.logicEnum= (LogicType) EnumUtil.parseByCode(LogicType.values(),logic) ;
+		if(StringUtil.hasContent(logic) && this.logicEnum==null) {
+			throw new IllegalArgumentException( logic + " is not one of LogicType");
+		}
+		return this;
+	}
+	
+	/**
+	 * 设置 前置逻辑关系的投影属性，等同于设置 前置逻辑关系
+	 * @param logicEnum 前置逻辑关系
+	 * @return 当前对象
+	*/
+	@Transient
+	public RuleCondition setLogicEnum(LogicType logicEnum) {
+		if(logicEnum==null) {
+			this.setLogic(null);
+		} else {
+			this.setLogic(logicEnum.code());
+		}
+		this.logicEnum=logicEnum;
+		return this;
+	}
+	
+	/**
+	 * 获得 表达式<br>
+	 * 表达式
+	 * @return 表达式
+	*/
+	public String getExpr() {
+		return expr;
+	}
+	
+	/**
+	 * 设置 表达式
+	 * @param expr 表达式
+	 * @return 当前对象
+	*/
+	public RuleCondition setExpr(String expr) {
+		this.expr=expr;
 		return this;
 	}
 	
@@ -401,6 +506,25 @@ public class RuleCondition extends Entity {
 	*/
 	public RuleCondition setVersion(Integer version) {
 		this.version=version;
+		return this;
+	}
+	
+	/**
+	 * 获得 变量<br>
+	 * 变量
+	 * @return 变量
+	*/
+	public String getVariables() {
+		return variables;
+	}
+	
+	/**
+	 * 设置 变量
+	 * @param variables 变量
+	 * @return 当前对象
+	*/
+	public RuleCondition setVariables(String variables) {
+		this.variables=variables;
 		return this;
 	}
 

@@ -1,25 +1,24 @@
 package org.github.foxnic.web.proxy.dataperm;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.github.foxnic.web.proxy.api.APIProxy;
-import org.github.foxnic.web.proxy.FeignConfiguration;
-
-import org.springframework.cloud.openfeign.FeignClient;
-
-
-import org.github.foxnic.web.domain.dataperm.RuleCondition;
-import org.github.foxnic.web.domain.dataperm.RuleConditionVO;
-import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
+import org.github.foxnic.web.domain.dataperm.RuleCondition;
+import org.github.foxnic.web.domain.dataperm.RuleConditionVO;
+import org.github.foxnic.web.misc.ztree.ZTreeNode;
+import org.github.foxnic.web.proxy.FeignConfiguration;
 import org.github.foxnic.web.proxy.MicroServiceNames;
+import org.github.foxnic.web.proxy.api.APIProxy;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 /**
  * <p>
  * 数据权限规则范围条件表  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-14 16:24:45
+ * @since 2021-10-26 14:45:05
 */
 
 @FeignClient(value = MicroServiceNames.DATA_PERM, contextId = RuleConditionServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)
@@ -81,6 +80,11 @@ public interface RuleConditionServiceProxy {
 	 * 查询数据权限规则范围条件
 	 */
 	public static final String QUERY_LIST = API_PREFIX + "query-list";
+
+	/**
+	 * 查询节点
+	 */
+	public static final String QUERY_NODES = API_PREFIX + "query-nodes";
 
 	/**
 	 * 分页查询数据权限规则范围条件
@@ -154,6 +158,12 @@ public interface RuleConditionServiceProxy {
 	*/
 	@RequestMapping(RuleConditionServiceProxy.QUERY_PAGED_LIST)
 	Result<PagedList<RuleCondition>> queryPagedList(RuleConditionVO sample);
+
+	/**
+	 * 查询条件节点
+	 * */
+	@RequestMapping(RuleConditionServiceProxy.QUERY_NODES)
+	Result<List<ZTreeNode>> queryNodes(RuleConditionVO sample);
 
 
 	/**

@@ -1,7 +1,7 @@
 /**
  * 数据权限规则 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-25 17:27:25
+ * @since 2021-10-26 14:18:29
  */
 
 function FormPage() {
@@ -152,6 +152,8 @@ function FormPage() {
 	function getFormData() {
 		var data=form.val("data-form");
 
+		//处理 生效 默认值
+		if(!data.valid) data.valid=0;
 
 
 

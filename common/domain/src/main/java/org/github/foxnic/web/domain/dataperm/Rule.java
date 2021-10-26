@@ -18,8 +18,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 数据权限规则
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-25 17:27:22
- * @sign 47980DB2204741C994171AA4432259F1
+ * @since 2021-10-26 13:49:41
+ * @sign 7F236B0123A49885AAD2806D7F314EDC
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -48,12 +48,6 @@ public class Rule extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="名称" , notes = "名称")
 	private String name;
-	
-	/**
-	 * 数据表：数据表
-	*/
-	@ApiModelProperty(required = false,value="数据表" , notes = "数据表")
-	private String dataTable;
 	
 	/**
 	 * 规则版本号：规则版本号
@@ -181,25 +175,6 @@ public class Rule extends Entity {
 	*/
 	public Rule setName(String name) {
 		this.name=name;
-		return this;
-	}
-	
-	/**
-	 * 获得 数据表<br>
-	 * 数据表
-	 * @return 数据表
-	*/
-	public String getDataTable() {
-		return dataTable;
-	}
-	
-	/**
-	 * 设置 数据表
-	 * @param dataTable 数据表
-	 * @return 当前对象
-	*/
-	public Rule setDataTable(String dataTable) {
-		this.dataTable=dataTable;
 		return this;
 	}
 	

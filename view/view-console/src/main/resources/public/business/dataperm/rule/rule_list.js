@@ -1,7 +1,7 @@
 /**
  * 数据权限规则 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-25 17:27:25
+ * @since 2021-10-26 14:18:29
  */
 
 
@@ -77,9 +77,8 @@ function ListPage() {
 					,{ field: 'id', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('主键') , templet: function (d) { return templet('id',d.id,d);}  }
 					,{ field: 'code', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('代码') , templet: function (d) { return templet('code',d.code,d);}  }
 					,{ field: 'name', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('名称') , templet: function (d) { return templet('name',d.name,d);}  }
-					,{ field: 'dataTable', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('数据表') , templet: function (d) { return templet('dataTable',d.dataTable,d);}  }
-					,{ field: 'versionNo', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('规则版本号') , templet: function (d) { return templet('versionNo',d.versionNo,d);}  }
-					,{ field: 'valid', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('是否生效') , templet: function (d) { return templet('valid',d.valid,d);}  }
+					,{ field: 'versionNo', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('版本') , templet: function (d) { return templet('versionNo',d.versionNo,d);}  }
+					,{ field: 'valid', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('生效'), templet: '#cell-tpl-valid'}
 					,{ field: 'notes', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('备注') , templet: function (d) { return templet('notes',d.notes,d);}  }
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }}
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
@@ -102,6 +101,10 @@ function ListPage() {
 			};
 			window.pageExt.list.beforeTableRender && window.pageExt.list.beforeTableRender(tableConfig);
 			dataTable=fox.renderTable(tableConfig);
+			//绑定 Switch 切换事件
+			fox.bindSwitchEvent("cell-tpl-valid",moduleURL +'/update','id','valid',function(data,ctx){
+				window.pageExt.list.afterSwitched && window.pageExt.list.afterSwitched("valid",data,ctx);
+			});
 			//绑定排序事件
 			table.on('sort(data-table)', function(obj){
 			  refreshTableData(obj.field,obj.type);
@@ -116,12 +119,9 @@ function ListPage() {
       */
 	function refreshTableData(sortField,sortType,reset) {
 		var value = {};
-		value.id={ inputType:"button",value: $("#id").val()};
 		value.code={ inputType:"button",value: $("#code").val()};
 		value.name={ inputType:"button",value: $("#name").val()};
-		value.dataTable={ inputType:"button",value: $("#dataTable").val()};
-		value.versionNo={ inputType:"number_input", value: $("#versionNo").val() };
-		value.valid={ inputType:"number_input", value: $("#valid").val() };
+		value.valid={ inputType:"logic_switch",value: xmSelect.get("#valid",true).getValue("value"), label:xmSelect.get("#valid",true).getValue("nameStr") };
 		value.notes={ inputType:"button",value: $("#notes").val()};
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
@@ -170,6 +170,12 @@ function ListPage() {
 
 		fox.switchSearchRow(1);
 
+		//渲染 valid 搜索框
+		fox.renderSelectBox({
+			el: "valid",
+			size: "small",
+			radio: false
+		});
 		fox.renderSearchInputs();
 		window.pageExt.list.afterSearchInputReady && window.pageExt.list.afterSearchInputReady();
 	}
@@ -342,6 +348,9 @@ function ListPage() {
 					});
 				});
 
+			}
+			else if (layEvent === 'open-ranges') { // 范围
+				window.pageExt.list.openRanges(data);
 			}
 			
 		});

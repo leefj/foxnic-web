@@ -33,12 +33,16 @@ public class DPRuleRangeConfig extends BaseCodeConfig<DP_RULE_RANGE> {
 
 	@Override
 	public void configFields(ViewOptions view) {
-
+		view.field(DP_RULE_RANGE.ID).basic().hidden();
+		view.field(DP_RULE_RANGE.RULE_ID).basic().hidden();
+		view.field(DP_RULE_RANGE.VALID).basic().label("生效").form().logicField().off("否",0).on("是",1).defaultValue(false);
 	}
 
 	@Override
 	public void configList(ViewOptions view, ListOptions list) {
-
+		view.search().disable();
+		list.disableMargin();
+		list.operationColumn().addActionButton("条件","openConditions");
 	}
 
 	@Override

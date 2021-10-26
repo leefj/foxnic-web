@@ -49,7 +49,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 数据权限规则范围表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-14 16:24:45
+ * @since 2021-10-26 14:18:31
 */
 
 @Api(tags = "数据权限规则范围")
@@ -66,10 +66,10 @@ public class RuleRangeController extends SuperController {
 	*/
 	@ApiOperation(value = "添加数据权限规则范围")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = RuleRangeVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = RuleRangeVOMeta.RULE_ID , value = "规则ID" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = RuleRangeVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = RuleRangeVOMeta.VALID , value = "是否生效" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = RuleRangeVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "505382678007119872"),
+		@ApiImplicitParam(name = RuleRangeVOMeta.RULE_ID , value = "规则ID" , required = false , dataTypeClass=String.class , example = "505382677860319232"),
+		@ApiImplicitParam(name = RuleRangeVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class , example = "默认范围"),
+		@ApiImplicitParam(name = RuleRangeVOMeta.VALID , value = "是否生效" , required = false , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiOperationSupport(order=1)
 	@SentinelResource(value = RuleRangeServiceProxy.INSERT , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
@@ -86,7 +86,7 @@ public class RuleRangeController extends SuperController {
 	*/
 	@ApiOperation(value = "删除数据权限规则范围")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = RuleRangeVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class)
+		@ApiImplicitParam(name = RuleRangeVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "505382678007119872")
 	})
 	@ApiOperationSupport(order=2)
 	@NotNull(name = RuleRangeVOMeta.ID)
@@ -120,10 +120,10 @@ public class RuleRangeController extends SuperController {
 	*/
 	@ApiOperation(value = "更新数据权限规则范围")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = RuleRangeVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = RuleRangeVOMeta.RULE_ID , value = "规则ID" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = RuleRangeVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = RuleRangeVOMeta.VALID , value = "是否生效" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = RuleRangeVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "505382678007119872"),
+		@ApiImplicitParam(name = RuleRangeVOMeta.RULE_ID , value = "规则ID" , required = false , dataTypeClass=String.class , example = "505382677860319232"),
+		@ApiImplicitParam(name = RuleRangeVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class , example = "默认范围"),
+		@ApiImplicitParam(name = RuleRangeVOMeta.VALID , value = "是否生效" , required = false , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiOperationSupport( order=4 , ignoreParameters = { RuleRangeVOMeta.PAGE_INDEX , RuleRangeVOMeta.PAGE_SIZE , RuleRangeVOMeta.SEARCH_FIELD , RuleRangeVOMeta.FUZZY_FIELD , RuleRangeVOMeta.SEARCH_VALUE , RuleRangeVOMeta.SORT_FIELD , RuleRangeVOMeta.SORT_TYPE , RuleRangeVOMeta.IDS } )
 	@NotNull(name = RuleRangeVOMeta.ID)
@@ -140,10 +140,10 @@ public class RuleRangeController extends SuperController {
 	*/
 	@ApiOperation(value = "保存数据权限规则范围")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = RuleRangeVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = RuleRangeVOMeta.RULE_ID , value = "规则ID" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = RuleRangeVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = RuleRangeVOMeta.VALID , value = "是否生效" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = RuleRangeVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "505382678007119872"),
+		@ApiImplicitParam(name = RuleRangeVOMeta.RULE_ID , value = "规则ID" , required = false , dataTypeClass=String.class , example = "505382677860319232"),
+		@ApiImplicitParam(name = RuleRangeVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class , example = "默认范围"),
+		@ApiImplicitParam(name = RuleRangeVOMeta.VALID , value = "是否生效" , required = false , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { RuleRangeVOMeta.PAGE_INDEX , RuleRangeVOMeta.PAGE_SIZE , RuleRangeVOMeta.SEARCH_FIELD , RuleRangeVOMeta.FUZZY_FIELD , RuleRangeVOMeta.SEARCH_VALUE , RuleRangeVOMeta.SORT_FIELD , RuleRangeVOMeta.SORT_TYPE , RuleRangeVOMeta.IDS } )
 	@NotNull(name = RuleRangeVOMeta.ID)
@@ -169,6 +169,11 @@ public class RuleRangeController extends SuperController {
 	public Result<RuleRange> getById(String id) {
 		Result<RuleRange> result=new Result<>();
 		RuleRange ruleRange=ruleRangeService.getById(id);
+
+		// join 关联的对象
+		ruleRangeService.dao().fill(ruleRange)
+			.execute();
+
 		result.success(true).data(ruleRange);
 		return result;
 	}
@@ -199,10 +204,10 @@ public class RuleRangeController extends SuperController {
 	*/
 	@ApiOperation(value = "查询数据权限规则范围")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = RuleRangeVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = RuleRangeVOMeta.RULE_ID , value = "规则ID" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = RuleRangeVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = RuleRangeVOMeta.VALID , value = "是否生效" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = RuleRangeVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "505382678007119872"),
+		@ApiImplicitParam(name = RuleRangeVOMeta.RULE_ID , value = "规则ID" , required = false , dataTypeClass=String.class , example = "505382677860319232"),
+		@ApiImplicitParam(name = RuleRangeVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class , example = "默认范围"),
+		@ApiImplicitParam(name = RuleRangeVOMeta.VALID , value = "是否生效" , required = false , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { RuleRangeVOMeta.PAGE_INDEX , RuleRangeVOMeta.PAGE_SIZE } )
 	@SentinelResource(value = RuleRangeServiceProxy.QUERY_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
@@ -220,10 +225,10 @@ public class RuleRangeController extends SuperController {
 	*/
 	@ApiOperation(value = "分页查询数据权限规则范围")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = RuleRangeVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = RuleRangeVOMeta.RULE_ID , value = "规则ID" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = RuleRangeVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = RuleRangeVOMeta.VALID , value = "是否生效" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = RuleRangeVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "505382678007119872"),
+		@ApiImplicitParam(name = RuleRangeVOMeta.RULE_ID , value = "规则ID" , required = false , dataTypeClass=String.class , example = "505382677860319232"),
+		@ApiImplicitParam(name = RuleRangeVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class , example = "默认范围"),
+		@ApiImplicitParam(name = RuleRangeVOMeta.VALID , value = "是否生效" , required = false , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiOperationSupport(order=8)
 	@SentinelResource(value = RuleRangeServiceProxy.QUERY_PAGED_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
@@ -231,6 +236,11 @@ public class RuleRangeController extends SuperController {
 	public Result<PagedList<RuleRange>> queryPagedList(RuleRangeVO sample) {
 		Result<PagedList<RuleRange>> result=new Result<>();
 		PagedList<RuleRange> list=ruleRangeService.queryPagedList(sample,sample.getPageSize(),sample.getPageIndex());
+
+		// join 关联的对象
+		ruleRangeService.dao().fill(list)
+			.execute();
+
 		result.success(true).data(list);
 		return result;
 	}

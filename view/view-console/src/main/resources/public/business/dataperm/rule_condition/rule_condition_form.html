@@ -2,7 +2,7 @@
 /**
  * 数据权限规则范围条件 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-14 16:24:45
+ * @since 2021-10-26 14:45:07
  */
  -->
  <!DOCTYPE html>
@@ -45,7 +45,7 @@
                         </div>
                     </div>
 
-                                    <div class="layui-form-item" >
+                                    <div class="layui-form-item" style="display: none">
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('range')}">range</div></div>
                         <div class="layui-input-block layui-input-block-c1">
                             <input lay-filter="rangeId" id="rangeId" name="rangeId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('range') }" type="text" class="layui-input"  />
@@ -67,27 +67,41 @@
                     </div>
 
                                     <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('表达式类型')}">表达式类型</div></div>
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('节点类型')}">节点类型</div><div class="layui-required">*</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="exprType" id="exprType" name="exprType" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('表达式类型') }" type="text" class="layui-input"  />
+                            <input lay-filter="type" id="type" name="type" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('节点类型') }" type="text" class="layui-input"    lay-verify="|required"  />
                         </div>
                     </div>
 
                                     <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('逻辑关系可选值')}">逻辑关系可选值</div></div>
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('前置逻辑关系')}">前置逻辑关系</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="logic" id="logic" name="logic" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('逻辑关系可选值') }" type="text" class="layui-input"  />
+                            <input lay-filter="logic" id="logic" name="logic" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('前置逻辑关系') }" type="text" class="layui-input"  />
+                        </div>
+                    </div>
+
+                                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('表达式')}">表达式</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input lay-filter="expr" id="expr" name="expr" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('表达式') }" type="text" class="layui-input"  />
                         </div>
                     </div>
 
                 
-                    <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('是否生效')}">是否生效</div></div>
+                <div class="layui-form-item" >
+                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('生效')}">生效</div></div>
+                    <div class="layui-input-block layui-input-block-c1">
+                        <input input-type="switch" type="checkbox" id="valid"  name="valid" lay-skin="switch" lay-filter="valid" lay-text="是|否&nbsp;">
+                    </div>
+                </div>
+
+
+                                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('变量')}">变量</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="valid" id="valid" name="valid" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('是否生效') }" type="text" class="layui-input"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0"   scale="0" />
+                            <input lay-filter="variables" id="variables" name="variables" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('变量') }" type="text" class="layui-input"  />
                         </div>
                     </div>
-
 
                 <!--结束：栏次内字段循环-->
             </div>
@@ -114,7 +128,7 @@
 
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];
-    var VALIDATE_CONFIG={};
+    var VALIDATE_CONFIG={"type":{"labelInForm":"节点类型","inputType":"text_input","required":true}};
     var AUTH_PREFIX="dp_rule_condition";
 
 
