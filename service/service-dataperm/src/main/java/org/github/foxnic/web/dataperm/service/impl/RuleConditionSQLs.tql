@@ -1,9 +1,8 @@
 
 // 查询根节点菜单
 [query-root-conditions]
-select m.*,(select count(1) from sys_menu cm  where m.id=cm.parent_id and cm.deleted=0) child_count,r.id checked from sys_menu m
-left join sys_role_menu r on r.role_id=? and m.id=r.menu_id
-where m.parent_id='0' and m.deleted=0 order by sort asc
+select m.*,(select count(1) from dp_rule_condition cm  where m.id=cm.parent_id and cm.deleted=0) child_count from dp_rule_condition m
+where m.range_id=? and m.parent_id='0' and m.deleted=0 order by sort asc
 
 // 查询所有子孙节点节点菜单
 [query-descendants-conditions]
@@ -15,9 +14,8 @@ order by parent_id , sort asc
 
 // 按上级节点ID查找下级节点
 [query-conditions-by-parent-id]
-select m.*,(select count(1) from sys_menu cm  where m.id=cm.parent_id and cm.deleted=0) child_count,r.id checked from sys_menu m
-left join sys_role_menu r on r.role_id=? and m.id=r.menu_id
-where m.parent_id=? and m.deleted=0 order by sort asc
+select m.*,(select count(1) from dp_rule_condition cm  where m.id=cm.parent_id and cm.deleted=0) child_count from  dp_rule_condition m
+where m.range_id=? and m.parent_id=? and m.deleted=0 order by sort asc
 
 
 // 重置菜单层级路径

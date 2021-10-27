@@ -12,14 +12,17 @@ function ListPage() {
 	const moduleURL="/service-dataperm/dp-rule-condition";
 
 	var menuTree;
+	var rangeId;
 
 	/**
       * 入口函数，初始化
       */
 	this.init=function(layui) {
 
-     	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload;
+     	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload ,dropdown=layui.dropdown;
 		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
+
+		rangeId=admin.getTempData("rule-range-id");
 
      	var cfgs = {
      		edit: {
@@ -31,7 +34,7 @@ function ListPage() {
 				contentType:"application/json",
 				url:moduleURL+"/query-nodes",
 				autoParam:["id=parentId"],
-				otherParam:{isLoadAllDescendants:0},
+				otherParam:{isLoadAllDescendants:0,rangeId:rangeId},
 				dataFilter: nodeDatafilter
 			},
 			callback: {
@@ -58,13 +61,40 @@ function ListPage() {
 
 		//
 		bindSearchEvent();
+
+
+
      }
+
+	function renderMenu(node) {
+		//debugger
+		dropdown.render({
+			elem: '#' + node.tId + "_a",
+			trigger: 'contextmenu',
+			data: [{
+				title: '添加逻辑组',
+				id: "add-group"
+			}, {
+				title: '添加表达式',
+				id: 'add-expr'
+			}
+			],click: function(obj, othis){
+				if(obj.id === 'add-group') {
+					addNode("group");
+				} else if(obj.id === 'add-expr') {
+					addNode("expr");
+				}
+			}
+		});
+	}
 
     var editingNode=null;
     function onNodeClick(event, treeId, treeNode) {
-    	if(treeNode==null) return;
-    	editingNode=treeNode;
-    	$("#form-view")[0].contentWindow.loadFormData(treeNode.id);
+    	//debugger;
+		if(treeNode==null) return;
+		editingNode=treeNode;
+		renderMenu(treeNode);
+    	// $("#form-view")[0].contentWindow.loadFormData(treeNode.id);
     }
 
 
@@ -142,8 +172,15 @@ function ListPage() {
      	childNodes=childNodes.data;
 		if (!childNodes) return null;
 		for (var i=0, l=childNodes.length; i<l; i++) {
-
 		}
+		setTimeout(function (){
+			var node = menuTree.getNodesByFilter(function (n){
+				return n.parentId=="0";
+			},true);
+			if(node) {
+				menuTree.expandNode(node, true, false, true, false);
+			}
+		},100);
 		return childNodes;
 	}
 
@@ -163,14 +200,6 @@ function ListPage() {
 		});
 
 	}
-
-	function chaneNodeName(id,name) {
-		if(editingNode==null) return;
-		if(editingNode.id!=id) return;
-		editingNode.name=name;
-		menuTree.updateNode(editingNode);
-	}
-	window.chaneNodeName=chaneNodeName;
 
 	function removeHoverDom(treeId, treeNode) {
 			//if (treeNode.parentTId && treeNode.getParentNode().id!=1) return;
@@ -275,8 +304,8 @@ function ListPage() {
 	}
 
 
-	// 添加按钮点击事件
-    $('#btn-add').click(function () {
+	// 添加节点
+    function addNode(type) {
         var nodes=menuTree.getSelectedNodes();
 
         //默认根节点
@@ -285,15 +314,9 @@ function ListPage() {
          	treeNode=nodes[0];
         }
 
-        admin.request(moduleURL+"/insert",{parentId:treeNode?treeNode.id:null,label:"新菜单"},function(r) {
+        admin.request(moduleURL+"/insert",{parentId:treeNode?treeNode.id:null,type:type,rangeId: rangeId},function(r) {
 			if(r.success) {
-				admin.toast().success("菜单已创建",{time:1000,position:"right-bottom"});
-				//debugger
-				if(treeNode==null) {
-					//debugger;
-					menuTree.addNodes(null,{id:r.data.id,name:r.data.label});
-					return;
-				}
+				admin.toast().success("节点已创建",{time:1000,position:"right-bottom"});
 
 				var isLeaf=!treeNode.isParent;
 				treeNode.isParent=true;
@@ -301,13 +324,18 @@ function ListPage() {
 				if(isLeaf) {
 					menuTree.reAsyncChildNodes(treeNode,"refresh",false);
 				} else {
-					if(!treeNode.open ) {
+					if(!treeNode.open) {
 						//展开节点
 						menuTree.expandNode(treeNode,true,false,true,false);
 					} else {
 						if(treeNode.children && treeNode.children.length>0) {
-							menuTree.addNodes(treeNode,{id:r.data.id,name:r.data.label,parentId:r.data.parentId});
-							//menuTree.selectNode(newNode,false);
+							var na="";
+							if(type=="group") {
+								na="逻辑组"
+							} else if(type=="expr") {
+								na="表达式";
+							}
+							menuTree.addNodes(treeNode,{id:r.data.id,name:na,parentId:r.data.parentId,data:r.data});
 						} else {
 							menuTree.reAsyncChildNodes(treeNode,"refresh",true);
 						}
@@ -315,10 +343,10 @@ function ListPage() {
 					}
 				}
 			} else {
-				admin.toast().error("新建菜单失败",{time:1000,position:"right-bottom"});
+				admin.toast().error("新建节点失败",{time:1000,position:"right-bottom"});
 			}
 		},"POST",true);
-    });
+    }
 
 
     /**
@@ -352,6 +380,6 @@ layui.config({
 	base: '/module/'
 }).extend({
 	xmSelect: 'xm-select/xm-select'
-}).use(['form', 'table', 'util', 'settings',  'upload','foxnic','xmSelect'],function() {
+}).use(['form', 'table', 'util', 'settings',  'upload','foxnic','xmSelect',"dropdown"],function() {
 	(new ListPage()).init(layui);
 });

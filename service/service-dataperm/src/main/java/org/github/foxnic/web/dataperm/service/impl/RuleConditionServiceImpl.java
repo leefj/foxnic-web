@@ -22,6 +22,8 @@ import com.github.foxnic.sql.parameter.BatchParamBuilder;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.DP_RULE_CONDITION;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_MENU;
+import org.github.foxnic.web.constants.enums.dataperm.ConditionNodeType;
+import org.github.foxnic.web.constants.enums.dataperm.LogicType;
 import org.github.foxnic.web.dataperm.service.IRuleConditionService;
 import org.github.foxnic.web.domain.dataperm.RuleCondition;
 import org.github.foxnic.web.domain.oauth.Menu;
@@ -73,8 +75,17 @@ public class RuleConditionServiceImpl extends SuperService<RuleCondition> implem
 	 * */
 	@Override
 	public Result insert(RuleCondition ruleCondition) {
+		if(ruleCondition.getValid()==null) {
+			ruleCondition.setValid(1);
+		}
+		if(ruleCondition.getTypeEnum()==null) {
+			ruleCondition.setTypeEnum(ConditionNodeType.expr);
+		}
+		if(ruleCondition.getLogicEnum()==null) {
+			ruleCondition.setLogicEnum(LogicType.and);
+		}
 		Result r=super.insert(ruleCondition);
-		return r;
+		return r.data(ruleCondition);
 	}
 
 	/**
@@ -263,14 +274,14 @@ public class RuleConditionServiceImpl extends SuperService<RuleCondition> implem
 		return super.buildExcelStructure(isForExport);
 	}
 
-	private RcdSet queryChildMenus(String parentId,String roleId) {
-		RcdSet menus=null;
+	private RcdSet queryChildMenus(String parentId,String rangeId) {
+		RcdSet cdns=null;
 		if(parentId==null || parentId.equals(IRuleConditionService.ROOT_ID)) {
-			menus=dao.query("#query-root-menus",roleId);
+			cdns=dao.query("#query-root-conditions",rangeId);
 		} else {
-			menus=dao.query("#query-menus-by-parent-id",roleId,parentId);
+			cdns=dao.query("#query-conditions-by-parent-id",rangeId,parentId);
 		}
-		return menus;
+		return cdns;
 	}
 
 	@Override
@@ -292,13 +303,12 @@ public class RuleConditionServiceImpl extends SuperService<RuleCondition> implem
 		for (Rcd m : menus) {
 			ZTreeNode node=new ZTreeNode();
 			node.setId(m.getString(DP_RULE_CONDITION.ID));
-//			node.setName(m.getString(DP_RULE_CONDITION.LABEL));
+			ConditionNodeType type=ConditionNodeType.parseByCode(m.getString("type"));
+			node.setName(type.text());
 			node.setParentId(m.getString(DP_RULE_CONDITION.PARENT_ID));
 			node.setHierarchy(m.getString(DP_RULE_CONDITION.HIERARCHY));
 			node.setIsParent(m.getInteger("child_count")>0);
-			if(m.getValue("checked")!=null) {
-				node.setChecked(true);
-			}
+			node.setData(m.toJSONObject());
 			nodes.add(node);
 		}
 		return nodes;

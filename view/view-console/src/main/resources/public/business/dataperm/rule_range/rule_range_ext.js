@@ -131,6 +131,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             console.log('moreAction',menu,data,it);
         },
         openConditions:function (data){
+            admin.putTempData("rule-range-id",data.id,true);
             var dialogIndex=admin.popupCenter({
                 type:2,
                 id:"ruleConditionDialog",
@@ -139,7 +140,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
                 content: '/business/dataperm/rule_condition/rule_condition_list.html',
                 area:["80%","500px"]
             });
-            admin.putTempData("org-dialog-index",dialogIndex,true);
+            admin.putTempData("rule-condition-dialog-index",dialogIndex,true);
         },
         /**
          * 末尾执行

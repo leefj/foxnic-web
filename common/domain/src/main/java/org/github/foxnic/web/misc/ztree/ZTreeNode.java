@@ -14,7 +14,7 @@ public class ZTreeNode {
 	public static interface Transformer<T> {
 		ZTreeNode transform(T data,ZTreeNode node);
 	}
-	
+
 	/**
 	 * 节点转换
 	 * */
@@ -35,6 +35,7 @@ public class ZTreeNode {
 	private String name;
 	private Boolean isParent;
 	private Boolean checked;
+	private Boolean open=false;
 	private String url;
 	private String type;
 
@@ -166,5 +167,13 @@ public class ZTreeNode {
 
 	public void setData(Object data) {
 		this.data = data;
+	}
+
+	public Boolean getOpen() {
+		return open;
+	}
+
+	public void setOpen(Boolean open) {
+		this.open = open;
 	}
 }
