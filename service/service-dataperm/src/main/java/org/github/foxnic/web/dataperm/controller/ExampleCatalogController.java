@@ -48,7 +48,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 商品分类表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-14 16:24:46
+ * @since 2021-10-28 10:00:49
 */
 
 @Api(tags = "商品分类")
@@ -73,7 +73,7 @@ public class ExampleCatalogController extends SuperController {
 	@SentinelResource(value = ExampleCatalogServiceProxy.INSERT , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(ExampleCatalogServiceProxy.INSERT)
 	public Result insert(ExampleCatalogVO exampleCatalogVO) {
-		Result result=exampleCatalogService.insert(exampleCatalogVO);
+		Result result=exampleCatalogService.insert(exampleCatalogVO,false);
 		return result;
 	}
 
@@ -127,7 +127,7 @@ public class ExampleCatalogController extends SuperController {
 	@SentinelResource(value = ExampleCatalogServiceProxy.UPDATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(ExampleCatalogServiceProxy.UPDATE)
 	public Result update(ExampleCatalogVO exampleCatalogVO) {
-		Result result=exampleCatalogService.update(exampleCatalogVO,SaveMode.NOT_NULL_FIELDS);
+		Result result=exampleCatalogService.update(exampleCatalogVO,SaveMode.NOT_NULL_FIELDS,false);
 		return result;
 	}
 
@@ -146,7 +146,7 @@ public class ExampleCatalogController extends SuperController {
 	@SentinelResource(value = ExampleCatalogServiceProxy.SAVE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(ExampleCatalogServiceProxy.SAVE)
 	public Result save(ExampleCatalogVO exampleCatalogVO) {
-		Result result=exampleCatalogService.save(exampleCatalogVO,SaveMode.NOT_NULL_FIELDS);
+		Result result=exampleCatalogService.save(exampleCatalogVO,SaveMode.NOT_NULL_FIELDS,false);
 		return result;
 	}
 
@@ -165,6 +165,11 @@ public class ExampleCatalogController extends SuperController {
 	public Result<ExampleCatalog> getById(String id) {
 		Result<ExampleCatalog> result=new Result<>();
 		ExampleCatalog exampleCatalog=exampleCatalogService.getById(id);
+
+		// join 关联的对象
+		exampleCatalogService.dao().fill(exampleCatalog)
+			.execute();
+
 		result.success(true).data(exampleCatalog);
 		return result;
 	}
@@ -225,6 +230,11 @@ public class ExampleCatalogController extends SuperController {
 	public Result<PagedList<ExampleCatalog>> queryPagedList(ExampleCatalogVO sample) {
 		Result<PagedList<ExampleCatalog>> result=new Result<>();
 		PagedList<ExampleCatalog> list=exampleCatalogService.queryPagedList(sample,sample.getPageSize(),sample.getPageIndex());
+
+		// join 关联的对象
+		exampleCatalogService.dao().fill(list)
+			.execute();
+
 		result.success(true).data(list);
 		return result;
 	}

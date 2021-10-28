@@ -18,8 +18,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 数据权限规则
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-26 13:49:41
- * @sign 7F236B0123A49885AAD2806D7F314EDC
+ * @since 2021-10-28 11:47:45
+ * @sign 6DF5663AEB1A749FB443272F916A5611
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -36,6 +36,12 @@ public class Rule extends Entity {
 	@Id
 	@ApiModelProperty(required = true,value="主键" , notes = "主键")
 	private String id;
+	
+	/**
+	 * po类型：po类型
+	*/
+	@ApiModelProperty(required = false,value="po类型" , notes = "po类型")
+	private String poType;
 	
 	/**
 	 * 代码：代码
@@ -137,6 +143,25 @@ public class Rule extends Entity {
 	*/
 	public Rule setId(String id) {
 		this.id=id;
+		return this;
+	}
+	
+	/**
+	 * 获得 po类型<br>
+	 * po类型
+	 * @return po类型
+	*/
+	public String getPoType() {
+		return poType;
+	}
+	
+	/**
+	 * 设置 po类型
+	 * @param poType po类型
+	 * @return 当前对象
+	*/
+	public Rule setPoType(String poType) {
+		this.poType=poType;
 		return this;
 	}
 	

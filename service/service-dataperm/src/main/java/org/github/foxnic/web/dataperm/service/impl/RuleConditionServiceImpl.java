@@ -25,11 +25,15 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_MENU;
 import org.github.foxnic.web.constants.enums.dataperm.ConditionNodeType;
 import org.github.foxnic.web.constants.enums.dataperm.LogicType;
 import org.github.foxnic.web.dataperm.service.IRuleConditionService;
+import org.github.foxnic.web.dataperm.service.IRuleRangeService;
+import org.github.foxnic.web.dataperm.service.IRuleService;
+import org.github.foxnic.web.domain.dataperm.PropertyItem;
 import org.github.foxnic.web.domain.dataperm.RuleCondition;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.meta.MenuMeta;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.misc.ztree.ZTreeNode;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -61,7 +65,11 @@ public class RuleConditionServiceImpl extends SuperService<RuleCondition> implem
 	 * */
 	public DAO dao() { return dao; }
 
+	@Autowired
+	private IRuleService ruleService;
 
+	@Autowired
+	private IRuleRangeService ruleRangeService;
 
 	@Override
 	public Object generateId(Field field) {
@@ -152,6 +160,8 @@ public class RuleConditionServiceImpl extends SuperService<RuleCondition> implem
 	 * */
 	@Override
 	public Result update(RuleCondition ruleCondition , SaveMode mode) {
+		PropertyItem propertyItem=this.ruleService.getPropertyItem(ruleCondition.getRuleId(), ruleCondition.getQueryProperty());
+		ruleCondition.setQueryField(propertyItem.getTable()+"."+propertyItem.getField());
 		Result r=super.update(ruleCondition , mode);
 		return r;
 	}

@@ -19,6 +19,7 @@ import java.util.List;
  * </p>
  * @author 李方捷 , leefangjie@qq.com
  * @since 2021-10-26 14:45:05
+ * @version
 */
 
 @FeignClient(value = MicroServiceNames.DATA_PERM, contextId = RuleConditionServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)

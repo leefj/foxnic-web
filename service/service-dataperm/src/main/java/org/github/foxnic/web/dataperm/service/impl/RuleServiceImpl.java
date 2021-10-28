@@ -1,20 +1,32 @@
 package org.github.foxnic.web.dataperm.service.impl;
 
 
+import com.alibaba.fastjson.JSONArray;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.commons.bean.BeanNameUtil;
 import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.commons.cache.LocalCache;
+import com.github.foxnic.commons.collection.CollectorUtil;
+import com.github.foxnic.commons.lang.DataParser;
+import com.github.foxnic.commons.lang.StringUtil;
+import com.github.foxnic.commons.reflect.ReflectUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.Entity;
 import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.dao.excel.ExcelStructure;
 import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.dao.excel.ValidateResult;
+import com.github.foxnic.dao.meta.DBColumnMeta;
+import com.github.foxnic.dao.meta.DBTableMeta;
 import com.github.foxnic.dao.spec.DAO;
+import com.github.foxnic.sql.entity.EntityUtil;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.dataperm.service.IRuleRangeService;
 import org.github.foxnic.web.dataperm.service.IRuleService;
+import org.github.foxnic.web.domain.dataperm.PropertyItem;
 import org.github.foxnic.web.domain.dataperm.Rule;
 import org.github.foxnic.web.domain.dataperm.RuleRange;
 import org.github.foxnic.web.framework.dao.DBConfigs;
@@ -25,9 +37,11 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.io.InputStream;
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -267,9 +281,122 @@ public class RuleServiceImpl extends SuperService<Rule> implements IRuleService 
 		return super.importExcel(input,sheetIndex,batch);
 	}
 
+
+
+
+
 	@Override
 	public ExcelStructure buildExcelStructure(boolean isForExport) {
 		return super.buildExcelStructure(isForExport);
+	}
+
+	private LocalCache<String,List<PropertyItem>> properties =new LocalCache<>();
+	private LocalCache<String, Map<String,PropertyItem>> propertiesMap=new LocalCache<>();
+
+	private void initPoPropertiesIf(String poTypName) {
+		List<PropertyItem> list= properties.get(poTypName);
+		if(list!=null) return;
+		list=new ArrayList<>();
+		Class poType = ReflectUtil.forName(poTypName);
+		if (poType == null) return;
+		this.collectPoFields(null,poType,list);
+		properties.put(poTypName,list);
+		Map<String,PropertyItem> map= CollectorUtil.collectMap(list,(item)->{return item.getFullProperty();},(item)->{return item;});
+		propertiesMap.put(poTypName,map);
+	}
+
+	@Override
+	public JSONArray queryFieldList(String ruleId,String searchValue) {
+		Rule rule=this.getById(ruleId);
+		if(rule==null) return null;
+		if(StringUtil.isBlank(rule.getPoType())) return null;
+		initPoPropertiesIf(rule.getPoType());
+		List<PropertyItem> list= properties.get(rule.getPoType());
+		//过滤
+		JSONArray array=new JSONArray();
+
+		for (PropertyItem item : list) {
+			if(!StringUtil.isBlank(searchValue)) {
+				if(item.getFullProperty().toLowerCase().contains(searchValue.toLowerCase().trim())) {
+					array.add(item);
+				}
+			} else {
+				array.add(item);
+			}
+		}
+		return  array;
+	}
+
+	@Override
+	public PropertyItem getPropertyItem(String ruleId, String fullProperty) {
+		Rule rule=this.getById(ruleId);
+		if(rule==null) return null;
+		this.initPoPropertiesIf(rule.getPoType());
+		Map<String,PropertyItem> map=this.propertiesMap.get(rule.getPoType());
+		return map.get(fullProperty);
+	}
+
+	private void collectPoFields(PropertyItem parent,Class poType,List<PropertyItem> list) {
+		String table= EntityUtil.getAnnotationTable(poType);
+		if(table==null) return;
+		DBTableMeta tm=this.dao().getTableMeta(table);
+		if(tm==null) return;
+		for (Field field : poType.getDeclaredFields()) {
+			if(Modifier.isStatic(field.getModifiers()) || Modifier.isFinal(field.getModifiers())) continue;
+
+
+
+			//
+			PropertyItem item=new PropertyItem();
+			item.setParent(parent);
+			item.setProperty(field.getName());
+
+			if(parent!=null) {
+				item.setFullProperty(parent.getFullProperty()+"."+item.getProperty());
+			} else {
+				item.setFullProperty(item.getProperty());
+			}
+			item.setType(field.getType());
+			item.setTable(table);
+
+
+			if(DataParser.isSimpleType(field.getType())) {
+
+				//判断是否表字段
+				String fieldName=field.getName();
+				DBColumnMeta cm=tm.getColumn(fieldName);
+				if(cm==null) {
+					fieldName= BeanNameUtil.instance().depart(fieldName);
+					cm=tm.getColumn(fieldName);
+					if(cm==null) {
+						continue;
+					}
+				}
+
+				item.setField(fieldName);
+				item.setLabel(cm.getLabel());
+
+				if(parent!=null) {
+					if(StringUtil.isBlank(parent.getFullLabel())) {
+						item.setFullLabel(parent.getFullProperty() + "." + item.getLabel());
+					} else {
+						item.setFullLabel(parent.getFullLabel() + "." + item.getLabel());
+					}
+				} else {
+					item.setFullLabel(item.getLabel());
+				}
+
+				list.add(item);
+			} else if(field.getType().equals(List.class)) {
+				Class cmpType= ReflectUtil.getListComponentType(field);
+				if(ReflectUtil.isSubType(Entity.class,cmpType)) {
+					collectPoFields(item, cmpType, list);
+				}
+			} else {
+				//其他类型暂不支持
+			}
+		}
+
 	}
 
 

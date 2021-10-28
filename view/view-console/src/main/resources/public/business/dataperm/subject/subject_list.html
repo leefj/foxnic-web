@@ -2,7 +2,7 @@
 /**
  * 数据权限主体 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-14 16:24:43
+ * @since 2021-10-28 10:00:44
  */
  -->
  <!DOCTYPE html>
@@ -49,9 +49,9 @@
                         <div class="search-label-div" style=""><span th:text="${lang.translate('名称')}" class="search-label name-label">名称</span><span class="search-colon">:</span></div>
                         <input id="name" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
-                    <!-- Subject对象获取类名称 , getter ,typeName=text_input, isHideInSearch=false -->
+                    <!-- Subject , getter ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('Subject对象获取类名称')}" class="search-label getter-label">Subject对象获取类名称</span><span class="search-colon">:</span></div>
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('Subject')}" class="search-label getter-label">Subject</span><span class="search-colon">:</span></div>
                         <input id="getter" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
                     <!-- 类型 , type ,typeName=text_input, isHideInSearch=false -->

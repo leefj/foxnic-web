@@ -1,6 +1,7 @@
 package org.github.foxnic.web.dataperm.service;
 
 
+import com.alibaba.fastjson.JSONArray;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
@@ -11,6 +12,7 @@ import com.github.foxnic.dao.excel.ValidateResult;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.expr.OrderBy;
 import com.github.foxnic.sql.meta.DBField;
+import org.github.foxnic.web.domain.dataperm.PropertyItem;
 import org.github.foxnic.web.domain.dataperm.Rule;
 
 import java.io.InputStream;
@@ -40,8 +42,6 @@ public interface IRuleService extends ISuperService<Rule> {
 	 * @return 插入是否成功
 	 * */
 	Result insertList(List<Rule> ruleList);
-
-
 
 	/**
 	 * 按主键删除 数据权限规则
@@ -285,4 +285,10 @@ public interface IRuleService extends ISuperService<Rule> {
 	 * */
 	List<ValidateResult> importExcel(InputStream input,int sheetIndex,boolean batch);
 
+	/**
+	 * 查询字段
+	 * */
+	JSONArray queryFieldList(String ruleId,String searchValue);
+
+    PropertyItem getPropertyItem(String ruleId,String fullProperty);
 }

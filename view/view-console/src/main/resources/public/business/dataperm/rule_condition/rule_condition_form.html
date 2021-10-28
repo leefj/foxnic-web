@@ -1,8 +1,8 @@
-<!-- 
+<!--
 /**
  * 数据权限规则范围条件 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-26 14:45:07
+ * @since 2021-10-28 19:43:07
  */
  -->
  <!DOCTYPE html>
@@ -20,6 +20,12 @@
     <link href="/assets/libs/font-awesome-4.7.0/css/font-awesome.min.css" th:href="@{/assets/libs/font-awesome-4.7.0/css/font-awesome.min.css}" rel="stylesheet"/>
     <script th:inline="javascript">var foxnic_cachekey=[[${cacheKey}]];</script>
     <style>
+        .layui-form-label-c1 {
+            width: 80px;
+        }
+        .layui-input-block-c1 {
+            margin-left: 115px;
+        }
     </style>
 </head>
 
@@ -28,6 +34,7 @@
 
     <form id="data-form" lay-filter="data-form" class="layui-form model-form" style="display:none">
 
+        <input name="id" id="id"  type="hidden"/>
 
          <!--开始：group 循环-->
 
@@ -39,9 +46,9 @@
             <div class="layui-col-xs12 form-column">
 
                     <div class="layui-form-item" style="display: none">
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('主键')}">主键</div></div>
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('规则ID')}">规则ID</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="id" id="id" name="id" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('主键') }" type="text" class="layui-input"  />
+                            <input lay-filter="ruleId" id="ruleId" name="ruleId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('规则ID') }" type="text" class="layui-input"  />
                         </div>
                     </div>
 
@@ -52,40 +59,14 @@
                         </div>
                     </div>
 
-                                    <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('上级ID')}">上级ID</div></div>
-                        <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="parentId" id="parentId" name="parentId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('上级ID') }" type="text" class="layui-input"  />
-                        </div>
+                
+                <div class="layui-form-item" >
+                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('前置逻辑')}">前置逻辑</div></div>
+                    <div class="layui-input-block layui-input-block-c1">
+                        <input input-type="radio" type="radio" name="logic" lay-filter="logic" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.dataperm.LogicType')}" th:value="${e.code}" th:title="${e.text}" th:checked="${(e.code=='and' || stat.index==-1)?'yes':'no'}">
                     </div>
+                </div>
 
-                                    <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('数据表')}">数据表</div></div>
-                        <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="dataTable" id="dataTable" name="dataTable" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('数据表') }" type="text" class="layui-input"  />
-                        </div>
-                    </div>
-
-                                    <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('节点类型')}">节点类型</div><div class="layui-required">*</div></div>
-                        <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="type" id="type" name="type" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('节点类型') }" type="text" class="layui-input"    lay-verify="|required"  />
-                        </div>
-                    </div>
-
-                                    <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('前置逻辑关系')}">前置逻辑关系</div></div>
-                        <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="logic" id="logic" name="logic" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('前置逻辑关系') }" type="text" class="layui-input"  />
-                        </div>
-                    </div>
-
-                                    <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('表达式')}">表达式</div></div>
-                        <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="expr" id="expr" name="expr" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('表达式') }" type="text" class="layui-input"  />
-                        </div>
-                    </div>
 
                 
                 <div class="layui-form-item" >
@@ -96,12 +77,41 @@
                 </div>
 
 
-                                    <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('变量')}">变量</div></div>
+                
+                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('目标属性')}">目标属性</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="variables" id="variables" name="variables" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('变量') }" type="text" class="layui-input"  />
+                            <div id="queryProperty" input-type="select" th:data="${'/service-dataperm/dp-rule/query-field-list'}" extraParam="{}"></div>
                         </div>
                     </div>
+
+
+                
+                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('条件类型')}">条件类型</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <div id="exprType" input-type="select" th:data="${enum.toArray('org.github.foxnic.web.constants.enums.dataperm.ExprType')}" extraParam="{}"></div>
+                        </div>
+                    </div>
+
+
+                
+                    <div class="layui-form-item" >
+                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('表达式')}">表达式</div></div>
+                    <div class="layui-input-block layui-input-block-c1">
+                        <textarea lay-filter="expr" id="expr" name="expr" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('表达式') }" class="layui-textarea" style="height: 100px" ></textarea>
+                    </div>
+                </div>
+
+
+                
+                    <div class="layui-form-item" >
+                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('变量')}">变量</div></div>
+                    <div class="layui-input-block layui-input-block-c1">
+                        <textarea lay-filter="variables" id="variables" name="variables" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('变量') }" class="layui-textarea" style="height: 100px" ></textarea>
+                    </div>
+                </div>
+
 
                 <!--结束：栏次内字段循环-->
             </div>
@@ -128,7 +138,9 @@
 
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];
-    var VALIDATE_CONFIG={"type":{"labelInForm":"节点类型","inputType":"text_input","required":true}};
+    var RADIO_LOGIC_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.dataperm.LogicType')}]];
+    var SELECT_EXPRTYPE_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.dataperm.ExprType')}]];
+    var VALIDATE_CONFIG={};
     var AUTH_PREFIX="dp_rule_condition";
 
 

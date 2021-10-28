@@ -20,8 +20,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 数据权限规则范围条件
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-26 14:45:04
- * @sign BE706E416D2ED3B88AA071415B78A4B1
+ * @since 2021-10-28 13:42:03
+ * @sign 05EC2378E007F607C2A6962F7E89489F
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -40,10 +40,22 @@ public class RuleCondition extends Entity {
 	private String id;
 	
 	/**
+	 * 规则ID：规则ID
+	*/
+	@ApiModelProperty(required = false,value="规则ID" , notes = "规则ID")
+	private String ruleId;
+	
+	/**
 	 * range：id
 	*/
 	@ApiModelProperty(required = false,value="range" , notes = "id")
 	private String rangeId;
+	
+	/**
+	 * 层级路径：层级路径
+	*/
+	@ApiModelProperty(required = false,value="层级路径" , notes = "层级路径")
+	private String hierarchy;
 	
 	/**
 	 * 上级ID：上级ID
@@ -52,10 +64,16 @@ public class RuleCondition extends Entity {
 	private String parentId;
 	
 	/**
-	 * 数据表：数据表
+	 * 查询的属性路径：查询的属性路径
 	*/
-	@ApiModelProperty(required = false,value="数据表" , notes = "数据表")
-	private String dataTable;
+	@ApiModelProperty(required = false,value="查询的属性路径" , notes = "查询的属性路径")
+	private String queryProperty;
+	
+	/**
+	 * 查询字段：查询字段
+	*/
+	@ApiModelProperty(required = false,value="查询字段" , notes = "查询字段")
+	private String queryField;
 	
 	/**
 	 * 节点类型：逻辑组/表达式
@@ -74,6 +92,12 @@ public class RuleCondition extends Entity {
 	private LogicType logicEnum;
 	
 	/**
+	 * 表达式类型：表达式类型
+	*/
+	@ApiModelProperty(required = false,value="表达式类型" , notes = "表达式类型")
+	private String exprType;
+	
+	/**
 	 * 表达式：表达式
 	*/
 	@ApiModelProperty(required = false,value="表达式" , notes = "表达式")
@@ -84,6 +108,18 @@ public class RuleCondition extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="是否生效" , notes = "相同的代码仅可以有一个是生效的")
 	private Integer valid;
+	
+	/**
+	 * 变量：数组或Map结构
+	*/
+	@ApiModelProperty(required = false,value="变量" , notes = "数组或Map结构")
+	private String variables;
+	
+	/**
+	 * 排序：排序
+	*/
+	@ApiModelProperty(required = false,value="排序" , notes = "排序")
+	private Integer sort;
 	
 	/**
 	 * 创建人ID：创建人ID
@@ -134,12 +170,6 @@ public class RuleCondition extends Entity {
 	private Integer version;
 	
 	/**
-	 * 变量：变量
-	*/
-	@ApiModelProperty(required = false,value="变量" , notes = "变量")
-	private String variables;
-	
-	/**
 	 * 获得 主键<br>
 	 * 主键
 	 * @return 主键
@@ -155,6 +185,25 @@ public class RuleCondition extends Entity {
 	*/
 	public RuleCondition setId(String id) {
 		this.id=id;
+		return this;
+	}
+	
+	/**
+	 * 获得 规则ID<br>
+	 * 规则ID
+	 * @return 规则ID
+	*/
+	public String getRuleId() {
+		return ruleId;
+	}
+	
+	/**
+	 * 设置 规则ID
+	 * @param ruleId 规则ID
+	 * @return 当前对象
+	*/
+	public RuleCondition setRuleId(String ruleId) {
+		this.ruleId=ruleId;
 		return this;
 	}
 	
@@ -178,6 +227,25 @@ public class RuleCondition extends Entity {
 	}
 	
 	/**
+	 * 获得 层级路径<br>
+	 * 层级路径
+	 * @return 层级路径
+	*/
+	public String getHierarchy() {
+		return hierarchy;
+	}
+	
+	/**
+	 * 设置 层级路径
+	 * @param hierarchy 层级路径
+	 * @return 当前对象
+	*/
+	public RuleCondition setHierarchy(String hierarchy) {
+		this.hierarchy=hierarchy;
+		return this;
+	}
+	
+	/**
 	 * 获得 上级ID<br>
 	 * 上级ID
 	 * @return 上级ID
@@ -197,21 +265,40 @@ public class RuleCondition extends Entity {
 	}
 	
 	/**
-	 * 获得 数据表<br>
-	 * 数据表
-	 * @return 数据表
+	 * 获得 查询的属性路径<br>
+	 * 查询的属性路径
+	 * @return 查询的属性路径
 	*/
-	public String getDataTable() {
-		return dataTable;
+	public String getQueryProperty() {
+		return queryProperty;
 	}
 	
 	/**
-	 * 设置 数据表
-	 * @param dataTable 数据表
+	 * 设置 查询的属性路径
+	 * @param queryProperty 查询的属性路径
 	 * @return 当前对象
 	*/
-	public RuleCondition setDataTable(String dataTable) {
-		this.dataTable=dataTable;
+	public RuleCondition setQueryProperty(String queryProperty) {
+		this.queryProperty=queryProperty;
+		return this;
+	}
+	
+	/**
+	 * 获得 查询字段<br>
+	 * 查询字段
+	 * @return 查询字段
+	*/
+	public String getQueryField() {
+		return queryField;
+	}
+	
+	/**
+	 * 设置 查询字段
+	 * @param queryField 查询字段
+	 * @return 当前对象
+	*/
+	public RuleCondition setQueryField(String queryField) {
+		this.queryField=queryField;
 		return this;
 	}
 	
@@ -320,6 +407,25 @@ public class RuleCondition extends Entity {
 	}
 	
 	/**
+	 * 获得 表达式类型<br>
+	 * 表达式类型
+	 * @return 表达式类型
+	*/
+	public String getExprType() {
+		return exprType;
+	}
+	
+	/**
+	 * 设置 表达式类型
+	 * @param exprType 表达式类型
+	 * @return 当前对象
+	*/
+	public RuleCondition setExprType(String exprType) {
+		this.exprType=exprType;
+		return this;
+	}
+	
+	/**
 	 * 获得 表达式<br>
 	 * 表达式
 	 * @return 表达式
@@ -354,6 +460,44 @@ public class RuleCondition extends Entity {
 	*/
 	public RuleCondition setValid(Integer valid) {
 		this.valid=valid;
+		return this;
+	}
+	
+	/**
+	 * 获得 变量<br>
+	 * 数组或Map结构
+	 * @return 变量
+	*/
+	public String getVariables() {
+		return variables;
+	}
+	
+	/**
+	 * 设置 变量
+	 * @param variables 变量
+	 * @return 当前对象
+	*/
+	public RuleCondition setVariables(String variables) {
+		this.variables=variables;
+		return this;
+	}
+	
+	/**
+	 * 获得 排序<br>
+	 * 排序
+	 * @return 排序
+	*/
+	public Integer getSort() {
+		return sort;
+	}
+	
+	/**
+	 * 设置 排序
+	 * @param sort 排序
+	 * @return 当前对象
+	*/
+	public RuleCondition setSort(Integer sort) {
+		this.sort=sort;
 		return this;
 	}
 	
@@ -506,25 +650,6 @@ public class RuleCondition extends Entity {
 	*/
 	public RuleCondition setVersion(Integer version) {
 		this.version=version;
-		return this;
-	}
-	
-	/**
-	 * 获得 变量<br>
-	 * 变量
-	 * @return 变量
-	*/
-	public String getVariables() {
-		return variables;
-	}
-	
-	/**
-	 * 设置 变量
-	 * @param variables 变量
-	 * @return 当前对象
-	*/
-	public RuleCondition setVariables(String variables) {
-		this.variables=variables;
 		return this;
 	}
 

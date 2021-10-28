@@ -51,7 +51,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 销售订单表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-14 16:24:46
+ * @since 2021-10-28 10:00:48
 */
 
 @Api(tags = "销售订单")
@@ -79,7 +79,7 @@ public class ExampleProductController extends SuperController {
 	@SentinelResource(value = ExampleProductServiceProxy.INSERT , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(ExampleProductServiceProxy.INSERT)
 	public Result insert(ExampleProductVO exampleProductVO) {
-		Result result=exampleProductService.insert(exampleProductVO);
+		Result result=exampleProductService.insert(exampleProductVO,false);
 		return result;
 	}
 
@@ -136,7 +136,7 @@ public class ExampleProductController extends SuperController {
 	@SentinelResource(value = ExampleProductServiceProxy.UPDATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(ExampleProductServiceProxy.UPDATE)
 	public Result update(ExampleProductVO exampleProductVO) {
-		Result result=exampleProductService.update(exampleProductVO,SaveMode.NOT_NULL_FIELDS);
+		Result result=exampleProductService.update(exampleProductVO,SaveMode.NOT_NULL_FIELDS,false);
 		return result;
 	}
 
@@ -158,7 +158,7 @@ public class ExampleProductController extends SuperController {
 	@SentinelResource(value = ExampleProductServiceProxy.SAVE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(ExampleProductServiceProxy.SAVE)
 	public Result save(ExampleProductVO exampleProductVO) {
-		Result result=exampleProductService.save(exampleProductVO,SaveMode.NOT_NULL_FIELDS);
+		Result result=exampleProductService.save(exampleProductVO,SaveMode.NOT_NULL_FIELDS,false);
 		return result;
 	}
 
@@ -177,6 +177,11 @@ public class ExampleProductController extends SuperController {
 	public Result<ExampleProduct> getById(String id) {
 		Result<ExampleProduct> result=new Result<>();
 		ExampleProduct exampleProduct=exampleProductService.getById(id);
+
+		// join 关联的对象
+		exampleProductService.dao().fill(exampleProduct)
+			.execute();
+
 		result.success(true).data(exampleProduct);
 		return result;
 	}
@@ -243,6 +248,11 @@ public class ExampleProductController extends SuperController {
 	public Result<PagedList<ExampleProduct>> queryPagedList(ExampleProductVO sample) {
 		Result<PagedList<ExampleProduct>> result=new Result<>();
 		PagedList<ExampleProduct> list=exampleProductService.queryPagedList(sample,sample.getPageSize(),sample.getPageIndex());
+
+		// join 关联的对象
+		exampleProductService.dao().fill(list)
+			.execute();
+
 		result.success(true).data(list);
 		return result;
 	}

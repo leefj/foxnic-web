@@ -1,55 +1,49 @@
 package org.github.foxnic.web.dataperm.controller;
 
 
-import java.util.List;
-
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-
-import org.github.foxnic.web.framework.web.SuperController;
-import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
-import org.springframework.web.bind.annotation.RequestMapping;
-import javax.servlet.http.HttpServletResponse;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
-
-
-import org.github.foxnic.web.proxy.dataperm.RuleServiceProxy;
-import org.github.foxnic.web.domain.dataperm.meta.RuleVOMeta;
-import org.github.foxnic.web.domain.dataperm.Rule;
-import org.github.foxnic.web.domain.dataperm.RuleVO;
+import com.alibaba.fastjson.JSONArray;
+import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.api.validate.annotations.NotNull;
+import com.github.foxnic.commons.io.StreamUtil;
+import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.springboot.web.DownloadUtil;
-import com.github.foxnic.dao.data.PagedList;
-import java.util.Date;
-import java.sql.Timestamp;
-import com.github.foxnic.api.error.ErrorDesc;
-import com.github.foxnic.commons.io.StreamUtil;
-import java.util.Map;
 import com.github.foxnic.dao.excel.ValidateResult;
-import java.io.InputStream;
-import org.github.foxnic.web.domain.dataperm.meta.RuleMeta;
-import org.github.foxnic.web.domain.dataperm.RuleRange;
-import io.swagger.annotations.Api;
-import com.github.xiaoymin.knife4j.annotations.ApiSort;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiImplicitParam;
+import com.github.foxnic.springboot.web.DownloadUtil;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.github.xiaoymin.knife4j.annotations.ApiSort;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.github.foxnic.web.dataperm.service.IRuleService;
-import com.github.foxnic.api.validate.annotations.NotNull;
+import org.github.foxnic.web.domain.dataperm.Rule;
+import org.github.foxnic.web.domain.dataperm.RuleVO;
+import org.github.foxnic.web.domain.dataperm.meta.RuleVOMeta;
+import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
+import org.github.foxnic.web.framework.web.SuperController;
+import org.github.foxnic.web.proxy.dataperm.RuleServiceProxy;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.InputStream;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
  * 数据权限规则表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-26 14:18:29
+ * @since 2021-10-28 10:00:45
+ * @version
 */
 
 @Api(tags = "数据权限规则")
@@ -77,7 +71,7 @@ public class RuleController extends SuperController {
 	@SentinelResource(value = RuleServiceProxy.INSERT , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(RuleServiceProxy.INSERT)
 	public Result insert(RuleVO ruleVO) {
-		Result result=ruleService.insert(ruleVO);
+		Result result=ruleService.insert(ruleVO,false);
 		return result;
 	}
 
@@ -108,7 +102,7 @@ public class RuleController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = RuleVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 	})
-	@ApiOperationSupport(order=3) 
+	@ApiOperationSupport(order=3)
 	@NotNull(name = RuleVOMeta.IDS)
 	@SentinelResource(value = RuleServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(RuleServiceProxy.DELETE_BY_IDS)
@@ -134,7 +128,7 @@ public class RuleController extends SuperController {
 	@SentinelResource(value = RuleServiceProxy.UPDATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(RuleServiceProxy.UPDATE)
 	public Result update(RuleVO ruleVO) {
-		Result result=ruleService.update(ruleVO,SaveMode.NOT_NULL_FIELDS);
+		Result result=ruleService.update(ruleVO,SaveMode.NOT_NULL_FIELDS,false);
 		return result;
 	}
 
@@ -156,7 +150,7 @@ public class RuleController extends SuperController {
 	@SentinelResource(value = RuleServiceProxy.SAVE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(RuleServiceProxy.SAVE)
 	public Result save(RuleVO ruleVO) {
-		Result result=ruleService.save(ruleVO,SaveMode.NOT_NULL_FIELDS);
+		Result result=ruleService.save(ruleVO,SaveMode.NOT_NULL_FIELDS,false);
 		return result;
 	}
 
@@ -193,7 +187,7 @@ public class RuleController extends SuperController {
 		@ApiImplicitParams({
 				@ApiImplicitParam(name = RuleVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})
-		@ApiOperationSupport(order=3) 
+		@ApiOperationSupport(order=3)
 		@NotNull(name = RuleVOMeta.IDS)
 		@SentinelResource(value = RuleServiceProxy.GET_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(RuleServiceProxy.GET_BY_IDS)
@@ -306,6 +300,22 @@ public class RuleController extends SuperController {
 		} else {
 			return ErrorDesc.failure().message("导入失败").data(errors);
 		}
+	}
+
+
+	/**
+	 * 查询数据字段
+	 */
+	@ApiOperation(value = " 查询数据字段")
+	@ApiImplicitParams({})
+	@ApiOperationSupport(order=5 ,  ignoreParameters = { RuleVOMeta.PAGE_INDEX , RuleVOMeta.PAGE_SIZE } )
+	@SentinelResource(value = RuleServiceProxy.QUERY_FIELD_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
+	@PostMapping(RuleServiceProxy.QUERY_FIELD_LIST)
+	public Result<JSONArray> queryFieldList(RuleVO sample) {
+		Result<JSONArray> result=new Result<>();
+		JSONArray list=ruleService.queryFieldList(sample.getId(),sample.getSearchValue());
+		result.success(true).data(list);
+		return result;
 	}
 
 

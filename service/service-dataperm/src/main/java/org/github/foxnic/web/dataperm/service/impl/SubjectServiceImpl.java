@@ -35,42 +35,54 @@ import java.util.Date;
  * 数据权限主体表 服务实现
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-14 16:24:41
+ * @since 2021-10-28 10:00:44
 */
 
 
 @Service("DpSubjectService")
 public class SubjectServiceImpl extends SuperService<Subject> implements ISubjectService {
-	
+
 	/**
 	 * 注入DAO对象
 	 * */
 	@Resource(name=DBConfigs.PRIMARY_DAO) 
 	private DAO dao=null;
-	
+
 	/**
 	 * 获得 DAO 对象
 	 * */
 	public DAO dao() { return dao; }
 
 
-	
+
 	@Override
 	public Object generateId(Field field) {
 		return IDGenerator.getSnowflakeIdString();
 	}
-	
+
 	/**
-	 * 插入实体
-	 * @param subject 实体数据
+	 * 添加，根据 throwsException 参数抛出异常或返回 Result 对象
+	 *
+	 * @param subject  数据对象
+	 * @param throwsException 是否抛出异常，如果不抛出异常，则返回一个失败的 Result 对象
+	 * @return 结果 , 如果失败返回 false，成功返回 true
+	 */
+	@Override
+	public Result insert(Subject subject,boolean throwsException) {
+		Result r=super.insert(subject,throwsException);
+		return r;
+	}
+
+	/**
+	 * 添加，如果语句错误，则抛出异常
+	 * @param subject 数据对象
 	 * @return 插入是否成功
 	 * */
 	@Override
 	public Result insert(Subject subject) {
-		Result r=super.insert(subject);
-		return r;
+		return this.insert(subject,true);
 	}
-	
+
 	/**
 	 * 批量插入实体，事务内
 	 * @param subjectList 实体数据清单
@@ -80,7 +92,7 @@ public class SubjectServiceImpl extends SuperService<Subject> implements ISubjec
 	public Result insertList(List<Subject> subjectList) {
 		return super.insertList(subjectList);
 	}
-	
+
 	
 	/**
 	 * 按主键删除 数据权限主体
@@ -126,19 +138,31 @@ public class SubjectServiceImpl extends SuperService<Subject> implements ISubjec
 			return r;
 		}
 	}
-	
+
 	/**
-	 * 更新实体
+	 * 更新，如果执行错误，则抛出异常
 	 * @param subject 数据对象
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
 	@Override
 	public Result update(Subject subject , SaveMode mode) {
-		Result r=super.update(subject , mode);
+		return this.update(subject,mode,true);
+	}
+
+	/**
+	 * 更新，根据 throwsException 参数抛出异常或返回 Result 对象
+	 * @param subject 数据对象
+	 * @param mode 保存模式
+	 * @param throwsException 是否抛出异常，如果不抛出异常，则返回一个失败的 Result 对象
+	 * @return 保存是否成功
+	 * */
+	@Override
+	public Result update(Subject subject , SaveMode mode,boolean throwsException) {
+		Result r=super.update(subject , mode , throwsException);
 		return r;
 	}
-	
+
 	/**
 	 * 更新实体集，事务内
 	 * @param subjectList 数据对象列表
@@ -149,7 +173,7 @@ public class SubjectServiceImpl extends SuperService<Subject> implements ISubjec
 	public Result updateList(List<Subject> subjectList , SaveMode mode) {
 		return super.updateList(subjectList , mode);
 	}
-	
+
 	
 	/**
 	 * 按主键更新字段 数据权限主体
@@ -162,8 +186,8 @@ public class SubjectServiceImpl extends SuperService<Subject> implements ISubjec
 		if(!field.table().name().equals(this.table())) throw new IllegalArgumentException("更新的数据表["+field.table().name()+"]与服务对应的数据表["+this.table()+"]不一致");
 		int suc=dao.update(field.table().name()).set(field.name(), value).where().and("id = ? ",id).top().execute();
 		return suc>0;
-	} 
-	
+	}
+
 	
 	/**
 	 * 按主键获取 数据权限主体
@@ -187,7 +211,7 @@ public class SubjectServiceImpl extends SuperService<Subject> implements ISubjec
 
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @return 查询结果
 	 * */
@@ -195,11 +219,11 @@ public class SubjectServiceImpl extends SuperService<Subject> implements ISubjec
 	public List<Subject> queryList(Subject sample) {
 		return super.queryList(sample);
 	}
-	
-	
+
+
 	/**
 	 * 分页查询实体集，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @param pageSize 分页条数
 	 * @param pageIndex 页码
@@ -209,10 +233,10 @@ public class SubjectServiceImpl extends SuperService<Subject> implements ISubjec
 	public PagedList<Subject> queryPagedList(Subject sample, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, pageSize, pageIndex);
 	}
-	
+
 	/**
 	 * 分页查询实体集，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @param condition 其它条件
 	 * @param pageSize 分页条数
@@ -223,7 +247,7 @@ public class SubjectServiceImpl extends SuperService<Subject> implements ISubjec
 	public PagedList<Subject> queryPagedList(Subject sample, ConditionExpr condition, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, condition, pageSize, pageIndex);
 	}
-	
+
 	/**
 	 * 检查 角色 是否已经存在
 	 *

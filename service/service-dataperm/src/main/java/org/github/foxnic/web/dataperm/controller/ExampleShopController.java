@@ -48,7 +48,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 销售门店表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-14 16:24:46
+ * @since 2021-10-28 10:00:48
 */
 
 @Api(tags = "销售门店")
@@ -74,7 +74,7 @@ public class ExampleShopController extends SuperController {
 	@SentinelResource(value = ExampleShopServiceProxy.INSERT , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(ExampleShopServiceProxy.INSERT)
 	public Result insert(ExampleShopVO exampleShopVO) {
-		Result result=exampleShopService.insert(exampleShopVO);
+		Result result=exampleShopService.insert(exampleShopVO,false);
 		return result;
 	}
 
@@ -129,7 +129,7 @@ public class ExampleShopController extends SuperController {
 	@SentinelResource(value = ExampleShopServiceProxy.UPDATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(ExampleShopServiceProxy.UPDATE)
 	public Result update(ExampleShopVO exampleShopVO) {
-		Result result=exampleShopService.update(exampleShopVO,SaveMode.NOT_NULL_FIELDS);
+		Result result=exampleShopService.update(exampleShopVO,SaveMode.NOT_NULL_FIELDS,false);
 		return result;
 	}
 
@@ -149,7 +149,7 @@ public class ExampleShopController extends SuperController {
 	@SentinelResource(value = ExampleShopServiceProxy.SAVE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(ExampleShopServiceProxy.SAVE)
 	public Result save(ExampleShopVO exampleShopVO) {
-		Result result=exampleShopService.save(exampleShopVO,SaveMode.NOT_NULL_FIELDS);
+		Result result=exampleShopService.save(exampleShopVO,SaveMode.NOT_NULL_FIELDS,false);
 		return result;
 	}
 
@@ -168,6 +168,11 @@ public class ExampleShopController extends SuperController {
 	public Result<ExampleShop> getById(String id) {
 		Result<ExampleShop> result=new Result<>();
 		ExampleShop exampleShop=exampleShopService.getById(id);
+
+		// join 关联的对象
+		exampleShopService.dao().fill(exampleShop)
+			.execute();
+
 		result.success(true).data(exampleShop);
 		return result;
 	}
@@ -230,6 +235,11 @@ public class ExampleShopController extends SuperController {
 	public Result<PagedList<ExampleShop>> queryPagedList(ExampleShopVO sample) {
 		Result<PagedList<ExampleShop>> result=new Result<>();
 		PagedList<ExampleShop> list=exampleShopService.queryPagedList(sample,sample.getPageSize(),sample.getPageIndex());
+
+		// join 关联的对象
+		exampleShopService.dao().fill(list)
+			.execute();
+
 		result.success(true).data(list);
 		return result;
 	}

@@ -138,7 +138,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
                 title: "查询条件",
                 offset: 'auto',
                 content: '/business/dataperm/rule_condition/rule_condition_list.html',
-                area:["80%","500px"]
+                area:["80%","95%"]
             });
             admin.putTempData("rule-condition-dialog-index",dialogIndex,true);
         },

@@ -10,8 +10,8 @@ import java.util.List;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-14 16:09:09
- * @sign 07189CDF29FF14C509B15C0E9FCF3971
+ * @since 2021-10-28 10:00:44
+ * @sign B1CE11E178D557CB62D9F4158D3DB0D0
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -48,14 +48,14 @@ public class SubjectMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.Subject,java.lang.String> NAME_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.Subject.class ,NAME, java.lang.String.class, "名称", "名称", java.lang.String.class, null);
 	
 	/**
-	 * Subject对象获取类名称 , 类型: java.lang.String
+	 * Subject , 对象获取类名称 , 类型: java.lang.String
 	*/
 	public static final String GETTER="getter";
 	
 	/**
-	 * Subject对象获取类名称 , 类型: java.lang.String
+	 * Subject , 对象获取类名称 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.Subject,java.lang.String> GETTER_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.Subject.class ,GETTER, java.lang.String.class, "Subject对象获取类名称", "Subject对象获取类名称", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.Subject,java.lang.String> GETTER_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.Subject.class ,GETTER, java.lang.String.class, "Subject", "对象获取类名称", java.lang.String.class, null);
 	
 	/**
 	 * 类型 , 类型: java.lang.String
@@ -214,8 +214,8 @@ public class SubjectMeta {
 		}
 		
 		/**
-		 * 设置 Subject对象获取类名称
-		 * @param getter Subject对象获取类名称
+		 * 设置 Subject
+		 * @param getter Subject
 		 * @return 当前对象
 		*/
 		public Subject setGetter(String getter) {

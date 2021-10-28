@@ -8,8 +8,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-26 14:45:04
- * @sign BE706E416D2ED3B88AA071415B78A4B1
+ * @since 2021-10-28 13:42:03
+ * @sign 05EC2378E007F607C2A6962F7E89489F
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -26,6 +26,16 @@ public class RuleConditionMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.RuleCondition,java.lang.String> ID_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.RuleCondition.class ,ID, java.lang.String.class, "主键", "主键", java.lang.String.class, null);
 	
 	/**
+	 * 规则ID , 类型: java.lang.String
+	*/
+	public static final String RULE_ID="ruleId";
+	
+	/**
+	 * 规则ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.RuleCondition,java.lang.String> RULE_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.RuleCondition.class ,RULE_ID, java.lang.String.class, "规则ID", "规则ID", java.lang.String.class, null);
+	
+	/**
 	 * range , id , 类型: java.lang.String
 	*/
 	public static final String RANGE_ID="rangeId";
@@ -34,6 +44,16 @@ public class RuleConditionMeta {
 	 * range , id , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.RuleCondition,java.lang.String> RANGE_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.RuleCondition.class ,RANGE_ID, java.lang.String.class, "range", "id", java.lang.String.class, null);
+	
+	/**
+	 * 层级路径 , 类型: java.lang.String
+	*/
+	public static final String HIERARCHY="hierarchy";
+	
+	/**
+	 * 层级路径 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.RuleCondition,java.lang.String> HIERARCHY_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.RuleCondition.class ,HIERARCHY, java.lang.String.class, "层级路径", "层级路径", java.lang.String.class, null);
 	
 	/**
 	 * 上级ID , 类型: java.lang.String
@@ -46,14 +66,24 @@ public class RuleConditionMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.RuleCondition,java.lang.String> PARENT_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.RuleCondition.class ,PARENT_ID, java.lang.String.class, "上级ID", "上级ID", java.lang.String.class, null);
 	
 	/**
-	 * 数据表 , 类型: java.lang.String
+	 * 查询的属性路径 , 类型: java.lang.String
 	*/
-	public static final String DATA_TABLE="dataTable";
+	public static final String QUERY_PROPERTY="queryProperty";
 	
 	/**
-	 * 数据表 , 类型: java.lang.String
+	 * 查询的属性路径 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.RuleCondition,java.lang.String> DATA_TABLE_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.RuleCondition.class ,DATA_TABLE, java.lang.String.class, "数据表", "数据表", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.RuleCondition,java.lang.String> QUERY_PROPERTY_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.RuleCondition.class ,QUERY_PROPERTY, java.lang.String.class, "查询的属性路径", "查询的属性路径", java.lang.String.class, null);
+	
+	/**
+	 * 查询字段 , 类型: java.lang.String
+	*/
+	public static final String QUERY_FIELD="queryField";
+	
+	/**
+	 * 查询字段 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.RuleCondition,java.lang.String> QUERY_FIELD_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.RuleCondition.class ,QUERY_FIELD, java.lang.String.class, "查询字段", "查询字段", java.lang.String.class, null);
 	
 	/**
 	 * 节点类型 , 逻辑组/表达式 , 类型: java.lang.String
@@ -76,6 +106,16 @@ public class RuleConditionMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.RuleCondition,java.lang.String> LOGIC_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.RuleCondition.class ,LOGIC, java.lang.String.class, "前置逻辑关系", "and/or", java.lang.String.class, null);
 	
 	/**
+	 * 表达式类型 , 类型: java.lang.String
+	*/
+	public static final String EXPR_TYPE="exprType";
+	
+	/**
+	 * 表达式类型 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.RuleCondition,java.lang.String> EXPR_TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.RuleCondition.class ,EXPR_TYPE, java.lang.String.class, "表达式类型", "表达式类型", java.lang.String.class, null);
+	
+	/**
 	 * 表达式 , 类型: java.lang.String
 	*/
 	public static final String EXPR="expr";
@@ -94,6 +134,26 @@ public class RuleConditionMeta {
 	 * 是否生效 , 相同的代码仅可以有一个是生效的 , 类型: java.lang.Integer
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.RuleCondition,java.lang.Integer> VALID_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.RuleCondition.class ,VALID, java.lang.Integer.class, "是否生效", "相同的代码仅可以有一个是生效的", java.lang.Integer.class, null);
+	
+	/**
+	 * 变量 , 数组或Map结构 , 类型: java.lang.String
+	*/
+	public static final String VARIABLES="variables";
+	
+	/**
+	 * 变量 , 数组或Map结构 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.RuleCondition,java.lang.String> VARIABLES_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.RuleCondition.class ,VARIABLES, java.lang.String.class, "变量", "数组或Map结构", java.lang.String.class, null);
+	
+	/**
+	 * 排序 , 类型: java.lang.Integer
+	*/
+	public static final String SORT="sort";
+	
+	/**
+	 * 排序 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.RuleCondition,java.lang.Integer> SORT_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.RuleCondition.class ,SORT, java.lang.Integer.class, "排序", "排序", java.lang.Integer.class, null);
 	
 	/**
 	 * 创建人ID , 类型: java.lang.String
@@ -176,19 +236,9 @@ public class RuleConditionMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.RuleCondition,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.RuleCondition.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
-	 * 变量 , 类型: java.lang.String
-	*/
-	public static final String VARIABLES="variables";
-	
-	/**
-	 * 变量 , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.RuleCondition,java.lang.String> VARIABLES_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.RuleCondition.class ,VARIABLES, java.lang.String.class, "变量", "变量", java.lang.String.class, null);
-	
-	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , RANGE_ID , PARENT_ID , DATA_TABLE , TYPE , LOGIC , EXPR , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , VARIABLES };
+	public static final String[] $PROPS={ ID , RULE_ID , RANGE_ID , HIERARCHY , PARENT_ID , QUERY_PROPERTY , QUERY_FIELD , TYPE , LOGIC , EXPR_TYPE , EXPR , VALID , VARIABLES , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
 	
 	/**
 	 * 代理类
@@ -210,6 +260,17 @@ public class RuleConditionMeta {
 		}
 		
 		/**
+		 * 设置 规则ID
+		 * @param ruleId 规则ID
+		 * @return 当前对象
+		*/
+		public RuleCondition setRuleId(String ruleId) {
+			super.change(RULE_ID,super.getRuleId(),ruleId);
+			super.setRuleId(ruleId);
+			return this;
+		}
+		
+		/**
 		 * 设置 range
 		 * @param rangeId range
 		 * @return 当前对象
@@ -217,6 +278,17 @@ public class RuleConditionMeta {
 		public RuleCondition setRangeId(String rangeId) {
 			super.change(RANGE_ID,super.getRangeId(),rangeId);
 			super.setRangeId(rangeId);
+			return this;
+		}
+		
+		/**
+		 * 设置 层级路径
+		 * @param hierarchy 层级路径
+		 * @return 当前对象
+		*/
+		public RuleCondition setHierarchy(String hierarchy) {
+			super.change(HIERARCHY,super.getHierarchy(),hierarchy);
+			super.setHierarchy(hierarchy);
 			return this;
 		}
 		
@@ -232,13 +304,24 @@ public class RuleConditionMeta {
 		}
 		
 		/**
-		 * 设置 数据表
-		 * @param dataTable 数据表
+		 * 设置 查询的属性路径
+		 * @param queryProperty 查询的属性路径
 		 * @return 当前对象
 		*/
-		public RuleCondition setDataTable(String dataTable) {
-			super.change(DATA_TABLE,super.getDataTable(),dataTable);
-			super.setDataTable(dataTable);
+		public RuleCondition setQueryProperty(String queryProperty) {
+			super.change(QUERY_PROPERTY,super.getQueryProperty(),queryProperty);
+			super.setQueryProperty(queryProperty);
+			return this;
+		}
+		
+		/**
+		 * 设置 查询字段
+		 * @param queryField 查询字段
+		 * @return 当前对象
+		*/
+		public RuleCondition setQueryField(String queryField) {
+			super.change(QUERY_FIELD,super.getQueryField(),queryField);
+			super.setQueryField(queryField);
 			return this;
 		}
 		
@@ -265,6 +348,17 @@ public class RuleConditionMeta {
 		}
 		
 		/**
+		 * 设置 表达式类型
+		 * @param exprType 表达式类型
+		 * @return 当前对象
+		*/
+		public RuleCondition setExprType(String exprType) {
+			super.change(EXPR_TYPE,super.getExprType(),exprType);
+			super.setExprType(exprType);
+			return this;
+		}
+		
+		/**
 		 * 设置 表达式
 		 * @param expr 表达式
 		 * @return 当前对象
@@ -283,6 +377,28 @@ public class RuleConditionMeta {
 		public RuleCondition setValid(Integer valid) {
 			super.change(VALID,super.getValid(),valid);
 			super.setValid(valid);
+			return this;
+		}
+		
+		/**
+		 * 设置 变量
+		 * @param variables 变量
+		 * @return 当前对象
+		*/
+		public RuleCondition setVariables(String variables) {
+			super.change(VARIABLES,super.getVariables(),variables);
+			super.setVariables(variables);
+			return this;
+		}
+		
+		/**
+		 * 设置 排序
+		 * @param sort 排序
+		 * @return 当前对象
+		*/
+		public RuleCondition setSort(Integer sort) {
+			super.change(SORT,super.getSort(),sort);
+			super.setSort(sort);
 			return this;
 		}
 		
@@ -371,17 +487,6 @@ public class RuleConditionMeta {
 		public RuleCondition setVersion(Integer version) {
 			super.change(VERSION,super.getVersion(),version);
 			super.setVersion(version);
-			return this;
-		}
-		
-		/**
-		 * 设置 变量
-		 * @param variables 变量
-		 * @return 当前对象
-		*/
-		public RuleCondition setVariables(String variables) {
-			super.change(VARIABLES,super.getVariables(),variables);
-			super.setVariables(variables);
 			return this;
 		}
 	}

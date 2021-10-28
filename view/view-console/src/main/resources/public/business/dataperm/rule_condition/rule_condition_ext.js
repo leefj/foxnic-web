@@ -1,7 +1,8 @@
 /**
  * 数据权限规则范围条件 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-26 14:45:05
+ * @since 2021-10-28 18:39:09
+ * @version
  */
 
 layui.config({
@@ -17,6 +18,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
     var admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload,laydate= layui.laydate,dropdown=layui.dropdown;
     table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect,foxup=layui.foxnicUpload;
 
+    const moduleURL="/service-dataperm/dp-rule-condition";
     //列表页的扩展
     var list={
         /**
@@ -24,6 +26,8 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * */
         beforeInit:function () {
             console.log("list:beforeInit");
+            var formData = admin.getTempData('dp-rule-condition-form-data');
+            debugger;
         },
         /**
          * 表格渲染前调用
@@ -148,6 +152,9 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             //fox.setSelectBoxUrl("employeeId","/service-hrm/hrm-employee/query-paged-list?companyId="+companyId);
             console.log("form:beforeInit")
         },
+        beforeAdjustPopup:function () {
+            return false;
+        },
         /**
          * 表单数据填充前
          * */
@@ -187,11 +194,26 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             console.log("afterSubmitt",param,result);
         },
 
+        loadFormData:function (id) {
+            admin.request(moduleURL+"/get-by-id", { id : id }, function (data) {
+                if(data.success) {
+                    admin.putTempData('dp-rule-condition-form-data', data.data,true);
+                    window.module.fillFormData();
+                    // debugger;
+                    var box=fox.getSelectBox("queryProperty");
+                    box.refresh({id:data.data.ruleId},function (){
+                        fox.setSelectValue4QueryApi("#queryProperty",{fullProperty:data.data.queryProperty,fullProperty:data.data.queryProperty});
+                    });
+                } else {
+                    layer.msg(data.message, {icon: 1, time: 1500});
+                }
+            });
+        },
         /**
          * 末尾执行
          */
         ending:function() {
-
+            window.loadFormData=this.loadFormData;
         }
     }
     //

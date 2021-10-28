@@ -1,7 +1,7 @@
 /**
  * 数据权限规则范围条件 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-26 14:45:08
+ * @since 2021-10-28 19:43:07
  */
 
 function FormPage() {
@@ -49,6 +49,11 @@ function FormPage() {
 	 * */
 	var adjustPopupTask=-1;
 	function adjustPopup() {
+		if(window.pageExt.form.beforeAdjustPopup) {
+			var doNext=window.pageExt.form.beforeAdjustPopup();
+			if(!doNext) return;
+		}
+
 		clearTimeout(adjustPopupTask);
 		var scroll=$(".form-container").attr("scroll");
 		if(scroll=='yes') return;
@@ -78,6 +83,51 @@ function FormPage() {
 	function renderFormFields() {
 		fox.renderFormInputs(form);
 
+		//渲染 queryProperty 下拉字段
+		fox.renderSelectBox({
+			el: "queryProperty",
+			radio: true,
+			filterable: true,
+			//转换数据
+			searchField: "fullProperty", //请自行调整用于搜索的字段名称
+			extraParam: {}, //额外的查询参数，Object 或是 返回 Object 的函数
+			transform: function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				var defaultValues=[],defaultIndexs=[];
+				if(action=="create") {
+					defaultValues = "".split(",");
+					defaultIndexs = "".split(",");
+				}
+				var opts=[];
+				if(!data) return opts;
+				for (var i = 0; i < data.length; i++) {
+					if(!data[i]) continue;
+					opts.push({name:data[i].fullProperty,value:data[i].fullProperty,selected:(defaultValues.indexOf(data[i].fullProperty)!=-1 || defaultIndexs.indexOf(""+i)!=-1)});
+				}
+				return opts;
+			}
+		});
+		//渲染 exprType 下拉字段
+		fox.renderSelectBox({
+			el: "exprType",
+			radio: true,
+			filterable: false,
+			//转换数据
+			transform:function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				var defaultValues=[],defaultIndexs=[];
+				if(action=="create") {
+					defaultValues = "custom".split(",");
+					defaultIndexs = "".split(",");
+				}
+				var opts=[];
+				if(!data) return opts;
+				for (var i = 0; i < data.length; i++) {
+					opts.push({name:data[i].text,value:data[i].code,selected:(defaultValues.indexOf(data[i].code)!=-1 || defaultIndexs.indexOf(""+i)!=-1)});
+				}
+				return opts;
+			}
+		});
 	}
 
 	/**
@@ -106,6 +156,9 @@ function FormPage() {
 
 
 
+			//设置  目标属性 设置下拉框勾选
+			//设置  条件类型 设置下拉框勾选
+			fox.setSelectValue4Enum("#exprType",formData.exprType,SELECT_EXPRTYPE_DATA);
 
 			//处理fillBy
 
@@ -156,6 +209,10 @@ function FormPage() {
 		if(!data.valid) data.valid=0;
 
 
+		//获取 目标属性 下拉框的值
+		data["queryProperty"]=fox.getSelectedValue("queryProperty",false);
+		//获取 条件类型 下拉框的值
+		data["exprType"]=fox.getSelectedValue("exprType",false);
 
 		return data;
 	}

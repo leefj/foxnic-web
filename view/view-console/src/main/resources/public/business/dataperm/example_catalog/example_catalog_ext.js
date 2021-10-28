@@ -1,7 +1,7 @@
 /**
  * 商品分类 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-14 16:24:46
+ * @since 2021-10-28 10:00:49
  */
 
 layui.config({

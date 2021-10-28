@@ -2,7 +2,7 @@
 /**
  * 数据权限规则 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-26 14:18:29
+ * @since 2021-10-28 11:47:45
  */
  -->
  <!DOCTYPE html>
@@ -35,6 +35,11 @@
                 <!-- 搜索输入区域 -->
                 <div class="layui-form toolbar search-inputs">
                     <!-- 主键 , id ,typeName=text_input, isHideInSearch=true -->
+                    <!-- po类型 , poType ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('po类型')}" class="search-label poType-label">po类型</span><span class="search-colon">:</span></div>
+                        <input id="poType" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
                     <!-- 代码 , code ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('代码')}" class="search-label code-label">代码</span><span class="search-colon">:</span></div>

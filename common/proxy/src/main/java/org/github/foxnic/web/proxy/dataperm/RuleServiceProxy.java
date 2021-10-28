@@ -1,25 +1,24 @@
 package org.github.foxnic.web.proxy.dataperm;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.github.foxnic.web.proxy.api.APIProxy;
-import org.github.foxnic.web.proxy.FeignConfiguration;
-
-import org.springframework.cloud.openfeign.FeignClient;
-
-
-import org.github.foxnic.web.domain.dataperm.Rule;
-import org.github.foxnic.web.domain.dataperm.RuleVO;
-import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
+import org.github.foxnic.web.domain.dataperm.Rule;
+import org.github.foxnic.web.domain.dataperm.RuleVO;
+import org.github.foxnic.web.proxy.FeignConfiguration;
 import org.github.foxnic.web.proxy.MicroServiceNames;
+import org.github.foxnic.web.proxy.api.APIProxy;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 /**
  * <p>
  * 数据权限规则表  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-26 14:18:29
+ * @since 2021-10-28 10:00:45
+ * @version
 */
 
 @FeignClient(value = MicroServiceNames.DATA_PERM, contextId = RuleServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)
@@ -81,6 +80,11 @@ public interface RuleServiceProxy {
 	 * 查询数据权限规则
 	 */
 	public static final String QUERY_LIST = API_PREFIX + "query-list";
+
+	/**
+	 * 查询实体字段
+	 */
+	public static final String QUERY_FIELD_LIST = API_PREFIX + "query-field-list";
 
 	/**
 	 * 分页查询数据权限规则

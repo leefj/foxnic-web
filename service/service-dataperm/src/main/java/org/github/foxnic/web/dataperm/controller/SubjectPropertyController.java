@@ -48,7 +48,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 数据权限主体属性表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-14 16:24:44
+ * @since 2021-10-28 10:00:45
 */
 
 @Api(tags = "数据权限主体属性")
@@ -65,18 +65,18 @@ public class SubjectPropertyController extends SuperController {
 	*/
 	@ApiOperation(value = "添加数据权限主体属性")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = SubjectPropertyVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = SubjectPropertyVOMeta.SUBJECT_ID , value = "主题ID" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = SubjectPropertyVOMeta.NAME , value = "属性名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = SubjectPropertyVOMeta.PROPERTY , value = "属性" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = SubjectPropertyVOMeta.VALID , value = "是否生效" , required = false , dataTypeClass=Integer.class),
-		@ApiImplicitParam(name = SubjectPropertyVOMeta.SORT , value = "顺序" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = SubjectPropertyVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "E001"),
+		@ApiImplicitParam(name = SubjectPropertyVOMeta.SUBJECT_ID , value = "主题ID" , required = false , dataTypeClass=String.class , example = "2"),
+		@ApiImplicitParam(name = SubjectPropertyVOMeta.NAME , value = "属性名称" , required = false , dataTypeClass=String.class , example = "启动时间"),
+		@ApiImplicitParam(name = SubjectPropertyVOMeta.PROPERTY , value = "属性" , required = false , dataTypeClass=String.class , example = "bootTime"),
+		@ApiImplicitParam(name = SubjectPropertyVOMeta.VALID , value = "是否生效" , required = false , dataTypeClass=Integer.class , example = "1"),
+		@ApiImplicitParam(name = SubjectPropertyVOMeta.SORT , value = "顺序" , required = false , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiOperationSupport(order=1)
 	@SentinelResource(value = SubjectPropertyServiceProxy.INSERT , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(SubjectPropertyServiceProxy.INSERT)
 	public Result insert(SubjectPropertyVO subjectPropertyVO) {
-		Result result=subjectPropertyService.insert(subjectPropertyVO);
+		Result result=subjectPropertyService.insert(subjectPropertyVO,false);
 		return result;
 	}
 
@@ -87,7 +87,7 @@ public class SubjectPropertyController extends SuperController {
 	*/
 	@ApiOperation(value = "删除数据权限主体属性")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = SubjectPropertyVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class)
+		@ApiImplicitParam(name = SubjectPropertyVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "E001")
 	})
 	@ApiOperationSupport(order=2)
 	@NotNull(name = SubjectPropertyVOMeta.ID)
@@ -121,19 +121,19 @@ public class SubjectPropertyController extends SuperController {
 	*/
 	@ApiOperation(value = "更新数据权限主体属性")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = SubjectPropertyVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = SubjectPropertyVOMeta.SUBJECT_ID , value = "主题ID" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = SubjectPropertyVOMeta.NAME , value = "属性名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = SubjectPropertyVOMeta.PROPERTY , value = "属性" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = SubjectPropertyVOMeta.VALID , value = "是否生效" , required = false , dataTypeClass=Integer.class),
-		@ApiImplicitParam(name = SubjectPropertyVOMeta.SORT , value = "顺序" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = SubjectPropertyVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "E001"),
+		@ApiImplicitParam(name = SubjectPropertyVOMeta.SUBJECT_ID , value = "主题ID" , required = false , dataTypeClass=String.class , example = "2"),
+		@ApiImplicitParam(name = SubjectPropertyVOMeta.NAME , value = "属性名称" , required = false , dataTypeClass=String.class , example = "启动时间"),
+		@ApiImplicitParam(name = SubjectPropertyVOMeta.PROPERTY , value = "属性" , required = false , dataTypeClass=String.class , example = "bootTime"),
+		@ApiImplicitParam(name = SubjectPropertyVOMeta.VALID , value = "是否生效" , required = false , dataTypeClass=Integer.class , example = "1"),
+		@ApiImplicitParam(name = SubjectPropertyVOMeta.SORT , value = "顺序" , required = false , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiOperationSupport( order=4 , ignoreParameters = { SubjectPropertyVOMeta.PAGE_INDEX , SubjectPropertyVOMeta.PAGE_SIZE , SubjectPropertyVOMeta.SEARCH_FIELD , SubjectPropertyVOMeta.FUZZY_FIELD , SubjectPropertyVOMeta.SEARCH_VALUE , SubjectPropertyVOMeta.SORT_FIELD , SubjectPropertyVOMeta.SORT_TYPE , SubjectPropertyVOMeta.IDS } )
 	@NotNull(name = SubjectPropertyVOMeta.ID)
 	@SentinelResource(value = SubjectPropertyServiceProxy.UPDATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(SubjectPropertyServiceProxy.UPDATE)
 	public Result update(SubjectPropertyVO subjectPropertyVO) {
-		Result result=subjectPropertyService.update(subjectPropertyVO,SaveMode.NOT_NULL_FIELDS);
+		Result result=subjectPropertyService.update(subjectPropertyVO,SaveMode.NOT_NULL_FIELDS,false);
 		return result;
 	}
 
@@ -143,19 +143,19 @@ public class SubjectPropertyController extends SuperController {
 	*/
 	@ApiOperation(value = "保存数据权限主体属性")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = SubjectPropertyVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = SubjectPropertyVOMeta.SUBJECT_ID , value = "主题ID" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = SubjectPropertyVOMeta.NAME , value = "属性名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = SubjectPropertyVOMeta.PROPERTY , value = "属性" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = SubjectPropertyVOMeta.VALID , value = "是否生效" , required = false , dataTypeClass=Integer.class),
-		@ApiImplicitParam(name = SubjectPropertyVOMeta.SORT , value = "顺序" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = SubjectPropertyVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "E001"),
+		@ApiImplicitParam(name = SubjectPropertyVOMeta.SUBJECT_ID , value = "主题ID" , required = false , dataTypeClass=String.class , example = "2"),
+		@ApiImplicitParam(name = SubjectPropertyVOMeta.NAME , value = "属性名称" , required = false , dataTypeClass=String.class , example = "启动时间"),
+		@ApiImplicitParam(name = SubjectPropertyVOMeta.PROPERTY , value = "属性" , required = false , dataTypeClass=String.class , example = "bootTime"),
+		@ApiImplicitParam(name = SubjectPropertyVOMeta.VALID , value = "是否生效" , required = false , dataTypeClass=Integer.class , example = "1"),
+		@ApiImplicitParam(name = SubjectPropertyVOMeta.SORT , value = "顺序" , required = false , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { SubjectPropertyVOMeta.PAGE_INDEX , SubjectPropertyVOMeta.PAGE_SIZE , SubjectPropertyVOMeta.SEARCH_FIELD , SubjectPropertyVOMeta.FUZZY_FIELD , SubjectPropertyVOMeta.SEARCH_VALUE , SubjectPropertyVOMeta.SORT_FIELD , SubjectPropertyVOMeta.SORT_TYPE , SubjectPropertyVOMeta.IDS } )
 	@NotNull(name = SubjectPropertyVOMeta.ID)
 	@SentinelResource(value = SubjectPropertyServiceProxy.SAVE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(SubjectPropertyServiceProxy.SAVE)
 	public Result save(SubjectPropertyVO subjectPropertyVO) {
-		Result result=subjectPropertyService.save(subjectPropertyVO,SaveMode.NOT_NULL_FIELDS);
+		Result result=subjectPropertyService.save(subjectPropertyVO,SaveMode.NOT_NULL_FIELDS,false);
 		return result;
 	}
 
@@ -174,6 +174,11 @@ public class SubjectPropertyController extends SuperController {
 	public Result<SubjectProperty> getById(String id) {
 		Result<SubjectProperty> result=new Result<>();
 		SubjectProperty subjectProperty=subjectPropertyService.getById(id);
+
+		// join 关联的对象
+		subjectPropertyService.dao().fill(subjectProperty)
+			.execute();
+
 		result.success(true).data(subjectProperty);
 		return result;
 	}
@@ -204,12 +209,12 @@ public class SubjectPropertyController extends SuperController {
 	*/
 	@ApiOperation(value = "查询数据权限主体属性")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = SubjectPropertyVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = SubjectPropertyVOMeta.SUBJECT_ID , value = "主题ID" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = SubjectPropertyVOMeta.NAME , value = "属性名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = SubjectPropertyVOMeta.PROPERTY , value = "属性" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = SubjectPropertyVOMeta.VALID , value = "是否生效" , required = false , dataTypeClass=Integer.class),
-		@ApiImplicitParam(name = SubjectPropertyVOMeta.SORT , value = "顺序" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = SubjectPropertyVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "E001"),
+		@ApiImplicitParam(name = SubjectPropertyVOMeta.SUBJECT_ID , value = "主题ID" , required = false , dataTypeClass=String.class , example = "2"),
+		@ApiImplicitParam(name = SubjectPropertyVOMeta.NAME , value = "属性名称" , required = false , dataTypeClass=String.class , example = "启动时间"),
+		@ApiImplicitParam(name = SubjectPropertyVOMeta.PROPERTY , value = "属性" , required = false , dataTypeClass=String.class , example = "bootTime"),
+		@ApiImplicitParam(name = SubjectPropertyVOMeta.VALID , value = "是否生效" , required = false , dataTypeClass=Integer.class , example = "1"),
+		@ApiImplicitParam(name = SubjectPropertyVOMeta.SORT , value = "顺序" , required = false , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { SubjectPropertyVOMeta.PAGE_INDEX , SubjectPropertyVOMeta.PAGE_SIZE } )
 	@SentinelResource(value = SubjectPropertyServiceProxy.QUERY_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
@@ -227,12 +232,12 @@ public class SubjectPropertyController extends SuperController {
 	*/
 	@ApiOperation(value = "分页查询数据权限主体属性")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = SubjectPropertyVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = SubjectPropertyVOMeta.SUBJECT_ID , value = "主题ID" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = SubjectPropertyVOMeta.NAME , value = "属性名称" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = SubjectPropertyVOMeta.PROPERTY , value = "属性" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = SubjectPropertyVOMeta.VALID , value = "是否生效" , required = false , dataTypeClass=Integer.class),
-		@ApiImplicitParam(name = SubjectPropertyVOMeta.SORT , value = "顺序" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = SubjectPropertyVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "E001"),
+		@ApiImplicitParam(name = SubjectPropertyVOMeta.SUBJECT_ID , value = "主题ID" , required = false , dataTypeClass=String.class , example = "2"),
+		@ApiImplicitParam(name = SubjectPropertyVOMeta.NAME , value = "属性名称" , required = false , dataTypeClass=String.class , example = "启动时间"),
+		@ApiImplicitParam(name = SubjectPropertyVOMeta.PROPERTY , value = "属性" , required = false , dataTypeClass=String.class , example = "bootTime"),
+		@ApiImplicitParam(name = SubjectPropertyVOMeta.VALID , value = "是否生效" , required = false , dataTypeClass=Integer.class , example = "1"),
+		@ApiImplicitParam(name = SubjectPropertyVOMeta.SORT , value = "顺序" , required = false , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiOperationSupport(order=8)
 	@SentinelResource(value = SubjectPropertyServiceProxy.QUERY_PAGED_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
@@ -240,6 +245,11 @@ public class SubjectPropertyController extends SuperController {
 	public Result<PagedList<SubjectProperty>> queryPagedList(SubjectPropertyVO sample) {
 		Result<PagedList<SubjectProperty>> result=new Result<>();
 		PagedList<SubjectProperty> list=subjectPropertyService.queryPagedList(sample,sample.getPageSize(),sample.getPageIndex());
+
+		// join 关联的对象
+		subjectPropertyService.dao().fill(list)
+			.execute();
+
 		result.success(true).data(list);
 		return result;
 	}

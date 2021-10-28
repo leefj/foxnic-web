@@ -1,47 +1,54 @@
 package org.github.foxnic.web.dataperm.controller;
 
 
-import com.alibaba.csp.sentinel.annotation.SentinelResource;
-import com.github.foxnic.api.error.ErrorDesc;
-import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.api.validate.annotations.NotNull;
-import com.github.foxnic.commons.io.StreamUtil;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.springboot.web.DownloadUtil;
-import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import com.github.xiaoymin.knife4j.annotations.ApiSort;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
-import org.github.foxnic.web.dataperm.service.IExampleBrandService;
-import org.github.foxnic.web.domain.dataperm.ExampleBrand;
-import org.github.foxnic.web.domain.dataperm.ExampleBrandVO;
-import org.github.foxnic.web.domain.dataperm.meta.ExampleBrandVOMeta;
-import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
-import org.github.foxnic.web.framework.web.SuperController;
-import org.github.foxnic.web.proxy.dataperm.ExampleBrandServiceProxy;
+import java.util.List;
+
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import org.github.foxnic.web.framework.web.SuperController;
+import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.InputStream;
-import java.util.List;
+
+import org.github.foxnic.web.proxy.dataperm.ExampleBrandServiceProxy;
+import org.github.foxnic.web.domain.dataperm.meta.ExampleBrandVOMeta;
+import org.github.foxnic.web.domain.dataperm.ExampleBrand;
+import org.github.foxnic.web.domain.dataperm.ExampleBrandVO;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.excel.ExcelWriter;
+import com.github.foxnic.springboot.web.DownloadUtil;
+import com.github.foxnic.dao.data.PagedList;
+import java.util.Date;
+import java.sql.Timestamp;
+import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.commons.io.StreamUtil;
 import java.util.Map;
+import com.github.foxnic.dao.excel.ValidateResult;
+import java.io.InputStream;
+import org.github.foxnic.web.domain.dataperm.meta.ExampleBrandMeta;
+import io.swagger.annotations.Api;
+import com.github.xiaoymin.knife4j.annotations.ApiSort;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiImplicitParam;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import org.github.foxnic.web.dataperm.service.IExampleBrandService;
+import com.github.foxnic.api.validate.annotations.NotNull;
 
 /**
  * <p>
  * 商品品牌表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-14 16:24:46
+ * @since 2021-10-28 10:00:49
 */
 
 @Api(tags = "商品品牌")
@@ -96,7 +103,7 @@ public class ExampleBrandController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = ExampleBrandVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 	})
-	@ApiOperationSupport(order=3)
+	@ApiOperationSupport(order=3) 
 	@NotNull(name = ExampleBrandVOMeta.IDS)
 	@SentinelResource(value = ExampleBrandServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(ExampleBrandServiceProxy.DELETE_BY_IDS)
@@ -118,7 +125,7 @@ public class ExampleBrandController extends SuperController {
 	@SentinelResource(value = ExampleBrandServiceProxy.UPDATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(ExampleBrandServiceProxy.UPDATE)
 	public Result update(ExampleBrandVO exampleBrandVO) {
-		Result result=exampleBrandService.update(exampleBrandVO,SaveMode.NOT_NULL_FIELDS);
+		Result result=exampleBrandService.update(exampleBrandVO,SaveMode.NOT_NULL_FIELDS,false);
 		return result;
 	}
 
@@ -136,7 +143,7 @@ public class ExampleBrandController extends SuperController {
 	@SentinelResource(value = ExampleBrandServiceProxy.SAVE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(ExampleBrandServiceProxy.SAVE)
 	public Result save(ExampleBrandVO exampleBrandVO) {
-		Result result=exampleBrandService.save(exampleBrandVO,SaveMode.NOT_NULL_FIELDS);
+		Result result=exampleBrandService.save(exampleBrandVO,SaveMode.NOT_NULL_FIELDS,false);
 		return result;
 	}
 
@@ -155,6 +162,11 @@ public class ExampleBrandController extends SuperController {
 	public Result<ExampleBrand> getById(String id) {
 		Result<ExampleBrand> result=new Result<>();
 		ExampleBrand exampleBrand=exampleBrandService.getById(id);
+
+		// join 关联的对象
+		exampleBrandService.dao().fill(exampleBrand)
+			.execute();
+
 		result.success(true).data(exampleBrand);
 		return result;
 	}
@@ -168,7 +180,7 @@ public class ExampleBrandController extends SuperController {
 		@ApiImplicitParams({
 				@ApiImplicitParam(name = ExampleBrandVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})
-		@ApiOperationSupport(order=3)
+		@ApiOperationSupport(order=3) 
 		@NotNull(name = ExampleBrandVOMeta.IDS)
 		@SentinelResource(value = ExampleBrandServiceProxy.GET_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(ExampleBrandServiceProxy.GET_BY_IDS)
@@ -213,6 +225,11 @@ public class ExampleBrandController extends SuperController {
 	public Result<PagedList<ExampleBrand>> queryPagedList(ExampleBrandVO sample) {
 		Result<PagedList<ExampleBrand>> result=new Result<>();
 		PagedList<ExampleBrand> list=exampleBrandService.queryPagedList(sample,sample.getPageSize(),sample.getPageIndex());
+
+		// join 关联的对象
+		exampleBrandService.dao().fill(list)
+			.execute();
+
 		result.success(true).data(list);
 		return result;
 	}

@@ -18,8 +18,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 数据权限主体
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-14 16:09:09
- * @sign 07189CDF29FF14C509B15C0E9FCF3971
+ * @since 2021-10-28 10:00:44
+ * @sign B1CE11E178D557CB62D9F4158D3DB0D0
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -50,9 +50,9 @@ public class Subject extends Entity {
 	private String name;
 	
 	/**
-	 * Subject对象获取类名称：Subject对象获取类名称
+	 * Subject：对象获取类名称
 	*/
-	@ApiModelProperty(required = false,value="Subject对象获取类名称" , notes = "Subject对象获取类名称")
+	@ApiModelProperty(required = false,value="Subject" , notes = "对象获取类名称")
 	private String getter;
 	
 	/**
@@ -179,17 +179,17 @@ public class Subject extends Entity {
 	}
 	
 	/**
-	 * 获得 Subject对象获取类名称<br>
-	 * Subject对象获取类名称
-	 * @return Subject对象获取类名称
+	 * 获得 Subject<br>
+	 * 对象获取类名称
+	 * @return Subject
 	*/
 	public String getGetter() {
 		return getter;
 	}
 	
 	/**
-	 * 设置 Subject对象获取类名称
-	 * @param getter Subject对象获取类名称
+	 * 设置 Subject
+	 * @param getter Subject
 	 * @return 当前对象
 	*/
 	public Subject setGetter(String getter) {

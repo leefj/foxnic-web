@@ -10,8 +10,8 @@ import java.util.List;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-26 13:49:41
- * @sign 7F236B0123A49885AAD2806D7F314EDC
+ * @since 2021-10-28 11:47:45
+ * @sign 6DF5663AEB1A749FB443272F916A5611
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -26,6 +26,16 @@ public class RuleMeta {
 	 * 主键 , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.Rule,java.lang.String> ID_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.Rule.class ,ID, java.lang.String.class, "主键", "主键", java.lang.String.class, null);
+	
+	/**
+	 * po类型 , 类型: java.lang.String
+	*/
+	public static final String PO_TYPE="poType";
+	
+	/**
+	 * po类型 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.Rule,java.lang.String> PO_TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.Rule.class ,PO_TYPE, java.lang.String.class, "po类型", "po类型", java.lang.String.class, null);
 	
 	/**
 	 * 代码 , 类型: java.lang.String
@@ -170,7 +180,7 @@ public class RuleMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , CODE , NAME , VERSION_NO , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , RANGES };
+	public static final String[] $PROPS={ ID , PO_TYPE , CODE , NAME , VERSION_NO , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , RANGES };
 	
 	/**
 	 * 代理类
@@ -188,6 +198,17 @@ public class RuleMeta {
 		public Rule setId(String id) {
 			super.change(ID,super.getId(),id);
 			super.setId(id);
+			return this;
+		}
+		
+		/**
+		 * 设置 po类型
+		 * @param poType po类型
+		 * @return 当前对象
+		*/
+		public Rule setPoType(String poType) {
+			super.change(PO_TYPE,super.getPoType(),poType);
+			super.setPoType(poType);
 			return this;
 		}
 		

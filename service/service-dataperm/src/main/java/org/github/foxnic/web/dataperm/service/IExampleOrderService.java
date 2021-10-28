@@ -21,7 +21,7 @@ import java.util.List;
  * 销售订单表 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-28 09:57:52
+ * @since 2021-10-28 10:00:48
 */
 
 public interface IExampleOrderService extends ISuperService<ExampleOrder> {

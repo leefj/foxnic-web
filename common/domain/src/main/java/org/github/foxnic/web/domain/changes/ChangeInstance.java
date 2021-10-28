@@ -11,8 +11,11 @@ import javax.persistence.Transient;
 import java.util.Date;
 import org.github.foxnic.web.constants.enums.changes.ApprovalStatus;
 import org.github.foxnic.web.constants.enums.changes.ChangeType;
+import org.github.foxnic.web.domain.hrm.Employee;
+import java.util.List;
 import com.github.foxnic.commons.reflect.EnumUtil;
 import com.github.foxnic.commons.lang.StringUtil;
+import java.util.ArrayList;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
 
@@ -21,8 +24,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 变更实例
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-11 15:25:41
- * @sign A9C490B03CAE27C97AE285B3993E2F3D
+ * @since 2021-10-28 16:34:29
+ * @sign 2B51D0E5B415BAF3E579B8EB150BED05
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -55,9 +58,9 @@ public class ChangeInstance extends Entity {
 	private ApprovalMode modeEnum;
 	
 	/**
-	 * 起草人ID：起草人ID
+	 * 起草人ID：员工ID
 	*/
-	@ApiModelProperty(required = false,value="起草人ID" , notes = "起草人ID")
+	@ApiModelProperty(required = false,value="起草人ID" , notes = "员工ID")
 	private String drafterId;
 	
 	/**
@@ -191,6 +194,18 @@ public class ChangeInstance extends Entity {
 	private ChangeData dataAfter;
 	
 	/**
+	 * 当前可审批员工清单
+	*/
+	@ApiModelProperty(required = false,value="当前可审批员工清单" , notes = "")
+	private List<Employee> currEmployeeApprovers;
+	
+	/**
+	 * 当前可审批流程角色清单
+	*/
+	@ApiModelProperty(required = false,value="当前可审批流程角色清单" , notes = "")
+	private List<Employee> currBpmRoleApprovers;
+	
+	/**
 	 * 获得 主键<br>
 	 * 主键
 	 * @return 主键
@@ -282,7 +297,7 @@ public class ChangeInstance extends Entity {
 	
 	/**
 	 * 获得 起草人ID<br>
-	 * 起草人ID
+	 * 员工ID
 	 * @return 起草人ID
 	*/
 	public String getDrafterId() {
@@ -761,6 +776,64 @@ public class ChangeInstance extends Entity {
 	*/
 	public ChangeInstance setDataAfter(ChangeData dataAfter) {
 		this.dataAfter=dataAfter;
+		return this;
+	}
+	
+	/**
+	 * 获得 当前可审批员工清单<br>
+	 * @return 当前可审批员工清单
+	*/
+	public List<Employee> getCurrEmployeeApprovers() {
+		return currEmployeeApprovers;
+	}
+	
+	/**
+	 * 设置 当前可审批员工清单
+	 * @param currEmployeeApprovers 当前可审批员工清单
+	 * @return 当前对象
+	*/
+	public ChangeInstance setCurrEmployeeApprovers(List<Employee> currEmployeeApprovers) {
+		this.currEmployeeApprovers=currEmployeeApprovers;
+		return this;
+	}
+	
+	/**
+	 * 添加 当前可审批员工清单
+	 * @param currEmployeeApprover 当前可审批员工清单
+	 * @return 当前对象
+	*/
+	public ChangeInstance addCurrEmployeeApprover(Employee currEmployeeApprover) {
+		if(this.currEmployeeApprovers==null) currEmployeeApprovers=new ArrayList<>();
+		this.currEmployeeApprovers.add(currEmployeeApprover);
+		return this;
+	}
+	
+	/**
+	 * 获得 当前可审批流程角色清单<br>
+	 * @return 当前可审批流程角色清单
+	*/
+	public List<Employee> getCurrBpmRoleApprovers() {
+		return currBpmRoleApprovers;
+	}
+	
+	/**
+	 * 设置 当前可审批流程角色清单
+	 * @param currBpmRoleApprovers 当前可审批流程角色清单
+	 * @return 当前对象
+	*/
+	public ChangeInstance setCurrBpmRoleApprovers(List<Employee> currBpmRoleApprovers) {
+		this.currBpmRoleApprovers=currBpmRoleApprovers;
+		return this;
+	}
+	
+	/**
+	 * 添加 当前可审批流程角色清单
+	 * @param currBpmRoleApprover 当前可审批流程角色清单
+	 * @return 当前对象
+	*/
+	public ChangeInstance addCurrBpmRoleApprover(Employee currBpmRoleApprover) {
+		if(this.currBpmRoleApprovers==null) currBpmRoleApprovers=new ArrayList<>();
+		this.currBpmRoleApprovers.add(currBpmRoleApprover);
 		return this;
 	}
 

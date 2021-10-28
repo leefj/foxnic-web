@@ -21,26 +21,35 @@ import com.github.foxnic.dao.data.SaveMode;
  * 商品品牌表 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-14 16:24:46
+ * @since 2021-10-28 10:00:49
 */
 
 public interface IExampleBrandService extends ISuperService<ExampleBrand> {
-	
+
 	/**
-	 * 插入实体
-	 * @param exampleBrand 实体数据
+	 * 添加，如果语句错误，则抛出异常
+	 * @param exampleBrand 数据对象
 	 * @return 插入是否成功
 	 * */
 	Result insert(ExampleBrand exampleBrand);
- 
+
+	/**
+	 * 添加，根据 throwsException 参数抛出异常或返回 Result 对象
+	 *
+	 * @param exampleBrand  数据对象
+	 * @param throwsException 是否抛出异常，如果不抛出异常，则返回一个失败的 Result 对象
+	 * @return 结果 , 如果失败返回 false，成功返回 true
+	 */
+	Result insert(ExampleBrand exampleBrand,boolean throwsException);
+
 	/**
 	 * 批量插入实体，事务内
 	 * @param exampleBrandList 实体数据清单
 	 * @return 插入是否成功
 	 * */
 	Result insertList(List<ExampleBrand> exampleBrandList);
-	
-	
+
+
 		
 	/**
 	 * 按主键删除 商品品牌
@@ -57,21 +66,21 @@ public interface IExampleBrandService extends ISuperService<ExampleBrand> {
 	 * @return 删除是否成功
 	 */
 	Result deleteByIdLogical(String id);
-	
+
 	/**
 	 * 批量物理删除，仅支持单字段主键表
 	 * @param ids 主键清单
 	 * @return 是否删除成功
 	 * */
 	<T> Result deleteByIdsPhysical(List<T> ids);
-	
+
 	/**
 	 * 批量逻辑删除，仅支持单字段主键表
 	 * @param ids 主键清单
 	 * @return 是否删除成功
 	 * */
 	<T> Result deleteByIdsLogical(List<T> ids);
-	
+
 		
 	/**
 	 * 按主键更新字段 商品品牌
@@ -80,16 +89,27 @@ public interface IExampleBrandService extends ISuperService<ExampleBrand> {
 	 * @return 是否更新成功
 	 */
 	boolean update(DBField field,Object value , String id);
-	
+
 	/**
-	 * 更新实体
+	 * 更新，如果执行错误，则抛出异常
 	 * @param exampleBrand 数据对象
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
 	Result update(ExampleBrand exampleBrand , SaveMode mode);
-	
-	
+
+
+	/**
+	 * 更新，根据 throwsException 参数抛出异常或返回 Result 对象
+	 *
+	 * @param exampleBrand 数据对象
+	 * @param mode SaveMode,数据更新的模式
+	 * @param throwsException 是否抛出异常，如果不抛出异常，则返回一个失败的 Result 对象
+	 * @return 结果
+	 */
+	Result update(ExampleBrand exampleBrand , SaveMode mode,boolean throwsException);
+
+
 	/**
 	 * 更新实体集，事务内
 	 * @param exampleBrandList 数据对象列表
@@ -97,15 +117,24 @@ public interface IExampleBrandService extends ISuperService<ExampleBrand> {
 	 * @return 保存是否成功
 	 * */
 	Result updateList(List<ExampleBrand> exampleBrandList, SaveMode mode);
-	
+
 	/**
-	 * 保存实体，如果主键值不为 null，则更新，否则插入
+	 * 保存实体，根据 throwsException 参数抛出异常或返回 Result 对象
+	 * @param exampleBrand 实体数据
+	 * @param mode 保存模式
+	 * @param throwsException 是否抛出异常，如果不抛出异常，则返回一个失败的 Result 对象
+	 * @return 保存是否成功
+	 * */
+	Result save(ExampleBrand exampleBrand , SaveMode mode,boolean throwsException);
+
+	/**
+	 * 保存实体，如果语句错误，则抛出异常
 	 * @param exampleBrand 实体数据
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
 	Result save(ExampleBrand exampleBrand , SaveMode mode);
-	
+
 	/**
 	 * 保存实体，如果主键值不为null，则更新，否则插入
 	 * @param exampleBrandList 实体数据清单
@@ -113,7 +142,7 @@ public interface IExampleBrandService extends ISuperService<ExampleBrand> {
 	 * @return 保存是否成功
 	 * */
 	Result saveList(List<ExampleBrand> exampleBrandList , SaveMode mode);
-	
+
 	/**
 	 * 检查实体中的数据字段是否已经存在
 	 * @param exampleBrand  实体对象
@@ -121,7 +150,7 @@ public interface IExampleBrandService extends ISuperService<ExampleBrand> {
 	 * @return 是否已经存在
 	 * */
 	boolean checkExists(ExampleBrand exampleBrand,DBField... field);
- 
+
 		
 	/**
 	 * 按主键获取 商品品牌
@@ -130,7 +159,7 @@ public interface IExampleBrandService extends ISuperService<ExampleBrand> {
 	 * @return ExampleBrand 数据对象
 	 */
 	ExampleBrand getById(String id);
-		
+
 	/**
 	 * 检查实体中的数据字段是否已经存在
 	 * @param ids  主键清单
@@ -147,14 +176,14 @@ public interface IExampleBrandService extends ISuperService<ExampleBrand> {
 	Result<ExampleBrand> checkExists(ExampleBrand exampleBrand);
 
 	/**
-	 * 根据实体数构建默认的条件表达式，字符串使用模糊匹配
+	 * 根据实体数构建默认的条件表达式, 不支持 Join 其它表
 	 * @param sample 数据样例
 	 * @return ConditionExpr 条件表达式
 	 * */
 	ConditionExpr buildQueryCondition(ExampleBrand sample);
-	
+
 	/**
-	 * 根据实体数构建默认的条件表达式, 字符串是否使用模糊匹配
+	 * 根据实体数构建默认的条件表达式, 不支持 Join 其它表
 	 * @param sample 数据样例
 	 * @param tableAliase 数据表别名
 	 * 	@return ConditionExpr 条件表达式
@@ -167,7 +196,7 @@ public interface IExampleBrandService extends ISuperService<ExampleBrand> {
 	 * @return 查询结果
 	 * */
 	List<ExampleBrand> queryList(ExampleBrand sample);
- 
+
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
 	 * @param sample  查询条件
@@ -176,7 +205,7 @@ public interface IExampleBrandService extends ISuperService<ExampleBrand> {
 	 * @return 查询结果
 	 * */
 	List<ExampleBrand> queryList(ExampleBrand sample,ConditionExpr condition,OrderBy orderBy);
-	
+
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
 	 * @param sample  查询条件
@@ -184,7 +213,7 @@ public interface IExampleBrandService extends ISuperService<ExampleBrand> {
 	 * @return 查询结果
 	 * */
 	List<ExampleBrand> queryList(ExampleBrand sample,OrderBy orderBy);
-	
+
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
 	 * @param sample  查询条件
@@ -192,14 +221,14 @@ public interface IExampleBrandService extends ISuperService<ExampleBrand> {
 	 * @return 查询结果
 	 * */
 	List<ExampleBrand> queryList(ExampleBrand sample,ConditionExpr condition);
-	
+
 	/**
 	 * 查询单个实体
 	 * @param sample  查询条件
 	 * @return 查询结果
 	 * */
 	ExampleBrand queryEntity(ExampleBrand sample);
-	
+
 	/**
 	 * 分页查询实体集
 	 * @param sample  查询条件
@@ -208,7 +237,7 @@ public interface IExampleBrandService extends ISuperService<ExampleBrand> {
 	 * @return 查询结果
 	 * */
 	PagedList<ExampleBrand> queryPagedList(ExampleBrand sample,int pageSize,int pageIndex);
-	
+
 	/**
 	 * 分页查询实体集
 	 * @param sample  查询条件
@@ -219,7 +248,7 @@ public interface IExampleBrandService extends ISuperService<ExampleBrand> {
 	 * @return 查询结果
 	 * */
 	PagedList<ExampleBrand> queryPagedList(ExampleBrand sample,ConditionExpr condition,OrderBy orderBy,int pageSize,int pageIndex);
-	
+
 	/**
 	 * 分页查询实体集
 	 * @param sample  查询条件
@@ -229,7 +258,7 @@ public interface IExampleBrandService extends ISuperService<ExampleBrand> {
 	 * @return 查询结果
 	 * */
 	PagedList<ExampleBrand> queryPagedList(ExampleBrand sample,ConditionExpr condition,int pageSize,int pageIndex);
-	
+
 	/**
 	 * 分页查询实体集
 	 * @param sample  查询条件
@@ -239,7 +268,7 @@ public interface IExampleBrandService extends ISuperService<ExampleBrand> {
 	 * @return 查询结果
 	 * */
 	PagedList<ExampleBrand> queryPagedList(ExampleBrand sample,OrderBy orderBy,int pageSize,int pageIndex);
- 
+
  	/**
 	 * 查询指定字段的数据清单
 	 * @param <T> 元素类型
@@ -249,7 +278,7 @@ public interface IExampleBrandService extends ISuperService<ExampleBrand> {
 	 * @return 列数据
 	 * */
 	<T> List<T> queryValues(DBField field,Class<T> type, ConditionExpr condition);
- 
+
 	/**
 	 * 查询指定字段的数据清单
 	 * @param <T> 元素类型
@@ -284,5 +313,5 @@ public interface IExampleBrandService extends ISuperService<ExampleBrand> {
 	 * */
 	List<ValidateResult> importExcel(InputStream input,int sheetIndex,boolean batch);
 
- 
+
 }

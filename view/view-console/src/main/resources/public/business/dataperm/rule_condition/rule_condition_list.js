@@ -94,7 +94,7 @@ function ListPage() {
 		if(treeNode==null) return;
 		editingNode=treeNode;
 		renderMenu(treeNode);
-    	// $("#form-view")[0].contentWindow.loadFormData(treeNode.id);
+    	$("#form-view")[0].contentWindow.loadFormData(treeNode.id);
     }
 
 

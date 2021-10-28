@@ -49,7 +49,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 数据权限规则范围表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-26 14:18:31
+ * @since 2021-10-28 10:38:51
 */
 
 @Api(tags = "数据权限规则范围")
@@ -75,7 +75,7 @@ public class RuleRangeController extends SuperController {
 	@SentinelResource(value = RuleRangeServiceProxy.INSERT , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(RuleRangeServiceProxy.INSERT)
 	public Result insert(RuleRangeVO ruleRangeVO) {
-		Result result=ruleRangeService.insert(ruleRangeVO);
+		Result result=ruleRangeService.insert(ruleRangeVO,false);
 		return result;
 	}
 
@@ -130,7 +130,7 @@ public class RuleRangeController extends SuperController {
 	@SentinelResource(value = RuleRangeServiceProxy.UPDATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(RuleRangeServiceProxy.UPDATE)
 	public Result update(RuleRangeVO ruleRangeVO) {
-		Result result=ruleRangeService.update(ruleRangeVO,SaveMode.NOT_NULL_FIELDS);
+		Result result=ruleRangeService.update(ruleRangeVO,SaveMode.NOT_NULL_FIELDS,false);
 		return result;
 	}
 
@@ -150,7 +150,7 @@ public class RuleRangeController extends SuperController {
 	@SentinelResource(value = RuleRangeServiceProxy.SAVE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(RuleRangeServiceProxy.SAVE)
 	public Result save(RuleRangeVO ruleRangeVO) {
-		Result result=ruleRangeService.save(ruleRangeVO,SaveMode.NOT_NULL_FIELDS);
+		Result result=ruleRangeService.save(ruleRangeVO,SaveMode.NOT_NULL_FIELDS,false);
 		return result;
 	}
 

@@ -167,6 +167,15 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                         }
                     }
 
+                    var extraParam = el.attr("extraParam");
+                    if(extraParam) {
+                        extraParam=JSON.parse(extraParam);
+                        for (var key in extraParam) {
+                            ps[key] = extraParam[key];
+                        }
+                    }
+
+
                     query(ps, cb);
 
                 }
@@ -280,7 +289,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             }
         },
         setSelectValue4QueryApi:function (id,value){
-            // debugger;
+            debugger;
             var inst=xmSelect.get(id,true);
             if(inst==null) return;
             var opts=[];
