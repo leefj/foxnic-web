@@ -56,7 +56,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 销售订单表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-26 14:25:34
+ * @since 2021-10-28 09:57:52
 */
 
 @Api(tags = "销售订单")
@@ -85,7 +85,7 @@ public class ExampleOrderController extends SuperController {
 	@SentinelResource(value = ExampleOrderServiceProxy.INSERT , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(ExampleOrderServiceProxy.INSERT)
 	public Result insert(ExampleOrderVO exampleOrderVO) {
-		Result result=exampleOrderService.insert(exampleOrderVO);
+		Result result=exampleOrderService.insert(exampleOrderVO,false);
 		return result;
 	}
 
@@ -143,7 +143,7 @@ public class ExampleOrderController extends SuperController {
 	@SentinelResource(value = ExampleOrderServiceProxy.UPDATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(ExampleOrderServiceProxy.UPDATE)
 	public Result update(ExampleOrderVO exampleOrderVO) {
-		Result result=exampleOrderService.update(exampleOrderVO,SaveMode.NOT_NULL_FIELDS);
+		Result result=exampleOrderService.update(exampleOrderVO,SaveMode.NOT_NULL_FIELDS,false);
 		return result;
 	}
 
@@ -166,7 +166,7 @@ public class ExampleOrderController extends SuperController {
 	@SentinelResource(value = ExampleOrderServiceProxy.SAVE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(ExampleOrderServiceProxy.SAVE)
 	public Result save(ExampleOrderVO exampleOrderVO) {
-		Result result=exampleOrderService.save(exampleOrderVO,SaveMode.NOT_NULL_FIELDS);
+		Result result=exampleOrderService.save(exampleOrderVO,SaveMode.NOT_NULL_FIELDS,false);
 		return result;
 	}
 

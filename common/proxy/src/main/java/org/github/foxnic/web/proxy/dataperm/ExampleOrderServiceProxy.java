@@ -19,7 +19,7 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  * 销售订单表  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-26 14:25:33
+ * @since 2021-10-28 09:57:52
 */
 
 @FeignClient(value = MicroServiceNames.DATA_PERM, contextId = ExampleOrderServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)

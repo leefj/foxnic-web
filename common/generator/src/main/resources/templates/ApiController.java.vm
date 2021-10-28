@@ -45,7 +45,7 @@ public class #(simpleName) extends SuperController {
 	#end
 	@PostMapping(#(agentSimpleName).INSERT)
 	public Result insert(#(voSimpleName) #(voVarName)) {
-		Result result=#(serviceVarName).insert(#(voVarName));
+		Result result=#(serviceVarName).insert(#(voVarName),false);
 		return result;
 	}
 
@@ -121,7 +121,7 @@ public class #(simpleName) extends SuperController {
 	#end
 	@PostMapping(#(agentSimpleName).UPDATE)
 	public Result update(#(voSimpleName) #(voVarName)) {
-		Result result=#(serviceVarName).update(#(voVarName),SaveMode.#(saveMode));
+		Result result=#(serviceVarName).update(#(voVarName),SaveMode.#(saveMode),false);
 		return result;
 	}
 
@@ -139,7 +139,7 @@ public class #(simpleName) extends SuperController {
 	#end
 	@PostMapping(#(agentSimpleName).SAVE)
 	public Result save(#(voSimpleName) #(voVarName)) {
-		Result result=#(serviceVarName).save(#(voVarName),SaveMode.#(saveMode));
+		Result result=#(serviceVarName).save(#(voVarName),SaveMode.#(saveMode),false);
 		return result;
 	}
 

@@ -1,37 +1,46 @@
 package org.github.foxnic.web.dataperm.service;
 
 
-import com.github.foxnic.sql.expr.ConditionExpr;
-import com.github.foxnic.dao.entity.ISuperService;
-import org.github.foxnic.web.domain.dataperm.ExampleOrder;
-import org.github.foxnic.web.domain.dataperm.ExampleOrderVO;
-import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
-import java.io.InputStream;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.ISuperService;
+import com.github.foxnic.dao.excel.ExcelStructure;
+import com.github.foxnic.dao.excel.ExcelWriter;
+import com.github.foxnic.dao.excel.ValidateResult;
+import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.expr.OrderBy;
 import com.github.foxnic.sql.meta.DBField;
-import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.dao.excel.ExcelStructure;
-import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.dao.data.SaveMode;
+import org.github.foxnic.web.domain.dataperm.ExampleOrder;
+
+import java.io.InputStream;
+import java.util.List;
 
 /**
  * <p>
  * 销售订单表 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-26 14:25:33
+ * @since 2021-10-28 09:57:52
 */
 
 public interface IExampleOrderService extends ISuperService<ExampleOrder> {
 
 	/**
-	 * 插入实体
-	 * @param exampleOrder 实体数据
+	 * 添加，如果语句错误，则抛出异常
+	 * @param exampleOrder 数据对象
 	 * @return 插入是否成功
 	 * */
 	Result insert(ExampleOrder exampleOrder);
+
+	/**
+	 * 添加，根据 throwsException 参数抛出异常或返回 Result 对象
+	 *
+	 * @param exampleOrder  数据对象
+	 * @param throwsException 是否抛出异常，如果不抛出异常，则返回一个失败的 Result 对象
+	 * @return 结果 , 如果失败返回 false，成功返回 true
+	 */
+	Result insert(ExampleOrder exampleOrder,boolean throwsException);
 
 	/**
 	 * 批量插入实体，事务内
@@ -41,7 +50,7 @@ public interface IExampleOrderService extends ISuperService<ExampleOrder> {
 	Result insertList(List<ExampleOrder> exampleOrderList);
 
 
-		
+
 	/**
 	 * 按主键删除 销售订单
 	 *
@@ -49,7 +58,7 @@ public interface IExampleOrderService extends ISuperService<ExampleOrder> {
 	 * @return 删除是否成功
 	 */
 	Result deleteByIdPhysical(String id);
-	
+
 	/**
 	 * 按主键删除 销售订单
 	 *
@@ -72,7 +81,7 @@ public interface IExampleOrderService extends ISuperService<ExampleOrder> {
 	 * */
 	<T> Result deleteByIdsLogical(List<T> ids);
 
-		
+
 	/**
 	 * 按主键更新字段 销售订单
 	 *
@@ -82,12 +91,23 @@ public interface IExampleOrderService extends ISuperService<ExampleOrder> {
 	boolean update(DBField field,Object value , String id);
 
 	/**
-	 * 更新实体
+	 * 更新，如果执行错误，则抛出异常
 	 * @param exampleOrder 数据对象
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
 	Result update(ExampleOrder exampleOrder , SaveMode mode);
+
+
+	/**
+	 * 更新，根据 throwsException 参数抛出异常或返回 Result 对象
+	 *
+	 * @param exampleOrder 数据对象
+	 * @param mode SaveMode,数据更新的模式
+	 * @param throwsException 是否抛出异常，如果不抛出异常，则返回一个失败的 Result 对象
+	 * @return 结果
+	 */
+	Result update(ExampleOrder exampleOrder , SaveMode mode,boolean throwsException);
 
 
 	/**
@@ -99,7 +119,16 @@ public interface IExampleOrderService extends ISuperService<ExampleOrder> {
 	Result updateList(List<ExampleOrder> exampleOrderList, SaveMode mode);
 
 	/**
-	 * 保存实体，如果主键值不为 null，则更新，否则插入
+	 * 保存实体，根据 throwsException 参数抛出异常或返回 Result 对象
+	 * @param exampleOrder 实体数据
+	 * @param mode 保存模式
+	 * @param throwsException 是否抛出异常，如果不抛出异常，则返回一个失败的 Result 对象
+	 * @return 保存是否成功
+	 * */
+	Result save(ExampleOrder exampleOrder , SaveMode mode,boolean throwsException);
+
+	/**
+	 * 保存实体，如果语句错误，则抛出异常
 	 * @param exampleOrder 实体数据
 	 * @param mode 保存模式
 	 * @return 保存是否成功
@@ -122,7 +151,7 @@ public interface IExampleOrderService extends ISuperService<ExampleOrder> {
 	 * */
 	boolean checkExists(ExampleOrder exampleOrder,DBField... field);
 
-		
+
 	/**
 	 * 按主键获取 销售订单
 	 *
