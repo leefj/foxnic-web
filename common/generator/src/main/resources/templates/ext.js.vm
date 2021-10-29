@@ -194,6 +194,13 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             return true;
         },
         /**
+         * 数据提交后窗口关闭前，如果返回 false，停止后续步骤的执行
+         * */
+        betweenFormSubmitAndClose:function (param,result) {
+            console.log("betweenFormSubmitAndClose",result);
+            return true;
+        },
+        /**
          * 数据提交后执行
          * */
         afterSubmit:function (param,result) {

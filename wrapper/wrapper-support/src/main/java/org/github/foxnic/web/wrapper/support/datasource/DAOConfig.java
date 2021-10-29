@@ -1,6 +1,7 @@
 package org.github.foxnic.web.wrapper.support.datasource;
 
 import com.github.foxnic.commons.log.Logger;
+import com.github.foxnic.dao.dataperm.DataPermManager;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.dao.spec.DAOBuilder;
 import com.github.foxnic.dao.sql.loader.SQLoader;
@@ -56,6 +57,10 @@ public class DAOConfig {
 			FoxnicDataCacheManager cacheManager=new FoxnicDataCacheManager();
 			dao.setDataCacheManager(cacheManager);
 
+			//配置数据权限管理器
+			DataPermManager dataPermManager=new DataPermManager();
+			dao.setDataPermManager(dataPermManager);
+
 			//设置序列相关的配置
 			dao.setSequenceTable(FoxnicWeb.SYS_SEQUENCE.$NAME);
 			dao.setSequenceProcedure("NEXT_VAL");
@@ -76,15 +81,15 @@ public class DAOConfig {
 			return null;
 		}
 	}
- 
+
 	@Bean
 	public DBTreaty getDBTreaty() {
-		
+
 		DBTreaty dbTreaty=new DBTreaty();
 		//
 		dbTreaty.setAllowDeleteWithoutWhere(false);
 		dbTreaty.setAllowUpdateWithoutWhere(false);
-		
+
 		//
 		dbTreaty.setUserIdDataType(DBDataType.STRING);
 
@@ -107,7 +112,7 @@ public class DAOConfig {
 		//
 		dbTreaty.setFalseValue(0);
 		dbTreaty.setTrueValue(1);
-		
+
 		//设置获取当前用户的逻辑
 		if(SpringUtil.isReady()) {
 
@@ -126,11 +131,11 @@ public class DAOConfig {
 				return null;
 			});
 		}
-		
+
 		//
 		return dbTreaty;
 	}
 
 
-	
+
 }

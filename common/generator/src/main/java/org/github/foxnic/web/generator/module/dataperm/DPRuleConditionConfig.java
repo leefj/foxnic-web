@@ -1,5 +1,8 @@
 package org.github.foxnic.web.generator.module.dataperm;
 
+import com.github.foxnic.api.dataperm.ConditionNodeType;
+import com.github.foxnic.api.dataperm.ExprType;
+import com.github.foxnic.api.dataperm.LogicType;
 import com.github.foxnic.generator.builder.business.option.ControllerOptions;
 import com.github.foxnic.generator.builder.business.option.ServiceOptions;
 import com.github.foxnic.generator.builder.model.PoClassFile;
@@ -9,9 +12,6 @@ import com.github.foxnic.generator.builder.view.option.ListOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.DP_RULE_CONDITION;
-import org.github.foxnic.web.constants.enums.dataperm.ConditionNodeType;
-import org.github.foxnic.web.constants.enums.dataperm.ExprType;
-import org.github.foxnic.web.constants.enums.dataperm.LogicType;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 import org.github.foxnic.web.proxy.dataperm.RuleServiceProxy;
 
@@ -29,6 +29,7 @@ public class DPRuleConditionConfig extends BaseCodeConfig<DP_RULE_CONDITION> {
 
 		poType.shadow(DP_RULE_CONDITION.TYPE, ConditionNodeType.class);
 		poType.shadow(DP_RULE_CONDITION.LOGIC, LogicType.class);
+		poType.shadow(DP_RULE_CONDITION.EXPR_TYPE, ExprType.class);
 
 	}
 
@@ -47,11 +48,13 @@ public class DPRuleConditionConfig extends BaseCodeConfig<DP_RULE_CONDITION> {
 		view.field(DP_RULE_CONDITION.ID).basic().hidden();
 		view.field(DP_RULE_CONDITION.RULE_ID).basic().hidden();
 		view.field(DP_RULE_CONDITION.RANGE_ID).basic().hidden();
+		view.field(DP_RULE_CONDITION.TITLE).basic().label("名称");
 
 		view.field(DP_RULE_CONDITION.QUERY_PROPERTY).basic().label("目标属性")
 				.form().selectBox().queryApi(RuleServiceProxy.QUERY_FIELD_LIST)
 					.toolbar(false)
 					.paging(false).muliti(false).valueField("fullProperty").textField("fullProperty");
+
 		view.field(DP_RULE_CONDITION.QUERY_FIELD).basic().hidden();
 		view.field(DP_RULE_CONDITION.SORT).basic().hidden();
 		view.field(DP_RULE_CONDITION.TYPE).basic().hidden();
@@ -63,6 +66,7 @@ public class DPRuleConditionConfig extends BaseCodeConfig<DP_RULE_CONDITION> {
 
 		view.field(DP_RULE_CONDITION.EXPR).form().textArea().height(100);
 		view.field(DP_RULE_CONDITION.VARIABLES).form().textArea().height(100);
+		view.field(DP_RULE_CONDITION.NOTES).form().textArea().height(100);
 	}
 
 	@Override
@@ -78,9 +82,11 @@ public class DPRuleConditionConfig extends BaseCodeConfig<DP_RULE_CONDITION> {
 		form.columnLayout(new Object[]{
 				DP_RULE_CONDITION.RULE_ID,DP_RULE_CONDITION.RANGE_ID,
 				//
+				DP_RULE_CONDITION.TITLE,
 				DP_RULE_CONDITION.LOGIC,DP_RULE_CONDITION.VALID,
 				DP_RULE_CONDITION.QUERY_PROPERTY,DP_RULE_CONDITION.EXPR_TYPE,
-				DP_RULE_CONDITION.EXPR,DP_RULE_CONDITION.VARIABLES
+				DP_RULE_CONDITION.EXPR,DP_RULE_CONDITION.VARIABLES,
+				DP_RULE_CONDITION.NOTES
 		});
 
 	}

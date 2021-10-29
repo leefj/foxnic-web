@@ -53,6 +53,7 @@ public class DPRuleConfig extends BaseCodeConfig<DP_RULE> {
 	@Override
 	public void configList(ViewOptions view, ListOptions list) {
 		list.operationColumn().addActionButton("范围","openRanges");
+		list.operationColumn().addActionButton("应用","apply");
 	}
 
 	@Override

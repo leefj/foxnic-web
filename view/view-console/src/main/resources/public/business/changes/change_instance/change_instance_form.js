@@ -1,7 +1,7 @@
 /**
  * 变更实例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-28 16:34:34
+ * @since 2021-10-29 13:49:24
  */
 
 function FormPage() {
@@ -49,6 +49,11 @@ function FormPage() {
 	 * */
 	var adjustPopupTask=-1;
 	function adjustPopup() {
+		if(window.pageExt.form.beforeAdjustPopup) {
+			var doNext=window.pageExt.form.beforeAdjustPopup();
+			if(!doNext) return;
+		}
+
 		clearTimeout(adjustPopupTask);
 		var scroll=$(".form-container").attr("scroll");
 		if(scroll=='yes') return;
@@ -189,7 +194,13 @@ function FormPage() {
 			if (data.success) {
 				layer.msg(data.message, {icon: 1, time: 500});
 				var index=admin.getTempData('chs-change-instance-form-data-popup-index');
-				admin.finishPopupCenter(index);
+				var doNext=true;
+				if(window.pageExt.form.betweenFormSubmitAndClose) {
+					doNext=window.pageExt.form.betweenFormSubmitAndClose(param,data);
+				}
+				if(doNext) {
+					admin.finishPopupCenter(index);
+				}
 			} else {
 				layer.msg(data.message, {icon: 2, time: 1000});
 			}

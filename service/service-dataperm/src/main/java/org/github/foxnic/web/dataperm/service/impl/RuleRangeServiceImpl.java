@@ -1,41 +1,42 @@
 package org.github.foxnic.web.dataperm.service.impl;
 
 
-import javax.annotation.Resource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-
-import org.github.foxnic.web.domain.dataperm.RuleRange;
-import org.github.foxnic.web.domain.dataperm.RuleRangeVO;
-import java.util.List;
-import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.entity.SuperService;
-import com.github.foxnic.dao.spec.DAO;
-import java.lang.reflect.Field;
-import com.github.foxnic.commons.busi.id.IDGenerator;
-import com.github.foxnic.sql.expr.ConditionExpr;
+import com.github.foxnic.api.dataperm.ConditionNodeType;
 import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.dao.data.PagedList;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.SuperService;
+import com.github.foxnic.dao.excel.ExcelStructure;
 import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.dao.excel.ExcelStructure;
-import java.io.InputStream;
+import com.github.foxnic.dao.spec.DAO;
+import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.meta.DBColumnMeta;
-import com.github.foxnic.sql.expr.Select;
-import java.util.ArrayList;
+import org.github.foxnic.web.dataperm.service.IRuleConditionService;
 import org.github.foxnic.web.dataperm.service.IRuleRangeService;
+import org.github.foxnic.web.domain.dataperm.RuleCondition;
+import org.github.foxnic.web.domain.dataperm.RuleRange;
 import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
+import java.io.InputStream;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
  * 数据权限规则范围表 服务实现
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-28 10:38:51
+ * @since 2021-10-29 13:21:30
+ * @version
 */
 
 
@@ -45,7 +46,7 @@ public class RuleRangeServiceImpl extends SuperService<RuleRange> implements IRu
 	/**
 	 * 注入DAO对象
 	 * */
-	@Resource(name=DBConfigs.PRIMARY_DAO) 
+	@Resource(name=DBConfigs.PRIMARY_DAO)
 	private DAO dao=null;
 
 	/**
@@ -53,6 +54,9 @@ public class RuleRangeServiceImpl extends SuperService<RuleRange> implements IRu
 	 * */
 	public DAO dao() { return dao; }
 
+
+	@Autowired
+	private IRuleConditionService ruleConditionService;
 
 
 	@Override
@@ -68,8 +72,17 @@ public class RuleRangeServiceImpl extends SuperService<RuleRange> implements IRu
 	 * @return 结果 , 如果失败返回 false，成功返回 true
 	 */
 	@Override
+	@Transactional
 	public Result insert(RuleRange ruleRange,boolean throwsException) {
 		Result r=super.insert(ruleRange,throwsException);
+		if(r.success()) {
+			RuleCondition condition=new RuleCondition();
+			condition.setRuleId(ruleRange.getRuleId());
+			condition.setRangeId(ruleRange.getId());
+			condition.setParentId(IRuleConditionService.ROOT_ID);
+			condition.setTypeEnum(ConditionNodeType.group);
+			ruleConditionService.insert(condition);
+		}
 		return r;
 	}
 
@@ -93,7 +106,7 @@ public class RuleRangeServiceImpl extends SuperService<RuleRange> implements IRu
 		return super.insertList(ruleRangeList);
 	}
 
-	
+
 	/**
 	 * 按主键删除 数据权限规则范围
 	 *
@@ -114,7 +127,7 @@ public class RuleRangeServiceImpl extends SuperService<RuleRange> implements IRu
 			return r;
 		}
 	}
-	
+
 	/**
 	 * 按主键删除 数据权限规则范围
 	 *
@@ -174,7 +187,7 @@ public class RuleRangeServiceImpl extends SuperService<RuleRange> implements IRu
 		return super.updateList(ruleRangeList , mode);
 	}
 
-	
+
 	/**
 	 * 按主键更新字段 数据权限规则范围
 	 *
@@ -188,7 +201,7 @@ public class RuleRangeServiceImpl extends SuperService<RuleRange> implements IRu
 		return suc>0;
 	}
 
-	
+
 	/**
 	 * 按主键获取 数据权限规则范围
 	 *

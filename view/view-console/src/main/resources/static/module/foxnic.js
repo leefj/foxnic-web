@@ -289,7 +289,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             }
         },
         setSelectValue4QueryApi:function (id,value){
-            debugger;
+            // debugger;
             var inst=xmSelect.get(id,true);
             if(inst==null) return;
             var opts=[];

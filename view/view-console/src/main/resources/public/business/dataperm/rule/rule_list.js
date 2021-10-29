@@ -1,7 +1,7 @@
 /**
  * 数据权限规则 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-28 11:47:45
+ * @since 2021-10-29 14:34:16
  */
 
 
@@ -353,6 +353,9 @@ function ListPage() {
 			}
 			else if (layEvent === 'open-ranges') { // 范围
 				window.pageExt.list.openRanges(data);
+			}
+			else if (layEvent === 'apply') { // 应用
+				window.pageExt.list.apply(data);
 			}
 			
 		});

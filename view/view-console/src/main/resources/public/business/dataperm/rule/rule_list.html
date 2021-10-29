@@ -1,8 +1,8 @@
-<!-- 
+<!--
 /**
  * 数据权限规则 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-28 11:47:45
+ * @since 2021-10-29 14:34:16
  */
  -->
  <!DOCTYPE html>
@@ -26,7 +26,7 @@
 <body style="overflow-y: hidden">
 
 <div class="layui-card">
- 
+
     <div class="layui-card-body" style="">
 
         <div class="search-bar" style="">
@@ -104,6 +104,7 @@
     <button th:if="${perm.checkAuth('dp_rule:delete')}" class="layui-btn layui-btn-xs layui-btn-danger ops-delete-button" lay-event="del" th:text="${lang.translate('删除')}" data-id="{{d.id}}">删除</button>
 
     <button class="layui-btn layui-btn-xs " lay-event="open-ranges" th:text="${lang.translate('范围')}" data-id="{{d.id}}">范围</button>
+    <button class="layui-btn layui-btn-xs " lay-event="apply" th:text="${lang.translate('应用')}" data-id="{{d.id}}">应用</button>
 
 </script>
 

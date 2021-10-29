@@ -291,4 +291,9 @@ public interface IRuleService extends ISuperService<Rule> {
 	JSONArray queryFieldList(String ruleId,String searchValue);
 
     PropertyItem getPropertyItem(String ruleId,String fullProperty);
+
+	/**
+	 * 应用数据权限规则
+	 * */
+    Result apply(String id);
 }

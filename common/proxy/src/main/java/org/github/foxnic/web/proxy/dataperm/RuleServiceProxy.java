@@ -72,6 +72,11 @@ public interface RuleServiceProxy {
 	public static final String GET_BY_ID = API_PREFIX + "get-by-id";
 
 	/**
+	 * 应用数据权限规则
+	 * */
+	public static final String APPLY = API_PREFIX + "apply";
+
+	/**
 	 * 获取多个数据权限规则
 	 */
 	public static final String GET_BY_IDS = API_PREFIX + "get-by-ids";

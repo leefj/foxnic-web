@@ -1,6 +1,8 @@
 package org.github.foxnic.web.dataperm.service.impl;
 
 
+import com.github.foxnic.api.dataperm.ConditionNodeType;
+import com.github.foxnic.api.dataperm.LogicType;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.busi.id.IDGenerator;
@@ -22,8 +24,6 @@ import com.github.foxnic.sql.parameter.BatchParamBuilder;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.DP_RULE_CONDITION;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_MENU;
-import org.github.foxnic.web.constants.enums.dataperm.ConditionNodeType;
-import org.github.foxnic.web.constants.enums.dataperm.LogicType;
 import org.github.foxnic.web.dataperm.service.IRuleConditionService;
 import org.github.foxnic.web.dataperm.service.IRuleRangeService;
 import org.github.foxnic.web.dataperm.service.IRuleService;

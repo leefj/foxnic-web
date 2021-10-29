@@ -1,7 +1,7 @@
 /**
  * 数据权限规则范围条件 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-28 19:43:07
+ * @since 2021-10-29 15:31:56
  */
 
 function FormPage() {
@@ -230,7 +230,13 @@ function FormPage() {
 			if (data.success) {
 				layer.msg(data.message, {icon: 1, time: 500});
 				var index=admin.getTempData('dp-rule-condition-form-data-popup-index');
-				admin.finishPopupCenter(index);
+				var doNext=true;
+				if(window.pageExt.form.betweenFormSubmitAndClose) {
+					doNext=window.pageExt.form.betweenFormSubmitAndClose(param,data);
+				}
+				if(doNext) {
+					admin.finishPopupCenter(index);
+				}
 			} else {
 				layer.msg(data.message, {icon: 2, time: 1000});
 			}

@@ -18,6 +18,8 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
     var admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload,laydate= layui.laydate,dropdown=layui.dropdown;
     table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect,foxup=layui.foxnicUpload;
 
+    const moduleURL="/service-dataperm/dp-rule";
+
     //列表页的扩展
     var list={
         /**
@@ -130,7 +132,18 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
         moreAction:function (menu,data, it){
             console.log('moreAction',menu,data,it);
         },
+        apply:function (data) {
+            admin.post(moduleURL+"/apply", { id : data.id }, function (data) {
+                if(data.success) {
+                    layer.msg(data.message, {icon: 1, time: 1500});
+                } else {
+                    layer.msg(data.message, {icon: 2, time: 3000});
+                }
+            },{delayLoading:1000});
+        },
         openRanges:function (data){
+            // debugger
+            admin.putTempData("ruleId",data.id,true);
             var dialogIndex=admin.popupCenter({
                 type:2,
                 id:"ruleRangeDialog",
@@ -139,7 +152,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
                 content: '/business/dataperm/rule_range/rule_range_list.html',
                 area:["800px","400px"]
             });
-            admin.putTempData("org-dialog-index",dialogIndex,true);
+            admin.putTempData("rule-range-dialog-index",dialogIndex,true);
         },
         /**
          * 末尾执行

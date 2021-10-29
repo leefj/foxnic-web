@@ -6,9 +6,10 @@ import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb.DP_RULE_CONDITION;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
-import org.github.foxnic.web.constants.enums.dataperm.ConditionNodeType;
+import com.github.foxnic.api.dataperm.ConditionNodeType;
 import javax.persistence.Transient;
-import org.github.foxnic.web.constants.enums.dataperm.LogicType;
+import com.github.foxnic.api.dataperm.LogicType;
+import com.github.foxnic.api.dataperm.ExprType;
 import java.util.Date;
 import com.github.foxnic.commons.reflect.EnumUtil;
 import com.github.foxnic.commons.lang.StringUtil;
@@ -20,8 +21,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 数据权限规则范围条件
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-28 13:42:03
- * @sign 05EC2378E007F607C2A6962F7E89489F
+ * @since 2021-10-29 15:27:29
+ * @sign 4B28ADEB22DDA316FE1366FC6F0CF82D
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -38,6 +39,12 @@ public class RuleCondition extends Entity {
 	@Id
 	@ApiModelProperty(required = true,value="主键" , notes = "主键")
 	private String id;
+	
+	/**
+	 * 抬头：抬头
+	*/
+	@ApiModelProperty(required = false,value="抬头" , notes = "抬头")
+	private String title;
 	
 	/**
 	 * 规则ID：规则ID
@@ -96,6 +103,8 @@ public class RuleCondition extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="表达式类型" , notes = "表达式类型")
 	private String exprType;
+	@Transient
+	private ExprType exprTypeEnum;
 	
 	/**
 	 * 表达式：表达式
@@ -120,6 +129,12 @@ public class RuleCondition extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="排序" , notes = "排序")
 	private Integer sort;
+	
+	/**
+	 * 备注：备注
+	*/
+	@ApiModelProperty(required = false,value="备注" , notes = "备注")
+	private String notes;
 	
 	/**
 	 * 创建人ID：创建人ID
@@ -185,6 +200,25 @@ public class RuleCondition extends Entity {
 	*/
 	public RuleCondition setId(String id) {
 		this.id=id;
+		return this;
+	}
+	
+	/**
+	 * 获得 抬头<br>
+	 * 抬头
+	 * @return 抬头
+	*/
+	public String getTitle() {
+		return title;
+	}
+	
+	/**
+	 * 设置 抬头
+	 * @param title 抬头
+	 * @return 当前对象
+	*/
+	public RuleCondition setTitle(String title) {
+		this.title=title;
 		return this;
 	}
 	
@@ -416,12 +450,45 @@ public class RuleCondition extends Entity {
 	}
 	
 	/**
+	 * 获得 表达式类型 的投影属性<br>
+	 * 等价于 getExprType 方法，获得对应的枚举类型
+	 * @return 表达式类型
+	*/
+	@Transient
+	public ExprType getExprTypeEnum() {
+		if(this.exprTypeEnum==null) {
+			this.exprTypeEnum = (ExprType) EnumUtil.parseByCode(ExprType.values(),exprType);
+		}
+		return this.exprTypeEnum ;
+	}
+	
+	/**
 	 * 设置 表达式类型
 	 * @param exprType 表达式类型
 	 * @return 当前对象
 	*/
 	public RuleCondition setExprType(String exprType) {
 		this.exprType=exprType;
+		this.exprTypeEnum= (ExprType) EnumUtil.parseByCode(ExprType.values(),exprType) ;
+		if(StringUtil.hasContent(exprType) && this.exprTypeEnum==null) {
+			throw new IllegalArgumentException( exprType + " is not one of ExprType");
+		}
+		return this;
+	}
+	
+	/**
+	 * 设置 表达式类型的投影属性，等同于设置 表达式类型
+	 * @param exprTypeEnum 表达式类型
+	 * @return 当前对象
+	*/
+	@Transient
+	public RuleCondition setExprTypeEnum(ExprType exprTypeEnum) {
+		if(exprTypeEnum==null) {
+			this.setExprType(null);
+		} else {
+			this.setExprType(exprTypeEnum.code());
+		}
+		this.exprTypeEnum=exprTypeEnum;
 		return this;
 	}
 	
@@ -498,6 +565,25 @@ public class RuleCondition extends Entity {
 	*/
 	public RuleCondition setSort(Integer sort) {
 		this.sort=sort;
+		return this;
+	}
+	
+	/**
+	 * 获得 备注<br>
+	 * 备注
+	 * @return 备注
+	*/
+	public String getNotes() {
+		return notes;
+	}
+	
+	/**
+	 * 设置 备注
+	 * @param notes 备注
+	 * @return 当前对象
+	*/
+	public RuleCondition setNotes(String notes) {
+		this.notes=notes;
 		return this;
 	}
 	

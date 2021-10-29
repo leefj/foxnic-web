@@ -314,7 +314,8 @@ function ListPage() {
          	treeNode=nodes[0];
         }
 
-        admin.request(moduleURL+"/insert",{parentId:treeNode?treeNode.id:null,type:type,rangeId: rangeId},function(r) {
+		var ruleId=admin.getTempData("ruleId");
+        admin.request(moduleURL+"/insert",{ruleId:ruleId,parentId:treeNode?treeNode.id:null,type:type,rangeId: rangeId},function(r) {
 			if(r.success) {
 				admin.toast().success("节点已创建",{time:1000,position:"right-bottom"});
 

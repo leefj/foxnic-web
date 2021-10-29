@@ -39,6 +39,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
         afterTableRender :function (){
 
         },
+
         afterSearchInputReady: function() {
             console.log("list:afterSearchInputReady");
         },
@@ -62,7 +63,10 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * @param location 调用的代码位置
          * */
         beforeQuery:function (conditions,param,location) {
+            // debugger
             console.log('beforeQuery',conditions,param,location);
+            var ruleId=admin.getTempData("ruleId");
+            param.ruleId=ruleId;
             return true;
         },
         /**
@@ -191,6 +195,8 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * */
         beforeSubmit:function (data) {
             console.log("beforeSubmit",data);
+            var ruleId=admin.getTempData("ruleId");
+            data.ruleId=ruleId;
             return true;
         },
         /**

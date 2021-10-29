@@ -319,4 +319,20 @@ public class RuleController extends SuperController {
 	}
 
 
+	/**
+	 * 应用数据权限规则
+	 */
+	@ApiOperation(value = "应用数据权限规则")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = RuleVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "1"),
+	})
+	@ApiOperationSupport(order=6)
+	@NotNull(name = RuleVOMeta.ID)
+	@SentinelResource(value = RuleServiceProxy.APPLY , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
+	@PostMapping(RuleServiceProxy.APPLY)
+	public Result apply(String id) {
+		return ruleService.apply(id);
+	}
+
+
 }

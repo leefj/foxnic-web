@@ -147,6 +147,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * 表单初始化前调用
          * */
         beforeInit:function () {
+            admin.putTempData('dp-rule-condition-form-data', null,true);
             //获取参数，并调整下拉框查询用的URL
             //var companyId=admin.getTempData("companyId");
             //fox.setSelectBoxUrl("employeeId","/service-hrm/hrm-employee/query-paged-list?companyId="+companyId);
@@ -181,6 +182,13 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             console.log('dialog',param,result);
         },
         /**
+         * 数据提交后窗口关闭前，如果返回 false，停止后续步骤的执行
+         * */
+        betweenFormSubmitAndClose:function (param,result) {
+            console.log("betweenFormSubmitAndClose",result);
+            return false;
+        },
+        /**
          * 数据提交前，如果返回 false，停止后续步骤的执行
          * */
         beforeSubmit:function (data) {
@@ -195,6 +203,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
         },
 
         loadFormData:function (id) {
+            admin.putTempData('dp-rule-condition-form-data', null,true);
             admin.request(moduleURL+"/get-by-id", { id : id }, function (data) {
                 if(data.success) {
                     admin.putTempData('dp-rule-condition-form-data', data.data,true);
@@ -202,7 +211,15 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
                     // debugger;
                     var box=fox.getSelectBox("queryProperty");
                     box.refresh({id:data.data.ruleId},function (){
-                        fox.setSelectValue4QueryApi("#queryProperty",{fullProperty:data.data.queryProperty,fullProperty:data.data.queryProperty});
+                        // debugger
+                        if(data.data.queryProperty) {
+                            fox.setSelectValue4QueryApi("#queryProperty", {
+                                fullProperty: data.data.queryProperty,
+                                fullProperty: data.data.queryProperty
+                            });
+                        } else {
+                            fox.getSelectBox("queryProperty").setValue([]);
+                        }
                     });
                 } else {
                     layer.msg(data.message, {icon: 1, time: 1500});

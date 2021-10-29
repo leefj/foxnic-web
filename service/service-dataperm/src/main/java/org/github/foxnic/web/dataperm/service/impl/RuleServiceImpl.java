@@ -2,6 +2,7 @@ package org.github.foxnic.web.dataperm.service.impl;
 
 
 import com.alibaba.fastjson.JSONArray;
+import com.github.foxnic.api.dataperm.ConditionNodeType;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.bean.BeanNameUtil;
@@ -13,6 +14,9 @@ import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.reflect.ReflectUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.dataperm.model.DataPermCondition;
+import com.github.foxnic.dao.dataperm.model.DataPermRange;
+import com.github.foxnic.dao.dataperm.model.DataPermRule;
 import com.github.foxnic.dao.entity.Entity;
 import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.dao.excel.ExcelStructure;
@@ -28,7 +32,10 @@ import org.github.foxnic.web.dataperm.service.IRuleRangeService;
 import org.github.foxnic.web.dataperm.service.IRuleService;
 import org.github.foxnic.web.domain.dataperm.PropertyItem;
 import org.github.foxnic.web.domain.dataperm.Rule;
+import org.github.foxnic.web.domain.dataperm.RuleCondition;
 import org.github.foxnic.web.domain.dataperm.RuleRange;
+import org.github.foxnic.web.domain.dataperm.meta.RuleMeta;
+import org.github.foxnic.web.domain.dataperm.meta.RuleRangeMeta;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -307,14 +314,16 @@ public class RuleServiceImpl extends SuperService<Rule> implements IRuleService 
 
 	@Override
 	public JSONArray queryFieldList(String ruleId,String searchValue) {
+		JSONArray array=new JSONArray();
+		if(ruleId==null) {
+			return array;
+		}
 		Rule rule=this.getById(ruleId);
 		if(rule==null) return null;
 		if(StringUtil.isBlank(rule.getPoType())) return null;
 		initPoPropertiesIf(rule.getPoType());
 		List<PropertyItem> list= properties.get(rule.getPoType());
 		//过滤
-		JSONArray array=new JSONArray();
-
 		for (PropertyItem item : list) {
 			if(!StringUtil.isBlank(searchValue)) {
 				if(item.getFullProperty().toLowerCase().contains(searchValue.toLowerCase().trim())) {
@@ -334,6 +343,73 @@ public class RuleServiceImpl extends SuperService<Rule> implements IRuleService 
 		this.initPoPropertiesIf(rule.getPoType());
 		Map<String,PropertyItem> map=this.propertiesMap.get(rule.getPoType());
 		return map.get(fullProperty);
+	}
+
+	@Override
+	public Result apply(String id) {
+		Rule rule=getById(id);
+		dao().fill(rule).with(RuleMeta.RANGES, RuleRangeMeta.CONDITIONS).execute();
+
+		if(rule.getRanges()==null || rule.getRanges().isEmpty()) {
+			return ErrorDesc.failure().message("范围未定义");
+		}
+
+		DataPermRule dataPermRule=new DataPermRule();
+		dataPermRule.setId(rule.getId());
+		dataPermRule.setCode(rule.getCode());
+		dataPermRule.setName(rule.getName());
+		dataPermRule.setPoType(rule.getPoType());
+
+		for (RuleRange range : rule.getRanges()) {
+			if(range.getValid()==0) {
+				continue;
+			}
+			if(range.getConditions()==null || range.getConditions().size()<=1) {
+				return ErrorDesc.failure().message(range.getName() + "条件未定义");
+			}
+			DataPermRange dataPermRange=new DataPermRange();
+			dataPermRange.setId(range.getId());
+			dataPermRange.setName(range.getName());
+			dataPermRule.addRanges(dataPermRange);
+
+			for (RuleCondition condition : range.getConditions()) {
+				if(condition.getValid()==0) {
+					continue;
+				}
+				if(condition.getTypeEnum()== ConditionNodeType.expr) {
+					if (StringUtil.isBlank(condition.getQueryProperty())) {
+						return ErrorDesc.failure().message(range.getName() + "下存在查询属性未定义的条目");
+					}
+					if (condition.getExprTypeEnum() == null) {
+						return ErrorDesc.failure().message(range.getName() + "下存在条件类型未定义的条目");
+					}
+					if (StringUtil.isBlank(condition.getVariables())) {
+						return ErrorDesc.failure().message(range.getName() + "下存在变量未定义的条目");
+					}
+				}
+				//
+				DataPermCondition dataPermCondition=new DataPermCondition();
+				dataPermCondition.setId(condition.getId());
+				dataPermCondition.setExprType(condition.getExprTypeEnum());
+				dataPermCondition.setNodeType(condition.getTypeEnum());
+				dataPermCondition.setQueryField(condition.getQueryField());
+				dataPermCondition.setQueryProperty(condition.getQueryProperty());
+
+
+				dataPermRange.addConditions(dataPermCondition);
+			}
+			if(dataPermRange.getConditions().size()<=1) {
+				return ErrorDesc.failure().message(range.getName() + "缺少有效的条件");
+			}
+		}
+
+		if(dataPermRule.getRanges().isEmpty()) {
+			return ErrorDesc.failure().message("缺少有效的范围");
+		}
+
+		dao().getDataPermManager().apply(dataPermRule);
+
+		return ErrorDesc.success();
 	}
 
 	private void collectPoFields(PropertyItem parent,Class poType,List<PropertyItem> list) {

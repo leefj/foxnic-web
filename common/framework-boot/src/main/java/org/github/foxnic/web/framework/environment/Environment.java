@@ -2,6 +2,9 @@ package org.github.foxnic.web.framework.environment;
 
 import com.github.foxnic.commons.network.Machine;
 
+import java.sql.Timestamp;
+import java.util.Date;
+
 public class Environment {
 
     private static Environment environment = new Environment();
@@ -36,6 +39,13 @@ public class Environment {
         return machineId;
     }
 
+    public Date getNowDate() {
+        return new Date();
+    }
+
+    public Timestamp getNowTimestamp() {
+        return new Timestamp(System.currentTimeMillis());
+    }
 
 
 }

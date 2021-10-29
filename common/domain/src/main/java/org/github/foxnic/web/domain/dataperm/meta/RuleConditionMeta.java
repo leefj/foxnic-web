@@ -8,8 +8,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-28 13:42:03
- * @sign 05EC2378E007F607C2A6962F7E89489F
+ * @since 2021-10-29 15:27:29
+ * @sign 4B28ADEB22DDA316FE1366FC6F0CF82D
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -24,6 +24,16 @@ public class RuleConditionMeta {
 	 * 主键 , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.RuleCondition,java.lang.String> ID_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.RuleCondition.class ,ID, java.lang.String.class, "主键", "主键", java.lang.String.class, null);
+	
+	/**
+	 * 抬头 , 类型: java.lang.String
+	*/
+	public static final String TITLE="title";
+	
+	/**
+	 * 抬头 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.RuleCondition,java.lang.String> TITLE_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.RuleCondition.class ,TITLE, java.lang.String.class, "抬头", "抬头", java.lang.String.class, null);
 	
 	/**
 	 * 规则ID , 类型: java.lang.String
@@ -156,6 +166,16 @@ public class RuleConditionMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.RuleCondition,java.lang.Integer> SORT_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.RuleCondition.class ,SORT, java.lang.Integer.class, "排序", "排序", java.lang.Integer.class, null);
 	
 	/**
+	 * 备注 , 类型: java.lang.String
+	*/
+	public static final String NOTES="notes";
+	
+	/**
+	 * 备注 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.RuleCondition,java.lang.String> NOTES_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.RuleCondition.class ,NOTES, java.lang.String.class, "备注", "备注", java.lang.String.class, null);
+	
+	/**
 	 * 创建人ID , 类型: java.lang.String
 	*/
 	public static final String CREATE_BY="createBy";
@@ -238,7 +258,7 @@ public class RuleConditionMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , RULE_ID , RANGE_ID , HIERARCHY , PARENT_ID , QUERY_PROPERTY , QUERY_FIELD , TYPE , LOGIC , EXPR_TYPE , EXPR , VALID , VARIABLES , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , TITLE , RULE_ID , RANGE_ID , HIERARCHY , PARENT_ID , QUERY_PROPERTY , QUERY_FIELD , TYPE , LOGIC , EXPR_TYPE , EXPR , VALID , VARIABLES , SORT , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
 	
 	/**
 	 * 代理类
@@ -256,6 +276,17 @@ public class RuleConditionMeta {
 		public RuleCondition setId(String id) {
 			super.change(ID,super.getId(),id);
 			super.setId(id);
+			return this;
+		}
+		
+		/**
+		 * 设置 抬头
+		 * @param title 抬头
+		 * @return 当前对象
+		*/
+		public RuleCondition setTitle(String title) {
+			super.change(TITLE,super.getTitle(),title);
+			super.setTitle(title);
 			return this;
 		}
 		
@@ -399,6 +430,17 @@ public class RuleConditionMeta {
 		public RuleCondition setSort(Integer sort) {
 			super.change(SORT,super.getSort(),sort);
 			super.setSort(sort);
+			return this;
+		}
+		
+		/**
+		 * 设置 备注
+		 * @param notes 备注
+		 * @return 当前对象
+		*/
+		public RuleCondition setNotes(String notes) {
+			super.change(NOTES,super.getNotes(),notes);
+			super.setNotes(notes);
 			return this;
 		}
 		
