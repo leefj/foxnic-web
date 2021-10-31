@@ -8,8 +8,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-14 16:09:12
- * @sign A64BB9EEB4F53E546B2921D9B80DF24E
+ * @since 2021-10-30 08:27:53
+ * @sign 721919CE8968CF990FFB1973AD05074E
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -28,12 +28,12 @@ public class SubjectPropertyMeta {
 	/**
 	 * 主题ID , 类型: java.lang.String
 	*/
-	public static final String SUBJECT_ID="subjectId";
+	public static final String SUBJECT_CODE="subjectCode";
 	
 	/**
 	 * 主题ID , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.SubjectProperty,java.lang.String> SUBJECT_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.SubjectProperty.class ,SUBJECT_ID, java.lang.String.class, "主题ID", "主题ID", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.SubjectProperty,java.lang.String> SUBJECT_CODE_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.SubjectProperty.class ,SUBJECT_CODE, java.lang.String.class, "主题ID", "主题ID", java.lang.String.class, null);
 	
 	/**
 	 * 属性名称 , 类型: java.lang.String
@@ -46,14 +46,24 @@ public class SubjectPropertyMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.SubjectProperty,java.lang.String> NAME_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.SubjectProperty.class ,NAME, java.lang.String.class, "属性名称", "属性名称", java.lang.String.class, null);
 	
 	/**
-	 * 属性 , 层级用点号隔开 , 类型: java.lang.String
+	 * 变量 , 类型: java.lang.String
+	*/
+	public static final String VARIABLE="variable";
+	
+	/**
+	 * 变量 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.SubjectProperty,java.lang.String> VARIABLE_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.SubjectProperty.class ,VARIABLE, java.lang.String.class, "变量", "变量", java.lang.String.class, null);
+	
+	/**
+	 * 属性完整路径 , 层级用点号隔开 , 类型: java.lang.String
 	*/
 	public static final String PROPERTY="property";
 	
 	/**
-	 * 属性 , 层级用点号隔开 , 类型: java.lang.String
+	 * 属性完整路径 , 层级用点号隔开 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.SubjectProperty,java.lang.String> PROPERTY_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.SubjectProperty.class ,PROPERTY, java.lang.String.class, "属性", "层级用点号隔开", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.SubjectProperty,java.lang.String> PROPERTY_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.SubjectProperty.class ,PROPERTY, java.lang.String.class, "属性完整路径", "层级用点号隔开", java.lang.String.class, null);
 	
 	/**
 	 * 是否生效 , 类型: java.lang.Integer
@@ -158,7 +168,7 @@ public class SubjectPropertyMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , SUBJECT_ID , NAME , PROPERTY , VALID , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , SUBJECT_CODE , NAME , VARIABLE , PROPERTY , VALID , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
 	
 	/**
 	 * 代理类
@@ -181,12 +191,12 @@ public class SubjectPropertyMeta {
 		
 		/**
 		 * 设置 主题ID
-		 * @param subjectId 主题ID
+		 * @param subjectCode 主题ID
 		 * @return 当前对象
 		*/
-		public SubjectProperty setSubjectId(String subjectId) {
-			super.change(SUBJECT_ID,super.getSubjectId(),subjectId);
-			super.setSubjectId(subjectId);
+		public SubjectProperty setSubjectCode(String subjectCode) {
+			super.change(SUBJECT_CODE,super.getSubjectCode(),subjectCode);
+			super.setSubjectCode(subjectCode);
 			return this;
 		}
 		
@@ -202,8 +212,19 @@ public class SubjectPropertyMeta {
 		}
 		
 		/**
-		 * 设置 属性
-		 * @param property 属性
+		 * 设置 变量
+		 * @param variable 变量
+		 * @return 当前对象
+		*/
+		public SubjectProperty setVariable(String variable) {
+			super.change(VARIABLE,super.getVariable(),variable);
+			super.setVariable(variable);
+			return this;
+		}
+		
+		/**
+		 * 设置 属性完整路径
+		 * @param property 属性完整路径
 		 * @return 当前对象
 		*/
 		public SubjectProperty setProperty(String property) {

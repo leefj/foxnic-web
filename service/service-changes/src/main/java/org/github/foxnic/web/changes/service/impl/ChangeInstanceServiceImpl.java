@@ -1,7 +1,10 @@
 package org.github.foxnic.web.changes.service.impl;
 
 
+import com.alibaba.fastjson.JSONArray;
 import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.model.CompositeItem;
+import com.github.foxnic.api.model.CompositeParameter;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.busi.id.IDGenerator;
 import com.github.foxnic.commons.lang.StringUtil;
@@ -14,9 +17,11 @@ import com.github.foxnic.dao.excel.ValidateResult;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
-import org.github.foxnic.web.changes.service.*;
+import org.github.foxnic.web.changes.service.IChangeDefinitionService;
+import org.github.foxnic.web.changes.service.IChangeInstanceService;
 import org.github.foxnic.web.changes.service.approval.BpmApproval;
 import org.github.foxnic.web.changes.service.approval.SimpleApproval;
+import org.github.foxnic.web.constants.enums.bpm.ApproveCatalog;
 import org.github.foxnic.web.constants.enums.changes.ApprovalMode;
 import org.github.foxnic.web.domain.changes.*;
 import org.github.foxnic.web.framework.cache.RedisUtil;
@@ -221,7 +226,36 @@ public class ChangeInstanceServiceImpl extends SuperService<ChangeInstance> impl
 	 * */
 	@Override
 	public PagedList<ChangeInstance> queryPagedList(ChangeInstance sample, int pageSize, int pageIndex) {
-		return super.queryPagedList(sample, pageSize, pageIndex);
+		ApproveCatalog catalog=null;
+		if(sample instanceof ChangeInstanceVO) {
+			CompositeParameter parameter=((ChangeInstanceVO)sample).getCompositeParameter();
+			CompositeItem item= parameter.getItem("catalog");
+			if(item!=null) {
+				JSONArray catas = (JSONArray) item.getValue();
+				if(catas!=null && catas.size()>0) {
+					String cata=catas.getString(0);
+					catalog = ApproveCatalog.parseByCode(cata);
+				}
+			}
+		}
+
+		String dpcode=null;
+		if(catalog==ApproveCatalog.drafted) {
+			//我起草的流程
+			dpcode="chs_instance_drafted";
+		} else if(catalog==ApproveCatalog.approving) {
+			//我待审的流程
+			dpcode="chs_instance_approving";
+		} else if(catalog==ApproveCatalog.approved) {
+			//我办结的流程
+			dpcode="chs_instance_approved";
+		} else {
+			//与我有关的流程
+			dpcode="chs_instance_joined";
+		}
+
+
+		return super.queryPagedList(sample, pageSize, pageIndex,dpcode);
 	}
 
 	/**
@@ -235,7 +269,7 @@ public class ChangeInstanceServiceImpl extends SuperService<ChangeInstance> impl
 	 * */
 	@Override
 	public PagedList<ChangeInstance> queryPagedList(ChangeInstance sample, ConditionExpr condition, int pageSize, int pageIndex) {
-		return super.queryPagedList(sample, condition, pageSize, pageIndex);
+		return super.queryPagedList(sample, condition, pageSize, pageIndex,"chs_instance_demo");
 	}
 
 	/**

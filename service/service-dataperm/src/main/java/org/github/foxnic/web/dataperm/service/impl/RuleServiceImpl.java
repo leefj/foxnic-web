@@ -9,8 +9,10 @@ import com.github.foxnic.commons.bean.BeanNameUtil;
 import com.github.foxnic.commons.busi.id.IDGenerator;
 import com.github.foxnic.commons.cache.LocalCache;
 import com.github.foxnic.commons.collection.CollectorUtil;
+import com.github.foxnic.commons.concurrent.task.SimpleTaskManager;
 import com.github.foxnic.commons.lang.DataParser;
 import com.github.foxnic.commons.lang.StringUtil;
+import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.commons.reflect.ReflectUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
@@ -41,6 +43,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.io.InputStream;
 import java.lang.reflect.Field;
@@ -76,6 +79,16 @@ public class RuleServiceImpl extends SuperService<Rule> implements IRuleService 
 	 * 获得 DAO 对象
 	 * */
 	public DAO dao() { return dao; }
+
+	@PostConstruct
+	private void init() {
+		SimpleTaskManager.doParallelTask(new Runnable() {
+			@Override
+			public void run() {
+				applyAll();
+			}
+		});
+	}
 
 
 
@@ -349,6 +362,28 @@ public class RuleServiceImpl extends SuperService<Rule> implements IRuleService 
 	public Result apply(String id) {
 		Rule rule=getById(id);
 		dao().fill(rule).with(RuleMeta.RANGES, RuleRangeMeta.CONDITIONS).execute();
+		return apply(rule);
+	}
+
+	public void applyAll() {
+		Rule sample=new Rule();
+		sample.setValid(1).setDeleted(0);
+		List<Rule> rules=this.queryList(sample);
+		dao().fill(rules).with(RuleMeta.RANGES, RuleRangeMeta.CONDITIONS).execute();
+		int success=0;
+		for (Rule rule : rules) {
+			Result result=apply(rule);
+			if(result.success()) {
+				success++;
+				Logger.info("注册数据权限:"+rule.getName()+"("+rule.getCode()+") 成功");
+			} else {
+				Logger.info("注册数据权限:"+rule.getName()+"("+rule.getCode()+") 失败 : "+result.message());
+			}
+
+		}
+	}
+
+	public Result apply(Rule rule) {
 
 		if(rule.getRanges()==null || rule.getRanges().isEmpty()) {
 			return ErrorDesc.failure().message("范围未定义");
@@ -390,11 +425,17 @@ public class RuleServiceImpl extends SuperService<Rule> implements IRuleService 
 				//
 				DataPermCondition dataPermCondition=new DataPermCondition();
 				dataPermCondition.setId(condition.getId());
+				dataPermCondition.setParentId(condition.getParentId());
+				dataPermCondition.setLogicType(condition.getLogicEnum());
 				dataPermCondition.setExprType(condition.getExprTypeEnum());
 				dataPermCondition.setNodeType(condition.getTypeEnum());
 				dataPermCondition.setQueryField(condition.getQueryField());
 				dataPermCondition.setQueryProperty(condition.getQueryProperty());
-
+				dataPermCondition.setSort(condition.getSort());
+				dataPermCondition.setTitle(condition.getTitle());
+				dataPermCondition.setNotes(condition.getNotes());
+				JSONArray vars=JSONArray.parseArray(condition.getVariables());
+				dataPermCondition.setVaribales(vars);
 
 				dataPermRange.addConditions(dataPermCondition);
 			}

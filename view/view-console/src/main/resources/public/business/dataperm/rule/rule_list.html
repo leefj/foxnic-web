@@ -2,7 +2,7 @@
 /**
  * 数据权限规则 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-29 14:34:16
+ * @since 2021-10-30 10:29:41
  */
  -->
  <!DOCTYPE html>
@@ -35,9 +35,9 @@
                 <!-- 搜索输入区域 -->
                 <div class="layui-form toolbar search-inputs">
                     <!-- 主键 , id ,typeName=text_input, isHideInSearch=true -->
-                    <!-- po类型 , poType ,typeName=text_input, isHideInSearch=false -->
+                    <!-- PO类型 , poType ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('po类型')}" class="search-label poType-label">po类型</span><span class="search-colon">:</span></div>
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('PO类型')}" class="search-label poType-label">PO类型</span><span class="search-colon">:</span></div>
                         <input id="poType" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
                     <!-- 代码 , code ,typeName=text_input, isHideInSearch=false -->
@@ -51,9 +51,9 @@
                         <input id="name" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
                     <!-- 版本 , versionNo ,typeName=number_input, isHideInSearch=true -->
-                    <!-- 生效 , valid ,typeName=logic_switch, isHideInSearch=false -->
+                    <!-- 有效 , valid ,typeName=logic_switch, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('生效')}" class="search-label valid-label">生效</span><span class="search-colon">:</span></div>
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('有效')}" class="search-label valid-label">有效</span><span class="search-colon">:</span></div>
                         <div id="valid" data='[{"name":"是","value":"1"},{"name":"否","value":"0"}]' style="width:140px"></div>
                     </div>
                     <!-- 备注 , notes ,typeName=text_input, isHideInSearch=false -->

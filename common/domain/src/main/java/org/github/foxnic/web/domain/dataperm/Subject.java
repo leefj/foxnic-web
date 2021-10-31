@@ -18,8 +18,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 数据权限主体
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-28 10:00:44
- * @sign B1CE11E178D557CB62D9F4158D3DB0D0
+ * @since 2021-10-30 08:27:46
+ * @sign D6588F7919A16E4D6426EE2D6A1294E5
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -31,16 +31,10 @@ public class Subject extends Entity {
 	public static final DBTable TABLE =DP_SUBJECT.$TABLE;
 	
 	/**
-	 * 主键：主键
-	*/
-	@Id
-	@ApiModelProperty(required = true,value="主键" , notes = "主键")
-	private String id;
-	
-	/**
 	 * 代码：代码
 	*/
-	@ApiModelProperty(required = false,value="代码" , notes = "代码")
+	@Id
+	@ApiModelProperty(required = true,value="代码" , notes = "代码")
 	private String code;
 	
 	/**
@@ -50,22 +44,10 @@ public class Subject extends Entity {
 	private String name;
 	
 	/**
-	 * Subject：对象获取类名称
-	*/
-	@ApiModelProperty(required = false,value="Subject" , notes = "对象获取类名称")
-	private String getter;
-	
-	/**
 	 * 类型：类型
 	*/
 	@ApiModelProperty(required = false,value="类型" , notes = "类型")
 	private String type;
-	
-	/**
-	 * 是否生效：是否生效
-	*/
-	@ApiModelProperty(required = false,value="是否生效" , notes = "是否生效")
-	private Integer valid;
 	
 	/**
 	 * 创建人ID：创建人ID
@@ -122,25 +104,6 @@ public class Subject extends Entity {
 	private List<SubjectProperty> properties;
 	
 	/**
-	 * 获得 主键<br>
-	 * 主键
-	 * @return 主键
-	*/
-	public String getId() {
-		return id;
-	}
-	
-	/**
-	 * 设置 主键
-	 * @param id 主键
-	 * @return 当前对象
-	*/
-	public Subject setId(String id) {
-		this.id=id;
-		return this;
-	}
-	
-	/**
 	 * 获得 代码<br>
 	 * 代码
 	 * @return 代码
@@ -179,25 +142,6 @@ public class Subject extends Entity {
 	}
 	
 	/**
-	 * 获得 Subject<br>
-	 * 对象获取类名称
-	 * @return Subject
-	*/
-	public String getGetter() {
-		return getter;
-	}
-	
-	/**
-	 * 设置 Subject
-	 * @param getter Subject
-	 * @return 当前对象
-	*/
-	public Subject setGetter(String getter) {
-		this.getter=getter;
-		return this;
-	}
-	
-	/**
 	 * 获得 类型<br>
 	 * 类型
 	 * @return 类型
@@ -213,25 +157,6 @@ public class Subject extends Entity {
 	*/
 	public Subject setType(String type) {
 		this.type=type;
-		return this;
-	}
-	
-	/**
-	 * 获得 是否生效<br>
-	 * 是否生效
-	 * @return 是否生效
-	*/
-	public Integer getValid() {
-		return valid;
-	}
-	
-	/**
-	 * 设置 是否生效
-	 * @param valid 是否生效
-	 * @return 当前对象
-	*/
-	public Subject setValid(Integer valid) {
-		this.valid=valid;
 		return this;
 	}
 	

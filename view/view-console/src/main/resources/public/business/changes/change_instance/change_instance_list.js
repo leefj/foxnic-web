@@ -1,7 +1,7 @@
 /**
  * 变更实例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-29 13:49:23
+ * @since 2021-10-30 10:17:02
  */
 
 
@@ -89,6 +89,7 @@ function ListPage() {
 					,{ field: 'finishTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('结束时间'), templet: function (d) { return templet('finishTime',fox.dateFormat(d.finishTime,"yyyy-MM-dd HH:mm:ss"),d); }}
 					,{ field: 'simpleApprovers', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('默认审批人信息JSONArray格式') , templet: function (d) { return templet('simpleApprovers',d.simpleApprovers,d);}  }
 					,{ field: 'simpleNodeId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('简单模式的节点ID') , templet: function (d) { return templet('simpleNodeId',d.simpleNodeId,d);}  }
+					,{ field: 'catalog', align:"",fixed:false,  hide:false, sort: true, title: fox.translate('分类'), templet:function (d){ return templet('catalog',fox.getEnumText(SELECT_CATALOG_DATA,d.catalog),d);}}
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
 				]],
@@ -127,6 +128,7 @@ function ListPage() {
 		value.drafterName={ inputType:"button",value: $("#drafterName").val()};
 		value.status={ inputType:"radio_box", value: xmSelect.get("#status",true).getValue("value"), label:xmSelect.get("#status",true).getValue("nameStr") };
 		value.type={ inputType:"radio_box", value: xmSelect.get("#type",true).getValue("value"), label:xmSelect.get("#type",true).getValue("nameStr") };
+		value.catalog={ inputType:"select_box", value: xmSelect.get("#catalog",true).getValue("value"), label:xmSelect.get("#catalog",true).getValue("nameStr") };
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;
@@ -212,6 +214,23 @@ function ListPage() {
 			size: "small",
 			radio: false,
 			//toolbar: {show:true,showIcon:true,list:["CLEAR","REVERSE"]},
+			transform:function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				var opts=[];
+				if(!data) return opts;
+				for (var i = 0; i < data.length; i++) {
+					opts.push({name:data[i].text,value:data[i].code});
+				}
+				return opts;
+			}
+		});
+		//渲染 catalog 下拉字段
+		fox.renderSelectBox({
+			el: "catalog",
+			radio: true,
+			size: "small",
+			filterable: false,
+			//转换数据
 			transform:function(data) {
 				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
 				var opts=[];

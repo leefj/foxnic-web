@@ -1,7 +1,7 @@
 /**
  * 数据权限主体 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-28 10:00:44
+ * @since 2021-10-30 08:27:48
  */
 
 
@@ -74,12 +74,9 @@ function ListPage() {
 				cols: [[
 					{ fixed: 'left',type: 'numbers' },
 					{ fixed: 'left',type:'checkbox'}
-					,{ field: 'id', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('主键') , templet: function (d) { return templet('id',d.id,d);}  }
 					,{ field: 'code', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('代码') , templet: function (d) { return templet('code',d.code,d);}  }
 					,{ field: 'name', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('名称') , templet: function (d) { return templet('name',d.name,d);}  }
-					,{ field: 'getter', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('Subject') , templet: function (d) { return templet('getter',d.getter,d);}  }
 					,{ field: 'type', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('类型') , templet: function (d) { return templet('type',d.type,d);}  }
-					,{ field: 'valid', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('是否生效') , templet: function (d) { return templet('valid',d.valid,d);}  }
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }}
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
@@ -115,12 +112,9 @@ function ListPage() {
       */
 	function refreshTableData(sortField,sortType,reset) {
 		var value = {};
-		value.id={ inputType:"button",value: $("#id").val()};
 		value.code={ inputType:"button",value: $("#code").val()};
 		value.name={ inputType:"button",value: $("#name").val()};
-		value.getter={ inputType:"button",value: $("#getter").val()};
 		value.type={ inputType:"button",value: $("#type").val()};
-		value.valid={ inputType:"number_input", value: $("#valid").val() };
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;
@@ -208,7 +202,7 @@ function ListPage() {
 		//头工具栏事件
 		table.on('toolbar(data-table)', function(obj){
 			var checkStatus = table.checkStatus(obj.config.id);
-			var selected=getCheckedList("id");
+			var selected=getCheckedList("code");
 			if(window.pageExt.list.beforeToolBarButtonEvent) {
 				var doNext=window.pageExt.list.beforeToolBarButtonEvent(selected,obj);
 				if(!doNext) return;
@@ -245,7 +239,7 @@ function ListPage() {
 				if(!doNext) return;
 			}
 
-			var ids=getCheckedList("id");
+			var ids=getCheckedList("code");
             if(ids.length==0) {
 				top.layer.msg(fox.translate('请选择需要删除的')+fox.translate('数据权限主体')+"!");
             	return;
@@ -254,7 +248,7 @@ function ListPage() {
 			top.layer.confirm(fox.translate('确定删除已选中的')+fox.translate('数据权限主体')+fox.translate('吗？'), function (i) {
 				top.layer.close(i);
 				top.layer.load(2);
-                admin.request(moduleURL+"/delete-by-ids", { ids: ids }, function (data) {
+                admin.request(moduleURL+"/delete-by-ids", { codes: ids }, function (data) {
 					top.layer.closeAll('loading');
                     if (data.success) {
 						if(window.pageExt.list.afterBatchDelete) {
@@ -290,7 +284,7 @@ function ListPage() {
 			if (layEvent === 'edit') { // 修改
 				//延迟显示加载动画，避免界面闪动
 				var task=setTimeout(function(){layer.load(2);},1000);
-				admin.request(moduleURL+"/get-by-id", { id : data.id }, function (data) {
+				admin.request(moduleURL+"/get-by-id", { code : data.code }, function (data) {
 					clearTimeout(task);
 					layer.closeAll('loading');
 					if(data.success) {
@@ -303,7 +297,7 @@ function ListPage() {
 			} else if (layEvent === 'view') { // 查看
 				//延迟显示加载动画，避免界面闪动
 				var task=setTimeout(function(){layer.load(2);},1000);
-				admin.request(moduleURL+"/get-by-id", { id : data.id }, function (data) {
+				admin.request(moduleURL+"/get-by-id", { code : data.code }, function (data) {
 					clearTimeout(task);
 					layer.closeAll('loading');
 					if(data.success) {
@@ -325,7 +319,7 @@ function ListPage() {
 					top.layer.close(i);
 
 					top.layer.load(2);
-					admin.request(moduleURL+"/delete", { id : data.id }, function (data) {
+					admin.request(moduleURL+"/delete", { code : data.code }, function (data) {
 						top.layer.closeAll('loading');
 						if (data.success) {
 							if(window.pageExt.list.afterSingleDelete) {
@@ -356,7 +350,7 @@ function ListPage() {
 		}
 		var action=admin.getTempData('dp-subject-form-data-form-action');
 		var queryString="";
-		if(data && data.id) queryString="?" + 'id=' + data.id;
+		if(data && data.code) queryString="?" + 'code=' + data.code;
 		admin.putTempData('dp-subject-form-data', data);
 		var area=admin.getTempData('dp-subject-form-area');
 		var height= (area && area.height) ? area.height : ($(window).height()*0.6);

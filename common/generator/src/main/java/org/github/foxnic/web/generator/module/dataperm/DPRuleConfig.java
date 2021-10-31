@@ -40,13 +40,16 @@ public class DPRuleConfig extends BaseCodeConfig<DP_RULE> {
 	public void configFields(ViewOptions view) {
 		view.field(DP_RULE.ID).search().hidden();
 		view.field(DP_RULE.VERSION_NO).basic().label("版本").search().hidden();
-		view.field(DP_RULE.VALID).basic().label("生效").form().logicField().off("否",0).on("是",1).defaultValue(false);
+		view.field(DP_RULE.VALID).basic().label("有效").form().logicField().off("否",0).on("是",1).defaultValue(true);
+		view.field(DP_RULE.PO_TYPE).basic().label("PO类型");
 	}
 
 	@Override
 	public void configForm(ViewOptions view, FormOptions form) {
 		form.columnLayout(new Object[] {
-				DP_RULE.CODE,DP_RULE.NAME,DP_RULE.VALID,DP_RULE.NOTES
+				DP_RULE.CODE,DP_RULE.NAME,DP_RULE.VALID,
+				DP_RULE.PO_TYPE,
+				DP_RULE.NOTES
 		});
 	}
 

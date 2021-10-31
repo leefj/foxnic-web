@@ -51,7 +51,7 @@ public class DataPermRelationManager extends RelationManager {
 
 		//主题 - 属性
 		this.property(SubjectMeta.PROPERTIES_PROP)
-				.using(FoxnicWeb.DP_SUBJECT.ID).join(FoxnicWeb.DP_SUBJECT_PROPERTY.SUBJECT_ID)
+				.using(FoxnicWeb.DP_SUBJECT.CODE).join(FoxnicWeb.DP_SUBJECT_PROPERTY.SUBJECT_CODE)
 		;
 
 		//规则 - 范围

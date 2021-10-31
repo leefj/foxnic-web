@@ -1,8 +1,8 @@
-<!-- 
+<!--
 /**
  * 数据权限主体属性 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-28 10:00:45
+ * @since 2021-10-30 08:27:53
  */
  -->
  <!DOCTYPE html>
@@ -26,7 +26,7 @@
 <body style="overflow-y: hidden">
 
 <div class="layui-card">
- 
+
     <div class="layui-card-body" style="">
 
         <div class="search-bar" style="">
@@ -39,19 +39,24 @@
                         <div class="search-label-div" style=""><span th:text="${lang.translate('主键')}" class="search-label id-label">主键</span><span class="search-colon">:</span></div>
                         <input id="id" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
-                    <!-- 主题ID , subjectId ,typeName=text_input, isHideInSearch=false -->
+                    <!-- 主题ID , subjectCode ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('主题ID')}" class="search-label subjectId-label">主题ID</span><span class="search-colon">:</span></div>
-                        <input id="subjectId" class="layui-input search-input" style="width: 140px" type="text" />
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('主题ID')}" class="search-label subjectCode-label">主题ID</span><span class="search-colon">:</span></div>
+                        <input id="subjectCode" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
                     <!-- 属性名称 , name ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('属性名称')}" class="search-label name-label">属性名称</span><span class="search-colon">:</span></div>
                         <input id="name" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
-                    <!-- 属性 , property ,typeName=text_input, isHideInSearch=false -->
+                    <!-- 变量 , variable ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('属性')}" class="search-label property-label">属性</span><span class="search-colon">:</span></div>
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('变量')}" class="search-label variable-label">变量</span><span class="search-colon">:</span></div>
+                        <input id="variable" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 属性完整路径 , property ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('属性完整路径')}" class="search-label property-label">属性完整路径</span><span class="search-colon">:</span></div>
                         <input id="property" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
                     <!-- 是否生效 , valid ,typeName=number_input, isHideInSearch=false -->

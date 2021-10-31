@@ -10,22 +10,12 @@ import java.util.List;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-28 10:00:44
- * @sign B1CE11E178D557CB62D9F4158D3DB0D0
+ * @since 2021-10-30 08:27:46
+ * @sign D6588F7919A16E4D6426EE2D6A1294E5
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
 public class SubjectMeta {
-	
-	/**
-	 * 主键 , 类型: java.lang.String
-	*/
-	public static final String ID="id";
-	
-	/**
-	 * 主键 , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.Subject,java.lang.String> ID_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.Subject.class ,ID, java.lang.String.class, "主键", "主键", java.lang.String.class, null);
 	
 	/**
 	 * 代码 , 类型: java.lang.String
@@ -48,16 +38,6 @@ public class SubjectMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.Subject,java.lang.String> NAME_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.Subject.class ,NAME, java.lang.String.class, "名称", "名称", java.lang.String.class, null);
 	
 	/**
-	 * Subject , 对象获取类名称 , 类型: java.lang.String
-	*/
-	public static final String GETTER="getter";
-	
-	/**
-	 * Subject , 对象获取类名称 , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.Subject,java.lang.String> GETTER_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.Subject.class ,GETTER, java.lang.String.class, "Subject", "对象获取类名称", java.lang.String.class, null);
-	
-	/**
 	 * 类型 , 类型: java.lang.String
 	*/
 	public static final String TYPE="type";
@@ -66,16 +46,6 @@ public class SubjectMeta {
 	 * 类型 , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.Subject,java.lang.String> TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.Subject.class ,TYPE, java.lang.String.class, "类型", "类型", java.lang.String.class, null);
-	
-	/**
-	 * 是否生效 , 类型: java.lang.Integer
-	*/
-	public static final String VALID="valid";
-	
-	/**
-	 * 是否生效 , 类型: java.lang.Integer
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.Subject,java.lang.Integer> VALID_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.Subject.class ,VALID, java.lang.Integer.class, "是否生效", "是否生效", java.lang.Integer.class, null);
 	
 	/**
 	 * 创建人ID , 类型: java.lang.String
@@ -170,7 +140,7 @@ public class SubjectMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , CODE , NAME , GETTER , TYPE , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , PROPERTIES };
+	public static final String[] $PROPS={ CODE , NAME , TYPE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , PROPERTIES };
 	
 	/**
 	 * 代理类
@@ -179,17 +149,6 @@ public class SubjectMeta {
 
 		private static final long serialVersionUID = 1L;
 
-		
-		/**
-		 * 设置 主键
-		 * @param id 主键
-		 * @return 当前对象
-		*/
-		public Subject setId(String id) {
-			super.change(ID,super.getId(),id);
-			super.setId(id);
-			return this;
-		}
 		
 		/**
 		 * 设置 代码
@@ -214,17 +173,6 @@ public class SubjectMeta {
 		}
 		
 		/**
-		 * 设置 Subject
-		 * @param getter Subject
-		 * @return 当前对象
-		*/
-		public Subject setGetter(String getter) {
-			super.change(GETTER,super.getGetter(),getter);
-			super.setGetter(getter);
-			return this;
-		}
-		
-		/**
 		 * 设置 类型
 		 * @param type 类型
 		 * @return 当前对象
@@ -232,17 +180,6 @@ public class SubjectMeta {
 		public Subject setType(String type) {
 			super.change(TYPE,super.getType(),type);
 			super.setType(type);
-			return this;
-		}
-		
-		/**
-		 * 设置 是否生效
-		 * @param valid 是否生效
-		 * @return 当前对象
-		*/
-		public Subject setValid(Integer valid) {
-			super.change(VALID,super.getValid(),valid);
-			super.setValid(valid);
 			return this;
 		}
 		

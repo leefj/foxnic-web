@@ -1,7 +1,7 @@
 /**
  * 数据权限规则 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-29 14:34:16
+ * @since 2021-10-30 10:29:41
  */
 
 
@@ -75,11 +75,11 @@ function ListPage() {
 					{ fixed: 'left',type: 'numbers' },
 					{ fixed: 'left',type:'checkbox'}
 					,{ field: 'id', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('主键') , templet: function (d) { return templet('id',d.id,d);}  }
-					,{ field: 'poType', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('po类型') , templet: function (d) { return templet('poType',d.poType,d);}  }
+					,{ field: 'poType', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('PO类型') , templet: function (d) { return templet('poType',d.poType,d);}  }
 					,{ field: 'code', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('代码') , templet: function (d) { return templet('code',d.code,d);}  }
 					,{ field: 'name', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('名称') , templet: function (d) { return templet('name',d.name,d);}  }
 					,{ field: 'versionNo', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('版本') , templet: function (d) { return templet('versionNo',d.versionNo,d);}  }
-					,{ field: 'valid', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('生效'), templet: '#cell-tpl-valid'}
+					,{ field: 'valid', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('有效'), templet: '#cell-tpl-valid'}
 					,{ field: 'notes', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('备注') , templet: function (d) { return templet('notes',d.notes,d);}  }
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }}
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}

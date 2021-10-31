@@ -2,6 +2,7 @@ package org.github.foxnic.web.wrapper.support.datasource;
 
 import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.dao.dataperm.DataPermManager;
+import com.github.foxnic.dao.dataperm.model.DataPermSubjectVariable;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.dao.spec.DAOBuilder;
 import com.github.foxnic.dao.sql.loader.SQLoader;
@@ -9,8 +10,10 @@ import com.github.foxnic.springboot.spring.SpringUtil;
 import com.github.foxnic.sql.meta.DBDataType;
 import com.github.foxnic.sql.treaty.DBTreaty;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
+import org.github.foxnic.web.domain.dataperm.SubjectProperty;
 import org.github.foxnic.web.framework.cache.FoxnicDataCacheManager;
 import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.github.foxnic.web.framework.environment.Environment;
 import org.github.foxnic.web.relation.FoxnicWebRelationManager;
 import org.github.foxnic.web.session.SessionUser;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -21,6 +24,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
 import javax.sql.DataSource;
+import java.util.List;
 
 @Configuration
 public class DAOConfig {
@@ -58,8 +62,7 @@ public class DAOConfig {
 			dao.setDataCacheManager(cacheManager);
 
 			//配置数据权限管理器
-			DataPermManager dataPermManager=new DataPermManager();
-			dao.setDataPermManager(dataPermManager);
+			dao.setDataPermManager(getDataPermManager(dao));
 
 			//设置序列相关的配置
 			dao.setSequenceTable(FoxnicWeb.SYS_SEQUENCE.$NAME);
@@ -80,6 +83,37 @@ public class DAOConfig {
 			Logger.error("创建DAO失败",e);
 			return null;
 		}
+	}
+
+	private DataPermManager getDataPermManager(DAO dao) {
+
+		DataPermManager dataPermManager=new DataPermManager();
+		//设置获取当前用户的逻辑
+		if(SpringUtil.isReady()) {
+
+			dataPermManager.registSubject("SessionUser","会话账户",()->{
+				SessionUser user=SessionUser.getCurrent();
+				return user;
+			});
+
+			dataPermManager.registSubject("Environment","启动环境",()->{
+				return Environment.getEnvironment();
+			});
+
+			SubjectProperty sample=new SubjectProperty();
+			sample.setValid(1).setDeleted(0);
+			List<SubjectProperty> list=dao.queryEntities(sample);
+			for (SubjectProperty propcfg : list) {
+				DataPermSubjectVariable variable=new DataPermSubjectVariable();
+				variable.setSubjectCode(propcfg.getSubjectCode());
+				variable.setProperty(propcfg.getProperty());
+				variable.setName(propcfg.getName());
+				variable.setVariable(propcfg.getVariable());
+				dataPermManager.registSubjectVariable(variable);
+			}
+
+		}
+		return  dataPermManager;
 	}
 
 	@Bean

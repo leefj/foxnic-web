@@ -4,9 +4,11 @@ import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.PojoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
 import com.github.foxnic.generator.builder.view.option.ListOptions;
+import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.CHS_CHANGE_INSTANCE;
+import org.github.foxnic.web.constants.enums.bpm.ApproveCatalog;
 import org.github.foxnic.web.constants.enums.changes.ApprovalMode;
 import org.github.foxnic.web.constants.enums.changes.ApprovalStatus;
 import org.github.foxnic.web.constants.enums.changes.ChangeType;
@@ -47,6 +49,8 @@ public class ChsChangeInstanceConfig extends BaseCodeConfig<CHS_CHANGE_INSTANCE>
 		pojo.addSimpleProperty(String.class,"opinion","审批意见","");
 		pojo.addSimpleProperty(String.class,"action","审批动作","ApprovalAction的一种");
 
+		voType.addSimpleProperty(String.class,"catalog","流程分类","流程分类");
+
 	}
 
 	@Override
@@ -78,7 +82,18 @@ public class ChsChangeInstanceConfig extends BaseCodeConfig<CHS_CHANGE_INSTANCE>
 		view.field(CHS_CHANGE_INSTANCE.STATUS).form().radioBox().enumType(ApprovalStatus.class);
 		view.field(CHS_CHANGE_INSTANCE.TYPE).form().radioBox().enumType(ChangeType.class);
 
+		view.field("catalog").basic().label("分类")
+				.search().inputWidth(160)
+				.form().selectBox().enumType(ApproveCatalog.class).muliti(false,false);
 
+
+	}
+
+	@Override
+	public void configSearch(ViewOptions view, SearchAreaOptions search) {
+		search.inputLayout(new Object[]{
+				"catalog",CHS_CHANGE_INSTANCE.MODE,CHS_CHANGE_INSTANCE.DRAFTER_NAME,CHS_CHANGE_INSTANCE.STATUS,CHS_CHANGE_INSTANCE.TYPE
+		});
 	}
 
 	@Override

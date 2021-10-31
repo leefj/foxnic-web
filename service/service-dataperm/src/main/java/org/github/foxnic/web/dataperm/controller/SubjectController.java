@@ -49,7 +49,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 数据权限主体表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-28 10:00:44
+ * @since 2021-10-30 08:27:47
 */
 
 @Api(tags = "数据权限主体")
@@ -66,12 +66,9 @@ public class SubjectController extends SuperController {
 	*/
 	@ApiOperation(value = "添加数据权限主体")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = SubjectVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "1"),
-		@ApiImplicitParam(name = SubjectVOMeta.CODE , value = "代码" , required = false , dataTypeClass=String.class , example = "SESSION_USER"),
-		@ApiImplicitParam(name = SubjectVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class , example = "会话账户"),
-		@ApiImplicitParam(name = SubjectVOMeta.GETTER , value = "Subject" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = SubjectVOMeta.TYPE , value = "类型" , required = false , dataTypeClass=String.class , example = "org.github.foxnic.web.session.SessionUser"),
-		@ApiImplicitParam(name = SubjectVOMeta.VALID , value = "是否生效" , required = false , dataTypeClass=Integer.class , example = "1"),
+		@ApiImplicitParam(name = SubjectVOMeta.CODE , value = "代码" , required = true , dataTypeClass=String.class , example = "Environment"),
+		@ApiImplicitParam(name = SubjectVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class , example = "启动环境"),
+		@ApiImplicitParam(name = SubjectVOMeta.TYPE , value = "类型" , required = false , dataTypeClass=String.class , example = "org.github.foxnic.web.framework.environment.Environment"),
 	})
 	@ApiOperationSupport(order=1)
 	@SentinelResource(value = SubjectServiceProxy.INSERT , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
@@ -88,14 +85,14 @@ public class SubjectController extends SuperController {
 	*/
 	@ApiOperation(value = "删除数据权限主体")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = SubjectVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "1")
+		@ApiImplicitParam(name = SubjectVOMeta.CODE , value = "代码" , required = true , dataTypeClass=String.class , example = "Environment")
 	})
 	@ApiOperationSupport(order=2)
-	@NotNull(name = SubjectVOMeta.ID)
+	@NotNull(name = SubjectVOMeta.CODE)
 	@SentinelResource(value = SubjectServiceProxy.DELETE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(SubjectServiceProxy.DELETE)
-	public Result deleteById(String id) {
-		Result result=subjectService.deleteByIdLogical(id);
+	public Result deleteById(String code) {
+		Result result=subjectService.deleteByIdLogical(code);
 		return result;
 	}
 
@@ -106,14 +103,14 @@ public class SubjectController extends SuperController {
 	*/
 	@ApiOperation(value = "批量删除数据权限主体")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = SubjectVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
+		@ApiImplicitParam(name = SubjectVOMeta.CODES , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 	})
 	@ApiOperationSupport(order=3) 
-	@NotNull(name = SubjectVOMeta.IDS)
+	@NotNull(name = SubjectVOMeta.CODES)
 	@SentinelResource(value = SubjectServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(SubjectServiceProxy.DELETE_BY_IDS)
-	public Result deleteByIds(List<String> ids) {
-		Result result=subjectService.deleteByIdsLogical(ids);
+	public Result deleteByIds(List<String> codes) {
+		Result result=subjectService.deleteByIdsLogical(codes);
 		return result;
 	}
 
@@ -122,15 +119,12 @@ public class SubjectController extends SuperController {
 	*/
 	@ApiOperation(value = "更新数据权限主体")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = SubjectVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "1"),
-		@ApiImplicitParam(name = SubjectVOMeta.CODE , value = "代码" , required = false , dataTypeClass=String.class , example = "SESSION_USER"),
-		@ApiImplicitParam(name = SubjectVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class , example = "会话账户"),
-		@ApiImplicitParam(name = SubjectVOMeta.GETTER , value = "Subject" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = SubjectVOMeta.TYPE , value = "类型" , required = false , dataTypeClass=String.class , example = "org.github.foxnic.web.session.SessionUser"),
-		@ApiImplicitParam(name = SubjectVOMeta.VALID , value = "是否生效" , required = false , dataTypeClass=Integer.class , example = "1"),
+		@ApiImplicitParam(name = SubjectVOMeta.CODE , value = "代码" , required = true , dataTypeClass=String.class , example = "Environment"),
+		@ApiImplicitParam(name = SubjectVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class , example = "启动环境"),
+		@ApiImplicitParam(name = SubjectVOMeta.TYPE , value = "类型" , required = false , dataTypeClass=String.class , example = "org.github.foxnic.web.framework.environment.Environment"),
 	})
-	@ApiOperationSupport( order=4 , ignoreParameters = { SubjectVOMeta.PAGE_INDEX , SubjectVOMeta.PAGE_SIZE , SubjectVOMeta.SEARCH_FIELD , SubjectVOMeta.FUZZY_FIELD , SubjectVOMeta.SEARCH_VALUE , SubjectVOMeta.SORT_FIELD , SubjectVOMeta.SORT_TYPE , SubjectVOMeta.IDS } )
-	@NotNull(name = SubjectVOMeta.ID)
+	@ApiOperationSupport( order=4 , ignoreParameters = { SubjectVOMeta.PAGE_INDEX , SubjectVOMeta.PAGE_SIZE , SubjectVOMeta.SEARCH_FIELD , SubjectVOMeta.FUZZY_FIELD , SubjectVOMeta.SEARCH_VALUE , SubjectVOMeta.SORT_FIELD , SubjectVOMeta.SORT_TYPE , SubjectVOMeta.CODES } )
+	@NotNull(name = SubjectVOMeta.CODE)
 	@SentinelResource(value = SubjectServiceProxy.UPDATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(SubjectServiceProxy.UPDATE)
 	public Result update(SubjectVO subjectVO) {
@@ -144,15 +138,12 @@ public class SubjectController extends SuperController {
 	*/
 	@ApiOperation(value = "保存数据权限主体")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = SubjectVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "1"),
-		@ApiImplicitParam(name = SubjectVOMeta.CODE , value = "代码" , required = false , dataTypeClass=String.class , example = "SESSION_USER"),
-		@ApiImplicitParam(name = SubjectVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class , example = "会话账户"),
-		@ApiImplicitParam(name = SubjectVOMeta.GETTER , value = "Subject" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = SubjectVOMeta.TYPE , value = "类型" , required = false , dataTypeClass=String.class , example = "org.github.foxnic.web.session.SessionUser"),
-		@ApiImplicitParam(name = SubjectVOMeta.VALID , value = "是否生效" , required = false , dataTypeClass=Integer.class , example = "1"),
+		@ApiImplicitParam(name = SubjectVOMeta.CODE , value = "代码" , required = true , dataTypeClass=String.class , example = "Environment"),
+		@ApiImplicitParam(name = SubjectVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class , example = "启动环境"),
+		@ApiImplicitParam(name = SubjectVOMeta.TYPE , value = "类型" , required = false , dataTypeClass=String.class , example = "org.github.foxnic.web.framework.environment.Environment"),
 	})
-	@ApiOperationSupport(order=5 ,  ignoreParameters = { SubjectVOMeta.PAGE_INDEX , SubjectVOMeta.PAGE_SIZE , SubjectVOMeta.SEARCH_FIELD , SubjectVOMeta.FUZZY_FIELD , SubjectVOMeta.SEARCH_VALUE , SubjectVOMeta.SORT_FIELD , SubjectVOMeta.SORT_TYPE , SubjectVOMeta.IDS } )
-	@NotNull(name = SubjectVOMeta.ID)
+	@ApiOperationSupport(order=5 ,  ignoreParameters = { SubjectVOMeta.PAGE_INDEX , SubjectVOMeta.PAGE_SIZE , SubjectVOMeta.SEARCH_FIELD , SubjectVOMeta.FUZZY_FIELD , SubjectVOMeta.SEARCH_VALUE , SubjectVOMeta.SORT_FIELD , SubjectVOMeta.SORT_TYPE , SubjectVOMeta.CODES } )
+	@NotNull(name = SubjectVOMeta.CODE)
 	@SentinelResource(value = SubjectServiceProxy.SAVE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(SubjectServiceProxy.SAVE)
 	public Result save(SubjectVO subjectVO) {
@@ -166,15 +157,15 @@ public class SubjectController extends SuperController {
 	*/
 	@ApiOperation(value = "获取数据权限主体")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = SubjectVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "1"),
+		@ApiImplicitParam(name = SubjectVOMeta.CODE , value = "主键" , required = true , dataTypeClass=String.class , example = "1"),
 	})
 	@ApiOperationSupport(order=6)
-	@NotNull(name = SubjectVOMeta.ID)
+	@NotNull(name = SubjectVOMeta.CODE)
 	@SentinelResource(value = SubjectServiceProxy.GET_BY_ID , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(SubjectServiceProxy.GET_BY_ID)
-	public Result<Subject> getById(String id) {
+	public Result<Subject> getById(String code) {
 		Result<Subject> result=new Result<>();
-		Subject subject=subjectService.getById(id);
+		Subject subject=subjectService.getById(code);
 
 		// join 关联的对象
 		subjectService.dao().fill(subject)
@@ -191,15 +182,15 @@ public class SubjectController extends SuperController {
 	*/
 		@ApiOperation(value = "批量获取数据权限主体")
 		@ApiImplicitParams({
-				@ApiImplicitParam(name = SubjectVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
+				@ApiImplicitParam(name = SubjectVOMeta.CODES , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})
 		@ApiOperationSupport(order=3) 
-		@NotNull(name = SubjectVOMeta.IDS)
+		@NotNull(name = SubjectVOMeta.CODES)
 		@SentinelResource(value = SubjectServiceProxy.GET_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(SubjectServiceProxy.GET_BY_IDS)
-	public Result<List<Subject>> getByIds(List<String> ids) {
+	public Result<List<Subject>> getByIds(List<String> codes) {
 		Result<List<Subject>> result=new Result<>();
-		List<Subject> list=subjectService.getByIds(ids);
+		List<Subject> list=subjectService.getByIds(codes);
 		result.success(true).data(list);
 		return result;
 	}
@@ -210,12 +201,9 @@ public class SubjectController extends SuperController {
 	*/
 	@ApiOperation(value = "查询数据权限主体")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = SubjectVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "1"),
-		@ApiImplicitParam(name = SubjectVOMeta.CODE , value = "代码" , required = false , dataTypeClass=String.class , example = "SESSION_USER"),
-		@ApiImplicitParam(name = SubjectVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class , example = "会话账户"),
-		@ApiImplicitParam(name = SubjectVOMeta.GETTER , value = "Subject" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = SubjectVOMeta.TYPE , value = "类型" , required = false , dataTypeClass=String.class , example = "org.github.foxnic.web.session.SessionUser"),
-		@ApiImplicitParam(name = SubjectVOMeta.VALID , value = "是否生效" , required = false , dataTypeClass=Integer.class , example = "1"),
+		@ApiImplicitParam(name = SubjectVOMeta.CODE , value = "代码" , required = true , dataTypeClass=String.class , example = "Environment"),
+		@ApiImplicitParam(name = SubjectVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class , example = "启动环境"),
+		@ApiImplicitParam(name = SubjectVOMeta.TYPE , value = "类型" , required = false , dataTypeClass=String.class , example = "org.github.foxnic.web.framework.environment.Environment"),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { SubjectVOMeta.PAGE_INDEX , SubjectVOMeta.PAGE_SIZE } )
 	@SentinelResource(value = SubjectServiceProxy.QUERY_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
@@ -233,12 +221,9 @@ public class SubjectController extends SuperController {
 	*/
 	@ApiOperation(value = "分页查询数据权限主体")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = SubjectVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "1"),
-		@ApiImplicitParam(name = SubjectVOMeta.CODE , value = "代码" , required = false , dataTypeClass=String.class , example = "SESSION_USER"),
-		@ApiImplicitParam(name = SubjectVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class , example = "会话账户"),
-		@ApiImplicitParam(name = SubjectVOMeta.GETTER , value = "Subject" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = SubjectVOMeta.TYPE , value = "类型" , required = false , dataTypeClass=String.class , example = "org.github.foxnic.web.session.SessionUser"),
-		@ApiImplicitParam(name = SubjectVOMeta.VALID , value = "是否生效" , required = false , dataTypeClass=Integer.class , example = "1"),
+		@ApiImplicitParam(name = SubjectVOMeta.CODE , value = "代码" , required = true , dataTypeClass=String.class , example = "Environment"),
+		@ApiImplicitParam(name = SubjectVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class , example = "启动环境"),
+		@ApiImplicitParam(name = SubjectVOMeta.TYPE , value = "类型" , required = false , dataTypeClass=String.class , example = "org.github.foxnic.web.framework.environment.Environment"),
 	})
 	@ApiOperationSupport(order=8)
 	@SentinelResource(value = SubjectServiceProxy.QUERY_PAGED_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )

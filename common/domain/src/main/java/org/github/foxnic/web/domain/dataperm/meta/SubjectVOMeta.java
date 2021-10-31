@@ -8,8 +8,8 @@ import java.util.List;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-13 15:41:11
- * @sign ABCCFEB7406CCFA0816846F1082FE941
+ * @since 2021-10-30 08:27:46
+ * @sign ADF9E3F8F2B5F3D5ED8B1B0B33105537
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -88,17 +88,17 @@ public class SubjectVOMeta extends SubjectMeta {
 	/**
 	 * 主键清单 , 用于接收批量主键参数 , 集合类型: LIST , 类型: java.lang.String
 	*/
-	public static final String IDS="ids";
+	public static final String CODES="codes";
 	
 	/**
 	 * 主键清单 , 用于接收批量主键参数 , 集合类型: LIST , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.SubjectVO,java.lang.String> IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.SubjectVO.class ,IDS, java.util.List.class, "主键清单", "用于接收批量主键参数", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.SubjectVO,java.lang.String> CODES_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.SubjectVO.class ,CODES, java.util.List.class, "主键清单", "用于接收批量主键参数", java.lang.String.class, null);
 	
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , SORT_FIELD , SORT_TYPE , IDS };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , SORT_FIELD , SORT_TYPE , CODES };
 	
 	/**
 	 * 代理类
@@ -187,12 +187,12 @@ public class SubjectVOMeta extends SubjectMeta {
 		
 		/**
 		 * 设置 主键清单
-		 * @param ids 主键清单
+		 * @param codes 主键清单
 		 * @return 当前对象
 		*/
-		public SubjectVO setIds(List<String> ids) {
-			super.change(IDS,super.getIds(),ids);
-			super.setIds(ids);
+		public SubjectVO setCodes(List<String> codes) {
+			super.change(CODES,super.getCodes(),codes);
+			super.setCodes(codes);
 			return this;
 		}
 	}

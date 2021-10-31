@@ -21,7 +21,7 @@ import com.github.foxnic.dao.data.SaveMode;
  * 数据权限主体表 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-28 10:00:44
+ * @since 2021-10-30 08:27:46
 */
 
 public interface ISubjectService extends ISuperService<Subject> {
@@ -54,41 +54,41 @@ public interface ISubjectService extends ISuperService<Subject> {
 	/**
 	 * 按主键删除 数据权限主体
 	 *
-	 * @param id 主键
+	 * @param code 代码
 	 * @return 删除是否成功
 	 */
-	Result deleteByIdPhysical(String id);
+	Result deleteByIdPhysical(String code);
 	
 	/**
 	 * 按主键删除 数据权限主体
 	 *
-	 * @param id 主键
+	 * @param code 代码
 	 * @return 删除是否成功
 	 */
-	Result deleteByIdLogical(String id);
+	Result deleteByIdLogical(String code);
 
 	/**
 	 * 批量物理删除，仅支持单字段主键表
-	 * @param ids 主键清单
+	 * @param codes 主键清单
 	 * @return 是否删除成功
 	 * */
-	<T> Result deleteByIdsPhysical(List<T> ids);
+	<T> Result deleteByIdsPhysical(List<T> codes);
 
 	/**
 	 * 批量逻辑删除，仅支持单字段主键表
-	 * @param ids 主键清单
+	 * @param codes 主键清单
 	 * @return 是否删除成功
 	 * */
-	<T> Result deleteByIdsLogical(List<T> ids);
+	<T> Result deleteByIdsLogical(List<T> codes);
 
 		
 	/**
 	 * 按主键更新字段 数据权限主体
 	 *
-	 * @param id 主键
+	 * @param code 代码
 	 * @return 是否更新成功
 	 */
-	boolean update(DBField field,Object value , String id);
+	boolean update(DBField field,Object value , String code);
 
 	/**
 	 * 更新，如果执行错误，则抛出异常
@@ -155,17 +155,17 @@ public interface ISubjectService extends ISuperService<Subject> {
 	/**
 	 * 按主键获取 数据权限主体
 	 *
-	 * @param id 主键
+	 * @param code 代码
 	 * @return Subject 数据对象
 	 */
-	Subject getById(String id);
+	Subject getById(String code);
 
 	/**
 	 * 检查实体中的数据字段是否已经存在
-	 * @param ids  主键清单
+	 * @param codes  主键清单
 	 * @return 实体集
 	 * */
-	List<Subject> getByIds(List<String> ids);
+	List<Subject> getByIds(List<String> codes);
 
 	/**
 	 * 检查 角色 是否已经存在

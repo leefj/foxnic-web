@@ -35,7 +35,7 @@ import java.util.Date;
  * 数据权限主体表 服务实现
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-28 10:00:44
+ * @since 2021-10-30 08:27:46
 */
 
 
@@ -97,13 +97,13 @@ public class SubjectServiceImpl extends SuperService<Subject> implements ISubjec
 	/**
 	 * 按主键删除 数据权限主体
 	 *
-	 * @param id 主键
+	 * @param code 代码
 	 * @return 删除是否成功
 	 */
-	public Result deleteByIdPhysical(String id) {
+	public Result deleteByIdPhysical(String code) {
 		Subject subject = new Subject();
-		if(id==null) return ErrorDesc.failure().message("id 不允许为 null 。");
-		subject.setId(id);
+		if(code==null) return ErrorDesc.failure().message("code 不允许为 null 。");
+		subject.setCode(code);
 		try {
 			boolean suc = dao.deleteEntity(subject);
 			return suc?ErrorDesc.success():ErrorDesc.failure();
@@ -118,13 +118,13 @@ public class SubjectServiceImpl extends SuperService<Subject> implements ISubjec
 	/**
 	 * 按主键删除 数据权限主体
 	 *
-	 * @param id 主键
+	 * @param code 代码
 	 * @return 删除是否成功
 	 */
-	public Result deleteByIdLogical(String id) {
+	public Result deleteByIdLogical(String code) {
 		Subject subject = new Subject();
-		if(id==null) return ErrorDesc.failure().message("id 不允许为 null 。");
-		subject.setId(id);
+		if(code==null) return ErrorDesc.failure().message("code 不允许为 null 。");
+		subject.setCode(code);
 		subject.setDeleted(dao.getDBTreaty().getTrueValue());
 		subject.setDeleteBy((String)dao.getDBTreaty().getLoginUserId());
 		subject.setDeleteTime(new Date());
@@ -178,13 +178,13 @@ public class SubjectServiceImpl extends SuperService<Subject> implements ISubjec
 	/**
 	 * 按主键更新字段 数据权限主体
 	 *
-	 * @param id 主键
+	 * @param code 代码
 	 * @return 是否更新成功
 	 */
-	public boolean update(DBField field,Object value , String id) {
-		if(id==null) throw new IllegalArgumentException("id 不允许为 null ");
+	public boolean update(DBField field,Object value , String code) {
+		if(code==null) throw new IllegalArgumentException("code 不允许为 null ");
 		if(!field.table().name().equals(this.table())) throw new IllegalArgumentException("更新的数据表["+field.table().name()+"]与服务对应的数据表["+this.table()+"]不一致");
-		int suc=dao.update(field.table().name()).set(field.name(), value).where().and("id = ? ",id).top().execute();
+		int suc=dao.update(field.table().name()).set(field.name(), value).where().and("code = ? ",code).top().execute();
 		return suc>0;
 	}
 
@@ -192,19 +192,19 @@ public class SubjectServiceImpl extends SuperService<Subject> implements ISubjec
 	/**
 	 * 按主键获取 数据权限主体
 	 *
-	 * @param id 主键
+	 * @param code 代码
 	 * @return Subject 数据对象
 	 */
-	public Subject getById(String id) {
+	public Subject getById(String code) {
 		Subject sample = new Subject();
-		if(id==null) throw new IllegalArgumentException("id 不允许为 null ");
-		sample.setId(id);
+		if(code==null) throw new IllegalArgumentException("code 不允许为 null ");
+		sample.setCode(code);
 		return dao.queryEntity(sample);
 	}
 
 	@Override
-	public List<Subject> getByIds(List<String> ids) {
-		return new ArrayList<>(getByIdsMap(ids).values());
+	public List<Subject> getByIds(List<String> codes) {
+		return new ArrayList<>(getByIdsMap(codes).values());
 	}
 
 

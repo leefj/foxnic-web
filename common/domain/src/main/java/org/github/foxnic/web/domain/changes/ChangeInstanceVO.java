@@ -1,19 +1,20 @@
 package org.github.foxnic.web.domain.changes;
 
-import io.swagger.annotations.ApiModelProperty;
-import java.util.List;
-import java.util.ArrayList;
 import com.github.foxnic.api.model.CompositeParameter;
-import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
+import io.swagger.annotations.ApiModelProperty;
+
+import javax.persistence.Transient;
+import java.util.ArrayList;
+import java.util.List;
 
 
 
 /**
  * 变更实例
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-27 16:04:54
- * @sign FD5153E92F33950B27D5E312AD5ACE6D
+ * @since 2021-10-30 10:11:13
+ * @sign 2724BFCE8BEE21CB2E52D8B3BBED2BE9
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -68,6 +69,12 @@ public class ChangeInstanceVO extends ChangeInstance {
 	*/
 	@ApiModelProperty(required = false,value="主键清单" , notes = "用于接收批量主键参数")
 	private List<String> ids;
+	
+	/**
+	 * 流程分类：流程分类
+	*/
+	@ApiModelProperty(required = false,value="流程分类" , notes = "流程分类")
+	private String catalog;
 	
 	/**
 	 * 获得 页码<br>
@@ -224,6 +231,25 @@ public class ChangeInstanceVO extends ChangeInstance {
 		this.ids.add(id);
 		return this;
 	}
+	
+	/**
+	 * 获得 流程分类<br>
+	 * 流程分类
+	 * @return 流程分类
+	*/
+	public String getCatalog() {
+		return catalog;
+	}
+	
+	/**
+	 * 设置 流程分类
+	 * @param catalog 流程分类
+	 * @return 当前对象
+	*/
+	public ChangeInstanceVO setCatalog(String catalog) {
+		this.catalog=catalog;
+		return this;
+	}
 	@Transient
 	private CompositeParameter $compositeParameter;
 	/**
@@ -232,7 +258,6 @@ public class ChangeInstanceVO extends ChangeInstance {
 	@Transient
 	public CompositeParameter getCompositeParameter() {
 		if($compositeParameter!=null) return  $compositeParameter;
-		
 		$compositeParameter=new CompositeParameter(this.getSearchValue(),BeanUtil.toMap(this));
 		return  $compositeParameter;
 	}

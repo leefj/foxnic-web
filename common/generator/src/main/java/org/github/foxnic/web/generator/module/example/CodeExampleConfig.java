@@ -13,10 +13,10 @@ import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_CODE_EXAMPLE;
 import org.github.foxnic.web.constants.enums.DictEnum;
+import org.github.foxnic.web.constants.enums.dict.Sex;
 import org.github.foxnic.web.constants.enums.system.Language;
 import org.github.foxnic.web.constants.enums.system.MenuType;
 import org.github.foxnic.web.constants.enums.system.SystemConfigType;
-import org.github.foxnic.web.constants.enums.dict.Sex;
 import org.github.foxnic.web.domain.oauth.Resourze;
 import org.github.foxnic.web.domain.oauth.Role;
 import org.github.foxnic.web.domain.oauth.meta.ResourzeMeta;
@@ -120,6 +120,7 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 		view.field(TABLE.CHECK_ENUM)
 				.form().checkBox().enumType(MenuType.class).defaultIndex(0,1)
 				.search().fuzzySearchWithDoubleQM();
+
 
 		//复选框，下拉数据来自字典
 		view.field(TABLE.CHECK_DICT)

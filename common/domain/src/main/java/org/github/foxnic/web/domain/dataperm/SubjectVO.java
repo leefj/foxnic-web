@@ -12,8 +12,8 @@ import com.github.foxnic.commons.bean.BeanUtil;
 /**
  * 数据权限主体
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-13 15:41:11
- * @sign ABCCFEB7406CCFA0816846F1082FE941
+ * @since 2021-10-30 08:27:46
+ * @sign ADF9E3F8F2B5F3D5ED8B1B0B33105537
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -67,7 +67,7 @@ public class SubjectVO extends Subject {
 	 * 主键清单：用于接收批量主键参数
 	*/
 	@ApiModelProperty(required = false,value="主键清单" , notes = "用于接收批量主键参数")
-	private List<String> ids;
+	private List<String> codes;
 	
 	/**
 	 * 获得 页码<br>
@@ -200,28 +200,28 @@ public class SubjectVO extends Subject {
 	 * 用于接收批量主键参数
 	 * @return 主键清单
 	*/
-	public List<String> getIds() {
-		return ids;
+	public List<String> getCodes() {
+		return codes;
 	}
 	
 	/**
 	 * 设置 主键清单
-	 * @param ids 主键清单
+	 * @param codes 主键清单
 	 * @return 当前对象
 	*/
-	public SubjectVO setIds(List<String> ids) {
-		this.ids=ids;
+	public SubjectVO setCodes(List<String> codes) {
+		this.codes=codes;
 		return this;
 	}
 	
 	/**
 	 * 添加 主键清单
-	 * @param id 主键清单
+	 * @param code 主键清单
 	 * @return 当前对象
 	*/
-	public SubjectVO addId(String id) {
-		if(this.ids==null) ids=new ArrayList<>();
-		this.ids.add(id);
+	public SubjectVO addCode(String code) {
+		if(this.codes==null) codes=new ArrayList<>();
+		this.codes.add(code);
 		return this;
 	}
 	@Transient
@@ -232,7 +232,6 @@ public class SubjectVO extends Subject {
 	@Transient
 	public CompositeParameter getCompositeParameter() {
 		if($compositeParameter!=null) return  $compositeParameter;
-		
 		$compositeParameter=new CompositeParameter(this.getSearchValue(),BeanUtil.toMap(this));
 		return  $compositeParameter;
 	}

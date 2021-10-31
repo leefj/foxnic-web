@@ -1,7 +1,7 @@
 /**
  * 变更实例 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-29 13:49:24
+ * @since 2021-10-30 10:17:02
  */
 
 function FormPage() {
@@ -93,6 +93,27 @@ function FormPage() {
 			format:"yyyy-MM-dd HH:mm:ss",
 			trigger:"click"
 		});
+		//渲染 catalog 下拉字段
+		fox.renderSelectBox({
+			el: "catalog",
+			radio: true,
+			filterable: false,
+			//转换数据
+			transform:function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				var defaultValues=[],defaultIndexs=[];
+				if(action=="create") {
+					defaultValues = "".split(",");
+					defaultIndexs = "".split(",");
+				}
+				var opts=[];
+				if(!data) return opts;
+				for (var i = 0; i < data.length; i++) {
+					opts.push({name:data[i].text,value:data[i].code,selected:(defaultValues.indexOf(data[i].code)!=-1 || defaultIndexs.indexOf(""+i)!=-1)});
+				}
+				return opts;
+			}
+		});
 	}
 
 	/**
@@ -129,6 +150,8 @@ function FormPage() {
 			}
 
 
+			//设置  分类 设置下拉框勾选
+			fox.setSelectValue4Enum("#catalog",formData.catalog,SELECT_CATALOG_DATA);
 
 			//处理fillBy
 
@@ -177,6 +200,8 @@ function FormPage() {
 
 
 
+		//获取 分类 下拉框的值
+		data["catalog"]=fox.getSelectedValue("catalog",false);
 
 		return data;
 	}

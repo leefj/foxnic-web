@@ -1,7 +1,7 @@
 /**
  * 数据权限主体属性 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-28 10:00:45
+ * @since 2021-10-30 08:27:53
  */
 
 
@@ -75,9 +75,10 @@ function ListPage() {
 					{ fixed: 'left',type: 'numbers' },
 					{ fixed: 'left',type:'checkbox'}
 					,{ field: 'id', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('主键') , templet: function (d) { return templet('id',d.id,d);}  }
-					,{ field: 'subjectId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('主题ID') , templet: function (d) { return templet('subjectId',d.subjectId,d);}  }
+					,{ field: 'subjectCode', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('主题ID') , templet: function (d) { return templet('subjectCode',d.subjectCode,d);}  }
 					,{ field: 'name', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('属性名称') , templet: function (d) { return templet('name',d.name,d);}  }
-					,{ field: 'property', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('属性') , templet: function (d) { return templet('property',d.property,d);}  }
+					,{ field: 'variable', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('变量') , templet: function (d) { return templet('variable',d.variable,d);}  }
+					,{ field: 'property', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('属性完整路径') , templet: function (d) { return templet('property',d.property,d);}  }
 					,{ field: 'valid', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('是否生效') , templet: function (d) { return templet('valid',d.valid,d);}  }
 					,{ field: 'sort', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('顺序') , templet: function (d) { return templet('sort',d.sort,d);}  }
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }}
@@ -116,8 +117,9 @@ function ListPage() {
 	function refreshTableData(sortField,sortType,reset) {
 		var value = {};
 		value.id={ inputType:"button",value: $("#id").val()};
-		value.subjectId={ inputType:"button",value: $("#subjectId").val()};
+		value.subjectCode={ inputType:"button",value: $("#subjectCode").val()};
 		value.name={ inputType:"button",value: $("#name").val()};
+		value.variable={ inputType:"button",value: $("#variable").val()};
 		value.property={ inputType:"button",value: $("#property").val()};
 		value.valid={ inputType:"number_input", value: $("#valid").val() };
 		value.sort={ inputType:"number_input", value: $("#sort").val() };

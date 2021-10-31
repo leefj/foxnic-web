@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
  * 数据权限主体表 模版页面控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-28 10:00:44
+ * @since 2021-10-30 08:27:47
 */
 
 @Controller("DpSubjectPageController")
@@ -49,7 +49,7 @@ public class SubjectPageController extends ViewController {
 	 * 数据权限主体 表单页面
 	 */
 	@RequestMapping("/subject_form.html")
-	public String form(Model model,HttpServletRequest request , String id) {
+	public String form(Model model,HttpServletRequest request , String code) {
 		return prefix+"/subject_form";
 	}
 }

@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 数据权限主体属性
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-14 16:09:12
- * @sign A64BB9EEB4F53E546B2921D9B80DF24E
+ * @since 2021-10-30 08:27:53
+ * @sign 721919CE8968CF990FFB1973AD05074E
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -38,19 +38,25 @@ public class SubjectProperty extends Entity {
 	/**
 	 * 主题ID：主题ID
 	*/
-	@ApiModelProperty(required = false,value="主题ID" , notes = "主题ID")
-	private String subjectId;
+	@ApiModelProperty(required = true,value="主题ID" , notes = "主题ID")
+	private String subjectCode;
 	
 	/**
 	 * 属性名称：属性名称
 	*/
-	@ApiModelProperty(required = false,value="属性名称" , notes = "属性名称")
+	@ApiModelProperty(required = true,value="属性名称" , notes = "属性名称")
 	private String name;
 	
 	/**
-	 * 属性：层级用点号隔开
+	 * 变量：变量
 	*/
-	@ApiModelProperty(required = false,value="属性" , notes = "层级用点号隔开")
+	@ApiModelProperty(required = true,value="变量" , notes = "变量")
+	private String variable;
+	
+	/**
+	 * 属性完整路径：层级用点号隔开
+	*/
+	@ApiModelProperty(required = true,value="属性完整路径" , notes = "层级用点号隔开")
 	private String property;
 	
 	/**
@@ -137,17 +143,17 @@ public class SubjectProperty extends Entity {
 	 * 主题ID
 	 * @return 主题ID
 	*/
-	public String getSubjectId() {
-		return subjectId;
+	public String getSubjectCode() {
+		return subjectCode;
 	}
 	
 	/**
 	 * 设置 主题ID
-	 * @param subjectId 主题ID
+	 * @param subjectCode 主题ID
 	 * @return 当前对象
 	*/
-	public SubjectProperty setSubjectId(String subjectId) {
-		this.subjectId=subjectId;
+	public SubjectProperty setSubjectCode(String subjectCode) {
+		this.subjectCode=subjectCode;
 		return this;
 	}
 	
@@ -171,17 +177,36 @@ public class SubjectProperty extends Entity {
 	}
 	
 	/**
-	 * 获得 属性<br>
+	 * 获得 变量<br>
+	 * 变量
+	 * @return 变量
+	*/
+	public String getVariable() {
+		return variable;
+	}
+	
+	/**
+	 * 设置 变量
+	 * @param variable 变量
+	 * @return 当前对象
+	*/
+	public SubjectProperty setVariable(String variable) {
+		this.variable=variable;
+		return this;
+	}
+	
+	/**
+	 * 获得 属性完整路径<br>
 	 * 层级用点号隔开
-	 * @return 属性
+	 * @return 属性完整路径
 	*/
 	public String getProperty() {
 		return property;
 	}
 	
 	/**
-	 * 设置 属性
-	 * @param property 属性
+	 * 设置 属性完整路径
+	 * @param property 属性完整路径
 	 * @return 当前对象
 	*/
 	public SubjectProperty setProperty(String property) {

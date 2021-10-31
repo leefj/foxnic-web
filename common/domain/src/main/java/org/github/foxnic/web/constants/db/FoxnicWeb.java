@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2021-10-29 15:26:46
+ * @since 2021-10-30 10:15:56
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -1669,14 +1669,9 @@ public class FoxnicWeb {
 		public static final String $NAME = "dp_subject";
 		
 		/**
-		 * 主键
-		*/
-		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","主键","主键",true,false,false);
-		
-		/**
 		 * 代码
 		*/
-		public static final DBField CODE = new DBField(DBDataType.STRING , "code","code","代码","代码",false,false,true);
+		public static final DBField CODE = new DBField(DBDataType.STRING , "code","code","代码","代码",true,false,false);
 		
 		/**
 		 * 名称
@@ -1684,19 +1679,9 @@ public class FoxnicWeb {
 		public static final DBField NAME = new DBField(DBDataType.STRING , "name","name","名称","名称",false,false,true);
 		
 		/**
-		 * Subject 对象获取类名称
-		*/
-		public static final DBField GETTER = new DBField(DBDataType.STRING , "getter","getter","Subject","对象获取类名称",false,false,true);
-		
-		/**
 		 * 类型
 		*/
 		public static final DBField TYPE = new DBField(DBDataType.STRING , "type","type","类型","类型",false,false,true);
-		
-		/**
-		 * 是否生效
-		*/
-		public static final DBField VALID = new DBField(DBDataType.INTEGER , "valid","valid","是否生效","是否生效",false,false,true);
 		
 		/**
 		 * 创建人ID
@@ -1739,7 +1724,7 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
 		public DP_SUBJECT() {
-			this.init($NAME,"数据权限主体表" , ID , CODE , NAME , GETTER , TYPE , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"数据权限主体表" , CODE , NAME , TYPE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final DP_SUBJECT $TABLE=new DP_SUBJECT();
 	}
@@ -1762,17 +1747,22 @@ public class FoxnicWeb {
 		/**
 		 * 主题ID
 		*/
-		public static final DBField SUBJECT_ID = new DBField(DBDataType.STRING , "subject_id","subjectId","主题ID","主题ID",false,false,true);
+		public static final DBField SUBJECT_CODE = new DBField(DBDataType.STRING , "subject_code","subjectCode","主题ID","主题ID",false,false,false);
 		
 		/**
 		 * 属性名称
 		*/
-		public static final DBField NAME = new DBField(DBDataType.STRING , "name","name","属性名称","属性名称",false,false,true);
+		public static final DBField NAME = new DBField(DBDataType.STRING , "name","name","属性名称","属性名称",false,false,false);
 		
 		/**
-		 * 属性，层级用点号隔开
+		 * 变量
 		*/
-		public static final DBField PROPERTY = new DBField(DBDataType.STRING , "property","property","属性","层级用点号隔开",false,false,true);
+		public static final DBField VARIABLE = new DBField(DBDataType.STRING , "variable","variable","变量","变量",false,false,false);
+		
+		/**
+		 * 属性完整路径，层级用点号隔开
+		*/
+		public static final DBField PROPERTY = new DBField(DBDataType.STRING , "property","property","属性完整路径","层级用点号隔开",false,false,false);
 		
 		/**
 		 * 是否生效
@@ -1825,7 +1815,7 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
 		public DP_SUBJECT_PROPERTY() {
-			this.init($NAME,"数据权限主体属性表" , ID , SUBJECT_ID , NAME , PROPERTY , VALID , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"数据权限主体属性表" , ID , SUBJECT_CODE , NAME , VARIABLE , PROPERTY , VALID , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final DP_SUBJECT_PROPERTY $TABLE=new DP_SUBJECT_PROPERTY();
 	}

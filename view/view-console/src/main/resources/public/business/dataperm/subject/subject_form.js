@@ -1,7 +1,7 @@
 /**
  * 数据权限主体 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-28 10:00:44
+ * @since 2021-10-30 08:27:48
  */
 
 function FormPage() {
@@ -49,6 +49,11 @@ function FormPage() {
 	 * */
 	var adjustPopupTask=-1;
 	function adjustPopup() {
+		if(window.pageExt.form.beforeAdjustPopup) {
+			var doNext=window.pageExt.form.beforeAdjustPopup();
+			if(!doNext) return;
+		}
+
 		clearTimeout(adjustPopupTask);
 		var scroll=$(".form-container").attr("scroll");
 		if(scroll=='yes') return;
@@ -92,7 +97,7 @@ function FormPage() {
 
 		var hasData=true;
 		//如果是新建
-		if(!formData || !formData.id) {
+		if(!formData || !formData.code) {
 			adjustPopup();
 			hasData=false;
 		}
@@ -163,7 +168,7 @@ function FormPage() {
 	}
 
 	function saveForm(param) {
-		var api=moduleURL+"/"+(param.id?"update":"insert");
+		var api=moduleURL+"/"+(param.code?"update":"insert");
 		var task=setTimeout(function(){layer.load(2);},1000);
 		admin.request(api, param, function (data) {
 			clearTimeout(task);
@@ -171,7 +176,13 @@ function FormPage() {
 			if (data.success) {
 				layer.msg(data.message, {icon: 1, time: 500});
 				var index=admin.getTempData('dp-subject-form-data-popup-index');
-				admin.finishPopupCenter(index);
+				var doNext=true;
+				if(window.pageExt.form.betweenFormSubmitAndClose) {
+					doNext=window.pageExt.form.betweenFormSubmitAndClose(param,data);
+				}
+				if(doNext) {
+					admin.finishPopupCenter(index);
+				}
 			} else {
 				layer.msg(data.message, {icon: 2, time: 1000});
 			}

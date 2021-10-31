@@ -46,6 +46,8 @@ public class MenuGenerator {
 		mg=new MenuGenerator(FoxnicWeb.DP_EXAMPLE_ORDER.$TABLE, ExampleOrderServiceProxy.class, ExampleOrderPageController.class);
 		mg.generate("501073274482987009");
 
+
+
 //		mg=new MenuGenerator(FoxnicWeb.DP_RULE_CONDITION.$TABLE, RuleConditionServiceProxy.class, RuleConditionPageController.class);
 //		mg.generate("501068138247360512");
 

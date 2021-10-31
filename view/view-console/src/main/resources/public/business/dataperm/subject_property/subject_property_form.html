@@ -1,8 +1,8 @@
-<!-- 
+<!--
 /**
  * 数据权限主体属性 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-28 10:00:45
+ * @since 2021-10-30 08:27:53
  */
  -->
  <!DOCTYPE html>
@@ -46,23 +46,30 @@
                     </div>
 
                                     <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('主题ID')}">主题ID</div></div>
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('主题ID')}">主题ID</div><div class="layui-required">*</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="subjectId" id="subjectId" name="subjectId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('主题ID') }" type="text" class="layui-input"  />
+                            <input lay-filter="subjectCode" id="subjectCode" name="subjectCode" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('主题ID') }" type="text" class="layui-input"    lay-verify="|required"  />
                         </div>
                     </div>
 
                                     <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('属性名称')}">属性名称</div></div>
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('属性名称')}">属性名称</div><div class="layui-required">*</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="name" id="name" name="name" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('属性名称') }" type="text" class="layui-input"  />
+                            <input lay-filter="name" id="name" name="name" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('属性名称') }" type="text" class="layui-input"    lay-verify="|required"  />
                         </div>
                     </div>
 
                                     <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('属性')}">属性</div></div>
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('变量')}">变量</div><div class="layui-required">*</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="property" id="property" name="property" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('属性') }" type="text" class="layui-input"  />
+                            <input lay-filter="variable" id="variable" name="variable" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('变量') }" type="text" class="layui-input"    lay-verify="|required"  />
+                        </div>
+                    </div>
+
+                                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('属性完整路径')}">属性完整路径</div><div class="layui-required">*</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input lay-filter="property" id="property" name="property" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('属性完整路径') }" type="text" class="layui-input"    lay-verify="|required"  />
                         </div>
                     </div>
 
@@ -109,7 +116,7 @@
 
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];
-    var VALIDATE_CONFIG={};
+    var VALIDATE_CONFIG={"name":{"labelInForm":"属性名称","inputType":"text_input","required":true},"variable":{"labelInForm":"变量","inputType":"text_input","required":true},"property":{"labelInForm":"属性完整路径","inputType":"text_input","required":true},"subjectCode":{"labelInForm":"主题ID","inputType":"text_input","required":true}};
     var AUTH_PREFIX="dp_subject_property";
 
 

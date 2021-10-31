@@ -19,7 +19,7 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  * 数据权限主体表  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-28 10:00:44
+ * @since 2021-10-30 08:27:47
 */
 
 @FeignClient(value = MicroServiceNames.DATA_PERM, contextId = SubjectServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)
@@ -112,13 +112,13 @@ public interface SubjectServiceProxy {
 	 * 删除数据权限主体
 	*/
 	@RequestMapping(SubjectServiceProxy.DELETE)
-	Result deleteById(String id);
+	Result deleteById(String code);
 
 	/**
 	 * 批量删除数据权限主体
 	*/
 	@RequestMapping(SubjectServiceProxy.DELETE_BY_IDS)
-	Result deleteByIds(List<String> ids);
+	Result deleteByIds(List<String> codes);
 
 	/**
 	 * 更新数据权限主体
@@ -136,13 +136,13 @@ public interface SubjectServiceProxy {
 	 * 获取数据权限主体
 	*/
 	@RequestMapping(SubjectServiceProxy.GET_BY_ID)
-	Result<Subject> getById(String id);
+	Result<Subject> getById(String code);
 
 	/**
 	 * 批量删除数据权限主体
 	*/
 	@RequestMapping(SubjectServiceProxy.GET_BY_IDS)
-	Result<List<Subject>> getByIds(List<String> ids);
+	Result<List<Subject>> getByIds(List<String> codes);
 	/**
 	 * 查询数据权限主体
 	*/
