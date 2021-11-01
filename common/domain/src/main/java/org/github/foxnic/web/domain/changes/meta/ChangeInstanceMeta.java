@@ -4,15 +4,17 @@ import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.changes.ChangeInstance;
 import java.util.Date;
 import org.github.foxnic.web.domain.changes.ChangeData;
+import org.github.foxnic.web.domain.changes.ChangeDefinition;
 import org.github.foxnic.web.domain.hrm.Employee;
 import java.util.List;
+import org.github.foxnic.web.domain.bpm.Role;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-28 16:34:29
- * @sign 2B51D0E5B415BAF3E579B8EB150BED05
+ * @since 2021-11-01 15:19:00
+ * @sign C2792F2B99B180D19A8E22D1089E4F9D
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -269,6 +271,16 @@ public class ChangeInstanceMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeInstance,org.github.foxnic.web.domain.changes.ChangeData> DATA_AFTER_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeInstance.class ,DATA_AFTER, org.github.foxnic.web.domain.changes.ChangeData.class, "变更后的数据", "变更后的数据", org.github.foxnic.web.domain.changes.ChangeData.class, null);
 	
 	/**
+	 * 流程定义对象 , 流程定义 , 类型: org.github.foxnic.web.domain.changes.ChangeDefinition
+	*/
+	public static final String DEFINITION="definition";
+	
+	/**
+	 * 流程定义对象 , 流程定义 , 类型: org.github.foxnic.web.domain.changes.ChangeDefinition
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeInstance,org.github.foxnic.web.domain.changes.ChangeDefinition> DEFINITION_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeInstance.class ,DEFINITION, org.github.foxnic.web.domain.changes.ChangeDefinition.class, "流程定义对象", "流程定义", org.github.foxnic.web.domain.changes.ChangeDefinition.class, null);
+	
+	/**
 	 * 当前可审批员工清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.hrm.Employee
 	*/
 	public static final String CURR_EMPLOYEE_APPROVERS="currEmployeeApprovers";
@@ -279,19 +291,19 @@ public class ChangeInstanceMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeInstance,org.github.foxnic.web.domain.hrm.Employee> CURR_EMPLOYEE_APPROVERS_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeInstance.class ,CURR_EMPLOYEE_APPROVERS, java.util.List.class, "当前可审批员工清单", "", org.github.foxnic.web.domain.hrm.Employee.class, null);
 	
 	/**
-	 * 当前可审批流程角色清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.hrm.Employee
+	 * 当前可审批流程角色清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.Role
 	*/
 	public static final String CURR_BPM_ROLE_APPROVERS="currBpmRoleApprovers";
 	
 	/**
-	 * 当前可审批流程角色清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.hrm.Employee
+	 * 当前可审批流程角色清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.Role
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeInstance,org.github.foxnic.web.domain.hrm.Employee> CURR_BPM_ROLE_APPROVERS_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeInstance.class ,CURR_BPM_ROLE_APPROVERS, java.util.List.class, "当前可审批流程角色清单", "", org.github.foxnic.web.domain.hrm.Employee.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeInstance,org.github.foxnic.web.domain.bpm.Role> CURR_BPM_ROLE_APPROVERS_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeInstance.class ,CURR_BPM_ROLE_APPROVERS, java.util.List.class, "当前可审批流程角色清单", "", org.github.foxnic.web.domain.bpm.Role.class, null);
 	
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , DEFINITION_ID , MODE , DRAFTER_ID , DRAFTER_NAME , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , STATUS , TYPE , PROCESS_ID , PROCESS_NODE_SUMMARY , PROCESS_SUMMARY , START_TIME , FINISH_TIME , SIMPLE_APPROVERS , SIMPLE_NODE_ID , DATA_BEFORE , DATA_AFTER , CURR_EMPLOYEE_APPROVERS , CURR_BPM_ROLE_APPROVERS };
+	public static final String[] $PROPS={ ID , DEFINITION_ID , MODE , DRAFTER_ID , DRAFTER_NAME , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , STATUS , TYPE , PROCESS_ID , PROCESS_NODE_SUMMARY , PROCESS_SUMMARY , START_TIME , FINISH_TIME , SIMPLE_APPROVERS , SIMPLE_NODE_ID , DATA_BEFORE , DATA_AFTER , DEFINITION , CURR_EMPLOYEE_APPROVERS , CURR_BPM_ROLE_APPROVERS };
 	
 	/**
 	 * 代理类
@@ -577,6 +589,17 @@ public class ChangeInstanceMeta {
 		}
 		
 		/**
+		 * 设置 流程定义对象
+		 * @param definition 流程定义对象
+		 * @return 当前对象
+		*/
+		public ChangeInstance setDefinition(ChangeDefinition definition) {
+			super.change(DEFINITION,super.getDefinition(),definition);
+			super.setDefinition(definition);
+			return this;
+		}
+		
+		/**
 		 * 设置 当前可审批员工清单
 		 * @param currEmployeeApprovers 当前可审批员工清单
 		 * @return 当前对象
@@ -592,7 +615,7 @@ public class ChangeInstanceMeta {
 		 * @param currBpmRoleApprovers 当前可审批流程角色清单
 		 * @return 当前对象
 		*/
-		public ChangeInstance setCurrBpmRoleApprovers(List<Employee> currBpmRoleApprovers) {
+		public ChangeInstance setCurrBpmRoleApprovers(List<Role> currBpmRoleApprovers) {
 			super.change(CURR_BPM_ROLE_APPROVERS,super.getCurrBpmRoleApprovers(),currBpmRoleApprovers);
 			super.setCurrBpmRoleApprovers(currBpmRoleApprovers);
 			return this;

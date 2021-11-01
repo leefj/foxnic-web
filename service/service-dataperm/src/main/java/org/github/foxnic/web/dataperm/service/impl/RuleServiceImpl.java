@@ -315,6 +315,7 @@ public class RuleServiceImpl extends SuperService<Rule> implements IRuleService 
 
 	private void initPoPropertiesIf(String poTypName) {
 		List<PropertyItem> list= properties.get(poTypName);
+		list=null;
 		if(list!=null) return;
 		list=new ArrayList<>();
 		Class poType = ReflectUtil.forName(poTypName);
@@ -509,6 +510,8 @@ public class RuleServiceImpl extends SuperService<Rule> implements IRuleService 
 				if(ReflectUtil.isSubType(Entity.class,cmpType)) {
 					collectPoFields(item, cmpType, list);
 				}
+			} else if(ReflectUtil.isSubType(Entity.class,field.getType())) {
+				collectPoFields(item, field.getType(), list);
 			} else {
 				//其他类型暂不支持
 			}

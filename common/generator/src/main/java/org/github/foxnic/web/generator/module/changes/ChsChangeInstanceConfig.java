@@ -12,7 +12,9 @@ import org.github.foxnic.web.constants.enums.bpm.ApproveCatalog;
 import org.github.foxnic.web.constants.enums.changes.ApprovalMode;
 import org.github.foxnic.web.constants.enums.changes.ApprovalStatus;
 import org.github.foxnic.web.constants.enums.changes.ChangeType;
+import org.github.foxnic.web.domain.bpm.Role;
 import org.github.foxnic.web.domain.changes.ChangeData;
+import org.github.foxnic.web.domain.changes.ChangeDefinition;
 import org.github.foxnic.web.domain.hrm.Employee;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
@@ -31,10 +33,11 @@ public class ChsChangeInstanceConfig extends BaseCodeConfig<CHS_CHANGE_INSTANCE>
 //		poType.shadow(CHS_CHANGE_INSTANCE.SIMPLE_APPROVE_LOGIC, ApprovalLogic.class);
 		poType.addSimpleProperty(ChangeData.class,"dataBefore","变更前的数据","变更前的数据");
 		poType.addSimpleProperty(ChangeData.class,"dataAfter","变更后的数据","变更后的数据");
+		poType.addSimpleProperty(ChangeDefinition.class,"definition","流程定义对象","流程定义");
 
 		//
 		poType.addListProperty(Employee.class,"currEmployeeApprovers","当前可审批员工清单","");
-		poType.addListProperty(Employee.class,"currBpmRoleApprovers","当前可审批流程角色清单","");
+		poType.addListProperty(Role.class,"currBpmRoleApprovers","当前可审批流程角色清单","");
 
 		PojoClassFile pojo=context.createPojo("ProcessStartVO");
 		pojo.setSuperType(null);

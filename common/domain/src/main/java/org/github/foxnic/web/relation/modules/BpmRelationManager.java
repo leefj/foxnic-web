@@ -32,6 +32,11 @@ public class BpmRelationManager extends RelationManager {
 				.using(FoxnicWeb.CHS_CHANGE_APPROVER.APPROVER_ID).join(FoxnicWeb.BPM_ROLE.ID)
 		;
 
+		//变更实例 - 流程定义
+		this.property(ChangeInstanceMeta.DEFINITION_PROP)
+				.using(FoxnicWeb.CHS_CHANGE_INSTANCE.DEFINITION_ID).join(FoxnicWeb.CHS_CHANGE_DEFINITION.ID);
+		;
+
 	}
 
 	protected void setupBpm() {
