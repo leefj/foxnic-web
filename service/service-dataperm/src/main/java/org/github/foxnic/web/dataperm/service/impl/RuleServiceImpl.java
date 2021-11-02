@@ -39,6 +39,7 @@ import org.github.foxnic.web.domain.dataperm.RuleRange;
 import org.github.foxnic.web.domain.dataperm.meta.RuleMeta;
 import org.github.foxnic.web.domain.dataperm.meta.RuleRangeMeta;
 import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.github.foxnic.web.misc.ztree.ZTreeNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,10 +49,7 @@ import javax.annotation.Resource;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <p>
@@ -310,25 +308,51 @@ public class RuleServiceImpl extends SuperService<Rule> implements IRuleService 
 		return super.buildExcelStructure(isForExport);
 	}
 
-	private LocalCache<String,List<PropertyItem>> properties =new LocalCache<>();
+	private LocalCache<String,List<ZTreeNode>> properties =new LocalCache<>();
 	private LocalCache<String, Map<String,PropertyItem>> propertiesMap=new LocalCache<>();
 
 	private void initPoPropertiesIf(String poTypName) {
-		List<PropertyItem> list= properties.get(poTypName);
-		list=null;
-		if(list!=null) return;
-		list=new ArrayList<>();
+
+		List<ZTreeNode> roots= properties.get(poTypName);
+		if(roots!=null) return;
+		roots=new ArrayList<>();
+		List<PropertyItem> list=new ArrayList<>();
 		Class poType = ReflectUtil.forName(poTypName);
 		if (poType == null) return;
 		this.collectPoFields(null,poType,list);
-		properties.put(poTypName,list);
-		Map<String,PropertyItem> map= CollectorUtil.collectMap(list,(item)->{return item.getFullProperty();},(item)->{return item;});
-		propertiesMap.put(poTypName,map);
+
+		Map<String,ZTreeNode> map=new HashMap<>();
+		List<ZTreeNode> nodes=new ArrayList<>();
+		for (PropertyItem p : list) {
+			ZTreeNode node=new ZTreeNode();
+			node.setId(p.getFullProperty());
+			String label=p.getLabel();
+			if(!label.equals(p.getProperty())) {
+				label+="("+p.getProperty()+")";
+			}
+			node.setParentId(p.getParent().getFullProperty());
+			node.setName(label);
+			map.put(node.getId(),node);
+		}
+		for (ZTreeNode node : nodes) {
+			ZTreeNode parent=map.get(node.getParentId());
+			if(parent==null) {
+				roots.add(node);
+				continue;
+			}
+			parent.addChild(node);
+			parent.setIsParent(true);
+		}
+		properties.put(poTypName,roots);
+
+		//
+		Map<String,PropertyItem> pMap= CollectorUtil.collectMap(list,(item)->{return item.getFullProperty();},(item)->{return item;});
+		propertiesMap.put(poTypName,pMap);
 	}
 
 	@Override
-	public JSONArray queryFieldList(String ruleId,String searchValue) {
-		JSONArray array=new JSONArray();
+	public List<ZTreeNode> queryFieldList(String ruleId, String searchValue) {
+		List<ZTreeNode> array=new ArrayList<>();
 		if(ruleId==null) {
 			return array;
 		}
@@ -336,17 +360,17 @@ public class RuleServiceImpl extends SuperService<Rule> implements IRuleService 
 		if(rule==null) return null;
 		if(StringUtil.isBlank(rule.getPoType())) return null;
 		initPoPropertiesIf(rule.getPoType());
-		List<PropertyItem> list= properties.get(rule.getPoType());
-		//过滤
-		for (PropertyItem item : list) {
-			if(!StringUtil.isBlank(searchValue)) {
-				if(item.getFullProperty().toLowerCase().contains(searchValue.toLowerCase().trim())) {
-					array.add(item);
-				}
-			} else {
-				array.add(item);
-			}
-		}
+		List<ZTreeNode> list= properties.get(rule.getPoType());
+//		//过滤
+//		for (PropertyItem item : list) {
+//			if(!StringUtil.isBlank(searchValue)) {
+//				if(item.getFullProperty().toLowerCase().contains(searchValue.toLowerCase().trim())) {
+//					array.add(item);
+//				}
+//			} else {
+//				array.add(item);
+//			}
+//		}
 		return  array;
 	}
 

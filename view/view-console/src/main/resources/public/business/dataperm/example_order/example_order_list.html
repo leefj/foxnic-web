@@ -1,8 +1,8 @@
-<!-- 
+<!--
 /**
  * 销售订单 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-28 10:00:48
+ * @since 2021-11-02 14:49:26
  */
  -->
  <!DOCTYPE html>
@@ -26,7 +26,7 @@
 <body style="overflow-y: hidden">
 
 <div class="layui-card">
- 
+
     <div class="layui-card-body" style="">
 
         <div class="search-bar" style="">
@@ -46,7 +46,7 @@
                     <!-- 店铺 , shopId ,typeName=select_box, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('店铺')}" class="search-label shopId-label">店铺</span><span class="search-colon">:</span></div>
-                        <div id="shopId" th:data="${'/service-dataperm/dp-example-shop/query-list'}" style="width:140px"></div>
+                        <div id="shopId" th:data="${'/service-dataperm/dp-example-shop/query-list'}" style="width:140px" extraParam="{}"></div>
                     </div>
                     <!-- 导购 , salesId ,typeName=button, isHideInSearch=false -->
                     <div class="search-unit">
@@ -57,12 +57,12 @@
                     <!-- 品牌 , brandId ,typeName=select_box, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('品牌')}" class="search-label brandId-label">品牌</span><span class="search-colon">:</span></div>
-                        <div id="brandId" th:data="${'/service-dataperm/dp-example-brand/query-list'}" style="width:140px"></div>
+                        <div id="brandId" th:data="${'/service-dataperm/dp-example-brand/query-list'}" style="width:140px" extraParam="{}"></div>
                     </div>
                     <!-- 大类 , bigCataId ,typeName=select_box, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('大类')}" class="search-label bigCataId-label">大类</span><span class="search-colon">:</span></div>
-                        <div id="bigCataId" th:data="${'/service-dataperm/dp-example-catalog/query-list?parentId=0'}" style="width:140px"></div>
+                        <div id="bigCataId" th:data="${'/service-dataperm/dp-example-catalog/query-list?parentId=0'}" style="width:140px" extraParam="{}"></div>
                     </div>
 
 

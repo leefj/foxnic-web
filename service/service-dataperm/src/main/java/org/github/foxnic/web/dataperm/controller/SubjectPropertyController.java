@@ -48,7 +48,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 数据权限主体属性表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-30 08:27:53
+ * @since 2021-11-02 14:49:22
 */
 
 @Api(tags = "数据权限主体属性")

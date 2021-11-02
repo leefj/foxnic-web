@@ -344,4 +344,18 @@ public class RuleConditionController extends SuperController {
 	}
 
 
+
+	/**
+	 * 测试 SpringEL 表达式
+	 */
+	@ApiOperation(value = "测试 SpringEL 表达式")
+	@ApiImplicitParams({})
+	@ApiOperationSupport(order=8)
+	@SentinelResource(value = RuleConditionServiceProxy.TEST_SPRING_EL , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
+	@PostMapping(RuleConditionServiceProxy.TEST_SPRING_EL)
+	public Result testSpringEL(RuleConditionVO sample) {
+		return ruleConditionService.testSpringEL(sample);
+	}
+
+
 }

@@ -93,6 +93,11 @@ public interface RuleConditionServiceProxy {
 	public static final String QUERY_PAGED_LIST = API_PREFIX + "query-paged-list";
 
 	/**
+	 * 测试  SPRING EL
+	 */
+	public static final String TEST_SPRING_EL = API_PREFIX + "test-spring-el";
+
+	/**
 	 * 导出数据权限规则范围条件数据(Excel)
 	 */
 	public static final String EXPORT_EXCEL = API_PREFIX + "export-excel";

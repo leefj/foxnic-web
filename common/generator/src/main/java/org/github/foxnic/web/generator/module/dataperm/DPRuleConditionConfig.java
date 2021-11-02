@@ -13,7 +13,6 @@ import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.DP_RULE_CONDITION;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
-import org.github.foxnic.web.proxy.dataperm.RuleServiceProxy;
 
 
 public class DPRuleConditionConfig extends BaseCodeConfig<DP_RULE_CONDITION> {
@@ -51,9 +50,11 @@ public class DPRuleConditionConfig extends BaseCodeConfig<DP_RULE_CONDITION> {
 		view.field(DP_RULE_CONDITION.TITLE).basic().label("名称");
 
 		view.field(DP_RULE_CONDITION.QUERY_PROPERTY).basic().label("目标属性")
-				.form().selectBox().queryApi(RuleServiceProxy.QUERY_FIELD_LIST)
-					.toolbar(false)
-					.paging(false).muliti(false).valueField("fullProperty").textField("fullProperty");
+				.form().button().action("选择属性","chooseProperty");
+
+//				.selectBox().queryApi(RuleServiceProxy.QUERY_FIELD_LIST)
+//					.toolbar(false)
+//					.paging(false).muliti(false).valueField("fullProperty").textField("fullProperty");
 
 		view.field(DP_RULE_CONDITION.QUERY_FIELD).basic().hidden();
 		view.field(DP_RULE_CONDITION.SORT).basic().hidden();
@@ -65,6 +66,8 @@ public class DPRuleConditionConfig extends BaseCodeConfig<DP_RULE_CONDITION> {
 		view.field(DP_RULE_CONDITION.EXPR_TYPE).basic().label("条件类型").form().selectBox().enumType(ExprType.class).defaultValue(ExprType.eq).paging(false).muliti(false);
 
 		view.field(DP_RULE_CONDITION.EXPR).form().textArea().height(100);
+		view.field(DP_RULE_CONDITION.CONDITION_EXPR).form().textArea().height(55);
+		view.field(DP_RULE_CONDITION.CONDITION_TEST_VALUE).basic().label("测试VO值").form().textArea().height(55);
 		view.field(DP_RULE_CONDITION.VARIABLES).form().textArea().height(100);
 		view.field(DP_RULE_CONDITION.NOTES).form().textArea().height(100);
 	}
@@ -83,6 +86,7 @@ public class DPRuleConditionConfig extends BaseCodeConfig<DP_RULE_CONDITION> {
 				DP_RULE_CONDITION.RULE_ID,DP_RULE_CONDITION.RANGE_ID,
 				//
 				DP_RULE_CONDITION.TITLE,
+				DP_RULE_CONDITION.CONDITION_EXPR,DP_RULE_CONDITION.CONDITION_TEST_VALUE,
 				DP_RULE_CONDITION.LOGIC,DP_RULE_CONDITION.VALID,
 				DP_RULE_CONDITION.QUERY_PROPERTY,DP_RULE_CONDITION.EXPR_TYPE,
 				DP_RULE_CONDITION.EXPR,DP_RULE_CONDITION.VARIABLES,

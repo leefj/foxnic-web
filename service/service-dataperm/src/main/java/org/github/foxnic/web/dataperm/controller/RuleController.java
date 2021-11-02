@@ -24,6 +24,7 @@ import org.github.foxnic.web.domain.dataperm.RuleVO;
 import org.github.foxnic.web.domain.dataperm.meta.RuleVOMeta;
 import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
 import org.github.foxnic.web.framework.web.SuperController;
+import org.github.foxnic.web.misc.ztree.ZTreeNode;
 import org.github.foxnic.web.proxy.dataperm.RuleServiceProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -311,9 +312,9 @@ public class RuleController extends SuperController {
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { RuleVOMeta.PAGE_INDEX , RuleVOMeta.PAGE_SIZE } )
 	@SentinelResource(value = RuleServiceProxy.QUERY_FIELD_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(RuleServiceProxy.QUERY_FIELD_LIST)
-	public Result<JSONArray> queryFieldList(RuleVO sample) {
-		Result<JSONArray> result=new Result<>();
-		JSONArray list=ruleService.queryFieldList(sample.getId(),sample.getSearchValue());
+	public Result<List<ZTreeNode>> queryFieldList(RuleVO sample) {
+		Result<List<ZTreeNode>> result=new Result<>();
+		List<ZTreeNode> list=ruleService.queryFieldList(sample.getId(),sample.getSearchValue());
 		result.success(true).data(list);
 		return result;
 	}

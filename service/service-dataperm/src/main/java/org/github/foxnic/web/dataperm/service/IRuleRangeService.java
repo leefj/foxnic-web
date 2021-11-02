@@ -21,7 +21,7 @@ import com.github.foxnic.dao.data.SaveMode;
  * 数据权限规则范围表 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-29 13:40:08
+ * @since 2021-11-02 14:49:24
 */
 
 public interface IRuleRangeService extends ISuperService<RuleRange> {

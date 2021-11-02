@@ -1,16 +1,19 @@
 package org.github.foxnic.web.dataperm.service.impl;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.api.dataperm.ConditionNodeType;
 import com.github.foxnic.api.dataperm.LogicType;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.busi.id.IDGenerator;
 import com.github.foxnic.commons.lang.StringUtil;
+import com.github.foxnic.commons.reflect.ReflectUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.Rcd;
 import com.github.foxnic.dao.data.RcdSet;
 import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.dataperm.DataPermContext;
 import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.dao.excel.ExcelStructure;
 import com.github.foxnic.dao.excel.ExcelWriter;
@@ -28,11 +31,15 @@ import org.github.foxnic.web.dataperm.service.IRuleConditionService;
 import org.github.foxnic.web.dataperm.service.IRuleRangeService;
 import org.github.foxnic.web.dataperm.service.IRuleService;
 import org.github.foxnic.web.domain.dataperm.PropertyItem;
+import org.github.foxnic.web.domain.dataperm.Rule;
 import org.github.foxnic.web.domain.dataperm.RuleCondition;
+import org.github.foxnic.web.domain.dataperm.RuleConditionVO;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.meta.MenuMeta;
 import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.github.foxnic.web.framework.environment.Environment;
 import org.github.foxnic.web.misc.ztree.ZTreeNode;
+import org.github.foxnic.web.session.SessionUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -427,6 +434,39 @@ public class RuleConditionServiceImpl extends SuperService<RuleCondition> implem
 	public List<String> search(String keyword) {
 		RcdSet rs=dao().query("#search-catalog-hierarchy","%"+keyword+"%");
 		return rs.getValueList("hierarchy",String.class);
+	}
+
+	@Override
+	public Result testSpringEL(RuleConditionVO sample) {
+
+		if(StringUtil.isBlank(sample.getConditionExpr())) {
+			return ErrorDesc.success().message("通过");
+		}
+
+
+		Rule rule=ruleService.getById(sample.getRuleId());
+		String voTypeName=rule.getPoType()+"VO";
+		Class voType= ReflectUtil.forName(voTypeName);
+		if(voType==null) {
+			return ErrorDesc.failure().message("未发现 "+voType+" 类型");
+		}
+		Object vo = null;
+		try {
+			String voJsonStr=sample.getConditionTestValue();
+			if(StringUtil.isBlank(voJsonStr)) {
+				voJsonStr="{}";
+			}
+			JSONObject voJson = JSONObject.parseObject(voJsonStr);
+			vo = voJson.toJavaObject(voType);
+		} catch (Exception e) {
+			return ErrorDesc.failure().message("测试值无法转换成VO对象");
+		}
+
+		DataPermContext context=new DataPermContext();
+		context.setVo(vo);
+		context.setSession(SessionUser.getCurrent());
+		context.setEnv(Environment.getEnvironment());
+		return context.testExpr(sample.getConditionExpr());
 	}
 
 

@@ -21,8 +21,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 数据权限规则范围条件
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-29 15:27:29
- * @sign 4B28ADEB22DDA316FE1366FC6F0CF82D
+ * @since 2021-11-02 15:43:21
+ * @sign 01ACAB0CEE210C0E3049D265E5821B57
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -45,6 +45,18 @@ public class RuleCondition extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="抬头" , notes = "抬头")
 	private String title;
+	
+	/**
+	 * 应用条件：SpringEL表达式，返回 true / false
+	*/
+	@ApiModelProperty(required = false,value="应用条件" , notes = "SpringEL表达式，返回 true / false")
+	private String conditionExpr;
+	
+	/**
+	 * 应用条件测试值：JSON
+	*/
+	@ApiModelProperty(required = false,value="应用条件测试值" , notes = "JSON")
+	private String conditionTestValue;
 	
 	/**
 	 * 规则ID：规则ID
@@ -219,6 +231,44 @@ public class RuleCondition extends Entity {
 	*/
 	public RuleCondition setTitle(String title) {
 		this.title=title;
+		return this;
+	}
+	
+	/**
+	 * 获得 应用条件<br>
+	 * SpringEL表达式，返回 true / false
+	 * @return 应用条件
+	*/
+	public String getConditionExpr() {
+		return conditionExpr;
+	}
+	
+	/**
+	 * 设置 应用条件
+	 * @param conditionExpr 应用条件
+	 * @return 当前对象
+	*/
+	public RuleCondition setConditionExpr(String conditionExpr) {
+		this.conditionExpr=conditionExpr;
+		return this;
+	}
+	
+	/**
+	 * 获得 应用条件测试值<br>
+	 * JSON
+	 * @return 应用条件测试值
+	*/
+	public String getConditionTestValue() {
+		return conditionTestValue;
+	}
+	
+	/**
+	 * 设置 应用条件测试值
+	 * @param conditionTestValue 应用条件测试值
+	 * @return 当前对象
+	*/
+	public RuleCondition setConditionTestValue(String conditionTestValue) {
+		this.conditionTestValue=conditionTestValue;
 		return this;
 	}
 	

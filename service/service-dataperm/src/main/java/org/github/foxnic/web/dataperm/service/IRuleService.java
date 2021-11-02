@@ -1,7 +1,6 @@
 package org.github.foxnic.web.dataperm.service;
 
 
-import com.alibaba.fastjson.JSONArray;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
@@ -14,6 +13,7 @@ import com.github.foxnic.sql.expr.OrderBy;
 import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.domain.dataperm.PropertyItem;
 import org.github.foxnic.web.domain.dataperm.Rule;
+import org.github.foxnic.web.misc.ztree.ZTreeNode;
 
 import java.io.InputStream;
 import java.util.List;
@@ -288,7 +288,7 @@ public interface IRuleService extends ISuperService<Rule> {
 	/**
 	 * 查询字段
 	 * */
-	JSONArray queryFieldList(String ruleId,String searchValue);
+	List<ZTreeNode> queryFieldList(String ruleId, String searchValue);
 
     PropertyItem getPropertyItem(String ruleId,String fullProperty);
 

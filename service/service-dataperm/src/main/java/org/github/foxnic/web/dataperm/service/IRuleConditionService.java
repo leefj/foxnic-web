@@ -12,6 +12,7 @@ import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.expr.OrderBy;
 import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.domain.dataperm.RuleCondition;
+import org.github.foxnic.web.domain.dataperm.RuleConditionVO;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.misc.ztree.ZTreeNode;
 
@@ -321,5 +322,8 @@ public interface IRuleConditionService extends ISuperService<RuleCondition> {
 	 * */
 	List<String> search(String keyword);
 
-
+	/**
+	 * 测试SpringEL
+	 * */
+    Result testSpringEL(RuleConditionVO sample);
 }

@@ -25,9 +25,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * 列表页初始化前调用
          * */
         beforeInit:function () {
-            console.log("list:beforeInit");
-            var formData = admin.getTempData('dp-rule-condition-form-data');
-            debugger;
+
         },
         /**
          * 表格渲染前调用
@@ -151,7 +149,45 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             //获取参数，并调整下拉框查询用的URL
             //var companyId=admin.getTempData("companyId");
             //fox.setSelectBoxUrl("employeeId","/service-hrm/hrm-employee/query-paged-list?companyId="+companyId);
-            console.log("form:beforeInit")
+            console.log("list:beforeInit");
+            var varsButtonHtml="<br/><span id='varsButton' class='layui-badge layui-bg-black' style='cursor: pointer;user-select:none;'>变量</span>";
+            var el=$("#conditionExpr").parents(".layui-form-item").find(".layui-form-label").find("div");
+            el.append(varsButtonHtml);
+            $("#varsButton").click(this.viewVariables);
+
+
+            var testButtonHtml="<br/><span id='conditionTestButton' class='layui-badge layui-bg-black' style='cursor: pointer;user-select:none;'>测试</span>";
+            var el=$("#conditionTestValue").parents(".layui-form-item").find(".layui-form-label").find("div");
+            el.append(testButtonHtml);
+            $("#conditionTestButton").click(this.testCondition);
+        },
+        viewVariables:function () {
+            top.layer.open({
+                type: 2,
+                area:["360px","75%"],
+                content: "/business/dataperm/rule_condition/object_dialog.html"
+            });
+        },
+        testCondition:function () {
+            var data=window.module.getFormData();
+            admin.post("/service-dataperm/dp-rule-condition/test-spring-el",data,function (r){
+                //debugger;
+                if(r.success) {
+                    top.layer.msg(r.message,{icon: 1,time:1000});
+                } else {
+                    if(r.extra.exception) {
+                        top.layer.open({
+                            type: 1,
+                            area:["70%","85%"],
+                            content: "<div style='padding: 16px'>"+r.extra.exception+"</div>"
+                        });
+                    } else {
+                        top.layer.msg(r.message,{icon: 2,time:2000});
+                    }
+
+                }
+
+            })
         },
         beforeAdjustPopup:function () {
             return false;
@@ -161,6 +197,18 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * */
         beforeDataFill:function (data) {
             console.log('beforeDataFill',data);
+        },
+        chooseProperty:function (data,input,button) {
+            if(!data || !data.id) {
+                top.layer.msg("请选择一个节点",{time:1000});
+                return;
+            }
+            admin.putTempData("object_browser_api","/service-dataperm/dp-rule/query-field-list?id="+data.ruleId,true);
+            top.layer.open({
+                type: 2,
+                area:["360px","75%"],
+                content: "/business/dataperm/rule_condition/object_dialog.html"
+            });
         },
         /**
          * 表单数据填充后
@@ -209,18 +257,18 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
                     admin.putTempData('dp-rule-condition-form-data', data.data,true);
                     window.module.fillFormData();
                     // debugger;
-                    var box=fox.getSelectBox("queryProperty");
-                    box.refresh({id:data.data.ruleId},function (){
-                        // debugger
-                        if(data.data.queryProperty) {
-                            fox.setSelectValue4QueryApi("#queryProperty", {
-                                fullProperty: data.data.queryProperty,
-                                fullProperty: data.data.queryProperty
-                            });
-                        } else {
-                            fox.getSelectBox("queryProperty").setValue([]);
-                        }
-                    });
+                    // var box=fox.getSelectBox("queryProperty");
+                    // box.refresh({id:data.data.ruleId},function (){
+                    //     // debugger
+                    //     if(data.data.queryProperty) {
+                    //         fox.setSelectValue4QueryApi("#queryProperty", {
+                    //             fullProperty: data.data.queryProperty,
+                    //             fullProperty: data.data.queryProperty
+                    //         });
+                    //     } else {
+                    //         fox.getSelectBox("queryProperty").setValue([]);
+                    //     }
+                    // });
                 } else {
                     layer.msg(data.message, {icon: 1, time: 1500});
                 }

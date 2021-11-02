@@ -1,27 +1,27 @@
 package org.github.foxnic.web.dataperm.service;
 
 
+import com.github.foxnic.sql.expr.ConditionExpr;
+import com.github.foxnic.dao.entity.ISuperService;
+import org.github.foxnic.web.domain.dataperm.ExampleOrder;
+import org.github.foxnic.web.domain.dataperm.ExampleOrderVO;
+import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.entity.ISuperService;
-import com.github.foxnic.dao.excel.ExcelStructure;
-import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.sql.expr.ConditionExpr;
+import java.io.InputStream;
 import com.github.foxnic.sql.expr.OrderBy;
 import com.github.foxnic.sql.meta.DBField;
-import org.github.foxnic.web.domain.dataperm.ExampleOrder;
-
-import java.io.InputStream;
-import java.util.List;
+import com.github.foxnic.dao.excel.ExcelWriter;
+import com.github.foxnic.dao.excel.ExcelStructure;
+import com.github.foxnic.dao.excel.ValidateResult;
+import com.github.foxnic.dao.data.SaveMode;
 
 /**
  * <p>
  * 销售订单表 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-28 10:00:48
+ * @since 2021-11-02 14:49:25
 */
 
 public interface IExampleOrderService extends ISuperService<ExampleOrder> {
@@ -50,7 +50,7 @@ public interface IExampleOrderService extends ISuperService<ExampleOrder> {
 	Result insertList(List<ExampleOrder> exampleOrderList);
 
 
-
+		
 	/**
 	 * 按主键删除 销售订单
 	 *
@@ -58,7 +58,7 @@ public interface IExampleOrderService extends ISuperService<ExampleOrder> {
 	 * @return 删除是否成功
 	 */
 	Result deleteByIdPhysical(String id);
-
+	
 	/**
 	 * 按主键删除 销售订单
 	 *
@@ -81,7 +81,7 @@ public interface IExampleOrderService extends ISuperService<ExampleOrder> {
 	 * */
 	<T> Result deleteByIdsLogical(List<T> ids);
 
-
+		
 	/**
 	 * 按主键更新字段 销售订单
 	 *
@@ -151,7 +151,7 @@ public interface IExampleOrderService extends ISuperService<ExampleOrder> {
 	 * */
 	boolean checkExists(ExampleOrder exampleOrder,DBField... field);
 
-
+		
 	/**
 	 * 按主键获取 销售订单
 	 *

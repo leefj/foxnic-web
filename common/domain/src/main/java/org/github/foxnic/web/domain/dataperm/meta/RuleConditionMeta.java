@@ -8,8 +8,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-29 15:27:29
- * @sign 4B28ADEB22DDA316FE1366FC6F0CF82D
+ * @since 2021-11-02 15:43:22
+ * @sign 01ACAB0CEE210C0E3049D265E5821B57
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -34,6 +34,26 @@ public class RuleConditionMeta {
 	 * 抬头 , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.RuleCondition,java.lang.String> TITLE_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.RuleCondition.class ,TITLE, java.lang.String.class, "抬头", "抬头", java.lang.String.class, null);
+	
+	/**
+	 * 应用条件 , SpringEL表达式，返回 true / false , 类型: java.lang.String
+	*/
+	public static final String CONDITION_EXPR="conditionExpr";
+	
+	/**
+	 * 应用条件 , SpringEL表达式，返回 true / false , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.RuleCondition,java.lang.String> CONDITION_EXPR_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.RuleCondition.class ,CONDITION_EXPR, java.lang.String.class, "应用条件", "SpringEL表达式，返回 true / false", java.lang.String.class, null);
+	
+	/**
+	 * 应用条件测试值 , JSON , 类型: java.lang.String
+	*/
+	public static final String CONDITION_TEST_VALUE="conditionTestValue";
+	
+	/**
+	 * 应用条件测试值 , JSON , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.RuleCondition,java.lang.String> CONDITION_TEST_VALUE_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.RuleCondition.class ,CONDITION_TEST_VALUE, java.lang.String.class, "应用条件测试值", "JSON", java.lang.String.class, null);
 	
 	/**
 	 * 规则ID , 类型: java.lang.String
@@ -258,7 +278,7 @@ public class RuleConditionMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , TITLE , RULE_ID , RANGE_ID , HIERARCHY , PARENT_ID , QUERY_PROPERTY , QUERY_FIELD , TYPE , LOGIC , EXPR_TYPE , EXPR , VALID , VARIABLES , SORT , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , TITLE , CONDITION_EXPR , CONDITION_TEST_VALUE , RULE_ID , RANGE_ID , HIERARCHY , PARENT_ID , QUERY_PROPERTY , QUERY_FIELD , TYPE , LOGIC , EXPR_TYPE , EXPR , VALID , VARIABLES , SORT , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
 	
 	/**
 	 * 代理类
@@ -287,6 +307,28 @@ public class RuleConditionMeta {
 		public RuleCondition setTitle(String title) {
 			super.change(TITLE,super.getTitle(),title);
 			super.setTitle(title);
+			return this;
+		}
+		
+		/**
+		 * 设置 应用条件
+		 * @param conditionExpr 应用条件
+		 * @return 当前对象
+		*/
+		public RuleCondition setConditionExpr(String conditionExpr) {
+			super.change(CONDITION_EXPR,super.getConditionExpr(),conditionExpr);
+			super.setConditionExpr(conditionExpr);
+			return this;
+		}
+		
+		/**
+		 * 设置 应用条件测试值
+		 * @param conditionTestValue 应用条件测试值
+		 * @return 当前对象
+		*/
+		public RuleCondition setConditionTestValue(String conditionTestValue) {
+			super.change(CONDITION_TEST_VALUE,super.getConditionTestValue(),conditionTestValue);
+			super.setConditionTestValue(conditionTestValue);
 			return this;
 		}
 		

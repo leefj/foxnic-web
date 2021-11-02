@@ -48,7 +48,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 商品分类表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-28 10:00:49
+ * @since 2021-11-02 14:49:27
 */
 
 @Api(tags = "商品分类")
