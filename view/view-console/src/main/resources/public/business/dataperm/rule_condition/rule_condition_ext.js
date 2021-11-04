@@ -150,7 +150,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             //var companyId=admin.getTempData("companyId");
             //fox.setSelectBoxUrl("employeeId","/service-hrm/hrm-employee/query-paged-list?companyId="+companyId);
             console.log("list:beforeInit");
-            var varsButtonHtml="<br/><span id='varsButton' class='layui-badge layui-bg-black' style='cursor: pointer;user-select:none;'>变量</span>";
+            var varsButtonHtml="<br/><span id='varsButton' class='layui-badge layui-bg-black' style='cursor: pointer;user-select:none;'>环境</span>";
             var el=$("#conditionExpr").parents(".layui-form-item").find(".layui-form-label").find("div");
             el.append(varsButtonHtml);
             $("#varsButton").click(this.viewVariables);
@@ -162,11 +162,14 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             $("#conditionTestButton").click(this.testCondition);
         },
         viewVariables:function () {
-            top.layer.open({
+            var data=window.module.getFormData();
+            admin.putTempData("contextDialogData",data,true);
+            var contextDialogIndex=top.layer.open({
                 type: 2,
-                area:["360px","75%"],
-                content: "/business/dataperm/rule_condition/object_dialog.html"
+                area:["500px","75%"],
+                content: "/business/dataperm/rule_condition/context_dialog.html"
             });
+            admin.putTempData("contextDialogIndex",contextDialogIndex,true);
         },
         testCondition:function () {
             var data=window.module.getFormData();
@@ -204,11 +207,18 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
                 return;
             }
             admin.putTempData("object_browser_api","/service-dataperm/dp-rule/query-field-list?id="+data.ruleId,true);
-            top.layer.open({
+            admin.putTempData("selectedProperty",input.val(),true);
+            var poPropertyDialogIndex=top.layer.open({
                 type: 2,
-                area:["360px","75%"],
+                area:["500px","75%"],
                 content: "/business/dataperm/rule_condition/object_dialog.html"
             });
+            admin.putTempData("updateButton",function(value) {
+                button.text(value);
+                input.val(value);
+            },true);
+            admin.putTempData("poPropertyDialogIndex",poPropertyDialogIndex,true);
+
         },
         /**
          * 表单数据填充后
@@ -256,6 +266,12 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
                 if(data.success) {
                     admin.putTempData('dp-rule-condition-form-data', data.data,true);
                     window.module.fillFormData();
+                    //debugger
+                    if(data.data.queryProperty) {
+                        $("#queryProperty-button").text(data.data.queryProperty);
+                    } else {
+                        $("#queryProperty-button").text("请选择属性");
+                    }
                     // debugger;
                     // var box=fox.getSelectBox("queryProperty");
                     // box.refresh({id:data.data.ruleId},function (){

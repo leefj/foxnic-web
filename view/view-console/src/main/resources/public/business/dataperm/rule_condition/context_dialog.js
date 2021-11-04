@@ -8,7 +8,6 @@
 function ListPage() {
 
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect;
-	var selectedProperty = null ;
 	var menuTree;
 
 	/**
@@ -18,20 +17,14 @@ function ListPage() {
 
 		admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload;
 		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
-
-		selectedProperty = admin.getTempData("selectedProperty");
-
-		//debugger
-		//form.render("check-mode");
-		//form.render('checkbox');
-		var api= admin.getTempData("object_browser_api");
+		var data=admin.getTempData("contextDialogData");
 
 		var cfgs = {
 			edit: {
 				enable: false
 			},
 			check: {
-				enable: true,
+				enable: false,
 				autoCheckTrigger: true,
 				chkStyle: "radio",
 				radioType: "all"
@@ -39,9 +32,9 @@ function ListPage() {
 			async: {
 				enable: true,
 				contentType:"application/json",
-				url:api,
+				url: "/service-dataperm/dp-rule-condition/query-context",
 				autoParam:["id=parentId"],
-				otherParam:{isLoadAllDescendants:1},
+				otherParam: data,
 				dataFilter: nodeDatafilter
 			},
 			callback: {
@@ -107,25 +100,6 @@ function ListPage() {
 		for (var i=0, l=childNodes.length; i<l; i++) {
 
 		}
-
-
-		clearTimeout(selectValueTask);
-		selectValueTask=setTimeout(function (){
-			var n=menuTree.getNodeByParam("id",selectedProperty,null);
-			var selectedNode=n;
-			menuTree.checkNode(selectedNode, true, false, true);
-
-			var ps=[];
-			while (true) {
-				n=n.getParentNode();
-				if(n) ps.push(n);
-				else break;
-			}
-			for (var i = 0; i < ps.length ; i++) {
-				menuTree.expandNode(ps[i],true,false,false,false);
-			}
-			menuTree.selectNode(selectedNode,true,false);
-		},500);
 
 		return childNodes;
 	}

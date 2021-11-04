@@ -326,4 +326,9 @@ public interface IRuleConditionService extends ISuperService<RuleCondition> {
 	 * 测试SpringEL
 	 * */
     Result testSpringEL(RuleConditionVO sample);
+
+    /**
+	 * 查询环境
+	 * */
+    Result<List<ZTreeNode>> queryContext(RuleConditionVO sample);
 }

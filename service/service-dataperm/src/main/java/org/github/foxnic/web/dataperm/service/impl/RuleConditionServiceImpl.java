@@ -470,4 +470,41 @@ public class RuleConditionServiceImpl extends SuperService<RuleCondition> implem
 	}
 
 
+	@Override
+	public Result<List<ZTreeNode>> queryContext(RuleConditionVO sample) {
+		Result<List<ZTreeNode>> result = new Result<>();
+		Rule rule=ruleService.getById(sample.getRuleId());
+		String voTypeName=rule.getPoType()+"VO";
+		Class voType= ReflectUtil.forName(voTypeName);
+		if(voType==null) {
+			result.success(false);
+			result.message("未发现 "+voType+" 类型");
+			return result;
+		}
+		Object vo = null;
+		try {
+			String voJsonStr=sample.getConditionTestValue();
+			if(StringUtil.isBlank(voJsonStr)) {
+				voJsonStr="{}";
+			}
+			JSONObject voJson = JSONObject.parseObject(voJsonStr);
+			vo = voJson.toJavaObject(voType);
+		} catch (Exception e) {
+			result.success(false);
+			result.message("测试值无法转换成VO对象");
+			return result;
+		}
+
+		DataPermContext context=new DataPermContext();
+		context.setVo(vo);
+		context.setSession(SessionUser.getCurrent());
+		context.setEnv(Environment.getEnvironment());
+
+		ContextBrowser browser=new ContextBrowser(context);
+		browser.init();
+		result.data(browser.getRoots());
+		return result;
+	}
+
+
 }

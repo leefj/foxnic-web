@@ -344,6 +344,18 @@ public class RuleConditionController extends SuperController {
 	}
 
 
+	/**
+	 * 查询环境
+	 */
+	@ApiOperation(value = "查询环境")
+	@ApiImplicitParams({})
+	@ApiOperationSupport(order=5 ,  ignoreParameters = { RuleConditionVOMeta.PAGE_INDEX , RuleConditionVOMeta.PAGE_SIZE } )
+	@SentinelResource(value = RuleConditionServiceProxy.QUERY_CONTEXT , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
+	@PostMapping(RuleConditionServiceProxy.QUERY_CONTEXT)
+	public Result<List<ZTreeNode>> queryFieldList(RuleConditionVO sample) {
+		return  ruleConditionService.queryContext(sample);
+	}
+
 
 	/**
 	 * 测试 SpringEL 表达式

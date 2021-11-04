@@ -83,6 +83,12 @@ public interface RuleConditionServiceProxy {
 	public static final String QUERY_LIST = API_PREFIX + "query-list";
 
 	/**
+	 * 查询环境
+	 */
+	public static final String QUERY_CONTEXT = API_PREFIX + "query-context";
+
+
+	/**
 	 * 查询节点
 	 */
 	public static final String QUERY_NODES = API_PREFIX + "query-nodes";

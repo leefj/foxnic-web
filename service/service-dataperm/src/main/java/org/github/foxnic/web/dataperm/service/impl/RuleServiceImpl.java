@@ -314,11 +314,14 @@ public class RuleServiceImpl extends SuperService<Rule> implements IRuleService 
 	private void initPoPropertiesIf(String poTypName) {
 
 		List<ZTreeNode> roots= properties.get(poTypName);
-		if(roots!=null) return;
+		roots=null;
+
+		if(roots!=null && !roots.isEmpty()) return;
 		roots=new ArrayList<>();
 		List<PropertyItem> list=new ArrayList<>();
 		Class poType = ReflectUtil.forName(poTypName);
 		if (poType == null) return;
+
 		this.collectPoFields(null,poType,list);
 
 		Map<String,ZTreeNode> map=new HashMap<>();
@@ -330,19 +333,41 @@ public class RuleServiceImpl extends SuperService<Rule> implements IRuleService 
 			if(!label.equals(p.getProperty())) {
 				label+="("+p.getProperty()+")";
 			}
-			node.setParentId(p.getParent().getFullProperty());
+			if(p.getParent()!=null) {
+				node.setParentId(p.getParent().getFullProperty());
+			}
 			node.setName(label);
 			map.put(node.getId(),node);
+			nodes.add(node);
 		}
+		ZTreeNode root=new ZTreeNode();
+		root.setId(poTypName);
+		root.setName(poTypName);
+		root.setOpen(true);
+
+		Set<List<ZTreeNode>> childrens=new HashSet<>();
 		for (ZTreeNode node : nodes) {
 			ZTreeNode parent=map.get(node.getParentId());
 			if(parent==null) {
-				roots.add(node);
+				root.addChild(node);
+				childrens.add(root.getChildren());
 				continue;
 			}
 			parent.addChild(node);
+			childrens.add(parent.getChildren());
 			parent.setIsParent(true);
 		}
+		roots.add(root);
+
+		for (List<ZTreeNode> children : childrens) {
+			children.sort(new Comparator<ZTreeNode>() {
+				@Override
+				public int compare(ZTreeNode o1, ZTreeNode o2) {
+					return o1.getName().compareTo(o2.getName());
+				}
+			});
+		}
+
 		properties.put(poTypName,roots);
 
 		//
@@ -360,17 +385,7 @@ public class RuleServiceImpl extends SuperService<Rule> implements IRuleService 
 		if(rule==null) return null;
 		if(StringUtil.isBlank(rule.getPoType())) return null;
 		initPoPropertiesIf(rule.getPoType());
-		List<ZTreeNode> list= properties.get(rule.getPoType());
-//		//过滤
-//		for (PropertyItem item : list) {
-//			if(!StringUtil.isBlank(searchValue)) {
-//				if(item.getFullProperty().toLowerCase().contains(searchValue.toLowerCase().trim())) {
-//					array.add(item);
-//				}
-//			} else {
-//				array.add(item);
-//			}
-//		}
+		array= properties.get(rule.getPoType());
 		return  array;
 	}
 
@@ -492,6 +507,7 @@ public class RuleServiceImpl extends SuperService<Rule> implements IRuleService 
 			PropertyItem item=new PropertyItem();
 			item.setParent(parent);
 			item.setProperty(field.getName());
+			item.setLabel(field.getName());
 
 			if(parent!=null) {
 				item.setFullProperty(parent.getFullProperty()+"."+item.getProperty());
@@ -502,6 +518,7 @@ public class RuleServiceImpl extends SuperService<Rule> implements IRuleService 
 			item.setTable(table);
 
 
+			//
 			if(DataParser.isSimpleType(field.getType())) {
 
 				//判断是否表字段
@@ -531,10 +548,12 @@ public class RuleServiceImpl extends SuperService<Rule> implements IRuleService 
 				list.add(item);
 			} else if(field.getType().equals(List.class)) {
 				Class cmpType= ReflectUtil.getListComponentType(field);
+				list.add(item);
 				if(ReflectUtil.isSubType(Entity.class,cmpType)) {
 					collectPoFields(item, cmpType, list);
 				}
 			} else if(ReflectUtil.isSubType(Entity.class,field.getType())) {
+				list.add(item);
 				collectPoFields(item, field.getType(), list);
 			} else {
 				//其他类型暂不支持
