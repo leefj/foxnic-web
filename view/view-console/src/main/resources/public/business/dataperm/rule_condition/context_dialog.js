@@ -41,8 +41,8 @@ function ListPage() {
 				// onRename : onNodeRename,
 				// beforeRemove : beforeNodeRemove,
 				// onDrop : onNodeDrop,
-				onClick: onNodeClick,
-				onCheck: onNodeCheck
+				onClick: onNodeClick
+				// onCheck: onNodeCheck
 			},
 			view: {
 				selectedMulti: false
@@ -79,19 +79,25 @@ function ListPage() {
 		for (var i=0, l=nodes.length; i<l; i++) {
 			menuTree.checkNode(nodes[i], true, false, true);
 		}
-	}
-
-	function onNodeCheck() {
-		var nodes=menuTree.getCheckedNodes(true);
 		if(nodes.length==0)  {
-			$("#property").text("属性 : 未选择");
+			$("#property").text("SpringEL : 未选择");
 		}
 		else {
-			$("#property").text("属性 : " + nodes[0].id);
+			$("#property").text("SpringEL : " + nodes[0].data);
 		}
 	}
 
-	var selectValueTask;
+	// function onNodeCheck() {
+	// 	var nodes=menuTree.getCheckedNodes(true);
+	// 	if(nodes.length==0)  {
+	// 		$("#property").text("属性 : 未选择");
+	// 	}
+	// 	else {
+	// 		$("#property").text("属性 : " + nodes[0].id);
+	// 	}
+	// }
+
+	// var selectValueTask;
 
 	function nodeDatafilter(treeId, parentNode, childNodes) {
 		//debugger;

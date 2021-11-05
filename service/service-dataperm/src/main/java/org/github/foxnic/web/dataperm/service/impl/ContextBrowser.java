@@ -1,14 +1,10 @@
 package org.github.foxnic.web.dataperm.service.impl;
 
-import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.commons.lang.DataParser;
 import com.github.foxnic.commons.lang.StringUtil;
-import com.github.foxnic.commons.reflect.ReflectUtil;
 import com.github.foxnic.dao.dataperm.DataPermContext;
-import com.github.foxnic.dao.entity.Entity;
 import org.github.foxnic.web.domain.dataperm.MemberItem;
 import org.github.foxnic.web.misc.ztree.ZTreeNode;
-import org.github.foxnic.web.session.SessionUser;
 import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
 import org.springframework.core.ParameterNameDiscoverer;
 
@@ -42,9 +38,10 @@ public class ContextBrowser {
         MemberItem top=new MemberItem();
         top.setName("context");
         top.setFullName("context");
+        top.setExpr("context");
         top.setValue(context);
 
-
+        this.methodKeys.clear();
         this.collectMembers(top,topType,list);
 
         Map<String, ZTreeNode> map=new HashMap<>();
@@ -53,6 +50,7 @@ public class ContextBrowser {
             ZTreeNode node=new ZTreeNode();
             node.setId(p.getFullName());
             node.setName(p.getName());
+            node.setData(p.getExpr());
             if(p.getParent()!=null) {
                 node.setParentId(p.getParent().getFullName());
             }
@@ -94,7 +92,55 @@ public class ContextBrowser {
 
 
     private boolean excludeMethod(MemberItem parent, Class type,Method method) {
-        if("finalize".equals(method.getName())) return true;
+        String methodName=method.getName();
+        if("testExpr".equals(methodName)) return true;
+        if(methodName.startsWith("set")) {
+            Character c4=methodName.charAt(3);
+            if(Character.isUpperCase(c4)) {
+                return true;
+            }
+        }
+        if(methodName.startsWith("add")) {
+            Character c4=methodName.charAt(3);
+            if(Character.isUpperCase(c4)) {
+                return true;
+            }
+        }
+        if(methodName.startsWith("init") && methodName.length()>4) {
+            Character c4=methodName.charAt(4);
+            if(Character.isUpperCase(c4)) {
+                return true;
+            }
+        }
+
+        if("getEnv".equals(parent.getMethodName())) {
+            if (methodName.equals("init") || methodName.equals("ready")) {
+                return true;
+            }
+        }
+
+        if("getSession".equals(parent.getMethodName())) {
+            if (methodName.equals("eraseCredentials")) {
+                return true;
+            }
+        }
+
+        if("getCompositeParameter".equals(parent.getMethodName())) {
+            if (methodName.equals("spliterator") || methodName.equals("iterator") || methodName.equals("forEach")) {
+                return true;
+            }
+        }
+
+        if("permission".equals(parent.getMethodName())) {
+            if (methodName.equals("getSessionUser") || methodName.equals("check") || methodName.equals("getConfigAttributesByMatcher")  || methodName.equals("getRoleByMatcher")) {
+                return true;
+            }
+        }
+
+
+        if("toPO".equals(methodName) || "toPojo".equals(methodName)) {
+            return true;
+        }
         return false;
     }
 
@@ -103,69 +149,126 @@ public class ContextBrowser {
     }
 
 
+    private Set<String> methodKeys=new HashSet<>();
+
     private void collectMembers(MemberItem parent, Class type, List<MemberItem> list) {
-        if(Object.class.equals(type)) return;
-        //处理属性
-        for (Field field : type.getDeclaredFields()) {
+        if(type.getName().startsWith("java.")) return;
+//        //处理属性
+//        for (Field field : type.getDeclaredFields()) {
+//
+//            if(Modifier.isStatic(field.getModifiers()) || Modifier.isFinal(field.getModifiers())) continue;
+//            if(excludeProperty(parent,type,field)) continue;
+//            //
+//            MemberItem item=new MemberItem();
+//            item.setParent(parent);
+//            item.setName(field.getName());
+//
+//            if(parent!=null) {
+//                item.setFullName(parent.getFullName()+"."+item.getName());
+//            } else {
+//                item.setFullName(item.getName());
+//            }
+//            //获得值
+//            Object value= BeanUtil.getFieldValue(parent.getValue(),item.getName());
+//            item.setValue(value);
+//
+//            //处理值
+//            if(DataParser.isSimpleType(field.getType())) {
+//                item.setName(field.getName()+"="+value);
+//            } else {
+//                if(value!=null) {
+//                    item.setName(field.getName() + "@" + value.hashCode());
+//                } else {
+//                    item.setName(field.getName()+"=null");
+//                }
+//            }
+//
+//            list.add(item);
+//
+//            if(value==null) continue;
+//
+//
+//            if(value instanceof List) {
+//
+//            }
+//            else if(value instanceof SessionUser) {
+//                collectMembers(item,SessionUser.class,list);
+//            }
+//            else if(value instanceof Entity) {
+//                collectMembers(item,value.getClass(),list);
+//            }
+//        }
 
-            if(Modifier.isStatic(field.getModifiers()) || Modifier.isFinal(field.getModifiers())) continue;
-            if(excludeProperty(parent,type,field)) continue;
-            //
-            MemberItem item=new MemberItem();
-            item.setParent(parent);
-            item.setName(field.getName());
 
-            if(parent!=null) {
-                item.setFullName(parent.getFullName()+"."+item.getName());
-            } else {
-                item.setFullName(item.getName());
+        boolean isGetter=false;
+        Object value=null;
+        for (Method method : type.getDeclaredMethods()) {
+            if(method.getName().equals("checkAnyRole")) {
+                System.out.println();
+            }
+            if(Modifier.isStatic(method.getModifiers()) || Modifier.isFinal(method.getModifiers())) continue;
+            if(excludeMethod(parent,type,method)) continue;
+            int loc=method.toGenericString().lastIndexOf('(');
+
+            String p=method.toGenericString().substring(0,loc);
+            String sign=method.toGenericString().substring(loc);
+            loc=p.lastIndexOf('.');
+            if(loc==-1) {
+                System.out.println();
+            }
+            p=p.substring(loc);
+
+            sign=parent.getFullName()+p+sign;
+            if(methodKeys.contains(sign)) continue;
+            isGetter=false;
+            if(method.getParameterCount()==0) {
+                if (method.getName().startsWith("get")) {
+                    Character c4 = method.getName().charAt(3);
+                    if (Character.isUpperCase(c4)) {
+                        isGetter = true;
+                    }
+                }
+                if (method.getName().startsWith("is")) {
+                    Character c4 = method.getName().charAt(2);
+                    if (Character.isUpperCase(c4)) {
+                        isGetter = true;
+                    }
+                }
             }
 
-            Object value= BeanUtil.getFieldValue(parent.getValue(),item.getName());
-            item.setValue(value);
+            if(isGetter) {
+                try {
+                    value=method.invoke(parent.getValue());
+                } catch (Exception e) {
+                    throw new RuntimeException("get value error");
+                }
+            }
 
-            if(DataParser.isSimpleType(field.getType())) {
-                item.setName(field.getName()+"="+value);
-            } else {
-                if(value!=null) {
-                    item.setName(field.getName() + "@" + value.hashCode());
-                } else {
-                    item.setName(field.getName()+"=null");
+            if("getSession".equals(parent.getMethodName())) {
+                if (method.getName().equals("permission")) {
+                    isGetter=true;
+                    try {
+                        value=method.invoke(parent.getValue());
+                    } catch (Exception e) {
+                        throw new RuntimeException("get value error");
+                    }
                 }
             }
 
 
-            if(field.getType().equals(List.class)) {
-
+            if(isGetter && value!=null && (value instanceof List || value instanceof Map || value instanceof Set)) {
+                continue;
             }
 
-            else if(value instanceof SessionUser) {
-                collectMembers(item,field.getType(),list);
-            }
-            else if(ReflectUtil.isSubType(Entity.class,field.getType())) {
-                collectMembers(item,field.getType(),list);
-            }
-
-
-            list.add(item);
-
-
-
-        }
-
-
-
-        for (Method method : type.getDeclaredMethods()) {
-            if(Modifier.isStatic(method.getModifiers()) || Modifier.isFinal(method.getModifiers())) continue;
-            if(excludeMethod(parent,type,method)) continue;
 
             //
             Parameter[] params = method.getParameters();
             String[] paramNames = parameterNameDiscoverer.getParameterNames(method);
 
-            if(paramNames==null) {
+            if(params!=null && params.length>0 && paramNames==null) {
                 System.out.println();
             }
+
             List<String> paramList=new ArrayList<>();
             for (int i = 0; i < params.length; i++) {
                 paramList.add(params[i].getType().getSimpleName()+" "+paramNames[i]);
@@ -173,15 +276,41 @@ public class ContextBrowser {
 
             MemberItem item=new MemberItem();
             item.setParent(parent);
+            item.setValue(value);
             item.setMethodName(method.getName());
             item.setName(method.getName()+"("+ StringUtil.join(paramList,", ") +")");
 
             if(parent!=null) {
                 item.setFullName(parent.getFullName()+"."+item.getMethodName());
+                item.setExpr(parent.getExpr()+"."+item.getName());
             } else {
                 item.setFullName(item.getMethodName());
+                item.setExpr(item.getName());
             }
 
+
+
+
+            if(isGetter) {
+                if (value == null) {
+                    item.setName(item.getName() + " = null");
+                } else {
+                    if (DataParser.isSimpleType(value.getClass())) {
+
+                        if(value instanceof CharSequence) {
+                            item.setName(item.getName() + " = '" + value+"'");
+                        } else {
+                            item.setName(item.getName() + " = " + value);
+                        }
+
+                    } else {
+                        collectMembers(item, value.getClass(), list);
+                    }
+                }
+            }
+
+
+            methodKeys.add(sign);
             list.add(item);
 
         }

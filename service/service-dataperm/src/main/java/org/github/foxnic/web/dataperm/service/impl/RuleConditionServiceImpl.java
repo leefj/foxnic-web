@@ -7,6 +7,7 @@ import com.github.foxnic.api.dataperm.LogicType;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.commons.environment.Environment;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.reflect.ReflectUtil;
 import com.github.foxnic.dao.data.PagedList;
@@ -37,7 +38,6 @@ import org.github.foxnic.web.domain.dataperm.RuleConditionVO;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.meta.MenuMeta;
 import org.github.foxnic.web.framework.dao.DBConfigs;
-import org.github.foxnic.web.framework.environment.Environment;
 import org.github.foxnic.web.misc.ztree.ZTreeNode;
 import org.github.foxnic.web.session.SessionUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -167,8 +167,13 @@ public class RuleConditionServiceImpl extends SuperService<RuleCondition> implem
 	 * */
 	@Override
 	public Result update(RuleCondition ruleCondition , SaveMode mode) {
-		PropertyItem propertyItem=this.ruleService.getPropertyItem(ruleCondition.getRuleId(), ruleCondition.getQueryProperty());
-		ruleCondition.setQueryField(propertyItem.getTable()+"."+propertyItem.getField());
+		//前端未传入全部的值，再次读取
+		RuleCondition dbRuleCondition=this.getById(ruleCondition.getId());
+		//如果是表达式就处理
+		if(dbRuleCondition.getTypeEnum()==ConditionNodeType.expr) {
+			PropertyItem propertyItem = this.ruleService.getPropertyItem(ruleCondition.getRuleId(), ruleCondition.getQueryProperty());
+			ruleCondition.setQueryField(propertyItem.getTable() + "." + propertyItem.getField());
+		}
 		Result r=super.update(ruleCondition , mode);
 		return r;
 	}
@@ -450,6 +455,7 @@ public class RuleConditionServiceImpl extends SuperService<RuleCondition> implem
 		if(voType==null) {
 			return ErrorDesc.failure().message("未发现 "+voType+" 类型");
 		}
+
 		Object vo = null;
 		try {
 			String voJsonStr=sample.getConditionTestValue();
@@ -467,6 +473,7 @@ public class RuleConditionServiceImpl extends SuperService<RuleCondition> implem
 		context.setSession(SessionUser.getCurrent());
 		context.setEnv(Environment.getEnvironment());
 		return context.testExpr(sample.getConditionExpr());
+
 	}
 
 
@@ -482,6 +489,7 @@ public class RuleConditionServiceImpl extends SuperService<RuleCondition> implem
 			return result;
 		}
 		Object vo = null;
+		Object service = null;
 		try {
 			String voJsonStr=sample.getConditionTestValue();
 			if(StringUtil.isBlank(voJsonStr)) {
@@ -489,11 +497,14 @@ public class RuleConditionServiceImpl extends SuperService<RuleCondition> implem
 			}
 			JSONObject voJson = JSONObject.parseObject(voJsonStr);
 			vo = voJson.toJavaObject(voType);
+
 		} catch (Exception e) {
 			result.success(false);
 			result.message("测试值无法转换成VO对象");
 			return result;
 		}
+
+
 
 		DataPermContext context=new DataPermContext();
 		context.setVo(vo);

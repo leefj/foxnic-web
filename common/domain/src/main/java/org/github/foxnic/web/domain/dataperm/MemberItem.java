@@ -15,9 +15,18 @@ public class MemberItem {
     private String methodName;
 
     private String field;
-
     private Object value;
     private String parameters;
+
+    public String getExpr() {
+        return expr;
+    }
+
+    public void setExpr(String expr) {
+        this.expr = expr;
+    }
+
+    private String expr;
 
     public Class getDataType() {
         return dataType;

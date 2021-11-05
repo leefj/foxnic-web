@@ -166,7 +166,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             admin.putTempData("contextDialogData",data,true);
             var contextDialogIndex=top.layer.open({
                 type: 2,
-                area:["500px","75%"],
+                area:["700px","75%"],
                 content: "/business/dataperm/rule_condition/context_dialog.html"
             });
             admin.putTempData("contextDialogIndex",contextDialogIndex,true);
@@ -176,7 +176,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             admin.post("/service-dataperm/dp-rule-condition/test-spring-el",data,function (r){
                 //debugger;
                 if(r.success) {
-                    top.layer.msg(r.message,{icon: 1,time:1000});
+                    top.layer.msg(r.message+" , result = "+r.data,{icon: 1,time:1000});
                 } else {
                     if(r.extra.exception) {
                         top.layer.open({

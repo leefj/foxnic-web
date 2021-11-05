@@ -474,8 +474,14 @@ public class RuleServiceImpl extends SuperService<Rule> implements IRuleService 
 				dataPermCondition.setSort(condition.getSort());
 				dataPermCondition.setTitle(condition.getTitle());
 				dataPermCondition.setNotes(condition.getNotes());
-				JSONArray vars=JSONArray.parseArray(condition.getVariables());
-				dataPermCondition.setVaribales(vars);
+				dataPermCondition.setConditionExpr(condition.getConditionExpr());
+				//
+				if(condition.getTypeEnum()==ConditionNodeType.expr) {
+					if(!StringUtil.isBlank(condition.getVariables())) {
+						JSONArray vars = JSONArray.parseArray(condition.getVariables());
+						dataPermCondition.setVaribales(vars);
+					}
+				}
 
 				dataPermRange.addConditions(dataPermCondition);
 			}

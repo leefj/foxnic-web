@@ -1,5 +1,6 @@
 package org.github.foxnic.web.wrapper.support.datasource;
 
+import com.github.foxnic.commons.environment.Environment;
 import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.dao.dataperm.DataPermManager;
 import com.github.foxnic.dao.dataperm.model.DataPermSubjectVariable;
@@ -13,7 +14,6 @@ import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.domain.dataperm.SubjectProperty;
 import org.github.foxnic.web.framework.cache.FoxnicDataCacheManager;
 import org.github.foxnic.web.framework.dao.DBConfigs;
-import org.github.foxnic.web.framework.environment.Environment;
 import org.github.foxnic.web.relation.FoxnicWebRelationManager;
 import org.github.foxnic.web.session.SessionUser;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -150,11 +150,17 @@ public class DAOConfig {
 		//设置获取当前用户的逻辑
 		if(SpringUtil.isReady()) {
 
-			dbTreaty.setUserIdHandler(()->{
+			dbTreaty.setSubjectHandler(()->{
+				SessionUser user=SessionUser.getCurrent();
+				return  user;
+			});
+
+			dbTreaty.setLoginUserIdHandler(()->{
 				SessionUser user=SessionUser.getCurrent();
 				if(user==null) return null;
 				return  user.getUserId();
 			});
+
 
 			dbTreaty.setTenantIdHandler(()->{
 				SessionUser user=SessionUser.getCurrent();
