@@ -112,6 +112,7 @@ function ListPage() {
 		clearTimeout(selectValueTask);
 		selectValueTask=setTimeout(function (){
 			var n=menuTree.getNodeByParam("id",selectedProperty,null);
+			if(n==null) return;
 			var selectedNode=n;
 			menuTree.checkNode(selectedNode, true, false, true);
 

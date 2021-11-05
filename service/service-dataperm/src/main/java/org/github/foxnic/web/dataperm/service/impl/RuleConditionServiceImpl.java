@@ -172,7 +172,7 @@ public class RuleConditionServiceImpl extends SuperService<RuleCondition> implem
 		//如果是表达式就处理
 		if(dbRuleCondition.getTypeEnum()==ConditionNodeType.expr) {
 			PropertyItem propertyItem = this.ruleService.getPropertyItem(ruleCondition.getRuleId(), ruleCondition.getQueryProperty());
-			ruleCondition.setQueryField(propertyItem.getTable() + "." + propertyItem.getField());
+			ruleCondition.setQueryField(propertyItem.getQueryTable() + "." + propertyItem.getQueryField());
 		}
 		Result r=super.update(ruleCondition , mode);
 		return r;
@@ -472,7 +472,7 @@ public class RuleConditionServiceImpl extends SuperService<RuleCondition> implem
 		context.setVo(vo);
 		context.setSession(SessionUser.getCurrent());
 		context.setEnv(Environment.getEnvironment());
-		return context.testExpr(sample.getConditionExpr());
+		return context.testConditionExpr(sample.getConditionExpr());
 
 	}
 

@@ -93,7 +93,10 @@ public class ContextBrowser {
 
     private boolean excludeMethod(MemberItem parent, Class type,Method method) {
         String methodName=method.getName();
-        if("testExpr".equals(methodName)) return true;
+        if("context".equals(parent.getName())) {
+            if ("getVariableValue".equals(methodName)) return true;
+            if ("testConditionExpr".equals(methodName)) return true;
+        }
         if(methodName.startsWith("set")) {
             Character c4=methodName.charAt(3);
             if(Character.isUpperCase(c4)) {

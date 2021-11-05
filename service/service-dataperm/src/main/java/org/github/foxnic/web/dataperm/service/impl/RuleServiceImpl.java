@@ -336,7 +336,12 @@ public class RuleServiceImpl extends SuperService<Rule> implements IRuleService 
 			if(p.getParent()!=null) {
 				node.setParentId(p.getParent().getFullProperty());
 			}
-			node.setName(label);
+
+			if(ReflectUtil.isSubType(List.class,p.getType())) {
+				node.setName(label + ":" + p.getType().getSimpleName()+"<"+ReflectUtil.getListComponentType(p.getField()).getSimpleName()+">");
+			} else {
+				node.setName(label + ":" + p.getType().getSimpleName());
+			}
 			map.put(node.getId(),node);
 			nodes.add(node);
 		}
@@ -425,20 +430,24 @@ public class RuleServiceImpl extends SuperService<Rule> implements IRuleService 
 
 	public Result apply(Rule rule) {
 
+		//校验规则
 		if(rule.getRanges()==null || rule.getRanges().isEmpty()) {
 			return ErrorDesc.failure().message("范围未定义");
 		}
 
+		//转成规则对象
 		DataPermRule dataPermRule=new DataPermRule();
 		dataPermRule.setId(rule.getId());
 		dataPermRule.setCode(rule.getCode());
 		dataPermRule.setName(rule.getName());
 		dataPermRule.setPoType(rule.getPoType());
+		dataPermRule.setApplyTime(new Date());
 
 		for (RuleRange range : rule.getRanges()) {
 			if(range.getValid()==0) {
 				continue;
 			}
+			//校验范围配置
 			if(range.getConditions()==null || range.getConditions().size()<=1) {
 				return ErrorDesc.failure().message(range.getName() + "条件未定义");
 			}
@@ -451,6 +460,8 @@ public class RuleServiceImpl extends SuperService<Rule> implements IRuleService 
 				if(condition.getValid()==0) {
 					continue;
 				}
+
+				//如果是表达式，校验相关属性是否定义
 				if(condition.getTypeEnum()== ConditionNodeType.expr) {
 					if (StringUtil.isBlank(condition.getQueryProperty())) {
 						return ErrorDesc.failure().message(range.getName() + "下存在查询属性未定义的条目");
@@ -475,16 +486,16 @@ public class RuleServiceImpl extends SuperService<Rule> implements IRuleService 
 				dataPermCondition.setTitle(condition.getTitle());
 				dataPermCondition.setNotes(condition.getNotes());
 				dataPermCondition.setConditionExpr(condition.getConditionExpr());
-				//
+				//如果是表达式，转换变量
 				if(condition.getTypeEnum()==ConditionNodeType.expr) {
 					if(!StringUtil.isBlank(condition.getVariables())) {
 						JSONArray vars = JSONArray.parseArray(condition.getVariables());
 						dataPermCondition.setVaribales(vars);
 					}
 				}
-
 				dataPermRange.addConditions(dataPermCondition);
 			}
+			//校验条件数量
 			if(dataPermRange.getConditions().size()<=1) {
 				return ErrorDesc.failure().message(range.getName() + "缺少有效的条件");
 			}
@@ -512,6 +523,7 @@ public class RuleServiceImpl extends SuperService<Rule> implements IRuleService 
 			//
 			PropertyItem item=new PropertyItem();
 			item.setParent(parent);
+			item.setField(field);
 			item.setProperty(field.getName());
 			item.setLabel(field.getName());
 
@@ -521,7 +533,7 @@ public class RuleServiceImpl extends SuperService<Rule> implements IRuleService 
 				item.setFullProperty(item.getProperty());
 			}
 			item.setType(field.getType());
-			item.setTable(table);
+			item.setQueryTable(table);
 
 
 			//
@@ -538,7 +550,7 @@ public class RuleServiceImpl extends SuperService<Rule> implements IRuleService 
 					}
 				}
 
-				item.setField(fieldName);
+				item.setQueryField(fieldName);
 				item.setLabel(cm.getLabel());
 
 				if(parent!=null) {

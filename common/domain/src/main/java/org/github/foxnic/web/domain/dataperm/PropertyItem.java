@@ -1,15 +1,19 @@
 package org.github.foxnic.web.domain.dataperm;
 
+import java.lang.reflect.Field;
+
 public class PropertyItem {
 
     private Class type;
     private String property;
     private String fullProperty;
-    private String table;
-    private String field;
+    private String queryTable;
+    private String queryField;
     private String label;
     private String fullLabel;
+    private Field field;
     private PropertyItem parent;
+
 
     public Class getType() {
         return type;
@@ -27,20 +31,20 @@ public class PropertyItem {
         this.property = property;
     }
 
-    public String getTable() {
-        return table;
+    public String getQueryTable() {
+        return queryTable;
     }
 
-    public void setTable(String table) {
-        this.table = table;
+    public void setQueryTable(String queryTable) {
+        this.queryTable = queryTable;
     }
 
-    public String getField() {
-        return field;
+    public String getQueryField() {
+        return queryField;
     }
 
-    public void setField(String field) {
-        this.field = field;
+    public void setQueryField(String queryField) {
+        this.queryField = queryField;
     }
 
     public String getLabel() {
@@ -75,5 +79,12 @@ public class PropertyItem {
         this.fullLabel = fullLabel;
     }
 
+    public Field getField() {
+        return field;
+    }
+
+    public void setField(Field field) {
+        this.field = field;
+    }
 
 }
