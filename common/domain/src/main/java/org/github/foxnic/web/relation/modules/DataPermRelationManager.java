@@ -49,11 +49,6 @@ public class DataPermRelationManager extends RelationManager {
 
 	private void setupDataPerm() {
 
-		//主题 - 属性
-		this.property(SubjectMeta.PROPERTIES_PROP)
-				.using(FoxnicWeb.DP_SUBJECT.CODE).join(FoxnicWeb.DP_SUBJECT_PROPERTY.SUBJECT_CODE)
-		;
-
 		//规则 - 范围
 		this.property(RuleMeta.RANGES_PROP)
 				.using(FoxnicWeb.DP_RULE.ID).join(FoxnicWeb.DP_RULE_RANGE.RULE_ID)

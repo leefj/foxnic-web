@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2021-11-02 15:42:40
+ * @since 2021-11-06 05:38:20
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -1522,11 +1522,6 @@ public class FoxnicWeb {
 		public static final DBField EXPR_TYPE = new DBField(DBDataType.STRING , "expr_type","exprType","表达式类型","表达式类型",false,false,true);
 		
 		/**
-		 * 表达式
-		*/
-		public static final DBField EXPR = new DBField(DBDataType.STRING , "expr","expr","表达式","表达式",false,false,true);
-		
-		/**
 		 * 是否生效,相同的代码仅可以有一个是生效的
 		*/
 		public static final DBField VALID = new DBField(DBDataType.INTEGER , "valid","valid","是否生效","相同的代码仅可以有一个是生效的",false,false,true);
@@ -1587,7 +1582,7 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
 		public DP_RULE_CONDITION() {
-			this.init($NAME,"数据权限规则范围条件表" , ID , TITLE , CONDITION_EXPR , CONDITION_TEST_VALUE , RULE_ID , RANGE_ID , HIERARCHY , PARENT_ID , QUERY_PROPERTY , QUERY_FIELD , TYPE , LOGIC , EXPR_TYPE , EXPR , VALID , VARIABLES , SORT , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"数据权限规则范围条件表" , ID , TITLE , CONDITION_EXPR , CONDITION_TEST_VALUE , RULE_ID , RANGE_ID , HIERARCHY , PARENT_ID , QUERY_PROPERTY , QUERY_FIELD , TYPE , LOGIC , EXPR_TYPE , VALID , VARIABLES , SORT , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final DP_RULE_CONDITION $TABLE=new DP_RULE_CONDITION();
 	}
@@ -1666,168 +1661,6 @@ public class FoxnicWeb {
 			this.init($NAME,"数据权限规则范围表" , ID , RULE_ID , NAME , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final DP_RULE_RANGE $TABLE=new DP_RULE_RANGE();
-	}
-	
-	/**
-	 * 数据权限主体表
-	*/
-	public static class DP_SUBJECT extends DBTable {
-		
-		/**
-		 * 表名
-		*/
-		public static final String $NAME = "dp_subject";
-		
-		/**
-		 * 代码
-		*/
-		public static final DBField CODE = new DBField(DBDataType.STRING , "code","code","代码","代码",true,false,false);
-		
-		/**
-		 * 名称
-		*/
-		public static final DBField NAME = new DBField(DBDataType.STRING , "name","name","名称","名称",false,false,true);
-		
-		/**
-		 * 类型
-		*/
-		public static final DBField TYPE = new DBField(DBDataType.STRING , "type","type","类型","类型",false,false,true);
-		
-		/**
-		 * 创建人ID
-		*/
-		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
-		
-		/**
-		 * 创建时间
-		*/
-		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","创建时间","创建时间",false,false,true);
-		
-		/**
-		 * 修改人ID
-		*/
-		public static final DBField UPDATE_BY = new DBField(DBDataType.STRING , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
-		
-		/**
-		 * 修改时间
-		*/
-		public static final DBField UPDATE_TIME = new DBField(DBDataType.DATE , "update_time","updateTime","修改时间","修改时间",false,false,true);
-		
-		/**
-		 * 是否已删除
-		*/
-		public static final DBField DELETED = new DBField(DBDataType.INTEGER , "deleted","deleted","是否已删除","是否已删除",false,false,false);
-		
-		/**
-		 * 删除人ID
-		*/
-		public static final DBField DELETE_BY = new DBField(DBDataType.STRING , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
-		
-		/**
-		 * 删除时间
-		*/
-		public static final DBField DELETE_TIME = new DBField(DBDataType.DATE , "delete_time","deleteTime","删除时间","删除时间",false,false,true);
-		
-		/**
-		 * 数据版本号
-		*/
-		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
-		
-		public DP_SUBJECT() {
-			this.init($NAME,"数据权限主体表" , CODE , NAME , TYPE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
-		}
-		public static final DP_SUBJECT $TABLE=new DP_SUBJECT();
-	}
-	
-	/**
-	 * 数据权限主体属性表
-	*/
-	public static class DP_SUBJECT_PROPERTY extends DBTable {
-		
-		/**
-		 * 表名
-		*/
-		public static final String $NAME = "dp_subject_property";
-		
-		/**
-		 * 主键
-		*/
-		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","主键","主键",true,false,false);
-		
-		/**
-		 * 主题ID
-		*/
-		public static final DBField SUBJECT_CODE = new DBField(DBDataType.STRING , "subject_code","subjectCode","主题ID","主题ID",false,false,false);
-		
-		/**
-		 * 属性名称
-		*/
-		public static final DBField NAME = new DBField(DBDataType.STRING , "name","name","属性名称","属性名称",false,false,false);
-		
-		/**
-		 * 变量
-		*/
-		public static final DBField VARIABLE = new DBField(DBDataType.STRING , "variable","variable","变量","变量",false,false,false);
-		
-		/**
-		 * 属性完整路径，层级用点号隔开
-		*/
-		public static final DBField PROPERTY = new DBField(DBDataType.STRING , "property","property","属性完整路径","层级用点号隔开",false,false,false);
-		
-		/**
-		 * 是否生效
-		*/
-		public static final DBField VALID = new DBField(DBDataType.INTEGER , "valid","valid","是否生效","是否生效",false,false,true);
-		
-		/**
-		 * 顺序
-		*/
-		public static final DBField SORT = new DBField(DBDataType.INTEGER , "sort","sort","顺序","顺序",false,false,true);
-		
-		/**
-		 * 创建人ID
-		*/
-		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
-		
-		/**
-		 * 创建时间
-		*/
-		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","创建时间","创建时间",false,false,true);
-		
-		/**
-		 * 修改人ID
-		*/
-		public static final DBField UPDATE_BY = new DBField(DBDataType.STRING , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
-		
-		/**
-		 * 修改时间
-		*/
-		public static final DBField UPDATE_TIME = new DBField(DBDataType.DATE , "update_time","updateTime","修改时间","修改时间",false,false,true);
-		
-		/**
-		 * 是否已删除
-		*/
-		public static final DBField DELETED = new DBField(DBDataType.INTEGER , "deleted","deleted","是否已删除","是否已删除",false,false,false);
-		
-		/**
-		 * 删除人ID
-		*/
-		public static final DBField DELETE_BY = new DBField(DBDataType.STRING , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
-		
-		/**
-		 * 删除时间
-		*/
-		public static final DBField DELETE_TIME = new DBField(DBDataType.DATE , "delete_time","deleteTime","删除时间","删除时间",false,false,true);
-		
-		/**
-		 * 数据版本号
-		*/
-		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
-		
-		public DP_SUBJECT_PROPERTY() {
-			this.init($NAME,"数据权限主体属性表" , ID , SUBJECT_CODE , NAME , VARIABLE , PROPERTY , VALID , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
-		}
-		public static final DP_SUBJECT_PROPERTY $TABLE=new DP_SUBJECT_PROPERTY();
 	}
 	
 	/**

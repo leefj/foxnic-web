@@ -13,8 +13,8 @@ public class EncryptUtil {
 //        String passwd="0rxoxoxt_pxwxdrxoxoxt_pxwxdrxoxoxt_pxwxd";
         AESUtil aes=new AESUtil(passwd);
         String user="root";
-        String pwd="P@sswOracle123";
-        String url="jdbc:mysql://39.105.191.22:3306/eam?useSSL=false&serverTimezone=Hongkong&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&allowPublicKeyRetrieval=true&tinyInt1isBit=false";
+        String pwd="P@sse12311111";
+        String url="jdbc:mysql://139.105.191.122:3306/eam_XXX?useSSL=false&serverTimezone=Hongkong&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&allowPublicKeyRetrieval=true&tinyInt1isBit=false";
         user=aes.encryptData(user);
         pwd=aes.encryptData(pwd);
         url=aes.encryptData(url);

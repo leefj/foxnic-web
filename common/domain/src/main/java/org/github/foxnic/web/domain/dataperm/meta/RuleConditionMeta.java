@@ -8,8 +8,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-02 15:43:22
- * @sign 01ACAB0CEE210C0E3049D265E5821B57
+ * @since 2021-11-06 06:07:05
+ * @sign 7A5354E3A28843E02CFA13476D252C14
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -146,16 +146,6 @@ public class RuleConditionMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.RuleCondition,java.lang.String> EXPR_TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.RuleCondition.class ,EXPR_TYPE, java.lang.String.class, "表达式类型", "表达式类型", java.lang.String.class, null);
 	
 	/**
-	 * 表达式 , 类型: java.lang.String
-	*/
-	public static final String EXPR="expr";
-	
-	/**
-	 * 表达式 , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.dataperm.RuleCondition,java.lang.String> EXPR_PROP = new BeanProperty(org.github.foxnic.web.domain.dataperm.RuleCondition.class ,EXPR, java.lang.String.class, "表达式", "表达式", java.lang.String.class, null);
-	
-	/**
 	 * 是否生效 , 相同的代码仅可以有一个是生效的 , 类型: java.lang.Integer
 	*/
 	public static final String VALID="valid";
@@ -278,7 +268,7 @@ public class RuleConditionMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , TITLE , CONDITION_EXPR , CONDITION_TEST_VALUE , RULE_ID , RANGE_ID , HIERARCHY , PARENT_ID , QUERY_PROPERTY , QUERY_FIELD , TYPE , LOGIC , EXPR_TYPE , EXPR , VALID , VARIABLES , SORT , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , TITLE , CONDITION_EXPR , CONDITION_TEST_VALUE , RULE_ID , RANGE_ID , HIERARCHY , PARENT_ID , QUERY_PROPERTY , QUERY_FIELD , TYPE , LOGIC , EXPR_TYPE , VALID , VARIABLES , SORT , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
 	
 	/**
 	 * 代理类
@@ -428,17 +418,6 @@ public class RuleConditionMeta {
 		public RuleCondition setExprType(String exprType) {
 			super.change(EXPR_TYPE,super.getExprType(),exprType);
 			super.setExprType(exprType);
-			return this;
-		}
-		
-		/**
-		 * 设置 表达式
-		 * @param expr 表达式
-		 * @return 当前对象
-		*/
-		public RuleCondition setExpr(String expr) {
-			super.change(EXPR,super.getExpr(),expr);
-			super.setExpr(expr);
 			return this;
 		}
 		

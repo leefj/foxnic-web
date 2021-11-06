@@ -39,8 +39,6 @@ public class CodeStarter extends ModuleCodeGenerator {
     }
 
     private void initDatapermModules() {
-        this.addConfig(new DPSubjectConfig());
-        this.addConfig(new DPSubjectPropertyConfig());
         //
         this.addConfig(new DPRuleConfig());
         this.addConfig(new DPRuleRangeConfig());

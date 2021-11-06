@@ -99,6 +99,10 @@ public class RuleConditionServiceImpl extends SuperService<RuleCondition> implem
 		if(ruleCondition.getLogicEnum()==null) {
 			ruleCondition.setLogicEnum(LogicType.and);
 		}
+		if(StringUtil.isBlank(ruleCondition.getTitle())){
+			ruleCondition.setTitle(ruleCondition.getTypeEnum().text());
+		}
+
 		Result r=super.insert(ruleCondition);
 		return r.data(ruleCondition);
 	}

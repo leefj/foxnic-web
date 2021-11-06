@@ -65,7 +65,6 @@ public class RuleConditionController extends SuperController {
 		@ApiImplicitParam(name = RuleConditionVOMeta.PARENT_ID , value = "上级ID" , required = false , dataTypeClass=String.class , example = "1"),
 		@ApiImplicitParam(name = RuleConditionVOMeta.TYPE , value = "节点类型" , required = true , dataTypeClass=String.class , example = "1"),
 		@ApiImplicitParam(name = RuleConditionVOMeta.LOGIC , value = "前置逻辑关系" , required = false , dataTypeClass=String.class , example = "1"),
-		@ApiImplicitParam(name = RuleConditionVOMeta.EXPR , value = "表达式" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = RuleConditionVOMeta.VALID , value = "是否生效" , required = false , dataTypeClass=Integer.class , example = "1"),
 		@ApiImplicitParam(name = RuleConditionVOMeta.VARIABLES , value = "变量" , required = false , dataTypeClass=String.class),
 	})
@@ -124,7 +123,6 @@ public class RuleConditionController extends SuperController {
 		@ApiImplicitParam(name = RuleConditionVOMeta.PARENT_ID , value = "上级ID" , required = false , dataTypeClass=String.class , example = "1"),
 		@ApiImplicitParam(name = RuleConditionVOMeta.TYPE , value = "节点类型" , required = true , dataTypeClass=String.class , example = "1"),
 		@ApiImplicitParam(name = RuleConditionVOMeta.LOGIC , value = "前置逻辑关系" , required = false , dataTypeClass=String.class , example = "1"),
-		@ApiImplicitParam(name = RuleConditionVOMeta.EXPR , value = "表达式" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = RuleConditionVOMeta.VALID , value = "是否生效" , required = false , dataTypeClass=Integer.class , example = "1"),
 		@ApiImplicitParam(name = RuleConditionVOMeta.VARIABLES , value = "变量" , required = false , dataTypeClass=String.class),
 	})
@@ -149,7 +147,6 @@ public class RuleConditionController extends SuperController {
 		@ApiImplicitParam(name = RuleConditionVOMeta.PARENT_ID , value = "上级ID" , required = false , dataTypeClass=String.class , example = "1"),
 		@ApiImplicitParam(name = RuleConditionVOMeta.TYPE , value = "节点类型" , required = true , dataTypeClass=String.class , example = "1"),
 		@ApiImplicitParam(name = RuleConditionVOMeta.LOGIC , value = "前置逻辑关系" , required = false , dataTypeClass=String.class , example = "1"),
-		@ApiImplicitParam(name = RuleConditionVOMeta.EXPR , value = "表达式" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = RuleConditionVOMeta.VALID , value = "是否生效" , required = false , dataTypeClass=Integer.class , example = "1"),
 		@ApiImplicitParam(name = RuleConditionVOMeta.VARIABLES , value = "变量" , required = false , dataTypeClass=String.class),
 	})
@@ -218,7 +215,6 @@ public class RuleConditionController extends SuperController {
 		@ApiImplicitParam(name = RuleConditionVOMeta.PARENT_ID , value = "上级ID" , required = false , dataTypeClass=String.class , example = "1"),
 		@ApiImplicitParam(name = RuleConditionVOMeta.TYPE , value = "节点类型" , required = true , dataTypeClass=String.class , example = "1"),
 		@ApiImplicitParam(name = RuleConditionVOMeta.LOGIC , value = "前置逻辑关系" , required = false , dataTypeClass=String.class , example = "1"),
-		@ApiImplicitParam(name = RuleConditionVOMeta.EXPR , value = "表达式" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = RuleConditionVOMeta.VALID , value = "是否生效" , required = false , dataTypeClass=Integer.class , example = "1"),
 		@ApiImplicitParam(name = RuleConditionVOMeta.VARIABLES , value = "变量" , required = false , dataTypeClass=String.class),
 	})
@@ -243,7 +239,6 @@ public class RuleConditionController extends SuperController {
 		@ApiImplicitParam(name = RuleConditionVOMeta.PARENT_ID , value = "上级ID" , required = false , dataTypeClass=String.class , example = "1"),
 		@ApiImplicitParam(name = RuleConditionVOMeta.TYPE , value = "节点类型" , required = true , dataTypeClass=String.class , example = "1"),
 		@ApiImplicitParam(name = RuleConditionVOMeta.LOGIC , value = "前置逻辑关系" , required = false , dataTypeClass=String.class , example = "1"),
-		@ApiImplicitParam(name = RuleConditionVOMeta.EXPR , value = "表达式" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = RuleConditionVOMeta.VALID , value = "是否生效" , required = false , dataTypeClass=Integer.class , example = "1"),
 		@ApiImplicitParam(name = RuleConditionVOMeta.VARIABLES , value = "变量" , required = false , dataTypeClass=String.class),
 	})
@@ -324,7 +319,6 @@ public class RuleConditionController extends SuperController {
 			@ApiImplicitParam(name = RuleConditionVOMeta.PARENT_ID , value = "上级ID" , required = false , dataTypeClass=String.class , example = "1"),
 			@ApiImplicitParam(name = RuleConditionVOMeta.TYPE , value = "节点类型" , required = true , dataTypeClass=String.class , example = "1"),
 			@ApiImplicitParam(name = RuleConditionVOMeta.LOGIC , value = "前置逻辑关系" , required = false , dataTypeClass=String.class , example = "1"),
-			@ApiImplicitParam(name = RuleConditionVOMeta.EXPR , value = "表达式" , required = false , dataTypeClass=String.class),
 			@ApiImplicitParam(name = RuleConditionVOMeta.VALID , value = "是否生效" , required = false , dataTypeClass=Integer.class , example = "1"),
 			@ApiImplicitParam(name = RuleConditionVOMeta.VARIABLES , value = "变量" , required = false , dataTypeClass=String.class),
 	})

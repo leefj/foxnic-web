@@ -52,7 +52,8 @@ function ListPage() {
 				onCheck: onNodeCheck
 			},
 			view: {
-				selectedMulti: false
+				selectedMulti: false,
+				nameIsHTML: true
 				// addHoverDom: addHoverDom,
 				// removeHoverDom: removeHoverDom
 			}

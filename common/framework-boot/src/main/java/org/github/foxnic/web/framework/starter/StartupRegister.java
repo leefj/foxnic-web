@@ -2,6 +2,7 @@ package org.github.foxnic.web.framework.starter;
 
 import com.github.foxnic.commons.busi.id.SnowflakeIdWorker;
 import com.github.foxnic.commons.concurrent.task.SimpleTaskManager;
+import com.github.foxnic.commons.environment.Environment;
 import com.github.foxnic.commons.lang.DateUtil;
 import com.github.foxnic.commons.network.Machine;
 import com.github.foxnic.dao.data.RcdSet;
@@ -11,7 +12,6 @@ import com.github.foxnic.sql.expr.Insert;
 import com.github.foxnic.sql.expr.Update;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_NODE;
 import org.github.foxnic.web.framework.dao.DBConfigs;
-import org.github.foxnic.web.framework.environment.Environment;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;

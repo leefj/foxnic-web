@@ -65,11 +65,10 @@ public class DPRuleConditionConfig extends BaseCodeConfig<DP_RULE_CONDITION> {
 		view.field(DP_RULE_CONDITION.LOGIC).basic().label("前置逻辑").form().radioBox().enumType(LogicType.class).defaultValue(LogicType.and);
 		view.field(DP_RULE_CONDITION.EXPR_TYPE).basic().label("条件类型").form().selectBox().enumType(ExprType.class).defaultValue(ExprType.eq).paging(false).muliti(false);
 
-		view.field(DP_RULE_CONDITION.EXPR).form().textArea().height(100);
 		view.field(DP_RULE_CONDITION.CONDITION_EXPR).form().textArea().height(55);
 		view.field(DP_RULE_CONDITION.CONDITION_TEST_VALUE).basic().label("测试VO值").form().textArea().height(55);
-		view.field(DP_RULE_CONDITION.VARIABLES).form().textArea().height(100);
-		view.field(DP_RULE_CONDITION.NOTES).form().textArea().height(100);
+		view.field(DP_RULE_CONDITION.VARIABLES).form().textArea().height(55);
+		view.field(DP_RULE_CONDITION.NOTES).form().textArea().height(55);
 	}
 
 	@Override
@@ -86,10 +85,11 @@ public class DPRuleConditionConfig extends BaseCodeConfig<DP_RULE_CONDITION> {
 				DP_RULE_CONDITION.RULE_ID,DP_RULE_CONDITION.RANGE_ID,
 				//
 				DP_RULE_CONDITION.TITLE,
+				DP_RULE_CONDITION.VALID,
 				DP_RULE_CONDITION.CONDITION_EXPR,DP_RULE_CONDITION.CONDITION_TEST_VALUE,
-				DP_RULE_CONDITION.LOGIC,DP_RULE_CONDITION.VALID,
+				DP_RULE_CONDITION.LOGIC,
 				DP_RULE_CONDITION.QUERY_PROPERTY,DP_RULE_CONDITION.EXPR_TYPE,
-				DP_RULE_CONDITION.EXPR,DP_RULE_CONDITION.VARIABLES,
+				DP_RULE_CONDITION.VARIABLES,
 				DP_RULE_CONDITION.NOTES
 		});
 

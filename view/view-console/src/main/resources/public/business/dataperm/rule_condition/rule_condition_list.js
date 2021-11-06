@@ -39,12 +39,15 @@ function ListPage() {
 			},
 			callback: {
 				beforeRemove : beforeNodeRemove,
-				onDrop : onNodeDrop,
-				onClick: onNodeClick
+				onClick: onNodeClick,
+				beforeDrag : function (){return false;},
+
 			},
 			view: {
+				selectedMulti: false,
 				addHoverDom: addHoverDom,
-				removeHoverDom: removeHoverDom
+				removeHoverDom: removeHoverDom,
+				nameIsHTML: true
 			}
 		};
 		menuTree=$.fn.zTree.init($("#menu-tree"), cfgs);
@@ -97,63 +100,13 @@ function ListPage() {
     	$("#form-view")[0].contentWindow.loadFormData(treeNode.id);
     }
 
-
-    function onNodeDrop(event, treeId, treeNodes, targetNode, moveType) {
-
-		var ids=[];
-		//移动节点
-    	if(moveType=="inner" || moveType=="prev" || moveType=="next") { // 调整节点顺序
-    		var parentNode=treeNodes[0].getParentNode();
-	    	var siblings=null;
-	    	var parentId=null;
-	    	//非根节点
-	    	if(parentNode!=null) {
-	    		siblings=parentNode.children;
-	    		parentId=parentNode.id;
-	    	} else {
-	    		//根节点
-	    		siblings=[];
-	    		var prev=null;
-	    		var curr=treeNodes[0];
-	    		while(true) {
-	    			prev=curr.getPreNode();
-	    			if(prev==null) break;
-	    			curr=prev;
-	    		}
-	    		var next=null;
-	    		while(true) {
-	    			siblings.push(curr);
-	    			next=curr.getNextNode();
-	    			if(next==null) break;
-	    			curr=next;
-	    		}
-	    	}
-	    	for (var i = 0; i < siblings.length; i++) {
-				ids.push(siblings[i].id);
-			}
-    		saveHierarchy(ids,parentId);
-    	}  else {
-    		debugger;
-    	}
-    }
-
-    function saveHierarchy(ids,parentId) {
-    	admin.request(moduleURL+"/save-hierarchy",{"ids":ids,parentId:parentId},function(r) {
-			if(r.success) {
-				admin.toast().success("已调整",{time:1000,position:"right-bottom"});
-			} else {
-				admin.toast().error("调整失败",{time:1000,position:"right-bottom"});
-			}
-		});
-    }
-
     function beforeNodeRemove(treeId, treeNode) {
-    	//debugger;
-		layer.confirm('确定要删除['+treeNode.name+']菜单吗?', function(index,a,c,d) {
+    	// debugger;
+		layer.confirm('确定要删除['+treeNode.data.title+']节点吗?', function(index,a,c,d) {
 			layer.close(index);
 			admin.request(moduleURL+"/delete",{id:treeNode.id},function(r) {
 				if(r.success) {
-					admin.toast().success("菜单已删除",{time:1000,position:"right-bottom"});
+					admin.toast().success("节点已删除",{time:1000,position:"right-bottom"});
 					menuTree.removeNode(treeNode,false);
 					if(treeNode.parentTId) {
 						menuTree.selectNode({tId:treeNode.parentTId},false,true)
@@ -167,11 +120,25 @@ function ListPage() {
     	return false;
     }
 
+    function getNodeName(data) {
+    	return "<span style='color:#FF5721;'>"+data.logic.toUpperCase()+"</span> "+data.title+"";
+	}
+
+	function changeNodeName(data) {
+		if(editingNode==null) return;
+		editingNode.name=getNodeName(data);
+		menuTree.updateNode(editingNode);
+	}
+	window.changeNodeName=changeNodeName;
+
 	function nodeDatafilter(treeId, parentNode, childNodes) {
      	//debugger;
      	childNodes=childNodes.data;
 		if (!childNodes) return null;
 		for (var i=0, l=childNodes.length; i<l; i++) {
+			var child=childNodes[i];
+			//debugger;
+			child.name=getNodeName(child.data);
 		}
 		setTimeout(function (){
 			var node = menuTree.getNodesByFilter(function (n){
@@ -313,7 +280,6 @@ function ListPage() {
         if(nodes && nodes.length>0) {
          	treeNode=nodes[0];
         }
-
 		var ruleId=admin.getTempData("ruleId");
         admin.request(moduleURL+"/insert",{ruleId:ruleId,parentId:treeNode?treeNode.id:null,type:type,rangeId: rangeId},function(r) {
 			if(r.success) {

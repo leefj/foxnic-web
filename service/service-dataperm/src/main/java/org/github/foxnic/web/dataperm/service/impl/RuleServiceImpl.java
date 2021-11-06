@@ -314,7 +314,7 @@ public class RuleServiceImpl extends SuperService<Rule> implements IRuleService 
 	private void initPoPropertiesIf(String poTypName) {
 
 		List<ZTreeNode> roots= properties.get(poTypName);
-		roots=null;
+//		roots=null;
 
 		if(roots!=null && !roots.isEmpty()) return;
 		roots=new ArrayList<>();
@@ -329,18 +329,18 @@ public class RuleServiceImpl extends SuperService<Rule> implements IRuleService 
 		for (PropertyItem p : list) {
 			ZTreeNode node=new ZTreeNode();
 			node.setId(p.getFullProperty());
-			String label=p.getLabel();
-			if(!label.equals(p.getProperty())) {
-				label+="("+p.getProperty()+")";
+			String label=p.getProperty();
+			if(!label.equals(p.getLabel())) {
+				label+="("+p.getLabel()+")";
 			}
 			if(p.getParent()!=null) {
 				node.setParentId(p.getParent().getFullProperty());
 			}
 
 			if(ReflectUtil.isSubType(List.class,p.getType())) {
-				node.setName(label + ":" + p.getType().getSimpleName()+"<"+ReflectUtil.getListComponentType(p.getField()).getSimpleName()+">");
+				node.setName(label + "<span style='color:#888888'>:" + p.getType().getSimpleName()+"&lt;"+ReflectUtil.getListComponentType(p.getField()).getSimpleName()+"&gt;<span>");
 			} else {
-				node.setName(label + ":" + p.getType().getSimpleName());
+				node.setName(label + "<span style='color:#888888'>:" + p.getType().getSimpleName()+"</span>");
 			}
 			map.put(node.getId(),node);
 			nodes.add(node);
@@ -464,13 +464,13 @@ public class RuleServiceImpl extends SuperService<Rule> implements IRuleService 
 				//如果是表达式，校验相关属性是否定义
 				if(condition.getTypeEnum()== ConditionNodeType.expr) {
 					if (StringUtil.isBlank(condition.getQueryProperty())) {
-						return ErrorDesc.failure().message(range.getName() + "下存在查询属性未定义的条目");
+						return ErrorDesc.failure().message(range.getName() + "下的["+condition.getTitle()+"]属性未定义");
 					}
 					if (condition.getExprTypeEnum() == null) {
-						return ErrorDesc.failure().message(range.getName() + "下存在条件类型未定义的条目");
+						return ErrorDesc.failure().message(range.getName() + "下的"+condition.getTitle()+"条件类型未定义");
 					}
 					if (StringUtil.isBlank(condition.getVariables())) {
-						return ErrorDesc.failure().message(range.getName() + "下存在变量未定义的条目");
+						return ErrorDesc.failure().message(range.getName() + "下的"+condition.getTitle()+"变量未定义");
 					}
 				}
 				//

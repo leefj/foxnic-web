@@ -258,33 +258,28 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * */
         afterSubmit:function (param,result) {
             console.log("afterSubmitt",param,result);
+            parent.changeNodeName(window.module.getFormData());
         },
 
         loadFormData:function (id) {
+            // debugger
             admin.putTempData('dp-rule-condition-form-data', null,true);
             admin.request(moduleURL+"/get-by-id", { id : id }, function (data) {
                 if(data.success) {
                     admin.putTempData('dp-rule-condition-form-data', data.data,true);
                     window.module.fillFormData();
-                    //debugger
-                    if(data.data.queryProperty) {
+                    if(data.data.type=="expr") {
                         $("#queryProperty-button").text(data.data.queryProperty);
+                        $("#queryProperty").parents(".layui-form-item").show();
+                        $("#exprType").parents(".layui-form-item").show();
+                        $("#variables").parents(".layui-form-item").show();
                     } else {
                         $("#queryProperty-button").text("请选择属性");
+                        $("#queryProperty").parents(".layui-form-item").hide();
+                        $("#exprType").parents(".layui-form-item").hide();
+                        $("#variables").parents(".layui-form-item").hide();
                     }
-                    // debugger;
-                    // var box=fox.getSelectBox("queryProperty");
-                    // box.refresh({id:data.data.ruleId},function (){
-                    //     // debugger
-                    //     if(data.data.queryProperty) {
-                    //         fox.setSelectValue4QueryApi("#queryProperty", {
-                    //             fullProperty: data.data.queryProperty,
-                    //             fullProperty: data.data.queryProperty
-                    //         });
-                    //     } else {
-                    //         fox.getSelectBox("queryProperty").setValue([]);
-                    //     }
-                    // });
+                    // $(".form-container").css("display","");
                 } else {
                     layer.msg(data.message, {icon: 1, time: 1500});
                 }

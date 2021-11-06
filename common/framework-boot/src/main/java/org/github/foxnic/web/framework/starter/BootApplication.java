@@ -1,11 +1,11 @@
 package org.github.foxnic.web.framework.starter;
 
 import com.github.foxnic.commons.code.CodeBuilder;
+import com.github.foxnic.commons.environment.Environment;
 import com.github.foxnic.commons.io.FileUtil;
 import com.github.foxnic.springboot.starter.FoxnicApplication;
 import org.aspectj.weaver.ast.Test;
 import org.github.foxnic.web.framework.FoxnicWebMeta;
-import org.github.foxnic.web.framework.environment.Environment;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;

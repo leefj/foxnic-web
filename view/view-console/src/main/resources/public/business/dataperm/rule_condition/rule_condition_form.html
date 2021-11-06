@@ -2,7 +2,7 @@
 /**
  * 数据权限规则范围条件 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-02 17:05:48
+ * @since 2021-11-06 06:27:23
  */
  -->
  <!DOCTYPE html>
@@ -30,7 +30,7 @@
 </head>
 
 <body style="overflow-y: hidden;">
-<div class="form-container" >
+<div class="form-container" style="display: none11">
 
     <form id="data-form" lay-filter="data-form" class="layui-form model-form" style="display:none">
 
@@ -67,6 +67,15 @@
                     </div>
 
                 
+                <div class="layui-form-item" >
+                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('生效')}">生效</div></div>
+                    <div class="layui-input-block layui-input-block-c1">
+                        <input input-type="switch" type="checkbox" id="valid"  name="valid" lay-skin="switch" lay-filter="valid" lay-text="是|否&nbsp;" value="1">
+                    </div>
+                </div>
+
+
+                
                     <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('应用条件')}">应用条件</div></div>
                     <div class="layui-input-block layui-input-block-c1">
@@ -93,15 +102,6 @@
                 </div>
 
 
-                
-                <div class="layui-form-item" >
-                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('生效')}">生效</div></div>
-                    <div class="layui-input-block layui-input-block-c1">
-                        <input input-type="switch" type="checkbox" id="valid"  name="valid" lay-skin="switch" lay-filter="valid" lay-text="是|否&nbsp;" value="1">
-                    </div>
-                </div>
-
-
                                     <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('目标属性')}">目标属性</div></div>
                         <div class="layui-input-block layui-input-block-c1">
@@ -121,18 +121,9 @@
 
                 
                     <div class="layui-form-item" >
-                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('表达式')}">表达式</div></div>
-                    <div class="layui-input-block layui-input-block-c1">
-                        <textarea lay-filter="expr" id="expr" name="expr" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('表达式') }" class="layui-textarea" style="height: 100px" ></textarea>
-                    </div>
-                </div>
-
-
-                
-                    <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('变量')}">变量</div></div>
                     <div class="layui-input-block layui-input-block-c1">
-                        <textarea lay-filter="variables" id="variables" name="variables" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('变量') }" class="layui-textarea" style="height: 100px" ></textarea>
+                        <textarea lay-filter="variables" id="variables" name="variables" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('变量') }" class="layui-textarea" style="height: 55px" ></textarea>
                     </div>
                 </div>
 
@@ -141,7 +132,7 @@
                     <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('备注')}">备注</div></div>
                     <div class="layui-input-block layui-input-block-c1">
-                        <textarea lay-filter="notes" id="notes" name="notes" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('备注') }" class="layui-textarea" style="height: 100px" ></textarea>
+                        <textarea lay-filter="notes" id="notes" name="notes" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('备注') }" class="layui-textarea" style="height: 55px" ></textarea>
                     </div>
                 </div>
 

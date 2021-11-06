@@ -281,14 +281,15 @@ public class ContextBrowser {
             item.setParent(parent);
             item.setValue(value);
             item.setMethodName(method.getName());
-            item.setName(method.getName()+"("+ StringUtil.join(paramList,", ") +")");
+            item.setName(method.getName()+"(<span style='color:#888888'>"+ StringUtil.join(paramList,", ") +"</span>)");
+            item.setExpr(method.getName()+"("+ StringUtil.join(paramList,", ") +")");
 
             if(parent!=null) {
                 item.setFullName(parent.getFullName()+"."+item.getMethodName());
-                item.setExpr(parent.getExpr()+"."+item.getName());
+                item.setExpr(parent.getExpr()+"."+item.getExpr());
             } else {
                 item.setFullName(item.getMethodName());
-                item.setExpr(item.getName());
+                item.setExpr(item.getExpr());
             }
 
 
@@ -296,14 +297,14 @@ public class ContextBrowser {
 
             if(isGetter) {
                 if (value == null) {
-                    item.setName(item.getName() + " = null");
+                    item.setName(item.getName() + " <span style='color:#999999'>=</span> <span style='color:#dcdcdc'>null</span>");
                 } else {
                     if (DataParser.isSimpleType(value.getClass())) {
 
                         if(value instanceof CharSequence) {
-                            item.setName(item.getName() + " = '" + value+"'");
+                            item.setName(item.getName() + " <span style='color:#999999'>=</span> '<span style='font-weight:bold;color:#777777;'>" + value+"'</span>");
                         } else {
-                            item.setName(item.getName() + " = " + value);
+                            item.setName(item.getName() + " <span style='color:#999999'>=</span> <span style='font-weight:bold;color:#777777;'>" + value+"</span>");
                         }
 
                     } else {

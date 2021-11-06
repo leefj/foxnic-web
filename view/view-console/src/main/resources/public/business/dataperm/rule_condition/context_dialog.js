@@ -45,7 +45,8 @@ function ListPage() {
 				// onCheck: onNodeCheck
 			},
 			view: {
-				selectedMulti: false
+				selectedMulti: false,
+				nameIsHTML: true
 				// addHoverDom: addHoverDom,
 				// removeHoverDom: removeHoverDom
 			}
@@ -83,7 +84,9 @@ function ListPage() {
 			$("#property").text("SpringEL : 未选择");
 		}
 		else {
-			$("#property").text("SpringEL : " + nodes[0].data);
+			var expr=nodes[0].data;
+			expr=expr.substr(8);
+			$("#property").text("SpringEL : " + expr);
 		}
 	}
 
@@ -111,19 +114,19 @@ function ListPage() {
 	}
 
 	$("#sure-button").click(function () {
-		var nodes=menuTree.getCheckedNodes(true);
-		if(nodes.length==0) {
-			top.layer.msg("请选择属性",{time:1000});
-			return;
-		}
-		if(nodes[0].children.length>0) {
-			top.layer.msg("不是一个可用于查询的属性",{time:1000});
-			return;
-		}
+		// var nodes=menuTree.getCheckedNodes(true);
+		// if(nodes.length==0) {
+		// 	top.layer.msg("请选择属性",{time:1000});
+		// 	return;
+		// }
+		// if(nodes[0].children.length>0) {
+		// 	top.layer.msg("不是一个可用于查询的属性",{time:1000});
+		// 	return;
+		// }
 		// admin.putTempData("selected-po-property",nodes[0].id,true);
-		admin.getTempData("updateButton")(nodes[0].id);
-		var poPropertyDialogIndex=admin.getTempData("poPropertyDialogIndex");
-		admin.closePopupCenter(poPropertyDialogIndex);
+		// admin.getTempData("updateButton")(nodes[0].id);
+		var contextDialogIndex=admin.getTempData("contextDialogIndex");
+		admin.closePopupCenter(contextDialogIndex);
 	});
 
 };

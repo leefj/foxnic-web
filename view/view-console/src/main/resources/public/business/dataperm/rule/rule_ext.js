@@ -147,7 +147,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             var dialogIndex=admin.popupCenter({
                 type:2,
                 id:"ruleRangeDialog",
-                title: "范围管理",
+                title: "范围管理 - "+data.name+"("+data.code+") 版本:"+data.versionNo,
                 offset: 'auto',
                 content: '/business/dataperm/rule_range/rule_range_list.html',
                 area:["800px","400px"]
