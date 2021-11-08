@@ -322,7 +322,7 @@ public class RuleServiceImpl extends SuperService<Rule> implements IRuleService 
 		Class poType = ReflectUtil.forName(poTypName);
 		if (poType == null) return;
 
-		this.collectPoFields(null,poType,list);
+		this.collectPoFields(null,poType,list,0);
 
 		Map<String,ZTreeNode> map=new HashMap<>();
 		List<ZTreeNode> nodes=new ArrayList<>();
@@ -510,7 +510,9 @@ public class RuleServiceImpl extends SuperService<Rule> implements IRuleService 
 		return ErrorDesc.success();
 	}
 
-	private void collectPoFields(PropertyItem parent,Class poType,List<PropertyItem> list) {
+	private void collectPoFields(PropertyItem parent,Class poType,List<PropertyItem> list,int depth) {
+		if(depth>=8) return;
+		depth++;
 		String table= EntityUtil.getAnnotationTable(poType);
 		if(table==null) return;
 		DBTableMeta tm=this.dao().getTableMeta(table);
@@ -568,11 +570,11 @@ public class RuleServiceImpl extends SuperService<Rule> implements IRuleService 
 				Class cmpType= ReflectUtil.getListComponentType(field);
 				list.add(item);
 				if(ReflectUtil.isSubType(Entity.class,cmpType)) {
-					collectPoFields(item, cmpType, list);
+					collectPoFields(item, cmpType, list,depth);
 				}
 			} else if(ReflectUtil.isSubType(Entity.class,field.getType())) {
 				list.add(item);
-				collectPoFields(item, field.getType(), list);
+				collectPoFields(item, field.getType(), list,depth);
 			} else {
 				//其他类型暂不支持
 			}
