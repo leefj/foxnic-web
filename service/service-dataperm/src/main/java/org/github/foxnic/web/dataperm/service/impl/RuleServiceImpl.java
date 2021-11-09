@@ -504,7 +504,17 @@ public class RuleServiceImpl extends SuperService<Rule> implements IRuleService 
 				//如果是表达式，转换变量
 				if(condition.getTypeEnum()==ConditionNodeType.expr) {
 					if(!StringUtil.isBlank(condition.getVariables())) {
-						JSONArray vars = JSONArray.parseArray(condition.getVariables());
+						JSONArray vars = null;
+						try {
+							vars = JSONArray.parseArray(condition.getVariables());
+						}catch (Exception e){
+							return ErrorDesc.failure().message(range.getName() + "下的"+condition.getTitle()+"变量不是一个JSON数组");
+						}
+
+						if(vars.size()<condition.getExprTypeEnum().minVars() || vars.size()>condition.getExprTypeEnum().maxVars()) {
+							return ErrorDesc.failure().message(range.getName() + "下的"+condition.getTitle()+"变量个数不足，要求 "+condition.getExprTypeEnum().minVars()+"~"+condition.getExprTypeEnum().maxVars()+"，实际 "+vars.size());
+						}
+
 						dataPermCondition.setVaribales(vars);
 					}
 				}
