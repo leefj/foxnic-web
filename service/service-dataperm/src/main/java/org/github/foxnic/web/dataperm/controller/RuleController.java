@@ -2,11 +2,11 @@ package org.github.foxnic.web.dataperm.controller;
 
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
-import com.alibaba.fastjson.JSONArray;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.api.validate.annotations.NotNull;
 import com.github.foxnic.commons.io.StreamUtil;
+import com.github.foxnic.commons.reflect.ReflectUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.excel.ExcelWriter;
@@ -72,6 +72,10 @@ public class RuleController extends SuperController {
 	@SentinelResource(value = RuleServiceProxy.INSERT , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(RuleServiceProxy.INSERT)
 	public Result insert(RuleVO ruleVO) {
+		Class poType= ReflectUtil.forName(ruleVO.getPoType());
+		if(poType==null) {
+			return ErrorDesc.failure().message("Po类型不存在");
+		}
 		Result result=ruleService.insert(ruleVO,false);
 		return result;
 	}
@@ -315,7 +319,11 @@ public class RuleController extends SuperController {
 	public Result<List<ZTreeNode>> queryFieldList(RuleVO sample) {
 		Result<List<ZTreeNode>> result=new Result<>();
 		List<ZTreeNode> list=ruleService.queryFieldList(sample.getId(),sample.getSearchValue());
-		result.success(true).data(list);
+		if(list.size()>0) {
+			result.success(true).data(list);
+		} else {
+			result.success(false).data(list).message("Po可能不存在");
+		}
 		return result;
 	}
 

@@ -16,6 +16,7 @@ import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.commons.reflect.ReflectUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.dataperm.DataPermException;
 import com.github.foxnic.dao.dataperm.model.DataPermCondition;
 import com.github.foxnic.dao.dataperm.model.DataPermRange;
 import com.github.foxnic.dao.dataperm.model.DataPermRule;
@@ -320,7 +321,9 @@ public class RuleServiceImpl extends SuperService<Rule> implements IRuleService 
 		roots=new ArrayList<>();
 		List<PropertyItem> list=new ArrayList<>();
 		Class poType = ReflectUtil.forName(poTypName);
-		if (poType == null) return;
+		if (poType == null) {
+			throw new DataPermException("Po 类型 "+poTypName+" 不存在");
+		};
 
 		this.collectPoFields(null,poType,list,0);
 
@@ -407,7 +410,13 @@ public class RuleServiceImpl extends SuperService<Rule> implements IRuleService 
 	public Result apply(String id) {
 		Rule rule=getById(id);
 		dao().fill(rule).with(RuleMeta.RANGES, RuleRangeMeta.CONDITIONS).execute();
-		return apply(rule);
+		Result result=apply(rule);
+		if(result.success()) {
+			Logger.info("注册数据权限:"+rule.getName()+"("+rule.getCode()+") 成功");
+		} else {
+			Logger.info("注册数据权限:"+rule.getName()+"("+rule.getCode()+") 失败 : "+result.message());
+		}
+		return  result;
 	}
 
 	public void applyAll() {
@@ -433,6 +442,12 @@ public class RuleServiceImpl extends SuperService<Rule> implements IRuleService 
 		//校验规则
 		if(rule.getRanges()==null || rule.getRanges().isEmpty()) {
 			return ErrorDesc.failure().message("范围未定义");
+		}
+
+		if(rule.getValid()==0) {
+			dao().getDataPermManager().cancel(rule.getCode());
+			Logger.info("取消注册:"+rule.getCode());
+			return ErrorDesc.success();
 		}
 
 		//转成规则对象
