@@ -12,13 +12,13 @@ import com.github.foxnic.generator.builder.business.ControllerProxyFile;
 import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.enums.system.MenuType;
-import org.github.foxnic.web.dataperm.page.ExampleOrderPageController;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.MenuResource;
 import org.github.foxnic.web.domain.oauth.Resourze;
 import org.github.foxnic.web.domain.oauth.RoleMenu;
 import org.github.foxnic.web.generator.config.FoxnicWebConfigs;
-import org.github.foxnic.web.proxy.dataperm.ExampleOrderServiceProxy;
+import org.github.foxnic.web.proxy.system.BusiRoleMemberServiceProxy;
+import org.github.foxnic.web.system.page.BusiRoleMemberPageController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.File;
@@ -43,8 +43,9 @@ public class MenuGenerator {
 		MenuGenerator mg=null;
 
 
-		mg=new MenuGenerator(FoxnicWeb.DP_EXAMPLE_ORDER.$TABLE, ExampleOrderServiceProxy.class, ExampleOrderPageController.class);
-//		mg.generate("501073274482987009");
+		mg=new MenuGenerator(FoxnicWeb.SYS_BUSI_ROLE_MEMBER.$TABLE, BusiRoleMemberServiceProxy.class, BusiRoleMemberPageController.class);
+		mg.generate("oauth");
+
 //		mg.removeByBatchId("501070741601517568");
 
 

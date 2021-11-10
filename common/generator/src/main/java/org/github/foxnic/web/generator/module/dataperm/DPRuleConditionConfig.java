@@ -60,7 +60,7 @@ public class DPRuleConditionConfig extends BaseCodeConfig<DP_RULE_CONDITION> {
 		view.field(DP_RULE_CONDITION.SORT).basic().hidden();
 		view.field(DP_RULE_CONDITION.TYPE).basic().hidden();
 		view.field(DP_RULE_CONDITION.PARENT_ID).basic().hidden();
-		view.field(DP_RULE_CONDITION.HIERARCHY).basic().hidden();
+//		view.field(DP_RULE_CONDITION.HIERARCHY).basic().hidden();
 		view.field(DP_RULE_CONDITION.VALID).basic().label("生效").form().logicField().off("否",0).on("是",1).defaultValue(false);
 		view.field(DP_RULE_CONDITION.LOGIC).basic().label("前置逻辑").form().radioBox().enumType(LogicType.class).defaultValue(LogicType.and);
 		view.field(DP_RULE_CONDITION.EXPR_TYPE).basic().label("条件类型").form().selectBox().enumType(ExprType.class).defaultValue(ExprType.eq).paging(false).muliti(false);

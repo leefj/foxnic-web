@@ -2,9 +2,10 @@ package org.github.foxnic.web.relation.modules;
 
 import com.github.foxnic.dao.relation.RelationManager;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
-import org.github.foxnic.web.domain.system.meta.DictMeta;
-import org.github.foxnic.web.domain.system.meta.TenantMeta;
-import org.github.foxnic.web.domain.system.meta.UserTenantMeta;
+import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
+import org.github.foxnic.web.domain.system.BusiRole;
+import org.github.foxnic.web.domain.system.BusiRoleMember;
+import org.github.foxnic.web.domain.system.meta.*;
 
 public class SystemRelationManager extends RelationManager {
 
@@ -12,6 +13,7 @@ public class SystemRelationManager extends RelationManager {
 	protected void config() {
 		this.setupDictProperties();
 		this.setupTenantProperties();
+		this.setupBusiRoleProperties();
 	}
 
 	public void setupDictProperties() {
@@ -23,7 +25,7 @@ public class SystemRelationManager extends RelationManager {
 		this.property(DictMeta.ITEMS_PROP)
 				.using(FoxnicWeb.SYS_DICT.ID).join(FoxnicWeb.SYS_DICT_ITEM.DICT_ID);
 	}
- 
+
 	public void setupTenantProperties() {
 
 		//租户 - 公司关联关系
@@ -40,6 +42,33 @@ public class SystemRelationManager extends RelationManager {
 				.using(FoxnicWeb.SYS_USER_TENANT.EMPLOYEE_ID).join(FoxnicWeb.HRM_EMPLOYEE.ID);
 
 	}
+
+
+	/**
+	 *
+	 * */
+	public void setupBusiRoleProperties() {
+
+		//角色下的成员(员工)清单
+		this.property(BusiRoleMeta.EMPLOYEES_PROP)
+				.using(FoxnicWeb.SYS_BUSI_ROLE.ID).join(FoxnicWeb.SYS_BUSI_ROLE_MEMBER.ROLE_ID)
+				.using(FoxnicWeb.SYS_BUSI_ROLE_MEMBER.MEMBER_ID).join(FoxnicWeb.HRM_EMPLOYEE.ID).conditionEquals(FoxnicWeb.SYS_BUSI_ROLE_MEMBER.MEMBER_TYPE, UnifiedUserType.employee)
+		;
+
+		//角色下成员数量统计
+		this.property(BusiRole.class,BusiRoleMeta.EMP_COUNT, BusiRoleMember.class)
+				.using(FoxnicWeb.SYS_BUSI_ROLE.ID).join(FoxnicWeb.SYS_BUSI_ROLE_MEMBER.ROLE_ID)
+				.groupForCount();
+		;
+
+		//角色成员关系 - 员工
+		this.property(BusiRoleMemberMeta.EMPLOYEE_PROP)
+				.using(FoxnicWeb.SYS_BUSI_ROLE_MEMBER.MEMBER_ID).join(FoxnicWeb.HRM_EMPLOYEE.ID).conditionEquals(FoxnicWeb.SYS_BUSI_ROLE_MEMBER.MEMBER_TYPE, UnifiedUserType.employee)
+		;
+
+	}
+
+
 
 
 }

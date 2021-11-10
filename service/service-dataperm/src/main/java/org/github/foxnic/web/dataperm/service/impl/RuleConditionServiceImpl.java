@@ -332,7 +332,7 @@ public class RuleConditionServiceImpl extends SuperService<RuleCondition> implem
 			ConditionNodeType type=ConditionNodeType.parseByCode(m.getString("type"));
 			node.setName(type.text());
 			node.setParentId(m.getString(DP_RULE_CONDITION.PARENT_ID));
-			node.setHierarchy(m.getString(DP_RULE_CONDITION.HIERARCHY));
+//			node.setHierarchy(m.getString(DP_RULE_CONDITION.HIERARCHY));
 			node.setIsParent(m.getInteger("child_count")>0);
 			node.setData(m.toJSONObject());
 			nodes.add(node);

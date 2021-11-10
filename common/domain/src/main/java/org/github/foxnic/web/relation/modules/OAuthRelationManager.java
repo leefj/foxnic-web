@@ -2,8 +2,12 @@ package org.github.foxnic.web.relation.modules;
 
 import com.github.foxnic.commons.collection.CollectorUtil;
 import com.github.foxnic.dao.relation.RelationManager;
+import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.*;
-import org.github.foxnic.web.domain.oauth.*;
+import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
+import org.github.foxnic.web.domain.changes.meta.ChangeInstanceMeta;
+import org.github.foxnic.web.domain.oauth.Menu;
+import org.github.foxnic.web.domain.oauth.Resourze;
 import org.github.foxnic.web.domain.oauth.meta.MenuMeta;
 import org.github.foxnic.web.domain.oauth.meta.RoleMeta;
 import org.github.foxnic.web.domain.oauth.meta.SessionOnlineMeta;
@@ -121,5 +125,7 @@ public class OAuthRelationManager extends RelationManager {
 					return menus;
 				}).fork(128);
 	}
+
+
 
 }

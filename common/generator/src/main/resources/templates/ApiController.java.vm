@@ -61,7 +61,7 @@ public class #(simpleName) extends SuperController {
 	@SentinelResource(value = #(agentSimpleName).INSERTS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	#end
 	@PostMapping(#(agentSimpleName).INSERTS)
-	public Result insert(List<#(voSimpleName)> #(voVarName)s) {
+	public Result inserts(List<#(voSimpleName)> #(voVarName)s) {
 		Result result=#(serviceVarName).insertList(new ArrayList<>(#(voVarName)s));
 		return result;
 	}
