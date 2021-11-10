@@ -32,9 +32,9 @@ public class CodeStarter extends ModuleCodeGenerator {
 //        initSystemModules();
 //        initHrmModules();
 //        initExampleModules();
-//        initChangeModules();
+        initChangeModules();
 //        initBpmModules();
-        initDatapermModules();
+//        initDatapermModules();
 
     }
 

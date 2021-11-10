@@ -20,6 +20,16 @@ public class BpmRelationManager extends RelationManager {
 
 	private void setupChanges() {
 
+		//变更实例 - 当前审批员工关系
+		this.property(ChangeInstanceMeta.CURR_EMPLOYEE_APPROVER_IDS_PROP)
+				.using(FoxnicWeb.CHS_CHANGE_INSTANCE.ID).join(FoxnicWeb.CHS_CHANGE_APPROVER.INSTANCE_ID).conditionEquals(FoxnicWeb.CHS_CHANGE_APPROVER.APPROVER_TYPE, ApproverType.employee.code())
+		;
+
+		//变更实例 - 当前审批流程角色关系
+		this.property(ChangeInstanceMeta.CURR_BPM_ROLE_APPROVER_IDS_PROP)
+				.using(FoxnicWeb.CHS_CHANGE_INSTANCE.ID).join(FoxnicWeb.CHS_CHANGE_APPROVER.INSTANCE_ID).conditionEquals(FoxnicWeb.CHS_CHANGE_APPROVER.APPROVER_TYPE, ApproverType.bpm_role.code())
+		;
+
 		//变更实例 - 当前审批员工
 		this.property(ChangeInstanceMeta.CURR_EMPLOYEE_APPROVERS_PROP)
 				.using(FoxnicWeb.CHS_CHANGE_INSTANCE.ID).join(FoxnicWeb.CHS_CHANGE_APPROVER.INSTANCE_ID).conditionEquals(FoxnicWeb.CHS_CHANGE_APPROVER.APPROVER_TYPE, ApproverType.employee.code())

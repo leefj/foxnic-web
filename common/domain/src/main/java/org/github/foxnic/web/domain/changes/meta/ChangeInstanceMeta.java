@@ -8,13 +8,14 @@ import org.github.foxnic.web.domain.changes.ChangeDefinition;
 import org.github.foxnic.web.domain.hrm.Employee;
 import java.util.List;
 import org.github.foxnic.web.domain.bpm.Role;
+import org.github.foxnic.web.domain.changes.ChangeApprover;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-01 15:19:00
- * @sign C2792F2B99B180D19A8E22D1089E4F9D
+ * @since 2021-11-10 16:09:42
+ * @sign 62D15F6F8C36A0FBAD74598E016D0CC0
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -301,9 +302,29 @@ public class ChangeInstanceMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeInstance,org.github.foxnic.web.domain.bpm.Role> CURR_BPM_ROLE_APPROVERS_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeInstance.class ,CURR_BPM_ROLE_APPROVERS, java.util.List.class, "当前可审批流程角色清单", "", org.github.foxnic.web.domain.bpm.Role.class, null);
 	
 	/**
+	 * 当前可审批员工ID清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.changes.ChangeApprover
+	*/
+	public static final String CURR_EMPLOYEE_APPROVER_IDS="currEmployeeApproverIds";
+	
+	/**
+	 * 当前可审批员工ID清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.changes.ChangeApprover
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeInstance,org.github.foxnic.web.domain.changes.ChangeApprover> CURR_EMPLOYEE_APPROVER_IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeInstance.class ,CURR_EMPLOYEE_APPROVER_IDS, java.util.List.class, "当前可审批员工ID清单", "", org.github.foxnic.web.domain.changes.ChangeApprover.class, null);
+	
+	/**
+	 * 当前可审批流程角色ID清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.changes.ChangeApprover
+	*/
+	public static final String CURR_BPM_ROLE_APPROVER_IDS="currBpmRoleApproverIds";
+	
+	/**
+	 * 当前可审批流程角色ID清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.changes.ChangeApprover
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.changes.ChangeInstance,org.github.foxnic.web.domain.changes.ChangeApprover> CURR_BPM_ROLE_APPROVER_IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.changes.ChangeInstance.class ,CURR_BPM_ROLE_APPROVER_IDS, java.util.List.class, "当前可审批流程角色ID清单", "", org.github.foxnic.web.domain.changes.ChangeApprover.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , DEFINITION_ID , MODE , DRAFTER_ID , DRAFTER_NAME , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , STATUS , TYPE , PROCESS_ID , PROCESS_NODE_SUMMARY , PROCESS_SUMMARY , START_TIME , FINISH_TIME , SIMPLE_APPROVERS , SIMPLE_NODE_ID , DATA_BEFORE , DATA_AFTER , DEFINITION , CURR_EMPLOYEE_APPROVERS , CURR_BPM_ROLE_APPROVERS };
+	public static final String[] $PROPS={ ID , DEFINITION_ID , MODE , DRAFTER_ID , DRAFTER_NAME , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , STATUS , TYPE , PROCESS_ID , PROCESS_NODE_SUMMARY , PROCESS_SUMMARY , START_TIME , FINISH_TIME , SIMPLE_APPROVERS , SIMPLE_NODE_ID , DATA_BEFORE , DATA_AFTER , DEFINITION , CURR_EMPLOYEE_APPROVERS , CURR_BPM_ROLE_APPROVERS , CURR_EMPLOYEE_APPROVER_IDS , CURR_BPM_ROLE_APPROVER_IDS };
 	
 	/**
 	 * 代理类
@@ -618,6 +639,28 @@ public class ChangeInstanceMeta {
 		public ChangeInstance setCurrBpmRoleApprovers(List<Role> currBpmRoleApprovers) {
 			super.change(CURR_BPM_ROLE_APPROVERS,super.getCurrBpmRoleApprovers(),currBpmRoleApprovers);
 			super.setCurrBpmRoleApprovers(currBpmRoleApprovers);
+			return this;
+		}
+		
+		/**
+		 * 设置 当前可审批员工ID清单
+		 * @param currEmployeeApproverIds 当前可审批员工ID清单
+		 * @return 当前对象
+		*/
+		public ChangeInstance setCurrEmployeeApproverIds(List<ChangeApprover> currEmployeeApproverIds) {
+			super.change(CURR_EMPLOYEE_APPROVER_IDS,super.getCurrEmployeeApproverIds(),currEmployeeApproverIds);
+			super.setCurrEmployeeApproverIds(currEmployeeApproverIds);
+			return this;
+		}
+		
+		/**
+		 * 设置 当前可审批流程角色ID清单
+		 * @param currBpmRoleApproverIds 当前可审批流程角色ID清单
+		 * @return 当前对象
+		*/
+		public ChangeInstance setCurrBpmRoleApproverIds(List<ChangeApprover> currBpmRoleApproverIds) {
+			super.change(CURR_BPM_ROLE_APPROVER_IDS,super.getCurrBpmRoleApproverIds(),currBpmRoleApproverIds);
+			super.setCurrBpmRoleApproverIds(currBpmRoleApproverIds);
 			return this;
 		}
 	}

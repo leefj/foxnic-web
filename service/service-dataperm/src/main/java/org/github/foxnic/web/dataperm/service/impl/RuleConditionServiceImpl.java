@@ -449,7 +449,7 @@ public class RuleConditionServiceImpl extends SuperService<RuleCondition> implem
 	public Result testSpringEL(RuleConditionVO sample) {
 
 		if(StringUtil.isBlank(sample.getConditionExpr())) {
-			return ErrorDesc.success().message("通过");
+			return ErrorDesc.success().message("通过").data(true);
 		}
 
 

@@ -472,9 +472,6 @@ public class RuleServiceImpl extends SuperService<Rule> implements IRuleService 
 			dataPermRule.addRanges(dataPermRange);
 
 			for (RuleCondition condition : range.getConditions()) {
-				if(condition.getValid()==0) {
-					continue;
-				}
 
 				//如果是表达式，校验相关属性是否定义
 				if(condition.getTypeEnum()== ConditionNodeType.expr) {
@@ -490,6 +487,7 @@ public class RuleServiceImpl extends SuperService<Rule> implements IRuleService 
 				}
 				//
 				DataPermCondition dataPermCondition=new DataPermCondition();
+				dataPermCondition.setValid(condition.getValid()==1);
 				dataPermCondition.setId(condition.getId());
 				dataPermCondition.setParentId(condition.getParentId());
 				dataPermCondition.setLogicType(condition.getLogicEnum());
