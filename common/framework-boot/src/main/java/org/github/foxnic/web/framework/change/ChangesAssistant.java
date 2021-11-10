@@ -4,7 +4,7 @@ import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.reflect.ReflectUtil;
 import com.github.foxnic.dao.entity.ISuperService;
 import com.github.foxnic.dao.spec.DAO;
-import org.github.foxnic.web.constants.enums.bpm.ApproverType;
+import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
 import org.github.foxnic.web.domain.bpm.Appover;
 import org.github.foxnic.web.domain.bpm.Role;
 import org.github.foxnic.web.domain.changes.ChangeApproveBody;
@@ -135,7 +135,7 @@ public class ChangesAssistant {
             if(emps==null) return null;
             List<Appover> appovers=new ArrayList<>();
             for (Employee e : emps) {
-                Appover appover=new Appover(e.getId(),e.getBadge(),e.getPerson().getName(), ApproverType.employee);
+                Appover appover=new Appover(e.getId(),e.getBadge(),e.getPerson().getName(), UnifiedUserType.employee);
                 appovers.add(appover);
             }
             return appovers;
@@ -165,7 +165,7 @@ public class ChangesAssistant {
             if(roles==null) return null;
             List<Appover> appovers=new ArrayList<>();
             for (Role e : roles) {
-                Appover appover=new Appover(e.getId(),e.getCode(),e.getName(), ApproverType.bpm_role);
+                Appover appover=new Appover(e.getId(),e.getCode(),e.getName(), UnifiedUserType.busi_role);
                 appovers.add(appover);
             }
             return appovers;
@@ -195,7 +195,7 @@ public class ChangesAssistant {
             if(roles==null) return null;
             List<Appover> appovers=new ArrayList<>();
             for (Role e : roles) {
-                Appover appover=new Appover(e.getId(),e.getCode(),e.getName(), ApproverType.bpm_role);
+                Appover appover=new Appover(e.getId(),e.getCode(),e.getName(), UnifiedUserType.busi_role);
                 appovers.add(appover);
             }
             return appovers;

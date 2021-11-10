@@ -7,7 +7,7 @@ import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.busi.id.IDGenerator;
 import com.github.foxnic.commons.lang.StringUtil;
 import org.github.foxnic.web.changes.service.*;
-import org.github.foxnic.web.constants.enums.bpm.ApproverType;
+import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
 import org.github.foxnic.web.constants.enums.changes.ApprovalAction;
 import org.github.foxnic.web.constants.enums.changes.ApprovalEventType;
 import org.github.foxnic.web.constants.enums.changes.ApprovalMode;
@@ -345,7 +345,7 @@ public class SimpleApproval implements IApproval {
         JSONArray array=JSONArray.parseArray(instance.getSimpleApprovers());
         for (int i = 0; i < array.size(); i++) {
             JSONObject itm=array.getJSONObject(i);
-            Appover appover=new Appover(itm.getString("id"),itm.getString("code"),itm.getString("name"), ApproverType.parseByCode(itm.getString("type")));
+            Appover appover=new Appover(itm.getString("id"),itm.getString("code"),itm.getString("name"), UnifiedUserType.parseByCode(itm.getString("type")));
             appovers.add(appover);
         }
         return appovers;
@@ -354,9 +354,9 @@ public class SimpleApproval implements IApproval {
     private Boolean isSimpleInstanceApprover(List<Appover> simpleInstanceAppovers,String employeeId) {
         List<String> roleIds=new ArrayList<>();
         for (Appover appover : simpleInstanceAppovers) {
-            if(appover.getType()==ApproverType.employee) {
+            if(appover.getType()== UnifiedUserType.employee) {
                 if(appover.getId().equals(employeeId)) return true;
-            } else if(appover.getType()==ApproverType.bpm_role) {
+            } else if(appover.getType()== UnifiedUserType.busi_role) {
                 roleIds.add(appover.getId());
             }
         }

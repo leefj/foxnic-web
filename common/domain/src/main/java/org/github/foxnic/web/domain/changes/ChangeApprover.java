@@ -6,7 +6,7 @@ import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb.CHS_CHANGE_APPROVER;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
-import org.github.foxnic.web.constants.enums.bpm.ApproverType;
+import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
 import javax.persistence.Transient;
 import java.util.Date;
 import com.github.foxnic.commons.reflect.EnumUtil;
@@ -30,94 +30,94 @@ public class ChangeApprover extends Entity {
 	private static final long serialVersionUID = 1L;
 
 	public static final DBTable TABLE =CHS_CHANGE_APPROVER.$TABLE;
-	
+
 	/**
 	 * 主键：主键
 	*/
 	@Id
 	@ApiModelProperty(required = true,value="主键" , notes = "主键")
 	private String id;
-	
+
 	/**
 	 * 变更定义ID：变更定义ID
 	*/
 	@ApiModelProperty(required = false,value="变更定义ID" , notes = "变更定义ID")
 	private String definitionId;
-	
+
 	/**
 	 * 变更实例ID：变更实例ID
 	*/
 	@ApiModelProperty(required = false,value="变更实例ID" , notes = "变更实例ID")
 	private String instanceId;
-	
+
 	/**
 	 * 审批人ID：审批人ID
 	*/
 	@ApiModelProperty(required = false,value="审批人ID" , notes = "审批人ID")
 	private String approverId;
-	
+
 	/**
 	 * 审批人类型：参考枚举 ApproverType
 	*/
 	@ApiModelProperty(required = false,value="审批人类型" , notes = "参考枚举 ApproverType")
 	private String approverType;
 	@Transient
-	private ApproverType approverTypeEnum;
-	
+	private UnifiedUserType approverTypeEnum;
+
 	/**
 	 * 节点ID：节点ID
 	*/
 	@ApiModelProperty(required = false,value="节点ID" , notes = "节点ID")
 	private String nodeId;
-	
+
 	/**
 	 * 创建人ID：创建人ID
 	*/
 	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID")
 	private String createBy;
-	
+
 	/**
 	 * 创建时间：创建时间
 	*/
 	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间")
 	private Date createTime;
-	
+
 	/**
 	 * 修改人ID：修改人ID
 	*/
 	@ApiModelProperty(required = false,value="修改人ID" , notes = "修改人ID")
 	private String updateBy;
-	
+
 	/**
 	 * 修改时间：修改时间
 	*/
 	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间")
 	private Date updateTime;
-	
+
 	/**
 	 * 是否已删除：是否已删除
 	*/
 	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除")
 	private Integer deleted;
-	
+
 	/**
 	 * 删除人ID：删除人ID
 	*/
 	@ApiModelProperty(required = false,value="删除人ID" , notes = "删除人ID")
 	private String deleteBy;
-	
+
 	/**
 	 * 删除时间：删除时间
 	*/
 	@ApiModelProperty(required = false,value="删除时间" , notes = "删除时间")
 	private Date deleteTime;
-	
+
 	/**
 	 * 数据版本号：数据版本号
 	*/
 	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
 	private Integer version;
-	
+
 	/**
 	 * 获得 主键<br>
 	 * 主键
@@ -126,7 +126,7 @@ public class ChangeApprover extends Entity {
 	public String getId() {
 		return id;
 	}
-	
+
 	/**
 	 * 设置 主键
 	 * @param id 主键
@@ -136,7 +136,7 @@ public class ChangeApprover extends Entity {
 		this.id=id;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 变更定义ID<br>
 	 * 变更定义ID
@@ -145,7 +145,7 @@ public class ChangeApprover extends Entity {
 	public String getDefinitionId() {
 		return definitionId;
 	}
-	
+
 	/**
 	 * 设置 变更定义ID
 	 * @param definitionId 变更定义ID
@@ -155,7 +155,7 @@ public class ChangeApprover extends Entity {
 		this.definitionId=definitionId;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 变更实例ID<br>
 	 * 变更实例ID
@@ -164,7 +164,7 @@ public class ChangeApprover extends Entity {
 	public String getInstanceId() {
 		return instanceId;
 	}
-	
+
 	/**
 	 * 设置 变更实例ID
 	 * @param instanceId 变更实例ID
@@ -174,7 +174,7 @@ public class ChangeApprover extends Entity {
 		this.instanceId=instanceId;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 审批人ID<br>
 	 * 审批人ID
@@ -183,7 +183,7 @@ public class ChangeApprover extends Entity {
 	public String getApproverId() {
 		return approverId;
 	}
-	
+
 	/**
 	 * 设置 审批人ID
 	 * @param approverId 审批人ID
@@ -193,7 +193,7 @@ public class ChangeApprover extends Entity {
 		this.approverId=approverId;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 审批人类型<br>
 	 * 参考枚举 ApproverType
@@ -202,20 +202,20 @@ public class ChangeApprover extends Entity {
 	public String getApproverType() {
 		return approverType;
 	}
-	
+
 	/**
 	 * 获得 审批人类型 的投影属性<br>
 	 * 等价于 getApproverType 方法，获得对应的枚举类型
 	 * @return 审批人类型
 	*/
 	@Transient
-	public ApproverType getApproverTypeEnum() {
+	public UnifiedUserType getApproverTypeEnum() {
 		if(this.approverTypeEnum==null) {
-			this.approverTypeEnum = (ApproverType) EnumUtil.parseByCode(ApproverType.values(),approverType);
+			this.approverTypeEnum = (UnifiedUserType) EnumUtil.parseByCode(UnifiedUserType.values(),approverType);
 		}
 		return this.approverTypeEnum ;
 	}
-	
+
 	/**
 	 * 设置 审批人类型
 	 * @param approverType 审批人类型
@@ -223,20 +223,20 @@ public class ChangeApprover extends Entity {
 	*/
 	public ChangeApprover setApproverType(String approverType) {
 		this.approverType=approverType;
-		this.approverTypeEnum= (ApproverType) EnumUtil.parseByCode(ApproverType.values(),approverType) ;
+		this.approverTypeEnum= (UnifiedUserType) EnumUtil.parseByCode(UnifiedUserType.values(),approverType) ;
 		if(StringUtil.hasContent(approverType) && this.approverTypeEnum==null) {
 			throw new IllegalArgumentException( approverType + " is not one of ApproverType");
 		}
 		return this;
 	}
-	
+
 	/**
 	 * 设置 审批人类型的投影属性，等同于设置 审批人类型
 	 * @param approverTypeEnum 审批人类型
 	 * @return 当前对象
 	*/
 	@Transient
-	public ChangeApprover setApproverTypeEnum(ApproverType approverTypeEnum) {
+	public ChangeApprover setApproverTypeEnum(UnifiedUserType approverTypeEnum) {
 		if(approverTypeEnum==null) {
 			this.setApproverType(null);
 		} else {
@@ -245,7 +245,7 @@ public class ChangeApprover extends Entity {
 		this.approverTypeEnum=approverTypeEnum;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 节点ID<br>
 	 * 节点ID
@@ -254,7 +254,7 @@ public class ChangeApprover extends Entity {
 	public String getNodeId() {
 		return nodeId;
 	}
-	
+
 	/**
 	 * 设置 节点ID
 	 * @param nodeId 节点ID
@@ -264,7 +264,7 @@ public class ChangeApprover extends Entity {
 		this.nodeId=nodeId;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 创建人ID<br>
 	 * 创建人ID
@@ -273,7 +273,7 @@ public class ChangeApprover extends Entity {
 	public String getCreateBy() {
 		return createBy;
 	}
-	
+
 	/**
 	 * 设置 创建人ID
 	 * @param createBy 创建人ID
@@ -283,7 +283,7 @@ public class ChangeApprover extends Entity {
 		this.createBy=createBy;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 创建时间<br>
 	 * 创建时间
@@ -292,7 +292,7 @@ public class ChangeApprover extends Entity {
 	public Date getCreateTime() {
 		return createTime;
 	}
-	
+
 	/**
 	 * 设置 创建时间
 	 * @param createTime 创建时间
@@ -302,7 +302,7 @@ public class ChangeApprover extends Entity {
 		this.createTime=createTime;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 修改人ID<br>
 	 * 修改人ID
@@ -311,7 +311,7 @@ public class ChangeApprover extends Entity {
 	public String getUpdateBy() {
 		return updateBy;
 	}
-	
+
 	/**
 	 * 设置 修改人ID
 	 * @param updateBy 修改人ID
@@ -321,7 +321,7 @@ public class ChangeApprover extends Entity {
 		this.updateBy=updateBy;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 修改时间<br>
 	 * 修改时间
@@ -330,7 +330,7 @@ public class ChangeApprover extends Entity {
 	public Date getUpdateTime() {
 		return updateTime;
 	}
-	
+
 	/**
 	 * 设置 修改时间
 	 * @param updateTime 修改时间
@@ -340,7 +340,7 @@ public class ChangeApprover extends Entity {
 		this.updateTime=updateTime;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 是否已删除<br>
 	 * 是否已删除
@@ -349,7 +349,7 @@ public class ChangeApprover extends Entity {
 	public Integer getDeleted() {
 		return deleted;
 	}
-	
+
 	/**
 	 * 设置 是否已删除
 	 * @param deleted 是否已删除
@@ -359,7 +359,7 @@ public class ChangeApprover extends Entity {
 		this.deleted=deleted;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 删除人ID<br>
 	 * 删除人ID
@@ -368,7 +368,7 @@ public class ChangeApprover extends Entity {
 	public String getDeleteBy() {
 		return deleteBy;
 	}
-	
+
 	/**
 	 * 设置 删除人ID
 	 * @param deleteBy 删除人ID
@@ -378,7 +378,7 @@ public class ChangeApprover extends Entity {
 		this.deleteBy=deleteBy;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 删除时间<br>
 	 * 删除时间
@@ -387,7 +387,7 @@ public class ChangeApprover extends Entity {
 	public Date getDeleteTime() {
 		return deleteTime;
 	}
-	
+
 	/**
 	 * 设置 删除时间
 	 * @param deleteTime 删除时间
@@ -397,7 +397,7 @@ public class ChangeApprover extends Entity {
 		this.deleteTime=deleteTime;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 数据版本号<br>
 	 * 数据版本号
@@ -406,7 +406,7 @@ public class ChangeApprover extends Entity {
 	public Integer getVersion() {
 		return version;
 	}
-	
+
 	/**
 	 * 设置 数据版本号
 	 * @param version 数据版本号

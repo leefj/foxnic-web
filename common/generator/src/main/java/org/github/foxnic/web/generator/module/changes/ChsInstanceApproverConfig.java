@@ -6,7 +6,7 @@ import com.github.foxnic.generator.builder.view.option.ListOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.CHS_CHANGE_APPROVER;
-import org.github.foxnic.web.constants.enums.bpm.ApproverType;
+import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
 
@@ -18,7 +18,7 @@ public class ChsInstanceApproverConfig extends BaseCodeConfig<CHS_CHANGE_APPROVE
 
 	@Override
 	public void configModel(PoClassFile poType, VoClassFile voType) {
-		poType.shadow(CHS_CHANGE_APPROVER.APPROVER_TYPE, ApproverType.class);
+		poType.shadow(CHS_CHANGE_APPROVER.APPROVER_TYPE, UnifiedUserType.class);
 	}
 
 	@Override
