@@ -19,8 +19,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 业务角色
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-10 18:55:30
- * @sign C789DC860EE84EFC6956C3AFEBC55416
+ * @since 2021-11-11 19:52:07
+ * @sign DAF41122F2D4204BB98F228265ECA049
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -109,12 +109,6 @@ public class BusiRole extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
 	private Integer version;
-	
-	/**
-	 * 员工数量：员工数量
-	*/
-	@ApiModelProperty(required = false,value="员工数量" , notes = "员工数量")
-	private Integer empCount;
 	
 	/**
 	 * 关联员工清单：关联员工清单
@@ -366,25 +360,6 @@ public class BusiRole extends Entity {
 	*/
 	public BusiRole setVersion(Integer version) {
 		this.version=version;
-		return this;
-	}
-	
-	/**
-	 * 获得 员工数量<br>
-	 * 员工数量
-	 * @return 员工数量
-	*/
-	public Integer getEmpCount() {
-		return empCount;
-	}
-	
-	/**
-	 * 设置 员工数量
-	 * @param empCount 员工数量
-	 * @return 当前对象
-	*/
-	public BusiRole setEmpCount(Integer empCount) {
-		this.empCount=empCount;
 		return this;
 	}
 	

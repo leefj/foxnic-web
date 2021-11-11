@@ -65,6 +65,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             console.log('beforeQuery',conditions,param,location);
             var roleId=admin.getTempData("busi-role-id");
             param.roleId=roleId;
+            param.memberType="employee";
             return true;
         },
         /**
@@ -88,16 +89,18 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             var me=this;
             console.log('beforeEdit',data);
             if(!data.id) {
-                var buyerIdDialogOptions={
+                var options={
                     single:false,
                     targetType:"emp",
-                    tabs:{bpmRole:true},
-                    prepose:function(param){ return window.pageExt.form.beforeDialog && window.pageExt.form.beforeDialog(param);},
+                    tabs:{bpmRole:false},
+                    prepose:function(param){
+                        return param;
+                    },
                     callback:function(param,result){
                         me.addEmployees(result.selectedIds);
                     }
                 };
-                fox.chooseEmployee(buyerIdDialogOptions);
+                fox.chooseEmployee(options);
                 return false;
             } else {
                 return true;

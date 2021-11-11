@@ -10,8 +10,8 @@ import java.util.List;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-10 18:55:30
- * @sign C789DC860EE84EFC6956C3AFEBC55416
+ * @since 2021-11-11 19:52:07
+ * @sign DAF41122F2D4204BB98F228265ECA049
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -148,16 +148,6 @@ public class BusiRoleMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.system.BusiRole,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.system.BusiRole.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
-	 * 员工数量 , 类型: java.lang.Integer
-	*/
-	public static final String EMP_COUNT="empCount";
-	
-	/**
-	 * 员工数量 , 类型: java.lang.Integer
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.system.BusiRole,java.lang.Integer> EMP_COUNT_PROP = new BeanProperty(org.github.foxnic.web.domain.system.BusiRole.class ,EMP_COUNT, java.lang.Integer.class, "员工数量", "员工数量", java.lang.Integer.class, null);
-	
-	/**
 	 * 关联员工清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.hrm.Employee
 	*/
 	public static final String EMPLOYEES="employees";
@@ -170,7 +160,7 @@ public class BusiRoleMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , ORG_ID , CODE , NAME , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , EMP_COUNT , EMPLOYEES };
+	public static final String[] $PROPS={ ID , ORG_ID , CODE , NAME , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , EMPLOYEES };
 	
 	/**
 	 * 代理类
@@ -320,17 +310,6 @@ public class BusiRoleMeta {
 		public BusiRole setVersion(Integer version) {
 			super.change(VERSION,super.getVersion(),version);
 			super.setVersion(version);
-			return this;
-		}
-		
-		/**
-		 * 设置 员工数量
-		 * @param empCount 员工数量
-		 * @return 当前对象
-		*/
-		public BusiRole setEmpCount(Integer empCount) {
-			super.change(EMP_COUNT,super.getEmpCount(),empCount);
-			super.setEmpCount(empCount);
 			return this;
 		}
 		

@@ -9,7 +9,6 @@ import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_BUSI_ROLE;
 import org.github.foxnic.web.domain.hrm.Employee;
-import org.github.foxnic.web.domain.system.meta.BusiRoleMeta;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
 
@@ -36,7 +35,6 @@ public class BusiRoleConfig extends BaseCodeConfig<SYS_BUSI_ROLE> {
 
 	@Override
 	public void configModel(PoClassFile poType, VoClassFile voType) {
-		poType.addSimpleProperty(Integer.class,"empCount","员工数量","员工数量");
 		poType.addListProperty(Employee.class,"employees","关联员工清单","关联员工清单");
 	}
 
@@ -49,20 +47,20 @@ public class BusiRoleConfig extends BaseCodeConfig<SYS_BUSI_ROLE> {
 		.form().logicField().on("启用",1).off("停用",0).defaultValue(true)
 		.table().alignCenter();
 
-		view.field(SYS_BUSI_ROLE.CODE).basic().label("代码").search().fuzzySearch().on(SYS_BUSI_ROLE.NAME)
+		view.field(SYS_BUSI_ROLE.CODE).basic().label("代码").search().fuzzySearch()
 		.form().validate().required();
 		view.field(SYS_BUSI_ROLE.NAME).basic().label("名称").search().fuzzySearch()
 		.form().validate().required();
 
-		view.field(BusiRoleMeta.EMP_COUNT).basic().label("成员数").table().alignRight()
-		.form().hidden();
+//		view.field(BusiRoleMeta.EMP_COUNT).basic().label("成员数").table().alignRight()
+//		.form().hidden();
 
 	}
 
 	@Override
 	public void configList(ViewOptions view, ListOptions list) {
 //		list.columnLayout(BPM_ROLE.CODE,BPM_ROLE.NAME,BPM_ROLE.VALID,RoleMeta.EMP_COUNT,BPM_ROLE.CREATE_TIME);
-		list.operationColumn().addActionButton("成员","openEmployees");
+		list.operationColumn().addActionButton("员工","openEmployees");
 	}
 
 	@Override

@@ -1,7 +1,7 @@
 /**
  * 业务角色 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-10 18:56:12
+ * @since 2021-11-11 20:01:52
  */
 
 
@@ -80,7 +80,6 @@ function ListPage() {
 					,{ field: 'name', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('名称') , templet: function (d) { return templet('name',d.name,d);}  }
 					,{ field: 'valid', align:"center",fixed:false,  hide:false, sort: true, title: fox.translate('状态'), templet: '#cell-tpl-valid'}
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }}
-					,{ field: 'empCount', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('成员数') , templet: function (d) { return templet('empCount',d.empCount,d);}  }
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
 				]],
@@ -119,9 +118,8 @@ function ListPage() {
       */
 	function refreshTableData(sortField,sortType,reset) {
 		var value = {};
-		value.code={ inputType:"button",value: $("#code").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" ,field:"sys_busi_role.name"};
+		value.code={ inputType:"button",value: $("#code").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" };
 		value.name={ inputType:"button",value: $("#name").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" };
-		value.empCount={ inputType:"button",value: $("#empCount").val()};
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;
@@ -342,7 +340,7 @@ function ListPage() {
 				});
 
 			}
-			else if (layEvent === 'open-employees') { // 成员
+			else if (layEvent === 'open-employees') { // 员工
 				window.pageExt.list.openEmployees(data);
 			}
 			

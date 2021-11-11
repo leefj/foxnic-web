@@ -2,7 +2,7 @@
 /**
  * 业务角色 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-10 18:56:12
+ * @since 2021-11-11 20:01:52
  */
  -->
  <!DOCTYPE html>
@@ -47,11 +47,6 @@
                         <input id="name" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
                     <!-- 状态 , valid ,typeName=logic_switch, isHideInSearch=true -->
-                    <!-- 成员数 , empCount ,typeName=text_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('成员数')}" class="search-label empCount-label">成员数</span><span class="search-colon">:</span></div>
-                        <input id="empCount" class="layui-input search-input" style="width: 140px" type="text" />
-                    </div>
 
 
                 </div>
@@ -94,7 +89,7 @@
 
     <button th:if="${perm.checkAuth('sys_busi_role:delete')}" class="layui-btn layui-btn-xs layui-btn-danger ops-delete-button" lay-event="del" th:text="${lang.translate('删除')}" data-id="{{d.id}}">删除</button>
 
-    <button class="layui-btn layui-btn-xs " lay-event="open-employees" th:text="${lang.translate('成员')}" data-id="{{d.id}}">成员</button>
+    <button class="layui-btn layui-btn-xs " lay-event="open-employees" th:text="${lang.translate('员工')}" data-id="{{d.id}}">员工</button>
 
 </script>
 

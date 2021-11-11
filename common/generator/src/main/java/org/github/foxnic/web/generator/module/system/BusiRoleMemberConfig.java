@@ -51,18 +51,19 @@ public class BusiRoleMemberConfig extends BaseCodeConfig<SYS_BUSI_ROLE_MEMBER> {
 	public void configFields(ViewOptions view) {
 		view.field(SYS_BUSI_ROLE_MEMBER.ID).search().hidden();
 		view.field(SYS_BUSI_ROLE_MEMBER.ROLE_ID).search().hidden();
+		view.field(SYS_BUSI_ROLE_MEMBER.MEMBER_TYPE).search().hidden();
 		view.field(SYS_BUSI_ROLE_MEMBER.MEMBER_ID).search().hidden();
 
-		view.field(FoxnicWeb.HRM_PERSON.NAME).basic().label("姓名").search().fuzzySearch()
+		view.field(FoxnicWeb.HRM_PERSON.NAME).basic().label("姓名").search().fuzzySearch().on(HRM_PERSON.NAME)
 				.table().fillBy(RoleEmployeeMeta.EMPLOYEE, EmployeeMeta.PERSON, PersonMeta.NAME);
 
-		view.field(HRM_EMPLOYEE.BADGE).basic().label("工号").search().fuzzySearch()
+		view.field(HRM_EMPLOYEE.BADGE).basic().label("工号").search().fuzzySearch().on(HRM_EMPLOYEE.BADGE)
 				.table().fillBy(RoleEmployeeMeta.EMPLOYEE,EmployeeMeta.BADGE);
 
-		view.field("positionName").basic().label("岗位").search().fuzzySearch()
+		view.field("positionName").basic().label("岗位").search().fuzzySearch().on(FoxnicWeb.HRM_POSITION.FULL_NAME)
 				.table().fillBy(RoleEmployeeMeta.EMPLOYEE,EmployeeMeta.POSITIONS, PositionMeta.FULL_NAME);
 
-		view.field("deptName").basic().label("部门").search().fuzzySearch()
+		view.field("deptName").basic().label("部门").search().fuzzySearch().on(FoxnicWeb.HRM_ORGANIZATION.FULL_NAME)
 				.table().fillBy(RoleEmployeeMeta.EMPLOYEE,EmployeeMeta.ORGANIZATIONS, OrganizationMeta.FULL_NAME);
 	}
 

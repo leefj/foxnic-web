@@ -1460,6 +1460,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     param.callback(param,{field:param.field,selectedIds:ids,selected:ns,fromData:param.fromData,inputEl:param.inputEl,buttonEl:param.buttonEl});
                 }
             }
+            //debugger
             admin.putTempData("employee-dialog-value",value,true);
             admin.putTempData("employee-dialog-options",param,true);
 

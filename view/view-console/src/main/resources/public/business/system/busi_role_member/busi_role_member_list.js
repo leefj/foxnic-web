@@ -1,7 +1,7 @@
 /**
  * 业务角色成员关系 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-11 15:43:46
+ * @since 2021-11-11 20:29:52
  */
 
 
@@ -117,11 +117,10 @@ function ListPage() {
       */
 	function refreshTableData(sortField,sortType,reset) {
 		var value = {};
-		value.memberType={ inputType:"button",value: $("#memberType").val()};
-		value.name={ inputType:"button",value: $("#name").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" ,fillBy:["employee","person","name"] };
-		value.badge={ inputType:"button",value: $("#badge").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" ,fillBy:["employee","badge"] };
-		value.positionName={ inputType:"button",value: $("#positionName").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" ,fillBy:["employee","positions","fullName"] };
-		value.deptName={ inputType:"button",value: $("#deptName").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" ,fillBy:["employee","organizations","fullName"] };
+		value.name={ inputType:"button",value: $("#name").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" ,fillBy:["employee","person","name"] ,field:"hrm_person.name"};
+		value.badge={ inputType:"button",value: $("#badge").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" ,fillBy:["employee","badge"] ,field:"hrm_employee.badge"};
+		value.positionName={ inputType:"button",value: $("#positionName").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" ,fillBy:["employee","positions","fullName"] ,field:"hrm_position.full_name"};
+		value.deptName={ inputType:"button",value: $("#deptName").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" ,fillBy:["employee","organizations","fullName"] ,field:"hrm_organization.full_name"};
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;

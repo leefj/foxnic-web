@@ -137,7 +137,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             var dialogIndex=admin.popupCenter({
                 type:2,
                 id:"busiEmployeeDialog",
-                title: "角色成员",
+                title: "业务角色("+data.name+") - 员工",
                 offset: 'auto',
                 content: '/business/system/busi_role_member/busi_role_member_list.html',
                 area:["80%","80%"]

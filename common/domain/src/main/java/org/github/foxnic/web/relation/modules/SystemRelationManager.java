@@ -3,8 +3,6 @@ package org.github.foxnic.web.relation.modules;
 import com.github.foxnic.dao.relation.RelationManager;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
-import org.github.foxnic.web.domain.system.BusiRole;
-import org.github.foxnic.web.domain.system.BusiRoleMember;
 import org.github.foxnic.web.domain.system.meta.*;
 
 public class SystemRelationManager extends RelationManager {
@@ -55,11 +53,11 @@ public class SystemRelationManager extends RelationManager {
 				.using(FoxnicWeb.SYS_BUSI_ROLE_MEMBER.MEMBER_ID).join(FoxnicWeb.HRM_EMPLOYEE.ID)
 		;
 
-		//角色下成员数量统计
-		this.property(BusiRole.class,BusiRoleMeta.EMP_COUNT, BusiRoleMember.class)
-				.using(FoxnicWeb.SYS_BUSI_ROLE.ID).join(FoxnicWeb.SYS_BUSI_ROLE_MEMBER.ROLE_ID)
-				.groupForCount();
-		;
+//		//角色下成员数量统计
+//		this.property(BusiRole.class,BusiRoleMeta.EMP_COUNT, BusiRoleMember.class)
+//				.using(FoxnicWeb.SYS_BUSI_ROLE.ID).join(FoxnicWeb.SYS_BUSI_ROLE_MEMBER.ROLE_ID)
+//				.groupForCount();
+//		;
 
 		//角色成员关系 - 员工
 		this.property(BusiRoleMemberMeta.EMPLOYEE_PROP)
