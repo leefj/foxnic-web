@@ -51,8 +51,8 @@ public class SystemRelationManager extends RelationManager {
 
 		//角色下的成员(员工)清单
 		this.property(BusiRoleMeta.EMPLOYEES_PROP)
-				.using(FoxnicWeb.SYS_BUSI_ROLE.ID).join(FoxnicWeb.SYS_BUSI_ROLE_MEMBER.ROLE_ID)
-				.using(FoxnicWeb.SYS_BUSI_ROLE_MEMBER.MEMBER_ID).join(FoxnicWeb.HRM_EMPLOYEE.ID).conditionEquals(FoxnicWeb.SYS_BUSI_ROLE_MEMBER.MEMBER_TYPE, UnifiedUserType.employee)
+				.using(FoxnicWeb.SYS_BUSI_ROLE.ID).join(FoxnicWeb.SYS_BUSI_ROLE_MEMBER.ROLE_ID).conditionEquals(FoxnicWeb.SYS_BUSI_ROLE_MEMBER.MEMBER_TYPE, UnifiedUserType.employee)
+				.using(FoxnicWeb.SYS_BUSI_ROLE_MEMBER.MEMBER_ID).join(FoxnicWeb.HRM_EMPLOYEE.ID)
 		;
 
 		//角色下成员数量统计
@@ -63,7 +63,7 @@ public class SystemRelationManager extends RelationManager {
 
 		//角色成员关系 - 员工
 		this.property(BusiRoleMemberMeta.EMPLOYEE_PROP)
-				.using(FoxnicWeb.SYS_BUSI_ROLE_MEMBER.MEMBER_ID).join(FoxnicWeb.HRM_EMPLOYEE.ID).conditionEquals(FoxnicWeb.SYS_BUSI_ROLE_MEMBER.MEMBER_TYPE, UnifiedUserType.employee)
+				.using(FoxnicWeb.SYS_BUSI_ROLE_MEMBER.MEMBER_ID).join(FoxnicWeb.HRM_EMPLOYEE.ID);
 		;
 
 	}

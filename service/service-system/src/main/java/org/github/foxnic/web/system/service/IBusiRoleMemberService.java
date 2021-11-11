@@ -1,27 +1,27 @@
 package org.github.foxnic.web.system.service;
 
 
-import com.github.foxnic.sql.expr.ConditionExpr;
-import com.github.foxnic.dao.entity.ISuperService;
-import org.github.foxnic.web.domain.system.BusiRoleMember;
-import org.github.foxnic.web.domain.system.BusiRoleMemberVO;
-import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
-import java.io.InputStream;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.ISuperService;
+import com.github.foxnic.dao.excel.ExcelStructure;
+import com.github.foxnic.dao.excel.ExcelWriter;
+import com.github.foxnic.dao.excel.ValidateResult;
+import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.expr.OrderBy;
 import com.github.foxnic.sql.meta.DBField;
-import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.dao.excel.ExcelStructure;
-import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.dao.data.SaveMode;
+import org.github.foxnic.web.domain.system.BusiRoleMember;
+
+import java.io.InputStream;
+import java.util.List;
 
 /**
  * <p>
  * 业务角色成员关系表 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-10 19:03:26
+ * @since 2021-11-11 15:43:46
 */
 
 public interface IBusiRoleMemberService extends ISuperService<BusiRoleMember> {
@@ -50,7 +50,7 @@ public interface IBusiRoleMemberService extends ISuperService<BusiRoleMember> {
 	Result insertList(List<BusiRoleMember> busiRoleMemberList);
 
 
-		
+
 	/**
 	 * 按主键删除 业务角色成员关系
 	 *
@@ -73,7 +73,7 @@ public interface IBusiRoleMemberService extends ISuperService<BusiRoleMember> {
 	 * */
 	<T> Result deleteByIdsLogical(List<T> ids);
 
-		
+
 	/**
 	 * 按主键更新字段 业务角色成员关系
 	 *
@@ -143,7 +143,7 @@ public interface IBusiRoleMemberService extends ISuperService<BusiRoleMember> {
 	 * */
 	boolean checkExists(BusiRoleMember busiRoleMember,DBField... field);
 
-		
+
 	/**
 	 * 按主键获取 业务角色成员关系
 	 *

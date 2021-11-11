@@ -1,5 +1,6 @@
 package org.github.foxnic.web.generator.module.system;
 
+import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.generator.builder.business.option.ControllerOptions;
 import com.github.foxnic.generator.builder.business.option.ServiceOptions;
 import com.github.foxnic.generator.builder.model.PoClassFile;
@@ -8,7 +9,9 @@ import com.github.foxnic.generator.builder.view.option.ListOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
-import org.github.foxnic.web.constants.db.FoxnicWeb.*;
+import org.github.foxnic.web.constants.db.FoxnicWeb.HRM_EMPLOYEE;
+import org.github.foxnic.web.constants.db.FoxnicWeb.HRM_PERSON;
+import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_BUSI_ROLE_MEMBER;
 import org.github.foxnic.web.domain.bpm.meta.RoleEmployeeMeta;
 import org.github.foxnic.web.domain.hrm.Employee;
 import org.github.foxnic.web.domain.hrm.meta.EmployeeMeta;
@@ -31,12 +34,12 @@ public class BusiRoleMemberConfig extends BaseCodeConfig<SYS_BUSI_ROLE_MEMBER> {
 
 	@Override
 	public void configController(ControllerOptions controller) {
-//		//指定控制器中的保存模式
-//		controller.saveMode(SaveMode.NOT_NULL_FIELDS);
-//		//指定控制器中的删除模式
-//		controller.usePhysicalDelete();
-//		//加入批量插入接口
-//		controller.batchInsert();
+		//指定控制器中的保存模式
+		controller.saveMode(SaveMode.NOT_NULL_FIELDS);
+		//指定控制器中的删除模式
+		controller.usePhysicalDelete();
+		//加入批量插入接口
+		controller.batchInsert();
 	}
 
 	@Override

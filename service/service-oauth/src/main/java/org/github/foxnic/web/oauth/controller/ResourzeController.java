@@ -1,6 +1,6 @@
 package org.github.foxnic.web.oauth.controller;
 
- 
+
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
@@ -58,7 +58,7 @@ public class ResourzeController extends SuperController {
 	@Autowired
 	private IMenuService menuService;
 
-	
+
 	/**
 	 * 添加系统资源
 	*/
@@ -82,7 +82,7 @@ public class ResourzeController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 删除系统资源
 	*/
@@ -107,8 +107,8 @@ public class ResourzeController extends SuperController {
 		}
 		return result;
 	}
-	
-	
+
+
 	/**
 	 * 批量删除系统资源 <br>
 	 * 联合主键时，请自行调整实现
@@ -117,7 +117,7 @@ public class ResourzeController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = ResourzeVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 	})
-	@ApiOperationSupport(order=3) 
+	@ApiOperationSupport(order=3)
 	@NotNull(name = ResourzeVOMeta.IDS)
 	@SentinelResource(value = ResourzeServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(ResourzeServiceProxy.DELETE_BY_IDS)
@@ -134,7 +134,7 @@ public class ResourzeController extends SuperController {
 		}
 		return result;
 	}
-	
+
 	/**
 	 * 更新系统资源
 	*/
@@ -149,7 +149,7 @@ public class ResourzeController extends SuperController {
 		@ApiImplicitParam(name = ResourzeVOMeta.TABLE_NAME , value = "来源表" , required = false , dataTypeClass=String.class , example = "sys_resourze"),
 		@ApiImplicitParam(name = ResourzeVOMeta.MODULE , value = "来源模块" , required = false , dataTypeClass=String.class , example = "系统资源"),
 	})
-	@ApiOperationSupport( order=4 , ignoreParameters = { ResourzeVOMeta.PAGE_INDEX , ResourzeVOMeta.PAGE_SIZE , ResourzeVOMeta.SEARCH_FIELD , ResourzeVOMeta.SEARCH_VALUE , ResourzeVOMeta.SORT_FIELD , ResourzeVOMeta.SORT_TYPE , ResourzeVOMeta.IDS } ) 
+	@ApiOperationSupport( order=4 , ignoreParameters = { ResourzeVOMeta.PAGE_INDEX , ResourzeVOMeta.PAGE_SIZE , ResourzeVOMeta.SEARCH_FIELD , ResourzeVOMeta.SEARCH_VALUE , ResourzeVOMeta.SORT_FIELD , ResourzeVOMeta.SORT_TYPE , ResourzeVOMeta.IDS } )
 	@NotNull(name = ResourzeVOMeta.ID)
 	@SentinelResource(value = ResourzeServiceProxy.UPDATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(ResourzeServiceProxy.UPDATE)
@@ -157,8 +157,8 @@ public class ResourzeController extends SuperController {
 		Result result=resourzeService.update(resourzeVO,SaveMode.NOT_NULL_FIELDS);
 		return result;
 	}
-	
-	
+
+
 	/**
 	 * 保存系统资源
 	*/
@@ -182,7 +182,7 @@ public class ResourzeController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 获取系统资源
 	*/
@@ -210,7 +210,7 @@ public class ResourzeController extends SuperController {
 		@ApiImplicitParams({
 				@ApiImplicitParam(name = ResourzeVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})
-		@ApiOperationSupport(order=3) 
+		@ApiOperationSupport(order=3)
 		@NotNull(name = ResourzeVOMeta.IDS)
 		@SentinelResource(value = ResourzeServiceProxy.GET_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(ResourzeServiceProxy.GET_BY_IDS)
@@ -221,7 +221,7 @@ public class ResourzeController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 查询系统资源
 	*/
@@ -246,7 +246,7 @@ public class ResourzeController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 分页查询系统资源
 	*/

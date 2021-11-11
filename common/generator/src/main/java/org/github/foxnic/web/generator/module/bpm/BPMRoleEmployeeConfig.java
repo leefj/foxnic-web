@@ -1,5 +1,6 @@
 package org.github.foxnic.web.generator.module.bpm;
 
+import com.github.foxnic.generator.builder.business.option.ControllerOptions;
 import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
 import com.github.foxnic.generator.builder.view.option.ListOptions;
@@ -21,6 +22,8 @@ public class BPMRoleEmployeeConfig extends BaseCodeConfig<BPM_ROLE_EMPLOYEE> {
 	public BPMRoleEmployeeConfig() {
 		super(PREFIX_BPM,BPM_ROLE_EMPLOYEE.$TABLE,"bpm_", 3);
 	}
+
+
 
 	@Override
 	public void configModel(PoClassFile poType, VoClassFile voType) {

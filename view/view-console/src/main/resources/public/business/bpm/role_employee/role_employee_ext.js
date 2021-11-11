@@ -110,7 +110,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
                 ps.push({roleId:roleId,employeeId:empIds[i]});
             }
             //
-            admin.post("/service-bpm/bpm-role-employee/inserts",ps,function (r){
+            admin.post("/service-system/sys-busi-role-member/inserts",ps,function (r){
                 window.module.refreshTableData();
             },{delayLoading:2000,elms:[]});
             //debugger;

@@ -1,7 +1,8 @@
 /**
  * 业务角色成员关系 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-10 19:03:26
+ * @since 2021-11-11 15:25:29
+ * @version
  */
 
 layui.config({
@@ -62,6 +63,8 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * */
         beforeQuery:function (conditions,param,location) {
             console.log('beforeQuery',conditions,param,location);
+            var roleId=admin.getTempData("busi-role-id");
+            param.roleId=roleId;
             return true;
         },
         /**
@@ -82,7 +85,36 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * */
         beforeEdit:function (data) {
             console.log('beforeEdit',data);
-            return true;
+            var me=this;
+            console.log('beforeEdit',data);
+            if(!data.id) {
+                var buyerIdDialogOptions={
+                    single:false,
+                    targetType:"emp",
+                    tabs:{bpmRole:true},
+                    prepose:function(param){ return window.pageExt.form.beforeDialog && window.pageExt.form.beforeDialog(param);},
+                    callback:function(param,result){
+                        me.addEmployees(result.selectedIds);
+                    }
+                };
+                fox.chooseEmployee(buyerIdDialogOptions);
+                return false;
+            } else {
+                return true;
+            }
+        },
+        addEmployees:function (empIds) {
+            var roleId=admin.getTempData("busi-role-id");
+            var ps=[];
+            for (var i = 0; i < empIds.length; i++) {
+                ps.push({roleId:roleId,memberId:empIds[i],memberType:"employee"});
+            }
+            //
+            admin.post("/service-system/sys-busi-role-member/inserts",ps,function (r){
+                window.module.refreshTableData();
+            },{delayLoading:2000,elms:[]});
+            //debugger;
+
         },
         /**
          * 单行删除前调用，若返回false则不执行后续操作

@@ -17,7 +17,7 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 业务角色成员关系
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-10 19:03:26
+ * @since 2021-11-11 15:25:29
  * @sign 293B3392AEBA621BE52D89818B2B5BF8
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */

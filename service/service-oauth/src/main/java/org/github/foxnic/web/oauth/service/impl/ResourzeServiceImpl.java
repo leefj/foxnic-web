@@ -39,23 +39,23 @@ import java.util.List;
 
 @Service("SysResourzeService")
 public class ResourzeServiceImpl extends SuperService<Resourze> implements IResourzeService {
-	
+
 	/**
 	 * 注入DAO对象
 	 * */
-	@Resource(name=DBConfigs.PRIMARY_DAO) 
+	@Resource(name=DBConfigs.PRIMARY_DAO)
 	private DAO dao=null;
-	
+
 	/**
 	 * 获得 DAO 对象
 	 * */
 	public DAO dao() { return dao; }
-	
+
 	@Override
 	public Object generateId(Field field) {
 		return IDGenerator.getSnowflakeIdString();
 	}
-	
+
 	/**
 	 * 插入实体
 	 * @param resourze 实体数据
@@ -63,13 +63,13 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 	 * */
 	@Override
 	public Result insert(Resourze resourze) {
-		Result result=super.insert(resourze);
+		Result result=super.insert(resourze,false);
 		if(result.success()) {
 			clearCatchedResourzes();
 		}
 		return result;
 	}
-	
+
 	/**
 	 * 批量插入实体，事务内
 	 * @param resourzeList 实体数据清单
@@ -83,8 +83,8 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 		}
 		return result;
 	}
-	
-	
+
+
 	/**
 	 * 按主键删除 系统资源
 	 *
@@ -108,7 +108,7 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 			return r;
 		}
 	}
-	
+
 	/**
 	 * 按主键删除 系统资源
 	 *
@@ -135,7 +135,7 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 			return r;
 		}
 	}
-	
+
 	/**
 	 * 更新实体
 	 * @param resourze 数据对象
@@ -150,7 +150,7 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 		}
 		return result;
 	}
-	
+
 	/**
 	 * 更新实体集，事务内
 	 * @param resourzeList 数据对象列表
@@ -165,8 +165,8 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 		}
 		return result;
 	}
-	
-	
+
+
 	/**
 	 * 按主键更新字段 系统资源
 	 *
@@ -181,9 +181,9 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 			clearCatchedResourzes();
 		}
 		return suc>0;
-	} 
-	
-	
+	}
+
+
 	/**
 	 * 按主键获取 系统资源
 	 *
@@ -206,7 +206,7 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @return 查询结果
 	 * */
@@ -214,11 +214,11 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 	public List<Resourze> queryList(Resourze sample) {
 		return super.queryList(sample);
 	}
-	
-	
+
+
 	/**
 	 * 分页查询实体集，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @param pageSize 分页条数
 	 * @param pageIndex 页码
@@ -228,10 +228,10 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 	public PagedList<Resourze> queryPagedList(Resourze sample, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, pageSize, pageIndex);
 	}
-	
+
 	/**
 	 * 分页查询实体集，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @param condition 其它条件
 	 * @param pageSize 分页条数
@@ -242,7 +242,7 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 	public PagedList<Resourze> queryPagedList(Resourze sample, ConditionExpr condition, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, condition, pageSize, pageIndex);
 	}
-	
+
 	/**
 	 * 检查 角色 是否已经存在
 	 *
