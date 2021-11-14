@@ -14,10 +14,10 @@ import com.github.foxnic.dao.entity.EntityContext;
 
 
 /**
- * null
+ * 系统配置
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-15 14:23:45
- * @sign 831358CE5F0FF8309B1D91C7838B56F4
+ * @since 2021-11-14 08:21:50
+ * @sign 29A8BFA28B297B0929C6BA5A0B6C2B5A
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -121,7 +121,7 @@ public class Config extends Entity {
 	
 	/**
 	 * 获得 配置键<br>
-	 * 属性说明 : 配置键
+	 * 配置键
 	 * @return 配置键
 	*/
 	public String getCode() {
@@ -139,14 +139,8 @@ public class Config extends Entity {
 	}
 	
 	/**
-	 * 添加 配置键
-	 * @param code 配置键
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 配置名<br>
-	 * 属性说明 : 配置名
+	 * 配置名
 	 * @return 配置名
 	*/
 	public String getName() {
@@ -164,14 +158,8 @@ public class Config extends Entity {
 	}
 	
 	/**
-	 * 添加 配置名
-	 * @param name 配置名
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 数据类型<br>
-	 * 属性说明 : 由开发人员在库中指定，包括 String,Integer,DateTime,Double,Enum,Dict
+	 * 由开发人员在库中指定，包括 String,Integer,DateTime,Double,Enum,Dict
 	 * @return 数据类型
 	*/
 	public String getType() {
@@ -189,14 +177,8 @@ public class Config extends Entity {
 	}
 	
 	/**
-	 * 添加 数据类型
-	 * @param type 数据类型
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 类型描述<br>
-	 * 属性说明 : 类型描述
+	 * 类型描述
 	 * @return 类型描述
 	*/
 	public String getTypeDesc() {
@@ -214,14 +196,8 @@ public class Config extends Entity {
 	}
 	
 	/**
-	 * 添加 类型描述
-	 * @param typeDesc 类型描述
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 配置值<br>
-	 * 属性说明 : 配置值
+	 * 配置值
 	 * @return 配置值
 	*/
 	public String getValue() {
@@ -239,14 +215,8 @@ public class Config extends Entity {
 	}
 	
 	/**
-	 * 添加 配置值
-	 * @param value 配置值
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 是否生效<br>
-	 * 属性说明 : 是否生效
+	 * 是否生效
 	 * @return 是否生效
 	*/
 	public Integer getValid() {
@@ -264,14 +234,8 @@ public class Config extends Entity {
 	}
 	
 	/**
-	 * 添加 是否生效
-	 * @param valid 是否生效
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 说明<br>
-	 * 属性说明 : 说明
+	 * 说明
 	 * @return 说明
 	*/
 	public String getNotes() {
@@ -289,14 +253,8 @@ public class Config extends Entity {
 	}
 	
 	/**
-	 * 添加 说明
-	 * @param notes 说明
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 创建人ID<br>
-	 * 属性说明 : 创建人ID
+	 * 创建人ID
 	 * @return 创建人ID
 	*/
 	public String getCreateBy() {
@@ -314,14 +272,8 @@ public class Config extends Entity {
 	}
 	
 	/**
-	 * 添加 创建人ID
-	 * @param createBy 创建人ID
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 创建时间<br>
-	 * 属性说明 : 创建时间
+	 * 创建时间
 	 * @return 创建时间
 	*/
 	public Date getCreateTime() {
@@ -339,14 +291,8 @@ public class Config extends Entity {
 	}
 	
 	/**
-	 * 添加 创建时间
-	 * @param createTime 创建时间
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 修改人ID<br>
-	 * 属性说明 : 修改人ID
+	 * 修改人ID
 	 * @return 修改人ID
 	*/
 	public String getUpdateBy() {
@@ -364,14 +310,8 @@ public class Config extends Entity {
 	}
 	
 	/**
-	 * 添加 修改人ID
-	 * @param updateBy 修改人ID
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 修改时间<br>
-	 * 属性说明 : 修改时间
+	 * 修改时间
 	 * @return 修改时间
 	*/
 	public Date getUpdateTime() {
@@ -389,14 +329,8 @@ public class Config extends Entity {
 	}
 	
 	/**
-	 * 添加 修改时间
-	 * @param updateTime 修改时间
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 是否已删除<br>
-	 * 属性说明 : 是否已删除
+	 * 是否已删除
 	 * @return 是否已删除
 	*/
 	public Integer getDeleted() {
@@ -414,14 +348,8 @@ public class Config extends Entity {
 	}
 	
 	/**
-	 * 添加 是否已删除
-	 * @param deleted 是否已删除
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 删除人ID<br>
-	 * 属性说明 : 删除人ID
+	 * 删除人ID
 	 * @return 删除人ID
 	*/
 	public String getDeleteBy() {
@@ -439,14 +367,8 @@ public class Config extends Entity {
 	}
 	
 	/**
-	 * 添加 删除人ID
-	 * @param deleteBy 删除人ID
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 删除时间<br>
-	 * 属性说明 : 删除时间
+	 * 删除时间
 	 * @return 删除时间
 	*/
 	public Date getDeleteTime() {
@@ -464,14 +386,8 @@ public class Config extends Entity {
 	}
 	
 	/**
-	 * 添加 删除时间
-	 * @param deleteTime 删除时间
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 数据版本号<br>
-	 * 属性说明 : 数据版本号
+	 * 数据版本号
 	 * @return 数据版本号
 	*/
 	public Integer getVersion() {
@@ -487,12 +403,6 @@ public class Config extends Entity {
 		this.version=version;
 		return this;
 	}
-	
-	/**
-	 * 添加 数据版本号
-	 * @param version 数据版本号
-	 * @return 当前对象
-	*/
 
 	/**
 	 * 将自己转换成指定类型的PO
@@ -553,6 +463,6 @@ public class Config extends Entity {
 	*/
 	@Transient
 	public static Config create() {
-		return new Config();
+		return EntityContext.create(Config.class);
 	}
 }

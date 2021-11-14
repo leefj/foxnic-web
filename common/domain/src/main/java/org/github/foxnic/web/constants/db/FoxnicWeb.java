@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2021-11-10 18:33:23
+ * @since 2021-11-14 11:37:42
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -2784,7 +2784,7 @@ public class FoxnicWeb {
 	}
 	
 	/**
-	 * 流程角色表
+	 * 业务角色表
 	*/
 	public static class SYS_BUSI_ROLE extends DBTable {
 		
@@ -2859,13 +2859,13 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
 		public SYS_BUSI_ROLE() {
-			this.init($NAME,"流程角色表" , ID , ORG_ID , CODE , NAME , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"业务角色表" , ID , ORG_ID , CODE , NAME , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final SYS_BUSI_ROLE $TABLE=new SYS_BUSI_ROLE();
 	}
 	
 	/**
-	 * 流程角色员工关系表
+	 * 业务角色成员关系表
 	*/
 	public static class SYS_BUSI_ROLE_MEMBER extends DBTable {
 		
@@ -2905,7 +2905,7 @@ public class FoxnicWeb {
 		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","创建时间","创建时间",false,false,true);
 		
 		public SYS_BUSI_ROLE_MEMBER() {
-			this.init($NAME,"流程角色员工关系表" , ID , ROLE_ID , MEMBER_ID , MEMBER_TYPE , CREATE_BY , CREATE_TIME);
+			this.init($NAME,"业务角色成员关系表" , ID , ROLE_ID , MEMBER_ID , MEMBER_TYPE , CREATE_BY , CREATE_TIME);
 		}
 		public static final SYS_BUSI_ROLE_MEMBER $TABLE=new SYS_BUSI_ROLE_MEMBER();
 	}
@@ -4736,6 +4736,11 @@ public class FoxnicWeb {
 		public static final DBField TYPE = new DBField(DBDataType.STRING , "type","type","类型","api/page",false,false,false);
 		
 		/**
+		 * 访问控制类型
+		*/
+		public static final DBField ACCESS_TYPE = new DBField(DBDataType.STRING , "access_type","accessType","访问控制类型","访问控制类型",false,false,true);
+		
+		/**
 		 * 地址
 		*/
 		public static final DBField URL = new DBField(DBDataType.STRING , "url","url","地址","地址",false,false,false);
@@ -4801,7 +4806,7 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
 		public SYS_RESOURZE() {
-			this.init($NAME,"系统资源" , ID , NAME , TYPE , URL , METHOD , BATCH_ID , CREATE_BY , TABLE_NAME , MODULE , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"系统资源" , ID , NAME , TYPE , ACCESS_TYPE , URL , METHOD , BATCH_ID , CREATE_BY , TABLE_NAME , MODULE , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final SYS_RESOURZE $TABLE=new SYS_RESOURZE();
 	}

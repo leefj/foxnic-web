@@ -23,14 +23,14 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label"><i class="layui-icon layui-icon-username"></i></label>
                     <div class="layui-input-block">
-                        <input name="identity" type="text" lay-verify="required" placeholder="账号" value="admin"
+                        <input name="identity" type="text" lay-verify="required" placeholder="账号" th:value="${loginDefault.account}"
                                class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><i class="layui-icon layui-icon-password"></i></label>
                     <div class="layui-input-block">
-                        <input name="passwd" type="password" lay-verify="required" placeholder="密码" value="123456"
+                        <input name="passwd" type="password" lay-verify="required" placeholder="密码" th:value="${loginDefault.password}"
                                class="layui-input">
                     </div>
                 </div>
@@ -39,7 +39,7 @@
                     <div class="layui-input-block">
                         <div class="layui-row inline-block">
                             <div class="layui-col-xs7">
-                                <input name="captcha" style="width:170px" type="text" lay-verify="required" placeholder="验证码" class="layui-input"  value="123456">
+                                <input name="captcha" style="width:170px" type="text" lay-verify="required" placeholder="验证码" class="layui-input"  th:value="${loginDefault.captcha}">
                                 <input name="browserId" type="hidden"/>
                             </div>
                             <div class="layui-col-xs5" style="padding-left: 10px;">

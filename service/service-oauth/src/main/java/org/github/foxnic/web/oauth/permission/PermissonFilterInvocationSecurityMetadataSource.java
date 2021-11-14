@@ -1,13 +1,15 @@
 package org.github.foxnic.web.oauth.permission;
 
 import com.github.foxnic.commons.lang.StringUtil;
+import org.github.foxnic.web.constants.enums.system.AccessType;
 import org.github.foxnic.web.domain.oauth.Menu;
-import org.github.foxnic.web.oauth.service.IMenuService;
+import org.github.foxnic.web.oauth.service.IResourzeService;
 import org.github.foxnic.web.oauth.service.ISessionOnlineService;
 import org.github.foxnic.web.oauth.session.SessionPermissionImpl;
 import org.github.foxnic.web.oauth.session.SessionUserImpl;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.ConfigAttribute;
+import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -30,7 +32,7 @@ import java.util.Set;
 public class PermissonFilterInvocationSecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
     
     @Resource
-    private IMenuService metaResourceService;
+    private IResourzeService resourzeService;
 
     @Resource
     private ISessionOnlineService sessionOnlineService;
@@ -38,21 +40,29 @@ public class PermissonFilterInvocationSecurityMetadataSource implements FilterIn
     @Override
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
 
+        final HttpServletRequest request = ((FilterInvocation) object).getRequest();
+
+        //如果账户未登录
     	SessionUserImpl user=SessionUserImpl.getCurrent();
     	if(user==null) {
     		throw new AccessDeniedException("非法访问");
     	}
 
+        //记录会话交互
+        sessionOnlineService.interactive(user.getSessionOnlineId(),request);
+
+        AccessType accessType=resourzeService.getAccessType(request);
+    	//如果是登录即可访问的
+    	if(accessType==AccessType.LOGIN) {
+            return SecurityConfig.createList(user.getAuthoritieRoles());
+        }
+
+
 //    	开放全部，调试时使用
 //    	if(user!=null) {
 //            return SecurityConfig.createList(new String[] {"ROLE_super_admin"});
-//     }
+//      }
 
-        final HttpServletRequest request = ((FilterInvocation) object).getRequest();
-
-    	//记录会话交互
-        sessionOnlineService.interactive(user.getSessionOnlineId(),request);
-        
         SessionPermissionImpl permission=(SessionPermissionImpl)user.permission();
         
         AntPathRequestMatcher matcher=permission.check(request);

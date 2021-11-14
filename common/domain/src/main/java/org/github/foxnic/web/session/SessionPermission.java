@@ -22,6 +22,8 @@ public interface SessionPermission {
      * */
     boolean checkAnyRole(String... roleCode);
 
+    String[] getAuthoritieRoles();
+
 	
 	
 }

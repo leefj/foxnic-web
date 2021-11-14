@@ -1,9 +1,19 @@
 package org.github.foxnic.web.oauth.login;
 
-import static org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_PASSWORD_KEY;
-import static org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY;
-
-import java.io.IOException;
+import com.github.foxnic.api.error.CommonError;
+import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.commons.lang.StringUtil;
+import com.github.foxnic.springboot.mvc.RequestParameter;
+import com.github.foxnic.springboot.spring.SpringUtil;
+import org.github.foxnic.web.constants.enums.SystemConfigEnum;
+import org.github.foxnic.web.constants.enums.system.YesNo;
+import org.github.foxnic.web.domain.oauth.LoginIdentityVO;
+import org.github.foxnic.web.oauth.service.ICaptchaService;
+import org.github.foxnic.web.oauth.utils.ResponseUtil;
+import org.github.foxnic.web.proxy.utils.SystemConfigProxyUtil;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.util.matcher.RequestMatcher;
+import org.springframework.web.filter.GenericFilterBean;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -12,18 +22,10 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
-import org.github.foxnic.web.domain.oauth.LoginIdentityVO;
-import org.github.foxnic.web.oauth.service.ICaptchaService;
-import org.github.foxnic.web.oauth.utils.ResponseUtil;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.security.web.util.matcher.RequestMatcher;
-import org.springframework.web.filter.GenericFilterBean;
-
-import com.github.foxnic.api.error.CommonError;
-import com.github.foxnic.api.error.ErrorDesc;
-import com.github.foxnic.springboot.mvc.RequestParameter;
-import com.github.foxnic.springboot.spring.SpringUtil;
+import static org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_PASSWORD_KEY;
+import static org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY;
 
 /**
  * 预登录控过滤器，接收JSON参数，并作为后续过滤器的验证参数
@@ -52,7 +54,11 @@ public class PreLoginFilter extends GenericFilterBean {
     	if (authenticationRequestMatcher.matches((HttpServletRequest) request)) {
  
             LoginIdentityVO identity=parameter.toPojo(LoginIdentityVO.class);
-            
+
+            if(StringUtil.isBlank(identity.getCaptcha())) {
+                ResponseUtil.writeOK((HttpServletResponse)response, ErrorDesc.failure(CommonError.CAPTCHA_INVALID).message("验证码未填写"));
+                return;
+            }
             //处理图片验证码
             if(identity.getBrowserId()!=null) {
             	String captcha=captchaService.getImageCaptcha(identity.getBrowserId());
@@ -60,11 +66,14 @@ public class PreLoginFilter extends GenericFilterBean {
             		ResponseUtil.writeOK((HttpServletResponse)response, ErrorDesc.failure(CommonError.CAPTCHA_INVALID).message("验证码已失效"));
             		return;
             	} else {
-            		if(identity.getCaptcha()==null) {
-//            		if(!captcha.equalsIgnoreCase(identity.getCaptcha())) {
-            			ResponseUtil.writeOK((HttpServletResponse)response, ErrorDesc.failure(CommonError.CAPTCHA_INVALID).message("验证码错误"));
-            			return;
-            		}
+                    YesNo allowAny= SystemConfigProxyUtil.getEnum(SystemConfigEnum.SYSTEM_LOGIN_CAPTCHA_ANY, YesNo.class);
+            		//如果不允许任意校验码，则进行校验码比对
+                    if(allowAny==YesNo.no) {
+                        if (!captcha.equalsIgnoreCase(identity.getCaptcha())) {
+                            ResponseUtil.writeOK((HttpServletResponse) response, ErrorDesc.failure(CommonError.CAPTCHA_INVALID).message("验证码错误"));
+                            return;
+                        }
+                    }
             	}
             }
  

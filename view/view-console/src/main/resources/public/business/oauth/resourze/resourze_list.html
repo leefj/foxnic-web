@@ -1,8 +1,8 @@
-<!-- 
+<!--
 /**
  * 系统资源 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-20 06:23:22
+ * @since 2021-11-14 11:38:03
  */
  -->
  <!DOCTYPE html>
@@ -26,7 +26,7 @@
 <body style="overflow-y: hidden">
 
 <div class="layui-card">
- 
+
     <div class="layui-card-body" style="">
 
         <div class="search-bar" style="">
@@ -48,6 +48,14 @@
                         <div id="type" th:data="${enum.toArray('org.github.foxnic.web.constants.enums.hrm.ResourceType')}" style="width:140px"></div>
 
                     </div>
+                    <!-- 访问控制 , accessType ,typeName=radio_box, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('访问控制')}" class="search-label accessType-label">访问控制</span><span class="search-colon">:</span></div>
+
+
+                        <div id="accessType" th:data="${enum.toArray('org.github.foxnic.web.constants.enums.system.AccessType')}" style="width:140px"></div>
+
+                    </div>
                     <!-- 地址 , url ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('地址')}" class="search-label url-label">地址</span><span class="search-colon">:</span></div>
@@ -55,11 +63,7 @@
                     </div>
                     <!-- Method , method ,typeName=radio_box, isHideInSearch=true -->
                     <!-- 批次号 , batchId ,typeName=text_input, isHideInSearch=true -->
-                    <!-- 数据表 , tableName ,typeName=text_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('数据表')}" class="search-label tableName-label">数据表</span><span class="search-colon">:</span></div>
-                        <input id="tableName" class="layui-input search-input" style="width: 140px" type="text" />
-                    </div>
+                    <!-- 数据表 , tableName ,typeName=text_input, isHideInSearch=true -->
                     <!-- 模块 , module ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('模块')}" class="search-label module-label">模块</span><span class="search-colon">:</span></div>
@@ -114,6 +118,7 @@
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${pageHelper.getTableColumnWidthConfig('data-table')}]];
     var RADIO_TYPE_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.hrm.ResourceType')}]];
+    var RADIO_ACCESSTYPE_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.system.AccessType')}]];
     var RADIO_METHOD_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.system.HttpMethodType')}]];
     var AUTH_PREFIX="sys_resourze";
 

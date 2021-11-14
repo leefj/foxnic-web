@@ -1,6 +1,7 @@
 package org.github.foxnic.web.oauth.session;
 
 import com.github.foxnic.commons.lang.StringUtil;
+import org.github.foxnic.web.constants.enums.system.AccessType;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.Resourze;
 import org.github.foxnic.web.domain.oauth.Role;
@@ -23,6 +24,8 @@ public class SessionPermissionImpl implements SessionPermission {
 	private Set<AntPathRequestMatcher> requestMatchers;
 	
 	private List<SimpleGrantedAuthority> authorities;
+
+	private String[] authoritieRoles;
 	
 	private Map<String,String> menuRoleRelation;
 	
@@ -48,6 +51,7 @@ public class SessionPermissionImpl implements SessionPermission {
 		}
 	}
 
+
 	/**
 	 * 初始化菜单中的权限清单
 	 * */
@@ -63,6 +67,10 @@ public class SessionPermissionImpl implements SessionPermission {
 			authorities.add(auth);
 			roleIdCache.put(role.getId(), role);
 			roleKeys.add(role.getCode());
+		}
+		authoritieRoles=new String[authorities.size()];
+		for (int i = 0; i < authorities.size(); i++) {
+			authoritieRoles[i]=authorities.get(i).getAuthority();
 		}
 
 		//设置菜单权限
@@ -84,7 +92,7 @@ public class SessionPermissionImpl implements SessionPermission {
 		requestMatchers=new HashSet<AntPathRequestMatcher>();
 		for (Menu menu : this.sessionUser.getUser().getMenus()) {
 			Resourze resourze=menu.getPathResource();
-			if(resourze!=null) {
+			if(resourze!=null && resourze.getAccessTypeEnum() == AccessType.GRANT) {
 //				if("/service-oauth/sys-user/query-paged-list".equals(resourze.getUrl())){
 //					System.out.println("");
 //				}
@@ -96,19 +104,33 @@ public class SessionPermissionImpl implements SessionPermission {
 //					if("/service-oauth/sys-user/query-paged-list".equals(resource.getUrl())){
 //						System.out.println("");
 //					}
-					requestMatchers.add(new AntPathRequestMatcher(resource.getUrl(),resource.getMethod(),true));
-					urlMenuCache.put(resource.getUrl(), menu);
+					if(resource.getAccessTypeEnum() == AccessType.GRANT) {
+						requestMatchers.add(new AntPathRequestMatcher(resource.getUrl(), resource.getMethod(), true));
+						urlMenuCache.put(resource.getUrl(), menu);
+					}
 				}
 			}
 		}
 	}
-	
+
+
+	private Map<String,AntPathRequestMatcher> cachedAntPathRequestMatcher=new HashMap<>();
+
+
+	/**
+	 * 此处可尝试使用缓存
+	 * */
 	public AntPathRequestMatcher check(HttpServletRequest request) {
+		String key=(request.getRequestURI()+request.getMethod()).toLowerCase();
+		AntPathRequestMatcher antPathRequestMatcher=cachedAntPathRequestMatcher.get(key);
+		if(antPathRequestMatcher!=null) return antPathRequestMatcher;
+
 		for (AntPathRequestMatcher m : requestMatchers) {
 //			 if(m.getPattern().equals("/service-oauth/sys-user/query-paged-list")) {
 //				 System.out.println();
 //			 }
 			 if(m.matches(request)) {
+				 cachedAntPathRequestMatcher.put(key,m);
 				 return m;
 			 }
 		}
@@ -184,5 +206,9 @@ public class SessionPermissionImpl implements SessionPermission {
 			if(roleKeys.contains(role)) return true;
 		}
 		return false;
+	}
+
+	public String[] getAuthoritieRoles() {
+		return authoritieRoles;
 	}
 }

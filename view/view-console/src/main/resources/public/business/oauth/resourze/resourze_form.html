@@ -1,8 +1,8 @@
-<!-- 
+<!--
 /**
  * 系统资源 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-20 06:23:23
+ * @since 2021-11-14 11:38:03
  */
  -->
  <!DOCTYPE html>
@@ -20,6 +20,12 @@
     <link href="/assets/libs/font-awesome-4.7.0/css/font-awesome.min.css" th:href="@{/assets/libs/font-awesome-4.7.0/css/font-awesome.min.css}" rel="stylesheet"/>
     <script th:inline="javascript">var foxnic_cachekey=[[${cacheKey}]];</script>
     <style>
+        .layui-form-label-c1 {
+            width: 70px;
+        }
+        .layui-input-block-c1 {
+            margin-left: 105px;
+        }
     </style>
 </head>
 
@@ -57,6 +63,15 @@
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('类型')}">类型</div><div class="layui-required">*</div></div>
                     <div class="layui-input-block layui-input-block-c1">
                         <input input-type="radio" type="radio" name="type" lay-filter="type" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.hrm.ResourceType')}" th:value="${e.code}" th:title="${e.text}" th:checked="${(e.code=='' || stat.index==-1)?'yes':'no'}">
+                    </div>
+                </div>
+
+
+                
+                <div class="layui-form-item" >
+                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('访问控制')}">访问控制</div><div class="layui-required">*</div></div>
+                    <div class="layui-input-block layui-input-block-c1">
+                        <input input-type="radio" type="radio" name="accessType" lay-filter="accessType" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.system.AccessType')}" th:value="${e.code}" th:title="${e.text}" th:checked="${(e.code=='' || stat.index==-1)?'yes':'no'}">
                     </div>
                 </div>
 
@@ -124,8 +139,9 @@
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];
     var RADIO_TYPE_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.hrm.ResourceType')}]];
+    var RADIO_ACCESSTYPE_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.system.AccessType')}]];
     var RADIO_METHOD_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.system.HttpMethodType')}]];
-    var VALIDATE_CONFIG={"method":{"labelInForm":"Method","inputType":"radio_box","required":true},"name":{"labelInForm":"名称","inputType":"text_input","required":true},"type":{"labelInForm":"类型","inputType":"radio_box","required":true},"url":{"labelInForm":"地址","inputType":"text_input","required":true}};
+    var VALIDATE_CONFIG={"accessType":{"labelInForm":"访问控制","inputType":"radio_box","required":true},"method":{"labelInForm":"Method","inputType":"radio_box","required":true},"name":{"labelInForm":"名称","inputType":"text_input","required":true},"type":{"labelInForm":"类型","inputType":"radio_box","required":true},"url":{"labelInForm":"地址","inputType":"text_input","required":true}};
     var AUTH_PREFIX="sys_resourze";
 
 

@@ -1,16 +1,19 @@
 package org.github.foxnic.web.domain.system;
 
 import io.swagger.annotations.ApiModelProperty;
-
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
+import com.github.foxnic.api.model.CompositeParameter;
+import javax.persistence.Transient;
+import com.github.foxnic.commons.bean.BeanUtil;
+
 
 
 /**
- * null
+ * 系统配置
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-09 19:13:58
- * @sign 256774A96641A03A4AC24E57E471D310
+ * @since 2021-11-14 08:21:51
+ * @sign 677CB6ED8A06D0EB54E2F87524918513
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -155,7 +158,7 @@ public class ConfigVO extends Config {
 		this.searchValue=searchValue;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 排序字段<br>
 	 * @return 排序字段
@@ -220,5 +223,16 @@ public class ConfigVO extends Config {
 		if(this.codes==null) codes=new ArrayList<>();
 		this.codes.add(code);
 		return this;
+	}
+	@Transient
+	private CompositeParameter $compositeParameter;
+	/**
+	 * 获得解析后的复合查询参数
+	 */
+	@Transient
+	public CompositeParameter getCompositeParameter() {
+		if($compositeParameter!=null) return  $compositeParameter;
+		$compositeParameter=new CompositeParameter(this.getSearchValue(),BeanUtil.toMap(this));
+		return  $compositeParameter;
 	}
 }

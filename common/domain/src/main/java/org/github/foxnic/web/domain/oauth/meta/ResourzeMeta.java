@@ -8,8 +8,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-31 09:39:22
- * @sign 9FA34D017EDCE460E7FA8C634AF46B2D
+ * @since 2021-11-14 11:38:01
+ * @sign 242D7309A9182A94E930C006F16596A7
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -44,6 +44,16 @@ public class ResourzeMeta {
 	 * 类型 , api/page , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Resourze,java.lang.String> TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.Resourze.class ,TYPE, java.lang.String.class, "类型", "api/page", java.lang.String.class, null);
+	
+	/**
+	 * 访问控制类型 , 类型: java.lang.String
+	*/
+	public static final String ACCESS_TYPE="accessType";
+	
+	/**
+	 * 访问控制类型 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.Resourze,java.lang.String> ACCESS_TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.Resourze.class ,ACCESS_TYPE, java.lang.String.class, "访问控制类型", "访问控制类型", java.lang.String.class, null);
 	
 	/**
 	 * 地址 , 类型: java.lang.String
@@ -178,7 +188,7 @@ public class ResourzeMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , NAME , TYPE , URL , METHOD , BATCH_ID , CREATE_BY , TABLE_NAME , MODULE , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , NAME , TYPE , ACCESS_TYPE , URL , METHOD , BATCH_ID , CREATE_BY , TABLE_NAME , MODULE , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
 	
 	/**
 	 * 代理类
@@ -218,6 +228,17 @@ public class ResourzeMeta {
 		public Resourze setType(String type) {
 			super.change(TYPE,super.getType(),type);
 			super.setType(type);
+			return this;
+		}
+		
+		/**
+		 * 设置 访问控制类型
+		 * @param accessType 访问控制类型
+		 * @return 当前对象
+		*/
+		public Resourze setAccessType(String accessType) {
+			super.change(ACCESS_TYPE,super.getAccessType(),accessType);
+			super.setAccessType(accessType);
 			return this;
 		}
 		

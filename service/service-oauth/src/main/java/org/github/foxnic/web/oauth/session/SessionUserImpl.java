@@ -48,6 +48,10 @@ public class SessionUserImpl extends SessionUser implements UserDetails, Credent
 		return ((SessionPermissionImpl)permission()).getAuthorities();
 	}
 
+	public String[] getAuthoritieRoles() {
+		return ((SessionPermissionImpl)permission()).getAuthoritieRoles();
+	}
+
 	@Override
 	public String getPassword() {
 		return this.user.getPasswd();

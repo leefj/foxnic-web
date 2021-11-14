@@ -1,21 +1,22 @@
 /**
  * 语言条目 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-24 16:23:41
+ * @since 2021-11-14 08:25:08
  */
 
 
 function ListPage() {
-        
+
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect;
 	//模块基础路径
 	const moduleURL="/service-system/sys-lang";
 	var dataTable=null;
+	var sort=null;
 	/**
       * 入口函数，初始化
       */
 	this.init=function(layui) {
-     	
+
      	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload,laydate= layui.laydate;
 		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect,dropdown=layui.dropdown;;
 
@@ -33,8 +34,8 @@ function ListPage() {
 		//绑定行操作按钮事件
     	bindRowOperationEvent();
      }
-     
-     
+
+
      /**
       * 渲染表格
       */
@@ -46,14 +47,14 @@ function ListPage() {
 		//
 		function renderTableInternal() {
 
-			var ps={};
+			var ps={searchField: "$composite"};
 			var contitions={};
+
 			if(window.pageExt.list.beforeQuery){
 				window.pageExt.list.beforeQuery(contitions,ps,"tableInit");
 			}
-			if(Object.keys(contitions).length>0) {
-				ps = {searchField: "$composite", searchValue: JSON.stringify(contitions)};
-			}
+			ps.searchValue=JSON.stringify(contitions);
+
 			var templet=window.pageExt.list.templet;
 			if(templet==null) {
 				templet=function(field,value,row) {
@@ -62,7 +63,7 @@ function ListPage() {
 				}
 			}
 			var h=$(".search-bar").height();
-			dataTable=fox.renderTable({
+			var tableConfig={
 				elem: '#data-table',
 				toolbar: '#toolbarTemplate',
 				defaultToolbar: ['filter', 'print',{title: '刷新数据',layEvent: 'refresh-data',icon: 'layui-icon-refresh-3'}],
@@ -72,7 +73,7 @@ function ListPage() {
 				where: ps,
 				cols: [[
 					{ fixed: 'left',type: 'numbers' },
-					{ fixed: 'left',type:'checkbox' }
+					{ fixed: 'left',type:'checkbox'}
 					,{ field: 'code', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('编码') , templet: function (d) { return templet('code',d.code,d);}  }
 					,{ field: 'defaults', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('默认值') , templet: function (d) { return templet('defaults',d.defaults,d);}  }
 					,{ field: 'zhCh', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('简体中文(大陆)') , templet: function (d) { return templet('zhCh',d.zhCh,d);}  }
@@ -81,7 +82,7 @@ function ListPage() {
 					,{ field: 'enUk', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('英文英国') , templet: function (d) { return templet('enUk',d.enUk,d);}  }
 					,{ field: 'confuse', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('混淆专用') , templet: function (d) { return templet('confuse',d.confuse,d);}  }
 					,{ field: 'valid', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('是否有效'), templet: '#cell-tpl-valid'}
-					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime),d); }}
+					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间') ,templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); } }
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
 				]],
@@ -99,7 +100,9 @@ function ListPage() {
 						}
 					}:false
 				}
-			});
+			};
+			window.pageExt.list.beforeTableRender && window.pageExt.list.beforeTableRender(tableConfig);
+			dataTable=fox.renderTable(tableConfig);
 			//绑定 Switch 切换事件
 			fox.bindSwitchEvent("cell-tpl-valid",moduleURL +'/update','code','valid',function(data,ctx){
 				window.pageExt.list.afterSwitched && window.pageExt.list.afterSwitched("valid",data,ctx);
@@ -108,6 +111,7 @@ function ListPage() {
 			table.on('sort(data-table)', function(obj){
 			  refreshTableData(obj.field,obj.type);
 			});
+			window.pageExt.list.afterTableRender && window.pageExt.list.afterTableRender();
 		}
 		setTimeout(renderTableInternal,1);
     };
@@ -115,10 +119,10 @@ function ListPage() {
 	/**
       * 刷新表格数据
       */
-	function refreshTableData(sortField,sortType) {
+	function refreshTableData(sortField,sortType,reset) {
 		var value = {};
-		value.code={ inputType:"button",value: $("#code").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" "};
-		value.defaults={ inputType:"button",value: $("#defaults").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" "};
+		value.code={ inputType:"button",value: $("#code").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" };
+		value.defaults={ inputType:"button",value: $("#defaults").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" };
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;
@@ -127,11 +131,21 @@ function ListPage() {
 		if(sortField) {
 			ps.sortField=sortField;
 			ps.sortType=sortType;
+			sort={ field : sortField,type : sortType} ;
+		} else {
+			if(sort) {
+				ps.sortField=sort.field;
+				ps.sortType=sort.type;
+			}
 		}
-		table.reload('data-table', { where : ps });
+		if(reset) {
+			table.reload('data-table', { where : ps , page:{ curr:1 } });
+		} else {
+			table.reload('data-table', { where : ps });
+		}
 	}
-    
-	
+
+
 	/**
 	  * 获得已经选中行的数据,不传入 field 时，返回所有选中的记录，指定 field 时 返回指定的字段集合
 	  */
@@ -142,7 +156,7 @@ function ListPage() {
 		for(var i=0;i<data.length;i++) data[i]=data[i][field];
 		return data;
 	}
-	
+
 	/**
 	 * 重置搜索框
 	 */
@@ -159,7 +173,7 @@ function ListPage() {
 		fox.renderSearchInputs();
 		window.pageExt.list.afterSearchInputReady && window.pageExt.list.afterSearchInputReady();
 	}
-	
+
 	/**
 	 * 绑定搜索框事件
 	 */
@@ -167,12 +181,12 @@ function ListPage() {
 		//回车键查询
         $(".search-input").keydown(function(event) {
 			if(event.keyCode !=13) return;
-		  	refreshTableData();
+		  	refreshTableData(null,null,true);
         });
 
         // 搜索按钮点击事件
         $('#search-button').click(function () {
-           refreshTableData();
+			refreshTableData(null,null,true);
         });
 
 		// 搜索按钮点击事件
@@ -187,7 +201,7 @@ function ListPage() {
 		});
 
 	}
-	
+
 	/**
 	 * 绑定按钮事件
 	  */
@@ -224,7 +238,7 @@ function ListPage() {
 			admin.putTempData('sys-lang-form-data-form-action', "create",true);
             showEditForm(data);
         };
-		
+
         //批量删除按钮点击事件
         function batchDelete(selected) {
 
@@ -259,7 +273,7 @@ function ListPage() {
 			});
         }
 	}
-     
+
     /**
      * 绑定行操作按钮事件
      */
@@ -327,13 +341,13 @@ function ListPage() {
 						}
 					});
 				});
-				
+
 			}
 			
 		});
- 
+
     };
-    
+
     /**
      * 打开编辑窗口
      */

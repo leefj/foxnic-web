@@ -3,14 +3,17 @@ package org.github.foxnic.web.domain.system;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
+import com.github.foxnic.api.model.CompositeParameter;
+import javax.persistence.Transient;
+import com.github.foxnic.commons.bean.BeanUtil;
 
 
 
 /**
- * null
+ * 语言条目
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-24 16:04:22
- * @sign B690DB5884369909DD2AE193FBE487FE
+ * @since 2021-11-14 08:21:53
+ * @sign 0202200533825D905D75AE2A5F57326C
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -220,5 +223,16 @@ public class LangVO extends Lang {
 		if(this.codes==null) codes=new ArrayList<>();
 		this.codes.add(code);
 		return this;
+	}
+	@Transient
+	private CompositeParameter $compositeParameter;
+	/**
+	 * 获得解析后的复合查询参数
+	 */
+	@Transient
+	public CompositeParameter getCompositeParameter() {
+		if($compositeParameter!=null) return  $compositeParameter;
+		$compositeParameter=new CompositeParameter(this.getSearchValue(),BeanUtil.toMap(this));
+		return  $compositeParameter;
 	}
 }

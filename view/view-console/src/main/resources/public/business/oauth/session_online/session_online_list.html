@@ -1,8 +1,8 @@
-<!-- 
+<!--
 /**
  * 在线会话 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-17 14:46:32
+ * @since 2021-11-14 11:46:52
  */
  -->
  <!DOCTYPE html>
@@ -15,36 +15,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="/assets/libs/layui/css/layui.css" th:href="'/assets/libs/layui/css/layui.css?'+${cacheKey}"/>
     <link rel="stylesheet" href="/assets/css/admin.css" th:href="'/assets/css/admin.css?'+${cacheKey}"/>
+    <link rel="stylesheet" href="/assets/libs/toast/css/toast.css" type="text/css" th:href="'/assets/libs/toast/css/toast.css?'+${cacheKey}">
     <link rel="stylesheet" href="/assets/css/foxnic-web.css" th:href="'/assets/css/foxnic-web.css?'+${cacheKey}">
     <link href="/assets/libs/font-awesome-4.7.0/css/font-awesome.min.css" th:href="@{/assets/libs/font-awesome-4.7.0/css/font-awesome.min.css}" rel="stylesheet"/>
     <script th:inline="javascript">var foxnic_cachekey=[[${cacheKey}]];</script>
+    <style>
+    </style>
 </head>
 
 <body style="overflow-y: hidden">
 
 <div class="layui-card">
- 
-    <div class="layui-card-body">
 
-        <div class="search-bar">
+    <div class="layui-card-body" style="">
+
+        <div class="search-bar" style="">
 
             <div class="search-input-rows" style="opacity: 0">
                 <!-- 搜索输入区域 -->
                 <div class="layui-form toolbar search-inputs">
+                    <!-- ID , id ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 会话ID , sessionId ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 账户 , userId ,typeName=text_input, isHideInSearch=true -->
                     <!-- 登录时间 , loginTime ,typeName=date_input, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div"><span th:text="${lang.translate('登录时间')}" class="search-label">登录时间</span><span class="search-colon">:</span></div>
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('登录时间')}" class="search-label loginTime-label">登录时间</span><span class="search-colon">:</span></div>
                             <input type="text" id="loginTime-begin" style="width: 140px" lay-verify="date" th:placeholder="${lang.translate('开始日期')}" autocomplete="off" class="layui-input search-input search-date-input"  readonly >
                             <span class="search-dash">-</span>
                             <input type="text" id="loginTime-end"  style="width: 140px"  lay-verify="date" th:placeholder="${lang.translate('结束日期')}" autocomplete="off" class="layui-input search-input search-date-input" readonly>
                     </div>
                     <!-- 最后交互 , interactTime ,typeName=date_input, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div"><span th:text="${lang.translate('最后交互')}" class="search-label">最后交互</span><span class="search-colon">:</span></div>
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('最后交互')}" class="search-label interactTime-label">最后交互</span><span class="search-colon">:</span></div>
                             <input type="text" id="interactTime-begin" style="width: 140px" lay-verify="date" th:placeholder="${lang.translate('开始日期')}" autocomplete="off" class="layui-input search-input search-date-input"  readonly >
                             <span class="search-dash">-</span>
                             <input type="text" id="interactTime-end"  style="width: 140px"  lay-verify="date" th:placeholder="${lang.translate('结束日期')}" autocomplete="off" class="layui-input search-input search-date-input" readonly>
                     </div>
+                    <!-- 最后访问 , interactUrl ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 登出时间 , logoutTime ,typeName=date_input, isHideInSearch=true -->
+                    <!-- 会话时长 , sessionTime ,typeName=number_input, isHideInSearch=true -->
+                    <!-- 是否在线 , online ,typeName=number_input, isHideInSearch=true -->
+                    <!-- 主机ID , hostId ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 节点实例ID , nodeId ,typeName=text_input, isHideInSearch=true -->
 
 
                 </div>
@@ -57,7 +69,7 @@
             </div>
         </div>
 
-        <div style="margin-top: 44px">
+        <div style="margin-top: 42px ">
             <table class="layui-table" id="data-table" lay-filter="data-table"></table>
         </div>
 
@@ -68,31 +80,33 @@
 <script type="text/javascript" src="/assets/libs/jquery-3.2.1.min.js" th:src="'/assets/libs/jquery-3.2.1.min.js?'+${cacheKey}"></script>
 <script type="text/javascript" src="/assets/libs/pandyle.min.js" th:src="'/assets/libs/pandyle.min.js?'+${cacheKey}"></script>
 <script type="text/javascript" src="/assets/libs/layui/layui.js" th:src="'/assets/libs/layui/layui.js?'+${cacheKey}"></script>
+<script type="text/javascript" src="/assets/libs/toast/js/toast.js" th:src="'/assets/libs/toast/js/toast.js?'+${cacheKey}"></script>
 
 <!-- 表格工具栏 -->
 <script type="text/html" id="toolbarTemplate">
     <div class="layui-btn-container">
-        <button th:if="${perm.checkAuth('sys_session_online:create')}" id="add-button" class="layui-btn icon-btn layui-btn-sm" lay-event="create"><i class="layui-icon">&#xe654;</i><span th:text="${lang.translate('新建')}">新建</span></button>
-            <button th:if="${perm.checkAuth('sys_session_online:delete-by-ids')}" id="delete-button" class="layui-btn icon-btn layui-btn-danger layui-btn-sm" lay-event="batch-del"><i class="layui-icon">&#xe67e;</i><span th:text="${lang.translate('删除')}">删除</span></button>
     </div>
 </script>
 
 <!-- 表格操作列 -->
 <script type="text/html" id="tableOperationTemplate">
 
-    <a th:if="${perm.checkAuth('sys_session_online:view-form')}" class="layui-btn layui-btn-primary layui-btn-xs" lay-event="view" th:text="${lang.translate('查看')}">查看</a>
-    <a th:if="${perm.checkAnyAuth('sys_session_online:update','sys_session_online:save')}" class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit" th:text="${lang.translate('修改')}">修改</a>
+    <button th:if="${perm.checkAuth('sys_session_online:view-form')}" class="layui-btn layui-btn-primary layui-btn-xs ops-view-button" lay-event="view" th:text="${lang.translate('查看')}" data-id="{{d.id}}">查看</button>
 
 
-    <a th:if="${perm.checkAuth('sys_session_online:delete')}" class="layui-btn layui-btn-xs" lay-event="del" th:text="${lang.translate('删除')}">删除</a>
+
+
 </script>
 
 
 <script th:inline="javascript">
-    var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];
+    var LAYUI_TABLE_WIDTH_CONFIG = [[${pageHelper.getTableColumnWidthConfig('data-table')}]];
     var AUTH_PREFIX="sys_session_online";
+
+
 </script>
 
+<script th:src="'/business/oauth/session_online/session_online_ext.js?'+${cacheKey}"></script>
 <script th:src="'/business/oauth/session_online/session_online_list.js?'+${cacheKey}"></script>
 
 </body>

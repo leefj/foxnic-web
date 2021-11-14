@@ -3,14 +3,17 @@ package org.github.foxnic.web.domain.oauth;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
+import com.github.foxnic.api.model.CompositeParameter;
+import javax.persistence.Transient;
+import com.github.foxnic.commons.bean.BeanUtil;
 
 
 
 /**
- * null
+ * 系统资源
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-14 11:21:23
- * @sign 91B096F6357EA461AD278EA20CEF01D5
+ * @since 2021-11-14 11:27:37
+ * @sign C24FAE585E03B8F6CAA9FCFE32F59CD5
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -220,5 +223,16 @@ public class ResourzeVO extends Resourze {
 		if(this.ids==null) ids=new ArrayList<>();
 		this.ids.add(id);
 		return this;
+	}
+	@Transient
+	private CompositeParameter $compositeParameter;
+	/**
+	 * 获得解析后的复合查询参数
+	 */
+	@Transient
+	public CompositeParameter getCompositeParameter() {
+		if($compositeParameter!=null) return  $compositeParameter;
+		$compositeParameter=new CompositeParameter(this.getSearchValue(),BeanUtil.toMap(this));
+		return  $compositeParameter;
 	}
 }

@@ -1,24 +1,28 @@
 /**
  * 在线会话 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-17 14:46:32
+ * @since 2021-11-14 11:46:52
  */
 
 
 function ListPage() {
-        
+
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect;
 	//模块基础路径
 	const moduleURL="/service-oauth/sys-session-online";
-	
+	var dataTable=null;
+	var sort=null;
 	/**
       * 入口函数，初始化
       */
 	this.init=function(layui) {
-     	
+
      	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload,laydate= layui.laydate;
-		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
-		
+		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect,dropdown=layui.dropdown;;
+
+		if(window.pageExt.list.beforeInit) {
+			window.pageExt.list.beforeInit();
+		}
      	//渲染表格
      	renderTable();
 		//初始化搜索输入框组件
@@ -30,8 +34,8 @@ function ListPage() {
 		//绑定行操作按钮事件
     	bindRowOperationEvent();
      }
-     
-     
+
+
      /**
       * 渲染表格
       */
@@ -42,32 +46,49 @@ function ListPage() {
 		fox.adjustSearchElement();
 		//
 		function renderTableInternal() {
+
+			var ps={searchField: "$composite"};
+			var contitions={};
+
+			if(window.pageExt.list.beforeQuery){
+				window.pageExt.list.beforeQuery(contitions,ps,"tableInit");
+			}
+			ps.searchValue=JSON.stringify(contitions);
+
+			var templet=window.pageExt.list.templet;
+			if(templet==null) {
+				templet=function(field,value,row) {
+					if(value==null) return "";
+					return value;
+				}
+			}
 			var h=$(".search-bar").height();
-			fox.renderTable({
+			var tableConfig={
 				elem: '#data-table',
 				toolbar: '#toolbarTemplate',
-				defaultToolbar: ['filter', 'print'],
+				defaultToolbar: ['filter', 'print',{title: '刷新数据',layEvent: 'refresh-data',icon: 'layui-icon-refresh-3'}],
 				url: moduleURL +'/query-paged-list',
 				height: 'full-'+(h+28),
 				limit: 50,
+				where: ps,
 				cols: [[
 					{ fixed: 'left',type: 'numbers' },
-					{ fixed: 'left',type:'checkbox' }
-					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('ID') }
-					,{ field: 'sessionId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('会话ID') }
-					,{ field: 'userId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('账户') , templet: function (d) { return fox.getProperty(d,["user","name"]);}  }
-					,{ field: 'loginTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('登录时间'), templet: function (d) { return fox.dateFormat(d.loginTime); }}
-					,{ field: 'interactTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('最后交互'), templet: function (d) { return fox.dateFormat(d.interactTime); }}
-					,{ field: 'interactUrl', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('最后访问') }
-					,{ field: 'logoutTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('登出时间'), templet: function (d) { return fox.dateFormat(d.logoutTime); }}
-					,{ field: 'sessionTime', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('会话时长') }
-					,{ field: 'online', align:"right",fixed:false,  hide:true, sort: true, title: fox.translate('是否在线') }
-					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return fox.dateFormat(d.createTime); }}
-					,{ field: 'hostId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('主机ID') }
-					,{ field: 'nodeId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('节点实例ID') }
-					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
-					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
+					{ fixed: 'left',type:'checkbox'}
+					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('ID') , templet: function (d) { return templet('id',d.id,d);}  }
+					,{ field: 'sessionId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('会话ID') , templet: function (d) { return templet('sessionId',d.sessionId,d);}  }
+					,{ field: 'userId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('账户') , templet: function (d) { return templet('userId',fox.getProperty(d,["user","name"]),d);} }
+					,{ field: 'loginTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('登录时间') ,templet: function (d) { return templet('loginTime',fox.dateFormat(d.loginTime,"yyyy-MM-dd HH:mm:ss"),d); } }
+					,{ field: 'interactTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('最后交互') ,templet: function (d) { return templet('interactTime',fox.dateFormat(d.interactTime,"yyyy-MM-dd HH:mm:ss"),d); } }
+					,{ field: 'interactUrl', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('最后访问') , templet: function (d) { return templet('interactUrl',d.interactUrl,d);}  }
+					,{ field: 'logoutTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('登出时间') ,templet: function (d) { return templet('logoutTime',fox.dateFormat(d.logoutTime,"yyyy-MM-dd HH:mm:ss"),d); } }
+					,{ field: 'sessionTime', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('会话时长') , templet: function (d) { return templet('sessionTime',d.sessionTime,d);}  }
+					,{ field: 'online', align:"right",fixed:false,  hide:true, sort: true, title: fox.translate('是否在线') , templet: function (d) { return templet('online',d.online,d);}  }
+					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间') ,templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); } }
+					,{ field: 'hostId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('主机ID') , templet: function (d) { return templet('hostId',d.hostId,d);}  }
+					,{ field: 'nodeId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('节点实例ID') , templet: function (d) { return templet('nodeId',d.nodeId,d);}  }
+					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
 				]],
+				done: function (data) { window.pageExt.list.afterQuery && window.pageExt.list.afterQuery(data); },
 				footer : {
 					exportExcel : admin.checkAuth(AUTH_PREFIX+":export"),
 					importExcel : admin.checkAuth(AUTH_PREFIX+":import")?{
@@ -81,11 +102,14 @@ function ListPage() {
 						}
 					}:false
 				}
-			});
+			};
+			window.pageExt.list.beforeTableRender && window.pageExt.list.beforeTableRender(tableConfig);
+			dataTable=fox.renderTable(tableConfig);
 			//绑定排序事件
 			table.on('sort(data-table)', function(obj){
 			  refreshTableData(obj.field,obj.type);
 			});
+			window.pageExt.list.afterTableRender && window.pageExt.list.afterTableRender();
 		}
 		setTimeout(renderTableInternal,1);
     };
@@ -93,15 +117,33 @@ function ListPage() {
 	/**
       * 刷新表格数据
       */
-	function refreshTableData(sortField,sortType) {
+	function refreshTableData(sortField,sortType,reset) {
 		var value = {};
-		value.loginTime={ begin: $("#loginTime-begin").val(), end: $("#loginTime-end").val() };
-		value.interactTime={ begin: $("#interactTime-begin").val(), end: $("#interactTime-end").val() };
-		var ps={searchField: "$composite", searchValue: JSON.stringify(value),sortField: sortField,sortType: sortType};
-		table.reload('data-table', { where : ps });
+		value.loginTime={ inputType:"date_input", begin: $("#loginTime-begin").val(), end: $("#loginTime-end").val() };
+		value.interactTime={ inputType:"date_input", begin: $("#interactTime-begin").val(), end: $("#interactTime-end").val() };
+		var ps={searchField:"$composite"};
+		if(window.pageExt.list.beforeQuery){
+			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;
+		}
+		ps.searchValue=JSON.stringify(value);
+		if(sortField) {
+			ps.sortField=sortField;
+			ps.sortType=sortType;
+			sort={ field : sortField,type : sortType} ;
+		} else {
+			if(sort) {
+				ps.sortField=sort.field;
+				ps.sortType=sort.type;
+			}
+		}
+		if(reset) {
+			table.reload('data-table', { where : ps , page:{ curr:1 } });
+		} else {
+			table.reload('data-table', { where : ps });
+		}
 	}
-    
-	
+
+
 	/**
 	  * 获得已经选中行的数据,不传入 field 时，返回所有选中的记录，指定 field 时 返回指定的字段集合
 	  */
@@ -112,7 +154,7 @@ function ListPage() {
 		for(var i=0;i<data.length;i++) data[i]=data[i][field];
 		return data;
 	}
-	
+
 	/**
 	 * 重置搜索框
 	 */
@@ -124,7 +166,7 @@ function ListPage() {
 
 	function initSearchFields() {
 
-		fox.switchSearchRow();
+		fox.switchSearchRow(1);
 
 		laydate.render({
 			elem: '#loginTime-begin',
@@ -143,8 +185,9 @@ function ListPage() {
 			trigger:"click"
 		});
 		fox.renderSearchInputs();
+		window.pageExt.list.afterSearchInputReady && window.pageExt.list.afterSearchInputReady();
 	}
-	
+
 	/**
 	 * 绑定搜索框事件
 	 */
@@ -152,17 +195,17 @@ function ListPage() {
 		//回车键查询
         $(".search-input").keydown(function(event) {
 			if(event.keyCode !=13) return;
-		  	refreshTableData();
+		  	refreshTableData(null,null,true);
         });
 
         // 搜索按钮点击事件
         $('#search-button').click(function () {
-           refreshTableData();
+			refreshTableData(null,null,true);
         });
 
 		// 搜索按钮点击事件
 		$('#search-button-advance').click(function () {
-			fox.switchSearchRow(function (ex){
+			fox.switchSearchRow(1,function (ex){
 				if(ex=="1") {
 					$('#search-button-advance span').text("关闭");
 				} else {
@@ -170,8 +213,9 @@ function ListPage() {
 				}
 			});
 		});
+
 	}
-	
+
 	/**
 	 * 绑定按钮事件
 	  */
@@ -180,18 +224,22 @@ function ListPage() {
 		//头工具栏事件
 		table.on('toolbar(data-table)', function(obj){
 			var checkStatus = table.checkStatus(obj.config.id);
+			var selected=getCheckedList("id");
+			if(window.pageExt.list.beforeToolBarButtonEvent) {
+				var doNext=window.pageExt.list.beforeToolBarButtonEvent(selected,obj);
+				if(!doNext) return;
+			}
 			switch(obj.event){
 				case 'create':
 					openCreateFrom();
 					break;
 				case 'batch-del':
-					batchDelete();
+					batchDelete(selected);
+					break;
+				case 'refresh-data':
+					refreshTableData();
 					break;
 				case 'other':
-					break;
-					//自定义头工具栏右侧图标 - 提示
-				case 'LAYTABLE_TIPS':
-					layer.alert('这是工具栏右侧自定义的一个图标按钮');
 					break;
 			};
 		});
@@ -201,34 +249,45 @@ function ListPage() {
         function openCreateFrom() {
         	//设置新增是初始化数据
         	var data={};
+			admin.putTempData('sys-session-online-form-data-form-action', "create",true);
             showEditForm(data);
         };
-		
+
         //批量删除按钮点击事件
-        function batchDelete() {
-          
+        function batchDelete(selected) {
+
+        	if(window.pageExt.list.beforeBatchDelete) {
+				var doNext=window.pageExt.list.beforeBatchDelete(selected);
+				if(!doNext) return;
+			}
+
 			var ids=getCheckedList("id");
             if(ids.length==0) {
-            	layer.msg(fox.translate('请选择需要删除的')+fox.translate('在线会话')+"!");
+				top.layer.msg(fox.translate('请选择需要删除的')+fox.translate('在线会话')+"!");
             	return;
             }
             //调用批量删除接口
-			layer.confirm(fox.translate('确定删除已选中的')+fox.translate('在线会话')+fox.translate('吗？'), function (i) {
-				layer.close(i);
-				layer.load(2);
+			top.layer.confirm(fox.translate('确定删除已选中的')+fox.translate('在线会话')+fox.translate('吗？'), function (i) {
+				top.layer.close(i);
+				top.layer.load(2);
                 admin.request(moduleURL+"/delete-by-ids", { ids: ids }, function (data) {
-                    layer.closeAll('loading');
+					top.layer.closeAll('loading');
                     if (data.success) {
-                        layer.msg(data.message, {icon: 1, time: 500});
+						if(window.pageExt.list.afterBatchDelete) {
+							var doNext=window.pageExt.list.afterBatchDelete(data);
+							if(!doNext) return;
+						}
+                    	top.layer.msg(data.message, {icon: 1, time: 500});
                         refreshTableData();
                     } else {
-                        layer.msg(data.message, {icon: 2, time: 1500});
+						top.layer.msg(data.message, {icon: 2, time: 1500});
                     }
                 });
+
 			});
         }
 	}
-     
+
     /**
      * 绑定行操作按钮事件
      */
@@ -237,6 +296,12 @@ function ListPage() {
 		table.on('tool(data-table)', function (obj) {
 			var data = obj.data;
 			var layEvent = obj.event;
+
+			if(window.pageExt.list.beforeRowOperationEvent) {
+				var doNext=window.pageExt.list.beforeRowOperationEvent(data,obj);
+				if(!doNext) return;
+			}
+
 			admin.putTempData('sys-session-online-form-data-form-action', "",true);
 			if (layEvent === 'edit') { // 修改
 				//延迟显示加载动画，避免界面闪动
@@ -251,7 +316,7 @@ function ListPage() {
 						 layer.msg(data.message, {icon: 1, time: 1500});
 					}
 				});
-			} else if (layEvent === 'view') { // 修改
+			} else if (layEvent === 'view') { // 查看
 				//延迟显示加载动画，避免界面闪动
 				var task=setTimeout(function(){layer.load(2);},1000);
 				admin.request(moduleURL+"/get-by-id", { id : data.id }, function (data) {
@@ -266,44 +331,64 @@ function ListPage() {
 				});
 			}
 			else if (layEvent === 'del') { // 删除
-			
-				layer.confirm(fox.translate('确定删除此')+fox.translate('在线会话')+fox.translate('吗？'), function (i) {
-					layer.close(i);
-					layer.load(2);
+
+				if(window.pageExt.list.beforeSingleDelete) {
+					var doNext=window.pageExt.list.beforeSingleDelete(data);
+					if(!doNext) return;
+				}
+
+				top.layer.confirm(fox.translate('确定删除此')+fox.translate('在线会话')+fox.translate('吗？'), function (i) {
+					top.layer.close(i);
+
+					top.layer.load(2);
 					admin.request(moduleURL+"/delete", { id : data.id }, function (data) {
-						layer.closeAll('loading');
+						top.layer.closeAll('loading');
 						if (data.success) {
-							layer.msg(data.message, {icon: 1, time: 500});
+							if(window.pageExt.list.afterSingleDelete) {
+								var doNext=window.pageExt.list.afterSingleDelete(data);
+								if(!doNext) return;
+							}
+							top.layer.msg(data.message, {icon: 1, time: 500});
 							refreshTableData();
 						} else {
-							layer.msg(data.message, {icon: 2, time: 1500});
+							top.layer.msg(data.message, {icon: 2, time: 1500});
 						}
 					});
 				});
-				
+
 			}
 			
 		});
- 
+
     };
-    
+
     /**
      * 打开编辑窗口
      */
 	function showEditForm(data) {
+		if(window.pageExt.list.beforeEdit) {
+			var doNext=window.pageExt.list.beforeEdit(data);
+			if(!doNext) return;
+		}
+		var action=admin.getTempData('sys-session-online-form-data-form-action');
 		var queryString="";
 		if(data && data.id) queryString="?" + 'id=' + data.id;
 		admin.putTempData('sys-session-online-form-data', data);
 		var area=admin.getTempData('sys-session-online-form-area');
 		var height= (area && area.height) ? area.height : ($(window).height()*0.6);
 		var top= (area && area.top) ? area.top : (($(window).height()-height)/2);
-		var title = (data && data.id) ? (fox.translate('修改')+fox.translate('在线会话')) : (fox.translate('添加')+fox.translate('在线会话'));
+		var title = fox.translate('在线会话');
+		if(action=="create") title=fox.translate('添加')+title;
+		else if(action=="edit") title=fox.translate('修改')+title;
+		else if(action=="view") title=fox.translate('查看')+title;
+
 		var index=admin.popupCenter({
 			title: title,
 			resize: false,
 			offset: [top,null],
 			area: ["500px",height+"px"],
 			type: 2,
+			id:"sys-session-online-form-data-win",
 			content: '/business/oauth/session_online/session_online_form.html' + queryString,
 			finish: function () {
 				refreshTableData();
@@ -312,15 +397,20 @@ function ListPage() {
 		admin.putTempData('sys-session-online-form-data-popup-index', index);
 	};
 
+	window.module={
+		refreshTableData: refreshTableData,
+		getCheckedList: getCheckedList
+	};
+
+	window.pageExt.list.ending && window.pageExt.list.ending();
 
 };
 
 
-layui.config({
-	dir: layuiPath,
-	base: '/module/'
-}).extend({
-	xmSelect: 'xm-select/xm-select'
-}).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect','laydate'],function() {
-	(new ListPage()).init(layui);
+layui.use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect','laydate','dropdown'],function() {
+	var task=setInterval(function (){
+		if(!window["pageExt"]) return;
+		clearInterval(task);
+		(new ListPage()).init(layui);
+	},1);
 });

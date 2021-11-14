@@ -34,7 +34,8 @@ function ListPage() {
 			},
 			check: {
 				enable: true,
-				autoCheckTrigger: true
+				autoCheckTrigger: true,
+				chkboxType : { "Y" : "ps", "N" : "ps" }
 			},
 			async: {
 				enable: true,
@@ -58,13 +59,13 @@ function ListPage() {
 		menuTree=$.fn.zTree.init($("#menu-tree"), cfgs);
 
 		//树的关联选择控制
-		form.on('checkbox(check-mode)', function (data) {
-			if( data.elem.checked) {
-				menuTree.setting.check.chkboxType = { "Y" : "ps", "N" : "ps" };
-			} else {
-				menuTree.setting.check.chkboxType = { "Y" : "", "N" : "" };
-			}
-		});
+		// form.on('checkbox(check-mode)', function (data) {
+		// 	if( data.elem.checked) {
+		// 		menuTree.setting.check.chkboxType = { "Y" : "ps", "N" : "ps" };
+		// 	} else {
+		// 		menuTree.setting.check.chkboxType = { "Y" : "", "N" : "" };
+		// 	}
+		// });
 
 
 
@@ -77,6 +78,34 @@ function ListPage() {
 			var treeHeight=fullHeight-1-toolbarHeight;
 			$("#tree-container").height(treeHeight);
 		},10);
+
+		var demo1 = xmSelect.render({
+			el: '#check-mode',
+			radio: true,
+			size: 'small',
+			initValue: [2],
+			clickClose:true,
+			on: function(data){
+				//arr:  当前多选已选中的数据
+				var arr = data.arr;
+				//change, 此次选择变化的数据,数组
+				var change = data.change;
+				//isAdd, 此次操作是新增还是删除
+				var isAdd = data.isAdd;
+
+
+				// debugger;
+				menuTree.setting.check.chkboxType = arr[0].data;
+
+			},
+			data: [
+				{name: '自由选择',value:1, data: { "Y" : "", "N" : "" }},
+				{name: '双向关联',value:2, data:{ "Y" : "ps", "N" : "ps" }},
+				{name: '关联上级',value:3, data: { "Y" : "p", "N" : "p" }},
+				{name: '关联下级',value:4, data: { "Y" : "s", "N" : "s" }},
+			]
+		})
+
 	}
 
 

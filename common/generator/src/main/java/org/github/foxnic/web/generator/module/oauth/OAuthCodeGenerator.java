@@ -5,6 +5,7 @@ import com.github.foxnic.generator.config.WriteMode;
 import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb.*;
 import org.github.foxnic.web.constants.enums.hrm.ResourceType;
+import org.github.foxnic.web.constants.enums.system.AccessType;
 import org.github.foxnic.web.constants.enums.system.HttpMethodType;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.Resourze;
@@ -22,11 +23,11 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 //		g.generateSysMenuResource();
 //		g.generateSysUser(); //ok
 //		g.generateSysOAuthClient();
-//		g.generateSysSessionOnline();
+		g.generateSysSessionOnline();
 //		g.generateSysToken();
 //		g.generateSysRole();
 //		g.generateSysRoleUser();
-		g.generateSysMenu();
+//		g.generateSysMenu();
 //		g.generateSysRoleMenu();
 
 	}
@@ -114,11 +115,12 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 				.table().hidden().search().hidden();
 
 
-//		cfg.view().list().disableBatchDelete();
+		cfg.view().list().disableBatchDelete();
 //		cfg.view().list().disableCreateNew();
-//		cfg.view().list().disableModify();
-//		cfg.view().list().disableSingleDelete();
-//		cfg.view().list().disableSpaceColumn();
+		cfg.view().list().disableModify();
+		cfg.view().list().disableSingleDelete();
+		cfg.view().list().disableSpaceColumn();
+		cfg.view().list().disableCreateNew();
 
 		//设置标签宽度
 		cfg.view().form().labelWidth(85);
@@ -131,10 +133,22 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		//创建配置
 		ModuleContext cfg=createModuleConfig(SYS_RESOURZE.$TABLE, 6);
 
+		cfg.getPoClassFile().shadow(SYS_RESOURZE.ACCESS_TYPE,AccessType.class);
+		cfg.getPoClassFile().shadow(SYS_RESOURZE.TYPE,ResourceType.class);
+		cfg.getPoClassFile().shadow(SYS_RESOURZE.METHOD,HttpMethodType.class);
+
+		cfg.getFormConfig().setLabelWidth(70);
+
 		cfg.view().field(SYS_RESOURZE.ID)
 				.table().hidden(true)
 				.search().hidden();
 		;
+
+		cfg.view().field(SYS_RESOURZE.ACCESS_TYPE)
+				.basic().label("访问控制")
+				.search()
+				.form().radioBox().enumType(AccessType.class)
+				.form().validate().required();
 
 		cfg.view().field(SYS_RESOURZE.METHOD)
 				.basic().label("Method")
@@ -151,7 +165,7 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		cfg.view().field(SYS_RESOURZE.MODULE).basic().label("模块")
 		.search().fuzzySearch();
 		cfg.view().field(SYS_RESOURZE.TABLE_NAME).basic().label("数据表")
-				.search().fuzzySearch();
+				.search().hidden();
 
 		cfg.view().list().operationColumn().width(125);
 

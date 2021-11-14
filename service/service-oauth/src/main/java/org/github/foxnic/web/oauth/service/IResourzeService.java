@@ -11,7 +11,9 @@ import com.github.foxnic.dao.excel.ValidateResult;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.expr.OrderBy;
 import com.github.foxnic.sql.meta.DBField;
+import org.github.foxnic.web.constants.enums.system.AccessType;
 import org.github.foxnic.web.domain.oauth.Resourze;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.InputStream;
@@ -26,7 +28,29 @@ import java.util.List;
 */
 
 public interface IResourzeService extends ISuperService<Resourze> {
-	
+
+	public static class AccessableAntPathRequestMatcher  {
+
+		private AntPathRequestMatcher antPathRequestMatcher;
+
+		private AccessType accessType;
+
+		public AccessableAntPathRequestMatcher(String pattern, String httpMethod, boolean caseSensitive, AccessType accessType) {
+			this.antPathRequestMatcher=new AntPathRequestMatcher(pattern,httpMethod,caseSensitive);
+			this.accessType=accessType;
+		}
+
+		public AntPathRequestMatcher getAntPathRequestMatcher() {
+			return antPathRequestMatcher;
+		}
+
+		public AccessType getAccessType() {
+			return accessType;
+		}
+	}
+
+	AccessType getAccessType(HttpServletRequest request);
+
 	/**
 	 * 插入实体
 	 * @param resourze 实体数据

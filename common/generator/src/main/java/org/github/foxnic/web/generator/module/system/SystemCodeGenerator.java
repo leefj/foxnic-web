@@ -37,7 +37,7 @@ public class SystemCodeGenerator  {
 //		}
 
 		// 
-//		g.generateSysConfig();
+		g.generateSysConfig();
 //		//
 //		g.generateSysDict();
 //		//
@@ -163,6 +163,13 @@ public class SystemCodeGenerator  {
 		cfg.view().field(SYS_CONFIG.TYPE)
 				.table().hidden()
 				.form().radioBox().enumType(SystemConfigType.class);
+
+		//
+		cfg.view().field(SYS_CONFIG.CODE)
+				.search().fuzzySearch();
+		//
+		cfg.view().field(SYS_CONFIG.NAME)
+				.search().fuzzySearch();
 
 		cfg.view().field(SYS_CONFIG.TYPE_DESC)
 				.search().hidden()

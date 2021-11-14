@@ -6,18 +6,23 @@ import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_RESOURZE;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.Date;
+import org.github.foxnic.web.constants.enums.hrm.ResourceType;
 import javax.persistence.Transient;
+import org.github.foxnic.web.constants.enums.system.AccessType;
+import org.github.foxnic.web.constants.enums.system.HttpMethodType;
+import java.util.Date;
+import com.github.foxnic.commons.reflect.EnumUtil;
+import com.github.foxnic.commons.lang.StringUtil;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
 
 
 
 /**
- * null
+ * 系统资源
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-31 09:39:22
- * @sign 9FA34D017EDCE460E7FA8C634AF46B2D
+ * @since 2021-11-14 11:38:01
+ * @sign 242D7309A9182A94E930C006F16596A7
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -46,6 +51,16 @@ public class Resourze extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="类型" , notes = "api/page")
 	private String type;
+	@Transient
+	private ResourceType typeEnum;
+	
+	/**
+	 * 访问控制类型：访问控制类型
+	*/
+	@ApiModelProperty(required = false,value="访问控制类型" , notes = "访问控制类型")
+	private String accessType;
+	@Transient
+	private AccessType accessTypeEnum;
 	
 	/**
 	 * 地址：地址
@@ -58,6 +73,8 @@ public class Resourze extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="HttpMethod" , notes = "HttpMethod")
 	private String method;
+	@Transient
+	private HttpMethodType methodEnum;
 	
 	/**
 	 * 批次号：批次号
@@ -173,12 +190,97 @@ public class Resourze extends Entity {
 	}
 	
 	/**
+	 * 获得 类型 的投影属性<br>
+	 * 等价于 getType 方法，获得对应的枚举类型
+	 * @return 类型
+	*/
+	@Transient
+	public ResourceType getTypeEnum() {
+		if(this.typeEnum==null) {
+			this.typeEnum = (ResourceType) EnumUtil.parseByCode(ResourceType.values(),type);
+		}
+		return this.typeEnum ;
+	}
+	
+	/**
 	 * 设置 类型
 	 * @param type 类型
 	 * @return 当前对象
 	*/
 	public Resourze setType(String type) {
 		this.type=type;
+		this.typeEnum= (ResourceType) EnumUtil.parseByCode(ResourceType.values(),type) ;
+		if(StringUtil.hasContent(type) && this.typeEnum==null) {
+			throw new IllegalArgumentException( type + " is not one of ResourceType");
+		}
+		return this;
+	}
+	
+	/**
+	 * 设置 类型的投影属性，等同于设置 类型
+	 * @param typeEnum 类型
+	 * @return 当前对象
+	*/
+	@Transient
+	public Resourze setTypeEnum(ResourceType typeEnum) {
+		if(typeEnum==null) {
+			this.setType(null);
+		} else {
+			this.setType(typeEnum.code());
+		}
+		this.typeEnum=typeEnum;
+		return this;
+	}
+	
+	/**
+	 * 获得 访问控制类型<br>
+	 * 访问控制类型
+	 * @return 访问控制类型
+	*/
+	public String getAccessType() {
+		return accessType;
+	}
+	
+	/**
+	 * 获得 访问控制类型 的投影属性<br>
+	 * 等价于 getAccessType 方法，获得对应的枚举类型
+	 * @return 访问控制类型
+	*/
+	@Transient
+	public AccessType getAccessTypeEnum() {
+		if(this.accessTypeEnum==null) {
+			this.accessTypeEnum = (AccessType) EnumUtil.parseByCode(AccessType.values(),accessType);
+		}
+		return this.accessTypeEnum ;
+	}
+	
+	/**
+	 * 设置 访问控制类型
+	 * @param accessType 访问控制类型
+	 * @return 当前对象
+	*/
+	public Resourze setAccessType(String accessType) {
+		this.accessType=accessType;
+		this.accessTypeEnum= (AccessType) EnumUtil.parseByCode(AccessType.values(),accessType) ;
+		if(StringUtil.hasContent(accessType) && this.accessTypeEnum==null) {
+			throw new IllegalArgumentException( accessType + " is not one of AccessType");
+		}
+		return this;
+	}
+	
+	/**
+	 * 设置 访问控制类型的投影属性，等同于设置 访问控制类型
+	 * @param accessTypeEnum 访问控制类型
+	 * @return 当前对象
+	*/
+	@Transient
+	public Resourze setAccessTypeEnum(AccessType accessTypeEnum) {
+		if(accessTypeEnum==null) {
+			this.setAccessType(null);
+		} else {
+			this.setAccessType(accessTypeEnum.code());
+		}
+		this.accessTypeEnum=accessTypeEnum;
 		return this;
 	}
 	
@@ -211,12 +313,45 @@ public class Resourze extends Entity {
 	}
 	
 	/**
+	 * 获得 HttpMethod 的投影属性<br>
+	 * 等价于 getMethod 方法，获得对应的枚举类型
+	 * @return HttpMethod
+	*/
+	@Transient
+	public HttpMethodType getMethodEnum() {
+		if(this.methodEnum==null) {
+			this.methodEnum = (HttpMethodType) EnumUtil.parseByCode(HttpMethodType.values(),method);
+		}
+		return this.methodEnum ;
+	}
+	
+	/**
 	 * 设置 HttpMethod
 	 * @param method HttpMethod
 	 * @return 当前对象
 	*/
 	public Resourze setMethod(String method) {
 		this.method=method;
+		this.methodEnum= (HttpMethodType) EnumUtil.parseByCode(HttpMethodType.values(),method) ;
+		if(StringUtil.hasContent(method) && this.methodEnum==null) {
+			throw new IllegalArgumentException( method + " is not one of HttpMethodType");
+		}
+		return this;
+	}
+	
+	/**
+	 * 设置 HttpMethod的投影属性，等同于设置 HttpMethod
+	 * @param methodEnum HttpMethod
+	 * @return 当前对象
+	*/
+	@Transient
+	public Resourze setMethodEnum(HttpMethodType methodEnum) {
+		if(methodEnum==null) {
+			this.setMethod(null);
+		} else {
+			this.setMethod(methodEnum.code());
+		}
+		this.methodEnum=methodEnum;
 		return this;
 	}
 	

@@ -1,5 +1,6 @@
 package org.github.foxnic.web.domain.system.meta;
 
+import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.system.Config;
 import java.util.Date;
 
@@ -7,87 +8,162 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-15 14:23:45
- * @sign 831358CE5F0FF8309B1D91C7838B56F4
+ * @since 2021-11-14 08:21:51
+ * @sign 29A8BFA28B297B0929C6BA5A0B6C2B5A
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
 public class ConfigMeta {
 	
 	/**
-	 * 配置键
+	 * 配置键 , 类型: java.lang.String
 	*/
 	public static final String CODE="code";
 	
 	/**
-	 * 配置名
+	 * 配置键 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.Config,java.lang.String> CODE_PROP = new BeanProperty(org.github.foxnic.web.domain.system.Config.class ,CODE, java.lang.String.class, "配置键", "配置键", java.lang.String.class, null);
+	
+	/**
+	 * 配置名 , 类型: java.lang.String
 	*/
 	public static final String NAME="name";
 	
 	/**
-	 * 数据类型 , 由开发人员在库中指定，包括 String,Integer,DateTime,Double,Enum,Dict
+	 * 配置名 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.Config,java.lang.String> NAME_PROP = new BeanProperty(org.github.foxnic.web.domain.system.Config.class ,NAME, java.lang.String.class, "配置名", "配置名", java.lang.String.class, null);
+	
+	/**
+	 * 数据类型 , 由开发人员在库中指定，包括 String,Integer,DateTime,Double,Enum,Dict , 类型: java.lang.String
 	*/
 	public static final String TYPE="type";
 	
 	/**
-	 * 类型描述
+	 * 数据类型 , 由开发人员在库中指定，包括 String,Integer,DateTime,Double,Enum,Dict , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.Config,java.lang.String> TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.system.Config.class ,TYPE, java.lang.String.class, "数据类型", "由开发人员在库中指定，包括 String,Integer,DateTime,Double,Enum,Dict", java.lang.String.class, null);
+	
+	/**
+	 * 类型描述 , 类型: java.lang.String
 	*/
 	public static final String TYPE_DESC="typeDesc";
 	
 	/**
-	 * 配置值
+	 * 类型描述 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.Config,java.lang.String> TYPE_DESC_PROP = new BeanProperty(org.github.foxnic.web.domain.system.Config.class ,TYPE_DESC, java.lang.String.class, "类型描述", "类型描述", java.lang.String.class, null);
+	
+	/**
+	 * 配置值 , 类型: java.lang.String
 	*/
 	public static final String VALUE="value";
 	
 	/**
-	 * 是否生效
+	 * 配置值 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.Config,java.lang.String> VALUE_PROP = new BeanProperty(org.github.foxnic.web.domain.system.Config.class ,VALUE, java.lang.String.class, "配置值", "配置值", java.lang.String.class, null);
+	
+	/**
+	 * 是否生效 , 类型: java.lang.Integer
 	*/
 	public static final String VALID="valid";
 	
 	/**
-	 * 说明
+	 * 是否生效 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.Config,java.lang.Integer> VALID_PROP = new BeanProperty(org.github.foxnic.web.domain.system.Config.class ,VALID, java.lang.Integer.class, "是否生效", "是否生效", java.lang.Integer.class, null);
+	
+	/**
+	 * 说明 , 类型: java.lang.String
 	*/
 	public static final String NOTES="notes";
 	
 	/**
-	 * 创建人ID
+	 * 说明 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.Config,java.lang.String> NOTES_PROP = new BeanProperty(org.github.foxnic.web.domain.system.Config.class ,NOTES, java.lang.String.class, "说明", "说明", java.lang.String.class, null);
+	
+	/**
+	 * 创建人ID , 类型: java.lang.String
 	*/
 	public static final String CREATE_BY="createBy";
 	
 	/**
-	 * 创建时间
+	 * 创建人ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.Config,java.lang.String> CREATE_BY_PROP = new BeanProperty(org.github.foxnic.web.domain.system.Config.class ,CREATE_BY, java.lang.String.class, "创建人ID", "创建人ID", java.lang.String.class, null);
+	
+	/**
+	 * 创建时间 , 类型: java.util.Date
 	*/
 	public static final String CREATE_TIME="createTime";
 	
 	/**
-	 * 修改人ID
+	 * 创建时间 , 类型: java.util.Date
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.Config,java.util.Date> CREATE_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.system.Config.class ,CREATE_TIME, java.util.Date.class, "创建时间", "创建时间", java.util.Date.class, null);
+	
+	/**
+	 * 修改人ID , 类型: java.lang.String
 	*/
 	public static final String UPDATE_BY="updateBy";
 	
 	/**
-	 * 修改时间
+	 * 修改人ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.Config,java.lang.String> UPDATE_BY_PROP = new BeanProperty(org.github.foxnic.web.domain.system.Config.class ,UPDATE_BY, java.lang.String.class, "修改人ID", "修改人ID", java.lang.String.class, null);
+	
+	/**
+	 * 修改时间 , 类型: java.util.Date
 	*/
 	public static final String UPDATE_TIME="updateTime";
 	
 	/**
-	 * 是否已删除
+	 * 修改时间 , 类型: java.util.Date
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.Config,java.util.Date> UPDATE_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.system.Config.class ,UPDATE_TIME, java.util.Date.class, "修改时间", "修改时间", java.util.Date.class, null);
+	
+	/**
+	 * 是否已删除 , 类型: java.lang.Integer
 	*/
 	public static final String DELETED="deleted";
 	
 	/**
-	 * 删除人ID
+	 * 是否已删除 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.Config,java.lang.Integer> DELETED_PROP = new BeanProperty(org.github.foxnic.web.domain.system.Config.class ,DELETED, java.lang.Integer.class, "是否已删除", "是否已删除", java.lang.Integer.class, null);
+	
+	/**
+	 * 删除人ID , 类型: java.lang.String
 	*/
 	public static final String DELETE_BY="deleteBy";
 	
 	/**
-	 * 删除时间
+	 * 删除人ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.Config,java.lang.String> DELETE_BY_PROP = new BeanProperty(org.github.foxnic.web.domain.system.Config.class ,DELETE_BY, java.lang.String.class, "删除人ID", "删除人ID", java.lang.String.class, null);
+	
+	/**
+	 * 删除时间 , 类型: java.util.Date
 	*/
 	public static final String DELETE_TIME="deleteTime";
 	
 	/**
-	 * 数据版本号
+	 * 删除时间 , 类型: java.util.Date
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.Config,java.util.Date> DELETE_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.system.Config.class ,DELETE_TIME, java.util.Date.class, "删除时间", "删除时间", java.util.Date.class, null);
+	
+	/**
+	 * 数据版本号 , 类型: java.lang.Integer
 	*/
 	public static final String VERSION="version";
+	
+	/**
+	 * 数据版本号 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.Config,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.system.Config.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
 	 * 全部属性清单

@@ -36,7 +36,7 @@ import java.util.List;
 
 @Service("SysRoleMenuService")
 public class RoleMenuServiceImpl extends SuperService<RoleMenu> implements IRoleMenuService {
-	
+
 	/**
 	 * 注入DAO对象
 	 * */

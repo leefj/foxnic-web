@@ -13,6 +13,7 @@ import com.github.foxnic.dao.excel.ValidateResult;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
+import org.github.foxnic.web.constants.enums.system.AccessType;
 import org.github.foxnic.web.domain.oauth.Resourze;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.oauth.service.IResourzeService;
@@ -24,9 +25,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.InputStream;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * <p>
@@ -39,6 +38,12 @@ import java.util.List;
 
 @Service("SysResourzeService")
 public class ResourzeServiceImpl extends SuperService<Resourze> implements IResourzeService {
+
+
+
+
+
+
 
 	/**
 	 * 注入DAO对象
@@ -273,10 +278,12 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 
 	private List<Resourze>  catchedResourzes=null;
 	private List<AntPathRequestMatcher>  catchedAntPathRequestMatchers=null;
+	private Map<String,AccessType>  catchedAccessTypes=null;
 
 	private void clearCatchedResourzes() {
 		this.catchedResourzes=null;
 		this.catchedAntPathRequestMatchers=null;
+		this.catchedAccessTypes=null;
 	}
 
 	@Override
@@ -293,6 +300,7 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 				AntPathRequestMatcher ant=new AntPathRequestMatcher(resourze.getUrl(),resourze.getMethod(),true);
 				catchedAntPathRequestMatchers.add(ant);
 			}
+			catchedAccessTypes=new HashMap<>();
 		}
 
 		//
@@ -309,6 +317,32 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 			}
 		}
 		return matchs;
+	}
+
+	public AccessType getAccessType(HttpServletRequest request) {
+		AccessType accessType = null;
+		String key=(request.getRequestURI()+request.getMethod()).toLowerCase();
+		if(catchedAccessTypes!=null) {
+			accessType = catchedAccessTypes.get(key);
+			if (accessType != null) return accessType;
+		}
+
+		List<Resourze> resourzes=this.getMatchd(request);
+		if(resourzes==null || resourzes.isEmpty()) {
+			return AccessType.GRANT;
+		}
+		List<AccessType> accessTypes=new ArrayList<>();
+		for (Resourze resourze : resourzes) {
+			if(accessTypes.contains(resourze.getAccessTypeEnum())) continue;
+			accessTypes.add(resourze.getAccessTypeEnum());
+		}
+		if(accessTypes.size()==1) {
+			accessType=accessTypes.get(0);
+			catchedAccessTypes.put(key,accessType);
+			return accessType;
+		} else {
+			throw new RuntimeException("资源授权类型不一致，无法处理");
+		}
 	}
 
 	@Override

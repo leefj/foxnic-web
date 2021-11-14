@@ -1614,6 +1614,8 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             url = url.replace("http:/", "http://");
             url = url.replace("https:/", "https://");
 
+
+
             var task = setTimeout(function () {
                 layer.load(2);
             }, 1000);
@@ -1626,6 +1628,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             $("body").append($form);
             //添加参数
             if (!params) params = {};
+            params.downloadTag=Math.random() * 10000+"-"+(new Date()).getTime();
             for (var p in params) {
                 var $input = $("<input name='" + p + "' type='text' value='" + params[p] + "'></input>");
                 $form.append($input);
@@ -1646,6 +1649,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                         $form.remove();
                         $ifr.remove();
                     }, 5000);
+                    console.log("dl:"+doc.innerHTML);
                     callback && callback();
                     debugger;
                 }

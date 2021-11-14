@@ -2,6 +2,7 @@
  * 角色 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
  * @since 2021-08-11 14:47:04
+ * @version
  */
 
 function FormPage() {
@@ -138,7 +139,10 @@ function FormPage() {
 	    });
 	    
 	    //关闭窗口
-	    $("#cancel-button").click(function(){admin.closePopupCenter();});
+	    $("#cancel-button").click(function(){
+			var index=admin.getTempData('sys-role-form-popup-index');
+	    	admin.closePopupCenter(index);
+	    });
 
 		//
 		$("#menu-button").click(function(){
@@ -149,14 +153,14 @@ function FormPage() {
 		function openMenuDialog(callback) {
 			//debugger;
 			admin.putTempData("selected-role-menu-ids",null);
-			admin.putTempData("menuDialogIndex",menuDialogIndex);
 			menuDialogIndex=admin.popupCenter({
 				type:2,
 				id:"menuDialog",
-				title: "请选择菜单",
+				title: "请选择角色菜单",
 				content: '/business/oauth/menu/menu_dialog.html'+(roleId?('?roleId='+roleId):""),
 				area:["400px","80%"]
 			});
+			admin.putTempData("menuDialogIndex",menuDialogIndex);
 
 		}
 	    

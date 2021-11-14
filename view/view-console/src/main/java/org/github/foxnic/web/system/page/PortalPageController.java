@@ -1,5 +1,6 @@
 package org.github.foxnic.web.system.page;
 
+import com.alibaba.fastjson.JSONObject;
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
 import org.github.foxnic.web.constants.enums.system.VersionType;
 import org.github.foxnic.web.framework.view.controller.ViewController;
@@ -25,7 +26,7 @@ public class PortalPageController extends ViewController  {
 	/**
 	 * 系统配置 功能主页面
 	 */
-	@RequestMapping("/index.html")
+	@RequestMapping(value = {"/index.html","/"})
 	public String index(Model model) {
 		String title= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_TITLE);
 		String versionCode= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_VERSION_CODE);
@@ -54,6 +55,11 @@ public class PortalPageController extends ViewController  {
 		if(versionType!=VersionType.PROD) {
 			fullTitle+="("+versionName+"_"+versionCode+")";
 		}
+
+		String loginDefault= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_LOGIN_DEFAULT);
+		JSONObject loginDefaultJson=JSONObject.parseObject(loginDefault);
+
+
 		model.addAttribute("shortTitle", shortTitle);
 		model.addAttribute("fullTitle", fullTitle);
 		//
@@ -62,6 +68,8 @@ public class PortalPageController extends ViewController  {
 		//
 		String copyrightLink= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_COPYRIGHT_LINK);
 		model.addAttribute("copyrightLink", copyrightLink);
+
+		model.addAttribute("loginDefault", loginDefaultJson);
 		//
 		return prefix+"login";
 	}

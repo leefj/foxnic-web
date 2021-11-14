@@ -59,6 +59,7 @@ public class CachedAspector {
 					isEmpty=((Collection)result).isEmpty();
 				}
 			}
+			//如果缓存null以及空集合
 			if(strategy.isCacheEmptyResult()) {
 				cache.put(key, result, cached.expire());
 			} else {

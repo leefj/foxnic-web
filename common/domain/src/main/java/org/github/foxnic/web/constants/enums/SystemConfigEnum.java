@@ -6,7 +6,7 @@ import com.github.foxnic.commons.reflect.EnumUtil;
 
 
 /**
- * @since 2021-10-14 13:39:41
+ * @since 2021-11-14 08:56:05
  * @author 李方捷 , leefangjie@qq.com
  * 从 select code,name from sys_config WHERE deleted=0 生成
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成
@@ -53,6 +53,16 @@ public enum SystemConfigEnum implements CodeTextEnum {
 	 * 系统默认语言
 	*/
 	SYSTEM_LANGUAGE("system.language" , "系统默认语言"),
+	
+	/**
+	 * 任意校验码
+	*/
+	SYSTEM_LOGIN_CAPTCHA_ANY("system.login.captcha.any" , "任意校验码"),
+	
+	/**
+	 * 登录信息
+	*/
+	SYSTEM_LOGIN_DEFAULT("system.login.default" , "登录信息"),
 	
 	/**
 	 * 账户默认密码
