@@ -230,10 +230,16 @@ public class RoleController extends SuperController {
 	@SentinelResource(value = RoleServiceProxy.EXPORT_EXCEL , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@RequestMapping(RoleServiceProxy.EXPORT_EXCEL)
 	public void exportExcel(RoleVO  sample,HttpServletResponse response) throws Exception {
+
+		try {
 			//生成 Excel 数据
 			ExcelWriter ew=roleService.exportExcel(sample);
 			//下载
 			DownloadUtil.writeToOutput(response, ew.getWorkBook(), ew.getWorkBookName());
+		} catch (Exception e) {
+			DownloadUtil.writeDownloadError(response,e);
+		}
+
 	}
 
 
@@ -243,11 +249,17 @@ public class RoleController extends SuperController {
 	@SentinelResource(value = RoleServiceProxy.EXPORT_EXCEL_TEMPLATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@RequestMapping(RoleServiceProxy.EXPORT_EXCEL_TEMPLATE)
 	public void exportExcelTemplate(HttpServletResponse response) throws Exception {
+
+		try {
 			//生成 Excel 模版
-			ExcelWriter ew=roleService.exportExcelTemplate();
+			ExcelWriter ew = roleService.exportExcelTemplate();
 			//下载
 			DownloadUtil.writeToOutput(response, ew.getWorkBook(), ew.getWorkBookName());
+		} catch (Exception e) {
+			DownloadUtil.writeDownloadError(response, e);
 		}
+
+	}
 
 
 

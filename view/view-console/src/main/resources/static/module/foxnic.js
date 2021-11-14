@@ -1628,7 +1628,13 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             $("body").append($form);
             //添加参数
             if (!params) params = {};
-            params.downloadTag=Math.random() * 10000+"-"+(new Date()).getTime();
+            var tag="download_tag_"+Math.ceil(Math.random()*(new Date()).getTime());
+            params.downloadTag=tag;
+            top[tag]=function (err) {
+                alert(err);
+                callback && callback(false,err);
+                delete top[error];
+            }
             for (var p in params) {
                 var $input = $("<input name='" + p + "' type='text' value='" + params[p] + "'></input>");
                 $form.append($input);
@@ -1636,11 +1642,22 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             // 提交表单
             $form.submit();
 
+            function getCookie(name)
+            {
+                var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+                if(arr=document.cookie.match(reg))
+                    return unescape(arr[2]);
+                else
+                    return null;
+            }
+
             var ifr = document.getElementById(target);
             var timer = setInterval(function () {
                 var doc = ifr.contentDocument || ifr.contentWindow.document;
                 // Check if loading is complete
-                if (doc.readyState == 'complete' || doc.readyState == 'interactive') {
+                var cTag=getCookie(tag);
+                debugger;
+                if ((doc.readyState == 'complete' || doc.readyState == 'interactive') && cTag=="success") {
                     // do something
                     layer.closeAll('loading');
                     clearTimeout(task);
@@ -1648,9 +1665,12 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     setTimeout(function () {
                         $form.remove();
                         $ifr.remove();
-                    }, 5000);
+                        delete top[tag];
+                    }, 1000 * 60 * 10);
                     console.log("dl:"+doc.innerHTML);
-                    callback && callback();
+
+
+                    callback && callback(true,null);
                     debugger;
                 }
             }, 500);
