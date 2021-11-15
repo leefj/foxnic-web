@@ -55,17 +55,17 @@ import java.util.List;
 
 @Service("SysUserService")
 public class UserServiceImpl extends SuperService<User> implements IUserService {
-	
+
 	@Value("${develop.language:}")
 	private String devLang;
 
 	@Autowired
 	private IRoleUserService roleUserService;
-	
+
 	/**
 	 * 注入DAO对象
 	 * */
-	@Resource(name=DBConfigs.PRIMARY_DAO) 
+	@Resource(name=DBConfigs.PRIMARY_DAO)
 	private DAO dao=null;
 
 
@@ -109,7 +109,7 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 		r.data(user);
 		return r;
 	}
-	
+
 	/**
 	 * 批量插入实体，事务内
 	 * @param userList 实体数据清单
@@ -119,8 +119,8 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 	public Result insertList(List<User> userList) {
 		return super.insertList(userList);
 	}
-	
-	
+
+
 	/**
 	 * 按主键删除 账户
 	 *
@@ -133,7 +133,7 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 		user.setId(id);
 		return dao.deleteEntity(user);
 	}
-	
+
 	/**
 	 * 按主键删除 账户
 	 *
@@ -149,7 +149,7 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 		user.setDeleteTime(new Date());
 		return dao.updateEntity(user,SaveMode.NOT_NULL_FIELDS);
 	}
-	
+
 	/**
 	 * 更新实体
 	 * @param user 数据对象
@@ -188,8 +188,8 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 	public Result updateList(List<User> userList , SaveMode mode) {
 		return super.updateList(userList , mode);
 	}
-	
-	
+
+
 	/**
 	 * 按主键更新字段 账户
 	 *
@@ -201,9 +201,9 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 		if(!field.table().name().equals(this.table())) throw new IllegalArgumentException("更新的数据表["+field.table().name()+"]与服务对应的数据表["+this.table()+"]不一致");
 		int suc=dao.update(field.table().name()).set(field.name(), value).where().and("id = ? ",id).top().execute();
 		return suc>0;
-	} 
-	
-	
+	}
+
+
 	/**
 	 * 按主键获取 账户
 	 *
@@ -218,10 +218,10 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 		dao.join(user,Role.class);
 		return user;
 	}
- 
+
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @return 查询结果
 	 * */
@@ -229,11 +229,11 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 	public List<User> queryList(User sample) {
 		return super.queryList(sample);
 	}
-	
-	
+
+
 	/**
 	 * 分页查询实体集，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @param pageSize 分页条数
 	 * @param pageIndex 页码
@@ -243,10 +243,10 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 	public PagedList<User> queryPagedList(User sample, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, pageSize, pageIndex);
 	}
-	
+
 	/**
 	 * 分页查询实体集，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @param condition 其它条件
 	 * @param pageSize 分页条数
@@ -257,7 +257,7 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 	public PagedList<User> queryPagedList(User sample, ConditionExpr condition, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, condition, pageSize, pageIndex);
 	}
-	
+
 	/**
 	 * 检查 角色 是否已经存在
 	 *
@@ -270,7 +270,7 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 		//return exists;
 		return ErrorDesc.success();
 	}
-	
+
 	/**
 	 * 提供给 SpringSecurity 的查询接口
 	 * */
@@ -282,7 +282,7 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
     	if(user==null) {
     		user=dao.queryEntity(User.class, new ConditionExpr(SYS_USER.PHONE+" = ?",identity));
     	}
-    	
+
 //    	//关联相关数据
 //    	if (user!=null) {
 //    		dao.join(user,Role.class,Menu.class, RoleMenu.class, UserTenant.class);
@@ -310,6 +310,7 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 			.with(UserMeta.JOINED_TENANTS,UserTenantMeta.EMPLOYEE, EmployeeMeta.PERSON)
 			.with(UserMeta.JOINED_TENANTS,UserTenantMeta.EMPLOYEE, EmployeeMeta.POSITIONS)
 			.with(UserMeta.JOINED_TENANTS,UserTenantMeta.EMPLOYEE, EmployeeMeta.ORGANIZATIONS)
+			.with(UserMeta.JOINED_TENANTS,UserTenantMeta.EMPLOYEE, EmployeeMeta.BUSI_ROLES)
 			.execute();
 
 //		List<UserTenant> uts=user.getJoinedTenants();

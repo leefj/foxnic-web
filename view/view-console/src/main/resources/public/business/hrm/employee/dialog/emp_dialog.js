@@ -87,21 +87,21 @@ function ListPage() {
 
 		renderOrgTree();
 
-		if(tabs.bpmRole) {
-			$(".bpm-role-view").show();
-			$("#bpm-role-li").css("display","");
-			$("#bpm-role-li").animate({opacity:1.0},300,"swing");
-			renderBpmRoleTable();
+		if(tabs.busiRole) {
+			$(".busi-role-view").show();
+			$("#busi-role-li").css("display","");
+			$("#busi-role-li").animate({opacity:1.0},300,"swing");
+			renderBusiRoleTable();
 		} else {
-			$(".bpm-role-view").remove();
-			$("#bpm-role-li").remove();
+			$(".busi-role-view").remove();
+			$("#busi-role-li").remove();
 		}
 
 		bindOrgTreeSearchEvent();
 
      }
 
-	function renderBpmRoleTable() {
+	function renderBusiRoleTable() {
 		$(window).resize(function() {
 			fox.adjustSearchElement();
 		});
@@ -109,7 +109,7 @@ function ListPage() {
 		//
 		function renderTableInternal() {
 
-			const moduleURL="/service-bpm/bpm-role";
+			const moduleURL="/service-system/sys-busi-role";
 
 			var ps={searchField: "$composite"};
 			var contitions={};
@@ -128,7 +128,7 @@ function ListPage() {
 			// }
 			// var h=$(".search-bar").height();
 			var tableConfig={
-				elem: '#bpm-role-table',
+				elem: '#busi-role-table',
 				// toolbar: '#toolbarTemplate',
 				// defaultToolbar: ['filter', 'print',{title: '刷新数据',layEvent: 'refresh-data',icon: 'layui-icon-refresh-3'}],
 				url: moduleURL +'/query-paged-list',
@@ -140,7 +140,7 @@ function ListPage() {
 					{ fixed: 'left',type:'checkbox',fixed:false }
 					// ,{ field: 'code', align:"left",fixed:false,  hide:false, sort: false, title: fox.translate('代码') , templet: function (d) { return templet('code',d.code,d);}  }
 					,{ field: 'name', align:"left",fixed:false,  hide:false, sort: false, title: fox.translate('角色名称') , width:300,
-						templet: function (d) { return "<span id='bpm-role-name-"+d.id+"'>" +templet('name',d.name,d)+"</span>";}
+						templet: function (d) { return "<span id='busi-role-name-"+d.id+"'>" +templet('name',d.name,d)+"</span>";}
 					}
 					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('主键') , templet: function (d) { return templet('id',d.id,d);}  }
 				]],
@@ -172,10 +172,10 @@ function ListPage() {
 			// });
 			// window.pageExt.list.afterTableRender && window.pageExt.list.afterTableRender();
 			//触发行双击事件
-			table.on('rowDouble(bpm-role-table)', function(obj){
+			table.on('rowDouble(busi-role-table)', function(obj){
 				// debugger
-				var nameEL=$("#bpm-role-name-"+obj.data.id);
-				var items=[{targetId:obj.data.id,temporary:1,targetName:nameEL.text(),targetType:"bpm_role"}];
+				var nameEL=$("#busi-role-name-"+obj.data.id);
+				var items=[{targetId:obj.data.id,temporary:1,targetName:nameEL.text(),targetType:"busi_role"}];
 				admin.post("/service-hrm/hrm-favourite-group-item/inserts",items,function (r){
 					refreshSelectedTableData();
 				},{delayLoading:500,elms:[$("#add-employee-item"),$("#remove-result-item"),$("#remove-all-result"),$("#sure-button")]});
@@ -187,9 +187,9 @@ function ListPage() {
 		/**
 		 * 刷新表格数据
 		 */
-	function refreshBpmRoleTableData(sortField,sortType) {
+	function refreshBusiRoleTableData(sortField,sortType) {
 		var value = {};
-		value.name={ value: $("#bpm-role-search-input").val() ,fuzzy: true,valuePrefix:"",valueSuffix:""};
+		value.name={ value: $("#busi-role-search-input").val() ,fuzzy: true,valuePrefix:"",valueSuffix:""};
 		var ps={searchField:"$composite"};
 		ps.searchValue=JSON.stringify(value);
 		ps.pageSize=1000;
@@ -203,12 +203,12 @@ function ListPage() {
 		// 		ps.positionId=editingNode.id;
 		// 	}
 		// }
-		table.reload('bpm-role-table', { where : ps });
+		table.reload('busi-role-table', { where : ps });
 	}
 
-	$("#bpm-role-search-input").keydown(function(event) {
+	$("#busi").keydown(function(event) {
 		if(event.keyCode !=13) return;
-		refreshBpmRoleTableData();
+		refreshBusiRoleTableData();
 	});
 
 	function renderOrgTree() {
@@ -548,8 +548,8 @@ function ListPage() {
 							if(d.targetType=="employee") {
 								return "<span style='color:#999'>员工</span>";
 							}
-							else if(d.targetType=="bpm_role") {
-								return "<span style='color:#999'>流程角色</span>";
+							else if(d.targetType=="busi_role") {
+								return "<span style='color:#999'>业务角色</span>";
 							} else {
 								return "";
 							}
@@ -651,12 +651,12 @@ function ListPage() {
 		}
 
 		//业务角色
-		ids=getCheckedList("id","bpm-role-table");
+		ids=getCheckedList("id","busi-role-table");
 		for (var i = 0; i < ids.length; i++) {
 			//var idEl=$("td[data-field=id]").find("td[data-content="+ids[i]+"]");
-			var nameEL=$("#bpm-role-name-"+ids[i])
+			var nameEL=$("#busi-role-name-"+ids[i])
 
-			items.push({targetId:ids[i],temporary:1,targetName:nameEL.text(),targetType:"bpm_role"});
+			items.push({targetId:ids[i],temporary:1,targetName:nameEL.text(),targetType:"busi_role"});
 			if(options.single && items.length>=1){
 				break;
 			}

@@ -8,13 +8,14 @@ import org.github.foxnic.web.domain.hrm.Company;
 import org.github.foxnic.web.domain.hrm.Position;
 import java.util.List;
 import org.github.foxnic.web.domain.hrm.Organization;
+import org.github.foxnic.web.domain.system.BusiRole;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-14 15:44:27
- * @sign B223CD1D23A93230D22B06BA12A6CAE0
+ * @since 2021-11-15 16:54:34
+ * @sign 91FE0FC58A82B277273BD75C121D6A47
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -241,9 +242,19 @@ public class EmployeeMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Employee,org.github.foxnic.web.domain.hrm.Organization> PRIMARY_ORGANIZATION_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Employee.class ,PRIMARY_ORGANIZATION, org.github.foxnic.web.domain.hrm.Organization.class, "主职部门", "作为员工时，所属的主职部门", org.github.foxnic.web.domain.hrm.Organization.class, null);
 	
 	/**
+	 * 业务角色清单 , 作为员工时，所属的业务角色 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.system.BusiRole
+	*/
+	public static final String BUSI_ROLES="busiRoles";
+	
+	/**
+	 * 业务角色清单 , 作为员工时，所属的业务角色 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.system.BusiRole
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Employee,org.github.foxnic.web.domain.system.BusiRole> BUSI_ROLES_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Employee.class ,BUSI_ROLES, java.util.List.class, "业务角色清单", "作为员工时，所属的业务角色", org.github.foxnic.web.domain.system.BusiRole.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , BADGE , PHONE , PERSON_ID , COMPANY_ID , STATUS , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , PERSON , COMPANY , NAME_AND_BADGE , POSITIONS , ORGANIZATIONS , PRIMARY_POSITION , PRIMARY_ORGANIZATION };
+	public static final String[] $PROPS={ ID , BADGE , PHONE , PERSON_ID , COMPANY_ID , STATUS , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , PERSON , COMPANY , NAME_AND_BADGE , POSITIONS , ORGANIZATIONS , PRIMARY_POSITION , PRIMARY_ORGANIZATION , BUSI_ROLES };
 	
 	/**
 	 * 代理类
@@ -492,6 +503,17 @@ public class EmployeeMeta {
 		public Employee setPrimaryOrganization(Organization primaryOrganization) {
 			super.change(PRIMARY_ORGANIZATION,super.getPrimaryOrganization(),primaryOrganization);
 			super.setPrimaryOrganization(primaryOrganization);
+			return this;
+		}
+		
+		/**
+		 * 设置 业务角色清单
+		 * @param busiRoles 业务角色清单
+		 * @return 当前对象
+		*/
+		public Employee setBusiRoles(List<BusiRole> busiRoles) {
+			super.change(BUSI_ROLES,super.getBusiRoles(),busiRoles);
+			super.setBusiRoles(busiRoles);
 			return this;
 		}
 	}

@@ -3,6 +3,7 @@ package org.github.foxnic.web.relation.modules;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.relation.RelationManager;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
+import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
 import org.github.foxnic.web.domain.hrm.Organization;
 import org.github.foxnic.web.domain.hrm.Person;
 import org.github.foxnic.web.domain.hrm.Position;
@@ -72,6 +73,12 @@ public class HrmRelationManager extends RelationManager {
 					}
 					return orgs;
 				})
+		;
+
+		//员工 - 业务角色关联关系
+		this.property(EmployeeMeta.BUSI_ROLES_PROP)
+				.using(FoxnicWeb.HRM_EMPLOYEE.ID).join(FoxnicWeb.SYS_BUSI_ROLE_MEMBER.MEMBER_ID).conditionEquals(FoxnicWeb.SYS_BUSI_ROLE_MEMBER.MEMBER_TYPE, UnifiedUserType.employee.code())
+				.using(FoxnicWeb.SYS_BUSI_ROLE_MEMBER.ROLE_ID).join(FoxnicWeb.SYS_BUSI_ROLE.ID).condition("valid=1")
 		;
 
 	}

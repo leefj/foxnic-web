@@ -19,16 +19,16 @@ import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
 import com.github.foxnic.sql.parameter.BatchParamBuilder;
 import org.github.foxnic.web.constants.enums.hrm.FavouriteItemType;
-import org.github.foxnic.web.domain.bpm.Role;
 import org.github.foxnic.web.domain.hrm.Employee;
 import org.github.foxnic.web.domain.hrm.FavouriteGroupItem;
 import org.github.foxnic.web.domain.hrm.FavouriteGroupItemVO;
 import org.github.foxnic.web.domain.hrm.meta.EmployeeMeta;
+import org.github.foxnic.web.domain.system.BusiRole;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.hrm.service.IEmployeeService;
 import org.github.foxnic.web.hrm.service.IFavouriteGroupItemService;
 import org.github.foxnic.web.hrm.service.IPositionService;
-import org.github.foxnic.web.proxy.bpm.RoleServiceProxy;
+import org.github.foxnic.web.proxy.system.BusiRoleServiceProxy;
 import org.github.foxnic.web.session.SessionUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -437,10 +437,10 @@ public class FavouriteGroupItemServiceImpl extends SuperService<FavouriteGroupIt
 				for (Employee employee : employees) {
 					names.put(employee.getId(),employee.getPerson().getName());
 				}
-			} else if(targetType==FavouriteItemType.bpm_role){
-				Result<List<Role>> rr= RoleServiceProxy.api().getByIds(ids);
-				List<Role> roles=rr.data();
-				for (Role role : roles) {
+			} else if(targetType==FavouriteItemType.busi_role){
+				Result<List<BusiRole>> rr= BusiRoleServiceProxy.api().getByIds(ids);
+				List<BusiRole> roles=rr.data();
+				for (BusiRole role : roles) {
 					names.put(role.getId(),role.getName());
 				}
 			}

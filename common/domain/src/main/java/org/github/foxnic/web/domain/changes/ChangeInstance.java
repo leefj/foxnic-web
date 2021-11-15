@@ -13,7 +13,7 @@ import org.github.foxnic.web.constants.enums.changes.ApprovalStatus;
 import org.github.foxnic.web.constants.enums.changes.ChangeType;
 import org.github.foxnic.web.domain.hrm.Employee;
 import java.util.List;
-import org.github.foxnic.web.domain.bpm.Role;
+import org.github.foxnic.web.domain.system.BusiRole;
 import com.github.foxnic.commons.reflect.EnumUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import java.util.ArrayList;
@@ -25,8 +25,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 变更实例
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-10 16:09:41
- * @sign 62D15F6F8C36A0FBAD74598E016D0CC0
+ * @since 2021-11-15 14:54:06
+ * @sign F5E5765358FE7D87578955AA52406736
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -210,7 +210,7 @@ public class ChangeInstance extends Entity {
 	 * 当前可审批流程角色清单
 	*/
 	@ApiModelProperty(required = false,value="当前可审批流程角色清单" , notes = "")
-	private List<Role> currBpmRoleApprovers;
+	private List<BusiRole> currBusiRoleApprovers;
 	
 	/**
 	 * 当前可审批员工ID清单
@@ -222,7 +222,7 @@ public class ChangeInstance extends Entity {
 	 * 当前可审批流程角色ID清单
 	*/
 	@ApiModelProperty(required = false,value="当前可审批流程角色ID清单" , notes = "")
-	private List<ChangeApprover> currBpmRoleApproverIds;
+	private List<ChangeApprover> currBusiRoleApproverIds;
 	
 	/**
 	 * 获得 主键<br>
@@ -850,28 +850,28 @@ public class ChangeInstance extends Entity {
 	 * 获得 当前可审批流程角色清单<br>
 	 * @return 当前可审批流程角色清单
 	*/
-	public List<Role> getCurrBpmRoleApprovers() {
-		return currBpmRoleApprovers;
+	public List<BusiRole> getCurrBusiRoleApprovers() {
+		return currBusiRoleApprovers;
 	}
 	
 	/**
 	 * 设置 当前可审批流程角色清单
-	 * @param currBpmRoleApprovers 当前可审批流程角色清单
+	 * @param currBusiRoleApprovers 当前可审批流程角色清单
 	 * @return 当前对象
 	*/
-	public ChangeInstance setCurrBpmRoleApprovers(List<Role> currBpmRoleApprovers) {
-		this.currBpmRoleApprovers=currBpmRoleApprovers;
+	public ChangeInstance setCurrBusiRoleApprovers(List<BusiRole> currBusiRoleApprovers) {
+		this.currBusiRoleApprovers=currBusiRoleApprovers;
 		return this;
 	}
 	
 	/**
 	 * 添加 当前可审批流程角色清单
-	 * @param currBpmRoleApprover 当前可审批流程角色清单
+	 * @param currBusiRoleApprover 当前可审批流程角色清单
 	 * @return 当前对象
 	*/
-	public ChangeInstance addCurrBpmRoleApprover(Role currBpmRoleApprover) {
-		if(this.currBpmRoleApprovers==null) currBpmRoleApprovers=new ArrayList<>();
-		this.currBpmRoleApprovers.add(currBpmRoleApprover);
+	public ChangeInstance addCurrBusiRoleApprover(BusiRole currBusiRoleApprover) {
+		if(this.currBusiRoleApprovers==null) currBusiRoleApprovers=new ArrayList<>();
+		this.currBusiRoleApprovers.add(currBusiRoleApprover);
 		return this;
 	}
 	
@@ -908,28 +908,28 @@ public class ChangeInstance extends Entity {
 	 * 获得 当前可审批流程角色ID清单<br>
 	 * @return 当前可审批流程角色ID清单
 	*/
-	public List<ChangeApprover> getCurrBpmRoleApproverIds() {
-		return currBpmRoleApproverIds;
+	public List<ChangeApprover> getCurrBusiRoleApproverIds() {
+		return currBusiRoleApproverIds;
 	}
 	
 	/**
 	 * 设置 当前可审批流程角色ID清单
-	 * @param currBpmRoleApproverIds 当前可审批流程角色ID清单
+	 * @param currBusiRoleApproverIds 当前可审批流程角色ID清单
 	 * @return 当前对象
 	*/
-	public ChangeInstance setCurrBpmRoleApproverIds(List<ChangeApprover> currBpmRoleApproverIds) {
-		this.currBpmRoleApproverIds=currBpmRoleApproverIds;
+	public ChangeInstance setCurrBusiRoleApproverIds(List<ChangeApprover> currBusiRoleApproverIds) {
+		this.currBusiRoleApproverIds=currBusiRoleApproverIds;
 		return this;
 	}
 	
 	/**
 	 * 添加 当前可审批流程角色ID清单
-	 * @param currBpmRoleApproverId 当前可审批流程角色ID清单
+	 * @param currBusiRoleApproverId 当前可审批流程角色ID清单
 	 * @return 当前对象
 	*/
-	public ChangeInstance addCurrBpmRoleApproverId(ChangeApprover currBpmRoleApproverId) {
-		if(this.currBpmRoleApproverIds==null) currBpmRoleApproverIds=new ArrayList<>();
-		this.currBpmRoleApproverIds.add(currBpmRoleApproverId);
+	public ChangeInstance addCurrBusiRoleApproverId(ChangeApprover currBusiRoleApproverId) {
+		if(this.currBusiRoleApproverIds==null) currBusiRoleApproverIds=new ArrayList<>();
+		this.currBusiRoleApproverIds.add(currBusiRoleApproverId);
 		return this;
 	}
 

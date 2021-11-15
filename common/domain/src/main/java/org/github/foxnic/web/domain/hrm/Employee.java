@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 import java.util.List;
+import org.github.foxnic.web.domain.system.BusiRole;
 import java.util.ArrayList;
 import javax.persistence.Transient;
 import com.github.foxnic.dao.entity.Entity;
@@ -18,8 +19,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 员工
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-14 15:44:27
- * @sign B223CD1D23A93230D22B06BA12A6CAE0
+ * @since 2021-11-15 16:54:34
+ * @sign 91FE0FC58A82B277273BD75C121D6A47
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -162,6 +163,12 @@ public class Employee extends Person {
 	*/
 	@ApiModelProperty(required = false,value="主职部门" , notes = "作为员工时，所属的主职部门")
 	private Organization primaryOrganization;
+	
+	/**
+	 * 业务角色清单：作为员工时，所属的业务角色
+	*/
+	@ApiModelProperty(required = false,value="业务角色清单" , notes = "作为员工时，所属的业务角色")
+	private List<BusiRole> busiRoles;
 	
 	/**
 	 * 获得 ID<br>
@@ -600,6 +607,36 @@ public class Employee extends Person {
 	*/
 	public Employee setPrimaryOrganization(Organization primaryOrganization) {
 		this.primaryOrganization=primaryOrganization;
+		return this;
+	}
+	
+	/**
+	 * 获得 业务角色清单<br>
+	 * 作为员工时，所属的业务角色
+	 * @return 业务角色清单
+	*/
+	public List<BusiRole> getBusiRoles() {
+		return busiRoles;
+	}
+	
+	/**
+	 * 设置 业务角色清单
+	 * @param busiRoles 业务角色清单
+	 * @return 当前对象
+	*/
+	public Employee setBusiRoles(List<BusiRole> busiRoles) {
+		this.busiRoles=busiRoles;
+		return this;
+	}
+	
+	/**
+	 * 添加 业务角色清单
+	 * @param busiRole 业务角色清单
+	 * @return 当前对象
+	*/
+	public Employee addBusiRole(BusiRole busiRole) {
+		if(this.busiRoles==null) busiRoles=new ArrayList<>();
+		this.busiRoles.add(busiRole);
 		return this;
 	}
 

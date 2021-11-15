@@ -3,10 +3,6 @@ package org.github.foxnic.web.relation.modules;
 import com.github.foxnic.dao.relation.RelationManager;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
-import org.github.foxnic.web.domain.bpm.Role;
-import org.github.foxnic.web.domain.bpm.RoleEmployee;
-import org.github.foxnic.web.domain.bpm.meta.RoleEmployeeMeta;
-import org.github.foxnic.web.domain.bpm.meta.RoleMeta;
 import org.github.foxnic.web.domain.changes.meta.ChangeInstanceMeta;
 
 public class BpmRelationManager extends RelationManager {
@@ -14,7 +10,7 @@ public class BpmRelationManager extends RelationManager {
 
 	@Override
 	protected void config() {
-		setupBpm();
+//		setupBpm();
 		setupChanges();
 	}
 
@@ -26,7 +22,7 @@ public class BpmRelationManager extends RelationManager {
 		;
 
 		//变更实例 - 当前审批流程角色关系
-		this.property(ChangeInstanceMeta.CURR_BPM_ROLE_APPROVER_IDS_PROP)
+		this.property(ChangeInstanceMeta.CURR_BUSI_ROLE_APPROVER_IDS_PROP)
 				.using(FoxnicWeb.CHS_CHANGE_INSTANCE.ID).join(FoxnicWeb.CHS_CHANGE_APPROVER.INSTANCE_ID).conditionEquals(FoxnicWeb.CHS_CHANGE_APPROVER.APPROVER_TYPE, UnifiedUserType.busi_role.code())
 		;
 
@@ -37,9 +33,9 @@ public class BpmRelationManager extends RelationManager {
 		;
 
 		//变更实例 - 当前审批流程角色
-		this.property(ChangeInstanceMeta.CURR_BPM_ROLE_APPROVERS_PROP)
+		this.property(ChangeInstanceMeta.CURR_BUSI_ROLE_APPROVERS_PROP)
 				.using(FoxnicWeb.CHS_CHANGE_INSTANCE.ID).join(FoxnicWeb.CHS_CHANGE_APPROVER.INSTANCE_ID).conditionEquals(FoxnicWeb.CHS_CHANGE_APPROVER.APPROVER_TYPE, UnifiedUserType.busi_role.code())
-				.using(FoxnicWeb.CHS_CHANGE_APPROVER.APPROVER_ID).join(FoxnicWeb.BPM_ROLE.ID)
+				.using(FoxnicWeb.CHS_CHANGE_APPROVER.APPROVER_ID).join(FoxnicWeb.SYS_BUSI_ROLE.ID)
 		;
 
 		//变更实例 - 流程定义
@@ -49,28 +45,28 @@ public class BpmRelationManager extends RelationManager {
 
 	}
 
-	protected void setupBpm() {
+//	protected void setupBpm() {
 
-		//角色下的员工清单
-		this.property(RoleMeta.EMPLOYEES_PROP)
-			.using(FoxnicWeb.BPM_ROLE.ID).join(FoxnicWeb.BPM_ROLE_EMPLOYEE.ROLE_ID)
-			.using(FoxnicWeb.BPM_ROLE_EMPLOYEE.EMPLOYEE_ID).join(FoxnicWeb.HRM_EMPLOYEE.ID)
-		;
+//		//角色下的员工清单
+//		this.property(RoleMeta.EMPLOYEES_PROP)
+//			.using(FoxnicWeb.BPM_ROLE.ID).join(FoxnicWeb.BPM_ROLE_EMPLOYEE.ROLE_ID)
+//			.using(FoxnicWeb.BPM_ROLE_EMPLOYEE.EMPLOYEE_ID).join(FoxnicWeb.HRM_EMPLOYEE.ID)
+//		;
+//
+//		//角色下员工数量统计
+//		this.property(Role.class,RoleMeta.EMP_COUNT, RoleEmployee.class)
+//				.using(FoxnicWeb.BPM_ROLE.ID).join(FoxnicWeb.BPM_ROLE_EMPLOYEE.ROLE_ID)
+//				.groupForCount();
+//		;
+//
+//
+//		//角色员工关系 - 员工
+//		this.property(RoleEmployeeMeta.EMPLOYEE_PROP)
+//				.using(FoxnicWeb.BPM_ROLE_EMPLOYEE.EMPLOYEE_ID).join(FoxnicWeb.HRM_EMPLOYEE.ID)
+//		;
 
-		//角色下员工数量统计
-		this.property(Role.class,RoleMeta.EMP_COUNT, RoleEmployee.class)
-				.using(FoxnicWeb.BPM_ROLE.ID).join(FoxnicWeb.BPM_ROLE_EMPLOYEE.ROLE_ID)
-				.groupForCount();
-		;
 
-
-		//角色员工关系 - 员工
-		this.property(RoleEmployeeMeta.EMPLOYEE_PROP)
-				.using(FoxnicWeb.BPM_ROLE_EMPLOYEE.EMPLOYEE_ID).join(FoxnicWeb.HRM_EMPLOYEE.ID)
-		;
-
-
-	}
+//	}
 
 
 

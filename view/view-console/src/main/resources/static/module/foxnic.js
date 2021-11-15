@@ -1478,6 +1478,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
 
         },
         fillDialogButtons:function () {
+            // debugger
             this.fillOrgOrPosDialogButtons("org");
             this.fillOrgOrPosDialogButtons("pos");
             this.fillEmployeeDialogButtons("pos");
@@ -1519,8 +1520,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 }
             }
 
-            map["xxx"]=["491963945599369216","491964680416264192"];
-
+            // map["xxx"]=["491963945599369216","491964680416264192"];
 
             var url="/service-hrm/hrm-favourite-group-item/get-by-id";
 

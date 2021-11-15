@@ -2,10 +2,7 @@ package org.github.foxnic.web.relation.modules;
 
 import com.github.foxnic.commons.collection.CollectorUtil;
 import com.github.foxnic.dao.relation.RelationManager;
-import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.*;
-import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
-import org.github.foxnic.web.domain.changes.meta.ChangeInstanceMeta;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.Resourze;
 import org.github.foxnic.web.domain.oauth.meta.MenuMeta;
@@ -74,6 +71,8 @@ public class OAuthRelationManager extends RelationManager {
 
 		// 用户 - 菜单
 		this.property(UserMeta.MENUS_PROP)
+				.distinct()
+				.fields(SYS_MENU.ID,SYS_MENU.LABEL,SYS_MENU.PARENT_ID,SYS_MENU.AUTHORITY,SYS_MENU.CSS,SYS_MENU.PATH_RESOURCE_ID,SYS_MENU.DYNAMIC_HANDLER,SYS_MENU.HIDDEN,SYS_MENU.PARAMS,SYS_MENU.TYPE,SYS_MENU.URL,SYS_MENU.SORT)
 				.using(SYS_USER.ID).join(SYS_ROLE_USER.USER_ID)
 				.using(SYS_ROLE_USER.ROLE_ID).join(SYS_ROLE_MENU.ROLE_ID)
 				.using(SYS_ROLE_MENU.MENU_ID).join(SYS_MENU.ID)

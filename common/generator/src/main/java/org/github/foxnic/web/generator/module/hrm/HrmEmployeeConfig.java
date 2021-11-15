@@ -17,6 +17,7 @@ import org.github.foxnic.web.domain.hrm.Person;
 import org.github.foxnic.web.domain.hrm.Position;
 import org.github.foxnic.web.domain.hrm.meta.EmployeeMeta;
 import org.github.foxnic.web.domain.hrm.meta.PersonMeta;
+import org.github.foxnic.web.domain.system.BusiRole;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 import org.github.foxnic.web.hrm.service.IPersonService;
 
@@ -36,6 +37,7 @@ public class HrmEmployeeConfig extends BaseCodeConfig<HRM_EMPLOYEE> {
         poType.addListProperty( Organization.class, "organizations","组织清单", "作为员工时，所属的组织清单");
         poType.addSimpleProperty( Position.class, "primaryPosition","主职", "作为员工时，所属的主职");
         poType.addSimpleProperty( Organization.class, "primaryOrganization","主职部门", "作为员工时，所属的主职部门");
+        poType.addListProperty( BusiRole.class, "busiRoles","业务角色清单", "作为员工时，所属的业务角色");
         //
         voType.addSimpleProperty(String.class, "orgId","所属组织ID","");
         voType.addSimpleProperty(String.class, "positionId","岗位ID","");

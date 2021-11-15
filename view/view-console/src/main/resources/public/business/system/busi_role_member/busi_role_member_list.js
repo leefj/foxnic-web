@@ -1,7 +1,7 @@
 /**
  * 业务角色成员关系 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-11 20:29:52
+ * @since 2021-11-15 14:49:51
  */
 
 
@@ -82,7 +82,7 @@ function ListPage() {
 					,{ field: 'roleId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('角色ID') , templet: function (d) { return templet('roleId',d.roleId,d);}  }
 					,{ field: 'memberId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('成员ID') , templet: function (d) { return templet('memberId',d.memberId,d);}  }
 					,{ field: 'memberType', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('成员类型') , templet: function (d) { return templet('memberType',d.memberType,d);}  }
-					,{ field: 'createTime', align:"right", fixed:false, hide:true, sort: true, title: fox.translate('创建时间'), templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }}
+					,{ field: 'createTime', align:"right", fixed:false, hide:true, sort: true, title: fox.translate('创建时间') ,templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); } }
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
 				]],

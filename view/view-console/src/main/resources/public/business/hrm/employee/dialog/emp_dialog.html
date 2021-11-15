@@ -1,4 +1,4 @@
-<!-- 
+<!--
 /**
  * 菜单 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
@@ -58,7 +58,7 @@
             margin-bottom: 0px;
         }
 
-        .bpm-role-view .layui-table-view {
+        .busi-role-view .layui-table-view {
             border-style: none;
             margin-bottom: 0px;
         }
@@ -116,7 +116,7 @@
             <ul class="layui-tab-title">
                 <li id="org-li" lay-id="org-li">常用</li>
                 <li id="pos-li" lay-id="pos-li" class="layui-this">组织架构</li>
-                <li id="bpm-role-li" lay-id="pos-li" style="display:none;opacity: 0.0">流程角色</li>
+                <li id="busi-role-li" lay-id="pos-li" style="display:none;opacity: 0.0">业务角色</li>
             </ul>
             <div class="layui-tab-content" style="height:1000px;padding:0px">
                 <!-- 常用 -->
@@ -144,11 +144,11 @@
                     </div>
                 </div>
                 <!-- 流程角色 -->
-                <div class="layui-tab-item bpm-role-view" style="display:none">
-                    <div class="layui-form toolbar" style="padding:6px; border-bottom:1px #e6e6e6 solid; display: flex" id="bpm-role-toolbar">
-                        <input id="bpm-role-search-input" class="layui-input search-input" type="text" placeholder="请输入关键字" style="flex: 1"/>
+                <div class="layui-tab-item busi-role-view" style="display:none">
+                    <div class="layui-form toolbar" style="padding:6px; border-bottom:1px #e6e6e6 solid; display: flex" id="busi-role-toolbar">
+                        <input id="busi-role-search-input" class="layui-input search-input" type="text" placeholder="请输入关键字" style="flex: 1"/>
                     </div>
-                    <table class="layui-table" id="bpm-role-table" lay-filter="bpm-role-table" style="margin:0px"></table>
+                    <table class="layui-table" id="busi-role-table" lay-filter="busi-role-table" style="margin:0px"></table>
                 </div>
             </div>
         </div>
@@ -207,7 +207,7 @@
 <script type="text/javascript" src="/assets/libs/pandyle.min.js" th:src="'/assets/libs/pandyle.min.js?'+${cacheKey}"></script>
 <script type="text/javascript" src="/assets/libs/layui/layui.js" th:src="'/assets/libs/layui/layui.js?'+${cacheKey}"></script>
 <script type="text/javascript" src="/assets/libs/zTree/js/jquery.ztree.all-3.5.min.js" th:src="'/assets/libs/zTree/js/jquery.ztree.all-3.5.min.js?'+${cacheKey}"></script>
- 
+
 <script src="/business/hrm/employee/dialog/emp_dialog.js" th:src="'/business/hrm/employee/dialog/emp_dialog.js?'+${cacheKey}"></script>
 
 </body>

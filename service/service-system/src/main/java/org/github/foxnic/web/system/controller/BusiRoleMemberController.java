@@ -34,7 +34,6 @@ import com.github.foxnic.dao.excel.ValidateResult;
 import java.io.InputStream;
 import org.github.foxnic.web.domain.system.meta.BusiRoleMemberMeta;
 import org.github.foxnic.web.domain.hrm.Employee;
-import org.github.foxnic.web.domain.bpm.meta.RoleEmployeeMeta;
 import org.github.foxnic.web.domain.hrm.meta.EmployeeMeta;
 import org.github.foxnic.web.domain.hrm.meta.PersonMeta;
 import org.github.foxnic.web.domain.hrm.meta.PositionMeta;
@@ -55,7 +54,7 @@ import java.util.ArrayList;
  * 业务角色成员关系表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-11 20:29:52
+ * @since 2021-11-15 14:49:50
 */
 
 @Api(tags = "业务角色成员关系")
@@ -195,10 +194,10 @@ public class BusiRoleMemberController extends SuperController {
 
 		// join 关联的对象
 		busiRoleMemberService.dao().fill(busiRoleMember)
-			.with(RoleEmployeeMeta.EMPLOYEE,EmployeeMeta.PERSON)
-			.with(RoleEmployeeMeta.EMPLOYEE)
-			.with(RoleEmployeeMeta.EMPLOYEE,EmployeeMeta.POSITIONS)
-			.with(RoleEmployeeMeta.EMPLOYEE,EmployeeMeta.ORGANIZATIONS)
+			.with(BusiRoleMemberMeta.EMPLOYEE,EmployeeMeta.PERSON)
+			.with(BusiRoleMemberMeta.EMPLOYEE)
+			.with(BusiRoleMemberMeta.EMPLOYEE,EmployeeMeta.POSITIONS)
+			.with(BusiRoleMemberMeta.EMPLOYEE,EmployeeMeta.ORGANIZATIONS)
 			.execute();
 
 		result.success(true).data(busiRoleMember);
@@ -266,10 +265,10 @@ public class BusiRoleMemberController extends SuperController {
 
 		// join 关联的对象
 		busiRoleMemberService.dao().fill(list)
-			.with(RoleEmployeeMeta.EMPLOYEE,EmployeeMeta.PERSON)
-			.with(RoleEmployeeMeta.EMPLOYEE)
-			.with(RoleEmployeeMeta.EMPLOYEE,EmployeeMeta.POSITIONS)
-			.with(RoleEmployeeMeta.EMPLOYEE,EmployeeMeta.ORGANIZATIONS)
+			.with(BusiRoleMemberMeta.EMPLOYEE,EmployeeMeta.PERSON)
+			.with(BusiRoleMemberMeta.EMPLOYEE)
+			.with(BusiRoleMemberMeta.EMPLOYEE,EmployeeMeta.POSITIONS)
+			.with(BusiRoleMemberMeta.EMPLOYEE,EmployeeMeta.ORGANIZATIONS)
 			.execute();
 
 		result.success(true).data(list);
@@ -284,10 +283,14 @@ public class BusiRoleMemberController extends SuperController {
 	@SentinelResource(value = BusiRoleMemberServiceProxy.EXPORT_EXCEL , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@RequestMapping(BusiRoleMemberServiceProxy.EXPORT_EXCEL)
 	public void exportExcel(BusiRoleMemberVO  sample,HttpServletResponse response) throws Exception {
+		try{
 			//生成 Excel 数据
 			ExcelWriter ew=busiRoleMemberService.exportExcel(sample);
 			//下载
-			DownloadUtil.writeToOutput(response, ew.getWorkBook(), ew.getWorkBookName());
+			DownloadUtil.writeToOutput(response,ew.getWorkBook(),ew.getWorkBookName());
+		} catch (Exception e) {
+			DownloadUtil.writeDownloadError(response,e);
+		}
 	}
 
 
@@ -297,11 +300,15 @@ public class BusiRoleMemberController extends SuperController {
 	@SentinelResource(value = BusiRoleMemberServiceProxy.EXPORT_EXCEL_TEMPLATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@RequestMapping(BusiRoleMemberServiceProxy.EXPORT_EXCEL_TEMPLATE)
 	public void exportExcelTemplate(HttpServletResponse response) throws Exception {
+		try{
 			//生成 Excel 模版
 			ExcelWriter ew=busiRoleMemberService.exportExcelTemplate();
 			//下载
 			DownloadUtil.writeToOutput(response, ew.getWorkBook(), ew.getWorkBookName());
+		} catch (Exception e) {
+			DownloadUtil.writeDownloadError(response,e);
 		}
+	}
 
 
 

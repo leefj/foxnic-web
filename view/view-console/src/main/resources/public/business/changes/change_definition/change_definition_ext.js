@@ -172,7 +172,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * */
         beforeDialog:function (param){
             param.title="覆盖对话框标题";
-            param.tabs={bpmRole:true};
+            param.tabs={busiRole:true};
             return param;
         },
         /**

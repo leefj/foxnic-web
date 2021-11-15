@@ -388,7 +388,7 @@ public class SimpleApproval implements IApproval {
             if(approverType==FavouriteItemType.employee) {
                 empIds.add(approverId);
             }
-            if(approverType==FavouriteItemType.bpm_role) {
+            if(approverType==FavouriteItemType.busi_role) {
                 roleIds.add(approverId);
             }
             System.out.println();

@@ -6,11 +6,11 @@ import com.github.foxnic.dao.entity.ISuperService;
 import com.github.foxnic.dao.spec.DAO;
 import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
 import org.github.foxnic.web.domain.bpm.Appover;
-import org.github.foxnic.web.domain.bpm.Role;
 import org.github.foxnic.web.domain.changes.ChangeApproveBody;
 import org.github.foxnic.web.domain.changes.ChangeEvent;
 import org.github.foxnic.web.domain.changes.ChangeRequestBody;
 import org.github.foxnic.web.domain.hrm.Employee;
+import org.github.foxnic.web.domain.system.BusiRole;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -159,12 +159,12 @@ public class ChangesAssistant {
     public List<Appover> getBpmRoleApproversById(String... id) {
         List roleIds= Arrays.asList(id);
         try {
-            Result<List<Role>> result= (Result<List<Role>>)bpmRoleGetByIdsMethod.invoke(bpmRoleProxy,roleIds);
+            Result<List<BusiRole>> result= (Result<List<BusiRole>>)bpmRoleGetByIdsMethod.invoke(bpmRoleProxy,roleIds);
             if(result.failure()) return null;
-            List<Role> roles=result.data();
+            List<BusiRole> roles=result.data();
             if(roles==null) return null;
             List<Appover> appovers=new ArrayList<>();
-            for (Role e : roles) {
+            for (BusiRole e : roles) {
                 Appover appover=new Appover(e.getId(),e.getCode(),e.getName(), UnifiedUserType.busi_role);
                 appovers.add(appover);
             }
@@ -189,12 +189,12 @@ public class ChangesAssistant {
     public List<Appover> getBpmRoleApproversByCode(String... code) {
         List roleCodes= Arrays.asList(code);
         try {
-            Result<List<Role>> result= (Result<List<Role>>)bpmRoleGetByCodesMethod.invoke(bpmRoleProxy,roleCodes);
+            Result<List<BusiRole>> result= (Result<List<BusiRole>>)bpmRoleGetByCodesMethod.invoke(bpmRoleProxy,roleCodes);
             if(result.failure()) return null;
-            List<Role> roles=result.data();
+            List<BusiRole> roles=result.data();
             if(roles==null) return null;
             List<Appover> appovers=new ArrayList<>();
-            for (Role e : roles) {
+            for (BusiRole e : roles) {
                 Appover appover=new Appover(e.getId(),e.getCode(),e.getName(), UnifiedUserType.busi_role);
                 appovers.add(appover);
             }
@@ -209,11 +209,11 @@ public class ChangesAssistant {
      */
     public boolean isEmployeeInBpmRole(String employeeId, List<String> roleIds) {
         try {
-            Result<List<Role>> result= (Result<List<Role>>)bpmRoleGetEmployeeRolesMethod.invoke(bpmRoleProxy,employeeId);
+            Result<List<BusiRole>> result= (Result<List<BusiRole>>)bpmRoleGetEmployeeRolesMethod.invoke(bpmRoleProxy,employeeId);
             if(result.failure()) return false;
-            List<Role> roles=result.data();
+            List<BusiRole> roles=result.data();
             if(roles==null) return false;
-            for (Role e : roles) {
+            for (BusiRole e : roles) {
                  if(roleIds.contains(e.getId())) return true;
             }
             return false;

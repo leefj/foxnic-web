@@ -1,14 +1,14 @@
 /**
  * 员工 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-14 15:44:29
+ * @since 2021-11-15 16:54:39
  */
 
 function FormPage() {
 
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect,foxup;
 	const moduleURL="/service-hrm/hrm-employee";
-
+	var action=null;
 	var disableCreateNew=false;
 	var disableModify=false;
 	/**
@@ -18,11 +18,12 @@ function FormPage() {
      	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload,foxup=layui.foxnicUpload;
 		laydate = layui.laydate,table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
 
-		//如果没有修改和保存权限，
+		action=admin.getTempData('hrm-employee-form-data-form-action');
+		//如果没有修改和保存权限
 		if( !admin.checkAuth(AUTH_PREFIX+":update") && !admin.checkAuth(AUTH_PREFIX+":save")) {
 			disableModify=true;
 		}
-		if(admin.getTempData('hrm-employee-form-data-form-action')=="view") {
+		if(action=="view") {
 			disableModify=true;
 		}
 
@@ -48,6 +49,11 @@ function FormPage() {
 	 * */
 	var adjustPopupTask=-1;
 	function adjustPopup() {
+		if(window.pageExt.form.beforeAdjustPopup) {
+			var doNext=window.pageExt.form.beforeAdjustPopup();
+			if(!doNext) return;
+		}
+
 		clearTimeout(adjustPopupTask);
 		var scroll=$(".form-container").attr("scroll");
 		if(scroll=='yes') return;
@@ -172,7 +178,13 @@ function FormPage() {
 			if (data.success) {
 				layer.msg(data.message, {icon: 1, time: 500});
 				var index=admin.getTempData('hrm-employee-form-data-popup-index');
-				admin.finishPopupCenter(index);
+				var doNext=true;
+				if(window.pageExt.form.betweenFormSubmitAndClose) {
+					doNext=window.pageExt.form.betweenFormSubmitAndClose(param,data);
+				}
+				if(doNext) {
+					admin.finishPopupCenter(index);
+				}
 			} else {
 				layer.msg(data.message, {icon: 2, time: 1000});
 			}

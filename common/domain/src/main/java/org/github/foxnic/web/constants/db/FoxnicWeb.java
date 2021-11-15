@@ -7,130 +7,13 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2021-11-14 11:37:42
+ * @since 2021-11-15 14:36:03
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
 */
 
 public class FoxnicWeb {
-	
-	/**
-	 * 流程角色表
-	*/
-	public static class BPM_ROLE extends DBTable {
-		
-		/**
-		 * 表名
-		*/
-		public static final String $NAME = "bpm_role";
-		
-		/**
-		 * 主键
-		*/
-		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","主键","主键",true,false,false);
-		
-		/**
-		 * 角色代码
-		*/
-		public static final DBField CODE = new DBField(DBDataType.STRING , "code","code","角色代码","角色代码",false,false,true);
-		
-		/**
-		 * 角色名称
-		*/
-		public static final DBField NAME = new DBField(DBDataType.STRING , "name","name","角色名称","角色名称",false,false,true);
-		
-		/**
-		 * 是否有效
-		*/
-		public static final DBField VALID = new DBField(DBDataType.INTEGER , "valid","valid","是否有效","是否有效",false,false,false);
-		
-		/**
-		 * 创建人ID
-		*/
-		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
-		
-		/**
-		 * 创建时间
-		*/
-		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","创建时间","创建时间",false,false,true);
-		
-		/**
-		 * 修改人ID
-		*/
-		public static final DBField UPDATE_BY = new DBField(DBDataType.STRING , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
-		
-		/**
-		 * 修改时间
-		*/
-		public static final DBField UPDATE_TIME = new DBField(DBDataType.DATE , "update_time","updateTime","修改时间","修改时间",false,false,true);
-		
-		/**
-		 * 是否已删除
-		*/
-		public static final DBField DELETED = new DBField(DBDataType.INTEGER , "deleted","deleted","是否已删除","是否已删除",false,false,false);
-		
-		/**
-		 * 删除人ID
-		*/
-		public static final DBField DELETE_BY = new DBField(DBDataType.STRING , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
-		
-		/**
-		 * 删除时间
-		*/
-		public static final DBField DELETE_TIME = new DBField(DBDataType.DATE , "delete_time","deleteTime","删除时间","删除时间",false,false,true);
-		
-		/**
-		 * 数据版本号
-		*/
-		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
-		
-		public BPM_ROLE() {
-			this.init($NAME,"流程角色表" , ID , CODE , NAME , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
-		}
-		public static final BPM_ROLE $TABLE=new BPM_ROLE();
-	}
-	
-	/**
-	 * 流程角色员工关系表
-	*/
-	public static class BPM_ROLE_EMPLOYEE extends DBTable {
-		
-		/**
-		 * 表名
-		*/
-		public static final String $NAME = "bpm_role_employee";
-		
-		/**
-		 * 主键
-		*/
-		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","主键","主键",true,false,false);
-		
-		/**
-		 * 角色ID
-		*/
-		public static final DBField ROLE_ID = new DBField(DBDataType.STRING , "role_id","roleId","角色ID","角色ID",false,false,true);
-		
-		/**
-		 * 员工ID
-		*/
-		public static final DBField EMPLOYEE_ID = new DBField(DBDataType.STRING , "employee_id","employeeId","员工ID","员工ID",false,false,true);
-		
-		/**
-		 * 创建人ID
-		*/
-		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
-		
-		/**
-		 * 创建时间
-		*/
-		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","创建时间","创建时间",false,false,true);
-		
-		public BPM_ROLE_EMPLOYEE() {
-			this.init($NAME,"流程角色员工关系表" , ID , ROLE_ID , EMPLOYEE_ID , CREATE_BY , CREATE_TIME);
-		}
-		public static final BPM_ROLE_EMPLOYEE $TABLE=new BPM_ROLE_EMPLOYEE();
-	}
 	
 	/**
 	 * 变更单据关系表

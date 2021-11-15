@@ -2,6 +2,7 @@ package org.github.foxnic.web.session;
 
 public interface SessionPermission {
 
+    public static final String ROLE_PREFIX="ROLE_";
     /**
      * 校验是否有菜单权限，当有参数列表中所有权限时，返回 true
      * */
@@ -22,8 +23,22 @@ public interface SessionPermission {
      * */
     boolean checkAnyRole(String... roleCode);
 
+    /**
+     * 获得功能角色代码
+     * */
     String[] getAuthoritieRoles();
 
-	
-	
+    boolean checkBusiRoleId(String... roleId);
+
+    boolean checkAnyBusiRoleId(String... roleId);
+
+    boolean checkBusiRoleCode(String... roleCode);
+
+    boolean checkAnyBusiRoleCode(String... roleCode);
+
+    String[] getBusiRoleIds();
+    String[] getBusiRoleCodes();
+
+
+
 }

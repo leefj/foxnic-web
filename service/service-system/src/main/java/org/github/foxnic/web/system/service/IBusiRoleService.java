@@ -21,7 +21,7 @@ import com.github.foxnic.dao.data.SaveMode;
  * 业务角色表 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-11 20:01:52
+ * @since 2021-11-15 14:49:45
 */
 
 public interface IBusiRoleService extends ISuperService<BusiRole> {

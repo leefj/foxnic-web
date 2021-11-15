@@ -6,6 +6,7 @@ import com.github.foxnic.dao.entity.Entity;
 import org.github.foxnic.web.domain.hrm.Employee;
 import org.github.foxnic.web.domain.hrm.Position;
 import org.github.foxnic.web.domain.oauth.User;
+import org.github.foxnic.web.domain.system.BusiRole;
 
 /**
  * 对系统内出现的人员或人员集合进行分类
@@ -16,7 +17,7 @@ public enum UnifiedUserType implements CodeTextEnum {
 	sys_role("功能角色", org.github.foxnic.web.domain.oauth.Role.class),
 	employee("员工", Employee.class),
 	position("岗位", Position.class),
-	busi_role("业务角色", org.github.foxnic.web.domain.bpm.Role.class);
+	busi_role("业务角色", BusiRole.class);
 
 	private Class<? extends Entity> entityType;
 	private String text;

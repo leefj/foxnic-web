@@ -6,6 +6,7 @@ import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.Resourze;
 import org.github.foxnic.web.domain.oauth.Role;
 import org.github.foxnic.web.domain.oauth.RoleMenu;
+import org.github.foxnic.web.domain.system.BusiRole;
 import org.github.foxnic.web.session.SessionPermission;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
@@ -16,33 +17,35 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 public class SessionPermissionImpl implements SessionPermission {
-	
-	public static final String ROLE_PREFIX="ROLE_";
-	
+
 	private SessionUserImpl sessionUser;
-	
+
 	private Set<AntPathRequestMatcher> requestMatchers;
-	
+
 	private List<SimpleGrantedAuthority> authorities;
 
 	private String[] authoritieRoles;
-	
+
+
+	private Set<String> busiRoleIds=new HashSet<>();
+	private Set<String> busiRoleCodes=new HashSet<>();
+
 	private Map<String,String> menuRoleRelation;
-	
+
 	private Map<String,Role> roleIdCache;
 	private Map<String,Menu> urlMenuCache;
 	private Set<String> authorityKeys=new HashSet<>();
 	private Set<String> roleKeys=new HashSet<>();
-	
+
 	public SessionPermissionImpl(SessionUserImpl sessionUser) {
 		this.sessionUser=sessionUser;
-		
+
 		initRequestMatchers();
 		initAuthorities();
 		initMenuRoleRelation();
 	}
 
-	
+
 	private void initMenuRoleRelation() {
 		menuRoleRelation=new HashMap<String, String>();
 		for (RoleMenu rm : this.sessionUser.getUser().getRoleMenus()) {
@@ -56,7 +59,7 @@ public class SessionPermissionImpl implements SessionPermission {
 	 * 初始化菜单中的权限清单
 	 * */
 	private void initAuthorities() {
-	
+
 		authorities=new ArrayList<SimpleGrantedAuthority>();
 
 		//设置角色
@@ -81,7 +84,15 @@ public class SessionPermissionImpl implements SessionPermission {
 			authorities.add(auth);
 			authorityKeys.add(menu.getAuthority());
 		}
-		
+
+		//业务角色
+		List<BusiRole> bRoles=sessionUser.getUser().getActivatedTenant().getEmployee().getBusiRoles();
+		for (int i = 0; i < bRoles.size(); i++) {
+			BusiRole r=bRoles.get(i);
+			busiRoleIds.add(r.getId());
+			busiRoleCodes.add(r.getCode());
+		}
+
 	}
 
 	/**
@@ -165,7 +176,7 @@ public class SessionPermissionImpl implements SessionPermission {
 		Role role=roleIdCache.get(roleId);
 		return role;
 	}
-	
+
 	public Collection<ConfigAttribute> getConfigAttributesByMatcher(AntPathRequestMatcher matcher) {
 		Role role=this.getRoleByMatcher(matcher);
 		if(role==null) {
@@ -208,7 +219,55 @@ public class SessionPermissionImpl implements SessionPermission {
 		return false;
 	}
 
+	@Override
 	public String[] getAuthoritieRoles() {
 		return authoritieRoles;
 	}
+
+
+	@Override
+	public boolean checkBusiRoleCode(String... roleCode) {
+		for (String role : roleCode) {
+			if(!busiRoleCodes.contains(role)) return false;
+		}
+		return true;
+	}
+
+	@Override
+	public boolean checkAnyBusiRoleCode(String... roleCode) {
+		for (String role : roleCode) {
+			if(busiRoleCodes.contains(role)) return true;
+		}
+		return false;
+	}
+
+	@Override
+	public String[] getBusiRoleCodes() {
+		return busiRoleCodes.toArray(new String[0]);
+	}
+
+	@Override
+	public boolean checkBusiRoleId(String... roleId) {
+		for (String role : roleId) {
+			if(!busiRoleIds.contains(role)) return false;
+		}
+		return true;
+	}
+
+	@Override
+	public boolean checkAnyBusiRoleId(String... roleId) {
+		for (String role : roleId) {
+			if(busiRoleIds.contains(role)) return true;
+		}
+		return false;
+	}
+
+	@Override
+	public String[] getBusiRoleIds() {
+		return busiRoleIds.toArray(new String[0]);
+	}
+
+
+
+
 }
