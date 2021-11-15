@@ -72,7 +72,8 @@ public class DocumentationPluginsBootstrapper
 //                        SPRINGFOX_DOCUMENTATION_AUTO_STARTUP,
 //                        "true");
 //        return Boolean.parseBoolean(autoStartupConfig);
-        return true;
+//        暂不启动 Swagger 扫描，还有蛮多错误
+        return false;
     }
 
     @Override
