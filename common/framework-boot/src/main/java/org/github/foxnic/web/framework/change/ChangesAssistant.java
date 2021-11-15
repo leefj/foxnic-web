@@ -30,7 +30,7 @@ public class ChangesAssistant {
 
 
     private static final String EMPLOYEE_PROXY_NAME ="org.github.foxnic.web.proxy.hrm.EmployeeServiceProxy";
-    private static final String BPM_ROLE_PROXY_NAME ="org.github.foxnic.web.proxy.bpm.RoleServiceProxy";
+    private static final String BUSI_ROLE_PROXY_NAME ="org.github.foxnic.web.proxy.system.BusiRoleServiceProxy";
 
     private DAO dao;
     private static Object changesProxy;
@@ -39,10 +39,10 @@ public class ChangesAssistant {
     //
     private static Object employeeProxy;
     private static Method employeeGetByIdsMethod =null;
-    private static Object bpmRoleProxy;
-    private static Method bpmRoleGetByIdsMethod =null;
-    private static Method bpmRoleGetByCodesMethod =null;
-    private static Method bpmRoleGetEmployeeRolesMethod =null;
+    private static Object busiRoleProxy;
+    private static Method busiRoleGetByIdsMethod =null;
+    private static Method busiRoleGetByCodesMethod =null;
+    private static Method busiRoleGetEmployeeRolesMethod =null;
 
     /**
      * 从变更主表对用的 Service 创建变更工具
@@ -74,14 +74,14 @@ public class ChangesAssistant {
         }
 
 
-        if(bpmRoleProxy ==null) {
-            Class bpmRoleProxyType = ReflectUtil.forName(BPM_ROLE_PROXY_NAME);
+        if(busiRoleProxy ==null) {
+            Class bpmRoleProxyType = ReflectUtil.forName(BUSI_ROLE_PROXY_NAME);
             try {
                 Method api = bpmRoleProxyType.getDeclaredMethod("api");
-                bpmRoleProxy = api.invoke(null);
-                bpmRoleGetByIdsMethod = bpmRoleProxy.getClass().getMethod("getByIds", List.class);
-                bpmRoleGetByCodesMethod = bpmRoleProxy.getClass().getMethod("getByCodes", List.class);
-                bpmRoleGetEmployeeRolesMethod = bpmRoleProxy.getClass().getMethod("getEmployeeRoles", String.class);
+                busiRoleProxy = api.invoke(null);
+                busiRoleGetByIdsMethod = busiRoleProxy.getClass().getMethod("getByIds", List.class);
+                busiRoleGetByCodesMethod = busiRoleProxy.getClass().getMethod("getByCodes", List.class);
+                busiRoleGetEmployeeRolesMethod = busiRoleProxy.getClass().getMethod("getEmployeeRoles", String.class);
             } catch (Exception e) {
                 throw new IllegalArgumentException(e);
             }
@@ -159,7 +159,7 @@ public class ChangesAssistant {
     public List<Appover> getBpmRoleApproversById(String... id) {
         List roleIds= Arrays.asList(id);
         try {
-            Result<List<BusiRole>> result= (Result<List<BusiRole>>)bpmRoleGetByIdsMethod.invoke(bpmRoleProxy,roleIds);
+            Result<List<BusiRole>> result= (Result<List<BusiRole>>) busiRoleGetByIdsMethod.invoke(busiRoleProxy,roleIds);
             if(result.failure()) return null;
             List<BusiRole> roles=result.data();
             if(roles==null) return null;
@@ -189,7 +189,7 @@ public class ChangesAssistant {
     public List<Appover> getBpmRoleApproversByCode(String... code) {
         List roleCodes= Arrays.asList(code);
         try {
-            Result<List<BusiRole>> result= (Result<List<BusiRole>>)bpmRoleGetByCodesMethod.invoke(bpmRoleProxy,roleCodes);
+            Result<List<BusiRole>> result= (Result<List<BusiRole>>) busiRoleGetByCodesMethod.invoke(busiRoleProxy,roleCodes);
             if(result.failure()) return null;
             List<BusiRole> roles=result.data();
             if(roles==null) return null;
@@ -209,7 +209,7 @@ public class ChangesAssistant {
      */
     public boolean isEmployeeInBpmRole(String employeeId, List<String> roleIds) {
         try {
-            Result<List<BusiRole>> result= (Result<List<BusiRole>>)bpmRoleGetEmployeeRolesMethod.invoke(bpmRoleProxy,employeeId);
+            Result<List<BusiRole>> result= (Result<List<BusiRole>>) busiRoleGetEmployeeRolesMethod.invoke(busiRoleProxy,employeeId);
             if(result.failure()) return false;
             List<BusiRole> roles=result.data();
             if(roles==null) return false;

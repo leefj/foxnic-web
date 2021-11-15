@@ -1,47 +1,40 @@
 package org.github.foxnic.web.changes.controller;
 
- 
-import java.util.List;
 
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-
-import org.github.foxnic.web.framework.web.SuperController;
-import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
-import org.springframework.web.bind.annotation.RequestMapping;
-import javax.servlet.http.HttpServletResponse;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
-
-
-import org.github.foxnic.web.proxy.changes.ChangeDefinitionServiceProxy;
-import org.github.foxnic.web.domain.changes.meta.ChangeDefinitionVOMeta;
-import org.github.foxnic.web.domain.changes.ChangeDefinition;
-import org.github.foxnic.web.domain.changes.ChangeDefinitionVO;
+import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.api.validate.annotations.NotNull;
+import com.github.foxnic.commons.io.StreamUtil;
+import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.springboot.web.DownloadUtil;
-import com.github.foxnic.dao.data.PagedList;
-import java.util.Date;
-import java.sql.Timestamp;
-import com.github.foxnic.api.error.ErrorDesc;
-import com.github.foxnic.commons.io.StreamUtil;
-import java.util.Map;
 import com.github.foxnic.dao.excel.ValidateResult;
-import java.io.InputStream;
-import org.github.foxnic.web.domain.changes.meta.ChangeDefinitionMeta;
-import io.swagger.annotations.Api;
-import com.github.xiaoymin.knife4j.annotations.ApiSort;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiImplicitParam;
+import com.github.foxnic.springboot.web.DownloadUtil;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.github.xiaoymin.knife4j.annotations.ApiSort;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.github.foxnic.web.changes.service.IChangeDefinitionService;
-import com.github.foxnic.api.validate.annotations.NotNull;
+import org.github.foxnic.web.domain.changes.ChangeDefinition;
+import org.github.foxnic.web.domain.changes.ChangeDefinitionVO;
+import org.github.foxnic.web.domain.changes.meta.ChangeDefinitionVOMeta;
+import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
+import org.github.foxnic.web.framework.web.SuperController;
+import org.github.foxnic.web.proxy.changes.ChangeDefinitionServiceProxy;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.InputStream;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -59,7 +52,7 @@ public class ChangeDefinitionController extends SuperController {
 	@Autowired
 	private IChangeDefinitionService changeDefinitionService;
 
-	
+
 	/**
 	 * 添加变更定义
 	*/
@@ -69,7 +62,7 @@ public class ChangeDefinitionController extends SuperController {
 		@ApiImplicitParam(name = ChangeDefinitionVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class , example = "订单变更(测试)"),
 		@ApiImplicitParam(name = ChangeDefinitionVOMeta.CODE , value = "代码" , required = false , dataTypeClass=String.class , example = "EXAMPLE_ORDER_CHANGE"),
 		@ApiImplicitParam(name = ChangeDefinitionVOMeta.MODE , value = "审批模式" , required = false , dataTypeClass=String.class , example = "simple"),
-		@ApiImplicitParam(name = ChangeDefinitionVOMeta.SIMPLE_APPROVERS , value = "默认审批人信息JSONArray格式" , required = false , dataTypeClass=String.class , example = "[{\"targetId\":\"498947090244702209\",\"targetType\":\"bpm_role\"},{\"targetId\":\"498946989573017600\",\"targetType\":\"bpm_role\"},{\"targetId\":\"490542186383806464\",\"targetType\":\"employee\"},{\"targetId\":\"490551489018724352\",\"targetType\":\"employee\"}]"),
+		@ApiImplicitParam(name = ChangeDefinitionVOMeta.SIMPLE_APPROVERS , value = "默认审批人信息JSONArray格式" , required = false , dataTypeClass=String.class , example = "[{\"targetId\":\"498947090244702209\",\"targetType\":\"busi_role\"},{\"targetId\":\"498946989573017600\",\"targetType\":\"busi_role\"},{\"targetId\":\"490542186383806464\",\"targetType\":\"employee\"},{\"targetId\":\"490551489018724352\",\"targetType\":\"employee\"}]"),
 		@ApiImplicitParam(name = ChangeDefinitionVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiOperationSupport(order=1)
@@ -81,7 +74,7 @@ public class ChangeDefinitionController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 删除变更定义
 	*/
@@ -97,8 +90,8 @@ public class ChangeDefinitionController extends SuperController {
 		Result result=changeDefinitionService.deleteByIdLogical(id);
 		return result;
 	}
-	
-	
+
+
 	/**
 	 * 批量删除变更定义 <br>
 	 * 联合主键时，请自行调整实现
@@ -107,7 +100,7 @@ public class ChangeDefinitionController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = ChangeDefinitionVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 	})
-	@ApiOperationSupport(order=3) 
+	@ApiOperationSupport(order=3)
 	@NotNull(name = ChangeDefinitionVOMeta.IDS)
 	@SentinelResource(value = ChangeDefinitionServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(ChangeDefinitionServiceProxy.DELETE_BY_IDS)
@@ -115,7 +108,7 @@ public class ChangeDefinitionController extends SuperController {
 		Result result=changeDefinitionService.deleteByIdsLogical(ids);
 		return result;
 	}
-	
+
 	/**
 	 * 更新变更定义
 	*/
@@ -125,10 +118,10 @@ public class ChangeDefinitionController extends SuperController {
 		@ApiImplicitParam(name = ChangeDefinitionVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class , example = "订单变更(测试)"),
 		@ApiImplicitParam(name = ChangeDefinitionVOMeta.CODE , value = "代码" , required = false , dataTypeClass=String.class , example = "EXAMPLE_ORDER_CHANGE"),
 		@ApiImplicitParam(name = ChangeDefinitionVOMeta.MODE , value = "审批模式" , required = false , dataTypeClass=String.class , example = "simple"),
-		@ApiImplicitParam(name = ChangeDefinitionVOMeta.SIMPLE_APPROVERS , value = "默认审批人信息JSONArray格式" , required = false , dataTypeClass=String.class , example = "[{\"targetId\":\"498947090244702209\",\"targetType\":\"bpm_role\"},{\"targetId\":\"498946989573017600\",\"targetType\":\"bpm_role\"},{\"targetId\":\"490542186383806464\",\"targetType\":\"employee\"},{\"targetId\":\"490551489018724352\",\"targetType\":\"employee\"}]"),
+		@ApiImplicitParam(name = ChangeDefinitionVOMeta.SIMPLE_APPROVERS , value = "默认审批人信息JSONArray格式" , required = false , dataTypeClass=String.class , example = "[{\"targetId\":\"498947090244702209\",\"targetType\":\"busi_role\"},{\"targetId\":\"498946989573017600\",\"targetType\":\"busi_role\"},{\"targetId\":\"490542186383806464\",\"targetType\":\"employee\"},{\"targetId\":\"490551489018724352\",\"targetType\":\"employee\"}]"),
 		@ApiImplicitParam(name = ChangeDefinitionVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class , example = "1"),
 	})
-	@ApiOperationSupport( order=4 , ignoreParameters = { ChangeDefinitionVOMeta.PAGE_INDEX , ChangeDefinitionVOMeta.PAGE_SIZE , ChangeDefinitionVOMeta.SEARCH_FIELD , ChangeDefinitionVOMeta.FUZZY_FIELD , ChangeDefinitionVOMeta.SEARCH_VALUE , ChangeDefinitionVOMeta.SORT_FIELD , ChangeDefinitionVOMeta.SORT_TYPE , ChangeDefinitionVOMeta.IDS } ) 
+	@ApiOperationSupport( order=4 , ignoreParameters = { ChangeDefinitionVOMeta.PAGE_INDEX , ChangeDefinitionVOMeta.PAGE_SIZE , ChangeDefinitionVOMeta.SEARCH_FIELD , ChangeDefinitionVOMeta.FUZZY_FIELD , ChangeDefinitionVOMeta.SEARCH_VALUE , ChangeDefinitionVOMeta.SORT_FIELD , ChangeDefinitionVOMeta.SORT_TYPE , ChangeDefinitionVOMeta.IDS } )
 	@NotNull(name = ChangeDefinitionVOMeta.ID)
 	@NotNull(name = ChangeDefinitionVOMeta.VALID)
 	@SentinelResource(value = ChangeDefinitionServiceProxy.UPDATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
@@ -137,8 +130,8 @@ public class ChangeDefinitionController extends SuperController {
 		Result result=changeDefinitionService.update(changeDefinitionVO,SaveMode.NOT_NULL_FIELDS);
 		return result;
 	}
-	
-	
+
+
 	/**
 	 * 保存变更定义
 	*/
@@ -148,7 +141,7 @@ public class ChangeDefinitionController extends SuperController {
 		@ApiImplicitParam(name = ChangeDefinitionVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class , example = "订单变更(测试)"),
 		@ApiImplicitParam(name = ChangeDefinitionVOMeta.CODE , value = "代码" , required = false , dataTypeClass=String.class , example = "EXAMPLE_ORDER_CHANGE"),
 		@ApiImplicitParam(name = ChangeDefinitionVOMeta.MODE , value = "审批模式" , required = false , dataTypeClass=String.class , example = "simple"),
-		@ApiImplicitParam(name = ChangeDefinitionVOMeta.SIMPLE_APPROVERS , value = "默认审批人信息JSONArray格式" , required = false , dataTypeClass=String.class , example = "[{\"targetId\":\"498947090244702209\",\"targetType\":\"bpm_role\"},{\"targetId\":\"498946989573017600\",\"targetType\":\"bpm_role\"},{\"targetId\":\"490542186383806464\",\"targetType\":\"employee\"},{\"targetId\":\"490551489018724352\",\"targetType\":\"employee\"}]"),
+		@ApiImplicitParam(name = ChangeDefinitionVOMeta.SIMPLE_APPROVERS , value = "默认审批人信息JSONArray格式" , required = false , dataTypeClass=String.class , example = "[{\"targetId\":\"498947090244702209\",\"targetType\":\"busi_role\"},{\"targetId\":\"498946989573017600\",\"targetType\":\"busi_role\"},{\"targetId\":\"490542186383806464\",\"targetType\":\"employee\"},{\"targetId\":\"490551489018724352\",\"targetType\":\"employee\"}]"),
 		@ApiImplicitParam(name = ChangeDefinitionVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { ChangeDefinitionVOMeta.PAGE_INDEX , ChangeDefinitionVOMeta.PAGE_SIZE , ChangeDefinitionVOMeta.SEARCH_FIELD , ChangeDefinitionVOMeta.FUZZY_FIELD , ChangeDefinitionVOMeta.SEARCH_VALUE , ChangeDefinitionVOMeta.SORT_FIELD , ChangeDefinitionVOMeta.SORT_TYPE , ChangeDefinitionVOMeta.IDS } )
@@ -161,7 +154,7 @@ public class ChangeDefinitionController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 获取变更定义
 	*/
@@ -189,7 +182,7 @@ public class ChangeDefinitionController extends SuperController {
 		@ApiImplicitParams({
 				@ApiImplicitParam(name = ChangeDefinitionVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})
-		@ApiOperationSupport(order=3) 
+		@ApiOperationSupport(order=3)
 		@NotNull(name = ChangeDefinitionVOMeta.IDS)
 		@SentinelResource(value = ChangeDefinitionServiceProxy.GET_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(ChangeDefinitionServiceProxy.GET_BY_IDS)
@@ -200,7 +193,7 @@ public class ChangeDefinitionController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 查询变更定义
 	*/
@@ -210,7 +203,7 @@ public class ChangeDefinitionController extends SuperController {
 		@ApiImplicitParam(name = ChangeDefinitionVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class , example = "订单变更(测试)"),
 		@ApiImplicitParam(name = ChangeDefinitionVOMeta.CODE , value = "代码" , required = false , dataTypeClass=String.class , example = "EXAMPLE_ORDER_CHANGE"),
 		@ApiImplicitParam(name = ChangeDefinitionVOMeta.MODE , value = "审批模式" , required = false , dataTypeClass=String.class , example = "simple"),
-		@ApiImplicitParam(name = ChangeDefinitionVOMeta.SIMPLE_APPROVERS , value = "默认审批人信息JSONArray格式" , required = false , dataTypeClass=String.class , example = "[{\"targetId\":\"498947090244702209\",\"targetType\":\"bpm_role\"},{\"targetId\":\"498946989573017600\",\"targetType\":\"bpm_role\"},{\"targetId\":\"490542186383806464\",\"targetType\":\"employee\"},{\"targetId\":\"490551489018724352\",\"targetType\":\"employee\"}]"),
+		@ApiImplicitParam(name = ChangeDefinitionVOMeta.SIMPLE_APPROVERS , value = "默认审批人信息JSONArray格式" , required = false , dataTypeClass=String.class , example = "[{\"targetId\":\"498947090244702209\",\"targetType\":\"busi_role\"},{\"targetId\":\"498946989573017600\",\"targetType\":\"busi_role\"},{\"targetId\":\"490542186383806464\",\"targetType\":\"employee\"},{\"targetId\":\"490551489018724352\",\"targetType\":\"employee\"}]"),
 		@ApiImplicitParam(name = ChangeDefinitionVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { ChangeDefinitionVOMeta.PAGE_INDEX , ChangeDefinitionVOMeta.PAGE_SIZE } )
@@ -223,7 +216,7 @@ public class ChangeDefinitionController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 分页查询变更定义
 	*/
@@ -233,7 +226,7 @@ public class ChangeDefinitionController extends SuperController {
 		@ApiImplicitParam(name = ChangeDefinitionVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class , example = "订单变更(测试)"),
 		@ApiImplicitParam(name = ChangeDefinitionVOMeta.CODE , value = "代码" , required = false , dataTypeClass=String.class , example = "EXAMPLE_ORDER_CHANGE"),
 		@ApiImplicitParam(name = ChangeDefinitionVOMeta.MODE , value = "审批模式" , required = false , dataTypeClass=String.class , example = "simple"),
-		@ApiImplicitParam(name = ChangeDefinitionVOMeta.SIMPLE_APPROVERS , value = "默认审批人信息JSONArray格式" , required = false , dataTypeClass=String.class , example = "[{\"targetId\":\"498947090244702209\",\"targetType\":\"bpm_role\"},{\"targetId\":\"498946989573017600\",\"targetType\":\"bpm_role\"},{\"targetId\":\"490542186383806464\",\"targetType\":\"employee\"},{\"targetId\":\"490551489018724352\",\"targetType\":\"employee\"}]"),
+		@ApiImplicitParam(name = ChangeDefinitionVOMeta.SIMPLE_APPROVERS , value = "默认审批人信息JSONArray格式" , required = false , dataTypeClass=String.class , example = "[{\"targetId\":\"498947090244702209\",\"targetType\":\"busi_role\"},{\"targetId\":\"498946989573017600\",\"targetType\":\"busi_role\"},{\"targetId\":\"490542186383806464\",\"targetType\":\"employee\"},{\"targetId\":\"490551489018724352\",\"targetType\":\"employee\"}]"),
 		@ApiImplicitParam(name = ChangeDefinitionVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiOperationSupport(order=8)
