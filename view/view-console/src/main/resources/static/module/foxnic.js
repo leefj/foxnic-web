@@ -235,7 +235,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 el.removeClass("layui-btn-disabled").attr("disabled",false);
             }
         },
-        lockForm(fm,lock) {
+        lockForm:function(fm,lock) {
             // debugger;
             if(lock) {
                 fm.find("input").attr("placeholder", "");
@@ -669,7 +669,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
 
         },
 
-        dateFormat(t, f) {
+        dateFormat:function(t, f) {
             // debugger;
             if (!t) return "";
             // debugger;
@@ -683,15 +683,15 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             }
         },
 
-        renderFormInputs(form) {
+        renderFormInputs:function(form) {
             this.renderInputs($(".layui-input"));
             form.render();
         },
-        renderSearchInputs() {
+        renderSearchInputs:function() {
             this.renderInputs($(".search-input"));
         },
 
-        renderInputs(inputs) {
+        renderInputs:function(inputs) {
 
             for (var i = 0; i < inputs.length; i++) {
                 var input = $(inputs[i]);
@@ -811,7 +811,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
         /**
          * 仅允许输入框输入整数
          * */
-        limitNumbrInput4Integer(inputId, negative, minValue, maxValue) {
+        limitNumbrInput4Integer:function(inputId, negative, minValue, maxValue) {
             var inst = null;
             if (typeof (inputId) == 'string') {
                 if (!inputId.startWith("#")) inputId = "#" + inputId;
@@ -894,7 +894,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
         /**
          * 仅允许输入框输入数字
          * */
-        limitNumberInput4Decimal(inputId, negative, scale, minValue, maxValue) {
+        limitNumberInput4Decimal:function(inputId, negative, scale, minValue, maxValue) {
             scale = parseInt(scale);
             if (isNaN(scale)) scale = 2;
             var inst = null;
@@ -989,7 +989,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             inst.keyup(limit).bind("paste", limit).css("ime-mode", "disabled");
         },
 
-        joinLabel(data, key, sep) {
+        joinLabel:function (data, key, sep) {
             if (!data) return "";
             var label = "";
             if (!sep) sep = ",";
@@ -1655,9 +1655,10 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             var timer = setInterval(function () {
                 var doc = ifr.contentDocument || ifr.contentWindow.document;
                 // Check if loading is complete
-                var cTag=getCookie(tag);
-                debugger;
-                if ((doc.readyState == 'complete' || doc.readyState == 'interactive') && cTag=="success") {
+                // var cTag=getCookie(tag);
+                // debugger;
+                // if ((doc.readyState == 'complete' || doc.readyState == 'interactive') && cTag=="success") {
+                if (doc.readyState == 'complete' || doc.readyState == 'interactive') {
                     // do something
                     layer.closeAll('loading');
                     clearTimeout(task);
