@@ -1,41 +1,40 @@
 package org.github.foxnic.web.system.service.impl;
 
 
-import javax.annotation.Resource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-
-import org.github.foxnic.web.domain.system.BusiRole;
-import org.github.foxnic.web.domain.system.BusiRoleVO;
-import java.util.List;
-import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.entity.SuperService;
-import com.github.foxnic.dao.spec.DAO;
-import java.lang.reflect.Field;
-import com.github.foxnic.commons.busi.id.IDGenerator;
-import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.dao.data.PagedList;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.SuperService;
+import com.github.foxnic.dao.excel.ExcelStructure;
 import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.dao.excel.ExcelStructure;
-import java.io.InputStream;
+import com.github.foxnic.dao.spec.DAO;
+import com.github.foxnic.sql.expr.ConditionExpr;
+import com.github.foxnic.sql.expr.Expr;
+import com.github.foxnic.sql.expr.In;
 import com.github.foxnic.sql.meta.DBField;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.meta.DBColumnMeta;
-import com.github.foxnic.sql.expr.Select;
-import java.util.ArrayList;
-import org.github.foxnic.web.system.service.IBusiRoleService;
+import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
+import org.github.foxnic.web.domain.system.BusiRole;
 import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.github.foxnic.web.system.service.IBusiRoleService;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.io.InputStream;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
  * 业务角色表 服务实现
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-15 14:49:46
+ * @since 2021-11-16 11:22:37
+ * @version
 */
 
 
@@ -45,7 +44,7 @@ public class BusiRoleServiceImpl extends SuperService<BusiRole> implements IBusi
 	/**
 	 * 注入DAO对象
 	 * */
-	@Resource(name=DBConfigs.PRIMARY_DAO) 
+	@Resource(name=DBConfigs.PRIMARY_DAO)
 	private DAO dao=null;
 
 	/**
@@ -93,7 +92,7 @@ public class BusiRoleServiceImpl extends SuperService<BusiRole> implements IBusi
 		return super.insertList(busiRoleList);
 	}
 
-	
+
 	/**
 	 * 按主键删除 业务角色
 	 *
@@ -114,7 +113,7 @@ public class BusiRoleServiceImpl extends SuperService<BusiRole> implements IBusi
 			return r;
 		}
 	}
-	
+
 	/**
 	 * 按主键删除 业务角色
 	 *
@@ -174,7 +173,7 @@ public class BusiRoleServiceImpl extends SuperService<BusiRole> implements IBusi
 		return super.updateList(busiRoleList , mode);
 	}
 
-	
+
 	/**
 	 * 按主键更新字段 业务角色
 	 *
@@ -188,7 +187,7 @@ public class BusiRoleServiceImpl extends SuperService<BusiRole> implements IBusi
 		return suc>0;
 	}
 
-	
+
 	/**
 	 * 按主键获取 业务角色
 	 *
@@ -200,6 +199,27 @@ public class BusiRoleServiceImpl extends SuperService<BusiRole> implements IBusi
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null ");
 		sample.setId(id);
 		return dao.queryEntity(sample);
+	}
+
+	/**
+	 * 按主键获取 业务角色
+	 *
+	 * @param codes 主键
+	 * @return BusiRole 数据对象
+	 */
+	public List<BusiRole> getByCodes(List<String> codes) {
+		if(codes==null) throw new IllegalArgumentException("codes 不允许为 null");
+		List<BusiRole> list=new ArrayList<>();
+		if(codes.isEmpty()) return list;
+		In in=new In("code",codes);
+		return this.queryList(in.toConditionExpr());
+	}
+
+	@Override
+	public List<BusiRole> getEmployeeRoles(String employeeId) {
+		if(employeeId==null) throw new IllegalArgumentException("employeeId 不允许为 null");
+		Expr select = new Expr("select * from sys_busi_role r join sys_busi_role_member m on r.id=m.role_id and m.member_type=? and m.member_type=? where r.deleted=0 and r.valid=1", UnifiedUserType.employee);
+		return this.dao().queryEntities(BusiRole.class,select);
 	}
 
 	@Override

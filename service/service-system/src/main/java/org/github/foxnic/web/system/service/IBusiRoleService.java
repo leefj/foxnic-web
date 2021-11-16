@@ -1,27 +1,28 @@
 package org.github.foxnic.web.system.service;
 
 
-import com.github.foxnic.sql.expr.ConditionExpr;
-import com.github.foxnic.dao.entity.ISuperService;
-import org.github.foxnic.web.domain.system.BusiRole;
-import org.github.foxnic.web.domain.system.BusiRoleVO;
-import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
-import java.io.InputStream;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.ISuperService;
+import com.github.foxnic.dao.excel.ExcelStructure;
+import com.github.foxnic.dao.excel.ExcelWriter;
+import com.github.foxnic.dao.excel.ValidateResult;
+import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.expr.OrderBy;
 import com.github.foxnic.sql.meta.DBField;
-import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.dao.excel.ExcelStructure;
-import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.dao.data.SaveMode;
+import org.github.foxnic.web.domain.system.BusiRole;
+
+import java.io.InputStream;
+import java.util.List;
 
 /**
  * <p>
  * 业务角色表 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-15 14:49:45
+ * @since 2021-11-16 11:22:37
+ * @version
 */
 
 public interface IBusiRoleService extends ISuperService<BusiRole> {
@@ -50,7 +51,7 @@ public interface IBusiRoleService extends ISuperService<BusiRole> {
 	Result insertList(List<BusiRole> busiRoleList);
 
 
-		
+
 	/**
 	 * 按主键删除 业务角色
 	 *
@@ -58,7 +59,7 @@ public interface IBusiRoleService extends ISuperService<BusiRole> {
 	 * @return 删除是否成功
 	 */
 	Result deleteByIdPhysical(String id);
-	
+
 	/**
 	 * 按主键删除 业务角色
 	 *
@@ -81,7 +82,7 @@ public interface IBusiRoleService extends ISuperService<BusiRole> {
 	 * */
 	<T> Result deleteByIdsLogical(List<T> ids);
 
-		
+
 	/**
 	 * 按主键更新字段 业务角色
 	 *
@@ -151,7 +152,7 @@ public interface IBusiRoleService extends ISuperService<BusiRole> {
 	 * */
 	boolean checkExists(BusiRole busiRole,DBField... field);
 
-		
+
 	/**
 	 * 按主键获取 业务角色
 	 *
@@ -313,5 +314,13 @@ public interface IBusiRoleService extends ISuperService<BusiRole> {
 	 * */
 	List<ValidateResult> importExcel(InputStream input,int sheetIndex,boolean batch);
 
+	/**
+	 * 按代码获取业务角色
+	 * */
+    List<BusiRole> getByCodes(List<String> codes);
 
+	/**
+	 * 获取员工对应的业务角色
+	 * */
+	List<BusiRole> getEmployeeRoles(String employeeId);
 }

@@ -1,55 +1,48 @@
 package org.github.foxnic.web.system.controller;
 
 
-import java.util.List;
-
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-
-import org.github.foxnic.web.framework.web.SuperController;
-import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
-import org.springframework.web.bind.annotation.RequestMapping;
-import javax.servlet.http.HttpServletResponse;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
-
-
-import org.github.foxnic.web.proxy.system.BusiRoleServiceProxy;
-import org.github.foxnic.web.domain.system.meta.BusiRoleVOMeta;
-import org.github.foxnic.web.domain.system.BusiRole;
-import org.github.foxnic.web.domain.system.BusiRoleVO;
+import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.api.validate.annotations.NotNull;
+import com.github.foxnic.commons.io.StreamUtil;
+import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.springboot.web.DownloadUtil;
-import com.github.foxnic.dao.data.PagedList;
-import java.util.Date;
-import java.sql.Timestamp;
-import com.github.foxnic.api.error.ErrorDesc;
-import com.github.foxnic.commons.io.StreamUtil;
-import java.util.Map;
 import com.github.foxnic.dao.excel.ValidateResult;
-import java.io.InputStream;
-import org.github.foxnic.web.domain.system.meta.BusiRoleMeta;
-import org.github.foxnic.web.domain.hrm.Employee;
-import io.swagger.annotations.Api;
-import com.github.xiaoymin.knife4j.annotations.ApiSort;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiImplicitParam;
+import com.github.foxnic.springboot.web.DownloadUtil;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.github.xiaoymin.knife4j.annotations.ApiSort;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import org.github.foxnic.web.domain.system.BusiRole;
+import org.github.foxnic.web.domain.system.BusiRoleVO;
+import org.github.foxnic.web.domain.system.meta.BusiRoleVOMeta;
+import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
+import org.github.foxnic.web.framework.web.SuperController;
+import org.github.foxnic.web.proxy.system.BusiRoleServiceProxy;
 import org.github.foxnic.web.system.service.IBusiRoleService;
-import com.github.foxnic.api.validate.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.InputStream;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
  * 业务角色表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-15 14:49:46
+ * @since 2021-11-16 11:22:37
+ * @version
 */
 
 @Api(tags = "业务角色")
@@ -108,7 +101,7 @@ public class BusiRoleController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = BusiRoleVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 	})
-	@ApiOperationSupport(order=3) 
+	@ApiOperationSupport(order=3)
 	@NotNull(name = BusiRoleVOMeta.IDS)
 	@SentinelResource(value = BusiRoleServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(BusiRoleServiceProxy.DELETE_BY_IDS)
@@ -175,11 +168,44 @@ public class BusiRoleController extends SuperController {
 	public Result<BusiRole> getById(String id) {
 		Result<BusiRole> result=new Result<>();
 		BusiRole busiRole=busiRoleService.getById(id);
+		result.success(true).data(busiRole);
+		return result;
+	}
 
-		// join 关联的对象
-		busiRoleService.dao().fill(busiRole)
-			.execute();
 
+	/**
+	 * 获取员工对应的业务角色
+	 */
+	@ApiOperation(value = "获取员工对应的业务角色")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "employeeId" , value = "员工ID" , required = true , dataTypeClass=String.class , example = "1"),
+	})
+	@ApiOperationSupport(order=6)
+	@NotNull(name = "employeeId")
+	@SentinelResource(value = BusiRoleServiceProxy.GET_EMPLOYEE_ROLES , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
+	@PostMapping(BusiRoleServiceProxy.GET_EMPLOYEE_ROLES)
+	public Result<List<BusiRole>> getEmployeeRoles(String employeeId) {
+		Result<List<BusiRole>> result=new Result<>();
+		List<BusiRole> busiRole=busiRoleService.getEmployeeRoles(employeeId);
+		result.success(true).data(busiRole);
+		return result;
+	}
+
+
+	/**
+	 * 获取业务角色
+	 */
+	@ApiOperation(value = "获取业务角色")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "codes" , value = "代码" , required = true , dataTypeClass=String.class , example = "001"),
+	})
+	@ApiOperationSupport(order=6)
+	@NotNull(name = "codes")
+	@SentinelResource(value = BusiRoleServiceProxy.GET_BY_CODES , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
+	@PostMapping(BusiRoleServiceProxy.GET_BY_CODES)
+	public Result<List<BusiRole>> getByCodes(List<String> codes) {
+		Result<List<BusiRole>> result=new Result<>();
+		List<BusiRole> busiRole=busiRoleService.getByCodes(codes);
 		result.success(true).data(busiRole);
 		return result;
 	}
@@ -193,7 +219,7 @@ public class BusiRoleController extends SuperController {
 		@ApiImplicitParams({
 				@ApiImplicitParam(name = BusiRoleVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})
-		@ApiOperationSupport(order=3) 
+		@ApiOperationSupport(order=3)
 		@NotNull(name = BusiRoleVOMeta.IDS)
 		@SentinelResource(value = BusiRoleServiceProxy.GET_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(BusiRoleServiceProxy.GET_BY_IDS)
@@ -244,11 +270,6 @@ public class BusiRoleController extends SuperController {
 	public Result<PagedList<BusiRole>> queryPagedList(BusiRoleVO sample) {
 		Result<PagedList<BusiRole>> result=new Result<>();
 		PagedList<BusiRole> list=busiRoleService.queryPagedList(sample,sample.getPageSize(),sample.getPageIndex());
-
-		// join 关联的对象
-		busiRoleService.dao().fill(list)
-			.execute();
-
 		result.success(true).data(list);
 		return result;
 	}

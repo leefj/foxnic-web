@@ -1,18 +1,17 @@
 package org.github.foxnic.web.proxy.system;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.github.foxnic.web.proxy.api.APIProxy;
-import org.github.foxnic.web.proxy.FeignConfiguration;
-
-import org.springframework.cloud.openfeign.FeignClient;
-
-
-import org.github.foxnic.web.domain.system.BusiRole;
-import org.github.foxnic.web.domain.system.BusiRoleVO;
-import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
+import org.github.foxnic.web.domain.system.BusiRole;
+import org.github.foxnic.web.domain.system.BusiRoleVO;
+import org.github.foxnic.web.proxy.FeignConfiguration;
 import org.github.foxnic.web.proxy.MicroServiceNames;
+import org.github.foxnic.web.proxy.api.APIProxy;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 /**
  * <p>
@@ -20,6 +19,7 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  * </p>
  * @author 李方捷 , leefangjie@qq.com
  * @since 2021-11-15 14:49:46
+ * @version
 */
 
 @FeignClient(value = MicroServiceNames.SYSTEM, contextId = BusiRoleServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)
@@ -73,6 +73,16 @@ public interface BusiRoleServiceProxy {
 	public static final String GET_BY_ID = API_PREFIX + "get-by-id";
 
 	/**
+	 * 获取单个业务角色
+	 */
+	public static final String GET_BY_CODES = API_PREFIX + "get-by-codes";
+
+	/**
+	 * 获取员工对应的业务员角色
+	 */
+	public static final String GET_EMPLOYEE_ROLES = API_PREFIX + "get-employee-roles";
+
+	/**
 	 * 获取多个业务角色
 	 */
 	public static final String GET_BY_IDS = API_PREFIX + "get-by-ids";
@@ -120,6 +130,8 @@ public interface BusiRoleServiceProxy {
 	@RequestMapping(BusiRoleServiceProxy.DELETE_BY_IDS)
 	Result deleteByIds(List<String> ids);
 
+
+
 	/**
 	 * 更新业务角色
 	*/
@@ -143,6 +155,18 @@ public interface BusiRoleServiceProxy {
 	*/
 	@RequestMapping(BusiRoleServiceProxy.GET_BY_IDS)
 	Result<List<BusiRole>> getByIds(List<String> ids);
+
+	/**
+	 * 获取员工对应的业务角色
+	 * */
+	@RequestMapping(BusiRoleServiceProxy.GET_EMPLOYEE_ROLES)
+	Result<List<BusiRole>> getEmployeeRoles(String employeeId);
+	/**
+	 * 批量删除业务角色
+	 */
+	@RequestMapping(BusiRoleServiceProxy.GET_BY_CODES)
+	Result<List<BusiRole>> getByCodes(List<String> codes);
+
 	/**
 	 * 查询业务角色
 	*/

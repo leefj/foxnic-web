@@ -174,12 +174,16 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
                     window.module.refreshTableData();
                 } else {
                     var errs=[];
-                    for (var i = 0; i < r.errors.length; i++) {
-                      if(errs.indexOf(r.errors[i].message)==-1) {
-                          errs.push(r.errors[i].message);
-                      }
+                    if(r.errors) {
+                        for (var i = 0; i < r.errors.length; i++) {
+                            if (errs.indexOf(r.errors[i].message) == -1) {
+                                errs.push(r.errors[i].message);
+                            }
+                        }
+                        top.layer.msg((selected.length > errs.length ? "部分订单提交失败:<br>" : "订单提交失败:<br>") + errs.join("<br>"), {time: 2000});
+                    } else {
+                        top.layer.msg(r.message, {time: 2000});
                     }
-                    top.layer.msg((selected.length>errs.length?"部分订单提交失败:<br>":"订单提交失败:<br>")+errs.join("<br>"),{time:2000});
                 }
             },{delayLoading:500,elms:[$("button")]});
 
