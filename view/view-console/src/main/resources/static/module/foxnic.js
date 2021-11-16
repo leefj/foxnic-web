@@ -381,6 +381,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 }
             }
 
+
             var data=null;
 
             var basicConfig = {
@@ -414,6 +415,24 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 if (cfg[key] != null) continue;
                 cfg[key] = basicConfig[key];
             }
+
+            // 处理列
+            var cols=[];
+            for (var ln = 0; ln < cfg.cols.length; ln++) {
+                var lncols=[];
+                for (var c = 0; c < cfg.cols[ln].length; c++) {
+                    var col=cfg.cols[ln][c];
+                    if(col.perm) {
+                        if(admin.checkAuth(col.perm)) {
+                            lncols.push(col);
+                        }
+                    } else {
+                        lncols.push(col);
+                    }
+                }
+                cols.push(lncols);
+            }
+            cfg.cols = cols;
 
             cfg.autoSort = false;
 

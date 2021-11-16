@@ -1,24 +1,26 @@
 package org.github.foxnic.web.framework.web;
 
-import javax.servlet.http.HttpServletRequest;
-
+import com.github.foxnic.commons.bean.BeanUtil;
+import com.github.foxnic.dao.data.PagedList;
+import com.github.foxnic.dao.entity.Entity;
+import com.github.foxnic.springboot.mvc.RequestParameter;
 import org.github.foxnic.web.language.LanguageService;
 import org.github.foxnic.web.session.SessionUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.github.foxnic.springboot.mvc.RequestParameter;
+import javax.servlet.http.HttpServletRequest;
 
 public class SuperController {
-	
-	
+
+
 	private SessionUser sessionUser;
- 
- 
+
+
 	@Autowired
 	protected LanguageService languageService;
- 
+
 	/**
 	 * 获得当前登录的会话
 	 * */
@@ -43,7 +45,7 @@ public class SuperController {
 	public RequestParameter getParameter() {
 		return RequestParameter.get();
 	}
-	
+
 	/**
 	 * 获取请求
 	 * */
@@ -52,7 +54,15 @@ public class SuperController {
 		return attributes.getRequest();
 	}
 
-	
 
+    protected void limitForPermission(PagedList<? extends Entity> list, String perm,String... field) {
+		if(perm==null) return;
+		if(this.getSessionUser().permission().checkAnyAuth(perm)) return;
+		for (Entity entity : list) {
+			for (String f : field) {
+				BeanUtil.setFieldValue(entity,f,null);
+			}
 
+		}
+    }
 }

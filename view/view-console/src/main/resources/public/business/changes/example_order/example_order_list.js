@@ -1,7 +1,7 @@
 /**
  * 变更示例订单 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-18 15:44:30
+ * @since 2021-11-16 17:09:57
  */
 
 
@@ -11,6 +11,7 @@ function ListPage() {
 	//模块基础路径
 	const moduleURL="/service-changes/chs-example-order";
 	var dataTable=null;
+	var sort=null;
 	/**
       * 入口函数，初始化
       */
@@ -74,16 +75,15 @@ function ListPage() {
 					{ fixed: 'left',type: 'numbers' },
 					{ fixed: 'left',type:'checkbox'}
 					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('主键') , templet: function (d) { return templet('id',d.id,d);}  }
-					,{ field: 'title', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('标题') , templet: function (d) { return templet('title',d.title,d);}  }
 					,{ field: 'code', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('订单编号') , templet: function (d) { return templet('code',d.code,d);}  }
-					,{ field: 'orderTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('下单时间'), templet: function (d) { return templet('orderTime',fox.dateFormat(d.orderTime,"yyyy-MM-dd"),d); }}
+					,{ field: 'orderTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('下单时间') ,templet: function (d) { return templet('orderTime',fox.dateFormat(d.orderTime,"yyyy-MM-dd"),d); }  }
 					,{ field: 'buyerId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('买家') , templet: function (d) { return templet('buyerId',fox.getProperty(d,["buyerEmployee","person","name"]),d);} }
 					,{ field: 'address', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('收件地址') , templet: function (d) { return templet('address',d.address,d);}  }
 					,{ field: 'amount', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('总金额') , templet: function (d) { return templet('amount',d.amount,d);}  }
 					,{ field: 'chsType', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('变更类型'), templet:function (d){ return templet('chsType',fox.getEnumText(RADIO_CHSTYPE_DATA,d.chsType),d);}}
 					,{ field: 'chsStatus', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('变更状态'), templet:function (d){ return templet('chsStatus',fox.getEnumText(RADIO_CHSSTATUS_DATA,d.chsStatus),d);}}
 					,{ field: 'chsVersion', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('版本') , templet: function (d) { return templet('chsVersion',d.chsVersion,d);}  }
-					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }}
+					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间') ,templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
 					,{ field: 'sourceId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('来源ID') , templet: function (d) { return templet('sourceId',d.sourceId,d);}  }
 					,{ field: 'changeInstanceId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('变更ID') , templet: function (d) { return templet('changeInstanceId',d.changeInstanceId,d);}  }
 					,{ field: 'summary', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('流程概要') , templet: function (d) { return templet('summary',d.summary,d);}  }
@@ -125,8 +125,8 @@ function ListPage() {
       */
 	function refreshTableData(sortField,sortType,reset) {
 		var value = {};
-		value.title={ inputType:"button",value: $("#title").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" "};
-		value.code={ inputType:"button",value: $("#code").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" "};
+		value.title={ inputType:"button",value: $("#title").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" };
+		value.code={ inputType:"button",value: $("#code").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" };
 		value.chsType={ inputType:"radio_box", value: xmSelect.get("#chsType",true).getValue("value"), label:xmSelect.get("#chsType",true).getValue("nameStr") };
 		value.chsStatus={ inputType:"radio_box", value: xmSelect.get("#chsStatus",true).getValue("value"), label:xmSelect.get("#chsStatus",true).getValue("nameStr") };
 		var ps={searchField:"$composite"};
@@ -137,6 +137,12 @@ function ListPage() {
 		if(sortField) {
 			ps.sortField=sortField;
 			ps.sortType=sortType;
+			sort={ field : sortField,type : sortType} ;
+		} else {
+			if(sort) {
+				ps.sortField=sort.field;
+				ps.sortType=sort.type;
+			}
 		}
 		if(reset) {
 			table.reload('data-table', { where : ps , page:{ curr:1 } });

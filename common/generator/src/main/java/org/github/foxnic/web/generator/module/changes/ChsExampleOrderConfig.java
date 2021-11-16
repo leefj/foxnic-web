@@ -36,7 +36,9 @@ public class ChsExampleOrderConfig extends BaseCodeConfig<CHS_EXAMPLE_ORDER> {
 	public void configFields(ViewOptions view) {
 		view.field(CHS_EXAMPLE_ORDER.ID).basic().hidden();
 		view.field(CHS_EXAMPLE_ORDER.ORDER_TIME).search().hidden();
-		view.field(CHS_EXAMPLE_ORDER.TITLE).search().fuzzySearch();
+		view.field(CHS_EXAMPLE_ORDER.TITLE)
+				//.table().permission("xxx")
+				.search().fuzzySearch();
 		view.field(CHS_EXAMPLE_ORDER.CODE).search().fuzzySearch();
 
 		view.field(CHS_EXAMPLE_ORDER.ORDER_TIME).form().dateInput().format("yyyy-MM-dd");
@@ -76,6 +78,10 @@ public class ChsExampleOrderConfig extends BaseCodeConfig<CHS_EXAMPLE_ORDER> {
 
 	@Override
 	public void configList(ViewOptions view, ListOptions list) {
+
+		list.configCreateNewButton("创建订单",null,"no-css-create");
+		list.configBatchDeleteButton("删除选中订单",null,"no-css-delete");
+
 		list.addToolButton("起草","draftProcess","");
 		list.addToolButton("提交","submitProcess","");
 		list.addToolButton("撤回","revokeProcess","");

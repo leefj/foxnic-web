@@ -1,7 +1,7 @@
 /**
  * 销售订单 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-02 14:49:26
+ * @since 2021-11-16 14:25:17
  */
 
 
@@ -81,7 +81,7 @@ function ListPage() {
 					,{ field: 'amount', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('金额') , templet: function (d) { return templet('amount',d.amount,d);}  }
 					,{ field: 'shopId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('店铺'), templet: function (d) { return templet('shopId' ,fox.joinLabel(d.shop,"name"),d);}}
 					,{ field: 'salesId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('导购') , templet: function (d) { return templet('salesId',fox.getProperty(d,["sales","person","name"]),d);} }
-					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }}
+					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间') ,templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); } }
 					,{ field: 'brandId', align:"",fixed:false,  hide:false, sort: true, title: fox.translate('品牌'), templet: function (d) { return templet('brandId' ,fox.getProperty(d,["product","brand","name"]),d);}}
 					,{ field: 'bigCataId', align:"",fixed:false,  hide:false, sort: true, title: fox.translate('大类'), templet: function (d) { return templet('bigCataId' ,fox.getProperty(d,["product","bigCatalog","name"]),d);}}
 				]],

@@ -56,7 +56,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 销售订单表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-02 14:49:25
+ * @since 2021-11-16 14:25:14
 */
 
 @Api(tags = "销售订单")
@@ -185,7 +185,6 @@ public class ExampleOrderController extends SuperController {
 	public Result<ExampleOrder> getById(String id) {
 		Result<ExampleOrder> result=new Result<>();
 		ExampleOrder exampleOrder=exampleOrderService.getById(id);
-
 		// join 关联的对象
 		exampleOrderService.dao().fill(exampleOrder)
 			.with(ExampleOrderMeta.PRODUCT)
@@ -194,7 +193,6 @@ public class ExampleOrderController extends SuperController {
 			.with(ExampleOrderMeta.SALES,EmployeeMeta.PERSON)
 			.with(ExampleOrderMeta.SHOP)
 			.execute();
-
 		result.success(true).data(exampleOrder);
 		return result;
 	}
@@ -263,7 +261,6 @@ public class ExampleOrderController extends SuperController {
 	public Result<PagedList<ExampleOrder>> queryPagedList(ExampleOrderVO sample) {
 		Result<PagedList<ExampleOrder>> result=new Result<>();
 		PagedList<ExampleOrder> list=exampleOrderService.queryPagedList(sample,sample.getPageSize(),sample.getPageIndex());
-
 		// join 关联的对象
 		exampleOrderService.dao().fill(list)
 			.with(ExampleOrderMeta.PRODUCT)
@@ -272,7 +269,6 @@ public class ExampleOrderController extends SuperController {
 			.with(ExampleOrderMeta.SALES,EmployeeMeta.PERSON)
 			.with(ExampleOrderMeta.SHOP)
 			.execute();
-
 		result.success(true).data(list);
 		return result;
 	}
@@ -285,10 +281,14 @@ public class ExampleOrderController extends SuperController {
 	@SentinelResource(value = ExampleOrderServiceProxy.EXPORT_EXCEL , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@RequestMapping(ExampleOrderServiceProxy.EXPORT_EXCEL)
 	public void exportExcel(ExampleOrderVO  sample,HttpServletResponse response) throws Exception {
+		try{
 			//生成 Excel 数据
 			ExcelWriter ew=exampleOrderService.exportExcel(sample);
 			//下载
-			DownloadUtil.writeToOutput(response, ew.getWorkBook(), ew.getWorkBookName());
+			DownloadUtil.writeToOutput(response,ew.getWorkBook(),ew.getWorkBookName());
+		} catch (Exception e) {
+			DownloadUtil.writeDownloadError(response,e);
+		}
 	}
 
 
@@ -298,11 +298,15 @@ public class ExampleOrderController extends SuperController {
 	@SentinelResource(value = ExampleOrderServiceProxy.EXPORT_EXCEL_TEMPLATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@RequestMapping(ExampleOrderServiceProxy.EXPORT_EXCEL_TEMPLATE)
 	public void exportExcelTemplate(HttpServletResponse response) throws Exception {
+		try{
 			//生成 Excel 模版
 			ExcelWriter ew=exampleOrderService.exportExcelTemplate();
 			//下载
 			DownloadUtil.writeToOutput(response, ew.getWorkBook(), ew.getWorkBookName());
+		} catch (Exception e) {
+			DownloadUtil.writeDownloadError(response,e);
 		}
+	}
 
 
 

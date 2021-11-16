@@ -253,6 +253,11 @@ public class #(simpleName) extends SuperController {
 	public Result<PagedList<#(poSimpleName)>> queryPagedList(#(voSimpleName) sample) {
 		Result<PagedList<#(poSimpleName)>> result=new Result<>();
 		PagedList<#(poSimpleName)> list=#(serviceVarName).queryPagedList(sample,sample.getPageSize(),sample.getPageIndex());
+		#if(!listPermFields.isEmpty())
+		#for(f : listPermFields)
+		this.limitForPermission(list,"#(f.listPerm)","#(f.varName)");
+		#end
+		#end
 		#if(!joinPropertyUnits.isEmpty())
 		// join 关联的对象
 		#(serviceVarName).dao().fill(list)
