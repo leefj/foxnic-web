@@ -218,7 +218,7 @@ public class BusiRoleServiceImpl extends SuperService<BusiRole> implements IBusi
 	@Override
 	public List<BusiRole> getEmployeeRoles(String employeeId) {
 		if(employeeId==null) throw new IllegalArgumentException("employeeId 不允许为 null");
-		Expr select = new Expr("select * from sys_busi_role r join sys_busi_role_member m on r.id=m.role_id and m.member_type=? and m.member_type=? where r.deleted=0 and r.valid=1", UnifiedUserType.employee);
+		Expr select = new Expr("select * from sys_busi_role r join sys_busi_role_member m on r.id=m.role_id and m.member_type=? and m.member_id=? where r.deleted=0 and r.valid=1", UnifiedUserType.employee.code(),employeeId);
 		return this.dao().queryEntities(BusiRole.class,select);
 	}
 
