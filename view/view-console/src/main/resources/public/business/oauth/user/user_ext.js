@@ -26,6 +26,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             // console.log('beforeQuery',conditions);
             // var v=QueryString.get("v");
             // alert(v);
+            return true;
         },
         /**
          * 单行删除前调用，若返回false则不执行后续操作

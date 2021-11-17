@@ -95,17 +95,25 @@ layui.define(['settings', 'layer'], function (exports) {
         },
         // 中间弹出
         popupCenter: function (param) {
-          
+
         	//拦截，并由顶层弹出窗口
         	if(top && top!=window && top.admin) {
                 return top.admin.popupCenter(param);
         	}
-        	
+
             param.id =param.id?param.id : 'adminPopupC';
             popupCenterParam = param;
             popupCenterIndex = admin.open(param);
             popupCenterParamMap[popupCenterIndex]=popupCenterParam;
+            if(param.id) {
+                this.putVar("$$"+param.id+"-popup-index");
+            }
             return popupCenterIndex;
+        },
+        // 关闭中间弹出并且触发finish回调
+        finishPopupCenterById: function (id) {
+            var index=this.getVar("$$"+id+"-popup-index");
+            this.finishPopupCenter(index);
         },
         // 关闭中间弹出并且触发finish回调
         finishPopupCenter: function (index) {
@@ -281,7 +289,7 @@ layui.define(['settings', 'layer'], function (exports) {
             }
             url=url.replace("//","/");
             data=JSON.stringify(data);
-            //add by owen ajax 执行前置处理器  
+            //add by owen ajax 执行前置处理器
             admin.ajax({
                 url: config.base_server + url,
                 data: data,
@@ -398,6 +406,12 @@ layui.define(['settings', 'layer'], function (exports) {
         getKeyPart:function (key) {
             return (key.substr(0,1)+"~"+key.substr(key.length-1)).toUpperCase();
         },
+        putVar: function (key, value) {
+            this.putTempData(key,value,true);
+        },
+        getVar: function (key) {
+            return this.getTempData(key);
+        },
         // 缓存临时数据
         putTempData: function (key, value, memoyOnly) {
             //拦截，并由顶层弹出窗口
@@ -448,7 +462,7 @@ layui.define(['settings', 'layer'], function (exports) {
             }
         },
         refresh: function () {
-           
+
             var $title = $('.layui-layout-admin .layui-body .layui-tab .layui-tab-title');
         	if ($title.find('li').first().hasClass('layui-this')) {
                 return;
@@ -602,7 +616,7 @@ layui.define(['settings', 'layer'], function (exports) {
     }).on('mouseleave', '*[lay-tips]', function () {
         layer.closeAll('tips');
     });
-    
+
 	window.admin=admin;
     exports('admin', admin);
 });

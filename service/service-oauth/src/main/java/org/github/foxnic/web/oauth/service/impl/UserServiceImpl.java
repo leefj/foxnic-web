@@ -101,7 +101,7 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 			defaultPasswd=getPasswordEncoder().encode(defaultPasswd);
 			user.setPasswd(defaultPasswd);
 		}
-		Result r=super.insert(user);
+		Result r=super.insert(user,false);
 		if(r.success()) {
 			saveRoles(user);
 		}

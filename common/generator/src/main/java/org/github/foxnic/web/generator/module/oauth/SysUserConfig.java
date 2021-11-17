@@ -4,9 +4,11 @@ import com.github.foxnic.generator.builder.business.option.ServiceOptions;
 import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.PojoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
+import com.github.foxnic.generator.builder.view.option.FormOptions;
 import com.github.foxnic.generator.builder.view.option.ListOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
+import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER;
 import org.github.foxnic.web.constants.enums.system.Language;
 import org.github.foxnic.web.domain.oauth.Menu;
@@ -83,9 +85,10 @@ public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
 //                .basic().hidden(true);
 
         context.view().field(SYS_USER.PASSWD)
-                .basic().hidden(true);
+                .basic().hidden(true).table().disable();
 
         context.view().field(SYS_USER.NAME)
+                .search().fuzzySearch()
                 .form().validate().required()
         //.search().displayAlone(true)
         ;
@@ -97,6 +100,7 @@ public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
 
         context.view().field(SYS_USER.PHONE)
                 .basic().label("手机")
+                .search().fuzzySearch()
                 .form().validate().required().phone();
 
         context.view().field(SYS_USER.LANGUAGE)
@@ -105,9 +109,9 @@ public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
         context.view().field(UserVOMeta.ROLE_IDS)
                 .basic().label("角色")
 //				.list().hidden(true)
-                .search().inputWidth(180)
+                .search().inputWidth(180).on(FoxnicWeb.SYS_ROLE.ID)
                 .form().selectBox().muliti(true).queryApi(RoleServiceProxy.QUERY_LIST).fillWith(UserMeta.ROLES)
-                .valueField(RoleMeta.ID).textField(UserMeta.NAME)
+                .valueField(RoleMeta.ID).textField(UserMeta.NAME).muliti(true,false)
         ;
 
         context.view().field(SYS_USER.PORTRAIT_ID)
@@ -123,6 +127,11 @@ public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
                 .table().alignCenter()
                 .form().logicField().on("有效","1").off("无效","0");
 
+    }
+
+    @Override
+    public void configForm(ViewOptions view, FormOptions form) {
+        form.labelWidth(85);
     }
 
     @Override
