@@ -1,7 +1,7 @@
 /**
  * 变更示例订单 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-16 17:09:57
+ * @since 2021-11-17 11:48:18
  */
 
 
@@ -75,6 +75,7 @@ function ListPage() {
 					{ fixed: 'left',type: 'numbers' },
 					{ fixed: 'left',type:'checkbox'}
 					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('主键') , templet: function (d) { return templet('id',d.id,d);}  }
+					,{ field: 'title', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('标题') , templet: function (d) { return templet('title',d.title,d);}  }
 					,{ field: 'code', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('订单编号') , templet: function (d) { return templet('code',d.code,d);}  }
 					,{ field: 'orderTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('下单时间') ,templet: function (d) { return templet('orderTime',fox.dateFormat(d.orderTime,"yyyy-MM-dd"),d); }  }
 					,{ field: 'buyerId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('买家') , templet: function (d) { return templet('buyerId',fox.getProperty(d,["buyerEmployee","person","name"]),d);} }
@@ -368,7 +369,7 @@ function ListPage() {
 						admin.putTempData('chs-example-order-form-data-form-action', "view",true);
 						showEditForm(data.data);
 					} else {
-						layer.msg(data.message, {icon: 1, time: 1500});
+						top.layer.msg(data.message, {icon: 1, time: 1500});
 					}
 				});
 			}
@@ -378,7 +379,6 @@ function ListPage() {
 					var doNext=window.pageExt.list.beforeSingleDelete(data);
 					if(!doNext) return;
 				}
-
 				top.layer.confirm(fox.translate('确定删除此')+fox.translate('变更示例订单')+fox.translate('吗？'), function (i) {
 					top.layer.close(i);
 
@@ -397,12 +397,28 @@ function ListPage() {
 						}
 					});
 				});
-
 			}
 			else if (layEvent === 'open-details') { // 明细
 				window.pageExt.list.openDetails(data);
 			}
-			
+			else if(obj.event === 'ops-more'){
+				//更多下拉菜单
+				dropdown.render({
+					elem: this
+					,show: true //外部事件触发即显示
+					,data: [{"perm":"uuu","id":"明细细","title":"openDetailss"}]
+					,click: function(menu, othis){
+						if(menu.perm && !admin.checkAuth(menu.perm)) {
+							top.layer.msg(fox.translate('缺少操作权限'), {icon: 2, time: 1500});
+							return;
+						}
+						window.pageExt.list.moreAction && window.pageExt.list.moreAction(menu,data, othis);
+					}
+					,align: 'right'
+					,style: 'box-shadow: 1px 1px 10px rgb(0 0 0 / 12%);'
+				});
+			}
+
 		});
 
     };

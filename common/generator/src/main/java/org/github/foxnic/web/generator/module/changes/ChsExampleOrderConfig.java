@@ -89,7 +89,15 @@ public class ChsExampleOrderConfig extends BaseCodeConfig<CHS_EXAMPLE_ORDER> {
 		list.addToolButton("同意","agreeNode","");
 		list.addToolButton("驳回","rejectNode","");
 
-		list.operationColumn().addActionButton("明细","openDetails");
+
+		//设置额外的按钮
+		list.operationColumn().addActionButton("明细","openDetails","css","perm");
+		list.operationColumn().addActionMenu("明细细","openDetailss","uuu");
+
+		//配置按钮
+		list.operationColumn().configFormViewButton("看看",null,"no-css-create");
+		list.operationColumn().configModifyButton("打开",null,"no-css-create");
+		list.operationColumn().configDeleteButton("删了",null,"no-css-create");
 	}
 
 	@Override
