@@ -1625,6 +1625,51 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 orgEls.find("span").animate({opacity:1.0},300,"swing");//.css("opacity",0.0);
             },"post",true);
         },
+        compareDirtyFields(before,after) {
+            if(before==null || after == null) return null;
+            var fields=[];
+            // 用 before 去覆盖 after
+            for (var key in before) {
+                var bval=before[key];
+                var aval=after[key];
+                if(bval==null && aval==null) {
+                    //无变化
+                } else  if(bval!=null && aval==null) {
+                    //被修改为null
+                    fields.push(key);
+                } else  if(bval==null && aval!=null) {
+                    //之前为null，被赋值
+                    fields.push(key);
+                } else  if(bval!=null && aval!=null) {
+                    //前后都有值，被修改了
+                    if(bval!=aval) {
+                        fields.push(key);
+                    }
+                }
+            }
+            // 用 after 去覆盖 before
+            for (var key in after) {
+                //debugger;
+                if(fields.indexOf(key)>-1) continue;
+                var bval=before[key];
+                var aval=after[key];
+                if(bval==null && aval==null) {
+                    //无变化
+                } else  if(bval!=null && aval==null) {
+                    //被修改为null
+                    fields.push(key);
+                } else  if(bval==null && aval!=null) {
+                    //之前为null，被赋值
+                    fields.push(key);
+                } else  if(bval!=null && aval!=null) {
+                    //前后都有值，被修改了
+                    if(bval!=aval) {
+                        fields.push(key);
+                    }
+                }
+            }
+            return fields.join(",");
+        },
         //表单提交
         submit: function (url, params, method, callback) {
             // debugger

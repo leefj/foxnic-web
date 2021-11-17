@@ -80,7 +80,7 @@ public class ChsExampleOrderConfig extends BaseCodeConfig<CHS_EXAMPLE_ORDER> {
 	public void configList(ViewOptions view, ListOptions list) {
 
 		list.configCreateNewButton("创建订单",null,"no-css-create");
-		list.configBatchDeleteButton("删除选中订单",null,"no-css-delete");
+		list.configBatchDeleteButton("删除订单",null,"no-css-delete");
 
 		list.addToolButton("起草","draftProcess","");
 		list.addToolButton("提交","submitProcess","");
@@ -91,8 +91,8 @@ public class ChsExampleOrderConfig extends BaseCodeConfig<CHS_EXAMPLE_ORDER> {
 
 
 		//设置额外的按钮
-		list.operationColumn().addActionButton("明细","openDetails","css","perm");
-		list.operationColumn().addActionMenu("明细细","openDetailss","uuu");
+		list.operationColumn().addActionButton("明细","openDetails","css");
+//		list.operationColumn().addActionMenu("明细细","openDetailss","uuu");
 
 		//配置按钮
 		list.operationColumn().configFormViewButton("看看",null,"no-css-create");

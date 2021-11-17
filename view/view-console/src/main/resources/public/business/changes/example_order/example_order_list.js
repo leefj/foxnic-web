@@ -1,7 +1,7 @@
 /**
  * 变更示例订单 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-17 11:48:18
+ * @since 2021-11-17 15:48:57
  */
 
 
@@ -401,24 +401,7 @@ function ListPage() {
 			else if (layEvent === 'open-details') { // 明细
 				window.pageExt.list.openDetails(data);
 			}
-			else if(obj.event === 'ops-more'){
-				//更多下拉菜单
-				dropdown.render({
-					elem: this
-					,show: true //外部事件触发即显示
-					,data: [{"perm":"uuu","id":"明细细","title":"openDetailss"}]
-					,click: function(menu, othis){
-						if(menu.perm && !admin.checkAuth(menu.perm)) {
-							top.layer.msg(fox.translate('缺少操作权限'), {icon: 2, time: 1500});
-							return;
-						}
-						window.pageExt.list.moreAction && window.pageExt.list.moreAction(menu,data, othis);
-					}
-					,align: 'right'
-					,style: 'box-shadow: 1px 1px 10px rgb(0 0 0 / 12%);'
-				});
-			}
-
+			
 		});
 
     };

@@ -142,7 +142,7 @@ public class ExampleOrderController extends SuperController {
 	@SentinelResource(value = ExampleOrderServiceProxy.UPDATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(ExampleOrderServiceProxy.UPDATE)
 	public Result update(ExampleOrderVO exampleOrderVO) {
-		Result result=exampleOrderService.update(exampleOrderVO,SaveMode.NOT_NULL_FIELDS);
+		Result result=exampleOrderService.update(exampleOrderVO,SaveMode.DIRTY_OR_NOT_NULL_FIELDS);
 		return result;
 	}
 
@@ -169,7 +169,7 @@ public class ExampleOrderController extends SuperController {
 	@SentinelResource(value = ExampleOrderServiceProxy.SAVE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(ExampleOrderServiceProxy.SAVE)
 	public Result save(ExampleOrderVO exampleOrderVO) {
-		Result result=exampleOrderService.save(exampleOrderVO,SaveMode.NOT_NULL_FIELDS);
+		Result result=exampleOrderService.save(exampleOrderVO,SaveMode.DIRTY_OR_NOT_NULL_FIELDS);
 		return result;
 	}
 

@@ -1,7 +1,7 @@
 /**
  * 变更示例订单 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-17 11:48:19
+ * @since 2021-11-17 15:49:00
  */
 
 function FormPage() {
@@ -11,6 +11,7 @@ function FormPage() {
 	var action=null;
 	var disableCreateNew=false;
 	var disableModify=false;
+	var dataBeforeEdit=null;
 	/**
       * 入口函数，初始化
       */
@@ -161,6 +162,8 @@ function FormPage() {
 			}
 		}
 
+		dataBeforeEdit=getFormData();
+
 	}
 
 	function getFormData() {
@@ -177,6 +180,7 @@ function FormPage() {
 	}
 
 	function saveForm(param) {
+		param.dirtyFields=fox.compareDirtyFields(dataBeforeEdit,param);
 		var api=moduleURL+"/"+(param.id?"update":"insert");
 		var task=setTimeout(function(){layer.load(2);},1000);
 		admin.request(api, param, function (data) {
