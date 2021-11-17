@@ -1,6 +1,8 @@
 package org.github.foxnic.web.generator.module;
 
+import com.github.foxnic.commons.io.FileUtil;
 import com.github.foxnic.generator.util.ModuleCodeGenerator;
+import org.github.foxnic.web.generator.data.DataGenerator;
 import org.github.foxnic.web.generator.module.changes.*;
 import org.github.foxnic.web.generator.module.dataperm.*;
 import org.github.foxnic.web.generator.module.example.CodeExampleCarConfig;
@@ -15,12 +17,18 @@ import org.github.foxnic.web.generator.module.pcm.PcmCatalogConfig;
 import org.github.foxnic.web.generator.module.system.BusiRoleConfig;
 import org.github.foxnic.web.generator.module.system.BusiRoleMemberConfig;
 
+import java.io.File;
+
 public class CodeStarter extends ModuleCodeGenerator {
 
     public static void main(String[] args) {
-        CodeStarter g=new CodeStarter();
-        g.initModules();
-        g.start();
+
+        File f=FileUtil.resolveByClass(DataGenerator.class);
+        System.out.println(f.getAbsolutePath());
+
+//        CodeStarter g=new CodeStarter();
+//        g.initModules();
+//        g.start();
     }
 
     public void initModules()

@@ -21,32 +21,32 @@ import java.util.HashSet;
  */
 public class DataGenerator  {
 
-	 
-	
+
+
 	public static void main(String[] args) throws Exception {
 		DataGenerator g = new DataGenerator();
 		// 按调用顺序呈现
 		//
-		g.generateEmployees(400);
+		g.generateEmployees(401);
 //		g.generateOrderMeasure(2,9);
 //		g.generateOrderMeasure(3,6);
 //		g.generateOrderMeasure(4,8);
 //		g.generateOrderMeasure(5,12);
-		
+
 //		g.batchAlter();
 
 		//
 	}
-	
+
 	private FoxnicWebConfigs configs;
 	private DAO dao;
-	
+
 	public DataGenerator() {
 		this.configs=new FoxnicWebConfigs("service-system");
 		this.dao=this.configs.getDAO();
 	}
 
-	
+
 	/**
 	 * 模拟生成量体数据
 	 * */
@@ -59,13 +59,13 @@ public class DataGenerator  {
 
 		String[] posIds=dao.query("select * from hrm_position where deleted=0").getValueArray("id",String.class);
 
-		
+
 		File empFile=FileUtil.resolveByPath(mp.getMainSourceDir(),"org/github/foxnic/web/generator/data/emp.txt");
 		String empText=FileUtil.readText(empFile);
 		String[] empLines=empText.split("\n");
 
 		HttpClient client=new HttpClient();
- 
+
 		HashSet<String> names=new HashSet<>();
 		BatchParamBuilder pb=new BatchParamBuilder();
 		for (int i = 0; i < limit; i++) {
@@ -105,9 +105,9 @@ public class DataGenerator  {
 		}
 
 		System.out.println("done");
-		
+
 	}
-	
+
 	/**
 	 * 批量修改表
 	 * */
