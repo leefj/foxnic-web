@@ -1,9 +1,6 @@
 package org.github.foxnic.web.oauth.captcha;
 
 
-import java.util.Collection;
-import java.util.Objects;
-
 import org.github.foxnic.web.oauth.service.ICaptchaService;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.MessageSource;
@@ -21,8 +18,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.util.Assert;
 
+import java.util.Collection;
+import java.util.Objects;
+
 /**
- * The type Captcha authentication provider.
+     * The type Captcha authentication provider.
  * @author xfa00
  */
 public class CaptchaAuthenticationProvider implements AuthenticationProvider, InitializingBean, MessageSourceAware {

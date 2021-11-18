@@ -9,6 +9,8 @@ import java.util.Map;
 
 public class FoxnicDataCacheManager extends DataCacheManager {
 
+
+
     private Map<Class,com.github.foxnic.commons.cache.DoubleCache> caches=new HashMap<>();
 
     @Override
@@ -24,7 +26,7 @@ public class FoxnicDataCacheManager extends DataCacheManager {
             caches.put(type,dc);
             return dc;
         }
-        return null;
+        return dc;
     }
 
     @Override
