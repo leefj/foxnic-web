@@ -16,9 +16,9 @@ import java.util.function.Function;
 public class RemoteCache<V> extends Cache<String, V> {
 
 	private RedisUtil cache=null;
-	
+
 	private int expire=0;
-	
+
 	/**
 	 * @param name 缓存名称
 	 * @param expire 超时时间，单位毫秒
@@ -31,7 +31,7 @@ public class RemoteCache<V> extends Cache<String, V> {
 		//毫秒转为秒
 		this.expire=expire/1000;
 		this.cache= SpringUtil.getBean(RedisUtil.class);
-		
+
 	}
 
 	/**
@@ -41,12 +41,12 @@ public class RemoteCache<V> extends Cache<String, V> {
 		if(this.cache==null) return false;
 		return this.cache.isValid();
 	}
-	
+
 	private String getRedisKey(String key)
 	{
 		return this.getName()+":"+key;
 	}
-	
+
 	@Override
 	public boolean exists(String key) {
 		key=getRedisKey(key);
@@ -60,6 +60,11 @@ public class RemoteCache<V> extends Cache<String, V> {
 	}
 
 	@Override
+	public Map<String, V> get(Set<String> keys) {
+		return null;
+	}
+
+	@Override
 	public V get(String key, Function<String, V> generator) {
 		key=getRedisKey(key);
 		Object value=this.cache.get(key);
@@ -68,8 +73,8 @@ public class RemoteCache<V> extends Cache<String, V> {
 		this.cache.set(key, value,this.expire);
 		return (V)value;
 	}
-	
-	
+
+
 	public Set<String> getKeys()
 	{
 		return this.cache.searchKeys(this.getName()+":*");
@@ -88,6 +93,11 @@ public class RemoteCache<V> extends Cache<String, V> {
 	public void put(String key, V value) {
 		key=getRedisKey(key);
 		this.cache.set(key,value);
+	}
+
+	@Override
+	public void put(Map<String, V> kvs) {
+
 	}
 
 	@Override
@@ -110,12 +120,12 @@ public class RemoteCache<V> extends Cache<String, V> {
 	}
 
 	/**
-	 * 
+	 *
 	 * */
 	public void removeKeyStarts(String keyPrefix) {
 		this.cache.delKeyStartsWith(this.getRedisKey(keyPrefix));
 	}
-	
+
 	@Override
 	public V remove(String key) {
 		Object value=this.get(key);
@@ -158,6 +168,6 @@ public class RemoteCache<V> extends Cache<String, V> {
 		return null;
 	}
 
- 
+
 
 }
