@@ -21,9 +21,7 @@ import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.Role;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.domain.oauth.UserVO;
-import org.github.foxnic.web.domain.oauth.meta.MenuMeta;
 import org.github.foxnic.web.domain.oauth.meta.UserMeta;
-import org.github.foxnic.web.domain.system.meta.TenantMeta;
 import org.github.foxnic.web.domain.system.meta.UserTenantMeta;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.oauth.service.IRoleUserService;
@@ -301,15 +299,15 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 
  		//填充账户模型
  		dao.fill(user)
-			.with(UserMeta.MENUS)
-			.with(UserMeta.MENUS, MenuMeta.RESOURCES)
-			.with(UserMeta.MENUS,MenuMeta.PATH_RESOURCE)
-			.with(UserMeta.ROLES)
-			.with(UserMeta.ROLE_MENUS)
-			.with(UserMeta.JOINED_TENANTS,UserTenantMeta.TENANT, TenantMeta.COMPANY)
-			.with(UserMeta.JOINED_TENANTS,UserTenantMeta.EMPLOYEE, EmployeeMeta.PERSON)
-			.with(UserMeta.JOINED_TENANTS,UserTenantMeta.EMPLOYEE, EmployeeMeta.POSITIONS)
-			.with(UserMeta.JOINED_TENANTS,UserTenantMeta.EMPLOYEE, EmployeeMeta.ORGANIZATIONS)
+//			.with(UserMeta.MENUS)
+//			.with(UserMeta.MENUS, MenuMeta.RESOURCES)
+//			.with(UserMeta.MENUS, MenuMeta.PATH_RESOURCE)
+//			.with(UserMeta.ROLES)
+//			.with(UserMeta.ROLE_MENUS)
+//			.with(UserMeta.JOINED_TENANTS, UserTenantMeta.TENANT, TenantMeta.COMPANY)
+//			.with(UserMeta.JOINED_TENANTS,UserTenantMeta.EMPLOYEE, EmployeeMeta.PERSON)
+//			.with(UserMeta.JOINED_TENANTS,UserTenantMeta.EMPLOYEE, EmployeeMeta.POSITIONS)
+//			.with(UserMeta.JOINED_TENANTS,UserTenantMeta.EMPLOYEE, EmployeeMeta.ORGANIZATIONS)
 			.with(UserMeta.JOINED_TENANTS,UserTenantMeta.EMPLOYEE, EmployeeMeta.BUSI_ROLES)
 			.execute();
 
