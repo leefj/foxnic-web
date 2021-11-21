@@ -275,13 +275,13 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 	 * 提供给 SpringSecurity 的查询接口
 	 * */
 	public User getUserByIdentity(String identity) {
-		User user=dao.queryEntity(User.class, new ConditionExpr(SYS_USER.ID+" = ?",identity));
-    	if(user==null) {
-    		user=dao.queryEntity(User.class, new ConditionExpr(SYS_USER.NAME+" = ?",identity));
-    	}
+		User user=dao.queryEntity(User.class, new ConditionExpr(SYS_USER.NAME+" = ?",identity));
     	if(user==null) {
     		user=dao.queryEntity(User.class, new ConditionExpr(SYS_USER.PHONE+" = ?",identity));
     	}
+		if(user==null) {
+			dao.queryEntity(User.class, new ConditionExpr(SYS_USER.ID+" = ?",identity));
+		}
 
 //    	//关联相关数据
 //    	if (user!=null) {
@@ -316,6 +316,7 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 //		List<UserTenant> uts=user.getJoinedTenants();
 //	 	List<Employee> emps= CollectorUtil.collectList(uts,UserTenant::getEmployee);
 //	 	dao.join(emps,EmployeeMeta.POSITIONS);
+//		System.err.printf("JOINS = "+ RelationSolver.getJoinCount());
 
 		List<Menu> remMenus=new ArrayList<>();
 		for (Menu menu : user.getMenus()) {

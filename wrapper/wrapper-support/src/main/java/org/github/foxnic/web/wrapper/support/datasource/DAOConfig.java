@@ -31,6 +31,15 @@ public class DAOConfig {
 	@Value("${develop.start-relation-monitor}")
 	private  Boolean startRelationMonitor=false;
 
+	@Value("${foxnic.join.cache.mode}")
+	private  String joinCacheMode=null;
+
+	@Value("${foxnic.join.cache.localElements}")
+	private  Integer joinLocalElements=512;
+
+	@Value("${foxnic.join.cache.remoteExpire}")
+	private  Integer remoteExpire=512;
+
 	@Bean(DBConfigs.PRIMARY_DAO)
 	@Primary
 	public DAO primaryDAO (
@@ -55,6 +64,10 @@ public class DAOConfig {
 
 			//设置缓存
 			FoxnicDataCacheManager cacheManager=new FoxnicDataCacheManager();
+			cacheManager.setJoinCacheMode(joinCacheMode);
+			cacheManager.setJoinLocalElements(joinLocalElements);
+			cacheManager.setRemoteExpire(remoteExpire);
+
 			dao.setDataCacheManager(cacheManager);
 
 			//配置数据权限管理器

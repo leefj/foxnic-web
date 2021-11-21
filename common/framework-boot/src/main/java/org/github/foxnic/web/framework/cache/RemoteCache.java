@@ -31,7 +31,6 @@ public class RemoteCache<V> extends Cache<String, V> {
 		//毫秒转为秒
 		this.expire=expire/1000;
 		this.cache= SpringUtil.getBean(RedisUtil.class);
-
 	}
 
 	/**
@@ -60,11 +59,6 @@ public class RemoteCache<V> extends Cache<String, V> {
 	}
 
 	@Override
-	public Map<String, V> get(Set<String> keys) {
-		return null;
-	}
-
-	@Override
 	public V get(String key, Function<String, V> generator) {
 		key=getRedisKey(key);
 		Object value=this.cache.get(key);
@@ -81,23 +75,24 @@ public class RemoteCache<V> extends Cache<String, V> {
 	}
 
 	@Override
-	public Map<String, V> getAll(Set<? extends String> arg0) {
+	public Map<String, V> getAll(Set<? extends String> localKeys) {
 		Set<String> keys=new HashSet<>();
-		for (String string : arg0) {
-			keys.add(this.getRedisKey(string));
+		for (String localKey : localKeys) {
+			keys.add(this.getRedisKey(localKey));
 		}
-		return (Map<String, V>)this.cache.multiGet(keys);
+		Map<String, V> data=(Map<String, V>)this.cache.multiGet(keys);
+		Map<String, V> dataLocal=new HashMap<>();
+		int i=this.getName().length()+1;
+		for (Map.Entry<String, V> e : data.entrySet()) {
+			dataLocal.put(e.getKey().substring(i),e.getValue());
+		}
+		return dataLocal;
 	}
 
 	@Override
 	public void put(String key, V value) {
 		key=getRedisKey(key);
 		this.cache.set(key,value);
-	}
-
-	@Override
-	public void put(Map<String, V> kvs) {
-
 	}
 
 	@Override

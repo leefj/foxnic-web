@@ -220,7 +220,9 @@ function FormPage() {
 			return;
 		}
 		//获取 菜单路径的资源 下拉框的值
-		data.field["pathResourceId"]=xmSelect.get("#pathResourceId",true).getValue("value");
+		//data.field["pathResourceId"]=xmSelect.get("#pathResourceId",true).getValue("value");
+		// debugger;
+		data.field["pathResourceId"]=fox.getSelectedValue("#pathResourceId");
 		//获取 资源清单 下拉框的值
 		data.field["resourceIds"]=xmSelect.get("#resourceIds",true).getValue("value");
 		//处理逻辑值
@@ -231,10 +233,10 @@ function FormPage() {
 		if(data.field.hidden==null) data.field.hidden=1;
 
 		//获取 菜单路径的资源 下拉框的值
-		data.field["pathResourceId"]=xmSelect.get("#pathResourceId",true).getValue("value");
-		if(data.field["pathResourceId"] && data.field["pathResourceId"].length>0) {
-			data.field["pathResourceId"]=data.field["pathResourceId"][0];
-		}
+		// data.field["pathResourceId"]=xmSelect.get("#pathResourceId",true).getValue("value");
+		// if(data.field["pathResourceId"] && data.field["pathResourceId"].length>0) {
+		// 	data.field["pathResourceId"]=data.field["pathResourceId"][0];
+		// }
 		//获取 资源清单 下拉框的值
 		data.field["resourceIds"]=xmSelect.get("#resourceIds",true).getValue("value");
 
