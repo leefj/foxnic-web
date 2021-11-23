@@ -92,12 +92,31 @@ spring:
 
 foxnic:
   join:
+    # 设置 Join 的二级缓存
     cache:
-      #local,remote,both,none
+      # local,remote,both,none
       mode: local
-      localElements: 10240
-      # 20 分钟，单位毫秒
-      remoteExpire: 1200000
+      # 本地缓存配置 : 最大元素个数
+      local-limit: 10240
+      # 本地缓存配置 : 本地缓存超时时长；-1 表示用不过期
+      local-expire: 1200000
+      # 远程缓存配置 :  超时 20 分钟，单位毫秒; -1 表示用不过期
+      remote - expire: 1200000
+      # 按实体类型配置缓存细节
+      details:
+        "org.github.foxnic.web.domain.oauth.Resourze":
+          mode: local
+          local-limit: 10240
+          local-expire: 1200000
+          remote-expire: 1200000
+        "org.github.foxnic.web.domain.system.DictItem":
+          mode: local
+          local-limit: 10240
+          local-expire: 1200000
+          remote-expire: 1200000
+
+
+
 
 #禁止自动扫描API
 springfox:

@@ -32,13 +32,16 @@ public class DAOConfig {
 	private  Boolean startRelationMonitor=false;
 
 	@Value("${foxnic.join.cache.mode}")
-	private  String joinCacheMode=null;
+	private  String cacheMode =null;
 
-	@Value("${foxnic.join.cache.localElements}")
-	private  Integer joinLocalElements=512;
+	@Value("${foxnic.join.cache.local-limit}")
+	private  Integer localLimit =512;
 
-	@Value("${foxnic.join.cache.remoteExpire}")
-	private  Integer remoteExpire=512;
+	@Value("${foxnic.join.cache.local-expire}")
+	private  Integer localExpire=1000 * 60 *20;
+
+	@Value("${foxnic.join.cache.remote-expire}")
+	private  Integer remoteExpire=1000 * 60 *20;
 
 	@Bean(DBConfigs.PRIMARY_DAO)
 	@Primary
@@ -64,9 +67,11 @@ public class DAOConfig {
 
 			//设置缓存
 			FoxnicDataCacheManager cacheManager=new FoxnicDataCacheManager();
-			cacheManager.setJoinCacheMode(joinCacheMode);
-			cacheManager.setJoinLocalElements(joinLocalElements);
-			cacheManager.setRemoteExpire(remoteExpire);
+			cacheManager.setJoinCacheMode(cacheMode);
+			cacheManager.setJoinLocalLimit(localLimit);
+			cacheManager.setJoinLocalExpire(localExpire);
+			cacheManager.setJoinRemoteExpire(remoteExpire);
+			cacheManager.setCacheDetailConfigPrefix("foxnic.join.cache.details");
 
 			dao.setDataCacheManager(cacheManager);
 

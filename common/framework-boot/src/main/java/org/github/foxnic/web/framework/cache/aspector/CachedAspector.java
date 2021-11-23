@@ -2,7 +2,7 @@ package org.github.foxnic.web.framework.cache.aspector;
 
 import com.github.foxnic.api.cache.Cached;
 import com.github.foxnic.commons.cache.DoubleCache;
-import com.github.foxnic.dao.entity.CacheStrategy;
+import com.github.foxnic.dao.cache.CacheStrategy;
 import com.github.foxnic.dao.entity.SuperService;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
