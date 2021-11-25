@@ -95,7 +95,7 @@ foxnic:
     # 设置 Join 的二级缓存
     cache:
       # local,remote,both,none
-      mode: local
+      mode: remote
       # 本地缓存配置 : 最大元素个数
       local-limit: 10240
       # 本地缓存配置 : 本地缓存超时时长；-1 表示用不过期
