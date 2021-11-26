@@ -526,8 +526,15 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 		//获得来自父类目继承的属性
 		List<CatalogAttribute> attributes=new ArrayList<>();
 		String[] parentCatalogIds=catalog.getHierarchy().split("/");
+		//用 fields 去重
+		Set<String> fields=new HashSet<>();
 		for (int i = 0; i < parentCatalogIds.length-1; i++) {
-			attributes.addAll(catalogAttributeService.getAttributes(parentCatalogIds[i],ICatalogService.VERSION_ACTIVATED));
+			List<CatalogAttribute> attrs=catalogAttributeService.getAttributes(parentCatalogIds[i],ICatalogService.VERSION_ACTIVATED);
+			for (CatalogAttribute attr : attrs) {
+				if(fields.contains(attr.getField())) continue;
+				fields.add(attr.getField());
+				attributes.add(attr);
+			}
 		}
 		//归集到当前类目下
 		for (CatalogAttribute attribute : attributes) {
@@ -541,7 +548,12 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 			return ErrorDesc.failure().message("缺少字段");
 		}
 		catalogAttributeService.join(editingAttributes, CatalogAttributeMeta.SOURCE_ATTR,CatalogAttributeMeta.ALLOCATION);
-		attributes.addAll(editingAttributes);
+//		attributes.addAll(editingAttributes);
+		for (CatalogAttribute attr : editingAttributes) {
+			if(fields.contains(attr.getField())) continue;
+			fields.add(attr.getField());
+			attributes.add(attr);
+		}
 
 		//分配存储字段
 		FieldManager fieldManager=new FieldManager(this.dao(),catalog,attributes,catalogAttributeService,catalogAllocationService);
@@ -556,12 +568,12 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 
 		try {
 			dao.beginTransaction();
-			dao().execute("update pcm_catalog_attribute set version_no=?,update_time=? where catalog_id=? and version_no=?",version,new Date(),catalogId,ICatalogService.VERSION_ACTIVATED);
-			dao().execute("update pcm_catalog_allocation set version_no=?,update_time=? where catalog_id=? and version_no=?",version,new Date(),catalogId,ICatalogService.VERSION_ACTIVATED);
+			int i=dao().execute("update pcm_catalog_attribute set version_no=?,update_time=? where catalog_id=? and version_no=?",version,new Date(),catalogId,ICatalogService.VERSION_ACTIVATED);
+			i=dao().execute("update pcm_catalog_allocation set version_no=?,update_time=? where catalog_id=? and version_no=?",version,new Date(),catalogId,ICatalogService.VERSION_ACTIVATED);
 
 			//变更当前编辑的版本为激活的版本
-			dao().execute("update pcm_catalog_attribute set version_no=?,update_time=? where catalog_id=? and version_no=?",ICatalogService.VERSION_ACTIVATED,new Date(),catalogId,ICatalogService.VERSION_EDITING);
-			dao().execute("update pcm_catalog_allocation set version_no=?,update_time=? where catalog_id=? and version_no=?",ICatalogService.VERSION_ACTIVATED,new Date(),catalogId,ICatalogService.VERSION_EDITING);
+			i=dao().execute("update pcm_catalog_attribute set version_no=?,update_time=? where catalog_id=? and version_no=?",ICatalogService.VERSION_ACTIVATED,new Date(),catalogId,ICatalogService.VERSION_EDITING);
+			i=dao().execute("update pcm_catalog_allocation set version_no=?,update_time=? where catalog_id=? and version_no=?",ICatalogService.VERSION_ACTIVATED,new Date(),catalogId,ICatalogService.VERSION_EDITING);
 			dao.commit();
 		} catch (Exception e) {
 			dao.rollback();
