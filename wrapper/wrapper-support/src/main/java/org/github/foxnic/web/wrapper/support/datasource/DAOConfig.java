@@ -1,6 +1,7 @@
 package org.github.foxnic.web.wrapper.support.datasource;
 
 import com.github.foxnic.commons.log.Logger;
+import com.github.foxnic.dao.cache.CacheProperties;
 import com.github.foxnic.dao.dataperm.DataPermManager;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.dao.spec.DAOBuilder;
@@ -31,17 +32,8 @@ public class DAOConfig {
 	@Value("${develop.start-relation-monitor}")
 	private  Boolean startRelationMonitor=false;
 
-	@Value("${foxnic.join.cache.mode}")
-	private  String cacheMode =null;
-
-	@Value("${foxnic.join.cache.local-limit}")
-	private  Integer localLimit =512;
-
-	@Value("${foxnic.join.cache.local-expire}")
-	private  Integer localExpire=1000 * 60 *20;
-
-	@Value("${foxnic.join.cache.remote-expire}")
-	private  Integer remoteExpire=1000 * 60 *20;
+//	@Autowired
+	private CacheProperties cacheProperties;
 
 	@Bean(DBConfigs.PRIMARY_DAO)
 	@Primary
@@ -67,11 +59,9 @@ public class DAOConfig {
 
 			//设置缓存
 			FoxnicDataCacheManager cacheManager=new FoxnicDataCacheManager();
-			cacheManager.setJoinCacheMode(cacheMode);
-			cacheManager.setJoinLocalLimit(localLimit);
-			cacheManager.setJoinLocalExpire(localExpire);
-			cacheManager.setJoinRemoteExpire(remoteExpire);
-			cacheManager.setCacheDetailConfigPrefix("foxnic.join.cache.details");
+	 		CacheProperties cacheProperties=new CacheProperties(SpringUtil.getEnvProperties("foxnic.cache"));
+			cacheManager.setCacheProperties(cacheProperties);
+
 
 			dao.setDataCacheManager(cacheManager);
 

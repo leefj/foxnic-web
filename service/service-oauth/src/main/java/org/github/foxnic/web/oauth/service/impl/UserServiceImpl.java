@@ -275,6 +275,7 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 	 * 提供给 SpringSecurity 的查询接口
 	 * */
 	public User getUserByIdentity(String identity) {
+
 		User user=dao.queryEntity(User.class, new ConditionExpr(SYS_USER.NAME+" = ?",identity));
     	if(user==null) {
     		user=dao.queryEntity(User.class, new ConditionExpr(SYS_USER.PHONE+" = ?",identity));
@@ -299,6 +300,7 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 //			dao.join(employees, Person.class);
 //		}
 
+
  		//填充账户模型
  		dao.fill(user)
 			.with(UserMeta.MENUS)
@@ -312,6 +314,8 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 			.with(UserMeta.JOINED_TENANTS,UserTenantMeta.EMPLOYEE, EmployeeMeta.ORGANIZATIONS)
 			.with(UserMeta.JOINED_TENANTS,UserTenantMeta.EMPLOYEE, EmployeeMeta.BUSI_ROLES)
 			.execute();
+
+
 
 //		List<UserTenant> uts=user.getJoinedTenants();
 //	 	List<Employee> emps= CollectorUtil.collectList(uts,UserTenant::getEmployee);

@@ -17,13 +17,11 @@ import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.domain.system.DbCache;
 import org.github.foxnic.web.domain.system.DbCacheVO;
-import org.github.foxnic.web.domain.system.meta.DbCacheMeta;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.session.SessionUser;
 import org.github.foxnic.web.system.service.IDbCacheService;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.io.InputStream;
 import java.lang.reflect.Field;
@@ -42,22 +40,17 @@ import java.util.List;
 
 @Service("SysDbCacheService")
 public class DbCacheServiceImpl extends SuperService<DbCache> implements IDbCacheService {
-	
+
 	/**
 	 * 注入DAO对象
 	 * */
-	@Resource(name=DBConfigs.PRIMARY_DAO) 
+	@Resource(name=DBConfigs.PRIMARY_DAO)
 	private DAO dao=null;
-	
+
 	/**
 	 * 获得 DAO 对象
 	 * */
 	public DAO dao() { return dao; }
-
-	@PostConstruct
-	public void initCache() {
-		super.registCacheStrategy("queryList", true,false,DbCacheMeta.CATALOG,DbCacheMeta.AREA,DbCacheMeta.OWNER_TYPE,DbCacheMeta.OWNER_ID);
-	}
 
 	@Override
 	public Object generateId(Field field) {
@@ -84,7 +77,7 @@ public class DbCacheServiceImpl extends SuperService<DbCache> implements IDbCach
 
 		return dbCacheVO;
 	}
-	
+
 	/**
 	 * 插入实体
 	 * @param dbCache 实体数据
@@ -98,7 +91,7 @@ public class DbCacheServiceImpl extends SuperService<DbCache> implements IDbCach
 		}
 		return super.insert(dbCache);
 	}
-	
+
 	/**
 	 * 批量插入实体，事务内
 	 * @param dbCacheList 实体数据清单
@@ -108,8 +101,8 @@ public class DbCacheServiceImpl extends SuperService<DbCache> implements IDbCach
 	public Result insertList(List<DbCache> dbCacheList) {
 		return super.insertList(dbCacheList);
 	}
-	
-	
+
+
 	/**
 	 * 按主键删除 数据库缓存
 	 *
@@ -122,7 +115,7 @@ public class DbCacheServiceImpl extends SuperService<DbCache> implements IDbCach
 		dbCache.setId(id);
 		return dao.deleteEntity(dbCache);
 	}
-	
+
 	/**
 	 * 按主键删除 数据库缓存
 	 *
@@ -139,7 +132,7 @@ public class DbCacheServiceImpl extends SuperService<DbCache> implements IDbCach
 		boolean suc= dao.updateEntity(dbCache,SaveMode.NOT_NULL_FIELDS);
 		return suc?ErrorDesc.success():ErrorDesc.failure();
 	}
-	
+
 	/**
 	 * 更新实体
 	 * @param dbCache 数据对象
@@ -171,12 +164,8 @@ public class DbCacheServiceImpl extends SuperService<DbCache> implements IDbCach
 		if(ex!=null) {
 			ex.setValue(dbCache.getValue());
 			r=super.update(ex, mode);
-			this.cache().remove(ex.getId());
 		} else {
 			r=this.insert(dbCache);
-		}
-		if(r.success()) {
-			this.invalidateAccurateCache(dbCache);
 		}
 
 		return r;
@@ -197,8 +186,8 @@ public class DbCacheServiceImpl extends SuperService<DbCache> implements IDbCach
 		}
 		return super.updateList(dbCacheList , mode);
 	}
-	
-	
+
+
 	/**
 	 * 按主键更新字段 数据库缓存
 	 *
@@ -210,9 +199,9 @@ public class DbCacheServiceImpl extends SuperService<DbCache> implements IDbCach
 		if(!field.table().name().equals(this.table())) throw new IllegalArgumentException("更新的数据表["+field.table().name()+"]与服务对应的数据表["+this.table()+"]不一致");
 		int suc=dao.update(field.table().name()).set(field.name(), value).where().and("id = ? ",id).top().execute();
 		return suc>0;
-	} 
-	
-	
+	}
+
+
 	/**
 	 * 按主键获取 数据库缓存
 	 *
@@ -225,24 +214,24 @@ public class DbCacheServiceImpl extends SuperService<DbCache> implements IDbCach
 		sample.setId(id);
 		return dao.queryEntity(sample);
 	}
- 
+
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @return 查询结果
 	 * */
 	@Override
-	@Cached(strategy = "queryList",expire = 1000 * 60 * 60 * 2)
+	@Cached("query-list")
 	public List<DbCache> queryList(DbCache sample) {
 		System.out.println(JSON.toJSONString(sample));
 		return super.queryList(sample);
 	}
-	
-	
+
+
 	/**
 	 * 分页查询实体集，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @param pageSize 分页条数
 	 * @param pageIndex 页码
@@ -252,10 +241,10 @@ public class DbCacheServiceImpl extends SuperService<DbCache> implements IDbCach
 	public PagedList<DbCache> queryPagedList(DbCache sample, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, pageSize, pageIndex);
 	}
-	
+
 	/**
 	 * 分页查询实体集，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @param condition 其它条件
 	 * @param pageSize 分页条数
@@ -266,7 +255,7 @@ public class DbCacheServiceImpl extends SuperService<DbCache> implements IDbCach
 	public PagedList<DbCache> queryPagedList(DbCache sample, ConditionExpr condition, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, condition, pageSize, pageIndex);
 	}
-	
+
 	/**
 	 * 检查 角色 是否已经存在
 	 *

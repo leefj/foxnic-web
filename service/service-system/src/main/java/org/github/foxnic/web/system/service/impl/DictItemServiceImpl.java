@@ -15,12 +15,10 @@ import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.domain.system.DictItem;
-import org.github.foxnic.web.domain.system.meta.DictItemMeta;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.system.service.IDictItemService;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.io.InputStream;
 import java.lang.reflect.Field;
@@ -39,31 +37,24 @@ import java.util.List;
 
 @Service("SysDictItemService")
 public class DictItemServiceImpl extends SuperService<DictItem> implements IDictItemService {
-	
+
 	/**
 	 * 注入DAO对象
 	 * */
-	@Resource(name=DBConfigs.PRIMARY_DAO) 
+	@Resource(name=DBConfigs.PRIMARY_DAO)
 	private DAO dao=null;
-	
+
 	/**
 	 * 获得 DAO 对象
 	 * */
 	public DAO dao() { return dao; }
 
 
-	@PostConstruct
-	public void initCache() {
-		super.registCacheStrategy("queryList", true,false,DictItemMeta.DICT_CODE);
-	}
-
-
-	
 	@Override
 	public Object generateId(Field field) {
 		return IDGenerator.getSnowflakeIdString();
 	}
-	
+
 	/**
 	 * 插入实体
 	 * @param dictItem 实体数据
@@ -71,13 +62,9 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 	 * */
 	@Override
 	public Result insert(DictItem dictItem) {
-		Result r=super.insert(dictItem);
-		if(r.success()) {
-			this.invalidateAccurateCache(dictItem);
-		}
-		return r;
+		return super.insert(dictItem);
 	}
-	
+
 	/**
 	 * 批量插入实体，事务内
 	 * @param dictItemList 实体数据清单
@@ -87,8 +74,8 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 	public Result insertList(List<DictItem> dictItemList) {
 		return super.insertList(dictItemList);
 	}
-	
-	
+
+
 	/**
 	 * 按主键删除 数据字典条目
 	 *
@@ -101,9 +88,6 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 		if(dictItem==null) return ErrorDesc.success();
 		try {
 			boolean suc = dao.deleteEntity(dictItem);
-			if(suc) {
-				super.invalidateAccurateCache(dictItem);
-			}
 			return suc?ErrorDesc.success():ErrorDesc.failure();
 		}
 		catch(Exception e) {
@@ -115,20 +99,12 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 
 	@Override
 	public <T> Result deleteByIdsPhysical(List<T> ids) {
-		Result r = super.deleteByIdsPhysical(ids);
-		if(r.success()) {
-			super.invalidateAccurateCache(this.getByIds((List<String>)ids));
-		}
-		return r;
+		return super.deleteByIdsPhysical(ids);
 	}
 
 	@Override
 	public <T> Result deleteByIdsLogical(List<T> ids) {
-		Result r= super.deleteByIdsLogical(ids);
-		if(r.success()) {
-			super.invalidateAccurateCache(this.getByIds((List<String>)ids));
-		}
-		return r;
+		return super.deleteByIdsLogical(ids);
 	}
 
 	/**
@@ -146,9 +122,6 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 		dictItem.setDeleteTime(new Date());
 		try {
 			boolean suc = dao.updateEntity(dictItem,SaveMode.NOT_NULL_FIELDS);
-			if(suc) {
-				super.invalidateAccurateCache(this.getById(id));
-			}
 			return suc?ErrorDesc.success():ErrorDesc.failure();
 		}
 		catch(Exception e) {
@@ -157,7 +130,7 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 			return r;
 		}
 	}
-	
+
 	/**
 	 * 更新实体
 	 * @param dictItem 数据对象
@@ -166,15 +139,11 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 	 * */
 	@Override
 	public Result update(DictItem dictItem , SaveMode mode) {
-		Result r=super.update(dictItem , mode);
-		if(r.success()){
-			this.invalidateAccurateCache(dictItem);
-		}
-		return r;
+		return super.update(dictItem , mode);
 	}
 
 
-	
+
 	/**
 	 * 更新实体集，事务内
 	 * @param dictItemList 数据对象列表
@@ -185,8 +154,8 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 	public Result updateList(List<DictItem> dictItemList , SaveMode mode) {
 		return super.updateList(dictItemList , mode);
 	}
-	
-	
+
+
 	/**
 	 * 按主键更新字段 数据字典条目
 	 *
@@ -197,13 +166,10 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null ");
 		if(!field.table().name().equals(this.table())) throw new IllegalArgumentException("更新的数据表["+field.table().name()+"]与服务对应的数据表["+this.table()+"]不一致");
 		int suc=dao.update(field.table().name()).set(field.name(), value).where().and("id = ? ",id).top().execute();
-		if(suc>0) {
-			this.invalidateAccurateCache(this.getById(id));
-		}
 		return suc>0;
-	} 
-	
-	
+	}
+
+
 	/**
 	 * 按主键获取 数据字典条目
 	 *
@@ -226,20 +192,20 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @return 查询结果
 	 * */
 	@Override
-	@Cached(strategy = "queryList",expire = 1000 * 60 * 60 * 2)
+	@Cached("query-list")
 	public List<DictItem> queryList(DictItem sample) {
 		return super.queryList(sample);
 	}
-	
-	
+
+
 	/**
 	 * 分页查询实体集，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @param pageSize 分页条数
 	 * @param pageIndex 页码
@@ -249,10 +215,10 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 	public PagedList<DictItem> queryPagedList(DictItem sample, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, pageSize, pageIndex);
 	}
-	
+
 	/**
 	 * 分页查询实体集，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @param condition 其它条件
 	 * @param pageSize 分页条数
@@ -263,7 +229,7 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 	public PagedList<DictItem> queryPagedList(DictItem sample, ConditionExpr condition, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, condition, pageSize, pageIndex);
 	}
-	
+
 	/**
 	 * 检查 角色 是否已经存在
 	 *
