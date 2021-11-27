@@ -16,8 +16,10 @@ import com.github.foxnic.sql.meta.DBField;
 import com.github.foxnic.sql.parameter.BatchParamBuilder;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.MenuResource;
+import org.github.foxnic.web.domain.oauth.Resourze;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.oauth.service.IMenuResourceService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -44,6 +46,9 @@ public class MenuResourceServiceImpl extends SuperService<MenuResource> implemen
 	 * */
 	@Resource(name=DBConfigs.PRIMARY_DAO) 
 	private DAO dao=null;
+
+	@Autowired
+	private ResourzeServiceImpl resourzeService;
 	
 	/**
 	 * 获得 DAO 对象
@@ -232,12 +237,20 @@ public class MenuResourceServiceImpl extends SuperService<MenuResource> implemen
 	@Override
 	public void saveResourceIds(Menu menu) {
 		if(menu.getResourceIds()!=null) {
+			List<Resourze> list=null;
+			MenuResource menuResource=this.queryEntity(new ConditionExpr("menu_id=?",menu.getId()));
+			if(resourzeService.hasCache()) {
+				list=resourzeService.queryList(new ConditionExpr("EXISTS (select 1 from "+this.table()+" a where menu_id=? and t.id=a.resource_id)",menu.getId()));
+			}
 			dao().execute("delete from "+table()+" where menu_id=?",menu.getId());
 			BatchParamBuilder bp=new BatchParamBuilder();
 			for (String resourceId : menu.getResourceIds()) {
 				MenuResource mr=new MenuResource();
 				mr.setMenuId(menu.getId()).setResourceId(resourceId);
 				this.insert(mr);
+			}
+			if(list!=null){
+				resourzeService.invalidateAccurateCache(menuResource,list);
 			}
 		}
 	}

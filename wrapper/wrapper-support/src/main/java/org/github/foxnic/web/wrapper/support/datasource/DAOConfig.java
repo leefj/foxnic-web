@@ -61,7 +61,7 @@ public class DAOConfig {
 			FoxnicDataCacheManager cacheManager=new FoxnicDataCacheManager();
 	 		CacheProperties cacheProperties=new CacheProperties(SpringUtil.getEnvProperties("foxnic.cache"));
 			cacheManager.setCacheProperties(cacheProperties);
-
+			cacheManager.setRelationManager(relationManager);
 
 			dao.setDataCacheManager(cacheManager);
 

@@ -117,7 +117,7 @@ public class RemoteCache<V> extends Cache<String, V> {
 	/**
 	 *
 	 * */
-	public void removeKeyStarts(String keyPrefix) {
+	public void removeKeysStartWith(String keyPrefix) {
 		this.cache.delKeyStartsWith(this.getRedisKey(keyPrefix));
 	}
 
