@@ -8,8 +8,8 @@ import java.util.List;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-14 15:44:27
- * @sign 7A7E6A82D643B0FA58FC7427BF545AB9
+ * @since 2021-11-27 11:32:01
+ * @sign CD6F210B59AF577A68702D75A5200D48
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -66,6 +66,16 @@ public class EmployeeVOMeta extends EmployeeMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.hrm.EmployeeVO,java.lang.String> SEARCH_VALUE_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.EmployeeVO.class ,SEARCH_VALUE, java.lang.String.class, "搜索的值", "", java.lang.String.class, null);
 	
 	/**
+	 * 已修改字段 , 集合类型: LIST , 类型: java.lang.String
+	*/
+	public static final String DIRTY_FIELDS="dirtyFields";
+	
+	/**
+	 * 已修改字段 , 集合类型: LIST , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.EmployeeVO,java.lang.String> DIRTY_FIELDS_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.EmployeeVO.class ,DIRTY_FIELDS, java.util.List.class, "已修改字段", "", java.lang.String.class, null);
+	
+	/**
 	 * 排序字段 , 类型: java.lang.String
 	*/
 	public static final String SORT_FIELD="sortField";
@@ -118,7 +128,7 @@ public class EmployeeVOMeta extends EmployeeMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , SORT_FIELD , SORT_TYPE , IDS , ORG_ID , POSITION_ID };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ORG_ID , POSITION_ID };
 	
 	/**
 	 * 代理类
@@ -180,6 +190,17 @@ public class EmployeeVOMeta extends EmployeeMeta {
 		public EmployeeVO setSearchValue(String searchValue) {
 			super.change(SEARCH_VALUE,super.getSearchValue(),searchValue);
 			super.setSearchValue(searchValue);
+			return this;
+		}
+		
+		/**
+		 * 设置 已修改字段
+		 * @param dirtyFields 已修改字段
+		 * @return 当前对象
+		*/
+		public EmployeeVO setDirtyFields(List<String> dirtyFields) {
+			super.change(DIRTY_FIELDS,super.getDirtyFields(),dirtyFields);
+			super.setDirtyFields(dirtyFields);
 			return this;
 		}
 		

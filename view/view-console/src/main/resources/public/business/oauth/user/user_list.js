@@ -1,7 +1,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-17 17:16:17
+ * @since 2021-11-27 10:44:01
  */
 
 
@@ -75,6 +75,7 @@ function ListPage() {
 					{ fixed: 'left',type: 'numbers' },
 					{ fixed: 'left',type:'checkbox'}
 					,{ field: 'name', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('账户') , templet: function (d) { return templet('name',d.name,d);}  }
+					,{ field: 'realName', align:"",fixed:false,  hide:false, sort: true, title: fox.translate('姓名') , templet: function (d) { return templet('realName',fox.getProperty(d,["activatedTenant","employee","person","name"]),d);} }
 					,{ field: 'portraitId', align:"center", fixed:false, hide:false, sort: true, title: fox.translate('头像'), templet: function (d) { return '<img style="height:100%;" fileType="image/png" onclick="window.previewImage(this)"  src="'+apiurls.storage.image+'?id='+ d.portraitId+'" />'; } }
 					,{ field: 'language', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('语言'), templet:function (d){ return templet('language',fox.getEnumText(RADIO_LANGUAGE_DATA,d.language),d);}}
 					,{ field: 'phone', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('手机') , templet: function (d) { return templet('phone',d.phone,d);}  }
@@ -126,6 +127,7 @@ function ListPage() {
 		value.phone={ inputType:"button",value: $("#phone").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" };
 		value.language={ inputType:"radio_box", value: xmSelect.get("#language",true).getValue("value"), label:xmSelect.get("#language",true).getValue("nameStr") };
 		value.valid={ inputType:"logic_switch",value: xmSelect.get("#valid",true).getValue("value"), label:xmSelect.get("#valid",true).getValue("nameStr") };
+		value.realName={ inputType:"button",value: $("#realName").val(),fillBy:["activatedTenant","employee","person","name"] };
 		value.roleIds={ inputType:"select_box", value: xmSelect.get("#roleIds",true).getValue("value") ,fillBy:["roles"]  ,field:"sys_role.id", label:xmSelect.get("#roleIds",true).getValue("nameStr") };
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){

@@ -2,7 +2,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-17 17:16:17
+ * @since 2021-11-27 10:44:01
  */
  -->
  <!DOCTYPE html>
@@ -114,6 +114,13 @@
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('最后登录时间')}">最后登录时间</div></div>
                         <div class="layui-input-block layui-input-block-c1">
                             <input input-type="date" lay-filter="lastLoginTime" id="lastLoginTime" name="lastLoginTime"  autocomplete="off"  readonly  th:placeholder="${ lang.translate('请选择') +''+ lang.translate('最后登录时间') }" type="text" class="layui-input"   />
+                        </div>
+                    </div>
+
+                                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('姓名')}">姓名</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input lay-filter="realName" id="realName" name="realName" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('姓名') }" type="text" class="layui-input"  />
                         </div>
                     </div>
 

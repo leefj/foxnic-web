@@ -2,7 +2,7 @@
 /**
  * 员工 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-15 16:54:38
+ * @since 2021-11-27 13:08:06
  */
  -->
  <!DOCTYPE html>
@@ -53,9 +53,9 @@
                     </div>
 
                                     <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('工号')}">工号</div><div class="layui-required">*</div></div>
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('工号')}">工号</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="badge" id="badge" name="badge" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('工号') }" type="text" class="layui-input"    lay-verify="|required"  />
+                            <input lay-filter="badge" id="badge" name="badge" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('工号') }" type="text" class="layui-input"  />
                         </div>
                     </div>
 
@@ -76,9 +76,25 @@
                     </div>
 
                                     <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('身份证')}">身份证</div><div class="layui-required">*</div></div>
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('身份证')}">身份证</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="identity" id="identity" name="identity" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('身份证') }" type="text" class="layui-input"    lay-verify="|required|identity"  />
+                            <input lay-filter="identity" id="identity" name="identity" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('身份证') }" type="text" class="layui-input"  />
+                        </div>
+                    </div>
+
+                                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('主岗')}">主岗</div><div class="layui-required">*</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input lay-filter="primaryPositionId" id="primaryPositionId" name="primaryPositionId"  type="hidden" class="layui-input"    lay-verify="|required"   />
+                            <button id="primaryPositionId-button" type="button" action-type="pos-dialog" class="layui-btn   " style="width: 100%"> <i class='layui-icon layui-icon-search'></i> <span th:text="${lang.translate('请选择岗位')}" th:default-label="${lang.translate('请选择岗位')}">按钮文本</span></button>
+                        </div>
+                    </div>
+
+                                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('副岗')}">副岗</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input lay-filter="vicePositionIds" id="vicePositionIds" name="vicePositionIds"  type="hidden" class="layui-input"   />
+                            <button id="vicePositionIds-button" type="button" action-type="pos-dialog" class="layui-btn   " style="width: 100%"> <i class='layui-icon layui-icon-search'></i> <span th:text="${lang.translate('请选择岗位')}" th:default-label="${lang.translate('请选择岗位')}">按钮文本</span></button>
                         </div>
                     </div>
 
@@ -108,7 +124,7 @@
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];
     var RADIO_STATUS_DATA = [[${dict.toArray('employee_status')}]];
-    var VALIDATE_CONFIG={"badge":{"labelInForm":"工号","inputType":"text_input","required":true},"phone":{"phone":true,"labelInForm":"手机号","inputType":"text_input","required":true},"identity":{"identity":true,"labelInForm":"身份证","inputType":"text_input","required":true},"name":{"labelInForm":"姓名","inputType":"text_input","required":true},"status":{"labelInForm":"状态","inputType":"radio_box","required":true}};
+    var VALIDATE_CONFIG={"phone":{"phone":true,"labelInForm":"手机号","inputType":"text_input","required":true},"name":{"labelInForm":"姓名","inputType":"text_input","required":true},"primaryPositionId":{"labelInForm":"主岗","inputType":"button","required":true},"status":{"labelInForm":"状态","inputType":"radio_box","required":true}};
     var AUTH_PREFIX="hrm_employee";
 
 

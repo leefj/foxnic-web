@@ -15,6 +15,8 @@ import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER_TENANT;
+import org.github.foxnic.web.domain.oauth.User;
+import org.github.foxnic.web.domain.system.Tenant;
 import org.github.foxnic.web.domain.system.UserTenant;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.system.service.IUserTenantService;
@@ -282,7 +284,7 @@ public class UserTenantServiceImpl extends SuperService<UserTenant> implements I
      * @param ownerTenantIds 所属的租户ID清单
      */
 	public void saveRelation(String userId,List<String> ownerTenantIds) {
-		super.saveRelation(SYS_USER_TENANT.USER_ID,userId, SYS_USER_TENANT.OWNER_TENANT_ID,ownerTenantIds,true);
+		super.saveRelation(User.class,SYS_USER_TENANT.USER_ID,userId,Tenant.class,SYS_USER_TENANT.OWNER_TENANT_ID,ownerTenantIds,true);
 	}
 
 }

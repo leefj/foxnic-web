@@ -227,15 +227,32 @@ public class EmployeeServiceImpl extends SuperService<Employee> implements IEmpl
 	@Transactional
 	public Result update(Employee employee , SaveMode mode) {
 		Result r=null;
+		Employee dbEmp=this.getById(employee.getId());
+		this.join(dbEmp,Person.class);
+		employee.setPersonId(dbEmp.getPersonId());
 		if(employee.getPersonId()!=null) {
-			Person person = personService.getById(employee.getPersonId());
+			Person person = dbEmp.getPerson();
 			BeanUtil.copyDiff(employee, person, false);
 			person.setId(employee.getPersonId());
-			r = personService.updateDirtyFields(person);
+			r = personService.update(person,SaveMode.DIRTY_FIELDS,false);
 		}
 		if(r==null || r.success()) {
 			r = super.update(employee, mode);
 		}
+
+		//岗位
+		List<String> posIds=new ArrayList<>();
+		posIds.add(employee.getPrimaryPositionId());
+		if(employee.getVicePositionIds()!=null){
+			for (String posId : employee.getVicePositionIds()) {
+				if(StringUtil.isBlank(posId)) continue;
+				if(posIds.contains(posId)) continue;
+				posIds.add(posId);
+			}
+		}
+		employeePositionService.saveRelation(employee.getId(),posIds);
+		employeePositionService.activePrimaryPosition(employee.getId(),employee.getPrimaryPositionId());
+
 		return r;
 	}
 	

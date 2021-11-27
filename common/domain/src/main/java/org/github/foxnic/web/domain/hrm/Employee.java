@@ -19,8 +19,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 员工
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-15 16:54:34
- * @sign 91FE0FC58A82B277273BD75C121D6A47
+ * @since 2021-11-27 12:57:48
+ * @sign 92136229B911D012DBBA1AB4C19C7555
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -153,15 +153,15 @@ public class Employee extends Person {
 	private List<Organization> organizations;
 	
 	/**
-	 * 主职：作为员工时，所属的主职
+	 * 主岗：作为员工时，所属的主岗
 	*/
-	@ApiModelProperty(required = false,value="主职" , notes = "作为员工时，所属的主职")
+	@ApiModelProperty(required = false,value="主岗" , notes = "作为员工时，所属的主岗")
 	private Position primaryPosition;
 	
 	/**
-	 * 主职部门：作为员工时，所属的主职部门
+	 * 主岗部门：作为员工时，所属的主岗部门
 	*/
-	@ApiModelProperty(required = false,value="主职部门" , notes = "作为员工时，所属的主职部门")
+	@ApiModelProperty(required = false,value="主岗部门" , notes = "作为员工时，所属的主岗部门")
 	private Organization primaryOrganization;
 	
 	/**
@@ -169,6 +169,18 @@ public class Employee extends Person {
 	*/
 	@ApiModelProperty(required = false,value="业务角色清单" , notes = "作为员工时，所属的业务角色")
 	private List<BusiRole> busiRoles;
+	
+	/**
+	 * 主岗ID：只有一个
+	*/
+	@ApiModelProperty(required = false,value="主岗ID" , notes = "只有一个")
+	private String primaryPositionId;
+	
+	/**
+	 * 副岗ID：多个用逗号隔开
+	*/
+	@ApiModelProperty(required = false,value="副岗ID" , notes = "多个用逗号隔开")
+	private List<String> vicePositionIds;
 	
 	/**
 	 * 获得 ID<br>
@@ -573,17 +585,17 @@ public class Employee extends Person {
 	}
 	
 	/**
-	 * 获得 主职<br>
-	 * 作为员工时，所属的主职
-	 * @return 主职
+	 * 获得 主岗<br>
+	 * 作为员工时，所属的主岗
+	 * @return 主岗
 	*/
 	public Position getPrimaryPosition() {
 		return primaryPosition;
 	}
 	
 	/**
-	 * 设置 主职
-	 * @param primaryPosition 主职
+	 * 设置 主岗
+	 * @param primaryPosition 主岗
 	 * @return 当前对象
 	*/
 	public Employee setPrimaryPosition(Position primaryPosition) {
@@ -592,17 +604,17 @@ public class Employee extends Person {
 	}
 	
 	/**
-	 * 获得 主职部门<br>
-	 * 作为员工时，所属的主职部门
-	 * @return 主职部门
+	 * 获得 主岗部门<br>
+	 * 作为员工时，所属的主岗部门
+	 * @return 主岗部门
 	*/
 	public Organization getPrimaryOrganization() {
 		return primaryOrganization;
 	}
 	
 	/**
-	 * 设置 主职部门
-	 * @param primaryOrganization 主职部门
+	 * 设置 主岗部门
+	 * @param primaryOrganization 主岗部门
 	 * @return 当前对象
 	*/
 	public Employee setPrimaryOrganization(Organization primaryOrganization) {
@@ -637,6 +649,55 @@ public class Employee extends Person {
 	public Employee addBusiRole(BusiRole busiRole) {
 		if(this.busiRoles==null) busiRoles=new ArrayList<>();
 		this.busiRoles.add(busiRole);
+		return this;
+	}
+	
+	/**
+	 * 获得 主岗ID<br>
+	 * 只有一个
+	 * @return 主岗ID
+	*/
+	public String getPrimaryPositionId() {
+		return primaryPositionId;
+	}
+	
+	/**
+	 * 设置 主岗ID
+	 * @param primaryPositionId 主岗ID
+	 * @return 当前对象
+	*/
+	public Employee setPrimaryPositionId(String primaryPositionId) {
+		this.primaryPositionId=primaryPositionId;
+		return this;
+	}
+	
+	/**
+	 * 获得 副岗ID<br>
+	 * 多个用逗号隔开
+	 * @return 副岗ID
+	*/
+	public List<String> getVicePositionIds() {
+		return vicePositionIds;
+	}
+	
+	/**
+	 * 设置 副岗ID
+	 * @param vicePositionIds 副岗ID
+	 * @return 当前对象
+	*/
+	public Employee setVicePositionIds(List<String> vicePositionIds) {
+		this.vicePositionIds=vicePositionIds;
+		return this;
+	}
+	
+	/**
+	 * 添加 副岗ID
+	 * @param vicePositionId 副岗ID
+	 * @return 当前对象
+	*/
+	public Employee addVicePositionId(String vicePositionId) {
+		if(this.vicePositionIds==null) vicePositionIds=new ArrayList<>();
+		this.vicePositionIds.add(vicePositionId);
 		return this;
 	}
 

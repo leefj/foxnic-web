@@ -1,7 +1,7 @@
 /**
  * 员工 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-15 16:54:38
+ * @since 2021-11-27 13:08:06
  */
 
 
@@ -78,11 +78,13 @@ function ListPage() {
 					,{ field: 'badge', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('工号') , templet: function (d) { return templet('badge',d.badge,d);}  }
 					,{ field: 'name', align:"",fixed:false,  hide:false, sort: true, title: fox.translate('姓名') , templet: function (d) { return templet('name',fox.getProperty(d,["person","name"]),d);} }
 					,{ field: 'phone', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('手机号') , templet: function (d) { return templet('phone',d.phone,d);}  }
-					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间') ,templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); } }
+					,{ field: 'primaryPositionId', align:"",fixed:false,  hide:false, sort: true, title: fox.translate('主岗') , templet: function (d) { return templet('primaryPositionId',fox.getProperty(d,["primaryPosition","fullName"]),d);} }
+					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间') ,templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
 					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('ID') , templet: function (d) { return templet('id',d.id,d);}  }
 					,{ field: 'personId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('人员ID') , templet: function (d) { return templet('personId',d.personId,d);}  }
 					,{ field: 'status', align:"left", fixed:false, hide:true, sort: true, title: fox.translate('状态'), templet:function (d){ return templet('status',fox.getDictText(RADIO_STATUS_DATA,d.status),d);}}
 					,{ field: 'identity', align:"",fixed:false,  hide:true, sort: true, title: fox.translate('身份证') , templet: function (d) { return templet('identity',fox.getProperty(d,["person","identity"]),d);} }
+					,{ field: 'vicePositionIds', align:"",fixed:false,  hide:true, sort: true, title: fox.translate('副岗') , templet: function (d) { return templet('vicePositionIds',d.vicePositionIds,d);}  }
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
 				]],
@@ -326,7 +328,7 @@ function ListPage() {
 						admin.putTempData('hrm-employee-form-data-form-action', "view",true);
 						showEditForm(data.data);
 					} else {
-						layer.msg(data.message, {icon: 1, time: 1500});
+						top.layer.msg(data.message, {icon: 1, time: 1500});
 					}
 				});
 			}
@@ -336,7 +338,6 @@ function ListPage() {
 					var doNext=window.pageExt.list.beforeSingleDelete(data);
 					if(!doNext) return;
 				}
-
 				top.layer.confirm(fox.translate('确定删除此')+fox.translate('员工')+fox.translate('吗？'), function (i) {
 					top.layer.close(i);
 
@@ -355,7 +356,6 @@ function ListPage() {
 						}
 					});
 				});
-
 			}
 			
 		});
@@ -382,7 +382,7 @@ function ListPage() {
 		else if(action=="edit") title=fox.translate('修改')+title;
 		else if(action=="view") title=fox.translate('查看')+title;
 
-		var index=admin.popupCenter({
+		admin.popupCenter({
 			title: title,
 			resize: false,
 			offset: [top,null],
@@ -394,7 +394,6 @@ function ListPage() {
 				refreshTableData();
 			}
 		});
-		admin.putTempData('hrm-employee-form-data-popup-index', index);
 	};
 
 	window.module={

@@ -170,7 +170,7 @@ public class EmployeeController extends SuperController {
 		Result<Employee> result=new Result<>();
 		Employee employee=employeeService.getById(id);
 		// 关联出 姓名 数据
-		employeeService.join(employee,EmployeeMeta.PERSON);
+		employeeService.join(employee,EmployeeMeta.PERSON,EmployeeMeta.POSITIONS);
 		result.success(true).data(employee);
 		return result;
 	}
@@ -285,7 +285,7 @@ public class EmployeeController extends SuperController {
 		Result<PagedList<Employee>> result=new Result<>();
 		PagedList<Employee> list=employeeService.queryPagedList(sample,sample.getPageSize(),sample.getPageIndex());
 		// 关联出 姓名 数据
-		employeeService.join(list,EmployeeMeta.PERSON);
+		employeeService.join(list,EmployeeMeta.PERSON,EmployeeMeta.POSITIONS);
 		result.success(true).data(list);
 		return result;
 	}

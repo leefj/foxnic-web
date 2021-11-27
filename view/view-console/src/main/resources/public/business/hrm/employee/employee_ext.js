@@ -132,6 +132,13 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             console.log('beforeDataFill',data);
         },
         /**
+         * 对话框之前调用，如果返回 null 则不打开对话框
+         * */
+        beforeDialog:function (param){
+            param.title="请选择主岗";
+            return param;
+        },
+        /**
          * 表单数据填充后
          * */
         afterDataFill:function (data) {

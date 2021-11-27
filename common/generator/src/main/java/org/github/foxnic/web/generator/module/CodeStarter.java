@@ -26,18 +26,18 @@ public class CodeStarter extends ModuleCodeGenerator {
         File f=FileUtil.resolveByClass(DataGenerator.class);
         System.out.println(f.getAbsolutePath());
 
-//        CodeStarter g=new CodeStarter();
-//        g.initModules();
-//        g.start();
+        CodeStarter g=new CodeStarter();
+        g.initModules();
+        g.start();
     }
 
     public void initModules()
     {
 
 //        initPcmModules();
-        initOAuthModules();
+//        initOAuthModules();
 //        initSystemModules();
-//        initHrmModules();
+        initHrmModules();
 //        initExampleModules();
 //        initChangeModules();
 //        initBpmModules();

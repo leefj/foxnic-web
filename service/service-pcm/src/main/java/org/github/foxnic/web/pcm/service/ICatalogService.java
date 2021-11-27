@@ -32,6 +32,7 @@ import java.util.List;
 public interface ICatalogService extends ISuperService<Catalog> {
 
 	public static final String ROOT_ID="0";
+	public static final String HIDDEN_FIELE="$H$_idd$eN_$";
 
 	/**
 	 * 编辑中的版本

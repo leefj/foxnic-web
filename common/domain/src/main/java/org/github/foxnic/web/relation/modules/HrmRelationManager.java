@@ -9,6 +9,9 @@ import org.github.foxnic.web.domain.hrm.Person;
 import org.github.foxnic.web.domain.hrm.Position;
 import org.github.foxnic.web.domain.hrm.meta.EmployeeMeta;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class HrmRelationManager extends RelationManager {
 
 	@Override
@@ -46,14 +49,19 @@ public class HrmRelationManager extends RelationManager {
 				.using(FoxnicWeb.HRM_EMPLOYEE.ID).join(FoxnicWeb.HRM_EMPLOYEE_POSITION.EMPLOYEE_ID).select(FoxnicWeb.HRM_EMPLOYEE_POSITION.IS_PRIMARY,"pri")
 				.using(FoxnicWeb.HRM_EMPLOYEE_POSITION.POSITION_ID).join(FoxnicWeb.HRM_POSITION.ID).condition("valid=1")
 				.after((employee,positions,m)->{
+					List<String> vicePosIds=new ArrayList<>();
 					for (Position position : positions) {
 						//如果是主岗，设置员工主岗
 						Boolean pri=m.get(position).getBoolean("pri");
 						if(pri==null) pri=false;
 						if(pri) {
 							employee.setPrimaryPosition(position);
+							employee.setPrimaryPositionId(position.getId());
+						} else {
+							vicePosIds.add(position.getId());
 						}
 					}
+					employee.setVicePositionIds(vicePosIds);
 					return positions;
 				});
 

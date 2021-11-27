@@ -88,6 +88,7 @@ public class CatalogController extends SuperController {
 		}
 		Result result=catalogService.insert(catalogVO);
 		if(result.success()) {
+
 			result.data(catalogVO);
 		}
 		return result;

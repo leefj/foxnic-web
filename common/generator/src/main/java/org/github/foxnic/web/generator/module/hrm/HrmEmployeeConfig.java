@@ -16,7 +16,9 @@ import org.github.foxnic.web.domain.hrm.Organization;
 import org.github.foxnic.web.domain.hrm.Person;
 import org.github.foxnic.web.domain.hrm.Position;
 import org.github.foxnic.web.domain.hrm.meta.EmployeeMeta;
+import org.github.foxnic.web.domain.hrm.meta.EmployeeVOMeta;
 import org.github.foxnic.web.domain.hrm.meta.PersonMeta;
+import org.github.foxnic.web.domain.hrm.meta.PositionMeta;
 import org.github.foxnic.web.domain.system.BusiRole;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 import org.github.foxnic.web.hrm.service.IPersonService;
@@ -35,13 +37,18 @@ public class HrmEmployeeConfig extends BaseCodeConfig<HRM_EMPLOYEE> {
         poType.addSimpleProperty( String.class, "nameAndBadge","姓名与工号", "虚拟属性");
         poType.addListProperty( Position.class, "positions","岗位清单", "作为员工时，所属的岗位清单");
         poType.addListProperty( Organization.class, "organizations","组织清单", "作为员工时，所属的组织清单");
-        poType.addSimpleProperty( Position.class, "primaryPosition","主职", "作为员工时，所属的主职");
-        poType.addSimpleProperty( Organization.class, "primaryOrganization","主职部门", "作为员工时，所属的主职部门");
+        poType.addSimpleProperty( Position.class, "primaryPosition","主岗", "作为员工时，所属的主岗");
+        poType.addSimpleProperty( Organization.class, "primaryOrganization","主岗部门", "作为员工时，所属的主岗部门");
         poType.addListProperty( BusiRole.class, "busiRoles","业务角色清单", "作为员工时，所属的业务角色");
+        poType.addSimpleProperty(String.class, "primaryPositionId","主岗ID","只有一个");
+        poType.addListProperty(String.class, "vicePositionIds","副岗ID","多个用逗号隔开");
         //
         voType.addSimpleProperty(String.class, "orgId","所属组织ID","");
         voType.addSimpleProperty(String.class, "positionId","岗位ID","");
+
+
     }
+
 
     @Override
     public void configSearch(ViewOptions view, SearchAreaOptions search) {
@@ -54,9 +61,11 @@ public class HrmEmployeeConfig extends BaseCodeConfig<HRM_EMPLOYEE> {
     @Override
     public void configFields(ViewOptions view) {
         view.field(HRM_EMPLOYEE.ID).basic().hidden();
+
         view.field(HRM_EMPLOYEE.BADGE)
-                .form().validate().required()
+                .form().validate()
                 .search().fuzzySearch();
+
         view.field(HRM_EMPLOYEE.PERSON_ID).basic().hidden();
 
         view.field(HRM_EMPLOYEE.COMPANY_ID).basic().hidden();
@@ -80,13 +89,23 @@ public class HrmEmployeeConfig extends BaseCodeConfig<HRM_EMPLOYEE> {
                 .search().hidden()
                 .table().fillBy(EmployeeMeta.PERSON, PersonMeta.IDENTITY)
                 .form().fillBy(EmployeeMeta.PERSON, PersonMeta.IDENTITY)
-                .form().validate().required().identity()
+                //.form().validate().required().identity()
         ;
 
         view.field(HRM_EMPLOYEE.STATUS)
                 .form().radioBox().dict(DictEnum.EMPLOYEE_STATUS).defaultValue(EmployeeStatus.ACTIVE)
                 .form().validate().required()
         ;
+
+        view.field(EmployeeVOMeta.PRIMARY_POSITION_ID).basic().label("主岗")
+        .form().validate().required()
+        .form().button().choosePosition(true)
+        .table().fillBy(EmployeeMeta.PRIMARY_POSITION, PositionMeta.FULL_NAME)
+        .search().hidden();
+
+        view.field(EmployeeVOMeta.VICE_POSITION_IDS).basic().label("副岗")
+            .form().button().choosePosition(false)
+            .search().hidden();
 
     }
 
@@ -98,13 +117,15 @@ public class HrmEmployeeConfig extends BaseCodeConfig<HRM_EMPLOYEE> {
                 HRM_EMPLOYEE.BADGE,
                 HRM_EMPLOYEE.STATUS,
                 HRM_EMPLOYEE.PHONE,
-                PersonMeta.IDENTITY
+                PersonMeta.IDENTITY,
+                EmployeeVOMeta.PRIMARY_POSITION_ID,
+                EmployeeVOMeta.VICE_POSITION_IDS
         });
     }
 
     @Override
     public void configList(ViewOptions view, ListOptions list) {
-        list.columnLayout(HRM_EMPLOYEE.COMPANY_ID,HRM_EMPLOYEE.BADGE,personNameField,HRM_EMPLOYEE.PHONE,HRM_EMPLOYEE.CREATE_TIME);
+        list.columnLayout(HRM_EMPLOYEE.COMPANY_ID,HRM_EMPLOYEE.BADGE,personNameField,HRM_EMPLOYEE.PHONE,EmployeeVOMeta.PRIMARY_POSITION_ID,HRM_EMPLOYEE.CREATE_TIME);
     }
 
     @Override

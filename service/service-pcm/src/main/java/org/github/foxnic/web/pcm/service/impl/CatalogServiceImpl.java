@@ -96,6 +96,14 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 			this.updateDirtyFields(catalog);
 		}
 		if(r.success()) {
+			//加入一个默认的隐藏字段
+			CatalogAttribute defaultAttr=new CatalogAttribute();
+			defaultAttr.setCatalogId(catalog.getId());
+			defaultAttr.setField(ICatalogService.HIDDEN_FIELE);
+			defaultAttr.setShortName("隐藏字段");
+			defaultAttr.setFullName("隐藏字段");
+			defaultAttr.setDataType(DataType.STRING.code());
+			catalogAttributeService.insert(defaultAttr);
 			this.fillHierarchy(false);
 		}
 		return r;

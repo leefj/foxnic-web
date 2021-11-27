@@ -339,6 +339,7 @@ public class CatalogAttributeServiceImpl extends SuperService<CatalogAttribute> 
 
 		ConditionExpr ceThis=this.buildQueryCondition(sample);
 		ceThis.and(catalogLimit);
+		ceThis.and("field!=?",ICatalogService.HIDDEN_FIELE);
 		Expr select=new Expr("select * from "+this.table()+" "+TABLE_ALAIS);
 		select.append(ceThis.startWithWhere());
 

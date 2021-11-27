@@ -16,7 +16,9 @@ import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.expr.OrderBy;
 import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.constants.db.FoxnicWeb.HRM_EMPLOYEE_POSITION;
+import org.github.foxnic.web.domain.hrm.Employee;
 import org.github.foxnic.web.domain.hrm.EmployeePosition;
+import org.github.foxnic.web.domain.hrm.Position;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.hrm.service.IEmployeePositionService;
 import org.springframework.stereotype.Service;
@@ -263,7 +265,7 @@ public class EmployeePositionServiceImpl extends SuperService<EmployeePosition> 
      * @param positionIds 岗位ID清单
      */
 	public void saveRelation(String employeeId,List<String> positionIds) {
-		super.saveRelation(HRM_EMPLOYEE_POSITION.EMPLOYEE_ID,employeeId, HRM_EMPLOYEE_POSITION.POSITION_ID,positionIds,true);
+		super.saveRelation(Employee.class,HRM_EMPLOYEE_POSITION.EMPLOYEE_ID,employeeId, Position.class,HRM_EMPLOYEE_POSITION.POSITION_ID,positionIds,true);
 	}
 
 	@Override

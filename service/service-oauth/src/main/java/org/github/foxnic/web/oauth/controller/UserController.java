@@ -12,10 +12,12 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.github.foxnic.web.domain.oauth.Role;
+import org.github.foxnic.web.domain.hrm.meta.EmployeeMeta;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.domain.oauth.UserVO;
+import org.github.foxnic.web.domain.oauth.meta.UserMeta;
 import org.github.foxnic.web.domain.oauth.meta.UserVOMeta;
+import org.github.foxnic.web.domain.system.meta.UserTenantMeta;
 import org.github.foxnic.web.framework.web.SuperController;
 import org.github.foxnic.web.oauth.login.SessionCache;
 import org.github.foxnic.web.oauth.service.IUserService;
@@ -247,7 +249,20 @@ public class UserController extends SuperController {
 		for (User user : list) {
 			user.setPasswd("");
 		}
-		userService.join(list, Role.class);
+//		userService.join(list, Role.class);
+		//填充账户模型
+		userService.dao().fill(list)
+//				.with(UserMeta.MENUS)
+//				.with(UserMeta.MENUS, MenuMeta.RESOURCES)
+//				.with(UserMeta.MENUS, MenuMeta.PATH_RESOURCE)
+				.with(UserMeta.ROLES)
+//				.with(UserMeta.ROLE_MENUS)
+//				.with(UserMeta.JOINED_TENANTS, UserTenantMeta.TENANT, TenantMeta.COMPANY)
+				.with(UserMeta.JOINED_TENANTS,UserTenantMeta.EMPLOYEE, EmployeeMeta.PERSON)
+//				.with(UserMeta.JOINED_TENANTS,UserTenantMeta.EMPLOYEE, EmployeeMeta.POSITIONS)
+//				.with(UserMeta.JOINED_TENANTS,UserTenantMeta.EMPLOYEE, EmployeeMeta.ORGANIZATIONS)
+//				.with(UserMeta.JOINED_TENANTS,UserTenantMeta.EMPLOYEE, EmployeeMeta.BUSI_ROLES)
+				.execute();
 		result.success(true).data(list);
 		return result;
 	}

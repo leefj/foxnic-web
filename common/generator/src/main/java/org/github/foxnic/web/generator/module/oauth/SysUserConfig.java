@@ -11,6 +11,8 @@ import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER;
 import org.github.foxnic.web.constants.enums.system.Language;
+import org.github.foxnic.web.domain.hrm.meta.EmployeeMeta;
+import org.github.foxnic.web.domain.hrm.meta.PersonMeta;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.Role;
 import org.github.foxnic.web.domain.oauth.RoleMenu;
@@ -18,6 +20,7 @@ import org.github.foxnic.web.domain.oauth.meta.RoleMeta;
 import org.github.foxnic.web.domain.oauth.meta.UserMeta;
 import org.github.foxnic.web.domain.oauth.meta.UserVOMeta;
 import org.github.foxnic.web.domain.system.UserTenant;
+import org.github.foxnic.web.domain.system.meta.UserTenantMeta;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 import org.github.foxnic.web.proxy.oauth.RoleServiceProxy;
 
@@ -90,13 +93,13 @@ public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
         context.view().field(SYS_USER.NAME)
                 .search().fuzzySearch()
                 .form().validate().required()
-        //.search().displayAlone(true)
         ;
 
-//		context.view().field(UserMeta.ROLES)
-//				.form().validate().required()
-//				.search().displayAlone(true)
-//		;
+        context.view().field("realName").basic().label("姓名")
+            .table()
+                .fillBy(UserMeta.ACTIVATED_TENANT, UserTenantMeta.EMPLOYEE, EmployeeMeta.PERSON, PersonMeta.NAME)
+        ;
+
 
         context.view().field(SYS_USER.PHONE)
                 .basic().label("手机")
@@ -136,7 +139,7 @@ public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
 
     @Override
     public void configList(ViewOptions view, ListOptions list) {
-        list.columnLayout(SYS_USER.NAME,SYS_USER.PORTRAIT_ID,SYS_USER.LANGUAGE
+        list.columnLayout(SYS_USER.NAME,"realName",SYS_USER.PORTRAIT_ID,SYS_USER.LANGUAGE
                 ,SYS_USER.PHONE,SYS_USER.VALID,UserVOMeta.ROLE_IDS);
 
         list.operationColumn().addActionButton("属主","openTenantOwner");

@@ -1,8 +1,8 @@
-<!-- 
+<!--
 /**
  * 分类属性 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-13 15:41:39
+ * @since 2021-11-27 10:07:20
  */
  -->
  <!DOCTYPE html>
@@ -70,7 +70,7 @@
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('是否必填')}">是否必填</div><div class="layui-required">*</div></div>
                     <div class="layui-input-block layui-input-block-c1">
-                        <input input-type="switch" type="checkbox" id="notNull"  name="notNull" lay-skin="switch" lay-filter="notNull" lay-text="必填|可空&nbsp;" value="0" >
+                        <input input-type="switch" type="checkbox" id="notNull"  name="notNull" lay-skin="switch" lay-filter="notNull" lay-text="必填|可空&nbsp;" value="1">
                     </div>
                 </div>
 
@@ -79,7 +79,7 @@
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('是否有效')}">是否有效</div><div class="layui-required">*</div></div>
                     <div class="layui-input-block layui-input-block-c1">
-                        <input input-type="switch" type="checkbox" id="valid"  name="valid" lay-skin="switch" lay-filter="valid" lay-text="有效|无效&nbsp;" value="0" >
+                        <input input-type="switch" type="checkbox" id="valid"  name="valid" lay-skin="switch" lay-filter="valid" lay-text="有效|无效&nbsp;" value="1">
                     </div>
                 </div>
 
@@ -88,7 +88,7 @@
                     <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('数据类型')}">数据类型</div><div class="layui-required">*</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <div id="dataType" input-type="select" th:data="${enum.toArray('org.github.foxnic.web.domain.pcm.DataType')}"></div>
+                            <div id="dataType" input-type="select" th:data="${enum.toArray('org.github.foxnic.web.domain.pcm.DataType')}" extraParam="{}"></div>
                         </div>
                     </div>
 

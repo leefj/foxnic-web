@@ -1,34 +1,31 @@
 package org.github.foxnic.web.system.service.impl;
 
 
-import javax.annotation.Resource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-
-import org.github.foxnic.web.domain.system.CodeExampleRole;
-import org.github.foxnic.web.domain.system.CodeExampleRoleVO;
-import java.util.List;
-import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.entity.SuperService;
-import com.github.foxnic.dao.spec.DAO;
-import java.lang.reflect.Field;
-import com.github.foxnic.commons.busi.id.IDGenerator;
-import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.dao.data.PagedList;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.SuperService;
+import com.github.foxnic.dao.excel.ExcelStructure;
 import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.dao.excel.ExcelStructure;
-import java.io.InputStream;
+import com.github.foxnic.dao.spec.DAO;
+import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.meta.DBColumnMeta;
-import com.github.foxnic.sql.expr.Select;
-import java.util.ArrayList;
-import org.github.foxnic.web.system.service.ICodeExampleRoleService;
+import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_CODE_EXAMPLE_ROLE;
+import org.github.foxnic.web.domain.oauth.Role;
+import org.github.foxnic.web.domain.system.CodeExample;
+import org.github.foxnic.web.domain.system.CodeExampleRole;
 import org.github.foxnic.web.framework.dao.DBConfigs;
-import org.github.foxnic.web.constants.db.FoxnicWeb.*;
+import org.github.foxnic.web.system.service.ICodeExampleRoleService;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.io.InputStream;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -239,7 +236,7 @@ public class CodeExampleRoleServiceImpl extends SuperService<CodeExampleRole> im
      * @param roleIds 角色ID清单
      */
 	public void saveRelation(String exampleId,List<String> roleIds) {
-		super.saveRelation(SYS_CODE_EXAMPLE_ROLE.EXAMPLE_ID,exampleId, SYS_CODE_EXAMPLE_ROLE.ROLE_ID,roleIds,true);
+		super.saveRelation(CodeExample.class, SYS_CODE_EXAMPLE_ROLE.EXAMPLE_ID,exampleId, Role.class,SYS_CODE_EXAMPLE_ROLE.ROLE_ID,roleIds,true);
 	}
 
 }

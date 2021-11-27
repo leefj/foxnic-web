@@ -14,8 +14,8 @@ import org.github.foxnic.web.domain.system.BusiRole;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-15 16:54:34
- * @sign 91FE0FC58A82B277273BD75C121D6A47
+ * @since 2021-11-27 12:57:48
+ * @sign 92136229B911D012DBBA1AB4C19C7555
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -222,24 +222,24 @@ public class EmployeeMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Employee,org.github.foxnic.web.domain.hrm.Organization> ORGANIZATIONS_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Employee.class ,ORGANIZATIONS, java.util.List.class, "组织清单", "作为员工时，所属的组织清单", org.github.foxnic.web.domain.hrm.Organization.class, null);
 	
 	/**
-	 * 主职 , 作为员工时，所属的主职 , 类型: org.github.foxnic.web.domain.hrm.Position
+	 * 主岗 , 作为员工时，所属的主岗 , 类型: org.github.foxnic.web.domain.hrm.Position
 	*/
 	public static final String PRIMARY_POSITION="primaryPosition";
 	
 	/**
-	 * 主职 , 作为员工时，所属的主职 , 类型: org.github.foxnic.web.domain.hrm.Position
+	 * 主岗 , 作为员工时，所属的主岗 , 类型: org.github.foxnic.web.domain.hrm.Position
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Employee,org.github.foxnic.web.domain.hrm.Position> PRIMARY_POSITION_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Employee.class ,PRIMARY_POSITION, org.github.foxnic.web.domain.hrm.Position.class, "主职", "作为员工时，所属的主职", org.github.foxnic.web.domain.hrm.Position.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Employee,org.github.foxnic.web.domain.hrm.Position> PRIMARY_POSITION_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Employee.class ,PRIMARY_POSITION, org.github.foxnic.web.domain.hrm.Position.class, "主岗", "作为员工时，所属的主岗", org.github.foxnic.web.domain.hrm.Position.class, null);
 	
 	/**
-	 * 主职部门 , 作为员工时，所属的主职部门 , 类型: org.github.foxnic.web.domain.hrm.Organization
+	 * 主岗部门 , 作为员工时，所属的主岗部门 , 类型: org.github.foxnic.web.domain.hrm.Organization
 	*/
 	public static final String PRIMARY_ORGANIZATION="primaryOrganization";
 	
 	/**
-	 * 主职部门 , 作为员工时，所属的主职部门 , 类型: org.github.foxnic.web.domain.hrm.Organization
+	 * 主岗部门 , 作为员工时，所属的主岗部门 , 类型: org.github.foxnic.web.domain.hrm.Organization
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Employee,org.github.foxnic.web.domain.hrm.Organization> PRIMARY_ORGANIZATION_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Employee.class ,PRIMARY_ORGANIZATION, org.github.foxnic.web.domain.hrm.Organization.class, "主职部门", "作为员工时，所属的主职部门", org.github.foxnic.web.domain.hrm.Organization.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Employee,org.github.foxnic.web.domain.hrm.Organization> PRIMARY_ORGANIZATION_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Employee.class ,PRIMARY_ORGANIZATION, org.github.foxnic.web.domain.hrm.Organization.class, "主岗部门", "作为员工时，所属的主岗部门", org.github.foxnic.web.domain.hrm.Organization.class, null);
 	
 	/**
 	 * 业务角色清单 , 作为员工时，所属的业务角色 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.system.BusiRole
@@ -252,9 +252,29 @@ public class EmployeeMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Employee,org.github.foxnic.web.domain.system.BusiRole> BUSI_ROLES_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Employee.class ,BUSI_ROLES, java.util.List.class, "业务角色清单", "作为员工时，所属的业务角色", org.github.foxnic.web.domain.system.BusiRole.class, null);
 	
 	/**
+	 * 主岗ID , 只有一个 , 类型: java.lang.String
+	*/
+	public static final String PRIMARY_POSITION_ID="primaryPositionId";
+	
+	/**
+	 * 主岗ID , 只有一个 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Employee,java.lang.String> PRIMARY_POSITION_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Employee.class ,PRIMARY_POSITION_ID, java.lang.String.class, "主岗ID", "只有一个", java.lang.String.class, null);
+	
+	/**
+	 * 副岗ID , 多个用逗号隔开 , 集合类型: LIST , 类型: java.lang.String
+	*/
+	public static final String VICE_POSITION_IDS="vicePositionIds";
+	
+	/**
+	 * 副岗ID , 多个用逗号隔开 , 集合类型: LIST , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Employee,java.lang.String> VICE_POSITION_IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Employee.class ,VICE_POSITION_IDS, java.util.List.class, "副岗ID", "多个用逗号隔开", java.lang.String.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , BADGE , PHONE , PERSON_ID , COMPANY_ID , STATUS , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , PERSON , COMPANY , NAME_AND_BADGE , POSITIONS , ORGANIZATIONS , PRIMARY_POSITION , PRIMARY_ORGANIZATION , BUSI_ROLES };
+	public static final String[] $PROPS={ ID , BADGE , PHONE , PERSON_ID , COMPANY_ID , STATUS , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , PERSON , COMPANY , NAME_AND_BADGE , POSITIONS , ORGANIZATIONS , PRIMARY_POSITION , PRIMARY_ORGANIZATION , BUSI_ROLES , PRIMARY_POSITION_ID , VICE_POSITION_IDS };
 	
 	/**
 	 * 代理类
@@ -485,8 +505,8 @@ public class EmployeeMeta {
 		}
 		
 		/**
-		 * 设置 主职
-		 * @param primaryPosition 主职
+		 * 设置 主岗
+		 * @param primaryPosition 主岗
 		 * @return 当前对象
 		*/
 		public Employee setPrimaryPosition(Position primaryPosition) {
@@ -496,8 +516,8 @@ public class EmployeeMeta {
 		}
 		
 		/**
-		 * 设置 主职部门
-		 * @param primaryOrganization 主职部门
+		 * 设置 主岗部门
+		 * @param primaryOrganization 主岗部门
 		 * @return 当前对象
 		*/
 		public Employee setPrimaryOrganization(Organization primaryOrganization) {
@@ -514,6 +534,28 @@ public class EmployeeMeta {
 		public Employee setBusiRoles(List<BusiRole> busiRoles) {
 			super.change(BUSI_ROLES,super.getBusiRoles(),busiRoles);
 			super.setBusiRoles(busiRoles);
+			return this;
+		}
+		
+		/**
+		 * 设置 主岗ID
+		 * @param primaryPositionId 主岗ID
+		 * @return 当前对象
+		*/
+		public Employee setPrimaryPositionId(String primaryPositionId) {
+			super.change(PRIMARY_POSITION_ID,super.getPrimaryPositionId(),primaryPositionId);
+			super.setPrimaryPositionId(primaryPositionId);
+			return this;
+		}
+		
+		/**
+		 * 设置 副岗ID
+		 * @param vicePositionIds 副岗ID
+		 * @return 当前对象
+		*/
+		public Employee setVicePositionIds(List<String> vicePositionIds) {
+			super.change(VICE_POSITION_IDS,super.getVicePositionIds(),vicePositionIds);
+			super.setVicePositionIds(vicePositionIds);
 			return this;
 		}
 	}

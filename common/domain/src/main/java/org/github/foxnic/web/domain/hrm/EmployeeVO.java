@@ -12,75 +12,81 @@ import com.github.foxnic.commons.bean.BeanUtil;
 /**
  * 员工
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-14 15:44:27
- * @sign 7A7E6A82D643B0FA58FC7427BF545AB9
+ * @since 2021-11-27 11:32:01
+ * @sign CD6F210B59AF577A68702D75A5200D48
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
 public class EmployeeVO extends Employee {
 
 	private static final long serialVersionUID = 1L;
-
+	
 	/**
 	 * 页码
 	*/
 	@ApiModelProperty(required = false,value="页码" , notes = "")
 	private Integer pageIndex;
-
+	
 	/**
 	 * 分页大小
 	*/
 	@ApiModelProperty(required = false,value="分页大小" , notes = "")
 	private Integer pageSize;
-
+	
 	/**
 	 * 搜索字段
 	*/
 	@ApiModelProperty(required = false,value="搜索字段" , notes = "")
 	private String searchField;
-
+	
 	/**
 	 * 模糊搜索字段
 	*/
 	@ApiModelProperty(required = false,value="模糊搜索字段" , notes = "")
 	private String fuzzyField;
-
+	
 	/**
 	 * 搜索的值
 	*/
 	@ApiModelProperty(required = false,value="搜索的值" , notes = "")
 	private String searchValue;
-
+	
+	/**
+	 * 已修改字段
+	*/
+	@ApiModelProperty(required = false,value="已修改字段" , notes = "")
+	private List<String> dirtyFields;
+	
 	/**
 	 * 排序字段
 	*/
 	@ApiModelProperty(required = false,value="排序字段" , notes = "")
 	private String sortField;
-
+	
 	/**
 	 * 排序方式
 	*/
 	@ApiModelProperty(required = false,value="排序方式" , notes = "")
 	private String sortType;
-
+	
 	/**
 	 * 主键清单：用于接收批量主键参数
 	*/
 	@ApiModelProperty(required = false,value="主键清单" , notes = "用于接收批量主键参数")
 	private List<String> ids;
-
+	
 	/**
 	 * 所属组织ID
 	*/
 	@ApiModelProperty(required = false,value="所属组织ID" , notes = "")
 	private String orgId;
-
+	
 	/**
 	 * 岗位ID
 	*/
 	@ApiModelProperty(required = false,value="岗位ID" , notes = "")
 	private String positionId;
-
+	
 	/**
 	 * 获得 页码<br>
 	 * @return 页码
@@ -88,7 +94,7 @@ public class EmployeeVO extends Employee {
 	public Integer getPageIndex() {
 		return pageIndex;
 	}
-
+	
 	/**
 	 * 设置 页码
 	 * @param pageIndex 页码
@@ -98,7 +104,7 @@ public class EmployeeVO extends Employee {
 		this.pageIndex=pageIndex;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 分页大小<br>
 	 * @return 分页大小
@@ -106,7 +112,7 @@ public class EmployeeVO extends Employee {
 	public Integer getPageSize() {
 		return pageSize;
 	}
-
+	
 	/**
 	 * 设置 分页大小
 	 * @param pageSize 分页大小
@@ -116,7 +122,7 @@ public class EmployeeVO extends Employee {
 		this.pageSize=pageSize;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 搜索字段<br>
 	 * @return 搜索字段
@@ -124,7 +130,7 @@ public class EmployeeVO extends Employee {
 	public String getSearchField() {
 		return searchField;
 	}
-
+	
 	/**
 	 * 设置 搜索字段
 	 * @param searchField 搜索字段
@@ -134,7 +140,7 @@ public class EmployeeVO extends Employee {
 		this.searchField=searchField;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 模糊搜索字段<br>
 	 * @return 模糊搜索字段
@@ -142,7 +148,7 @@ public class EmployeeVO extends Employee {
 	public String getFuzzyField() {
 		return fuzzyField;
 	}
-
+	
 	/**
 	 * 设置 模糊搜索字段
 	 * @param fuzzyField 模糊搜索字段
@@ -152,7 +158,7 @@ public class EmployeeVO extends Employee {
 		this.fuzzyField=fuzzyField;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 搜索的值<br>
 	 * @return 搜索的值
@@ -160,7 +166,7 @@ public class EmployeeVO extends Employee {
 	public String getSearchValue() {
 		return searchValue;
 	}
-
+	
 	/**
 	 * 设置 搜索的值
 	 * @param searchValue 搜索的值
@@ -170,7 +176,36 @@ public class EmployeeVO extends Employee {
 		this.searchValue=searchValue;
 		return this;
 	}
-
+	
+	/**
+	 * 获得 已修改字段<br>
+	 * @return 已修改字段
+	*/
+	public List<String> getDirtyFields() {
+		return dirtyFields;
+	}
+	
+	/**
+	 * 设置 已修改字段
+	 * @param dirtyFields 已修改字段
+	 * @return 当前对象
+	*/
+	public EmployeeVO setDirtyFields(List<String> dirtyFields) {
+		this.dirtyFields=dirtyFields;
+		return this;
+	}
+	
+	/**
+	 * 添加 已修改字段
+	 * @param dirtyField 已修改字段
+	 * @return 当前对象
+	*/
+	public EmployeeVO addDirtyField(String dirtyField) {
+		if(this.dirtyFields==null) dirtyFields=new ArrayList<>();
+		this.dirtyFields.add(dirtyField);
+		return this;
+	}
+	
 	/**
 	 * 获得 排序字段<br>
 	 * @return 排序字段
@@ -178,7 +213,7 @@ public class EmployeeVO extends Employee {
 	public String getSortField() {
 		return sortField;
 	}
-
+	
 	/**
 	 * 设置 排序字段
 	 * @param sortField 排序字段
@@ -188,7 +223,7 @@ public class EmployeeVO extends Employee {
 		this.sortField=sortField;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 排序方式<br>
 	 * @return 排序方式
@@ -196,7 +231,7 @@ public class EmployeeVO extends Employee {
 	public String getSortType() {
 		return sortType;
 	}
-
+	
 	/**
 	 * 设置 排序方式
 	 * @param sortType 排序方式
@@ -206,7 +241,7 @@ public class EmployeeVO extends Employee {
 		this.sortType=sortType;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 主键清单<br>
 	 * 用于接收批量主键参数
@@ -215,7 +250,7 @@ public class EmployeeVO extends Employee {
 	public List<String> getIds() {
 		return ids;
 	}
-
+	
 	/**
 	 * 设置 主键清单
 	 * @param ids 主键清单
@@ -225,7 +260,7 @@ public class EmployeeVO extends Employee {
 		this.ids=ids;
 		return this;
 	}
-
+	
 	/**
 	 * 添加 主键清单
 	 * @param id 主键清单
@@ -236,7 +271,7 @@ public class EmployeeVO extends Employee {
 		this.ids.add(id);
 		return this;
 	}
-
+	
 	/**
 	 * 获得 所属组织ID<br>
 	 * @return 所属组织ID
@@ -244,7 +279,7 @@ public class EmployeeVO extends Employee {
 	public String getOrgId() {
 		return orgId;
 	}
-
+	
 	/**
 	 * 设置 所属组织ID
 	 * @param orgId 所属组织ID
@@ -254,7 +289,7 @@ public class EmployeeVO extends Employee {
 		this.orgId=orgId;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 岗位ID<br>
 	 * @return 岗位ID
@@ -262,7 +297,7 @@ public class EmployeeVO extends Employee {
 	public String getPositionId() {
 		return positionId;
 	}
-
+	
 	/**
 	 * 设置 岗位ID
 	 * @param positionId 岗位ID
