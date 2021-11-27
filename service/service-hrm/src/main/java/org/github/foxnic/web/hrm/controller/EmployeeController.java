@@ -171,6 +171,7 @@ public class EmployeeController extends SuperController {
 		Employee employee=employeeService.getById(id);
 		// 关联出 姓名 数据
 		employeeService.join(employee,EmployeeMeta.PERSON,EmployeeMeta.POSITIONS);
+//		employeeService.join(employee,EmployeeMeta.PERSON);
 		result.success(true).data(employee);
 		return result;
 	}
