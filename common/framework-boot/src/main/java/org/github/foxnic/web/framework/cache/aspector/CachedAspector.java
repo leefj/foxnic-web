@@ -39,21 +39,27 @@ public class CachedAspector {
 	private Object processServiceMethod(ProceedingJoinPoint joinPoint,Cached cached) throws Throwable {
 		SuperService service=(SuperService)joinPoint.getTarget();
 		DoubleCache<String,Object> cache=service.cache();
-
-		String[] names=cached.value();
-		Object result = null;
-		for (String name : names) {
-			CacheStrategy strategy=service.getCacheStrategy(name);
-			if(strategy==null || cache==null) {
-				continue;
-			}
-			String key=strategy.makeKey(joinPoint.getArgs()[0]);
-			if(key==null) continue;
-			result=cache.get(key);
-			if(result!=null){
-				break;
-			}
+		if(cache==null) {
+			return joinPoint.proceed();
 		}
+
+		String name=cached.value();
+		String key = null;
+		CacheStrategy strategy = null;
+		Object result = null;
+		strategy=service.getCacheStrategy(name);
+		if(strategy==null) {
+			return joinPoint.proceed();
+		}
+		key=strategy.makeKey(joinPoint.getArgs()[0]);
+		if(key==null){
+			return joinPoint.proceed();
+		}
+		result=cache.get(key);
+//			if(result!=null){
+//				break;
+//			}
+//		}
 
 		if(result!=null) {
 			return result;
@@ -61,12 +67,12 @@ public class CachedAspector {
 
 		result = joinPoint.proceed();
 
-		for (String name : names) {
-			CacheStrategy strategy = service.getCacheStrategy(name);
-			if (strategy == null || cache == null) {
-				continue;
-			}
-			String key = strategy.makeKey(joinPoint.getArgs()[0]);
+//		for (String name : names) {
+//			strategy = service.getCacheStrategy(name);
+//			if (strategy == null || cache == null) {
+//				continue;
+//			}
+//			key = strategy.makeKey(joinPoint.getArgs()[0]);
 			boolean isEmpty=false;
 			if(result==null) {
 				isEmpty=true;
@@ -83,7 +89,7 @@ public class CachedAspector {
 					cache.put(key, result);
 				}
 			}
-		}
+//		}
 
 
 //		CacheStrategy strategy=service.getCacheStrategy();

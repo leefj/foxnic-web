@@ -222,7 +222,7 @@ public class DbCacheServiceImpl extends SuperService<DbCache> implements IDbCach
 	 * @return 查询结果
 	 * */
 	@Override
-	@Cached({"query-list-1","query-list-2"})
+	@Cached("query-list")
 	public List<DbCache> queryList(DbCache sample) {
 		System.out.println(JSON.toJSONString(sample));
 		return super.queryList(sample);
