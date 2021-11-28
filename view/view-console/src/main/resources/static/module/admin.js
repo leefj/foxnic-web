@@ -100,18 +100,20 @@ layui.define(['settings', 'layer'], function (exports) {
         	if(top && top!=window && top.admin) {
                 return top.admin.popupCenter(param);
         	}
-
-            param.id =param.id?param.id : 'adminPopupC';
+            // debugger
+            param.id =param.id ? param.id : 'adminPopupC';
             popupCenterParam = param;
             popupCenterIndex = admin.open(param);
             popupCenterParamMap[popupCenterIndex]=popupCenterParam;
+            var index=popupCenterIndex;
             if(param.id) {
-                this.putVar("$$"+param.id+"-popup-index");
+                this.putVar("$$"+param.id+"-popup-index",index);
             }
-            return popupCenterIndex;
+            return index;
         },
         // 关闭中间弹出并且触发finish回调
         finishPopupCenterById: function (id) {
+            debugger;
             var index=this.getVar("$$"+id+"-popup-index");
             this.finishPopupCenter(index);
         },
@@ -122,6 +124,7 @@ layui.define(['settings', 'layer'], function (exports) {
         		top.admin.finishPopupCenter(index);
         		return;
         	}
+        	console.log("finishPopupCenter.index="+index);
         	if(index) {
                 layer.close(index);
                 popupCenterParam=popupCenterParamMap[index];

@@ -149,7 +149,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * */
         beforeSubmit:function (data) {
             console.log("beforeSubmit",data);
-            debugger;
+            // debugger;
             data.positionId= admin.getTempData("lockedPositionId");;
             return true;
         },

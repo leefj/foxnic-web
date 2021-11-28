@@ -39,18 +39,34 @@ public class CachedAspector {
 	private Object processServiceMethod(ProceedingJoinPoint joinPoint,Cached cached) throws Throwable {
 		SuperService service=(SuperService)joinPoint.getTarget();
 		DoubleCache<String,Object> cache=service.cache();
-		CacheStrategy strategy=service.getCacheStrategy(cached.value());
-		if(strategy==null || cache==null) {
-			return joinPoint.proceed();
+
+		String[] names=cached.value();
+		Object result = null;
+		for (String name : names) {
+			CacheStrategy strategy=service.getCacheStrategy(name);
+			if(strategy==null || cache==null) {
+				continue;
+			}
+			String key=strategy.makeKey(joinPoint.getArgs()[0]);
+			if(key==null) continue;
+			result=cache.get(key);
+			if(result!=null){
+				break;
+			}
 		}
-		String key=strategy.makeKey(joinPoint.getArgs()[0]);
-		//缓存键为空，通常是不符合精准匹配的缓存注解
-		if(key==null) {
-			return joinPoint.proceed();
+
+		if(result!=null) {
+			return result;
 		}
-		Object result=cache.get(key);
-		if(result==null) {
-			result = joinPoint.proceed();
+
+		result = joinPoint.proceed();
+
+		for (String name : names) {
+			CacheStrategy strategy = service.getCacheStrategy(name);
+			if (strategy == null || cache == null) {
+				continue;
+			}
+			String key = strategy.makeKey(joinPoint.getArgs()[0]);
 			boolean isEmpty=false;
 			if(result==null) {
 				isEmpty=true;
@@ -68,6 +84,37 @@ public class CachedAspector {
 				}
 			}
 		}
+
+
+//		CacheStrategy strategy=service.getCacheStrategy();
+//		if(strategy==null || cache==null) {
+//			return joinPoint.proceed();
+//		}
+//
+//		//缓存键为空，通常是不符合精准匹配的缓存注解
+//		if(key==null) {
+//			return joinPoint.proceed();
+//		}
+//		Object result=cache.get(key);
+//		if(result==null) {
+//			result = joinPoint.proceed();
+//			boolean isEmpty=false;
+//			if(result==null) {
+//				isEmpty=true;
+//			} else {
+//				if(result instanceof Collection) {
+//					isEmpty=((Collection)result).isEmpty();
+//				}
+//			}
+//			//如果缓存null以及空集合
+//			if(strategy.isCacheEmptyResult()) {
+//				cache.put(key, result);
+//			} else {
+//				if(!isEmpty) {
+//					cache.put(key, result);
+//				}
+//			}
+//		}
 		return result;
 	}
 

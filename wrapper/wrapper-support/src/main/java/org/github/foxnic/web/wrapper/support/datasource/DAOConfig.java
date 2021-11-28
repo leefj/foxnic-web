@@ -32,9 +32,6 @@ public class DAOConfig {
 	@Value("${develop.start-relation-monitor}")
 	private  Boolean startRelationMonitor=false;
 
-//	@Autowired
-	private CacheProperties cacheProperties;
-
 	@Bean(DBConfigs.PRIMARY_DAO)
 	@Primary
 	public DAO primaryDAO (
