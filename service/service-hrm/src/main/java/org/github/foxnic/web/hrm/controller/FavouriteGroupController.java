@@ -48,7 +48,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 常用人员分组表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-14 15:44:30
+ * @since 2021-11-29 17:30:27
 */
 
 @Api(tags = "常用人员分组")
@@ -80,7 +80,7 @@ public class FavouriteGroupController extends SuperController {
 	@SentinelResource(value = FavouriteGroupServiceProxy.INSERT , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(FavouriteGroupServiceProxy.INSERT)
 	public Result insert(FavouriteGroupVO favouriteGroupVO) {
-		Result result=favouriteGroupService.insert(favouriteGroupVO);
+		Result result=favouriteGroupService.insert(favouriteGroupVO,false);
 		return result;
 	}
 
@@ -133,7 +133,7 @@ public class FavouriteGroupController extends SuperController {
 		@ApiImplicitParam(name = FavouriteGroupVOMeta.SORT , value = "排序" , required = false , dataTypeClass=Integer.class),
 		@ApiImplicitParam(name = FavouriteGroupVOMeta.COMPANY_ID , value = "总公司ID" , required = false , dataTypeClass=String.class),
 	})
-	@ApiOperationSupport( order=4 , ignoreParameters = { FavouriteGroupVOMeta.PAGE_INDEX , FavouriteGroupVOMeta.PAGE_SIZE , FavouriteGroupVOMeta.SEARCH_FIELD , FavouriteGroupVOMeta.FUZZY_FIELD , FavouriteGroupVOMeta.SEARCH_VALUE , FavouriteGroupVOMeta.SORT_FIELD , FavouriteGroupVOMeta.SORT_TYPE , FavouriteGroupVOMeta.IDS } )
+	@ApiOperationSupport( order=4 , ignoreParameters = { FavouriteGroupVOMeta.PAGE_INDEX , FavouriteGroupVOMeta.PAGE_SIZE , FavouriteGroupVOMeta.SEARCH_FIELD , FavouriteGroupVOMeta.FUZZY_FIELD , FavouriteGroupVOMeta.SEARCH_VALUE , FavouriteGroupVOMeta.DIRTY_FIELDS , FavouriteGroupVOMeta.SORT_FIELD , FavouriteGroupVOMeta.SORT_TYPE , FavouriteGroupVOMeta.IDS } )
 	@NotNull(name = FavouriteGroupVOMeta.ID)
 	@NotNull(name = FavouriteGroupVOMeta.NAME)
 	@NotNull(name = FavouriteGroupVOMeta.PARENT_ID)
@@ -141,7 +141,7 @@ public class FavouriteGroupController extends SuperController {
 	@SentinelResource(value = FavouriteGroupServiceProxy.UPDATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(FavouriteGroupServiceProxy.UPDATE)
 	public Result update(FavouriteGroupVO favouriteGroupVO) {
-		Result result=favouriteGroupService.update(favouriteGroupVO,SaveMode.NOT_NULL_FIELDS);
+		Result result=favouriteGroupService.update(favouriteGroupVO,SaveMode.DIRTY_OR_NOT_NULL_FIELDS,false);
 		return result;
 	}
 
@@ -159,7 +159,7 @@ public class FavouriteGroupController extends SuperController {
 		@ApiImplicitParam(name = FavouriteGroupVOMeta.SORT , value = "排序" , required = false , dataTypeClass=Integer.class),
 		@ApiImplicitParam(name = FavouriteGroupVOMeta.COMPANY_ID , value = "总公司ID" , required = false , dataTypeClass=String.class),
 	})
-	@ApiOperationSupport(order=5 ,  ignoreParameters = { FavouriteGroupVOMeta.PAGE_INDEX , FavouriteGroupVOMeta.PAGE_SIZE , FavouriteGroupVOMeta.SEARCH_FIELD , FavouriteGroupVOMeta.FUZZY_FIELD , FavouriteGroupVOMeta.SEARCH_VALUE , FavouriteGroupVOMeta.SORT_FIELD , FavouriteGroupVOMeta.SORT_TYPE , FavouriteGroupVOMeta.IDS } )
+	@ApiOperationSupport(order=5 ,  ignoreParameters = { FavouriteGroupVOMeta.PAGE_INDEX , FavouriteGroupVOMeta.PAGE_SIZE , FavouriteGroupVOMeta.SEARCH_FIELD , FavouriteGroupVOMeta.FUZZY_FIELD , FavouriteGroupVOMeta.SEARCH_VALUE , FavouriteGroupVOMeta.DIRTY_FIELDS , FavouriteGroupVOMeta.SORT_FIELD , FavouriteGroupVOMeta.SORT_TYPE , FavouriteGroupVOMeta.IDS } )
 	@NotNull(name = FavouriteGroupVOMeta.ID)
 	@NotNull(name = FavouriteGroupVOMeta.NAME)
 	@NotNull(name = FavouriteGroupVOMeta.PARENT_ID)
@@ -167,7 +167,7 @@ public class FavouriteGroupController extends SuperController {
 	@SentinelResource(value = FavouriteGroupServiceProxy.SAVE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(FavouriteGroupServiceProxy.SAVE)
 	public Result save(FavouriteGroupVO favouriteGroupVO) {
-		Result result=favouriteGroupService.save(favouriteGroupVO,SaveMode.NOT_NULL_FIELDS);
+		Result result=favouriteGroupService.save(favouriteGroupVO,SaveMode.DIRTY_OR_NOT_NULL_FIELDS,false);
 		return result;
 	}
 
@@ -266,10 +266,14 @@ public class FavouriteGroupController extends SuperController {
 	@SentinelResource(value = FavouriteGroupServiceProxy.EXPORT_EXCEL , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@RequestMapping(FavouriteGroupServiceProxy.EXPORT_EXCEL)
 	public void exportExcel(FavouriteGroupVO  sample,HttpServletResponse response) throws Exception {
+		try{
 			//生成 Excel 数据
 			ExcelWriter ew=favouriteGroupService.exportExcel(sample);
 			//下载
-			DownloadUtil.writeToOutput(response, ew.getWorkBook(), ew.getWorkBookName());
+			DownloadUtil.writeToOutput(response,ew.getWorkBook(),ew.getWorkBookName());
+		} catch (Exception e) {
+			DownloadUtil.writeDownloadError(response,e);
+		}
 	}
 
 
@@ -279,11 +283,15 @@ public class FavouriteGroupController extends SuperController {
 	@SentinelResource(value = FavouriteGroupServiceProxy.EXPORT_EXCEL_TEMPLATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@RequestMapping(FavouriteGroupServiceProxy.EXPORT_EXCEL_TEMPLATE)
 	public void exportExcelTemplate(HttpServletResponse response) throws Exception {
+		try{
 			//生成 Excel 模版
 			ExcelWriter ew=favouriteGroupService.exportExcelTemplate();
 			//下载
 			DownloadUtil.writeToOutput(response, ew.getWorkBook(), ew.getWorkBookName());
+		} catch (Exception e) {
+			DownloadUtil.writeDownloadError(response,e);
 		}
+	}
 
 
 

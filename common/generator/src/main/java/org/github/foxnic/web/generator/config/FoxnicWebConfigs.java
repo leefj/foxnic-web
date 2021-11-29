@@ -21,12 +21,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class FoxnicWebConfigs {
-	
+
 	private String appConfigPrefix;
 	private ProjectConfigs projectConfigs;
- 
+
 	protected GlobalSettings settings=null;
-	
+
 	//
 	private MavenProject  generatorProject=null;
 	private MavenProject  domianProject=null;
@@ -34,11 +34,11 @@ public class FoxnicWebConfigs {
 	private MavenProject proxyProject;
 	private MavenProject viewProject;
 	private MavenProject wrapperProject;
- 
+
 	//
 	private String nacosGroup;
 	private String nacosDataId;
-	
+
 	//
 	private String nacosServerAddr = null;
 	private String nacosNamespace=null;
@@ -49,44 +49,44 @@ public class FoxnicWebConfigs {
 	//
 	private YMLProperties applicationConfigs;
 	private DAO dao;
-	
- 
+
+
 	public FoxnicWebConfigs(String appId) {
-		
+
 		System.out.println("machine Id : "+Machine.getIdentity());
-		
+
 		initGlobalSettings();
 		//
 		generatorProject=new MavenProject(FoxnicWebConfigs.class);
-		
-		
+
+
 		File configFile=FileUtil.resolveByPath(this.generatorProject.getMainResourceDir(), "config.yml");
 		this.appConfigPrefix="applications."+appId;
 		projectConfigs=new ProjectConfigs(this.appConfigPrefix,new YMLProperties(configFile));
-		
+
 		File baseDir=generatorProject.getProjectDir().getParentFile().getParentFile();
-		
+
 		//
 		File domainProjectFolder=FileUtil.resolveByPath(baseDir, this.projectConfigs.getDomainProjectPath());
-		domianProject=new MavenProject(domainProjectFolder); 
-		
+		domianProject=new MavenProject(domainProjectFolder);
+
 		File serviceProjectFolder=FileUtil.resolveByPath(baseDir,  projectConfigs.getAppServiceProjectPath());
 		serviceProject=new MavenProject(serviceProjectFolder);
-		
+
 		File proxyProjectFolder=FileUtil.resolveByPath(baseDir,  this.projectConfigs.getProxyProjectPath());
 		proxyProject=new MavenProject(proxyProjectFolder);
-		
+
 		File viewProjectFolder=FileUtil.resolveByPath(baseDir,  this.projectConfigs.getAppViewProjectPath());
 		viewProject=new MavenProject(viewProjectFolder);
-		
+
 		File wrapperProjectFolder=FileUtil.resolveByPath(baseDir,  this.projectConfigs.getAppWrapperProjectPath());
 		wrapperProject=new MavenProject(wrapperProjectFolder);
-		
-		
+
+
 		//读取配置
 		File bootstrapFile=FileUtil.resolveByPath(this.getWrapperProject().getMainResourceDir(), "bootstrap.yml");
 		File applicationFile=FileUtil.resolveByPath(this.getWrapperProject().getMainResourceDir(), "application.yml");
-		
+
 		if(bootstrapFile.exists() && !applicationFile.exists()) {
 			YMLProperties bootstrapProperties=new YMLProperties(bootstrapFile);
 			nacosServerAddr=bootstrapProperties.getProperty("application.nacos.ip").stringValue();
@@ -101,30 +101,30 @@ public class FoxnicWebConfigs {
 		} else if(!bootstrapFile.exists() && applicationFile.exists()) {
 			applicationConfigs=new YMLProperties(applicationFile);
 		}
- 
+
 		this.datasourceConfigKey=this.projectConfigs.getAppPrimaryDatasourceConfigKey();
- 
+
 		try {
 			initDAO();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
+
+
 		String author=projectConfigs.getAuthorInfo();
-		
+
 		if(author==null) {
 			throw new IllegalArgumentException("请按机器码 "+Machine.getIdentity()+" 配置开发人员");
 		}
-		
+
 		this.settings.setAuthor(author);
 		this.settings.setEnableSwagger(projectConfigs.isEnableSwagger());
 		this.settings.setEnableMicroService(projectConfigs.isEnableMicroService());
-//		this.settings.setRebuildEntity(true);
- 
+		this.settings.setRebuildEntity(true);
+
 	}
- 
-	
+
+
 	private void initGlobalSettings() {
 		this.settings=new GlobalSettings();
 		this.settings.setAuthor("李方捷");
@@ -133,12 +133,12 @@ public class FoxnicWebConfigs {
 	private  static Map<String,DAO> DAOS=new HashMap<>();
 
 	private void initDAO() throws Exception {
-		
+
 		if(dao!=null) return;
 
-		
+
 		// 读取数据库配置
-		
+
 		String prefix=this.getDatasourceConfigKey()+".";
 		//
 		String driver=applicationConfigs.getProperty(prefix+"driver-class-name").stringValue();
@@ -162,7 +162,7 @@ public class FoxnicWebConfigs {
 		DBConfigs.reset(ds, DatasourceConfig.PRIMARY_DATASOURCE_CONFIG_KEY,applicationConfigs);
 
 		dao = (new DAOBuilder()).datasource(ds).build();
-		
+
 		// 设置数据库规约
 		DBTreaty dbTreaty = (new DAOConfig()).getDBTreaty();
 		dao.setDBTreaty(dbTreaty);
@@ -177,11 +177,11 @@ public class FoxnicWebConfigs {
 		nacosConfig.saveConfig(this.nacosDataId, this.nacosGroup, file);
 		return file;
 	}
-	
+
 	public MavenProject getGeneratorProject() {
 		return generatorProject;
 	}
- 
+
 	public MavenProject getDomianProject() {
 		return domianProject;
 	}
@@ -189,7 +189,7 @@ public class FoxnicWebConfigs {
 	public ProjectConfigs getProjectConfigs() {
 		return projectConfigs;
 	}
-	
+
 	public MavenProject getViewProject() {
 		return viewProject;
 	}
@@ -203,27 +203,27 @@ public class FoxnicWebConfigs {
 	public MavenProject getProxyProject() {
 		return proxyProject;
 	}
- 
+
 	public String getNacosServerAddr() {
 		return nacosServerAddr;
 	}
- 
+
 	public String getNacosNamespace() {
 		return nacosNamespace;
 	}
- 
+
 	public String getNacosUserName() {
 		return nacosUserName;
 	}
- 
+
 	public String getNacosPassword() {
 		return nacosPassword;
 	}
- 
+
 	public String getDatasourceConfigKey() {
 		return datasourceConfigKey;
 	}
- 
+
 	public DAO getDAO() {
 		return dao;
 	}
@@ -231,7 +231,7 @@ public class FoxnicWebConfigs {
 	public GlobalSettings getSettings() {
 		return settings;
 	}
-	
+
 	public static class ProjectConfigs {
 		private YMLProperties properties;
 		private String appConfigPrefix;
@@ -239,101 +239,101 @@ public class FoxnicWebConfigs {
 			this.properties=properties;
 			this.appConfigPrefix=appConfigPrefix;
 		}
-		
-		
+
+
 
 		public String getDAONameConst() {
 			return properties.getProperty("source.daoNameConst").stringValue();
 		}
-		
+
 		/**
 		 * 获得 nacos group
 		 * */
 		public String getAppNacosGroup() {
 			return properties.getProperty(this.appConfigPrefix+".nacosGroup").stringValue();
 		}
-		
+
 		/**
 		 * 获得 nacos group
 		 * */
 		public String getAppNacosDataId() {
 			return properties.getProperty(this.appConfigPrefix+".nacosDataId").stringValue();
 		}
-		
+
 		/**
 		 * 获得 enableMicroService
 		 * */
 		public boolean isEnableMicroService() {
 			return properties.getProperty("settings.enableMicroService").booleanValue();
 		}
-		
- 
+
+
 		/**
 		 * 获得 enableSwagger
 		 * */
 		public boolean isEnableSwagger() {
 			return properties.getProperty("settings.enableSwagger").booleanValue();
 		}
-		
+
 		/**
 		 * 获得 domain 的路径
 		 * */
 		public String getDomainProjectPath() {
 			return properties.getProperty("compoments.domain").stringValue();
 		}
-		
+
 		/**
 		 * 获得 proxy 的路径
 		 * */
 		public String getProxyProjectPath() {
 			return properties.getProperty("compoments.proxy").stringValue();
 		}
-		
+
 		/**
 		 * 获得 domain 的路径
 		 * */
 		public String getDomainConstantsPackage() {
 			return properties.getProperty("source.domainConstantsPackage").stringValue();
 		}
- 
+
 		/**
 		 * 获得应用的路径
 		 * */
 		public String getAppServiceProjectPath() {
 			return properties.getProperty(this.appConfigPrefix+".serviceProjectPath").stringValue();
 		}
-		
+
 		public String getAppWrapperProjectPath() {
 			return properties.getProperty(this.appConfigPrefix+".wrapperProjectPath").stringValue();
 		}
-		
+
 		public String getAppPrimaryDatasourceConfigKey() {
 			return properties.getProperty(this.appConfigPrefix+".primaryDatasourceConfigKey").stringValue();
 		}
-		
+
 		public String getAppMicroServiceNameConst() {
 			return properties.getProperty(this.appConfigPrefix+".microServiceNameConst").stringValue();
 		}
-		
+
 		public String getAppPackageName() {
 			return properties.getProperty(this.appConfigPrefix+".packageName").stringValue();
 		}
-		
+
 		public String getAppViewProjectPath() {
 			return properties.getProperty(this.appConfigPrefix+".viewProjectPath").stringValue();
 		}
-		
+
 		public String getAppViewPrefixPath() {
 			return properties.getProperty(this.appConfigPrefix+".viewPrefixPath").stringValue();
 		}
-		
-		
-		
+
+
+
 		public String getAppViewPrefixURI() {
 			String codePathPrefix=this.getAppViewPrefixPath();
 			return codePathPrefix.substring(codePathPrefix.indexOf("/"));
 		}
-		
+
 		public String getAuthorInfo() {
 			Variable var=properties.getProperty("authors."+Machine.getIdentity());
 			if(var==null) {
@@ -341,11 +341,11 @@ public class FoxnicWebConfigs {
 			}
 			return var.stringValue();
 		}
-		
-		
-		
-		
-		
+
+
+
+
+
 	}
 
 	public MavenProject getWrapperProject() {
@@ -353,7 +353,7 @@ public class FoxnicWebConfigs {
 	}
 
 
- 
+
 }
 
 

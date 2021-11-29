@@ -48,7 +48,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 人员表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-14 15:44:30
+ * @since 2021-11-29 17:30:24
 */
 
 @Api(tags = "人员")
@@ -77,7 +77,7 @@ public class PersonController extends SuperController {
 	@SentinelResource(value = PersonServiceProxy.INSERT , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(PersonServiceProxy.INSERT)
 	public Result insert(PersonVO personVO) {
-		Result result=personService.insert(personVO);
+		Result result=personService.insert(personVO,false);
 		return result;
 	}
 
@@ -128,14 +128,14 @@ public class PersonController extends SuperController {
 		@ApiImplicitParam(name = PersonVOMeta.SOURCE , value = "来源" , required = true , dataTypeClass=String.class , example = "employee"),
 		@ApiImplicitParam(name = PersonVOMeta.IDENTITY , value = "身份证号码" , required = true , dataTypeClass=String.class , example = "330219198444152524"),
 	})
-	@ApiOperationSupport( order=4 , ignoreParameters = { PersonVOMeta.PAGE_INDEX , PersonVOMeta.PAGE_SIZE , PersonVOMeta.SEARCH_FIELD , PersonVOMeta.FUZZY_FIELD , PersonVOMeta.SEARCH_VALUE , PersonVOMeta.SORT_FIELD , PersonVOMeta.SORT_TYPE , PersonVOMeta.IDS } )
+	@ApiOperationSupport( order=4 , ignoreParameters = { PersonVOMeta.PAGE_INDEX , PersonVOMeta.PAGE_SIZE , PersonVOMeta.SEARCH_FIELD , PersonVOMeta.FUZZY_FIELD , PersonVOMeta.SEARCH_VALUE , PersonVOMeta.DIRTY_FIELDS , PersonVOMeta.SORT_FIELD , PersonVOMeta.SORT_TYPE , PersonVOMeta.IDS } )
 	@NotNull(name = PersonVOMeta.ID)
 	@NotNull(name = PersonVOMeta.SOURCE)
 	@NotNull(name = PersonVOMeta.IDENTITY)
 	@SentinelResource(value = PersonServiceProxy.UPDATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(PersonServiceProxy.UPDATE)
 	public Result update(PersonVO personVO) {
-		Result result=personService.update(personVO,SaveMode.NOT_NULL_FIELDS);
+		Result result=personService.update(personVO,SaveMode.DIRTY_OR_NOT_NULL_FIELDS,false);
 		return result;
 	}
 
@@ -151,14 +151,14 @@ public class PersonController extends SuperController {
 		@ApiImplicitParam(name = PersonVOMeta.SOURCE , value = "来源" , required = true , dataTypeClass=String.class , example = "employee"),
 		@ApiImplicitParam(name = PersonVOMeta.IDENTITY , value = "身份证号码" , required = true , dataTypeClass=String.class , example = "330219198444152524"),
 	})
-	@ApiOperationSupport(order=5 ,  ignoreParameters = { PersonVOMeta.PAGE_INDEX , PersonVOMeta.PAGE_SIZE , PersonVOMeta.SEARCH_FIELD , PersonVOMeta.FUZZY_FIELD , PersonVOMeta.SEARCH_VALUE , PersonVOMeta.SORT_FIELD , PersonVOMeta.SORT_TYPE , PersonVOMeta.IDS } )
+	@ApiOperationSupport(order=5 ,  ignoreParameters = { PersonVOMeta.PAGE_INDEX , PersonVOMeta.PAGE_SIZE , PersonVOMeta.SEARCH_FIELD , PersonVOMeta.FUZZY_FIELD , PersonVOMeta.SEARCH_VALUE , PersonVOMeta.DIRTY_FIELDS , PersonVOMeta.SORT_FIELD , PersonVOMeta.SORT_TYPE , PersonVOMeta.IDS } )
 	@NotNull(name = PersonVOMeta.ID)
 	@NotNull(name = PersonVOMeta.SOURCE)
 	@NotNull(name = PersonVOMeta.IDENTITY)
 	@SentinelResource(value = PersonServiceProxy.SAVE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(PersonServiceProxy.SAVE)
 	public Result save(PersonVO personVO) {
-		Result result=personService.save(personVO,SaveMode.NOT_NULL_FIELDS);
+		Result result=personService.save(personVO,SaveMode.DIRTY_OR_NOT_NULL_FIELDS,false);
 		return result;
 	}
 
@@ -253,10 +253,14 @@ public class PersonController extends SuperController {
 	@SentinelResource(value = PersonServiceProxy.EXPORT_EXCEL , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@RequestMapping(PersonServiceProxy.EXPORT_EXCEL)
 	public void exportExcel(PersonVO  sample,HttpServletResponse response) throws Exception {
+		try{
 			//生成 Excel 数据
 			ExcelWriter ew=personService.exportExcel(sample);
 			//下载
-			DownloadUtil.writeToOutput(response, ew.getWorkBook(), ew.getWorkBookName());
+			DownloadUtil.writeToOutput(response,ew.getWorkBook(),ew.getWorkBookName());
+		} catch (Exception e) {
+			DownloadUtil.writeDownloadError(response,e);
+		}
 	}
 
 
@@ -266,11 +270,15 @@ public class PersonController extends SuperController {
 	@SentinelResource(value = PersonServiceProxy.EXPORT_EXCEL_TEMPLATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@RequestMapping(PersonServiceProxy.EXPORT_EXCEL_TEMPLATE)
 	public void exportExcelTemplate(HttpServletResponse response) throws Exception {
+		try{
 			//生成 Excel 模版
 			ExcelWriter ew=personService.exportExcelTemplate();
 			//下载
 			DownloadUtil.writeToOutput(response, ew.getWorkBook(), ew.getWorkBookName());
+		} catch (Exception e) {
+			DownloadUtil.writeDownloadError(response,e);
 		}
+	}
 
 
 

@@ -14,7 +14,7 @@ import org.github.foxnic.web.domain.system.BusiRole;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-27 12:57:48
+ * @since 2021-11-29 17:30:12
  * @sign 92136229B911D012DBBA1AB4C19C7555
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -272,9 +272,49 @@ public class EmployeeMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Employee,java.lang.String> VICE_POSITION_IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Employee.class ,VICE_POSITION_IDS, java.util.List.class, "副岗ID", "多个用逗号隔开", java.lang.String.class, null);
 	
 	/**
+	 * name , 类型: java.lang.String
+	*/
+	public static final String NAME="name";
+	
+	/**
+	 * name , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Employee,java.lang.String> NAME_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Employee.class ,NAME, java.lang.String.class, "name", "name", java.lang.String.class, null);
+	
+	/**
+	 * sex , 类型: java.lang.String
+	*/
+	public static final String SEX="sex";
+	
+	/**
+	 * sex , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Employee,java.lang.String> SEX_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Employee.class ,SEX, java.lang.String.class, "sex", "sex", java.lang.String.class, null);
+	
+	/**
+	 * source , 类型: java.lang.String
+	*/
+	public static final String SOURCE="source";
+	
+	/**
+	 * source , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Employee,java.lang.String> SOURCE_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Employee.class ,SOURCE, java.lang.String.class, "source", "source", java.lang.String.class, null);
+	
+	/**
+	 * identity , 类型: java.lang.String
+	*/
+	public static final String IDENTITY="identity";
+	
+	/**
+	 * identity , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Employee,java.lang.String> IDENTITY_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Employee.class ,IDENTITY, java.lang.String.class, "identity", "identity", java.lang.String.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , BADGE , PHONE , PERSON_ID , COMPANY_ID , STATUS , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , PERSON , COMPANY , NAME_AND_BADGE , POSITIONS , ORGANIZATIONS , PRIMARY_POSITION , PRIMARY_ORGANIZATION , BUSI_ROLES , PRIMARY_POSITION_ID , VICE_POSITION_IDS };
+	public static final String[] $PROPS={ ID , BADGE , PHONE , PERSON_ID , COMPANY_ID , STATUS , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , PERSON , COMPANY , NAME_AND_BADGE , POSITIONS , ORGANIZATIONS , PRIMARY_POSITION , PRIMARY_ORGANIZATION , BUSI_ROLES , PRIMARY_POSITION_ID , VICE_POSITION_IDS , NAME , SEX , SOURCE , IDENTITY };
 	
 	/**
 	 * 代理类
@@ -556,6 +596,50 @@ public class EmployeeMeta {
 		public Employee setVicePositionIds(List<String> vicePositionIds) {
 			super.change(VICE_POSITION_IDS,super.getVicePositionIds(),vicePositionIds);
 			super.setVicePositionIds(vicePositionIds);
+			return this;
+		}
+		
+		/**
+		 * 设置 name
+		 * @param name name
+		 * @return 当前对象
+		*/
+		public Employee setName(String name) {
+			super.change(NAME,super.getName(),name);
+			super.setName(name);
+			return this;
+		}
+		
+		/**
+		 * 设置 sex
+		 * @param sex sex
+		 * @return 当前对象
+		*/
+		public Employee setSex(String sex) {
+			super.change(SEX,super.getSex(),sex);
+			super.setSex(sex);
+			return this;
+		}
+		
+		/**
+		 * 设置 source
+		 * @param source source
+		 * @return 当前对象
+		*/
+		public Employee setSource(String source) {
+			super.change(SOURCE,super.getSource(),source);
+			super.setSource(source);
+			return this;
+		}
+		
+		/**
+		 * 设置 identity
+		 * @param identity identity
+		 * @return 当前对象
+		*/
+		public Employee setIdentity(String identity) {
+			super.change(IDENTITY,super.getIdentity(),identity);
+			super.setIdentity(identity);
 			return this;
 		}
 	}
