@@ -62,7 +62,7 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 	 * */
 	@Override
 	public Result insert(DictItem dictItem) {
-		return super.insert(dictItem);
+		return super.insert(dictItem,false);
 	}
 
 	/**
