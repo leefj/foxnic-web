@@ -9,7 +9,7 @@
     </parent>  
     <groupId>com.github.foxnic.web</groupId>  
     <artifactId>parent</artifactId>  
-    <version>0.6.0.RELEASE</version>  
+    <version>0.6.1.RELEASE</version>  
     <packaging>pom</packaging>  
     <name>web-parent</name>  
     <description>web</description>  
@@ -30,7 +30,7 @@
         <module>./service/service-bpm</module>  
         <module>./service/service-dataperm</module>  
         <!-- 界面视图 -->  
-        <module>./view/view-console</module>
+        <module>./view/view-console</module> 
     </modules>  
     <properties> 
         <skipTests>true</skipTests>  
@@ -48,8 +48,8 @@
         <sentinel.version>1.8.0</sentinel.version>  
         <seata.version>1.3.0</seata.version>  
         <seata.cloud.version>2.2.0.RELEASE</seata.cloud.version>  
-        <platform.version>0.6.0.RELEASE</platform.version>  
-        <foxnic.version>1.4.0.RELEASE</foxnic.version>
+        <platform.version>0.6.1.RELEASE</platform.version>  
+        <foxnic.version>1.4.0.RELEASE</foxnic.version>  
         <knife4j.version>3.0.2</knife4j.version>  
         <xmlbeans.version>4.0.0</xmlbeans.version>  
         <poi.version>4.1.2</poi.version>  

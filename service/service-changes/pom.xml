@@ -5,13 +5,13 @@
     <parent> 
         <groupId>com.github.foxnic.web</groupId>  
         <artifactId>parent</artifactId>  
-        <version>0.6.0.RELEASE</version>
+        <version>0.6.1.RELEASE</version>  
         <relativePath/>  
         <!-- lookup parent from repository --> 
     </parent>  
-    <artifactId>service-changes</artifactId>
-    <name>service-changes</name>
-    <description>System Changes</description>
+    <artifactId>service-changes</artifactId>  
+    <name>service-changes</name>  
+    <description>System Changes</description>  
     <properties> 
         <skipTests>true</skipTests>  
         <java.version>1.8</java.version>  
