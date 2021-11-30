@@ -1,6 +1,7 @@
 package org.github.foxnic.web.framework.cache;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.commons.cache.Cache;
 import com.github.foxnic.commons.cache.ExpireType;
 import com.github.foxnic.commons.cache.LocalCache;
@@ -11,6 +12,9 @@ import java.util.Set;
  * 二级缓存，本地缓存与远程缓存结合
  * */
 public class DoubleCache<V> extends com.github.foxnic.commons.cache.DoubleCache<String, V> {
+
+	public static final String CACHE_INVALID_PREFIX = "foxnic:cache:invalid:[[";
+	public static final String CACHE_INVALID_SUFFIX = "]]";
 
 	private RedisUtil cache=null;
 	/**
@@ -37,26 +41,29 @@ public class DoubleCache<V> extends com.github.foxnic.commons.cache.DoubleCache<
 		this.cache=RedisUtil.instance();
 	}
 
-	private void notifyKeyRemoveEvent(String key) {
-		this.cache.notifyDataChange("foxnic:cache:invalid:"+key);
+	private void notifyKeyRemoveEvent(String key,String removeType) {
+		JSONObject cmd=new JSONObject();
+		cmd.put("key",key);
+		cmd.put("removeType",removeType);
+		this.cache.notifyDataChange(CACHE_INVALID_PREFIX +cmd.toJSONString()+CACHE_INVALID_SUFFIX);
 	}
 
 	@Override
 	public V remove(String key) {
 		V value=super.remove(key);
-		this.notifyKeyRemoveEvent(key);
+		this.notifyKeyRemoveEvent(key,"key");
 		return value;
 	}
 
 	@Override
 	public void removeAll(Set<? extends String> keys) {
 		super.removeAll(keys);
-		this.notifyKeyRemoveEvent("$$$ALL$$$");
+		this.notifyKeyRemoveEvent("all","all");
 	}
 
 	@Override
 	public void removeKeysStartWith(String keyPrefix) {
 		super.removeKeysStartWith(keyPrefix);
-		this.notifyKeyRemoveEvent(keyPrefix+",$$$STARTS$$$");
+		this.notifyKeyRemoveEvent(keyPrefix,"starts");
 	}
 }

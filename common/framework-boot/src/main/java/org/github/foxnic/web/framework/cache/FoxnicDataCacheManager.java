@@ -10,7 +10,21 @@ import java.util.Map;
 
 public class FoxnicDataCacheManager extends DataCacheManager {
 
+    private static FoxnicDataCacheManager instance;
+
+    public static FoxnicDataCacheManager getInstance() {
+        return instance;
+    }
+
     private Map<Class,com.github.foxnic.commons.cache.DoubleCache> caches=new HashMap<>();
+
+    public  FoxnicDataCacheManager() {
+        instance = this;
+    }
+
+    void  remove4Notify(String cacheName,String key,String removeType) {
+
+    }
 
     @Override
     public com.github.foxnic.commons.cache.DoubleCache<String, Object> getEntityCache( Class type) {
