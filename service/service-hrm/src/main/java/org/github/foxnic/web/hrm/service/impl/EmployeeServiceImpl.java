@@ -14,6 +14,7 @@ import com.github.foxnic.dao.excel.ExcelStructure;
 import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.dao.excel.ValidateResult;
 import com.github.foxnic.dao.spec.DAO;
+import com.github.foxnic.dao.spec.DBSequence;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.expr.Expr;
 import com.github.foxnic.sql.expr.In;
@@ -55,19 +56,19 @@ import java.util.List;
 
 @Service("HrmEmployeeService")
 public class EmployeeServiceImpl extends SuperService<Employee> implements IEmployeeService {
-	
+
 	/**
 	 * 注入DAO对象
 	 * */
-	@Resource(name=DBConfigs.PRIMARY_DAO) 
+	@Resource(name=DBConfigs.PRIMARY_DAO)
 	private DAO dao=null;
-	
+
 	/**
 	 * 获得 DAO 对象
 	 * */
 	public DAO dao() { return dao; }
 
-	@Autowired 
+	@Autowired
 	private IPersonService personService;
 
 	@Autowired
@@ -79,12 +80,12 @@ public class EmployeeServiceImpl extends SuperService<Employee> implements IEmpl
 	@Autowired
 	private IOrganizationService organizationService;
 
-	
+
 	@Override
 	public Object generateId(Field field) {
 		return IDGenerator.getSnowflakeIdString();
 	}
-	
+
 	/**
 	 * 插入实体
 	 * @param employee 实体数据
@@ -105,6 +106,11 @@ public class EmployeeServiceImpl extends SuperService<Employee> implements IEmpl
 				return ur;
 			}
 			user=(User)ur.data();
+		}
+
+		if(StringUtil.isBlank(employee.getBadge())) {
+			DBSequence sequence=dao().getSequence("badge");
+			employee.setBadge(sequence.next());
 		}
 
 		//指定默认的归属公司
@@ -141,7 +147,7 @@ public class EmployeeServiceImpl extends SuperService<Employee> implements IEmpl
 		}
 		return r;
 	}
-	
+
 	/**
 	 * 批量插入实体，事务内
 	 * @param employeeList 实体数据清单
@@ -151,8 +157,8 @@ public class EmployeeServiceImpl extends SuperService<Employee> implements IEmpl
 	public Result insertList(List<Employee> employeeList) {
 		return super.insertList(employeeList);
 	}
-	
-	
+
+
 	/**
 	 * 按主键删除 员工
 	 *
@@ -178,7 +184,7 @@ public class EmployeeServiceImpl extends SuperService<Employee> implements IEmpl
 			return r;
 		}
 	}
-	
+
 	/**
 	 * 按主键删除 员工
 	 *
@@ -255,7 +261,7 @@ public class EmployeeServiceImpl extends SuperService<Employee> implements IEmpl
 
 		return r;
 	}
-	
+
 	/**
 	 * 更新实体集，事务内
 	 * @param employeeList 数据对象列表
@@ -266,8 +272,8 @@ public class EmployeeServiceImpl extends SuperService<Employee> implements IEmpl
 	public Result updateList(List<Employee> employeeList , SaveMode mode) {
 		return super.updateList(employeeList , mode);
 	}
-	
-	
+
+
 	/**
 	 * 按主键更新字段 员工
 	 *
@@ -279,9 +285,9 @@ public class EmployeeServiceImpl extends SuperService<Employee> implements IEmpl
 		if(!field.table().name().equals(this.table())) throw new IllegalArgumentException("更新的数据表["+field.table().name()+"]与服务对应的数据表["+this.table()+"]不一致");
 		int suc=dao.update(field.table().name()).set(field.name(), value).where().and("id = ? ",id).top().execute();
 		return suc>0;
-	} 
-	
-	
+	}
+
+
 	/**
 	 * 按主键获取 员工
 	 *
@@ -304,7 +310,7 @@ public class EmployeeServiceImpl extends SuperService<Employee> implements IEmpl
 
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @return 查询结果
 	 * */
@@ -312,11 +318,11 @@ public class EmployeeServiceImpl extends SuperService<Employee> implements IEmpl
 	public List<Employee> queryList(Employee sample) {
 		return super.queryList(sample);
 	}
-	
-	
+
+
 	/**
 	 * 分页查询实体集，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @param pageSize 分页条数
 	 * @param pageIndex 页码
@@ -348,10 +354,10 @@ public class EmployeeServiceImpl extends SuperService<Employee> implements IEmpl
 		PagedList<Employee> pagedList=this.dao().queryPagedEntities(Employee.class,pageSize,pageIndex,select);
 		return pagedList;
 	}
-	
+
 	/**
 	 * 分页查询实体集，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @param condition 其它条件
 	 * @param pageSize 分页条数
@@ -362,7 +368,7 @@ public class EmployeeServiceImpl extends SuperService<Employee> implements IEmpl
 	public PagedList<Employee> queryPagedList(Employee sample, ConditionExpr condition, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, condition, pageSize, pageIndex);
 	}
-	
+
 	/**
 	 * 检查 角色 是否已经存在
 	 *

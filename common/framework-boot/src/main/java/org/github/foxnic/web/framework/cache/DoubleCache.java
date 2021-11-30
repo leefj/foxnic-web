@@ -5,11 +5,14 @@ import com.github.foxnic.commons.cache.Cache;
 import com.github.foxnic.commons.cache.ExpireType;
 import com.github.foxnic.commons.cache.LocalCache;
 
+import java.util.Set;
+
 /**
  * 二级缓存，本地缓存与远程缓存结合
  * */
 public class DoubleCache<V> extends com.github.foxnic.commons.cache.DoubleCache<String, V> {
 
+	private RedisUtil cache=null;
 	/**
 	 * 超时时间均为毫秒(ms)
 	 */
@@ -28,9 +31,32 @@ public class DoubleCache<V> extends com.github.foxnic.commons.cache.DoubleCache<
 		LocalCache<String, T> local = new LocalCache<String, T>(remote.isValid()?2*1000:expire, ExpireType.LIVE, localLimit);
 		return new DoubleCache<T>(name, local, remote);
 	}
-	
+
 	public DoubleCache(String name, Cache<String,V> local, Cache<String,V> remote) {
 		super(name, local, remote);
+		this.cache=RedisUtil.instance();
 	}
- 
+
+	private void notifyKeyRemoveEvent(String key) {
+		this.cache.notifyDataChange("foxnic:cache:invalid:"+key);
+	}
+
+	@Override
+	public V remove(String key) {
+		V value=super.remove(key);
+		this.notifyKeyRemoveEvent(key);
+		return value;
+	}
+
+	@Override
+	public void removeAll(Set<? extends String> keys) {
+		super.removeAll(keys);
+		this.notifyKeyRemoveEvent("$$$ALL$$$");
+	}
+
+	@Override
+	public void removeKeysStartWith(String keyPrefix) {
+		super.removeKeysStartWith(keyPrefix);
+		this.notifyKeyRemoveEvent(keyPrefix+",$$$STARTS$$$");
+	}
 }
