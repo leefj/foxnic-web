@@ -1695,9 +1695,12 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             var tag="download_tag_"+Math.ceil(Math.random()*(new Date()).getTime());
             params.downloadTag=tag;
             top[tag]=function (err) {
-                alert(err);
-                callback && callback(false,err);
-                delete top[error];
+                if(callback) {
+                    callback(err);
+                } else {
+                    top.layer.msg(err.message,{icon:2,time:2000});
+                }
+                delete top[tag];
             }
             for (var p in params) {
                 var $input = $("<input name='" + p + "' type='text' value='" + params[p] + "'></input>");
