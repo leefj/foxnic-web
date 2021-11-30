@@ -11,7 +11,7 @@ import org.github.foxnic.web.domain.hrm.Employee;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-29 17:30:29
+ * @since 2021-11-30 08:56:23
  * @sign B7D4B99ACDFACFAE67321E2CD351D6B6
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */

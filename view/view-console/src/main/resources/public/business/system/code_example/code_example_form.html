@@ -1,8 +1,8 @@
-<!-- 
+<!--
 /**
  * 代码生成示例主 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-25 13:06:39
+ * @since 2021-11-30 10:34:13
  */
  -->
  <!DOCTYPE html>
@@ -70,7 +70,7 @@
                 <div class="layui-form-item" >
                     <div class="layui-form-label "><div th:text="${lang.translate('逻辑值')}">逻辑值</div></div>
                     <div class="layui-input-block ">
-                        <input input-type="switch" type="checkbox" id="valid"  name="valid" lay-skin="switch" lay-filter="valid" lay-text="有效|无效&nbsp;">
+                        <input input-type="switch" type="checkbox" id="valid"  name="valid" lay-skin="switch" lay-filter="valid" lay-text="有效|无效&nbsp;" value="1">
                     </div>
                 </div>
 
@@ -79,7 +79,7 @@
                     <div class="layui-form-item" >
                         <div class="layui-form-label "><div th:text="${lang.translate('选择框(字典)')}">选择框(字典)</div><div class="layui-required">*</div></div>
                         <div class="layui-input-block ">
-                            <div id="selectDict" input-type="select" th:data="${dict.toArray('order_status')}"></div>
+                            <div id="selectDict" input-type="select" th:data="${dict.toArray('order_status')}" extraParam="{}"></div>
                         </div>
                     </div>
 
@@ -111,7 +111,7 @@
                     <div class="layui-form-item" >
                         <div class="layui-form-label "><div th:text="${lang.translate('选择框(枚举)')}">选择框(枚举)</div><div class="layui-required">*</div></div>
                         <div class="layui-input-block ">
-                            <div id="selectEnum" input-type="select" th:data="${enum.toArray('org.github.foxnic.web.constants.enums.system.SystemConfigType')}"></div>
+                            <div id="selectEnum" input-type="select" th:data="${enum.toArray('org.github.foxnic.web.constants.enums.system.SystemConfigType')}" extraParam="{}"></div>
                         </div>
                     </div>
 
@@ -120,7 +120,7 @@
                     <div class="layui-form-item" >
                         <div class="layui-form-label "><div th:text="${lang.translate('选择框(查询)')}">选择框(查询)</div></div>
                         <div class="layui-input-block ">
-                            <div id="resourceId" input-type="select" th:data="${'/service-oauth/sys-resourze/query-paged-list'}"></div>
+                            <div id="resourceId" input-type="select" th:data="${'/service-oauth/sys-resourze/query-paged-list'}" extraParam="{}"></div>
                         </div>
                     </div>
 
@@ -129,7 +129,7 @@
                     <div class="layui-form-item" >
                         <div class="layui-form-label "><div th:text="${lang.translate('角色')}">角色</div></div>
                         <div class="layui-input-block ">
-                            <div id="roleIds" input-type="select" th:data="${'/service-oauth/sys-role/query-paged-list'}"></div>
+                            <div id="roleIds" input-type="select" th:data="${'/service-oauth/sys-role/query-paged-list'}" extraParam="{}"></div>
                         </div>
                     </div>
 

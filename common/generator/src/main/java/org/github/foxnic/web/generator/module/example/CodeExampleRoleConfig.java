@@ -4,6 +4,8 @@ import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
+import org.github.foxnic.web.domain.oauth.Role;
+import org.github.foxnic.web.domain.system.CodeExample;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
 public class CodeExampleRoleConfig extends BaseCodeConfig<FoxnicWeb.SYS_CODE_EXAMPLE_ROLE> {
@@ -14,7 +16,7 @@ public class CodeExampleRoleConfig extends BaseCodeConfig<FoxnicWeb.SYS_CODE_EXA
 
     @Override
     public void configModel(PoClassFile poType, VoClassFile voType) {
-        this.context.setRelationField(FoxnicWeb.SYS_CODE_EXAMPLE_ROLE.EXAMPLE_ID, FoxnicWeb.SYS_CODE_EXAMPLE_ROLE.ROLE_ID,true);
+        this.context.setRelationField(CodeExample.class,FoxnicWeb.SYS_CODE_EXAMPLE_ROLE.EXAMPLE_ID, Role.class,FoxnicWeb.SYS_CODE_EXAMPLE_ROLE.ROLE_ID,true);
     }
 
 

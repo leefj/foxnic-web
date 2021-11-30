@@ -36,6 +36,10 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
     }
     //
     var form={
+
+        beforeInit:function (data) {
+            debugger;
+        },
         /**
          * 表单数据填充后
          * */
@@ -44,7 +48,10 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             if(data.id) {
                 $("#code").attr("readonly","yes");
             }
-        }
+        },
+        onSelectBoxChanged:function(id,selected,changes,isAdd) {
+            console.log('onSelectBoxChanged',id,selected,changes,isAdd);
+        },
     }
     //
     window.pageExt={form:form,list:list};

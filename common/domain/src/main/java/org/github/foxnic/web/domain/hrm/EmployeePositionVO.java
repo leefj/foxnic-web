@@ -12,7 +12,7 @@ import com.github.foxnic.commons.bean.BeanUtil;
 /**
  * 员工岗位关系
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-29 17:30:20
+ * @since 2021-11-30 08:56:44
  * @sign CB5FFE0C6771E23D8DE79C2BBFAF8948
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */

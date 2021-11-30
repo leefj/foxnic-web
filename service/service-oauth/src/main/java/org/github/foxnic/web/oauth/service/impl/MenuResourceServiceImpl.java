@@ -40,26 +40,26 @@ import java.util.List;
 
 @Service("SysMenuResourceService")
 public class MenuResourceServiceImpl extends SuperService<MenuResource> implements IMenuResourceService {
-	
+
 	/**
 	 * 注入DAO对象
 	 * */
-	@Resource(name=DBConfigs.PRIMARY_DAO) 
+	@Resource(name=DBConfigs.PRIMARY_DAO)
 	private DAO dao=null;
 
 	@Autowired
 	private ResourzeServiceImpl resourzeService;
-	
+
 	/**
 	 * 获得 DAO 对象
 	 * */
 	public DAO dao() { return dao; }
-	
+
 	@Override
 	public Object generateId(Field field) {
 		return IDGenerator.getSnowflakeIdString();
 	}
-	
+
 	/**
 	 * 插入实体
 	 * @param menuResource 实体数据
@@ -69,7 +69,7 @@ public class MenuResourceServiceImpl extends SuperService<MenuResource> implemen
 	public Result insert(MenuResource menuResource) {
 		return super.insert(menuResource);
 	}
-	
+
 	/**
 	 * 批量插入实体，事务内
 	 * @param menuResourceList 实体数据清单
@@ -79,8 +79,8 @@ public class MenuResourceServiceImpl extends SuperService<MenuResource> implemen
 	public Result insertList(List<MenuResource> menuResourceList) {
 		return super.insertList(menuResourceList);
 	}
-	
-	
+
+
 	/**
 	 * 按主键删除 sys_menu_resource
 	 *
@@ -93,7 +93,7 @@ public class MenuResourceServiceImpl extends SuperService<MenuResource> implemen
 		menuResource.setId(id);
 		return dao.deleteEntity(menuResource);
 	}
-	
+
 	/**
 	 * 按主键删除 sys_menu_resource
 	 *
@@ -109,7 +109,7 @@ public class MenuResourceServiceImpl extends SuperService<MenuResource> implemen
 		menuResource.setDeleteTime(new Date());
 		return dao.updateEntity(menuResource,SaveMode.NOT_NULL_FIELDS);
 	}
-	
+
 	/**
 	 * 更新实体
 	 * @param menuResource 数据对象
@@ -120,7 +120,7 @@ public class MenuResourceServiceImpl extends SuperService<MenuResource> implemen
 	public Result update(MenuResource menuResource , SaveMode mode) {
 		return super.update(menuResource , mode);
 	}
-	
+
 	/**
 	 * 更新实体集，事务内
 	 * @param menuResourceList 数据对象列表
@@ -131,8 +131,8 @@ public class MenuResourceServiceImpl extends SuperService<MenuResource> implemen
 	public Result updateList(List<MenuResource> menuResourceList , SaveMode mode) {
 		return super.updateList(menuResourceList , mode);
 	}
-	
-	
+
+
 	/**
 	 * 按主键更新字段 sys_menu_resource
 	 *
@@ -144,9 +144,9 @@ public class MenuResourceServiceImpl extends SuperService<MenuResource> implemen
 		if(!field.table().name().equals(this.table())) throw new IllegalArgumentException("更新的数据表["+field.table().name()+"]与服务对应的数据表["+this.table()+"]不一致");
 		int suc=dao.update(field.table().name()).set(field.name(), value).where().and("id = ? ",id).top().execute();
 		return suc>0;
-	} 
-	
-	
+	}
+
+
 	/**
 	 * 按主键获取 sys_menu_resource
 	 *
@@ -169,7 +169,7 @@ public class MenuResourceServiceImpl extends SuperService<MenuResource> implemen
 
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @return 查询结果
 	 * */
@@ -177,11 +177,11 @@ public class MenuResourceServiceImpl extends SuperService<MenuResource> implemen
 	public List<MenuResource> queryList(MenuResource sample) {
 		return super.queryList(sample);
 	}
-	
-	
+
+
 	/**
 	 * 分页查询实体集，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @param pageSize 分页条数
 	 * @param pageIndex 页码
@@ -191,10 +191,10 @@ public class MenuResourceServiceImpl extends SuperService<MenuResource> implemen
 	public PagedList<MenuResource> queryPagedList(MenuResource sample, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, pageSize, pageIndex);
 	}
-	
+
 	/**
 	 * 分页查询实体集，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @param condition 其它条件
 	 * @param pageSize 分页条数
@@ -205,7 +205,7 @@ public class MenuResourceServiceImpl extends SuperService<MenuResource> implemen
 	public PagedList<MenuResource> queryPagedList(MenuResource sample, ConditionExpr condition, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, condition, pageSize, pageIndex);
 	}
-	
+
 	/**
 	 * 检查 角色 是否已经存在
 	 *
@@ -239,7 +239,7 @@ public class MenuResourceServiceImpl extends SuperService<MenuResource> implemen
 		if(menu.getResourceIds()!=null) {
 			List<Resourze> list=null;
 			MenuResource menuResource=this.queryEntity(new ConditionExpr("menu_id=?",menu.getId()));
-			if(resourzeService.hasCache()) {
+			if(resourzeService.isSupportCache()) {
 				list=resourzeService.queryList(new ConditionExpr("EXISTS (select 1 from "+this.table()+" a where menu_id=? and t.id=a.resource_id)",menu.getId()));
 			}
 			dao().execute("delete from "+table()+" where menu_id=?",menu.getId());

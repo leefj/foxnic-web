@@ -1,36 +1,41 @@
 package org.github.foxnic.web.system.service.impl;
 
 
-import com.github.foxnic.api.error.ErrorDesc;
-import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.commons.busi.id.IDGenerator;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.entity.SuperService;
-import com.github.foxnic.dao.excel.ExcelStructure;
-import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.dao.spec.DAO;
-import com.github.foxnic.sql.expr.ConditionExpr;
-import com.github.foxnic.sql.meta.DBField;
-import org.github.foxnic.web.domain.system.Dict;
-import org.github.foxnic.web.framework.dao.DBConfigs;
-import org.github.foxnic.web.system.service.IDictService;
+import javax.annotation.Resource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
-import java.io.InputStream;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Date;
+
+import org.github.foxnic.web.domain.system.Dict;
+import org.github.foxnic.web.domain.system.DictVO;
 import java.util.List;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.dao.data.PagedList;
+import com.github.foxnic.dao.entity.SuperService;
+import com.github.foxnic.dao.spec.DAO;
+import java.lang.reflect.Field;
+import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.sql.expr.ConditionExpr;
+import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.dao.excel.ExcelWriter;
+import com.github.foxnic.dao.excel.ValidateResult;
+import com.github.foxnic.dao.excel.ExcelStructure;
+import java.io.InputStream;
+import com.github.foxnic.sql.meta.DBField;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.meta.DBColumnMeta;
+import com.github.foxnic.sql.expr.Select;
+import java.util.ArrayList;
+import org.github.foxnic.web.system.service.IDictService;
+import org.github.foxnic.web.framework.dao.DBConfigs;
+import java.util.Date;
 
 /**
  * <p>
  * 数据字典 服务实现
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-13 20:08:31
+ * @since 2021-11-30 11:01:04
 */
 
 
@@ -40,7 +45,7 @@ public class DictServiceImpl extends SuperService<Dict> implements IDictService 
 	/**
 	 * 注入DAO对象
 	 * */
-	@Resource(name=DBConfigs.PRIMARY_DAO)
+	@Resource(name=DBConfigs.PRIMARY_DAO) 
 	private DAO dao=null;
 
 	/**
@@ -56,14 +61,26 @@ public class DictServiceImpl extends SuperService<Dict> implements IDictService 
 	}
 
 	/**
-	 * 插入实体
-	 * @param dict 实体数据
+	 * 添加，根据 throwsException 参数抛出异常或返回 Result 对象
+	 *
+	 * @param dict  数据对象
+	 * @param throwsException 是否抛出异常，如果不抛出异常，则返回一个失败的 Result 对象
+	 * @return 结果 , 如果失败返回 false，成功返回 true
+	 */
+	@Override
+	public Result insert(Dict dict,boolean throwsException) {
+		Result r=super.insert(dict,throwsException);
+		return r;
+	}
+
+	/**
+	 * 添加，如果语句错误，则抛出异常
+	 * @param dict 数据对象
 	 * @return 插入是否成功
 	 * */
 	@Override
 	public Result insert(Dict dict) {
-		Result r=super.insert(dict,false);
-		return r;
+		return this.insert(dict,true);
 	}
 
 	/**
@@ -76,7 +93,7 @@ public class DictServiceImpl extends SuperService<Dict> implements IDictService 
 		return super.insertList(dictList);
 	}
 
-
+	
 	/**
 	 * 按主键删除 数据字典
 	 *
@@ -97,7 +114,7 @@ public class DictServiceImpl extends SuperService<Dict> implements IDictService 
 			return r;
 		}
 	}
-
+	
 	/**
 	 * 按主键删除 数据字典
 	 *
@@ -123,14 +140,26 @@ public class DictServiceImpl extends SuperService<Dict> implements IDictService 
 	}
 
 	/**
-	 * 更新实体
+	 * 更新，如果执行错误，则抛出异常
 	 * @param dict 数据对象
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
 	@Override
 	public Result update(Dict dict , SaveMode mode) {
-		Result r=super.update(dict , mode);
+		return this.update(dict,mode,true);
+	}
+
+	/**
+	 * 更新，根据 throwsException 参数抛出异常或返回 Result 对象
+	 * @param dict 数据对象
+	 * @param mode 保存模式
+	 * @param throwsException 是否抛出异常，如果不抛出异常，则返回一个失败的 Result 对象
+	 * @return 保存是否成功
+	 * */
+	@Override
+	public Result update(Dict dict , SaveMode mode,boolean throwsException) {
+		Result r=super.update(dict , mode , throwsException);
 		return r;
 	}
 
@@ -145,7 +174,7 @@ public class DictServiceImpl extends SuperService<Dict> implements IDictService 
 		return super.updateList(dictList , mode);
 	}
 
-
+	
 	/**
 	 * 按主键更新字段 数据字典
 	 *
@@ -159,7 +188,7 @@ public class DictServiceImpl extends SuperService<Dict> implements IDictService 
 		return suc>0;
 	}
 
-
+	
 	/**
 	 * 按主键获取 数据字典
 	 *

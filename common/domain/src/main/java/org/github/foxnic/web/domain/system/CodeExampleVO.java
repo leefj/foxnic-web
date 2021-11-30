@@ -1,20 +1,19 @@
 package org.github.foxnic.web.domain.system;
 
-import com.github.foxnic.api.model.CompositeParameter;
-import com.github.foxnic.commons.bean.BeanUtil;
 import io.swagger.annotations.ApiModelProperty;
-
-import javax.persistence.Transient;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
+import com.github.foxnic.api.model.CompositeParameter;
+import javax.persistence.Transient;
+import com.github.foxnic.commons.bean.BeanUtil;
 
 
 
 /**
  * 代码生成示例主
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-27 13:53:28
- * @sign 859AD2D0CF5FC36E6CB3E995BD3DD560
+ * @since 2021-11-30 10:34:06
+ * @sign 1F21A900EC7ED84E9430A79683C58AB2
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -51,6 +50,12 @@ public class CodeExampleVO extends CodeExample {
 	*/
 	@ApiModelProperty(required = false,value="搜索的值" , notes = "")
 	private String searchValue;
+	
+	/**
+	 * 已修改字段
+	*/
+	@ApiModelProperty(required = false,value="已修改字段" , notes = "")
+	private List<String> dirtyFields;
 	
 	/**
 	 * 排序字段
@@ -161,6 +166,35 @@ public class CodeExampleVO extends CodeExample {
 	}
 	
 	/**
+	 * 获得 已修改字段<br>
+	 * @return 已修改字段
+	*/
+	public List<String> getDirtyFields() {
+		return dirtyFields;
+	}
+	
+	/**
+	 * 设置 已修改字段
+	 * @param dirtyFields 已修改字段
+	 * @return 当前对象
+	*/
+	public CodeExampleVO setDirtyFields(List<String> dirtyFields) {
+		this.dirtyFields=dirtyFields;
+		return this;
+	}
+	
+	/**
+	 * 添加 已修改字段
+	 * @param dirtyField 已修改字段
+	 * @return 当前对象
+	*/
+	public CodeExampleVO addDirtyField(String dirtyField) {
+		if(this.dirtyFields==null) dirtyFields=new ArrayList<>();
+		this.dirtyFields.add(dirtyField);
+		return this;
+	}
+	
+	/**
 	 * 获得 排序字段<br>
 	 * @return 排序字段
 	*/
@@ -233,7 +267,6 @@ public class CodeExampleVO extends CodeExample {
 	@Transient
 	public CompositeParameter getCompositeParameter() {
 		if($compositeParameter!=null) return  $compositeParameter;
-		
 		$compositeParameter=new CompositeParameter(this.getSearchValue(),BeanUtil.toMap(this));
 		return  $compositeParameter;
 	}

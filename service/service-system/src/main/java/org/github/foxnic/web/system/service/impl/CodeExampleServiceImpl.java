@@ -1,39 +1,44 @@
 package org.github.foxnic.web.system.service.impl;
 
 
-import com.github.foxnic.api.error.ErrorDesc;
-import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.commons.busi.id.IDGenerator;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.entity.SuperService;
-import com.github.foxnic.dao.excel.ExcelStructure;
-import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.dao.spec.DAO;
-import com.github.foxnic.sql.expr.ConditionExpr;
-import com.github.foxnic.sql.meta.DBField;
-import org.github.foxnic.web.domain.system.CodeExample;
-import org.github.foxnic.web.framework.dao.DBConfigs;
-import org.github.foxnic.web.system.service.ICodeExampleRoleService;
-import org.github.foxnic.web.system.service.ICodeExampleService;
+import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
-import java.io.InputStream;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Date;
+
+import org.github.foxnic.web.domain.system.CodeExample;
+import org.github.foxnic.web.domain.system.CodeExampleVO;
 import java.util.List;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.dao.data.PagedList;
+import com.github.foxnic.dao.entity.SuperService;
+import com.github.foxnic.dao.spec.DAO;
+import java.lang.reflect.Field;
+import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.sql.expr.ConditionExpr;
+import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.dao.excel.ExcelWriter;
+import com.github.foxnic.dao.excel.ValidateResult;
+import com.github.foxnic.dao.excel.ExcelStructure;
+import java.io.InputStream;
+import com.github.foxnic.sql.meta.DBField;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.meta.DBColumnMeta;
+import com.github.foxnic.sql.expr.Select;
+import java.util.ArrayList;
+import org.github.foxnic.web.system.service.ICodeExampleRoleService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+import org.github.foxnic.web.system.service.ICodeExampleService;
+import org.github.foxnic.web.framework.dao.DBConfigs;
+import java.util.Date;
 
 /**
  * <p>
  * 代码生成示例主表 服务实现
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-25 13:06:39
+ * @since 2021-11-30 10:34:06
 */
 
 
@@ -43,7 +48,7 @@ public class CodeExampleServiceImpl extends SuperService<CodeExample> implements
 	/**
 	 * 注入DAO对象
 	 * */
-	@Resource(name=DBConfigs.PRIMARY_DAO)
+	@Resource(name=DBConfigs.PRIMARY_DAO) 
 	private DAO dao=null;
 
 	/**
@@ -51,7 +56,7 @@ public class CodeExampleServiceImpl extends SuperService<CodeExample> implements
 	 * */
 	public DAO dao() { return dao; }
 
-	@Autowired
+	@Autowired 
 	private ICodeExampleRoleService codeExampleRoleService;
 
 
@@ -61,19 +66,32 @@ public class CodeExampleServiceImpl extends SuperService<CodeExample> implements
 	}
 
 	/**
-	 * 插入实体
-	 * @param codeExample 实体数据
-	 * @return 插入是否成功
-	 * */
+	 * 添加，根据 throwsException 参数抛出异常或返回 Result 对象
+	 *
+	 * @param codeExample  数据对象
+	 * @param throwsException 是否抛出异常，如果不抛出异常，则返回一个失败的 Result 对象
+	 * @return 结果 , 如果失败返回 false，成功返回 true
+	 */
 	@Override
 	@Transactional
-	public Result insert(CodeExample codeExample) {
-		Result r=super.insert(codeExample);
+	public Result insert(CodeExample codeExample,boolean throwsException) {
+		Result r=super.insert(codeExample,throwsException);
 		//保存关系
 		if(r.success()) {
 			codeExampleRoleService.saveRelation(codeExample.getId(), codeExample.getRoleIds());
 		}
 		return r;
+	}
+
+	/**
+	 * 添加，如果语句错误，则抛出异常
+	 * @param codeExample 数据对象
+	 * @return 插入是否成功
+	 * */
+	@Override
+	@Transactional
+	public Result insert(CodeExample codeExample) {
+		return this.insert(codeExample,true);
 	}
 
 	/**
@@ -86,7 +104,7 @@ public class CodeExampleServiceImpl extends SuperService<CodeExample> implements
 		return super.insertList(codeExampleList);
 	}
 
-
+	
 	/**
 	 * 按主键删除 代码生成示例主
 	 *
@@ -107,7 +125,7 @@ public class CodeExampleServiceImpl extends SuperService<CodeExample> implements
 			return r;
 		}
 	}
-
+	
 	/**
 	 * 按主键删除 代码生成示例主
 	 *
@@ -133,7 +151,7 @@ public class CodeExampleServiceImpl extends SuperService<CodeExample> implements
 	}
 
 	/**
-	 * 更新实体
+	 * 更新，如果执行错误，则抛出异常
 	 * @param codeExample 数据对象
 	 * @param mode 保存模式
 	 * @return 保存是否成功
@@ -141,7 +159,20 @@ public class CodeExampleServiceImpl extends SuperService<CodeExample> implements
 	@Override
 	@Transactional
 	public Result update(CodeExample codeExample , SaveMode mode) {
-		Result r=super.update(codeExample , mode);
+		return this.update(codeExample,mode,true);
+	}
+
+	/**
+	 * 更新，根据 throwsException 参数抛出异常或返回 Result 对象
+	 * @param codeExample 数据对象
+	 * @param mode 保存模式
+	 * @param throwsException 是否抛出异常，如果不抛出异常，则返回一个失败的 Result 对象
+	 * @return 保存是否成功
+	 * */
+	@Override
+	@Transactional
+	public Result update(CodeExample codeExample , SaveMode mode,boolean throwsException) {
+		Result r=super.update(codeExample , mode , throwsException);
 		//保存关系
 		if(r.success()) {
 			codeExampleRoleService.saveRelation(codeExample.getId(), codeExample.getRoleIds());
@@ -160,7 +191,7 @@ public class CodeExampleServiceImpl extends SuperService<CodeExample> implements
 		return super.updateList(codeExampleList , mode);
 	}
 
-
+	
 	/**
 	 * 按主键更新字段 代码生成示例主
 	 *
@@ -174,7 +205,7 @@ public class CodeExampleServiceImpl extends SuperService<CodeExample> implements
 		return suc>0;
 	}
 
-
+	
 	/**
 	 * 按主键获取 代码生成示例主
 	 *

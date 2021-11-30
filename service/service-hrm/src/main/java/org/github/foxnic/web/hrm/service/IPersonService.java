@@ -21,7 +21,7 @@ import com.github.foxnic.dao.data.SaveMode;
  * 人员表 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-29 17:30:24
+ * @since 2021-11-30 08:56:40
 */
 
 public interface IPersonService extends ISuperService<Person> {

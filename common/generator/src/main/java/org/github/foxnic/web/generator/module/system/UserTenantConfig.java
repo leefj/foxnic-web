@@ -8,6 +8,7 @@ import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER_TENANT;
 import org.github.foxnic.web.domain.hrm.Employee;
 import org.github.foxnic.web.domain.hrm.meta.EmployeeMeta;
+import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.domain.system.Tenant;
 import org.github.foxnic.web.domain.system.meta.TenantMeta;
 import org.github.foxnic.web.domain.system.meta.UserTenantMeta;
@@ -25,7 +26,7 @@ public class UserTenantConfig extends BaseCodeConfig<SYS_USER_TENANT> {
     public void configModel(PoClassFile poType, VoClassFile voType) {
         poType.addSimpleProperty(Tenant.class,"tenant","租户对象","租户对象");
         poType.addSimpleProperty(Employee.class, "employee","当前激活的租户对应的员工", "当前激活的租户对应的员工");
-        this.context.setRelationField(SYS_USER_TENANT.USER_ID,SYS_USER_TENANT.OWNER_TENANT_ID,true);
+        this.context.setRelationField(User.class,SYS_USER_TENANT.USER_ID, Tenant.class,SYS_USER_TENANT.OWNER_TENANT_ID,true);
     }
 
     @Override

@@ -21,7 +21,7 @@ import com.github.foxnic.dao.data.SaveMode;
  * 常用人员分组表 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-29 17:30:27
+ * @since 2021-11-30 08:56:31
 */
 
 public interface IFavouriteGroupService extends ISuperService<FavouriteGroup> {

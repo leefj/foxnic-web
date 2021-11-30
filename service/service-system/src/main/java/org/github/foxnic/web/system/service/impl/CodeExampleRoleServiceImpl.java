@@ -32,42 +32,54 @@ import java.util.List;
  * 代码示例主表角色关系表 服务实现
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-22 21:30:45
+ * @since 2021-11-30 10:30:35
 */
 
 
 @Service("SysCodeExampleRoleService")
 public class CodeExampleRoleServiceImpl extends SuperService<CodeExampleRole> implements ICodeExampleRoleService {
-	
+
 	/**
 	 * 注入DAO对象
 	 * */
-	@Resource(name=DBConfigs.PRIMARY_DAO) 
+	@Resource(name=DBConfigs.PRIMARY_DAO)
 	private DAO dao=null;
-	
+
 	/**
 	 * 获得 DAO 对象
 	 * */
 	public DAO dao() { return dao; }
 
 
-	
+
 	@Override
 	public Object generateId(Field field) {
 		return IDGenerator.getSnowflakeIdString();
 	}
-	
+
 	/**
-	 * 插入实体
-	 * @param codeExampleRole 实体数据
+	 * 添加，根据 throwsException 参数抛出异常或返回 Result 对象
+	 *
+	 * @param codeExampleRole  数据对象
+	 * @param throwsException 是否抛出异常，如果不抛出异常，则返回一个失败的 Result 对象
+	 * @return 结果 , 如果失败返回 false，成功返回 true
+	 */
+	@Override
+	public Result insert(CodeExampleRole codeExampleRole,boolean throwsException) {
+		Result r=super.insert(codeExampleRole,throwsException);
+		return r;
+	}
+
+	/**
+	 * 添加，如果语句错误，则抛出异常
+	 * @param codeExampleRole 数据对象
 	 * @return 插入是否成功
 	 * */
 	@Override
 	public Result insert(CodeExampleRole codeExampleRole) {
-		Result r=super.insert(codeExampleRole);
-		return r;
+		return this.insert(codeExampleRole,true);
 	}
-	
+
 	/**
 	 * 批量插入实体，事务内
 	 * @param codeExampleRoleList 实体数据清单
@@ -77,8 +89,8 @@ public class CodeExampleRoleServiceImpl extends SuperService<CodeExampleRole> im
 	public Result insertList(List<CodeExampleRole> codeExampleRoleList) {
 		return super.insertList(codeExampleRoleList);
 	}
-	
-	
+
+
 	/**
 	 * 按主键删除 代码示例主表角色关系
 	 *
@@ -99,19 +111,31 @@ public class CodeExampleRoleServiceImpl extends SuperService<CodeExampleRole> im
 			return r;
 		}
 	}
-	
+
 	/**
-	 * 更新实体
+	 * 更新，如果执行错误，则抛出异常
 	 * @param codeExampleRole 数据对象
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
 	@Override
 	public Result update(CodeExampleRole codeExampleRole , SaveMode mode) {
-		Result r=super.update(codeExampleRole , mode);
+		return this.update(codeExampleRole,mode,true);
+	}
+
+	/**
+	 * 更新，根据 throwsException 参数抛出异常或返回 Result 对象
+	 * @param codeExampleRole 数据对象
+	 * @param mode 保存模式
+	 * @param throwsException 是否抛出异常，如果不抛出异常，则返回一个失败的 Result 对象
+	 * @return 保存是否成功
+	 * */
+	@Override
+	public Result update(CodeExampleRole codeExampleRole , SaveMode mode,boolean throwsException) {
+		Result r=super.update(codeExampleRole , mode , throwsException);
 		return r;
 	}
-	
+
 	/**
 	 * 更新实体集，事务内
 	 * @param codeExampleRoleList 数据对象列表
@@ -122,8 +146,8 @@ public class CodeExampleRoleServiceImpl extends SuperService<CodeExampleRole> im
 	public Result updateList(List<CodeExampleRole> codeExampleRoleList , SaveMode mode) {
 		return super.updateList(codeExampleRoleList , mode);
 	}
-	
-	
+
+
 	/**
 	 * 按主键更新字段 代码示例主表角色关系
 	 *
@@ -135,9 +159,9 @@ public class CodeExampleRoleServiceImpl extends SuperService<CodeExampleRole> im
 		if(!field.table().name().equals(this.table())) throw new IllegalArgumentException("更新的数据表["+field.table().name()+"]与服务对应的数据表["+this.table()+"]不一致");
 		int suc=dao.update(field.table().name()).set(field.name(), value).where().and("id = ? ",id).top().execute();
 		return suc>0;
-	} 
-	
-	
+	}
+
+
 	/**
 	 * 按主键获取 代码示例主表角色关系
 	 *
@@ -160,7 +184,7 @@ public class CodeExampleRoleServiceImpl extends SuperService<CodeExampleRole> im
 
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @return 查询结果
 	 * */
@@ -168,11 +192,11 @@ public class CodeExampleRoleServiceImpl extends SuperService<CodeExampleRole> im
 	public List<CodeExampleRole> queryList(CodeExampleRole sample) {
 		return super.queryList(sample);
 	}
-	
-	
+
+
 	/**
 	 * 分页查询实体集，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @param pageSize 分页条数
 	 * @param pageIndex 页码
@@ -182,10 +206,10 @@ public class CodeExampleRoleServiceImpl extends SuperService<CodeExampleRole> im
 	public PagedList<CodeExampleRole> queryPagedList(CodeExampleRole sample, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, pageSize, pageIndex);
 	}
-	
+
 	/**
 	 * 分页查询实体集，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @param condition 其它条件
 	 * @param pageSize 分页条数
@@ -196,7 +220,7 @@ public class CodeExampleRoleServiceImpl extends SuperService<CodeExampleRole> im
 	public PagedList<CodeExampleRole> queryPagedList(CodeExampleRole sample, ConditionExpr condition, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, condition, pageSize, pageIndex);
 	}
-	
+
 	/**
 	 * 检查 角色 是否已经存在
 	 *
@@ -236,7 +260,7 @@ public class CodeExampleRoleServiceImpl extends SuperService<CodeExampleRole> im
      * @param roleIds 角色ID清单
      */
 	public void saveRelation(String exampleId,List<String> roleIds) {
-		super.saveRelation(CodeExample.class, SYS_CODE_EXAMPLE_ROLE.EXAMPLE_ID,exampleId, Role.class,SYS_CODE_EXAMPLE_ROLE.ROLE_ID,roleIds,true);
+		super.saveRelation(CodeExample.class,SYS_CODE_EXAMPLE_ROLE.EXAMPLE_ID,exampleId,Role.class,SYS_CODE_EXAMPLE_ROLE.ROLE_ID,roleIds,true);
 	}
 
 }

@@ -1,21 +1,22 @@
 /**
  * 数据字典 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-13 20:08:33
+ * @since 2021-11-30 11:01:04
  */
 
 
 function ListPage() {
-        
+
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect;
 	//模块基础路径
 	const moduleURL="/service-system/sys-dict";
 	var dataTable=null;
+	var sort=null;
 	/**
       * 入口函数，初始化
       */
 	this.init=function(layui) {
-     	
+
      	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload,laydate= layui.laydate;
 		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect,dropdown=layui.dropdown;;
 
@@ -33,8 +34,8 @@ function ListPage() {
 		//绑定行操作按钮事件
     	bindRowOperationEvent();
      }
-     
-     
+
+
      /**
       * 渲染表格
       */
@@ -46,14 +47,14 @@ function ListPage() {
 		//
 		function renderTableInternal() {
 
-			var ps={};
+			var ps={searchField: "$composite"};
 			var contitions={};
+
 			if(window.pageExt.list.beforeQuery){
-				window.pageExt.list.beforeQuery(contitions);
+				window.pageExt.list.beforeQuery(contitions,ps,"tableInit");
 			}
-			if(Object.keys(contitions).length>0) {
-				ps = {searchField: "$composite", searchValue: JSON.stringify(contitions)};
-			}
+			ps.searchValue=JSON.stringify(contitions);
+
 			var templet=window.pageExt.list.templet;
 			if(templet==null) {
 				templet=function(field,value,row) {
@@ -62,7 +63,7 @@ function ListPage() {
 				}
 			}
 			var h=$(".search-bar").height();
-			dataTable=fox.renderTable({
+			var tableConfig={
 				elem: '#data-table',
 				toolbar: '#toolbarTemplate',
 				defaultToolbar: ['filter', 'print',{title: '刷新数据',layEvent: 'refresh-data',icon: 'layui-icon-refresh-3'}],
@@ -72,14 +73,14 @@ function ListPage() {
 				where: ps,
 				cols: [[
 					{ fixed: 'left',type: 'numbers' },
-					{ fixed: 'left',type:'checkbox' }
+					{ fixed: 'left',type:'checkbox'}
 					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('字典ID') , templet: function (d) { return templet('id',d.id,d);}  }
 					,{ field: 'isTree', align:"right",fixed:false,  hide:true, sort: true, title: fox.translate('是否树形结构') , templet: function (d) { return templet('isTree',d.isTree,d);}  }
 					,{ field: 'name', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('名称') , templet: function (d) { return templet('name',d.name,d);}  }
 					,{ field: 'code', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('代码') , templet: function (d) { return templet('code',d.code,d);}  }
-					,{ field: 'module', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('模块'), templet: function (d) { return templet('module',fox.joinLabel(d.moduleInfo,"label"),d);}}
+					,{ field: 'module', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('模块'), templet: function (d) { return templet('module' ,fox.joinLabel(d.moduleInfo,"label"),d);}}
 					,{ field: 'notes', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('备注') , templet: function (d) { return templet('notes',d.notes,d);}  }
-					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime),d); }}
+					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间') ,templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 220 }
 				]],
@@ -97,11 +98,14 @@ function ListPage() {
 						}
 					}:false
 				}
-			});
+			};
+			window.pageExt.list.beforeTableRender && window.pageExt.list.beforeTableRender(tableConfig);
+			dataTable=fox.renderTable(tableConfig);
 			//绑定排序事件
 			table.on('sort(data-table)', function(obj){
 			  refreshTableData(obj.field,obj.type);
 			});
+			window.pageExt.list.afterTableRender && window.pageExt.list.afterTableRender();
 		}
 		setTimeout(renderTableInternal,1);
     };
@@ -109,24 +113,35 @@ function ListPage() {
 	/**
       * 刷新表格数据
       */
-	function refreshTableData(sortField,sortType) {
+	function refreshTableData(sortField,sortType,reset) {
 		var value = {};
-		value.name={ value: $("#name").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" "};
-		value.code={ value: $("#code").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" "};
-		value.module={ value: xmSelect.get("#module",true).getValue("value"), fillBy:"moduleInfo",field:"id", label:xmSelect.get("#module",true).getValue("nameStr") };
-		value.notes={ value: $("#notes").val()};
+		value.name={ inputType:"button",value: $("#name").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" };
+		value.code={ inputType:"button",value: $("#code").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" };
+		value.module={ inputType:"select_box", value: xmSelect.get("#module",true).getValue("value") ,fillBy:["moduleInfo"]  , label:xmSelect.get("#module",true).getValue("nameStr") };
+		value.notes={ inputType:"button",value: $("#notes").val()};
+		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
-			if(!window.pageExt.list.beforeQuery(value)) return;
+			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;
 		}
-		var ps={searchField: "$composite", searchValue: JSON.stringify(value)};
+		ps.searchValue=JSON.stringify(value);
 		if(sortField) {
 			ps.sortField=sortField;
 			ps.sortType=sortType;
+			sort={ field : sortField,type : sortType} ;
+		} else {
+			if(sort) {
+				ps.sortField=sort.field;
+				ps.sortType=sort.type;
+			}
 		}
-		table.reload('data-table', { where : ps });
+		if(reset) {
+			table.reload('data-table', { where : ps , page:{ curr:1 } });
+		} else {
+			table.reload('data-table', { where : ps });
+		}
 	}
-    
-	
+
+
 	/**
 	  * 获得已经选中行的数据,不传入 field 时，返回所有选中的记录，指定 field 时 返回指定的字段集合
 	  */
@@ -137,7 +152,7 @@ function ListPage() {
 		for(var i=0;i<data.length;i++) data[i]=data[i][field];
 		return data;
 	}
-	
+
 	/**
 	 * 重置搜索框
 	 */
@@ -164,7 +179,7 @@ function ListPage() {
 				if(!data) return opts;
 				for (var i = 0; i < data.length; i++) {
 					if(!data[i]) continue;
-					opts.push({name:data[i].label,value:data[i].id});
+					opts.push({data:data[i],name:data[i].label,value:data[i].id});
 				}
 				return opts;
 			}
@@ -172,7 +187,7 @@ function ListPage() {
 		fox.renderSearchInputs();
 		window.pageExt.list.afterSearchInputReady && window.pageExt.list.afterSearchInputReady();
 	}
-	
+
 	/**
 	 * 绑定搜索框事件
 	 */
@@ -180,12 +195,12 @@ function ListPage() {
 		//回车键查询
         $(".search-input").keydown(function(event) {
 			if(event.keyCode !=13) return;
-		  	refreshTableData();
+		  	refreshTableData(null,null,true);
         });
 
         // 搜索按钮点击事件
         $('#search-button').click(function () {
-           refreshTableData();
+			refreshTableData(null,null,true);
         });
 
 		// 搜索按钮点击事件
@@ -198,8 +213,9 @@ function ListPage() {
 				}
 			});
 		});
+
 	}
-	
+
 	/**
 	 * 绑定按钮事件
 	  */
@@ -209,6 +225,10 @@ function ListPage() {
 		table.on('toolbar(data-table)', function(obj){
 			var checkStatus = table.checkStatus(obj.config.id);
 			var selected=getCheckedList("id");
+			if(window.pageExt.list.beforeToolBarButtonEvent) {
+				var doNext=window.pageExt.list.beforeToolBarButtonEvent(selected,obj);
+				if(!doNext) return;
+			}
 			switch(obj.event){
 				case 'create':
 					openCreateFrom();
@@ -232,7 +252,7 @@ function ListPage() {
 			admin.putTempData('sys-dict-form-data-form-action', "create",true);
             showEditForm(data);
         };
-		
+
         //批量删除按钮点击事件
         function batchDelete(selected) {
 
@@ -267,7 +287,7 @@ function ListPage() {
 			});
         }
 	}
-     
+
     /**
      * 绑定行操作按钮事件
      */
@@ -276,6 +296,12 @@ function ListPage() {
 		table.on('tool(data-table)', function (obj) {
 			var data = obj.data;
 			var layEvent = obj.event;
+
+			if(window.pageExt.list.beforeRowOperationEvent) {
+				var doNext=window.pageExt.list.beforeRowOperationEvent(data,obj);
+				if(!doNext) return;
+			}
+
 			admin.putTempData('sys-dict-form-data-form-action', "",true);
 			if (layEvent === 'edit') { // 修改
 				//延迟显示加载动画，避免界面闪动
@@ -300,7 +326,7 @@ function ListPage() {
 						admin.putTempData('sys-dict-form-data-form-action', "view",true);
 						showEditForm(data.data);
 					} else {
-						layer.msg(data.message, {icon: 1, time: 1500});
+						top.layer.msg(data.message, {icon: 1, time: 1500});
 					}
 				});
 			}
@@ -310,7 +336,6 @@ function ListPage() {
 					var doNext=window.pageExt.list.beforeSingleDelete(data);
 					if(!doNext) return;
 				}
-
 				top.layer.confirm(fox.translate('确定删除此')+fox.translate('数据字典')+fox.translate('吗？'), function (i) {
 					top.layer.close(i);
 
@@ -329,16 +354,15 @@ function ListPage() {
 						}
 					});
 				});
-				
 			}
 			else if (layEvent === 'open-dict-item-window') { // 条目
 				window.pageExt.list.openDictItemWindow(data);
 			}
 			
 		});
- 
+
     };
-    
+
     /**
      * 打开编辑窗口
      */
@@ -359,7 +383,7 @@ function ListPage() {
 		else if(action=="edit") title=fox.translate('修改')+title;
 		else if(action=="view") title=fox.translate('查看')+title;
 
-		var index=admin.popupCenter({
+		admin.popupCenter({
 			title: title,
 			resize: false,
 			offset: [top,null],
@@ -371,7 +395,6 @@ function ListPage() {
 				refreshTableData();
 			}
 		});
-		admin.putTempData('sys-dict-form-data-popup-index', index);
 	};
 
 	window.module={

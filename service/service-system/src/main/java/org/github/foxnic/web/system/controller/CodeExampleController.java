@@ -51,7 +51,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 代码生成示例主表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-25 13:06:39
+ * @since 2021-11-30 10:34:08
 */
 
 @Api(tags = "代码生成示例主")
@@ -91,7 +91,7 @@ public class CodeExampleController extends SuperController {
 	@SentinelResource(value = CodeExampleServiceProxy.INSERT , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(CodeExampleServiceProxy.INSERT)
 	public Result insert(CodeExampleVO codeExampleVO) {
-		Result result=codeExampleService.insert(codeExampleVO);
+		Result result=codeExampleService.insert(codeExampleVO,false);
 		return result;
 	}
 
@@ -155,12 +155,12 @@ public class CodeExampleController extends SuperController {
 		@ApiImplicitParam(name = CodeExampleVOMeta.BIRTHDAY , value = "日期" , required = false , dataTypeClass=Date.class , example = "2021-08-23 12:00:00"),
 		@ApiImplicitParam(name = CodeExampleVOMeta.WORK_TIME , value = "工作时间" , required = false , dataTypeClass=Date.class),
 	})
-	@ApiOperationSupport( order=4 , ignoreParameters = { CodeExampleVOMeta.PAGE_INDEX , CodeExampleVOMeta.PAGE_SIZE , CodeExampleVOMeta.SEARCH_FIELD , CodeExampleVOMeta.FUZZY_FIELD , CodeExampleVOMeta.SEARCH_VALUE , CodeExampleVOMeta.SORT_FIELD , CodeExampleVOMeta.SORT_TYPE , CodeExampleVOMeta.IDS } )
+	@ApiOperationSupport( order=4 , ignoreParameters = { CodeExampleVOMeta.PAGE_INDEX , CodeExampleVOMeta.PAGE_SIZE , CodeExampleVOMeta.SEARCH_FIELD , CodeExampleVOMeta.FUZZY_FIELD , CodeExampleVOMeta.SEARCH_VALUE , CodeExampleVOMeta.DIRTY_FIELDS , CodeExampleVOMeta.SORT_FIELD , CodeExampleVOMeta.SORT_TYPE , CodeExampleVOMeta.IDS } )
 	@NotNull(name = CodeExampleVOMeta.ID)
 	@SentinelResource(value = CodeExampleServiceProxy.UPDATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(CodeExampleServiceProxy.UPDATE)
 	public Result update(CodeExampleVO codeExampleVO) {
-		Result result=codeExampleService.update(codeExampleVO,SaveMode.NOT_NULL_FIELDS);
+		Result result=codeExampleService.update(codeExampleVO,SaveMode.DIRTY_OR_NOT_NULL_FIELDS,false);
 		return result;
 	}
 
@@ -189,12 +189,12 @@ public class CodeExampleController extends SuperController {
 		@ApiImplicitParam(name = CodeExampleVOMeta.BIRTHDAY , value = "日期" , required = false , dataTypeClass=Date.class , example = "2021-08-23 12:00:00"),
 		@ApiImplicitParam(name = CodeExampleVOMeta.WORK_TIME , value = "工作时间" , required = false , dataTypeClass=Date.class),
 	})
-	@ApiOperationSupport(order=5 ,  ignoreParameters = { CodeExampleVOMeta.PAGE_INDEX , CodeExampleVOMeta.PAGE_SIZE , CodeExampleVOMeta.SEARCH_FIELD , CodeExampleVOMeta.FUZZY_FIELD , CodeExampleVOMeta.SEARCH_VALUE , CodeExampleVOMeta.SORT_FIELD , CodeExampleVOMeta.SORT_TYPE , CodeExampleVOMeta.IDS } )
+	@ApiOperationSupport(order=5 ,  ignoreParameters = { CodeExampleVOMeta.PAGE_INDEX , CodeExampleVOMeta.PAGE_SIZE , CodeExampleVOMeta.SEARCH_FIELD , CodeExampleVOMeta.FUZZY_FIELD , CodeExampleVOMeta.SEARCH_VALUE , CodeExampleVOMeta.DIRTY_FIELDS , CodeExampleVOMeta.SORT_FIELD , CodeExampleVOMeta.SORT_TYPE , CodeExampleVOMeta.IDS } )
 	@NotNull(name = CodeExampleVOMeta.ID)
 	@SentinelResource(value = CodeExampleServiceProxy.SAVE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(CodeExampleServiceProxy.SAVE)
 	public Result save(CodeExampleVO codeExampleVO) {
-		Result result=codeExampleService.save(codeExampleVO,SaveMode.NOT_NULL_FIELDS);
+		Result result=codeExampleService.save(codeExampleVO,SaveMode.DIRTY_OR_NOT_NULL_FIELDS,false);
 		return result;
 	}
 
@@ -213,13 +213,11 @@ public class CodeExampleController extends SuperController {
 	public Result<CodeExample> getById(String id) {
 		Result<CodeExample> result=new Result<>();
 		CodeExample codeExample=codeExampleService.getById(id);
-
 		// join 关联的对象
 		codeExampleService.dao().fill(codeExample)
 			.with(CodeExampleMeta.RESOURZE)
 			.with(CodeExampleMeta.ROLES)
 			.execute();
-
 		result.success(true).data(codeExample);
 		return result;
 	}
@@ -310,13 +308,11 @@ public class CodeExampleController extends SuperController {
 	public Result<PagedList<CodeExample>> queryPagedList(CodeExampleVO sample) {
 		Result<PagedList<CodeExample>> result=new Result<>();
 		PagedList<CodeExample> list=codeExampleService.queryPagedList(sample,sample.getPageSize(),sample.getPageIndex());
-
 		// join 关联的对象
 		codeExampleService.dao().fill(list)
 			.with(CodeExampleMeta.RESOURZE)
 			.with(CodeExampleMeta.ROLES)
 			.execute();
-
 		result.success(true).data(list);
 		return result;
 	}
@@ -329,10 +325,14 @@ public class CodeExampleController extends SuperController {
 	@SentinelResource(value = CodeExampleServiceProxy.EXPORT_EXCEL , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@RequestMapping(CodeExampleServiceProxy.EXPORT_EXCEL)
 	public void exportExcel(CodeExampleVO  sample,HttpServletResponse response) throws Exception {
+		try{
 			//生成 Excel 数据
 			ExcelWriter ew=codeExampleService.exportExcel(sample);
 			//下载
-			DownloadUtil.writeToOutput(response, ew.getWorkBook(), ew.getWorkBookName());
+			DownloadUtil.writeToOutput(response,ew.getWorkBook(),ew.getWorkBookName());
+		} catch (Exception e) {
+			DownloadUtil.writeDownloadError(response,e);
+		}
 	}
 
 
@@ -342,11 +342,15 @@ public class CodeExampleController extends SuperController {
 	@SentinelResource(value = CodeExampleServiceProxy.EXPORT_EXCEL_TEMPLATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@RequestMapping(CodeExampleServiceProxy.EXPORT_EXCEL_TEMPLATE)
 	public void exportExcelTemplate(HttpServletResponse response) throws Exception {
+		try{
 			//生成 Excel 模版
 			ExcelWriter ew=codeExampleService.exportExcelTemplate();
 			//下载
 			DownloadUtil.writeToOutput(response, ew.getWorkBook(), ew.getWorkBookName());
+		} catch (Exception e) {
+			DownloadUtil.writeDownloadError(response,e);
 		}
+	}
 
 
 

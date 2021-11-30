@@ -3,13 +3,14 @@ package org.github.foxnic.web.domain.system.meta;
 import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.system.CodeExampleRoleVO;
 import java.util.List;
+import org.github.foxnic.web.domain.system.CodeExampleRole;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-27 13:58:09
- * @sign 2E703FA6BBD16C6B95D5C4AC827751E1
+ * @since 2021-11-30 10:30:35
+ * @sign 582176897672589DD07BBA518C6F232D
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -66,6 +67,16 @@ public class CodeExampleRoleVOMeta extends CodeExampleRoleMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.system.CodeExampleRoleVO,java.lang.String> SEARCH_VALUE_PROP = new BeanProperty(org.github.foxnic.web.domain.system.CodeExampleRoleVO.class ,SEARCH_VALUE, java.lang.String.class, "搜索的值", "", java.lang.String.class, null);
 	
 	/**
+	 * 已修改字段 , 集合类型: LIST , 类型: java.lang.String
+	*/
+	public static final String DIRTY_FIELDS="dirtyFields";
+	
+	/**
+	 * 已修改字段 , 集合类型: LIST , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.CodeExampleRoleVO,java.lang.String> DIRTY_FIELDS_PROP = new BeanProperty(org.github.foxnic.web.domain.system.CodeExampleRoleVO.class ,DIRTY_FIELDS, java.util.List.class, "已修改字段", "", java.lang.String.class, null);
+	
+	/**
 	 * 排序字段 , 类型: java.lang.String
 	*/
 	public static final String SORT_FIELD="sortField";
@@ -96,9 +107,49 @@ public class CodeExampleRoleVOMeta extends CodeExampleRoleMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.system.CodeExampleRoleVO,java.lang.String> IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.system.CodeExampleRoleVO.class ,IDS, java.util.List.class, "主键清单", "用于接收批量主键参数", java.lang.String.class, null);
 	
 	/**
+	 * 主键 , 类型: java.lang.String
+	*/
+	public static final String ID="id";
+	
+	/**
+	 * 主键 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.CodeExampleRoleVO,java.lang.String> ID_PROP = new BeanProperty(org.github.foxnic.web.domain.system.CodeExampleRoleVO.class ,ID, java.lang.String.class, "主键", "主键", java.lang.String.class, null);
+	
+	/**
+	 * 属主ID , 类型: java.lang.String
+	*/
+	public static final String EXAMPLE_ID="exampleId";
+	
+	/**
+	 * 属主ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.CodeExampleRoleVO,java.lang.String> EXAMPLE_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.system.CodeExampleRoleVO.class ,EXAMPLE_ID, java.lang.String.class, "属主ID", "属主ID", java.lang.String.class, null);
+	
+	/**
+	 * 角色ID , 类型: java.lang.String
+	*/
+	public static final String ROLE_ID="roleId";
+	
+	/**
+	 * 角色ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.CodeExampleRoleVO,java.lang.String> ROLE_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.system.CodeExampleRoleVO.class ,ROLE_ID, java.lang.String.class, "角色ID", "角色ID", java.lang.String.class, null);
+	
+	/**
+	 * 数据版本号 , 类型: java.lang.Integer
+	*/
+	public static final String VERSION="version";
+	
+	/**
+	 * 数据版本号 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.CodeExampleRoleVO,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.system.CodeExampleRoleVO.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , SORT_FIELD , SORT_TYPE , IDS };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , EXAMPLE_ID , ROLE_ID , VERSION };
 	
 	/**
 	 * 代理类
@@ -164,6 +215,17 @@ public class CodeExampleRoleVOMeta extends CodeExampleRoleMeta {
 		}
 		
 		/**
+		 * 设置 已修改字段
+		 * @param dirtyFields 已修改字段
+		 * @return 当前对象
+		*/
+		public CodeExampleRoleVO setDirtyFields(List<String> dirtyFields) {
+			super.change(DIRTY_FIELDS,super.getDirtyFields(),dirtyFields);
+			super.setDirtyFields(dirtyFields);
+			return this;
+		}
+		
+		/**
 		 * 设置 排序字段
 		 * @param sortField 排序字段
 		 * @return 当前对象
@@ -193,6 +255,50 @@ public class CodeExampleRoleVOMeta extends CodeExampleRoleMeta {
 		public CodeExampleRoleVO setIds(List<String> ids) {
 			super.change(IDS,super.getIds(),ids);
 			super.setIds(ids);
+			return this;
+		}
+		
+		/**
+		 * 设置 主键
+		 * @param id 主键
+		 * @return 当前对象
+		*/
+		public CodeExampleRole setId(String id) {
+			super.change(ID,super.getId(),id);
+			super.setId(id);
+			return this;
+		}
+		
+		/**
+		 * 设置 属主ID
+		 * @param exampleId 属主ID
+		 * @return 当前对象
+		*/
+		public CodeExampleRole setExampleId(String exampleId) {
+			super.change(EXAMPLE_ID,super.getExampleId(),exampleId);
+			super.setExampleId(exampleId);
+			return this;
+		}
+		
+		/**
+		 * 设置 角色ID
+		 * @param roleId 角色ID
+		 * @return 当前对象
+		*/
+		public CodeExampleRole setRoleId(String roleId) {
+			super.change(ROLE_ID,super.getRoleId(),roleId);
+			super.setRoleId(roleId);
+			return this;
+		}
+		
+		/**
+		 * 设置 数据版本号
+		 * @param version 数据版本号
+		 * @return 当前对象
+		*/
+		public CodeExampleRole setVersion(Integer version) {
+			super.change(VERSION,super.getVersion(),version);
+			super.setVersion(version);
 			return this;
 		}
 	}

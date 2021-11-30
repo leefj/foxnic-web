@@ -6,6 +6,8 @@ import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.HRM_EMPLOYEE_POSITION;
+import org.github.foxnic.web.domain.hrm.Employee;
+import org.github.foxnic.web.domain.hrm.Position;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
 public class HrmEmployeePositionConfig extends BaseCodeConfig<HRM_EMPLOYEE_POSITION> {
@@ -16,7 +18,7 @@ public class HrmEmployeePositionConfig extends BaseCodeConfig<HRM_EMPLOYEE_POSIT
 
     @Override
     public void configModel(PoClassFile poType, VoClassFile voType) {
-         context.setRelationField(HRM_EMPLOYEE_POSITION.EMPLOYEE_ID,HRM_EMPLOYEE_POSITION.POSITION_ID,true);
+         context.setRelationField(Employee.class, HRM_EMPLOYEE_POSITION.EMPLOYEE_ID, Position.class,HRM_EMPLOYEE_POSITION.POSITION_ID,true);
     }
 
     @Override
