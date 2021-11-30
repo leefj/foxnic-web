@@ -43,6 +43,7 @@ public class DoubleCache<V> extends com.github.foxnic.commons.cache.DoubleCache<
 
 	private void notifyKeyRemoveEvent(String key,String removeType) {
 		JSONObject cmd=new JSONObject();
+		cmd.put("name",this.getName());
 		cmd.put("key",key);
 		cmd.put("removeType",removeType);
 		this.cache.notifyDataChange(CACHE_INVALID_PREFIX +cmd.toJSONString()+CACHE_INVALID_SUFFIX);
@@ -65,5 +66,11 @@ public class DoubleCache<V> extends com.github.foxnic.commons.cache.DoubleCache<
 	public void removeKeysStartWith(String keyPrefix) {
 		super.removeKeysStartWith(keyPrefix);
 		this.notifyKeyRemoveEvent(keyPrefix,"starts");
+	}
+
+	@Override
+	public void clear() {
+		super.clear();
+		this.notifyKeyRemoveEvent("clear","clear");
 	}
 }

@@ -14,8 +14,9 @@ public class DoubleCacheInvalidListener extends DataChangeHandler implements App
     public void handle(String key, RedisUtil redis) {
         key = StringUtil.removeFirst(key,DoubleCache.CACHE_INVALID_PREFIX);
         key =StringUtil.removeLast(key,DoubleCache.CACHE_INVALID_SUFFIX);
+        key = key.replaceAll("\\\\","");
         JSONObject cmd=JSONObject.parseObject(key);
-        FoxnicDataCacheManager.getInstance().remove4Notify("",cmd.getString("key"),cmd.getString("removeType"));
+        FoxnicDataCacheManager.getInstance().remove4Notify(cmd.getString("name"),cmd.getString("key"),cmd.getString("removeType"));
     }
 
     @Override

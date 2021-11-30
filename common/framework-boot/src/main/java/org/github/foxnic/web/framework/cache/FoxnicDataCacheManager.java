@@ -1,5 +1,6 @@
 package org.github.foxnic.web.framework.cache;
 
+import com.github.foxnic.commons.cache.Cache;
 import com.github.foxnic.commons.cache.ExpireType;
 import com.github.foxnic.commons.cache.LocalCache;
 import com.github.foxnic.dao.cache.CacheProperties;
@@ -23,6 +24,26 @@ public class FoxnicDataCacheManager extends DataCacheManager {
     }
 
     void  remove4Notify(String cacheName,String key,String removeType) {
+
+        for (com.github.foxnic.commons.cache.DoubleCache cache : caches.values()) {
+            if(!cache.getName().equals(cacheName)) continue;
+            Cache local=cache.getLocalCache();
+            if(local==null) continue;
+            if(removeType.equals("starts")) {
+                local.removeKeysStartWith(key);
+                System.err.println("remove >>> starts "+key+" @ "+cacheName);
+            } else if(removeType.equals("all")) {
+//                Logger.error("暂不支持 all 模式");
+                throw new RuntimeException("暂不支持 all 模式");
+            } else if(removeType.equals("clear")) {
+                local.clear();
+                System.err.println("removeAll >>> "+key+" @ "+cacheName);
+            } else {
+                local.remove(key);
+                System.err.println("remove >>> "+key+" @ "+cacheName);
+            }
+
+        }
 
     }
 
