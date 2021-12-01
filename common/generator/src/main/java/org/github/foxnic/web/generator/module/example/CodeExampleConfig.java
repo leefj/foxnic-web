@@ -164,9 +164,11 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 				.basic().label("角色")
 				.search().inputWidth(140).on(FoxnicWeb.SYS_CODE_EXAMPLE_ROLE.ROLE_ID)
 				.table().sort(false)
-				.form().selectBox().queryApi(RoleServiceProxy.QUERY_PAGED_LIST)
+				.form().selectBox()
+//				.queryApi(RoleServiceProxy.QUERY_PAGED_LIST).paging(true)
+				.queryApi(RoleServiceProxy.QUERY_LIST).paging(false)
 				.valueField(RoleMeta.ID).textField(RoleMeta.NAME)
-				.toolbar(false).paging(true).defaultIndex(0)
+				.toolbar(false).defaultIndex(0)
 				.fillWith(CodeExampleMeta.ROLES).muliti(true);
 		;
 

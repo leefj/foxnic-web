@@ -1,7 +1,7 @@
 /**
  * 代码生成示例主 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-30 10:34:12
+ * @since 2021-12-01 16:21:26
  */
 
 
@@ -198,20 +198,30 @@ function ListPage() {
 		fox.renderSelectBox({
 			el: "valid",
 			size: "small",
-			radio: false
+			radio: false,
+			on: function(data){
+				setTimeout(function () {
+					window.pageExt.list.onSelectBoxChanged && window.pageExt.list.onSelectBoxChanged("valid",data.arr,data.change,data.isAdd);
+				},1);
+			},
 		});
 		//渲染 radioEnum 搜索框
 		fox.renderSelectBox({
 			el: "radioEnum",
 			size: "small",
 			radio: false,
+			on: function(data){
+				setTimeout(function () {
+					window.pageExt.list.onSelectBoxChanged && window.pageExt.list.onSelectBoxChanged("radioEnum",data.arr,data.change,data.isAdd);
+				},1);
+			},
 			//toolbar: {show:true,showIcon:true,list:["CLEAR","REVERSE"]},
 			transform:function(data) {
 				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
 				var opts=[];
 				if(!data) return opts;
 				for (var i = 0; i < data.length; i++) {
-					opts.push({name:data[i].text,value:data[i].code});
+					opts.push({data:data[i],name:data[i].text,value:data[i].code});
 				}
 				return opts;
 			}
@@ -221,13 +231,18 @@ function ListPage() {
 			el: "radioDict",
 			size: "small",
 			radio: false,
+			on: function(data){
+				setTimeout(function () {
+					window.pageExt.list.onSelectBoxChanged && window.pageExt.list.onSelectBoxChanged("radioDict",data.arr,data.change,data.isAdd);
+				},1);
+			},
 			//toolbar: {show:true,showIcon:true,list:["CLEAR","REVERSE"]},
 			transform: function(data) {
 				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
 				var opts=[];
 				for (var i = 0; i < data.length; i++) {
 					if(!data[i]) continue;
-					opts.push({name:data[i].text,value:data[i].code});
+					opts.push({data:data[i],name:data[i].text,value:data[i].code});
 				}
 				return opts;
 			}
@@ -237,13 +252,18 @@ function ListPage() {
 			el: "checkEnum",
 			size: "small",
 			radio: false,
+			on: function(data){
+				setTimeout(function () {
+					window.pageExt.list.onSelectBoxChanged && window.pageExt.list.onSelectBoxChanged("checkEnum",data.arr,data.change,data.isAdd);
+				},1);
+			},
 			//toolbar: {show:true,showIcon:true,list:["CLEAR","REVERSE"]},
 				transform:function(data) {
 					//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
 					var opts=[];
 					if(!data) return opts;
 					for (var i = 0; i < data.length; i++) {
-						opts.push({name:data[i].text,value:data[i].code});
+						opts.push({data:data[i],name:data[i].text,value:data[i].code});
 					}
 					return opts;
 				}
@@ -253,13 +273,18 @@ function ListPage() {
 			el: "checkDict",
 			size: "small",
 			radio: false,
+			on: function(data){
+				setTimeout(function () {
+					window.pageExt.list.onSelectBoxChanged && window.pageExt.list.onSelectBoxChanged("checkDict",data.arr,data.change,data.isAdd);
+				},1);
+			},
 			//toolbar: {show:true,showIcon:true,list:["CLEAR","REVERSE"]},
 				transform: function(data) {
 					//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
 					var opts=[];
 					for (var i = 0; i < data.length; i++) {
 						if(!data[i]) continue;
-						opts.push({name:data[i].text,value:data[i].code});
+						opts.push({data:data[i],name:data[i].text,value:data[i].code});
 					}
 					return opts;
 				}
@@ -276,7 +301,7 @@ function ListPage() {
 				var opts=[];
 				if(!data) return opts;
 				for (var i = 0; i < data.length; i++) {
-					opts.push({name:data[i].text,value:data[i].code});
+					opts.push({data:data[i],name:data[i].text,value:data[i].code});
 				}
 				return opts;
 			}
@@ -293,7 +318,7 @@ function ListPage() {
 				var opts=[];
 				for (var i = 0; i < data.length; i++) {
 					if(!data[i]) continue;
-					opts.push({name:data[i].text,value:data[i].code});
+					opts.push({data:data[i],name:data[i].text,value:data[i].code});
 				}
 				return opts;
 			}
@@ -315,7 +340,7 @@ function ListPage() {
 				if(!data) return opts;
 				for (var i = 0; i < data.length; i++) {
 					if(!data[i]) continue;
-					opts.push({name:data[i].url,value:data[i].id});
+					opts.push({data:data[i],name:data[i].url,value:data[i].id});
 				}
 				return opts;
 			}
@@ -334,8 +359,6 @@ function ListPage() {
 			radio: false,
 			size: "small",
 			filterable: true,
-			paging: true,
-			pageRemote: true,
 			//转换数据
 			searchField: "name", //请自行调整用于搜索的字段名称
 			extraParam: {}, //额外的查询参数，Object 或是 返回 Object 的函数
@@ -345,7 +368,7 @@ function ListPage() {
 				if(!data) return opts;
 				for (var i = 0; i < data.length; i++) {
 					if(!data[i]) continue;
-					opts.push({name:data[i].name,value:data[i].id});
+					opts.push({data:data[i],name:data[i].name,value:data[i].id});
 				}
 				return opts;
 			}
