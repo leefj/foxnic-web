@@ -3,6 +3,7 @@ package org.github.foxnic.web.framework.cache;
 import com.github.foxnic.commons.cache.Cache;
 import com.github.foxnic.commons.cache.ExpireType;
 import com.github.foxnic.commons.cache.LocalCache;
+import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.dao.cache.CacheProperties;
 import com.github.foxnic.dao.cache.DataCacheManager;
 
@@ -33,8 +34,8 @@ public class FoxnicDataCacheManager extends DataCacheManager {
                 local.removeKeysStartWith(key);
                 System.err.println("remove >>> starts "+key+" @ "+cacheName);
             } else if(removeType.equals("all")) {
-//                Logger.error("暂不支持 all 模式");
-                throw new RuntimeException("暂不支持 all 模式");
+                Logger.error("暂不支持 all 模式");
+                // throw new RuntimeException("暂不支持 all 模式");
             } else if(removeType.equals("clear")) {
                 local.clear();
                 System.err.println("removeAll >>> "+key+" @ "+cacheName);
