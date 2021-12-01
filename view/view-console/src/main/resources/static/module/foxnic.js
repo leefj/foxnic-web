@@ -591,7 +591,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
         transDict: function (dictCode, itemCode) {
             var map = dict[dictCode];
             var label = null;
-            if (map) label = map[itemCode];
+            if (map==null) label = map[itemCode];
             return label == null ? "--" : label;
         },
 
@@ -1009,14 +1009,14 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
         },
 
         joinLabel:function (data, key, sep) {
-            if (!data) return "";
+            if (data==null) return "";
             var label = "";
             if (!sep) sep = ",";
 
             if (Array.isArray(data)) {
                 var labels = [];
                 for (var i = 0; i < data.length; i++) {
-                    if (!data[i]) continue;
+                    if (data[i]==null) continue;
                     label = data[i][key];
                     if (label) {
                         labels.push(label);
@@ -1030,7 +1030,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             return label;
         },
         getEnumText: function (list, code) {
-            if (!list) return code;
+            if (list==null) return code;
 
             for (var i = 0; i < list.length; i++) {
                 if (list[i]["code"] == code) return list[i]["text"];
@@ -1039,7 +1039,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
 
             var codes=null;
             try {
-                if(code){
+                if(code!=null){
                     if(code.startWith("[") && code.endWith("]")) {
                         codes = JSON.parse(code);
                     } else {
@@ -1061,7 +1061,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 }
             }
 
-            if (!code) code = "";
+            if (code==null) code = "";
             return code;
         },
         /**
@@ -1069,13 +1069,13 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
          * */
         getProperty:function (data,path,start) {
             //debugger
-            if(!data) return "";
-            if(!start) start=0;
+            if(data==null) return "";
+            if(start==null) start=0;
             var prop,value=data;
             for (var i = start; i < path.length; i++) {
                 prop=path[i];
                 value=value[prop];
-                if(!value) return "";
+                if(value==null) return "";
                 if(TypeUtil.isArray(value) && value.length>0){
                     var rets=[];
                     for (var j = 0; j < value.length; j++) {
@@ -1095,13 +1095,13 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             return value;
         },
         getDictText: function (list, code) {
-            if (!list) return code;
+            if (list==null) return code;
             for (var i = 0; i < list.length; i++) {
                 if (list[i]["code"] == code) return list[i]["text"];
             }
             var codes=null;
             try {
-                if(code){
+                if(code!=null){
                     if(code.startWith("[") && code.endWith("]")) {
                         codes = JSON.parse(code);
                     } else {
@@ -1125,7 +1125,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 }
             }
 
-            if (!code) code = "";
+            if (code==null) code = "";
             return code;
         },
 
