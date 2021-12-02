@@ -300,7 +300,6 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 //			dao.join(employees, Person.class);
 //		}
 
-
  		//填充账户模型
  		dao.fill(user)
 			.with(UserMeta.MENUS)

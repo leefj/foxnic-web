@@ -13,27 +13,27 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 
 /**
- * 
+ *
  * @author 李方捷
  * @since  2021-06-02
  * */
 public class SessionUserImpl extends SessionUser implements UserDetails, CredentialsContainer {
- 
+
 	private static final long serialVersionUID = 1L;
-	
+
 	private User user;
-	
+
 	private String sessionOnlineId;
-	
-	
+
+
 	public static final  String SESSION_ONLINE_ID_KEY="SESSION_ONLINE_ID_KEY";
-	
+
 //	public static final String ROLE_PERMITTED="ROLE_PERMITTED";
-// 
+//
 //	private static List<GrantedAuthority>  ROLES_PERMITTED=Arrays.asList(new SimpleGrantedAuthority(ROLE_PERMITTED));
-  
+
 	private transient SessionPermissionImpl permission = null;
- 
+
 	public SessionUserImpl(User user) {
 		this.user=user;
 	}
@@ -42,7 +42,7 @@ public class SessionUserImpl extends SessionUser implements UserDetails, Credent
 	public void eraseCredentials() {
 		this.user.setPasswd("******");
 	}
- 
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return ((SessionPermissionImpl)permission()).getAuthorities();
@@ -72,11 +72,13 @@ public class SessionUserImpl extends SessionUser implements UserDetails, Credent
 
 	@Override
 	public boolean isAccountNonExpired() {
+		if(this.user.getValid()==null || this.user.getDeleted()==null) return false;
 		return this.user.getValid()==1 && this.user.getDeleted()==0;
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
+		if(this.user.getValid()==null || this.user.getDeleted()==null) return false;
 		return this.user.getValid()==1 && this.user.getDeleted()==0;
 	}
 
@@ -112,10 +114,10 @@ public class SessionUserImpl extends SessionUser implements UserDetails, Credent
 	public void setSessionOnlineId(String token) {
 		this.sessionOnlineId = token;
 	}
-	
-	
-	
-	
+
+
+
+
 	/**
 	 * 获得当前登录的账户
 	 * */
@@ -146,5 +148,5 @@ public class SessionUserImpl extends SessionUser implements UserDetails, Credent
 	public String getLanguage() {
 		return this.user.getLanguage();
 	}
- 
+
 }
