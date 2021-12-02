@@ -10,8 +10,6 @@
     <link rel="stylesheet" href="assets/css/admin.css" th:href="'assets/css/admin.css?'+${cacheKey}"/>
     <link rel="stylesheet" href="assets/libs/toast/css/toast.css" th:href="'assets/libs/toast/css/toast.css?'+${cacheKey}" type="text/css">
     <link href="/assets/libs/font-awesome-4.7.0/css/font-awesome.min.css" th:href="@{/assets/libs/font-awesome-4.7.0/css/font-awesome.min.css}" rel="stylesheet"/>
-    <!-- 自定义主题，使用EasyWeb主题生成器生成 -->
-    <!--<link rel="stylesheet" href="assets/css/theme-blue.css"/>-->
     <style>
         /* 覆盖原始样式 */
         .xm-icon-close:before {
@@ -20,6 +18,7 @@
 		}
     </style>
     <link rel="stylesheet" href="assets/css/foxnic-web.css" th:href="'assets/css/foxnic-web.css?'+${cacheKey}" >
+    <link rel="stylesheet" href="assets/css/theme/orange.css"/>
     <script th:inline="javascript">var foxnic_cachekey=[[${cacheKey}]];</script>
 </head>
 
@@ -66,6 +65,7 @@
     <div class="site-mobile-shade"></div>
 </div>
 <script type="text/javascript" src="module/global.js" th:src="'module/global.js?'+${cacheKey}"></script>
+<script type="text/javascript" src="/assets/css/theme/orange.js" th:src="'/assets/css/theme/orange.js?'+${cacheKey}"></script>
 <script type="text/javascript" src="assets/libs/jquery-3.2.1.min.js" th:src="'assets/libs/jquery-3.2.1.min.js?'+${cacheKey}"></script>
 <script type="text/javascript" src="assets/libs/toast/js/toast.js" th:src="'assets/libs/toast/js/toast.js?'+${cacheKey}"></script>
 <script type="text/javascript" src="assets/libs/q.js" th:src="'assets/libs/q.js?'+${cacheKey}"></script>
