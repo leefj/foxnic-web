@@ -31,15 +31,15 @@ import java.util.List;
 
 @Service("SysConfigServiceImpl")
 public class ConfigServiceImpl  extends SuperService<Config> implements IConfigService {
-	
+
 	@Resource(name= DBConfigs.PRIMARY_DAO)
 	private DAO dao=null;
-	
+
 	/**
 	 * 获得 DAO 对象
 	 * */
 	public DAO dao() { return dao; }
-	
+
 	/**
 	 * 生成主键值
 	 * */
@@ -47,7 +47,7 @@ public class ConfigServiceImpl  extends SuperService<Config> implements IConfigS
 	public Object generateId(Field field) {
 		return IDGenerator.getUUID();
 	}
-	
+
 	/**
 	 * 按主键删除系统配置
 	 *
@@ -60,7 +60,7 @@ public class ConfigServiceImpl  extends SuperService<Config> implements IConfigS
 		config.setCode(code);
 		return dao.deleteEntity(config);
 	}
-	
+
 	/**
 	 * 按主键删除系统配置
 	 *
@@ -76,9 +76,9 @@ public class ConfigServiceImpl  extends SuperService<Config> implements IConfigS
 		config.setDeleteTime(new Date());
 		return dao.updateEntity(config,SaveMode.NOT_NULL_FIELDS);
 	}
-	
+
 	private LocalCache<String, Config> cache=new LocalCache<>(1000*60*15);
-	
+
 	/**
 	 * 按主键获取系统配置
 	 *
@@ -94,20 +94,20 @@ public class ConfigServiceImpl  extends SuperService<Config> implements IConfigS
 		sample=dao.queryEntity(sample);
 		cache.put(code,sample);
 		return sample;
-		
+
 	}
 
 	@Override
 	public Config getById(SystemConfigEnum cfg) {
 		return this.getById(cfg.code());
 	}
-	
+
 	@Override
 	public Result save(Config entity, SaveMode mode) {
 		cache.remove(entity.getCode());
 		return super.save(entity, mode);
 	}
-	
+
 	@Override
 	public Result update(Config entity, SaveMode mode) {
 		cache.remove(entity.getCode());

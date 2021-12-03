@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2021-11-15 14:36:03
+ * @since 2021-12-03 08:55:14
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -3587,8 +3587,18 @@ public class FoxnicWeb {
 		*/
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
+		/**
+		 * Profile,Profile Id 
+		*/
+		public static final DBField PROFILE_ID = new DBField(DBDataType.STRING , "profile_id","profileId","Profile","Profile Id",true,false,false);
+		
+		/**
+		 * 分类代码,关联 sys_config_catalog 数据字典
+		*/
+		public static final DBField CATALOG_CODE = new DBField(DBDataType.STRING , "catalog_code","catalogCode","分类代码","关联 sys_config_catalog 数据字典",false,false,true);
+		
 		public SYS_CONFIG() {
-			this.init($NAME,"系统配置表" , CODE , NAME , TYPE , TYPE_DESC , VALUE , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"系统配置表" , CODE , NAME , TYPE , TYPE_DESC , VALUE , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , PROFILE_ID , CATALOG_CODE);
 		}
 		public static final SYS_CONFIG $TABLE=new SYS_CONFIG();
 	}
@@ -4594,6 +4604,41 @@ public class FoxnicWeb {
 	}
 	
 	/**
+	*/
+	public static class SYS_PROFILE extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "sys_profile";
+		
+		/**
+		 * ID
+		*/
+		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","ID","ID",true,false,false);
+		
+		/**
+		 * 名称
+		*/
+		public static final DBField NAME = new DBField(DBDataType.STRING , "name","name","名称","名称",false,false,true);
+		
+		/**
+		 * 备注
+		*/
+		public static final DBField NOTES = new DBField(DBDataType.STRING , "notes","notes","备注","备注",false,false,true);
+		
+		/**
+		 * 加载的顺序
+		*/
+		public static final DBField LOAD_ORDER = new DBField(DBDataType.INTEGER , "load_order","loadOrder","加载的顺序","加载的顺序",false,false,true);
+		
+		public SYS_PROFILE() {
+			this.init($NAME,"" , ID , NAME , NOTES , LOAD_ORDER);
+		}
+		public static final SYS_PROFILE $TABLE=new SYS_PROFILE();
+	}
+	
+	/**
 	 * 系统资源
 	*/
 	public static class SYS_RESOURZE extends DBTable {
@@ -4621,7 +4666,7 @@ public class FoxnicWeb {
 		/**
 		 * 访问控制类型
 		*/
-		public static final DBField ACCESS_TYPE = new DBField(DBDataType.STRING , "access_type","accessType","访问控制类型","访问控制类型",false,false,true);
+		public static final DBField ACCESS_TYPE = new DBField(DBDataType.STRING , "access_type","accessType","访问控制类型","访问控制类型",false,false,false);
 		
 		/**
 		 * 地址

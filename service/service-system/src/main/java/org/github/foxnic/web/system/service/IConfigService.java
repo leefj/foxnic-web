@@ -12,8 +12,11 @@ import com.github.foxnic.dao.entity.ISuperService;
 */
 
 public interface IConfigService extends ISuperService<Config> {
-	
-	
+
+	/**
+	 * 默认的 profile id
+	 * */
+	public static final String DEFAULT_PROFILE_ID="default";
 
 	/**
 	 * 按主键删除系统配置
@@ -22,7 +25,7 @@ public interface IConfigService extends ISuperService<Config> {
 	 * @return 查询结果 , Config对象
 	 */
 	boolean deleteByIdPhysical(String key);
-	
+
 	/**
 	 * 按主键删除系统配置
 	 *
@@ -30,7 +33,7 @@ public interface IConfigService extends ISuperService<Config> {
 	 * @return 查询结果 , Config对象
 	 */
 	boolean deleteByIdLogical(String key);
-	
+
 	/**
 	 * 按主键获取系统配置
 	 *
