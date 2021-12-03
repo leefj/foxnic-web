@@ -1,12 +1,12 @@
 /** logo部分样式 */
 .layui-layout-admin .layui-header .layui-logo {
-    background-color: #0085E8;
+    background-color: #F8503C;
     color: #fff;
 }
 
 /** header样式 */
 .layui-layout-admin .layui-header {
-    background-color: #1E9FFF;
+    background-color: #F8503C;
 }
 
 .layui-layout-admin .layui-header a {
