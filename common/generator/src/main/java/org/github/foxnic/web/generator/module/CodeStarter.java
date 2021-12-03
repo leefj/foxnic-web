@@ -15,6 +15,7 @@ import org.github.foxnic.web.generator.module.pcm.PcmCatalogAllocationConfig;
 import org.github.foxnic.web.generator.module.pcm.PcmCatalogAttributeConfig;
 import org.github.foxnic.web.generator.module.pcm.PcmCatalogConfig;
 import org.github.foxnic.web.generator.module.system.SysConfigConfig;
+import org.github.foxnic.web.generator.module.system.SysProfileConfig;
 
 import java.io.File;
 
@@ -108,6 +109,7 @@ public class CodeStarter extends ModuleCodeGenerator {
 
 //        this.addConfig(new SysDictConfig());
         this.addConfig(new SysConfigConfig());
+        this.addConfig(new SysProfileConfig());
 //        this.addConfig(new SysDictItemConfig());
 //        this.addConfig(new SysFileConfig());
         //
