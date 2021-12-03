@@ -1,16 +1,18 @@
 /**
  * 系统配置 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-14 08:25:08
+ * @since 2021-12-03 09:07:30
  */
 
 function FormPage() {
 
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect,foxup;
 	const moduleURL="/service-system/sys-config";
+	// 表单执行操作类型：view，create，edit
 	var action=null;
 	var disableCreateNew=true;
 	var disableModify=false;
+	var dataBeforeEdit=null;
 	/**
       * 入口函数，初始化
       */
@@ -28,7 +30,7 @@ function FormPage() {
 		}
 
 		if(window.pageExt.form.beforeInit) {
-			window.pageExt.form.beforeInit();
+			window.pageExt.form.beforeInit(action,admin.getTempData('sys-config-form-data'));
 		}
 
 		//渲染表单组件
@@ -97,7 +99,7 @@ function FormPage() {
 
 		var hasData=true;
 		//如果是新建
-		if(!formData || !formData.code) {
+		if(!formData || !formData.id) {
 			adjustPopup();
 			hasData=false;
 		}
@@ -152,6 +154,8 @@ function FormPage() {
 			}
 		}
 
+		dataBeforeEdit=getFormData();
+
 	}
 
 	function getFormData() {
@@ -170,26 +174,22 @@ function FormPage() {
 	}
 
 	function saveForm(param) {
-		var api=moduleURL+"/"+(param.code?"update":"insert");
-		var task=setTimeout(function(){layer.load(2);},1000);
-		admin.request(api, param, function (data) {
-			clearTimeout(task);
-			layer.closeAll('loading');
+		param.dirtyFields=fox.compareDirtyFields(dataBeforeEdit,param);
+		var api=moduleURL+"/"+(param.id?"update":"insert");
+		admin.post(api, param, function (data) {
 			if (data.success) {
-				layer.msg(data.message, {icon: 1, time: 500});
-				var index=admin.getTempData('sys-config-form-data-popup-index');
 				var doNext=true;
 				if(window.pageExt.form.betweenFormSubmitAndClose) {
 					doNext=window.pageExt.form.betweenFormSubmitAndClose(param,data);
 				}
 				if(doNext) {
-					admin.finishPopupCenter(index);
+					admin.finishPopupCenterById('sys-config-form-data-win');
 				}
 			} else {
-				layer.msg(data.message, {icon: 2, time: 1000});
+				layer.msg(data.message, {icon: 2, time: 1500});
 			}
 			window.pageExt.form.afterSubmit && window.pageExt.form.afterSubmit(param,data);
-		}, "POST");
+		}, {delayLoading:1000,elms:[$("#submit-button")]});
 	}
 
 	/**
@@ -223,7 +223,8 @@ function FormPage() {
 		verifyForm: verifyForm,
 		saveForm: saveForm,
 		fillFormData: fillFormData,
-		adjustPopup: adjustPopup
+		adjustPopup: adjustPopup,
+		action: action
 	};
 
 	window.pageExt.form.ending && window.pageExt.form.ending();

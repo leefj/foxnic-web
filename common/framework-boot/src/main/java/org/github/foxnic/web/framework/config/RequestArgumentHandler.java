@@ -15,7 +15,7 @@ public class RequestArgumentHandler {
     private ControllerAspector aspector;
 
     @PostConstruct
-    public void initMethod(){
+    public void initMethod() {
 
         aspector.addArgHandler(args -> {
 

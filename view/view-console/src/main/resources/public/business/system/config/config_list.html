@@ -2,7 +2,7 @@
 /**
  * 系统配置 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-14 08:25:06
+ * @since 2021-12-03 09:07:30
  */
  -->
  <!DOCTYPE html>
@@ -56,6 +56,21 @@
                     <!-- 配置值 , value ,typeName=text_input, isHideInSearch=true -->
                     <!-- 是否生效 , valid ,typeName=logic_switch, isHideInSearch=true -->
                     <!-- 说明 , notes ,typeName=text_area, isHideInSearch=true -->
+                    <!-- Profile , profileId ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('Profile')}" class="search-label profileId-label">Profile</span><span class="search-colon">:</span></div>
+                        <input id="profileId" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 分类代码 , catalogCode ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('分类代码')}" class="search-label catalogCode-label">分类代码</span><span class="search-colon">:</span></div>
+                        <input id="catalogCode" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 主键 , id ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('主键')}" class="search-label id-label">主键</span><span class="search-colon">:</span></div>
+                        <input id="id" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
 
 
                 </div>
@@ -90,8 +105,8 @@
 <!-- 表格操作列 -->
 <script type="text/html" id="tableOperationTemplate">
 
-    <button th:if="${perm.checkAuth('sys_config:view-form')}" class="layui-btn layui-btn-primary layui-btn-xs ops-view-button" lay-event="view" th:text="${lang.translate('查看')}" data-id="{{d.id}}">查看</button>
-    <button th:if="${perm.checkAnyAuth('sys_config:update','sys_config:save')}" class="layui-btn layui-btn-primary layui-btn-xs ops-edit-button" lay-event="edit" th:text="${lang.translate('修改')}" data-id="{{d.id}}">修改</button>
+    <button th:if="${perm.checkAuth('sys_config:view-form')}" class="layui-btn layui-btn-primary layui-btn-xs ops-view-button " lay-event="view" th:text="${lang.translate('查看')}" data-id="{{d.id}}">查看</button>
+    <button th:if="${perm.checkAnyAuth('sys_config:update','sys_config:save')}" class="layui-btn layui-btn-primary layui-btn-xs ops-edit-button " lay-event="edit" th:text="${lang.translate('修改')}" data-id="{{d.id}}">修改</button>
 
 
 
@@ -100,7 +115,7 @@
 
 <!-- 表格状态列 -->
 <script type="text/html" id="cell-tpl-valid">
-    <input type="checkbox" class="switch-valid list-checkbox" lay-filter="cell-tpl-valid" value="{{d.code}}" lay-skin="switch" lay-text="有效|无效&nbsp;"  {{d.valid==1?'checked':''}} data-id="{{d.id}}"/>
+    <input type="checkbox" class="switch-valid list-checkbox" lay-filter="cell-tpl-valid" value="{{d.id}}" lay-skin="switch" lay-text="有效|无效&nbsp;"  {{d.valid==1?'checked':''}} data-id="{{d.id}}"/>
 </script>
 
 <script th:inline="javascript">

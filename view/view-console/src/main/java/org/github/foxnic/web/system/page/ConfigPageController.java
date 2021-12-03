@@ -1,21 +1,19 @@
 package org.github.foxnic.web.system.page;
 
-import org.github.foxnic.web.domain.system.Config;
 import org.github.foxnic.web.framework.view.controller.ViewController;
-import org.github.foxnic.web.proxy.system.ConfigServiceProxy;
+
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.github.foxnic.commons.lang.StringUtil;
-import com.github.foxnic.api.transter.Result;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
+import org.github.foxnic.web.proxy.system.ConfigServiceProxy;
+import javax.servlet.http.HttpServletRequest;
 /**
  * <p>
  * 系统配置表 模版页面控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-15 17:25:48
+ * @since 2021-12-03 09:07:26
 */
 
 @Controller("SysConfigPageController")
@@ -43,7 +41,7 @@ public class ConfigPageController extends ViewController {
 	 * 系统配置 功能主页面
 	 */
 	@RequestMapping("/config_list.html")
-	public String list(Model model) {
+	public String list(Model model,HttpServletRequest request) {
 		return prefix+"/config_list";
 	}
 
@@ -51,14 +49,7 @@ public class ConfigPageController extends ViewController {
 	 * 系统配置 表单页面
 	 */
 	@RequestMapping("/config_form.html")
-	public String form(Model model , String code) {
-		Result<Config> r=null;
-		if(!StringUtil.isBlank(code)) {
-			r=proxy().getById(code);
-			if(r!=null && r.success()) {
-				model.addAttribute("config", r.data());
-			}
-		}
+	public String form(Model model,HttpServletRequest request , String id) {
 		return prefix+"/config_form";
 	}
 }

@@ -1,7 +1,7 @@
 /**
  * 系统配置 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-14 08:25:07
+ * @since 2021-12-03 09:07:29
  */
 
 
@@ -79,9 +79,12 @@ function ListPage() {
 					,{ field: 'type', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('数据类型'), templet:function (d){ return templet('type',fox.getEnumText(RADIO_TYPE_DATA,d.type),d);}}
 					,{ field: 'typeDesc', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('类型描述') , templet: function (d) { return templet('typeDesc',d.typeDesc,d);}  }
 					,{ field: 'value', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('配置值') , templet: function (d) { return templet('value',d.value,d);}  }
-					,{ field: 'valid', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('是否生效'), templet: '#cell-tpl-valid'}
+					,{ field: 'valid', align:"center",fixed:false,  hide:false, sort: true, title: fox.translate('是否生效'), templet: '#cell-tpl-valid'}
 					,{ field: 'notes', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('说明') , templet: function (d) { return templet('notes',d.notes,d);}  }
-					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间') ,templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); } }
+					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间') ,templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
+					,{ field: 'profileId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('Profile') , templet: function (d) { return templet('profileId',d.profileId,d);}  }
+					,{ field: 'catalogCode', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('分类代码') , templet: function (d) { return templet('catalogCode',d.catalogCode,d);}  }
+					,{ field: 'id', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('主键') , templet: function (d) { return templet('id',d.id,d);}  }
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
 				]],
@@ -103,7 +106,7 @@ function ListPage() {
 			window.pageExt.list.beforeTableRender && window.pageExt.list.beforeTableRender(tableConfig);
 			dataTable=fox.renderTable(tableConfig);
 			//绑定 Switch 切换事件
-			fox.bindSwitchEvent("cell-tpl-valid",moduleURL +'/update','code','valid',function(data,ctx){
+			fox.bindSwitchEvent("cell-tpl-valid",moduleURL +'/update','id','valid',function(data,ctx){
 				window.pageExt.list.afterSwitched && window.pageExt.list.afterSwitched("valid",data,ctx);
 			});
 			//绑定排序事件
@@ -123,6 +126,9 @@ function ListPage() {
 		value.code={ inputType:"button",value: $("#code").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" };
 		value.name={ inputType:"button",value: $("#name").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" };
 		value.type={ inputType:"radio_box", value: xmSelect.get("#type",true).getValue("value"), label:xmSelect.get("#type",true).getValue("nameStr") };
+		value.profileId={ inputType:"button",value: $("#profileId").val()};
+		value.catalogCode={ inputType:"button",value: $("#catalogCode").val()};
+		value.id={ inputType:"button",value: $("#id").val()};
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;
@@ -175,13 +181,18 @@ function ListPage() {
 			el: "type",
 			size: "small",
 			radio: false,
+			on: function(data){
+				setTimeout(function () {
+					window.pageExt.list.onSelectBoxChanged && window.pageExt.list.onSelectBoxChanged("type",data.arr,data.change,data.isAdd);
+				},1);
+			},
 			//toolbar: {show:true,showIcon:true,list:["CLEAR","REVERSE"]},
 			transform:function(data) {
 				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
 				var opts=[];
 				if(!data) return opts;
 				for (var i = 0; i < data.length; i++) {
-					opts.push({name:data[i].text,value:data[i].code});
+					opts.push({data:data[i],name:data[i].text,value:data[i].code});
 				}
 				return opts;
 			}
@@ -226,7 +237,7 @@ function ListPage() {
 		//头工具栏事件
 		table.on('toolbar(data-table)', function(obj){
 			var checkStatus = table.checkStatus(obj.config.id);
-			var selected=getCheckedList("code");
+			var selected=getCheckedList("id");
 			if(window.pageExt.list.beforeToolBarButtonEvent) {
 				var doNext=window.pageExt.list.beforeToolBarButtonEvent(selected,obj);
 				if(!doNext) return;
@@ -263,7 +274,7 @@ function ListPage() {
 				if(!doNext) return;
 			}
 
-			var ids=getCheckedList("code");
+			var ids=getCheckedList("id");
             if(ids.length==0) {
 				top.layer.msg(fox.translate('请选择需要删除的')+fox.translate('系统配置')+"!");
             	return;
@@ -272,7 +283,7 @@ function ListPage() {
 			top.layer.confirm(fox.translate('确定删除已选中的')+fox.translate('系统配置')+fox.translate('吗？'), function (i) {
 				top.layer.close(i);
 				top.layer.load(2);
-                admin.request(moduleURL+"/delete-by-ids", { codes: ids }, function (data) {
+                admin.request(moduleURL+"/delete-by-ids", { ids: ids }, function (data) {
 					top.layer.closeAll('loading');
                     if (data.success) {
 						if(window.pageExt.list.afterBatchDelete) {
@@ -308,7 +319,7 @@ function ListPage() {
 			if (layEvent === 'edit') { // 修改
 				//延迟显示加载动画，避免界面闪动
 				var task=setTimeout(function(){layer.load(2);},1000);
-				admin.request(moduleURL+"/get-by-id", { code : data.code }, function (data) {
+				admin.request(moduleURL+"/get-by-id", { id : data.id }, function (data) {
 					clearTimeout(task);
 					layer.closeAll('loading');
 					if(data.success) {
@@ -321,14 +332,14 @@ function ListPage() {
 			} else if (layEvent === 'view') { // 查看
 				//延迟显示加载动画，避免界面闪动
 				var task=setTimeout(function(){layer.load(2);},1000);
-				admin.request(moduleURL+"/get-by-id", { code : data.code }, function (data) {
+				admin.request(moduleURL+"/get-by-id", { id : data.id }, function (data) {
 					clearTimeout(task);
 					layer.closeAll('loading');
 					if(data.success) {
 						admin.putTempData('sys-config-form-data-form-action', "view",true);
 						showEditForm(data.data);
 					} else {
-						layer.msg(data.message, {icon: 1, time: 1500});
+						top.layer.msg(data.message, {icon: 1, time: 1500});
 					}
 				});
 			}
@@ -338,12 +349,11 @@ function ListPage() {
 					var doNext=window.pageExt.list.beforeSingleDelete(data);
 					if(!doNext) return;
 				}
-
 				top.layer.confirm(fox.translate('确定删除此')+fox.translate('系统配置')+fox.translate('吗？'), function (i) {
 					top.layer.close(i);
 
 					top.layer.load(2);
-					admin.request(moduleURL+"/delete", { code : data.code }, function (data) {
+					admin.request(moduleURL+"/delete", { id : data.id }, function (data) {
 						top.layer.closeAll('loading');
 						if (data.success) {
 							if(window.pageExt.list.afterSingleDelete) {
@@ -357,7 +367,6 @@ function ListPage() {
 						}
 					});
 				});
-
 			}
 			
 		});
@@ -374,7 +383,7 @@ function ListPage() {
 		}
 		var action=admin.getTempData('sys-config-form-data-form-action');
 		var queryString="";
-		if(data && data.code) queryString="?" + 'code=' + data.code;
+		if(data && data.id) queryString="?" + 'id=' + data.id;
 		admin.putTempData('sys-config-form-data', data);
 		var area=admin.getTempData('sys-config-form-area');
 		var height= (area && area.height) ? area.height : ($(window).height()*0.6);
@@ -384,7 +393,7 @@ function ListPage() {
 		else if(action=="edit") title=fox.translate('修改')+title;
 		else if(action=="view") title=fox.translate('查看')+title;
 
-		var index=admin.popupCenter({
+		admin.popupCenter({
 			title: title,
 			resize: false,
 			offset: [top,null],
@@ -396,7 +405,6 @@ function ListPage() {
 				refreshTableData();
 			}
 		});
-		admin.putTempData('sys-config-form-data-popup-index', index);
 	};
 
 	window.module={

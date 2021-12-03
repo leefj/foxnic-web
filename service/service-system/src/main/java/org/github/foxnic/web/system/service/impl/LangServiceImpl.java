@@ -57,19 +57,19 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 	/**
 	 * 注入DAO对象
 	 * */
-	@Resource(name=DBConfigs.PRIMARY_DAO) 
+	@Resource(name=DBConfigs.PRIMARY_DAO)
 	private DAO dao=null;
-	
+
 	/**
 	 * 获得 DAO 对象
 	 * */
 	public DAO dao() { return dao; }
-	
+
 	@Override
 	public Object generateId(Field field) {
 		return IDGenerator.getSnowflakeIdString();
 	}
-	
+
 	/**
 	 * 插入实体
 	 * @param lang 实体数据
@@ -81,7 +81,7 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 		if(ex) return ErrorDesc.success();
 		return super.insert(lang);
 	}
-	
+
 	/**
 	 * 批量插入实体，事务内
 	 * @param langList 实体数据清单
@@ -91,8 +91,8 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 	public Result insertList(List<Lang> langList) {
 		return super.insertList(langList);
 	}
-	
-	
+
+
 	/**
 	 * 按主键删除 语言条目
 	 *
@@ -105,7 +105,7 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 		lang.setCode(code);
 		return dao.deleteEntity(lang);
 	}
-	
+
 	/**
 	 * 按主键删除 语言条目
 	 *
@@ -121,7 +121,7 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 		lang.setDeleteTime(new Date());
 		return dao.updateEntity(lang,SaveMode.NOT_NULL_FIELDS);
 	}
-	
+
 	/**
 	 * 更新实体
 	 * @param lang 数据对象
@@ -132,7 +132,7 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 	public Result update(Lang lang , SaveMode mode) {
 		return super.update(lang , mode);
 	}
-	
+
 	/**
 	 * 更新实体集，事务内
 	 * @param langList 数据对象列表
@@ -143,8 +143,8 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 	public Result updateList(List<Lang> langList , SaveMode mode) {
 		return super.updateList(langList , mode);
 	}
-	
-	
+
+
 	/**
 	 * 按主键更新字段 语言条目
 	 *
@@ -156,9 +156,9 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 		if(!field.table().name().equals(this.table())) throw new IllegalArgumentException("更新的数据表["+field.table().name()+"]与服务对应的数据表["+this.table()+"]不一致");
 		int suc=dao.update(field.table().name()).set(field.name(), value).where().and("code = ? ",code).top().execute();
 		return suc>0;
-	} 
-	
-	
+	}
+
+
 	/**
 	 * 按主键获取 语言条目
 	 *
@@ -189,7 +189,7 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @return 查询结果
 	 * */
@@ -197,11 +197,11 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 	public List<Lang> queryList(Lang sample) {
 		return super.queryList(sample);
 	}
-	
-	
+
+
 	/**
 	 * 分页查询实体集，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @param pageSize 分页条数
 	 * @param pageIndex 页码
@@ -211,10 +211,10 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 	public PagedList<Lang> queryPagedList(Lang sample, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, pageSize, pageIndex);
 	}
-	
+
 	/**
 	 * 分页查询实体集，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @param condition 其它条件
 	 * @param pageSize 分页条数
@@ -307,7 +307,7 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 			}
 		}
 		if(StringUtil.isBlank(sysLangValue)) {
-			sysLangValue=configService.getById(SystemConfigEnum.SYSTEM_LANGUAGE).getValue();
+			sysLangValue=configService.getByCode(SystemConfigEnum.SYSTEM_LANGUAGE).getValue();
 		}
 		if(StringUtil.isBlank(sysLangValue)) {
 			sysLangValue=Language.defaults.name();

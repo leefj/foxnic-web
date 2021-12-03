@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2021-12-03 08:55:14
+ * @since 2021-12-03 09:05:02
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -3515,7 +3515,7 @@ public class FoxnicWeb {
 		/**
 		 * 配置键
 		*/
-		public static final DBField CODE = new DBField(DBDataType.STRING , "code","code","配置键","配置键",true,false,false);
+		public static final DBField CODE = new DBField(DBDataType.STRING , "code","code","配置键","配置键",false,false,false);
 		
 		/**
 		 * 配置名
@@ -3590,15 +3590,20 @@ public class FoxnicWeb {
 		/**
 		 * Profile,Profile Id 
 		*/
-		public static final DBField PROFILE_ID = new DBField(DBDataType.STRING , "profile_id","profileId","Profile","Profile Id",true,false,false);
+		public static final DBField PROFILE_ID = new DBField(DBDataType.STRING , "profile_id","profileId","Profile","Profile Id",false,false,false);
 		
 		/**
 		 * 分类代码,关联 sys_config_catalog 数据字典
 		*/
 		public static final DBField CATALOG_CODE = new DBField(DBDataType.STRING , "catalog_code","catalogCode","分类代码","关联 sys_config_catalog 数据字典",false,false,true);
 		
+		/**
+		 * 主键
+		*/
+		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","主键","主键",true,false,false);
+		
 		public SYS_CONFIG() {
-			this.init($NAME,"系统配置表" , CODE , NAME , TYPE , TYPE_DESC , VALUE , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , PROFILE_ID , CATALOG_CODE);
+			this.init($NAME,"系统配置表" , CODE , NAME , TYPE , TYPE_DESC , VALUE , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , PROFILE_ID , CATALOG_CODE , ID);
 		}
 		public static final SYS_CONFIG $TABLE=new SYS_CONFIG();
 	}

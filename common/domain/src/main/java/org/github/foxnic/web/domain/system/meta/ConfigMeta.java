@@ -8,8 +8,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-14 08:21:51
- * @sign 29A8BFA28B297B0929C6BA5A0B6C2B5A
+ * @since 2021-12-03 09:07:26
+ * @sign 522CE309B1C1F0BB835FDF8EA472D6BB
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -166,9 +166,39 @@ public class ConfigMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.system.Config,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.system.Config.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
+	 * Profile , Profile Id , 类型: java.lang.String
+	*/
+	public static final String PROFILE_ID="profileId";
+	
+	/**
+	 * Profile , Profile Id , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.Config,java.lang.String> PROFILE_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.system.Config.class ,PROFILE_ID, java.lang.String.class, "Profile", "Profile Id", java.lang.String.class, null);
+	
+	/**
+	 * 分类代码 , 关联 sys_config_catalog 数据字典 , 类型: java.lang.String
+	*/
+	public static final String CATALOG_CODE="catalogCode";
+	
+	/**
+	 * 分类代码 , 关联 sys_config_catalog 数据字典 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.Config,java.lang.String> CATALOG_CODE_PROP = new BeanProperty(org.github.foxnic.web.domain.system.Config.class ,CATALOG_CODE, java.lang.String.class, "分类代码", "关联 sys_config_catalog 数据字典", java.lang.String.class, null);
+	
+	/**
+	 * 主键 , 类型: java.lang.String
+	*/
+	public static final String ID="id";
+	
+	/**
+	 * 主键 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.Config,java.lang.String> ID_PROP = new BeanProperty(org.github.foxnic.web.domain.system.Config.class ,ID, java.lang.String.class, "主键", "主键", java.lang.String.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ CODE , NAME , TYPE , TYPE_DESC , VALUE , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ CODE , NAME , TYPE , TYPE_DESC , VALUE , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , PROFILE_ID , CATALOG_CODE , ID };
 	
 	/**
 	 * 代理类
@@ -340,6 +370,39 @@ public class ConfigMeta {
 		public Config setVersion(Integer version) {
 			super.change(VERSION,super.getVersion(),version);
 			super.setVersion(version);
+			return this;
+		}
+		
+		/**
+		 * 设置 Profile
+		 * @param profileId Profile
+		 * @return 当前对象
+		*/
+		public Config setProfileId(String profileId) {
+			super.change(PROFILE_ID,super.getProfileId(),profileId);
+			super.setProfileId(profileId);
+			return this;
+		}
+		
+		/**
+		 * 设置 分类代码
+		 * @param catalogCode 分类代码
+		 * @return 当前对象
+		*/
+		public Config setCatalogCode(String catalogCode) {
+			super.change(CATALOG_CODE,super.getCatalogCode(),catalogCode);
+			super.setCatalogCode(catalogCode);
+			return this;
+		}
+		
+		/**
+		 * 设置 主键
+		 * @param id 主键
+		 * @return 当前对象
+		*/
+		public Config setId(String id) {
+			super.change(ID,super.getId(),id);
+			super.setId(id);
 			return this;
 		}
 	}

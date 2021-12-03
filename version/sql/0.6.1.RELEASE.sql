@@ -23,3 +23,21 @@ ALTER TABLE `sys_config`
     ADD COLUMN `catalog_code` varchar(18) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '分类代码,关联 sys_config_catalog 数据字典' AFTER `profile_id`;
 
 update sys_config set profile_id='default' , catalog_code='system';
+
+
+
+ALTER TABLE `sys_config`
+    ADD COLUMN `id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '主键';
+
+update sys_config set id=code;
+
+ALTER TABLE `sys_config`
+    DROP PRIMARY KEY;
+
+
+ALTER TABLE `sys_config`
+    MODIFY COLUMN `id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '主键' AFTER `catalog_code`,
+    ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `sys_config`
+    ADD UNIQUE INDEX `uk`(`code`, `profile_id`);

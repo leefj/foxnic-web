@@ -12,8 +12,8 @@ import com.github.foxnic.commons.bean.BeanUtil;
 /**
  * 系统配置
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-14 08:21:51
- * @sign 677CB6ED8A06D0EB54E2F87524918513
+ * @since 2021-12-03 09:07:26
+ * @sign 732F6C4D9301DE347185BFC324F78A7E
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -52,6 +52,12 @@ public class ConfigVO extends Config {
 	private String searchValue;
 	
 	/**
+	 * 已修改字段
+	*/
+	@ApiModelProperty(required = false,value="已修改字段" , notes = "")
+	private List<String> dirtyFields;
+	
+	/**
 	 * 排序字段
 	*/
 	@ApiModelProperty(required = false,value="排序字段" , notes = "")
@@ -67,7 +73,7 @@ public class ConfigVO extends Config {
 	 * 主键清单：用于接收批量主键参数
 	*/
 	@ApiModelProperty(required = false,value="主键清单" , notes = "用于接收批量主键参数")
-	private List<String> codes;
+	private List<String> ids;
 	
 	/**
 	 * 获得 页码<br>
@@ -160,6 +166,35 @@ public class ConfigVO extends Config {
 	}
 	
 	/**
+	 * 获得 已修改字段<br>
+	 * @return 已修改字段
+	*/
+	public List<String> getDirtyFields() {
+		return dirtyFields;
+	}
+	
+	/**
+	 * 设置 已修改字段
+	 * @param dirtyFields 已修改字段
+	 * @return 当前对象
+	*/
+	public ConfigVO setDirtyFields(List<String> dirtyFields) {
+		this.dirtyFields=dirtyFields;
+		return this;
+	}
+	
+	/**
+	 * 添加 已修改字段
+	 * @param dirtyField 已修改字段
+	 * @return 当前对象
+	*/
+	public ConfigVO addDirtyField(String dirtyField) {
+		if(this.dirtyFields==null) dirtyFields=new ArrayList<>();
+		this.dirtyFields.add(dirtyField);
+		return this;
+	}
+	
+	/**
 	 * 获得 排序字段<br>
 	 * @return 排序字段
 	*/
@@ -200,28 +235,28 @@ public class ConfigVO extends Config {
 	 * 用于接收批量主键参数
 	 * @return 主键清单
 	*/
-	public List<String> getCodes() {
-		return codes;
+	public List<String> getIds() {
+		return ids;
 	}
 	
 	/**
 	 * 设置 主键清单
-	 * @param codes 主键清单
+	 * @param ids 主键清单
 	 * @return 当前对象
 	*/
-	public ConfigVO setCodes(List<String> codes) {
-		this.codes=codes;
+	public ConfigVO setIds(List<String> ids) {
+		this.ids=ids;
 		return this;
 	}
 	
 	/**
 	 * 添加 主键清单
-	 * @param code 主键清单
+	 * @param id 主键清单
 	 * @return 当前对象
 	*/
-	public ConfigVO addCode(String code) {
-		if(this.codes==null) codes=new ArrayList<>();
-		this.codes.add(code);
+	public ConfigVO addId(String id) {
+		if(this.ids==null) ids=new ArrayList<>();
+		this.ids.add(id);
 		return this;
 	}
 	@Transient
