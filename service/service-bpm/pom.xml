@@ -5,8 +5,8 @@
     <parent> 
         <groupId>com.github.foxnic.web</groupId>  
         <artifactId>parent</artifactId>  
-        <version>0.6.1.RELEASE</version>
-        <relativePath>../../pom.xml</relativePath>
+        <version>0.6.2.RELEASE</version>  
+        <relativePath>../../pom.xml</relativePath>  
         <!-- lookup parent from repository --> 
     </parent>  
     <artifactId>service-bpm</artifactId>  
