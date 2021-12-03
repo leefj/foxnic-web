@@ -6,7 +6,7 @@
         <groupId>com.github.foxnic.web</groupId>  
         <artifactId>parent</artifactId>  
         <version>0.6.1.RELEASE</version>  
-        <relativePath/>  
+        <relativePath>../../pom.xml</relativePath>
         <!-- lookup parent from repository --> 
     </parent>  
     <artifactId>framework-cloud</artifactId>  
