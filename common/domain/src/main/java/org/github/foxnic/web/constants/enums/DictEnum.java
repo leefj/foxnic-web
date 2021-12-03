@@ -6,9 +6,9 @@ import com.github.foxnic.commons.reflect.EnumUtil;
 
 
 /**
- * @since 2021-11-14 08:56:05
+ * @since 2021-12-03 15:37:04
  * @author 李方捷 , leefangjie@qq.com
- * 从 select code,name from sys_dict WHERE deleted=0 and module in ('system','hrm') 生成
+ * 从 select distinct code,name from sys_dict WHERE deleted=0 and module in ('system','hrm') 生成
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成
 */
 
@@ -38,6 +38,11 @@ public enum DictEnum implements CodeTextEnum {
 	 * 岗位分类
 	*/
 	POSITION_TYPE("position_type" , "岗位分类"),
+	
+	/**
+	 * 系统配置分类
+	*/
+	SYS_CONFIG_CATALOG("sys_config_catalog" , "系统配置分类"),
 	;
 	
 	private String code;

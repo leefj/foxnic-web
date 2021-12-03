@@ -9,8 +9,8 @@ import org.github.foxnic.web.domain.system.Profile;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-03 13:54:38
- * @sign 5D7348C212EE3A3D160E4B524E4EFFD0
+ * @since 2021-12-03 15:40:18
+ * @sign 06D7408A07CF0D84D9554A542525BE33
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -137,19 +137,9 @@ public class ProfileVOMeta extends ProfileMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.system.ProfileVO,java.lang.String> NOTES_PROP = new BeanProperty(org.github.foxnic.web.domain.system.ProfileVO.class ,NOTES, java.lang.String.class, "备注", "备注", java.lang.String.class, null);
 	
 	/**
-	 * 加载的顺序 , 类型: java.lang.Integer
-	*/
-	public static final String LOAD_ORDER="loadOrder";
-	
-	/**
-	 * 加载的顺序 , 类型: java.lang.Integer
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.system.ProfileVO,java.lang.Integer> LOAD_ORDER_PROP = new BeanProperty(org.github.foxnic.web.domain.system.ProfileVO.class ,LOAD_ORDER, java.lang.Integer.class, "加载的顺序", "加载的顺序", java.lang.Integer.class, null);
-	
-	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , NAME , NOTES , LOAD_ORDER };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , NAME , NOTES };
 	
 	/**
 	 * 代理类
@@ -288,17 +278,6 @@ public class ProfileVOMeta extends ProfileMeta {
 		public Profile setNotes(String notes) {
 			super.change(NOTES,super.getNotes(),notes);
 			super.setNotes(notes);
-			return this;
-		}
-		
-		/**
-		 * 设置 加载的顺序
-		 * @param loadOrder 加载的顺序
-		 * @return 当前对象
-		*/
-		public Profile setLoadOrder(Integer loadOrder) {
-			super.change(LOAD_ORDER,super.getLoadOrder(),loadOrder);
-			super.setLoadOrder(loadOrder);
 			return this;
 		}
 	}

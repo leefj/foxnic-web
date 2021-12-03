@@ -8,6 +8,7 @@ import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_CONFIG;
+import org.github.foxnic.web.constants.enums.DictEnum;
 import org.github.foxnic.web.constants.enums.system.SystemConfigType;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
@@ -30,6 +31,8 @@ public class SysConfigConfig extends BaseCodeConfig<SYS_CONFIG> {
     @Override
     public void configFields(ViewOptions view) {
 
+        view.field(SYS_CONFIG.ID)
+                .basic().hidden();
         //配置逻辑型字段
         view.field(SYS_CONFIG.VALID)
                 .search().hidden()
@@ -39,6 +42,8 @@ public class SysConfigConfig extends BaseCodeConfig<SYS_CONFIG> {
                 .table().hidden()
                 .form().radioBox().enumType(SystemConfigType.class);
 
+        view.field(SYS_CONFIG.PROFILE_ID)
+                .search().hidden();
         //
         view.field(SYS_CONFIG.CODE)
                 .search().fuzzySearch();
@@ -56,6 +61,8 @@ public class SysConfigConfig extends BaseCodeConfig<SYS_CONFIG> {
         view.field(SYS_CONFIG.NOTES)
                 .table().hidden()
                 .search().hidden();
+
+        view.field(SYS_CONFIG.CATALOG_CODE).form().selectBox().dict(DictEnum.SYS_CONFIG_CATALOG).muliti(false,false);
 
     }
 

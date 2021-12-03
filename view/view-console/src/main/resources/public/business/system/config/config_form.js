@@ -1,7 +1,7 @@
 /**
  * 系统配置 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-03 09:07:30
+ * @since 2021-12-03 15:42:25
  */
 
 function FormPage() {
@@ -85,6 +85,32 @@ function FormPage() {
 	function renderFormFields() {
 		fox.renderFormInputs(form);
 
+		//渲染 catalogCode 下拉字段
+		fox.renderSelectBox({
+			el: "catalogCode",
+			radio: true,
+			filterable: false,
+			on: function(data){
+				setTimeout(function () {
+					window.pageExt.form.onSelectBoxChanged && window.pageExt.form.onSelectBoxChanged("catalogCode",data.arr,data.change,data.isAdd);
+				},1);
+			},
+			//转换数据
+			transform: function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				var defaultValues=[],defaultIndexs=[];
+				if(action=="create") {
+					defaultValues = "".split(",");
+					defaultIndexs = "".split(",");
+				}
+				var opts=[];
+				for (var i = 0; i < data.length; i++) {
+					if(!data[i]) continue;
+					opts.push({data:data[i],name:data[i].text,value:data[i].code,selected:(defaultValues.indexOf(data[i].code)!=-1 || defaultIndexs.indexOf(""+i)!=-1)});
+				}
+				return opts;
+			}
+		});
 	}
 
 	/**
@@ -113,6 +139,8 @@ function FormPage() {
 
 
 
+			//设置  分类代码 设置下拉框勾选
+			fox.setSelectValue4Dict("#catalogCode",formData.catalogCode,SELECT_CATALOGCODE_DATA);
 
 			//处理fillBy
 
@@ -165,6 +193,8 @@ function FormPage() {
 		if(!data.valid) data.valid=0;
 
 
+		//获取 分类代码 下拉框的值
+		data["catalogCode"]=fox.getSelectedValue("catalogCode",false);
 
 		return data;
 	}

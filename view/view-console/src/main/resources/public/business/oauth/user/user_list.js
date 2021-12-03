@@ -1,7 +1,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-27 10:44:01
+ * @since 2021-12-03 15:52:49
  */
 
 
@@ -75,7 +75,7 @@ function ListPage() {
 					{ fixed: 'left',type: 'numbers' },
 					{ fixed: 'left',type:'checkbox'}
 					,{ field: 'name', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('账户') , templet: function (d) { return templet('name',d.name,d);}  }
-					,{ field: 'realName', align:"",fixed:false,  hide:false, sort: true, title: fox.translate('姓名') , templet: function (d) { return templet('realName',fox.getProperty(d,["activatedTenant","employee","person","name"]),d);} }
+					,{ field: 'realName', align:"",fixed:false,  hide:false, sort: true, title: fox.translate('姓名') , templet: function (d) { return templet('realName',fox.getProperty(d,["joinedTenants","employee","person","name"]),d);} }
 					,{ field: 'portraitId', align:"center", fixed:false, hide:false, sort: true, title: fox.translate('头像'), templet: function (d) { return '<img style="height:100%;" fileType="image/png" onclick="window.previewImage(this)"  src="'+apiurls.storage.image+'?id='+ d.portraitId+'" />'; } }
 					,{ field: 'language', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('语言'), templet:function (d){ return templet('language',fox.getEnumText(RADIO_LANGUAGE_DATA,d.language),d);}}
 					,{ field: 'phone', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('手机') , templet: function (d) { return templet('phone',d.phone,d);}  }
@@ -127,7 +127,7 @@ function ListPage() {
 		value.phone={ inputType:"button",value: $("#phone").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" };
 		value.language={ inputType:"radio_box", value: xmSelect.get("#language",true).getValue("value"), label:xmSelect.get("#language",true).getValue("nameStr") };
 		value.valid={ inputType:"logic_switch",value: xmSelect.get("#valid",true).getValue("value"), label:xmSelect.get("#valid",true).getValue("nameStr") };
-		value.realName={ inputType:"button",value: $("#realName").val(),fillBy:["activatedTenant","employee","person","name"] };
+		value.realName={ inputType:"button",value: $("#realName").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" ,fillBy:["joinedTenants","employee","person","name"] ,field:"hrm_person.name"};
 		value.roleIds={ inputType:"select_box", value: xmSelect.get("#roleIds",true).getValue("value") ,fillBy:["roles"]  ,field:"sys_role.id", label:xmSelect.get("#roleIds",true).getValue("nameStr") };
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
@@ -181,13 +181,18 @@ function ListPage() {
 			el: "language",
 			size: "small",
 			radio: false,
+			on: function(data){
+				setTimeout(function () {
+					window.pageExt.list.onSelectBoxChanged && window.pageExt.list.onSelectBoxChanged("language",data.arr,data.change,data.isAdd);
+				},1);
+			},
 			//toolbar: {show:true,showIcon:true,list:["CLEAR","REVERSE"]},
 			transform:function(data) {
 				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
 				var opts=[];
 				if(!data) return opts;
 				for (var i = 0; i < data.length; i++) {
-					opts.push({name:data[i].text,value:data[i].code});
+					opts.push({data:data[i],name:data[i].text,value:data[i].code});
 				}
 				return opts;
 			}
@@ -196,7 +201,12 @@ function ListPage() {
 		fox.renderSelectBox({
 			el: "valid",
 			size: "small",
-			radio: false
+			radio: false,
+			on: function(data){
+				setTimeout(function () {
+					window.pageExt.list.onSelectBoxChanged && window.pageExt.list.onSelectBoxChanged("valid",data.arr,data.change,data.isAdd);
+				},1);
+			},
 		});
 		//渲染 roleIds 下拉字段
 		fox.renderSelectBox({
@@ -214,7 +224,7 @@ function ListPage() {
 				if(!data) return opts;
 				for (var i = 0; i < data.length; i++) {
 					if(!data[i]) continue;
-					opts.push({name:data[i].name,value:data[i].id});
+					opts.push({data:data[i],name:data[i].name,value:data[i].id});
 				}
 				return opts;
 			}

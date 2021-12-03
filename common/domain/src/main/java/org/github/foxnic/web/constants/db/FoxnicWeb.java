@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2021-12-03 09:05:02
+ * @since 2021-12-03 14:58:13
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -4632,13 +4632,8 @@ public class FoxnicWeb {
 		*/
 		public static final DBField NOTES = new DBField(DBDataType.STRING , "notes","notes","备注","备注",false,false,true);
 		
-		/**
-		 * 加载的顺序
-		*/
-		public static final DBField LOAD_ORDER = new DBField(DBDataType.INTEGER , "load_order","loadOrder","加载的顺序","加载的顺序",false,false,true);
-		
 		public SYS_PROFILE() {
-			this.init($NAME,"" , ID , NAME , NOTES , LOAD_ORDER);
+			this.init($NAME,"" , ID , NAME , NOTES);
 		}
 		public static final SYS_PROFILE $TABLE=new SYS_PROFILE();
 	}

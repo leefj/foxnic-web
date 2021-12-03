@@ -16,7 +16,7 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 系统配置
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-03 09:07:26
+ * @since 2021-12-03 15:42:25
  * @sign 522CE309B1C1F0BB835FDF8EA472D6BB
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */

@@ -96,8 +96,9 @@ public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
         ;
 
         context.view().field("realName").basic().label("姓名")
-            .table()
-                .fillBy(UserMeta.ACTIVATED_TENANT, UserTenantMeta.EMPLOYEE, EmployeeMeta.PERSON, PersonMeta.NAME)
+                .search().on(FoxnicWeb.HRM_PERSON.NAME).fuzzySearch()
+                .table()
+                .fillBy(UserMeta.JOINED_TENANTS, UserTenantMeta.EMPLOYEE, EmployeeMeta.PERSON, PersonMeta.NAME)
         ;
 
 

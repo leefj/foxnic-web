@@ -1,7 +1,8 @@
 /**
- * sys_profile 列表页 JS 脚本
+ * Profile 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-03 13:54:38
+ * @since 2021-12-03 15:06:02
+ * @version
  */
 
 layui.config({
@@ -131,6 +132,19 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * */
         moreAction:function (menu,data, it){
             console.log('moreAction',menu,data,it);
+        },
+        openSysProfileConfig:function (data){
+            console.log('openSysProfileConfig',data);
+            admin.putVar("profileId",data.id);
+            admin.popupCenter({
+                title: data.name+"的字典条目",
+                resize: false,
+                offset:"auto",
+                id: 'profile-config-window',
+                area: ["90%", "90%"],
+                type: 2,
+                content: "/business/system/config/config_list.html"
+            });
         },
         /**
          * 末尾执行

@@ -1,47 +1,42 @@
 package org.github.foxnic.web.system.controller;
 
 
-import java.util.List;
-
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-
-import org.github.foxnic.web.framework.web.SuperController;
-import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
-import org.springframework.web.bind.annotation.RequestMapping;
-import javax.servlet.http.HttpServletResponse;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
-
-
-import org.github.foxnic.web.proxy.system.ProfileServiceProxy;
-import org.github.foxnic.web.domain.system.meta.ProfileVOMeta;
-import org.github.foxnic.web.domain.system.Profile;
-import org.github.foxnic.web.domain.system.ProfileVO;
+import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.api.validate.annotations.NotNull;
+import com.github.foxnic.commons.io.StreamUtil;
+import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.springboot.web.DownloadUtil;
-import com.github.foxnic.dao.data.PagedList;
-import java.util.Date;
-import java.sql.Timestamp;
-import com.github.foxnic.api.error.ErrorDesc;
-import com.github.foxnic.commons.io.StreamUtil;
-import java.util.Map;
 import com.github.foxnic.dao.excel.ValidateResult;
-import java.io.InputStream;
-import org.github.foxnic.web.domain.system.meta.ProfileMeta;
-import io.swagger.annotations.Api;
-import com.github.xiaoymin.knife4j.annotations.ApiSort;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiImplicitParam;
+import com.github.foxnic.springboot.web.DownloadUtil;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.github.xiaoymin.knife4j.annotations.ApiSort;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import org.github.foxnic.web.domain.system.Config;
+import org.github.foxnic.web.domain.system.Profile;
+import org.github.foxnic.web.domain.system.ProfileVO;
+import org.github.foxnic.web.domain.system.meta.ProfileVOMeta;
+import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
+import org.github.foxnic.web.framework.web.SuperController;
+import org.github.foxnic.web.proxy.system.ProfileServiceProxy;
+import org.github.foxnic.web.system.service.IConfigService;
 import org.github.foxnic.web.system.service.IProfileService;
-import com.github.foxnic.api.validate.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.InputStream;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -49,6 +44,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * </p>
  * @author 李方捷 , leefangjie@qq.com
  * @since 2021-12-03 13:54:38
+ * @version
 */
 
 @Api(tags = "sys_profile")
@@ -59,6 +55,9 @@ public class ProfileController extends SuperController {
 	@Autowired
 	private IProfileService profileService;
 
+	@Autowired
+	private IConfigService configService;
+
 
 	/**
 	 * 添加sys_profile
@@ -68,7 +67,6 @@ public class ProfileController extends SuperController {
 		@ApiImplicitParam(name = ProfileVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "default"),
 		@ApiImplicitParam(name = ProfileVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class , example = "默认"),
 		@ApiImplicitParam(name = ProfileVOMeta.NOTES , value = "备注" , required = false , dataTypeClass=String.class , example = "默认 Profile 请勿删除"),
-		@ApiImplicitParam(name = ProfileVOMeta.LOAD_ORDER , value = "加载的顺序" , required = false , dataTypeClass=Integer.class , example = "0")
 	})
 	@ApiOperationSupport(order=1)
 	@SentinelResource(value = ProfileServiceProxy.INSERT , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
@@ -92,6 +90,10 @@ public class ProfileController extends SuperController {
 	@SentinelResource(value = ProfileServiceProxy.DELETE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(ProfileServiceProxy.DELETE)
 	public Result deleteById(String id) {
+		List<Config> list=configService.queryList("profile_id=?",id);
+		if(!list.isEmpty()) {
+			return ErrorDesc.failure().message("当前 Profile 下包含参数，不允许删除");
+		}
 		Result result=profileService.deleteByIdPhysical(id);
 		return result;
 	}
@@ -105,11 +107,20 @@ public class ProfileController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = ProfileVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 	})
-	@ApiOperationSupport(order=3) 
+	@ApiOperationSupport(order=3)
 	@NotNull(name = ProfileVOMeta.IDS)
 	@SentinelResource(value = ProfileServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(ProfileServiceProxy.DELETE_BY_IDS)
 	public Result deleteByIds(List<String> ids) {
+		if(ids.equals(IConfigService.DEFAULT_PROFILE_ID)) {
+			return ErrorDesc.failure().message("不允许删除默认的 Profile");
+		}
+		for (String id : ids) {
+			List<Config> list=configService.queryList("profile_id=?",id);
+			if(!list.isEmpty()) {
+				return ErrorDesc.failure().message("Profile 下包含参数，不允许删除");
+			}
+		}
 		Result result=profileService.deleteByIdsPhysical(ids);
 		return result;
 	}
@@ -122,7 +133,6 @@ public class ProfileController extends SuperController {
 		@ApiImplicitParam(name = ProfileVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "default"),
 		@ApiImplicitParam(name = ProfileVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class , example = "默认"),
 		@ApiImplicitParam(name = ProfileVOMeta.NOTES , value = "备注" , required = false , dataTypeClass=String.class , example = "默认 Profile 请勿删除"),
-		@ApiImplicitParam(name = ProfileVOMeta.LOAD_ORDER , value = "加载的顺序" , required = false , dataTypeClass=Integer.class , example = "0")
 	})
 	@ApiOperationSupport( order=4 , ignoreParameters = { ProfileVOMeta.PAGE_INDEX , ProfileVOMeta.PAGE_SIZE , ProfileVOMeta.SEARCH_FIELD , ProfileVOMeta.FUZZY_FIELD , ProfileVOMeta.SEARCH_VALUE , ProfileVOMeta.DIRTY_FIELDS , ProfileVOMeta.SORT_FIELD , ProfileVOMeta.SORT_TYPE , ProfileVOMeta.IDS } )
 	@NotNull(name = ProfileVOMeta.ID)
@@ -142,7 +152,6 @@ public class ProfileController extends SuperController {
 		@ApiImplicitParam(name = ProfileVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "default"),
 		@ApiImplicitParam(name = ProfileVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class , example = "默认"),
 		@ApiImplicitParam(name = ProfileVOMeta.NOTES , value = "备注" , required = false , dataTypeClass=String.class , example = "默认 Profile 请勿删除"),
-		@ApiImplicitParam(name = ProfileVOMeta.LOAD_ORDER , value = "加载的顺序" , required = false , dataTypeClass=Integer.class , example = "0")
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { ProfileVOMeta.PAGE_INDEX , ProfileVOMeta.PAGE_SIZE , ProfileVOMeta.SEARCH_FIELD , ProfileVOMeta.FUZZY_FIELD , ProfileVOMeta.SEARCH_VALUE , ProfileVOMeta.DIRTY_FIELDS , ProfileVOMeta.SORT_FIELD , ProfileVOMeta.SORT_TYPE , ProfileVOMeta.IDS } )
 	@NotNull(name = ProfileVOMeta.ID)
@@ -167,6 +176,10 @@ public class ProfileController extends SuperController {
 	@PostMapping(ProfileServiceProxy.GET_BY_ID)
 	public Result<Profile> getById(String id) {
 		Result<Profile> result=new Result<>();
+		if(IConfigService.DEFAULT_PROFILE_ID.equals(id)) {
+			result.message("不允许删除默认的 Profile");
+			return result;
+		}
 		Profile profile=profileService.getById(id);
 		result.success(true).data(profile);
 		return result;
@@ -181,7 +194,7 @@ public class ProfileController extends SuperController {
 		@ApiImplicitParams({
 				@ApiImplicitParam(name = ProfileVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})
-		@ApiOperationSupport(order=3) 
+		@ApiOperationSupport(order=3)
 		@NotNull(name = ProfileVOMeta.IDS)
 		@SentinelResource(value = ProfileServiceProxy.GET_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(ProfileServiceProxy.GET_BY_IDS)
@@ -201,7 +214,6 @@ public class ProfileController extends SuperController {
 		@ApiImplicitParam(name = ProfileVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "default"),
 		@ApiImplicitParam(name = ProfileVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class , example = "默认"),
 		@ApiImplicitParam(name = ProfileVOMeta.NOTES , value = "备注" , required = false , dataTypeClass=String.class , example = "默认 Profile 请勿删除"),
-		@ApiImplicitParam(name = ProfileVOMeta.LOAD_ORDER , value = "加载的顺序" , required = false , dataTypeClass=Integer.class , example = "0")
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { ProfileVOMeta.PAGE_INDEX , ProfileVOMeta.PAGE_SIZE } )
 	@SentinelResource(value = ProfileServiceProxy.QUERY_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
@@ -222,7 +234,6 @@ public class ProfileController extends SuperController {
 		@ApiImplicitParam(name = ProfileVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "default"),
 		@ApiImplicitParam(name = ProfileVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class , example = "默认"),
 		@ApiImplicitParam(name = ProfileVOMeta.NOTES , value = "备注" , required = false , dataTypeClass=String.class , example = "默认 Profile 请勿删除"),
-		@ApiImplicitParam(name = ProfileVOMeta.LOAD_ORDER , value = "加载的顺序" , required = false , dataTypeClass=Integer.class , example = "0")
 	})
 	@ApiOperationSupport(order=8)
 	@SentinelResource(value = ProfileServiceProxy.QUERY_PAGED_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )

@@ -18,13 +18,15 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
     var admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload,laydate= layui.laydate,dropdown=layui.dropdown;
     table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect,foxup=layui.foxnicUpload;
 
+    var profileId;
     //列表页的扩展
     var list={
         /**
          * 列表页初始化前调用
          * */
-        beforeInit:function () {
+        beforeInit:function (data) {
             console.log("list:beforeInit");
+            profileId=admin.getVar("profileId");
         },
         afterSearchInputReady: function() {
             console.log("list:afterSearchInputReady");
@@ -32,8 +34,9 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
         /**
          * 查询前调用
          * */
-        beforeQuery:function (conditions,location) {
-            console.log('beforeQuery',conditions);
+        beforeQuery:function (contitions,ps,location) {
+            console.log('beforeQuery',contitions);
+            ps.profileId=profileId;
             return true;
         },
         /**
@@ -104,6 +107,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             //var companyId=admin.getTempData("companyId");
             //fox.setSelectBoxUrl("employeeId","/service-hrm/hrm-employee/query-paged-list?companyId="+companyId);
             console.log("form:beforeInit")
+            profileId=admin.getVar("profileId");
         },
         /**
          * 表单数据填充前

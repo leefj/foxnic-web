@@ -39,11 +39,13 @@ public class SysProfileConfig extends BaseCodeConfig<SYS_PROFILE> {
 //                .form().radioBox().enumType(SystemConfigType.class);
 //
 //        //
-//        view.field(SYS_CONFIG.CODE)
-//                .search().fuzzySearch();
-//        //
-//        view.field(SYS_CONFIG.NAME)
-//                .search().fuzzySearch();
+        view.field(SYS_PROFILE.ID)
+               .basic().label("编码").search().fuzzySearch();
+
+        view.field(SYS_PROFILE.NOTES).form().textArea().search().hidden();
+        //
+        view.field(SYS_PROFILE.NAME)
+                .search().fuzzySearch();
 //
 //        view.field(SYS_CONFIG.TYPE_DESC)
 //                .search().hidden()
@@ -60,7 +62,7 @@ public class SysProfileConfig extends BaseCodeConfig<SYS_PROFILE> {
 
     @Override
     public void configList(ViewOptions view, ListOptions list) {
-//        list.disableCreateNew().disableBatchDelete().disableSingleDelete();
+        list.operationColumn().addActionButton("参数","openSysProfileConfig");
     }
 
     @Override

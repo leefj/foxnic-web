@@ -10,10 +10,10 @@ import org.github.foxnic.web.proxy.system.ProfileServiceProxy;
 import javax.servlet.http.HttpServletRequest;
 /**
  * <p>
- *  模版页面控制器
+ * Profile 模版页面控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-03 13:54:38
+ * @since 2021-12-03 15:40:19
 */
 
 @Controller("SysProfilePageController")
@@ -38,7 +38,7 @@ public class ProfilePageController extends ViewController {
 	}
 	
 	/**
-	 * sys_profile 功能主页面
+	 * Profile 功能主页面
 	 */
 	@RequestMapping("/profile_list.html")
 	public String list(Model model,HttpServletRequest request) {
@@ -46,7 +46,7 @@ public class ProfilePageController extends ViewController {
 	}
 
 	/**
-	 * sys_profile 表单页面
+	 * Profile 表单页面
 	 */
 	@RequestMapping("/profile_form.html")
 	public String form(Model model,HttpServletRequest request , String id) {

@@ -1,8 +1,8 @@
 <!--
 /**
- * sys_profile 列表页 JS 脚本
+ * Profile 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-03 13:54:41
+ * @since 2021-12-03 15:40:22
  */
  -->
  <!DOCTYPE html>
@@ -11,7 +11,7 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta charset="utf-8"/>
-    <title th:text="${lang.translate('sys_profile')}">sys_profile</title>
+    <title th:text="${lang.translate('Profile')}">Profile</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="/assets/libs/layui/css/layui.css" th:href="'/assets/libs/layui/css/layui.css?'+${cacheKey}"/>
     <link rel="stylesheet" href="/assets/css/admin.css" th:href="'/assets/css/admin.css?'+${cacheKey}"/>
@@ -34,9 +34,9 @@
             <div class="search-input-rows" style="opacity: 0">
                 <!-- 搜索输入区域 -->
                 <div class="layui-form toolbar search-inputs">
-                    <!-- ID , id ,typeName=text_input, isHideInSearch=false -->
+                    <!-- 编码 , id ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('ID')}" class="search-label id-label">ID</span><span class="search-colon">:</span></div>
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('编码')}" class="search-label id-label">编码</span><span class="search-colon">:</span></div>
                         <input id="id" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
                     <!-- 名称 , name ,typeName=text_input, isHideInSearch=false -->
@@ -44,16 +44,7 @@
                         <div class="search-label-div" style=""><span th:text="${lang.translate('名称')}" class="search-label name-label">名称</span><span class="search-colon">:</span></div>
                         <input id="name" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
-                    <!-- 备注 , notes ,typeName=text_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('备注')}" class="search-label notes-label">备注</span><span class="search-colon">:</span></div>
-                        <input id="notes" class="layui-input search-input" style="width: 140px" type="text" />
-                    </div>
-                    <!-- 加载的顺序 , loadOrder ,typeName=number_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('加载的顺序')}" class="search-label loadOrder-label">加载的顺序</span><span class="search-colon">:</span></div>
-                            <input id="loadOrder" class="layui-input search-input" style="width: 140px" type="text" autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0" min-value="" max-value="" scale="0"/>
-                    </div>
+                    <!-- 备注 , notes ,typeName=text_area, isHideInSearch=true -->
 
 
                 </div>
@@ -96,6 +87,7 @@
 
     <button th:if="${perm.checkAuth('sys_profile:delete')}" class="layui-btn layui-btn-xs layui-btn-danger ops-delete-button " lay-event="del" th:text="${lang.translate('删除')}" data-id="{{d.id}}">删除</button>
 
+    <button class="layui-btn layui-btn-xs " lay-event="open-sys-profile-config" th:text="${lang.translate('参数')}" data-id="{{d.id}}">参数</button>
 
 </script>
 

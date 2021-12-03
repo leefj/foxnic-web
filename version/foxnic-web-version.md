@@ -1,3 +1,27 @@
+## 版本：0.6.2.RELEASE ( 2021-11-29 )  Foxnic Verdion: 1.4.2.RELEASE
+### 新特性
+
+1. 系统配置 Profile 支持，功能升级
+
+
+### Bug 修复
+1. 账户管理无法按姓名查询的bug修复
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## 版本：0.6.1.RELEASE ( 2021-11-29 )  Foxnic Verdion: 1.4.1.RELEASE
 ### 新特性
 

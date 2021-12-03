@@ -6,18 +6,28 @@ import com.github.foxnic.commons.reflect.EnumUtil;
 
 
 /**
- * @since 2021-11-14 08:56:05
+ * @since 2021-12-03 15:37:03
  * @author 李方捷 , leefangjie@qq.com
- * 从 select code,name from sys_config WHERE deleted=0 生成
+ * 从 select distinct code,name from sys_config WHERE deleted=0 生成
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成
 */
 
 public enum SystemConfigEnum implements CodeTextEnum {
 	
 	/**
-	 * 资产直接更新
+	 * 资产页面直接更新
 	*/
-	EAM_ASSETDIRECTUPDATEMODE("eam.assetDirectUpdateMode" , "资产直接更新"),
+	EAM_ASSETDIRECTUPDATEMODE("eam.assetDirectUpdateMode" , "资产页面直接更新"),
+	
+	/**
+	 * 资产导入保留编码
+	*/
+	EAM_ASSETIMPORTASSETCODEKEEP("eam.assetImportAssetCodeKeep" , "资产导入保留编码"),
+	
+	/**
+	 * 资产导入数据自动补充
+	*/
+	EAM_ASSETIMPORTDATAREPLENISH("eam.assetImportDataReplenish" , "资产导入数据自动补充"),
 	
 	/**
 	 * 资产序列是否唯一
@@ -25,9 +35,9 @@ public enum SystemConfigEnum implements CodeTextEnum {
 	EAM_ASSETSERIALNUMBERISUNIQUE("eam.assetSerialNumberIsUnique" , "资产序列是否唯一"),
 	
 	/**
-	 * 资产更新禁用
+	 * 资产字段更新禁用
 	*/
-	EAM_ASSETSTATUSCOLUMNDISABLE("eam.assetStatusColumnDisable" , "资产更新禁用"),
+	EAM_ASSETSTATUSCOLUMNDISABLE("eam.assetStatusColumnDisable" , "资产字段更新禁用"),
 	
 	/**
 	 * 缓存键

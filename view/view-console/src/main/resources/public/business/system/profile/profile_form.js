@@ -1,7 +1,7 @@
 /**
- * sys_profile 列表页 JS 脚本
+ * Profile 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-03 13:54:41
+ * @since 2021-12-03 15:40:22
  */
 
 function FormPage() {

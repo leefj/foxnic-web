@@ -11,27 +11,22 @@ import com.github.foxnic.commons.reflect.EnumUtil;
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
 */
 
-public enum OrderStatus  implements CodeTextEnum {
+public enum SysConfigCatalog  implements CodeTextEnum {
 	
 	/**
-	 * 未完成
+	 * 系统配置
 	*/
-	TODO("todo" , "未完成"),
+	SYSTEM("system" , "系统配置"),
 	
 	/**
-	 * 已完成
+	 * 组织人事
 	*/
-	DONE("done" , "已完成"),
-	
-	/**
-	 * 已废弃
-	*/
-	ABADON("abadon" , "已废弃"),
+	HTM("htm" , "组织人事"),
 	;
 	
 	private String code;
 	private String text;
-	private OrderStatus(String code,String text)  {
+	private SysConfigCatalog(String code,String text)  {
 		this.code=code;
 		this.text=text;
 	}
@@ -47,7 +42,7 @@ public enum OrderStatus  implements CodeTextEnum {
 	/**
 	 * 从字符串转换成当前枚举类型
 	*/
-	public static OrderStatus parseByCode(String code) {
-		return (OrderStatus) EnumUtil.parseByCode(OrderStatus.values(),code);
+	public static SysConfigCatalog parseByCode(String code) {
+		return (SysConfigCatalog) EnumUtil.parseByCode(SysConfigCatalog.values(),code);
 	}
 }

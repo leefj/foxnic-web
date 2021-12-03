@@ -13,10 +13,10 @@ import com.github.foxnic.dao.entity.EntityContext;
 
 
 /**
- * sys_profile
+ * Profile
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-03 13:54:38
- * @sign 3738C86354761F63AA720F5DFE2ECC00
+ * @since 2021-12-03 15:40:18
+ * @sign 49BDF2666052C679AB7192211A216339
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -45,12 +45,6 @@ public class Profile extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="备注" , notes = "备注")
 	private String notes;
-	
-	/**
-	 * 加载的顺序：加载的顺序
-	*/
-	@ApiModelProperty(required = false,value="加载的顺序" , notes = "加载的顺序")
-	private Integer loadOrder;
 	
 	/**
 	 * 获得 ID<br>
@@ -106,25 +100,6 @@ public class Profile extends Entity {
 	*/
 	public Profile setNotes(String notes) {
 		this.notes=notes;
-		return this;
-	}
-	
-	/**
-	 * 获得 加载的顺序<br>
-	 * 加载的顺序
-	 * @return 加载的顺序
-	*/
-	public Integer getLoadOrder() {
-		return loadOrder;
-	}
-	
-	/**
-	 * 设置 加载的顺序
-	 * @param loadOrder 加载的顺序
-	 * @return 当前对象
-	*/
-	public Profile setLoadOrder(Integer loadOrder) {
-		this.loadOrder=loadOrder;
 		return this;
 	}
 

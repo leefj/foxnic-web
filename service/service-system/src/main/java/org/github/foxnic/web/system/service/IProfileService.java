@@ -18,10 +18,10 @@ import com.github.foxnic.dao.data.SaveMode;
 
 /**
  * <p>
- *  服务接口
+ * Profile 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-03 13:54:38
+ * @since 2021-12-03 15:40:18
 */
 
 public interface IProfileService extends ISuperService<Profile> {
@@ -52,7 +52,7 @@ public interface IProfileService extends ISuperService<Profile> {
 
 		
 	/**
-	 * 按主键删除 sys_profile
+	 * 按主键删除 Profile
 	 *
 	 * @param id ID
 	 * @return 删除是否成功
@@ -75,7 +75,7 @@ public interface IProfileService extends ISuperService<Profile> {
 
 		
 	/**
-	 * 按主键更新字段 sys_profile
+	 * 按主键更新字段 Profile
 	 *
 	 * @param id ID
 	 * @return 是否更新成功
@@ -145,7 +145,7 @@ public interface IProfileService extends ISuperService<Profile> {
 
 		
 	/**
-	 * 按主键获取 sys_profile
+	 * 按主键获取 Profile
 	 *
 	 * @param id ID
 	 * @return Profile 数据对象

@@ -16,10 +16,10 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
 
 /**
  * <p>
- *   控制器服务代理
+ * Profile  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-03 13:54:38
+ * @since 2021-12-03 15:40:19
 */
 
 @FeignClient(value = MicroServiceNames.SYSTEM, contextId = ProfileServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)
@@ -41,116 +41,116 @@ public interface ProfileServiceProxy {
 	public static final String API_PREFIX = "/" + API_BASIC_PATH + "/"+API_CONTEXT_PATH+"/";
 
 	/**
-	 * 添加sys_profile
+	 * 添加Profile
 	 */
 	public static final String INSERT = API_PREFIX + "insert";
 
 ;
 	/**
-	 * 删除sys_profile
+	 * 删除Profile
 	 */
 	public static final String DELETE = API_PREFIX + "delete";
 
 	/**
-	 * 批量删除sys_profile
+	 * 批量删除Profile
 	 */
 	public static final String DELETE_BY_IDS = API_PREFIX + "delete-by-ids";
 
 	/**
-	 * 更新sys_profile
+	 * 更新Profile
 	 */
 	public static final String UPDATE = API_PREFIX + "update";
 
 
 	/**
-	 * 保存sys_profile
+	 * 保存Profile
 	 */
 	public static final String SAVE = API_PREFIX + "save";
 
 	/**
-	 * 获取单个sys_profile
+	 * 获取单个Profile
 	 */
 	public static final String GET_BY_ID = API_PREFIX + "get-by-id";
 
 	/**
-	 * 获取多个sys_profile
+	 * 获取多个Profile
 	 */
 	public static final String GET_BY_IDS = API_PREFIX + "get-by-ids";
 
 	/**
-	 * 查询sys_profile
+	 * 查询Profile
 	 */
 	public static final String QUERY_LIST = API_PREFIX + "query-list";
 
 	/**
-	 * 分页查询sys_profile
+	 * 分页查询Profile
 	 */
 	public static final String QUERY_PAGED_LIST = API_PREFIX + "query-paged-list";
 
 	/**
-	 * 导出sys_profile数据(Excel)
+	 * 导出Profile数据(Excel)
 	 */
 	public static final String EXPORT_EXCEL = API_PREFIX + "export-excel";
 
 	/**
-	 * 下载sys_profile导入模版(Excel)
+	 * 下载Profile导入模版(Excel)
 	 */
 	public static final String EXPORT_EXCEL_TEMPLATE = API_PREFIX + "export-excel-template";
 
 	/**
-	 * 导入sys_profile数据(Excel)
+	 * 导入Profile数据(Excel)
 	 */
 	public static final String IMPORT_EXCEL = API_PREFIX + "import-excel";
 
 	/**
-	 * 添加sys_profile
+	 * 添加Profile
 	*/
 	@RequestMapping(ProfileServiceProxy.INSERT)
 	Result insert(ProfileVO profileVO);
 
 	/**
-	 * 删除sys_profile
+	 * 删除Profile
 	*/
 	@RequestMapping(ProfileServiceProxy.DELETE)
 	Result deleteById(String id);
 
 	/**
-	 * 批量删除sys_profile
+	 * 批量删除Profile
 	*/
 	@RequestMapping(ProfileServiceProxy.DELETE_BY_IDS)
 	Result deleteByIds(List<String> ids);
 
 	/**
-	 * 更新sys_profile
+	 * 更新Profile
 	*/
 	@RequestMapping(ProfileServiceProxy.UPDATE)
 	Result update(ProfileVO profileVO);
 
 	/**
-	 * 更新sys_profile
+	 * 更新Profile
 	*/
 	@RequestMapping(ProfileServiceProxy.SAVE)
 	Result save(ProfileVO profileVO);
 
 	/**
-	 * 获取sys_profile
+	 * 获取Profile
 	*/
 	@RequestMapping(ProfileServiceProxy.GET_BY_ID)
 	Result<Profile> getById(String id);
 
 	/**
-	 * 获取多个sys_profile
+	 * 获取多个Profile
 	*/
 	@RequestMapping(ProfileServiceProxy.GET_BY_IDS)
 	Result<List<Profile>> getByIds(List<String> ids);
 	/**
-	 * 查询sys_profile
+	 * 查询Profile
 	*/
 	@RequestMapping(ProfileServiceProxy.QUERY_LIST)
 	Result<List<Profile>> queryList(ProfileVO sample);
 
 	/**
-	 * 分页查询sys_profile
+	 * 分页查询Profile
 	*/
 	@RequestMapping(ProfileServiceProxy.QUERY_PAGED_LIST)
 	Result<PagedList<Profile>> queryPagedList(ProfileVO sample);

@@ -102,13 +102,15 @@ layui.define(['settings', 'layer'], function (exports) {
         	}
             // debugger
             param.id =param.id ? param.id : 'adminPopupC';
-            popupCenterParam = param;
+            if(!param.offset) param.offset="auto";
+        	popupCenterParam = param;
             popupCenterIndex = admin.open(param);
             popupCenterParamMap[popupCenterIndex]=popupCenterParam;
             var index=popupCenterIndex;
             if(param.id) {
                 this.putVar("$$"+param.id+"-popup-index",index);
             }
+
             return index;
         },
         // 关闭中间弹出并且触发finish回调
