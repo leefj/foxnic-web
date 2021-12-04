@@ -42,7 +42,7 @@ public class SysConfigConfig extends BaseCodeConfig<SYS_CONFIG> {
                 .table().hidden()
                 .form().radioBox().enumType(SystemConfigType.class);
 
-        view.field(SYS_CONFIG.PROFILE_ID)
+        view.field(SYS_CONFIG.PROFILE_ID).table().hidden()
                 .search().hidden();
         //
         view.field(SYS_CONFIG.CODE)
@@ -62,7 +62,7 @@ public class SysConfigConfig extends BaseCodeConfig<SYS_CONFIG> {
                 .table().hidden()
                 .search().hidden();
 
-        view.field(SYS_CONFIG.CATALOG_CODE).form().selectBox().dict(DictEnum.SYS_CONFIG_CATALOG).muliti(false,false);
+        view.field(SYS_CONFIG.CATALOG_CODE).table().hidden().form().hidden().selectBox().dict(DictEnum.SYS_CONFIG_CATALOG).muliti(false,false);
 
     }
 

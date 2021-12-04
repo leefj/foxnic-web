@@ -137,7 +137,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             console.log('openSysProfileConfig',data);
             admin.putVar("profileId",data.id);
             admin.popupCenter({
-                title: data.name+"的字典条目",
+                title: "Profile : "+data.name+" 的配置项",
                 resize: false,
                 offset:"auto",
                 id: 'profile-config-window',

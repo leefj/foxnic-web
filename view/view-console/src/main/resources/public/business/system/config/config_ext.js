@@ -102,12 +102,17 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
         /**
          * 表单初始化前调用
          * */
-        beforeInit:function () {
+        beforeInit:function (action,data) {
             //获取参数，并调整下拉框查询用的URL
             //var companyId=admin.getTempData("companyId");
             //fox.setSelectBoxUrl("employeeId","/service-hrm/hrm-employee/query-paged-list?companyId="+companyId);
             console.log("form:beforeInit")
             profileId=admin.getVar("profileId");
+            //debugger
+            if(data.typeDesc==null || data.typeDesc=="") {
+                $("#typeDesc").parents(".layui-form-item").hide();
+            }
+
         },
         /**
          * 表单数据填充前

@@ -10,7 +10,7 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-03 15:42:25
+ * @since 2021-12-04 13:55:51
  * @sign 732F6C4D9301DE347185BFC324F78A7E
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -106,6 +106,36 @@ public class ConfigVOMeta extends ConfigMeta {
 	 * 主键清单 , 用于接收批量主键参数 , 集合类型: LIST , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.system.ConfigVO,java.lang.String> IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.system.ConfigVO.class ,IDS, java.util.List.class, "主键清单", "用于接收批量主键参数", java.lang.String.class, null);
+	
+	/**
+	 * 主键 , 类型: java.lang.String
+	*/
+	public static final String ID="id";
+	
+	/**
+	 * 主键 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.ConfigVO,java.lang.String> ID_PROP = new BeanProperty(org.github.foxnic.web.domain.system.ConfigVO.class ,ID, java.lang.String.class, "主键", "主键", java.lang.String.class, null);
+	
+	/**
+	 * Profile , Profile Id , 类型: java.lang.String
+	*/
+	public static final String PROFILE_ID="profileId";
+	
+	/**
+	 * Profile , Profile Id , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.ConfigVO,java.lang.String> PROFILE_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.system.ConfigVO.class ,PROFILE_ID, java.lang.String.class, "Profile", "Profile Id", java.lang.String.class, null);
+	
+	/**
+	 * 分类代码 , 关联 sys_config_catalog 数据字典 , 类型: java.lang.String
+	*/
+	public static final String CATALOG_CODE="catalogCode";
+	
+	/**
+	 * 分类代码 , 关联 sys_config_catalog 数据字典 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.ConfigVO,java.lang.String> CATALOG_CODE_PROP = new BeanProperty(org.github.foxnic.web.domain.system.ConfigVO.class ,CATALOG_CODE, java.lang.String.class, "分类代码", "关联 sys_config_catalog 数据字典", java.lang.String.class, null);
 	
 	/**
 	 * 配置键 , 类型: java.lang.String
@@ -258,39 +288,9 @@ public class ConfigVOMeta extends ConfigMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.system.ConfigVO,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.system.ConfigVO.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
-	 * Profile , Profile Id , 类型: java.lang.String
-	*/
-	public static final String PROFILE_ID="profileId";
-	
-	/**
-	 * Profile , Profile Id , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.system.ConfigVO,java.lang.String> PROFILE_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.system.ConfigVO.class ,PROFILE_ID, java.lang.String.class, "Profile", "Profile Id", java.lang.String.class, null);
-	
-	/**
-	 * 分类代码 , 关联 sys_config_catalog 数据字典 , 类型: java.lang.String
-	*/
-	public static final String CATALOG_CODE="catalogCode";
-	
-	/**
-	 * 分类代码 , 关联 sys_config_catalog 数据字典 , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.system.ConfigVO,java.lang.String> CATALOG_CODE_PROP = new BeanProperty(org.github.foxnic.web.domain.system.ConfigVO.class ,CATALOG_CODE, java.lang.String.class, "分类代码", "关联 sys_config_catalog 数据字典", java.lang.String.class, null);
-	
-	/**
-	 * 主键 , 类型: java.lang.String
-	*/
-	public static final String ID="id";
-	
-	/**
-	 * 主键 , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.system.ConfigVO,java.lang.String> ID_PROP = new BeanProperty(org.github.foxnic.web.domain.system.ConfigVO.class ,ID, java.lang.String.class, "主键", "主键", java.lang.String.class, null);
-	
-	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , CODE , NAME , TYPE , TYPE_DESC , VALUE , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , PROFILE_ID , CATALOG_CODE , ID };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , PROFILE_ID , CATALOG_CODE , CODE , NAME , TYPE , TYPE_DESC , VALUE , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
 	
 	/**
 	 * 代理类
@@ -396,6 +396,39 @@ public class ConfigVOMeta extends ConfigMeta {
 		public ConfigVO setIds(List<String> ids) {
 			super.change(IDS,super.getIds(),ids);
 			super.setIds(ids);
+			return this;
+		}
+		
+		/**
+		 * 设置 主键
+		 * @param id 主键
+		 * @return 当前对象
+		*/
+		public Config setId(String id) {
+			super.change(ID,super.getId(),id);
+			super.setId(id);
+			return this;
+		}
+		
+		/**
+		 * 设置 Profile
+		 * @param profileId Profile
+		 * @return 当前对象
+		*/
+		public Config setProfileId(String profileId) {
+			super.change(PROFILE_ID,super.getProfileId(),profileId);
+			super.setProfileId(profileId);
+			return this;
+		}
+		
+		/**
+		 * 设置 分类代码
+		 * @param catalogCode 分类代码
+		 * @return 当前对象
+		*/
+		public Config setCatalogCode(String catalogCode) {
+			super.change(CATALOG_CODE,super.getCatalogCode(),catalogCode);
+			super.setCatalogCode(catalogCode);
 			return this;
 		}
 		
@@ -561,39 +594,6 @@ public class ConfigVOMeta extends ConfigMeta {
 		public Config setVersion(Integer version) {
 			super.change(VERSION,super.getVersion(),version);
 			super.setVersion(version);
-			return this;
-		}
-		
-		/**
-		 * 设置 Profile
-		 * @param profileId Profile
-		 * @return 当前对象
-		*/
-		public Config setProfileId(String profileId) {
-			super.change(PROFILE_ID,super.getProfileId(),profileId);
-			super.setProfileId(profileId);
-			return this;
-		}
-		
-		/**
-		 * 设置 分类代码
-		 * @param catalogCode 分类代码
-		 * @return 当前对象
-		*/
-		public Config setCatalogCode(String catalogCode) {
-			super.change(CATALOG_CODE,super.getCatalogCode(),catalogCode);
-			super.setCatalogCode(catalogCode);
-			return this;
-		}
-		
-		/**
-		 * 设置 主键
-		 * @param id 主键
-		 * @return 当前对象
-		*/
-		public Config setId(String id) {
-			super.change(ID,super.getId(),id);
-			super.setId(id);
 			return this;
 		}
 	}

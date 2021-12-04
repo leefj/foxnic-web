@@ -8,16 +8,18 @@ import com.github.foxnic.commons.reflect.EnumUtil;
  * */
 public enum Theme implements CodeTextEnum {
 
-	DEFAULT("默认",new String[]{}),
-	BLUE("蓝色主题",new String[]{"/assets/css/theme-blue.css"}),
-	ORANGE("橘色主题",new String[]{"assets/css/theme-orange.css"});
+	DEFAULT("默认",new String[]{},new String[]{}),
+	BLUE("蓝色主题",new String[]{"/assets/css/theme/blue.css"},new String[]{"/assets/css/theme/blue.js"}),
+	ORANGE("橘色主题",new String[]{"/assets/css/theme/orange.css"},new String[]{"/assets/css/theme/orange.js"});
 
 	private String[] css;
+	private String[] js;
 	private String text;
 
-	private Theme(String text, String[] css) {
+	private Theme(String text, String[] css,String[] js) {
 		this.css=css;
 		this.text=text;
+		this.js=js;
 	}
 
 	public String code() {
@@ -35,6 +37,10 @@ public enum Theme implements CodeTextEnum {
 
 	public String[] getCss() {
 		return css;
+	}
+
+	public String[] getJs() {
+		return js;
 	}
 
 	public static Theme parseByCode(String code) {

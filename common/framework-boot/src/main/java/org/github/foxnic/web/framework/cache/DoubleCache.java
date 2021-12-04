@@ -46,7 +46,9 @@ public class DoubleCache<V> extends com.github.foxnic.commons.cache.DoubleCache<
 		cmd.put("name",this.getName());
 		cmd.put("key",key);
 		cmd.put("removeType",removeType);
-		this.cache.notifyDataChange(CACHE_INVALID_PREFIX +cmd.toJSONString()+CACHE_INVALID_SUFFIX);
+		if(this.cache!=null && this.cache.isValid()) {
+			this.cache.notifyDataChange(CACHE_INVALID_PREFIX + cmd.toJSONString() + CACHE_INVALID_SUFFIX);
+		}
 	}
 
 	@Override

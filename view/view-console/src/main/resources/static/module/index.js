@@ -90,20 +90,17 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
             if(MODULE_ENABLE==1) {
                 var menuItems=[];
                 var buttonLimit=4;
+                // debugger
                 for (var i = 0; i < tops.length; i++) {
                     var buttonId='nav-module-button-'+i;
-                    var textStyle="";
-                    var style="";
-                    if(i==0) {
-                            textStyle="color:#009688;";
-                            style="color:#009688;";
-                    }
+                    var textStyle="color:"+Theme.index.headerMenuTextColor+";";
+                    var dropDownTextStyle="color:"+Theme.index.headerMenuDropDownTextColor+";";
 
                     //超出部分加入到菜单
                     if(i>=buttonLimit){
                         var tps=[
                             "<div style='height:36px;margin-top:6px'>",
-                            '   <a id="'+buttonId+'-a" index="'+i+'" title="'+tops[i].label+'" style="font-size: 15px;display: flex'+textStyle+'">',
+                            '   <a id="'+buttonId+'-a" index="'+i+'" title="'+tops[i].label+'" style="font-size: 15px;display: flex;'+dropDownTextStyle+'">',
                             '       <div style="width: 20px;text-align:center;"><i class="'+tops[i].css+'" style="font-size: 17px;"></i></div>',
                                     '&nbsp;&nbsp;{{d.title}}',
                             '   </a>',
@@ -116,6 +113,7 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
 
                         });
                     } else {
+                        //未超出部分按顺序加入头部菜单
                         var button=['<li class="module-nav-item layui-nav-item" lay-unselect  index="'+i+'"  id="'+buttonId+'" style="line-height: 49px;">',
                             '    <a id="'+buttonId+'-a" index="'+i+'" title="'+tops[i].label+'" style="font-size: 15px;'+textStyle+'"><i class="'+tops[i].css+'" style="font-size: 17px"></i>&nbsp;&nbsp;'+tops[i].label+'</a>',
                             '</li>' ]
@@ -124,8 +122,9 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
                 }
                 if(menuItems.length>0) {
 
+                    //加入顶部更多菜单项
                     var button=['<li class="module-nav-item layui-nav-item" lay-unselect index="1024" id="more-top-menu-button-li" style="line-height: 49px;">',
-                        '    <a id="nav-module-button-1024-a" title="" style="font-size: 15px;"><i class="fa fa-chevron-circle-down" style="font-size: 17px"></i>&nbsp;&nbsp;<span id="more-top-text">更多</span></a>',
+                        '    <a id="nav-module-button-1024-a" title="" style="font-size: 15px;"><i class="fa fa-chevron-circle-down" style="font-size: 17px"></i>&nbsp;&nbsp;<span id="more-top-text" style="font-size: 15px">更多</span></a>',
                         '</li>' ]
                     $("#nav-modules").append(button.join("\n"));
 
@@ -138,13 +137,17 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
                             // debugger
                             var topMenu = tops[obj.id];
                             // layer.tips('点击了：'+ obj.title, this.elem, {tips: [1, '#5FB878']})
-                            var buttonId = 'nav-module-button-' + index.navModuleIndex + "-a";
-                            $("#" + buttonId).css("color", "#333333");
+
+                            //之前选中的按钮恢复默认色
+                            var buttonId='nav-module-button-'+index.navModuleIndex+"-a";
+                            $("#"+buttonId).css("color",Theme.index.headerMenuTextColor);
+                            // var buttonId = 'nav-module-button-' + index.navModuleIndex + "-a";
+                            // $("#" + buttonId).css("color", "#333333");
                             index.switchNavMenu(obj.id, topMenu.subMenus);
 
                             index.navModuleIndex = 1024;
                             buttonId = 'nav-module-button-' + index.navModuleIndex + "-a";
-                            $("#" + buttonId).css("color", "#009688");
+                            $("#" + buttonId).css("color", Theme.index.headerMenuSelectedTextColor);
 
                             $("#more-top-text").text(obj.title);
 
@@ -188,11 +191,12 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
                     }catch (e){
                         debugger;
                     }
-                    //按钮
+                    //之前选中的按钮恢复默认色
                     var buttonId='nav-module-button-'+index.navModuleIndex+"-a";
-                    $("#"+buttonId).css("color","#333333");
+                    $("#"+buttonId).css("color",Theme.index.headerMenuTextColor);
+                    //最新选中的按钮高亮
                     buttonId='nav-module-button-'+idx+"-a";
-                    $("#"+buttonId).css("color","#009688");
+                    $("#"+buttonId).css("color",Theme.index.headerMenuSelectedTextColor);
 
                     index.navModuleIndex=idx;
                     //记住点击的顶部菜单
@@ -225,6 +229,7 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
             return states;
         },
         switchNavMenu:function (idx,pages) {
+            // debugger
             var uid=this.userId;
             var me=this;
             console.log("MODULE-MENUS",pages)

@@ -88,8 +88,15 @@ var apiurls={
 }
 
 var Theme={
-
-}
+	index:{
+		//顶部菜单文本颜色
+		headerMenuTextColor:"#333333",
+		//顶部菜单文本选中的颜色
+		headerMenuSelectedTextColor:"#009688",
+		//顶部菜单文本颜色
+		headerMenuDropDownTextColor:"#333333"
+	}
+};
 
 
 

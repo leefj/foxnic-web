@@ -1030,8 +1030,8 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             return label;
         },
         getEnumText: function (list, code) {
+            if(code==null || code=="") return code;
             if (list==null) return code;
-
             for (var i = 0; i < list.length; i++) {
                 if (list[i]["code"] == code) return list[i]["text"];
             }
@@ -1095,6 +1095,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             return value;
         },
         getDictText: function (list, code) {
+            if(code==null || code=="") return code;
             if (list==null) return code;
             for (var i = 0; i < list.length; i++) {
                 if (list[i]["code"] == code) return list[i]["text"];

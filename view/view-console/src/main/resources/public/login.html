@@ -9,10 +9,12 @@
     <link rel="stylesheet" href="/assets/libs/layui/css/layui.css" th:href="'/assets/libs/layui/css/layui.css?'+${cacheKey}" />
     <link rel="stylesheet" href="/assets/css/login.css" th:href="'/assets/css/login.css?'+${cacheKey}" media="all">
     <link rel="stylesheet" href="/assets/css/foxnic-web.css" th:href="'/assets/css/foxnic-web.css?'+${cacheKey}">
+    <link th:each="css:${theme.css}" rel="stylesheet" th:href="${css}+'?'+${cacheKey}">
+    <script th:each="js:${theme.js}" type="text/javascript" th:src="${js}+'?'+${cacheKey}"></script>
     <script th:inline="javascript">var foxnic_cachekey=[[${cacheKey}]];</script>
 </head>
 
-<body>
+<body th:style="'background-image:url('+${bgImage}+');background-repeat:no-repeat;background-size:cover;'">
 <div class="login-wrapper">
     <div class="login-body" id="login-form" style="display: none">
         <div class="layui-card">

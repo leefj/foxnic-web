@@ -6,7 +6,7 @@ import com.github.foxnic.commons.reflect.EnumUtil;
 
 
 /**
- * @since 2021-12-03 15:37:03
+ * @since 2021-12-04 16:44:01
  * @author 李方捷 , leefangjie@qq.com
  * 从 select distinct code,name from sys_config WHERE deleted=0 生成
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成
@@ -60,9 +60,19 @@ public enum SystemConfigEnum implements CodeTextEnum {
 	SYSTEM_EMPLOYEE_CREATEUSER("system.employee.createUser" , "创建员工时同步创建账户"),
 	
 	/**
+	 * 首页右上的logo图片
+	*/
+	SYSTEM_INDEX_LOGO("system.index.logo" , "首页右上的logo图片"),
+	
+	/**
 	 * 系统默认语言
 	*/
 	SYSTEM_LANGUAGE("system.language" , "系统默认语言"),
+	
+	/**
+	 * 登录页背景图
+	*/
+	SYSTEM_LOGIN_BACKGROUND("system.login.background" , "登录页背景图"),
 	
 	/**
 	 * 任意校验码
@@ -83,6 +93,11 @@ public enum SystemConfigEnum implements CodeTextEnum {
 	 * 首页分模块
 	*/
 	SYSTEM_PORTAL_MODULE_ENABLE("system.portal.module.enable" , "首页分模块"),
+	
+	/**
+	 * 系统主题
+	*/
+	SYSTEM_THEME("system.theme" , "系统主题"),
 	
 	/**
 	 * 系统名称

@@ -28,6 +28,7 @@ public class PortalPageController extends ViewController  {
 	 */
 	@RequestMapping(value = {"/index.html","/"})
 	public String index(Model model) {
+		String logo= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_INDEX_LOGO);
 		String title= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_TITLE);
 		String versionCode= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_VERSION_CODE);
 		String versionName= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_VERSION_NAME);
@@ -36,6 +37,7 @@ public class PortalPageController extends ViewController  {
 			title+="("+versionName+"_"+versionCode+")";
 		}
 		model.addAttribute("title", title);
+		model.addAttribute("logo", logo);
 		String moduleEnable= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_PORTAL_MODULE_ENABLE);
 		model.addAttribute("moduleEnable", moduleEnable);
 		return prefix+"index";
@@ -47,6 +49,7 @@ public class PortalPageController extends ViewController  {
 	@RequestMapping("/login.html")
 	public String login(Model model) {
 		//
+		String bgImage= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_LOGIN_BACKGROUND);
 		String shortTitle= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_TITLE);
 		String versionCode= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_VERSION_CODE);
 		String versionName= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_VERSION_NAME);
@@ -60,6 +63,7 @@ public class PortalPageController extends ViewController  {
 		JSONObject loginDefaultJson=JSONObject.parseObject(loginDefault);
 
 
+		model.addAttribute("bgImage", bgImage);
 		model.addAttribute("shortTitle", shortTitle);
 		model.addAttribute("fullTitle", fullTitle);
 		//

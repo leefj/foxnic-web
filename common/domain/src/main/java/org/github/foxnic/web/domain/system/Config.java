@@ -4,9 +4,9 @@ import com.github.foxnic.dao.entity.Entity;
 import javax.persistence.Table;
 import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_CONFIG;
+import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
-import javax.persistence.Id;
 import javax.persistence.Transient;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 系统配置
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-03 15:42:25
- * @sign 522CE309B1C1F0BB835FDF8EA472D6BB
+ * @since 2021-12-04 13:55:51
+ * @sign 718D3392E2C20C6828A7FC298EB398D5
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -27,6 +27,25 @@ public class Config extends Entity {
 	private static final long serialVersionUID = 1L;
 
 	public static final DBTable TABLE =SYS_CONFIG.$TABLE;
+	
+	/**
+	 * 主键：主键
+	*/
+	@Id
+	@ApiModelProperty(required = true,value="主键" , notes = "主键")
+	private String id;
+	
+	/**
+	 * Profile：Profile Id
+	*/
+	@ApiModelProperty(required = true,value="Profile" , notes = "Profile Id")
+	private String profileId;
+	
+	/**
+	 * 分类代码：关联 sys_config_catalog 数据字典
+	*/
+	@ApiModelProperty(required = false,value="分类代码" , notes = "关联 sys_config_catalog 数据字典")
+	private String catalogCode;
 	
 	/**
 	 * 配置键：配置键
@@ -119,23 +138,61 @@ public class Config extends Entity {
 	private Integer version;
 	
 	/**
-	 * Profile：Profile Id
+	 * 获得 主键<br>
+	 * 主键
+	 * @return 主键
 	*/
-	@ApiModelProperty(required = true,value="Profile" , notes = "Profile Id")
-	private String profileId;
+	public String getId() {
+		return id;
+	}
 	
 	/**
-	 * 分类代码：关联 sys_config_catalog 数据字典
+	 * 设置 主键
+	 * @param id 主键
+	 * @return 当前对象
 	*/
-	@ApiModelProperty(required = false,value="分类代码" , notes = "关联 sys_config_catalog 数据字典")
-	private String catalogCode;
+	public Config setId(String id) {
+		this.id=id;
+		return this;
+	}
 	
 	/**
-	 * 主键：主键
+	 * 获得 Profile<br>
+	 * Profile Id
+	 * @return Profile
 	*/
-	@Id
-	@ApiModelProperty(required = true,value="主键" , notes = "主键")
-	private String id;
+	public String getProfileId() {
+		return profileId;
+	}
+	
+	/**
+	 * 设置 Profile
+	 * @param profileId Profile
+	 * @return 当前对象
+	*/
+	public Config setProfileId(String profileId) {
+		this.profileId=profileId;
+		return this;
+	}
+	
+	/**
+	 * 获得 分类代码<br>
+	 * 关联 sys_config_catalog 数据字典
+	 * @return 分类代码
+	*/
+	public String getCatalogCode() {
+		return catalogCode;
+	}
+	
+	/**
+	 * 设置 分类代码
+	 * @param catalogCode 分类代码
+	 * @return 当前对象
+	*/
+	public Config setCatalogCode(String catalogCode) {
+		this.catalogCode=catalogCode;
+		return this;
+	}
 	
 	/**
 	 * 获得 配置键<br>
@@ -419,63 +476,6 @@ public class Config extends Entity {
 	*/
 	public Config setVersion(Integer version) {
 		this.version=version;
-		return this;
-	}
-	
-	/**
-	 * 获得 Profile<br>
-	 * Profile Id
-	 * @return Profile
-	*/
-	public String getProfileId() {
-		return profileId;
-	}
-	
-	/**
-	 * 设置 Profile
-	 * @param profileId Profile
-	 * @return 当前对象
-	*/
-	public Config setProfileId(String profileId) {
-		this.profileId=profileId;
-		return this;
-	}
-	
-	/**
-	 * 获得 分类代码<br>
-	 * 关联 sys_config_catalog 数据字典
-	 * @return 分类代码
-	*/
-	public String getCatalogCode() {
-		return catalogCode;
-	}
-	
-	/**
-	 * 设置 分类代码
-	 * @param catalogCode 分类代码
-	 * @return 当前对象
-	*/
-	public Config setCatalogCode(String catalogCode) {
-		this.catalogCode=catalogCode;
-		return this;
-	}
-	
-	/**
-	 * 获得 主键<br>
-	 * 主键
-	 * @return 主键
-	*/
-	public String getId() {
-		return id;
-	}
-	
-	/**
-	 * 设置 主键
-	 * @param id 主键
-	 * @return 当前对象
-	*/
-	public Config setId(String id) {
-		this.id=id;
 		return this;
 	}
 

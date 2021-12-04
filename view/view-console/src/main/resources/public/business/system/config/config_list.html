@@ -2,7 +2,7 @@
 /**
  * 系统配置 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-03 15:42:25
+ * @since 2021-12-04 13:55:51
  */
  -->
  <!DOCTYPE html>
@@ -34,6 +34,13 @@
             <div class="search-input-rows" style="opacity: 0">
                 <!-- 搜索输入区域 -->
                 <div class="layui-form toolbar search-inputs">
+                    <!-- 主键 , id ,typeName=text_input, isHideInSearch=true -->
+                    <!-- Profile , profileId ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 分类代码 , catalogCode ,typeName=select_box, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('分类代码')}" class="search-label catalogCode-label">分类代码</span><span class="search-colon">:</span></div>
+                        <div id="catalogCode" th:data="${dict.toArray('sys_config_catalog')}" style="width:140px" extraParam="{}"></div>
+                    </div>
                     <!-- 配置键 , code ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('配置键')}" class="search-label code-label">配置键</span><span class="search-colon">:</span></div>
@@ -56,13 +63,6 @@
                     <!-- 配置值 , value ,typeName=text_input, isHideInSearch=true -->
                     <!-- 是否生效 , valid ,typeName=logic_switch, isHideInSearch=true -->
                     <!-- 说明 , notes ,typeName=text_area, isHideInSearch=true -->
-                    <!-- Profile , profileId ,typeName=text_input, isHideInSearch=true -->
-                    <!-- 分类代码 , catalogCode ,typeName=select_box, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('分类代码')}" class="search-label catalogCode-label">分类代码</span><span class="search-colon">:</span></div>
-                        <div id="catalogCode" th:data="${dict.toArray('sys_config_catalog')}" style="width:140px" extraParam="{}"></div>
-                    </div>
-                    <!-- 主键 , id ,typeName=text_input, isHideInSearch=true -->
 
 
                 </div>
@@ -112,8 +112,8 @@
 
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${pageHelper.getTableColumnWidthConfig('data-table')}]];
-    var RADIO_TYPE_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.system.SystemConfigType')}]];
     var SELECT_CATALOGCODE_DATA = [[${dict.toArray('sys_config_catalog')}]];
+    var RADIO_TYPE_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.system.SystemConfigType')}]];
     var AUTH_PREFIX="sys_config";
 
 

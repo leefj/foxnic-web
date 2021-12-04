@@ -18,7 +18,7 @@
 		}
     </style>
     <link rel="stylesheet" href="assets/css/foxnic-web.css" th:href="'assets/css/foxnic-web.css?'+${cacheKey}" >
-    <link rel="stylesheet" href="assets/css/theme/orange.css"/>
+    <link th:each="css:${theme.css}" rel="stylesheet" th:href="${css}+'?'+${cacheKey}">
     <script th:inline="javascript">var foxnic_cachekey=[[${cacheKey}]];</script>
 </head>
 
@@ -65,15 +65,16 @@
     <div class="site-mobile-shade"></div>
 </div>
 <script type="text/javascript" src="module/global.js" th:src="'module/global.js?'+${cacheKey}"></script>
-<script type="text/javascript" src="/assets/css/theme/orange.js" th:src="'/assets/css/theme/orange.js?'+${cacheKey}"></script>
+<script th:each="js:${theme.js}" type="text/javascript" th:src="${js}+'?'+${cacheKey}"></script>
 <script type="text/javascript" src="assets/libs/jquery-3.2.1.min.js" th:src="'assets/libs/jquery-3.2.1.min.js?'+${cacheKey}"></script>
 <script type="text/javascript" src="assets/libs/toast/js/toast.js" th:src="'assets/libs/toast/js/toast.js?'+${cacheKey}"></script>
 <script type="text/javascript" src="assets/libs/q.js" th:src="'assets/libs/q.js?'+${cacheKey}"></script>
 <script type="text/javascript" src="assets/libs/pandyle.min.js" th:src="'assets/libs/pandyle.min.js?'+${cacheKey}"></script>
 <script type="text/javascript" src="assets/libs/layui/layui.js" th:src="'assets/libs/layui/layui.js?'+${cacheKey}"></script>
 
-<script th:inline="javascript">
+<script>
     var MODULE_ENABLE= [[${moduleEnable}]];
+    var LOGO="[[${logo}]]";
 </script>
 
 <script>
@@ -104,7 +105,8 @@
         	//console.log(user);
         	user.headImgUrl="/service-tailoring/sys-file/download?id="+user.user.portraitId;
         	user.headImgUrl="https://portrait.gitee.com/uploads/avatars/user/490/1470521_LeeFJ_1622844383.png!avatar200";
-        	 
+            user.logoImgUrl=LOGO;
+
         	$('.layui-layout-admin .layui-header').vm(user);
             index.initLeftNav();
             element.render('nav');

@@ -1,7 +1,7 @@
 /**
  * 系统配置 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-03 15:42:25
+ * @since 2021-12-04 13:55:51
  */
 
 
@@ -74,6 +74,9 @@ function ListPage() {
 				cols: [[
 					{ fixed: 'left',type: 'numbers' },
 					{ fixed: 'left',type:'checkbox'}
+					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('主键') , templet: function (d) { return templet('id',d.id,d);}  }
+					,{ field: 'profileId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('Profile') , templet: function (d) { return templet('profileId',d.profileId,d);}  }
+					,{ field: 'catalogCode', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('分类代码'), templet:function (d){ return templet('catalogCode',fox.getDictText(SELECT_CATALOGCODE_DATA,d.catalogCode),d);}}
 					,{ field: 'code', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('配置键') , templet: function (d) { return templet('code',d.code,d);}  }
 					,{ field: 'name', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('配置名') , templet: function (d) { return templet('name',d.name,d);}  }
 					,{ field: 'type', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('数据类型'), templet:function (d){ return templet('type',fox.getEnumText(RADIO_TYPE_DATA,d.type),d);}}
@@ -82,9 +85,6 @@ function ListPage() {
 					,{ field: 'valid', align:"center",fixed:false,  hide:false, sort: true, title: fox.translate('是否生效'), templet: '#cell-tpl-valid'}
 					,{ field: 'notes', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('说明') , templet: function (d) { return templet('notes',d.notes,d);}  }
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间') ,templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
-					,{ field: 'profileId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('Profile') , templet: function (d) { return templet('profileId',d.profileId,d);}  }
-					,{ field: 'catalogCode', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('分类代码'), templet:function (d){ return templet('catalogCode',fox.getDictText(SELECT_CATALOGCODE_DATA,d.catalogCode),d);}}
-					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('主键') , templet: function (d) { return templet('id',d.id,d);}  }
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
 				]],
@@ -123,10 +123,10 @@ function ListPage() {
       */
 	function refreshTableData(sortField,sortType,reset) {
 		var value = {};
+		value.catalogCode={ inputType:"select_box", value: xmSelect.get("#catalogCode",true).getValue("value"), label:xmSelect.get("#catalogCode",true).getValue("nameStr") };
 		value.code={ inputType:"button",value: $("#code").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" };
 		value.name={ inputType:"button",value: $("#name").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" };
 		value.type={ inputType:"radio_box", value: xmSelect.get("#type",true).getValue("value"), label:xmSelect.get("#type",true).getValue("nameStr") };
-		value.catalogCode={ inputType:"select_box", value: xmSelect.get("#catalogCode",true).getValue("value"), label:xmSelect.get("#catalogCode",true).getValue("nameStr") };
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;
@@ -174,6 +174,23 @@ function ListPage() {
 
 		fox.switchSearchRow(1);
 
+		//渲染 catalogCode 下拉字段
+		fox.renderSelectBox({
+			el: "catalogCode",
+			radio: true,
+			size: "small",
+			filterable: false,
+			//转换数据
+			transform: function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				var opts=[];
+				for (var i = 0; i < data.length; i++) {
+					if(!data[i]) continue;
+					opts.push({data:data[i],name:data[i].text,value:data[i].code});
+				}
+				return opts;
+			}
+		});
 		//渲染 type 搜索框
 		fox.renderSelectBox({
 			el: "type",
@@ -190,23 +207,6 @@ function ListPage() {
 				var opts=[];
 				if(!data) return opts;
 				for (var i = 0; i < data.length; i++) {
-					opts.push({data:data[i],name:data[i].text,value:data[i].code});
-				}
-				return opts;
-			}
-		});
-		//渲染 catalogCode 下拉字段
-		fox.renderSelectBox({
-			el: "catalogCode",
-			radio: true,
-			size: "small",
-			filterable: false,
-			//转换数据
-			transform: function(data) {
-				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
-				var opts=[];
-				for (var i = 0; i < data.length; i++) {
-					if(!data[i]) continue;
 					opts.push({data:data[i],name:data[i].text,value:data[i].code});
 				}
 				return opts;

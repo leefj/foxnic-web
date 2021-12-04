@@ -1,5 +1,7 @@
 package org.github.foxnic.web.framework.view.aspect;
 
+import com.alibaba.fastjson.JSONObject;
+import com.github.foxnic.commons.cache.Variable;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.log.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -8,6 +10,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
+import org.github.foxnic.web.constants.enums.system.Theme;
 import org.github.foxnic.web.language.LanguageService;
 import org.github.foxnic.web.proxy.spring.AwareHandler;
 import org.github.foxnic.web.proxy.utils.CodeTextEnumUtil;
@@ -37,6 +40,8 @@ public class PageAspector {
 	
 	 
 	private static final String LANG = "lang";
+
+	private static final String THEME = "theme";
 	
 	private static final String ENUM = "enum";
 
@@ -58,6 +63,8 @@ public class PageAspector {
 
 	private LanguageService languageService;
 
+
+	private Variable theme = new Variable(null,5000);
 
 
 
@@ -109,6 +116,18 @@ public class PageAspector {
 			dictUtil=AwareHandler.getBean(DictProxyUtil.class);
 		}
 
+		//主题
+		if(this.theme.getValue()==null) {
+			Theme theme = SystemConfigProxyUtil.getEnum(SystemConfigEnum.SYSTEM_THEME, Theme.class);
+			if (theme == null) theme = Theme.DEFAULT;
+			JSONObject json=new JSONObject();
+			json.put("css",theme.getCss());
+			json.put("js",theme.getJs());
+			this.theme.setValue(json);
+
+		}
+
+
 		//获得登录 SessionUser
 		SessionUser user=SessionUser.getCurrent();
 
@@ -128,6 +147,7 @@ public class PageAspector {
 		Object args[] = joinPoint.getArgs();
 		for (Object arg : args) {
 			if(arg instanceof Model ) {
+				((Model)arg).addAttribute(THEME, theme.getValue());
 				((Model)arg).addAttribute(LANG, languageService);
 				((Model)arg).addAttribute(ENUM, enumUtil);
 				if(user!=null) {
@@ -139,6 +159,7 @@ public class PageAspector {
 				((Model)arg).addAttribute(CACHE_KEY, cacheKey);
 				((Model)arg).addAttribute(PAGE_HELPER, pageHelper);
 			} else if(arg instanceof ModelAndView ) {
+				((ModelAndView)arg).addObject(THEME, theme.getValue());
 				((ModelAndView)arg).addObject(LANG, languageService);
 				((ModelAndView)arg).addObject(ENUM, enumUtil);
 				if(user!=null) {
@@ -150,6 +171,7 @@ public class PageAspector {
 				((Model)arg).addAttribute(CACHE_KEY, cacheKey);
 				((Model)arg).addAttribute(PAGE_HELPER, pageHelper);
 			} else if(arg instanceof ModelMap ) {
+				((ModelMap)arg).addAttribute(THEME, theme.getValue());
 				((ModelMap)arg).addAttribute(LANG, languageService);
 				((ModelMap)arg).addAttribute(ENUM, enumUtil);
 				if(user!=null) {
