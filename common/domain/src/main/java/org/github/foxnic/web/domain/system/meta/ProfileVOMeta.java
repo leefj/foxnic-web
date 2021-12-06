@@ -9,7 +9,7 @@ import org.github.foxnic.web.domain.system.Profile;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-03 15:40:18
+ * @since 2021-12-06 11:20:15
  * @sign 06D7408A07CF0D84D9554A542525BE33
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */

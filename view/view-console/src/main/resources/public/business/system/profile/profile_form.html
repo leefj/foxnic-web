@@ -2,7 +2,7 @@
 /**
  * Profile 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-03 15:40:21
+ * @since 2021-12-06 11:20:15
  */
  -->
  <!DOCTYPE html>
@@ -27,6 +27,7 @@
             margin-left: 115px;
         }
     </style>
+    <link th:each="css:${theme.css}" rel="stylesheet" th:href="${css}+'?'+${cacheKey}">
 </head>
 
 <body style="overflow-y: hidden;">

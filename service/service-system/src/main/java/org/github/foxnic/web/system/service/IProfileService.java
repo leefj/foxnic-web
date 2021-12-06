@@ -21,7 +21,7 @@ import com.github.foxnic.dao.data.SaveMode;
  * Profile 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-03 15:40:18
+ * @since 2021-12-06 11:20:15
 */
 
 public interface IProfileService extends ISuperService<Profile> {
