@@ -16,6 +16,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.github.foxnic.web.constants.enums.system.FileCatalog;
 import org.github.foxnic.web.domain.storage.File;
 import org.github.foxnic.web.domain.storage.FileVO;
 import org.github.foxnic.web.domain.storage.meta.FileVOMeta;
@@ -46,14 +47,14 @@ import java.util.Map;
 @ApiSort(1006)
 @RestController("SysFileController")
 public class FileController extends SuperController {
-	
+
 	@Autowired
 	private IFileService fileService;
 
-	
+
 	@PostMapping(FileServiceProxy.UPLOAD)
 	public void upload(MultipartHttpServletRequest request,HttpServletResponse response) throws Exception {
-		response.setContentType("text/html;charset=UTF-8"); 
+		response.setContentType("text/html;charset=UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		Map<String, MultipartFile> map = request.getFileMap();
 		if(map==null || map.size()==0) {
@@ -89,14 +90,22 @@ public class FileController extends SuperController {
 
 	@SentinelResource(value = FileServiceProxy.DOWNLOAD)
 	@RequestMapping(FileServiceProxy.DOWNLOAD)
-	public void download(HttpServletRequest request,HttpServletResponse response,String id,String inline) throws Exception {
+	public void download(HttpServletRequest request,HttpServletResponse response,String id,String inline,String catalog) throws Exception {
 		Boolean il= DataParser.parseBoolean(inline);
-		fileService.downloadFile(id,il,response);
+		FileCatalog fileCatalog=FileCatalog.parseByCode(catalog);
+		if(fileCatalog==null) {
+			fileCatalog=FileCatalog.FILE;
+		}
+		fileService.downloadFile(id,il,response,fileCatalog);
     }
 
 	@RequestMapping(FileServiceProxy.IMAGE)
-	public void image(HttpServletRequest request,HttpServletResponse response,String id) throws Exception {
-		fileService.downloadFile(id,true,response);
+	public void image(HttpServletRequest request,HttpServletResponse response,String id,String catalog) throws Exception {
+		FileCatalog fileCatalog=FileCatalog.parseByCode(catalog);
+		if(fileCatalog==null) {
+			fileCatalog=FileCatalog.FILE;
+		}
+		fileService.downloadFile(id,true,response,fileCatalog);
 	}
 
 
@@ -119,8 +128,8 @@ public class FileController extends SuperController {
 		result.success(suc);
 		return result;
 	}
-	
-	
+
+
 	/**
 	 * 批量删除附件 <br>
 	 * 联合主键时，请自行调整实现
@@ -129,7 +138,7 @@ public class FileController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = FileVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 	})
-	@ApiOperationSupport(order=3) 
+	@ApiOperationSupport(order=3)
 	@NotNull(name = FileVOMeta.IDS)
 	@SentinelResource(value = FileServiceProxy.BATCH_DELETE)
 	@PostMapping(FileServiceProxy.BATCH_DELETE)
@@ -138,7 +147,7 @@ public class FileController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 获取附件信息
 	*/
@@ -190,7 +199,7 @@ public class FileController extends SuperController {
 	public Result<String> getFileData(String id) {
 		return fileService.getFileData(id);
 	}
-	
+
 	/**
 	 * 查询附件信息
 	*/
@@ -216,7 +225,7 @@ public class FileController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 分页查询附件
 	*/

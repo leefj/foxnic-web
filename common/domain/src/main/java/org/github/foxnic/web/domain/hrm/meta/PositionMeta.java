@@ -3,13 +3,14 @@ package org.github.foxnic.web.domain.hrm.meta;
 import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.hrm.Position;
 import java.util.Date;
+import org.github.foxnic.web.domain.hrm.Organization;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-29 17:12:58
- * @sign 40BAF15CCDD1E31E013A9B4FC6929EB2
+ * @since 2021-12-06 15:00:54
+ * @sign 943837E81802E0DC69ECEF65859C1313
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -196,9 +197,19 @@ public class PositionMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Position,java.lang.String> TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Position.class ,TYPE, java.lang.String.class, "岗位类型", "关联字典 position_type", java.lang.String.class, null);
 	
 	/**
+	 * 所属组织节点 , 类型: org.github.foxnic.web.domain.hrm.Organization
+	*/
+	public static final String ORGANIZATION="organization";
+	
+	/**
+	 * 所属组织节点 , 类型: org.github.foxnic.web.domain.hrm.Organization
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.Position,org.github.foxnic.web.domain.hrm.Organization> ORGANIZATION_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.Position.class ,ORGANIZATION, org.github.foxnic.web.domain.hrm.Organization.class, "所属组织节点", "所属组织节点", org.github.foxnic.web.domain.hrm.Organization.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , ORG_ID , CODE , FULL_NAME , SHORT_NAME , VALID , SORT , COMPANY_ID , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TYPE };
+	public static final String[] $PROPS={ ID , ORG_ID , CODE , FULL_NAME , SHORT_NAME , VALID , SORT , COMPANY_ID , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TYPE , ORGANIZATION };
 	
 	/**
 	 * 代理类
@@ -403,6 +414,17 @@ public class PositionMeta {
 		public Position setType(String type) {
 			super.change(TYPE,super.getType(),type);
 			super.setType(type);
+			return this;
+		}
+		
+		/**
+		 * 设置 所属组织节点
+		 * @param organization 所属组织节点
+		 * @return 当前对象
+		*/
+		public Position setOrganization(Organization organization) {
+			super.change(ORGANIZATION,super.getOrganization(),organization);
+			super.setOrganization(organization);
 			return this;
 		}
 	}

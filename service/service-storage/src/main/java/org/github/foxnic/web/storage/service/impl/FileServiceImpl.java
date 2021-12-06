@@ -17,6 +17,7 @@ import com.github.foxnic.sql.expr.Expr;
 import com.github.foxnic.sql.expr.In;
 import com.github.foxnic.sql.expr.Update;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
+import org.github.foxnic.web.constants.enums.system.FileCatalog;
 import org.github.foxnic.web.domain.storage.File;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.storage.service.IFileService;
@@ -179,7 +180,7 @@ public class FileServiceImpl extends SuperService<File> implements IFileService 
 	}
 
 	@Override
-	public void downloadFile(String id,Boolean inline,HttpServletResponse response) {
+	public void downloadFile(String id, Boolean inline, HttpServletResponse response, FileCatalog catalog) {
 		File fileInfo=this.getById(id);
 		Result result=null;
 

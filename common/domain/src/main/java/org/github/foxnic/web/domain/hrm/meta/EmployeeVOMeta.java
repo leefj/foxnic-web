@@ -15,7 +15,7 @@ import org.github.foxnic.web.domain.system.BusiRole;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-30 08:56:46
+ * @since 2021-12-06 14:55:38
  * @sign CD6F210B59AF577A68702D75A5200D48
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -373,14 +373,14 @@ public class EmployeeVOMeta extends EmployeeMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.hrm.EmployeeVO,java.lang.String> PRIMARY_POSITION_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.EmployeeVO.class ,PRIMARY_POSITION_ID, java.lang.String.class, "主岗ID", "只有一个", java.lang.String.class, null);
 	
 	/**
-	 * 副岗ID , 多个用逗号隔开 , 集合类型: LIST , 类型: java.lang.String
+	 * 兼岗ID , 多个用逗号隔开 , 集合类型: LIST , 类型: java.lang.String
 	*/
 	public static final String VICE_POSITION_IDS="vicePositionIds";
 	
 	/**
-	 * 副岗ID , 多个用逗号隔开 , 集合类型: LIST , 类型: java.lang.String
+	 * 兼岗ID , 多个用逗号隔开 , 集合类型: LIST , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.hrm.EmployeeVO,java.lang.String> VICE_POSITION_IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.EmployeeVO.class ,VICE_POSITION_IDS, java.util.List.class, "副岗ID", "多个用逗号隔开", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.EmployeeVO,java.lang.String> VICE_POSITION_IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.EmployeeVO.class ,VICE_POSITION_IDS, java.util.List.class, "兼岗ID", "多个用逗号隔开", java.lang.String.class, null);
 	
 	/**
 	 * name , 类型: java.lang.String
@@ -821,8 +821,8 @@ public class EmployeeVOMeta extends EmployeeMeta {
 		}
 		
 		/**
-		 * 设置 副岗ID
-		 * @param vicePositionIds 副岗ID
+		 * 设置 兼岗ID
+		 * @param vicePositionIds 兼岗ID
 		 * @return 当前对象
 		*/
 		public Employee setVicePositionIds(List<String> vicePositionIds) {

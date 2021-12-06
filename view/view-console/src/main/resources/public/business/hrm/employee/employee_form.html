@@ -2,7 +2,7 @@
 /**
  * 员工 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-30 08:56:48
+ * @since 2021-12-06 14:55:38
  */
  -->
  <!DOCTYPE html>
@@ -29,7 +29,7 @@
             margin-left: 115px;
         }
     </style>
-	<link th:each="css:${theme.css}" rel="stylesheet" th:href="${css}+'?'+${cacheKey}">
+    <link th:each="css:${theme.css}" rel="stylesheet" th:href="${css}+'?'+${cacheKey}">
 </head>
 
 <body style="overflow-y: hidden;">
@@ -62,7 +62,7 @@
                         </div>
                     </div>
 
-
+                
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('状态')}">状态</div><div class="layui-required">*</div></div>
                     <div class="layui-input-block layui-input-block-c1">
@@ -94,7 +94,7 @@
                     </div>
 
                                     <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('副岗')}">副岗</div></div>
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('兼岗')}">兼岗</div></div>
                         <div class="layui-input-block layui-input-block-c1">
                             <input lay-filter="vicePositionIds" id="vicePositionIds" name="vicePositionIds"  type="hidden" class="layui-input"   />
                             <button id="vicePositionIds-button" type="button" action-type="pos-dialog" class="layui-btn   " style="width: 100%"> <i class='layui-icon layui-icon-search'></i> <span th:text="${lang.translate('请选择岗位')}" th:default-label="${lang.translate('请选择岗位')}">按钮文本</span></button>

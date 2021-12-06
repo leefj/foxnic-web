@@ -139,6 +139,7 @@ public class EmployeeServiceImpl extends SuperService<Employee> implements IEmpl
 				userTenant.setOwnerTenantId(SessionUser.getCurrent().getActivatedTenantId());
 				userTenant.setEmployeeId(employee.getId());
 				userTenant.setActivated(1);
+				userTenant.setValid(1);
 				r=UserTenantServiceProxy.api().insert(userTenant);
 				if(r.failure()) {
 					return r;

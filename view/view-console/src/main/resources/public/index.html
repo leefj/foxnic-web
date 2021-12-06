@@ -106,8 +106,8 @@
         index.getUser(function (user) {
         	//user=user.user;
         	//console.log(user);
-        	user.headImgUrl="/service-tailoring/sys-file/download?id="+user.user.portraitId;
-        	user.headImgUrl="https://portrait.gitee.com/uploads/avatars/user/490/1470521_LeeFJ_1622844383.png!avatar200";
+        	user.headImgUrl="/service-storage/sys-file/download?id="+user.user.portraitId+"&catalog=portrait";
+        	//user.headImgUrl="https://portrait.gitee.com/uploads/avatars/user/490/1470521_LeeFJ_1622844383.png!avatar200";
             user.logoImgUrl=LOGO;
 
         	$('.layui-layout-admin .layui-header').vm(user);

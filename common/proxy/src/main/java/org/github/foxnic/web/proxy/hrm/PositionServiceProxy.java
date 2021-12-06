@@ -19,7 +19,7 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  * 岗位表  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-29 17:12:58
+ * @since 2021-12-06 15:00:55
 */
 
 @FeignClient(value = MicroServiceNames.HRM, contextId = PositionServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)
@@ -139,7 +139,7 @@ public interface PositionServiceProxy {
 	Result<Position> getById(String id);
 
 	/**
-	 * 批量删除岗位
+	 * 获取多个岗位
 	*/
 	@RequestMapping(PositionServiceProxy.GET_BY_IDS)
 	Result<List<Position>> getByIds(List<String> ids);

@@ -26,6 +26,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             console.log('beforeQuery',conditions);
             var userId=admin.getTempData("userId");
             conditions.userId={value:userId};
+            return true;
         },
         /**
          * 在新建或编辑窗口打开前调用，若返回 false 则不继续执行后续操作

@@ -1,11 +1,14 @@
 package org.github.foxnic.web.generator.module.hrm;
 
+import com.github.foxnic.generator.builder.model.PoClassFile;
+import com.github.foxnic.generator.builder.model.VoClassFile;
 import com.github.foxnic.generator.builder.view.option.FormOptions;
 import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.HRM_POSITION;
 import org.github.foxnic.web.constants.enums.DictEnum;
+import org.github.foxnic.web.domain.hrm.Organization;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
 public class HrmPositionConfig extends BaseCodeConfig<HRM_POSITION> {
@@ -14,6 +17,10 @@ public class HrmPositionConfig extends BaseCodeConfig<HRM_POSITION> {
         super(PREFIX_HRM, HRM_POSITION.$TABLE,"hrm_", 4);
     }
 
+    @Override
+    public void configModel(PoClassFile poType, VoClassFile voType) {
+        poType.addSimpleProperty(Organization.class,"organization","所属组织节点","所属组织节点");
+    }
 
     @Override
     public void configSearch(ViewOptions view, SearchAreaOptions search) {

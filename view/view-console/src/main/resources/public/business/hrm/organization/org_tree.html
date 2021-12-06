@@ -89,7 +89,7 @@
                    <iframe id="pos-basic-info-ifr" src="/business/hrm/position/position_form.html" frameborder=0 width="100%"></iframe>
                </div>
                <div class="layui-tab-item layui-show" type="emp">
-                   <iframe id="employee-list-ifr" src="/business/hrm/employee/employee_list.html" frameborder=0 width="100%"></iframe>
+                   <iframe id="employee-list-ifr" src="/business/hrm/employee/employee_list.html?inTab=yes" frameborder=0 width="100%"></iframe>
                </div>
            </div>
        </div>
@@ -105,7 +105,7 @@
 <script type="text/javascript" src="/assets/libs/layui/layui.js" th:src="'/assets/libs/layui/layui.js?'+${cacheKey}"></script>
 <script type="text/javascript" src="/assets/libs/zTree/js/jquery.ztree.all-3.5.min.js" th:src="'/assets/libs/zTree/js/jquery.ztree.all-3.5.min.js?'+${cacheKey}"></script>
 
-<script src="/business/hrm/organization/org_tree.js" th:src="'/business/hrm/organization/emp_dialog_org.js?'+${cacheKey}"></script>
+<script src="/business/hrm/organization/org_tree.js" th:src="'/business/hrm/organization/org_tree.js?'+${cacheKey}"></script>
 
 </body>
 </html>

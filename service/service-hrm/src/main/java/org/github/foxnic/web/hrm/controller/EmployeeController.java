@@ -1,6 +1,6 @@
 package org.github.foxnic.web.hrm.controller;
 
- 
+
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
@@ -21,6 +21,7 @@ import org.github.foxnic.web.domain.hrm.Employee;
 import org.github.foxnic.web.domain.hrm.EmployeeVO;
 import org.github.foxnic.web.domain.hrm.meta.EmployeeMeta;
 import org.github.foxnic.web.domain.hrm.meta.EmployeeVOMeta;
+import org.github.foxnic.web.domain.hrm.meta.PositionMeta;
 import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
 import org.github.foxnic.web.framework.web.SuperController;
 import org.github.foxnic.web.hrm.service.IEmployeeService;
@@ -54,7 +55,7 @@ public class EmployeeController extends SuperController {
 	@Autowired
 	private IEmployeeService employeeService;
 
-	
+
 	/**
 	 * 添加员工
 	*/
@@ -76,7 +77,7 @@ public class EmployeeController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 删除员工
 	*/
@@ -92,8 +93,8 @@ public class EmployeeController extends SuperController {
 		Result result=employeeService.deleteByIdLogical(id);
 		return result;
 	}
-	
-	
+
+
 	/**
 	 * 批量删除员工 <br>
 	 * 联合主键时，请自行调整实现
@@ -102,7 +103,7 @@ public class EmployeeController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = EmployeeVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 	})
-	@ApiOperationSupport(order=3) 
+	@ApiOperationSupport(order=3)
 	@NotNull(name = EmployeeVOMeta.IDS)
 	@SentinelResource(value = EmployeeServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(EmployeeServiceProxy.DELETE_BY_IDS)
@@ -110,7 +111,7 @@ public class EmployeeController extends SuperController {
 		Result result=employeeService.deleteByIdsLogical(ids);
 		return result;
 	}
-	
+
 	/**
 	 * 更新员工
 	*/
@@ -123,7 +124,7 @@ public class EmployeeController extends SuperController {
 		@ApiImplicitParam(name = EmployeeVOMeta.COMPANY_ID , value = "公司ID" , required = false , dataTypeClass=String.class , example = "482962368444239872"),
 		@ApiImplicitParam(name = EmployeeVOMeta.STATUS , value = "状态" , required = false , dataTypeClass=String.class),
 	})
-	@ApiOperationSupport( order=4 , ignoreParameters = { EmployeeVOMeta.PAGE_INDEX , EmployeeVOMeta.PAGE_SIZE , EmployeeVOMeta.SEARCH_FIELD , EmployeeVOMeta.FUZZY_FIELD , EmployeeVOMeta.SEARCH_VALUE , EmployeeVOMeta.SORT_FIELD , EmployeeVOMeta.SORT_TYPE , EmployeeVOMeta.IDS , EmployeeVOMeta.ORG_ID , EmployeeVOMeta.POSITION_ID } ) 
+	@ApiOperationSupport( order=4 , ignoreParameters = { EmployeeVOMeta.PAGE_INDEX , EmployeeVOMeta.PAGE_SIZE , EmployeeVOMeta.SEARCH_FIELD , EmployeeVOMeta.FUZZY_FIELD , EmployeeVOMeta.SEARCH_VALUE , EmployeeVOMeta.SORT_FIELD , EmployeeVOMeta.SORT_TYPE , EmployeeVOMeta.IDS , EmployeeVOMeta.ORG_ID , EmployeeVOMeta.POSITION_ID } )
 	@NotNull(name = EmployeeVOMeta.ID)
 	@SentinelResource(value = EmployeeServiceProxy.UPDATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(EmployeeServiceProxy.UPDATE)
@@ -131,8 +132,8 @@ public class EmployeeController extends SuperController {
 		Result result=employeeService.update(employeeVO,SaveMode.NOT_NULL_FIELDS);
 		return result;
 	}
-	
-	
+
+
 	/**
 	 * 保存员工
 	*/
@@ -154,7 +155,7 @@ public class EmployeeController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 获取员工
 	*/
@@ -185,7 +186,7 @@ public class EmployeeController extends SuperController {
 		@ApiImplicitParams({
 				@ApiImplicitParam(name = EmployeeVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})
-		@ApiOperationSupport(order=3) 
+		@ApiOperationSupport(order=3)
 		@NotNull(name = EmployeeVOMeta.IDS)
 		@SentinelResource(value = EmployeeServiceProxy.GET_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(EmployeeServiceProxy.GET_BY_IDS)
@@ -243,7 +244,7 @@ public class EmployeeController extends SuperController {
 
 
 
-	
+
 	/**
 	 * 查询员工
 	*/
@@ -266,7 +267,7 @@ public class EmployeeController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 分页查询员工
 	*/
@@ -286,7 +287,18 @@ public class EmployeeController extends SuperController {
 		Result<PagedList<Employee>> result=new Result<>();
 		PagedList<Employee> list=employeeService.queryPagedList(sample,sample.getPageSize(),sample.getPageIndex());
 		// 关联出 姓名 数据
-		employeeService.join(list,EmployeeMeta.PERSON,EmployeeMeta.POSITIONS);
+		employeeService.dao().fill(list)
+				.with(EmployeeMeta.PERSON)
+				.with(EmployeeMeta.POSITIONS, PositionMeta.ORGANIZATION)
+				.execute();
+
+		//按主岗设置主部门
+		for (Employee employee : list) {
+			if(employee.getPrimaryPosition()!=null) {
+				employee.setPrimaryOrganization(employee.getPrimaryPosition().getOrganization());
+			}
+		}
+
 		result.success(true).data(list);
 		return result;
 	}

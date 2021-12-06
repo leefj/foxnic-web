@@ -5,12 +5,13 @@ import org.github.foxnic.web.domain.hrm.PositionVO;
 import java.util.List;
 import org.github.foxnic.web.domain.hrm.Position;
 import java.util.Date;
+import org.github.foxnic.web.domain.hrm.Organization;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-29 17:12:58
+ * @since 2021-12-06 15:00:54
  * @sign 97C24B4D76F843C11C730D9357755FAE
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -108,9 +109,199 @@ public class PositionVOMeta extends PositionMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.hrm.PositionVO,java.lang.String> IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.PositionVO.class ,IDS, java.util.List.class, "主键清单", "用于接收批量主键参数", java.lang.String.class, null);
 	
 	/**
+	 * 主键 , 类型: java.lang.String
+	*/
+	public static final String ID="id";
+	
+	/**
+	 * 主键 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.PositionVO,java.lang.String> ID_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.PositionVO.class ,ID, java.lang.String.class, "主键", "主键", java.lang.String.class, null);
+	
+	/**
+	 * 所属组织ID , 类型: java.lang.String
+	*/
+	public static final String ORG_ID="orgId";
+	
+	/**
+	 * 所属组织ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.PositionVO,java.lang.String> ORG_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.PositionVO.class ,ORG_ID, java.lang.String.class, "所属组织ID", "所属组织ID", java.lang.String.class, null);
+	
+	/**
+	 * 岗位代码 , 类型: java.lang.String
+	*/
+	public static final String CODE="code";
+	
+	/**
+	 * 岗位代码 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.PositionVO,java.lang.String> CODE_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.PositionVO.class ,CODE, java.lang.String.class, "岗位代码", "岗位代码", java.lang.String.class, null);
+	
+	/**
+	 * 全称 , 类型: java.lang.String
+	*/
+	public static final String FULL_NAME="fullName";
+	
+	/**
+	 * 全称 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.PositionVO,java.lang.String> FULL_NAME_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.PositionVO.class ,FULL_NAME, java.lang.String.class, "全称", "全称", java.lang.String.class, null);
+	
+	/**
+	 * 简称 , 类型: java.lang.String
+	*/
+	public static final String SHORT_NAME="shortName";
+	
+	/**
+	 * 简称 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.PositionVO,java.lang.String> SHORT_NAME_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.PositionVO.class ,SHORT_NAME, java.lang.String.class, "简称", "简称", java.lang.String.class, null);
+	
+	/**
+	 * 是否有效 , 类型: java.lang.Integer
+	*/
+	public static final String VALID="valid";
+	
+	/**
+	 * 是否有效 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.PositionVO,java.lang.Integer> VALID_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.PositionVO.class ,VALID, java.lang.Integer.class, "是否有效", "是否有效", java.lang.Integer.class, null);
+	
+	/**
+	 * 排序 , 类型: java.lang.Integer
+	*/
+	public static final String SORT="sort";
+	
+	/**
+	 * 排序 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.PositionVO,java.lang.Integer> SORT_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.PositionVO.class ,SORT, java.lang.Integer.class, "排序", "排序", java.lang.Integer.class, null);
+	
+	/**
+	 * 总公司ID , 类型: java.lang.String
+	*/
+	public static final String COMPANY_ID="companyId";
+	
+	/**
+	 * 总公司ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.PositionVO,java.lang.String> COMPANY_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.PositionVO.class ,COMPANY_ID, java.lang.String.class, "总公司ID", "总公司ID", java.lang.String.class, null);
+	
+	/**
+	 * 租户ID , 类型: java.lang.String
+	*/
+	public static final String TENANT_ID="tenantId";
+	
+	/**
+	 * 租户ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.PositionVO,java.lang.String> TENANT_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.PositionVO.class ,TENANT_ID, java.lang.String.class, "租户ID", "租户ID", java.lang.String.class, null);
+	
+	/**
+	 * 创建人ID , 类型: java.lang.String
+	*/
+	public static final String CREATE_BY="createBy";
+	
+	/**
+	 * 创建人ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.PositionVO,java.lang.String> CREATE_BY_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.PositionVO.class ,CREATE_BY, java.lang.String.class, "创建人ID", "创建人ID", java.lang.String.class, null);
+	
+	/**
+	 * 创建时间 , 类型: java.util.Date
+	*/
+	public static final String CREATE_TIME="createTime";
+	
+	/**
+	 * 创建时间 , 类型: java.util.Date
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.PositionVO,java.util.Date> CREATE_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.PositionVO.class ,CREATE_TIME, java.util.Date.class, "创建时间", "创建时间", java.util.Date.class, null);
+	
+	/**
+	 * 修改人ID , 类型: java.lang.String
+	*/
+	public static final String UPDATE_BY="updateBy";
+	
+	/**
+	 * 修改人ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.PositionVO,java.lang.String> UPDATE_BY_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.PositionVO.class ,UPDATE_BY, java.lang.String.class, "修改人ID", "修改人ID", java.lang.String.class, null);
+	
+	/**
+	 * 修改时间 , 类型: java.util.Date
+	*/
+	public static final String UPDATE_TIME="updateTime";
+	
+	/**
+	 * 修改时间 , 类型: java.util.Date
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.PositionVO,java.util.Date> UPDATE_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.PositionVO.class ,UPDATE_TIME, java.util.Date.class, "修改时间", "修改时间", java.util.Date.class, null);
+	
+	/**
+	 * 是否已删除 , 类型: java.lang.Integer
+	*/
+	public static final String DELETED="deleted";
+	
+	/**
+	 * 是否已删除 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.PositionVO,java.lang.Integer> DELETED_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.PositionVO.class ,DELETED, java.lang.Integer.class, "是否已删除", "是否已删除", java.lang.Integer.class, null);
+	
+	/**
+	 * 删除人ID , 类型: java.lang.String
+	*/
+	public static final String DELETE_BY="deleteBy";
+	
+	/**
+	 * 删除人ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.PositionVO,java.lang.String> DELETE_BY_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.PositionVO.class ,DELETE_BY, java.lang.String.class, "删除人ID", "删除人ID", java.lang.String.class, null);
+	
+	/**
+	 * 删除时间 , 类型: java.util.Date
+	*/
+	public static final String DELETE_TIME="deleteTime";
+	
+	/**
+	 * 删除时间 , 类型: java.util.Date
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.PositionVO,java.util.Date> DELETE_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.PositionVO.class ,DELETE_TIME, java.util.Date.class, "删除时间", "删除时间", java.util.Date.class, null);
+	
+	/**
+	 * 数据版本号 , 类型: java.lang.Integer
+	*/
+	public static final String VERSION="version";
+	
+	/**
+	 * 数据版本号 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.PositionVO,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.PositionVO.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
+	
+	/**
+	 * 岗位类型 , 关联字典 position_type , 类型: java.lang.String
+	*/
+	public static final String TYPE="type";
+	
+	/**
+	 * 岗位类型 , 关联字典 position_type , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.PositionVO,java.lang.String> TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.PositionVO.class ,TYPE, java.lang.String.class, "岗位类型", "关联字典 position_type", java.lang.String.class, null);
+	
+	/**
+	 * 所属组织节点 , 类型: org.github.foxnic.web.domain.hrm.Organization
+	*/
+	public static final String ORGANIZATION="organization";
+	
+	/**
+	 * 所属组织节点 , 类型: org.github.foxnic.web.domain.hrm.Organization
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.PositionVO,org.github.foxnic.web.domain.hrm.Organization> ORGANIZATION_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.PositionVO.class ,ORGANIZATION, org.github.foxnic.web.domain.hrm.Organization.class, "所属组织节点", "所属组织节点", org.github.foxnic.web.domain.hrm.Organization.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , ORG_ID , CODE , FULL_NAME , SHORT_NAME , VALID , SORT , COMPANY_ID , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TYPE , ORGANIZATION };
 	
 	/**
 	 * 代理类
@@ -414,6 +605,17 @@ public class PositionVOMeta extends PositionMeta {
 		public Position setType(String type) {
 			super.change(TYPE,super.getType(),type);
 			super.setType(type);
+			return this;
+		}
+		
+		/**
+		 * 设置 所属组织节点
+		 * @param organization 所属组织节点
+		 * @return 当前对象
+		*/
+		public Position setOrganization(Organization organization) {
+			super.change(ORGANIZATION,super.getOrganization(),organization);
+			super.setOrganization(organization);
 			return this;
 		}
 	}

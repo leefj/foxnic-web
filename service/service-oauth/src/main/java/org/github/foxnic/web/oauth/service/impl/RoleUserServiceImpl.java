@@ -31,13 +31,13 @@ import java.util.List;
 
 @Service("SysRoleUserService")
 public class RoleUserServiceImpl extends SuperService<RoleUser> implements IRoleUserService {
-	
+
 	/**
 	 * 注入DAO对象
 	 * */
-	@Resource(name=DBConfigs.PRIMARY_DAO) 
+	@Resource(name=DBConfigs.PRIMARY_DAO)
 	private DAO dao=null;
-	
+
 	/**
 	 * 获得 DAO 对象
 	 * */
@@ -57,7 +57,7 @@ public class RoleUserServiceImpl extends SuperService<RoleUser> implements IRole
 	public Result insert(RoleUser roleUser) {
 		return super.insert(roleUser);
 	}
-	
+
 	/**
 	 * 批量插入实体，事务内
 	 * @param roleUserList 实体数据清单
@@ -67,8 +67,8 @@ public class RoleUserServiceImpl extends SuperService<RoleUser> implements IRole
 	public Result insertList(List<RoleUser> roleUserList) {
 		return super.insertList(roleUserList);
 	}
-	
-	
+
+
 	/**
 	 * 按主键删除 角色账户关系
 	 *
@@ -81,7 +81,7 @@ public class RoleUserServiceImpl extends SuperService<RoleUser> implements IRole
 		roleUser.setId(id);
 		return dao.deleteEntity(roleUser);
 	}
-	
+
 	/**
 	 * 按主键删除 角色账户关系
 	 *
@@ -97,7 +97,7 @@ public class RoleUserServiceImpl extends SuperService<RoleUser> implements IRole
 		roleUser.setDeleteTime(new Date());
 		return dao.updateEntity(roleUser,SaveMode.NOT_NULL_FIELDS);
 	}
-	
+
 	/**
 	 * 更新实体
 	 * @param role 数据对象
@@ -108,7 +108,7 @@ public class RoleUserServiceImpl extends SuperService<RoleUser> implements IRole
 	public Result update(RoleUser roleUser , SaveMode mode) {
 		return super.update(roleUser , mode);
 	}
-	
+
 	/**
 	 * 更新实体集，事务内
 	 * @param roleList 数据对象列表
@@ -119,8 +119,8 @@ public class RoleUserServiceImpl extends SuperService<RoleUser> implements IRole
 	public Result updateList(List<RoleUser> roleUserList , SaveMode mode) {
 		return super.updateList(roleUserList , mode);
 	}
-	
-	
+
+
 	/**
 	 * 按主键更新字段 角色账户关系
 	 *
@@ -132,9 +132,9 @@ public class RoleUserServiceImpl extends SuperService<RoleUser> implements IRole
 		if(!field.table().name().equals(this.table())) throw new IllegalArgumentException("更新的数据表["+field.table().name()+"]与服务对应的数据表["+this.table()+"]不一致");
 		int suc=dao.update(field.table().name()).set(field.name(), value).where().and("id = ? ",id).top().execute();
 		return suc>0;
-	} 
-	
-	
+	}
+
+
 	/**
 	 * 按主键获取 角色账户关系
 	 *
@@ -147,10 +147,10 @@ public class RoleUserServiceImpl extends SuperService<RoleUser> implements IRole
 		sample.setId(id);
 		return dao.queryEntity(sample);
 	}
- 
+
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @return 查询结果
 	 * */
@@ -158,11 +158,11 @@ public class RoleUserServiceImpl extends SuperService<RoleUser> implements IRole
 	public List<RoleUser> queryList(RoleUser sample) {
 		return super.queryList(sample);
 	}
-	
-	
+
+
 	/**
 	 * 分页查询实体集，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @param pageSize 分页条数
 	 * @param pageIndex 页码
@@ -172,10 +172,10 @@ public class RoleUserServiceImpl extends SuperService<RoleUser> implements IRole
 	public PagedList<RoleUser> queryPagedList(RoleUser sample, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, pageSize, pageIndex);
 	}
-	
+
 	/**
 	 * 分页查询实体集，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @param condition 其它条件
 	 * @param pageSize 分页条数
@@ -205,8 +205,7 @@ public class RoleUserServiceImpl extends SuperService<RoleUser> implements IRole
 	 */
 	public Result<RoleUser> checkExists(RoleUser role) {
 		//TDOD 此处添加判断段的代码
-		//boolean exists=this.checkExists(role, SYS_ROLE.NAME);
-		//return exists;
+		boolean exists=this.checkExists(role, FoxnicWeb.SYS_ROLE.NAME);
 		return ErrorDesc.success();
 	}
 

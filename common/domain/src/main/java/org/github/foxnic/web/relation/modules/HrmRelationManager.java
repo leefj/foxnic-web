@@ -8,6 +8,7 @@ import org.github.foxnic.web.domain.hrm.Organization;
 import org.github.foxnic.web.domain.hrm.Person;
 import org.github.foxnic.web.domain.hrm.Position;
 import org.github.foxnic.web.domain.hrm.meta.EmployeeMeta;
+import org.github.foxnic.web.domain.hrm.meta.PositionMeta;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,6 +89,12 @@ public class HrmRelationManager extends RelationManager {
 				.using(FoxnicWeb.HRM_EMPLOYEE.ID).join(FoxnicWeb.SYS_BUSI_ROLE_MEMBER.MEMBER_ID).conditionEquals(FoxnicWeb.SYS_BUSI_ROLE_MEMBER.MEMBER_TYPE, UnifiedUserType.employee.code())
 				.using(FoxnicWeb.SYS_BUSI_ROLE_MEMBER.ROLE_ID).join(FoxnicWeb.SYS_BUSI_ROLE.ID).condition("valid=1")
 		;
+
+
+		//岗位 - 部门关联关系
+		this.property(PositionMeta.ORGANIZATION_PROP)
+				.using(FoxnicWeb.HRM_POSITION.ORG_ID).join(FoxnicWeb.HRM_ORGANIZATION.ID);
+
 
 	}
 

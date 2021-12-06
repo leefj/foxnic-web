@@ -2,7 +2,7 @@
 /**
  * 员工 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-30 08:56:48
+ * @since 2021-12-06 14:55:38
  */
  -->
  <!DOCTYPE html>
@@ -23,7 +23,7 @@
     <script th:inline="javascript">var foxnic_cachekey=[[${cacheKey}]];</script>
     <style>
     </style>
-	<link th:each="css:${theme.css}" rel="stylesheet" th:href="${css}+'?'+${cacheKey}">
+    <link th:each="css:${theme.css}" rel="stylesheet" th:href="${css}+'?'+${cacheKey}">
 </head>
 
 <body style="overflow-y: hidden">
@@ -65,7 +65,8 @@
                     </div>
                     <!-- 身份证 , identity ,typeName=text_input, isHideInSearch=true -->
                     <!-- 主岗 , primaryPositionId ,typeName=button, isHideInSearch=true -->
-                    <!-- 副岗 , vicePositionIds ,typeName=button, isHideInSearch=true -->
+                    <!-- 部门 , primaryOrganization ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 兼岗 , vicePositionIds ,typeName=button, isHideInSearch=true -->
 
 
                 </div>

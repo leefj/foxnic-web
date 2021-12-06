@@ -19,8 +19,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 员工
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-30 08:56:46
- * @sign 92136229B911D012DBBA1AB4C19C7555
+ * @since 2021-12-06 14:55:38
+ * @sign 22CA2AF0027E5D5C0F2AFBBCFA288F88
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -177,9 +177,9 @@ public class Employee extends Person {
 	private String primaryPositionId;
 	
 	/**
-	 * 副岗ID：多个用逗号隔开
+	 * 兼岗ID：多个用逗号隔开
 	*/
-	@ApiModelProperty(required = false,value="副岗ID" , notes = "多个用逗号隔开")
+	@ApiModelProperty(required = false,value="兼岗ID" , notes = "多个用逗号隔开")
 	private List<String> vicePositionIds;
 	
 	/**
@@ -672,17 +672,17 @@ public class Employee extends Person {
 	}
 	
 	/**
-	 * 获得 副岗ID<br>
+	 * 获得 兼岗ID<br>
 	 * 多个用逗号隔开
-	 * @return 副岗ID
+	 * @return 兼岗ID
 	*/
 	public List<String> getVicePositionIds() {
 		return vicePositionIds;
 	}
 	
 	/**
-	 * 设置 副岗ID
-	 * @param vicePositionIds 副岗ID
+	 * 设置 兼岗ID
+	 * @param vicePositionIds 兼岗ID
 	 * @return 当前对象
 	*/
 	public Employee setVicePositionIds(List<String> vicePositionIds) {
@@ -691,8 +691,8 @@ public class Employee extends Person {
 	}
 	
 	/**
-	 * 添加 副岗ID
-	 * @param vicePositionId 副岗ID
+	 * 添加 兼岗ID
+	 * @param vicePositionId 兼岗ID
 	 * @return 当前对象
 	*/
 	public Employee addVicePositionId(String vicePositionId) {

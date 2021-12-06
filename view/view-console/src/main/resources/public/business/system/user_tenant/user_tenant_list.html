@@ -2,7 +2,7 @@
 /**
  * 账户租户关系 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-27 09:33:47
+ * @since 2021-12-06 15:56:19
  */
  -->
  <!DOCTYPE html>
@@ -26,7 +26,7 @@
             margin:0px;
         }
     </style>
-	<link th:each="css:${theme.css}" rel="stylesheet" th:href="${css}+'?'+${cacheKey}">
+    <link th:each="css:${theme.css}" rel="stylesheet" th:href="${css}+'?'+${cacheKey}">
 </head>
 
 <body style="overflow-y: hidden">
@@ -40,15 +40,17 @@
             <div class="search-input-rows" style="opacity: 0">
                 <!-- 搜索输入区域 -->
                 <div class="layui-form toolbar search-inputs">
+                    <!-- 主键 , id ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 用户ID , userId ,typeName=text_input, isHideInSearch=true -->
                     <!-- 所属租户 , ownerTenantId ,typeName=select_box, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('所属租户')}" class="search-label ownerTenantId-label">所属租户</span><span class="search-colon">:</span></div>
-                        <div id="ownerTenantId" th:data="${'/service-system/sys-tenant/query-paged-list'}" style="width:140px"></div>
+                        <div id="ownerTenantId" th:data="${'/service-system/sys-tenant/query-paged-list'}" style="width:140px" extraParam="{}"></div>
                     </div>
                     <!-- 是否有效 , valid ,typeName=logic_switch, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('是否有效')}" class="search-label valid-label">是否有效</span><span class="search-colon">:</span></div>
-                        <div id="valid" data='[{"name":"有效","value":"1"},{"name":"无效","value":"0"}]' style="width:140px"></div>
+                        <div id="valid" data='[{"name":"有效","value":1},{"name":"无效","value":0}]' style="width:140px"></div>
                     </div>
                     <!-- 默认 , activated ,typeName=logic_switch, isHideInSearch=false -->
                     <div class="search-unit">
@@ -58,7 +60,7 @@
                     <!-- 工号 , employeeId ,typeName=select_box, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('工号')}" class="search-label employeeId-label">工号</span><span class="search-colon">:</span></div>
-                        <div id="employeeId" th:data="${'/service-hrm/hrm-employee/query-paged-list'}" style="width:140px"></div>
+                        <div id="employeeId" th:data="${'/service-hrm/hrm-employee/query-paged-list'}" style="width:140px" extraParam="{}"></div>
                     </div>
                     <!-- 顺序 , sort ,typeName=number_input, isHideInSearch=false -->
                     <div class="search-unit">
@@ -93,29 +95,29 @@
 <!-- 表格工具栏 -->
 <script type="text/html" id="toolbarTemplate">
     <div class="layui-btn-container">
-        <button th:if="${perm.checkAuth('sys_user_tenant:create')}" id="add-button" class="layui-btn icon-btn layui-btn-sm" lay-event="create"><i class="layui-icon">&#xe654;</i><span th:text="${lang.translate('新建')}">新建</span></button>
-        <button th:if="${perm.checkAuth('sys_user_tenant:delete-by-ids')}" id="delete-button" class="layui-btn icon-btn layui-btn-danger layui-btn-sm" lay-event="batch-del"><i class="layui-icon">&#xe67e;</i><span th:text="${lang.translate('删除')}">删除</span></button>
+        <button th:if="${perm.checkAuth('sys_user_tenant:create')}" id="add-button" class="layui-btn icon-btn layui-btn-sm create-new-button " lay-event="create"><i class="layui-icon">&#xe654;</i><span th:text="${lang.translate('新建')}">新建</span></button>
+        <button th:if="${perm.checkAuth('sys_user_tenant:delete-by-ids')}" id="delete-button" class="layui-btn icon-btn layui-btn-danger layui-btn-sm batch-delete-button " lay-event="batch-del"><i class="layui-icon">&#xe67e;</i><span th:text="${lang.translate('删除')}">删除</span></button>
     </div>
 </script>
 
 <!-- 表格操作列 -->
 <script type="text/html" id="tableOperationTemplate">
 
-    <a th:if="${perm.checkAuth('sys_user_tenant:view-form')}" class="layui-btn layui-btn-primary layui-btn-xs" lay-event="view" th:text="${lang.translate('查看')}">查看</a>
-    <a th:if="${perm.checkAnyAuth('sys_user_tenant:update','sys_user_tenant:save')}" class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit" th:text="${lang.translate('修改')}">修改</a>
+    <button th:if="${perm.checkAuth('sys_user_tenant:view-form')}" class="layui-btn layui-btn-primary layui-btn-xs ops-view-button " lay-event="view" th:text="${lang.translate('查看')}" data-id="{{d.id}}">查看</button>
+    <button th:if="${perm.checkAnyAuth('sys_user_tenant:update','sys_user_tenant:save')}" class="layui-btn layui-btn-primary layui-btn-xs ops-edit-button " lay-event="edit" th:text="${lang.translate('修改')}" data-id="{{d.id}}">修改</button>
 
 
-    <a th:if="${perm.checkAuth('sys_user_tenant:delete')}" class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del" th:text="${lang.translate('删除')}">删除</a>
+    <button th:if="${perm.checkAuth('sys_user_tenant:delete')}" class="layui-btn layui-btn-xs layui-btn-danger ops-delete-button " lay-event="del" th:text="${lang.translate('删除')}" data-id="{{d.id}}">删除</button>
 
 
 </script>
 
 <!-- 表格状态列 -->
 <script type="text/html" id="cell-tpl-valid">
-    <input type="checkbox" lay-filter="cell-tpl-valid" value="{{d.id}}" lay-skin="switch" lay-text="有效|无效&nbsp;"  {{d.valid==1?'checked':''}}/>
+    <input type="checkbox" class="switch-valid list-checkbox" lay-filter="cell-tpl-valid" value="{{d.valid}}" lay-skin="switch" lay-text="有效|无效&nbsp;"  {{d.valid==1?'checked':''}} data-id="{{d.id}}"/>
 </script>
 <script type="text/html" id="cell-tpl-activated">
-    <input type="checkbox" lay-filter="cell-tpl-activated" value="{{d.id}}" lay-skin="switch" lay-text="默认|可选&nbsp;"  {{d.activated==1?'checked':''}}/>
+    <input type="checkbox" class="switch-activated list-checkbox" lay-filter="cell-tpl-activated" value="{{d.activated}}" lay-skin="switch" lay-text="默认|可选&nbsp;"  {{d.activated==1?'checked':''}} data-id="{{d.id}}"/>
 </script>
 
 <script th:inline="javascript">

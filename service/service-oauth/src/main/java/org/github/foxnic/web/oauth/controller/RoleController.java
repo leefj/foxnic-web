@@ -18,11 +18,13 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.github.foxnic.web.domain.oauth.Role;
+import org.github.foxnic.web.domain.oauth.RoleUser;
 import org.github.foxnic.web.domain.oauth.RoleVO;
 import org.github.foxnic.web.domain.oauth.meta.RoleVOMeta;
 import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
 import org.github.foxnic.web.framework.web.SuperController;
 import org.github.foxnic.web.oauth.service.IRoleService;
+import org.github.foxnic.web.oauth.service.IRoleUserService;
 import org.github.foxnic.web.proxy.oauth.RoleServiceProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -52,7 +54,10 @@ public class RoleController extends SuperController {
 	@Autowired
 	private IRoleService roleService;
 
-	
+	@Autowired
+	private IRoleUserService roleUserService;
+
+
 	/**
 	 * 添加角色
 	*/
@@ -71,7 +76,7 @@ public class RoleController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 删除角色
 	*/
@@ -84,11 +89,12 @@ public class RoleController extends SuperController {
 	@SentinelResource(value = RoleServiceProxy.DELETE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(RoleServiceProxy.DELETE)
 	public Result deleteById(String id) {
-		Result result=roleService.deleteByIdLogical(id);
-		return result;
+		Result ex=roleUserService.checkExists((new RoleUser()).setRoleId(id));
+		//Result result=roleService.deleteByIdLogical(id);
+		return ex;
 	}
-	
-	
+
+
 	/**
 	 * 批量删除角色 <br>
 	 * 联合主键时，请自行调整实现
@@ -97,7 +103,7 @@ public class RoleController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = RoleVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 	})
-	@ApiOperationSupport(order=3) 
+	@ApiOperationSupport(order=3)
 	@NotNull(name = RoleVOMeta.IDS)
 	@SentinelResource(value = RoleServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(RoleServiceProxy.DELETE_BY_IDS)
@@ -105,7 +111,7 @@ public class RoleController extends SuperController {
 		Result result=roleService.deleteByIdsLogical(ids);
 		return result;
 	}
-	
+
 	/**
 	 * 更新角色
 	*/
@@ -115,7 +121,7 @@ public class RoleController extends SuperController {
 		@ApiImplicitParam(name = RoleVOMeta.CODE , value = "代码" , required = false , dataTypeClass=String.class , example = "business_man"),
 		@ApiImplicitParam(name = RoleVOMeta.NAME , value = "名称" , required = false , dataTypeClass=String.class , example = "业务员"),
 	})
-	@ApiOperationSupport( order=4 , ignoreParameters = { RoleVOMeta.PAGE_INDEX , RoleVOMeta.PAGE_SIZE , RoleVOMeta.SEARCH_FIELD , RoleVOMeta.SEARCH_VALUE , RoleVOMeta.SORT_FIELD , RoleVOMeta.SORT_TYPE , RoleVOMeta.IDS } ) 
+	@ApiOperationSupport( order=4 , ignoreParameters = { RoleVOMeta.PAGE_INDEX , RoleVOMeta.PAGE_SIZE , RoleVOMeta.SEARCH_FIELD , RoleVOMeta.SEARCH_VALUE , RoleVOMeta.SORT_FIELD , RoleVOMeta.SORT_TYPE , RoleVOMeta.IDS } )
 	@NotNull(name = RoleVOMeta.ID)
 	@SentinelResource(value = RoleServiceProxy.UPDATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(RoleServiceProxy.UPDATE)
@@ -123,8 +129,8 @@ public class RoleController extends SuperController {
 		Result result=roleService.update(roleVO,SaveMode.NOT_NULL_FIELDS);
 		return result;
 	}
-	
-	
+
+
 	/**
 	 * 保存角色
 	*/
@@ -143,7 +149,7 @@ public class RoleController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 获取角色
 	*/
@@ -171,7 +177,7 @@ public class RoleController extends SuperController {
 		@ApiImplicitParams({
 				@ApiImplicitParam(name = RoleVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})
-		@ApiOperationSupport(order=3) 
+		@ApiOperationSupport(order=3)
 		@NotNull(name = RoleVOMeta.IDS)
 		@SentinelResource(value = RoleServiceProxy.GET_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(RoleServiceProxy.GET_BY_IDS)
@@ -182,7 +188,7 @@ public class RoleController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 查询角色
 	*/
@@ -202,7 +208,7 @@ public class RoleController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 分页查询角色
 	*/

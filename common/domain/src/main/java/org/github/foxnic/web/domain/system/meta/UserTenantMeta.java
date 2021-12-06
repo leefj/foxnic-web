@@ -10,8 +10,8 @@ import org.github.foxnic.web.domain.hrm.Employee;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-26 09:23:07
- * @sign D028BE722B4DF3D7C3FEF87B7A8DF623
+ * @since 2021-12-06 15:56:15
+ * @sign F7E15F9B9D2B26AC9A375096FD4A4776
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 

@@ -109,12 +109,15 @@ function ListPage() {
     function onNodeClick(event, treeId, treeNode) {
     	if(treeNode==null) return;
     	editingNode=treeNode;
+    	// 置空
+    	admin.putVar("selectedPosition",null);
     	if(editingNode.type=="pos") {
 			$("#org-li").hide();
 			$("#pos-li").show();
 			if(activedTab!="emp") {
 				element.tabChange("rightTab", "pos-li");
 			}
+			admin.putVar("selectedPosition",editingNode);
 			$("#pos-basic-info-ifr")[0].contentWindow.module.loadFormData(treeNode.id);
 		} else {
 			$("#org-li").show();

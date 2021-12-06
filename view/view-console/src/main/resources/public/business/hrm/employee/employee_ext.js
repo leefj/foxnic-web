@@ -22,11 +22,14 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
 
     //列表页的扩展
     var list={
+
+        inTab:"",
         /**
          * 列表页初始化前调用
          * */
         beforeInit:function () {
             console.log("list:beforeInit");
+            this.inTab=QueryString.get("inTab")
         },
         /**
          * 查询前调用
@@ -36,25 +39,29 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
         beforeQuery:function (conditions,param,location) {
             //debugger
             console.log('beforeQuery',conditions,param);
-            if(lockedType=="pos") {
-                param.positionId=lockedId;
-            }
-            if(lockedType=="com" || lockedType=="dept") {
-                param.orgId=lockedId;
+            if(this.inTab=="yes") {
+                if (lockedType == "pos") {
+                    param.positionId = lockedId;
+                }
+                if (lockedType == "com" || lockedType == "dept") {
+                    param.orgId = lockedId;
+                }
             }
             return true;
         },
         afterQuery:function (){
-            if(!lockedType) {
-                fox.disableButton($("#add-button"),true);
-            }
-            if(lockedType=="dept" || lockedType=="com") {
-                fox.disableButton($("#add-button"),true);
-            }
-            if(lockedType=="pos") {
-                fox.disableButton($("#add-button"),false);
-            }
+            if(this.inTab=="yes") {
+                if (!lockedType) {
+                    fox.disableButton($("#add-button"), true);
+                }
+                if (lockedType == "dept" || lockedType == "com") {
+                    fox.disableButton($("#add-button"), true);
+                }
 
+                if (lockedType == "pos") {
+                    fox.disableButton($("#add-button"), false);
+                }
+            }
         },
         /**
          * 在新建或编辑窗口打开前调用，若返回 false 则不继续执行后续操作
@@ -116,20 +123,23 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
 
     //表单页的扩展
     var form={
+        action:null,
         /**
          * 表单初始化前调用
          * */
-        beforeInit:function () {
-            //获取参数，并调整下拉框查询用的URL
-            //var companyId=admin.getTempData("companyId");
-            //fox.setSelectBoxUrl("employeeId","/service-hrm/hrm-employee/query-paged-list?companyId="+companyId);
-            console.log("form:beforeInit")
+        beforeInit:function (action,data) {
+            this.action = action;
         },
         /**
          * 表单数据填充前
          * */
         beforeDataFill:function (data) {
             console.log('beforeDataFill',data);
+            var selectedPosition=admin.getVar("selectedPosition");
+            if(selectedPosition!=null && this.action=="create") {
+                $("#primaryPositionId").val(selectedPosition.id);
+                fox.fillDialogButtons();
+            }
         },
         /**
          * 对话框之前调用，如果返回 null 则不打开对话框

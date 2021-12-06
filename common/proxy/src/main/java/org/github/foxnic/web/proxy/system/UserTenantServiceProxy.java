@@ -19,32 +19,33 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  * 账户租户关系表  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-27 09:33:47
+ * @since 2021-12-06 15:56:15
 */
 
 @FeignClient(value = MicroServiceNames.SYSTEM, contextId = UserTenantServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)
 public interface UserTenantServiceProxy {
-	
+
 	/**
 	 * 基础路径 , service-system
 	*/
 	public static final String API_BASIC_PATH = "service-system";
-	
+
 	/**
 	 * API 上下文路径 , sys-user-tenant
 	*/
 	public static final String API_CONTEXT_PATH = "sys-user-tenant";
-	
+
 	/**
 	 * API 基础路径 , 由 API_BASIC_PATH 和 API_CONTEXT_PATH 两部分组成
 	*/
 	public static final String API_PREFIX = "/" + API_BASIC_PATH + "/"+API_CONTEXT_PATH+"/";
-	
+
 	/**
 	 * 添加账户租户关系
 	 */
 	public static final String INSERT = API_PREFIX + "insert";
-	
+
+;
 	/**
 	 * 删除账户租户关系
 	 */
@@ -54,19 +55,18 @@ public interface UserTenantServiceProxy {
 	 * 批量删除账户租户关系
 	 */
 	public static final String DELETE_BY_IDS = API_PREFIX + "delete-by-ids";
-	;
-	
+
 	/**
 	 * 更新账户租户关系
 	 */
 	public static final String UPDATE = API_PREFIX + "update";
-	
-	
+
+
 	/**
 	 * 保存账户租户关系
 	 */
 	public static final String SAVE = API_PREFIX + "save";
-	
+
 	/**
 	 * 获取单个账户租户关系
 	 */
@@ -76,18 +76,17 @@ public interface UserTenantServiceProxy {
 	 * 获取多个账户租户关系
 	 */
 	public static final String GET_BY_IDS = API_PREFIX + "get-by-ids";
-	;
 
 	/**
 	 * 查询账户租户关系
 	 */
 	public static final String QUERY_LIST = API_PREFIX + "query-list";
-	
+
 	/**
 	 * 分页查询账户租户关系
 	 */
 	public static final String QUERY_PAGED_LIST = API_PREFIX + "query-paged-list";
-	
+
 	/**
 	 * 导出账户租户关系数据(Excel)
 	 */
@@ -97,18 +96,18 @@ public interface UserTenantServiceProxy {
 	 * 下载账户租户关系导入模版(Excel)
 	 */
 	public static final String EXPORT_EXCEL_TEMPLATE = API_PREFIX + "export-excel-template";
-	
+
 	/**
 	 * 导入账户租户关系数据(Excel)
 	 */
 	public static final String IMPORT_EXCEL = API_PREFIX + "import-excel";
-	
+
 	/**
 	 * 添加账户租户关系
 	*/
 	@RequestMapping(UserTenantServiceProxy.INSERT)
 	Result insert(UserTenantVO userTenantVO);
-	
+
 	/**
 	 * 删除账户租户关系
 	*/
@@ -126,13 +125,13 @@ public interface UserTenantServiceProxy {
 	*/
 	@RequestMapping(UserTenantServiceProxy.UPDATE)
 	Result update(UserTenantVO userTenantVO);
-	
+
 	/**
 	 * 更新账户租户关系
 	*/
 	@RequestMapping(UserTenantServiceProxy.SAVE)
 	Result save(UserTenantVO userTenantVO);
-	
+
 	/**
 	 * 获取账户租户关系
 	*/
@@ -140,7 +139,7 @@ public interface UserTenantServiceProxy {
 	Result<UserTenant> getById(String id);
 
 	/**
-	 * 批量删除账户租户关系
+	 * 获取多个账户租户关系
 	*/
 	@RequestMapping(UserTenantServiceProxy.GET_BY_IDS)
 	Result<List<UserTenant>> getByIds(List<String> ids);
@@ -149,14 +148,14 @@ public interface UserTenantServiceProxy {
 	*/
 	@RequestMapping(UserTenantServiceProxy.QUERY_LIST)
 	Result<List<UserTenant>> queryList(UserTenantVO sample);
-	
+
 	/**
 	 * 分页查询账户租户关系
 	*/
 	@RequestMapping(UserTenantServiceProxy.QUERY_PAGED_LIST)
 	Result<PagedList<UserTenant>> queryPagedList(UserTenantVO sample);
-	
-	
+
+
 	/**
 	 * 控制器类名
 	 * */

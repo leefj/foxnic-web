@@ -1,21 +1,22 @@
 /**
  * 账户租户关系 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-27 09:33:47
+ * @since 2021-12-06 15:56:18
  */
 
 
 function ListPage() {
-        
+
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect;
 	//模块基础路径
 	const moduleURL="/service-system/sys-user-tenant";
 	var dataTable=null;
+	var sort=null;
 	/**
       * 入口函数，初始化
       */
 	this.init=function(layui) {
-     	
+
      	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload,laydate= layui.laydate;
 		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect,dropdown=layui.dropdown;;
 
@@ -33,8 +34,8 @@ function ListPage() {
 		//绑定行操作按钮事件
     	bindRowOperationEvent();
      }
-     
-     
+
+
      /**
       * 渲染表格
       */
@@ -46,15 +47,23 @@ function ListPage() {
 		//
 		function renderTableInternal() {
 
-			var ps={};
+			var ps={searchField: "$composite"};
 			var contitions={};
-			window.pageExt.list.beforeQuery && window.pageExt.list.beforeQuery(contitions);
-			if(Object.keys(contitions).length>0) {
-				ps = {searchField: "$composite", searchValue: JSON.stringify(contitions)};
-			}
 
+			if(window.pageExt.list.beforeQuery){
+				window.pageExt.list.beforeQuery(contitions,ps,"tableInit");
+			}
+			ps.searchValue=JSON.stringify(contitions);
+
+			var templet=window.pageExt.list.templet;
+			if(templet==null) {
+				templet=function(field,value,row) {
+					if(value==null) return "";
+					return value;
+				}
+			}
 			var h=-28; 
-			dataTable=fox.renderTable({
+			var tableConfig={
 				elem: '#data-table',
 				toolbar: '#toolbarTemplate',
 				defaultToolbar: ['filter', 'print',{title: '刷新数据',layEvent: 'refresh-data',icon: 'layui-icon-refresh-3'}],
@@ -64,18 +73,19 @@ function ListPage() {
 				where: ps,
 				cols: [[
 					{ fixed: 'left',type: 'numbers' },
-					{ fixed: 'left',type:'checkbox' }
-					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('主键') }
-					,{ field: 'userId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('用户ID') }
-					,{ field: 'ownerTenantId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('所属租户'), templet: function (d) { return fox.joinLabel(d.tenant,"alias");}}
-					,{ field: 'valid', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('是否有效'), templet: '#cell-tpl-valid'}
-					,{ field: 'activated', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('默认'), templet: '#cell-tpl-activated'}
-					,{ field: 'employeeId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('工号'), templet: function (d) { return fox.joinLabel(d.employee,"nameAndBadge");}}
-					,{ field: 'sort', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('顺序') }
-					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return fox.dateFormat(d.createTime); }}
+					{ fixed: 'left',type:'checkbox'}
+					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('主键') , templet: function (d) { return templet('id',d.id,d);}  }
+					,{ field: 'userId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('用户ID') , templet: function (d) { return templet('userId',d.userId,d);}  }
+					,{ field: 'ownerTenantId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('所属租户'), templet: function (d) { return templet('ownerTenantId' ,fox.joinLabel(d.tenant,"alias"),fox.getProperty(d,["tenant","alias"]),d);}}
+					,{ field: 'valid', align:"center",fixed:false,  hide:false, sort: true, title: fox.translate('是否有效'), templet: '#cell-tpl-valid'}
+					,{ field: 'activated', align:"center",fixed:false,  hide:false, sort: true, title: fox.translate('默认'), templet: '#cell-tpl-activated'}
+					,{ field: 'employeeId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('工号'), templet: function (d) { return templet('employeeId' ,fox.joinLabel(d.employee,"nameAndBadge"),fox.getProperty(d,["employee","nameAndBadge"]),d);}}
+					,{ field: 'sort', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('顺序') , templet: function (d) { return templet('sort',d.sort,d);}  }
+					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间') ,templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
 				]],
+				done: function (data) { window.pageExt.list.afterQuery && window.pageExt.list.afterQuery(data); },
 				footer : {
 					exportExcel : admin.checkAuth(AUTH_PREFIX+":export"),
 					importExcel : admin.checkAuth(AUTH_PREFIX+":import")?{
@@ -89,7 +99,9 @@ function ListPage() {
 						}
 					}:false
 				}
-			});
+			};
+			window.pageExt.list.beforeTableRender && window.pageExt.list.beforeTableRender(tableConfig);
+			dataTable=fox.renderTable(tableConfig);
 			//绑定 Switch 切换事件
 			fox.bindSwitchEvent("cell-tpl-valid",moduleURL +'/update','id','valid',function(data,ctx){
 				window.pageExt.list.afterSwitched && window.pageExt.list.afterSwitched("valid",data,ctx);
@@ -101,6 +113,7 @@ function ListPage() {
 			table.on('sort(data-table)', function(obj){
 			  refreshTableData(obj.field,obj.type);
 			});
+			window.pageExt.list.afterTableRender && window.pageExt.list.afterTableRender();
 		}
 		setTimeout(renderTableInternal,1);
     };
@@ -108,23 +121,36 @@ function ListPage() {
 	/**
       * 刷新表格数据
       */
-	function refreshTableData(sortField,sortType) {
+	function refreshTableData(sortField,sortType,reset) {
 		var value = {};
-		value.ownerTenantId={ value: xmSelect.get("#ownerTenantId",true).getValue("value"), fillBy:"tenant",field:"id", label:xmSelect.get("#ownerTenantId",true).getValue("nameStr") };
-		value.valid={ value: xmSelect.get("#valid",true).getValue("value"), label:xmSelect.get("#valid",true).getValue("nameStr") };
-		value.activated={ value: xmSelect.get("#activated",true).getValue("value"), label:xmSelect.get("#activated",true).getValue("nameStr") };
-		value.employeeId={ value: xmSelect.get("#employeeId",true).getValue("value"), fillBy:"employee",field:"id", label:xmSelect.get("#employeeId",true).getValue("nameStr") };
-		value.sort={ value: $("#sort").val()};
-		window.pageExt.list.beforeQuery && window.pageExt.list.beforeQuery(value);
-		var ps={searchField: "$composite", searchValue: JSON.stringify(value)};
+		value.ownerTenantId={ inputType:"select_box", value: xmSelect.get("#ownerTenantId",true).getValue("value") ,fillBy:["tenant"]   ,fillBy:["tenant","alias"] , label:xmSelect.get("#ownerTenantId",true).getValue("nameStr") };
+		value.valid={ inputType:"logic_switch",value: xmSelect.get("#valid",true).getValue("value"), label:xmSelect.get("#valid",true).getValue("nameStr") };
+		value.activated={ inputType:"logic_switch",value: xmSelect.get("#activated",true).getValue("value"), label:xmSelect.get("#activated",true).getValue("nameStr") };
+		value.employeeId={ inputType:"select_box", value: xmSelect.get("#employeeId",true).getValue("value") ,fillBy:["employee"]   ,fillBy:["employee","nameAndBadge"] , label:xmSelect.get("#employeeId",true).getValue("nameStr") };
+		value.sort={ inputType:"number_input", value: $("#sort").val() };
+		var ps={searchField:"$composite"};
+		if(window.pageExt.list.beforeQuery){
+			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;
+		}
+		ps.searchValue=JSON.stringify(value);
 		if(sortField) {
 			ps.sortField=sortField;
 			ps.sortType=sortType;
+			sort={ field : sortField,type : sortType} ;
+		} else {
+			if(sort) {
+				ps.sortField=sort.field;
+				ps.sortType=sort.type;
+			}
 		}
-		table.reload('data-table', { where : ps });
+		if(reset) {
+			table.reload('data-table', { where : ps , page:{ curr:1 } });
+		} else {
+			table.reload('data-table', { where : ps });
+		}
 	}
-    
-	
+
+
 	/**
 	  * 获得已经选中行的数据,不传入 field 时，返回所有选中的记录，指定 field 时 返回指定的字段集合
 	  */
@@ -135,7 +161,7 @@ function ListPage() {
 		for(var i=0;i<data.length;i++) data[i]=data[i][field];
 		return data;
 	}
-	
+
 	/**
 	 * 重置搜索框
 	 */
@@ -167,7 +193,7 @@ function ListPage() {
 				if(!data) return opts;
 				for (var i = 0; i < data.length; i++) {
 					if(!data[i]) continue;
-					opts.push({name:data[i].alias,value:data[i].id});
+					opts.push({data:data[i],name:data[i].alias,value:data[i].id});
 				}
 				return opts;
 			}
@@ -176,13 +202,23 @@ function ListPage() {
 		fox.renderSelectBox({
 			el: "valid",
 			size: "small",
-			radio: false
+			radio: false,
+			on: function(data){
+				setTimeout(function () {
+					window.pageExt.list.onSelectBoxChanged && window.pageExt.list.onSelectBoxChanged("valid",data.arr,data.change,data.isAdd);
+				},1);
+			},
 		});
 		//渲染 activated 搜索框
 		fox.renderSelectBox({
 			el: "activated",
 			size: "small",
-			radio: false
+			radio: false,
+			on: function(data){
+				setTimeout(function () {
+					window.pageExt.list.onSelectBoxChanged && window.pageExt.list.onSelectBoxChanged("activated",data.arr,data.change,data.isAdd);
+				},1);
+			},
 		});
 		//渲染 employeeId 下拉字段
 		fox.renderSelectBox({
@@ -202,14 +238,15 @@ function ListPage() {
 				if(!data) return opts;
 				for (var i = 0; i < data.length; i++) {
 					if(!data[i]) continue;
-					opts.push({name:data[i].nameAndBadge,value:data[i].id});
+					opts.push({data:data[i],name:data[i].nameAndBadge,value:data[i].id});
 				}
 				return opts;
 			}
 		});
 		fox.renderSearchInputs();
+		window.pageExt.list.afterSearchInputReady && window.pageExt.list.afterSearchInputReady();
 	}
-	
+
 	/**
 	 * 绑定搜索框事件
 	 */
@@ -217,12 +254,12 @@ function ListPage() {
 		//回车键查询
         $(".search-input").keydown(function(event) {
 			if(event.keyCode !=13) return;
-		  	refreshTableData();
+		  	refreshTableData(null,null,true);
         });
 
         // 搜索按钮点击事件
         $('#search-button').click(function () {
-           refreshTableData();
+			refreshTableData(null,null,true);
         });
 
 		// 搜索按钮点击事件
@@ -235,8 +272,9 @@ function ListPage() {
 				}
 			});
 		});
+
 	}
-	
+
 	/**
 	 * 绑定按钮事件
 	  */
@@ -246,6 +284,10 @@ function ListPage() {
 		table.on('toolbar(data-table)', function(obj){
 			var checkStatus = table.checkStatus(obj.config.id);
 			var selected=getCheckedList("id");
+			if(window.pageExt.list.beforeToolBarButtonEvent) {
+				var doNext=window.pageExt.list.beforeToolBarButtonEvent(selected,obj);
+				if(!doNext) return;
+			}
 			switch(obj.event){
 				case 'create':
 					openCreateFrom();
@@ -269,37 +311,42 @@ function ListPage() {
 			admin.putTempData('sys-user-tenant-form-data-form-action', "create",true);
             showEditForm(data);
         };
-		
+
         //批量删除按钮点击事件
         function batchDelete(selected) {
-          
+
+        	if(window.pageExt.list.beforeBatchDelete) {
+				var doNext=window.pageExt.list.beforeBatchDelete(selected);
+				if(!doNext) return;
+			}
+
 			var ids=getCheckedList("id");
             if(ids.length==0) {
-            	layer.msg(fox.translate('请选择需要删除的')+fox.translate('账户租户关系')+"!");
+				top.layer.msg(fox.translate('请选择需要删除的')+fox.translate('账户租户关系')+"!");
             	return;
             }
             //调用批量删除接口
-			layer.confirm(fox.translate('确定删除已选中的')+fox.translate('账户租户关系')+fox.translate('吗？'), function (i) {
-				layer.close(i);
-				if(window.pageExt.list.beforeBatchDelete) {
-					var doNext=window.pageExt.list.beforeBatchDelete(selected);
-					if(!doNext) return;
-				}
-				layer.load(2);
+			top.layer.confirm(fox.translate('确定删除已选中的')+fox.translate('账户租户关系')+fox.translate('吗？'), function (i) {
+				top.layer.close(i);
+				top.layer.load(2);
                 admin.request(moduleURL+"/delete-by-ids", { ids: ids }, function (data) {
-                    layer.closeAll('loading');
+					top.layer.closeAll('loading');
                     if (data.success) {
-                        layer.msg(data.message, {icon: 1, time: 500});
+						if(window.pageExt.list.afterBatchDelete) {
+							var doNext=window.pageExt.list.afterBatchDelete(data);
+							if(!doNext) return;
+						}
+                    	top.layer.msg(data.message, {icon: 1, time: 500});
                         refreshTableData();
                     } else {
-                        layer.msg(data.message, {icon: 2, time: 1500});
+						top.layer.msg(data.message, {icon: 2, time: 1500});
                     }
                 });
 
 			});
         }
 	}
-     
+
     /**
      * 绑定行操作按钮事件
      */
@@ -308,6 +355,12 @@ function ListPage() {
 		table.on('tool(data-table)', function (obj) {
 			var data = obj.data;
 			var layEvent = obj.event;
+
+			if(window.pageExt.list.beforeRowOperationEvent) {
+				var doNext=window.pageExt.list.beforeRowOperationEvent(data,obj);
+				if(!doNext) return;
+			}
+
 			admin.putTempData('sys-user-tenant-form-data-form-action', "",true);
 			if (layEvent === 'edit') { // 修改
 				//延迟显示加载动画，避免界面闪动
@@ -322,7 +375,7 @@ function ListPage() {
 						 layer.msg(data.message, {icon: 1, time: 1500});
 					}
 				});
-			} else if (layEvent === 'view') { // 修改
+			} else if (layEvent === 'view') { // 查看
 				//延迟显示加载动画，避免界面闪动
 				var task=setTimeout(function(){layer.load(2);},1000);
 				admin.request(moduleURL+"/get-by-id", { id : data.id }, function (data) {
@@ -332,38 +385,40 @@ function ListPage() {
 						admin.putTempData('sys-user-tenant-form-data-form-action', "view",true);
 						showEditForm(data.data);
 					} else {
-						layer.msg(data.message, {icon: 1, time: 1500});
+						top.layer.msg(data.message, {icon: 1, time: 1500});
 					}
 				});
 			}
 			else if (layEvent === 'del') { // 删除
-			
-				layer.confirm(fox.translate('确定删除此')+fox.translate('账户租户关系')+fox.translate('吗？'), function (i) {
-					layer.close(i);
 
-					if(window.pageExt.list.beforeSingleDelete) {
-						var doNext=window.pageExt.list.beforeSingleDelete(data);
-						if(!doNext) return;
-					}
+				if(window.pageExt.list.beforeSingleDelete) {
+					var doNext=window.pageExt.list.beforeSingleDelete(data);
+					if(!doNext) return;
+				}
+				top.layer.confirm(fox.translate('确定删除此')+fox.translate('账户租户关系')+fox.translate('吗？'), function (i) {
+					top.layer.close(i);
 
-					layer.load(2);
+					top.layer.load(2);
 					admin.request(moduleURL+"/delete", { id : data.id }, function (data) {
-						layer.closeAll('loading');
+						top.layer.closeAll('loading');
 						if (data.success) {
-							layer.msg(data.message, {icon: 1, time: 500});
+							if(window.pageExt.list.afterSingleDelete) {
+								var doNext=window.pageExt.list.afterSingleDelete(data);
+								if(!doNext) return;
+							}
+							top.layer.msg(data.message, {icon: 1, time: 500});
 							refreshTableData();
 						} else {
-							layer.msg(data.message, {icon: 2, time: 1500});
+							top.layer.msg(data.message, {icon: 2, time: 1500});
 						}
 					});
 				});
-				
 			}
 			
 		});
- 
+
     };
-    
+
     /**
      * 打开编辑窗口
      */
@@ -372,14 +427,19 @@ function ListPage() {
 			var doNext=window.pageExt.list.beforeEdit(data);
 			if(!doNext) return;
 		}
+		var action=admin.getTempData('sys-user-tenant-form-data-form-action');
 		var queryString="";
 		if(data && data.id) queryString="?" + 'id=' + data.id;
 		admin.putTempData('sys-user-tenant-form-data', data);
 		var area=admin.getTempData('sys-user-tenant-form-area');
 		var height= (area && area.height) ? area.height : ($(window).height()*0.6);
 		var top= (area && area.top) ? area.top : (($(window).height()-height)/2);
-		var title = (data && data.id) ? (fox.translate('修改')+fox.translate('账户租户关系')) : (fox.translate('添加')+fox.translate('账户租户关系'));
-		var index=admin.popupCenter({
+		var title = fox.translate('账户租户关系');
+		if(action=="create") title=fox.translate('添加')+title;
+		else if(action=="edit") title=fox.translate('修改')+title;
+		else if(action=="view") title=fox.translate('查看')+title;
+
+		admin.popupCenter({
 			title: title,
 			resize: false,
 			offset: [top,null],
@@ -391,13 +451,14 @@ function ListPage() {
 				refreshTableData();
 			}
 		});
-		admin.putTempData('sys-user-tenant-form-data-popup-index', index);
 	};
 
 	window.module={
 		refreshTableData: refreshTableData,
 		getCheckedList: getCheckedList
 	};
+
+	window.pageExt.list.ending && window.pageExt.list.ending();
 
 };
 

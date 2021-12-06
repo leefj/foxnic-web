@@ -9,13 +9,13 @@ import org.github.foxnic.web.generator.module.example.CodeExampleCarConfig;
 import org.github.foxnic.web.generator.module.example.CodeExampleConfig;
 import org.github.foxnic.web.generator.module.example.CodeExampleRoleConfig;
 import org.github.foxnic.web.generator.module.example.CodeExampleStudentConfig;
-import org.github.foxnic.web.generator.module.hrm.*;
+import org.github.foxnic.web.generator.module.hrm.HrmEmployeeConfig;
+import org.github.foxnic.web.generator.module.hrm.HrmPositionConfig;
 import org.github.foxnic.web.generator.module.oauth.SysUserConfig;
 import org.github.foxnic.web.generator.module.pcm.PcmCatalogAllocationConfig;
 import org.github.foxnic.web.generator.module.pcm.PcmCatalogAttributeConfig;
 import org.github.foxnic.web.generator.module.pcm.PcmCatalogConfig;
-import org.github.foxnic.web.generator.module.system.SysConfigConfig;
-import org.github.foxnic.web.generator.module.system.SysProfileConfig;
+import org.github.foxnic.web.generator.module.system.UserTenantConfig;
 
 import java.io.File;
 
@@ -37,7 +37,7 @@ public class CodeStarter extends ModuleCodeGenerator {
 //        initPcmModules();
 //        initOAuthModules();
         initSystemModules();
-//        initHrmModules();
+        initHrmModules();
 //        initExampleModules();
 //        initChangeModule1s();
 //        initBpmModules();
@@ -80,14 +80,14 @@ public class CodeStarter extends ModuleCodeGenerator {
     }
 
     private void initHrmModules() {
-        this.addConfig(new HrmCompanyConfig());
-        this.addConfig(new HrmOrgnizationConfig());
+//        this.addConfig(new HrmCompanyConfig());
+//        this.addConfig(new HrmOrgnizationConfig());
         this.addConfig(new HrmPositionConfig());
         this.addConfig(new HrmEmployeeConfig());
-        this.addConfig(new HrmEmployeePositionConfig());
-        this.addConfig(new HrmPersonConfig());
-        this.addConfig(new HrmFavouriteGroupConfig());
-        this.addConfig(new HrmFavouriteGroupItemConfig());
+//        this.addConfig(new HrmEmployeePositionConfig());
+//        this.addConfig(new HrmPersonConfig());
+//        this.addConfig(new HrmFavouriteGroupConfig());
+//        this.addConfig(new HrmFavouriteGroupItemConfig());
 
     }
 
@@ -108,13 +108,13 @@ public class CodeStarter extends ModuleCodeGenerator {
 //        this.addConfig(new BusiRoleMemberConfig());
 
 //        this.addConfig(new SysDictConfig());
-        this.addConfig(new SysConfigConfig());
-        this.addConfig(new SysProfileConfig());
+//        this.addConfig(new SysConfigConfig());
+//        this.addConfig(new SysProfileConfig());
 //        this.addConfig(new SysDictItemConfig());
 //        this.addConfig(new SysFileConfig());
         //
 //        this.addConfig(new SequenceConfig());
-//        this.addConfig(new UserTenantConfig());
+        this.addConfig(new UserTenantConfig());
 //        this.addConfig(new TenantConfig());
 
 

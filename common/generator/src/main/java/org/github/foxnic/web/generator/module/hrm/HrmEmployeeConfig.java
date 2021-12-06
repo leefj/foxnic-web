@@ -41,7 +41,7 @@ public class HrmEmployeeConfig extends BaseCodeConfig<HRM_EMPLOYEE> {
         poType.addSimpleProperty( Organization.class, "primaryOrganization","主岗部门", "作为员工时，所属的主岗部门");
         poType.addListProperty( BusiRole.class, "busiRoles","业务角色清单", "作为员工时，所属的业务角色");
         poType.addSimpleProperty(String.class, "primaryPositionId","主岗ID","只有一个");
-        poType.addListProperty(String.class, "vicePositionIds","副岗ID","多个用逗号隔开");
+        poType.addListProperty(String.class, "vicePositionIds","兼岗ID","多个用逗号隔开");
         //
         voType.addSimpleProperty(String.class, "orgId","所属组织ID","");
         voType.addSimpleProperty(String.class, "positionId","岗位ID","");
@@ -103,7 +103,11 @@ public class HrmEmployeeConfig extends BaseCodeConfig<HRM_EMPLOYEE> {
         .table().fillBy(EmployeeMeta.PRIMARY_POSITION, PositionMeta.FULL_NAME)
         .search().hidden();
 
-        view.field(EmployeeVOMeta.VICE_POSITION_IDS).basic().label("副岗")
+        view.field(EmployeeVOMeta.PRIMARY_ORGANIZATION).basic().label("部门")
+                .table().fillBy(EmployeeMeta.PRIMARY_ORGANIZATION, PositionMeta.FULL_NAME)
+                .search().hidden();
+
+        view.field(EmployeeVOMeta.VICE_POSITION_IDS).basic().label("兼岗")
             .form().button().choosePosition(false)
             .search().hidden();
 
@@ -125,7 +129,7 @@ public class HrmEmployeeConfig extends BaseCodeConfig<HRM_EMPLOYEE> {
 
     @Override
     public void configList(ViewOptions view, ListOptions list) {
-        list.columnLayout(HRM_EMPLOYEE.COMPANY_ID,HRM_EMPLOYEE.BADGE,personNameField,HRM_EMPLOYEE.PHONE,EmployeeVOMeta.PRIMARY_POSITION_ID,HRM_EMPLOYEE.CREATE_TIME);
+        list.columnLayout(HRM_EMPLOYEE.COMPANY_ID,HRM_EMPLOYEE.BADGE,personNameField,HRM_EMPLOYEE.PHONE,EmployeeVOMeta.PRIMARY_ORGANIZATION,EmployeeVOMeta.PRIMARY_POSITION_ID,HRM_EMPLOYEE.CREATE_TIME);
     }
 
     @Override

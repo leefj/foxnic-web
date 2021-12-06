@@ -1,6 +1,8 @@
 package org.github.foxnic.web.storage.service;
+
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.entity.ISuperService;
+import org.github.foxnic.web.constants.enums.system.FileCatalog;
 import org.github.foxnic.web.domain.storage.File;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,7 +26,7 @@ public interface IFileService extends ISuperService<File> {
 	 * @return 查询结果 , File对象
 	 */
 	boolean deleteByIdPhysical(String id);
-	
+
 	/**
 	 * 按主键删除sys_file
 	 *
@@ -32,7 +34,7 @@ public interface IFileService extends ISuperService<File> {
 	 * @return 查询结果 , File对象
 	 */
 	boolean deleteByIdLogical(String id);
-	
+
 	/**
 	 * 按主键获取sys_file
 	 *
@@ -53,7 +55,7 @@ public interface IFileService extends ISuperService<File> {
 	/**
 	 * 文件下载
 	 * */
-	void downloadFile(String id,Boolean inline,HttpServletResponse response);
+	void downloadFile(String id, Boolean inline, HttpServletResponse response, FileCatalog catalog);
 
     List<File> getByIds(List<String> ids);
 
