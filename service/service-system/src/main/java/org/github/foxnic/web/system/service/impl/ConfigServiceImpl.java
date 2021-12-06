@@ -242,6 +242,7 @@ public class ConfigServiceImpl extends SuperService<Config> implements IConfigSe
 		sample.setCode(code);
 		Config cata = null;
 		for (String appliedProfileId : appliedProfileIds) {
+			if(IConfigService.DEFAULT_PROFILE_ID.equals(appliedProfileId)) continue;
 			sample.setProfileId(appliedProfileId);
 			cata=this.queryEntity(sample);
 			if(cata!=null && cata.getValue()!=null){
