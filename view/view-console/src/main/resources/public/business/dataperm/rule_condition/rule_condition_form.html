@@ -27,6 +27,7 @@
             margin-left: 115px;
         }
     </style>
+	<link th:each="css:${theme.css}" rel="stylesheet" th:href="${css}+'?'+${cacheKey}">
 </head>
 
 <body style="overflow-y: hidden;">
@@ -66,7 +67,7 @@
                         </div>
                     </div>
 
-                
+
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('生效')}">生效</div></div>
                     <div class="layui-input-block layui-input-block-c1">
@@ -75,7 +76,7 @@
                 </div>
 
 
-                
+
                     <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('应用条件')}">应用条件</div></div>
                     <div class="layui-input-block layui-input-block-c1">
@@ -84,7 +85,7 @@
                 </div>
 
 
-                
+
                     <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('测试VO值')}">测试VO值</div></div>
                     <div class="layui-input-block layui-input-block-c1">
@@ -93,7 +94,7 @@
                 </div>
 
 
-                
+
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('前置逻辑')}">前置逻辑</div></div>
                     <div class="layui-input-block layui-input-block-c1">
@@ -110,7 +111,7 @@
                         </div>
                     </div>
 
-                
+
                     <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('条件类型')}">条件类型</div></div>
                         <div class="layui-input-block layui-input-block-c1">
@@ -119,7 +120,7 @@
                     </div>
 
 
-                
+
                     <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('变量')}">变量</div></div>
                     <div class="layui-input-block layui-input-block-c1">
@@ -128,7 +129,7 @@
                 </div>
 
 
-                
+
                     <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('备注')}">备注</div></div>
                     <div class="layui-input-block layui-input-block-c1">

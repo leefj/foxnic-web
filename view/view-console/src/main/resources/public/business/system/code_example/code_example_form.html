@@ -21,6 +21,7 @@
     <script th:inline="javascript">var foxnic_cachekey=[[${cacheKey}]];</script>
     <style>
     </style>
+	<link th:each="css:${theme.css}" rel="stylesheet" th:href="${css}+'?'+${cacheKey}">
 </head>
 
 <body style="overflow-y: hidden;">
@@ -49,7 +50,7 @@
                         </div>
                     </div>
 
-                
+
                     <div class="layui-form-item" >
                         <div class="layui-form-label "><div th:text="${lang.translate('整数输入')}">整数输入</div><div class="layui-required">*</div></div>
                         <div class="layui-input-block ">
@@ -58,7 +59,7 @@
                     </div>
 
 
-                
+
                     <div class="layui-form-item" >
                         <div class="layui-form-label "><div th:text="${lang.translate('日期')}">日期</div></div>
                         <div class="layui-input-block ">
@@ -66,7 +67,7 @@
                         </div>
                     </div>
 
-                
+
                 <div class="layui-form-item" >
                     <div class="layui-form-label "><div th:text="${lang.translate('逻辑值')}">逻辑值</div></div>
                     <div class="layui-input-block ">
@@ -75,7 +76,7 @@
                 </div>
 
 
-                
+
                     <div class="layui-form-item" >
                         <div class="layui-form-label "><div th:text="${lang.translate('选择框(字典)')}">选择框(字典)</div><div class="layui-required">*</div></div>
                         <div class="layui-input-block ">
@@ -98,7 +99,7 @@
                     </div>
 
 
-                
+
                     <div class="layui-form-item" >
                         <div class="layui-form-label "><div th:text="${lang.translate('状态')}">状态</div><div class="layui-required">*</div></div>
                         <div class="layui-input-block ">
@@ -107,7 +108,7 @@
                     </div>
 
 
-                
+
                     <div class="layui-form-item" >
                         <div class="layui-form-label "><div th:text="${lang.translate('选择框(枚举)')}">选择框(枚举)</div><div class="layui-required">*</div></div>
                         <div class="layui-input-block ">
@@ -116,7 +117,7 @@
                     </div>
 
 
-                
+
                     <div class="layui-form-item" >
                         <div class="layui-form-label "><div th:text="${lang.translate('选择框(查询)')}">选择框(查询)</div></div>
                         <div class="layui-input-block ">
@@ -125,7 +126,7 @@
                     </div>
 
 
-                
+
                     <div class="layui-form-item" >
                         <div class="layui-form-label "><div th:text="${lang.translate('角色')}">角色</div></div>
                         <div class="layui-input-block ">
@@ -172,7 +173,7 @@
 
 
 
-                
+
                 <div class="layui-form-item" >
                     <div class="layui-form-label "><div th:text="${lang.translate('多文件上传')}">多文件上传</div><div class="layui-required">*</div></div>
                     <div class="layui-upload layui-input-block ">
@@ -254,7 +255,7 @@
                 </div>
 
 
-                
+
                     <div class="layui-form-item" >
                         <div class="layui-form-label "><div th:text="${lang.translate('工作时间')}">工作时间</div></div>
                         <div class="layui-input-block ">
@@ -287,7 +288,7 @@
                     </div>
 
 
-                
+
                     <div class="layui-form-item" >
                     <div class="layui-form-label "><div th:text="${lang.translate('多行文本')}">多行文本</div></div>
                     <div class="layui-input-block ">

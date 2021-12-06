@@ -1,4 +1,4 @@
-<!-- 
+<!--
 /**
  * 菜单 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
@@ -49,6 +49,7 @@
 
 
     </style>
+	<link th:each="css:${theme.css}" rel="stylesheet" th:href="${css}+'?'+${cacheKey}">
 </head>
 
 <body>
@@ -101,7 +102,7 @@
 <script type="text/javascript" src="/assets/libs/pandyle.min.js" th:src="'/assets/libs/pandyle.min.js?'+${cacheKey}"></script>
 <script type="text/javascript" src="/assets/libs/layui/layui.js" th:src="'/assets/libs/layui/layui.js?'+${cacheKey}"></script>
 <script type="text/javascript" src="/assets/libs/zTree/js/jquery.ztree.all-3.5.min.js" th:src="'/assets/libs/zTree/js/jquery.ztree.all-3.5.min.js?'+${cacheKey}"></script>
- 
+
 <script src="/business/hrm/organization/org_tree.js" th:src="'/business/hrm/organization/emp_dialog_org.js?'+${cacheKey}"></script>
 
 </body>

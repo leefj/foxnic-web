@@ -1,4 +1,4 @@
-<!-- 
+<!--
 /**
  * 租户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
@@ -21,6 +21,7 @@
     <script th:inline="javascript">var foxnic_cachekey=[[${cacheKey}]];</script>
     <style>
     </style>
+	<link th:each="css:${theme.css}" rel="stylesheet" th:href="${css}+'?'+${cacheKey}">
 </head>
 
 <body style="overflow-y: hidden;">
@@ -48,7 +49,7 @@
                 </div>
 
 
-                
+
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('租户别名')}">租户别名</div></div>
                     <div class="layui-input-block layui-input-block-c1">
@@ -57,7 +58,7 @@
                 </div>
 
 
-                
+
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('是否有效')}">是否有效</div></div>
                     <div class="layui-input-block layui-input-block-c1">
@@ -66,7 +67,7 @@
                 </div>
 
 
-                
+
                     <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('公司')}">公司</div></div>
                         <div class="layui-input-block layui-input-block-c1">
@@ -75,7 +76,7 @@
                     </div>
 
 
-                
+
                 <div class="layui-form-item" style="display: none")>
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('创建人ID')}">创建人ID</div></div>
                     <div class="layui-input-block layui-input-block-c1">
@@ -84,7 +85,7 @@
                 </div>
 
 
-                
+
                     <div class="layui-form-item" style="display: none")>
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('创建时间')}">创建时间</div></div>
                         <div class="layui-input-block layui-input-block-c1">
@@ -92,7 +93,7 @@
                         </div>
                     </div>
 
-                
+
                 <div class="layui-form-item" style="display: none")>
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('修改人ID')}">修改人ID</div></div>
                     <div class="layui-input-block layui-input-block-c1">
@@ -101,7 +102,7 @@
                 </div>
 
 
-                
+
                     <div class="layui-form-item" style="display: none")>
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('修改时间')}">修改时间</div></div>
                         <div class="layui-input-block layui-input-block-c1">
@@ -109,7 +110,7 @@
                         </div>
                     </div>
 
-                
+
                     <div class="layui-form-item" style="display: none")>
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('是否已删除')}">是否已删除</div></div>
                         <div class="layui-input-block layui-input-block-c1">
@@ -118,7 +119,7 @@
                     </div>
 
 
-                
+
                 <div class="layui-form-item" style="display: none")>
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('删除人ID')}">删除人ID</div></div>
                     <div class="layui-input-block layui-input-block-c1">
@@ -127,7 +128,7 @@
                 </div>
 
 
-                
+
                     <div class="layui-form-item" style="display: none")>
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('删除时间')}">删除时间</div></div>
                         <div class="layui-input-block layui-input-block-c1">
@@ -135,7 +136,7 @@
                         </div>
                     </div>
 
-                
+
                     <div class="layui-form-item" style="display: none")>
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('数据版本号')}">数据版本号</div></div>
                         <div class="layui-input-block layui-input-block-c1">

@@ -1,4 +1,4 @@
-<!-- 
+<!--
 /**
  * 角色 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
@@ -17,31 +17,32 @@
     <link rel="stylesheet" href="/assets/css/admin.css"/>
     <link rel="stylesheet" href="/assets/css/foxnic-web.css">
     <link href="/assets/libs/font-awesome-4.7.0/css/font-awesome.min.css" th:href="@{/assets/libs/font-awesome-4.7.0/css/font-awesome.min.css}" rel="stylesheet"/>
+	<link th:each="css:${theme.css}" rel="stylesheet" th:href="${css}+'?'+${cacheKey}">
 </head>
 
 <body style="overflow-y: hidden">
 
 <form id="data-form" lay-filter="data-form" class="layui-form model-form" style="display:none">
     <input name="id" id="id"  type="hidden"/>
-    
+
     <div class="layui-form-item" >
         <label class="layui-form-label" th:text="${lang.translate('代码')}">代码</label>
         <div class="layui-input-block">
             <input lay-filter="code" id="code" name="code" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('代码') }" type="text" class="layui-input"   />
         </div>
     </div>
-    
-	
-    
+
+
+
     <div class="layui-form-item" >
         <label class="layui-form-label" th:text="${lang.translate('名称')}">名称</label>
         <div class="layui-input-block">
             <input lay-filter="name" id="name" name="name" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('名称') }" type="text" class="layui-input"   />
         </div>
     </div>
-    
-	
-    
+
+
+
     <div class="layui-form-item" >
         <label class="layui-form-label" th:text="${lang.translate('菜单权限')}">菜单权限</label>
         <div class="layui-input-block" style="display: none">
@@ -51,8 +52,8 @@
             <button id="menu-button" type="button" class="layui-btn"><i class="fa fa-briefcase" id="icon-button-el"></i>&nbsp;&nbsp;<span th:placeholder="${ lang.translate('请选择菜单') }">请选择菜单</span></button>
         </div>
     </div>
-    
-	
+
+
 
     <div class="layui-form-item model-form-footer">
         <button class="layui-btn layui-btn-primary" id="cancel-button" lay-filter="cancel-button" type="button" th:text="${lang.translate('取消')}">取消</button>

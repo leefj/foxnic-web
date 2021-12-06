@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="/assets/libs/zTree/css/metroStyle/metroStyle.css"/>
     <!-- 自定义主题，使用EasyWeb主题生成器生成 -->
     <!--<link rel="stylesheet" href="assets/css/theme-blue.css"/>-->
+	<link th:each="css:${theme.css}" rel="stylesheet" th:href="${css}+'?'+${cacheKey}">
 </head>
 
 <body class="layui-layout-body">
@@ -36,7 +37,7 @@
             <input id="user-search-value" class="layui-input search-input" type="text" th:placeholder="${lang.translate('请输入关键字')}"/>&emsp;
             <button id="user-btn-search" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i><span th:text="${lang.translate('搜索')}">搜索</span></button>
             <button id="user-btn-add" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i><span th:text="${lang.translate('添加')}">添加</span></button>
-            <!-- 
+            <!--
             <button id="user-btn-export" class="layui-btn icon-btn"><i class="layui-icon">&#xe601;</i>导出</button>
             <button type="button" class="layui-btn" id="user-btn-import">
                 <i class="layui-icon">&#xe67c;</i>导入

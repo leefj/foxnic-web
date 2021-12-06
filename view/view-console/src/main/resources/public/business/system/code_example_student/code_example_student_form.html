@@ -1,4 +1,4 @@
-<!-- 
+<!--
 /**
  * 代码生成主表学生 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
@@ -21,6 +21,7 @@
     <script th:inline="javascript">var foxnic_cachekey=[[${cacheKey}]];</script>
     <style>
     </style>
+    <link th:each="css:${theme.css}" rel="stylesheet" th:href="${css}+'?'+${cacheKey}">
 </head>
 
 <body style="overflow-y: hidden;">

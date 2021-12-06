@@ -31,18 +31,18 @@ import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 
- 
 
- 
+
+
 @Aspect
 @Component
 public class PageAspector {
-	
-	 
+
+
 	private static final String LANG = "lang";
 
 	private static final String THEME = "theme";
-	
+
 	private static final String ENUM = "enum";
 
 	private static final String USER = "user";
@@ -56,7 +56,7 @@ public class PageAspector {
 	private static final String PAGE_HELPER = "pageHelper";
 
 	public static final String LAYUI_TABLE_WIDTH_CONFIG="layuiTableWidthConfig";
-	
+
 	private CodeTextEnumUtil enumUtil;
 
 	private DictProxyUtil dictUtil;
@@ -76,15 +76,15 @@ public class PageAspector {
 
 	@Pointcut(value = "@annotation(org.springframework.web.bind.annotation.RequestMapping)")
 	public void pointCut4RequestMapping() {}
-	
+
 	@Pointcut(value = "@annotation(org.springframework.web.bind.annotation.GetMapping)")
 	public void pointCut4GetMapping() {}
- 
+
 	@Around("org.github.foxnic.web.framework.view.aspect.PageAspector.pointCut4RequestMapping()")
 	public Object processRequestMapping(ProceedingJoinPoint joinPoint) throws Throwable {
 		return processControllerMethod(joinPoint,RequestMapping.class);
 	}
- 
+
 	@Around("org.github.foxnic.web.framework.view.aspect.PageAspector.pointCut4GetMapping()")
 	public Object processGetMapping(ProceedingJoinPoint joinPoint) throws Throwable {
 		return processControllerMethod(joinPoint,GetMapping.class);
@@ -119,10 +119,15 @@ public class PageAspector {
 		//主题
 		if(this.theme.getValue()==null) {
 			Theme theme = SystemConfigProxyUtil.getEnum(SystemConfigEnum.SYSTEM_THEME, Theme.class);
+			String ico=SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_FAVICO);
 			if (theme == null) theme = Theme.DEFAULT;
 			JSONObject json=new JSONObject();
 			json.put("css",theme.getCss());
 			json.put("js",theme.getJs());
+			if(StringUtil.isBlank(ico)) {
+				ico = "favicon.ico";
+			}
+			json.put("ico",ico);
 			this.theme.setValue(json);
 
 		}
@@ -143,7 +148,7 @@ public class PageAspector {
 		}
 
 		//JSONObject widthConfig = DBCacheProxyUtil.getLayUITableWidthConfig(request,user);
-		
+
 		Object args[] = joinPoint.getArgs();
 		for (Object arg : args) {
 			if(arg instanceof Model ) {
@@ -184,9 +189,9 @@ public class PageAspector {
 				((Model)arg).addAttribute(PAGE_HELPER, pageHelper);
 			}
 		}
-		 
-		
+
+
 		return joinPoint.proceed();
 	}
- 
+
 }

@@ -21,6 +21,8 @@
     <script th:inline="javascript">var foxnic_cachekey=[[${cacheKey}]];</script>
     <style>
     </style>
+	<link th:each="css:${theme.css}" rel="stylesheet" th:href="${css}+'?'+${cacheKey}">
+	<link th:each="css:${theme.css}" rel="stylesheet" th:href="${css}+'?'+${cacheKey}">
 </head>
 
 <body style="overflow-y: hidden;">
@@ -52,7 +54,7 @@
                         </div>
                     </div>
 
-                
+
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('审批模式')}">审批模式</div></div>
                     <div class="layui-input-block layui-input-block-c1">
@@ -75,7 +77,7 @@
                         </div>
                     </div>
 
-                
+
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('变更状态')}">变更状态</div></div>
                     <div class="layui-input-block layui-input-block-c1">
@@ -84,7 +86,7 @@
                 </div>
 
 
-                
+
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('变更类型')}">变更类型</div></div>
                     <div class="layui-input-block layui-input-block-c1">
@@ -114,7 +116,7 @@
                         </div>
                     </div>
 
-                
+
                     <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('发起时间')}">发起时间</div></div>
                         <div class="layui-input-block layui-input-block-c1">
@@ -122,7 +124,7 @@
                         </div>
                     </div>
 
-                
+
                     <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('结束时间')}">结束时间</div></div>
                         <div class="layui-input-block layui-input-block-c1">
@@ -144,7 +146,7 @@
                         </div>
                     </div>
 
-                
+
                     <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('分类')}">分类</div></div>
                         <div class="layui-input-block layui-input-block-c1">

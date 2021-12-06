@@ -44,6 +44,7 @@
              user-select:none;
         }
     </style>
+	<link th:each="css:${theme.css}" rel="stylesheet" th:href="${css}+'?'+${cacheKey}">
 </head>
 <body style="overflow:hidden;margin:0px">
 <div class="icon_container">

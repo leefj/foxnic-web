@@ -1,4 +1,4 @@
-<!-- 
+<!--
 /**
  * 类目 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
@@ -35,6 +35,7 @@
             flex:1;
         }
     </style>
+	<link th:each="css:${theme.css}" rel="stylesheet" th:href="${css}+'?'+${cacheKey}">
 </head>
 
 <body>
@@ -85,7 +86,7 @@
 <script type="text/javascript" src="/assets/libs/pandyle.min.js"></script>
 <script type="text/javascript" src="/assets/libs/layui/layui.js"></script>
 <script type="text/javascript" src="/assets/libs/zTree/js/jquery.ztree.all-3.5.min.js"></script>
- 
+
 <script src="/business/pcm/catalog/catalog_tree.js"></script>
 
 </body>

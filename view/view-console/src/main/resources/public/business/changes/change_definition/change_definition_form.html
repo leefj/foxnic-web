@@ -1,4 +1,4 @@
-<!-- 
+<!--
 /**
  * 变更定义 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
@@ -27,6 +27,7 @@
             margin-left: 135px;
         }
     </style>
+	<link th:each="css:${theme.css}" rel="stylesheet" th:href="${css}+'?'+${cacheKey}">
 </head>
 
 <body style="overflow-y: hidden;">
@@ -65,7 +66,7 @@
                         </div>
                     </div>
 
-                
+
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('审批模式')}">审批模式</div><div class="layui-required">*</div></div>
                     <div class="layui-input-block layui-input-block-c1">
@@ -82,7 +83,7 @@
                         </div>
                     </div>
 
-                
+
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('是否有效')}">是否有效</div><div class="layui-required">*</div></div>
                     <div class="layui-input-block layui-input-block-c1">

@@ -6,12 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta charset="utf-8"/>
     <title th:text="${lang.translate(fullTitle)} + ' -' + ${lang.translate('用户登录')}">用户登录</title>
+    <link th:if(theme.ico!="null") rel="shortcut icon" th:href="${theme.ico}" type="image/vnd.microsoft.icon">
+    <link th:if(theme.ico!="null") rel="icon" th:href="theme.ico" type="image/vnd.microsoft.icon">
     <link rel="stylesheet" href="/assets/libs/layui/css/layui.css" th:href="'/assets/libs/layui/css/layui.css?'+${cacheKey}" />
     <link rel="stylesheet" href="/assets/css/login.css" th:href="'/assets/css/login.css?'+${cacheKey}" media="all">
     <link rel="stylesheet" href="/assets/css/foxnic-web.css" th:href="'/assets/css/foxnic-web.css?'+${cacheKey}">
     <link th:each="css:${theme.css}" rel="stylesheet" th:href="${css}+'?'+${cacheKey}">
-    <script th:each="js:${theme.js}" type="text/javascript" th:src="${js}+'?'+${cacheKey}"></script>
     <script th:inline="javascript">var foxnic_cachekey=[[${cacheKey}]];</script>
+	<link th:each="css:${theme.css}" rel="stylesheet" th:href="${css}+'?'+${cacheKey}">
 </head>
 
 <body th:style="'background-image:url('+${bgImage}+');background-repeat:no-repeat;background-size:cover;'">
@@ -64,7 +66,6 @@
 </div>
 <script type="text/javascript" src="module/global.js" th:src="'module/global.js?'+${cacheKey}"></script>
 <script type="text/javascript" src="assets/libs/layui/layui.js" th:src="'assets/libs/layui/layui.js?'+${cacheKey}"></script>
-<script type="text/javascript" src="assets/libs/login.js" th:src="'assets/libs/login.js?'+${cacheKey}"></script>
 <script type="text/javascript" src="module/Math.uuid.js" th:src="'module/Math.uuid.js?'+${cacheKey}"></script>
 
 <script>
@@ -78,7 +79,7 @@
         let $ = layui.jquery;
         let form = layui.form;
         let config = layui.settings;
- 
+
         $("input[name='browserId']").val(uuid);
 
         // 表单提交

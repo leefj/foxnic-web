@@ -6,7 +6,7 @@ import com.github.foxnic.commons.reflect.EnumUtil;
 
 
 /**
- * @since 2021-12-04 16:44:01
+ * @since 2021-12-06 13:18:35
  * @author 李方捷 , leefangjie@qq.com
  * 从 select distinct code,name from sys_config WHERE deleted=0 生成
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成
@@ -58,6 +58,11 @@ public enum SystemConfigEnum implements CodeTextEnum {
 	 * 创建员工时同步创建账户
 	*/
 	SYSTEM_EMPLOYEE_CREATEUSER("system.employee.createUser" , "创建员工时同步创建账户"),
+	
+	/**
+	 * 网站图标
+	*/
+	SYSTEM_FAVICO("system.favico" , "网站图标"),
 	
 	/**
 	 * 首页右上的logo图片

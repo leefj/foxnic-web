@@ -1,4 +1,4 @@
-<!-- 
+<!--
 /**
  * 认证客户端 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="/assets/libs/layui/css/layui.css"/>
     <link rel="stylesheet" href="/assets/css/admin.css"/>
     <link rel="stylesheet" href="/module/formSelects/formSelects-v4.css"/>
+	<link th:each="css:${theme.css}" rel="stylesheet" th:href="${css}+'?'+${cacheKey}">
 </head>
 
 <body>
@@ -52,7 +53,7 @@
             <button id="search-button" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i><span th:text="${lang.translate('搜索')}">搜索</span></button>
             <button id="add-button" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i><span th:text="${lang.translate('添加')}">添加</span></button>
             <button id="delete-button" class="layui-btn icon-btn layui-btn-danger"><i class="layui-icon">&#xe67e;</i><span th:text="${lang.translate('删除')}">删除</span></button>
-            
+
         </div>
 
         <table class="layui-table" id="data-table" lay-filter="data-table"></table>

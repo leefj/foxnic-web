@@ -1,4 +1,4 @@
-<!-- 
+<!--
 /**
  * 认证客户端 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
@@ -16,129 +16,130 @@
     <link rel="stylesheet" href="/assets/libs/layui/css/layui.css"/>
     <link rel="stylesheet" href="/assets/css/admin.css"/>
     <link rel="stylesheet" href="/module/formSelects/formSelects-v4.css"/>
+	<link th:each="css:${theme.css}" rel="stylesheet" th:href="${css}+'?'+${cacheKey}">
 </head>
 
 <body>
 
 <form id="data-form" lay-filter="data-form" class="layui-form model-form">
     <input name="id" id="id"  type="hidden"/>
-    
+
     <div class="layui-form-item">
         <label class="layui-form-label" th:text="${lang.translate('名称')}">名称</label>
         <div class="layui-input-block">
             <input id="name" name="name" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('名称') }" type="text" class="layui-input"    />
         </div>
     </div>
-    
-	
-    
+
+
+
     <div class="layui-form-item">
         <label class="layui-form-label" th:text="${lang.translate('资源集合')}">资源集合</label>
         <div class="layui-input-block">
             <input id="resourceIds" name="resourceIds" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('资源集合') }" type="text" class="layui-input"    />
         </div>
     </div>
-    
-	
-    
+
+
+
     <div class="layui-form-item">
         <label class="layui-form-label" th:text="${lang.translate('访问密匙')}">访问密匙</label>
         <div class="layui-input-block">
             <input id="clientSecret" name="clientSecret" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('访问密匙') }" type="text" class="layui-input"    />
         </div>
     </div>
-    
-	
-    
+
+
+
     <div class="layui-form-item">
         <label class="layui-form-label" th:text="${lang.translate('权限范围')}">权限范围</label>
         <div class="layui-input-block">
             <input id="scope" name="scope" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('权限范围') }" type="text" class="layui-input"    />
         </div>
     </div>
-    
-	
-    
+
+
+
     <div class="layui-form-item">
         <label class="layui-form-label" th:text="${lang.translate('授权类型')}">授权类型</label>
         <div class="layui-input-block">
             <input id="authorizedGrantTypes" name="authorizedGrantTypes" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('授权类型') }" type="text" class="layui-input"    />
         </div>
     </div>
-    
-	
-    
+
+
+
     <div class="layui-form-item">
         <label class="layui-form-label" th:text="${lang.translate('重定向URI')}">重定向URI</label>
         <div class="layui-input-block">
             <input id="webServerRedirectUri" name="webServerRedirectUri" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('重定向URI') }" type="text" class="layui-input"    />
         </div>
     </div>
-    
-	
-    
+
+
+
     <div class="layui-form-item">
         <label class="layui-form-label" th:text="${lang.translate('权限值列表')}">权限值列表</label>
         <div class="layui-input-block">
             <input id="authorities" name="authorities" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('权限值列表') }" type="text" class="layui-input"    />
         </div>
     </div>
-    
-	
-    
+
+
+
     <div class="layui-form-item">
         <label class="layui-form-label" th:text="${lang.translate('access')}">access</label>
         <div class="layui-input-block">
             <input id="accessTokenValidity" name="accessTokenValidity" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('access') }" type="text" class="layui-input"    />
         </div>
     </div>
-    
-	
-    
+
+
+
     <div class="layui-form-item">
         <label class="layui-form-label" th:text="${lang.translate('refresh')}">refresh</label>
         <div class="layui-input-block">
             <input id="refreshTokenValidity" name="refreshTokenValidity" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('refresh') }" type="text" class="layui-input"    />
         </div>
     </div>
-    
-	
-    
+
+
+
     <div class="layui-form-item">
         <label class="layui-form-label" th:text="${lang.translate('备注信息')}">备注信息</label>
         <div class="layui-input-block">
             <input id="notes" name="notes" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('备注信息') }" type="text" class="layui-input"    />
         </div>
     </div>
-    
-	
-    
+
+
+
     <div class="layui-form-item">
         <label class="layui-form-label" th:text="${lang.translate('是否有效')}">是否有效</label>
         <div class="layui-input-block">
             <input id="valid" name="valid" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('是否有效') }" type="text" class="layui-input"    />
         </div>
     </div>
-    
-	
-    
+
+
+
     <div class="layui-form-item">
         <label class="layui-form-label" th:text="${lang.translate('是否自动Approval操作')}">是否自动Approval操作</label>
         <div class="layui-input-block">
             <input id="autoApprove" name="autoApprove" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('是否自动Approval操作') }" type="text" class="layui-input"    />
         </div>
     </div>
-    
-	
-    
+
+
+
     <div class="layui-form-item">
         <label class="layui-form-label" th:text="${lang.translate('是否信任')}">是否信任</label>
         <div class="layui-input-block">
             <input id="trusted" name="trusted" th:placeholder="${ lang.translate('请输入') +' '+ lang.translate('是否信任') }" type="text" class="layui-input"    />
         </div>
     </div>
-    
-	
+
+
 
     <div class="layui-form-item model-form-footer">
         <button class="layui-btn layui-btn-primary" ew-event="closeDialog" type="button" th:text="${lang.translate('取消')}">取消</button>

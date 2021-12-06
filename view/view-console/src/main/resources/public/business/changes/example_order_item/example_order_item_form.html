@@ -1,4 +1,4 @@
-<!-- 
+<!--
 /**
  * 变更示例订单明细 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
@@ -21,6 +21,7 @@
     <script th:inline="javascript">var foxnic_cachekey=[[${cacheKey}]];</script>
     <style>
     </style>
+	<link th:each="css:${theme.css}" rel="stylesheet" th:href="${css}+'?'+${cacheKey}">
 </head>
 
 <body style="overflow-y: hidden;">
@@ -46,7 +47,7 @@
                         </div>
                     </div>
 
-                
+
                     <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('单价')}">单价</div></div>
                         <div class="layui-input-block layui-input-block-c1">
@@ -55,7 +56,7 @@
                     </div>
 
 
-                
+
                     <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('数量')}">数量</div></div>
                         <div class="layui-input-block layui-input-block-c1">

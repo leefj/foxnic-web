@@ -1,4 +1,4 @@
-<!-- 
+<!--
 /**
  * 变更示例订单明细 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
@@ -24,12 +24,13 @@
             margin:0px;
         }
     </style>
+	<link th:each="css:${theme.css}" rel="stylesheet" th:href="${css}+'?'+${cacheKey}">
 </head>
 
 <body style="overflow-y: hidden">
 
 <div class="layui-card-no-shadow ">
- 
+
     <div class="layui-card-body" style="padding:0px">
 
         <div class="search-bar" style=" display: none; ">

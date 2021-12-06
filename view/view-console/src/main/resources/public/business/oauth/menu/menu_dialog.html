@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="/assets/css/admin.css"/>
     <link rel="stylesheet" href="/assets/libs/zTree/css/zTreeStyle/zTreeStyle.css" type="text/css">
     <link rel="stylesheet" href="/assets/libs/toast/css/toast.css" type="text/css">
+	<link th:each="css:${theme.css}" rel="stylesheet" th:href="${css}+'?'+${cacheKey}">
 </head>
 
 <body>

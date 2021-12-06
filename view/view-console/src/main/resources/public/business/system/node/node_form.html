@@ -1,4 +1,4 @@
-<!-- 
+<!--
 /**
  * sys_node 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
@@ -20,6 +20,7 @@
     <script th:inline="javascript">var foxnic_cachekey=[[${cacheKey}]];</script>
     <style>
     </style>
+	<link th:each="css:${theme.css}" rel="stylesheet" th:href="${css}+'?'+${cacheKey}">
 </head>
 
 <body style="overflow-y: hidden">
@@ -46,7 +47,7 @@
                 </div>
 
 
-                
+
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('主机ID')}">主机ID</div></div>
                     <div class="layui-input-block layui-input-block-c1">
@@ -55,7 +56,7 @@
                 </div>
 
 
-                
+
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('应用名称')}">应用名称</div></div>
                     <div class="layui-input-block layui-input-block-c1">
@@ -64,7 +65,7 @@
                 </div>
 
 
-                
+
                     <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('端口')}">端口</div></div>
                         <div class="layui-input-block layui-input-block-c1">
@@ -73,7 +74,7 @@
                     </div>
 
 
-                
+
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('进程号')}">进程号</div></div>
                     <div class="layui-input-block layui-input-block-c1">
@@ -82,7 +83,7 @@
                 </div>
 
 
-                
+
                     <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('启动时间')}">启动时间</div></div>
                         <div class="layui-input-block layui-input-block-c1">
@@ -91,7 +92,7 @@
                     </div>
 
 
-                
+
                     <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('是否启动')}">是否启动</div></div>
                         <div class="layui-input-block layui-input-block-c1">
@@ -100,7 +101,7 @@
                     </div>
 
 
-                
+
                     <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('心跳时间')}">心跳时间</div></div>
                         <div class="layui-input-block layui-input-block-c1">
@@ -109,7 +110,7 @@
                     </div>
 
 
-                
+
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('主机名称')}">主机名称</div></div>
                     <div class="layui-input-block layui-input-block-c1">
@@ -118,7 +119,7 @@
                 </div>
 
 
-                
+
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('IP地址')}">IP地址</div></div>
                     <div class="layui-input-block layui-input-block-c1">
@@ -127,7 +128,7 @@
                 </div>
 
 
-                
+
                     <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('雪花DCId')}">雪花DCId</div></div>
                         <div class="layui-input-block layui-input-block-c1">
@@ -136,7 +137,7 @@
                     </div>
 
 
-                
+
                     <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('雪花WKId')}">雪花WKId</div></div>
                         <div class="layui-input-block layui-input-block-c1">
@@ -145,7 +146,7 @@
                     </div>
 
 
-                
+
                 <div class="layui-form-item" style="display: none")>
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('创建人ID')}">创建人ID</div></div>
                     <div class="layui-input-block layui-input-block-c1">
@@ -154,7 +155,7 @@
                 </div>
 
 
-                
+
                     <div class="layui-form-item" style="display: none")>
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('创建时间')}">创建时间</div></div>
                         <div class="layui-input-block layui-input-block-c1">
@@ -163,7 +164,7 @@
                     </div>
 
 
-                
+
                 <div class="layui-form-item" style="display: none")>
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('修改人ID')}">修改人ID</div></div>
                     <div class="layui-input-block layui-input-block-c1">
@@ -172,7 +173,7 @@
                 </div>
 
 
-                
+
                     <div class="layui-form-item" style="display: none")>
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('修改时间')}">修改时间</div></div>
                         <div class="layui-input-block layui-input-block-c1">
@@ -181,7 +182,7 @@
                     </div>
 
 
-                
+
                     <div class="layui-form-item" style="display: none")>
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('是否已删除')}">是否已删除</div></div>
                         <div class="layui-input-block layui-input-block-c1">
@@ -190,7 +191,7 @@
                     </div>
 
 
-                
+
                 <div class="layui-form-item" style="display: none")>
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('删除人ID')}">删除人ID</div></div>
                     <div class="layui-input-block layui-input-block-c1">
@@ -199,7 +200,7 @@
                 </div>
 
 
-                
+
                     <div class="layui-form-item" style="display: none")>
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('删除时间')}">删除时间</div></div>
                         <div class="layui-input-block layui-input-block-c1">
@@ -208,7 +209,7 @@
                     </div>
 
 
-                
+
                     <div class="layui-form-item" style="display: none")>
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('数据版本号')}">数据版本号</div></div>
                         <div class="layui-input-block layui-input-block-c1">

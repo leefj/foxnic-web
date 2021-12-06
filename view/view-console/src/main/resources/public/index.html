@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="assets/css/foxnic-web.css" th:href="'assets/css/foxnic-web.css?'+${cacheKey}" >
     <link th:each="css:${theme.css}" rel="stylesheet" th:href="${css}+'?'+${cacheKey}">
     <script th:inline="javascript">var foxnic_cachekey=[[${cacheKey}]];</script>
+	<link th:each="css:${theme.css}" rel="stylesheet" th:href="${css}+'?'+${cacheKey}">
 </head>
 
 <body class="layui-layout-body">

@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="/assets/libs/zTree/css/metroStyle/metroStyle.css"/>
     <!-- 自定义主题，使用EasyWeb主题生成器生成 -->
     <!--<link rel="stylesheet" href="assets/css/theme-blue.css"/>-->
+	<link th:each="css:${theme.css}" rel="stylesheet" th:href="${css}+'?'+${cacheKey}">
 </head>
 
 <body class="layui-layout-body">
@@ -40,7 +41,7 @@
                    required/>
         </div>
     </div>
-    <!--  
+    <!--
     <div class="layui-form-item">
         <label class="layui-form-label">性别</label>
         <div class="layui-input-block">
