@@ -38,7 +38,7 @@ import java.util.Date;
  * 代码生成示例主表 服务实现
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-01 16:21:18
+ * @since 2021-12-07 17:18:44
 */
 
 
@@ -266,16 +266,16 @@ public class CodeExampleServiceImpl extends SuperService<CodeExample> implements
 	}
 
 	/**
-	 * 检查 角色 是否已经存在
+	 * 检查 实体 是否已经存在 , 判断 主键值不同，但指定字段的值相同的记录是否存在
 	 *
 	 * @param codeExample 数据对象
 	 * @return 判断结果
 	 */
-	public Result<CodeExample> checkExists(CodeExample codeExample) {
+	public Boolean checkExists(CodeExample codeExample) {
 		//TDOD 此处添加判断段的代码
-		//boolean exists=this.checkExists(codeExample, SYS_ROLE.NAME);
+		//boolean exists=super.checkExists(codeExample, SYS_ROLE.NAME);
 		//return exists;
-		return ErrorDesc.success();
+		return false;
 	}
 
 	@Override

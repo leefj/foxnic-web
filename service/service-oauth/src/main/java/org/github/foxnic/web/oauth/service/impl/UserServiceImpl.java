@@ -259,16 +259,16 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 	}
 
 	/**
-	 * 检查 角色 是否已经存在
+	 * 检查 角色 是否已经存在 :
 	 *
 	 * @param user 数据对象
 	 * @return 判断结果
 	 */
-	public Result<User> checkExists(User user) {
+	public Boolean checkExists(User user) {
 		//TDOD 此处添加判断段的代码
-		//boolean exists=this.checkExists(role, SYS_ROLE.NAME);
+//		boolean exists=this.checkExists(role, SYS_ROLE.NAME);
 		//return exists;
-		return ErrorDesc.success();
+		return false;
 	}
 
 	/**

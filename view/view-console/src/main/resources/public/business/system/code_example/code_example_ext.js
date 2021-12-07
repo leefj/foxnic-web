@@ -35,6 +35,18 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             return true;
         },
         /**
+         * 当下拉框别选择后触发
+         * */
+        onSelectBoxChanged:function(id,selected,changes,isAdd) {
+            console.log('onSelectBoxChanged',id,selected,changes,isAdd);
+        },
+        /**
+         * 当日期选择组件选择后触发
+         * */
+        onDatePickerChanged:function(id,value, date, endDate) {
+            console.log('onDatePickerChanged',id,value, date, endDate);
+        },
+        /**
          * 表格右侧操作列更多按钮事件
          * */
         moreAction:function (menu,data, it){

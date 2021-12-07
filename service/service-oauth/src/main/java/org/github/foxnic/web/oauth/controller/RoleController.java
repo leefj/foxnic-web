@@ -11,6 +11,7 @@ import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.dao.excel.ValidateResult;
 import com.github.foxnic.springboot.web.DownloadUtil;
+import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.github.xiaoymin.knife4j.annotations.ApiSort;
 import io.swagger.annotations.Api;
@@ -18,7 +19,6 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.github.foxnic.web.domain.oauth.Role;
-import org.github.foxnic.web.domain.oauth.RoleUser;
 import org.github.foxnic.web.domain.oauth.RoleVO;
 import org.github.foxnic.web.domain.oauth.meta.RoleVOMeta;
 import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
@@ -89,9 +89,12 @@ public class RoleController extends SuperController {
 	@SentinelResource(value = RoleServiceProxy.DELETE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(RoleServiceProxy.DELETE)
 	public Result deleteById(String id) {
-		Result ex=roleUserService.checkExists((new RoleUser()).setRoleId(id));
-		//Result result=roleService.deleteByIdLogical(id);
-		return ex;
+		boolean ex=roleUserService.checkExists(new ConditionExpr("role_id=?",id));
+		if(ex) {
+			return ErrorDesc.failure().message("无法删除角色，请移除角色下的账户");
+		}
+		Result result=roleService.deleteByIdLogical(id);
+		return result;
 	}
 
 

@@ -1,5 +1,6 @@
 package org.github.foxnic.web.generator.module.example;
 
+import com.github.foxnic.api.query.MatchType;
 import com.github.foxnic.generator.builder.business.option.ServiceOptions;
 import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
@@ -88,10 +89,14 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 		view.field(TABLE.WEIGHT)
 				.form().numberInput().decimal().step(0.5).range(-10.5,16.6).allowNegative(true).scale(2).defaultValue(3.14);
 
+//		//日期类型
+//		view.field(TABLE.CREATE_TIME).basic().label("制单时间");
+
 		//日期类型
 		view.field(TABLE.BIRTHDAY)
 				.form().dateInput().format("yyyy-MM-dd").defaultNow()
-				.search().range();
+				// 查询匹配模式 matchType，日期查询指定 day 后，后端自行处理日期值， 例如 查询指定日期范围  2021-12-10 ~ 2021-12-15 那么生成的语句是  birthday >= str_to_date('2021-12-07 00:00:00','%Y-%m-%d %H:%i:%s') AND birthday < str_to_date('2021-12-24 00:00:00','%Y-%m-%d %H:%i:%s')
+				.search().range().triggerOnSelect(true).matchType(MatchType.day);
 
 		//单个图片上传类型
 		view.field(TABLE.IMAGE_ID)
@@ -108,17 +113,23 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 		//单选框，下拉数据来自枚举
 		view.field(TABLE.RADIO_ENUM)
 				.basic().label("枚举")
+				// 针对某些需要选择的组件，是否在选择后立即触发查询
+				.search().triggerOnSelect(true)
 				.form().radioBox().enumType(Language.class).defaultIndex(2);
 
 		//单选框，下拉数据来自字典
 		view.field(TABLE.RADIO_DICT)
 				.basic().label("性别")
+				// 针对某些需要选择的组件，是否在选择后立即触发查询
+				.search().triggerOnSelect(true)
 				.form().validate().required()
 				.form().radioBox().dict(DictEnum.SEX).defaultValue(Sex.M);
 
 		//复选框，下拉数据来自枚举
 		view.field(TABLE.CHECK_ENUM)
 				.form().checkBox().enumType(MenuType.class).defaultIndex(0,1)
+				// 针对某些需要选择的组件，是否在选择后立即触发查询
+				.search().triggerOnSelect(true)
 				.search().fuzzySearchWithDoubleQM();
 
 
@@ -198,7 +209,7 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 			.setPageController(WriteMode.COVER_EXISTS_FILE) //页面控制器
 			.setFormPage(WriteMode.COVER_EXISTS_FILE) //表单HTML页
 			.setListPage(WriteMode.COVER_EXISTS_FILE) //列表HTML页
-			.setExtendJsFile(WriteMode.WRITE_TEMP_FILE);
+			.setExtendJsFile(WriteMode.CREATE_IF_NOT_EXISTS);
 
 	}
 

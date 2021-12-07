@@ -36,14 +36,14 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
     var foxnic=layui.foxnic;
     var dropdown=layui.dropdown;
 
-    
+
     //设置top-admin
  	window.admin=admin;
-    
+
     var index = {
         // 渲染左侧菜单栏
         initLeftNav: function () {
-        	
+
         	var user=config.getUser();
         	this.userId=user.user.id;
         	var menus=user.user.menus;
@@ -279,7 +279,7 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
         },
 
         // 路由注册
-        initRouter: function () {  
+        initRouter: function () {
 			//debugger
             index.regRouter(admin.getTempData("menus"));
             // index.regRouter(config.menus);
@@ -384,7 +384,7 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
         },
         // 从服务器获取登录用户的信息
         getUser: function (success) {
-			var user=config.getUser();   
+			var user=config.getUser();
 			console.log(user);
 			success(user);
 			return;
@@ -392,7 +392,7 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
         //获取菜单
         getMenus: function () {
         	//debugger;
-        	var user=config.getUser();   
+        	var user=config.getUser();
         	var menus=user.menus;
         	admin.putTempData("menus",menus);
 //            admin.post('api-user/menus/current', {}, function (data) {

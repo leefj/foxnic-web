@@ -1,7 +1,7 @@
 /**
  * 代码生成示例主 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-01 16:21:26
+ * @since 2021-12-07 17:18:44
  */
 
 
@@ -145,7 +145,7 @@ function ListPage() {
 		value.selectEnum={ inputType:"select_box", value: xmSelect.get("#selectEnum",true).getValue("value"), label:xmSelect.get("#selectEnum",true).getValue("nameStr") };
 		value.selectDict={ inputType:"select_box", value: xmSelect.get("#selectDict",true).getValue("value") ,fuzzy: true,valuePrefix:"\"",valueSuffix:"\"", label:xmSelect.get("#selectDict",true).getValue("nameStr") };
 		value.resourceId={ inputType:"select_box", value: $("#resourceId").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" ,fillBy:["resourze","name"] ,field:"sys_resourze.url"};
-		value.birthday={ inputType:"date_input", begin: $("#birthday-begin").val(), end: $("#birthday-end").val() };
+		value.birthday={ inputType:"date_input", begin: $("#birthday-begin").val(), end: $("#birthday-end").val() ,matchType:"day" };
 		value.roleIds={ inputType:"select_box", value: xmSelect.get("#roleIds",true).getValue("value") ,fillBy:["roles"]  ,field:"sys_code_example_role.role_id", label:xmSelect.get("#roleIds",true).getValue("nameStr") };
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
@@ -212,6 +212,7 @@ function ListPage() {
 			radio: false,
 			on: function(data){
 				setTimeout(function () {
+					refreshTableData();
 					window.pageExt.list.onSelectBoxChanged && window.pageExt.list.onSelectBoxChanged("radioEnum",data.arr,data.change,data.isAdd);
 				},1);
 			},
@@ -233,6 +234,7 @@ function ListPage() {
 			radio: false,
 			on: function(data){
 				setTimeout(function () {
+					refreshTableData();
 					window.pageExt.list.onSelectBoxChanged && window.pageExt.list.onSelectBoxChanged("radioDict",data.arr,data.change,data.isAdd);
 				},1);
 			},
@@ -254,6 +256,7 @@ function ListPage() {
 			radio: false,
 			on: function(data){
 				setTimeout(function () {
+					refreshTableData();
 					window.pageExt.list.onSelectBoxChanged && window.pageExt.list.onSelectBoxChanged("checkEnum",data.arr,data.change,data.isAdd);
 				},1);
 			},
@@ -295,6 +298,11 @@ function ListPage() {
 			radio: false,
 			size: "small",
 			filterable: false,
+			on: function(data){
+				setTimeout(function () {
+					window.pageExt.list.onSelectBoxChanged && window.pageExt.list.onSelectBoxChanged("selectEnum",data.arr,data.change,data.isAdd);
+				},1);
+			},
 			//转换数据
 			transform:function(data) {
 				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
@@ -312,6 +320,11 @@ function ListPage() {
 			radio: false,
 			size: "small",
 			filterable: false,
+			on: function(data){
+				setTimeout(function () {
+					window.pageExt.list.onSelectBoxChanged && window.pageExt.list.onSelectBoxChanged("selectDict",data.arr,data.change,data.isAdd);
+				},1);
+			},
 			//转换数据
 			transform: function(data) {
 				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
@@ -329,6 +342,11 @@ function ListPage() {
 			radio: false,
 			size: "small",
 			filterable: true,
+			on: function(data){
+				setTimeout(function () {
+					window.pageExt.list.onSelectBoxChanged && window.pageExt.list.onSelectBoxChanged("resourceId",data.arr,data.change,data.isAdd);
+				},1);
+			},
 			paging: true,
 			pageRemote: true,
 			//转换数据
@@ -347,11 +365,23 @@ function ListPage() {
 		});
 		laydate.render({
 			elem: '#birthday-begin',
-			trigger:"click"
+			trigger:"click",
+			done: function(value, date, endDate) {
+				setTimeout(function () {
+					refreshTableData();
+					window.pageExt.list.onDatePickerChanged && window.pageExt.list.onDatePickerChanged("birthday",value, date, endDate);
+				},1);
+			}
 		});
 		laydate.render({
 			elem: '#birthday-end',
-			trigger:"click"
+			trigger:"click",
+			done: function(value, date, endDate) {
+				setTimeout(function () {
+					refreshTableData();
+					window.pageExt.list.onDatePickerChanged && window.pageExt.list.onDatePickerChanged("birthday",value, date, endDate);
+				},1);
+			}
 		});
 		//渲染 roleIds 下拉字段
 		fox.renderSelectBox({
@@ -359,6 +389,11 @@ function ListPage() {
 			radio: false,
 			size: "small",
 			filterable: true,
+			on: function(data){
+				setTimeout(function () {
+					window.pageExt.list.onSelectBoxChanged && window.pageExt.list.onSelectBoxChanged("roleIds",data.arr,data.change,data.isAdd);
+				},1);
+			},
 			//转换数据
 			searchField: "name", //请自行调整用于搜索的字段名称
 			extraParam: {}, //额外的查询参数，Object 或是 返回 Object 的函数

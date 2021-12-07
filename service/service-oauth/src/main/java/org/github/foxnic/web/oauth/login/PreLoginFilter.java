@@ -34,25 +34,25 @@ import static org.springframework.security.web.authentication.UsernamePasswordAu
  * @since  2021-06-02
  */
 public class PreLoginFilter extends GenericFilterBean {
- 
+
     private RequestMatcher authenticationRequestMatcher;
-    
+
     private ICaptchaService captchaService;
 
     public PreLoginFilter(String loginProcessingUrl) {
         authenticationRequestMatcher = new AntPathRequestMatcher(loginProcessingUrl, "POST");
         captchaService=SpringUtil.getBean(ICaptchaService.class);
     }
- 
- 
+
+
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
- 
+
     	RequestParameter parameter=RequestParameter.get();
     	HttpServletRequestWrapper wrapper = parameter.getRequestWrapper();
- 
+
     	if (authenticationRequestMatcher.matches((HttpServletRequest) request)) {
- 
+
             LoginIdentityVO identity=parameter.toPojo(LoginIdentityVO.class);
 
             if(StringUtil.isBlank(identity.getCaptcha())) {
@@ -76,11 +76,11 @@ public class PreLoginFilter extends GenericFilterBean {
                     }
             	}
             }
- 
+
             wrapper.setAttribute(SPRING_SECURITY_FORM_USERNAME_KEY, identity.getIdentity());
             wrapper.setAttribute(SPRING_SECURITY_FORM_PASSWORD_KEY, identity.getPasswd());
-            
-            
+
+
         }
 
         chain.doFilter(wrapper, response);
