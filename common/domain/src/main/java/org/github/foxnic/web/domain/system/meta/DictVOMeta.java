@@ -12,7 +12,7 @@ import org.github.foxnic.web.domain.oauth.Menu;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-30 11:01:04
+ * @since 2021-12-08 15:19:34
  * @sign F8486D45EA9A5F1954A07A263FC67FA5
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */

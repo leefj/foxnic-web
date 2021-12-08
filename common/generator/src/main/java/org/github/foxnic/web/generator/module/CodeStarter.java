@@ -5,16 +5,14 @@ import com.github.foxnic.generator.util.ModuleCodeGenerator;
 import org.github.foxnic.web.generator.data.DataGenerator;
 import org.github.foxnic.web.generator.module.changes.*;
 import org.github.foxnic.web.generator.module.dataperm.*;
-import org.github.foxnic.web.generator.module.example.CodeExampleCarConfig;
 import org.github.foxnic.web.generator.module.example.CodeExampleConfig;
-import org.github.foxnic.web.generator.module.example.CodeExampleStudentConfig;
 import org.github.foxnic.web.generator.module.hrm.HrmEmployeeConfig;
 import org.github.foxnic.web.generator.module.hrm.HrmPositionConfig;
 import org.github.foxnic.web.generator.module.oauth.SysUserConfig;
 import org.github.foxnic.web.generator.module.pcm.PcmCatalogAllocationConfig;
 import org.github.foxnic.web.generator.module.pcm.PcmCatalogAttributeConfig;
 import org.github.foxnic.web.generator.module.pcm.PcmCatalogConfig;
-import org.github.foxnic.web.generator.module.system.UserTenantConfig;
+import org.github.foxnic.web.generator.module.system.SysDictConfig;
 
 import java.io.File;
 
@@ -35,9 +33,9 @@ public class CodeStarter extends ModuleCodeGenerator {
 
 //        initPcmModules();
 //        initOAuthModules();
-//        initSystemModules();
+        initSystemModules();
 //        initHrmModules();
-        initExampleModules();
+//        initExampleModules();
 //        initChangeModule1s();
 //        initBpmModules();
 //        initDatapermModules();
@@ -106,14 +104,14 @@ public class CodeStarter extends ModuleCodeGenerator {
 //        this.addConfig(new BusiRoleConfig());
 //        this.addConfig(new BusiRoleMemberConfig());
 
-//        this.addConfig(new SysDictConfig());
+        this.addConfig(new SysDictConfig());
 //        this.addConfig(new SysConfigConfig());
 //        this.addConfig(new SysProfileConfig());
 //        this.addConfig(new SysDictItemConfig());
 //        this.addConfig(new SysFileConfig());
         //
 //        this.addConfig(new SequenceConfig());
-        this.addConfig(new UserTenantConfig());
+//        this.addConfig(new UserTenantConfig());
 //        this.addConfig(new TenantConfig());
 
 

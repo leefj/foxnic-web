@@ -45,7 +45,8 @@ public class SysDictConfig extends BaseCodeConfig<SYS_DICT> {
                 .basic().label("模块")
                 .form().validate().required()
                 .form().selectBox().queryApi(MenuServiceProxy.QUERY_LIST+"?parentId=0").paging(false).filter(false).toolbar(false)
-                .valueField(MenuMeta.ID).textField(MenuMeta.LABEL).fillWith(DictMeta.MODULE_INFO).muliti(false);
+                .valueField(MenuMeta.ID).textField(MenuMeta.LABEL).fillWith(DictMeta.MODULE_INFO).muliti(false,false)
+                .search().triggerOnSelect(true);
 
         view.field(FoxnicWeb.SYS_DICT.CODE)
                 .basic().label("代码")

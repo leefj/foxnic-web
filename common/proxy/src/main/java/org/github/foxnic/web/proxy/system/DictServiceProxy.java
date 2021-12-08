@@ -19,7 +19,7 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  * 数据字典  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-30 11:01:04
+ * @since 2021-12-08 15:19:34
 */
 
 @FeignClient(value = MicroServiceNames.SYSTEM, contextId = DictServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)
@@ -139,7 +139,7 @@ public interface DictServiceProxy {
 	Result<Dict> getById(String id);
 
 	/**
-	 * 批量删除数据字典
+	 * 获取多个数据字典
 	*/
 	@RequestMapping(DictServiceProxy.GET_BY_IDS)
 	Result<List<Dict>> getByIds(List<String> ids);

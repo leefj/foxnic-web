@@ -1,7 +1,7 @@
 /**
  * 数据字典 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-30 11:01:04
+ * @since 2021-12-08 15:19:34
  */
 
 
@@ -169,9 +169,15 @@ function ListPage() {
 		//渲染 module 下拉字段
 		fox.renderSelectBox({
 			el: "module",
-			radio: false,
+			radio: true,
 			size: "small",
 			filterable: false,
+			on: function(data){
+				setTimeout(function () {
+					refreshTableData();
+					window.pageExt.list.onSelectBoxChanged && window.pageExt.list.onSelectBoxChanged("module",data.arr,data.change,data.isAdd);
+				},1);
+			},
 			//转换数据
 			transform: function(data) {
 				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]

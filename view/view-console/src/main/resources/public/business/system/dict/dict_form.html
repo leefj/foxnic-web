@@ -2,7 +2,7 @@
 /**
  * 数据字典 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-30 11:01:04
+ * @since 2021-12-08 15:19:34
  */
  -->
  <!DOCTYPE html>
@@ -23,7 +23,7 @@
     <script th:inline="javascript">var foxnic_cachekey=[[${cacheKey}]];</script>
     <style>
     </style>
-	<link th:each="css:${theme.css}" rel="stylesheet" th:href="${css}+'?'+${cacheKey}">
+    <link th:each="css:${theme.css}" rel="stylesheet" th:href="${css}+'?'+${cacheKey}">
 </head>
 
 <body style="overflow-y: hidden;">
@@ -48,7 +48,7 @@
                         </div>
                     </div>
 
-
+                
                     <div class="layui-form-item" style="display: none">
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('是否树形结构')}">是否树形结构</div></div>
                         <div class="layui-input-block layui-input-block-c1">
@@ -71,7 +71,7 @@
                         </div>
                     </div>
 
-
+                
                     <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('模块')}">模块</div><div class="layui-required">*</div></div>
                         <div class="layui-input-block layui-input-block-c1">

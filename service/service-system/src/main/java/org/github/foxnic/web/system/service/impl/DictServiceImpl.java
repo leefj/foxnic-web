@@ -35,7 +35,7 @@ import java.util.Date;
  * 数据字典 服务实现
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-30 11:01:04
+ * @since 2021-12-08 15:19:34
 */
 
 
@@ -249,16 +249,16 @@ public class DictServiceImpl extends SuperService<Dict> implements IDictService 
 	}
 
 	/**
-	 * 检查 角色 是否已经存在
+	 * 检查 实体 是否已经存在 , 判断 主键值不同，但指定字段的值相同的记录是否存在
 	 *
 	 * @param dict 数据对象
 	 * @return 判断结果
 	 */
-	public Result<Dict> checkExists(Dict dict) {
+	public Boolean checkExists(Dict dict) {
 		//TDOD 此处添加判断段的代码
-		//boolean exists=this.checkExists(dict, SYS_ROLE.NAME);
+		//boolean exists=super.checkExists(dict, SYS_ROLE.NAME);
 		//return exists;
-		return ErrorDesc.success();
+		return false;
 	}
 
 	@Override

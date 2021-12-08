@@ -14,9 +14,12 @@ import com.github.foxnic.dao.excel.ValidateResult;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
+import org.github.foxnic.web.domain.system.Dict;
 import org.github.foxnic.web.domain.system.DictItem;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.system.service.IDictItemService;
+import org.github.foxnic.web.system.service.IDictService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -47,6 +50,9 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 	 * */
 	public DAO dao() { return dao; }
 
+	@Autowired
+	private IDictService dictService;
+
 
 	@Override
 	public Object generateId(Field field) {
@@ -60,6 +66,8 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 	 * */
 	@Override
 	public Result insert(DictItem dictItem) {
+		Dict dict=dictService.getById(dictItem.getDictId());
+		dictItem.setDictCode(dict.getCode());
 		return super.insert(dictItem,false);
 	}
 
