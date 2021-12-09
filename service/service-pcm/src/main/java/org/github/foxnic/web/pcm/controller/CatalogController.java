@@ -63,7 +63,7 @@ public class CatalogController extends SuperController {
 	@Autowired
 	private ICatalogAttributeService attributeService;
 
-	
+
 	/**
 	 * 添加数据存储
 	*/
@@ -94,7 +94,7 @@ public class CatalogController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 删除数据存储
 	*/
@@ -114,7 +114,14 @@ public class CatalogController extends SuperController {
 			return result;
 		}
 		List<CatalogAttribute> attributes=attributeService.queryList(CatalogAttribute.create().setCatalogId(id));
-		if(attributes.size()>0) {
+		int i=0;
+		for (CatalogAttribute attribute : attributes) {
+			if(attribute.getCatalogId().equals(id)) {
+				if(ICatalogService.HIDDEN_FIELE.equals(attribute.getField())) continue;
+				i++;
+			}
+		}
+		if(i>0) {
 			result.success(false).message("请先删除定义的属性");
 			return result;
 		}
@@ -138,7 +145,7 @@ public class CatalogController extends SuperController {
 		@ApiImplicitParam(name = CatalogVOMeta.DATA_TABLE , value = "存储表" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CatalogVOMeta.TENANT_ID , value = "租户ID" , required = true , dataTypeClass=Integer.class),
 	})
-	@ApiOperationSupport( order=4 , ignoreParameters = { CatalogVOMeta.PAGE_INDEX , CatalogVOMeta.PAGE_SIZE , CatalogVOMeta.SEARCH_FIELD , CatalogVOMeta.FUZZY_FIELD , CatalogVOMeta.SEARCH_VALUE , CatalogVOMeta.SORT_FIELD , CatalogVOMeta.SORT_TYPE , CatalogVOMeta.IDS } ) 
+	@ApiOperationSupport( order=4 , ignoreParameters = { CatalogVOMeta.PAGE_INDEX , CatalogVOMeta.PAGE_SIZE , CatalogVOMeta.SEARCH_FIELD , CatalogVOMeta.FUZZY_FIELD , CatalogVOMeta.SEARCH_VALUE , CatalogVOMeta.SORT_FIELD , CatalogVOMeta.SORT_TYPE , CatalogVOMeta.IDS } )
 	@NotNull(name = CatalogVOMeta.ID)
 	@NotNull(name = CatalogVOMeta.TENANT_ID)
 	@SentinelResource(value = CatalogServiceProxy.UPDATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
@@ -147,8 +154,8 @@ public class CatalogController extends SuperController {
 		Result result=catalogService.update(catalogVO,SaveMode.NOT_NULL_FIELDS);
 		return result;
 	}
-	
-	
+
+
 	/**
 	 * 保存数据存储
 	*/
@@ -170,7 +177,7 @@ public class CatalogController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 获取数据存储
 	*/
@@ -198,7 +205,7 @@ public class CatalogController extends SuperController {
 		@ApiImplicitParams({
 				@ApiImplicitParam(name = CatalogVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})
-		@ApiOperationSupport(order=3) 
+		@ApiOperationSupport(order=3)
 		@NotNull(name = CatalogVOMeta.IDS)
 		@SentinelResource(value = CatalogServiceProxy.GET_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(CatalogServiceProxy.GET_BY_IDS)
@@ -209,7 +216,7 @@ public class CatalogController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 查询数据存储
 	*/
@@ -320,7 +327,7 @@ public class CatalogController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 分页查询数据存储
 	*/

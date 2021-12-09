@@ -53,6 +53,14 @@ public class OrganizationPageController extends ViewController {
 	}
 
 	/**
+	 * 组织层级 功能主页面
+	 */
+	@RequestMapping("/org_dialog.html")
+	public String dialog(Model model,HttpServletRequest request) {
+		return prefix+"/org_dialog";
+	}
+
+	/**
 	 * 组织层级 表单页面
 	 */
 	@RequestMapping("/organization_form.html")

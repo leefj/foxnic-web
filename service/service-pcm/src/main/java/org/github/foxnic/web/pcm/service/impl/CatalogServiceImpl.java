@@ -39,6 +39,7 @@ import org.github.foxnic.web.pcm.storage.model.FieldManager;
 import org.github.foxnic.web.session.SessionUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.io.InputStream;
@@ -470,19 +471,32 @@ public class CatalogServiceImpl extends SuperService<Catalog> implements ICatalo
 	 * 复制一个生效的版本用于编辑
 	 * */
 	@Override
+	@Transactional
 	public Result createVersion(String catalogId) {
 		//获得激活版本
 		List<CatalogAttribute> activatedAttributes=catalogAttributeService.getAttributes(catalogId,ICatalogService.VERSION_ACTIVATED);
 		catalogAttributeService.join(activatedAttributes, CatalogAllocation.class);
 		//获得编辑版本
 		List<CatalogAttribute> editingAttributes=catalogAttributeService.getAttributes(catalogId,ICatalogService.VERSION_EDITING);
+		List<CatalogAttribute> localEditingAttributes=new ArrayList<>();
+		for (CatalogAttribute editingAttribute : editingAttributes) {
+			if(editingAttribute.getCatalogId().equals(catalogId)) {
+				localEditingAttributes.add(editingAttribute);
+			}
+		}
 		//如果激活版本缺少属性定义
 		if(activatedAttributes.isEmpty()) return ErrorDesc.failure().message("当前版本缺少属性");
-		if(editingAttributes.size()>0) {
+		if(localEditingAttributes.size()>0) {
 			return ErrorDesc.failure().message("当前编辑版本已经存在属性,请删除后再创建");
 		}
+
+		editingAttributes.clear();
 		List<CatalogAllocation> allocations=new ArrayList<>();
 		for (CatalogAttribute attribute : activatedAttributes) {
+
+			if(!attribute.getCatalogId().equals(catalogId))
+				continue;
+
 			attribute.setVersionNo(ICatalogService.VERSION_EDITING);
 			attribute.setSourceId(attribute.getId());
 			attribute.setId(null);
