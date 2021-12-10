@@ -192,6 +192,11 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     var div = $(cfg.el + " .label-content");
                     div.css("flex-direction", cfg.valueDirection);
                 }
+
+                //var ctx = $(cfg.el + " xm-select");
+                //ctx.css("width","auto");
+                //debugger;
+
             }, 500);
             this.selectBoxInstances[cfg.el]=inst;
             /**
