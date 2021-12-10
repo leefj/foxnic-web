@@ -357,7 +357,7 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 
 		//分成分组布局
 		view.formWindow().width("90%");
-		form.addGroup("基本信息",
+		form.addGroup("basic-info","基本信息",
 				new Object[] {
 						TABLE.NAME,TABLE.AREA,TABLE.BIRTHDAY,
 						TABLE.VALID,TABLE.SELECT_DICT,
@@ -369,20 +369,20 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 
 
 		//嵌入页面，页面在 loadTest1Iframe 函数中载入
-		form.addPage("部署节点","loadTest1Iframe");
+		form.addPage("deploy-node","部署节点","loadTest1Iframe");
 
-		form.addGroup("附件信息",
+		form.addGroup("attachment","附件信息",
 				new Object[] {TABLE.IMAGE_ID,TABLE.FILE_IDS,}
 		);
 
 		//嵌入Tab，页面在 loadStudentIframe、loadCarIframe  函数中载入
-		form.addTab(
+		form.addTab("student-car",
 				new Tab("学生","loadStudentIframe"),
 				new Tab("汽车","loadCarIframe")
 		);
 
 
-		form.addGroup("类型信息",
+		form.addGroup("info-type","类型信息",
 				new Object[] {
 						TABLE.RADIO_ENUM,
 						SYS_CODE_EXAMPLE.BUTTON_INPUT

@@ -21,7 +21,7 @@ import com.github.foxnic.dao.data.SaveMode;
  * 数据字典 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-08 15:19:34
+ * @since 2021-12-10 16:42:12
 */
 
 public interface IDictService extends ISuperService<Dict> {
