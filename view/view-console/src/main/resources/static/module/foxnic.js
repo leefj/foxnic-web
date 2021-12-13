@@ -386,6 +386,22 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 }
             }
 
+            debugger
+            if(cfg.page==null || cfg.page.limits == null) {
+                if(cfg.page==null) cfg.page={};
+                if(cfg.page.limits==null) {
+                    var pages = admin.getVar("ui_table_page_levels");
+                    if(pages==null) {
+                        pages = localStorage.getItem("ui_table_page_levels");
+                        if(pages!=null && pages.length>2) {
+                            pages=JSON.parse(pages);
+                            admin.putVar("ui_table_page_levels",pages);
+                        }
+                    }
+                    cfg.page.limits=pages;
+                }
+            }
+
 
             var data=null;
 
@@ -1742,9 +1758,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                         delete top[tag];
                     }, 1000 * 60 * 10);
                     console.log("dl:"+doc.innerHTML);
-
-
-                    callback && callback(true,null);
+                    // callback && callback({success:true,message:"下载成功"});
                     debugger;
                 }
             }, 500);

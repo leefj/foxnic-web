@@ -1,6 +1,8 @@
 package org.github.foxnic.web.system.page;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.github.foxnic.commons.lang.StringUtil;
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
 import org.github.foxnic.web.constants.enums.system.VersionType;
 import org.github.foxnic.web.framework.view.controller.ViewController;
@@ -20,9 +22,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller("SysPortalPageController")
 @RequestMapping(PortalPageController.prefix)
 public class PortalPageController extends ViewController  {
-	
+
 	public static final String prefix="";
- 
+
 	/**
 	 * 系统配置 功能主页面
 	 */
@@ -33,6 +35,14 @@ public class PortalPageController extends ViewController  {
 		String versionCode= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_VERSION_CODE);
 		String versionName= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_VERSION_NAME);
 		VersionType versionType=SystemConfigProxyUtil.getEnum(SystemConfigEnum.SYSTEM_VERSION_TYPE,VersionType.class);
+
+		String pages= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_UI_TABLE_PAGELEVELS);
+		if(!StringUtil.isBlank(pages)) {
+			JSONArray array = JSONArray.parseArray(pages);
+			model.addAttribute("tablePageLevels", array);
+		}
+
+
 		if(versionType!=VersionType.PROD) {
 			title+="("+versionName+"_"+versionCode+")";
 		}

@@ -78,9 +78,11 @@
 <script>
     var MODULE_ENABLE= [[${moduleEnable}]];
     var LOGO="[[${logo}]]";
+    var TABLE_PAGE_LEVELS=[[${tablePageLevels}]];
 </script>
 
 <script>
+    localStorage.setItem("ui_table_page_levels", JSON.stringify(TABLE_PAGE_LEVELS));
     layui.config({
     	dir: '/assets/libs/layui/',
         base: '/module/'
