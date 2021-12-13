@@ -153,7 +153,7 @@ layui.define(['settings', 'layer'], function (exports) {
             }
         },
 
-        changePopupArea: function (width,height,cb) {
+        changePopupArea: function (width,height,popId) {
             //$("body").attr('style', 'overflow-y:hidden');
         	if(top && top!=window && top.admin) {
                 var ret=top.admin.changePopupArea(width,height);
