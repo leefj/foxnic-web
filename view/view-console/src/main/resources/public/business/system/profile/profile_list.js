@@ -1,7 +1,7 @@
 /**
  * Profile 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-06 11:20:15
+ * @since 2021-12-13 20:23:56
  */
 
 
@@ -244,10 +244,7 @@ function ListPage() {
             }
             //调用批量删除接口
 			top.layer.confirm(fox.translate('确定删除已选中的')+fox.translate('Profile')+fox.translate('吗？'), function (i) {
-				top.layer.close(i);
-				top.layer.load(2);
-                admin.request(moduleURL+"/delete-by-ids", { ids: ids }, function (data) {
-					top.layer.closeAll('loading');
+                admin.post(moduleURL+"/delete-by-ids", { ids: ids }, function (data) {
                     if (data.success) {
 						if(window.pageExt.list.afterBatchDelete) {
 							var doNext=window.pageExt.list.afterBatchDelete(data);
@@ -259,7 +256,6 @@ function ListPage() {
 						top.layer.msg(data.message, {icon: 2, time: 1500});
                     }
                 });
-
 			});
         }
 	}
@@ -280,24 +276,16 @@ function ListPage() {
 
 			admin.putTempData('sys-profile-form-data-form-action', "",true);
 			if (layEvent === 'edit') { // 修改
-				//延迟显示加载动画，避免界面闪动
-				var task=setTimeout(function(){layer.load(2);},1000);
-				admin.request(moduleURL+"/get-by-id", { id : data.id }, function (data) {
-					clearTimeout(task);
-					layer.closeAll('loading');
+				admin.post(moduleURL+"/get-by-id", { id : data.id }, function (data) {
 					if(data.success) {
 						admin.putTempData('sys-profile-form-data-form-action', "edit",true);
 						showEditForm(data.data);
 					} else {
-						 layer.msg(data.message, {icon: 1, time: 1500});
+						 top.layer.msg(data.message, {icon: 1, time: 1500});
 					}
 				});
 			} else if (layEvent === 'view') { // 查看
-				//延迟显示加载动画，避免界面闪动
-				var task=setTimeout(function(){layer.load(2);},1000);
-				admin.request(moduleURL+"/get-by-id", { id : data.id }, function (data) {
-					clearTimeout(task);
-					layer.closeAll('loading');
+				admin.post(moduleURL+"/get-by-id", { id : data.id }, function (data) {
 					if(data.success) {
 						admin.putTempData('sys-profile-form-data-form-action', "view",true);
 						showEditForm(data.data);

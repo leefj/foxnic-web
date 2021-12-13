@@ -21,7 +21,7 @@ import com.github.foxnic.dao.data.SaveMode;
  * Profile 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-06 11:20:15
+ * @since 2021-12-13 20:23:54
 */
 
 public interface IProfileService extends ISuperService<Profile> {
@@ -136,7 +136,7 @@ public interface IProfileService extends ISuperService<Profile> {
 	Result saveList(List<Profile> profileList , SaveMode mode);
 
 	/**
-	 * 检查实体中的数据字段是否已经存在
+	 * 检查实体中的数据字段是否已经存在 . 判断 主键值不同，但指定字段的值相同的记录是否存在
 	 * @param profile  实体对象
 	 * @param field  字段清单，至少指定一个
 	 * @return 是否已经存在
@@ -160,12 +160,12 @@ public interface IProfileService extends ISuperService<Profile> {
 	List<Profile> getByIds(List<String> ids);
 
 	/**
-	 * 检查 角色 是否已经存在
+	 * 检查 实体 是否已经存在 , 判断 主键值不同，但指定字段的值相同的记录是否存在
 	 *
 	 * @param profile 数据对象
 	 * @return 判断结果
 	 */
-	Result<Profile> checkExists(Profile profile);
+	Boolean checkExists(Profile profile);
 
 	/**
 	 * 根据实体数构建默认的条件表达式, 不支持 Join 其它表

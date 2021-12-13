@@ -1,7 +1,7 @@
 /**
  * Profile 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-06 11:20:15
+ * @since 2021-12-13 20:23:57
  */
 
 function FormPage() {
@@ -63,7 +63,7 @@ function FormPage() {
 			var body=$("body");
 			var bodyHeight=body.height();
 			var footerHeight=$(".model-form-footer").height();
-			var area=admin.changePopupArea(null,bodyHeight+footerHeight,"sys-profile-form-data-win");
+			var area=admin.changePopupArea(null,bodyHeight+footerHeight,'sys-profile-form-data-win');
 			if(area==null) return;
 			admin.putTempData('sys-profile-form-area', area);
 			window.adjustPopup=adjustPopup;
