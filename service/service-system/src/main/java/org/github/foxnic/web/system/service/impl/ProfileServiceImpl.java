@@ -229,11 +229,11 @@ public class ProfileServiceImpl extends SuperService<Profile> implements IProfil
 	 * @param profile 数据对象
 	 * @return 判断结果
 	 */
-	public Result<Profile> checkExists(Profile profile) {
+	public Boolean checkExists(Profile profile) {
 		//TDOD 此处添加判断段的代码
 		//boolean exists=this.checkExists(profile, SYS_ROLE.NAME);
 		//return exists;
-		return ErrorDesc.success();
+		return false;
 	}
 
 	@Override
