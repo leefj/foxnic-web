@@ -156,22 +156,23 @@ layui.define(['settings', 'layer'], function (exports) {
         changePopupArea: function (width,height,popId) {
             //$("body").attr('style', 'overflow-y:hidden');
         	if(top && top!=window && top.admin) {
-                var ret=top.admin.changePopupArea(width,height);
+                var ret=top.admin.changePopupArea(width,height,popId);
                 setTimeout(function (){
                     //$("body").attr('style', 'overflow-y:auto');
                 },1000);
                 return ret;
 
         	}
-
-        	if(!popupCenterIndex) return;
+            // debugger;
+            var index=this.getVar("$$"+popId+"-popup-index");
+        	if(index==null) index=popupCenterIndex;
 
 
 
         	//debugger;
             var fullHeight=$(window).height();
             var fullWidth=$(window).width();
-            var  pop=$("#layui-layer"+popupCenterIndex);
+            var  pop=$("#layui-layer"+index);
             if(pop.offset()==null) {
                 return null;
             }

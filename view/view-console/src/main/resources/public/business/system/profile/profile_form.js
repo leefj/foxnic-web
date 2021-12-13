@@ -63,7 +63,7 @@ function FormPage() {
 			var body=$("body");
 			var bodyHeight=body.height();
 			var footerHeight=$(".model-form-footer").height();
-			var area=admin.changePopupArea(null,bodyHeight+footerHeight);
+			var area=admin.changePopupArea(null,bodyHeight+footerHeight,"sys-profile-form-data-win");
 			if(area==null) return;
 			admin.putTempData('sys-profile-form-area', area);
 			window.adjustPopup=adjustPopup;
