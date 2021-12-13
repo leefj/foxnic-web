@@ -126,13 +126,26 @@ public class EmployeeServiceImpl extends SuperService<Employee> implements IEmpl
 				//保存员工岗位关系
 				if(employee instanceof EmployeeVO) {
 					EmployeeVO vo=(EmployeeVO) employee;
-					if(!StringUtil.isBlank(vo.getPositionId())) {
+
+					//保存兼岗关系
+					if(vo.getVicePositionIds()!=null && !vo.getVicePositionIds().isEmpty()) {
+						for (String vicePositionId : vo.getVicePositionIds()) {
+							EmployeePosition ep=new EmployeePosition();
+							ep.setEmployeeId(employee.getId()).setPositionId(vicePositionId);
+							employeePositionService.insert(ep);
+						}
+					}
+
+					//保存主岗关系
+					if(!StringUtil.isBlank(vo.getPrimaryPositionId())) {
 						EmployeePosition ep=new EmployeePosition();
-						ep.setEmployeeId(employee.getId()).setPositionId(vo.getPositionId());
+						ep.setEmployeeId(employee.getId()).setPositionId(vo.getPrimaryPositionId());
 						employeePositionService.insert(ep);
 						//激活主岗
 						employeePositionService.activePrimaryPosition(employee.getId());
 					}
+
+
 				}
 				UserTenantVO userTenant=new UserTenantVO();
 				userTenant.setUserId(user.getId());
