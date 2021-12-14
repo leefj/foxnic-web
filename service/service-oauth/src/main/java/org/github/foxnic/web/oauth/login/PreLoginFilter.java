@@ -5,6 +5,7 @@ import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.springboot.mvc.RequestParameter;
 import com.github.foxnic.springboot.spring.SpringUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
 import org.github.foxnic.web.constants.enums.system.YesNo;
 import org.github.foxnic.web.domain.oauth.LoginIdentityVO;
@@ -59,6 +60,13 @@ public class PreLoginFilter extends GenericFilterBean {
                 ResponseUtil.writeOK((HttpServletResponse)response, ErrorDesc.failure(CommonError.CAPTCHA_INVALID).message("验证码未填写"));
                 return;
             }
+
+            // 增加browserId为空判断，防止请求参数中未传该字段导致直接绕过图形验证码验证的问题
+            if(StringUtils.isEmpty(identity.getBrowserId())) {
+                ResponseUtil.writeOK((HttpServletResponse)response, ErrorDesc.failure(CommonError.CAPTCHA_INVALID).message("验证码已失效"));
+                throw new IllegalArgumentException("browserId is null");
+            }
+
             //处理图片验证码
             if(identity.getBrowserId()!=null) {
             	String captcha=captchaService.getImageCaptcha(identity.getBrowserId());
