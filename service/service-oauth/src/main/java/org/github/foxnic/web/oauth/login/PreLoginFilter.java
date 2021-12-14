@@ -63,31 +63,28 @@ public class PreLoginFilter extends GenericFilterBean {
 
             // 增加browserId为空判断，防止请求参数中未传该字段导致直接绕过图形验证码验证的问题
             if(StringUtils.isEmpty(identity.getBrowserId())) {
-                ResponseUtil.writeOK((HttpServletResponse)response, ErrorDesc.failure(CommonError.CAPTCHA_INVALID).message("验证码已失效"));
-                throw new IllegalArgumentException("browserId is null");
+                ResponseUtil.writeOK((HttpServletResponse)response, ErrorDesc.failure(CommonError.CAPTCHA_INVALID).message("缺少 browserId"));
+                return;
             }
 
-            //处理图片验证码
-            if(identity.getBrowserId()!=null) {
-            	String captcha=captchaService.getImageCaptcha(identity.getBrowserId());
-            	if(captcha==null) {
-            		ResponseUtil.writeOK((HttpServletResponse)response, ErrorDesc.failure(CommonError.CAPTCHA_INVALID).message("验证码已失效"));
-            		return;
-            	} else {
-                    YesNo allowAny= SystemConfigProxyUtil.getEnum(SystemConfigEnum.SYSTEM_LOGIN_CAPTCHA_ANY, YesNo.class);
-            		//如果不允许任意校验码，则进行校验码比对
-                    if(allowAny==YesNo.no) {
-                        if (!captcha.equalsIgnoreCase(identity.getCaptcha())) {
-                            ResponseUtil.writeOK((HttpServletResponse) response, ErrorDesc.failure(CommonError.CAPTCHA_INVALID).message("验证码错误"));
-                            return;
-                        }
-                    }
-            	}
+            //是否允许任意验证码
+            YesNo allowAny= SystemConfigProxyUtil.getEnum(SystemConfigEnum.SYSTEM_LOGIN_CAPTCHA_ANY, YesNo.class);
+            // 如果不允许任意验证码 , 则校验验证码
+            if(allowAny==YesNo.no) {
+                String captcha=captchaService.getImageCaptcha(identity.getBrowserId());
+                if(captcha==null) {
+                    ResponseUtil.writeOK((HttpServletResponse) response, ErrorDesc.failure(CommonError.CAPTCHA_INVALID).message("验证码已失效"));
+                    return;
+                }
+                // 比较验证码
+                if (!captcha.equalsIgnoreCase(identity.getCaptcha())) {
+                    ResponseUtil.writeOK((HttpServletResponse) response, ErrorDesc.failure(CommonError.CAPTCHA_INVALID).message("验证码错误"));
+                    return;
+                }
             }
 
             wrapper.setAttribute(SPRING_SECURITY_FORM_USERNAME_KEY, identity.getIdentity());
             wrapper.setAttribute(SPRING_SECURITY_FORM_PASSWORD_KEY, identity.getPasswd());
-
 
         }
 
