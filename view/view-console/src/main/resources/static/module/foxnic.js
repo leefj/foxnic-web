@@ -686,13 +686,15 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 , done: function (res) {
                     clearTimeout(task);
                     layer.closeAll('loading');
+                    var next=true;
+                    if(callback) {
+                        next=callback(res);
+                    }
+                    if(!next) return;
                     //如果上传失败
                     if (!res.success) {
                         return layer.msg(res.message);
                     }
-                    //上传成功
-                    //$(inputEl).val(res.data[0].fileId);
-                    callback && callback(res);
                 }
                 , error: function () {
                     clearTimeout(task);

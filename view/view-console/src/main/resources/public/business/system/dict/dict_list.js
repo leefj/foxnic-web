@@ -90,11 +90,14 @@ function ListPage() {
 					importExcel : admin.checkAuth(AUTH_PREFIX+":import")?{
 						params : {} ,
 						callback : function(r) {
+							debugger
 							if(r.success) {
 								layer.msg(fox.translate('数据导入成功')+"!");
 							} else {
 								layer.msg(fox.translate('数据导入失败')+"!");
 							}
+							// 是否执行后续逻辑：错误提示
+							return false;
 						}
 					}:false
 				}
@@ -364,7 +367,7 @@ function ListPage() {
 			else if (layEvent === 'open-dict-item-window') { // 条目
 				window.pageExt.list.openDictItemWindow(data);
 			}
-			
+
 		});
 
     };
