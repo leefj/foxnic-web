@@ -7,6 +7,7 @@
      <script type="text/javascript" src="/assets/libs/jquery-3.2.1.min.js"></script>
      <link rel="stylesheet" href="/assets/libs/layui/css/layui.css"/>
     <style type="text/css">
+         /*#363f45*/
         .ico-list .fa{
             margin: 5px;
             padding: 5px;
@@ -953,9 +954,16 @@
 
 </div>
 </div>
-<div class="footer">
-     <button type="button" id="sure" class="layui-btn layui-btn-normal"> 确定 </button>
-     <button type="button" id="cancel" class="layui-btn layui-btn-primary" style="margin-right:16px"> 取消 </button>
+<div class="layui-form-item model-form-footer" style="border-top: 1px #eee solid;margin-bottom:0px;padding-top: 8px;padding-left: 8px;padding-right:0px">
+     <form class="layui-form layui-form-pane" action="">
+          <div style="float: left">
+               <input  type="text" class="layui-input" placeholder="搜索图标"/>
+          </div>
+          <div style="float: right">
+               <button type="button" id="sure" class="layui-btn layui-btn-normal"> 确定 </button>
+               <button type="button" id="cancel" class="layui-btn layui-btn-primary" style="margin-right:16px"> 取消 </button>
+          </div>
+     </form>
 </div>
 <script>
 var callback=null;
