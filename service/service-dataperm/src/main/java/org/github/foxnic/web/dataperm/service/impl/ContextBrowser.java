@@ -97,13 +97,13 @@ public class ContextBrowser {
             if ("getVariableValue".equals(methodName)) return true;
             if ("testConditionExpr".equals(methodName)) return true;
         }
-        if(methodName.startsWith("set")) {
+        if(methodName.startsWith("set") && methodName.length()>3) {
             Character c4=methodName.charAt(3);
             if(Character.isUpperCase(c4)) {
                 return true;
             }
         }
-        if(methodName.startsWith("add")) {
+        if(methodName.startsWith("add") && methodName.length()>3) {
             Character c4=methodName.charAt(3);
             if(Character.isUpperCase(c4)) {
                 return true;
@@ -155,7 +155,7 @@ public class ContextBrowser {
     private Set<String> methodKeys=new HashSet<>();
 
     private void collectMembers(MemberItem parent, Class type, List<MemberItem> list) {
-        if(type.getName().startsWith("java.")) return;
+//        if(type.getName().startsWith("java.")) return;
 //        //处理属性
 //        for (Field field : type.getDeclaredFields()) {
 //
@@ -206,12 +206,18 @@ public class ContextBrowser {
         boolean isGetter=false;
         Object value=null;
         for (Method method : type.getDeclaredMethods()) {
-            if(method.getName().equals("checkAnyRole")) {
-                System.out.println();
-            }
+//            if(method.getName().toLowerCase().contains("sexdictcodes")) {
+//                System.out.println();
+//            }
             if(Modifier.isStatic(method.getModifiers()) || Modifier.isFinal(method.getModifiers())) continue;
             if(excludeMethod(parent,type,method)) continue;
             int loc=method.toGenericString().lastIndexOf('(');
+
+            Class returnType=method.getReturnType();
+            String returnTypeHtml="";
+            if(!returnType.equals(Void.class)) {
+                returnTypeHtml+=" : <span style='color:#363f45'>"+returnType.getSimpleName()+"</span>";
+            }
 
             String p=method.toGenericString().substring(0,loc);
             String sign=method.toGenericString().substring(loc);
@@ -259,9 +265,9 @@ public class ContextBrowser {
             }
 
 
-            if(isGetter && value!=null && (value instanceof List || value instanceof Map || value instanceof Set)) {
-                continue;
-            }
+//            if(isGetter && value!=null && (value instanceof List || value instanceof Map || value instanceof Set)) {
+//                continue;
+//            }
 
 
             //
@@ -277,11 +283,13 @@ public class ContextBrowser {
                 paramList.add(params[i].getType().getSimpleName()+" "+paramNames[i]);
             }
 
+
+
             MemberItem item=new MemberItem();
             item.setParent(parent);
             item.setValue(value);
             item.setMethodName(method.getName());
-            item.setName(method.getName()+"(<span style='color:#888888'>"+ StringUtil.join(paramList,", ") +"</span>)");
+            item.setName(method.getName()+"(<span style='color:#888888'>"+ StringUtil.join(paramList,", ") +"</span>)"+returnTypeHtml);
             item.setExpr(method.getName()+"("+ StringUtil.join(paramList,", ") +")");
 
             if(parent!=null) {
@@ -308,7 +316,13 @@ public class ContextBrowser {
                         }
 
                     } else {
-                        collectMembers(item, value.getClass(), list);
+                        //如果是集合类型，则不再往下走
+                        if(isGetter && value!=null && (value instanceof List || value instanceof Map || value instanceof Set)) {
+
+                        } else {
+                            collectMembers(item, value.getClass(), list);
+                        }
+
                     }
                 }
             }

@@ -1,5 +1,6 @@
 package org.github.foxnic.web.wrapper.support.datasource;
 
+import com.github.foxnic.commons.collection.CollectorUtil;
 import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.dao.cache.CacheProperties;
 import com.github.foxnic.dao.dataperm.DataPermManager;
@@ -10,8 +11,13 @@ import com.github.foxnic.springboot.spring.SpringUtil;
 import com.github.foxnic.sql.meta.DBDataType;
 import com.github.foxnic.sql.treaty.DBTreaty;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
+import org.github.foxnic.web.constants.enums.DictEnum;
+import org.github.foxnic.web.domain.changes.ChangeInstance;
+import org.github.foxnic.web.domain.system.DictItem;
+import org.github.foxnic.web.domain.system.DictItemVO;
 import org.github.foxnic.web.framework.cache.FoxnicDataCacheManager;
 import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.github.foxnic.web.proxy.system.DictItemServiceProxy;
 import org.github.foxnic.web.relation.FoxnicWebRelationManager;
 import org.github.foxnic.web.session.SessionUser;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -22,6 +28,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
 import javax.sql.DataSource;
+import java.util.Date;
+import java.util.List;
 
 @Configuration
 public class DAOConfig {
@@ -88,6 +96,51 @@ public class DAOConfig {
 
 	private DataPermManager getDataPermManager(DAO dao) {
 		DataPermManager dataPermManager=new DataPermManager();
+
+		//注册全局环境变量
+		dataPermManager.registerGlobalContextGetter(Date.class,"demo",()->{
+			return new Date();
+		});
+
+		//注册全局环境变量
+		dataPermManager.registerGlobalContextGetter(List.class,"sexDictCodes",()->{
+			DictItemVO sample=new DictItemVO();
+			sample.setDictCode(DictEnum.SEX.code());
+			List<DictItem> dictItems= DictItemServiceProxy.api().queryList(sample).data();
+			List<String> codes= CollectorUtil.collectList(dictItems,(x)->{return x.getCode();});
+			return codes;
+		});
+
+		//注册全局环境变量
+		dataPermManager.registerGlobalContextGetter(String[].class,"misc",()->{
+			SessionUser user=(SessionUser)dao.getDBTreaty().getSubject();
+			return user.permission().getBusiRoleIds();
+		});
+
+		//注册Po的本地环境变量
+		dataPermManager.registerLocalContextGetter(ChangeInstance.class,Logger.class,"demo",()->{
+			return System.currentTimeMillis();
+		});
+
+		//注册Po的本地环境变量
+		dataPermManager.registerLocalContextGetter(ChangeInstance.class,List.class,"sexDictCodes",()->{
+			DictItemVO sample=new DictItemVO();
+			sample.setDictCode(DictEnum.SEX.code());
+			List<DictItem> dictItems= DictItemServiceProxy.api().queryList(sample).data();
+			List<String> codes= CollectorUtil.collectList(dictItems,(x)->{return x.getCode();});
+			return codes;
+		});
+
+		//注册Po的本地环境变量
+		dataPermManager.registerLocalContextGetter(ChangeInstance.class,String[].class,"misc",()->{
+			SessionUser user=(SessionUser)dao.getDBTreaty().getSubject();
+			return user.permission().getBusiRoleIds();
+		});
+
+
+
+
+
 		return  dataPermManager;
 	}
 

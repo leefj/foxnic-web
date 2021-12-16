@@ -472,7 +472,8 @@ public class RuleConditionServiceImpl extends SuperService<RuleCondition> implem
 			return ErrorDesc.failure().message("测试值无法转换成VO对象");
 		}
 
-		DataPermContext context=new DataPermContext();
+		Class poClass=ReflectUtil.forName(rule.getPoType());
+		DataPermContext context=new DataPermContext(poClass);
 		context.setVo(vo);
 		context.setSession(SessionUser.getCurrent());
 		context.setEnv(Environment.getEnvironment());
@@ -509,12 +510,12 @@ public class RuleConditionServiceImpl extends SuperService<RuleCondition> implem
 		}
 
 
-
-		DataPermContext context=new DataPermContext();
+		Class poClass=ReflectUtil.forName(rule.getPoType());
+		DataPermContext context=new DataPermContext(poClass);
 		context.setVo(vo);
 		context.setSession(SessionUser.getCurrent());
 		context.setEnv(Environment.getEnvironment());
-
+		context.initExtraContext();
 		ContextBrowser browser=new ContextBrowser(context);
 		browser.init();
 		result.data(browser.getRoots());
