@@ -155,7 +155,7 @@ public class ContextBrowser {
     private Set<String> methodKeys=new HashSet<>();
 
     private void collectMembers(MemberItem parent, Class type, List<MemberItem> list) {
-//        if(type.getName().startsWith("java.")) return;
+        if(type.getName().startsWith("java.lang.")) return;
 //        //处理属性
 //        for (Field field : type.getDeclaredFields()) {
 //
@@ -318,8 +318,33 @@ public class ContextBrowser {
                     } else {
                         //如果是集合类型，则不再往下走
                         if(isGetter && value!=null && (value instanceof List || value instanceof Map || value instanceof Set)) {
-
-                        } else {
+                            if(value instanceof Map) {
+                                item.setName(item.getName() + " <span style='font-weight:bold;color:#777777;'>" + "size=" + ((Map) value).size() + "</span>");
+                            } else {
+                                Collection collection=(Collection) value;
+                                item.setName(item.getName() + " <span style='font-weight:bold;color:#777777;'>" + "size=" + collection.size() + "</span>");
+                                int i=-1;
+                                for (Object o : collection) {
+                                    i++;
+                                    //继续往下走
+                                    collectCollectionElement(item, i,o, list,Collection.class);
+                                    if(i>=3) break;
+                                }
+                            }
+                        }
+                        else if(value!=null && value.getClass().isArray()) {
+                            Object[] array=(Object[])value;
+                            item.setName(item.getName() + " <span style='font-weight:bold;color:#777777;'>" + "length="+array.length+"</span>");
+                            int i=-1;
+                            for (Object o : array) {
+                                i++;
+                                //继续往下走
+                                collectCollectionElement(item, i,o, list,value.getClass());
+                                if(i>=3) break;
+                            }
+                        }
+                        else {
+                            //继续往下走
                             collectMembers(item, value.getClass(), list);
                         }
 
@@ -343,6 +368,51 @@ public class ContextBrowser {
 
 
     }
+
+
+    private void collectCollectionElement(MemberItem parent, Object index,Object value, List<MemberItem> list,Class collectionType) {
+
+        MemberItem item=new MemberItem();
+        item.setParent(parent);
+        item.setValue(value);
+        if(value==null) {
+            item.setName(index + " <span style='color:#999999'>=</span> <span style='color:#dcdcdc'>null</span>");
+        } else {
+            if (DataParser.isSimpleType(value.getClass())) {
+                item.setName(index + " <span style='color:#999999'>=</span> <span style='font-weight:bold;color:#777777;'>" + value + "</span>");
+            } else {
+                item.setName(index + " <span style='color:#999999'>:</span> <span style='font-weight:bold;color:#777777;'>" + value.getClass().getSimpleName() + "</span>");
+            }
+        }
+
+
+        if (collectionType.equals(Collection.class)) {
+            item.setExpr("get(" + index + ")");
+        } else  if (collectionType.isArray()) {
+            item.setExpr("[" + index + "]");
+        }
+
+        if(parent!=null) {
+            item.setFullName(parent.getFullName()+"."+index);
+            item.setExpr(parent.getExpr()+"."+item.getExpr());
+        } else {
+            item.setFullName(""+index);
+            item.setExpr(item.getExpr());
+        }
+
+        list.add(item);
+
+        // 继续往下走
+        if(value!=null) {
+            if (collectionType.equals(Collection.class)) {
+                collectMembers(item,value.getClass(),list);
+            } else if (collectionType.isArray()) {
+                collectMembers(item,value.getClass(),list);
+            }
+        }
+
+    }
+
 
     public List<ZTreeNode> getRoots() {
         return roots;
