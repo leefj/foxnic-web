@@ -1,3 +1,27 @@
+## 版本：0.6.5.RELEASE ( 2021-11-29 )  Foxnic Verdion: 1.4.5.RELEASE
+### 新特性
+1. XXXXXXXXXXXXXXXXXXXX
+
+### Bug 修复
+1. XXXXXXXXXXXXXXXXXXXX
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## 版本：0.6.2.RELEASE ( 2021-11-29 )  Foxnic Verdion: 1.4.2.RELEASE
 ### 新特性
 
@@ -29,8 +53,7 @@
 11. 验证码逻辑优化   
 12. 增加数据权限环境变量注入机制
 13. token 未正确传递的 bug
-
-9. 其它优化与修复
+14. 其它优化与修复
 
 
 
