@@ -8,11 +8,14 @@ import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.dao.spec.DAOBuilder;
 import com.github.foxnic.dao.sql.loader.SQLoader;
 import com.github.foxnic.springboot.spring.SpringUtil;
+import com.github.foxnic.sql.expr.ConditionExpr;
+import com.github.foxnic.sql.expr.SQL;
 import com.github.foxnic.sql.meta.DBDataType;
 import com.github.foxnic.sql.treaty.DBTreaty;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.enums.DictEnum;
 import org.github.foxnic.web.domain.changes.ChangeInstance;
+import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.domain.system.DictItem;
 import org.github.foxnic.web.domain.system.DictItemVO;
 import org.github.foxnic.web.framework.cache.FoxnicDataCacheManager;
@@ -114,6 +117,19 @@ public class DAOConfig {
 		//注册全局环境变量(示例)
 		dataPermManager.registerGlobalContextGetter(String[].class,"misc",()->{
 			SessionUser user=(SessionUser)dao.getDBTreaty().getSubject();
+			List<User> users1=dao.query("select * from sys_user where name like ?","%admin%").toEntityList(User.class);
+			List<User> users2=dao.queryEntities(User.class,"select * from sys_user where name like ?", "%adm%");
+			List<User> users3=dao.queryEntities(User.class,new ConditionExpr("name like ?", "%adm%"));
+
+			String[] sub = {
+					"select",
+					"*",
+					"from",
+					"sys_user"
+			};
+			String sql=SQL.joinSQLs(sub);
+			dao.query(sql);
+
 			return user.permission().getBusiRoleIds();
 		});
 
