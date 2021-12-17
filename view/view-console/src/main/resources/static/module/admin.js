@@ -305,13 +305,14 @@ layui.define(['settings', 'layer'], function (exports) {
                 contentType: "application/json;charset=utf-8",
                 success: success,
                 beforeSend: function (xhr) {
-
+                    //debugger
                     var token = config.getToken();
                     //debugger;
                     if (token) {
                         //xhr.setRequestHeader('Authorization', 'Bearer ' + token.access_token);
                         //使用非标 token
-                        xhr.setRequestHeader('token', token);
+                        xhr.setRequestHeader('access-token', token.accessToken);
+                        xhr.setRequestHeader('refresn-token', token.refreshToken);
                     }
                 }
             });
