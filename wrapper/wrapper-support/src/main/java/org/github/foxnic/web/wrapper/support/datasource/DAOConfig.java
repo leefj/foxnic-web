@@ -97,12 +97,12 @@ public class DAOConfig {
 	private DataPermManager getDataPermManager(DAO dao) {
 		DataPermManager dataPermManager=new DataPermManager();
 
-		//注册全局环境变量
+		//注册全局环境变量(示例)
 		dataPermManager.registerGlobalContextGetter(Date.class,"demo",()->{
 			return new Date();
 		});
 
-		//注册全局环境变量
+		//注册全局环境变量(示例)
 		dataPermManager.registerGlobalContextGetter(List.class,"sexDictCodes",()->{
 			DictItemVO sample=new DictItemVO();
 			sample.setDictCode(DictEnum.SEX.code());
@@ -111,18 +111,18 @@ public class DAOConfig {
 			return codes;
 		});
 
-		//注册全局环境变量
+		//注册全局环境变量(示例)
 		dataPermManager.registerGlobalContextGetter(String[].class,"misc",()->{
 			SessionUser user=(SessionUser)dao.getDBTreaty().getSubject();
 			return user.permission().getBusiRoleIds();
 		});
 
-		//注册Po的本地环境变量
+		//注册Po的本地环境变量(示例)
 		dataPermManager.registerLocalContextGetter(ChangeInstance.class,Logger.class,"demo",()->{
 			return System.currentTimeMillis();
 		});
 
-		//注册Po的本地环境变量
+		//注册Po的本地环境变量(示例)
 		dataPermManager.registerLocalContextGetter(ChangeInstance.class,List.class,"sexDictCodes",()->{
 			DictItemVO sample=new DictItemVO();
 			sample.setDictCode(DictEnum.SEX.code());
@@ -131,7 +131,7 @@ public class DAOConfig {
 			return codes;
 		});
 
-		//注册Po的本地环境变量
+		//注册Po的本地环境变量(示例)
 		dataPermManager.registerLocalContextGetter(ChangeInstance.class,String[].class,"misc",()->{
 			SessionUser user=(SessionUser)dao.getDBTreaty().getSubject();
 			return user.permission().getBusiRoleIds();
