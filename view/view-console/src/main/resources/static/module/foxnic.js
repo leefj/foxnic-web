@@ -386,7 +386,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 }
             }
 
-            debugger
+            // debugger
             if(cfg.page==null || cfg.page.limits == null) {
                 if(cfg.page==null) cfg.page={};
                 if(cfg.page.limits==null) {
@@ -1393,9 +1393,9 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
         /**
          * 调整搜索相关的尺寸
          * */
-        adjustSearchElement:function() {
+        adjustSearchElement:function(t) {
             var me=this;
-
+            if(!t) t=0;
             // var rows=$(".search-inputs");
             // var divs=$(".search-label-div");
             // if(rows.length>1) {
@@ -1407,17 +1407,21 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             //     }
             //     divs.width(maxWidth);
             // }
-
+            t++;
+            //debugger;
             var h=$(".search-bar").height();
             $(".search-buttons").css("margin-top",(h-$(".search-buttons").height()-8)+"px");
             var ks=$(window).width()-$(".search-buttons").width()-16;
             $(".search-buttons").css("left",ks+"px");
             $(".search-input-rows").animate({opacity:'1.0'},0.25);
             $(".search-buttons").animate({opacity:'1.0'},0.25);
-            //渲染后的补充执行
-            setTimeout(function (){
-                me.adjustSearchElement();
-            },16);
+            if(t<6) {
+                //渲染后的补充执行
+                setTimeout(function () {
+                    me.adjustSearchElement(t);
+                    console.log("adjustSearchElement:"+t);
+                }, 16 * t);
+            }
         },
         chooseOrgNode:function (param){
             //fromData,inputEl,buttonEl

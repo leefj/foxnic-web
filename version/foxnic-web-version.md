@@ -1,9 +1,12 @@
 ## 版本：0.6.5.RELEASE ( 2021-11-29 )  Foxnic Verdion: 1.4.5.RELEASE
 ### 新特性
-1. XXXXXXXXXXXXXXXXXXXX
+1. 解决前端高CPU问题的Bug
+2. 表单窗口取消按钮失灵的Bug
+
+
 
 ### Bug 修复
-1. XXXXXXXXXXXXXXXXXXXX
+1. 优化Druid 以及 MySQL 驱动
 
 
 

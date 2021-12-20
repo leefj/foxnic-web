@@ -1,7 +1,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-03 15:52:49
+ * @since 2021-12-20 14:21:22
  */
 
 function FormPage() {
@@ -61,7 +61,7 @@ function FormPage() {
 			var body=$("body");
 			var bodyHeight=body.height();
 			var footerHeight=$(".model-form-footer").height();
-			var area=admin.changePopupArea(null,bodyHeight+footerHeight);
+			var area=admin.changePopupArea(null,bodyHeight+footerHeight,'sys-user-form-data-win');
 			if(area==null) return;
 			admin.putTempData('sys-user-form-area', area);
 			window.adjustPopup=adjustPopup;
@@ -108,7 +108,10 @@ function FormPage() {
 		laydate.render({
 			elem: '#lastLoginTime',
 			format:"yyyy-MM-dd HH:mm:ss",
-			trigger:"click"
+			trigger:"click",
+			done: function(value, date, endDate){
+				window.pageExt.form.onDatePickerChanged && window.pageExt.form.onDatePickerChanged("lastLoginTime",value, date, endDate);
+			}
 		});
 		//渲染 roleIds 下拉字段
 		fox.renderSelectBox({
@@ -283,7 +286,7 @@ function FormPage() {
 
 
 	    //关闭窗口
-	    $("#cancel-button").click(function(){admin.closePopupCenter();});
+	    $("#cancel-button").click(function(){ admin.finishPopupCenterById('sys-user-form-data-win'); });
 
     }
 

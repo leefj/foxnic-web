@@ -5,7 +5,6 @@ import com.github.foxnic.generator.util.ModuleCodeGenerator;
 import org.github.foxnic.web.generator.data.DataGenerator;
 import org.github.foxnic.web.generator.module.changes.*;
 import org.github.foxnic.web.generator.module.dataperm.*;
-import org.github.foxnic.web.generator.module.example.CodeExampleConfig;
 import org.github.foxnic.web.generator.module.hrm.HrmEmployeeConfig;
 import org.github.foxnic.web.generator.module.hrm.HrmPositionConfig;
 import org.github.foxnic.web.generator.module.oauth.SysUserConfig;
@@ -32,8 +31,8 @@ public class CodeStarter extends ModuleCodeGenerator {
     {
 
 //        initPcmModules();
-//        initOAuthModules();
-        initSystemModules();
+        initOAuthModules();
+//        initSystemModules();
 //        initHrmModules();
 //        initExampleModules();
 //        initChangeModule1s();
@@ -93,7 +92,7 @@ public class CodeStarter extends ModuleCodeGenerator {
     }
 
     private void initExampleModules() {
-        this.addConfig(new CodeExampleConfig());
+//        this.addConfig(new CodeExampleConfig());
 //        this.addConfig(new CodeExampleRoleConfig());
 //        this.addConfig(new CodeExampleStudentConfig());
 //        this.addConfig(new CodeExampleCarConfig());
