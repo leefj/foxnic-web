@@ -111,8 +111,8 @@ public class SessionUserImpl extends SessionUser implements UserDetails, Credent
 		return null;
 	}
 
-	public void setSessionOnlineId(String token) {
-		this.sessionOnlineId = token;
+	public void setSessionOnlineId(String onlineId) {
+		this.sessionOnlineId = onlineId;
 	}
 
 

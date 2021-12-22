@@ -1,17 +1,11 @@
 package org.github.foxnic.web.oauth.jwt;
 
 
- 
-import java.io.IOException;
-import java.util.Objects;
-
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.alibaba.fastjson.JSONObject;
+import com.github.foxnic.springboot.spring.SpringUtil;
 import org.github.foxnic.web.oauth.config.user.SessionUserDetailsManager;
 import org.github.foxnic.web.oauth.exception.UserAuthenticationEntryPoint;
+import org.github.foxnic.web.oauth.login.LoginSuccessHandler;
 import org.github.foxnic.web.oauth.session.SessionUserImpl;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
@@ -26,8 +20,12 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.alibaba.fastjson.JSONObject;
-import com.github.foxnic.springboot.spring.SpringUtil;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Objects;
 
 /**
  * jwt 认证拦截器 用于拦截 请求 提取 jwt 认证
@@ -35,7 +33,7 @@ import com.github.foxnic.springboot.spring.SpringUtil;
  * @author dax
  * @since 2019/11/7 23:02
  */
- 
+
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private static final String AUTHENTICATION_PREFIX = "Bearer ";
     /**
@@ -45,12 +43,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private JwtTokenGenerator jwtTokenGenerator;
     private JwtTokenStorage jwtTokenStorage;
     private SessionUserDetailsManager sessionUserDetailsManager;
-
+    private LoginSuccessHandler loginSuccessHandler;
 
     public JwtAuthenticationFilter(JwtTokenGenerator jwtTokenGenerator, JwtTokenStorage jwtTokenStorage) {
         this.jwtTokenGenerator = jwtTokenGenerator;
         this.jwtTokenStorage = jwtTokenStorage;
-       
+
     }
 
 
@@ -61,27 +59,27 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             chain.doFilter(request, response);
             return;
         }
-        
+
         if(authenticationEntryPoint==null) {
         	 this.authenticationEntryPoint=SpringUtil.getBean(UserAuthenticationEntryPoint.class);
         }
-        
+
         if(sessionUserDetailsManager==null) {
             this.sessionUserDetailsManager=SpringUtil.getBean(SessionUserDetailsManager.class);
         }
-        // 获取 header 解析出 jwt 并进行认证，若无token 则直接进入下一个过滤器。  因为  SecurityContext 的缘故 如果无权限并不会放行
+        // 获取 header 解析出 jwt 并进行认证，若无 token 则直接进入下一个过滤器。  因为  SecurityContext 的缘故 如果无权限并不会放行
         String header = request.getHeader(HttpHeaders.AUTHORIZATION);
         if (StringUtils.hasText(header) && header.startsWith(AUTHENTICATION_PREFIX)) {
             String jwtToken = header.replace(AUTHENTICATION_PREFIX, "");
 
             if (StringUtils.hasText(jwtToken)) {
                 try {
-                    authenticationTokenHandle(jwtToken, request);
+                    authenticationTokenHandle(jwtToken, chain, request,response);
                 } catch (AuthenticationException e) {
                     authenticationEntryPoint.commence(request, response, e);
                 }
             } else {
-                //带安全头 没有带token
+                //带安全头 没有带 token
                 authenticationEntryPoint.commence(request, response, new AuthenticationCredentialsNotFoundException("token is not found"));
             }
         }
@@ -95,17 +93,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
      * @param jwtToken jwt token
      * @param request  request
      */
-    private void authenticationTokenHandle(String jwtToken, HttpServletRequest request) throws AuthenticationException {
+    private void authenticationTokenHandle(String jwtToken, FilterChain chain,HttpServletRequest request,HttpServletResponse response) throws AuthenticationException {
 
         // 根据我的实现 有效 token 才会被解析出来
         JSONObject jsonObject = jwtTokenGenerator.decodeAndVerify(jwtToken);
         if(jsonObject==null || jsonObject.isEmpty()) {
         	throw new BadCredentialsException("token 错误");
         }
-  
+
         String userId = jsonObject.getString("uid");
         String jti = jsonObject.getString("jti");
-      
+
         // 从缓存获取 token
         JwtTokenPair jwtTokenPair = jwtTokenStorage.get(jti);
         if (Objects.isNull(jwtTokenPair)) {
@@ -116,14 +114,28 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         //比对 Token
         if (jwtToken.equals(accessToken.token())) {
         	UserDetails user=sessionUserDetailsManager.loadUserByUsername(userId);
-            UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(user, null, null);
+            SessionUserImpl sessionUser=(SessionUserImpl)user;
+            UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(user, null, sessionUser.getAuthorities());
             usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-            // 放入安全上下文中
-            SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+            if(loginSuccessHandler==null) {
+                loginSuccessHandler = SpringUtil.getBean(LoginSuccessHandler.class);
+            }
+
+            try {
+                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+                loginSuccessHandler.setupAuthentication(request,response,SecurityContextHolder.getContext().getAuthentication());
+                // 放入安全上下文中
+                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ServletException e) {
+                e.printStackTrace();
+            }
+
         } else {
             throw new BadCredentialsException("token is not matched");
         }
- 
+
     }
 }
 

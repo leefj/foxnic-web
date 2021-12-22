@@ -1,14 +1,12 @@
 package org.github.foxnic.web.oauth.logout;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.github.foxnic.commons.log.Logger;
 import org.github.foxnic.web.oauth.session.SessionUserImpl;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 
-import com.github.foxnic.commons.log.Logger;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 自定义登录处理器
@@ -19,7 +17,8 @@ import com.github.foxnic.commons.log.Logger;
 public class UserLogoutHandler implements LogoutHandler {
     @Override
     public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
-    	if(authentication==null) {
+
+		if(authentication==null) {
     		Logger.info("no session user");
     		return;
     	}

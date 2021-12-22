@@ -281,7 +281,7 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
     		user=dao.queryEntity(User.class, new ConditionExpr(SYS_USER.PHONE+" = ?",identity));
     	}
 		if(user==null) {
-			dao.queryEntity(User.class, new ConditionExpr(SYS_USER.ID+" = ?",identity));
+			user=dao.queryEntity(User.class, new ConditionExpr(SYS_USER.ID+" = ?",identity));
 		}
 
 //    	//关联相关数据

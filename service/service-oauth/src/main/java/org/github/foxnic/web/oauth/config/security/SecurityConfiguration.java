@@ -75,8 +75,12 @@ public class SecurityConfiguration {
 		provider.setUserDetailsService(mngr);
 		return provider;
 	}
-	
-	
+
+//	@Bean
+//	public SessionRegistry sessionRegistry() {
+//		return new SessionRegistryImpl();
+//	}
+
 	/**
      * 验证码认证过滤器.
      *
@@ -85,7 +89,7 @@ public class SecurityConfiguration {
     @Bean
     public CaptchaAuthenticationFilter captchaAuthenticationFilter(UserDetailsManager userDetailsManager,ICaptchaService captchaService,AuthenticationSuccessHandler authenticationSuccessHandler,AuthenticationFailureHandler authenticationFailureHandler) {
         CaptchaAuthenticationFilter captchaAuthenticationFilter = new CaptchaAuthenticationFilter();
-        
+
         CaptchaAuthenticationProvider captchaAuthenticationProvider=new CaptchaAuthenticationProvider(userDetailsManager,captchaService);
         // 配置 authenticationManager
         ProviderManager providerManager = new ProviderManager(Collections.singletonList(captchaAuthenticationProvider));
@@ -97,7 +101,7 @@ public class SecurityConfiguration {
 
         return captchaAuthenticationFilter;
     }
-    
+
 
 	/**
 	 * The type Default configurer adapter.
@@ -122,19 +126,19 @@ public class SecurityConfiguration {
 		private UserAuthenticationEntryPoint simpleAuthenticationEntryPoint;
 		@Autowired
 		private RequestDeniedHandler simpleAccessDeniedHandler;
-		
+
 		@Autowired
         private JwtAuthenticationFilter jwtAuthenticationFilter;
-		
+
 		 @Autowired
         private FilterInvocationSecurityMetadataSource filterInvocationSecurityMetadataSource;
-		 
+
         @Autowired
         private AccessDecisionManager accessDecisionManager;
-        
+
         @Autowired
         private CaptchaAuthenticationFilter captchaAuthenticationFilter;
-        
+
 
 		@Override
 		protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -165,10 +169,10 @@ public class SecurityConfiguration {
 					return null;
 				}
 			});
-			
+
 			//允许iframe嵌入
 			http.headers().frameOptions().disable();
-			
+
 			// 如果是 token 模式，禁用Session
 			if(securityProperties.getSecurityMode()==SecurityMode.JWT) {
 				http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -189,9 +193,9 @@ public class SecurityConfiguration {
 					.authenticationEntryPoint(simpleAuthenticationEntryPoint);
 			//
 			//http.authorizeRequests().anyRequest().authenticated();
-			
+
 			http.authorizeRequests().anyRequest().authenticated().withObjectPostProcessor(filterSecurityInterceptorObjectPostProcessor());
-			
+
 			// 登录前置过滤器
 			http.addFilterBefore(preLoginFilter, UsernamePasswordAuthenticationFilter.class);
 			http.addFilterBefore(captchaAuthenticationFilter,PreLoginFilter.class);
@@ -204,7 +208,7 @@ public class SecurityConfiguration {
 					.logoutSuccessHandler(new UserLogoutSuccessHandler());
 
 		}
-		
+
 		 /**
          * 自定义 FilterSecurityInterceptor  ObjectPostProcessor 以替换默认配置达到动态权限的目的
          *
@@ -220,7 +224,7 @@ public class SecurityConfiguration {
                 }
             };
         }
-        
-        
+
+
 	}
 }

@@ -404,10 +404,13 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
 
 
             var data=null;
-
+            var token = settings.getToken();
+            if(token) {
+                token=token.accessToken;
+            }
             var basicConfig = {
                 method: 'POST',
-                headers: {'token': settings.getToken()},
+                headers: {'Authorization': "Bearer "+token},
                 request: {
                     pageName: "pageIndex",
                     limitName: "pageSize"

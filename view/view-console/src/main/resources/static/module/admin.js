@@ -309,10 +309,10 @@ layui.define(['settings', 'layer'], function (exports) {
                     var token = config.getToken();
                     //debugger;
                     if (token) {
-                        //xhr.setRequestHeader('Authorization', 'Bearer ' + token.access_token);
+                        xhr.setRequestHeader('Authorization', 'Bearer ' + token.accessToken);
                         //使用非标 token
-                        xhr.setRequestHeader('access-token', token.accessToken);
-                        xhr.setRequestHeader('refresn-token', token.refreshToken);
+                        // xhr.setRequestHeader('access-token', token.accessToken);
+                        //xhr.setRequestHeader('refresn-token', token.refreshToken);
                     }
                 }
             });
