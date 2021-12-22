@@ -33,8 +33,8 @@ import java.util.Objects;
  * @author dax
  * @since 2019/11/7 23:02
  */
-
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
+
     private static final String AUTHENTICATION_PREFIX = "Bearer ";
     /**
      * 认证如果失败由该端点进行响应
