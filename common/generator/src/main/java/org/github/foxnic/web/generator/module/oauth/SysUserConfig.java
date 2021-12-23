@@ -118,19 +118,19 @@ public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
                 .valueField(RoleMeta.ID).textField(UserMeta.NAME).muliti(true,false)
         ;
 
-//        context.view().field(SYS_USER.PORTRAIT_ID)
-//                .basic().label("头像")
-//                .search().hidden(true)
-//                .table().alignCenter()
-//                .form().upload().acceptSingleImage().buttonLabel("选择头像")
-//        ;
-
         context.view().field(SYS_USER.PORTRAIT_ID)
                 .basic().label("头像")
                 .search().hidden(true)
                 .table().alignCenter()
-                .form().upload().acceptSingleFile().buttonLabel("选择头像")
+                .form().upload().acceptSingleImage().buttonLabel("选择头像")
         ;
+
+//        context.view().field(SYS_USER.PORTRAIT_ID)
+//                .basic().label("头像")
+//                .search().hidden(true)
+//                .table().alignCenter()
+//                .form().upload().acceptSingleFile().buttonLabel("选择头像")
+//        ;
 
         context.view().field(SYS_USER.CACHE_KEY).search().hidden();
 
