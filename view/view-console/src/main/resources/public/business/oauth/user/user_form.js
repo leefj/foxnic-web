@@ -1,7 +1,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-23 16:37:02
+ * @since 2021-12-23 16:40:55
  */
 
 function FormPage() {
@@ -87,8 +87,10 @@ function FormPage() {
 		foxup.render({
 			el:"portraitId",
 			maxFileCount: 1,
-			displayFileName: true,
-			accept: "file",
+			displayFileName: false,
+			accept: "image",
+			acceptMime:'image/*',
+			exts:'png|jpg|bmp|gif|jpeg',
 			afterPreview:function(elId,index,fileId,upload,fileName,fileType){
 				adjustPopup();
 				window.pageExt.form.onUploadEvent &&  window.pageExt.form.onUploadEvent({event:"afterPreview",elId:elId,index:index,fileId:fileId,upload:upload,fileName:fileName,fileType:fileType});

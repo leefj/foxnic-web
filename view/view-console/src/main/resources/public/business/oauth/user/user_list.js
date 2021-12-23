@@ -1,7 +1,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-23 16:37:02
+ * @since 2021-12-23 16:40:55
  */
 
 
@@ -76,7 +76,7 @@ function ListPage() {
 					{ fixed: 'left',type:'checkbox'}
 					,{ field: 'name', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('账户') , templet: function (d) { return templet('name',d.name,d);}  }
 					,{ field: 'realName', align:"",fixed:false,  hide:false, sort: true, title: fox.translate('姓名') , templet: function (d) { return templet('realName',fox.getProperty(d,["joinedTenants","employee","person","name"]),d);} }
-					,{ field: 'portraitId', align:"center",fixed:false,  hide:false, sort: true, title: fox.translate('头像') , templet: function (d) { return templet('portraitId',d.portraitId,d);}  }
+					,{ field: 'portraitId', align:"center", fixed:false, hide:false, sort: true, title: fox.translate('头像'), templet: function (d) { return '<img style="height:100%;" fileType="image/png" onclick="window.previewImage(this)"  src="'+apiurls.storage.image+'?id='+ d.portraitId+'" />'; } }
 					,{ field: 'language', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('语言'), templet:function (d){ return templet('language',fox.getEnumText(RADIO_LANGUAGE_DATA,d.language),d);}}
 					,{ field: 'phone', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('手机') , templet: function (d) { return templet('phone',d.phone,d);}  }
 					,{ field: 'valid', align:"center",fixed:false,  hide:false, sort: true, title: fox.translate('是否有效'), templet: '#cell-tpl-valid'}
