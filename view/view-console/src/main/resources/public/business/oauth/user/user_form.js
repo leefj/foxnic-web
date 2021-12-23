@@ -1,7 +1,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-20 14:21:22
+ * @since 2021-12-23 16:37:02
  */
 
 function FormPage() {
@@ -87,22 +87,26 @@ function FormPage() {
 		foxup.render({
 			el:"portraitId",
 			maxFileCount: 1,
-			displayFileName: false,
-			accept: "image",
-			acceptMime:'image/*',
-			exts:'png|jpg|bmp|gif|jpeg',
-			afterPreview:function(elId,index,fileId,upload){
+			displayFileName: true,
+			accept: "file",
+			afterPreview:function(elId,index,fileId,upload,fileName,fileType){
 				adjustPopup();
+				window.pageExt.form.onUploadEvent &&  window.pageExt.form.onUploadEvent({event:"afterPreview",elId:elId,index:index,fileId:fileId,upload:upload,fileName:fileName,fileType:fileType});
 			},
-			afterUpload:function (result,index,upload) {
-				console.log("文件上传后回调")
+			afterUpload:function (elId,result,index,upload) {
+				console.log("文件上传后回调");
+				window.pageExt.form.onUploadEvent &&  window.pageExt.form.onUploadEvent({event:"afterUpload",elId:elId,index:index,upload:upload});
 			},
 			beforeRemove:function (elId,fileId,index,upload) {
 				console.log("文件删除前回调");
+				if(window.pageExt.form.onUploadEvent) {
+					return window.pageExt.form.onUploadEvent({event:"beforeRemove",elId:elId,index:index,fileId:fileId,upload:upload});
+				}
 				return true;
 			},
 			afterRemove:function (elId,fileId,index,upload) {
 				adjustPopup();
+				window.pageExt.form.onUploadEvent &&  window.pageExt.form.onUploadEvent({event:"afterRemove",elId:elId,index:index,upload:upload});
 			}
 	    });
 		laydate.render({
@@ -296,7 +300,10 @@ function FormPage() {
 		saveForm: saveForm,
 		fillFormData: fillFormData,
 		adjustPopup: adjustPopup,
-		action: action
+		action: action,
+		setAction: function (act) {
+			action = act;
+		}
 	};
 
 	window.pageExt.form.ending && window.pageExt.form.ending();

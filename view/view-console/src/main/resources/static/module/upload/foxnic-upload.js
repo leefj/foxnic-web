@@ -11,7 +11,7 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"elem
         note:"note",p12:"p12",pfx:"pfx",psd:"psd",rar:"rar",sh:"sh",wav:"wav",xls:"xls",xlsx:"xls",zip:"zip"
     };
     var template=[
-        '<div class="layui-upload-unit" id="{{el}}-file-unit-{{index}}">',
+        '<div class="layui-upload-unit" id="{{el}}-file-unit-{{index}}" style="{{el-height}}">',
         '	<img class="layui-upload-img" onclick="window.previewImage(this)" can-preview="{{canPreview}}" id="{{el}}-image-{{index}}" style="" src="/assets/images/no-image-92@2x.png">',
         '	<div id="{{el}}-text-{{index}}" class="layui-upload-file-name"></div>',
         '	<div class="layui-upload-button-div" style="display:none" id="{{el}}-button-div-{{index}}">',
@@ -34,6 +34,9 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"elem
         var fileList=$("#"+elId+"-file-list");
         var html=template.join("\n");
         html=html.replace(/{{el}}/g,elId);
+        if(displayFileName) {
+            html = html.replace(/{{el-height}}/g, "height:110px");
+        }
         html=html.replace(/{{index}}/g,index);
         if(fileType=="png") {
             html = html.replace(/{{canPreview}}/g, "yes");
@@ -95,7 +98,7 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"elem
         //         window.adjustPopup();
         //     }
         // },500);
-        inst.config.afterPreview && inst.config.afterPreview(elId,index,fileId,inst);
+        inst.config.afterPreview && inst.config.afterPreview(elId,index,fileId,inst,fileName,fileType);
 
 
         return preview;
@@ -306,12 +309,12 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"elem
 
                 bindData("add",elId,index,res.data[0].fileId);
 
-                afterUpload && afterUpload(res,index,upload);
+                afterUpload && afterUpload(elId,res,index,upload);
             };
             //
             var error=this.config.error;
             this.config.error = function(r) {
-                layer.msg('附件上传失败');
+                top.layer.msg('附件上传失败');
                 error && error(r);
             }
             //

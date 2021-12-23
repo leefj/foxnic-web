@@ -86,6 +86,10 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             return true;
         },
 
+        onUploadEvent: function(e) {
+            console.log("onUploadEvent."+e.event,e);
+        },
+
         other:function(){
 
         }
