@@ -115,7 +115,7 @@ layui.define(['settings', 'layer'], function (exports) {
         },
         // 关闭中间弹出并且触发finish回调
         finishPopupCenterById: function (id) {
-            debugger;
+            // debugger;
             var index=this.getVar("$$"+id+"-popup-index");
             this.finishPopupCenter(index);
         },
