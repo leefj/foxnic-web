@@ -1,7 +1,7 @@
 /**
  * 分类属性 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-27 10:07:19
+ * @since 2021-12-29 16:34:39
  */
 
 
@@ -89,7 +89,7 @@ function ListPage() {
 					,{ field: 'hint', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('提示信息') , templet: function (d) { return templet('hint',d.hint,d);}  }
 					,{ field: 'detail', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('说明') , templet: function (d) { return templet('detail',d.detail,d);}  }
 					,{ field: 'note', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('备注') , templet: function (d) { return templet('note',d.note,d);}  }
-					,{ field: 'valid', align:"right",fixed:false,  hide:true, sort: true, title: fox.translate('是否有效'), templet: '#cell-tpl-valid'}
+					,{ field: 'valid', align:"center",fixed:false,  hide:true, sort: true, title: fox.translate('是否有效'), templet: '#cell-tpl-valid'}
 					,{ field: 'sourceId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('原属性ID') , templet: function (d) { return templet('sourceId',d.sourceId,d);}  }
 					,{ field: 'createTime', align:"right", fixed:false, hide:true, sort: true, title: fox.translate('创建时间') ,templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
@@ -106,6 +106,8 @@ function ListPage() {
 							} else {
 								layer.msg(fox.translate('数据导入失败')+"!");
 							}
+							// 是否执行后续逻辑：错误提示
+							return false;
 						}
 					}:false
 				}
@@ -191,13 +193,18 @@ function ListPage() {
 			radio: false,
 			size: "small",
 			filterable: false,
+			on: function(data){
+				setTimeout(function () {
+					window.pageExt.list.onSelectBoxChanged && window.pageExt.list.onSelectBoxChanged("dataType",data.arr,data.change,data.isAdd);
+				},1);
+			},
 			//转换数据
 			transform:function(data) {
 				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
 				var opts=[];
 				if(!data) return opts;
 				for (var i = 0; i < data.length; i++) {
-					opts.push({name:data[i].text,value:data[i].code});
+					opts.push({data:data[i],name:data[i].text,value:data[i].code});
 				}
 				return opts;
 			}
@@ -292,10 +299,7 @@ function ListPage() {
             }
             //调用批量删除接口
 			top.layer.confirm(fox.translate('确定删除已选中的')+fox.translate('分类属性')+fox.translate('吗？'), function (i) {
-				top.layer.close(i);
-				top.layer.load(2);
-                admin.request(moduleURL+"/delete-by-ids", { ids: ids }, function (data) {
-					top.layer.closeAll('loading');
+                admin.post(moduleURL+"/delete-by-ids", { ids: ids }, function (data) {
                     if (data.success) {
 						if(window.pageExt.list.afterBatchDelete) {
 							var doNext=window.pageExt.list.afterBatchDelete(data);
@@ -307,7 +311,6 @@ function ListPage() {
 						top.layer.msg(data.message, {icon: 2, time: 1500});
                     }
                 });
-
 			});
         }
 	}
@@ -328,24 +331,16 @@ function ListPage() {
 
 			admin.putTempData('pcm-catalog-attribute-form-data-form-action', "",true);
 			if (layEvent === 'edit') { // 修改
-				//延迟显示加载动画，避免界面闪动
-				var task=setTimeout(function(){layer.load(2);},1000);
-				admin.request(moduleURL+"/get-by-id", { id : data.id }, function (data) {
-					clearTimeout(task);
-					layer.closeAll('loading');
+				admin.post(moduleURL+"/get-by-id", { id : data.id }, function (data) {
 					if(data.success) {
 						admin.putTempData('pcm-catalog-attribute-form-data-form-action', "edit",true);
 						showEditForm(data.data);
 					} else {
-						 layer.msg(data.message, {icon: 1, time: 1500});
+						 top.layer.msg(data.message, {icon: 1, time: 1500});
 					}
 				});
 			} else if (layEvent === 'view') { // 查看
-				//延迟显示加载动画，避免界面闪动
-				var task=setTimeout(function(){layer.load(2);},1000);
-				admin.request(moduleURL+"/get-by-id", { id : data.id }, function (data) {
-					clearTimeout(task);
-					layer.closeAll('loading');
+				admin.post(moduleURL+"/get-by-id", { id : data.id }, function (data) {
 					if(data.success) {
 						admin.putTempData('pcm-catalog-attribute-form-data-form-action', "view",true);
 						showEditForm(data.data);
@@ -394,7 +389,10 @@ function ListPage() {
 		}
 		var action=admin.getTempData('pcm-catalog-attribute-form-data-form-action');
 		var queryString="";
-		if(data && data.id) queryString="?" + 'id=' + data.id;
+		if(data && data.id) queryString='id=' + data.id;
+		if(window.pageExt.list.makeFormQueryString) {
+			queryString=window.pageExt.list.makeFormQueryString(data,queryString,action);
+		}
 		admin.putTempData('pcm-catalog-attribute-form-data', data);
 		var area=admin.getTempData('pcm-catalog-attribute-form-area');
 		var height= (area && area.height) ? area.height : ($(window).height()*0.6);
@@ -411,7 +409,7 @@ function ListPage() {
 			area: ["500px",height+"px"],
 			type: 2,
 			id:"pcm-catalog-attribute-form-data-win",
-			content: '/business/pcm/catalog_attribute/catalog_attribute_form.html' + queryString,
+			content: '/business/pcm/catalog_attribute/catalog_attribute_form.html' + (queryString?("?"+queryString):""),
 			finish: function () {
 				refreshTableData();
 			}

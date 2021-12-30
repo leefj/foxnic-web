@@ -12,7 +12,7 @@ import com.github.foxnic.commons.bean.BeanUtil;
 /**
  * 分类属性
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-27 10:07:17
+ * @since 2021-12-29 16:34:39
  * @sign E8A80F650C77910DA881DF6DA78ED0BE
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */

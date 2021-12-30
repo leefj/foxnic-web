@@ -9,7 +9,7 @@ import java.util.ArrayList;
 /**
  * 用于PCM数据查询
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-04 12:08:37
+ * @since 2021-12-29 16:34:36
  * @sign 894B3A54E71CCDFDE72909E263659396
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */

@@ -10,7 +10,7 @@ import org.github.foxnic.web.domain.pcm.CatalogAllocation;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-27 10:07:17
+ * @since 2021-12-29 16:34:39
  * @sign FF3B6F6F29CDAB7237A406D0301284B6
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */

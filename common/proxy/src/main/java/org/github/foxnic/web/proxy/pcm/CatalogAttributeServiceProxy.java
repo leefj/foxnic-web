@@ -19,7 +19,7 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  * 分类属性表  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-27 10:07:17
+ * @since 2021-12-29 16:34:39
 */
 
 @FeignClient(value = MicroServiceNames.PCM, contextId = CatalogAttributeServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)
@@ -139,7 +139,7 @@ public interface CatalogAttributeServiceProxy {
 	Result<CatalogAttribute> getById(String id);
 
 	/**
-	 * 批量删除分类属性
+	 * 获取多个分类属性
 	*/
 	@RequestMapping(CatalogAttributeServiceProxy.GET_BY_IDS)
 	Result<List<CatalogAttribute>> getByIds(List<String> ids);
