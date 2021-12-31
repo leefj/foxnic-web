@@ -364,7 +364,14 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     cfg.url = settings.base_server + cfg.url;
                     var cols = cfg.cols[0];
                     // var prevFlag = 0, prev = null;
+                    debugger
                     for (var i = 0; cols && i < cols.length; i++) {
+                        var cfg=columnWidthConfig[cols[i].field];
+                        if(cfg==null) continue;
+                        if(TypeUtil.isNumber(cfg)) {
+                            cfg={width:cfg};
+                        }
+
                         if (cols[i].hide) continue;
                         if (cols[i].field==this.translate('空白列')) continue;
                         // if (cols[i].field=='row-ops') continue;
@@ -372,11 +379,15 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                         // 	debugger;
                         // 	columnWidthConfig[cols[i].field]=200;
                         // }
-                        var w = columnWidthConfig[cols[i].field];
-                        if (w) {
-                            cols[i].width = w;
-                            console.log(cols[i].field+".width", w);
-                        }
+                        //var w = columnWidthConfig[cols[i].field];
+                        // if (w) {
+                        cols[i].width = cfg.width;
+                            // debugger
+                            // if(cfg.hide!==null) {
+                        cols[i].hide = cfg.hide;
+                            // }
+                            console.log(cols[i].field, cfg);
+                        // }
                         // if (cols[i].field == this.translate('空白列')) prevFlag = 1;
                         // if (prevFlag == 0) {
                         //     prev = cols[i];
@@ -1842,7 +1853,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             for (var i = 0; i < ths.length; i++) {
                 var th = $(ths[i]);
                 if (cols[i] && cols[i].field && !cols[i].hide) {
-                    ws[cols[i].field] = th[0].clientWidth;
+                    ws[cols[i].field] = {width:th[0].clientWidth,hide:false};
                     cols[i].width = th[0].clientWidth;
                 }
             }
