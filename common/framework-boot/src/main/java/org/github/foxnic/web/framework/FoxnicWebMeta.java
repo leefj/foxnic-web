@@ -45,9 +45,14 @@ public class FoxnicWebMeta {
 	public static final String SERVICE_STORAGE_PACKAGE=BASE_PACKAGE+".storage";
 
 	/**
+	 * 计划任务
+	 * */
+	public static final String SERVICE_STORAGE_JOB=BASE_PACKAGE+".storage";
+
+	/**
 	 * 人事基础服务
 	 * */
-	public static final String SERVICE_HRM_PACKAGE=BASE_PACKAGE+".hrm";
+	public static final String SERVICE_HRM_PACKAGE=BASE_PACKAGE+".job";
 
 	/**
 	 * 属性自定义服务
