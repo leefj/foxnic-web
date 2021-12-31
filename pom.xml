@@ -29,6 +29,7 @@
         <module>./service/service-changes</module>
         <module>./service/service-bpm</module>
         <module>./service/service-dataperm</module>
+        <module>./service/service-job</module>
         <!-- 界面视图 -->
         <module>./view/view-console</module>
     </modules>

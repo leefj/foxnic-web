@@ -7,6 +7,8 @@ import org.github.foxnic.web.generator.module.changes.*;
 import org.github.foxnic.web.generator.module.dataperm.*;
 import org.github.foxnic.web.generator.module.hrm.HrmEmployeeConfig;
 import org.github.foxnic.web.generator.module.hrm.HrmPositionConfig;
+import org.github.foxnic.web.generator.module.job.SysJobConfig;
+import org.github.foxnic.web.generator.module.job.SysJobLogConfig;
 import org.github.foxnic.web.generator.module.oauth.SysUserConfig;
 import org.github.foxnic.web.generator.module.pcm.PcmCatalogAllocationConfig;
 import org.github.foxnic.web.generator.module.pcm.PcmCatalogAttributeConfig;
@@ -30,14 +32,15 @@ public class CodeStarter extends ModuleCodeGenerator {
     public void initModules()
     {
 
-        initPcmModules();
-        initOAuthModules();
-        initSystemModules();
+//        initPcmModules();
+//        initOAuthModules();
+//        initSystemModules();
 //        initHrmModules();
 //        initExampleModules();
 //        initChangeModule1s();
 //        initBpmModules();
 //        initDatapermModules();
+        initJobModules();
 
     }
 
@@ -67,6 +70,11 @@ public class CodeStarter extends ModuleCodeGenerator {
         this.addConfig(new ChsChangeEventConfig());
         this.addConfig(new ChsInstanceBillConfig());
         this.addConfig(new ChsInstanceApproverConfig());
+    }
+
+    private void initJobModules() {
+        this.addConfig(new SysJobConfig());
+        this.addConfig(new SysJobLogConfig());
     }
 
     private void initPcmModules() {

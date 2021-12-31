@@ -17,6 +17,7 @@ public abstract class BaseCodeConfig<T extends DBTable> extends ModuleCodeConfig
     public static final String PREFIX_CHANGES="service-changes";
     public static final String PREFIX_BPM="service-bpm";
     public static final String PREFIX_DATA_PERM="service-dataperm";
+    public static final String PREFIX_JOB="service-job";
 
 
     private FoxnicWebConfigs configs;

@@ -1,9 +1,10 @@
-## 版本：0.6.5.RELEASE ( 2021-11-29 )  Foxnic Verdion: 1.4.5.RELEASE
+## 版本：0.6.5.RELEASE ( 2021-11-29 )  Foxnic Version: 1.4.5.RELEASE
 ### 新特性
 1. 解决前端高CPU问题的Bug
 2. 表单窗口取消按钮失灵的Bug
 3. 前后端 Token 传递优化
 4. 上传组件优化以及在 ext.js 中增加事件回调
+5. 增加任务调度模块
 
 
 
@@ -27,7 +28,7 @@
 
 
 
-## 版本：0.6.2.RELEASE ( 2021-11-29 )  Foxnic Verdion: 1.4.2.RELEASE
+## 版本：0.6.2.RELEASE ( 2021-11-29 )  Foxnic Version: 1.4.2.RELEASE
 ### 新特性
 
 1. 系统配置 Profile 支持，功能升级
@@ -77,7 +78,7 @@
 
 
 
-## 版本：0.6.1.RELEASE ( 2021-11-29 )  Foxnic Verdion: 1.4.1.RELEASE
+## 版本：0.6.1.RELEASE ( 2021-11-29 )  Foxnic Version: 1.4.1.RELEASE
 ### 新特性
 
 1. 代码生成: switch 组件默认居中 (done)

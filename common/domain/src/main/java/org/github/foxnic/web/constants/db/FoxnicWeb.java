@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2021-12-03 14:58:13
+ * @since 2021-12-31 11:48:50
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -3513,6 +3513,21 @@ public class FoxnicWeb {
 		public static final String $NAME = "sys_config";
 		
 		/**
+		 * 主键
+		*/
+		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","主键","主键",true,false,false);
+		
+		/**
+		 * Profile,Profile Id 
+		*/
+		public static final DBField PROFILE_ID = new DBField(DBDataType.STRING , "profile_id","profileId","Profile","Profile Id",false,false,false);
+		
+		/**
+		 * 分类代码,关联 sys_config_catalog 数据字典
+		*/
+		public static final DBField CATALOG_CODE = new DBField(DBDataType.STRING , "catalog_code","catalogCode","分类代码","关联 sys_config_catalog 数据字典",false,false,true);
+		
+		/**
 		 * 配置键
 		*/
 		public static final DBField CODE = new DBField(DBDataType.STRING , "code","code","配置键","配置键",false,false,false);
@@ -3587,23 +3602,8 @@ public class FoxnicWeb {
 		*/
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
-		/**
-		 * Profile,Profile Id 
-		*/
-		public static final DBField PROFILE_ID = new DBField(DBDataType.STRING , "profile_id","profileId","Profile","Profile Id",false,false,false);
-		
-		/**
-		 * 分类代码,关联 sys_config_catalog 数据字典
-		*/
-		public static final DBField CATALOG_CODE = new DBField(DBDataType.STRING , "catalog_code","catalogCode","分类代码","关联 sys_config_catalog 数据字典",false,false,true);
-		
-		/**
-		 * 主键
-		*/
-		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","主键","主键",true,false,false);
-		
 		public SYS_CONFIG() {
-			this.init($NAME,"系统配置表" , CODE , NAME , TYPE , TYPE_DESC , VALUE , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , PROFILE_ID , CATALOG_CODE , ID);
+			this.init($NAME,"系统配置表" , ID , PROFILE_ID , CATALOG_CODE , CODE , NAME , TYPE , TYPE_DESC , VALUE , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final SYS_CONFIG $TABLE=new SYS_CONFIG();
 	}
@@ -4071,6 +4071,679 @@ public class FoxnicWeb {
 			this.init($NAME,"调用统计日志" , ID , APPLICATION , HOST_NAME , URI , USER_AGENT , CLIENT_IP , TOKEN , SESSION_ID , USER_ID , USER_NAME , TID , PARAMETER , RESPONSE , START_TIME , END_TIME , EXCEPTION);
 		}
 		public static final SYS_INVOKE_LOG $TABLE=new SYS_INVOKE_LOG();
+	}
+	
+	/**
+	 * 定时任务配置表
+	*/
+	public static class SYS_JOB extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "sys_job";
+		
+		/**
+		 * 主键
+		*/
+		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","主键","主键",true,false,false);
+		
+		/**
+		 * 任务名称
+		*/
+		public static final DBField NAME = new DBField(DBDataType.STRING , "name","name","任务名称","任务名称",false,false,true);
+		
+		/**
+		 * 组别
+		*/
+		public static final DBField GROUP_TAG = new DBField(DBDataType.STRING , "group_tag","groupTag","组别","组别",false,false,true);
+		
+		/**
+		 * 执行类
+		*/
+		public static final DBField CLASS_NAME = new DBField(DBDataType.STRING , "class_name","className","执行类","执行类",false,false,true);
+		
+		/**
+		 * cron表达式
+		*/
+		public static final DBField CRON_EXPR = new DBField(DBDataType.STRING , "cron_expr","cronExpr","cron表达式","cron表达式",false,false,true);
+		
+		/**
+		 * 计划执行错误策略
+		*/
+		public static final DBField ERROR_POLICY = new DBField(DBDataType.STRING , "error_policy","errorPolicy","计划执行错误策略","计划执行错误策略",false,false,true);
+		
+		/**
+		 * 执行参数，JSON对象格式
+		*/
+		public static final DBField PARAMETER = new DBField(DBDataType.STRING , "parameter","parameter","执行参数","JSON对象格式",false,false,true);
+		
+		/**
+		 * 是否并发执行（0允许 1禁止）
+		*/
+		public static final DBField CONCURRENT = new DBField(DBDataType.INTEGER , "concurrent","concurrent","是否并发执行（0允许","1禁止）",false,false,true);
+		
+		/**
+		 * 状态
+		*/
+		public static final DBField STATUS = new DBField(DBDataType.STRING , "status","status","状态","状态",false,false,true);
+		
+		/**
+		 * 执行错误次数
+		*/
+		public static final DBField ERRORS = new DBField(DBDataType.INTEGER , "errors","errors","执行错误次数","执行错误次数",false,false,true);
+		
+		/**
+		 * 备注
+		*/
+		public static final DBField NOTES = new DBField(DBDataType.STRING , "notes","notes","备注","备注",false,false,true);
+		
+		/**
+		 * 租户ID
+		*/
+		public static final DBField TENANT_ID = new DBField(DBDataType.STRING , "tenant_id","tenantId","租户ID","租户ID",false,false,true);
+		
+		/**
+		 * 创建人ID
+		*/
+		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
+		
+		/**
+		 * 创建时间
+		*/
+		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","创建时间","创建时间",false,false,true);
+		
+		/**
+		 * 修改人ID
+		*/
+		public static final DBField UPDATE_BY = new DBField(DBDataType.STRING , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
+		
+		/**
+		 * 修改时间
+		*/
+		public static final DBField UPDATE_TIME = new DBField(DBDataType.DATE , "update_time","updateTime","修改时间","修改时间",false,false,true);
+		
+		/**
+		 * 是否已删除
+		*/
+		public static final DBField DELETED = new DBField(DBDataType.INTEGER , "deleted","deleted","是否已删除","是否已删除",false,false,false);
+		
+		/**
+		 * 删除人ID
+		*/
+		public static final DBField DELETE_BY = new DBField(DBDataType.STRING , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
+		
+		/**
+		 * 删除时间
+		*/
+		public static final DBField DELETE_TIME = new DBField(DBDataType.DATE , "delete_time","deleteTime","删除时间","删除时间",false,false,true);
+		
+		/**
+		 * 数据版本号
+		*/
+		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
+		
+		public SYS_JOB() {
+			this.init($NAME,"定时任务配置表" , ID , NAME , GROUP_TAG , CLASS_NAME , CRON_EXPR , ERROR_POLICY , PARAMETER , CONCURRENT , STATUS , ERRORS , NOTES , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+		}
+		public static final SYS_JOB $TABLE=new SYS_JOB();
+	}
+	
+	/**
+	*/
+	public static class SYS_JOB_BLOB_TRIGGERS extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "sys_job_blob_triggers";
+		
+		/**
+		*/
+		public static final DBField SCHED_NAME = new DBField(DBDataType.STRING , "sched_name","schedName","sched_name","sched_name",true,false,false);
+		
+		/**
+		*/
+		public static final DBField TRIGGER_NAME = new DBField(DBDataType.STRING , "trigger_name","triggerName","trigger_name","trigger_name",true,false,false);
+		
+		/**
+		*/
+		public static final DBField TRIGGER_GROUP = new DBField(DBDataType.STRING , "trigger_group","triggerGroup","trigger_group","trigger_group",true,false,false);
+		
+		/**
+		*/
+		public static final DBField BLOB_DATA = new DBField(DBDataType.BLOB , "blob_data","blobData","blob_data","blob_data",false,false,true);
+		
+		public SYS_JOB_BLOB_TRIGGERS() {
+			this.init($NAME,"" , SCHED_NAME , TRIGGER_NAME , TRIGGER_GROUP , BLOB_DATA);
+		}
+		public static final SYS_JOB_BLOB_TRIGGERS $TABLE=new SYS_JOB_BLOB_TRIGGERS();
+	}
+	
+	/**
+	*/
+	public static class SYS_JOB_CALENDARS extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "sys_job_calendars";
+		
+		/**
+		*/
+		public static final DBField SCHED_NAME = new DBField(DBDataType.STRING , "sched_name","schedName","sched_name","sched_name",true,false,false);
+		
+		/**
+		*/
+		public static final DBField CALENDAR_NAME = new DBField(DBDataType.STRING , "calendar_name","calendarName","calendar_name","calendar_name",true,false,false);
+		
+		/**
+		*/
+		public static final DBField CALENDAR = new DBField(DBDataType.BLOB , "calendar","calendar","calendar","calendar",false,false,false);
+		
+		public SYS_JOB_CALENDARS() {
+			this.init($NAME,"" , SCHED_NAME , CALENDAR_NAME , CALENDAR);
+		}
+		public static final SYS_JOB_CALENDARS $TABLE=new SYS_JOB_CALENDARS();
+	}
+	
+	/**
+	*/
+	public static class SYS_JOB_CRON_TRIGGERS extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "sys_job_cron_triggers";
+		
+		/**
+		*/
+		public static final DBField SCHED_NAME = new DBField(DBDataType.STRING , "sched_name","schedName","sched_name","sched_name",true,false,false);
+		
+		/**
+		*/
+		public static final DBField TRIGGER_NAME = new DBField(DBDataType.STRING , "trigger_name","triggerName","trigger_name","trigger_name",true,false,false);
+		
+		/**
+		*/
+		public static final DBField TRIGGER_GROUP = new DBField(DBDataType.STRING , "trigger_group","triggerGroup","trigger_group","trigger_group",true,false,false);
+		
+		/**
+		*/
+		public static final DBField CRON_EXPRESSION = new DBField(DBDataType.STRING , "cron_expression","cronExpression","cron_expression","cron_expression",false,false,false);
+		
+		/**
+		*/
+		public static final DBField TIME_ZONE_ID = new DBField(DBDataType.STRING , "time_zone_id","timeZoneId","time_zone_id","time_zone_id",false,false,true);
+		
+		public SYS_JOB_CRON_TRIGGERS() {
+			this.init($NAME,"" , SCHED_NAME , TRIGGER_NAME , TRIGGER_GROUP , CRON_EXPRESSION , TIME_ZONE_ID);
+		}
+		public static final SYS_JOB_CRON_TRIGGERS $TABLE=new SYS_JOB_CRON_TRIGGERS();
+	}
+	
+	/**
+	*/
+	public static class SYS_JOB_FIRED_TRIGGERS extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "sys_job_fired_triggers";
+		
+		/**
+		*/
+		public static final DBField SCHED_NAME = new DBField(DBDataType.STRING , "sched_name","schedName","sched_name","sched_name",true,false,false);
+		
+		/**
+		*/
+		public static final DBField ENTRY_ID = new DBField(DBDataType.STRING , "entry_id","entryId","entry_id","entry_id",true,false,false);
+		
+		/**
+		*/
+		public static final DBField TRIGGER_NAME = new DBField(DBDataType.STRING , "trigger_name","triggerName","trigger_name","trigger_name",false,false,false);
+		
+		/**
+		*/
+		public static final DBField TRIGGER_GROUP = new DBField(DBDataType.STRING , "trigger_group","triggerGroup","trigger_group","trigger_group",false,false,false);
+		
+		/**
+		*/
+		public static final DBField INSTANCE_NAME = new DBField(DBDataType.STRING , "instance_name","instanceName","instance_name","instance_name",false,false,false);
+		
+		/**
+		*/
+		public static final DBField FIRED_TIME = new DBField(DBDataType.LONG , "fired_time","firedTime","fired_time","fired_time",false,false,false);
+		
+		/**
+		*/
+		public static final DBField SCHED_TIME = new DBField(DBDataType.LONG , "sched_time","schedTime","sched_time","sched_time",false,false,false);
+		
+		/**
+		*/
+		public static final DBField PRIORITY = new DBField(DBDataType.INTEGER , "priority","priority","priority","priority",false,false,false);
+		
+		/**
+		*/
+		public static final DBField STATE = new DBField(DBDataType.STRING , "state","state","state","state",false,false,false);
+		
+		/**
+		*/
+		public static final DBField JOB_NAME = new DBField(DBDataType.STRING , "job_name","jobName","job_name","job_name",false,false,true);
+		
+		/**
+		*/
+		public static final DBField JOB_GROUP = new DBField(DBDataType.STRING , "job_group","jobGroup","job_group","job_group",false,false,true);
+		
+		/**
+		*/
+		public static final DBField IS_NONCONCURRENT = new DBField(DBDataType.STRING , "is_nonconcurrent","isNonconcurrent","is_nonconcurrent","is_nonconcurrent",false,false,true);
+		
+		/**
+		*/
+		public static final DBField REQUESTS_RECOVERY = new DBField(DBDataType.STRING , "requests_recovery","requestsRecovery","requests_recovery","requests_recovery",false,false,true);
+		
+		public SYS_JOB_FIRED_TRIGGERS() {
+			this.init($NAME,"" , SCHED_NAME , ENTRY_ID , TRIGGER_NAME , TRIGGER_GROUP , INSTANCE_NAME , FIRED_TIME , SCHED_TIME , PRIORITY , STATE , JOB_NAME , JOB_GROUP , IS_NONCONCURRENT , REQUESTS_RECOVERY);
+		}
+		public static final SYS_JOB_FIRED_TRIGGERS $TABLE=new SYS_JOB_FIRED_TRIGGERS();
+	}
+	
+	/**
+	*/
+	public static class SYS_JOB_JOB_DETAILS extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "sys_job_job_details";
+		
+		/**
+		*/
+		public static final DBField SCHED_NAME = new DBField(DBDataType.STRING , "sched_name","schedName","sched_name","sched_name",true,false,false);
+		
+		/**
+		*/
+		public static final DBField JOB_NAME = new DBField(DBDataType.STRING , "job_name","jobName","job_name","job_name",true,false,false);
+		
+		/**
+		*/
+		public static final DBField JOB_GROUP = new DBField(DBDataType.STRING , "job_group","jobGroup","job_group","job_group",true,false,false);
+		
+		/**
+		*/
+		public static final DBField DESCRIPTION = new DBField(DBDataType.STRING , "description","description","description","description",false,false,true);
+		
+		/**
+		*/
+		public static final DBField JOB_CLASS_NAME = new DBField(DBDataType.STRING , "job_class_name","jobClassName","job_class_name","job_class_name",false,false,false);
+		
+		/**
+		*/
+		public static final DBField IS_DURABLE = new DBField(DBDataType.STRING , "is_durable","isDurable","is_durable","is_durable",false,false,false);
+		
+		/**
+		*/
+		public static final DBField IS_NONCONCURRENT = new DBField(DBDataType.STRING , "is_nonconcurrent","isNonconcurrent","is_nonconcurrent","is_nonconcurrent",false,false,false);
+		
+		/**
+		*/
+		public static final DBField IS_UPDATE_DATA = new DBField(DBDataType.STRING , "is_update_data","isUpdateData","is_update_data","is_update_data",false,false,false);
+		
+		/**
+		*/
+		public static final DBField REQUESTS_RECOVERY = new DBField(DBDataType.STRING , "requests_recovery","requestsRecovery","requests_recovery","requests_recovery",false,false,false);
+		
+		/**
+		*/
+		public static final DBField JOB_DATA = new DBField(DBDataType.BLOB , "job_data","jobData","job_data","job_data",false,false,true);
+		
+		public SYS_JOB_JOB_DETAILS() {
+			this.init($NAME,"" , SCHED_NAME , JOB_NAME , JOB_GROUP , DESCRIPTION , JOB_CLASS_NAME , IS_DURABLE , IS_NONCONCURRENT , IS_UPDATE_DATA , REQUESTS_RECOVERY , JOB_DATA);
+		}
+		public static final SYS_JOB_JOB_DETAILS $TABLE=new SYS_JOB_JOB_DETAILS();
+	}
+	
+	/**
+	*/
+	public static class SYS_JOB_LOCKS extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "sys_job_locks";
+		
+		/**
+		*/
+		public static final DBField SCHED_NAME = new DBField(DBDataType.STRING , "sched_name","schedName","sched_name","sched_name",true,false,false);
+		
+		/**
+		*/
+		public static final DBField LOCK_NAME = new DBField(DBDataType.STRING , "lock_name","lockName","lock_name","lock_name",true,false,false);
+		
+		public SYS_JOB_LOCKS() {
+			this.init($NAME,"" , SCHED_NAME , LOCK_NAME);
+		}
+		public static final SYS_JOB_LOCKS $TABLE=new SYS_JOB_LOCKS();
+	}
+	
+	/**
+	 * 定时任务执行日志表
+	*/
+	public static class SYS_JOB_LOG extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "sys_job_log";
+		
+		/**
+		 * 主键
+		*/
+		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","主键","主键",true,false,false);
+		
+		/**
+		 * 组别
+		*/
+		public static final DBField JOB_ID = new DBField(DBDataType.STRING , "job_id","jobId","组别","组别",false,false,true);
+		
+		/**
+		 * 任务名称
+		*/
+		public static final DBField JOB_NAME = new DBField(DBDataType.STRING , "job_name","jobName","任务名称","任务名称",false,false,true);
+		
+		/**
+		 * 本次执行类
+		*/
+		public static final DBField CLASS_NAME = new DBField(DBDataType.STRING , "class_name","className","本次执行类","本次执行类",false,false,true);
+		
+		/**
+		 * 本次执行cron表达式
+		*/
+		public static final DBField CRON_EXPR = new DBField(DBDataType.STRING , "cron_expr","cronExpr","本次执行cron表达式","本次执行cron表达式",false,false,true);
+		
+		/**
+		 * 是否成功执行
+		*/
+		public static final DBField SUCCESS = new DBField(DBDataType.INTEGER , "success","success","是否成功执行","是否成功执行",false,false,true);
+		
+		/**
+		 * 本次执行参数
+		*/
+		public static final DBField PARAMETER = new DBField(DBDataType.STRING , "parameter","parameter","本次执行参数","本次执行参数",false,false,true);
+		
+		/**
+		 * 执行结果，可记录大文本信息
+		*/
+		public static final DBField RESULT = new DBField(DBDataType.STRING , "result","result","执行结果","可记录大文本信息",false,false,true);
+		
+		/**
+		 * 开始执行的时间
+		*/
+		public static final DBField BEGIN_TIME = new DBField(DBDataType.TIMESTAME , "begin_time","beginTime","开始执行的时间","开始执行的时间",false,false,true);
+		
+		/**
+		 * 结束执行的时间
+		*/
+		public static final DBField END_TIME = new DBField(DBDataType.TIMESTAME , "end_time","endTime","结束执行的时间","结束执行的时间",false,false,true);
+		
+		/**
+		 * 异常信息
+		*/
+		public static final DBField EXCEPTION = new DBField(DBDataType.STRING , "exception","exception","异常信息","异常信息",false,false,true);
+		
+		/**
+		 * 日志信息
+		*/
+		public static final DBField LOG_TEXT = new DBField(DBDataType.STRING , "log_text","logText","日志信息","日志信息",false,false,true);
+		
+		public SYS_JOB_LOG() {
+			this.init($NAME,"定时任务执行日志表" , ID , JOB_ID , JOB_NAME , CLASS_NAME , CRON_EXPR , SUCCESS , PARAMETER , RESULT , BEGIN_TIME , END_TIME , EXCEPTION , LOG_TEXT);
+		}
+		public static final SYS_JOB_LOG $TABLE=new SYS_JOB_LOG();
+	}
+	
+	/**
+	*/
+	public static class SYS_JOB_PAUSED_TRIGGER_GRPS extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "sys_job_paused_trigger_grps";
+		
+		/**
+		*/
+		public static final DBField SCHED_NAME = new DBField(DBDataType.STRING , "sched_name","schedName","sched_name","sched_name",true,false,false);
+		
+		/**
+		*/
+		public static final DBField TRIGGER_GROUP = new DBField(DBDataType.STRING , "trigger_group","triggerGroup","trigger_group","trigger_group",true,false,false);
+		
+		public SYS_JOB_PAUSED_TRIGGER_GRPS() {
+			this.init($NAME,"" , SCHED_NAME , TRIGGER_GROUP);
+		}
+		public static final SYS_JOB_PAUSED_TRIGGER_GRPS $TABLE=new SYS_JOB_PAUSED_TRIGGER_GRPS();
+	}
+	
+	/**
+	*/
+	public static class SYS_JOB_SCHEDULER_STATE extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "sys_job_scheduler_state";
+		
+		/**
+		*/
+		public static final DBField SCHED_NAME = new DBField(DBDataType.STRING , "sched_name","schedName","sched_name","sched_name",true,false,false);
+		
+		/**
+		*/
+		public static final DBField INSTANCE_NAME = new DBField(DBDataType.STRING , "instance_name","instanceName","instance_name","instance_name",true,false,false);
+		
+		/**
+		*/
+		public static final DBField LAST_CHECKIN_TIME = new DBField(DBDataType.LONG , "last_checkin_time","lastCheckinTime","last_checkin_time","last_checkin_time",false,false,false);
+		
+		/**
+		*/
+		public static final DBField CHECKIN_INTERVAL = new DBField(DBDataType.LONG , "checkin_interval","checkinInterval","checkin_interval","checkin_interval",false,false,false);
+		
+		public SYS_JOB_SCHEDULER_STATE() {
+			this.init($NAME,"" , SCHED_NAME , INSTANCE_NAME , LAST_CHECKIN_TIME , CHECKIN_INTERVAL);
+		}
+		public static final SYS_JOB_SCHEDULER_STATE $TABLE=new SYS_JOB_SCHEDULER_STATE();
+	}
+	
+	/**
+	*/
+	public static class SYS_JOB_SIMPLE_TRIGGERS extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "sys_job_simple_triggers";
+		
+		/**
+		*/
+		public static final DBField SCHED_NAME = new DBField(DBDataType.STRING , "sched_name","schedName","sched_name","sched_name",true,false,false);
+		
+		/**
+		*/
+		public static final DBField TRIGGER_NAME = new DBField(DBDataType.STRING , "trigger_name","triggerName","trigger_name","trigger_name",true,false,false);
+		
+		/**
+		*/
+		public static final DBField TRIGGER_GROUP = new DBField(DBDataType.STRING , "trigger_group","triggerGroup","trigger_group","trigger_group",true,false,false);
+		
+		/**
+		*/
+		public static final DBField REPEAT_COUNT = new DBField(DBDataType.LONG , "repeat_count","repeatCount","repeat_count","repeat_count",false,false,false);
+		
+		/**
+		*/
+		public static final DBField REPEAT_INTERVAL = new DBField(DBDataType.LONG , "repeat_interval","repeatInterval","repeat_interval","repeat_interval",false,false,false);
+		
+		/**
+		*/
+		public static final DBField TIMES_TRIGGERED = new DBField(DBDataType.LONG , "times_triggered","timesTriggered","times_triggered","times_triggered",false,false,false);
+		
+		public SYS_JOB_SIMPLE_TRIGGERS() {
+			this.init($NAME,"" , SCHED_NAME , TRIGGER_NAME , TRIGGER_GROUP , REPEAT_COUNT , REPEAT_INTERVAL , TIMES_TRIGGERED);
+		}
+		public static final SYS_JOB_SIMPLE_TRIGGERS $TABLE=new SYS_JOB_SIMPLE_TRIGGERS();
+	}
+	
+	/**
+	*/
+	public static class SYS_JOB_SIMPROP_TRIGGERS extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "sys_job_simprop_triggers";
+		
+		/**
+		*/
+		public static final DBField SCHED_NAME = new DBField(DBDataType.STRING , "sched_name","schedName","sched_name","sched_name",true,false,false);
+		
+		/**
+		*/
+		public static final DBField TRIGGER_NAME = new DBField(DBDataType.STRING , "trigger_name","triggerName","trigger_name","trigger_name",true,false,false);
+		
+		/**
+		*/
+		public static final DBField TRIGGER_GROUP = new DBField(DBDataType.STRING , "trigger_group","triggerGroup","trigger_group","trigger_group",true,false,false);
+		
+		/**
+		*/
+		public static final DBField STR_PROP_1 = new DBField(DBDataType.STRING , "str_prop_1","strProp1","str_prop_1","str_prop_1",false,false,true);
+		
+		/**
+		*/
+		public static final DBField STR_PROP_2 = new DBField(DBDataType.STRING , "str_prop_2","strProp2","str_prop_2","str_prop_2",false,false,true);
+		
+		/**
+		*/
+		public static final DBField STR_PROP_3 = new DBField(DBDataType.STRING , "str_prop_3","strProp3","str_prop_3","str_prop_3",false,false,true);
+		
+		/**
+		*/
+		public static final DBField INT_PROP_1 = new DBField(DBDataType.INTEGER , "int_prop_1","intProp1","int_prop_1","int_prop_1",false,false,true);
+		
+		/**
+		*/
+		public static final DBField INT_PROP_2 = new DBField(DBDataType.INTEGER , "int_prop_2","intProp2","int_prop_2","int_prop_2",false,false,true);
+		
+		/**
+		*/
+		public static final DBField LONG_PROP_1 = new DBField(DBDataType.LONG , "long_prop_1","longProp1","long_prop_1","long_prop_1",false,false,true);
+		
+		/**
+		*/
+		public static final DBField LONG_PROP_2 = new DBField(DBDataType.LONG , "long_prop_2","longProp2","long_prop_2","long_prop_2",false,false,true);
+		
+		/**
+		*/
+		public static final DBField DEC_PROP_1 = new DBField(DBDataType.DECIMAL , "dec_prop_1","decProp1","dec_prop_1","dec_prop_1",false,false,true);
+		
+		/**
+		*/
+		public static final DBField DEC_PROP_2 = new DBField(DBDataType.DECIMAL , "dec_prop_2","decProp2","dec_prop_2","dec_prop_2",false,false,true);
+		
+		/**
+		*/
+		public static final DBField BOOL_PROP_1 = new DBField(DBDataType.STRING , "bool_prop_1","boolProp1","bool_prop_1","bool_prop_1",false,false,true);
+		
+		/**
+		*/
+		public static final DBField BOOL_PROP_2 = new DBField(DBDataType.STRING , "bool_prop_2","boolProp2","bool_prop_2","bool_prop_2",false,false,true);
+		
+		public SYS_JOB_SIMPROP_TRIGGERS() {
+			this.init($NAME,"" , SCHED_NAME , TRIGGER_NAME , TRIGGER_GROUP , STR_PROP_1 , STR_PROP_2 , STR_PROP_3 , INT_PROP_1 , INT_PROP_2 , LONG_PROP_1 , LONG_PROP_2 , DEC_PROP_1 , DEC_PROP_2 , BOOL_PROP_1 , BOOL_PROP_2);
+		}
+		public static final SYS_JOB_SIMPROP_TRIGGERS $TABLE=new SYS_JOB_SIMPROP_TRIGGERS();
+	}
+	
+	/**
+	*/
+	public static class SYS_JOB_TRIGGERS extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "sys_job_triggers";
+		
+		/**
+		*/
+		public static final DBField SCHED_NAME = new DBField(DBDataType.STRING , "sched_name","schedName","sched_name","sched_name",true,false,false);
+		
+		/**
+		*/
+		public static final DBField TRIGGER_NAME = new DBField(DBDataType.STRING , "trigger_name","triggerName","trigger_name","trigger_name",true,false,false);
+		
+		/**
+		*/
+		public static final DBField TRIGGER_GROUP = new DBField(DBDataType.STRING , "trigger_group","triggerGroup","trigger_group","trigger_group",true,false,false);
+		
+		/**
+		*/
+		public static final DBField JOB_NAME = new DBField(DBDataType.STRING , "job_name","jobName","job_name","job_name",false,false,false);
+		
+		/**
+		*/
+		public static final DBField JOB_GROUP = new DBField(DBDataType.STRING , "job_group","jobGroup","job_group","job_group",false,false,false);
+		
+		/**
+		*/
+		public static final DBField DESCRIPTION = new DBField(DBDataType.STRING , "description","description","description","description",false,false,true);
+		
+		/**
+		*/
+		public static final DBField NEXT_FIRE_TIME = new DBField(DBDataType.LONG , "next_fire_time","nextFireTime","next_fire_time","next_fire_time",false,false,true);
+		
+		/**
+		*/
+		public static final DBField PREV_FIRE_TIME = new DBField(DBDataType.LONG , "prev_fire_time","prevFireTime","prev_fire_time","prev_fire_time",false,false,true);
+		
+		/**
+		*/
+		public static final DBField PRIORITY = new DBField(DBDataType.INTEGER , "priority","priority","priority","priority",false,false,true);
+		
+		/**
+		*/
+		public static final DBField TRIGGER_STATE = new DBField(DBDataType.STRING , "trigger_state","triggerState","trigger_state","trigger_state",false,false,false);
+		
+		/**
+		*/
+		public static final DBField TRIGGER_TYPE = new DBField(DBDataType.STRING , "trigger_type","triggerType","trigger_type","trigger_type",false,false,false);
+		
+		/**
+		*/
+		public static final DBField START_TIME = new DBField(DBDataType.LONG , "start_time","startTime","start_time","start_time",false,false,false);
+		
+		/**
+		*/
+		public static final DBField END_TIME = new DBField(DBDataType.LONG , "end_time","endTime","end_time","end_time",false,false,true);
+		
+		/**
+		*/
+		public static final DBField CALENDAR_NAME = new DBField(DBDataType.STRING , "calendar_name","calendarName","calendar_name","calendar_name",false,false,true);
+		
+		/**
+		*/
+		public static final DBField MISFIRE_INSTR = new DBField(DBDataType.INTEGER , "misfire_instr","misfireInstr","misfire_instr","misfire_instr",false,false,true);
+		
+		/**
+		*/
+		public static final DBField JOB_DATA = new DBField(DBDataType.BLOB , "job_data","jobData","job_data","job_data",false,false,true);
+		
+		public SYS_JOB_TRIGGERS() {
+			this.init($NAME,"" , SCHED_NAME , TRIGGER_NAME , TRIGGER_GROUP , JOB_NAME , JOB_GROUP , DESCRIPTION , NEXT_FIRE_TIME , PREV_FIRE_TIME , PRIORITY , TRIGGER_STATE , TRIGGER_TYPE , START_TIME , END_TIME , CALENDAR_NAME , MISFIRE_INSTR , JOB_DATA);
+		}
+		public static final SYS_JOB_TRIGGERS $TABLE=new SYS_JOB_TRIGGERS();
 	}
 	
 	/**
@@ -4609,6 +5282,7 @@ public class FoxnicWeb {
 	}
 	
 	/**
+	 * Profile
 	*/
 	public static class SYS_PROFILE extends DBTable {
 		
@@ -4633,7 +5307,7 @@ public class FoxnicWeb {
 		public static final DBField NOTES = new DBField(DBDataType.STRING , "notes","notes","备注","备注",false,false,true);
 		
 		public SYS_PROFILE() {
-			this.init($NAME,"" , ID , NAME , NOTES);
+			this.init($NAME,"Profile" , ID , NAME , NOTES);
 		}
 		public static final SYS_PROFILE $TABLE=new SYS_PROFILE();
 	}

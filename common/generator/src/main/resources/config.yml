@@ -115,4 +115,15 @@ applications:
     viewProjectPath: /view/view-console
     viewPrefixPath: public/business/dataperm
     wrapperProjectPath:  /wrapper/wrapper-all-service
+  #计划任务
+  service-job:
+    nacosGroup: service
+    nacosDataId: service-job.yml
+    serviceProjectPath: /service/service-job
+    packageName: org.github.foxnic.web.job
+    primaryDatasourceConfigKey: spring.datasource.druid.primary
+    microServiceNameConst: JOB
+    viewProjectPath: /view/view-console
+    viewPrefixPath: public/business/job
+    wrapperProjectPath:  /wrapper/wrapper-all-service
 

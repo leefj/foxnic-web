@@ -46,6 +46,10 @@ public class FoxnicWebDBMetaGenerator  {
 			if(table.startsWith("dp_")) return true;
 			if(pcmTables.contains(table)) return true;
 			if(hrmTables.contains(table)) return true;
+			if(table.startsWith("sys_job_")) {
+				if(table.equals("sys_job_log")) return true;
+				else return false;
+			}
 			return false;
 		});
 		dbMetaBuilder.save(true);
