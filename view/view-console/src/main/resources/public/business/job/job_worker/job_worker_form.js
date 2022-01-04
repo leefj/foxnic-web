@@ -1,5 +1,5 @@
 /**
- * 定时任务执行日志 列表页 JS 脚本
+ * 任务执行器 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
  * @since 2022-01-04 17:09:52
  */
@@ -7,7 +7,7 @@
 function FormPage() {
 
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect,foxup;
-	const moduleURL="/service-job/sys-job-log";
+	const moduleURL="/service-job/sys-job-worker";
 	// 表单执行操作类型：view，create，edit
 	var action=null;
 	var disableCreateNew=false;
@@ -20,7 +20,7 @@ function FormPage() {
      	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload,foxup=layui.foxnicUpload;
 		laydate = layui.laydate,table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
 
-		action=admin.getTempData('sys-job-log-form-data-form-action');
+		action=admin.getTempData('sys-job-worker-form-data-form-action');
 		//如果没有修改和保存权限
 		if( !admin.checkAuth(AUTH_PREFIX+":update") && !admin.checkAuth(AUTH_PREFIX+":save")) {
 			disableModify=true;
@@ -30,7 +30,7 @@ function FormPage() {
 		}
 
 		if(window.pageExt.form.beforeInit) {
-			window.pageExt.form.beforeInit(action,admin.getTempData('sys-job-log-form-data'));
+			window.pageExt.form.beforeInit(action,admin.getTempData('sys-job-worker-form-data'));
 		}
 
 		//渲染表单组件
@@ -63,9 +63,9 @@ function FormPage() {
 			var body=$("body");
 			var bodyHeight=body.height();
 			var footerHeight=$(".model-form-footer").height();
-			var area=admin.changePopupArea(null,bodyHeight+footerHeight,'sys-job-log-form-data-win');
+			var area=admin.changePopupArea(null,bodyHeight+footerHeight,'sys-job-worker-form-data-win');
 			if(area==null) return;
-			admin.putTempData('sys-job-log-form-area', area);
+			admin.putTempData('sys-job-worker-form-area', area);
 			window.adjustPopup=adjustPopup;
 			if(area.tooHeigh) {
 				var windowHeight=area.iframeHeight;
@@ -85,22 +85,6 @@ function FormPage() {
 	function renderFormFields() {
 		fox.renderFormInputs(form);
 
-		laydate.render({
-			elem: '#beginTime',
-			format:"yyyy-MM-dd HH:mm:ss",
-			trigger:"click",
-			done: function(value, date, endDate){
-				window.pageExt.form.onDatePickerChanged && window.pageExt.form.onDatePickerChanged("beginTime",value, date, endDate);
-			}
-		});
-		laydate.render({
-			elem: '#endTime',
-			format:"yyyy-MM-dd HH:mm:ss",
-			trigger:"click",
-			done: function(value, date, endDate){
-				window.pageExt.form.onDatePickerChanged && window.pageExt.form.onDatePickerChanged("endTime",value, date, endDate);
-			}
-		});
 	}
 
 	/**
@@ -108,7 +92,7 @@ function FormPage() {
       */
 	function fillFormData(formData) {
 		if(!formData) {
-			formData = admin.getTempData('sys-job-log-form-data');
+			formData = admin.getTempData('sys-job-worker-form-data');
 		}
 
 		window.pageExt.form.beforeDataFill && window.pageExt.form.beforeDataFill(formData);
@@ -127,14 +111,6 @@ function FormPage() {
 
 
 
-			//设置 开始执行的时间 显示复选框勾选
-			if(formData["beginTime"]) {
-				$("#beginTime").val(fox.dateFormat(formData["beginTime"],"yyyy-MM-dd HH:mm:ss"));
-			}
-			//设置 结束执行的时间 显示复选框勾选
-			if(formData["endTime"]) {
-				$("#endTime").val(fox.dateFormat(formData["endTime"],"yyyy-MM-dd HH:mm:ss"));
-			}
 
 
 
@@ -205,7 +181,7 @@ function FormPage() {
 					doNext=window.pageExt.form.betweenFormSubmitAndClose(param,data);
 				}
 				if(doNext) {
-					admin.finishPopupCenterById('sys-job-log-form-data-win');
+					admin.finishPopupCenterById('sys-job-worker-form-data-win');
 				}
 			} else {
 				layer.msg(data.message, {icon: 2, time: 1500});
@@ -236,7 +212,7 @@ function FormPage() {
 
 
 	    //关闭窗口
-	    $("#cancel-button").click(function(){ admin.finishPopupCenterById('sys-job-log-form-data-win'); });
+	    $("#cancel-button").click(function(){ admin.finishPopupCenterById('sys-job-worker-form-data-win'); });
 
     }
 

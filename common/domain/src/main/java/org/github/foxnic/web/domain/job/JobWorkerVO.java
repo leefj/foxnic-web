@@ -10,14 +10,14 @@ import com.github.foxnic.commons.bean.BeanUtil;
 
 
 /**
- * 定时任务执行日志
+ * 任务执行器
  * @author 李方捷 , leefangjie@qq.com
  * @since 2022-01-04 17:09:52
- * @sign 02392FB833ECD2AD369321F6F79A047A
+ * @sign A6B48568751E67AC7979FEB6A52FDDF2
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
-public class JobLogVO extends JobLog {
+public class JobWorkerVO extends JobWorker {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -88,7 +88,7 @@ public class JobLogVO extends JobLog {
 	 * @param pageIndex 页码
 	 * @return 当前对象
 	*/
-	public JobLogVO setPageIndex(Integer pageIndex) {
+	public JobWorkerVO setPageIndex(Integer pageIndex) {
 		this.pageIndex=pageIndex;
 		return this;
 	}
@@ -106,7 +106,7 @@ public class JobLogVO extends JobLog {
 	 * @param pageSize 分页大小
 	 * @return 当前对象
 	*/
-	public JobLogVO setPageSize(Integer pageSize) {
+	public JobWorkerVO setPageSize(Integer pageSize) {
 		this.pageSize=pageSize;
 		return this;
 	}
@@ -124,7 +124,7 @@ public class JobLogVO extends JobLog {
 	 * @param searchField 搜索字段
 	 * @return 当前对象
 	*/
-	public JobLogVO setSearchField(String searchField) {
+	public JobWorkerVO setSearchField(String searchField) {
 		this.searchField=searchField;
 		return this;
 	}
@@ -142,7 +142,7 @@ public class JobLogVO extends JobLog {
 	 * @param fuzzyField 模糊搜索字段
 	 * @return 当前对象
 	*/
-	public JobLogVO setFuzzyField(String fuzzyField) {
+	public JobWorkerVO setFuzzyField(String fuzzyField) {
 		this.fuzzyField=fuzzyField;
 		return this;
 	}
@@ -160,7 +160,7 @@ public class JobLogVO extends JobLog {
 	 * @param searchValue 搜索的值
 	 * @return 当前对象
 	*/
-	public JobLogVO setSearchValue(String searchValue) {
+	public JobWorkerVO setSearchValue(String searchValue) {
 		this.searchValue=searchValue;
 		return this;
 	}
@@ -178,7 +178,7 @@ public class JobLogVO extends JobLog {
 	 * @param dirtyFields 已修改字段
 	 * @return 当前对象
 	*/
-	public JobLogVO setDirtyFields(List<String> dirtyFields) {
+	public JobWorkerVO setDirtyFields(List<String> dirtyFields) {
 		this.dirtyFields=dirtyFields;
 		return this;
 	}
@@ -188,7 +188,7 @@ public class JobLogVO extends JobLog {
 	 * @param dirtyField 已修改字段
 	 * @return 当前对象
 	*/
-	public JobLogVO addDirtyField(String dirtyField) {
+	public JobWorkerVO addDirtyField(String dirtyField) {
 		if(this.dirtyFields==null) dirtyFields=new ArrayList<>();
 		this.dirtyFields.add(dirtyField);
 		return this;
@@ -207,7 +207,7 @@ public class JobLogVO extends JobLog {
 	 * @param sortField 排序字段
 	 * @return 当前对象
 	*/
-	public JobLogVO setSortField(String sortField) {
+	public JobWorkerVO setSortField(String sortField) {
 		this.sortField=sortField;
 		return this;
 	}
@@ -225,7 +225,7 @@ public class JobLogVO extends JobLog {
 	 * @param sortType 排序方式
 	 * @return 当前对象
 	*/
-	public JobLogVO setSortType(String sortType) {
+	public JobWorkerVO setSortType(String sortType) {
 		this.sortType=sortType;
 		return this;
 	}
@@ -244,7 +244,7 @@ public class JobLogVO extends JobLog {
 	 * @param ids 主键清单
 	 * @return 当前对象
 	*/
-	public JobLogVO setIds(List<String> ids) {
+	public JobWorkerVO setIds(List<String> ids) {
 		this.ids=ids;
 		return this;
 	}
@@ -254,7 +254,7 @@ public class JobLogVO extends JobLog {
 	 * @param id 主键清单
 	 * @return 当前对象
 	*/
-	public JobLogVO addId(String id) {
+	public JobWorkerVO addId(String id) {
 		if(this.ids==null) ids=new ArrayList<>();
 		this.ids.add(id);
 		return this;

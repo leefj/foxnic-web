@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2021-12-31 11:48:50
+ * @since 2022-01-04 16:00:45
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -4099,9 +4099,9 @@ public class FoxnicWeb {
 		public static final DBField GROUP_TAG = new DBField(DBDataType.STRING , "group_tag","groupTag","组别","组别",false,false,true);
 		
 		/**
-		 * 执行类
+		 * 执行类ID
 		*/
-		public static final DBField CLASS_NAME = new DBField(DBDataType.STRING , "class_name","className","执行类","执行类",false,false,true);
+		public static final DBField WORKER_ID = new DBField(DBDataType.STRING , "worker_id","workerId","执行类ID","执行类ID",false,false,true);
 		
 		/**
 		 * cron表达式
@@ -4183,8 +4183,13 @@ public class FoxnicWeb {
 		*/
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
+		/**
+		 * 遗漏执行的策略
+		*/
+		public static final DBField MISFIRE_POLICY = new DBField(DBDataType.STRING , "misfire_policy","misfirePolicy","遗漏执行的策略","遗漏执行的策略",false,false,true);
+		
 		public SYS_JOB() {
-			this.init($NAME,"定时任务配置表" , ID , NAME , GROUP_TAG , CLASS_NAME , CRON_EXPR , ERROR_POLICY , PARAMETER , CONCURRENT , STATUS , ERRORS , NOTES , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"定时任务配置表" , ID , NAME , GROUP_TAG , WORKER_ID , CRON_EXPR , ERROR_POLICY , PARAMETER , CONCURRENT , STATUS , ERRORS , NOTES , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , MISFIRE_POLICY);
 		}
 		public static final SYS_JOB $TABLE=new SYS_JOB();
 	}
@@ -4744,6 +4749,41 @@ public class FoxnicWeb {
 			this.init($NAME,"" , SCHED_NAME , TRIGGER_NAME , TRIGGER_GROUP , JOB_NAME , JOB_GROUP , DESCRIPTION , NEXT_FIRE_TIME , PREV_FIRE_TIME , PRIORITY , TRIGGER_STATE , TRIGGER_TYPE , START_TIME , END_TIME , CALENDAR_NAME , MISFIRE_INSTR , JOB_DATA);
 		}
 		public static final SYS_JOB_TRIGGERS $TABLE=new SYS_JOB_TRIGGERS();
+	}
+	
+	/**
+	*/
+	public static class SYS_JOB_WORKER extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "sys_job_worker";
+		
+		/**
+		 * 主键
+		*/
+		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","主键","主键",true,false,false);
+		
+		/**
+		 * 名称
+		*/
+		public static final DBField NAME = new DBField(DBDataType.STRING , "name","name","名称","名称",false,false,true);
+		
+		/**
+		 * 类名
+		*/
+		public static final DBField CLASS_NAME = new DBField(DBDataType.STRING , "class_name","className","类名","类名",false,false,true);
+		
+		/**
+		 * 有效
+		*/
+		public static final DBField VALID = new DBField(DBDataType.INTEGER , "valid","valid","有效","有效",false,false,true);
+		
+		public SYS_JOB_WORKER() {
+			this.init($NAME,"" , ID , NAME , CLASS_NAME , VALID);
+		}
+		public static final SYS_JOB_WORKER $TABLE=new SYS_JOB_WORKER();
 	}
 	
 	/**

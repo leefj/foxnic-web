@@ -1,8 +1,8 @@
 <!--
 /**
- * 定时任务配置 列表页 JS 脚本
+ * 任务执行器 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-04 17:14:44
+ * @since 2022-01-04 17:09:52
  */
  -->
  <!DOCTYPE html>
@@ -11,7 +11,7 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta charset="utf-8"/>
-    <title th:text="${lang.translate('定时任务配置')}">定时任务配置</title>
+    <title th:text="${lang.translate('任务执行器')}">任务执行器</title>
     <link th:if(theme.ico!="null") rel="shortcut icon" th:href="${theme.ico}" type="image/vnd.microsoft.icon">
     <link th:if(theme.ico!="null") rel="icon" th:href="theme.ico" type="image/vnd.microsoft.icon">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -38,22 +38,26 @@
             <div class="search-input-rows" style="opacity: 0">
                 <!-- 搜索输入区域 -->
                 <div class="layui-form toolbar search-inputs">
-                    <!-- 主键 , id ,typeName=text_input, isHideInSearch=true -->
-                    <!-- 任务名 , name ,typeName=text_input, isHideInSearch=false -->
+                    <!-- 主键 , id ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('任务名')}" class="search-label name-label">任务名</span><span class="search-colon">:</span></div>
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('主键')}" class="search-label id-label">主键</span><span class="search-colon">:</span></div>
+                        <input id="id" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 名称 , name ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('名称')}" class="search-label name-label">名称</span><span class="search-colon">:</span></div>
                         <input id="name" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
-                    <!-- 组别 , groupTag ,typeName=text_input, isHideInSearch=true -->
-                    <!-- 执行器 , workerId ,typeName=select_box, isHideInSearch=true -->
-                    <!-- cron , cronExpr ,typeName=text_input, isHideInSearch=true -->
-                    <!-- 计划执行错误策略 , errorPolicy ,typeName=text_input, isHideInSearch=true -->
-                    <!-- 执行参数 , parameter ,typeName=text_area, isHideInSearch=true -->
-                    <!-- 并发 , concurrent ,typeName=logic_switch, isHideInSearch=true -->
-                    <!-- 状态 , status ,typeName=text_input, isHideInSearch=true -->
-                    <!-- 失败次数 , errors ,typeName=number_input, isHideInSearch=true -->
-                    <!-- 备注 , notes ,typeName=text_input, isHideInSearch=true -->
-                    <!-- 遗漏执行的策略 , misfirePolicy ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 类名 , className ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('类名')}" class="search-label className-label">类名</span><span class="search-colon">:</span></div>
+                        <input id="className" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 有效 , valid ,typeName=number_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('有效')}" class="search-label valid-label">有效</span><span class="search-colon">:</span></div>
+                            <input id="valid" class="layui-input search-input" style="width: 140px" type="text" autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0" min-value="" max-value="" scale="0"/>
+                    </div>
 
 
                 </div>
@@ -82,37 +86,33 @@
 <!-- 表格工具栏 -->
 <script type="text/html" id="toolbarTemplate">
     <div class="layui-btn-container">
-        <button th:if="${perm.checkAuth('sys_job:create')}" id="add-button" class="layui-btn icon-btn layui-btn-sm create-new-button " lay-event="create"><i class="layui-icon">&#xe654;</i><span th:text="${lang.translate('新建')}">新建</span></button>
-        <button th:if="${perm.checkAuth('sys_job:delete-by-ids')}" id="delete-button" class="layui-btn icon-btn layui-btn-danger layui-btn-sm batch-delete-button " lay-event="batch-del"><i class="layui-icon">&#xe67e;</i><span th:text="${lang.translate('删除')}">删除</span></button>
+        <button th:if="${perm.checkAuth('sys_job_worker:create')}" id="add-button" class="layui-btn icon-btn layui-btn-sm create-new-button " lay-event="create"><i class="layui-icon">&#xe654;</i><span th:text="${lang.translate('新建')}">新建</span></button>
+        <button th:if="${perm.checkAuth('sys_job_worker:delete-by-ids')}" id="delete-button" class="layui-btn icon-btn layui-btn-danger layui-btn-sm batch-delete-button " lay-event="batch-del"><i class="layui-icon">&#xe67e;</i><span th:text="${lang.translate('删除')}">删除</span></button>
     </div>
 </script>
 
 <!-- 表格操作列 -->
 <script type="text/html" id="tableOperationTemplate">
 
-    <button th:if="${perm.checkAuth('sys_job:view-form')}" class="layui-btn layui-btn-primary layui-btn-xs ops-view-button " lay-event="view" th:text="${lang.translate('查看')}" data-id="{{d.id}}">查看</button>
-    <button th:if="${perm.checkAnyAuth('sys_job:update','sys_job:save')}" class="layui-btn layui-btn-primary layui-btn-xs ops-edit-button " lay-event="edit" th:text="${lang.translate('修改')}" data-id="{{d.id}}">修改</button>
+    <button th:if="${perm.checkAuth('sys_job_worker:view-form')}" class="layui-btn layui-btn-primary layui-btn-xs ops-view-button " lay-event="view" th:text="${lang.translate('查看')}" data-id="{{d.id}}">查看</button>
+    <button th:if="${perm.checkAnyAuth('sys_job_worker:update','sys_job_worker:save')}" class="layui-btn layui-btn-primary layui-btn-xs ops-edit-button " lay-event="edit" th:text="${lang.translate('修改')}" data-id="{{d.id}}">修改</button>
 
 
-    <button th:if="${perm.checkAuth('sys_job:delete')}" class="layui-btn layui-btn-xs layui-btn-danger ops-delete-button " lay-event="del" th:text="${lang.translate('删除')}" data-id="{{d.id}}">删除</button>
+    <button th:if="${perm.checkAuth('sys_job_worker:delete')}" class="layui-btn layui-btn-xs layui-btn-danger ops-delete-button " lay-event="del" th:text="${lang.translate('删除')}" data-id="{{d.id}}">删除</button>
 
 
 </script>
 
-<!-- 表格状态列 -->
-<script type="text/html" id="cell-tpl-concurrent">
-    <input type="checkbox" class="switch-concurrent list-checkbox" lay-filter="cell-tpl-concurrent" value="{{d.id}}" lay-skin="switch" lay-text="是|否&nbsp;"  {{d.concurrent==1?'checked':''}} data-id="{{d.id}}"/>
-</script>
 
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${pageHelper.getTableColumnWidthConfig('data-table')}]];
-    var AUTH_PREFIX="sys_job";
+    var AUTH_PREFIX="sys_job_worker";
 
 
 </script>
 
-<script th:src="'/business/job/job/job_ext.js?'+${cacheKey}"></script>
-<script th:src="'/business/job/job/job_list.js?'+${cacheKey}"></script>
+<script th:src="'/business/job/job_worker/job_worker_ext.js?'+${cacheKey}"></script>
+<script th:src="'/business/job/job_worker/job_worker_list.js?'+${cacheKey}"></script>
 
 </body>
 </html>

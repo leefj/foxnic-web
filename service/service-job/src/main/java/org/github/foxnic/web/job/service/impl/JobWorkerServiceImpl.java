@@ -1,50 +1,46 @@
 package org.github.foxnic.web.job.service.impl;
 
 
-import javax.annotation.Resource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-
-import org.github.foxnic.web.domain.job.JobLog;
-import org.github.foxnic.web.domain.job.JobLogVO;
-import java.util.List;
-import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.entity.SuperService;
-import com.github.foxnic.dao.spec.DAO;
-import java.lang.reflect.Field;
-import com.github.foxnic.commons.busi.id.IDGenerator;
-import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.dao.data.PagedList;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.SuperService;
+import com.github.foxnic.dao.excel.ExcelStructure;
 import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.dao.excel.ExcelStructure;
-import java.io.InputStream;
+import com.github.foxnic.dao.spec.DAO;
+import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.meta.DBColumnMeta;
-import com.github.foxnic.sql.expr.Select;
-import java.util.ArrayList;
-import org.github.foxnic.web.job.service.IJobLogService;
+import org.github.foxnic.web.domain.job.JobWorker;
 import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.github.foxnic.web.job.service.IJobWorkerService;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.io.InputStream;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
- * 定时任务执行日志表 服务实现
+ *  服务实现
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-04 17:09:52
+ * @since 2022-01-04 15:30:12
+ * @version
 */
 
 
-@Service("SysJobLogService")
-public class JobLogServiceImpl extends SuperService<JobLog> implements IJobLogService {
+@Service("SysJobWorkerService")
+public class JobWorkerServiceImpl extends SuperService<JobWorker> implements IJobWorkerService {
 
 	/**
 	 * 注入DAO对象
 	 * */
-	@Resource(name=DBConfigs.PRIMARY_DAO) 
+	@Resource(name=DBConfigs.PRIMARY_DAO)
 	private DAO dao=null;
 
 	/**
@@ -62,49 +58,49 @@ public class JobLogServiceImpl extends SuperService<JobLog> implements IJobLogSe
 	/**
 	 * 添加，根据 throwsException 参数抛出异常或返回 Result 对象
 	 *
-	 * @param jobLog  数据对象
+	 * @param jobWorker  数据对象
 	 * @param throwsException 是否抛出异常，如果不抛出异常，则返回一个失败的 Result 对象
 	 * @return 结果 , 如果失败返回 false，成功返回 true
 	 */
 	@Override
-	public Result insert(JobLog jobLog,boolean throwsException) {
-		Result r=super.insert(jobLog,throwsException);
+	public Result insert(JobWorker jobWorker,boolean throwsException) {
+		Result r=super.insert(jobWorker,throwsException);
 		return r;
 	}
 
 	/**
 	 * 添加，如果语句错误，则抛出异常
-	 * @param jobLog 数据对象
+	 * @param jobWorker 数据对象
 	 * @return 插入是否成功
 	 * */
 	@Override
-	public Result insert(JobLog jobLog) {
-		return this.insert(jobLog,true);
+	public Result insert(JobWorker jobWorker) {
+		return this.insert(jobWorker,true);
 	}
 
 	/**
 	 * 批量插入实体，事务内
-	 * @param jobLogList 实体数据清单
+	 * @param jobWorkerList 实体数据清单
 	 * @return 插入是否成功
 	 * */
 	@Override
-	public Result insertList(List<JobLog> jobLogList) {
-		return super.insertList(jobLogList);
+	public Result insertList(List<JobWorker> jobWorkerList) {
+		return super.insertList(jobWorkerList);
 	}
 
-	
+
 	/**
-	 * 按主键删除 定时任务执行日志
+	 * 按主键删除 sys_job_worker
 	 *
-	 * @param id 主键
+	 * @param id id
 	 * @return 删除是否成功
 	 */
 	public Result deleteByIdPhysical(String id) {
-		JobLog jobLog = new JobLog();
+		JobWorker jobWorker = new JobWorker();
 		if(id==null) return ErrorDesc.failure().message("id 不允许为 null 。");
-		jobLog.setId(id);
+		jobWorker.setId(id);
 		try {
-			boolean suc = dao.deleteEntity(jobLog);
+			boolean suc = dao.deleteEntity(jobWorker);
 			return suc?ErrorDesc.success():ErrorDesc.failure();
 		}
 		catch(Exception e) {
@@ -116,44 +112,44 @@ public class JobLogServiceImpl extends SuperService<JobLog> implements IJobLogSe
 
 	/**
 	 * 更新，如果执行错误，则抛出异常
-	 * @param jobLog 数据对象
+	 * @param jobWorker 数据对象
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
 	@Override
-	public Result update(JobLog jobLog , SaveMode mode) {
-		return this.update(jobLog,mode,true);
+	public Result update(JobWorker jobWorker , SaveMode mode) {
+		return this.update(jobWorker,mode,true);
 	}
 
 	/**
 	 * 更新，根据 throwsException 参数抛出异常或返回 Result 对象
-	 * @param jobLog 数据对象
+	 * @param jobWorker 数据对象
 	 * @param mode 保存模式
 	 * @param throwsException 是否抛出异常，如果不抛出异常，则返回一个失败的 Result 对象
 	 * @return 保存是否成功
 	 * */
 	@Override
-	public Result update(JobLog jobLog , SaveMode mode,boolean throwsException) {
-		Result r=super.update(jobLog , mode , throwsException);
+	public Result update(JobWorker jobWorker , SaveMode mode,boolean throwsException) {
+		Result r=super.update(jobWorker , mode , throwsException);
 		return r;
 	}
 
 	/**
 	 * 更新实体集，事务内
-	 * @param jobLogList 数据对象列表
+	 * @param jobWorkerList 数据对象列表
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
 	@Override
-	public Result updateList(List<JobLog> jobLogList , SaveMode mode) {
-		return super.updateList(jobLogList , mode);
+	public Result updateList(List<JobWorker> jobWorkerList , SaveMode mode) {
+		return super.updateList(jobWorkerList , mode);
 	}
 
-	
+
 	/**
-	 * 按主键更新字段 定时任务执行日志
+	 * 按主键更新字段 sys_job_worker
 	 *
-	 * @param id 主键
+	 * @param id id
 	 * @return 是否更新成功
 	 */
 	public boolean update(DBField field,Object value , String id) {
@@ -163,22 +159,22 @@ public class JobLogServiceImpl extends SuperService<JobLog> implements IJobLogSe
 		return suc>0;
 	}
 
-	
+
 	/**
-	 * 按主键获取 定时任务执行日志
+	 * 按主键获取 sys_job_worker
 	 *
-	 * @param id 主键
-	 * @return JobLog 数据对象
+	 * @param id id
+	 * @return JobWorker 数据对象
 	 */
-	public JobLog getById(String id) {
-		JobLog sample = new JobLog();
+	public JobWorker getById(String id) {
+		JobWorker sample = new JobWorker();
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null ");
 		sample.setId(id);
 		return dao.queryEntity(sample);
 	}
 
 	@Override
-	public List<JobLog> getByIds(List<String> ids) {
+	public List<JobWorker> getByIds(List<String> ids) {
 		return new ArrayList<>(getByIdsMap(ids).values());
 	}
 
@@ -191,7 +187,7 @@ public class JobLogServiceImpl extends SuperService<JobLog> implements IJobLogSe
 	 * @return 查询结果
 	 * */
 	@Override
-	public List<JobLog> queryList(JobLog sample) {
+	public List<JobWorker> queryList(JobWorker sample) {
 		return super.queryList(sample);
 	}
 
@@ -205,7 +201,7 @@ public class JobLogServiceImpl extends SuperService<JobLog> implements IJobLogSe
 	 * @return 查询结果
 	 * */
 	@Override
-	public PagedList<JobLog> queryPagedList(JobLog sample, int pageSize, int pageIndex) {
+	public PagedList<JobWorker> queryPagedList(JobWorker sample, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, pageSize, pageIndex);
 	}
 
@@ -219,25 +215,25 @@ public class JobLogServiceImpl extends SuperService<JobLog> implements IJobLogSe
 	 * @return 查询结果
 	 * */
 	@Override
-	public PagedList<JobLog> queryPagedList(JobLog sample, ConditionExpr condition, int pageSize, int pageIndex) {
+	public PagedList<JobWorker> queryPagedList(JobWorker sample, ConditionExpr condition, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, condition, pageSize, pageIndex);
 	}
 
 	/**
 	 * 检查 实体 是否已经存在 , 判断 主键值不同，但指定字段的值相同的记录是否存在
 	 *
-	 * @param jobLog 数据对象
+	 * @param jobWorker 数据对象
 	 * @return 判断结果
 	 */
-	public Boolean checkExists(JobLog jobLog) {
+	public Boolean checkExists(JobWorker jobWorker) {
 		//TDOD 此处添加判断段的代码
-		//boolean exists=super.checkExists(jobLog, SYS_ROLE.NAME);
+		//boolean exists=super.checkExists(jobWorker, SYS_ROLE.NAME);
 		//return exists;
 		return false;
 	}
 
 	@Override
-	public ExcelWriter exportExcel(JobLog sample) {
+	public ExcelWriter exportExcel(JobWorker sample) {
 		return super.exportExcel(sample);
 	}
 
@@ -249,6 +245,11 @@ public class JobLogServiceImpl extends SuperService<JobLog> implements IJobLogSe
 	@Override
 	public List<ValidateResult> importExcel(InputStream input,int sheetIndex,boolean batch) {
 		return super.importExcel(input,sheetIndex,batch);
+	}
+
+	@Override
+	public void invalidAll() {
+		dao().execute("update sys_job_worker set valid=0");
 	}
 
 	@Override

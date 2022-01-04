@@ -1,7 +1,7 @@
 /**
- * 定时任务配置 列表页 JS 脚本
+ * 任务执行器 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-04 17:14:44
+ * @since 2022-01-04 17:09:52
  */
 
 
@@ -9,7 +9,7 @@ function ListPage() {
 
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect;
 	//模块基础路径
-	const moduleURL="/service-job/sys-job";
+	const moduleURL="/service-job/sys-job-worker";
 	var dataTable=null;
 	var sort=null;
 	/**
@@ -75,17 +75,9 @@ function ListPage() {
 					{ fixed: 'left',type: 'numbers' },
 					{ fixed: 'left',type:'checkbox'}
 					,{ field: 'id', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('主键') , templet: function (d) { return templet('id',d.id,d);}  }
-					,{ field: 'name', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('任务名') , templet: function (d) { return templet('name',d.name,d);}  }
-					,{ field: 'workerId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('执行器'), templet: function (d) { return templet('workerId' ,fox.getProperty(d,["worker","className"]),d);}}
-					,{ field: 'cronExpr', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('cron') , templet: function (d) { return templet('cronExpr',d.cronExpr,d);}  }
-					,{ field: 'errorPolicy', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('计划执行错误策略') , templet: function (d) { return templet('errorPolicy',d.errorPolicy,d);}  }
-					,{ field: 'parameter', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('执行参数') , templet: function (d) { return templet('parameter',d.parameter,d);}  }
-					,{ field: 'concurrent', align:"center",fixed:false,  hide:false, sort: true, title: fox.translate('并发'), templet: '#cell-tpl-concurrent'}
-					,{ field: 'status', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('状态') , templet: function (d) { return templet('status',d.status,d);}  }
-					,{ field: 'errors', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('失败次数') , templet: function (d) { return templet('errors',d.errors,d);}  }
-					,{ field: 'notes', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('备注') , templet: function (d) { return templet('notes',d.notes,d);}  }
-					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间') ,templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
-					,{ field: 'misfirePolicy', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('遗漏执行的策略') , templet: function (d) { return templet('misfirePolicy',d.misfirePolicy,d);}  }
+					,{ field: 'name', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('名称') , templet: function (d) { return templet('name',d.name,d);}  }
+					,{ field: 'className', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('类名') , templet: function (d) { return templet('className',d.className,d);}  }
+					,{ field: 'valid', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('有效') , templet: function (d) { return templet('valid',d.valid,d);}  }
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
 				]],
@@ -108,10 +100,6 @@ function ListPage() {
 			};
 			window.pageExt.list.beforeTableRender && window.pageExt.list.beforeTableRender(tableConfig);
 			dataTable=fox.renderTable(tableConfig);
-			//绑定 Switch 切换事件
-			fox.bindSwitchEvent("cell-tpl-concurrent",moduleURL +'/update','id','concurrent',function(data,ctx){
-				window.pageExt.list.afterSwitched && window.pageExt.list.afterSwitched("concurrent",data,ctx);
-			});
 			//绑定排序事件
 			table.on('sort(data-table)', function(obj){
 			  refreshTableData(obj.field,obj.type);
@@ -126,7 +114,10 @@ function ListPage() {
       */
 	function refreshTableData(sortField,sortType,reset) {
 		var value = {};
-		value.name={ inputType:"button",value: $("#name").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" };
+		value.id={ inputType:"button",value: $("#id").val()};
+		value.name={ inputType:"button",value: $("#name").val()};
+		value.className={ inputType:"button",value: $("#className").val()};
+		value.valid={ inputType:"number_input", value: $("#valid").val() };
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;
@@ -239,7 +230,7 @@ function ListPage() {
         function openCreateFrom() {
         	//设置新增是初始化数据
         	var data={};
-			admin.putTempData('sys-job-form-data-form-action', "create",true);
+			admin.putTempData('sys-job-worker-form-data-form-action', "create",true);
             showEditForm(data);
         };
 
@@ -253,11 +244,11 @@ function ListPage() {
 
 			var ids=getCheckedList("id");
             if(ids.length==0) {
-				top.layer.msg(fox.translate('请选择需要删除的')+fox.translate('定时任务配置')+"!");
+				top.layer.msg(fox.translate('请选择需要删除的')+fox.translate('任务执行器')+"!");
             	return;
             }
             //调用批量删除接口
-			top.layer.confirm(fox.translate('确定删除已选中的')+fox.translate('定时任务配置')+fox.translate('吗？'), function (i) {
+			top.layer.confirm(fox.translate('确定删除已选中的')+fox.translate('任务执行器')+fox.translate('吗？'), function (i) {
                 admin.post(moduleURL+"/delete-by-ids", { ids: ids }, function (data) {
                     if (data.success) {
 						if(window.pageExt.list.afterBatchDelete) {
@@ -288,11 +279,11 @@ function ListPage() {
 				if(!doNext) return;
 			}
 
-			admin.putTempData('sys-job-form-data-form-action', "",true);
+			admin.putTempData('sys-job-worker-form-data-form-action', "",true);
 			if (layEvent === 'edit') { // 修改
 				admin.post(moduleURL+"/get-by-id", { id : data.id }, function (data) {
 					if(data.success) {
-						admin.putTempData('sys-job-form-data-form-action', "edit",true);
+						admin.putTempData('sys-job-worker-form-data-form-action', "edit",true);
 						showEditForm(data.data);
 					} else {
 						 top.layer.msg(data.message, {icon: 1, time: 1500});
@@ -301,7 +292,7 @@ function ListPage() {
 			} else if (layEvent === 'view') { // 查看
 				admin.post(moduleURL+"/get-by-id", { id : data.id }, function (data) {
 					if(data.success) {
-						admin.putTempData('sys-job-form-data-form-action', "view",true);
+						admin.putTempData('sys-job-worker-form-data-form-action', "view",true);
 						showEditForm(data.data);
 					} else {
 						top.layer.msg(data.message, {icon: 1, time: 1500});
@@ -314,7 +305,7 @@ function ListPage() {
 					var doNext=window.pageExt.list.beforeSingleDelete(data);
 					if(!doNext) return;
 				}
-				top.layer.confirm(fox.translate('确定删除此')+fox.translate('定时任务配置')+fox.translate('吗？'), function (i) {
+				top.layer.confirm(fox.translate('确定删除此')+fox.translate('任务执行器')+fox.translate('吗？'), function (i) {
 					top.layer.close(i);
 
 					top.layer.load(2);
@@ -346,17 +337,17 @@ function ListPage() {
 			var doNext=window.pageExt.list.beforeEdit(data);
 			if(!doNext) return;
 		}
-		var action=admin.getTempData('sys-job-form-data-form-action');
+		var action=admin.getTempData('sys-job-worker-form-data-form-action');
 		var queryString="";
 		if(data && data.id) queryString='id=' + data.id;
 		if(window.pageExt.list.makeFormQueryString) {
 			queryString=window.pageExt.list.makeFormQueryString(data,queryString,action);
 		}
-		admin.putTempData('sys-job-form-data', data);
-		var area=admin.getTempData('sys-job-form-area');
+		admin.putTempData('sys-job-worker-form-data', data);
+		var area=admin.getTempData('sys-job-worker-form-area');
 		var height= (area && area.height) ? area.height : ($(window).height()*0.6);
 		var top= (area && area.top) ? area.top : (($(window).height()-height)/2);
-		var title = fox.translate('定时任务配置');
+		var title = fox.translate('任务执行器');
 		if(action=="create") title=fox.translate('添加')+title;
 		else if(action=="edit") title=fox.translate('修改')+title;
 		else if(action=="view") title=fox.translate('查看')+title;
@@ -365,10 +356,10 @@ function ListPage() {
 			title: title,
 			resize: false,
 			offset: [top,null],
-			area: ["700px",height+"px"],
+			area: ["500px",height+"px"],
 			type: 2,
-			id:"sys-job-form-data-win",
-			content: '/business/job/job/job_form.html' + (queryString?("?"+queryString):""),
+			id:"sys-job-worker-form-data-win",
+			content: '/business/job/job_worker/job_worker_form.html' + (queryString?("?"+queryString):""),
 			finish: function () {
 				refreshTableData();
 			}

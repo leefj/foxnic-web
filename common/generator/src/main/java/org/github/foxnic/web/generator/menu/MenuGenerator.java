@@ -11,14 +11,15 @@ import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.generator.builder.business.ControllerProxyFile;
 import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
+import org.github.foxnic.web.constants.enums.system.AccessType;
 import org.github.foxnic.web.constants.enums.system.MenuType;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.MenuResource;
 import org.github.foxnic.web.domain.oauth.Resourze;
 import org.github.foxnic.web.domain.oauth.RoleMenu;
 import org.github.foxnic.web.generator.config.FoxnicWebConfigs;
-import org.github.foxnic.web.proxy.system.BusiRoleMemberServiceProxy;
-import org.github.foxnic.web.system.page.BusiRoleMemberPageController;
+import org.github.foxnic.web.job.page.JobLogPageController;
+import org.github.foxnic.web.proxy.job.JobLogServiceProxy;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.File;
@@ -42,9 +43,21 @@ public class MenuGenerator {
 
 		MenuGenerator mg=null;
 
+		mg=new MenuGenerator(FoxnicWeb.SYS_JOB_LOG.$TABLE, JobLogServiceProxy.class, JobLogPageController.class);
+		mg.generate("530778450735136769");
 
-		mg=new MenuGenerator(FoxnicWeb.SYS_BUSI_ROLE_MEMBER.$TABLE, BusiRoleMemberServiceProxy.class, BusiRoleMemberPageController.class);
-		mg.generate("oauth");
+//		mg=new MenuGenerator(FoxnicWeb.SYS_JOB_WORKER.$TABLE, JobWorkerServiceProxy.class, JobWorkerPageController.class);
+//		mg.generate("530778450735136769");
+
+//		mg=new MenuGenerator(FoxnicWeb.SYS_JOB.$TABLE, JobServiceProxy.class, JobPageController.class);
+//		mg.generate("530778450735136769");
+
+
+//		mg=new MenuGenerator(FoxnicWeb.SYS_BUSI_ROLE_MEMBER.$TABLE, BusiRoleMemberServiceProxy.class, BusiRoleMemberPageController.class);
+//		mg.generate("oauth");
+
+
+
 
 //		mg.removeByBatchId("501070741601517568");
 
@@ -390,6 +403,7 @@ public class MenuGenerator {
 			resourze.setType("page");
 			resourze.setMethod("GET");
 			resourze.setTableName(table.name());
+			resourze.setAccessTypeEnum(AccessType.GRANT);
 			resourze.setModule(this.getTopic());
 			resourze.setBatchId(batchId);
 
@@ -428,6 +442,7 @@ public class MenuGenerator {
 			resourze.setUrl(value);
 			resourze.setType("api");
 			resourze.setMethod("POST");
+			resourze.setAccessTypeEnum(AccessType.GRANT);
 			resourze.setTableName(table.name());
 			resourze.setModule(this.getTopic());
 			resourze.setBatchId(batchId);

@@ -3,13 +3,14 @@ package org.github.foxnic.web.domain.job.meta;
 import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.job.Job;
 import java.util.Date;
+import org.github.foxnic.web.domain.job.JobWorker;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-31 11:54:53
- * @sign 0FFDF26A69530FBFD534CA3ED10B04A2
+ * @since 2022-01-04 17:14:44
+ * @sign E2C129B256A2A11C3D3DF3B7A32770B8
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -46,14 +47,14 @@ public class JobMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.job.Job,java.lang.String> GROUP_TAG_PROP = new BeanProperty(org.github.foxnic.web.domain.job.Job.class ,GROUP_TAG, java.lang.String.class, "组别", "组别", java.lang.String.class, null);
 	
 	/**
-	 * 执行类 , 类型: java.lang.String
+	 * 执行类ID , 类型: java.lang.String
 	*/
-	public static final String CLASS_NAME="className";
+	public static final String WORKER_ID="workerId";
 	
 	/**
-	 * 执行类 , 类型: java.lang.String
+	 * 执行类ID , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.job.Job,java.lang.String> CLASS_NAME_PROP = new BeanProperty(org.github.foxnic.web.domain.job.Job.class ,CLASS_NAME, java.lang.String.class, "执行类", "执行类", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.job.Job,java.lang.String> WORKER_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.job.Job.class ,WORKER_ID, java.lang.String.class, "执行类ID", "执行类ID", java.lang.String.class, null);
 	
 	/**
 	 * cron表达式 , 类型: java.lang.String
@@ -216,9 +217,29 @@ public class JobMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.job.Job,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.job.Job.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
+	 * 遗漏执行的策略 , 类型: java.lang.String
+	*/
+	public static final String MISFIRE_POLICY="misfirePolicy";
+	
+	/**
+	 * 遗漏执行的策略 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.job.Job,java.lang.String> MISFIRE_POLICY_PROP = new BeanProperty(org.github.foxnic.web.domain.job.Job.class ,MISFIRE_POLICY, java.lang.String.class, "遗漏执行的策略", "遗漏执行的策略", java.lang.String.class, null);
+	
+	/**
+	 * 任务的执行类 , 类型: org.github.foxnic.web.domain.job.JobWorker
+	*/
+	public static final String WORKER="worker";
+	
+	/**
+	 * 任务的执行类 , 类型: org.github.foxnic.web.domain.job.JobWorker
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.job.Job,org.github.foxnic.web.domain.job.JobWorker> WORKER_PROP = new BeanProperty(org.github.foxnic.web.domain.job.Job.class ,WORKER, org.github.foxnic.web.domain.job.JobWorker.class, "任务的执行类", "任务的执行类", org.github.foxnic.web.domain.job.JobWorker.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , NAME , GROUP_TAG , CLASS_NAME , CRON_EXPR , ERROR_POLICY , PARAMETER , CONCURRENT , STATUS , ERRORS , NOTES , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , NAME , GROUP_TAG , WORKER_ID , CRON_EXPR , ERROR_POLICY , PARAMETER , CONCURRENT , STATUS , ERRORS , NOTES , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , MISFIRE_POLICY , WORKER };
 	
 	/**
 	 * 代理类
@@ -262,13 +283,13 @@ public class JobMeta {
 		}
 		
 		/**
-		 * 设置 执行类
-		 * @param className 执行类
+		 * 设置 执行类ID
+		 * @param workerId 执行类ID
 		 * @return 当前对象
 		*/
-		public Job setClassName(String className) {
-			super.change(CLASS_NAME,super.getClassName(),className);
-			super.setClassName(className);
+		public Job setWorkerId(String workerId) {
+			super.change(WORKER_ID,super.getWorkerId(),workerId);
+			super.setWorkerId(workerId);
 			return this;
 		}
 		
@@ -445,6 +466,28 @@ public class JobMeta {
 		public Job setVersion(Integer version) {
 			super.change(VERSION,super.getVersion(),version);
 			super.setVersion(version);
+			return this;
+		}
+		
+		/**
+		 * 设置 遗漏执行的策略
+		 * @param misfirePolicy 遗漏执行的策略
+		 * @return 当前对象
+		*/
+		public Job setMisfirePolicy(String misfirePolicy) {
+			super.change(MISFIRE_POLICY,super.getMisfirePolicy(),misfirePolicy);
+			super.setMisfirePolicy(misfirePolicy);
+			return this;
+		}
+		
+		/**
+		 * 设置 任务的执行类
+		 * @param worker 任务的执行类
+		 * @return 当前对象
+		*/
+		public Job setWorker(JobWorker worker) {
+			super.change(WORKER,super.getWorker(),worker);
+			super.setWorker(worker);
 			return this;
 		}
 	}

@@ -1905,11 +1905,18 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
         var ws = {};
         for (var i = 0; i < ths.length; i++) {
             var th = $(ths[i]);
-            if (cols[i] && cols[i].field && !cols[i].hide) {
-                ws[cols[i].field] = {width:th[0].clientWidth,hide:false};
+            var cls=th.parent().attr("class");
+
+            var hide=cls.indexOf("layui-hide")!=-1;
+            //debugger;
+            if (cols[i] && cols[i].field) {
+                var w=th[0].clientWidth;
+                if(hide) w=20;
+                ws[cols[i].field] = {width:w,hide:hide};
                 cols[i].width = th[0].clientWidth;
             }
         }
+
         var loc = location.href;
         loc = loc.substr(loc.indexOf("//") + 2);
         loc = loc.substr(loc.indexOf("/"));

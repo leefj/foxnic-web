@@ -2,6 +2,7 @@ package org.github.foxnic.web.job.utils;
 
 
 import com.github.foxnic.commons.log.Logger;
+import org.github.foxnic.web.constants.enums.job.Status;
 import org.github.foxnic.web.job.config.ScheduleConstants;
 import org.github.foxnic.web.job.exception.TaskException;
 import org.quartz.*;
@@ -31,7 +32,7 @@ public class ScheduleUtils
      */
     public static TriggerKey getTriggerKey(String jobId)
     {
-        return TriggerKey.triggerKey(ScheduleConstants.TASK_CLASS_NAME + jobId);
+        return TriggerKey.triggerKey(ScheduleConstants.TASK_CLASS_NAME +"_"+ jobId);
     }
 
     /**
@@ -39,7 +40,7 @@ public class ScheduleUtils
      */
     public static JobKey getJobKey(String jobId)
     {
-        return JobKey.jobKey(ScheduleConstants.TASK_CLASS_NAME + jobId);
+        return JobKey.jobKey(ScheduleConstants.TASK_CLASS_NAME+"_" + jobId);
     }
 
     /**
@@ -81,7 +82,7 @@ public class ScheduleUtils
         scheduler.scheduleJob(jobDetail, trigger);
 
         // 暂停任务
-        if (job.getStatus().equals(ScheduleConstants.Status.PAUSE.getValue()))
+        if (job.getStatusEnum()==Status.PAUSED)
         {
             pauseJob(scheduler, job.getId());
         }
@@ -104,7 +105,7 @@ public class ScheduleUtils
         createScheduleJob(scheduler, job);
 
         // 暂停任务
-        if (job.getStatus().equals(ScheduleConstants.Status.PAUSE.getValue()))
+        if (job.getStatusEnum()==Status.PAUSED)
         {
             pauseJob(scheduler, job.getId());
         }

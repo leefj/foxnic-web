@@ -48,6 +48,7 @@ public class FoxnicWebDBMetaGenerator  {
 			if(hrmTables.contains(table)) return true;
 			if(table.startsWith("sys_job_")) {
 				if(table.equals("sys_job_log")) return true;
+				if(table.equals("sys_job_worker")) return true;
 				else return false;
 			}
 			return false;

@@ -1,54 +1,48 @@
 package org.github.foxnic.web.job.controller;
 
 
-import java.util.List;
-
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-
-import org.github.foxnic.web.framework.web.SuperController;
-import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
-import org.springframework.web.bind.annotation.RequestMapping;
-import javax.servlet.http.HttpServletResponse;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
-
-
-import org.github.foxnic.web.proxy.job.JobServiceProxy;
-import org.github.foxnic.web.domain.job.meta.JobVOMeta;
-import org.github.foxnic.web.domain.job.Job;
-import org.github.foxnic.web.domain.job.JobVO;
+import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.api.validate.annotations.NotNull;
+import com.github.foxnic.commons.io.StreamUtil;
+import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.springboot.web.DownloadUtil;
-import com.github.foxnic.dao.data.PagedList;
-import java.util.Date;
-import java.sql.Timestamp;
-import com.github.foxnic.api.error.ErrorDesc;
-import com.github.foxnic.commons.io.StreamUtil;
-import java.util.Map;
 import com.github.foxnic.dao.excel.ValidateResult;
-import java.io.InputStream;
-import org.github.foxnic.web.domain.job.meta.JobMeta;
-import io.swagger.annotations.Api;
-import com.github.xiaoymin.knife4j.annotations.ApiSort;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiImplicitParam;
+import com.github.foxnic.springboot.web.DownloadUtil;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.github.xiaoymin.knife4j.annotations.ApiSort;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import org.github.foxnic.web.domain.job.Job;
+import org.github.foxnic.web.domain.job.JobVO;
+import org.github.foxnic.web.domain.job.meta.JobMeta;
+import org.github.foxnic.web.domain.job.meta.JobVOMeta;
+import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
+import org.github.foxnic.web.framework.web.SuperController;
 import org.github.foxnic.web.job.service.IJobService;
-import com.github.foxnic.api.validate.annotations.NotNull;
+import org.github.foxnic.web.proxy.job.JobServiceProxy;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.InputStream;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
  * 定时任务配置表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-31 11:54:54
+ * @since 2022-01-04 17:14:44
 */
 
 @Api(tags = "定时任务配置")
@@ -65,17 +59,18 @@ public class JobController extends SuperController {
 	*/
 	@ApiOperation(value = "添加定时任务配置")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = JobVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = JobVOMeta.NAME , value = "任务名称" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = JobVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "530795797369847808"),
+		@ApiImplicitParam(name = JobVOMeta.NAME , value = "任务名称" , required = false , dataTypeClass=String.class , example = "111"),
 		@ApiImplicitParam(name = JobVOMeta.GROUP_TAG , value = "组别" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = JobVOMeta.CLASS_NAME , value = "执行类" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = JobVOMeta.CRON_EXPR , value = "cron表达式" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = JobVOMeta.WORKER_ID , value = "执行类ID" , required = false , dataTypeClass=String.class , example = "530777750454140928"),
+		@ApiImplicitParam(name = JobVOMeta.CRON_EXPR , value = "cron表达式" , required = false , dataTypeClass=String.class , example = "0/2 * * * * ?"),
 		@ApiImplicitParam(name = JobVOMeta.ERROR_POLICY , value = "计划执行错误策略" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = JobVOMeta.PARAMETER , value = "执行参数" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = JobVOMeta.CONCURRENT , value = "是否并发执行（0允许" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = JobVOMeta.CONCURRENT , value = "是否并发执行（0允许" , required = false , dataTypeClass=Integer.class , example = "0"),
 		@ApiImplicitParam(name = JobVOMeta.STATUS , value = "状态" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = JobVOMeta.ERRORS , value = "执行错误次数" , required = false , dataTypeClass=Integer.class),
 		@ApiImplicitParam(name = JobVOMeta.NOTES , value = "备注" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = JobVOMeta.MISFIRE_POLICY , value = "遗漏执行的策略" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport(order=1)
 	@SentinelResource(value = JobServiceProxy.INSERT , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
@@ -92,7 +87,7 @@ public class JobController extends SuperController {
 	*/
 	@ApiOperation(value = "删除定时任务配置")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = JobVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class)
+		@ApiImplicitParam(name = JobVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "530795797369847808")
 	})
 	@ApiOperationSupport(order=2)
 	@NotNull(name = JobVOMeta.ID)
@@ -112,7 +107,7 @@ public class JobController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = JobVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 	})
-	@ApiOperationSupport(order=3) 
+	@ApiOperationSupport(order=3)
 	@NotNull(name = JobVOMeta.IDS)
 	@SentinelResource(value = JobServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(JobServiceProxy.DELETE_BY_IDS)
@@ -126,17 +121,18 @@ public class JobController extends SuperController {
 	*/
 	@ApiOperation(value = "更新定时任务配置")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = JobVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = JobVOMeta.NAME , value = "任务名称" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = JobVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "530795797369847808"),
+		@ApiImplicitParam(name = JobVOMeta.NAME , value = "任务名称" , required = false , dataTypeClass=String.class , example = "111"),
 		@ApiImplicitParam(name = JobVOMeta.GROUP_TAG , value = "组别" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = JobVOMeta.CLASS_NAME , value = "执行类" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = JobVOMeta.CRON_EXPR , value = "cron表达式" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = JobVOMeta.WORKER_ID , value = "执行类ID" , required = false , dataTypeClass=String.class , example = "530777750454140928"),
+		@ApiImplicitParam(name = JobVOMeta.CRON_EXPR , value = "cron表达式" , required = false , dataTypeClass=String.class , example = "0/2 * * * * ?"),
 		@ApiImplicitParam(name = JobVOMeta.ERROR_POLICY , value = "计划执行错误策略" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = JobVOMeta.PARAMETER , value = "执行参数" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = JobVOMeta.CONCURRENT , value = "是否并发执行（0允许" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = JobVOMeta.CONCURRENT , value = "是否并发执行（0允许" , required = false , dataTypeClass=Integer.class , example = "0"),
 		@ApiImplicitParam(name = JobVOMeta.STATUS , value = "状态" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = JobVOMeta.ERRORS , value = "执行错误次数" , required = false , dataTypeClass=Integer.class),
 		@ApiImplicitParam(name = JobVOMeta.NOTES , value = "备注" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = JobVOMeta.MISFIRE_POLICY , value = "遗漏执行的策略" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport( order=4 , ignoreParameters = { JobVOMeta.PAGE_INDEX , JobVOMeta.PAGE_SIZE , JobVOMeta.SEARCH_FIELD , JobVOMeta.FUZZY_FIELD , JobVOMeta.SEARCH_VALUE , JobVOMeta.DIRTY_FIELDS , JobVOMeta.SORT_FIELD , JobVOMeta.SORT_TYPE , JobVOMeta.IDS } )
 	@NotNull(name = JobVOMeta.ID)
@@ -153,17 +149,18 @@ public class JobController extends SuperController {
 	*/
 	@ApiOperation(value = "保存定时任务配置")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = JobVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = JobVOMeta.NAME , value = "任务名称" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = JobVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "530795797369847808"),
+		@ApiImplicitParam(name = JobVOMeta.NAME , value = "任务名称" , required = false , dataTypeClass=String.class , example = "111"),
 		@ApiImplicitParam(name = JobVOMeta.GROUP_TAG , value = "组别" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = JobVOMeta.CLASS_NAME , value = "执行类" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = JobVOMeta.CRON_EXPR , value = "cron表达式" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = JobVOMeta.WORKER_ID , value = "执行类ID" , required = false , dataTypeClass=String.class , example = "530777750454140928"),
+		@ApiImplicitParam(name = JobVOMeta.CRON_EXPR , value = "cron表达式" , required = false , dataTypeClass=String.class , example = "0/2 * * * * ?"),
 		@ApiImplicitParam(name = JobVOMeta.ERROR_POLICY , value = "计划执行错误策略" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = JobVOMeta.PARAMETER , value = "执行参数" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = JobVOMeta.CONCURRENT , value = "是否并发执行（0允许" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = JobVOMeta.CONCURRENT , value = "是否并发执行（0允许" , required = false , dataTypeClass=Integer.class , example = "0"),
 		@ApiImplicitParam(name = JobVOMeta.STATUS , value = "状态" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = JobVOMeta.ERRORS , value = "执行错误次数" , required = false , dataTypeClass=Integer.class),
 		@ApiImplicitParam(name = JobVOMeta.NOTES , value = "备注" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = JobVOMeta.MISFIRE_POLICY , value = "遗漏执行的策略" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { JobVOMeta.PAGE_INDEX , JobVOMeta.PAGE_SIZE , JobVOMeta.SEARCH_FIELD , JobVOMeta.FUZZY_FIELD , JobVOMeta.SEARCH_VALUE , JobVOMeta.DIRTY_FIELDS , JobVOMeta.SORT_FIELD , JobVOMeta.SORT_TYPE , JobVOMeta.IDS } )
 	@NotNull(name = JobVOMeta.ID)
@@ -189,6 +186,10 @@ public class JobController extends SuperController {
 	public Result<Job> getById(String id) {
 		Result<Job> result=new Result<>();
 		Job job=jobService.getById(id);
+		// join 关联的对象
+		jobService.dao().fill(job)
+			.with(JobMeta.WORKER)
+			.execute();
 		result.success(true).data(job);
 		return result;
 	}
@@ -202,7 +203,7 @@ public class JobController extends SuperController {
 		@ApiImplicitParams({
 				@ApiImplicitParam(name = JobVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})
-		@ApiOperationSupport(order=3) 
+		@ApiOperationSupport(order=3)
 		@NotNull(name = JobVOMeta.IDS)
 		@SentinelResource(value = JobServiceProxy.GET_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(JobServiceProxy.GET_BY_IDS)
@@ -219,17 +220,18 @@ public class JobController extends SuperController {
 	*/
 	@ApiOperation(value = "查询定时任务配置")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = JobVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = JobVOMeta.NAME , value = "任务名称" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = JobVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "530795797369847808"),
+		@ApiImplicitParam(name = JobVOMeta.NAME , value = "任务名称" , required = false , dataTypeClass=String.class , example = "111"),
 		@ApiImplicitParam(name = JobVOMeta.GROUP_TAG , value = "组别" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = JobVOMeta.CLASS_NAME , value = "执行类" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = JobVOMeta.CRON_EXPR , value = "cron表达式" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = JobVOMeta.WORKER_ID , value = "执行类ID" , required = false , dataTypeClass=String.class , example = "530777750454140928"),
+		@ApiImplicitParam(name = JobVOMeta.CRON_EXPR , value = "cron表达式" , required = false , dataTypeClass=String.class , example = "0/2 * * * * ?"),
 		@ApiImplicitParam(name = JobVOMeta.ERROR_POLICY , value = "计划执行错误策略" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = JobVOMeta.PARAMETER , value = "执行参数" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = JobVOMeta.CONCURRENT , value = "是否并发执行（0允许" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = JobVOMeta.CONCURRENT , value = "是否并发执行（0允许" , required = false , dataTypeClass=Integer.class , example = "0"),
 		@ApiImplicitParam(name = JobVOMeta.STATUS , value = "状态" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = JobVOMeta.ERRORS , value = "执行错误次数" , required = false , dataTypeClass=Integer.class),
 		@ApiImplicitParam(name = JobVOMeta.NOTES , value = "备注" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = JobVOMeta.MISFIRE_POLICY , value = "遗漏执行的策略" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { JobVOMeta.PAGE_INDEX , JobVOMeta.PAGE_SIZE } )
 	@SentinelResource(value = JobServiceProxy.QUERY_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
@@ -247,17 +249,18 @@ public class JobController extends SuperController {
 	*/
 	@ApiOperation(value = "分页查询定时任务配置")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = JobVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class),
-		@ApiImplicitParam(name = JobVOMeta.NAME , value = "任务名称" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = JobVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "530795797369847808"),
+		@ApiImplicitParam(name = JobVOMeta.NAME , value = "任务名称" , required = false , dataTypeClass=String.class , example = "111"),
 		@ApiImplicitParam(name = JobVOMeta.GROUP_TAG , value = "组别" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = JobVOMeta.CLASS_NAME , value = "执行类" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = JobVOMeta.CRON_EXPR , value = "cron表达式" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = JobVOMeta.WORKER_ID , value = "执行类ID" , required = false , dataTypeClass=String.class , example = "530777750454140928"),
+		@ApiImplicitParam(name = JobVOMeta.CRON_EXPR , value = "cron表达式" , required = false , dataTypeClass=String.class , example = "0/2 * * * * ?"),
 		@ApiImplicitParam(name = JobVOMeta.ERROR_POLICY , value = "计划执行错误策略" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = JobVOMeta.PARAMETER , value = "执行参数" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = JobVOMeta.CONCURRENT , value = "是否并发执行（0允许" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = JobVOMeta.CONCURRENT , value = "是否并发执行（0允许" , required = false , dataTypeClass=Integer.class , example = "0"),
 		@ApiImplicitParam(name = JobVOMeta.STATUS , value = "状态" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = JobVOMeta.ERRORS , value = "执行错误次数" , required = false , dataTypeClass=Integer.class),
 		@ApiImplicitParam(name = JobVOMeta.NOTES , value = "备注" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = JobVOMeta.MISFIRE_POLICY , value = "遗漏执行的策略" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport(order=8)
 	@SentinelResource(value = JobServiceProxy.QUERY_PAGED_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
@@ -265,6 +268,10 @@ public class JobController extends SuperController {
 	public Result<PagedList<Job>> queryPagedList(JobVO sample) {
 		Result<PagedList<Job>> result=new Result<>();
 		PagedList<Job> list=jobService.queryPagedList(sample,sample.getPageSize(),sample.getPageIndex());
+		// join 关联的对象
+		jobService.dao().fill(list)
+			.with(JobMeta.WORKER)
+			.execute();
 		result.success(true).data(list);
 		return result;
 	}

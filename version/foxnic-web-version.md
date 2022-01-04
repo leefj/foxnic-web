@@ -1,6 +1,6 @@
 ## 版本：07.0.RELEASE ( 2022-01-04 )  Foxnic Version: 1.4.6.RELEASE
 ### 新特性
-1. 
+1. 增加任务调度模块
  
 
 

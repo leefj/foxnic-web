@@ -1,5 +1,5 @@
 /**
- * 定时任务执行日志 列表页 JS 脚本
+ * 任务执行器 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
  * @since 2022-01-04 17:09:52
  */
@@ -18,7 +18,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
     table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect,foxup=layui.foxnicUpload;
 
     //模块基础路径
-    const moduleURL="/service-job/sys-job-log";
+    const moduleURL="/service-job/sys-job-worker";
 
     //列表页的扩展
     var list={

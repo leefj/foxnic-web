@@ -1,7 +1,7 @@
 /**
  * 定时任务配置 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-31 11:54:54
+ * @since 2022-01-04 17:14:44
  */
 
 layui.config({

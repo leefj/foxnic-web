@@ -12,7 +12,7 @@ import com.github.foxnic.commons.bean.BeanUtil;
 /**
  * 定时任务配置
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-31 11:54:53
+ * @since 2022-01-04 17:14:44
  * @sign EA93CE36C2B9313F6C823D4451A8D228
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
