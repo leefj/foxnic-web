@@ -356,6 +356,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
         renderTable: function (cfg) {
             var me=this;
             var tableId = cfg.elem.substring(1);
+
             // debugger;
             if (window.LAYUI_TABLE_WIDTH_CONFIG) {
                 //debugger;
@@ -364,15 +365,15 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     cfg.url = settings.base_server + cfg.url;
                     var cols = cfg.cols[0];
                     // var prevFlag = 0, prev = null;
-                    debugger
+                    //debugger
                     for (var i = 0; cols && i < cols.length; i++) {
-                        var cfg=columnWidthConfig[cols[i].field];
-                        if(cfg==null) continue;
-                        if(TypeUtil.isNumber(cfg)) {
-                            cfg={width:cfg};
+                        var columnConfig=columnWidthConfig[cols[i].field];
+                        if(columnConfig==null) continue;
+                        if(TypeUtil.isNumber(columnConfig)) {
+                            columnConfig={width:columnConfig};
                         }
 
-                        if (cols[i].hide) continue;
+                        //if (cols[i].hide) continue;
                         if (cols[i].field==this.translate('空白列')) continue;
                         // if (cols[i].field=='row-ops') continue;
                         // if(cols[i].field=="createTime") {
@@ -381,12 +382,12 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                         // }
                         //var w = columnWidthConfig[cols[i].field];
                         // if (w) {
-                        cols[i].width = cfg.width;
+                        cols[i].width = columnConfig.width;
                             // debugger
                             // if(cfg.hide!==null) {
-                        cols[i].hide = cfg.hide;
+                        cols[i].hide = columnConfig.hide;
                             // }
-                            console.log(cols[i].field, cfg);
+                        console.log(cols[i].field, columnConfig);
                         // }
                         // if (cols[i].field == this.translate('空白列')) prevFlag = 1;
                         // if (prevFlag == 0) {
@@ -397,7 +398,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 }
             }
 
-            // debugger
+            //debugger
             if(cfg.page==null || cfg.page.limits == null) {
                 if(cfg.page==null) cfg.page={};
                 if(cfg.page.limits==null) {
@@ -480,7 +481,21 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     renderFooter(this, cfg.footer);
                 }
                 if (userDone) userDone(data);
+                $("#"+tableId+" th").bind("change", ()=>{
+                    // alert("div出发了change事件");
+                    console.log('div出发了change事件')
+                });
             }
+
+            // 当选择列之后，触发状态保存
+            // table.on('toolbar('+tableId+')', function(obj){
+            //     form.on('checkbox(LAY_TABLE_TOOL_COLS)', function(data){
+            //         var ths = $("#"+tableId+" th .layui-table-cell");
+            //         setTimeout(function (){
+            //             saveTableSettings(tableId,ths,cols);
+            //         },1);
+            //     });
+            // });
 
             function renderSearchContent(it){
 
@@ -1845,41 +1860,76 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             var tableId = inst.config.elem[0].id;
             //console.log("inst",inst);
             var cols = inst.config.cols[0];
-            //debugger
-            var ws = {};
             if (cls.indexOf("layui-table-cell") == -1 || cls.indexOf("laytable-cell-") == -1) return;
             var ths = $("th .layui-table-cell");
-            //console.log(ths.length);
-            for (var i = 0; i < ths.length; i++) {
-                var th = $(ths[i]);
-                if (cols[i] && cols[i].field && !cols[i].hide) {
-                    ws[cols[i].field] = {width:th[0].clientWidth,hide:false};
-                    cols[i].width = th[0].clientWidth;
-                }
-            }
-            var loc = location.href;
-            loc = loc.substr(loc.indexOf("//") + 2);
-            loc = loc.substr(loc.indexOf("/"));
-            if(loc.indexOf("?")>0) {
-                loc = loc.substr(0,loc.indexOf("?"));
-            }
-            console.log("save table", tableId, ws);
+            //debugger
+            saveTableSettings(tableId,ths,cols);
+            return;
 
-            admin.request("/service-system/sys-db-cache/save", {
-                value: JSON.stringify(ws),
-                area: loc+"#"+tableId,
-                catalog: "layui-table-column-width",
-                ownerType: "user"
-            }, function (data) {
-                if(admin.toast()) {
-                    admin.toast().success("列宽已调整", {time: 1000, position: "right-bottom"});
-                }
-            });
+            // var ws = {};
+            // if (cls.indexOf("layui-table-cell") == -1 || cls.indexOf("laytable-cell-") == -1) return;
+            //
+            // //console.log(ths.length);
+            // for (var i = 0; i < ths.length; i++) {
+            //     var th = $(ths[i]);
+            //     if (cols[i] && cols[i].field && !cols[i].hide) {
+            //         ws[cols[i].field] = {width:th[0].clientWidth,hide:false};
+            //         cols[i].width = th[0].clientWidth;
+            //     }
+            // }
+            // var loc = location.href;
+            // loc = loc.substr(loc.indexOf("//") + 2);
+            // loc = loc.substr(loc.indexOf("/"));
+            // if(loc.indexOf("?")>0) {
+            //     loc = loc.substr(0,loc.indexOf("?"));
+            // }
+            // console.log("save table", tableId, ws);
+            //
+            // admin.request("/service-system/sys-db-cache/save", {
+            //     value: JSON.stringify(ws),
+            //     area: loc+"#"+tableId,
+            //     catalog: "layui-table-column-width",
+            //     ownerType: "user"
+            // }, function (data) {
+            //     if(admin.toast()) {
+            //         admin.toast().success("自定义表格设置已同步", {time: 1000, position: "right-bottom"});
+            //     }
+            // });
 
 
         }, 100);
 
     });
+
+    function saveTableSettings(tableId,ths,cols) {
+        var ws = {};
+        for (var i = 0; i < ths.length; i++) {
+            var th = $(ths[i]);
+            if (cols[i] && cols[i].field && !cols[i].hide) {
+                ws[cols[i].field] = {width:th[0].clientWidth,hide:false};
+                cols[i].width = th[0].clientWidth;
+            }
+        }
+        var loc = location.href;
+        loc = loc.substr(loc.indexOf("//") + 2);
+        loc = loc.substr(loc.indexOf("/"));
+        if(loc.indexOf("?")>0) {
+            loc = loc.substr(0,loc.indexOf("?"));
+        }
+        console.log("save table", tableId, ws);
+
+        admin.request("/service-system/sys-db-cache/save", {
+            value: JSON.stringify(ws),
+            area: loc+"#"+tableId,
+            catalog: "layui-table-column-width",
+            ownerType: "user"
+        }, function (data) {
+            if(admin.toast()) {
+                admin.toast().success("自定义表格设置已同步", {time: 1000, position: "right-bottom"});
+            }
+        });
+    }
+    window.saveTableSettings=saveTableSettings;
 
 
     // foxnic 提供的事件
