@@ -1,3 +1,28 @@
+## 版本：07.0.RELEASE ( 2022-01-04 )  Foxnic Version: 1.4.6.RELEASE
+### 新特性
+1. 
+ 
+
+
+
+### Bug 修复
+1. 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## 版本：0.6.5.RELEASE ( 2021-11-29 )  Foxnic Version: 1.4.5.RELEASE
 ### 新特性
 1. 解决前端高CPU问题的Bug

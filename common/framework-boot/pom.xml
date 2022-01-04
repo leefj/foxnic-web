@@ -5,7 +5,7 @@
     <parent> 
         <groupId>com.github.foxnic.web</groupId>  
         <artifactId>parent</artifactId>  
-        <version>0.6.5.RELEASE</version>  
+        <version>0.7.0.RELEASE</version>  
         <relativePath>../../pom.xml</relativePath>  
         <!-- lookup parent from repository --> 
     </parent>  
@@ -122,7 +122,7 @@
         <dependency> 
             <groupId>com.alibaba</groupId>  
             <artifactId>druid-spring-boot-starter</artifactId>  
-            <version>1.2.8</version>
+            <version>1.2.8</version> 
         </dependency>  
         <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->  
         <dependency> 
