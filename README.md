@@ -23,7 +23,7 @@ Spring Boot、 Spring Security、FoxnicSQL、 FoxnicDAO、Redis、 Thymeleaf、L
 #### 沟通交流
 
 微信群：
-![微信群](http://47.92.240.43:8484/docs/chapters/base/1.3/wx.png)
+![微信群](view/view-console/src/main/resources/static/assets/images/wx.png)
 
 QQ群：634770774
 
