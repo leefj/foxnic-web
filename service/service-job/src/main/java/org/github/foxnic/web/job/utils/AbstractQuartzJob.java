@@ -8,7 +8,6 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 
 import java.sql.Timestamp;
 
@@ -41,8 +40,10 @@ public abstract class AbstractQuartzJob implements Job
     {
 
 
-        org.github.foxnic.web.domain.job.Job sysJob = new org.github.foxnic.web.domain.job.Job();
-        BeanUtils.copyProperties(sysJob, context.getMergedJobDataMap().get(ScheduleConstants.TASK_PROPERTIES));
+
+        Object o=context.getMergedJobDataMap().get(ScheduleConstants.TASK_PROPERTIES);
+//        BeanUtils.copyProperties(sysJob, );
+        org.github.foxnic.web.domain.job.Job sysJob = org.github.foxnic.web.domain.job.Job.createFrom(o);
         Boolean isManual=(Boolean)context.getMergedJobDataMap().get(ScheduleConstants.IS_MANUAL);
         //启动参数 job=no 禁用 job
         if(!isJobEnabled() && (isManual==null || isManual==false))  {

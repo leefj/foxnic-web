@@ -6,10 +6,10 @@ import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_JOB;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
-import org.github.foxnic.web.constants.enums.job.Status;
-import javax.persistence.Transient;
-import java.util.Date;
 import org.github.foxnic.web.constants.enums.job.MisfirePolicy;
+import javax.persistence.Transient;
+import org.github.foxnic.web.constants.enums.job.Status;
+import java.util.Date;
 import com.github.foxnic.commons.reflect.EnumUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import java.util.Map;
@@ -20,8 +20,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 定时任务配置
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-04 17:14:44
- * @sign E2C129B256A2A11C3D3DF3B7A32770B8
+ * @since 2022-01-05 14:33:42
+ * @sign 32425DE8582D5BEC0A9C8C5310D3219C
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -64,12 +64,6 @@ public class Job extends Entity {
 	private String cronExpr;
 	
 	/**
-	 * 计划执行错误策略：计划执行错误策略
-	*/
-	@ApiModelProperty(required = false,value="计划执行错误策略" , notes = "计划执行错误策略")
-	private String errorPolicy;
-	
-	/**
 	 * 执行参数：JSON对象格式
 	*/
 	@ApiModelProperty(required = false,value="执行参数" , notes = "JSON对象格式")
@@ -78,8 +72,16 @@ public class Job extends Entity {
 	/**
 	 * 是否并发执行（0允许：1禁止）
 	*/
-	@ApiModelProperty(required = false,value="是否并发执行（0允许" , notes = "1禁止）")
+	@ApiModelProperty(required = true,value="是否并发执行（0允许" , notes = "1禁止）")
 	private Integer concurrent;
+	
+	/**
+	 * 遗漏执行的策略：遗漏执行的策略
+	*/
+	@ApiModelProperty(required = false,value="遗漏执行的策略" , notes = "遗漏执行的策略")
+	private String misfirePolicy;
+	@Transient
+	private MisfirePolicy misfirePolicyEnum;
 	
 	/**
 	 * 状态：状态
@@ -154,14 +156,6 @@ public class Job extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
 	private Integer version;
-	
-	/**
-	 * 遗漏执行的策略：遗漏执行的策略
-	*/
-	@ApiModelProperty(required = false,value="遗漏执行的策略" , notes = "遗漏执行的策略")
-	private String misfirePolicy;
-	@Transient
-	private MisfirePolicy misfirePolicyEnum;
 	
 	/**
 	 * 任务的执行类：任务的执行类
@@ -265,25 +259,6 @@ public class Job extends Entity {
 	}
 	
 	/**
-	 * 获得 计划执行错误策略<br>
-	 * 计划执行错误策略
-	 * @return 计划执行错误策略
-	*/
-	public String getErrorPolicy() {
-		return errorPolicy;
-	}
-	
-	/**
-	 * 设置 计划执行错误策略
-	 * @param errorPolicy 计划执行错误策略
-	 * @return 当前对象
-	*/
-	public Job setErrorPolicy(String errorPolicy) {
-		this.errorPolicy=errorPolicy;
-		return this;
-	}
-	
-	/**
 	 * 获得 执行参数<br>
 	 * JSON对象格式
 	 * @return 执行参数
@@ -318,6 +293,58 @@ public class Job extends Entity {
 	*/
 	public Job setConcurrent(Integer concurrent) {
 		this.concurrent=concurrent;
+		return this;
+	}
+	
+	/**
+	 * 获得 遗漏执行的策略<br>
+	 * 遗漏执行的策略
+	 * @return 遗漏执行的策略
+	*/
+	public String getMisfirePolicy() {
+		return misfirePolicy;
+	}
+	
+	/**
+	 * 获得 遗漏执行的策略 的投影属性<br>
+	 * 等价于 getMisfirePolicy 方法，获得对应的枚举类型
+	 * @return 遗漏执行的策略
+	*/
+	@Transient
+	public MisfirePolicy getMisfirePolicyEnum() {
+		if(this.misfirePolicyEnum==null) {
+			this.misfirePolicyEnum = (MisfirePolicy) EnumUtil.parseByCode(MisfirePolicy.values(),misfirePolicy);
+		}
+		return this.misfirePolicyEnum ;
+	}
+	
+	/**
+	 * 设置 遗漏执行的策略
+	 * @param misfirePolicy 遗漏执行的策略
+	 * @return 当前对象
+	*/
+	public Job setMisfirePolicy(String misfirePolicy) {
+		this.misfirePolicy=misfirePolicy;
+		this.misfirePolicyEnum= (MisfirePolicy) EnumUtil.parseByCode(MisfirePolicy.values(),misfirePolicy) ;
+		if(StringUtil.hasContent(misfirePolicy) && this.misfirePolicyEnum==null) {
+			throw new IllegalArgumentException( misfirePolicy + " is not one of MisfirePolicy");
+		}
+		return this;
+	}
+	
+	/**
+	 * 设置 遗漏执行的策略的投影属性，等同于设置 遗漏执行的策略
+	 * @param misfirePolicyEnum 遗漏执行的策略
+	 * @return 当前对象
+	*/
+	@Transient
+	public Job setMisfirePolicyEnum(MisfirePolicy misfirePolicyEnum) {
+		if(misfirePolicyEnum==null) {
+			this.setMisfirePolicy(null);
+		} else {
+			this.setMisfirePolicy(misfirePolicyEnum.code());
+		}
+		this.misfirePolicyEnum=misfirePolicyEnum;
 		return this;
 	}
 	
@@ -579,58 +606,6 @@ public class Job extends Entity {
 	*/
 	public Job setVersion(Integer version) {
 		this.version=version;
-		return this;
-	}
-	
-	/**
-	 * 获得 遗漏执行的策略<br>
-	 * 遗漏执行的策略
-	 * @return 遗漏执行的策略
-	*/
-	public String getMisfirePolicy() {
-		return misfirePolicy;
-	}
-	
-	/**
-	 * 获得 遗漏执行的策略 的投影属性<br>
-	 * 等价于 getMisfirePolicy 方法，获得对应的枚举类型
-	 * @return 遗漏执行的策略
-	*/
-	@Transient
-	public MisfirePolicy getMisfirePolicyEnum() {
-		if(this.misfirePolicyEnum==null) {
-			this.misfirePolicyEnum = (MisfirePolicy) EnumUtil.parseByCode(MisfirePolicy.values(),misfirePolicy);
-		}
-		return this.misfirePolicyEnum ;
-	}
-	
-	/**
-	 * 设置 遗漏执行的策略
-	 * @param misfirePolicy 遗漏执行的策略
-	 * @return 当前对象
-	*/
-	public Job setMisfirePolicy(String misfirePolicy) {
-		this.misfirePolicy=misfirePolicy;
-		this.misfirePolicyEnum= (MisfirePolicy) EnumUtil.parseByCode(MisfirePolicy.values(),misfirePolicy) ;
-		if(StringUtil.hasContent(misfirePolicy) && this.misfirePolicyEnum==null) {
-			throw new IllegalArgumentException( misfirePolicy + " is not one of MisfirePolicy");
-		}
-		return this;
-	}
-	
-	/**
-	 * 设置 遗漏执行的策略的投影属性，等同于设置 遗漏执行的策略
-	 * @param misfirePolicyEnum 遗漏执行的策略
-	 * @return 当前对象
-	*/
-	@Transient
-	public Job setMisfirePolicyEnum(MisfirePolicy misfirePolicyEnum) {
-		if(misfirePolicyEnum==null) {
-			this.setMisfirePolicy(null);
-		} else {
-			this.setMisfirePolicy(misfirePolicyEnum.code());
-		}
-		this.misfirePolicyEnum=misfirePolicyEnum;
 		return this;
 	}
 	

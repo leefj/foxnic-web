@@ -1,7 +1,7 @@
 /**
  * 定时任务配置 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-04 17:14:44
+ * @since 2022-01-05 14:33:42
  */
 
 
@@ -78,14 +78,13 @@ function ListPage() {
 					,{ field: 'name', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('任务名') , templet: function (d) { return templet('name',d.name,d);}  }
 					,{ field: 'workerId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('执行器'), templet: function (d) { return templet('workerId' ,fox.getProperty(d,["worker","className"]),d);}}
 					,{ field: 'cronExpr', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('cron') , templet: function (d) { return templet('cronExpr',d.cronExpr,d);}  }
-					,{ field: 'errorPolicy', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('计划执行错误策略') , templet: function (d) { return templet('errorPolicy',d.errorPolicy,d);}  }
 					,{ field: 'parameter', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('执行参数') , templet: function (d) { return templet('parameter',d.parameter,d);}  }
 					,{ field: 'concurrent', align:"center",fixed:false,  hide:false, sort: true, title: fox.translate('并发'), templet: '#cell-tpl-concurrent'}
-					,{ field: 'status', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('状态') , templet: function (d) { return templet('status',d.status,d);}  }
+					,{ field: 'misfirePolicy', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('执行策略'), templet:function (d){ return templet('misfirePolicy',fox.getEnumText(SELECT_MISFIREPOLICY_DATA,d.misfirePolicy),d);}}
+					,{ field: 'status', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('状态'), templet:function (d){ return templet('status',fox.getEnumText(RADIO_STATUS_DATA,d.status),d);}}
 					,{ field: 'errors', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('失败次数') , templet: function (d) { return templet('errors',d.errors,d);}  }
 					,{ field: 'notes', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('备注') , templet: function (d) { return templet('notes',d.notes,d);}  }
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间') ,templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
-					,{ field: 'misfirePolicy', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('遗漏执行的策略') , templet: function (d) { return templet('misfirePolicy',d.misfirePolicy,d);}  }
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
 				]],

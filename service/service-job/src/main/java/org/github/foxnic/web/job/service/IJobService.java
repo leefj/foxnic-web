@@ -21,7 +21,7 @@ import com.github.foxnic.dao.data.SaveMode;
  * 定时任务配置表 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-04 17:14:44
+ * @since 2022-01-05 14:33:42
 */
 
 public interface IJobService extends ISuperService<Job> {

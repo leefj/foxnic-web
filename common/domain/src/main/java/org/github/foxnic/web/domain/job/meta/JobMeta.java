@@ -9,8 +9,8 @@ import org.github.foxnic.web.domain.job.JobWorker;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-04 17:14:44
- * @sign E2C129B256A2A11C3D3DF3B7A32770B8
+ * @since 2022-01-05 14:33:42
+ * @sign 32425DE8582D5BEC0A9C8C5310D3219C
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -67,16 +67,6 @@ public class JobMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.job.Job,java.lang.String> CRON_EXPR_PROP = new BeanProperty(org.github.foxnic.web.domain.job.Job.class ,CRON_EXPR, java.lang.String.class, "cron表达式", "cron表达式", java.lang.String.class, null);
 	
 	/**
-	 * 计划执行错误策略 , 类型: java.lang.String
-	*/
-	public static final String ERROR_POLICY="errorPolicy";
-	
-	/**
-	 * 计划执行错误策略 , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.job.Job,java.lang.String> ERROR_POLICY_PROP = new BeanProperty(org.github.foxnic.web.domain.job.Job.class ,ERROR_POLICY, java.lang.String.class, "计划执行错误策略", "计划执行错误策略", java.lang.String.class, null);
-	
-	/**
 	 * 执行参数 , JSON对象格式 , 类型: java.lang.String
 	*/
 	public static final String PARAMETER="parameter";
@@ -95,6 +85,16 @@ public class JobMeta {
 	 * 是否并发执行（0允许 , 1禁止） , 类型: java.lang.Integer
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.job.Job,java.lang.Integer> CONCURRENT_PROP = new BeanProperty(org.github.foxnic.web.domain.job.Job.class ,CONCURRENT, java.lang.Integer.class, "是否并发执行（0允许", "1禁止）", java.lang.Integer.class, null);
+	
+	/**
+	 * 遗漏执行的策略 , 类型: java.lang.String
+	*/
+	public static final String MISFIRE_POLICY="misfirePolicy";
+	
+	/**
+	 * 遗漏执行的策略 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.job.Job,java.lang.String> MISFIRE_POLICY_PROP = new BeanProperty(org.github.foxnic.web.domain.job.Job.class ,MISFIRE_POLICY, java.lang.String.class, "遗漏执行的策略", "遗漏执行的策略", java.lang.String.class, null);
 	
 	/**
 	 * 状态 , 类型: java.lang.String
@@ -217,16 +217,6 @@ public class JobMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.job.Job,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.job.Job.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
-	 * 遗漏执行的策略 , 类型: java.lang.String
-	*/
-	public static final String MISFIRE_POLICY="misfirePolicy";
-	
-	/**
-	 * 遗漏执行的策略 , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.job.Job,java.lang.String> MISFIRE_POLICY_PROP = new BeanProperty(org.github.foxnic.web.domain.job.Job.class ,MISFIRE_POLICY, java.lang.String.class, "遗漏执行的策略", "遗漏执行的策略", java.lang.String.class, null);
-	
-	/**
 	 * 任务的执行类 , 类型: org.github.foxnic.web.domain.job.JobWorker
 	*/
 	public static final String WORKER="worker";
@@ -239,7 +229,7 @@ public class JobMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , NAME , GROUP_TAG , WORKER_ID , CRON_EXPR , ERROR_POLICY , PARAMETER , CONCURRENT , STATUS , ERRORS , NOTES , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , MISFIRE_POLICY , WORKER };
+	public static final String[] $PROPS={ ID , NAME , GROUP_TAG , WORKER_ID , CRON_EXPR , PARAMETER , CONCURRENT , MISFIRE_POLICY , STATUS , ERRORS , NOTES , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , WORKER };
 	
 	/**
 	 * 代理类
@@ -305,17 +295,6 @@ public class JobMeta {
 		}
 		
 		/**
-		 * 设置 计划执行错误策略
-		 * @param errorPolicy 计划执行错误策略
-		 * @return 当前对象
-		*/
-		public Job setErrorPolicy(String errorPolicy) {
-			super.change(ERROR_POLICY,super.getErrorPolicy(),errorPolicy);
-			super.setErrorPolicy(errorPolicy);
-			return this;
-		}
-		
-		/**
 		 * 设置 执行参数
 		 * @param parameter 执行参数
 		 * @return 当前对象
@@ -334,6 +313,17 @@ public class JobMeta {
 		public Job setConcurrent(Integer concurrent) {
 			super.change(CONCURRENT,super.getConcurrent(),concurrent);
 			super.setConcurrent(concurrent);
+			return this;
+		}
+		
+		/**
+		 * 设置 遗漏执行的策略
+		 * @param misfirePolicy 遗漏执行的策略
+		 * @return 当前对象
+		*/
+		public Job setMisfirePolicy(String misfirePolicy) {
+			super.change(MISFIRE_POLICY,super.getMisfirePolicy(),misfirePolicy);
+			super.setMisfirePolicy(misfirePolicy);
 			return this;
 		}
 		
@@ -466,17 +456,6 @@ public class JobMeta {
 		public Job setVersion(Integer version) {
 			super.change(VERSION,super.getVersion(),version);
 			super.setVersion(version);
-			return this;
-		}
-		
-		/**
-		 * 设置 遗漏执行的策略
-		 * @param misfirePolicy 遗漏执行的策略
-		 * @return 当前对象
-		*/
-		public Job setMisfirePolicy(String misfirePolicy) {
-			super.change(MISFIRE_POLICY,super.getMisfirePolicy(),misfirePolicy);
-			super.setMisfirePolicy(misfirePolicy);
 			return this;
 		}
 		

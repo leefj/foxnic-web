@@ -1,5 +1,6 @@
 package org.github.foxnic.web.job.worker;
 
+import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.lang.DateUtil;
@@ -17,7 +18,7 @@ public class DemoWorker2 implements JobExecuter {
     }
 
     @Override
-    public Result execute(Job job) {
+    public Result execute(Object context, Job job, JSONObject methodParams) {
         Logger.info("demo worker do the job @"+ DateUtil.getFormattedTime(false));
         return ErrorDesc.success();
     }

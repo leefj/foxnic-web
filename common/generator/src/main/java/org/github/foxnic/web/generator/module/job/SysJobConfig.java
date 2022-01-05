@@ -7,11 +7,10 @@ import com.github.foxnic.generator.builder.view.option.ListOptions;
 import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
-import org.github.foxnic.web.constants.db.FoxnicWeb.*;
+import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_JOB;
 import org.github.foxnic.web.constants.enums.job.MisfirePolicy;
 import org.github.foxnic.web.constants.enums.job.Status;
 import org.github.foxnic.web.domain.job.JobWorker;
-import org.github.foxnic.web.domain.job.meta.JobMeta;
 import org.github.foxnic.web.domain.job.meta.JobWorkerMeta;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 import org.github.foxnic.web.proxy.job.JobWorkerServiceProxy;
@@ -38,10 +37,13 @@ public class SysJobConfig extends BaseCodeConfig<SYS_JOB> {
 		view.field(SYS_JOB.GROUP_TAG).basic().hidden().table().disable();
 
 		view.field(SYS_JOB.WORKER_ID).basic().label("执行器")
-		.form().selectBox().queryApi(JobWorkerServiceProxy.QUERY_PAGED_LIST).paging(true).muliti(false,false)
-		.valueField(JobWorkerMeta.ID).textField(JobWorkerMeta.CLASS_NAME)
-		.table().fillBy(JobMeta.WORKER,JobWorkerMeta.CLASS_NAME)
+			.form().selectBox().queryApi(JobWorkerServiceProxy.QUERY_PAGED_LIST).paging(true).muliti(false,false)
+			.valueField(JobWorkerMeta.ID).textField(JobWorkerMeta.CLASS_NAME)
+			//.table().fillBy(JobMeta.WORKER,JobWorkerMeta.CLASS_NAME)
 		;
+
+		view.field(SYS_JOB.MISFIRE_POLICY).basic().label("执行策略").form().selectBox().enumType(MisfirePolicy.class);
+
 
 		view.field(SYS_JOB.CRON_EXPR).basic().label("cron");
 
@@ -50,7 +52,9 @@ public class SysJobConfig extends BaseCodeConfig<SYS_JOB> {
 		view.field(SYS_JOB.CONCURRENT).basic().label("并发")
 				.form().logicField().on("是",1).off("否",0);
 
-
+		view.field(SYS_JOB.STATUS).basic().label("状态")
+				.form().radioBox().enumType(Status.class)
+			.form().validate().required();
 
 	}
 

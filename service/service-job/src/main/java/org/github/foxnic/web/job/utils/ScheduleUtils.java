@@ -2,6 +2,7 @@ package org.github.foxnic.web.job.utils;
 
 
 import com.github.foxnic.commons.log.Logger;
+import org.github.foxnic.web.constants.enums.job.MisfirePolicy;
 import org.github.foxnic.web.constants.enums.job.Status;
 import org.github.foxnic.web.job.config.ScheduleConstants;
 import org.github.foxnic.web.job.exception.TaskException;
@@ -23,8 +24,7 @@ public class ScheduleUtils
      */
     private static Class<? extends Job> getQuartzJobClass(org.github.foxnic.web.domain.job.Job job)
     {
-        boolean isConcurrent = "0".equals(job.getConcurrent());
-        return isConcurrent ? QuartzJobExecution.class : QuartzDisallowConcurrentExecution.class;
+        return job.getConcurrent()==0 ? QuartzJobExecution.class : QuartzDisallowConcurrentExecution.class;
     }
 
     /**
@@ -72,9 +72,11 @@ public class ScheduleUtils
         CronScheduleBuilder cronScheduleBuilder = CronScheduleBuilder.cronSchedule(job.getCronExpr());
         cronScheduleBuilder = handleCronScheduleMisfirePolicy(job, cronScheduleBuilder);
 
+
         // 按新的cronExpression表达式构建一个新的trigger
-        CronTrigger trigger = TriggerBuilder.newTrigger().withIdentity(getTriggerKey(job.getId()))
+        CronTrigger trigger=TriggerBuilder.newTrigger().withIdentity(getTriggerKey(job.getId()))
                 .withSchedule(cronScheduleBuilder).build();
+//        SimpleTrigger simpleTrigger = (SimpleTrigger) trigger;
 
         // 放入参数，运行时的方法可以获取
         jobDetail.getJobDataMap().put(ScheduleConstants.TASK_PROPERTIES, job);
@@ -82,8 +84,7 @@ public class ScheduleUtils
         scheduler.scheduleJob(jobDetail, trigger);
 
         // 暂停任务
-        if (job.getStatusEnum()==Status.PAUSED)
-        {
+        if (job.getStatusEnum()==Status.PAUSED) {
             pauseJob(scheduler, job.getId());
         }
     }
@@ -151,20 +152,16 @@ public class ScheduleUtils
     public static CronScheduleBuilder handleCronScheduleMisfirePolicy(org.github.foxnic.web.domain.job.Job job, CronScheduleBuilder cb)
             throws TaskException
     {
-        return null;
-//        switch (job.getMisfirePolicy())
-//        {
-//            case ScheduleConstants.MISFIRE_DEFAULT:
-//                return cb;
-//            case ScheduleConstants.MISFIRE_IGNORE_MISFIRES:
-//                return cb.withMisfireHandlingInstructionIgnoreMisfires();
-//            case ScheduleConstants.MISFIRE_FIRE_AND_PROCEED:
-//                return cb.withMisfireHandlingInstructionFireAndProceed();
-//            case ScheduleConstants.MISFIRE_DO_NOTHING:
-//                return cb.withMisfireHandlingInstructionDoNothing();
-//            default:
-//                throw new TaskException("The task misfire policy '" + job.getMisfirePolicy()
-//                        + "' cannot be used in cron schedule tasks", Code.CONFIG_ERROR);
-//        }
+
+        if(job.getMisfirePolicyEnum()==MisfirePolicy.ONCE_NOW) {
+            return cb.withMisfireHandlingInstructionFireAndProceed();
+        } else if(job.getMisfirePolicyEnum()==MisfirePolicy.IGNORE_MISFIRES) {
+            return cb.withMisfireHandlingInstructionIgnoreMisfires();
+        } else if(job.getMisfirePolicyEnum()==MisfirePolicy.DO_NOTHING) {
+            return cb.withMisfireHandlingInstructionDoNothing();
+        } else {
+            return cb;
+        }
+
     }
 }

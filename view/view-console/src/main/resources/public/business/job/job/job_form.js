@@ -1,7 +1,7 @@
 /**
  * 定时任务配置 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-04 17:14:44
+ * @since 2022-01-05 14:33:42
  */
 
 function FormPage() {
@@ -117,6 +117,32 @@ function FormPage() {
 				return opts;
 			}
 		});
+		//渲染 misfirePolicy 下拉字段
+		fox.renderSelectBox({
+			el: "misfirePolicy",
+			radio: true,
+			filterable: false,
+			on: function(data){
+				setTimeout(function () {
+					window.pageExt.form.onSelectBoxChanged && window.pageExt.form.onSelectBoxChanged("misfirePolicy",data.arr,data.change,data.isAdd);
+				},1);
+			},
+			//转换数据
+			transform:function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				var defaultValues=[],defaultIndexs=[];
+				if(action=="create") {
+					defaultValues = "".split(",");
+					defaultIndexs = "".split(",");
+				}
+				var opts=[];
+				if(!data) return opts;
+				for (var i = 0; i < data.length; i++) {
+					opts.push({data:data[i],name:data[i].text,value:data[i].code,selected:(defaultValues.indexOf(data[i].code)!=-1 || defaultIndexs.indexOf(""+i)!=-1)});
+				}
+				return opts;
+			}
+		});
 	}
 
 	/**
@@ -146,6 +172,8 @@ function FormPage() {
 
 
 			//设置  执行器 设置下拉框勾选
+			//设置  执行策略 设置下拉框勾选
+			fox.setSelectValue4Enum("#misfirePolicy",formData.misfirePolicy,SELECT_MISFIREPOLICY_DATA);
 
 			//处理fillBy
 
@@ -200,6 +228,8 @@ function FormPage() {
 
 		//获取 执行器 下拉框的值
 		data["workerId"]=fox.getSelectedValue("workerId",false);
+		//获取 执行策略 下拉框的值
+		data["misfirePolicy"]=fox.getSelectedValue("misfirePolicy",false);
 
 		return data;
 	}

@@ -2,7 +2,7 @@
 /**
  * 定时任务配置 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-04 17:14:44
+ * @since 2022-01-05 14:33:42
  */
  -->
  <!DOCTYPE html>
@@ -47,13 +47,12 @@
                     <!-- 组别 , groupTag ,typeName=text_input, isHideInSearch=true -->
                     <!-- 执行器 , workerId ,typeName=select_box, isHideInSearch=true -->
                     <!-- cron , cronExpr ,typeName=text_input, isHideInSearch=true -->
-                    <!-- 计划执行错误策略 , errorPolicy ,typeName=text_input, isHideInSearch=true -->
                     <!-- 执行参数 , parameter ,typeName=text_area, isHideInSearch=true -->
                     <!-- 并发 , concurrent ,typeName=logic_switch, isHideInSearch=true -->
-                    <!-- 状态 , status ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 执行策略 , misfirePolicy ,typeName=select_box, isHideInSearch=true -->
+                    <!-- 状态 , status ,typeName=radio_box, isHideInSearch=true -->
                     <!-- 失败次数 , errors ,typeName=number_input, isHideInSearch=true -->
                     <!-- 备注 , notes ,typeName=text_input, isHideInSearch=true -->
-                    <!-- 遗漏执行的策略 , misfirePolicy ,typeName=text_input, isHideInSearch=true -->
 
 
                 </div>
@@ -106,6 +105,8 @@
 
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${pageHelper.getTableColumnWidthConfig('data-table')}]];
+    var SELECT_MISFIREPOLICY_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.job.MisfirePolicy')}]];
+    var RADIO_STATUS_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.job.Status')}]];
     var AUTH_PREFIX="sys_job";
 
 

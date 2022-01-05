@@ -1,10 +1,16 @@
 package org.github.foxnic.web.job.utils;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.commons.lang.StringUtil;
+import com.github.foxnic.commons.log.Logger;
+import com.github.foxnic.commons.reflect.ReflectUtil;
 import com.github.foxnic.springboot.spring.SpringUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.github.foxnic.web.domain.job.Job;
+import org.github.foxnic.web.domain.job.JobExecuter;
+import org.quartz.JobExecutionContext;
 import org.slf4j.MDC;
 
 import java.lang.reflect.InvocationTargetException;
@@ -26,21 +32,24 @@ public class JobInvokeUtil
      *
      * @param sysJob 系统任务
      */
-    public static void invokeMethod(Job sysJob) throws Exception
+    public static void invokeMethod(JobExecutionContext context,Job sysJob) throws Exception
     {
-        Object bean = SpringUtil.getBean(sysJob.getName());
-//        String methodName = sysJob.getMethodName();
-        String methodParams = sysJob.getParameter();
+         Class<? extends JobExecuter> type= ReflectUtil.forName(sysJob.getWorker().getClassName());
+        JobExecuter executor = SpringUtil.getBean(type);
+        JSONObject methodParams = null;
+        if(StringUtil.hasContent(sysJob.getParameter())) {
+            try {
+                methodParams=JSONObject.parseObject(sysJob.getParameter());
+            } catch (Exception e) {
+                Logger.exception("job "+sysJob.getName()+" 参数转换错误",e);
+            }
+        }
 
         MDC.put(TID, IDGenerator.getSnowflakeIdString());
         MDC.put(JOB, sysJob.getName());
-//        MDC.put(METHOD, methodName);
-
-//        invokeSpringBean(bean, methodName, methodParams);
-
+        executor.execute(context,sysJob,methodParams);
         MDC.remove(TID);
         MDC.remove(JOB);
-        MDC.remove(METHOD);
     }
 
     /**

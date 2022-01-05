@@ -2,7 +2,7 @@
 /**
  * 定时任务配置 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-04 17:14:44
+ * @since 2022-01-05 14:33:42
  */
  -->
  <!DOCTYPE html>
@@ -79,13 +79,6 @@
                         </div>
                     </div>
 
-                                    <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('计划执行错误策略')}">计划执行错误策略</div></div>
-                        <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="errorPolicy" id="errorPolicy" name="errorPolicy" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('计划执行错误策略') }" type="text" class="layui-input"  />
-                        </div>
-                    </div>
-
                 
                     <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('执行参数')}">执行参数</div></div>
@@ -97,19 +90,30 @@
 
                 
                 <div class="layui-form-item" >
-                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('并发')}">并发</div></div>
+                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('并发')}">并发</div><div class="layui-required">*</div></div>
                     <div class="layui-input-block layui-input-block-c1">
                         <input input-type="switch" type="checkbox" id="concurrent"  name="concurrent" lay-skin="switch" lay-filter="concurrent" lay-text="是|否&nbsp;" value="1">
                     </div>
                 </div>
 
 
-                                    <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('状态')}">状态</div></div>
+                
+                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('执行策略')}">执行策略</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="status" id="status" name="status" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('状态') }" type="text" class="layui-input"  />
+                            <div id="misfirePolicy" input-type="select" th:data="${enum.toArray('org.github.foxnic.web.constants.enums.job.MisfirePolicy')}" extraParam="{}"></div>
                         </div>
                     </div>
+
+
+                
+                <div class="layui-form-item" >
+                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('状态')}">状态</div><div class="layui-required">*</div></div>
+                    <div class="layui-input-block layui-input-block-c1">
+                        <input input-type="radio" type="radio" name="status" lay-filter="status" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.job.Status')}" th:value="${e.code}" th:title="${e.text}" th:checked="${(e.code=='' || stat.index==-1)?'yes':'no'}">
+                    </div>
+                </div>
+
 
                 
                     <div class="layui-form-item" >
@@ -124,13 +128,6 @@
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('备注')}">备注</div></div>
                         <div class="layui-input-block layui-input-block-c1">
                             <input lay-filter="notes" id="notes" name="notes" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('备注') }" type="text" class="layui-input"  />
-                        </div>
-                    </div>
-
-                                    <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('遗漏执行的策略')}">遗漏执行的策略</div></div>
-                        <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="misfirePolicy" id="misfirePolicy" name="misfirePolicy" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('遗漏执行的策略') }" type="text" class="layui-input"  />
                         </div>
                     </div>
 
@@ -159,7 +156,9 @@
 
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];
-    var VALIDATE_CONFIG={};
+    var SELECT_MISFIREPOLICY_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.job.MisfirePolicy')}]];
+    var RADIO_STATUS_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.job.Status')}]];
+    var VALIDATE_CONFIG={"concurrent":{"labelInForm":"并发","inputType":"logic_switch","required":true},"status":{"labelInForm":"状态","inputType":"radio_box","required":true}};
     var AUTH_PREFIX="sys_job";
 
 
