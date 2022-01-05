@@ -20,8 +20,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 定时任务配置
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-05 14:33:42
- * @sign 32425DE8582D5BEC0A9C8C5310D3219C
+ * @since 2022-01-05 15:56:04
+ * @sign 1B4B8D866CE7845624E40AD25C914279
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -162,6 +162,12 @@ public class Job extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="任务的执行类" , notes = "任务的执行类")
 	private JobWorker worker;
+	
+	/**
+	 * 下一次执行时间：下次执行时间
+	*/
+	@ApiModelProperty(required = false,value="下一次执行时间" , notes = "下次执行时间")
+	private Date nextFireTime;
 	
 	/**
 	 * 获得 主键<br>
@@ -625,6 +631,25 @@ public class Job extends Entity {
 	*/
 	public Job setWorker(JobWorker worker) {
 		this.worker=worker;
+		return this;
+	}
+	
+	/**
+	 * 获得 下一次执行时间<br>
+	 * 下次执行时间
+	 * @return 下一次执行时间
+	*/
+	public Date getNextFireTime() {
+		return nextFireTime;
+	}
+	
+	/**
+	 * 设置 下一次执行时间
+	 * @param nextFireTime 下一次执行时间
+	 * @return 当前对象
+	*/
+	public Job setNextFireTime(Date nextFireTime) {
+		this.nextFireTime=nextFireTime;
 		return this;
 	}
 

@@ -19,7 +19,7 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  * 定时任务配置表  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-05 14:33:42
+ * @since 2022-01-05 15:56:04
 */
 
 @FeignClient(value = MicroServiceNames.JOB, contextId = JobServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)

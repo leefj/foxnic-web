@@ -6,6 +6,7 @@ import com.github.foxnic.generator.builder.view.option.ListOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_JOB_LOG;
+import org.github.foxnic.web.constants.enums.job.LogType;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
 
@@ -17,7 +18,7 @@ public class SysJobLogConfig extends BaseCodeConfig<SYS_JOB_LOG> {
 
 	@Override
 	public void configModel(PoClassFile poType, VoClassFile voType) {
-
+		poType.shadow(SYS_JOB_LOG.TYPE, LogType.class);
 	}
 
 	@Override

@@ -8,8 +8,8 @@ import java.sql.Timestamp;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-04 17:09:52
- * @sign 12E5A1C1D9F1B6ED042825451994E286
+ * @since 2022-01-05 16:56:10
+ * @sign 2DC907DEF3473B159A6E778363DA3D29
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -34,6 +34,16 @@ public class JobLogMeta {
 	 * 组别 , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.job.JobLog,java.lang.String> JOB_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.job.JobLog.class ,JOB_ID, java.lang.String.class, "组别", "组别", java.lang.String.class, null);
+	
+	/**
+	 * 日志分类 , 类型: java.lang.String
+	*/
+	public static final String TYPE="type";
+	
+	/**
+	 * 日志分类 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.job.JobLog,java.lang.String> TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.job.JobLog.class ,TYPE, java.lang.String.class, "日志分类", "日志分类", java.lang.String.class, null);
 	
 	/**
 	 * 任务名称 , 类型: java.lang.String
@@ -66,16 +76,6 @@ public class JobLogMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.job.JobLog,java.lang.String> CRON_EXPR_PROP = new BeanProperty(org.github.foxnic.web.domain.job.JobLog.class ,CRON_EXPR, java.lang.String.class, "本次执行cron表达式", "本次执行cron表达式", java.lang.String.class, null);
 	
 	/**
-	 * 是否成功执行 , 类型: java.lang.Integer
-	*/
-	public static final String SUCCESS="success";
-	
-	/**
-	 * 是否成功执行 , 类型: java.lang.Integer
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.job.JobLog,java.lang.Integer> SUCCESS_PROP = new BeanProperty(org.github.foxnic.web.domain.job.JobLog.class ,SUCCESS, java.lang.Integer.class, "是否成功执行", "是否成功执行", java.lang.Integer.class, null);
-	
-	/**
 	 * 本次执行参数 , 类型: java.lang.String
 	*/
 	public static final String PARAMETER="parameter";
@@ -84,6 +84,16 @@ public class JobLogMeta {
 	 * 本次执行参数 , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.job.JobLog,java.lang.String> PARAMETER_PROP = new BeanProperty(org.github.foxnic.web.domain.job.JobLog.class ,PARAMETER, java.lang.String.class, "本次执行参数", "本次执行参数", java.lang.String.class, null);
+	
+	/**
+	 * 是否成功执行 , 类型: java.lang.Integer
+	*/
+	public static final String SUCCESS="success";
+	
+	/**
+	 * 是否成功执行 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.job.JobLog,java.lang.Integer> SUCCESS_PROP = new BeanProperty(org.github.foxnic.web.domain.job.JobLog.class ,SUCCESS, java.lang.Integer.class, "是否成功执行", "是否成功执行", java.lang.Integer.class, null);
 	
 	/**
 	 * 执行结果 , 可记录大文本信息 , 类型: java.lang.String
@@ -136,9 +146,39 @@ public class JobLogMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.job.JobLog,java.lang.String> LOG_TEXT_PROP = new BeanProperty(org.github.foxnic.web.domain.job.JobLog.class ,LOG_TEXT, java.lang.String.class, "日志信息", "日志信息", java.lang.String.class, null);
 	
 	/**
+	 * 账户ID , 操作人ID , 类型: java.lang.String
+	*/
+	public static final String USER_ID="userId";
+	
+	/**
+	 * 账户ID , 操作人ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.job.JobLog,java.lang.String> USER_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.job.JobLog.class ,USER_ID, java.lang.String.class, "账户ID", "操作人ID", java.lang.String.class, null);
+	
+	/**
+	 * 是否是手动执行 , 类型: java.lang.Integer
+	*/
+	public static final String IS_MANUAL="isManual";
+	
+	/**
+	 * 是否是手动执行 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.job.JobLog,java.lang.Integer> IS_MANUAL_PROP = new BeanProperty(org.github.foxnic.web.domain.job.JobLog.class ,IS_MANUAL, java.lang.Integer.class, "是否是手动执行", "是否是手动执行", java.lang.Integer.class, null);
+	
+	/**
+	 * 是否为丢失补充执行 , 类型: java.lang.Integer
+	*/
+	public static final String IS_MISSFIRE="isMissfire";
+	
+	/**
+	 * 是否为丢失补充执行 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.job.JobLog,java.lang.Integer> IS_MISSFIRE_PROP = new BeanProperty(org.github.foxnic.web.domain.job.JobLog.class ,IS_MISSFIRE, java.lang.Integer.class, "是否为丢失补充执行", "是否为丢失补充执行", java.lang.Integer.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , JOB_ID , JOB_NAME , CLASS_NAME , CRON_EXPR , SUCCESS , PARAMETER , RESULT , BEGIN_TIME , END_TIME , EXCEPTION , LOG_TEXT };
+	public static final String[] $PROPS={ ID , JOB_ID , TYPE , JOB_NAME , CLASS_NAME , CRON_EXPR , PARAMETER , SUCCESS , RESULT , BEGIN_TIME , END_TIME , EXCEPTION , LOG_TEXT , USER_ID , IS_MANUAL , IS_MISSFIRE };
 	
 	/**
 	 * 代理类
@@ -167,6 +207,17 @@ public class JobLogMeta {
 		public JobLog setJobId(String jobId) {
 			super.change(JOB_ID,super.getJobId(),jobId);
 			super.setJobId(jobId);
+			return this;
+		}
+		
+		/**
+		 * 设置 日志分类
+		 * @param type 日志分类
+		 * @return 当前对象
+		*/
+		public JobLog setType(String type) {
+			super.change(TYPE,super.getType(),type);
+			super.setType(type);
 			return this;
 		}
 		
@@ -204,17 +255,6 @@ public class JobLogMeta {
 		}
 		
 		/**
-		 * 设置 是否成功执行
-		 * @param success 是否成功执行
-		 * @return 当前对象
-		*/
-		public JobLog setSuccess(Integer success) {
-			super.change(SUCCESS,super.getSuccess(),success);
-			super.setSuccess(success);
-			return this;
-		}
-		
-		/**
 		 * 设置 本次执行参数
 		 * @param parameter 本次执行参数
 		 * @return 当前对象
@@ -222,6 +262,17 @@ public class JobLogMeta {
 		public JobLog setParameter(String parameter) {
 			super.change(PARAMETER,super.getParameter(),parameter);
 			super.setParameter(parameter);
+			return this;
+		}
+		
+		/**
+		 * 设置 是否成功执行
+		 * @param success 是否成功执行
+		 * @return 当前对象
+		*/
+		public JobLog setSuccess(Integer success) {
+			super.change(SUCCESS,super.getSuccess(),success);
+			super.setSuccess(success);
 			return this;
 		}
 		
@@ -277,6 +328,39 @@ public class JobLogMeta {
 		public JobLog setLogText(String logText) {
 			super.change(LOG_TEXT,super.getLogText(),logText);
 			super.setLogText(logText);
+			return this;
+		}
+		
+		/**
+		 * 设置 账户ID
+		 * @param userId 账户ID
+		 * @return 当前对象
+		*/
+		public JobLog setUserId(String userId) {
+			super.change(USER_ID,super.getUserId(),userId);
+			super.setUserId(userId);
+			return this;
+		}
+		
+		/**
+		 * 设置 是否是手动执行
+		 * @param isManual 是否是手动执行
+		 * @return 当前对象
+		*/
+		public JobLog setIsManual(Integer isManual) {
+			super.change(IS_MANUAL,super.getIsManual(),isManual);
+			super.setIsManual(isManual);
+			return this;
+		}
+		
+		/**
+		 * 设置 是否为丢失补充执行
+		 * @param isMissfire 是否为丢失补充执行
+		 * @return 当前对象
+		*/
+		public JobLog setIsMissfire(Integer isMissfire) {
+			super.change(IS_MISSFIRE,super.getIsMissfire(),isMissfire);
+			super.setIsMissfire(isMissfire);
 			return this;
 		}
 	}

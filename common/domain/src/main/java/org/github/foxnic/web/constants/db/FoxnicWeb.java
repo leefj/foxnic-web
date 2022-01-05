@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2022-01-05 14:14:16
+ * @since 2022-01-05 16:55:47
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -4448,6 +4448,11 @@ public class FoxnicWeb {
 		public static final DBField JOB_ID = new DBField(DBDataType.STRING , "job_id","jobId","组别","组别",false,false,true);
 		
 		/**
+		 * 日志分类
+		*/
+		public static final DBField TYPE = new DBField(DBDataType.STRING , "type","type","日志分类","日志分类",false,false,true);
+		
+		/**
 		 * 任务名称
 		*/
 		public static final DBField JOB_NAME = new DBField(DBDataType.STRING , "job_name","jobName","任务名称","任务名称",false,false,true);
@@ -4463,14 +4468,14 @@ public class FoxnicWeb {
 		public static final DBField CRON_EXPR = new DBField(DBDataType.STRING , "cron_expr","cronExpr","本次执行cron表达式","本次执行cron表达式",false,false,true);
 		
 		/**
-		 * 是否成功执行
-		*/
-		public static final DBField SUCCESS = new DBField(DBDataType.INTEGER , "success","success","是否成功执行","是否成功执行",false,false,true);
-		
-		/**
 		 * 本次执行参数
 		*/
 		public static final DBField PARAMETER = new DBField(DBDataType.STRING , "parameter","parameter","本次执行参数","本次执行参数",false,false,true);
+		
+		/**
+		 * 是否成功执行
+		*/
+		public static final DBField SUCCESS = new DBField(DBDataType.INTEGER , "success","success","是否成功执行","是否成功执行",false,false,true);
 		
 		/**
 		 * 执行结果，可记录大文本信息
@@ -4497,8 +4502,23 @@ public class FoxnicWeb {
 		*/
 		public static final DBField LOG_TEXT = new DBField(DBDataType.STRING , "log_text","logText","日志信息","日志信息",false,false,true);
 		
+		/**
+		 * 账户ID，操作人ID
+		*/
+		public static final DBField USER_ID = new DBField(DBDataType.STRING , "user_id","userId","账户ID","操作人ID",false,false,true);
+		
+		/**
+		 * 是否是手动执行
+		*/
+		public static final DBField IS_MANUAL = new DBField(DBDataType.INTEGER , "is_manual","isManual","是否是手动执行","是否是手动执行",false,false,true);
+		
+		/**
+		 * 是否为丢失补充执行
+		*/
+		public static final DBField IS_MISSFIRE = new DBField(DBDataType.INTEGER , "is_missfire","isMissfire","是否为丢失补充执行","是否为丢失补充执行",false,false,true);
+		
 		public SYS_JOB_LOG() {
-			this.init($NAME,"定时任务执行日志表" , ID , JOB_ID , JOB_NAME , CLASS_NAME , CRON_EXPR , SUCCESS , PARAMETER , RESULT , BEGIN_TIME , END_TIME , EXCEPTION , LOG_TEXT);
+			this.init($NAME,"定时任务执行日志表" , ID , JOB_ID , TYPE , JOB_NAME , CLASS_NAME , CRON_EXPR , PARAMETER , SUCCESS , RESULT , BEGIN_TIME , END_TIME , EXCEPTION , LOG_TEXT , USER_ID , IS_MANUAL , IS_MISSFIRE);
 		}
 		public static final SYS_JOB_LOG $TABLE=new SYS_JOB_LOG();
 	}

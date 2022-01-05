@@ -58,8 +58,8 @@ public class ScheduleConfig
 
         // quartz参数
         Properties prop = new Properties();
-        prop.put("org.quartz.scheduler.instanceName", "FoxnicWebScheduler");
-        prop.put("org.quartz.scheduler.threadName", "FoxnicWebScheduler");
+        prop.put("org.quartz.scheduler.instanceName", "FWS");
+        prop.put("org.quartz.scheduler.threadName", "FWS");
         prop.put("org.quartz.scheduler.instanceId", "AUTO");
         prop.put("org.quartz.scheduler.wrapJobExecutionInUserTransaction", "false");
         prop.put("org.quartz.scheduler.idleWaitTime", "5000");
@@ -96,7 +96,7 @@ public class ScheduleConfig
         factory.setQuartzProperties(prop);
 
 
-        factory.setSchedulerName("FoxnicWebJobScheduler");
+        factory.setSchedulerName("FWS");
         // 延时启动 n 秒
         factory.setStartupDelay(5);
         // 用于获取 ApplicationContext
@@ -140,13 +140,13 @@ public class ScheduleConfig
             JobExecuter executer=(JobExecuter)SpringUtil.getBean(ReflectUtil.forName(job.getWorker().getClassName()));
             if(executer==null) return;
             //
-            CronTrigger cronTrigger = ScheduleUtils.getCronTrigger(scheduler, job.getId());
+            CronTrigger cronTrigger = ScheduleUtils.getCronTrigger(job.getId());
             // 如果不存在，则创建
             try {
                 if (cronTrigger == null) {
-                    ScheduleUtils.createScheduleJob(scheduler, job);
+                    ScheduleUtils.createScheduleJob(job);
                 } else {
-                    ScheduleUtils.updateScheduleJob(scheduler, job);
+                    ScheduleUtils.updateScheduleJob(job);
                 }
             } catch (Exception e) {
                 Logger.exception("job 启动异常:"+job.getName()+" , "+job.getWorker().getClassName(),e);

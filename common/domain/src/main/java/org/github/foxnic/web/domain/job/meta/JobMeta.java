@@ -9,8 +9,8 @@ import org.github.foxnic.web.domain.job.JobWorker;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-05 14:33:42
- * @sign 32425DE8582D5BEC0A9C8C5310D3219C
+ * @since 2022-01-05 15:56:04
+ * @sign 1B4B8D866CE7845624E40AD25C914279
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -227,9 +227,19 @@ public class JobMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.job.Job,org.github.foxnic.web.domain.job.JobWorker> WORKER_PROP = new BeanProperty(org.github.foxnic.web.domain.job.Job.class ,WORKER, org.github.foxnic.web.domain.job.JobWorker.class, "任务的执行类", "任务的执行类", org.github.foxnic.web.domain.job.JobWorker.class, null);
 	
 	/**
+	 * 下一次执行时间 , 下次执行时间 , 类型: java.util.Date
+	*/
+	public static final String NEXT_FIRE_TIME="nextFireTime";
+	
+	/**
+	 * 下一次执行时间 , 下次执行时间 , 类型: java.util.Date
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.job.Job,java.util.Date> NEXT_FIRE_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.job.Job.class ,NEXT_FIRE_TIME, java.util.Date.class, "下一次执行时间", "下次执行时间", java.util.Date.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , NAME , GROUP_TAG , WORKER_ID , CRON_EXPR , PARAMETER , CONCURRENT , MISFIRE_POLICY , STATUS , ERRORS , NOTES , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , WORKER };
+	public static final String[] $PROPS={ ID , NAME , GROUP_TAG , WORKER_ID , CRON_EXPR , PARAMETER , CONCURRENT , MISFIRE_POLICY , STATUS , ERRORS , NOTES , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , WORKER , NEXT_FIRE_TIME };
 	
 	/**
 	 * 代理类
@@ -467,6 +477,17 @@ public class JobMeta {
 		public Job setWorker(JobWorker worker) {
 			super.change(WORKER,super.getWorker(),worker);
 			super.setWorker(worker);
+			return this;
+		}
+		
+		/**
+		 * 设置 下一次执行时间
+		 * @param nextFireTime 下一次执行时间
+		 * @return 当前对象
+		*/
+		public Job setNextFireTime(Date nextFireTime) {
+			super.change(NEXT_FIRE_TIME,super.getNextFireTime(),nextFireTime);
+			super.setNextFireTime(nextFireTime);
 			return this;
 		}
 	}

@@ -1561,6 +1561,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
         },
         fillEmployeeDialogButtons:function () {
             var orgEls=$("button[action-type='emp-dialog']");
+            if(orgEls.length==0) return;
             orgEls.find("i").css("opacity",0.0);
             orgEls.find("span").css("opacity",0.0);
             // debugger;
@@ -1614,6 +1615,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
         },
         fillOrgOrPosDialogButtons:function (type) {
             var orgEls=$("button[action-type='"+type+"-dialog']");
+            if(orgEls.length==0) return;
             orgEls.find("i").css("opacity",0.0);
             orgEls.find("span").css("opacity",0.0);
             //debugger;

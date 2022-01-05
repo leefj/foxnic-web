@@ -4,16 +4,16 @@ import com.github.foxnic.api.constant.CodeTextEnum;
 import com.github.foxnic.commons.reflect.EnumUtil;
 
 /**
- * Job 状态
+ * 日志类型
  * */
-public enum Status implements CodeTextEnum {
-	NORMAL("正常","normal"),
-	PAUSED("暂停","paused");
+public enum LogType implements CodeTextEnum {
+	CRON("任务日志","cron"),
+	CONFIG("配置日志","config");
 
 	private String code;
 	private String text;
 
-	private Status(String text, String code) {
+	private LogType(String text, String code) {
 		this.code=code;
 		this.text=text;
 	}
@@ -26,7 +26,7 @@ public enum Status implements CodeTextEnum {
 		return this.text;
 	}
 
-	public static Status parseByCode(String code) {
-		return (Status) EnumUtil.parseByCode(Status.values(),code);
+	public static LogType parseByCode(String code) {
+		return (LogType) EnumUtil.parseByCode(LogType.values(),code);
 	}
 }

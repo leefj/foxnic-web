@@ -1,55 +1,51 @@
 package org.github.foxnic.web.job.controller;
 
 
-import java.util.List;
-
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-
-import org.github.foxnic.web.framework.web.SuperController;
-import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
-import org.springframework.web.bind.annotation.RequestMapping;
-import javax.servlet.http.HttpServletResponse;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
-
-
-import org.github.foxnic.web.proxy.job.JobServiceProxy;
-import org.github.foxnic.web.domain.job.meta.JobVOMeta;
-import org.github.foxnic.web.domain.job.Job;
-import org.github.foxnic.web.domain.job.JobVO;
+import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.api.validate.annotations.NotNull;
+import com.github.foxnic.commons.io.StreamUtil;
+import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.springboot.web.DownloadUtil;
-import com.github.foxnic.dao.data.PagedList;
-import java.util.Date;
-import java.sql.Timestamp;
-import com.github.foxnic.api.error.ErrorDesc;
-import com.github.foxnic.commons.io.StreamUtil;
-import java.util.Map;
 import com.github.foxnic.dao.excel.ValidateResult;
-import java.io.InputStream;
-import org.github.foxnic.web.domain.job.meta.JobMeta;
-import org.github.foxnic.web.domain.job.JobWorker;
-import io.swagger.annotations.Api;
-import com.github.xiaoymin.knife4j.annotations.ApiSort;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiImplicitParam;
+import com.github.foxnic.springboot.web.DownloadUtil;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.github.xiaoymin.knife4j.annotations.ApiSort;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import org.github.foxnic.web.domain.job.Job;
+import org.github.foxnic.web.domain.job.JobVO;
+import org.github.foxnic.web.domain.job.meta.JobMeta;
+import org.github.foxnic.web.domain.job.meta.JobVOMeta;
+import org.github.foxnic.web.framework.sentinel.SentinelExceptionUtil;
+import org.github.foxnic.web.framework.web.SuperController;
 import org.github.foxnic.web.job.service.IJobService;
-import com.github.foxnic.api.validate.annotations.NotNull;
+import org.github.foxnic.web.job.utils.ScheduleUtils;
+import org.github.foxnic.web.proxy.job.JobServiceProxy;
+import org.quartz.CronTrigger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.InputStream;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
  * 定时任务配置表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-05 14:33:42
+ * @since 2022-01-05 15:21:36
+ * @version
 */
 
 @Api(tags = "定时任务配置")
@@ -114,7 +110,7 @@ public class JobController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = JobVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 	})
-	@ApiOperationSupport(order=3) 
+	@ApiOperationSupport(order=3)
 	@NotNull(name = JobVOMeta.IDS)
 	@SentinelResource(value = JobServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(JobServiceProxy.DELETE_BY_IDS)
@@ -193,6 +189,11 @@ public class JobController extends SuperController {
 	public Result<Job> getById(String id) {
 		Result<Job> result=new Result<>();
 		Job job=jobService.getById(id);
+		// join 关联的对象
+		jobService.dao().fill(job)
+			.with(JobMeta.WORKER)
+			.with(JobMeta.WORKER)
+			.execute();
 		result.success(true).data(job);
 		return result;
 	}
@@ -206,7 +207,7 @@ public class JobController extends SuperController {
 		@ApiImplicitParams({
 				@ApiImplicitParam(name = JobVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})
-		@ApiOperationSupport(order=3) 
+		@ApiOperationSupport(order=3)
 		@NotNull(name = JobVOMeta.IDS)
 		@SentinelResource(value = JobServiceProxy.GET_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(JobServiceProxy.GET_BY_IDS)
@@ -269,6 +270,20 @@ public class JobController extends SuperController {
 	public Result<PagedList<Job>> queryPagedList(JobVO sample) {
 		Result<PagedList<Job>> result=new Result<>();
 		PagedList<Job> list=jobService.queryPagedList(sample,sample.getPageSize(),sample.getPageIndex());
+		// join 关联的对象
+		jobService.dao().fill(list)
+			.with(JobMeta.WORKER)
+			.with(JobMeta.WORKER)
+			.execute();
+
+		// 加入下次执行时间
+		for (Job job : list) {
+			CronTrigger trigger=ScheduleUtils.getCronTrigger(job.getId());
+			if(trigger!=null) {
+				job.setNextFireTime(trigger.getNextFireTime());
+			}
+		}
+
 		result.success(true).data(list);
 		return result;
 	}

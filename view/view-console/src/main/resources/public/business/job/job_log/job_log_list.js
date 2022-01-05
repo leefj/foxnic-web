@@ -1,7 +1,7 @@
 /**
  * 定时任务执行日志 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-04 17:09:52
+ * @since 2022-01-05 16:56:13
  */
 
 
@@ -76,16 +76,20 @@ function ListPage() {
 					{ fixed: 'left',type:'checkbox'}
 					,{ field: 'id', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('主键') , templet: function (d) { return templet('id',d.id,d);}  }
 					,{ field: 'jobId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('组别') , templet: function (d) { return templet('jobId',d.jobId,d);}  }
+					,{ field: 'type', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('日志分类') , templet: function (d) { return templet('type',d.type,d);}  }
 					,{ field: 'jobName', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('任务名称') , templet: function (d) { return templet('jobName',d.jobName,d);}  }
 					,{ field: 'className', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('本次执行类') , templet: function (d) { return templet('className',d.className,d);}  }
 					,{ field: 'cronExpr', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('本次执行cron表达式') , templet: function (d) { return templet('cronExpr',d.cronExpr,d);}  }
-					,{ field: 'success', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('是否成功执行') , templet: function (d) { return templet('success',d.success,d);}  }
 					,{ field: 'parameter', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('本次执行参数') , templet: function (d) { return templet('parameter',d.parameter,d);}  }
+					,{ field: 'success', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('是否成功执行') , templet: function (d) { return templet('success',d.success,d);}  }
 					,{ field: 'result', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('执行结果') , templet: function (d) { return templet('result',d.result,d);}  }
 					,{ field: 'beginTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('开始执行的时间') ,templet: function (d) { return templet('beginTime',fox.dateFormat(d.beginTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
 					,{ field: 'endTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('结束执行的时间') ,templet: function (d) { return templet('endTime',fox.dateFormat(d.endTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
 					,{ field: 'exception', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('异常信息') , templet: function (d) { return templet('exception',d.exception,d);}  }
 					,{ field: 'logText', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('日志信息') , templet: function (d) { return templet('logText',d.logText,d);}  }
+					,{ field: 'userId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('账户ID') , templet: function (d) { return templet('userId',d.userId,d);}  }
+					,{ field: 'isManual', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('是否是手动执行') , templet: function (d) { return templet('isManual',d.isManual,d);}  }
+					,{ field: 'isMissfire', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('是否为丢失补充执行') , templet: function (d) { return templet('isMissfire',d.isMissfire,d);}  }
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
 				]],
@@ -124,16 +128,20 @@ function ListPage() {
 		var value = {};
 		value.id={ inputType:"button",value: $("#id").val()};
 		value.jobId={ inputType:"button",value: $("#jobId").val()};
+		value.type={ inputType:"button",value: $("#type").val()};
 		value.jobName={ inputType:"button",value: $("#jobName").val()};
 		value.className={ inputType:"button",value: $("#className").val()};
 		value.cronExpr={ inputType:"button",value: $("#cronExpr").val()};
-		value.success={ inputType:"number_input", value: $("#success").val() };
 		value.parameter={ inputType:"button",value: $("#parameter").val()};
+		value.success={ inputType:"number_input", value: $("#success").val() };
 		value.result={ inputType:"button",value: $("#result").val()};
 		value.beginTime={ inputType:"date_input", value: $("#beginTime").val() ,matchType:"auto"};
 		value.endTime={ inputType:"date_input", value: $("#endTime").val() ,matchType:"auto"};
 		value.exception={ inputType:"button",value: $("#exception").val()};
 		value.logText={ inputType:"button",value: $("#logText").val()};
+		value.userId={ inputType:"button",value: $("#userId").val()};
+		value.isManual={ inputType:"number_input", value: $("#isManual").val() };
+		value.isMissfire={ inputType:"number_input", value: $("#isMissfire").val() };
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;

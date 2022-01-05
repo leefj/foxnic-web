@@ -6,8 +6,11 @@ import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_JOB_LOG;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
-import java.sql.Timestamp;
+import org.github.foxnic.web.constants.enums.job.LogType;
 import javax.persistence.Transient;
+import java.sql.Timestamp;
+import com.github.foxnic.commons.reflect.EnumUtil;
+import com.github.foxnic.commons.lang.StringUtil;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
 
@@ -16,8 +19,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 定时任务执行日志
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-04 17:09:52
- * @sign 12E5A1C1D9F1B6ED042825451994E286
+ * @since 2022-01-05 16:56:10
+ * @sign 2DC907DEF3473B159A6E778363DA3D29
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -42,6 +45,14 @@ public class JobLog extends Entity {
 	private String jobId;
 	
 	/**
+	 * 日志分类：日志分类
+	*/
+	@ApiModelProperty(required = false,value="日志分类" , notes = "日志分类")
+	private String type;
+	@Transient
+	private LogType typeEnum;
+	
+	/**
 	 * 任务名称：任务名称
 	*/
 	@ApiModelProperty(required = false,value="任务名称" , notes = "任务名称")
@@ -60,16 +71,16 @@ public class JobLog extends Entity {
 	private String cronExpr;
 	
 	/**
-	 * 是否成功执行：是否成功执行
-	*/
-	@ApiModelProperty(required = false,value="是否成功执行" , notes = "是否成功执行")
-	private Integer success;
-	
-	/**
 	 * 本次执行参数：本次执行参数
 	*/
 	@ApiModelProperty(required = false,value="本次执行参数" , notes = "本次执行参数")
 	private String parameter;
+	
+	/**
+	 * 是否成功执行：是否成功执行
+	*/
+	@ApiModelProperty(required = false,value="是否成功执行" , notes = "是否成功执行")
+	private Integer success;
 	
 	/**
 	 * 执行结果：可记录大文本信息
@@ -100,6 +111,24 @@ public class JobLog extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="日志信息" , notes = "日志信息")
 	private String logText;
+	
+	/**
+	 * 账户ID：操作人ID
+	*/
+	@ApiModelProperty(required = false,value="账户ID" , notes = "操作人ID")
+	private String userId;
+	
+	/**
+	 * 是否是手动执行：是否是手动执行
+	*/
+	@ApiModelProperty(required = false,value="是否是手动执行" , notes = "是否是手动执行")
+	private Integer isManual;
+	
+	/**
+	 * 是否为丢失补充执行：是否为丢失补充执行
+	*/
+	@ApiModelProperty(required = false,value="是否为丢失补充执行" , notes = "是否为丢失补充执行")
+	private Integer isMissfire;
 	
 	/**
 	 * 获得 主键<br>
@@ -136,6 +165,58 @@ public class JobLog extends Entity {
 	*/
 	public JobLog setJobId(String jobId) {
 		this.jobId=jobId;
+		return this;
+	}
+	
+	/**
+	 * 获得 日志分类<br>
+	 * 日志分类
+	 * @return 日志分类
+	*/
+	public String getType() {
+		return type;
+	}
+	
+	/**
+	 * 获得 日志分类 的投影属性<br>
+	 * 等价于 getType 方法，获得对应的枚举类型
+	 * @return 日志分类
+	*/
+	@Transient
+	public LogType getTypeEnum() {
+		if(this.typeEnum==null) {
+			this.typeEnum = (LogType) EnumUtil.parseByCode(LogType.values(),type);
+		}
+		return this.typeEnum ;
+	}
+	
+	/**
+	 * 设置 日志分类
+	 * @param type 日志分类
+	 * @return 当前对象
+	*/
+	public JobLog setType(String type) {
+		this.type=type;
+		this.typeEnum= (LogType) EnumUtil.parseByCode(LogType.values(),type) ;
+		if(StringUtil.hasContent(type) && this.typeEnum==null) {
+			throw new IllegalArgumentException( type + " is not one of LogType");
+		}
+		return this;
+	}
+	
+	/**
+	 * 设置 日志分类的投影属性，等同于设置 日志分类
+	 * @param typeEnum 日志分类
+	 * @return 当前对象
+	*/
+	@Transient
+	public JobLog setTypeEnum(LogType typeEnum) {
+		if(typeEnum==null) {
+			this.setType(null);
+		} else {
+			this.setType(typeEnum.code());
+		}
+		this.typeEnum=typeEnum;
 		return this;
 	}
 	
@@ -197,25 +278,6 @@ public class JobLog extends Entity {
 	}
 	
 	/**
-	 * 获得 是否成功执行<br>
-	 * 是否成功执行
-	 * @return 是否成功执行
-	*/
-	public Integer getSuccess() {
-		return success;
-	}
-	
-	/**
-	 * 设置 是否成功执行
-	 * @param success 是否成功执行
-	 * @return 当前对象
-	*/
-	public JobLog setSuccess(Integer success) {
-		this.success=success;
-		return this;
-	}
-	
-	/**
 	 * 获得 本次执行参数<br>
 	 * 本次执行参数
 	 * @return 本次执行参数
@@ -231,6 +293,25 @@ public class JobLog extends Entity {
 	*/
 	public JobLog setParameter(String parameter) {
 		this.parameter=parameter;
+		return this;
+	}
+	
+	/**
+	 * 获得 是否成功执行<br>
+	 * 是否成功执行
+	 * @return 是否成功执行
+	*/
+	public Integer getSuccess() {
+		return success;
+	}
+	
+	/**
+	 * 设置 是否成功执行
+	 * @param success 是否成功执行
+	 * @return 当前对象
+	*/
+	public JobLog setSuccess(Integer success) {
+		this.success=success;
 		return this;
 	}
 	
@@ -326,6 +407,63 @@ public class JobLog extends Entity {
 	*/
 	public JobLog setLogText(String logText) {
 		this.logText=logText;
+		return this;
+	}
+	
+	/**
+	 * 获得 账户ID<br>
+	 * 操作人ID
+	 * @return 账户ID
+	*/
+	public String getUserId() {
+		return userId;
+	}
+	
+	/**
+	 * 设置 账户ID
+	 * @param userId 账户ID
+	 * @return 当前对象
+	*/
+	public JobLog setUserId(String userId) {
+		this.userId=userId;
+		return this;
+	}
+	
+	/**
+	 * 获得 是否是手动执行<br>
+	 * 是否是手动执行
+	 * @return 是否是手动执行
+	*/
+	public Integer getIsManual() {
+		return isManual;
+	}
+	
+	/**
+	 * 设置 是否是手动执行
+	 * @param isManual 是否是手动执行
+	 * @return 当前对象
+	*/
+	public JobLog setIsManual(Integer isManual) {
+		this.isManual=isManual;
+		return this;
+	}
+	
+	/**
+	 * 获得 是否为丢失补充执行<br>
+	 * 是否为丢失补充执行
+	 * @return 是否为丢失补充执行
+	*/
+	public Integer getIsMissfire() {
+		return isMissfire;
+	}
+	
+	/**
+	 * 设置 是否为丢失补充执行
+	 * @param isMissfire 是否为丢失补充执行
+	 * @return 当前对象
+	*/
+	public JobLog setIsMissfire(Integer isMissfire) {
+		this.isMissfire=isMissfire;
 		return this;
 	}
 

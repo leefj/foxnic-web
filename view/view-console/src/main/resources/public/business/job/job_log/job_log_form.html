@@ -2,7 +2,7 @@
 /**
  * 定时任务执行日志 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-04 17:09:52
+ * @since 2022-01-05 16:56:14
  */
  -->
  <!DOCTYPE html>
@@ -57,6 +57,13 @@
                     </div>
 
                                     <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('日志分类')}">日志分类</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input lay-filter="type" id="type" name="type" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('日志分类') }" type="text" class="layui-input"  />
+                        </div>
+                    </div>
+
+                                    <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('任务名称')}">任务名称</div></div>
                         <div class="layui-input-block layui-input-block-c1">
                             <input lay-filter="jobName" id="jobName" name="jobName" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('任务名称') }" type="text" class="layui-input"  />
@@ -79,20 +86,20 @@
 
                 
                     <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('是否成功执行')}">是否成功执行</div></div>
-                        <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="success" id="success" name="success" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('是否成功执行') }" type="text" class="layui-input"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0"   scale="0" />
-                        </div>
-                    </div>
-
-
-                
-                    <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('本次执行参数')}">本次执行参数</div></div>
                     <div class="layui-input-block layui-input-block-c1">
                         <textarea lay-filter="parameter" id="parameter" name="parameter" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('本次执行参数') }" class="layui-textarea" style="height: 120px" ></textarea>
                     </div>
                 </div>
+
+
+                
+                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('是否成功执行')}">是否成功执行</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input lay-filter="success" id="success" name="success" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('是否成功执行') }" type="text" class="layui-input"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0"   scale="0" />
+                        </div>
+                    </div>
 
 
                                     <div class="layui-form-item" >
@@ -131,6 +138,31 @@
                             <input lay-filter="logText" id="logText" name="logText" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('日志信息') }" type="text" class="layui-input"  />
                         </div>
                     </div>
+
+                                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('账户ID')}">账户ID</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input lay-filter="userId" id="userId" name="userId" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('账户ID') }" type="text" class="layui-input"  />
+                        </div>
+                    </div>
+
+                
+                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('是否是手动执行')}">是否是手动执行</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input lay-filter="isManual" id="isManual" name="isManual" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('是否是手动执行') }" type="text" class="layui-input"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0"   scale="0" />
+                        </div>
+                    </div>
+
+
+                
+                    <div class="layui-form-item" >
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('是否为丢失补充执行')}">是否为丢失补充执行</div></div>
+                        <div class="layui-input-block layui-input-block-c1">
+                            <input lay-filter="isMissfire" id="isMissfire" name="isMissfire" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('是否为丢失补充执行') }" type="text" class="layui-input"   autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0"   scale="0" />
+                        </div>
+                    </div>
+
 
                 <!--结束：栏次内字段循环-->
             </div>

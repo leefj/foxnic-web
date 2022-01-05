@@ -34,7 +34,7 @@ public class JobInvokeUtil
      */
     public static void invokeMethod(JobExecutionContext context,Job sysJob) throws Exception
     {
-         Class<? extends JobExecuter> type= ReflectUtil.forName(sysJob.getWorker().getClassName());
+        Class<? extends JobExecuter> type= ReflectUtil.forName(sysJob.getWorker().getClassName());
         JobExecuter executor = SpringUtil.getBean(type);
         JSONObject methodParams = null;
         if(StringUtil.hasContent(sysJob.getParameter())) {

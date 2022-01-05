@@ -1,7 +1,7 @@
 /**
  * 定时任务配置 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-05 14:33:42
+ * @since 2022-01-05 15:56:04
  */
 
 function FormPage() {
@@ -172,6 +172,7 @@ function FormPage() {
 
 
 			//设置  执行器 设置下拉框勾选
+			fox.setSelectValue4QueryApi("#workerId",formData.worker);
 			//设置  执行策略 设置下拉框勾选
 			fox.setSelectValue4Enum("#misfirePolicy",formData.misfirePolicy,SELECT_MISFIREPOLICY_DATA);
 

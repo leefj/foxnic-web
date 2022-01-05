@@ -2,7 +2,7 @@
 /**
  * 定时任务执行日志 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-04 17:09:52
+ * @since 2022-01-05 16:56:15
  */
  -->
  <!DOCTYPE html>
@@ -48,6 +48,11 @@
                         <div class="search-label-div" style=""><span th:text="${lang.translate('组别')}" class="search-label jobId-label">组别</span><span class="search-colon">:</span></div>
                         <input id="jobId" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
+                    <!-- 日志分类 , type ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('日志分类')}" class="search-label type-label">日志分类</span><span class="search-colon">:</span></div>
+                        <input id="type" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
                     <!-- 任务名称 , jobName ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('任务名称')}" class="search-label jobName-label">任务名称</span><span class="search-colon">:</span></div>
@@ -63,15 +68,15 @@
                         <div class="search-label-div" style=""><span th:text="${lang.translate('本次执行cron表达式')}" class="search-label cronExpr-label">本次执行cron表达式</span><span class="search-colon">:</span></div>
                         <input id="cronExpr" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
-                    <!-- 是否成功执行 , success ,typeName=number_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('是否成功执行')}" class="search-label success-label">是否成功执行</span><span class="search-colon">:</span></div>
-                            <input id="success" class="layui-input search-input" style="width: 140px" type="text" autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0" min-value="" max-value="" scale="0"/>
-                    </div>
                     <!-- 本次执行参数 , parameter ,typeName=text_area, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('本次执行参数')}" class="search-label parameter-label">本次执行参数</span><span class="search-colon">:</span></div>
                         <input id="parameter" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 是否成功执行 , success ,typeName=number_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('是否成功执行')}" class="search-label success-label">是否成功执行</span><span class="search-colon">:</span></div>
+                            <input id="success" class="layui-input search-input" style="width: 140px" type="text" autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0" min-value="" max-value="" scale="0"/>
                     </div>
                     <!-- 执行结果 , result ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
@@ -97,6 +102,21 @@
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('日志信息')}" class="search-label logText-label">日志信息</span><span class="search-colon">:</span></div>
                         <input id="logText" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 账户ID , userId ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('账户ID')}" class="search-label userId-label">账户ID</span><span class="search-colon">:</span></div>
+                        <input id="userId" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 是否是手动执行 , isManual ,typeName=number_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('是否是手动执行')}" class="search-label isManual-label">是否是手动执行</span><span class="search-colon">:</span></div>
+                            <input id="isManual" class="layui-input search-input" style="width: 140px" type="text" autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0" min-value="" max-value="" scale="0"/>
+                    </div>
+                    <!-- 是否为丢失补充执行 , isMissfire ,typeName=number_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('是否为丢失补充执行')}" class="search-label isMissfire-label">是否为丢失补充执行</span><span class="search-colon">:</span></div>
+                            <input id="isMissfire" class="layui-input search-input" style="width: 140px" type="text" autocomplete="off" input-type="number_input" integer="true" decimal="false" allow-negative="true" step="1.0" min-value="" max-value="" scale="0"/>
                     </div>
 
 
