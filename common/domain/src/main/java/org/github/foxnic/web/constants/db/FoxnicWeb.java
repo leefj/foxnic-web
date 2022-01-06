@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2022-01-05 16:55:47
+ * @since 2022-01-06 16:25:17
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -4517,8 +4517,23 @@ public class FoxnicWeb {
 		*/
 		public static final DBField IS_MISSFIRE = new DBField(DBDataType.INTEGER , "is_missfire","isMissfire","是否为丢失补充执行","是否为丢失补充执行",false,false,true);
 		
+		/**
+		 * 是否并发执行（0允许 1禁止）
+		*/
+		public static final DBField CONCURRENT = new DBField(DBDataType.INTEGER , "concurrent","concurrent","是否并发执行（0允许","1禁止）",false,false,true);
+		
+		/**
+		 * 遗漏执行的策略
+		*/
+		public static final DBField MISFIRE_POLICY = new DBField(DBDataType.STRING , "misfire_policy","misfirePolicy","遗漏执行的策略","遗漏执行的策略",false,false,true);
+		
+		/**
+		 * 日志跟踪ID
+		*/
+		public static final DBField TID = new DBField(DBDataType.STRING , "tid","tid","日志跟踪ID","日志跟踪ID",false,false,true);
+		
 		public SYS_JOB_LOG() {
-			this.init($NAME,"定时任务执行日志表" , ID , JOB_ID , TYPE , JOB_NAME , CLASS_NAME , CRON_EXPR , PARAMETER , SUCCESS , RESULT , BEGIN_TIME , END_TIME , EXCEPTION , LOG_TEXT , USER_ID , IS_MANUAL , IS_MISSFIRE);
+			this.init($NAME,"定时任务执行日志表" , ID , JOB_ID , TYPE , JOB_NAME , CLASS_NAME , CRON_EXPR , PARAMETER , SUCCESS , RESULT , BEGIN_TIME , END_TIME , EXCEPTION , LOG_TEXT , USER_ID , IS_MANUAL , IS_MISSFIRE , CONCURRENT , MISFIRE_POLICY , TID);
 		}
 		public static final SYS_JOB_LOG $TABLE=new SYS_JOB_LOG();
 	}

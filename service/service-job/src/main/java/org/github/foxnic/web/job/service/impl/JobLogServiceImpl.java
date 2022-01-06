@@ -13,6 +13,7 @@ import com.github.foxnic.dao.excel.ValidateResult;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
+import org.github.foxnic.web.constants.enums.job.LogType;
 import org.github.foxnic.web.domain.job.Job;
 import org.github.foxnic.web.domain.job.JobLog;
 import org.github.foxnic.web.framework.dao.DBConfigs;
@@ -251,25 +252,38 @@ public class JobLogServiceImpl extends SuperService<JobLog> implements IJobLogSe
 	}
 
 	@Override
-	public JobLog startLog(Job job) {
+	public JobLog startLog(Job job, String tid, LogType logType) {
 		JobLog log=JobLog.create();
 		log.setClassName(job.getWorker().getClassName());
 		log.setCronExpr(job.getCronExpr());
 		log.setJobId(job.getId());
+		log.setConcurrent(job.getConcurrent());
+		log.setMisfirePolicy(job.getMisfirePolicy());
+		log.setTypeEnum(logType);
+		log.setTid(tid);
 		if(SessionUser.getCurrent()!=null) {
 			log.setUserId(SessionUser.getCurrent().getUserId());
 		}
 		log.setBeginTime(new Timestamp(System.currentTimeMillis()));
 		log.setJobName(job.getName());
 		log.setSuccess(0);
+		this.dao().pausePrintThreadSQL();
 		this.insert(log);
+		this.dao().resumePrintThreadSQL();
 		return log;
+	}
+
+	@Override
+	public JobLog startLog(Job job) {
+		return startLog(job,null,null);
 	}
 
 
 	@Override
 	public void updateLog(JobLog log) {
+		this.dao().pausePrintThreadSQL();
 		this.updateDirtyFields(log);
+		this.dao().resumePrintThreadSQL();
 	}
 
 	@Override

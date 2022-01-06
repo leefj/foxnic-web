@@ -20,7 +20,7 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 定时任务配置
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-05 15:56:04
+ * @since 2022-01-06 16:19:13
  * @sign 1B4B8D866CE7845624E40AD25C914279
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */

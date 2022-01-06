@@ -39,10 +39,7 @@ public abstract class AbstractQuartzJob implements Job
     public void execute(JobExecutionContext context) throws JobExecutionException
     {
 
-
-
         Object o=context.getMergedJobDataMap().get(ScheduleConstants.TASK_PROPERTIES);
-//        BeanUtils.copyProperties(sysJob, );
         org.github.foxnic.web.domain.job.Job sysJob = org.github.foxnic.web.domain.job.Job.createFrom(o);
         Boolean isManual=(Boolean)context.getMergedJobDataMap().get(ScheduleConstants.IS_MANUAL);
         //启动参数 job=no 禁用 job
@@ -55,13 +52,10 @@ public abstract class AbstractQuartzJob implements Job
         	LOG.info("手动执行 Job : "+sysJob.getName()+"");
         }
 
-
-
         try
         {
             before(context, sysJob);
-            if (sysJob != null)
-            {
+            if (sysJob != null) {
                 doExecute(context, sysJob);
             }
             after(context, sysJob, null);

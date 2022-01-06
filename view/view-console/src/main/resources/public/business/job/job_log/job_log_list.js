@@ -1,7 +1,7 @@
 /**
  * 定时任务执行日志 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-05 16:56:13
+ * @since 2022-01-06 16:25:47
  */
 
 
@@ -90,6 +90,9 @@ function ListPage() {
 					,{ field: 'userId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('账户ID') , templet: function (d) { return templet('userId',d.userId,d);}  }
 					,{ field: 'isManual', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('是否是手动执行') , templet: function (d) { return templet('isManual',d.isManual,d);}  }
 					,{ field: 'isMissfire', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('是否为丢失补充执行') , templet: function (d) { return templet('isMissfire',d.isMissfire,d);}  }
+					,{ field: 'concurrent', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('是否并发执行（0允许') , templet: function (d) { return templet('concurrent',d.concurrent,d);}  }
+					,{ field: 'misfirePolicy', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('遗漏执行的策略') , templet: function (d) { return templet('misfirePolicy',d.misfirePolicy,d);}  }
+					,{ field: 'tid', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('日志跟踪ID') , templet: function (d) { return templet('tid',d.tid,d);}  }
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
 				]],
@@ -142,6 +145,9 @@ function ListPage() {
 		value.userId={ inputType:"button",value: $("#userId").val()};
 		value.isManual={ inputType:"number_input", value: $("#isManual").val() };
 		value.isMissfire={ inputType:"number_input", value: $("#isMissfire").val() };
+		value.concurrent={ inputType:"number_input", value: $("#concurrent").val() };
+		value.misfirePolicy={ inputType:"button",value: $("#misfirePolicy").val()};
+		value.tid={ inputType:"button",value: $("#tid").val()};
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;

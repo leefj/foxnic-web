@@ -11,6 +11,7 @@ import com.github.foxnic.dao.excel.ValidateResult;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.expr.OrderBy;
 import com.github.foxnic.sql.meta.DBField;
+import org.github.foxnic.web.constants.enums.job.LogType;
 import org.github.foxnic.web.domain.job.Job;
 import org.github.foxnic.web.domain.job.JobLog;
 
@@ -309,6 +310,8 @@ public interface IJobLogService extends ISuperService<JobLog> {
 
 
     JobLog startLog(Job job);
+
+	JobLog startLog(Job job, String tid, LogType logType);
 
 	void updateLog(JobLog log);
 }

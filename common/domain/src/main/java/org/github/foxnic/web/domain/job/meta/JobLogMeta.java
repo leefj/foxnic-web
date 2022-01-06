@@ -8,8 +8,8 @@ import java.sql.Timestamp;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-05 16:56:10
- * @sign 2DC907DEF3473B159A6E778363DA3D29
+ * @since 2022-01-06 16:25:44
+ * @sign BEA47AECFC81F3A6AA8F9AAAE9DDA5B8
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -176,9 +176,39 @@ public class JobLogMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.job.JobLog,java.lang.Integer> IS_MISSFIRE_PROP = new BeanProperty(org.github.foxnic.web.domain.job.JobLog.class ,IS_MISSFIRE, java.lang.Integer.class, "是否为丢失补充执行", "是否为丢失补充执行", java.lang.Integer.class, null);
 	
 	/**
+	 * 是否并发执行（0允许 , 1禁止） , 类型: java.lang.Integer
+	*/
+	public static final String CONCURRENT="concurrent";
+	
+	/**
+	 * 是否并发执行（0允许 , 1禁止） , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.job.JobLog,java.lang.Integer> CONCURRENT_PROP = new BeanProperty(org.github.foxnic.web.domain.job.JobLog.class ,CONCURRENT, java.lang.Integer.class, "是否并发执行（0允许", "1禁止）", java.lang.Integer.class, null);
+	
+	/**
+	 * 遗漏执行的策略 , 类型: java.lang.String
+	*/
+	public static final String MISFIRE_POLICY="misfirePolicy";
+	
+	/**
+	 * 遗漏执行的策略 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.job.JobLog,java.lang.String> MISFIRE_POLICY_PROP = new BeanProperty(org.github.foxnic.web.domain.job.JobLog.class ,MISFIRE_POLICY, java.lang.String.class, "遗漏执行的策略", "遗漏执行的策略", java.lang.String.class, null);
+	
+	/**
+	 * 日志跟踪ID , 类型: java.lang.String
+	*/
+	public static final String TID="tid";
+	
+	/**
+	 * 日志跟踪ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.job.JobLog,java.lang.String> TID_PROP = new BeanProperty(org.github.foxnic.web.domain.job.JobLog.class ,TID, java.lang.String.class, "日志跟踪ID", "日志跟踪ID", java.lang.String.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , JOB_ID , TYPE , JOB_NAME , CLASS_NAME , CRON_EXPR , PARAMETER , SUCCESS , RESULT , BEGIN_TIME , END_TIME , EXCEPTION , LOG_TEXT , USER_ID , IS_MANUAL , IS_MISSFIRE };
+	public static final String[] $PROPS={ ID , JOB_ID , TYPE , JOB_NAME , CLASS_NAME , CRON_EXPR , PARAMETER , SUCCESS , RESULT , BEGIN_TIME , END_TIME , EXCEPTION , LOG_TEXT , USER_ID , IS_MANUAL , IS_MISSFIRE , CONCURRENT , MISFIRE_POLICY , TID };
 	
 	/**
 	 * 代理类
@@ -361,6 +391,39 @@ public class JobLogMeta {
 		public JobLog setIsMissfire(Integer isMissfire) {
 			super.change(IS_MISSFIRE,super.getIsMissfire(),isMissfire);
 			super.setIsMissfire(isMissfire);
+			return this;
+		}
+		
+		/**
+		 * 设置 是否并发执行（0允许
+		 * @param concurrent 是否并发执行（0允许
+		 * @return 当前对象
+		*/
+		public JobLog setConcurrent(Integer concurrent) {
+			super.change(CONCURRENT,super.getConcurrent(),concurrent);
+			super.setConcurrent(concurrent);
+			return this;
+		}
+		
+		/**
+		 * 设置 遗漏执行的策略
+		 * @param misfirePolicy 遗漏执行的策略
+		 * @return 当前对象
+		*/
+		public JobLog setMisfirePolicy(String misfirePolicy) {
+			super.change(MISFIRE_POLICY,super.getMisfirePolicy(),misfirePolicy);
+			super.setMisfirePolicy(misfirePolicy);
+			return this;
+		}
+		
+		/**
+		 * 设置 日志跟踪ID
+		 * @param tid 日志跟踪ID
+		 * @return 当前对象
+		*/
+		public JobLog setTid(String tid) {
+			super.change(TID,super.getTid(),tid);
+			super.setTid(tid);
 			return this;
 		}
 	}

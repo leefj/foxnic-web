@@ -25,22 +25,18 @@ import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.springboot.web.DownloadUtil;
 import com.github.foxnic.dao.data.PagedList;
-import java.util.Date;
-import java.sql.Timestamp;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.commons.io.StreamUtil;
 import java.util.Map;
 import com.github.foxnic.dao.excel.ValidateResult;
 import java.io.InputStream;
-import org.github.foxnic.web.domain.job.meta.JobWorkerMeta;
-import org.github.foxnic.web.domain.job.JobExecuter;
+
 import io.swagger.annotations.Api;
 import com.github.xiaoymin.knife4j.annotations.ApiSort;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiImplicitParam;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import org.github.foxnic.web.job.service.IJobWorkerService;
 import com.github.foxnic.api.validate.annotations.NotNull;
 
@@ -49,7 +45,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 任务执行器 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-05 16:46:14
+ * @since 2022-01-06 16:19:18
 */
 
 @Api(tags = "任务执行器")
@@ -106,7 +102,7 @@ public class JobWorkerController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = JobWorkerVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 	})
-	@ApiOperationSupport(order=3) 
+	@ApiOperationSupport(order=3)
 	@NotNull(name = JobWorkerVOMeta.IDS)
 	@SentinelResource(value = JobWorkerServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(JobWorkerServiceProxy.DELETE_BY_IDS)
@@ -182,7 +178,7 @@ public class JobWorkerController extends SuperController {
 		@ApiImplicitParams({
 				@ApiImplicitParam(name = JobWorkerVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})
-		@ApiOperationSupport(order=3) 
+		@ApiOperationSupport(order=3)
 		@NotNull(name = JobWorkerVOMeta.IDS)
 		@SentinelResource(value = JobWorkerServiceProxy.GET_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(JobWorkerServiceProxy.GET_BY_IDS)

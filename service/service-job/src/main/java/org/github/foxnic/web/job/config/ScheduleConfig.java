@@ -10,7 +10,7 @@ import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.springboot.spring.SpringUtil;
 import com.github.foxnic.sql.meta.DBType;
 import org.github.foxnic.web.domain.job.Job;
-import org.github.foxnic.web.domain.job.JobExecuter;
+import org.github.foxnic.web.domain.job.JobExecutor;
 import org.github.foxnic.web.domain.job.JobWorker;
 import org.github.foxnic.web.domain.job.meta.JobMeta;
 import org.github.foxnic.web.job.service.IJobService;
@@ -38,6 +38,9 @@ public class ScheduleConfig
 
     @Value("${foxnic.job.dao-bean-name}")
     private String daoBeanName;
+
+    @Value("${foxnic.job.misfire-threshold}")
+    private String misfireThreshold;
 
     private DAO dao;
 
@@ -79,7 +82,7 @@ public class ScheduleConfig
         // 调度实例失效的检查时间间隔
         prop.put("org.quartz.jobStore.clusterCheckinInterval", "15000");
         // 调度实例失效的检查时间间隔，影响着核查出失败实例的速度
-        prop.put("org.quartz.jobStore.maxMisfiresToHandleAtATime", "10");
+        prop.put("org.quartz.jobStore.maxMisfiresToHandleAtATime", "20");
         // 在“LOCKS”表里选择一行并且锁住这行的SQL语句。缺省的语句能够为大部分数据库工作。“{0}”是在运行时你配置的表前缀。 false
         prop.put("org.quartz.jobStore.txIsolationLevelSerializable", "false");
 
@@ -90,8 +93,8 @@ public class ScheduleConfig
             prop.put("org.quartz.jobStore.selectWithLockSQL", "SELECT * FROM {0}LOCKS UPDLOCK WHERE LOCK_NAME = ? FOR UPDATE");
         }
 
-        // 容许的最大作业延长时间
-        prop.put("org.quartz.jobStore.misfireThreshold", "12000");
+        // 容许的最大作业延长时间，超出则认为 misfire 发生，单位毫秒
+        prop.put("org.quartz.jobStore.misfireThreshold", misfireThreshold);
         prop.put("org.quartz.jobStore.tablePrefix", "sys_job_");
         factory.setQuartzProperties(prop);
 
@@ -137,7 +140,7 @@ public class ScheduleConfig
 
         for (Job job : jobList) {
             if(job.getWorker()==null) return;
-            JobExecuter executer=(JobExecuter)SpringUtil.getBean(ReflectUtil.forName(job.getWorker().getClassName()));
+            JobExecutor executer=(JobExecutor)SpringUtil.getBean(ReflectUtil.forName(job.getWorker().getClassName()));
             if(executer==null) return;
             //
             CronTrigger cronTrigger = ScheduleUtils.getCronTrigger(job.getId());
@@ -159,10 +162,10 @@ public class ScheduleConfig
         List<JobWorker> executorsInDb=jobWorkerService.queryList(new JobWorker());
         Map<String,JobWorker> workerMap= CollectorUtil.collectMap(executorsInDb,(e)->{return e.getClassName();},(e)->{return e;});
         jobWorkerService.invalidAll();
-        List<JobExecuter> executors=SpringUtil.getBeans(JobExecuter.class);
+        List<JobExecutor> executors=SpringUtil.getBeans(JobExecutor.class);
         String clsName=null;
         JobWorker worker = null;
-        for (JobExecuter executor : executors) {
+        for (JobExecutor executor : executors) {
             clsName=executor.getClass().getName();
             worker = workerMap.get(clsName);
             if(worker==null) {

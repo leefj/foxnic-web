@@ -85,6 +85,29 @@ public class SysJobConfig extends BaseCodeConfig<SYS_JOB> {
 				SYS_JOB.PARAMETER,SYS_JOB.STATUS,
 				SYS_JOB.NOTES
 		});
+
+//		form.addGroup(null,new Object[]{
+//				SYS_JOB.NAME,SYS_JOB.WORKER_ID,SYS_JOB.CRON_EXPR,
+//				SYS_JOB.CONCURRENT,SYS_JOB.MISFIRE_POLICY,
+////				SYS_JOB.PARAMETER,SYS_JOB.STATUS,
+////				SYS_JOB.NOTES
+//		});
+
+//		form.addGroup("XX",new Object[]{
+////				SYS_JOB.NAME,SYS_JOB.WORKER_ID,SYS_JOB.CRON_EXPR,
+////				SYS_JOB.CONCURRENT,SYS_JOB.MISFIRE_POLICY,
+//				SYS_JOB.PARAMETER,SYS_JOB.STATUS,
+//				SYS_JOB.NOTES
+//		});
+
+//		form.addGroup(null, new Object[]{
+//						SYS_JOB.NAME, SYS_JOB.WORKER_ID, SYS_JOB.CRON_EXPR,
+//						SYS_JOB.CONCURRENT, SYS_JOB.MISFIRE_POLICY,
+//				}
+//				, new Object[]{
+//						SYS_JOB.PARAMETER, SYS_JOB.STATUS,
+//						SYS_JOB.NOTES
+//				});
 	}
 
 	@Override

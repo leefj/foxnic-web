@@ -112,7 +112,6 @@ public class ScheduleUtils {
         JobDataMap dataMap = new JobDataMap();
         dataMap.put(ScheduleConstants.TASK_PROPERTIES, job);
         dataMap.put(ScheduleConstants.IS_MANUAL, isManual);
-
         scheduler.triggerJob(getJobKey(job.getId()), dataMap);
     }
 

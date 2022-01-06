@@ -6,11 +6,11 @@ import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.lang.DateUtil;
 import com.github.foxnic.commons.log.Logger;
 import org.github.foxnic.web.domain.job.Job;
-import org.github.foxnic.web.domain.job.JobExecuter;
+import org.github.foxnic.web.domain.job.JobExecutor;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DemoWorker2 implements JobExecuter {
+public class DemoWorker2 implements JobExecutor {
 
     @Override
     public String getName() {

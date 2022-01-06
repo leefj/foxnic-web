@@ -6,7 +6,7 @@ import com.github.foxnic.generator.builder.view.option.ListOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_JOB_WORKER;
-import org.github.foxnic.web.domain.job.JobExecuter;
+import org.github.foxnic.web.domain.job.JobExecutor;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
 
@@ -18,7 +18,7 @@ public class SysJobWorkerConfig extends BaseCodeConfig<SYS_JOB_WORKER> {
 
 	@Override
 	public void configModel(PoClassFile poType, VoClassFile voType) {
-		poType.addSimpleProperty(JobExecuter.class,"executor","执行任务的Bean","执行任务的Bean");
+		poType.addSimpleProperty(JobExecutor.class,"executor","执行任务的Bean","执行任务的Bean");
 	}
 
 	@Override
