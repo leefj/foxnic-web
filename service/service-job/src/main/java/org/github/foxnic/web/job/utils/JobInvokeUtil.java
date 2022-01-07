@@ -14,6 +14,7 @@ import org.github.foxnic.web.constants.enums.job.LogType;
 import org.github.foxnic.web.domain.job.Job;
 import org.github.foxnic.web.domain.job.JobExecutor;
 import org.github.foxnic.web.domain.job.JobLog;
+import org.github.foxnic.web.job.config.ScheduleConstants;
 import org.github.foxnic.web.job.service.IJobLogService;
 import org.quartz.JobExecutionContext;
 import org.slf4j.MDC;
@@ -44,11 +45,17 @@ public class JobInvokeUtil
         MDC.put(TID,tid);
         MDC.put(JOB, job.getName());
 
+        Boolean isManual = (Boolean) context.getMergedJobDataMap().get(ScheduleConstants.IS_MANUAL);
+        if(isManual==null) {
+            isManual=false;
+        }
+
         Result result = null;
         if(logService==null) {
             logService=SpringUtil.getBean(IJobLogService.class);
         }
         JobLog log=logService.startLog(job,tid, LogType.CRON);
+        log.setIsManual(isManual?1:0);
         // 检查 Worker
         if(job.getWorker()==null) {
             result = ErrorDesc.failure().message("任务未关联执行器");

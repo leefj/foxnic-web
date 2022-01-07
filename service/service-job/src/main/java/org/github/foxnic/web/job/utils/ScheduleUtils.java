@@ -107,8 +107,9 @@ public class ScheduleUtils {
     /**
      * 立即执行任务
      */
-    public static void run(Scheduler scheduler, org.github.foxnic.web.domain.job.Job job, boolean isManual) throws SchedulerException {
+    public static void run(org.github.foxnic.web.domain.job.Job job, boolean isManual) throws SchedulerException {
         // 参数
+        Scheduler scheduler=getScheduler();
         JobDataMap dataMap = new JobDataMap();
         dataMap.put(ScheduleConstants.TASK_PROPERTIES, job);
         dataMap.put(ScheduleConstants.IS_MANUAL, isManual);

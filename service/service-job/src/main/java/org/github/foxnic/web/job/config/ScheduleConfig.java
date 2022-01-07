@@ -176,6 +176,18 @@ public class ScheduleConfig
             worker.setValid(1);
             jobWorkerService.save(worker, SaveMode.NOT_NULL_FIELDS);
         }
+
+        //移除无效的 worker
+        JobWorker sample=new JobWorker();
+        sample.setValid(0);
+        executorsInDb=jobWorkerService.queryList(sample);
+        for (JobWorker jobWorker : executorsInDb) {
+            Integer ex=dao.queryInteger("select count(1) from sys_job where worker_id=? and deleted = 0",jobWorker.getId());
+            if(ex==0) {
+                jobWorkerService.deleteByIdPhysical(jobWorker.getId());
+            }
+        }
+
     }
 
 }

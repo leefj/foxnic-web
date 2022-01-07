@@ -99,6 +99,8 @@ foxnic:
     dao-bean-name: primaryDAO
     # 容许的最大作业延长时间，超出则认为 misfire 发生，单位毫秒
     misfire-threshold: 1000
+    # 日志保留天数
+    log-keep-days: 7
   cache:
     # 默认配置
     default:

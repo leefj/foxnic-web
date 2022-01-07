@@ -61,13 +61,13 @@ public class SysJobConfig extends BaseCodeConfig<SYS_JOB> {
 
 		view.field(SYS_JOB.PARAMETER).form().textArea().height(100);
 
-		view.field(JobMeta.NEXT_FIRE_TIME).form().hidden().table().label("下次执行");
+		view.field(JobMeta.NEXT_FIRE_TIME).form().hidden().table().label("下次执行时间");
 
-		view.field(SYS_JOB.ERRORS).basic().label("失败次数").form().hidden();
+//		view.field(SYS_JOB.ERRORS).basic().label("失败次数").form().hidden();
 
-		view.field(SYS_JOB.CONCURRENT).basic().label("并发")
+		view.field(SYS_JOB.CONCURRENT).basic().label("允许并发")
 				.form().validate().required()
-				.form().logicField().on("是",1).off("否",0);
+				.form().logicField().on("允许",1).off("禁止",0);
 
 		view.field(SYS_JOB.STATUS).basic().label("状态")
 				.form().radioBox().enumType(Status.class)
@@ -112,8 +112,11 @@ public class SysJobConfig extends BaseCodeConfig<SYS_JOB> {
 
 	@Override
 	public void configList(ViewOptions view, ListOptions list) {
-		list.columnLayout(new Object[] {SYS_JOB.NAME,SYS_JOB.WORKER_ID,SYS_JOB.CRON_EXPR,SYS_JOB.CONCURRENT,SYS_JOB.MISFIRE_POLICY,
-				SYS_JOB.STATUS,SYS_JOB.ERRORS,JobMeta.NEXT_FIRE_TIME});
+
+		list.operationColumn().addActionButton("立即调度","invokeImm","","bb-d4336a824f-be86");
+
+		list.columnLayout(new Object[] {SYS_JOB.NAME,SYS_JOB.WORKER_ID,SYS_JOB.CRON_EXPR,SYS_JOB.MISFIRE_POLICY,
+				SYS_JOB.STATUS,JobMeta.NEXT_FIRE_TIME});
 	}
 
 	@Override

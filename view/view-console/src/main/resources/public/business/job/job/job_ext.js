@@ -1,7 +1,8 @@
 /**
  * 定时任务配置 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-06 16:19:14
+ * @since 2022-01-07 11:48:29
+ * @version
  */
 
 layui.config({
@@ -149,6 +150,16 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * */
         moreAction:function (menu,data, it){
             console.log('moreAction',menu,data,it);
+        },
+        invokeImm:function (data){
+            console.log('invokeImm',data);
+            admin.post(moduleURL+"/invoke", { id : data.id }, function (data) {
+                if(data.success) {
+                    top.layer.msg(data.message, {icon: 1, time: 1500});
+                } else {
+                    top.layer.msg(data.message, {icon: 1, time: 1500});
+                }
+            });
         },
         /**
          * 末尾执行

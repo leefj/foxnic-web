@@ -15,8 +15,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 任务执行器
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-06 16:19:18
- * @sign F15D36AC3D61FB01BEC5A771ADFBB0FE
+ * @since 2022-01-07 12:00:15
+ * @sign 497820EDCE4A79368453D64100EA9EEA
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -26,38 +26,38 @@ public class JobWorker extends Entity {
 	private static final long serialVersionUID = 1L;
 
 	public static final DBTable TABLE =SYS_JOB_WORKER.$TABLE;
-
+	
 	/**
 	 * 主键：主键
 	*/
 	@Id
 	@ApiModelProperty(required = true,value="主键" , notes = "主键")
 	private String id;
-
+	
 	/**
 	 * 名称：名称
 	*/
 	@ApiModelProperty(required = false,value="名称" , notes = "名称")
 	private String name;
-
+	
 	/**
 	 * 类名：类名
 	*/
 	@ApiModelProperty(required = false,value="类名" , notes = "类名")
 	private String className;
-
+	
 	/**
 	 * 有效：有效
 	*/
 	@ApiModelProperty(required = false,value="有效" , notes = "有效")
 	private Integer valid;
-
+	
 	/**
 	 * 执行任务的Bean：执行任务的Bean
 	*/
 	@ApiModelProperty(required = false,value="执行任务的Bean" , notes = "执行任务的Bean")
 	private JobExecutor executor;
-
+	
 	/**
 	 * 获得 主键<br>
 	 * 主键
@@ -66,7 +66,7 @@ public class JobWorker extends Entity {
 	public String getId() {
 		return id;
 	}
-
+	
 	/**
 	 * 设置 主键
 	 * @param id 主键
@@ -76,7 +76,7 @@ public class JobWorker extends Entity {
 		this.id=id;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 名称<br>
 	 * 名称
@@ -85,7 +85,7 @@ public class JobWorker extends Entity {
 	public String getName() {
 		return name;
 	}
-
+	
 	/**
 	 * 设置 名称
 	 * @param name 名称
@@ -95,7 +95,7 @@ public class JobWorker extends Entity {
 		this.name=name;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 类名<br>
 	 * 类名
@@ -104,7 +104,7 @@ public class JobWorker extends Entity {
 	public String getClassName() {
 		return className;
 	}
-
+	
 	/**
 	 * 设置 类名
 	 * @param className 类名
@@ -114,7 +114,7 @@ public class JobWorker extends Entity {
 		this.className=className;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 有效<br>
 	 * 有效
@@ -123,7 +123,7 @@ public class JobWorker extends Entity {
 	public Integer getValid() {
 		return valid;
 	}
-
+	
 	/**
 	 * 设置 有效
 	 * @param valid 有效
@@ -133,7 +133,7 @@ public class JobWorker extends Entity {
 		this.valid=valid;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 执行任务的Bean<br>
 	 * 执行任务的Bean
@@ -142,7 +142,7 @@ public class JobWorker extends Entity {
 	public JobExecutor getExecutor() {
 		return executor;
 	}
-
+	
 	/**
 	 * 设置 执行任务的Bean
 	 * @param executor 执行任务的Bean

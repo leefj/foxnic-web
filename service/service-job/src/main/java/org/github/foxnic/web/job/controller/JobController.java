@@ -71,7 +71,6 @@ public class JobController extends SuperController {
 		@ApiImplicitParam(name = JobVOMeta.CONCURRENT , value = "是否并发执行（0允许" , required = true , dataTypeClass=Integer.class , example = "0"),
 		@ApiImplicitParam(name = JobVOMeta.MISFIRE_POLICY , value = "遗漏执行的策略" , required = false , dataTypeClass=String.class , example = "once_now"),
 		@ApiImplicitParam(name = JobVOMeta.STATUS , value = "状态" , required = false , dataTypeClass=String.class , example = "normal"),
-		@ApiImplicitParam(name = JobVOMeta.ERRORS , value = "执行错误次数" , required = false , dataTypeClass=Integer.class),
 		@ApiImplicitParam(name = JobVOMeta.NOTES , value = "备注" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport(order=1)
@@ -133,7 +132,6 @@ public class JobController extends SuperController {
 		@ApiImplicitParam(name = JobVOMeta.CONCURRENT , value = "是否并发执行（0允许" , required = true , dataTypeClass=Integer.class , example = "0"),
 		@ApiImplicitParam(name = JobVOMeta.MISFIRE_POLICY , value = "遗漏执行的策略" , required = false , dataTypeClass=String.class , example = "once_now"),
 		@ApiImplicitParam(name = JobVOMeta.STATUS , value = "状态" , required = false , dataTypeClass=String.class , example = "normal"),
-		@ApiImplicitParam(name = JobVOMeta.ERRORS , value = "执行错误次数" , required = false , dataTypeClass=Integer.class),
 		@ApiImplicitParam(name = JobVOMeta.NOTES , value = "备注" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport( order=4 , ignoreParameters = { JobVOMeta.PAGE_INDEX , JobVOMeta.PAGE_SIZE , JobVOMeta.SEARCH_FIELD , JobVOMeta.FUZZY_FIELD , JobVOMeta.SEARCH_VALUE , JobVOMeta.DIRTY_FIELDS , JobVOMeta.SORT_FIELD , JobVOMeta.SORT_TYPE , JobVOMeta.IDS } )
@@ -161,7 +159,6 @@ public class JobController extends SuperController {
 		@ApiImplicitParam(name = JobVOMeta.CONCURRENT , value = "是否并发执行（0允许" , required = true , dataTypeClass=Integer.class , example = "0"),
 		@ApiImplicitParam(name = JobVOMeta.MISFIRE_POLICY , value = "遗漏执行的策略" , required = false , dataTypeClass=String.class , example = "once_now"),
 		@ApiImplicitParam(name = JobVOMeta.STATUS , value = "状态" , required = false , dataTypeClass=String.class , example = "normal"),
-		@ApiImplicitParam(name = JobVOMeta.ERRORS , value = "执行错误次数" , required = false , dataTypeClass=Integer.class),
 		@ApiImplicitParam(name = JobVOMeta.NOTES , value = "备注" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { JobVOMeta.PAGE_INDEX , JobVOMeta.PAGE_SIZE , JobVOMeta.SEARCH_FIELD , JobVOMeta.FUZZY_FIELD , JobVOMeta.SEARCH_VALUE , JobVOMeta.DIRTY_FIELDS , JobVOMeta.SORT_FIELD , JobVOMeta.SORT_TYPE , JobVOMeta.IDS } )
@@ -199,6 +196,23 @@ public class JobController extends SuperController {
 	}
 
 
+
+	/**
+	 * 获取定时任务配置
+	 */
+	@ApiOperation(value = "获取定时任务配置")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = JobVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "1"),
+	})
+	@ApiOperationSupport(order=6)
+	@NotNull(name = JobVOMeta.ID)
+	@SentinelResource(value = JobServiceProxy.INVOKE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
+	@PostMapping(JobServiceProxy.INVOKE)
+	public Result invoke(String id) {
+		return jobService.invoke(id);
+	}
+
+
 	/**
 	 * 批量获取定时任务配置 <br>
 	 * 联合主键时，请自行调整实现
@@ -233,7 +247,6 @@ public class JobController extends SuperController {
 		@ApiImplicitParam(name = JobVOMeta.CONCURRENT , value = "是否并发执行（0允许" , required = true , dataTypeClass=Integer.class , example = "0"),
 		@ApiImplicitParam(name = JobVOMeta.MISFIRE_POLICY , value = "遗漏执行的策略" , required = false , dataTypeClass=String.class , example = "once_now"),
 		@ApiImplicitParam(name = JobVOMeta.STATUS , value = "状态" , required = false , dataTypeClass=String.class , example = "normal"),
-		@ApiImplicitParam(name = JobVOMeta.ERRORS , value = "执行错误次数" , required = false , dataTypeClass=Integer.class),
 		@ApiImplicitParam(name = JobVOMeta.NOTES , value = "备注" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { JobVOMeta.PAGE_INDEX , JobVOMeta.PAGE_SIZE } )
@@ -261,7 +274,6 @@ public class JobController extends SuperController {
 		@ApiImplicitParam(name = JobVOMeta.CONCURRENT , value = "是否并发执行（0允许" , required = true , dataTypeClass=Integer.class , example = "0"),
 		@ApiImplicitParam(name = JobVOMeta.MISFIRE_POLICY , value = "遗漏执行的策略" , required = false , dataTypeClass=String.class , example = "once_now"),
 		@ApiImplicitParam(name = JobVOMeta.STATUS , value = "状态" , required = false , dataTypeClass=String.class , example = "normal"),
-		@ApiImplicitParam(name = JobVOMeta.ERRORS , value = "执行错误次数" , required = false , dataTypeClass=Integer.class),
 		@ApiImplicitParam(name = JobVOMeta.NOTES , value = "备注" , required = false , dataTypeClass=String.class),
 	})
 	@ApiOperationSupport(order=8)

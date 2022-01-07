@@ -11,7 +11,7 @@ import org.github.foxnic.web.domain.job.JobWorker;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-06 16:19:13
+ * @since 2022-01-07 13:34:40
  * @sign EA93CE36C2B9313F6C823D4451A8D228
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -199,16 +199,6 @@ public class JobVOMeta extends JobMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.job.JobVO,java.lang.String> STATUS_PROP = new BeanProperty(org.github.foxnic.web.domain.job.JobVO.class ,STATUS, java.lang.String.class, "状态", "状态", java.lang.String.class, null);
 	
 	/**
-	 * 执行错误次数 , 类型: java.lang.Integer
-	*/
-	public static final String ERRORS="errors";
-	
-	/**
-	 * 执行错误次数 , 类型: java.lang.Integer
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.job.JobVO,java.lang.Integer> ERRORS_PROP = new BeanProperty(org.github.foxnic.web.domain.job.JobVO.class ,ERRORS, java.lang.Integer.class, "执行错误次数", "执行错误次数", java.lang.Integer.class, null);
-	
-	/**
 	 * 备注 , 类型: java.lang.String
 	*/
 	public static final String NOTES="notes";
@@ -331,7 +321,7 @@ public class JobVOMeta extends JobMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , NAME , GROUP_TAG , WORKER_ID , CRON_EXPR , PARAMETER , CONCURRENT , MISFIRE_POLICY , STATUS , ERRORS , NOTES , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , WORKER , NEXT_FIRE_TIME };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , NAME , GROUP_TAG , WORKER_ID , CRON_EXPR , PARAMETER , CONCURRENT , MISFIRE_POLICY , STATUS , NOTES , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , WORKER , NEXT_FIRE_TIME };
 	
 	/**
 	 * 代理类
@@ -536,17 +526,6 @@ public class JobVOMeta extends JobMeta {
 		public Job setStatus(String status) {
 			super.change(STATUS,super.getStatus(),status);
 			super.setStatus(status);
-			return this;
-		}
-		
-		/**
-		 * 设置 执行错误次数
-		 * @param errors 执行错误次数
-		 * @return 当前对象
-		*/
-		public Job setErrors(Integer errors) {
-			super.change(ERRORS,super.getErrors(),errors);
-			super.setErrors(errors);
 			return this;
 		}
 		

@@ -48,7 +48,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 定时任务执行日志表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-06 16:25:45
+ * @since 2022-01-07 13:39:32
 */
 
 @Api(tags = "定时任务执行日志")
@@ -65,25 +65,27 @@ public class JobLogController extends SuperController {
 	*/
 	@ApiOperation(value = "添加定时任务执行日志")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = JobLogVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "531156702012112896"),
-		@ApiImplicitParam(name = JobLogVOMeta.JOB_ID , value = "组别" , required = false , dataTypeClass=String.class , example = "530795797369847808"),
-		@ApiImplicitParam(name = JobLogVOMeta.TYPE , value = "日志分类" , required = false , dataTypeClass=String.class , example = "config"),
-		@ApiImplicitParam(name = JobLogVOMeta.JOB_NAME , value = "任务名称" , required = false , dataTypeClass=String.class , example = "111"),
-		@ApiImplicitParam(name = JobLogVOMeta.CLASS_NAME , value = "本次执行类" , required = false , dataTypeClass=String.class , example = "org.github.foxnic.web.job.worker.DemoWorker2"),
-		@ApiImplicitParam(name = JobLogVOMeta.CRON_EXPR , value = "本次执行cron表达式" , required = false , dataTypeClass=String.class , example = "0/5 * * * * ?"),
+		@ApiImplicitParam(name = JobLogVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "531514187373879296"),
+		@ApiImplicitParam(name = JobLogVOMeta.JOB_ID , value = "组别" , required = false , dataTypeClass=String.class , example = "531145545926840320"),
+		@ApiImplicitParam(name = JobLogVOMeta.TYPE , value = "日志分类" , required = false , dataTypeClass=String.class , example = "cron"),
+		@ApiImplicitParam(name = JobLogVOMeta.JOB_NAME , value = "任务名称" , required = false , dataTypeClass=String.class , example = "222"),
+		@ApiImplicitParam(name = JobLogVOMeta.CLASS_NAME , value = "本次执行类" , required = false , dataTypeClass=String.class , example = "org.github.foxnic.web.job.worker.DemoWorker1"),
+		@ApiImplicitParam(name = JobLogVOMeta.CRON_EXPR , value = "本次执行cron表达式" , required = false , dataTypeClass=String.class , example = "0/2 * * * * ?"),
 		@ApiImplicitParam(name = JobLogVOMeta.PARAMETER , value = "本次执行参数" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = JobLogVOMeta.SUCCESS , value = "是否成功执行" , required = false , dataTypeClass=Integer.class , example = "0"),
-		@ApiImplicitParam(name = JobLogVOMeta.RESULT , value = "执行结果" , required = false , dataTypeClass=String.class , example = "update , before : {\"concurrent\":1,\"createBy\":\"110588348101165911\",\"createTime\":1641287580000,\"cronExpr\":\"0/5 * * * * ?\",\"deleted\":0,\"groupTag\":\"\",\"id\":\"530795797369847808\",\"misfirePolicy\":\"do_nothing\",\"misfirePolicyEnum\":\"DO_NOTHING\",\"name\":\"111\",\"notes\":\"\",\"parameter\":\"\",\"status\":\"paused\",\"statusEnum\":\"PAUSED\",\"tenantId\":\"T001\",\"updateBy\":\"110588348101165911\",\"updateTime\":1641370940000,\"version\":17,\"worker\":{\"className\":\"org.github.foxnic.web.job.worker.DemoWorker2\",\"id\":\"530777750454140928\",\"name\":\"示例-2\",\"valid\":1},\"workerId\":\"530777750454140928\"} , after : {\"compositeParameter\":{\"fuzzyFields\":[]},\"concurrent\":1,\"cronExpr\":\"0/5 * * * * ?\",\"dirtyFields\":[\"select\",\"misfirePolicy\"],\"id\":\"530795797369847808\",\"misfirePolicy\":\"do_nothing\",\"misfirePolicyEnum\":\"DO_NOTHING\",\"name\":\"111\",\"notes\":\"\",\"pageIndex\":1,\"pageSize\":10,\"parameter\":\"\",\"status\":\"paused\",\"statusEnum\":\"PAUSED\",\"worker\":{\"className\":\"org.github.foxnic.web.job.worker.DemoWorker2\",\"id\":\"530777750454140928\",\"name\":\"示例-2\",\"valid\":1},\"workerId\":\"530777750454140928\"}"),
-		@ApiImplicitParam(name = JobLogVOMeta.BEGIN_TIME , value = "开始执行的时间" , required = false , dataTypeClass=Timestamp.class , example = "2022-01-05 17:07:06.174"),
-		@ApiImplicitParam(name = JobLogVOMeta.END_TIME , value = "结束执行的时间" , required = false , dataTypeClass=Timestamp.class),
+		@ApiImplicitParam(name = JobLogVOMeta.SUCCESS , value = "是否成功执行" , required = false , dataTypeClass=Integer.class , example = "1"),
+		@ApiImplicitParam(name = JobLogVOMeta.RESULT , value = "执行结果" , required = false , dataTypeClass=String.class , example = "{\"code\":\"00\",\"message\":\"操作成功\",\"success\":true}"),
+		@ApiImplicitParam(name = JobLogVOMeta.BEGIN_TIME , value = "开始执行的时间" , required = false , dataTypeClass=Timestamp.class , example = "2022-01-06 16:47:37.323"),
+		@ApiImplicitParam(name = JobLogVOMeta.END_TIME , value = "结束执行的时间" , required = false , dataTypeClass=Timestamp.class , example = "2022-01-06 16:47:37.373"),
+		@ApiImplicitParam(name = JobLogVOMeta.COST , value = "执行耗时" , required = false , dataTypeClass=Long.class),
 		@ApiImplicitParam(name = JobLogVOMeta.EXCEPTION , value = "异常信息" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = JobLogVOMeta.LOG_TEXT , value = "日志信息" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = JobLogVOMeta.USER_ID , value = "账户ID" , required = false , dataTypeClass=String.class , example = "110588348101165911"),
-		@ApiImplicitParam(name = JobLogVOMeta.IS_MANUAL , value = "是否是手动执行" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = JobLogVOMeta.USER_ID , value = "账户ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = JobLogVOMeta.IS_MANUAL , value = "是否是手动执行" , required = false , dataTypeClass=Integer.class , example = "0"),
 		@ApiImplicitParam(name = JobLogVOMeta.IS_MISSFIRE , value = "是否为丢失补充执行" , required = false , dataTypeClass=Integer.class),
 		@ApiImplicitParam(name = JobLogVOMeta.CONCURRENT , value = "是否并发执行（0允许" , required = false , dataTypeClass=Integer.class , example = "0"),
-		@ApiImplicitParam(name = JobLogVOMeta.MISFIRE_POLICY , value = "遗漏执行的策略" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = JobLogVOMeta.TID , value = "日志跟踪ID" , required = false , dataTypeClass=String.class)
+		@ApiImplicitParam(name = JobLogVOMeta.MISFIRE_POLICY , value = "遗漏执行的策略" , required = false , dataTypeClass=String.class , example = "do_nothing"),
+		@ApiImplicitParam(name = JobLogVOMeta.TID , value = "日志跟踪ID" , required = false , dataTypeClass=String.class , example = "531514187331936256"),
+		@ApiImplicitParam(name = JobLogVOMeta.NODE_ID , value = "节点ID" , required = false , dataTypeClass=String.class)
 	})
 	@ApiOperationSupport(order=1)
 	@SentinelResource(value = JobLogServiceProxy.INSERT , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
@@ -100,7 +102,7 @@ public class JobLogController extends SuperController {
 	*/
 	@ApiOperation(value = "删除定时任务执行日志")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = JobLogVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "531156702012112896")
+		@ApiImplicitParam(name = JobLogVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "531514187373879296")
 	})
 	@ApiOperationSupport(order=2)
 	@NotNull(name = JobLogVOMeta.ID)
@@ -134,25 +136,27 @@ public class JobLogController extends SuperController {
 	*/
 	@ApiOperation(value = "更新定时任务执行日志")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = JobLogVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "531156702012112896"),
-		@ApiImplicitParam(name = JobLogVOMeta.JOB_ID , value = "组别" , required = false , dataTypeClass=String.class , example = "530795797369847808"),
-		@ApiImplicitParam(name = JobLogVOMeta.TYPE , value = "日志分类" , required = false , dataTypeClass=String.class , example = "config"),
-		@ApiImplicitParam(name = JobLogVOMeta.JOB_NAME , value = "任务名称" , required = false , dataTypeClass=String.class , example = "111"),
-		@ApiImplicitParam(name = JobLogVOMeta.CLASS_NAME , value = "本次执行类" , required = false , dataTypeClass=String.class , example = "org.github.foxnic.web.job.worker.DemoWorker2"),
-		@ApiImplicitParam(name = JobLogVOMeta.CRON_EXPR , value = "本次执行cron表达式" , required = false , dataTypeClass=String.class , example = "0/5 * * * * ?"),
+		@ApiImplicitParam(name = JobLogVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "531514187373879296"),
+		@ApiImplicitParam(name = JobLogVOMeta.JOB_ID , value = "组别" , required = false , dataTypeClass=String.class , example = "531145545926840320"),
+		@ApiImplicitParam(name = JobLogVOMeta.TYPE , value = "日志分类" , required = false , dataTypeClass=String.class , example = "cron"),
+		@ApiImplicitParam(name = JobLogVOMeta.JOB_NAME , value = "任务名称" , required = false , dataTypeClass=String.class , example = "222"),
+		@ApiImplicitParam(name = JobLogVOMeta.CLASS_NAME , value = "本次执行类" , required = false , dataTypeClass=String.class , example = "org.github.foxnic.web.job.worker.DemoWorker1"),
+		@ApiImplicitParam(name = JobLogVOMeta.CRON_EXPR , value = "本次执行cron表达式" , required = false , dataTypeClass=String.class , example = "0/2 * * * * ?"),
 		@ApiImplicitParam(name = JobLogVOMeta.PARAMETER , value = "本次执行参数" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = JobLogVOMeta.SUCCESS , value = "是否成功执行" , required = false , dataTypeClass=Integer.class , example = "0"),
-		@ApiImplicitParam(name = JobLogVOMeta.RESULT , value = "执行结果" , required = false , dataTypeClass=String.class , example = "update , before : {\"concurrent\":1,\"createBy\":\"110588348101165911\",\"createTime\":1641287580000,\"cronExpr\":\"0/5 * * * * ?\",\"deleted\":0,\"groupTag\":\"\",\"id\":\"530795797369847808\",\"misfirePolicy\":\"do_nothing\",\"misfirePolicyEnum\":\"DO_NOTHING\",\"name\":\"111\",\"notes\":\"\",\"parameter\":\"\",\"status\":\"paused\",\"statusEnum\":\"PAUSED\",\"tenantId\":\"T001\",\"updateBy\":\"110588348101165911\",\"updateTime\":1641370940000,\"version\":17,\"worker\":{\"className\":\"org.github.foxnic.web.job.worker.DemoWorker2\",\"id\":\"530777750454140928\",\"name\":\"示例-2\",\"valid\":1},\"workerId\":\"530777750454140928\"} , after : {\"compositeParameter\":{\"fuzzyFields\":[]},\"concurrent\":1,\"cronExpr\":\"0/5 * * * * ?\",\"dirtyFields\":[\"select\",\"misfirePolicy\"],\"id\":\"530795797369847808\",\"misfirePolicy\":\"do_nothing\",\"misfirePolicyEnum\":\"DO_NOTHING\",\"name\":\"111\",\"notes\":\"\",\"pageIndex\":1,\"pageSize\":10,\"parameter\":\"\",\"status\":\"paused\",\"statusEnum\":\"PAUSED\",\"worker\":{\"className\":\"org.github.foxnic.web.job.worker.DemoWorker2\",\"id\":\"530777750454140928\",\"name\":\"示例-2\",\"valid\":1},\"workerId\":\"530777750454140928\"}"),
-		@ApiImplicitParam(name = JobLogVOMeta.BEGIN_TIME , value = "开始执行的时间" , required = false , dataTypeClass=Timestamp.class , example = "2022-01-05 17:07:06.174"),
-		@ApiImplicitParam(name = JobLogVOMeta.END_TIME , value = "结束执行的时间" , required = false , dataTypeClass=Timestamp.class),
+		@ApiImplicitParam(name = JobLogVOMeta.SUCCESS , value = "是否成功执行" , required = false , dataTypeClass=Integer.class , example = "1"),
+		@ApiImplicitParam(name = JobLogVOMeta.RESULT , value = "执行结果" , required = false , dataTypeClass=String.class , example = "{\"code\":\"00\",\"message\":\"操作成功\",\"success\":true}"),
+		@ApiImplicitParam(name = JobLogVOMeta.BEGIN_TIME , value = "开始执行的时间" , required = false , dataTypeClass=Timestamp.class , example = "2022-01-06 16:47:37.323"),
+		@ApiImplicitParam(name = JobLogVOMeta.END_TIME , value = "结束执行的时间" , required = false , dataTypeClass=Timestamp.class , example = "2022-01-06 16:47:37.373"),
+		@ApiImplicitParam(name = JobLogVOMeta.COST , value = "执行耗时" , required = false , dataTypeClass=Long.class),
 		@ApiImplicitParam(name = JobLogVOMeta.EXCEPTION , value = "异常信息" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = JobLogVOMeta.LOG_TEXT , value = "日志信息" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = JobLogVOMeta.USER_ID , value = "账户ID" , required = false , dataTypeClass=String.class , example = "110588348101165911"),
-		@ApiImplicitParam(name = JobLogVOMeta.IS_MANUAL , value = "是否是手动执行" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = JobLogVOMeta.USER_ID , value = "账户ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = JobLogVOMeta.IS_MANUAL , value = "是否是手动执行" , required = false , dataTypeClass=Integer.class , example = "0"),
 		@ApiImplicitParam(name = JobLogVOMeta.IS_MISSFIRE , value = "是否为丢失补充执行" , required = false , dataTypeClass=Integer.class),
 		@ApiImplicitParam(name = JobLogVOMeta.CONCURRENT , value = "是否并发执行（0允许" , required = false , dataTypeClass=Integer.class , example = "0"),
-		@ApiImplicitParam(name = JobLogVOMeta.MISFIRE_POLICY , value = "遗漏执行的策略" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = JobLogVOMeta.TID , value = "日志跟踪ID" , required = false , dataTypeClass=String.class)
+		@ApiImplicitParam(name = JobLogVOMeta.MISFIRE_POLICY , value = "遗漏执行的策略" , required = false , dataTypeClass=String.class , example = "do_nothing"),
+		@ApiImplicitParam(name = JobLogVOMeta.TID , value = "日志跟踪ID" , required = false , dataTypeClass=String.class , example = "531514187331936256"),
+		@ApiImplicitParam(name = JobLogVOMeta.NODE_ID , value = "节点ID" , required = false , dataTypeClass=String.class)
 	})
 	@ApiOperationSupport( order=4 , ignoreParameters = { JobLogVOMeta.PAGE_INDEX , JobLogVOMeta.PAGE_SIZE , JobLogVOMeta.SEARCH_FIELD , JobLogVOMeta.FUZZY_FIELD , JobLogVOMeta.SEARCH_VALUE , JobLogVOMeta.DIRTY_FIELDS , JobLogVOMeta.SORT_FIELD , JobLogVOMeta.SORT_TYPE , JobLogVOMeta.IDS } )
 	@NotNull(name = JobLogVOMeta.ID)
@@ -169,25 +173,27 @@ public class JobLogController extends SuperController {
 	*/
 	@ApiOperation(value = "保存定时任务执行日志")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = JobLogVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "531156702012112896"),
-		@ApiImplicitParam(name = JobLogVOMeta.JOB_ID , value = "组别" , required = false , dataTypeClass=String.class , example = "530795797369847808"),
-		@ApiImplicitParam(name = JobLogVOMeta.TYPE , value = "日志分类" , required = false , dataTypeClass=String.class , example = "config"),
-		@ApiImplicitParam(name = JobLogVOMeta.JOB_NAME , value = "任务名称" , required = false , dataTypeClass=String.class , example = "111"),
-		@ApiImplicitParam(name = JobLogVOMeta.CLASS_NAME , value = "本次执行类" , required = false , dataTypeClass=String.class , example = "org.github.foxnic.web.job.worker.DemoWorker2"),
-		@ApiImplicitParam(name = JobLogVOMeta.CRON_EXPR , value = "本次执行cron表达式" , required = false , dataTypeClass=String.class , example = "0/5 * * * * ?"),
+		@ApiImplicitParam(name = JobLogVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "531514187373879296"),
+		@ApiImplicitParam(name = JobLogVOMeta.JOB_ID , value = "组别" , required = false , dataTypeClass=String.class , example = "531145545926840320"),
+		@ApiImplicitParam(name = JobLogVOMeta.TYPE , value = "日志分类" , required = false , dataTypeClass=String.class , example = "cron"),
+		@ApiImplicitParam(name = JobLogVOMeta.JOB_NAME , value = "任务名称" , required = false , dataTypeClass=String.class , example = "222"),
+		@ApiImplicitParam(name = JobLogVOMeta.CLASS_NAME , value = "本次执行类" , required = false , dataTypeClass=String.class , example = "org.github.foxnic.web.job.worker.DemoWorker1"),
+		@ApiImplicitParam(name = JobLogVOMeta.CRON_EXPR , value = "本次执行cron表达式" , required = false , dataTypeClass=String.class , example = "0/2 * * * * ?"),
 		@ApiImplicitParam(name = JobLogVOMeta.PARAMETER , value = "本次执行参数" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = JobLogVOMeta.SUCCESS , value = "是否成功执行" , required = false , dataTypeClass=Integer.class , example = "0"),
-		@ApiImplicitParam(name = JobLogVOMeta.RESULT , value = "执行结果" , required = false , dataTypeClass=String.class , example = "update , before : {\"concurrent\":1,\"createBy\":\"110588348101165911\",\"createTime\":1641287580000,\"cronExpr\":\"0/5 * * * * ?\",\"deleted\":0,\"groupTag\":\"\",\"id\":\"530795797369847808\",\"misfirePolicy\":\"do_nothing\",\"misfirePolicyEnum\":\"DO_NOTHING\",\"name\":\"111\",\"notes\":\"\",\"parameter\":\"\",\"status\":\"paused\",\"statusEnum\":\"PAUSED\",\"tenantId\":\"T001\",\"updateBy\":\"110588348101165911\",\"updateTime\":1641370940000,\"version\":17,\"worker\":{\"className\":\"org.github.foxnic.web.job.worker.DemoWorker2\",\"id\":\"530777750454140928\",\"name\":\"示例-2\",\"valid\":1},\"workerId\":\"530777750454140928\"} , after : {\"compositeParameter\":{\"fuzzyFields\":[]},\"concurrent\":1,\"cronExpr\":\"0/5 * * * * ?\",\"dirtyFields\":[\"select\",\"misfirePolicy\"],\"id\":\"530795797369847808\",\"misfirePolicy\":\"do_nothing\",\"misfirePolicyEnum\":\"DO_NOTHING\",\"name\":\"111\",\"notes\":\"\",\"pageIndex\":1,\"pageSize\":10,\"parameter\":\"\",\"status\":\"paused\",\"statusEnum\":\"PAUSED\",\"worker\":{\"className\":\"org.github.foxnic.web.job.worker.DemoWorker2\",\"id\":\"530777750454140928\",\"name\":\"示例-2\",\"valid\":1},\"workerId\":\"530777750454140928\"}"),
-		@ApiImplicitParam(name = JobLogVOMeta.BEGIN_TIME , value = "开始执行的时间" , required = false , dataTypeClass=Timestamp.class , example = "2022-01-05 17:07:06.174"),
-		@ApiImplicitParam(name = JobLogVOMeta.END_TIME , value = "结束执行的时间" , required = false , dataTypeClass=Timestamp.class),
+		@ApiImplicitParam(name = JobLogVOMeta.SUCCESS , value = "是否成功执行" , required = false , dataTypeClass=Integer.class , example = "1"),
+		@ApiImplicitParam(name = JobLogVOMeta.RESULT , value = "执行结果" , required = false , dataTypeClass=String.class , example = "{\"code\":\"00\",\"message\":\"操作成功\",\"success\":true}"),
+		@ApiImplicitParam(name = JobLogVOMeta.BEGIN_TIME , value = "开始执行的时间" , required = false , dataTypeClass=Timestamp.class , example = "2022-01-06 16:47:37.323"),
+		@ApiImplicitParam(name = JobLogVOMeta.END_TIME , value = "结束执行的时间" , required = false , dataTypeClass=Timestamp.class , example = "2022-01-06 16:47:37.373"),
+		@ApiImplicitParam(name = JobLogVOMeta.COST , value = "执行耗时" , required = false , dataTypeClass=Long.class),
 		@ApiImplicitParam(name = JobLogVOMeta.EXCEPTION , value = "异常信息" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = JobLogVOMeta.LOG_TEXT , value = "日志信息" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = JobLogVOMeta.USER_ID , value = "账户ID" , required = false , dataTypeClass=String.class , example = "110588348101165911"),
-		@ApiImplicitParam(name = JobLogVOMeta.IS_MANUAL , value = "是否是手动执行" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = JobLogVOMeta.USER_ID , value = "账户ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = JobLogVOMeta.IS_MANUAL , value = "是否是手动执行" , required = false , dataTypeClass=Integer.class , example = "0"),
 		@ApiImplicitParam(name = JobLogVOMeta.IS_MISSFIRE , value = "是否为丢失补充执行" , required = false , dataTypeClass=Integer.class),
 		@ApiImplicitParam(name = JobLogVOMeta.CONCURRENT , value = "是否并发执行（0允许" , required = false , dataTypeClass=Integer.class , example = "0"),
-		@ApiImplicitParam(name = JobLogVOMeta.MISFIRE_POLICY , value = "遗漏执行的策略" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = JobLogVOMeta.TID , value = "日志跟踪ID" , required = false , dataTypeClass=String.class)
+		@ApiImplicitParam(name = JobLogVOMeta.MISFIRE_POLICY , value = "遗漏执行的策略" , required = false , dataTypeClass=String.class , example = "do_nothing"),
+		@ApiImplicitParam(name = JobLogVOMeta.TID , value = "日志跟踪ID" , required = false , dataTypeClass=String.class , example = "531514187331936256"),
+		@ApiImplicitParam(name = JobLogVOMeta.NODE_ID , value = "节点ID" , required = false , dataTypeClass=String.class)
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { JobLogVOMeta.PAGE_INDEX , JobLogVOMeta.PAGE_SIZE , JobLogVOMeta.SEARCH_FIELD , JobLogVOMeta.FUZZY_FIELD , JobLogVOMeta.SEARCH_VALUE , JobLogVOMeta.DIRTY_FIELDS , JobLogVOMeta.SORT_FIELD , JobLogVOMeta.SORT_TYPE , JobLogVOMeta.IDS } )
 	@NotNull(name = JobLogVOMeta.ID)
@@ -243,25 +249,27 @@ public class JobLogController extends SuperController {
 	*/
 	@ApiOperation(value = "查询定时任务执行日志")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = JobLogVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "531156702012112896"),
-		@ApiImplicitParam(name = JobLogVOMeta.JOB_ID , value = "组别" , required = false , dataTypeClass=String.class , example = "530795797369847808"),
-		@ApiImplicitParam(name = JobLogVOMeta.TYPE , value = "日志分类" , required = false , dataTypeClass=String.class , example = "config"),
-		@ApiImplicitParam(name = JobLogVOMeta.JOB_NAME , value = "任务名称" , required = false , dataTypeClass=String.class , example = "111"),
-		@ApiImplicitParam(name = JobLogVOMeta.CLASS_NAME , value = "本次执行类" , required = false , dataTypeClass=String.class , example = "org.github.foxnic.web.job.worker.DemoWorker2"),
-		@ApiImplicitParam(name = JobLogVOMeta.CRON_EXPR , value = "本次执行cron表达式" , required = false , dataTypeClass=String.class , example = "0/5 * * * * ?"),
+		@ApiImplicitParam(name = JobLogVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "531514187373879296"),
+		@ApiImplicitParam(name = JobLogVOMeta.JOB_ID , value = "组别" , required = false , dataTypeClass=String.class , example = "531145545926840320"),
+		@ApiImplicitParam(name = JobLogVOMeta.TYPE , value = "日志分类" , required = false , dataTypeClass=String.class , example = "cron"),
+		@ApiImplicitParam(name = JobLogVOMeta.JOB_NAME , value = "任务名称" , required = false , dataTypeClass=String.class , example = "222"),
+		@ApiImplicitParam(name = JobLogVOMeta.CLASS_NAME , value = "本次执行类" , required = false , dataTypeClass=String.class , example = "org.github.foxnic.web.job.worker.DemoWorker1"),
+		@ApiImplicitParam(name = JobLogVOMeta.CRON_EXPR , value = "本次执行cron表达式" , required = false , dataTypeClass=String.class , example = "0/2 * * * * ?"),
 		@ApiImplicitParam(name = JobLogVOMeta.PARAMETER , value = "本次执行参数" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = JobLogVOMeta.SUCCESS , value = "是否成功执行" , required = false , dataTypeClass=Integer.class , example = "0"),
-		@ApiImplicitParam(name = JobLogVOMeta.RESULT , value = "执行结果" , required = false , dataTypeClass=String.class , example = "update , before : {\"concurrent\":1,\"createBy\":\"110588348101165911\",\"createTime\":1641287580000,\"cronExpr\":\"0/5 * * * * ?\",\"deleted\":0,\"groupTag\":\"\",\"id\":\"530795797369847808\",\"misfirePolicy\":\"do_nothing\",\"misfirePolicyEnum\":\"DO_NOTHING\",\"name\":\"111\",\"notes\":\"\",\"parameter\":\"\",\"status\":\"paused\",\"statusEnum\":\"PAUSED\",\"tenantId\":\"T001\",\"updateBy\":\"110588348101165911\",\"updateTime\":1641370940000,\"version\":17,\"worker\":{\"className\":\"org.github.foxnic.web.job.worker.DemoWorker2\",\"id\":\"530777750454140928\",\"name\":\"示例-2\",\"valid\":1},\"workerId\":\"530777750454140928\"} , after : {\"compositeParameter\":{\"fuzzyFields\":[]},\"concurrent\":1,\"cronExpr\":\"0/5 * * * * ?\",\"dirtyFields\":[\"select\",\"misfirePolicy\"],\"id\":\"530795797369847808\",\"misfirePolicy\":\"do_nothing\",\"misfirePolicyEnum\":\"DO_NOTHING\",\"name\":\"111\",\"notes\":\"\",\"pageIndex\":1,\"pageSize\":10,\"parameter\":\"\",\"status\":\"paused\",\"statusEnum\":\"PAUSED\",\"worker\":{\"className\":\"org.github.foxnic.web.job.worker.DemoWorker2\",\"id\":\"530777750454140928\",\"name\":\"示例-2\",\"valid\":1},\"workerId\":\"530777750454140928\"}"),
-		@ApiImplicitParam(name = JobLogVOMeta.BEGIN_TIME , value = "开始执行的时间" , required = false , dataTypeClass=Timestamp.class , example = "2022-01-05 17:07:06.174"),
-		@ApiImplicitParam(name = JobLogVOMeta.END_TIME , value = "结束执行的时间" , required = false , dataTypeClass=Timestamp.class),
+		@ApiImplicitParam(name = JobLogVOMeta.SUCCESS , value = "是否成功执行" , required = false , dataTypeClass=Integer.class , example = "1"),
+		@ApiImplicitParam(name = JobLogVOMeta.RESULT , value = "执行结果" , required = false , dataTypeClass=String.class , example = "{\"code\":\"00\",\"message\":\"操作成功\",\"success\":true}"),
+		@ApiImplicitParam(name = JobLogVOMeta.BEGIN_TIME , value = "开始执行的时间" , required = false , dataTypeClass=Timestamp.class , example = "2022-01-06 16:47:37.323"),
+		@ApiImplicitParam(name = JobLogVOMeta.END_TIME , value = "结束执行的时间" , required = false , dataTypeClass=Timestamp.class , example = "2022-01-06 16:47:37.373"),
+		@ApiImplicitParam(name = JobLogVOMeta.COST , value = "执行耗时" , required = false , dataTypeClass=Long.class),
 		@ApiImplicitParam(name = JobLogVOMeta.EXCEPTION , value = "异常信息" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = JobLogVOMeta.LOG_TEXT , value = "日志信息" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = JobLogVOMeta.USER_ID , value = "账户ID" , required = false , dataTypeClass=String.class , example = "110588348101165911"),
-		@ApiImplicitParam(name = JobLogVOMeta.IS_MANUAL , value = "是否是手动执行" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = JobLogVOMeta.USER_ID , value = "账户ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = JobLogVOMeta.IS_MANUAL , value = "是否是手动执行" , required = false , dataTypeClass=Integer.class , example = "0"),
 		@ApiImplicitParam(name = JobLogVOMeta.IS_MISSFIRE , value = "是否为丢失补充执行" , required = false , dataTypeClass=Integer.class),
 		@ApiImplicitParam(name = JobLogVOMeta.CONCURRENT , value = "是否并发执行（0允许" , required = false , dataTypeClass=Integer.class , example = "0"),
-		@ApiImplicitParam(name = JobLogVOMeta.MISFIRE_POLICY , value = "遗漏执行的策略" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = JobLogVOMeta.TID , value = "日志跟踪ID" , required = false , dataTypeClass=String.class)
+		@ApiImplicitParam(name = JobLogVOMeta.MISFIRE_POLICY , value = "遗漏执行的策略" , required = false , dataTypeClass=String.class , example = "do_nothing"),
+		@ApiImplicitParam(name = JobLogVOMeta.TID , value = "日志跟踪ID" , required = false , dataTypeClass=String.class , example = "531514187331936256"),
+		@ApiImplicitParam(name = JobLogVOMeta.NODE_ID , value = "节点ID" , required = false , dataTypeClass=String.class)
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { JobLogVOMeta.PAGE_INDEX , JobLogVOMeta.PAGE_SIZE } )
 	@SentinelResource(value = JobLogServiceProxy.QUERY_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
@@ -279,25 +287,27 @@ public class JobLogController extends SuperController {
 	*/
 	@ApiOperation(value = "分页查询定时任务执行日志")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = JobLogVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "531156702012112896"),
-		@ApiImplicitParam(name = JobLogVOMeta.JOB_ID , value = "组别" , required = false , dataTypeClass=String.class , example = "530795797369847808"),
-		@ApiImplicitParam(name = JobLogVOMeta.TYPE , value = "日志分类" , required = false , dataTypeClass=String.class , example = "config"),
-		@ApiImplicitParam(name = JobLogVOMeta.JOB_NAME , value = "任务名称" , required = false , dataTypeClass=String.class , example = "111"),
-		@ApiImplicitParam(name = JobLogVOMeta.CLASS_NAME , value = "本次执行类" , required = false , dataTypeClass=String.class , example = "org.github.foxnic.web.job.worker.DemoWorker2"),
-		@ApiImplicitParam(name = JobLogVOMeta.CRON_EXPR , value = "本次执行cron表达式" , required = false , dataTypeClass=String.class , example = "0/5 * * * * ?"),
+		@ApiImplicitParam(name = JobLogVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "531514187373879296"),
+		@ApiImplicitParam(name = JobLogVOMeta.JOB_ID , value = "组别" , required = false , dataTypeClass=String.class , example = "531145545926840320"),
+		@ApiImplicitParam(name = JobLogVOMeta.TYPE , value = "日志分类" , required = false , dataTypeClass=String.class , example = "cron"),
+		@ApiImplicitParam(name = JobLogVOMeta.JOB_NAME , value = "任务名称" , required = false , dataTypeClass=String.class , example = "222"),
+		@ApiImplicitParam(name = JobLogVOMeta.CLASS_NAME , value = "本次执行类" , required = false , dataTypeClass=String.class , example = "org.github.foxnic.web.job.worker.DemoWorker1"),
+		@ApiImplicitParam(name = JobLogVOMeta.CRON_EXPR , value = "本次执行cron表达式" , required = false , dataTypeClass=String.class , example = "0/2 * * * * ?"),
 		@ApiImplicitParam(name = JobLogVOMeta.PARAMETER , value = "本次执行参数" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = JobLogVOMeta.SUCCESS , value = "是否成功执行" , required = false , dataTypeClass=Integer.class , example = "0"),
-		@ApiImplicitParam(name = JobLogVOMeta.RESULT , value = "执行结果" , required = false , dataTypeClass=String.class , example = "update , before : {\"concurrent\":1,\"createBy\":\"110588348101165911\",\"createTime\":1641287580000,\"cronExpr\":\"0/5 * * * * ?\",\"deleted\":0,\"groupTag\":\"\",\"id\":\"530795797369847808\",\"misfirePolicy\":\"do_nothing\",\"misfirePolicyEnum\":\"DO_NOTHING\",\"name\":\"111\",\"notes\":\"\",\"parameter\":\"\",\"status\":\"paused\",\"statusEnum\":\"PAUSED\",\"tenantId\":\"T001\",\"updateBy\":\"110588348101165911\",\"updateTime\":1641370940000,\"version\":17,\"worker\":{\"className\":\"org.github.foxnic.web.job.worker.DemoWorker2\",\"id\":\"530777750454140928\",\"name\":\"示例-2\",\"valid\":1},\"workerId\":\"530777750454140928\"} , after : {\"compositeParameter\":{\"fuzzyFields\":[]},\"concurrent\":1,\"cronExpr\":\"0/5 * * * * ?\",\"dirtyFields\":[\"select\",\"misfirePolicy\"],\"id\":\"530795797369847808\",\"misfirePolicy\":\"do_nothing\",\"misfirePolicyEnum\":\"DO_NOTHING\",\"name\":\"111\",\"notes\":\"\",\"pageIndex\":1,\"pageSize\":10,\"parameter\":\"\",\"status\":\"paused\",\"statusEnum\":\"PAUSED\",\"worker\":{\"className\":\"org.github.foxnic.web.job.worker.DemoWorker2\",\"id\":\"530777750454140928\",\"name\":\"示例-2\",\"valid\":1},\"workerId\":\"530777750454140928\"}"),
-		@ApiImplicitParam(name = JobLogVOMeta.BEGIN_TIME , value = "开始执行的时间" , required = false , dataTypeClass=Timestamp.class , example = "2022-01-05 17:07:06.174"),
-		@ApiImplicitParam(name = JobLogVOMeta.END_TIME , value = "结束执行的时间" , required = false , dataTypeClass=Timestamp.class),
+		@ApiImplicitParam(name = JobLogVOMeta.SUCCESS , value = "是否成功执行" , required = false , dataTypeClass=Integer.class , example = "1"),
+		@ApiImplicitParam(name = JobLogVOMeta.RESULT , value = "执行结果" , required = false , dataTypeClass=String.class , example = "{\"code\":\"00\",\"message\":\"操作成功\",\"success\":true}"),
+		@ApiImplicitParam(name = JobLogVOMeta.BEGIN_TIME , value = "开始执行的时间" , required = false , dataTypeClass=Timestamp.class , example = "2022-01-06 16:47:37.323"),
+		@ApiImplicitParam(name = JobLogVOMeta.END_TIME , value = "结束执行的时间" , required = false , dataTypeClass=Timestamp.class , example = "2022-01-06 16:47:37.373"),
+		@ApiImplicitParam(name = JobLogVOMeta.COST , value = "执行耗时" , required = false , dataTypeClass=Long.class),
 		@ApiImplicitParam(name = JobLogVOMeta.EXCEPTION , value = "异常信息" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = JobLogVOMeta.LOG_TEXT , value = "日志信息" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = JobLogVOMeta.USER_ID , value = "账户ID" , required = false , dataTypeClass=String.class , example = "110588348101165911"),
-		@ApiImplicitParam(name = JobLogVOMeta.IS_MANUAL , value = "是否是手动执行" , required = false , dataTypeClass=Integer.class),
+		@ApiImplicitParam(name = JobLogVOMeta.USER_ID , value = "账户ID" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = JobLogVOMeta.IS_MANUAL , value = "是否是手动执行" , required = false , dataTypeClass=Integer.class , example = "0"),
 		@ApiImplicitParam(name = JobLogVOMeta.IS_MISSFIRE , value = "是否为丢失补充执行" , required = false , dataTypeClass=Integer.class),
 		@ApiImplicitParam(name = JobLogVOMeta.CONCURRENT , value = "是否并发执行（0允许" , required = false , dataTypeClass=Integer.class , example = "0"),
-		@ApiImplicitParam(name = JobLogVOMeta.MISFIRE_POLICY , value = "遗漏执行的策略" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = JobLogVOMeta.TID , value = "日志跟踪ID" , required = false , dataTypeClass=String.class)
+		@ApiImplicitParam(name = JobLogVOMeta.MISFIRE_POLICY , value = "遗漏执行的策略" , required = false , dataTypeClass=String.class , example = "do_nothing"),
+		@ApiImplicitParam(name = JobLogVOMeta.TID , value = "日志跟踪ID" , required = false , dataTypeClass=String.class , example = "531514187331936256"),
+		@ApiImplicitParam(name = JobLogVOMeta.NODE_ID , value = "节点ID" , required = false , dataTypeClass=String.class)
 	})
 	@ApiOperationSupport(order=8)
 	@SentinelResource(value = JobLogServiceProxy.QUERY_PAGED_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )

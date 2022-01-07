@@ -1,7 +1,7 @@
 /**
  * 定时任务执行日志 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-06 16:25:49
+ * @since 2022-01-07 13:39:32
  */
 
 function FormPage() {
@@ -10,8 +10,8 @@ function FormPage() {
 	const moduleURL="/service-job/sys-job-log";
 	// 表单执行操作类型：view，create，edit
 	var action=null;
-	var disableCreateNew=false;
-	var disableModify=false;
+	var disableCreateNew=true;
+	var disableModify=true;
 	var dataBeforeEdit=null;
 	/**
       * 入口函数，初始化
@@ -101,6 +101,32 @@ function FormPage() {
 				window.pageExt.form.onDatePickerChanged && window.pageExt.form.onDatePickerChanged("endTime",value, date, endDate);
 			}
 		});
+		//渲染 misfirePolicy 下拉字段
+		fox.renderSelectBox({
+			el: "misfirePolicy",
+			radio: true,
+			filterable: false,
+			on: function(data){
+				setTimeout(function () {
+					window.pageExt.form.onSelectBoxChanged && window.pageExt.form.onSelectBoxChanged("misfirePolicy",data.arr,data.change,data.isAdd);
+				},1);
+			},
+			//转换数据
+			transform:function(data) {
+				//要求格式 :[{name: '水果', value: 1},{name: '蔬菜', value: 2}]
+				var defaultValues=[],defaultIndexs=[];
+				if(action=="create") {
+					defaultValues = "".split(",");
+					defaultIndexs = "".split(",");
+				}
+				var opts=[];
+				if(!data) return opts;
+				for (var i = 0; i < data.length; i++) {
+					opts.push({data:data[i],name:data[i].text,value:data[i].code,selected:(defaultValues.indexOf(data[i].code)!=-1 || defaultIndexs.indexOf(""+i)!=-1)});
+				}
+				return opts;
+			}
+		});
 	}
 
 	/**
@@ -127,16 +153,18 @@ function FormPage() {
 
 
 
-			//设置 开始执行的时间 显示复选框勾选
+			//设置 开始时间 显示复选框勾选
 			if(formData["beginTime"]) {
 				$("#beginTime").val(fox.dateFormat(formData["beginTime"],"yyyy-MM-dd HH:mm:ss"));
 			}
-			//设置 结束执行的时间 显示复选框勾选
+			//设置 结束时间 显示复选框勾选
 			if(formData["endTime"]) {
 				$("#endTime").val(fox.dateFormat(formData["endTime"],"yyyy-MM-dd HH:mm:ss"));
 			}
 
 
+			//设置  执行策略 设置下拉框勾选
+			fox.setSelectValue4Enum("#misfirePolicy",formData.misfirePolicy,SELECT_MISFIREPOLICY_DATA);
 
 			//处理fillBy
 
@@ -187,6 +215,8 @@ function FormPage() {
 
 
 
+		//获取 执行策略 下拉框的值
+		data["misfirePolicy"]=fox.getSelectedValue("misfirePolicy",false);
 
 		return data;
 	}

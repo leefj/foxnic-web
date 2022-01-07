@@ -1,7 +1,7 @@
 /**
  * 定时任务配置 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-06 16:19:16
+ * @since 2022-01-07 13:34:42
  */
 
 
@@ -77,13 +77,12 @@ function ListPage() {
 					,{ field: 'name', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('任务名') , templet: function (d) { return templet('name',d.name,d);}  }
 					,{ field: 'workerId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('执行器'), templet: function (d) { return templet('workerId' ,fox.joinLabel(d.worker,"className"),fox.getProperty(d,["worker","className"]),d);}}
 					,{ field: 'cronExpr', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('cron') , templet: function (d) { return templet('cronExpr',d.cronExpr,d);}  }
-					,{ field: 'concurrent', align:"center",fixed:false,  hide:false, sort: true, title: fox.translate('并发'), templet: '#cell-tpl-concurrent'}
 					,{ field: 'misfirePolicy', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('执行策略'), templet:function (d){ return templet('misfirePolicy',fox.getEnumText(SELECT_MISFIREPOLICY_DATA,d.misfirePolicy),d);}}
 					,{ field: 'status', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('状态'), templet:function (d){ return templet('status',fox.getEnumText(RADIO_STATUS_DATA,d.status),d);}}
-					,{ field: 'errors', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('失败次数') , templet: function (d) { return templet('errors',d.errors,d);}  }
-					,{ field: 'nextFireTime', align:"",fixed:false,  hide:false, sort: true, title: fox.translate('下次执行') , templet: function (d) { return templet('nextFireTime',d.nextFireTime,d);}  }
+					,{ field: 'nextFireTime', align:"",fixed:false,  hide:false, sort: true, title: fox.translate('下次执行时间') , templet: function (d) { return templet('nextFireTime',d.nextFireTime,d);}  }
 					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('主键') , templet: function (d) { return templet('id',d.id,d);}  }
 					,{ field: 'parameter', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('执行参数') , templet: function (d) { return templet('parameter',d.parameter,d);}  }
+					,{ field: 'concurrent', align:"center",fixed:false,  hide:true, sort: true, title: fox.translate('允许并发'), templet: '#cell-tpl-concurrent'}
 					,{ field: 'notes', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('备注') , templet: function (d) { return templet('notes',d.notes,d);}  }
 					,{ field: 'createTime', align:"right", fixed:false, hide:true, sort: true, title: fox.translate('创建时间') ,templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
@@ -332,6 +331,9 @@ function ListPage() {
 						}
 					});
 				});
+			}
+			else if (layEvent === 'invoke-imm') { // 立即调度
+				window.pageExt.list.invokeImm(data);
 			}
 			
 		});

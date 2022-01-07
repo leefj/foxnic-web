@@ -11,6 +11,7 @@ import com.github.foxnic.dao.excel.ExcelStructure;
 import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.dao.excel.ValidateResult;
 import com.github.foxnic.dao.spec.DAO;
+import com.github.foxnic.springboot.spring.SpringUtil;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.constants.enums.job.LogType;
@@ -260,6 +261,7 @@ public class JobLogServiceImpl extends SuperService<JobLog> implements IJobLogSe
 		log.setConcurrent(job.getConcurrent());
 		log.setMisfirePolicy(job.getMisfirePolicy());
 		log.setTypeEnum(logType);
+		log.setNodeId(SpringUtil.getNodeInstanceId());
 		log.setTid(tid);
 		if(SessionUser.getCurrent()!=null) {
 			log.setUserId(SessionUser.getCurrent().getUserId());
@@ -281,6 +283,12 @@ public class JobLogServiceImpl extends SuperService<JobLog> implements IJobLogSe
 
 	@Override
 	public void updateLog(JobLog log) {
+		if(log.getEndTime()==null) {
+			log.setEndTime(new Timestamp(System.currentTimeMillis()));
+		}
+		if(log.getBeginTime()!=null) {
+			log.setCost(log.getEndTime().getTime() - log.getBeginTime().getTime());
+		}
 		this.dao().pausePrintThreadSQL();
 		this.updateDirtyFields(log);
 		this.dao().resumePrintThreadSQL();

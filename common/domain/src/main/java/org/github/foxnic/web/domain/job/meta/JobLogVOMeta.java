@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-06 16:25:44
+ * @since 2022-01-07 13:39:32
  * @sign 02392FB833ECD2AD369321F6F79A047A
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -218,6 +218,16 @@ public class JobLogVOMeta extends JobLogMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.job.JobLogVO,java.sql.Timestamp> END_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.job.JobLogVO.class ,END_TIME, java.sql.Timestamp.class, "结束执行的时间", "结束执行的时间", java.sql.Timestamp.class, null);
 	
 	/**
+	 * 执行耗时 , 类型: java.lang.Long
+	*/
+	public static final String COST="cost";
+	
+	/**
+	 * 执行耗时 , 类型: java.lang.Long
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.job.JobLogVO,java.lang.Long> COST_PROP = new BeanProperty(org.github.foxnic.web.domain.job.JobLogVO.class ,COST, java.lang.Long.class, "执行耗时", "执行耗时", java.lang.Long.class, null);
+	
+	/**
 	 * 异常信息 , 类型: java.lang.String
 	*/
 	public static final String EXCEPTION="exception";
@@ -298,9 +308,19 @@ public class JobLogVOMeta extends JobLogMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.job.JobLogVO,java.lang.String> TID_PROP = new BeanProperty(org.github.foxnic.web.domain.job.JobLogVO.class ,TID, java.lang.String.class, "日志跟踪ID", "日志跟踪ID", java.lang.String.class, null);
 	
 	/**
+	 * 节点ID , job实际运行的节点ID , 类型: java.lang.String
+	*/
+	public static final String NODE_ID="nodeId";
+	
+	/**
+	 * 节点ID , job实际运行的节点ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.job.JobLogVO,java.lang.String> NODE_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.job.JobLogVO.class ,NODE_ID, java.lang.String.class, "节点ID", "job实际运行的节点ID", java.lang.String.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , JOB_ID , TYPE , JOB_NAME , CLASS_NAME , CRON_EXPR , PARAMETER , SUCCESS , RESULT , BEGIN_TIME , END_TIME , EXCEPTION , LOG_TEXT , USER_ID , IS_MANUAL , IS_MISSFIRE , CONCURRENT , MISFIRE_POLICY , TID };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , JOB_ID , TYPE , JOB_NAME , CLASS_NAME , CRON_EXPR , PARAMETER , SUCCESS , RESULT , BEGIN_TIME , END_TIME , COST , EXCEPTION , LOG_TEXT , USER_ID , IS_MANUAL , IS_MISSFIRE , CONCURRENT , MISFIRE_POLICY , TID , NODE_ID };
 	
 	/**
 	 * 代理类
@@ -531,6 +551,17 @@ public class JobLogVOMeta extends JobLogMeta {
 		}
 		
 		/**
+		 * 设置 执行耗时
+		 * @param cost 执行耗时
+		 * @return 当前对象
+		*/
+		public JobLog setCost(Long cost) {
+			super.change(COST,super.getCost(),cost);
+			super.setCost(cost);
+			return this;
+		}
+		
+		/**
 		 * 设置 异常信息
 		 * @param exception 异常信息
 		 * @return 当前对象
@@ -615,6 +646,17 @@ public class JobLogVOMeta extends JobLogMeta {
 		public JobLog setTid(String tid) {
 			super.change(TID,super.getTid(),tid);
 			super.setTid(tid);
+			return this;
+		}
+		
+		/**
+		 * 设置 节点ID
+		 * @param nodeId 节点ID
+		 * @return 当前对象
+		*/
+		public JobLog setNodeId(String nodeId) {
+			super.change(NODE_ID,super.getNodeId(),nodeId);
+			super.setNodeId(nodeId);
 			return this;
 		}
 	}

@@ -20,8 +20,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 定时任务配置
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-06 16:19:13
- * @sign 1B4B8D866CE7845624E40AD25C914279
+ * @since 2022-01-07 13:34:40
+ * @sign A32D7E1F9B00D141C817FF3ECF9F5688
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -90,12 +90,6 @@ public class Job extends Entity {
 	private String status;
 	@Transient
 	private Status statusEnum;
-	
-	/**
-	 * 执行错误次数：执行错误次数
-	*/
-	@ApiModelProperty(required = false,value="执行错误次数" , notes = "执行错误次数")
-	private Integer errors;
 	
 	/**
 	 * 备注：备注
@@ -403,25 +397,6 @@ public class Job extends Entity {
 			this.setStatus(statusEnum.code());
 		}
 		this.statusEnum=statusEnum;
-		return this;
-	}
-	
-	/**
-	 * 获得 执行错误次数<br>
-	 * 执行错误次数
-	 * @return 执行错误次数
-	*/
-	public Integer getErrors() {
-		return errors;
-	}
-	
-	/**
-	 * 设置 执行错误次数
-	 * @param errors 执行错误次数
-	 * @return 当前对象
-	*/
-	public Job setErrors(Integer errors) {
-		this.errors=errors;
 		return this;
 	}
 	

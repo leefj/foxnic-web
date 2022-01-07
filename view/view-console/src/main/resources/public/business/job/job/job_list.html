@@ -2,7 +2,7 @@
 /**
  * 定时任务配置 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-06 16:19:15
+ * @since 2022-01-07 13:34:42
  */
  -->
  <!DOCTYPE html>
@@ -48,10 +48,9 @@
                     <!-- 执行器 , workerId ,typeName=select_box, isHideInSearch=true -->
                     <!-- cron , cronExpr ,typeName=text_input, isHideInSearch=true -->
                     <!-- 执行参数 , parameter ,typeName=text_area, isHideInSearch=true -->
-                    <!-- 并发 , concurrent ,typeName=logic_switch, isHideInSearch=true -->
+                    <!-- 允许并发 , concurrent ,typeName=logic_switch, isHideInSearch=true -->
                     <!-- 执行策略 , misfirePolicy ,typeName=select_box, isHideInSearch=true -->
                     <!-- 状态 , status ,typeName=radio_box, isHideInSearch=true -->
-                    <!-- 失败次数 , errors ,typeName=number_input, isHideInSearch=true -->
                     <!-- 备注 , notes ,typeName=text_input, isHideInSearch=true -->
                     <!-- nextFireTime , nextFireTime ,typeName=text_input, isHideInSearch=true -->
 
@@ -96,12 +95,13 @@
 
     <button th:if="${perm.checkAuth('sys_job:delete')}" class="layui-btn layui-btn-xs layui-btn-danger ops-delete-button " lay-event="del" th:text="${lang.translate('删除')}" data-id="{{d.id}}">删除</button>
 
+    <button th:if="${perm.checkAuth('bb-d4336a824f-be86')}"class="layui-btn layui-btn-xs   " lay-event="invoke-imm" th:text="${lang.translate('立即调度')}" data-id="{{d.id}}">立即调度</button>
 
 </script>
 
 <!-- 表格状态列 -->
 <script type="text/html" id="cell-tpl-concurrent">
-    <input type="checkbox" class="switch-concurrent list-checkbox" lay-filter="cell-tpl-concurrent" value="{{d.id}}" lay-skin="switch" lay-text="是|否&nbsp;"  {{d.concurrent==1?'checked':''}} data-id="{{d.id}}"/>
+    <input type="checkbox" class="switch-concurrent list-checkbox" lay-filter="cell-tpl-concurrent" value="{{d.id}}" lay-skin="switch" lay-text="允许|禁止&nbsp;"  {{d.concurrent==1?'checked':''}} data-id="{{d.id}}"/>
 </script>
 
 <script th:inline="javascript">

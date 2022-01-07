@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSON;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.entity.SuperService;
@@ -22,6 +23,7 @@ import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.job.service.IJobLogService;
 import org.github.foxnic.web.job.service.IJobService;
 import org.github.foxnic.web.job.utils.ScheduleUtils;
+import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -228,6 +230,7 @@ public class JobServiceImpl extends SuperService<Job> implements IJobService {
 
 		Result r=super.update(job , mode , throwsException);
 		if(r.success()) {
+			job=this.getById(job.getId());
 			this.join(job, JobMeta.WORKER);
 			try {
 				ScheduleUtils.updateScheduleJob(job);
@@ -357,6 +360,19 @@ public class JobServiceImpl extends SuperService<Job> implements IJobService {
 	@Override
 	public List<ValidateResult> importExcel(InputStream input,int sheetIndex,boolean batch) {
 		return super.importExcel(input,sheetIndex,batch);
+	}
+
+	@Override
+	public Result invoke(String id) {
+		Job job=this.getById(id);
+		this.join(job,JobMeta.WORKER);
+		try {
+			ScheduleUtils.run(job,true);
+		} catch (SchedulerException e) {
+			Logger.exception("调度失败 , "+JSON.toJSONString(job),e);
+			return ErrorDesc.exception(e).message("调度失败");
+		}
+		return ErrorDesc.success().message("调度成功，可前往日志查看执行情况");
 	}
 
 	@Override

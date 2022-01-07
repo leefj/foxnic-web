@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2022-01-06 16:25:17
+ * @since 2022-01-07 13:18:25
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -4129,11 +4129,6 @@ public class FoxnicWeb {
 		public static final DBField STATUS = new DBField(DBDataType.STRING , "status","status","状态","状态",false,false,true);
 		
 		/**
-		 * 执行错误次数
-		*/
-		public static final DBField ERRORS = new DBField(DBDataType.INTEGER , "errors","errors","执行错误次数","执行错误次数",false,false,true);
-		
-		/**
 		 * 备注
 		*/
 		public static final DBField NOTES = new DBField(DBDataType.STRING , "notes","notes","备注","备注",false,false,true);
@@ -4184,7 +4179,7 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
 		public SYS_JOB() {
-			this.init($NAME,"定时任务配置表" , ID , NAME , GROUP_TAG , WORKER_ID , CRON_EXPR , PARAMETER , CONCURRENT , MISFIRE_POLICY , STATUS , ERRORS , NOTES , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"定时任务配置表" , ID , NAME , GROUP_TAG , WORKER_ID , CRON_EXPR , PARAMETER , CONCURRENT , MISFIRE_POLICY , STATUS , NOTES , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final SYS_JOB $TABLE=new SYS_JOB();
 	}
@@ -4493,6 +4488,11 @@ public class FoxnicWeb {
 		public static final DBField END_TIME = new DBField(DBDataType.TIMESTAME , "end_time","endTime","结束执行的时间","结束执行的时间",false,false,true);
 		
 		/**
+		 * 执行耗时
+		*/
+		public static final DBField COST = new DBField(DBDataType.LONG , "cost","cost","执行耗时","执行耗时",false,false,true);
+		
+		/**
 		 * 异常信息
 		*/
 		public static final DBField EXCEPTION = new DBField(DBDataType.STRING , "exception","exception","异常信息","异常信息",false,false,true);
@@ -4532,8 +4532,13 @@ public class FoxnicWeb {
 		*/
 		public static final DBField TID = new DBField(DBDataType.STRING , "tid","tid","日志跟踪ID","日志跟踪ID",false,false,true);
 		
+		/**
+		 * 节点ID，job实际运行的节点ID
+		*/
+		public static final DBField NODE_ID = new DBField(DBDataType.STRING , "node_id","nodeId","节点ID","job实际运行的节点ID",false,false,true);
+		
 		public SYS_JOB_LOG() {
-			this.init($NAME,"定时任务执行日志表" , ID , JOB_ID , TYPE , JOB_NAME , CLASS_NAME , CRON_EXPR , PARAMETER , SUCCESS , RESULT , BEGIN_TIME , END_TIME , EXCEPTION , LOG_TEXT , USER_ID , IS_MANUAL , IS_MISSFIRE , CONCURRENT , MISFIRE_POLICY , TID);
+			this.init($NAME,"定时任务执行日志表" , ID , JOB_ID , TYPE , JOB_NAME , CLASS_NAME , CRON_EXPR , PARAMETER , SUCCESS , RESULT , BEGIN_TIME , END_TIME , COST , EXCEPTION , LOG_TEXT , USER_ID , IS_MANUAL , IS_MISSFIRE , CONCURRENT , MISFIRE_POLICY , TID , NODE_ID);
 		}
 		public static final SYS_JOB_LOG $TABLE=new SYS_JOB_LOG();
 	}

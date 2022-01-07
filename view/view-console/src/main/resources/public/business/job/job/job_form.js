@@ -1,7 +1,7 @@
 /**
  * 定时任务配置 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-06 16:19:17
+ * @since 2022-01-07 13:34:42
  */
 
 function FormPage() {
@@ -223,7 +223,7 @@ function FormPage() {
 	function getFormData() {
 		var data=form.val("data-form");
 
-		//处理 并发 默认值
+		//处理 允许并发 默认值
 		if(!data.concurrent) data.concurrent=0;
 
 
