@@ -1,6 +1,6 @@
 package org.github.foxnic.web.system.controller;
 
- 
+
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
@@ -53,7 +53,7 @@ public class SequenceController extends SuperController {
 	@Autowired
 	private ISequenceService sequenceService;
 
-	
+
 	/**
 	 * 添加序列
 	*/
@@ -80,7 +80,7 @@ public class SequenceController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 删除序列
 	*/
@@ -96,8 +96,8 @@ public class SequenceController extends SuperController {
 		Result result=sequenceService.deleteByIdPhysical(pk);
 		return result;
 	}
-	
-	
+
+
 	/**
 	 * 批量删除序列 <br>
 	 * 联合主键时，请自行调整实现
@@ -106,7 +106,7 @@ public class SequenceController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = SequenceVOMeta.PKS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 	})
-	@ApiOperationSupport(order=3) 
+	@ApiOperationSupport(order=3)
 	@NotNull(name = SequenceVOMeta.PKS)
 	@SentinelResource(value = SequenceServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(SequenceServiceProxy.DELETE_BY_IDS)
@@ -114,7 +114,7 @@ public class SequenceController extends SuperController {
 		Result result=sequenceService.deleteByIdsLogical(pks);
 		return result;
 	}
-	
+
 	/**
 	 * 更新序列
 	*/
@@ -130,7 +130,7 @@ public class SequenceController extends SuperController {
 		@ApiImplicitParam(name = SequenceVOMeta.TYPE , value = "编码类型" , required = false , dataTypeClass=String.class , example = "AI"),
 		@ApiImplicitParam(name = SequenceVOMeta.FETCH_SIZE , value = "每次取数的个数" , required = true , dataTypeClass=Integer.class , example = "4"),
 	})
-	@ApiOperationSupport( order=4 , ignoreParameters = { SequenceVOMeta.PAGE_INDEX , SequenceVOMeta.PAGE_SIZE , SequenceVOMeta.SEARCH_FIELD , SequenceVOMeta.FUZZY_FIELD , SequenceVOMeta.SEARCH_VALUE , SequenceVOMeta.SORT_FIELD , SequenceVOMeta.SORT_TYPE , SequenceVOMeta.PKS } ) 
+	@ApiOperationSupport( order=4 , ignoreParameters = { SequenceVOMeta.PAGE_INDEX , SequenceVOMeta.PAGE_SIZE , SequenceVOMeta.SEARCH_FIELD , SequenceVOMeta.FUZZY_FIELD , SequenceVOMeta.SEARCH_VALUE , SequenceVOMeta.SORT_FIELD , SequenceVOMeta.SORT_TYPE , SequenceVOMeta.PKS } )
 	@NotNull(name = SequenceVOMeta.PK)
 	@NotNull(name = SequenceVOMeta.ID)
 	@NotNull(name = SequenceVOMeta.FETCH_SIZE)
@@ -140,8 +140,8 @@ public class SequenceController extends SuperController {
 		Result result=sequenceService.update(sequenceVO,SaveMode.NOT_NULL_FIELDS);
 		return result;
 	}
-	
-	
+
+
 	/**
 	 * 保存序列
 	*/
@@ -168,7 +168,7 @@ public class SequenceController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 获取序列
 	*/
@@ -196,7 +196,7 @@ public class SequenceController extends SuperController {
 		@ApiImplicitParams({
 				@ApiImplicitParam(name = SequenceVOMeta.PKS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})
-		@ApiOperationSupport(order=3) 
+		@ApiOperationSupport(order=3)
 		@NotNull(name = SequenceVOMeta.PKS)
 		@SentinelResource(value = SequenceServiceProxy.GET_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(SequenceServiceProxy.GET_BY_IDS)
@@ -207,7 +207,7 @@ public class SequenceController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 查询序列
 	*/
@@ -233,7 +233,7 @@ public class SequenceController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 分页查询序列
 	*/
@@ -254,8 +254,8 @@ public class SequenceController extends SuperController {
 	@PostMapping(SequenceServiceProxy.QUERY_PAGED_LIST)
 	public Result<PagedList<Sequence>> queryPagedList(SequenceVO sample) {
 
-		sequenceService.dao().getSequence("test-2").next();
-
+		String val=sequenceService.dao().getSequence("pcm-catalog-version-no").next();
+		System.err.println(val);
 		Result<PagedList<Sequence>> result=new Result<>();
 		PagedList<Sequence> list=sequenceService.queryPagedList(sample,sample.getPageSize(),sample.getPageIndex());
 		result.success(true).data(list);
