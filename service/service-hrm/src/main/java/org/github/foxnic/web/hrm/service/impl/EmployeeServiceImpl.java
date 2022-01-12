@@ -15,13 +15,10 @@ import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.dao.excel.ValidateResult;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.dao.spec.DBSequence;
-import com.github.foxnic.sql.expr.ConditionExpr;
-import com.github.foxnic.sql.expr.Expr;
-import com.github.foxnic.sql.expr.In;
-import com.github.foxnic.sql.expr.Select;
+import com.github.foxnic.sql.expr.*;
 import com.github.foxnic.sql.meta.DBField;
-import org.github.foxnic.web.constants.enums.hrm.PersonSource;
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
+import org.github.foxnic.web.constants.enums.hrm.PersonSource;
 import org.github.foxnic.web.constants.enums.system.YesNo;
 import org.github.foxnic.web.domain.hrm.*;
 import org.github.foxnic.web.domain.oauth.User;
@@ -344,12 +341,19 @@ public class EmployeeServiceImpl extends SuperService<Employee> implements IEmpl
 	 * */
 	@Override
 	public PagedList<Employee> queryPagedList(Employee sample, int pageSize, int pageIndex) {
-
-		Expr select=new Expr("select * from "+table()+" t ");
-		ConditionExpr expr=new ConditionExpr("t.company_id=?",SessionUser.getCurrent().getActivatedCompanyId());
-		//限定到部门或岗位
+		EmployeeVO vo = null;
 		if(sample instanceof EmployeeVO) {
-			EmployeeVO vo=(EmployeeVO) sample;
+			vo=(EmployeeVO) sample;
+		}
+		Expr select=new Expr("select t.* from "+table()+" t ");
+		if("name".equals(vo.getSortField()) || "identity".equals(vo.getSortField()) || "sex".equals(vo.getSortField())) {
+				select.append(" join hrm_person p on t.person_id=p.id");
+		}
+
+		ConditionExpr expr=new ConditionExpr("t.company_id=?",SessionUser.getCurrent().getActivatedCompanyId());
+
+		//限定到部门或岗位
+		if(vo!=null) {
 			if(!StringUtil.isBlank(vo.getOrgId())) {
 				Organization organization=organizationService.getById(vo.getOrgId());
 				if(organization!=null) {
@@ -365,6 +369,27 @@ public class EmployeeServiceImpl extends SuperService<Employee> implements IEmpl
 		ConditionExpr base=this.buildQueryCondition(sample,"t");
 		expr.and(base);
 		select.append(expr.startWithWhere());
+
+		OrderBy orderBy= null;
+		String alias="t";
+		if(vo!=null && StringUtil.hasContent(vo.getSortField())) {
+
+			orderBy = this.buildOrderBy(sample, alias);
+
+			if (orderBy==null) {
+				if("name".equals(vo.getSortField()) || "identity".equals(vo.getSortField()) || "sex".equals(vo.getSortField())) {
+					alias="p";
+					SortType sortType=SortType.parse(vo.getSortType());
+					if (sortType==SortType.ASC) {
+						orderBy = OrderBy.byAscNullsLast(alias+"." +vo.getSortField());
+					} else if (sortType==SortType.DESC) {
+						orderBy = OrderBy.byDescNullsLast(alias+"." + vo.getSortField());
+					}
+				}
+
+			}
+			select.append(orderBy);
+		}
 		PagedList<Employee> pagedList=this.dao().queryPagedEntities(Employee.class,pageSize,pageIndex,select);
 		return pagedList;
 	}

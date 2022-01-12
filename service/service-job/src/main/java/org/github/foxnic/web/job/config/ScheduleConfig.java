@@ -54,69 +54,77 @@ public class ScheduleConfig
     public SchedulerFactoryBean schedulerFactoryBean()
     {
 
-        dao= SpringUtil.getBean(daoBeanName,DAO.class);
+        final  SchedulerFactoryBean factory = new SchedulerFactoryBean();
 
-        SchedulerFactoryBean factory = new SchedulerFactoryBean();
-        factory.setDataSource(dao.getDataSource());
-
-        // quartz参数
-        Properties prop = new Properties();
-        prop.put("org.quartz.scheduler.instanceName", "FWS");
-        prop.put("org.quartz.scheduler.threadName", "FWS");
-        prop.put("org.quartz.scheduler.instanceId", "AUTO");
-        prop.put("org.quartz.scheduler.wrapJobExecutionInUserTransaction", "false");
-        prop.put("org.quartz.scheduler.idleWaitTime", "5000");
-
-        // 非集群时可不写 默认为false，集群时必须设置为true
-        prop.put("org.quartz.threadPool.threadsInheritContextClassLoaderOfInitializingThread", "true");
-        // 一般不写 默认为true
-        prop.put("org.quartz.threadPool.threadsInheritGroupOfInitializingThread", "true");
-        // 线程池配置
-        prop.put("org.quartz.threadPool.class", "org.quartz.simpl.SimpleThreadPool");
-        prop.put("org.quartz.threadPool.threadCount", "20");
-        prop.put("org.quartz.threadPool.threadPriority", "5");
-        // JobStore配置
-        prop.put("org.quartz.jobStore.class", "org.quartz.impl.jdbcjobstore.JobStoreTX");
-        // 集群配置
-        prop.put("org.quartz.jobStore.isClustered", "true");
-        // 调度实例失效的检查时间间隔
-        prop.put("org.quartz.jobStore.clusterCheckinInterval", "15000");
-        // 调度实例失效的检查时间间隔，影响着核查出失败实例的速度
-        prop.put("org.quartz.jobStore.maxMisfiresToHandleAtATime", "20");
-        // 在“LOCKS”表里选择一行并且锁住这行的SQL语句。缺省的语句能够为大部分数据库工作。“{0}”是在运行时你配置的表前缀。 false
-        prop.put("org.quartz.jobStore.txIsolationLevelSerializable", "false");
-
-        // sqlserver 启用
-        if (dao.getDBType()== DBType.SQLSVR) {
-             prop.put("org.quartz.jobStore.selectWithLockSQL", "SELECT * FROM {0}LOCKS UPDLOCK WHERE LOCK_NAME = ?");
-        } else if (dao.getDBType()== DBType.ORACLE) {
-            prop.put("org.quartz.jobStore.selectWithLockSQL", "SELECT * FROM {0}LOCKS UPDLOCK WHERE LOCK_NAME = ? FOR UPDATE");
-        }
-
-        // 容许的最大作业延长时间，超出则认为 misfire 发生，单位毫秒
-        prop.put("org.quartz.jobStore.misfireThreshold", misfireThreshold);
-        prop.put("org.quartz.jobStore.tablePrefix", "sys_job_");
-        factory.setQuartzProperties(prop);
-
-
-        factory.setSchedulerName("FWS");
-        // 延时启动 n 秒
-        factory.setStartupDelay(5);
-        // 用于获取 ApplicationContext
-        factory.setApplicationContextSchedulerContextKey("applicationContextKey");
-        // 可选，QuartzScheduler
-        // 启动时更新己存在的Job，这样就不用每次修改targetObject后删除qrtz_job_details表对应记录了
-        factory.setOverwriteExistingJobs(true);
-        // 设置自动启动，默认为true
-        factory.setAutoStartup(true);
-        //
-        factory.setApplicationContext(SpringUtil.getSpringContext());
-
+        // 加速启动过程
         SimpleTaskManager.doParallelTask(new Runnable() {
             @Override
             public void run() {
-                saveWorkers();
-                statJobs(factory);
+
+                dao= SpringUtil.getBean(daoBeanName,DAO.class);
+                factory.setDataSource(dao.getDataSource());
+
+                // quartz参数
+                Properties prop = new Properties();
+                prop.put("org.quartz.scheduler.instanceName", "FWS");
+                prop.put("org.quartz.scheduler.threadName", "FWS");
+                prop.put("org.quartz.scheduler.instanceId", "AUTO");
+                prop.put("org.quartz.scheduler.wrapJobExecutionInUserTransaction", "false");
+                prop.put("org.quartz.scheduler.idleWaitTime", "5000");
+
+                // 非集群时可不写 默认为false，集群时必须设置为true
+                prop.put("org.quartz.threadPool.threadsInheritContextClassLoaderOfInitializingThread", "true");
+                // 一般不写 默认为true
+                prop.put("org.quartz.threadPool.threadsInheritGroupOfInitializingThread", "true");
+                // 线程池配置
+                prop.put("org.quartz.threadPool.class", "org.quartz.simpl.SimpleThreadPool");
+                prop.put("org.quartz.threadPool.threadCount", "20");
+                prop.put("org.quartz.threadPool.threadPriority", "5");
+                // JobStore配置
+                prop.put("org.quartz.jobStore.class", "org.quartz.impl.jdbcjobstore.JobStoreTX");
+                // 集群配置
+                prop.put("org.quartz.jobStore.isClustered", "true");
+                // 调度实例失效的检查时间间隔
+                prop.put("org.quartz.jobStore.clusterCheckinInterval", "15000");
+                // 调度实例失效的检查时间间隔，影响着核查出失败实例的速度
+                prop.put("org.quartz.jobStore.maxMisfiresToHandleAtATime", "20");
+                // 在“LOCKS”表里选择一行并且锁住这行的SQL语句。缺省的语句能够为大部分数据库工作。“{0}”是在运行时你配置的表前缀。 false
+                prop.put("org.quartz.jobStore.txIsolationLevelSerializable", "false");
+
+                // sqlserver 启用
+                if (dao.getDBType()== DBType.SQLSVR) {
+                    prop.put("org.quartz.jobStore.selectWithLockSQL", "SELECT * FROM {0}LOCKS UPDLOCK WHERE LOCK_NAME = ?");
+                } else if (dao.getDBType()== DBType.ORACLE) {
+                    prop.put("org.quartz.jobStore.selectWithLockSQL", "SELECT * FROM {0}LOCKS UPDLOCK WHERE LOCK_NAME = ? FOR UPDATE");
+                }
+
+                // 容许的最大作业延长时间，超出则认为 misfire 发生，单位毫秒
+                prop.put("org.quartz.jobStore.misfireThreshold", misfireThreshold);
+                prop.put("org.quartz.jobStore.tablePrefix", "sys_job_");
+                factory.setQuartzProperties(prop);
+
+
+                factory.setSchedulerName("FWS");
+                // 延时启动 n 秒
+                factory.setStartupDelay(1);
+                // 用于获取 ApplicationContext
+                factory.setApplicationContextSchedulerContextKey("applicationContextKey");
+                // 可选，QuartzScheduler
+                // 启动时更新己存在的Job，这样就不用每次修改targetObject后删除qrtz_job_details表对应记录了
+                factory.setOverwriteExistingJobs(true);
+                // 设置自动启动，默认为true
+                factory.setAutoStartup(true);
+                //
+                factory.setApplicationContext(SpringUtil.getSpringContext());
+
+                SimpleTaskManager.doParallelTask(new Runnable() {
+                    @Override
+                    public void run() {
+                        saveWorkers();
+                        statJobs(factory);
+                    }
+                });
+
             }
         });
 

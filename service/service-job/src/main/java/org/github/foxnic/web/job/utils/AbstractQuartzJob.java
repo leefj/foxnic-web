@@ -1,6 +1,8 @@
 package org.github.foxnic.web.job.utils;
 
 
+import com.github.foxnic.commons.lang.StringUtil;
+import com.github.foxnic.springboot.spring.SpringUtil;
 import org.github.foxnic.web.job.config.ScheduleConstants;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
@@ -9,6 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 
 
 /**
@@ -17,6 +21,34 @@ import java.sql.Timestamp;
 public abstract class AbstractQuartzJob implements Job {
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractQuartzJob.class);
+
+    private Boolean enable;
+    private Set<String> runJobIds;
+
+    private  boolean  willRunJob( org.github.foxnic.web.domain.job.Job job) {
+        if(enable==null) enable = SpringUtil.getBooleanEnvProperty("foxnic.job.enable");
+        if(runJobIds==null) {
+            String ids=SpringUtil.getEnvProperty("foxnic.job.force-run-job-ids");
+            if(StringUtil.hasContent(ids)) {
+                String[] idArr=ids.split(",");
+                runJobIds=new HashSet<>();
+                for (String s : idArr) {
+                    runJobIds.add(s.trim());
+                }
+            }
+        }
+
+        if(runJobIds!=null) {
+            if (runJobIds.contains(job.getId())) {
+                return true;
+            }
+        }
+
+        return enable;
+
+
+
+    }
 
     /**
      * 线程本地变量
@@ -28,6 +60,11 @@ public abstract class AbstractQuartzJob implements Job {
 
         Object o = context.getMergedJobDataMap().get(ScheduleConstants.TASK_PROPERTIES);
         org.github.foxnic.web.domain.job.Job sysJob = org.github.foxnic.web.domain.job.Job.createFrom(o);
+
+        if(!willRunJob(sysJob)) {
+            return;
+        }
+
 
         try {
             if (sysJob != null) {

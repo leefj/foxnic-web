@@ -19,8 +19,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 员工
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-06 14:55:38
- * @sign 22CA2AF0027E5D5C0F2AFBBCFA288F88
+ * @since 2022-01-12 17:00:34
+ * @sign 949B3E90A524B9F6AD2870BDA9929D0C
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -181,6 +181,12 @@ public class Employee extends Person {
 	*/
 	@ApiModelProperty(required = false,value="兼岗ID" , notes = "多个用逗号隔开")
 	private List<String> vicePositionIds;
+	
+	/**
+	 * 兼岗：作为员工时，所属的兼岗
+	*/
+	@ApiModelProperty(required = false,value="兼岗" , notes = "作为员工时，所属的兼岗")
+	private List<Position> vicePositions;
 	
 	/**
 	 * 获得 ID<br>
@@ -698,6 +704,36 @@ public class Employee extends Person {
 	public Employee addVicePositionId(String vicePositionId) {
 		if(this.vicePositionIds==null) vicePositionIds=new ArrayList<>();
 		this.vicePositionIds.add(vicePositionId);
+		return this;
+	}
+	
+	/**
+	 * 获得 兼岗<br>
+	 * 作为员工时，所属的兼岗
+	 * @return 兼岗
+	*/
+	public List<Position> getVicePositions() {
+		return vicePositions;
+	}
+	
+	/**
+	 * 设置 兼岗
+	 * @param vicePositions 兼岗
+	 * @return 当前对象
+	*/
+	public Employee setVicePositions(List<Position> vicePositions) {
+		this.vicePositions=vicePositions;
+		return this;
+	}
+	
+	/**
+	 * 添加 兼岗
+	 * @param vicePosition 兼岗
+	 * @return 当前对象
+	*/
+	public Employee addVicePosition(Position vicePosition) {
+		if(this.vicePositions==null) vicePositions=new ArrayList<>();
+		this.vicePositions.add(vicePosition);
 		return this;
 	}
 

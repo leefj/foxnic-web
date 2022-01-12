@@ -2,7 +2,7 @@
 /**
  * 员工 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-06 14:55:38
+ * @since 2022-01-12 17:00:36
  */
  -->
  <!DOCTYPE html>
@@ -64,6 +64,14 @@
                         <div class="search-label-div" style=""><span th:text="${lang.translate('姓名')}" class="search-label name-label">姓名</span><span class="search-colon">:</span></div>
                         <input id="name" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
+                    <!-- 姓别 , sex ,typeName=radio_box, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('姓别')}" class="search-label sex-label">姓别</span><span class="search-colon">:</span></div>
+
+                        <div id="sex" th:data="${dict.toArray('sex')}" style="width:140px"></div>
+
+
+                    </div>
                     <!-- 身份证 , identity ,typeName=text_input, isHideInSearch=true -->
                     <!-- 主岗 , primaryPositionId ,typeName=button, isHideInSearch=true -->
                     <!-- 部门 , primaryOrganization ,typeName=text_input, isHideInSearch=true -->
@@ -116,6 +124,7 @@
 
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${pageHelper.getTableColumnWidthConfig('data-table')}]];
+    var RADIO_SEX_DATA = [[${dict.toArray('sex')}]];
     var RADIO_STATUS_DATA = [[${dict.toArray('employee_status')}]];
     var AUTH_PREFIX="hrm_employee";
 

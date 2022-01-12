@@ -15,7 +15,7 @@ import org.github.foxnic.web.domain.system.BusiRole;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-06 14:55:38
+ * @since 2022-01-12 17:00:34
  * @sign CD6F210B59AF577A68702D75A5200D48
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -383,6 +383,16 @@ public class EmployeeVOMeta extends EmployeeMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.hrm.EmployeeVO,java.lang.String> VICE_POSITION_IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.EmployeeVO.class ,VICE_POSITION_IDS, java.util.List.class, "兼岗ID", "多个用逗号隔开", java.lang.String.class, null);
 	
 	/**
+	 * 兼岗 , 作为员工时，所属的兼岗 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.hrm.Position
+	*/
+	public static final String VICE_POSITIONS="vicePositions";
+	
+	/**
+	 * 兼岗 , 作为员工时，所属的兼岗 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.hrm.Position
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.hrm.EmployeeVO,org.github.foxnic.web.domain.hrm.Position> VICE_POSITIONS_PROP = new BeanProperty(org.github.foxnic.web.domain.hrm.EmployeeVO.class ,VICE_POSITIONS, java.util.List.class, "兼岗", "作为员工时，所属的兼岗", org.github.foxnic.web.domain.hrm.Position.class, null);
+	
+	/**
 	 * name , 类型: java.lang.String
 	*/
 	public static final String NAME="name";
@@ -425,7 +435,7 @@ public class EmployeeVOMeta extends EmployeeMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ORG_ID , POSITION_ID , ID , BADGE , PHONE , PERSON_ID , COMPANY_ID , STATUS , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , PERSON , COMPANY , NAME_AND_BADGE , POSITIONS , ORGANIZATIONS , PRIMARY_POSITION , PRIMARY_ORGANIZATION , BUSI_ROLES , PRIMARY_POSITION_ID , VICE_POSITION_IDS , NAME , SEX , SOURCE , IDENTITY };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ORG_ID , POSITION_ID , ID , BADGE , PHONE , PERSON_ID , COMPANY_ID , STATUS , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , PERSON , COMPANY , NAME_AND_BADGE , POSITIONS , ORGANIZATIONS , PRIMARY_POSITION , PRIMARY_ORGANIZATION , BUSI_ROLES , PRIMARY_POSITION_ID , VICE_POSITION_IDS , VICE_POSITIONS , NAME , SEX , SOURCE , IDENTITY };
 	
 	/**
 	 * 代理类
@@ -828,6 +838,17 @@ public class EmployeeVOMeta extends EmployeeMeta {
 		public Employee setVicePositionIds(List<String> vicePositionIds) {
 			super.change(VICE_POSITION_IDS,super.getVicePositionIds(),vicePositionIds);
 			super.setVicePositionIds(vicePositionIds);
+			return this;
+		}
+		
+		/**
+		 * 设置 兼岗
+		 * @param vicePositions 兼岗
+		 * @return 当前对象
+		*/
+		public Employee setVicePositions(List<Position> vicePositions) {
+			super.change(VICE_POSITIONS,super.getVicePositions(),vicePositions);
+			super.setVicePositions(vicePositions);
 			return this;
 		}
 		
