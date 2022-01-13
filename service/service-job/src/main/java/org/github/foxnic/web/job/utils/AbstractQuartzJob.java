@@ -60,16 +60,15 @@ public abstract class AbstractQuartzJob implements Job {
 
         Object o = context.getMergedJobDataMap().get(ScheduleConstants.TASK_PROPERTIES);
         org.github.foxnic.web.domain.job.Job sysJob = org.github.foxnic.web.domain.job.Job.createFrom(o);
-
-        if(!willRunJob(sysJob)) {
+        Boolean isManual = (Boolean) context.getMergedJobDataMap().get(ScheduleConstants.IS_MANUAL);
+        if(isManual==null) isManual=false;
+        if( !isManual && !willRunJob(sysJob) ) {
             return;
         }
 
 
         try {
-            if (sysJob != null) {
-                doExecute(context, sysJob);
-            }
+            doExecute(context, sysJob);
         } catch (Exception e) {
             LOG.error("任务执行异常  - ：", e);
         }

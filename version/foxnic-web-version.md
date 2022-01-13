@@ -12,6 +12,7 @@
 5. 优化因为加入 Job 而引起的启动耗时问题
 6. 修复兼岗显示问题
 7. 修复代码生成不支持支持 LogicSwitch 和 RadioBox 的关联搜索的问题
+8. 数据库在 windows 下 MySQL 排序异常的 bug 处理。
 
 
 
