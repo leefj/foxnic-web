@@ -44,7 +44,12 @@ public interface JobServiceProxy {
 	 */
 	public static final String INSERT = API_PREFIX + "insert";
 
-;
+	/**
+	 * 校验并模拟Job的执行时间
+	 */
+	public static final String SIMULATE = API_PREFIX + "simulate";
+
+
 	/**
 	 * 删除定时任务配置
 	 */

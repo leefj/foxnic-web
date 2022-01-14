@@ -316,4 +316,9 @@ public interface IJobService extends ISuperService<Job> {
 
 
     Result invoke(String id);
+
+    /**
+	 * 校验并模拟Job的执行时间
+	 * */
+    Result simulate(String cronExpr);
 }

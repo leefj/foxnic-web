@@ -85,6 +85,24 @@ public class JobController extends SuperController {
 
 
 	/**
+	 * 校验并模拟Job的执行时间
+	 */
+	@ApiOperation(value = "校验并模拟Job的执行时间")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = JobVOMeta.CRON_EXPR , value = "cron表达式" , required = false , dataTypeClass=String.class , example = "0/2 * * * * ?"),
+	})
+	@ApiOperationSupport(order=1)
+	@NotNull(name = JobVOMeta.CRON_EXPR)
+	@SentinelResource(value = JobServiceProxy.SIMULATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
+	@PostMapping(JobServiceProxy.SIMULATE)
+	public Result simulate(JobVO jobVO) {
+		Result result=jobService.simulate(jobVO.getCronExpr());
+		return result;
+	}
+
+
+
+	/**
 	 * 删除定时任务配置
 	*/
 	@ApiOperation(value = "删除定时任务配置")

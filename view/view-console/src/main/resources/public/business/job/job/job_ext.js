@@ -178,7 +178,82 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             //获取参数，并调整下拉框查询用的URL
             //var companyId=admin.getTempData("companyId");
             //fox.setSelectBoxUrl("employeeId","/service-hrm/hrm-employee/query-paged-list?companyId="+companyId);
-            console.log("form:beforeInit")
+            console.log("form:beforeInit");
+
+            var div=$("#cronExpr").parent(".layui-input-block");
+            div.css("display","flex")
+
+            div.append('<button id="cronExprSelectButton" type="button" class="layui-btn layui-btn"  style="margin-left: 10px;height: 37px;width: 50px;padding:0px;"><i class="layui-icon layui-icon-down"></i></button>');
+            div.append('<button id="cronExprValidateButton" type="button" class="layui-btn layui-btn" style="height: 37px;width: 50px;padding:0px;"><i class="layui-icon layui-icon-ok"></i></button>');
+
+            dropdown.render({
+                elem: '#cronExprSelectButton' //可绑定在任意元素中，此处以上述按钮为例
+                ,data: [{
+                    title: '周期任务'
+                    ,id: 102
+                    ,type: 'parent'  //菜单类型，支持：normal/group/parent/-
+                    ,child: [
+                        { title: '<b>0/2 * * * * ?</b>&nbsp;&nbsp;  每2秒执行一次',cron:"0/2 * * * * ?"  },
+                        { title: '<b>0 0/2 * * * ?</b>&nbsp;&nbsp;   每2分钟行一次',cron:"0 0/2 * * * ?"  },
+                        { title: '<b>0 0 2 1 * ?</b>&nbsp;&nbsp;   在每月的1日的凌晨2点调整任务',cron:"0 0 2 1 * ?"  },
+                        { title: '<b>0 15 10 ? * MON-FRI</b>&nbsp;&nbsp;   周一到周五每天上午10:15执行',cron:"0 15 10 ? * MON-FRI"  },
+                        { title: '<b>0 15 10 ? * 6L 2022-2026</b>&nbsp;&nbsp;   2022-2026年每月最后一个星期五上午10:15执行',cron:"0 15 10 ? * 6L 2022-2026"  },
+                        { title: '<b>0 0 10,14,16 * * ?</b>&nbsp;&nbsp;   每天上午10点，下午2点，4点执行',cron:"0 0 10,14,16 * * ?"  },
+                        { title: '<b>0 0/30 9-17 * * ?</b>&nbsp;&nbsp;   朝九晚五工作时间内每半小时行一次 ',cron:"0 0/30 9-17 * * ?"  },
+                        { title: '<b>0 0 12 ? * WED</b>&nbsp;&nbsp;   表示每个星期三中午12点 ',cron:"0 0 12 ? * WED"  }
+                    ]},{
+                    title: '定点任务'
+                    ,id: 102
+                    ,type: 'parent'  //菜单类型，支持：normal/group/parent/-
+                    ,child: [
+                        { title: '<b>0 0 12 * * ?</b>&nbsp;&nbsp;   每天中午12点触发',cron:"0 0 12 * * ?"  },
+                        { title: '<b>0 15 10 ? * *</b>&nbsp;&nbsp;   每天上午10:15触发 ',cron:"0 15 10 ? * *"  },
+                        { title: '<b>0 15 10 * * ?</b>&nbsp;&nbsp;   每天上午10:15触发 ',cron:"0 15 10 * * ?"  },
+                        { title: '<b>0 15 10 * * ?</b>&nbsp;&nbsp;   每天上午10:15触发 ',cron:"0 15 10 * * ?"  },
+                        { title: '<b>0 15 10 * * ? 2025</b>&nbsp;&nbsp;   2025年每天上午10:15触发 ',cron:"0 15 10 * * ? 2025"  },
+                        { title: '<b>0 * 14 * * ?</b>&nbsp;&nbsp;   每天下午2点到2:59期间的每1分钟触发 ',cron:"0 * 14 * * ?"  },
+                        { title: '<b>0 0/5 14 * * ?</b>&nbsp;&nbsp;   每天下午2点到2:55期间的每5分钟触发 ',cron:"0 0/5 14 * * ?"  },
+                        { title: '<b>0 0/5 14,18 * * ?</b>&nbsp;&nbsp;   每天下午2点到2:55期间和下午6点到6:55期间每5分钟触发 ',cron:"0 0/5 14,18 * * ?"  },
+                        { title: '<b>0 0-5 14 * * ?</b>&nbsp;&nbsp;   每天下午2点到2:05期间每1分钟触发 ',cron:"0 0-5 14 * * ?"  }
+                    ]},{
+                    title: '特殊任务'
+                    ,id: 102
+                    ,type: 'parent'  //菜单类型，支持：normal/group/parent/-
+                    ,child: [
+                        { title: '<b>0 10,44 14 ? 3 WED</b>&nbsp;&nbsp;   每年三月的星期三的下午2:10和2:44触发',cron:"0 10,44 14 ? 3 WED"  },
+                        { title: '<b>0 15 10 ? * MON-FRI</b>&nbsp;&nbsp;   周一至周五的上午10:15触发 ',cron:"0 15 10 ? * MON-FRI"  },
+                        { title: '<b>0 15 10 15 * ?</b>&nbsp;&nbsp;   每月15日上午10:15触发 ',cron:"0 15 10 15 * ?"  },
+                        { title: '<b>0 15 10 L * ?</b>&nbsp;&nbsp;   每月最后一日的上午10:15触发 ',cron:"0 15 10 L * ?"  },
+                        { title: '<b>0 15 10 ? * 6L</b>&nbsp;&nbsp;   每月的最后一个星期五上午10:15触发',cron:"0 15 10 ? * 6L"  },
+                        { title: '<b>0 15 10 ? * 6L 2022-2025</b>&nbsp;&nbsp;   2022-2025年每月最后一个星期五上午10:15触发',cron:"0 15 10 ? * 6L 2022-2025"  },
+                        { title: '<b>0 15 10 ? * 6#3</b>&nbsp;&nbsp;   每月的第三个星期五上午10:15触发',cron:"0 15 10 ? * 6#3"  }
+                    ]}
+                ]
+                ,id: 'demo1'
+                //菜单被点击的事件
+                ,click: function(obj){
+                    $("#cronExpr").val(obj.cron);
+                }
+            });
+
+            $("#cronExprValidateButton").click(function (){
+
+                var api=moduleURL+"/simulate";
+                admin.post(api, {cronExpr: $("#cronExpr").val()}, function (data) {
+                    if (data.success) {
+                        admin.popupCenter({
+                            title : "近10次执行时间",
+                            area:["220px",null],
+                            content:"<div style='padding: 10px;line-height: 24px'>"+data.data.join("<br>")+"</div>"
+                        });
+                    } else {
+                        top.layer.msg("错误："+data.message, {icon: 2, time: 1500});
+                    }
+                }, {delayLoading:1000});
+
+            });
+
+
         },
         /**
          * 窗口调节前
