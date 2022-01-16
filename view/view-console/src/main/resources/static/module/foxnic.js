@@ -216,9 +216,9 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 }
                 return null;
             }
-            inst.setUrl =function (url) {
+            inst.setUrl =function (url,cb) {
                 el.attr("data",url);
-                inst.refresh();
+                inst.refresh(null,cb);
             }
             inst.refresh=function (param,cb) {
                 if(param) {
