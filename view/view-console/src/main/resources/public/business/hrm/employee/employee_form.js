@@ -1,7 +1,7 @@
 /**
  * 员工 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-12 17:00:36
+ * @since 2022-01-17 13:38:25
  */
 
 function FormPage() {
@@ -187,7 +187,7 @@ function FormPage() {
 					admin.finishPopupCenterById('hrm-employee-form-data-win');
 				}
 			} else {
-				layer.msg(data.message, {icon: 2, time: 1500});
+				top.layer.msg(data.message, {icon: 2, time: 1500});
 			}
 			window.pageExt.form.afterSubmit && window.pageExt.form.afterSubmit(param,data);
 		}, {delayLoading:1000,elms:[$("#submit-button")]});

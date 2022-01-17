@@ -2,7 +2,7 @@
 /**
  * 员工 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-12 17:00:36
+ * @since 2022-01-17 13:38:24
  */
  -->
  <!DOCTYPE html>
@@ -44,7 +44,7 @@
 
 
 
-        <div class="layui-row form-row" id="random-9837-content">
+        <div class="layui-row form-row" id="random-6093-content">
 
              <!--开始：column 循环-->
             <!-- 只有当非第一个分组没有title时才使 padding-top 为 0 -->
@@ -56,6 +56,15 @@
                             <input lay-filter="name" id="name" name="name" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('姓名') }" type="text" class="layui-input"    lay-verify="|required"  />
                         </div>
                     </div>
+
+                
+                <div class="layui-form-item" >
+                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('姓别')}">姓别</div><div class="layui-required">*</div></div>
+                    <div class="layui-input-block layui-input-block-c1">
+                        <input input-type="radio" type="radio" name="sex" lay-filter="sex" th:each="e,stat:${dict.toArray('sex')}" th:value="${e.code}" th:title="${e.text}"  th:checked="${(e.code=='' || stat.index==-1)?'yes':'no'}">
+                    </div>
+                </div>
+
 
                                     <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('工号')}">工号</div></div>

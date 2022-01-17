@@ -135,6 +135,7 @@ public class HrmEmployeeConfig extends BaseCodeConfig<HRM_EMPLOYEE> {
         form.labelWidth(80);
         form.columnLayout(new Object[] {
                 PersonMeta.NAME,
+                personSexField,
                 HRM_EMPLOYEE.BADGE,
                 HRM_EMPLOYEE.STATUS,
                 HRM_EMPLOYEE.PHONE,
