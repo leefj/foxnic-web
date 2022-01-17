@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>com.github.foxnic.web</groupId>
-        <artifactId>parent</artifactId>
-        <version>0.6.5.RELEASE</version>
-        <relativePath>../../pom.xml</relativePath>
-        <!-- lookup parent from repository -->
-    </parent>
-    <artifactId>wrapper-support</artifactId>
-    <name>wrapper-support</name>
-    <description>Wrapper-Support</description>
-    <dependencies>
-        <dependency>
-            <groupId>com.github.foxnic.web</groupId>
-            <artifactId>framework-boot</artifactId>
-            <version>${platform.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.foxnic.web</groupId>
-            <artifactId>proxy</artifactId>
-            <version>${platform.version}</version>
-        </dependency>
-    </dependencies>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">  
+    <modelVersion>4.0.0</modelVersion>  
+    <parent> 
+        <groupId>com.github.foxnic.web</groupId>  
+        <artifactId>parent</artifactId>  
+        <version>0.7.0.RELEASE</version>  
+        <relativePath>../../pom.xml</relativePath>  
+        <!-- lookup parent from repository --> 
+    </parent>  
+    <artifactId>wrapper-support</artifactId>  
+    <name>wrapper-support</name>  
+    <description>Wrapper-Support</description>  
+    <dependencies> 
+        <dependency> 
+            <groupId>com.github.foxnic.web</groupId>  
+            <artifactId>framework-boot</artifactId>  
+            <version>${platform.version}</version> 
+        </dependency>  
+        <dependency> 
+            <groupId>mysql</groupId>  
+            <artifactId>mysql-connector-java</artifactId>  
+            <version>${mysql.version}</version> 
+        </dependency>  
+        <dependency> 
+            <groupId>com.github.foxnic.web</groupId>  
+            <artifactId>proxy</artifactId>  
+            <version>${platform.version}</version> 
+        </dependency> 
+    </dependencies> 
 </project>

@@ -1,7 +1,7 @@
 /**
  * 员工 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-06 14:55:38
+ * @since 2022-01-17 13:38:25
  */
 
 function FormPage() {
@@ -63,7 +63,7 @@ function FormPage() {
 			var body=$("body");
 			var bodyHeight=body.height();
 			var footerHeight=$(".model-form-footer").height();
-			var area=admin.changePopupArea(null,bodyHeight+footerHeight);
+			var area=admin.changePopupArea(null,bodyHeight+footerHeight,'hrm-employee-form-data-win');
 			if(area==null) return;
 			admin.putTempData('hrm-employee-form-area', area);
 			window.adjustPopup=adjustPopup;
@@ -116,6 +116,7 @@ function FormPage() {
 
 			//处理fillBy
 			$("#name").val(fox.getProperty(formData,["person","name"]));
+			$("#sex").val(fox.getProperty(formData,["person","sex"]));
 			$("#identity").val(fox.getProperty(formData,["person","identity"]));
 
 			//
@@ -186,7 +187,7 @@ function FormPage() {
 					admin.finishPopupCenterById('hrm-employee-form-data-win');
 				}
 			} else {
-				layer.msg(data.message, {icon: 2, time: 1500});
+				top.layer.msg(data.message, {icon: 2, time: 1500});
 			}
 			window.pageExt.form.afterSubmit && window.pageExt.form.afterSubmit(param,data);
 		}, {delayLoading:1000,elms:[$("#submit-button")]});
@@ -246,7 +247,7 @@ function FormPage() {
 		});
 
 	    //关闭窗口
-	    $("#cancel-button").click(function(){admin.closePopupCenter();});
+	    $("#cancel-button").click(function(){ admin.finishPopupCenterById('hrm-employee-form-data-win'); });
 
     }
 
@@ -256,7 +257,10 @@ function FormPage() {
 		saveForm: saveForm,
 		fillFormData: fillFormData,
 		adjustPopup: adjustPopup,
-		action: action
+		action: action,
+		setAction: function (act) {
+			action = act;
+		}
 	};
 
 	window.pageExt.form.ending && window.pageExt.form.ending();

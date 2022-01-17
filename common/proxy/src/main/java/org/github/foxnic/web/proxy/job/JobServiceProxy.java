@@ -1,25 +1,24 @@
 package org.github.foxnic.web.proxy.job;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.github.foxnic.web.proxy.api.APIProxy;
-import org.github.foxnic.web.proxy.FeignConfiguration;
-
-import org.springframework.cloud.openfeign.FeignClient;
-
-
-import org.github.foxnic.web.domain.job.Job;
-import org.github.foxnic.web.domain.job.JobVO;
-import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
+import org.github.foxnic.web.domain.job.Job;
+import org.github.foxnic.web.domain.job.JobVO;
+import org.github.foxnic.web.proxy.FeignConfiguration;
 import org.github.foxnic.web.proxy.MicroServiceNames;
+import org.github.foxnic.web.proxy.api.APIProxy;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 /**
  * <p>
  * 定时任务配置表  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-31 11:54:54
+ * @since 2022-01-07 11:34:00
+ * @version
 */
 
 @FeignClient(value = MicroServiceNames.JOB, contextId = JobServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)
@@ -45,7 +44,12 @@ public interface JobServiceProxy {
 	 */
 	public static final String INSERT = API_PREFIX + "insert";
 
-;
+	/**
+	 * 校验并模拟Job的执行时间
+	 */
+	public static final String SIMULATE = API_PREFIX + "simulate";
+
+
 	/**
 	 * 删除定时任务配置
 	 */
@@ -71,6 +75,11 @@ public interface JobServiceProxy {
 	 * 获取单个定时任务配置
 	 */
 	public static final String GET_BY_ID = API_PREFIX + "get-by-id";
+
+	/**
+	 * 立即调度
+	 */
+	public static final String INVOKE = API_PREFIX + "invoke";
 
 	/**
 	 * 获取多个定时任务配置

@@ -1,7 +1,6 @@
 package org.github.foxnic.web.job.utils;
 
 import org.github.foxnic.web.domain.job.Job;
-import org.github.foxnic.web.job.utils.JobInvokeUtil;
 import org.quartz.JobExecutionContext;
 
 /**
@@ -11,8 +10,7 @@ import org.quartz.JobExecutionContext;
 public class QuartzJobExecution extends AbstractQuartzJob
 {
     @Override
-    protected void doExecute(JobExecutionContext context, Job sysJob) throws Exception
-    {
-        JobInvokeUtil.invokeMethod(sysJob);
+    protected void doExecute(JobExecutionContext context, Job sysJob) throws Exception {
+        JobInvokeUtil.invokeMethod(context,sysJob);
     }
 }

@@ -51,6 +51,7 @@ public class HrmRelationManager extends RelationManager {
 				.using(FoxnicWeb.HRM_EMPLOYEE_POSITION.POSITION_ID).join(FoxnicWeb.HRM_POSITION.ID).condition("valid=1")
 				.after((employee,positions,m)->{
 					List<String> vicePosIds=new ArrayList<>();
+					List<Position> vicePositions=new ArrayList<>();
 					for (Position position : positions) {
 						//如果是主岗，设置员工主岗
 						Boolean pri=m.get(position).getBoolean("pri");
@@ -60,9 +61,11 @@ public class HrmRelationManager extends RelationManager {
 							employee.setPrimaryPositionId(position.getId());
 						} else {
 							vicePosIds.add(position.getId());
+							vicePositions.add(position);
 						}
 					}
 					employee.setVicePositionIds(vicePosIds);
+					employee.setVicePositions(vicePositions);
 					return positions;
 				});
 

@@ -1,7 +1,7 @@
 /**
  * 定时任务配置 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-31 11:54:57
+ * @since 2022-01-07 13:34:42
  */
 
 
@@ -74,18 +74,17 @@ function ListPage() {
 				cols: [[
 					{ fixed: 'left',type: 'numbers' },
 					{ fixed: 'left',type:'checkbox'}
-					,{ field: 'id', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('主键') , templet: function (d) { return templet('id',d.id,d);}  }
-					,{ field: 'name', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('任务名称') , templet: function (d) { return templet('name',d.name,d);}  }
-					,{ field: 'groupTag', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('组别') , templet: function (d) { return templet('groupTag',d.groupTag,d);}  }
-					,{ field: 'className', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('执行类') , templet: function (d) { return templet('className',d.className,d);}  }
-					,{ field: 'cronExpr', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('cron表达式') , templet: function (d) { return templet('cronExpr',d.cronExpr,d);}  }
-					,{ field: 'errorPolicy', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('计划执行错误策略') , templet: function (d) { return templet('errorPolicy',d.errorPolicy,d);}  }
-					,{ field: 'parameter', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('执行参数') , templet: function (d) { return templet('parameter',d.parameter,d);}  }
-					,{ field: 'concurrent', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('是否并发执行（0允许') , templet: function (d) { return templet('concurrent',d.concurrent,d);}  }
-					,{ field: 'status', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('状态') , templet: function (d) { return templet('status',d.status,d);}  }
-					,{ field: 'errors', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('执行错误次数') , templet: function (d) { return templet('errors',d.errors,d);}  }
-					,{ field: 'notes', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('备注') , templet: function (d) { return templet('notes',d.notes,d);}  }
-					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间') ,templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
+					,{ field: 'name', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('任务名') , templet: function (d) { return templet('name',d.name,d);}  }
+					,{ field: 'workerId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('执行器'), templet: function (d) { return templet('workerId' ,fox.joinLabel(d.worker,"className"),fox.getProperty(d,["worker","className"]),d);}}
+					,{ field: 'cronExpr', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('cron') , templet: function (d) { return templet('cronExpr',d.cronExpr,d);}  }
+					,{ field: 'misfirePolicy', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('执行策略'), templet:function (d){ return templet('misfirePolicy',fox.getEnumText(SELECT_MISFIREPOLICY_DATA,d.misfirePolicy),d);}}
+					,{ field: 'status', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('状态'), templet:function (d){ return templet('status',fox.getEnumText(RADIO_STATUS_DATA,d.status),d);}}
+					,{ field: 'nextFireTime', align:"",fixed:false,  hide:false, sort: true, title: fox.translate('下次执行时间') , templet: function (d) { return templet('nextFireTime',d.nextFireTime,d);}  }
+					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('主键') , templet: function (d) { return templet('id',d.id,d);}  }
+					,{ field: 'parameter', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('执行参数') , templet: function (d) { return templet('parameter',d.parameter,d);}  }
+					,{ field: 'concurrent', align:"center",fixed:false,  hide:true, sort: true, title: fox.translate('允许并发'), templet: '#cell-tpl-concurrent'}
+					,{ field: 'notes', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('备注') , templet: function (d) { return templet('notes',d.notes,d);}  }
+					,{ field: 'createTime', align:"right", fixed:false, hide:true, sort: true, title: fox.translate('创建时间') ,templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
 				]],
@@ -108,6 +107,10 @@ function ListPage() {
 			};
 			window.pageExt.list.beforeTableRender && window.pageExt.list.beforeTableRender(tableConfig);
 			dataTable=fox.renderTable(tableConfig);
+			//绑定 Switch 切换事件
+			fox.bindSwitchEvent("cell-tpl-concurrent",moduleURL +'/update','id','concurrent',function(data,ctx){
+				window.pageExt.list.afterSwitched && window.pageExt.list.afterSwitched("concurrent",data,ctx);
+			});
 			//绑定排序事件
 			table.on('sort(data-table)', function(obj){
 			  refreshTableData(obj.field,obj.type);
@@ -122,17 +125,7 @@ function ListPage() {
       */
 	function refreshTableData(sortField,sortType,reset) {
 		var value = {};
-		value.id={ inputType:"button",value: $("#id").val()};
-		value.name={ inputType:"button",value: $("#name").val()};
-		value.groupTag={ inputType:"button",value: $("#groupTag").val()};
-		value.className={ inputType:"button",value: $("#className").val()};
-		value.cronExpr={ inputType:"button",value: $("#cronExpr").val()};
-		value.errorPolicy={ inputType:"button",value: $("#errorPolicy").val()};
-		value.parameter={ inputType:"button",value: $("#parameter").val()};
-		value.concurrent={ inputType:"number_input", value: $("#concurrent").val() };
-		value.status={ inputType:"button",value: $("#status").val()};
-		value.errors={ inputType:"number_input", value: $("#errors").val() };
-		value.notes={ inputType:"button",value: $("#notes").val()};
+		value.name={ inputType:"button",value: $("#name").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" };
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;
@@ -339,6 +332,9 @@ function ListPage() {
 					});
 				});
 			}
+			else if (layEvent === 'invoke-imm') { // 立即调度
+				window.pageExt.list.invokeImm(data);
+			}
 			
 		});
 
@@ -371,7 +367,7 @@ function ListPage() {
 			title: title,
 			resize: false,
 			offset: [top,null],
-			area: ["500px",height+"px"],
+			area: ["700px",height+"px"],
 			type: 2,
 			id:"sys-job-form-data-win",
 			content: '/business/job/job/job_form.html' + (queryString?("?"+queryString):""),

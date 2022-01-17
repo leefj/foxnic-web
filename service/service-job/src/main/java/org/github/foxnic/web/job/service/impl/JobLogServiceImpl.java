@@ -1,40 +1,41 @@
 package org.github.foxnic.web.job.service.impl;
 
 
-import javax.annotation.Resource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-
-import org.github.foxnic.web.domain.job.JobLog;
-import org.github.foxnic.web.domain.job.JobLogVO;
-import java.util.List;
-import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.entity.SuperService;
-import com.github.foxnic.dao.spec.DAO;
-import java.lang.reflect.Field;
-import com.github.foxnic.commons.busi.id.IDGenerator;
-import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.dao.data.PagedList;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.SuperService;
+import com.github.foxnic.dao.excel.ExcelStructure;
 import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.dao.excel.ExcelStructure;
-import java.io.InputStream;
+import com.github.foxnic.dao.spec.DAO;
+import com.github.foxnic.springboot.spring.SpringUtil;
+import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.meta.DBColumnMeta;
-import com.github.foxnic.sql.expr.Select;
-import java.util.ArrayList;
-import org.github.foxnic.web.job.service.IJobLogService;
+import org.github.foxnic.web.constants.enums.job.LogType;
+import org.github.foxnic.web.domain.job.Job;
+import org.github.foxnic.web.domain.job.JobLog;
 import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.github.foxnic.web.job.service.IJobLogService;
+import org.github.foxnic.web.session.SessionUser;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.io.InputStream;
+import java.lang.reflect.Field;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
  * 定时任务执行日志表 服务实现
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-31 11:55:20
+ * @since 2022-01-05 16:46:32
+ * @version
 */
 
 
@@ -44,7 +45,7 @@ public class JobLogServiceImpl extends SuperService<JobLog> implements IJobLogSe
 	/**
 	 * 注入DAO对象
 	 * */
-	@Resource(name=DBConfigs.PRIMARY_DAO) 
+	@Resource(name=DBConfigs.PRIMARY_DAO)
 	private DAO dao=null;
 
 	/**
@@ -92,7 +93,7 @@ public class JobLogServiceImpl extends SuperService<JobLog> implements IJobLogSe
 		return super.insertList(jobLogList);
 	}
 
-	
+
 	/**
 	 * 按主键删除 定时任务执行日志
 	 *
@@ -149,7 +150,7 @@ public class JobLogServiceImpl extends SuperService<JobLog> implements IJobLogSe
 		return super.updateList(jobLogList , mode);
 	}
 
-	
+
 	/**
 	 * 按主键更新字段 定时任务执行日志
 	 *
@@ -163,7 +164,7 @@ public class JobLogServiceImpl extends SuperService<JobLog> implements IJobLogSe
 		return suc>0;
 	}
 
-	
+
 	/**
 	 * 按主键获取 定时任务执行日志
 	 *
@@ -249,6 +250,48 @@ public class JobLogServiceImpl extends SuperService<JobLog> implements IJobLogSe
 	@Override
 	public List<ValidateResult> importExcel(InputStream input,int sheetIndex,boolean batch) {
 		return super.importExcel(input,sheetIndex,batch);
+	}
+
+	@Override
+	public JobLog startLog(Job job, String tid, LogType logType) {
+		JobLog log=JobLog.create();
+		log.setClassName(job.getWorker().getClassName());
+		log.setCronExpr(job.getCronExpr());
+		log.setJobId(job.getId());
+		log.setConcurrent(job.getConcurrent());
+		log.setMisfirePolicy(job.getMisfirePolicy());
+		log.setTypeEnum(logType);
+		log.setNodeId(SpringUtil.getNodeInstanceId());
+		log.setTid(tid);
+		if(SessionUser.getCurrent()!=null) {
+			log.setUserId(SessionUser.getCurrent().getUserId());
+		}
+		log.setBeginTime(new Timestamp(System.currentTimeMillis()));
+		log.setJobName(job.getName());
+		log.setSuccess(0);
+		this.dao().pausePrintThreadSQL();
+		this.insert(log);
+		this.dao().resumePrintThreadSQL();
+		return log;
+	}
+
+	@Override
+	public JobLog startLog(Job job) {
+		return startLog(job,null,null);
+	}
+
+
+	@Override
+	public void updateLog(JobLog log) {
+		if(log.getEndTime()==null) {
+			log.setEndTime(new Timestamp(System.currentTimeMillis()));
+		}
+		if(log.getBeginTime()!=null) {
+			log.setCost(log.getEndTime().getTime() - log.getBeginTime().getTime());
+		}
+		this.dao().pausePrintThreadSQL();
+		this.updateDirtyFields(log);
+		this.dao().resumePrintThreadSQL();
 	}
 
 	@Override

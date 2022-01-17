@@ -1,7 +1,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-23 16:40:55
+ * @since 2022-01-12 16:58:53
  */
 
 
@@ -74,17 +74,17 @@ function ListPage() {
 				cols: [[
 					{ fixed: 'left',type: 'numbers' },
 					{ fixed: 'left',type:'checkbox'}
-					,{ field: 'name', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('账户') , templet: function (d) { return templet('name',d.name,d);}  }
-					,{ field: 'realName', align:"",fixed:false,  hide:false, sort: true, title: fox.translate('姓名') , templet: function (d) { return templet('realName',fox.getProperty(d,["joinedTenants","employee","person","name"]),d);} }
-					,{ field: 'portraitId', align:"center", fixed:false, hide:false, sort: true, title: fox.translate('头像'), templet: function (d) { return '<img style="height:100%;" fileType="image/png" onclick="window.previewImage(this)"  src="'+apiurls.storage.image+'?id='+ d.portraitId+'" />'; } }
-					,{ field: 'language', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('语言'), templet:function (d){ return templet('language',fox.getEnumText(RADIO_LANGUAGE_DATA,d.language),d);}}
-					,{ field: 'phone', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('手机') , templet: function (d) { return templet('phone',d.phone,d);}  }
-					,{ field: 'valid', align:"center",fixed:false,  hide:false, sort: true, title: fox.translate('是否有效'), templet: '#cell-tpl-valid'}
-					,{ field: 'roleIds', align:"",fixed:false,  hide:false, sort: true, title: fox.translate('角色'), templet: function (d) { return templet('roleIds' ,fox.joinLabel(d.roles,"name"),d);}}
-					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('ID') , templet: function (d) { return templet('id',d.id,d);}  }
-					,{ field: 'cacheKey', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('缓存键') , templet: function (d) { return templet('cacheKey',d.cacheKey,d);}  }
-					,{ field: 'lastLoginTime', align:"right", fixed:false, hide:true, sort: true, title: fox.translate('最后登录时间') ,templet: function (d) { return templet('lastLoginTime',fox.dateFormat(d.lastLoginTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
-					,{ field: 'createTime', align:"right", fixed:false, hide:true, sort: true, title: fox.translate('创建时间') ,templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
+					,{ field: 'name', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('账户') , templet: function (d) { return templet('name',d.name,d);}  }
+					,{ field: 'realName', align:"",fixed:false,  hide:false, sort: false  , title: fox.translate('姓名') , templet: function (d) { return templet('realName',fox.getProperty(d,["joinedTenants","employee","person","name"]),d);} }
+					,{ field: 'portraitId', align:"center", fixed:false, hide:false, sort: false   , title: fox.translate('头像'), templet: function (d) { return '<img style="height:100%;" fileType="image/png" onclick="window.previewImage(this)"  src="'+apiurls.storage.image+'?id='+ d.portraitId+'" />'; } }
+					,{ field: 'language', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('语言'), templet:function (d){ return templet('language',fox.getEnumText(RADIO_LANGUAGE_DATA,d.language),d);}}
+					,{ field: 'phone', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('手机') , templet: function (d) { return templet('phone',d.phone,d);}  }
+					,{ field: 'valid', align:"center",fixed:false,  hide:false, sort: true  , title: fox.translate('是否有效'), templet: '#cell-tpl-valid'}
+					,{ field: 'roleIds', align:"",fixed:false,  hide:false, sort: false  , title: fox.translate('角色'), templet: function (d) { return templet('roleIds' ,fox.joinLabel(d.roles,"name"),d);}}
+					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('ID') , templet: function (d) { return templet('id',d.id,d);}  }
+					,{ field: 'cacheKey', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('缓存键') , templet: function (d) { return templet('cacheKey',d.cacheKey,d);}  }
+					,{ field: 'lastLoginTime', align:"right", fixed:false, hide:true, sort: true   ,title: fox.translate('最后登录时间') ,templet: function (d) { return templet('lastLoginTime',fox.dateFormat(d.lastLoginTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
+					,{ field: 'createTime', align:"right", fixed:false, hide:true, sort: true   ,title: fox.translate('创建时间') ,templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
 				]],
@@ -113,7 +113,7 @@ function ListPage() {
 			});
 			//绑定排序事件
 			table.on('sort(data-table)', function(obj){
-			  refreshTableData(obj.field,obj.type);
+			  refreshTableData(obj.sortField,obj.type);
 			});
 			window.pageExt.list.afterTableRender && window.pageExt.list.afterTableRender();
 		}
@@ -124,13 +124,20 @@ function ListPage() {
       * 刷新表格数据
       */
 	function refreshTableData(sortField,sortType,reset) {
+		function getSelectedValue(id,prop) { var xm=xmSelect.get(id,true); return xm==null ? null : xm.getValue(prop);}
 		var value = {};
 		value.name={ inputType:"button",value: $("#name").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" };
-		value.phone={ inputType:"button",value: $("#phone").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" };
-		value.language={ inputType:"radio_box", value: xmSelect.get("#language",true).getValue("value"), label:xmSelect.get("#language",true).getValue("nameStr") };
-		value.valid={ inputType:"logic_switch",value: xmSelect.get("#valid",true).getValue("value"), label:xmSelect.get("#valid",true).getValue("nameStr") };
 		value.realName={ inputType:"button",value: $("#realName").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" ,fillBy:["joinedTenants","employee","person","name"] ,field:"hrm_person.name"};
-		value.roleIds={ inputType:"select_box", value: xmSelect.get("#roleIds",true).getValue("value") ,fillBy:["roles"]  ,field:"sys_role.id", label:xmSelect.get("#roleIds",true).getValue("nameStr") };
+		value.portraitId={ inputType:"button",value: $("#portraitId").val()};
+		value.language={ inputType:"radio_box", value: getSelectedValue("#language","value"), label:getSelectedValue("#language","nameStr") };
+		value.phone={ inputType:"button",value: $("#phone").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" };
+		value.valid={ inputType:"logic_switch",value: getSelectedValue("#valid","value"), label:getSelectedValue("#valid","nameStr") };
+		value.roleIds={ inputType:"select_box", value: getSelectedValue("#roleIds","value") ,fillBy:["roles"]  ,field:"sys_role.id", label:getSelectedValue("#roleIds","nameStr") };
+		value.id={ inputType:"button",value: $("#id").val()};
+		value.passwd={ inputType:"button",value: $("#passwd").val()};
+		value.cacheKey={ inputType:"button",value: $("#cacheKey").val()};
+		value.lastLoginTime={ inputType:"date_input", value: $("#lastLoginTime").val() ,matchType:"auto"};
+		value.createTime={ inputType:"date_input", value: $("#createTime").val() ,matchType:"auto"};
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;
@@ -182,9 +189,10 @@ function ListPage() {
 		fox.renderSelectBox({
 			el: "language",
 			size: "small",
-			radio: false,
+			radio: true,
 			on: function(data){
 				setTimeout(function () {
+					refreshTableData();
 					window.pageExt.list.onSelectBoxChanged && window.pageExt.list.onSelectBoxChanged("language",data.arr,data.change,data.isAdd);
 				},1);
 			},
@@ -203,9 +211,10 @@ function ListPage() {
 		fox.renderSelectBox({
 			el: "valid",
 			size: "small",
-			radio: false,
+			radio: true,
 			on: function(data){
 				setTimeout(function () {
+					refreshTableData();
 					window.pageExt.list.onSelectBoxChanged && window.pageExt.list.onSelectBoxChanged("valid",data.arr,data.change,data.isAdd);
 				},1);
 			},
@@ -218,6 +227,7 @@ function ListPage() {
 			filterable: true,
 			on: function(data){
 				setTimeout(function () {
+					refreshTableData();
 					window.pageExt.list.onSelectBoxChanged && window.pageExt.list.onSelectBoxChanged("roleIds",data.arr,data.change,data.isAdd);
 				},1);
 			},
@@ -413,7 +423,10 @@ function ListPage() {
 		}
 		var action=admin.getTempData('sys-user-form-data-form-action');
 		var queryString="";
-		if(data && data.id) queryString="?" + 'id=' + data.id;
+		if(data && data.id) queryString='id=' + data.id;
+		if(window.pageExt.list.makeFormQueryString) {
+			queryString=window.pageExt.list.makeFormQueryString(data,queryString,action);
+		}
 		admin.putTempData('sys-user-form-data', data);
 		var area=admin.getTempData('sys-user-form-area');
 		var height= (area && area.height) ? area.height : ($(window).height()*0.6);
@@ -430,7 +443,7 @@ function ListPage() {
 			area: ["500px",height+"px"],
 			type: 2,
 			id:"sys-user-form-data-win",
-			content: '/business/oauth/user/user_form.html' + queryString,
+			content: '/business/oauth/user/user_form.html' + (queryString?("?"+queryString):""),
 			finish: function () {
 				refreshTableData();
 			}

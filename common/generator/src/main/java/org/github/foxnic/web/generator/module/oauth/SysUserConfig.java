@@ -97,7 +97,7 @@ public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
 
         context.view().field("realName").basic().label("姓名")
                 .search().on(FoxnicWeb.HRM_PERSON.NAME).fuzzySearch()
-                .table()
+                .table().sort(false)
                 .fillBy(UserMeta.JOINED_TENANTS, UserTenantMeta.EMPLOYEE, EmployeeMeta.PERSON, PersonMeta.NAME)
         ;
 
@@ -108,20 +108,24 @@ public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
                 .form().validate().required().phone();
 
         context.view().field(SYS_USER.LANGUAGE)
+                .search().triggerOnSelect(true)
                 .form().radioBox().enumType(Language.class);
+
+
 
         context.view().field(UserVOMeta.ROLE_IDS)
                 .basic().label("角色")
 //				.list().hidden(true)
-                .search().inputWidth(180).on(FoxnicWeb.SYS_ROLE.ID)
-                .form().selectBox().muliti(true).queryApi(RoleServiceProxy.QUERY_LIST).fillWith(UserMeta.ROLES)
+                .table().sort(false)
+                .search().inputWidth(180).on(FoxnicWeb.SYS_ROLE.ID).selectMuliti(false).triggerOnSelect(true)
+                .form().selectBox().muliti(true,false).queryApi(RoleServiceProxy.QUERY_LIST).fillWith(UserMeta.ROLES)
                 .valueField(RoleMeta.ID).textField(UserMeta.NAME).muliti(true,false)
         ;
 
         context.view().field(SYS_USER.PORTRAIT_ID)
                 .basic().label("头像")
                 .search().hidden(true)
-                .table().alignCenter()
+                .table().alignCenter().sort(false)
                 .form().upload().acceptSingleImage().buttonLabel("选择头像")
         ;
 
@@ -136,6 +140,7 @@ public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
 
         context.view().field(SYS_USER.VALID)
                 .table().alignCenter()
+                .search().triggerOnSelect(true)
                 .form().logicField().on("有效","1").off("无效","0");
 
     }

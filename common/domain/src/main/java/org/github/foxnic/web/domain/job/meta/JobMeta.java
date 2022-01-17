@@ -3,13 +3,14 @@ package org.github.foxnic.web.domain.job.meta;
 import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.job.Job;
 import java.util.Date;
+import org.github.foxnic.web.domain.job.JobWorker;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-31 11:54:53
- * @sign 0FFDF26A69530FBFD534CA3ED10B04A2
+ * @since 2022-01-07 13:34:40
+ * @sign A32D7E1F9B00D141C817FF3ECF9F5688
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -46,14 +47,14 @@ public class JobMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.job.Job,java.lang.String> GROUP_TAG_PROP = new BeanProperty(org.github.foxnic.web.domain.job.Job.class ,GROUP_TAG, java.lang.String.class, "组别", "组别", java.lang.String.class, null);
 	
 	/**
-	 * 执行类 , 类型: java.lang.String
+	 * 执行类ID , 类型: java.lang.String
 	*/
-	public static final String CLASS_NAME="className";
+	public static final String WORKER_ID="workerId";
 	
 	/**
-	 * 执行类 , 类型: java.lang.String
+	 * 执行类ID , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.job.Job,java.lang.String> CLASS_NAME_PROP = new BeanProperty(org.github.foxnic.web.domain.job.Job.class ,CLASS_NAME, java.lang.String.class, "执行类", "执行类", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.job.Job,java.lang.String> WORKER_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.job.Job.class ,WORKER_ID, java.lang.String.class, "执行类ID", "执行类ID", java.lang.String.class, null);
 	
 	/**
 	 * cron表达式 , 类型: java.lang.String
@@ -64,16 +65,6 @@ public class JobMeta {
 	 * cron表达式 , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.job.Job,java.lang.String> CRON_EXPR_PROP = new BeanProperty(org.github.foxnic.web.domain.job.Job.class ,CRON_EXPR, java.lang.String.class, "cron表达式", "cron表达式", java.lang.String.class, null);
-	
-	/**
-	 * 计划执行错误策略 , 类型: java.lang.String
-	*/
-	public static final String ERROR_POLICY="errorPolicy";
-	
-	/**
-	 * 计划执行错误策略 , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.job.Job,java.lang.String> ERROR_POLICY_PROP = new BeanProperty(org.github.foxnic.web.domain.job.Job.class ,ERROR_POLICY, java.lang.String.class, "计划执行错误策略", "计划执行错误策略", java.lang.String.class, null);
 	
 	/**
 	 * 执行参数 , JSON对象格式 , 类型: java.lang.String
@@ -96,6 +87,16 @@ public class JobMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.job.Job,java.lang.Integer> CONCURRENT_PROP = new BeanProperty(org.github.foxnic.web.domain.job.Job.class ,CONCURRENT, java.lang.Integer.class, "是否并发执行（0允许", "1禁止）", java.lang.Integer.class, null);
 	
 	/**
+	 * 遗漏执行的策略 , 类型: java.lang.String
+	*/
+	public static final String MISFIRE_POLICY="misfirePolicy";
+	
+	/**
+	 * 遗漏执行的策略 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.job.Job,java.lang.String> MISFIRE_POLICY_PROP = new BeanProperty(org.github.foxnic.web.domain.job.Job.class ,MISFIRE_POLICY, java.lang.String.class, "遗漏执行的策略", "遗漏执行的策略", java.lang.String.class, null);
+	
+	/**
 	 * 状态 , 类型: java.lang.String
 	*/
 	public static final String STATUS="status";
@@ -104,16 +105,6 @@ public class JobMeta {
 	 * 状态 , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.job.Job,java.lang.String> STATUS_PROP = new BeanProperty(org.github.foxnic.web.domain.job.Job.class ,STATUS, java.lang.String.class, "状态", "状态", java.lang.String.class, null);
-	
-	/**
-	 * 执行错误次数 , 类型: java.lang.Integer
-	*/
-	public static final String ERRORS="errors";
-	
-	/**
-	 * 执行错误次数 , 类型: java.lang.Integer
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.job.Job,java.lang.Integer> ERRORS_PROP = new BeanProperty(org.github.foxnic.web.domain.job.Job.class ,ERRORS, java.lang.Integer.class, "执行错误次数", "执行错误次数", java.lang.Integer.class, null);
 	
 	/**
 	 * 备注 , 类型: java.lang.String
@@ -216,9 +207,29 @@ public class JobMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.job.Job,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.job.Job.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
+	 * 任务的执行类 , 类型: org.github.foxnic.web.domain.job.JobWorker
+	*/
+	public static final String WORKER="worker";
+	
+	/**
+	 * 任务的执行类 , 类型: org.github.foxnic.web.domain.job.JobWorker
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.job.Job,org.github.foxnic.web.domain.job.JobWorker> WORKER_PROP = new BeanProperty(org.github.foxnic.web.domain.job.Job.class ,WORKER, org.github.foxnic.web.domain.job.JobWorker.class, "任务的执行类", "任务的执行类", org.github.foxnic.web.domain.job.JobWorker.class, null);
+	
+	/**
+	 * 下一次执行时间 , 下次执行时间 , 类型: java.util.Date
+	*/
+	public static final String NEXT_FIRE_TIME="nextFireTime";
+	
+	/**
+	 * 下一次执行时间 , 下次执行时间 , 类型: java.util.Date
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.job.Job,java.util.Date> NEXT_FIRE_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.job.Job.class ,NEXT_FIRE_TIME, java.util.Date.class, "下一次执行时间", "下次执行时间", java.util.Date.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , NAME , GROUP_TAG , CLASS_NAME , CRON_EXPR , ERROR_POLICY , PARAMETER , CONCURRENT , STATUS , ERRORS , NOTES , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , NAME , GROUP_TAG , WORKER_ID , CRON_EXPR , PARAMETER , CONCURRENT , MISFIRE_POLICY , STATUS , NOTES , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , WORKER , NEXT_FIRE_TIME };
 	
 	/**
 	 * 代理类
@@ -262,13 +273,13 @@ public class JobMeta {
 		}
 		
 		/**
-		 * 设置 执行类
-		 * @param className 执行类
+		 * 设置 执行类ID
+		 * @param workerId 执行类ID
 		 * @return 当前对象
 		*/
-		public Job setClassName(String className) {
-			super.change(CLASS_NAME,super.getClassName(),className);
-			super.setClassName(className);
+		public Job setWorkerId(String workerId) {
+			super.change(WORKER_ID,super.getWorkerId(),workerId);
+			super.setWorkerId(workerId);
 			return this;
 		}
 		
@@ -280,17 +291,6 @@ public class JobMeta {
 		public Job setCronExpr(String cronExpr) {
 			super.change(CRON_EXPR,super.getCronExpr(),cronExpr);
 			super.setCronExpr(cronExpr);
-			return this;
-		}
-		
-		/**
-		 * 设置 计划执行错误策略
-		 * @param errorPolicy 计划执行错误策略
-		 * @return 当前对象
-		*/
-		public Job setErrorPolicy(String errorPolicy) {
-			super.change(ERROR_POLICY,super.getErrorPolicy(),errorPolicy);
-			super.setErrorPolicy(errorPolicy);
 			return this;
 		}
 		
@@ -317,6 +317,17 @@ public class JobMeta {
 		}
 		
 		/**
+		 * 设置 遗漏执行的策略
+		 * @param misfirePolicy 遗漏执行的策略
+		 * @return 当前对象
+		*/
+		public Job setMisfirePolicy(String misfirePolicy) {
+			super.change(MISFIRE_POLICY,super.getMisfirePolicy(),misfirePolicy);
+			super.setMisfirePolicy(misfirePolicy);
+			return this;
+		}
+		
+		/**
 		 * 设置 状态
 		 * @param status 状态
 		 * @return 当前对象
@@ -324,17 +335,6 @@ public class JobMeta {
 		public Job setStatus(String status) {
 			super.change(STATUS,super.getStatus(),status);
 			super.setStatus(status);
-			return this;
-		}
-		
-		/**
-		 * 设置 执行错误次数
-		 * @param errors 执行错误次数
-		 * @return 当前对象
-		*/
-		public Job setErrors(Integer errors) {
-			super.change(ERRORS,super.getErrors(),errors);
-			super.setErrors(errors);
 			return this;
 		}
 		
@@ -445,6 +445,28 @@ public class JobMeta {
 		public Job setVersion(Integer version) {
 			super.change(VERSION,super.getVersion(),version);
 			super.setVersion(version);
+			return this;
+		}
+		
+		/**
+		 * 设置 任务的执行类
+		 * @param worker 任务的执行类
+		 * @return 当前对象
+		*/
+		public Job setWorker(JobWorker worker) {
+			super.change(WORKER,super.getWorker(),worker);
+			super.setWorker(worker);
+			return this;
+		}
+		
+		/**
+		 * 设置 下一次执行时间
+		 * @param nextFireTime 下一次执行时间
+		 * @return 当前对象
+		*/
+		public Job setNextFireTime(Date nextFireTime) {
+			super.change(NEXT_FIRE_TIME,super.getNextFireTime(),nextFireTime);
+			super.setNextFireTime(nextFireTime);
 			return this;
 		}
 	}

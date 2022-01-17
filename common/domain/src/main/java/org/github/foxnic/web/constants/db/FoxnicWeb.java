@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2021-12-31 11:48:50
+ * @since 2022-01-07 13:18:25
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -4099,19 +4099,14 @@ public class FoxnicWeb {
 		public static final DBField GROUP_TAG = new DBField(DBDataType.STRING , "group_tag","groupTag","组别","组别",false,false,true);
 		
 		/**
-		 * 执行类
+		 * 执行类ID
 		*/
-		public static final DBField CLASS_NAME = new DBField(DBDataType.STRING , "class_name","className","执行类","执行类",false,false,true);
+		public static final DBField WORKER_ID = new DBField(DBDataType.STRING , "worker_id","workerId","执行类ID","执行类ID",false,false,true);
 		
 		/**
 		 * cron表达式
 		*/
 		public static final DBField CRON_EXPR = new DBField(DBDataType.STRING , "cron_expr","cronExpr","cron表达式","cron表达式",false,false,true);
-		
-		/**
-		 * 计划执行错误策略
-		*/
-		public static final DBField ERROR_POLICY = new DBField(DBDataType.STRING , "error_policy","errorPolicy","计划执行错误策略","计划执行错误策略",false,false,true);
 		
 		/**
 		 * 执行参数，JSON对象格式
@@ -4121,17 +4116,17 @@ public class FoxnicWeb {
 		/**
 		 * 是否并发执行（0允许 1禁止）
 		*/
-		public static final DBField CONCURRENT = new DBField(DBDataType.INTEGER , "concurrent","concurrent","是否并发执行（0允许","1禁止）",false,false,true);
+		public static final DBField CONCURRENT = new DBField(DBDataType.INTEGER , "concurrent","concurrent","是否并发执行（0允许","1禁止）",false,false,false);
+		
+		/**
+		 * 遗漏执行的策略
+		*/
+		public static final DBField MISFIRE_POLICY = new DBField(DBDataType.STRING , "misfire_policy","misfirePolicy","遗漏执行的策略","遗漏执行的策略",false,false,true);
 		
 		/**
 		 * 状态
 		*/
 		public static final DBField STATUS = new DBField(DBDataType.STRING , "status","status","状态","状态",false,false,true);
-		
-		/**
-		 * 执行错误次数
-		*/
-		public static final DBField ERRORS = new DBField(DBDataType.INTEGER , "errors","errors","执行错误次数","执行错误次数",false,false,true);
 		
 		/**
 		 * 备注
@@ -4184,7 +4179,7 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
 		public SYS_JOB() {
-			this.init($NAME,"定时任务配置表" , ID , NAME , GROUP_TAG , CLASS_NAME , CRON_EXPR , ERROR_POLICY , PARAMETER , CONCURRENT , STATUS , ERRORS , NOTES , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"定时任务配置表" , ID , NAME , GROUP_TAG , WORKER_ID , CRON_EXPR , PARAMETER , CONCURRENT , MISFIRE_POLICY , STATUS , NOTES , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final SYS_JOB $TABLE=new SYS_JOB();
 	}
@@ -4448,6 +4443,11 @@ public class FoxnicWeb {
 		public static final DBField JOB_ID = new DBField(DBDataType.STRING , "job_id","jobId","组别","组别",false,false,true);
 		
 		/**
+		 * 日志分类
+		*/
+		public static final DBField TYPE = new DBField(DBDataType.STRING , "type","type","日志分类","日志分类",false,false,true);
+		
+		/**
 		 * 任务名称
 		*/
 		public static final DBField JOB_NAME = new DBField(DBDataType.STRING , "job_name","jobName","任务名称","任务名称",false,false,true);
@@ -4463,14 +4463,14 @@ public class FoxnicWeb {
 		public static final DBField CRON_EXPR = new DBField(DBDataType.STRING , "cron_expr","cronExpr","本次执行cron表达式","本次执行cron表达式",false,false,true);
 		
 		/**
-		 * 是否成功执行
-		*/
-		public static final DBField SUCCESS = new DBField(DBDataType.INTEGER , "success","success","是否成功执行","是否成功执行",false,false,true);
-		
-		/**
 		 * 本次执行参数
 		*/
 		public static final DBField PARAMETER = new DBField(DBDataType.STRING , "parameter","parameter","本次执行参数","本次执行参数",false,false,true);
+		
+		/**
+		 * 是否成功执行
+		*/
+		public static final DBField SUCCESS = new DBField(DBDataType.INTEGER , "success","success","是否成功执行","是否成功执行",false,false,true);
 		
 		/**
 		 * 执行结果，可记录大文本信息
@@ -4488,6 +4488,11 @@ public class FoxnicWeb {
 		public static final DBField END_TIME = new DBField(DBDataType.TIMESTAME , "end_time","endTime","结束执行的时间","结束执行的时间",false,false,true);
 		
 		/**
+		 * 执行耗时
+		*/
+		public static final DBField COST = new DBField(DBDataType.LONG , "cost","cost","执行耗时","执行耗时",false,false,true);
+		
+		/**
 		 * 异常信息
 		*/
 		public static final DBField EXCEPTION = new DBField(DBDataType.STRING , "exception","exception","异常信息","异常信息",false,false,true);
@@ -4497,8 +4502,43 @@ public class FoxnicWeb {
 		*/
 		public static final DBField LOG_TEXT = new DBField(DBDataType.STRING , "log_text","logText","日志信息","日志信息",false,false,true);
 		
+		/**
+		 * 账户ID，操作人ID
+		*/
+		public static final DBField USER_ID = new DBField(DBDataType.STRING , "user_id","userId","账户ID","操作人ID",false,false,true);
+		
+		/**
+		 * 是否是手动执行
+		*/
+		public static final DBField IS_MANUAL = new DBField(DBDataType.INTEGER , "is_manual","isManual","是否是手动执行","是否是手动执行",false,false,true);
+		
+		/**
+		 * 是否为丢失补充执行
+		*/
+		public static final DBField IS_MISSFIRE = new DBField(DBDataType.INTEGER , "is_missfire","isMissfire","是否为丢失补充执行","是否为丢失补充执行",false,false,true);
+		
+		/**
+		 * 是否并发执行（0允许 1禁止）
+		*/
+		public static final DBField CONCURRENT = new DBField(DBDataType.INTEGER , "concurrent","concurrent","是否并发执行（0允许","1禁止）",false,false,true);
+		
+		/**
+		 * 遗漏执行的策略
+		*/
+		public static final DBField MISFIRE_POLICY = new DBField(DBDataType.STRING , "misfire_policy","misfirePolicy","遗漏执行的策略","遗漏执行的策略",false,false,true);
+		
+		/**
+		 * 日志跟踪ID
+		*/
+		public static final DBField TID = new DBField(DBDataType.STRING , "tid","tid","日志跟踪ID","日志跟踪ID",false,false,true);
+		
+		/**
+		 * 节点ID，job实际运行的节点ID
+		*/
+		public static final DBField NODE_ID = new DBField(DBDataType.STRING , "node_id","nodeId","节点ID","job实际运行的节点ID",false,false,true);
+		
 		public SYS_JOB_LOG() {
-			this.init($NAME,"定时任务执行日志表" , ID , JOB_ID , JOB_NAME , CLASS_NAME , CRON_EXPR , SUCCESS , PARAMETER , RESULT , BEGIN_TIME , END_TIME , EXCEPTION , LOG_TEXT);
+			this.init($NAME,"定时任务执行日志表" , ID , JOB_ID , TYPE , JOB_NAME , CLASS_NAME , CRON_EXPR , PARAMETER , SUCCESS , RESULT , BEGIN_TIME , END_TIME , COST , EXCEPTION , LOG_TEXT , USER_ID , IS_MANUAL , IS_MISSFIRE , CONCURRENT , MISFIRE_POLICY , TID , NODE_ID);
 		}
 		public static final SYS_JOB_LOG $TABLE=new SYS_JOB_LOG();
 	}
@@ -4744,6 +4784,42 @@ public class FoxnicWeb {
 			this.init($NAME,"" , SCHED_NAME , TRIGGER_NAME , TRIGGER_GROUP , JOB_NAME , JOB_GROUP , DESCRIPTION , NEXT_FIRE_TIME , PREV_FIRE_TIME , PRIORITY , TRIGGER_STATE , TRIGGER_TYPE , START_TIME , END_TIME , CALENDAR_NAME , MISFIRE_INSTR , JOB_DATA);
 		}
 		public static final SYS_JOB_TRIGGERS $TABLE=new SYS_JOB_TRIGGERS();
+	}
+	
+	/**
+	 * 任务执行器
+	*/
+	public static class SYS_JOB_WORKER extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "sys_job_worker";
+		
+		/**
+		 * 主键
+		*/
+		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","主键","主键",true,false,false);
+		
+		/**
+		 * 名称
+		*/
+		public static final DBField NAME = new DBField(DBDataType.STRING , "name","name","名称","名称",false,false,true);
+		
+		/**
+		 * 类名
+		*/
+		public static final DBField CLASS_NAME = new DBField(DBDataType.STRING , "class_name","className","类名","类名",false,false,true);
+		
+		/**
+		 * 有效
+		*/
+		public static final DBField VALID = new DBField(DBDataType.INTEGER , "valid","valid","有效","有效",false,false,true);
+		
+		public SYS_JOB_WORKER() {
+			this.init($NAME,"任务执行器" , ID , NAME , CLASS_NAME , VALID);
+		}
+		public static final SYS_JOB_WORKER $TABLE=new SYS_JOB_WORKER();
 	}
 	
 	/**

@@ -6,8 +6,12 @@ import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_JOB;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.Date;
+import org.github.foxnic.web.constants.enums.job.MisfirePolicy;
 import javax.persistence.Transient;
+import org.github.foxnic.web.constants.enums.job.Status;
+import java.util.Date;
+import com.github.foxnic.commons.reflect.EnumUtil;
+import com.github.foxnic.commons.lang.StringUtil;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
 
@@ -16,8 +20,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 定时任务配置
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-31 11:54:53
- * @sign 0FFDF26A69530FBFD534CA3ED10B04A2
+ * @since 2022-01-07 13:34:40
+ * @sign A32D7E1F9B00D141C817FF3ECF9F5688
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -48,22 +52,16 @@ public class Job extends Entity {
 	private String groupTag;
 	
 	/**
-	 * 执行类：执行类
+	 * 执行类ID：执行类ID
 	*/
-	@ApiModelProperty(required = false,value="执行类" , notes = "执行类")
-	private String className;
+	@ApiModelProperty(required = false,value="执行类ID" , notes = "执行类ID")
+	private String workerId;
 	
 	/**
 	 * cron表达式：cron表达式
 	*/
 	@ApiModelProperty(required = false,value="cron表达式" , notes = "cron表达式")
 	private String cronExpr;
-	
-	/**
-	 * 计划执行错误策略：计划执行错误策略
-	*/
-	@ApiModelProperty(required = false,value="计划执行错误策略" , notes = "计划执行错误策略")
-	private String errorPolicy;
 	
 	/**
 	 * 执行参数：JSON对象格式
@@ -74,20 +72,24 @@ public class Job extends Entity {
 	/**
 	 * 是否并发执行（0允许：1禁止）
 	*/
-	@ApiModelProperty(required = false,value="是否并发执行（0允许" , notes = "1禁止）")
+	@ApiModelProperty(required = true,value="是否并发执行（0允许" , notes = "1禁止）")
 	private Integer concurrent;
+	
+	/**
+	 * 遗漏执行的策略：遗漏执行的策略
+	*/
+	@ApiModelProperty(required = false,value="遗漏执行的策略" , notes = "遗漏执行的策略")
+	private String misfirePolicy;
+	@Transient
+	private MisfirePolicy misfirePolicyEnum;
 	
 	/**
 	 * 状态：状态
 	*/
 	@ApiModelProperty(required = false,value="状态" , notes = "状态")
 	private String status;
-	
-	/**
-	 * 执行错误次数：执行错误次数
-	*/
-	@ApiModelProperty(required = false,value="执行错误次数" , notes = "执行错误次数")
-	private Integer errors;
+	@Transient
+	private Status statusEnum;
 	
 	/**
 	 * 备注：备注
@@ -150,6 +152,18 @@ public class Job extends Entity {
 	private Integer version;
 	
 	/**
+	 * 任务的执行类：任务的执行类
+	*/
+	@ApiModelProperty(required = false,value="任务的执行类" , notes = "任务的执行类")
+	private JobWorker worker;
+	
+	/**
+	 * 下一次执行时间：下次执行时间
+	*/
+	@ApiModelProperty(required = false,value="下一次执行时间" , notes = "下次执行时间")
+	private Date nextFireTime;
+	
+	/**
 	 * 获得 主键<br>
 	 * 主键
 	 * @return 主键
@@ -207,21 +221,21 @@ public class Job extends Entity {
 	}
 	
 	/**
-	 * 获得 执行类<br>
-	 * 执行类
-	 * @return 执行类
+	 * 获得 执行类ID<br>
+	 * 执行类ID
+	 * @return 执行类ID
 	*/
-	public String getClassName() {
-		return className;
+	public String getWorkerId() {
+		return workerId;
 	}
 	
 	/**
-	 * 设置 执行类
-	 * @param className 执行类
+	 * 设置 执行类ID
+	 * @param workerId 执行类ID
 	 * @return 当前对象
 	*/
-	public Job setClassName(String className) {
-		this.className=className;
+	public Job setWorkerId(String workerId) {
+		this.workerId=workerId;
 		return this;
 	}
 	
@@ -241,25 +255,6 @@ public class Job extends Entity {
 	*/
 	public Job setCronExpr(String cronExpr) {
 		this.cronExpr=cronExpr;
-		return this;
-	}
-	
-	/**
-	 * 获得 计划执行错误策略<br>
-	 * 计划执行错误策略
-	 * @return 计划执行错误策略
-	*/
-	public String getErrorPolicy() {
-		return errorPolicy;
-	}
-	
-	/**
-	 * 设置 计划执行错误策略
-	 * @param errorPolicy 计划执行错误策略
-	 * @return 当前对象
-	*/
-	public Job setErrorPolicy(String errorPolicy) {
-		this.errorPolicy=errorPolicy;
 		return this;
 	}
 	
@@ -302,6 +297,58 @@ public class Job extends Entity {
 	}
 	
 	/**
+	 * 获得 遗漏执行的策略<br>
+	 * 遗漏执行的策略
+	 * @return 遗漏执行的策略
+	*/
+	public String getMisfirePolicy() {
+		return misfirePolicy;
+	}
+	
+	/**
+	 * 获得 遗漏执行的策略 的投影属性<br>
+	 * 等价于 getMisfirePolicy 方法，获得对应的枚举类型
+	 * @return 遗漏执行的策略
+	*/
+	@Transient
+	public MisfirePolicy getMisfirePolicyEnum() {
+		if(this.misfirePolicyEnum==null) {
+			this.misfirePolicyEnum = (MisfirePolicy) EnumUtil.parseByCode(MisfirePolicy.values(),misfirePolicy);
+		}
+		return this.misfirePolicyEnum ;
+	}
+	
+	/**
+	 * 设置 遗漏执行的策略
+	 * @param misfirePolicy 遗漏执行的策略
+	 * @return 当前对象
+	*/
+	public Job setMisfirePolicy(String misfirePolicy) {
+		this.misfirePolicy=misfirePolicy;
+		this.misfirePolicyEnum= (MisfirePolicy) EnumUtil.parseByCode(MisfirePolicy.values(),misfirePolicy) ;
+		if(StringUtil.hasContent(misfirePolicy) && this.misfirePolicyEnum==null) {
+			throw new IllegalArgumentException( misfirePolicy + " is not one of MisfirePolicy");
+		}
+		return this;
+	}
+	
+	/**
+	 * 设置 遗漏执行的策略的投影属性，等同于设置 遗漏执行的策略
+	 * @param misfirePolicyEnum 遗漏执行的策略
+	 * @return 当前对象
+	*/
+	@Transient
+	public Job setMisfirePolicyEnum(MisfirePolicy misfirePolicyEnum) {
+		if(misfirePolicyEnum==null) {
+			this.setMisfirePolicy(null);
+		} else {
+			this.setMisfirePolicy(misfirePolicyEnum.code());
+		}
+		this.misfirePolicyEnum=misfirePolicyEnum;
+		return this;
+	}
+	
+	/**
 	 * 获得 状态<br>
 	 * 状态
 	 * @return 状态
@@ -311,31 +358,45 @@ public class Job extends Entity {
 	}
 	
 	/**
+	 * 获得 状态 的投影属性<br>
+	 * 等价于 getStatus 方法，获得对应的枚举类型
+	 * @return 状态
+	*/
+	@Transient
+	public Status getStatusEnum() {
+		if(this.statusEnum==null) {
+			this.statusEnum = (Status) EnumUtil.parseByCode(Status.values(),status);
+		}
+		return this.statusEnum ;
+	}
+	
+	/**
 	 * 设置 状态
 	 * @param status 状态
 	 * @return 当前对象
 	*/
 	public Job setStatus(String status) {
 		this.status=status;
+		this.statusEnum= (Status) EnumUtil.parseByCode(Status.values(),status) ;
+		if(StringUtil.hasContent(status) && this.statusEnum==null) {
+			throw new IllegalArgumentException( status + " is not one of Status");
+		}
 		return this;
 	}
 	
 	/**
-	 * 获得 执行错误次数<br>
-	 * 执行错误次数
-	 * @return 执行错误次数
-	*/
-	public Integer getErrors() {
-		return errors;
-	}
-	
-	/**
-	 * 设置 执行错误次数
-	 * @param errors 执行错误次数
+	 * 设置 状态的投影属性，等同于设置 状态
+	 * @param statusEnum 状态
 	 * @return 当前对象
 	*/
-	public Job setErrors(Integer errors) {
-		this.errors=errors;
+	@Transient
+	public Job setStatusEnum(Status statusEnum) {
+		if(statusEnum==null) {
+			this.setStatus(null);
+		} else {
+			this.setStatus(statusEnum.code());
+		}
+		this.statusEnum=statusEnum;
 		return this;
 	}
 	
@@ -526,6 +587,44 @@ public class Job extends Entity {
 	*/
 	public Job setVersion(Integer version) {
 		this.version=version;
+		return this;
+	}
+	
+	/**
+	 * 获得 任务的执行类<br>
+	 * 任务的执行类
+	 * @return 任务的执行类
+	*/
+	public JobWorker getWorker() {
+		return worker;
+	}
+	
+	/**
+	 * 设置 任务的执行类
+	 * @param worker 任务的执行类
+	 * @return 当前对象
+	*/
+	public Job setWorker(JobWorker worker) {
+		this.worker=worker;
+		return this;
+	}
+	
+	/**
+	 * 获得 下一次执行时间<br>
+	 * 下次执行时间
+	 * @return 下一次执行时间
+	*/
+	public Date getNextFireTime() {
+		return nextFireTime;
+	}
+	
+	/**
+	 * 设置 下一次执行时间
+	 * @param nextFireTime 下一次执行时间
+	 * @return 当前对象
+	*/
+	public Job setNextFireTime(Date nextFireTime) {
+		this.nextFireTime=nextFireTime;
 		return this;
 	}
 

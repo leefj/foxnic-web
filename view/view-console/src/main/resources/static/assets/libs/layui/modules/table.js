@@ -1089,10 +1089,24 @@ layui.define(['laytpl', 'laypage', 'layer', 'form', 'util'], function(exports){
       hint.error('Table modules: sort field \''+ field +'\' not matched');
     }
 
+    // 增加额外的参数 By 李方捷
+    var sortField=field;
+    var cols=options.cols;
+    for (var i = 0; i < cols.length; i++) {
+      var colarr=cols[i];
+      for (var j = 0; j <colarr.length ; j++) {
+          if(colarr[j].field==field && colarr[j].sortField) {
+            sortField=colarr[j].sortField;
+          }
+      }
+    }
+
+
     //记录排序索引和类型
     that.sortKey = {
       field: field
       ,sort: type
+      ,sortField: sortField
     };
 
     //默认为前端自动排序。如果否，则需自主排序（通常为服务端处理好排序）
@@ -1114,6 +1128,7 @@ layui.define(['laytpl', 'laypage', 'layer', 'form', 'util'], function(exports){
       layui.event.call(th, MOD_NAME, 'sort('+ filter +')', {
         field: field
         ,type: type
+        ,sortField: sortField
       });
     }
   };

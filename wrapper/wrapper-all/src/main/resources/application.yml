@@ -94,8 +94,20 @@ foxnic:
     # 按顺序读取 profile 下的配置值，默认使用 default Profile 的配置值，如果位于靠前的 profile 已经有配置，则不再往后读取，即前面 profile 的覆盖后面的 profile
     profiles: profile@GuoYIE
   # 设置 Join 的二级缓存
+  api:
+    # 是否开启 API 日志输出
+    log-enable: true
   job:
+    # 不运行任何 Job 任务( Job 调度还是会启动 )，仅对本节点有效
+    enable: false
+    # 强制开启的JOB，通常在 enable = false 情况下，调试某些 job，仅对本节点有效
+    force-run-job-ids:
+    # 指定 Quartz 使用的DAO数据源
     dao-bean-name: primaryDAO
+    # 容许的最大作业延长时间，超出则认为 misfire 发生，单位毫秒
+    misfire-threshold: 1000
+    # 日志保留天数
+    log-keep-days: 7
   cache:
     # 默认配置
     default:
@@ -167,7 +179,7 @@ security:
   # 模式：session / jwt
   mode: both
   # 配置无需鉴权可以访问的地址
-  ignored-urls: /assets/** , /pages/** , /*.ico , /module/** ,  /**/*.css , /**/*.js , /error , /demo/** ,/druid/**
+  ignored-urls: /assets/** , /pages/** , /*.ico , /module/** ,  /**/*.css , /**/*.js , /error , /demo/** ,/druid/** ,/service-system/unit-test/**
   # mode=session 时配置的登录页面
   login-page: /login.html
   jwt:

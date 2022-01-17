@@ -1,27 +1,28 @@
 package org.github.foxnic.web.job.service;
 
 
-import com.github.foxnic.sql.expr.ConditionExpr;
-import com.github.foxnic.dao.entity.ISuperService;
-import org.github.foxnic.web.domain.job.Job;
-import org.github.foxnic.web.domain.job.JobVO;
-import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
-import java.io.InputStream;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.ISuperService;
+import com.github.foxnic.dao.excel.ExcelStructure;
+import com.github.foxnic.dao.excel.ExcelWriter;
+import com.github.foxnic.dao.excel.ValidateResult;
+import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.expr.OrderBy;
 import com.github.foxnic.sql.meta.DBField;
-import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.dao.excel.ExcelStructure;
-import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.dao.data.SaveMode;
+import org.github.foxnic.web.domain.job.Job;
+
+import java.io.InputStream;
+import java.util.List;
 
 /**
  * <p>
  * 定时任务配置表 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-31 11:54:53
+ * @since 2022-01-07 11:34:00
+ * @version
 */
 
 public interface IJobService extends ISuperService<Job> {
@@ -50,7 +51,7 @@ public interface IJobService extends ISuperService<Job> {
 	Result insertList(List<Job> jobList);
 
 
-		
+
 	/**
 	 * 按主键删除 定时任务配置
 	 *
@@ -58,7 +59,7 @@ public interface IJobService extends ISuperService<Job> {
 	 * @return 删除是否成功
 	 */
 	Result deleteByIdPhysical(String id);
-	
+
 	/**
 	 * 按主键删除 定时任务配置
 	 *
@@ -81,7 +82,7 @@ public interface IJobService extends ISuperService<Job> {
 	 * */
 	<T> Result deleteByIdsLogical(List<T> ids);
 
-		
+
 	/**
 	 * 按主键更新字段 定时任务配置
 	 *
@@ -151,7 +152,7 @@ public interface IJobService extends ISuperService<Job> {
 	 * */
 	boolean checkExists(Job job,DBField... field);
 
-		
+
 	/**
 	 * 按主键获取 定时任务配置
 	 *
@@ -314,4 +315,10 @@ public interface IJobService extends ISuperService<Job> {
 	List<ValidateResult> importExcel(InputStream input,int sheetIndex,boolean batch);
 
 
+    Result invoke(String id);
+
+    /**
+	 * 校验并模拟Job的执行时间
+	 * */
+    Result simulate(String cronExpr);
 }

@@ -15,7 +15,8 @@ public class FoxnicWebRelationManager extends RelationManager {
 				new CodeExampleRelationManager(),
 				new PcmRelationManager(),
 				new BpmRelationManager(),
-				new DataPermRelationManager()
+				new DataPermRelationManager(),
+				new JobRelationManager()
 		);
 	}
 

@@ -1,27 +1,30 @@
 package org.github.foxnic.web.job.service;
 
 
-import com.github.foxnic.sql.expr.ConditionExpr;
-import com.github.foxnic.dao.entity.ISuperService;
-import org.github.foxnic.web.domain.job.JobLog;
-import org.github.foxnic.web.domain.job.JobLogVO;
-import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
-import java.io.InputStream;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.ISuperService;
+import com.github.foxnic.dao.excel.ExcelStructure;
+import com.github.foxnic.dao.excel.ExcelWriter;
+import com.github.foxnic.dao.excel.ValidateResult;
+import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.expr.OrderBy;
 import com.github.foxnic.sql.meta.DBField;
-import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.dao.excel.ExcelStructure;
-import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.dao.data.SaveMode;
+import org.github.foxnic.web.constants.enums.job.LogType;
+import org.github.foxnic.web.domain.job.Job;
+import org.github.foxnic.web.domain.job.JobLog;
+
+import java.io.InputStream;
+import java.util.List;
 
 /**
  * <p>
  * 定时任务执行日志表 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-31 11:55:20
+ * @since 2022-01-05 16:46:32
+ * @version
 */
 
 public interface IJobLogService extends ISuperService<JobLog> {
@@ -50,7 +53,7 @@ public interface IJobLogService extends ISuperService<JobLog> {
 	Result insertList(List<JobLog> jobLogList);
 
 
-		
+
 	/**
 	 * 按主键删除 定时任务执行日志
 	 *
@@ -73,7 +76,7 @@ public interface IJobLogService extends ISuperService<JobLog> {
 	 * */
 	<T> Result deleteByIdsLogical(List<T> ids);
 
-		
+
 	/**
 	 * 按主键更新字段 定时任务执行日志
 	 *
@@ -143,7 +146,7 @@ public interface IJobLogService extends ISuperService<JobLog> {
 	 * */
 	boolean checkExists(JobLog jobLog,DBField... field);
 
-		
+
 	/**
 	 * 按主键获取 定时任务执行日志
 	 *
@@ -306,4 +309,9 @@ public interface IJobLogService extends ISuperService<JobLog> {
 	List<ValidateResult> importExcel(InputStream input,int sheetIndex,boolean batch);
 
 
+    JobLog startLog(Job job);
+
+	JobLog startLog(Job job, String tid, LogType logType);
+
+	void updateLog(JobLog log);
 }

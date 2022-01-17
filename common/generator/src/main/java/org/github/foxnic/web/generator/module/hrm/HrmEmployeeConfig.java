@@ -8,6 +8,7 @@ import com.github.foxnic.generator.builder.view.option.ListOptions;
 import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
+import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.HRM_EMPLOYEE;
 import org.github.foxnic.web.constants.enums.DictEnum;
 import org.github.foxnic.web.constants.enums.dict.EmployeeStatus;
@@ -42,6 +43,7 @@ public class HrmEmployeeConfig extends BaseCodeConfig<HRM_EMPLOYEE> {
         poType.addListProperty( BusiRole.class, "busiRoles","业务角色清单", "作为员工时，所属的业务角色");
         poType.addSimpleProperty(String.class, "primaryPositionId","主岗ID","只有一个");
         poType.addListProperty(String.class, "vicePositionIds","兼岗ID","多个用逗号隔开");
+        poType.addListProperty( Position.class, "vicePositions","兼岗", "作为员工时，所属的兼岗");
         //
         voType.addSimpleProperty(String.class, "orgId","所属组织ID","");
         voType.addSimpleProperty(String.class, "positionId","岗位ID","");
@@ -56,6 +58,7 @@ public class HrmEmployeeConfig extends BaseCodeConfig<HRM_EMPLOYEE> {
     }
 
     private String personNameField="name";
+    private String personSexField="sex";
     private String companyNameField="companyName";
 
     @Override
@@ -80,19 +83,30 @@ public class HrmEmployeeConfig extends BaseCodeConfig<HRM_EMPLOYEE> {
         view.field(HRM_EMPLOYEE.PHONE).form().validate().required().phone();
 
         view.field(personNameField).basic().label("姓名")
-                .table().fillBy(EmployeeMeta.PERSON, PersonMeta.NAME)
+                .table().fillBy(EmployeeMeta.PERSON, PersonMeta.NAME).sort(true)
                 .form().validate().required()
                 .form().fillBy(EmployeeMeta.PERSON, PersonMeta.NAME)
             .search().fuzzySearch();
 
+
+        view.field(personSexField).basic().label("姓别")
+                .search().selectMuliti(false).triggerOnSelect(true)
+                .table().fillBy(EmployeeMeta.PERSON, PersonMeta.SEX).sort(true).alignCenter()
+                .form().validate().required()
+                .form().radioBox().dict(DictEnum.SEX)
+                .form().fillBy(EmployeeMeta.PERSON, PersonMeta.SEX)
+                .search().on(FoxnicWeb.HRM_PERSON.SEX);
+
         view.field(PersonMeta.IDENTITY).basic().label("身份证")
                 .search().hidden()
+                .table().sort(true)
                 .table().fillBy(EmployeeMeta.PERSON, PersonMeta.IDENTITY)
                 .form().fillBy(EmployeeMeta.PERSON, PersonMeta.IDENTITY)
                 //.form().validate().required().identity()
         ;
 
         view.field(HRM_EMPLOYEE.STATUS)
+                .search().selectMuliti(false).triggerOnSelect(true)
                 .form().radioBox().dict(DictEnum.EMPLOYEE_STATUS).defaultValue(EmployeeStatus.ACTIVE)
                 .form().validate().required()
         ;
@@ -100,6 +114,7 @@ public class HrmEmployeeConfig extends BaseCodeConfig<HRM_EMPLOYEE> {
         view.field(EmployeeVOMeta.PRIMARY_POSITION_ID).basic().label("主岗")
         .form().validate().required()
         .form().button().choosePosition(true)
+                .table().sort(false)
         .table().fillBy(EmployeeMeta.PRIMARY_POSITION, PositionMeta.FULL_NAME)
         .search().hidden();
 
@@ -109,6 +124,8 @@ public class HrmEmployeeConfig extends BaseCodeConfig<HRM_EMPLOYEE> {
 
         view.field(EmployeeVOMeta.VICE_POSITION_IDS).basic().label("兼岗")
             .form().button().choosePosition(false)
+                .table().sort(false)
+                .table().fillBy(EmployeeMeta.VICE_POSITIONS, PositionMeta.FULL_NAME)
             .search().hidden();
 
     }
@@ -118,6 +135,7 @@ public class HrmEmployeeConfig extends BaseCodeConfig<HRM_EMPLOYEE> {
         form.labelWidth(80);
         form.columnLayout(new Object[] {
                 PersonMeta.NAME,
+                personSexField,
                 HRM_EMPLOYEE.BADGE,
                 HRM_EMPLOYEE.STATUS,
                 HRM_EMPLOYEE.PHONE,
@@ -129,7 +147,7 @@ public class HrmEmployeeConfig extends BaseCodeConfig<HRM_EMPLOYEE> {
 
     @Override
     public void configList(ViewOptions view, ListOptions list) {
-        list.columnLayout(HRM_EMPLOYEE.COMPANY_ID,HRM_EMPLOYEE.BADGE,personNameField,HRM_EMPLOYEE.PHONE,EmployeeVOMeta.PRIMARY_ORGANIZATION,EmployeeVOMeta.PRIMARY_POSITION_ID,HRM_EMPLOYEE.CREATE_TIME);
+        list.columnLayout(HRM_EMPLOYEE.COMPANY_ID,HRM_EMPLOYEE.BADGE,personNameField,personSexField,HRM_EMPLOYEE.PHONE,EmployeeVOMeta.PRIMARY_ORGANIZATION,EmployeeVOMeta.PRIMARY_POSITION_ID,HRM_EMPLOYEE.CREATE_TIME);
     }
 
     @Override

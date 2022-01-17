@@ -12,7 +12,7 @@ import com.github.foxnic.commons.bean.BeanUtil;
 /**
  * 定时任务执行日志
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-31 11:55:20
+ * @since 2022-01-07 13:39:32
  * @sign 02392FB833ECD2AD369321F6F79A047A
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */

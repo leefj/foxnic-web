@@ -2,7 +2,7 @@
 /**
  * 员工 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-06 14:55:38
+ * @since 2022-01-17 13:38:24
  */
  -->
  <!DOCTYPE html>
@@ -44,10 +44,11 @@
 
 
 
-        <div class="layui-row form-row">
+        <div class="layui-row form-row" id="random-6093-content">
 
-             <!--开始：group 循环-->
-            <div class="layui-col-xs12 form-column">
+             <!--开始：column 循环-->
+            <!-- 只有当非第一个分组没有title时才使 padding-top 为 0 -->
+            <div class="layui-col-xs12 form-column" >
 
                     <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('姓名')}">姓名</div><div class="layui-required">*</div></div>
@@ -56,6 +57,15 @@
                         </div>
                     </div>
 
+                
+                <div class="layui-form-item" >
+                    <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('姓别')}">姓别</div><div class="layui-required">*</div></div>
+                    <div class="layui-input-block layui-input-block-c1">
+                        <input input-type="radio" type="radio" name="sex" lay-filter="sex" th:each="e,stat:${dict.toArray('sex')}" th:value="${e.code}" th:title="${e.text}"  th:checked="${(e.code=='' || stat.index==-1)?'yes':'no'}">
+                    </div>
+                </div>
+
+
                                     <div class="layui-form-item" >
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('工号')}">工号</div></div>
                         <div class="layui-input-block layui-input-block-c1">
@@ -63,7 +73,7 @@
                         </div>
                     </div>
 
-
+                
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('状态')}">状态</div><div class="layui-required">*</div></div>
                     <div class="layui-input-block layui-input-block-c1">
@@ -128,7 +138,8 @@
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];
     var RADIO_STATUS_DATA = [[${dict.toArray('employee_status')}]];
-    var VALIDATE_CONFIG={"phone":{"phone":true,"labelInForm":"手机号","inputType":"text_input","required":true},"name":{"labelInForm":"姓名","inputType":"text_input","required":true},"primaryPositionId":{"labelInForm":"主岗","inputType":"button","required":true},"status":{"labelInForm":"状态","inputType":"radio_box","required":true}};
+    var RADIO_SEX_DATA = [[${dict.toArray('sex')}]];
+    var VALIDATE_CONFIG={"phone":{"phone":true,"labelInForm":"手机号","inputType":"text_input","required":true},"sex":{"labelInForm":"姓别","inputType":"radio_box","required":true},"name":{"labelInForm":"姓名","inputType":"text_input","required":true},"primaryPositionId":{"labelInForm":"主岗","inputType":"button","required":true},"status":{"labelInForm":"状态","inputType":"radio_box","required":true}};
     var AUTH_PREFIX="hrm_employee";
 
 

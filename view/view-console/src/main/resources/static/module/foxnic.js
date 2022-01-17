@@ -216,9 +216,9 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 }
                 return null;
             }
-            inst.setUrl =function (url) {
+            inst.setUrl =function (url,cb) {
                 el.attr("data",url);
-                inst.refresh();
+                inst.refresh(null,cb);
             }
             inst.refresh=function (param,cb) {
                 if(param) {
@@ -1561,6 +1561,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
         },
         fillEmployeeDialogButtons:function () {
             var orgEls=$("button[action-type='emp-dialog']");
+            if(orgEls.length==0) return;
             orgEls.find("i").css("opacity",0.0);
             orgEls.find("span").css("opacity",0.0);
             // debugger;
@@ -1614,6 +1615,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
         },
         fillOrgOrPosDialogButtons:function (type) {
             var orgEls=$("button[action-type='"+type+"-dialog']");
+            if(orgEls.length==0) return;
             orgEls.find("i").css("opacity",0.0);
             orgEls.find("span").css("opacity",0.0);
             //debugger;
@@ -1905,11 +1907,18 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
         var ws = {};
         for (var i = 0; i < ths.length; i++) {
             var th = $(ths[i]);
-            if (cols[i] && cols[i].field && !cols[i].hide) {
-                ws[cols[i].field] = {width:th[0].clientWidth,hide:false};
+            var cls=th.parent().attr("class");
+
+            var hide=cls.indexOf("layui-hide")!=-1;
+            //debugger;
+            if (cols[i] && cols[i].field) {
+                var w=th[0].clientWidth;
+                if(hide) w=20;
+                ws[cols[i].field] = {width:w,hide:hide};
                 cols[i].width = th[0].clientWidth;
             }
         }
+
         var loc = location.href;
         loc = loc.substr(loc.indexOf("//") + 2);
         loc = loc.substr(loc.indexOf("/"));
