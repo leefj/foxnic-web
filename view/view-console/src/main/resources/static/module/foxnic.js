@@ -2048,7 +2048,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             id: "table-custom-dialog",
             content: '/business/system/layui/table_custom_dialog.html',
             finish: function () {
-                alert("finish");
+                //alert("finish");
             }
         });
 
