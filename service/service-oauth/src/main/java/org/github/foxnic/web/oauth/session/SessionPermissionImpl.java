@@ -2,6 +2,7 @@ package org.github.foxnic.web.oauth.session;
 
 import com.github.foxnic.commons.lang.StringUtil;
 import org.github.foxnic.web.constants.enums.system.AccessType;
+import org.github.foxnic.web.domain.hrm.Employee;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.Resourze;
 import org.github.foxnic.web.domain.oauth.Role;
@@ -86,11 +87,14 @@ public class SessionPermissionImpl implements SessionPermission {
 		}
 
 		//业务角色
-		List<BusiRole> bRoles=sessionUser.getUser().getActivatedTenant().getEmployee().getBusiRoles();
-		for (int i = 0; i < bRoles.size(); i++) {
-			BusiRole r=bRoles.get(i);
-			busiRoleIds.add(r.getId());
-			busiRoleCodes.add(r.getCode());
+		Employee employee=sessionUser.getUser().getActivatedTenant().getEmployee();
+		if(employee!=null) {
+			List<BusiRole> bRoles = employee.getBusiRoles();
+			for (int i = 0; i < bRoles.size(); i++) {
+				BusiRole r = bRoles.get(i);
+				busiRoleIds.add(r.getId());
+				busiRoleCodes.add(r.getCode());
+			}
 		}
 
 	}

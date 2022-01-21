@@ -63,11 +63,11 @@ $.extend({
         'bottom-center': {fadeIn: 'top', fadeOut: 'bottom'},
         'left-bottom': {fadeIn: 'left', fadeOut: 'left'}
       }, id = 'toastr-' + new Date().getTime();
-      
- 	 //设置宽度
-      var style="";
+
+ 	  //设置宽度
+      var style="zIndex:214748360";
       if(options.width) {
-      	style="width:"+options.width;
+      	style+= "width:"+options.width;
       }
       if(style!="") {
       	style=" style=\""+style+"\" ";

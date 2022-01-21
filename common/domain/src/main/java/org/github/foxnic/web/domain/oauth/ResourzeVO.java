@@ -12,8 +12,8 @@ import com.github.foxnic.commons.bean.BeanUtil;
 /**
  * 系统资源
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-14 11:27:37
- * @sign C24FAE585E03B8F6CAA9FCFE32F59CD5
+ * @since 2022-01-20 14:50:55
+ * @sign C2A151465BF6F5FD70354A6F3F9B69D9
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -50,6 +50,12 @@ public class ResourzeVO extends Resourze {
 	*/
 	@ApiModelProperty(required = false,value="搜索的值" , notes = "")
 	private String searchValue;
+	
+	/**
+	 * 已修改字段
+	*/
+	@ApiModelProperty(required = false,value="已修改字段" , notes = "")
+	private List<String> dirtyFields;
 	
 	/**
 	 * 排序字段
@@ -156,6 +162,35 @@ public class ResourzeVO extends Resourze {
 	*/
 	public ResourzeVO setSearchValue(String searchValue) {
 		this.searchValue=searchValue;
+		return this;
+	}
+	
+	/**
+	 * 获得 已修改字段<br>
+	 * @return 已修改字段
+	*/
+	public List<String> getDirtyFields() {
+		return dirtyFields;
+	}
+	
+	/**
+	 * 设置 已修改字段
+	 * @param dirtyFields 已修改字段
+	 * @return 当前对象
+	*/
+	public ResourzeVO setDirtyFields(List<String> dirtyFields) {
+		this.dirtyFields=dirtyFields;
+		return this;
+	}
+	
+	/**
+	 * 添加 已修改字段
+	 * @param dirtyField 已修改字段
+	 * @return 当前对象
+	*/
+	public ResourzeVO addDirtyField(String dirtyField) {
+		if(this.dirtyFields==null) dirtyFields=new ArrayList<>();
+		this.dirtyFields.add(dirtyField);
 		return this;
 	}
 	

@@ -34,8 +34,8 @@ public class PcmCatalogAllocationConfig extends BaseCodeConfig<PCM_CATALOG_ALLOC
     @Override
     public void configFields(ViewOptions view) {
 //        view.field(SYS_CODE_EXAMPLE_STUDENT.ID).basic().hidden();
-//        view.field(SYS_CODE_EXAMPLE_STUDENT.EXAMPLE_ID)
-//                .basic().hidden();
+//        view.field(PCM_CATALOG_ALLOCATION.CATALOG_ID)
+//                .basic().hidden().form().fillBy("","").table().fillBy("","");
     }
 
     @Override

@@ -1987,6 +1987,30 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
         }, "POST", true);
     }
 
+    // 打开表格自定义窗口
+    window.openTableCustomDialog = function (li,options,it) {
+        // it.resize();
+        li=$(li);
+        li.parent().hide();
+        // it.reload(options.id,options);
+        // console.log(JSON.stringify(options.cols[0]));
+        admin.putVar("custom-table-options",options);
+        admin.popupCenter({
+            title: "自定义表格",
+            resize: false,
+            //offset: [auto,null],
+            area: [(838+18)+"px","600px"],
+            type: 2,
+            id: "table-custom-dialog",
+            content: '/business/system/layui/table_custom_dialog.html',
+            finish: function () {
+                alert("finish");
+            }
+        });
+
+    }
+
+
     //图片预览支持
     window.previewImage = function (obj) {
         if (window != top) {

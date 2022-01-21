@@ -1,4 +1,29 @@
-## 版本：07.0.RELEASE ( 2022-01-04 )  Foxnic Version: 1.4.6.RELEASE
+## 版本：0.8.0.RELEASE ( 2022-01-20 )  Foxnic Version: 1.4.8.RELEASE
+### 新特性
+1. 优化打包，缩减打包的尺寸
+2. 调整 storage 配置项的位置
+
+
+### Bug 修复
+1. 登录时，未关联员工异常修复
+2. toast 组件图层问题
+3. 调整代码生成时 fillWith 的处理方式，使用 return 替代异常，实现表单填充
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 版本：0.7.0.RELEASE ( 2022-01-04 )  Foxnic Version: 1.4.6.RELEASE
 ### 新特性
 1. 增加任务调度模块支持
 2. 代码生成自动识别某些无法排序的字段

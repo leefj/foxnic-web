@@ -47,7 +47,7 @@ public class FileServiceImpl extends SuperService<File> implements IFileService 
 
 	@Resource(name=DBConfigs.PRIMARY_DAO)
 	private DAO dao=null;
-	@Value("${storage.mode}")
+	@Value("${foxnic.storage.mode}")
 	private String storageMode;
 
  	private StorageSupport storageSupport;
