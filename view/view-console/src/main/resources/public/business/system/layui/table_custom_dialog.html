@@ -59,7 +59,7 @@
 <script type="text/javascript" src="/assets/libs/pandyle.min.js" th:src="'/assets/libs/pandyle.min.js?'+${cacheKey}"></script>
 <script type="text/javascript" src="/assets/libs/layui/layui.js" th:src="'/assets/libs/layui/layui.js?'+${cacheKey}"></script>
 <script type="text/javascript" src="/assets/libs/toast/js/toast.js" th:src="'/assets/libs/toast/js/toast.js?'+${cacheKey}"></script>
-
+<script type="text/javascript" src="/assets/libs/Sortable.min.js"></script>
 <!-- 表格工具栏 -->
 <script type="text/html" id="toolbarTemplate">
 
@@ -80,7 +80,7 @@
 </script>
 
 <script type="text/html" id="cell-tpl-hide">
-    <input type="checkbox" class="switch-hide list-checkbox" lay-filter="cell-tpl-hide" value="{{d.field}}" lay-skin="switch" lay-text="显示|隐藏&nbsp;"  {{d.hide==0?'checked':''}} data-id="{{d.field}}"/>
+    <input type="checkbox" class="switch-hide list-checkbox" lay-filter="cell-tpl-hide" value="{{d.field}}" lay-skin="switch" lay-text="是|否&nbsp;"  {{d.hide==0?'checked':''}} data-id="{{d.field}}"/>
 </script>
 
 

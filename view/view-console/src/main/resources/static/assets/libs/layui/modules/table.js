@@ -1391,7 +1391,7 @@ layui.define(['laytpl', 'laypage', 'layer', 'form', 'util'], function(exports){
                 });
                 //李方捷 加入的代码
                 var ths = $("div[lay-id="+options.elem[0].id+"] th .layui-table-cell");
-                window.saveTableSettings && window.saveTableSettings(options.elem[0].id,ths,options.cols[0]);
+                window.saveTableSettings4UI && window.saveTableSettings4UI(options.elem[0].id,ths,options.cols[0]);
               });
 
 
