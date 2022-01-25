@@ -6,6 +6,8 @@ import com.github.foxnic.commons.busi.id.IDGenerator;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.dao.spec.DBSequence;
+import org.github.foxnic.web.domain.oauth.User;
+import org.github.foxnic.web.domain.oauth.meta.UserMeta;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,8 +38,15 @@ public class UnitTestController {
             dao.execute("insert into sys_sequence_test (sequence_id,sequence_value,exception,create_time) values(?,?,?,?)",sequenceId,val, StringUtil.toString(e),new Date());
             return ErrorDesc.exception(e);
         }
+    }
 
-
+    @PostMapping("/service-system/unit-test/join-user-menu")
+    public Result joinUserMenu() {
+        //User user=UserServiceProxy.api().getById("110588348101165911").data();
+        User user=dao.queryEntity(User.create().setId("110588348101165911"));
+        dao.fill(user).with(UserMeta.MENUS)
+                .execute();
+        return ErrorDesc.success().data(user);
     }
 
 }
