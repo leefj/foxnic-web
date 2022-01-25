@@ -48,6 +48,20 @@ public class FoxnicDataCacheManager extends DataCacheManager {
 
     }
 
+    private   com.github.foxnic.commons.cache.DoubleCache<String, Object> metaCache;
+
+    @Override
+    public com.github.foxnic.commons.cache.DoubleCache<String, Object> getMetaCache() {
+        //
+        if(metaCache!=null) return metaCache;
+        //
+        String cacheName="foxnic:meta";
+        RemoteCache<Object> remote = new RemoteCache<Object>(cacheName, -1);
+        LocalCache<String,Object> local = new LocalCache<>(-1, ExpireType.LIVE);
+        metaCache=new DoubleCache<Object>(cacheName, local, remote);
+        return metaCache;
+    }
+
     @Override
     public com.github.foxnic.commons.cache.DoubleCache<String, Object> getEntityCache( Class type) {
         if(this.getCacheProperties()==null) return null;

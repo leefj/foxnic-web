@@ -132,17 +132,17 @@ foxnic:
     default:
       # local,remote,both,none
       mode: remote
-      # 是否为 join 使用缓存
-      cache-for-join: false
       # 本地缓存配置 : 最大元素个数
       local-limit: 10240
-      # 本地缓存配置 : 本地缓存超时时长；-1 表示用不过期
+      # 本地缓存配置 : 本地缓存超时时长；-1 表示永不过期
       local-expire: 1200000
-      # 远程缓存配置 :  超时 20 分钟，单位毫秒; -1 表示用不过期
+      # 远程缓存配置 :  超时 20 分钟，单位毫秒; -1 表示永不过期
       remote-expire: 1200000
     # 按实体类型配置缓存细节
     details:
       "org.github.foxnic.web.domain.system.Config":
+        # 是否用于缓存失效检测
+        detection: true
         strategy:
           by-code:
             is-accurate: true

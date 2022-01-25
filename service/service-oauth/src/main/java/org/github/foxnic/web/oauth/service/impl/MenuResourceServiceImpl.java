@@ -10,13 +10,12 @@ import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.dao.excel.ExcelStructure;
 import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.dao.excel.ValidateResult;
+import com.github.foxnic.dao.relation.cache2.CacheInvalidEventType;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
-import com.github.foxnic.sql.parameter.BatchParamBuilder;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.MenuResource;
-import org.github.foxnic.web.domain.oauth.Resourze;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.oauth.service.IMenuResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -237,21 +236,23 @@ public class MenuResourceServiceImpl extends SuperService<MenuResource> implemen
 	@Override
 	public void saveResourceIds(Menu menu) {
 		if(menu.getResourceIds()!=null) {
-			List<Resourze> list=null;
-			MenuResource menuResource=this.queryEntity(new ConditionExpr("menu_id=?",menu.getId()));
-			if(resourzeService.isSupportCache()) {
-				list=resourzeService.queryList(new ConditionExpr("EXISTS (select 1 from "+this.table()+" a where menu_id=? and t.id=a.resource_id)",menu.getId()));
+			List<MenuResource> valuesBefore=null;
+			if(this.isSupportCache()) {
+				valuesBefore=dao().queryEntities(MenuResource.class,"select * from "+table()+" where menu_id=?",menu.getId());
 			}
 			dao().execute("delete from "+table()+" where menu_id=?",menu.getId());
-			BatchParamBuilder bp=new BatchParamBuilder();
+			List<MenuResource> valuesAfter=new ArrayList<>();
 			for (String resourceId : menu.getResourceIds()) {
 				MenuResource mr=new MenuResource();
 				mr.setMenuId(menu.getId()).setResourceId(resourceId);
 				this.insert(mr);
+				valuesAfter.add(mr);
 			}
-			if(list!=null){
-				resourzeService.invalidateAccurateCache(menuResource,list);
+
+ 			if(this.isSupportCache()) {
+				this.dispatchJoinCacheInvalidEvent(CacheInvalidEventType.UPDATE, valuesBefore, valuesAfter);
 			}
+
 		}
 	}
 

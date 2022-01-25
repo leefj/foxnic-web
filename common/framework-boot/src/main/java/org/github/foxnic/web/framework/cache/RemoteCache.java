@@ -123,7 +123,15 @@ public class RemoteCache<V> extends Cache<String, V> {
 
 	@Override
 	public V remove(String key) {
-		Object value=this.get(key);
+		return remove(key,true);
+	}
+
+	@Override
+	public V remove(String key,boolean returnValue) {
+		Object value=null;
+		if(returnValue) {
+			value = this.get(key);
+		}
 		key=getRedisKey(key);
 		this.cache.del(key);
 		return (V)value;
