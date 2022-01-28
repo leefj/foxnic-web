@@ -42,11 +42,13 @@ public class OAuthRelationManager extends RelationManager {
 		this.property(MenuMeta.RESOURCES_PROP)
 			.using(SYS_MENU.ID).join(SYS_MENU_RESOURCE.MENU_ID).condition("version is not null")
 		    .using(SYS_MENU_RESOURCE.RESOURCE_ID).join(SYS_RESOURZE.ID).condition("version is not null")
-			.addOrderBy(SYS_RESOURZE.URL,true,true).after((menu,res,m)->{
-				List<String> resIds= CollectorUtil.collectList(res,Resourze::getId);
-				menu.setResourceIds(resIds);
-				return res;
-		}).fork(128);
+			.addOrderBy(SYS_RESOURZE.URL,true,true)
+					.after((menu,res,m)->{
+					List<String> resIds= CollectorUtil.collectList(res, Resourze::getId);
+					menu.setResourceIds(resIds);
+					return res;
+			})
+			.fork(256).cache(true);
 
 		/**
 		 * 上级菜单
@@ -67,7 +69,8 @@ public class OAuthRelationManager extends RelationManager {
 		// 用户 - 角色
 		this.property(UserMeta.ROLES_PROP)
 				.using(SYS_USER.ID).join(SYS_ROLE_USER.USER_ID)
-				.using(SYS_ROLE_USER.ROLE_ID).join(SYS_ROLE.ID);
+				.using(SYS_ROLE_USER.ROLE_ID).join(SYS_ROLE.ID)
+				.cache(true);
 
 		// 用户 - 菜单
 		this.property(UserMeta.MENUS_PROP)

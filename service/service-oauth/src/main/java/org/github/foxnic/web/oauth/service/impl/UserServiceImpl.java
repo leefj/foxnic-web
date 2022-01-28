@@ -17,10 +17,7 @@ import org.github.foxnic.web.constants.enums.system.Language;
 import org.github.foxnic.web.domain.hrm.Employee;
 import org.github.foxnic.web.domain.hrm.Person;
 import org.github.foxnic.web.domain.hrm.meta.EmployeeMeta;
-import org.github.foxnic.web.domain.oauth.Menu;
-import org.github.foxnic.web.domain.oauth.Role;
-import org.github.foxnic.web.domain.oauth.User;
-import org.github.foxnic.web.domain.oauth.UserVO;
+import org.github.foxnic.web.domain.oauth.*;
 import org.github.foxnic.web.domain.oauth.meta.MenuMeta;
 import org.github.foxnic.web.domain.oauth.meta.UserMeta;
 import org.github.foxnic.web.domain.system.meta.TenantMeta;
@@ -217,6 +214,11 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 		User user=dao.queryEntity(sample);
 		dao.join(user,Role.class);
 		return user;
+	}
+
+	@Override
+	public List<User> getByIds(List<String> ids) {
+		return new ArrayList<>(getByIdsMap(ids).values());
 	}
 
 	/**
