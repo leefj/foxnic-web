@@ -1,8 +1,7 @@
 select * from sys_user
 
 
-SELECT
-DISTINCT t_2.id role_id,t_0.id , t_0.label , t_0.parent_id , t_0.authority , t_0.css ,
+SELECT DISTINCT t_2.id role_id,t_0.id , t_0.label , t_0.parent_id , t_0.authority , t_0.css ,
 t_0.path_resource_id ,t_0.dynamic_handler , t_0.hidden , t_0.params , t_0.type , t_0.url , t_0.sort , t_3.user_id join_f0
 FROM (select * from sys_menu WHERE ( deleted= 0 ) ) t_0
 join (select * from sys_role_menu WHERE ( deleted= 0 ) ) t_1 on t_1.menu_id = t_0.id
