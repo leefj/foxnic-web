@@ -39,14 +39,15 @@ public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
 
     @Override
     public void configModel(PoClassFile poType, VoClassFile voType) {
+
         poType.addListProperty( Role.class, "roles","角色清单", "当前用户的所有角色清单");
         poType.addListProperty( Menu.class, "menus","菜单清单", "当前用户的所有菜单清单");
         poType.addListProperty( RoleMenu.class, "roleMenus","角色菜单关系清单", "当前用户的所有角色菜单关系清单");
-
         poType.addListProperty( UserTenant.class, "joinedTenants","所属租户关系清单", "可用且有效的所属租户关系清单");
         poType.addSimpleProperty( UserTenant.class, "activatedTenant","当前激活的租户", "当前激活的租户");
         poType.addSimpleProperty( String.class, "activatedEmployeeId","当前激活的员工ID", "当前激活的租户对应的员工ID");
         poType.addSimpleProperty( String.class, "activatedEmployeeName","当前激活的员工姓名", "当前激活的租户对应的员工姓名");
+
 
         //增加VO属性
         voType.addListProperty(String.class,"roleIds","角色ID列表","");
