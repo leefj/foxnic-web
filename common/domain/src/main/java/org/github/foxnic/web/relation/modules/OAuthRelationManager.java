@@ -81,7 +81,9 @@ public class OAuthRelationManager extends RelationManager {
 				.using(SYS_ROLE.ID).join(SYS_ROLE_MENU.ROLE_ID)
 				.using(SYS_ROLE_MENU.MENU_ID).join(SYS_MENU.ID)
 				.addOrderBy(SYS_MENU.SORT,true,true)
-				.fork(128).cache(true);
+				.fork(128)
+				// 开启属性缓存
+				.cache(true);
 
 		// 用户 - 角色菜单关系
 		this.property(UserMeta.ROLE_MENUS_PROP)
