@@ -1,7 +1,7 @@
 /**
  * 代码生成示例主 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-10 16:49:07
+ * @since 2022-02-07 09:03:09
  */
 
 
@@ -74,27 +74,27 @@ function ListPage() {
 				cols: [[
 					{ fixed: 'left',type: 'numbers' },
 					{ fixed: 'left',type:'checkbox'}
-					,{ field: 'name', align:"left",fixed:true,  hide:false, sort: true, title: fox.translate('单行文本') , templet: function (d) { return templet('name',d.name,d);}  }
-					,{ field: 'notes', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('多行文本') , templet: function (d) { return templet('notes',d.notes,d);}  }
-					,{ field: 'area', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('整数输入') , templet: function (d) { return templet('area',d.area,d);}  }
-					,{ field: 'weight', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('小数输入') , templet: function (d) { return templet('weight',d.weight,d);}  }
-					,{ field: 'birthday', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('日期') ,templet: function (d) { return templet('birthday',fox.dateFormat(d.birthday,"yyyy-MM-dd"),d); }  }
-					,{ field: 'workTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('工作时间') ,templet: function (d) { return templet('workTime',fox.dateFormat(d.workTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
-					,{ field: 'valid', align:"center",fixed:false,  hide:false, sort: true, title: fox.translate('逻辑值'), templet: '#cell-tpl-valid'}
-					,{ field: 'radioEnum', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('枚举'), templet:function (d){ return templet('radioEnum',fox.getEnumText(RADIO_RADIOENUM_DATA,d.radioEnum),d);}}
-					,{ field: 'radioDict', align:"left", fixed:false, hide:false, sort: true, title: fox.translate('性别'), templet:function (d){ return templet('radioDict',fox.getDictText(RADIO_RADIODICT_DATA,d.radioDict),d);}}
-					,{ field: 'checkEnum', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('复选框(枚举)'), templet:function (d){ return templet('checkEnum',fox.getEnumText(CHECK_CHECKENUM_DATA,d.checkEnum),d);}}
-					,{ field: 'checkDict', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('状态'), templet:function (d){ return templet('checkDict',fox.getDictText(CHECK_CHECKDICT_DATA,d.checkDict),d);}}
-					,{ field: 'selectEnum', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('选择框(枚举)'), templet:function (d){ return templet('selectEnum',fox.getEnumText(SELECT_SELECTENUM_DATA,d.selectEnum),d);}}
-					,{ field: 'selectDict', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('选择框(字典)'), templet:function (d){ return templet('selectDict',fox.getDictText(SELECT_SELECTDICT_DATA,d.selectDict),d);}}
-					,{ field: 'roleIds', align:"",fixed:false,  hide:false, sort: false, title: fox.translate('角色'), templet: function (d) { return templet('roleIds' ,fox.joinLabel(d.roles,"name"),d);}}
-					,{ field: 'resourceId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('选择框(查询)'), templet: function (d) { return templet('resourceId' ,fox.getProperty(d,["resourze","name"]),d);}}
-					,{ field: 'roleCountByAfter', align:"right",fixed:false,  hide:false, sort: false, title: fox.translate('角色数(Java)') , templet: function (d) { return templet('roleCountByAfter',d.roleCountByAfter,d);}  }
-					,{ field: 'roleCountByJoin', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('角色数(SQL)') , templet: function (d) { return templet('roleCountByJoin',d.roleCountByJoin,d);}  }
-					,{ field: 'imageId', align:"left", fixed:false, hide:false, sort: true, title: fox.translate('图片上传'), templet: function (d) { return '<img style="height:100%;" fileType="image/png" onclick="window.previewImage(this)"  src="'+apiurls.storage.image+'?id='+ d.imageId+'" />'; } }
-					,{ field: 'fileIds', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('多文件上传') , templet: function (d) { return templet('fileIds',d.fileIds,d);}  }
-					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('ID') , templet: function (d) { return templet('id',d.id,d);}  }
-					,{ field: 'buttonInput', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('对话框') , templet: function (d) { return templet('buttonInput',d.buttonInput,d);}  }
+					,{ field: 'name', align:"left",fixed:true,  hide:false, sort: true  , title: fox.translate('单行文本') , templet: function (d) { return templet('name',d.name,d);}  }
+					,{ field: 'notes', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('多行文本') , templet: function (d) { return templet('notes',d.notes,d);}  }
+					,{ field: 'area', align:"right",fixed:false,  hide:false, sort: true  , title: fox.translate('整数输入') , templet: function (d) { return templet('area',d.area,d);}  }
+					,{ field: 'weight', align:"right",fixed:false,  hide:false, sort: true  , title: fox.translate('小数输入') , templet: function (d) { return templet('weight',d.weight,d);}  }
+					,{ field: 'birthday', align:"right", fixed:false, hide:false, sort: true   ,title: fox.translate('日期') ,templet: function (d) { return templet('birthday',fox.dateFormat(d.birthday,"yyyy-MM-dd"),d); }  }
+					,{ field: 'workTime', align:"right", fixed:false, hide:false, sort: true   ,title: fox.translate('工作时间') ,templet: function (d) { return templet('workTime',fox.dateFormat(d.workTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
+					,{ field: 'valid', align:"center",fixed:false,  hide:false, sort: true  , title: fox.translate('逻辑值'), templet: '#cell-tpl-valid'}
+					,{ field: 'radioEnum', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('枚举'), templet:function (d){ return templet('radioEnum',fox.getEnumText(RADIO_RADIOENUM_DATA,d.radioEnum),d);}}
+					,{ field: 'radioDict', align:"left", fixed:false, hide:false, sort: true  , title: fox.translate('性别'), templet:function (d){ return templet('radioDict',fox.getDictText(RADIO_RADIODICT_DATA,d.radioDict),d);}}
+					,{ field: 'checkEnum', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('复选框(枚举)'), templet:function (d){ return templet('checkEnum',fox.getEnumText(CHECK_CHECKENUM_DATA,d.checkEnum),d);}}
+					,{ field: 'checkDict', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('状态'), templet:function (d){ return templet('checkDict',fox.getDictText(CHECK_CHECKDICT_DATA,d.checkDict),d);}}
+					,{ field: 'selectEnum', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('选择框(枚举)'), templet:function (d){ return templet('selectEnum',fox.getEnumText(SELECT_SELECTENUM_DATA,d.selectEnum),d);}}
+					,{ field: 'selectDict', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('选择框(字典)'), templet:function (d){ return templet('selectDict',fox.getDictText(SELECT_SELECTDICT_DATA,d.selectDict),d);}}
+					,{ field: 'roleIds', align:"",fixed:false,  hide:false, sort: false  , title: fox.translate('角色'), templet: function (d) { return templet('roleIds' ,fox.joinLabel(d.roles,"name"),d);}}
+					,{ field: 'resourceId', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('选择框(查询)'), templet: function (d) { return templet('resourceId' ,fox.getProperty(d,["resourze","name"]),d);}}
+					,{ field: 'roleCountByAfter', align:"right",fixed:false,  hide:false, sort: false  , title: fox.translate('角色数(Java)') , templet: function (d) { return templet('roleCountByAfter',d.roleCountByAfter,d);}  }
+					,{ field: 'roleCountByJoin', align:"right",fixed:false,  hide:false, sort: true  , title: fox.translate('角色数(SQL)') , templet: function (d) { return templet('roleCountByJoin',d.roleCountByJoin,d);}  }
+					,{ field: 'imageId', align:"left", fixed:false, hide:false, sort: true   , title: fox.translate('图片上传'), templet: function (d) { return '<img style="height:100%;" fileType="image/png" onclick="window.previewImage(this)"  src="'+apiurls.storage.image+'?id='+ d.imageId+'" />'; } }
+					,{ field: 'fileIds', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('多文件上传') , templet: function (d) { return templet('fileIds',d.fileIds,d);}  }
+					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('ID') , templet: function (d) { return templet('id',d.id,d);}  }
+					,{ field: 'buttonInput', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('对话框') , templet: function (d) { return templet('buttonInput',d.buttonInput,d);}  }
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 280 }
 				]],
@@ -109,6 +109,8 @@ function ListPage() {
 							} else {
 								layer.msg(fox.translate('数据导入失败')+"!");
 							}
+							// 是否执行后续逻辑：错误提示
+							return false;
 						}
 					}:false
 				}
@@ -121,7 +123,7 @@ function ListPage() {
 			});
 			//绑定排序事件
 			table.on('sort(data-table)', function(obj){
-			  refreshTableData(obj.field,obj.type);
+			  refreshTableData(obj.sortField,obj.type);
 			});
 			window.pageExt.list.afterTableRender && window.pageExt.list.afterTableRender();
 		}
@@ -132,21 +134,30 @@ function ListPage() {
       * 刷新表格数据
       */
 	function refreshTableData(sortField,sortType,reset) {
+		function getSelectedValue(id,prop) { var xm=xmSelect.get(id,true); return xm==null ? null : xm.getValue(prop);}
 		var value = {};
 		value.name={ inputType:"button",value: $("#name").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" };
 		value.notes={ inputType:"button",value: $("#notes").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" };
 		value.area={ inputType:"number_input", begin: $("#area-begin").val(), end: $("#area-end").val() };
 		value.weight={ inputType:"number_input", value: $("#weight").val() };
-		value.valid={ inputType:"logic_switch",value: xmSelect.get("#valid",true).getValue("value"), label:xmSelect.get("#valid",true).getValue("nameStr") };
-		value.radioEnum={ inputType:"radio_box", value: xmSelect.get("#radioEnum",true).getValue("value"), label:xmSelect.get("#radioEnum",true).getValue("nameStr") };
-		value.radioDict={ inputType:"radio_box", value: xmSelect.get("#radioDict",true).getValue("value"), label:xmSelect.get("#radioDict",true).getValue("nameStr") };
-		value.checkEnum={ inputType:"check_box", value: xmSelect.get("#checkEnum",true).getValue("value") ,fuzzy: true,valuePrefix:"\"",valueSuffix:"\"", label:xmSelect.get("#checkEnum",true).getValue("nameStr") };
-		value.checkDict={ inputType:"check_box", value: xmSelect.get("#checkDict",true).getValue("value") ,fuzzy: true,valuePrefix:"\"",valueSuffix:"\"", label:xmSelect.get("#checkDict",true).getValue("nameStr") };
-		value.selectEnum={ inputType:"select_box", value: xmSelect.get("#selectEnum",true).getValue("value"), label:xmSelect.get("#selectEnum",true).getValue("nameStr") };
-		value.selectDict={ inputType:"select_box", value: xmSelect.get("#selectDict",true).getValue("value") ,fuzzy: true,valuePrefix:"\"",valueSuffix:"\"", label:xmSelect.get("#selectDict",true).getValue("nameStr") };
-		value.resourceId={ inputType:"select_box", value: $("#resourceId").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" ,fillBy:["resourze","name"] ,field:"sys_resourze.url"};
 		value.birthday={ inputType:"date_input", begin: $("#birthday-begin").val(), end: $("#birthday-end").val() ,matchType:"day" };
-		value.roleIds={ inputType:"select_box", value: xmSelect.get("#roleIds",true).getValue("value") ,fillBy:["roles"]  ,field:"sys_code_example_role.role_id", label:xmSelect.get("#roleIds",true).getValue("nameStr") };
+		value.workTime={ inputType:"date_input", value: $("#workTime").val() ,matchType:"auto"};
+		value.valid={ inputType:"logic_switch",value: getSelectedValue("#valid","value"), label:getSelectedValue("#valid","nameStr") };
+		value.radioEnum={ inputType:"radio_box", value: getSelectedValue("#radioEnum","value"), label:getSelectedValue("#radioEnum","nameStr") };
+		value.radioDict={ inputType:"radio_box", value: getSelectedValue("#radioDict","value"), label:getSelectedValue("#radioDict","nameStr") };
+		value.checkEnum={ inputType:"check_box", value: getSelectedValue("#checkEnum","value") ,fuzzy: true,valuePrefix:"\"",valueSuffix:"\"", label:getSelectedValue("#checkEnum","nameStr") };
+		value.checkDict={ inputType:"check_box", value: getSelectedValue("#checkDict","value") ,fuzzy: true,valuePrefix:"\"",valueSuffix:"\"", label:getSelectedValue("#checkDict","nameStr") };
+		value.selectEnum={ inputType:"select_box", value: getSelectedValue("#selectEnum","value"), label:getSelectedValue("#selectEnum","nameStr") };
+		value.selectDict={ inputType:"select_box", value: getSelectedValue("#selectDict","value") ,fuzzy: true,valuePrefix:"\"",valueSuffix:"\"", label:getSelectedValue("#selectDict","nameStr") };
+		value.roleIds={ inputType:"select_box", value: getSelectedValue("#roleIds","value") ,fillBy:["roles"]  ,field:"sys_code_example_role.role_id", label:getSelectedValue("#roleIds","nameStr") };
+		value.resourceId={ inputType:"select_box", value: $("#resourceId").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" ,fillBy:["resourze","name"] ,field:"sys_resourze.url"};
+		value.roleCountByAfter={ inputType:"button",value: $("#roleCountByAfter").val()};
+		value.roleCountByJoin={ inputType:"button",value: $("#roleCountByJoin").val()};
+		value.imageId={ inputType:"button",value: $("#imageId").val()};
+		value.fileIds={ inputType:"button",value: $("#fileIds").val()};
+		value.id={ inputType:"button",value: $("#id").val()};
+		value.buttonInput={ inputType:"button",value: $("#buttonInput").val(),label:$("#buttonInput-button").text() };
+		value.createTime={ inputType:"date_input", value: $("#createTime").val() ,matchType:"auto"};
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;
@@ -198,7 +209,7 @@ function ListPage() {
 		fox.renderSelectBox({
 			el: "valid",
 			size: "small",
-			radio: false,
+			radio: true,
 			on: function(data){
 				setTimeout(function () {
 					window.pageExt.list.onSelectBoxChanged && window.pageExt.list.onSelectBoxChanged("valid",data.arr,data.change,data.isAdd);
@@ -209,7 +220,7 @@ function ListPage() {
 		fox.renderSelectBox({
 			el: "radioEnum",
 			size: "small",
-			radio: false,
+			radio: true,
 			on: function(data){
 				setTimeout(function () {
 					refreshTableData();
@@ -231,7 +242,7 @@ function ListPage() {
 		fox.renderSelectBox({
 			el: "radioDict",
 			size: "small",
-			radio: false,
+			radio: true,
 			on: function(data){
 				setTimeout(function () {
 					refreshTableData();
@@ -253,7 +264,7 @@ function ListPage() {
 		fox.renderSelectBox({
 			el: "checkEnum",
 			size: "small",
-			radio: false,
+			radio: true,
 			on: function(data){
 				setTimeout(function () {
 					refreshTableData();
@@ -275,7 +286,7 @@ function ListPage() {
 		fox.renderSelectBox({
 			el: "checkDict",
 			size: "small",
-			radio: false,
+			radio: true,
 			on: function(data){
 				setTimeout(function () {
 					window.pageExt.list.onSelectBoxChanged && window.pageExt.list.onSelectBoxChanged("checkDict",data.arr,data.change,data.isAdd);
@@ -295,7 +306,7 @@ function ListPage() {
 		//渲染 selectEnum 下拉字段
 		fox.renderSelectBox({
 			el: "selectEnum",
-			radio: false,
+			radio: true,
 			size: "small",
 			filterable: false,
 			on: function(data){
@@ -317,7 +328,7 @@ function ListPage() {
 		//渲染 selectDict 下拉字段
 		fox.renderSelectBox({
 			el: "selectDict",
-			radio: false,
+			radio: true,
 			size: "small",
 			filterable: false,
 			on: function(data){
@@ -339,7 +350,7 @@ function ListPage() {
 		//渲染 resourceId 下拉字段
 		fox.renderSelectBox({
 			el: "resourceId",
-			radio: false,
+			radio: true,
 			size: "small",
 			filterable: true,
 			on: function(data){
@@ -386,7 +397,7 @@ function ListPage() {
 		//渲染 roleIds 下拉字段
 		fox.renderSelectBox({
 			el: "roleIds",
-			radio: false,
+			radio: true,
 			size: "small",
 			filterable: true,
 			on: function(data){
@@ -498,10 +509,7 @@ function ListPage() {
             }
             //调用批量删除接口
 			top.layer.confirm(fox.translate('确定删除已选中的')+fox.translate('代码生成示例主')+fox.translate('吗？'), function (i) {
-				top.layer.close(i);
-				top.layer.load(2);
-                admin.request(moduleURL+"/delete-by-ids", { ids: ids }, function (data) {
-					top.layer.closeAll('loading');
+                admin.post(moduleURL+"/delete-by-ids", { ids: ids }, function (data) {
                     if (data.success) {
 						if(window.pageExt.list.afterBatchDelete) {
 							var doNext=window.pageExt.list.afterBatchDelete(data);
@@ -513,7 +521,6 @@ function ListPage() {
 						top.layer.msg(data.message, {icon: 2, time: 1500});
                     }
                 });
-
 			});
         }
 	}
@@ -534,24 +541,16 @@ function ListPage() {
 
 			admin.putTempData('sys-code-example-form-data-form-action', "",true);
 			if (layEvent === 'edit') { // 修改
-				//延迟显示加载动画，避免界面闪动
-				var task=setTimeout(function(){layer.load(2);},1000);
-				admin.request(moduleURL+"/get-by-id", { id : data.id }, function (data) {
-					clearTimeout(task);
-					layer.closeAll('loading');
+				admin.post(moduleURL+"/get-by-id", { id : data.id }, function (data) {
 					if(data.success) {
 						admin.putTempData('sys-code-example-form-data-form-action', "edit",true);
 						showEditForm(data.data);
 					} else {
-						 layer.msg(data.message, {icon: 1, time: 1500});
+						 top.layer.msg(data.message, {icon: 1, time: 1500});
 					}
 				});
 			} else if (layEvent === 'view') { // 查看
-				//延迟显示加载动画，避免界面闪动
-				var task=setTimeout(function(){layer.load(2);},1000);
-				admin.request(moduleURL+"/get-by-id", { id : data.id }, function (data) {
-					clearTimeout(task);
-					layer.closeAll('loading');
+				admin.post(moduleURL+"/get-by-id", { id : data.id }, function (data) {
 					if(data.success) {
 						admin.putTempData('sys-code-example-form-data-form-action', "view",true);
 						showEditForm(data.data);
@@ -620,7 +619,10 @@ function ListPage() {
 		}
 		var action=admin.getTempData('sys-code-example-form-data-form-action');
 		var queryString="";
-		if(data && data.id) queryString="?" + 'id=' + data.id;
+		if(data && data.id) queryString='id=' + data.id;
+		if(window.pageExt.list.makeFormQueryString) {
+			queryString=window.pageExt.list.makeFormQueryString(data,queryString,action);
+		}
 		admin.putTempData('sys-code-example-form-data', data);
 		var area=admin.getTempData('sys-code-example-form-area');
 		var height= (area && area.height) ? area.height : ($(window).height()*0.6);
@@ -637,7 +639,7 @@ function ListPage() {
 			area: ["90%",height+"px"],
 			type: 2,
 			id:"sys-code-example-form-data-win",
-			content: '/business/system/code_example/code_example_form.html' + queryString,
+			content: '/business/system/code_example/code_example_form.html' + (queryString?("?"+queryString):""),
 			finish: function () {
 				refreshTableData();
 			}

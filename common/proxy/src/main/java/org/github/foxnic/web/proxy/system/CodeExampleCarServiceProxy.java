@@ -19,7 +19,7 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  * 代码生成拥有的车辆  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-22 21:30:46
+ * @since 2022-02-07 09:03:10
 */
 
 @FeignClient(value = MicroServiceNames.SYSTEM, contextId = CodeExampleCarServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)
@@ -139,7 +139,7 @@ public interface CodeExampleCarServiceProxy {
 	Result<CodeExampleCar> getById(String id);
 
 	/**
-	 * 批量删除代码生成拥有的车辆
+	 * 获取多个代码生成拥有的车辆
 	*/
 	@RequestMapping(CodeExampleCarServiceProxy.GET_BY_IDS)
 	Result<List<CodeExampleCar>> getByIds(List<String> ids);

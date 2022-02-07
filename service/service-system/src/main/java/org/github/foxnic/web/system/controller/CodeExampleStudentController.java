@@ -48,7 +48,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 代码生成主表学生 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-22 21:30:45
+ * @since 2022-02-07 09:03:09
 */
 
 @Api(tags = "代码生成主表学生")
@@ -74,7 +74,7 @@ public class CodeExampleStudentController extends SuperController {
 	@SentinelResource(value = CodeExampleStudentServiceProxy.INSERT , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(CodeExampleStudentServiceProxy.INSERT)
 	public Result insert(CodeExampleStudentVO codeExampleStudentVO) {
-		Result result=codeExampleStudentService.insert(codeExampleStudentVO);
+		Result result=codeExampleStudentService.insert(codeExampleStudentVO,false);
 		return result;
 	}
 
@@ -124,12 +124,12 @@ public class CodeExampleStudentController extends SuperController {
 		@ApiImplicitParam(name = CodeExampleStudentVOMeta.NAME , value = "学生姓名" , required = false , dataTypeClass=String.class , example = "110352963290923110"),
 		@ApiImplicitParam(name = CodeExampleStudentVOMeta.AGE , value = "年龄" , required = false , dataTypeClass=String.class),
 	})
-	@ApiOperationSupport( order=4 , ignoreParameters = { CodeExampleStudentVOMeta.PAGE_INDEX , CodeExampleStudentVOMeta.PAGE_SIZE , CodeExampleStudentVOMeta.SEARCH_FIELD , CodeExampleStudentVOMeta.FUZZY_FIELD , CodeExampleStudentVOMeta.SEARCH_VALUE , CodeExampleStudentVOMeta.SORT_FIELD , CodeExampleStudentVOMeta.SORT_TYPE , CodeExampleStudentVOMeta.IDS } )
+	@ApiOperationSupport( order=4 , ignoreParameters = { CodeExampleStudentVOMeta.PAGE_INDEX , CodeExampleStudentVOMeta.PAGE_SIZE , CodeExampleStudentVOMeta.SEARCH_FIELD , CodeExampleStudentVOMeta.FUZZY_FIELD , CodeExampleStudentVOMeta.SEARCH_VALUE , CodeExampleStudentVOMeta.DIRTY_FIELDS , CodeExampleStudentVOMeta.SORT_FIELD , CodeExampleStudentVOMeta.SORT_TYPE , CodeExampleStudentVOMeta.IDS } )
 	@NotNull(name = CodeExampleStudentVOMeta.ID)
 	@SentinelResource(value = CodeExampleStudentServiceProxy.UPDATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(CodeExampleStudentServiceProxy.UPDATE)
 	public Result update(CodeExampleStudentVO codeExampleStudentVO) {
-		Result result=codeExampleStudentService.update(codeExampleStudentVO,SaveMode.NOT_NULL_FIELDS);
+		Result result=codeExampleStudentService.update(codeExampleStudentVO,SaveMode.DIRTY_OR_NOT_NULL_FIELDS,false);
 		return result;
 	}
 
@@ -144,12 +144,12 @@ public class CodeExampleStudentController extends SuperController {
 		@ApiImplicitParam(name = CodeExampleStudentVOMeta.NAME , value = "学生姓名" , required = false , dataTypeClass=String.class , example = "110352963290923110"),
 		@ApiImplicitParam(name = CodeExampleStudentVOMeta.AGE , value = "年龄" , required = false , dataTypeClass=String.class),
 	})
-	@ApiOperationSupport(order=5 ,  ignoreParameters = { CodeExampleStudentVOMeta.PAGE_INDEX , CodeExampleStudentVOMeta.PAGE_SIZE , CodeExampleStudentVOMeta.SEARCH_FIELD , CodeExampleStudentVOMeta.FUZZY_FIELD , CodeExampleStudentVOMeta.SEARCH_VALUE , CodeExampleStudentVOMeta.SORT_FIELD , CodeExampleStudentVOMeta.SORT_TYPE , CodeExampleStudentVOMeta.IDS } )
+	@ApiOperationSupport(order=5 ,  ignoreParameters = { CodeExampleStudentVOMeta.PAGE_INDEX , CodeExampleStudentVOMeta.PAGE_SIZE , CodeExampleStudentVOMeta.SEARCH_FIELD , CodeExampleStudentVOMeta.FUZZY_FIELD , CodeExampleStudentVOMeta.SEARCH_VALUE , CodeExampleStudentVOMeta.DIRTY_FIELDS , CodeExampleStudentVOMeta.SORT_FIELD , CodeExampleStudentVOMeta.SORT_TYPE , CodeExampleStudentVOMeta.IDS } )
 	@NotNull(name = CodeExampleStudentVOMeta.ID)
 	@SentinelResource(value = CodeExampleStudentServiceProxy.SAVE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(CodeExampleStudentServiceProxy.SAVE)
 	public Result save(CodeExampleStudentVO codeExampleStudentVO) {
-		Result result=codeExampleStudentService.save(codeExampleStudentVO,SaveMode.NOT_NULL_FIELDS);
+		Result result=codeExampleStudentService.save(codeExampleStudentVO,SaveMode.DIRTY_OR_NOT_NULL_FIELDS,false);
 		return result;
 	}
 
@@ -168,11 +168,6 @@ public class CodeExampleStudentController extends SuperController {
 	public Result<CodeExampleStudent> getById(String id) {
 		Result<CodeExampleStudent> result=new Result<>();
 		CodeExampleStudent codeExampleStudent=codeExampleStudentService.getById(id);
-
-		// join 关联的对象
-		codeExampleStudentService.dao().fill(codeExampleStudent)
-			.execute();
-
 		result.success(true).data(codeExampleStudent);
 		return result;
 	}
@@ -235,11 +230,6 @@ public class CodeExampleStudentController extends SuperController {
 	public Result<PagedList<CodeExampleStudent>> queryPagedList(CodeExampleStudentVO sample) {
 		Result<PagedList<CodeExampleStudent>> result=new Result<>();
 		PagedList<CodeExampleStudent> list=codeExampleStudentService.queryPagedList(sample,sample.getPageSize(),sample.getPageIndex());
-
-		// join 关联的对象
-		codeExampleStudentService.dao().fill(list)
-			.execute();
-
 		result.success(true).data(list);
 		return result;
 	}
@@ -252,10 +242,14 @@ public class CodeExampleStudentController extends SuperController {
 	@SentinelResource(value = CodeExampleStudentServiceProxy.EXPORT_EXCEL , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@RequestMapping(CodeExampleStudentServiceProxy.EXPORT_EXCEL)
 	public void exportExcel(CodeExampleStudentVO  sample,HttpServletResponse response) throws Exception {
+		try{
 			//生成 Excel 数据
 			ExcelWriter ew=codeExampleStudentService.exportExcel(sample);
 			//下载
-			DownloadUtil.writeToOutput(response, ew.getWorkBook(), ew.getWorkBookName());
+			DownloadUtil.writeToOutput(response,ew.getWorkBook(),ew.getWorkBookName());
+		} catch (Exception e) {
+			DownloadUtil.writeDownloadError(response,e);
+		}
 	}
 
 
@@ -265,11 +259,15 @@ public class CodeExampleStudentController extends SuperController {
 	@SentinelResource(value = CodeExampleStudentServiceProxy.EXPORT_EXCEL_TEMPLATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@RequestMapping(CodeExampleStudentServiceProxy.EXPORT_EXCEL_TEMPLATE)
 	public void exportExcelTemplate(HttpServletResponse response) throws Exception {
+		try{
 			//生成 Excel 模版
 			ExcelWriter ew=codeExampleStudentService.exportExcelTemplate();
 			//下载
 			DownloadUtil.writeToOutput(response, ew.getWorkBook(), ew.getWorkBookName());
+		} catch (Exception e) {
+			DownloadUtil.writeDownloadError(response,e);
 		}
+	}
 
 
 

@@ -398,9 +398,13 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     }
                     //if (prev) prev.width = null;
                 }
-                cols.sort(function (a,b){
-                    return a.orderIndex-b.orderIndex;
-                });
+
+                if(cols) {
+                    cols.sort(function (a, b) {
+                        return a.orderIndex - b.orderIndex;
+                    });
+                }
+
             }
 
             //debugger

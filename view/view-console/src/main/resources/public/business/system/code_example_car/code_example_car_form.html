@@ -2,7 +2,7 @@
 /**
  * 代码生成拥有的车辆 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-22 21:30:46
+ * @since 2022-02-07 09:03:10
  */
  -->
  <!DOCTYPE html>
@@ -24,6 +24,7 @@
     <script th:inline="javascript">var foxnic_cachekey=[[${cacheKey}]];</script>
     <style>
     </style>
+    <link th:each="css:${theme.css}" rel="stylesheet" th:href="${css}+'?'+${cacheKey}">
 </head>
 
 <body style="overflow-y: hidden;">
@@ -36,14 +37,15 @@
          <!--开始：group 循环-->
 
 
-        <fieldset class="layui-elem-field layui-field-title form-group-title">
+        <fieldset class="layui-elem-field layui-field-title form-group-title" id="random-6958-fieldset">
             <legend>基本信息</legend>
         </fieldset>
 
-        <div class="layui-row form-row">
+        <div class="layui-row form-row" id="random-6958-content">
 
-             <!--开始：group 循环-->
-            <div class="layui-col-xs6 form-column">
+             <!--开始：column 循环-->
+            <!-- 只有当非第一个分组没有title时才使 padding-top 为 0 -->
+            <div class="layui-col-xs6 form-column" >
 
                     <div class="layui-form-item" >
                         <div class="layui-form-label "><div th:text="${lang.translate('牌号')}">牌号</div></div>
@@ -54,8 +56,9 @@
 
                 <!--结束：栏次内字段循环-->
             </div>
-             <!--开始：group 循环-->
-            <div class="layui-col-xs6 form-column">
+             <!--开始：column 循环-->
+            <!-- 只有当非第一个分组没有title时才使 padding-top 为 0 -->
+            <div class="layui-col-xs6 form-column" >
 
                     <div class="layui-form-item" >
                         <div class="layui-form-label "><div th:text="${lang.translate('规格')}">规格</div></div>
@@ -71,14 +74,15 @@
          <!--开始：group 循环-->
 
 
-        <fieldset class="layui-elem-field layui-field-title form-group-title">
+        <fieldset class="layui-elem-field layui-field-title form-group-title" id="random-6347-fieldset">
             <legend>选组织节点</legend>
         </fieldset>
 
-        <div class="layui-row form-row">
+        <div class="layui-row form-row" id="random-6347-content">
 
-             <!--开始：group 循环-->
-            <div class="layui-col-xs6 form-column">
+             <!--开始：column 循环-->
+            <!-- 只有当非第一个分组没有title时才使 padding-top 为 0 -->
+            <div class="layui-col-xs6 form-column" >
 
                     <div class="layui-form-item" >
                         <div class="layui-form-label "><div th:text="${lang.translate('组织单选')}">组织单选</div></div>
@@ -106,8 +110,9 @@
 
                 <!--结束：栏次内字段循环-->
             </div>
-             <!--开始：group 循环-->
-            <div class="layui-col-xs6 form-column">
+             <!--开始：column 循环-->
+            <!-- 只有当非第一个分组没有title时才使 padding-top 为 0 -->
+            <div class="layui-col-xs6 form-column" >
 
                     <div class="layui-form-item" >
                         <div class="layui-form-label "><div th:text="${lang.translate('组织多选')}">组织多选</div></div>
@@ -132,14 +137,15 @@
          <!--开始：group 循环-->
 
 
-        <fieldset class="layui-elem-field layui-field-title form-group-title">
+        <fieldset class="layui-elem-field layui-field-title form-group-title" id="random-8136-fieldset">
             <legend>选岗位</legend>
         </fieldset>
 
-        <div class="layui-row form-row">
+        <div class="layui-row form-row" id="random-8136-content">
 
-             <!--开始：group 循环-->
-            <div class="layui-col-xs6 form-column">
+             <!--开始：column 循环-->
+            <!-- 只有当非第一个分组没有title时才使 padding-top 为 0 -->
+            <div class="layui-col-xs6 form-column" >
 
                     <div class="layui-form-item" >
                         <div class="layui-form-label "><div th:text="${lang.translate('岗位单选')}">岗位单选</div></div>
@@ -151,8 +157,9 @@
 
                 <!--结束：栏次内字段循环-->
             </div>
-             <!--开始：group 循环-->
-            <div class="layui-col-xs6 form-column">
+             <!--开始：column 循环-->
+            <!-- 只有当非第一个分组没有title时才使 padding-top 为 0 -->
+            <div class="layui-col-xs6 form-column" >
 
                     <div class="layui-form-item" >
                         <div class="layui-form-label "><div th:text="${lang.translate('岗位多选')}">岗位多选</div></div>
@@ -169,14 +176,15 @@
          <!--开始：group 循环-->
 
 
-        <fieldset class="layui-elem-field layui-field-title form-group-title">
+        <fieldset class="layui-elem-field layui-field-title form-group-title" id="random-6390-fieldset">
             <legend>选员工</legend>
         </fieldset>
 
-        <div class="layui-row form-row">
+        <div class="layui-row form-row" id="random-6390-content">
 
-             <!--开始：group 循环-->
-            <div class="layui-col-xs6 form-column">
+             <!--开始：column 循环-->
+            <!-- 只有当非第一个分组没有title时才使 padding-top 为 0 -->
+            <div class="layui-col-xs6 form-column" >
 
                     <div class="layui-form-item" >
                         <div class="layui-form-label "><div th:text="${lang.translate('员工单选')}">员工单选</div></div>
@@ -188,8 +196,9 @@
 
                 <!--结束：栏次内字段循环-->
             </div>
-             <!--开始：group 循环-->
-            <div class="layui-col-xs6 form-column">
+             <!--开始：column 循环-->
+            <!-- 只有当非第一个分组没有title时才使 padding-top 为 0 -->
+            <div class="layui-col-xs6 form-column" >
 
                     <div class="layui-form-item" >
                         <div class="layui-form-label "><div th:text="${lang.translate('员工多选')}">员工多选</div></div>

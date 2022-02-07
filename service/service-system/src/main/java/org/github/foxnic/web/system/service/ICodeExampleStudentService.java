@@ -21,17 +21,26 @@ import com.github.foxnic.dao.data.SaveMode;
  * 代码生成主表学生 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-22 21:30:45
+ * @since 2022-02-07 09:03:09
 */
 
 public interface ICodeExampleStudentService extends ISuperService<CodeExampleStudent> {
 
 	/**
-	 * 插入实体
-	 * @param codeExampleStudent 实体数据
+	 * 添加，如果语句错误，则抛出异常
+	 * @param codeExampleStudent 数据对象
 	 * @return 插入是否成功
 	 * */
 	Result insert(CodeExampleStudent codeExampleStudent);
+
+	/**
+	 * 添加，根据 throwsException 参数抛出异常或返回 Result 对象
+	 *
+	 * @param codeExampleStudent  数据对象
+	 * @param throwsException 是否抛出异常，如果不抛出异常，则返回一个失败的 Result 对象
+	 * @return 结果 , 如果失败返回 false，成功返回 true
+	 */
+	Result insert(CodeExampleStudent codeExampleStudent,boolean throwsException);
 
 	/**
 	 * 批量插入实体，事务内
@@ -82,12 +91,23 @@ public interface ICodeExampleStudentService extends ISuperService<CodeExampleStu
 	boolean update(DBField field,Object value , String id);
 
 	/**
-	 * 更新实体
+	 * 更新，如果执行错误，则抛出异常
 	 * @param codeExampleStudent 数据对象
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
 	Result update(CodeExampleStudent codeExampleStudent , SaveMode mode);
+
+
+	/**
+	 * 更新，根据 throwsException 参数抛出异常或返回 Result 对象
+	 *
+	 * @param codeExampleStudent 数据对象
+	 * @param mode SaveMode,数据更新的模式
+	 * @param throwsException 是否抛出异常，如果不抛出异常，则返回一个失败的 Result 对象
+	 * @return 结果
+	 */
+	Result update(CodeExampleStudent codeExampleStudent , SaveMode mode,boolean throwsException);
 
 
 	/**
@@ -99,7 +119,16 @@ public interface ICodeExampleStudentService extends ISuperService<CodeExampleStu
 	Result updateList(List<CodeExampleStudent> codeExampleStudentList, SaveMode mode);
 
 	/**
-	 * 保存实体，如果主键值不为 null，则更新，否则插入
+	 * 保存实体，根据 throwsException 参数抛出异常或返回 Result 对象
+	 * @param codeExampleStudent 实体数据
+	 * @param mode 保存模式
+	 * @param throwsException 是否抛出异常，如果不抛出异常，则返回一个失败的 Result 对象
+	 * @return 保存是否成功
+	 * */
+	Result save(CodeExampleStudent codeExampleStudent , SaveMode mode,boolean throwsException);
+
+	/**
+	 * 保存实体，如果语句错误，则抛出异常
 	 * @param codeExampleStudent 实体数据
 	 * @param mode 保存模式
 	 * @return 保存是否成功
@@ -115,7 +144,7 @@ public interface ICodeExampleStudentService extends ISuperService<CodeExampleStu
 	Result saveList(List<CodeExampleStudent> codeExampleStudentList , SaveMode mode);
 
 	/**
-	 * 检查实体中的数据字段是否已经存在
+	 * 检查实体中的数据字段是否已经存在 . 判断 主键值不同，但指定字段的值相同的记录是否存在
 	 * @param codeExampleStudent  实体对象
 	 * @param field  字段清单，至少指定一个
 	 * @return 是否已经存在
@@ -132,19 +161,19 @@ public interface ICodeExampleStudentService extends ISuperService<CodeExampleStu
 	CodeExampleStudent getById(String id);
 
 	/**
-	 * 检查实体中的数据字段是否已经存在
+	 * 按 id 获取多个对象
 	 * @param ids  主键清单
 	 * @return 实体集
 	 * */
 	List<CodeExampleStudent> getByIds(List<String> ids);
 
 	/**
-	 * 检查 角色 是否已经存在
+	 * 检查 实体 是否已经存在 , 判断 主键值不同，但指定字段的值相同的记录是否存在
 	 *
 	 * @param codeExampleStudent 数据对象
 	 * @return 判断结果
 	 */
-	Result<CodeExampleStudent> checkExists(CodeExampleStudent codeExampleStudent);
+	Boolean checkExists(CodeExampleStudent codeExampleStudent);
 
 	/**
 	 * 根据实体数构建默认的条件表达式, 不支持 Join 其它表

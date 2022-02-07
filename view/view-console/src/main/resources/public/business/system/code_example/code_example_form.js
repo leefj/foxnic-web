@@ -1,7 +1,7 @@
 /**
  * 代码生成示例主 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-10 16:49:07
+ * @since 2022-02-07 09:03:09
  */
 
 function FormPage() {
@@ -61,7 +61,7 @@ function FormPage() {
 			var body=$("body");
 			var bodyHeight=body.height();
 			var footerHeight=$(".model-form-footer").height();
-			var area=admin.changePopupArea(null,bodyHeight+footerHeight);
+			var area=admin.changePopupArea(null,bodyHeight+footerHeight,'sys-code-example-form-data-win');
 			if(area==null) return;
 			admin.putTempData('sys-code-example-form-area', area);
 			window.adjustPopup=adjustPopup;
@@ -91,18 +91,24 @@ function FormPage() {
 			accept: "image",
 			acceptMime:'image/*',
 			exts:'png|jpg|bmp|gif|jpeg',
-			afterPreview:function(elId,index,fileId,upload){
+			afterPreview:function(elId,index,fileId,upload,fileName,fileType){
 				adjustPopup();
+				window.pageExt.form.onUploadEvent &&  window.pageExt.form.onUploadEvent({event:"afterPreview",elId:elId,index:index,fileId:fileId,upload:upload,fileName:fileName,fileType:fileType});
 			},
-			afterUpload:function (result,index,upload) {
-				console.log("文件上传后回调")
+			afterUpload:function (elId,result,index,upload) {
+				console.log("文件上传后回调");
+				window.pageExt.form.onUploadEvent &&  window.pageExt.form.onUploadEvent({event:"afterUpload",elId:elId,index:index,upload:upload});
 			},
 			beforeRemove:function (elId,fileId,index,upload) {
 				console.log("文件删除前回调");
+				if(window.pageExt.form.onUploadEvent) {
+					return window.pageExt.form.onUploadEvent({event:"beforeRemove",elId:elId,index:index,fileId:fileId,upload:upload});
+				}
 				return true;
 			},
 			afterRemove:function (elId,fileId,index,upload) {
 				adjustPopup();
+				window.pageExt.form.onUploadEvent &&  window.pageExt.form.onUploadEvent({event:"afterRemove",elId:elId,index:index,upload:upload});
 			}
 	    });
 	    //渲染图片字段
@@ -112,18 +118,24 @@ function FormPage() {
 			displayFileName: true,
 			accept: "file",
 			exts:'doc|zip|xlsx|rar|docx|txt|svg',
-			afterPreview:function(elId,index,fileId,upload){
+			afterPreview:function(elId,index,fileId,upload,fileName,fileType){
 				adjustPopup();
+				window.pageExt.form.onUploadEvent &&  window.pageExt.form.onUploadEvent({event:"afterPreview",elId:elId,index:index,fileId:fileId,upload:upload,fileName:fileName,fileType:fileType});
 			},
-			afterUpload:function (result,index,upload) {
-				console.log("文件上传后回调")
+			afterUpload:function (elId,result,index,upload) {
+				console.log("文件上传后回调");
+				window.pageExt.form.onUploadEvent &&  window.pageExt.form.onUploadEvent({event:"afterUpload",elId:elId,index:index,upload:upload});
 			},
 			beforeRemove:function (elId,fileId,index,upload) {
 				console.log("文件删除前回调");
+				if(window.pageExt.form.onUploadEvent) {
+					return window.pageExt.form.onUploadEvent({event:"beforeRemove",elId:elId,index:index,fileId:fileId,upload:upload});
+				}
 				return true;
 			},
 			afterRemove:function (elId,fileId,index,upload) {
 				adjustPopup();
+				window.pageExt.form.onUploadEvent &&  window.pageExt.form.onUploadEvent({event:"afterRemove",elId:elId,index:index,upload:upload});
 			}
 	    });
 		//渲染 selectEnum 下拉字段
@@ -213,12 +225,18 @@ function FormPage() {
 			elem: '#birthday',
 			format:"yyyy-MM-dd",
 			value:$('#birthday').val()?$('#birthday').val():new Date(),
-			trigger:"click"
+			trigger:"click",
+			done: function(value, date, endDate){
+				window.pageExt.form.onDatePickerChanged && window.pageExt.form.onDatePickerChanged("birthday",value, date, endDate);
+			}
 		});
 		laydate.render({
 			elem: '#workTime',
 			format:"yyyy-MM-dd HH:mm:ss",
-			trigger:"click"
+			trigger:"click",
+			done: function(value, date, endDate){
+				window.pageExt.form.onDatePickerChanged && window.pageExt.form.onDatePickerChanged("workTime",value, date, endDate);
+			}
 		});
 		//渲染 roleIds 下拉字段
 		fox.renderSelectBox({
@@ -397,7 +415,7 @@ function FormPage() {
 					admin.finishPopupCenterById('sys-code-example-form-data-win');
 				}
 			} else {
-				layer.msg(data.message, {icon: 2, time: 1500});
+				top.layer.msg(data.message, {icon: 2, time: 1500});
 			}
 			window.pageExt.form.afterSubmit && window.pageExt.form.afterSubmit(param,data);
 		}, {delayLoading:1000,elms:[$("#submit-button")]});
@@ -429,7 +447,7 @@ function FormPage() {
 		});
 
 	    //关闭窗口
-	    $("#cancel-button").click(function(){admin.closePopupCenter();});
+	    $("#cancel-button").click(function(){ admin.finishPopupCenterById('sys-code-example-form-data-win'); });
 
     }
 
@@ -439,7 +457,10 @@ function FormPage() {
 		saveForm: saveForm,
 		fillFormData: fillFormData,
 		adjustPopup: adjustPopup,
-		action: action
+		action: action,
+		setAction: function (act) {
+			action = act;
+		}
 	};
 
 	window.pageExt.form.ending && window.pageExt.form.ending();

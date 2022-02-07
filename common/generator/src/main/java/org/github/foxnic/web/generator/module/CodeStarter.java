@@ -5,6 +5,10 @@ import com.github.foxnic.generator.util.ModuleCodeGenerator;
 import org.github.foxnic.web.generator.data.DataGenerator;
 import org.github.foxnic.web.generator.module.changes.*;
 import org.github.foxnic.web.generator.module.dataperm.*;
+import org.github.foxnic.web.generator.module.example.CodeExampleCarConfig;
+import org.github.foxnic.web.generator.module.example.CodeExampleConfig;
+import org.github.foxnic.web.generator.module.example.CodeExampleRoleConfig;
+import org.github.foxnic.web.generator.module.example.CodeExampleStudentConfig;
 import org.github.foxnic.web.generator.module.hrm.HrmEmployeeConfig;
 import org.github.foxnic.web.generator.module.hrm.HrmPositionConfig;
 import org.github.foxnic.web.generator.module.job.SysJobConfig;
@@ -35,10 +39,10 @@ public class CodeStarter extends ModuleCodeGenerator {
     {
 
 //        initPcmModules();
-        initOAuthModules();
+//        initOAuthModules();
 //        initSystemModules();
 //        initHrmModules();
-//        initExampleModules();
+        initExampleModules();
 //        initChangeModule1s();
 //        initBpmModules();
 //        initDatapermModules();
@@ -106,10 +110,10 @@ public class CodeStarter extends ModuleCodeGenerator {
     }
 
     private void initExampleModules() {
-//        this.addConfig(new CodeExampleConfig());
-//        this.addConfig(new CodeExampleRoleConfig());
-//        this.addConfig(new CodeExampleStudentConfig());
-//        this.addConfig(new CodeExampleCarConfig());
+        this.addConfig(new CodeExampleConfig());
+        this.addConfig(new CodeExampleRoleConfig());
+        this.addConfig(new CodeExampleStudentConfig());
+        this.addConfig(new CodeExampleCarConfig());
     }
 
     private void initSystemModules() {

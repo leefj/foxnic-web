@@ -1,7 +1,7 @@
 /**
  * 代码生成拥有的车辆 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-22 21:30:46
+ * @since 2022-02-07 09:03:10
  */
 
 
@@ -74,21 +74,21 @@ function ListPage() {
 				cols: [[
 					{ fixed: 'left',type: 'numbers' },
 					{ fixed: 'left',type:'checkbox'}
-					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('主键') , templet: function (d) { return templet('id',d.id,d);}  }
-					,{ field: 'exampleId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('属主ID') , templet: function (d) { return templet('exampleId',d.exampleId,d);}  }
-					,{ field: 'plateNumber', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('牌号') , templet: function (d) { return templet('plateNumber',d.plateNumber,d);}  }
-					,{ field: 'color', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('规格') , templet: function (d) { return templet('color',d.color,d);}  }
-					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }}
-					,{ field: 'positionId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('岗位单选') , templet: function (d) { return templet('positionId',fox.getProperty(d,["position","fullName"]),d);} }
-					,{ field: 'orgId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('组织单选') , templet: function (d) { return templet('orgId',fox.getProperty(d,["organization","fullName"]),d);} }
-					,{ field: 'empId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('员工单选') , templet: function (d) { return templet('empId',fox.getProperty(d,["employee","person","name"]),d);} }
-					,{ field: 'positionIds', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('岗位多选') , templet: function (d) { return templet('positionIds',d.positionIds,d);}  }
-					,{ field: 'orgIds', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('组织多选') , templet: function (d) { return templet('orgIds',d.orgIds,d);}  }
-					,{ field: 'empIds', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('员工多选') , templet: function (d) { return templet('empIds',d.empIds,d);}  }
-					,{ field: 'selectEmpId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('员工下拉') , templet: function (d) { return templet('selectEmpId',d.selectEmpId,d);}  }
-					,{ field: 'comId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('公司单选') , templet: function (d) { return templet('comId',fox.getProperty(d,["company","fullName"]),d);} }
-					,{ field: 'deptIds', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('部门多选') , templet: function (d) { return templet('deptIds',d.deptIds,d);}  }
-					,{ field: 'subOrgId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('限定上级') , templet: function (d) { return templet('subOrgId',fox.getProperty(d,["subOrganization","fullName"]),d);} }
+					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('主键') , templet: function (d) { return templet('id',d.id,d);}  }
+					,{ field: 'exampleId', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('属主ID') , templet: function (d) { return templet('exampleId',d.exampleId,d);}  }
+					,{ field: 'plateNumber', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('牌号') , templet: function (d) { return templet('plateNumber',d.plateNumber,d);}  }
+					,{ field: 'color', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('规格') , templet: function (d) { return templet('color',d.color,d);}  }
+					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true   ,title: fox.translate('创建时间') ,templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
+					,{ field: 'positionId', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('岗位单选') , templet: function (d) { return templet('positionId',fox.getProperty(d,["position","fullName"]),d);} }
+					,{ field: 'orgId', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('组织单选') , templet: function (d) { return templet('orgId',fox.getProperty(d,["organization","fullName"]),d);} }
+					,{ field: 'empId', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('员工单选') , templet: function (d) { return templet('empId',fox.getProperty(d,["employee","person","name"]),d);} }
+					,{ field: 'positionIds', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('岗位多选') , templet: function (d) { return templet('positionIds',d.positionIds,d);}  }
+					,{ field: 'orgIds', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('组织多选') , templet: function (d) { return templet('orgIds',d.orgIds,d);}  }
+					,{ field: 'empIds', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('员工多选') , templet: function (d) { return templet('empIds',d.empIds,d);}  }
+					,{ field: 'selectEmpId', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('员工下拉') , templet: function (d) { return templet('selectEmpId',d.selectEmpId,d);}  }
+					,{ field: 'comId', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('公司单选') , templet: function (d) { return templet('comId',fox.getProperty(d,["company","fullName"]),d);} }
+					,{ field: 'deptIds', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('部门多选') , templet: function (d) { return templet('deptIds',d.deptIds,d);}  }
+					,{ field: 'subOrgId', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('限定上级') , templet: function (d) { return templet('subOrgId',fox.getProperty(d,["subOrganization","fullName"]),d);} }
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
 				]],
@@ -103,6 +103,8 @@ function ListPage() {
 							} else {
 								layer.msg(fox.translate('数据导入失败')+"!");
 							}
+							// 是否执行后续逻辑：错误提示
+							return false;
 						}
 					}:false
 				}
@@ -111,7 +113,7 @@ function ListPage() {
 			dataTable=fox.renderTable(tableConfig);
 			//绑定排序事件
 			table.on('sort(data-table)', function(obj){
-			  refreshTableData(obj.field,obj.type);
+			  refreshTableData(obj.sortField,obj.type);
 			});
 			window.pageExt.list.afterTableRender && window.pageExt.list.afterTableRender();
 		}
@@ -122,10 +124,23 @@ function ListPage() {
       * 刷新表格数据
       */
 	function refreshTableData(sortField,sortType,reset) {
+		function getSelectedValue(id,prop) { var xm=xmSelect.get(id,true); return xm==null ? null : xm.getValue(prop);}
 		var value = {};
+		value.id={ inputType:"button",value: $("#id").val()};
+		value.exampleId={ inputType:"button",value: $("#exampleId").val()};
 		value.plateNumber={ inputType:"button",value: $("#plateNumber").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" };
+		value.color={ inputType:"button",value: $("#color").val()};
+		value.createTime={ inputType:"date_input", value: $("#createTime").val() ,matchType:"auto"};
+		value.positionId={ inputType:"button",value: $("#positionId").val(),fillBy:["position","fullName"] ,label:$("#positionId-button").text() };
 		value.orgId={ inputType:"button",value: $("#orgId").val(),fillBy:["organization","fullName"] ,label:$("#orgId-button").text() };
 		value.empId={ inputType:"button",value: $("#empId").val(),fillBy:["employee","person","name"] ,label:$("#empId-button").text() };
+		value.positionIds={ inputType:"button",value: $("#positionIds").val(),label:$("#positionIds-button").text() };
+		value.orgIds={ inputType:"button",value: $("#orgIds").val(),label:$("#orgIds-button").text() };
+		value.empIds={ inputType:"button",value: $("#empIds").val(),label:$("#empIds-button").text() };
+		value.selectEmpId={ inputType:"button",value: $("#selectEmpId").val()};
+		value.comId={ inputType:"button",value: $("#comId").val(),fillBy:["company","fullName"] ,label:$("#comId-button").text() };
+		value.deptIds={ inputType:"button",value: $("#deptIds").val(),label:$("#deptIds-button").text() };
+		value.subOrgId={ inputType:"button",value: $("#subOrgId").val(),fillBy:["subOrganization","fullName"] ,label:$("#subOrgId-button").text() };
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;
@@ -287,10 +302,7 @@ function ListPage() {
             }
             //调用批量删除接口
 			top.layer.confirm(fox.translate('确定删除已选中的')+fox.translate('代码生成拥有的车辆')+fox.translate('吗？'), function (i) {
-				top.layer.close(i);
-				top.layer.load(2);
-                admin.request(moduleURL+"/delete-by-ids", { ids: ids }, function (data) {
-					top.layer.closeAll('loading');
+                admin.post(moduleURL+"/delete-by-ids", { ids: ids }, function (data) {
                     if (data.success) {
 						if(window.pageExt.list.afterBatchDelete) {
 							var doNext=window.pageExt.list.afterBatchDelete(data);
@@ -302,7 +314,6 @@ function ListPage() {
 						top.layer.msg(data.message, {icon: 2, time: 1500});
                     }
                 });
-
 			});
         }
 	}
@@ -323,29 +334,21 @@ function ListPage() {
 
 			admin.putTempData('sys-code-example-car-form-data-form-action', "",true);
 			if (layEvent === 'edit') { // 修改
-				//延迟显示加载动画，避免界面闪动
-				var task=setTimeout(function(){layer.load(2);},1000);
-				admin.request(moduleURL+"/get-by-id", { id : data.id }, function (data) {
-					clearTimeout(task);
-					layer.closeAll('loading');
+				admin.post(moduleURL+"/get-by-id", { id : data.id }, function (data) {
 					if(data.success) {
 						admin.putTempData('sys-code-example-car-form-data-form-action', "edit",true);
 						showEditForm(data.data);
 					} else {
-						 layer.msg(data.message, {icon: 1, time: 1500});
+						 top.layer.msg(data.message, {icon: 1, time: 1500});
 					}
 				});
 			} else if (layEvent === 'view') { // 查看
-				//延迟显示加载动画，避免界面闪动
-				var task=setTimeout(function(){layer.load(2);},1000);
-				admin.request(moduleURL+"/get-by-id", { id : data.id }, function (data) {
-					clearTimeout(task);
-					layer.closeAll('loading');
+				admin.post(moduleURL+"/get-by-id", { id : data.id }, function (data) {
 					if(data.success) {
 						admin.putTempData('sys-code-example-car-form-data-form-action', "view",true);
 						showEditForm(data.data);
 					} else {
-						layer.msg(data.message, {icon: 1, time: 1500});
+						top.layer.msg(data.message, {icon: 1, time: 1500});
 					}
 				});
 			}
@@ -355,7 +358,6 @@ function ListPage() {
 					var doNext=window.pageExt.list.beforeSingleDelete(data);
 					if(!doNext) return;
 				}
-
 				top.layer.confirm(fox.translate('确定删除此')+fox.translate('代码生成拥有的车辆')+fox.translate('吗？'), function (i) {
 					top.layer.close(i);
 
@@ -374,7 +376,6 @@ function ListPage() {
 						}
 					});
 				});
-
 			}
 			
 		});
@@ -391,7 +392,10 @@ function ListPage() {
 		}
 		var action=admin.getTempData('sys-code-example-car-form-data-form-action');
 		var queryString="";
-		if(data && data.id) queryString="?" + 'id=' + data.id;
+		if(data && data.id) queryString='id=' + data.id;
+		if(window.pageExt.list.makeFormQueryString) {
+			queryString=window.pageExt.list.makeFormQueryString(data,queryString,action);
+		}
 		admin.putTempData('sys-code-example-car-form-data', data);
 		var area=admin.getTempData('sys-code-example-car-form-area');
 		var height= (area && area.height) ? area.height : ($(window).height()*0.6);
@@ -401,19 +405,18 @@ function ListPage() {
 		else if(action=="edit") title=fox.translate('修改')+title;
 		else if(action=="view") title=fox.translate('查看')+title;
 
-		var index=admin.popupCenter({
+		admin.popupCenter({
 			title: title,
 			resize: false,
 			offset: [top,null],
 			area: ["80%",height+"px"],
 			type: 2,
 			id:"sys-code-example-car-form-data-win",
-			content: '/business/system/code_example_car/code_example_car_form.html' + queryString,
+			content: '/business/system/code_example_car/code_example_car_form.html' + (queryString?("?"+queryString):""),
 			finish: function () {
 				refreshTableData();
 			}
 		});
-		admin.putTempData('sys-code-example-car-form-data-popup-index', index);
 	};
 
 	window.module={
