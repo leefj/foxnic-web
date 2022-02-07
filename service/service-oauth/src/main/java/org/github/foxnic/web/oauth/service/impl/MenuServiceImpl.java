@@ -196,6 +196,7 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 		return menu;
 	}
 
+
 	@Override
 	public List<Menu> getByIds(List<String> ids) {
 		return new ArrayList<>(getByIdsMap(ids).values());

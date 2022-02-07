@@ -50,6 +50,12 @@ public class JoinCacheTestController {
         }
     }
 
+    private User getUserById(String id) {
+        User user=new User();
+        user.setId(id);
+        return dao.queryEntity(user);
+    }
+
     @PostMapping("/service-system/unit-test/join-menu-4-single-user")
     public Result joinMenu4SingleUser() {
 
@@ -60,13 +66,13 @@ public class JoinCacheTestController {
 
 
 //        User user=dao.queryEntity(User.create().setId(userId));
-        User user=userService.getById(userId);
+        User user=getUserById(userId);
         //User user1=dao.queryEntity(User.create().setId("515567129194397696"));
         if(user==null) return ErrorDesc.failure();
         //
         dao.fill(user)
-                .with(UserMeta.MENUS)
-                .with(UserMeta.MENUS, MenuMeta.RESOURCES)
+//                .with(UserMeta.ROLES)
+                .with(UserMeta.ROLES,UserMeta.MENUS, MenuMeta.RESOURCES)
                 .execute();
 
 //        //

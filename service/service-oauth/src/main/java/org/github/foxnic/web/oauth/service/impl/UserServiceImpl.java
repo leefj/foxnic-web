@@ -17,8 +17,12 @@ import org.github.foxnic.web.constants.enums.system.Language;
 import org.github.foxnic.web.domain.hrm.Employee;
 import org.github.foxnic.web.domain.hrm.Person;
 import org.github.foxnic.web.domain.hrm.meta.EmployeeMeta;
-import org.github.foxnic.web.domain.oauth.*;
+import org.github.foxnic.web.domain.oauth.Menu;
+import org.github.foxnic.web.domain.oauth.Role;
+import org.github.foxnic.web.domain.oauth.User;
+import org.github.foxnic.web.domain.oauth.UserVO;
 import org.github.foxnic.web.domain.oauth.meta.MenuMeta;
+import org.github.foxnic.web.domain.oauth.meta.RoleMeta;
 import org.github.foxnic.web.domain.oauth.meta.UserMeta;
 import org.github.foxnic.web.domain.system.meta.TenantMeta;
 import org.github.foxnic.web.domain.system.meta.UserTenantMeta;
@@ -286,35 +290,23 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 			user=dao.queryEntity(User.class, new ConditionExpr(SYS_USER.ID+" = ?",identity));
 		}
 
-//    	//关联相关数据
-//    	if (user!=null) {
-//    		dao.join(user,Role.class,Menu.class, RoleMenu.class, UserTenant.class);
-//			dao.join(user.getMenus(), Resourze.class);
-//    	}
-//
-// 		if(user.getJoinedTenants()!=null) {
-// 			dao.join(user.getJoinedTenants(), Employee.class, Tenant.class);
-// 			//
-//			List<Tenant> tenants= CollectorUtil.collectList(user.getJoinedTenants(),UserTenant::getTenant);
-//			dao.join(tenants, Company.class);
-//			//
-// 			List<Employee> employees= CollectorUtil.collectList(user.getJoinedTenants(),UserTenant::getEmployee);
-//			dao.join(employees, Person.class);
-//		}
-
  		//填充账户模型
- 		dao.fill(user)
-			.with(UserMeta.MENUS)
-			.with(UserMeta.MENUS, MenuMeta.RESOURCES)
-			.with(UserMeta.MENUS, MenuMeta.PATH_RESOURCE)
-			.with(UserMeta.ROLES)
-			.with(UserMeta.ROLE_MENUS)
+ 		dao.fill(user).tag("login")
+//			.with(UserMeta.MENUS)
+//			.with(UserMeta.MENUS, MenuMeta.RESOURCES)
+//			.with(UserMeta.MENUS, MenuMeta.PATH_RESOURCE)
+			.with(UserMeta.ROLES, RoleMeta.MENUS, MenuMeta.RESOURCES)
+			.with(UserMeta.ROLES, RoleMeta.MENUS,MenuMeta.PATH_RESOURCE)
+//			.with(UserMeta.ROLE_MENUS)
 			.with(UserMeta.JOINED_TENANTS, UserTenantMeta.TENANT, TenantMeta.COMPANY)
 			.with(UserMeta.JOINED_TENANTS,UserTenantMeta.EMPLOYEE, EmployeeMeta.PERSON)
 			.with(UserMeta.JOINED_TENANTS,UserTenantMeta.EMPLOYEE, EmployeeMeta.POSITIONS)
 			.with(UserMeta.JOINED_TENANTS,UserTenantMeta.EMPLOYEE, EmployeeMeta.ORGANIZATIONS)
 			.with(UserMeta.JOINED_TENANTS,UserTenantMeta.EMPLOYEE, EmployeeMeta.BUSI_ROLES)
 			.execute();
+
+
+
 
 
 

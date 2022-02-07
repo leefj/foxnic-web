@@ -24,7 +24,7 @@ public class HrmRelationManager extends RelationManager {
 
 		//员工 - 人员关联关系
 		this.property(EmployeeMeta.PERSON_PROP)
-				.using(FoxnicWeb.HRM_EMPLOYEE.PERSON_ID).join(FoxnicWeb.HRM_PERSON.ID).after((employee, personList,m) -> {
+				.using(FoxnicWeb.HRM_EMPLOYEE.PERSON_ID).join(FoxnicWeb.HRM_PERSON.ID).after((tag,employee, personList,m) -> {
 					//设置属性
 					if(personList!=null && personList.size()>0){
 						Person person=personList.get(0);
@@ -49,7 +49,7 @@ public class HrmRelationManager extends RelationManager {
 		this.property(EmployeeMeta.POSITIONS_PROP)
 				.using(FoxnicWeb.HRM_EMPLOYEE.ID).join(FoxnicWeb.HRM_EMPLOYEE_POSITION.EMPLOYEE_ID).select(FoxnicWeb.HRM_EMPLOYEE_POSITION.IS_PRIMARY,"pri")
 				.using(FoxnicWeb.HRM_EMPLOYEE_POSITION.POSITION_ID).join(FoxnicWeb.HRM_POSITION.ID).condition("valid=1")
-				.after((employee,positions,m)->{
+				.after((tag,employee,positions,m)->{
 					List<String> vicePosIds=new ArrayList<>();
 					List<Position> vicePositions=new ArrayList<>();
 					for (Position position : positions) {
@@ -74,7 +74,7 @@ public class HrmRelationManager extends RelationManager {
 				.using(FoxnicWeb.HRM_EMPLOYEE.ID).join(FoxnicWeb.HRM_EMPLOYEE_POSITION.EMPLOYEE_ID).select(FoxnicWeb.HRM_EMPLOYEE_POSITION.IS_PRIMARY,"pri")
 				.using(FoxnicWeb.HRM_EMPLOYEE_POSITION.POSITION_ID).join(FoxnicWeb.HRM_POSITION.ID).condition("valid=1")
 				.using(FoxnicWeb.HRM_POSITION.ORG_ID).join(FoxnicWeb.HRM_ORGANIZATION.ID)
-				.after((employee,orgs,m)->{
+				.after((tag,employee,orgs,m)->{
 					for (Organization org : orgs) {
 						//如果是主岗，设置员工主岗
 						Boolean pri=m.get(org).getBoolean("pri");

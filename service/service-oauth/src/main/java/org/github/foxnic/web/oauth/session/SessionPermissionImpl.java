@@ -6,7 +6,6 @@ import org.github.foxnic.web.domain.hrm.Employee;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.Resourze;
 import org.github.foxnic.web.domain.oauth.Role;
-import org.github.foxnic.web.domain.oauth.RoleMenu;
 import org.github.foxnic.web.domain.system.BusiRole;
 import org.github.foxnic.web.session.SessionPermission;
 import org.springframework.security.access.ConfigAttribute;
@@ -31,10 +30,10 @@ public class SessionPermissionImpl implements SessionPermission {
 	private Set<String> busiRoleIds=new HashSet<>();
 	private Set<String> busiRoleCodes=new HashSet<>();
 
-	private Map<String,String> menuRoleRelation;
+	private Map<String,String> menuRoleRelation ;
 
 	private Map<String,Role> roleIdCache;
-	private Map<String,Menu> urlMenuCache;
+	private Map<String,String> urlMenuCache;
 	private Set<String> authorityKeys=new HashSet<>();
 	private Set<String> roleKeys=new HashSet<>();
 
@@ -49,9 +48,13 @@ public class SessionPermissionImpl implements SessionPermission {
 
 	private void initMenuRoleRelation() {
 		menuRoleRelation=new HashMap<String, String>();
-		for (RoleMenu rm : this.sessionUser.getUser().getRoleMenus()) {
-			//此处会覆盖拥有相同菜单的角色，在对SpringSecurity进行深度定制时建议考虑
-			menuRoleRelation.put(rm.getMenuId(), rm.getRoleId());
+		//此处会覆盖拥有相同菜单的角色，在对 SpringSecurity 进行深度定制时建议考虑
+		for (Role role : sessionUser.getUser().getRoles()) {
+			for (Menu m : role.getMenus()) {
+				this.menuRoleRelation.put(m.getId(),role.getId());
+			}
+			// 清空
+			role.setMenus(null);
 		}
 	}
 
@@ -87,13 +90,17 @@ public class SessionPermissionImpl implements SessionPermission {
 		}
 
 		//业务角色
-		Employee employee=sessionUser.getUser().getActivatedTenant().getEmployee();
-		if(employee!=null) {
-			List<BusiRole> bRoles = employee.getBusiRoles();
-			for (int i = 0; i < bRoles.size(); i++) {
-				BusiRole r = bRoles.get(i);
-				busiRoleIds.add(r.getId());
-				busiRoleCodes.add(r.getCode());
+		if(sessionUser.getUser().getActivatedTenant()!=null) {
+			Employee employee = sessionUser.getUser().getActivatedTenant().getEmployee();
+			if (employee != null) {
+				List<BusiRole> bRoles = employee.getBusiRoles();
+				if(bRoles!=null) {
+					for (int i = 0; i < bRoles.size(); i++) {
+						BusiRole r = bRoles.get(i);
+						busiRoleIds.add(r.getId());
+						busiRoleCodes.add(r.getCode());
+					}
+				}
 			}
 		}
 
@@ -103,7 +110,7 @@ public class SessionPermissionImpl implements SessionPermission {
 	 * 初始化可以访问的请求列表
 	 * */
 	private void initRequestMatchers() {
-		urlMenuCache =new HashMap<String, Menu>();
+		urlMenuCache =new HashMap<String, String>();
 		requestMatchers=new HashSet<AntPathRequestMatcher>();
 		for (Menu menu : this.sessionUser.getUser().getMenus()) {
 			Resourze resourze=menu.getPathResource();
@@ -112,7 +119,7 @@ public class SessionPermissionImpl implements SessionPermission {
 //					System.out.println("");
 //				}
 				requestMatchers.add(new AntPathRequestMatcher(resourze.getUrl(),resourze.getMethod(),true));
-				urlMenuCache.put(resourze.getUrl(), menu);
+				urlMenuCache.put(resourze.getUrl(), menu.getId());
 			}
 			if(menu.getResources()!=null) {
 				for (Resourze resource : menu.getResources()) {
@@ -121,7 +128,7 @@ public class SessionPermissionImpl implements SessionPermission {
 //					}
 					if(resource.getAccessTypeEnum() == AccessType.GRANT) {
 						requestMatchers.add(new AntPathRequestMatcher(resource.getUrl(), resource.getMethod(), true));
-						urlMenuCache.put(resource.getUrl(), menu);
+						urlMenuCache.put(resource.getUrl(), menu.getId());
 					}
 				}
 			}
@@ -168,15 +175,16 @@ public class SessionPermissionImpl implements SessionPermission {
 	}
 
 
-	public Map<String, String> getMenuRoleRelation() {
-		return menuRoleRelation;
-	}
+//	public Map<String, String> getMenuRoleRelation() {
+//		return menuRoleRelation;
+//	}
 
 
 	public Role getRoleByMatcher(AntPathRequestMatcher matcher) {
-		Menu menu= urlMenuCache.get(matcher.getPattern());
-		if(menu==null) return null;
-		String roleId=this.menuRoleRelation.get(menu.getId());
+		String menuId= urlMenuCache.get(matcher.getPattern());
+		if(menuId==null) return null;
+
+		String roleId = this.menuRoleRelation.get(menuId);
 		Role role=roleIdCache.get(roleId);
 		return role;
 	}
