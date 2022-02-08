@@ -37,7 +37,7 @@ public class OAuthRelationManager extends RelationManager {
 					menu.setPath(res.get(0).getUrl());
 				}
 			return res;
-		}).fork(128).cache(false);
+		}).fork(128).cache(true);
 
 
 		//菜单包含的资源清单
@@ -50,7 +50,7 @@ public class OAuthRelationManager extends RelationManager {
 					menu.setResourceIds(resIds);
 					return res;
 			})
-			.fork(256).cache(false);
+			.fork(256).cache(true);
 
 		/**
 		 * 上级菜单
@@ -149,6 +149,9 @@ public class OAuthRelationManager extends RelationManager {
 						userMenus = CollectorUtil.distinct(userMenus, (menu) -> {
 							return menu.getId();
 						});
+						// 菜单排序
+						CollectorUtil.sort(userMenus,(me)->{return me.getSort();},true,true);
+
 						user.setMenus(userMenus);
 
 						//
@@ -160,7 +163,7 @@ public class OAuthRelationManager extends RelationManager {
 					return menus;
 				})
 				.fork(128)
-				.cache(false);
+				.cache(true);
 	}
 
 

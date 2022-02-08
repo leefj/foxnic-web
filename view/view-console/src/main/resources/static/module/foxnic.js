@@ -337,6 +337,9 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 if(!Array.isArray(value)){
                     try{
                         value=JSON.parse(value);
+                        if(!Array.isArray(value)) {
+                            value=[value];
+                        }
                     }catch (e){
                         value=value.split(",");
                     }
@@ -1108,7 +1111,14 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     }
                 }
             } catch (e){}
+
+
+            // 如果被拆分
             if(codes!=null) {
+                // 排除拆分无效的情况
+                if(codes.length==1 && codes[0]==code) {
+                    return code;
+                }
                 var texts=[];
                 var text=null;
                 for (var i = 0; i < codes.length; i++) {
@@ -1173,7 +1183,12 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             } catch (e){
                 debugger;
             }
+            // 如果被拆分
             if(codes!=null) {
+                // 排除拆分无效的情况
+                if(codes.length==1 && codes[0]==code) {
+                    return code;
+                }
                 var texts=[];
                 var text=null;
                 for (var i = 0; i < codes.length; i++) {
