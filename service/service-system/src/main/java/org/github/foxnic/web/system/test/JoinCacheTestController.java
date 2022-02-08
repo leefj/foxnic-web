@@ -9,7 +9,7 @@ import com.github.foxnic.dao.data.RcdSet;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.entity.Entity;
 import com.github.foxnic.dao.entity.ISimpleIdService;
-import com.github.foxnic.dao.relation.cache.CacheMetaManager;
+import com.github.foxnic.dao.relation.cache.PropertyCacheManager;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.springboot.mvc.RequestParameter;
 import com.github.foxnic.springboot.spring.SpringUtil;
@@ -65,7 +65,7 @@ public class JoinCacheTestController {
 
         this.initServiceIf();
 
-        CacheMetaManager.IDS_FROM_CACHE.clear();
+        PropertyCacheManager.IDS_FROM_CACHE.clear();
         String userId=RequestParameter.get().getString("userId");
 
 
@@ -89,7 +89,7 @@ public class JoinCacheTestController {
 //                .execute();
 
         Map<String,Object> map=new HashMap<>();
-        map.put("CACHED_IDS", CacheMetaManager.IDS_FROM_CACHE);
+        map.put("CACHED_IDS", PropertyCacheManager.IDS_FROM_CACHE);
         if(user.getRoles()!=null) {
             map.put("#roles", user.getRoles().size());
         }
@@ -118,8 +118,11 @@ public class JoinCacheTestController {
         String act = RequestParameter.get().getString("act");
         String userId=RequestParameter.get().getString("userId");
         String ids=RequestParameter.get().getString("ids");
+        if(act.equals("reset")) {
+            PropertyCacheManager.instance().reset();
+        }
         // 更新指定用户信息
-        if(act.equals("sys_user:insert")) {
+       else if(act.equals("sys_user:insert")) {
             User user=userService.getById("477842557343105024");
             user.setId(null);
             user.setPhone(IDGenerator.getSUID(false));

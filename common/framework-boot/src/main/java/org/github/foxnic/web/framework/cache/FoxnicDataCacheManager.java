@@ -51,6 +51,13 @@ public class FoxnicDataCacheManager extends DataCacheManager {
     private   com.github.foxnic.commons.cache.DoubleCache<String, Object> metaCache;
 
     @Override
+    public void clearAllCachedData() {
+        for (com.github.foxnic.commons.cache.DoubleCache cache : caches.values()) {
+            cache.clear();
+        }
+    }
+
+    @Override
     public com.github.foxnic.commons.cache.DoubleCache<String, Object> getMetaCache() {
         //
         if(metaCache!=null) return metaCache;
