@@ -245,7 +245,7 @@ public class JoinCacheTestController {
             dao.execute("update sys_role set deleted=0 where id=?",menu.getId());
         }  else if(act.equals("sys_role:reset:physical")) {
             // 限定超级管理员角色的菜单
-            Menu menu=dao.queryEntity(Menu.class,"select * from sys_menu where id=?","110352963290923110");
+            Menu menu=dao.queryEntity(Menu.class,"select * from sys_role where id=?","110352963290923110");
             if(menu==null) {
                 dao.execute("INSERT INTO `sys_role` (`id`, `code`, `name`, `create_by`, `create_time`, `update_by`, `update_time`, `deleted`, `delete_by`, `delete_time`, `version`) VALUES ('110352963290923110', 'super_admin', '超级管理员', '', NULL, '18144621', '2022-02-08 09:03:48', 0, '', NULL, 122)");
             }

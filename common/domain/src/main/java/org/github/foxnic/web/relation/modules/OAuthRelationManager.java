@@ -137,7 +137,7 @@ public class OAuthRelationManager extends RelationManager {
 					// 如果是登录
 					if("login".equals(tag)) {
 						// 找到当前 Join 的User 对象
-						long t=System.currentTimeMillis();
+						// long t=System.currentTimeMillis();
 						User user = role.findParentOwner(User.class);
 
 						// 设置菜单
@@ -155,9 +155,9 @@ public class OAuthRelationManager extends RelationManager {
 						user.setMenus(userMenus);
 
 						//
-						long t1=System.currentTimeMillis();
+						// long t1=System.currentTimeMillis();
 
-						System.out.println(t1-t);
+						// System.out.println(t1-t);
 						//role.setMenuIds(CollectorUtil.collectList(menus, Menu::getId));
 					}
 					return menus;
