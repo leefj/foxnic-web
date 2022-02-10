@@ -38,11 +38,11 @@ public class HrmRelationManager extends RelationManager {
 						employee.setNameAndBadge(str);
 					}
 					return personList;
-		});
+		}).cache(true);
 
 		//员工 - 公司关联关系
 		this.property(EmployeeMeta.COMPANY_PROP)
-				.using(FoxnicWeb.HRM_EMPLOYEE.COMPANY_ID).join(FoxnicWeb.HRM_COMPANY.ID);
+				.using(FoxnicWeb.HRM_EMPLOYEE.COMPANY_ID).join(FoxnicWeb.HRM_COMPANY.ID).cache(true);
 
 
 		//员工 - 岗位关联关系
@@ -67,9 +67,9 @@ public class HrmRelationManager extends RelationManager {
 					employee.setVicePositionIds(vicePosIds);
 					employee.setVicePositions(vicePositions);
 					return positions;
-				});
+				}).cache(false);
 
-		//员工 - 岗位关联关系
+		//员工 - 组织关联关系
 		this.property(EmployeeMeta.ORGANIZATIONS_PROP)
 				.using(FoxnicWeb.HRM_EMPLOYEE.ID).join(FoxnicWeb.HRM_EMPLOYEE_POSITION.EMPLOYEE_ID).select(FoxnicWeb.HRM_EMPLOYEE_POSITION.IS_PRIMARY,"pri")
 				.using(FoxnicWeb.HRM_EMPLOYEE_POSITION.POSITION_ID).join(FoxnicWeb.HRM_POSITION.ID).condition("valid=1")
@@ -84,19 +84,19 @@ public class HrmRelationManager extends RelationManager {
 						}
 					}
 					return orgs;
-				})
+				}).cache(false);
 		;
 
 		//员工 - 业务角色关联关系
 		this.property(EmployeeMeta.BUSI_ROLES_PROP)
 				.using(FoxnicWeb.HRM_EMPLOYEE.ID).join(FoxnicWeb.SYS_BUSI_ROLE_MEMBER.MEMBER_ID).conditionEquals(FoxnicWeb.SYS_BUSI_ROLE_MEMBER.MEMBER_TYPE, UnifiedUserType.employee.code())
-				.using(FoxnicWeb.SYS_BUSI_ROLE_MEMBER.ROLE_ID).join(FoxnicWeb.SYS_BUSI_ROLE.ID).condition("valid=1")
+				.using(FoxnicWeb.SYS_BUSI_ROLE_MEMBER.ROLE_ID).join(FoxnicWeb.SYS_BUSI_ROLE.ID).condition("valid=1").cache(true);
 		;
 
 
 		//岗位 - 部门关联关系
 		this.property(PositionMeta.ORGANIZATION_PROP)
-				.using(FoxnicWeb.HRM_POSITION.ORG_ID).join(FoxnicWeb.HRM_ORGANIZATION.ID);
+				.using(FoxnicWeb.HRM_POSITION.ORG_ID).join(FoxnicWeb.HRM_ORGANIZATION.ID).cache(true);
 
 
 	}

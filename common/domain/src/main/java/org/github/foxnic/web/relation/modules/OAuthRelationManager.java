@@ -119,7 +119,8 @@ public class OAuthRelationManager extends RelationManager {
 						}
 					}
 					return tenants;
-				});
+				})
+				.cache(true);
 
 
 	}
