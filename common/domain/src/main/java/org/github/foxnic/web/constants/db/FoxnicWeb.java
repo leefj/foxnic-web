@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2022-01-07 13:18:25
+ * @since 2022-02-11 11:30:44
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -3226,6 +3226,37 @@ public class FoxnicWeb {
 	}
 	
 	/**
+	 * 主键多字段测试表
+	*/
+	public static class SYS_CODE_EXAMPLE_MULIT_PK extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "sys_code_example_mulit_pk";
+		
+		/**
+		 * 主键1
+		*/
+		public static final DBField NID = new DBField(DBDataType.LONG , "nid","nid","主键1","主键1",true,false,false);
+		
+		/**
+		 * 主键2
+		*/
+		public static final DBField DAY = new DBField(DBDataType.DATE , "day","day","主键2","主键2",true,false,false);
+		
+		/**
+		 * 内容
+		*/
+		public static final DBField CONTENT = new DBField(DBDataType.STRING , "content","content","内容","内容",false,false,true);
+		
+		public SYS_CODE_EXAMPLE_MULIT_PK() {
+			this.init($NAME,"主键多字段测试表" , NID , DAY , CONTENT);
+		}
+		public static final SYS_CODE_EXAMPLE_MULIT_PK $TABLE=new SYS_CODE_EXAMPLE_MULIT_PK();
+	}
+	
+	/**
 	 * 代码示例主表角色关系表
 	*/
 	public static class SYS_CODE_EXAMPLE_ROLE extends DBTable {
@@ -5764,6 +5795,38 @@ public class FoxnicWeb {
 			this.init($NAME,"序列表" , PK , ID , NAME , LENGTH , CATALOG , VALUE , MEMO , TYPE , TENANT_ID , FETCH_SIZE);
 		}
 		public static final SYS_SEQUENCE $TABLE=new SYS_SEQUENCE();
+	}
+	
+	/**
+	 * 序列测试表
+	*/
+	public static class SYS_SEQUENCE_TEST extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "sys_sequence_test";
+		
+		/**
+		*/
+		public static final DBField SEQUENCE_ID = new DBField(DBDataType.STRING , "sequence_id","sequenceId","sequence_id","sequence_id",false,false,false);
+		
+		/**
+		*/
+		public static final DBField SEQUENCE_VALUE = new DBField(DBDataType.STRING , "sequence_value","sequenceValue","sequence_value","sequence_value",false,false,true);
+		
+		/**
+		*/
+		public static final DBField EXCEPTION = new DBField(DBDataType.STRING , "exception","exception","exception","exception",false,false,true);
+		
+		/**
+		*/
+		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","create_time","create_time",false,false,true);
+		
+		public SYS_SEQUENCE_TEST() {
+			this.init($NAME,"序列测试表" , SEQUENCE_ID , SEQUENCE_VALUE , EXCEPTION , CREATE_TIME);
+		}
+		public static final SYS_SEQUENCE_TEST $TABLE=new SYS_SEQUENCE_TEST();
 	}
 	
 	/**
