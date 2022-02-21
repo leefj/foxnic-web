@@ -1819,7 +1819,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                         delete top[tag];
                     }, 1000 * 60 * 10);
                     console.log("dl:"+doc.innerHTML);
-                    // callback && callback({success:true,message:"下载成功"});
+                    callback && callback({success:true,message:"下载成功"});
                     debugger;
                 }
             }, 500);

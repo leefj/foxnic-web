@@ -62,8 +62,12 @@ public class FoxnicDataCacheManager extends DataCacheManager {
         //
         if(metaCache!=null) return metaCache;
         //
+        JoinCacheMode mode=this.getCacheProperties().getMode();
         String cacheName="foxnic:meta";
-        RemoteCache<Object> remote = new RemoteCache<Object>(cacheName, -1);
+        RemoteCache<Object> remote = null;
+        if(mode==JoinCacheMode.remote || mode==JoinCacheMode.both) {
+            remote = new RemoteCache<Object>(cacheName, -1);
+        }
         LocalCache<String,Object> local = new LocalCache<>(-1, ExpireType.LIVE);
         metaCache=new DoubleCache<Object>(cacheName, local, remote);
         return metaCache;
