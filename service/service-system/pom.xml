@@ -5,7 +5,7 @@
     <parent> 
         <groupId>com.github.foxnic.web</groupId>  
         <artifactId>parent</artifactId>  
-        <version>0.8.0.CACHE.RELEASE</version>  
+        <version>1.0.0.RELEASE</version>  
         <relativePath>../../pom.xml</relativePath>  
         <!-- lookup parent from repository --> 
     </parent>  
