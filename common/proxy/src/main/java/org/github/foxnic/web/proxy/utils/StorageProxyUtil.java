@@ -1,8 +1,10 @@
 package org.github.foxnic.web.proxy.utils;
 
+import com.alibaba.fastjson.JSON;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.encrypt.Base64Util;
 import com.github.foxnic.commons.io.StreamUtil;
+import com.github.foxnic.commons.log.Logger;
 import org.github.foxnic.web.proxy.storage.FileServiceProxy;
 
 import java.io.InputStream;
@@ -17,6 +19,7 @@ public class StorageProxyUtil {
         if(result.success()) {
             return Base64Util.decodeToBtyes(result.data());
         } else {
+            Logger.info("Get File Error", JSON.toJSON(result));
             return null;
         }
     }
@@ -30,6 +33,7 @@ public class StorageProxyUtil {
         try {
             return StreamUtil.bytes2input(data);
         } catch (Exception e) {
+            Logger.error("Get File Error",e);
             return null;
         }
     }
