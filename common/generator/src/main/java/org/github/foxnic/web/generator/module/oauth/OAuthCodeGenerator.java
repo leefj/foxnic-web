@@ -4,9 +4,6 @@ import com.github.foxnic.generator.config.ModuleContext;
 import com.github.foxnic.generator.config.WriteMode;
 import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb.*;
-import org.github.foxnic.web.constants.enums.hrm.ResourceType;
-import org.github.foxnic.web.constants.enums.system.AccessType;
-import org.github.foxnic.web.constants.enums.system.HttpMethodType;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.Resourze;
 import org.github.foxnic.web.domain.oauth.User;
@@ -129,59 +126,6 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		cfg.buildAll();
 	}
 
-	public void generateSysResource() throws Exception {
-		//创建配置
-		ModuleContext cfg=createModuleConfig(SYS_RESOURZE.$TABLE, 6);
-
-		cfg.getPoClassFile().shadow(SYS_RESOURZE.ACCESS_TYPE,AccessType.class);
-		cfg.getPoClassFile().shadow(SYS_RESOURZE.TYPE,ResourceType.class);
-		cfg.getPoClassFile().shadow(SYS_RESOURZE.METHOD,HttpMethodType.class);
-
-		cfg.getFormConfig().setLabelWidth(70);
-
-		cfg.view().field(SYS_RESOURZE.ID)
-				.table().hidden(true)
-				.search().hidden();
-		;
-
-		cfg.view().field(SYS_RESOURZE.ACCESS_TYPE)
-				.basic().label("访问控制")
-				.search()
-				.form().radioBox().enumType(AccessType.class)
-				.form().validate().required();
-
-		cfg.view().field(SYS_RESOURZE.METHOD)
-				.basic().label("Method")
-				.search().hidden()
-				.form().radioBox().enumType(HttpMethodType.class)
-				.form().validate().required();
-
-		cfg.view().field(SYS_RESOURZE.TYPE).form().radioBox().enumType(ResourceType.class).form().validate().required();
-		cfg.view().field(SYS_RESOURZE.NAME).form().validate().required()
-		.search().fuzzySearch();
-		cfg.view().field(SYS_RESOURZE.URL).form().validate().required()
-		.search().fuzzySearch();
-		cfg.view().field(SYS_RESOURZE.BATCH_ID).basic().hidden(true);
-		cfg.view().field(SYS_RESOURZE.MODULE).basic().label("模块")
-		.search().fuzzySearch();
-		cfg.view().field(SYS_RESOURZE.TABLE_NAME).basic().label("数据表")
-				.search().hidden();
-
-		cfg.view().list().operationColumn().width(125);
-
-
-
-		//文件生成覆盖模式
-		cfg.overrides()
-				.setServiceIntfAnfImpl(WriteMode.CREATE_IF_NOT_EXISTS) //服务与接口
-				.setControllerAndAgent(WriteMode.CREATE_IF_NOT_EXISTS) //Rest
-				.setPageController(WriteMode.CREATE_IF_NOT_EXISTS) //页面控制器
-				.setFormPage(WriteMode.COVER_EXISTS_FILE) //表单HTML页
-				.setListPage(WriteMode.COVER_EXISTS_FILE); //列表HTML页
-
-		//生成代码
-		cfg.buildAll();
-	}
 
 	public void generateSysMenuResource() throws Exception {
 		//创建配置

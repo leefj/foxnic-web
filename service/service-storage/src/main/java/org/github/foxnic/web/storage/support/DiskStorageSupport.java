@@ -19,13 +19,13 @@ import java.util.Date;
 @Component
 public class DiskStorageSupport  extends  StorageSupport {
 
-    @Value("${storage.disk.location.windows}")
+    @Value("${foxnic.storage.disk.location.windows}")
     private String windowsDir="";
 
-    @Value("${storage.disk.location.mac}")
+    @Value("${foxnic.storage.disk.location.mac}")
     private String macDir="";
 
-    @Value("${storage.disk.location.linux}")
+    @Value("${foxnic.storage.disk.location.linux}")
     private String linuxDir="";
 
     private String getStorageDir() {

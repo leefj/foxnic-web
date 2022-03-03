@@ -1,4 +1,4 @@
-package org.github.foxnic.web.system.controller;
+package org.github.foxnic.web.system.test;
 
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
@@ -36,8 +36,6 @@ public class UnitTestController {
             dao.execute("insert into sys_sequence_test (sequence_id,sequence_value,exception,create_time) values(?,?,?,?)",sequenceId,val, StringUtil.toString(e),new Date());
             return ErrorDesc.exception(e);
         }
-
-
     }
 
 }

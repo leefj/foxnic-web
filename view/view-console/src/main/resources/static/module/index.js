@@ -297,11 +297,11 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
             $.each(menus, function (i, data) {
                 if (data.url && data.url.indexOf('#!') == 0) {
                     Q.reg(data.url.substring(2), function () {
-                        if (data.path.startWith("http://")) {
+                        if (data.path && data.path.startWith("http://")) {
                             window.open(data.path);
                         } else {
                             //临时保存url
-                            data.path.startWith("http://") ?  admin.putTempData("params",data.path) : null ;
+                            data.path && data.path.startWith("http://") ?  admin.putTempData("params",data.path) : null ;
 
                             var menuId = data.url.substring(2);
                             // debugger;

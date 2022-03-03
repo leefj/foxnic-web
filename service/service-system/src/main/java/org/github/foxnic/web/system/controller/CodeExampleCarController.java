@@ -55,7 +55,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 代码生成拥有的车辆 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-22 21:30:46
+ * @since 2022-02-07 09:03:10
 */
 
 @Api(tags = "代码生成拥有的车辆")
@@ -91,7 +91,7 @@ public class CodeExampleCarController extends SuperController {
 	@SentinelResource(value = CodeExampleCarServiceProxy.INSERT , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(CodeExampleCarServiceProxy.INSERT)
 	public Result insert(CodeExampleCarVO codeExampleCarVO) {
-		Result result=codeExampleCarService.insert(codeExampleCarVO);
+		Result result=codeExampleCarService.insert(codeExampleCarVO,false);
 		return result;
 	}
 
@@ -151,12 +151,12 @@ public class CodeExampleCarController extends SuperController {
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.DEPT_IDS , value = "部门多选" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.SUB_ORG_ID , value = "限定上级" , required = false , dataTypeClass=String.class),
 	})
-	@ApiOperationSupport( order=4 , ignoreParameters = { CodeExampleCarVOMeta.PAGE_INDEX , CodeExampleCarVOMeta.PAGE_SIZE , CodeExampleCarVOMeta.SEARCH_FIELD , CodeExampleCarVOMeta.FUZZY_FIELD , CodeExampleCarVOMeta.SEARCH_VALUE , CodeExampleCarVOMeta.SORT_FIELD , CodeExampleCarVOMeta.SORT_TYPE , CodeExampleCarVOMeta.IDS } )
+	@ApiOperationSupport( order=4 , ignoreParameters = { CodeExampleCarVOMeta.PAGE_INDEX , CodeExampleCarVOMeta.PAGE_SIZE , CodeExampleCarVOMeta.SEARCH_FIELD , CodeExampleCarVOMeta.FUZZY_FIELD , CodeExampleCarVOMeta.SEARCH_VALUE , CodeExampleCarVOMeta.DIRTY_FIELDS , CodeExampleCarVOMeta.SORT_FIELD , CodeExampleCarVOMeta.SORT_TYPE , CodeExampleCarVOMeta.IDS } )
 	@NotNull(name = CodeExampleCarVOMeta.ID)
 	@SentinelResource(value = CodeExampleCarServiceProxy.UPDATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(CodeExampleCarServiceProxy.UPDATE)
 	public Result update(CodeExampleCarVO codeExampleCarVO) {
-		Result result=codeExampleCarService.update(codeExampleCarVO,SaveMode.NOT_NULL_FIELDS);
+		Result result=codeExampleCarService.update(codeExampleCarVO,SaveMode.DIRTY_OR_NOT_NULL_FIELDS,false);
 		return result;
 	}
 
@@ -181,12 +181,12 @@ public class CodeExampleCarController extends SuperController {
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.DEPT_IDS , value = "部门多选" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = CodeExampleCarVOMeta.SUB_ORG_ID , value = "限定上级" , required = false , dataTypeClass=String.class),
 	})
-	@ApiOperationSupport(order=5 ,  ignoreParameters = { CodeExampleCarVOMeta.PAGE_INDEX , CodeExampleCarVOMeta.PAGE_SIZE , CodeExampleCarVOMeta.SEARCH_FIELD , CodeExampleCarVOMeta.FUZZY_FIELD , CodeExampleCarVOMeta.SEARCH_VALUE , CodeExampleCarVOMeta.SORT_FIELD , CodeExampleCarVOMeta.SORT_TYPE , CodeExampleCarVOMeta.IDS } )
+	@ApiOperationSupport(order=5 ,  ignoreParameters = { CodeExampleCarVOMeta.PAGE_INDEX , CodeExampleCarVOMeta.PAGE_SIZE , CodeExampleCarVOMeta.SEARCH_FIELD , CodeExampleCarVOMeta.FUZZY_FIELD , CodeExampleCarVOMeta.SEARCH_VALUE , CodeExampleCarVOMeta.DIRTY_FIELDS , CodeExampleCarVOMeta.SORT_FIELD , CodeExampleCarVOMeta.SORT_TYPE , CodeExampleCarVOMeta.IDS } )
 	@NotNull(name = CodeExampleCarVOMeta.ID)
 	@SentinelResource(value = CodeExampleCarServiceProxy.SAVE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(CodeExampleCarServiceProxy.SAVE)
 	public Result save(CodeExampleCarVO codeExampleCarVO) {
-		Result result=codeExampleCarService.save(codeExampleCarVO,SaveMode.NOT_NULL_FIELDS);
+		Result result=codeExampleCarService.save(codeExampleCarVO,SaveMode.DIRTY_OR_NOT_NULL_FIELDS,false);
 		return result;
 	}
 
@@ -205,7 +205,6 @@ public class CodeExampleCarController extends SuperController {
 	public Result<CodeExampleCar> getById(String id) {
 		Result<CodeExampleCar> result=new Result<>();
 		CodeExampleCar codeExampleCar=codeExampleCarService.getById(id);
-
 		// join 关联的对象
 		codeExampleCarService.dao().fill(codeExampleCar)
 			.with(CodeExampleCarMeta.ORGANIZATION)
@@ -214,7 +213,6 @@ public class CodeExampleCarController extends SuperController {
 			.with(CodeExampleCarMeta.POSITION)
 			.with(CodeExampleCarMeta.EMPLOYEE,EmployeeMeta.PERSON)
 			.execute();
-
 		result.success(true).data(codeExampleCar);
 		return result;
 	}
@@ -297,7 +295,6 @@ public class CodeExampleCarController extends SuperController {
 	public Result<PagedList<CodeExampleCar>> queryPagedList(CodeExampleCarVO sample) {
 		Result<PagedList<CodeExampleCar>> result=new Result<>();
 		PagedList<CodeExampleCar> list=codeExampleCarService.queryPagedList(sample,sample.getPageSize(),sample.getPageIndex());
-
 		// join 关联的对象
 		codeExampleCarService.dao().fill(list)
 			.with(CodeExampleCarMeta.ORGANIZATION)
@@ -306,7 +303,6 @@ public class CodeExampleCarController extends SuperController {
 			.with(CodeExampleCarMeta.POSITION)
 			.with(CodeExampleCarMeta.EMPLOYEE,EmployeeMeta.PERSON)
 			.execute();
-
 		result.success(true).data(list);
 		return result;
 	}
@@ -319,10 +315,14 @@ public class CodeExampleCarController extends SuperController {
 	@SentinelResource(value = CodeExampleCarServiceProxy.EXPORT_EXCEL , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@RequestMapping(CodeExampleCarServiceProxy.EXPORT_EXCEL)
 	public void exportExcel(CodeExampleCarVO  sample,HttpServletResponse response) throws Exception {
+		try{
 			//生成 Excel 数据
 			ExcelWriter ew=codeExampleCarService.exportExcel(sample);
 			//下载
-			DownloadUtil.writeToOutput(response, ew.getWorkBook(), ew.getWorkBookName());
+			DownloadUtil.writeToOutput(response,ew.getWorkBook(),ew.getWorkBookName());
+		} catch (Exception e) {
+			DownloadUtil.writeDownloadError(response,e);
+		}
 	}
 
 
@@ -332,11 +332,15 @@ public class CodeExampleCarController extends SuperController {
 	@SentinelResource(value = CodeExampleCarServiceProxy.EXPORT_EXCEL_TEMPLATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@RequestMapping(CodeExampleCarServiceProxy.EXPORT_EXCEL_TEMPLATE)
 	public void exportExcelTemplate(HttpServletResponse response) throws Exception {
+		try{
 			//生成 Excel 模版
 			ExcelWriter ew=codeExampleCarService.exportExcelTemplate();
 			//下载
 			DownloadUtil.writeToOutput(response, ew.getWorkBook(), ew.getWorkBookName());
+		} catch (Exception e) {
+			DownloadUtil.writeDownloadError(response,e);
 		}
+	}
 
 
 

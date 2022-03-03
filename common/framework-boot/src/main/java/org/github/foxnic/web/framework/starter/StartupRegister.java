@@ -56,6 +56,10 @@ public class StartupRegister implements ApplicationListener<ApplicationStartedEv
 
     private void invalidNodes() {
 
+        if(!dao.isTableExists(SYS_NODE.$NAME)) {
+            return;
+        }
+
         this.dao.pausePrintThreadSQL();
         Update update=new Update(SYS_NODE.$NAME);
         update.set(SYS_NODE.IS_UP,0)
@@ -68,6 +72,10 @@ public class StartupRegister implements ApplicationListener<ApplicationStartedEv
     }
 
     private void beat() {
+
+        if(!dao.isTableExists(SYS_NODE.$NAME)) {
+            return;
+        }
 
         invalidNodes();
 
@@ -82,6 +90,10 @@ public class StartupRegister implements ApplicationListener<ApplicationStartedEv
 
     private void register() {
 
+
+        if(!dao.isTableExists(SYS_NODE.$NAME)) {
+            return;
+        }
 
         invalidNodes();
 
@@ -112,6 +124,11 @@ public class StartupRegister implements ApplicationListener<ApplicationStartedEv
     }
 
     private void registerSnowflake() {
+
+        if(!dao.isTableExists(SYS_NODE.$NAME)) {
+            return;
+        }
+
         RcdSet rs=dao.query("select concat(datacenter_id,'-',worker_id) dw  from sys_node where is_up=1 and datacenter_id is not null and worker_id is not null");
         List<String> ps=rs.getValueList("dw",String.class);
         Integer datacenterId=null;

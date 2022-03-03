@@ -1,38 +1,43 @@
 package org.github.foxnic.web.system.service.impl;
 
 
-import com.github.foxnic.api.error.ErrorDesc;
-import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.commons.busi.id.IDGenerator;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.entity.SuperService;
-import com.github.foxnic.dao.excel.ExcelStructure;
-import com.github.foxnic.dao.excel.ExcelWriter;
-import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.dao.spec.DAO;
-import com.github.foxnic.sql.expr.ConditionExpr;
-import com.github.foxnic.sql.meta.DBField;
-import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_CODE_EXAMPLE_ROLE;
-import org.github.foxnic.web.domain.oauth.Role;
-import org.github.foxnic.web.domain.system.CodeExample;
-import org.github.foxnic.web.domain.system.CodeExampleRole;
-import org.github.foxnic.web.framework.dao.DBConfigs;
-import org.github.foxnic.web.system.service.ICodeExampleRoleService;
+import javax.annotation.Resource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
-import java.io.InputStream;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
+
+import org.github.foxnic.web.domain.system.CodeExampleRole;
+import org.github.foxnic.web.domain.system.CodeExampleRoleVO;
 import java.util.List;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.dao.data.PagedList;
+import com.github.foxnic.dao.entity.SuperService;
+import com.github.foxnic.dao.spec.DAO;
+import java.lang.reflect.Field;
+import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.sql.expr.ConditionExpr;
+import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.dao.excel.ExcelWriter;
+import com.github.foxnic.dao.excel.ValidateResult;
+import com.github.foxnic.dao.excel.ExcelStructure;
+import java.io.InputStream;
+import com.github.foxnic.sql.meta.DBField;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.meta.DBColumnMeta;
+import com.github.foxnic.sql.expr.Select;
+import java.util.ArrayList;
+import org.github.foxnic.web.system.service.ICodeExampleRoleService;
+import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.github.foxnic.web.constants.db.FoxnicWeb.*;
+import org.github.foxnic.web.domain.system.CodeExample;
+import org.github.foxnic.web.domain.oauth.Role;
 
 /**
  * <p>
  * 代码示例主表角色关系表 服务实现
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-30 10:30:35
+ * @since 2022-02-07 09:03:09
 */
 
 
@@ -42,7 +47,7 @@ public class CodeExampleRoleServiceImpl extends SuperService<CodeExampleRole> im
 	/**
 	 * 注入DAO对象
 	 * */
-	@Resource(name=DBConfigs.PRIMARY_DAO)
+	@Resource(name=DBConfigs.PRIMARY_DAO) 
 	private DAO dao=null;
 
 	/**
@@ -90,7 +95,7 @@ public class CodeExampleRoleServiceImpl extends SuperService<CodeExampleRole> im
 		return super.insertList(codeExampleRoleList);
 	}
 
-
+	
 	/**
 	 * 按主键删除 代码示例主表角色关系
 	 *
@@ -147,7 +152,7 @@ public class CodeExampleRoleServiceImpl extends SuperService<CodeExampleRole> im
 		return super.updateList(codeExampleRoleList , mode);
 	}
 
-
+	
 	/**
 	 * 按主键更新字段 代码示例主表角色关系
 	 *
@@ -161,7 +166,7 @@ public class CodeExampleRoleServiceImpl extends SuperService<CodeExampleRole> im
 		return suc>0;
 	}
 
-
+	
 	/**
 	 * 按主键获取 代码示例主表角色关系
 	 *
@@ -222,16 +227,16 @@ public class CodeExampleRoleServiceImpl extends SuperService<CodeExampleRole> im
 	}
 
 	/**
-	 * 检查 角色 是否已经存在
+	 * 检查 实体 是否已经存在 , 判断 主键值不同，但指定字段的值相同的记录是否存在
 	 *
 	 * @param codeExampleRole 数据对象
 	 * @return 判断结果
 	 */
-	public Result<CodeExampleRole> checkExists(CodeExampleRole codeExampleRole) {
+	public Boolean checkExists(CodeExampleRole codeExampleRole) {
 		//TDOD 此处添加判断段的代码
-		//boolean exists=this.checkExists(codeExampleRole, SYS_ROLE.NAME);
+		//boolean exists=super.checkExists(codeExampleRole, SYS_ROLE.NAME);
 		//return exists;
-		return ErrorDesc.success();
+		return false;
 	}
 
 	@Override

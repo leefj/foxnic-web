@@ -1314,10 +1314,21 @@ layui.define(['laytpl', 'laypage', 'layer', 'form', 'util'], function(exports){
       var othis = $(this)
       ,events = othis.attr('lay-event')
       ,openPanel = function(sets){
+        // 李方捷 加入配置按钮
+        sets.list="<li style='text-align:center;color: #333333;' id='"+(options.id+"-custom-button")+"'>自定义表格</li><hr style='margin:0px'/>"+sets.list;
         var list = $(sets.list)
         ,panel = $('<ul class="layui-table-tool-panel"></ul>');
-
+        //debugger
         panel.html(list);
+
+        // 李方捷 加入配置按钮事件
+        setTimeout(function (){
+          $("#"+options.id+"-custom-button").click(function () {
+            openTableCustomDialog(this,options,that);
+          });
+        },8);
+
+
 
         //限制最大高度
         if(options.height){
@@ -1380,7 +1391,7 @@ layui.define(['laytpl', 'laypage', 'layer', 'form', 'util'], function(exports){
                 });
                 //李方捷 加入的代码
                 var ths = $("div[lay-id="+options.elem[0].id+"] th .layui-table-cell");
-                window.saveTableSettings && window.saveTableSettings(options.elem[0].id,ths,options.cols[0]);
+                window.saveTableSettings4UI && window.saveTableSettings4UI(options.elem[0].id,ths,options.cols[0]);
               });
 
 

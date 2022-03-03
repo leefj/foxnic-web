@@ -47,7 +47,7 @@ public class FileServiceImpl extends SuperService<File> implements IFileService 
 
 	@Resource(name=DBConfigs.PRIMARY_DAO)
 	private DAO dao=null;
-	@Value("${storage.mode}")
+	@Value("${foxnic.storage.mode}")
 	private String storageMode;
 
  	private StorageSupport storageSupport;
@@ -113,6 +113,11 @@ public class FileServiceImpl extends SuperService<File> implements IFileService 
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null 。");
 		sample.setId(id);
 		File file=dao.queryEntity(sample);
+		if(file!=null) {
+			Logger.info("Get File : "+JSON.toJSON(file));
+		} else {
+			Logger.info("No File : "+id);
+		}
 		resurgence(id,false);
 		return file;
 	}
@@ -167,11 +172,11 @@ public class FileServiceImpl extends SuperService<File> implements IFileService 
 	public Result<String> getFileData(String id) {
 		File fileInfo=this.getById(id);
 		if(fileInfo==null) {
-			return ErrorDesc.failure(CommonError.FILE_INVALID);
+			return ErrorDesc.failure(CommonError.FILE_INVALID,"文件信息不存在");
 		}
 		byte[] data=this.getBytes(fileInfo);
 		if(data==null) {
-			return ErrorDesc.failure(CommonError.FILE_INVALID);
+			return ErrorDesc.failure(CommonError.FILE_INVALID,"文件不存在");
 		}
 		Result<String> result=new Result<>();
 		result.success(true);

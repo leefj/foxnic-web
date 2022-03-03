@@ -1,8 +1,9 @@
 package org.github.foxnic.web.oauth.service;
+
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.entity.ISuperService;
+import com.github.foxnic.dao.entity.ISimpleIdService;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.expr.OrderBy;
 import com.github.foxnic.sql.meta.DBField;
@@ -18,7 +19,7 @@ import java.util.List;
  * @since 2021-06-01 09:27:27
 */
 
-public interface IUserService extends ISuperService<User> {
+public interface IUserService extends ISimpleIdService<User,String> {
 
 	/**
 	 * 插入实体

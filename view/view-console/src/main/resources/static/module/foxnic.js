@@ -337,6 +337,9 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 if(!Array.isArray(value)){
                     try{
                         value=JSON.parse(value);
+                        if(!Array.isArray(value)) {
+                            value=[value];
+                        }
                     }catch (e){
                         value=value.split(",");
                     }
@@ -367,6 +370,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     // var prevFlag = 0, prev = null;
                     //debugger
                     for (var i = 0; cols && i < cols.length; i++) {
+                        cols[i].programTitle=cols[i].title;
                         var columnConfig=columnWidthConfig[cols[i].field];
                         if(columnConfig==null) continue;
                         if(TypeUtil.isNumber(columnConfig)) {
@@ -383,6 +387,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                         //var w = columnWidthConfig[cols[i].field];
                         // if (w) {
                         cols[i].width = columnConfig.width;
+                        cols[i].orderIndex = columnConfig.orderIndex;
                             // debugger
                             // if(cfg.hide!==null) {
                         cols[i].hide = columnConfig.hide;
@@ -396,6 +401,13 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     }
                     //if (prev) prev.width = null;
                 }
+
+                if(cols) {
+                    cols.sort(function (a, b) {
+                        return a.orderIndex - b.orderIndex;
+                    });
+                }
+
             }
 
             //debugger
@@ -492,7 +504,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             //     form.on('checkbox(LAY_TABLE_TOOL_COLS)', function(data){
             //         var ths = $("#"+tableId+" th .layui-table-cell");
             //         setTimeout(function (){
-            //             saveTableSettings(tableId,ths,cols);
+            //             saveTableSettings4UI(tableId,ths,cols);
             //         },1);
             //     });
             // });
@@ -1099,7 +1111,14 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     }
                 }
             } catch (e){}
+
+
+            // 如果被拆分
             if(codes!=null) {
+                // 排除拆分无效的情况
+                if(codes.length==1 && codes[0]==code) {
+                    return code;
+                }
                 var texts=[];
                 var text=null;
                 for (var i = 0; i < codes.length; i++) {
@@ -1164,7 +1183,12 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             } catch (e){
                 debugger;
             }
+            // 如果被拆分
             if(codes!=null) {
+                // 排除拆分无效的情况
+                if(codes.length==1 && codes[0]==code) {
+                    return code;
+                }
                 var texts=[];
                 var text=null;
                 for (var i = 0; i < codes.length; i++) {
@@ -1795,7 +1819,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                         delete top[tag];
                     }, 1000 * 60 * 10);
                     console.log("dl:"+doc.innerHTML);
-                    // callback && callback({success:true,message:"下载成功"});
+                    callback && callback({success:true,message:"下载成功"});
                     debugger;
                 }
             }, 500);
@@ -1865,7 +1889,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             if (cls.indexOf("layui-table-cell") == -1 || cls.indexOf("laytable-cell-") == -1) return;
             var ths = $("th .layui-table-cell");
             //debugger
-            saveTableSettings(tableId,ths,cols);
+            saveTableSettings4UI(tableId,ths,cols);
             return;
 
             // var ws = {};
@@ -1903,7 +1927,8 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
 
     });
 
-    function saveTableSettings(tableId,ths,cols) {
+    function saveTableSettings4UI(tableId,ths,cols) {
+        //
         var ws = {};
         for (var i = 0; i < ths.length; i++) {
             var th = $(ths[i]);
@@ -1913,12 +1938,22 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             //debugger;
             if (cols[i] && cols[i].field) {
                 var w=th[0].clientWidth;
-                if(hide) w=20;
-                ws[cols[i].field] = {width:w,hide:hide};
-                cols[i].width = th[0].clientWidth;
+                if(hide) w=50;
+                cols[i].width = w;
+                var cfg={width:w,hide:hide};
+                cfg.title=cols[i].title;
+                cfg.orderIndex=cols[i].orderIndex;
+                ws[cols[i].field] = cfg;
+
             }
         }
 
+
+
+        saveTableSettings(tableId,ws);
+    }
+
+    function saveTableSettings(tableId,ws) {
         var loc = location.href;
         loc = loc.substr(loc.indexOf("//") + 2);
         loc = loc.substr(loc.indexOf("/"));
@@ -1926,7 +1961,6 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             loc = loc.substr(0,loc.indexOf("?"));
         }
         console.log("save table", tableId, ws);
-
         admin.request("/service-system/sys-db-cache/save", {
             value: JSON.stringify(ws),
             area: loc+"#"+tableId,
@@ -1938,7 +1972,8 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             }
         });
     }
-    window.saveTableSettings=saveTableSettings;
+
+    window.saveTableSettings4UI=saveTableSettings4UI;
 
 
     // foxnic 提供的事件
@@ -1986,6 +2021,58 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             localStorage.setItem("language_timestamp", (new Date()).getTime());
         }, "POST", true);
     }
+
+    // 打开表格自定义窗口
+    window.openTableCustomDialog = function (li,options,it) {
+        // it.resize();
+        li=$(li);
+        li.parent().hide();
+        //
+        // console.log(JSON.stringify(options.cols[0]));
+        admin.putVar("custom-table-options",options);
+        admin.putVar("custom-table-apply-function",function(configs) {
+
+            var colsToApply = options.cols[0];
+            // debugger
+            for (var i = 0; i < colsToApply.length; i++) {
+                var col=colsToApply[i];
+                var field=col.field;
+                var cfg=configs.columns[field];
+                if(!cfg) continue;
+                col.hide=cfg.hide;
+                col.title=cfg.title;
+                col.width=cfg.width;
+                // col.fixed=cfg.fixed;
+                col.orderIndex=parseInt(cfg.orderIndex);
+                if(isNaN(col.orderIndex)) col.orderIndex=1024;
+                // 前两列不考虑
+                col.orderIndex+=2;
+            }
+            colsToApply.sort(function (a,b){
+                return a.orderIndex-b.orderIndex;
+            });
+
+            it.reload(options.id,options);
+
+            saveTableSettings(options.id,configs.columns)
+
+
+        });
+        admin.popupCenter({
+            title: "自定义表格",
+            resize: false,
+            //offset: [auto,null],
+            area: [(630+18)+"px","600px"],
+            type: 2,
+            id: "table-custom-dialog",
+            content: '/business/system/layui/table_custom_dialog.html',
+            finish: function () {
+                //alert("finish");
+            }
+        });
+
+    }
+
 
     //图片预览支持
     window.previewImage = function (obj) {

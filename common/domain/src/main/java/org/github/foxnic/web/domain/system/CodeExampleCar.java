@@ -19,7 +19,7 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 代码生成拥有的车辆
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-27 13:58:09
+ * @since 2022-02-07 09:03:10
  * @sign 200EBBE1F5C5228B9E91FB19A6ABC9B1
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */

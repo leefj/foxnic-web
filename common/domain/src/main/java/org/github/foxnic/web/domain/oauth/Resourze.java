@@ -21,8 +21,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 系统资源
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-14 11:38:01
- * @sign 242D7309A9182A94E930C006F16596A7
+ * @since 2022-01-20 14:50:55
+ * @sign 583BBDA673F96561C0B687C0773621D5
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -57,7 +57,7 @@ public class Resourze extends Entity {
 	/**
 	 * 访问控制类型：访问控制类型
 	*/
-	@ApiModelProperty(required = false,value="访问控制类型" , notes = "访问控制类型")
+	@ApiModelProperty(required = true,value="访问控制类型" , notes = "访问控制类型")
 	private String accessType;
 	@Transient
 	private AccessType accessTypeEnum;

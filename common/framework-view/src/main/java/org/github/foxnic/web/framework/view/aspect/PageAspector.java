@@ -96,7 +96,10 @@ public class PageAspector {
 	private Object processControllerMethod(ProceedingJoinPoint joinPoint,Class mappingType) throws Throwable {
 
 		ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-		HttpServletRequest request = attributes.getRequest();
+		HttpServletRequest request = null;
+		if(attributes!=null) {
+			request = attributes.getRequest();
+		}
 
 		MethodSignature ms=(MethodSignature)joinPoint.getSignature();
 		Method method=ms.getMethod();
@@ -136,7 +139,10 @@ public class PageAspector {
 		//获得登录 SessionUser
 		SessionUser user=SessionUser.getCurrent();
 
-		PageHelper pageHelper=new PageHelper(request,user);
+		PageHelper pageHelper=null;
+		if(request!=null) {
+			pageHelper=new PageHelper(request, user);
+		}
 
 		String cacheKey= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_CACHEKEY);
 		String userCacheKey=null;

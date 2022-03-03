@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -146,6 +147,11 @@ public class RoleUserServiceImpl extends SuperService<RoleUser> implements IRole
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null ");
 		sample.setId(id);
 		return dao.queryEntity(sample);
+	}
+
+	@Override
+	public List<RoleUser> getByIds(List<String> ids) {
+		return new ArrayList<>(getByIdsMap(ids).values());
 	}
 
 	/**

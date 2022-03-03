@@ -35,7 +35,7 @@ $.extend({
       position = position ? position : this.options.position;
       var container = $('body .toastr-container');
       if (!container.hasClass(position)) {
-        $('body').append('<div class="toastr-container ' + position + '"><ul></ul></div>');
+        $('body').append('<div class="toastr-container ' + position + '" style="z-index:214748360"><ul></ul></div>');
       }
       return $('body .toastr-container.' + position);
     },
@@ -63,11 +63,11 @@ $.extend({
         'bottom-center': {fadeIn: 'top', fadeOut: 'bottom'},
         'left-bottom': {fadeIn: 'left', fadeOut: 'left'}
       }, id = 'toastr-' + new Date().getTime();
-      
- 	 //设置宽度
+
+ 	  //设置宽度
       var style="";
       if(options.width) {
-      	style="width:"+options.width;
+      	style+= "width:"+options.width;
       }
       if(style!="") {
       	style=" style=\""+style+"\" ";

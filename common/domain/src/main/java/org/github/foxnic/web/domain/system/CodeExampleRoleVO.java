@@ -12,7 +12,7 @@ import com.github.foxnic.commons.bean.BeanUtil;
 /**
  * 代码示例主表角色关系
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-30 10:30:35
+ * @since 2022-02-07 09:03:09
  * @sign 582176897672589DD07BBA518C6F232D
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */

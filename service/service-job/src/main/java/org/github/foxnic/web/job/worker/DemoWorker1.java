@@ -22,6 +22,8 @@ public class DemoWorker1 implements JobExecutor {
     public Result execute(Object context, Job job, JSONObject methodParams) {
         JobExecutionContext ctx=(JobExecutionContext) context;
         System.out.println(Thread.currentThread());
+//        Result<User> r= UserServiceProxy.api().getById("110588348101165911");
+//        User user=r.data();
         Logger.info("demo worker do the job @"+ DateUtil.getFormattedTime(false)+" misfire="+ctx.getTrigger().getMisfireInstruction());
 //        if(System.currentTimeMillis()>0) {
 //            throw new RuntimeException("哈哈");
