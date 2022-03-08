@@ -3,6 +3,8 @@ server:
     timeout: 28800s
   servlet:
     session:
+      secure: true
+      http-only: true
       # 会话超时时间，如 30s , 20m 等
       timeout: 28800s
   port: 1899
@@ -128,6 +130,8 @@ foxnic:
         mac: /Users/LeeFJ/git/tailoring/uploads
         linux: /tailoring/uploads
   # 设置 Join 的二级缓存
+  bpm:
+    enable: true
   cache:
     # 默认配置
     default:
@@ -183,7 +187,7 @@ security:
   # 模式：session / jwt
   mode: both
   # 配置无需鉴权可以访问的地址
-  ignored-urls: /assets/** , /pages/** , /*.ico , /module/** ,  /**/*.css , /**/*.js , /error , /demo/** ,/druid/** ,/service-system/unit-test/**
+  ignored-urls: /assets/** , /pages/** , /*.ico , /module/** ,  /**/*.css , /**/*.js , /error , /demo/** ,/druid/** ,/service-system/unit-test/** ,/camunda/**
   # mode=session 时配置的登录页面
   login-page: /login.html
   jwt:
@@ -217,4 +221,3 @@ knife4j:
   title: ${spring.application.name}
   description: ${spring.application.description}
   version: 1.0
-

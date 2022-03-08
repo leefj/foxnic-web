@@ -47,13 +47,15 @@ public class DBConfigs {
         AESUtil aes=new AESUtil(passwd);
         //
         String dbPassed=getProperty(prefix,"password",ymlcfg);
+        String userName=getProperty(prefix,"username",ymlcfg);
+        String url=getProperty(prefix,"url",ymlcfg);
         //
         if(dataSource instanceof DruidDataSource) {
             DruidDataSource dds=(DruidDataSource) dataSource;
-            String url=aes.decryptData(dds.getUrl());
-            String username=aes.decryptData(dds.getUsername());
+            url=aes.decryptData(url);
+            userName=aes.decryptData(userName);
             dds.setUrl(url);
-            dds.setUsername(username);
+            dds.setUsername(userName);
             dbPassed=aes.decryptData(dbPassed);
             dds.setPassword(dbPassed);
         }
