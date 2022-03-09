@@ -30,6 +30,9 @@
         <module>../foxnic-web-advance</module>
         <!-- 界面视图 -->
         <module>./view/view-console</module>
+        <!-- 项目聚合 -->
+        <module>./wrapper/wrapper-support</module>
+        <module>./wrapper/wrapper-all</module>
     </modules>
     <properties>
         <skipTests>true</skipTests>
