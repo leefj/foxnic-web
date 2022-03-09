@@ -29,8 +29,11 @@ compoments:
 applications:
   #系统服务
   service-system:
+    # 如果使用 nacos 指定分组
     nacosGroup: service
+    # 如果使用 nacos 指定 dataId
     nacosDataId: service-system.yml
+    # 服务项目路径
     serviceProjectPath:  /service/service-system
     packageName: org.github.foxnic.web.system
     primaryDatasourceConfigKey: spring.datasource.druid.primary
@@ -125,5 +128,25 @@ applications:
     microServiceNameConst: JOB
     viewProjectPath: /view/view-console
     viewPrefixPath: public/business/job
+    wrapperProjectPath:  /wrapper/wrapper-all-service
+  #示例
+  service-example:
+    # 如果使用 nacos 指定分组
+    nacosGroup: service
+    # 如果使用 nacos 指定 dataId
+    nacosDataId: service-example.yml
+    # service 的项目路径
+    serviceProjectPath: /service/service-example
+    # 包名
+    packageName: org.github.foxnic.web.example
+    # 主数据源配置键
+    primaryDatasourceConfigKey: spring.datasource.druid.primary
+    # 微服务常量名
+    microServiceNameConst: EXAMPLE
+    # 视图项目路径
+    viewProjectPath: /view/view-example
+    # 视图代码路径前缀
+    viewPrefixPath: public/business/example
+    # 聚合项目，用于读取配置
     wrapperProjectPath:  /wrapper/wrapper-all-service
 

@@ -33,6 +33,9 @@
         <!-- 项目聚合 -->
         <module>./wrapper/wrapper-support</module>
         <module>./wrapper/wrapper-all</module>
+        <!-- 示例 -->
+        <module>./service/service-example</module>
+        <module>./view/view-example</module>
     </modules>
     <properties>
         <skipTests>true</skipTests>

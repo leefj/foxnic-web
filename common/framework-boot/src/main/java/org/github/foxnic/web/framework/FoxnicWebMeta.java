@@ -80,7 +80,10 @@ public class FoxnicWebMeta {
 	 * */
 	public static final String WRAPPER_SUPPORT_PACKAGE=BASE_PACKAGE+".wrapper.support";
 
-
+	/**
+	 * 示例
+	 * */
+	public static final String SERVICE_EXAMPLE_PACKAGE=BASE_PACKAGE+".example";
 
 
 

@@ -32,11 +32,10 @@ public class CodeStarter extends ModuleCodeGenerator {
         g.start();
     }
 
-    public void initModules()
-    {
+    public void initModules() {
 
 //        initPcmModules();
-        initOAuthModules();
+//        initOAuthModules();
 //        initSystemModules();
 //        initHrmModules();
 //        initExampleModules();
@@ -44,7 +43,11 @@ public class CodeStarter extends ModuleCodeGenerator {
 //        initBpmModules();
 //        initDatapermModules();
 //        initJobModules();
+        initExample2Modules();
+    }
 
+    private void initExample2Modules() {
+        this.addConfig(new ExampleNewsConfig());
     }
 
     private void initDatapermModules() {
