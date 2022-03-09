@@ -186,15 +186,15 @@ foxnic:
     service-bpm:
       enable: false
       # 多个节点时用逗号隔开,格式： 地址,权重 | 地址,权重 | ...
-      uris: http://127.0.0.1:1820,1 | http://127.0.0.1:1820,1
+      end-points: http://127.0.0.1:1820,1 | http://127.0.0.1:1820,1
     service-hrm:
       enable: true
       # 多个节点时用逗号隔开,格式： 地址,权重 | 地址,权重 | ...
-      uris: http://127.0.0.1:1899,1 | http://127.0.0.1:1899,2
+      end-points: http://127.0.0.1:1899,1 | http://127.0.0.1:1899,2
     service-oauth:
       enable: true
       # 多个节点时用逗号隔开,格式： 地址,权重 | 地址,权重 | ...
-      uris: http://127.0.0.1:1899,1 | http://127.0.0.1:1899,2
+      end-points: http://127.0.0.1:1899,1 | http://127.0.0.1:1899,2
 
 security:
   # 模式：session / jwt

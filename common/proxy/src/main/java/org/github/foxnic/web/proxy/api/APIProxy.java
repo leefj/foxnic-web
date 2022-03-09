@@ -49,19 +49,47 @@ public class APIProxy {
 	}
 
 
+
+
 	public static <T> T getInstance(Class<T> intfType,String controllerName){
         Class ctrlClass = ReflectUtil.forName(controllerName);
+        InvocationHandler invocationHandler=null;
         if(ctrlClass==null) {
-            throw new IllegalArgumentException("控制器 "+controllerName+" 不存在");
+            //throw new IllegalArgumentException("控制器 "+controllerName+" 不存在");
+            invocationHandler = new RemoteMethodProxy();
+        } else {
+            invocationHandler = new MethodProxy(ctrlClass);
         }
-        MethodProxy invocationHandler = new MethodProxy(ctrlClass);
         Object newProxyInstance = Proxy.newProxyInstance(
                 intfType.getClassLoader(),
-                new Class[] { intfType },
+                new Class[]{intfType},
                 invocationHandler);
-        return (T)newProxyInstance;
+        return (T) newProxyInstance;
     }
 
+}
+
+class RemoteMethodProxy implements InvocationHandler {
+
+    private static final String CLUSTER_PROXY_NAME="org.github.foxnic.web.framework.cluster.ClusterProxy";
+    private static Object proxyBus;
+    private static Method proxyMethod;
+
+    public RemoteMethodProxy(){
+        if(proxyBus==null) {
+            Class type = ReflectUtil.forName(CLUSTER_PROXY_NAME);
+            proxyBus = (Object) APIProxy.getBean(type);
+        }
+    }
+
+    @Override
+    public Object invoke(Object proxy, Method method, Object[] args)  throws Throwable {
+        InvokeSourceVar.set(InvokeSource.PROXY_EXTERNAL);
+        if(proxyMethod==null) {
+            proxyMethod = proxyBus.getClass().getMethod("invoke", Object.class, Method.class, Object[].class);
+        }
+        return proxyMethod.invoke(proxyBus,proxy,method,args);
+    }
 }
 
 class MethodProxy implements InvocationHandler {

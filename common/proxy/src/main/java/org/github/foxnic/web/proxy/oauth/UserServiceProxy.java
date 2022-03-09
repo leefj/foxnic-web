@@ -11,6 +11,7 @@ import org.github.foxnic.web.session.SessionUser;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
@@ -25,22 +26,22 @@ import java.util.List;
 
 @FeignClient(value = MicroServiceNames.OAUTH, contextId = UserServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)
 public interface UserServiceProxy {
-	
+
 	/**
 	 * 基础路径 , service-oauth
 	*/
 	public static final String API_BASIC_PATH = "service-oauth";
-	
+
 	/**
 	 * API 上下文路径 , sys-user
 	*/
 	public static final String API_CONTEXT_PATH = "sys-user";
-	
+
 	/**
 	 * API 基础路径 , 由 API_BASIC_PATH 和 API_CONTEXT_PATH 两部分组成
 	*/
 	public static final String API_PREFIX = "/" + API_BASIC_PATH + "/"+API_CONTEXT_PATH+"/";
-	
+
 	/**
 	 * 添加账户
 	 */
@@ -50,45 +51,45 @@ public interface UserServiceProxy {
 	 * 删除账户
 	 */
 	public static final String DELETE = API_PREFIX + "delete";
-	
-	
+
+
 	/**
 	 * 批量删除账户
 	 */
 	public static final String BATCH_DELETE = API_PREFIX + "batch-delete";
-	
-	
+
+
 	/**
 	 * 更新账户
 	 */
 	public static final String UPDATE = API_PREFIX + "update";
-	
-	
+
+
 	/**
 	 * 保存账户
 	 */
 	public static final String SAVE = API_PREFIX + "save";
-	
+
 	/**
 	 * 获取账户
 	 */
 	public static final String GET_BY_ID = API_PREFIX + "get-by-id";
-	
+
 	/**
 	 * 查询账户
 	 */
 	public static final String QUERY_LIST = API_PREFIX + "query-list";
-	
+
 	/**
 	 * 分页查询账户
 	 */
 	public static final String QUERY_PAGED_LIST = API_PREFIX + "query-paged-list";
-	
+
 	/**
 	 * 导出账户数据(Excel)
 	 */
 	public static final String EXPORT_EXCEL = API_PREFIX + "export-excel";
-	
+
 	/**
 	 * 导入账户数据(Excel)
 	 */
@@ -104,7 +105,7 @@ public interface UserServiceProxy {
 	*/
 	@RequestMapping(UserServiceProxy.INSERT)
 	Result insert(UserVO userVO);
-	
+
 	/**
 	 * 删除账户
 	*/
@@ -117,31 +118,31 @@ public interface UserServiceProxy {
 	*/
 	@RequestMapping(UserServiceProxy.BATCH_DELETE)
 	Result deleteByIds(List<String> id);
-	
+
 	/**
 	 * 更新账户
 	*/
 	@RequestMapping(UserServiceProxy.UPDATE)
 	Result update(UserVO userVO);
-	
+
 	/**
 	 * 更新账户
 	*/
 	@RequestMapping(UserServiceProxy.SAVE)
 	Result save(UserVO userVO);
-	
+
 	/**
 	 * 获取账户
 	*/
 	@RequestMapping(UserServiceProxy.GET_BY_ID)
 	Result<User> getById(String id);
-	
+
 	/**
 	 * 查询账户
 	*/
-	@RequestMapping(UserServiceProxy.QUERY_LIST)
+	@RequestMapping(value=UserServiceProxy.QUERY_LIST)
 	Result<List<User>> queryList(UserVO sample);
-	
+
 	/**
 	 * 分页查询账户
 	*/
@@ -163,19 +164,19 @@ public interface UserServiceProxy {
 	 * 帐号密码登录
 	 * */
 	public static final String LOGIN_URI= "/security/login";
-	
-	
+
+
 	/**
 	 * 帐号密码登录
 	 * */
 	public static final String GET_SESSION_USER_URI= "/security/get-session-user";
-	
+
 	/**
 	 * 验证码登录
 	 * */
 	public static final String LOGIN_BY_CAPTCHA_URI= "/security/login_by_captcha";
-	
-	
+
+
 	/**
 	 * 账户登出
 	 * */
