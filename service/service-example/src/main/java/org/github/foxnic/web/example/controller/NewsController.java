@@ -48,7 +48,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 示例新闻 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-03-09 16:03:20
+ * @since 2022-03-09 21:02:43
 */
 
 @Api(tags = "示例新闻")
@@ -69,6 +69,7 @@ public class NewsController extends SuperController {
 		@ApiImplicitParam(name = NewsVOMeta.TITLE , value = "标题" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = NewsVOMeta.CONTENT , value = "内容" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = NewsVOMeta.AUTHOR , value = "作者" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = NewsVOMeta.EXPIRE_DATE , value = "过期时间" , required = false , dataTypeClass=Date.class),
 	})
 	@ApiOperationSupport(order=1)
 	@SentinelResource(value = NewsServiceProxy.INSERT , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
@@ -123,6 +124,7 @@ public class NewsController extends SuperController {
 		@ApiImplicitParam(name = NewsVOMeta.TITLE , value = "标题" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = NewsVOMeta.CONTENT , value = "内容" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = NewsVOMeta.AUTHOR , value = "作者" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = NewsVOMeta.EXPIRE_DATE , value = "过期时间" , required = false , dataTypeClass=Date.class),
 	})
 	@ApiOperationSupport( order=4 , ignoreParameters = { NewsVOMeta.PAGE_INDEX , NewsVOMeta.PAGE_SIZE , NewsVOMeta.SEARCH_FIELD , NewsVOMeta.FUZZY_FIELD , NewsVOMeta.SEARCH_VALUE , NewsVOMeta.DIRTY_FIELDS , NewsVOMeta.SORT_FIELD , NewsVOMeta.SORT_TYPE , NewsVOMeta.IDS } )
 	@NotNull(name = NewsVOMeta.ID)
@@ -143,6 +145,7 @@ public class NewsController extends SuperController {
 		@ApiImplicitParam(name = NewsVOMeta.TITLE , value = "标题" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = NewsVOMeta.CONTENT , value = "内容" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = NewsVOMeta.AUTHOR , value = "作者" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = NewsVOMeta.EXPIRE_DATE , value = "过期时间" , required = false , dataTypeClass=Date.class),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { NewsVOMeta.PAGE_INDEX , NewsVOMeta.PAGE_SIZE , NewsVOMeta.SEARCH_FIELD , NewsVOMeta.FUZZY_FIELD , NewsVOMeta.SEARCH_VALUE , NewsVOMeta.DIRTY_FIELDS , NewsVOMeta.SORT_FIELD , NewsVOMeta.SORT_TYPE , NewsVOMeta.IDS } )
 	@NotNull(name = NewsVOMeta.ID)
@@ -202,6 +205,7 @@ public class NewsController extends SuperController {
 		@ApiImplicitParam(name = NewsVOMeta.TITLE , value = "标题" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = NewsVOMeta.CONTENT , value = "内容" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = NewsVOMeta.AUTHOR , value = "作者" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = NewsVOMeta.EXPIRE_DATE , value = "过期时间" , required = false , dataTypeClass=Date.class),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { NewsVOMeta.PAGE_INDEX , NewsVOMeta.PAGE_SIZE } )
 	@SentinelResource(value = NewsServiceProxy.QUERY_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
@@ -223,6 +227,7 @@ public class NewsController extends SuperController {
 		@ApiImplicitParam(name = NewsVOMeta.TITLE , value = "标题" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = NewsVOMeta.CONTENT , value = "内容" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = NewsVOMeta.AUTHOR , value = "作者" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = NewsVOMeta.EXPIRE_DATE , value = "过期时间" , required = false , dataTypeClass=Date.class),
 	})
 	@ApiOperationSupport(order=8)
 	@SentinelResource(value = NewsServiceProxy.QUERY_PAGED_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )

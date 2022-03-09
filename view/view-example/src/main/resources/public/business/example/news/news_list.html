@@ -2,7 +2,7 @@
 /**
  * 示例新闻 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-03-09 16:03:29
+ * @since 2022-03-09 21:02:43
  */
  -->
  <!DOCTYPE html>
@@ -57,6 +57,11 @@
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('作者')}" class="search-label author-label">作者</span><span class="search-colon">:</span></div>
                         <input id="author" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 过期时间 , expireDate ,typeName=date_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('过期时间')}" class="search-label expireDate-label">过期时间</span><span class="search-colon">:</span></div>
+                            <input type="text" id="expireDate"  style="width: 140px"  lay-verify="date" th:placeholder="${lang.translate('请选择')}" autocomplete="off" class="layui-input search-input search-date-input" readonly>
                     </div>
 
 

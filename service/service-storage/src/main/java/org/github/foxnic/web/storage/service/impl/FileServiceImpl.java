@@ -109,6 +109,7 @@ public class FileServiceImpl extends SuperService<File> implements IFileService 
 	 * @return 查询结果 , File对象
 	 */
 	public File getById(String id) {
+
 		File sample = new File();
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null 。");
 		sample.setId(id);

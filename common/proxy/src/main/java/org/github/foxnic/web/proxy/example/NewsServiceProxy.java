@@ -19,7 +19,7 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  * 示例新闻  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-03-09 16:03:20
+ * @since 2022-03-09 21:02:42
 */
 
 @FeignClient(value = MicroServiceNames.EXAMPLE, contextId = NewsServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)

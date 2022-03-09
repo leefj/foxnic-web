@@ -1,7 +1,7 @@
 /**
  * 示例新闻 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-03-09 16:03:28
+ * @since 2022-03-09 21:02:43
  */
 
 function FormPage() {
@@ -85,6 +85,14 @@ function FormPage() {
 	function renderFormFields() {
 		fox.renderFormInputs(form);
 
+		laydate.render({
+			elem: '#expireDate',
+			format:"yyyy-MM-dd HH:mm:ss",
+			trigger:"click",
+			done: function(value, date, endDate){
+				window.pageExt.form.onDatePickerChanged && window.pageExt.form.onDatePickerChanged("expireDate",value, date, endDate);
+			}
+		});
 	}
 
 	/**
@@ -111,6 +119,10 @@ function FormPage() {
 
 
 
+			//设置 过期时间 显示复选框勾选
+			if(formData["expireDate"]) {
+				$("#expireDate").val(fox.dateFormat(formData["expireDate"],"yyyy-MM-dd HH:mm:ss"));
+			}
 
 
 

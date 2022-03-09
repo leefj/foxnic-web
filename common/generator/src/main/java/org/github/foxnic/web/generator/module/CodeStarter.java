@@ -5,14 +5,14 @@ import com.github.foxnic.generator.util.ModuleCodeGenerator;
 import org.github.foxnic.web.generator.data.DataGenerator;
 import org.github.foxnic.web.generator.module.changes.*;
 import org.github.foxnic.web.generator.module.dataperm.*;
-import org.github.foxnic.web.generator.module.example.*;
+import org.github.foxnic.web.generator.module.example.CodeExampleMulitPkConfig;
+import org.github.foxnic.web.generator.module.example.ExampleNewsConfig;
 import org.github.foxnic.web.generator.module.hrm.HrmEmployeeConfig;
 import org.github.foxnic.web.generator.module.hrm.HrmPositionConfig;
 import org.github.foxnic.web.generator.module.job.SysJobConfig;
 import org.github.foxnic.web.generator.module.job.SysJobLogConfig;
 import org.github.foxnic.web.generator.module.job.SysJobWorkerConfig;
 import org.github.foxnic.web.generator.module.oauth.SysResourzeConfig;
-import org.github.foxnic.web.generator.module.oauth.SysUserConfig;
 import org.github.foxnic.web.generator.module.pcm.PcmCatalogAllocationConfig;
 import org.github.foxnic.web.generator.module.pcm.PcmCatalogAttributeConfig;
 import org.github.foxnic.web.generator.module.pcm.PcmCatalogConfig;
@@ -42,8 +42,9 @@ public class CodeStarter extends ModuleCodeGenerator {
 //        initChangeModule1s();
 //        initBpmModules();
 //        initDatapermModules();
-//        initJobModules();
+//
         initExample2Modules();
+        initJobModules();
     }
 
     private void initExample2Modules() {

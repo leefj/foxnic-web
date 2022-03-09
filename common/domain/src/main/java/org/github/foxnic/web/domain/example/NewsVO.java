@@ -12,7 +12,7 @@ import com.github.foxnic.commons.bean.BeanUtil;
 /**
  * 示例新闻
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-03-09 16:03:19
+ * @since 2022-03-09 21:02:42
  * @sign 4172DAA2D472B45DA01C2FABB1EECFB0
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */

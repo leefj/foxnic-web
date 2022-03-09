@@ -54,7 +54,7 @@ public class CodeExampleRelationManager extends RelationManager {
 				//统计角色数量
 				example.setRoleCountByAfter(roles.size());
 				return roles;
-			});
+			}).fork(12);
 
 		//分组统计
 		this.property(CodeExample.class,CodeExampleMeta.ROLE_COUNT_BY_JOIN, Role.class)

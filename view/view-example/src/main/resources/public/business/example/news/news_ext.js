@@ -2,6 +2,7 @@
  * 示例新闻 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
  * @since 2022-03-09 15:56:31
+ * @version sss
  */
 
 layui.config({

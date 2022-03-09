@@ -10,6 +10,7 @@ import com.github.foxnic.dao.meta.DBTableMeta;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.generator.builder.business.ControllerProxyFile;
 import com.github.foxnic.sql.meta.DBTable;
+import org.github.foxnic.web.constants.db.ExampleTables;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.enums.system.AccessType;
 import org.github.foxnic.web.constants.enums.system.MenuType;
@@ -17,9 +18,9 @@ import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.MenuResource;
 import org.github.foxnic.web.domain.oauth.Resourze;
 import org.github.foxnic.web.domain.oauth.RoleMenu;
+import org.github.foxnic.web.example.page.NewsPageController;
 import org.github.foxnic.web.generator.config.FoxnicWebConfigs;
-import org.github.foxnic.web.job.page.JobLogPageController;
-import org.github.foxnic.web.proxy.job.JobLogServiceProxy;
+import org.github.foxnic.web.proxy.example.NewsServiceProxy;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.File;
@@ -43,8 +44,12 @@ public class MenuGenerator {
 
 		MenuGenerator mg=null;
 
-		mg=new MenuGenerator(FoxnicWeb.SYS_JOB_LOG.$TABLE, JobLogServiceProxy.class, JobLogPageController.class);
-		mg.generate("530778450735136769");
+		mg=new MenuGenerator(ExampleTables.EXAMPLE_NEWS.$TABLE, NewsServiceProxy.class, NewsPageController.class);
+		mg.generate("495201409763901440");
+//		mg.removeByBatchId("554044697505431552");
+
+//		mg=new MenuGenerator(FoxnicWeb.SYS_JOB_LOG.$TABLE, JobLogServiceProxy.class, JobLogPageController.class);
+//		mg.generate("530778450735136769");
 
 //		mg=new MenuGenerator(FoxnicWeb.SYS_JOB_WORKER.$TABLE, JobWorkerServiceProxy.class, JobWorkerPageController.class);
 //		mg.generate("530778450735136769");

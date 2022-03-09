@@ -21,7 +21,7 @@ import com.github.foxnic.dao.data.SaveMode;
  * 示例新闻 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-03-09 16:03:20
+ * @since 2022-03-09 21:02:42
 */
 
 public interface INewsService extends ISuperService<News> {

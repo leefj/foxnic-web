@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 示例新闻
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-03-09 16:03:19
- * @sign 8BE578BC2588AB3AC1A98F71145B53EA
+ * @since 2022-03-09 21:02:42
+ * @sign C285FF8C60DF4B55AF58A377F9C0AC3D
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -42,9 +42,9 @@ public class News extends Entity {
 	private String title;
 	
 	/**
-	 * 内容：内容
+	 * 内容：长度不超过500
 	*/
-	@ApiModelProperty(required = false,value="内容" , notes = "内容")
+	@ApiModelProperty(required = false,value="内容" , notes = "长度不超过500")
 	private String content;
 	
 	/**
@@ -102,6 +102,12 @@ public class News extends Entity {
 	private Integer version;
 	
 	/**
+	 * 过期时间：过期时间
+	*/
+	@ApiModelProperty(required = false,value="过期时间" , notes = "过期时间")
+	private Date expireDate;
+	
+	/**
 	 * 获得 主键<br>
 	 * 主键
 	 * @return 主键
@@ -141,7 +147,7 @@ public class News extends Entity {
 	
 	/**
 	 * 获得 内容<br>
-	 * 内容
+	 * 长度不超过500
 	 * @return 内容
 	*/
 	public String getContent() {
@@ -326,6 +332,25 @@ public class News extends Entity {
 	*/
 	public News setVersion(Integer version) {
 		this.version=version;
+		return this;
+	}
+	
+	/**
+	 * 获得 过期时间<br>
+	 * 过期时间
+	 * @return 过期时间
+	*/
+	public Date getExpireDate() {
+		return expireDate;
+	}
+	
+	/**
+	 * 设置 过期时间
+	 * @param expireDate 过期时间
+	 * @return 当前对象
+	*/
+	public News setExpireDate(Date expireDate) {
+		this.expireDate=expireDate;
 		return this;
 	}
 

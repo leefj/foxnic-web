@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2022-03-09 15:33:59
+ * @since 2022-03-09 20:36:58
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -36,9 +36,9 @@ public class ExampleTables {
 		public static final DBField TITLE = new DBField(DBDataType.STRING , "title","title","标题","标题",false,false,true);
 		
 		/**
-		 * 内容
+		 * 内容,长度不超过500
 		*/
-		public static final DBField CONTENT = new DBField(DBDataType.STRING , "content","content","内容","内容",false,false,true);
+		public static final DBField CONTENT = new DBField(DBDataType.STRING , "content","content","内容","长度不超过500",false,false,true);
 		
 		/**
 		 * 作者
@@ -84,8 +84,13 @@ public class ExampleTables {
 		*/
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","version","version",false,false,false);
 		
+		/**
+		 * 过期时间
+		*/
+		public static final DBField EXPIRE_DATE = new DBField(DBDataType.DATE , "expire_date","expireDate","过期时间","过期时间",false,false,true);
+		
 		public EXAMPLE_NEWS() {
-			this.init($NAME,"示例新闻" , ID , TITLE , CONTENT , AUTHOR , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"示例新闻" , ID , TITLE , CONTENT , AUTHOR , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , EXPIRE_DATE);
 		}
 		public static final EXAMPLE_NEWS $TABLE=new EXAMPLE_NEWS();
 	}

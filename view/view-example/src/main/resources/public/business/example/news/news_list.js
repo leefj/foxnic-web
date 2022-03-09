@@ -1,7 +1,7 @@
 /**
  * 示例新闻 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-03-09 16:03:23
+ * @since 2022-03-09 21:02:43
  */
 
 
@@ -79,6 +79,7 @@ function ListPage() {
 					,{ field: 'content', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('内容') , templet: function (d) { return templet('content',d.content,d);}  }
 					,{ field: 'author', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('作者') , templet: function (d) { return templet('author',d.author,d);}  }
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true   ,title: fox.translate('创建时间') ,templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
+					,{ field: 'expireDate', align:"right", fixed:false, hide:false, sort: true   ,title: fox.translate('过期时间') ,templet: function (d) { return templet('expireDate',fox.dateFormat(d.expireDate,"yyyy-MM-dd HH:mm:ss"),d); }  }
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
 				]],
@@ -141,6 +142,7 @@ function ListPage() {
 		value.content={ inputType:"button",value: $("#content").val()};
 		value.author={ inputType:"button",value: $("#author").val()};
 		value.createTime={ inputType:"date_input", value: $("#createTime").val() ,matchType:"auto"};
+		value.expireDate={ inputType:"date_input", value: $("#expireDate").val() ,matchType:"auto"};
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;
@@ -188,6 +190,15 @@ function ListPage() {
 
 		fox.switchSearchRow(1);
 
+		laydate.render({
+			elem: '#expireDate',
+			trigger:"click",
+			done: function(value, date, endDate) {
+				setTimeout(function () {
+					window.pageExt.list.onDatePickerChanged && window.pageExt.list.onDatePickerChanged("expireDate",value, date, endDate);
+				},1);
+			}
+		});
 		fox.renderSearchInputs();
 		window.pageExt.list.afterSearchInputReady && window.pageExt.list.afterSearchInputReady();
 	}
