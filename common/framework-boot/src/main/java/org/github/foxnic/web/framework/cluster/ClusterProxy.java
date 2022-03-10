@@ -2,6 +2,7 @@ package org.github.foxnic.web.framework.cluster;
 
 import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.commons.network.HttpClient;
@@ -81,8 +82,14 @@ public class ClusterProxy {
             JSONObject param=new JSONObject();
             param.put("id",args[0]);
             try {
-                Object ret=client.postMap(url,param.toJSONString(),headers);
-                return ret;
+                String ret=client.postMap(url,param.toJSONString(),headers);
+                if(ret==null) return null;
+                if(ret.startsWith("{") && ret.endsWith("}")) {
+                    Result result = ErrorDesc.fromJSON(ret);
+                    return result;
+                } else {
+                    throw new RuntimeException("不支持的返回值");
+                }
             } catch (IOException e) {
                 Logger.error("调用其它节点方法异常",e);
             }
