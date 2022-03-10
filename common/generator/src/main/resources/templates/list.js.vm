@@ -802,7 +802,12 @@ function ListPage() {
 			id:"#(formDataKey)-win",
 			content: '#(formURI)' + (queryString?("?"+queryString):""),
 			finish: function () {
-				#(refreshAfterEdit)?refreshTableData():refreshRowData(data,true);
+				if(action=="create") {
+					refreshTableData();
+				}
+				if(action=="edit") {
+					#(refreshAfterEdit)?refreshTableData():refreshRowData(data,true);
+				}
 			}
 		});
 	};

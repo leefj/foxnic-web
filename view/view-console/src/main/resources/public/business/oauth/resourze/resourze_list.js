@@ -1,7 +1,7 @@
 /**
  * 系统资源 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-03-07 13:41:10
+ * @since 2022-03-10 16:43:04
  */
 
 
@@ -399,7 +399,7 @@ function ListPage() {
 					});
 				});
 			}
-
+			
 		});
 
     };
@@ -436,7 +436,12 @@ function ListPage() {
 			id:"sys-resourze-form-data-win",
 			content: '/business/oauth/resourze/resourze_form.html' + (queryString?("?"+queryString):""),
 			finish: function () {
-				false?refreshTableData():refreshRowData(data,true);
+				if(action=="create") {
+					refreshTableData();
+				}
+				if(action=="edit") {
+					false?refreshTableData():refreshRowData(data,true);
+				}
 			}
 		});
 	};

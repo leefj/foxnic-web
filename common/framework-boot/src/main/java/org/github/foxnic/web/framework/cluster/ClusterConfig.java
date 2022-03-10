@@ -1,5 +1,6 @@
 package org.github.foxnic.web.framework.cluster;
 
+import com.github.foxnic.commons.encrypt.MD5Util;
 import com.github.foxnic.commons.lang.DataParser;
 import com.github.foxnic.springboot.spring.SpringUtil;
 
@@ -111,11 +112,18 @@ public class ClusterConfig {
     }
 
 
-    public Map<String, ServiceCluster> configs=new HashMap<>();
+    private  String key=null;
+    private Map<String, ServiceCluster> configs=new HashMap<>();
 
     public ClusterConfig() {
         // 获得配置
-        Map<String,Object> cfgs= SpringUtil.getEnvProperties("foxnic.cluster",true);
+        this.key = SpringUtil.getEnvProperty("foxnic.cluster.key");
+        // 加密 key
+        for (int i = 0; i < 4; i++) {
+            this.key= MD5Util.encrypt32(this.key);
+        }
+        //
+        Map<String,Object> cfgs= SpringUtil.getEnvProperties("foxnic.cluster.service",true);
 
         // 解析配置
         for (String key : cfgs.keySet()) {
@@ -154,5 +162,7 @@ public class ClusterConfig {
         return serviceCluster.getEndPoint();
     }
 
-
+    public String getKey() {
+        return key;
+    }
 }

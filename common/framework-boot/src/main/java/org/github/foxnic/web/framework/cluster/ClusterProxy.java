@@ -5,6 +5,8 @@ import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.commons.network.HttpClient;
+import org.github.foxnic.web.framework.proxy.ProxyContext;
+import org.github.foxnic.web.session.SessionUser;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,9 +14,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 public class ClusterProxy {
+
+    public static final String CLUSTER_KEY = "$cluster_key";
+    public static final String CLUSTER_OPERATOR = "$cluster_operator";
 
     private ClusterConfig configs=null;
 
@@ -53,11 +60,28 @@ public class ClusterProxy {
     }
 
     private Object request(String url, RequestMethod requestMethod,Object[] args) {
+        SessionUser sessionUser=SessionUser.getCurrent();
+        Map<String,String> headers=new HashMap<>();
+        headers.put(CLUSTER_KEY,this.configs.getKey());
+        String operator=null;
+
+
+        // 优先考虑 ProxyContext 中的操作人
+        if(ProxyContext.getOperator()!=null) {
+            operator= ProxyContext.getOperator();
+        }
+
+        if (operator==null && sessionUser!=null) {
+            operator=sessionUser.getUserId();
+        }
+
+        headers.put(CLUSTER_OPERATOR, operator);
         HttpClient client=new HttpClient();
         if(requestMethod==RequestMethod.POST) {
             JSONObject param=new JSONObject();
+            param.put("id",args[0]);
             try {
-                Object ret=client.postJSONObject(url,param);
+                Object ret=client.postMap(url,param.toJSONString(),headers);
                 return ret;
             } catch (IOException e) {
                 Logger.error("调用其它节点方法异常",e);

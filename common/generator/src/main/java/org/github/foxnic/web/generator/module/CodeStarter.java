@@ -35,7 +35,7 @@ public class CodeStarter extends ModuleCodeGenerator {
     public void initModules() {
 
 //        initPcmModules();
-//        initOAuthModules();
+        initOAuthModules();
 //        initSystemModules();
 //        initHrmModules();
 //        initExampleModules();
@@ -43,8 +43,8 @@ public class CodeStarter extends ModuleCodeGenerator {
 //        initBpmModules();
 //        initDatapermModules();
 //
-        initExample2Modules();
-        initJobModules();
+//        initExample2Modules();
+//        initJobModules();
     }
 
     private void initExample2Modules() {

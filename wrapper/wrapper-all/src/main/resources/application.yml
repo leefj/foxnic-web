@@ -183,18 +183,21 @@ foxnic:
         remote-expire: 1200000
   # 配置集群节点简单替代注册中心，如果启用微服务，则一下配置无效
   cluster:
-    service-bpm:
-      enable: false
-      # 多个节点时用逗号隔开,格式： 地址,权重 | 地址,权重 | ...
-      end-points: http://127.0.0.1:1820,1 | http://127.0.0.1:1820,1
-    service-hrm:
-      enable: true
-      # 多个节点时用逗号隔开,格式： 地址,权重 | 地址,权重 | ...
-      end-points: http://127.0.0.1:1899,1 | http://127.0.0.1:1899,2
-    service-oauth:
-      enable: true
-      # 多个节点时用逗号隔开,格式： 地址,权重 | 地址,权重 | ...
-      end-points: http://127.0.0.1:1899,1 | http://127.0.0.1:1899,2
+    # 节点间用于通信的 key，各节点要保持一致
+    key: FOXNIC-WEB-20220310-3398
+    service:
+      service-bpm:
+        enable: false
+        # 多个节点时用逗号隔开,格式： 地址,权重 | 地址,权重 | ...
+        end-points: http://127.0.0.1:1820,1 | http://127.0.0.1:1820,1
+      service-hrm:
+        enable: true
+        # 多个节点时用逗号隔开,格式： 地址,权重 | 地址,权重 | ...
+        end-points: http://127.0.0.1:1899,1 | http://127.0.0.1:1899,2
+      service-oauth:
+        enable: true
+        # 多个节点时用逗号隔开,格式： 地址,权重 | 地址,权重 | ...
+        end-points: http://127.0.0.1:1899,1 | http://127.0.0.1:1899,2
 
 security:
   # 模式：session / jwt
