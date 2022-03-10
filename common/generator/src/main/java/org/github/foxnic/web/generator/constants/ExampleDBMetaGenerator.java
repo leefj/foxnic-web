@@ -10,7 +10,6 @@ import java.util.List;
 
 public class ExampleDBMetaGenerator {
 
-
 	/**
 	 * 运行main函数生成代码
 	 * */
@@ -28,12 +27,10 @@ public class ExampleDBMetaGenerator {
 		this.dao=this.configs.getDAO();
 	}
 
-
 	/**
 	 * 生成DBMeta数据
 	 * */
 	private void buildDBMeta() {
-
 		DBMetaClassFile dbMetaBuilder=new DBMetaClassFile(dao,configs.getDomianProject(),this.configs.getProjectConfigs().getDomainConstantsPackage(),"ExampleTables");
 		dbMetaBuilder.setTableFilter(table->{
 			table=table.toLowerCase();
@@ -43,5 +40,4 @@ public class ExampleDBMetaGenerator {
 		});
 		dbMetaBuilder.save(true);
 	}
-
 }

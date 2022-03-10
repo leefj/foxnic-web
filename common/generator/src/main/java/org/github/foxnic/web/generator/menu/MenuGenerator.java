@@ -44,9 +44,11 @@ public class MenuGenerator {
 
 		MenuGenerator mg=null;
 
+		// 生成菜单
 		mg=new MenuGenerator(ExampleTables.EXAMPLE_NEWS.$TABLE, NewsServiceProxy.class, NewsPageController.class);
 		mg.generate("495201409763901440");
-//		mg.removeByBatchId("554044697505431552");
+		// 按生成的 batchId 删除菜单
+		mg.removeByBatchId("554044697505431552");
 
 //		mg=new MenuGenerator(FoxnicWeb.SYS_JOB_LOG.$TABLE, JobLogServiceProxy.class, JobLogPageController.class);
 //		mg.generate("530778450735136769");
@@ -219,6 +221,7 @@ public class MenuGenerator {
 		this.batchId=IDGenerator.getSnowflakeIdString();
 		this.authorityPrefix=table.name().toLowerCase()+":";
 		this.roleId=roleId;
+		System.err.println("batchId = "+batchId);
 
 	}
 
