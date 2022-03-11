@@ -3,26 +3,46 @@ package org.github.foxnic.web.framework.cluster;
 import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.commons.cache.LocalCache;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.commons.network.HttpClient;
+import com.github.foxnic.springboot.spring.SpringUtil;
+import org.apache.http.Header;
+import org.apache.http.HeaderElement;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.github.foxnic.web.framework.proxy.ProxyContext;
 import org.github.foxnic.web.session.SessionUser;
+import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
+import org.springframework.core.ParameterNameDiscoverer;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.annotation.PostConstruct;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 @Component
 public class ClusterProxy {
 
+    private ParameterNameDiscoverer parameterNameDiscoverer = new LocalVariableTableParameterNameDiscoverer();
+
+    private static final LocalCache<String,String> CLUSTER_SESSION_IDS=new LocalCache<>();
+
     public static final String CLUSTER_KEY = "$cluster_key";
-    public static final String CLUSTER_OPERATOR = "$cluster_operator";
+    public static final String CLUSTER_TOKEN = "$cluster_token";
 
     private ClusterConfig configs=null;
 
@@ -57,44 +77,119 @@ public class ClusterProxy {
 
         url=StringUtil.joinUrl(ep.getUrl(),url);
 
-        return request(url,requestMethod,args);
+        Parameter[] params = method.getParameters();
+        JSONObject   ps = new JSONObject();
+        for (int i = 0; i < params.length; i++) {
+            ps.put(params[i].getName(),args[i]);
+        }
+
+        return request(url,requestMethod,ps);
     }
 
-    private Object request(String url, RequestMethod requestMethod,Object[] args) {
-        SessionUser sessionUser=SessionUser.getCurrent();
-        Map<String,String> headers=new HashMap<>();
-        headers.put(CLUSTER_KEY,this.configs.getKey());
-        String operator=null;
+    /**
+     * 请求外部节点接口
+     */
+    private Object request(String url, RequestMethod requestMethod, JSONObject  ps) {
+        SessionUser sessionUser = SessionUser.getCurrent();
+        Map<String, String> headers = new HashMap<>();
+        headers.put(CLUSTER_KEY, this.configs.getKey());
 
+        ClusterToken token = new ClusterToken();
+        token.setServiceName((String) SpringUtil.getApplicationName());
+        token.setTid(Logger.getTID());
 
+        String operator = null;
         // 优先考虑 ProxyContext 中的操作人
-        if(ProxyContext.getOperator()!=null) {
-            operator= ProxyContext.getOperator();
+        if (ProxyContext.getCallerAccount() != null) {
+            operator = ProxyContext.getCallerAccount();
         }
 
-        if (operator==null && sessionUser!=null) {
-            operator=sessionUser.getUserId();
+        if (operator == null && sessionUser != null) {
+            operator = sessionUser.getUsername();
         }
+        if(sessionUser!=null) {
+            token.setTenantId(sessionUser.getActivatedTenantId());
+        }
+        token.setAccount(operator);
+        token.setSessionId(CLUSTER_SESSION_IDS.get(operator));
 
-        headers.put(CLUSTER_OPERATOR, operator);
-        HttpClient client=new HttpClient();
-        if(requestMethod==RequestMethod.POST) {
-            JSONObject param=new JSONObject();
-            param.put("id",args[0]);
-            try {
-                String ret=client.postMap(url,param.toJSONString(),headers);
-                if(ret==null) return null;
-                if(ret.startsWith("{") && ret.endsWith("}")) {
-                    Result result = ErrorDesc.fromJSON(ret);
-                    return result;
-                } else {
-                    throw new RuntimeException("不支持的返回值");
-                }
-            } catch (IOException e) {
-                Logger.error("调用其它节点方法异常",e);
+        headers.put(CLUSTER_TOKEN, token.toToken());
+
+        if (requestMethod == RequestMethod.POST) {
+
+            String ret = post(url, ps.toJSONString(), headers, operator);
+            if (ret == null) return null;
+            if (ret.startsWith("{") && ret.endsWith("}")) {
+                Result result = ErrorDesc.fromJSON(ret);
+                return result;
+            } else {
+                throw new RuntimeException("不支持的返回值");
             }
+
+        } else {
+            throw new RuntimeException("尚不支持");
+        }
+    }
+
+
+    private static String post(String url, String data, Map<String, String> headers, String operator) {
+
+        try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+
+            // 构建 post 请求
+            HttpPost httpPost = new HttpPost(url);
+            httpPost.addHeader("Content-Type", "application/json");
+            httpPost.setEntity(new StringEntity(data));
+
+            String sessionId = CLUSTER_SESSION_IDS.get(operator);
+            if (StringUtil.hasContent(sessionId)) {
+                headers.put("Cookie", "JSESSIONID=" + sessionId);
+            }
+
+            // 添加 header
+            if (headers != null) {
+                for (Map.Entry<String, String> entry : headers.entrySet()) {
+                    httpPost.addHeader(entry.getKey(), entry.getValue());
+                }
+            }
+
+            // 请求并响应
+            CloseableHttpResponse response = httpClient.execute(httpPost);
+            // 读取 SessionId
+            Header[] responseHeaders = response.getAllHeaders();
+            for (Header header : responseHeaders) {
+
+                if (header.getName().equals("Set-Cookie")) {
+                    HeaderElement[] els = header.getElements();
+                    for (HeaderElement el : els) {
+                        if (el.getName().equals("JSESSIONID") && operator != null) {
+                            CLUSTER_SESSION_IDS.put(operator, el.getValue());
+                        }
+                    }
+                }
+
+            }
+
+            // 读取相应报文
+            if (response.getStatusLine().getStatusCode() == 200) {  // 如果请求成功
+                try (BufferedReader bufferedReader = new BufferedReader(
+                        new InputStreamReader(response.getEntity().getContent()))) {
+                    String result = "";
+                    String tmp = null;
+                    while ((tmp = bufferedReader.readLine()) != null) {
+                        result += tmp;
+                    }
+                    return result;
+                }
+            }
+
+        } catch (Exception e) {
+            Logger.error("Cluster 请求失败", e);
+            return null;
         }
         return null;
+
     }
+
 
 }

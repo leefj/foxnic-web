@@ -52,6 +52,7 @@ public class PreLoginFilter extends GenericFilterBean {
     	RequestParameter parameter=RequestParameter.get();
     	HttpServletRequestWrapper wrapper = parameter.getRequestWrapper();
 
+        // 如果匹配登录地址，那么登录
     	if (authenticationRequestMatcher.matches((HttpServletRequest) request)) {
 
             LoginIdentityVO identity=parameter.toPojo(LoginIdentityVO.class);

@@ -1,5 +1,6 @@
 package org.github.foxnic.web.oauth.config.security;
 
+import com.github.foxnic.springboot.mvc.RequestParameter;
 import org.github.foxnic.web.oauth.captcha.CaptchaAuthenticationFilter;
 import org.github.foxnic.web.oauth.captcha.CaptchaAuthenticationProvider;
 import org.github.foxnic.web.oauth.config.security.SecurityProperties.SecurityMode;
@@ -7,6 +8,7 @@ import org.github.foxnic.web.oauth.exception.RequestDeniedHandler;
 import org.github.foxnic.web.oauth.exception.UserAuthenticationEntryPoint;
 import org.github.foxnic.web.oauth.jwt.JwtAuthenticationFilter;
 import org.github.foxnic.web.oauth.login.PreLoginFilter;
+import org.github.foxnic.web.oauth.login.SessionCache;
 import org.github.foxnic.web.oauth.logout.UserLogoutHandler;
 import org.github.foxnic.web.oauth.logout.UserLogoutSuccessHandler;
 import org.github.foxnic.web.oauth.service.ICaptchaService;
@@ -38,8 +40,11 @@ import org.springframework.security.web.access.intercept.FilterSecurityIntercept
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Collections;
 
 /**
@@ -139,6 +144,9 @@ public class SecurityConfiguration {
         @Autowired
         private CaptchaAuthenticationFilter captchaAuthenticationFilter;
 
+		@Autowired
+		private SessionCache sessionCache;
+
 
 		@Override
 		protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -161,12 +169,22 @@ public class SecurityConfiguration {
 			SessionUser.configGetInService(()->{
 				SecurityContext context = SecurityContextHolder.getContext();
 				Authentication authentication=context.getAuthentication();
-				if(authentication==null || !authentication.isAuthenticated()) return null;
-				Object principal = authentication.getPrincipal();
-				if(principal instanceof  SessionUser) {
-					return (SessionUser)principal;
-				} else {
-					return null;
+				// 经过 SpringSecurity 过滤器的地址
+				if(authentication!=null) {
+					if (authentication == null || !authentication.isAuthenticated()) return null;
+					Object principal = authentication.getPrincipal();
+					if (principal instanceof SessionUser) {
+						return (SessionUser) principal;
+					} else {
+						return null;
+					}
+				}
+				// 未经过 SpringSecurity 过滤器的地址
+				else {
+					ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+					if(attributes==null)  return null;
+					String sessionId = attributes.getRequest().getSession().getId();
+					return sessionCache.get(sessionId);
 				}
 			});
 

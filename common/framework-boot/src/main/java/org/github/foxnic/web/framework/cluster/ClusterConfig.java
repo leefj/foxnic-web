@@ -159,6 +159,9 @@ public class ClusterConfig {
         if(serviceCluster==null) {
             throw new IllegalArgumentException("集群节点 "+prefix+" 未配置");
         }
+        if(!serviceCluster.getEnable()) {
+            throw new IllegalArgumentException("集群节点 "+prefix+" 不可用");
+        }
         return serviceCluster.getEndPoint();
     }
 

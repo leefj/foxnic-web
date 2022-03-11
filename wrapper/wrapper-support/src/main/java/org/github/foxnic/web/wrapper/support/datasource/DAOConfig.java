@@ -17,6 +17,7 @@ import org.github.foxnic.web.domain.system.DictItem;
 import org.github.foxnic.web.domain.system.DictItemVO;
 import org.github.foxnic.web.framework.cache.FoxnicDataCacheManager;
 import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.github.foxnic.web.framework.proxy.ProxyContext;
 import org.github.foxnic.web.proxy.system.DictItemServiceProxy;
 import org.github.foxnic.web.relation.FoxnicWebRelationManager;
 import org.github.foxnic.web.session.SessionUser;
@@ -197,15 +198,20 @@ public class DAOConfig {
 			});
 
 			dbTreaty.setLoginUserIdHandler(()->{
+				String userId=null;
 				SessionUser user=SessionUser.getCurrent();
-				if(user==null) return null;
-				return  user.getUserId();
+				if(user!=null) {
+					userId = user.getUserId();
+				} else {
+					userId = ProxyContext.getCalleeId();
+				}
+				return userId;
 			});
 
 
 			dbTreaty.setTenantIdHandler(()->{
 				SessionUser user=SessionUser.getCurrent();
-				if(user==null) return null;
+				if(user==null) return ProxyContext.getCalleeTenantId();
 				if(user.getUser()!=null && user.getUser().getActivatedTenant()!=null) {
 					return user.getActivatedTenantId();
 				}

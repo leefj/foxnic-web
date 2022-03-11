@@ -149,37 +149,10 @@ public interface BpmUserServiceProxy {
 	Result<PagedList<User>> queryPagedList(UserVO sample);
 
 	/**
-	 * 获得会话信息
-	 */
-	@PostMapping(BpmUserServiceProxy.GET_SESSION_USER_URI)
-	Result<SessionUser> getSessionUser(String sessionId);
-
-	/**
 	 * 控制器类名
 	 * */
-	public static final String CONTROLLER_CLASS_NAME="org.github.foxnic.web.oauth.controller.UserController";
+	public static final String CONTROLLER_CLASS_NAME="org.github.foxnic.web.bpm.BpmUserController";
 
-	/**
-	 * 帐号密码登录
-	 * */
-	public static final String LOGIN_URI= "/security/login";
-
-
-	/**
-	 * 帐号密码登录
-	 * */
-	public static final String GET_SESSION_USER_URI= "/security/get-session-user";
-
-	/**
-	 * 验证码登录
-	 * */
-	public static final String LOGIN_BY_CAPTCHA_URI= "/security/login_by_captcha";
-
-
-	/**
-	 * 账户登出
-	 * */
-	public static final String LOGOUT_URI = "/security/logout";
 
 	/**
 	 * 统一的调用接口，实现在单体应用和微服务应用下的无差异调用

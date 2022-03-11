@@ -7,6 +7,9 @@ import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.dao.spec.DBSequence;
 import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.github.foxnic.web.framework.proxy.ProxyContext;
+import org.github.foxnic.web.proxy.bpm.BpmUserServiceProxy;
+import org.github.foxnic.web.session.SessionUser;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,6 +39,13 @@ public class UnitTestController {
             dao.execute("insert into sys_sequence_test (sequence_id,sequence_value,exception,create_time) values(?,?,?,?)",sequenceId,val, StringUtil.toString(e),new Date());
             return ErrorDesc.exception(e);
         }
+    }
+
+    @PostMapping("/service-system/unit-test/cluster-1")
+    public Result cluster1() {
+        SessionUser user=SessionUser.getCurrent();
+        Result result=BpmUserServiceProxy.api().getById("123");
+        return ErrorDesc.success().data(result.data());
     }
 
 }

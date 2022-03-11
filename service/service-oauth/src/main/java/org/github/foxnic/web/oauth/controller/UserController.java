@@ -74,7 +74,7 @@ public class UserController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 删除账户
 	*/
@@ -92,8 +92,8 @@ public class UserController extends SuperController {
 		result.success(suc);
 		return result;
 	}
-	
-	
+
+
 	/**
 	 * 批量删除账户 <br>
 	 * 联合主键时，请自行调整实现
@@ -102,7 +102,7 @@ public class UserController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = UserVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 	})
-	@ApiOperationSupport(order=3) 
+	@ApiOperationSupport(order=3)
 	@NotNull(name = UserVOMeta.IDS)
 	@SentinelResource(value = UserServiceProxy.BATCH_DELETE)
 	@PostMapping(UserServiceProxy.BATCH_DELETE)
@@ -110,7 +110,7 @@ public class UserController extends SuperController {
 		Result result=userService.deleteByIdsLogical(ids);
 		return result;
 	}
-	
+
 	/**
 	 * 更新账户
 	*/
@@ -126,7 +126,7 @@ public class UserController extends SuperController {
 		@ApiImplicitParam(name = UserVOMeta.CACHE_KEY , value = "缓存键" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = UserVOMeta.LAST_LOGIN_TIME , value = "最后登录时间" , required = false , dataTypeClass=Date.class , example = "2021-05-31 03:09:23"),
 	})
-	@ApiOperationSupport( order=4 , ignoreParameters = { UserVOMeta.PAGE_INDEX , UserVOMeta.PAGE_SIZE , UserVOMeta.SEARCH_FIELD , UserVOMeta.SEARCH_VALUE , UserVOMeta.IDS } ) 
+	@ApiOperationSupport( order=4 , ignoreParameters = { UserVOMeta.PAGE_INDEX , UserVOMeta.PAGE_SIZE , UserVOMeta.SEARCH_FIELD , UserVOMeta.SEARCH_VALUE , UserVOMeta.IDS } )
 	@NotNull(name = UserVOMeta.ID)
 	@NotNull(name = UserVOMeta.VALID)
 	@SentinelResource(value = UserServiceProxy.UPDATE)
@@ -161,7 +161,7 @@ public class UserController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 获取账户
 	*/
@@ -179,8 +179,8 @@ public class UserController extends SuperController {
 		result.success(true).data(role);
 		return result;
 	}
-	
-	
+
+
 	/**
 	 * 获取账户
 	*/
@@ -195,7 +195,7 @@ public class UserController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 查询账户
 	*/
@@ -224,7 +224,7 @@ public class UserController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 分页查询账户
 	*/
@@ -290,7 +290,7 @@ public class UserController extends SuperController {
 	}
 
 
-	
+
 
 
 }
