@@ -118,6 +118,7 @@ public class ClusterConfig {
     public ClusterConfig() {
         // 获得配置
         this.key = SpringUtil.getEnvProperty("foxnic.cluster.key");
+        if(this.key==null) return;
         // 加密 key
         for (int i = 0; i < 4; i++) {
             this.key= MD5Util.encrypt32(this.key);
