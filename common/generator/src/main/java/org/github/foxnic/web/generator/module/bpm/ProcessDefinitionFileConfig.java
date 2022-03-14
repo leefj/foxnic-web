@@ -25,9 +25,9 @@ public class ProcessDefinitionFileConfig extends BaseCodeConfig<BPM_PROCESS_DEFI
 
         view.form().labelWidth(100);
 
-        view.field(HRM_COMPANY.ID).basic().hidden();
-        view.field(HRM_COMPANY.NAME).search().fuzzySearch();
-        view.field(HRM_COMPANY.VALID).form().logicField().on("有效",1).off("无效",0);
+        view.field(BPM_PROCESS_DEFINITION_FILE.ID).basic().hidden();
+        view.field(BPM_PROCESS_DEFINITION_FILE.NAME).search().fuzzySearch();
+        view.field(BPM_PROCESS_DEFINITION_FILE.ACTIVATED).form().logicField().on("有效",1).off("无效",0);
 
     }
     @Override
