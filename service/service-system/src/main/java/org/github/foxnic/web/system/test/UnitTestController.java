@@ -7,7 +7,7 @@ import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.dao.spec.DBSequence;
 import org.github.foxnic.web.framework.dao.DBConfigs;
-import org.github.foxnic.web.proxy.bpm.CamundaUserServiceProxy;
+import org.github.foxnic.web.proxy.camunda.CamundaUserServiceProxy;
 import org.github.foxnic.web.session.SessionUser;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;

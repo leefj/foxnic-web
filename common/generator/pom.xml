@@ -99,6 +99,12 @@
             <artifactId>view-example</artifactId>
             <version>${platform.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.foxnic.web</groupId>
+            <artifactId>view-bpm</artifactId>
+            <version>${platform.version}</version>
+            <scope>compile</scope>
+        </dependency>
 
     </dependencies>
     <build>

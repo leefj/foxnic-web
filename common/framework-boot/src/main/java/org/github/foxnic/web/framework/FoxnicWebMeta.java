@@ -64,10 +64,16 @@ public class FoxnicWebMeta {
 	 * */
 	public static final String SERVICE_CHANGES_PACKAGE=BASE_PACKAGE+".changes";
 
+
 	/**
-	 * 数据变更服务
+	 * 流程服务
 	 * */
-	public static final String SERVICE_CAMUNDA_PACKAGE =BASE_PACKAGE+".bpm";
+	public static final String SERVICE_BPM_PACKAGE =BASE_PACKAGE+".bpm";
+
+	/**
+	 * camunda 业务包
+	 * */
+	public static final String SERVICE_CAMUNDA_PACKAGE =BASE_PACKAGE+".camunda";
 
 	/**
 	 * 数据权限

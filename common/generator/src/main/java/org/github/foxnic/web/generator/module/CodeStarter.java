@@ -3,6 +3,9 @@ package org.github.foxnic.web.generator.module;
 import com.github.foxnic.commons.io.FileUtil;
 import com.github.foxnic.generator.util.ModuleCodeGenerator;
 import org.github.foxnic.web.generator.data.DataGenerator;
+import org.github.foxnic.web.generator.module.bpm.ProcessDefinitionConfig;
+import org.github.foxnic.web.generator.module.bpm.ProcessDefinitionFileConfig;
+import org.github.foxnic.web.generator.module.bpm.ProcessInitiatorConfig;
 import org.github.foxnic.web.generator.module.changes.*;
 import org.github.foxnic.web.generator.module.dataperm.*;
 import org.github.foxnic.web.generator.module.example.CodeExampleMulitPkConfig;
@@ -35,17 +38,19 @@ public class CodeStarter extends ModuleCodeGenerator {
     public void initModules() {
 
 //        initPcmModules();
-        initOAuthModules();
+//        initOAuthModules();
 //        initSystemModules();
 //        initHrmModules();
 //        initExampleModules();
 //        initChangeModule1s();
-//        initBpmModules();
+        initBpmModules();
 //        initDatapermModules();
 //
 //        initExample2Modules();
 //        initJobModules();
     }
+
+
 
     private void initExample2Modules() {
         this.addConfig(new ExampleNewsConfig());
@@ -65,7 +70,9 @@ public class CodeStarter extends ModuleCodeGenerator {
     }
 
     private void initBpmModules() {
-
+        this.addConfig(new ProcessDefinitionConfig());
+        this.addConfig(new ProcessDefinitionFileConfig());
+        this.addConfig(new ProcessInitiatorConfig());
     }
 
     private void  initChangeModules() {

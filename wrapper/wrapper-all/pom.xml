@@ -50,6 +50,16 @@
         </dependency>
         <dependency>
             <groupId>com.github.foxnic.web</groupId>
+            <artifactId>service-bpm</artifactId>
+            <version>${platform.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.foxnic.web</groupId>
+            <artifactId>view-bpm</artifactId>
+            <version>${platform.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.foxnic.web</groupId>
             <artifactId>service-dataperm</artifactId>
             <version>${platform.version}</version>
         </dependency>

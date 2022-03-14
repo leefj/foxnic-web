@@ -12,7 +12,7 @@ import org.springframework.context.annotation.ComponentScan;
 		FoxnicWebMeta.SERVICE_SYSTEM_PACKAGE , FoxnicWebMeta.SERVICE_OAUTH_PACKAGE,
 		FoxnicWebMeta.SERVICE_HRM_PACKAGE,FoxnicWebMeta.SERVICE_PCM_PACKAGE,
 		FoxnicWebMeta.SERVICE_CHANGES_PACKAGE,
-		FoxnicWebMeta.SERVICE_CAMUNDA_PACKAGE,
+		FoxnicWebMeta.SERVICE_BPM_PACKAGE,
 		FoxnicWebMeta.SERVICE_DATA_PERM_PACKAGE,
 		FoxnicWebMeta.SERVICE_EXAMPLE_PACKAGE
 })

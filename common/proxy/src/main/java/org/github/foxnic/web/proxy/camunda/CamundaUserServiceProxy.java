@@ -1,4 +1,4 @@
-package org.github.foxnic.web.proxy.bpm;
+package org.github.foxnic.web.proxy.camunda;
 
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;

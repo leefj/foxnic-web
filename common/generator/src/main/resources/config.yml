@@ -76,6 +76,8 @@ applications:
     wrapperProjectPath:  /wrapper/wrapper-all-service
   #PCM  属性自定义服务
   service-pcm:
+    # 非开源
+    advance: true
     nacosGroup: service
     nacosDataId: service-pcm.yml
     serviceProjectPath: /service/service-pcm
@@ -87,6 +89,8 @@ applications:
     wrapperProjectPath:  /wrapper/wrapper-all-service
   #Changes  变更服务
   service-changes:
+    # 非开源
+    advance: true
     nacosGroup: service
     nacosDataId: service-changes.yml
     serviceProjectPath: /service/service-changes
@@ -96,19 +100,22 @@ applications:
     viewProjectPath: /view/view-console
     viewPrefixPath: public/business/changes
     wrapperProjectPath:  /wrapper/wrapper-all-service
-  #Changes  变更服务
+  #流程服务
   service-bpm:
+    # 非开源
+    advance: true
     nacosGroup: service
     nacosDataId: service-bpm.yml
     serviceProjectPath: /service/service-bpm
     packageName: org.github.foxnic.web.bpm
     primaryDatasourceConfigKey: spring.datasource.druid.primary
     microServiceNameConst: BPM
-    viewProjectPath: /view/view-console
+    viewProjectPath: /view/view-bpm
     viewPrefixPath: public/business/bpm
     wrapperProjectPath:  /wrapper/wrapper-all-service
   #数据权限
   service-dataperm:
+    advance: true
     nacosGroup: service
     nacosDataId: service-dataperm.yml
     serviceProjectPath: /service/service-dataperm
