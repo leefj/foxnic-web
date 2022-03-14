@@ -186,7 +186,7 @@ foxnic:
     # 节点间用于通信的 key，各节点要保持一致
     key: FOXNIC-WEB-20220310-3398
     service:
-      service-bpm:
+      service-camunda:
         enable: true
         # 多个节点时用逗号隔开,格式： 地址,权重 | 地址,权重 | ...
         end-points: http://127.0.0.1:1820,1 | http://127.0.0.1:1820,1

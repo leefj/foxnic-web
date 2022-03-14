@@ -67,7 +67,7 @@ public class FoxnicWebMeta {
 	/**
 	 * 数据变更服务
 	 * */
-	public static final String SERVICE_BPM_PACKAGE=BASE_PACKAGE+".bpm";
+	public static final String SERVICE_CAMUNDA_PACKAGE =BASE_PACKAGE+".bpm";
 
 	/**
 	 * 数据权限

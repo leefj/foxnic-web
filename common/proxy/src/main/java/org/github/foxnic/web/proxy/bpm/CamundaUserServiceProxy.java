@@ -7,9 +7,7 @@ import org.github.foxnic.web.domain.oauth.UserVO;
 import org.github.foxnic.web.proxy.FeignConfiguration;
 import org.github.foxnic.web.proxy.MicroServiceNames;
 import org.github.foxnic.web.proxy.api.APIProxy;
-import org.github.foxnic.web.session.SessionUser;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -23,18 +21,18 @@ import java.util.List;
  * @version
 */
 
-@FeignClient(value = MicroServiceNames.BPM, contextId = BpmUserServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)
-public interface BpmUserServiceProxy {
+@FeignClient(value = MicroServiceNames.CAMUNDA, contextId = CamundaUserServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)
+public interface CamundaUserServiceProxy {
 
 	/**
-	 * 基础路径 , service-bpm
+	 * 基础路径 , service-camunda
 	*/
-	public static final String API_BASIC_PATH = "service-bpm";
+	public static final String API_BASIC_PATH = "service-camunda";
 
 	/**
-	 * API 上下文路径 , bpm-user
+	 * API 上下文路径 , camunda-user
 	*/
-	public static final String API_CONTEXT_PATH = "bpm-user";
+	public static final String API_CONTEXT_PATH = "camunda-user";
 
 	/**
 	 * API 基础路径 , 由 API_BASIC_PATH 和 API_CONTEXT_PATH 两部分组成
@@ -102,50 +100,50 @@ public interface BpmUserServiceProxy {
     /**
 	 * 添加账户
 	*/
-	@RequestMapping(BpmUserServiceProxy.INSERT)
+	@RequestMapping(CamundaUserServiceProxy.INSERT)
 	Result insert(UserVO userVO);
 
 	/**
 	 * 删除账户
 	*/
-	@RequestMapping(BpmUserServiceProxy.DELETE)
+	@RequestMapping(CamundaUserServiceProxy.DELETE)
 	Result deleteById(String id);
 
 
 	/**
 	 * 批量删除账户
 	*/
-	@RequestMapping(BpmUserServiceProxy.BATCH_DELETE)
+	@RequestMapping(CamundaUserServiceProxy.BATCH_DELETE)
 	Result deleteByIds(List<String> id);
 
 	/**
 	 * 更新账户
 	*/
-	@RequestMapping(BpmUserServiceProxy.UPDATE)
+	@RequestMapping(CamundaUserServiceProxy.UPDATE)
 	Result update(UserVO userVO);
 
 	/**
 	 * 更新账户
 	*/
-	@RequestMapping(BpmUserServiceProxy.SAVE)
+	@RequestMapping(CamundaUserServiceProxy.SAVE)
 	Result save(UserVO userVO);
 
 	/**
 	 * 获取账户
 	*/
-	@RequestMapping(BpmUserServiceProxy.GET_BY_ID)
+	@RequestMapping(CamundaUserServiceProxy.GET_BY_ID)
 	Result<User> getById(String id);
 
 	/**
 	 * 查询账户
 	*/
-	@RequestMapping(BpmUserServiceProxy.QUERY_LIST)
+	@RequestMapping(CamundaUserServiceProxy.QUERY_LIST)
 	Result<List<User>> queryList(UserVO sample);
 
 	/**
 	 * 分页查询账户
 	*/
-	@RequestMapping(BpmUserServiceProxy.QUERY_PAGED_LIST)
+	@RequestMapping(CamundaUserServiceProxy.QUERY_PAGED_LIST)
 	Result<PagedList<User>> queryPagedList(UserVO sample);
 
 	/**
@@ -157,8 +155,8 @@ public interface BpmUserServiceProxy {
 	/**
 	 * 统一的调用接口，实现在单体应用和微服务应用下的无差异调用
 	 * */
-	public static BpmUserServiceProxy api() {
-		return APIProxy.get(BpmUserServiceProxy.class,CONTROLLER_CLASS_NAME);
+	public static CamundaUserServiceProxy api() {
+		return APIProxy.get(CamundaUserServiceProxy.class,CONTROLLER_CLASS_NAME);
 	}
 
 }

@@ -2,6 +2,8 @@ package org.github.foxnic.web.framework.cluster;
 
 import com.github.foxnic.commons.log.Logger;
 import org.github.foxnic.web.framework.proxy.ProxyContext;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +25,7 @@ public class ClusterFilter implements Filter {
         // 判断内部集群的情况
         String clusterKey = ((HttpServletRequest)request).getHeader(ClusterProxy.CLUSTER_KEY);
         if(clusterKey!=null && clusterKey.equals(configs.getKey())) {
+            ProxyContext.init();
             String clusterToken = ((HttpServletRequest)request).getHeader(ClusterProxy.CLUSTER_TOKEN);
             ClusterToken token=ClusterToken.fromToken(clusterToken);
             Logger.setTID(token.getTid());

@@ -135,7 +135,7 @@
                     <fork>true</fork>
                     <executable>true</executable>
                     <layout>ZIP</layout>
-                    <mainClass>org.github.foxnic.web.wrapper.WrapperBpmApp</mainClass>
+                    <mainClass>org.github.foxnic.web.wrapper.WrapperCamundaApp</mainClass>
                 </configuration>
                 <executions>
                     <execution>

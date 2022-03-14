@@ -7,12 +7,39 @@ import org.github.foxnic.web.framework.cluster.ClusterToken;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
-@Component
-@Scope(WebApplicationContext.SCOPE_REQUEST)
+import javax.servlet.http.HttpServletRequest;
+
 public class ProxyContext {
 
+    public static final String PROXY_CONTEXT_ATTRIBUTE_KEY="$FIXNIC_WEB_PROXY_CONTEXT";
+
+    public static ProxyContext getInstance() {
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        if(attributes!=null) {
+            return (ProxyContext)attributes.getAttribute(PROXY_CONTEXT_ATTRIBUTE_KEY, RequestAttributes.SCOPE_REQUEST);
+        }
+        return null;
+    }
+
+    public static void init() {
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        if(attributes!=null) {
+            attributes.setAttribute(PROXY_CONTEXT_ATTRIBUTE_KEY, new ProxyContext(), RequestAttributes.SCOPE_REQUEST);
+        }
+    }
+
+
+
     private static final  LocalCache<String,String> USER_IDS=new LocalCache<>();
+
+
+    public ProxyContext() {
+        System.out.println();
+    }
 
     /**
      * 主调方账户
@@ -34,14 +61,19 @@ public class ProxyContext {
      * @param  account 操作人账户
      * */
     public static void setCallerAccount(String account) {
-        SpringUtil.getBean(ProxyContext.class).callerAccount = account;
+        ProxyContext context = getInstance();
+        if(context==null) ProxyContext.init();
+        context = getInstance();
+        context.callerAccount = account;
     }
 
     /**
-     * 获得通过 setCallerAccount 设置的操作人(主调方)账户
+     * 获得通过 getCallerAccount 设置的操作人(主调方)账户
      * */
     public static String getCallerAccount() {
-        return SpringUtil.getBean(ProxyContext.class).callerAccount;
+        ProxyContext context = getInstance();
+        if(context==null) return null;
+        return context.callerAccount;
     }
 
     /**
@@ -71,7 +103,9 @@ public class ProxyContext {
      * 作为被调方时当前操作人账户
      * */
     public static String getCalleeAccount() {
-        return SpringUtil.getBean(ProxyContext.class).calleeAccount;
+        ProxyContext context = getInstance();
+        if(context==null) return null;
+        return context.calleeAccount;
     }
 
     /**
@@ -85,20 +119,18 @@ public class ProxyContext {
      * 作为被调方时当前操作人账户的租户ID
      * */
     public static String getCalleeTenantId() {
-        return SpringUtil.getBean(ProxyContext.class).calleeTenantId;
+        ProxyContext context = getInstance();
+        if(context==null) return null;
+        return context.calleeTenantId;
     }
 
 
     public static void initCallee(ClusterToken token) {
-        SpringUtil.getBean(ProxyContext.class).calleeAccount=token.getAccount();
-        SpringUtil.getBean(ProxyContext.class).calleeTenantId=token.getTenantId();
+        ProxyContext context = getInstance();
+        if(context==null) return;
+        context.calleeAccount=token.getAccount();
+        context.calleeTenantId=token.getTenantId();
     }
-
-
-
-
-
-
 
 
 

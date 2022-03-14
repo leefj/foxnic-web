@@ -41,6 +41,12 @@ public class MicroServiceNames {
 	 * */
 	public static final String CHS="service-changes";
 
+
+	/**
+	 * 流程相关的服务 <br>
+	 * 对应 bootstrap.yml 中 spring.application.name 属性
+	 * */
+	public static final String CAMUNDA="service-camunda";
 	/**
 	 * 流程相关的服务 <br>
 	 * 对应 bootstrap.yml 中 spring.application.name 属性
