@@ -99,7 +99,7 @@ public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
         context.view().field("realName").basic().label("姓名")
                 .search().on(FoxnicWeb.HRM_PERSON.NAME).fuzzySearch()
                 .table().sort(false)
-                .fillBy(UserMeta.JOINED_TENANTS, UserTenantMeta.EMPLOYEE, EmployeeMeta.PERSON, PersonMeta.NAME)
+                .fillBy(UserMeta.JOINED_TENANTS, UserTenantMeta.EMPLOYEE, EmployeeMeta.PERSON, PersonMeta.NAME).form().hidden()
         ;
 
 
