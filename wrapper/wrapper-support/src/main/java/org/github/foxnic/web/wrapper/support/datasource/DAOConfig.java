@@ -103,7 +103,7 @@ public class DAOConfig {
 			return new Date();
 		});
 
-		//注册全局环境变量(示例)
+		//注册全局环境变量(示例：sexDictCodes )
 		dataPermManager.registerGlobalContextGetter(List.class,"sexDictCodes",()->{
 			DictItemVO sample=new DictItemVO();
 			sample.setDictCode(DictEnum.SEX.code());
