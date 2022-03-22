@@ -55,6 +55,7 @@ public class TenantConfig extends BaseCodeConfig<SYS_TENANT> {
     @Override
     public void configForm(ViewOptions view, FormOptions form) {
         super.configForm(view, form);
+        view.formWindow().bottomSpace(200);
     }
 
     @Override

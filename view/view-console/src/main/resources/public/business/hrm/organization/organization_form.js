@@ -184,6 +184,7 @@ function FormPage() {
 				if(doNext) {
 					admin.finishPopupCenterById('hrm-organization-form-data-win');
 				}
+				layer.msg("组织节点已保存", {icon: 1, time: 1500});
 			} else {
 				layer.msg(data.message, {icon: 2, time: 1500});
 			}
