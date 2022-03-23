@@ -16,6 +16,7 @@ import org.github.foxnic.web.generator.module.job.SysJobConfig;
 import org.github.foxnic.web.generator.module.job.SysJobLogConfig;
 import org.github.foxnic.web.generator.module.job.SysJobWorkerConfig;
 import org.github.foxnic.web.generator.module.oauth.SysResourzeConfig;
+import org.github.foxnic.web.generator.module.oauth.SysUserConfig;
 import org.github.foxnic.web.generator.module.pcm.PcmCatalogAllocationConfig;
 import org.github.foxnic.web.generator.module.pcm.PcmCatalogAttributeConfig;
 import org.github.foxnic.web.generator.module.pcm.PcmCatalogConfig;
@@ -39,8 +40,8 @@ public class CodeStarter extends ModuleCodeGenerator {
     public void initModules() {
 
 //        initPcmModules();
-//        initOAuthModules();
-        initSystemModules();
+        initOAuthModules();
+//        initSystemModules();
 //        initHrmModules();
 //        initExampleModules();
 //        initChangeModule1s();
@@ -112,8 +113,8 @@ public class CodeStarter extends ModuleCodeGenerator {
     }
 
     private void initOAuthModules() {
-//        this.addConfig(new SysUserConfig());
-        this.addConfig(new SysResourzeConfig());
+        this.addConfig(new SysUserConfig());
+//        this.addConfig(new SysResourzeConfig());
 
 
     }

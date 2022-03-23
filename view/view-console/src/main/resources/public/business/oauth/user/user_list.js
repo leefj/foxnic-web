@@ -1,7 +1,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-03-18 09:51:03
+ * @since 2022-03-23 14:10:56
  */
 
 
@@ -121,16 +121,36 @@ function ListPage() {
     };
 
 	/**
+	 * 刷新单号数据
+	 * */
+	function refreshRowData(data,remote) {
+		var context=dataTable.getDataRowContext( { id : data.id } );
+		if(context==null) return;
+		if(remote) {
+			admin.post(moduleURL+"/get-by-id", { id : data.id }, function (r) {
+				if (r.success) {
+					data = r.data;
+					context.update(data);
+				} else {
+					top.layer.msg(data.message, {icon: 1, time: 1500});
+				}
+			});
+		} else {
+			context.update(data);
+		}
+	}
+
+	/**
       * 刷新表格数据
       */
 	function refreshTableData(sortField,sortType,reset) {
 		function getSelectedValue(id,prop) { var xm=xmSelect.get(id,true); return xm==null ? null : xm.getValue(prop);}
 		var value = {};
-		value.name={ inputType:"button",value: $("#name").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" };
-		value.realName={ inputType:"button",value: $("#realName").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" ,fillBy:["joinedTenants","employee","person","name"] ,field:"hrm_person.name"};
+		value.name={ inputType:"button",value: $("#name").val() ,fuzzy: true,splitValue:false,valuePrefix:"",valueSuffix:"" };
+		value.realName={ inputType:"button",value: $("#realName").val() ,fuzzy: true,splitValue:false,valuePrefix:"",valueSuffix:"" ,fillBy:["joinedTenants","employee","person","name"] ,field:"hrm_person.name"};
 		value.portraitId={ inputType:"button",value: $("#portraitId").val()};
 		value.language={ inputType:"radio_box", value: getSelectedValue("#language","value"), label:getSelectedValue("#language","nameStr") };
-		value.phone={ inputType:"button",value: $("#phone").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" };
+		value.phone={ inputType:"button",value: $("#phone").val() ,fuzzy: true,splitValue:false,valuePrefix:"",valueSuffix:"" };
 		value.valid={ inputType:"logic_switch",value: getSelectedValue("#valid","value"), label:getSelectedValue("#valid","nameStr") };
 		value.roleIds={ inputType:"select_box", value: getSelectedValue("#roleIds","value") ,fillBy:["roles"]  ,field:"sys_role.id", label:getSelectedValue("#roleIds","nameStr") };
 		value.id={ inputType:"button",value: $("#id").val()};
@@ -445,13 +465,19 @@ function ListPage() {
 			id:"sys-user-form-data-win",
 			content: '/business/oauth/user/user_form.html' + (queryString?("?"+queryString):""),
 			finish: function () {
-				refreshTableData();
+				if(action=="create") {
+					refreshTableData();
+				}
+				if(action=="edit") {
+					false?refreshTableData():refreshRowData(data,true);
+				}
 			}
 		});
 	};
 
 	window.module={
 		refreshTableData: refreshTableData,
+		refreshRowData: refreshRowData,
 		getCheckedList: getCheckedList
 	};
 
