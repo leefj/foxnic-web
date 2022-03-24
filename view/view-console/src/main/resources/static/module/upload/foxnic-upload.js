@@ -29,6 +29,9 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"elem
     var UPLOADS={};
 
     function addPreview(elId,index,fileName,fileType,result,fileId,exists) {
+        // 按扩展名识别文件类型
+        if(fileName.toLowerCase().endsWith(".bpm") || fileName.toLowerCase().endsWith(".bpmn")) fileType="workflow/bpm";
+        //
         var inst=UPLOADS[elId];
         var displayFileName=inst.config.displayFileName;
         var fileList=$("#"+elId+"-file-list");
@@ -68,6 +71,7 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"elem
         }
         //设置预览图
         if(fileType.startWith("image/")) {
+            debugger;
             if(result!=null) {
                 img.attr('src', result); //base64 图片
             } else {

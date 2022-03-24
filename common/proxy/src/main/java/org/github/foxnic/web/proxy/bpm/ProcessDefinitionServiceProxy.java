@@ -19,7 +19,7 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  * 流程定义表  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-03-24 13:42:09
+ * @since 2022-03-24 17:23:08
 */
 
 @FeignClient(value = MicroServiceNames.BPM, contextId = ProcessDefinitionServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)
@@ -112,13 +112,13 @@ public interface ProcessDefinitionServiceProxy {
 	 * 删除流程定义
 	*/
 	@RequestMapping(ProcessDefinitionServiceProxy.DELETE)
-	Result deleteById(Integer id);
+	Result deleteById(String id);
 
 	/**
 	 * 批量删除流程定义
 	*/
 	@RequestMapping(ProcessDefinitionServiceProxy.DELETE_BY_IDS)
-	Result deleteByIds(List<Integer> ids);
+	Result deleteByIds(List<String> ids);
 
 	/**
 	 * 更新流程定义
@@ -136,13 +136,13 @@ public interface ProcessDefinitionServiceProxy {
 	 * 获取流程定义
 	*/
 	@RequestMapping(ProcessDefinitionServiceProxy.GET_BY_ID)
-	Result<ProcessDefinition> getById(Integer id);
+	Result<ProcessDefinition> getById(String id);
 
 	/**
 	 * 获取多个流程定义
 	*/
 	@RequestMapping(ProcessDefinitionServiceProxy.GET_BY_IDS)
-	Result<List<ProcessDefinition>> getByIds(List<Integer> ids);
+	Result<List<ProcessDefinition>> getByIds(List<String> ids);
 	/**
 	 * 查询流程定义
 	*/

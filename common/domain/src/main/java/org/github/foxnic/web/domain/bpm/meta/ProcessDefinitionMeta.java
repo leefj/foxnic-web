@@ -9,22 +9,22 @@ import org.github.foxnic.web.domain.oauth.User;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-03-24 13:42:09
- * @sign 10EBCA7A224BBBB66A62A71334DE1FA5
+ * @since 2022-03-24 17:23:08
+ * @sign 64487CFC2D64BD36025D2E254DD74B41
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
 public class ProcessDefinitionMeta {
 	
 	/**
-	 * ID , 类型: java.lang.Integer
+	 * ID , 类型: java.lang.String
 	*/
 	public static final String ID="id";
 	
 	/**
-	 * ID , 类型: java.lang.Integer
+	 * ID , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinition,java.lang.Integer> ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinition.class ,ID, java.lang.Integer.class, "ID", "ID", java.lang.Integer.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinition,java.lang.String> ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinition.class ,ID, java.lang.String.class, "ID", "ID", java.lang.String.class, null);
 	
 	/**
 	 * 名称 , 类型: java.lang.String
@@ -164,7 +164,7 @@ public class ProcessDefinitionMeta {
 		 * @param id ID
 		 * @return 当前对象
 		*/
-		public ProcessDefinition setId(Integer id) {
+		public ProcessDefinition setId(String id) {
 			super.change(ID,super.getId(),id);
 			super.setId(id);
 			return this;

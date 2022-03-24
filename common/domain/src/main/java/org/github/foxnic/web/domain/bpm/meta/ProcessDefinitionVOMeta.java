@@ -11,8 +11,8 @@ import org.github.foxnic.web.domain.oauth.User;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-03-24 13:42:09
- * @sign 929EDDC13C027DE8A2AC29DCF9EBF727
+ * @since 2022-03-24 17:23:08
+ * @sign 1D2C38500D1ABE5927BCBF1911BE96A0
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -99,24 +99,24 @@ public class ProcessDefinitionVOMeta extends ProcessDefinitionMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionVO,java.lang.String> SORT_TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionVO.class ,SORT_TYPE, java.lang.String.class, "排序方式", "", java.lang.String.class, null);
 	
 	/**
-	 * 主键清单 , 用于接收批量主键参数 , 集合类型: LIST , 类型: java.lang.Integer
+	 * 主键清单 , 用于接收批量主键参数 , 集合类型: LIST , 类型: java.lang.String
 	*/
 	public static final String IDS="ids";
 	
 	/**
-	 * 主键清单 , 用于接收批量主键参数 , 集合类型: LIST , 类型: java.lang.Integer
+	 * 主键清单 , 用于接收批量主键参数 , 集合类型: LIST , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionVO,java.lang.Integer> IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionVO.class ,IDS, java.util.List.class, "主键清单", "用于接收批量主键参数", java.lang.Integer.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionVO,java.lang.String> IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionVO.class ,IDS, java.util.List.class, "主键清单", "用于接收批量主键参数", java.lang.String.class, null);
 	
 	/**
-	 * ID , 类型: java.lang.Integer
+	 * ID , 类型: java.lang.String
 	*/
 	public static final String ID="id";
 	
 	/**
-	 * ID , 类型: java.lang.Integer
+	 * ID , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionVO,java.lang.Integer> ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionVO.class ,ID, java.lang.Integer.class, "ID", "ID", java.lang.Integer.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionVO,java.lang.String> ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionVO.class ,ID, java.lang.String.class, "ID", "ID", java.lang.String.class, null);
 	
 	/**
 	 * 名称 , 类型: java.lang.String
@@ -344,7 +344,7 @@ public class ProcessDefinitionVOMeta extends ProcessDefinitionMeta {
 		 * @param ids 主键清单
 		 * @return 当前对象
 		*/
-		public ProcessDefinitionVO setIds(List<Integer> ids) {
+		public ProcessDefinitionVO setIds(List<String> ids) {
 			super.change(IDS,super.getIds(),ids);
 			super.setIds(ids);
 			return this;
@@ -355,7 +355,7 @@ public class ProcessDefinitionVOMeta extends ProcessDefinitionMeta {
 		 * @param id ID
 		 * @return 当前对象
 		*/
-		public ProcessDefinition setId(Integer id) {
+		public ProcessDefinition setId(String id) {
 			super.change(ID,super.getId(),id);
 			super.setId(id);
 			return this;

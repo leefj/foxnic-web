@@ -3,6 +3,7 @@ package org.github.foxnic.web.generator.module.bpm;
 import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
 import com.github.foxnic.generator.builder.view.option.FormOptions;
+import com.github.foxnic.generator.builder.view.option.ListOptions;
 import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
@@ -35,10 +36,11 @@ public class ProcessDefinitionFileConfig extends BaseCodeConfig<BPM_PROCESS_DEFI
 
         view.field(BPM_PROCESS_DEFINITION_FILE.ID).basic().hidden();
         view.field(BPM_PROCESS_DEFINITION_FILE.DEFINITION_ID).basic().hidden();
-        view.field(BPM_PROCESS_DEFINITION_FILE.FILE_ID).table().hidden().search().hidden()
-                .form().upload().acceptExts("bpmn").buttonLabel("上传流程图").maxFileCount(1).displayFileName(true);
+        view.field(BPM_PROCESS_DEFINITION_FILE.FILE_ID).basic().label("流程文件").table().hidden().search().hidden()
+                .form().upload().acceptExts("bpmn","txt").buttonLabel("上传流程图").maxFileCount(1).displayFileName(true)
+                .form().validate().required();
 
-        view.field(BPM_PROCESS_DEFINITION_FILE.NAME).search().fuzzySearch();
+        view.field(BPM_PROCESS_DEFINITION_FILE.NAME).search().fuzzySearch().form().hidden();
         view.field(BPM_PROCESS_DEFINITION_FILE.VERSION_NO).search().hidden();
         view.field(BPM_PROCESS_DEFINITION_FILE.ACTIVATED).basic().label("状态").form().logicField().on("有效",1).off("无效",0);
 
@@ -51,6 +53,12 @@ public class ProcessDefinitionFileConfig extends BaseCodeConfig<BPM_PROCESS_DEFI
                 BPM_PROCESS_DEFINITION_FILE.FILE_ID,
                 BPM_PROCESS_DEFINITION_FILE.NOTES
         });
+    }
+
+    @Override
+    public void configList(ViewOptions view, ListOptions list) {
+        list.disableModify();
+        list.disableBatchDelete().disableSingleDelete();
     }
 
     @Override

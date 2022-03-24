@@ -12,8 +12,8 @@ import com.github.foxnic.commons.bean.BeanUtil;
 /**
  * 流程定义
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-03-24 13:42:09
- * @sign 929EDDC13C027DE8A2AC29DCF9EBF727
+ * @since 2022-03-24 17:23:08
+ * @sign 1D2C38500D1ABE5927BCBF1911BE96A0
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -73,7 +73,7 @@ public class ProcessDefinitionVO extends ProcessDefinition {
 	 * 主键清单：用于接收批量主键参数
 	*/
 	@ApiModelProperty(required = false,value="主键清单" , notes = "用于接收批量主键参数")
-	private List<Integer> ids;
+	private List<String> ids;
 	
 	/**
 	 * 获得 页码<br>
@@ -235,7 +235,7 @@ public class ProcessDefinitionVO extends ProcessDefinition {
 	 * 用于接收批量主键参数
 	 * @return 主键清单
 	*/
-	public List<Integer> getIds() {
+	public List<String> getIds() {
 		return ids;
 	}
 	
@@ -244,7 +244,7 @@ public class ProcessDefinitionVO extends ProcessDefinition {
 	 * @param ids 主键清单
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionVO setIds(List<Integer> ids) {
+	public ProcessDefinitionVO setIds(List<String> ids) {
 		this.ids=ids;
 		return this;
 	}
@@ -254,7 +254,7 @@ public class ProcessDefinitionVO extends ProcessDefinition {
 	 * @param id 主键清单
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionVO addId(Integer id) {
+	public ProcessDefinitionVO addId(String id) {
 		if(this.ids==null) ids=new ArrayList<>();
 		this.ids.add(id);
 		return this;

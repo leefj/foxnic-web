@@ -17,8 +17,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程定义
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-03-24 13:42:09
- * @sign 10EBCA7A224BBBB66A62A71334DE1FA5
+ * @since 2022-03-24 17:23:08
+ * @sign 64487CFC2D64BD36025D2E254DD74B41
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -34,7 +34,7 @@ public class ProcessDefinition extends Entity {
 	*/
 	@Id
 	@ApiModelProperty(required = true,value="ID" , notes = "ID")
-	private Integer id;
+	private String id;
 	
 	/**
 	 * 名称：名称
@@ -113,7 +113,7 @@ public class ProcessDefinition extends Entity {
 	 * ID
 	 * @return ID
 	*/
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 	
@@ -122,7 +122,7 @@ public class ProcessDefinition extends Entity {
 	 * @param id ID
 	 * @return 当前对象
 	*/
-	public ProcessDefinition setId(Integer id) {
+	public ProcessDefinition setId(String id) {
 		this.id=id;
 		return this;
 	}
