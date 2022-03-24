@@ -1829,6 +1829,64 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             // 	$form.remove();
             // 	$ifr.remove();
             // },1000);
+        },
+        showMessage:function (result) {
+
+            if(TypeUtil.isString(result)) {
+                top.layer.msg(result, {icon: 1, time: 2000});
+                return;
+            }
+
+            var message=result.message;
+            if(!message) return;
+            var messageLevel=null;
+            if(result.extra) {
+                messageLevel=result.extra.messageLevel;
+            }
+            var success=result.success;
+            var icon=null;
+            var time=null;
+            // 设置相应成功与失败的
+            if(success) {
+                icon = 1;
+                if(messageLevel==null) {
+                    messageLevel = "notify";
+                }
+            } else {
+                icon = 2;
+                if(messageLevel==null) {
+                    messageLevel = "read";
+                }
+            }
+
+            if(messageLevel=="none") return;
+            if(messageLevel=="notify") {
+                // 每 20 个字1秒
+                time= (message.length*1000/20);
+                if(time<2000) time=500;
+                if(time>=2000 && time<4000) time=2000;
+                if(time>4000) {
+                    messageLevel="confirm";
+                }
+            }
+            if(messageLevel=="read") {
+                // 每 20 个字1秒
+                time= (message.length*1000/20);
+                if(time<2000) time=2000;
+                if(time>8000) {
+                    messageLevel="confirm";
+                }
+            }
+            //
+            if(messageLevel=="confirm") {
+                top.layer.open({
+                    icon: icon,
+                    title: '提示信息',
+                    content: message
+                });
+            } else {
+                top.layer.msg(message, {icon: icon, time: time});
+            }
         }
     };
 

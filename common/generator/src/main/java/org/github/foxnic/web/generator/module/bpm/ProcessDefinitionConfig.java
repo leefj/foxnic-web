@@ -1,5 +1,7 @@
 package org.github.foxnic.web.generator.module.bpm;
 
+import com.github.foxnic.generator.builder.model.PoClassFile;
+import com.github.foxnic.generator.builder.model.VoClassFile;
 import com.github.foxnic.generator.builder.view.config.ActionConfig;
 import com.github.foxnic.generator.builder.view.option.ListOptions;
 import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
@@ -7,6 +9,9 @@ import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.*;
+import org.github.foxnic.web.domain.bpm.meta.ProcessDefinitionMeta;
+import org.github.foxnic.web.domain.oauth.User;
+import org.github.foxnic.web.domain.oauth.meta.UserMeta;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
 public class ProcessDefinitionConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITION> {
@@ -15,6 +20,10 @@ public class ProcessDefinitionConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITI
         super(PREFIX_BPM, BPM_PROCESS_DEFINITION.$TABLE,"bpm_", 4);
     }
 
+    @Override
+    public void configModel(PoClassFile poType, VoClassFile voType) {
+        poType.addSimpleProperty(User.class,"lastUpdateUser","最后修改人","最后修改人");
+    }
 
     @Override
     public void configSearch(ViewOptions view, SearchAreaOptions search) {
@@ -30,7 +39,14 @@ public class ProcessDefinitionConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITI
         view.field(BPM_PROCESS_DEFINITION.NAME).search().fuzzySearch();
         view.field(BPM_PROCESS_DEFINITION.VALID).form().logicField().on("有效",1).off("无效",0);
         view.field(BPM_PROCESS_DEFINITION.NOTES).search().fuzzySearch().form().textArea();
+        view.field("lastUpdateUserName").basic().label("最后修改").table().fillBy(ProcessDefinitionMeta.LAST_UPDATE_USER, UserMeta.NAME)
+                .form().hidden()
+                .search().hidden();
+
+        //view.field(BPM_PROCESS_DEFINITION.UPDATE_TIME).table().displayWhenDBTreaty(true);
     }
+
+
 
     @Override
     public void configList(ViewOptions view, ListOptions list) {
@@ -39,6 +55,9 @@ public class ProcessDefinitionConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITI
         //action.setIconHtml("<li class='mdi mdi-set mdi-arrow-decision-outline'></li>");
         action = list.operationColumn().addActionButton("发起人","showInitiators");
         //action.setIconHtml("<li class='fa fa-user-secret' style='font-size:14px'></li>");
+
+        list.columnLayout(BPM_PROCESS_DEFINITION.NAME,BPM_PROCESS_DEFINITION.VALID,BPM_PROCESS_DEFINITION.NOTES,BPM_PROCESS_DEFINITION.CREATE_TIME,BPM_PROCESS_DEFINITION.UPDATE_TIME,"lastUpdateUserName");
+
     }
 
     @Override

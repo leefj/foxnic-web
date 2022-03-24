@@ -7,6 +7,7 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_PROCESS_DEFINITION;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
+import org.github.foxnic.web.domain.oauth.User;
 import javax.persistence.Transient;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
@@ -16,8 +17,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程定义
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-03-14 16:40:23
- * @sign 9CD2B393D33C8CC78EDF40DE392F10DC
+ * @since 2022-03-24 13:42:09
+ * @sign 10EBCA7A224BBBB66A62A71334DE1FA5
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -100,6 +101,12 @@ public class ProcessDefinition extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
 	private Integer version;
+	
+	/**
+	 * 最后修改人：最后修改人
+	*/
+	@ApiModelProperty(required = false,value="最后修改人" , notes = "最后修改人")
+	private User lastUpdateUser;
 	
 	/**
 	 * 获得 ID<br>
@@ -326,6 +333,25 @@ public class ProcessDefinition extends Entity {
 	*/
 	public ProcessDefinition setVersion(Integer version) {
 		this.version=version;
+		return this;
+	}
+	
+	/**
+	 * 获得 最后修改人<br>
+	 * 最后修改人
+	 * @return 最后修改人
+	*/
+	public User getLastUpdateUser() {
+		return lastUpdateUser;
+	}
+	
+	/**
+	 * 设置 最后修改人
+	 * @param lastUpdateUser 最后修改人
+	 * @return 当前对象
+	*/
+	public ProcessDefinition setLastUpdateUser(User lastUpdateUser) {
+		this.lastUpdateUser=lastUpdateUser;
 		return this;
 	}
 

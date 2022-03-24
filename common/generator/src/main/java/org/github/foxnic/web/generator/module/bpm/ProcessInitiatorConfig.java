@@ -1,11 +1,14 @@
 package org.github.foxnic.web.generator.module.bpm;
 
+import com.github.foxnic.generator.builder.model.PoClassFile;
+import com.github.foxnic.generator.builder.model.VoClassFile;
 import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.*;
 import org.github.foxnic.web.constants.db.FoxnicWeb.HRM_COMPANY;
+import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
 public class ProcessInitiatorConfig extends BaseCodeConfig<BPM_PROCESS_INITIATOR> {
@@ -14,6 +17,10 @@ public class ProcessInitiatorConfig extends BaseCodeConfig<BPM_PROCESS_INITIATOR
         super(PREFIX_BPM, BPM_PROCESS_INITIATOR.$TABLE,"bpm_", 4);
     }
 
+    @Override
+    public void configModel(PoClassFile poType, VoClassFile voType) {
+        poType.addSimpleProperty(User.class,"lastUpdateUser","最后修改人","最后修改人");
+    }
 
     @Override
     public void configSearch(ViewOptions view, SearchAreaOptions search) {

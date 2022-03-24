@@ -5,12 +5,13 @@ import org.github.foxnic.web.domain.bpm.ProcessDefinitionVO;
 import java.util.List;
 import org.github.foxnic.web.domain.bpm.ProcessDefinition;
 import java.util.Date;
+import org.github.foxnic.web.domain.oauth.User;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-03-14 16:40:23
+ * @since 2022-03-24 13:42:09
  * @sign 929EDDC13C027DE8A2AC29DCF9EBF727
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -228,9 +229,19 @@ public class ProcessDefinitionVOMeta extends ProcessDefinitionMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionVO,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionVO.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
+	 * 最后修改人 , 类型: org.github.foxnic.web.domain.oauth.User
+	*/
+	public static final String LAST_UPDATE_USER="lastUpdateUser";
+	
+	/**
+	 * 最后修改人 , 类型: org.github.foxnic.web.domain.oauth.User
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionVO,org.github.foxnic.web.domain.oauth.User> LAST_UPDATE_USER_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionVO.class ,LAST_UPDATE_USER, org.github.foxnic.web.domain.oauth.User.class, "最后修改人", "最后修改人", org.github.foxnic.web.domain.oauth.User.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , NAME , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , NAME , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , LAST_UPDATE_USER };
 	
 	/**
 	 * 代理类
@@ -468,6 +479,17 @@ public class ProcessDefinitionVOMeta extends ProcessDefinitionMeta {
 		public ProcessDefinition setVersion(Integer version) {
 			super.change(VERSION,super.getVersion(),version);
 			super.setVersion(version);
+			return this;
+		}
+		
+		/**
+		 * 设置 最后修改人
+		 * @param lastUpdateUser 最后修改人
+		 * @return 当前对象
+		*/
+		public ProcessDefinition setLastUpdateUser(User lastUpdateUser) {
+			super.change(LAST_UPDATE_USER,super.getLastUpdateUser(),lastUpdateUser);
+			super.setLastUpdateUser(lastUpdateUser);
 			return this;
 		}
 	}

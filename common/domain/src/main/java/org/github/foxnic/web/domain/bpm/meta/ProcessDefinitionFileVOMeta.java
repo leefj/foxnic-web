@@ -5,12 +5,13 @@ import org.github.foxnic.web.domain.bpm.ProcessDefinitionFileVO;
 import java.util.List;
 import org.github.foxnic.web.domain.bpm.ProcessDefinitionFile;
 import java.util.Date;
+import org.github.foxnic.web.domain.oauth.User;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-03-14 16:42:51
+ * @since 2022-03-24 09:21:29
  * @sign F2A969A233B1D662456CDC00FB190980
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -126,6 +127,16 @@ public class ProcessDefinitionFileVOMeta extends ProcessDefinitionFileMeta {
 	 * 流程定义ID , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionFileVO,java.lang.String> DEFINITION_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionFileVO.class ,DEFINITION_ID, java.lang.String.class, "流程定义ID", "流程定义ID", java.lang.String.class, null);
+	
+	/**
+	 * 流程文件ID , 类型: java.lang.String
+	*/
+	public static final String FILE_ID="fileId";
+	
+	/**
+	 * 流程文件ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionFileVO,java.lang.String> FILE_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionFileVO.class ,FILE_ID, java.lang.String.class, "流程文件ID", "流程文件ID", java.lang.String.class, null);
 	
 	/**
 	 * 版本号 , 类型: java.lang.String
@@ -248,9 +259,19 @@ public class ProcessDefinitionFileVOMeta extends ProcessDefinitionFileMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionFileVO,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionFileVO.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
+	 * 最后修改人 , 类型: org.github.foxnic.web.domain.oauth.User
+	*/
+	public static final String LAST_UPDATE_USER="lastUpdateUser";
+	
+	/**
+	 * 最后修改人 , 类型: org.github.foxnic.web.domain.oauth.User
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionFileVO,org.github.foxnic.web.domain.oauth.User> LAST_UPDATE_USER_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionFileVO.class ,LAST_UPDATE_USER, org.github.foxnic.web.domain.oauth.User.class, "最后修改人", "最后修改人", org.github.foxnic.web.domain.oauth.User.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , DEFINITION_ID , VERSION_NO , NAME , ACTIVATED , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , DEFINITION_ID , FILE_ID , VERSION_NO , NAME , ACTIVATED , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , LAST_UPDATE_USER };
 	
 	/**
 	 * 代理类
@@ -378,6 +399,17 @@ public class ProcessDefinitionFileVOMeta extends ProcessDefinitionFileMeta {
 		public ProcessDefinitionFile setDefinitionId(String definitionId) {
 			super.change(DEFINITION_ID,super.getDefinitionId(),definitionId);
 			super.setDefinitionId(definitionId);
+			return this;
+		}
+		
+		/**
+		 * 设置 流程文件ID
+		 * @param fileId 流程文件ID
+		 * @return 当前对象
+		*/
+		public ProcessDefinitionFile setFileId(String fileId) {
+			super.change(FILE_ID,super.getFileId(),fileId);
+			super.setFileId(fileId);
 			return this;
 		}
 		
@@ -510,6 +542,17 @@ public class ProcessDefinitionFileVOMeta extends ProcessDefinitionFileMeta {
 		public ProcessDefinitionFile setVersion(Integer version) {
 			super.change(VERSION,super.getVersion(),version);
 			super.setVersion(version);
+			return this;
+		}
+		
+		/**
+		 * 设置 最后修改人
+		 * @param lastUpdateUser 最后修改人
+		 * @return 当前对象
+		*/
+		public ProcessDefinitionFile setLastUpdateUser(User lastUpdateUser) {
+			super.change(LAST_UPDATE_USER,super.getLastUpdateUser(),lastUpdateUser);
+			super.setLastUpdateUser(lastUpdateUser);
 			return this;
 		}
 	}

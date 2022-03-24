@@ -10,16 +10,21 @@ import com.github.foxnic.dao.meta.DBTableMeta;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.generator.builder.business.ControllerProxyFile;
 import com.github.foxnic.sql.meta.DBTable;
+import org.github.foxnic.web.bpm.page.ProcessDefinitionFilePageController;
 import org.github.foxnic.web.bpm.page.ProcessDefinitionPageController;
+import org.github.foxnic.web.bpm.page.ProcessInitiatorPageController;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.enums.system.AccessType;
 import org.github.foxnic.web.constants.enums.system.MenuType;
+import org.github.foxnic.web.domain.bpm.ProcessInitiator;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.MenuResource;
 import org.github.foxnic.web.domain.oauth.Resourze;
 import org.github.foxnic.web.domain.oauth.RoleMenu;
 import org.github.foxnic.web.generator.config.FoxnicWebConfigs;
+import org.github.foxnic.web.proxy.bpm.ProcessDefinitionFileServiceProxy;
 import org.github.foxnic.web.proxy.bpm.ProcessDefinitionServiceProxy;
+import org.github.foxnic.web.proxy.bpm.ProcessInitiatorServiceProxy;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.File;
@@ -43,7 +48,13 @@ public class MenuGenerator {
 
 		MenuGenerator mg=null;
 
-		mg=new MenuGenerator(FoxnicWeb.BPM_PROCESS_DEFINITION.$TABLE, ProcessDefinitionServiceProxy.class, ProcessDefinitionPageController.class);
+//		mg=new MenuGenerator(FoxnicWeb.BPM_PROCESS_DEFINITION.$TABLE, ProcessDefinitionServiceProxy.class, ProcessDefinitionPageController.class);
+//		mg.generate("555766790999773184");
+
+//		mg=new MenuGenerator(FoxnicWeb.BPM_PROCESS_DEFINITION_FILE.$TABLE, ProcessDefinitionFileServiceProxy.class, ProcessDefinitionFilePageController.class);
+//		mg.generate("555766790999773184");
+
+		mg=new MenuGenerator(FoxnicWeb.BPM_PROCESS_INITIATOR.$TABLE, ProcessInitiatorServiceProxy.class, ProcessInitiatorPageController.class);
 		mg.generate("555766790999773184");
 
 		// 生成菜单

@@ -8,7 +8,7 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"elem
         ape:"ape",ai:"ai",avi:"avi",cdr:"cdr",doc:"doc",docx:"doc",html:"html",htm:"html",ini:"ini",
         mov:"mov",mp3:"mp3",mp4:"mp4",new:"new",pdf:"pdf",ppt:"ppt",pptx:"ppt",psd:"psd",ttf:"ttf",
         txt:"txt",zip:"zip","7z":"7z",bin:"bin",cmd:"cmd",db:"db",dot:"dot",exe:"exe",java:"java",jar:"jar",
-        note:"note",p12:"p12",pfx:"pfx",psd:"psd",rar:"rar",sh:"sh",wav:"wav",xls:"xls",xlsx:"xls",zip:"zip"
+        note:"note",p12:"p12",pfx:"pfx",psd:"psd",rar:"rar",sh:"sh",wav:"wav",xls:"xls",xlsx:"xls",zip:"zip",bpm:"ini",bpmn:"ini"
     };
     var template=[
         '<div class="layui-upload-unit" id="{{el}}-file-unit-{{index}}" style="{{el-height}}">',
@@ -158,8 +158,11 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"elem
         var img=preview.find("#"+elId+"-image-"+index);
         img.on("mouseenter",function (){
             var cfg=UPLOADS[elId].config;
-            if(cfg.disabled) return;
+            //if(cfg.disabled) return;
             $("#"+elId+"-button-div-"+index).fadeTo("fast", 1.0, function(){});
+            // 无论是否被 disable 下载始终是被允许的
+            $("#"+elId+"-download-button-"+index).removeAttr("disabled");
+            $("#"+elId+"-download-button-"+index).removeClass("layui-btn-disabled");
         }).on("mouseleave",function (){
             var cfg=UPLOADS[elId].config;
             if(cfg.disabled) return;

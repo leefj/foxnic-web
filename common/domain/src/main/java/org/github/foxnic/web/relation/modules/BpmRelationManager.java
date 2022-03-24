@@ -3,6 +3,8 @@ package org.github.foxnic.web.relation.modules;
 import com.github.foxnic.dao.relation.RelationManager;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
+import org.github.foxnic.web.domain.bpm.ProcessDefinition;
+import org.github.foxnic.web.domain.bpm.meta.ProcessDefinitionMeta;
 import org.github.foxnic.web.domain.changes.meta.ChangeInstanceMeta;
 
 public class BpmRelationManager extends RelationManager {
@@ -10,9 +12,26 @@ public class BpmRelationManager extends RelationManager {
 
 	@Override
 	protected void config() {
-//		setupBpm();
+		setupBpm();
 		setupChanges();
 	}
+
+	protected void setupBpm() {
+
+		//流程定义 - 账户
+		this.property(ProcessDefinitionMeta.LAST_UPDATE_USER_PROP)
+				.using(FoxnicWeb.BPM_PROCESS_DEFINITION.UPDATE_BY).join(FoxnicWeb.SYS_USER.ID);
+		;
+
+//		//流程定义 - 账户
+//		this.property(ProcessDefinitionMeta.LAST_UPDATE_USER_PROP)
+//				.using(FoxnicWeb.BPM_PROCESS_DEFINITION.UPDATE_BY).join(FoxnicWeb.SYS_USER.ID);
+//		;
+
+
+	}
+
+
 
 	private void setupChanges() {
 
@@ -45,28 +64,7 @@ public class BpmRelationManager extends RelationManager {
 
 	}
 
-//	protected void setupBpm() {
 
-//		//角色下的员工清单
-//		this.property(RoleMeta.EMPLOYEES_PROP)
-//			.using(FoxnicWeb.BPM_ROLE.ID).join(FoxnicWeb.BPM_ROLE_EMPLOYEE.ROLE_ID)
-//			.using(FoxnicWeb.BPM_ROLE_EMPLOYEE.EMPLOYEE_ID).join(FoxnicWeb.HRM_EMPLOYEE.ID)
-//		;
-//
-//		//角色下员工数量统计
-//		this.property(Role.class,RoleMeta.EMP_COUNT, RoleEmployee.class)
-//				.using(FoxnicWeb.BPM_ROLE.ID).join(FoxnicWeb.BPM_ROLE_EMPLOYEE.ROLE_ID)
-//				.groupForCount();
-//		;
-//
-//
-//		//角色员工关系 - 员工
-//		this.property(RoleEmployeeMeta.EMPLOYEE_PROP)
-//				.using(FoxnicWeb.BPM_ROLE_EMPLOYEE.EMPLOYEE_ID).join(FoxnicWeb.HRM_EMPLOYEE.ID)
-//		;
-
-
-//	}
 
 
 

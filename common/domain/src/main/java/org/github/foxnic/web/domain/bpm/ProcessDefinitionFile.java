@@ -7,6 +7,7 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_PROCESS_DEFINITION_FILE;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
+import org.github.foxnic.web.domain.oauth.User;
 import javax.persistence.Transient;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
@@ -16,8 +17,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程定义文件
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-03-14 16:42:51
- * @sign 0C199834FA8982963547F583FD3B9F1B
+ * @since 2022-03-24 09:21:29
+ * @sign 4088D90453203BC9CE32C55E755123EF
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -40,6 +41,12 @@ public class ProcessDefinitionFile extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="流程定义ID" , notes = "流程定义ID")
 	private String definitionId;
+	
+	/**
+	 * 流程文件ID：流程文件ID
+	*/
+	@ApiModelProperty(required = false,value="流程文件ID" , notes = "流程文件ID")
+	private String fileId;
 	
 	/**
 	 * 版本号：版本号
@@ -114,6 +121,12 @@ public class ProcessDefinitionFile extends Entity {
 	private Integer version;
 	
 	/**
+	 * 最后修改人：最后修改人
+	*/
+	@ApiModelProperty(required = false,value="最后修改人" , notes = "最后修改人")
+	private User lastUpdateUser;
+	
+	/**
 	 * 获得 ID<br>
 	 * ID
 	 * @return ID
@@ -148,6 +161,25 @@ public class ProcessDefinitionFile extends Entity {
 	*/
 	public ProcessDefinitionFile setDefinitionId(String definitionId) {
 		this.definitionId=definitionId;
+		return this;
+	}
+	
+	/**
+	 * 获得 流程文件ID<br>
+	 * 流程文件ID
+	 * @return 流程文件ID
+	*/
+	public String getFileId() {
+		return fileId;
+	}
+	
+	/**
+	 * 设置 流程文件ID
+	 * @param fileId 流程文件ID
+	 * @return 当前对象
+	*/
+	public ProcessDefinitionFile setFileId(String fileId) {
+		this.fileId=fileId;
 		return this;
 	}
 	
@@ -376,6 +408,25 @@ public class ProcessDefinitionFile extends Entity {
 	*/
 	public ProcessDefinitionFile setVersion(Integer version) {
 		this.version=version;
+		return this;
+	}
+	
+	/**
+	 * 获得 最后修改人<br>
+	 * 最后修改人
+	 * @return 最后修改人
+	*/
+	public User getLastUpdateUser() {
+		return lastUpdateUser;
+	}
+	
+	/**
+	 * 设置 最后修改人
+	 * @param lastUpdateUser 最后修改人
+	 * @return 当前对象
+	*/
+	public ProcessDefinitionFile setLastUpdateUser(User lastUpdateUser) {
+		this.lastUpdateUser=lastUpdateUser;
 		return this;
 	}
 

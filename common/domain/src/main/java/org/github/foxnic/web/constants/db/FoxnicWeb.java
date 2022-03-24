@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2022-03-14 14:35:53
+ * @since 2022-03-23 16:15:17
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -112,6 +112,11 @@ public class FoxnicWeb {
 		public static final DBField DEFINITION_ID = new DBField(DBDataType.STRING , "definition_id","definitionId","流程定义ID","流程定义ID",false,false,true);
 		
 		/**
+		 * 流程文件ID
+		*/
+		public static final DBField FILE_ID = new DBField(DBDataType.STRING , "file_id","fileId","流程文件ID","流程文件ID",false,false,true);
+		
+		/**
 		 * 版本号
 		*/
 		public static final DBField VERSION_NO = new DBField(DBDataType.STRING , "version_no","versionNo","版本号","版本号",false,false,true);
@@ -172,7 +177,7 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
 		public BPM_PROCESS_DEFINITION_FILE() {
-			this.init($NAME,"流程定义文件表" , ID , DEFINITION_ID , VERSION_NO , NAME , ACTIVATED , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"流程定义文件表" , ID , DEFINITION_ID , FILE_ID , VERSION_NO , NAME , ACTIVATED , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final BPM_PROCESS_DEFINITION_FILE $TABLE=new BPM_PROCESS_DEFINITION_FILE();
 	}
