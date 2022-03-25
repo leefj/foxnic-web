@@ -149,7 +149,7 @@ public interface CamundaUserServiceProxy {
 	/**
 	 * 控制器类名
 	 * */
-	public static final String CONTROLLER_CLASS_NAME="org.github.foxnic.web.bpm.BpmUserController";
+	public static final String CONTROLLER_CLASS_NAME="org.github.foxnic.web.camunda.api.CamundaUserController";
 
 
 	/**

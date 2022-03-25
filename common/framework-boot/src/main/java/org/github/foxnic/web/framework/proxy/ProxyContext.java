@@ -17,18 +17,28 @@ public class ProxyContext {
 
     public static final String PROXY_CONTEXT_ATTRIBUTE_KEY="$FIXNIC_WEB_PROXY_CONTEXT";
 
+    private static InheritableThreadLocal<ProxyContext> CONTEXT_HOLDER = new InheritableThreadLocal<ProxyContext>() {
+        @Override
+        protected ProxyContext initialValue() {
+            return null;
+        }
+    };
+
     public static ProxyContext getInstance() {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         if(attributes!=null) {
             return (ProxyContext)attributes.getAttribute(PROXY_CONTEXT_ATTRIBUTE_KEY, RequestAttributes.SCOPE_REQUEST);
+        } else {
+            return CONTEXT_HOLDER.get();
         }
-        return null;
     }
 
     public static void init() {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         if(attributes!=null) {
             attributes.setAttribute(PROXY_CONTEXT_ATTRIBUTE_KEY, new ProxyContext(), RequestAttributes.SCOPE_REQUEST);
+        } else {
+            CONTEXT_HOLDER.set(new ProxyContext());
         }
     }
 
@@ -38,7 +48,7 @@ public class ProxyContext {
 
 
     public ProxyContext() {
-        System.out.println();
+
     }
 
     /**

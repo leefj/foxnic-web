@@ -9,7 +9,7 @@ import org.github.foxnic.web.domain.oauth.User;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-03-24 17:23:52
+ * @since 2022-03-25 09:57:25
  * @sign 4088D90453203BC9CE32C55E755123EF
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
