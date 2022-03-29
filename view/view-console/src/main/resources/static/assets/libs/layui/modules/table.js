@@ -93,6 +93,10 @@ layui.define(['laytpl', 'laypage', 'layer', 'form', 'util'], function(exports){
         }
         ,update: function(fields){ //修改行数据
           fields = fields || {};
+          // 李方捷：需要先覆盖全部的值
+          layui.each(fields, function(key, value){
+            data[key] = value;
+          });
           layui.each(fields, function(key, value){
             if(key in data){
               var templet, td = tr.children('td[data-field="'+ key +'"]');

@@ -25,6 +25,11 @@
             <version>${foxnic.version}</version>
         </dependency>
         <dependency>
+            <groupId>com.github.foxnic</groupId>
+            <artifactId>cangaroo</artifactId>
+            <version>${cangaroo.version}</version>
+        </dependency>
+        <dependency>
             <groupId>com.github.ben-manes.caffeine</groupId>
             <artifactId>caffeine</artifactId>
         </dependency>

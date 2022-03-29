@@ -3,16 +3,19 @@ package org.github.foxnic.web.system.test;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.commons.io.FileUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.dao.spec.DBSequence;
 import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.github.foxnic.web.framework.licence.LicenceProxy;
 import org.github.foxnic.web.proxy.camunda.CamundaUserServiceProxy;
 import org.github.foxnic.web.session.SessionUser;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.io.File;
 import java.util.Date;
 
 @RestController("UnitTestController")
@@ -27,6 +30,10 @@ public class UnitTestController {
     @PostMapping("/service-system/unit-test/sequence")
     public Result sequence() {
         String sequenceId="qualityReportId";
+
+        File file=new File("D:\\leefj\\workspace\\git-base\\foxnic-grant\\licence\\community\\community.lic");
+        LicenceProxy.LICENCE_DATA= FileUtil.readText(file);
+
         String val = null;
         try {
             DBSequence sequence=dao.getSequence(sequenceId);

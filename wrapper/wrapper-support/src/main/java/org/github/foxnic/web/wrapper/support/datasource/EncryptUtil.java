@@ -19,6 +19,8 @@ public class EncryptUtil {
         pwd=aes.encryptData(pwd);
         url=aes.encryptData(url);
 
+
+
         System.out.println("user = "+user);
         System.out.println("pwd = "+pwd);
         System.out.println("url = "+url);
