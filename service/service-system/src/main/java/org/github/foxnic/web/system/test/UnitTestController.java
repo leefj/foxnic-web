@@ -1,5 +1,6 @@
 package org.github.foxnic.web.system.test;
 
+import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.busi.id.IDGenerator;
@@ -52,6 +53,23 @@ public class UnitTestController {
         SessionUser user=SessionUser.getCurrent();
         Result result= CamundaUserServiceProxy.api().getById("123");
         return ErrorDesc.success().data(result.data());
+    }
+
+    @PostMapping("/service-system/unit-test/update-licence-local")
+    public Result updateLicenceLocal() {
+        File file=new File("D:\\leefj\\workspace\\git-base\\foxnic-grant\\licence\\community\\community.lic");
+
+        LicenceProxy.LICENCE_DATA= FileUtil.readText(file);
+        while (LicenceProxy.LICENCE_DATA!=null) {
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {}
+        }
+        LicenceProxy.reset();
+
+        JSONObject licence=LicenceProxy.getLicence();
+
+        return ErrorDesc.success().data(licence);
     }
 
 }
