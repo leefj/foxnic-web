@@ -15,4 +15,12 @@ public class ClusterConfiguration {
         return registration;
     }
 
+    @Bean
+    public FilterRegistrationBean clusterAdvanceFilterRegistration() {
+        FilterRegistrationBean registration = new FilterRegistrationBean(new ClusterAdvanceFilter());
+        registration.addUrlPatterns("*");
+        registration.setName("ClusterAdvanceFilter");
+        return registration;
+    }
+
 }
