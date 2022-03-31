@@ -28,18 +28,14 @@
     <link rel="stylesheet" href="/business/system/licence/code.css" type="text/css" />
 </head>
 
-<body style="overflow-y: hidden;">
+<body>
 
-
-<pre class="layui-code layui-box layui-code-view" lay-title="授权信息">
-    <h3 class="layui-code-h3">对应的代码<a href="javascript:;">code</a></h3>
-    <ol class="layui-code-ol">
-        <li>1111</li><li>222</li><li>333</li>
-    </ol>
-</pre>
-
-
-
+<div style="margin: 16px">
+<button type="button" class="layui-btn" id="test1">
+    <i class="layui-icon layui-icon-upload"></i>导入许可
+</button>
+</div>
+<pre class="layui-code layui-box layui-code-view" style="margin: 16px"><h3 class="layui-code-h3">授权信息<a href="javascript:;">许可证</a></h3><ol class="layui-code-ol"><li>var upload = layui.upload; //得到 upload 对象</li></ol></pre>
 
 <script type="text/javascript" src="/module/global.js" th:src="'/module/global.js?'+${cacheKey}"></script>
 <script type="text/javascript" src="/assets/libs/jquery-3.2.1.min.js"
@@ -52,13 +48,8 @@
         th:src="'/assets/libs/toast/js/toast.js?'+${cacheKey}"></script>
 
 <script th:inline="javascript">
-    var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];
-    var VALIDATE_CONFIG = {
-        "code": {"labelInForm": "代码", "inputType": "text_input", "required": true},
-        "module": {"labelInForm": "模块", "inputType": "select_box", "required": true},
-        "name": {"labelInForm": "名称", "inputType": "text_input", "required": true}
-    };
-    var AUTH_PREFIX = "sys_dict";
+    var LICENCE = [[${licence}]];
+    $(".layui-code-ol").html(LICENCE);
 </script>
 
 <script th:src="'/business/system/licence/licence_ext.js?'+${cacheKey}"></script>
