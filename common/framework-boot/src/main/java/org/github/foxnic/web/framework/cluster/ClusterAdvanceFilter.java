@@ -1,31 +1,16 @@
 package org.github.foxnic.web.framework.cluster;
 
-import com.github.foxnic.commons.io.StreamUtil;
-import com.github.foxnic.commons.log.Logger;
-import org.github.foxnic.web.framework.proxy.ProxyContext;
+import com.github.foxnic.springboot.spring.SpringUtil;
+import org.springframework.boot.web.servlet.ServletContextInitializerBeans;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
-import java.io.*;
-import java.io.IOException;
-
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletResponse;
-
-
-import java.io.IOException;
-import java.util.stream.Stream;
-
-import javax.servlet.ServletOutputStream;
-import javax.servlet.WriteListener;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 
 
 public class ClusterAdvanceFilter implements Filter {
@@ -37,6 +22,8 @@ public class ClusterAdvanceFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+
+        ServletContextInitializerBeans xxx=SpringUtil.getBean(ServletContextInitializerBeans.class);
 
         String url=((HttpServletRequest)request).getRequestURI().toLowerCase();
 
