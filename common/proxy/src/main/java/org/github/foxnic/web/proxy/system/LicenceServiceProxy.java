@@ -51,10 +51,21 @@ public interface LicenceServiceProxy {
 	public static final String GET = API_PREFIX + "get";
 
 	/**
+	 * 获得许可证信息
+	 */
+	public static final String GET_LICENCE_ITEMS = API_PREFIX + "get-licence-items";
+
+	/**
 	 * 获取语言条目
 	 */
 	@RequestMapping(LicenceServiceProxy.GET)
 	Result<JSONObject> get();
+
+	/**
+	 * 获取语言条目
+	 */
+	@RequestMapping(LicenceServiceProxy.GET)
+	Result<JSONObject> getLicenceItems();
 
 	/**
 	 * 控制器类名
