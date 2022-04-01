@@ -339,7 +339,7 @@ layui.define(['settings', 'layer'], function (exports) {
                         }, 1000);
                         return;
                     } else if (jsonRs.code == "32") {
-                        layer.msg('没有权限', {icon: 2});
+                        //layer.msg('没有权限', {icon: 2});
                         layer.closeAll('loading');
                         return;
                     }

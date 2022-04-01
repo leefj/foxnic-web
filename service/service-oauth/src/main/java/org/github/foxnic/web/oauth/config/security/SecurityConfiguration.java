@@ -155,7 +155,9 @@ public class SecurityConfiguration {
 
 		@Override
 		public void configure(WebSecurity web) throws Exception {
-
+			// 放行许可证相关的URL
+			web.ignoring().antMatchers("/business/system/licence/**","/service-system/sys-licence/**");
+			// 放行配置的URL
 			for (String pattern : securityProperties.getIgnoredUrls()) {
 				web.ignoring().antMatchers(pattern);
 			}
@@ -187,6 +189,8 @@ public class SecurityConfiguration {
 					return sessionCache.get(sessionId);
 				}
 			});
+
+
 
 			//允许iframe嵌入
 			http.headers().frameOptions().disable();

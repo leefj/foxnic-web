@@ -26,19 +26,30 @@ function FormPage() {
 		var uploadInst = upload.render({
 			elem: '#test1' //绑定元素
 			,exts:'lic'
-			,url: apiurls.storage.upload
+			,url: "/service-system/sys-licence/import"
+			,choose: function(obj) {
+				obj.preview(function (index, file, result) {
+					importLicence(result);
+				});
+			}
 			,done: function(res){
 				importLicence(res.data[0].fileId);
 			}
 			,error: function(){
-				top.layer.msg("文件上传失败", {icon: 2, time: 1500});
+				top.layer.msg("许可证已提交，稍后请刷新页面", {icon: 1, time: 1500});
 			}
 		});
 	}
 
-	function importLicence(fileId) {
+	function importLicence(result) {
+		if(result==null) {
+			top.layer.msg("文件读取失败", {icon: 2, time: 1500});
+			return;
+		}
 
-		admin.post("/service-system/sys-licence/import", {fileId:fileId}, function (data) {
+		result=result.substr(result.indexOf(",")+1);
+
+		admin.post("/service-system/sys-licence/import", {data:result}, function (data) {
 			if (data.success) {
 				location=location;
 			} else {

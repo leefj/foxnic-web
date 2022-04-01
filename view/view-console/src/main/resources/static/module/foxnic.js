@@ -2067,6 +2067,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
 
     if (defaultsLangs == null || codeLangs == null) {
         admin.request('/service-system/sys-lang/query-list', {}, function (data) {
+            if(!data.success) return;
             data = data.data;
             codeLangs = {};
             defaultsLangs = {};

@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.commons.encrypt.Base64Util;
 import com.github.foxnic.commons.io.FileUtil;
 import com.github.foxnic.springboot.Licence;
 import com.github.foxnic.springboot.mvc.RequestParameter;
@@ -23,18 +24,20 @@ public class LicenceController {
 
     @PostMapping(LicenceServiceProxy.IMPORT)
     public Result importLicence() {
-        String fileId= RequestParameter.get().getString("fileId");
-        byte[] bytes=StorageProxyUtil.getFileData(fileId);
-        LicenceProxy.LICENCE_DATA= new String(bytes);
+        Long t=System.currentTimeMillis();
+        String data= RequestParameter.get().getString("data");
+        if(data==null) return ErrorDesc.failure();
+        data= Base64Util.decode(data);
+        LicenceProxy.LICENCE_DATA= data;
         while (LicenceProxy.LICENCE_DATA!=null) {
             try {
                 Thread.sleep(500);
             } catch (InterruptedException e) {}
         }
         LicenceProxy.reset();
-
+        t=5100-(System.currentTimeMillis()-t);
         try {
-            Thread.sleep(2000);
+            Thread.sleep(t);
         } catch (InterruptedException e) {}
 
         return ErrorDesc.success();
