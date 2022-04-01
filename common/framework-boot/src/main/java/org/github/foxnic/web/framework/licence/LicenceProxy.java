@@ -5,13 +5,16 @@ import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.springboot.CP;
 import com.github.foxnic.springboot.spring.SpringUtil;
 
+import java.lang.reflect.Method;
 import java.util.Map;
 
 public class LicenceProxy {
 
     public static Object KE = null;
+    public static Method KEM = null;
     public static Object LO = null;
     public static String LICENCE_DATA = null;
+    public static String VnV_CODE=null;
 
     public static void reset() {
         try {
@@ -29,4 +32,17 @@ public class LicenceProxy {
             return null;
         }
     }
+
+
+    public static JSONObject getModuleConfig(String code) {
+        if(KE==null || KEM==null) return null;
+        try {
+            return  (JSONObject)KEM.invoke(KE,code);
+        } catch (Exception e) {
+            Logger.error("许可读模块取置失败",e);
+            return null;
+        }
+    }
+
+
 }
