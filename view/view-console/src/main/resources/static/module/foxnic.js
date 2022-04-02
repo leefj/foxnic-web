@@ -600,14 +600,14 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 var div = $("#layui-table-page" + it.index);
                 var buttons = [];
 
-                if (footer.importExcel) {
+                if(footer.importExcel){
                     var exportExcelTemplateButton = '<button id="layui-table-page' + it.index + '-footer-download-excel-template"  type="button" class="layui-btn layui-btn-primary layui-btn-xs"><i class="fa fa-download"></i> 下载模版</button>';
                     buttons.push(exportExcelTemplateButton);
                     var importExcelButton = '<button id="layui-table-page' + it.index + '-footer-import-excel"  type="button" class="layui-btn layui-btn-primary layui-btn-xs"><i class="fa fa-cloud-upload"></i> 导入数据</button>&nbsp;&nbsp;';
                     buttons.push(importExcelButton);
                 }
 
-                if (footer.exportExcel) {
+                if(footer.exportExcel) {
                     var exportExcelButton = '<button id="layui-table-page' + it.index + '-footer-download-excel"  type="button" class="layui-btn layui-btn-primary layui-btn-xs"><i class="fa fa-cloud-download"></i>  导出数据</button>';
                     buttons.push(exportExcelButton);
                 }

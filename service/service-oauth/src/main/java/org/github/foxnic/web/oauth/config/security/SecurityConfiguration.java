@@ -1,5 +1,6 @@
 package org.github.foxnic.web.oauth.config.security;
 
+import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.springboot.mvc.RequestParameter;
 import org.github.foxnic.web.oauth.captcha.CaptchaAuthenticationFilter;
 import org.github.foxnic.web.oauth.captcha.CaptchaAuthenticationProvider;
@@ -40,12 +41,14 @@ import org.springframework.security.web.access.intercept.FilterSecurityIntercept
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * CustomSpring
@@ -156,12 +159,19 @@ public class SecurityConfiguration {
 		@Override
 		public void configure(WebSecurity web) throws Exception {
 			// 放行许可证相关的URL
-			web.ignoring().antMatchers("/business/system/licence/**","/service-system/sys-licence/**");
+			Object r=web.ignoring().antMatchers("/business/system/licence/**","/service-system/sys-licence/**");
 			// 放行配置的URL
 			for (String pattern : securityProperties.getIgnoredUrls()) {
 				web.ignoring().antMatchers(pattern);
 			}
 			web.ignoring().antMatchers(securityProperties.getLoginPage());
+			// 语言
+			web.ignoring().antMatchers("/service-system/sys-lang/query-list");
+
+			List<RequestMatcher> ignoredRequests=BeanUtil.getFieldValue(web,"ignoredRequests", List.class);
+
+			jwtAuthenticationFilter.setIgnoredRequests(ignoredRequests);
+
 			super.configure(web);
 		}
 

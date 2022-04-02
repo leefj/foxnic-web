@@ -50,6 +50,7 @@ public class LicenceController {
     public Result<JSONObject> get() {
         Result<JSONObject> result=new Result<>();
         result.success(true).data(LicenceProxy.getLicence());
+        JSONObject json=LicenceProxy.getModuleConfig("hrm");
         return result;
     }
 

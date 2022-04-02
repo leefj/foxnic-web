@@ -33,11 +33,13 @@ public class LicenceProxy {
         }
     }
 
-
+    /**
+     * 获得模块配置，建议把这个方法拷贝到自己的模块去
+     * */
     public static JSONObject getModuleConfig(String code) {
-        if(KE==null || KEM==null) return null;
+        if(LicenceProxy.KE==null || LicenceProxy.KEM==null) return null;
         try {
-            return  (JSONObject)KEM.invoke(KE,code);
+            return  (JSONObject)LicenceProxy.KEM.invoke(LicenceProxy.KE,code);
         } catch (Exception e) {
             Logger.error("许可读模块取置失败",e);
             return null;

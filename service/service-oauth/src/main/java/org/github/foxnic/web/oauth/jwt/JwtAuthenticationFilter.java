@@ -24,6 +24,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -33,6 +34,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -55,12 +57,22 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private ClusterConfig configs=null;
 
+    private List<RequestMatcher> ignoredRequests=null;
+
+    public List<RequestMatcher> getIgnoredRequests() {
+        return ignoredRequests;
+    }
+
+    public void setIgnoredRequests(List<RequestMatcher> ignoredRequests) {
+        this.ignoredRequests = ignoredRequests;
+    }
+
     @PostConstruct
     void init() {
         configs=new ClusterConfig();
     }
 
-    public JwtAuthenticationFilter(JwtTokenGenerator jwtTokenGenerator, JwtTokenStorage jwtTokenStorage) {
+        public JwtAuthenticationFilter(JwtTokenGenerator jwtTokenGenerator, JwtTokenStorage jwtTokenStorage) {
         this.jwtTokenGenerator = jwtTokenGenerator;
         this.jwtTokenStorage = jwtTokenStorage;
 
@@ -69,6 +81,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
+
+        // 如果是放行的资源
+        for (RequestMatcher ignoredRequest : ignoredRequests) {
+            if(ignoredRequest.matches(request)) {
+                chain.doFilter(request, response);
+                return;
+            }
+        }
+
         // 如果已经通过认证
         if (SecurityContextHolder.getContext().getAuthentication() != null) {
             chain.doFilter(request, response);

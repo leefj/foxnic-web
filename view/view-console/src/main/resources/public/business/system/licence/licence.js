@@ -51,7 +51,10 @@ function FormPage() {
 
 		admin.post("/service-system/sys-licence/import", {data:result}, function (data) {
 			if (data.success) {
-				location=location;
+				top.layer.msg("许可证导入成功!", {icon: 1, time: 1500});
+				setTimeout(function (){
+					location=location;
+				},2000);
 			} else {
 				top.layer.msg(data.message, {icon: 2, time: 1500});
 			}
