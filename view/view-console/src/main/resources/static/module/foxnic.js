@@ -2203,6 +2203,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
     window.fox=foxnic;
 
     exports('foxnic', foxnic);
+
 });
 
 
