@@ -30,7 +30,7 @@ UPDATE hrm_organization set hierarchy=id where parent_id=? and tenant_id=?
 // 设置上级节点已经设置层级路径的节点的层级路径
 [update-org-hierarchy-step2]
 UPDATE hrm_organization c, hrm_organization p
-SET c.hierarchy=CONCAT(p.hierarchy,"/",c.id)
+SET c.hierarchy=CONCAT(p.hierarchy,'/',c.id)
 WHERE c.tenant_id=? and p.id=c.parent_id  and c.hierarchy is null and p.hierarchy is not null
 
 [search-org-hierarchy]
