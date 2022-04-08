@@ -1,10 +1,35 @@
+
+## 版本：1.0.1.RELEASE ( 2022-04-08 )  Foxnic Version: 1.5.1.RELEASE
+### 新特性
+1、XXX
+  
+
+### Bug 修复
+1、XXX
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## 版本：1.0.0.RELEASE ( 2022-01-20 )  Foxnic Version: 1.5.0.RELEASE
 ### 新特性
 1、增加表格的默认列宽到120
 2、表单保存后，支持单行刷
 3、代码生成增加 splitValue 选项，默认 false 
 4、Result 增加用于指示前端如何提示信息的控制(需要重新生成代码): result.messageLevel4Notify()、result.messageLevel4Read()、result.messageLevel4Confirm()
-
+5、适配达梦数据库
 
 ### Bug 修复
 1、已知 bug 修复 
