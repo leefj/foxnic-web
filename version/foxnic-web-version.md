@@ -1,7 +1,7 @@
 
 ## 版本：1.0.1.RELEASE ( 2022-04-08 )  Foxnic Version: 1.5.1.RELEASE
 ### 新特性
-1、XXX
+1、错误码机制优化
   
 
 ### Bug 修复

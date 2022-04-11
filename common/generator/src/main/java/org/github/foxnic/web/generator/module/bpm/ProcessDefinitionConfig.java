@@ -9,6 +9,7 @@ import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.*;
+import org.github.foxnic.web.domain.bpm.ProcessDefinitionFile;
 import org.github.foxnic.web.domain.bpm.meta.ProcessDefinitionMeta;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.domain.oauth.meta.UserMeta;
@@ -23,6 +24,7 @@ public class ProcessDefinitionConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITI
     @Override
     public void configModel(PoClassFile poType, VoClassFile voType) {
         poType.addSimpleProperty(User.class,"lastUpdateUser","最后修改人","最后修改人");
+        poType.addSimpleProperty(ProcessDefinitionFile.class,"definitionFile","流程定义","流程定义文件");
     }
 
     @Override

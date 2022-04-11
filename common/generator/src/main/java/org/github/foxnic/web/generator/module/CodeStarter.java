@@ -45,10 +45,10 @@ public class CodeStarter extends ModuleCodeGenerator {
 //        initHrmModules();
 //        initExampleModules();
 //        initChangeModule1s();
-//        initBpmModules();
+        initBpmModules();
 //        initDatapermModules();
 //
-        initExample2Modules();
+//        initExample2Modules();
 //        initJobModules();
     }
 

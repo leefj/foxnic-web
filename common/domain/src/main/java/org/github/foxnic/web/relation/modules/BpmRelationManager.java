@@ -23,10 +23,11 @@ public class BpmRelationManager extends RelationManager {
 				.using(FoxnicWeb.BPM_PROCESS_DEFINITION.UPDATE_BY).join(FoxnicWeb.SYS_USER.ID);
 		;
 
-//		//流程定义 - 账户
-//		this.property(ProcessDefinitionMeta.LAST_UPDATE_USER_PROP)
-//				.using(FoxnicWeb.BPM_PROCESS_DEFINITION.UPDATE_BY).join(FoxnicWeb.SYS_USER.ID);
-//		;
+		//流程定义 - 当前激活的流程定义文件
+		this.property(ProcessDefinitionMeta.DEFINITION_FILE_PROP)
+				.using(FoxnicWeb.BPM_PROCESS_DEFINITION.ID).join(FoxnicWeb.BPM_PROCESS_DEFINITION_FILE.DEFINITION_ID)
+				.conditionEquals(FoxnicWeb.BPM_PROCESS_DEFINITION_FILE.ACTIVATED,1);
+		;
 
 
 	}

@@ -4,13 +4,14 @@ import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.bpm.ProcessDefinition;
 import java.util.Date;
 import org.github.foxnic.web.domain.oauth.User;
+import org.github.foxnic.web.domain.bpm.ProcessDefinitionFile;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-03-24 17:23:08
- * @sign 64487CFC2D64BD36025D2E254DD74B41
+ * @since 2022-04-11 15:02:01
+ * @sign 07D91F1F3B3840B5AD347F2BCF3ECA1F
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -147,9 +148,19 @@ public class ProcessDefinitionMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinition,org.github.foxnic.web.domain.oauth.User> LAST_UPDATE_USER_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinition.class ,LAST_UPDATE_USER, org.github.foxnic.web.domain.oauth.User.class, "最后修改人", "最后修改人", org.github.foxnic.web.domain.oauth.User.class, null);
 	
 	/**
+	 * 流程定义 , 流程定义文件 , 类型: org.github.foxnic.web.domain.bpm.ProcessDefinitionFile
+	*/
+	public static final String DEFINITION_FILE="definitionFile";
+	
+	/**
+	 * 流程定义 , 流程定义文件 , 类型: org.github.foxnic.web.domain.bpm.ProcessDefinitionFile
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinition,org.github.foxnic.web.domain.bpm.ProcessDefinitionFile> DEFINITION_FILE_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinition.class ,DEFINITION_FILE, org.github.foxnic.web.domain.bpm.ProcessDefinitionFile.class, "流程定义", "流程定义文件", org.github.foxnic.web.domain.bpm.ProcessDefinitionFile.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , NAME , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , LAST_UPDATE_USER };
+	public static final String[] $PROPS={ ID , NAME , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , LAST_UPDATE_USER , DEFINITION_FILE };
 	
 	/**
 	 * 代理类
@@ -299,6 +310,17 @@ public class ProcessDefinitionMeta {
 		public ProcessDefinition setLastUpdateUser(User lastUpdateUser) {
 			super.change(LAST_UPDATE_USER,super.getLastUpdateUser(),lastUpdateUser);
 			super.setLastUpdateUser(lastUpdateUser);
+			return this;
+		}
+		
+		/**
+		 * 设置 流程定义
+		 * @param definitionFile 流程定义
+		 * @return 当前对象
+		*/
+		public ProcessDefinition setDefinitionFile(ProcessDefinitionFile definitionFile) {
+			super.change(DEFINITION_FILE,super.getDefinitionFile(),definitionFile);
+			super.setDefinitionFile(definitionFile);
 			return this;
 		}
 	}
