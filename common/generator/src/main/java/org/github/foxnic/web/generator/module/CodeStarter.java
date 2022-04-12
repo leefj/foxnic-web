@@ -3,6 +3,7 @@ package org.github.foxnic.web.generator.module;
 import com.github.foxnic.commons.io.FileUtil;
 import com.github.foxnic.generator.util.ModuleCodeGenerator;
 import org.github.foxnic.web.generator.data.DataGenerator;
+import org.github.foxnic.web.generator.module.bpm.ProcessDefinitionApplyConfig;
 import org.github.foxnic.web.generator.module.bpm.ProcessDefinitionConfig;
 import org.github.foxnic.web.generator.module.bpm.ProcessDefinitionFileConfig;
 import org.github.foxnic.web.generator.module.bpm.ProcessInitiatorConfig;
@@ -75,6 +76,7 @@ public class CodeStarter extends ModuleCodeGenerator {
         this.addConfig(new ProcessDefinitionConfig());
         this.addConfig(new ProcessDefinitionFileConfig());
         this.addConfig(new ProcessInitiatorConfig());
+        this.addConfig(new ProcessDefinitionApplyConfig());
     }
 
     private void  initChangeModules() {

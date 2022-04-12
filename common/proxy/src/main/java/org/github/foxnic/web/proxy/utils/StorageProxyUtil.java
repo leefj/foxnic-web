@@ -15,11 +15,16 @@ public class StorageProxyUtil {
      * 获得文件的 byte[] 数据
      * */
     public static byte[] getFileData(String id){
-        Result<String> result = FileServiceProxy.api().getFileData(id);
+        Result<String> result = null;
+        try {
+            result = FileServiceProxy.api().getFileData(id);
+        } catch (Exception e) {
+            Logger.error("调用异常",e);
+        }
         if(result.success()) {
             return Base64Util.decodeToBtyes(result.data());
         } else {
-            Logger.info("Get File Error", JSON.toJSON(result));
+            Logger.info("Get File Error : "+result.message());
             return null;
         }
     }

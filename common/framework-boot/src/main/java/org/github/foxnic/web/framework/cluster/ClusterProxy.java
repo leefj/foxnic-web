@@ -1,12 +1,17 @@
 package org.github.foxnic.web.framework.cluster;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.cache.LocalCache;
+import com.github.foxnic.commons.cmd.CommandShell;
+import com.github.foxnic.commons.json.JSONUtil;
+import com.github.foxnic.commons.lang.DataParser;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.commons.network.HttpClient;
+import com.github.foxnic.dao.entity.Entity;
 import com.github.foxnic.springboot.spring.SpringUtil;
 import org.apache.http.Header;
 import org.apache.http.HeaderElement;
@@ -17,6 +22,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.github.foxnic.web.framework.proxy.ProxyContext;
 import org.github.foxnic.web.session.SessionUser;
+import org.springframework.core.DefaultParameterNameDiscoverer;
 import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
 import org.springframework.core.ParameterNameDiscoverer;
 import org.springframework.stereotype.Component;
@@ -29,15 +35,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Component
 public class ClusterProxy {
 
-    private ParameterNameDiscoverer parameterNameDiscoverer = new LocalVariableTableParameterNameDiscoverer();
+    private LocalVariableTableParameterNameDiscoverer parameterNameDiscoverer = new LocalVariableTableParameterNameDiscoverer();
 
     private static final LocalCache<String,String> CLUSTER_SESSION_IDS=new LocalCache<>();
 
@@ -77,19 +80,31 @@ public class ClusterProxy {
 
         url=StringUtil.joinUrl(ep.getUrl(),url);
 
-        Parameter[] params = method.getParameters();
-        JSONObject   ps = new JSONObject();
-        for (int i = 0; i < params.length; i++) {
-            ps.put(params[i].getName(),args[i]);
-        }
 
-        return request(url,requestMethod,ps);
+        Parameter[] params = method.getParameters();
+        String body = null;
+        if(params.length==1 && args[0]!=null && !DataParser.isSimpleType(args[0].getClass())) {
+            Object value=args[0];
+            body = JSON.toJSONString(value);
+        } else {
+            String[] paramNames = parameterNameDiscoverer.getParameterNames(method);
+            paramNames=(new DefaultParameterNameDiscoverer()).getParameterNames(method);
+            JSONObject   ps = new JSONObject();
+            for (int i = 0; i < params.length; i++) {
+                ps.put(paramNames[i], args[i]);
+            }
+            body = ps.toJSONString();
+        }
+        return request(url,requestMethod,body);
     }
 
     /**
      * 请求外部节点接口
      */
-    private Object request(String url, RequestMethod requestMethod, JSONObject  ps) {
+    private Object request(String url, RequestMethod requestMethod, String body) {
+
+        Logger.info("\n\npost "+url+"\n"+body+"\n");
+
         SessionUser sessionUser = SessionUser.getCurrent();
         Map<String, String> headers = new HashMap<>();
         headers.put(CLUSTER_KEY, this.configs.getKey());
@@ -117,7 +132,7 @@ public class ClusterProxy {
 
         if (requestMethod == RequestMethod.POST) {
 
-            String ret = post(url, ps.toJSONString(), headers, operator);
+            String ret = post(url, body, headers, operator);
             if (ret == null) return null;
             if (ret.startsWith("{") && ret.endsWith("}")) {
                 Result result = ErrorDesc.fromJSON(ret);
@@ -189,6 +204,13 @@ public class ClusterProxy {
         }
         return null;
 
+    }
+
+    public static void main(String[] args) throws Exception {
+        Method m= CommandShell.class.getDeclaredMethod("exec",String.class);
+        LocalVariableTableParameterNameDiscoverer nd=new LocalVariableTableParameterNameDiscoverer();
+        String[] nn=nd.getParameterNames(m);
+        System.out.println(StringUtil.join(nn));
     }
 
 

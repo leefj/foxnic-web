@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2022-03-24 17:00:06
+ * @since 2022-04-12 14:01:36
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -85,10 +85,71 @@ public class FoxnicWeb {
 		*/
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
+		/**
+		 * 租户ID
+		*/
+		public static final DBField TENANT_ID = new DBField(DBDataType.STRING , "tenant_id","tenantId","租户ID","租户ID",false,false,false);
+		
 		public BPM_PROCESS_DEFINITION() {
-			this.init($NAME,"流程定义表" , ID , NAME , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"流程定义表" , ID , NAME , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID);
 		}
 		public static final BPM_PROCESS_DEFINITION $TABLE=new BPM_PROCESS_DEFINITION();
+	}
+	
+	/**
+	 * 流程应用登记表
+	*/
+	public static class BPM_PROCESS_DEFINITION_APPLY extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "bpm_process_definition_apply";
+		
+		/**
+		 * ID
+		*/
+		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","ID","ID",true,false,false);
+		
+		/**
+		 * 流程定义ID
+		*/
+		public static final DBField DEFINITION_ID = new DBField(DBDataType.STRING , "definition_id","definitionId","流程定义ID","流程定义ID",false,false,true);
+		
+		/**
+		 * 流程文件ID
+		*/
+		public static final DBField DEFINITION_FILE_ID = new DBField(DBDataType.STRING , "definition_file_id","definitionFileId","流程文件ID","流程文件ID",false,false,true);
+		
+		/**
+		 * 应用请求报文
+		*/
+		public static final DBField REQUEST = new DBField(DBDataType.STRING , "request","request","应用请求报文","应用请求报文",false,false,true);
+		
+		/**
+		 * 应用结果
+		*/
+		public static final DBField RESULT = new DBField(DBDataType.STRING , "result","result","应用结果","应用结果",false,false,true);
+		
+		/**
+		 * 应用时间
+		*/
+		public static final DBField APPLY_TIME = new DBField(DBDataType.DATE , "apply_time","applyTime","应用时间","应用时间",false,false,true);
+		
+		/**
+		 * 异常信息
+		*/
+		public static final DBField EXCEPTION = new DBField(DBDataType.STRING , "exception","exception","异常信息","异常信息",false,false,true);
+		
+		/**
+		 * 是否成功
+		*/
+		public static final DBField SUCCESS = new DBField(DBDataType.INTEGER , "success","success","是否成功","是否成功",false,false,true);
+		
+		public BPM_PROCESS_DEFINITION_APPLY() {
+			this.init($NAME,"流程应用登记表" , ID , DEFINITION_ID , DEFINITION_FILE_ID , REQUEST , RESULT , APPLY_TIME , EXCEPTION , SUCCESS);
+		}
+		public static final BPM_PROCESS_DEFINITION_APPLY $TABLE=new BPM_PROCESS_DEFINITION_APPLY();
 	}
 	
 	/**
@@ -176,8 +237,13 @@ public class FoxnicWeb {
 		*/
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
+		/**
+		 * 租户ID
+		*/
+		public static final DBField TENANT_ID = new DBField(DBDataType.STRING , "tenant_id","tenantId","租户ID","租户ID",false,false,false);
+		
 		public BPM_PROCESS_DEFINITION_FILE() {
-			this.init($NAME,"流程定义文件表" , ID , DEFINITION_ID , FILE_ID , VERSION_NO , NAME , ACTIVATED , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"流程定义文件表" , ID , DEFINITION_ID , FILE_ID , VERSION_NO , NAME , ACTIVATED , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID);
 		}
 		public static final BPM_PROCESS_DEFINITION_FILE $TABLE=new BPM_PROCESS_DEFINITION_FILE();
 	}
@@ -252,8 +318,13 @@ public class FoxnicWeb {
 		*/
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
+		/**
+		 * 租户ID
+		*/
+		public static final DBField TENANT_ID = new DBField(DBDataType.STRING , "tenant_id","tenantId","租户ID","租户ID",false,false,false);
+		
 		public BPM_PROCESS_INITIATOR() {
-			this.init($NAME,"流程发起人权限表" , ID , DEFINITION_ID , INITIATOR_ID , INITIATOR_TYPE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"流程发起人权限表" , ID , DEFINITION_ID , INITIATOR_ID , INITIATOR_TYPE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID);
 		}
 		public static final BPM_PROCESS_INITIATOR $TABLE=new BPM_PROCESS_INITIATOR();
 	}
@@ -5190,6 +5261,37 @@ public class FoxnicWeb {
 			this.init($NAME,"语言条目表" , CODE , DEFAULTS , ZH_CH , ZH_TW , EN_US , EN_UK , CONFUSE , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final SYS_LANG $TABLE=new SYS_LANG();
+	}
+	
+	/**
+	 * Licence授权配置表
+	*/
+	public static class SYS_LICENCE extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "sys_licence";
+		
+		/**
+		 * 键
+		*/
+		public static final DBField XKEY = new DBField(DBDataType.STRING , "xkey","xkey","键","键",true,false,false);
+		
+		/**
+		 * 值
+		*/
+		public static final DBField DATA = new DBField(DBDataType.STRING , "data","data","值","值",false,false,true);
+		
+		/**
+		 * 导入时间
+		*/
+		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","导入时间","导入时间",false,false,true);
+		
+		public SYS_LICENCE() {
+			this.init($NAME,"Licence授权配置表" , XKEY , DATA , CREATE_TIME);
+		}
+		public static final SYS_LICENCE $TABLE=new SYS_LICENCE();
 	}
 	
 	/**
