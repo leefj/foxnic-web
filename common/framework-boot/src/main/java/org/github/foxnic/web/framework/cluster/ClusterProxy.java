@@ -3,15 +3,11 @@ package org.github.foxnic.web.framework.cluster;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.proxy.ParameterNames;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.cache.LocalCache;
-import com.github.foxnic.commons.cmd.CommandShell;
-import com.github.foxnic.commons.json.JSONUtil;
-import com.github.foxnic.commons.lang.DataParser;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.log.Logger;
-import com.github.foxnic.commons.network.HttpClient;
-import com.github.foxnic.dao.entity.Entity;
 import com.github.foxnic.springboot.spring.SpringUtil;
 import org.apache.http.Header;
 import org.apache.http.HeaderElement;
@@ -22,30 +18,30 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.github.foxnic.web.framework.proxy.ProxyContext;
 import org.github.foxnic.web.session.SessionUser;
+import org.springframework.beans.BeanUtils;
 import org.springframework.core.DefaultParameterNameDiscoverer;
-import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
-import org.springframework.core.ParameterNameDiscoverer;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.annotation.PostConstruct;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 public class ClusterProxy {
 
-    private LocalVariableTableParameterNameDiscoverer parameterNameDiscoverer = new LocalVariableTableParameterNameDiscoverer();
 
     private static final LocalCache<String,String> CLUSTER_SESSION_IDS=new LocalCache<>();
 
     public static final String CLUSTER_KEY = "$cluster_key";
     public static final String CLUSTER_TOKEN = "$cluster_token";
+    public static final String INVOKE_FROM_CLUSTER = "$invoke_from_cluster";
+    public static final String IS_CLUSTER_HANDLED = "$is_cluster_handled";
 
     private ClusterConfig configs=null;
 
@@ -83,11 +79,16 @@ public class ClusterProxy {
 
         Parameter[] params = method.getParameters();
         String body = null;
-        if(params.length==1 && args[0]!=null && !DataParser.isSimpleType(args[0].getClass())) {
+        // 如果只有一个参数，并且不是简单类型
+        if(params.length==1 && args[0]!=null && !BeanUtils.isSimpleValueType(args[0].getClass())) {
             Object value=args[0];
             body = JSON.toJSONString(value);
         } else {
-            String[] paramNames = parameterNameDiscoverer.getParameterNames(method);
+            ParameterNames parameterNames=method.getAnnotation(ParameterNames.class);
+            if(parameterNames==null) {
+                throw new RuntimeException(method.getDeclaringClass().getName()+"."+method.getName()+" 缺少 ParameterNames 注解");
+            }
+            String[] paramNames = parameterNames.value();
             paramNames=(new DefaultParameterNameDiscoverer()).getParameterNames(method);
             JSONObject   ps = new JSONObject();
             for (int i = 0; i < params.length; i++) {
@@ -205,13 +206,5 @@ public class ClusterProxy {
         return null;
 
     }
-
-    public static void main(String[] args) throws Exception {
-        Method m= CommandShell.class.getDeclaredMethod("exec",String.class);
-        LocalVariableTableParameterNameDiscoverer nd=new LocalVariableTableParameterNameDiscoverer();
-        String[] nn=nd.getParameterNames(m);
-        System.out.println(StringUtil.join(nn));
-    }
-
 
 }

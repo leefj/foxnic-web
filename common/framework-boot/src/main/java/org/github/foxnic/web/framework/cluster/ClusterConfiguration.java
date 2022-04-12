@@ -12,6 +12,7 @@ public class ClusterConfiguration {
         FilterRegistrationBean registration = new FilterRegistrationBean(new ClusterFilter());
         registration.addUrlPatterns("*");
         registration.setName("ClusterFilter");
+        registration.setOrder(0);
         return registration;
     }
 

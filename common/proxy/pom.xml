@@ -58,5 +58,5 @@
             <artifactId>feign-core</artifactId>  
             <version>10.4.0</version> 
         </dependency> 
-    </dependencies> 
+    </dependencies>
 </project>
