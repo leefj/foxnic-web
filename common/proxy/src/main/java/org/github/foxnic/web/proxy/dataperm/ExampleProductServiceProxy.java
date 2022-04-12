@@ -3,16 +3,14 @@ package org.github.foxnic.web.proxy.dataperm;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.github.foxnic.web.proxy.api.APIProxy;
 import org.github.foxnic.web.proxy.FeignConfiguration;
-
 import org.springframework.cloud.openfeign.FeignClient;
-
-
 import org.github.foxnic.web.domain.dataperm.ExampleProduct;
 import org.github.foxnic.web.domain.dataperm.ExampleProductVO;
 import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.proxy.MicroServiceNames;
+import com.github.foxnic.api.proxy.ParameterNames;
 
 /**
  * <p>
@@ -20,152 +18,157 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  * </p>
  * @author 李方捷 , leefangjie@qq.com
  * @since 2021-11-02 14:49:26
-*/
-
-@FeignClient(value = MicroServiceNames.DATA_PERM, contextId = ExampleProductServiceProxy.API_CONTEXT_PATH , configuration = FeignConfiguration.class)
+ */
+@FeignClient(value = MicroServiceNames.DATA_PERM, contextId = ExampleProductServiceProxy.API_CONTEXT_PATH, configuration = FeignConfiguration.class)
 public interface ExampleProductServiceProxy {
 
-	/**
-	 * 基础路径 , service-dataperm
-	*/
-	public static final String API_BASIC_PATH = "service-dataperm";
+    /**
+     * 基础路径 , service-dataperm
+     */
+    public static final String API_BASIC_PATH = "service-dataperm";
 
-	/**
-	 * API 上下文路径 , dp-example-product
-	*/
-	public static final String API_CONTEXT_PATH = "dp-example-product";
+    /**
+     * API 上下文路径 , dp-example-product
+     */
+    public static final String API_CONTEXT_PATH = "dp-example-product";
 
-	/**
-	 * API 基础路径 , 由 API_BASIC_PATH 和 API_CONTEXT_PATH 两部分组成
-	*/
-	public static final String API_PREFIX = "/" + API_BASIC_PATH + "/"+API_CONTEXT_PATH+"/";
+    /**
+     * API 基础路径 , 由 API_BASIC_PATH 和 API_CONTEXT_PATH 两部分组成
+     */
+    public static final String API_PREFIX = "/" + API_BASIC_PATH + "/" + API_CONTEXT_PATH + "/";
 
-	/**
-	 * 添加销售订单
-	 */
-	public static final String INSERT = API_PREFIX + "insert";
+    /**
+     * 添加销售订单
+     */
+    public static final String INSERT = API_PREFIX + "insert";
 
-;
-	/**
-	 * 删除销售订单
-	 */
-	public static final String DELETE = API_PREFIX + "delete";
+    /**
+     * 删除销售订单
+     */
+    public static final String DELETE = API_PREFIX + "delete";
 
-	/**
-	 * 批量删除销售订单
-	 */
-	public static final String DELETE_BY_IDS = API_PREFIX + "delete-by-ids";
+    /**
+     * 批量删除销售订单
+     */
+    public static final String DELETE_BY_IDS = API_PREFIX + "delete-by-ids";
 
-	/**
-	 * 更新销售订单
-	 */
-	public static final String UPDATE = API_PREFIX + "update";
+    /**
+     * 更新销售订单
+     */
+    public static final String UPDATE = API_PREFIX + "update";
 
+    /**
+     * 保存销售订单
+     */
+    public static final String SAVE = API_PREFIX + "save";
 
-	/**
-	 * 保存销售订单
-	 */
-	public static final String SAVE = API_PREFIX + "save";
+    /**
+     * 获取单个销售订单
+     */
+    public static final String GET_BY_ID = API_PREFIX + "get-by-id";
 
-	/**
-	 * 获取单个销售订单
-	 */
-	public static final String GET_BY_ID = API_PREFIX + "get-by-id";
+    /**
+     * 获取多个销售订单
+     */
+    public static final String GET_BY_IDS = API_PREFIX + "get-by-ids";
 
-	/**
-	 * 获取多个销售订单
-	 */
-	public static final String GET_BY_IDS = API_PREFIX + "get-by-ids";
+    /**
+     * 查询销售订单
+     */
+    public static final String QUERY_LIST = API_PREFIX + "query-list";
 
-	/**
-	 * 查询销售订单
-	 */
-	public static final String QUERY_LIST = API_PREFIX + "query-list";
+    /**
+     * 分页查询销售订单
+     */
+    public static final String QUERY_PAGED_LIST = API_PREFIX + "query-paged-list";
 
-	/**
-	 * 分页查询销售订单
-	 */
-	public static final String QUERY_PAGED_LIST = API_PREFIX + "query-paged-list";
+    /**
+     * 导出销售订单数据(Excel)
+     */
+    public static final String EXPORT_EXCEL = API_PREFIX + "export-excel";
 
-	/**
-	 * 导出销售订单数据(Excel)
-	 */
-	public static final String EXPORT_EXCEL = API_PREFIX + "export-excel";
+    /**
+     * 下载销售订单导入模版(Excel)
+     */
+    public static final String EXPORT_EXCEL_TEMPLATE = API_PREFIX + "export-excel-template";
 
-	/**
-	 * 下载销售订单导入模版(Excel)
-	 */
-	public static final String EXPORT_EXCEL_TEMPLATE = API_PREFIX + "export-excel-template";
+    /**
+     * 导入销售订单数据(Excel)
+     */
+    public static final String IMPORT_EXCEL = API_PREFIX + "import-excel";
 
-	/**
-	 * 导入销售订单数据(Excel)
-	 */
-	public static final String IMPORT_EXCEL = API_PREFIX + "import-excel";
+    /**
+     * 添加销售订单
+     */
+    @RequestMapping(ExampleProductServiceProxy.INSERT)
+    @ParameterNames(value = {"exampleProductVO"})
+    Result insert(ExampleProductVO exampleProductVO);
 
-	/**
-	 * 添加销售订单
-	*/
-	@RequestMapping(ExampleProductServiceProxy.INSERT)
-	Result insert(ExampleProductVO exampleProductVO);
+    /**
+     * 删除销售订单
+     */
+    @RequestMapping(ExampleProductServiceProxy.DELETE)
+    @ParameterNames(value = {"id"})
+    Result deleteById(String id);
 
-	/**
-	 * 删除销售订单
-	*/
-	@RequestMapping(ExampleProductServiceProxy.DELETE)
-	Result deleteById(String id);
+    /**
+     * 批量删除销售订单
+     */
+    @RequestMapping(ExampleProductServiceProxy.DELETE_BY_IDS)
+    @ParameterNames(value = {"ids"})
+    Result deleteByIds(List<String> ids);
 
-	/**
-	 * 批量删除销售订单
-	*/
-	@RequestMapping(ExampleProductServiceProxy.DELETE_BY_IDS)
-	Result deleteByIds(List<String> ids);
+    /**
+     * 更新销售订单
+     */
+    @RequestMapping(ExampleProductServiceProxy.UPDATE)
+    @ParameterNames(value = {"exampleProductVO"})
+    Result update(ExampleProductVO exampleProductVO);
 
-	/**
-	 * 更新销售订单
-	*/
-	@RequestMapping(ExampleProductServiceProxy.UPDATE)
-	Result update(ExampleProductVO exampleProductVO);
+    /**
+     * 更新销售订单
+     */
+    @RequestMapping(ExampleProductServiceProxy.SAVE)
+    @ParameterNames(value = {"exampleProductVO"})
+    Result save(ExampleProductVO exampleProductVO);
 
-	/**
-	 * 更新销售订单
-	*/
-	@RequestMapping(ExampleProductServiceProxy.SAVE)
-	Result save(ExampleProductVO exampleProductVO);
+    /**
+     * 获取销售订单
+     */
+    @RequestMapping(ExampleProductServiceProxy.GET_BY_ID)
+    @ParameterNames(value = {"id"})
+    Result<ExampleProduct> getById(String id);
 
-	/**
-	 * 获取销售订单
-	*/
-	@RequestMapping(ExampleProductServiceProxy.GET_BY_ID)
-	Result<ExampleProduct> getById(String id);
+    /**
+     * 批量删除销售订单
+     */
+    @RequestMapping(ExampleProductServiceProxy.GET_BY_IDS)
+    @ParameterNames(value = {"ids"})
+    Result<List<ExampleProduct>> getByIds(List<String> ids);
 
-	/**
-	 * 批量删除销售订单
-	*/
-	@RequestMapping(ExampleProductServiceProxy.GET_BY_IDS)
-	Result<List<ExampleProduct>> getByIds(List<String> ids);
-	/**
-	 * 查询销售订单
-	*/
-	@RequestMapping(ExampleProductServiceProxy.QUERY_LIST)
-	Result<List<ExampleProduct>> queryList(ExampleProductVO sample);
+    /**
+     * 查询销售订单
+     */
+    @RequestMapping(ExampleProductServiceProxy.QUERY_LIST)
+    @ParameterNames(value = {"sample"})
+    Result<List<ExampleProduct>> queryList(ExampleProductVO sample);
 
-	/**
-	 * 分页查询销售订单
-	*/
-	@RequestMapping(ExampleProductServiceProxy.QUERY_PAGED_LIST)
-	Result<PagedList<ExampleProduct>> queryPagedList(ExampleProductVO sample);
+    /**
+     * 分页查询销售订单
+     */
+    @RequestMapping(ExampleProductServiceProxy.QUERY_PAGED_LIST)
+    @ParameterNames(value = {"sample"})
+    Result<PagedList<ExampleProduct>> queryPagedList(ExampleProductVO sample);
 
+    /**
+     * 控制器类名
+     */
+    public static final String CONTROLLER_CLASS_NAME = "org.github.foxnic.web.dataperm.controller.ExampleProductController";
 
-	/**
-	 * 控制器类名
-	 * */
-	public static final String CONTROLLER_CLASS_NAME="org.github.foxnic.web.dataperm.controller.ExampleProductController";
-
-	/**
-	 * 统一的调用接口，实现在单体应用和微服务应用下的无差异调用
-	 * */
-	public static ExampleProductServiceProxy api() {
-		return APIProxy.get(ExampleProductServiceProxy.class,CONTROLLER_CLASS_NAME);
-	}
-
+    /**
+     * 统一的调用接口，实现在单体应用和微服务应用下的无差异调用
+     */
+    public static ExampleProductServiceProxy api() {
+        return APIProxy.get(ExampleProductServiceProxy.class, CONTROLLER_CLASS_NAME);
+    }
 }
