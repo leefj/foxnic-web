@@ -1,6 +1,5 @@
 package org.github.foxnic.web.generator.fix;
 
-import com.github.foxnic.api.proxy.ParameterNames;
 import com.github.foxnic.commons.collection.CollectorUtil;
 import com.github.foxnic.commons.io.FileNavigator;
 import com.github.foxnic.commons.lang.StringUtil;
@@ -15,6 +14,7 @@ import com.github.javaparser.ast.expr.AnnotationExpr;
 import com.github.javaparser.ast.expr.NormalAnnotationExpr;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.File;
 import java.util.List;
@@ -52,26 +52,39 @@ public class FixProxy {
         NodeList<ImportDeclaration> imports = compilationUnit.getImports();
         boolean flag=false;
         for (ImportDeclaration imp : imports) {
-            if(imp.getNameAsString().equals(ParameterNames.class.getName())) {
+            if(imp.getNameAsString().equals(RequestParam.class.getName())) {
                 flag=true;
                 break;
             }
         }
         if(!flag) {
-            compilationUnit.addImport(ParameterNames.class);
+            compilationUnit.addImport(RequestParam.class);
         }
         List<MethodDeclaration> list=cpUnit.find(MethodDeclaration.class);
         boolean isModified=false;
         for (MethodDeclaration m : list) {
+
             Optional<AnnotationExpr> requestMapping =m.getAnnotationByClass(RequestMapping.class);
-            Optional<AnnotationExpr> parameterNames =m.getAnnotationByClass(ParameterNames.class);
-            if(requestMapping.isPresent() && !parameterNames.isPresent()) {
-                NodeList<Parameter> ps=m.getParameters();
-                List<String> names= CollectorUtil.collectList(ps,(e)->{return "\""+e.getNameAsString()+"\"";});
-                NormalAnnotationExpr expr=m.addAndGetAnnotation("ParameterNames");
-                expr.addPair("value","{"+ StringUtil.join(names,",") +"}");
-                isModified = true;
+            if(requestMapping==null || !requestMapping.isPresent()) continue;
+
+            //移除
+            NodeList<AnnotationExpr> anns= m.getAnnotations();
+            for (AnnotationExpr ann : anns) {
+               if(ann.getName().asString().equals("ParameterNames")) {
+                   anns.remove(ann);
+                   break;
+               }
             }
+
+
+
+
+            NodeList<Parameter> ps=m.getParameters();
+            List<String> names= CollectorUtil.collectList(ps,(e)->{return "\""+e.getNameAsString()+"\"";});
+            NormalAnnotationExpr expr=m.addAndGetAnnotation("ParameterNames");
+            expr.addPair("value","{"+ StringUtil.join(names,",") +"}");
+            isModified = true;
+
         }
 
         if(isModified) {
