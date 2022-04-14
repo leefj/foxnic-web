@@ -1,16 +1,18 @@
 package org.github.foxnic.web.proxy.job;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.github.foxnic.web.proxy.api.APIProxy;
-import org.github.foxnic.web.proxy.FeignConfiguration;
-import org.springframework.cloud.openfeign.FeignClient;
-import org.github.foxnic.web.domain.job.JobLog;
-import org.github.foxnic.web.domain.job.JobLogVO;
-import java.util.List;
+import com.github.foxnic.api.proxy.ParameterNames;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
+import org.github.foxnic.web.domain.job.JobLog;
+import org.github.foxnic.web.domain.job.JobLogVO;
+import org.github.foxnic.web.proxy.FeignConfiguration;
 import org.github.foxnic.web.proxy.MicroServiceNames;
-import com.github.foxnic.api.proxy.ParameterNames;
+import org.github.foxnic.web.proxy.api.APIProxy;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 /**
  * <p>
@@ -137,7 +139,7 @@ public interface JobLogServiceProxy {
      */
     @RequestMapping(JobLogServiceProxy.GET_BY_ID)
     @ParameterNames(value = {"id"})
-    Result<JobLog> getById(String id);
+    Result<JobLog> getById(@RequestParam("id") String id);
 
     /**
      * 获取多个定时任务执行日志

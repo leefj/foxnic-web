@@ -22,7 +22,15 @@ import java.util.Optional;
 
 public class FixProxy {
 
+
     public static void main(String[] args) {
+
+        fix(new File("/Users/LeeFJ/git/foxnic-web/common/proxy/src/main/java/org/github/foxnic/web/proxy/job/JobLogServiceProxy.java"));
+
+    }
+
+
+    public static void mainX(String[] args) {
         FileNavigator fileNavigator=new FileNavigator("/Users/LeeFJ/git/foxnic-web/common/proxy");
         fileNavigator.scan((file,isFile,ext)->{
             if(!isFile) return;
