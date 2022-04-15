@@ -10,7 +10,7 @@ import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.proxy.MicroServiceNames;
-import com.github.foxnic.api.proxy.ParameterNames;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -101,64 +101,55 @@ public interface CodeExampleStudentServiceProxy {
      * 添加代码生成主表学生
      */
     @RequestMapping(CodeExampleStudentServiceProxy.INSERT)
-    @ParameterNames(value = {"codeExampleStudentVO"})
-    Result insert(CodeExampleStudentVO codeExampleStudentVO);
+    Result insert(@RequestParam(name = "codeExampleStudentVO") CodeExampleStudentVO codeExampleStudentVO);
 
     /**
      * 删除代码生成主表学生
      */
     @RequestMapping(CodeExampleStudentServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(String id);
+    Result deleteById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除代码生成主表学生
      */
     @RequestMapping(CodeExampleStudentServiceProxy.DELETE_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result deleteByIds(List<String> ids);
+    Result deleteByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 更新代码生成主表学生
      */
     @RequestMapping(CodeExampleStudentServiceProxy.UPDATE)
-    @ParameterNames(value = {"codeExampleStudentVO"})
-    Result update(CodeExampleStudentVO codeExampleStudentVO);
+    Result update(@RequestParam(name = "codeExampleStudentVO") CodeExampleStudentVO codeExampleStudentVO);
 
     /**
      * 更新代码生成主表学生
      */
     @RequestMapping(CodeExampleStudentServiceProxy.SAVE)
-    @ParameterNames(value = {"codeExampleStudentVO"})
-    Result save(CodeExampleStudentVO codeExampleStudentVO);
+    Result save(@RequestParam(name = "codeExampleStudentVO") CodeExampleStudentVO codeExampleStudentVO);
 
     /**
      * 获取代码生成主表学生
      */
     @RequestMapping(CodeExampleStudentServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<CodeExampleStudent> getById(String id);
+    Result<CodeExampleStudent> getById(@RequestParam(name = "id") String id);
 
     /**
      * 获取多个代码生成主表学生
      */
     @RequestMapping(CodeExampleStudentServiceProxy.GET_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result<List<CodeExampleStudent>> getByIds(List<String> ids);
+    Result<List<CodeExampleStudent>> getByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 查询代码生成主表学生
      */
     @RequestMapping(CodeExampleStudentServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<CodeExampleStudent>> queryList(CodeExampleStudentVO sample);
+    Result<List<CodeExampleStudent>> queryList(@RequestParam(name = "sample") CodeExampleStudentVO sample);
 
     /**
      * 分页查询代码生成主表学生
      */
     @RequestMapping(CodeExampleStudentServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<CodeExampleStudent>> queryPagedList(CodeExampleStudentVO sample);
+    Result<PagedList<CodeExampleStudent>> queryPagedList(@RequestParam(name = "sample") CodeExampleStudentVO sample);
 
     /**
      * 控制器类名

@@ -10,7 +10,7 @@ import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.proxy.MicroServiceNames;
-import com.github.foxnic.api.proxy.ParameterNames;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -106,64 +106,55 @@ public interface BusiRoleMemberServiceProxy {
      * 添加业务角色成员关系
      */
     @RequestMapping(BusiRoleMemberServiceProxy.INSERT)
-    @ParameterNames(value = {"busiRoleMemberVO"})
-    Result insert(BusiRoleMemberVO busiRoleMemberVO);
+    Result insert(@RequestParam(name = "busiRoleMemberVO") BusiRoleMemberVO busiRoleMemberVO);
 
     /**
      * 删除业务角色成员关系
      */
     @RequestMapping(BusiRoleMemberServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(String id);
+    Result deleteById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除业务角色成员关系
      */
     @RequestMapping(BusiRoleMemberServiceProxy.DELETE_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result deleteByIds(List<String> ids);
+    Result deleteByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 更新业务角色成员关系
      */
     @RequestMapping(BusiRoleMemberServiceProxy.UPDATE)
-    @ParameterNames(value = {"busiRoleMemberVO"})
-    Result update(BusiRoleMemberVO busiRoleMemberVO);
+    Result update(@RequestParam(name = "busiRoleMemberVO") BusiRoleMemberVO busiRoleMemberVO);
 
     /**
      * 更新业务角色成员关系
      */
     @RequestMapping(BusiRoleMemberServiceProxy.SAVE)
-    @ParameterNames(value = {"busiRoleMemberVO"})
-    Result save(BusiRoleMemberVO busiRoleMemberVO);
+    Result save(@RequestParam(name = "busiRoleMemberVO") BusiRoleMemberVO busiRoleMemberVO);
 
     /**
      * 获取业务角色成员关系
      */
     @RequestMapping(BusiRoleMemberServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<BusiRoleMember> getById(String id);
+    Result<BusiRoleMember> getById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除业务角色成员关系
      */
     @RequestMapping(BusiRoleMemberServiceProxy.GET_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result<List<BusiRoleMember>> getByIds(List<String> ids);
+    Result<List<BusiRoleMember>> getByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 查询业务角色成员关系
      */
     @RequestMapping(BusiRoleMemberServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<BusiRoleMember>> queryList(BusiRoleMemberVO sample);
+    Result<List<BusiRoleMember>> queryList(@RequestParam(name = "sample") BusiRoleMemberVO sample);
 
     /**
      * 分页查询业务角色成员关系
      */
     @RequestMapping(BusiRoleMemberServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<BusiRoleMember>> queryPagedList(BusiRoleMemberVO sample);
+    Result<PagedList<BusiRoleMember>> queryPagedList(@RequestParam(name = "sample") BusiRoleMemberVO sample);
 
     /**
      * 控制器类名

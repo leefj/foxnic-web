@@ -10,7 +10,8 @@ import org.github.foxnic.web.proxy.api.APIProxy;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
-import com.github.foxnic.api.proxy.ParameterNames;
+
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -91,57 +92,49 @@ public interface RoleMenuServiceProxy {
      * 添加角色账户关系
      */
     @RequestMapping(RoleMenuServiceProxy.INSERT)
-    @ParameterNames(value = {"roleMenuVO"})
-    Result insert(RoleMenuVO roleMenuVO);
+    Result insert(@RequestParam(name = "roleMenuVO") RoleMenuVO roleMenuVO);
 
     /**
      * 删除角色账户关系
      */
     @RequestMapping(RoleMenuServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(String id);
+    Result deleteById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除角色账户关系
      */
     @RequestMapping(RoleMenuServiceProxy.BATCH_DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteByIds(List<String> id);
+    Result deleteByIds(@RequestParam(name = "id") List<String> id);
 
     /**
      * 更新角色账户关系
      */
     @RequestMapping(RoleMenuServiceProxy.UPDATE)
-    @ParameterNames(value = {"roleMenuVO"})
-    Result update(RoleMenuVO roleMenuVO);
+    Result update(@RequestParam(name = "roleMenuVO") RoleMenuVO roleMenuVO);
 
     /**
      * 更新角色账户关系
      */
     @RequestMapping(RoleMenuServiceProxy.SAVE)
-    @ParameterNames(value = {"roleMenuVO"})
-    Result save(RoleMenuVO roleMenuVO);
+    Result save(@RequestParam(name = "roleMenuVO") RoleMenuVO roleMenuVO);
 
     /**
      * 获取角色账户关系
      */
     @RequestMapping(RoleMenuServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<RoleMenu> getById(String id);
+    Result<RoleMenu> getById(@RequestParam(name = "id") String id);
 
     /**
      * 查询角色账户关系
      */
     @RequestMapping(RoleMenuServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<RoleMenu>> queryList(RoleMenuVO sample);
+    Result<List<RoleMenu>> queryList(@RequestParam(name = "sample") RoleMenuVO sample);
 
     /**
      * 分页查询角色账户关系
      */
     @RequestMapping(RoleMenuServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<RoleMenu>> queryPagedList(RoleMenuVO sample);
+    Result<PagedList<RoleMenu>> queryPagedList(@RequestParam(name = "sample") RoleMenuVO sample);
 
     /**
      * 控制器类名

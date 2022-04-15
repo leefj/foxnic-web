@@ -10,7 +10,8 @@ import org.github.foxnic.web.proxy.api.APIProxy;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
-import com.github.foxnic.api.proxy.ParameterNames;
+
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -112,64 +113,55 @@ public interface FavouriteGroupItemServiceProxy {
      * 添加常用人员分组条目
      */
     @RequestMapping(FavouriteGroupItemServiceProxy.INSERT)
-    @ParameterNames(value = {"favouriteGroupItemVO"})
-    Result insert(FavouriteGroupItemVO favouriteGroupItemVO);
+    Result insert(@RequestParam(name = "favouriteGroupItemVO") FavouriteGroupItemVO favouriteGroupItemVO);
 
     /**
      * 删除常用人员分组条目
      */
     @RequestMapping(FavouriteGroupItemServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(String id);
+    Result deleteById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除常用人员分组条目
      */
     @RequestMapping(FavouriteGroupItemServiceProxy.DELETE_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result deleteByIds(List<String> ids);
+    Result deleteByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 更新常用人员分组条目
      */
     @RequestMapping(FavouriteGroupItemServiceProxy.UPDATE)
-    @ParameterNames(value = {"favouriteGroupItemVO"})
-    Result update(FavouriteGroupItemVO favouriteGroupItemVO);
+    Result update(@RequestParam(name = "favouriteGroupItemVO") FavouriteGroupItemVO favouriteGroupItemVO);
 
     /**
      * 更新常用人员分组条目
      */
     @RequestMapping(FavouriteGroupItemServiceProxy.SAVE)
-    @ParameterNames(value = {"favouriteGroupItemVO"})
-    Result save(FavouriteGroupItemVO favouriteGroupItemVO);
+    Result save(@RequestParam(name = "favouriteGroupItemVO") FavouriteGroupItemVO favouriteGroupItemVO);
 
     /**
      * 获取常用人员分组条目
      */
     @RequestMapping(FavouriteGroupItemServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<FavouriteGroupItem> getById(String id);
+    Result<FavouriteGroupItem> getById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除常用人员分组条目
      */
     @RequestMapping(FavouriteGroupItemServiceProxy.GET_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result<List<FavouriteGroupItem>> getByIds(List<String> ids);
+    Result<List<FavouriteGroupItem>> getByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 查询常用人员分组条目
      */
     @RequestMapping(FavouriteGroupItemServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<FavouriteGroupItem>> queryList(FavouriteGroupItemVO sample);
+    Result<List<FavouriteGroupItem>> queryList(@RequestParam(name = "sample") FavouriteGroupItemVO sample);
 
     /**
      * 分页查询常用人员分组条目
      */
     @RequestMapping(FavouriteGroupItemServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<FavouriteGroupItem>> queryPagedList(FavouriteGroupItemVO sample);
+    Result<PagedList<FavouriteGroupItem>> queryPagedList(@RequestParam(name = "sample") FavouriteGroupItemVO sample);
 
     /**
      * 控制器类名

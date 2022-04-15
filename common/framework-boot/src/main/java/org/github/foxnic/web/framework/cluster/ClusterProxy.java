@@ -3,7 +3,6 @@ package org.github.foxnic.web.framework.cluster;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.api.error.ErrorDesc;
-import com.github.foxnic.api.proxy.ParameterNames;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.cache.LocalCache;
 import com.github.foxnic.commons.lang.StringUtil;
@@ -23,6 +22,7 @@ import org.springframework.core.DefaultParameterNameDiscoverer;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.PostConstruct;
 import java.io.BufferedReader;
@@ -84,11 +84,16 @@ public class ClusterProxy {
             Object value=args[0];
             body = JSON.toJSONString(value);
         } else {
-            ParameterNames parameterNames=method.getAnnotation(ParameterNames.class);
-            if(parameterNames==null) {
-                throw new RuntimeException(method.getDeclaringClass().getName()+"."+method.getName()+" 缺少 ParameterNames 注解");
+            String[] paramNames = new String[params.length];
+            for (int i = 0; i < params.length; i++) {
+                Parameter parameter=params[i];
+                RequestParam requestParam=parameter.getAnnotation(RequestParam.class);
+                if(requestParam==null) {
+                    throw new RuntimeException(method.getDeclaringClass().getName()+"."+method.getName()+" 的第"+(i+1)+"个参数缺少 RequestParam 注解");
+                }
+                paramNames[i] = requestParam.name();
             }
-            String[] paramNames = parameterNames.value();
+
             paramNames=(new DefaultParameterNameDiscoverer()).getParameterNames(method);
             JSONObject   ps = new JSONObject();
             for (int i = 0; i < params.length; i++) {
@@ -154,8 +159,9 @@ public class ClusterProxy {
 
             // 构建 post 请求
             HttpPost httpPost = new HttpPost(url);
-            httpPost.addHeader("Content-Type", "application/json");
-            httpPost.setEntity(new StringEntity(data));
+            httpPost.addHeader("Content-Type", "application/json;charset=utf-8");
+            httpPost.setEntity(new StringEntity(data,"utf-8"));
+
 
             String sessionId = CLUSTER_SESSION_IDS.get(operator);
             if (StringUtil.hasContent(sessionId)) {

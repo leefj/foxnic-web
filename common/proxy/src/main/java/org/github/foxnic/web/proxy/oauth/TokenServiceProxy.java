@@ -10,7 +10,8 @@ import org.github.foxnic.web.proxy.api.APIProxy;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
-import com.github.foxnic.api.proxy.ParameterNames;
+
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -91,57 +92,49 @@ public interface TokenServiceProxy {
      * 添加Token
      */
     @RequestMapping(TokenServiceProxy.INSERT)
-    @ParameterNames(value = {"tokenVO"})
-    Result insert(TokenVO tokenVO);
+    Result insert(@RequestParam(name = "tokenVO") TokenVO tokenVO);
 
     /**
      * 删除Token
      */
     @RequestMapping(TokenServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(Integer id);
+    Result deleteById(@RequestParam(name = "id") Integer id);
 
     /**
      * 批量删除Token
      */
     @RequestMapping(TokenServiceProxy.BATCH_DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteByIds(List<Integer> id);
+    Result deleteByIds(@RequestParam(name = "id") List<Integer> id);
 
     /**
      * 更新Token
      */
     @RequestMapping(TokenServiceProxy.UPDATE)
-    @ParameterNames(value = {"tokenVO"})
-    Result update(TokenVO tokenVO);
+    Result update(@RequestParam(name = "tokenVO") TokenVO tokenVO);
 
     /**
      * 更新Token
      */
     @RequestMapping(TokenServiceProxy.SAVE)
-    @ParameterNames(value = {"tokenVO"})
-    Result save(TokenVO tokenVO);
+    Result save(@RequestParam(name = "tokenVO") TokenVO tokenVO);
 
     /**
      * 获取Token
      */
     @RequestMapping(TokenServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<Token> getById(Integer id);
+    Result<Token> getById(@RequestParam(name = "id") Integer id);
 
     /**
      * 查询Token
      */
     @RequestMapping(TokenServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<Token>> queryList(TokenVO sample);
+    Result<List<Token>> queryList(@RequestParam(name = "sample") TokenVO sample);
 
     /**
      * 分页查询Token
      */
     @RequestMapping(TokenServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<Token>> queryPagedList(TokenVO sample);
+    Result<PagedList<Token>> queryPagedList(@RequestParam(name = "sample") TokenVO sample);
 
     /**
      * 控制器类名

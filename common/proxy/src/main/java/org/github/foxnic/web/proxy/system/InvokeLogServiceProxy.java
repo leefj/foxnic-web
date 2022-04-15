@@ -10,7 +10,7 @@ import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.proxy.MicroServiceNames;
-import com.github.foxnic.api.proxy.ParameterNames;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -101,64 +101,55 @@ public interface InvokeLogServiceProxy {
      * 添加调用统计日志
      */
     @RequestMapping(InvokeLogServiceProxy.INSERT)
-    @ParameterNames(value = {"invokeLogVO"})
-    Result insert(InvokeLogVO invokeLogVO);
+    Result insert(@RequestParam(name = "invokeLogVO") InvokeLogVO invokeLogVO);
 
     /**
      * 删除调用统计日志
      */
     @RequestMapping(InvokeLogServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(Long id);
+    Result deleteById(@RequestParam(name = "id") Long id);
 
     /**
      * 批量删除调用统计日志
      */
     @RequestMapping(InvokeLogServiceProxy.DELETE_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result deleteByIds(List<Long> ids);
+    Result deleteByIds(@RequestParam(name = "ids") List<Long> ids);
 
     /**
      * 更新调用统计日志
      */
     @RequestMapping(InvokeLogServiceProxy.UPDATE)
-    @ParameterNames(value = {"invokeLogVO"})
-    Result update(InvokeLogVO invokeLogVO);
+    Result update(@RequestParam(name = "invokeLogVO") InvokeLogVO invokeLogVO);
 
     /**
      * 更新调用统计日志
      */
     @RequestMapping(InvokeLogServiceProxy.SAVE)
-    @ParameterNames(value = {"invokeLogVO"})
-    Result save(InvokeLogVO invokeLogVO);
+    Result save(@RequestParam(name = "invokeLogVO") InvokeLogVO invokeLogVO);
 
     /**
      * 获取调用统计日志
      */
     @RequestMapping(InvokeLogServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<InvokeLog> getById(Long id);
+    Result<InvokeLog> getById(@RequestParam(name = "id") Long id);
 
     /**
      * 批量删除调用统计日志
      */
     @RequestMapping(InvokeLogServiceProxy.GET_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result<List<InvokeLog>> getByIds(List<Long> ids);
+    Result<List<InvokeLog>> getByIds(@RequestParam(name = "ids") List<Long> ids);
 
     /**
      * 查询调用统计日志
      */
     @RequestMapping(InvokeLogServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<InvokeLog>> queryList(InvokeLogVO sample);
+    Result<List<InvokeLog>> queryList(@RequestParam(name = "sample") InvokeLogVO sample);
 
     /**
      * 分页查询调用统计日志
      */
     @RequestMapping(InvokeLogServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<InvokeLog>> queryPagedList(InvokeLogVO sample);
+    Result<PagedList<InvokeLog>> queryPagedList(@RequestParam(name = "sample") InvokeLogVO sample);
 
     /**
      * 控制器类名

@@ -11,7 +11,8 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
-import com.github.foxnic.api.proxy.ParameterNames;
+
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -113,43 +114,37 @@ public interface ConfigServiceProxy {
      * 添加系统配置
      */
     @RequestMapping(ConfigServiceProxy.INSERT)
-    @ParameterNames(value = {"configVO"})
-    Result insert(ConfigVO configVO);
+    Result insert(@RequestParam(name = "configVO") ConfigVO configVO);
 
     /**
      * 删除系统配置
      */
     @RequestMapping(ConfigServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(String id);
+    Result deleteById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除系统配置
      */
     @RequestMapping(ConfigServiceProxy.DELETE_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result deleteByIds(List<String> ids);
+    Result deleteByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 更新系统配置
      */
     @RequestMapping(ConfigServiceProxy.UPDATE)
-    @ParameterNames(value = {"configVO"})
-    Result update(ConfigVO configVO);
+    Result update(@RequestParam(name = "configVO") ConfigVO configVO);
 
     /**
      * 更新系统配置
      */
     @RequestMapping(ConfigServiceProxy.SAVE)
-    @ParameterNames(value = {"configVO"})
-    Result save(ConfigVO configVO);
+    Result save(@RequestParam(name = "configVO") ConfigVO configVO);
 
     /**
      * 获取系统配置
      */
     @RequestMapping(ConfigServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<Config> getById(String id);
+    Result<Config> getById(@RequestParam(name = "id") String id);
 
     /**
      * 获取系统配置
@@ -161,29 +156,25 @@ public interface ConfigServiceProxy {
      * 批量删除系统配置
      */
     @RequestMapping(ConfigServiceProxy.GET_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result<List<Config>> getByIds(List<String> ids);
+    Result<List<Config>> getByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 批量删除系统配置
      */
     @RequestMapping(ConfigServiceProxy.GET_BY_CODES)
-    @ParameterNames(value = {"codes"})
-    Result<List<Config>> getByCodes(List<String> codes);
+    Result<List<Config>> getByCodes(@RequestParam(name = "codes") List<String> codes);
 
     /**
      * 查询系统配置
      */
     @RequestMapping(ConfigServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<Config>> queryList(ConfigVO sample);
+    Result<List<Config>> queryList(@RequestParam(name = "sample") ConfigVO sample);
 
     /**
      * 分页查询系统配置
      */
     @RequestMapping(ConfigServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<Config>> queryPagedList(ConfigVO sample);
+    Result<PagedList<Config>> queryPagedList(@RequestParam(name = "sample") ConfigVO sample);
 
     /**
      * 控制器类名

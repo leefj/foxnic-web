@@ -1,13 +1,12 @@
 package org.github.foxnic.web.proxy.camunda;
 
 import com.github.foxnic.api.transter.Result;
-import org.github.foxnic.web.domain.bpm.ProcessDefinition;
 import org.github.foxnic.web.proxy.FeignConfiguration;
 import org.github.foxnic.web.proxy.MicroServiceNames;
 import org.github.foxnic.web.proxy.api.APIProxy;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.github.foxnic.api.proxy.ParameterNames;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -44,8 +43,7 @@ public interface CamundaTenantServiceProxy {
      * 添加租户
      */
     @RequestMapping(CamundaTenantServiceProxy.CREATE)
-    @ParameterNames(value = {"tenantId"})
-    Result create(String tenantId);
+    Result create(@RequestParam(name = "tenantId") String tenantId);
 
     /**
      * 控制器类名

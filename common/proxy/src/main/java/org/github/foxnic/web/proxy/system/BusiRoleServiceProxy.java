@@ -8,10 +8,10 @@ import org.github.foxnic.web.proxy.FeignConfiguration;
 import org.github.foxnic.web.proxy.MicroServiceNames;
 import org.github.foxnic.web.proxy.api.APIProxy;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
-import com.github.foxnic.api.proxy.ParameterNames;
+
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -113,78 +113,67 @@ public interface BusiRoleServiceProxy {
      * 添加业务角色
      */
     @RequestMapping(BusiRoleServiceProxy.INSERT)
-    @ParameterNames(value = {"busiRoleVO"})
-    Result insert(BusiRoleVO busiRoleVO);
+    Result insert(@RequestParam(name = "busiRoleVO") BusiRoleVO busiRoleVO);
 
     /**
      * 删除业务角色
      */
     @RequestMapping(BusiRoleServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(String id);
+    Result deleteById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除业务角色
      */
     @RequestMapping(BusiRoleServiceProxy.DELETE_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result deleteByIds(List<String> ids);
+    Result deleteByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 更新业务角色
      */
     @RequestMapping(BusiRoleServiceProxy.UPDATE)
-    @ParameterNames(value = {"busiRoleVO"})
-    Result update(BusiRoleVO busiRoleVO);
+    Result update(@RequestParam(name = "busiRoleVO") BusiRoleVO busiRoleVO);
 
     /**
      * 更新业务角色
      */
     @RequestMapping(BusiRoleServiceProxy.SAVE)
-    @ParameterNames(value = {"busiRoleVO"})
-    Result save(BusiRoleVO busiRoleVO);
+    Result save(@RequestParam(name = "busiRoleVO") BusiRoleVO busiRoleVO);
 
     /**
      * 获取业务角色
      */
     @RequestMapping(BusiRoleServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<BusiRole> getById(String id);
+    Result<BusiRole> getById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除业务角色
      */
     @RequestMapping(BusiRoleServiceProxy.GET_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result<List<BusiRole>> getByIds(List<String> ids);
+    Result<List<BusiRole>> getByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 获取员工对应的业务角色
      */
     @RequestMapping(BusiRoleServiceProxy.GET_EMPLOYEE_ROLES)
-    @ParameterNames(value = {"employeeId"})
-    Result<List<BusiRole>> getEmployeeRoles(String employeeId);
+    Result<List<BusiRole>> getEmployeeRoles(@RequestParam(name = "employeeId") String employeeId);
 
     /**
      * 批量删除业务角色
      */
     @RequestMapping(BusiRoleServiceProxy.GET_BY_CODES)
-    @ParameterNames(value = {"codes"})
-    Result<List<BusiRole>> getByCodes(List<String> codes);
+    Result<List<BusiRole>> getByCodes(@RequestParam(name = "codes") List<String> codes);
 
     /**
      * 查询业务角色
      */
     @RequestMapping(BusiRoleServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<BusiRole>> queryList(BusiRoleVO sample);
+    Result<List<BusiRole>> queryList(@RequestParam(name = "sample") BusiRoleVO sample);
 
     /**
      * 分页查询业务角色
      */
     @RequestMapping(BusiRoleServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<BusiRole>> queryPagedList(BusiRoleVO sample);
+    Result<PagedList<BusiRole>> queryPagedList(@RequestParam(name = "sample") BusiRoleVO sample);
 
     /**
      * 控制器类名

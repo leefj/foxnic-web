@@ -10,7 +10,7 @@ import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.proxy.MicroServiceNames;
-import com.github.foxnic.api.proxy.ParameterNames;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -101,64 +101,55 @@ public interface JobWorkerServiceProxy {
      * 添加任务执行器
      */
     @RequestMapping(JobWorkerServiceProxy.INSERT)
-    @ParameterNames(value = {"jobWorkerVO"})
-    Result insert(JobWorkerVO jobWorkerVO);
+    Result insert(@RequestParam(name = "jobWorkerVO") JobWorkerVO jobWorkerVO);
 
     /**
      * 删除任务执行器
      */
     @RequestMapping(JobWorkerServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(String id);
+    Result deleteById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除任务执行器
      */
     @RequestMapping(JobWorkerServiceProxy.DELETE_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result deleteByIds(List<String> ids);
+    Result deleteByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 更新任务执行器
      */
     @RequestMapping(JobWorkerServiceProxy.UPDATE)
-    @ParameterNames(value = {"jobWorkerVO"})
-    Result update(JobWorkerVO jobWorkerVO);
+    Result update(@RequestParam(name = "jobWorkerVO") JobWorkerVO jobWorkerVO);
 
     /**
      * 更新任务执行器
      */
     @RequestMapping(JobWorkerServiceProxy.SAVE)
-    @ParameterNames(value = {"jobWorkerVO"})
-    Result save(JobWorkerVO jobWorkerVO);
+    Result save(@RequestParam(name = "jobWorkerVO") JobWorkerVO jobWorkerVO);
 
     /**
      * 获取任务执行器
      */
     @RequestMapping(JobWorkerServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<JobWorker> getById(String id);
+    Result<JobWorker> getById(@RequestParam(name = "id") String id);
 
     /**
      * 获取多个任务执行器
      */
     @RequestMapping(JobWorkerServiceProxy.GET_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result<List<JobWorker>> getByIds(List<String> ids);
+    Result<List<JobWorker>> getByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 查询任务执行器
      */
     @RequestMapping(JobWorkerServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<JobWorker>> queryList(JobWorkerVO sample);
+    Result<List<JobWorker>> queryList(@RequestParam(name = "sample") JobWorkerVO sample);
 
     /**
      * 分页查询任务执行器
      */
     @RequestMapping(JobWorkerServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<JobWorker>> queryPagedList(JobWorkerVO sample);
+    Result<PagedList<JobWorker>> queryPagedList(@RequestParam(name = "sample") JobWorkerVO sample);
 
     /**
      * 控制器类名

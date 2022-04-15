@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2022-04-12 14:01:36
+ * @since 2022-04-15 17:19:16
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -90,8 +90,13 @@ public class FoxnicWeb {
 		*/
 		public static final DBField TENANT_ID = new DBField(DBDataType.STRING , "tenant_id","tenantId","租户ID","租户ID",false,false,false);
 		
+		/**
+		 * 流程ID，在 camunda 中的流程定义ID
+		*/
+		public static final DBField CAMUNDA_DEFINITION_ID = new DBField(DBDataType.STRING , "camunda_definition_id","camundaDefinitionId","流程ID","在 camunda 中的流程定义ID",false,false,true);
+		
 		public BPM_PROCESS_DEFINITION() {
-			this.init($NAME,"流程定义表" , ID , NAME , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID);
+			this.init($NAME,"流程定义表" , ID , NAME , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CAMUNDA_DEFINITION_ID);
 		}
 		public static final BPM_PROCESS_DEFINITION $TABLE=new BPM_PROCESS_DEFINITION();
 	}
@@ -146,8 +151,13 @@ public class FoxnicWeb {
 		*/
 		public static final DBField SUCCESS = new DBField(DBDataType.INTEGER , "success","success","是否成功","是否成功",false,false,true);
 		
+		/**
+		 * 租户ID
+		*/
+		public static final DBField TENANT_ID = new DBField(DBDataType.STRING , "tenant_id","tenantId","租户ID","租户ID",false,false,false);
+		
 		public BPM_PROCESS_DEFINITION_APPLY() {
-			this.init($NAME,"流程应用登记表" , ID , DEFINITION_ID , DEFINITION_FILE_ID , REQUEST , RESULT , APPLY_TIME , EXCEPTION , SUCCESS);
+			this.init($NAME,"流程应用登记表" , ID , DEFINITION_ID , DEFINITION_FILE_ID , REQUEST , RESULT , APPLY_TIME , EXCEPTION , SUCCESS , TENANT_ID);
 		}
 		public static final BPM_PROCESS_DEFINITION_APPLY $TABLE=new BPM_PROCESS_DEFINITION_APPLY();
 	}

@@ -3,6 +3,7 @@ package org.github.foxnic.web.proxy.bpm;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.github.foxnic.web.proxy.api.APIProxy;
 import org.github.foxnic.web.proxy.FeignConfiguration;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.github.foxnic.web.domain.bpm.ProcessInitiator;
 import org.github.foxnic.web.domain.bpm.ProcessInitiatorVO;
@@ -10,14 +11,13 @@ import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.proxy.MicroServiceNames;
-import com.github.foxnic.api.proxy.ParameterNames;
 
 /**
  * <p>
  * 流程发起人权限表  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-03-24 17:00:52
+ * @since 2022-04-15 13:49:54
  */
 @FeignClient(value = MicroServiceNames.BPM, contextId = ProcessInitiatorServiceProxy.API_CONTEXT_PATH, configuration = FeignConfiguration.class)
 public interface ProcessInitiatorServiceProxy {
@@ -101,64 +101,55 @@ public interface ProcessInitiatorServiceProxy {
      * 添加流程发起人权限
      */
     @RequestMapping(ProcessInitiatorServiceProxy.INSERT)
-    @ParameterNames(value = {"processInitiatorVO"})
-    Result insert(ProcessInitiatorVO processInitiatorVO);
+    Result insert(@RequestParam(name = "processInitiatorVO") ProcessInitiatorVO processInitiatorVO);
 
     /**
      * 删除流程发起人权限
      */
     @RequestMapping(ProcessInitiatorServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(String id);
+    Result deleteById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除流程发起人权限
      */
     @RequestMapping(ProcessInitiatorServiceProxy.DELETE_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result deleteByIds(List<String> ids);
+    Result deleteByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 更新流程发起人权限
      */
     @RequestMapping(ProcessInitiatorServiceProxy.UPDATE)
-    @ParameterNames(value = {"processInitiatorVO"})
-    Result update(ProcessInitiatorVO processInitiatorVO);
+    Result update(@RequestParam(name = "processInitiatorVO") ProcessInitiatorVO processInitiatorVO);
 
     /**
      * 更新流程发起人权限
      */
     @RequestMapping(ProcessInitiatorServiceProxy.SAVE)
-    @ParameterNames(value = {"processInitiatorVO"})
-    Result save(ProcessInitiatorVO processInitiatorVO);
+    Result save(@RequestParam(name = "processInitiatorVO") ProcessInitiatorVO processInitiatorVO);
 
     /**
      * 获取流程发起人权限
      */
     @RequestMapping(ProcessInitiatorServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<ProcessInitiator> getById(String id);
+    Result<ProcessInitiator> getById(@RequestParam(name = "id") String id);
 
     /**
      * 获取多个流程发起人权限
      */
     @RequestMapping(ProcessInitiatorServiceProxy.GET_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result<List<ProcessInitiator>> getByIds(List<String> ids);
+    Result<List<ProcessInitiator>> getByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 查询流程发起人权限
      */
     @RequestMapping(ProcessInitiatorServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<ProcessInitiator>> queryList(ProcessInitiatorVO sample);
+    Result<List<ProcessInitiator>> queryList(@RequestParam(name = "sample") ProcessInitiatorVO sample);
 
     /**
      * 分页查询流程发起人权限
      */
     @RequestMapping(ProcessInitiatorServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<ProcessInitiator>> queryPagedList(ProcessInitiatorVO sample);
+    Result<PagedList<ProcessInitiator>> queryPagedList(@RequestParam(name = "sample") ProcessInitiatorVO sample);
 
     /**
      * 控制器类名

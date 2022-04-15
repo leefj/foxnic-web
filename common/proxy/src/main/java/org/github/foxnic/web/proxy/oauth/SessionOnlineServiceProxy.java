@@ -10,7 +10,8 @@ import org.github.foxnic.web.proxy.api.APIProxy;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
-import com.github.foxnic.api.proxy.ParameterNames;
+
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -91,57 +92,49 @@ public interface SessionOnlineServiceProxy {
      * 添加在线会话
      */
     @RequestMapping(SessionOnlineServiceProxy.INSERT)
-    @ParameterNames(value = {"sessionOnlineVO"})
-    Result insert(SessionOnlineVO sessionOnlineVO);
+    Result insert(@RequestParam(name = "sessionOnlineVO") SessionOnlineVO sessionOnlineVO);
 
     /**
      * 删除在线会话
      */
     @RequestMapping(SessionOnlineServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(String id);
+    Result deleteById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除在线会话
      */
     @RequestMapping(SessionOnlineServiceProxy.BATCH_DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteByIds(List<String> id);
+    Result deleteByIds(@RequestParam(name = "id") List<String> id);
 
     /**
      * 更新在线会话
      */
     @RequestMapping(SessionOnlineServiceProxy.UPDATE)
-    @ParameterNames(value = {"sessionOnlineVO"})
-    Result update(SessionOnlineVO sessionOnlineVO);
+    Result update(@RequestParam(name = "sessionOnlineVO") SessionOnlineVO sessionOnlineVO);
 
     /**
      * 更新在线会话
      */
     @RequestMapping(SessionOnlineServiceProxy.SAVE)
-    @ParameterNames(value = {"sessionOnlineVO"})
-    Result save(SessionOnlineVO sessionOnlineVO);
+    Result save(@RequestParam(name = "sessionOnlineVO") SessionOnlineVO sessionOnlineVO);
 
     /**
      * 获取在线会话
      */
     @RequestMapping(SessionOnlineServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<SessionOnline> getById(String id);
+    Result<SessionOnline> getById(@RequestParam(name = "id") String id);
 
     /**
      * 查询在线会话
      */
     @RequestMapping(SessionOnlineServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<SessionOnline>> queryList(SessionOnlineVO sample);
+    Result<List<SessionOnline>> queryList(@RequestParam(name = "sample") SessionOnlineVO sample);
 
     /**
      * 分页查询在线会话
      */
     @RequestMapping(SessionOnlineServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<SessionOnline>> queryPagedList(SessionOnlineVO sample);
+    Result<PagedList<SessionOnline>> queryPagedList(@RequestParam(name = "sample") SessionOnlineVO sample);
 
     /**
      * 控制器类名

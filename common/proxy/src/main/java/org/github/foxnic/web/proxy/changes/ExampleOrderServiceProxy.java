@@ -10,7 +10,8 @@ import org.github.foxnic.web.proxy.api.APIProxy;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
-import com.github.foxnic.api.proxy.ParameterNames;
+
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -112,64 +113,55 @@ public interface ExampleOrderServiceProxy {
      * 添加变更示例订单
      */
     @RequestMapping(ExampleOrderServiceProxy.INSERT)
-    @ParameterNames(value = {"exampleOrderVO"})
-    Result insert(ExampleOrderVO exampleOrderVO);
+    Result insert(@RequestParam(name = "exampleOrderVO") ExampleOrderVO exampleOrderVO);
 
     /**
      * 删除变更示例订单
      */
     @RequestMapping(ExampleOrderServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(String id);
+    Result deleteById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除变更示例订单
      */
     @RequestMapping(ExampleOrderServiceProxy.DELETE_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result deleteByIds(List<String> ids);
+    Result deleteByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 更新变更示例订单
      */
     @RequestMapping(ExampleOrderServiceProxy.UPDATE)
-    @ParameterNames(value = {"exampleOrderVO"})
-    Result update(ExampleOrderVO exampleOrderVO);
+    Result update(@RequestParam(name = "exampleOrderVO") ExampleOrderVO exampleOrderVO);
 
     /**
      * 更新变更示例订单
      */
     @RequestMapping(ExampleOrderServiceProxy.SAVE)
-    @ParameterNames(value = {"exampleOrderVO"})
-    Result save(ExampleOrderVO exampleOrderVO);
+    Result save(@RequestParam(name = "exampleOrderVO") ExampleOrderVO exampleOrderVO);
 
     /**
      * 获取变更示例订单
      */
     @RequestMapping(ExampleOrderServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<ExampleOrder> getById(String id);
+    Result<ExampleOrder> getById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除变更示例订单
      */
     @RequestMapping(ExampleOrderServiceProxy.GET_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result<List<ExampleOrder>> getByIds(List<String> ids);
+    Result<List<ExampleOrder>> getByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 查询变更示例订单
      */
     @RequestMapping(ExampleOrderServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<ExampleOrder>> queryList(ExampleOrderVO sample);
+    Result<List<ExampleOrder>> queryList(@RequestParam(name = "sample") ExampleOrderVO sample);
 
     /**
      * 分页查询变更示例订单
      */
     @RequestMapping(ExampleOrderServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<ExampleOrder>> queryPagedList(ExampleOrderVO sample);
+    Result<PagedList<ExampleOrder>> queryPagedList(@RequestParam(name = "sample") ExampleOrderVO sample);
 
     /**
      * 控制器类名

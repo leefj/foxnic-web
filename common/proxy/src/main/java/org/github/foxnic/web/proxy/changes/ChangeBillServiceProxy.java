@@ -10,7 +10,7 @@ import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.proxy.MicroServiceNames;
-import com.github.foxnic.api.proxy.ParameterNames;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -101,64 +101,55 @@ public interface ChangeBillServiceProxy {
      * 添加chs_change_bill
      */
     @RequestMapping(ChangeBillServiceProxy.INSERT)
-    @ParameterNames(value = {"changeBillVO"})
-    Result insert(ChangeBillVO changeBillVO);
+    Result insert(@RequestParam(name = "changeBillVO") ChangeBillVO changeBillVO);
 
     /**
      * 删除chs_change_bill
      */
     @RequestMapping(ChangeBillServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(String id);
+    Result deleteById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除chs_change_bill
      */
     @RequestMapping(ChangeBillServiceProxy.DELETE_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result deleteByIds(List<String> ids);
+    Result deleteByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 更新chs_change_bill
      */
     @RequestMapping(ChangeBillServiceProxy.UPDATE)
-    @ParameterNames(value = {"changeBillVO"})
-    Result update(ChangeBillVO changeBillVO);
+    Result update(@RequestParam(name = "changeBillVO") ChangeBillVO changeBillVO);
 
     /**
      * 更新chs_change_bill
      */
     @RequestMapping(ChangeBillServiceProxy.SAVE)
-    @ParameterNames(value = {"changeBillVO"})
-    Result save(ChangeBillVO changeBillVO);
+    Result save(@RequestParam(name = "changeBillVO") ChangeBillVO changeBillVO);
 
     /**
      * 获取chs_change_bill
      */
     @RequestMapping(ChangeBillServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<ChangeBill> getById(String id);
+    Result<ChangeBill> getById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除chs_change_bill
      */
     @RequestMapping(ChangeBillServiceProxy.GET_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result<List<ChangeBill>> getByIds(List<String> ids);
+    Result<List<ChangeBill>> getByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 查询chs_change_bill
      */
     @RequestMapping(ChangeBillServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<ChangeBill>> queryList(ChangeBillVO sample);
+    Result<List<ChangeBill>> queryList(@RequestParam(name = "sample") ChangeBillVO sample);
 
     /**
      * 分页查询chs_change_bill
      */
     @RequestMapping(ChangeBillServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<ChangeBill>> queryPagedList(ChangeBillVO sample);
+    Result<PagedList<ChangeBill>> queryPagedList(@RequestParam(name = "sample") ChangeBillVO sample);
 
     /**
      * 控制器类名

@@ -11,7 +11,8 @@ import org.github.foxnic.web.proxy.api.APIProxy;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
-import com.github.foxnic.api.proxy.ParameterNames;
+
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -118,71 +119,61 @@ public interface RuleConditionServiceProxy {
      * 添加数据权限规则范围条件
      */
     @RequestMapping(RuleConditionServiceProxy.INSERT)
-    @ParameterNames(value = {"ruleConditionVO"})
-    Result insert(RuleConditionVO ruleConditionVO);
+    Result insert(@RequestParam(name = "ruleConditionVO") RuleConditionVO ruleConditionVO);
 
     /**
      * 删除数据权限规则范围条件
      */
     @RequestMapping(RuleConditionServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(String id);
+    Result deleteById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除数据权限规则范围条件
      */
     @RequestMapping(RuleConditionServiceProxy.DELETE_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result deleteByIds(List<String> ids);
+    Result deleteByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 更新数据权限规则范围条件
      */
     @RequestMapping(RuleConditionServiceProxy.UPDATE)
-    @ParameterNames(value = {"ruleConditionVO"})
-    Result update(RuleConditionVO ruleConditionVO);
+    Result update(@RequestParam(name = "ruleConditionVO") RuleConditionVO ruleConditionVO);
 
     /**
      * 更新数据权限规则范围条件
      */
     @RequestMapping(RuleConditionServiceProxy.SAVE)
-    @ParameterNames(value = {"ruleConditionVO"})
-    Result save(RuleConditionVO ruleConditionVO);
+    Result save(@RequestParam(name = "ruleConditionVO") RuleConditionVO ruleConditionVO);
 
     /**
      * 获取数据权限规则范围条件
      */
     @RequestMapping(RuleConditionServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<RuleCondition> getById(String id);
+    Result<RuleCondition> getById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除数据权限规则范围条件
      */
     @RequestMapping(RuleConditionServiceProxy.GET_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result<List<RuleCondition>> getByIds(List<String> ids);
+    Result<List<RuleCondition>> getByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 查询数据权限规则范围条件
      */
     @RequestMapping(RuleConditionServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<RuleCondition>> queryList(RuleConditionVO sample);
+    Result<List<RuleCondition>> queryList(@RequestParam(name = "sample") RuleConditionVO sample);
 
     /**
      * 分页查询数据权限规则范围条件
      */
     @RequestMapping(RuleConditionServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<RuleCondition>> queryPagedList(RuleConditionVO sample);
+    Result<PagedList<RuleCondition>> queryPagedList(@RequestParam(name = "sample") RuleConditionVO sample);
 
     /**
      * 查询条件节点
      */
     @RequestMapping(RuleConditionServiceProxy.QUERY_NODES)
-    @ParameterNames(value = {"sample"})
-    Result<List<ZTreeNode>> queryNodes(RuleConditionVO sample);
+    Result<List<ZTreeNode>> queryNodes(@RequestParam(name = "sample") RuleConditionVO sample);
 
     /**
      * 控制器类名

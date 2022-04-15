@@ -10,7 +10,7 @@ import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.proxy.MicroServiceNames;
-import com.github.foxnic.api.proxy.ParameterNames;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -101,64 +101,55 @@ public interface ChangeDataServiceProxy {
      * 添加变更
      */
     @RequestMapping(ChangeDataServiceProxy.INSERT)
-    @ParameterNames(value = {"changeDataVO"})
-    Result insert(ChangeDataVO changeDataVO);
+    Result insert(@RequestParam(name = "changeDataVO") ChangeDataVO changeDataVO);
 
     /**
      * 删除变更
      */
     @RequestMapping(ChangeDataServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(String id);
+    Result deleteById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除变更
      */
     @RequestMapping(ChangeDataServiceProxy.DELETE_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result deleteByIds(List<String> ids);
+    Result deleteByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 更新变更
      */
     @RequestMapping(ChangeDataServiceProxy.UPDATE)
-    @ParameterNames(value = {"changeDataVO"})
-    Result update(ChangeDataVO changeDataVO);
+    Result update(@RequestParam(name = "changeDataVO") ChangeDataVO changeDataVO);
 
     /**
      * 更新变更
      */
     @RequestMapping(ChangeDataServiceProxy.SAVE)
-    @ParameterNames(value = {"changeDataVO"})
-    Result save(ChangeDataVO changeDataVO);
+    Result save(@RequestParam(name = "changeDataVO") ChangeDataVO changeDataVO);
 
     /**
      * 获取变更
      */
     @RequestMapping(ChangeDataServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<ChangeData> getById(String id);
+    Result<ChangeData> getById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除变更
      */
     @RequestMapping(ChangeDataServiceProxy.GET_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result<List<ChangeData>> getByIds(List<String> ids);
+    Result<List<ChangeData>> getByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 查询变更
      */
     @RequestMapping(ChangeDataServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<ChangeData>> queryList(ChangeDataVO sample);
+    Result<List<ChangeData>> queryList(@RequestParam(name = "sample") ChangeDataVO sample);
 
     /**
      * 分页查询变更
      */
     @RequestMapping(ChangeDataServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<ChangeData>> queryPagedList(ChangeDataVO sample);
+    Result<PagedList<ChangeData>> queryPagedList(@RequestParam(name = "sample") ChangeDataVO sample);
 
     /**
      * 控制器类名

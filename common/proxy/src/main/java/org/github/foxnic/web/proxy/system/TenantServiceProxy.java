@@ -10,7 +10,7 @@ import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.proxy.MicroServiceNames;
-import com.github.foxnic.api.proxy.ParameterNames;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -101,64 +101,55 @@ public interface TenantServiceProxy {
      * 添加租户
      */
     @RequestMapping(TenantServiceProxy.INSERT)
-    @ParameterNames(value = {"tenantVO"})
-    Result insert(TenantVO tenantVO);
+    Result insert(@RequestParam(name = "tenantVO") TenantVO tenantVO);
 
     /**
      * 删除租户
      */
     @RequestMapping(TenantServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(String id);
+    Result deleteById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除租户
      */
     @RequestMapping(TenantServiceProxy.DELETE_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result deleteByIds(List<String> ids);
+    Result deleteByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 更新租户
      */
     @RequestMapping(TenantServiceProxy.UPDATE)
-    @ParameterNames(value = {"tenantVO"})
-    Result update(TenantVO tenantVO);
+    Result update(@RequestParam(name = "tenantVO") TenantVO tenantVO);
 
     /**
      * 更新租户
      */
     @RequestMapping(TenantServiceProxy.SAVE)
-    @ParameterNames(value = {"tenantVO"})
-    Result save(TenantVO tenantVO);
+    Result save(@RequestParam(name = "tenantVO") TenantVO tenantVO);
 
     /**
      * 获取租户
      */
     @RequestMapping(TenantServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<Tenant> getById(String id);
+    Result<Tenant> getById(@RequestParam(name = "id") String id);
 
     /**
      * 获取多个租户
      */
     @RequestMapping(TenantServiceProxy.GET_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result<List<Tenant>> getByIds(List<String> ids);
+    Result<List<Tenant>> getByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 查询租户
      */
     @RequestMapping(TenantServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<Tenant>> queryList(TenantVO sample);
+    Result<List<Tenant>> queryList(@RequestParam(name = "sample") TenantVO sample);
 
     /**
      * 分页查询租户
      */
     @RequestMapping(TenantServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<Tenant>> queryPagedList(TenantVO sample);
+    Result<PagedList<Tenant>> queryPagedList(@RequestParam(name = "sample") TenantVO sample);
 
     /**
      * 控制器类名

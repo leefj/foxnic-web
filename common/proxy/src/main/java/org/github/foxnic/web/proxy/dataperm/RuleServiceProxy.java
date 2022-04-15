@@ -10,7 +10,8 @@ import org.github.foxnic.web.proxy.api.APIProxy;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
-import com.github.foxnic.api.proxy.ParameterNames;
+
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -112,64 +113,55 @@ public interface RuleServiceProxy {
      * 添加数据权限规则
      */
     @RequestMapping(RuleServiceProxy.INSERT)
-    @ParameterNames(value = {"ruleVO"})
-    Result insert(RuleVO ruleVO);
+    Result insert(@RequestParam(name = "ruleVO") RuleVO ruleVO);
 
     /**
      * 删除数据权限规则
      */
     @RequestMapping(RuleServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(String id);
+    Result deleteById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除数据权限规则
      */
     @RequestMapping(RuleServiceProxy.DELETE_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result deleteByIds(List<String> ids);
+    Result deleteByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 更新数据权限规则
      */
     @RequestMapping(RuleServiceProxy.UPDATE)
-    @ParameterNames(value = {"ruleVO"})
-    Result update(RuleVO ruleVO);
+    Result update(@RequestParam(name = "ruleVO") RuleVO ruleVO);
 
     /**
      * 更新数据权限规则
      */
     @RequestMapping(RuleServiceProxy.SAVE)
-    @ParameterNames(value = {"ruleVO"})
-    Result save(RuleVO ruleVO);
+    Result save(@RequestParam(name = "ruleVO") RuleVO ruleVO);
 
     /**
      * 获取数据权限规则
      */
     @RequestMapping(RuleServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<Rule> getById(String id);
+    Result<Rule> getById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除数据权限规则
      */
     @RequestMapping(RuleServiceProxy.GET_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result<List<Rule>> getByIds(List<String> ids);
+    Result<List<Rule>> getByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 查询数据权限规则
      */
     @RequestMapping(RuleServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<Rule>> queryList(RuleVO sample);
+    Result<List<Rule>> queryList(@RequestParam(name = "sample") RuleVO sample);
 
     /**
      * 分页查询数据权限规则
      */
     @RequestMapping(RuleServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<Rule>> queryPagedList(RuleVO sample);
+    Result<PagedList<Rule>> queryPagedList(@RequestParam(name = "sample") RuleVO sample);
 
     /**
      * 控制器类名

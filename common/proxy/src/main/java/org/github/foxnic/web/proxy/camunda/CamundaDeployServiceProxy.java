@@ -1,17 +1,14 @@
 package org.github.foxnic.web.proxy.camunda;
 
 import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.domain.bpm.ProcessDefinition;
-import org.github.foxnic.web.domain.oauth.User;
-import org.github.foxnic.web.domain.oauth.UserVO;
 import org.github.foxnic.web.proxy.FeignConfiguration;
 import org.github.foxnic.web.proxy.MicroServiceNames;
 import org.github.foxnic.web.proxy.api.APIProxy;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
-import java.util.List;
-import com.github.foxnic.api.proxy.ParameterNames;
+
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -48,8 +45,7 @@ public interface CamundaDeployServiceProxy {
      * 添加账户
      */
     @RequestMapping(CamundaDeployServiceProxy.DEPLOY)
-    @ParameterNames(value = {"processDefinition"})
-    Result deploy(ProcessDefinition processDefinition);
+    Result deploy(@RequestParam(name = "processDefinition") ProcessDefinition processDefinition);
 
     /**
      * 控制器类名

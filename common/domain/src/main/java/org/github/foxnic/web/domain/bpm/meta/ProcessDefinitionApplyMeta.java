@@ -8,8 +8,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-12 14:02:07
- * @sign CFF55B4EDA1FFA532E768EDD3092D890
+ * @since 2022-04-15 13:49:54
+ * @sign 7453F01980B27C953ECB07B683738A1E
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -96,9 +96,19 @@ public class ProcessDefinitionApplyMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionApply,java.lang.Integer> SUCCESS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionApply.class ,SUCCESS, java.lang.Integer.class, "是否成功", "是否成功", java.lang.Integer.class, null);
 	
 	/**
+	 * 租户ID , 类型: java.lang.String
+	*/
+	public static final String TENANT_ID="tenantId";
+	
+	/**
+	 * 租户ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionApply,java.lang.String> TENANT_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionApply.class ,TENANT_ID, java.lang.String.class, "租户ID", "租户ID", java.lang.String.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , DEFINITION_ID , DEFINITION_FILE_ID , REQUEST , RESULT , APPLY_TIME , EXCEPTION , SUCCESS };
+	public static final String[] $PROPS={ ID , DEFINITION_ID , DEFINITION_FILE_ID , REQUEST , RESULT , APPLY_TIME , EXCEPTION , SUCCESS , TENANT_ID };
 	
 	/**
 	 * 代理类
@@ -193,6 +203,17 @@ public class ProcessDefinitionApplyMeta {
 		public ProcessDefinitionApply setSuccess(Integer success) {
 			super.change(SUCCESS,super.getSuccess(),success);
 			super.setSuccess(success);
+			return this;
+		}
+		
+		/**
+		 * 设置 租户ID
+		 * @param tenantId 租户ID
+		 * @return 当前对象
+		*/
+		public ProcessDefinitionApply setTenantId(String tenantId) {
+			super.change(TENANT_ID,super.getTenantId(),tenantId);
+			super.setTenantId(tenantId);
 			return this;
 		}
 	}

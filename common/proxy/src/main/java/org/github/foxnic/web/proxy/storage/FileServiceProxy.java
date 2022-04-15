@@ -1,6 +1,5 @@
 package org.github.foxnic.web.proxy.storage;
 
-import com.github.foxnic.api.proxy.ParameterNames;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.domain.storage.File;
@@ -10,8 +9,8 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
 import org.github.foxnic.web.proxy.api.APIProxy;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import java.util.List;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -105,61 +104,52 @@ public interface FileServiceProxy {
      * 添加系统文件
      */
     @RequestMapping(FileServiceProxy.INSERT)
-    @ParameterNames(value = {"fileVO"})
-    Result insert(FileVO fileVO);
+    Result insert(@RequestParam(name = "fileVO") FileVO fileVO);
 
     /**
      * 按主键删除系统文件
      */
     @RequestMapping(FileServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(String id);
+    Result deleteById(@RequestParam(name = "id") String id);
 
     /**
      * 按主键删除系统文件
      */
     @RequestMapping(FileServiceProxy.BATCH_DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteByIds(List<String> id);
+    Result deleteByIds(@RequestParam(name = "id") List<String> id);
 
     /**
      * 更新系统文件
      */
     @RequestMapping(FileServiceProxy.UPDATE)
-    @ParameterNames(value = {"fileVO"})
-    Result update(FileVO fileVO);
+    Result update(@RequestParam(name = "fileVO") FileVO fileVO);
 
     /**
      * 更新系统文件
      */
     @RequestMapping(FileServiceProxy.SAVE)
-    @ParameterNames(value = {"fileVO"})
-    Result save(FileVO fileVO);
+    Result save(@RequestParam(name = "fileVO") FileVO fileVO);
 
     /**
      * 按主键获取系统文件
      */
     @RequestMapping(FileServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<File> getById(String id);
+    Result<File> getById(@RequestParam(name = "id") String id);
 
     /**
      * 查询全部符合条件的系统文件
      */
     @RequestMapping(FileServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<File>> queryList(FileVO sample);
+    Result<List<File>> queryList(@RequestParam(name = "sample") FileVO sample);
 
     /**
      * 分页查询符合条件的系统文件
      */
     @RequestMapping(FileServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<File>> queryPagedList(FileVO sample);
+    Result<PagedList<File>> queryPagedList(@RequestParam(name = "sample") FileVO sample);
 
     @RequestMapping(FileServiceProxy.FILE_DATA)
-    @ParameterNames(value = {"id"})
-    Result<String> getFileData(String id);
+    Result<String> getFileData(@RequestParam(name = "id") String id);
 
     /**
      * 控制器类名

@@ -10,7 +10,7 @@ import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.proxy.MicroServiceNames;
-import com.github.foxnic.api.proxy.ParameterNames;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -101,64 +101,55 @@ public interface UserTenantServiceProxy {
      * 添加账户租户关系
      */
     @RequestMapping(UserTenantServiceProxy.INSERT)
-    @ParameterNames(value = {"userTenantVO"})
-    Result insert(UserTenantVO userTenantVO);
+    Result insert(@RequestParam(name = "userTenantVO") UserTenantVO userTenantVO);
 
     /**
      * 删除账户租户关系
      */
     @RequestMapping(UserTenantServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(String id);
+    Result deleteById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除账户租户关系
      */
     @RequestMapping(UserTenantServiceProxy.DELETE_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result deleteByIds(List<String> ids);
+    Result deleteByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 更新账户租户关系
      */
     @RequestMapping(UserTenantServiceProxy.UPDATE)
-    @ParameterNames(value = {"userTenantVO"})
-    Result update(UserTenantVO userTenantVO);
+    Result update(@RequestParam(name = "userTenantVO") UserTenantVO userTenantVO);
 
     /**
      * 更新账户租户关系
      */
     @RequestMapping(UserTenantServiceProxy.SAVE)
-    @ParameterNames(value = {"userTenantVO"})
-    Result save(UserTenantVO userTenantVO);
+    Result save(@RequestParam(name = "userTenantVO") UserTenantVO userTenantVO);
 
     /**
      * 获取账户租户关系
      */
     @RequestMapping(UserTenantServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<UserTenant> getById(String id);
+    Result<UserTenant> getById(@RequestParam(name = "id") String id);
 
     /**
      * 获取多个账户租户关系
      */
     @RequestMapping(UserTenantServiceProxy.GET_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result<List<UserTenant>> getByIds(List<String> ids);
+    Result<List<UserTenant>> getByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 查询账户租户关系
      */
     @RequestMapping(UserTenantServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<UserTenant>> queryList(UserTenantVO sample);
+    Result<List<UserTenant>> queryList(@RequestParam(name = "sample") UserTenantVO sample);
 
     /**
      * 分页查询账户租户关系
      */
     @RequestMapping(UserTenantServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<UserTenant>> queryPagedList(UserTenantVO sample);
+    Result<PagedList<UserTenant>> queryPagedList(@RequestParam(name = "sample") UserTenantVO sample);
 
     /**
      * 控制器类名

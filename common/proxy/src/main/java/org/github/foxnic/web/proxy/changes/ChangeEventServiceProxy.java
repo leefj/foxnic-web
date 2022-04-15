@@ -10,7 +10,7 @@ import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.proxy.MicroServiceNames;
-import com.github.foxnic.api.proxy.ParameterNames;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -101,64 +101,55 @@ public interface ChangeEventServiceProxy {
      * 添加变更事件
      */
     @RequestMapping(ChangeEventServiceProxy.INSERT)
-    @ParameterNames(value = {"changeEventVO"})
-    Result insert(ChangeEventVO changeEventVO);
+    Result insert(@RequestParam(name = "changeEventVO") ChangeEventVO changeEventVO);
 
     /**
      * 删除变更事件
      */
     @RequestMapping(ChangeEventServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(String id);
+    Result deleteById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除变更事件
      */
     @RequestMapping(ChangeEventServiceProxy.DELETE_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result deleteByIds(List<String> ids);
+    Result deleteByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 更新变更事件
      */
     @RequestMapping(ChangeEventServiceProxy.UPDATE)
-    @ParameterNames(value = {"changeEventVO"})
-    Result update(ChangeEventVO changeEventVO);
+    Result update(@RequestParam(name = "changeEventVO") ChangeEventVO changeEventVO);
 
     /**
      * 更新变更事件
      */
     @RequestMapping(ChangeEventServiceProxy.SAVE)
-    @ParameterNames(value = {"changeEventVO"})
-    Result save(ChangeEventVO changeEventVO);
+    Result save(@RequestParam(name = "changeEventVO") ChangeEventVO changeEventVO);
 
     /**
      * 获取变更事件
      */
     @RequestMapping(ChangeEventServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<ChangeEvent> getById(String id);
+    Result<ChangeEvent> getById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除变更事件
      */
     @RequestMapping(ChangeEventServiceProxy.GET_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result<List<ChangeEvent>> getByIds(List<String> ids);
+    Result<List<ChangeEvent>> getByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 查询变更事件
      */
     @RequestMapping(ChangeEventServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<ChangeEvent>> queryList(ChangeEventVO sample);
+    Result<List<ChangeEvent>> queryList(@RequestParam(name = "sample") ChangeEventVO sample);
 
     /**
      * 分页查询变更事件
      */
     @RequestMapping(ChangeEventServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<ChangeEvent>> queryPagedList(ChangeEventVO sample);
+    Result<PagedList<ChangeEvent>> queryPagedList(@RequestParam(name = "sample") ChangeEventVO sample);
 
     /**
      * 控制器类名

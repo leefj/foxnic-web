@@ -3,6 +3,7 @@ package org.github.foxnic.web.generator.fix;
 import com.github.foxnic.commons.collection.CollectorUtil;
 import com.github.foxnic.commons.io.FileNavigator;
 import com.github.foxnic.commons.lang.StringUtil;
+import com.github.foxnic.generator.builder.business.ControllerProxyFile;
 import com.github.foxnic.generator.util.JavaCPUnit;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.ImportDeclaration;
@@ -25,77 +26,21 @@ public class FixProxy {
 
 
     public static void main(String[] args) {
-
-//        fix(new File("/Users/LeeFJ/git/foxnic-web/common/proxy/src/main/java/org/github/foxnic/web/proxy/job/JobLogServiceProxy.java"));
-        fix(new File("D:\\leefj\\workspace\\git-base\\foxnic-web\\common\\proxy\\src\\main\\java\\org\\github\\foxnic\\web\\proxy\\job\\JobServiceProxy.java"));
-
-
+        ControllerProxyFile.insertParameterNames(new File("D:\\leefj\\workspace\\git-base\\foxnic-web\\common\\proxy\\src\\main\\java\\org\\github\\foxnic\\web\\proxy\\bpm\\ProcessDefinitionFileServiceProxy.java"));
     }
 
 
-    public static void mainX(String[] args) {
-        FileNavigator fileNavigator=new FileNavigator("/Users/LeeFJ/git/foxnic-web/common/proxy");
+    public static void main2(String[] args) {
+        FileNavigator fileNavigator=new FileNavigator("D:\\leefj\\workspace\\git-base\\foxnic-web\\common\\proxy");
         fileNavigator.scan((file,isFile,ext)->{
             if(!isFile) return;
             if(ext.equals(".java")) return;
             if(!file.getName().endsWith("ServiceProxy.java")) return;
             System.out.println(file.getAbsolutePath());
-            fix(file);
+            ControllerProxyFile.insertParameterNames(file);
         });
     }
 
-    public static void fix(File javaFile) {
 
-        JavaCPUnit cpUnit = new JavaCPUnit(javaFile);
-        CompilationUnit compilationUnit=cpUnit.getCompilationUnit();
-        List<ClassOrInterfaceDeclaration> classes = cpUnit.find(ClassOrInterfaceDeclaration.class);
-        ClassOrInterfaceDeclaration clz=classes.get(0);
-        Optional<AnnotationExpr> feignClient =clz.getAnnotationByClass(FeignClient.class);
-        if(!feignClient.isPresent()) return;
-        NodeList<ImportDeclaration> imports = compilationUnit.getImports();
-        boolean flag=false;
-        for (ImportDeclaration imp : imports) {
-            if(imp.getNameAsString().equals(RequestParam.class.getName())) {
-                flag=true;
-                break;
-            }
-        }
-        if(!flag) {
-            compilationUnit.addImport(RequestParam.class);
-        }
-        List<MethodDeclaration> list=cpUnit.find(MethodDeclaration.class);
-        boolean isModified=false;
-        for (MethodDeclaration m : list) {
-
-            Optional<AnnotationExpr> requestMapping =m.getAnnotationByClass(RequestMapping.class);
-            if(requestMapping==null || !requestMapping.isPresent()) continue;
-
-            //移除
-            NodeList<AnnotationExpr> anns= m.getAnnotations();
-            for (AnnotationExpr ann : anns) {
-               if(ann.getName().asString().equals("ParameterNames")) {
-                   anns.remove(ann);
-                   break;
-               }
-            }
-
-            // 增加参数注解
-            NodeList<Parameter> ps=m.getParameters();
-            for (Parameter p : ps) {
-                Optional<AnnotationExpr> requestParamAnn=p.getAnnotationByClass(RequestParam.class);
-                if(requestParamAnn==null || !requestParamAnn.isPresent()) {
-                    NormalAnnotationExpr requestParamAnnn= p.addAndGetAnnotation(RequestParam.class);
-                    requestParamAnnn.addPair("name","\""+ p.getNameAsString() +"\"");
-                    isModified = true;
-                }
-            }
-
-        }
-
-        if(isModified) {
-            cpUnit.save();
-        }
-
-    }
 
 }

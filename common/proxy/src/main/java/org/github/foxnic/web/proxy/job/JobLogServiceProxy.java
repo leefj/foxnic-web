@@ -1,6 +1,5 @@
 package org.github.foxnic.web.proxy.job;
 
-import com.github.foxnic.api.proxy.ParameterNames;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.domain.job.JobLog;

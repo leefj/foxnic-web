@@ -10,7 +10,7 @@ import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.proxy.MicroServiceNames;
-import com.github.foxnic.api.proxy.ParameterNames;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -101,64 +101,55 @@ public interface FavouriteGroupServiceProxy {
      * 添加常用人员分组
      */
     @RequestMapping(FavouriteGroupServiceProxy.INSERT)
-    @ParameterNames(value = {"favouriteGroupVO"})
-    Result insert(FavouriteGroupVO favouriteGroupVO);
+    Result insert(@RequestParam(name = "favouriteGroupVO") FavouriteGroupVO favouriteGroupVO);
 
     /**
      * 删除常用人员分组
      */
     @RequestMapping(FavouriteGroupServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(String id);
+    Result deleteById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除常用人员分组
      */
     @RequestMapping(FavouriteGroupServiceProxy.DELETE_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result deleteByIds(List<String> ids);
+    Result deleteByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 更新常用人员分组
      */
     @RequestMapping(FavouriteGroupServiceProxy.UPDATE)
-    @ParameterNames(value = {"favouriteGroupVO"})
-    Result update(FavouriteGroupVO favouriteGroupVO);
+    Result update(@RequestParam(name = "favouriteGroupVO") FavouriteGroupVO favouriteGroupVO);
 
     /**
      * 更新常用人员分组
      */
     @RequestMapping(FavouriteGroupServiceProxy.SAVE)
-    @ParameterNames(value = {"favouriteGroupVO"})
-    Result save(FavouriteGroupVO favouriteGroupVO);
+    Result save(@RequestParam(name = "favouriteGroupVO") FavouriteGroupVO favouriteGroupVO);
 
     /**
      * 获取常用人员分组
      */
     @RequestMapping(FavouriteGroupServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<FavouriteGroup> getById(String id);
+    Result<FavouriteGroup> getById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除常用人员分组
      */
     @RequestMapping(FavouriteGroupServiceProxy.GET_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result<List<FavouriteGroup>> getByIds(List<String> ids);
+    Result<List<FavouriteGroup>> getByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 查询常用人员分组
      */
     @RequestMapping(FavouriteGroupServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<FavouriteGroup>> queryList(FavouriteGroupVO sample);
+    Result<List<FavouriteGroup>> queryList(@RequestParam(name = "sample") FavouriteGroupVO sample);
 
     /**
      * 分页查询常用人员分组
      */
     @RequestMapping(FavouriteGroupServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<FavouriteGroup>> queryPagedList(FavouriteGroupVO sample);
+    Result<PagedList<FavouriteGroup>> queryPagedList(@RequestParam(name = "sample") FavouriteGroupVO sample);
 
     /**
      * 控制器类名

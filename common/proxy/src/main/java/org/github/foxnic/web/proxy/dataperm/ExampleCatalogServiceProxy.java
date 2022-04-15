@@ -10,7 +10,7 @@ import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.proxy.MicroServiceNames;
-import com.github.foxnic.api.proxy.ParameterNames;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -101,64 +101,55 @@ public interface ExampleCatalogServiceProxy {
      * 添加商品分类
      */
     @RequestMapping(ExampleCatalogServiceProxy.INSERT)
-    @ParameterNames(value = {"exampleCatalogVO"})
-    Result insert(ExampleCatalogVO exampleCatalogVO);
+    Result insert(@RequestParam(name = "exampleCatalogVO") ExampleCatalogVO exampleCatalogVO);
 
     /**
      * 删除商品分类
      */
     @RequestMapping(ExampleCatalogServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(String id);
+    Result deleteById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除商品分类
      */
     @RequestMapping(ExampleCatalogServiceProxy.DELETE_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result deleteByIds(List<String> ids);
+    Result deleteByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 更新商品分类
      */
     @RequestMapping(ExampleCatalogServiceProxy.UPDATE)
-    @ParameterNames(value = {"exampleCatalogVO"})
-    Result update(ExampleCatalogVO exampleCatalogVO);
+    Result update(@RequestParam(name = "exampleCatalogVO") ExampleCatalogVO exampleCatalogVO);
 
     /**
      * 更新商品分类
      */
     @RequestMapping(ExampleCatalogServiceProxy.SAVE)
-    @ParameterNames(value = {"exampleCatalogVO"})
-    Result save(ExampleCatalogVO exampleCatalogVO);
+    Result save(@RequestParam(name = "exampleCatalogVO") ExampleCatalogVO exampleCatalogVO);
 
     /**
      * 获取商品分类
      */
     @RequestMapping(ExampleCatalogServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<ExampleCatalog> getById(String id);
+    Result<ExampleCatalog> getById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除商品分类
      */
     @RequestMapping(ExampleCatalogServiceProxy.GET_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result<List<ExampleCatalog>> getByIds(List<String> ids);
+    Result<List<ExampleCatalog>> getByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 查询商品分类
      */
     @RequestMapping(ExampleCatalogServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<ExampleCatalog>> queryList(ExampleCatalogVO sample);
+    Result<List<ExampleCatalog>> queryList(@RequestParam(name = "sample") ExampleCatalogVO sample);
 
     /**
      * 分页查询商品分类
      */
     @RequestMapping(ExampleCatalogServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<ExampleCatalog>> queryPagedList(ExampleCatalogVO sample);
+    Result<PagedList<ExampleCatalog>> queryPagedList(@RequestParam(name = "sample") ExampleCatalogVO sample);
 
     /**
      * 控制器类名

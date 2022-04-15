@@ -1,6 +1,5 @@
 package org.github.foxnic.web.proxy.camunda;
 
-import com.github.foxnic.api.proxy.ParameterNames;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.domain.oauth.User;
@@ -10,8 +9,8 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
 import org.github.foxnic.web.proxy.api.APIProxy;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import java.util.List;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -98,57 +97,49 @@ public interface CamundaUserServiceProxy {
      * 添加账户
      */
     @RequestMapping(CamundaUserServiceProxy.INSERT)
-    @ParameterNames(value = {"userVO"})
-    Result insert(UserVO userVO);
+    Result insert(@RequestParam(name = "userVO") UserVO userVO);
 
     /**
      * 删除账户
      */
     @RequestMapping(CamundaUserServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(String id);
+    Result deleteById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除账户
      */
     @RequestMapping(CamundaUserServiceProxy.BATCH_DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteByIds(List<String> id);
+    Result deleteByIds(@RequestParam(name = "id") List<String> id);
 
     /**
      * 更新账户
      */
     @RequestMapping(CamundaUserServiceProxy.UPDATE)
-    @ParameterNames(value = {"userVO"})
-    Result update(UserVO userVO);
+    Result update(@RequestParam(name = "userVO") UserVO userVO);
 
     /**
      * 更新账户
      */
     @RequestMapping(CamundaUserServiceProxy.SAVE)
-    @ParameterNames(value = {"userVO"})
-    Result save(UserVO userVO);
+    Result save(@RequestParam(name = "userVO") UserVO userVO);
 
     /**
      * 获取账户
      */
     @RequestMapping(CamundaUserServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<User> getById(String id);
+    Result<User> getById(@RequestParam(name = "id") String id);
 
     /**
      * 查询账户
      */
     @RequestMapping(CamundaUserServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<User>> queryList(UserVO sample);
+    Result<List<User>> queryList(@RequestParam(name = "sample") UserVO sample);
 
     /**
      * 分页查询账户
      */
     @RequestMapping(CamundaUserServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<User>> queryPagedList(UserVO sample);
+    Result<PagedList<User>> queryPagedList(@RequestParam(name = "sample") UserVO sample);
 
     /**
      * 控制器类名

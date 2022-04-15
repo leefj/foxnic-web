@@ -10,7 +10,7 @@ import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.proxy.MicroServiceNames;
-import com.github.foxnic.api.proxy.ParameterNames;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -101,64 +101,55 @@ public interface CodeExampleServiceProxy {
      * 添加代码生成示例主
      */
     @RequestMapping(CodeExampleServiceProxy.INSERT)
-    @ParameterNames(value = {"codeExampleVO"})
-    Result insert(CodeExampleVO codeExampleVO);
+    Result insert(@RequestParam(name = "codeExampleVO") CodeExampleVO codeExampleVO);
 
     /**
      * 删除代码生成示例主
      */
     @RequestMapping(CodeExampleServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(String id);
+    Result deleteById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除代码生成示例主
      */
     @RequestMapping(CodeExampleServiceProxy.DELETE_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result deleteByIds(List<String> ids);
+    Result deleteByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 更新代码生成示例主
      */
     @RequestMapping(CodeExampleServiceProxy.UPDATE)
-    @ParameterNames(value = {"codeExampleVO"})
-    Result update(CodeExampleVO codeExampleVO);
+    Result update(@RequestParam(name = "codeExampleVO") CodeExampleVO codeExampleVO);
 
     /**
      * 更新代码生成示例主
      */
     @RequestMapping(CodeExampleServiceProxy.SAVE)
-    @ParameterNames(value = {"codeExampleVO"})
-    Result save(CodeExampleVO codeExampleVO);
+    Result save(@RequestParam(name = "codeExampleVO") CodeExampleVO codeExampleVO);
 
     /**
      * 获取代码生成示例主
      */
     @RequestMapping(CodeExampleServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<CodeExample> getById(String id);
+    Result<CodeExample> getById(@RequestParam(name = "id") String id);
 
     /**
      * 获取多个代码生成示例主
      */
     @RequestMapping(CodeExampleServiceProxy.GET_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result<List<CodeExample>> getByIds(List<String> ids);
+    Result<List<CodeExample>> getByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 查询代码生成示例主
      */
     @RequestMapping(CodeExampleServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<CodeExample>> queryList(CodeExampleVO sample);
+    Result<List<CodeExample>> queryList(@RequestParam(name = "sample") CodeExampleVO sample);
 
     /**
      * 分页查询代码生成示例主
      */
     @RequestMapping(CodeExampleServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<CodeExample>> queryPagedList(CodeExampleVO sample);
+    Result<PagedList<CodeExample>> queryPagedList(@RequestParam(name = "sample") CodeExampleVO sample);
 
     /**
      * 控制器类名

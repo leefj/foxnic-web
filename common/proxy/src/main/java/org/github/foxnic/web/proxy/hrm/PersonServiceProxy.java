@@ -10,7 +10,7 @@ import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.proxy.MicroServiceNames;
-import com.github.foxnic.api.proxy.ParameterNames;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -101,64 +101,55 @@ public interface PersonServiceProxy {
      * 添加人员
      */
     @RequestMapping(PersonServiceProxy.INSERT)
-    @ParameterNames(value = {"personVO"})
-    Result insert(PersonVO personVO);
+    Result insert(@RequestParam(name = "personVO") PersonVO personVO);
 
     /**
      * 删除人员
      */
     @RequestMapping(PersonServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(String id);
+    Result deleteById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除人员
      */
     @RequestMapping(PersonServiceProxy.DELETE_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result deleteByIds(List<String> ids);
+    Result deleteByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 更新人员
      */
     @RequestMapping(PersonServiceProxy.UPDATE)
-    @ParameterNames(value = {"personVO"})
-    Result update(PersonVO personVO);
+    Result update(@RequestParam(name = "personVO") PersonVO personVO);
 
     /**
      * 更新人员
      */
     @RequestMapping(PersonServiceProxy.SAVE)
-    @ParameterNames(value = {"personVO"})
-    Result save(PersonVO personVO);
+    Result save(@RequestParam(name = "personVO") PersonVO personVO);
 
     /**
      * 获取人员
      */
     @RequestMapping(PersonServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<Person> getById(String id);
+    Result<Person> getById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除人员
      */
     @RequestMapping(PersonServiceProxy.GET_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result<List<Person>> getByIds(List<String> ids);
+    Result<List<Person>> getByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 查询人员
      */
     @RequestMapping(PersonServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<Person>> queryList(PersonVO sample);
+    Result<List<Person>> queryList(@RequestParam(name = "sample") PersonVO sample);
 
     /**
      * 分页查询人员
      */
     @RequestMapping(PersonServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<Person>> queryPagedList(PersonVO sample);
+    Result<PagedList<Person>> queryPagedList(@RequestParam(name = "sample") PersonVO sample);
 
     /**
      * 控制器类名

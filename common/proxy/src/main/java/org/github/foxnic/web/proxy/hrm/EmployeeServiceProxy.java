@@ -10,7 +10,8 @@ import org.github.foxnic.web.proxy.api.APIProxy;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
-import com.github.foxnic.api.proxy.ParameterNames;
+
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -112,78 +113,67 @@ public interface EmployeeServiceProxy {
      * 添加员工
      */
     @RequestMapping(EmployeeServiceProxy.INSERT)
-    @ParameterNames(value = {"employeeVO"})
-    Result insert(EmployeeVO employeeVO);
+    Result insert(@RequestParam(name = "employeeVO") EmployeeVO employeeVO);
 
     /**
      * 删除员工
      */
     @RequestMapping(EmployeeServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(String id);
+    Result deleteById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除员工
      */
     @RequestMapping(EmployeeServiceProxy.DELETE_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result deleteByIds(List<String> ids);
+    Result deleteByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 更新员工
      */
     @RequestMapping(EmployeeServiceProxy.UPDATE)
-    @ParameterNames(value = {"employeeVO"})
-    Result update(EmployeeVO employeeVO);
+    Result update(@RequestParam(name = "employeeVO") EmployeeVO employeeVO);
 
     /**
      * 更新员工
      */
     @RequestMapping(EmployeeServiceProxy.SAVE)
-    @ParameterNames(value = {"employeeVO"})
-    Result save(EmployeeVO employeeVO);
+    Result save(@RequestParam(name = "employeeVO") EmployeeVO employeeVO);
 
     /**
      * 获取员工
      */
     @RequestMapping(EmployeeServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<Employee> getById(String id);
+    Result<Employee> getById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除员工
      */
     @RequestMapping(EmployeeServiceProxy.GET_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result<List<Employee>> getByIds(List<String> ids);
+    Result<List<Employee>> getByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 获取员工
      */
     @RequestMapping(EmployeeServiceProxy.GET_BY_BADGE)
-    @ParameterNames(value = {"badge"})
-    Result<Employee> getByBadge(String badge);
+    Result<Employee> getByBadge(@RequestParam(name = "badge") String badge);
 
     /**
      * 批量删除员工
      */
     @RequestMapping(EmployeeServiceProxy.GET_BY_BADGES)
-    @ParameterNames(value = {"badges"})
-    Result<List<Employee>> getByBadges(List<String> badges);
+    Result<List<Employee>> getByBadges(@RequestParam(name = "badges") List<String> badges);
 
     /**
      * 查询员工
      */
     @RequestMapping(EmployeeServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<Employee>> queryList(EmployeeVO sample);
+    Result<List<Employee>> queryList(@RequestParam(name = "sample") EmployeeVO sample);
 
     /**
      * 分页查询员工
      */
     @RequestMapping(EmployeeServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<Employee>> queryPagedList(EmployeeVO sample);
+    Result<PagedList<Employee>> queryPagedList(@RequestParam(name = "sample") EmployeeVO sample);
 
     /**
      * 控制器类名

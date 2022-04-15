@@ -10,7 +10,7 @@ import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.proxy.MicroServiceNames;
-import com.github.foxnic.api.proxy.ParameterNames;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -101,64 +101,55 @@ public interface ChangeApproverServiceProxy {
      * 添加变更单据关系
      */
     @RequestMapping(ChangeApproverServiceProxy.INSERT)
-    @ParameterNames(value = {"changeApproverVO"})
-    Result insert(ChangeApproverVO changeApproverVO);
+    Result insert(@RequestParam(name = "changeApproverVO") ChangeApproverVO changeApproverVO);
 
     /**
      * 删除变更单据关系
      */
     @RequestMapping(ChangeApproverServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(String id);
+    Result deleteById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除变更单据关系
      */
     @RequestMapping(ChangeApproverServiceProxy.DELETE_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result deleteByIds(List<String> ids);
+    Result deleteByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 更新变更单据关系
      */
     @RequestMapping(ChangeApproverServiceProxy.UPDATE)
-    @ParameterNames(value = {"changeApproverVO"})
-    Result update(ChangeApproverVO changeApproverVO);
+    Result update(@RequestParam(name = "changeApproverVO") ChangeApproverVO changeApproverVO);
 
     /**
      * 更新变更单据关系
      */
     @RequestMapping(ChangeApproverServiceProxy.SAVE)
-    @ParameterNames(value = {"changeApproverVO"})
-    Result save(ChangeApproverVO changeApproverVO);
+    Result save(@RequestParam(name = "changeApproverVO") ChangeApproverVO changeApproverVO);
 
     /**
      * 获取变更单据关系
      */
     @RequestMapping(ChangeApproverServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<ChangeApprover> getById(String id);
+    Result<ChangeApprover> getById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除变更单据关系
      */
     @RequestMapping(ChangeApproverServiceProxy.GET_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result<List<ChangeApprover>> getByIds(List<String> ids);
+    Result<List<ChangeApprover>> getByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 查询变更单据关系
      */
     @RequestMapping(ChangeApproverServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<ChangeApprover>> queryList(ChangeApproverVO sample);
+    Result<List<ChangeApprover>> queryList(@RequestParam(name = "sample") ChangeApproverVO sample);
 
     /**
      * 分页查询变更单据关系
      */
     @RequestMapping(ChangeApproverServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<ChangeApprover>> queryPagedList(ChangeApproverVO sample);
+    Result<PagedList<ChangeApprover>> queryPagedList(@RequestParam(name = "sample") ChangeApproverVO sample);
 
     /**
      * 控制器类名

@@ -10,7 +10,7 @@ import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.proxy.MicroServiceNames;
-import com.github.foxnic.api.proxy.ParameterNames;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -101,64 +101,55 @@ public interface DictServiceProxy {
      * 添加数据字典
      */
     @RequestMapping(DictServiceProxy.INSERT)
-    @ParameterNames(value = {"dictVO"})
-    Result insert(DictVO dictVO);
+    Result insert(@RequestParam(name = "dictVO") DictVO dictVO);
 
     /**
      * 删除数据字典
      */
     @RequestMapping(DictServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(String id);
+    Result deleteById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除数据字典
      */
     @RequestMapping(DictServiceProxy.DELETE_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result deleteByIds(List<String> ids);
+    Result deleteByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 更新数据字典
      */
     @RequestMapping(DictServiceProxy.UPDATE)
-    @ParameterNames(value = {"dictVO"})
-    Result update(DictVO dictVO);
+    Result update(@RequestParam(name = "dictVO") DictVO dictVO);
 
     /**
      * 更新数据字典
      */
     @RequestMapping(DictServiceProxy.SAVE)
-    @ParameterNames(value = {"dictVO"})
-    Result save(DictVO dictVO);
+    Result save(@RequestParam(name = "dictVO") DictVO dictVO);
 
     /**
      * 获取数据字典
      */
     @RequestMapping(DictServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<Dict> getById(String id);
+    Result<Dict> getById(@RequestParam(name = "id") String id);
 
     /**
      * 获取多个数据字典
      */
     @RequestMapping(DictServiceProxy.GET_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result<List<Dict>> getByIds(List<String> ids);
+    Result<List<Dict>> getByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 查询数据字典
      */
     @RequestMapping(DictServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<Dict>> queryList(DictVO sample);
+    Result<List<Dict>> queryList(@RequestParam(name = "sample") DictVO sample);
 
     /**
      * 分页查询数据字典
      */
     @RequestMapping(DictServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<Dict>> queryPagedList(DictVO sample);
+    Result<PagedList<Dict>> queryPagedList(@RequestParam(name = "sample") DictVO sample);
 
     /**
      * 控制器类名

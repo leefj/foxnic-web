@@ -17,8 +17,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程定义
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-11 15:02:01
- * @sign 07D91F1F3B3840B5AD347F2BCF3ECA1F
+ * @since 2022-04-15 17:19:34
+ * @sign FEFFB56F286922344C8C4AC15695206C
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -101,6 +101,18 @@ public class ProcessDefinition extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
 	private Integer version;
+	
+	/**
+	 * 租户ID：租户ID
+	*/
+	@ApiModelProperty(required = true,value="租户ID" , notes = "租户ID")
+	private String tenantId;
+	
+	/**
+	 * 流程ID：在 camunda 中的流程定义ID
+	*/
+	@ApiModelProperty(required = false,value="流程ID" , notes = "在 camunda 中的流程定义ID")
+	private String camundaDefinitionId;
 	
 	/**
 	 * 最后修改人：最后修改人
@@ -339,6 +351,44 @@ public class ProcessDefinition extends Entity {
 	*/
 	public ProcessDefinition setVersion(Integer version) {
 		this.version=version;
+		return this;
+	}
+	
+	/**
+	 * 获得 租户ID<br>
+	 * 租户ID
+	 * @return 租户ID
+	*/
+	public String getTenantId() {
+		return tenantId;
+	}
+	
+	/**
+	 * 设置 租户ID
+	 * @param tenantId 租户ID
+	 * @return 当前对象
+	*/
+	public ProcessDefinition setTenantId(String tenantId) {
+		this.tenantId=tenantId;
+		return this;
+	}
+	
+	/**
+	 * 获得 流程ID<br>
+	 * 在 camunda 中的流程定义ID
+	 * @return 流程ID
+	*/
+	public String getCamundaDefinitionId() {
+		return camundaDefinitionId;
+	}
+	
+	/**
+	 * 设置 流程ID
+	 * @param camundaDefinitionId 流程ID
+	 * @return 当前对象
+	*/
+	public ProcessDefinition setCamundaDefinitionId(String camundaDefinitionId) {
+		this.camundaDefinitionId=camundaDefinitionId;
 		return this;
 	}
 	

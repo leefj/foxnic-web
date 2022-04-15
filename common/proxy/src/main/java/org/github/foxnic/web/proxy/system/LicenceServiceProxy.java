@@ -2,16 +2,11 @@ package org.github.foxnic.web.proxy.system;
 
 import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.dao.data.PagedList;
-import org.github.foxnic.web.domain.system.Lang;
-import org.github.foxnic.web.domain.system.LangVO;
 import org.github.foxnic.web.proxy.FeignConfiguration;
 import org.github.foxnic.web.proxy.MicroServiceNames;
 import org.github.foxnic.web.proxy.api.APIProxy;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
-import java.util.List;
-import com.github.foxnic.api.proxy.ParameterNames;
 
 /**
  * <p>
@@ -58,14 +53,12 @@ public interface LicenceServiceProxy {
      * 获取语言条目
      */
     @RequestMapping(LicenceServiceProxy.GET)
-    @ParameterNames(value = {})
     Result<JSONObject> get();
 
     /**
      * 获取语言条目
      */
     @RequestMapping(LicenceServiceProxy.GET)
-    @ParameterNames(value = {})
     Result<JSONObject> getLicenceItems();
 
     /**

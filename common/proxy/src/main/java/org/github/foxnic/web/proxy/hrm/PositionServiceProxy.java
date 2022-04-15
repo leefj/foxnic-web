@@ -10,7 +10,7 @@ import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.proxy.MicroServiceNames;
-import com.github.foxnic.api.proxy.ParameterNames;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -101,64 +101,55 @@ public interface PositionServiceProxy {
      * 添加岗位
      */
     @RequestMapping(PositionServiceProxy.INSERT)
-    @ParameterNames(value = {"positionVO"})
-    Result insert(PositionVO positionVO);
+    Result insert(@RequestParam(name = "positionVO") PositionVO positionVO);
 
     /**
      * 删除岗位
      */
     @RequestMapping(PositionServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(String id);
+    Result deleteById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除岗位
      */
     @RequestMapping(PositionServiceProxy.DELETE_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result deleteByIds(List<String> ids);
+    Result deleteByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 更新岗位
      */
     @RequestMapping(PositionServiceProxy.UPDATE)
-    @ParameterNames(value = {"positionVO"})
-    Result update(PositionVO positionVO);
+    Result update(@RequestParam(name = "positionVO") PositionVO positionVO);
 
     /**
      * 更新岗位
      */
     @RequestMapping(PositionServiceProxy.SAVE)
-    @ParameterNames(value = {"positionVO"})
-    Result save(PositionVO positionVO);
+    Result save(@RequestParam(name = "positionVO") PositionVO positionVO);
 
     /**
      * 获取岗位
      */
     @RequestMapping(PositionServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<Position> getById(String id);
+    Result<Position> getById(@RequestParam(name = "id") String id);
 
     /**
      * 获取多个岗位
      */
     @RequestMapping(PositionServiceProxy.GET_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result<List<Position>> getByIds(List<String> ids);
+    Result<List<Position>> getByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 查询岗位
      */
     @RequestMapping(PositionServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<Position>> queryList(PositionVO sample);
+    Result<List<Position>> queryList(@RequestParam(name = "sample") PositionVO sample);
 
     /**
      * 分页查询岗位
      */
     @RequestMapping(PositionServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<Position>> queryPagedList(PositionVO sample);
+    Result<PagedList<Position>> queryPagedList(@RequestParam(name = "sample") PositionVO sample);
 
     /**
      * 控制器类名

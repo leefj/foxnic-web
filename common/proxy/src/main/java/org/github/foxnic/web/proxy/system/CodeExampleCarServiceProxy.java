@@ -10,7 +10,7 @@ import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.proxy.MicroServiceNames;
-import com.github.foxnic.api.proxy.ParameterNames;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -101,64 +101,55 @@ public interface CodeExampleCarServiceProxy {
      * 添加代码生成拥有的车辆
      */
     @RequestMapping(CodeExampleCarServiceProxy.INSERT)
-    @ParameterNames(value = {"codeExampleCarVO"})
-    Result insert(CodeExampleCarVO codeExampleCarVO);
+    Result insert(@RequestParam(name = "codeExampleCarVO") CodeExampleCarVO codeExampleCarVO);
 
     /**
      * 删除代码生成拥有的车辆
      */
     @RequestMapping(CodeExampleCarServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(String id);
+    Result deleteById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除代码生成拥有的车辆
      */
     @RequestMapping(CodeExampleCarServiceProxy.DELETE_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result deleteByIds(List<String> ids);
+    Result deleteByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 更新代码生成拥有的车辆
      */
     @RequestMapping(CodeExampleCarServiceProxy.UPDATE)
-    @ParameterNames(value = {"codeExampleCarVO"})
-    Result update(CodeExampleCarVO codeExampleCarVO);
+    Result update(@RequestParam(name = "codeExampleCarVO") CodeExampleCarVO codeExampleCarVO);
 
     /**
      * 更新代码生成拥有的车辆
      */
     @RequestMapping(CodeExampleCarServiceProxy.SAVE)
-    @ParameterNames(value = {"codeExampleCarVO"})
-    Result save(CodeExampleCarVO codeExampleCarVO);
+    Result save(@RequestParam(name = "codeExampleCarVO") CodeExampleCarVO codeExampleCarVO);
 
     /**
      * 获取代码生成拥有的车辆
      */
     @RequestMapping(CodeExampleCarServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<CodeExampleCar> getById(String id);
+    Result<CodeExampleCar> getById(@RequestParam(name = "id") String id);
 
     /**
      * 获取多个代码生成拥有的车辆
      */
     @RequestMapping(CodeExampleCarServiceProxy.GET_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result<List<CodeExampleCar>> getByIds(List<String> ids);
+    Result<List<CodeExampleCar>> getByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 查询代码生成拥有的车辆
      */
     @RequestMapping(CodeExampleCarServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<CodeExampleCar>> queryList(CodeExampleCarVO sample);
+    Result<List<CodeExampleCar>> queryList(@RequestParam(name = "sample") CodeExampleCarVO sample);
 
     /**
      * 分页查询代码生成拥有的车辆
      */
     @RequestMapping(CodeExampleCarServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<CodeExampleCar>> queryPagedList(CodeExampleCarVO sample);
+    Result<PagedList<CodeExampleCar>> queryPagedList(@RequestParam(name = "sample") CodeExampleCarVO sample);
 
     /**
      * 控制器类名

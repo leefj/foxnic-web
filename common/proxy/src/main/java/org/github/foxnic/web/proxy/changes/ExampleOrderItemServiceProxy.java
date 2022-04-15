@@ -10,7 +10,7 @@ import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.proxy.MicroServiceNames;
-import com.github.foxnic.api.proxy.ParameterNames;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -101,64 +101,55 @@ public interface ExampleOrderItemServiceProxy {
      * 添加变更示例订单明细
      */
     @RequestMapping(ExampleOrderItemServiceProxy.INSERT)
-    @ParameterNames(value = {"exampleOrderItemVO"})
-    Result insert(ExampleOrderItemVO exampleOrderItemVO);
+    Result insert(@RequestParam(name = "exampleOrderItemVO") ExampleOrderItemVO exampleOrderItemVO);
 
     /**
      * 删除变更示例订单明细
      */
     @RequestMapping(ExampleOrderItemServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(String id);
+    Result deleteById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除变更示例订单明细
      */
     @RequestMapping(ExampleOrderItemServiceProxy.DELETE_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result deleteByIds(List<String> ids);
+    Result deleteByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 更新变更示例订单明细
      */
     @RequestMapping(ExampleOrderItemServiceProxy.UPDATE)
-    @ParameterNames(value = {"exampleOrderItemVO"})
-    Result update(ExampleOrderItemVO exampleOrderItemVO);
+    Result update(@RequestParam(name = "exampleOrderItemVO") ExampleOrderItemVO exampleOrderItemVO);
 
     /**
      * 更新变更示例订单明细
      */
     @RequestMapping(ExampleOrderItemServiceProxy.SAVE)
-    @ParameterNames(value = {"exampleOrderItemVO"})
-    Result save(ExampleOrderItemVO exampleOrderItemVO);
+    Result save(@RequestParam(name = "exampleOrderItemVO") ExampleOrderItemVO exampleOrderItemVO);
 
     /**
      * 获取变更示例订单明细
      */
     @RequestMapping(ExampleOrderItemServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<ExampleOrderItem> getById(String id);
+    Result<ExampleOrderItem> getById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除变更示例订单明细
      */
     @RequestMapping(ExampleOrderItemServiceProxy.GET_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result<List<ExampleOrderItem>> getByIds(List<String> ids);
+    Result<List<ExampleOrderItem>> getByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 查询变更示例订单明细
      */
     @RequestMapping(ExampleOrderItemServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<ExampleOrderItem>> queryList(ExampleOrderItemVO sample);
+    Result<List<ExampleOrderItem>> queryList(@RequestParam(name = "sample") ExampleOrderItemVO sample);
 
     /**
      * 分页查询变更示例订单明细
      */
     @RequestMapping(ExampleOrderItemServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<ExampleOrderItem>> queryPagedList(ExampleOrderItemVO sample);
+    Result<PagedList<ExampleOrderItem>> queryPagedList(@RequestParam(name = "sample") ExampleOrderItemVO sample);
 
     /**
      * 控制器类名

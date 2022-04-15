@@ -10,7 +10,7 @@ import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.proxy.MicroServiceNames;
-import com.github.foxnic.api.proxy.ParameterNames;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -101,64 +101,55 @@ public interface NodeServiceProxy {
      * 添加sys_node
      */
     @RequestMapping(NodeServiceProxy.INSERT)
-    @ParameterNames(value = {"nodeVO"})
-    Result insert(NodeVO nodeVO);
+    Result insert(@RequestParam(name = "nodeVO") NodeVO nodeVO);
 
     /**
      * 删除sys_node
      */
     @RequestMapping(NodeServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(String id);
+    Result deleteById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除sys_node
      */
     @RequestMapping(NodeServiceProxy.DELETE_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result deleteByIds(List<String> ids);
+    Result deleteByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 更新sys_node
      */
     @RequestMapping(NodeServiceProxy.UPDATE)
-    @ParameterNames(value = {"nodeVO"})
-    Result update(NodeVO nodeVO);
+    Result update(@RequestParam(name = "nodeVO") NodeVO nodeVO);
 
     /**
      * 更新sys_node
      */
     @RequestMapping(NodeServiceProxy.SAVE)
-    @ParameterNames(value = {"nodeVO"})
-    Result save(NodeVO nodeVO);
+    Result save(@RequestParam(name = "nodeVO") NodeVO nodeVO);
 
     /**
      * 获取sys_node
      */
     @RequestMapping(NodeServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<Node> getById(String id);
+    Result<Node> getById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除sys_node
      */
     @RequestMapping(NodeServiceProxy.GET_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result<List<Node>> getByIds(List<String> ids);
+    Result<List<Node>> getByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 查询sys_node
      */
     @RequestMapping(NodeServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<Node>> queryList(NodeVO sample);
+    Result<List<Node>> queryList(@RequestParam(name = "sample") NodeVO sample);
 
     /**
      * 分页查询sys_node
      */
     @RequestMapping(NodeServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<Node>> queryPagedList(NodeVO sample);
+    Result<PagedList<Node>> queryPagedList(@RequestParam(name = "sample") NodeVO sample);
 
     /**
      * 控制器类名

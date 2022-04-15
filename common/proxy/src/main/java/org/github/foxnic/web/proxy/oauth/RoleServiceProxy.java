@@ -10,7 +10,7 @@ import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.proxy.MicroServiceNames;
-import com.github.foxnic.api.proxy.ParameterNames;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -101,64 +101,55 @@ public interface RoleServiceProxy {
      * 添加角色
      */
     @RequestMapping(RoleServiceProxy.INSERT)
-    @ParameterNames(value = {"roleVO"})
-    Result insert(RoleVO roleVO);
+    Result insert(@RequestParam(name = "roleVO") RoleVO roleVO);
 
     /**
      * 删除角色
      */
     @RequestMapping(RoleServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(String id);
+    Result deleteById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除角色
      */
     @RequestMapping(RoleServiceProxy.DELETE_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result deleteByIds(List<String> ids);
+    Result deleteByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 更新角色
      */
     @RequestMapping(RoleServiceProxy.UPDATE)
-    @ParameterNames(value = {"roleVO"})
-    Result update(RoleVO roleVO);
+    Result update(@RequestParam(name = "roleVO") RoleVO roleVO);
 
     /**
      * 更新角色
      */
     @RequestMapping(RoleServiceProxy.SAVE)
-    @ParameterNames(value = {"roleVO"})
-    Result save(RoleVO roleVO);
+    Result save(@RequestParam(name = "roleVO") RoleVO roleVO);
 
     /**
      * 获取角色
      */
     @RequestMapping(RoleServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<Role> getById(String id);
+    Result<Role> getById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除角色
      */
     @RequestMapping(RoleServiceProxy.GET_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result<List<Role>> getByIds(List<String> ids);
+    Result<List<Role>> getByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 查询角色
      */
     @RequestMapping(RoleServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<Role>> queryList(RoleVO sample);
+    Result<List<Role>> queryList(@RequestParam(name = "sample") RoleVO sample);
 
     /**
      * 分页查询角色
      */
     @RequestMapping(RoleServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<Role>> queryPagedList(RoleVO sample);
+    Result<PagedList<Role>> queryPagedList(@RequestParam(name = "sample") RoleVO sample);
 
     /**
      * 控制器类名

@@ -10,7 +10,7 @@ import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.proxy.MicroServiceNames;
-import com.github.foxnic.api.proxy.ParameterNames;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -101,64 +101,55 @@ public interface DictItemServiceProxy {
      * 添加数据字典条目
      */
     @RequestMapping(DictItemServiceProxy.INSERT)
-    @ParameterNames(value = {"dictItemVO"})
-    Result insert(DictItemVO dictItemVO);
+    Result insert(@RequestParam(name = "dictItemVO") DictItemVO dictItemVO);
 
     /**
      * 删除数据字典条目
      */
     @RequestMapping(DictItemServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(String id);
+    Result deleteById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除数据字典条目
      */
     @RequestMapping(DictItemServiceProxy.DELETE_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result deleteByIds(List<String> ids);
+    Result deleteByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 更新数据字典条目
      */
     @RequestMapping(DictItemServiceProxy.UPDATE)
-    @ParameterNames(value = {"dictItemVO"})
-    Result update(DictItemVO dictItemVO);
+    Result update(@RequestParam(name = "dictItemVO") DictItemVO dictItemVO);
 
     /**
      * 更新数据字典条目
      */
     @RequestMapping(DictItemServiceProxy.SAVE)
-    @ParameterNames(value = {"dictItemVO"})
-    Result save(DictItemVO dictItemVO);
+    Result save(@RequestParam(name = "dictItemVO") DictItemVO dictItemVO);
 
     /**
      * 获取数据字典条目
      */
     @RequestMapping(DictItemServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<DictItem> getById(String id);
+    Result<DictItem> getById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除数据字典条目
      */
     @RequestMapping(DictItemServiceProxy.GET_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result<List<DictItem>> getByIds(List<String> ids);
+    Result<List<DictItem>> getByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 查询数据字典条目
      */
     @RequestMapping(DictItemServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<DictItem>> queryList(DictItemVO sample);
+    Result<List<DictItem>> queryList(@RequestParam(name = "sample") DictItemVO sample);
 
     /**
      * 分页查询数据字典条目
      */
     @RequestMapping(DictItemServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<DictItem>> queryPagedList(DictItemVO sample);
+    Result<PagedList<DictItem>> queryPagedList(@RequestParam(name = "sample") DictItemVO sample);
 
     /**
      * 控制器类名

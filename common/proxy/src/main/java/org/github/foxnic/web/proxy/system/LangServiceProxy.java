@@ -10,7 +10,8 @@ import org.github.foxnic.web.proxy.api.APIProxy;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
-import com.github.foxnic.api.proxy.ParameterNames;
+
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -96,57 +97,49 @@ public interface LangServiceProxy {
      * 添加语言条目
      */
     @RequestMapping(LangServiceProxy.INSERT)
-    @ParameterNames(value = {"langVO"})
-    Result insert(LangVO langVO);
+    Result insert(@RequestParam(name = "langVO") LangVO langVO);
 
     /**
      * 删除语言条目
      */
     @RequestMapping(LangServiceProxy.DELETE)
-    @ParameterNames(value = {"code"})
-    Result deleteById(String code);
+    Result deleteById(@RequestParam(name = "code") String code);
 
     /**
      * 批量删除语言条目
      */
     @RequestMapping(LangServiceProxy.BATCH_DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteByIds(List<String> id);
+    Result deleteByIds(@RequestParam(name = "id") List<String> id);
 
     /**
      * 更新语言条目
      */
     @RequestMapping(LangServiceProxy.UPDATE)
-    @ParameterNames(value = {"langVO"})
-    Result update(LangVO langVO);
+    Result update(@RequestParam(name = "langVO") LangVO langVO);
 
     /**
      * 更新语言条目
      */
     @RequestMapping(LangServiceProxy.SAVE)
-    @ParameterNames(value = {"langVO"})
-    Result save(LangVO langVO);
+    Result save(@RequestParam(name = "langVO") LangVO langVO);
 
     /**
      * 获取语言条目
      */
     @RequestMapping(LangServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"code"})
-    Result<Lang> getById(String code);
+    Result<Lang> getById(@RequestParam(name = "code") String code);
 
     /**
      * 查询语言条目
      */
     @RequestMapping(LangServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<Lang>> queryList(LangVO sample);
+    Result<List<Lang>> queryList(@RequestParam(name = "sample") LangVO sample);
 
     /**
      * 分页查询语言条目
      */
     @RequestMapping(LangServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<Lang>> queryPagedList(LangVO sample);
+    Result<PagedList<Lang>> queryPagedList(@RequestParam(name = "sample") LangVO sample);
 
     /**
      * 控制器类名

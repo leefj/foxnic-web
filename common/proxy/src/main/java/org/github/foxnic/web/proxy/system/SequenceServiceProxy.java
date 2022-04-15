@@ -10,7 +10,7 @@ import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.proxy.MicroServiceNames;
-import com.github.foxnic.api.proxy.ParameterNames;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -101,64 +101,55 @@ public interface SequenceServiceProxy {
      * 添加序列
      */
     @RequestMapping(SequenceServiceProxy.INSERT)
-    @ParameterNames(value = {"sequenceVO"})
-    Result insert(SequenceVO sequenceVO);
+    Result insert(@RequestParam(name = "sequenceVO") SequenceVO sequenceVO);
 
     /**
      * 删除序列
      */
     @RequestMapping(SequenceServiceProxy.DELETE)
-    @ParameterNames(value = {"pk"})
-    Result deleteById(String pk);
+    Result deleteById(@RequestParam(name = "pk") String pk);
 
     /**
      * 批量删除序列
      */
     @RequestMapping(SequenceServiceProxy.DELETE_BY_IDS)
-    @ParameterNames(value = {"pks"})
-    Result deleteByIds(List<String> pks);
+    Result deleteByIds(@RequestParam(name = "pks") List<String> pks);
 
     /**
      * 更新序列
      */
     @RequestMapping(SequenceServiceProxy.UPDATE)
-    @ParameterNames(value = {"sequenceVO"})
-    Result update(SequenceVO sequenceVO);
+    Result update(@RequestParam(name = "sequenceVO") SequenceVO sequenceVO);
 
     /**
      * 更新序列
      */
     @RequestMapping(SequenceServiceProxy.SAVE)
-    @ParameterNames(value = {"sequenceVO"})
-    Result save(SequenceVO sequenceVO);
+    Result save(@RequestParam(name = "sequenceVO") SequenceVO sequenceVO);
 
     /**
      * 获取序列
      */
     @RequestMapping(SequenceServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"pk"})
-    Result<Sequence> getById(String pk);
+    Result<Sequence> getById(@RequestParam(name = "pk") String pk);
 
     /**
      * 批量删除序列
      */
     @RequestMapping(SequenceServiceProxy.GET_BY_IDS)
-    @ParameterNames(value = {"pks"})
-    Result<List<Sequence>> getByIds(List<String> pks);
+    Result<List<Sequence>> getByIds(@RequestParam(name = "pks") List<String> pks);
 
     /**
      * 查询序列
      */
     @RequestMapping(SequenceServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<Sequence>> queryList(SequenceVO sample);
+    Result<List<Sequence>> queryList(@RequestParam(name = "sample") SequenceVO sample);
 
     /**
      * 分页查询序列
      */
     @RequestMapping(SequenceServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<Sequence>> queryPagedList(SequenceVO sample);
+    Result<PagedList<Sequence>> queryPagedList(@RequestParam(name = "sample") SequenceVO sample);
 
     /**
      * 控制器类名

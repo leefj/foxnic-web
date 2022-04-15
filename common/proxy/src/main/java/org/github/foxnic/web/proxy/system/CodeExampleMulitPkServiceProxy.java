@@ -11,7 +11,8 @@ import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.proxy.MicroServiceNames;
 import java.util.Date;
-import com.github.foxnic.api.proxy.ParameterNames;
+
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -92,50 +93,43 @@ public interface CodeExampleMulitPkServiceProxy {
      * 添加主键多字段测试
      */
     @RequestMapping(CodeExampleMulitPkServiceProxy.INSERT)
-    @ParameterNames(value = {"codeExampleMulitPkVO"})
-    Result insert(CodeExampleMulitPkVO codeExampleMulitPkVO);
+    Result insert(@RequestParam(name = "codeExampleMulitPkVO") CodeExampleMulitPkVO codeExampleMulitPkVO);
 
     /**
      * 删除主键多字段测试
      */
     @RequestMapping(CodeExampleMulitPkServiceProxy.DELETE)
-    @ParameterNames(value = {"nid","day"})
-    Result deleteById(Long nid, Date day);
+    Result deleteById(@RequestParam(name = "nid") Long nid, @RequestParam(name = "day") Date day);
 
     /**
      * 更新主键多字段测试
      */
     @RequestMapping(CodeExampleMulitPkServiceProxy.UPDATE)
-    @ParameterNames(value = {"codeExampleMulitPkVO"})
-    Result update(CodeExampleMulitPkVO codeExampleMulitPkVO);
+    Result update(@RequestParam(name = "codeExampleMulitPkVO") CodeExampleMulitPkVO codeExampleMulitPkVO);
 
     /**
      * 更新主键多字段测试
      */
     @RequestMapping(CodeExampleMulitPkServiceProxy.SAVE)
-    @ParameterNames(value = {"codeExampleMulitPkVO"})
-    Result save(CodeExampleMulitPkVO codeExampleMulitPkVO);
+    Result save(@RequestParam(name = "codeExampleMulitPkVO") CodeExampleMulitPkVO codeExampleMulitPkVO);
 
     /**
      * 获取主键多字段测试
      */
     @RequestMapping(CodeExampleMulitPkServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"nid","day"})
-    Result<CodeExampleMulitPk> getById(Long nid, Date day);
+    Result<CodeExampleMulitPk> getById(@RequestParam(name = "nid") Long nid, @RequestParam(name = "day") Date day);
 
     /**
      * 查询主键多字段测试
      */
     @RequestMapping(CodeExampleMulitPkServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<CodeExampleMulitPk>> queryList(CodeExampleMulitPkVO sample);
+    Result<List<CodeExampleMulitPk>> queryList(@RequestParam(name = "sample") CodeExampleMulitPkVO sample);
 
     /**
      * 分页查询主键多字段测试
      */
     @RequestMapping(CodeExampleMulitPkServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<CodeExampleMulitPk>> queryPagedList(CodeExampleMulitPkVO sample);
+    Result<PagedList<CodeExampleMulitPk>> queryPagedList(@RequestParam(name = "sample") CodeExampleMulitPkVO sample);
 
     /**
      * 控制器类名

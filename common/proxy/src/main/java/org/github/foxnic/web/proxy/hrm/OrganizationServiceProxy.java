@@ -11,7 +11,8 @@ import org.github.foxnic.web.proxy.api.APIProxy;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
-import com.github.foxnic.api.proxy.ParameterNames;
+
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -123,78 +124,67 @@ public interface OrganizationServiceProxy {
      * 添加组织层级
      */
     @RequestMapping(OrganizationServiceProxy.INSERT)
-    @ParameterNames(value = {"organizationVO"})
-    Result insert(OrganizationVO organizationVO);
+    Result insert(@RequestParam(name = "organizationVO") OrganizationVO organizationVO);
 
     /**
      * 删除组织层级
      */
     @RequestMapping(OrganizationServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(String id);
+    Result deleteById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除组织层级
      */
     @RequestMapping(OrganizationServiceProxy.DELETE_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result deleteByIds(List<String> ids);
+    Result deleteByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 更新组织层级
      */
     @RequestMapping(OrganizationServiceProxy.UPDATE)
-    @ParameterNames(value = {"organizationVO"})
-    Result update(OrganizationVO organizationVO);
+    Result update(@RequestParam(name = "organizationVO") OrganizationVO organizationVO);
 
     /**
      * 更新组织层级
      */
     @RequestMapping(OrganizationServiceProxy.SAVE)
-    @ParameterNames(value = {"organizationVO"})
-    Result save(OrganizationVO organizationVO);
+    Result save(@RequestParam(name = "organizationVO") OrganizationVO organizationVO);
 
     /**
      * 获取组织层级
      */
     @RequestMapping(OrganizationServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<Organization> getById(String id);
+    Result<Organization> getById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除组织层级
      */
     @RequestMapping(OrganizationServiceProxy.GET_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result<List<Organization>> getByIds(List<String> ids);
+    Result<List<Organization>> getByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 查询组织层级
      */
     @RequestMapping(OrganizationServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<Organization>> queryList(OrganizationVO sample);
+    Result<List<Organization>> queryList(@RequestParam(name = "sample") OrganizationVO sample);
 
     /**
      * 分页查询组织层级
      */
     @RequestMapping(OrganizationServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<Organization>> queryPagedList(OrganizationVO sample);
+    Result<PagedList<Organization>> queryPagedList(@RequestParam(name = "sample") OrganizationVO sample);
 
     /**
      * 查询组织树(带层级)
      */
     @RequestMapping(OrganizationServiceProxy.QUERY_NODES)
-    @ParameterNames(value = {"sample"})
-    Result<List<ZTreeNode>> queryNodes(OrganizationVO sample);
+    Result<List<ZTreeNode>> queryNodes(@RequestParam(name = "sample") OrganizationVO sample);
 
     /**
      * 查询组节点(展平)
      */
     @RequestMapping(OrganizationServiceProxy.QUERY_NODES_FLATTEN)
-    @ParameterNames(value = {"sample"})
-    Result<List<ZTreeNode>> queryNodesFlatten(OrganizationVO sample);
+    Result<List<ZTreeNode>> queryNodesFlatten(@RequestParam(name = "sample") OrganizationVO sample);
 
     /**
      * 控制器类名

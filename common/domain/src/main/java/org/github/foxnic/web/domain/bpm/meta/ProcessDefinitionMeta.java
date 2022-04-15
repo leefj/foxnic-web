@@ -10,8 +10,8 @@ import org.github.foxnic.web.domain.bpm.ProcessDefinitionFile;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-11 15:02:01
- * @sign 07D91F1F3B3840B5AD347F2BCF3ECA1F
+ * @since 2022-04-15 17:19:34
+ * @sign FEFFB56F286922344C8C4AC15695206C
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -138,6 +138,26 @@ public class ProcessDefinitionMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinition,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinition.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
 	
 	/**
+	 * 租户ID , 类型: java.lang.String
+	*/
+	public static final String TENANT_ID="tenantId";
+	
+	/**
+	 * 租户ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinition,java.lang.String> TENANT_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinition.class ,TENANT_ID, java.lang.String.class, "租户ID", "租户ID", java.lang.String.class, null);
+	
+	/**
+	 * 流程ID , 在 camunda 中的流程定义ID , 类型: java.lang.String
+	*/
+	public static final String CAMUNDA_DEFINITION_ID="camundaDefinitionId";
+	
+	/**
+	 * 流程ID , 在 camunda 中的流程定义ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinition,java.lang.String> CAMUNDA_DEFINITION_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinition.class ,CAMUNDA_DEFINITION_ID, java.lang.String.class, "流程ID", "在 camunda 中的流程定义ID", java.lang.String.class, null);
+	
+	/**
 	 * 最后修改人 , 类型: org.github.foxnic.web.domain.oauth.User
 	*/
 	public static final String LAST_UPDATE_USER="lastUpdateUser";
@@ -160,7 +180,7 @@ public class ProcessDefinitionMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , NAME , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , LAST_UPDATE_USER , DEFINITION_FILE };
+	public static final String[] $PROPS={ ID , NAME , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CAMUNDA_DEFINITION_ID , LAST_UPDATE_USER , DEFINITION_FILE };
 	
 	/**
 	 * 代理类
@@ -299,6 +319,28 @@ public class ProcessDefinitionMeta {
 		public ProcessDefinition setVersion(Integer version) {
 			super.change(VERSION,super.getVersion(),version);
 			super.setVersion(version);
+			return this;
+		}
+		
+		/**
+		 * 设置 租户ID
+		 * @param tenantId 租户ID
+		 * @return 当前对象
+		*/
+		public ProcessDefinition setTenantId(String tenantId) {
+			super.change(TENANT_ID,super.getTenantId(),tenantId);
+			super.setTenantId(tenantId);
+			return this;
+		}
+		
+		/**
+		 * 设置 流程ID
+		 * @param camundaDefinitionId 流程ID
+		 * @return 当前对象
+		*/
+		public ProcessDefinition setCamundaDefinitionId(String camundaDefinitionId) {
+			super.change(CAMUNDA_DEFINITION_ID,super.getCamundaDefinitionId(),camundaDefinitionId);
+			super.setCamundaDefinitionId(camundaDefinitionId);
 			return this;
 		}
 		

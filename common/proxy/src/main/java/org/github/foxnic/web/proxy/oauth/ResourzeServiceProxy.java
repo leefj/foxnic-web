@@ -10,7 +10,7 @@ import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.proxy.MicroServiceNames;
-import com.github.foxnic.api.proxy.ParameterNames;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -101,64 +101,55 @@ public interface ResourzeServiceProxy {
      * 添加系统资源
      */
     @RequestMapping(ResourzeServiceProxy.INSERT)
-    @ParameterNames(value = {"resourzeVO"})
-    Result insert(ResourzeVO resourzeVO);
+    Result insert(@RequestParam(name = "resourzeVO") ResourzeVO resourzeVO);
 
     /**
      * 删除系统资源
      */
     @RequestMapping(ResourzeServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(String id);
+    Result deleteById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除系统资源
      */
     @RequestMapping(ResourzeServiceProxy.DELETE_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result deleteByIds(List<String> ids);
+    Result deleteByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 更新系统资源
      */
     @RequestMapping(ResourzeServiceProxy.UPDATE)
-    @ParameterNames(value = {"resourzeVO"})
-    Result update(ResourzeVO resourzeVO);
+    Result update(@RequestParam(name = "resourzeVO") ResourzeVO resourzeVO);
 
     /**
      * 更新系统资源
      */
     @RequestMapping(ResourzeServiceProxy.SAVE)
-    @ParameterNames(value = {"resourzeVO"})
-    Result save(ResourzeVO resourzeVO);
+    Result save(@RequestParam(name = "resourzeVO") ResourzeVO resourzeVO);
 
     /**
      * 获取系统资源
      */
     @RequestMapping(ResourzeServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<Resourze> getById(String id);
+    Result<Resourze> getById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除系统资源
      */
     @RequestMapping(ResourzeServiceProxy.GET_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result<List<Resourze>> getByIds(List<String> ids);
+    Result<List<Resourze>> getByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 查询系统资源
      */
     @RequestMapping(ResourzeServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<Resourze>> queryList(ResourzeVO sample);
+    Result<List<Resourze>> queryList(@RequestParam(name = "sample") ResourzeVO sample);
 
     /**
      * 分页查询系统资源
      */
     @RequestMapping(ResourzeServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<Resourze>> queryPagedList(ResourzeVO sample);
+    Result<PagedList<Resourze>> queryPagedList(@RequestParam(name = "sample") ResourzeVO sample);
 
     /**
      * 控制器类名

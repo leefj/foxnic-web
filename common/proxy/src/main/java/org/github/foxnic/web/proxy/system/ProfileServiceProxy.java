@@ -10,7 +10,7 @@ import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.proxy.MicroServiceNames;
-import com.github.foxnic.api.proxy.ParameterNames;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -101,64 +101,55 @@ public interface ProfileServiceProxy {
      * 添加Profile
      */
     @RequestMapping(ProfileServiceProxy.INSERT)
-    @ParameterNames(value = {"profileVO"})
-    Result insert(ProfileVO profileVO);
+    Result insert(@RequestParam(name = "profileVO") ProfileVO profileVO);
 
     /**
      * 删除Profile
      */
     @RequestMapping(ProfileServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(String id);
+    Result deleteById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除Profile
      */
     @RequestMapping(ProfileServiceProxy.DELETE_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result deleteByIds(List<String> ids);
+    Result deleteByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 更新Profile
      */
     @RequestMapping(ProfileServiceProxy.UPDATE)
-    @ParameterNames(value = {"profileVO"})
-    Result update(ProfileVO profileVO);
+    Result update(@RequestParam(name = "profileVO") ProfileVO profileVO);
 
     /**
      * 更新Profile
      */
     @RequestMapping(ProfileServiceProxy.SAVE)
-    @ParameterNames(value = {"profileVO"})
-    Result save(ProfileVO profileVO);
+    Result save(@RequestParam(name = "profileVO") ProfileVO profileVO);
 
     /**
      * 获取Profile
      */
     @RequestMapping(ProfileServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<Profile> getById(String id);
+    Result<Profile> getById(@RequestParam(name = "id") String id);
 
     /**
      * 获取多个Profile
      */
     @RequestMapping(ProfileServiceProxy.GET_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result<List<Profile>> getByIds(List<String> ids);
+    Result<List<Profile>> getByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 查询Profile
      */
     @RequestMapping(ProfileServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<Profile>> queryList(ProfileVO sample);
+    Result<List<Profile>> queryList(@RequestParam(name = "sample") ProfileVO sample);
 
     /**
      * 分页查询Profile
      */
     @RequestMapping(ProfileServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<Profile>> queryPagedList(ProfileVO sample);
+    Result<PagedList<Profile>> queryPagedList(@RequestParam(name = "sample") ProfileVO sample);
 
     /**
      * 控制器类名

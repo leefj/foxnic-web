@@ -10,7 +10,7 @@ import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.proxy.MicroServiceNames;
-import com.github.foxnic.api.proxy.ParameterNames;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -101,64 +101,55 @@ public interface RuleRangeServiceProxy {
      * 添加数据权限规则范围
      */
     @RequestMapping(RuleRangeServiceProxy.INSERT)
-    @ParameterNames(value = {"ruleRangeVO"})
-    Result insert(RuleRangeVO ruleRangeVO);
+    Result insert(@RequestParam(name = "ruleRangeVO") RuleRangeVO ruleRangeVO);
 
     /**
      * 删除数据权限规则范围
      */
     @RequestMapping(RuleRangeServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(String id);
+    Result deleteById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除数据权限规则范围
      */
     @RequestMapping(RuleRangeServiceProxy.DELETE_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result deleteByIds(List<String> ids);
+    Result deleteByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 更新数据权限规则范围
      */
     @RequestMapping(RuleRangeServiceProxy.UPDATE)
-    @ParameterNames(value = {"ruleRangeVO"})
-    Result update(RuleRangeVO ruleRangeVO);
+    Result update(@RequestParam(name = "ruleRangeVO") RuleRangeVO ruleRangeVO);
 
     /**
      * 更新数据权限规则范围
      */
     @RequestMapping(RuleRangeServiceProxy.SAVE)
-    @ParameterNames(value = {"ruleRangeVO"})
-    Result save(RuleRangeVO ruleRangeVO);
+    Result save(@RequestParam(name = "ruleRangeVO") RuleRangeVO ruleRangeVO);
 
     /**
      * 获取数据权限规则范围
      */
     @RequestMapping(RuleRangeServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<RuleRange> getById(String id);
+    Result<RuleRange> getById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除数据权限规则范围
      */
     @RequestMapping(RuleRangeServiceProxy.GET_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result<List<RuleRange>> getByIds(List<String> ids);
+    Result<List<RuleRange>> getByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 查询数据权限规则范围
      */
     @RequestMapping(RuleRangeServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<RuleRange>> queryList(RuleRangeVO sample);
+    Result<List<RuleRange>> queryList(@RequestParam(name = "sample") RuleRangeVO sample);
 
     /**
      * 分页查询数据权限规则范围
      */
     @RequestMapping(RuleRangeServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<RuleRange>> queryPagedList(RuleRangeVO sample);
+    Result<PagedList<RuleRange>> queryPagedList(@RequestParam(name = "sample") RuleRangeVO sample);
 
     /**
      * 控制器类名

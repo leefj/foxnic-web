@@ -10,7 +10,7 @@ import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.proxy.MicroServiceNames;
-import com.github.foxnic.api.proxy.ParameterNames;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -101,64 +101,55 @@ public interface ExampleShopServiceProxy {
      * 添加销售门店
      */
     @RequestMapping(ExampleShopServiceProxy.INSERT)
-    @ParameterNames(value = {"exampleShopVO"})
-    Result insert(ExampleShopVO exampleShopVO);
+    Result insert(@RequestParam(name = "exampleShopVO") ExampleShopVO exampleShopVO);
 
     /**
      * 删除销售门店
      */
     @RequestMapping(ExampleShopServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(String id);
+    Result deleteById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除销售门店
      */
     @RequestMapping(ExampleShopServiceProxy.DELETE_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result deleteByIds(List<String> ids);
+    Result deleteByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 更新销售门店
      */
     @RequestMapping(ExampleShopServiceProxy.UPDATE)
-    @ParameterNames(value = {"exampleShopVO"})
-    Result update(ExampleShopVO exampleShopVO);
+    Result update(@RequestParam(name = "exampleShopVO") ExampleShopVO exampleShopVO);
 
     /**
      * 更新销售门店
      */
     @RequestMapping(ExampleShopServiceProxy.SAVE)
-    @ParameterNames(value = {"exampleShopVO"})
-    Result save(ExampleShopVO exampleShopVO);
+    Result save(@RequestParam(name = "exampleShopVO") ExampleShopVO exampleShopVO);
 
     /**
      * 获取销售门店
      */
     @RequestMapping(ExampleShopServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<ExampleShop> getById(String id);
+    Result<ExampleShop> getById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除销售门店
      */
     @RequestMapping(ExampleShopServiceProxy.GET_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result<List<ExampleShop>> getByIds(List<String> ids);
+    Result<List<ExampleShop>> getByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 查询销售门店
      */
     @RequestMapping(ExampleShopServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<ExampleShop>> queryList(ExampleShopVO sample);
+    Result<List<ExampleShop>> queryList(@RequestParam(name = "sample") ExampleShopVO sample);
 
     /**
      * 分页查询销售门店
      */
     @RequestMapping(ExampleShopServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<ExampleShop>> queryPagedList(ExampleShopVO sample);
+    Result<PagedList<ExampleShop>> queryPagedList(@RequestParam(name = "sample") ExampleShopVO sample);
 
     /**
      * 控制器类名

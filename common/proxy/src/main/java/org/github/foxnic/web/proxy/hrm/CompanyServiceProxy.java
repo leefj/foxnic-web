@@ -10,7 +10,7 @@ import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.proxy.MicroServiceNames;
-import com.github.foxnic.api.proxy.ParameterNames;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -101,64 +101,55 @@ public interface CompanyServiceProxy {
      * 添加公司
      */
     @RequestMapping(CompanyServiceProxy.INSERT)
-    @ParameterNames(value = {"companyVO"})
-    Result insert(CompanyVO companyVO);
+    Result insert(@RequestParam(name = "companyVO") CompanyVO companyVO);
 
     /**
      * 删除公司
      */
     @RequestMapping(CompanyServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(String id);
+    Result deleteById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除公司
      */
     @RequestMapping(CompanyServiceProxy.DELETE_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result deleteByIds(List<String> ids);
+    Result deleteByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 更新公司
      */
     @RequestMapping(CompanyServiceProxy.UPDATE)
-    @ParameterNames(value = {"companyVO"})
-    Result update(CompanyVO companyVO);
+    Result update(@RequestParam(name = "companyVO") CompanyVO companyVO);
 
     /**
      * 更新公司
      */
     @RequestMapping(CompanyServiceProxy.SAVE)
-    @ParameterNames(value = {"companyVO"})
-    Result save(CompanyVO companyVO);
+    Result save(@RequestParam(name = "companyVO") CompanyVO companyVO);
 
     /**
      * 获取公司
      */
     @RequestMapping(CompanyServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<Company> getById(String id);
+    Result<Company> getById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除公司
      */
     @RequestMapping(CompanyServiceProxy.GET_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result<List<Company>> getByIds(List<String> ids);
+    Result<List<Company>> getByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 查询公司
      */
     @RequestMapping(CompanyServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<Company>> queryList(CompanyVO sample);
+    Result<List<Company>> queryList(@RequestParam(name = "sample") CompanyVO sample);
 
     /**
      * 分页查询公司
      */
     @RequestMapping(CompanyServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<Company>> queryPagedList(CompanyVO sample);
+    Result<PagedList<Company>> queryPagedList(@RequestParam(name = "sample") CompanyVO sample);
 
     /**
      * 控制器类名

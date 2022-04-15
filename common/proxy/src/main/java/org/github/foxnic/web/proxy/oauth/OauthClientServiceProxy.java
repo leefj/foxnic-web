@@ -1,6 +1,5 @@
 package org.github.foxnic.web.proxy.oauth;
 
-import com.github.foxnic.api.proxy.ParameterNames;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.domain.oauth.OauthClient;
@@ -10,8 +9,8 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
 import org.github.foxnic.web.proxy.api.APIProxy;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import java.util.List;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -92,57 +91,49 @@ public interface OauthClientServiceProxy {
      * 添加认证客户端
      */
     @RequestMapping(OauthClientServiceProxy.INSERT)
-    @ParameterNames(value = {"oauthClientVO"})
-    Result insert(OauthClientVO oauthClientVO);
+    Result insert(@RequestParam(name = "oauthClientVO") OauthClientVO oauthClientVO);
 
     /**
      * 删除认证客户端
      */
     @RequestMapping(OauthClientServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(String id);
+    Result deleteById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除认证客户端
      */
     @RequestMapping(OauthClientServiceProxy.BATCH_DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteByIds(List<String> id);
+    Result deleteByIds(@RequestParam(name = "id") List<String> id);
 
     /**
      * 更新认证客户端
      */
     @RequestMapping(OauthClientServiceProxy.UPDATE)
-    @ParameterNames(value = {"oauthClientVO"})
-    Result update(OauthClientVO oauthClientVO);
+    Result update(@RequestParam(name = "oauthClientVO") OauthClientVO oauthClientVO);
 
     /**
      * 更新认证客户端
      */
     @RequestMapping(OauthClientServiceProxy.SAVE)
-    @ParameterNames(value = {"oauthClientVO"})
-    Result save(OauthClientVO oauthClientVO);
+    Result save(@RequestParam(name = "oauthClientVO") OauthClientVO oauthClientVO);
 
     /**
      * 获取认证客户端
      */
     @RequestMapping(OauthClientServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<OauthClient> getById(String id);
+    Result<OauthClient> getById(@RequestParam(name = "id") String id);
 
     /**
      * 查询认证客户端
      */
     @RequestMapping(OauthClientServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<OauthClient>> queryList(OauthClientVO sample);
+    Result<List<OauthClient>> queryList(@RequestParam(name = "sample") OauthClientVO sample);
 
     /**
      * 分页查询认证客户端
      */
     @RequestMapping(OauthClientServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<OauthClient>> queryPagedList(OauthClientVO sample);
+    Result<PagedList<OauthClient>> queryPagedList(@RequestParam(name = "sample") OauthClientVO sample);
 
     /**
      * 控制器类名

@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程应用登记
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-12 14:02:07
- * @sign CFF55B4EDA1FFA532E768EDD3092D890
+ * @since 2022-04-15 13:49:54
+ * @sign 7453F01980B27C953ECB07B683738A1E
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -76,6 +76,12 @@ public class ProcessDefinitionApply extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="是否成功" , notes = "是否成功")
 	private Integer success;
+	
+	/**
+	 * 租户ID：租户ID
+	*/
+	@ApiModelProperty(required = true,value="租户ID" , notes = "租户ID")
+	private String tenantId;
 	
 	/**
 	 * 获得 ID<br>
@@ -226,6 +232,25 @@ public class ProcessDefinitionApply extends Entity {
 	*/
 	public ProcessDefinitionApply setSuccess(Integer success) {
 		this.success=success;
+		return this;
+	}
+	
+	/**
+	 * 获得 租户ID<br>
+	 * 租户ID
+	 * @return 租户ID
+	*/
+	public String getTenantId() {
+		return tenantId;
+	}
+	
+	/**
+	 * 设置 租户ID
+	 * @param tenantId 租户ID
+	 * @return 当前对象
+	*/
+	public ProcessDefinitionApply setTenantId(String tenantId) {
+		this.tenantId=tenantId;
 		return this;
 	}
 

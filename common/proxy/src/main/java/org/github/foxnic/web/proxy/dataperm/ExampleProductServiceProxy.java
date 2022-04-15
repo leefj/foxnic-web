@@ -10,7 +10,7 @@ import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.proxy.MicroServiceNames;
-import com.github.foxnic.api.proxy.ParameterNames;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -101,64 +101,55 @@ public interface ExampleProductServiceProxy {
      * 添加销售订单
      */
     @RequestMapping(ExampleProductServiceProxy.INSERT)
-    @ParameterNames(value = {"exampleProductVO"})
-    Result insert(ExampleProductVO exampleProductVO);
+    Result insert(@RequestParam(name = "exampleProductVO") ExampleProductVO exampleProductVO);
 
     /**
      * 删除销售订单
      */
     @RequestMapping(ExampleProductServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(String id);
+    Result deleteById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除销售订单
      */
     @RequestMapping(ExampleProductServiceProxy.DELETE_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result deleteByIds(List<String> ids);
+    Result deleteByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 更新销售订单
      */
     @RequestMapping(ExampleProductServiceProxy.UPDATE)
-    @ParameterNames(value = {"exampleProductVO"})
-    Result update(ExampleProductVO exampleProductVO);
+    Result update(@RequestParam(name = "exampleProductVO") ExampleProductVO exampleProductVO);
 
     /**
      * 更新销售订单
      */
     @RequestMapping(ExampleProductServiceProxy.SAVE)
-    @ParameterNames(value = {"exampleProductVO"})
-    Result save(ExampleProductVO exampleProductVO);
+    Result save(@RequestParam(name = "exampleProductVO") ExampleProductVO exampleProductVO);
 
     /**
      * 获取销售订单
      */
     @RequestMapping(ExampleProductServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<ExampleProduct> getById(String id);
+    Result<ExampleProduct> getById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除销售订单
      */
     @RequestMapping(ExampleProductServiceProxy.GET_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result<List<ExampleProduct>> getByIds(List<String> ids);
+    Result<List<ExampleProduct>> getByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 查询销售订单
      */
     @RequestMapping(ExampleProductServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<ExampleProduct>> queryList(ExampleProductVO sample);
+    Result<List<ExampleProduct>> queryList(@RequestParam(name = "sample") ExampleProductVO sample);
 
     /**
      * 分页查询销售订单
      */
     @RequestMapping(ExampleProductServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<ExampleProduct>> queryPagedList(ExampleProductVO sample);
+    Result<PagedList<ExampleProduct>> queryPagedList(@RequestParam(name = "sample") ExampleProductVO sample);
 
     /**
      * 控制器类名

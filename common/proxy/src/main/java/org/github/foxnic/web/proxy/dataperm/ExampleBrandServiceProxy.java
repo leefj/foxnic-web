@@ -10,7 +10,7 @@ import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.proxy.MicroServiceNames;
-import com.github.foxnic.api.proxy.ParameterNames;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -101,64 +101,55 @@ public interface ExampleBrandServiceProxy {
      * 添加商品品牌
      */
     @RequestMapping(ExampleBrandServiceProxy.INSERT)
-    @ParameterNames(value = {"exampleBrandVO"})
-    Result insert(ExampleBrandVO exampleBrandVO);
+    Result insert(@RequestParam(name = "exampleBrandVO") ExampleBrandVO exampleBrandVO);
 
     /**
      * 删除商品品牌
      */
     @RequestMapping(ExampleBrandServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(String id);
+    Result deleteById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除商品品牌
      */
     @RequestMapping(ExampleBrandServiceProxy.DELETE_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result deleteByIds(List<String> ids);
+    Result deleteByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 更新商品品牌
      */
     @RequestMapping(ExampleBrandServiceProxy.UPDATE)
-    @ParameterNames(value = {"exampleBrandVO"})
-    Result update(ExampleBrandVO exampleBrandVO);
+    Result update(@RequestParam(name = "exampleBrandVO") ExampleBrandVO exampleBrandVO);
 
     /**
      * 更新商品品牌
      */
     @RequestMapping(ExampleBrandServiceProxy.SAVE)
-    @ParameterNames(value = {"exampleBrandVO"})
-    Result save(ExampleBrandVO exampleBrandVO);
+    Result save(@RequestParam(name = "exampleBrandVO") ExampleBrandVO exampleBrandVO);
 
     /**
      * 获取商品品牌
      */
     @RequestMapping(ExampleBrandServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<ExampleBrand> getById(String id);
+    Result<ExampleBrand> getById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除商品品牌
      */
     @RequestMapping(ExampleBrandServiceProxy.GET_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result<List<ExampleBrand>> getByIds(List<String> ids);
+    Result<List<ExampleBrand>> getByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 查询商品品牌
      */
     @RequestMapping(ExampleBrandServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<ExampleBrand>> queryList(ExampleBrandVO sample);
+    Result<List<ExampleBrand>> queryList(@RequestParam(name = "sample") ExampleBrandVO sample);
 
     /**
      * 分页查询商品品牌
      */
     @RequestMapping(ExampleBrandServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<ExampleBrand>> queryPagedList(ExampleBrandVO sample);
+    Result<PagedList<ExampleBrand>> queryPagedList(@RequestParam(name = "sample") ExampleBrandVO sample);
 
     /**
      * 控制器类名

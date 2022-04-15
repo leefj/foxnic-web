@@ -10,7 +10,7 @@ import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.proxy.MicroServiceNames;
-import com.github.foxnic.api.proxy.ParameterNames;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -101,64 +101,55 @@ public interface DbCacheServiceProxy {
      * 添加数据库缓存
      */
     @RequestMapping(DbCacheServiceProxy.INSERT)
-    @ParameterNames(value = {"dbCacheVO"})
-    Result insert(DbCacheVO dbCacheVO);
+    Result insert(@RequestParam(name = "dbCacheVO") DbCacheVO dbCacheVO);
 
     /**
      * 删除数据库缓存
      */
     @RequestMapping(DbCacheServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(String id);
+    Result deleteById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除数据库缓存
      */
     @RequestMapping(DbCacheServiceProxy.DELETE_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result deleteByIds(List<String> ids);
+    Result deleteByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 更新数据库缓存
      */
     @RequestMapping(DbCacheServiceProxy.UPDATE)
-    @ParameterNames(value = {"dbCacheVO"})
-    Result update(DbCacheVO dbCacheVO);
+    Result update(@RequestParam(name = "dbCacheVO") DbCacheVO dbCacheVO);
 
     /**
      * 更新数据库缓存
      */
     @RequestMapping(DbCacheServiceProxy.SAVE)
-    @ParameterNames(value = {"dbCacheVO"})
-    Result save(DbCacheVO dbCacheVO);
+    Result save(@RequestParam(name = "dbCacheVO") DbCacheVO dbCacheVO);
 
     /**
      * 获取数据库缓存
      */
     @RequestMapping(DbCacheServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<DbCache> getById(String id);
+    Result<DbCache> getById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除数据库缓存
      */
     @RequestMapping(DbCacheServiceProxy.GET_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result<List<DbCache>> getByIds(List<String> ids);
+    Result<List<DbCache>> getByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 查询数据库缓存
      */
     @RequestMapping(DbCacheServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<DbCache>> queryList(DbCacheVO sample);
+    Result<List<DbCache>> queryList(@RequestParam(name = "sample") DbCacheVO sample);
 
     /**
      * 分页查询数据库缓存
      */
     @RequestMapping(DbCacheServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<DbCache>> queryPagedList(DbCacheVO sample);
+    Result<PagedList<DbCache>> queryPagedList(@RequestParam(name = "sample") DbCacheVO sample);
 
     /**
      * 控制器类名

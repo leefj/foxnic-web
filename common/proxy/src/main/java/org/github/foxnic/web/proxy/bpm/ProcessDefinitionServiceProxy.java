@@ -3,6 +3,7 @@ package org.github.foxnic.web.proxy.bpm;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.github.foxnic.web.proxy.api.APIProxy;
 import org.github.foxnic.web.proxy.FeignConfiguration;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.github.foxnic.web.domain.bpm.ProcessDefinition;
 import org.github.foxnic.web.domain.bpm.ProcessDefinitionVO;
@@ -10,14 +11,13 @@ import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.proxy.MicroServiceNames;
-import com.github.foxnic.api.proxy.ParameterNames;
 
 /**
  * <p>
  * 流程定义表  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-11 15:02:01
+ * @since 2022-04-15 17:19:34
  */
 @FeignClient(value = MicroServiceNames.BPM, contextId = ProcessDefinitionServiceProxy.API_CONTEXT_PATH, configuration = FeignConfiguration.class)
 public interface ProcessDefinitionServiceProxy {
@@ -101,64 +101,55 @@ public interface ProcessDefinitionServiceProxy {
      * 添加流程定义
      */
     @RequestMapping(ProcessDefinitionServiceProxy.INSERT)
-    @ParameterNames(value = {"processDefinitionVO"})
-    Result insert(ProcessDefinitionVO processDefinitionVO);
+    Result insert(@RequestParam(name = "processDefinitionVO") ProcessDefinitionVO processDefinitionVO);
 
     /**
      * 删除流程定义
      */
     @RequestMapping(ProcessDefinitionServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(String id);
+    Result deleteById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除流程定义
      */
     @RequestMapping(ProcessDefinitionServiceProxy.DELETE_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result deleteByIds(List<String> ids);
+    Result deleteByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 更新流程定义
      */
     @RequestMapping(ProcessDefinitionServiceProxy.UPDATE)
-    @ParameterNames(value = {"processDefinitionVO"})
-    Result update(ProcessDefinitionVO processDefinitionVO);
+    Result update(@RequestParam(name = "processDefinitionVO") ProcessDefinitionVO processDefinitionVO);
 
     /**
      * 更新流程定义
      */
     @RequestMapping(ProcessDefinitionServiceProxy.SAVE)
-    @ParameterNames(value = {"processDefinitionVO"})
-    Result save(ProcessDefinitionVO processDefinitionVO);
+    Result save(@RequestParam(name = "processDefinitionVO") ProcessDefinitionVO processDefinitionVO);
 
     /**
      * 获取流程定义
      */
     @RequestMapping(ProcessDefinitionServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<ProcessDefinition> getById(String id);
+    Result<ProcessDefinition> getById(@RequestParam(name = "id") String id);
 
     /**
      * 获取多个流程定义
      */
     @RequestMapping(ProcessDefinitionServiceProxy.GET_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result<List<ProcessDefinition>> getByIds(List<String> ids);
+    Result<List<ProcessDefinition>> getByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 查询流程定义
      */
     @RequestMapping(ProcessDefinitionServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<ProcessDefinition>> queryList(ProcessDefinitionVO sample);
+    Result<List<ProcessDefinition>> queryList(@RequestParam(name = "sample") ProcessDefinitionVO sample);
 
     /**
      * 分页查询流程定义
      */
     @RequestMapping(ProcessDefinitionServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<ProcessDefinition>> queryPagedList(ProcessDefinitionVO sample);
+    Result<PagedList<ProcessDefinition>> queryPagedList(@RequestParam(name = "sample") ProcessDefinitionVO sample);
 
     /**
      * 控制器类名

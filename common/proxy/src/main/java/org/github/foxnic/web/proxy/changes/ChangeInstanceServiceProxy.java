@@ -9,7 +9,8 @@ import org.github.foxnic.web.proxy.api.APIProxy;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
-import com.github.foxnic.api.proxy.ParameterNames;
+
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -111,71 +112,61 @@ public interface ChangeInstanceServiceProxy {
      * 请求变更
      */
     @RequestMapping(ChangeInstanceServiceProxy.REQUEST)
-    @ParameterNames(value = {"request"})
-    Result<ChangeEvent> request(ChangeRequestBody request);
+    Result<ChangeEvent> request(@RequestParam(name = "request") ChangeRequestBody request);
 
     /**
      * 变更审批
      */
     @RequestMapping(ChangeInstanceServiceProxy.APPROVE)
-    @ParameterNames(value = {"request"})
-    Result<ChangeEvent> approve(ChangeApproveBody request);
+    Result<ChangeEvent> approve(@RequestParam(name = "request") ChangeApproveBody request);
 
     /**
      * 删除变更实例
      */
     @RequestMapping(ChangeInstanceServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(String id);
+    Result deleteById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除变更实例
      */
     @RequestMapping(ChangeInstanceServiceProxy.DELETE_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result deleteByIds(List<String> ids);
+    Result deleteByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 更新变更实例
      */
     @RequestMapping(ChangeInstanceServiceProxy.UPDATE)
-    @ParameterNames(value = {"changeInstanceVO"})
-    Result update(ChangeInstanceVO changeInstanceVO);
+    Result update(@RequestParam(name = "changeInstanceVO") ChangeInstanceVO changeInstanceVO);
 
     /**
      * 更新变更实例
      */
     @RequestMapping(ChangeInstanceServiceProxy.SAVE)
-    @ParameterNames(value = {"changeInstanceVO"})
-    Result save(ChangeInstanceVO changeInstanceVO);
+    Result save(@RequestParam(name = "changeInstanceVO") ChangeInstanceVO changeInstanceVO);
 
     /**
      * 获取变更实例
      */
     @RequestMapping(ChangeInstanceServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<ChangeInstance> getById(String id);
+    Result<ChangeInstance> getById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除变更实例
      */
     @RequestMapping(ChangeInstanceServiceProxy.GET_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result<List<ChangeInstance>> getByIds(List<String> ids);
+    Result<List<ChangeInstance>> getByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 查询变更实例
      */
     @RequestMapping(ChangeInstanceServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<ChangeInstance>> queryList(ChangeInstanceVO sample);
+    Result<List<ChangeInstance>> queryList(@RequestParam(name = "sample") ChangeInstanceVO sample);
 
     /**
      * 分页查询变更实例
      */
     @RequestMapping(ChangeInstanceServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<ChangeInstance>> queryPagedList(ChangeInstanceVO sample);
+    Result<PagedList<ChangeInstance>> queryPagedList(@RequestParam(name = "sample") ChangeInstanceVO sample);
 
     /**
      * 控制器类名

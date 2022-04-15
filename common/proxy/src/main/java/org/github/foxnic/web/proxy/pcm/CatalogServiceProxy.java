@@ -14,7 +14,8 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
-import com.github.foxnic.api.proxy.ParameterNames;
+
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -166,64 +167,55 @@ public interface CatalogServiceProxy {
      * 添加数据存储
      */
     @RequestMapping(CatalogServiceProxy.INSERT)
-    @ParameterNames(value = {"catalogVO"})
-    Result insert(CatalogVO catalogVO);
+    Result insert(@RequestParam(name = "catalogVO") CatalogVO catalogVO);
 
     /**
      * 删除数据存储
      */
     @RequestMapping(CatalogServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(Integer id);
+    Result deleteById(@RequestParam(name = "id") Integer id);
 
     /**
      * 批量删除数据存储
      */
     @RequestMapping(CatalogServiceProxy.DELETE_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result deleteByIds(List<Integer> ids);
+    Result deleteByIds(@RequestParam(name = "ids") List<Integer> ids);
 
     /**
      * 更新数据存储
      */
     @RequestMapping(CatalogServiceProxy.UPDATE)
-    @ParameterNames(value = {"catalogVO"})
-    Result update(CatalogVO catalogVO);
+    Result update(@RequestParam(name = "catalogVO") CatalogVO catalogVO);
 
     /**
      * 更新数据存储
      */
     @RequestMapping(CatalogServiceProxy.SAVE)
-    @ParameterNames(value = {"catalogVO"})
-    Result save(CatalogVO catalogVO);
+    Result save(@RequestParam(name = "catalogVO") CatalogVO catalogVO);
 
     /**
      * 获取数据存储
      */
     @RequestMapping(CatalogServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<Catalog> getById(Integer id);
+    Result<Catalog> getById(@RequestParam(name = "id") Integer id);
 
     /**
      * 批量删除数据存储
      */
     @RequestMapping(CatalogServiceProxy.GET_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result<List<Catalog>> getByIds(List<Integer> ids);
+    Result<List<Catalog>> getByIds(@RequestParam(name = "ids") List<Integer> ids);
 
     /**
      * 查询数据存储
      */
     @RequestMapping(CatalogServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<Catalog>> queryList(CatalogVO sample);
+    Result<List<Catalog>> queryList(@RequestParam(name = "sample") CatalogVO sample);
 
     /**
      * 分页查询数据存储
      */
     @RequestMapping(CatalogServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<Catalog>> queryPagedList(CatalogVO sample);
+    Result<PagedList<Catalog>> queryPagedList(@RequestParam(name = "sample") CatalogVO sample);
 
     /**
      * 查询分层节点
@@ -235,8 +227,7 @@ public interface CatalogServiceProxy {
      * 查询组节点(展平)
      */
     @RequestMapping(CatalogServiceProxy.QUERY_NODES_FLATTEN)
-    @ParameterNames(value = {"sample"})
-    Result<List<ZTreeNode>> queryNodesFlatten(CatalogVO sample);
+    Result<List<ZTreeNode>> queryNodesFlatten(@RequestParam(name = "sample") CatalogVO sample);
 
     /**
      * 返回数据表清单

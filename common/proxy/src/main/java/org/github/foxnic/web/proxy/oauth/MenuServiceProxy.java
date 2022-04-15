@@ -10,7 +10,8 @@ import org.github.foxnic.web.proxy.api.APIProxy;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
-import com.github.foxnic.api.proxy.ParameterNames;
+
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -106,57 +107,49 @@ public interface MenuServiceProxy {
      * 添加菜单
      */
     @RequestMapping(MenuServiceProxy.INSERT)
-    @ParameterNames(value = {"menuVO"})
-    Result insert(MenuVO menuVO);
+    Result insert(@RequestParam(name = "menuVO") MenuVO menuVO);
 
     /**
      * 删除菜单
      */
     @RequestMapping(MenuServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(String id);
+    Result deleteById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除菜单
      */
     @RequestMapping(MenuServiceProxy.BATCH_DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteByIds(List<String> id);
+    Result deleteByIds(@RequestParam(name = "id") List<String> id);
 
     /**
      * 更新菜单
      */
     @RequestMapping(MenuServiceProxy.UPDATE)
-    @ParameterNames(value = {"menuVO"})
-    Result update(MenuVO menuVO);
+    Result update(@RequestParam(name = "menuVO") MenuVO menuVO);
 
     /**
      * 更新菜单
      */
     @RequestMapping(MenuServiceProxy.SAVE)
-    @ParameterNames(value = {"menuVO"})
-    Result save(MenuVO menuVO);
+    Result save(@RequestParam(name = "menuVO") MenuVO menuVO);
 
     /**
      * 获取菜单
      */
     @RequestMapping(MenuServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<Menu> getById(String id);
+    Result<Menu> getById(@RequestParam(name = "id") String id);
 
     /**
      * 查询菜单
      */
     @RequestMapping(MenuServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<Menu>> queryList(MenuVO sample);
+    Result<List<Menu>> queryList(@RequestParam(name = "sample") MenuVO sample);
 
     /**
      * 分页查询菜单
      */
     @RequestMapping(MenuServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<Menu>> queryPagedList(MenuVO sample);
+    Result<PagedList<Menu>> queryPagedList(@RequestParam(name = "sample") MenuVO sample);
 
     /**
      * 控制器类名

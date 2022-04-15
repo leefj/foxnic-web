@@ -11,9 +11,10 @@ import org.github.foxnic.web.session.SessionUser;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+
 import java.util.List;
-import com.github.foxnic.api.proxy.ParameterNames;
+
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -100,57 +101,49 @@ public interface UserServiceProxy {
      * 添加账户
      */
     @RequestMapping(UserServiceProxy.INSERT)
-    @ParameterNames(value = {"userVO"})
-    Result insert(UserVO userVO);
+    Result insert(@RequestParam(name = "userVO") UserVO userVO);
 
     /**
      * 删除账户
      */
     @RequestMapping(UserServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(String id);
+    Result deleteById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除账户
      */
     @RequestMapping(UserServiceProxy.BATCH_DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteByIds(List<String> id);
+    Result deleteByIds(@RequestParam(name = "id") List<String> id);
 
     /**
      * 更新账户
      */
     @RequestMapping(UserServiceProxy.UPDATE)
-    @ParameterNames(value = {"userVO"})
-    Result update(UserVO userVO);
+    Result update(@RequestParam(name = "userVO") UserVO userVO);
 
     /**
      * 更新账户
      */
     @RequestMapping(UserServiceProxy.SAVE)
-    @ParameterNames(value = {"userVO"})
-    Result save(UserVO userVO);
+    Result save(@RequestParam(name = "userVO") UserVO userVO);
 
     /**
      * 获取账户
      */
     @RequestMapping(UserServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<User> getById(String id);
+    Result<User> getById(@RequestParam(name = "id") String id);
 
     /**
      * 查询账户
      */
     @RequestMapping(value = UserServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<User>> queryList(UserVO sample);
+    Result<List<User>> queryList(@RequestParam(name = "sample") UserVO sample);
 
     /**
      * 分页查询账户
      */
     @RequestMapping(UserServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<User>> queryPagedList(UserVO sample);
+    Result<PagedList<User>> queryPagedList(@RequestParam(name = "sample") UserVO sample);
 
     /**
      * 获得会话信息

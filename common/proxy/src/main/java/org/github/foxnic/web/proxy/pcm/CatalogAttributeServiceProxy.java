@@ -10,7 +10,7 @@ import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.proxy.MicroServiceNames;
-import com.github.foxnic.api.proxy.ParameterNames;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -101,64 +101,55 @@ public interface CatalogAttributeServiceProxy {
      * 添加分类属性
      */
     @RequestMapping(CatalogAttributeServiceProxy.INSERT)
-    @ParameterNames(value = {"catalogAttributeVO"})
-    Result insert(CatalogAttributeVO catalogAttributeVO);
+    Result insert(@RequestParam(name = "catalogAttributeVO") CatalogAttributeVO catalogAttributeVO);
 
     /**
      * 删除分类属性
      */
     @RequestMapping(CatalogAttributeServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(String id);
+    Result deleteById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除分类属性
      */
     @RequestMapping(CatalogAttributeServiceProxy.DELETE_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result deleteByIds(List<String> ids);
+    Result deleteByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 更新分类属性
      */
     @RequestMapping(CatalogAttributeServiceProxy.UPDATE)
-    @ParameterNames(value = {"catalogAttributeVO"})
-    Result update(CatalogAttributeVO catalogAttributeVO);
+    Result update(@RequestParam(name = "catalogAttributeVO") CatalogAttributeVO catalogAttributeVO);
 
     /**
      * 更新分类属性
      */
     @RequestMapping(CatalogAttributeServiceProxy.SAVE)
-    @ParameterNames(value = {"catalogAttributeVO"})
-    Result save(CatalogAttributeVO catalogAttributeVO);
+    Result save(@RequestParam(name = "catalogAttributeVO") CatalogAttributeVO catalogAttributeVO);
 
     /**
      * 获取分类属性
      */
     @RequestMapping(CatalogAttributeServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<CatalogAttribute> getById(String id);
+    Result<CatalogAttribute> getById(@RequestParam(name = "id") String id);
 
     /**
      * 获取多个分类属性
      */
     @RequestMapping(CatalogAttributeServiceProxy.GET_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result<List<CatalogAttribute>> getByIds(List<String> ids);
+    Result<List<CatalogAttribute>> getByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 查询分类属性
      */
     @RequestMapping(CatalogAttributeServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<CatalogAttribute>> queryList(CatalogAttributeVO sample);
+    Result<List<CatalogAttribute>> queryList(@RequestParam(name = "sample") CatalogAttributeVO sample);
 
     /**
      * 分页查询分类属性
      */
     @RequestMapping(CatalogAttributeServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<CatalogAttribute>> queryPagedList(CatalogAttributeVO sample);
+    Result<PagedList<CatalogAttribute>> queryPagedList(@RequestParam(name = "sample") CatalogAttributeVO sample);
 
     /**
      * 控制器类名
