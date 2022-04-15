@@ -11,6 +11,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 import com.github.foxnic.api.proxy.ParameterNames;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
@@ -112,64 +113,55 @@ public interface JobServiceProxy {
      * 添加定时任务配置
      */
     @RequestMapping(JobServiceProxy.INSERT)
-    @ParameterNames(value = {"jobVO"})
-    Result insert(JobVO jobVO);
+    Result insert(@RequestParam(name = "jobVO") JobVO jobVO);
 
     /**
      * 删除定时任务配置
      */
     @RequestMapping(JobServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(String id);
+    Result deleteById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除定时任务配置
      */
     @RequestMapping(JobServiceProxy.DELETE_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result deleteByIds(List<String> ids);
+    Result deleteByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 更新定时任务配置
      */
     @RequestMapping(JobServiceProxy.UPDATE)
-    @ParameterNames(value = {"jobVO"})
-    Result update(JobVO jobVO);
+    Result update(@RequestParam(name = "jobVO") JobVO jobVO);
 
     /**
      * 更新定时任务配置
      */
     @RequestMapping(JobServiceProxy.SAVE)
-    @ParameterNames(value = {"jobVO"})
-    Result save(JobVO jobVO);
+    Result save(@RequestParam(name = "jobVO") JobVO jobVO);
 
     /**
      * 获取定时任务配置
      */
     @RequestMapping(JobServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<Job> getById(String id);
+    Result<Job> getById(@RequestParam(name = "id") String id);
 
     /**
      * 获取多个定时任务配置
      */
     @RequestMapping(JobServiceProxy.GET_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result<List<Job>> getByIds(List<String> ids);
+    Result<List<Job>> getByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 查询定时任务配置
      */
     @RequestMapping(JobServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<Job>> queryList(JobVO sample);
+    Result<List<Job>> queryList(@RequestParam(name = "sample") JobVO sample);
 
     /**
      * 分页查询定时任务配置
      */
     @RequestMapping(JobServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<Job>> queryPagedList(JobVO sample);
+    Result<PagedList<Job>> queryPagedList(@RequestParam(name = "sample") JobVO sample);
 
     /**
      * 控制器类名

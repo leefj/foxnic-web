@@ -12,6 +12,7 @@ import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.body.Parameter;
 import com.github.javaparser.ast.expr.AnnotationExpr;
 import com.github.javaparser.ast.expr.NormalAnnotationExpr;
+import org.github.foxnic.web.proxy.job.JobLogServiceProxy;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,7 +26,9 @@ public class FixProxy {
 
     public static void main(String[] args) {
 
-        fix(new File("/Users/LeeFJ/git/foxnic-web/common/proxy/src/main/java/org/github/foxnic/web/proxy/job/JobLogServiceProxy.java"));
+//        fix(new File("/Users/LeeFJ/git/foxnic-web/common/proxy/src/main/java/org/github/foxnic/web/proxy/job/JobLogServiceProxy.java"));
+        fix(new File("D:\\leefj\\workspace\\git-base\\foxnic-web\\common\\proxy\\src\\main\\java\\org\\github\\foxnic\\web\\proxy\\job\\JobServiceProxy.java"));
+
 
     }
 
@@ -76,14 +79,16 @@ public class FixProxy {
                }
             }
 
-
-
-
+            // 增加参数注解
             NodeList<Parameter> ps=m.getParameters();
-            List<String> names= CollectorUtil.collectList(ps,(e)->{return "\""+e.getNameAsString()+"\"";});
-            NormalAnnotationExpr expr=m.addAndGetAnnotation("ParameterNames");
-            expr.addPair("value","{"+ StringUtil.join(names,",") +"}");
-            isModified = true;
+            for (Parameter p : ps) {
+                Optional<AnnotationExpr> requestParamAnn=p.getAnnotationByClass(RequestParam.class);
+                if(requestParamAnn==null || !requestParamAnn.isPresent()) {
+                    NormalAnnotationExpr requestParamAnnn= p.addAndGetAnnotation(RequestParam.class);
+                    requestParamAnnn.addPair("name","\""+ p.getNameAsString() +"\"");
+                    isModified = true;
+                }
+            }
 
         }
 

@@ -11,7 +11,6 @@ import org.github.foxnic.web.proxy.api.APIProxy;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import java.util.List;
 
 /**
@@ -103,64 +102,55 @@ public interface JobLogServiceProxy {
      * 添加定时任务执行日志
      */
     @RequestMapping(JobLogServiceProxy.INSERT)
-    @ParameterNames(value = {"jobLogVO"})
-    Result insert(JobLogVO jobLogVO);
+    Result insert(@RequestParam(name = "jobLogVO") JobLogVO jobLogVO);
 
     /**
      * 删除定时任务执行日志
      */
     @RequestMapping(JobLogServiceProxy.DELETE)
-    @ParameterNames(value = {"id"})
-    Result deleteById(String id);
+    Result deleteById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除定时任务执行日志
      */
     @RequestMapping(JobLogServiceProxy.DELETE_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result deleteByIds(List<String> ids);
+    Result deleteByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 更新定时任务执行日志
      */
     @RequestMapping(JobLogServiceProxy.UPDATE)
-    @ParameterNames(value = {"jobLogVO"})
-    Result update(JobLogVO jobLogVO);
+    Result update(@RequestParam(name = "jobLogVO") JobLogVO jobLogVO);
 
     /**
      * 更新定时任务执行日志
      */
     @RequestMapping(JobLogServiceProxy.SAVE)
-    @ParameterNames(value = {"jobLogVO"})
-    Result save(JobLogVO jobLogVO);
+    Result save(@RequestParam(name = "jobLogVO") JobLogVO jobLogVO);
 
     /**
      * 获取定时任务执行日志
      */
     @RequestMapping(JobLogServiceProxy.GET_BY_ID)
-    @ParameterNames(value = {"id"})
-    Result<JobLog> getById(@RequestParam("id") String id);
+    Result<JobLog> getById(@RequestParam(name = "id") String id);
 
     /**
      * 获取多个定时任务执行日志
      */
     @RequestMapping(JobLogServiceProxy.GET_BY_IDS)
-    @ParameterNames(value = {"ids"})
-    Result<List<JobLog>> getByIds(List<String> ids);
+    Result<List<JobLog>> getByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 查询定时任务执行日志
      */
     @RequestMapping(JobLogServiceProxy.QUERY_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<List<JobLog>> queryList(JobLogVO sample);
+    Result<List<JobLog>> queryList(@RequestParam(name = "sample") JobLogVO sample);
 
     /**
      * 分页查询定时任务执行日志
      */
     @RequestMapping(JobLogServiceProxy.QUERY_PAGED_LIST)
-    @ParameterNames(value = {"sample"})
-    Result<PagedList<JobLog>> queryPagedList(JobLogVO sample);
+    Result<PagedList<JobLog>> queryPagedList(@RequestParam(name = "sample") JobLogVO sample);
 
     /**
      * 控制器类名
