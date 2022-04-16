@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2022-04-15 17:19:16
+ * @since 2022-04-16 07:16:39
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -104,12 +104,12 @@ public class FoxnicWeb {
 	/**
 	 * 流程应用登记表
 	*/
-	public static class BPM_PROCESS_DEFINITION_APPLY extends DBTable {
+	public static class BPM_PROCESS_DEFINITION_DEPLOY extends DBTable {
 		
 		/**
 		 * 表名
 		*/
-		public static final String $NAME = "bpm_process_definition_apply";
+		public static final String $NAME = "bpm_process_definition_deploy";
 		
 		/**
 		 * ID
@@ -156,10 +156,10 @@ public class FoxnicWeb {
 		*/
 		public static final DBField TENANT_ID = new DBField(DBDataType.STRING , "tenant_id","tenantId","租户ID","租户ID",false,false,false);
 		
-		public BPM_PROCESS_DEFINITION_APPLY() {
+		public BPM_PROCESS_DEFINITION_DEPLOY() {
 			this.init($NAME,"流程应用登记表" , ID , DEFINITION_ID , DEFINITION_FILE_ID , REQUEST , RESULT , APPLY_TIME , EXCEPTION , SUCCESS , TENANT_ID);
 		}
-		public static final BPM_PROCESS_DEFINITION_APPLY $TABLE=new BPM_PROCESS_DEFINITION_APPLY();
+		public static final BPM_PROCESS_DEFINITION_DEPLOY $TABLE=new BPM_PROCESS_DEFINITION_DEPLOY();
 	}
 	
 	/**
@@ -252,8 +252,23 @@ public class FoxnicWeb {
 		*/
 		public static final DBField TENANT_ID = new DBField(DBDataType.STRING , "tenant_id","tenantId","租户ID","租户ID",false,false,false);
 		
+		/**
+		 * 部署结果
+		*/
+		public static final DBField DEPLOY_RESULT = new DBField(DBDataType.STRING , "deploy_result","deployResult","部署结果","部署结果",false,false,true);
+		
+		/**
+		 * 部署成功，逻辑值
+		*/
+		public static final DBField DEPLOY_SUCCESS = new DBField(DBDataType.INTEGER , "deploy_success","deploySuccess","部署成功","逻辑值",false,false,true);
+		
+		/**
+		 * 提示信息
+		*/
+		public static final DBField DEPLOY_ERROR = new DBField(DBDataType.STRING , "deploy_error","deployError","提示信息","提示信息",false,false,true);
+		
 		public BPM_PROCESS_DEFINITION_FILE() {
-			this.init($NAME,"流程定义文件表" , ID , DEFINITION_ID , FILE_ID , VERSION_NO , NAME , ACTIVATED , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID);
+			this.init($NAME,"流程定义文件表" , ID , DEFINITION_ID , FILE_ID , VERSION_NO , NAME , ACTIVATED , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , DEPLOY_RESULT , DEPLOY_SUCCESS , DEPLOY_ERROR);
 		}
 		public static final BPM_PROCESS_DEFINITION_FILE $TABLE=new BPM_PROCESS_DEFINITION_FILE();
 	}

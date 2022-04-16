@@ -9,8 +9,8 @@ import org.github.foxnic.web.domain.oauth.User;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-15 13:49:53
- * @sign D44560825306F0FE049C77E0F68A757F
+ * @since 2022-04-16 07:17:26
+ * @sign D5D4C40A950126BFC4B8955F20842A42
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -177,6 +177,36 @@ public class ProcessDefinitionFileMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionFile,java.lang.String> TENANT_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionFile.class ,TENANT_ID, java.lang.String.class, "租户ID", "租户ID", java.lang.String.class, null);
 	
 	/**
+	 * 部署结果 , 类型: java.lang.String
+	*/
+	public static final String DEPLOY_RESULT="deployResult";
+	
+	/**
+	 * 部署结果 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionFile,java.lang.String> DEPLOY_RESULT_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionFile.class ,DEPLOY_RESULT, java.lang.String.class, "部署结果", "部署结果", java.lang.String.class, null);
+	
+	/**
+	 * 部署成功 , 逻辑值 , 类型: java.lang.Integer
+	*/
+	public static final String DEPLOY_SUCCESS="deploySuccess";
+	
+	/**
+	 * 部署成功 , 逻辑值 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionFile,java.lang.Integer> DEPLOY_SUCCESS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionFile.class ,DEPLOY_SUCCESS, java.lang.Integer.class, "部署成功", "逻辑值", java.lang.Integer.class, null);
+	
+	/**
+	 * 提示信息 , 类型: java.lang.String
+	*/
+	public static final String DEPLOY_ERROR="deployError";
+	
+	/**
+	 * 提示信息 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionFile,java.lang.String> DEPLOY_ERROR_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionFile.class ,DEPLOY_ERROR, java.lang.String.class, "提示信息", "提示信息", java.lang.String.class, null);
+	
+	/**
 	 * 最后修改人 , 类型: org.github.foxnic.web.domain.oauth.User
 	*/
 	public static final String LAST_UPDATE_USER="lastUpdateUser";
@@ -189,7 +219,7 @@ public class ProcessDefinitionFileMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , DEFINITION_ID , FILE_ID , VERSION_NO , NAME , ACTIVATED , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , LAST_UPDATE_USER };
+	public static final String[] $PROPS={ ID , DEFINITION_ID , FILE_ID , VERSION_NO , NAME , ACTIVATED , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , DEPLOY_RESULT , DEPLOY_SUCCESS , DEPLOY_ERROR , LAST_UPDATE_USER };
 	
 	/**
 	 * 代理类
@@ -372,6 +402,39 @@ public class ProcessDefinitionFileMeta {
 		public ProcessDefinitionFile setTenantId(String tenantId) {
 			super.change(TENANT_ID,super.getTenantId(),tenantId);
 			super.setTenantId(tenantId);
+			return this;
+		}
+		
+		/**
+		 * 设置 部署结果
+		 * @param deployResult 部署结果
+		 * @return 当前对象
+		*/
+		public ProcessDefinitionFile setDeployResult(String deployResult) {
+			super.change(DEPLOY_RESULT,super.getDeployResult(),deployResult);
+			super.setDeployResult(deployResult);
+			return this;
+		}
+		
+		/**
+		 * 设置 部署成功
+		 * @param deploySuccess 部署成功
+		 * @return 当前对象
+		*/
+		public ProcessDefinitionFile setDeploySuccess(Integer deploySuccess) {
+			super.change(DEPLOY_SUCCESS,super.getDeploySuccess(),deploySuccess);
+			super.setDeploySuccess(deploySuccess);
+			return this;
+		}
+		
+		/**
+		 * 设置 提示信息
+		 * @param deployError 提示信息
+		 * @return 当前对象
+		*/
+		public ProcessDefinitionFile setDeployError(String deployError) {
+			super.change(DEPLOY_ERROR,super.getDeployError(),deployError);
+			super.setDeployError(deployError);
 			return this;
 		}
 		

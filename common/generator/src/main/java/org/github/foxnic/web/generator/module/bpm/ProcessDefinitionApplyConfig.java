@@ -7,14 +7,13 @@ import com.github.foxnic.generator.builder.view.option.ListOptions;
 import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
-import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_PROCESS_DEFINITION_APPLY;
-import org.github.foxnic.web.domain.oauth.User;
+import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_PROCESS_DEFINITION_DEPLOY;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
-public class ProcessDefinitionApplyConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITION_APPLY> {
+public class ProcessDefinitionApplyConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITION_DEPLOY> {
 
     public ProcessDefinitionApplyConfig() {
-        super(PREFIX_BPM, BPM_PROCESS_DEFINITION_APPLY.$TABLE,"bpm_", 4);
+        super(PREFIX_BPM, BPM_PROCESS_DEFINITION_DEPLOY.$TABLE,"bpm_", 4);
     }
 
     @Override

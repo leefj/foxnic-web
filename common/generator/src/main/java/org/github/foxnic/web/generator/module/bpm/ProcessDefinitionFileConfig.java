@@ -7,9 +7,7 @@ import com.github.foxnic.generator.builder.view.option.ListOptions;
 import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
-import org.github.foxnic.web.constants.db.FoxnicWeb;
-import org.github.foxnic.web.constants.db.FoxnicWeb.*;
-import org.github.foxnic.web.constants.db.FoxnicWeb.HRM_COMPANY;
+import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_PROCESS_DEFINITION_FILE;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
@@ -43,6 +41,10 @@ public class ProcessDefinitionFileConfig extends BaseCodeConfig<BPM_PROCESS_DEFI
         view.field(BPM_PROCESS_DEFINITION_FILE.NAME).search().fuzzySearch().form().hidden();
         view.field(BPM_PROCESS_DEFINITION_FILE.VERSION_NO).search().hidden();
         view.field(BPM_PROCESS_DEFINITION_FILE.ACTIVATED).basic().label("状态").form().hidden();
+
+        view.field(BPM_PROCESS_DEFINITION_FILE.DEPLOY_ERROR).basic().label("部署提示").search().hidden();
+        view.field(BPM_PROCESS_DEFINITION_FILE.DEPLOY_RESULT).search().hidden();
+        view.field(BPM_PROCESS_DEFINITION_FILE.DEPLOY_SUCCESS).basic().label("部署结果").search().hidden();
 
     }
 

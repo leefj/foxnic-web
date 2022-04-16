@@ -12,12 +12,12 @@ import com.github.foxnic.commons.bean.BeanUtil;
 /**
  * 流程应用登记
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-15 13:49:54
- * @sign 47E2B0115C9D97C41319A9997A4D5D31
+ * @since 2022-04-16 06:50:37
+ * @sign 83DDD2E2EDEDC8A320621FEC3CD06002
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
-public class ProcessDefinitionApplyVO extends ProcessDefinitionApply {
+public class ProcessDefinitionDeployVO extends ProcessDefinitionDeploy {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -88,7 +88,7 @@ public class ProcessDefinitionApplyVO extends ProcessDefinitionApply {
 	 * @param pageIndex 页码
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionApplyVO setPageIndex(Integer pageIndex) {
+	public ProcessDefinitionDeployVO setPageIndex(Integer pageIndex) {
 		this.pageIndex=pageIndex;
 		return this;
 	}
@@ -106,7 +106,7 @@ public class ProcessDefinitionApplyVO extends ProcessDefinitionApply {
 	 * @param pageSize 分页大小
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionApplyVO setPageSize(Integer pageSize) {
+	public ProcessDefinitionDeployVO setPageSize(Integer pageSize) {
 		this.pageSize=pageSize;
 		return this;
 	}
@@ -124,7 +124,7 @@ public class ProcessDefinitionApplyVO extends ProcessDefinitionApply {
 	 * @param searchField 搜索字段
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionApplyVO setSearchField(String searchField) {
+	public ProcessDefinitionDeployVO setSearchField(String searchField) {
 		this.searchField=searchField;
 		return this;
 	}
@@ -142,7 +142,7 @@ public class ProcessDefinitionApplyVO extends ProcessDefinitionApply {
 	 * @param fuzzyField 模糊搜索字段
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionApplyVO setFuzzyField(String fuzzyField) {
+	public ProcessDefinitionDeployVO setFuzzyField(String fuzzyField) {
 		this.fuzzyField=fuzzyField;
 		return this;
 	}
@@ -160,7 +160,7 @@ public class ProcessDefinitionApplyVO extends ProcessDefinitionApply {
 	 * @param searchValue 搜索的值
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionApplyVO setSearchValue(String searchValue) {
+	public ProcessDefinitionDeployVO setSearchValue(String searchValue) {
 		this.searchValue=searchValue;
 		return this;
 	}
@@ -178,7 +178,7 @@ public class ProcessDefinitionApplyVO extends ProcessDefinitionApply {
 	 * @param dirtyFields 已修改字段
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionApplyVO setDirtyFields(List<String> dirtyFields) {
+	public ProcessDefinitionDeployVO setDirtyFields(List<String> dirtyFields) {
 		this.dirtyFields=dirtyFields;
 		return this;
 	}
@@ -188,7 +188,7 @@ public class ProcessDefinitionApplyVO extends ProcessDefinitionApply {
 	 * @param dirtyField 已修改字段
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionApplyVO addDirtyField(String dirtyField) {
+	public ProcessDefinitionDeployVO addDirtyField(String dirtyField) {
 		if(this.dirtyFields==null) dirtyFields=new ArrayList<>();
 		this.dirtyFields.add(dirtyField);
 		return this;
@@ -207,7 +207,7 @@ public class ProcessDefinitionApplyVO extends ProcessDefinitionApply {
 	 * @param sortField 排序字段
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionApplyVO setSortField(String sortField) {
+	public ProcessDefinitionDeployVO setSortField(String sortField) {
 		this.sortField=sortField;
 		return this;
 	}
@@ -225,7 +225,7 @@ public class ProcessDefinitionApplyVO extends ProcessDefinitionApply {
 	 * @param sortType 排序方式
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionApplyVO setSortType(String sortType) {
+	public ProcessDefinitionDeployVO setSortType(String sortType) {
 		this.sortType=sortType;
 		return this;
 	}
@@ -244,7 +244,7 @@ public class ProcessDefinitionApplyVO extends ProcessDefinitionApply {
 	 * @param ids 主键清单
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionApplyVO setIds(List<String> ids) {
+	public ProcessDefinitionDeployVO setIds(List<String> ids) {
 		this.ids=ids;
 		return this;
 	}
@@ -254,7 +254,7 @@ public class ProcessDefinitionApplyVO extends ProcessDefinitionApply {
 	 * @param id 主键清单
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionApplyVO addId(String id) {
+	public ProcessDefinitionDeployVO addId(String id) {
 		if(this.ids==null) ids=new ArrayList<>();
 		this.ids.add(id);
 		return this;
