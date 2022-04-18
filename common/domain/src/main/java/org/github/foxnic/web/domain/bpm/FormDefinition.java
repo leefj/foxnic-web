@@ -3,7 +3,7 @@ package org.github.foxnic.web.domain.bpm;
 import com.github.foxnic.dao.entity.Entity;
 import javax.persistence.Table;
 import com.github.foxnic.sql.meta.DBTable;
-import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_PROCESS_DEFINITION_FILE;
+import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_FORM_DEFINITION;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
@@ -15,56 +15,56 @@ import com.github.foxnic.dao.entity.EntityContext;
 
 
 /**
- * 流程定义文件
+ * 表单定义
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-18 16:17:23
- * @sign D5D4C40A950126BFC4B8955F20842A42
+ * @since 2022-04-18 16:17:25
+ * @sign D36958842469F7C67A2741CA9DA8DA61
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
-@Table(name = "bpm_process_definition_file")
-public class ProcessDefinitionFile extends Entity {
+@Table(name = "bpm_form_definition")
+public class FormDefinition extends Entity {
 
 	private static final long serialVersionUID = 1L;
 
-	public static final DBTable TABLE =BPM_PROCESS_DEFINITION_FILE.$TABLE;
+	public static final DBTable TABLE =BPM_FORM_DEFINITION.$TABLE;
 	
 	/**
-	 * ID：ID
+	 * 主键：主键
 	*/
 	@Id
-	@ApiModelProperty(required = true,value="ID" , notes = "ID")
+	@ApiModelProperty(required = true,value="主键" , notes = "主键")
 	private String id;
 	
 	/**
-	 * 流程定义ID：流程定义ID
+	 * 表单名称：表单名称
 	*/
-	@ApiModelProperty(required = false,value="流程定义ID" , notes = "流程定义ID")
-	private String definitionId;
-	
-	/**
-	 * 流程文件ID：流程文件ID
-	*/
-	@ApiModelProperty(required = false,value="流程文件ID" , notes = "流程文件ID")
-	private String fileId;
-	
-	/**
-	 * 版本号：版本号
-	*/
-	@ApiModelProperty(required = false,value="版本号" , notes = "版本号")
-	private String versionNo;
-	
-	/**
-	 * 名称：名称
-	*/
-	@ApiModelProperty(required = false,value="名称" , notes = "名称")
+	@ApiModelProperty(required = false,value="表单名称" , notes = "表单名称")
 	private String name;
 	
 	/**
-	 * 是否激活：只能有一个版本是激活的
+	 * 表单类型：表单类型
 	*/
-	@ApiModelProperty(required = false,value="是否激活" , notes = "只能有一个版本是激活的")
-	private Integer activated;
+	@ApiModelProperty(required = false,value="表单类型" , notes = "表单类型")
+	private String formType;
+	
+	/**
+	 * 起草页地址：起草页地址
+	*/
+	@ApiModelProperty(required = false,value="起草页地址" , notes = "起草页地址")
+	private String draftPageUrl;
+	
+	/**
+	 * 审批页地址：审批页地址
+	*/
+	@ApiModelProperty(required = false,value="审批页地址" , notes = "审批页地址")
+	private String approvalPageUrl;
+	
+	/**
+	 * 生效：生效
+	*/
+	@ApiModelProperty(required = false,value="生效" , notes = "生效")
+	private Integer valid;
 	
 	/**
 	 * 备注：备注
@@ -127,140 +127,122 @@ public class ProcessDefinitionFile extends Entity {
 	private String tenantId;
 	
 	/**
-	 * 部署结果：部署结果
-	*/
-	@ApiModelProperty(required = false,value="部署结果" , notes = "部署结果")
-	private String deployResult;
-	
-	/**
-	 * 部署成功：逻辑值
-	*/
-	@ApiModelProperty(required = false,value="部署成功" , notes = "逻辑值")
-	private Integer deploySuccess;
-	
-	/**
-	 * 提示信息：提示信息
-	*/
-	@ApiModelProperty(required = false,value="提示信息" , notes = "提示信息")
-	private String deployError;
-	
-	/**
 	 * 最后修改人：最后修改人
 	*/
 	@ApiModelProperty(required = false,value="最后修改人" , notes = "最后修改人")
 	private User lastUpdateUser;
 	
 	/**
-	 * 获得 ID<br>
-	 * ID
-	 * @return ID
+	 * 获得 主键<br>
+	 * 主键
+	 * @return 主键
 	*/
 	public String getId() {
 		return id;
 	}
 	
 	/**
-	 * 设置 ID
-	 * @param id ID
+	 * 设置 主键
+	 * @param id 主键
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionFile setId(String id) {
+	public FormDefinition setId(String id) {
 		this.id=id;
 		return this;
 	}
 	
 	/**
-	 * 获得 流程定义ID<br>
-	 * 流程定义ID
-	 * @return 流程定义ID
-	*/
-	public String getDefinitionId() {
-		return definitionId;
-	}
-	
-	/**
-	 * 设置 流程定义ID
-	 * @param definitionId 流程定义ID
-	 * @return 当前对象
-	*/
-	public ProcessDefinitionFile setDefinitionId(String definitionId) {
-		this.definitionId=definitionId;
-		return this;
-	}
-	
-	/**
-	 * 获得 流程文件ID<br>
-	 * 流程文件ID
-	 * @return 流程文件ID
-	*/
-	public String getFileId() {
-		return fileId;
-	}
-	
-	/**
-	 * 设置 流程文件ID
-	 * @param fileId 流程文件ID
-	 * @return 当前对象
-	*/
-	public ProcessDefinitionFile setFileId(String fileId) {
-		this.fileId=fileId;
-		return this;
-	}
-	
-	/**
-	 * 获得 版本号<br>
-	 * 版本号
-	 * @return 版本号
-	*/
-	public String getVersionNo() {
-		return versionNo;
-	}
-	
-	/**
-	 * 设置 版本号
-	 * @param versionNo 版本号
-	 * @return 当前对象
-	*/
-	public ProcessDefinitionFile setVersionNo(String versionNo) {
-		this.versionNo=versionNo;
-		return this;
-	}
-	
-	/**
-	 * 获得 名称<br>
-	 * 名称
-	 * @return 名称
+	 * 获得 表单名称<br>
+	 * 表单名称
+	 * @return 表单名称
 	*/
 	public String getName() {
 		return name;
 	}
 	
 	/**
-	 * 设置 名称
-	 * @param name 名称
+	 * 设置 表单名称
+	 * @param name 表单名称
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionFile setName(String name) {
+	public FormDefinition setName(String name) {
 		this.name=name;
 		return this;
 	}
 	
 	/**
-	 * 获得 是否激活<br>
-	 * 只能有一个版本是激活的
-	 * @return 是否激活
+	 * 获得 表单类型<br>
+	 * 表单类型
+	 * @return 表单类型
 	*/
-	public Integer getActivated() {
-		return activated;
+	public String getFormType() {
+		return formType;
 	}
 	
 	/**
-	 * 设置 是否激活
-	 * @param activated 是否激活
+	 * 设置 表单类型
+	 * @param formType 表单类型
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionFile setActivated(Integer activated) {
-		this.activated=activated;
+	public FormDefinition setFormType(String formType) {
+		this.formType=formType;
+		return this;
+	}
+	
+	/**
+	 * 获得 起草页地址<br>
+	 * 起草页地址
+	 * @return 起草页地址
+	*/
+	public String getDraftPageUrl() {
+		return draftPageUrl;
+	}
+	
+	/**
+	 * 设置 起草页地址
+	 * @param draftPageUrl 起草页地址
+	 * @return 当前对象
+	*/
+	public FormDefinition setDraftPageUrl(String draftPageUrl) {
+		this.draftPageUrl=draftPageUrl;
+		return this;
+	}
+	
+	/**
+	 * 获得 审批页地址<br>
+	 * 审批页地址
+	 * @return 审批页地址
+	*/
+	public String getApprovalPageUrl() {
+		return approvalPageUrl;
+	}
+	
+	/**
+	 * 设置 审批页地址
+	 * @param approvalPageUrl 审批页地址
+	 * @return 当前对象
+	*/
+	public FormDefinition setApprovalPageUrl(String approvalPageUrl) {
+		this.approvalPageUrl=approvalPageUrl;
+		return this;
+	}
+	
+	/**
+	 * 获得 生效<br>
+	 * 生效
+	 * @return 生效
+	*/
+	public Integer getValid() {
+		return valid;
+	}
+	
+	/**
+	 * 设置 生效
+	 * @param valid 生效
+	 * @return 当前对象
+	*/
+	public FormDefinition setValid(Integer valid) {
+		this.valid=valid;
 		return this;
 	}
 	
@@ -278,7 +260,7 @@ public class ProcessDefinitionFile extends Entity {
 	 * @param notes 备注
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionFile setNotes(String notes) {
+	public FormDefinition setNotes(String notes) {
 		this.notes=notes;
 		return this;
 	}
@@ -297,7 +279,7 @@ public class ProcessDefinitionFile extends Entity {
 	 * @param createBy 创建人ID
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionFile setCreateBy(String createBy) {
+	public FormDefinition setCreateBy(String createBy) {
 		this.createBy=createBy;
 		return this;
 	}
@@ -316,7 +298,7 @@ public class ProcessDefinitionFile extends Entity {
 	 * @param createTime 创建时间
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionFile setCreateTime(Date createTime) {
+	public FormDefinition setCreateTime(Date createTime) {
 		this.createTime=createTime;
 		return this;
 	}
@@ -335,7 +317,7 @@ public class ProcessDefinitionFile extends Entity {
 	 * @param updateBy 修改人ID
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionFile setUpdateBy(String updateBy) {
+	public FormDefinition setUpdateBy(String updateBy) {
 		this.updateBy=updateBy;
 		return this;
 	}
@@ -354,7 +336,7 @@ public class ProcessDefinitionFile extends Entity {
 	 * @param updateTime 修改时间
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionFile setUpdateTime(Date updateTime) {
+	public FormDefinition setUpdateTime(Date updateTime) {
 		this.updateTime=updateTime;
 		return this;
 	}
@@ -373,7 +355,7 @@ public class ProcessDefinitionFile extends Entity {
 	 * @param deleted 是否已删除
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionFile setDeleted(Integer deleted) {
+	public FormDefinition setDeleted(Integer deleted) {
 		this.deleted=deleted;
 		return this;
 	}
@@ -392,7 +374,7 @@ public class ProcessDefinitionFile extends Entity {
 	 * @param deleteBy 删除人ID
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionFile setDeleteBy(String deleteBy) {
+	public FormDefinition setDeleteBy(String deleteBy) {
 		this.deleteBy=deleteBy;
 		return this;
 	}
@@ -411,7 +393,7 @@ public class ProcessDefinitionFile extends Entity {
 	 * @param deleteTime 删除时间
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionFile setDeleteTime(Date deleteTime) {
+	public FormDefinition setDeleteTime(Date deleteTime) {
 		this.deleteTime=deleteTime;
 		return this;
 	}
@@ -430,7 +412,7 @@ public class ProcessDefinitionFile extends Entity {
 	 * @param version 数据版本号
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionFile setVersion(Integer version) {
+	public FormDefinition setVersion(Integer version) {
 		this.version=version;
 		return this;
 	}
@@ -449,65 +431,8 @@ public class ProcessDefinitionFile extends Entity {
 	 * @param tenantId 租户ID
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionFile setTenantId(String tenantId) {
+	public FormDefinition setTenantId(String tenantId) {
 		this.tenantId=tenantId;
-		return this;
-	}
-	
-	/**
-	 * 获得 部署结果<br>
-	 * 部署结果
-	 * @return 部署结果
-	*/
-	public String getDeployResult() {
-		return deployResult;
-	}
-	
-	/**
-	 * 设置 部署结果
-	 * @param deployResult 部署结果
-	 * @return 当前对象
-	*/
-	public ProcessDefinitionFile setDeployResult(String deployResult) {
-		this.deployResult=deployResult;
-		return this;
-	}
-	
-	/**
-	 * 获得 部署成功<br>
-	 * 逻辑值
-	 * @return 部署成功
-	*/
-	public Integer getDeploySuccess() {
-		return deploySuccess;
-	}
-	
-	/**
-	 * 设置 部署成功
-	 * @param deploySuccess 部署成功
-	 * @return 当前对象
-	*/
-	public ProcessDefinitionFile setDeploySuccess(Integer deploySuccess) {
-		this.deploySuccess=deploySuccess;
-		return this;
-	}
-	
-	/**
-	 * 获得 提示信息<br>
-	 * 提示信息
-	 * @return 提示信息
-	*/
-	public String getDeployError() {
-		return deployError;
-	}
-	
-	/**
-	 * 设置 提示信息
-	 * @param deployError 提示信息
-	 * @return 当前对象
-	*/
-	public ProcessDefinitionFile setDeployError(String deployError) {
-		this.deployError=deployError;
 		return this;
 	}
 	
@@ -525,7 +450,7 @@ public class ProcessDefinitionFile extends Entity {
 	 * @param lastUpdateUser 最后修改人
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionFile setLastUpdateUser(User lastUpdateUser) {
+	public FormDefinition setLastUpdateUser(User lastUpdateUser) {
 		this.lastUpdateUser=lastUpdateUser;
 		return this;
 	}
@@ -533,7 +458,7 @@ public class ProcessDefinitionFile extends Entity {
 	/**
 	 * 将自己转换成指定类型的PO
 	 * @param poType  PO类型
-	 * @return ProcessDefinitionFile , 转换好的 ProcessDefinitionFile 对象
+	 * @return FormDefinition , 转换好的 FormDefinition 对象
 	*/
 	@Transient
 	public <T extends Entity> T toPO(Class<T> poType) {
@@ -543,7 +468,7 @@ public class ProcessDefinitionFile extends Entity {
 	/**
 	 * 将自己转换成任意指定类型
 	 * @param pojoType  Pojo类型
-	 * @return ProcessDefinitionFile , 转换好的 PoJo 对象
+	 * @return FormDefinition , 转换好的 PoJo 对象
 	*/
 	@Transient
 	public <T> T toPojo(Class<T> pojoType) {
@@ -560,35 +485,35 @@ public class ProcessDefinitionFile extends Entity {
 	}
 
 	/**
-	 * 将 Map 转换成 ProcessDefinitionFile
-	 * @param processDefinitionFileMap 包含实体信息的 Map 对象
-	 * @return ProcessDefinitionFile , 转换好的的 ProcessDefinitionFile 对象
+	 * 将 Map 转换成 FormDefinition
+	 * @param formDefinitionMap 包含实体信息的 Map 对象
+	 * @return FormDefinition , 转换好的的 FormDefinition 对象
 	*/
 	@Transient
-	public static ProcessDefinitionFile createFrom(Map<String,Object> processDefinitionFileMap) {
-		if(processDefinitionFileMap==null) return null;
-		ProcessDefinitionFile po = EntityContext.create(ProcessDefinitionFile.class, processDefinitionFileMap);
+	public static FormDefinition createFrom(Map<String,Object> formDefinitionMap) {
+		if(formDefinitionMap==null) return null;
+		FormDefinition po = EntityContext.create(FormDefinition.class, formDefinitionMap);
 		return po;
 	}
 
 	/**
-	 * 将 Pojo 转换成 ProcessDefinitionFile
+	 * 将 Pojo 转换成 FormDefinition
 	 * @param pojo 包含实体信息的 Pojo 对象
-	 * @return ProcessDefinitionFile , 转换好的的 ProcessDefinitionFile 对象
+	 * @return FormDefinition , 转换好的的 FormDefinition 对象
 	*/
 	@Transient
-	public static ProcessDefinitionFile createFrom(Object pojo) {
+	public static FormDefinition createFrom(Object pojo) {
 		if(pojo==null) return null;
-		ProcessDefinitionFile po = EntityContext.create(ProcessDefinitionFile.class,pojo);
+		FormDefinition po = EntityContext.create(FormDefinition.class,pojo);
 		return po;
 	}
 
 	/**
-	 * 创建一个 ProcessDefinitionFile，等同于 new
-	 * @return ProcessDefinitionFile 对象
+	 * 创建一个 FormDefinition，等同于 new
+	 * @return FormDefinition 对象
 	*/
 	@Transient
-	public static ProcessDefinitionFile create() {
-		return EntityContext.create(ProcessDefinitionFile.class);
+	public static FormDefinition create() {
+		return EntityContext.create(FormDefinition.class);
 	}
 }

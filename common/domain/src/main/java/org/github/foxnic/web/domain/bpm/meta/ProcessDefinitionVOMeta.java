@@ -12,7 +12,7 @@ import org.github.foxnic.web.domain.bpm.ProcessDefinitionFile;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-15 17:19:34
+ * @since 2022-04-18 17:03:43
  * @sign 1D2C38500D1ABE5927BCBF1911BE96A0
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -118,6 +118,16 @@ public class ProcessDefinitionVOMeta extends ProcessDefinitionMeta {
 	 * ID , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionVO,java.lang.String> ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionVO.class ,ID, java.lang.String.class, "ID", "ID", java.lang.String.class, null);
+	
+	/**
+	 * 关联表单 , 表单定义ID , 类型: java.lang.String
+	*/
+	public static final String FORM_DEFINITION_ID="formDefinitionId";
+	
+	/**
+	 * 关联表单 , 表单定义ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionVO,java.lang.String> FORM_DEFINITION_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionVO.class ,FORM_DEFINITION_ID, java.lang.String.class, "关联表单", "表单定义ID", java.lang.String.class, null);
 	
 	/**
 	 * 名称 , 类型: java.lang.String
@@ -250,6 +260,16 @@ public class ProcessDefinitionVOMeta extends ProcessDefinitionMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionVO,java.lang.String> CAMUNDA_DEFINITION_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionVO.class ,CAMUNDA_DEFINITION_ID, java.lang.String.class, "流程ID", "在 camunda 中的流程定义ID", java.lang.String.class, null);
 	
 	/**
+	 * 流程Key , 在 camunda 中的流程定义KEY , 类型: java.lang.String
+	*/
+	public static final String CAMUNDA_DEFINITION_KEY="camundaDefinitionKey";
+	
+	/**
+	 * 流程Key , 在 camunda 中的流程定义KEY , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionVO,java.lang.String> CAMUNDA_DEFINITION_KEY_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionVO.class ,CAMUNDA_DEFINITION_KEY, java.lang.String.class, "流程Key", "在 camunda 中的流程定义KEY", java.lang.String.class, null);
+	
+	/**
 	 * 最后修改人 , 类型: org.github.foxnic.web.domain.oauth.User
 	*/
 	public static final String LAST_UPDATE_USER="lastUpdateUser";
@@ -272,7 +292,7 @@ public class ProcessDefinitionVOMeta extends ProcessDefinitionMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , NAME , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CAMUNDA_DEFINITION_ID , LAST_UPDATE_USER , DEFINITION_FILE };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , FORM_DEFINITION_ID , NAME , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CAMUNDA_DEFINITION_ID , CAMUNDA_DEFINITION_KEY , LAST_UPDATE_USER , DEFINITION_FILE };
 	
 	/**
 	 * 代理类
@@ -389,6 +409,17 @@ public class ProcessDefinitionVOMeta extends ProcessDefinitionMeta {
 		public ProcessDefinition setId(String id) {
 			super.change(ID,super.getId(),id);
 			super.setId(id);
+			return this;
+		}
+		
+		/**
+		 * 设置 关联表单
+		 * @param formDefinitionId 关联表单
+		 * @return 当前对象
+		*/
+		public ProcessDefinition setFormDefinitionId(String formDefinitionId) {
+			super.change(FORM_DEFINITION_ID,super.getFormDefinitionId(),formDefinitionId);
+			super.setFormDefinitionId(formDefinitionId);
 			return this;
 		}
 		
@@ -532,6 +563,17 @@ public class ProcessDefinitionVOMeta extends ProcessDefinitionMeta {
 		public ProcessDefinition setCamundaDefinitionId(String camundaDefinitionId) {
 			super.change(CAMUNDA_DEFINITION_ID,super.getCamundaDefinitionId(),camundaDefinitionId);
 			super.setCamundaDefinitionId(camundaDefinitionId);
+			return this;
+		}
+		
+		/**
+		 * 设置 流程Key
+		 * @param camundaDefinitionKey 流程Key
+		 * @return 当前对象
+		*/
+		public ProcessDefinition setCamundaDefinitionKey(String camundaDefinitionKey) {
+			super.change(CAMUNDA_DEFINITION_KEY,super.getCamundaDefinitionKey(),camundaDefinitionKey);
+			super.setCamundaDefinitionKey(camundaDefinitionKey);
 			return this;
 		}
 		

@@ -17,8 +17,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程定义
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-15 17:19:34
- * @sign FEFFB56F286922344C8C4AC15695206C
+ * @since 2022-04-18 17:03:43
+ * @sign 435A9AF0C6B4D71CF8EB127CE1F45B51
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -35,6 +35,12 @@ public class ProcessDefinition extends Entity {
 	@Id
 	@ApiModelProperty(required = true,value="ID" , notes = "ID")
 	private String id;
+	
+	/**
+	 * 关联表单：表单定义ID
+	*/
+	@ApiModelProperty(required = false,value="关联表单" , notes = "表单定义ID")
+	private String formDefinitionId;
 	
 	/**
 	 * 名称：名称
@@ -115,6 +121,12 @@ public class ProcessDefinition extends Entity {
 	private String camundaDefinitionId;
 	
 	/**
+	 * 流程Key：在 camunda 中的流程定义KEY
+	*/
+	@ApiModelProperty(required = false,value="流程Key" , notes = "在 camunda 中的流程定义KEY")
+	private String camundaDefinitionKey;
+	
+	/**
 	 * 最后修改人：最后修改人
 	*/
 	@ApiModelProperty(required = false,value="最后修改人" , notes = "最后修改人")
@@ -142,6 +154,25 @@ public class ProcessDefinition extends Entity {
 	*/
 	public ProcessDefinition setId(String id) {
 		this.id=id;
+		return this;
+	}
+	
+	/**
+	 * 获得 关联表单<br>
+	 * 表单定义ID
+	 * @return 关联表单
+	*/
+	public String getFormDefinitionId() {
+		return formDefinitionId;
+	}
+	
+	/**
+	 * 设置 关联表单
+	 * @param formDefinitionId 关联表单
+	 * @return 当前对象
+	*/
+	public ProcessDefinition setFormDefinitionId(String formDefinitionId) {
+		this.formDefinitionId=formDefinitionId;
 		return this;
 	}
 	
@@ -389,6 +420,25 @@ public class ProcessDefinition extends Entity {
 	*/
 	public ProcessDefinition setCamundaDefinitionId(String camundaDefinitionId) {
 		this.camundaDefinitionId=camundaDefinitionId;
+		return this;
+	}
+	
+	/**
+	 * 获得 流程Key<br>
+	 * 在 camunda 中的流程定义KEY
+	 * @return 流程Key
+	*/
+	public String getCamundaDefinitionKey() {
+		return camundaDefinitionKey;
+	}
+	
+	/**
+	 * 设置 流程Key
+	 * @param camundaDefinitionKey 流程Key
+	 * @return 当前对象
+	*/
+	public ProcessDefinition setCamundaDefinitionKey(String camundaDefinitionKey) {
+		this.camundaDefinitionKey=camundaDefinitionKey;
 		return this;
 	}
 	

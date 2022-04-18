@@ -79,7 +79,7 @@ public class LangServiceImpl extends SuperService<Lang> implements ILangService 
 	public Result insert(Lang lang) {
 		boolean ex=this.checkExists(lang, FoxnicWeb.SYS_LANG.DEFAULTS);
 		if(ex) return ErrorDesc.success();
-		return super.insert(lang);
+		return super.insert(lang,false);
 	}
 
 	/**

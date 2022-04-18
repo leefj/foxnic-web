@@ -1,24 +1,23 @@
 package org.github.foxnic.web.domain.bpm;
 
 import com.github.foxnic.dao.entity.Entity;
-import com.github.foxnic.dao.entity.EntityContext;
-import com.github.foxnic.sql.meta.DBTable;
-import io.swagger.annotations.ApiModelProperty;
-import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_PROCESS_DEFINITION_DEPLOY;
-
-import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+import com.github.foxnic.sql.meta.DBTable;
+import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_PROCESS_DEFINITION_DEPLOY;
+import javax.persistence.Id;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
+import javax.persistence.Transient;
 import java.util.Map;
+import com.github.foxnic.dao.entity.EntityContext;
 
 
 
 /**
  * 流程应用登记
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-16 06:50:37
- * @sign 7453F01980B27C953ECB07B683738A1E
+ * @since 2022-04-18 16:17:24
+ * @sign 0010501718CBB14DAE6725EB400AA40D
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -46,7 +45,7 @@ public class ProcessDefinitionDeploy extends Entity {
 	 * 流程文件ID：流程文件ID
 	*/
 	@ApiModelProperty(required = false,value="流程文件ID" , notes = "流程文件ID")
-	private String definitionFileId;
+	private String fileId;
 	
 	/**
 	 * 应用请求报文：应用请求报文
@@ -127,17 +126,17 @@ public class ProcessDefinitionDeploy extends Entity {
 	 * 流程文件ID
 	 * @return 流程文件ID
 	*/
-	public String getDefinitionFileId() {
-		return definitionFileId;
+	public String getFileId() {
+		return fileId;
 	}
 	
 	/**
 	 * 设置 流程文件ID
-	 * @param definitionFileId 流程文件ID
+	 * @param fileId 流程文件ID
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionDeploy setDefinitionFileId(String definitionFileId) {
-		this.definitionFileId=definitionFileId;
+	public ProcessDefinitionDeploy setFileId(String fileId) {
+		this.fileId=fileId;
 		return this;
 	}
 	

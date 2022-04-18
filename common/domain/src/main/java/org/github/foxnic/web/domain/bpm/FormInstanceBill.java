@@ -3,11 +3,10 @@ package org.github.foxnic.web.domain.bpm;
 import com.github.foxnic.dao.entity.Entity;
 import javax.persistence.Table;
 import com.github.foxnic.sql.meta.DBTable;
-import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_PROCESS_INITIATOR;
+import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_FORM_INSTANCE_BILL;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
-import org.github.foxnic.web.domain.oauth.User;
 import javax.persistence.Transient;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
@@ -15,44 +14,62 @@ import com.github.foxnic.dao.entity.EntityContext;
 
 
 /**
- * 流程发起人权限
+ * 流程实例表单业务单据
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-18 16:17:24
- * @sign FB66C9FB0A81A48A0E4F97F899B8799D
+ * @since 2022-04-18 16:17:25
+ * @sign 64FBCB0C5FE7BF1E348DF52520B855DE
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
-@Table(name = "bpm_process_initiator")
-public class ProcessInitiator extends Entity {
+@Table(name = "bpm_form_instance_bill")
+public class FormInstanceBill extends Entity {
 
 	private static final long serialVersionUID = 1L;
 
-	public static final DBTable TABLE =BPM_PROCESS_INITIATOR.$TABLE;
+	public static final DBTable TABLE =BPM_FORM_INSTANCE_BILL.$TABLE;
 	
 	/**
 	 * 主键：主键
 	*/
 	@Id
 	@ApiModelProperty(required = true,value="主键" , notes = "主键")
-	private String id;
+	private Integer id;
 	
 	/**
 	 * 流程定义ID：流程定义ID
 	*/
 	@ApiModelProperty(required = false,value="流程定义ID" , notes = "流程定义ID")
-	private String definitionId;
+	private String processDefinitionId;
 	
 	/**
-	 * 发起人ID：发起人ID
+	 * 流程实例ID：流程实例ID
 	*/
-	@ApiModelProperty(required = false,value="发起人ID" , notes = "发起人ID")
-	private String initiatorId;
+	@ApiModelProperty(required = false,value="流程实例ID" , notes = "流程实例ID")
+	private String processInstanceId;
 	
 	/**
-	 * 发起类型：参考枚举 InitiatorType
+	 * 表单定义ID：表单定义ID
 	*/
-	@ApiModelProperty(required = false,value="发起类型" , notes = "参考枚举 InitiatorType")
-	private String initiatorType;
+	@ApiModelProperty(required = false,value="表单定义ID" , notes = "表单定义ID")
+	private Integer formDefinitionId;
+	
+	/**
+	 * 表单实例ID：表单实例ID
+	*/
+	@ApiModelProperty(required = false,value="表单实例ID" , notes = "表单实例ID")
+	private String formInstanceId;
+	
+	/**
+	 * 业务单据号：业务单据号
+	*/
+	@ApiModelProperty(required = false,value="业务单据号" , notes = "业务单据号")
+	private String billId;
+	
+	/**
+	 * 业务单据类型：业务单据类型
+	*/
+	@ApiModelProperty(required = false,value="业务单据类型" , notes = "业务单据类型")
+	private String billType;
 	
 	/**
 	 * 创建人ID：创建人ID
@@ -109,17 +126,11 @@ public class ProcessInitiator extends Entity {
 	private String tenantId;
 	
 	/**
-	 * 最后修改人：最后修改人
-	*/
-	@ApiModelProperty(required = false,value="最后修改人" , notes = "最后修改人")
-	private User lastUpdateUser;
-	
-	/**
 	 * 获得 主键<br>
 	 * 主键
 	 * @return 主键
 	*/
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
 	
@@ -128,7 +139,7 @@ public class ProcessInitiator extends Entity {
 	 * @param id 主键
 	 * @return 当前对象
 	*/
-	public ProcessInitiator setId(String id) {
+	public FormInstanceBill setId(Integer id) {
 		this.id=id;
 		return this;
 	}
@@ -138,55 +149,112 @@ public class ProcessInitiator extends Entity {
 	 * 流程定义ID
 	 * @return 流程定义ID
 	*/
-	public String getDefinitionId() {
-		return definitionId;
+	public String getProcessDefinitionId() {
+		return processDefinitionId;
 	}
 	
 	/**
 	 * 设置 流程定义ID
-	 * @param definitionId 流程定义ID
+	 * @param processDefinitionId 流程定义ID
 	 * @return 当前对象
 	*/
-	public ProcessInitiator setDefinitionId(String definitionId) {
-		this.definitionId=definitionId;
+	public FormInstanceBill setProcessDefinitionId(String processDefinitionId) {
+		this.processDefinitionId=processDefinitionId;
 		return this;
 	}
 	
 	/**
-	 * 获得 发起人ID<br>
-	 * 发起人ID
-	 * @return 发起人ID
+	 * 获得 流程实例ID<br>
+	 * 流程实例ID
+	 * @return 流程实例ID
 	*/
-	public String getInitiatorId() {
-		return initiatorId;
+	public String getProcessInstanceId() {
+		return processInstanceId;
 	}
 	
 	/**
-	 * 设置 发起人ID
-	 * @param initiatorId 发起人ID
+	 * 设置 流程实例ID
+	 * @param processInstanceId 流程实例ID
 	 * @return 当前对象
 	*/
-	public ProcessInitiator setInitiatorId(String initiatorId) {
-		this.initiatorId=initiatorId;
+	public FormInstanceBill setProcessInstanceId(String processInstanceId) {
+		this.processInstanceId=processInstanceId;
 		return this;
 	}
 	
 	/**
-	 * 获得 发起类型<br>
-	 * 参考枚举 InitiatorType
-	 * @return 发起类型
+	 * 获得 表单定义ID<br>
+	 * 表单定义ID
+	 * @return 表单定义ID
 	*/
-	public String getInitiatorType() {
-		return initiatorType;
+	public Integer getFormDefinitionId() {
+		return formDefinitionId;
 	}
 	
 	/**
-	 * 设置 发起类型
-	 * @param initiatorType 发起类型
+	 * 设置 表单定义ID
+	 * @param formDefinitionId 表单定义ID
 	 * @return 当前对象
 	*/
-	public ProcessInitiator setInitiatorType(String initiatorType) {
-		this.initiatorType=initiatorType;
+	public FormInstanceBill setFormDefinitionId(Integer formDefinitionId) {
+		this.formDefinitionId=formDefinitionId;
+		return this;
+	}
+	
+	/**
+	 * 获得 表单实例ID<br>
+	 * 表单实例ID
+	 * @return 表单实例ID
+	*/
+	public String getFormInstanceId() {
+		return formInstanceId;
+	}
+	
+	/**
+	 * 设置 表单实例ID
+	 * @param formInstanceId 表单实例ID
+	 * @return 当前对象
+	*/
+	public FormInstanceBill setFormInstanceId(String formInstanceId) {
+		this.formInstanceId=formInstanceId;
+		return this;
+	}
+	
+	/**
+	 * 获得 业务单据号<br>
+	 * 业务单据号
+	 * @return 业务单据号
+	*/
+	public String getBillId() {
+		return billId;
+	}
+	
+	/**
+	 * 设置 业务单据号
+	 * @param billId 业务单据号
+	 * @return 当前对象
+	*/
+	public FormInstanceBill setBillId(String billId) {
+		this.billId=billId;
+		return this;
+	}
+	
+	/**
+	 * 获得 业务单据类型<br>
+	 * 业务单据类型
+	 * @return 业务单据类型
+	*/
+	public String getBillType() {
+		return billType;
+	}
+	
+	/**
+	 * 设置 业务单据类型
+	 * @param billType 业务单据类型
+	 * @return 当前对象
+	*/
+	public FormInstanceBill setBillType(String billType) {
+		this.billType=billType;
 		return this;
 	}
 	
@@ -204,7 +272,7 @@ public class ProcessInitiator extends Entity {
 	 * @param createBy 创建人ID
 	 * @return 当前对象
 	*/
-	public ProcessInitiator setCreateBy(String createBy) {
+	public FormInstanceBill setCreateBy(String createBy) {
 		this.createBy=createBy;
 		return this;
 	}
@@ -223,7 +291,7 @@ public class ProcessInitiator extends Entity {
 	 * @param createTime 创建时间
 	 * @return 当前对象
 	*/
-	public ProcessInitiator setCreateTime(Date createTime) {
+	public FormInstanceBill setCreateTime(Date createTime) {
 		this.createTime=createTime;
 		return this;
 	}
@@ -242,7 +310,7 @@ public class ProcessInitiator extends Entity {
 	 * @param updateBy 修改人ID
 	 * @return 当前对象
 	*/
-	public ProcessInitiator setUpdateBy(String updateBy) {
+	public FormInstanceBill setUpdateBy(String updateBy) {
 		this.updateBy=updateBy;
 		return this;
 	}
@@ -261,7 +329,7 @@ public class ProcessInitiator extends Entity {
 	 * @param updateTime 修改时间
 	 * @return 当前对象
 	*/
-	public ProcessInitiator setUpdateTime(Date updateTime) {
+	public FormInstanceBill setUpdateTime(Date updateTime) {
 		this.updateTime=updateTime;
 		return this;
 	}
@@ -280,7 +348,7 @@ public class ProcessInitiator extends Entity {
 	 * @param deleted 是否已删除
 	 * @return 当前对象
 	*/
-	public ProcessInitiator setDeleted(Integer deleted) {
+	public FormInstanceBill setDeleted(Integer deleted) {
 		this.deleted=deleted;
 		return this;
 	}
@@ -299,7 +367,7 @@ public class ProcessInitiator extends Entity {
 	 * @param deleteBy 删除人ID
 	 * @return 当前对象
 	*/
-	public ProcessInitiator setDeleteBy(String deleteBy) {
+	public FormInstanceBill setDeleteBy(String deleteBy) {
 		this.deleteBy=deleteBy;
 		return this;
 	}
@@ -318,7 +386,7 @@ public class ProcessInitiator extends Entity {
 	 * @param deleteTime 删除时间
 	 * @return 当前对象
 	*/
-	public ProcessInitiator setDeleteTime(Date deleteTime) {
+	public FormInstanceBill setDeleteTime(Date deleteTime) {
 		this.deleteTime=deleteTime;
 		return this;
 	}
@@ -337,7 +405,7 @@ public class ProcessInitiator extends Entity {
 	 * @param version 数据版本号
 	 * @return 当前对象
 	*/
-	public ProcessInitiator setVersion(Integer version) {
+	public FormInstanceBill setVersion(Integer version) {
 		this.version=version;
 		return this;
 	}
@@ -356,34 +424,15 @@ public class ProcessInitiator extends Entity {
 	 * @param tenantId 租户ID
 	 * @return 当前对象
 	*/
-	public ProcessInitiator setTenantId(String tenantId) {
+	public FormInstanceBill setTenantId(String tenantId) {
 		this.tenantId=tenantId;
-		return this;
-	}
-	
-	/**
-	 * 获得 最后修改人<br>
-	 * 最后修改人
-	 * @return 最后修改人
-	*/
-	public User getLastUpdateUser() {
-		return lastUpdateUser;
-	}
-	
-	/**
-	 * 设置 最后修改人
-	 * @param lastUpdateUser 最后修改人
-	 * @return 当前对象
-	*/
-	public ProcessInitiator setLastUpdateUser(User lastUpdateUser) {
-		this.lastUpdateUser=lastUpdateUser;
 		return this;
 	}
 
 	/**
 	 * 将自己转换成指定类型的PO
 	 * @param poType  PO类型
-	 * @return ProcessInitiator , 转换好的 ProcessInitiator 对象
+	 * @return FormInstanceBill , 转换好的 FormInstanceBill 对象
 	*/
 	@Transient
 	public <T extends Entity> T toPO(Class<T> poType) {
@@ -393,7 +442,7 @@ public class ProcessInitiator extends Entity {
 	/**
 	 * 将自己转换成任意指定类型
 	 * @param pojoType  Pojo类型
-	 * @return ProcessInitiator , 转换好的 PoJo 对象
+	 * @return FormInstanceBill , 转换好的 PoJo 对象
 	*/
 	@Transient
 	public <T> T toPojo(Class<T> pojoType) {
@@ -410,35 +459,35 @@ public class ProcessInitiator extends Entity {
 	}
 
 	/**
-	 * 将 Map 转换成 ProcessInitiator
-	 * @param processInitiatorMap 包含实体信息的 Map 对象
-	 * @return ProcessInitiator , 转换好的的 ProcessInitiator 对象
+	 * 将 Map 转换成 FormInstanceBill
+	 * @param formInstanceBillMap 包含实体信息的 Map 对象
+	 * @return FormInstanceBill , 转换好的的 FormInstanceBill 对象
 	*/
 	@Transient
-	public static ProcessInitiator createFrom(Map<String,Object> processInitiatorMap) {
-		if(processInitiatorMap==null) return null;
-		ProcessInitiator po = EntityContext.create(ProcessInitiator.class, processInitiatorMap);
+	public static FormInstanceBill createFrom(Map<String,Object> formInstanceBillMap) {
+		if(formInstanceBillMap==null) return null;
+		FormInstanceBill po = EntityContext.create(FormInstanceBill.class, formInstanceBillMap);
 		return po;
 	}
 
 	/**
-	 * 将 Pojo 转换成 ProcessInitiator
+	 * 将 Pojo 转换成 FormInstanceBill
 	 * @param pojo 包含实体信息的 Pojo 对象
-	 * @return ProcessInitiator , 转换好的的 ProcessInitiator 对象
+	 * @return FormInstanceBill , 转换好的的 FormInstanceBill 对象
 	*/
 	@Transient
-	public static ProcessInitiator createFrom(Object pojo) {
+	public static FormInstanceBill createFrom(Object pojo) {
 		if(pojo==null) return null;
-		ProcessInitiator po = EntityContext.create(ProcessInitiator.class,pojo);
+		FormInstanceBill po = EntityContext.create(FormInstanceBill.class,pojo);
 		return po;
 	}
 
 	/**
-	 * 创建一个 ProcessInitiator，等同于 new
-	 * @return ProcessInitiator 对象
+	 * 创建一个 FormInstanceBill，等同于 new
+	 * @return FormInstanceBill 对象
 	*/
 	@Transient
-	public static ProcessInitiator create() {
-		return EntityContext.create(ProcessInitiator.class);
+	public static FormInstanceBill create() {
+		return EntityContext.create(FormInstanceBill.class);
 	}
 }

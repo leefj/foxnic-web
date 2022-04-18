@@ -7,13 +7,327 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2022-04-16 07:16:39
+ * @since 2022-04-18 16:47:16
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
 */
 
 public class FoxnicWeb {
+	
+	/**
+	 * 请假流程实例表
+	*/
+	public static class BPM_DEMO_LEAVE extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "bpm_demo_leave";
+		
+		/**
+		 * 主键
+		*/
+		public static final DBField ID = new DBField(DBDataType.INTEGER , "id","id","主键","主键",true,false,false);
+		
+		/**
+		 * 请假类型
+		*/
+		public static final DBField TYPE = new DBField(DBDataType.STRING , "type","type","请假类型","请假类型",false,false,true);
+		
+		/**
+		 * 开始时间
+		*/
+		public static final DBField BEGIN_TIME = new DBField(DBDataType.DATE , "begin_time","beginTime","开始时间","开始时间",false,false,true);
+		
+		/**
+		 * 结束时间
+		*/
+		public static final DBField END_TIME = new DBField(DBDataType.DATE , "end_time","endTime","结束时间","结束时间",false,false,true);
+		
+		/**
+		 * 请假原因
+		*/
+		public static final DBField REASON = new DBField(DBDataType.STRING , "reason","reason","请假原因","请假原因",false,false,true);
+		
+		public BPM_DEMO_LEAVE() {
+			this.init($NAME,"请假流程实例表" , ID , TYPE , BEGIN_TIME , END_TIME , REASON);
+		}
+		public static final BPM_DEMO_LEAVE $TABLE=new BPM_DEMO_LEAVE();
+	}
+	
+	/**
+	 * 表单定义表
+	*/
+	public static class BPM_FORM_DEFINITION extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "bpm_form_definition";
+		
+		/**
+		 * 主键
+		*/
+		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","主键","主键",true,false,false);
+		
+		/**
+		 * 表单名称
+		*/
+		public static final DBField NAME = new DBField(DBDataType.STRING , "name","name","表单名称","表单名称",false,false,true);
+		
+		/**
+		 * 表单类型
+		*/
+		public static final DBField FORM_TYPE = new DBField(DBDataType.STRING , "form_type","formType","表单类型","表单类型",false,false,true);
+		
+		/**
+		 * 起草页地址
+		*/
+		public static final DBField DRAFT_PAGE_URL = new DBField(DBDataType.STRING , "draft_page_url","draftPageUrl","起草页地址","起草页地址",false,false,true);
+		
+		/**
+		 * 审批页地址
+		*/
+		public static final DBField APPROVAL_PAGE_URL = new DBField(DBDataType.STRING , "approval_page_url","approvalPageUrl","审批页地址","审批页地址",false,false,true);
+		
+		/**
+		 * 生效
+		*/
+		public static final DBField VALID = new DBField(DBDataType.INTEGER , "valid","valid","生效","生效",false,false,true);
+		
+		/**
+		 * 备注
+		*/
+		public static final DBField NOTES = new DBField(DBDataType.STRING , "notes","notes","备注","备注",false,false,true);
+		
+		/**
+		 * 创建人ID
+		*/
+		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
+		
+		/**
+		 * 创建时间
+		*/
+		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","创建时间","创建时间",false,false,true);
+		
+		/**
+		 * 修改人ID
+		*/
+		public static final DBField UPDATE_BY = new DBField(DBDataType.STRING , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
+		
+		/**
+		 * 修改时间
+		*/
+		public static final DBField UPDATE_TIME = new DBField(DBDataType.DATE , "update_time","updateTime","修改时间","修改时间",false,false,true);
+		
+		/**
+		 * 是否已删除
+		*/
+		public static final DBField DELETED = new DBField(DBDataType.INTEGER , "deleted","deleted","是否已删除","是否已删除",false,false,false);
+		
+		/**
+		 * 删除人ID
+		*/
+		public static final DBField DELETE_BY = new DBField(DBDataType.STRING , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
+		
+		/**
+		 * 删除时间
+		*/
+		public static final DBField DELETE_TIME = new DBField(DBDataType.DATE , "delete_time","deleteTime","删除时间","删除时间",false,false,true);
+		
+		/**
+		 * 数据版本号
+		*/
+		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
+		
+		/**
+		 * 租户ID
+		*/
+		public static final DBField TENANT_ID = new DBField(DBDataType.STRING , "tenant_id","tenantId","租户ID","租户ID",false,false,false);
+		
+		public BPM_FORM_DEFINITION() {
+			this.init($NAME,"表单定义表" , ID , NAME , FORM_TYPE , DRAFT_PAGE_URL , APPROVAL_PAGE_URL , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID);
+		}
+		public static final BPM_FORM_DEFINITION $TABLE=new BPM_FORM_DEFINITION();
+	}
+	
+	/**
+	 * 流程实例表单表
+	*/
+	public static class BPM_FORM_INSTANCE extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "bpm_form_instance";
+		
+		/**
+		 * 主键
+		*/
+		public static final DBField ID = new DBField(DBDataType.INTEGER , "id","id","主键","主键",true,false,false);
+		
+		/**
+		 * 流程定义ID
+		*/
+		public static final DBField PROCESS_DEFINITION_ID = new DBField(DBDataType.STRING , "process_definition_id","processDefinitionId","流程定义ID","流程定义ID",false,false,true);
+		
+		/**
+		 * 流程实例ID
+		*/
+		public static final DBField PROCESS_INSTANCE_ID = new DBField(DBDataType.STRING , "process_instance_id","processInstanceId","流程实例ID","流程实例ID",false,false,true);
+		
+		/**
+		 * 表单定义ID
+		*/
+		public static final DBField FORM_DEFINITION_ID = new DBField(DBDataType.STRING , "form_definition_id","formDefinitionId","表单定义ID","表单定义ID",false,false,true);
+		
+		/**
+		 * 创建人ID
+		*/
+		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
+		
+		/**
+		 * 创建时间
+		*/
+		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","创建时间","创建时间",false,false,true);
+		
+		/**
+		 * 修改人ID
+		*/
+		public static final DBField UPDATE_BY = new DBField(DBDataType.STRING , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
+		
+		/**
+		 * 修改时间
+		*/
+		public static final DBField UPDATE_TIME = new DBField(DBDataType.DATE , "update_time","updateTime","修改时间","修改时间",false,false,true);
+		
+		/**
+		 * 是否已删除
+		*/
+		public static final DBField DELETED = new DBField(DBDataType.INTEGER , "deleted","deleted","是否已删除","是否已删除",false,false,false);
+		
+		/**
+		 * 删除人ID
+		*/
+		public static final DBField DELETE_BY = new DBField(DBDataType.STRING , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
+		
+		/**
+		 * 删除时间
+		*/
+		public static final DBField DELETE_TIME = new DBField(DBDataType.DATE , "delete_time","deleteTime","删除时间","删除时间",false,false,true);
+		
+		/**
+		 * 数据版本号
+		*/
+		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
+		
+		/**
+		 * 租户ID
+		*/
+		public static final DBField TENANT_ID = new DBField(DBDataType.STRING , "tenant_id","tenantId","租户ID","租户ID",false,false,false);
+		
+		public BPM_FORM_INSTANCE() {
+			this.init($NAME,"流程实例表单表" , ID , PROCESS_DEFINITION_ID , PROCESS_INSTANCE_ID , FORM_DEFINITION_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID);
+		}
+		public static final BPM_FORM_INSTANCE $TABLE=new BPM_FORM_INSTANCE();
+	}
+	
+	/**
+	 * 流程实例表单业务单据表
+	*/
+	public static class BPM_FORM_INSTANCE_BILL extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "bpm_form_instance_bill";
+		
+		/**
+		 * 主键
+		*/
+		public static final DBField ID = new DBField(DBDataType.INTEGER , "id","id","主键","主键",true,false,false);
+		
+		/**
+		 * 流程定义ID
+		*/
+		public static final DBField PROCESS_DEFINITION_ID = new DBField(DBDataType.STRING , "process_definition_id","processDefinitionId","流程定义ID","流程定义ID",false,false,true);
+		
+		/**
+		 * 流程实例ID
+		*/
+		public static final DBField PROCESS_INSTANCE_ID = new DBField(DBDataType.STRING , "process_instance_id","processInstanceId","流程实例ID","流程实例ID",false,false,true);
+		
+		/**
+		 * 表单定义ID
+		*/
+		public static final DBField FORM_DEFINITION_ID = new DBField(DBDataType.INTEGER , "form_definition_id","formDefinitionId","表单定义ID","表单定义ID",false,false,true);
+		
+		/**
+		 * 表单实例ID
+		*/
+		public static final DBField FORM_INSTANCE_ID = new DBField(DBDataType.STRING , "form_instance_id","formInstanceId","表单实例ID","表单实例ID",false,false,true);
+		
+		/**
+		 * 业务单据号
+		*/
+		public static final DBField BILL_ID = new DBField(DBDataType.STRING , "bill_id","billId","业务单据号","业务单据号",false,false,true);
+		
+		/**
+		 * 业务单据类型
+		*/
+		public static final DBField BILL_TYPE = new DBField(DBDataType.STRING , "bill_type","billType","业务单据类型","业务单据类型",false,false,true);
+		
+		/**
+		 * 创建人ID
+		*/
+		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
+		
+		/**
+		 * 创建时间
+		*/
+		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","创建时间","创建时间",false,false,true);
+		
+		/**
+		 * 修改人ID
+		*/
+		public static final DBField UPDATE_BY = new DBField(DBDataType.STRING , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
+		
+		/**
+		 * 修改时间
+		*/
+		public static final DBField UPDATE_TIME = new DBField(DBDataType.DATE , "update_time","updateTime","修改时间","修改时间",false,false,true);
+		
+		/**
+		 * 是否已删除
+		*/
+		public static final DBField DELETED = new DBField(DBDataType.INTEGER , "deleted","deleted","是否已删除","是否已删除",false,false,false);
+		
+		/**
+		 * 删除人ID
+		*/
+		public static final DBField DELETE_BY = new DBField(DBDataType.STRING , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
+		
+		/**
+		 * 删除时间
+		*/
+		public static final DBField DELETE_TIME = new DBField(DBDataType.DATE , "delete_time","deleteTime","删除时间","删除时间",false,false,true);
+		
+		/**
+		 * 数据版本号
+		*/
+		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
+		
+		/**
+		 * 租户ID
+		*/
+		public static final DBField TENANT_ID = new DBField(DBDataType.STRING , "tenant_id","tenantId","租户ID","租户ID",false,false,false);
+		
+		public BPM_FORM_INSTANCE_BILL() {
+			this.init($NAME,"流程实例表单业务单据表" , ID , PROCESS_DEFINITION_ID , PROCESS_INSTANCE_ID , FORM_DEFINITION_ID , FORM_INSTANCE_ID , BILL_ID , BILL_TYPE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID);
+		}
+		public static final BPM_FORM_INSTANCE_BILL $TABLE=new BPM_FORM_INSTANCE_BILL();
+	}
 	
 	/**
 	 * 流程定义表
@@ -29,6 +343,11 @@ public class FoxnicWeb {
 		 * ID
 		*/
 		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","ID","ID",true,false,false);
+		
+		/**
+		 * 关联表单，表单定义ID
+		*/
+		public static final DBField FORM_DEFINITION_ID = new DBField(DBDataType.STRING , "form_definition_id","formDefinitionId","关联表单","表单定义ID",false,false,true);
 		
 		/**
 		 * 名称
@@ -95,8 +414,13 @@ public class FoxnicWeb {
 		*/
 		public static final DBField CAMUNDA_DEFINITION_ID = new DBField(DBDataType.STRING , "camunda_definition_id","camundaDefinitionId","流程ID","在 camunda 中的流程定义ID",false,false,true);
 		
+		/**
+		 * 流程Key，在 camunda 中的流程定义KEY
+		*/
+		public static final DBField CAMUNDA_DEFINITION_KEY = new DBField(DBDataType.STRING , "camunda_definition_key","camundaDefinitionKey","流程Key","在 camunda 中的流程定义KEY",false,false,true);
+		
 		public BPM_PROCESS_DEFINITION() {
-			this.init($NAME,"流程定义表" , ID , NAME , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CAMUNDA_DEFINITION_ID);
+			this.init($NAME,"流程定义表" , ID , FORM_DEFINITION_ID , NAME , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CAMUNDA_DEFINITION_ID , CAMUNDA_DEFINITION_KEY);
 		}
 		public static final BPM_PROCESS_DEFINITION $TABLE=new BPM_PROCESS_DEFINITION();
 	}
@@ -124,7 +448,7 @@ public class FoxnicWeb {
 		/**
 		 * 流程文件ID
 		*/
-		public static final DBField DEFINITION_FILE_ID = new DBField(DBDataType.STRING , "definition_file_id","definitionFileId","流程文件ID","流程文件ID",false,false,true);
+		public static final DBField FILE_ID = new DBField(DBDataType.STRING , "file_id","fileId","流程文件ID","流程文件ID",false,false,true);
 		
 		/**
 		 * 应用请求报文
@@ -157,7 +481,7 @@ public class FoxnicWeb {
 		public static final DBField TENANT_ID = new DBField(DBDataType.STRING , "tenant_id","tenantId","租户ID","租户ID",false,false,false);
 		
 		public BPM_PROCESS_DEFINITION_DEPLOY() {
-			this.init($NAME,"流程应用登记表" , ID , DEFINITION_ID , DEFINITION_FILE_ID , REQUEST , RESULT , APPLY_TIME , EXCEPTION , SUCCESS , TENANT_ID);
+			this.init($NAME,"流程应用登记表" , ID , DEFINITION_ID , FILE_ID , REQUEST , RESULT , APPLY_TIME , EXCEPTION , SUCCESS , TENANT_ID);
 		}
 		public static final BPM_PROCESS_DEFINITION_DEPLOY $TABLE=new BPM_PROCESS_DEFINITION_DEPLOY();
 	}
@@ -352,6 +676,101 @@ public class FoxnicWeb {
 			this.init($NAME,"流程发起人权限表" , ID , DEFINITION_ID , INITIATOR_ID , INITIATOR_TYPE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID);
 		}
 		public static final BPM_PROCESS_INITIATOR $TABLE=new BPM_PROCESS_INITIATOR();
+	}
+	
+	/**
+	 * 流程实例表
+	*/
+	public static class BPM_PROCESS_INSTANCE extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "bpm_process_instance";
+		
+		/**
+		*/
+		public static final DBField ID = new DBField(DBDataType.INTEGER , "id","id","id","id",true,false,false);
+		
+		/**
+		 * 起草人ID
+		*/
+		public static final DBField DRAFTER_ID = new DBField(DBDataType.STRING , "drafter_id","drafterId","起草人ID","起草人ID",false,false,true);
+		
+		/**
+		 * 起草人类型
+		*/
+		public static final DBField DRAFTER_TYPE = new DBField(DBDataType.STRING , "drafter_type","drafterType","起草人类型","起草人类型",false,false,true);
+		
+		/**
+		 * 流程定义ID
+		*/
+		public static final DBField PROCESS_DEFINITION_ID = new DBField(DBDataType.STRING , "process_definition_id","processDefinitionId","流程定义ID","流程定义ID",false,false,true);
+		
+		/**
+		 * 流程标题
+		*/
+		public static final DBField TITLE = new DBField(DBDataType.STRING , "title","title","流程标题","流程标题",false,false,true);
+		
+		/**
+		 * 审批状态
+		*/
+		public static final DBField APPROVAL_STATUS = new DBField(DBDataType.STRING , "approval_status","approvalStatus","审批状态","审批状态",false,false,true);
+		
+		/**
+		 * camunda流程实例ID
+		*/
+		public static final DBField CAMUNDA_INSTANCE_ID = new DBField(DBDataType.INTEGER , "camunda_instance_id","camundaInstanceId","camunda流程实例ID","camunda流程实例ID",false,false,true);
+		
+		/**
+		 * 创建人ID
+		*/
+		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
+		
+		/**
+		 * 创建时间
+		*/
+		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","创建时间","创建时间",false,false,true);
+		
+		/**
+		 * 修改人ID
+		*/
+		public static final DBField UPDATE_BY = new DBField(DBDataType.STRING , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
+		
+		/**
+		 * 修改时间
+		*/
+		public static final DBField UPDATE_TIME = new DBField(DBDataType.DATE , "update_time","updateTime","修改时间","修改时间",false,false,true);
+		
+		/**
+		 * 是否已删除
+		*/
+		public static final DBField DELETED = new DBField(DBDataType.INTEGER , "deleted","deleted","是否已删除","是否已删除",false,false,false);
+		
+		/**
+		 * 删除人ID
+		*/
+		public static final DBField DELETE_BY = new DBField(DBDataType.STRING , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
+		
+		/**
+		 * 删除时间
+		*/
+		public static final DBField DELETE_TIME = new DBField(DBDataType.DATE , "delete_time","deleteTime","删除时间","删除时间",false,false,true);
+		
+		/**
+		 * 数据版本号
+		*/
+		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
+		
+		/**
+		 * 租户ID
+		*/
+		public static final DBField TENANT_ID = new DBField(DBDataType.STRING , "tenant_id","tenantId","租户ID","租户ID",false,false,false);
+		
+		public BPM_PROCESS_INSTANCE() {
+			this.init($NAME,"流程实例表" , ID , DRAFTER_ID , DRAFTER_TYPE , PROCESS_DEFINITION_ID , TITLE , APPROVAL_STATUS , CAMUNDA_INSTANCE_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID);
+		}
+		public static final BPM_PROCESS_INSTANCE $TABLE=new BPM_PROCESS_INSTANCE();
 	}
 	
 	/**

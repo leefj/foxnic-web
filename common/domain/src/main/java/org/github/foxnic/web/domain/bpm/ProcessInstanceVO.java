@@ -10,14 +10,14 @@ import com.github.foxnic.commons.bean.BeanUtil;
 
 
 /**
- * 流程定义
+ * 流程实例
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-18 17:03:43
- * @sign 1D2C38500D1ABE5927BCBF1911BE96A0
+ * @since 2022-04-18 16:27:57
+ * @sign B4F8A87114B584203F02CF338E7F2DC0
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
-public class ProcessDefinitionVO extends ProcessDefinition {
+public class ProcessInstanceVO extends ProcessInstance {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -73,7 +73,7 @@ public class ProcessDefinitionVO extends ProcessDefinition {
 	 * 主键清单：用于接收批量主键参数
 	*/
 	@ApiModelProperty(required = false,value="主键清单" , notes = "用于接收批量主键参数")
-	private List<String> ids;
+	private List<Integer> ids;
 	
 	/**
 	 * 获得 页码<br>
@@ -88,7 +88,7 @@ public class ProcessDefinitionVO extends ProcessDefinition {
 	 * @param pageIndex 页码
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionVO setPageIndex(Integer pageIndex) {
+	public ProcessInstanceVO setPageIndex(Integer pageIndex) {
 		this.pageIndex=pageIndex;
 		return this;
 	}
@@ -106,7 +106,7 @@ public class ProcessDefinitionVO extends ProcessDefinition {
 	 * @param pageSize 分页大小
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionVO setPageSize(Integer pageSize) {
+	public ProcessInstanceVO setPageSize(Integer pageSize) {
 		this.pageSize=pageSize;
 		return this;
 	}
@@ -124,7 +124,7 @@ public class ProcessDefinitionVO extends ProcessDefinition {
 	 * @param searchField 搜索字段
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionVO setSearchField(String searchField) {
+	public ProcessInstanceVO setSearchField(String searchField) {
 		this.searchField=searchField;
 		return this;
 	}
@@ -142,7 +142,7 @@ public class ProcessDefinitionVO extends ProcessDefinition {
 	 * @param fuzzyField 模糊搜索字段
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionVO setFuzzyField(String fuzzyField) {
+	public ProcessInstanceVO setFuzzyField(String fuzzyField) {
 		this.fuzzyField=fuzzyField;
 		return this;
 	}
@@ -160,7 +160,7 @@ public class ProcessDefinitionVO extends ProcessDefinition {
 	 * @param searchValue 搜索的值
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionVO setSearchValue(String searchValue) {
+	public ProcessInstanceVO setSearchValue(String searchValue) {
 		this.searchValue=searchValue;
 		return this;
 	}
@@ -178,7 +178,7 @@ public class ProcessDefinitionVO extends ProcessDefinition {
 	 * @param dirtyFields 已修改字段
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionVO setDirtyFields(List<String> dirtyFields) {
+	public ProcessInstanceVO setDirtyFields(List<String> dirtyFields) {
 		this.dirtyFields=dirtyFields;
 		return this;
 	}
@@ -188,7 +188,7 @@ public class ProcessDefinitionVO extends ProcessDefinition {
 	 * @param dirtyField 已修改字段
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionVO addDirtyField(String dirtyField) {
+	public ProcessInstanceVO addDirtyField(String dirtyField) {
 		if(this.dirtyFields==null) dirtyFields=new ArrayList<>();
 		this.dirtyFields.add(dirtyField);
 		return this;
@@ -207,7 +207,7 @@ public class ProcessDefinitionVO extends ProcessDefinition {
 	 * @param sortField 排序字段
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionVO setSortField(String sortField) {
+	public ProcessInstanceVO setSortField(String sortField) {
 		this.sortField=sortField;
 		return this;
 	}
@@ -225,7 +225,7 @@ public class ProcessDefinitionVO extends ProcessDefinition {
 	 * @param sortType 排序方式
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionVO setSortType(String sortType) {
+	public ProcessInstanceVO setSortType(String sortType) {
 		this.sortType=sortType;
 		return this;
 	}
@@ -235,7 +235,7 @@ public class ProcessDefinitionVO extends ProcessDefinition {
 	 * 用于接收批量主键参数
 	 * @return 主键清单
 	*/
-	public List<String> getIds() {
+	public List<Integer> getIds() {
 		return ids;
 	}
 	
@@ -244,7 +244,7 @@ public class ProcessDefinitionVO extends ProcessDefinition {
 	 * @param ids 主键清单
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionVO setIds(List<String> ids) {
+	public ProcessInstanceVO setIds(List<Integer> ids) {
 		this.ids=ids;
 		return this;
 	}
@@ -254,7 +254,7 @@ public class ProcessDefinitionVO extends ProcessDefinition {
 	 * @param id 主键清单
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionVO addId(String id) {
+	public ProcessInstanceVO addId(Integer id) {
 		if(this.ids==null) ids=new ArrayList<>();
 		this.ids.add(id);
 		return this;

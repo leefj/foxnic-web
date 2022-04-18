@@ -10,14 +10,14 @@ import com.github.foxnic.commons.bean.BeanUtil;
 
 
 /**
- * 流程定义
+ * 表单定义
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-18 17:03:43
- * @sign 1D2C38500D1ABE5927BCBF1911BE96A0
+ * @since 2022-04-18 16:17:25
+ * @sign D1FAD95945FF2382B267FAAEE66BC29C
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
-public class ProcessDefinitionVO extends ProcessDefinition {
+public class FormDefinitionVO extends FormDefinition {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -88,7 +88,7 @@ public class ProcessDefinitionVO extends ProcessDefinition {
 	 * @param pageIndex 页码
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionVO setPageIndex(Integer pageIndex) {
+	public FormDefinitionVO setPageIndex(Integer pageIndex) {
 		this.pageIndex=pageIndex;
 		return this;
 	}
@@ -106,7 +106,7 @@ public class ProcessDefinitionVO extends ProcessDefinition {
 	 * @param pageSize 分页大小
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionVO setPageSize(Integer pageSize) {
+	public FormDefinitionVO setPageSize(Integer pageSize) {
 		this.pageSize=pageSize;
 		return this;
 	}
@@ -124,7 +124,7 @@ public class ProcessDefinitionVO extends ProcessDefinition {
 	 * @param searchField 搜索字段
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionVO setSearchField(String searchField) {
+	public FormDefinitionVO setSearchField(String searchField) {
 		this.searchField=searchField;
 		return this;
 	}
@@ -142,7 +142,7 @@ public class ProcessDefinitionVO extends ProcessDefinition {
 	 * @param fuzzyField 模糊搜索字段
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionVO setFuzzyField(String fuzzyField) {
+	public FormDefinitionVO setFuzzyField(String fuzzyField) {
 		this.fuzzyField=fuzzyField;
 		return this;
 	}
@@ -160,7 +160,7 @@ public class ProcessDefinitionVO extends ProcessDefinition {
 	 * @param searchValue 搜索的值
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionVO setSearchValue(String searchValue) {
+	public FormDefinitionVO setSearchValue(String searchValue) {
 		this.searchValue=searchValue;
 		return this;
 	}
@@ -178,7 +178,7 @@ public class ProcessDefinitionVO extends ProcessDefinition {
 	 * @param dirtyFields 已修改字段
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionVO setDirtyFields(List<String> dirtyFields) {
+	public FormDefinitionVO setDirtyFields(List<String> dirtyFields) {
 		this.dirtyFields=dirtyFields;
 		return this;
 	}
@@ -188,7 +188,7 @@ public class ProcessDefinitionVO extends ProcessDefinition {
 	 * @param dirtyField 已修改字段
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionVO addDirtyField(String dirtyField) {
+	public FormDefinitionVO addDirtyField(String dirtyField) {
 		if(this.dirtyFields==null) dirtyFields=new ArrayList<>();
 		this.dirtyFields.add(dirtyField);
 		return this;
@@ -207,7 +207,7 @@ public class ProcessDefinitionVO extends ProcessDefinition {
 	 * @param sortField 排序字段
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionVO setSortField(String sortField) {
+	public FormDefinitionVO setSortField(String sortField) {
 		this.sortField=sortField;
 		return this;
 	}
@@ -225,7 +225,7 @@ public class ProcessDefinitionVO extends ProcessDefinition {
 	 * @param sortType 排序方式
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionVO setSortType(String sortType) {
+	public FormDefinitionVO setSortType(String sortType) {
 		this.sortType=sortType;
 		return this;
 	}
@@ -244,7 +244,7 @@ public class ProcessDefinitionVO extends ProcessDefinition {
 	 * @param ids 主键清单
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionVO setIds(List<String> ids) {
+	public FormDefinitionVO setIds(List<String> ids) {
 		this.ids=ids;
 		return this;
 	}
@@ -254,7 +254,7 @@ public class ProcessDefinitionVO extends ProcessDefinition {
 	 * @param id 主键清单
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionVO addId(String id) {
+	public FormDefinitionVO addId(String id) {
 		if(this.ids==null) ids=new ArrayList<>();
 		this.ids.add(id);
 		return this;

@@ -3,10 +3,7 @@ package org.github.foxnic.web.generator.module;
 import com.github.foxnic.commons.io.FileUtil;
 import com.github.foxnic.generator.util.ModuleCodeGenerator;
 import org.github.foxnic.web.generator.data.DataGenerator;
-import org.github.foxnic.web.generator.module.bpm.ProcessDefinitionApplyConfig;
-import org.github.foxnic.web.generator.module.bpm.ProcessDefinitionConfig;
-import org.github.foxnic.web.generator.module.bpm.ProcessDefinitionFileConfig;
-import org.github.foxnic.web.generator.module.bpm.ProcessInitiatorConfig;
+import org.github.foxnic.web.generator.module.bpm.*;
 import org.github.foxnic.web.generator.module.changes.*;
 import org.github.foxnic.web.generator.module.dataperm.*;
 import org.github.foxnic.web.generator.module.example.CodeExampleMulitPkConfig;
@@ -77,6 +74,14 @@ public class CodeStarter extends ModuleCodeGenerator {
         this.addConfig(new ProcessDefinitionFileConfig());
         this.addConfig(new ProcessInitiatorConfig());
         this.addConfig(new ProcessDefinitionApplyConfig());
+        //
+        this.addConfig(new ProcessInstanceConfig());
+        //
+        this.addConfig(new FormDefinitionConfig());
+        this.addConfig(new FormInstanceConfig());
+        this.addConfig(new FormInstanceBillConfig());
+        //
+        this.addConfig(new DemoLeaveConfig());
     }
 
     private void  initChangeModules() {
