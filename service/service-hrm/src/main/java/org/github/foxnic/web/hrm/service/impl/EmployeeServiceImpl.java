@@ -96,7 +96,12 @@ public class EmployeeServiceImpl extends SuperService<Employee> implements IEmpl
 		//如果系统配置是在创建员工是创建账户
 		if(SystemConfigProxyUtil.getEnum(SystemConfigEnum.SYSTEM_EMPLOYEE_CREATEUSER, YesNo.class)==YesNo.yes) {
 			UserVO userVO=new UserVO();
-			userVO.setName(employee.getPhone());
+			userVO.setAccount(employee.getPhone());
+			if(employee.getPerson()!=null) {
+				userVO.setRealName(employee.getPerson().getName());
+			} else {
+				userVO.setRealName(employee.getName());
+			}
 			userVO.setPhone(employee.getPhone());
 			Result ur=UserServiceProxy.api().insert(userVO);
 			if(ur.failure()) {

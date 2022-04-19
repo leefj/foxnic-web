@@ -70,10 +70,10 @@ public class CodeStarter extends ModuleCodeGenerator {
     }
 
     private void initBpmModules() {
-        this.addConfig(new ProcessDefinitionConfig());
-        this.addConfig(new ProcessDefinitionFileConfig());
-        this.addConfig(new ProcessInitiatorConfig());
-        this.addConfig(new ProcessDefinitionApplyConfig());
+//        this.addConfig(new ProcessDefinitionConfig());
+//        this.addConfig(new ProcessDefinitionFileConfig());
+//        this.addConfig(new ProcessInitiatorConfig());
+//        this.addConfig(new ProcessDefinitionApplyConfig());
         //
         this.addConfig(new ProcessInstanceConfig());
         //

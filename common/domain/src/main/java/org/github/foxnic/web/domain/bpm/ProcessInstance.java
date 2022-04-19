@@ -7,7 +7,6 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_PROCESS_INSTANCE;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
-import org.github.foxnic.web.domain.oauth.User;
 import javax.persistence.Transient;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
@@ -17,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程实例
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-18 16:27:57
- * @sign DD40DB96F54469B5A349341038353034
+ * @since 2022-04-19 15:40:49
+ * @sign 455EF49DDDFACC759A336189CFA5A338
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -30,10 +29,10 @@ public class ProcessInstance extends Entity {
 	public static final DBTable TABLE =BPM_PROCESS_INSTANCE.$TABLE;
 	
 	/**
-	 * id：id
+	 * 主键：主键
 	*/
 	@Id
-	@ApiModelProperty(required = true,value="id" , notes = "id")
+	@ApiModelProperty(required = true,value="主键" , notes = "主键")
 	private Integer id;
 	
 	/**
@@ -47,6 +46,12 @@ public class ProcessInstance extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="起草人类型" , notes = "起草人类型")
 	private String drafterType;
+	
+	/**
+	 * 表单实例ID：表单实例ID
+	*/
+	@ApiModelProperty(required = false,value="表单实例ID" , notes = "表单实例ID")
+	private String formInstanceId;
 	
 	/**
 	 * 流程定义ID：流程定义ID
@@ -127,29 +132,35 @@ public class ProcessInstance extends Entity {
 	private String tenantId;
 	
 	/**
-	 * 最后修改人：最后修改人
+	 * 流程定义：流程定义
 	*/
-	@ApiModelProperty(required = false,value="最后修改人" , notes = "最后修改人")
-	private User lastUpdateUser;
+	@ApiModelProperty(required = false,value="流程定义" , notes = "流程定义")
+	private ProcessDefinition processDefinition;
 	
 	/**
-	 * 流程定义：流程定义文件
+	 * 表单实例：表单实例
 	*/
-	@ApiModelProperty(required = false,value="流程定义" , notes = "流程定义文件")
-	private ProcessDefinitionFile definitionFile;
+	@ApiModelProperty(required = false,value="表单实例" , notes = "表单实例")
+	private FormInstance formInstance;
 	
 	/**
-	 * 获得 id<br>
-	 * id
-	 * @return id
+	 * 起草人：起草人
+	*/
+	@ApiModelProperty(required = false,value="起草人" , notes = "起草人")
+	private Appover drafter;
+	
+	/**
+	 * 获得 主键<br>
+	 * 主键
+	 * @return 主键
 	*/
 	public Integer getId() {
 		return id;
 	}
 	
 	/**
-	 * 设置 id
-	 * @param id id
+	 * 设置 主键
+	 * @param id 主键
 	 * @return 当前对象
 	*/
 	public ProcessInstance setId(Integer id) {
@@ -192,6 +203,25 @@ public class ProcessInstance extends Entity {
 	*/
 	public ProcessInstance setDrafterType(String drafterType) {
 		this.drafterType=drafterType;
+		return this;
+	}
+	
+	/**
+	 * 获得 表单实例ID<br>
+	 * 表单实例ID
+	 * @return 表单实例ID
+	*/
+	public String getFormInstanceId() {
+		return formInstanceId;
+	}
+	
+	/**
+	 * 设置 表单实例ID
+	 * @param formInstanceId 表单实例ID
+	 * @return 当前对象
+	*/
+	public ProcessInstance setFormInstanceId(String formInstanceId) {
+		this.formInstanceId=formInstanceId;
 		return this;
 	}
 	
@@ -443,40 +473,59 @@ public class ProcessInstance extends Entity {
 	}
 	
 	/**
-	 * 获得 最后修改人<br>
-	 * 最后修改人
-	 * @return 最后修改人
-	*/
-	public User getLastUpdateUser() {
-		return lastUpdateUser;
-	}
-	
-	/**
-	 * 设置 最后修改人
-	 * @param lastUpdateUser 最后修改人
-	 * @return 当前对象
-	*/
-	public ProcessInstance setLastUpdateUser(User lastUpdateUser) {
-		this.lastUpdateUser=lastUpdateUser;
-		return this;
-	}
-	
-	/**
 	 * 获得 流程定义<br>
-	 * 流程定义文件
+	 * 流程定义
 	 * @return 流程定义
 	*/
-	public ProcessDefinitionFile getDefinitionFile() {
-		return definitionFile;
+	public ProcessDefinition getProcessDefinition() {
+		return processDefinition;
 	}
 	
 	/**
 	 * 设置 流程定义
-	 * @param definitionFile 流程定义
+	 * @param processDefinition 流程定义
 	 * @return 当前对象
 	*/
-	public ProcessInstance setDefinitionFile(ProcessDefinitionFile definitionFile) {
-		this.definitionFile=definitionFile;
+	public ProcessInstance setProcessDefinition(ProcessDefinition processDefinition) {
+		this.processDefinition=processDefinition;
+		return this;
+	}
+	
+	/**
+	 * 获得 表单实例<br>
+	 * 表单实例
+	 * @return 表单实例
+	*/
+	public FormInstance getFormInstance() {
+		return formInstance;
+	}
+	
+	/**
+	 * 设置 表单实例
+	 * @param formInstance 表单实例
+	 * @return 当前对象
+	*/
+	public ProcessInstance setFormInstance(FormInstance formInstance) {
+		this.formInstance=formInstance;
+		return this;
+	}
+	
+	/**
+	 * 获得 起草人<br>
+	 * 起草人
+	 * @return 起草人
+	*/
+	public Appover getDrafter() {
+		return drafter;
+	}
+	
+	/**
+	 * 设置 起草人
+	 * @param drafter 起草人
+	 * @return 当前对象
+	*/
+	public ProcessInstance setDrafter(Appover drafter) {
+		this.drafter=drafter;
 		return this;
 	}
 

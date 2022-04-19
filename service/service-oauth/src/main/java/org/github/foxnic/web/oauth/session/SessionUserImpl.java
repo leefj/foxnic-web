@@ -59,13 +59,13 @@ public class SessionUserImpl extends SessionUser implements UserDetails, Credent
 
 	@Override
 	public String getUsername() {
-		return this.user.getName();
+		return this.user.getAccount();
 	}
 
 	@Override
 	public String getRealName() {
-		if(StringUtil.hasContent(this.user.getActivatedEmployeeName())){
-			return this.user.getActivatedEmployeeName();
+		if(StringUtil.hasContent(this.user.getRealName())){
+			return this.user.getRealName();
 		}
 		return this.getUsername();
 	}

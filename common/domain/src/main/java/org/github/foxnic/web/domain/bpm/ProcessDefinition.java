@@ -17,8 +17,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程定义
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-18 17:03:43
- * @sign 435A9AF0C6B4D71CF8EB127CE1F45B51
+ * @since 2022-04-19 14:58:16
+ * @sign EE0E7BEC599603077FC5675B6D59DF94
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -133,10 +133,16 @@ public class ProcessDefinition extends Entity {
 	private User lastUpdateUser;
 	
 	/**
-	 * 流程定义：流程定义文件
+	 * 流程模型定义：流程模型文件
 	*/
-	@ApiModelProperty(required = false,value="流程定义" , notes = "流程定义文件")
+	@ApiModelProperty(required = false,value="流程模型定义" , notes = "流程模型文件")
 	private ProcessDefinitionFile definitionFile;
+	
+	/**
+	 * 表单定义：表单定义
+	*/
+	@ApiModelProperty(required = false,value="表单定义" , notes = "表单定义")
+	private FormDefinition formDefinition;
 	
 	/**
 	 * 获得 ID<br>
@@ -462,21 +468,40 @@ public class ProcessDefinition extends Entity {
 	}
 	
 	/**
-	 * 获得 流程定义<br>
-	 * 流程定义文件
-	 * @return 流程定义
+	 * 获得 流程模型定义<br>
+	 * 流程模型文件
+	 * @return 流程模型定义
 	*/
 	public ProcessDefinitionFile getDefinitionFile() {
 		return definitionFile;
 	}
 	
 	/**
-	 * 设置 流程定义
-	 * @param definitionFile 流程定义
+	 * 设置 流程模型定义
+	 * @param definitionFile 流程模型定义
 	 * @return 当前对象
 	*/
 	public ProcessDefinition setDefinitionFile(ProcessDefinitionFile definitionFile) {
 		this.definitionFile=definitionFile;
+		return this;
+	}
+	
+	/**
+	 * 获得 表单定义<br>
+	 * 表单定义
+	 * @return 表单定义
+	*/
+	public FormDefinition getFormDefinition() {
+		return formDefinition;
+	}
+	
+	/**
+	 * 设置 表单定义
+	 * @param formDefinition 表单定义
+	 * @return 当前对象
+	*/
+	public ProcessDefinition setFormDefinition(FormDefinition formDefinition) {
+		this.formDefinition=formDefinition;
 		return this;
 	}
 

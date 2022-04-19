@@ -7,12 +7,13 @@ import org.github.foxnic.web.domain.bpm.ProcessDefinition;
 import java.util.Date;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.domain.bpm.ProcessDefinitionFile;
+import org.github.foxnic.web.domain.bpm.FormDefinition;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-18 17:03:43
+ * @since 2022-04-19 14:58:16
  * @sign 1D2C38500D1ABE5927BCBF1911BE96A0
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -280,19 +281,29 @@ public class ProcessDefinitionVOMeta extends ProcessDefinitionMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionVO,org.github.foxnic.web.domain.oauth.User> LAST_UPDATE_USER_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionVO.class ,LAST_UPDATE_USER, org.github.foxnic.web.domain.oauth.User.class, "最后修改人", "最后修改人", org.github.foxnic.web.domain.oauth.User.class, null);
 	
 	/**
-	 * 流程定义 , 流程定义文件 , 类型: org.github.foxnic.web.domain.bpm.ProcessDefinitionFile
+	 * 流程模型定义 , 流程模型文件 , 类型: org.github.foxnic.web.domain.bpm.ProcessDefinitionFile
 	*/
 	public static final String DEFINITION_FILE="definitionFile";
 	
 	/**
-	 * 流程定义 , 流程定义文件 , 类型: org.github.foxnic.web.domain.bpm.ProcessDefinitionFile
+	 * 流程模型定义 , 流程模型文件 , 类型: org.github.foxnic.web.domain.bpm.ProcessDefinitionFile
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionVO,org.github.foxnic.web.domain.bpm.ProcessDefinitionFile> DEFINITION_FILE_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionVO.class ,DEFINITION_FILE, org.github.foxnic.web.domain.bpm.ProcessDefinitionFile.class, "流程定义", "流程定义文件", org.github.foxnic.web.domain.bpm.ProcessDefinitionFile.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionVO,org.github.foxnic.web.domain.bpm.ProcessDefinitionFile> DEFINITION_FILE_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionVO.class ,DEFINITION_FILE, org.github.foxnic.web.domain.bpm.ProcessDefinitionFile.class, "流程模型定义", "流程模型文件", org.github.foxnic.web.domain.bpm.ProcessDefinitionFile.class, null);
+	
+	/**
+	 * 表单定义 , 类型: org.github.foxnic.web.domain.bpm.FormDefinition
+	*/
+	public static final String FORM_DEFINITION="formDefinition";
+	
+	/**
+	 * 表单定义 , 类型: org.github.foxnic.web.domain.bpm.FormDefinition
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionVO,org.github.foxnic.web.domain.bpm.FormDefinition> FORM_DEFINITION_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionVO.class ,FORM_DEFINITION, org.github.foxnic.web.domain.bpm.FormDefinition.class, "表单定义", "表单定义", org.github.foxnic.web.domain.bpm.FormDefinition.class, null);
 	
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , FORM_DEFINITION_ID , NAME , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CAMUNDA_DEFINITION_ID , CAMUNDA_DEFINITION_KEY , LAST_UPDATE_USER , DEFINITION_FILE };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , FORM_DEFINITION_ID , NAME , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CAMUNDA_DEFINITION_ID , CAMUNDA_DEFINITION_KEY , LAST_UPDATE_USER , DEFINITION_FILE , FORM_DEFINITION };
 	
 	/**
 	 * 代理类
@@ -589,13 +600,24 @@ public class ProcessDefinitionVOMeta extends ProcessDefinitionMeta {
 		}
 		
 		/**
-		 * 设置 流程定义
-		 * @param definitionFile 流程定义
+		 * 设置 流程模型定义
+		 * @param definitionFile 流程模型定义
 		 * @return 当前对象
 		*/
 		public ProcessDefinition setDefinitionFile(ProcessDefinitionFile definitionFile) {
 			super.change(DEFINITION_FILE,super.getDefinitionFile(),definitionFile);
 			super.setDefinitionFile(definitionFile);
+			return this;
+		}
+		
+		/**
+		 * 设置 表单定义
+		 * @param formDefinition 表单定义
+		 * @return 当前对象
+		*/
+		public ProcessDefinition setFormDefinition(FormDefinition formDefinition) {
+			super.change(FORM_DEFINITION,super.getFormDefinition(),formDefinition);
+			super.setFormDefinition(formDefinition);
 			return this;
 		}
 	}

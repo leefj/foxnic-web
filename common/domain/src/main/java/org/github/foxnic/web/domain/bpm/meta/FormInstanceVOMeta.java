@@ -5,12 +5,14 @@ import org.github.foxnic.web.domain.bpm.FormInstanceVO;
 import java.util.List;
 import org.github.foxnic.web.domain.bpm.FormInstance;
 import java.util.Date;
+import org.github.foxnic.web.domain.bpm.FormDefinition;
+import org.github.foxnic.web.domain.bpm.FormInstanceBill;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-18 16:17:25
+ * @since 2022-04-19 11:03:26
  * @sign D4E545D84E8F6AC76EFD1558303DE1D5
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -238,9 +240,29 @@ public class FormInstanceVOMeta extends FormInstanceMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.FormInstanceVO,java.lang.String> TENANT_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.FormInstanceVO.class ,TENANT_ID, java.lang.String.class, "租户ID", "租户ID", java.lang.String.class, null);
 	
 	/**
+	 * 表单定义 , 类型: org.github.foxnic.web.domain.bpm.FormDefinition
+	*/
+	public static final String FORM_DEFINITION="formDefinition";
+	
+	/**
+	 * 表单定义 , 类型: org.github.foxnic.web.domain.bpm.FormDefinition
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.FormInstanceVO,org.github.foxnic.web.domain.bpm.FormDefinition> FORM_DEFINITION_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.FormInstanceVO.class ,FORM_DEFINITION, org.github.foxnic.web.domain.bpm.FormDefinition.class, "表单定义", "表单定义", org.github.foxnic.web.domain.bpm.FormDefinition.class, null);
+	
+	/**
+	 * 业务单据清单 , 表单实例关联的业务单据清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.FormInstanceBill
+	*/
+	public static final String BILLS="bills";
+	
+	/**
+	 * 业务单据清单 , 表单实例关联的业务单据清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.FormInstanceBill
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.FormInstanceVO,org.github.foxnic.web.domain.bpm.FormInstanceBill> BILLS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.FormInstanceVO.class ,BILLS, java.util.List.class, "业务单据清单", "表单实例关联的业务单据清单", org.github.foxnic.web.domain.bpm.FormInstanceBill.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , PROCESS_DEFINITION_ID , PROCESS_INSTANCE_ID , FORM_DEFINITION_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , PROCESS_DEFINITION_ID , PROCESS_INSTANCE_ID , FORM_DEFINITION_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , FORM_DEFINITION , BILLS };
 	
 	/**
 	 * 代理类
@@ -489,6 +511,28 @@ public class FormInstanceVOMeta extends FormInstanceMeta {
 		public FormInstance setTenantId(String tenantId) {
 			super.change(TENANT_ID,super.getTenantId(),tenantId);
 			super.setTenantId(tenantId);
+			return this;
+		}
+		
+		/**
+		 * 设置 表单定义
+		 * @param formDefinition 表单定义
+		 * @return 当前对象
+		*/
+		public FormInstance setFormDefinition(FormDefinition formDefinition) {
+			super.change(FORM_DEFINITION,super.getFormDefinition(),formDefinition);
+			super.setFormDefinition(formDefinition);
+			return this;
+		}
+		
+		/**
+		 * 设置 业务单据清单
+		 * @param bills 业务单据清单
+		 * @return 当前对象
+		*/
+		public FormInstance setBills(List<FormInstanceBill> bills) {
+			super.change(BILLS,super.getBills(),bills);
+			super.setBills(bills);
 			return this;
 		}
 	}

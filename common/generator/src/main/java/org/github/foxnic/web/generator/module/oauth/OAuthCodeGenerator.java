@@ -87,7 +87,7 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 
 		cfg.view().field(SYS_SESSION_ONLINE.USER_ID)
 			.basic().label("账户")
-			.table().fillBy(SessionOnlineMeta.USER,UserMeta.NAME)
+			.table().fillBy(SessionOnlineMeta.USER,UserMeta.REAL_NAME)
 			.search().hidden();
 
 

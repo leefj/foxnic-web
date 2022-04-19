@@ -8,6 +8,9 @@ import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_FORM_INSTANCE;
 import org.github.foxnic.web.constants.enums.bpm.FormType;
+import org.github.foxnic.web.domain.bpm.FormDefinition;
+import org.github.foxnic.web.domain.bpm.FormInstance;
+import org.github.foxnic.web.domain.bpm.FormInstanceBill;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
@@ -19,6 +22,8 @@ public class FormInstanceConfig extends BaseCodeConfig<BPM_FORM_INSTANCE> {
 
     @Override
     public void configModel(PoClassFile poType, VoClassFile voType) {
+        poType.addSimpleProperty(FormDefinition.class,"formDefinition","表单定义","表单定义");
+        poType.addListProperty(FormInstanceBill.class,"bills","业务单据清单","表单实例关联的业务单据清单");
     }
 
     @Override

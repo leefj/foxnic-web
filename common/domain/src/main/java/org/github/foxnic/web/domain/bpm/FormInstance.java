@@ -7,6 +7,8 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_FORM_INSTANCE;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
+import java.util.List;
+import java.util.ArrayList;
 import javax.persistence.Transient;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
@@ -16,8 +18,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程实例表单
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-18 16:17:25
- * @sign 372C436524E3BF469158ADC58AC3C702
+ * @since 2022-04-19 11:03:26
+ * @sign 8DC7B22672306C5F7A19947538EAA85A
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -106,6 +108,18 @@ public class FormInstance extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="租户ID" , notes = "租户ID")
 	private String tenantId;
+	
+	/**
+	 * 表单定义：表单定义
+	*/
+	@ApiModelProperty(required = false,value="表单定义" , notes = "表单定义")
+	private FormDefinition formDefinition;
+	
+	/**
+	 * 业务单据清单：表单实例关联的业务单据清单
+	*/
+	@ApiModelProperty(required = false,value="业务单据清单" , notes = "表单实例关联的业务单据清单")
+	private List<FormInstanceBill> bills;
 	
 	/**
 	 * 获得 主键<br>
@@ -351,6 +365,55 @@ public class FormInstance extends Entity {
 	*/
 	public FormInstance setTenantId(String tenantId) {
 		this.tenantId=tenantId;
+		return this;
+	}
+	
+	/**
+	 * 获得 表单定义<br>
+	 * 表单定义
+	 * @return 表单定义
+	*/
+	public FormDefinition getFormDefinition() {
+		return formDefinition;
+	}
+	
+	/**
+	 * 设置 表单定义
+	 * @param formDefinition 表单定义
+	 * @return 当前对象
+	*/
+	public FormInstance setFormDefinition(FormDefinition formDefinition) {
+		this.formDefinition=formDefinition;
+		return this;
+	}
+	
+	/**
+	 * 获得 业务单据清单<br>
+	 * 表单实例关联的业务单据清单
+	 * @return 业务单据清单
+	*/
+	public List<FormInstanceBill> getBills() {
+		return bills;
+	}
+	
+	/**
+	 * 设置 业务单据清单
+	 * @param bills 业务单据清单
+	 * @return 当前对象
+	*/
+	public FormInstance setBills(List<FormInstanceBill> bills) {
+		this.bills=bills;
+		return this;
+	}
+	
+	/**
+	 * 添加 业务单据清单
+	 * @param bill 业务单据清单
+	 * @return 当前对象
+	*/
+	public FormInstance addBill(FormInstanceBill bill) {
+		if(this.bills==null) bills=new ArrayList<>();
+		this.bills.add(bill);
 		return this;
 	}
 

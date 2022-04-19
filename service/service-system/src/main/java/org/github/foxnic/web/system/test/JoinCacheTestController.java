@@ -126,7 +126,7 @@ public class JoinCacheTestController {
             User user=userService.getById("477842557343105024");
             user.setId(null);
             user.setPhone(IDGenerator.getSUID(false));
-            user.setName("JC-"+IDGenerator.getSnowflakeIdString());
+            user.setAccount("JC-"+IDGenerator.getSnowflakeIdString());
             user.setLastLoginTime(new Date());
             user.setCreateBy("$JC-TEST$");
             userService.insert(user);

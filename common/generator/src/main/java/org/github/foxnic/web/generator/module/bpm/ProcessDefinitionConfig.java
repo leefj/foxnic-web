@@ -9,7 +9,10 @@ import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.*;
+import org.github.foxnic.web.domain.bpm.FormDefinition;
+import org.github.foxnic.web.domain.bpm.ProcessDefinition;
 import org.github.foxnic.web.domain.bpm.ProcessDefinitionFile;
+import org.github.foxnic.web.domain.bpm.meta.FormDefinitionMeta;
 import org.github.foxnic.web.domain.bpm.meta.ProcessDefinitionMeta;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.domain.oauth.meta.UserMeta;
@@ -25,7 +28,8 @@ public class ProcessDefinitionConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITI
     @Override
     public void configModel(PoClassFile poType, VoClassFile voType) {
         poType.addSimpleProperty(User.class,"lastUpdateUser","最后修改人","最后修改人");
-        poType.addSimpleProperty(ProcessDefinitionFile.class,"definitionFile","流程定义","流程定义文件");
+        poType.addSimpleProperty(ProcessDefinitionFile.class,"definitionFile","流程模型定义","流程模型文件");
+        poType.addSimpleProperty(FormDefinition.class,"formDefinition","表单定义","表单定义");
     }
 
     @Override
@@ -36,23 +40,26 @@ public class ProcessDefinitionConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITI
     @Override
     public void configFields(ViewOptions view) {
 
-        view.form().labelWidth(100);
+        view.form().labelWidth(50);
 
         view.field(BPM_PROCESS_DEFINITION.CAMUNDA_DEFINITION_ID).basic().hidden();
         view.field(BPM_PROCESS_DEFINITION.CAMUNDA_DEFINITION_KEY).basic().hidden();
 
         view.field(BPM_PROCESS_DEFINITION.ID).basic().hidden();
-        view.field(BPM_PROCESS_DEFINITION.NAME).search().fuzzySearch();
+        view.field(BPM_PROCESS_DEFINITION.NAME).search().fuzzySearch().form().validate().required();
         view.field(BPM_PROCESS_DEFINITION.VALID).form().logicField().on("有效",1).off("无效",0);
         view.field(BPM_PROCESS_DEFINITION.NOTES).search().fuzzySearch().form().textArea();
-        view.field("lastUpdateUserName").basic().label("最后修改").table().fillBy(ProcessDefinitionMeta.LAST_UPDATE_USER, UserMeta.NAME)
+        view.field("lastUpdateUserName").basic().label("最后修改").table().fillBy(ProcessDefinitionMeta.LAST_UPDATE_USER, UserMeta.REAL_NAME)
                 .form().hidden()
                 .search().hidden();
 
-        view.field(BPM_PROCESS_DEFINITION.FORM_DEFINITION_ID)
-                .form().selectBox().queryApi(FormDefinitionServiceProxy.QUERY_PAGED_LIST).paging(true).filter(true).muliti(false,false);
+        view.field(BPM_PROCESS_DEFINITION.FORM_DEFINITION_ID).basic().label("表单")
+                .table().fillBy(ProcessDefinitionMeta.FORM_DEFINITION, FormDefinitionMeta.NAME)
+                .form().validate().required()
+                .form().selectBox().queryApi(FormDefinitionServiceProxy.QUERY_PAGED_LIST).paging(true).filter(true).muliti(false,false)
+                .textField(BPM_FORM_DEFINITION.NAME).valueField(BPM_FORM_DEFINITION.ID).fillWith(ProcessDefinitionMeta.FORM_DEFINITION);
 
-        //view.field(BPM_PROCESS_DEFINITION.UPDATE_TIME).table().displayWhenDBTreaty(true);
+
     }
 
 

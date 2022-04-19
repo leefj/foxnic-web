@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2022-04-18 16:47:16
+ * @since 2022-04-19 15:13:26
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -16,7 +16,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 public class FoxnicWeb {
 	
 	/**
-	 * 请假流程实例表
+	 * 请假流程示例表
 	*/
 	public static class BPM_DEMO_LEAVE extends DBTable {
 		
@@ -51,7 +51,7 @@ public class FoxnicWeb {
 		public static final DBField REASON = new DBField(DBDataType.STRING , "reason","reason","请假原因","请假原因",false,false,true);
 		
 		public BPM_DEMO_LEAVE() {
-			this.init($NAME,"请假流程实例表" , ID , TYPE , BEGIN_TIME , END_TIME , REASON);
+			this.init($NAME,"请假流程示例表" , ID , TYPE , BEGIN_TIME , END_TIME , REASON);
 		}
 		public static final BPM_DEMO_LEAVE $TABLE=new BPM_DEMO_LEAVE();
 	}
@@ -689,8 +689,9 @@ public class FoxnicWeb {
 		public static final String $NAME = "bpm_process_instance";
 		
 		/**
+		 * 主键
 		*/
-		public static final DBField ID = new DBField(DBDataType.INTEGER , "id","id","id","id",true,false,false);
+		public static final DBField ID = new DBField(DBDataType.INTEGER , "id","id","主键","主键",true,false,false);
 		
 		/**
 		 * 起草人ID
@@ -701,6 +702,11 @@ public class FoxnicWeb {
 		 * 起草人类型
 		*/
 		public static final DBField DRAFTER_TYPE = new DBField(DBDataType.STRING , "drafter_type","drafterType","起草人类型","起草人类型",false,false,true);
+		
+		/**
+		 * 表单实例ID
+		*/
+		public static final DBField FORM_INSTANCE_ID = new DBField(DBDataType.STRING , "form_instance_id","formInstanceId","表单实例ID","表单实例ID",false,false,true);
 		
 		/**
 		 * 流程定义ID
@@ -768,7 +774,7 @@ public class FoxnicWeb {
 		public static final DBField TENANT_ID = new DBField(DBDataType.STRING , "tenant_id","tenantId","租户ID","租户ID",false,false,false);
 		
 		public BPM_PROCESS_INSTANCE() {
-			this.init($NAME,"流程实例表" , ID , DRAFTER_ID , DRAFTER_TYPE , PROCESS_DEFINITION_ID , TITLE , APPROVAL_STATUS , CAMUNDA_INSTANCE_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID);
+			this.init($NAME,"流程实例表" , ID , DRAFTER_ID , DRAFTER_TYPE , FORM_INSTANCE_ID , PROCESS_DEFINITION_ID , TITLE , APPROVAL_STATUS , CAMUNDA_INSTANCE_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID);
 		}
 		public static final BPM_PROCESS_INSTANCE $TABLE=new BPM_PROCESS_INSTANCE();
 	}
@@ -7018,7 +7024,12 @@ public class FoxnicWeb {
 		/**
 		 * 账户
 		*/
-		public static final DBField NAME = new DBField(DBDataType.STRING , "name","name","账户","账户",false,false,true);
+		public static final DBField ACCOUNT = new DBField(DBDataType.STRING , "account","account","账户","账户",false,false,true);
+		
+		/**
+		 * 姓名
+		*/
+		public static final DBField REAL_NAME = new DBField(DBDataType.STRING , "real_name","realName","姓名","姓名",false,false,true);
 		
 		/**
 		 * 密码
@@ -7096,7 +7107,7 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
 		public SYS_USER() {
-			this.init($NAME,"账户表" , ID , NAME , PASSWD , PHONE , PORTRAIT_ID , LANGUAGE , VALID , CACHE_KEY , LAST_LOGIN_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"账户表" , ID , ACCOUNT , REAL_NAME , PASSWD , PHONE , PORTRAIT_ID , LANGUAGE , VALID , CACHE_KEY , LAST_LOGIN_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final SYS_USER $TABLE=new SYS_USER();
 	}

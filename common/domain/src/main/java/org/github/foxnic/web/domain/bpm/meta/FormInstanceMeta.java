@@ -3,13 +3,16 @@ package org.github.foxnic.web.domain.bpm.meta;
 import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.bpm.FormInstance;
 import java.util.Date;
+import org.github.foxnic.web.domain.bpm.FormDefinition;
+import org.github.foxnic.web.domain.bpm.FormInstanceBill;
+import java.util.List;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-18 16:17:25
- * @sign 372C436524E3BF469158ADC58AC3C702
+ * @since 2022-04-19 11:03:26
+ * @sign 8DC7B22672306C5F7A19947538EAA85A
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -146,9 +149,29 @@ public class FormInstanceMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.FormInstance,java.lang.String> TENANT_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.FormInstance.class ,TENANT_ID, java.lang.String.class, "租户ID", "租户ID", java.lang.String.class, null);
 	
 	/**
+	 * 表单定义 , 类型: org.github.foxnic.web.domain.bpm.FormDefinition
+	*/
+	public static final String FORM_DEFINITION="formDefinition";
+	
+	/**
+	 * 表单定义 , 类型: org.github.foxnic.web.domain.bpm.FormDefinition
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.FormInstance,org.github.foxnic.web.domain.bpm.FormDefinition> FORM_DEFINITION_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.FormInstance.class ,FORM_DEFINITION, org.github.foxnic.web.domain.bpm.FormDefinition.class, "表单定义", "表单定义", org.github.foxnic.web.domain.bpm.FormDefinition.class, null);
+	
+	/**
+	 * 业务单据清单 , 表单实例关联的业务单据清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.FormInstanceBill
+	*/
+	public static final String BILLS="bills";
+	
+	/**
+	 * 业务单据清单 , 表单实例关联的业务单据清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.FormInstanceBill
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.FormInstance,org.github.foxnic.web.domain.bpm.FormInstanceBill> BILLS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.FormInstance.class ,BILLS, java.util.List.class, "业务单据清单", "表单实例关联的业务单据清单", org.github.foxnic.web.domain.bpm.FormInstanceBill.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , PROCESS_DEFINITION_ID , PROCESS_INSTANCE_ID , FORM_DEFINITION_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID };
+	public static final String[] $PROPS={ ID , PROCESS_DEFINITION_ID , PROCESS_INSTANCE_ID , FORM_DEFINITION_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , FORM_DEFINITION , BILLS };
 	
 	/**
 	 * 代理类
@@ -298,6 +321,28 @@ public class FormInstanceMeta {
 		public FormInstance setTenantId(String tenantId) {
 			super.change(TENANT_ID,super.getTenantId(),tenantId);
 			super.setTenantId(tenantId);
+			return this;
+		}
+		
+		/**
+		 * 设置 表单定义
+		 * @param formDefinition 表单定义
+		 * @return 当前对象
+		*/
+		public FormInstance setFormDefinition(FormDefinition formDefinition) {
+			super.change(FORM_DEFINITION,super.getFormDefinition(),formDefinition);
+			super.setFormDefinition(formDefinition);
+			return this;
+		}
+		
+		/**
+		 * 设置 业务单据清单
+		 * @param bills 业务单据清单
+		 * @return 当前对象
+		*/
+		public FormInstance setBills(List<FormInstanceBill> bills) {
+			super.change(BILLS,super.getBills(),bills);
+			super.setBills(bills);
 			return this;
 		}
 	}

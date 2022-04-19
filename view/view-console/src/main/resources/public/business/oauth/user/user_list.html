@@ -2,7 +2,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-03-23 14:10:58
+ * @since 2022-04-19 15:32:45
  */
  -->
  <!DOCTYPE html>
@@ -39,10 +39,15 @@
                 <!-- 搜索输入区域 -->
                 <div class="layui-form toolbar search-inputs">
                     <!-- ID , id ,typeName=text_input, isHideInSearch=true -->
-                    <!-- 账户 , name ,typeName=text_input, isHideInSearch=false -->
+                    <!-- 账户 , account ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('账户')}" class="search-label name-label">账户</span><span class="search-colon">:</span></div>
-                        <input id="name" class="layui-input search-input" style="width: 140px" type="text" />
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('账户')}" class="search-label account-label">账户</span><span class="search-colon">:</span></div>
+                        <input id="account" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 姓名 , realName ,typeName=text_input, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style=""><span th:text="${lang.translate('姓名')}" class="search-label realName-label">姓名</span><span class="search-colon">:</span></div>
+                        <input id="realName" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
                     <!-- 密码 , passwd ,typeName=text_input, isHideInSearch=true -->
                     <!-- 手机 , phone ,typeName=text_input, isHideInSearch=false -->
@@ -66,11 +71,6 @@
                     </div>
                     <!-- 缓存键 , cacheKey ,typeName=text_input, isHideInSearch=true -->
                     <!-- 最后登录时间 , lastLoginTime ,typeName=date_input, isHideInSearch=true -->
-                    <!-- 姓名 , realName ,typeName=text_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('姓名')}" class="search-label realName-label">姓名</span><span class="search-colon">:</span></div>
-                        <input id="realName" class="layui-input search-input" style="width: 140px" type="text" />
-                    </div>
                     <!-- 角色 , roleIds ,typeName=select_box, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('角色')}" class="search-label roleIds-label">角色</span><span class="search-colon">:</span></div>

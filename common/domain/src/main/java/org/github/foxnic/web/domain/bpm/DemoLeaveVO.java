@@ -10,10 +10,10 @@ import com.github.foxnic.commons.bean.BeanUtil;
 
 
 /**
- * 请假流程实例
+ * 请假流程示例
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-18 16:17:25
- * @sign D045BCD61CC894973B4DBFB4F07FA56C
+ * @since 2022-04-19 11:03:26
+ * @sign 044535BA86C8032FADEC7D0819EFF29E
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
