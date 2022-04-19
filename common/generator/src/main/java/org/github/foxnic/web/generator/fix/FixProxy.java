@@ -25,13 +25,15 @@ import java.util.Optional;
 public class FixProxy {
 
 
+//    public static void main(String[] args) {
+//        ControllerProxyFile.insertParameterNames(new File("D:\\leefj\\workspace\\git-base\\foxnic-web\\common\\proxy\\src\\main\\java\\org\\github\\foxnic\\web\\proxy\\bpm\\ProcessDefinitionFileServiceProxy.java"));
+//    }
+
+
     public static void main(String[] args) {
-        ControllerProxyFile.insertParameterNames(new File("D:\\leefj\\workspace\\git-base\\foxnic-web\\common\\proxy\\src\\main\\java\\org\\github\\foxnic\\web\\proxy\\bpm\\ProcessDefinitionFileServiceProxy.java"));
-    }
+        //FileNavigator fileNavigator=new FileNavigator("D:\\leefj\\workspace\\git-base\\foxnic-web\\common\\proxy");
+        FileNavigator fileNavigator=new FileNavigator("D:\\leefj\\workspace\\git-base\\eam\\eam\\common\\proxy");
 
-
-    public static void main2(String[] args) {
-        FileNavigator fileNavigator=new FileNavigator("D:\\leefj\\workspace\\git-base\\foxnic-web\\common\\proxy");
         fileNavigator.scan((file,isFile,ext)->{
             if(!isFile) return;
             if(ext.equals(".java")) return;
