@@ -10,8 +10,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-19 11:03:26
- * @sign 044535BA86C8032FADEC7D0819EFF29E
+ * @since 2022-04-20 15:21:47
+ * @sign F57E20F6FA5F5FC874AC35388FAA323C
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -98,24 +98,24 @@ public class DemoLeaveVOMeta extends DemoLeaveMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.DemoLeaveVO,java.lang.String> SORT_TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.DemoLeaveVO.class ,SORT_TYPE, java.lang.String.class, "排序方式", "", java.lang.String.class, null);
 	
 	/**
-	 * 主键清单 , 用于接收批量主键参数 , 集合类型: LIST , 类型: java.lang.Integer
+	 * 主键清单 , 用于接收批量主键参数 , 集合类型: LIST , 类型: java.lang.String
 	*/
 	public static final String IDS="ids";
 	
 	/**
-	 * 主键清单 , 用于接收批量主键参数 , 集合类型: LIST , 类型: java.lang.Integer
+	 * 主键清单 , 用于接收批量主键参数 , 集合类型: LIST , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.DemoLeaveVO,java.lang.Integer> IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.DemoLeaveVO.class ,IDS, java.util.List.class, "主键清单", "用于接收批量主键参数", java.lang.Integer.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.DemoLeaveVO,java.lang.String> IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.DemoLeaveVO.class ,IDS, java.util.List.class, "主键清单", "用于接收批量主键参数", java.lang.String.class, null);
 	
 	/**
-	 * 主键 , 类型: java.lang.Integer
+	 * 主键 , 类型: java.lang.String
 	*/
 	public static final String ID="id";
 	
 	/**
-	 * 主键 , 类型: java.lang.Integer
+	 * 主键 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.DemoLeaveVO,java.lang.Integer> ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.DemoLeaveVO.class ,ID, java.lang.Integer.class, "主键", "主键", java.lang.Integer.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.DemoLeaveVO,java.lang.String> ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.DemoLeaveVO.class ,ID, java.lang.String.class, "主键", "主键", java.lang.String.class, null);
 	
 	/**
 	 * 请假类型 , 类型: java.lang.String
@@ -263,7 +263,7 @@ public class DemoLeaveVOMeta extends DemoLeaveMeta {
 		 * @param ids 主键清单
 		 * @return 当前对象
 		*/
-		public DemoLeaveVO setIds(List<Integer> ids) {
+		public DemoLeaveVO setIds(List<String> ids) {
 			super.change(IDS,super.getIds(),ids);
 			super.setIds(ids);
 			return this;
@@ -274,7 +274,7 @@ public class DemoLeaveVOMeta extends DemoLeaveMeta {
 		 * @param id 主键
 		 * @return 当前对象
 		*/
-		public DemoLeave setId(Integer id) {
+		public DemoLeave setId(String id) {
 			super.change(ID,super.getId(),id);
 			super.setId(id);
 			return this;

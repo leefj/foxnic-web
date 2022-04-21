@@ -121,7 +121,7 @@ public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
                 .table().sort(false)
                 .search().inputWidth(180).on(FoxnicWeb.SYS_ROLE.ID).selectMuliti(false).triggerOnSelect(true)
                 .form().selectBox().muliti(true,false).queryApi(RoleServiceProxy.QUERY_LIST).fillWith(UserMeta.ROLES)
-                .valueField(RoleMeta.ID).textField(UserMeta.ACCOUNT).muliti(true,false)
+                .valueField(RoleMeta.ID).textField(RoleMeta.NAME).muliti(true,false)
         ;
 
         context.view().field(SYS_USER.PORTRAIT_ID)

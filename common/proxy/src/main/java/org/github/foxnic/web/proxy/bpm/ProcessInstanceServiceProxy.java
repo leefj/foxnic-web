@@ -17,7 +17,8 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  * 流程实例表  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-19 16:34:05
+ * @since 2022-04-20 14:30:03
+ * @version
  */
 @FeignClient(value = MicroServiceNames.BPM, contextId = ProcessInstanceServiceProxy.API_CONTEXT_PATH, configuration = FeignConfiguration.class)
 public interface ProcessInstanceServiceProxy {
@@ -40,7 +41,12 @@ public interface ProcessInstanceServiceProxy {
     /**
      * 添加流程实例
      */
-    public static final String INSERT = API_PREFIX + "insert";
+    public static final String TEMPORARY_SAVE = API_PREFIX + "temporary-save";
+
+    /**
+     * 添加流程实例
+     */
+    public static final String START = API_PREFIX + "insert";
 
     /**
      * 删除流程实例
@@ -51,16 +57,6 @@ public interface ProcessInstanceServiceProxy {
      * 批量删除流程实例
      */
     public static final String DELETE_BY_IDS = API_PREFIX + "delete-by-ids";
-
-    /**
-     * 更新流程实例
-     */
-    public static final String UPDATE = API_PREFIX + "update";
-
-    /**
-     * 保存流程实例
-     */
-    public static final String SAVE = API_PREFIX + "save";
 
     /**
      * 获取单个流程实例
@@ -100,7 +96,7 @@ public interface ProcessInstanceServiceProxy {
     /**
      * 添加流程实例
      */
-    @RequestMapping(ProcessInstanceServiceProxy.INSERT)
+    @RequestMapping(ProcessInstanceServiceProxy.START)
     Result insert(@RequestParam(name = "processInstanceVO") ProcessInstanceVO processInstanceVO);
 
     /**
@@ -114,18 +110,6 @@ public interface ProcessInstanceServiceProxy {
      */
     @RequestMapping(ProcessInstanceServiceProxy.DELETE_BY_IDS)
     Result deleteByIds(@RequestParam(name = "ids") List<Integer> ids);
-
-    /**
-     * 更新流程实例
-     */
-    @RequestMapping(ProcessInstanceServiceProxy.UPDATE)
-    Result update(@RequestParam(name = "processInstanceVO") ProcessInstanceVO processInstanceVO);
-
-    /**
-     * 更新流程实例
-     */
-    @RequestMapping(ProcessInstanceServiceProxy.SAVE)
-    Result save(@RequestParam(name = "processInstanceVO") ProcessInstanceVO processInstanceVO);
 
     /**
      * 获取流程实例

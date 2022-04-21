@@ -2,10 +2,12 @@
 ## 版本：1.0.1.RELEASE ( 2022-04-08 )  Foxnic Version: 1.5.1.RELEASE
 ### 新特性
 1、错误码机制优化
-  
+2、Camunda 流程支持
+3、控制器参数校验机制
+4、代码生成增加 readonly 特性   
 
 ### Bug 修复
-1、XXX
+1、代码生成 INPUT_FILED bug 修复
 
 
 

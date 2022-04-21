@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 public class SuperController {
 
 
+	public static final String REQUEST_VALIDATOR = "$REQUEST_VALIDATOR";
 	private SessionUser sessionUser;
 
 
@@ -54,7 +55,6 @@ public class SuperController {
 		return attributes.getRequest();
 	}
 
-
     protected void limitForPermission(PagedList<? extends Entity> list, String perm,String... field) {
 		if(perm==null) return;
 		if(this.getSessionUser().permission().checkAnyAuth(perm)) return;
@@ -65,4 +65,15 @@ public class SuperController {
 
 		}
     }
+
+	@Autowired
+	private Validator validator;
+
+	/**
+	 * 获得参数验证器，在 request 生命周期内返回同一个验证器
+	 * */
+	public Validator validator() {
+		return validator;
+	}
+
 }

@@ -8,6 +8,7 @@ import com.github.foxnic.generator.builder.view.option.ListOptions;
 import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
+import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_PROCESS_INSTANCE;
 import org.github.foxnic.web.constants.enums.changes.ApprovalStatus;
 import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
@@ -17,6 +18,7 @@ import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.domain.oauth.meta.UserMeta;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 import org.github.foxnic.web.proxy.bpm.BpmIdentityServiceProxy;
+import org.github.foxnic.web.proxy.bpm.ProcessDefinitionServiceProxy;
 
 public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> {
 
@@ -29,6 +31,7 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
         poType.addSimpleProperty(ProcessDefinition.class,"processDefinition","流程定义","流程定义");
         poType.addSimpleProperty(FormInstance.class,"formInstance","表单实例","表单实例");
         poType.addSimpleProperty(Appover.class,"drafter","起草人","起草人");
+        poType.shadow(BPM_PROCESS_INSTANCE.APPROVAL_STATUS,ApprovalStatus.class);
     }
 
     @Override
@@ -50,6 +53,14 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
         view.field(BPM_PROCESS_INSTANCE.CAMUNDA_INSTANCE_ID).search().hidden();
         view.field(BPM_PROCESS_INSTANCE.APPROVAL_STATUS).form().selectBox().enumType(ApprovalStatus.class)
                 .form().hidden();
+
+        view.field(BPM_PROCESS_INSTANCE.PROCESS_DEFINITION_ID).basic().label("流程类型").form().selectBox().queryApi(ProcessDefinitionServiceProxy.QUERY_PAGED_LIST).paging(true).muliti(false).toolbar(false).filter(true)
+                .textField(FoxnicWeb.BPM_PROCESS_DEFINITION.NAME).valueField(FoxnicWeb.BPM_PROCESS_DEFINITION.ID);
+
+
+
+
+
 
 //        view.field(BPM_PROCESS_DEFINITION.VALID).form().logicField().on("有效",1).off("无效",0);
 //        view.field(BPM_PROCESS_DEFINITION.NOTES).search().fuzzySearch().form().textArea();
@@ -81,7 +92,13 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
         super.configForm(view, form);
 
         //
-        form.columnLayout(new Object[] {BPM_PROCESS_INSTANCE.TITLE,BPM_PROCESS_INSTANCE.DRAFTER_TYPE,BPM_PROCESS_INSTANCE.DRAFTER_ID});
+        form.addGroup("basic","流程信息", new Object[] {
+                BPM_PROCESS_INSTANCE.TITLE,BPM_PROCESS_INSTANCE.DRAFTER_TYPE,BPM_PROCESS_INSTANCE.DRAFTER_ID,
+                BPM_PROCESS_INSTANCE.PROCESS_DEFINITION_ID
+        });
+
+        //嵌入页面，页面在loadForm 函数中载入
+        form.addPage("form","审批内容","loadForm");
 
     }
 

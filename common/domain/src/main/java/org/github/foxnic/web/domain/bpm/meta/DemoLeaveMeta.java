@@ -8,22 +8,22 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-19 11:03:26
- * @sign 26B2D791DC1C9321B5C9D60C2C911689
+ * @since 2022-04-20 15:21:47
+ * @sign 3D0A2517E8579120E4FFA5AF59E18A3B
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
 public class DemoLeaveMeta {
 	
 	/**
-	 * 主键 , 类型: java.lang.Integer
+	 * 主键 , 类型: java.lang.String
 	*/
 	public static final String ID="id";
 	
 	/**
-	 * 主键 , 类型: java.lang.Integer
+	 * 主键 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.DemoLeave,java.lang.Integer> ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.DemoLeave.class ,ID, java.lang.Integer.class, "主键", "主键", java.lang.Integer.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.DemoLeave,java.lang.String> ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.DemoLeave.class ,ID, java.lang.String.class, "主键", "主键", java.lang.String.class, null);
 	
 	/**
 	 * 请假类型 , 类型: java.lang.String
@@ -83,7 +83,7 @@ public class DemoLeaveMeta {
 		 * @param id 主键
 		 * @return 当前对象
 		*/
-		public DemoLeave setId(Integer id) {
+		public DemoLeave setId(String id) {
 			super.change(ID,super.getId(),id);
 			super.setId(id);
 			return this;

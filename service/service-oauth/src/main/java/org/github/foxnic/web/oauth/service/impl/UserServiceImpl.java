@@ -216,7 +216,18 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null ");
 		sample.setId(id);
 		User user=dao.queryEntity(sample);
-		dao.join(user,Role.class);
+		this.dao().fill(user)
+//				.with(UserMeta.MENUS)
+//				.with(UserMeta.MENUS, MenuMeta.RESOURCES)
+//				.with(UserMeta.MENUS, MenuMeta.PATH_RESOURCE)
+				.with(UserMeta.ROLES)
+//				.with(UserMeta.ROLE_MENUS)
+//				.with(UserMeta.JOINED_TENANTS, UserTenantMeta.TENANT, TenantMeta.COMPANY)
+				.with(UserMeta.JOINED_TENANTS,UserTenantMeta.EMPLOYEE, EmployeeMeta.PERSON)
+				.with(UserMeta.JOINED_TENANTS,UserTenantMeta.EMPLOYEE, EmployeeMeta.POSITIONS)
+//				.with(UserMeta.JOINED_TENANTS,UserTenantMeta.EMPLOYEE, EmployeeMeta.ORGANIZATIONS)
+				.with(UserMeta.JOINED_TENANTS,UserTenantMeta.EMPLOYEE, EmployeeMeta.BUSI_ROLES)
+				.execute();
 		return user;
 	}
 

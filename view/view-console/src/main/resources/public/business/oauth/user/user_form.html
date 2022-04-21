@@ -2,7 +2,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-19 15:32:45
+ * @since 2022-04-20 13:14:36
  */
  -->
  <!DOCTYPE html>
@@ -64,16 +64,16 @@
                     </div>
 
                                     <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('姓名')}">姓名</div></div>
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('姓名')}">姓名</div><div class="layui-required">*</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="realName" id="realName" name="realName" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('姓名') }" type="text" class="layui-input"  />
+                            <input lay-filter="realName" id="realName" name="realName" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('姓名') }" type="text" class="layui-input"    lay-verify="|required"  />
                         </div>
                     </div>
 
                                     <div class="layui-form-item" style="display: none">
                         <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('密码')}">密码</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="passwd" id="passwd" name="passwd" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('密码') }" type="text" class="layui-input"  />
+                            <input lay-filter="passwd" id="passwd" name="passwd" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('密码') }" type="text" class="layui-input"    lay-verify=""  />
                         </div>
                     </div>
 
@@ -164,7 +164,7 @@
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];
     var RADIO_LANGUAGE_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.system.Language')}]];
-    var VALIDATE_CONFIG={"valid":{"labelInForm":"是否有效","inputType":"logic_switch","required":true},"phone":{"phone":true,"labelInForm":"手机","inputType":"text_input","required":true},"account":{"labelInForm":"账户","inputType":"text_input","required":true}};
+    var VALIDATE_CONFIG={"valid":{"labelInForm":"是否有效","inputType":"logic_switch","required":true},"realName":{"labelInForm":"姓名","inputType":"text_input","required":true},"phone":{"phone":true,"labelInForm":"手机","inputType":"text_input","required":true},"account":{"labelInForm":"账户","inputType":"text_input","required":true}};
     var AUTH_PREFIX="sys_user";
 
 

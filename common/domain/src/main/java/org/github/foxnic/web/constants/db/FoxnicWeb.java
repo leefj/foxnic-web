@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2022-04-19 15:13:26
+ * @since 2022-04-20 15:12:14
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -28,7 +28,7 @@ public class FoxnicWeb {
 		/**
 		 * 主键
 		*/
-		public static final DBField ID = new DBField(DBDataType.INTEGER , "id","id","主键","主键",true,false,false);
+		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","主键","主键",true,false,false);
 		
 		/**
 		 * 请假类型
@@ -165,7 +165,7 @@ public class FoxnicWeb {
 		/**
 		 * 主键
 		*/
-		public static final DBField ID = new DBField(DBDataType.INTEGER , "id","id","主键","主键",true,false,false);
+		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","主键","主键",true,false,false);
 		
 		/**
 		 * 流程定义ID
@@ -246,7 +246,7 @@ public class FoxnicWeb {
 		/**
 		 * 主键
 		*/
-		public static final DBField ID = new DBField(DBDataType.INTEGER , "id","id","主键","主键",true,false,false);
+		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","主键","主键",true,false,false);
 		
 		/**
 		 * 流程定义ID
@@ -691,7 +691,7 @@ public class FoxnicWeb {
 		/**
 		 * 主键
 		*/
-		public static final DBField ID = new DBField(DBDataType.INTEGER , "id","id","主键","主键",true,false,false);
+		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","主键","主键",true,false,false);
 		
 		/**
 		 * 起草人ID
@@ -7024,22 +7024,22 @@ public class FoxnicWeb {
 		/**
 		 * 账户
 		*/
-		public static final DBField ACCOUNT = new DBField(DBDataType.STRING , "account","account","账户","账户",false,false,true);
+		public static final DBField ACCOUNT = new DBField(DBDataType.STRING , "account","account","账户","账户",false,false,false);
 		
 		/**
 		 * 姓名
 		*/
-		public static final DBField REAL_NAME = new DBField(DBDataType.STRING , "real_name","realName","姓名","姓名",false,false,true);
+		public static final DBField REAL_NAME = new DBField(DBDataType.STRING , "real_name","realName","姓名","姓名",false,false,false);
 		
 		/**
 		 * 密码
 		*/
-		public static final DBField PASSWD = new DBField(DBDataType.STRING , "passwd","passwd","密码","密码",false,false,true);
+		public static final DBField PASSWD = new DBField(DBDataType.STRING , "passwd","passwd","密码","密码",false,false,false);
 		
 		/**
 		 * 手机号码
 		*/
-		public static final DBField PHONE = new DBField(DBDataType.STRING , "phone","phone","手机号码","手机号码",false,false,true);
+		public static final DBField PHONE = new DBField(DBDataType.STRING , "phone","phone","手机号码","手机号码",false,false,false);
 		
 		/**
 		 * 头像ID

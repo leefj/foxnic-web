@@ -19,8 +19,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 账户
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-19 15:32:44
- * @sign 1EC732B6EAC15888A73E2A368238A333
+ * @since 2022-04-20 13:14:30
+ * @sign A0D3806B773B52D11D46EC2E088F84A6
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -41,25 +41,25 @@ public class User extends Entity {
 	/**
 	 * 账户：账户
 	*/
-	@ApiModelProperty(required = false,value="账户" , notes = "账户")
+	@ApiModelProperty(required = true,value="账户" , notes = "账户")
 	private String account;
 	
 	/**
 	 * 姓名：姓名
 	*/
-	@ApiModelProperty(required = false,value="姓名" , notes = "姓名")
+	@ApiModelProperty(required = true,value="姓名" , notes = "姓名")
 	private String realName;
 	
 	/**
 	 * 密码：密码
 	*/
-	@ApiModelProperty(required = false,value="密码" , notes = "密码")
+	@ApiModelProperty(required = true,value="密码" , notes = "密码")
 	private String passwd;
 	
 	/**
 	 * 手机号码：手机号码
 	*/
-	@ApiModelProperty(required = false,value="手机号码" , notes = "手机号码")
+	@ApiModelProperty(required = true,value="手机号码" , notes = "手机号码")
 	private String phone;
 	
 	/**

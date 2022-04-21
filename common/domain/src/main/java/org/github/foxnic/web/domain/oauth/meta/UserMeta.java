@@ -13,8 +13,8 @@ import org.github.foxnic.web.domain.system.UserTenant;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-19 15:32:44
- * @sign 1EC732B6EAC15888A73E2A368238A333
+ * @since 2022-04-20 13:14:30
+ * @sign A0D3806B773B52D11D46EC2E088F84A6
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 

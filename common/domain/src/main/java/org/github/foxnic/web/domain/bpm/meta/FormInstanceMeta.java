@@ -11,22 +11,22 @@ import java.util.List;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-19 11:03:26
- * @sign 8DC7B22672306C5F7A19947538EAA85A
+ * @since 2022-04-20 15:21:46
+ * @sign 1E6C7E4A9C4E7DC75BC4E9976E9DEE3F
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
 public class FormInstanceMeta {
 	
 	/**
-	 * 主键 , 类型: java.lang.Integer
+	 * 主键 , 类型: java.lang.String
 	*/
 	public static final String ID="id";
 	
 	/**
-	 * 主键 , 类型: java.lang.Integer
+	 * 主键 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.FormInstance,java.lang.Integer> ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.FormInstance.class ,ID, java.lang.Integer.class, "主键", "主键", java.lang.Integer.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.FormInstance,java.lang.String> ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.FormInstance.class ,ID, java.lang.String.class, "主键", "主键", java.lang.String.class, null);
 	
 	/**
 	 * 流程定义ID , 类型: java.lang.String
@@ -186,7 +186,7 @@ public class FormInstanceMeta {
 		 * @param id 主键
 		 * @return 当前对象
 		*/
-		public FormInstance setId(Integer id) {
+		public FormInstance setId(String id) {
 			super.change(ID,super.getId(),id);
 			super.setId(id);
 			return this;

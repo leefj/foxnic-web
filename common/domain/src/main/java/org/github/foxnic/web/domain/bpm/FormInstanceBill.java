@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程实例表单业务单据
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-19 11:03:26
- * @sign 64FBCB0C5FE7BF1E348DF52520B855DE
+ * @since 2022-04-20 15:21:46
+ * @sign 8E4607308FAE37D56865AA356FA75717
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -33,7 +33,7 @@ public class FormInstanceBill extends Entity {
 	*/
 	@Id
 	@ApiModelProperty(required = true,value="主键" , notes = "主键")
-	private Integer id;
+	private String id;
 	
 	/**
 	 * 流程定义ID：流程定义ID
@@ -130,7 +130,7 @@ public class FormInstanceBill extends Entity {
 	 * 主键
 	 * @return 主键
 	*/
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 	
@@ -139,7 +139,7 @@ public class FormInstanceBill extends Entity {
 	 * @param id 主键
 	 * @return 当前对象
 	*/
-	public FormInstanceBill setId(Integer id) {
+	public FormInstanceBill setId(String id) {
 		this.id=id;
 		return this;
 	}

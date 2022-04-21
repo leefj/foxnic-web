@@ -6,8 +6,11 @@ import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_PROCESS_INSTANCE;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.Date;
+import org.github.foxnic.web.constants.enums.changes.ApprovalStatus;
 import javax.persistence.Transient;
+import java.util.Date;
+import com.github.foxnic.commons.reflect.EnumUtil;
+import com.github.foxnic.commons.lang.StringUtil;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
 
@@ -16,8 +19,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程实例
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-19 16:34:05
- * @sign 455EF49DDDFACC759A336189CFA5A338
+ * @since 2022-04-20 15:28:12
+ * @sign 19B265C27F94C8694251D0A7ABD4BD42
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -33,7 +36,7 @@ public class ProcessInstance extends Entity {
 	*/
 	@Id
 	@ApiModelProperty(required = true,value="主键" , notes = "主键")
-	private Integer id;
+	private String id;
 	
 	/**
 	 * 起草人ID：起草人ID
@@ -70,6 +73,8 @@ public class ProcessInstance extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="审批状态" , notes = "审批状态")
 	private String approvalStatus;
+	@Transient
+	private ApprovalStatus approvalStatusEnum;
 	
 	/**
 	 * camunda流程实例ID：camunda流程实例ID
@@ -154,7 +159,7 @@ public class ProcessInstance extends Entity {
 	 * 主键
 	 * @return 主键
 	*/
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 	
@@ -163,7 +168,7 @@ public class ProcessInstance extends Entity {
 	 * @param id 主键
 	 * @return 当前对象
 	*/
-	public ProcessInstance setId(Integer id) {
+	public ProcessInstance setId(String id) {
 		this.id=id;
 		return this;
 	}
@@ -273,12 +278,45 @@ public class ProcessInstance extends Entity {
 	}
 	
 	/**
+	 * 获得 审批状态 的投影属性<br>
+	 * 等价于 getApprovalStatus 方法，获得对应的枚举类型
+	 * @return 审批状态
+	*/
+	@Transient
+	public ApprovalStatus getApprovalStatusEnum() {
+		if(this.approvalStatusEnum==null) {
+			this.approvalStatusEnum = (ApprovalStatus) EnumUtil.parseByCode(ApprovalStatus.values(),approvalStatus);
+		}
+		return this.approvalStatusEnum ;
+	}
+	
+	/**
 	 * 设置 审批状态
 	 * @param approvalStatus 审批状态
 	 * @return 当前对象
 	*/
 	public ProcessInstance setApprovalStatus(String approvalStatus) {
 		this.approvalStatus=approvalStatus;
+		this.approvalStatusEnum= (ApprovalStatus) EnumUtil.parseByCode(ApprovalStatus.values(),approvalStatus) ;
+		if(StringUtil.hasContent(approvalStatus) && this.approvalStatusEnum==null) {
+			throw new IllegalArgumentException( approvalStatus + " is not one of ApprovalStatus");
+		}
+		return this;
+	}
+	
+	/**
+	 * 设置 审批状态的投影属性，等同于设置 审批状态
+	 * @param approvalStatusEnum 审批状态
+	 * @return 当前对象
+	*/
+	@Transient
+	public ProcessInstance setApprovalStatusEnum(ApprovalStatus approvalStatusEnum) {
+		if(approvalStatusEnum==null) {
+			this.setApprovalStatus(null);
+		} else {
+			this.setApprovalStatus(approvalStatusEnum.code());
+		}
+		this.approvalStatusEnum=approvalStatusEnum;
 		return this;
 	}
 	

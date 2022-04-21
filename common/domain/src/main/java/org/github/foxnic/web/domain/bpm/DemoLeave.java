@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 请假流程示例
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-19 11:03:26
- * @sign 26B2D791DC1C9321B5C9D60C2C911689
+ * @since 2022-04-20 15:21:47
+ * @sign 3D0A2517E8579120E4FFA5AF59E18A3B
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -33,7 +33,7 @@ public class DemoLeave extends Entity {
 	*/
 	@Id
 	@ApiModelProperty(required = true,value="主键" , notes = "主键")
-	private Integer id;
+	private String id;
 	
 	/**
 	 * 请假类型：请假类型
@@ -64,7 +64,7 @@ public class DemoLeave extends Entity {
 	 * 主键
 	 * @return 主键
 	*/
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 	
@@ -73,7 +73,7 @@ public class DemoLeave extends Entity {
 	 * @param id 主键
 	 * @return 当前对象
 	*/
-	public DemoLeave setId(Integer id) {
+	public DemoLeave setId(String id) {
 		this.id=id;
 		return this;
 	}

@@ -17,7 +17,7 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  * 请假流程示例表  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-19 11:03:26
+ * @since 2022-04-20 15:21:47
  */
 @FeignClient(value = MicroServiceNames.BPM, contextId = DemoLeaveServiceProxy.API_CONTEXT_PATH, configuration = FeignConfiguration.class)
 public interface DemoLeaveServiceProxy {
@@ -107,13 +107,13 @@ public interface DemoLeaveServiceProxy {
      * 删除请假流程示例
      */
     @RequestMapping(DemoLeaveServiceProxy.DELETE)
-    Result deleteById(@RequestParam(name = "id") Integer id);
+    Result deleteById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除请假流程示例
      */
     @RequestMapping(DemoLeaveServiceProxy.DELETE_BY_IDS)
-    Result deleteByIds(@RequestParam(name = "ids") List<Integer> ids);
+    Result deleteByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 更新请假流程示例
@@ -131,13 +131,13 @@ public interface DemoLeaveServiceProxy {
      * 获取请假流程示例
      */
     @RequestMapping(DemoLeaveServiceProxy.GET_BY_ID)
-    Result<DemoLeave> getById(@RequestParam(name = "id") Integer id);
+    Result<DemoLeave> getById(@RequestParam(name = "id") String id);
 
     /**
      * 获取多个请假流程示例
      */
     @RequestMapping(DemoLeaveServiceProxy.GET_BY_IDS)
-    Result<List<DemoLeave>> getByIds(@RequestParam(name = "ids") List<Integer> ids);
+    Result<List<DemoLeave>> getByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 查询请假流程示例

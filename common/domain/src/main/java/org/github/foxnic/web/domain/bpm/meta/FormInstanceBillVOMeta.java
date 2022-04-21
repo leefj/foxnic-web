@@ -10,8 +10,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-19 11:03:26
- * @sign 7AF40E63143D5941F0714802EEC36A03
+ * @since 2022-04-20 15:21:46
+ * @sign 511A9080589061F7C03D8EC412A27800
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -98,24 +98,24 @@ public class FormInstanceBillVOMeta extends FormInstanceBillMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.FormInstanceBillVO,java.lang.String> SORT_TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.FormInstanceBillVO.class ,SORT_TYPE, java.lang.String.class, "排序方式", "", java.lang.String.class, null);
 	
 	/**
-	 * 主键清单 , 用于接收批量主键参数 , 集合类型: LIST , 类型: java.lang.Integer
+	 * 主键清单 , 用于接收批量主键参数 , 集合类型: LIST , 类型: java.lang.String
 	*/
 	public static final String IDS="ids";
 	
 	/**
-	 * 主键清单 , 用于接收批量主键参数 , 集合类型: LIST , 类型: java.lang.Integer
+	 * 主键清单 , 用于接收批量主键参数 , 集合类型: LIST , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.FormInstanceBillVO,java.lang.Integer> IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.FormInstanceBillVO.class ,IDS, java.util.List.class, "主键清单", "用于接收批量主键参数", java.lang.Integer.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.FormInstanceBillVO,java.lang.String> IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.FormInstanceBillVO.class ,IDS, java.util.List.class, "主键清单", "用于接收批量主键参数", java.lang.String.class, null);
 	
 	/**
-	 * 主键 , 类型: java.lang.Integer
+	 * 主键 , 类型: java.lang.String
 	*/
 	public static final String ID="id";
 	
 	/**
-	 * 主键 , 类型: java.lang.Integer
+	 * 主键 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.FormInstanceBillVO,java.lang.Integer> ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.FormInstanceBillVO.class ,ID, java.lang.Integer.class, "主键", "主键", java.lang.Integer.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.FormInstanceBillVO,java.lang.String> ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.FormInstanceBillVO.class ,ID, java.lang.String.class, "主键", "主键", java.lang.String.class, null);
 	
 	/**
 	 * 流程定义ID , 类型: java.lang.String
@@ -373,7 +373,7 @@ public class FormInstanceBillVOMeta extends FormInstanceBillMeta {
 		 * @param ids 主键清单
 		 * @return 当前对象
 		*/
-		public FormInstanceBillVO setIds(List<Integer> ids) {
+		public FormInstanceBillVO setIds(List<String> ids) {
 			super.change(IDS,super.getIds(),ids);
 			super.setIds(ids);
 			return this;
@@ -384,7 +384,7 @@ public class FormInstanceBillVOMeta extends FormInstanceBillMeta {
 		 * @param id 主键
 		 * @return 当前对象
 		*/
-		public FormInstanceBill setId(Integer id) {
+		public FormInstanceBill setId(String id) {
 			super.change(ID,super.getId(),id);
 			super.setId(id);
 			return this;

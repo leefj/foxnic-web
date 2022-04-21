@@ -18,8 +18,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程实例表单
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-19 11:03:26
- * @sign 8DC7B22672306C5F7A19947538EAA85A
+ * @since 2022-04-20 15:21:46
+ * @sign 1E6C7E4A9C4E7DC75BC4E9976E9DEE3F
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -35,7 +35,7 @@ public class FormInstance extends Entity {
 	*/
 	@Id
 	@ApiModelProperty(required = true,value="主键" , notes = "主键")
-	private Integer id;
+	private String id;
 	
 	/**
 	 * 流程定义ID：流程定义ID
@@ -126,7 +126,7 @@ public class FormInstance extends Entity {
 	 * 主键
 	 * @return 主键
 	*/
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 	
@@ -135,7 +135,7 @@ public class FormInstance extends Entity {
 	 * @param id 主键
 	 * @return 当前对象
 	*/
-	public FormInstance setId(Integer id) {
+	public FormInstance setId(String id) {
 		this.id=id;
 		return this;
 	}

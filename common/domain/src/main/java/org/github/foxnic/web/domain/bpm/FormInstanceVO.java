@@ -12,8 +12,8 @@ import com.github.foxnic.commons.bean.BeanUtil;
 /**
  * 流程实例表单
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-19 11:03:26
- * @sign D4E545D84E8F6AC76EFD1558303DE1D5
+ * @since 2022-04-20 15:21:46
+ * @sign 5B542225CA2E2CC7884EB104E6107C7A
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -73,7 +73,7 @@ public class FormInstanceVO extends FormInstance {
 	 * 主键清单：用于接收批量主键参数
 	*/
 	@ApiModelProperty(required = false,value="主键清单" , notes = "用于接收批量主键参数")
-	private List<Integer> ids;
+	private List<String> ids;
 	
 	/**
 	 * 获得 页码<br>
@@ -235,7 +235,7 @@ public class FormInstanceVO extends FormInstance {
 	 * 用于接收批量主键参数
 	 * @return 主键清单
 	*/
-	public List<Integer> getIds() {
+	public List<String> getIds() {
 		return ids;
 	}
 	
@@ -244,7 +244,7 @@ public class FormInstanceVO extends FormInstance {
 	 * @param ids 主键清单
 	 * @return 当前对象
 	*/
-	public FormInstanceVO setIds(List<Integer> ids) {
+	public FormInstanceVO setIds(List<String> ids) {
 		this.ids=ids;
 		return this;
 	}
@@ -254,7 +254,7 @@ public class FormInstanceVO extends FormInstance {
 	 * @param id 主键清单
 	 * @return 当前对象
 	*/
-	public FormInstanceVO addId(Integer id) {
+	public FormInstanceVO addId(String id) {
 		if(this.ids==null) ids=new ArrayList<>();
 		this.ids.add(id);
 		return this;
