@@ -5,6 +5,7 @@
 2、Camunda 流程支持
 3、控制器参数校验机制
 4、代码生成增加 readonly 特性   
+5、优化 Excel 生成的相关功能
 
 ### Bug 修复
 1、代码生成 INPUT_FILED bug 修复
