@@ -6,19 +6,13 @@ Foxnic-Web 在 Spring Boot 体系上扩展，开发者容易理解与快速上�
 
 [演示系统](http://eam-demo.rainbooow.com:26788/)
 
-#### 软件架构
-后续完善
 
 #### 主要技术栈
 Spring Boot、 Spring Security、FoxnicSQL、 FoxnicDAO、Redis、 Thymeleaf、LayUI
 
-#### 安装教程
+#### 文档教程
 
-完善种
-
-#### 使用说明
-
-完善中
+[http://foxnicweb.com/docs/doc.html](http://foxnicweb.com/docs/doc.html)
 
 #### 沟通交流
 
@@ -27,3 +21,5 @@ Spring Boot、 Spring Security、FoxnicSQL、 FoxnicDAO、Redis、 Thymeleaf、L
 
 QQ群：634770774
 
+
+#### 更新记录
