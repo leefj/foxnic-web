@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 public class SuperController {
 
 
-	public static final String REQUEST_VALIDATOR = "$REQUEST_VALIDATOR";
+	private static final String REQUEST_VALIDATOR = "$REQUEST_VALIDATOR";
 	private SessionUser sessionUser;
 
 
@@ -66,13 +66,18 @@ public class SuperController {
 		}
     }
 
-	@Autowired
-	private Validator validator;
 
 	/**
 	 * 获得参数验证器，在 request 生命周期内返回同一个验证器
 	 * */
 	public Validator validator() {
+		HttpServletRequest request = getRequest();
+		if(request==null) return null;
+		Validator validator=(Validator)request.getAttribute(REQUEST_VALIDATOR);
+		if(validator==null) {
+			validator = new Validator();
+			request.setAttribute(REQUEST_VALIDATOR,validator);
+		}
 		return validator;
 	}
 

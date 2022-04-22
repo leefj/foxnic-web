@@ -16,9 +16,6 @@ import java.util.List;
 /**
  * 数据校验器
  * */
-
-@Component
-@Scope(value= WebApplicationContext.SCOPE_REQUEST)
 public class Validator {
 
     private static interface  ValidatorFunction {
