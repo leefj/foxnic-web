@@ -8,7 +8,11 @@ Foxnic-Web 在 Spring Boot 体系上扩展，开发者容易理解与快速上�
 
 
 ## 主要技术栈
-Spring Boot、 Spring Security、FoxnicSQL、 FoxnicDAO、Redis、 Thymeleaf、LayUI
+Spring Boot、 Spring Security、[FoxnicSQL](https://gitee.com/LeeFJ/foxnic)、 [FoxnicDAO](https://gitee.com/LeeFJ/foxnic)、Redis、 Thymeleaf、LayUI
+
+## 软件项目
+
+[EAM固定设备资产管理系统](https://gitee.com/lank/eam)
 
 ## 文档教程
 
