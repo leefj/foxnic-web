@@ -29,7 +29,7 @@ QQ群：634770774
 ## 捐赠
 - 开源不易，坚持更难，如果您觉得本项目不错，可以捐赠请作者喝杯咖啡~，在此表示感谢^_^
 - 捐赠(支付宝)
-<img src="https://gitee.com/LeeFJ/foxnic-web/raw/master/SKM.jpg">
+<img src="https://gitee.com/LeeFJ/foxnic-web/raw/master/SKM.jpg" width="200" height="200">
 
 
 ## 更新记录
