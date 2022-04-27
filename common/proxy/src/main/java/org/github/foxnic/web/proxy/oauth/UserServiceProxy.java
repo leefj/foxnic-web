@@ -73,6 +73,11 @@ public interface UserServiceProxy {
     public static final String GET_BY_ID = API_PREFIX + "get-by-id";
 
     /**
+     * 获取账户
+     */
+    public static final String GET_BY_IDS = API_PREFIX + "get-by-ids";
+
+    /**
      * 查询账户
      */
     public static final String QUERY_LIST = API_PREFIX + "query-list";
@@ -132,6 +137,13 @@ public interface UserServiceProxy {
      */
     @RequestMapping(UserServiceProxy.GET_BY_ID)
     Result<User> getById(@RequestParam(name = "id") String id);
+
+    /**
+     * 获取账户
+     */
+    @RequestMapping(UserServiceProxy.GET_BY_IDS)
+    Result<List<User>> getByIds(@RequestParam(name = "ids") List<String> ids);
+
 
     /**
      * 查询账户

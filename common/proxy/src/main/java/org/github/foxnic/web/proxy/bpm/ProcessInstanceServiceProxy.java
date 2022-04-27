@@ -46,7 +46,7 @@ public interface ProcessInstanceServiceProxy {
     /**
      * 添加流程实例
      */
-    public static final String START = API_PREFIX + "insert";
+    public static final String START = API_PREFIX + "start";
 
     /**
      * 删除流程实例

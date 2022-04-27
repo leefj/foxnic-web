@@ -6,8 +6,10 @@ import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_PROCESS_INSTANCE;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
-import org.github.foxnic.web.constants.enums.changes.ApprovalStatus;
+import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
 import javax.persistence.Transient;
+import org.github.foxnic.web.constants.enums.bpm.PriorityLevel;
+import org.github.foxnic.web.constants.enums.changes.ApprovalStatus;
 import java.util.Date;
 import com.github.foxnic.commons.reflect.EnumUtil;
 import com.github.foxnic.commons.lang.StringUtil;
@@ -19,8 +21,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程实例
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-20 15:28:12
- * @sign 19B265C27F94C8694251D0A7ABD4BD42
+ * @since 2022-04-27 15:45:10
+ * @sign D5F3920702318BCBBA912A73E028CCD8
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -49,6 +51,8 @@ public class ProcessInstance extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="起草人类型" , notes = "起草人类型")
 	private String drafterType;
+	@Transient
+	private UnifiedUserType drafterTypeEnum;
 	
 	/**
 	 * 表单实例ID：表单实例ID
@@ -69,6 +73,20 @@ public class ProcessInstance extends Entity {
 	private String title;
 	
 	/**
+	 * 紧急程度：紧急程度
+	*/
+	@ApiModelProperty(required = false,value="紧急程度" , notes = "紧急程度")
+	private String priority;
+	@Transient
+	private PriorityLevel priorityEnum;
+	
+	/**
+	 * 流程说明：流程说明
+	*/
+	@ApiModelProperty(required = false,value="流程说明" , notes = "流程说明")
+	private String comment;
+	
+	/**
 	 * 审批状态：审批状态
 	*/
 	@ApiModelProperty(required = false,value="审批状态" , notes = "审批状态")
@@ -81,6 +99,12 @@ public class ProcessInstance extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="camunda流程实例ID" , notes = "camunda流程实例ID")
 	private Integer camundaInstanceId;
+	
+	/**
+	 * 提交时间：提交时间
+	*/
+	@ApiModelProperty(required = false,value="提交时间" , notes = "提交时间")
+	private Date commitTime;
 	
 	/**
 	 * 创建人ID：创建人ID
@@ -155,6 +179,12 @@ public class ProcessInstance extends Entity {
 	private Appover drafter;
 	
 	/**
+	 * 起草人名称：起草人名称
+	*/
+	@ApiModelProperty(required = false,value="起草人名称" , notes = "起草人名称")
+	private String drafterName;
+	
+	/**
 	 * 获得 主键<br>
 	 * 主键
 	 * @return 主键
@@ -202,12 +232,45 @@ public class ProcessInstance extends Entity {
 	}
 	
 	/**
+	 * 获得 起草人类型 的投影属性<br>
+	 * 等价于 getDrafterType 方法，获得对应的枚举类型
+	 * @return 起草人类型
+	*/
+	@Transient
+	public UnifiedUserType getDrafterTypeEnum() {
+		if(this.drafterTypeEnum==null) {
+			this.drafterTypeEnum = (UnifiedUserType) EnumUtil.parseByCode(UnifiedUserType.values(),drafterType);
+		}
+		return this.drafterTypeEnum ;
+	}
+	
+	/**
 	 * 设置 起草人类型
 	 * @param drafterType 起草人类型
 	 * @return 当前对象
 	*/
 	public ProcessInstance setDrafterType(String drafterType) {
 		this.drafterType=drafterType;
+		this.drafterTypeEnum= (UnifiedUserType) EnumUtil.parseByCode(UnifiedUserType.values(),drafterType) ;
+		if(StringUtil.hasContent(drafterType) && this.drafterTypeEnum==null) {
+			throw new IllegalArgumentException( drafterType + " is not one of UnifiedUserType");
+		}
+		return this;
+	}
+	
+	/**
+	 * 设置 起草人类型的投影属性，等同于设置 起草人类型
+	 * @param drafterTypeEnum 起草人类型
+	 * @return 当前对象
+	*/
+	@Transient
+	public ProcessInstance setDrafterTypeEnum(UnifiedUserType drafterTypeEnum) {
+		if(drafterTypeEnum==null) {
+			this.setDrafterType(null);
+		} else {
+			this.setDrafterType(drafterTypeEnum.code());
+		}
+		this.drafterTypeEnum=drafterTypeEnum;
 		return this;
 	}
 	
@@ -265,6 +328,77 @@ public class ProcessInstance extends Entity {
 	*/
 	public ProcessInstance setTitle(String title) {
 		this.title=title;
+		return this;
+	}
+	
+	/**
+	 * 获得 紧急程度<br>
+	 * 紧急程度
+	 * @return 紧急程度
+	*/
+	public String getPriority() {
+		return priority;
+	}
+	
+	/**
+	 * 获得 紧急程度 的投影属性<br>
+	 * 等价于 getPriority 方法，获得对应的枚举类型
+	 * @return 紧急程度
+	*/
+	@Transient
+	public PriorityLevel getPriorityEnum() {
+		if(this.priorityEnum==null) {
+			this.priorityEnum = (PriorityLevel) EnumUtil.parseByCode(PriorityLevel.values(),priority);
+		}
+		return this.priorityEnum ;
+	}
+	
+	/**
+	 * 设置 紧急程度
+	 * @param priority 紧急程度
+	 * @return 当前对象
+	*/
+	public ProcessInstance setPriority(String priority) {
+		this.priority=priority;
+		this.priorityEnum= (PriorityLevel) EnumUtil.parseByCode(PriorityLevel.values(),priority) ;
+		if(StringUtil.hasContent(priority) && this.priorityEnum==null) {
+			throw new IllegalArgumentException( priority + " is not one of PriorityLevel");
+		}
+		return this;
+	}
+	
+	/**
+	 * 设置 紧急程度的投影属性，等同于设置 紧急程度
+	 * @param priorityEnum 紧急程度
+	 * @return 当前对象
+	*/
+	@Transient
+	public ProcessInstance setPriorityEnum(PriorityLevel priorityEnum) {
+		if(priorityEnum==null) {
+			this.setPriority(null);
+		} else {
+			this.setPriority(priorityEnum.code());
+		}
+		this.priorityEnum=priorityEnum;
+		return this;
+	}
+	
+	/**
+	 * 获得 流程说明<br>
+	 * 流程说明
+	 * @return 流程说明
+	*/
+	public String getComment() {
+		return comment;
+	}
+	
+	/**
+	 * 设置 流程说明
+	 * @param comment 流程说明
+	 * @return 当前对象
+	*/
+	public ProcessInstance setComment(String comment) {
+		this.comment=comment;
 		return this;
 	}
 	
@@ -336,6 +470,25 @@ public class ProcessInstance extends Entity {
 	*/
 	public ProcessInstance setCamundaInstanceId(Integer camundaInstanceId) {
 		this.camundaInstanceId=camundaInstanceId;
+		return this;
+	}
+	
+	/**
+	 * 获得 提交时间<br>
+	 * 提交时间
+	 * @return 提交时间
+	*/
+	public Date getCommitTime() {
+		return commitTime;
+	}
+	
+	/**
+	 * 设置 提交时间
+	 * @param commitTime 提交时间
+	 * @return 当前对象
+	*/
+	public ProcessInstance setCommitTime(Date commitTime) {
+		this.commitTime=commitTime;
 		return this;
 	}
 	
@@ -564,6 +717,25 @@ public class ProcessInstance extends Entity {
 	*/
 	public ProcessInstance setDrafter(Appover drafter) {
 		this.drafter=drafter;
+		return this;
+	}
+	
+	/**
+	 * 获得 起草人名称<br>
+	 * 起草人名称
+	 * @return 起草人名称
+	*/
+	public String getDrafterName() {
+		return drafterName;
+	}
+	
+	/**
+	 * 设置 起草人名称
+	 * @param drafterName 起草人名称
+	 * @return 当前对象
+	*/
+	public ProcessInstance setDrafterName(String drafterName) {
+		this.drafterName=drafterName;
 		return this;
 	}
 

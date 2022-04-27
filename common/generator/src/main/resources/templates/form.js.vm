@@ -396,7 +396,11 @@ function FormPage() {
 
 	function saveForm(param) {
 		param.dirtyFields=fox.compareDirtyFields(dataBeforeEdit,param);
+		#if(savingURL==null)
 		var api=moduleURL+"/"+(param.#(idPropertyName)?"update":"insert");
+		#else
+		var api="#(savingURL)";
+		#end
 		admin.post(api, param, function (data) {
 			if (data.success) {
 				var doNext=true;

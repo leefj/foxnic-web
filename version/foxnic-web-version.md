@@ -7,10 +7,11 @@
 4、代码生成增加 readonly 特性   
 5、优化 Excel 生成的相关功能
 6、增加 PerformanceLogger
+7、代码生成支持指定表单提交地址   form.savingURL(ProcessInstanceServiceProxy.TEMPORARY_SAVE);
 
 ### Bug 修复
 1、代码生成 INPUT_FILED bug 修复
-
+2、修复搜索栏自动换行时，表格按钮被遮盖问题
 
 
 

@@ -1,12 +1,17 @@
 package org.github.foxnic.web.framework.web;
 
+import com.github.foxnic.api.model.CompositeItem;
 import com.github.foxnic.commons.bean.BeanUtil;
+import com.github.foxnic.commons.lang.DataParser;
+import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.entity.Entity;
 import com.github.foxnic.springboot.mvc.RequestParameter;
+import org.github.foxnic.web.domain.bpm.meta.ProcessInstanceMeta;
 import org.github.foxnic.web.language.LanguageService;
 import org.github.foxnic.web.session.SessionUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -79,6 +84,36 @@ public class SuperController {
 			request.setAttribute(REQUEST_VALIDATOR,validator);
 		}
 		return validator;
+	}
+
+	/**
+	 * 从 VO 提取属性值
+	 * */
+	public <T,V> V getPropertyValue(T vo,String prop,Class<V> type) {
+		Object value= BeanUtil.getFieldValue(vo,prop);
+		if(vo instanceof Entity) {
+			Entity entity = (Entity) vo;
+			CompositeItem drafterNameItem = entity.getCompositeParameter().getItem(prop);
+			if (StringUtil.isBlank(value) && drafterNameItem != null) {
+				value = drafterNameItem.getValue();
+			}
+		}
+		return DataParser.parse(type,value);
+	}
+
+	/**
+	 * 设置 VO 的属性值
+	 * */
+	public <T> void setPropertyValue(T vo,String prop,Object value) {
+		// 提取 drafterName 并是参数置空以取消底层的查询
+		BeanUtil.setFieldValue(vo,prop,value);
+		if(vo instanceof Entity) {
+			Entity entity = (Entity) vo;
+			CompositeItem drafterNameItem = entity.getCompositeParameter().getItem(prop);
+			if (drafterNameItem != null) {
+				drafterNameItem.setValue(value);
+			}
+		}
 	}
 
 }

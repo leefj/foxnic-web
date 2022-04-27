@@ -183,6 +183,24 @@ public class UserController extends SuperController {
 		return result;
 	}
 
+	/**
+	 * 获取账户
+	 */
+	@ApiOperation(value = "获取多个账户")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = UserVOMeta.IDS , value = "主键集合" , required = true , dataTypeClass=String.class , example = "['1','2','3']"),
+	})
+	@ApiOperationSupport(order=6)
+	@NotNull(name = UserVOMeta.IDS)
+	@SentinelResource(value = UserServiceProxy.GET_BY_IDS)
+	@PostMapping(UserServiceProxy.GET_BY_IDS)
+	public Result<List<User>> getByIds(List<String> ids) {
+		Result<List<User>> result=new Result<>();
+		List<User> users=userService.getByIds(ids);
+		result.success(true).data(users);
+		return result;
+	}
+
 
 	/**
 	 * 获取账户
@@ -297,4 +315,4 @@ public class UserController extends SuperController {
 
 
 
-}
+}

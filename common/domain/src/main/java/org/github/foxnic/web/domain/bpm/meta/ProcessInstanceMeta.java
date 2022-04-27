@@ -11,8 +11,8 @@ import org.github.foxnic.web.domain.bpm.Appover;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-20 15:28:13
- * @sign 19B265C27F94C8694251D0A7ABD4BD42
+ * @since 2022-04-27 15:45:10
+ * @sign D5F3920702318BCBBA912A73E028CCD8
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -79,6 +79,26 @@ public class ProcessInstanceMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,java.lang.String> TITLE_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,TITLE, java.lang.String.class, "流程标题", "流程标题", java.lang.String.class, null);
 	
 	/**
+	 * 紧急程度 , 类型: java.lang.String
+	*/
+	public static final String PRIORITY="priority";
+	
+	/**
+	 * 紧急程度 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,java.lang.String> PRIORITY_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,PRIORITY, java.lang.String.class, "紧急程度", "紧急程度", java.lang.String.class, null);
+	
+	/**
+	 * 流程说明 , 类型: java.lang.String
+	*/
+	public static final String COMMENT="comment";
+	
+	/**
+	 * 流程说明 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,java.lang.String> COMMENT_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,COMMENT, java.lang.String.class, "流程说明", "流程说明", java.lang.String.class, null);
+	
+	/**
 	 * 审批状态 , 类型: java.lang.String
 	*/
 	public static final String APPROVAL_STATUS="approvalStatus";
@@ -97,6 +117,16 @@ public class ProcessInstanceMeta {
 	 * camunda流程实例ID , 类型: java.lang.Integer
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,java.lang.Integer> CAMUNDA_INSTANCE_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,CAMUNDA_INSTANCE_ID, java.lang.Integer.class, "camunda流程实例ID", "camunda流程实例ID", java.lang.Integer.class, null);
+	
+	/**
+	 * 提交时间 , 类型: java.util.Date
+	*/
+	public static final String COMMIT_TIME="commitTime";
+	
+	/**
+	 * 提交时间 , 类型: java.util.Date
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,java.util.Date> COMMIT_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,COMMIT_TIME, java.util.Date.class, "提交时间", "提交时间", java.util.Date.class, null);
 	
 	/**
 	 * 创建人ID , 类型: java.lang.String
@@ -219,9 +249,19 @@ public class ProcessInstanceMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,org.github.foxnic.web.domain.bpm.Appover> DRAFTER_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,DRAFTER, org.github.foxnic.web.domain.bpm.Appover.class, "起草人", "起草人", org.github.foxnic.web.domain.bpm.Appover.class, null);
 	
 	/**
+	 * 起草人名称 , 类型: java.lang.String
+	*/
+	public static final String DRAFTER_NAME="drafterName";
+	
+	/**
+	 * 起草人名称 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,java.lang.String> DRAFTER_NAME_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,DRAFTER_NAME, java.lang.String.class, "起草人名称", "起草人名称", java.lang.String.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , DRAFTER_ID , DRAFTER_TYPE , FORM_INSTANCE_ID , PROCESS_DEFINITION_ID , TITLE , APPROVAL_STATUS , CAMUNDA_INSTANCE_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , PROCESS_DEFINITION , FORM_INSTANCE , DRAFTER };
+	public static final String[] $PROPS={ ID , DRAFTER_ID , DRAFTER_TYPE , FORM_INSTANCE_ID , PROCESS_DEFINITION_ID , TITLE , PRIORITY , COMMENT , APPROVAL_STATUS , CAMUNDA_INSTANCE_ID , COMMIT_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , PROCESS_DEFINITION , FORM_INSTANCE , DRAFTER , DRAFTER_NAME };
 	
 	/**
 	 * 代理类
@@ -298,6 +338,28 @@ public class ProcessInstanceMeta {
 		}
 		
 		/**
+		 * 设置 紧急程度
+		 * @param priority 紧急程度
+		 * @return 当前对象
+		*/
+		public ProcessInstance setPriority(String priority) {
+			super.change(PRIORITY,super.getPriority(),priority);
+			super.setPriority(priority);
+			return this;
+		}
+		
+		/**
+		 * 设置 流程说明
+		 * @param comment 流程说明
+		 * @return 当前对象
+		*/
+		public ProcessInstance setComment(String comment) {
+			super.change(COMMENT,super.getComment(),comment);
+			super.setComment(comment);
+			return this;
+		}
+		
+		/**
 		 * 设置 审批状态
 		 * @param approvalStatus 审批状态
 		 * @return 当前对象
@@ -316,6 +378,17 @@ public class ProcessInstanceMeta {
 		public ProcessInstance setCamundaInstanceId(Integer camundaInstanceId) {
 			super.change(CAMUNDA_INSTANCE_ID,super.getCamundaInstanceId(),camundaInstanceId);
 			super.setCamundaInstanceId(camundaInstanceId);
+			return this;
+		}
+		
+		/**
+		 * 设置 提交时间
+		 * @param commitTime 提交时间
+		 * @return 当前对象
+		*/
+		public ProcessInstance setCommitTime(Date commitTime) {
+			super.change(COMMIT_TIME,super.getCommitTime(),commitTime);
+			super.setCommitTime(commitTime);
 			return this;
 		}
 		
@@ -448,6 +521,17 @@ public class ProcessInstanceMeta {
 		public ProcessInstance setDrafter(Appover drafter) {
 			super.change(DRAFTER,super.getDrafter(),drafter);
 			super.setDrafter(drafter);
+			return this;
+		}
+		
+		/**
+		 * 设置 起草人名称
+		 * @param drafterName 起草人名称
+		 * @return 当前对象
+		*/
+		public ProcessInstance setDrafterName(String drafterName) {
+			super.change(DRAFTER_NAME,super.getDrafterName(),drafterName);
+			super.setDrafterName(drafterName);
 			return this;
 		}
 	}

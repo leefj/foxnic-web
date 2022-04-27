@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2022-04-20 15:12:14
+ * @since 2022-04-26 14:13:12
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -719,6 +719,16 @@ public class FoxnicWeb {
 		public static final DBField TITLE = new DBField(DBDataType.STRING , "title","title","流程标题","流程标题",false,false,true);
 		
 		/**
+		 * 紧急程度
+		*/
+		public static final DBField PRIORITY = new DBField(DBDataType.STRING , "priority","priority","紧急程度","紧急程度",false,false,true);
+		
+		/**
+		 * 流程说明
+		*/
+		public static final DBField COMMENT = new DBField(DBDataType.STRING , "comment","comment","流程说明","流程说明",false,false,true);
+		
+		/**
 		 * 审批状态
 		*/
 		public static final DBField APPROVAL_STATUS = new DBField(DBDataType.STRING , "approval_status","approvalStatus","审批状态","审批状态",false,false,true);
@@ -727,6 +737,11 @@ public class FoxnicWeb {
 		 * camunda流程实例ID
 		*/
 		public static final DBField CAMUNDA_INSTANCE_ID = new DBField(DBDataType.INTEGER , "camunda_instance_id","camundaInstanceId","camunda流程实例ID","camunda流程实例ID",false,false,true);
+		
+		/**
+		 * 提交事件
+		*/
+		public static final DBField COMMIT_TIME = new DBField(DBDataType.DATE , "commit_time","commitTime","提交事件","提交事件",false,false,true);
 		
 		/**
 		 * 创建人ID
@@ -774,7 +789,7 @@ public class FoxnicWeb {
 		public static final DBField TENANT_ID = new DBField(DBDataType.STRING , "tenant_id","tenantId","租户ID","租户ID",false,false,false);
 		
 		public BPM_PROCESS_INSTANCE() {
-			this.init($NAME,"流程实例表" , ID , DRAFTER_ID , DRAFTER_TYPE , FORM_INSTANCE_ID , PROCESS_DEFINITION_ID , TITLE , APPROVAL_STATUS , CAMUNDA_INSTANCE_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID);
+			this.init($NAME,"流程实例表" , ID , DRAFTER_ID , DRAFTER_TYPE , FORM_INSTANCE_ID , PROCESS_DEFINITION_ID , TITLE , PRIORITY , COMMENT , APPROVAL_STATUS , CAMUNDA_INSTANCE_ID , COMMIT_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID);
 		}
 		public static final BPM_PROCESS_INSTANCE $TABLE=new BPM_PROCESS_INSTANCE();
 	}
