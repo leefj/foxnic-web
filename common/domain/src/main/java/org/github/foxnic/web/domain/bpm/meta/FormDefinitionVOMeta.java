@@ -11,7 +11,7 @@ import org.github.foxnic.web.domain.oauth.User;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-20 15:21:45
+ * @since 2022-04-28 14:55:16
  * @sign D1FAD95945FF2382B267FAAEE66BC29C
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -117,6 +117,16 @@ public class FormDefinitionVOMeta extends FormDefinitionMeta {
 	 * 主键 , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.FormDefinitionVO,java.lang.String> ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.FormDefinitionVO.class ,ID, java.lang.String.class, "主键", "主键", java.lang.String.class, null);
+	
+	/**
+	 * 表单代码 , 类型: java.lang.String
+	*/
+	public static final String CODE="code";
+	
+	/**
+	 * 表单代码 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.FormDefinitionVO,java.lang.String> CODE_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.FormDefinitionVO.class ,CODE, java.lang.String.class, "表单代码", "表单代码", java.lang.String.class, null);
 	
 	/**
 	 * 表单名称 , 类型: java.lang.String
@@ -281,7 +291,7 @@ public class FormDefinitionVOMeta extends FormDefinitionMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , NAME , FORM_TYPE , DRAFT_PAGE_URL , APPROVAL_PAGE_URL , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , LAST_UPDATE_USER };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , CODE , NAME , FORM_TYPE , DRAFT_PAGE_URL , APPROVAL_PAGE_URL , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , LAST_UPDATE_USER };
 	
 	/**
 	 * 代理类
@@ -398,6 +408,17 @@ public class FormDefinitionVOMeta extends FormDefinitionMeta {
 		public FormDefinition setId(String id) {
 			super.change(ID,super.getId(),id);
 			super.setId(id);
+			return this;
+		}
+		
+		/**
+		 * 设置 表单代码
+		 * @param code 表单代码
+		 * @return 当前对象
+		*/
+		public FormDefinition setCode(String code) {
+			super.change(CODE,super.getCode(),code);
+			super.setCode(code);
 			return this;
 		}
 		

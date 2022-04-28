@@ -6,14 +6,16 @@ import java.util.List;
 import org.github.foxnic.web.domain.bpm.ProcessInstance;
 import java.util.Date;
 import org.github.foxnic.web.domain.bpm.ProcessDefinition;
+import org.github.foxnic.web.domain.bpm.FormDefinition;
 import org.github.foxnic.web.domain.bpm.FormInstance;
 import org.github.foxnic.web.domain.bpm.Appover;
+import org.github.foxnic.web.domain.oauth.User;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-27 15:45:10
+ * @since 2022-04-28 18:33:27
  * @sign A711E5710DD083267053E2AD6B945608
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -121,14 +123,24 @@ public class ProcessInstanceVOMeta extends ProcessInstanceMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceVO,java.lang.String> ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceVO.class ,ID, java.lang.String.class, "主键", "主键", java.lang.String.class, null);
 	
 	/**
-	 * 起草人ID , 类型: java.lang.String
+	 * 起草人账户ID , 类型: java.lang.String
+	*/
+	public static final String DRAFTER_USER_ID="drafterUserId";
+	
+	/**
+	 * 起草人账户ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceVO,java.lang.String> DRAFTER_USER_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceVO.class ,DRAFTER_USER_ID, java.lang.String.class, "起草人账户ID", "起草人账户ID", java.lang.String.class, null);
+	
+	/**
+	 * 起草人ID , 可以是账户ID、员工ID、职位ID、系统角色ID、业务角色ID , 类型: java.lang.String
 	*/
 	public static final String DRAFTER_ID="drafterId";
 	
 	/**
-	 * 起草人ID , 类型: java.lang.String
+	 * 起草人ID , 可以是账户ID、员工ID、职位ID、系统角色ID、业务角色ID , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceVO,java.lang.String> DRAFTER_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceVO.class ,DRAFTER_ID, java.lang.String.class, "起草人ID", "起草人ID", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceVO,java.lang.String> DRAFTER_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceVO.class ,DRAFTER_ID, java.lang.String.class, "起草人ID", "可以是账户ID、员工ID、职位ID、系统角色ID、业务角色ID", java.lang.String.class, null);
 	
 	/**
 	 * 起草人类型 , 类型: java.lang.String
@@ -159,6 +171,16 @@ public class ProcessInstanceVOMeta extends ProcessInstanceMeta {
 	 * 流程定义ID , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceVO,java.lang.String> PROCESS_DEFINITION_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceVO.class ,PROCESS_DEFINITION_ID, java.lang.String.class, "流程定义ID", "流程定义ID", java.lang.String.class, null);
+	
+	/**
+	 * 表单定义ID , 类型: java.lang.String
+	*/
+	public static final String FORM_DEFINITION_ID="formDefinitionId";
+	
+	/**
+	 * 表单定义ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceVO,java.lang.String> FORM_DEFINITION_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceVO.class ,FORM_DEFINITION_ID, java.lang.String.class, "表单定义ID", "表单定义ID", java.lang.String.class, null);
 	
 	/**
 	 * 流程标题 , 类型: java.lang.String
@@ -321,6 +343,16 @@ public class ProcessInstanceVOMeta extends ProcessInstanceMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceVO,org.github.foxnic.web.domain.bpm.ProcessDefinition> PROCESS_DEFINITION_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceVO.class ,PROCESS_DEFINITION, org.github.foxnic.web.domain.bpm.ProcessDefinition.class, "流程定义", "流程定义", org.github.foxnic.web.domain.bpm.ProcessDefinition.class, null);
 	
 	/**
+	 * 表单定义 , 类型: org.github.foxnic.web.domain.bpm.FormDefinition
+	*/
+	public static final String FORM_DEFINITION="formDefinition";
+	
+	/**
+	 * 表单定义 , 类型: org.github.foxnic.web.domain.bpm.FormDefinition
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceVO,org.github.foxnic.web.domain.bpm.FormDefinition> FORM_DEFINITION_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceVO.class ,FORM_DEFINITION, org.github.foxnic.web.domain.bpm.FormDefinition.class, "表单定义", "表单定义", org.github.foxnic.web.domain.bpm.FormDefinition.class, null);
+	
+	/**
 	 * 表单实例 , 类型: org.github.foxnic.web.domain.bpm.FormInstance
 	*/
 	public static final String FORM_INSTANCE="formInstance";
@@ -331,14 +363,14 @@ public class ProcessInstanceVOMeta extends ProcessInstanceMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceVO,org.github.foxnic.web.domain.bpm.FormInstance> FORM_INSTANCE_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceVO.class ,FORM_INSTANCE, org.github.foxnic.web.domain.bpm.FormInstance.class, "表单实例", "表单实例", org.github.foxnic.web.domain.bpm.FormInstance.class, null);
 	
 	/**
-	 * 起草人 , 类型: org.github.foxnic.web.domain.bpm.Appover
+	 * 起草人身份 , 类型: org.github.foxnic.web.domain.bpm.Appover
 	*/
 	public static final String DRAFTER="drafter";
 	
 	/**
-	 * 起草人 , 类型: org.github.foxnic.web.domain.bpm.Appover
+	 * 起草人身份 , 类型: org.github.foxnic.web.domain.bpm.Appover
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceVO,org.github.foxnic.web.domain.bpm.Appover> DRAFTER_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceVO.class ,DRAFTER, org.github.foxnic.web.domain.bpm.Appover.class, "起草人", "起草人", org.github.foxnic.web.domain.bpm.Appover.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceVO,org.github.foxnic.web.domain.bpm.Appover> DRAFTER_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceVO.class ,DRAFTER, org.github.foxnic.web.domain.bpm.Appover.class, "起草人身份", "起草人身份", org.github.foxnic.web.domain.bpm.Appover.class, null);
 	
 	/**
 	 * 起草人名称 , 类型: java.lang.String
@@ -351,9 +383,19 @@ public class ProcessInstanceVOMeta extends ProcessInstanceMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceVO,java.lang.String> DRAFTER_NAME_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceVO.class ,DRAFTER_NAME, java.lang.String.class, "起草人名称", "起草人名称", java.lang.String.class, null);
 	
 	/**
+	 * 起草人账号 , 类型: org.github.foxnic.web.domain.oauth.User
+	*/
+	public static final String DRAFTER_USER="drafterUser";
+	
+	/**
+	 * 起草人账号 , 类型: org.github.foxnic.web.domain.oauth.User
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceVO,org.github.foxnic.web.domain.oauth.User> DRAFTER_USER_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceVO.class ,DRAFTER_USER, org.github.foxnic.web.domain.oauth.User.class, "起草人账号", "起草人账号", org.github.foxnic.web.domain.oauth.User.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , DRAFTER_ID , DRAFTER_TYPE , FORM_INSTANCE_ID , PROCESS_DEFINITION_ID , TITLE , PRIORITY , COMMENT , APPROVAL_STATUS , CAMUNDA_INSTANCE_ID , COMMIT_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , PROCESS_DEFINITION , FORM_INSTANCE , DRAFTER , DRAFTER_NAME };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , DRAFTER_USER_ID , DRAFTER_ID , DRAFTER_TYPE , FORM_INSTANCE_ID , PROCESS_DEFINITION_ID , FORM_DEFINITION_ID , TITLE , PRIORITY , COMMENT , APPROVAL_STATUS , CAMUNDA_INSTANCE_ID , COMMIT_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , PROCESS_DEFINITION , FORM_DEFINITION , FORM_INSTANCE , DRAFTER , DRAFTER_NAME , DRAFTER_USER };
 	
 	/**
 	 * 代理类
@@ -474,6 +516,17 @@ public class ProcessInstanceVOMeta extends ProcessInstanceMeta {
 		}
 		
 		/**
+		 * 设置 起草人账户ID
+		 * @param drafterUserId 起草人账户ID
+		 * @return 当前对象
+		*/
+		public ProcessInstance setDrafterUserId(String drafterUserId) {
+			super.change(DRAFTER_USER_ID,super.getDrafterUserId(),drafterUserId);
+			super.setDrafterUserId(drafterUserId);
+			return this;
+		}
+		
+		/**
 		 * 设置 起草人ID
 		 * @param drafterId 起草人ID
 		 * @return 当前对象
@@ -514,6 +567,17 @@ public class ProcessInstanceVOMeta extends ProcessInstanceMeta {
 		public ProcessInstance setProcessDefinitionId(String processDefinitionId) {
 			super.change(PROCESS_DEFINITION_ID,super.getProcessDefinitionId(),processDefinitionId);
 			super.setProcessDefinitionId(processDefinitionId);
+			return this;
+		}
+		
+		/**
+		 * 设置 表单定义ID
+		 * @param formDefinitionId 表单定义ID
+		 * @return 当前对象
+		*/
+		public ProcessInstance setFormDefinitionId(String formDefinitionId) {
+			super.change(FORM_DEFINITION_ID,super.getFormDefinitionId(),formDefinitionId);
+			super.setFormDefinitionId(formDefinitionId);
 			return this;
 		}
 		
@@ -694,6 +758,17 @@ public class ProcessInstanceVOMeta extends ProcessInstanceMeta {
 		}
 		
 		/**
+		 * 设置 表单定义
+		 * @param formDefinition 表单定义
+		 * @return 当前对象
+		*/
+		public ProcessInstance setFormDefinition(FormDefinition formDefinition) {
+			super.change(FORM_DEFINITION,super.getFormDefinition(),formDefinition);
+			super.setFormDefinition(formDefinition);
+			return this;
+		}
+		
+		/**
 		 * 设置 表单实例
 		 * @param formInstance 表单实例
 		 * @return 当前对象
@@ -705,8 +780,8 @@ public class ProcessInstanceVOMeta extends ProcessInstanceMeta {
 		}
 		
 		/**
-		 * 设置 起草人
-		 * @param drafter 起草人
+		 * 设置 起草人身份
+		 * @param drafter 起草人身份
 		 * @return 当前对象
 		*/
 		public ProcessInstance setDrafter(Appover drafter) {
@@ -723,6 +798,17 @@ public class ProcessInstanceVOMeta extends ProcessInstanceMeta {
 		public ProcessInstance setDrafterName(String drafterName) {
 			super.change(DRAFTER_NAME,super.getDrafterName(),drafterName);
 			super.setDrafterName(drafterName);
+			return this;
+		}
+		
+		/**
+		 * 设置 起草人账号
+		 * @param drafterUser 起草人账号
+		 * @return 当前对象
+		*/
+		public ProcessInstance setDrafterUser(User drafterUser) {
+			super.change(DRAFTER_USER,super.getDrafterUser(),drafterUser);
+			super.setDrafterUser(drafterUser);
 			return this;
 		}
 	}

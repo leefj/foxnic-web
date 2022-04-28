@@ -46,6 +46,8 @@ public class ProcessDefinitionConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITI
         view.field(BPM_PROCESS_DEFINITION.CAMUNDA_DEFINITION_KEY).basic().hidden();
 
         view.field(BPM_PROCESS_DEFINITION.ID).basic().hidden();
+        view.field(BPM_PROCESS_DEFINITION.CODE).basic().label("代码").search().fuzzySearch()
+                .form().validate().required();
         view.field(BPM_PROCESS_DEFINITION.NAME).search().fuzzySearch().form().validate().required();
         view.field(BPM_PROCESS_DEFINITION.VALID).form().logicField().on("有效",1).off("无效",0);
         view.field(BPM_PROCESS_DEFINITION.NOTES).search().fuzzySearch().form().textArea();

@@ -11,8 +11,8 @@ import org.github.foxnic.web.domain.bpm.FormDefinition;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-20 15:21:33
- * @sign EE0E7BEC599603077FC5675B6D59DF94
+ * @since 2022-04-28 14:40:42
+ * @sign A816AB5EF276EF090761BDB13A20C8FC
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -27,6 +27,16 @@ public class ProcessDefinitionMeta {
 	 * ID , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinition,java.lang.String> ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinition.class ,ID, java.lang.String.class, "ID", "ID", java.lang.String.class, null);
+	
+	/**
+	 * 流程代码 , 类型: java.lang.String
+	*/
+	public static final String CODE="code";
+	
+	/**
+	 * 流程代码 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinition,java.lang.String> CODE_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinition.class ,CODE, java.lang.String.class, "流程代码", "流程代码", java.lang.String.class, null);
 	
 	/**
 	 * 关联表单 , 表单定义ID , 类型: java.lang.String
@@ -211,7 +221,7 @@ public class ProcessDefinitionMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , FORM_DEFINITION_ID , NAME , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CAMUNDA_DEFINITION_ID , CAMUNDA_DEFINITION_KEY , LAST_UPDATE_USER , DEFINITION_FILE , FORM_DEFINITION };
+	public static final String[] $PROPS={ ID , CODE , FORM_DEFINITION_ID , NAME , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CAMUNDA_DEFINITION_ID , CAMUNDA_DEFINITION_KEY , LAST_UPDATE_USER , DEFINITION_FILE , FORM_DEFINITION };
 	
 	/**
 	 * 代理类
@@ -229,6 +239,17 @@ public class ProcessDefinitionMeta {
 		public ProcessDefinition setId(String id) {
 			super.change(ID,super.getId(),id);
 			super.setId(id);
+			return this;
+		}
+		
+		/**
+		 * 设置 流程代码
+		 * @param code 流程代码
+		 * @return 当前对象
+		*/
+		public ProcessDefinition setCode(String code) {
+			super.change(CODE,super.getCode(),code);
+			super.setCode(code);
 			return this;
 		}
 		

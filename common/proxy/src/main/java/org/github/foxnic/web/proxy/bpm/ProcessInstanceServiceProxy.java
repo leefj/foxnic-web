@@ -68,10 +68,7 @@ public interface ProcessInstanceServiceProxy {
      */
     public static final String GET_BY_IDS = API_PREFIX + "get-by-ids";
 
-    /**
-     * 查询流程实例
-     */
-    public static final String QUERY_LIST = API_PREFIX + "query-list";
+
 
     /**
      * 分页查询流程实例
@@ -122,12 +119,6 @@ public interface ProcessInstanceServiceProxy {
      */
     @RequestMapping(ProcessInstanceServiceProxy.GET_BY_IDS)
     Result<List<ProcessInstance>> getByIds(@RequestParam(name = "ids") List<Integer> ids);
-
-    /**
-     * 查询流程实例
-     */
-    @RequestMapping(ProcessInstanceServiceProxy.QUERY_LIST)
-    Result<List<ProcessInstance>> queryList(@RequestParam(name = "sample") ProcessInstanceVO sample);
 
     /**
      * 分页查询流程实例

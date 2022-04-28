@@ -17,8 +17,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 表单定义
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-20 15:21:45
- * @sign D36958842469F7C67A2741CA9DA8DA61
+ * @since 2022-04-28 14:55:16
+ * @sign 6B41C2BC702201A90EE7B717EE8A9D44
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -35,6 +35,12 @@ public class FormDefinition extends Entity {
 	@Id
 	@ApiModelProperty(required = true,value="主键" , notes = "主键")
 	private String id;
+	
+	/**
+	 * 表单代码：表单代码
+	*/
+	@ApiModelProperty(required = true,value="表单代码" , notes = "表单代码")
+	private String code;
 	
 	/**
 	 * 表单名称：表单名称
@@ -148,6 +154,25 @@ public class FormDefinition extends Entity {
 	*/
 	public FormDefinition setId(String id) {
 		this.id=id;
+		return this;
+	}
+	
+	/**
+	 * 获得 表单代码<br>
+	 * 表单代码
+	 * @return 表单代码
+	*/
+	public String getCode() {
+		return code;
+	}
+	
+	/**
+	 * 设置 表单代码
+	 * @param code 表单代码
+	 * @return 当前对象
+	*/
+	public FormDefinition setCode(String code) {
+		this.code=code;
 		return this;
 	}
 	

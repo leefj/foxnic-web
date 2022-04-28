@@ -12,7 +12,7 @@ import com.github.foxnic.commons.bean.BeanUtil;
 /**
  * 表单定义
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-20 15:21:45
+ * @since 2022-04-28 14:55:16
  * @sign D1FAD95945FF2382B267FAAEE66BC29C
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */

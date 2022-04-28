@@ -11,6 +11,7 @@ import javax.persistence.Transient;
 import org.github.foxnic.web.constants.enums.bpm.PriorityLevel;
 import org.github.foxnic.web.constants.enums.changes.ApprovalStatus;
 import java.util.Date;
+import org.github.foxnic.web.domain.oauth.User;
 import com.github.foxnic.commons.reflect.EnumUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import java.util.Map;
@@ -21,8 +22,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程实例
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-27 15:45:10
- * @sign D5F3920702318BCBBA912A73E028CCD8
+ * @since 2022-04-28 18:33:27
+ * @sign 8C69CA7BF675904CBAFA6B7B8A66A410
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -41,9 +42,15 @@ public class ProcessInstance extends Entity {
 	private String id;
 	
 	/**
-	 * 起草人ID：起草人ID
+	 * 起草人账户ID：起草人账户ID
 	*/
-	@ApiModelProperty(required = false,value="起草人ID" , notes = "起草人ID")
+	@ApiModelProperty(required = false,value="起草人账户ID" , notes = "起草人账户ID")
+	private String drafterUserId;
+	
+	/**
+	 * 起草人ID：可以是账户ID、员工ID、职位ID、系统角色ID、业务角色ID
+	*/
+	@ApiModelProperty(required = false,value="起草人ID" , notes = "可以是账户ID、员工ID、职位ID、系统角色ID、业务角色ID")
 	private String drafterId;
 	
 	/**
@@ -65,6 +72,12 @@ public class ProcessInstance extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="流程定义ID" , notes = "流程定义ID")
 	private String processDefinitionId;
+	
+	/**
+	 * 表单定义ID：表单定义ID
+	*/
+	@ApiModelProperty(required = false,value="表单定义ID" , notes = "表单定义ID")
+	private String formDefinitionId;
 	
 	/**
 	 * 流程标题：流程标题
@@ -167,15 +180,21 @@ public class ProcessInstance extends Entity {
 	private ProcessDefinition processDefinition;
 	
 	/**
+	 * 表单定义：表单定义
+	*/
+	@ApiModelProperty(required = false,value="表单定义" , notes = "表单定义")
+	private FormDefinition formDefinition;
+	
+	/**
 	 * 表单实例：表单实例
 	*/
 	@ApiModelProperty(required = false,value="表单实例" , notes = "表单实例")
 	private FormInstance formInstance;
 	
 	/**
-	 * 起草人：起草人
+	 * 起草人身份：起草人身份
 	*/
-	@ApiModelProperty(required = false,value="起草人" , notes = "起草人")
+	@ApiModelProperty(required = false,value="起草人身份" , notes = "起草人身份")
 	private Appover drafter;
 	
 	/**
@@ -183,6 +202,12 @@ public class ProcessInstance extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="起草人名称" , notes = "起草人名称")
 	private String drafterName;
+	
+	/**
+	 * 起草人账号：起草人账号
+	*/
+	@ApiModelProperty(required = false,value="起草人账号" , notes = "起草人账号")
+	private User drafterUser;
 	
 	/**
 	 * 获得 主键<br>
@@ -204,8 +229,27 @@ public class ProcessInstance extends Entity {
 	}
 	
 	/**
+	 * 获得 起草人账户ID<br>
+	 * 起草人账户ID
+	 * @return 起草人账户ID
+	*/
+	public String getDrafterUserId() {
+		return drafterUserId;
+	}
+	
+	/**
+	 * 设置 起草人账户ID
+	 * @param drafterUserId 起草人账户ID
+	 * @return 当前对象
+	*/
+	public ProcessInstance setDrafterUserId(String drafterUserId) {
+		this.drafterUserId=drafterUserId;
+		return this;
+	}
+	
+	/**
 	 * 获得 起草人ID<br>
-	 * 起草人ID
+	 * 可以是账户ID、员工ID、职位ID、系统角色ID、业务角色ID
 	 * @return 起草人ID
 	*/
 	public String getDrafterId() {
@@ -309,6 +353,25 @@ public class ProcessInstance extends Entity {
 	*/
 	public ProcessInstance setProcessDefinitionId(String processDefinitionId) {
 		this.processDefinitionId=processDefinitionId;
+		return this;
+	}
+	
+	/**
+	 * 获得 表单定义ID<br>
+	 * 表单定义ID
+	 * @return 表单定义ID
+	*/
+	public String getFormDefinitionId() {
+		return formDefinitionId;
+	}
+	
+	/**
+	 * 设置 表单定义ID
+	 * @param formDefinitionId 表单定义ID
+	 * @return 当前对象
+	*/
+	public ProcessInstance setFormDefinitionId(String formDefinitionId) {
+		this.formDefinitionId=formDefinitionId;
 		return this;
 	}
 	
@@ -683,6 +746,25 @@ public class ProcessInstance extends Entity {
 	}
 	
 	/**
+	 * 获得 表单定义<br>
+	 * 表单定义
+	 * @return 表单定义
+	*/
+	public FormDefinition getFormDefinition() {
+		return formDefinition;
+	}
+	
+	/**
+	 * 设置 表单定义
+	 * @param formDefinition 表单定义
+	 * @return 当前对象
+	*/
+	public ProcessInstance setFormDefinition(FormDefinition formDefinition) {
+		this.formDefinition=formDefinition;
+		return this;
+	}
+	
+	/**
 	 * 获得 表单实例<br>
 	 * 表单实例
 	 * @return 表单实例
@@ -702,17 +784,17 @@ public class ProcessInstance extends Entity {
 	}
 	
 	/**
-	 * 获得 起草人<br>
-	 * 起草人
-	 * @return 起草人
+	 * 获得 起草人身份<br>
+	 * 起草人身份
+	 * @return 起草人身份
 	*/
 	public Appover getDrafter() {
 		return drafter;
 	}
 	
 	/**
-	 * 设置 起草人
-	 * @param drafter 起草人
+	 * 设置 起草人身份
+	 * @param drafter 起草人身份
 	 * @return 当前对象
 	*/
 	public ProcessInstance setDrafter(Appover drafter) {
@@ -736,6 +818,25 @@ public class ProcessInstance extends Entity {
 	*/
 	public ProcessInstance setDrafterName(String drafterName) {
 		this.drafterName=drafterName;
+		return this;
+	}
+	
+	/**
+	 * 获得 起草人账号<br>
+	 * 起草人账号
+	 * @return 起草人账号
+	*/
+	public User getDrafterUser() {
+		return drafterUser;
+	}
+	
+	/**
+	 * 设置 起草人账号
+	 * @param drafterUser 起草人账号
+	 * @return 当前对象
+	*/
+	public ProcessInstance setDrafterUser(User drafterUser) {
+		this.drafterUser=drafterUser;
 		return this;
 	}
 

@@ -17,8 +17,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程定义
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-20 15:21:33
- * @sign EE0E7BEC599603077FC5675B6D59DF94
+ * @since 2022-04-28 14:40:42
+ * @sign A816AB5EF276EF090761BDB13A20C8FC
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -35,6 +35,12 @@ public class ProcessDefinition extends Entity {
 	@Id
 	@ApiModelProperty(required = true,value="ID" , notes = "ID")
 	private String id;
+	
+	/**
+	 * 流程代码：流程代码
+	*/
+	@ApiModelProperty(required = false,value="流程代码" , notes = "流程代码")
+	private String code;
 	
 	/**
 	 * 关联表单：表单定义ID
@@ -160,6 +166,25 @@ public class ProcessDefinition extends Entity {
 	*/
 	public ProcessDefinition setId(String id) {
 		this.id=id;
+		return this;
+	}
+	
+	/**
+	 * 获得 流程代码<br>
+	 * 流程代码
+	 * @return 流程代码
+	*/
+	public String getCode() {
+		return code;
+	}
+	
+	/**
+	 * 设置 流程代码
+	 * @param code 流程代码
+	 * @return 当前对象
+	*/
+	public ProcessDefinition setCode(String code) {
+		this.code=code;
 		return this;
 	}
 	

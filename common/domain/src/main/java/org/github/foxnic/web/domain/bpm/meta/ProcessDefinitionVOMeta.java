@@ -13,7 +13,7 @@ import org.github.foxnic.web.domain.bpm.FormDefinition;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-20 15:21:33
+ * @since 2022-04-28 14:40:42
  * @sign 1D2C38500D1ABE5927BCBF1911BE96A0
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -119,6 +119,16 @@ public class ProcessDefinitionVOMeta extends ProcessDefinitionMeta {
 	 * ID , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionVO,java.lang.String> ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionVO.class ,ID, java.lang.String.class, "ID", "ID", java.lang.String.class, null);
+	
+	/**
+	 * 流程代码 , 类型: java.lang.String
+	*/
+	public static final String CODE="code";
+	
+	/**
+	 * 流程代码 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionVO,java.lang.String> CODE_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionVO.class ,CODE, java.lang.String.class, "流程代码", "流程代码", java.lang.String.class, null);
 	
 	/**
 	 * 关联表单 , 表单定义ID , 类型: java.lang.String
@@ -303,7 +313,7 @@ public class ProcessDefinitionVOMeta extends ProcessDefinitionMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , FORM_DEFINITION_ID , NAME , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CAMUNDA_DEFINITION_ID , CAMUNDA_DEFINITION_KEY , LAST_UPDATE_USER , DEFINITION_FILE , FORM_DEFINITION };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , CODE , FORM_DEFINITION_ID , NAME , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CAMUNDA_DEFINITION_ID , CAMUNDA_DEFINITION_KEY , LAST_UPDATE_USER , DEFINITION_FILE , FORM_DEFINITION };
 	
 	/**
 	 * 代理类
@@ -420,6 +430,17 @@ public class ProcessDefinitionVOMeta extends ProcessDefinitionMeta {
 		public ProcessDefinition setId(String id) {
 			super.change(ID,super.getId(),id);
 			super.setId(id);
+			return this;
+		}
+		
+		/**
+		 * 设置 流程代码
+		 * @param code 流程代码
+		 * @return 当前对象
+		*/
+		public ProcessDefinition setCode(String code) {
+			super.change(CODE,super.getCode(),code);
+			super.setCode(code);
 			return this;
 		}
 		

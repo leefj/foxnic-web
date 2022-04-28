@@ -1,0 +1,30 @@
+layui.define(['settings', 'layer', 'admin', 'util','element'],function (exports) {
+
+    var admin = layui.admin;
+    const  api_save="/service-bpm/bpm-process-instance/temporary-save";
+    const  api_start="/service-bpm/bpm-process-instance/start";
+    var bpm = {
+
+        /**
+         * 表单暂存
+         * */
+        save : function (data,callback,lockEls) {
+            admin.post(api_save, data, function (result) {
+                callback && callback(result);
+            }, {delayLoading:1000,elms:lockEls});
+        },
+
+        /**
+         * 流程启动
+         * code 流程定义代码
+         * callback 回调函数
+         * */
+        start : function (code,callback,lockEls) {
+            admin.post(api_start, {code:code}, function (result) {
+                callback && callback(result);
+            }, {delayLoading:1000,elms:lockEls});
+        }
+    };
+
+    exports('bpm', bpm);
+});

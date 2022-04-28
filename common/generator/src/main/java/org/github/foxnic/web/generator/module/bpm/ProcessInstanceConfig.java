@@ -2,6 +2,7 @@ package org.github.foxnic.web.generator.module.bpm;
 
 import com.github.foxnic.api.query.MatchType;
 import com.github.foxnic.generator.builder.model.PoClassFile;
+import com.github.foxnic.generator.builder.model.PojoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
 import com.github.foxnic.generator.builder.view.config.ActionConfig;
 import com.github.foxnic.generator.builder.view.option.FormOptions;
@@ -15,6 +16,7 @@ import org.github.foxnic.web.constants.enums.bpm.PriorityLevel;
 import org.github.foxnic.web.constants.enums.changes.ApprovalStatus;
 import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
 import org.github.foxnic.web.domain.bpm.*;
+import org.github.foxnic.web.domain.bpm.meta.FormDefinitionMeta;
 import org.github.foxnic.web.domain.bpm.meta.ProcessDefinitionMeta;
 import org.github.foxnic.web.domain.bpm.meta.ProcessInstanceMeta;
 import org.github.foxnic.web.domain.oauth.User;
@@ -33,12 +35,26 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
     @Override
     public void configModel(PoClassFile poType, VoClassFile voType) {
         poType.addSimpleProperty(ProcessDefinition.class,"processDefinition","流程定义","流程定义");
+        poType.addSimpleProperty(FormDefinition.class,"formDefinition","表单定义","表单定义");
         poType.addSimpleProperty(FormInstance.class,"formInstance","表单实例","表单实例");
-        poType.addSimpleProperty(Appover.class,"drafter","起草人","起草人");
+        poType.addSimpleProperty(Appover.class,"drafter","起草人身份","起草人身份");
         poType.addSimpleProperty(String.class,"drafterName","起草人名称","起草人名称");
+        poType.addSimpleProperty(User.class,"drafterUser","起草人账号","起草人账号");
         poType.shadow(BPM_PROCESS_INSTANCE.APPROVAL_STATUS,ApprovalStatus.class);
         poType.shadow(BPM_PROCESS_INSTANCE.DRAFTER_TYPE,UnifiedUserType.class);
         poType.shadow(BPM_PROCESS_INSTANCE.PRIORITY,PriorityLevel.class);
+
+        //
+        PojoClassFile pojo=context.createPojo("ProcessStartVO");
+        pojo.setSuperType(null);
+        pojo.setDoc("流程启动参数");
+        pojo.addSimpleProperty(String.class,"instanceId","流程实例ID","流程发起前先要暂存流程实例，返回流程实例ID");
+        pojo.addSimpleProperty(String.class,"drafterUserId","发起人账户ID","如果不指定则默认为当前账户ID");
+        pojo.addSimpleProperty(String.class,"drafterType","发起人身份类型","发起人身份类型，UnifiedUserType.code()，如果未指定，则使用暂存值");
+        poType.shadow("drafterType",UnifiedUserType.class);
+        pojo.addSimpleProperty(String.class,"drafterId","发起人身份ID","发起人身份ID，如果未指定，则使用暂存值");
+        pojo.addMapProperty(String.class,Object.class,"variables","流程参数","流程参数");
+
     }
 
     @Override
@@ -46,10 +62,12 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
         search.inputLayout(new Object[]{
                 BPM_PROCESS_INSTANCE.PROCESS_DEFINITION_ID,
                 BPM_PROCESS_INSTANCE.TITLE,
+                BPM_PROCESS_INSTANCE.APPROVAL_STATUS,
+                BPM_PROCESS_INSTANCE.COMMIT_TIME,
+        },new Object[]{
                 BPM_PROCESS_INSTANCE.DRAFTER_TYPE,
                 ProcessInstanceMeta.DRAFTER_NAME,
-                BPM_PROCESS_INSTANCE.APPROVAL_STATUS,
-                BPM_PROCESS_INSTANCE.COMMIT_TIME
+                ProcessInstanceMeta.DRAFTER_USER
         });
     }
 
@@ -62,15 +80,28 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
         view.field(BPM_PROCESS_INSTANCE.TITLE).search().fuzzySearch();
         view.field(BPM_PROCESS_INSTANCE.COMMENT).search().label("审批意见").hidden();
         view.field(BPM_PROCESS_INSTANCE.PRIORITY).basic().label("紧急程度").form().radioBox().enumType(PriorityLevel.class).defaultValue(PriorityLevel.normal);
-        view.field(BPM_PROCESS_INSTANCE.DRAFTER_TYPE).basic().label("发起人身份").form().radioBox().enumType(UnifiedUserType.class).defaultValue(UnifiedUserType.user);
-        view.field(BPM_PROCESS_INSTANCE.DRAFTER_ID).basic().label("发起人").form().selectBox().queryApi(BpmIdentityServiceProxy.GET_IDENTITIES)
+        view.field(BPM_PROCESS_INSTANCE.DRAFTER_TYPE).basic().label("发起人身份类型").form().radioBox().enumType(UnifiedUserType.class).defaultValue(UnifiedUserType.user);
+        view.field(BPM_PROCESS_INSTANCE.DRAFTER_ID).basic().label("发起人身份").form().selectBox().queryApi(BpmIdentityServiceProxy.GET_IDENTITIES)
                 .valueField("id").textField("name")
+                .fillWith(ProcessInstanceMeta.DRAFTER)
                 .table().fillBy(ProcessInstanceMeta.DRAFTER,"name")
                 .search().hidden();
 
-        view.field(ProcessInstanceMeta.DRAFTER_NAME).basic().label("发起人").search().fuzzySearch();
+        view.field(BPM_PROCESS_INSTANCE.DRAFTER_USER_ID).basic().hidden();
+
+        view.field(ProcessInstanceMeta.DRAFTER_USER).basic().label("发起人")
+                .form().hidden().search().on(FoxnicWeb.SYS_USER.REAL_NAME).fuzzySearch()
+                .table().fillBy(ProcessInstanceMeta.DRAFTER_USER,UserMeta.REAL_NAME);
+
+        view.field(ProcessInstanceMeta.DRAFTER_NAME).basic().label("发起人身份").search().fuzzySearch();
 
         view.field(BPM_PROCESS_INSTANCE.COMMIT_TIME).search().range().matchType(MatchType.auto);
+
+        view.field(BPM_PROCESS_INSTANCE.FORM_DEFINITION_ID)
+                .basic().label("表单类型")
+                .search().hidden()
+                .table().fillBy(ProcessInstanceMeta.FORM_DEFINITION, FormDefinitionMeta.NAME)
+                .form().hidden();
 
         view.field(BPM_PROCESS_INSTANCE.FORM_INSTANCE_ID).search().hidden();
         view.field(BPM_PROCESS_INSTANCE.CAMUNDA_INSTANCE_ID).search().hidden();
@@ -79,7 +110,7 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
 
         view.field(BPM_PROCESS_INSTANCE.PROCESS_DEFINITION_ID).basic().label("流程类型").form().selectBox().queryApi(ProcessDefinitionServiceProxy.QUERY_PAGED_LIST).paging(true).muliti(false).toolbar(false).filter(true)
                 .textField(FoxnicWeb.BPM_PROCESS_DEFINITION.NAME).valueField(FoxnicWeb.BPM_PROCESS_DEFINITION.ID)
-//                .fillWith(ProcessInstanceMeta.PROCESS_DEFINITION_ID)
+                .fillWith(ProcessInstanceMeta.PROCESS_DEFINITION)
                 .table().fillBy(ProcessInstanceMeta.PROCESS_DEFINITION,ProcessDefinitionMeta.NAME);
 
 
