@@ -150,7 +150,7 @@ public interface ConfigServiceProxy {
      * 获取系统配置
      */
     @PostMapping(ConfigServiceProxy.GET_BY_CODE)
-    Result<Config> getByCode(String code);
+    Result<Config> getByCode(@RequestParam(name = "code")String code);
 
     /**
      * 批量删除系统配置

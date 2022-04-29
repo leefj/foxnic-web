@@ -20,9 +20,7 @@ import org.github.foxnic.web.session.SessionUser;
 import org.springframework.beans.BeanUtils;
 import org.springframework.core.DefaultParameterNameDiscoverer;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import java.io.BufferedReader;
@@ -53,16 +51,32 @@ public class ClusterProxy {
     public Object invoke(Object proxy, Method method, Object[] args) {
 
         RequestMapping requestMapping=method.getAnnotation(RequestMapping.class);
-        if(requestMapping==null) {
-            throw new IllegalArgumentException(method.getDeclaringClass().getName()+"."+method.getName() + " 方法上未发现 RequestMapping");
+        PostMapping postMapping=method.getAnnotation(PostMapping.class);
+        GetMapping getMapping=method.getAnnotation(GetMapping.class);
+
+        if(requestMapping==null && postMapping==null && getMapping==null) {
+            throw new IllegalArgumentException(method.getDeclaringClass().getName()+"."+method.getName() + " 方法上未发现 RequestMapping 或 PostMapping 或 GetMapping");
         }
         // 可继续细化
-        String[] values=requestMapping.value();
+        String[] values=null;
+        RequestMethod[] methods=null;
+        if(requestMapping!=null) {
+            values=requestMapping.value();
+            methods=requestMapping.method();
+        }
+        if(values==null && postMapping!=null) {
+            values = postMapping.value();
+            methods=new RequestMethod[] {RequestMethod.POST};
+        }
+        if(values==null && getMapping!=null) {
+            values = getMapping.value();
+            methods=new RequestMethod[] {RequestMethod.GET};
+        }
         if(values==null || values.length==0 || StringUtil.isBlank(values[0])) {
             throw new IllegalArgumentException(method.getDeclaringClass().getName()+"."+method.getName() + " 方法上未发现 RequestMapping 的地址映射");
         }
         // 可继续细化
-        RequestMethod[] methods=requestMapping.method();
+
         RequestMethod requestMethod=RequestMethod.POST;
         if(methods!=null && methods.length>0) {
             requestMethod=methods[0];

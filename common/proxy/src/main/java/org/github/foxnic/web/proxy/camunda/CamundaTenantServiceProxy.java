@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
- * 账户表  控制器服务代理
+ * 租户  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
  * @since 2021-05-28 14:17:02

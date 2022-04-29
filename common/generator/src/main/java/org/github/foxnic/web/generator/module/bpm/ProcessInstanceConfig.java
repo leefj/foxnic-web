@@ -55,6 +55,31 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
         pojo.addSimpleProperty(String.class,"drafterId","发起人身份ID","发起人身份ID，如果未指定，则使用暂存值");
         pojo.addMapProperty(String.class,Object.class,"variables","流程参数","流程参数");
 
+        //
+        pojo=context.createPojo("TaskQueryVO");
+        pojo.setSuperType(null);
+        pojo.setDoc("任务查询参数");
+        pojo.addSimpleProperty(String.class,"instanceId","流程实例ID","流程实例ID");
+        pojo.addSimpleProperty(String.class,"assigneeUserId","审批人账户ID","审批人账户");
+        pojo.addSimpleProperty(Integer.class,"pageSize","分页大小","分页大小");
+        pojo.addSimpleProperty(Integer.class,"pageIndex","页码","页码");
+
+        pojo=context.createPojo("TaskProcessVO");
+        pojo.setSuperType(null);
+        pojo.setDoc("任务处理参数");
+        pojo.addSimpleProperty(String.class,"taskId","流程实例ID","流程实例ID");
+        pojo.addSimpleProperty(String.class,"assigneeUserId","审批人账户ID","审批人账户");
+        pojo.addSimpleProperty(String.class,"comment","审批意见","审批意见");
+        pojo.addMapProperty(String.class,Object.class,"variables","流程参数","流程参数");
+
+        pojo=context.createPojo("CamundaTask");
+        pojo.setSuperType(null);
+        pojo.setDoc("Camunda任务对象");
+        pojo.addSimpleProperty(String.class,"id","任务ID","任务ID");
+        pojo.addSimpleProperty(String.class,"processInstanceId","流程实例ID","流程实例ID");
+
+
+
     }
 
     @Override
@@ -140,6 +165,12 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
 //        //action.setIconHtml("<li class='fa fa-user-secret' style='font-size:14px'></li>");
 //
 //        list.columnLayout(BPM_PROCESS_DEFINITION.NAME,BPM_PROCESS_DEFINITION.VALID,BPM_PROCESS_DEFINITION.NOTES,BPM_PROCESS_DEFINITION.CREATE_TIME,BPM_PROCESS_DEFINITION.UPDATE_TIME,"lastUpdateUserName");
+
+        list.addToolButton("提交","submitProcess","");
+        list.addToolButton("撤回","revokeProcess","");
+        list.addToolButton("作废","abandonProcess","");
+        list.addToolButton("同意","agreeNode","");
+        list.addToolButton("驳回","rejectNode","");
 
     }
 
