@@ -22,8 +22,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程实例
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-28 18:33:27
- * @sign 8C69CA7BF675904CBAFA6B7B8A66A410
+ * @since 2022-04-29 15:12:53
+ * @sign DFD32BAE1996918EAF8D23B8522AE354
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -111,7 +111,7 @@ public class ProcessInstance extends Entity {
 	 * camunda流程实例ID：camunda流程实例ID
 	*/
 	@ApiModelProperty(required = false,value="camunda流程实例ID" , notes = "camunda流程实例ID")
-	private Integer camundaInstanceId;
+	private String camundaInstanceId;
 	
 	/**
 	 * 提交时间：提交时间
@@ -522,7 +522,7 @@ public class ProcessInstance extends Entity {
 	 * camunda流程实例ID
 	 * @return camunda流程实例ID
 	*/
-	public Integer getCamundaInstanceId() {
+	public String getCamundaInstanceId() {
 		return camundaInstanceId;
 	}
 	
@@ -531,7 +531,7 @@ public class ProcessInstance extends Entity {
 	 * @param camundaInstanceId camunda流程实例ID
 	 * @return 当前对象
 	*/
-	public ProcessInstance setCamundaInstanceId(Integer camundaInstanceId) {
+	public ProcessInstance setCamundaInstanceId(String camundaInstanceId) {
 		this.camundaInstanceId=camundaInstanceId;
 		return this;
 	}

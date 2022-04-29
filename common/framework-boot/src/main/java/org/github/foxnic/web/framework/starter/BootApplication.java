@@ -15,7 +15,7 @@ import java.net.URL;
 import java.util.Enumeration;
 
 
-@ComponentScan(basePackages = {FoxnicWebMeta.FRAMEWORK_PACKAGE,FoxnicWebMeta.PROXY_PACKAGE})
+@ComponentScan(basePackages = {FoxnicWebMeta.FRAMEWORK_PACKAGE,FoxnicWebMeta.PROXY_PACKAGE,FoxnicWebMeta.ERRORS_PACKAGE})
 public class BootApplication {
 
 	public static ConfigurableApplicationContext run(Class<?> bootType, String... args) {

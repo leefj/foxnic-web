@@ -19,8 +19,8 @@ layui.define(['settings', 'layer', 'admin', 'util','element'],function (exports)
          * code 流程定义代码
          * callback 回调函数
          * */
-        start : function (code,callback,lockEls) {
-            admin.post(api_start, {code:code}, function (result) {
+        start : function (params,callback,lockEls) {
+            admin.post(api_start, params, function (result) {
                 callback && callback(result);
             }, {delayLoading:1000,elms:lockEls});
         }

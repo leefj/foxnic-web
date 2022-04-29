@@ -24,8 +24,13 @@ public class FoxnicWebMeta {
 	/**
 	 * 实体包
 	 * */
-	public static final String DOMAIN_PACKAGE=BASE_PACKAGE+".doman";
+	public static final String DOMAIN_PACKAGE=BASE_PACKAGE+".domain";
 
+
+	/**
+	 * 错误码定义包
+	 * */
+	public static final String ERRORS_PACKAGE=BASE_PACKAGE+".errors";
 
 	/**
 	 * 系统服务

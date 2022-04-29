@@ -1843,6 +1843,24 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             if(result.extra) {
                 messageLevel=result.extra.messageLevel;
             }
+
+            if(result.errors!=null && result.errors.length>0) {
+                var errs=[];
+                for (var i=0;i<result.errors.length;i++) {
+                    var e=result.errors[i];
+                    if(e.subject && e.message) {
+                        errs.push((errs.length+1)+"."+e.subject +" : "+ e.message);
+                    } else  if(!e.subject && e.message) {
+                        errs.push((errs.length+1)+"."+e.message);
+                    } else  if(e.subject && !e.message) {
+                        errs.push((errs.length+1)+"."+e.subject);
+                    }
+                }
+                if(errs.length>0) {
+                    message+=" : <br>"+errs.join("<br>");
+                }
+            }
+
             var success=result.success;
             var icon=null;
             var time=null;

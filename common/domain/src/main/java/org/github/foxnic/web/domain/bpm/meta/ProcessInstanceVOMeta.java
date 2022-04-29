@@ -15,7 +15,7 @@ import org.github.foxnic.web.domain.oauth.User;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-28 18:33:27
+ * @since 2022-04-29 15:12:53
  * @sign A711E5710DD083267053E2AD6B945608
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -223,14 +223,14 @@ public class ProcessInstanceVOMeta extends ProcessInstanceMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceVO,java.lang.String> APPROVAL_STATUS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceVO.class ,APPROVAL_STATUS, java.lang.String.class, "审批状态", "审批状态", java.lang.String.class, null);
 	
 	/**
-	 * camunda流程实例ID , 类型: java.lang.Integer
+	 * camunda流程实例ID , 类型: java.lang.String
 	*/
 	public static final String CAMUNDA_INSTANCE_ID="camundaInstanceId";
 	
 	/**
-	 * camunda流程实例ID , 类型: java.lang.Integer
+	 * camunda流程实例ID , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceVO,java.lang.Integer> CAMUNDA_INSTANCE_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceVO.class ,CAMUNDA_INSTANCE_ID, java.lang.Integer.class, "camunda流程实例ID", "camunda流程实例ID", java.lang.Integer.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceVO,java.lang.String> CAMUNDA_INSTANCE_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceVO.class ,CAMUNDA_INSTANCE_ID, java.lang.String.class, "camunda流程实例ID", "camunda流程实例ID", java.lang.String.class, null);
 	
 	/**
 	 * 提交时间 , 类型: java.util.Date
@@ -630,7 +630,7 @@ public class ProcessInstanceVOMeta extends ProcessInstanceMeta {
 		 * @param camundaInstanceId camunda流程实例ID
 		 * @return 当前对象
 		*/
-		public ProcessInstance setCamundaInstanceId(Integer camundaInstanceId) {
+		public ProcessInstance setCamundaInstanceId(String camundaInstanceId) {
 			super.change(CAMUNDA_INSTANCE_ID,super.getCamundaInstanceId(),camundaInstanceId);
 			super.setCamundaInstanceId(camundaInstanceId);
 			return this;
