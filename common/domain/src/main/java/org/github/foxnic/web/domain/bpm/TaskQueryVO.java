@@ -7,8 +7,8 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * 任务查询参数
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-29 17:32:38
- * @sign 926283F58EEBF0BBE9AF185926CDC1E1
+ * @since 2022-05-03 06:46:14
+ * @sign E76C4A6ADDAA1D4A02E56A279CE79AE8
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -20,12 +20,12 @@ public class TaskQueryVO {
 	 * 流程实例ID：流程实例ID
 	*/
 	@ApiModelProperty(required = false,value="流程实例ID" , notes = "流程实例ID")
-	private String instanceId;
+	private String processInstanceId;
 	
 	/**
-	 * 审批人账户ID：审批人账户
+	 * 委托人、审批人账户ID：委托人、审批人账户
 	*/
-	@ApiModelProperty(required = false,value="审批人账户ID" , notes = "审批人账户")
+	@ApiModelProperty(required = false,value="委托人、审批人账户ID" , notes = "委托人、审批人账户")
 	private String assigneeUserId;
 	
 	/**
@@ -45,32 +45,32 @@ public class TaskQueryVO {
 	 * 流程实例ID
 	 * @return 流程实例ID
 	*/
-	public String getInstanceId() {
-		return instanceId;
+	public String getProcessInstanceId() {
+		return processInstanceId;
 	}
 	
 	/**
 	 * 设置 流程实例ID
-	 * @param instanceId 流程实例ID
+	 * @param processInstanceId 流程实例ID
 	 * @return 当前对象
 	*/
-	public TaskQueryVO setInstanceId(String instanceId) {
-		this.instanceId=instanceId;
+	public TaskQueryVO setProcessInstanceId(String processInstanceId) {
+		this.processInstanceId=processInstanceId;
 		return this;
 	}
 	
 	/**
-	 * 获得 审批人账户ID<br>
-	 * 审批人账户
-	 * @return 审批人账户ID
+	 * 获得 委托人、审批人账户ID<br>
+	 * 委托人、审批人账户
+	 * @return 委托人、审批人账户ID
 	*/
 	public String getAssigneeUserId() {
 		return assigneeUserId;
 	}
 	
 	/**
-	 * 设置 审批人账户ID
-	 * @param assigneeUserId 审批人账户ID
+	 * 设置 委托人、审批人账户ID
+	 * @param assigneeUserId 委托人、审批人账户ID
 	 * @return 当前对象
 	*/
 	public TaskQueryVO setAssigneeUserId(String assigneeUserId) {

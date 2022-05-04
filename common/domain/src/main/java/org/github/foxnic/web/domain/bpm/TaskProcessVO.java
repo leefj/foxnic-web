@@ -9,7 +9,7 @@ import java.util.HashMap;
 /**
  * 任务处理参数
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-29 17:32:38
+ * @since 2022-05-03 06:46:14
  * @sign D6B2FFFB7725EFD35CDA1C4CED1722AA
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */

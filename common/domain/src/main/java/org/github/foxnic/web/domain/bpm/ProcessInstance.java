@@ -22,8 +22,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程实例
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-29 17:32:38
- * @sign DFD32BAE1996918EAF8D23B8522AE354
+ * @since 2022-05-03 06:46:14
+ * @sign 6F06CED627178175460690759E2E4674
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -204,9 +204,9 @@ public class ProcessInstance extends Entity {
 	private String drafterName;
 	
 	/**
-	 * 起草人账号：起草人账号
+	 * 起草人账户：起草人账户
 	*/
-	@ApiModelProperty(required = false,value="起草人账号" , notes = "起草人账号")
+	@ApiModelProperty(required = false,value="起草人账户" , notes = "起草人账户")
 	private User drafterUser;
 	
 	/**
@@ -822,17 +822,17 @@ public class ProcessInstance extends Entity {
 	}
 	
 	/**
-	 * 获得 起草人账号<br>
-	 * 起草人账号
-	 * @return 起草人账号
+	 * 获得 起草人账户<br>
+	 * 起草人账户
+	 * @return 起草人账户
 	*/
 	public User getDrafterUser() {
 		return drafterUser;
 	}
 	
 	/**
-	 * 设置 起草人账号
-	 * @param drafterUser 起草人账号
+	 * 设置 起草人账户
+	 * @param drafterUser 起草人账户
 	 * @return 当前对象
 	*/
 	public ProcessInstance setDrafterUser(User drafterUser) {

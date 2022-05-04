@@ -4,7 +4,6 @@ import com.github.foxnic.api.query.MatchType;
 import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.PojoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
-import com.github.foxnic.generator.builder.view.config.ActionConfig;
 import com.github.foxnic.generator.builder.view.option.FormOptions;
 import com.github.foxnic.generator.builder.view.option.ListOptions;
 import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
@@ -15,7 +14,10 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_PROCESS_INSTANCE;
 import org.github.foxnic.web.constants.enums.bpm.PriorityLevel;
 import org.github.foxnic.web.constants.enums.changes.ApprovalStatus;
 import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
-import org.github.foxnic.web.domain.bpm.*;
+import org.github.foxnic.web.domain.bpm.Appover;
+import org.github.foxnic.web.domain.bpm.FormDefinition;
+import org.github.foxnic.web.domain.bpm.FormInstance;
+import org.github.foxnic.web.domain.bpm.ProcessDefinition;
 import org.github.foxnic.web.domain.bpm.meta.FormDefinitionMeta;
 import org.github.foxnic.web.domain.bpm.meta.ProcessDefinitionMeta;
 import org.github.foxnic.web.domain.bpm.meta.ProcessInstanceMeta;
@@ -39,7 +41,7 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
         poType.addSimpleProperty(FormInstance.class,"formInstance","表单实例","表单实例");
         poType.addSimpleProperty(Appover.class,"drafter","起草人身份","起草人身份");
         poType.addSimpleProperty(String.class,"drafterName","起草人名称","起草人名称");
-        poType.addSimpleProperty(User.class,"drafterUser","起草人账号","起草人账号");
+        poType.addSimpleProperty(User.class,"drafterUser","起草人账户","起草人账户");
         poType.shadow(BPM_PROCESS_INSTANCE.APPROVAL_STATUS,ApprovalStatus.class);
         poType.shadow(BPM_PROCESS_INSTANCE.DRAFTER_TYPE,UnifiedUserType.class);
         poType.shadow(BPM_PROCESS_INSTANCE.PRIORITY,PriorityLevel.class);
@@ -48,7 +50,7 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
         PojoClassFile pojo=context.createPojo("ProcessStartVO");
         pojo.setSuperType(null);
         pojo.setDoc("流程启动参数");
-        pojo.addSimpleProperty(String.class,"instanceId","流程实例ID","流程发起前先要暂存流程实例，返回流程实例ID");
+        pojo.addSimpleProperty(String.class,"processInstanceId","流程实例ID","流程发起前先要暂存流程实例，返回流程实例ID");
         pojo.addSimpleProperty(String.class,"drafterUserId","发起人账户ID","如果不指定则默认为当前账户ID");
         pojo.addSimpleProperty(String.class,"drafterType","发起人身份类型","发起人身份类型，UnifiedUserType.code()，如果未指定，则使用暂存值");
         poType.shadow("drafterType",UnifiedUserType.class);
@@ -59,8 +61,8 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
         pojo=context.createPojo("TaskQueryVO");
         pojo.setSuperType(null);
         pojo.setDoc("任务查询参数");
-        pojo.addSimpleProperty(String.class,"instanceId","流程实例ID","流程实例ID");
-        pojo.addSimpleProperty(String.class,"assigneeUserId","审批人账户ID","审批人账户");
+        pojo.addSimpleProperty(String.class,"processInstanceId","流程实例ID","流程实例ID");
+        pojo.addSimpleProperty(String.class,"assigneeUserId","委托人、审批人账户ID","委托人、审批人账户");
         pojo.addSimpleProperty(Integer.class,"pageSize","分页大小","分页大小");
         pojo.addSimpleProperty(Integer.class,"pageIndex","页码","页码");
 

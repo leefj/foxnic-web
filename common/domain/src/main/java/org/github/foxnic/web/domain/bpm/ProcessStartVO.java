@@ -9,8 +9,8 @@ import java.util.HashMap;
 /**
  * 流程启动参数
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-29 17:32:38
- * @sign F7AA43CAC04132BAE5D31FD9DD909D77
+ * @since 2022-05-03 06:46:14
+ * @sign FD820CA158ABE822D575BA472DD95DCA
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -22,7 +22,7 @@ public class ProcessStartVO {
 	 * 流程实例ID：流程发起前先要暂存流程实例，返回流程实例ID
 	*/
 	@ApiModelProperty(required = false,value="流程实例ID" , notes = "流程发起前先要暂存流程实例，返回流程实例ID")
-	private String instanceId;
+	private String processInstanceId;
 	
 	/**
 	 * 发起人账户ID：如果不指定则默认为当前账户ID
@@ -53,17 +53,17 @@ public class ProcessStartVO {
 	 * 流程发起前先要暂存流程实例，返回流程实例ID
 	 * @return 流程实例ID
 	*/
-	public String getInstanceId() {
-		return instanceId;
+	public String getProcessInstanceId() {
+		return processInstanceId;
 	}
 	
 	/**
 	 * 设置 流程实例ID
-	 * @param instanceId 流程实例ID
+	 * @param processInstanceId 流程实例ID
 	 * @return 当前对象
 	*/
-	public ProcessStartVO setInstanceId(String instanceId) {
-		this.instanceId=instanceId;
+	public ProcessStartVO setProcessInstanceId(String processInstanceId) {
+		this.processInstanceId=processInstanceId;
 		return this;
 	}
 	

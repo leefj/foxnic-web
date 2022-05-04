@@ -15,7 +15,7 @@ import org.github.foxnic.web.domain.oauth.User;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-29 17:32:38
+ * @since 2022-05-03 06:46:14
  * @sign A711E5710DD083267053E2AD6B945608
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -383,14 +383,14 @@ public class ProcessInstanceVOMeta extends ProcessInstanceMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceVO,java.lang.String> DRAFTER_NAME_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceVO.class ,DRAFTER_NAME, java.lang.String.class, "起草人名称", "起草人名称", java.lang.String.class, null);
 	
 	/**
-	 * 起草人账号 , 类型: org.github.foxnic.web.domain.oauth.User
+	 * 起草人账户 , 类型: org.github.foxnic.web.domain.oauth.User
 	*/
 	public static final String DRAFTER_USER="drafterUser";
 	
 	/**
-	 * 起草人账号 , 类型: org.github.foxnic.web.domain.oauth.User
+	 * 起草人账户 , 类型: org.github.foxnic.web.domain.oauth.User
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceVO,org.github.foxnic.web.domain.oauth.User> DRAFTER_USER_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceVO.class ,DRAFTER_USER, org.github.foxnic.web.domain.oauth.User.class, "起草人账号", "起草人账号", org.github.foxnic.web.domain.oauth.User.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceVO,org.github.foxnic.web.domain.oauth.User> DRAFTER_USER_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceVO.class ,DRAFTER_USER, org.github.foxnic.web.domain.oauth.User.class, "起草人账户", "起草人账户", org.github.foxnic.web.domain.oauth.User.class, null);
 	
 	/**
 	 * 全部属性清单
@@ -802,8 +802,8 @@ public class ProcessInstanceVOMeta extends ProcessInstanceMeta {
 		}
 		
 		/**
-		 * 设置 起草人账号
-		 * @param drafterUser 起草人账号
+		 * 设置 起草人账户
+		 * @param drafterUser 起草人账户
 		 * @return 当前对象
 		*/
 		public ProcessInstance setDrafterUser(User drafterUser) {
