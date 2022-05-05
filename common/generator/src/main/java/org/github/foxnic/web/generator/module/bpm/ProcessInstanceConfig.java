@@ -74,13 +74,6 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
         pojo.addSimpleProperty(String.class,"comment","审批意见","审批意见");
         pojo.addMapProperty(String.class,Object.class,"variables","流程参数","流程参数");
 
-        pojo=context.createPojo("CamundaTask");
-        pojo.setSuperType(null);
-        pojo.setDoc("Camunda任务对象");
-        pojo.addSimpleProperty(String.class,"id","任务ID","任务ID");
-        pojo.addSimpleProperty(String.class,"processInstanceId","流程实例ID","流程实例ID");
-
-
 
     }
 

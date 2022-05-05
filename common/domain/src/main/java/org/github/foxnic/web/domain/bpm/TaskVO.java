@@ -10,14 +10,14 @@ import com.github.foxnic.commons.bean.BeanUtil;
 
 
 /**
- * 流程实例
+ * 流程任务
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-05 17:12:08
- * @sign A711E5710DD083267053E2AD6B945608
+ * @since 2022-05-05 16:03:06
+ * @sign 4A14B4C5D7918A4E9CA4AE65A58E6E5D
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
-public class ProcessInstanceVO extends ProcessInstance {
+public class TaskVO extends Task {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -88,7 +88,7 @@ public class ProcessInstanceVO extends ProcessInstance {
 	 * @param pageIndex 页码
 	 * @return 当前对象
 	*/
-	public ProcessInstanceVO setPageIndex(Integer pageIndex) {
+	public TaskVO setPageIndex(Integer pageIndex) {
 		this.pageIndex=pageIndex;
 		return this;
 	}
@@ -106,7 +106,7 @@ public class ProcessInstanceVO extends ProcessInstance {
 	 * @param pageSize 分页大小
 	 * @return 当前对象
 	*/
-	public ProcessInstanceVO setPageSize(Integer pageSize) {
+	public TaskVO setPageSize(Integer pageSize) {
 		this.pageSize=pageSize;
 		return this;
 	}
@@ -124,7 +124,7 @@ public class ProcessInstanceVO extends ProcessInstance {
 	 * @param searchField 搜索字段
 	 * @return 当前对象
 	*/
-	public ProcessInstanceVO setSearchField(String searchField) {
+	public TaskVO setSearchField(String searchField) {
 		this.searchField=searchField;
 		return this;
 	}
@@ -142,7 +142,7 @@ public class ProcessInstanceVO extends ProcessInstance {
 	 * @param fuzzyField 模糊搜索字段
 	 * @return 当前对象
 	*/
-	public ProcessInstanceVO setFuzzyField(String fuzzyField) {
+	public TaskVO setFuzzyField(String fuzzyField) {
 		this.fuzzyField=fuzzyField;
 		return this;
 	}
@@ -160,7 +160,7 @@ public class ProcessInstanceVO extends ProcessInstance {
 	 * @param searchValue 搜索的值
 	 * @return 当前对象
 	*/
-	public ProcessInstanceVO setSearchValue(String searchValue) {
+	public TaskVO setSearchValue(String searchValue) {
 		this.searchValue=searchValue;
 		return this;
 	}
@@ -178,7 +178,7 @@ public class ProcessInstanceVO extends ProcessInstance {
 	 * @param dirtyFields 已修改字段
 	 * @return 当前对象
 	*/
-	public ProcessInstanceVO setDirtyFields(List<String> dirtyFields) {
+	public TaskVO setDirtyFields(List<String> dirtyFields) {
 		this.dirtyFields=dirtyFields;
 		return this;
 	}
@@ -188,7 +188,7 @@ public class ProcessInstanceVO extends ProcessInstance {
 	 * @param dirtyField 已修改字段
 	 * @return 当前对象
 	*/
-	public ProcessInstanceVO addDirtyField(String dirtyField) {
+	public TaskVO addDirtyField(String dirtyField) {
 		if(this.dirtyFields==null) dirtyFields=new ArrayList<>();
 		this.dirtyFields.add(dirtyField);
 		return this;
@@ -207,7 +207,7 @@ public class ProcessInstanceVO extends ProcessInstance {
 	 * @param sortField 排序字段
 	 * @return 当前对象
 	*/
-	public ProcessInstanceVO setSortField(String sortField) {
+	public TaskVO setSortField(String sortField) {
 		this.sortField=sortField;
 		return this;
 	}
@@ -225,7 +225,7 @@ public class ProcessInstanceVO extends ProcessInstance {
 	 * @param sortType 排序方式
 	 * @return 当前对象
 	*/
-	public ProcessInstanceVO setSortType(String sortType) {
+	public TaskVO setSortType(String sortType) {
 		this.sortType=sortType;
 		return this;
 	}
@@ -244,7 +244,7 @@ public class ProcessInstanceVO extends ProcessInstance {
 	 * @param ids 主键清单
 	 * @return 当前对象
 	*/
-	public ProcessInstanceVO setIds(List<String> ids) {
+	public TaskVO setIds(List<String> ids) {
 		this.ids=ids;
 		return this;
 	}
@@ -254,7 +254,7 @@ public class ProcessInstanceVO extends ProcessInstance {
 	 * @param id 主键清单
 	 * @return 当前对象
 	*/
-	public ProcessInstanceVO addId(String id) {
+	public TaskVO addId(String id) {
 		if(this.ids==null) ids=new ArrayList<>();
 		this.ids.add(id);
 		return this;

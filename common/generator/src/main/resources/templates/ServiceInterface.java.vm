@@ -119,7 +119,14 @@ public interface #(simpleName) extends ISuperService<#(poSimpleName)> {
 	 * @param #(idPropertyName)s  主键清单
 	 * @return 实体集
 	 * */
-	List<#(poSimpleName)> getByIds(List<#(idPropertyType)> #(idPropertyName)s);
+	List<#(poSimpleName)> queryListByIds(List<#(idPropertyType)> #(idPropertyName)s);
+
+	/**
+	 * 按 id 列表查询 Map
+	 * @param #(idPropertyName)s  主键清单
+	 * */
+	Map<String, ProcessInstance> queryMapByIds(List<#(idPropertyType)> #(idPropertyName)s);
+
 	#end
 
 	/**
