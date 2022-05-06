@@ -17,8 +17,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程定义
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-28 14:40:42
- * @sign A816AB5EF276EF090761BDB13A20C8FC
+ * @since 2022-05-06 14:20:03
+ * @sign 70DC725612447DE8BFE114C196A3D204
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -39,7 +39,7 @@ public class ProcessDefinition extends Entity {
 	/**
 	 * 流程代码：流程代码
 	*/
-	@ApiModelProperty(required = false,value="流程代码" , notes = "流程代码")
+	@ApiModelProperty(required = true,value="流程代码" , notes = "流程代码")
 	private String code;
 	
 	/**

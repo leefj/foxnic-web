@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 请假流程示例
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-20 15:21:47
- * @sign 3D0A2517E8579120E4FFA5AF59E18A3B
+ * @since 2022-05-06 14:20:12
+ * @sign BC4BF98F9EBF60B0B19091EF153B130C
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -54,9 +54,9 @@ public class DemoLeave extends Entity {
 	private Date endTime;
 	
 	/**
-	 * 请假原因：请假原因
+	 * 请假事由：请假事由
 	*/
-	@ApiModelProperty(required = false,value="请假原因" , notes = "请假原因")
+	@ApiModelProperty(required = false,value="请假事由" , notes = "请假事由")
 	private String reason;
 	
 	/**
@@ -136,17 +136,17 @@ public class DemoLeave extends Entity {
 	}
 	
 	/**
-	 * 获得 请假原因<br>
-	 * 请假原因
-	 * @return 请假原因
+	 * 获得 请假事由<br>
+	 * 请假事由
+	 * @return 请假事由
 	*/
 	public String getReason() {
 		return reason;
 	}
 	
 	/**
-	 * 设置 请假原因
-	 * @param reason 请假原因
+	 * 设置 请假事由
+	 * @param reason 请假事由
 	 * @return 当前对象
 	*/
 	public DemoLeave setReason(String reason) {

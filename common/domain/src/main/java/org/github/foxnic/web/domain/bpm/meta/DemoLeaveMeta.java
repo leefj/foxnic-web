@@ -8,8 +8,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-20 15:21:47
- * @sign 3D0A2517E8579120E4FFA5AF59E18A3B
+ * @since 2022-05-06 14:20:12
+ * @sign BC4BF98F9EBF60B0B19091EF153B130C
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -56,14 +56,14 @@ public class DemoLeaveMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.DemoLeave,java.util.Date> END_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.DemoLeave.class ,END_TIME, java.util.Date.class, "结束时间", "结束时间", java.util.Date.class, null);
 	
 	/**
-	 * 请假原因 , 类型: java.lang.String
+	 * 请假事由 , 类型: java.lang.String
 	*/
 	public static final String REASON="reason";
 	
 	/**
-	 * 请假原因 , 类型: java.lang.String
+	 * 请假事由 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.DemoLeave,java.lang.String> REASON_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.DemoLeave.class ,REASON, java.lang.String.class, "请假原因", "请假原因", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.DemoLeave,java.lang.String> REASON_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.DemoLeave.class ,REASON, java.lang.String.class, "请假事由", "请假事由", java.lang.String.class, null);
 	
 	/**
 	 * 全部属性清单
@@ -123,8 +123,8 @@ public class DemoLeaveMeta {
 		}
 		
 		/**
-		 * 设置 请假原因
-		 * @param reason 请假原因
+		 * 设置 请假事由
+		 * @param reason 请假事由
 		 * @return 当前对象
 		*/
 		public DemoLeave setReason(String reason) {

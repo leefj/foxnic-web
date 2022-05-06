@@ -125,7 +125,7 @@ public interface #(simpleName) extends ISuperService<#(poSimpleName)> {
 	 * 按 id 列表查询 Map
 	 * @param #(idPropertyName)s  主键清单
 	 * */
-	Map<String, ProcessInstance> queryMapByIds(List<#(idPropertyType)> #(idPropertyName)s);
+	Map<String, #(poSimpleName)> queryMapByIds(List<#(idPropertyType)> #(idPropertyName)s);
 
 	#end
 
