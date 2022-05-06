@@ -129,6 +129,7 @@ public interface #(simpleName) extends ISuperService<#(poSimpleName)> {
 
 	#end
 
+
 	/**
 	 * 检查 实体 是否已经存在 , 判断 主键值不同，但指定字段的值相同的记录是否存在
 	 *
