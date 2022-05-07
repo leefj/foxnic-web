@@ -204,7 +204,7 @@ public class CompanyServiceImpl extends SuperService<Company> implements ICompan
 
 	@Override
 	public List<Company> getByIds(List<String> ids) {
-		return new ArrayList<>(getByIdsMap(ids).values());
+		return super.queryListByUKeys(ids);
 	}
 
 

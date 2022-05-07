@@ -204,7 +204,7 @@ public class TenantServiceImpl extends SuperService<Tenant> implements ITenantSe
 
 	@Override
 	public List<Tenant> getByIds(List<String> ids) {
-		return new ArrayList<>(getByIdsMap(ids).values());
+		return super.queryListByUKeys(ids);
 	}
 
 

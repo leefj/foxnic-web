@@ -50,13 +50,13 @@ import java.util.*;
 
 @Service("HrmOrganizationService")
 public class OrganizationServiceImpl extends SuperService<Organization> implements IOrganizationService {
-	
+
 	/**
 	 * 注入DAO对象
 	 * */
-	@Resource(name=DBConfigs.PRIMARY_DAO) 
+	@Resource(name=DBConfigs.PRIMARY_DAO)
 	private DAO dao=null;
-	
+
 	/**
 	 * 获得 DAO 对象
 	 * */
@@ -66,12 +66,12 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 	@Autowired
 	private IPositionService positionService;
 
-	
+
 	@Override
 	public Object generateId(Field field) {
 		return IDGenerator.getSnowflakeIdString();
 	}
-	
+
 	/**
 	 * 插入实体
 	 * @param organization 实体数据
@@ -94,7 +94,7 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 		this.fillHierarchy(false);
 		return r;
 	}
-	
+
 	/**
 	 * 批量插入实体，事务内
 	 * @param organizationList 实体数据清单
@@ -104,8 +104,8 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 	public Result insertList(List<Organization> organizationList) {
 		return super.insertList(organizationList);
 	}
-	
-	
+
+
 	/**
 	 * 按主键删除 组织层级
 	 *
@@ -126,7 +126,7 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 			return r;
 		}
 	}
-	
+
 	/**
 	 * 按主键删除 组织层级
 	 *
@@ -150,7 +150,7 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 			return r;
 		}
 	}
-	
+
 	/**
 	 * 更新实体
 	 * @param organization 数据对象
@@ -173,7 +173,7 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 		Result r=super.update(organization , mode);
 		return r;
 	}
-	
+
 	/**
 	 * 更新实体集，事务内
 	 * @param organizationList 数据对象列表
@@ -184,8 +184,8 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 	public Result updateList(List<Organization> organizationList , SaveMode mode) {
 		return super.updateList(organizationList , mode);
 	}
-	
-	
+
+
 	/**
 	 * 按主键更新字段 组织层级
 	 *
@@ -197,9 +197,9 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 		if(!field.table().name().equals(this.table())) throw new IllegalArgumentException("更新的数据表["+field.table().name()+"]与服务对应的数据表["+this.table()+"]不一致");
 		int suc=dao.update(field.table().name()).set(field.name(), value).where().and("id = ? ",id).top().execute();
 		return suc>0;
-	} 
-	
-	
+	}
+
+
 	/**
 	 * 按主键获取 组织层级
 	 *
@@ -215,14 +215,14 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 
 	@Override
 	public List<Organization> getByIds(List<String> ids) {
-		return new ArrayList<>(getByIdsMap(ids).values());
+		return super.queryListByUKeys(ids);
 	}
 
 
 
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @return 查询结果
 	 * */
@@ -230,11 +230,11 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 	public List<Organization> queryList(Organization sample) {
 		return super.queryList(sample);
 	}
-	
-	
+
+
 	/**
 	 * 分页查询实体集，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @param pageSize 分页条数
 	 * @param pageIndex 页码
@@ -244,10 +244,10 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 	public PagedList<Organization> queryPagedList(Organization sample, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, pageSize, pageIndex);
 	}
-	
+
 	/**
 	 * 分页查询实体集，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @param condition 其它条件
 	 * @param pageSize 分页条数
@@ -258,7 +258,7 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 	public PagedList<Organization> queryPagedList(Organization sample, ConditionExpr condition, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, condition, pageSize, pageIndex);
 	}
-	
+
 	/**
 	 * 检查 角色 是否已经存在
 	 *

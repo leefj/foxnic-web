@@ -175,7 +175,7 @@ public class JobWorkerServiceImpl extends SuperService<JobWorker> implements IJo
 
 	@Override
 	public List<JobWorker> getByIds(List<String> ids) {
-		return new ArrayList<>(getByIdsMap(ids).values());
+		return super.queryListByUKeys(ids);
 	}
 
 

@@ -179,7 +179,7 @@ public class ProfileServiceImpl extends SuperService<Profile> implements IProfil
 
 	@Override
 	public List<Profile> getByIds(List<String> ids) {
-		return new ArrayList<>(getByIdsMap(ids).values());
+		return super.queryListByUKeys(ids);
 	}
 
 

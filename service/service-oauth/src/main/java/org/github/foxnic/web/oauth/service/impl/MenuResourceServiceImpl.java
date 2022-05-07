@@ -161,7 +161,7 @@ public class MenuResourceServiceImpl extends SuperService<MenuResource> implemen
 
 	@Override
 	public List<MenuResource> getByIds(List<String> ids) {
-		return new ArrayList<>(getByIdsMap(ids).values());
+		return super.queryListByUKeys(ids);
 	}
 
 

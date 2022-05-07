@@ -233,7 +233,7 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 
 	@Override
 	public List<User> getByIds(List<String> ids) {
-		return new ArrayList<>(getByIdsMap(ids).values());
+		return super.queryListByUKeys(ids);
 	}
 
 	/**

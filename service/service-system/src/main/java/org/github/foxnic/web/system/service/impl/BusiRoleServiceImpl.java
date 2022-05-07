@@ -224,7 +224,7 @@ public class BusiRoleServiceImpl extends SuperService<BusiRole> implements IBusi
 
 	@Override
 	public List<BusiRole> getByIds(List<String> ids) {
-		return new ArrayList<>(getByIdsMap(ids).values());
+		return super.queryListByUKeys(ids);
 	}
 
 

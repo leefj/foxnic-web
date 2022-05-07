@@ -16,7 +16,7 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程实例表单业务单据
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-06 14:46:08
+ * @since 2022-05-07 09:27:45
  * @sign 8E4607308FAE37D56865AA356FA75717
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */

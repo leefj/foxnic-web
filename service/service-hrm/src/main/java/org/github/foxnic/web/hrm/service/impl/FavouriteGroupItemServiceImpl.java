@@ -240,7 +240,7 @@ public class FavouriteGroupItemServiceImpl extends SuperService<FavouriteGroupIt
 
 	@Override
 	public List<FavouriteGroupItem> getByIds(List<String> ids) {
-		return new ArrayList<>(getByIdsMap(ids).values());
+		return super.queryListByUKeys(ids);
 	}
 
 

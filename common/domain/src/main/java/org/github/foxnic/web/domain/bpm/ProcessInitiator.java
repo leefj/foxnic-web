@@ -17,7 +17,7 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程发起人权限
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-06 14:46:06
+ * @since 2022-05-07 09:27:43
  * @sign FB66C9FB0A81A48A0E4F97F899B8799D
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */

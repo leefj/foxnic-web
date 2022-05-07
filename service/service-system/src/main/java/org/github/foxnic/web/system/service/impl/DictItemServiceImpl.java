@@ -191,7 +191,7 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 
 	@Override
 	public List<DictItem> getByIds(List<String> ids) {
-		return new ArrayList<>(getByIdsMap(ids).values());
+		return super.queryListByUKeys(ids);
 	}
 
 

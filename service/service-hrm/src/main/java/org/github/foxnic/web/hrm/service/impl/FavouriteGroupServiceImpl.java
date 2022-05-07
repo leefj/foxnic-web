@@ -204,7 +204,7 @@ public class FavouriteGroupServiceImpl extends SuperService<FavouriteGroup> impl
 
 	@Override
 	public List<FavouriteGroup> getByIds(List<String> ids) {
-		return new ArrayList<>(getByIdsMap(ids).values());
+		return super.queryListByUKeys(ids);
 	}
 
 
