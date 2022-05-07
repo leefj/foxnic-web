@@ -9,7 +9,9 @@ import io.swagger.annotations.ApiModelProperty;
 import javax.persistence.Transient;
 import java.util.Date;
 import org.github.foxnic.web.domain.oauth.User;
+import java.util.List;
 import com.github.foxnic.commons.lang.DataParser;
+import java.util.ArrayList;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
 
@@ -18,8 +20,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程定义文件
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-07 17:28:46
- * @sign FCE587CB38AC9AD310CD5A037C13B488
+ * @since 2022-05-08 07:12:48
+ * @sign 3B51293AC3330D43825FF7DE1DFB2992
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -152,6 +154,12 @@ public class ProcessDefinitionFile extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="最后修改人" , notes = "最后修改人")
 	private User lastUpdateUser;
+	
+	/**
+	 * 审批节点清单：审批节点清单
+	*/
+	@ApiModelProperty(required = false,value="审批节点清单" , notes = "审批节点清单")
+	private List<ProcessDefinitionNode> nodes;
 	
 	/**
 	 * 获得 ID<br>
@@ -560,6 +568,36 @@ public class ProcessDefinitionFile extends Entity {
 	*/
 	public ProcessDefinitionFile setLastUpdateUser(User lastUpdateUser) {
 		this.lastUpdateUser=lastUpdateUser;
+		return this;
+	}
+	
+	/**
+	 * 获得 审批节点清单<br>
+	 * 审批节点清单
+	 * @return 审批节点清单
+	*/
+	public List<ProcessDefinitionNode> getNodes() {
+		return nodes;
+	}
+	
+	/**
+	 * 设置 审批节点清单
+	 * @param nodes 审批节点清单
+	 * @return 当前对象
+	*/
+	public ProcessDefinitionFile setNodes(List<ProcessDefinitionNode> nodes) {
+		this.nodes=nodes;
+		return this;
+	}
+	
+	/**
+	 * 添加 审批节点清单
+	 * @param node 审批节点清单
+	 * @return 当前对象
+	*/
+	public ProcessDefinitionFile addNode(ProcessDefinitionNode node) {
+		if(this.nodes==null) nodes=new ArrayList<>();
+		this.nodes.add(node);
 		return this;
 	}
 

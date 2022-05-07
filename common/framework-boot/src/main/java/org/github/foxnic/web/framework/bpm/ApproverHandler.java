@@ -1,9 +1,8 @@
 package org.github.foxnic.web.framework.bpm;
 
 import com.github.foxnic.dao.data.PagedList;
-import org.checkerframework.checker.units.qual.K;
 import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
-import org.github.foxnic.web.domain.bpm.Appover;
+import org.github.foxnic.web.domain.bpm.Approver;
 
 import java.util.*;
 import java.util.function.Function;
@@ -11,7 +10,7 @@ import java.util.function.Function;
 public class ApproverHandler<T> {
 
     public static interface Setter<T> {
-        void set(T item, Appover appover);
+        void set(T item, Approver approver);
     }
 
     private static class Group<T> {
@@ -84,25 +83,25 @@ public class ApproverHandler<T> {
             }
         }
 
-        HashMap<String, Appover> appoverMap = new HashMap<>();
+        HashMap<String, Approver> appoverMap = new HashMap<>();
         // 按组获得审批人
         for (Map.Entry<String, Set<String>> entry : approverIdMap.entrySet()) {
             UnifiedUserType uuType = UnifiedUserType.parseByCode(entry.getKey());
             IdentityService identityService = IdentityService.getImpl(uuType);
-            List<Appover> approvers = identityService.getAppoversById(new ArrayList<>(entry.getValue()));
-            for (Appover approver : approvers) {
+            List<Approver> approvers = identityService.getAppoversById(new ArrayList<>(entry.getValue()));
+            for (Approver approver : approvers) {
                 appoverMap.put(uuType.code() + "::" + approver.getId(), approver);
             }
         }
 
         // 设置值
-        Appover appover = null;
+        Approver approver = null;
         for (T t : list) {
             for (Group<T> group : groups) {
                 type = group.approverType.apply(t);
                 id = group.approverId.apply(t);
-                appover = appoverMap.get(type + "::" + id);
-                group.setter.set(t, appover);
+                approver = appoverMap.get(type + "::" + id);
+                group.setter.set(t, approver);
             }
         }
 

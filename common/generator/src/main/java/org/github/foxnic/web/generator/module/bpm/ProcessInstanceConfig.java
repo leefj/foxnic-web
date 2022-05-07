@@ -14,10 +14,7 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_PROCESS_INSTANCE;
 import org.github.foxnic.web.constants.enums.bpm.PriorityLevel;
 import org.github.foxnic.web.constants.enums.changes.ApprovalStatus;
 import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
-import org.github.foxnic.web.domain.bpm.Appover;
-import org.github.foxnic.web.domain.bpm.FormDefinition;
-import org.github.foxnic.web.domain.bpm.FormInstance;
-import org.github.foxnic.web.domain.bpm.ProcessDefinition;
+import org.github.foxnic.web.domain.bpm.*;
 import org.github.foxnic.web.domain.bpm.meta.FormDefinitionMeta;
 import org.github.foxnic.web.domain.bpm.meta.ProcessDefinitionMeta;
 import org.github.foxnic.web.domain.bpm.meta.ProcessInstanceMeta;
@@ -39,12 +36,13 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
         poType.addSimpleProperty(ProcessDefinition.class,"processDefinition","流程定义","流程定义");
         poType.addSimpleProperty(FormDefinition.class,"formDefinition","表单定义","表单定义");
         poType.addSimpleProperty(FormInstance.class,"formInstance","表单实例","表单实例");
-        poType.addSimpleProperty(Appover.class,"drafter","起草人身份","起草人身份");
+        poType.addSimpleProperty(Approver.class,"drafter","起草人身份","起草人身份");
         poType.addSimpleProperty(String.class,"drafterName","起草人名称","起草人名称");
         poType.addSimpleProperty(User.class,"drafterUser","起草人账户","起草人账户");
         poType.shadow(BPM_PROCESS_INSTANCE.APPROVAL_STATUS,ApprovalStatus.class);
         poType.shadow(BPM_PROCESS_INSTANCE.DRAFTER_TYPE,UnifiedUserType.class);
         poType.shadow(BPM_PROCESS_INSTANCE.PRIORITY,PriorityLevel.class);
+        poType.addSimpleProperty(ProcessDefinitionFile.class,"processDefinitionFile","流程定义文件","流程定义文件");
 
         //
         PojoClassFile pojo=context.createPojo("ProcessStartVO");

@@ -3,13 +3,15 @@ package org.github.foxnic.web.domain.bpm.meta;
 import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.bpm.ProcessDefinitionNode;
 import java.util.Date;
+import org.github.foxnic.web.domain.bpm.ProcessDefinitionNodeAssignee;
+import java.util.List;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-07 20:33:55
- * @sign CED9444805AF950B1547E12B11D0DE37
+ * @since 2022-05-08 07:23:44
+ * @sign 3AF0D0A74ED9F24DD92BA06625F6F1A9
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -186,9 +188,19 @@ public class ProcessDefinitionNodeMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionNode,java.lang.Integer> SORT_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionNode.class ,SORT, java.lang.Integer.class, "序号", "序号", java.lang.Integer.class, null);
 	
 	/**
+	 * 审批人清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.ProcessDefinitionNodeAssignee
+	*/
+	public static final String ASSIGNEES="assignees";
+	
+	/**
+	 * 审批人清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.ProcessDefinitionNodeAssignee
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionNode,org.github.foxnic.web.domain.bpm.ProcessDefinitionNodeAssignee> ASSIGNEES_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionNode.class ,ASSIGNEES, java.util.List.class, "审批人清单", "审批人清单", org.github.foxnic.web.domain.bpm.ProcessDefinitionNodeAssignee.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , PROCESS_DEFINITION_ID , PROCESS_DEFINITION_FILE_ID , CAMUNDA_NODE_ID , NODE_TYPE , NODE_NAME , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , SORT };
+	public static final String[] $PROPS={ ID , PROCESS_DEFINITION_ID , PROCESS_DEFINITION_FILE_ID , CAMUNDA_NODE_ID , NODE_TYPE , NODE_NAME , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , SORT , ASSIGNEES };
 	
 	/**
 	 * 代理类
@@ -382,6 +394,17 @@ public class ProcessDefinitionNodeMeta {
 		public ProcessDefinitionNode setSort(Integer sort) {
 			super.change(SORT,super.getSort(),sort);
 			super.setSort(sort);
+			return this;
+		}
+		
+		/**
+		 * 设置 审批人清单
+		 * @param assignees 审批人清单
+		 * @return 当前对象
+		*/
+		public ProcessDefinitionNode setAssignees(List<ProcessDefinitionNodeAssignee> assignees) {
+			super.change(ASSIGNEES,super.getAssignees(),assignees);
+			super.setAssignees(assignees);
 			return this;
 		}
 	}

@@ -3,12 +3,7 @@ package org.github.foxnic.web.relation.modules;
 import com.github.foxnic.dao.relation.RelationManager;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
-import org.github.foxnic.web.domain.bpm.ProcessDefinition;
-import org.github.foxnic.web.domain.bpm.ProcessInstance;
-import org.github.foxnic.web.domain.bpm.meta.FormInstanceMeta;
-import org.github.foxnic.web.domain.bpm.meta.ProcessDefinitionMeta;
-import org.github.foxnic.web.domain.bpm.meta.ProcessInstanceMeta;
-import org.github.foxnic.web.domain.bpm.meta.TaskMeta;
+import org.github.foxnic.web.domain.bpm.meta.*;
 import org.github.foxnic.web.domain.changes.meta.ChangeInstanceMeta;
 
 public class BpmRelationManager extends RelationManager {
@@ -39,9 +34,26 @@ public class BpmRelationManager extends RelationManager {
 				.cache(true);
 
 
+		//流程定义文件 - 流程节点
+		this.property(ProcessDefinitionFileMeta.NODES_PROP)
+				.using(FoxnicWeb.BPM_PROCESS_DEFINITION_FILE.ID).join(FoxnicWeb.BPM_PROCESS_DEFINITION_NODE.PROCESS_DEFINITION_FILE_ID)
+				.cache(true);
+
+
+		//流程定义节点 - 流程审批人
+		this.property(ProcessDefinitionNodeMeta.ASSIGNEES_PROP)
+				.using(FoxnicWeb.BPM_PROCESS_DEFINITION_NODE.ID).join(FoxnicWeb.BPM_PROCESS_DEFINITION_NODE_ASSIGNEE.NODE_ID)
+				.cache(true);
+
+
 		//流程实例 - 流程定义
 		this.property(ProcessInstanceMeta.PROCESS_DEFINITION_PROP)
 				.using(FoxnicWeb.BPM_PROCESS_INSTANCE.PROCESS_DEFINITION_ID).join(FoxnicWeb.BPM_PROCESS_DEFINITION.ID)
+				.cache(true);
+
+		//流程实例 - 流程定义文件
+		this.property(ProcessInstanceMeta.PROCESS_DEFINITION_FILE_PROP)
+				.using(FoxnicWeb.BPM_PROCESS_INSTANCE.PROCESS_DEFINITION_FILE_ID).join(FoxnicWeb.BPM_PROCESS_DEFINITION_FILE.ID)
 				.cache(true);
 
 		//流程实例 - 表单定义
@@ -54,7 +66,7 @@ public class BpmRelationManager extends RelationManager {
 		this.property(ProcessInstanceMeta.FORM_INSTANCE_PROP)
 				.using(FoxnicWeb.BPM_PROCESS_INSTANCE.FORM_INSTANCE_ID).join(FoxnicWeb.BPM_FORM_INSTANCE.ID);
 
-		//流程定义 - 发起人账户
+		//流程实例 - 发起人账户
 		this.property(ProcessInstanceMeta.DRAFTER_USER_PROP)
 				.using(FoxnicWeb.BPM_PROCESS_INSTANCE.DRAFTER_USER_ID).join(FoxnicWeb.SYS_USER.ID).cache(true);
 

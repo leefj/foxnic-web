@@ -3,13 +3,14 @@ package org.github.foxnic.web.domain.bpm.meta;
 import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.bpm.ProcessDefinitionNodeAssignee;
 import java.util.Date;
+import org.github.foxnic.web.domain.bpm.Approver;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-07 17:29:04
- * @sign 599D02210DC24E7CA71B5E7F8D06DB80
+ * @since 2022-05-08 07:30:34
+ * @sign 4B2A5AB0D4079F3555CF560983662A0D
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -156,9 +157,19 @@ public class ProcessDefinitionNodeAssigneeMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionNodeAssignee,java.lang.Integer> SORT_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionNodeAssignee.class ,SORT, java.lang.Integer.class, "序号", "序号", java.lang.Integer.class, null);
 	
 	/**
+	 * 审批人 , 类型: org.github.foxnic.web.domain.bpm.Approver
+	*/
+	public static final String ASSIGNEE="assignee";
+	
+	/**
+	 * 审批人 , 类型: org.github.foxnic.web.domain.bpm.Approver
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionNodeAssignee,org.github.foxnic.web.domain.bpm.Approver> ASSIGNEE_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionNodeAssignee.class ,ASSIGNEE, org.github.foxnic.web.domain.bpm.Approver.class, "审批人", "审批人", org.github.foxnic.web.domain.bpm.Approver.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , NODE_ID , ASSIGNEE_TYPE , ASSIGNEE_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , SORT };
+	public static final String[] $PROPS={ ID , NODE_ID , ASSIGNEE_TYPE , ASSIGNEE_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , SORT , ASSIGNEE };
 	
 	/**
 	 * 代理类
@@ -319,6 +330,17 @@ public class ProcessDefinitionNodeAssigneeMeta {
 		public ProcessDefinitionNodeAssignee setSort(Integer sort) {
 			super.change(SORT,super.getSort(),sort);
 			super.setSort(sort);
+			return this;
+		}
+		
+		/**
+		 * 设置 审批人
+		 * @param assignee 审批人
+		 * @return 当前对象
+		*/
+		public ProcessDefinitionNodeAssignee setAssignee(Approver assignee) {
+			super.change(ASSIGNEE,super.getAssignee(),assignee);
+			super.setAssignee(assignee);
 			return this;
 		}
 	}

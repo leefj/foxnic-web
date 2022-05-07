@@ -195,7 +195,7 @@ public class Task extends Entity {
 	 * 审批人身份：审批人身份，实际审批人
 	*/
 	@ApiModelProperty(required = false,value="审批人身份" , notes = "审批人身份，实际审批人")
-	private Appover approver;
+	private Approver approver;
 	
 	/**
 	 * 审批人名称：审批人名称，实际审批人
@@ -747,7 +747,7 @@ public class Task extends Entity {
 	 * 审批人身份，实际审批人
 	 * @return 审批人身份
 	*/
-	public Appover getApprover() {
+	public Approver getApprover() {
 		return approver;
 	}
 	
@@ -756,7 +756,7 @@ public class Task extends Entity {
 	 * @param approver 审批人身份
 	 * @return 当前对象
 	*/
-	public Task setApprover(Appover approver) {
+	public Task setApprover(Approver approver) {
 		this.approver=approver;
 		return this;
 	}

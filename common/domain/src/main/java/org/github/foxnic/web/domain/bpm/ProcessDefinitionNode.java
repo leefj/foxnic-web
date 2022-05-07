@@ -7,6 +7,8 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_PROCESS_DEFINITION_NODE;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
+import java.util.List;
+import java.util.ArrayList;
 import javax.persistence.Transient;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
@@ -16,8 +18,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程定义节点
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-07 20:33:55
- * @sign CED9444805AF950B1547E12B11D0DE37
+ * @since 2022-05-08 07:23:44
+ * @sign 3AF0D0A74ED9F24DD92BA06625F6F1A9
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -130,6 +132,12 @@ public class ProcessDefinitionNode extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="序号" , notes = "序号")
 	private Integer sort;
+	
+	/**
+	 * 审批人清单：审批人清单
+	*/
+	@ApiModelProperty(required = false,value="审批人清单" , notes = "审批人清单")
+	private List<ProcessDefinitionNodeAssignee> assignees;
 	
 	/**
 	 * 获得 ID<br>
@@ -451,6 +459,36 @@ public class ProcessDefinitionNode extends Entity {
 	*/
 	public ProcessDefinitionNode setSort(Integer sort) {
 		this.sort=sort;
+		return this;
+	}
+	
+	/**
+	 * 获得 审批人清单<br>
+	 * 审批人清单
+	 * @return 审批人清单
+	*/
+	public List<ProcessDefinitionNodeAssignee> getAssignees() {
+		return assignees;
+	}
+	
+	/**
+	 * 设置 审批人清单
+	 * @param assignees 审批人清单
+	 * @return 当前对象
+	*/
+	public ProcessDefinitionNode setAssignees(List<ProcessDefinitionNodeAssignee> assignees) {
+		this.assignees=assignees;
+		return this;
+	}
+	
+	/**
+	 * 添加 审批人清单
+	 * @param assignee 审批人清单
+	 * @return 当前对象
+	*/
+	public ProcessDefinitionNode addAssignee(ProcessDefinitionNodeAssignee assignee) {
+		if(this.assignees==null) assignees=new ArrayList<>();
+		this.assignees.add(assignee);
 		return this;
 	}
 

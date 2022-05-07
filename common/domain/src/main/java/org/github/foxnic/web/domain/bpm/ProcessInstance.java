@@ -22,8 +22,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程实例
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-07 09:27:44
- * @sign 6F06CED627178175460690759E2E4674
+ * @since 2022-05-08 07:14:19
+ * @sign DF078D94406E3F9941CCFC0EFCCCFB6C
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -72,6 +72,12 @@ public class ProcessInstance extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="流程定义ID" , notes = "流程定义ID")
 	private String processDefinitionId;
+	
+	/**
+	 * 流程定义文件ID：流程定义文件ID
+	*/
+	@ApiModelProperty(required = false,value="流程定义文件ID" , notes = "流程定义文件ID")
+	private String processDefinitionFileId;
 	
 	/**
 	 * 表单定义ID：表单定义ID
@@ -195,7 +201,7 @@ public class ProcessInstance extends Entity {
 	 * 起草人身份：起草人身份
 	*/
 	@ApiModelProperty(required = false,value="起草人身份" , notes = "起草人身份")
-	private Appover drafter;
+	private Approver drafter;
 	
 	/**
 	 * 起草人名称：起草人名称
@@ -208,6 +214,12 @@ public class ProcessInstance extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="起草人账户" , notes = "起草人账户")
 	private User drafterUser;
+	
+	/**
+	 * 流程定义文件：流程定义文件
+	*/
+	@ApiModelProperty(required = false,value="流程定义文件" , notes = "流程定义文件")
+	private ProcessDefinitionFile processDefinitionFile;
 	
 	/**
 	 * 获得 主键<br>
@@ -353,6 +365,25 @@ public class ProcessInstance extends Entity {
 	*/
 	public ProcessInstance setProcessDefinitionId(String processDefinitionId) {
 		this.processDefinitionId=processDefinitionId;
+		return this;
+	}
+	
+	/**
+	 * 获得 流程定义文件ID<br>
+	 * 流程定义文件ID
+	 * @return 流程定义文件ID
+	*/
+	public String getProcessDefinitionFileId() {
+		return processDefinitionFileId;
+	}
+	
+	/**
+	 * 设置 流程定义文件ID
+	 * @param processDefinitionFileId 流程定义文件ID
+	 * @return 当前对象
+	*/
+	public ProcessInstance setProcessDefinitionFileId(String processDefinitionFileId) {
+		this.processDefinitionFileId=processDefinitionFileId;
 		return this;
 	}
 	
@@ -788,7 +819,7 @@ public class ProcessInstance extends Entity {
 	 * 起草人身份
 	 * @return 起草人身份
 	*/
-	public Appover getDrafter() {
+	public Approver getDrafter() {
 		return drafter;
 	}
 	
@@ -797,7 +828,7 @@ public class ProcessInstance extends Entity {
 	 * @param drafter 起草人身份
 	 * @return 当前对象
 	*/
-	public ProcessInstance setDrafter(Appover drafter) {
+	public ProcessInstance setDrafter(Approver drafter) {
 		this.drafter=drafter;
 		return this;
 	}
@@ -837,6 +868,25 @@ public class ProcessInstance extends Entity {
 	*/
 	public ProcessInstance setDrafterUser(User drafterUser) {
 		this.drafterUser=drafterUser;
+		return this;
+	}
+	
+	/**
+	 * 获得 流程定义文件<br>
+	 * 流程定义文件
+	 * @return 流程定义文件
+	*/
+	public ProcessDefinitionFile getProcessDefinitionFile() {
+		return processDefinitionFile;
+	}
+	
+	/**
+	 * 设置 流程定义文件
+	 * @param processDefinitionFile 流程定义文件
+	 * @return 当前对象
+	*/
+	public ProcessInstance setProcessDefinitionFile(ProcessDefinitionFile processDefinitionFile) {
+		this.processDefinitionFile=processDefinitionFile;
 		return this;
 	}
 

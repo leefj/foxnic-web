@@ -8,6 +8,7 @@ import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_PROCESS_DEFINITION_FILE;
+import org.github.foxnic.web.domain.bpm.ProcessDefinitionNode;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
@@ -22,6 +23,7 @@ public class ProcessDefinitionFileConfig extends BaseCodeConfig<BPM_PROCESS_DEFI
         poType.addSimpleProperty(User.class,"lastUpdateUser","最后修改人","最后修改人");
         // 映射逻辑值
         poType.shadowBoolean(BPM_PROCESS_DEFINITION_FILE.ACTIVATED);
+        poType.addListProperty(ProcessDefinitionNode.class,"nodes","审批节点清单","审批节点清单");
     }
 
     @Override

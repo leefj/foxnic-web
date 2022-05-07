@@ -8,6 +8,7 @@ import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_PROCESS_DEFINITION_NODE_ASSIGNEE;
+import org.github.foxnic.web.domain.bpm.Approver;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
 public class ProcessDefinitionNodeAssigneeConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITION_NODE_ASSIGNEE> {
@@ -18,7 +19,7 @@ public class ProcessDefinitionNodeAssigneeConfig extends BaseCodeConfig<BPM_PROC
 
     @Override
     public void configModel(PoClassFile poType, VoClassFile voType) {
-
+        poType.addSimpleProperty(Approver.class,"assignee","审批人","审批人");
     }
 
     @Override

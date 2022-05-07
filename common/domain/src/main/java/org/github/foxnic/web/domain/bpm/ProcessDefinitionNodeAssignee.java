@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程审批人
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-07 17:29:04
- * @sign 599D02210DC24E7CA71B5E7F8D06DB80
+ * @since 2022-05-08 07:30:34
+ * @sign 4B2A5AB0D4079F3555CF560983662A0D
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -112,6 +112,12 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="序号" , notes = "序号")
 	private Integer sort;
+	
+	/**
+	 * 审批人：审批人
+	*/
+	@ApiModelProperty(required = false,value="审批人" , notes = "审批人")
+	private Approver assignee;
 	
 	/**
 	 * 获得 ID<br>
@@ -376,6 +382,25 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 	*/
 	public ProcessDefinitionNodeAssignee setSort(Integer sort) {
 		this.sort=sort;
+		return this;
+	}
+	
+	/**
+	 * 获得 审批人<br>
+	 * 审批人
+	 * @return 审批人
+	*/
+	public Approver getAssignee() {
+		return assignee;
+	}
+	
+	/**
+	 * 设置 审批人
+	 * @param assignee 审批人
+	 * @return 当前对象
+	*/
+	public ProcessDefinitionNodeAssignee setAssignee(Approver assignee) {
+		this.assignee=assignee;
 		return this;
 	}
 

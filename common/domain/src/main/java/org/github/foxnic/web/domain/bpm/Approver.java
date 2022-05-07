@@ -11,14 +11,14 @@ import org.github.foxnic.web.domain.system.BusiRole;
 /**
  * 审批人对象
  */
-public class Appover {
+public class Approver {
 
     private String id;
     private String code;
     private String name;
     private UnifiedUserType type;
 
-    public Appover(String id, String code, String name, UnifiedUserType type) {
+    public Approver(String id, String code, String name, UnifiedUserType type) {
         this.applyProps(id,code,name,type);
     }
 
@@ -33,7 +33,7 @@ public class Appover {
      * 从系统账户创建审批人
      * @param  user 系统账户
      * */
-    public Appover(User user) {
+    public Approver(User user) {
         this.applyProps(user.getId(), user.getAccount(), user.getRealName() + "(" + user.getAccount() + ")", UnifiedUserType.user);
     }
 
@@ -41,7 +41,7 @@ public class Appover {
      * 从员工创建审批人
      * @param  employee 员工
      * */
-    public Appover(Employee employee) {
+    public Approver(Employee employee) {
         String name = employee.getName();
         if (!StringUtil.isBlank(employee.getBadge())) {
             name += "(" + employee.getBadge() + ")";
@@ -54,7 +54,7 @@ public class Appover {
      * @param  position 岗位
      * @return    Appover 审批人
      * */
-    public Appover(Position position) {
+    public Approver(Position position) {
         String name=position.getShortName();
         if(!StringUtil.isBlank(position.getCode())) {
             name+="("+position.getCode()+")";
@@ -69,7 +69,7 @@ public class Appover {
      * 从系统角色创建审批人
      * @param  role 系统角色
      * */
-    public Appover(Role role) {
+    public Approver(Role role) {
         this.applyProps(role.getId(),role.getCode(),role.getName()+"("+role.getCode()+")",UnifiedUserType.sys_role);
     }
 
@@ -78,7 +78,7 @@ public class Appover {
      * @param  role 业务角色
      * @return    Appover 审批人
      * */
-    public Appover(BusiRole role) {
+    public Approver(BusiRole role) {
         this.applyProps(role.getId(),role.getCode(),role.getName()+"("+role.getCode()+")",UnifiedUserType.busi_role);
     }
 

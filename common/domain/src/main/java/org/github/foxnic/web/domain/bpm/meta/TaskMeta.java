@@ -5,7 +5,7 @@ import org.github.foxnic.web.domain.bpm.Task;
 import java.util.Date;
 import org.github.foxnic.web.domain.bpm.ProcessDefinition;
 import org.github.foxnic.web.domain.bpm.ProcessInstance;
-import org.github.foxnic.web.domain.bpm.Appover;
+import org.github.foxnic.web.domain.bpm.Approver;
 import org.github.foxnic.web.domain.oauth.User;
 
 
@@ -287,7 +287,7 @@ public class TaskMeta {
 	/**
 	 * 审批人身份 , 审批人身份，实际审批人 , 类型: org.github.foxnic.web.domain.bpm.Appover
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.Task,org.github.foxnic.web.domain.bpm.Appover> APPROVER_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.Task.class ,APPROVER, org.github.foxnic.web.domain.bpm.Appover.class, "审批人身份", "审批人身份，实际审批人", org.github.foxnic.web.domain.bpm.Appover.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.Task, Approver> APPROVER_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.Task.class ,APPROVER, Approver.class, "审批人身份", "审批人身份，实际审批人", Approver.class, null);
 	
 	/**
 	 * 审批人名称 , 审批人名称，实际审批人 , 类型: java.lang.String
@@ -623,7 +623,7 @@ public class TaskMeta {
 		 * @param approver 审批人身份
 		 * @return 当前对象
 		*/
-		public Task setApprover(Appover approver) {
+		public Task setApprover(Approver approver) {
 			super.change(APPROVER,super.getApprover(),approver);
 			super.setApprover(approver);
 			return this;

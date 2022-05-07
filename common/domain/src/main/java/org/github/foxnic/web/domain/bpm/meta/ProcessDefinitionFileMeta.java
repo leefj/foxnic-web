@@ -4,13 +4,15 @@ import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.bpm.ProcessDefinitionFile;
 import java.util.Date;
 import org.github.foxnic.web.domain.oauth.User;
+import org.github.foxnic.web.domain.bpm.ProcessDefinitionNode;
+import java.util.List;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-07 17:28:46
- * @sign FCE587CB38AC9AD310CD5A037C13B488
+ * @since 2022-05-08 07:12:48
+ * @sign 3B51293AC3330D43825FF7DE1DFB2992
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -217,9 +219,19 @@ public class ProcessDefinitionFileMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionFile,org.github.foxnic.web.domain.oauth.User> LAST_UPDATE_USER_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionFile.class ,LAST_UPDATE_USER, org.github.foxnic.web.domain.oauth.User.class, "最后修改人", "最后修改人", org.github.foxnic.web.domain.oauth.User.class, null);
 	
 	/**
+	 * 审批节点清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.ProcessDefinitionNode
+	*/
+	public static final String NODES="nodes";
+	
+	/**
+	 * 审批节点清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.ProcessDefinitionNode
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionFile,org.github.foxnic.web.domain.bpm.ProcessDefinitionNode> NODES_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionFile.class ,NODES, java.util.List.class, "审批节点清单", "审批节点清单", org.github.foxnic.web.domain.bpm.ProcessDefinitionNode.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , PROCESS_DEFINITION_ID , FILE_ID , VERSION_NO , NAME , ACTIVATED , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , DEPLOY_RESULT , DEPLOY_SUCCESS , DEPLOY_ERROR , LAST_UPDATE_USER };
+	public static final String[] $PROPS={ ID , PROCESS_DEFINITION_ID , FILE_ID , VERSION_NO , NAME , ACTIVATED , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , DEPLOY_RESULT , DEPLOY_SUCCESS , DEPLOY_ERROR , LAST_UPDATE_USER , NODES };
 	
 	/**
 	 * 代理类
@@ -446,6 +458,17 @@ public class ProcessDefinitionFileMeta {
 		public ProcessDefinitionFile setLastUpdateUser(User lastUpdateUser) {
 			super.change(LAST_UPDATE_USER,super.getLastUpdateUser(),lastUpdateUser);
 			super.setLastUpdateUser(lastUpdateUser);
+			return this;
+		}
+		
+		/**
+		 * 设置 审批节点清单
+		 * @param nodes 审批节点清单
+		 * @return 当前对象
+		*/
+		public ProcessDefinitionFile setNodes(List<ProcessDefinitionNode> nodes) {
+			super.change(NODES,super.getNodes(),nodes);
+			super.setNodes(nodes);
 			return this;
 		}
 	}

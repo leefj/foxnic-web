@@ -4,7 +4,7 @@ import com.github.foxnic.springboot.spring.SpringUtil;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.expr.Expr;
 import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
-import org.github.foxnic.web.domain.bpm.Appover;
+import org.github.foxnic.web.domain.bpm.Approver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +25,7 @@ public abstract class IdentityService {
         return expr;
     }
 
-    public  abstract List<Appover> getAppoversByUserId(String userId);
+    public  abstract List<Approver> getAppoversByUserId(String userId);
     /**
      * 按用户类型获得不同的实现
      * */
@@ -35,7 +35,7 @@ public abstract class IdentityService {
     }
 
 
-    public  abstract List<Appover> getAppoversById(List<String> ids);
+    public  abstract List<Approver> getAppoversById(List<String> ids);
 
     /**
      * 获得用于查询的条件表达式

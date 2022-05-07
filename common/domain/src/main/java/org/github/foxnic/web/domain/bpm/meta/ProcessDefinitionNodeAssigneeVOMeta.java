@@ -5,12 +5,13 @@ import org.github.foxnic.web.domain.bpm.ProcessDefinitionNodeAssigneeVO;
 import java.util.List;
 import org.github.foxnic.web.domain.bpm.ProcessDefinitionNodeAssignee;
 import java.util.Date;
+import org.github.foxnic.web.domain.bpm.Approver;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-07 17:29:04
+ * @since 2022-05-08 07:30:34
  * @sign CE34814B78D2BAA7234DB013FE1D9172
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -248,9 +249,19 @@ public class ProcessDefinitionNodeAssigneeVOMeta extends ProcessDefinitionNodeAs
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionNodeAssigneeVO,java.lang.Integer> SORT_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionNodeAssigneeVO.class ,SORT, java.lang.Integer.class, "序号", "序号", java.lang.Integer.class, null);
 	
 	/**
+	 * 审批人 , 类型: org.github.foxnic.web.domain.bpm.Approver
+	*/
+	public static final String ASSIGNEE="assignee";
+	
+	/**
+	 * 审批人 , 类型: org.github.foxnic.web.domain.bpm.Approver
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionNodeAssigneeVO,org.github.foxnic.web.domain.bpm.Approver> ASSIGNEE_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionNodeAssigneeVO.class ,ASSIGNEE, org.github.foxnic.web.domain.bpm.Approver.class, "审批人", "审批人", org.github.foxnic.web.domain.bpm.Approver.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , NODE_ID , ASSIGNEE_TYPE , ASSIGNEE_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , SORT };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , NODE_ID , ASSIGNEE_TYPE , ASSIGNEE_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , SORT , ASSIGNEE };
 	
 	/**
 	 * 代理类
@@ -510,6 +521,17 @@ public class ProcessDefinitionNodeAssigneeVOMeta extends ProcessDefinitionNodeAs
 		public ProcessDefinitionNodeAssignee setSort(Integer sort) {
 			super.change(SORT,super.getSort(),sort);
 			super.setSort(sort);
+			return this;
+		}
+		
+		/**
+		 * 设置 审批人
+		 * @param assignee 审批人
+		 * @return 当前对象
+		*/
+		public ProcessDefinitionNodeAssignee setAssignee(Approver assignee) {
+			super.change(ASSIGNEE,super.getAssignee(),assignee);
+			super.setAssignee(assignee);
 			return this;
 		}
 	}

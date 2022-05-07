@@ -10,7 +10,7 @@ import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_TASK;
 import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_PROCESS_DEFINITION;
 import org.github.foxnic.web.constants.enums.bpm.TaskStatus;
-import org.github.foxnic.web.domain.bpm.Appover;
+import org.github.foxnic.web.domain.bpm.Approver;
 import org.github.foxnic.web.domain.bpm.ProcessDefinition;
 import org.github.foxnic.web.domain.bpm.ProcessInstance;
 import org.github.foxnic.web.domain.bpm.meta.ProcessDefinitionMeta;
@@ -33,7 +33,7 @@ public class TaskConfig extends BaseCodeConfig<BPM_TASK> {
         poType.shadow(BPM_TASK.STATUS, TaskStatus.class);
         poType.addSimpleProperty(ProcessDefinition.class,"processDefinition","流程类型","流程类型");
         poType.addSimpleProperty(ProcessInstance.class,"processInstance","流程实例","流程实例");
-        poType.addSimpleProperty(Appover.class,"approver","审批人身份","审批人身份，实际审批人");
+        poType.addSimpleProperty(Approver.class,"approver","审批人身份","审批人身份，实际审批人");
         poType.addSimpleProperty(String.class,"approverName","审批人名称","审批人名称，实际审批人");
         poType.addSimpleProperty(User.class,"approverUser","审批人账户","审批人账户，实际审批人");
         poType.addSimpleProperty(User.class,"assigneeUser","代理人账户","代理人账户，预计审批人");

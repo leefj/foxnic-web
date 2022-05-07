@@ -8,14 +8,15 @@ import java.util.Date;
 import org.github.foxnic.web.domain.bpm.ProcessDefinition;
 import org.github.foxnic.web.domain.bpm.FormDefinition;
 import org.github.foxnic.web.domain.bpm.FormInstance;
-import org.github.foxnic.web.domain.bpm.Appover;
+import org.github.foxnic.web.domain.bpm.Approver;
 import org.github.foxnic.web.domain.oauth.User;
+import org.github.foxnic.web.domain.bpm.ProcessDefinitionFile;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-07 09:27:44
+ * @since 2022-05-08 07:14:19
  * @sign A711E5710DD083267053E2AD6B945608
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -171,6 +172,16 @@ public class ProcessInstanceVOMeta extends ProcessInstanceMeta {
 	 * 流程定义ID , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceVO,java.lang.String> PROCESS_DEFINITION_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceVO.class ,PROCESS_DEFINITION_ID, java.lang.String.class, "流程定义ID", "流程定义ID", java.lang.String.class, null);
+	
+	/**
+	 * 流程定义文件ID , 类型: java.lang.String
+	*/
+	public static final String PROCESS_DEFINITION_FILE_ID="processDefinitionFileId";
+	
+	/**
+	 * 流程定义文件ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceVO,java.lang.String> PROCESS_DEFINITION_FILE_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceVO.class ,PROCESS_DEFINITION_FILE_ID, java.lang.String.class, "流程定义文件ID", "流程定义文件ID", java.lang.String.class, null);
 	
 	/**
 	 * 表单定义ID , 类型: java.lang.String
@@ -370,7 +381,7 @@ public class ProcessInstanceVOMeta extends ProcessInstanceMeta {
 	/**
 	 * 起草人身份 , 类型: org.github.foxnic.web.domain.bpm.Appover
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceVO,org.github.foxnic.web.domain.bpm.Appover> DRAFTER_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceVO.class ,DRAFTER, org.github.foxnic.web.domain.bpm.Appover.class, "起草人身份", "起草人身份", org.github.foxnic.web.domain.bpm.Appover.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceVO, Approver> DRAFTER_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceVO.class ,DRAFTER, Approver.class, "起草人身份", "起草人身份", Approver.class, null);
 	
 	/**
 	 * 起草人名称 , 类型: java.lang.String
@@ -393,9 +404,19 @@ public class ProcessInstanceVOMeta extends ProcessInstanceMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceVO,org.github.foxnic.web.domain.oauth.User> DRAFTER_USER_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceVO.class ,DRAFTER_USER, org.github.foxnic.web.domain.oauth.User.class, "起草人账户", "起草人账户", org.github.foxnic.web.domain.oauth.User.class, null);
 	
 	/**
+	 * 流程定义文件 , 类型: org.github.foxnic.web.domain.bpm.ProcessDefinitionFile
+	*/
+	public static final String PROCESS_DEFINITION_FILE="processDefinitionFile";
+	
+	/**
+	 * 流程定义文件 , 类型: org.github.foxnic.web.domain.bpm.ProcessDefinitionFile
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceVO,org.github.foxnic.web.domain.bpm.ProcessDefinitionFile> PROCESS_DEFINITION_FILE_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceVO.class ,PROCESS_DEFINITION_FILE, org.github.foxnic.web.domain.bpm.ProcessDefinitionFile.class, "流程定义文件", "流程定义文件", org.github.foxnic.web.domain.bpm.ProcessDefinitionFile.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , DRAFTER_USER_ID , DRAFTER_ID , DRAFTER_TYPE , FORM_INSTANCE_ID , PROCESS_DEFINITION_ID , FORM_DEFINITION_ID , TITLE , PRIORITY , COMMENT , APPROVAL_STATUS , CAMUNDA_INSTANCE_ID , COMMIT_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , PROCESS_DEFINITION , FORM_DEFINITION , FORM_INSTANCE , DRAFTER , DRAFTER_NAME , DRAFTER_USER };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , DRAFTER_USER_ID , DRAFTER_ID , DRAFTER_TYPE , FORM_INSTANCE_ID , PROCESS_DEFINITION_ID , PROCESS_DEFINITION_FILE_ID , FORM_DEFINITION_ID , TITLE , PRIORITY , COMMENT , APPROVAL_STATUS , CAMUNDA_INSTANCE_ID , COMMIT_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , PROCESS_DEFINITION , FORM_DEFINITION , FORM_INSTANCE , DRAFTER , DRAFTER_NAME , DRAFTER_USER , PROCESS_DEFINITION_FILE };
 	
 	/**
 	 * 代理类
@@ -567,6 +588,17 @@ public class ProcessInstanceVOMeta extends ProcessInstanceMeta {
 		public ProcessInstance setProcessDefinitionId(String processDefinitionId) {
 			super.change(PROCESS_DEFINITION_ID,super.getProcessDefinitionId(),processDefinitionId);
 			super.setProcessDefinitionId(processDefinitionId);
+			return this;
+		}
+		
+		/**
+		 * 设置 流程定义文件ID
+		 * @param processDefinitionFileId 流程定义文件ID
+		 * @return 当前对象
+		*/
+		public ProcessInstance setProcessDefinitionFileId(String processDefinitionFileId) {
+			super.change(PROCESS_DEFINITION_FILE_ID,super.getProcessDefinitionFileId(),processDefinitionFileId);
+			super.setProcessDefinitionFileId(processDefinitionFileId);
 			return this;
 		}
 		
@@ -784,7 +816,7 @@ public class ProcessInstanceVOMeta extends ProcessInstanceMeta {
 		 * @param drafter 起草人身份
 		 * @return 当前对象
 		*/
-		public ProcessInstance setDrafter(Appover drafter) {
+		public ProcessInstance setDrafter(Approver drafter) {
 			super.change(DRAFTER,super.getDrafter(),drafter);
 			super.setDrafter(drafter);
 			return this;
@@ -809,6 +841,17 @@ public class ProcessInstanceVOMeta extends ProcessInstanceMeta {
 		public ProcessInstance setDrafterUser(User drafterUser) {
 			super.change(DRAFTER_USER,super.getDrafterUser(),drafterUser);
 			super.setDrafterUser(drafterUser);
+			return this;
+		}
+		
+		/**
+		 * 设置 流程定义文件
+		 * @param processDefinitionFile 流程定义文件
+		 * @return 当前对象
+		*/
+		public ProcessInstance setProcessDefinitionFile(ProcessDefinitionFile processDefinitionFile) {
+			super.change(PROCESS_DEFINITION_FILE,super.getProcessDefinitionFile(),processDefinitionFile);
+			super.setProcessDefinitionFile(processDefinitionFile);
 			return this;
 		}
 	}
