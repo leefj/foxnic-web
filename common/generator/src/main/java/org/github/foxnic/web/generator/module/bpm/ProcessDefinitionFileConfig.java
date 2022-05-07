@@ -20,6 +20,8 @@ public class ProcessDefinitionFileConfig extends BaseCodeConfig<BPM_PROCESS_DEFI
     @Override
     public void configModel(PoClassFile poType, VoClassFile voType) {
         poType.addSimpleProperty(User.class,"lastUpdateUser","最后修改人","最后修改人");
+        // 映射逻辑值
+        poType.shadowBoolean(BPM_PROCESS_DEFINITION_FILE.ACTIVATED);
     }
 
     @Override

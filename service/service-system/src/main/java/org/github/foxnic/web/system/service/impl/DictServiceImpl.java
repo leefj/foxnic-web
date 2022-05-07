@@ -204,7 +204,7 @@ public class DictServiceImpl extends SuperService<Dict> implements IDictService 
 
 	@Override
 	public List<Dict> getByIds(List<String> ids) {
-		return super.queryListByUKeys(ids);
+		return super.queryListByUKeys("id",ids);
 	}
 
 

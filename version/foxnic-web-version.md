@@ -8,10 +8,14 @@
 5、优化 Excel 生成的相关功能
 6、增加 PerformanceLogger
 7、代码生成支持指定表单提交地址   form.savingURL(ProcessInstanceServiceProxy.TEMPORARY_SAVE);
+8、增加按唯一键查询方法: queryListByUKey,queryListByUKeys,queryMapByUKeys,queryListByIds,queryMapByIds,同时支持代码生成
+9、增加 shadowBoolean 支持
 
 ### Bug 修复
 1、代码生成 INPUT_FILED bug 修复
 2、修复搜索栏自动换行时，表格按钮被遮盖问题
+3、日期转换bug修复
+4、接口参数接收bug修复
 
 
 

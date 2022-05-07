@@ -204,7 +204,7 @@ public class CodeExampleStudentServiceImpl extends SuperService<CodeExampleStude
 
 	@Override
 	public List<CodeExampleStudent> getByIds(List<String> ids) {
-		return super.queryListByUKeys(ids);
+		return super.queryListByUKeys("id",ids);
 	}
 
 

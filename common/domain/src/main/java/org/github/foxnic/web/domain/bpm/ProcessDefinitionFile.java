@@ -6,9 +6,10 @@ import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_PROCESS_DEFINITION_FILE;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
+import javax.persistence.Transient;
 import java.util.Date;
 import org.github.foxnic.web.domain.oauth.User;
-import javax.persistence.Transient;
+import com.github.foxnic.commons.lang.DataParser;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
 
@@ -17,8 +18,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程定义文件
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-07 09:27:42
- * @sign D5D4C40A950126BFC4B8955F20842A42
+ * @since 2022-05-07 11:00:04
+ * @sign FFC418EF9B2180B91F0FB5734DD132BD
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -65,6 +66,8 @@ public class ProcessDefinitionFile extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="是否激活" , notes = "只能有一个版本是激活的")
 	private Integer activated;
+	@Transient
+	private Boolean activatedBool;
 	
 	/**
 	 * 备注：备注
@@ -255,12 +258,42 @@ public class ProcessDefinitionFile extends Entity {
 	}
 	
 	/**
+	 * 获得 是否激活 的投影属性<br>
+	 * 等价于 getActivated 方法，获得对应的枚举类型
+	 * @return 是否激活
+	*/
+	@Transient
+	public Boolean isActivated() {
+		if(this.activatedBool==null) {
+			this.activatedBool=DataParser.parseBoolean(activated);
+		}
+		return this.activatedBool ;
+	}
+	
+	/**
 	 * 设置 是否激活
 	 * @param activated 是否激活
 	 * @return 当前对象
 	*/
 	public ProcessDefinitionFile setActivated(Integer activated) {
 		this.activated=activated;
+		this.activatedBool=DataParser.parseBoolean(activated);
+		return this;
+	}
+	
+	/**
+	 * 设置 是否激活的投影属性，等同于设置 是否激活
+	 * @param activatedBool 是否激活
+	 * @return 当前对象
+	*/
+	@Transient
+	public ProcessDefinitionFile setActivated(Boolean activatedBool) {
+		if(activatedBool==null) {
+			this.activated=null;
+		} else {
+			this.activated=activatedBool?1:0;
+		}
+		this.activatedBool=activatedBool;
 		return this;
 	}
 	

@@ -180,7 +180,7 @@ public class JobLogServiceImpl extends SuperService<JobLog> implements IJobLogSe
 
 	@Override
 	public List<JobLog> getByIds(List<String> ids) {
-		return super.queryListByUKeys(ids);
+		return super.queryListByUKeys("id",ids);
 	}
 
 

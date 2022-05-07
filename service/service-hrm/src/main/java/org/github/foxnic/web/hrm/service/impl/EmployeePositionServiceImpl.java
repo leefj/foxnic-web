@@ -182,7 +182,7 @@ public class EmployeePositionServiceImpl extends SuperService<EmployeePosition> 
 
 	@Override
 	public List<EmployeePosition> getByIds(List<String> ids) {
-		return super.queryListByUKeys(ids);
+		return super.queryListByUKeys("id",ids);
 	}
 
 

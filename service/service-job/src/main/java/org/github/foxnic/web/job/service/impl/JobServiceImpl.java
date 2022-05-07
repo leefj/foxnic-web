@@ -293,7 +293,7 @@ public class JobServiceImpl extends SuperService<Job> implements IJobService {
 
 	@Override
 	public List<Job> getByIds(List<String> ids) {
-		return super.queryListByUKeys(ids);
+		return super.queryListByUKeys("id",ids);
 	}
 
 

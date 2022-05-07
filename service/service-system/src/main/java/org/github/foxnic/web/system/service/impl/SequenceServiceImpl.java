@@ -172,7 +172,7 @@ public class SequenceServiceImpl extends SuperService<Sequence> implements ISequ
 
 	@Override
 	public List<Sequence> getByIds(List<String> pks) {
-		return super.queryListByUKeys(pks);
+		return super.queryListByUKeys("id",pks);
 	}
 
 

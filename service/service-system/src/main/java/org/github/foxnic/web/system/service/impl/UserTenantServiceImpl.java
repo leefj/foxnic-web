@@ -188,7 +188,7 @@ public class UserTenantServiceImpl extends SuperService<UserTenant> implements I
 
 	@Override
 	public List<UserTenant> getByIds(List<String> ids) {
-		return super.queryListByUKeys(ids);
+		return super.queryListByUKeys("id",ids);
 	}
 
 

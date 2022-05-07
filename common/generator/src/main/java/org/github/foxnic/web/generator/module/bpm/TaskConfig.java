@@ -7,6 +7,7 @@ import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_TASK;
+import org.github.foxnic.web.constants.enums.bpm.TaskStatus;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
 public class TaskConfig extends BaseCodeConfig<BPM_TASK> {
@@ -17,7 +18,7 @@ public class TaskConfig extends BaseCodeConfig<BPM_TASK> {
 
     @Override
     public void configModel(PoClassFile poType, VoClassFile voType) {
-
+        poType.shadow(BPM_TASK.STATUS, TaskStatus.class);
     }
 
     @Override

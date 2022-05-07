@@ -202,7 +202,7 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 
 	@Override
 	public List<Menu> getByIds(List<String> ids) {
-		return super.queryListByUKeys(ids);
+		return super.queryListByUKeys("id",ids);
 	}
 
 	/**

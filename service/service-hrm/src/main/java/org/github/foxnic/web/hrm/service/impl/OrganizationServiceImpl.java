@@ -215,7 +215,7 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 
 	@Override
 	public List<Organization> getByIds(List<String> ids) {
-		return super.queryListByUKeys(ids);
+		return super.queryListByUKeys("id",ids);
 	}
 
 

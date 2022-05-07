@@ -204,7 +204,7 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 
 	@Override
 	public List<Resourze> getByIds(List<String> ids) {
-		return super.queryListByUKeys(ids);
+		return super.queryListByUKeys("id",ids);
 	}
 
 

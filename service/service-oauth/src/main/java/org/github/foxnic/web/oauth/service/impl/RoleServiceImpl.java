@@ -180,7 +180,7 @@ public class RoleServiceImpl extends SuperService<Role> implements IRoleService 
 
 	@Override
 	public List<Role> getByIds(List<String> ids) {
-		return super.queryListByUKeys(ids);
+		return super.queryListByUKeys("id",ids);
 	}
 
 

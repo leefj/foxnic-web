@@ -204,7 +204,7 @@ public class PersonServiceImpl extends SuperService<Person> implements IPersonSe
 
 	@Override
 	public List<Person> getByIds(List<String> ids) {
-		return super.queryListByUKeys(ids);
+		return super.queryListByUKeys("id",ids);
 	}
 
 

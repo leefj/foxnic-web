@@ -221,7 +221,7 @@ public class CodeExampleServiceImpl extends SuperService<CodeExample> implements
 
 	@Override
 	public List<CodeExample> getByIds(List<String> ids) {
-		return super.queryListByUKeys(ids);
+		return super.queryListByUKeys("id",ids);
 	}
 
 

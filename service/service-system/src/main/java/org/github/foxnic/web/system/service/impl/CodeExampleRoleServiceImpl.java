@@ -182,7 +182,7 @@ public class CodeExampleRoleServiceImpl extends SuperService<CodeExampleRole> im
 
 	@Override
 	public List<CodeExampleRole> getByIds(List<String> ids) {
-		return super.queryListByUKeys(ids);
+		return super.queryListByUKeys("id",ids);
 	}
 
 
