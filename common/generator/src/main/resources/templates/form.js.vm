@@ -254,7 +254,7 @@ function FormPage() {
 		var fm=$('#data-form');
 		if (hasData) {
 			fm[0].reset();
-			form.val('data-form', formData,true);
+			form.val('data-form', formData);
 
 	     	#for(f : fields)
 			#if(f.isFormElem)

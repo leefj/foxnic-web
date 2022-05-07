@@ -70,7 +70,7 @@ layui.define('layer', function(exports){
   };
   
   //赋值/取值
-  Form.prototype.val = function(filter, object,useId){
+  Form.prototype.val = function(filter, object){
     var that = this
     ,formElem = $(ELEM + '[lay-filter="' + filter +'"]');
     
@@ -84,7 +84,7 @@ layui.define('layer', function(exports){
         var itemElem = itemForm.find('[name="'+ key +'"]')
         ,type;
         // 修复无法取值的问题
-        if(!itemElem[0] && useId){
+        if(!itemElem[0]){
           itemElem=$("#"+key);
         }
         //如果对应的表单不存在，则不执行
@@ -121,11 +121,20 @@ layui.define('layer', function(exports){
     var nameIndex = {} //数组 name 索引
     ,field = {}
     ,fieldElem = itemForm.find('input,select,textarea') //获取所有表单域
-    
+
+    // 问题修复
+    if(!fieldElem || fieldElem.length==0) {
+      fieldElem = $('input,select,textarea');
+    }
+
     layui.each(fieldElem, function(_, item){ 
       var othis = $(this)
       ,init_name; //初始 name
-      
+
+      // 问题修复
+      var fm=$(item.form);
+      if(fm.attr("lay-filter")!=filter) return;
+      //
       item.name = (item.name || '').replace(/^\s*|\s*&/, '');
       if(!item.name) return;
       
@@ -637,7 +646,15 @@ layui.define('layer', function(exports){
     ,verifyElem = elem.find('*[lay-verify]') //获取需要校验的元素
     ,formElem = button.parents('form')[0] //获取当前所在的 form 元素，如果存在的话
     ,filter = button.attr('lay-filter'); //获取过滤器
-   
+
+    //问题修复
+    if(formElem==null) {
+      formElem=$("form")[0];
+    }
+    var formFilter = null;
+    if(formElem!=null){
+      formFilter=$(formElem).attr("lay-filter")
+    }
     
     //开始校验
     layui.each(verifyElem, function(_, item){
@@ -712,7 +729,7 @@ layui.define('layer', function(exports){
     if(stop) return false;
     
     //获取当前表单值
-    field = form.getValue(null, elem);
+    field = form.getValue(formFilter, elem);
  
     //返回字段
     return layui.event.call(this, MOD_NAME, 'submit('+ filter +')', {
