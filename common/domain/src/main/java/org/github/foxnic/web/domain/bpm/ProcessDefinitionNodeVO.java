@@ -12,8 +12,8 @@ import com.github.foxnic.commons.bean.BeanUtil;
 /**
  * 流程定义节点
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-07 17:28:58
- * @sign F444B22B8D5E1084E71CC0CB367440DC
+ * @since 2022-05-07 18:26:22
+ * @sign DC6BFC5E6F291D0B629383BA8C34C0CA
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -74,6 +74,12 @@ public class ProcessDefinitionNodeVO extends ProcessDefinitionNode {
 	*/
 	@ApiModelProperty(required = false,value="主键清单" , notes = "用于接收批量主键参数")
 	private List<String> ids;
+	
+	/**
+	 * 选择的审批人信息：选择的审批人信息
+	*/
+	@ApiModelProperty(required = false,value="选择的审批人信息" , notes = "选择的审批人信息")
+	private String assigneeInfo;
 	
 	/**
 	 * 获得 页码<br>
@@ -257,6 +263,25 @@ public class ProcessDefinitionNodeVO extends ProcessDefinitionNode {
 	public ProcessDefinitionNodeVO addId(String id) {
 		if(this.ids==null) ids=new ArrayList<>();
 		this.ids.add(id);
+		return this;
+	}
+	
+	/**
+	 * 获得 选择的审批人信息<br>
+	 * 选择的审批人信息
+	 * @return 选择的审批人信息
+	*/
+	public String getAssigneeInfo() {
+		return assigneeInfo;
+	}
+	
+	/**
+	 * 设置 选择的审批人信息
+	 * @param assigneeInfo 选择的审批人信息
+	 * @return 当前对象
+	*/
+	public ProcessDefinitionNodeVO setAssigneeInfo(String assigneeInfo) {
+		this.assigneeInfo=assigneeInfo;
 		return this;
 	}
 	@Transient

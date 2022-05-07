@@ -10,8 +10,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-07 17:28:58
- * @sign F444B22B8D5E1084E71CC0CB367440DC
+ * @since 2022-05-07 18:26:22
+ * @sign DC6BFC5E6F291D0B629383BA8C34C0CA
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -106,6 +106,16 @@ public class ProcessDefinitionNodeVOMeta extends ProcessDefinitionNodeMeta {
 	 * 主键清单 , 用于接收批量主键参数 , 集合类型: LIST , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionNodeVO,java.lang.String> IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionNodeVO.class ,IDS, java.util.List.class, "主键清单", "用于接收批量主键参数", java.lang.String.class, null);
+	
+	/**
+	 * 选择的审批人信息 , 类型: java.lang.String
+	*/
+	public static final String ASSIGNEE_INFO="assigneeInfo";
+	
+	/**
+	 * 选择的审批人信息 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionNodeVO,java.lang.String> ASSIGNEE_INFO_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionNodeVO.class ,ASSIGNEE_INFO, java.lang.String.class, "选择的审批人信息", "选择的审批人信息", java.lang.String.class, null);
 	
 	/**
 	 * ID , 类型: java.lang.String
@@ -280,7 +290,7 @@ public class ProcessDefinitionNodeVOMeta extends ProcessDefinitionNodeMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , PROCESS_DEFINITION_ID , PROCESS_DEFINITION_FILE_ID , CAMUNDA_NODE_ID , NODE_TYPE , NODE_NAME , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , SORT };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ASSIGNEE_INFO , ID , PROCESS_DEFINITION_ID , PROCESS_DEFINITION_FILE_ID , CAMUNDA_NODE_ID , NODE_TYPE , NODE_NAME , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , SORT };
 	
 	/**
 	 * 代理类
@@ -386,6 +396,17 @@ public class ProcessDefinitionNodeVOMeta extends ProcessDefinitionNodeMeta {
 		public ProcessDefinitionNodeVO setIds(List<String> ids) {
 			super.change(IDS,super.getIds(),ids);
 			super.setIds(ids);
+			return this;
+		}
+		
+		/**
+		 * 设置 选择的审批人信息
+		 * @param assigneeInfo 选择的审批人信息
+		 * @return 当前对象
+		*/
+		public ProcessDefinitionNodeVO setAssigneeInfo(String assigneeInfo) {
+			super.change(ASSIGNEE_INFO,super.getAssigneeInfo(),assigneeInfo);
+			super.setAssigneeInfo(assigneeInfo);
 			return this;
 		}
 		

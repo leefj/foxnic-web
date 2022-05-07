@@ -8,6 +8,9 @@ import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_PROCESS_DEFINITION_NODE;
+import org.github.foxnic.web.domain.bpm.ProcessDefinitionNode;
+import org.github.foxnic.web.domain.bpm.meta.ProcessDefinitionNodeMeta;
+import org.github.foxnic.web.domain.bpm.meta.ProcessDefinitionNodeVOMeta;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
@@ -19,7 +22,7 @@ public class ProcessDefinitionNodeConfig extends BaseCodeConfig<BPM_PROCESS_DEFI
 
     @Override
     public void configModel(PoClassFile poType, VoClassFile voType) {
-
+        voType.addSimpleProperty(String.class,"assigneeInfo","选择的审批人信息","选择的审批人信息");
     }
 
     @Override
@@ -36,6 +39,8 @@ public class ProcessDefinitionNodeConfig extends BaseCodeConfig<BPM_PROCESS_DEFI
 
         view.field( BPM_PROCESS_DEFINITION_NODE.CAMUNDA_NODE_ID).form().readOnly();
         view.field( BPM_PROCESS_DEFINITION_NODE.NODE_TYPE).form().readOnly();
+        view.field(ProcessDefinitionNodeVOMeta.ASSIGNEE_INFO).basic().label("审批人").form().button().chooseEmployee(false)
+                .form().validate().required();
 
 //        view.field(BPM_PROCESS_DEFINITION_FILE.FILE_ID).basic().label("流程文件").table().hidden().search().hidden()
 //                .form().upload().acceptExts("bpmn","txt").buttonLabel("上传流程图").maxFileCount(1).displayFileName(true)
@@ -55,7 +60,8 @@ public class ProcessDefinitionNodeConfig extends BaseCodeConfig<BPM_PROCESS_DEFI
     public void configForm(ViewOptions view, FormOptions form) {
         form.columnLayout(new Object[]{
                 BPM_PROCESS_DEFINITION_NODE.CAMUNDA_NODE_ID,
-                BPM_PROCESS_DEFINITION_NODE.NODE_TYPE
+                BPM_PROCESS_DEFINITION_NODE.NODE_TYPE,
+                ProcessDefinitionNodeVOMeta.ASSIGNEE_INFO
         });
     }
 
