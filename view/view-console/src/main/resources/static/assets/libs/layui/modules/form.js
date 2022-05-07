@@ -70,7 +70,7 @@ layui.define('layer', function(exports){
   };
   
   //赋值/取值
-  Form.prototype.val = function(filter, object){
+  Form.prototype.val = function(filter, object,useId){
     var that = this
     ,formElem = $(ELEM + '[lay-filter="' + filter +'"]');
     
@@ -83,7 +83,10 @@ layui.define('layer', function(exports){
         // debugger;
         var itemElem = itemForm.find('[name="'+ key +'"]')
         ,type;
-        
+        // 修复无法取值的问题
+        if(!itemElem[0] && useId){
+          itemElem=$("#"+key);
+        }
         //如果对应的表单不存在，则不执行
         if(!itemElem[0]) return;
         type = itemElem[0].type;
