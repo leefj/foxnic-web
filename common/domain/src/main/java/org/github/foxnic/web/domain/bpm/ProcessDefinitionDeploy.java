@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程应用登记
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-07 09:27:43
- * @sign 0010501718CBB14DAE6725EB400AA40D
+ * @since 2022-05-07 17:29:15
+ * @sign 63BDA24243F5907FFD81B52F6E3ABF94
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -39,7 +39,7 @@ public class ProcessDefinitionDeploy extends Entity {
 	 * 流程定义ID：流程定义ID
 	*/
 	@ApiModelProperty(required = false,value="流程定义ID" , notes = "流程定义ID")
-	private String definitionId;
+	private String processDefinitionId;
 	
 	/**
 	 * 流程文件ID：流程文件ID
@@ -107,17 +107,17 @@ public class ProcessDefinitionDeploy extends Entity {
 	 * 流程定义ID
 	 * @return 流程定义ID
 	*/
-	public String getDefinitionId() {
-		return definitionId;
+	public String getProcessDefinitionId() {
+		return processDefinitionId;
 	}
 	
 	/**
 	 * 设置 流程定义ID
-	 * @param definitionId 流程定义ID
+	 * @param processDefinitionId 流程定义ID
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionDeploy setDefinitionId(String definitionId) {
-		this.definitionId=definitionId;
+	public ProcessDefinitionDeploy setProcessDefinitionId(String processDefinitionId) {
+		this.processDefinitionId=processDefinitionId;
 		return this;
 	}
 	

@@ -3,13 +3,17 @@ package org.github.foxnic.web.domain.bpm.meta;
 import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.bpm.Task;
 import java.util.Date;
+import org.github.foxnic.web.domain.bpm.ProcessDefinition;
+import org.github.foxnic.web.domain.bpm.ProcessInstance;
+import org.github.foxnic.web.domain.bpm.Appover;
+import org.github.foxnic.web.domain.oauth.User;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-07 09:27:45
- * @sign E2496322A53C4B269C943E47F94A7EF2
+ * @since 2022-05-07 13:57:07
+ * @sign CE7B2A267E36B7096E355F2D2368A26C
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -88,12 +92,12 @@ public class TaskMeta {
 	/**
 	 * 审批人身份ID , 实际的审批人身份 , 类型: java.lang.String
 	*/
-	public static final String APPRIVER_ID="appriverId";
+	public static final String APPROVER_ID="approverId";
 	
 	/**
 	 * 审批人身份ID , 实际的审批人身份 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.Task,java.lang.String> APPRIVER_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.Task.class ,APPRIVER_ID, java.lang.String.class, "审批人身份ID", "实际的审批人身份", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.Task,java.lang.String> APPROVER_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.Task.class ,APPROVER_ID, java.lang.String.class, "审批人身份ID", "实际的审批人身份", java.lang.String.class, null);
 	
 	/**
 	 * 审批人账户ID , 预计的审批人 , 类型: java.lang.String
@@ -256,9 +260,69 @@ public class TaskMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.Task,java.lang.String> TENANT_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.Task.class ,TENANT_ID, java.lang.String.class, "tenant_id", "tenant_id", java.lang.String.class, null);
 	
 	/**
+	 * 流程类型 , 类型: org.github.foxnic.web.domain.bpm.ProcessDefinition
+	*/
+	public static final String PROCESS_DEFINITION="processDefinition";
+	
+	/**
+	 * 流程类型 , 类型: org.github.foxnic.web.domain.bpm.ProcessDefinition
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.Task,org.github.foxnic.web.domain.bpm.ProcessDefinition> PROCESS_DEFINITION_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.Task.class ,PROCESS_DEFINITION, org.github.foxnic.web.domain.bpm.ProcessDefinition.class, "流程类型", "流程类型", org.github.foxnic.web.domain.bpm.ProcessDefinition.class, null);
+	
+	/**
+	 * 流程实例 , 类型: org.github.foxnic.web.domain.bpm.ProcessInstance
+	*/
+	public static final String PROCESS_INSTANCE="processInstance";
+	
+	/**
+	 * 流程实例 , 类型: org.github.foxnic.web.domain.bpm.ProcessInstance
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.Task,org.github.foxnic.web.domain.bpm.ProcessInstance> PROCESS_INSTANCE_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.Task.class ,PROCESS_INSTANCE, org.github.foxnic.web.domain.bpm.ProcessInstance.class, "流程实例", "流程实例", org.github.foxnic.web.domain.bpm.ProcessInstance.class, null);
+	
+	/**
+	 * 审批人身份 , 审批人身份，实际审批人 , 类型: org.github.foxnic.web.domain.bpm.Appover
+	*/
+	public static final String APPROVER="approver";
+	
+	/**
+	 * 审批人身份 , 审批人身份，实际审批人 , 类型: org.github.foxnic.web.domain.bpm.Appover
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.Task,org.github.foxnic.web.domain.bpm.Appover> APPROVER_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.Task.class ,APPROVER, org.github.foxnic.web.domain.bpm.Appover.class, "审批人身份", "审批人身份，实际审批人", org.github.foxnic.web.domain.bpm.Appover.class, null);
+	
+	/**
+	 * 审批人名称 , 审批人名称，实际审批人 , 类型: java.lang.String
+	*/
+	public static final String APPROVER_NAME="approverName";
+	
+	/**
+	 * 审批人名称 , 审批人名称，实际审批人 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.Task,java.lang.String> APPROVER_NAME_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.Task.class ,APPROVER_NAME, java.lang.String.class, "审批人名称", "审批人名称，实际审批人", java.lang.String.class, null);
+	
+	/**
+	 * 审批人账户 , 审批人账户，实际审批人 , 类型: org.github.foxnic.web.domain.oauth.User
+	*/
+	public static final String APPROVER_USER="approverUser";
+	
+	/**
+	 * 审批人账户 , 审批人账户，实际审批人 , 类型: org.github.foxnic.web.domain.oauth.User
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.Task,org.github.foxnic.web.domain.oauth.User> APPROVER_USER_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.Task.class ,APPROVER_USER, org.github.foxnic.web.domain.oauth.User.class, "审批人账户", "审批人账户，实际审批人", org.github.foxnic.web.domain.oauth.User.class, null);
+	
+	/**
+	 * 代理人账户 , 代理人账户，预计审批人 , 类型: org.github.foxnic.web.domain.oauth.User
+	*/
+	public static final String ASSIGNEE_USER="assigneeUser";
+	
+	/**
+	 * 代理人账户 , 代理人账户，预计审批人 , 类型: org.github.foxnic.web.domain.oauth.User
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.Task,org.github.foxnic.web.domain.oauth.User> ASSIGNEE_USER_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.Task.class ,ASSIGNEE_USER, org.github.foxnic.web.domain.oauth.User.class, "代理人账户", "代理人账户，预计审批人", org.github.foxnic.web.domain.oauth.User.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , PROCESS_DEFINITION_ID , NODE_ID , NODE_NAME , PROCESS_INSTANCE_ID , APPROVER_USER_ID , APPROVER_TYPE , APPRIVER_ID , ASSIGNEE_ID , STATUS , APPROVAL_TIME , APPROVAL_RESULT , APPROVAL_COMMENT , VARIABLES , CAMUNDA_TASK_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID };
+	public static final String[] $PROPS={ ID , PROCESS_DEFINITION_ID , NODE_ID , NODE_NAME , PROCESS_INSTANCE_ID , APPROVER_USER_ID , APPROVER_TYPE , APPROVER_ID , ASSIGNEE_ID , STATUS , APPROVAL_TIME , APPROVAL_RESULT , APPROVAL_COMMENT , VARIABLES , CAMUNDA_TASK_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , PROCESS_DEFINITION , PROCESS_INSTANCE , APPROVER , APPROVER_NAME , APPROVER_USER , ASSIGNEE_USER };
 	
 	/**
 	 * 代理类
@@ -347,12 +411,12 @@ public class TaskMeta {
 		
 		/**
 		 * 设置 审批人身份ID
-		 * @param appriverId 审批人身份ID
+		 * @param approverId 审批人身份ID
 		 * @return 当前对象
 		*/
-		public Task setAppriverId(String appriverId) {
-			super.change(APPRIVER_ID,super.getAppriverId(),appriverId);
-			super.setAppriverId(appriverId);
+		public Task setApproverId(String approverId) {
+			super.change(APPROVER_ID,super.getApproverId(),approverId);
+			super.setApproverId(approverId);
 			return this;
 		}
 		
@@ -529,6 +593,72 @@ public class TaskMeta {
 		public Task setTenantId(String tenantId) {
 			super.change(TENANT_ID,super.getTenantId(),tenantId);
 			super.setTenantId(tenantId);
+			return this;
+		}
+		
+		/**
+		 * 设置 流程类型
+		 * @param processDefinition 流程类型
+		 * @return 当前对象
+		*/
+		public Task setProcessDefinition(ProcessDefinition processDefinition) {
+			super.change(PROCESS_DEFINITION,super.getProcessDefinition(),processDefinition);
+			super.setProcessDefinition(processDefinition);
+			return this;
+		}
+		
+		/**
+		 * 设置 流程实例
+		 * @param processInstance 流程实例
+		 * @return 当前对象
+		*/
+		public Task setProcessInstance(ProcessInstance processInstance) {
+			super.change(PROCESS_INSTANCE,super.getProcessInstance(),processInstance);
+			super.setProcessInstance(processInstance);
+			return this;
+		}
+		
+		/**
+		 * 设置 审批人身份
+		 * @param approver 审批人身份
+		 * @return 当前对象
+		*/
+		public Task setApprover(Appover approver) {
+			super.change(APPROVER,super.getApprover(),approver);
+			super.setApprover(approver);
+			return this;
+		}
+		
+		/**
+		 * 设置 审批人名称
+		 * @param approverName 审批人名称
+		 * @return 当前对象
+		*/
+		public Task setApproverName(String approverName) {
+			super.change(APPROVER_NAME,super.getApproverName(),approverName);
+			super.setApproverName(approverName);
+			return this;
+		}
+		
+		/**
+		 * 设置 审批人账户
+		 * @param approverUser 审批人账户
+		 * @return 当前对象
+		*/
+		public Task setApproverUser(User approverUser) {
+			super.change(APPROVER_USER,super.getApproverUser(),approverUser);
+			super.setApproverUser(approverUser);
+			return this;
+		}
+		
+		/**
+		 * 设置 代理人账户
+		 * @param assigneeUser 代理人账户
+		 * @return 当前对象
+		*/
+		public Task setAssigneeUser(User assigneeUser) {
+			super.change(ASSIGNEE_USER,super.getAssigneeUser(),assigneeUser);
+			super.setAssigneeUser(assigneeUser);
 			return this;
 		}
 	}

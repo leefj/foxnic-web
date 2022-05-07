@@ -10,14 +10,14 @@ import com.github.foxnic.commons.bean.BeanUtil;
 
 
 /**
- * 流程定义文件
+ * 流程定义节点
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-07 17:28:46
- * @sign F2A969A233B1D662456CDC00FB190980
+ * @since 2022-05-07 17:28:58
+ * @sign F444B22B8D5E1084E71CC0CB367440DC
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
-public class ProcessDefinitionFileVO extends ProcessDefinitionFile {
+public class ProcessDefinitionNodeVO extends ProcessDefinitionNode {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -88,7 +88,7 @@ public class ProcessDefinitionFileVO extends ProcessDefinitionFile {
 	 * @param pageIndex 页码
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionFileVO setPageIndex(Integer pageIndex) {
+	public ProcessDefinitionNodeVO setPageIndex(Integer pageIndex) {
 		this.pageIndex=pageIndex;
 		return this;
 	}
@@ -106,7 +106,7 @@ public class ProcessDefinitionFileVO extends ProcessDefinitionFile {
 	 * @param pageSize 分页大小
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionFileVO setPageSize(Integer pageSize) {
+	public ProcessDefinitionNodeVO setPageSize(Integer pageSize) {
 		this.pageSize=pageSize;
 		return this;
 	}
@@ -124,7 +124,7 @@ public class ProcessDefinitionFileVO extends ProcessDefinitionFile {
 	 * @param searchField 搜索字段
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionFileVO setSearchField(String searchField) {
+	public ProcessDefinitionNodeVO setSearchField(String searchField) {
 		this.searchField=searchField;
 		return this;
 	}
@@ -142,7 +142,7 @@ public class ProcessDefinitionFileVO extends ProcessDefinitionFile {
 	 * @param fuzzyField 模糊搜索字段
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionFileVO setFuzzyField(String fuzzyField) {
+	public ProcessDefinitionNodeVO setFuzzyField(String fuzzyField) {
 		this.fuzzyField=fuzzyField;
 		return this;
 	}
@@ -160,7 +160,7 @@ public class ProcessDefinitionFileVO extends ProcessDefinitionFile {
 	 * @param searchValue 搜索的值
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionFileVO setSearchValue(String searchValue) {
+	public ProcessDefinitionNodeVO setSearchValue(String searchValue) {
 		this.searchValue=searchValue;
 		return this;
 	}
@@ -178,7 +178,7 @@ public class ProcessDefinitionFileVO extends ProcessDefinitionFile {
 	 * @param dirtyFields 已修改字段
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionFileVO setDirtyFields(List<String> dirtyFields) {
+	public ProcessDefinitionNodeVO setDirtyFields(List<String> dirtyFields) {
 		this.dirtyFields=dirtyFields;
 		return this;
 	}
@@ -188,7 +188,7 @@ public class ProcessDefinitionFileVO extends ProcessDefinitionFile {
 	 * @param dirtyField 已修改字段
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionFileVO addDirtyField(String dirtyField) {
+	public ProcessDefinitionNodeVO addDirtyField(String dirtyField) {
 		if(this.dirtyFields==null) dirtyFields=new ArrayList<>();
 		this.dirtyFields.add(dirtyField);
 		return this;
@@ -207,7 +207,7 @@ public class ProcessDefinitionFileVO extends ProcessDefinitionFile {
 	 * @param sortField 排序字段
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionFileVO setSortField(String sortField) {
+	public ProcessDefinitionNodeVO setSortField(String sortField) {
 		this.sortField=sortField;
 		return this;
 	}
@@ -225,7 +225,7 @@ public class ProcessDefinitionFileVO extends ProcessDefinitionFile {
 	 * @param sortType 排序方式
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionFileVO setSortType(String sortType) {
+	public ProcessDefinitionNodeVO setSortType(String sortType) {
 		this.sortType=sortType;
 		return this;
 	}
@@ -244,7 +244,7 @@ public class ProcessDefinitionFileVO extends ProcessDefinitionFile {
 	 * @param ids 主键清单
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionFileVO setIds(List<String> ids) {
+	public ProcessDefinitionNodeVO setIds(List<String> ids) {
 		this.ids=ids;
 		return this;
 	}
@@ -254,7 +254,7 @@ public class ProcessDefinitionFileVO extends ProcessDefinitionFile {
 	 * @param id 主键清单
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionFileVO addId(String id) {
+	public ProcessDefinitionNodeVO addId(String id) {
 		if(this.ids==null) ids=new ArrayList<>();
 		this.ids.add(id);
 		return this;

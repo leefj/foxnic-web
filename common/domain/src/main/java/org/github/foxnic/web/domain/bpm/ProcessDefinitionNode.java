@@ -3,32 +3,30 @@ package org.github.foxnic.web.domain.bpm;
 import com.github.foxnic.dao.entity.Entity;
 import javax.persistence.Table;
 import com.github.foxnic.sql.meta.DBTable;
-import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_PROCESS_DEFINITION_FILE;
+import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_PROCESS_DEFINITION_NODE;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
-import javax.persistence.Transient;
 import java.util.Date;
-import org.github.foxnic.web.domain.oauth.User;
-import com.github.foxnic.commons.lang.DataParser;
+import javax.persistence.Transient;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
 
 
 
 /**
- * 流程定义文件
+ * 流程定义节点
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-07 17:28:46
- * @sign FCE587CB38AC9AD310CD5A037C13B488
+ * @since 2022-05-07 17:28:58
+ * @sign CED9444805AF950B1547E12B11D0DE37
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
-@Table(name = "bpm_process_definition_file")
-public class ProcessDefinitionFile extends Entity {
+@Table(name = "bpm_process_definition_node")
+public class ProcessDefinitionNode extends Entity {
 
 	private static final long serialVersionUID = 1L;
 
-	public static final DBTable TABLE =BPM_PROCESS_DEFINITION_FILE.$TABLE;
+	public static final DBTable TABLE =BPM_PROCESS_DEFINITION_NODE.$TABLE;
 	
 	/**
 	 * ID：ID
@@ -47,27 +45,25 @@ public class ProcessDefinitionFile extends Entity {
 	 * 流程文件ID：流程文件ID
 	*/
 	@ApiModelProperty(required = false,value="流程文件ID" , notes = "流程文件ID")
-	private String fileId;
+	private String processDefinitionFileId;
 	
 	/**
-	 * 版本号：版本号
+	 * 节点ID：节点ID
 	*/
-	@ApiModelProperty(required = false,value="版本号" , notes = "版本号")
-	private String versionNo;
+	@ApiModelProperty(required = false,value="节点ID" , notes = "节点ID")
+	private String camundaNodeId;
 	
 	/**
-	 * 名称：名称
+	 * 节点类型：节点类型
 	*/
-	@ApiModelProperty(required = false,value="名称" , notes = "名称")
-	private String name;
+	@ApiModelProperty(required = false,value="节点类型" , notes = "节点类型")
+	private String nodeType;
 	
 	/**
-	 * 是否激活：只能有一个版本是激活的
+	 * 节点名称：节点名称
 	*/
-	@ApiModelProperty(required = false,value="是否激活" , notes = "只能有一个版本是激活的")
-	private Integer activated;
-	@Transient
-	private Boolean activatedBool;
+	@ApiModelProperty(required = false,value="节点名称" , notes = "节点名称")
+	private String nodeName;
 	
 	/**
 	 * 备注：备注
@@ -130,28 +126,10 @@ public class ProcessDefinitionFile extends Entity {
 	private String tenantId;
 	
 	/**
-	 * 部署结果：部署结果
+	 * 序号：序号
 	*/
-	@ApiModelProperty(required = false,value="部署结果" , notes = "部署结果")
-	private String deployResult;
-	
-	/**
-	 * 部署成功：逻辑值
-	*/
-	@ApiModelProperty(required = false,value="部署成功" , notes = "逻辑值")
-	private Integer deploySuccess;
-	
-	/**
-	 * 提示信息：提示信息
-	*/
-	@ApiModelProperty(required = false,value="提示信息" , notes = "提示信息")
-	private String deployError;
-	
-	/**
-	 * 最后修改人：最后修改人
-	*/
-	@ApiModelProperty(required = false,value="最后修改人" , notes = "最后修改人")
-	private User lastUpdateUser;
+	@ApiModelProperty(required = false,value="序号" , notes = "序号")
+	private Integer sort;
 	
 	/**
 	 * 获得 ID<br>
@@ -167,7 +145,7 @@ public class ProcessDefinitionFile extends Entity {
 	 * @param id ID
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionFile setId(String id) {
+	public ProcessDefinitionNode setId(String id) {
 		this.id=id;
 		return this;
 	}
@@ -186,7 +164,7 @@ public class ProcessDefinitionFile extends Entity {
 	 * @param processDefinitionId 流程定义ID
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionFile setProcessDefinitionId(String processDefinitionId) {
+	public ProcessDefinitionNode setProcessDefinitionId(String processDefinitionId) {
 		this.processDefinitionId=processDefinitionId;
 		return this;
 	}
@@ -196,104 +174,74 @@ public class ProcessDefinitionFile extends Entity {
 	 * 流程文件ID
 	 * @return 流程文件ID
 	*/
-	public String getFileId() {
-		return fileId;
+	public String getProcessDefinitionFileId() {
+		return processDefinitionFileId;
 	}
 	
 	/**
 	 * 设置 流程文件ID
-	 * @param fileId 流程文件ID
+	 * @param processDefinitionFileId 流程文件ID
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionFile setFileId(String fileId) {
-		this.fileId=fileId;
+	public ProcessDefinitionNode setProcessDefinitionFileId(String processDefinitionFileId) {
+		this.processDefinitionFileId=processDefinitionFileId;
 		return this;
 	}
 	
 	/**
-	 * 获得 版本号<br>
-	 * 版本号
-	 * @return 版本号
+	 * 获得 节点ID<br>
+	 * 节点ID
+	 * @return 节点ID
 	*/
-	public String getVersionNo() {
-		return versionNo;
+	public String getCamundaNodeId() {
+		return camundaNodeId;
 	}
 	
 	/**
-	 * 设置 版本号
-	 * @param versionNo 版本号
+	 * 设置 节点ID
+	 * @param camundaNodeId 节点ID
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionFile setVersionNo(String versionNo) {
-		this.versionNo=versionNo;
+	public ProcessDefinitionNode setCamundaNodeId(String camundaNodeId) {
+		this.camundaNodeId=camundaNodeId;
 		return this;
 	}
 	
 	/**
-	 * 获得 名称<br>
-	 * 名称
-	 * @return 名称
+	 * 获得 节点类型<br>
+	 * 节点类型
+	 * @return 节点类型
 	*/
-	public String getName() {
-		return name;
+	public String getNodeType() {
+		return nodeType;
 	}
 	
 	/**
-	 * 设置 名称
-	 * @param name 名称
+	 * 设置 节点类型
+	 * @param nodeType 节点类型
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionFile setName(String name) {
-		this.name=name;
+	public ProcessDefinitionNode setNodeType(String nodeType) {
+		this.nodeType=nodeType;
 		return this;
 	}
 	
 	/**
-	 * 获得 是否激活<br>
-	 * 只能有一个版本是激活的
-	 * @return 是否激活
+	 * 获得 节点名称<br>
+	 * 节点名称
+	 * @return 节点名称
 	*/
-	public Integer getActivated() {
-		return activated;
+	public String getNodeName() {
+		return nodeName;
 	}
 	
 	/**
-	 * 获得 是否激活 的投影属性<br>
-	 * 等价于 getActivated 方法，获得对应的枚举类型
-	 * @return 是否激活
-	*/
-	@Transient
-	public Boolean isActivated() {
-		if(this.activatedBool==null) {
-			this.activatedBool=DataParser.parseBoolean(activated);
-		}
-		return this.activatedBool ;
-	}
-	
-	/**
-	 * 设置 是否激活
-	 * @param activated 是否激活
+	 * 设置 节点名称
+	 * @param nodeName 节点名称
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionFile setActivated(Integer activated) {
-		this.activated=activated;
-		this.activatedBool=DataParser.parseBoolean(activated);
-		return this;
-	}
-	
-	/**
-	 * 设置 是否激活的投影属性，等同于设置 是否激活
-	 * @param activatedBool 是否激活
-	 * @return 当前对象
-	*/
-	@Transient
-	public ProcessDefinitionFile setActivated(Boolean activatedBool) {
-		if(activatedBool==null) {
-			this.activated=null;
-		} else {
-			this.activated=activatedBool?1:0;
-		}
-		this.activatedBool=activatedBool;
+	public ProcessDefinitionNode setNodeName(String nodeName) {
+		this.nodeName=nodeName;
 		return this;
 	}
 	
@@ -311,7 +259,7 @@ public class ProcessDefinitionFile extends Entity {
 	 * @param notes 备注
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionFile setNotes(String notes) {
+	public ProcessDefinitionNode setNotes(String notes) {
 		this.notes=notes;
 		return this;
 	}
@@ -330,7 +278,7 @@ public class ProcessDefinitionFile extends Entity {
 	 * @param createBy 创建人ID
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionFile setCreateBy(String createBy) {
+	public ProcessDefinitionNode setCreateBy(String createBy) {
 		this.createBy=createBy;
 		return this;
 	}
@@ -349,7 +297,7 @@ public class ProcessDefinitionFile extends Entity {
 	 * @param createTime 创建时间
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionFile setCreateTime(Date createTime) {
+	public ProcessDefinitionNode setCreateTime(Date createTime) {
 		this.createTime=createTime;
 		return this;
 	}
@@ -368,7 +316,7 @@ public class ProcessDefinitionFile extends Entity {
 	 * @param updateBy 修改人ID
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionFile setUpdateBy(String updateBy) {
+	public ProcessDefinitionNode setUpdateBy(String updateBy) {
 		this.updateBy=updateBy;
 		return this;
 	}
@@ -387,7 +335,7 @@ public class ProcessDefinitionFile extends Entity {
 	 * @param updateTime 修改时间
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionFile setUpdateTime(Date updateTime) {
+	public ProcessDefinitionNode setUpdateTime(Date updateTime) {
 		this.updateTime=updateTime;
 		return this;
 	}
@@ -406,7 +354,7 @@ public class ProcessDefinitionFile extends Entity {
 	 * @param deleted 是否已删除
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionFile setDeleted(Integer deleted) {
+	public ProcessDefinitionNode setDeleted(Integer deleted) {
 		this.deleted=deleted;
 		return this;
 	}
@@ -425,7 +373,7 @@ public class ProcessDefinitionFile extends Entity {
 	 * @param deleteBy 删除人ID
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionFile setDeleteBy(String deleteBy) {
+	public ProcessDefinitionNode setDeleteBy(String deleteBy) {
 		this.deleteBy=deleteBy;
 		return this;
 	}
@@ -444,7 +392,7 @@ public class ProcessDefinitionFile extends Entity {
 	 * @param deleteTime 删除时间
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionFile setDeleteTime(Date deleteTime) {
+	public ProcessDefinitionNode setDeleteTime(Date deleteTime) {
 		this.deleteTime=deleteTime;
 		return this;
 	}
@@ -463,7 +411,7 @@ public class ProcessDefinitionFile extends Entity {
 	 * @param version 数据版本号
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionFile setVersion(Integer version) {
+	public ProcessDefinitionNode setVersion(Integer version) {
 		this.version=version;
 		return this;
 	}
@@ -482,91 +430,34 @@ public class ProcessDefinitionFile extends Entity {
 	 * @param tenantId 租户ID
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionFile setTenantId(String tenantId) {
+	public ProcessDefinitionNode setTenantId(String tenantId) {
 		this.tenantId=tenantId;
 		return this;
 	}
 	
 	/**
-	 * 获得 部署结果<br>
-	 * 部署结果
-	 * @return 部署结果
+	 * 获得 序号<br>
+	 * 序号
+	 * @return 序号
 	*/
-	public String getDeployResult() {
-		return deployResult;
+	public Integer getSort() {
+		return sort;
 	}
 	
 	/**
-	 * 设置 部署结果
-	 * @param deployResult 部署结果
+	 * 设置 序号
+	 * @param sort 序号
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionFile setDeployResult(String deployResult) {
-		this.deployResult=deployResult;
-		return this;
-	}
-	
-	/**
-	 * 获得 部署成功<br>
-	 * 逻辑值
-	 * @return 部署成功
-	*/
-	public Integer getDeploySuccess() {
-		return deploySuccess;
-	}
-	
-	/**
-	 * 设置 部署成功
-	 * @param deploySuccess 部署成功
-	 * @return 当前对象
-	*/
-	public ProcessDefinitionFile setDeploySuccess(Integer deploySuccess) {
-		this.deploySuccess=deploySuccess;
-		return this;
-	}
-	
-	/**
-	 * 获得 提示信息<br>
-	 * 提示信息
-	 * @return 提示信息
-	*/
-	public String getDeployError() {
-		return deployError;
-	}
-	
-	/**
-	 * 设置 提示信息
-	 * @param deployError 提示信息
-	 * @return 当前对象
-	*/
-	public ProcessDefinitionFile setDeployError(String deployError) {
-		this.deployError=deployError;
-		return this;
-	}
-	
-	/**
-	 * 获得 最后修改人<br>
-	 * 最后修改人
-	 * @return 最后修改人
-	*/
-	public User getLastUpdateUser() {
-		return lastUpdateUser;
-	}
-	
-	/**
-	 * 设置 最后修改人
-	 * @param lastUpdateUser 最后修改人
-	 * @return 当前对象
-	*/
-	public ProcessDefinitionFile setLastUpdateUser(User lastUpdateUser) {
-		this.lastUpdateUser=lastUpdateUser;
+	public ProcessDefinitionNode setSort(Integer sort) {
+		this.sort=sort;
 		return this;
 	}
 
 	/**
 	 * 将自己转换成指定类型的PO
 	 * @param poType  PO类型
-	 * @return ProcessDefinitionFile , 转换好的 ProcessDefinitionFile 对象
+	 * @return ProcessDefinitionNode , 转换好的 ProcessDefinitionNode 对象
 	*/
 	@Transient
 	public <T extends Entity> T toPO(Class<T> poType) {
@@ -576,7 +467,7 @@ public class ProcessDefinitionFile extends Entity {
 	/**
 	 * 将自己转换成任意指定类型
 	 * @param pojoType  Pojo类型
-	 * @return ProcessDefinitionFile , 转换好的 PoJo 对象
+	 * @return ProcessDefinitionNode , 转换好的 PoJo 对象
 	*/
 	@Transient
 	public <T> T toPojo(Class<T> pojoType) {
@@ -593,35 +484,35 @@ public class ProcessDefinitionFile extends Entity {
 	}
 
 	/**
-	 * 将 Map 转换成 ProcessDefinitionFile
-	 * @param processDefinitionFileMap 包含实体信息的 Map 对象
-	 * @return ProcessDefinitionFile , 转换好的的 ProcessDefinitionFile 对象
+	 * 将 Map 转换成 ProcessDefinitionNode
+	 * @param processDefinitionNodeMap 包含实体信息的 Map 对象
+	 * @return ProcessDefinitionNode , 转换好的的 ProcessDefinitionNode 对象
 	*/
 	@Transient
-	public static ProcessDefinitionFile createFrom(Map<String,Object> processDefinitionFileMap) {
-		if(processDefinitionFileMap==null) return null;
-		ProcessDefinitionFile po = EntityContext.create(ProcessDefinitionFile.class, processDefinitionFileMap);
+	public static ProcessDefinitionNode createFrom(Map<String,Object> processDefinitionNodeMap) {
+		if(processDefinitionNodeMap==null) return null;
+		ProcessDefinitionNode po = EntityContext.create(ProcessDefinitionNode.class, processDefinitionNodeMap);
 		return po;
 	}
 
 	/**
-	 * 将 Pojo 转换成 ProcessDefinitionFile
+	 * 将 Pojo 转换成 ProcessDefinitionNode
 	 * @param pojo 包含实体信息的 Pojo 对象
-	 * @return ProcessDefinitionFile , 转换好的的 ProcessDefinitionFile 对象
+	 * @return ProcessDefinitionNode , 转换好的的 ProcessDefinitionNode 对象
 	*/
 	@Transient
-	public static ProcessDefinitionFile createFrom(Object pojo) {
+	public static ProcessDefinitionNode createFrom(Object pojo) {
 		if(pojo==null) return null;
-		ProcessDefinitionFile po = EntityContext.create(ProcessDefinitionFile.class,pojo);
+		ProcessDefinitionNode po = EntityContext.create(ProcessDefinitionNode.class,pojo);
 		return po;
 	}
 
 	/**
-	 * 创建一个 ProcessDefinitionFile，等同于 new
-	 * @return ProcessDefinitionFile 对象
+	 * 创建一个 ProcessDefinitionNode，等同于 new
+	 * @return ProcessDefinitionNode 对象
 	*/
 	@Transient
-	public static ProcessDefinitionFile create() {
-		return EntityContext.create(ProcessDefinitionFile.class);
+	public static ProcessDefinitionNode create() {
+		return EntityContext.create(ProcessDefinitionNode.class);
 	}
 }

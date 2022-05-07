@@ -6,9 +6,21 @@ import com.github.foxnic.generator.builder.view.option.ListOptions;
 import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
+import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_TASK;
+import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_PROCESS_DEFINITION;
 import org.github.foxnic.web.constants.enums.bpm.TaskStatus;
+import org.github.foxnic.web.domain.bpm.Appover;
+import org.github.foxnic.web.domain.bpm.ProcessDefinition;
+import org.github.foxnic.web.domain.bpm.ProcessInstance;
+import org.github.foxnic.web.domain.bpm.meta.ProcessDefinitionMeta;
+import org.github.foxnic.web.domain.bpm.meta.ProcessInstanceMeta;
+import org.github.foxnic.web.domain.bpm.meta.TaskMeta;
+import org.github.foxnic.web.domain.oauth.User;
+import org.github.foxnic.web.domain.oauth.meta.UserMeta;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
+import org.github.foxnic.web.proxy.bpm.ProcessDefinitionServiceProxy;
+import org.github.foxnic.web.proxy.oauth.UserServiceProxy;
 
 public class TaskConfig extends BaseCodeConfig<BPM_TASK> {
 
@@ -19,11 +31,19 @@ public class TaskConfig extends BaseCodeConfig<BPM_TASK> {
     @Override
     public void configModel(PoClassFile poType, VoClassFile voType) {
         poType.shadow(BPM_TASK.STATUS, TaskStatus.class);
+        poType.addSimpleProperty(ProcessDefinition.class,"processDefinition","流程类型","流程类型");
+        poType.addSimpleProperty(ProcessInstance.class,"processInstance","流程实例","流程实例");
+        poType.addSimpleProperty(Appover.class,"approver","审批人身份","审批人身份，实际审批人");
+        poType.addSimpleProperty(String.class,"approverName","审批人名称","审批人名称，实际审批人");
+        poType.addSimpleProperty(User.class,"approverUser","审批人账户","审批人账户，实际审批人");
+        poType.addSimpleProperty(User.class,"assigneeUser","代理人账户","代理人账户，预计审批人");
     }
 
     @Override
     public void configSearch(ViewOptions view, SearchAreaOptions search) {
-
+        search.inputLayout(new Object[]{
+                TaskMeta.PROCESS_DEFINITION,"processTitle",TaskMeta.ASSIGNEE_ID
+        });
     }
 
     @Override
@@ -31,7 +51,23 @@ public class TaskConfig extends BaseCodeConfig<BPM_TASK> {
 
 //        view.form().labelWidth(80);
 
-//        view.field(BPM_FORM_DEFINITION.ID).basic().hidden();
+        view.field(TaskMeta.PROCESS_DEFINITION).basic().label("流程类型")
+                .search().on(BPM_TASK.PROCESS_DEFINITION_ID)
+                .form().selectBox().queryApi(ProcessDefinitionServiceProxy.QUERY_PAGED_LIST).paging(true).toolbar(false).filter(true).valueField(BPM_PROCESS_DEFINITION.ID).textField(BPM_PROCESS_DEFINITION.NAME);
+
+        view.field("processName").basic().label("流程类型").table().fillBy(TaskMeta.PROCESS_DEFINITION, ProcessDefinitionMeta.NAME);
+
+        view.field("processTitle").basic().label("流程标题").table().fillBy(TaskMeta.PROCESS_INSTANCE, ProcessInstanceMeta.TITLE)
+                .search().fuzzySearch().on(FoxnicWeb.BPM_PROCESS_INSTANCE.TITLE);
+
+        view.field(TaskMeta.NODE_NAME).basic().label("审批节点");
+
+        view.field(TaskMeta.ASSIGNEE_ID).basic().label("待审人")
+                .form().selectBox().queryApi(UserServiceProxy.QUERY_PAGED_LIST).paging(true).toolbar(false).valueField("id").textField("realName");;
+
+        view.field("assigneeName").basic().label("待审人").table().fillBy(TaskMeta.ASSIGNEE_USER, UserMeta.REAL_NAME);
+
+
 //        view.field(BPM_FORM_DEFINITION.DRAFT_PAGE_URL).search().hidden().form().textInput();
 //        view.field(BPM_FORM_DEFINITION.APPROVAL_PAGE_URL).search().hidden().form().textInput();
 //        view.field(BPM_FORM_DEFINITION.VALID).search().hidden().form().logicField().on("有效",1).off("无效",0).defaultValue(true);
@@ -43,8 +79,12 @@ public class TaskConfig extends BaseCodeConfig<BPM_TASK> {
 
 
 
+
+
     @Override
     public void configList(ViewOptions view, ListOptions list) {
+        list.disableBatchDelete().disableSingleDelete().disableModify().disableCreateNew();
+
 //        ActionConfig action = null;
 //        action = list.operationColumn().addActionButton("流程图","showBpmnDiagrams");
 //        //action.setIconHtml("<li class='mdi mdi-set mdi-arrow-decision-outline'></li>");

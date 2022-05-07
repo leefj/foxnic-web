@@ -35,7 +35,7 @@ public class ProcessDefinitionFileConfig extends BaseCodeConfig<BPM_PROCESS_DEFI
         view.form().labelWidth(100);
 
         view.field(BPM_PROCESS_DEFINITION_FILE.ID).basic().hidden();
-        view.field(BPM_PROCESS_DEFINITION_FILE.DEFINITION_ID).basic().hidden();
+        view.field(BPM_PROCESS_DEFINITION_FILE.PROCESS_DEFINITION_ID).basic().hidden();
         view.field(BPM_PROCESS_DEFINITION_FILE.FILE_ID).basic().label("流程文件").table().hidden().search().hidden()
                 .form().upload().acceptExts("bpmn","txt").buttonLabel("上传流程图").maxFileCount(1).displayFileName(true)
                 .form().validate().required();
@@ -45,7 +45,7 @@ public class ProcessDefinitionFileConfig extends BaseCodeConfig<BPM_PROCESS_DEFI
         view.field(BPM_PROCESS_DEFINITION_FILE.ACTIVATED).basic().label("状态").form().hidden();
 
         view.field(BPM_PROCESS_DEFINITION_FILE.DEPLOY_ERROR).basic().label("部署提示").search().hidden();
-        view.field(BPM_PROCESS_DEFINITION_FILE.DEPLOY_RESULT).search().hidden();
+        view.field(BPM_PROCESS_DEFINITION_FILE.DEPLOY_RESULT).search().hidden().table().disable();
         view.field(BPM_PROCESS_DEFINITION_FILE.DEPLOY_SUCCESS).basic().label("部署结果").search().hidden();
 
     }
@@ -63,6 +63,8 @@ public class ProcessDefinitionFileConfig extends BaseCodeConfig<BPM_PROCESS_DEFI
     public void configList(ViewOptions view, ListOptions list) {
         list.disableModify();
         list.disableBatchDelete().disableSingleDelete();
+        list.operationColumn().addActionButton("节点","showNodes");
+        list.operationColumn().addActionButton("部署","deploy");
     }
 
     @Override

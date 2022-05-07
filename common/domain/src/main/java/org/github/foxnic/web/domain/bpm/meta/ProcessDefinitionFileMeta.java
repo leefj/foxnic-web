@@ -9,8 +9,8 @@ import org.github.foxnic.web.domain.oauth.User;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-07 11:00:04
- * @sign FFC418EF9B2180B91F0FB5734DD132BD
+ * @since 2022-05-07 17:28:46
+ * @sign FCE587CB38AC9AD310CD5A037C13B488
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -29,12 +29,12 @@ public class ProcessDefinitionFileMeta {
 	/**
 	 * 流程定义ID , 类型: java.lang.String
 	*/
-	public static final String DEFINITION_ID="definitionId";
+	public static final String PROCESS_DEFINITION_ID="processDefinitionId";
 	
 	/**
 	 * 流程定义ID , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionFile,java.lang.String> DEFINITION_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionFile.class ,DEFINITION_ID, java.lang.String.class, "流程定义ID", "流程定义ID", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionFile,java.lang.String> PROCESS_DEFINITION_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionFile.class ,PROCESS_DEFINITION_ID, java.lang.String.class, "流程定义ID", "流程定义ID", java.lang.String.class, null);
 	
 	/**
 	 * 流程文件ID , 类型: java.lang.String
@@ -219,7 +219,7 @@ public class ProcessDefinitionFileMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , DEFINITION_ID , FILE_ID , VERSION_NO , NAME , ACTIVATED , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , DEPLOY_RESULT , DEPLOY_SUCCESS , DEPLOY_ERROR , LAST_UPDATE_USER };
+	public static final String[] $PROPS={ ID , PROCESS_DEFINITION_ID , FILE_ID , VERSION_NO , NAME , ACTIVATED , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , DEPLOY_RESULT , DEPLOY_SUCCESS , DEPLOY_ERROR , LAST_UPDATE_USER };
 	
 	/**
 	 * 代理类
@@ -242,12 +242,12 @@ public class ProcessDefinitionFileMeta {
 		
 		/**
 		 * 设置 流程定义ID
-		 * @param definitionId 流程定义ID
+		 * @param processDefinitionId 流程定义ID
 		 * @return 当前对象
 		*/
-		public ProcessDefinitionFile setDefinitionId(String definitionId) {
-			super.change(DEFINITION_ID,super.getDefinitionId(),definitionId);
-			super.setDefinitionId(definitionId);
+		public ProcessDefinitionFile setProcessDefinitionId(String processDefinitionId) {
+			super.change(PROCESS_DEFINITION_ID,super.getProcessDefinitionId(),processDefinitionId);
+			super.setProcessDefinitionId(processDefinitionId);
 			return this;
 		}
 		

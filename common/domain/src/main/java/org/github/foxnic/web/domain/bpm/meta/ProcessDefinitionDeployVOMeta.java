@@ -10,7 +10,7 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-07 09:27:43
+ * @since 2022-05-07 17:29:15
  * @sign 83DDD2E2EDEDC8A320621FEC3CD06002
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -120,12 +120,12 @@ public class ProcessDefinitionDeployVOMeta extends ProcessDefinitionDeployMeta {
 	/**
 	 * 流程定义ID , 类型: java.lang.String
 	*/
-	public static final String DEFINITION_ID="definitionId";
+	public static final String PROCESS_DEFINITION_ID="processDefinitionId";
 	
 	/**
 	 * 流程定义ID , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionDeployVO,java.lang.String> DEFINITION_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionDeployVO.class ,DEFINITION_ID, java.lang.String.class, "流程定义ID", "流程定义ID", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionDeployVO,java.lang.String> PROCESS_DEFINITION_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionDeployVO.class ,PROCESS_DEFINITION_ID, java.lang.String.class, "流程定义ID", "流程定义ID", java.lang.String.class, null);
 	
 	/**
 	 * 流程文件ID , 类型: java.lang.String
@@ -200,7 +200,7 @@ public class ProcessDefinitionDeployVOMeta extends ProcessDefinitionDeployMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , DEFINITION_ID , FILE_ID , REQUEST , RESULT , APPLY_TIME , EXCEPTION , SUCCESS , TENANT_ID };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , PROCESS_DEFINITION_ID , FILE_ID , REQUEST , RESULT , APPLY_TIME , EXCEPTION , SUCCESS , TENANT_ID };
 	
 	/**
 	 * 代理类
@@ -322,12 +322,12 @@ public class ProcessDefinitionDeployVOMeta extends ProcessDefinitionDeployMeta {
 		
 		/**
 		 * 设置 流程定义ID
-		 * @param definitionId 流程定义ID
+		 * @param processDefinitionId 流程定义ID
 		 * @return 当前对象
 		*/
-		public ProcessDefinitionDeploy setDefinitionId(String definitionId) {
-			super.change(DEFINITION_ID,super.getDefinitionId(),definitionId);
-			super.setDefinitionId(definitionId);
+		public ProcessDefinitionDeploy setProcessDefinitionId(String processDefinitionId) {
+			super.change(PROCESS_DEFINITION_ID,super.getProcessDefinitionId(),processDefinitionId);
+			super.setProcessDefinitionId(processDefinitionId);
 			return this;
 		}
 		

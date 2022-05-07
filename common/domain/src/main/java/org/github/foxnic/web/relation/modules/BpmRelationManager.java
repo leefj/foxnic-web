@@ -8,6 +8,7 @@ import org.github.foxnic.web.domain.bpm.ProcessInstance;
 import org.github.foxnic.web.domain.bpm.meta.FormInstanceMeta;
 import org.github.foxnic.web.domain.bpm.meta.ProcessDefinitionMeta;
 import org.github.foxnic.web.domain.bpm.meta.ProcessInstanceMeta;
+import org.github.foxnic.web.domain.bpm.meta.TaskMeta;
 import org.github.foxnic.web.domain.changes.meta.ChangeInstanceMeta;
 
 public class BpmRelationManager extends RelationManager {
@@ -28,7 +29,7 @@ public class BpmRelationManager extends RelationManager {
 
 		//流程定义 - 当前激活的流程定义文件
 		this.property(ProcessDefinitionMeta.DEFINITION_FILE_PROP)
-				.using(FoxnicWeb.BPM_PROCESS_DEFINITION.ID).join(FoxnicWeb.BPM_PROCESS_DEFINITION_FILE.DEFINITION_ID)
+				.using(FoxnicWeb.BPM_PROCESS_DEFINITION.ID).join(FoxnicWeb.BPM_PROCESS_DEFINITION_FILE.PROCESS_DEFINITION_ID)
 				.conditionEquals(FoxnicWeb.BPM_PROCESS_DEFINITION_FILE.ACTIVATED,1);
 
 
@@ -62,9 +63,21 @@ public class BpmRelationManager extends RelationManager {
 				.using(FoxnicWeb.BPM_FORM_INSTANCE.ID).join(FoxnicWeb.BPM_FORM_INSTANCE_BILL.FORM_INSTANCE_ID);
 
 
+		//任务 - 流程定义
+		this.property(TaskMeta.PROCESS_DEFINITION_PROP)
+				.using(FoxnicWeb.BPM_TASK.PROCESS_DEFINITION_ID).join(FoxnicWeb.BPM_PROCESS_DEFINITION.ID);
 
+		//任务 - 流程实例
+		this.property(TaskMeta.PROCESS_INSTANCE_PROP)
+				.using(FoxnicWeb.BPM_TASK.PROCESS_INSTANCE_ID).join(FoxnicWeb.BPM_PROCESS_INSTANCE.ID);
 
+		//任务 - 代理人账户
+		this.property(TaskMeta.ASSIGNEE_USER_PROP)
+				.using(FoxnicWeb.BPM_TASK.ASSIGNEE_ID).join(FoxnicWeb.SYS_USER.ID);
 
+		//任务 - 审批人账户
+		this.property(TaskMeta.APPROVER_USER_PROP)
+				.using(FoxnicWeb.BPM_TASK.APPROVER_ID).join(FoxnicWeb.SYS_USER.ID);
 
 	}
 

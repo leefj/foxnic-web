@@ -49,8 +49,14 @@ public class MenuGenerator {
 //		mg=new MenuGenerator(FoxnicWeb.BPM_PROCESS_DEFINITION.$TABLE, ProcessDefinitionServiceProxy.class, ProcessDefinitionPageController.class);
 //		mg.generate("555766790999773184");
 
-		mg=new MenuGenerator(FoxnicWeb.BPM_PROCESS_INSTANCE.$TABLE, ProcessInstanceServiceProxy.class, ProcessInstancePageController.class);
+		mg=new MenuGenerator(FoxnicWeb.BPM_PROCESS_DEFINITION_NODE.$TABLE, ProcessDefinitionNodeServiceProxy.class, ProcessDefinitionNodePageController.class);
 		mg.generate("555766790999773184");
+
+//		mg=new MenuGenerator(FoxnicWeb.BPM_TASK.$TABLE, TaskServiceProxy.class, TaskPageController.class);
+//		mg.generate("555766790999773184");
+
+//		mg=new MenuGenerator(FoxnicWeb.BPM_PROCESS_INSTANCE.$TABLE, ProcessInstanceServiceProxy.class, ProcessInstancePageController.class);
+//		mg.generate("555766790999773184");
 
 //		mg=new MenuGenerator(FoxnicWeb.BPM_PROCESS_DEFINITION_FILE.$TABLE, ProcessDefinitionFileServiceProxy.class, ProcessDefinitionFilePageController.class);
 //		mg.generate("555766790999773184");

@@ -6,8 +6,12 @@ import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_TASK;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.Date;
+import org.github.foxnic.web.constants.enums.bpm.TaskStatus;
 import javax.persistence.Transient;
+import java.util.Date;
+import org.github.foxnic.web.domain.oauth.User;
+import com.github.foxnic.commons.reflect.EnumUtil;
+import com.github.foxnic.commons.lang.StringUtil;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
 
@@ -16,8 +20,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程任务
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-07 09:27:45
- * @sign E2496322A53C4B269C943E47F94A7EF2
+ * @since 2022-05-07 13:57:07
+ * @sign CE7B2A267E36B7096E355F2D2368A26C
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -75,7 +79,7 @@ public class Task extends Entity {
 	 * 审批人身份ID：实际的审批人身份
 	*/
 	@ApiModelProperty(required = false,value="审批人身份ID" , notes = "实际的审批人身份")
-	private String appriverId;
+	private String approverId;
 	
 	/**
 	 * 审批人账户ID：预计的审批人
@@ -88,6 +92,8 @@ public class Task extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="任务状态" , notes = "任务状态")
 	private String status;
+	@Transient
+	private TaskStatus statusEnum;
 	
 	/**
 	 * 处理时间：处理时间
@@ -172,6 +178,42 @@ public class Task extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="tenant_id" , notes = "tenant_id")
 	private String tenantId;
+	
+	/**
+	 * 流程类型：流程类型
+	*/
+	@ApiModelProperty(required = false,value="流程类型" , notes = "流程类型")
+	private ProcessDefinition processDefinition;
+	
+	/**
+	 * 流程实例：流程实例
+	*/
+	@ApiModelProperty(required = false,value="流程实例" , notes = "流程实例")
+	private ProcessInstance processInstance;
+	
+	/**
+	 * 审批人身份：审批人身份，实际审批人
+	*/
+	@ApiModelProperty(required = false,value="审批人身份" , notes = "审批人身份，实际审批人")
+	private Appover approver;
+	
+	/**
+	 * 审批人名称：审批人名称，实际审批人
+	*/
+	@ApiModelProperty(required = false,value="审批人名称" , notes = "审批人名称，实际审批人")
+	private String approverName;
+	
+	/**
+	 * 审批人账户：审批人账户，实际审批人
+	*/
+	@ApiModelProperty(required = false,value="审批人账户" , notes = "审批人账户，实际审批人")
+	private User approverUser;
+	
+	/**
+	 * 代理人账户：代理人账户，预计审批人
+	*/
+	@ApiModelProperty(required = false,value="代理人账户" , notes = "代理人账户，预计审批人")
+	private User assigneeUser;
 	
 	/**
 	 * 获得 id<br>
@@ -311,17 +353,17 @@ public class Task extends Entity {
 	 * 实际的审批人身份
 	 * @return 审批人身份ID
 	*/
-	public String getAppriverId() {
-		return appriverId;
+	public String getApproverId() {
+		return approverId;
 	}
 	
 	/**
 	 * 设置 审批人身份ID
-	 * @param appriverId 审批人身份ID
+	 * @param approverId 审批人身份ID
 	 * @return 当前对象
 	*/
-	public Task setAppriverId(String appriverId) {
-		this.appriverId=appriverId;
+	public Task setApproverId(String approverId) {
+		this.approverId=approverId;
 		return this;
 	}
 	
@@ -354,12 +396,45 @@ public class Task extends Entity {
 	}
 	
 	/**
+	 * 获得 任务状态 的投影属性<br>
+	 * 等价于 getStatus 方法，获得对应的枚举类型
+	 * @return 任务状态
+	*/
+	@Transient
+	public TaskStatus getStatusEnum() {
+		if(this.statusEnum==null) {
+			this.statusEnum = (TaskStatus) EnumUtil.parseByCode(TaskStatus.values(),status);
+		}
+		return this.statusEnum ;
+	}
+	
+	/**
 	 * 设置 任务状态
 	 * @param status 任务状态
 	 * @return 当前对象
 	*/
 	public Task setStatus(String status) {
 		this.status=status;
+		this.statusEnum= (TaskStatus) EnumUtil.parseByCode(TaskStatus.values(),status) ;
+		if(StringUtil.hasContent(status) && this.statusEnum==null) {
+			throw new IllegalArgumentException( status + " is not one of TaskStatus");
+		}
+		return this;
+	}
+	
+	/**
+	 * 设置 任务状态的投影属性，等同于设置 任务状态
+	 * @param statusEnum 任务状态
+	 * @return 当前对象
+	*/
+	@Transient
+	public Task setStatusEnum(TaskStatus statusEnum) {
+		if(statusEnum==null) {
+			this.setStatus(null);
+		} else {
+			this.setStatus(statusEnum.code());
+		}
+		this.statusEnum=statusEnum;
 		return this;
 	}
 	
@@ -626,6 +701,120 @@ public class Task extends Entity {
 	*/
 	public Task setTenantId(String tenantId) {
 		this.tenantId=tenantId;
+		return this;
+	}
+	
+	/**
+	 * 获得 流程类型<br>
+	 * 流程类型
+	 * @return 流程类型
+	*/
+	public ProcessDefinition getProcessDefinition() {
+		return processDefinition;
+	}
+	
+	/**
+	 * 设置 流程类型
+	 * @param processDefinition 流程类型
+	 * @return 当前对象
+	*/
+	public Task setProcessDefinition(ProcessDefinition processDefinition) {
+		this.processDefinition=processDefinition;
+		return this;
+	}
+	
+	/**
+	 * 获得 流程实例<br>
+	 * 流程实例
+	 * @return 流程实例
+	*/
+	public ProcessInstance getProcessInstance() {
+		return processInstance;
+	}
+	
+	/**
+	 * 设置 流程实例
+	 * @param processInstance 流程实例
+	 * @return 当前对象
+	*/
+	public Task setProcessInstance(ProcessInstance processInstance) {
+		this.processInstance=processInstance;
+		return this;
+	}
+	
+	/**
+	 * 获得 审批人身份<br>
+	 * 审批人身份，实际审批人
+	 * @return 审批人身份
+	*/
+	public Appover getApprover() {
+		return approver;
+	}
+	
+	/**
+	 * 设置 审批人身份
+	 * @param approver 审批人身份
+	 * @return 当前对象
+	*/
+	public Task setApprover(Appover approver) {
+		this.approver=approver;
+		return this;
+	}
+	
+	/**
+	 * 获得 审批人名称<br>
+	 * 审批人名称，实际审批人
+	 * @return 审批人名称
+	*/
+	public String getApproverName() {
+		return approverName;
+	}
+	
+	/**
+	 * 设置 审批人名称
+	 * @param approverName 审批人名称
+	 * @return 当前对象
+	*/
+	public Task setApproverName(String approverName) {
+		this.approverName=approverName;
+		return this;
+	}
+	
+	/**
+	 * 获得 审批人账户<br>
+	 * 审批人账户，实际审批人
+	 * @return 审批人账户
+	*/
+	public User getApproverUser() {
+		return approverUser;
+	}
+	
+	/**
+	 * 设置 审批人账户
+	 * @param approverUser 审批人账户
+	 * @return 当前对象
+	*/
+	public Task setApproverUser(User approverUser) {
+		this.approverUser=approverUser;
+		return this;
+	}
+	
+	/**
+	 * 获得 代理人账户<br>
+	 * 代理人账户，预计审批人
+	 * @return 代理人账户
+	*/
+	public User getAssigneeUser() {
+		return assigneeUser;
+	}
+	
+	/**
+	 * 设置 代理人账户
+	 * @param assigneeUser 代理人账户
+	 * @return 当前对象
+	*/
+	public Task setAssigneeUser(User assigneeUser) {
+		this.assigneeUser=assigneeUser;
 		return this;
 	}
 
