@@ -17,7 +17,7 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  * 流程审批人表  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-07 17:29:04
+ * @since 2022-05-08 07:30:34
  */
 @FeignClient(value = MicroServiceNames.BPM, contextId = ProcessDefinitionNodeAssigneeServiceProxy.API_CONTEXT_PATH, configuration = FeignConfiguration.class)
 public interface ProcessDefinitionNodeAssigneeServiceProxy {
