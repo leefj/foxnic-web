@@ -7,7 +7,7 @@ import org.github.foxnic.web.domain.bpm.Approver;
 import java.util.*;
 import java.util.function.Function;
 
-public class ApproverHandler<T> {
+public class ApproverParser<T> {
 
     public static interface Setter<T> {
         void set(T item, Approver approver);
@@ -22,29 +22,29 @@ public class ApproverHandler<T> {
     private List<T> list;
     private List<Group> groups = new ArrayList<>();
 
-    private ApproverHandler(List<T> list) {
+    private ApproverParser(List<T> list) {
         this.list = list;
     }
 
     /**
      * 准备一个将要填充的集合
      */
-    public static <K> ApproverHandler<K> fill(K item) {
-        return new ApproverHandler<K>(Arrays.asList(item));
+    public static <K> ApproverParser<K> fill(K item) {
+        return new ApproverParser<K>(Arrays.asList(item));
     }
 
     /**
      * 准备一个将要填充的集合
      */
-    public static <K> ApproverHandler<K> fill(List<K> list) {
-        return new ApproverHandler<K>(list);
+    public static <K> ApproverParser<K> fill(List<K> list) {
+        return new ApproverParser<K>(list);
     }
 
     /**
      * 准备一个将要填充的集合
      */
-    public static <K> ApproverHandler<K> fill(PagedList<K> list) {
-        return new ApproverHandler<K>(list.getList());
+    public static <K> ApproverParser<K> fill(PagedList<K> list) {
+        return new ApproverParser<K>(list.getList());
     }
 
     /**
@@ -54,7 +54,7 @@ public class ApproverHandler<T> {
      * @param approverId   获得审批人ID的函数
      * @param setter       设置审批人对象的函数
      */
-    public ApproverHandler<T> approver(Function<? super T, String> approverType, Function<? super T, String> approverId, Setter<T> setter) {
+    public ApproverParser<T> approver(Function<? super T, String> approverType, Function<? super T, String> approverId, Setter<T> setter) {
         Group<T> group = new Group<>();
         group.approverType = approverType;
         group.approverId = approverId;
@@ -66,7 +66,7 @@ public class ApproverHandler<T> {
     /**
      * 执行关联并填充
      */
-    public ApproverHandler execute() {
+    public ApproverParser execute() {
         Map<String, Set<String>> approverIdMap = new HashMap<>();
         String id = null, type = null;
         // 按审批人类型对ID进行分类
