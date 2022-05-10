@@ -7,7 +7,7 @@ import org.github.foxnic.web.domain.bpm.Approver;
 import java.util.*;
 import java.util.function.Function;
 
-public class ApproverParser<T> {
+public class IdentityInterpreter<T> {
 
     public static interface Setter<T> {
         void set(T item, Approver approver);
@@ -22,29 +22,37 @@ public class ApproverParser<T> {
     private List<T> list;
     private List<Group> groups = new ArrayList<>();
 
-    private ApproverParser(List<T> list) {
+    private IdentityInterpreter(List<T> list) {
         this.list = list;
     }
 
     /**
      * 准备一个将要填充的集合
      */
-    public static <K> ApproverParser<K> fill(K item) {
-        return new ApproverParser<K>(Arrays.asList(item));
+    public static <K> IdentityInterpreter<K> fill(K item) {
+        List<K> list=null;
+        if(item==null) {
+            list=new ArrayList<>();
+        } else {
+            list=Arrays.asList(item);
+        }
+        return new IdentityInterpreter<K>(list);
     }
 
     /**
      * 准备一个将要填充的集合
      */
-    public static <K> ApproverParser<K> fill(List<K> list) {
-        return new ApproverParser<K>(list);
+    public static <K> IdentityInterpreter<K> fill(List<K> list) {
+        if(list==null) list = new ArrayList<>();
+        return new IdentityInterpreter<K>(list);
     }
 
     /**
      * 准备一个将要填充的集合
      */
-    public static <K> ApproverParser<K> fill(PagedList<K> list) {
-        return new ApproverParser<K>(list.getList());
+    public static <K> IdentityInterpreter<K> fill(PagedList<K> list) {
+        if(list==null) list =new PagedList<>(new ArrayList<>(),0,0,0,0);
+        return new IdentityInterpreter<K>(list.getList());
     }
 
     /**
@@ -54,7 +62,7 @@ public class ApproverParser<T> {
      * @param approverId   获得审批人ID的函数
      * @param setter       设置审批人对象的函数
      */
-    public ApproverParser<T> approver(Function<? super T, String> approverType, Function<? super T, String> approverId, Setter<T> setter) {
+    public IdentityInterpreter<T> approver(Function<? super T, String> approverType, Function<? super T, String> approverId, Setter<T> setter) {
         Group<T> group = new Group<>();
         group.approverType = approverType;
         group.approverId = approverId;
@@ -66,7 +74,7 @@ public class ApproverParser<T> {
     /**
      * 执行关联并填充
      */
-    public ApproverParser execute() {
+    public IdentityInterpreter execute() {
         Map<String, Set<String>> approverIdMap = new HashMap<>();
         String id = null, type = null;
         // 按审批人类型对ID进行分类

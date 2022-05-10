@@ -100,9 +100,9 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
         view.field(BPM_PROCESS_INSTANCE.PRIORITY).basic().label("紧急程度").form().radioBox().enumType(PriorityLevel.class).defaultValue(PriorityLevel.normal);
         view.field(BPM_PROCESS_INSTANCE.DRAFTER_TYPE).basic().label("发起人身份类型").form().radioBox().enumType(UnifiedUserType.class).defaultValue(UnifiedUserType.user);
         view.field(BPM_PROCESS_INSTANCE.DRAFTER_ID).basic().label("发起人身份").form().selectBox().queryApi(BpmIdentityServiceProxy.GET_IDENTITIES)
-                .valueField("id").textField("name")
+                .valueField("id").textField("nameWithCode")
                 .fillWith(ProcessInstanceMeta.DRAFTER)
-                .table().fillBy(ProcessInstanceMeta.DRAFTER,"name")
+                .table().fillBy(ProcessInstanceMeta.DRAFTER,"nameWithCode")
                 .search().hidden();
 
         view.field(BPM_PROCESS_INSTANCE.DRAFTER_USER_ID).basic().hidden();

@@ -14,8 +14,8 @@ import org.github.foxnic.web.domain.bpm.ProcessDefinitionFile;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-08 07:14:19
- * @sign DF078D94406E3F9941CCFC0EFCCCFB6C
+ * @since 2022-05-10 14:58:29
+ * @sign 9A740D59E3B4C0099DD58C7D84D02BC7
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -282,14 +282,14 @@ public class ProcessInstanceMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,org.github.foxnic.web.domain.bpm.FormInstance> FORM_INSTANCE_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,FORM_INSTANCE, org.github.foxnic.web.domain.bpm.FormInstance.class, "表单实例", "表单实例", org.github.foxnic.web.domain.bpm.FormInstance.class, null);
 	
 	/**
-	 * 起草人身份 , 类型: org.github.foxnic.web.domain.bpm.Appover
+	 * 起草人身份 , 类型: org.github.foxnic.web.domain.bpm.Approver
 	*/
 	public static final String DRAFTER="drafter";
 	
 	/**
-	 * 起草人身份 , 类型: org.github.foxnic.web.domain.bpm.Appover
+	 * 起草人身份 , 类型: org.github.foxnic.web.domain.bpm.Approver
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance, Approver> DRAFTER_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,DRAFTER, Approver.class, "起草人身份", "起草人身份", Approver.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,org.github.foxnic.web.domain.bpm.Approver> DRAFTER_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,DRAFTER, org.github.foxnic.web.domain.bpm.Approver.class, "起草人身份", "起草人身份", org.github.foxnic.web.domain.bpm.Approver.class, null);
 	
 	/**
 	 * 起草人名称 , 类型: java.lang.String

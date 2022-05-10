@@ -10,6 +10,7 @@ import com.github.foxnic.dao.meta.DBTableMeta;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.generator.builder.business.ControllerProxyFile;
 import com.github.foxnic.sql.meta.DBTable;
+import com.github.foxnic.sql.meta.DBType;
 import org.github.foxnic.web.bpm.page.*;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.enums.system.AccessType;
@@ -312,9 +313,19 @@ public class MenuGenerator {
 
 		dao.execute("update sys_menu set hierarchy=id where parent_id is null or trim(parent_id)=''");
 
-		String sql="UPDATE sys_menu c, sys_menu p " +
-				"SET c.hierarchy=CONCAT(p.hierarchy,'/',c.id) " +
-				"WHERE p.id=c.parent_id and c.hierarchy is null and p.hierarchy is not null";
+		String sql= null;
+
+		if(dao.getDBType()== DBType.MYSQL) {
+			sql="UPDATE sys_menu c, sys_menu p " +
+					"SET c.hierarchy=CONCAT(p.hierarchy,'/',c.id) " +
+					"WHERE p.id=c.parent_id and c.hierarchy is null and p.hierarchy is not null";
+		} else if(dao.getDBType()== DBType.DM) {
+			sql="UPDATE sys_menu c SET \n" +
+					"c.hierarchy=CONCAT((select p.hierarchy from  sys_menu p WHERE p.id=c.parent_id and p.hierarchy is not null),'/',c.id) \n" +
+					"where c.hierarchy is null";
+		}
+
+
 		while (true) {
 			int i=dao.execute(sql);
 			if(i==0) break;

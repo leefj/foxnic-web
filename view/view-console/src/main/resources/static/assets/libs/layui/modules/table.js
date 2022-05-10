@@ -97,21 +97,36 @@ layui.define(['laytpl', 'laypage', 'layer', 'form', 'util'], function(exports){
           layui.each(fields, function(key, value){
             data[key] = value;
           });
-          layui.each(fields, function(key, value){
-            if(key in data){
-              var templet, td = tr.children('td[data-field="'+ key +'"]');
-              data[key] = value;
-              that.eachCols(function(i, item2){
-                if(item2.field == key && item2.templet){
-                  templet = item2.templet;
-                }
-              });
-              td.children(ELEM_CELL).html(parseTempData.call(that, {
-                templet: templet
-              }, value, data));
-              td.data('content', value);
+
+          // layui.each(fields, function(key, value){
+          //   if(key in data){
+          //     var templet, td = tr.children('td[data-field="'+ key +'"]');
+          //     data[key] = value;
+          //     that.eachCols(function(i, item2){
+          //       if(item2.field == key && item2.templet){
+          //         templet = item2.templet;
+          //       }
+          //     });
+          //     td.children(ELEM_CELL).html(parseTempData.call(that, {
+          //       templet: templet
+          //     }, value, data));
+          //     td.data('content', value);
+          //   }
+          // });
+
+          // 李方捷调整的字段优先匹配规则
+          that.eachCols(function(i, item2){
+            var templet, td = tr.children('td[data-field="'+ item2.field +'"]');
+            var value=data[item2.field];
+            if(item2.templet) {
+              templet = item2.templet;
             }
+            td.children(ELEM_CELL).html(parseTempData.call(that, {
+              templet: templet
+            }, value, data));
+            td.data('content', value);
           });
+
         }
       }, []);
     };

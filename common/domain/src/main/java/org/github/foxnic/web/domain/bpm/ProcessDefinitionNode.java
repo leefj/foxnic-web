@@ -6,10 +6,13 @@ import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_PROCESS_DEFINITION_NODE;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
+import org.github.foxnic.web.constants.enums.bpm.CamundaNodeType;
+import javax.persistence.Transient;
 import java.util.Date;
 import java.util.List;
+import com.github.foxnic.commons.reflect.EnumUtil;
+import com.github.foxnic.commons.lang.StringUtil;
 import java.util.ArrayList;
-import javax.persistence.Transient;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
 
@@ -18,8 +21,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程定义节点
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-08 07:23:44
- * @sign 3AF0D0A74ED9F24DD92BA06625F6F1A9
+ * @since 2022-05-10 17:25:08
+ * @sign D0EA8287938B2726533A1A4EDA1F07DB
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -60,6 +63,8 @@ public class ProcessDefinitionNode extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="节点类型" , notes = "节点类型")
 	private String nodeType;
+	@Transient
+	private CamundaNodeType nodeTypeEnum;
 	
 	/**
 	 * 节点名称：节点名称
@@ -225,12 +230,45 @@ public class ProcessDefinitionNode extends Entity {
 	}
 	
 	/**
+	 * 获得 节点类型 的投影属性<br>
+	 * 等价于 getNodeType 方法，获得对应的枚举类型
+	 * @return 节点类型
+	*/
+	@Transient
+	public CamundaNodeType getNodeTypeEnum() {
+		if(this.nodeTypeEnum==null) {
+			this.nodeTypeEnum = (CamundaNodeType) EnumUtil.parseByCode(CamundaNodeType.values(),nodeType);
+		}
+		return this.nodeTypeEnum ;
+	}
+	
+	/**
 	 * 设置 节点类型
 	 * @param nodeType 节点类型
 	 * @return 当前对象
 	*/
 	public ProcessDefinitionNode setNodeType(String nodeType) {
 		this.nodeType=nodeType;
+		this.nodeTypeEnum= (CamundaNodeType) EnumUtil.parseByCode(CamundaNodeType.values(),nodeType) ;
+		if(StringUtil.hasContent(nodeType) && this.nodeTypeEnum==null) {
+			throw new IllegalArgumentException( nodeType + " is not one of CamundaNodeType");
+		}
+		return this;
+	}
+	
+	/**
+	 * 设置 节点类型的投影属性，等同于设置 节点类型
+	 * @param nodeTypeEnum 节点类型
+	 * @return 当前对象
+	*/
+	@Transient
+	public ProcessDefinitionNode setNodeTypeEnum(CamundaNodeType nodeTypeEnum) {
+		if(nodeTypeEnum==null) {
+			this.setNodeType(null);
+		} else {
+			this.setNodeType(nodeTypeEnum.code());
+		}
+		this.nodeTypeEnum=nodeTypeEnum;
 		return this;
 	}
 	

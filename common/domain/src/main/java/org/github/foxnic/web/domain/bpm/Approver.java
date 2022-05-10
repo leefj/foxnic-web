@@ -16,9 +16,10 @@ public class Approver {
     private String id;
     private String code;
     private String name;
+    private String nameWithCode;
     private UnifiedUserType type;
 
-    public Approver(String id, String code, String name, UnifiedUserType type) {
+    public Approver(String id, String code, String name,UnifiedUserType type) {
         this.applyProps(id,code,name,type);
     }
 
@@ -27,6 +28,10 @@ public class Approver {
         this.type = type;
         this.name = name;
         this.code = code;
+        this.nameWithCode=name;
+        if(!StringUtil.isBlank(this.code)) {
+            this.nameWithCode+="("+this.code+")";
+        }
     }
 
     /**
@@ -34,7 +39,7 @@ public class Approver {
      * @param  user 系统账户
      * */
     public Approver(User user) {
-        this.applyProps(user.getId(), user.getAccount(), user.getRealName() + "(" + user.getAccount() + ")", UnifiedUserType.user);
+        this.applyProps(user.getId(), user.getAccount(), user.getRealName(), UnifiedUserType.user);
     }
 
     /**
@@ -43,9 +48,6 @@ public class Approver {
      * */
     public Approver(Employee employee) {
         String name = employee.getName();
-        if (!StringUtil.isBlank(employee.getBadge())) {
-            name += "(" + employee.getBadge() + ")";
-        }
         this.applyProps(employee.getId(), employee.getBadge(), name, UnifiedUserType.employee);
     }
 
@@ -56,9 +58,6 @@ public class Approver {
      * */
     public Approver(Position position) {
         String name=position.getShortName();
-        if(!StringUtil.isBlank(position.getCode())) {
-            name+="("+position.getCode()+")";
-        }
         if(StringUtil.isBlank(name)) {
             name = position.getFullName();
         }
@@ -70,7 +69,7 @@ public class Approver {
      * @param  role 系统角色
      * */
     public Approver(Role role) {
-        this.applyProps(role.getId(),role.getCode(),role.getName()+"("+role.getCode()+")",UnifiedUserType.sys_role);
+        this.applyProps(role.getId(),role.getCode(),role.getName(),UnifiedUserType.sys_role);
     }
 
     /**
@@ -79,7 +78,7 @@ public class Approver {
      * @return    Appover 审批人
      * */
     public Approver(BusiRole role) {
-        this.applyProps(role.getId(),role.getCode(),role.getName()+"("+role.getCode()+")",UnifiedUserType.busi_role);
+        this.applyProps(role.getId(),role.getCode(),role.getName(),UnifiedUserType.busi_role);
     }
 
 
@@ -101,7 +100,7 @@ public class Approver {
         return name;
     }
 
-
-
-
+    public String getNameWithCode() {
+        return nameWithCode;
+    }
 }

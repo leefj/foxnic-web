@@ -38,7 +38,7 @@
 2、表单保存后，支持单行刷
 3、代码生成增加 splitValue 选项，默认 false 
 4、Result 增加用于指示前端如何提示信息的控制(需要重新生成代码): result.messageLevel4Notify()、result.messageLevel4Read()、result.messageLevel4Confirm()
-5、适配达梦数据库
+5、适配达梦数据库，其它优化
 
 ### Bug 修复
 1、已知 bug 修复 

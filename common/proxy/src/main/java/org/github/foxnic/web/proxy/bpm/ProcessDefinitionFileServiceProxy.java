@@ -68,6 +68,11 @@ public interface ProcessDefinitionFileServiceProxy {
     public static final String GET_BY_ID = API_PREFIX + "get-by-id";
 
     /**
+     * 部署流程定义文件
+     */
+    public static final String DEPLOY = API_PREFIX + "deploy";
+
+    /**
      * 获取多个流程定义文件
      */
     public static final String GET_BY_IDS = API_PREFIX + "get-by-ids";
@@ -132,6 +137,13 @@ public interface ProcessDefinitionFileServiceProxy {
      */
     @RequestMapping(ProcessDefinitionFileServiceProxy.GET_BY_ID)
     Result<ProcessDefinitionFile> getById(@RequestParam(name = "id") String id);
+
+    /**
+     * 获取流程定义文件
+     */
+    @RequestMapping(ProcessDefinitionFileServiceProxy.DEPLOY)
+    Result<ProcessDefinitionFile> deploy(@RequestParam(name = "id") String id);
+
 
     /**
      * 获取多个流程定义文件

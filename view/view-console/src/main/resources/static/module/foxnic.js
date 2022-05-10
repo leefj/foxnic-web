@@ -1584,6 +1584,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             this.fillEmployeeDialogButtons("pos");
         },
         fillEmployeeDialogButtons:function () {
+            // debugger
             var orgEls=$("button[action-type='emp-dialog']");
             if(orgEls.length==0) return;
             orgEls.find("i").css("opacity",0.0);

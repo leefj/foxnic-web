@@ -4,6 +4,7 @@ import org.github.foxnic.web.domain.hrm.Employee;
 import org.github.foxnic.web.domain.hrm.Organization;
 import org.github.foxnic.web.domain.hrm.Position;
 import org.github.foxnic.web.domain.oauth.User;
+import org.github.foxnic.web.domain.system.Tenant;
 import org.github.foxnic.web.domain.system.UserTenant;
 
 public abstract class SessionUser {
@@ -45,8 +46,10 @@ public abstract class SessionUser {
 	 * 获得当前激活租户的ID
 	 * */
 	public String getActivatedTenantId(){
+		UserTenant tenant=this.getUser().getActivatedTenant();
+		if(tenant==null) return null;
 		//此处这样写的原因是，这个配置是一定存在的，如果因为不存在而发生异常，一定是配置错误了，即使这里不报错，其它地方也要报错的
-		return this.getUser().getActivatedTenant().getOwnerTenantId();
+		return tenant.getOwnerTenantId();
 	}
 
 	/**
@@ -54,7 +57,11 @@ public abstract class SessionUser {
 	 * */
 	public String getActivatedCompanyId(){
 		//此处这样写的原因是，这个配置是一定存在的，如果因为不存在而发生异常，一定是配置错误了，即使这里不报错，其它地方也要报错的
-		return this.getUser().getActivatedTenant().getTenant().getCompanyId();
+		UserTenant userTenant=this.getUser().getActivatedTenant();
+		if(userTenant==null) return null;
+		Tenant tenant=userTenant.getTenant();
+		if(tenant==null) return null;
+		return tenant.getCompanyId();
 	}
 
 	/**
