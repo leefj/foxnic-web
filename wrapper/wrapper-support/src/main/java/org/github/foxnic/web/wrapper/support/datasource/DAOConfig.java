@@ -185,8 +185,9 @@ public class DAOConfig {
 		dbTreaty.setVersionField("version");
 		//
 		dbTreaty.setAutoCastLogicField(false);
-		//
+		// 设置 false 对应的数据库值
 		dbTreaty.setFalseValue(0);
+		// 设置 true 对应的数据库值
 		dbTreaty.setTrueValue(1);
 
 		//设置获取当前用户的逻辑

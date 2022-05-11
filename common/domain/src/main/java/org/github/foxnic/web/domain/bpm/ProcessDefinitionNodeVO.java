@@ -12,7 +12,7 @@ import com.github.foxnic.commons.bean.BeanUtil;
 /**
  * 流程定义节点
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-10 17:25:09
+ * @since 2022-05-11 11:17:25
  * @sign DC6BFC5E6F291D0B629383BA8C34C0CA
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */

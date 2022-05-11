@@ -9,8 +9,8 @@ import org.github.foxnic.web.domain.bpm.Approver;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-08 07:30:34
- * @sign 4B2A5AB0D4079F3555CF560983662A0D
+ * @since 2022-05-11 11:17:30
+ * @sign C4D6ECB21BE5CCD44BA6671732CF2811
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 

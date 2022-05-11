@@ -4,7 +4,7 @@ import com.github.foxnic.api.constant.CodeTextEnum;
 import com.github.foxnic.commons.reflect.EnumUtil;
 
 /**
- * 审批结果
+ * Camunda 流程节点类型
  * */
 public enum CamundaNodeType implements CodeTextEnum {
 
