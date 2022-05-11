@@ -39,6 +39,7 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
         poType.addSimpleProperty(Approver.class,"drafter","起草人身份","起草人身份");
         poType.addSimpleProperty(String.class,"drafterName","起草人名称","起草人名称");
         poType.addSimpleProperty(User.class,"drafterUser","起草人账户","起草人账户");
+        // 将属性映射为枚举
         poType.shadow(BPM_PROCESS_INSTANCE.APPROVAL_STATUS,ApprovalStatus.class);
         poType.shadow(BPM_PROCESS_INSTANCE.DRAFTER_TYPE,UnifiedUserType.class);
         poType.shadow(BPM_PROCESS_INSTANCE.PRIORITY,PriorityLevel.class);

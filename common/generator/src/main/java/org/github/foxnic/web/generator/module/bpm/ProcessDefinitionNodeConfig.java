@@ -25,6 +25,7 @@ public class ProcessDefinitionNodeConfig extends BaseCodeConfig<BPM_PROCESS_DEFI
     public void configModel(PoClassFile poType, VoClassFile voType) {
         voType.addSimpleProperty(String.class,"assigneeInfo","选择的审批人信息","选择的审批人信息");
         poType.addListProperty(ProcessDefinitionNodeAssignee.class,"assignees","审批人清单","审批人清单");
+        // 将属性映射为枚举，将 bpm_process_definition_node 的 node_type 射为 CamundaNodeType 枚举类型
         poType.shadow(BPM_PROCESS_DEFINITION_NODE.NODE_TYPE, CamundaNodeType.class);
     }
 
