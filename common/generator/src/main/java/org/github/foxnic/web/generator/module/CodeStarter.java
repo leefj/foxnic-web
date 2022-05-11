@@ -74,8 +74,8 @@ public class CodeStarter extends ModuleCodeGenerator {
         this.addConfig(new ProcessDefinitionFileConfig());
         this.addConfig(new ProcessDefinitionNodeConfig());
         this.addConfig(new ProcessDefinitionNodeAssigneeConfig());
-        this.addConfig(new ProcessInitiatorConfig());
-        this.addConfig(new ProcessDefinitionApplyConfig());
+//        this.addConfig(new ProcessInitiatorConfig());
+//        this.addConfig(new ProcessDefinitionApplyConfig());
         //
         this.addConfig(new ProcessInstanceConfig());
         //
@@ -83,6 +83,8 @@ public class CodeStarter extends ModuleCodeGenerator {
         this.addConfig(new FormInstanceConfig());
         this.addConfig(new FormInstanceBillConfig());
         this.addConfig(new TaskConfig());
+        this.addConfig(new TaskAssigneeConfig());
+        this.addConfig(new TaskApprovalConfig());
         //
         this.addConfig(new DemoLeaveConfig());
     }

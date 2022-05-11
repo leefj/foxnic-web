@@ -7,19 +7,19 @@ import com.github.foxnic.generator.builder.view.option.ListOptions;
 import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
-import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_PROCESS_DEFINITION_NODE_ASSIGNEE;
+import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_TASK_APPROVAL;
 import org.github.foxnic.web.domain.bpm.Assignee;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
-public class ProcessDefinitionNodeAssigneeConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITION_NODE_ASSIGNEE> {
+public class TaskApprovalConfig extends BaseCodeConfig<BPM_TASK_APPROVAL> {
 
-    public ProcessDefinitionNodeAssigneeConfig() {
-        super(PREFIX_BPM, BPM_PROCESS_DEFINITION_NODE_ASSIGNEE.$TABLE,"bpm_", 4);
+    public TaskApprovalConfig() {
+        super(PREFIX_BPM, BPM_TASK_APPROVAL.$TABLE,"bpm_", 4);
     }
 
     @Override
     public void configModel(PoClassFile poType, VoClassFile voType) {
-        poType.addSimpleProperty(Assignee.class,"assignee","审批人","审批人");
+        poType.addSimpleProperty(Assignee.class,"approver","审批人","审批人");
     }
 
     @Override
@@ -73,7 +73,7 @@ public class ProcessDefinitionNodeAssigneeConfig extends BaseCodeConfig<BPM_PROC
             .setPageController(WriteMode.IGNORE) //页面控制器
             .setFormPage(WriteMode.IGNORE) //表单HTML页
             .setListPage(WriteMode.IGNORE) //列表HTML页
-            .setExtendJsFile(WriteMode.IGNORE);
+                .setExtendJsFile(WriteMode.IGNORE);
     }
 
 }

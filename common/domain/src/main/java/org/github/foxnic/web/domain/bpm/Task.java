@@ -9,9 +9,11 @@ import io.swagger.annotations.ApiModelProperty;
 import org.github.foxnic.web.constants.enums.bpm.TaskStatus;
 import javax.persistence.Transient;
 import java.util.Date;
-import org.github.foxnic.web.domain.oauth.User;
+import java.util.List;
 import com.github.foxnic.commons.reflect.EnumUtil;
 import com.github.foxnic.commons.lang.StringUtil;
+import com.github.foxnic.commons.lang.DataParser;
+import java.util.ArrayList;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
 
@@ -20,8 +22,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程任务
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-07 13:57:07
- * @sign CE7B2A267E36B7096E355F2D2368A26C
+ * @since 2022-05-11 13:32:11
+ * @sign 043D2917852DC6AC1795413E047ED787
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -64,60 +66,12 @@ public class Task extends Entity {
 	private String processInstanceId;
 	
 	/**
-	 * 审批人账户ID：实际的审批人
-	*/
-	@ApiModelProperty(required = false,value="审批人账户ID" , notes = "实际的审批人")
-	private String approverUserId;
-	
-	/**
-	 * 审批人账户类型：实际的审批人类型
-	*/
-	@ApiModelProperty(required = false,value="审批人账户类型" , notes = "实际的审批人类型")
-	private String approverType;
-	
-	/**
-	 * 审批人身份ID：实际的审批人身份
-	*/
-	@ApiModelProperty(required = false,value="审批人身份ID" , notes = "实际的审批人身份")
-	private String approverId;
-	
-	/**
-	 * 审批人账户ID：预计的审批人
-	*/
-	@ApiModelProperty(required = false,value="审批人账户ID" , notes = "预计的审批人")
-	private String assigneeId;
-	
-	/**
 	 * 任务状态：任务状态
 	*/
 	@ApiModelProperty(required = false,value="任务状态" , notes = "任务状态")
 	private String status;
 	@Transient
 	private TaskStatus statusEnum;
-	
-	/**
-	 * 处理时间：处理时间
-	*/
-	@ApiModelProperty(required = false,value="处理时间" , notes = "处理时间")
-	private Date approvalTime;
-	
-	/**
-	 * 审批结果：审批结果
-	*/
-	@ApiModelProperty(required = false,value="审批结果" , notes = "审批结果")
-	private String approvalResult;
-	
-	/**
-	 * 审批意见：审批意见
-	*/
-	@ApiModelProperty(required = false,value="审批意见" , notes = "审批意见")
-	private String approvalComment;
-	
-	/**
-	 * 变量数据：变量数据
-	*/
-	@ApiModelProperty(required = false,value="变量数据" , notes = "变量数据")
-	private String variables;
 	
 	/**
 	 * 任务ID：Camunda 任务ID
@@ -154,6 +108,8 @@ public class Task extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除")
 	private Integer deleted;
+	@Transient
+	private Boolean deletedBool;
 	
 	/**
 	 * delete_by：delete_by
@@ -192,28 +148,16 @@ public class Task extends Entity {
 	private ProcessInstance processInstance;
 	
 	/**
-	 * 审批人身份：审批人身份，实际审批人
+	 * 审批动作清单：审批动作清单
 	*/
-	@ApiModelProperty(required = false,value="审批人身份" , notes = "审批人身份，实际审批人")
-	private Approver approver;
+	@ApiModelProperty(required = false,value="审批动作清单" , notes = "审批动作清单")
+	private List<TaskApproval> approvals;
 	
 	/**
-	 * 审批人名称：审批人名称，实际审批人
+	 * 审批人清单：审批人清单
 	*/
-	@ApiModelProperty(required = false,value="审批人名称" , notes = "审批人名称，实际审批人")
-	private String approverName;
-	
-	/**
-	 * 审批人账户：审批人账户，实际审批人
-	*/
-	@ApiModelProperty(required = false,value="审批人账户" , notes = "审批人账户，实际审批人")
-	private User approverUser;
-	
-	/**
-	 * 代理人账户：代理人账户，预计审批人
-	*/
-	@ApiModelProperty(required = false,value="代理人账户" , notes = "代理人账户，预计审批人")
-	private User assigneeUser;
+	@ApiModelProperty(required = false,value="审批人清单" , notes = "审批人清单")
+	private List<TaskAssignee> assignees;
 	
 	/**
 	 * 获得 id<br>
@@ -311,82 +255,6 @@ public class Task extends Entity {
 	}
 	
 	/**
-	 * 获得 审批人账户ID<br>
-	 * 实际的审批人
-	 * @return 审批人账户ID
-	*/
-	public String getApproverUserId() {
-		return approverUserId;
-	}
-	
-	/**
-	 * 设置 审批人账户ID
-	 * @param approverUserId 审批人账户ID
-	 * @return 当前对象
-	*/
-	public Task setApproverUserId(String approverUserId) {
-		this.approverUserId=approverUserId;
-		return this;
-	}
-	
-	/**
-	 * 获得 审批人账户类型<br>
-	 * 实际的审批人类型
-	 * @return 审批人账户类型
-	*/
-	public String getApproverType() {
-		return approverType;
-	}
-	
-	/**
-	 * 设置 审批人账户类型
-	 * @param approverType 审批人账户类型
-	 * @return 当前对象
-	*/
-	public Task setApproverType(String approverType) {
-		this.approverType=approverType;
-		return this;
-	}
-	
-	/**
-	 * 获得 审批人身份ID<br>
-	 * 实际的审批人身份
-	 * @return 审批人身份ID
-	*/
-	public String getApproverId() {
-		return approverId;
-	}
-	
-	/**
-	 * 设置 审批人身份ID
-	 * @param approverId 审批人身份ID
-	 * @return 当前对象
-	*/
-	public Task setApproverId(String approverId) {
-		this.approverId=approverId;
-		return this;
-	}
-	
-	/**
-	 * 获得 审批人账户ID<br>
-	 * 预计的审批人
-	 * @return 审批人账户ID
-	*/
-	public String getAssigneeId() {
-		return assigneeId;
-	}
-	
-	/**
-	 * 设置 审批人账户ID
-	 * @param assigneeId 审批人账户ID
-	 * @return 当前对象
-	*/
-	public Task setAssigneeId(String assigneeId) {
-		this.assigneeId=assigneeId;
-		return this;
-	}
-	
-	/**
 	 * 获得 任务状态<br>
 	 * 任务状态
 	 * @return 任务状态
@@ -435,82 +303,6 @@ public class Task extends Entity {
 			this.setStatus(statusEnum.code());
 		}
 		this.statusEnum=statusEnum;
-		return this;
-	}
-	
-	/**
-	 * 获得 处理时间<br>
-	 * 处理时间
-	 * @return 处理时间
-	*/
-	public Date getApprovalTime() {
-		return approvalTime;
-	}
-	
-	/**
-	 * 设置 处理时间
-	 * @param approvalTime 处理时间
-	 * @return 当前对象
-	*/
-	public Task setApprovalTime(Date approvalTime) {
-		this.approvalTime=approvalTime;
-		return this;
-	}
-	
-	/**
-	 * 获得 审批结果<br>
-	 * 审批结果
-	 * @return 审批结果
-	*/
-	public String getApprovalResult() {
-		return approvalResult;
-	}
-	
-	/**
-	 * 设置 审批结果
-	 * @param approvalResult 审批结果
-	 * @return 当前对象
-	*/
-	public Task setApprovalResult(String approvalResult) {
-		this.approvalResult=approvalResult;
-		return this;
-	}
-	
-	/**
-	 * 获得 审批意见<br>
-	 * 审批意见
-	 * @return 审批意见
-	*/
-	public String getApprovalComment() {
-		return approvalComment;
-	}
-	
-	/**
-	 * 设置 审批意见
-	 * @param approvalComment 审批意见
-	 * @return 当前对象
-	*/
-	public Task setApprovalComment(String approvalComment) {
-		this.approvalComment=approvalComment;
-		return this;
-	}
-	
-	/**
-	 * 获得 变量数据<br>
-	 * 变量数据
-	 * @return 变量数据
-	*/
-	public String getVariables() {
-		return variables;
-	}
-	
-	/**
-	 * 设置 变量数据
-	 * @param variables 变量数据
-	 * @return 当前对象
-	*/
-	public Task setVariables(String variables) {
-		this.variables=variables;
 		return this;
 	}
 	
@@ -619,12 +411,42 @@ public class Task extends Entity {
 	}
 	
 	/**
+	 * 获得 是否已删除 的投影属性<br>
+	 * 等价于 getDeleted 方法，获得对应的枚举类型
+	 * @return 是否已删除
+	*/
+	@Transient
+	public Boolean isDeleted() {
+		if(this.deletedBool==null) {
+			this.deletedBool=DataParser.parseBoolean(deleted);
+		}
+		return this.deletedBool ;
+	}
+	
+	/**
 	 * 设置 是否已删除
 	 * @param deleted 是否已删除
 	 * @return 当前对象
 	*/
 	public Task setDeleted(Integer deleted) {
 		this.deleted=deleted;
+		this.deletedBool=DataParser.parseBoolean(deleted);
+		return this;
+	}
+	
+	/**
+	 * 设置 是否已删除的投影属性，等同于设置 是否已删除
+	 * @param deletedBool 是否已删除
+	 * @return 当前对象
+	*/
+	@Transient
+	public Task setDeleted(Boolean deletedBool) {
+		if(deletedBool==null) {
+			this.deleted=null;
+		} else {
+			this.deleted=deletedBool?1:0;
+		}
+		this.deletedBool=deletedBool;
 		return this;
 	}
 	
@@ -743,78 +565,62 @@ public class Task extends Entity {
 	}
 	
 	/**
-	 * 获得 审批人身份<br>
-	 * 审批人身份，实际审批人
-	 * @return 审批人身份
+	 * 获得 审批动作清单<br>
+	 * 审批动作清单
+	 * @return 审批动作清单
 	*/
-	public Approver getApprover() {
-		return approver;
+	public List<TaskApproval> getApprovals() {
+		return approvals;
 	}
 	
 	/**
-	 * 设置 审批人身份
-	 * @param approver 审批人身份
+	 * 设置 审批动作清单
+	 * @param approvals 审批动作清单
 	 * @return 当前对象
 	*/
-	public Task setApprover(Approver approver) {
-		this.approver=approver;
+	public Task setApprovals(List<TaskApproval> approvals) {
+		this.approvals=approvals;
 		return this;
 	}
 	
 	/**
-	 * 获得 审批人名称<br>
-	 * 审批人名称，实际审批人
-	 * @return 审批人名称
-	*/
-	public String getApproverName() {
-		return approverName;
-	}
-	
-	/**
-	 * 设置 审批人名称
-	 * @param approverName 审批人名称
+	 * 添加 审批动作清单
+	 * @param approval 审批动作清单
 	 * @return 当前对象
 	*/
-	public Task setApproverName(String approverName) {
-		this.approverName=approverName;
+	public Task addApproval(TaskApproval approval) {
+		if(this.approvals==null) approvals=new ArrayList<>();
+		this.approvals.add(approval);
 		return this;
 	}
 	
 	/**
-	 * 获得 审批人账户<br>
-	 * 审批人账户，实际审批人
-	 * @return 审批人账户
+	 * 获得 审批人清单<br>
+	 * 审批人清单
+	 * @return 审批人清单
 	*/
-	public User getApproverUser() {
-		return approverUser;
+	public List<TaskAssignee> getAssignees() {
+		return assignees;
 	}
 	
 	/**
-	 * 设置 审批人账户
-	 * @param approverUser 审批人账户
+	 * 设置 审批人清单
+	 * @param assignees 审批人清单
 	 * @return 当前对象
 	*/
-	public Task setApproverUser(User approverUser) {
-		this.approverUser=approverUser;
+	public Task setAssignees(List<TaskAssignee> assignees) {
+		this.assignees=assignees;
 		return this;
 	}
 	
 	/**
-	 * 获得 代理人账户<br>
-	 * 代理人账户，预计审批人
-	 * @return 代理人账户
-	*/
-	public User getAssigneeUser() {
-		return assigneeUser;
-	}
-	
-	/**
-	 * 设置 代理人账户
-	 * @param assigneeUser 代理人账户
+	 * 添加 审批人清单
+	 * @param assignee 审批人清单
 	 * @return 当前对象
 	*/
-	public Task setAssigneeUser(User assigneeUser) {
-		this.assigneeUser=assigneeUser;
+	public Task addAssignee(TaskAssignee assignee) {
+		if(this.assignees==null) assignees=new ArrayList<>();
+		this.assignees.add(assignee);
 		return this;
 	}
 

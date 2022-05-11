@@ -9,9 +9,9 @@ import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.domain.system.BusiRole;
 
 /**
- * 审批人对象
+ * 审批代理人
  */
-public class Approver {
+public class Assignee {
 
     private String id;
     private String code;
@@ -19,7 +19,7 @@ public class Approver {
     private String nameWithCode;
     private UnifiedUserType type;
 
-    public Approver(String id, String code, String name,UnifiedUserType type) {
+    public Assignee(String id, String code, String name, UnifiedUserType type) {
         this.applyProps(id,code,name,type);
     }
 
@@ -38,7 +38,7 @@ public class Approver {
      * 从系统账户创建审批人
      * @param  user 系统账户
      * */
-    public Approver(User user) {
+    public Assignee(User user) {
         this.applyProps(user.getId(), user.getAccount(), user.getRealName(), UnifiedUserType.user);
     }
 
@@ -46,7 +46,7 @@ public class Approver {
      * 从员工创建审批人
      * @param  employee 员工
      * */
-    public Approver(Employee employee) {
+    public Assignee(Employee employee) {
         String name = employee.getName();
         this.applyProps(employee.getId(), employee.getBadge(), name, UnifiedUserType.employee);
     }
@@ -56,7 +56,7 @@ public class Approver {
      * @param  position 岗位
      * @return    Appover 审批人
      * */
-    public Approver(Position position) {
+    public Assignee(Position position) {
         String name=position.getShortName();
         if(StringUtil.isBlank(name)) {
             name = position.getFullName();
@@ -68,7 +68,7 @@ public class Approver {
      * 从系统角色创建审批人
      * @param  role 系统角色
      * */
-    public Approver(Role role) {
+    public Assignee(Role role) {
         this.applyProps(role.getId(),role.getCode(),role.getName(),UnifiedUserType.sys_role);
     }
 
@@ -77,7 +77,7 @@ public class Approver {
      * @param  role 业务角色
      * @return    Appover 审批人
      * */
-    public Approver(BusiRole role) {
+    public Assignee(BusiRole role) {
         this.applyProps(role.getId(),role.getCode(),role.getName(),UnifiedUserType.busi_role);
     }
 

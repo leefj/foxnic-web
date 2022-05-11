@@ -7,14 +7,14 @@ import org.github.foxnic.web.domain.bpm.Task;
 import java.util.Date;
 import org.github.foxnic.web.domain.bpm.ProcessDefinition;
 import org.github.foxnic.web.domain.bpm.ProcessInstance;
-import org.github.foxnic.web.domain.bpm.Approver;
-import org.github.foxnic.web.domain.oauth.User;
+import org.github.foxnic.web.domain.bpm.TaskApproval;
+import org.github.foxnic.web.domain.bpm.TaskAssignee;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-07 13:57:07
+ * @since 2022-05-11 13:32:11
  * @sign 4A14B4C5D7918A4E9CA4AE65A58E6E5D
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -162,46 +162,6 @@ public class TaskVOMeta extends TaskMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskVO,java.lang.String> PROCESS_INSTANCE_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskVO.class ,PROCESS_INSTANCE_ID, java.lang.String.class, "流程实例ID", "流程实例ID", java.lang.String.class, null);
 	
 	/**
-	 * 审批人账户ID , 实际的审批人 , 类型: java.lang.String
-	*/
-	public static final String APPROVER_USER_ID="approverUserId";
-	
-	/**
-	 * 审批人账户ID , 实际的审批人 , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskVO,java.lang.String> APPROVER_USER_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskVO.class ,APPROVER_USER_ID, java.lang.String.class, "审批人账户ID", "实际的审批人", java.lang.String.class, null);
-	
-	/**
-	 * 审批人账户类型 , 实际的审批人类型 , 类型: java.lang.String
-	*/
-	public static final String APPROVER_TYPE="approverType";
-	
-	/**
-	 * 审批人账户类型 , 实际的审批人类型 , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskVO,java.lang.String> APPROVER_TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskVO.class ,APPROVER_TYPE, java.lang.String.class, "审批人账户类型", "实际的审批人类型", java.lang.String.class, null);
-	
-	/**
-	 * 审批人身份ID , 实际的审批人身份 , 类型: java.lang.String
-	*/
-	public static final String APPROVER_ID="approverId";
-	
-	/**
-	 * 审批人身份ID , 实际的审批人身份 , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskVO,java.lang.String> APPROVER_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskVO.class ,APPROVER_ID, java.lang.String.class, "审批人身份ID", "实际的审批人身份", java.lang.String.class, null);
-	
-	/**
-	 * 审批人账户ID , 预计的审批人 , 类型: java.lang.String
-	*/
-	public static final String ASSIGNEE_ID="assigneeId";
-	
-	/**
-	 * 审批人账户ID , 预计的审批人 , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskVO,java.lang.String> ASSIGNEE_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskVO.class ,ASSIGNEE_ID, java.lang.String.class, "审批人账户ID", "预计的审批人", java.lang.String.class, null);
-	
-	/**
 	 * 任务状态 , 类型: java.lang.String
 	*/
 	public static final String STATUS="status";
@@ -210,46 +170,6 @@ public class TaskVOMeta extends TaskMeta {
 	 * 任务状态 , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskVO,java.lang.String> STATUS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskVO.class ,STATUS, java.lang.String.class, "任务状态", "任务状态", java.lang.String.class, null);
-	
-	/**
-	 * 处理时间 , 类型: java.util.Date
-	*/
-	public static final String APPROVAL_TIME="approvalTime";
-	
-	/**
-	 * 处理时间 , 类型: java.util.Date
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskVO,java.util.Date> APPROVAL_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskVO.class ,APPROVAL_TIME, java.util.Date.class, "处理时间", "处理时间", java.util.Date.class, null);
-	
-	/**
-	 * 审批结果 , 类型: java.lang.String
-	*/
-	public static final String APPROVAL_RESULT="approvalResult";
-	
-	/**
-	 * 审批结果 , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskVO,java.lang.String> APPROVAL_RESULT_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskVO.class ,APPROVAL_RESULT, java.lang.String.class, "审批结果", "审批结果", java.lang.String.class, null);
-	
-	/**
-	 * 审批意见 , 类型: java.lang.String
-	*/
-	public static final String APPROVAL_COMMENT="approvalComment";
-	
-	/**
-	 * 审批意见 , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskVO,java.lang.String> APPROVAL_COMMENT_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskVO.class ,APPROVAL_COMMENT, java.lang.String.class, "审批意见", "审批意见", java.lang.String.class, null);
-	
-	/**
-	 * 变量数据 , 类型: java.lang.String
-	*/
-	public static final String VARIABLES="variables";
-	
-	/**
-	 * 变量数据 , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskVO,java.lang.String> VARIABLES_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskVO.class ,VARIABLES, java.lang.String.class, "变量数据", "变量数据", java.lang.String.class, null);
 	
 	/**
 	 * 任务ID , Camunda 任务ID , 类型: java.lang.String
@@ -372,49 +292,29 @@ public class TaskVOMeta extends TaskMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskVO,org.github.foxnic.web.domain.bpm.ProcessInstance> PROCESS_INSTANCE_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskVO.class ,PROCESS_INSTANCE, org.github.foxnic.web.domain.bpm.ProcessInstance.class, "流程实例", "流程实例", org.github.foxnic.web.domain.bpm.ProcessInstance.class, null);
 	
 	/**
-	 * 审批人身份 , 审批人身份，实际审批人 , 类型: org.github.foxnic.web.domain.bpm.Appover
+	 * 审批动作清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.TaskApproval
 	*/
-	public static final String APPROVER="approver";
+	public static final String APPROVALS="approvals";
 	
 	/**
-	 * 审批人身份 , 审批人身份，实际审批人 , 类型: org.github.foxnic.web.domain.bpm.Appover
+	 * 审批动作清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.TaskApproval
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskVO, Approver> APPROVER_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskVO.class ,APPROVER, Approver.class, "审批人身份", "审批人身份，实际审批人", Approver.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskVO,org.github.foxnic.web.domain.bpm.TaskApproval> APPROVALS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskVO.class ,APPROVALS, java.util.List.class, "审批动作清单", "审批动作清单", org.github.foxnic.web.domain.bpm.TaskApproval.class, null);
 	
 	/**
-	 * 审批人名称 , 审批人名称，实际审批人 , 类型: java.lang.String
+	 * 审批人清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.TaskAssignee
 	*/
-	public static final String APPROVER_NAME="approverName";
+	public static final String ASSIGNEES="assignees";
 	
 	/**
-	 * 审批人名称 , 审批人名称，实际审批人 , 类型: java.lang.String
+	 * 审批人清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.TaskAssignee
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskVO,java.lang.String> APPROVER_NAME_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskVO.class ,APPROVER_NAME, java.lang.String.class, "审批人名称", "审批人名称，实际审批人", java.lang.String.class, null);
-	
-	/**
-	 * 审批人账户 , 审批人账户，实际审批人 , 类型: org.github.foxnic.web.domain.oauth.User
-	*/
-	public static final String APPROVER_USER="approverUser";
-	
-	/**
-	 * 审批人账户 , 审批人账户，实际审批人 , 类型: org.github.foxnic.web.domain.oauth.User
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskVO,org.github.foxnic.web.domain.oauth.User> APPROVER_USER_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskVO.class ,APPROVER_USER, org.github.foxnic.web.domain.oauth.User.class, "审批人账户", "审批人账户，实际审批人", org.github.foxnic.web.domain.oauth.User.class, null);
-	
-	/**
-	 * 代理人账户 , 代理人账户，预计审批人 , 类型: org.github.foxnic.web.domain.oauth.User
-	*/
-	public static final String ASSIGNEE_USER="assigneeUser";
-	
-	/**
-	 * 代理人账户 , 代理人账户，预计审批人 , 类型: org.github.foxnic.web.domain.oauth.User
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskVO,org.github.foxnic.web.domain.oauth.User> ASSIGNEE_USER_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskVO.class ,ASSIGNEE_USER, org.github.foxnic.web.domain.oauth.User.class, "代理人账户", "代理人账户，预计审批人", org.github.foxnic.web.domain.oauth.User.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskVO,org.github.foxnic.web.domain.bpm.TaskAssignee> ASSIGNEES_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskVO.class ,ASSIGNEES, java.util.List.class, "审批人清单", "审批人清单", org.github.foxnic.web.domain.bpm.TaskAssignee.class, null);
 	
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , PROCESS_DEFINITION_ID , NODE_ID , NODE_NAME , PROCESS_INSTANCE_ID , APPROVER_USER_ID , APPROVER_TYPE , APPROVER_ID , ASSIGNEE_ID , STATUS , APPROVAL_TIME , APPROVAL_RESULT , APPROVAL_COMMENT , VARIABLES , CAMUNDA_TASK_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , PROCESS_DEFINITION , PROCESS_INSTANCE , APPROVER , APPROVER_NAME , APPROVER_USER , ASSIGNEE_USER };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , PROCESS_DEFINITION_ID , NODE_ID , NODE_NAME , PROCESS_INSTANCE_ID , STATUS , CAMUNDA_TASK_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , PROCESS_DEFINITION , PROCESS_INSTANCE , APPROVALS , ASSIGNEES };
 	
 	/**
 	 * 代理类
@@ -579,50 +479,6 @@ public class TaskVOMeta extends TaskMeta {
 		}
 		
 		/**
-		 * 设置 审批人账户ID
-		 * @param approverUserId 审批人账户ID
-		 * @return 当前对象
-		*/
-		public Task setApproverUserId(String approverUserId) {
-			super.change(APPROVER_USER_ID,super.getApproverUserId(),approverUserId);
-			super.setApproverUserId(approverUserId);
-			return this;
-		}
-		
-		/**
-		 * 设置 审批人账户类型
-		 * @param approverType 审批人账户类型
-		 * @return 当前对象
-		*/
-		public Task setApproverType(String approverType) {
-			super.change(APPROVER_TYPE,super.getApproverType(),approverType);
-			super.setApproverType(approverType);
-			return this;
-		}
-		
-		/**
-		 * 设置 审批人身份ID
-		 * @param approverId 审批人身份ID
-		 * @return 当前对象
-		*/
-		public Task setApproverId(String approverId) {
-			super.change(APPROVER_ID,super.getApproverId(),approverId);
-			super.setApproverId(approverId);
-			return this;
-		}
-		
-		/**
-		 * 设置 审批人账户ID
-		 * @param assigneeId 审批人账户ID
-		 * @return 当前对象
-		*/
-		public Task setAssigneeId(String assigneeId) {
-			super.change(ASSIGNEE_ID,super.getAssigneeId(),assigneeId);
-			super.setAssigneeId(assigneeId);
-			return this;
-		}
-		
-		/**
 		 * 设置 任务状态
 		 * @param status 任务状态
 		 * @return 当前对象
@@ -630,50 +486,6 @@ public class TaskVOMeta extends TaskMeta {
 		public Task setStatus(String status) {
 			super.change(STATUS,super.getStatus(),status);
 			super.setStatus(status);
-			return this;
-		}
-		
-		/**
-		 * 设置 处理时间
-		 * @param approvalTime 处理时间
-		 * @return 当前对象
-		*/
-		public Task setApprovalTime(Date approvalTime) {
-			super.change(APPROVAL_TIME,super.getApprovalTime(),approvalTime);
-			super.setApprovalTime(approvalTime);
-			return this;
-		}
-		
-		/**
-		 * 设置 审批结果
-		 * @param approvalResult 审批结果
-		 * @return 当前对象
-		*/
-		public Task setApprovalResult(String approvalResult) {
-			super.change(APPROVAL_RESULT,super.getApprovalResult(),approvalResult);
-			super.setApprovalResult(approvalResult);
-			return this;
-		}
-		
-		/**
-		 * 设置 审批意见
-		 * @param approvalComment 审批意见
-		 * @return 当前对象
-		*/
-		public Task setApprovalComment(String approvalComment) {
-			super.change(APPROVAL_COMMENT,super.getApprovalComment(),approvalComment);
-			super.setApprovalComment(approvalComment);
-			return this;
-		}
-		
-		/**
-		 * 设置 变量数据
-		 * @param variables 变量数据
-		 * @return 当前对象
-		*/
-		public Task setVariables(String variables) {
-			super.change(VARIABLES,super.getVariables(),variables);
-			super.setVariables(variables);
 			return this;
 		}
 		
@@ -810,46 +622,24 @@ public class TaskVOMeta extends TaskMeta {
 		}
 		
 		/**
-		 * 设置 审批人身份
-		 * @param approver 审批人身份
+		 * 设置 审批动作清单
+		 * @param approvals 审批动作清单
 		 * @return 当前对象
 		*/
-		public Task setApprover(Approver approver) {
-			super.change(APPROVER,super.getApprover(),approver);
-			super.setApprover(approver);
+		public Task setApprovals(List<TaskApproval> approvals) {
+			super.change(APPROVALS,super.getApprovals(),approvals);
+			super.setApprovals(approvals);
 			return this;
 		}
 		
 		/**
-		 * 设置 审批人名称
-		 * @param approverName 审批人名称
+		 * 设置 审批人清单
+		 * @param assignees 审批人清单
 		 * @return 当前对象
 		*/
-		public Task setApproverName(String approverName) {
-			super.change(APPROVER_NAME,super.getApproverName(),approverName);
-			super.setApproverName(approverName);
-			return this;
-		}
-		
-		/**
-		 * 设置 审批人账户
-		 * @param approverUser 审批人账户
-		 * @return 当前对象
-		*/
-		public Task setApproverUser(User approverUser) {
-			super.change(APPROVER_USER,super.getApproverUser(),approverUser);
-			super.setApproverUser(approverUser);
-			return this;
-		}
-		
-		/**
-		 * 设置 代理人账户
-		 * @param assigneeUser 代理人账户
-		 * @return 当前对象
-		*/
-		public Task setAssigneeUser(User assigneeUser) {
-			super.change(ASSIGNEE_USER,super.getAssigneeUser(),assigneeUser);
-			super.setAssigneeUser(assigneeUser);
+		public Task setAssignees(List<TaskAssignee> assignees) {
+			super.change(ASSIGNEES,super.getAssignees(),assignees);
+			super.setAssignees(assignees);
 			return this;
 		}
 	}

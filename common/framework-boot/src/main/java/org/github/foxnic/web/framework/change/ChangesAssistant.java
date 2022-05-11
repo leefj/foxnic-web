@@ -5,7 +5,7 @@ import com.github.foxnic.commons.reflect.ReflectUtil;
 import com.github.foxnic.dao.entity.ISuperService;
 import com.github.foxnic.dao.spec.DAO;
 import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
-import org.github.foxnic.web.domain.bpm.Approver;
+import org.github.foxnic.web.domain.bpm.Assignee;
 import org.github.foxnic.web.domain.changes.ChangeApproveBody;
 import org.github.foxnic.web.domain.changes.ChangeEvent;
 import org.github.foxnic.web.domain.changes.ChangeRequestBody;
@@ -117,28 +117,28 @@ public class ChangesAssistant {
     /**
      * 获得审批人
      * */
-    public Approver getEmployeeApproverById(String id) {
-        List<Approver> approvers =this.getEmployeeApproversById(id);
-        if(approvers ==null|| approvers.isEmpty()) return null;
-        return approvers.get(0);
+    public Assignee getEmployeeApproverById(String id) {
+        List<Assignee> assignees =this.getEmployeeApproversById(id);
+        if(assignees ==null|| assignees.isEmpty()) return null;
+        return assignees.get(0);
     }
 
     /**
      * 获得审批人
      * */
-    public List<Approver> getEmployeeApproversById(String... id) {
+    public List<Assignee> getEmployeeApproversById(String... id) {
         List empIds= Arrays.asList(id);
         try {
             Result<List<Employee>> result= (Result<List<Employee>>)employeeGetByIdsMethod.invoke(employeeProxy,empIds);
             if(result.failure()) return null;
             List<Employee> emps=result.data();
             if(emps==null) return null;
-            List<Approver> approvers =new ArrayList<>();
+            List<Assignee> assignees =new ArrayList<>();
             for (Employee e : emps) {
-                Approver approver =new Approver(e.getId(),e.getBadge(),e.getPerson().getName(), UnifiedUserType.employee);
-                approvers.add(approver);
+                Assignee assignee =new Assignee(e.getId(),e.getBadge(),e.getPerson().getName(), UnifiedUserType.employee);
+                assignees.add(assignee);
             }
-            return approvers;
+            return assignees;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -147,28 +147,28 @@ public class ChangesAssistant {
     /**
      * 通过获得审批角色
      * */
-    public Approver getBpmRoleApproverById(String id) {
-        List<Approver> approvers =getEmployeeApproversById(id);
-        if(approvers ==null || approvers.isEmpty()) return null;
-        return approvers.get(0);
+    public Assignee getBpmRoleApproverById(String id) {
+        List<Assignee> assignees =getEmployeeApproversById(id);
+        if(assignees ==null || assignees.isEmpty()) return null;
+        return assignees.get(0);
     }
 
     /**
      * 通过获得审批角色
      * */
-    public List<Approver> getBpmRoleApproversById(String... id) {
+    public List<Assignee> getBpmRoleApproversById(String... id) {
         List roleIds= Arrays.asList(id);
         try {
             Result<List<BusiRole>> result= (Result<List<BusiRole>>) busiRoleGetByIdsMethod.invoke(busiRoleProxy,roleIds);
             if(result.failure()) return null;
             List<BusiRole> roles=result.data();
             if(roles==null) return null;
-            List<Approver> approvers =new ArrayList<>();
+            List<Assignee> assignees =new ArrayList<>();
             for (BusiRole e : roles) {
-                Approver approver =new Approver(e.getId(),e.getCode(),e.getName(), UnifiedUserType.busi_role);
-                approvers.add(approver);
+                Assignee assignee =new Assignee(e.getId(),e.getCode(),e.getName(), UnifiedUserType.busi_role);
+                assignees.add(assignee);
             }
-            return approvers;
+            return assignees;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -177,28 +177,28 @@ public class ChangesAssistant {
     /**
      * 通过获得审批角色
      * */
-    public Approver getBpmRoleApproverByCode(String code) {
-        List<Approver> approvers =this.getBpmRoleApproversByCode(code);
-        if(approvers ==null || approvers.isEmpty()) return null;
-        return approvers.get(0);
+    public Assignee getBpmRoleApproverByCode(String code) {
+        List<Assignee> assignees =this.getBpmRoleApproversByCode(code);
+        if(assignees ==null || assignees.isEmpty()) return null;
+        return assignees.get(0);
     }
 
     /**
      * 通过获得审批角色
      * */
-    public List<Approver> getBpmRoleApproversByCode(String... code) {
+    public List<Assignee> getBpmRoleApproversByCode(String... code) {
         List roleCodes= Arrays.asList(code);
         try {
             Result<List<BusiRole>> result= (Result<List<BusiRole>>) busiRoleGetByCodesMethod.invoke(busiRoleProxy,roleCodes);
             if(result.failure()) return null;
             List<BusiRole> roles=result.data();
             if(roles==null) return null;
-            List<Approver> approvers =new ArrayList<>();
+            List<Assignee> assignees =new ArrayList<>();
             for (BusiRole e : roles) {
-                Approver approver =new Approver(e.getId(),e.getCode(),e.getName(), UnifiedUserType.busi_role);
-                approvers.add(approver);
+                Assignee assignee =new Assignee(e.getId(),e.getCode(),e.getName(), UnifiedUserType.busi_role);
+                assignees.add(assignee);
             }
-            return approvers;
+            return assignees;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

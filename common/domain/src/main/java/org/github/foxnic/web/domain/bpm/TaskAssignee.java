@@ -3,7 +3,7 @@ package org.github.foxnic.web.domain.bpm;
 import com.github.foxnic.dao.entity.Entity;
 import javax.persistence.Table;
 import com.github.foxnic.sql.meta.DBTable;
-import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_PROCESS_DEFINITION_NODE_ASSIGNEE;
+import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_TASK_ASSIGNEE;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
@@ -15,49 +15,55 @@ import com.github.foxnic.dao.entity.EntityContext;
 
 
 /**
- * 流程审批人
+ * 流程任务处理人
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-11 11:17:30
- * @sign C4D6ECB21BE5CCD44BA6671732CF2811
+ * @since 2022-05-11 13:32:18
+ * @sign EAB0D3998FC2AD40DE0CBC3326CA3C1C
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
-@Table(name = "bpm_process_definition_node_assignee")
-public class ProcessDefinitionNodeAssignee extends Entity {
+@Table(name = "bpm_task_assignee")
+public class TaskAssignee extends Entity {
 
 	private static final long serialVersionUID = 1L;
 
-	public static final DBTable TABLE =BPM_PROCESS_DEFINITION_NODE_ASSIGNEE.$TABLE;
+	public static final DBTable TABLE =BPM_TASK_ASSIGNEE.$TABLE;
 
 	/**
-	 * ID：ID
+	 * id：id
 	*/
 	@Id
-	@ApiModelProperty(required = true,value="ID" , notes = "ID")
+	@ApiModelProperty(required = true,value="id" , notes = "id")
 	private String id;
 
 	/**
-	 * 流程节点ID：流程节点ID
+	 * 流程实例ID：流程实例ID
 	*/
-	@ApiModelProperty(required = false,value="流程节点ID" , notes = "流程节点ID")
-	private String nodeId;
+	@ApiModelProperty(required = false,value="流程实例ID" , notes = "流程实例ID")
+	private String processInstanceId;
 
 	/**
-	 * 审批人类型：审批人类型
+	 * 任务ID：任务ID
 	*/
-	@ApiModelProperty(required = false,value="审批人类型" , notes = "审批人类型")
+	@ApiModelProperty(required = false,value="任务ID" , notes = "任务ID")
+	private String taskId;
+
+	/**
+	 * 审批人类型：预计的审批人类型
+	*/
+	@ApiModelProperty(required = false,value="审批人类型" , notes = "预计的审批人类型")
 	private String assigneeType;
 
 	/**
-	 * 审批人ID：审批人ID
+	 * 审批人ID：预计的审批人
 	*/
-	@ApiModelProperty(required = false,value="审批人ID" , notes = "审批人ID")
+	@ApiModelProperty(required = false,value="审批人ID" , notes = "预计的审批人")
 	private String assigneeId;
 
 	/**
-	 * 创建人ID：创建人ID
+	 * create_by：create_by
 	*/
-	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID")
+	@ApiModelProperty(required = false,value="create_by" , notes = "create_by")
 	private String createBy;
 
 	/**
@@ -67,9 +73,9 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 	private Date createTime;
 
 	/**
-	 * 修改人ID：修改人ID
+	 * update_by：update_by
 	*/
-	@ApiModelProperty(required = false,value="修改人ID" , notes = "修改人ID")
+	@ApiModelProperty(required = false,value="update_by" , notes = "update_by")
 	private String updateBy;
 
 	/**
@@ -87,9 +93,9 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 	private Boolean deletedBool;
 
 	/**
-	 * 删除人ID：删除人ID
+	 * delete_by：delete_by
 	*/
-	@ApiModelProperty(required = false,value="删除人ID" , notes = "删除人ID")
+	@ApiModelProperty(required = false,value="delete_by" , notes = "delete_by")
 	private String deleteBy;
 
 	/**
@@ -105,16 +111,10 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 	private Integer version;
 
 	/**
-	 * 租户ID：租户ID
+	 * tenant_id：tenant_id
 	*/
-	@ApiModelProperty(required = true,value="租户ID" , notes = "租户ID")
+	@ApiModelProperty(required = false,value="tenant_id" , notes = "tenant_id")
 	private String tenantId;
-
-	/**
-	 * 序号：序号
-	*/
-	@ApiModelProperty(required = false,value="序号" , notes = "序号")
-	private Integer sort;
 
 	/**
 	 * 审批人：审批人
@@ -123,46 +123,65 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 	private Assignee assignee;
 
 	/**
-	 * 获得 ID<br>
-	 * ID
-	 * @return ID
+	 * 获得 id<br>
+	 * id
+	 * @return id
 	*/
 	public String getId() {
 		return id;
 	}
 
 	/**
-	 * 设置 ID
-	 * @param id ID
+	 * 设置 id
+	 * @param id id
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionNodeAssignee setId(String id) {
+	public TaskAssignee setId(String id) {
 		this.id=id;
 		return this;
 	}
 
 	/**
-	 * 获得 流程节点ID<br>
-	 * 流程节点ID
-	 * @return 流程节点ID
+	 * 获得 流程实例ID<br>
+	 * 流程实例ID
+	 * @return 流程实例ID
 	*/
-	public String getNodeId() {
-		return nodeId;
+	public String getProcessInstanceId() {
+		return processInstanceId;
 	}
 
 	/**
-	 * 设置 流程节点ID
-	 * @param nodeId 流程节点ID
+	 * 设置 流程实例ID
+	 * @param processInstanceId 流程实例ID
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionNodeAssignee setNodeId(String nodeId) {
-		this.nodeId=nodeId;
+	public TaskAssignee setProcessInstanceId(String processInstanceId) {
+		this.processInstanceId=processInstanceId;
+		return this;
+	}
+
+	/**
+	 * 获得 任务ID<br>
+	 * 任务ID
+	 * @return 任务ID
+	*/
+	public String getTaskId() {
+		return taskId;
+	}
+
+	/**
+	 * 设置 任务ID
+	 * @param taskId 任务ID
+	 * @return 当前对象
+	*/
+	public TaskAssignee setTaskId(String taskId) {
+		this.taskId=taskId;
 		return this;
 	}
 
 	/**
 	 * 获得 审批人类型<br>
-	 * 审批人类型
+	 * 预计的审批人类型
 	 * @return 审批人类型
 	*/
 	public String getAssigneeType() {
@@ -174,14 +193,14 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 	 * @param assigneeType 审批人类型
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionNodeAssignee setAssigneeType(String assigneeType) {
+	public TaskAssignee setAssigneeType(String assigneeType) {
 		this.assigneeType=assigneeType;
 		return this;
 	}
 
 	/**
 	 * 获得 审批人ID<br>
-	 * 审批人ID
+	 * 预计的审批人
 	 * @return 审批人ID
 	*/
 	public String getAssigneeId() {
@@ -193,26 +212,26 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 	 * @param assigneeId 审批人ID
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionNodeAssignee setAssigneeId(String assigneeId) {
+	public TaskAssignee setAssigneeId(String assigneeId) {
 		this.assigneeId=assigneeId;
 		return this;
 	}
 
 	/**
-	 * 获得 创建人ID<br>
-	 * 创建人ID
-	 * @return 创建人ID
+	 * 获得 create_by<br>
+	 * create_by
+	 * @return create_by
 	*/
 	public String getCreateBy() {
 		return createBy;
 	}
 
 	/**
-	 * 设置 创建人ID
-	 * @param createBy 创建人ID
+	 * 设置 create_by
+	 * @param createBy create_by
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionNodeAssignee setCreateBy(String createBy) {
+	public TaskAssignee setCreateBy(String createBy) {
 		this.createBy=createBy;
 		return this;
 	}
@@ -231,26 +250,26 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 	 * @param createTime 创建时间
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionNodeAssignee setCreateTime(Date createTime) {
+	public TaskAssignee setCreateTime(Date createTime) {
 		this.createTime=createTime;
 		return this;
 	}
 
 	/**
-	 * 获得 修改人ID<br>
-	 * 修改人ID
-	 * @return 修改人ID
+	 * 获得 update_by<br>
+	 * update_by
+	 * @return update_by
 	*/
 	public String getUpdateBy() {
 		return updateBy;
 	}
 
 	/**
-	 * 设置 修改人ID
-	 * @param updateBy 修改人ID
+	 * 设置 update_by
+	 * @param updateBy update_by
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionNodeAssignee setUpdateBy(String updateBy) {
+	public TaskAssignee setUpdateBy(String updateBy) {
 		this.updateBy=updateBy;
 		return this;
 	}
@@ -269,7 +288,7 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 	 * @param updateTime 修改时间
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionNodeAssignee setUpdateTime(Date updateTime) {
+	public TaskAssignee setUpdateTime(Date updateTime) {
 		this.updateTime=updateTime;
 		return this;
 	}
@@ -301,7 +320,7 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 	 * @param deleted 是否已删除
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionNodeAssignee setDeleted(Integer deleted) {
+	public TaskAssignee setDeleted(Integer deleted) {
 		this.deleted=deleted;
 		this.deletedBool=DataParser.parseBoolean(deleted);
 		return this;
@@ -313,7 +332,7 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 	 * @return 当前对象
 	*/
 	@Transient
-	public ProcessDefinitionNodeAssignee setDeleted(Boolean deletedBool) {
+	public TaskAssignee setDeleted(Boolean deletedBool) {
 		if(deletedBool==null) {
 			this.deleted=null;
 		} else {
@@ -324,20 +343,20 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 	}
 
 	/**
-	 * 获得 删除人ID<br>
-	 * 删除人ID
-	 * @return 删除人ID
+	 * 获得 delete_by<br>
+	 * delete_by
+	 * @return delete_by
 	*/
 	public String getDeleteBy() {
 		return deleteBy;
 	}
 
 	/**
-	 * 设置 删除人ID
-	 * @param deleteBy 删除人ID
+	 * 设置 delete_by
+	 * @param deleteBy delete_by
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionNodeAssignee setDeleteBy(String deleteBy) {
+	public TaskAssignee setDeleteBy(String deleteBy) {
 		this.deleteBy=deleteBy;
 		return this;
 	}
@@ -356,7 +375,7 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 	 * @param deleteTime 删除时间
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionNodeAssignee setDeleteTime(Date deleteTime) {
+	public TaskAssignee setDeleteTime(Date deleteTime) {
 		this.deleteTime=deleteTime;
 		return this;
 	}
@@ -375,46 +394,27 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 	 * @param version 数据版本号
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionNodeAssignee setVersion(Integer version) {
+	public TaskAssignee setVersion(Integer version) {
 		this.version=version;
 		return this;
 	}
 
 	/**
-	 * 获得 租户ID<br>
-	 * 租户ID
-	 * @return 租户ID
+	 * 获得 tenant_id<br>
+	 * tenant_id
+	 * @return tenant_id
 	*/
 	public String getTenantId() {
 		return tenantId;
 	}
 
 	/**
-	 * 设置 租户ID
-	 * @param tenantId 租户ID
+	 * 设置 tenant_id
+	 * @param tenantId tenant_id
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionNodeAssignee setTenantId(String tenantId) {
+	public TaskAssignee setTenantId(String tenantId) {
 		this.tenantId=tenantId;
-		return this;
-	}
-
-	/**
-	 * 获得 序号<br>
-	 * 序号
-	 * @return 序号
-	*/
-	public Integer getSort() {
-		return sort;
-	}
-
-	/**
-	 * 设置 序号
-	 * @param sort 序号
-	 * @return 当前对象
-	*/
-	public ProcessDefinitionNodeAssignee setSort(Integer sort) {
-		this.sort=sort;
 		return this;
 	}
 
@@ -432,7 +432,7 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 	 * @param assignee 审批人
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionNodeAssignee setAssignee(Assignee assignee) {
+	public TaskAssignee setAssignee(Assignee assignee) {
 		this.assignee=assignee;
 		return this;
 	}
@@ -440,7 +440,7 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 	/**
 	 * 将自己转换成指定类型的PO
 	 * @param poType  PO类型
-	 * @return ProcessDefinitionNodeAssignee , 转换好的 ProcessDefinitionNodeAssignee 对象
+	 * @return TaskAssignee , 转换好的 TaskAssignee 对象
 	*/
 	@Transient
 	public <T extends Entity> T toPO(Class<T> poType) {
@@ -450,7 +450,7 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 	/**
 	 * 将自己转换成任意指定类型
 	 * @param pojoType  Pojo类型
-	 * @return ProcessDefinitionNodeAssignee , 转换好的 PoJo 对象
+	 * @return TaskAssignee , 转换好的 PoJo 对象
 	*/
 	@Transient
 	public <T> T toPojo(Class<T> pojoType) {
@@ -467,35 +467,35 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 	}
 
 	/**
-	 * 将 Map 转换成 ProcessDefinitionNodeAssignee
-	 * @param processDefinitionNodeAssigneeMap 包含实体信息的 Map 对象
-	 * @return ProcessDefinitionNodeAssignee , 转换好的的 ProcessDefinitionNodeAssignee 对象
+	 * 将 Map 转换成 TaskAssignee
+	 * @param taskAssigneeMap 包含实体信息的 Map 对象
+	 * @return TaskAssignee , 转换好的的 TaskAssignee 对象
 	*/
 	@Transient
-	public static ProcessDefinitionNodeAssignee createFrom(Map<String,Object> processDefinitionNodeAssigneeMap) {
-		if(processDefinitionNodeAssigneeMap==null) return null;
-		ProcessDefinitionNodeAssignee po = EntityContext.create(ProcessDefinitionNodeAssignee.class, processDefinitionNodeAssigneeMap);
+	public static TaskAssignee createFrom(Map<String,Object> taskAssigneeMap) {
+		if(taskAssigneeMap==null) return null;
+		TaskAssignee po = EntityContext.create(TaskAssignee.class, taskAssigneeMap);
 		return po;
 	}
 
 	/**
-	 * 将 Pojo 转换成 ProcessDefinitionNodeAssignee
+	 * 将 Pojo 转换成 TaskAssignee
 	 * @param pojo 包含实体信息的 Pojo 对象
-	 * @return ProcessDefinitionNodeAssignee , 转换好的的 ProcessDefinitionNodeAssignee 对象
+	 * @return TaskAssignee , 转换好的的 TaskAssignee 对象
 	*/
 	@Transient
-	public static ProcessDefinitionNodeAssignee createFrom(Object pojo) {
+	public static TaskAssignee createFrom(Object pojo) {
 		if(pojo==null) return null;
-		ProcessDefinitionNodeAssignee po = EntityContext.create(ProcessDefinitionNodeAssignee.class,pojo);
+		TaskAssignee po = EntityContext.create(TaskAssignee.class,pojo);
 		return po;
 	}
 
 	/**
-	 * 创建一个 ProcessDefinitionNodeAssignee，等同于 new
-	 * @return ProcessDefinitionNodeAssignee 对象
+	 * 创建一个 TaskAssignee，等同于 new
+	 * @return TaskAssignee 对象
 	*/
 	@Transient
-	public static ProcessDefinitionNodeAssignee create() {
-		return EntityContext.create(ProcessDefinitionNodeAssignee.class);
+	public static TaskAssignee create() {
+		return EntityContext.create(TaskAssignee.class);
 	}
 }

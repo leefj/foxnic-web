@@ -2,7 +2,7 @@ package org.github.foxnic.web.framework.bpm;
 
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
-import org.github.foxnic.web.domain.bpm.Approver;
+import org.github.foxnic.web.domain.bpm.Assignee;
 
 import java.util.*;
 import java.util.function.Function;
@@ -10,7 +10,7 @@ import java.util.function.Function;
 public class IdentityInterpreter<T> {
 
     public static interface Setter<T> {
-        void set(T item, Approver approver);
+        void set(T item, Assignee assignee);
     }
 
     private static class Group<T> {
@@ -91,25 +91,25 @@ public class IdentityInterpreter<T> {
             }
         }
 
-        HashMap<String, Approver> appoverMap = new HashMap<>();
+        HashMap<String, Assignee> appoverMap = new HashMap<>();
         // 按组获得审批人
         for (Map.Entry<String, Set<String>> entry : approverIdMap.entrySet()) {
             UnifiedUserType uuType = UnifiedUserType.parseByCode(entry.getKey());
             IdentityService identityService = IdentityService.getImpl(uuType);
-            List<Approver> approvers = identityService.getAppoversById(new ArrayList<>(entry.getValue()));
-            for (Approver approver : approvers) {
-                appoverMap.put(uuType.code() + "::" + approver.getId(), approver);
+            List<Assignee> assignees = identityService.getAppoversById(new ArrayList<>(entry.getValue()));
+            for (Assignee assignee : assignees) {
+                appoverMap.put(uuType.code() + "::" + assignee.getId(), assignee);
             }
         }
 
         // 设置值
-        Approver approver = null;
+        Assignee assignee = null;
         for (T t : list) {
             for (Group<T> group : groups) {
                 type = group.approverType.apply(t);
                 id = group.approverId.apply(t);
-                approver = appoverMap.get(type + "::" + id);
-                group.setter.set(t, approver);
+                assignee = appoverMap.get(type + "::" + id);
+                group.setter.set(t, assignee);
             }
         }
 

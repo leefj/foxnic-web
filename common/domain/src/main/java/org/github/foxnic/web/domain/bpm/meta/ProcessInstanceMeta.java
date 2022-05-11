@@ -1,15 +1,12 @@
 package org.github.foxnic.web.domain.bpm.meta;
 
 import com.github.foxnic.api.bean.BeanProperty;
-import org.github.foxnic.web.domain.bpm.ProcessInstance;
-import java.util.Date;
-import org.github.foxnic.web.domain.bpm.ProcessDefinition;
-import org.github.foxnic.web.domain.bpm.FormDefinition;
-import org.github.foxnic.web.domain.bpm.FormInstance;
-import org.github.foxnic.web.domain.bpm.Approver;
-import org.github.foxnic.web.domain.oauth.User;
-import org.github.foxnic.web.domain.bpm.ProcessDefinitionFile;
+import org.github.foxnic.web.domain.bpm.*;
 
+import java.util.Date;
+
+import org.github.foxnic.web.domain.bpm.Assignee;
+import org.github.foxnic.web.domain.oauth.User;
 
 
 /**
@@ -20,312 +17,312 @@ import org.github.foxnic.web.domain.bpm.ProcessDefinitionFile;
 */
 
 public class ProcessInstanceMeta {
-	
+
 	/**
 	 * 主键 , 类型: java.lang.String
 	*/
 	public static final String ID="id";
-	
+
 	/**
 	 * 主键 , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,java.lang.String> ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,ID, java.lang.String.class, "主键", "主键", java.lang.String.class, null);
-	
+
 	/**
 	 * 起草人账户ID , 类型: java.lang.String
 	*/
 	public static final String DRAFTER_USER_ID="drafterUserId";
-	
+
 	/**
 	 * 起草人账户ID , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,java.lang.String> DRAFTER_USER_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,DRAFTER_USER_ID, java.lang.String.class, "起草人账户ID", "起草人账户ID", java.lang.String.class, null);
-	
+
 	/**
 	 * 起草人ID , 可以是账户ID、员工ID、职位ID、系统角色ID、业务角色ID , 类型: java.lang.String
 	*/
 	public static final String DRAFTER_ID="drafterId";
-	
+
 	/**
 	 * 起草人ID , 可以是账户ID、员工ID、职位ID、系统角色ID、业务角色ID , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,java.lang.String> DRAFTER_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,DRAFTER_ID, java.lang.String.class, "起草人ID", "可以是账户ID、员工ID、职位ID、系统角色ID、业务角色ID", java.lang.String.class, null);
-	
+
 	/**
 	 * 起草人类型 , 类型: java.lang.String
 	*/
 	public static final String DRAFTER_TYPE="drafterType";
-	
+
 	/**
 	 * 起草人类型 , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,java.lang.String> DRAFTER_TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,DRAFTER_TYPE, java.lang.String.class, "起草人类型", "起草人类型", java.lang.String.class, null);
-	
+
 	/**
 	 * 表单实例ID , 类型: java.lang.String
 	*/
 	public static final String FORM_INSTANCE_ID="formInstanceId";
-	
+
 	/**
 	 * 表单实例ID , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,java.lang.String> FORM_INSTANCE_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,FORM_INSTANCE_ID, java.lang.String.class, "表单实例ID", "表单实例ID", java.lang.String.class, null);
-	
+
 	/**
 	 * 流程定义ID , 类型: java.lang.String
 	*/
 	public static final String PROCESS_DEFINITION_ID="processDefinitionId";
-	
+
 	/**
 	 * 流程定义ID , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,java.lang.String> PROCESS_DEFINITION_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,PROCESS_DEFINITION_ID, java.lang.String.class, "流程定义ID", "流程定义ID", java.lang.String.class, null);
-	
+
 	/**
 	 * 流程定义文件ID , 类型: java.lang.String
 	*/
 	public static final String PROCESS_DEFINITION_FILE_ID="processDefinitionFileId";
-	
+
 	/**
 	 * 流程定义文件ID , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,java.lang.String> PROCESS_DEFINITION_FILE_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,PROCESS_DEFINITION_FILE_ID, java.lang.String.class, "流程定义文件ID", "流程定义文件ID", java.lang.String.class, null);
-	
+
 	/**
 	 * 表单定义ID , 类型: java.lang.String
 	*/
 	public static final String FORM_DEFINITION_ID="formDefinitionId";
-	
+
 	/**
 	 * 表单定义ID , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,java.lang.String> FORM_DEFINITION_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,FORM_DEFINITION_ID, java.lang.String.class, "表单定义ID", "表单定义ID", java.lang.String.class, null);
-	
+
 	/**
 	 * 流程标题 , 类型: java.lang.String
 	*/
 	public static final String TITLE="title";
-	
+
 	/**
 	 * 流程标题 , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,java.lang.String> TITLE_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,TITLE, java.lang.String.class, "流程标题", "流程标题", java.lang.String.class, null);
-	
+
 	/**
 	 * 紧急程度 , 类型: java.lang.String
 	*/
 	public static final String PRIORITY="priority";
-	
+
 	/**
 	 * 紧急程度 , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,java.lang.String> PRIORITY_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,PRIORITY, java.lang.String.class, "紧急程度", "紧急程度", java.lang.String.class, null);
-	
+
 	/**
 	 * 流程说明 , 类型: java.lang.String
 	*/
 	public static final String COMMENT="comment";
-	
+
 	/**
 	 * 流程说明 , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,java.lang.String> COMMENT_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,COMMENT, java.lang.String.class, "流程说明", "流程说明", java.lang.String.class, null);
-	
+
 	/**
 	 * 审批状态 , 类型: java.lang.String
 	*/
 	public static final String APPROVAL_STATUS="approvalStatus";
-	
+
 	/**
 	 * 审批状态 , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,java.lang.String> APPROVAL_STATUS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,APPROVAL_STATUS, java.lang.String.class, "审批状态", "审批状态", java.lang.String.class, null);
-	
+
 	/**
 	 * camunda流程实例ID , 类型: java.lang.String
 	*/
 	public static final String CAMUNDA_INSTANCE_ID="camundaInstanceId";
-	
+
 	/**
 	 * camunda流程实例ID , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,java.lang.String> CAMUNDA_INSTANCE_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,CAMUNDA_INSTANCE_ID, java.lang.String.class, "camunda流程实例ID", "camunda流程实例ID", java.lang.String.class, null);
-	
+
 	/**
 	 * 提交时间 , 类型: java.util.Date
 	*/
 	public static final String COMMIT_TIME="commitTime";
-	
+
 	/**
 	 * 提交时间 , 类型: java.util.Date
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,java.util.Date> COMMIT_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,COMMIT_TIME, java.util.Date.class, "提交时间", "提交时间", java.util.Date.class, null);
-	
+
 	/**
 	 * 创建人ID , 类型: java.lang.String
 	*/
 	public static final String CREATE_BY="createBy";
-	
+
 	/**
 	 * 创建人ID , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,java.lang.String> CREATE_BY_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,CREATE_BY, java.lang.String.class, "创建人ID", "创建人ID", java.lang.String.class, null);
-	
+
 	/**
 	 * 创建时间 , 类型: java.util.Date
 	*/
 	public static final String CREATE_TIME="createTime";
-	
+
 	/**
 	 * 创建时间 , 类型: java.util.Date
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,java.util.Date> CREATE_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,CREATE_TIME, java.util.Date.class, "创建时间", "创建时间", java.util.Date.class, null);
-	
+
 	/**
 	 * 修改人ID , 类型: java.lang.String
 	*/
 	public static final String UPDATE_BY="updateBy";
-	
+
 	/**
 	 * 修改人ID , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,java.lang.String> UPDATE_BY_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,UPDATE_BY, java.lang.String.class, "修改人ID", "修改人ID", java.lang.String.class, null);
-	
+
 	/**
 	 * 修改时间 , 类型: java.util.Date
 	*/
 	public static final String UPDATE_TIME="updateTime";
-	
+
 	/**
 	 * 修改时间 , 类型: java.util.Date
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,java.util.Date> UPDATE_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,UPDATE_TIME, java.util.Date.class, "修改时间", "修改时间", java.util.Date.class, null);
-	
+
 	/**
 	 * 是否已删除 , 类型: java.lang.Integer
 	*/
 	public static final String DELETED="deleted";
-	
+
 	/**
 	 * 是否已删除 , 类型: java.lang.Integer
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,java.lang.Integer> DELETED_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,DELETED, java.lang.Integer.class, "是否已删除", "是否已删除", java.lang.Integer.class, null);
-	
+
 	/**
 	 * 删除人ID , 类型: java.lang.String
 	*/
 	public static final String DELETE_BY="deleteBy";
-	
+
 	/**
 	 * 删除人ID , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,java.lang.String> DELETE_BY_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,DELETE_BY, java.lang.String.class, "删除人ID", "删除人ID", java.lang.String.class, null);
-	
+
 	/**
 	 * 删除时间 , 类型: java.util.Date
 	*/
 	public static final String DELETE_TIME="deleteTime";
-	
+
 	/**
 	 * 删除时间 , 类型: java.util.Date
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,java.util.Date> DELETE_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,DELETE_TIME, java.util.Date.class, "删除时间", "删除时间", java.util.Date.class, null);
-	
+
 	/**
 	 * 数据版本号 , 类型: java.lang.Integer
 	*/
 	public static final String VERSION="version";
-	
+
 	/**
 	 * 数据版本号 , 类型: java.lang.Integer
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,java.lang.Integer> VERSION_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,VERSION, java.lang.Integer.class, "数据版本号", "数据版本号", java.lang.Integer.class, null);
-	
+
 	/**
 	 * 租户ID , 类型: java.lang.String
 	*/
 	public static final String TENANT_ID="tenantId";
-	
+
 	/**
 	 * 租户ID , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,java.lang.String> TENANT_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,TENANT_ID, java.lang.String.class, "租户ID", "租户ID", java.lang.String.class, null);
-	
+
 	/**
 	 * 流程定义 , 类型: org.github.foxnic.web.domain.bpm.ProcessDefinition
 	*/
 	public static final String PROCESS_DEFINITION="processDefinition";
-	
+
 	/**
 	 * 流程定义 , 类型: org.github.foxnic.web.domain.bpm.ProcessDefinition
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,org.github.foxnic.web.domain.bpm.ProcessDefinition> PROCESS_DEFINITION_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,PROCESS_DEFINITION, org.github.foxnic.web.domain.bpm.ProcessDefinition.class, "流程定义", "流程定义", org.github.foxnic.web.domain.bpm.ProcessDefinition.class, null);
-	
+
 	/**
 	 * 表单定义 , 类型: org.github.foxnic.web.domain.bpm.FormDefinition
 	*/
 	public static final String FORM_DEFINITION="formDefinition";
-	
+
 	/**
 	 * 表单定义 , 类型: org.github.foxnic.web.domain.bpm.FormDefinition
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,org.github.foxnic.web.domain.bpm.FormDefinition> FORM_DEFINITION_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,FORM_DEFINITION, org.github.foxnic.web.domain.bpm.FormDefinition.class, "表单定义", "表单定义", org.github.foxnic.web.domain.bpm.FormDefinition.class, null);
-	
+
 	/**
 	 * 表单实例 , 类型: org.github.foxnic.web.domain.bpm.FormInstance
 	*/
 	public static final String FORM_INSTANCE="formInstance";
-	
+
 	/**
 	 * 表单实例 , 类型: org.github.foxnic.web.domain.bpm.FormInstance
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,org.github.foxnic.web.domain.bpm.FormInstance> FORM_INSTANCE_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,FORM_INSTANCE, org.github.foxnic.web.domain.bpm.FormInstance.class, "表单实例", "表单实例", org.github.foxnic.web.domain.bpm.FormInstance.class, null);
-	
+
 	/**
-	 * 起草人身份 , 类型: org.github.foxnic.web.domain.bpm.Approver
+	 * 起草人身份 , 类型: org.github.foxnic.web.domain.bpm.Assignee
 	*/
 	public static final String DRAFTER="drafter";
-	
+
 	/**
-	 * 起草人身份 , 类型: org.github.foxnic.web.domain.bpm.Approver
+	 * 起草人身份 , 类型: org.github.foxnic.web.domain.bpm.Assignee
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,org.github.foxnic.web.domain.bpm.Approver> DRAFTER_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,DRAFTER, org.github.foxnic.web.domain.bpm.Approver.class, "起草人身份", "起草人身份", org.github.foxnic.web.domain.bpm.Approver.class, null);
-	
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance, Assignee> DRAFTER_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,DRAFTER, Assignee.class, "起草人身份", "起草人身份", Assignee.class, null);
+
 	/**
 	 * 起草人名称 , 类型: java.lang.String
 	*/
 	public static final String DRAFTER_NAME="drafterName";
-	
+
 	/**
 	 * 起草人名称 , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,java.lang.String> DRAFTER_NAME_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,DRAFTER_NAME, java.lang.String.class, "起草人名称", "起草人名称", java.lang.String.class, null);
-	
+
 	/**
 	 * 起草人账户 , 类型: org.github.foxnic.web.domain.oauth.User
 	*/
 	public static final String DRAFTER_USER="drafterUser";
-	
+
 	/**
 	 * 起草人账户 , 类型: org.github.foxnic.web.domain.oauth.User
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,org.github.foxnic.web.domain.oauth.User> DRAFTER_USER_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,DRAFTER_USER, org.github.foxnic.web.domain.oauth.User.class, "起草人账户", "起草人账户", org.github.foxnic.web.domain.oauth.User.class, null);
-	
+
 	/**
 	 * 流程定义文件 , 类型: org.github.foxnic.web.domain.bpm.ProcessDefinitionFile
 	*/
 	public static final String PROCESS_DEFINITION_FILE="processDefinitionFile";
-	
+
 	/**
 	 * 流程定义文件 , 类型: org.github.foxnic.web.domain.bpm.ProcessDefinitionFile
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,org.github.foxnic.web.domain.bpm.ProcessDefinitionFile> PROCESS_DEFINITION_FILE_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,PROCESS_DEFINITION_FILE, org.github.foxnic.web.domain.bpm.ProcessDefinitionFile.class, "流程定义文件", "流程定义文件", org.github.foxnic.web.domain.bpm.ProcessDefinitionFile.class, null);
-	
+
 	/**
 	 * 全部属性清单
 	*/
 	public static final String[] $PROPS={ ID , DRAFTER_USER_ID , DRAFTER_ID , DRAFTER_TYPE , FORM_INSTANCE_ID , PROCESS_DEFINITION_ID , PROCESS_DEFINITION_FILE_ID , FORM_DEFINITION_ID , TITLE , PRIORITY , COMMENT , APPROVAL_STATUS , CAMUNDA_INSTANCE_ID , COMMIT_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , PROCESS_DEFINITION , FORM_DEFINITION , FORM_INSTANCE , DRAFTER , DRAFTER_NAME , DRAFTER_USER , PROCESS_DEFINITION_FILE };
-	
+
 	/**
 	 * 代理类
 	*/
@@ -333,7 +330,7 @@ public class ProcessInstanceMeta {
 
 		private static final long serialVersionUID = 1L;
 
-		
+
 		/**
 		 * 设置 主键
 		 * @param id 主键
@@ -344,7 +341,7 @@ public class ProcessInstanceMeta {
 			super.setId(id);
 			return this;
 		}
-		
+
 		/**
 		 * 设置 起草人账户ID
 		 * @param drafterUserId 起草人账户ID
@@ -355,7 +352,7 @@ public class ProcessInstanceMeta {
 			super.setDrafterUserId(drafterUserId);
 			return this;
 		}
-		
+
 		/**
 		 * 设置 起草人ID
 		 * @param drafterId 起草人ID
@@ -366,7 +363,7 @@ public class ProcessInstanceMeta {
 			super.setDrafterId(drafterId);
 			return this;
 		}
-		
+
 		/**
 		 * 设置 起草人类型
 		 * @param drafterType 起草人类型
@@ -377,7 +374,7 @@ public class ProcessInstanceMeta {
 			super.setDrafterType(drafterType);
 			return this;
 		}
-		
+
 		/**
 		 * 设置 表单实例ID
 		 * @param formInstanceId 表单实例ID
@@ -388,7 +385,7 @@ public class ProcessInstanceMeta {
 			super.setFormInstanceId(formInstanceId);
 			return this;
 		}
-		
+
 		/**
 		 * 设置 流程定义ID
 		 * @param processDefinitionId 流程定义ID
@@ -399,7 +396,7 @@ public class ProcessInstanceMeta {
 			super.setProcessDefinitionId(processDefinitionId);
 			return this;
 		}
-		
+
 		/**
 		 * 设置 流程定义文件ID
 		 * @param processDefinitionFileId 流程定义文件ID
@@ -410,7 +407,7 @@ public class ProcessInstanceMeta {
 			super.setProcessDefinitionFileId(processDefinitionFileId);
 			return this;
 		}
-		
+
 		/**
 		 * 设置 表单定义ID
 		 * @param formDefinitionId 表单定义ID
@@ -421,7 +418,7 @@ public class ProcessInstanceMeta {
 			super.setFormDefinitionId(formDefinitionId);
 			return this;
 		}
-		
+
 		/**
 		 * 设置 流程标题
 		 * @param title 流程标题
@@ -432,7 +429,7 @@ public class ProcessInstanceMeta {
 			super.setTitle(title);
 			return this;
 		}
-		
+
 		/**
 		 * 设置 紧急程度
 		 * @param priority 紧急程度
@@ -443,7 +440,7 @@ public class ProcessInstanceMeta {
 			super.setPriority(priority);
 			return this;
 		}
-		
+
 		/**
 		 * 设置 流程说明
 		 * @param comment 流程说明
@@ -454,7 +451,7 @@ public class ProcessInstanceMeta {
 			super.setComment(comment);
 			return this;
 		}
-		
+
 		/**
 		 * 设置 审批状态
 		 * @param approvalStatus 审批状态
@@ -465,7 +462,7 @@ public class ProcessInstanceMeta {
 			super.setApprovalStatus(approvalStatus);
 			return this;
 		}
-		
+
 		/**
 		 * 设置 camunda流程实例ID
 		 * @param camundaInstanceId camunda流程实例ID
@@ -476,7 +473,7 @@ public class ProcessInstanceMeta {
 			super.setCamundaInstanceId(camundaInstanceId);
 			return this;
 		}
-		
+
 		/**
 		 * 设置 提交时间
 		 * @param commitTime 提交时间
@@ -487,7 +484,7 @@ public class ProcessInstanceMeta {
 			super.setCommitTime(commitTime);
 			return this;
 		}
-		
+
 		/**
 		 * 设置 创建人ID
 		 * @param createBy 创建人ID
@@ -498,7 +495,7 @@ public class ProcessInstanceMeta {
 			super.setCreateBy(createBy);
 			return this;
 		}
-		
+
 		/**
 		 * 设置 创建时间
 		 * @param createTime 创建时间
@@ -509,7 +506,7 @@ public class ProcessInstanceMeta {
 			super.setCreateTime(createTime);
 			return this;
 		}
-		
+
 		/**
 		 * 设置 修改人ID
 		 * @param updateBy 修改人ID
@@ -520,7 +517,7 @@ public class ProcessInstanceMeta {
 			super.setUpdateBy(updateBy);
 			return this;
 		}
-		
+
 		/**
 		 * 设置 修改时间
 		 * @param updateTime 修改时间
@@ -531,7 +528,7 @@ public class ProcessInstanceMeta {
 			super.setUpdateTime(updateTime);
 			return this;
 		}
-		
+
 		/**
 		 * 设置 是否已删除
 		 * @param deleted 是否已删除
@@ -542,7 +539,7 @@ public class ProcessInstanceMeta {
 			super.setDeleted(deleted);
 			return this;
 		}
-		
+
 		/**
 		 * 设置 删除人ID
 		 * @param deleteBy 删除人ID
@@ -553,7 +550,7 @@ public class ProcessInstanceMeta {
 			super.setDeleteBy(deleteBy);
 			return this;
 		}
-		
+
 		/**
 		 * 设置 删除时间
 		 * @param deleteTime 删除时间
@@ -564,7 +561,7 @@ public class ProcessInstanceMeta {
 			super.setDeleteTime(deleteTime);
 			return this;
 		}
-		
+
 		/**
 		 * 设置 数据版本号
 		 * @param version 数据版本号
@@ -575,7 +572,7 @@ public class ProcessInstanceMeta {
 			super.setVersion(version);
 			return this;
 		}
-		
+
 		/**
 		 * 设置 租户ID
 		 * @param tenantId 租户ID
@@ -586,7 +583,7 @@ public class ProcessInstanceMeta {
 			super.setTenantId(tenantId);
 			return this;
 		}
-		
+
 		/**
 		 * 设置 流程定义
 		 * @param processDefinition 流程定义
@@ -597,7 +594,7 @@ public class ProcessInstanceMeta {
 			super.setProcessDefinition(processDefinition);
 			return this;
 		}
-		
+
 		/**
 		 * 设置 表单定义
 		 * @param formDefinition 表单定义
@@ -608,7 +605,7 @@ public class ProcessInstanceMeta {
 			super.setFormDefinition(formDefinition);
 			return this;
 		}
-		
+
 		/**
 		 * 设置 表单实例
 		 * @param formInstance 表单实例
@@ -619,18 +616,18 @@ public class ProcessInstanceMeta {
 			super.setFormInstance(formInstance);
 			return this;
 		}
-		
+
 		/**
 		 * 设置 起草人身份
 		 * @param drafter 起草人身份
 		 * @return 当前对象
 		*/
-		public ProcessInstance setDrafter(Approver drafter) {
+		public ProcessInstance setDrafter(Assignee drafter) {
 			super.change(DRAFTER,super.getDrafter(),drafter);
 			super.setDrafter(drafter);
 			return this;
 		}
-		
+
 		/**
 		 * 设置 起草人名称
 		 * @param drafterName 起草人名称
@@ -641,7 +638,7 @@ public class ProcessInstanceMeta {
 			super.setDrafterName(drafterName);
 			return this;
 		}
-		
+
 		/**
 		 * 设置 起草人账户
 		 * @param drafterUser 起草人账户
@@ -652,7 +649,7 @@ public class ProcessInstanceMeta {
 			super.setDrafterUser(drafterUser);
 			return this;
 		}
-		
+
 		/**
 		 * 设置 流程定义文件
 		 * @param processDefinitionFile 流程定义文件

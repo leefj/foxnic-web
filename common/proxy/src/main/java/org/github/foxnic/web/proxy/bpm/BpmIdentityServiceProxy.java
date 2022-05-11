@@ -1,7 +1,7 @@
 package org.github.foxnic.web.proxy.bpm;
 
 import com.github.foxnic.api.transter.Result;
-import org.github.foxnic.web.domain.bpm.Approver;
+import org.github.foxnic.web.domain.bpm.Assignee;
 import org.github.foxnic.web.proxy.FeignConfiguration;
 import org.github.foxnic.web.proxy.MicroServiceNames;
 import org.github.foxnic.web.proxy.api.APIProxy;
@@ -46,7 +46,7 @@ public interface BpmIdentityServiceProxy {
      * 获得身份列表
      */
     @RequestMapping(BpmIdentityServiceProxy.GET_IDENTITIES)
-    Result<List<Approver>> getIdentities(@RequestParam(name = "userId") String userId, @RequestParam(name = "identityType") String identityType);
+    Result<List<Assignee>> getIdentities(@RequestParam(name = "userId") String userId, @RequestParam(name = "identityType") String identityType);
 
     /**
      * 控制器类名

@@ -36,7 +36,7 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
         poType.addSimpleProperty(ProcessDefinition.class,"processDefinition","流程定义","流程定义");
         poType.addSimpleProperty(FormDefinition.class,"formDefinition","表单定义","表单定义");
         poType.addSimpleProperty(FormInstance.class,"formInstance","表单实例","表单实例");
-        poType.addSimpleProperty(Approver.class,"drafter","起草人身份","起草人身份");
+        poType.addSimpleProperty(Assignee.class,"drafter","起草人身份","起草人身份");
         poType.addSimpleProperty(String.class,"drafterName","起草人名称","起草人名称");
         poType.addSimpleProperty(User.class,"drafterUser","起草人账户","起草人账户");
         // 将属性映射为枚举

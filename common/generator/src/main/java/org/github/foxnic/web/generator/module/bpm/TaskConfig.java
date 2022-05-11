@@ -10,9 +10,7 @@ import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_TASK;
 import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_PROCESS_DEFINITION;
 import org.github.foxnic.web.constants.enums.bpm.TaskStatus;
-import org.github.foxnic.web.domain.bpm.Approver;
-import org.github.foxnic.web.domain.bpm.ProcessDefinition;
-import org.github.foxnic.web.domain.bpm.ProcessInstance;
+import org.github.foxnic.web.domain.bpm.*;
 import org.github.foxnic.web.domain.bpm.meta.ProcessDefinitionMeta;
 import org.github.foxnic.web.domain.bpm.meta.ProcessInstanceMeta;
 import org.github.foxnic.web.domain.bpm.meta.TaskMeta;
@@ -33,17 +31,16 @@ public class TaskConfig extends BaseCodeConfig<BPM_TASK> {
         poType.shadow(BPM_TASK.STATUS, TaskStatus.class);
         poType.addSimpleProperty(ProcessDefinition.class,"processDefinition","流程类型","流程类型");
         poType.addSimpleProperty(ProcessInstance.class,"processInstance","流程实例","流程实例");
-        poType.addSimpleProperty(Approver.class,"approver","审批人身份","审批人身份，实际审批人");
-        poType.addSimpleProperty(String.class,"approverName","审批人名称","审批人名称，实际审批人");
-        poType.addSimpleProperty(User.class,"approverUser","审批人账户","审批人账户，实际审批人");
-        poType.addSimpleProperty(User.class,"assigneeUser","代理人账户","代理人账户，预计审批人");
+        poType.addListProperty(TaskApproval.class,"approvals","审批动作清单","审批动作清单");
+        poType.addListProperty(TaskAssignee.class,"assignees","审批人清单","审批人清单");
+
     }
 
     @Override
     public void configSearch(ViewOptions view, SearchAreaOptions search) {
-        search.inputLayout(new Object[]{
-                TaskMeta.PROCESS_DEFINITION,"processTitle",TaskMeta.ASSIGNEE_ID
-        });
+//        search.inputLayout(new Object[]{
+//                TaskMeta.PROCESS_DEFINITION,"processTitle",TaskMeta.ASSIGNEE_ID
+//        });
     }
 
     @Override
@@ -62,10 +59,10 @@ public class TaskConfig extends BaseCodeConfig<BPM_TASK> {
 
         view.field(TaskMeta.NODE_NAME).basic().label("审批节点");
 
-        view.field(TaskMeta.ASSIGNEE_ID).basic().label("待审人")
-                .form().selectBox().queryApi(UserServiceProxy.QUERY_PAGED_LIST).paging(true).toolbar(false).valueField("id").textField("realName");;
+//        view.field(TaskMeta.ASSIGNEE_ID).basic().label("待审人")
+//                .form().selectBox().queryApi(UserServiceProxy.QUERY_PAGED_LIST).paging(true).toolbar(false).valueField("id").textField("realName");;
 
-        view.field("assigneeName").basic().label("待审人").table().fillBy(TaskMeta.ASSIGNEE_USER, UserMeta.REAL_NAME);
+//        view.field("assigneeName").basic().label("待审人").table().fillBy(TaskMeta.ASSIGNEE_USER, UserMeta.REAL_NAME);
 
 
 //        view.field(BPM_FORM_DEFINITION.DRAFT_PAGE_URL).search().hidden().form().textInput();

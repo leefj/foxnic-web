@@ -83,13 +83,13 @@ public class BpmRelationManager extends RelationManager {
 		this.property(TaskMeta.PROCESS_INSTANCE_PROP)
 				.using(FoxnicWeb.BPM_TASK.PROCESS_INSTANCE_ID).join(FoxnicWeb.BPM_PROCESS_INSTANCE.ID);
 
-		//任务 - 代理人账户
-		this.property(TaskMeta.ASSIGNEE_USER_PROP)
-				.using(FoxnicWeb.BPM_TASK.ASSIGNEE_ID).join(FoxnicWeb.SYS_USER.ID);
+		//任务 - 审批代理人
+		this.property(TaskMeta.ASSIGNEES_PROP)
+				.using(FoxnicWeb.BPM_TASK.ID).join(FoxnicWeb.BPM_TASK_ASSIGNEE.TASK_ID);
 
-		//任务 - 审批人账户
-		this.property(TaskMeta.APPROVER_USER_PROP)
-				.using(FoxnicWeb.BPM_TASK.APPROVER_ID).join(FoxnicWeb.SYS_USER.ID);
+		//任务 - 审批动作
+		this.property(TaskMeta.APPROVALS_PROP)
+				.using(FoxnicWeb.BPM_TASK.ID).join(FoxnicWeb.BPM_TASK_APPROVAL.TASK_ID);
 
 	}
 
