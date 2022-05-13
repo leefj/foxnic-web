@@ -1,7 +1,6 @@
 package org.github.foxnic.web.proxy.camunda;
 
 import com.github.foxnic.api.transter.Result;
-import org.github.foxnic.web.domain.bpm.ProcessDefinition;
 import org.github.foxnic.web.proxy.FeignConfiguration;
 import org.github.foxnic.web.proxy.MicroServiceNames;
 import org.github.foxnic.web.proxy.api.APIProxy;
@@ -9,6 +8,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -38,16 +38,26 @@ public interface CamundaProcessServiceProxy {
     public static final String API_PREFIX = "/" + API_BASIC_PATH + "/" + API_CONTEXT_PATH + "/";
 
     /**
-     * 添加账户
+     * 启动流程
      */
     public static final String START = API_PREFIX + "start";
 
     /**
-     * 添加账户
+     * 按流程ID查询流程
+     */
+    public static final String QUERY_BY_IDS = API_PREFIX + "query-by-ids";
+
+
+
+    /**
+     * 启动流程
      */
     @RequestMapping(CamundaProcessServiceProxy.START)
     Result start(@RequestParam(name = "processDefinitionKey") String processDefinitionKey, @RequestParam(name = "variables")  Map<String,Object> variables);
 
+
+    @RequestMapping(CamundaProcessServiceProxy.QUERY_BY_IDS)
+    Result queryByIds(@RequestParam(name = "processIds") List<String> processIds);
     /**
      * 控制器类名
      */
