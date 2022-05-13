@@ -14,6 +14,7 @@ import java.util.Date;
 import org.github.foxnic.web.domain.oauth.User;
 import com.github.foxnic.commons.reflect.EnumUtil;
 import com.github.foxnic.commons.lang.StringUtil;
+import com.github.foxnic.commons.lang.DataParser;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
 
@@ -22,8 +23,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程实例
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-10 14:58:29
- * @sign 9A740D59E3B4C0099DD58C7D84D02BC7
+ * @since 2022-05-13 16:21:06
+ * @sign D7439C68BB249DA96328DC0BBEEF6ECE
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -33,26 +34,26 @@ public class ProcessInstance extends Entity {
 	private static final long serialVersionUID = 1L;
 
 	public static final DBTable TABLE =BPM_PROCESS_INSTANCE.$TABLE;
-
+	
 	/**
 	 * 主键：主键
 	*/
 	@Id
 	@ApiModelProperty(required = true,value="主键" , notes = "主键")
 	private String id;
-
+	
 	/**
 	 * 起草人账户ID：起草人账户ID
 	*/
 	@ApiModelProperty(required = false,value="起草人账户ID" , notes = "起草人账户ID")
 	private String drafterUserId;
-
+	
 	/**
 	 * 起草人ID：可以是账户ID、员工ID、职位ID、系统角色ID、业务角色ID
 	*/
 	@ApiModelProperty(required = false,value="起草人ID" , notes = "可以是账户ID、员工ID、职位ID、系统角色ID、业务角色ID")
 	private String drafterId;
-
+	
 	/**
 	 * 起草人类型：起草人类型
 	*/
@@ -60,37 +61,37 @@ public class ProcessInstance extends Entity {
 	private String drafterType;
 	@Transient
 	private UnifiedUserType drafterTypeEnum;
-
+	
 	/**
 	 * 表单实例ID：表单实例ID
 	*/
 	@ApiModelProperty(required = false,value="表单实例ID" , notes = "表单实例ID")
 	private String formInstanceId;
-
+	
 	/**
 	 * 流程定义ID：流程定义ID
 	*/
 	@ApiModelProperty(required = false,value="流程定义ID" , notes = "流程定义ID")
 	private String processDefinitionId;
-
+	
 	/**
 	 * 流程定义文件ID：流程定义文件ID
 	*/
 	@ApiModelProperty(required = false,value="流程定义文件ID" , notes = "流程定义文件ID")
 	private String processDefinitionFileId;
-
+	
 	/**
 	 * 表单定义ID：表单定义ID
 	*/
 	@ApiModelProperty(required = false,value="表单定义ID" , notes = "表单定义ID")
 	private String formDefinitionId;
-
+	
 	/**
 	 * 流程标题：流程标题
 	*/
 	@ApiModelProperty(required = false,value="流程标题" , notes = "流程标题")
 	private String title;
-
+	
 	/**
 	 * 紧急程度：紧急程度
 	*/
@@ -98,13 +99,13 @@ public class ProcessInstance extends Entity {
 	private String priority;
 	@Transient
 	private PriorityLevel priorityEnum;
-
+	
 	/**
 	 * 流程说明：流程说明
 	*/
 	@ApiModelProperty(required = false,value="流程说明" , notes = "流程说明")
 	private String comment;
-
+	
 	/**
 	 * 审批状态：审批状态
 	*/
@@ -112,115 +113,117 @@ public class ProcessInstance extends Entity {
 	private String approvalStatus;
 	@Transient
 	private ApprovalStatus approvalStatusEnum;
-
+	
 	/**
 	 * camunda流程实例ID：camunda流程实例ID
 	*/
 	@ApiModelProperty(required = false,value="camunda流程实例ID" , notes = "camunda流程实例ID")
 	private String camundaInstanceId;
-
+	
 	/**
 	 * 提交时间：提交时间
 	*/
 	@ApiModelProperty(required = false,value="提交时间" , notes = "提交时间")
 	private Date commitTime;
-
+	
 	/**
 	 * 创建人ID：创建人ID
 	*/
 	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID")
 	private String createBy;
-
+	
 	/**
 	 * 创建时间：创建时间
 	*/
 	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间")
 	private Date createTime;
-
+	
 	/**
 	 * 修改人ID：修改人ID
 	*/
 	@ApiModelProperty(required = false,value="修改人ID" , notes = "修改人ID")
 	private String updateBy;
-
+	
 	/**
 	 * 修改时间：修改时间
 	*/
 	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间")
 	private Date updateTime;
-
+	
 	/**
 	 * 是否已删除：是否已删除
 	*/
 	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除")
 	private Integer deleted;
-
+	@Transient
+	private Boolean deletedBool;
+	
 	/**
 	 * 删除人ID：删除人ID
 	*/
 	@ApiModelProperty(required = false,value="删除人ID" , notes = "删除人ID")
 	private String deleteBy;
-
+	
 	/**
 	 * 删除时间：删除时间
 	*/
 	@ApiModelProperty(required = false,value="删除时间" , notes = "删除时间")
 	private Date deleteTime;
-
+	
 	/**
 	 * 数据版本号：数据版本号
 	*/
 	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
 	private Integer version;
-
+	
 	/**
 	 * 租户ID：租户ID
 	*/
 	@ApiModelProperty(required = true,value="租户ID" , notes = "租户ID")
 	private String tenantId;
-
+	
 	/**
 	 * 流程定义：流程定义
 	*/
 	@ApiModelProperty(required = false,value="流程定义" , notes = "流程定义")
 	private ProcessDefinition processDefinition;
-
+	
 	/**
 	 * 表单定义：表单定义
 	*/
 	@ApiModelProperty(required = false,value="表单定义" , notes = "表单定义")
 	private FormDefinition formDefinition;
-
+	
 	/**
 	 * 表单实例：表单实例
 	*/
 	@ApiModelProperty(required = false,value="表单实例" , notes = "表单实例")
 	private FormInstance formInstance;
-
+	
 	/**
 	 * 起草人身份：起草人身份
 	*/
 	@ApiModelProperty(required = false,value="起草人身份" , notes = "起草人身份")
 	private Assignee drafter;
-
+	
 	/**
 	 * 起草人名称：起草人名称
 	*/
 	@ApiModelProperty(required = false,value="起草人名称" , notes = "起草人名称")
 	private String drafterName;
-
+	
 	/**
 	 * 起草人账户：起草人账户
 	*/
 	@ApiModelProperty(required = false,value="起草人账户" , notes = "起草人账户")
 	private User drafterUser;
-
+	
 	/**
 	 * 流程定义文件：流程定义文件
 	*/
 	@ApiModelProperty(required = false,value="流程定义文件" , notes = "流程定义文件")
 	private ProcessDefinitionFile processDefinitionFile;
-
+	
 	/**
 	 * 获得 主键<br>
 	 * 主键
@@ -229,7 +232,7 @@ public class ProcessInstance extends Entity {
 	public String getId() {
 		return id;
 	}
-
+	
 	/**
 	 * 设置 主键
 	 * @param id 主键
@@ -239,7 +242,7 @@ public class ProcessInstance extends Entity {
 		this.id=id;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 起草人账户ID<br>
 	 * 起草人账户ID
@@ -248,7 +251,7 @@ public class ProcessInstance extends Entity {
 	public String getDrafterUserId() {
 		return drafterUserId;
 	}
-
+	
 	/**
 	 * 设置 起草人账户ID
 	 * @param drafterUserId 起草人账户ID
@@ -258,7 +261,7 @@ public class ProcessInstance extends Entity {
 		this.drafterUserId=drafterUserId;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 起草人ID<br>
 	 * 可以是账户ID、员工ID、职位ID、系统角色ID、业务角色ID
@@ -267,7 +270,7 @@ public class ProcessInstance extends Entity {
 	public String getDrafterId() {
 		return drafterId;
 	}
-
+	
 	/**
 	 * 设置 起草人ID
 	 * @param drafterId 起草人ID
@@ -277,7 +280,7 @@ public class ProcessInstance extends Entity {
 		this.drafterId=drafterId;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 起草人类型<br>
 	 * 起草人类型
@@ -286,7 +289,7 @@ public class ProcessInstance extends Entity {
 	public String getDrafterType() {
 		return drafterType;
 	}
-
+	
 	/**
 	 * 获得 起草人类型 的投影属性<br>
 	 * 等价于 getDrafterType 方法，获得对应的枚举类型
@@ -299,7 +302,7 @@ public class ProcessInstance extends Entity {
 		}
 		return this.drafterTypeEnum ;
 	}
-
+	
 	/**
 	 * 设置 起草人类型
 	 * @param drafterType 起草人类型
@@ -313,7 +316,7 @@ public class ProcessInstance extends Entity {
 		}
 		return this;
 	}
-
+	
 	/**
 	 * 设置 起草人类型的投影属性，等同于设置 起草人类型
 	 * @param drafterTypeEnum 起草人类型
@@ -329,7 +332,7 @@ public class ProcessInstance extends Entity {
 		this.drafterTypeEnum=drafterTypeEnum;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 表单实例ID<br>
 	 * 表单实例ID
@@ -338,7 +341,7 @@ public class ProcessInstance extends Entity {
 	public String getFormInstanceId() {
 		return formInstanceId;
 	}
-
+	
 	/**
 	 * 设置 表单实例ID
 	 * @param formInstanceId 表单实例ID
@@ -348,7 +351,7 @@ public class ProcessInstance extends Entity {
 		this.formInstanceId=formInstanceId;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 流程定义ID<br>
 	 * 流程定义ID
@@ -357,7 +360,7 @@ public class ProcessInstance extends Entity {
 	public String getProcessDefinitionId() {
 		return processDefinitionId;
 	}
-
+	
 	/**
 	 * 设置 流程定义ID
 	 * @param processDefinitionId 流程定义ID
@@ -367,7 +370,7 @@ public class ProcessInstance extends Entity {
 		this.processDefinitionId=processDefinitionId;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 流程定义文件ID<br>
 	 * 流程定义文件ID
@@ -376,7 +379,7 @@ public class ProcessInstance extends Entity {
 	public String getProcessDefinitionFileId() {
 		return processDefinitionFileId;
 	}
-
+	
 	/**
 	 * 设置 流程定义文件ID
 	 * @param processDefinitionFileId 流程定义文件ID
@@ -386,7 +389,7 @@ public class ProcessInstance extends Entity {
 		this.processDefinitionFileId=processDefinitionFileId;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 表单定义ID<br>
 	 * 表单定义ID
@@ -395,7 +398,7 @@ public class ProcessInstance extends Entity {
 	public String getFormDefinitionId() {
 		return formDefinitionId;
 	}
-
+	
 	/**
 	 * 设置 表单定义ID
 	 * @param formDefinitionId 表单定义ID
@@ -405,7 +408,7 @@ public class ProcessInstance extends Entity {
 		this.formDefinitionId=formDefinitionId;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 流程标题<br>
 	 * 流程标题
@@ -414,7 +417,7 @@ public class ProcessInstance extends Entity {
 	public String getTitle() {
 		return title;
 	}
-
+	
 	/**
 	 * 设置 流程标题
 	 * @param title 流程标题
@@ -424,7 +427,7 @@ public class ProcessInstance extends Entity {
 		this.title=title;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 紧急程度<br>
 	 * 紧急程度
@@ -433,7 +436,7 @@ public class ProcessInstance extends Entity {
 	public String getPriority() {
 		return priority;
 	}
-
+	
 	/**
 	 * 获得 紧急程度 的投影属性<br>
 	 * 等价于 getPriority 方法，获得对应的枚举类型
@@ -446,7 +449,7 @@ public class ProcessInstance extends Entity {
 		}
 		return this.priorityEnum ;
 	}
-
+	
 	/**
 	 * 设置 紧急程度
 	 * @param priority 紧急程度
@@ -460,7 +463,7 @@ public class ProcessInstance extends Entity {
 		}
 		return this;
 	}
-
+	
 	/**
 	 * 设置 紧急程度的投影属性，等同于设置 紧急程度
 	 * @param priorityEnum 紧急程度
@@ -476,7 +479,7 @@ public class ProcessInstance extends Entity {
 		this.priorityEnum=priorityEnum;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 流程说明<br>
 	 * 流程说明
@@ -485,7 +488,7 @@ public class ProcessInstance extends Entity {
 	public String getComment() {
 		return comment;
 	}
-
+	
 	/**
 	 * 设置 流程说明
 	 * @param comment 流程说明
@@ -495,7 +498,7 @@ public class ProcessInstance extends Entity {
 		this.comment=comment;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 审批状态<br>
 	 * 审批状态
@@ -504,7 +507,7 @@ public class ProcessInstance extends Entity {
 	public String getApprovalStatus() {
 		return approvalStatus;
 	}
-
+	
 	/**
 	 * 获得 审批状态 的投影属性<br>
 	 * 等价于 getApprovalStatus 方法，获得对应的枚举类型
@@ -517,7 +520,7 @@ public class ProcessInstance extends Entity {
 		}
 		return this.approvalStatusEnum ;
 	}
-
+	
 	/**
 	 * 设置 审批状态
 	 * @param approvalStatus 审批状态
@@ -531,7 +534,7 @@ public class ProcessInstance extends Entity {
 		}
 		return this;
 	}
-
+	
 	/**
 	 * 设置 审批状态的投影属性，等同于设置 审批状态
 	 * @param approvalStatusEnum 审批状态
@@ -547,7 +550,7 @@ public class ProcessInstance extends Entity {
 		this.approvalStatusEnum=approvalStatusEnum;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 camunda流程实例ID<br>
 	 * camunda流程实例ID
@@ -556,7 +559,7 @@ public class ProcessInstance extends Entity {
 	public String getCamundaInstanceId() {
 		return camundaInstanceId;
 	}
-
+	
 	/**
 	 * 设置 camunda流程实例ID
 	 * @param camundaInstanceId camunda流程实例ID
@@ -566,7 +569,7 @@ public class ProcessInstance extends Entity {
 		this.camundaInstanceId=camundaInstanceId;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 提交时间<br>
 	 * 提交时间
@@ -575,7 +578,7 @@ public class ProcessInstance extends Entity {
 	public Date getCommitTime() {
 		return commitTime;
 	}
-
+	
 	/**
 	 * 设置 提交时间
 	 * @param commitTime 提交时间
@@ -585,7 +588,7 @@ public class ProcessInstance extends Entity {
 		this.commitTime=commitTime;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 创建人ID<br>
 	 * 创建人ID
@@ -594,7 +597,7 @@ public class ProcessInstance extends Entity {
 	public String getCreateBy() {
 		return createBy;
 	}
-
+	
 	/**
 	 * 设置 创建人ID
 	 * @param createBy 创建人ID
@@ -604,7 +607,7 @@ public class ProcessInstance extends Entity {
 		this.createBy=createBy;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 创建时间<br>
 	 * 创建时间
@@ -613,7 +616,7 @@ public class ProcessInstance extends Entity {
 	public Date getCreateTime() {
 		return createTime;
 	}
-
+	
 	/**
 	 * 设置 创建时间
 	 * @param createTime 创建时间
@@ -623,7 +626,7 @@ public class ProcessInstance extends Entity {
 		this.createTime=createTime;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 修改人ID<br>
 	 * 修改人ID
@@ -632,7 +635,7 @@ public class ProcessInstance extends Entity {
 	public String getUpdateBy() {
 		return updateBy;
 	}
-
+	
 	/**
 	 * 设置 修改人ID
 	 * @param updateBy 修改人ID
@@ -642,7 +645,7 @@ public class ProcessInstance extends Entity {
 		this.updateBy=updateBy;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 修改时间<br>
 	 * 修改时间
@@ -651,7 +654,7 @@ public class ProcessInstance extends Entity {
 	public Date getUpdateTime() {
 		return updateTime;
 	}
-
+	
 	/**
 	 * 设置 修改时间
 	 * @param updateTime 修改时间
@@ -661,7 +664,7 @@ public class ProcessInstance extends Entity {
 		this.updateTime=updateTime;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 是否已删除<br>
 	 * 是否已删除
@@ -670,7 +673,20 @@ public class ProcessInstance extends Entity {
 	public Integer getDeleted() {
 		return deleted;
 	}
-
+	
+	/**
+	 * 获得 是否已删除 的投影属性<br>
+	 * 等价于 getDeleted 方法，获得对应的枚举类型
+	 * @return 是否已删除
+	*/
+	@Transient
+	public Boolean isDeleted() {
+		if(this.deletedBool==null) {
+			this.deletedBool=DataParser.parseBoolean(deleted);
+		}
+		return this.deletedBool ;
+	}
+	
 	/**
 	 * 设置 是否已删除
 	 * @param deleted 是否已删除
@@ -678,9 +694,26 @@ public class ProcessInstance extends Entity {
 	*/
 	public ProcessInstance setDeleted(Integer deleted) {
 		this.deleted=deleted;
+		this.deletedBool=DataParser.parseBoolean(deleted);
 		return this;
 	}
-
+	
+	/**
+	 * 设置 是否已删除的投影属性，等同于设置 是否已删除
+	 * @param deletedBool 是否已删除
+	 * @return 当前对象
+	*/
+	@Transient
+	public ProcessInstance setDeleted(Boolean deletedBool) {
+		if(deletedBool==null) {
+			this.deleted=null;
+		} else {
+			this.deleted=deletedBool?1:0;
+		}
+		this.deletedBool=deletedBool;
+		return this;
+	}
+	
 	/**
 	 * 获得 删除人ID<br>
 	 * 删除人ID
@@ -689,7 +722,7 @@ public class ProcessInstance extends Entity {
 	public String getDeleteBy() {
 		return deleteBy;
 	}
-
+	
 	/**
 	 * 设置 删除人ID
 	 * @param deleteBy 删除人ID
@@ -699,7 +732,7 @@ public class ProcessInstance extends Entity {
 		this.deleteBy=deleteBy;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 删除时间<br>
 	 * 删除时间
@@ -708,7 +741,7 @@ public class ProcessInstance extends Entity {
 	public Date getDeleteTime() {
 		return deleteTime;
 	}
-
+	
 	/**
 	 * 设置 删除时间
 	 * @param deleteTime 删除时间
@@ -718,7 +751,7 @@ public class ProcessInstance extends Entity {
 		this.deleteTime=deleteTime;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 数据版本号<br>
 	 * 数据版本号
@@ -727,7 +760,7 @@ public class ProcessInstance extends Entity {
 	public Integer getVersion() {
 		return version;
 	}
-
+	
 	/**
 	 * 设置 数据版本号
 	 * @param version 数据版本号
@@ -737,7 +770,7 @@ public class ProcessInstance extends Entity {
 		this.version=version;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 租户ID<br>
 	 * 租户ID
@@ -746,7 +779,7 @@ public class ProcessInstance extends Entity {
 	public String getTenantId() {
 		return tenantId;
 	}
-
+	
 	/**
 	 * 设置 租户ID
 	 * @param tenantId 租户ID
@@ -756,7 +789,7 @@ public class ProcessInstance extends Entity {
 		this.tenantId=tenantId;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 流程定义<br>
 	 * 流程定义
@@ -765,7 +798,7 @@ public class ProcessInstance extends Entity {
 	public ProcessDefinition getProcessDefinition() {
 		return processDefinition;
 	}
-
+	
 	/**
 	 * 设置 流程定义
 	 * @param processDefinition 流程定义
@@ -775,7 +808,7 @@ public class ProcessInstance extends Entity {
 		this.processDefinition=processDefinition;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 表单定义<br>
 	 * 表单定义
@@ -784,7 +817,7 @@ public class ProcessInstance extends Entity {
 	public FormDefinition getFormDefinition() {
 		return formDefinition;
 	}
-
+	
 	/**
 	 * 设置 表单定义
 	 * @param formDefinition 表单定义
@@ -794,7 +827,7 @@ public class ProcessInstance extends Entity {
 		this.formDefinition=formDefinition;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 表单实例<br>
 	 * 表单实例
@@ -803,7 +836,7 @@ public class ProcessInstance extends Entity {
 	public FormInstance getFormInstance() {
 		return formInstance;
 	}
-
+	
 	/**
 	 * 设置 表单实例
 	 * @param formInstance 表单实例
@@ -813,7 +846,7 @@ public class ProcessInstance extends Entity {
 		this.formInstance=formInstance;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 起草人身份<br>
 	 * 起草人身份
@@ -822,7 +855,7 @@ public class ProcessInstance extends Entity {
 	public Assignee getDrafter() {
 		return drafter;
 	}
-
+	
 	/**
 	 * 设置 起草人身份
 	 * @param drafter 起草人身份
@@ -832,7 +865,7 @@ public class ProcessInstance extends Entity {
 		this.drafter=drafter;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 起草人名称<br>
 	 * 起草人名称
@@ -841,7 +874,7 @@ public class ProcessInstance extends Entity {
 	public String getDrafterName() {
 		return drafterName;
 	}
-
+	
 	/**
 	 * 设置 起草人名称
 	 * @param drafterName 起草人名称
@@ -851,7 +884,7 @@ public class ProcessInstance extends Entity {
 		this.drafterName=drafterName;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 起草人账户<br>
 	 * 起草人账户
@@ -860,7 +893,7 @@ public class ProcessInstance extends Entity {
 	public User getDrafterUser() {
 		return drafterUser;
 	}
-
+	
 	/**
 	 * 设置 起草人账户
 	 * @param drafterUser 起草人账户
@@ -870,7 +903,7 @@ public class ProcessInstance extends Entity {
 		this.drafterUser=drafterUser;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 流程定义文件<br>
 	 * 流程定义文件
@@ -879,7 +912,7 @@ public class ProcessInstance extends Entity {
 	public ProcessDefinitionFile getProcessDefinitionFile() {
 		return processDefinitionFile;
 	}
-
+	
 	/**
 	 * 设置 流程定义文件
 	 * @param processDefinitionFile 流程定义文件

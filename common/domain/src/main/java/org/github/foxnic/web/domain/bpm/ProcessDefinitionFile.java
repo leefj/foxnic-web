@@ -20,8 +20,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程定义文件
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-11 11:17:14
- * @sign 2C52D38F3BA3557B9FC66AC1D3F57EA5
+ * @since 2022-05-13 14:13:05
+ * @sign 304AEFECE665125E051679D1E6DBF03D
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -42,7 +42,7 @@ public class ProcessDefinitionFile extends Entity {
 	/**
 	 * 流程定义ID：流程定义ID
 	*/
-	@ApiModelProperty(required = false,value="流程定义ID" , notes = "流程定义ID")
+	@ApiModelProperty(required = true,value="流程定义ID" , notes = "流程定义ID")
 	private String processDefinitionId;
 	
 	/**
@@ -52,9 +52,15 @@ public class ProcessDefinitionFile extends Entity {
 	private String fileId;
 	
 	/**
+	 * 流程模型XML：流程模型XML
+	*/
+	@ApiModelProperty(required = false,value="流程模型XML" , notes = "流程模型XML")
+	private String modelXml;
+	
+	/**
 	 * 版本号：版本号
 	*/
-	@ApiModelProperty(required = false,value="版本号" , notes = "版本号")
+	@ApiModelProperty(required = true,value="版本号" , notes = "版本号")
 	private String versionNo;
 	
 	/**
@@ -217,6 +223,25 @@ public class ProcessDefinitionFile extends Entity {
 	*/
 	public ProcessDefinitionFile setFileId(String fileId) {
 		this.fileId=fileId;
+		return this;
+	}
+	
+	/**
+	 * 获得 流程模型XML<br>
+	 * 流程模型XML
+	 * @return 流程模型XML
+	*/
+	public String getModelXml() {
+		return modelXml;
+	}
+	
+	/**
+	 * 设置 流程模型XML
+	 * @param modelXml 流程模型XML
+	 * @return 当前对象
+	*/
+	public ProcessDefinitionFile setModelXml(String modelXml) {
+		this.modelXml=modelXml;
 		return this;
 	}
 	

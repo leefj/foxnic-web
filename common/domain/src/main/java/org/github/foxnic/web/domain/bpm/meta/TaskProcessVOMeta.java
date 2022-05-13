@@ -6,8 +6,8 @@ import com.github.foxnic.api.bean.BeanProperty;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-10 14:58:29
- * @sign D6B2FFFB7725EFD35CDA1C4CED1722AA
+ * @since 2022-05-13 16:21:06
+ * @sign 802AE535AA9A281B55D62FB3E731677A
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -34,6 +34,16 @@ public class TaskProcessVOMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskProcessVO,java.lang.String> ASSIGNEE_USER_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskProcessVO.class ,ASSIGNEE_USER_ID, java.lang.String.class, "审批人账户ID", "审批人账户", java.lang.String.class, null);
 	
 	/**
+	 * 审批结果 , 类型: java.lang.String
+	*/
+	public static final String RESULT="result";
+	
+	/**
+	 * 审批结果 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskProcessVO,java.lang.String> RESULT_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskProcessVO.class ,RESULT, java.lang.String.class, "审批结果", "审批结果", java.lang.String.class, null);
+	
+	/**
 	 * 审批意见 , 类型: java.lang.String
 	*/
 	public static final String COMMENT="comment";
@@ -54,7 +64,17 @@ public class TaskProcessVOMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskProcessVO,java.lang.Object> VARIABLES_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskProcessVO.class ,VARIABLES, java.util.Map.class, "流程参数", "流程参数", java.lang.Object.class, java.lang.String.class);
 	
 	/**
+	 * 租户ID , 类型: java.lang.String
+	*/
+	public static final String TENANT_ID="tenantId";
+	
+	/**
+	 * 租户ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskProcessVO,java.lang.String> TENANT_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskProcessVO.class ,TENANT_ID, java.lang.String.class, "租户ID", "租户ID", java.lang.String.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ TASK_ID , ASSIGNEE_USER_ID , COMMENT , VARIABLES };
+	public static final String[] $PROPS={ TASK_ID , ASSIGNEE_USER_ID , RESULT , COMMENT , VARIABLES , TENANT_ID };
 }

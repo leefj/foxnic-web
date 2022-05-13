@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2022-05-11 13:15:34
+ * @since 2022-05-13 14:01:21
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -514,7 +514,7 @@ public class FoxnicWeb {
 		/**
 		 * 流程定义ID
 		*/
-		public static final DBField PROCESS_DEFINITION_ID = new DBField(DBDataType.STRING , "process_definition_id","processDefinitionId","流程定义ID","流程定义ID",false,false,true);
+		public static final DBField PROCESS_DEFINITION_ID = new DBField(DBDataType.STRING , "process_definition_id","processDefinitionId","流程定义ID","流程定义ID",false,false,false);
 		
 		/**
 		 * 流程文件ID
@@ -522,9 +522,14 @@ public class FoxnicWeb {
 		public static final DBField FILE_ID = new DBField(DBDataType.STRING , "file_id","fileId","流程文件ID","流程文件ID",false,false,true);
 		
 		/**
+		 * 流程模型XML
+		*/
+		public static final DBField MODEL_XML = new DBField(DBDataType.STRING , "model_xml","modelXml","流程模型XML","流程模型XML",false,false,true);
+		
+		/**
 		 * 版本号
 		*/
-		public static final DBField VERSION_NO = new DBField(DBDataType.STRING , "version_no","versionNo","版本号","版本号",false,false,true);
+		public static final DBField VERSION_NO = new DBField(DBDataType.STRING , "version_no","versionNo","版本号","版本号",false,false,false);
 		
 		/**
 		 * 名称
@@ -602,7 +607,7 @@ public class FoxnicWeb {
 		public static final DBField DEPLOY_ERROR = new DBField(DBDataType.STRING , "deploy_error","deployError","提示信息","提示信息",false,false,true);
 		
 		public BPM_PROCESS_DEFINITION_FILE() {
-			this.init($NAME,"流程定义文件表" , ID , PROCESS_DEFINITION_ID , FILE_ID , VERSION_NO , NAME , ACTIVATED , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , DEPLOY_RESULT , DEPLOY_SUCCESS , DEPLOY_ERROR);
+			this.init($NAME,"流程定义文件表" , ID , PROCESS_DEFINITION_ID , FILE_ID , MODEL_XML , VERSION_NO , NAME , ACTIVATED , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , DEPLOY_RESULT , DEPLOY_SUCCESS , DEPLOY_ERROR);
 		}
 		public static final BPM_PROCESS_DEFINITION_FILE $TABLE=new BPM_PROCESS_DEFINITION_FILE();
 	}
@@ -625,17 +630,17 @@ public class FoxnicWeb {
 		/**
 		 * 流程定义ID
 		*/
-		public static final DBField PROCESS_DEFINITION_ID = new DBField(DBDataType.STRING , "process_definition_id","processDefinitionId","流程定义ID","流程定义ID",false,false,true);
+		public static final DBField PROCESS_DEFINITION_ID = new DBField(DBDataType.STRING , "process_definition_id","processDefinitionId","流程定义ID","流程定义ID",false,false,false);
 		
 		/**
 		 * 流程文件ID
 		*/
-		public static final DBField PROCESS_DEFINITION_FILE_ID = new DBField(DBDataType.STRING , "process_definition_file_id","processDefinitionFileId","流程文件ID","流程文件ID",false,false,true);
+		public static final DBField PROCESS_DEFINITION_FILE_ID = new DBField(DBDataType.STRING , "process_definition_file_id","processDefinitionFileId","流程文件ID","流程文件ID",false,false,false);
 		
 		/**
 		 * 节点ID
 		*/
-		public static final DBField CAMUNDA_NODE_ID = new DBField(DBDataType.STRING , "camunda_node_id","camundaNodeId","节点ID","节点ID",false,false,true);
+		public static final DBField CAMUNDA_NODE_ID = new DBField(DBDataType.STRING , "camunda_node_id","camundaNodeId","节点ID","节点ID",false,false,false);
 		
 		/**
 		 * 节点类型

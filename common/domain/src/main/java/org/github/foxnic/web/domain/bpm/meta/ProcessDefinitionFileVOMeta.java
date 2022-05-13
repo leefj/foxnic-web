@@ -12,7 +12,7 @@ import org.github.foxnic.web.domain.bpm.ProcessDefinitionNode;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-11 11:17:14
+ * @since 2022-05-13 14:13:05
  * @sign F2A969A233B1D662456CDC00FB190980
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -138,6 +138,16 @@ public class ProcessDefinitionFileVOMeta extends ProcessDefinitionFileMeta {
 	 * 流程文件ID , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionFileVO,java.lang.String> FILE_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionFileVO.class ,FILE_ID, java.lang.String.class, "流程文件ID", "流程文件ID", java.lang.String.class, null);
+	
+	/**
+	 * 流程模型XML , 类型: java.lang.String
+	*/
+	public static final String MODEL_XML="modelXml";
+	
+	/**
+	 * 流程模型XML , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionFileVO,java.lang.String> MODEL_XML_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionFileVO.class ,MODEL_XML, java.lang.String.class, "流程模型XML", "流程模型XML", java.lang.String.class, null);
 	
 	/**
 	 * 版本号 , 类型: java.lang.String
@@ -322,7 +332,7 @@ public class ProcessDefinitionFileVOMeta extends ProcessDefinitionFileMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , PROCESS_DEFINITION_ID , FILE_ID , VERSION_NO , NAME , ACTIVATED , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , DEPLOY_RESULT , DEPLOY_SUCCESS , DEPLOY_ERROR , LAST_UPDATE_USER , NODES };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , PROCESS_DEFINITION_ID , FILE_ID , MODEL_XML , VERSION_NO , NAME , ACTIVATED , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , DEPLOY_RESULT , DEPLOY_SUCCESS , DEPLOY_ERROR , LAST_UPDATE_USER , NODES };
 	
 	/**
 	 * 代理类
@@ -461,6 +471,17 @@ public class ProcessDefinitionFileVOMeta extends ProcessDefinitionFileMeta {
 		public ProcessDefinitionFile setFileId(String fileId) {
 			super.change(FILE_ID,super.getFileId(),fileId);
 			super.setFileId(fileId);
+			return this;
+		}
+		
+		/**
+		 * 设置 流程模型XML
+		 * @param modelXml 流程模型XML
+		 * @return 当前对象
+		*/
+		public ProcessDefinitionFile setModelXml(String modelXml) {
+			super.change(MODEL_XML,super.getModelXml(),modelXml);
+			super.setModelXml(modelXml);
 			return this;
 		}
 		

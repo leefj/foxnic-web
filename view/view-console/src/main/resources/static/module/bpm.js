@@ -3,6 +3,7 @@ layui.define(['settings', 'layer', 'admin', 'util','element'],function (exports)
     var admin = layui.admin;
     const  api_save="/service-bpm/bpm-process-instance/temporary-save";
     const  api_start="/service-bpm/bpm-process-instance/start";
+    const  api_process_task="/service-bpm/bpm-task/process-task";
     var bpm = {
 
         /**
@@ -23,7 +24,14 @@ layui.define(['settings', 'layer', 'admin', 'util','element'],function (exports)
             admin.post(api_start, params, function (result) {
                 callback && callback(result);
             }, {delayLoading:1000,elms:lockEls});
+        },
+
+        processTask : function (params,callback,lockEls) {
+            admin.post(api_process_task, params, function (result) {
+                callback && callback(result);
+            },{delayLoading:1000,elms:lockEls});
         }
+
     };
 
     exports('bpm', bpm);

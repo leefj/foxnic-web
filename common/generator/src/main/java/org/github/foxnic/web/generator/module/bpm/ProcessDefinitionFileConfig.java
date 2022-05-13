@@ -43,7 +43,7 @@ public class ProcessDefinitionFileConfig extends BaseCodeConfig<BPM_PROCESS_DEFI
                 .form().validate().required();
 
         view.field(BPM_PROCESS_DEFINITION_FILE.NAME).search().fuzzySearch().form().hidden();
-        view.field(BPM_PROCESS_DEFINITION_FILE.VERSION_NO).search().hidden();
+        view.field(BPM_PROCESS_DEFINITION_FILE.VERSION_NO).search().hidden().form().validate().required(false);
         view.field(BPM_PROCESS_DEFINITION_FILE.ACTIVATED).basic().label("状态").form().hidden();
 
         view.field(BPM_PROCESS_DEFINITION_FILE.DEPLOY_ERROR).basic().label("部署提示").search().hidden();

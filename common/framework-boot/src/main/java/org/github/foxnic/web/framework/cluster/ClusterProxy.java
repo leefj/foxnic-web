@@ -12,6 +12,7 @@ import org.apache.http.Header;
 import org.apache.http.HeaderElement;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.HttpHostConnectException;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -229,6 +230,9 @@ public class ClusterProxy {
                 }
             }
 
+        } catch (HttpHostConnectException e) {
+            Logger.error("网络连接失败", e);
+            return  JSON.toJSONString(ErrorDesc.failure().message("网络连接失败或服务不可用"));
         } catch (Exception e) {
             Logger.error("Cluster 请求失败", e);
             return null;

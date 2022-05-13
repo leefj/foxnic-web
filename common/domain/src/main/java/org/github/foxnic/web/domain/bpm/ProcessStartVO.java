@@ -9,7 +9,7 @@ import java.util.HashMap;
 /**
  * 流程启动参数
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-10 14:58:29
+ * @since 2022-05-13 16:21:06
  * @sign FD820CA158ABE822D575BA472DD95DCA
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -146,7 +146,7 @@ public class ProcessStartVO {
 	/**
 	 * 添加 流程参数
 	 * @param key 键
-	 * @param pn 流程参数
+	 * @param variable 流程参数
 	 * @return 当前对象
 	*/
 	public ProcessStartVO putVariable(String key,Object variable) {

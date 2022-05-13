@@ -1,5 +1,7 @@
 package org.github.foxnic.web.proxy.bpm;
 
+import org.github.foxnic.web.domain.bpm.TaskApproval;
+import org.github.foxnic.web.domain.bpm.TaskProcessVO;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.github.foxnic.web.proxy.api.APIProxy;
@@ -105,7 +107,7 @@ public interface TaskServiceProxy {
      */
     public static final String SYNC_CAMUNDA_TASKS = API_PREFIX + "sync-camunda-tasks";
 
-
+    public static final String PROCESS_TASK = API_PREFIX + "process-task";
 
     /**
      * 添加流程任务
@@ -161,9 +163,17 @@ public interface TaskServiceProxy {
     @RequestMapping(TaskServiceProxy.QUERY_PAGED_LIST)
     Result<PagedList<Task>> queryPagedList(@RequestParam(name = "sample") TaskVO sample);
 
+    /**
+     * 同步流程任务
+     * */
     @RequestMapping(TaskServiceProxy.SYNC_CAMUNDA_TASKS)
-    public Result syncCamundaTasks(@RequestParam(name = "processInstanceIds")  List<String> processInstanceIds);
+    Result syncCamundaTasks(@RequestParam(name = "processInstanceIds")  List<String> processInstanceIds);
 
+    /**
+     * 处理流程任务
+     * */
+    @RequestMapping(TaskServiceProxy.PROCESS_TASK)
+    Result<Task> processTask(@RequestParam(name = "taskProcessVO") TaskProcessVO taskProcessVO);
     /**
      * 控制器类名
      */

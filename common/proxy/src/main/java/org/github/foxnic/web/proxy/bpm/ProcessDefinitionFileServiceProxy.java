@@ -18,6 +18,7 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  * </p>
  * @author 李方捷 , leefangjie@qq.com
  * @since 2022-05-08 07:12:48
+ * @version
  */
 @FeignClient(value = MicroServiceNames.BPM, contextId = ProcessDefinitionFileServiceProxy.API_CONTEXT_PATH, configuration = FeignConfiguration.class)
 public interface ProcessDefinitionFileServiceProxy {
