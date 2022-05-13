@@ -25,6 +25,9 @@ public class APIProxy {
 
         //缓存获取
         Object inst=PROXY_CACHE.get(intfType);
+//        if (inst!=null && inst.toString().contains("UndeclaredThrowableException")) {
+//            inst = null;
+//        }
         if(inst!=null) return (T)inst;
 
         //首先尝试微服务模式下的Feign实现调用
@@ -88,7 +91,12 @@ class RemoteMethodProxy implements InvocationHandler {
         if(proxyMethod==null) {
             proxyMethod = proxyBus.getClass().getMethod("invoke", Object.class, Method.class, Object[].class);
         }
-        return proxyMethod.invoke(proxyBus,proxy,method,args);
+        try {
+            return proxyMethod.invoke(proxyBus,proxy,method,args);
+        } catch (Exception e) {
+            throw e.getCause();
+        }
+
     }
 }
 
@@ -104,7 +112,11 @@ class MethodProxy implements InvocationHandler {
     public Object invoke(Object proxy, Method method, Object[] args)  throws Throwable {
         InvokeSourceVar.set(InvokeSource.PROXY_INTERNAL);
         Method m=controller.getClass().getDeclaredMethod(method.getName(),method.getParameterTypes());
-        Object r=m.invoke(controller,args);
-        return r;
+        try {
+            Object r=m.invoke(controller,args);
+            return r;
+        } catch (Exception e) {
+            throw e.getCause();
+        }
     }
 }

@@ -2015,7 +2015,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             //debugger;
             if (cols[i] && cols[i].field) {
                 var w=th[0].clientWidth;
-                if(hide) w=120;
+                if(hide) w=cols[i].title.length * 15 + 50;
                 cols[i].width = w;
                 var cfg={width:w,hide:hide};
                 cfg.title=cols[i].title;

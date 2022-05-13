@@ -48,7 +48,17 @@ public class ClusterProxy {
         configs=new ClusterConfig();
     }
 
-    public Object invoke(Object proxy, Method method, Object[] args) {
+    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        try {
+            return invokeInternal(proxy, method, args);
+        } catch (IllegalArgumentException e) {
+            throw e;
+        } catch (Exception e) {
+            throw e.getCause();
+        }
+    }
+
+    public Object invokeInternal(Object proxy, Method method, Object[] args) throws Throwable {
 
         RequestMapping requestMapping=method.getAnnotation(RequestMapping.class);
         PostMapping postMapping=method.getAnnotation(PostMapping.class);
