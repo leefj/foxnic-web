@@ -175,7 +175,7 @@ public class JobServiceImpl extends SuperService<Job> implements IJobService {
 		Job job = new Job();
 		if(id==null) return ErrorDesc.failure().message("id 不允许为 null 。");
 		job.setId(id);
-		job.setDeleted(dao.getDBTreaty().getTrueValue());
+		job.setDeleted(true);
 		job.setDeleteBy((String)dao.getDBTreaty().getLoginUserId());
 		job.setDeleteTime(new Date());
 

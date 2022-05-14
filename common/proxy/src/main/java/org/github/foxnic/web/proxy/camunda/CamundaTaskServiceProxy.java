@@ -1,7 +1,6 @@
 package org.github.foxnic.web.proxy.camunda;
 
 import com.github.foxnic.api.transter.Result;
-import org.github.foxnic.web.domain.bpm.Task;
 import org.github.foxnic.web.domain.bpm.TaskProcessVO;
 import org.github.foxnic.web.domain.bpm.TaskQueryVO;
 import org.github.foxnic.web.proxy.FeignConfiguration;
@@ -44,7 +43,7 @@ public interface CamundaTaskServiceProxy {
      */
     public static final String TODO_TASKS = API_PREFIX + "todo-tasks";
 
-    public static final String PROCESS_INSTANCE_TODO_TASKS = API_PREFIX + "process_instance_todo_tasks";
+    public static final String QUERY_TASKS_BY_PROCESS_INSTANCE_IDS = API_PREFIX + "query-tasks-by-process-instance-ids";
 
     /**
      * 处理待办任务
@@ -64,8 +63,8 @@ public interface CamundaTaskServiceProxy {
     @RequestMapping(CamundaTaskServiceProxy.PROCESS_TASK)
     Result processTask(@RequestParam(name = "taskProcessVO") TaskProcessVO taskProcessVO);
 
-    @RequestMapping(CamundaTaskServiceProxy.PROCESS_INSTANCE_TODO_TASKS)
-    Result<List<Task>> getProcessInstanceIdTasks(@RequestParam(name = "processInstanceIds") List<String> processInstanceIds);
+    @RequestMapping(CamundaTaskServiceProxy.QUERY_TASKS_BY_PROCESS_INSTANCE_IDS)
+    Result<List<org.github.foxnic.web.domain.bpm.Task>> queryTasksByProcessInstanceIds(@RequestParam(name = "processInstanceIds") List<String> processInstanceIds);
 
     /**
      * 控制器类名

@@ -1,10 +1,12 @@
 package org.github.foxnic.web.proxy.camunda;
 
 import com.github.foxnic.api.transter.Result;
+import org.github.foxnic.web.domain.bpm.ProcessAbandonVO;
 import org.github.foxnic.web.proxy.FeignConfiguration;
 import org.github.foxnic.web.proxy.MicroServiceNames;
 import org.github.foxnic.web.proxy.api.APIProxy;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -47,6 +49,12 @@ public interface CamundaProcessServiceProxy {
      */
     public static final String QUERY_BY_IDS = API_PREFIX + "query-by-ids";
 
+    /**
+     * 废弃流程
+     */
+    public static final String ABANDON_PROCESS = API_PREFIX + "abandon-process";
+
+
 
 
     /**
@@ -58,6 +66,9 @@ public interface CamundaProcessServiceProxy {
 
     @RequestMapping(CamundaProcessServiceProxy.QUERY_BY_IDS)
     Result queryByIds(@RequestParam(name = "processIds") List<String> processIds);
+
+    @PostMapping(CamundaProcessServiceProxy.ABANDON_PROCESS)
+    Result abandonProcess(@RequestParam(name = "processAbandonVOList") List<ProcessAbandonVO> processAbandonVOList);
     /**
      * 控制器类名
      */

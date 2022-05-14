@@ -80,6 +80,7 @@ public class SysJobConfig extends BaseCodeConfig<SYS_JOB> {
 		view.formWindow().width("700px");
 		form.labelWidth(85);
 		form.columnLayout(new Object[]{
+				SYS_JOB.CODE,
 				SYS_JOB.NAME,SYS_JOB.WORKER_ID,SYS_JOB.CRON_EXPR,
 				SYS_JOB.CONCURRENT,SYS_JOB.MISFIRE_POLICY,
 				SYS_JOB.PARAMETER,SYS_JOB.STATUS,

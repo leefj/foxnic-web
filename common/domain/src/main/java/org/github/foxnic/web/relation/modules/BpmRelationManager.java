@@ -64,15 +64,24 @@ public class BpmRelationManager extends RelationManager {
 
 		//流程实例 - 表单实例
 		this.property(ProcessInstanceMeta.FORM_INSTANCE_PROP)
-				.using(FoxnicWeb.BPM_PROCESS_INSTANCE.FORM_INSTANCE_ID).join(FoxnicWeb.BPM_FORM_INSTANCE.ID);
+				.using(FoxnicWeb.BPM_PROCESS_INSTANCE.FORM_INSTANCE_ID).join(FoxnicWeb.BPM_FORM_INSTANCE.ID).cache(true);
 
 		//流程实例 - 发起人账户
 		this.property(ProcessInstanceMeta.DRAFTER_USER_PROP)
 				.using(FoxnicWeb.BPM_PROCESS_INSTANCE.DRAFTER_USER_ID).join(FoxnicWeb.SYS_USER.ID).cache(true);
 
-		//流程实例 - 业务单据
+		//流程实例 - 任务
+		this.property(ProcessInstanceMeta.TASKS_PROP)
+				.using(FoxnicWeb.BPM_PROCESS_INSTANCE.ID).join(FoxnicWeb.BPM_TASK.PROCESS_INSTANCE_ID);
+
+
+
+
+		//表单实例 - 业务单据
 		this.property(FormInstanceMeta.BILLS_PROP)
 				.using(FoxnicWeb.BPM_FORM_INSTANCE.ID).join(FoxnicWeb.BPM_FORM_INSTANCE_BILL.FORM_INSTANCE_ID);
+
+
 
 
 		//任务 - 流程定义

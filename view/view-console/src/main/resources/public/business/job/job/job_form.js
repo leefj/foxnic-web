@@ -1,7 +1,7 @@
 /**
  * 定时任务配置 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-07 13:34:42
+ * @since 2022-05-14 11:45:51
  */
 
 function FormPage() {
@@ -143,6 +143,13 @@ function FormPage() {
 				return opts;
 			}
 		});
+		form.on('radio(status)', function(data){
+			var checked=[];
+			$('input[type=radio][lay-filter=status]:checked').each(function() {
+				checked.push($(this).val());
+			});
+			window.pageExt.form.onRadioBoxChanged && window.pageExt.form.onRadioBoxChanged("status",data,checked);
+		});
 	}
 
 	/**
@@ -193,7 +200,8 @@ function FormPage() {
         setTimeout(function (){
             fm.animate({
                 opacity:'1.0'
-            },100);
+            },100,null,function (){
+				fm.css("opacity","1.0");});
         },1);
 
         //禁用编辑
@@ -252,7 +260,7 @@ function FormPage() {
 					admin.finishPopupCenterById('sys-job-form-data-win');
 				}
 			} else {
-				layer.msg(data.message, {icon: 2, time: 1500});
+				fox.showMessage(data);
 			}
 			window.pageExt.form.afterSubmit && window.pageExt.form.afterSubmit(param,data);
 		}, {delayLoading:1000,elms:[$("#submit-button")]});

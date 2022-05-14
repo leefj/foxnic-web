@@ -18,3 +18,7 @@ ALTER TABLE `sys_user`
     MODIFY COLUMN `passwd` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '密码' AFTER `real_name`,
     MODIFY COLUMN `phone` varchar(24) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '手机号码' AFTER `passwd`,
     MODIFY COLUMN `language` varchar(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '语言' AFTER `portrait_id`;
+
+
+ALTER TABLE `sys_job`
+ADD COLUMN `code` varchar(64) NULL COMMENT '代码，任务代码' AFTER `id`;

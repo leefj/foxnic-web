@@ -1,16 +1,20 @@
 package org.github.foxnic.web.proxy.bpm;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.github.foxnic.web.proxy.api.APIProxy;
-import org.github.foxnic.web.proxy.FeignConfiguration;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.cloud.openfeign.FeignClient;
-import org.github.foxnic.web.domain.bpm.ProcessInstance;
-import org.github.foxnic.web.domain.bpm.ProcessInstanceVO;
-import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
+import org.github.foxnic.web.domain.bpm.ProcessAbandonVO;
+import org.github.foxnic.web.domain.bpm.ProcessInstance;
+import org.github.foxnic.web.domain.bpm.ProcessInstanceVO;
+import org.github.foxnic.web.domain.bpm.ProcessStartVO;
+import org.github.foxnic.web.proxy.FeignConfiguration;
 import org.github.foxnic.web.proxy.MicroServiceNames;
+import org.github.foxnic.web.proxy.api.APIProxy;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 /**
  * <p>
@@ -91,6 +95,11 @@ public interface ProcessInstanceServiceProxy {
     public static final String IMPORT_EXCEL = API_PREFIX + "import-excel";
 
     /**
+     * 同步流程任务
+     */
+    public static final String SYNC_CAMUNDA_PROCESS_INSTANCE = API_PREFIX + "sync-camunda-process-instance";
+
+    /**
      * 添加流程实例
      */
     @RequestMapping(ProcessInstanceServiceProxy.START)
@@ -100,13 +109,13 @@ public interface ProcessInstanceServiceProxy {
      * 删除流程实例
      */
     @RequestMapping(ProcessInstanceServiceProxy.DELETE)
-    Result deleteById(@RequestParam(name = "id") Integer id);
+    Result abandonProcess(@RequestParam(name = "processAbandonVO") ProcessAbandonVO processAbandonVO);
 
     /**
      * 批量删除流程实例
      */
     @RequestMapping(ProcessInstanceServiceProxy.DELETE_BY_IDS)
-    Result deleteByIds(@RequestParam(name = "ids") List<Integer> ids);
+    Result abandonProcess(@RequestParam(name = "processAbandonVOList") List<ProcessAbandonVO> processAbandonVOList);
 
     /**
      * 获取流程实例
@@ -125,6 +134,26 @@ public interface ProcessInstanceServiceProxy {
      */
     @RequestMapping(ProcessInstanceServiceProxy.QUERY_PAGED_LIST)
     Result<PagedList<ProcessInstance>> queryPagedList(@RequestParam(name = "sample") ProcessInstanceVO sample);
+
+
+    /**
+     * 保存流程
+     * */
+    @PostMapping(ProcessInstanceServiceProxy.TEMPORARY_SAVE)
+    Result<ProcessInstance> temporarySave(@RequestParam(name = "processInstanceVO") ProcessInstanceVO processInstanceVO);
+
+    /**
+     * 启动流程
+     * */
+    @PostMapping(ProcessInstanceServiceProxy.START)
+    Result start(@RequestParam(name = "processStartVO") ProcessStartVO processStartVO);
+
+    /**
+     * 同步流程任务
+     * */
+    @RequestMapping(ProcessInstanceServiceProxy.SYNC_CAMUNDA_PROCESS_INSTANCE)
+    public Result syncCamundaProcessInstances(@RequestParam(name = "processInstanceIds") List<String> processInstanceIds);
+
 
     /**
      * 控制器类名

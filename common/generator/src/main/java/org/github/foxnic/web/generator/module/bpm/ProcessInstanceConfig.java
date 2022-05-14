@@ -4,6 +4,7 @@ import com.github.foxnic.api.query.MatchType;
 import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.PojoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
+import com.github.foxnic.generator.builder.view.config.ActionConfig;
 import com.github.foxnic.generator.builder.view.option.FormOptions;
 import com.github.foxnic.generator.builder.view.option.ListOptions;
 import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
@@ -40,6 +41,7 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
         poType.addSimpleProperty(Assignee.class,"drafter","起草人身份","起草人身份");
         poType.addSimpleProperty(String.class,"drafterName","起草人名称","起草人名称");
         poType.addSimpleProperty(User.class,"drafterUser","起草人账户","起草人账户");
+        poType.addListProperty(Task.class,"tasks","流程任务清单","流程任务清单");
         // 将属性映射为枚举
         poType.shadow(BPM_PROCESS_INSTANCE.APPROVAL_STATUS,ApprovalStatus.class);
         poType.shadow(BPM_PROCESS_INSTANCE.DRAFTER_TYPE,UnifiedUserType.class);
@@ -76,6 +78,14 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
         pojo.addSimpleProperty(String.class,"comment","审批意见","审批意见");
         pojo.addMapProperty(String.class,Object.class,"variables","流程参数","流程参数");
         pojo.addSimpleProperty(String.class,"tenantId","租户ID","租户ID");
+
+        pojo=context.createPojo("ProcessAbandonVO");
+        pojo.setSuperType(null);
+        pojo.setDoc("流程废弃参数");
+        pojo.addSimpleProperty(String.class,"processInstanceId","流程实例ID","流程实例ID");
+        pojo.addSimpleProperty(String.class,"reason","废弃原因","流程实例ID");
+        pojo.addSimpleProperty(Boolean.class,"force","是否强制删除","是否强制删除");
+
 
     }
 
@@ -155,19 +165,26 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
     @Override
     public void configList(ViewOptions view, ListOptions list) {
 
-//        ActionConfig action = null;
-//        action = list.operationColumn().addActionButton("流程图","showBpmnDiagrams");
-//        //action.setIconHtml("<li class='mdi mdi-set mdi-arrow-decision-outline'></li>");
-//        action = list.operationColumn().addActionButton("发起人","showInitiators");
-//        //action.setIconHtml("<li class='fa fa-user-secret' style='font-size:14px'></li>");
-//
+        ActionConfig action = null;
+        action = list.operationColumn().addActionButton("作废","abandonProcess");
+//        action.setIconHtml("<li class='mdi mdi-set mdi-arrow-decision-outline'></li>");
+        list.operationColumn().addActionButton("审批","showApprovalForm");
+//        action.setIconHtml("<li class='fa fa-user-secret' style='font-size:14px'></li>");
+
 //        list.columnLayout(BPM_PROCESS_DEFINITION.NAME,BPM_PROCESS_DEFINITION.VALID,BPM_PROCESS_DEFINITION.NOTES,BPM_PROCESS_DEFINITION.CREATE_TIME,BPM_PROCESS_DEFINITION.UPDATE_TIME,"lastUpdateUserName");
 
-        list.addToolButton("提交","submitProcess","");
-        list.addToolButton("撤回","revokeProcess","");
-        list.addToolButton("作废","abandonProcess","");
-        list.addToolButton("同意","agreeNode","");
-        list.addToolButton("驳回","rejectNode","");
+//        list.addToolButton("提交","submitProcess","");
+//        list.addToolButton("撤回","revokeProcess","");
+//        action=list.addToolButton("作废","abandonProcessBatch","");
+//        action.setIconHtml("<i class='fa fa-close' style='font-size:14px'></i>");
+//        action.setIconHtml("<i class='layui-icon' >&#xe617;</i>");
+//        action.setIconHtml("<i class='mdi mdi-delete-sweep'></i>");
+
+//        list.addToolButton("同意","agreeNode","");
+//        list.addToolButton("驳回","rejectNode","");
+        list.disableModify().disableFormView().disableBatchDelete().disableSingleDelete();
+//        list.configBatchDeleteButton("作废",null,null);
+//        list.operationColumn().configDeleteButton("作废",null,null);
 
     }
 

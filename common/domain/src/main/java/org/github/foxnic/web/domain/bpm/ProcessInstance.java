@@ -12,9 +12,11 @@ import org.github.foxnic.web.constants.enums.bpm.PriorityLevel;
 import org.github.foxnic.web.constants.enums.changes.ApprovalStatus;
 import java.util.Date;
 import org.github.foxnic.web.domain.oauth.User;
+import java.util.List;
 import com.github.foxnic.commons.reflect.EnumUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.lang.DataParser;
+import java.util.ArrayList;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
 
@@ -23,8 +25,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程实例
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-13 16:21:06
- * @sign D7439C68BB249DA96328DC0BBEEF6ECE
+ * @since 2022-05-14 11:39:53
+ * @sign FAF1CF9AA4E001EA934E337960AC0863
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -183,6 +185,12 @@ public class ProcessInstance extends Entity {
 	private String tenantId;
 	
 	/**
+	 * 流程完成时间：流程完成时间
+	*/
+	@ApiModelProperty(required = false,value="流程完成时间" , notes = "流程完成时间")
+	private Date endTime;
+	
+	/**
 	 * 流程定义：流程定义
 	*/
 	@ApiModelProperty(required = false,value="流程定义" , notes = "流程定义")
@@ -217,6 +225,12 @@ public class ProcessInstance extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="起草人账户" , notes = "起草人账户")
 	private User drafterUser;
+	
+	/**
+	 * 流程任务清单：流程任务清单
+	*/
+	@ApiModelProperty(required = false,value="流程任务清单" , notes = "流程任务清单")
+	private List<Task> tasks;
 	
 	/**
 	 * 流程定义文件：流程定义文件
@@ -791,6 +805,25 @@ public class ProcessInstance extends Entity {
 	}
 	
 	/**
+	 * 获得 流程完成时间<br>
+	 * 流程完成时间
+	 * @return 流程完成时间
+	*/
+	public Date getEndTime() {
+		return endTime;
+	}
+	
+	/**
+	 * 设置 流程完成时间
+	 * @param endTime 流程完成时间
+	 * @return 当前对象
+	*/
+	public ProcessInstance setEndTime(Date endTime) {
+		this.endTime=endTime;
+		return this;
+	}
+	
+	/**
 	 * 获得 流程定义<br>
 	 * 流程定义
 	 * @return 流程定义
@@ -901,6 +934,36 @@ public class ProcessInstance extends Entity {
 	*/
 	public ProcessInstance setDrafterUser(User drafterUser) {
 		this.drafterUser=drafterUser;
+		return this;
+	}
+	
+	/**
+	 * 获得 流程任务清单<br>
+	 * 流程任务清单
+	 * @return 流程任务清单
+	*/
+	public List<Task> getTasks() {
+		return tasks;
+	}
+	
+	/**
+	 * 设置 流程任务清单
+	 * @param tasks 流程任务清单
+	 * @return 当前对象
+	*/
+	public ProcessInstance setTasks(List<Task> tasks) {
+		this.tasks=tasks;
+		return this;
+	}
+	
+	/**
+	 * 添加 流程任务清单
+	 * @param task 流程任务清单
+	 * @return 当前对象
+	*/
+	public ProcessInstance addTask(Task task) {
+		if(this.tasks==null) tasks=new ArrayList<>();
+		this.tasks.add(task);
 		return this;
 	}
 	

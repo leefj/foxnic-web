@@ -740,7 +740,7 @@ function ListPage() {
 			}
 			#for(b:opColumnButtons)
 			else if (layEvent === '#(b.id)') { // #(b.label)
-				window.pageExt.list.#(b.functionName)(data);
+				window.pageExt.list.#(b.functionName)(data,this);
 			}
 			#end
 			#if(opColumnMenus!=null && opColumnMenus.size()>0)
