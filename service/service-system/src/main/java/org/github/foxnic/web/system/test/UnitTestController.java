@@ -8,8 +8,6 @@ import com.github.foxnic.commons.io.FileUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.dao.spec.DBSequence;
-import com.github.foxnic.springboot.spring.SpringUtil;
-import org.github.foxnic.web.domain.bpm.ProcessDefinition;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.framework.licence.LicenceProxy;
 import org.github.foxnic.web.proxy.camunda.CamundaUserServiceProxy;
@@ -32,10 +30,13 @@ public class UnitTestController {
 
     @PostMapping("/service-system/unit-test/sequence")
     public Result sequence() {
-        String sequenceId="qualityReportId";
+//        String sequenceId="qualityReportId";
+        String sequenceId="TEST-003";
 
-        File file=new File("D:\\leefj\\workspace\\git-base\\foxnic-grant\\licence\\community\\community.lic");
-        LicenceProxy.LICENCE_DATA= FileUtil.readText(file);
+
+
+//        File file=new File("D:\\leefj\\workspace\\git-base\\foxnic-grant\\licence\\community\\community.lic");
+//        LicenceProxy.LICENCE_DATA= FileUtil.readText(file);
 
         String val = null;
         try {
@@ -49,6 +50,8 @@ public class UnitTestController {
             return ErrorDesc.exception(e);
         }
     }
+
+
 
     @PostMapping("/service-system/unit-test/cluster-1")
     public Result cluster1() {
