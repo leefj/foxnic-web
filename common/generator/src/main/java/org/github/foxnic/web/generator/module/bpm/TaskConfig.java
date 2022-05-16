@@ -83,7 +83,7 @@ public class TaskConfig extends BaseCodeConfig<BPM_TASK> {
         list.disableBatchDelete().disableSingleDelete().disableModify().disableCreateNew().disableFormView();
 
 //        ActionConfig action = null;
-        list.operationColumn().addActionButton("审批","showProcessForm");
+        list.operationColumn().addActionButton("打开","showProcessForm");
 //        //action.setIconHtml("<li class='mdi mdi-set mdi-arrow-decision-outline'></li>");
 //        action = list.operationColumn().addActionButton("发起人","showInitiators");
 //        //action.setIconHtml("<li class='fa fa-user-secret' style='font-size:14px'></li>");

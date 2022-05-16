@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2022-05-14 11:44:00
+ * @since 2022-05-16 10:54:39
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -50,8 +50,13 @@ public class FoxnicWeb {
 		*/
 		public static final DBField REASON = new DBField(DBDataType.STRING , "reason","reason","请假事由","请假事由",false,false,true);
 		
+		/**
+		 * 申请人，员工ID
+		*/
+		public static final DBField APPLICANT_ID = new DBField(DBDataType.STRING , "applicant_id","applicantId","申请人","员工ID",false,false,true);
+		
 		public BPM_DEMO_LEAVE() {
-			this.init($NAME,"请假流程示例表" , ID , TYPE , BEGIN_TIME , END_TIME , REASON);
+			this.init($NAME,"请假流程示例表" , ID , TYPE , BEGIN_TIME , END_TIME , REASON , APPLICANT_ID);
 		}
 		public static final BPM_DEMO_LEAVE $TABLE=new BPM_DEMO_LEAVE();
 	}

@@ -16,8 +16,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 请假流程示例
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-07 09:59:17
- * @sign BC4BF98F9EBF60B0B19091EF153B130C
+ * @since 2022-05-16 16:56:42
+ * @sign 8609CB0516D86F003BBB04C1CAF79768
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -58,6 +58,12 @@ public class DemoLeave extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="请假事由" , notes = "请假事由")
 	private String reason;
+	
+	/**
+	 * 申请人：员工ID
+	*/
+	@ApiModelProperty(required = false,value="申请人" , notes = "员工ID")
+	private String applicantId;
 	
 	/**
 	 * 获得 主键<br>
@@ -151,6 +157,25 @@ public class DemoLeave extends Entity {
 	*/
 	public DemoLeave setReason(String reason) {
 		this.reason=reason;
+		return this;
+	}
+	
+	/**
+	 * 获得 申请人<br>
+	 * 员工ID
+	 * @return 申请人
+	*/
+	public String getApplicantId() {
+		return applicantId;
+	}
+	
+	/**
+	 * 设置 申请人
+	 * @param applicantId 申请人
+	 * @return 当前对象
+	*/
+	public DemoLeave setApplicantId(String applicantId) {
+		this.applicantId=applicantId;
 		return this;
 	}
 

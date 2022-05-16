@@ -106,14 +106,20 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
     @Override
     public void configFields(ViewOptions view) {
 
-        view.form().labelWidth(100);
+        view.form().labelWidth(120);
 
         view.field(BPM_PROCESS_INSTANCE.ID).basic().hidden();
-        view.field(BPM_PROCESS_INSTANCE.TITLE).search().fuzzySearch();
+        view.field(BPM_PROCESS_INSTANCE.TITLE).search().fuzzySearch().form().validate().required();
         view.field(BPM_PROCESS_INSTANCE.COMMENT).search().label("审批意见").hidden();
-        view.field(BPM_PROCESS_INSTANCE.PRIORITY).basic().label("紧急程度").form().radioBox().enumType(PriorityLevel.class).defaultValue(PriorityLevel.normal);
-        view.field(BPM_PROCESS_INSTANCE.DRAFTER_TYPE).basic().label("发起人身份类型").form().radioBox().enumType(UnifiedUserType.class).defaultValue(UnifiedUserType.user);
-        view.field(BPM_PROCESS_INSTANCE.DRAFTER_ID).basic().label("发起人身份").form().selectBox().queryApi(BpmIdentityServiceProxy.GET_IDENTITIES)
+        view.field(BPM_PROCESS_INSTANCE.PRIORITY).basic().label("紧急程度")
+                .form().radioBox().enumType(PriorityLevel.class).defaultValue(PriorityLevel.normal)
+                .form().validate().required();
+        view.field(BPM_PROCESS_INSTANCE.DRAFTER_TYPE).basic().label("发起人身份类型")
+                .form().radioBox().enumType(UnifiedUserType.class).defaultValue(UnifiedUserType.user)
+                .form().validate().required();
+        view.field(BPM_PROCESS_INSTANCE.DRAFTER_ID).basic().label("发起人身份")
+                .form().validate().required()
+                .form().selectBox().queryApi(BpmIdentityServiceProxy.GET_IDENTITIES)
                 .valueField("id").textField("nameWithCode")
                 .fillWith(ProcessInstanceMeta.DRAFTER)
                 .table().fillBy(ProcessInstanceMeta.DRAFTER,"nameWithCode")
@@ -140,7 +146,9 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
         view.field(BPM_PROCESS_INSTANCE.APPROVAL_STATUS).form().selectBox().enumType(ApprovalStatus.class)
                 .form().hidden();
 
-        view.field(BPM_PROCESS_INSTANCE.PROCESS_DEFINITION_ID).basic().label("流程类型").form().selectBox().queryApi(ProcessDefinitionServiceProxy.QUERY_PAGED_LIST).paging(true).muliti(false).toolbar(false).filter(true)
+        view.field(BPM_PROCESS_INSTANCE.PROCESS_DEFINITION_ID).basic().label("流程类型")
+                .form().validate().required()
+                .form().selectBox().queryApi(ProcessDefinitionServiceProxy.QUERY_PAGED_LIST).paging(true).muliti(false).toolbar(false).filter(true)
                 .textField(FoxnicWeb.BPM_PROCESS_DEFINITION.NAME).valueField(FoxnicWeb.BPM_PROCESS_DEFINITION.ID)
                 .fillWith(ProcessInstanceMeta.PROCESS_DEFINITION)
                 .table().fillBy(ProcessInstanceMeta.PROCESS_DEFINITION,ProcessDefinitionMeta.NAME);
@@ -168,7 +176,7 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
         ActionConfig action = null;
         action = list.operationColumn().addActionButton("作废","abandonProcess");
 //        action.setIconHtml("<li class='mdi mdi-set mdi-arrow-decision-outline'></li>");
-        list.operationColumn().addActionButton("审批","showApprovalForm");
+        list.operationColumn().addActionButton("打开","showApprovalForm");
 //        action.setIconHtml("<li class='fa fa-user-secret' style='font-size:14px'></li>");
 
 //        list.columnLayout(BPM_PROCESS_DEFINITION.NAME,BPM_PROCESS_DEFINITION.VALID,BPM_PROCESS_DEFINITION.NOTES,BPM_PROCESS_DEFINITION.CREATE_TIME,BPM_PROCESS_DEFINITION.UPDATE_TIME,"lastUpdateUserName");
@@ -190,6 +198,9 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
 
     @Override
     public void configForm(ViewOptions view, FormOptions form) {
+
+        view.formWindow().bottomSpace(200);
+
         view.formWindow().width("90%");
         form.savingURL(ProcessInstanceServiceProxy.TEMPORARY_SAVE);
         //
@@ -215,7 +226,7 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
             .setServiceIntfAnfImpl(WriteMode.COVER_EXISTS_FILE) //服务与接口
             .setControllerAndAgent(WriteMode.COVER_EXISTS_FILE) //Rest
             .setPageController(WriteMode.COVER_EXISTS_FILE) //页面控制器
-            .setFormPage(WriteMode.COVER_EXISTS_FILE) //表单HTML页
+            .setFormPage(WriteMode.WRITE_TEMP_FILE) //表单HTML页
             .setListPage(WriteMode.COVER_EXISTS_FILE) //列表HTML页
             .setExtendJsFile(WriteMode.COVER_EXISTS_FILE);
     }

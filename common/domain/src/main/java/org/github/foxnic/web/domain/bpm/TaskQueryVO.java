@@ -7,7 +7,7 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * 任务查询参数
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-14 11:39:53
+ * @since 2022-05-16 13:57:38
  * @sign E76C4A6ADDAA1D4A02E56A279CE79AE8
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */

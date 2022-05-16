@@ -11,22 +11,27 @@ import com.github.foxnic.commons.reflect.EnumUtil;
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
 */
 
-public enum SysConfigCatalog  implements CodeTextEnum {
+public enum LeaveType  implements CodeTextEnum {
 	
 	/**
-	 * 系统配置
+	 * 事假
 	*/
-	SYSTEM("system" , "系统配置"),
+	L01("L01" , "事假"),
 	
 	/**
-	 * 组织人事
+	 * 年休假
 	*/
-	HTM("htm" , "组织人事"),
+	L02("L02" , "年休假"),
+	
+	/**
+	 * 调休
+	*/
+	L03("L03" , "调休"),
 	;
 	
 	private String code;
 	private String text;
-	private SysConfigCatalog(String code,String text)  {
+	private LeaveType(String code,String text)  {
 		this.code=code;
 		this.text=text;
 	}
@@ -42,7 +47,7 @@ public enum SysConfigCatalog  implements CodeTextEnum {
 	/**
 	 * 从字符串转换成当前枚举类型
 	*/
-	public static SysConfigCatalog parseByCode(String code) {
-		return (SysConfigCatalog) EnumUtil.parseByCode(SysConfigCatalog.values(),code);
+	public static LeaveType parseByCode(String code) {
+		return (LeaveType) EnumUtil.parseByCode(LeaveType.values(),code);
 	}
 }

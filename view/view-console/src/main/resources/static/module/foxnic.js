@@ -45,6 +45,9 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             }
             cfg.refreshCallback=refreshCallback;
             var el = $(cfg.el);
+            if(el.find(".layui-required").length>0) {
+                cfg.layVerify = 'required';
+            }
             if (!cfg.searchTips) cfg.searchTips = "请输入关键字";
             if(cfg.radio && cfg.clickClose==null) {
                 cfg.clickClose=true;
@@ -1334,7 +1337,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                         if (isTrue) {
                             //提示层风格
                             if (verType === 'tips') {
-                                layer.tips(errorText, function () {
+                                top.layer.tips(errorText, function () {
                                     if (typeof othis.attr('lay-ignore') !== 'string') {
                                         if (item.tagName.toLowerCase() === 'select' || /^checkbox|radio$/.test(item.type)) {
                                             return othis.next()
@@ -1343,9 +1346,9 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                                     return othis
                                 }(), { tips: 1 })
                             } else if (verType === 'alert') {
-                                layer.alert(errorText, { title: '提示', shadeClose: true })
+                                top.layer.alert(errorText, { title: '提示', shadeClose: true })
                             } else {
-                                layer.msg(errorText, { icon: 5, shift: 6 })
+                                top.layer.msg(errorText, { icon: 5, shift: 6 })
                             }
 
                             //非移动设备自动定位焦点
@@ -1410,7 +1413,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             });
 
             if(message) {
-                layer.msg(message, { time: 2000, icon: 5 });
+                top.layer.msg(message, { time: 2000, icon: 5 });
                 return false;
             }
             return true

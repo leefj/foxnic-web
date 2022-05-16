@@ -10,7 +10,7 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-07 09:59:17
+ * @since 2022-05-16 16:56:42
  * @sign F57E20F6FA5F5FC874AC35388FAA323C
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -158,9 +158,19 @@ public class DemoLeaveVOMeta extends DemoLeaveMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.DemoLeaveVO,java.lang.String> REASON_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.DemoLeaveVO.class ,REASON, java.lang.String.class, "请假事由", "请假事由", java.lang.String.class, null);
 	
 	/**
+	 * 申请人 , 员工ID , 类型: java.lang.String
+	*/
+	public static final String APPLICANT_ID="applicantId";
+	
+	/**
+	 * 申请人 , 员工ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.DemoLeaveVO,java.lang.String> APPLICANT_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.DemoLeaveVO.class ,APPLICANT_ID, java.lang.String.class, "申请人", "员工ID", java.lang.String.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , TYPE , BEGIN_TIME , END_TIME , REASON };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , TYPE , BEGIN_TIME , END_TIME , REASON , APPLICANT_ID };
 	
 	/**
 	 * 代理类
@@ -321,6 +331,17 @@ public class DemoLeaveVOMeta extends DemoLeaveMeta {
 		public DemoLeave setReason(String reason) {
 			super.change(REASON,super.getReason(),reason);
 			super.setReason(reason);
+			return this;
+		}
+		
+		/**
+		 * 设置 申请人
+		 * @param applicantId 申请人
+		 * @return 当前对象
+		*/
+		public DemoLeave setApplicantId(String applicantId) {
+			super.change(APPLICANT_ID,super.getApplicantId(),applicantId);
+			super.setApplicantId(applicantId);
 			return this;
 		}
 	}

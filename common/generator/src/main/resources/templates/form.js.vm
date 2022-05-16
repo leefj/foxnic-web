@@ -9,6 +9,9 @@ function FormPage() {
 	var disableCreateNew=#(disableCreateNew);
 	var disableModify=#(disableModify);
 	var dataBeforeEdit=null;
+	const bpmIntegrateMode="#(bpmIntegrateMode)";
+	var isInProcess=QueryString.get("isInProcess")
+
 	/**
       * 入口函数，初始化
       */
@@ -23,6 +26,11 @@ function FormPage() {
 		}
 		if(action=="view") {
 			disableModify=true;
+		}
+
+		if(bpmIntegrateMode=="front" && isInProcess==1) {
+			$(".model-form-footer").hide();
+			$($(".form-column")[0]).css("padding-top","0px")
 		}
 
 		if(window.pageExt.form.beforeInit) {
@@ -56,6 +64,8 @@ function FormPage() {
 			var doNext=window.pageExt.form.beforeAdjustPopup();
 			if(!doNext) return;
 		}
+
+		if(bpmIntegrateMode=="front" && isInProcess==1) return;
 
 		clearTimeout(adjustPopupTask);
 		var scroll=$(".form-container").attr("scroll");
@@ -395,7 +405,7 @@ function FormPage() {
 		return fox.formVerify("data-form",data,VALIDATE_CONFIG)
 	}
 
-	function saveForm(param) {
+	function saveForm(param,callback) {
 		param.dirtyFields=fox.compareDirtyFields(dataBeforeEdit,param);
 		#if(savingURL==null)
 		var api=moduleURL+"/"+(param.#(idPropertyName)?"update":"insert");
@@ -408,6 +418,11 @@ function FormPage() {
 				if(window.pageExt.form.betweenFormSubmitAndClose) {
 					doNext=window.pageExt.form.betweenFormSubmitAndClose(param,data);
 				}
+
+				if(callback) {
+					doNext = callback(data);
+				}
+
 				if(doNext) {
 					admin.finishPopupCenterById('#(formDataKey)-win');
 				}

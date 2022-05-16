@@ -206,7 +206,7 @@ function ListPage() {
 					if(ids.length>0) {
 						startExpandNode();
 					} else {
-						layer.msg("为找到匹配的节点", {icon: 1, time: 1000});
+						layer.msg("未找到匹配的节点", {icon: 1, time: 1000});
 					}
 				} else {
 					admin.toast().error("搜索错误",{time:1000,position:"right-bottom"});
