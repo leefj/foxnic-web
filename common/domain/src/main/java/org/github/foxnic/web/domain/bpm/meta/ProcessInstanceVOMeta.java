@@ -11,13 +11,14 @@ import org.github.foxnic.web.domain.bpm.FormInstance;
 import org.github.foxnic.web.domain.bpm.Assignee;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.domain.bpm.Task;
+import org.github.foxnic.web.domain.bpm.FormInstanceBill;
 import org.github.foxnic.web.domain.bpm.ProcessDefinitionFile;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-16 13:57:38
+ * @since 2022-05-17 13:45:28
  * @sign A711E5710DD083267053E2AD6B945608
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -425,6 +426,26 @@ public class ProcessInstanceVOMeta extends ProcessInstanceMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceVO,org.github.foxnic.web.domain.bpm.Task> TASKS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceVO.class ,TASKS, java.util.List.class, "流程任务清单", "流程任务清单", org.github.foxnic.web.domain.bpm.Task.class, null);
 	
 	/**
+	 * 业务单据 , 关联的业务单据清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.FormInstanceBill
+	*/
+	public static final String BILLS="bills";
+	
+	/**
+	 * 业务单据 , 关联的业务单据清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.FormInstanceBill
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceVO,org.github.foxnic.web.domain.bpm.FormInstanceBill> BILLS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceVO.class ,BILLS, java.util.List.class, "业务单据", "关联的业务单据清单", org.github.foxnic.web.domain.bpm.FormInstanceBill.class, null);
+	
+	/**
+	 * 业务单据ID清单 , 集合类型: LIST , 类型: java.lang.String
+	*/
+	public static final String BILL_IDS="billIds";
+	
+	/**
+	 * 业务单据ID清单 , 集合类型: LIST , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceVO,java.lang.String> BILL_IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceVO.class ,BILL_IDS, java.util.List.class, "业务单据ID清单", "业务单据ID清单", java.lang.String.class, null);
+	
+	/**
 	 * 流程定义文件 , 类型: org.github.foxnic.web.domain.bpm.ProcessDefinitionFile
 	*/
 	public static final String PROCESS_DEFINITION_FILE="processDefinitionFile";
@@ -437,7 +458,7 @@ public class ProcessInstanceVOMeta extends ProcessInstanceMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , DRAFTER_USER_ID , DRAFTER_ID , DRAFTER_TYPE , FORM_INSTANCE_ID , PROCESS_DEFINITION_ID , PROCESS_DEFINITION_FILE_ID , FORM_DEFINITION_ID , TITLE , PRIORITY , COMMENT , APPROVAL_STATUS , CAMUNDA_INSTANCE_ID , COMMIT_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , END_TIME , PROCESS_DEFINITION , FORM_DEFINITION , FORM_INSTANCE , DRAFTER , DRAFTER_NAME , DRAFTER_USER , TASKS , PROCESS_DEFINITION_FILE };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , DRAFTER_USER_ID , DRAFTER_ID , DRAFTER_TYPE , FORM_INSTANCE_ID , PROCESS_DEFINITION_ID , PROCESS_DEFINITION_FILE_ID , FORM_DEFINITION_ID , TITLE , PRIORITY , COMMENT , APPROVAL_STATUS , CAMUNDA_INSTANCE_ID , COMMIT_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , END_TIME , PROCESS_DEFINITION , FORM_DEFINITION , FORM_INSTANCE , DRAFTER , DRAFTER_NAME , DRAFTER_USER , TASKS , BILLS , BILL_IDS , PROCESS_DEFINITION_FILE };
 	
 	/**
 	 * 代理类
@@ -884,6 +905,28 @@ public class ProcessInstanceVOMeta extends ProcessInstanceMeta {
 		public ProcessInstance setTasks(List<Task> tasks) {
 			super.change(TASKS,super.getTasks(),tasks);
 			super.setTasks(tasks);
+			return this;
+		}
+		
+		/**
+		 * 设置 业务单据
+		 * @param bills 业务单据
+		 * @return 当前对象
+		*/
+		public ProcessInstance setBills(List<FormInstanceBill> bills) {
+			super.change(BILLS,super.getBills(),bills);
+			super.setBills(bills);
+			return this;
+		}
+		
+		/**
+		 * 设置 业务单据ID清单
+		 * @param billIds 业务单据ID清单
+		 * @return 当前对象
+		*/
+		public ProcessInstance setBillIds(List<String> billIds) {
+			super.change(BILL_IDS,super.getBillIds(),billIds);
+			super.setBillIds(billIds);
 			return this;
 		}
 		

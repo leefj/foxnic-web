@@ -16,7 +16,7 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 请假流程示例
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-16 16:56:42
+ * @since 2022-05-17 14:11:28
  * @sign 8609CB0516D86F003BBB04C1CAF79768
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */

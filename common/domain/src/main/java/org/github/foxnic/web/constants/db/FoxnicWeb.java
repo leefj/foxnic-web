@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2022-05-16 10:54:39
+ * @since 2022-05-17 09:12:33
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -244,7 +244,7 @@ public class FoxnicWeb {
 	}
 	
 	/**
-	 * 流程实例表单业务单据表
+	 * 流程单据表
 	*/
 	public static class BPM_FORM_INSTANCE_BILL extends DBTable {
 		
@@ -259,21 +259,6 @@ public class FoxnicWeb {
 		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","主键","主键",true,false,false);
 		
 		/**
-		 * 流程定义ID
-		*/
-		public static final DBField PROCESS_DEFINITION_ID = new DBField(DBDataType.STRING , "process_definition_id","processDefinitionId","流程定义ID","流程定义ID",false,false,true);
-		
-		/**
-		 * 流程实例ID
-		*/
-		public static final DBField PROCESS_INSTANCE_ID = new DBField(DBDataType.STRING , "process_instance_id","processInstanceId","流程实例ID","流程实例ID",false,false,true);
-		
-		/**
-		 * 表单定义ID
-		*/
-		public static final DBField FORM_DEFINITION_ID = new DBField(DBDataType.INTEGER , "form_definition_id","formDefinitionId","表单定义ID","表单定义ID",false,false,true);
-		
-		/**
 		 * 表单实例ID
 		*/
 		public static final DBField FORM_INSTANCE_ID = new DBField(DBDataType.STRING , "form_instance_id","formInstanceId","表单实例ID","表单实例ID",false,false,true);
@@ -282,11 +267,6 @@ public class FoxnicWeb {
 		 * 业务单据号
 		*/
 		public static final DBField BILL_ID = new DBField(DBDataType.STRING , "bill_id","billId","业务单据号","业务单据号",false,false,true);
-		
-		/**
-		 * 业务单据类型
-		*/
-		public static final DBField BILL_TYPE = new DBField(DBDataType.STRING , "bill_type","billType","业务单据类型","业务单据类型",false,false,true);
 		
 		/**
 		 * 创建人ID
@@ -334,7 +314,7 @@ public class FoxnicWeb {
 		public static final DBField TENANT_ID = new DBField(DBDataType.STRING , "tenant_id","tenantId","租户ID","租户ID",false,false,false);
 		
 		public BPM_FORM_INSTANCE_BILL() {
-			this.init($NAME,"流程实例表单业务单据表" , ID , PROCESS_DEFINITION_ID , PROCESS_INSTANCE_ID , FORM_DEFINITION_ID , FORM_INSTANCE_ID , BILL_ID , BILL_TYPE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID);
+			this.init($NAME,"流程单据表" , ID , FORM_INSTANCE_ID , BILL_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID);
 		}
 		public static final BPM_FORM_INSTANCE_BILL $TABLE=new BPM_FORM_INSTANCE_BILL();
 	}
@@ -6257,6 +6237,207 @@ public class FoxnicWeb {
 			this.init($NAME,"Licence授权配置表" , XKEY , DATA , CREATE_TIME);
 		}
 		public static final SYS_LICENCE $TABLE=new SYS_LICENCE();
+	}
+	
+	/**
+	*/
+	public static class SYS_LICENCE_COM extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "sys_licence_com";
+		
+		/**
+		 * 键
+		*/
+		public static final DBField XKEY = new DBField(DBDataType.STRING , "xkey","xkey","键","键",false,false,false);
+		
+		/**
+		 * 值
+		*/
+		public static final DBField DATA = new DBField(DBDataType.STRING , "data","data","值","值",false,false,true);
+		
+		/**
+		 * 导入时间
+		*/
+		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","导入时间","导入时间",false,false,true);
+		
+		public SYS_LICENCE_COM() {
+			this.init($NAME,"" , XKEY , DATA , CREATE_TIME);
+		}
+		public static final SYS_LICENCE_COM $TABLE=new SYS_LICENCE_COM();
+	}
+	
+	/**
+	*/
+	public static class SYS_LICENCE_DEV extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "sys_licence_dev";
+		
+		/**
+		 * 键
+		*/
+		public static final DBField XKEY = new DBField(DBDataType.STRING , "xkey","xkey","键","键",false,false,false);
+		
+		/**
+		 * 值
+		*/
+		public static final DBField DATA = new DBField(DBDataType.STRING , "data","data","值","值",false,false,true);
+		
+		/**
+		 * 导入时间
+		*/
+		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","导入时间","导入时间",false,false,true);
+		
+		public SYS_LICENCE_DEV() {
+			this.init($NAME,"" , XKEY , DATA , CREATE_TIME);
+		}
+		public static final SYS_LICENCE_DEV $TABLE=new SYS_LICENCE_DEV();
+	}
+	
+	/**
+	*/
+	public static class SYS_LICENCE_FREE extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "sys_licence_free";
+		
+		/**
+		 * 键
+		*/
+		public static final DBField XKEY = new DBField(DBDataType.STRING , "xkey","xkey","键","键",false,false,false);
+		
+		/**
+		 * 值
+		*/
+		public static final DBField DATA = new DBField(DBDataType.STRING , "data","data","值","值",false,false,true);
+		
+		/**
+		 * 导入时间
+		*/
+		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","导入时间","导入时间",false,false,true);
+		
+		public SYS_LICENCE_FREE() {
+			this.init($NAME,"" , XKEY , DATA , CREATE_TIME);
+		}
+		public static final SYS_LICENCE_FREE $TABLE=new SYS_LICENCE_FREE();
+	}
+	
+	/**
+	 * 版本切换
+	*/
+	public static class SYS_LICENCE_SWITCH extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "sys_licence_switch";
+		
+		/**
+		 * 主键
+		*/
+		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","主键","主键",true,false,false);
+		
+		/**
+		 * 许可版本
+		*/
+		public static final DBField LICENCE_TAB = new DBField(DBDataType.STRING , "licence_tab","licenceTab","许可版本","许可版本",false,false,true);
+		
+		/**
+		 * 状态
+		*/
+		public static final DBField STATUS = new DBField(DBDataType.STRING , "status","status","状态","状态",false,false,true);
+		
+		/**
+		 * 动作
+		*/
+		public static final DBField ACTION_CONTENT = new DBField(DBDataType.STRING , "action_content","actionContent","动作","动作",false,false,true);
+		
+		/**
+		 * 备注
+		*/
+		public static final DBField NOTES = new DBField(DBDataType.STRING , "notes","notes","备注","备注",false,false,true);
+		
+		/**
+		 * 创建人ID
+		*/
+		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
+		
+		/**
+		 * 创建时间
+		*/
+		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","创建时间","创建时间",false,false,true);
+		
+		/**
+		 * 修改人ID
+		*/
+		public static final DBField UPDATE_BY = new DBField(DBDataType.STRING , "update_by","updateBy","修改人ID","修改人ID",false,false,true);
+		
+		/**
+		 * 修改时间
+		*/
+		public static final DBField UPDATE_TIME = new DBField(DBDataType.DATE , "update_time","updateTime","修改时间","修改时间",false,false,true);
+		
+		/**
+		 * 是否已删除
+		*/
+		public static final DBField DELETED = new DBField(DBDataType.INTEGER , "deleted","deleted","是否已删除","是否已删除",false,false,false);
+		
+		/**
+		 * 删除人ID
+		*/
+		public static final DBField DELETE_BY = new DBField(DBDataType.STRING , "delete_by","deleteBy","删除人ID","删除人ID",false,false,true);
+		
+		/**
+		 * 删除时间
+		*/
+		public static final DBField DELETE_TIME = new DBField(DBDataType.DATE , "delete_time","deleteTime","删除时间","删除时间",false,false,true);
+		
+		/**
+		 * 版本
+		*/
+		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","版本","版本",false,false,false);
+		
+		public SYS_LICENCE_SWITCH() {
+			this.init($NAME,"版本切换" , ID , LICENCE_TAB , STATUS , ACTION_CONTENT , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+		}
+		public static final SYS_LICENCE_SWITCH $TABLE=new SYS_LICENCE_SWITCH();
+	}
+	
+	/**
+	*/
+	public static class SYS_LICENCE_TRY extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "sys_licence_try";
+		
+		/**
+		 * 键
+		*/
+		public static final DBField XKEY = new DBField(DBDataType.STRING , "xkey","xkey","键","键",false,false,false);
+		
+		/**
+		 * 值
+		*/
+		public static final DBField DATA = new DBField(DBDataType.STRING , "data","data","值","值",false,false,true);
+		
+		/**
+		 * 导入时间
+		*/
+		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","导入时间","导入时间",false,false,true);
+		
+		public SYS_LICENCE_TRY() {
+			this.init($NAME,"" , XKEY , DATA , CREATE_TIME);
+		}
+		public static final SYS_LICENCE_TRY $TABLE=new SYS_LICENCE_TRY();
 	}
 	
 	/**

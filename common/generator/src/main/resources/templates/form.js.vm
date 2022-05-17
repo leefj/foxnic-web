@@ -245,6 +245,20 @@ function FormPage() {
 	    #end
 	}
 
+	function fillFormDataByIds(ids) {
+		if(!ids) return;
+		if(ids.length==0) return;
+		var id=ids[0];
+		if(!id) return;
+		admin.post(moduleURL+"/get-by-id", { id : id }, function (r) {
+			if (r.success) {
+				fillFormData(r.data)
+			} else {
+				fox.showMessage(data);
+			}
+		});
+	}
+
 	/**
       * 填充表单数据
       */
@@ -407,6 +421,7 @@ function FormPage() {
 
 	function saveForm(param,callback) {
 		param.dirtyFields=fox.compareDirtyFields(dataBeforeEdit,param);
+		var action=param.#(idPropertyName)?"edit":"create";
 		#if(savingURL==null)
 		var api=moduleURL+"/"+(param.#(idPropertyName)?"update":"insert");
 		#else
@@ -415,17 +430,27 @@ function FormPage() {
 		admin.post(api, param, function (data) {
 			if (data.success) {
 				var doNext=true;
+				var pkValues=data.data;
+				if(pkValues) {
+					for (var key in pkValues) {
+						$("#"+key).val(pkValues[key]);
+					}
+				}
 				if(window.pageExt.form.betweenFormSubmitAndClose) {
 					doNext=window.pageExt.form.betweenFormSubmitAndClose(param,data);
 				}
 
 				if(callback) {
-					doNext = callback(data);
+					doNext = callback(data,action);
 				}
 
 				if(doNext) {
 					admin.finishPopupCenterById('#(formDataKey)-win');
 				}
+
+				// 调整状态为编辑
+				action="edit";
+
 			} else {
 				fox.showMessage(data);
 			}
@@ -505,6 +530,7 @@ function FormPage() {
 		verifyForm: verifyForm,
 		saveForm: saveForm,
 		fillFormData: fillFormData,
+		fillFormDataByIds:fillFormDataByIds,
 		adjustPopup: adjustPopup,
 		action: action,
 		setAction: function (act) {

@@ -42,6 +42,8 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
         poType.addSimpleProperty(String.class,"drafterName","起草人名称","起草人名称");
         poType.addSimpleProperty(User.class,"drafterUser","起草人账户","起草人账户");
         poType.addListProperty(Task.class,"tasks","流程任务清单","流程任务清单");
+        poType.addListProperty(FormInstanceBill.class,"bills","业务单据","关联的业务单据清单");
+        poType.addListProperty(String.class,"billIds","业务单据ID清单","业务单据ID清单");
         // 将属性映射为枚举
         poType.shadow(BPM_PROCESS_INSTANCE.APPROVAL_STATUS,ApprovalStatus.class);
         poType.shadow(BPM_PROCESS_INSTANCE.DRAFTER_TYPE,UnifiedUserType.class);
@@ -176,6 +178,7 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
         ActionConfig action = null;
         action = list.operationColumn().addActionButton("作废","abandonProcess");
 //        action.setIconHtml("<li class='mdi mdi-set mdi-arrow-decision-outline'></li>");
+        list.configCreateNewButton("发起流程","showApprovalForm","");
         list.operationColumn().addActionButton("打开","showApprovalForm");
 //        action.setIconHtml("<li class='fa fa-user-secret' style='font-size:14px'></li>");
 

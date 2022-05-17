@@ -1,8 +1,10 @@
 package org.github.foxnic.web.relation.modules;
 
+import com.github.foxnic.commons.collection.CollectorUtil;
 import com.github.foxnic.dao.relation.RelationManager;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
+import org.github.foxnic.web.domain.bpm.FormInstanceBill;
 import org.github.foxnic.web.domain.bpm.meta.*;
 import org.github.foxnic.web.domain.changes.meta.ChangeInstanceMeta;
 
@@ -65,6 +67,14 @@ public class BpmRelationManager extends RelationManager {
 		//流程实例 - 表单实例
 		this.property(ProcessInstanceMeta.FORM_INSTANCE_PROP)
 				.using(FoxnicWeb.BPM_PROCESS_INSTANCE.FORM_INSTANCE_ID).join(FoxnicWeb.BPM_FORM_INSTANCE.ID).cache(true);
+
+		//流程实例 - 表单实例
+		this.property(ProcessInstanceMeta.BILLS_PROP)
+				.using(FoxnicWeb.BPM_PROCESS_INSTANCE.FORM_INSTANCE_ID).join(FoxnicWeb.BPM_FORM_INSTANCE_BILL.FORM_INSTANCE_ID)
+				.after((tag,instance,bills,map)->{
+					instance.setBillIds(CollectorUtil.collectList(bills, FormInstanceBill::getBillId));
+					return bills;
+				}).cache(true);
 
 		//流程实例 - 发起人账户
 		this.property(ProcessInstanceMeta.DRAFTER_USER_PROP)

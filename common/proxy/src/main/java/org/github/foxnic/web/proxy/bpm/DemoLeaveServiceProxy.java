@@ -17,7 +17,7 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  * 请假流程示例表  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-16 16:56:43
+ * @since 2022-05-17 14:11:28
  */
 @FeignClient(value = MicroServiceNames.BPM, contextId = DemoLeaveServiceProxy.API_CONTEXT_PATH, configuration = FeignConfiguration.class)
 public interface DemoLeaveServiceProxy {

@@ -8,8 +8,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-07 09:27:45
- * @sign 8E4607308FAE37D56865AA356FA75717
+ * @since 2022-05-17 09:13:47
+ * @sign BFB27DF1484BAF4B0B1525220D143415
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -24,36 +24,6 @@ public class FormInstanceBillMeta {
 	 * 主键 , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.FormInstanceBill,java.lang.String> ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.FormInstanceBill.class ,ID, java.lang.String.class, "主键", "主键", java.lang.String.class, null);
-	
-	/**
-	 * 流程定义ID , 类型: java.lang.String
-	*/
-	public static final String PROCESS_DEFINITION_ID="processDefinitionId";
-	
-	/**
-	 * 流程定义ID , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.FormInstanceBill,java.lang.String> PROCESS_DEFINITION_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.FormInstanceBill.class ,PROCESS_DEFINITION_ID, java.lang.String.class, "流程定义ID", "流程定义ID", java.lang.String.class, null);
-	
-	/**
-	 * 流程实例ID , 类型: java.lang.String
-	*/
-	public static final String PROCESS_INSTANCE_ID="processInstanceId";
-	
-	/**
-	 * 流程实例ID , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.FormInstanceBill,java.lang.String> PROCESS_INSTANCE_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.FormInstanceBill.class ,PROCESS_INSTANCE_ID, java.lang.String.class, "流程实例ID", "流程实例ID", java.lang.String.class, null);
-	
-	/**
-	 * 表单定义ID , 类型: java.lang.Integer
-	*/
-	public static final String FORM_DEFINITION_ID="formDefinitionId";
-	
-	/**
-	 * 表单定义ID , 类型: java.lang.Integer
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.FormInstanceBill,java.lang.Integer> FORM_DEFINITION_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.FormInstanceBill.class ,FORM_DEFINITION_ID, java.lang.Integer.class, "表单定义ID", "表单定义ID", java.lang.Integer.class, null);
 	
 	/**
 	 * 表单实例ID , 类型: java.lang.String
@@ -74,16 +44,6 @@ public class FormInstanceBillMeta {
 	 * 业务单据号 , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.FormInstanceBill,java.lang.String> BILL_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.FormInstanceBill.class ,BILL_ID, java.lang.String.class, "业务单据号", "业务单据号", java.lang.String.class, null);
-	
-	/**
-	 * 业务单据类型 , 类型: java.lang.String
-	*/
-	public static final String BILL_TYPE="billType";
-	
-	/**
-	 * 业务单据类型 , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.FormInstanceBill,java.lang.String> BILL_TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.FormInstanceBill.class ,BILL_TYPE, java.lang.String.class, "业务单据类型", "业务单据类型", java.lang.String.class, null);
 	
 	/**
 	 * 创建人ID , 类型: java.lang.String
@@ -178,7 +138,7 @@ public class FormInstanceBillMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , PROCESS_DEFINITION_ID , PROCESS_INSTANCE_ID , FORM_DEFINITION_ID , FORM_INSTANCE_ID , BILL_ID , BILL_TYPE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID };
+	public static final String[] $PROPS={ ID , FORM_INSTANCE_ID , BILL_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID };
 	
 	/**
 	 * 代理类
@@ -196,39 +156,6 @@ public class FormInstanceBillMeta {
 		public FormInstanceBill setId(String id) {
 			super.change(ID,super.getId(),id);
 			super.setId(id);
-			return this;
-		}
-		
-		/**
-		 * 设置 流程定义ID
-		 * @param processDefinitionId 流程定义ID
-		 * @return 当前对象
-		*/
-		public FormInstanceBill setProcessDefinitionId(String processDefinitionId) {
-			super.change(PROCESS_DEFINITION_ID,super.getProcessDefinitionId(),processDefinitionId);
-			super.setProcessDefinitionId(processDefinitionId);
-			return this;
-		}
-		
-		/**
-		 * 设置 流程实例ID
-		 * @param processInstanceId 流程实例ID
-		 * @return 当前对象
-		*/
-		public FormInstanceBill setProcessInstanceId(String processInstanceId) {
-			super.change(PROCESS_INSTANCE_ID,super.getProcessInstanceId(),processInstanceId);
-			super.setProcessInstanceId(processInstanceId);
-			return this;
-		}
-		
-		/**
-		 * 设置 表单定义ID
-		 * @param formDefinitionId 表单定义ID
-		 * @return 当前对象
-		*/
-		public FormInstanceBill setFormDefinitionId(Integer formDefinitionId) {
-			super.change(FORM_DEFINITION_ID,super.getFormDefinitionId(),formDefinitionId);
-			super.setFormDefinitionId(formDefinitionId);
 			return this;
 		}
 		
@@ -251,17 +178,6 @@ public class FormInstanceBillMeta {
 		public FormInstanceBill setBillId(String billId) {
 			super.change(BILL_ID,super.getBillId(),billId);
 			super.setBillId(billId);
-			return this;
-		}
-		
-		/**
-		 * 设置 业务单据类型
-		 * @param billType 业务单据类型
-		 * @return 当前对象
-		*/
-		public FormInstanceBill setBillType(String billType) {
-			super.change(BILL_TYPE,super.getBillType(),billType);
-			super.setBillType(billType);
 			return this;
 		}
 		

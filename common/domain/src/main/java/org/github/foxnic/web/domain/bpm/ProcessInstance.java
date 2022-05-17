@@ -25,8 +25,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程实例
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-16 13:57:38
- * @sign FAF1CF9AA4E001EA934E337960AC0863
+ * @since 2022-05-17 13:45:27
+ * @sign CB5E42518C623538652A6FB8165162C8
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -231,6 +231,18 @@ public class ProcessInstance extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="流程任务清单" , notes = "流程任务清单")
 	private List<Task> tasks;
+	
+	/**
+	 * 业务单据：关联的业务单据清单
+	*/
+	@ApiModelProperty(required = false,value="业务单据" , notes = "关联的业务单据清单")
+	private List<FormInstanceBill> bills;
+	
+	/**
+	 * 业务单据ID清单：业务单据ID清单
+	*/
+	@ApiModelProperty(required = false,value="业务单据ID清单" , notes = "业务单据ID清单")
+	private List<String> billIds;
 	
 	/**
 	 * 流程定义文件：流程定义文件
@@ -964,6 +976,66 @@ public class ProcessInstance extends Entity {
 	public ProcessInstance addTask(Task task) {
 		if(this.tasks==null) tasks=new ArrayList<>();
 		this.tasks.add(task);
+		return this;
+	}
+	
+	/**
+	 * 获得 业务单据<br>
+	 * 关联的业务单据清单
+	 * @return 业务单据
+	*/
+	public List<FormInstanceBill> getBills() {
+		return bills;
+	}
+	
+	/**
+	 * 设置 业务单据
+	 * @param bills 业务单据
+	 * @return 当前对象
+	*/
+	public ProcessInstance setBills(List<FormInstanceBill> bills) {
+		this.bills=bills;
+		return this;
+	}
+	
+	/**
+	 * 添加 业务单据
+	 * @param bill 业务单据
+	 * @return 当前对象
+	*/
+	public ProcessInstance addBill(FormInstanceBill bill) {
+		if(this.bills==null) bills=new ArrayList<>();
+		this.bills.add(bill);
+		return this;
+	}
+	
+	/**
+	 * 获得 业务单据ID清单<br>
+	 * 业务单据ID清单
+	 * @return 业务单据ID清单
+	*/
+	public List<String> getBillIds() {
+		return billIds;
+	}
+	
+	/**
+	 * 设置 业务单据ID清单
+	 * @param billIds 业务单据ID清单
+	 * @return 当前对象
+	*/
+	public ProcessInstance setBillIds(List<String> billIds) {
+		this.billIds=billIds;
+		return this;
+	}
+	
+	/**
+	 * 添加 业务单据ID清单
+	 * @param billId 业务单据ID清单
+	 * @return 当前对象
+	*/
+	public ProcessInstance addBillId(String billId) {
+		if(this.billIds==null) billIds=new ArrayList<>();
+		this.billIds.add(billId);
 		return this;
 	}
 	

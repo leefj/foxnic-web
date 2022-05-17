@@ -258,22 +258,31 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 buttons.attr("disabled", "yes");
                 buttons.removeClass("layui-btn-disabled");
                 buttons.addClass("layui-btn-disabled");
+                function lockSelectDelay(inst) {
+                    if(inst.currentData || inst.getValue()) {
+                        //debugger
+                        //inst.update({disabled: true});
+                        setTimeout(function (){
+                            inst.update({disabled: true});
+                        },1000);
+                    } else {
+                        setTimeout(function () {
+                            lockSelectDelay(inst);
+                        }, 100);
+                    }
+                }
                 function disableSelects() {
                     var selects = fm.find("div[input-type=select]");
+                    var ts={};
                     for (var i = 0; i < selects.length; i++) {
                         var id = $(selects[i]).attr("id");
                         var inst=xmSelect.get("#" + id, true);
                         if(inst) {
-                            inst.update({disabled: true});
+                            lockSelectDelay(inst);
                         }
                     }
                 }
                 disableSelects();
-                //补刀
-                for (var i = 0; i < 20; i++) {
-                    setTimeout(disableSelects,500*i);
-                }
-
                 //
                 function disableUploads() {
                     var foxup = layui.foxnicUpload;
