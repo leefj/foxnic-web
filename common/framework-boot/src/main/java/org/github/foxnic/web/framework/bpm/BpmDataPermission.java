@@ -28,8 +28,6 @@ public class BpmDataPermission {
      * */
     public static ConditionExpr getApproverLimitCondition(String mainTableAlias,DBField drafterField,String approverEmployeeId) {
 
-//        "exists(sele)";
-
         ConditionExpr conditionExpr=new ConditionExpr(mainTableAlias+"."+drafterField.name()+" = ?",approverEmployeeId);
         conditionExpr.startWithAnd();
         return conditionExpr;

@@ -36,7 +36,7 @@ public class TaskConfig extends BaseCodeConfig<BPM_TASK> {
         poType.addSimpleProperty(ProcessInstance.class,"processInstance","流程实例","流程实例");
         poType.addListProperty(TaskApproval.class,"approvals","审批动作清单","审批动作清单");
         poType.addListProperty(TaskAssignee.class,"assignees","审批人清单","审批人清单");
-
+        poType.shadow("status", TaskStatus.class);
 
         //
         PojoClassFile pojo=context.createPojo("TaskQueryVO");
@@ -46,7 +46,7 @@ public class TaskConfig extends BaseCodeConfig<BPM_TASK> {
         pojo.addSimpleProperty(Boolean.class,"useUserIdInSession","是否使用会话账户","userId 当 uerseId 未指定时是否使用会话账户");
         pojo.addSimpleProperty(String.class,"processInstanceId","流程实例ID","用于查询指定账户可处理的待办");
         pojo.addSimpleProperty(String.class,"status","任务状态","任务状态");
-        poType.shadow("status", TaskStatus.class);
+        pojo.shadow("status", TaskStatus.class);
 
         //
         pojo=context.createPojo("CamundaTaskQueryVO");
@@ -67,6 +67,25 @@ public class TaskConfig extends BaseCodeConfig<BPM_TASK> {
         pojo.addSimpleProperty(String.class,"comment","审批意见","审批意见");
         pojo.addMapProperty(String.class,Object.class,"variables","流程参数","流程参数");
         pojo.addSimpleProperty(String.class,"tenantId","租户ID","租户ID");
+
+
+
+        pojo=context.createPojo("TaskAssigneeUser");
+        pojo.setSuperType(null);
+        pojo.setDoc("任务审批人账户");
+        pojo.addSimpleProperty(String.class,"taskId","任务ID","任务ID");
+        pojo.addSimpleProperty(String.class,"processInstanceId","流程实例ID","流程实例ID");
+        pojo.addSimpleProperty(String.class,"taskStatus","任务状态","任务状态");
+        pojo.shadow("taskStatus", TaskStatus.class);
+
+        pojo.addSimpleProperty(String.class,"userId","账户ID","账户ID");
+        pojo.addMapProperty(String.class,Object.class,"account","账户","账户");
+        pojo.addSimpleProperty(String.class,"realName","账户名","账户名");
+        pojo.addSimpleProperty(String.class,"assigneeType","审批人类型","审批人类型");
+        pojo.shadow("assigneeType", UnifiedUserType.class);
+        pojo.addSimpleProperty(String.class,"assigneeId","审批人ID","审批人ID");
+        pojo.addSimpleProperty(String.class,"assigneeName","审批人名称","审批人名称");
+
 
     }
 
