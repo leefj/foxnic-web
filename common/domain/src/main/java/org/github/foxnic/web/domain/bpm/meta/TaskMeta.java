@@ -13,8 +13,8 @@ import org.github.foxnic.web.domain.bpm.TaskAssignee;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-16 10:34:16
- * @sign 043D2917852DC6AC1795413E047ED787
+ * @since 2022-05-17 15:11:14
+ * @sign 89303D12C651E225FBA66C04D3D01857
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 

@@ -17,8 +17,8 @@ import org.github.foxnic.web.domain.bpm.ProcessDefinitionFile;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-17 13:45:28
- * @sign CB5E42518C623538652A6FB8165162C8
+ * @since 2022-05-17 15:11:03
+ * @sign 4B7504A1D8AA6B984A5804C45DA531BD
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -335,6 +335,16 @@ public class ProcessInstanceMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,org.github.foxnic.web.domain.bpm.Task> TASKS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,TASKS, java.util.List.class, "流程任务清单", "流程任务清单", org.github.foxnic.web.domain.bpm.Task.class, null);
 	
 	/**
+	 * 可处理的任务清单 , 当前登录账户可以处理的任务清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.Task
+	*/
+	public static final String USER_TASKS="userTasks";
+	
+	/**
+	 * 可处理的任务清单 , 当前登录账户可以处理的任务清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.Task
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,org.github.foxnic.web.domain.bpm.Task> USER_TASKS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,USER_TASKS, java.util.List.class, "可处理的任务清单", "当前登录账户可以处理的任务清单", org.github.foxnic.web.domain.bpm.Task.class, null);
+	
+	/**
 	 * 业务单据 , 关联的业务单据清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.FormInstanceBill
 	*/
 	public static final String BILLS="bills";
@@ -367,7 +377,7 @@ public class ProcessInstanceMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , DRAFTER_USER_ID , DRAFTER_ID , DRAFTER_TYPE , FORM_INSTANCE_ID , PROCESS_DEFINITION_ID , PROCESS_DEFINITION_FILE_ID , FORM_DEFINITION_ID , TITLE , PRIORITY , COMMENT , APPROVAL_STATUS , CAMUNDA_INSTANCE_ID , COMMIT_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , END_TIME , PROCESS_DEFINITION , FORM_DEFINITION , FORM_INSTANCE , DRAFTER , DRAFTER_NAME , DRAFTER_USER , TASKS , BILLS , BILL_IDS , PROCESS_DEFINITION_FILE };
+	public static final String[] $PROPS={ ID , DRAFTER_USER_ID , DRAFTER_ID , DRAFTER_TYPE , FORM_INSTANCE_ID , PROCESS_DEFINITION_ID , PROCESS_DEFINITION_FILE_ID , FORM_DEFINITION_ID , TITLE , PRIORITY , COMMENT , APPROVAL_STATUS , CAMUNDA_INSTANCE_ID , COMMIT_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , END_TIME , PROCESS_DEFINITION , FORM_DEFINITION , FORM_INSTANCE , DRAFTER , DRAFTER_NAME , DRAFTER_USER , TASKS , USER_TASKS , BILLS , BILL_IDS , PROCESS_DEFINITION_FILE };
 	
 	/**
 	 * 代理类
@@ -715,6 +725,17 @@ public class ProcessInstanceMeta {
 		public ProcessInstance setTasks(List<Task> tasks) {
 			super.change(TASKS,super.getTasks(),tasks);
 			super.setTasks(tasks);
+			return this;
+		}
+		
+		/**
+		 * 设置 可处理的任务清单
+		 * @param userTasks 可处理的任务清单
+		 * @return 当前对象
+		*/
+		public ProcessInstance setUserTasks(List<Task> userTasks) {
+			super.change(USER_TASKS,super.getUserTasks(),userTasks);
+			super.setUserTasks(userTasks);
 			return this;
 		}
 		

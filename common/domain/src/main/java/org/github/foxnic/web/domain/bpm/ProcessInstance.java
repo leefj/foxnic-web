@@ -25,8 +25,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程实例
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-17 13:45:27
- * @sign CB5E42518C623538652A6FB8165162C8
+ * @since 2022-05-17 15:11:03
+ * @sign 4B7504A1D8AA6B984A5804C45DA531BD
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -231,6 +231,12 @@ public class ProcessInstance extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="流程任务清单" , notes = "流程任务清单")
 	private List<Task> tasks;
+	
+	/**
+	 * 可处理的任务清单：当前登录账户可以处理的任务清单
+	*/
+	@ApiModelProperty(required = false,value="可处理的任务清单" , notes = "当前登录账户可以处理的任务清单")
+	private List<Task> userTasks;
 	
 	/**
 	 * 业务单据：关联的业务单据清单
@@ -976,6 +982,36 @@ public class ProcessInstance extends Entity {
 	public ProcessInstance addTask(Task task) {
 		if(this.tasks==null) tasks=new ArrayList<>();
 		this.tasks.add(task);
+		return this;
+	}
+	
+	/**
+	 * 获得 可处理的任务清单<br>
+	 * 当前登录账户可以处理的任务清单
+	 * @return 可处理的任务清单
+	*/
+	public List<Task> getUserTasks() {
+		return userTasks;
+	}
+	
+	/**
+	 * 设置 可处理的任务清单
+	 * @param userTasks 可处理的任务清单
+	 * @return 当前对象
+	*/
+	public ProcessInstance setUserTasks(List<Task> userTasks) {
+		this.userTasks=userTasks;
+		return this;
+	}
+	
+	/**
+	 * 添加 可处理的任务清单
+	 * @param userTask 可处理的任务清单
+	 * @return 当前对象
+	*/
+	public ProcessInstance addUserTask(Task userTask) {
+		if(this.userTasks==null) userTasks=new ArrayList<>();
+		this.userTasks.add(userTask);
 		return this;
 	}
 	

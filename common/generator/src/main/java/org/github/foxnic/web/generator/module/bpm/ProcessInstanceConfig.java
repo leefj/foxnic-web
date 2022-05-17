@@ -42,6 +42,7 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
         poType.addSimpleProperty(String.class,"drafterName","起草人名称","起草人名称");
         poType.addSimpleProperty(User.class,"drafterUser","起草人账户","起草人账户");
         poType.addListProperty(Task.class,"tasks","流程任务清单","流程任务清单");
+        poType.addListProperty(Task.class,"userTasks","可处理的任务清单","当前登录账户可以处理的任务清单");
         poType.addListProperty(FormInstanceBill.class,"bills","业务单据","关联的业务单据清单");
         poType.addListProperty(String.class,"billIds","业务单据ID清单","业务单据ID清单");
         // 将属性映射为枚举
@@ -61,25 +62,7 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
         pojo.addSimpleProperty(String.class,"drafterId","发起人身份ID","发起人身份ID，如果未指定，则使用暂存值");
         pojo.addMapProperty(String.class,Object.class,"variables","流程参数","流程参数");
 
-        //
-        pojo=context.createPojo("TaskQueryVO");
-        pojo.setSuperType(null);
-        pojo.setDoc("任务查询参数");
-        pojo.addSimpleProperty(String.class,"processInstanceId","流程实例ID","流程实例ID");
-        pojo.addSimpleProperty(String.class,"assigneeUserId","委托人、审批人账户ID","委托人、审批人账户");
-        pojo.addSimpleProperty(Integer.class,"pageSize","分页大小","分页大小");
-        pojo.addSimpleProperty(Integer.class,"pageIndex","页码","页码");
 
-        pojo=context.createPojo("TaskProcessVO");
-        pojo.setSuperType(null);
-        pojo.setDoc("任务处理参数");
-        pojo.addSimpleProperty(String.class,"taskId","流程实例ID","流程实例ID");
-        pojo.addSimpleProperty(String.class,"assigneeUserId","审批人账户ID","审批人账户");
-        pojo.addSimpleProperty(String.class,"result","审批结果","审批结果");
-        pojo.shadow("result", AppovalReault.class);
-        pojo.addSimpleProperty(String.class,"comment","审批意见","审批意见");
-        pojo.addMapProperty(String.class,Object.class,"variables","流程参数","流程参数");
-        pojo.addSimpleProperty(String.class,"tenantId","租户ID","租户ID");
 
         pojo=context.createPojo("ProcessAbandonVO");
         pojo.setSuperType(null);

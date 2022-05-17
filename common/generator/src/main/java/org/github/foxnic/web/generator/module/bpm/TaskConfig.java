@@ -1,6 +1,7 @@
 package org.github.foxnic.web.generator.module.bpm;
 
 import com.github.foxnic.generator.builder.model.PoClassFile;
+import com.github.foxnic.generator.builder.model.PojoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
 import com.github.foxnic.generator.builder.view.option.ListOptions;
 import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
@@ -9,7 +10,9 @@ import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_TASK;
 import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_PROCESS_DEFINITION;
+import org.github.foxnic.web.constants.enums.bpm.AppovalReault;
 import org.github.foxnic.web.constants.enums.bpm.TaskStatus;
+import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
 import org.github.foxnic.web.domain.bpm.*;
 import org.github.foxnic.web.domain.bpm.meta.ProcessDefinitionMeta;
 import org.github.foxnic.web.domain.bpm.meta.ProcessInstanceMeta;
@@ -33,6 +36,37 @@ public class TaskConfig extends BaseCodeConfig<BPM_TASK> {
         poType.addSimpleProperty(ProcessInstance.class,"processInstance","流程实例","流程实例");
         poType.addListProperty(TaskApproval.class,"approvals","审批动作清单","审批动作清单");
         poType.addListProperty(TaskAssignee.class,"assignees","审批人清单","审批人清单");
+
+
+        //
+        PojoClassFile pojo=context.createPojo("TaskQueryVO");
+        pojo.setSuperType(null);
+        pojo.setDoc("任务查询对象");
+        pojo.addSimpleProperty(String.class,"userId","账户ID","用于查询指定账户可处理的待办");
+        pojo.addSimpleProperty(Boolean.class,"useUserIdInSession","是否使用会话账户","userId 当 uerseId 未指定时是否使用会话账户");
+        pojo.addSimpleProperty(String.class,"processInstanceId","流程实例ID","用于查询指定账户可处理的待办");
+        pojo.addSimpleProperty(String.class,"status","任务状态","任务状态");
+        poType.shadow("status", TaskStatus.class);
+
+        //
+        pojo=context.createPojo("CamundaTaskQueryVO");
+        pojo.setSuperType(null);
+        pojo.setDoc("任务查询参数");
+        pojo.addSimpleProperty(String.class,"processInstanceId","流程实例ID","流程实例ID");
+        pojo.addSimpleProperty(String.class,"assigneeUserId","委托人、审批人账户ID","委托人、审批人账户");
+        pojo.addSimpleProperty(Integer.class,"pageSize","分页大小","分页大小");
+        pojo.addSimpleProperty(Integer.class,"pageIndex","页码","页码");
+
+        pojo=context.createPojo("TaskProcessVO");
+        pojo.setSuperType(null);
+        pojo.setDoc("任务处理参数");
+        pojo.addSimpleProperty(String.class,"taskId","流程实例ID","流程实例ID");
+        pojo.addSimpleProperty(String.class,"assigneeUserId","审批人账户ID","审批人账户");
+        pojo.addSimpleProperty(String.class,"result","审批结果","审批结果");
+        pojo.shadow("result", AppovalReault.class);
+        pojo.addSimpleProperty(String.class,"comment","审批意见","审批意见");
+        pojo.addMapProperty(String.class,Object.class,"variables","流程参数","流程参数");
+        pojo.addSimpleProperty(String.class,"tenantId","租户ID","租户ID");
 
     }
 

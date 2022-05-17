@@ -68,7 +68,7 @@ public class BpmRelationManager extends RelationManager {
 		this.property(ProcessInstanceMeta.FORM_INSTANCE_PROP)
 				.using(FoxnicWeb.BPM_PROCESS_INSTANCE.FORM_INSTANCE_ID).join(FoxnicWeb.BPM_FORM_INSTANCE.ID).cache(true);
 
-		//流程实例 - 表单实例
+		//流程实例 - 单据
 		this.property(ProcessInstanceMeta.BILLS_PROP)
 				.using(FoxnicWeb.BPM_PROCESS_INSTANCE.FORM_INSTANCE_ID).join(FoxnicWeb.BPM_FORM_INSTANCE_BILL.FORM_INSTANCE_ID)
 				.after((tag,instance,bills,map)->{

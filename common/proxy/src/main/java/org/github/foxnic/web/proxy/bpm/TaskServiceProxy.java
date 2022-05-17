@@ -1,15 +1,13 @@
 package org.github.foxnic.web.proxy.bpm;
 
-import org.github.foxnic.web.domain.bpm.TaskApproval;
-import org.github.foxnic.web.domain.bpm.TaskProcessVO;
+import org.github.foxnic.web.domain.bpm.*;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.github.foxnic.web.proxy.api.APIProxy;
 import org.github.foxnic.web.proxy.FeignConfiguration;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.github.foxnic.web.domain.bpm.Task;
-import org.github.foxnic.web.domain.bpm.TaskVO;
+
 import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
@@ -80,6 +78,12 @@ public interface TaskServiceProxy {
      * 查询流程任务
      */
     public static final String QUERY_LIST = API_PREFIX + "query-list";
+
+
+    /**
+     * 查询流程任务
+     */
+    public static final String QUERY_TASK = API_PREFIX + "query-task";
 
     /**
      * 分页查询流程任务
@@ -157,6 +161,8 @@ public interface TaskServiceProxy {
     @RequestMapping(TaskServiceProxy.QUERY_LIST)
     Result<List<Task>> queryList(@RequestParam(name = "sample") TaskVO sample);
 
+    @RequestMapping(TaskServiceProxy.QUERY_TASK)
+    Result<List<Task>> queryTasks(@RequestParam(name = "taskQueryVO") TaskQueryVO taskQueryVO);
     /**
      * 分页查询流程任务
      */
