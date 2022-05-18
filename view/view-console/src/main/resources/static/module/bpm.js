@@ -13,6 +13,7 @@ layui.define(['settings', 'layer', 'admin', 'util','element'],function (exports)
          * 表单暂存
          * */
         save : function (data,callback,lockEls) {
+            debugger
             admin.post(api_save, data, function (result) {
                 callback && callback(result);
             }, {delayLoading:1000,elms:lockEls});
@@ -70,7 +71,7 @@ layui.define(['settings', 'layer', 'admin', 'util','element'],function (exports)
          * 打开流程界面
          * */
         openProcessView : function ( processInstanceId , newPage) {
-
+            var me=this;
             var action = processInstanceId?"edit":"create";
             admin.putTempData('bpm-process-instance-form-data-form-action',action);
             var queryString="";
@@ -91,12 +92,21 @@ layui.define(['settings', 'layer', 'admin', 'util','element'],function (exports)
                 type: 2,
                 id:"bpm-process-instance-form-data-win",
                 content: '/business/bpm/process_instance/process_instance_form.html' + (queryString?("?"+queryString):""),
-                finish: function () {
+                finish: function (ctx) {
                     if(action=="create") {
                         window.module.refreshTableData();
                     }
                     if(action=="edit") {
-                        false?window.module.refreshTableData():window.module.refreshRowData(data,true);
+                        // 如果没有 ctx 说明是来自保存按钮
+                        if(!ctx) {
+                            me.getProcessInstance(processInstanceId,function (r){
+                               if(r.success) {
+                                   window.module.refreshRowData(r.data,false);
+                               } else {
+                                   fox.showMessage(r);
+                               }
+                            });
+                        }
                     }
                 }
             });

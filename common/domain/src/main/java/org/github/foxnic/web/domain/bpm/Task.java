@@ -14,6 +14,7 @@ import com.github.foxnic.commons.reflect.EnumUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.lang.DataParser;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
 
@@ -22,7 +23,7 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程任务
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-17 15:49:11
+ * @since 2022-05-18 14:52:03
  * @sign 89303D12C651E225FBA66C04D3D01857
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -588,9 +589,9 @@ public class Task extends Entity {
 	 * @param approval 审批动作清单
 	 * @return 当前对象
 	*/
-	public Task addApproval(TaskApproval approval) {
+	public Task addApproval(TaskApproval... approval) {
 		if(this.approvals==null) approvals=new ArrayList<>();
-		this.approvals.add(approval);
+		this.approvals.addAll(Arrays.asList(approval));
 		return this;
 	}
 	
@@ -618,9 +619,9 @@ public class Task extends Entity {
 	 * @param assignee 审批人清单
 	 * @return 当前对象
 	*/
-	public Task addAssignee(TaskAssignee assignee) {
+	public Task addAssignee(TaskAssignee... assignee) {
 		if(this.assignees==null) assignees=new ArrayList<>();
-		this.assignees.add(assignee);
+		this.assignees.addAll(Arrays.asList(assignee));
 		return this;
 	}
 

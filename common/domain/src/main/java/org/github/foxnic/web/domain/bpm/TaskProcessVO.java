@@ -13,8 +13,8 @@ import java.util.HashMap;
 /**
  * 任务处理参数
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-17 15:49:11
- * @sign 802AE535AA9A281B55D62FB3E731677A
+ * @since 2022-05-18 14:52:04
+ * @sign C706A9777C4F84B3A86B760FE5C86BD5
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -33,6 +33,18 @@ public class TaskProcessVO {
 	*/
 	@ApiModelProperty(required = false,value="审批人账户ID" , notes = "审批人账户")
 	private String assigneeUserId;
+	
+	/**
+	 * 审批人身份类型：审批人身份类型
+	*/
+	@ApiModelProperty(required = false,value="审批人身份类型" , notes = "审批人身份类型")
+	private String assigneeType;
+	
+	/**
+	 * 审批人身份ID：审批人身份ID
+	*/
+	@ApiModelProperty(required = false,value="审批人身份ID" , notes = "审批人身份ID")
+	private String assigneeId;
 	
 	/**
 	 * 审批结果：审批结果
@@ -95,6 +107,44 @@ public class TaskProcessVO {
 	*/
 	public TaskProcessVO setAssigneeUserId(String assigneeUserId) {
 		this.assigneeUserId=assigneeUserId;
+		return this;
+	}
+	
+	/**
+	 * 获得 审批人身份类型<br>
+	 * 审批人身份类型
+	 * @return 审批人身份类型
+	*/
+	public String getAssigneeType() {
+		return assigneeType;
+	}
+	
+	/**
+	 * 设置 审批人身份类型
+	 * @param assigneeType 审批人身份类型
+	 * @return 当前对象
+	*/
+	public TaskProcessVO setAssigneeType(String assigneeType) {
+		this.assigneeType=assigneeType;
+		return this;
+	}
+	
+	/**
+	 * 获得 审批人身份ID<br>
+	 * 审批人身份ID
+	 * @return 审批人身份ID
+	*/
+	public String getAssigneeId() {
+		return assigneeId;
+	}
+	
+	/**
+	 * 设置 审批人身份ID
+	 * @param assigneeId 审批人身份ID
+	 * @return 当前对象
+	*/
+	public TaskProcessVO setAssigneeId(String assigneeId) {
+		this.assigneeId=assigneeId;
 		return this;
 	}
 	

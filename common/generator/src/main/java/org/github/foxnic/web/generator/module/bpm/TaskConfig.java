@@ -45,8 +45,7 @@ public class TaskConfig extends BaseCodeConfig<BPM_TASK> {
         pojo.addSimpleProperty(String.class,"userId","账户ID","用于查询指定账户可处理的待办");
         pojo.addSimpleProperty(Boolean.class,"useUserIdInSession","是否使用会话账户","userId 当 uerseId 未指定时是否使用会话账户");
         pojo.addSimpleProperty(String.class,"processInstanceId","流程实例ID","用于查询指定账户可处理的待办");
-        pojo.addSimpleProperty(String.class,"status","任务状态","任务状态");
-        pojo.shadow("status", TaskStatus.class);
+        pojo.addListProperty(TaskStatus.class,"statusList","任务状态","任务状态");
 
         //
         pojo=context.createPojo("CamundaTaskQueryVO");
@@ -62,6 +61,8 @@ public class TaskConfig extends BaseCodeConfig<BPM_TASK> {
         pojo.setDoc("任务处理参数");
         pojo.addSimpleProperty(String.class,"taskId","流程实例ID","流程实例ID");
         pojo.addSimpleProperty(String.class,"assigneeUserId","审批人账户ID","审批人账户");
+        pojo.addSimpleProperty(String.class,"assigneeType","审批人身份类型","审批人身份类型");
+        pojo.addSimpleProperty(String.class,"assigneeId","审批人身份ID","审批人身份ID");
         pojo.addSimpleProperty(String.class,"result","审批结果","审批结果");
         pojo.shadow("result", AppovalReault.class);
         pojo.addSimpleProperty(String.class,"comment","审批意见","审批意见");

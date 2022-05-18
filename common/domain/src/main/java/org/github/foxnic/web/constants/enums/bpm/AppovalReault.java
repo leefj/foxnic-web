@@ -9,7 +9,7 @@ import com.github.foxnic.commons.reflect.EnumUtil;
 public enum AppovalReault implements CodeTextEnum {
 
 	agree("同意"),
-	agree_cond("有条件"),
+	agree_cond("有条件同意"),
 	disagree("不同意"),
 	/**
 	 * 不涉及，跳过审批

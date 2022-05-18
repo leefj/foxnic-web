@@ -6,8 +6,8 @@ import com.github.foxnic.api.bean.BeanProperty;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-17 15:49:11
- * @sign 052F627F26D38DEA8D5AE123D156E614
+ * @since 2022-05-18 14:52:04
+ * @sign F0EFD896440D8340AB1EEB9179736B99
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -44,17 +44,17 @@ public class TaskQueryVOMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskQueryVO,java.lang.String> PROCESS_INSTANCE_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskQueryVO.class ,PROCESS_INSTANCE_ID, java.lang.String.class, "流程实例ID", "用于查询指定账户可处理的待办", java.lang.String.class, null);
 	
 	/**
-	 * 任务状态 , 类型: java.lang.String
+	 * 任务状态 , 集合类型: LIST , 类型: org.github.foxnic.web.constants.enums.bpm.TaskStatus
 	*/
-	public static final String STATUS="status";
+	public static final String STATUS_LIST="statusList";
 	
 	/**
-	 * 任务状态 , 类型: java.lang.String
+	 * 任务状态 , 集合类型: LIST , 类型: org.github.foxnic.web.constants.enums.bpm.TaskStatus
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskQueryVO,java.lang.String> STATUS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskQueryVO.class ,STATUS, java.lang.String.class, "任务状态", "任务状态", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskQueryVO,org.github.foxnic.web.constants.enums.bpm.TaskStatus> STATUS_LIST_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskQueryVO.class ,STATUS_LIST, java.util.List.class, "任务状态", "任务状态", org.github.foxnic.web.constants.enums.bpm.TaskStatus.class, null);
 	
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ USER_ID , USE_USER_ID_IN_SESSION , PROCESS_INSTANCE_ID , STATUS };
+	public static final String[] $PROPS={ USER_ID , USE_USER_ID_IN_SESSION , PROCESS_INSTANCE_ID , STATUS_LIST };
 }

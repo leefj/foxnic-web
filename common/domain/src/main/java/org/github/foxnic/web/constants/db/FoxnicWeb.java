@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2022-05-17 09:12:33
+ * @since 2022-05-18 14:55:01
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -1137,6 +1137,16 @@ public class FoxnicWeb {
 		public static final DBField APPROVAL_COMMENT = new DBField(DBDataType.STRING , "approval_comment","approvalComment","审批意见","审批意见",false,false,true);
 		
 		/**
+		 * 审批人类型，预计的审批人类型
+		*/
+		public static final DBField ASSIGNEE_TYPE = new DBField(DBDataType.STRING , "assignee_type","assigneeType","审批人类型","预计的审批人类型",false,false,true);
+		
+		/**
+		 * 审批人ID，预计的审批人
+		*/
+		public static final DBField ASSIGNEE_ID = new DBField(DBDataType.STRING , "assignee_id","assigneeId","审批人ID","预计的审批人",false,false,true);
+		
+		/**
 		 * 变量数据
 		*/
 		public static final DBField VARIABLES = new DBField(DBDataType.STRING , "variables","variables","变量数据","变量数据",false,false,true);
@@ -1183,7 +1193,7 @@ public class FoxnicWeb {
 		public static final DBField TENANT_ID = new DBField(DBDataType.STRING , "tenant_id","tenantId","tenant_id","tenant_id",false,false,true);
 		
 		public BPM_TASK_APPROVAL() {
-			this.init($NAME,"流程任务审批结果表" , ID , TASK_ID , PROCESS_INSTANCE_ID , APPROVAL_USER_ID , APPROVAL_TIME , APPROVAL_RESULT , APPROVAL_COMMENT , VARIABLES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID);
+			this.init($NAME,"流程任务审批结果表" , ID , TASK_ID , PROCESS_INSTANCE_ID , APPROVAL_USER_ID , APPROVAL_TIME , APPROVAL_RESULT , APPROVAL_COMMENT , ASSIGNEE_TYPE , ASSIGNEE_ID , VARIABLES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID);
 		}
 		public static final BPM_TASK_APPROVAL $TABLE=new BPM_TASK_APPROVAL();
 	}

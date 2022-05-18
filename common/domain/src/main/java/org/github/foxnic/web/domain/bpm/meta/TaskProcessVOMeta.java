@@ -6,8 +6,8 @@ import com.github.foxnic.api.bean.BeanProperty;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-17 15:49:11
- * @sign 802AE535AA9A281B55D62FB3E731677A
+ * @since 2022-05-18 14:52:04
+ * @sign C706A9777C4F84B3A86B760FE5C86BD5
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -32,6 +32,26 @@ public class TaskProcessVOMeta {
 	 * 审批人账户ID , 审批人账户 , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskProcessVO,java.lang.String> ASSIGNEE_USER_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskProcessVO.class ,ASSIGNEE_USER_ID, java.lang.String.class, "审批人账户ID", "审批人账户", java.lang.String.class, null);
+	
+	/**
+	 * 审批人身份类型 , 类型: java.lang.String
+	*/
+	public static final String ASSIGNEE_TYPE="assigneeType";
+	
+	/**
+	 * 审批人身份类型 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskProcessVO,java.lang.String> ASSIGNEE_TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskProcessVO.class ,ASSIGNEE_TYPE, java.lang.String.class, "审批人身份类型", "审批人身份类型", java.lang.String.class, null);
+	
+	/**
+	 * 审批人身份ID , 类型: java.lang.String
+	*/
+	public static final String ASSIGNEE_ID="assigneeId";
+	
+	/**
+	 * 审批人身份ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskProcessVO,java.lang.String> ASSIGNEE_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskProcessVO.class ,ASSIGNEE_ID, java.lang.String.class, "审批人身份ID", "审批人身份ID", java.lang.String.class, null);
 	
 	/**
 	 * 审批结果 , 类型: java.lang.String
@@ -76,5 +96,5 @@ public class TaskProcessVOMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ TASK_ID , ASSIGNEE_USER_ID , RESULT , COMMENT , VARIABLES , TENANT_ID };
+	public static final String[] $PROPS={ TASK_ID , ASSIGNEE_USER_ID , ASSIGNEE_TYPE , ASSIGNEE_ID , RESULT , COMMENT , VARIABLES , TENANT_ID };
 }

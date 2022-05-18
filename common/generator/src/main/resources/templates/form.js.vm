@@ -521,7 +521,7 @@ function FormPage() {
 		#end
 
 	    //关闭窗口
-	    $("#cancel-button").click(function(){ admin.finishPopupCenterById('#(formDataKey)-win'); });
+	    $("#cancel-button").click(function(){ admin.finishPopupCenterById('#(formDataKey)-win',this); });
 
     }
 
