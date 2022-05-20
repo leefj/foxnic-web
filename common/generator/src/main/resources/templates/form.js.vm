@@ -398,7 +398,7 @@ function FormPage() {
 		#if(f.isFormElem)
 		#if(f.typeName.equals("check_box"))
 		//处理 #(f.labelInForm) 默认值
-		data["#(f.varName)"]=fox.getCheckedValue("#(f.varName)");
+		data["#(f.varName)"]=fox.getCheckedValue("#(f.varName)").join(",");
 		#end
 		#end
 		#end

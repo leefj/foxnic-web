@@ -84,6 +84,11 @@ public class BpmRelationManager extends RelationManager {
 		this.property(ProcessInstanceMeta.TASKS_PROP)
 				.using(FoxnicWeb.BPM_PROCESS_INSTANCE.ID).join(FoxnicWeb.BPM_TASK.PROCESS_INSTANCE_ID);
 
+		//流程实例 - 任务
+		this.property(ProcessInstanceMeta.TASK_APPROVALS_PROP)
+				.using(FoxnicWeb.BPM_PROCESS_INSTANCE.ID).join(FoxnicWeb.BPM_TASK_APPROVAL.PROCESS_INSTANCE_ID)
+				.addOrderBy(FoxnicWeb.BPM_TASK_APPROVAL.CREATE_TIME,false,true);
+
 
 
 

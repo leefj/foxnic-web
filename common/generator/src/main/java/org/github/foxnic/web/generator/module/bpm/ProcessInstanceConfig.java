@@ -50,7 +50,7 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
         poType.shadow(BPM_PROCESS_INSTANCE.DRAFTER_TYPE,UnifiedUserType.class);
         poType.shadow(BPM_PROCESS_INSTANCE.PRIORITY,PriorityLevel.class);
         poType.addSimpleProperty(ProcessDefinitionFile.class,"processDefinitionFile","流程定义文件","流程定义文件");
-
+        poType.addListProperty(TaskApproval.class,"taskApprovals","审批动作清单","审批动作清单");
         //
         PojoClassFile pojo=context.createPojo("ProcessStartVO");
         pojo.setSuperType(null);

@@ -17,6 +17,7 @@ import com.github.foxnic.commons.reflect.EnumUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.lang.DataParser;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
 
@@ -25,8 +26,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程实例
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-18 08:51:54
- * @sign 4B7504A1D8AA6B984A5804C45DA531BD
+ * @since 2022-05-20 15:23:40
+ * @sign 56335E0B6E8447BF1CDBA2DA4ACBC5BC
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -255,6 +256,12 @@ public class ProcessInstance extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="流程定义文件" , notes = "流程定义文件")
 	private ProcessDefinitionFile processDefinitionFile;
+	
+	/**
+	 * 审批动作清单：审批动作清单
+	*/
+	@ApiModelProperty(required = false,value="审批动作清单" , notes = "审批动作清单")
+	private List<TaskApproval> taskApprovals;
 	
 	/**
 	 * 获得 主键<br>
@@ -979,9 +986,9 @@ public class ProcessInstance extends Entity {
 	 * @param task 流程任务清单
 	 * @return 当前对象
 	*/
-	public ProcessInstance addTask(Task task) {
+	public ProcessInstance addTask(Task... task) {
 		if(this.tasks==null) tasks=new ArrayList<>();
-		this.tasks.add(task);
+		this.tasks.addAll(Arrays.asList(task));
 		return this;
 	}
 	
@@ -1009,9 +1016,9 @@ public class ProcessInstance extends Entity {
 	 * @param userTask 可处理的任务清单
 	 * @return 当前对象
 	*/
-	public ProcessInstance addUserTask(Task userTask) {
+	public ProcessInstance addUserTask(Task... userTask) {
 		if(this.userTasks==null) userTasks=new ArrayList<>();
-		this.userTasks.add(userTask);
+		this.userTasks.addAll(Arrays.asList(userTask));
 		return this;
 	}
 	
@@ -1039,9 +1046,9 @@ public class ProcessInstance extends Entity {
 	 * @param bill 业务单据
 	 * @return 当前对象
 	*/
-	public ProcessInstance addBill(FormInstanceBill bill) {
+	public ProcessInstance addBill(FormInstanceBill... bill) {
 		if(this.bills==null) bills=new ArrayList<>();
-		this.bills.add(bill);
+		this.bills.addAll(Arrays.asList(bill));
 		return this;
 	}
 	
@@ -1069,9 +1076,9 @@ public class ProcessInstance extends Entity {
 	 * @param billId 业务单据ID清单
 	 * @return 当前对象
 	*/
-	public ProcessInstance addBillId(String billId) {
+	public ProcessInstance addBillId(String... billId) {
 		if(this.billIds==null) billIds=new ArrayList<>();
-		this.billIds.add(billId);
+		this.billIds.addAll(Arrays.asList(billId));
 		return this;
 	}
 	
@@ -1091,6 +1098,36 @@ public class ProcessInstance extends Entity {
 	*/
 	public ProcessInstance setProcessDefinitionFile(ProcessDefinitionFile processDefinitionFile) {
 		this.processDefinitionFile=processDefinitionFile;
+		return this;
+	}
+	
+	/**
+	 * 获得 审批动作清单<br>
+	 * 审批动作清单
+	 * @return 审批动作清单
+	*/
+	public List<TaskApproval> getTaskApprovals() {
+		return taskApprovals;
+	}
+	
+	/**
+	 * 设置 审批动作清单
+	 * @param taskApprovals 审批动作清单
+	 * @return 当前对象
+	*/
+	public ProcessInstance setTaskApprovals(List<TaskApproval> taskApprovals) {
+		this.taskApprovals=taskApprovals;
+		return this;
+	}
+	
+	/**
+	 * 添加 审批动作清单
+	 * @param taskApproval 审批动作清单
+	 * @return 当前对象
+	*/
+	public ProcessInstance addTaskApproval(TaskApproval... taskApproval) {
+		if(this.taskApprovals==null) taskApprovals=new ArrayList<>();
+		this.taskApprovals.addAll(Arrays.asList(taskApproval));
 		return this;
 	}
 

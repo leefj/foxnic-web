@@ -13,12 +13,13 @@ import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.domain.bpm.Task;
 import org.github.foxnic.web.domain.bpm.FormInstanceBill;
 import org.github.foxnic.web.domain.bpm.ProcessDefinitionFile;
+import org.github.foxnic.web.domain.bpm.TaskApproval;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-18 08:51:55
+ * @since 2022-05-20 15:23:40
  * @sign A711E5710DD083267053E2AD6B945608
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -466,9 +467,19 @@ public class ProcessInstanceVOMeta extends ProcessInstanceMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceVO,org.github.foxnic.web.domain.bpm.ProcessDefinitionFile> PROCESS_DEFINITION_FILE_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceVO.class ,PROCESS_DEFINITION_FILE, org.github.foxnic.web.domain.bpm.ProcessDefinitionFile.class, "流程定义文件", "流程定义文件", org.github.foxnic.web.domain.bpm.ProcessDefinitionFile.class, null);
 	
 	/**
+	 * 审批动作清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.TaskApproval
+	*/
+	public static final String TASK_APPROVALS="taskApprovals";
+	
+	/**
+	 * 审批动作清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.TaskApproval
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceVO,org.github.foxnic.web.domain.bpm.TaskApproval> TASK_APPROVALS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceVO.class ,TASK_APPROVALS, java.util.List.class, "审批动作清单", "审批动作清单", org.github.foxnic.web.domain.bpm.TaskApproval.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , DRAFTER_USER_ID , DRAFTER_ID , DRAFTER_TYPE , FORM_INSTANCE_ID , PROCESS_DEFINITION_ID , PROCESS_DEFINITION_FILE_ID , FORM_DEFINITION_ID , TITLE , PRIORITY , COMMENT , APPROVAL_STATUS , CAMUNDA_INSTANCE_ID , COMMIT_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , END_TIME , PROCESS_DEFINITION , FORM_DEFINITION , FORM_INSTANCE , DRAFTER , DRAFTER_NAME , DRAFTER_USER , TASKS , USER_TASKS , BILLS , BILL_IDS , PROCESS_DEFINITION_FILE };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , DRAFTER_USER_ID , DRAFTER_ID , DRAFTER_TYPE , FORM_INSTANCE_ID , PROCESS_DEFINITION_ID , PROCESS_DEFINITION_FILE_ID , FORM_DEFINITION_ID , TITLE , PRIORITY , COMMENT , APPROVAL_STATUS , CAMUNDA_INSTANCE_ID , COMMIT_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , END_TIME , PROCESS_DEFINITION , FORM_DEFINITION , FORM_INSTANCE , DRAFTER , DRAFTER_NAME , DRAFTER_USER , TASKS , USER_TASKS , BILLS , BILL_IDS , PROCESS_DEFINITION_FILE , TASK_APPROVALS };
 	
 	/**
 	 * 代理类
@@ -959,6 +970,17 @@ public class ProcessInstanceVOMeta extends ProcessInstanceMeta {
 		public ProcessInstance setProcessDefinitionFile(ProcessDefinitionFile processDefinitionFile) {
 			super.change(PROCESS_DEFINITION_FILE,super.getProcessDefinitionFile(),processDefinitionFile);
 			super.setProcessDefinitionFile(processDefinitionFile);
+			return this;
+		}
+		
+		/**
+		 * 设置 审批动作清单
+		 * @param taskApprovals 审批动作清单
+		 * @return 当前对象
+		*/
+		public ProcessInstance setTaskApprovals(List<TaskApproval> taskApprovals) {
+			super.change(TASK_APPROVALS,super.getTaskApprovals(),taskApprovals);
+			super.setTaskApprovals(taskApprovals);
 			return this;
 		}
 	}

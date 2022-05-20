@@ -3,6 +3,7 @@ package org.github.foxnic.web.domain.bpm;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
 import com.github.foxnic.api.model.CompositeParameter;
 import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
@@ -12,7 +13,7 @@ import com.github.foxnic.commons.bean.BeanUtil;
 /**
  * 流程实例
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-18 08:51:55
+ * @since 2022-05-20 15:23:40
  * @sign A711E5710DD083267053E2AD6B945608
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -188,9 +189,9 @@ public class ProcessInstanceVO extends ProcessInstance {
 	 * @param dirtyField 已修改字段
 	 * @return 当前对象
 	*/
-	public ProcessInstanceVO addDirtyField(String dirtyField) {
+	public ProcessInstanceVO addDirtyField(String... dirtyField) {
 		if(this.dirtyFields==null) dirtyFields=new ArrayList<>();
-		this.dirtyFields.add(dirtyField);
+		this.dirtyFields.addAll(Arrays.asList(dirtyField));
 		return this;
 	}
 	
@@ -254,9 +255,9 @@ public class ProcessInstanceVO extends ProcessInstance {
 	 * @param id 主键清单
 	 * @return 当前对象
 	*/
-	public ProcessInstanceVO addId(String id) {
+	public ProcessInstanceVO addId(String... id) {
 		if(this.ids==null) ids=new ArrayList<>();
-		this.ids.add(id);
+		this.ids.addAll(Arrays.asList(id));
 		return this;
 	}
 	@Transient

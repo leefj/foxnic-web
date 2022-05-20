@@ -1278,8 +1278,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             $('input[name="'+checkBoxName+'"]:checked').each(function() {
                 data.push($(this).val());
             });
-            if(data.length==0) return "";
-            else return data.join(",");
+            return data;
         },
         /**
          * 设置复选框的选中清单，参数为参数 name 属性
