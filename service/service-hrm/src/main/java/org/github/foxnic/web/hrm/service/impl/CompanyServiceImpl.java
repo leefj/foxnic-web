@@ -51,7 +51,7 @@ public class CompanyServiceImpl extends SuperService<Company> implements ICompan
 
 	@Override
 	public Object generateId(Field field) {
-		return IDGenerator.getSnowflakeIdString();
+		return "prefix"+IDGenerator.getSnowflakeIdString();
 	}
 
 	/**
