@@ -18,7 +18,7 @@ import org.github.foxnic.web.domain.bpm.TaskApproval;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-20 15:23:40
+ * @since 2022-05-23 17:09:05
  * @sign 56335E0B6E8447BF1CDBA2DA4ACBC5BC
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */

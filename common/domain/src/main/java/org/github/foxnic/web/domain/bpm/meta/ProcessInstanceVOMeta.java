@@ -19,8 +19,8 @@ import org.github.foxnic.web.domain.bpm.TaskApproval;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-20 15:23:40
- * @sign A711E5710DD083267053E2AD6B945608
+ * @since 2022-05-23 17:09:05
+ * @sign 3F04A9953F8F3B91D10BE1A058B1AC41
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -115,6 +115,26 @@ public class ProcessInstanceVOMeta extends ProcessInstanceMeta {
 	 * 主键清单 , 用于接收批量主键参数 , 集合类型: LIST , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceVO,java.lang.String> IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceVO.class ,IDS, java.util.List.class, "主键清单", "用于接收批量主键参数", java.lang.String.class, null);
+	
+	/**
+	 * 已审批人ID清单 , 查询已审批人ID清单 , 集合类型: LIST , 类型: java.lang.String
+	*/
+	public static final String APPROVED_USER_IDS="approvedUserIds";
+	
+	/**
+	 * 已审批人ID清单 , 查询已审批人ID清单 , 集合类型: LIST , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceVO,java.lang.String> APPROVED_USER_IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceVO.class ,APPROVED_USER_IDS, java.util.List.class, "已审批人ID清单", "查询已审批人ID清单", java.lang.String.class, null);
+	
+	/**
+	 * 待审批人ID清单 , 查询待审批人ID清单 , 集合类型: LIST , 类型: java.lang.String
+	*/
+	public static final String APPROVING_USER_IDS="approvingUserIds";
+	
+	/**
+	 * 待审批人ID清单 , 查询待审批人ID清单 , 集合类型: LIST , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceVO,java.lang.String> APPROVING_USER_IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceVO.class ,APPROVING_USER_IDS, java.util.List.class, "待审批人ID清单", "查询待审批人ID清单", java.lang.String.class, null);
 	
 	/**
 	 * 主键 , 类型: java.lang.String
@@ -479,7 +499,7 @@ public class ProcessInstanceVOMeta extends ProcessInstanceMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , DRAFTER_USER_ID , DRAFTER_ID , DRAFTER_TYPE , FORM_INSTANCE_ID , PROCESS_DEFINITION_ID , PROCESS_DEFINITION_FILE_ID , FORM_DEFINITION_ID , TITLE , PRIORITY , COMMENT , APPROVAL_STATUS , CAMUNDA_INSTANCE_ID , COMMIT_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , END_TIME , PROCESS_DEFINITION , FORM_DEFINITION , FORM_INSTANCE , DRAFTER , DRAFTER_NAME , DRAFTER_USER , TASKS , USER_TASKS , BILLS , BILL_IDS , PROCESS_DEFINITION_FILE , TASK_APPROVALS };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , APPROVED_USER_IDS , APPROVING_USER_IDS , ID , DRAFTER_USER_ID , DRAFTER_ID , DRAFTER_TYPE , FORM_INSTANCE_ID , PROCESS_DEFINITION_ID , PROCESS_DEFINITION_FILE_ID , FORM_DEFINITION_ID , TITLE , PRIORITY , COMMENT , APPROVAL_STATUS , CAMUNDA_INSTANCE_ID , COMMIT_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , END_TIME , PROCESS_DEFINITION , FORM_DEFINITION , FORM_INSTANCE , DRAFTER , DRAFTER_NAME , DRAFTER_USER , TASKS , USER_TASKS , BILLS , BILL_IDS , PROCESS_DEFINITION_FILE , TASK_APPROVALS };
 	
 	/**
 	 * 代理类
@@ -585,6 +605,28 @@ public class ProcessInstanceVOMeta extends ProcessInstanceMeta {
 		public ProcessInstanceVO setIds(List<String> ids) {
 			super.change(IDS,super.getIds(),ids);
 			super.setIds(ids);
+			return this;
+		}
+		
+		/**
+		 * 设置 已审批人ID清单
+		 * @param approvedUserIds 已审批人ID清单
+		 * @return 当前对象
+		*/
+		public ProcessInstanceVO setApprovedUserIds(List<String> approvedUserIds) {
+			super.change(APPROVED_USER_IDS,super.getApprovedUserIds(),approvedUserIds);
+			super.setApprovedUserIds(approvedUserIds);
+			return this;
+		}
+		
+		/**
+		 * 设置 待审批人ID清单
+		 * @param approvingUserIds 待审批人ID清单
+		 * @return 当前对象
+		*/
+		public ProcessInstanceVO setApprovingUserIds(List<String> approvingUserIds) {
+			super.change(APPROVING_USER_IDS,super.getApprovingUserIds(),approvingUserIds);
+			super.setApprovingUserIds(approvingUserIds);
 			return this;
 		}
 		

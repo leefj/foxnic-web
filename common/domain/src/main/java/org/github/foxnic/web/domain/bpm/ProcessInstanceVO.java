@@ -13,8 +13,8 @@ import com.github.foxnic.commons.bean.BeanUtil;
 /**
  * 流程实例
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-20 15:23:40
- * @sign A711E5710DD083267053E2AD6B945608
+ * @since 2022-05-23 17:09:05
+ * @sign 3F04A9953F8F3B91D10BE1A058B1AC41
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -75,6 +75,18 @@ public class ProcessInstanceVO extends ProcessInstance {
 	*/
 	@ApiModelProperty(required = false,value="主键清单" , notes = "用于接收批量主键参数")
 	private List<String> ids;
+	
+	/**
+	 * 已审批人ID清单：查询已审批人ID清单
+	*/
+	@ApiModelProperty(required = false,value="已审批人ID清单" , notes = "查询已审批人ID清单")
+	private List<String> approvedUserIds;
+	
+	/**
+	 * 待审批人ID清单：查询待审批人ID清单
+	*/
+	@ApiModelProperty(required = false,value="待审批人ID清单" , notes = "查询待审批人ID清单")
+	private List<String> approvingUserIds;
 	
 	/**
 	 * 获得 页码<br>
@@ -258,6 +270,66 @@ public class ProcessInstanceVO extends ProcessInstance {
 	public ProcessInstanceVO addId(String... id) {
 		if(this.ids==null) ids=new ArrayList<>();
 		this.ids.addAll(Arrays.asList(id));
+		return this;
+	}
+	
+	/**
+	 * 获得 已审批人ID清单<br>
+	 * 查询已审批人ID清单
+	 * @return 已审批人ID清单
+	*/
+	public List<String> getApprovedUserIds() {
+		return approvedUserIds;
+	}
+	
+	/**
+	 * 设置 已审批人ID清单
+	 * @param approvedUserIds 已审批人ID清单
+	 * @return 当前对象
+	*/
+	public ProcessInstanceVO setApprovedUserIds(List<String> approvedUserIds) {
+		this.approvedUserIds=approvedUserIds;
+		return this;
+	}
+	
+	/**
+	 * 添加 已审批人ID清单
+	 * @param approvedUserId 已审批人ID清单
+	 * @return 当前对象
+	*/
+	public ProcessInstanceVO addApprovedUserId(String... approvedUserId) {
+		if(this.approvedUserIds==null) approvedUserIds=new ArrayList<>();
+		this.approvedUserIds.addAll(Arrays.asList(approvedUserId));
+		return this;
+	}
+	
+	/**
+	 * 获得 待审批人ID清单<br>
+	 * 查询待审批人ID清单
+	 * @return 待审批人ID清单
+	*/
+	public List<String> getApprovingUserIds() {
+		return approvingUserIds;
+	}
+	
+	/**
+	 * 设置 待审批人ID清单
+	 * @param approvingUserIds 待审批人ID清单
+	 * @return 当前对象
+	*/
+	public ProcessInstanceVO setApprovingUserIds(List<String> approvingUserIds) {
+		this.approvingUserIds=approvingUserIds;
+		return this;
+	}
+	
+	/**
+	 * 添加 待审批人ID清单
+	 * @param approvingUserId 待审批人ID清单
+	 * @return 当前对象
+	*/
+	public ProcessInstanceVO addApprovingUserId(String... approvingUserId) {
+		if(this.approvingUserIds==null) approvingUserIds=new ArrayList<>();
+		this.approvingUserIds.addAll(Arrays.asList(approvingUserId));
 		return this;
 	}
 	@Transient

@@ -26,6 +26,7 @@ import org.github.foxnic.web.generator.module.BaseCodeConfig;
 import org.github.foxnic.web.proxy.bpm.BpmIdentityServiceProxy;
 import org.github.foxnic.web.proxy.bpm.ProcessDefinitionServiceProxy;
 import org.github.foxnic.web.proxy.bpm.ProcessInstanceServiceProxy;
+import org.github.foxnic.web.proxy.oauth.UserServiceProxy;
 
 public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> {
 
@@ -51,6 +52,10 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
         poType.shadow(BPM_PROCESS_INSTANCE.PRIORITY,PriorityLevel.class);
         poType.addSimpleProperty(ProcessDefinitionFile.class,"processDefinitionFile","流程定义文件","流程定义文件");
         poType.addListProperty(TaskApproval.class,"taskApprovals","审批动作清单","审批动作清单");
+
+        voType.addListProperty(String.class,"approvedUserIds","已审批人ID清单","查询已审批人ID清单");
+        voType.addListProperty(String.class,"approvingUserIds","待审批人ID清单","查询待审批人ID清单");
+
         //
         PojoClassFile pojo=context.createPojo("ProcessStartVO");
         pojo.setSuperType(null);
@@ -79,13 +84,21 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
         search.inputLayout(new Object[]{
                 BPM_PROCESS_INSTANCE.PROCESS_DEFINITION_ID,
                 BPM_PROCESS_INSTANCE.TITLE,
-                BPM_PROCESS_INSTANCE.APPROVAL_STATUS,
+                BPM_PROCESS_INSTANCE.PRIORITY,
                 BPM_PROCESS_INSTANCE.COMMIT_TIME,
         },new Object[]{
-                BPM_PROCESS_INSTANCE.DRAFTER_TYPE,
-                ProcessInstanceMeta.DRAFTER_NAME,
-                ProcessInstanceMeta.DRAFTER_USER
+                BPM_PROCESS_INSTANCE.APPROVAL_STATUS,
+                ProcessInstanceMeta.DRAFTER_USER,
+                "APPROVED_USER_IDS",
+                "APPROVING_USER_IDS"
         });
+
+        search.rowsDisplay(4);
+        //设置各个列的搜索输入框的标签宽度
+        search.labelWidth(1,80);
+        search.labelWidth(2,80);
+        search.labelWidth(3,80);
+        search.labelWidth(4,80);
     }
 
     @Override
@@ -98,7 +111,8 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
         view.field(BPM_PROCESS_INSTANCE.COMMENT).search().label("审批意见").hidden();
         view.field(BPM_PROCESS_INSTANCE.PRIORITY).basic().label("紧急程度")
                 .form().radioBox().enumType(PriorityLevel.class).defaultValue(PriorityLevel.normal)
-                .form().validate().required();
+                .form().validate().required()
+                .search().triggerOnSelect(true);
         view.field(BPM_PROCESS_INSTANCE.DRAFTER_TYPE).basic().label("发起人身份类型")
                 .form().radioBox().enumType(UnifiedUserType.class).defaultValue(UnifiedUserType.user)
                 .form().validate().required();
@@ -113,12 +127,23 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
         view.field(BPM_PROCESS_INSTANCE.DRAFTER_USER_ID).basic().hidden();
 
         view.field(ProcessInstanceMeta.DRAFTER_USER).basic().label("发起人")
-                .form().hidden().search().on(FoxnicWeb.SYS_USER.REAL_NAME).fuzzySearch()
+                .form().selectBox().queryApi(UserServiceProxy.QUERY_PAGED_LIST).textField("realName").valueField("id").toolbar(false).filter(true)
+                .search().on(BPM_PROCESS_INSTANCE.DRAFTER_USER_ID).triggerOnSelect(true)
                 .table().fillBy(ProcessInstanceMeta.DRAFTER_USER,UserMeta.REAL_NAME);
+
+        view.field("APPROVED_USER_IDS").basic().label("已审批人")
+                .form().selectBox().queryApi(UserServiceProxy.QUERY_PAGED_LIST).textField("realName").valueField("id").toolbar(false).filter(true)
+                .search().on(FoxnicWeb.BPM_TASK_APPROVAL.APPROVAL_USER_ID).triggerOnSelect(true)
+                .table().fillBy(ProcessInstanceMeta.TASK_APPROVALS).disable();
+
+        view.field("APPROVING_USER_IDS").basic().label("待审批人")
+                .form().selectBox().queryApi(UserServiceProxy.QUERY_PAGED_LIST).textField("realName").valueField("id").toolbar(false).filter(true)
+                .search().triggerOnSelect(true)
+                .table().disable();
 
         view.field(ProcessInstanceMeta.DRAFTER_NAME).basic().label("发起人身份").search().fuzzySearch();
 
-        view.field(BPM_PROCESS_INSTANCE.COMMIT_TIME).search().range().matchType(MatchType.auto);
+        view.field(BPM_PROCESS_INSTANCE.COMMIT_TIME).search().range().matchType(MatchType.auto).triggerOnSelect(true);
 
         view.field(BPM_PROCESS_INSTANCE.FORM_DEFINITION_ID)
                 .basic().label("表单类型")
@@ -129,14 +154,16 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
         view.field(BPM_PROCESS_INSTANCE.FORM_INSTANCE_ID).search().hidden();
         view.field(BPM_PROCESS_INSTANCE.CAMUNDA_INSTANCE_ID).search().hidden();
         view.field(BPM_PROCESS_INSTANCE.APPROVAL_STATUS).form().selectBox().enumType(ApprovalStatus.class)
-                .form().hidden();
+                .form().hidden()
+                .search().triggerOnSelect(true);
 
         view.field(BPM_PROCESS_INSTANCE.PROCESS_DEFINITION_ID).basic().label("流程类型")
                 .form().validate().required()
                 .form().selectBox().queryApi(ProcessDefinitionServiceProxy.QUERY_PAGED_LIST).paging(true).muliti(false).toolbar(false).filter(true)
                 .textField(FoxnicWeb.BPM_PROCESS_DEFINITION.NAME).valueField(FoxnicWeb.BPM_PROCESS_DEFINITION.ID)
                 .fillWith(ProcessInstanceMeta.PROCESS_DEFINITION)
-                .table().fillBy(ProcessInstanceMeta.PROCESS_DEFINITION,ProcessDefinitionMeta.NAME);
+                .table().fillBy(ProcessInstanceMeta.PROCESS_DEFINITION,ProcessDefinitionMeta.NAME)
+                .search().triggerOnSelect(true);
 
 
 
