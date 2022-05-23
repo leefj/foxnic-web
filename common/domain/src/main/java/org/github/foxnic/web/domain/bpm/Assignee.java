@@ -19,6 +19,8 @@ public class Assignee {
     private String nameWithCode;
     private UnifiedUserType type;
 
+    private String typeName;
+
     public Assignee(String id, String code, String name, UnifiedUserType type) {
         this.applyProps(id,code,name,type);
     }
@@ -32,6 +34,7 @@ public class Assignee {
         if(!StringUtil.isBlank(this.code)) {
             this.nameWithCode+="("+this.code+")";
         }
+        this.typeName=this.type.text();
     }
 
     /**
@@ -102,5 +105,9 @@ public class Assignee {
 
     public String getNameWithCode() {
         return nameWithCode;
+    }
+
+    public String getTypeName() {
+        return typeName;
     }
 }

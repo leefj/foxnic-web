@@ -4,13 +4,14 @@ import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.bpm.TaskApproval;
 import java.util.Date;
 import org.github.foxnic.web.domain.bpm.Assignee;
+import org.github.foxnic.web.domain.oauth.User;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-18 14:55:49
- * @sign 577FEEB8EEA25E1517B4D4DE42DDB204
+ * @since 2022-05-23 13:56:13
+ * @sign 272641D51D90B3A4BE20966F93F8BF4F
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -207,19 +208,29 @@ public class TaskApprovalMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskApproval,java.lang.String> TENANT_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskApproval.class ,TENANT_ID, java.lang.String.class, "tenant_id", "tenant_id", java.lang.String.class, null);
 	
 	/**
-	 * 审批人 , 类型: org.github.foxnic.web.domain.bpm.Assignee
+	 * 审批人身份 , 类型: org.github.foxnic.web.domain.bpm.Assignee
 	*/
 	public static final String APPROVER="approver";
 	
 	/**
-	 * 审批人 , 类型: org.github.foxnic.web.domain.bpm.Assignee
+	 * 审批人身份 , 类型: org.github.foxnic.web.domain.bpm.Assignee
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskApproval,org.github.foxnic.web.domain.bpm.Assignee> APPROVER_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskApproval.class ,APPROVER, org.github.foxnic.web.domain.bpm.Assignee.class, "审批人", "审批人", org.github.foxnic.web.domain.bpm.Assignee.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskApproval,org.github.foxnic.web.domain.bpm.Assignee> APPROVER_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskApproval.class ,APPROVER, org.github.foxnic.web.domain.bpm.Assignee.class, "审批人身份", "审批人身份", org.github.foxnic.web.domain.bpm.Assignee.class, null);
+	
+	/**
+	 * 审批人账户 , 类型: org.github.foxnic.web.domain.oauth.User
+	*/
+	public static final String APPROVAL_USER="approvalUser";
+	
+	/**
+	 * 审批人账户 , 类型: org.github.foxnic.web.domain.oauth.User
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskApproval,org.github.foxnic.web.domain.oauth.User> APPROVAL_USER_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskApproval.class ,APPROVAL_USER, org.github.foxnic.web.domain.oauth.User.class, "审批人账户", "审批人账户", org.github.foxnic.web.domain.oauth.User.class, null);
 	
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , TASK_ID , PROCESS_INSTANCE_ID , APPROVAL_USER_ID , APPROVAL_TIME , APPROVAL_RESULT , APPROVAL_COMMENT , ASSIGNEE_TYPE , ASSIGNEE_ID , VARIABLES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , APPROVER };
+	public static final String[] $PROPS={ ID , TASK_ID , PROCESS_INSTANCE_ID , APPROVAL_USER_ID , APPROVAL_TIME , APPROVAL_RESULT , APPROVAL_COMMENT , ASSIGNEE_TYPE , ASSIGNEE_ID , VARIABLES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , APPROVER , APPROVAL_USER };
 	
 	/**
 	 * 代理类
@@ -439,13 +450,24 @@ public class TaskApprovalMeta {
 		}
 		
 		/**
-		 * 设置 审批人
-		 * @param approver 审批人
+		 * 设置 审批人身份
+		 * @param approver 审批人身份
 		 * @return 当前对象
 		*/
 		public TaskApproval setApprover(Assignee approver) {
 			super.change(APPROVER,super.getApprover(),approver);
 			super.setApprover(approver);
+			return this;
+		}
+		
+		/**
+		 * 设置 审批人账户
+		 * @param approvalUser 审批人账户
+		 * @return 当前对象
+		*/
+		public TaskApproval setApprovalUser(User approvalUser) {
+			super.change(APPROVAL_USER,super.getApprovalUser(),approvalUser);
+			super.setApprovalUser(approvalUser);
 			return this;
 		}
 	}

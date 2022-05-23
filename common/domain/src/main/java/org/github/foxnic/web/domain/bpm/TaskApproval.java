@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 import javax.persistence.Transient;
+import org.github.foxnic.web.domain.oauth.User;
 import com.github.foxnic.commons.lang.DataParser;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
@@ -17,8 +18,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程任务审批结果
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-18 14:55:49
- * @sign 577FEEB8EEA25E1517B4D4DE42DDB204
+ * @since 2022-05-23 13:56:13
+ * @sign 272641D51D90B3A4BE20966F93F8BF4F
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -147,10 +148,16 @@ public class TaskApproval extends Entity {
 	private String tenantId;
 	
 	/**
-	 * 审批人：审批人
+	 * 审批人身份：审批人身份
 	*/
-	@ApiModelProperty(required = false,value="审批人" , notes = "审批人")
+	@ApiModelProperty(required = false,value="审批人身份" , notes = "审批人身份")
 	private Assignee approver;
+	
+	/**
+	 * 审批人账户：审批人账户
+	*/
+	@ApiModelProperty(required = false,value="审批人账户" , notes = "审批人账户")
+	private User approvalUser;
 	
 	/**
 	 * 获得 id<br>
@@ -544,21 +551,40 @@ public class TaskApproval extends Entity {
 	}
 	
 	/**
-	 * 获得 审批人<br>
-	 * 审批人
-	 * @return 审批人
+	 * 获得 审批人身份<br>
+	 * 审批人身份
+	 * @return 审批人身份
 	*/
 	public Assignee getApprover() {
 		return approver;
 	}
 	
 	/**
-	 * 设置 审批人
-	 * @param approver 审批人
+	 * 设置 审批人身份
+	 * @param approver 审批人身份
 	 * @return 当前对象
 	*/
 	public TaskApproval setApprover(Assignee approver) {
 		this.approver=approver;
+		return this;
+	}
+	
+	/**
+	 * 获得 审批人账户<br>
+	 * 审批人账户
+	 * @return 审批人账户
+	*/
+	public User getApprovalUser() {
+		return approvalUser;
+	}
+	
+	/**
+	 * 设置 审批人账户
+	 * @param approvalUser 审批人账户
+	 * @return 当前对象
+	*/
+	public TaskApproval setApprovalUser(User approvalUser) {
+		this.approvalUser=approvalUser;
 		return this;
 	}
 

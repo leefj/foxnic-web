@@ -30,7 +30,6 @@ function FormPage() {
 
 		if(bpmIntegrateMode=="front" && isInProcess==1) {
 			$(".model-form-footer").hide();
-			$($(".form-column")[0]).css("padding-top","0px")
 		}
 
 		if(window.pageExt.form.beforeInit) {

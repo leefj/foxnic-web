@@ -13,7 +13,7 @@ layui.define(['settings', 'layer', 'admin', 'util','element'],function (exports)
          * 表单暂存
          * */
         save : function (data,callback,lockEls) {
-            debugger
+            //debugger
             admin.post(api_save, data, function (result) {
                 callback && callback(result);
             }, {delayLoading:1000,elms:lockEls});
@@ -80,9 +80,9 @@ layui.define(['settings', 'layer', 'admin', 'util','element'],function (exports)
             var height= (area && area.height) ? area.height : ($(window).height()*0.6);
             var top= (area && area.top) ? area.top : (($(window).height()-height)/2);
             var title = fox.translate('流程实例');
-            if(action=="create") title=fox.translate('发起')+title;
-            else if(action=="edit") title=fox.translate('修改')+title;
-            else if(action=="view") title=fox.translate('查看')+title;
+            if(action=="create") title=fox.translate('流程发起');
+            else if(action=="edit") title=fox.translate("流程审批");
+            else if(action=="view") title=fox.translate('流程详情');
 
             admin.popupCenter({
                 title: title,
