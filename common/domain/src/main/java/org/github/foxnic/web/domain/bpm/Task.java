@@ -23,8 +23,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程任务
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-18 14:52:03
- * @sign 89303D12C651E225FBA66C04D3D01857
+ * @since 2022-05-24 17:22:24
+ * @sign C73A8D0066725B0D5109DB1697F51E20
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -73,6 +73,12 @@ public class Task extends Entity {
 	private String status;
 	@Transient
 	private TaskStatus statusEnum;
+	
+	/**
+	 * 最后处理时间：最后处理时间
+	*/
+	@ApiModelProperty(required = false,value="最后处理时间" , notes = "最后处理时间")
+	private Date approvalTime;
 	
 	/**
 	 * 任务ID：Camunda 任务ID
@@ -304,6 +310,25 @@ public class Task extends Entity {
 			this.setStatus(statusEnum.code());
 		}
 		this.statusEnum=statusEnum;
+		return this;
+	}
+	
+	/**
+	 * 获得 最后处理时间<br>
+	 * 最后处理时间
+	 * @return 最后处理时间
+	*/
+	public Date getApprovalTime() {
+		return approvalTime;
+	}
+	
+	/**
+	 * 设置 最后处理时间
+	 * @param approvalTime 最后处理时间
+	 * @return 当前对象
+	*/
+	public Task setApprovalTime(Date approvalTime) {
+		this.approvalTime=approvalTime;
 		return this;
 	}
 	

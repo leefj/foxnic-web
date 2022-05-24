@@ -13,8 +13,8 @@ import com.github.foxnic.commons.bean.BeanUtil;
 /**
  * 流程任务
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-18 14:52:04
- * @sign 4A14B4C5D7918A4E9CA4AE65A58E6E5D
+ * @since 2022-05-24 17:22:24
+ * @sign 612DC636FEC416F8DADBBFBA30930B50
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -75,6 +75,12 @@ public class TaskVO extends Task {
 	*/
 	@ApiModelProperty(required = false,value="主键清单" , notes = "用于接收批量主键参数")
 	private List<String> ids;
+	
+	/**
+	 * 处理人账户ID清单：处理人账户ID清单
+	*/
+	@ApiModelProperty(required = false,value="处理人账户ID清单" , notes = "处理人账户ID清单")
+	private List<String> approvalUserIds;
 	
 	/**
 	 * 获得 页码<br>
@@ -258,6 +264,36 @@ public class TaskVO extends Task {
 	public TaskVO addId(String... id) {
 		if(this.ids==null) ids=new ArrayList<>();
 		this.ids.addAll(Arrays.asList(id));
+		return this;
+	}
+	
+	/**
+	 * 获得 处理人账户ID清单<br>
+	 * 处理人账户ID清单
+	 * @return 处理人账户ID清单
+	*/
+	public List<String> getApprovalUserIds() {
+		return approvalUserIds;
+	}
+	
+	/**
+	 * 设置 处理人账户ID清单
+	 * @param approvalUserIds 处理人账户ID清单
+	 * @return 当前对象
+	*/
+	public TaskVO setApprovalUserIds(List<String> approvalUserIds) {
+		this.approvalUserIds=approvalUserIds;
+		return this;
+	}
+	
+	/**
+	 * 添加 处理人账户ID清单
+	 * @param approvalUserId 处理人账户ID清单
+	 * @return 当前对象
+	*/
+	public TaskVO addApprovalUserId(String... approvalUserId) {
+		if(this.approvalUserIds==null) approvalUserIds=new ArrayList<>();
+		this.approvalUserIds.addAll(Arrays.asList(approvalUserId));
 		return this;
 	}
 	@Transient

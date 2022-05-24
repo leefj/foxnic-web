@@ -1,5 +1,6 @@
 package org.github.foxnic.web.generator.module.bpm;
 
+import com.github.foxnic.api.query.MatchType;
 import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.PojoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
@@ -37,6 +38,9 @@ public class TaskConfig extends BaseCodeConfig<BPM_TASK> {
         poType.addListProperty(TaskApproval.class,"approvals","审批动作清单","审批动作清单");
         poType.addListProperty(TaskAssignee.class,"assignees","审批人清单","审批人清单");
         poType.shadow("status", TaskStatus.class);
+
+        //
+        voType.addListProperty(String.class,"approvalUserIds","处理人账户ID清单","处理人账户ID清单");
 
         //
         PojoClassFile pojo=context.createPojo("TaskQueryVO");
@@ -92,9 +96,22 @@ public class TaskConfig extends BaseCodeConfig<BPM_TASK> {
 
     @Override
     public void configSearch(ViewOptions view, SearchAreaOptions search) {
-//        search.inputLayout(new Object[]{
-//                TaskMeta.PROCESS_DEFINITION,"processTitle",TaskMeta.ASSIGNEE_ID
-//        });
+        search.inputLayout(
+                new Object[]{
+                        TaskMeta.PROCESS_DEFINITION, "processTitle","APPROVAL_USER_IDS"
+                },
+                new Object[]{
+                        BPM_TASK.STATUS, BPM_TASK.APPROVAL_TIME,
+                });
+
+        search.rowsDisplay(4);
+        //设置各个列的搜索输入框的标签宽度
+        search.labelWidth(1,70);
+        search.labelWidth(2,70);
+        search.labelWidth(3,70);
+        search.labelWidth(4,70);
+
+
     }
 
     @Override
@@ -102,16 +119,28 @@ public class TaskConfig extends BaseCodeConfig<BPM_TASK> {
 
 //        view.form().labelWidth(80);
 
+        view.field(FoxnicWeb.BPM_PROCESS_INSTANCE.ID).basic().hidden();
+
         view.field(TaskMeta.PROCESS_DEFINITION).basic().label("流程类型")
-                .search().on(BPM_TASK.PROCESS_DEFINITION_ID)
+                .search().on(BPM_TASK.PROCESS_DEFINITION_ID).triggerOnSelect(true)
+                .table().disable()
                 .form().selectBox().queryApi(ProcessDefinitionServiceProxy.QUERY_PAGED_LIST).paging(true).toolbar(false).filter(true).valueField(BPM_PROCESS_DEFINITION.ID).textField(BPM_PROCESS_DEFINITION.NAME);
 
         view.field("processName").basic().label("流程类型").table().fillBy(TaskMeta.PROCESS_DEFINITION, ProcessDefinitionMeta.NAME);
 
         view.field("processTitle").basic().label("流程标题").table().fillBy(TaskMeta.PROCESS_INSTANCE, ProcessInstanceMeta.TITLE)
-                .search().fuzzySearch().on(FoxnicWeb.BPM_PROCESS_INSTANCE.TITLE);
+                .search().fuzzySearch().on(FoxnicWeb.BPM_PROCESS_INSTANCE.TITLE).inputWidth(296);
 
         view.field(TaskMeta.NODE_NAME).basic().label("审批节点");
+
+        view.field(BPM_TASK.STATUS).basic().label("任务状态").form().selectBox().enumType(TaskStatus.class).search().triggerOnSelect(true);
+
+        view.field(BPM_TASK.APPROVAL_TIME).basic().label("处理时间").search().range().matchType(MatchType.auto).triggerOnSelect(true);
+
+        view.field("APPROVAL_USER_IDS").basic().label("处理人")
+                .form().selectBox().queryApi(UserServiceProxy.QUERY_PAGED_LIST).textField("realName").valueField("id").toolbar(false).filter(true)
+                .search().triggerOnSelect(true)
+                .table().disable();
 
 //        view.field(TaskMeta.ASSIGNEE_ID).basic().label("待审人")
 //                .form().selectBox().queryApi(UserServiceProxy.QUERY_PAGED_LIST).paging(true).toolbar(false).valueField("id").textField("realName");;

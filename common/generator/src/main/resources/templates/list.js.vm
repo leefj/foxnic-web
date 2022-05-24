@@ -49,7 +49,9 @@ function ListPage() {
 			fox.adjustSearchElement();
 		});
 		fox.adjustSearchElement();
-		$("#table-area").css("margin-top",$(".search-bar").height()+"px");
+		//
+		 var marginTop=$(".search-bar").height()+$(".search-bar").css("padding-top")+$(".search-bar").css("padding-bottom")
+		 $("#table-area").css("margin-top",marginTop+"px");
 		//
 		function renderTableInternal() {
 

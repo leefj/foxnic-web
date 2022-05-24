@@ -13,8 +13,8 @@ import org.github.foxnic.web.domain.bpm.TaskAssignee;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-18 14:52:04
- * @sign 89303D12C651E225FBA66C04D3D01857
+ * @since 2022-05-24 17:22:24
+ * @sign C73A8D0066725B0D5109DB1697F51E20
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -79,6 +79,16 @@ public class TaskMeta {
 	 * 任务状态 , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.Task,java.lang.String> STATUS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.Task.class ,STATUS, java.lang.String.class, "任务状态", "任务状态", java.lang.String.class, null);
+	
+	/**
+	 * 最后处理时间 , 类型: java.util.Date
+	*/
+	public static final String APPROVAL_TIME="approvalTime";
+	
+	/**
+	 * 最后处理时间 , 类型: java.util.Date
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.Task,java.util.Date> APPROVAL_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.Task.class ,APPROVAL_TIME, java.util.Date.class, "最后处理时间", "最后处理时间", java.util.Date.class, null);
 	
 	/**
 	 * 任务ID , Camunda 任务ID , 类型: java.lang.String
@@ -223,7 +233,7 @@ public class TaskMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , PROCESS_DEFINITION_ID , NODE_ID , NODE_NAME , PROCESS_INSTANCE_ID , STATUS , CAMUNDA_TASK_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , PROCESS_DEFINITION , PROCESS_INSTANCE , APPROVALS , ASSIGNEES };
+	public static final String[] $PROPS={ ID , PROCESS_DEFINITION_ID , NODE_ID , NODE_NAME , PROCESS_INSTANCE_ID , STATUS , APPROVAL_TIME , CAMUNDA_TASK_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , PROCESS_DEFINITION , PROCESS_INSTANCE , APPROVALS , ASSIGNEES };
 	
 	/**
 	 * 代理类
@@ -296,6 +306,17 @@ public class TaskMeta {
 		public Task setStatus(String status) {
 			super.change(STATUS,super.getStatus(),status);
 			super.setStatus(status);
+			return this;
+		}
+		
+		/**
+		 * 设置 最后处理时间
+		 * @param approvalTime 最后处理时间
+		 * @return 当前对象
+		*/
+		public Task setApprovalTime(Date approvalTime) {
+			super.change(APPROVAL_TIME,super.getApprovalTime(),approvalTime);
+			super.setApprovalTime(approvalTime);
 			return this;
 		}
 		

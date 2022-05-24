@@ -14,8 +14,8 @@ import org.github.foxnic.web.domain.bpm.TaskAssignee;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-18 14:52:04
- * @sign 4A14B4C5D7918A4E9CA4AE65A58E6E5D
+ * @since 2022-05-24 17:22:24
+ * @sign 612DC636FEC416F8DADBBFBA30930B50
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -112,6 +112,16 @@ public class TaskVOMeta extends TaskMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskVO,java.lang.String> IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskVO.class ,IDS, java.util.List.class, "主键清单", "用于接收批量主键参数", java.lang.String.class, null);
 	
 	/**
+	 * 处理人账户ID清单 , 集合类型: LIST , 类型: java.lang.String
+	*/
+	public static final String APPROVAL_USER_IDS="approvalUserIds";
+	
+	/**
+	 * 处理人账户ID清单 , 集合类型: LIST , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskVO,java.lang.String> APPROVAL_USER_IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskVO.class ,APPROVAL_USER_IDS, java.util.List.class, "处理人账户ID清单", "处理人账户ID清单", java.lang.String.class, null);
+	
+	/**
 	 * id , 类型: java.lang.String
 	*/
 	public static final String ID="id";
@@ -170,6 +180,16 @@ public class TaskVOMeta extends TaskMeta {
 	 * 任务状态 , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskVO,java.lang.String> STATUS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskVO.class ,STATUS, java.lang.String.class, "任务状态", "任务状态", java.lang.String.class, null);
+	
+	/**
+	 * 最后处理时间 , 类型: java.util.Date
+	*/
+	public static final String APPROVAL_TIME="approvalTime";
+	
+	/**
+	 * 最后处理时间 , 类型: java.util.Date
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskVO,java.util.Date> APPROVAL_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskVO.class ,APPROVAL_TIME, java.util.Date.class, "最后处理时间", "最后处理时间", java.util.Date.class, null);
 	
 	/**
 	 * 任务ID , Camunda 任务ID , 类型: java.lang.String
@@ -314,7 +334,7 @@ public class TaskVOMeta extends TaskMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , PROCESS_DEFINITION_ID , NODE_ID , NODE_NAME , PROCESS_INSTANCE_ID , STATUS , CAMUNDA_TASK_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , PROCESS_DEFINITION , PROCESS_INSTANCE , APPROVALS , ASSIGNEES };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , APPROVAL_USER_IDS , ID , PROCESS_DEFINITION_ID , NODE_ID , NODE_NAME , PROCESS_INSTANCE_ID , STATUS , APPROVAL_TIME , CAMUNDA_TASK_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , PROCESS_DEFINITION , PROCESS_INSTANCE , APPROVALS , ASSIGNEES };
 	
 	/**
 	 * 代理类
@@ -424,6 +444,17 @@ public class TaskVOMeta extends TaskMeta {
 		}
 		
 		/**
+		 * 设置 处理人账户ID清单
+		 * @param approvalUserIds 处理人账户ID清单
+		 * @return 当前对象
+		*/
+		public TaskVO setApprovalUserIds(List<String> approvalUserIds) {
+			super.change(APPROVAL_USER_IDS,super.getApprovalUserIds(),approvalUserIds);
+			super.setApprovalUserIds(approvalUserIds);
+			return this;
+		}
+		
+		/**
 		 * 设置 id
 		 * @param id id
 		 * @return 当前对象
@@ -486,6 +517,17 @@ public class TaskVOMeta extends TaskMeta {
 		public Task setStatus(String status) {
 			super.change(STATUS,super.getStatus(),status);
 			super.setStatus(status);
+			return this;
+		}
+		
+		/**
+		 * 设置 最后处理时间
+		 * @param approvalTime 最后处理时间
+		 * @return 当前对象
+		*/
+		public Task setApprovalTime(Date approvalTime) {
+			super.change(APPROVAL_TIME,super.getApprovalTime(),approvalTime);
+			super.setApprovalTime(approvalTime);
 			return this;
 		}
 		
