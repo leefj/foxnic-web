@@ -41,7 +41,7 @@ public class TaskConfig extends BaseCodeConfig<BPM_TASK> {
 
         //
         voType.addListProperty(String.class,"approvalUserIds","处理人账户ID清单","处理人账户ID清单");
-
+        voType.addSimpleProperty(Boolean.class,"mine","是否我的任务","是否我的任务");
         //
         PojoClassFile pojo=context.createPojo("TaskQueryVO");
         pojo.setSuperType(null);
@@ -164,6 +164,8 @@ public class TaskConfig extends BaseCodeConfig<BPM_TASK> {
     @Override
     public void configList(ViewOptions view, ListOptions list) {
         list.disableBatchDelete().disableSingleDelete().disableModify().disableCreateNew().disableFormView();
+
+        list.pageTitle("待办中心");
 
 //        ActionConfig action = null;
         list.operationColumn().addActionButton("打开","showProcessForm");

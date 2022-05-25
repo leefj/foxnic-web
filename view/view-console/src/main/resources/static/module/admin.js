@@ -333,7 +333,7 @@ layui.define(['settings', 'layer'], function (exports) {
                 if (jsonRs) {
                     if (jsonRs.code == "31") {
                         config.removeToken();
-                        layer.msg('登录过期', {icon: 2, time: 1500}, function () {
+                        top.layer.msg('登录过期', {icon: 2, time: 1500}, function () {
                         	//debugger;
                             location.replace('/login.html');
                         }, 1000);

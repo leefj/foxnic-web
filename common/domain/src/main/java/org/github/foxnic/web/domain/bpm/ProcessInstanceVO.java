@@ -13,8 +13,8 @@ import com.github.foxnic.commons.bean.BeanUtil;
 /**
  * 流程实例
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-24 16:41:59
- * @sign 3F04A9953F8F3B91D10BE1A058B1AC41
+ * @since 2022-05-25 09:43:06
+ * @sign DEDB9EC722B9B23BC314911B41474B11
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -87,6 +87,12 @@ public class ProcessInstanceVO extends ProcessInstance {
 	*/
 	@ApiModelProperty(required = false,value="待审批人ID清单" , notes = "查询待审批人ID清单")
 	private List<String> approvingUserIds;
+	
+	/**
+	 * 是否我的流程：是否我的流程
+	*/
+	@ApiModelProperty(required = false,value="是否我的流程" , notes = "是否我的流程")
+	private Boolean mine;
 	
 	/**
 	 * 获得 页码<br>
@@ -330,6 +336,35 @@ public class ProcessInstanceVO extends ProcessInstance {
 	public ProcessInstanceVO addApprovingUserId(String... approvingUserId) {
 		if(this.approvingUserIds==null) approvingUserIds=new ArrayList<>();
 		this.approvingUserIds.addAll(Arrays.asList(approvingUserId));
+		return this;
+	}
+	
+	/**
+	 * 获得 是否我的流程<br>
+	 * 是否我的流程
+	 * @return 是否我的流程
+	*/
+	public Boolean isMine() {
+		return mine;
+	}
+	
+	/**
+	 * 获得 是否我的流程<br>
+	 * 等价于 isMine 方法，为兼容 Swagger 需要
+	 * 属性说明 : 是否我的流程
+	 * @return 是否我的流程
+	*/
+	public Boolean getMine() {
+		return this.mine;
+	}
+	
+	/**
+	 * 设置 是否我的流程
+	 * @param mine 是否我的流程
+	 * @return 当前对象
+	*/
+	public ProcessInstanceVO setMine(Boolean mine) {
+		this.mine=mine;
 		return this;
 	}
 	@Transient

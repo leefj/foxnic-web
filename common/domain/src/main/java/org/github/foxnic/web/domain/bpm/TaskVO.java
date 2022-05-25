@@ -13,8 +13,8 @@ import com.github.foxnic.commons.bean.BeanUtil;
 /**
  * 流程任务
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-24 17:22:24
- * @sign 612DC636FEC416F8DADBBFBA30930B50
+ * @since 2022-05-25 10:31:35
+ * @sign 903E20194942145230B426EE32FE6F14
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -81,6 +81,12 @@ public class TaskVO extends Task {
 	*/
 	@ApiModelProperty(required = false,value="处理人账户ID清单" , notes = "处理人账户ID清单")
 	private List<String> approvalUserIds;
+	
+	/**
+	 * 是否我的任务：是否我的任务
+	*/
+	@ApiModelProperty(required = false,value="是否我的任务" , notes = "是否我的任务")
+	private Boolean mine;
 	
 	/**
 	 * 获得 页码<br>
@@ -294,6 +300,35 @@ public class TaskVO extends Task {
 	public TaskVO addApprovalUserId(String... approvalUserId) {
 		if(this.approvalUserIds==null) approvalUserIds=new ArrayList<>();
 		this.approvalUserIds.addAll(Arrays.asList(approvalUserId));
+		return this;
+	}
+	
+	/**
+	 * 获得 是否我的任务<br>
+	 * 是否我的任务
+	 * @return 是否我的任务
+	*/
+	public Boolean isMine() {
+		return mine;
+	}
+	
+	/**
+	 * 获得 是否我的任务<br>
+	 * 等价于 isMine 方法，为兼容 Swagger 需要
+	 * 属性说明 : 是否我的任务
+	 * @return 是否我的任务
+	*/
+	public Boolean getMine() {
+		return this.mine;
+	}
+	
+	/**
+	 * 设置 是否我的任务
+	 * @param mine 是否我的任务
+	 * @return 当前对象
+	*/
+	public TaskVO setMine(Boolean mine) {
+		this.mine=mine;
 		return this;
 	}
 	@Transient

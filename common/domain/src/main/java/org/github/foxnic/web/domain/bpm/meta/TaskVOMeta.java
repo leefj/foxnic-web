@@ -14,8 +14,8 @@ import org.github.foxnic.web.domain.bpm.TaskAssignee;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-24 17:22:24
- * @sign 612DC636FEC416F8DADBBFBA30930B50
+ * @since 2022-05-25 10:31:35
+ * @sign 903E20194942145230B426EE32FE6F14
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -120,6 +120,16 @@ public class TaskVOMeta extends TaskMeta {
 	 * 处理人账户ID清单 , 集合类型: LIST , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskVO,java.lang.String> APPROVAL_USER_IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskVO.class ,APPROVAL_USER_IDS, java.util.List.class, "处理人账户ID清单", "处理人账户ID清单", java.lang.String.class, null);
+	
+	/**
+	 * 是否我的任务 , 类型: java.lang.Boolean
+	*/
+	public static final String MINE="mine";
+	
+	/**
+	 * 是否我的任务 , 类型: java.lang.Boolean
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskVO,java.lang.Boolean> MINE_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskVO.class ,MINE, java.lang.Boolean.class, "是否我的任务", "是否我的任务", java.lang.Boolean.class, null);
 	
 	/**
 	 * id , 类型: java.lang.String
@@ -334,7 +344,7 @@ public class TaskVOMeta extends TaskMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , APPROVAL_USER_IDS , ID , PROCESS_DEFINITION_ID , NODE_ID , NODE_NAME , PROCESS_INSTANCE_ID , STATUS , APPROVAL_TIME , CAMUNDA_TASK_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , PROCESS_DEFINITION , PROCESS_INSTANCE , APPROVALS , ASSIGNEES };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , APPROVAL_USER_IDS , MINE , ID , PROCESS_DEFINITION_ID , NODE_ID , NODE_NAME , PROCESS_INSTANCE_ID , STATUS , APPROVAL_TIME , CAMUNDA_TASK_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , PROCESS_DEFINITION , PROCESS_INSTANCE , APPROVALS , ASSIGNEES };
 	
 	/**
 	 * 代理类
@@ -451,6 +461,17 @@ public class TaskVOMeta extends TaskMeta {
 		public TaskVO setApprovalUserIds(List<String> approvalUserIds) {
 			super.change(APPROVAL_USER_IDS,super.getApprovalUserIds(),approvalUserIds);
 			super.setApprovalUserIds(approvalUserIds);
+			return this;
+		}
+		
+		/**
+		 * 设置 是否我的任务
+		 * @param mine 是否我的任务
+		 * @return 当前对象
+		*/
+		public TaskVO setMine(Boolean mine) {
+			super.change(MINE,super.isMine(),mine);
+			super.setMine(mine);
 			return this;
 		}
 		

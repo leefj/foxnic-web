@@ -52,10 +52,10 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
         poType.shadow(BPM_PROCESS_INSTANCE.PRIORITY,PriorityLevel.class);
         poType.addSimpleProperty(ProcessDefinitionFile.class,"processDefinitionFile","流程定义文件","流程定义文件");
         poType.addListProperty(TaskApproval.class,"taskApprovals","审批动作清单","审批动作清单");
-
+        //
         voType.addListProperty(String.class,"approvedUserIds","已审批人ID清单","查询已审批人ID清单");
         voType.addListProperty(String.class,"approvingUserIds","待审批人ID清单","查询待审批人ID清单");
-
+        voType.addSimpleProperty(Boolean.class,"mine","是否我的流程","是否我的流程");
         //
         PojoClassFile pojo=context.createPojo("ProcessStartVO");
         pojo.setSuperType(null);
@@ -184,6 +184,8 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
 
     @Override
     public void configList(ViewOptions view, ListOptions list) {
+
+        list.pageTitle("流程中心");
 
         ActionConfig action = null;
         action = list.operationColumn().addActionButton("作废","abandonProcess");

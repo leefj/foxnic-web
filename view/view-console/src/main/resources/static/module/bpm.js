@@ -70,12 +70,23 @@ layui.define(['settings', 'layer', 'admin', 'util','element'],function (exports)
         /**
          * 打开流程界面
          * */
-        openProcessView : function ( processInstanceId , newPage) {
+        openProcessView : function ( processInstanceId , taskId ,newPage) {
+            // if(!processInstanceId) {
+            //     top.layer.msg('流程未指定，打开失败！', {icon: 2, time: 1500});
+            //     return;
+            // }
             var me=this;
             var action = processInstanceId?"edit":"create";
             admin.putTempData('bpm-process-instance-form-data-form-action',action);
             var queryString="";
-            if(processInstanceId) queryString='id=' + processInstanceId;
+            var queryStrings=[];
+            if(processInstanceId) {
+                queryStrings.push('id=' + processInstanceId);
+            }
+            if(taskId) {
+                queryStrings.push('taskId=' + taskId);
+            }
+            queryString=queryStrings.join("&");
             var area=admin.getTempData('bpm-process-instance-form-area');
             var height= (area && area.height) ? area.height : ($(window).height()*0.6);
             var top= (area && area.top) ? area.top : (($(window).height()-height)/2);

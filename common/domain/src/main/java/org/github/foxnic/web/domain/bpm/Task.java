@@ -23,7 +23,7 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程任务
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-24 17:22:24
+ * @since 2022-05-25 10:31:35
  * @sign C73A8D0066725B0D5109DB1697F51E20
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
