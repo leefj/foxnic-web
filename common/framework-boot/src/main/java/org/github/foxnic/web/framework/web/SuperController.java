@@ -21,8 +21,7 @@ public class SuperController {
 
 
 	private static final String REQUEST_VALIDATOR = "$REQUEST_VALIDATOR";
-	private SessionUser sessionUser;
-
+	private InheritableThreadLocal<SessionUser> sessionUser =new InheritableThreadLocal<>();
 
 	@Autowired
 	protected LanguageService languageService;
@@ -31,9 +30,11 @@ public class SuperController {
 	 * 获得当前登录的会话
 	 * */
 	public SessionUser getSessionUser() {
-		 if(sessionUser!=null) return sessionUser;
-		 sessionUser=SessionUser.getCurrent();
-		 return sessionUser;
+		SessionUser user = sessionUser.get();
+		if (user != null) return user;
+		user = SessionUser.getCurrent();
+		sessionUser.set(user);
+		return user;
 	}
 
 	/**
