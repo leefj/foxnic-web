@@ -23,8 +23,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程任务
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-25 10:31:35
- * @sign C73A8D0066725B0D5109DB1697F51E20
+ * @since 2022-05-27 15:55:51
+ * @sign CA468010F8A7A263EA0D1816D6ADB4A3
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -165,6 +165,12 @@ public class Task extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="审批人清单" , notes = "审批人清单")
 	private List<TaskAssignee> assignees;
+	
+	/**
+	 * 审批人账户清单：审批人账户清单
+	*/
+	@ApiModelProperty(required = false,value="审批人账户清单" , notes = "审批人账户清单")
+	private List<TaskAssigneeUser> assigneeUsers;
 	
 	/**
 	 * 获得 id<br>
@@ -647,6 +653,36 @@ public class Task extends Entity {
 	public Task addAssignee(TaskAssignee... assignee) {
 		if(this.assignees==null) assignees=new ArrayList<>();
 		this.assignees.addAll(Arrays.asList(assignee));
+		return this;
+	}
+	
+	/**
+	 * 获得 审批人账户清单<br>
+	 * 审批人账户清单
+	 * @return 审批人账户清单
+	*/
+	public List<TaskAssigneeUser> getAssigneeUsers() {
+		return assigneeUsers;
+	}
+	
+	/**
+	 * 设置 审批人账户清单
+	 * @param assigneeUsers 审批人账户清单
+	 * @return 当前对象
+	*/
+	public Task setAssigneeUsers(List<TaskAssigneeUser> assigneeUsers) {
+		this.assigneeUsers=assigneeUsers;
+		return this;
+	}
+	
+	/**
+	 * 添加 审批人账户清单
+	 * @param assigneeUser 审批人账户清单
+	 * @return 当前对象
+	*/
+	public Task addAssigneeUser(TaskAssigneeUser... assigneeUser) {
+		if(this.assigneeUsers==null) assigneeUsers=new ArrayList<>();
+		this.assigneeUsers.addAll(Arrays.asList(assigneeUser));
 		return this;
 	}
 

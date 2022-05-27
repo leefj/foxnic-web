@@ -26,8 +26,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程实例
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-25 09:43:06
- * @sign 56335E0B6E8447BF1CDBA2DA4ACBC5BC
+ * @since 2022-05-27 15:34:38
+ * @sign EB7AAD7FC2E3A28D82ADB7C523422C76
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -128,6 +128,18 @@ public class ProcessInstance extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="提交时间" , notes = "提交时间")
 	private Date commitTime;
+	
+	/**
+	 * 废弃人账户ID：废弃人账户ID
+	*/
+	@ApiModelProperty(required = false,value="废弃人账户ID" , notes = "废弃人账户ID")
+	private String abandonUserId;
+	
+	/**
+	 * 流程废弃时间：流程废弃时间
+	*/
+	@ApiModelProperty(required = false,value="流程废弃时间" , notes = "流程废弃时间")
+	private Date abandonTime;
 	
 	/**
 	 * 创建人ID：创建人ID
@@ -625,6 +637,44 @@ public class ProcessInstance extends Entity {
 	*/
 	public ProcessInstance setCommitTime(Date commitTime) {
 		this.commitTime=commitTime;
+		return this;
+	}
+	
+	/**
+	 * 获得 废弃人账户ID<br>
+	 * 废弃人账户ID
+	 * @return 废弃人账户ID
+	*/
+	public String getAbandonUserId() {
+		return abandonUserId;
+	}
+	
+	/**
+	 * 设置 废弃人账户ID
+	 * @param abandonUserId 废弃人账户ID
+	 * @return 当前对象
+	*/
+	public ProcessInstance setAbandonUserId(String abandonUserId) {
+		this.abandonUserId=abandonUserId;
+		return this;
+	}
+	
+	/**
+	 * 获得 流程废弃时间<br>
+	 * 流程废弃时间
+	 * @return 流程废弃时间
+	*/
+	public Date getAbandonTime() {
+		return abandonTime;
+	}
+	
+	/**
+	 * 设置 流程废弃时间
+	 * @param abandonTime 流程废弃时间
+	 * @return 当前对象
+	*/
+	public ProcessInstance setAbandonTime(Date abandonTime) {
+		this.abandonTime=abandonTime;
 		return this;
 	}
 	

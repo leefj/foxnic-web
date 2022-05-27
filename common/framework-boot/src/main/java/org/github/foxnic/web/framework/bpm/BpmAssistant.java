@@ -6,6 +6,11 @@ import java.util.Arrays;
 
 public class BpmAssistant {
 
+    /**
+     * 流程管理员角色
+     * */
+    public static final String ROLE_BPM_ADMIN="bpm_admin";
+
     private static BPMSyncWorker syncWorker=new BPMSyncWorker();
 
     private String processInstanceId;

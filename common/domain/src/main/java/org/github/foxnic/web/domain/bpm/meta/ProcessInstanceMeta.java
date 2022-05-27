@@ -18,8 +18,8 @@ import org.github.foxnic.web.domain.bpm.TaskApproval;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-25 09:43:06
- * @sign 56335E0B6E8447BF1CDBA2DA4ACBC5BC
+ * @since 2022-05-27 15:34:38
+ * @sign EB7AAD7FC2E3A28D82ADB7C523422C76
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -164,6 +164,26 @@ public class ProcessInstanceMeta {
 	 * 提交时间 , 类型: java.util.Date
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,java.util.Date> COMMIT_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,COMMIT_TIME, java.util.Date.class, "提交时间", "提交时间", java.util.Date.class, null);
+	
+	/**
+	 * 废弃人账户ID , 类型: java.lang.String
+	*/
+	public static final String ABANDON_USER_ID="abandonUserId";
+	
+	/**
+	 * 废弃人账户ID , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,java.lang.String> ABANDON_USER_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,ABANDON_USER_ID, java.lang.String.class, "废弃人账户ID", "废弃人账户ID", java.lang.String.class, null);
+	
+	/**
+	 * 流程废弃时间 , 类型: java.util.Date
+	*/
+	public static final String ABANDON_TIME="abandonTime";
+	
+	/**
+	 * 流程废弃时间 , 类型: java.util.Date
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,java.util.Date> ABANDON_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,ABANDON_TIME, java.util.Date.class, "流程废弃时间", "流程废弃时间", java.util.Date.class, null);
 	
 	/**
 	 * 创建人ID , 类型: java.lang.String
@@ -388,7 +408,7 @@ public class ProcessInstanceMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , DRAFTER_USER_ID , DRAFTER_ID , DRAFTER_TYPE , FORM_INSTANCE_ID , PROCESS_DEFINITION_ID , PROCESS_DEFINITION_FILE_ID , FORM_DEFINITION_ID , TITLE , PRIORITY , COMMENT , APPROVAL_STATUS , CAMUNDA_INSTANCE_ID , COMMIT_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , END_TIME , PROCESS_DEFINITION , FORM_DEFINITION , FORM_INSTANCE , DRAFTER , DRAFTER_NAME , DRAFTER_USER , TASKS , USER_TASKS , BILLS , BILL_IDS , PROCESS_DEFINITION_FILE , TASK_APPROVALS };
+	public static final String[] $PROPS={ ID , DRAFTER_USER_ID , DRAFTER_ID , DRAFTER_TYPE , FORM_INSTANCE_ID , PROCESS_DEFINITION_ID , PROCESS_DEFINITION_FILE_ID , FORM_DEFINITION_ID , TITLE , PRIORITY , COMMENT , APPROVAL_STATUS , CAMUNDA_INSTANCE_ID , COMMIT_TIME , ABANDON_USER_ID , ABANDON_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , END_TIME , PROCESS_DEFINITION , FORM_DEFINITION , FORM_INSTANCE , DRAFTER , DRAFTER_NAME , DRAFTER_USER , TASKS , USER_TASKS , BILLS , BILL_IDS , PROCESS_DEFINITION_FILE , TASK_APPROVALS };
 	
 	/**
 	 * 代理类
@@ -549,6 +569,28 @@ public class ProcessInstanceMeta {
 		public ProcessInstance setCommitTime(Date commitTime) {
 			super.change(COMMIT_TIME,super.getCommitTime(),commitTime);
 			super.setCommitTime(commitTime);
+			return this;
+		}
+		
+		/**
+		 * 设置 废弃人账户ID
+		 * @param abandonUserId 废弃人账户ID
+		 * @return 当前对象
+		*/
+		public ProcessInstance setAbandonUserId(String abandonUserId) {
+			super.change(ABANDON_USER_ID,super.getAbandonUserId(),abandonUserId);
+			super.setAbandonUserId(abandonUserId);
+			return this;
+		}
+		
+		/**
+		 * 设置 流程废弃时间
+		 * @param abandonTime 流程废弃时间
+		 * @return 当前对象
+		*/
+		public ProcessInstance setAbandonTime(Date abandonTime) {
+			super.change(ABANDON_TIME,super.getAbandonTime(),abandonTime);
+			super.setAbandonTime(abandonTime);
 			return this;
 		}
 		

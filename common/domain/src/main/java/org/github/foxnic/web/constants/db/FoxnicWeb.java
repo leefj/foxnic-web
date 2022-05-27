@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2022-05-24 17:00:45
+ * @since 2022-05-27 15:33:53
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -946,6 +946,16 @@ public class FoxnicWeb {
 		public static final DBField COMMIT_TIME = new DBField(DBDataType.DATE , "commit_time","commitTime","提交时间","提交时间",false,false,true);
 		
 		/**
+		 * 废弃人账户ID
+		*/
+		public static final DBField ABANDON_USER_ID = new DBField(DBDataType.STRING , "abandon_user_id","abandonUserId","废弃人账户ID","废弃人账户ID",false,false,true);
+		
+		/**
+		 * 流程废弃时间
+		*/
+		public static final DBField ABANDON_TIME = new DBField(DBDataType.DATE , "abandon_time","abandonTime","流程废弃时间","流程废弃时间",false,false,true);
+		
+		/**
 		 * 创建人ID
 		*/
 		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
@@ -996,7 +1006,7 @@ public class FoxnicWeb {
 		public static final DBField END_TIME = new DBField(DBDataType.DATE , "end_time","endTime","流程完成时间","流程完成时间",false,false,true);
 		
 		public BPM_PROCESS_INSTANCE() {
-			this.init($NAME,"流程实例表" , ID , DRAFTER_USER_ID , DRAFTER_ID , DRAFTER_TYPE , FORM_INSTANCE_ID , PROCESS_DEFINITION_ID , PROCESS_DEFINITION_FILE_ID , FORM_DEFINITION_ID , TITLE , PRIORITY , COMMENT , APPROVAL_STATUS , CAMUNDA_INSTANCE_ID , COMMIT_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , END_TIME);
+			this.init($NAME,"流程实例表" , ID , DRAFTER_USER_ID , DRAFTER_ID , DRAFTER_TYPE , FORM_INSTANCE_ID , PROCESS_DEFINITION_ID , PROCESS_DEFINITION_FILE_ID , FORM_DEFINITION_ID , TITLE , PRIORITY , COMMENT , APPROVAL_STATUS , CAMUNDA_INSTANCE_ID , COMMIT_TIME , ABANDON_USER_ID , ABANDON_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , END_TIME);
 		}
 		public static final BPM_PROCESS_INSTANCE $TABLE=new BPM_PROCESS_INSTANCE();
 	}

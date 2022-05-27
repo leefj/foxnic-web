@@ -8,13 +8,14 @@ import org.github.foxnic.web.domain.bpm.ProcessInstance;
 import org.github.foxnic.web.domain.bpm.TaskApproval;
 import java.util.List;
 import org.github.foxnic.web.domain.bpm.TaskAssignee;
+import org.github.foxnic.web.domain.bpm.TaskAssigneeUser;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-25 10:31:35
- * @sign C73A8D0066725B0D5109DB1697F51E20
+ * @since 2022-05-27 15:55:51
+ * @sign CA468010F8A7A263EA0D1816D6ADB4A3
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -231,9 +232,19 @@ public class TaskMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.Task,org.github.foxnic.web.domain.bpm.TaskAssignee> ASSIGNEES_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.Task.class ,ASSIGNEES, java.util.List.class, "审批人清单", "审批人清单", org.github.foxnic.web.domain.bpm.TaskAssignee.class, null);
 	
 	/**
+	 * 审批人账户清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.TaskAssigneeUser
+	*/
+	public static final String ASSIGNEE_USERS="assigneeUsers";
+	
+	/**
+	 * 审批人账户清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.TaskAssigneeUser
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.Task,org.github.foxnic.web.domain.bpm.TaskAssigneeUser> ASSIGNEE_USERS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.Task.class ,ASSIGNEE_USERS, java.util.List.class, "审批人账户清单", "审批人账户清单", org.github.foxnic.web.domain.bpm.TaskAssigneeUser.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , PROCESS_DEFINITION_ID , NODE_ID , NODE_NAME , PROCESS_INSTANCE_ID , STATUS , APPROVAL_TIME , CAMUNDA_TASK_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , PROCESS_DEFINITION , PROCESS_INSTANCE , APPROVALS , ASSIGNEES };
+	public static final String[] $PROPS={ ID , PROCESS_DEFINITION_ID , NODE_ID , NODE_NAME , PROCESS_INSTANCE_ID , STATUS , APPROVAL_TIME , CAMUNDA_TASK_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , PROCESS_DEFINITION , PROCESS_INSTANCE , APPROVALS , ASSIGNEES , ASSIGNEE_USERS };
 	
 	/**
 	 * 代理类
@@ -471,6 +482,17 @@ public class TaskMeta {
 		public Task setAssignees(List<TaskAssignee> assignees) {
 			super.change(ASSIGNEES,super.getAssignees(),assignees);
 			super.setAssignees(assignees);
+			return this;
+		}
+		
+		/**
+		 * 设置 审批人账户清单
+		 * @param assigneeUsers 审批人账户清单
+		 * @return 当前对象
+		*/
+		public Task setAssigneeUsers(List<TaskAssigneeUser> assigneeUsers) {
+			super.change(ASSIGNEE_USERS,super.getAssigneeUsers(),assigneeUsers);
+			super.setAssigneeUsers(assigneeUsers);
 			return this;
 		}
 	}

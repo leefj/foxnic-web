@@ -37,6 +37,7 @@ public class TaskConfig extends BaseCodeConfig<BPM_TASK> {
         poType.addSimpleProperty(ProcessInstance.class,"processInstance","流程实例","流程实例");
         poType.addListProperty(TaskApproval.class,"approvals","审批动作清单","审批动作清单");
         poType.addListProperty(TaskAssignee.class,"assignees","审批人清单","审批人清单");
+        poType.addListProperty(TaskAssigneeUser.class,"assigneeUsers","审批人账户清单","审批人账户清单");
         poType.shadow("status", TaskStatus.class);
 
         //
@@ -106,10 +107,10 @@ public class TaskConfig extends BaseCodeConfig<BPM_TASK> {
 
         search.rowsDisplay(4);
         //设置各个列的搜索输入框的标签宽度
-        search.labelWidth(1,70);
-        search.labelWidth(2,70);
-        search.labelWidth(3,70);
-        search.labelWidth(4,70);
+        search.labelWidth(1,80);
+        search.labelWidth(2,80);
+        search.labelWidth(3,80);
+        search.labelWidth(4,80);
 
 
     }

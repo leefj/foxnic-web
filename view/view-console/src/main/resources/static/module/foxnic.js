@@ -30,6 +30,16 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 $("#"+id).attr("data",url);
             }
         },
+        disableSelectBox:function (id,disabled) {
+            var box = id;
+            if(TypeUtil.isString(id)) {
+                box=this.getSelectBox(id);
+            }
+            if(!box) return;
+            box.doingDisabled=true;
+            box.update({ disabled: disabled });
+            box.doingDisabled=false;
+        },
         selectBoxConfigs:{},
         renderSelectBox: function (cfg,rerender) {
             var me=this;
@@ -74,6 +84,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 cfg.remoteSearch = true;
 
                 // cfg.filterable=true;
+
 
                 function query(ps, cb) {
                     //再次重新读取，更改这个值，以便级联
@@ -178,8 +189,14 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                         }
                     }
 
-
-                    query(ps, cb);
+                    var box=me.getSelectBox(cfg.el);
+                    if(box) {
+                        if(!box.doingDisabled) {
+                            query(ps, cb);
+                        }
+                    } else {
+                        query(ps, cb);
+                    }
 
                 }
             }
@@ -189,6 +206,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             console.log("opts", opts);
 
             inst = xmSelect.render(cfg);
+
             setTimeout(function () {
                 //设置值的布局方式
                 if (cfg.valueDirection) {
@@ -245,6 +263,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
         },
         lockForm:function(fm,lock) {
             // debugger;
+            var me=this;
             if(lock) {
                 fm.find("input").attr("placeholder", "");
                 fm.find("input").attr("readonly", "yes");
@@ -263,7 +282,8 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                         //debugger
                         //inst.update({disabled: true});
                         setTimeout(function (){
-                            inst.update({disabled: true});
+                            // inst.update({disabled: true});
+                            me.disableSelectBox(inst,true);
                         },1000);
                     } else {
                         setTimeout(function () {

@@ -244,6 +244,9 @@ function FormPage() {
 	    #end
 	}
 
+	/**
+	 * 根据id填充表单
+	 * */
 	function fillFormDataByIds(ids) {
 		if(!ids) return;
 		if(ids.length==0) return;
@@ -256,6 +259,13 @@ function FormPage() {
 				fox.showMessage(data);
 			}
 		});
+	}
+
+	/**
+	 * 在流程提交前处理表单数据
+	 * */
+	function processFormData4Bpm (processInstanceId,param,cb) {
+		window.pageExt.form.processFormData4Bpm && window.pageExt.form.processFormData4Bpm(processInstanceId,param,cb);
 	}
 
 	/**
@@ -530,6 +540,7 @@ function FormPage() {
 		saveForm: saveForm,
 		fillFormData: fillFormData,
 		fillFormDataByIds:fillFormDataByIds,
+		processFormData4Bpm:processFormData4Bpm,
 		adjustPopup: adjustPopup,
 		action: action,
 		setAction: function (act) {
