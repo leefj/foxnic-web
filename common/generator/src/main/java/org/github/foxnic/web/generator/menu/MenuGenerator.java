@@ -11,19 +11,17 @@ import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.generator.builder.business.ControllerProxyFile;
 import com.github.foxnic.sql.meta.DBTable;
 import com.github.foxnic.sql.meta.DBType;
-import org.github.foxnic.web.bpm.page.*;
+import org.github.foxnic.web.constants.db.ExampleTables;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.enums.system.AccessType;
 import org.github.foxnic.web.constants.enums.system.MenuType;
-import org.github.foxnic.web.domain.bpm.DemoLeave;
-import org.github.foxnic.web.domain.bpm.ProcessInitiator;
-import org.github.foxnic.web.domain.bpm.ProcessInstance;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.MenuResource;
 import org.github.foxnic.web.domain.oauth.Resourze;
 import org.github.foxnic.web.domain.oauth.RoleMenu;
+import org.github.foxnic.web.example.page.OrderItemPageController;
 import org.github.foxnic.web.generator.config.FoxnicWebConfigs;
-import org.github.foxnic.web.proxy.bpm.*;
+import org.github.foxnic.web.proxy.example.OrderItemServiceProxy;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.File;
@@ -47,8 +45,22 @@ public class MenuGenerator {
 
 		MenuGenerator mg=null;
 
+//		mg=new MenuGenerator(ExampleTables.EXAMPLE_ORDER.$TABLE, OrderServiceProxy.class, OrderPageController.class);
+//		mg.generate("583014848745439232");
+
+		mg=new MenuGenerator(ExampleTables.EXAMPLE_ORDER_ITEM.$TABLE, OrderItemServiceProxy.class, OrderItemPageController.class);
+		mg.generate("583014848745439232");
+
+//		mg=new MenuGenerator(ExampleTables.EXAMPLE_GOODS.$TABLE, GoodsServiceProxy.class, GoodsPageController.class);
+//		mg.generate("583014848745439232");
+
+//		mg=new MenuGenerator(ExampleTables.EXAMPLE_ADDRESS.$TABLE, AddressServiceProxy.class, AddressPageController.class);
+//		mg.generate("583014848745439232");
+
 //		mg=new MenuGenerator(FoxnicWeb.BPM_PROCESS_DEFINITION.$TABLE, ProcessDefinitionServiceProxy.class, ProcessDefinitionPageController.class);
 //		mg.generate("555766790999773184");
+
+
 
 //		mg=new MenuGenerator(FoxnicWeb.BPM_PROCESS_DEFINITION_NODE.$TABLE, ProcessDefinitionNodeServiceProxy.class, ProcessDefinitionNodePageController.class);
 //		mg.generate("555766790999773184");

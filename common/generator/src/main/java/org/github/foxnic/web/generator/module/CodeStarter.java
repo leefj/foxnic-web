@@ -6,8 +6,7 @@ import org.github.foxnic.web.generator.data.DataGenerator;
 import org.github.foxnic.web.generator.module.bpm.*;
 import org.github.foxnic.web.generator.module.changes.*;
 import org.github.foxnic.web.generator.module.dataperm.*;
-import org.github.foxnic.web.generator.module.example.CodeExampleMulitPkConfig;
-import org.github.foxnic.web.generator.module.example.ExampleNewsConfig;
+import org.github.foxnic.web.generator.module.example.*;
 import org.github.foxnic.web.generator.module.hrm.HrmEmployeeConfig;
 import org.github.foxnic.web.generator.module.hrm.HrmPositionConfig;
 import org.github.foxnic.web.generator.module.job.SysJobConfig;
@@ -39,9 +38,9 @@ public class CodeStarter extends ModuleCodeGenerator {
 //        initOAuthModules();
 //        initSystemModules();
 //        initHrmModules();
-//        initExampleModules();
+        initExampleModules();
 //        initChangeModule1s();
-        initBpmModules();
+//        initBpmModules();
 //        initDatapermModules();
 //
 //        initExample2Modules();
@@ -134,7 +133,12 @@ public class CodeStarter extends ModuleCodeGenerator {
 //        this.addConfig(new CodeExampleRoleConfig());
 //        this.addConfig(new CodeExampleStudentConfig());
 //        this.addConfig(new CodeExampleCarConfig());
-        this.addConfig(new CodeExampleMulitPkConfig());
+//        this.addConfig(new CodeExampleMulitPkConfig());
+
+        this.addConfig(new ExampleOrderConfig());
+        this.addConfig(new ExampleOrderItemConfig());
+        this.addConfig(new ExampleGoodsConfig());
+        this.addConfig(new ExampleAddressConfig());
 
     }
 
