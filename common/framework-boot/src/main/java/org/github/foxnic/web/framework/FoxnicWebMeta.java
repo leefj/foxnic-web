@@ -24,8 +24,13 @@ public class FoxnicWebMeta {
 	/**
 	 * 实体包
 	 * */
-	public static final String DOMAIN_PACKAGE=BASE_PACKAGE+".doman";
+	public static final String DOMAIN_PACKAGE=BASE_PACKAGE+".domain";
 
+
+	/**
+	 * 错误码定义包
+	 * */
+	public static final String ERRORS_PACKAGE=BASE_PACKAGE+".errors";
 
 	/**
 	 * 系统服务
@@ -64,10 +69,16 @@ public class FoxnicWebMeta {
 	 * */
 	public static final String SERVICE_CHANGES_PACKAGE=BASE_PACKAGE+".changes";
 
+
 	/**
-	 * 数据变更服务
+	 * 流程服务
 	 * */
-	public static final String SERVICE_BPM_PACKAGE=BASE_PACKAGE+".bpm";
+	public static final String SERVICE_BPM_PACKAGE =BASE_PACKAGE+".bpm";
+
+	/**
+	 * camunda 业务包
+	 * */
+	public static final String SERVICE_CAMUNDA_PACKAGE =BASE_PACKAGE+".camunda";
 
 	/**
 	 * 数据权限
@@ -80,7 +91,10 @@ public class FoxnicWebMeta {
 	 * */
 	public static final String WRAPPER_SUPPORT_PACKAGE=BASE_PACKAGE+".wrapper.support";
 
-
+	/**
+	 * 示例
+	 * */
+	public static final String SERVICE_EXAMPLE_PACKAGE=BASE_PACKAGE+".example";
 
 
 

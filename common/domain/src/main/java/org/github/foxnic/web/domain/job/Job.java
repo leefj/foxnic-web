@@ -12,6 +12,7 @@ import org.github.foxnic.web.constants.enums.job.Status;
 import java.util.Date;
 import com.github.foxnic.commons.reflect.EnumUtil;
 import com.github.foxnic.commons.lang.StringUtil;
+import com.github.foxnic.commons.lang.DataParser;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
 
@@ -20,8 +21,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 定时任务配置
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-07 13:34:40
- * @sign A32D7E1F9B00D141C817FF3ECF9F5688
+ * @since 2022-05-14 11:45:51
+ * @sign 7B7908A9FB5EFF31C330528541B4DD12
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -38,6 +39,12 @@ public class Job extends Entity {
 	@Id
 	@ApiModelProperty(required = true,value="主键" , notes = "主键")
 	private String id;
+	
+	/**
+	 * 代码：任务代码
+	*/
+	@ApiModelProperty(required = false,value="代码" , notes = "任务代码")
+	private String code;
 	
 	/**
 	 * 任务名称：任务名称
@@ -132,6 +139,8 @@ public class Job extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除")
 	private Integer deleted;
+	@Transient
+	private Boolean deletedBool;
 	
 	/**
 	 * 删除人ID：删除人ID
@@ -179,6 +188,25 @@ public class Job extends Entity {
 	*/
 	public Job setId(String id) {
 		this.id=id;
+		return this;
+	}
+	
+	/**
+	 * 获得 代码<br>
+	 * 任务代码
+	 * @return 代码
+	*/
+	public String getCode() {
+		return code;
+	}
+	
+	/**
+	 * 设置 代码
+	 * @param code 代码
+	 * @return 当前对象
+	*/
+	public Job setCode(String code) {
+		this.code=code;
 		return this;
 	}
 	
@@ -524,12 +552,42 @@ public class Job extends Entity {
 	}
 	
 	/**
+	 * 获得 是否已删除 的投影属性<br>
+	 * 等价于 getDeleted 方法，获得对应的枚举类型
+	 * @return 是否已删除
+	*/
+	@Transient
+	public Boolean isDeleted() {
+		if(this.deletedBool==null) {
+			this.deletedBool=DataParser.parseBoolean(deleted);
+		}
+		return this.deletedBool ;
+	}
+	
+	/**
 	 * 设置 是否已删除
 	 * @param deleted 是否已删除
 	 * @return 当前对象
 	*/
 	public Job setDeleted(Integer deleted) {
 		this.deleted=deleted;
+		this.deletedBool=DataParser.parseBoolean(deleted);
+		return this;
+	}
+	
+	/**
+	 * 设置 是否已删除的投影属性，等同于设置 是否已删除
+	 * @param deletedBool 是否已删除
+	 * @return 当前对象
+	*/
+	@Transient
+	public Job setDeleted(Boolean deletedBool) {
+		if(deletedBool==null) {
+			this.deleted=null;
+		} else {
+			this.deleted=deletedBool?1:0;
+		}
+		this.deletedBool=deletedBool;
 		return this;
 	}
 	

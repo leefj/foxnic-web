@@ -114,16 +114,16 @@ layui.define(['settings', 'layer'], function (exports) {
             return index;
         },
         // 关闭中间弹出并且触发finish回调
-        finishPopupCenterById: function (id) {
+        finishPopupCenterById: function (id,ctx) {
             // debugger;
             var index=this.getVar("$$"+id+"-popup-index");
-            this.finishPopupCenter(index);
+            this.finishPopupCenter(index,ctx);
         },
         // 关闭中间弹出并且触发finish回调
-        finishPopupCenter: function (index) {
+        finishPopupCenter: function (index,ctx) {
         	//拦截，并由顶层窗口处理
         	if(top && top!=window && top.admin) {
-        		top.admin.finishPopupCenter(index);
+        		top.admin.finishPopupCenter(index,ctx);
         		return;
         	}
         	console.log("finishPopupCenter.index="+index);
@@ -135,7 +135,7 @@ layui.define(['settings', 'layer'], function (exports) {
                 popupCenterParam=popupCenterParamMap[popupCenterIndex];
             }
             if(popupCenterParam) {
-                popupCenterParam.finish ? popupCenterParam.finish() : '';
+                popupCenterParam.finish ? popupCenterParam.finish(ctx) : '';
             }
         },
         // 关闭中间弹出
@@ -333,13 +333,13 @@ layui.define(['settings', 'layer'], function (exports) {
                 if (jsonRs) {
                     if (jsonRs.code == "31") {
                         config.removeToken();
-                        layer.msg('登录过期', {icon: 2, time: 1500}, function () {
+                        top.layer.msg('登录过期', {icon: 2, time: 1500}, function () {
                         	//debugger;
                             location.replace('/login.html');
                         }, 1000);
                         return;
                     } else if (jsonRs.code == "32") {
-                        layer.msg('没有权限', {icon: 2});
+                        //layer.msg('没有权限', {icon: 2});
                         layer.closeAll('loading');
                         return;
                     }

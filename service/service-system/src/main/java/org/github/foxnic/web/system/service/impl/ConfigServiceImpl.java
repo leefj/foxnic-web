@@ -226,7 +226,7 @@ public class ConfigServiceImpl extends SuperService<Config> implements IConfigSe
 
 	@Override
 	public List<Config> getByIds(List<String> ids) {
-		return new ArrayList<>(getByIdsMap(ids).values());
+		return super.queryListByUKeys("id",ids);
 	}
 
 	@Override

@@ -28,6 +28,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Field;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -42,28 +43,28 @@ import java.util.Set;
 
 @Service("SysSessionOnlineService")
 public class SessionOnlineServiceImpl extends SuperService<SessionOnline> implements ISessionOnlineService, ApplicationListener<ApplicationStartedEvent> {
-	
+
 	/**
 	 * 注入DAO对象
 	 * */
-	@Resource(name=DBConfigs.PRIMARY_DAO) 
+	@Resource(name=DBConfigs.PRIMARY_DAO)
 	private DAO dao=null;
 
 
 	@Autowired
 	private SessionCache sessionCache;
-	
+
 	/**
 	 * 获得 DAO 对象
 	 * */
 	public DAO dao() { return dao; }
 
-	
+
 	@Override
 	public Object generateId(Field field) {
 		return IDGenerator.getSnowflakeIdString();
 	}
-	
+
 	/**
 	 * 插入实体
 	 * @param sessionOnline 实体数据
@@ -73,7 +74,7 @@ public class SessionOnlineServiceImpl extends SuperService<SessionOnline> implem
 	public Result insert(SessionOnline sessionOnline) {
 		return super.insert(sessionOnline);
 	}
-	
+
 	/**
 	 * 批量插入实体，事务内
 	 * @param sessionOnlineList 实体数据清单
@@ -83,8 +84,8 @@ public class SessionOnlineServiceImpl extends SuperService<SessionOnline> implem
 	public Result insertList(List<SessionOnline> sessionOnlineList) {
 		return super.insertList(sessionOnlineList);
 	}
-	
-	
+
+
 	/**
 	 * 按主键删除 在线会话
 	 *
@@ -97,7 +98,7 @@ public class SessionOnlineServiceImpl extends SuperService<SessionOnline> implem
 		sessionOnline.setId(id);
 		return dao.deleteEntity(sessionOnline);
 	}
-	
+
 	/**
 	 * 按主键删除 在线会话
 	 *
@@ -113,7 +114,7 @@ public class SessionOnlineServiceImpl extends SuperService<SessionOnline> implem
 		sessionOnline.setDeleteTime(new Date());
 		return dao.updateEntity(sessionOnline,SaveMode.NOT_NULL_FIELDS);
 	}
-	
+
 	/**
 	 * 更新实体
 	 * @param sessionOnline 数据对象
@@ -124,7 +125,7 @@ public class SessionOnlineServiceImpl extends SuperService<SessionOnline> implem
 	public Result update(SessionOnline sessionOnline , SaveMode mode) {
 		return super.update(sessionOnline , mode);
 	}
-	
+
 	/**
 	 * 更新实体集，事务内
 	 * @param sessionOnlineList 数据对象列表
@@ -135,8 +136,8 @@ public class SessionOnlineServiceImpl extends SuperService<SessionOnline> implem
 	public Result updateList(List<SessionOnline> sessionOnlineList , SaveMode mode) {
 		return super.updateList(sessionOnlineList , mode);
 	}
-	
-	
+
+
 	/**
 	 * 按主键更新字段 在线会话
 	 *
@@ -148,9 +149,9 @@ public class SessionOnlineServiceImpl extends SuperService<SessionOnline> implem
 		if(!field.table().name().equals(this.table())) throw new IllegalArgumentException("更新的数据表["+field.table().name()+"]与服务对应的数据表["+this.table()+"]不一致");
 		int suc=dao.update(field.table().name()).set(field.name(), value).where().and("id = ? ",id).top().execute();
 		return suc>0;
-	} 
-	
-	
+	}
+
+
 	/**
 	 * 按主键获取 在线会话
 	 *
@@ -163,10 +164,10 @@ public class SessionOnlineServiceImpl extends SuperService<SessionOnline> implem
 		sample.setId(id);
 		return dao.queryEntity(sample);
 	}
- 
+
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @return 查询结果
 	 * */
@@ -174,11 +175,11 @@ public class SessionOnlineServiceImpl extends SuperService<SessionOnline> implem
 	public List<SessionOnline> queryList(SessionOnline sample) {
 		return super.queryList(sample);
 	}
-	
-	
+
+
 	/**
 	 * 分页查询实体集，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @param pageSize 分页条数
 	 * @param pageIndex 页码
@@ -188,10 +189,10 @@ public class SessionOnlineServiceImpl extends SuperService<SessionOnline> implem
 	public PagedList<SessionOnline> queryPagedList(SessionOnline sample, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, pageSize, pageIndex);
 	}
-	
+
 	/**
 	 * 分页查询实体集，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @param condition 其它条件
 	 * @param pageSize 分页条数
@@ -202,7 +203,7 @@ public class SessionOnlineServiceImpl extends SuperService<SessionOnline> implem
 	public PagedList<SessionOnline> queryPagedList(SessionOnline sample, ConditionExpr condition, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, condition, pageSize, pageIndex);
 	}
-	
+
 	/**
 	 * 检查 角色 是否已经存在
 	 *
@@ -232,10 +233,13 @@ public class SessionOnlineServiceImpl extends SuperService<SessionOnline> implem
 		Set<String> keys=interactiveInfo.keys();
 		Object[] value=null;
 		BatchParamBuilder pb=new BatchParamBuilder();
+		Set<String> keysWillRemove=new HashSet<>();
 		for (String key : keys) {
-			value=interactiveInfo.remove(key);
+			value=interactiveInfo.get(key);
+			keysWillRemove.add(key);
 			pb.add(value[0],value[1],key);
 		}
+		interactiveInfo.removeAll(keysWillRemove);
 		dao.batchExecute("update "+ FoxnicWeb.SYS_SESSION_ONLINE.$NAME+" set "+FoxnicWeb.SYS_SESSION_ONLINE.INTERACT_URL+"=?,"+ FoxnicWeb.SYS_SESSION_ONLINE.INTERACT_TIME+"=?,"+FoxnicWeb.SYS_SESSION_ONLINE.ONLINE+"=1,"+FoxnicWeb.SYS_SESSION_ONLINE.LOGOUT_TIME+"=null  where id=?", pb.getBatchList());
 		//
 		dao.execute("update "+ FoxnicWeb.SYS_SESSION_ONLINE.$NAME+" set "+FoxnicWeb.SYS_SESSION_ONLINE.ONLINE+"=0,"+FoxnicWeb.SYS_SESSION_ONLINE.LOGOUT_TIME+"="+FoxnicWeb.SYS_SESSION_ONLINE.INTERACT_TIME+" where online=1 and interact_time<?",DateUtil.addMinutes(new Date(),-5));

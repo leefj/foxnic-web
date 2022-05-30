@@ -1,3 +1,76 @@
+
+## 版本：1.0.1.RELEASE ( 2022-04-08 )  Foxnic Version: 1.5.1.RELEASE
+### 新特性
+1、错误码机制优化
+2、Camunda 流程支持
+3、控制器参数校验机制
+4、代码生成增加 readonly 特性   
+5、优化 Excel 生成的相关功能
+6、增加 PerformanceLogger
+7、代码生成支持指定表单提交地址   form.savingURL(ProcessInstanceServiceProxy.TEMPORARY_SAVE);
+8、增加按唯一键查询方法: queryListByUKey,queryListByUKeys,queryMapByUKeys,queryListByIds,queryMapByIds,同时支持代码生成
+9、增加 shadowBoolean 支持
+
+### Bug 修复
+1、代码生成 INPUT_FILED bug 修复
+2、修复搜索栏自动换行时，表格按钮被遮盖问题
+3、日期转换bug修复
+4、接口参数接收bug修复
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 版本：1.0.0.RELEASE ( 2022-01-20 )  Foxnic Version: 1.5.0.RELEASE
+### 新特性
+1、增加表格的默认列宽到120
+2、表单保存后，支持单行刷
+3、代码生成增加 splitValue 选项，默认 false 
+4、Result 增加用于指示前端如何提示信息的控制(需要重新生成代码): result.messageLevel4Notify()、result.messageLevel4Read()、result.messageLevel4Confirm()
+5、适配达梦数据库，其它优化
+
+### Bug 修复
+1、已知 bug 修复 
+2、文件上传组件在禁用模式下可下载已经上传的文件
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## 版本：0.8.0.RELEASE ( 2022-01-20 )  Foxnic Version: 1.4.8.RELEASE
 ### 新特性
 1. 优化打包，缩减打包的尺寸

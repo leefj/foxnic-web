@@ -65,19 +65,35 @@ public class FoxnicWebConfigs {
 		projectConfigs=new ProjectConfigs(this.appConfigPrefix,new YMLProperties(configFile));
 
 		File baseDir=generatorProject.getProjectDir().getParentFile().getParentFile();
+		File advanceBaseDir=generatorProject.getProjectDir().getParentFile().getParentFile().getParentFile();
+		advanceBaseDir=FileUtil.resolveByPath(advanceBaseDir,"foxnic-web-advance");
+
+
+
 
 		//
 		File domainProjectFolder=FileUtil.resolveByPath(baseDir, this.projectConfigs.getDomainProjectPath());
 		domianProject=new MavenProject(domainProjectFolder);
 
-		File serviceProjectFolder=FileUtil.resolveByPath(baseDir,  projectConfigs.getAppServiceProjectPath());
-		serviceProject=new MavenProject(serviceProjectFolder);
+		if(projectConfigs.isAdvance()) {
+			File serviceProjectFolder=FileUtil.resolveByPath(advanceBaseDir,  projectConfigs.getAppServiceProjectPath());
+			serviceProject=new MavenProject(serviceProjectFolder);
+		} else {
+			File serviceProjectFolder=FileUtil.resolveByPath(baseDir,  projectConfigs.getAppServiceProjectPath());
+			serviceProject=new MavenProject(serviceProjectFolder);
+		}
+
 
 		File proxyProjectFolder=FileUtil.resolveByPath(baseDir,  this.projectConfigs.getProxyProjectPath());
 		proxyProject=new MavenProject(proxyProjectFolder);
 
-		File viewProjectFolder=FileUtil.resolveByPath(baseDir,  this.projectConfigs.getAppViewProjectPath());
-		viewProject=new MavenProject(viewProjectFolder);
+		if(projectConfigs.isAdvance()) {
+			File viewProjectFolder = FileUtil.resolveByPath(advanceBaseDir, this.projectConfigs.getAppViewProjectPath());
+			viewProject = new MavenProject(viewProjectFolder);
+		} else {
+			File viewProjectFolder = FileUtil.resolveByPath(baseDir, this.projectConfigs.getAppViewProjectPath());
+			viewProject = new MavenProject(viewProjectFolder);
+		}
 
 		File wrapperProjectFolder=FileUtil.resolveByPath(baseDir,  this.projectConfigs.getAppWrapperProjectPath());
 		wrapperProject=new MavenProject(wrapperProjectFolder);
@@ -294,6 +310,15 @@ public class FoxnicWebConfigs {
 		 * */
 		public String getDomainConstantsPackage() {
 			return properties.getProperty("source.domainConstantsPackage").stringValue();
+		}
+
+		/**
+		 * 获得应用的路径
+		 * */
+		public Boolean isAdvance() {
+			Boolean advance=properties.getProperty(this.appConfigPrefix+".advance").booleanValue();
+			if(advance==null) advance=false;
+			return advance;
 		}
 
 		/**

@@ -62,7 +62,7 @@ function ListPage() {
         $("#sure-button").click(function (){
             apply();
             setTimeout(function (){
-                debugger;
+                // debugger;
                 admin.finishPopupCenterById("table-custom-dialog");
             },100);
         });

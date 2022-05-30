@@ -1,17 +1,22 @@
 package org.github.foxnic.web.session;
 
+import org.github.foxnic.web.domain.hrm.Employee;
+import org.github.foxnic.web.domain.hrm.Organization;
+import org.github.foxnic.web.domain.hrm.Position;
 import org.github.foxnic.web.domain.oauth.User;
+import org.github.foxnic.web.domain.system.Tenant;
+import org.github.foxnic.web.domain.system.UserTenant;
 
 public abstract class SessionUser {
-	
+
 //	private static String SECURITY_CONTEXTHOLDER_CLASS_NAME="org.springframework.security.core.context.SecurityContextHolder";
-	
+
 //	private static Class SECURITY_CONTEXTHOLDER_CLASS=null;
-	
+
 	public SessionUser() {
 //		SECURITY_CONTEXTHOLDER_CLASS=ReflectUtil.forName(SECURITY_CONTEXTHOLDER_CLASS_NAME);
 	}
-	
+
 	/**
 	 * 账户名
 	 * */
@@ -26,12 +31,12 @@ public abstract class SessionUser {
 	 * 账户对象
 	 * */
 	public abstract User getUser();
-	
+
 	/**
 	 * 语言
 	 * */
 	public abstract String getLanguage();
-	
+
 	/**
 	 * 账户ID
 	 * */
@@ -41,8 +46,10 @@ public abstract class SessionUser {
 	 * 获得当前激活租户的ID
 	 * */
 	public String getActivatedTenantId(){
+		UserTenant tenant=this.getUser().getActivatedTenant();
+		if(tenant==null) return null;
 		//此处这样写的原因是，这个配置是一定存在的，如果因为不存在而发生异常，一定是配置错误了，即使这里不报错，其它地方也要报错的
-		return this.getUser().getActivatedTenant().getOwnerTenantId();
+		return tenant.getOwnerTenantId();
 	}
 
 	/**
@@ -50,7 +57,11 @@ public abstract class SessionUser {
 	 * */
 	public String getActivatedCompanyId(){
 		//此处这样写的原因是，这个配置是一定存在的，如果因为不存在而发生异常，一定是配置错误了，即使这里不报错，其它地方也要报错的
-		return this.getUser().getActivatedTenant().getTenant().getCompanyId();
+		UserTenant userTenant=this.getUser().getActivatedTenant();
+		if(userTenant==null) return null;
+		Tenant tenant=userTenant.getTenant();
+		if(tenant==null) return null;
+		return tenant.getCompanyId();
 	}
 
 	/**
@@ -58,7 +69,9 @@ public abstract class SessionUser {
 	 * */
 	public String getActivatedEmployeeId(){
 		//此处这样写的原因是，这个配置是一定存在的，如果因为不存在而发生异常，一定是配置错误了，即使这里不报错，其它地方也要报错的
-		return this.getUser().getActivatedTenant().getEmployeeId();
+		UserTenant tenant=this.getUser().getActivatedTenant();
+		if(tenant==null) return null;
+		return tenant.getEmployeeId();
 	}
 
 	/**
@@ -66,7 +79,13 @@ public abstract class SessionUser {
 	 * */
 	public String getPrimaryPositionId(){
 		//此处这样写的原因是，这个配置是一定存在的，如果因为不存在而发生异常，一定是配置错误了，即使这里不报错，其它地方也要报错的
-		return this.getUser().getActivatedTenant().getEmployee().getPrimaryPosition().getId();
+		UserTenant tenant=this.getUser().getActivatedTenant();
+		if(tenant==null) return null;
+		Employee employee=tenant.getEmployee();
+		if(employee==null) return null;
+		Position position=employee.getPrimaryPosition();
+		if(position==null) return null;
+		return position.getId();
 	}
 
 	/**
@@ -74,9 +93,15 @@ public abstract class SessionUser {
 	 * */
 	public String getPrimaryOrganizationId(){
 		//此处这样写的原因是，这个配置是一定存在的，如果因为不存在而发生异常，一定是配置错误了，即使这里不报错，其它地方也要报错的
-		return this.getUser().getActivatedTenant().getEmployee().getPrimaryOrganization().getId();
+		UserTenant tenant=this.getUser().getActivatedTenant();
+		if(tenant==null) return null;
+		Employee employee=tenant.getEmployee();
+		if(employee==null) return null;
+		Organization organization=employee.getPrimaryOrganization();
+		if(organization==null) return null;
+		return organization.getId();
 	}
-	
+
 	/**
 	 * 权限对象
 	 * */
@@ -91,7 +116,7 @@ public abstract class SessionUser {
 		SessionUser get();
 	}
 
-	public static interface GetInView{
+	public static interface GetInView {
 		SessionUser get();
 	}
 
@@ -104,7 +129,7 @@ public abstract class SessionUser {
 	public static void configGetInView(GetInView gv){
 		getInView=gv;
 	}
-	
+
 	/**
 	 * 获得当前登录的账户
 	 * */
@@ -160,5 +185,5 @@ public abstract class SessionUser {
 //		}
 //		return value;
 //	}
-	
+
 }

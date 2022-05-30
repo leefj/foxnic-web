@@ -1,0 +1,33 @@
+[my-select-1]
+select * from (
+  select t.process_instance_id,task_id,t.status task_status, u.id user_id,u.account,u.real_name,a.assignee_type,a.assignee_id,p.name assignee_name
+  from sys_user u
+  join sys_user_tenant ut on u.id=ut.user_id
+  join hrm_employee e on e.id=ut.employee_id
+  join hrm_person p on e.person_id=p.id
+  join sys_busi_role_member rm on e.id=rm.member_id and rm.member_type='employee'
+  join sys_busi_role r on r.id=rm.role_id and r.valid=1
+  join bpm_task_assignee a on a.assignee_type='busi_role' and a.assignee_id=r.id
+  and ut.owner_tenant_id='T001' and real_name like :P1 and u.create_time>:P2
+  join bpm_task t on t.id=a.task_id
+  where u.deleted=0 and ut.deleted=0 and a.deleted=0 and t.deleted=0  and r.deleted=0
+  union all
+  select t.process_instance_id,task_id,t.status task_status, u.id user_id,u.account,u.real_name,a.assignee_type,a.assignee_id,p.full_name assignee_name from sys_user u
+  join sys_user_tenant ut on u.id=ut.user_id
+  join hrm_employee e on e.id=ut.employee_id
+  join hrm_employee_position ep on e.id=ep.employee_id
+  join hrm_position p on p.id=ep.position_id and p.valid=1
+  join bpm_task_assignee a on a.assignee_type='position' and a.assignee_id=p.id
+  join bpm_task t on t.id=a.task_id
+  where u.deleted=0 and ut.deleted=0 and a.deleted=0 and t.deleted=0  and p.deleted=0 and ep.deleted=0
+  union all
+  select t.process_instance_id,task_id,t.status task_status, u.id user_id,u.account,u.real_name,a.assignee_type,a.assignee_id,u.real_name assignee_name from sys_user u
+  join bpm_task_assignee a on a.assignee_type='user' and a.assignee_id=u.id
+  join bpm_task t on t.id=a.task_id
+  where u.deleted=0 and a.deleted=0 and t.deleted=0
+  and t.node_name like :P3
+  ) t
+where assignee_type=:P4 and process_instance_id is not null  and process_instance_id = 'xxx'
+
+
+

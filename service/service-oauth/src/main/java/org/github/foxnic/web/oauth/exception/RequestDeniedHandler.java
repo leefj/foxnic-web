@@ -35,7 +35,7 @@ public class RequestDeniedHandler implements AccessDeniedHandler {
     @Autowired
     private IMenuService menuService;
 
-	@Override
+    @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
 
         List<Resourze> matchs=resourzeService.getMatchd(request);
@@ -61,5 +61,5 @@ public class RequestDeniedHandler implements AccessDeniedHandler {
         }
 		ResponseUtil.writeOK(response, result);
     }
-	
+
 }

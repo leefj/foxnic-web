@@ -30,6 +30,16 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 $("#"+id).attr("data",url);
             }
         },
+        disableSelectBox:function (id,disabled) {
+            var box = id;
+            if(TypeUtil.isString(id)) {
+                box=this.getSelectBox(id);
+            }
+            if(!box) return;
+            box.doingDisabled=true;
+            box.update({ disabled: disabled });
+            box.doingDisabled=false;
+        },
         selectBoxConfigs:{},
         renderSelectBox: function (cfg,rerender) {
             var me=this;
@@ -45,6 +55,9 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             }
             cfg.refreshCallback=refreshCallback;
             var el = $(cfg.el);
+            if(el.find(".layui-required").length>0) {
+                cfg.layVerify = 'required';
+            }
             if (!cfg.searchTips) cfg.searchTips = "请输入关键字";
             if(cfg.radio && cfg.clickClose==null) {
                 cfg.clickClose=true;
@@ -71,6 +84,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 cfg.remoteSearch = true;
 
                 // cfg.filterable=true;
+
 
                 function query(ps, cb) {
                     //再次重新读取，更改这个值，以便级联
@@ -175,8 +189,14 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                         }
                     }
 
-
-                    query(ps, cb);
+                    var box=me.getSelectBox(cfg.el);
+                    if(box) {
+                        if(!box.doingDisabled) {
+                            query(ps, cb);
+                        }
+                    } else {
+                        query(ps, cb);
+                    }
 
                 }
             }
@@ -186,6 +206,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             console.log("opts", opts);
 
             inst = xmSelect.render(cfg);
+
             setTimeout(function () {
                 //设置值的布局方式
                 if (cfg.valueDirection) {
@@ -242,6 +263,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
         },
         lockForm:function(fm,lock) {
             // debugger;
+            var me=this;
             if(lock) {
                 fm.find("input").attr("placeholder", "");
                 fm.find("input").attr("readonly", "yes");
@@ -255,22 +277,32 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 buttons.attr("disabled", "yes");
                 buttons.removeClass("layui-btn-disabled");
                 buttons.addClass("layui-btn-disabled");
+                function lockSelectDelay(inst) {
+                    if(inst.currentData || inst.getValue()) {
+                        //debugger
+                        //inst.update({disabled: true});
+                        setTimeout(function (){
+                            // inst.update({disabled: true});
+                            me.disableSelectBox(inst,true);
+                        },1000);
+                    } else {
+                        setTimeout(function () {
+                            lockSelectDelay(inst);
+                        }, 100);
+                    }
+                }
                 function disableSelects() {
                     var selects = fm.find("div[input-type=select]");
+                    var ts={};
                     for (var i = 0; i < selects.length; i++) {
                         var id = $(selects[i]).attr("id");
                         var inst=xmSelect.get("#" + id, true);
                         if(inst) {
-                            inst.update({disabled: true});
+                            lockSelectDelay(inst);
                         }
                     }
                 }
                 disableSelects();
-                //补刀
-                for (var i = 0; i < 20; i++) {
-                    setTimeout(disableSelects,500*i);
-                }
-
                 //
                 function disableUploads() {
                     var foxup = layui.foxnicUpload;
@@ -600,14 +632,14 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 var div = $("#layui-table-page" + it.index);
                 var buttons = [];
 
-                if (footer.importExcel) {
+                if(footer.importExcel){
                     var exportExcelTemplateButton = '<button id="layui-table-page' + it.index + '-footer-download-excel-template"  type="button" class="layui-btn layui-btn-primary layui-btn-xs"><i class="fa fa-download"></i> 下载模版</button>';
                     buttons.push(exportExcelTemplateButton);
                     var importExcelButton = '<button id="layui-table-page' + it.index + '-footer-import-excel"  type="button" class="layui-btn layui-btn-primary layui-btn-xs"><i class="fa fa-cloud-upload"></i> 导入数据</button>&nbsp;&nbsp;';
                     buttons.push(importExcelButton);
                 }
 
-                if (footer.exportExcel) {
+                if(footer.exportExcel) {
                     var exportExcelButton = '<button id="layui-table-page' + it.index + '-footer-download-excel"  type="button" class="layui-btn layui-btn-primary layui-btn-xs"><i class="fa fa-cloud-download"></i>  导出数据</button>';
                     buttons.push(exportExcelButton);
                 }
@@ -1266,8 +1298,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             $('input[name="'+checkBoxName+'"]:checked').each(function() {
                 data.push($(this).val());
             });
-            if(data.length==0) return "";
-            else return data.join(",");
+            return data;
         },
         /**
          * 设置复选框的选中清单，参数为参数 name 属性
@@ -1334,7 +1365,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                         if (isTrue) {
                             //提示层风格
                             if (verType === 'tips') {
-                                layer.tips(errorText, function () {
+                                top.layer.tips(errorText, function () {
                                     if (typeof othis.attr('lay-ignore') !== 'string') {
                                         if (item.tagName.toLowerCase() === 'select' || /^checkbox|radio$/.test(item.type)) {
                                             return othis.next()
@@ -1343,9 +1374,9 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                                     return othis
                                 }(), { tips: 1 })
                             } else if (verType === 'alert') {
-                                layer.alert(errorText, { title: '提示', shadeClose: true })
+                                top.layer.alert(errorText, { title: '提示', shadeClose: true })
                             } else {
-                                layer.msg(errorText, { icon: 5, shift: 6 })
+                                top.layer.msg(errorText, { icon: 5, shift: 6 })
                             }
 
                             //非移动设备自动定位焦点
@@ -1410,7 +1441,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             });
 
             if(message) {
-                layer.msg(message, { time: 2000, icon: 5 });
+                top.layer.msg(message, { time: 2000, icon: 5 });
                 return false;
             }
             return true
@@ -1584,6 +1615,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             this.fillEmployeeDialogButtons("pos");
         },
         fillEmployeeDialogButtons:function () {
+            // debugger
             var orgEls=$("button[action-type='emp-dialog']");
             if(orgEls.length==0) return;
             orgEls.find("i").css("opacity",0.0);
@@ -1829,6 +1861,82 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             // 	$form.remove();
             // 	$ifr.remove();
             // },1000);
+        },
+        showMessage:function (result) {
+
+            if(TypeUtil.isString(result)) {
+                top.layer.msg(result, {icon: 1, time: 2000});
+                return;
+            }
+
+            var message=result.message;
+            if(!message) return;
+            var messageLevel=null;
+            if(result.extra) {
+                messageLevel=result.extra.messageLevel;
+            }
+
+            if(result.errors!=null && result.errors.length>0) {
+                var errs=[];
+                for (var i=0;i<result.errors.length;i++) {
+                    var e=result.errors[i];
+                    if(e.subject && e.message) {
+                        errs.push((errs.length+1)+"."+e.subject +" : "+ e.message);
+                    } else  if(!e.subject && e.message) {
+                        errs.push((errs.length+1)+"."+e.message);
+                    } else  if(e.subject && !e.message) {
+                        errs.push((errs.length+1)+"."+e.subject);
+                    }
+                }
+                if(errs.length>0) {
+                    message+=" : <br>"+errs.join("<br>");
+                }
+            }
+
+            var success=result.success;
+            var icon=null;
+            var time=null;
+            // 设置相应成功与失败的
+            if(success) {
+                icon = 1;
+                if(messageLevel==null) {
+                    messageLevel = "notify";
+                }
+            } else {
+                icon = 2;
+                if(messageLevel==null) {
+                    messageLevel = "read";
+                }
+            }
+
+            if(messageLevel=="none") return;
+            if(messageLevel=="notify") {
+                // 每 20 个字1秒
+                time= (message.length*1000/20);
+                if(time<2000) time=500;
+                if(time>=2000 && time<4000) time=2000;
+                if(time>4000) {
+                    messageLevel="confirm";
+                }
+            }
+            if(messageLevel=="read") {
+                // 每 20 个字1秒
+                time= (message.length*1000/20);
+                if(time<2000) time=2000;
+                if(time>8000) {
+                    messageLevel="confirm";
+                }
+            }
+            //
+            if(messageLevel=="confirm") {
+                top.layer.open({
+                    icon: icon,
+                    title: '提示信息',
+                    content: message
+                });
+            } else {
+                top.layer.msg(message, {icon: icon, time: time});
+            }
         }
     };
 
@@ -1938,7 +2046,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             //debugger;
             if (cols[i] && cols[i].field) {
                 var w=th[0].clientWidth;
-                if(hide) w=50;
+                if(hide) w=cols[i].title.length * 15 + 50;
                 cols[i].width = w;
                 var cfg={width:w,hide:hide};
                 cfg.title=cols[i].title;
@@ -2009,6 +2117,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
 
     if (defaultsLangs == null || codeLangs == null) {
         admin.request('/service-system/sys-lang/query-list', {}, function (data) {
+            if(!data.success) return;
             data = data.data;
             codeLangs = {};
             defaultsLangs = {};
@@ -2144,6 +2253,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
     window.fox=foxnic;
 
     exports('foxnic', foxnic);
+
 });
 
 

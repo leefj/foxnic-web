@@ -3,20 +3,21 @@ package org.github.foxnic.web.generator.module;
 import com.github.foxnic.commons.io.FileUtil;
 import com.github.foxnic.generator.util.ModuleCodeGenerator;
 import org.github.foxnic.web.generator.data.DataGenerator;
+import org.github.foxnic.web.generator.module.bpm.*;
 import org.github.foxnic.web.generator.module.changes.*;
 import org.github.foxnic.web.generator.module.dataperm.*;
-import org.github.foxnic.web.generator.module.example.*;
+import org.github.foxnic.web.generator.module.example.CodeExampleMulitPkConfig;
+import org.github.foxnic.web.generator.module.example.ExampleNewsConfig;
 import org.github.foxnic.web.generator.module.hrm.HrmEmployeeConfig;
 import org.github.foxnic.web.generator.module.hrm.HrmPositionConfig;
 import org.github.foxnic.web.generator.module.job.SysJobConfig;
 import org.github.foxnic.web.generator.module.job.SysJobLogConfig;
 import org.github.foxnic.web.generator.module.job.SysJobWorkerConfig;
-import org.github.foxnic.web.generator.module.oauth.SysResourzeConfig;
 import org.github.foxnic.web.generator.module.oauth.SysUserConfig;
 import org.github.foxnic.web.generator.module.pcm.PcmCatalogAllocationConfig;
 import org.github.foxnic.web.generator.module.pcm.PcmCatalogAttributeConfig;
 import org.github.foxnic.web.generator.module.pcm.PcmCatalogConfig;
-import org.github.foxnic.web.generator.module.system.SysProfileConfig;
+import org.github.foxnic.web.generator.module.system.TenantConfig;
 
 import java.io.File;
 
@@ -32,19 +33,25 @@ public class CodeStarter extends ModuleCodeGenerator {
         g.start();
     }
 
-    public void initModules()
-    {
+    public void initModules() {
 
 //        initPcmModules();
 //        initOAuthModules();
 //        initSystemModules();
 //        initHrmModules();
-        initExampleModules();
+//        initExampleModules();
 //        initChangeModule1s();
-//        initBpmModules();
+        initBpmModules();
 //        initDatapermModules();
+//
+//        initExample2Modules();
 //        initJobModules();
+    }
 
+
+
+    private void initExample2Modules() {
+        this.addConfig(new ExampleNewsConfig());
     }
 
     private void initDatapermModules() {
@@ -61,7 +68,23 @@ public class CodeStarter extends ModuleCodeGenerator {
     }
 
     private void initBpmModules() {
-
+        this.addConfig(new ProcessDefinitionConfig());
+        this.addConfig(new ProcessDefinitionFileConfig());
+        this.addConfig(new ProcessDefinitionNodeConfig());
+        this.addConfig(new ProcessDefinitionNodeAssigneeConfig());
+//        this.addConfig(new ProcessInitiatorConfig());
+//        this.addConfig(new ProcessDefinitionApplyConfig());
+        //
+        this.addConfig(new ProcessInstanceConfig());
+        //
+        this.addConfig(new FormDefinitionConfig());
+        this.addConfig(new FormInstanceConfig());
+        this.addConfig(new FormInstanceBillConfig());
+        this.addConfig(new TaskConfig());
+        this.addConfig(new TaskAssigneeConfig());
+        this.addConfig(new TaskApprovalConfig());
+        //
+        this.addConfig(new DemoLeaveConfig());
     }
 
     private void  initChangeModules() {
@@ -101,7 +124,7 @@ public class CodeStarter extends ModuleCodeGenerator {
 
     private void initOAuthModules() {
         this.addConfig(new SysUserConfig());
-        this.addConfig(new SysResourzeConfig());
+//        this.addConfig(new SysResourzeConfig());
 
 
     }
@@ -122,13 +145,13 @@ public class CodeStarter extends ModuleCodeGenerator {
 
 //        this.addConfig(new SysDictConfig());
 //        this.addConfig(new SysConfigConfig());
-        this.addConfig(new SysProfileConfig());
+//        this.addConfig(new SysProfileConfig());
 //        this.addConfig(new SysDictItemConfig());
 //        this.addConfig(new SysFileConfig());
         //
 //        this.addConfig(new SequenceConfig());
 //        this.addConfig(new UserTenantConfig());
-//        this.addConfig(new TenantConfig());
+        this.addConfig(new TenantConfig());
 
 
     }

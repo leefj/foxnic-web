@@ -1,7 +1,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-12 16:58:53
+ * @since 2022-04-20 13:14:35
  */
 
 
@@ -74,8 +74,8 @@ function ListPage() {
 				cols: [[
 					{ fixed: 'left',type: 'numbers' },
 					{ fixed: 'left',type:'checkbox'}
-					,{ field: 'name', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('账户') , templet: function (d) { return templet('name',d.name,d);}  }
-					,{ field: 'realName', align:"",fixed:false,  hide:false, sort: false  , title: fox.translate('姓名') , templet: function (d) { return templet('realName',fox.getProperty(d,["joinedTenants","employee","person","name"]),d);} }
+					,{ field: 'account', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('账户') , templet: function (d) { return templet('account',d.account,d);}  }
+					,{ field: 'realName', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('姓名') , templet: function (d) { return templet('realName',d.realName,d);}  }
 					,{ field: 'portraitId', align:"center", fixed:false, hide:false, sort: false   , title: fox.translate('头像'), templet: function (d) { return '<img style="height:100%;" fileType="image/png" onclick="window.previewImage(this)"  src="'+apiurls.storage.image+'?id='+ d.portraitId+'" />'; } }
 					,{ field: 'language', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('语言'), templet:function (d){ return templet('language',fox.getEnumText(RADIO_LANGUAGE_DATA,d.language),d);}}
 					,{ field: 'phone', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('手机') , templet: function (d) { return templet('phone',d.phone,d);}  }
@@ -121,22 +121,39 @@ function ListPage() {
     };
 
 	/**
+	 * 刷新单号数据
+	 * */
+	function refreshRowData(data,remote) {
+		var context=dataTable.getDataRowContext( { id : data.id } );
+		if(context==null) return;
+		if(remote) {
+			admin.post(moduleURL+"/get-by-id", { id : data.id }, function (r) {
+				if (r.success) {
+					data = r.data;
+					context.update(data);
+					fox.renderFormInputs(form);
+				} else {
+					fox.showMessage(data);
+				}
+			});
+		} else {
+			context.update(data);
+			fox.renderFormInputs(form);
+		}
+	}
+
+	/**
       * 刷新表格数据
       */
 	function refreshTableData(sortField,sortType,reset) {
 		function getSelectedValue(id,prop) { var xm=xmSelect.get(id,true); return xm==null ? null : xm.getValue(prop);}
 		var value = {};
-		value.name={ inputType:"button",value: $("#name").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" };
-		value.realName={ inputType:"button",value: $("#realName").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" ,fillBy:["joinedTenants","employee","person","name"] ,field:"hrm_person.name"};
-		value.portraitId={ inputType:"button",value: $("#portraitId").val()};
+		value.account={ inputType:"button",value: $("#account").val() ,fuzzy: true,splitValue:false,valuePrefix:"",valueSuffix:"" };
+		value.realName={ inputType:"button",value: $("#realName").val() ,fuzzy: true,splitValue:false,valuePrefix:"",valueSuffix:"" };
 		value.language={ inputType:"radio_box", value: getSelectedValue("#language","value"), label:getSelectedValue("#language","nameStr") };
-		value.phone={ inputType:"button",value: $("#phone").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" };
+		value.phone={ inputType:"button",value: $("#phone").val() ,fuzzy: true,splitValue:false,valuePrefix:"",valueSuffix:"" };
 		value.valid={ inputType:"logic_switch",value: getSelectedValue("#valid","value"), label:getSelectedValue("#valid","nameStr") };
 		value.roleIds={ inputType:"select_box", value: getSelectedValue("#roleIds","value") ,fillBy:["roles"]  ,field:"sys_role.id", label:getSelectedValue("#roleIds","nameStr") };
-		value.id={ inputType:"button",value: $("#id").val()};
-		value.passwd={ inputType:"button",value: $("#passwd").val()};
-		value.cacheKey={ inputType:"button",value: $("#cacheKey").val()};
-		value.lastLoginTime={ inputType:"date_input", value: $("#lastLoginTime").val() ,matchType:"auto"};
 		value.createTime={ inputType:"date_input", value: $("#createTime").val() ,matchType:"auto"};
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
@@ -336,10 +353,10 @@ function ListPage() {
 							var doNext=window.pageExt.list.afterBatchDelete(data);
 							if(!doNext) return;
 						}
-                    	top.layer.msg(data.message, {icon: 1, time: 500});
+						fox.showMessage(data);
                         refreshTableData();
                     } else {
-						top.layer.msg(data.message, {icon: 2, time: 1500});
+						fox.showMessage(data);
                     }
                 });
 			});
@@ -367,7 +384,7 @@ function ListPage() {
 						admin.putTempData('sys-user-form-data-form-action', "edit",true);
 						showEditForm(data.data);
 					} else {
-						 top.layer.msg(data.message, {icon: 1, time: 1500});
+						 fox.showMessage(data);
 					}
 				});
 			} else if (layEvent === 'view') { // 查看
@@ -376,7 +393,7 @@ function ListPage() {
 						admin.putTempData('sys-user-form-data-form-action', "view",true);
 						showEditForm(data.data);
 					} else {
-						top.layer.msg(data.message, {icon: 1, time: 1500});
+						fox.showMessage(data);
 					}
 				});
 			}
@@ -397,10 +414,10 @@ function ListPage() {
 								var doNext=window.pageExt.list.afterSingleDelete(data);
 								if(!doNext) return;
 							}
-							top.layer.msg(data.message, {icon: 1, time: 500});
+							fox.showMessage(data);
 							refreshTableData();
 						} else {
-							top.layer.msg(data.message, {icon: 2, time: 1500});
+							fox.showMessage(data);
 						}
 					});
 				});
@@ -445,13 +462,19 @@ function ListPage() {
 			id:"sys-user-form-data-win",
 			content: '/business/oauth/user/user_form.html' + (queryString?("?"+queryString):""),
 			finish: function () {
-				refreshTableData();
+				if(action=="create") {
+					refreshTableData();
+				}
+				if(action=="edit") {
+					false?refreshTableData():refreshRowData(data,true);
+				}
 			}
 		});
 	};
 
 	window.module={
 		refreshTableData: refreshTableData,
+		refreshRowData: refreshRowData,
 		getCheckedList: getCheckedList
 	};
 

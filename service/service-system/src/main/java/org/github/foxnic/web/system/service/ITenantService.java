@@ -21,26 +21,35 @@ import com.github.foxnic.dao.data.SaveMode;
  * 租户表 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-27 09:33:47
+ * @since 2022-03-22 11:16:15
 */
 
 public interface ITenantService extends ISuperService<Tenant> {
-	
+
 	/**
-	 * 插入实体
-	 * @param tenant 实体数据
+	 * 添加，如果语句错误，则抛出异常
+	 * @param tenant 数据对象
 	 * @return 插入是否成功
 	 * */
 	Result insert(Tenant tenant);
- 
+
+	/**
+	 * 添加，根据 throwsException 参数抛出异常或返回 Result 对象
+	 *
+	 * @param tenant  数据对象
+	 * @param throwsException 是否抛出异常，如果不抛出异常，则返回一个失败的 Result 对象
+	 * @return 结果 , 如果失败返回 false，成功返回 true
+	 */
+	Result insert(Tenant tenant,boolean throwsException);
+
 	/**
 	 * 批量插入实体，事务内
 	 * @param tenantList 实体数据清单
 	 * @return 插入是否成功
 	 * */
 	Result insertList(List<Tenant> tenantList);
-	
-	
+
+
 		
 	/**
 	 * 按主键删除 租户
@@ -57,21 +66,21 @@ public interface ITenantService extends ISuperService<Tenant> {
 	 * @return 删除是否成功
 	 */
 	Result deleteByIdLogical(String id);
-	
+
 	/**
 	 * 批量物理删除，仅支持单字段主键表
 	 * @param ids 主键清单
 	 * @return 是否删除成功
 	 * */
 	<T> Result deleteByIdsPhysical(List<T> ids);
-	
+
 	/**
 	 * 批量逻辑删除，仅支持单字段主键表
 	 * @param ids 主键清单
 	 * @return 是否删除成功
 	 * */
 	<T> Result deleteByIdsLogical(List<T> ids);
-	
+
 		
 	/**
 	 * 按主键更新字段 租户
@@ -80,16 +89,27 @@ public interface ITenantService extends ISuperService<Tenant> {
 	 * @return 是否更新成功
 	 */
 	boolean update(DBField field,Object value , String id);
-	
+
 	/**
-	 * 更新实体
+	 * 更新，如果执行错误，则抛出异常
 	 * @param tenant 数据对象
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
 	Result update(Tenant tenant , SaveMode mode);
-	
-	
+
+
+	/**
+	 * 更新，根据 throwsException 参数抛出异常或返回 Result 对象
+	 *
+	 * @param tenant 数据对象
+	 * @param mode SaveMode,数据更新的模式
+	 * @param throwsException 是否抛出异常，如果不抛出异常，则返回一个失败的 Result 对象
+	 * @return 结果
+	 */
+	Result update(Tenant tenant , SaveMode mode,boolean throwsException);
+
+
 	/**
 	 * 更新实体集，事务内
 	 * @param tenantList 数据对象列表
@@ -97,15 +117,24 @@ public interface ITenantService extends ISuperService<Tenant> {
 	 * @return 保存是否成功
 	 * */
 	Result updateList(List<Tenant> tenantList, SaveMode mode);
-	
+
 	/**
-	 * 保存实体，如果主键值不为 null，则更新，否则插入
+	 * 保存实体，根据 throwsException 参数抛出异常或返回 Result 对象
+	 * @param tenant 实体数据
+	 * @param mode 保存模式
+	 * @param throwsException 是否抛出异常，如果不抛出异常，则返回一个失败的 Result 对象
+	 * @return 保存是否成功
+	 * */
+	Result save(Tenant tenant , SaveMode mode,boolean throwsException);
+
+	/**
+	 * 保存实体，如果语句错误，则抛出异常
 	 * @param tenant 实体数据
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
 	Result save(Tenant tenant , SaveMode mode);
-	
+
 	/**
 	 * 保存实体，如果主键值不为null，则更新，否则插入
 	 * @param tenantList 实体数据清单
@@ -113,15 +142,15 @@ public interface ITenantService extends ISuperService<Tenant> {
 	 * @return 保存是否成功
 	 * */
 	Result saveList(List<Tenant> tenantList , SaveMode mode);
-	
+
 	/**
-	 * 检查实体中的数据字段是否已经存在
+	 * 检查实体中的数据字段是否已经存在 . 判断 主键值不同，但指定字段的值相同的记录是否存在
 	 * @param tenant  实体对象
 	 * @param field  字段清单，至少指定一个
 	 * @return 是否已经存在
 	 * */
 	boolean checkExists(Tenant tenant,DBField... field);
- 
+
 		
 	/**
 	 * 按主键获取 租户
@@ -130,31 +159,31 @@ public interface ITenantService extends ISuperService<Tenant> {
 	 * @return Tenant 数据对象
 	 */
 	Tenant getById(String id);
-		
+
 	/**
-	 * 检查实体中的数据字段是否已经存在
+	 * 按 id 获取多个对象
 	 * @param ids  主键清单
 	 * @return 实体集
 	 * */
 	List<Tenant> getByIds(List<String> ids);
 
 	/**
-	 * 检查 角色 是否已经存在
+	 * 检查 实体 是否已经存在 , 判断 主键值不同，但指定字段的值相同的记录是否存在
 	 *
 	 * @param tenant 数据对象
 	 * @return 判断结果
 	 */
-	Result<Tenant> checkExists(Tenant tenant);
+	Boolean checkExists(Tenant tenant);
 
 	/**
-	 * 根据实体数构建默认的条件表达式，字符串使用模糊匹配
+	 * 根据实体数构建默认的条件表达式, 不支持 Join 其它表
 	 * @param sample 数据样例
 	 * @return ConditionExpr 条件表达式
 	 * */
 	ConditionExpr buildQueryCondition(Tenant sample);
-	
+
 	/**
-	 * 根据实体数构建默认的条件表达式, 字符串是否使用模糊匹配
+	 * 根据实体数构建默认的条件表达式, 不支持 Join 其它表
 	 * @param sample 数据样例
 	 * @param tableAliase 数据表别名
 	 * 	@return ConditionExpr 条件表达式
@@ -167,7 +196,7 @@ public interface ITenantService extends ISuperService<Tenant> {
 	 * @return 查询结果
 	 * */
 	List<Tenant> queryList(Tenant sample);
- 
+
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
 	 * @param sample  查询条件
@@ -176,7 +205,7 @@ public interface ITenantService extends ISuperService<Tenant> {
 	 * @return 查询结果
 	 * */
 	List<Tenant> queryList(Tenant sample,ConditionExpr condition,OrderBy orderBy);
-	
+
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
 	 * @param sample  查询条件
@@ -184,7 +213,7 @@ public interface ITenantService extends ISuperService<Tenant> {
 	 * @return 查询结果
 	 * */
 	List<Tenant> queryList(Tenant sample,OrderBy orderBy);
-	
+
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
 	 * @param sample  查询条件
@@ -192,14 +221,14 @@ public interface ITenantService extends ISuperService<Tenant> {
 	 * @return 查询结果
 	 * */
 	List<Tenant> queryList(Tenant sample,ConditionExpr condition);
-	
+
 	/**
 	 * 查询单个实体
 	 * @param sample  查询条件
 	 * @return 查询结果
 	 * */
 	Tenant queryEntity(Tenant sample);
-	
+
 	/**
 	 * 分页查询实体集
 	 * @param sample  查询条件
@@ -208,7 +237,7 @@ public interface ITenantService extends ISuperService<Tenant> {
 	 * @return 查询结果
 	 * */
 	PagedList<Tenant> queryPagedList(Tenant sample,int pageSize,int pageIndex);
-	
+
 	/**
 	 * 分页查询实体集
 	 * @param sample  查询条件
@@ -219,7 +248,7 @@ public interface ITenantService extends ISuperService<Tenant> {
 	 * @return 查询结果
 	 * */
 	PagedList<Tenant> queryPagedList(Tenant sample,ConditionExpr condition,OrderBy orderBy,int pageSize,int pageIndex);
-	
+
 	/**
 	 * 分页查询实体集
 	 * @param sample  查询条件
@@ -229,7 +258,7 @@ public interface ITenantService extends ISuperService<Tenant> {
 	 * @return 查询结果
 	 * */
 	PagedList<Tenant> queryPagedList(Tenant sample,ConditionExpr condition,int pageSize,int pageIndex);
-	
+
 	/**
 	 * 分页查询实体集
 	 * @param sample  查询条件
@@ -239,7 +268,7 @@ public interface ITenantService extends ISuperService<Tenant> {
 	 * @return 查询结果
 	 * */
 	PagedList<Tenant> queryPagedList(Tenant sample,OrderBy orderBy,int pageSize,int pageIndex);
- 
+
  	/**
 	 * 查询指定字段的数据清单
 	 * @param <T> 元素类型
@@ -249,7 +278,7 @@ public interface ITenantService extends ISuperService<Tenant> {
 	 * @return 列数据
 	 * */
 	<T> List<T> queryValues(DBField field,Class<T> type, ConditionExpr condition);
- 
+
 	/**
 	 * 查询指定字段的数据清单
 	 * @param <T> 元素类型
@@ -284,5 +313,5 @@ public interface ITenantService extends ISuperService<Tenant> {
 	 * */
 	List<ValidateResult> importExcel(InputStream input,int sheetIndex,boolean batch);
 
- 
+
 }

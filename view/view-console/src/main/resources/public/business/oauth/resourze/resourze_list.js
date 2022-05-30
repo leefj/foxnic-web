@@ -1,7 +1,7 @@
 /**
  * 系统资源 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-20 14:50:58
+ * @since 2022-03-10 16:43:04
  */
 
 
@@ -114,6 +114,26 @@ function ListPage() {
 		}
 		setTimeout(renderTableInternal,1);
     };
+
+	/**
+	 * 刷新单号数据
+	 * */
+	function refreshRowData(data,remote) {
+		var context=dataTable.getDataRowContext( { id : data.id } );
+		if(context==null) return;
+		if(remote) {
+			admin.post(moduleURL+"/get-by-id", { id : data.id }, function (r) {
+				if (r.success) {
+					data = r.data;
+					context.update(data);
+				} else {
+					top.layer.msg(data.message, {icon: 1, time: 1500});
+				}
+			});
+		} else {
+			context.update(data);
+		}
+	}
 
 	/**
       * 刷新表格数据
@@ -416,13 +436,19 @@ function ListPage() {
 			id:"sys-resourze-form-data-win",
 			content: '/business/oauth/resourze/resourze_form.html' + (queryString?("?"+queryString):""),
 			finish: function () {
-				refreshTableData();
+				if(action=="create") {
+					refreshTableData();
+				}
+				if(action=="edit") {
+					false?refreshTableData():refreshRowData(data,true);
+				}
 			}
 		});
 	};
 
 	window.module={
 		refreshTableData: refreshTableData,
+		refreshRowData: refreshRowData,
 		getCheckedList: getCheckedList
 	};
 

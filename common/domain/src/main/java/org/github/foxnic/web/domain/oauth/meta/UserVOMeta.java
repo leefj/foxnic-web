@@ -14,7 +14,7 @@ import org.github.foxnic.web.domain.system.UserTenant;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-12 16:58:53
+ * @since 2022-04-20 13:14:31
  * @sign 0258A0A69C7952BA43C3A72EE01FD173
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -134,12 +134,22 @@ public class UserVOMeta extends UserMeta {
 	/**
 	 * 账户 , 类型: java.lang.String
 	*/
-	public static final String NAME="name";
+	public static final String ACCOUNT="account";
 	
 	/**
 	 * 账户 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.oauth.UserVO,java.lang.String> NAME_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.UserVO.class ,NAME, java.lang.String.class, "账户", "账户", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.UserVO,java.lang.String> ACCOUNT_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.UserVO.class ,ACCOUNT, java.lang.String.class, "账户", "账户", java.lang.String.class, null);
+	
+	/**
+	 * 姓名 , 类型: java.lang.String
+	*/
+	public static final String REAL_NAME="realName";
+	
+	/**
+	 * 姓名 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.UserVO,java.lang.String> REAL_NAME_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.UserVO.class ,REAL_NAME, java.lang.String.class, "姓名", "姓名", java.lang.String.class, null);
 	
 	/**
 	 * 密码 , 类型: java.lang.String
@@ -364,7 +374,7 @@ public class UserVOMeta extends UserMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ROLE_IDS , ID , NAME , PASSWD , PHONE , PORTRAIT_ID , LANGUAGE , VALID , CACHE_KEY , LAST_LOGIN_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , ROLES , MENUS , ROLE_MENUS , JOINED_TENANTS , ACTIVATED_TENANT , ACTIVATED_EMPLOYEE_ID , ACTIVATED_EMPLOYEE_NAME };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ROLE_IDS , ID , ACCOUNT , REAL_NAME , PASSWD , PHONE , PORTRAIT_ID , LANGUAGE , VALID , CACHE_KEY , LAST_LOGIN_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , ROLES , MENUS , ROLE_MENUS , JOINED_TENANTS , ACTIVATED_TENANT , ACTIVATED_EMPLOYEE_ID , ACTIVATED_EMPLOYEE_NAME };
 	
 	/**
 	 * 代理类
@@ -497,12 +507,23 @@ public class UserVOMeta extends UserMeta {
 		
 		/**
 		 * 设置 账户
-		 * @param name 账户
+		 * @param account 账户
 		 * @return 当前对象
 		*/
-		public User setName(String name) {
-			super.change(NAME,super.getName(),name);
-			super.setName(name);
+		public User setAccount(String account) {
+			super.change(ACCOUNT,super.getAccount(),account);
+			super.setAccount(account);
+			return this;
+		}
+		
+		/**
+		 * 设置 姓名
+		 * @param realName 姓名
+		 * @return 当前对象
+		*/
+		public User setRealName(String realName) {
+			super.change(REAL_NAME,super.getRealName(),realName);
+			super.setRealName(realName);
 			return this;
 		}
 		

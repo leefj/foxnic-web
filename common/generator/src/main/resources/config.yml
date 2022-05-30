@@ -29,8 +29,11 @@ compoments:
 applications:
   #系统服务
   service-system:
+    # 如果使用 nacos 指定分组
     nacosGroup: service
+    # 如果使用 nacos 指定 dataId
     nacosDataId: service-system.yml
+    # 服务项目路径
     serviceProjectPath:  /service/service-system
     packageName: org.github.foxnic.web.system
     primaryDatasourceConfigKey: spring.datasource.druid.primary
@@ -73,6 +76,8 @@ applications:
     wrapperProjectPath:  /wrapper/wrapper-all-service
   #PCM  属性自定义服务
   service-pcm:
+    # 非开源
+    advance: true
     nacosGroup: service
     nacosDataId: service-pcm.yml
     serviceProjectPath: /service/service-pcm
@@ -84,6 +89,8 @@ applications:
     wrapperProjectPath:  /wrapper/wrapper-all-service
   #Changes  变更服务
   service-changes:
+    # 非开源
+    advance: true
     nacosGroup: service
     nacosDataId: service-changes.yml
     serviceProjectPath: /service/service-changes
@@ -93,19 +100,22 @@ applications:
     viewProjectPath: /view/view-console
     viewPrefixPath: public/business/changes
     wrapperProjectPath:  /wrapper/wrapper-all-service
-  #Changes  变更服务
+  #流程服务
   service-bpm:
+    # 非开源
+    advance: true
     nacosGroup: service
     nacosDataId: service-bpm.yml
     serviceProjectPath: /service/service-bpm
     packageName: org.github.foxnic.web.bpm
     primaryDatasourceConfigKey: spring.datasource.druid.primary
     microServiceNameConst: BPM
-    viewProjectPath: /view/view-console
+    viewProjectPath: /view/view-bpm
     viewPrefixPath: public/business/bpm
     wrapperProjectPath:  /wrapper/wrapper-all-service
   #数据权限
   service-dataperm:
+    advance: true
     nacosGroup: service
     nacosDataId: service-dataperm.yml
     serviceProjectPath: /service/service-dataperm
@@ -125,5 +135,25 @@ applications:
     microServiceNameConst: JOB
     viewProjectPath: /view/view-console
     viewPrefixPath: public/business/job
+    wrapperProjectPath:  /wrapper/wrapper-all-service
+  #示例
+  service-example:
+    # 如果使用 nacos 指定分组
+    nacosGroup: service
+    # 如果使用 nacos 指定 dataId
+    nacosDataId: service-example.yml
+    # service 的项目路径
+    serviceProjectPath: /service/service-example
+    # 包名
+    packageName: org.github.foxnic.web.example
+    # 主数据源配置键
+    primaryDatasourceConfigKey: spring.datasource.druid.primary
+    # 微服务常量名
+    microServiceNameConst: EXAMPLE
+    # 视图项目路径
+    viewProjectPath: /view/view-example
+    # 视图代码路径前缀
+    viewPrefixPath: public/business/example
+    # 聚合项目，用于读取配置
     wrapperProjectPath:  /wrapper/wrapper-all-service
 

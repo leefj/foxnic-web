@@ -382,9 +382,9 @@ function FormPage() {
 		if(!data.valid) data.valid=0;
 
 		//处理 复选框(枚举) 默认值
-		data["checkEnum"]=fox.getCheckedValue("checkEnum");
+		data["checkEnum"]=fox.getCheckedValue("checkEnum").join(",");
 		//处理 状态 默认值
-		data["checkDict"]=fox.getCheckedValue("checkDict");
+		data["checkDict"]=fox.getCheckedValue("checkDict").join(",");
 
 		//获取 选择框(枚举) 下拉框的值
 		data["selectEnum"]=fox.getSelectedValue("selectEnum",false);

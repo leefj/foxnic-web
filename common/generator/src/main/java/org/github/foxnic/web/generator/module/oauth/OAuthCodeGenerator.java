@@ -20,9 +20,9 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 //		g.generateSysMenuResource();
 //		g.generateSysUser(); //ok
 //		g.generateSysOAuthClient();
-		g.generateSysSessionOnline();
+//		g.generateSysSessionOnline();
 //		g.generateSysToken();
-//		g.generateSysRole();
+		g.generateSysRole();
 //		g.generateSysRoleUser();
 //		g.generateSysMenu();
 //		g.generateSysRoleMenu();
@@ -87,7 +87,7 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 
 		cfg.view().field(SYS_SESSION_ONLINE.USER_ID)
 			.basic().label("账户")
-			.table().fillBy(SessionOnlineMeta.USER,UserMeta.NAME)
+			.table().fillBy(SessionOnlineMeta.USER,UserMeta.REAL_NAME)
 			.search().hidden();
 
 

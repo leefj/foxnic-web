@@ -55,9 +55,10 @@ public class UserController extends SuperController {
 	@ApiOperation(value = "添加账户")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = UserVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "110588348101165000"),
-		@ApiImplicitParam(name = UserVOMeta.NAME , value = "账户" , required = false , dataTypeClass=String.class , example = "test"),
-		@ApiImplicitParam(name = UserVOMeta.PASSWD , value = "密码" , required = false , dataTypeClass=String.class , example = "******"),
-		@ApiImplicitParam(name = UserVOMeta.PHONE , value = "手机号码" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = UserVOMeta.ACCOUNT , value = "账户" , required = true , dataTypeClass=String.class , example = "admin"),
+		@ApiImplicitParam(name = UserVOMeta.REAL_NAME , value = "姓名" , required = true , dataTypeClass=String.class),
+		@ApiImplicitParam(name = UserVOMeta.PASSWD , value = "密码" , required = true , dataTypeClass=String.class , example = "******"),
+		@ApiImplicitParam(name = UserVOMeta.PHONE , value = "手机号码" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = UserVOMeta.PORTRAIT_ID , value = "头像ID" , required = false , dataTypeClass=String.class , example = "1110"),
 		@ApiImplicitParam(name = UserVOMeta.LANGUAGE , value = "语言" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = UserVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class , example = "1"),
@@ -74,7 +75,7 @@ public class UserController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 删除账户
 	*/
@@ -92,8 +93,8 @@ public class UserController extends SuperController {
 		result.success(suc);
 		return result;
 	}
-	
-	
+
+
 	/**
 	 * 批量删除账户 <br>
 	 * 联合主键时，请自行调整实现
@@ -102,7 +103,7 @@ public class UserController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = UserVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 	})
-	@ApiOperationSupport(order=3) 
+	@ApiOperationSupport(order=3)
 	@NotNull(name = UserVOMeta.IDS)
 	@SentinelResource(value = UserServiceProxy.BATCH_DELETE)
 	@PostMapping(UserServiceProxy.BATCH_DELETE)
@@ -110,23 +111,24 @@ public class UserController extends SuperController {
 		Result result=userService.deleteByIdsLogical(ids);
 		return result;
 	}
-	
+
 	/**
 	 * 更新账户
 	*/
 	@ApiOperation(value = "更新账户")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = UserVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "110588348101165000"),
-		@ApiImplicitParam(name = UserVOMeta.NAME , value = "账户" , required = false , dataTypeClass=String.class , example = "test"),
-		@ApiImplicitParam(name = UserVOMeta.PASSWD , value = "密码" , required = false , dataTypeClass=String.class , example = "******"),
-		@ApiImplicitParam(name = UserVOMeta.PHONE , value = "手机号码" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = UserVOMeta.ACCOUNT , value = "账户" , required = true , dataTypeClass=String.class , example = "admin"),
+		@ApiImplicitParam(name = UserVOMeta.REAL_NAME , value = "姓名" , required = true , dataTypeClass=String.class),
+		@ApiImplicitParam(name = UserVOMeta.PASSWD , value = "密码" , required = true , dataTypeClass=String.class , example = "******"),
+		@ApiImplicitParam(name = UserVOMeta.PHONE , value = "手机号码" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = UserVOMeta.PORTRAIT_ID , value = "头像ID" , required = false , dataTypeClass=String.class , example = "1110"),
 		@ApiImplicitParam(name = UserVOMeta.LANGUAGE , value = "语言" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = UserVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class , example = "1"),
 		@ApiImplicitParam(name = UserVOMeta.CACHE_KEY , value = "缓存键" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = UserVOMeta.LAST_LOGIN_TIME , value = "最后登录时间" , required = false , dataTypeClass=Date.class , example = "2021-05-31 03:09:23"),
 	})
-	@ApiOperationSupport( order=4 , ignoreParameters = { UserVOMeta.PAGE_INDEX , UserVOMeta.PAGE_SIZE , UserVOMeta.SEARCH_FIELD , UserVOMeta.SEARCH_VALUE , UserVOMeta.IDS } ) 
+	@ApiOperationSupport( order=4 , ignoreParameters = { UserVOMeta.PAGE_INDEX , UserVOMeta.PAGE_SIZE , UserVOMeta.SEARCH_FIELD , UserVOMeta.SEARCH_VALUE , UserVOMeta.IDS } )
 	@NotNull(name = UserVOMeta.ID)
 	@NotNull(name = UserVOMeta.VALID)
 	@SentinelResource(value = UserServiceProxy.UPDATE)
@@ -142,9 +144,10 @@ public class UserController extends SuperController {
 	@ApiOperation(value = "保存账户")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = UserVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "110588348101165000"),
-		@ApiImplicitParam(name = UserVOMeta.NAME , value = "账户" , required = false , dataTypeClass=String.class , example = "test"),
-		@ApiImplicitParam(name = UserVOMeta.PASSWD , value = "密码" , required = false , dataTypeClass=String.class , example = "******"),
-		@ApiImplicitParam(name = UserVOMeta.PHONE , value = "手机号码" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = UserVOMeta.ACCOUNT , value = "账户" , required = true , dataTypeClass=String.class , example = "admin"),
+		@ApiImplicitParam(name = UserVOMeta.REAL_NAME , value = "姓名" , required = true , dataTypeClass=String.class),
+		@ApiImplicitParam(name = UserVOMeta.PASSWD , value = "密码" , required = true , dataTypeClass=String.class , example = "******"),
+		@ApiImplicitParam(name = UserVOMeta.PHONE , value = "手机号码" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = UserVOMeta.PORTRAIT_ID , value = "头像ID" , required = false , dataTypeClass=String.class , example = "1110"),
 		@ApiImplicitParam(name = UserVOMeta.LANGUAGE , value = "语言" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = UserVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class , example = "1"),
@@ -161,7 +164,7 @@ public class UserController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 获取账户
 	*/
@@ -179,8 +182,26 @@ public class UserController extends SuperController {
 		result.success(true).data(role);
 		return result;
 	}
-	
-	
+
+	/**
+	 * 获取账户
+	 */
+	@ApiOperation(value = "获取多个账户")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = UserVOMeta.IDS , value = "主键集合" , required = true , dataTypeClass=String.class , example = "['1','2','3']"),
+	})
+	@ApiOperationSupport(order=6)
+	@NotNull(name = UserVOMeta.IDS)
+	@SentinelResource(value = UserServiceProxy.GET_BY_IDS)
+	@PostMapping(UserServiceProxy.GET_BY_IDS)
+	public Result<List<User>> getByIds(List<String> ids) {
+		Result<List<User>> result=new Result<>();
+		List<User> users=userService.getByIds(ids);
+		result.success(true).data(users);
+		return result;
+	}
+
+
 	/**
 	 * 获取账户
 	*/
@@ -195,16 +216,17 @@ public class UserController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 查询账户
 	*/
 	@ApiOperation(value = "查询账户")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = UserVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "110588348101165000"),
-		@ApiImplicitParam(name = UserVOMeta.NAME , value = "账户" , required = false , dataTypeClass=String.class , example = "test"),
-		@ApiImplicitParam(name = UserVOMeta.PASSWD , value = "密码" , required = false , dataTypeClass=String.class , example = "******"),
-		@ApiImplicitParam(name = UserVOMeta.PHONE , value = "手机号码" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = UserVOMeta.ACCOUNT , value = "账户" , required = true , dataTypeClass=String.class , example = "admin"),
+		@ApiImplicitParam(name = UserVOMeta.REAL_NAME , value = "姓名" , required = true , dataTypeClass=String.class),
+		@ApiImplicitParam(name = UserVOMeta.PASSWD , value = "密码" , required = true , dataTypeClass=String.class , example = "******"),
+		@ApiImplicitParam(name = UserVOMeta.PHONE , value = "手机号码" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = UserVOMeta.PORTRAIT_ID , value = "头像ID" , required = false , dataTypeClass=String.class , example = "1110"),
 		@ApiImplicitParam(name = UserVOMeta.LANGUAGE , value = "语言" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = UserVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class , example = "1"),
@@ -224,21 +246,22 @@ public class UserController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 分页查询账户
 	*/
 	@ApiOperation(value = "分页查询账户")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = UserVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "110588348101165000"),
-		@ApiImplicitParam(name = UserVOMeta.NAME , value = "账户" , required = false , dataTypeClass=String.class , example = "test"),
-		@ApiImplicitParam(name = UserVOMeta.PASSWD , value = "密码" , required = false , dataTypeClass=String.class , example = "******"),
-		@ApiImplicitParam(name = UserVOMeta.PHONE , value = "手机号码" , required = false , dataTypeClass=String.class),
+		@ApiImplicitParam(name = UserVOMeta.ACCOUNT , value = "账户" , required = true , dataTypeClass=String.class , example = "admin"),
+		@ApiImplicitParam(name = UserVOMeta.REAL_NAME , value = "姓名" , required = true , dataTypeClass=String.class),
+		@ApiImplicitParam(name = UserVOMeta.PASSWD , value = "密码" , required = true , dataTypeClass=String.class , example = "******"),
+		@ApiImplicitParam(name = UserVOMeta.PHONE , value = "手机号码" , required = true , dataTypeClass=String.class),
 		@ApiImplicitParam(name = UserVOMeta.PORTRAIT_ID , value = "头像ID" , required = false , dataTypeClass=String.class , example = "1110"),
 		@ApiImplicitParam(name = UserVOMeta.LANGUAGE , value = "语言" , required = false , dataTypeClass=String.class),
 		@ApiImplicitParam(name = UserVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class , example = "1"),
-		@ApiImplicitParam(name = UserVOMeta.CACHE_KEY , value = "缓存键" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = UserVOMeta.LAST_LOGIN_TIME , value = "最后登录时间" , required = false , dataTypeClass=Date.class , example = "2021-05-31 03:09:23"),
+		@ApiImplicitParam(name = UserVOMeta.CACHE_KEY , value = "缓存键" , required = false , dataTypeClass=String.class , example = "443c1"),
+		@ApiImplicitParam(name = UserVOMeta.LAST_LOGIN_TIME , value = "最后登录时间" , required = false , dataTypeClass=Date.class , example = "2022-04-19 02:57:10"),
 	})
 	@ApiOperationSupport(order=8)
 	@SentinelResource(value = UserServiceProxy.QUERY_PAGED_LIST)
@@ -270,7 +293,6 @@ public class UserController extends SuperController {
 	@ApiOperation(value = "更改当前登录用户密码")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = UserVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "110588348101165000"),
-		@ApiImplicitParam(name = UserVOMeta.NAME , value = "账户" , required = false , dataTypeClass=String.class , example = "test"),
 		@ApiImplicitParam(name = UserVOMeta.PASSWD , value = "密码" , required = false , dataTypeClass=String.class , example = "******"),
 		@ApiImplicitParam(name = UserVOMeta.PHONE , value = "手机号码" , required = false , dataTypeClass=String.class , example = "13888584527"),
 		@ApiImplicitParam(name = UserVOMeta.PORTRAIT_ID , value = "头像ID" , required = false , dataTypeClass=String.class , example = "465814936602279936"),
@@ -290,7 +312,7 @@ public class UserController extends SuperController {
 	}
 
 
-	
+
 
 
 }

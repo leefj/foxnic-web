@@ -40,8 +40,13 @@ UPDATE sys_menu set hierarchy=id where parent_id='0'
 // 设置上级节点已经设置层级路径的节点的层级路径
 [update-menu-hierarchy-step2]
 UPDATE sys_menu c, sys_menu p
-SET c.hierarchy=CONCAT(p.hierarchy,"/",c.id)
+SET c.hierarchy=CONCAT(p.hierarchy,'/',c.id)
 WHERE p.id=c.parent_id and c.hierarchy is null and p.hierarchy is not null
+
+[update-menu-hierarchy-step2:dm]
+UPDATE sys_menu c SET
+c.hierarchy=CONCAT((select p.hierarchy from  sys_menu p WHERE p.id=c.parent_id and p.hierarchy is not null),'/',c.id)
+where c.hierarchy is null
 
 
 [search-catalog-hierarchy]

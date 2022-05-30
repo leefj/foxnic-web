@@ -91,16 +91,17 @@ public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
         context.view().field(SYS_USER.PASSWD)
                 .basic().hidden(true).table().disable();
 
-        context.view().field(SYS_USER.NAME)
+        context.view().field(SYS_USER.ACCOUNT)
                 .search().fuzzySearch()
                 .form().validate().required()
         ;
 
-        context.view().field("realName").basic().label("姓名")
-                .search().on(FoxnicWeb.HRM_PERSON.NAME).fuzzySearch()
-                .table().sort(false)
-                .fillBy(UserMeta.JOINED_TENANTS, UserTenantMeta.EMPLOYEE, EmployeeMeta.PERSON, PersonMeta.NAME)
-        ;
+        context.view().field(SYS_USER.REAL_NAME).basic().label("姓名")
+                .search().fuzzySearch();
+
+//                .table().sort(false)
+//                .fillBy(UserMeta.JOINED_TENANTS, UserTenantMeta.EMPLOYEE, EmployeeMeta.PERSON, PersonMeta.NAME).form().hidden()
+//        ;
 
 
         context.view().field(SYS_USER.PHONE)
@@ -120,7 +121,7 @@ public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
                 .table().sort(false)
                 .search().inputWidth(180).on(FoxnicWeb.SYS_ROLE.ID).selectMuliti(false).triggerOnSelect(true)
                 .form().selectBox().muliti(true,false).queryApi(RoleServiceProxy.QUERY_LIST).fillWith(UserMeta.ROLES)
-                .valueField(RoleMeta.ID).textField(UserMeta.NAME).muliti(true,false)
+                .valueField(RoleMeta.ID).textField(RoleMeta.NAME).muliti(true,false)
         ;
 
         context.view().field(SYS_USER.PORTRAIT_ID)
@@ -153,7 +154,7 @@ public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
 
     @Override
     public void configList(ViewOptions view, ListOptions list) {
-        list.columnLayout(SYS_USER.NAME,"realName",SYS_USER.PORTRAIT_ID,SYS_USER.LANGUAGE
+        list.columnLayout(SYS_USER.ACCOUNT,SYS_USER.REAL_NAME,SYS_USER.PORTRAIT_ID,SYS_USER.LANGUAGE
                 ,SYS_USER.PHONE,SYS_USER.VALID,UserVOMeta.ROLE_IDS);
 
         list.operationColumn().addActionButton("属主","openTenantOwner");

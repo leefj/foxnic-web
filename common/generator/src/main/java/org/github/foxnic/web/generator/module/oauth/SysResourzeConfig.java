@@ -73,7 +73,7 @@ public class SysResourzeConfig extends BaseCodeConfig<SYS_RESOURZE> {
 
     @Override
     public void configList(ViewOptions view, ListOptions list) {
-
+        //list.refreshAfterEdit(false);
     }
 
     @Override

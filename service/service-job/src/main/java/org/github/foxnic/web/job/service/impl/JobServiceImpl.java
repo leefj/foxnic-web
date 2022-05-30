@@ -175,7 +175,7 @@ public class JobServiceImpl extends SuperService<Job> implements IJobService {
 		Job job = new Job();
 		if(id==null) return ErrorDesc.failure().message("id 不允许为 null 。");
 		job.setId(id);
-		job.setDeleted(dao.getDBTreaty().getTrueValue());
+		job.setDeleted(true);
 		job.setDeleteBy((String)dao.getDBTreaty().getLoginUserId());
 		job.setDeleteTime(new Date());
 
@@ -293,7 +293,7 @@ public class JobServiceImpl extends SuperService<Job> implements IJobService {
 
 	@Override
 	public List<Job> getByIds(List<String> ids) {
-		return new ArrayList<>(getByIdsMap(ids).values());
+		return super.queryListByUKeys("id",ids);
 	}
 
 

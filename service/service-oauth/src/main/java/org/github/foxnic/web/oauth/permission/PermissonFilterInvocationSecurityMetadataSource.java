@@ -3,6 +3,7 @@ package org.github.foxnic.web.oauth.permission;
 import com.github.foxnic.commons.lang.StringUtil;
 import org.github.foxnic.web.constants.enums.system.AccessType;
 import org.github.foxnic.web.domain.oauth.Menu;
+import org.github.foxnic.web.framework.cluster.ClusterFilter;
 import org.github.foxnic.web.oauth.service.IResourzeService;
 import org.github.foxnic.web.oauth.service.ISessionOnlineService;
 import org.github.foxnic.web.oauth.session.SessionPermissionImpl;
@@ -41,6 +42,11 @@ public class PermissonFilterInvocationSecurityMetadataSource implements FilterIn
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
 
         final HttpServletRequest request = ((FilterInvocation) object).getRequest();
+
+        // 如果是来自集群的调用，开放最高权限
+        if(ClusterFilter.isInvokeFromCluster(request)) {
+            return SecurityConfig.createList(new String[] {"ROLE_super_admin"});
+        }
 
         //如果账户未登录
     	SessionUserImpl user=SessionUserImpl.getCurrent();

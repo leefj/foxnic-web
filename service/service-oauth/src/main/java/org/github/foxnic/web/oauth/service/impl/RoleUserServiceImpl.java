@@ -151,7 +151,7 @@ public class RoleUserServiceImpl extends SuperService<RoleUser> implements IRole
 
 	@Override
 	public List<RoleUser> getByIds(List<String> ids) {
-		return new ArrayList<>(getByIdsMap(ids).values());
+		return super.queryListByUKeys("id",ids);
 	}
 
 	/**

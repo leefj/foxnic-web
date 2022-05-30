@@ -10,16 +10,20 @@ import com.github.foxnic.dao.meta.DBTableMeta;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.generator.builder.business.ControllerProxyFile;
 import com.github.foxnic.sql.meta.DBTable;
+import com.github.foxnic.sql.meta.DBType;
+import org.github.foxnic.web.bpm.page.*;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.enums.system.AccessType;
 import org.github.foxnic.web.constants.enums.system.MenuType;
+import org.github.foxnic.web.domain.bpm.DemoLeave;
+import org.github.foxnic.web.domain.bpm.ProcessInitiator;
+import org.github.foxnic.web.domain.bpm.ProcessInstance;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.MenuResource;
 import org.github.foxnic.web.domain.oauth.Resourze;
 import org.github.foxnic.web.domain.oauth.RoleMenu;
 import org.github.foxnic.web.generator.config.FoxnicWebConfigs;
-import org.github.foxnic.web.job.page.JobLogPageController;
-import org.github.foxnic.web.proxy.job.JobLogServiceProxy;
+import org.github.foxnic.web.proxy.bpm.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.File;
@@ -43,8 +47,43 @@ public class MenuGenerator {
 
 		MenuGenerator mg=null;
 
-		mg=new MenuGenerator(FoxnicWeb.SYS_JOB_LOG.$TABLE, JobLogServiceProxy.class, JobLogPageController.class);
-		mg.generate("530778450735136769");
+//		mg=new MenuGenerator(FoxnicWeb.BPM_PROCESS_DEFINITION.$TABLE, ProcessDefinitionServiceProxy.class, ProcessDefinitionPageController.class);
+//		mg.generate("555766790999773184");
+
+//		mg=new MenuGenerator(FoxnicWeb.BPM_PROCESS_DEFINITION_NODE.$TABLE, ProcessDefinitionNodeServiceProxy.class, ProcessDefinitionNodePageController.class);
+//		mg.generate("555766790999773184");
+
+
+
+//		mg=new MenuGenerator(FoxnicWeb.BPM_TASK.$TABLE, TaskServiceProxy.class, TaskPageController.class);
+//		mg.generate("555766790999773184");
+
+//		mg=new MenuGenerator(FoxnicWeb.BPM_PROCESS_INSTANCE.$TABLE, ProcessInstanceServiceProxy.class, ProcessInstancePageController.class);
+//		mg.generate("555766790999773184");
+
+//		mg=new MenuGenerator(FoxnicWeb.BPM_PROCESS_DEFINITION_FILE.$TABLE, ProcessDefinitionFileServiceProxy.class, ProcessDefinitionFilePageController.class);
+//		mg.generate("555766790999773184");
+
+//		mg=new MenuGenerator(FoxnicWeb.BPM_PROCESS_INITIATOR.$TABLE, ProcessInitiatorServiceProxy.class, ProcessInitiatorPageController.class);
+//		mg.generate("555766790999773184");
+
+//		mg=new MenuGenerator(FoxnicWeb.BPM_FORM_DEFINITION.$TABLE, FormDefinitionServiceProxy.class, FormDefinitionPageController.class);
+//		mg.generate("555766790999773184");
+
+//		mg=new MenuGenerator(FoxnicWeb.BPM_DEMO_LEAVE.$TABLE, DemoLeaveServiceProxy.class, DemoLeavePageController.class);
+//		mg.generate("495201409763901440");
+
+		// 生成菜单
+//		mg=new MenuGenerator(ExampleTables.EXAMPLE_NEWS.$TABLE, NewsServiceProxy.class, NewsPageController.class);
+//		mg.generate("495201409763901440");
+//		// 按生成的 batchId 删除菜单
+//		mg.removeByBatchId("554044697505431552");
+
+
+
+
+//		mg=new MenuGenerator(FoxnicWeb.SYS_JOB_LOG.$TABLE, JobLogServiceProxy.class, JobLogPageController.class);
+//		mg.generate("530778450735136769");
 
 //		mg=new MenuGenerator(FoxnicWeb.SYS_JOB_WORKER.$TABLE, JobWorkerServiceProxy.class, JobWorkerPageController.class);
 //		mg.generate("530778450735136769");
@@ -214,6 +253,7 @@ public class MenuGenerator {
 		this.batchId=IDGenerator.getSnowflakeIdString();
 		this.authorityPrefix=table.name().toLowerCase()+":";
 		this.roleId=roleId;
+		System.err.println("batchId = "+batchId);
 
 	}
 
@@ -275,9 +315,19 @@ public class MenuGenerator {
 
 		dao.execute("update sys_menu set hierarchy=id where parent_id is null or trim(parent_id)=''");
 
-		String sql="UPDATE sys_menu c, sys_menu p " +
-				"SET c.hierarchy=CONCAT(p.hierarchy,'/',c.id) " +
-				"WHERE p.id=c.parent_id and c.hierarchy is null and p.hierarchy is not null";
+		String sql= null;
+
+		if(dao.getDBType()== DBType.MYSQL) {
+			sql="UPDATE sys_menu c, sys_menu p " +
+					"SET c.hierarchy=CONCAT(p.hierarchy,'/',c.id) " +
+					"WHERE p.id=c.parent_id and c.hierarchy is null and p.hierarchy is not null";
+		} else if(dao.getDBType()== DBType.DM) {
+			sql="UPDATE sys_menu c SET \n" +
+					"c.hierarchy=CONCAT((select p.hierarchy from  sys_menu p WHERE p.id=c.parent_id and p.hierarchy is not null),'/',c.id) \n" +
+					"where c.hierarchy is null";
+		}
+
+
 		while (true) {
 			int i=dao.execute(sql);
 			if(i==0) break;

@@ -176,7 +176,7 @@ public class NodeServiceImpl extends SuperService<Node> implements INodeService 
 
 	@Override
 	public List<Node> getByIds(List<String> ids) {
-		return new ArrayList<>(getByIdsMap(ids).values());
+		return super.queryListByUKeys("id",ids);
 	}
 
 

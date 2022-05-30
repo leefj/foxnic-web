@@ -151,9 +151,13 @@ public class ScheduleConfig
         jobService.join(jobList, JobMeta.WORKER);
 
         for (Job job : jobList) {
-            if(job.getWorker()==null) return;
-            JobExecutor executer=(JobExecutor)SpringUtil.getBean(ReflectUtil.forName(job.getWorker().getClassName()));
-            if(executer==null) return;
+            if(job.getWorker()==null) continue;
+            JobExecutor executer = null;
+            try {
+                executer=(JobExecutor)SpringUtil.getBean(ReflectUtil.forName(job.getWorker().getClassName()));
+            }catch (Exception e) {}
+
+            if(executer==null) continue;
             //
             CronTrigger cronTrigger = ScheduleUtils.getCronTrigger(job.getId());
             // 如果不存在，则创建

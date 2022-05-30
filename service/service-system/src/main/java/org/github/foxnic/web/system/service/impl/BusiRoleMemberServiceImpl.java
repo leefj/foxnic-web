@@ -179,7 +179,7 @@ public class BusiRoleMemberServiceImpl extends SuperService<BusiRoleMember> impl
 
 	@Override
 	public List<BusiRoleMember> getByIds(List<String> ids) {
-		return new ArrayList<>(getByIdsMap(ids).values());
+		return super.queryListByUKeys("id",ids);
 	}
 
 

@@ -17,6 +17,7 @@ import org.github.foxnic.web.domain.system.DictItem;
 import org.github.foxnic.web.domain.system.DictItemVO;
 import org.github.foxnic.web.framework.cache.FoxnicDataCacheManager;
 import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.github.foxnic.web.framework.proxy.ProxyContext;
 import org.github.foxnic.web.proxy.system.DictItemServiceProxy;
 import org.github.foxnic.web.relation.FoxnicWebRelationManager;
 import org.github.foxnic.web.session.SessionUser;
@@ -102,7 +103,7 @@ public class DAOConfig {
 			return new Date();
 		});
 
-		//注册全局环境变量(示例)
+		//注册全局环境变量(示例：sexDictCodes )
 		dataPermManager.registerGlobalContextGetter(List.class,"sexDictCodes",()->{
 			DictItemVO sample=new DictItemVO();
 			sample.setDictCode(DictEnum.SEX.code());
@@ -184,8 +185,9 @@ public class DAOConfig {
 		dbTreaty.setVersionField("version");
 		//
 		dbTreaty.setAutoCastLogicField(false);
-		//
+		// 设置 false 对应的数据库值
 		dbTreaty.setFalseValue(0);
+		// 设置 true 对应的数据库值
 		dbTreaty.setTrueValue(1);
 
 		//设置获取当前用户的逻辑
@@ -197,15 +199,20 @@ public class DAOConfig {
 			});
 
 			dbTreaty.setLoginUserIdHandler(()->{
+				String userId=null;
 				SessionUser user=SessionUser.getCurrent();
-				if(user==null) return null;
-				return  user.getUserId();
+				if(user!=null) {
+					userId = user.getUserId();
+				} else {
+					userId = ProxyContext.getCalleeId();
+				}
+				return userId;
 			});
 
 
 			dbTreaty.setTenantIdHandler(()->{
 				SessionUser user=SessionUser.getCurrent();
-				if(user==null) return null;
+				if(user==null) return ProxyContext.getCalleeTenantId();
 				if(user.getUser()!=null && user.getUser().getActivatedTenant()!=null) {
 					return user.getActivatedTenantId();
 				}

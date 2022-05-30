@@ -30,6 +30,12 @@ TypeUtil={
 	},
 	isInteger:function (data) {
 		return Number.isInteger(data);
+	},
+	isObject:function (data){
+		return data.constructor === Object;
+	},
+	isString:function (data) {
+		return typeof(data)=='string';
 	}
 
 }

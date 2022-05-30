@@ -163,6 +163,10 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
         },
         viewVariables:function () {
             var data=window.module.getFormData();
+            if(!data.id) {
+                top.layer.msg("请选择一个条件节点！",{icon: 2,time:2000});
+                return
+            }
             admin.putTempData("contextDialogData",data,true);
             var contextDialogIndex=top.layer.open({
                 type: 2,

@@ -49,6 +49,88 @@ layui.define(['laytpl', 'laypage', 'layer', 'form', 'util'], function(exports){
       thisTable.config[id] = options; //记录当前实例配置项
     }
 
+    // 李方捷增加的函数，按行顺序取到行上下文 , 参数可以是行号，或数据；
+    var getDataRowContext=function(index){
+      const ELEM_CELL = '.layui-table-cell';
+
+      var othis = $(this);
+      var data = table.cache[that.key] || [];
+      if(TypeUtil.isObject(index)) {
+        var indexes=[];
+        for (var i = 0; i < data.length; i++) {
+          var matched=true;
+          for(var key in index) {
+            if(index[key]!=data[i][key]) {
+              matched=false;
+              break;
+            }
+          }
+          if(matched) {
+            indexes.push(i);
+          }
+        }
+        if(indexes.length==1) {
+          index=indexes[0];
+        }
+        else if(indexes.length==0) {
+          return null;
+        } else  if(indexes.length>1) {
+          throw new Error("匹配到多行，无法处理");
+        }
+      }
+
+      var tr = that.layBody.find('tr[data-index="'+ index +'"]');
+
+      data = data[index] || {};
+
+      return $.extend({
+        tr: tr //行元素
+        ,data: table.clearCacheKey(data) //当前行数据
+        ,del: function(){ //删除行数据
+          table.cache[that.key][index] = [];
+          tr.remove();
+          that.scrollPatch();
+        }
+        ,update: function(fields){ //修改行数据
+          fields = fields || {};
+          // 李方捷：需要先覆盖全部的值
+          layui.each(fields, function(key, value){
+            data[key] = value;
+          });
+
+          // layui.each(fields, function(key, value){
+          //   if(key in data){
+          //     var templet, td = tr.children('td[data-field="'+ key +'"]');
+          //     data[key] = value;
+          //     that.eachCols(function(i, item2){
+          //       if(item2.field == key && item2.templet){
+          //         templet = item2.templet;
+          //       }
+          //     });
+          //     td.children(ELEM_CELL).html(parseTempData.call(that, {
+          //       templet: templet
+          //     }, value, data));
+          //     td.data('content', value);
+          //   }
+          // });
+
+          // 李方捷调整的字段优先匹配规则
+          that.eachCols(function(i, item2){
+            var templet, td = tr.children('td[data-field="'+ item2.field +'"]');
+            var value=data[item2.field];
+            if(item2.templet) {
+              templet = item2.templet;
+            }
+            td.children(ELEM_CELL).html(parseTempData.call(that, {
+              templet: templet
+            }, value, data));
+            td.data('content', value);
+          });
+
+        }
+      }, []);
+    };
+
     return {
       config: options
       ,reload: function(options, deep){
@@ -59,7 +141,9 @@ layui.define(['laytpl', 'laypage', 'layer', 'form', 'util'], function(exports){
       }
       ,resize: function(){ //重置表格尺寸/结构
         that.resize.call(that);
-      }
+      },
+      // 李方捷增加的方法
+      getDataRowContext:getDataRowContext
     }
   }
 
@@ -339,6 +423,8 @@ layui.define(['laytpl', 'laypage', 'layer', 'form', 'util'], function(exports){
 
     that.pullData(that.page); //请求数据
     that.events(); //事件
+
+
   };
 
   //根据列类型，定制化参数
@@ -1533,6 +1619,9 @@ layui.define(['laytpl', 'laypage', 'layer', 'form', 'util'], function(exports){
         that.sort(field, 'desc', null, true);
       }
     });
+
+
+
 
     //数据行中的事件返回的公共对象成员
     var commonMember = function(sets){

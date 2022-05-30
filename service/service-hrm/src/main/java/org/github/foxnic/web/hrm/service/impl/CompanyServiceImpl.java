@@ -1,34 +1,28 @@
 package org.github.foxnic.web.hrm.service.impl;
 
 
-import javax.annotation.Resource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-
-import org.github.foxnic.web.domain.hrm.Company;
-import org.github.foxnic.web.domain.hrm.CompanyVO;
-import java.util.List;
-import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.dao.data.PagedList;
-import com.github.foxnic.dao.entity.SuperService;
-import com.github.foxnic.dao.spec.DAO;
-import java.lang.reflect.Field;
-import com.github.foxnic.commons.busi.id.IDGenerator;
-import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.dao.data.PagedList;
+import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.SuperService;
+import com.github.foxnic.dao.excel.ExcelStructure;
 import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.dao.excel.ExcelStructure;
-import java.io.InputStream;
+import com.github.foxnic.dao.spec.DAO;
+import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
-import com.github.foxnic.dao.data.SaveMode;
-import com.github.foxnic.dao.meta.DBColumnMeta;
-import com.github.foxnic.sql.expr.Select;
-import java.util.ArrayList;
-import org.github.foxnic.web.hrm.service.ICompanyService;
+import org.github.foxnic.web.domain.hrm.Company;
 import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.github.foxnic.web.hrm.service.ICompanyService;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.io.InputStream;
+import java.lang.reflect.Field;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -57,7 +51,7 @@ public class CompanyServiceImpl extends SuperService<Company> implements ICompan
 
 	@Override
 	public Object generateId(Field field) {
-		return IDGenerator.getSnowflakeIdString();
+		return "prefix"+IDGenerator.getSnowflakeIdString();
 	}
 
 	/**
@@ -204,7 +198,7 @@ public class CompanyServiceImpl extends SuperService<Company> implements ICompan
 
 	@Override
 	public List<Company> getByIds(List<String> ids) {
-		return new ArrayList<>(getByIdsMap(ids).values());
+		return super.queryListByUKeys("id",ids);
 	}
 
 

@@ -102,6 +102,7 @@ public class ScheduleUtils {
         if (job.getStatusEnum() == Status.PAUSED) {
             pauseJob(job.getId());
         }
+
     }
 
     /**

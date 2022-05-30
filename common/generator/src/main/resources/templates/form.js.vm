@@ -9,6 +9,9 @@ function FormPage() {
 	var disableCreateNew=#(disableCreateNew);
 	var disableModify=#(disableModify);
 	var dataBeforeEdit=null;
+	const bpmIntegrateMode="#(bpmIntegrateMode)";
+	var isInProcess=QueryString.get("isInProcess")
+
 	/**
       * 入口函数，初始化
       */
@@ -23,6 +26,10 @@ function FormPage() {
 		}
 		if(action=="view") {
 			disableModify=true;
+		}
+
+		if(bpmIntegrateMode=="front" && isInProcess==1) {
+			$(".model-form-footer").hide();
 		}
 
 		if(window.pageExt.form.beforeInit) {
@@ -56,6 +63,8 @@ function FormPage() {
 			var doNext=window.pageExt.form.beforeAdjustPopup();
 			if(!doNext) return;
 		}
+
+		if(bpmIntegrateMode=="front" && isInProcess==1) return;
 
 		clearTimeout(adjustPopupTask);
 		var scroll=$(".form-container").attr("scroll");
@@ -215,8 +224,48 @@ function FormPage() {
 				window.pageExt.form.onDatePickerChanged && window.pageExt.form.onDatePickerChanged("#(f.varName)",value, date, endDate);
 			}
 		});
+		#else if(f.typeName.equals("radio_box"))
+		form.on('radio(#(f.varName))', function(data){
+			var checked=[];
+			$('input[type=radio][lay-filter=#(f.varName)]:checked').each(function() {
+				checked.push($(this).val());
+			});
+			window.pageExt.form.onRadioBoxChanged && window.pageExt.form.onRadioBoxChanged("#(f.varName)",data,checked);
+		});
+		#else if(f.typeName.equals("check_box"))
+		form.on('checkbox(#(f.varName))', function(data){
+			var checked=[];
+			$('input[type=checkbox][lay-filter=#(f.varName)]:checked').each(function() {
+				checked.push($(this).val());
+			});
+			window.pageExt.form.onCheckBoxChanged && window.pageExt.form.onCheckBoxChanged("#(f.varName)",data ,checked);
+		});
 	    #end
 	    #end
+	}
+
+	/**
+	 * 根据id填充表单
+	 * */
+	function fillFormDataByIds(ids) {
+		if(!ids) return;
+		if(ids.length==0) return;
+		var id=ids[0];
+		if(!id) return;
+		admin.post(moduleURL+"/get-by-id", { id : id }, function (r) {
+			if (r.success) {
+				fillFormData(r.data)
+			} else {
+				fox.showMessage(data);
+			}
+		});
+	}
+
+	/**
+	 * 在流程提交前处理表单数据
+	 * */
+	function processFormData4Bpm (processInstanceId,param,cb) {
+		window.pageExt.form.processFormData4Bpm && window.pageExt.form.processFormData4Bpm(processInstanceId,param,cb);
 	}
 
 	/**
@@ -314,7 +363,8 @@ function FormPage() {
         setTimeout(function (){
             fm.animate({
                 opacity:'1.0'
-            },100);
+            },100,null,function (){
+				fm.css("opacity","1.0");});
         },1);
 
         //禁用编辑
@@ -357,7 +407,7 @@ function FormPage() {
 		#if(f.isFormElem)
 		#if(f.typeName.equals("check_box"))
 		//处理 #(f.labelInForm) 默认值
-		data["#(f.varName)"]=fox.getCheckedValue("#(f.varName)");
+		data["#(f.varName)"]=fox.getCheckedValue("#(f.varName)").join(",");
 		#end
 		#end
 		#end
@@ -378,20 +428,40 @@ function FormPage() {
 		return fox.formVerify("data-form",data,VALIDATE_CONFIG)
 	}
 
-	function saveForm(param) {
+	function saveForm(param,callback) {
 		param.dirtyFields=fox.compareDirtyFields(dataBeforeEdit,param);
+		var action=param.#(idPropertyName)?"edit":"create";
+		#if(savingURL==null)
 		var api=moduleURL+"/"+(param.#(idPropertyName)?"update":"insert");
+		#else
+		var api="#(savingURL)";
+		#end
 		admin.post(api, param, function (data) {
 			if (data.success) {
 				var doNext=true;
+				var pkValues=data.data;
+				if(pkValues) {
+					for (var key in pkValues) {
+						$("#"+key).val(pkValues[key]);
+					}
+				}
 				if(window.pageExt.form.betweenFormSubmitAndClose) {
 					doNext=window.pageExt.form.betweenFormSubmitAndClose(param,data);
 				}
+
+				if(callback) {
+					doNext = callback(data,action);
+				}
+
 				if(doNext) {
 					admin.finishPopupCenterById('#(formDataKey)-win');
 				}
+
+				// 调整状态为编辑
+				action="edit";
+
 			} else {
-				top.layer.msg(data.message, {icon: 2, time: 1500});
+				fox.showMessage(data);
 			}
 			window.pageExt.form.afterSubmit && window.pageExt.form.afterSubmit(param,data);
 		}, {delayLoading:1000,elms:[$("#submit-button")]});
@@ -460,7 +530,7 @@ function FormPage() {
 		#end
 
 	    //关闭窗口
-	    $("#cancel-button").click(function(){ admin.finishPopupCenterById('#(formDataKey)-win'); });
+	    $("#cancel-button").click(function(){ admin.finishPopupCenterById('#(formDataKey)-win',this); });
 
     }
 
@@ -469,6 +539,8 @@ function FormPage() {
 		verifyForm: verifyForm,
 		saveForm: saveForm,
 		fillFormData: fillFormData,
+		fillFormDataByIds:fillFormDataByIds,
+		processFormData4Bpm:processFormData4Bpm,
 		adjustPopup: adjustPopup,
 		action: action,
 		setAction: function (act) {

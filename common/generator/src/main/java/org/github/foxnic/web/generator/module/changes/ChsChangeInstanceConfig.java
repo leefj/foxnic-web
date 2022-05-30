@@ -8,7 +8,7 @@ import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.CHS_CHANGE_INSTANCE;
-import org.github.foxnic.web.constants.enums.bpm.ApproveCatalog;
+import org.github.foxnic.web.constants.enums.bpm.ApprovalCatalog;
 import org.github.foxnic.web.constants.enums.changes.ApprovalMode;
 import org.github.foxnic.web.constants.enums.changes.ApprovalStatus;
 import org.github.foxnic.web.constants.enums.changes.ChangeType;
@@ -94,7 +94,7 @@ public class ChsChangeInstanceConfig extends BaseCodeConfig<CHS_CHANGE_INSTANCE>
 
 		view.field("catalog").basic().label("分类")
 				.search().inputWidth(160)
-				.form().selectBox().enumType(ApproveCatalog.class).muliti(false,false);
+				.form().selectBox().enumType(ApprovalCatalog.class).muliti(false,false);
 
 
 	}

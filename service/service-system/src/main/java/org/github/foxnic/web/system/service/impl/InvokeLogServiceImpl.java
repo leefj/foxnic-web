@@ -151,7 +151,7 @@ public class InvokeLogServiceImpl extends SuperService<InvokeLog> implements IIn
 
 	@Override
 	public List<InvokeLog> getByIds(List<Long> ids) {
-		return new ArrayList<>(getByIdsMap(ids).values());
+		return super.queryListByUKeys("id",ids);
 	}
 
 

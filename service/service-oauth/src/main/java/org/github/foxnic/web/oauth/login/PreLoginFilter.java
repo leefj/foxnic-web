@@ -14,6 +14,7 @@ import org.github.foxnic.web.oauth.utils.ResponseUtil;
 import org.github.foxnic.web.proxy.utils.SystemConfigProxyUtil;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
+import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.filter.GenericFilterBean;
 
 import javax.servlet.FilterChain;
@@ -48,10 +49,10 @@ public class PreLoginFilter extends GenericFilterBean {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-
     	RequestParameter parameter=RequestParameter.get();
     	HttpServletRequestWrapper wrapper = parameter.getRequestWrapper();
 
+        // 如果匹配登录地址，那么登录
     	if (authenticationRequestMatcher.matches((HttpServletRequest) request)) {
 
             LoginIdentityVO identity=parameter.toPojo(LoginIdentityVO.class);

@@ -1,7 +1,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-12 16:58:53
+ * @since 2022-04-20 13:14:36
  */
 
 function FormPage() {
@@ -111,6 +111,13 @@ function FormPage() {
 				window.pageExt.form.onUploadEvent &&  window.pageExt.form.onUploadEvent({event:"afterRemove",elId:elId,index:index,upload:upload});
 			}
 	    });
+		form.on('radio(language)', function(data){
+			var checked=[];
+			$('input[type=radio][lay-filter=language]:checked').each(function() {
+				checked.push($(this).val());
+			});
+			window.pageExt.form.onRadioBoxChanged && window.pageExt.form.onRadioBoxChanged("language",data,checked);
+		});
 		laydate.render({
 			elem: '#lastLoginTime',
 			format:"yyyy-MM-dd HH:mm:ss",
@@ -264,7 +271,7 @@ function FormPage() {
 					admin.finishPopupCenterById('sys-user-form-data-win');
 				}
 			} else {
-				layer.msg(data.message, {icon: 2, time: 1500});
+				fox.showMessage(data);
 			}
 			window.pageExt.form.afterSubmit && window.pageExt.form.afterSubmit(param,data);
 		}, {delayLoading:1000,elms:[$("#submit-button")]});

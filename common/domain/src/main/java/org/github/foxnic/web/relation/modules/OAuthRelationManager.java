@@ -105,7 +105,7 @@ public class OAuthRelationManager extends RelationManager {
 				.addOrderBy(SYS_USER_TENANT.ACTIVATED,false,true)
 				.addOrderBy(SYS_USER_TENANT.SORT,true,true)
 				.after((tag,user,tenants,m)->{
-					if("login".equals(tag)) {
+//					if("login".equals(tag)) {
 						for (UserTenant tenant : tenants) {
 							//设置当前激活的租户
 							if (user.getActivatedTenant() == null && tenant.getActivated() == 1) {
@@ -117,7 +117,7 @@ public class OAuthRelationManager extends RelationManager {
 						if (user.getActivatedTenant() == null && tenants.size() > 0) {
 							user.setActivatedTenant(tenants.get(0));
 						}
-					}
+//					}
 					return tenants;
 				})
 				.cache(true);

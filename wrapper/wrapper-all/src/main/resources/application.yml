@@ -3,6 +3,8 @@ server:
     timeout: 28800s
   servlet:
     session:
+      secure: true
+      http-only: true
       # 会话超时时间，如 30s , 20m 等
       timeout: 28800s
   port: 1899
@@ -34,10 +36,17 @@ spring:
             windows: d:/foxnic/passwd.txt
             mac: /Users/Shared/foxnic/passwd.txt
             linux: /foxnic/passwd.txt
+
         driver-class-name: com.mysql.cj.jdbc.Driver
         url: ai+mCm8asbK9SNrQDk7ac29neidjdgHp2jFU7HYbZZOmvbR4OKNXb877AJzdYToBGLgN+etaRMM4wzovFLMULMH6brIo3zgsyub026w4Il4Oqg9jzyYsLaa6LNyznmYm5kKoS17K9XHBX8e0lDuik9pcc/DfdjaUkhm0MmOALUM86dHiyURHUP5hfQ4otf/kE9gVP+GO1G7fUdc4JBLDYylfBzmp9SNKQcTLQ/5AkWcnbm89+5pAz4JNnCJILF0B
         username: tD5wkJAfnCt04A+Y+QN5GA==
         password: ODGx5F84xpWJgfRFnzAaYhViHJqrTO3uxxDZ2lRlZNk=
+
+#        driver-class-name: dm.jdbc.driver.DmDriver
+#        url: sI2+hq2vWmNtpey9cP6SoymBrYAzdXtCIvGGIofc5SGKCQylHa3KjkVCCXiSiE8E
+#        username: dG0gpFrfyei8IXOBJa4QJQ==
+#        password: Gds7qlZU6Q9MW84y/ONk9Q==
+
         # 启动程序时，在连接池中初始化多少个连接
         initialSize: 16
         # 连接池中最多支持多少个活动会话
@@ -97,7 +106,7 @@ develop:
   deploy:
     enable: true
     # 可以使用以当前项目为基础的相对路径，指定静态资源自动部署的项目目录
-    projects:  ../view/view-console
+    projects:  ../view/view-console ,../view/view-example ,../../foxnic-web-advance/view/view-bpm
 
 
 foxnic:
@@ -111,8 +120,8 @@ foxnic:
   job:
     # 不运行任何 Job 任务( Job 调度还是会启动 )，仅对本节点有效
     enable: false
-    # 强制开启的JOB，通常在 enable = false 情况下，调试某些 job，仅对本节点有效
-    force-run-job-ids:
+    # 强制开启指定的JOB，通常在 enable = false 情况下，强制启用某些 job，仅对本节点有效
+    force-run-job-codes: CAMUNDA-SYNC-JOB
     # 指定 Quartz 使用的DAO数据源
     dao-bean-name: primaryDAO
     # 容许的最大作业延长时间，超出则认为 misfire 发生，单位毫秒
@@ -128,6 +137,8 @@ foxnic:
         mac: /Users/LeeFJ/git/tailoring/uploads
         linux: /tailoring/uploads
   # 设置 Join 的二级缓存
+  bpm:
+    enable: true
   cache:
     # 默认配置
     default:
@@ -177,13 +188,29 @@ foxnic:
         local-limit: 10240
         local-expire: 1200000
         remote-expire: 1200000
-
+  # 配置集群节点简单替代注册中心，如果启用微服务，则一下配置无效
+  cluster:
+    # 节点间用于通信的 key，各节点要保持一致
+    key: FOXNIC-WEB-20220310-3398
+    service:
+      service-camunda:
+        enable: true
+        # 多个节点时用逗号隔开,格式： 地址,权重 | 地址,权重 | ...
+        end-points: http://127.0.0.1:1820,1 | http://127.0.0.1:1820,1
+      service-hrm:
+        enable: true
+        # 多个节点时用逗号隔开,格式： 地址,权重 | 地址,权重 | ...
+        end-points: http://127.0.0.1:1899,1 | http://127.0.0.1:1899,2
+      service-oauth:
+        enable: true
+        # 多个节点时用逗号隔开,格式： 地址,权重 | 地址,权重 | ...
+        end-points: http://127.0.0.1:1899,1 | http://127.0.0.1:1899,2
 
 security:
   # 模式：session / jwt
   mode: both
   # 配置无需鉴权可以访问的地址
-  ignored-urls: /assets/** , /pages/** , /*.ico , /module/** ,  /**/*.css , /**/*.js , /error , /demo/** ,/druid/** ,/service-system/unit-test/**
+  ignored-urls: /assets/** , /pages/** , /*.ico , /module/** ,  /**/*.css , /**/*.js , /error , /demo/** ,/druid/** ,/service-system/unit-test/** ,/camunda/**
   # mode=session 时配置的登录页面
   login-page: /login.html
   jwt:
@@ -217,4 +244,3 @@ knife4j:
   title: ${spring.application.name}
   description: ${spring.application.description}
   version: 1.0
-

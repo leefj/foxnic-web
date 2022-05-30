@@ -19,8 +19,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 账户
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-12 16:58:53
- * @sign 4F0C992EF6813D96B5CCFA9819BD8316
+ * @since 2022-04-20 13:14:30
+ * @sign A0D3806B773B52D11D46EC2E088F84A6
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -41,19 +41,25 @@ public class User extends Entity {
 	/**
 	 * 账户：账户
 	*/
-	@ApiModelProperty(required = false,value="账户" , notes = "账户")
-	private String name;
+	@ApiModelProperty(required = true,value="账户" , notes = "账户")
+	private String account;
+	
+	/**
+	 * 姓名：姓名
+	*/
+	@ApiModelProperty(required = true,value="姓名" , notes = "姓名")
+	private String realName;
 	
 	/**
 	 * 密码：密码
 	*/
-	@ApiModelProperty(required = false,value="密码" , notes = "密码")
+	@ApiModelProperty(required = true,value="密码" , notes = "密码")
 	private String passwd;
 	
 	/**
 	 * 手机号码：手机号码
 	*/
-	@ApiModelProperty(required = false,value="手机号码" , notes = "手机号码")
+	@ApiModelProperty(required = true,value="手机号码" , notes = "手机号码")
 	private String phone;
 	
 	/**
@@ -200,17 +206,36 @@ public class User extends Entity {
 	 * 账户
 	 * @return 账户
 	*/
-	public String getName() {
-		return name;
+	public String getAccount() {
+		return account;
 	}
 	
 	/**
 	 * 设置 账户
-	 * @param name 账户
+	 * @param account 账户
 	 * @return 当前对象
 	*/
-	public User setName(String name) {
-		this.name=name;
+	public User setAccount(String account) {
+		this.account=account;
+		return this;
+	}
+	
+	/**
+	 * 获得 姓名<br>
+	 * 姓名
+	 * @return 姓名
+	*/
+	public String getRealName() {
+		return realName;
+	}
+	
+	/**
+	 * 设置 姓名
+	 * @param realName 姓名
+	 * @return 当前对象
+	*/
+	public User setRealName(String realName) {
+		this.realName=realName;
 		return this;
 	}
 	

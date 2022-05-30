@@ -3,12 +3,15 @@ package org.github.foxnic.web.oauth.service.impl;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.commons.collection.CollectorUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.Rcd;
 import com.github.foxnic.dao.data.RcdSet;
 import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.Entity;
 import com.github.foxnic.dao.entity.SuperService;
+import com.github.foxnic.dao.relation.cache.CacheInvalidEventType;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.dao.sql.expr.Template;
 import com.github.foxnic.sql.expr.ConditionExpr;
@@ -199,7 +202,7 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 
 	@Override
 	public List<Menu> getByIds(List<String> ids) {
-		return new ArrayList<>(getByIdsMap(ids).values());
+		return super.queryListByUKeys("id",ids);
 	}
 
 	/**
@@ -304,8 +307,26 @@ public class MenuServiceImpl extends SuperService<Menu> implements IMenuService 
 			pb.add(parentId,sort,menuId);
 			sort++;
 		}
-		dao.batchExecute("update "+table()+" set parent_id=?,hierarchy=null,sort=? where id=?",pb.getBatchList());
+
+		// 搜集修改前的值
+		List<Menu> menusBefore = this.getByIds(ids);
+		Map<String,Menu> mapBefore= CollectorUtil.collectMap(menusBefore,(m)->{return m.getId();},(m)->{return m;});
+
+		// 修改
+		this.dao().batchExecute("update "+table()+" set parent_id=?,hierarchy=null,sort=? where id=?",pb.getBatchList());
 		this.fillHierarchy(false);
+
+
+		// 搜集修改后的值
+		List<Menu> menusAfter = this.getByIds(ids);
+		Map<String,Menu> mapAfter= CollectorUtil.collectMap(menusAfter,(m)->{return m.getId();},(m)->{return m;});
+
+		// 触发变更
+		for (Map.Entry<String, Menu> entry : mapBefore.entrySet()) {
+			Menu entity=mapAfter.get(entry.getKey());
+			this.dao().getDataCacheManager().dispatchJoinCacheInvalidEvent(CacheInvalidEventType.UPDATE,this.dao().getDataCacheManager(),table(),entry.getValue(),(Entity) entity);
+		}
+
 		return true;
 	}
 

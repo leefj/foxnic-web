@@ -9,8 +9,8 @@ import org.github.foxnic.web.domain.job.JobWorker;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-07 13:34:40
- * @sign A32D7E1F9B00D141C817FF3ECF9F5688
+ * @since 2022-05-14 11:45:51
+ * @sign 7B7908A9FB5EFF31C330528541B4DD12
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -25,6 +25,16 @@ public class JobMeta {
 	 * 主键 , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.job.Job,java.lang.String> ID_PROP = new BeanProperty(org.github.foxnic.web.domain.job.Job.class ,ID, java.lang.String.class, "主键", "主键", java.lang.String.class, null);
+	
+	/**
+	 * 代码 , 任务代码 , 类型: java.lang.String
+	*/
+	public static final String CODE="code";
+	
+	/**
+	 * 代码 , 任务代码 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.job.Job,java.lang.String> CODE_PROP = new BeanProperty(org.github.foxnic.web.domain.job.Job.class ,CODE, java.lang.String.class, "代码", "任务代码", java.lang.String.class, null);
 	
 	/**
 	 * 任务名称 , 类型: java.lang.String
@@ -229,7 +239,7 @@ public class JobMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , NAME , GROUP_TAG , WORKER_ID , CRON_EXPR , PARAMETER , CONCURRENT , MISFIRE_POLICY , STATUS , NOTES , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , WORKER , NEXT_FIRE_TIME };
+	public static final String[] $PROPS={ ID , CODE , NAME , GROUP_TAG , WORKER_ID , CRON_EXPR , PARAMETER , CONCURRENT , MISFIRE_POLICY , STATUS , NOTES , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , WORKER , NEXT_FIRE_TIME };
 	
 	/**
 	 * 代理类
@@ -247,6 +257,17 @@ public class JobMeta {
 		public Job setId(String id) {
 			super.change(ID,super.getId(),id);
 			super.setId(id);
+			return this;
+		}
+		
+		/**
+		 * 设置 代码
+		 * @param code 代码
+		 * @return 当前对象
+		*/
+		public Job setCode(String code) {
+			super.change(CODE,super.getCode(),code);
+			super.setCode(code);
 			return this;
 		}
 		

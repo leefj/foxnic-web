@@ -1,7 +1,7 @@
 /**
  * 定时任务配置 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-07 13:34:42
+ * @since 2022-05-14 11:45:51
  */
 
 
@@ -44,6 +44,7 @@ function ListPage() {
 			fox.adjustSearchElement();
 		});
 		fox.adjustSearchElement();
+		$("#table-area").css("margin-top",$(".search-bar").height()+"px");
 		//
 		function renderTableInternal() {
 
@@ -74,17 +75,18 @@ function ListPage() {
 				cols: [[
 					{ fixed: 'left',type: 'numbers' },
 					{ fixed: 'left',type:'checkbox'}
-					,{ field: 'name', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('任务名') , templet: function (d) { return templet('name',d.name,d);}  }
-					,{ field: 'workerId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('执行器'), templet: function (d) { return templet('workerId' ,fox.joinLabel(d.worker,"className"),fox.getProperty(d,["worker","className"]),d);}}
-					,{ field: 'cronExpr', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('cron') , templet: function (d) { return templet('cronExpr',d.cronExpr,d);}  }
-					,{ field: 'misfirePolicy', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('执行策略'), templet:function (d){ return templet('misfirePolicy',fox.getEnumText(SELECT_MISFIREPOLICY_DATA,d.misfirePolicy),d);}}
-					,{ field: 'status', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('状态'), templet:function (d){ return templet('status',fox.getEnumText(RADIO_STATUS_DATA,d.status),d);}}
-					,{ field: 'nextFireTime', align:"",fixed:false,  hide:false, sort: true, title: fox.translate('下次执行时间') , templet: function (d) { return templet('nextFireTime',d.nextFireTime,d);}  }
-					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('主键') , templet: function (d) { return templet('id',d.id,d);}  }
-					,{ field: 'parameter', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('执行参数') , templet: function (d) { return templet('parameter',d.parameter,d);}  }
-					,{ field: 'concurrent', align:"center",fixed:false,  hide:true, sort: true, title: fox.translate('允许并发'), templet: '#cell-tpl-concurrent'}
-					,{ field: 'notes', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('备注') , templet: function (d) { return templet('notes',d.notes,d);}  }
-					,{ field: 'createTime', align:"right", fixed:false, hide:true, sort: true, title: fox.translate('创建时间') ,templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
+					,{ field: 'name', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('任务名') , templet: function (d) { return templet('name',d.name,d);}  }
+					,{ field: 'workerId', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('执行器'), templet: function (d) { return templet('workerId' ,fox.joinLabel(d.worker,"className"),fox.getProperty(d,["worker","className"]),d);}}
+					,{ field: 'cronExpr', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('cron') , templet: function (d) { return templet('cronExpr',d.cronExpr,d);}  }
+					,{ field: 'misfirePolicy', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('执行策略'), templet:function (d){ return templet('misfirePolicy',fox.getEnumText(SELECT_MISFIREPOLICY_DATA,d.misfirePolicy),d);}}
+					,{ field: 'status', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('状态'), templet:function (d){ return templet('status',fox.getEnumText(RADIO_STATUS_DATA,d.status),d);}}
+					,{ field: 'nextFireTime', align:"",fixed:false,  hide:false, sort: false  , title: fox.translate('下次执行时间') , templet: function (d) { return templet('nextFireTime',d.nextFireTime,d);}  }
+					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('主键') , templet: function (d) { return templet('id',d.id,d);}  }
+					,{ field: 'code', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('代码') , templet: function (d) { return templet('code',d.code,d);}  }
+					,{ field: 'parameter', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('执行参数') , templet: function (d) { return templet('parameter',d.parameter,d);}  }
+					,{ field: 'concurrent', align:"center",fixed:false,  hide:true, sort: true  , title: fox.translate('允许并发'), templet: '#cell-tpl-concurrent'}
+					,{ field: 'notes', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('备注') , templet: function (d) { return templet('notes',d.notes,d);}  }
+					,{ field: 'createTime', align:"right", fixed:false, hide:true, sort: true   ,title: fox.translate('创建时间') ,templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
 				]],
@@ -113,7 +115,7 @@ function ListPage() {
 			});
 			//绑定排序事件
 			table.on('sort(data-table)', function(obj){
-			  refreshTableData(obj.field,obj.type);
+			  refreshTableData(obj.sortField,obj.type);
 			});
 			window.pageExt.list.afterTableRender && window.pageExt.list.afterTableRender();
 		}
@@ -121,11 +123,34 @@ function ListPage() {
     };
 
 	/**
+	 * 刷新单号数据
+	 * */
+	function refreshRowData(data,remote) {
+		var context=dataTable.getDataRowContext( { id : data.id } );
+		if(context==null) return;
+		if(remote) {
+			admin.post(moduleURL+"/get-by-id", { id : data.id }, function (r) {
+				if (r.success) {
+					data = r.data;
+					context.update(data);
+					fox.renderFormInputs(form);
+				} else {
+					fox.showMessage(data);
+				}
+			});
+		} else {
+			context.update(data);
+			fox.renderFormInputs(form);
+		}
+	}
+
+	/**
       * 刷新表格数据
       */
 	function refreshTableData(sortField,sortType,reset) {
+		function getSelectedValue(id,prop) { var xm=xmSelect.get(id,true); return xm==null ? null : xm.getValue(prop);}
 		var value = {};
-		value.name={ inputType:"button",value: $("#name").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" };
+		value.name={ inputType:"button",value: $("#name").val() ,fuzzy: true,splitValue:false,valuePrefix:"",valueSuffix:"" };
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;
@@ -263,10 +288,10 @@ function ListPage() {
 							var doNext=window.pageExt.list.afterBatchDelete(data);
 							if(!doNext) return;
 						}
-                    	top.layer.msg(data.message, {icon: 1, time: 500});
+						fox.showMessage(data);
                         refreshTableData();
                     } else {
-						top.layer.msg(data.message, {icon: 2, time: 1500});
+						fox.showMessage(data);
                     }
                 });
 			});
@@ -294,7 +319,7 @@ function ListPage() {
 						admin.putTempData('sys-job-form-data-form-action', "edit",true);
 						showEditForm(data.data);
 					} else {
-						 top.layer.msg(data.message, {icon: 1, time: 1500});
+						 fox.showMessage(data);
 					}
 				});
 			} else if (layEvent === 'view') { // 查看
@@ -303,7 +328,7 @@ function ListPage() {
 						admin.putTempData('sys-job-form-data-form-action', "view",true);
 						showEditForm(data.data);
 					} else {
-						top.layer.msg(data.message, {icon: 1, time: 1500});
+						fox.showMessage(data);
 					}
 				});
 			}
@@ -324,16 +349,16 @@ function ListPage() {
 								var doNext=window.pageExt.list.afterSingleDelete(data);
 								if(!doNext) return;
 							}
-							top.layer.msg(data.message, {icon: 1, time: 500});
+							fox.showMessage(data);
 							refreshTableData();
 						} else {
-							top.layer.msg(data.message, {icon: 2, time: 1500});
+							fox.showMessage(data);
 						}
 					});
 				});
 			}
 			else if (layEvent === 'invoke-imm') { // 立即调度
-				window.pageExt.list.invokeImm(data);
+				window.pageExt.list.invokeImm(data,this);
 			}
 			
 		});
@@ -372,13 +397,19 @@ function ListPage() {
 			id:"sys-job-form-data-win",
 			content: '/business/job/job/job_form.html' + (queryString?("?"+queryString):""),
 			finish: function () {
-				refreshTableData();
+				if(action=="create") {
+					refreshTableData();
+				}
+				if(action=="edit") {
+					false?refreshTableData():refreshRowData(data,true);
+				}
 			}
 		});
 	};
 
 	window.module={
 		refreshTableData: refreshTableData,
+		refreshRowData: refreshRowData,
 		getCheckedList: getCheckedList
 	};
 
