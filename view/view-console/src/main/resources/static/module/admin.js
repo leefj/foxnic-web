@@ -553,6 +553,7 @@ layui.define(['settings', 'layer'], function (exports) {
         },
         // 关闭当前选项卡
         closeThisTabs: function () {
+            debugger
             var $title = $('.layui-layout-admin .layui-body .layui-tab .layui-tab-title');
             if ($title.find('li').first().hasClass('layui-this')) {
                 return;

@@ -482,8 +482,9 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
         }
     };
 
-    // tab选项卡切换监听
+    // tab选项卡切换监听(貌似无效)
     element.on('tab(admin-pagetabs)', function (data) {
+        debugger
         var layId = $(this).attr('lay-id');
         // if(layId!="userifr") {
        	 	Q.go(layId);
@@ -492,6 +493,12 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
         // 	ifr.attr("src",ifr.attr("src"));
         	//debugger;
         // }
+    });
+
+    // 选项卡关闭监听(貌似无效)
+    element.on('tabDelete(admin-pagetabs)', function (data) {
+        var layId = $(this).attr('lay-id');
+        debugger
     });
 
     exports('index', index);
