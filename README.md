@@ -27,22 +27,22 @@ Spring Boot、 Spring Security、[FoxnicSQL](https://gitee.com/LeeFJ/foxnic)、 
 
 ## 部署教程
 
-[第一步：配置EAM项目源码](https://www.bilibili.com/video/BV1844y1377V/)
-[第二步：配置数据库](https://www.bilibili.com/video/BV1kR4y1P7Py/)
-[第三步：配置与启动应用](https://www.bilibili.com/video/BV1wu411r7xC/)
-[第四步：部署](https://www.bilibili.com/video/BV1Q34y1a7LR/)
-[第四步：补充-Maven配置](https://www.bilibili.com/video/BV1x34y1j7Ff/)
+- [第一步：配置EAM项目源码](https://www.bilibili.com/video/BV1844y1377V/)
+- [第二步：配置数据库](https://www.bilibili.com/video/BV1kR4y1P7Py/)
+- [第三步：配置与启动应用](https://www.bilibili.com/video/BV1wu411r7xC/)
+- [第四步：部署](https://www.bilibili.com/video/BV1Q34y1a7LR/)
+- [第四步：补充-Maven配置](https://www.bilibili.com/video/BV1x34y1j7Ff/)
 
 
 ## 场景切入与痛点
-[场景切入与痛点-1](https://www.bilibili.com/video/BV1wR4y1w7rg/)
-[场景切入与痛点-2](https://www.bilibili.com/video/BV1QS4y1B7NJ/)
-[场景切入与痛点-3](https://www.bilibili.com/video/BV1Sg411d7Te/)
-[场景切入与痛点-4](https://www.bilibili.com/video/BV1GZ4y1b7Qi/)
-[场景切入与痛点-5.1](https://www.bilibili.com/video/BV1t3411372M/)
-[场景切入与痛点-5.2](https://www.bilibili.com/video/BV1SS4y1q7QD/)
-[场景切入与痛点-5.3](https://www.bilibili.com/video/BV1h341137vy/)
-[场景切入与痛点-5.4](https://www.bilibili.com/video/BV19W4y1k7Dr/)
+- [场景切入与痛点-1](https://www.bilibili.com/video/BV1wR4y1w7rg/)
+- [场景切入与痛点-2](https://www.bilibili.com/video/BV1QS4y1B7NJ/)
+- [场景切入与痛点-3](https://www.bilibili.com/video/BV1Sg411d7Te/)
+- [场景切入与痛点-4](https://www.bilibili.com/video/BV1GZ4y1b7Qi/)
+- [场景切入与痛点-5.1](https://www.bilibili.com/video/BV1t3411372M/)
+- [场景切入与痛点-5.2](https://www.bilibili.com/video/BV1SS4y1q7QD/)
+- [场景切入与痛点-5.3](https://www.bilibili.com/video/BV1h341137vy/)
+- [场景切入与痛点-5.4](https://www.bilibili.com/video/BV19W4y1k7Dr/)
 
 
 
