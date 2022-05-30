@@ -18,6 +18,34 @@ Spring Boot、 Spring Security、[FoxnicSQL](https://gitee.com/LeeFJ/foxnic)、 
 
 [http://foxnicweb.com/docs/doc.html](http://foxnicweb.com/docs/doc.html)
 
+### 视频与文档集合
+- 1、官网文档集合 http://foxnicweb.com/docs/doc.html
+- 2、B站视频教程集合 https://space.bilibili.com/1796475412
+- 3、知乎视频教程集合 https://www.zhihu.com/people/leefj/zvideos
+- 4、知乎文档集合 https://www.zhihu.com/people/leefj/posts
+
+
+## 部署教程
+
+[第一步：配置EAM项目源码](https://www.bilibili.com/video/BV1844y1377V/)
+[第二步：配置数据库](https://www.bilibili.com/video/BV1kR4y1P7Py/)
+[第三步：配置与启动应用](https://www.bilibili.com/video/BV1wu411r7xC/)
+[第四步：部署](https://www.bilibili.com/video/BV1Q34y1a7LR/)
+[第四步：补充-Maven配置](https://www.bilibili.com/video/BV1x34y1j7Ff/)
+
+
+## 场景切入与痛点
+[场景切入与痛点-1](https://www.bilibili.com/video/BV1wR4y1w7rg/)
+[场景切入与痛点-2](https://www.bilibili.com/video/BV1QS4y1B7NJ/)
+[场景切入与痛点-3](https://www.bilibili.com/video/BV1Sg411d7Te/)
+[场景切入与痛点-4](https://www.bilibili.com/video/BV1GZ4y1b7Qi/)
+[场景切入与痛点-5.1](https://www.bilibili.com/video/BV1t3411372M/)
+[场景切入与痛点-5.2](https://www.bilibili.com/video/BV1SS4y1q7QD/)
+[场景切入与痛点-5.3](https://www.bilibili.com/video/BV1h341137vy/)
+[场景切入与痛点-5.4](https://www.bilibili.com/video/BV19W4y1k7Dr/)
+
+
+
 ## 沟通交流
 
 微信群：
@@ -35,6 +63,9 @@ QQ群：634770774
 ## 更新记录
 
 
+
+
+
 ## 版本：1.0.1.RELEASE ( 2022-04-08 )  Foxnic Version: 1.5.1.RELEASE
 ### 新特性
 1、错误码机制优化
@@ -43,9 +74,15 @@ QQ群：634770774
 4、代码生成增加 readonly 特性   
 5、优化 Excel 生成的相关功能
 6、增加 PerformanceLogger
+7、代码生成支持指定表单提交地址   form.savingURL(ProcessInstanceServiceProxy.TEMPORARY_SAVE);
+8、增加按唯一键查询方法: queryListByUKey,queryListByUKeys,queryMapByUKeys,queryListByIds,queryMapByIds,同时支持代码生成
+9、增加 shadowBoolean 支持
 
 ### Bug 修复
 1、代码生成 INPUT_FILED bug 修复
+2、修复搜索栏自动换行时，表格按钮被遮盖问题
+3、日期转换bug修复
+4、接口参数接收bug修复
 
 
 
