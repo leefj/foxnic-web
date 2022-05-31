@@ -69,7 +69,7 @@ public class ProcessDefinitionConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITI
     @Override
     public void configList(ViewOptions view, ListOptions list) {
         ActionConfig action = null;
-        action = list.operationColumn().addActionButton("流程图","showBpmnDiagrams");
+        action = list.operationColumn().addActionButton("模型","showBpmnDiagrams");
         //action.setIconHtml("<li class='mdi mdi-set mdi-arrow-decision-outline'></li>");
         action = list.operationColumn().addActionButton("发起人","showInitiators");
         //action.setIconHtml("<li class='fa fa-user-secret' style='font-size:14px'></li>");
