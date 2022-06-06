@@ -124,6 +124,66 @@ layui.define(['settings', 'layer', 'admin', 'util','element'],function (exports)
 
 
 
+        },
+        /**
+         * 选择审批人
+         * */
+        chooseAssignee:function (param){
+            if(param.prepose){
+                param=param.prepose(param);
+                if(!param) return;
+            }
+            var title=param.title;
+            if(!title) {
+                title="请选处理人";
+            }
+            // debugger;
+            var value = null;
+            if(param.inputEl) {
+                value = param.inputEl.val();
+            }
+            param.chooseEmployeeCallbackEvent=function(ids,nodes) {
+                // debugger;
+                if(param.inputEl) {
+                    param.inputEl.val(ids.join(","));
+                }
+                console.log("ids="+ids.join(","))
+                var names=[];
+                var ns=[];
+                for (var i = 0; i < nodes.length; i++) {
+                    // debugger
+                    names.push(nodes[i].targetName);
+                    ns.push({targetId:nodes[i].targetId,targetType:nodes[i].targetType});
+                }
+                if (names.length>0) {
+                    if(param.buttonEl) {
+                        param.buttonEl.find("span").text(names.join(","));
+                    }
+                } else {
+                    if(param.buttonEl) {
+                        param.buttonEl.find("span").text(param.buttonEl.find("span").attr("default-label"));
+                    }
+                }
+                if(param.callback) {
+                    param.callback(param,{field:param.field,selectedIds:ids,selected:ns,fromData:param.fromData,inputEl:param.inputEl,buttonEl:param.buttonEl});
+                }
+            }
+            //debugger
+            admin.putTempData("assignee-dialog-value",value,true);
+            admin.putTempData("assignee-dialog-options",param,true);
+
+            admin.post("/service-hrm/hrm-favourite-group-item/remove-all",{temporary:1},function (r){
+                var dialogIndex=admin.popupCenter({
+                    type:2,
+                    id:"assigneeDialog",
+                    title: title,
+                    content: '/camunda/dialog/assignee_dialog.html',
+                    offset: 'auto',
+                    area:["950px","90%"]
+                });
+                admin.putTempData("assignee-dialog-index",dialogIndex,true);
+            });
+
         }
 
     };
