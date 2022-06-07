@@ -13,7 +13,7 @@ import org.github.foxnic.web.domain.bpm.FormDefinition;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-30 17:02:41
+ * @since 2022-06-07 15:55:03
  * @sign 1D2C38500D1ABE5927BCBF1911BE96A0
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */

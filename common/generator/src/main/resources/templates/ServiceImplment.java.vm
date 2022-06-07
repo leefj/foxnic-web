@@ -5,6 +5,9 @@ import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.foxnic.commons.collection.MapUtil;
+import java.util.Arrays;
+
 #(imports)
 
 #(classJavaDoc)
@@ -202,6 +205,27 @@ public class #(simpleName) extends SuperService<#(poSimpleName)> implements #(in
 		//return exists;
 		return false;
 	}
+
+	#if(isSimplePK)
+
+	@Override
+	public Boolean hasRefers(String #(idPropertyName)) {
+		Map<#(idPropertyType), Boolean> map=this.hasRefers(Arrays.asList(#(idPropertyName)));
+		Boolean ex=map.get(#(idPropertyName));
+		if(ex==null) return false;
+		return ex;
+	}
+
+	@Override
+	public Map<#(idPropertyType), Boolean> hasRefers(List<#(idPropertyType)> #(idPropertyName)s) {
+		// 默认无业务逻辑，返回此行；有业务逻辑需要校验时，请修改并使用已注释的行代码！！！
+		return MapUtil.asMap(ids,false);
+		// return super.hasRefers(FoxnicWeb.BPM_PROCESS_INSTANCE.FORM_DEFINITION_ID,#(idPropertyName)s);
+	}
+
+	#end
+
+
 
 	@Override
 	public ExcelWriter exportExcel(#(poSimpleName) sample) {

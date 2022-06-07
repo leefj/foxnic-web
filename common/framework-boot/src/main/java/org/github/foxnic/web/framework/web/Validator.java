@@ -3,14 +3,18 @@ package org.github.foxnic.web.framework.web;
 import com.github.foxnic.api.error.CommonError;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.commons.lang.DataParser;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.springboot.spring.BeanScopes;
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
 
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -18,15 +22,15 @@ import java.util.List;
  * */
 public class Validator {
 
-    private static interface  ValidatorFunction {
-        boolean validate();
+    private static interface  SingleValueValidatorFunction<T> {
+        Result validate(T value);
     }
 
-    public static class ValueWrapper {
+    public static class ValueWrapper<T> {
         private Validator validator;
         private String subject;
-        private Object value;
-        private ValueWrapper(Validator validator,String subject,Object value) {
+        private T value;
+        private ValueWrapper(Validator validator,String subject,T value) {
             this.validator=validator;
             this.subject=subject;
             this.value=value;
@@ -41,7 +45,7 @@ public class Validator {
         /**
          * 必填项，非 null 或 空白字符串
          * */
-        public ValueWrapper require(String message) {
+        public ValueWrapper<T> require(String message) {
             Result result=null;
             if(value==null) {
                 result = ErrorDesc.failure(CommonError.PARAM_IS_REQUIRED).subject(subject);
@@ -50,13 +54,20 @@ public class Validator {
                 }
                 this.validator.errors.add(result);
             } else {
+                boolean failure =false;
                 if ((value instanceof CharSequence) && StringUtil.isBlank(value)) {
+                   failure =true;
+                } else if ((value instanceof Collection) && ((Collection)value).isEmpty()) {
+                    failure =true;
+                }
+                if(failure) {
                     result = ErrorDesc.failure(CommonError.PARAM_IS_REQUIRED).subject(subject);
                     if(StringUtil.hasContent(message)) {
                         result.message(message);
                     }
                     this.validator.errors.add(result);
                 }
+
             }
             return this;
         }
@@ -64,13 +75,113 @@ public class Validator {
         /**
          * 必填项，非 null 或 空白字符串
          * */
-        public ValueWrapper require() {
+        public ValueWrapper<T> require() {
             return require(null);
         }
 
+        /**
+         *  值必须在指定的列表范围内
+         * */
+        public ValueWrapper<T> canNotInList(T... value) {
+            return canNotInList("",value);
+        }
 
-        public ValueWrapper validate(ValidatorFunction function) {
+        /**
+         * 值必须在指定的列表范围内
+         */
+        public ValueWrapper<T> canNotInList(String message, T... value) {
+            for (T o : value) {
+                if (o == null) continue;
+                if (o.equals(this.value)) {
+                    Result result = ErrorDesc.failure(CommonError.VALUE_CAN_NOT_IN_LIST).subject(subject);
+                    if (StringUtil.hasContent(message)) {
+                        result.message(message);
+                    }
+                    this.validator.errors.add(result);
+                    break;
+                }
+            }
             return this;
+        }
+
+        /**
+         *  值必须在指定的列表范围内
+         * */
+        public ValueWrapper<T> mustInList(T... value) {
+            return  mustInList("",value);
+        }
+
+        /**
+         *  值必须在指定的列表范围内
+         * */
+        public ValueWrapper<T> mustInList(String message, T... value) {
+            for (T o : value) {
+                if(o==null) continue;
+                if(!o.equals(this.value)) {
+                    Result result = ErrorDesc.failure(CommonError.VALUE_MUST_IN_LIST).subject(subject);
+                    if (StringUtil.hasContent(message)) {
+                        result.message(message);
+                    }
+                    this.validator.errors.add(result);
+                    break;
+                }
+            }
+            return this;
+        }
+
+
+        public ValueWrapper<T> validate(SingleValueValidatorFunction function) {
+            Result result=function.validate(this.value);
+            if(result.success()) return this;
+            else {
+                this.validator.errors.add(result);
+            }
+            return this;
+        }
+
+        public ValueWrapper<T> greaterThan(T value) {
+            return greaterThan("",value);
+        }
+        public ValueWrapper<T> greaterThan(String message, T value) {
+            boolean r=true;
+            String msg=null;
+            if(this.value==null || value==null) {
+                r=false;
+                msg = "比较值不允许为null";
+            }
+            else {
+                BigDecimal a= DataParser.parseBigDecimal(this.value);
+                BigDecimal b= DataParser.parseBigDecimal(value);
+                if(a.compareTo(b)!=1) {
+                    r=false;
+                    msg = "必须大于 "+value;
+                }
+            }
+            if(!r) {
+                Result result = ErrorDesc.failure(CommonError.VALUE_MUST_IN_LIST).subject(subject).message(msg);
+                this.validator.errors.add(result);
+            }
+            return this;
+        }
+
+
+
+        /**
+         * 校验值，如 this.validator().forValue(instance.getTitle(),"标题(title)").require();
+         * */
+        public <T> ValueWrapper asserts(T value,String subject) {
+            return this.validator().asserts(value,subject);
+        }
+
+        /**
+         * 校验值，如 this.validator().forValue(instance.getTitle()).require();
+         * */
+        public <T> ValueWrapper asserts(T value) {
+            return this.validator().asserts(value);
+        }
+
+        public boolean failure() {
+            return this.validator().failure();
         }
 
     }
@@ -82,14 +193,14 @@ public class Validator {
     /**
      * 校验值，如 this.validator().forValue(instance.getTitle(),"标题(title)").require();
      * */
-    public ValueWrapper forValue(Object value,String subject) {
+    public <T> ValueWrapper asserts(T value,String subject) {
         return new ValueWrapper(this,subject,value);
     }
 
     /**
      * 校验值，如 this.validator().forValue(instance.getTitle()).require();
      * */
-    public ValueWrapper forValue(Object value) {
+    public <T> ValueWrapper asserts(T value) {
         return new ValueWrapper(this,null,value);
     }
 

@@ -115,6 +115,16 @@ public interface #(simpleName) extends ISuperService<#(poSimpleName)> {
 	#if(isSimplePK)
 
 	/**
+	 * 检查引用
+	 * */
+	Boolean hasRefers(#(idPropertyType) #(idPropertyName));
+
+	/**
+	 * 批量检查引用
+	 * */
+	Map<#(idPropertyType),Boolean> hasRefers(List<#(idPropertyType)> #(idPropertyName)s);
+
+	/**
 	 * 按 #(idPropertyName) 获取多个对象
 	 * @param #(idPropertyName)s  主键清单
 	 * @return 实体集

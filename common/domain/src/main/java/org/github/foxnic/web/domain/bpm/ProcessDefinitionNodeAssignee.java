@@ -17,8 +17,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程审批人
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-11 11:17:30
- * @sign C4D6ECB21BE5CCD44BA6671732CF2811
+ * @since 2022-06-07 15:55:04
+ * @sign 8DA5C6FD8F6887E955C5A2BC9FBBB94F
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -28,56 +28,56 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 	private static final long serialVersionUID = 1L;
 
 	public static final DBTable TABLE =BPM_PROCESS_DEFINITION_NODE_ASSIGNEE.$TABLE;
-
+	
 	/**
 	 * ID：ID
 	*/
 	@Id
 	@ApiModelProperty(required = true,value="ID" , notes = "ID")
 	private String id;
-
+	
 	/**
 	 * 流程节点ID：流程节点ID
 	*/
 	@ApiModelProperty(required = false,value="流程节点ID" , notes = "流程节点ID")
 	private String nodeId;
-
+	
 	/**
 	 * 审批人类型：审批人类型
 	*/
 	@ApiModelProperty(required = false,value="审批人类型" , notes = "审批人类型")
 	private String assigneeType;
-
+	
 	/**
 	 * 审批人ID：审批人ID
 	*/
 	@ApiModelProperty(required = false,value="审批人ID" , notes = "审批人ID")
 	private String assigneeId;
-
+	
 	/**
 	 * 创建人ID：创建人ID
 	*/
 	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID")
 	private String createBy;
-
+	
 	/**
 	 * 创建时间：创建时间
 	*/
 	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间")
 	private Date createTime;
-
+	
 	/**
 	 * 修改人ID：修改人ID
 	*/
 	@ApiModelProperty(required = false,value="修改人ID" , notes = "修改人ID")
 	private String updateBy;
-
+	
 	/**
 	 * 修改时间：修改时间
 	*/
 	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间")
 	private Date updateTime;
-
+	
 	/**
 	 * 是否已删除：是否已删除
 	*/
@@ -85,43 +85,43 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 	private Integer deleted;
 	@Transient
 	private Boolean deletedBool;
-
+	
 	/**
 	 * 删除人ID：删除人ID
 	*/
 	@ApiModelProperty(required = false,value="删除人ID" , notes = "删除人ID")
 	private String deleteBy;
-
+	
 	/**
 	 * 删除时间：删除时间
 	*/
 	@ApiModelProperty(required = false,value="删除时间" , notes = "删除时间")
 	private Date deleteTime;
-
+	
 	/**
 	 * 数据版本号：数据版本号
 	*/
 	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
 	private Integer version;
-
+	
 	/**
 	 * 租户ID：租户ID
 	*/
 	@ApiModelProperty(required = true,value="租户ID" , notes = "租户ID")
 	private String tenantId;
-
+	
 	/**
 	 * 序号：序号
 	*/
 	@ApiModelProperty(required = false,value="序号" , notes = "序号")
 	private Integer sort;
-
+	
 	/**
 	 * 审批人：审批人
 	*/
 	@ApiModelProperty(required = false,value="审批人" , notes = "审批人")
 	private Assignee assignee;
-
+	
 	/**
 	 * 获得 ID<br>
 	 * ID
@@ -130,7 +130,7 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 	public String getId() {
 		return id;
 	}
-
+	
 	/**
 	 * 设置 ID
 	 * @param id ID
@@ -140,7 +140,7 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 		this.id=id;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 流程节点ID<br>
 	 * 流程节点ID
@@ -149,7 +149,7 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 	public String getNodeId() {
 		return nodeId;
 	}
-
+	
 	/**
 	 * 设置 流程节点ID
 	 * @param nodeId 流程节点ID
@@ -159,7 +159,7 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 		this.nodeId=nodeId;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 审批人类型<br>
 	 * 审批人类型
@@ -168,7 +168,7 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 	public String getAssigneeType() {
 		return assigneeType;
 	}
-
+	
 	/**
 	 * 设置 审批人类型
 	 * @param assigneeType 审批人类型
@@ -178,7 +178,7 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 		this.assigneeType=assigneeType;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 审批人ID<br>
 	 * 审批人ID
@@ -187,7 +187,7 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 	public String getAssigneeId() {
 		return assigneeId;
 	}
-
+	
 	/**
 	 * 设置 审批人ID
 	 * @param assigneeId 审批人ID
@@ -197,7 +197,7 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 		this.assigneeId=assigneeId;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 创建人ID<br>
 	 * 创建人ID
@@ -206,7 +206,7 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 	public String getCreateBy() {
 		return createBy;
 	}
-
+	
 	/**
 	 * 设置 创建人ID
 	 * @param createBy 创建人ID
@@ -216,7 +216,7 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 		this.createBy=createBy;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 创建时间<br>
 	 * 创建时间
@@ -225,7 +225,7 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 	public Date getCreateTime() {
 		return createTime;
 	}
-
+	
 	/**
 	 * 设置 创建时间
 	 * @param createTime 创建时间
@@ -235,7 +235,7 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 		this.createTime=createTime;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 修改人ID<br>
 	 * 修改人ID
@@ -244,7 +244,7 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 	public String getUpdateBy() {
 		return updateBy;
 	}
-
+	
 	/**
 	 * 设置 修改人ID
 	 * @param updateBy 修改人ID
@@ -254,7 +254,7 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 		this.updateBy=updateBy;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 修改时间<br>
 	 * 修改时间
@@ -263,7 +263,7 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 	public Date getUpdateTime() {
 		return updateTime;
 	}
-
+	
 	/**
 	 * 设置 修改时间
 	 * @param updateTime 修改时间
@@ -273,7 +273,7 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 		this.updateTime=updateTime;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 是否已删除<br>
 	 * 是否已删除
@@ -282,7 +282,7 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 	public Integer getDeleted() {
 		return deleted;
 	}
-
+	
 	/**
 	 * 获得 是否已删除 的投影属性<br>
 	 * 等价于 getDeleted 方法，获得对应的枚举类型
@@ -295,7 +295,7 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 		}
 		return this.deletedBool ;
 	}
-
+	
 	/**
 	 * 设置 是否已删除
 	 * @param deleted 是否已删除
@@ -306,7 +306,7 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 		this.deletedBool=DataParser.parseBoolean(deleted);
 		return this;
 	}
-
+	
 	/**
 	 * 设置 是否已删除的投影属性，等同于设置 是否已删除
 	 * @param deletedBool 是否已删除
@@ -322,7 +322,7 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 		this.deletedBool=deletedBool;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 删除人ID<br>
 	 * 删除人ID
@@ -331,7 +331,7 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 	public String getDeleteBy() {
 		return deleteBy;
 	}
-
+	
 	/**
 	 * 设置 删除人ID
 	 * @param deleteBy 删除人ID
@@ -341,7 +341,7 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 		this.deleteBy=deleteBy;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 删除时间<br>
 	 * 删除时间
@@ -350,7 +350,7 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 	public Date getDeleteTime() {
 		return deleteTime;
 	}
-
+	
 	/**
 	 * 设置 删除时间
 	 * @param deleteTime 删除时间
@@ -360,7 +360,7 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 		this.deleteTime=deleteTime;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 数据版本号<br>
 	 * 数据版本号
@@ -369,7 +369,7 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 	public Integer getVersion() {
 		return version;
 	}
-
+	
 	/**
 	 * 设置 数据版本号
 	 * @param version 数据版本号
@@ -379,7 +379,7 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 		this.version=version;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 租户ID<br>
 	 * 租户ID
@@ -388,7 +388,7 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 	public String getTenantId() {
 		return tenantId;
 	}
-
+	
 	/**
 	 * 设置 租户ID
 	 * @param tenantId 租户ID
@@ -398,7 +398,7 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 		this.tenantId=tenantId;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 序号<br>
 	 * 序号
@@ -407,7 +407,7 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 	public Integer getSort() {
 		return sort;
 	}
-
+	
 	/**
 	 * 设置 序号
 	 * @param sort 序号
@@ -417,7 +417,7 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 		this.sort=sort;
 		return this;
 	}
-
+	
 	/**
 	 * 获得 审批人<br>
 	 * 审批人
@@ -426,7 +426,7 @@ public class ProcessDefinitionNodeAssignee extends Entity {
 	public Assignee getAssignee() {
 		return assignee;
 	}
-
+	
 	/**
 	 * 设置 审批人
 	 * @param assignee 审批人

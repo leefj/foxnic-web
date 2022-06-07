@@ -138,11 +138,11 @@ layui.define(['settings', 'layer', 'admin', 'util','element'],function (exports)
                 title="请选处理人";
             }
             // debugger;
-            var value = null;
-            if(param.inputEl) {
+            var value = param.value;
+            if(!value && param.inputEl) {
                 value = param.inputEl.val();
             }
-            param.chooseEmployeeCallbackEvent=function(ids,nodes) {
+            param.chooseAssigneeCallbackEvent=function(ids,nodes) {
                 // debugger;
                 if(param.inputEl) {
                     param.inputEl.val(ids.join(","));
@@ -153,7 +153,7 @@ layui.define(['settings', 'layer', 'admin', 'util','element'],function (exports)
                 for (var i = 0; i < nodes.length; i++) {
                     // debugger
                     names.push(nodes[i].targetName);
-                    ns.push({targetId:nodes[i].targetId,targetType:nodes[i].targetType});
+                    ns.push({targetId:nodes[i].targetId,targetType:nodes[i].targetType,targetName:nodes[i].targetName});
                 }
                 if (names.length>0) {
                     if(param.buttonEl) {
@@ -168,7 +168,7 @@ layui.define(['settings', 'layer', 'admin', 'util','element'],function (exports)
                     param.callback(param,{field:param.field,selectedIds:ids,selected:ns,fromData:param.fromData,inputEl:param.inputEl,buttonEl:param.buttonEl});
                 }
             }
-            //debugger
+            // debugger
             admin.putTempData("assignee-dialog-value",value,true);
             admin.putTempData("assignee-dialog-options",param,true);
 
@@ -179,7 +179,7 @@ layui.define(['settings', 'layer', 'admin', 'util','element'],function (exports)
                     title: title,
                     content: '/camunda/dialog/assignee_dialog.html',
                     offset: 'auto',
-                    area:["950px","90%"]
+                    area:["1150px","90%"]
                 });
                 admin.putTempData("assignee-dialog-index",dialogIndex,true);
             });

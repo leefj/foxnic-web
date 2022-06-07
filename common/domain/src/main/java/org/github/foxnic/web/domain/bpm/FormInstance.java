@@ -11,6 +11,7 @@ import javax.persistence.Transient;
 import java.util.List;
 import com.github.foxnic.commons.lang.DataParser;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
 
@@ -19,7 +20,7 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程实例表单
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-17 09:13:41
+ * @since 2022-06-07 15:55:06
  * @sign 97AC79D7BBDD1517683A7C90B764CA46
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -444,9 +445,9 @@ public class FormInstance extends Entity {
 	 * @param bill 业务单据清单
 	 * @return 当前对象
 	*/
-	public FormInstance addBill(FormInstanceBill bill) {
+	public FormInstance addBill(FormInstanceBill... bill) {
 		if(this.bills==null) bills=new ArrayList<>();
-		this.bills.add(bill);
+		this.bills.addAll(Arrays.asList(bill));
 		return this;
 	}
 

@@ -14,6 +14,7 @@ import com.github.foxnic.commons.reflect.EnumUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.lang.DataParser;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
 
@@ -22,8 +23,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程定义节点
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-11 11:17:25
- * @sign 28A5F3A05F45A8C3A0ACA76389A948E4
+ * @since 2022-06-07 15:55:04
+ * @sign 6C6CC36AA991C73619FD79F9FC6444C8
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -44,19 +45,19 @@ public class ProcessDefinitionNode extends Entity {
 	/**
 	 * 流程定义ID：流程定义ID
 	*/
-	@ApiModelProperty(required = false,value="流程定义ID" , notes = "流程定义ID")
+	@ApiModelProperty(required = true,value="流程定义ID" , notes = "流程定义ID")
 	private String processDefinitionId;
 	
 	/**
 	 * 流程文件ID：流程文件ID
 	*/
-	@ApiModelProperty(required = false,value="流程文件ID" , notes = "流程文件ID")
+	@ApiModelProperty(required = true,value="流程文件ID" , notes = "流程文件ID")
 	private String processDefinitionFileId;
 	
 	/**
 	 * 节点ID：节点ID
 	*/
-	@ApiModelProperty(required = false,value="节点ID" , notes = "节点ID")
+	@ApiModelProperty(required = true,value="节点ID" , notes = "节点ID")
 	private String camundaNodeId;
 	
 	/**
@@ -557,9 +558,9 @@ public class ProcessDefinitionNode extends Entity {
 	 * @param assignee 审批人清单
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionNode addAssignee(ProcessDefinitionNodeAssignee assignee) {
+	public ProcessDefinitionNode addAssignee(ProcessDefinitionNodeAssignee... assignee) {
 		if(this.assignees==null) assignees=new ArrayList<>();
-		this.assignees.add(assignee);
+		this.assignees.addAll(Arrays.asList(assignee));
 		return this;
 	}
 

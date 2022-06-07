@@ -13,7 +13,7 @@ import com.github.foxnic.commons.bean.BeanUtil;
 /**
  * 流程定义文件
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-31 14:31:08
+ * @since 2022-06-07 15:55:03
  * @sign F2A969A233B1D662456CDC00FB190980
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
