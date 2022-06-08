@@ -1,7 +1,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-20 13:14:35
+ * @since 2022-06-08 17:29:30
  */
 
 
@@ -44,6 +44,9 @@ function ListPage() {
 			fox.adjustSearchElement();
 		});
 		fox.adjustSearchElement();
+		//
+		 var marginTop=$(".search-bar").height()+$(".search-bar").css("padding-top")+$(".search-bar").css("padding-bottom")
+		 $("#table-area").css("margin-top",marginTop+"px");
 		//
 		function renderTableInternal() {
 
@@ -423,7 +426,7 @@ function ListPage() {
 				});
 			}
 			else if (layEvent === 'open-tenant-owner') { // 属主
-				window.pageExt.list.openTenantOwner(data);
+				window.pageExt.list.openTenantOwner(data,this);
 			}
 			
 		});
@@ -475,7 +478,8 @@ function ListPage() {
 	window.module={
 		refreshTableData: refreshTableData,
 		refreshRowData: refreshRowData,
-		getCheckedList: getCheckedList
+		getCheckedList: getCheckedList,
+		showEditForm: showEditForm
 	};
 
 	window.pageExt.list.ending && window.pageExt.list.ending();

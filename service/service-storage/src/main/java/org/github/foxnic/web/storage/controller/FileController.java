@@ -124,8 +124,8 @@ public class FileController extends SuperController {
 	@PostMapping(FileServiceProxy.DELETE)
 	public Result<File> deleteById(String id) {
 		Result<File> result=new Result<>();
-		boolean suc=fileService.deleteByIdLogical(id);
-		result.success(suc);
+		fileService.deleteByIdLogical(id);
+		result.success(true);
 		return result;
 	}
 

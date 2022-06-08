@@ -47,7 +47,7 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"elem
             html = html.replace(/{{canPreview}}/g, "no");
         }
         var preview=fileList.append(html);
-        //debugger;
+        debugger;
 
         if(inst.config.maxFileCount==1) {
             $("#"+elId+"-file-unit-"+index).css("margin-bottom","0px");
@@ -272,7 +272,7 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"elem
                     var cfg=UPLOADS[elId].config;
                     //如果只有一个，就替换
                     var fs=$("#"+elId+"-file-list").children();
-                    //debugger;
+                    debugger;
                     if(cfg.maxFileCount==1) {
                         var idx=$("#"+elId+"-file-list").attr("index");
                         var fid=$("#"+elId+"-file-list").attr("fileId");

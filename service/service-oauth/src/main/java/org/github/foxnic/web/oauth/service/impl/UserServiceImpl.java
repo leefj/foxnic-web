@@ -145,7 +145,7 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 		User user = new User();
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null 。");
 		user.setId(id);
-		user.setDeleted(dao.getDBTreaty().getTrueValue());
+		user.setDeleted(true);
 		user.setDeleteBy((String)dao.getDBTreaty().getLoginUserId());
 		user.setDeleteTime(new Date());
 		return dao.updateEntity(user,SaveMode.NOT_NULL_FIELDS);
