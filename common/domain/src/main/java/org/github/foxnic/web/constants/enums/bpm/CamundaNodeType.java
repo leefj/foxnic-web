@@ -11,9 +11,11 @@ public enum CamundaNodeType implements CodeTextEnum {
 	START_NODE("起始节点","StartEvent"),
 	USER_TASK("人工任务","UserTask"),
 	SEQUENCE_FLOW("单一流向","SequenceFlow"),
-	/**
-	 * 不涉及，跳过审批
-	 * */
+	EXCLUSIVE_GATEWAY("决策网关","ExclusiveGateway"),
+	INTERMEDIATE_THROW_EVENT("中间事件","IntermediateThrowEvent"),
+	SUB_PROCESS("子流程","SubProcess"),
+	DATA_OBJECT_REFERENCE("数据对象引用","DataObjectReference"),
+	DATA_STORE_REFERENCE("数据存储引用","DataStoreReference"),
 	END_EVENT("结束节点","EndEvent");
 
 	private String text;

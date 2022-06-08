@@ -45,7 +45,7 @@ public class ProcessDefinitionFileConfig extends BaseCodeConfig<BPM_PROCESS_DEFI
 
         view.field(BPM_PROCESS_DEFINITION_FILE.NAME).search().fuzzySearch().form().hidden();
         view.field(BPM_PROCESS_DEFINITION_FILE.VERSION_NO).search().hidden().form().validate().required(false);
-        view.field(BPM_PROCESS_DEFINITION_FILE.ACTIVATED).basic().label("状态").form().hidden().search().hidden();
+        view.field(BPM_PROCESS_DEFINITION_FILE.ACTIVATED).basic().label("状态").form().hidden().search().hidden().table().alignCenter();
 
 
         view.field(BPM_PROCESS_DEFINITION_FILE.DEPLOY_ERROR).basic().label("部署提示").search().hidden();
@@ -66,10 +66,11 @@ public class ProcessDefinitionFileConfig extends BaseCodeConfig<BPM_PROCESS_DEFI
     @Override
     public void configList(ViewOptions view, ListOptions list) {
         list.disableModify().disableFormView();
-        list.disableBatchDelete().disableSingleDelete();
+        list.disableBatchDelete();
 //        list.operationColumn().addActionButton("节点","showNodes");
         list.operationColumn().addActionButton("打开","showModel");
 //        list.operationColumn().addActionButton("部署","deploy");
+        list.operationColumn().addActionButton("复制","duplicate");
     }
 
     @Override
