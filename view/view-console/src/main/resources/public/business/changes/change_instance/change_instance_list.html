@@ -51,7 +51,7 @@
                     <!-- 分类 , catalog ,typeName=select_box, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('分类')}" class="search-label catalog-label">分类</span><span class="search-colon">:</span></div>
-                        <div id="catalog" th:data="${enum.toArray('org.github.foxnic.web.constants.enums.bpm.ApproveCatalog')}" style="width:160px" extraParam="{}"></div>
+                        <div id="catalog" th:data="${enum.toArray('org.github.foxnic.web.constants.enums.bpm.ApprovalCatalog')}" style="width:160px" extraParam="{}"></div>
                     </div>
                     <!-- 审批模式 , mode ,typeName=radio_box, isHideInSearch=false -->
                     <div class="search-unit">
@@ -133,7 +133,7 @@
     var RADIO_MODE_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.changes.ApprovalMode')}]];
     var RADIO_STATUS_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.changes.ApprovalStatus')}]];
     var RADIO_TYPE_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.changes.ChangeType')}]];
-    var SELECT_CATALOG_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.bpm.ApprovalCatalogg')}]];
+    var SELECT_CATALOG_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.bpm.ApprovalCatalog')}]];
     var AUTH_PREFIX="chs_change_instance";
 
 
