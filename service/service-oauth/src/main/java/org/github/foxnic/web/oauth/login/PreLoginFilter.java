@@ -2,9 +2,11 @@ package org.github.foxnic.web.oauth.login;
 
 import com.github.foxnic.api.error.CommonError;
 import com.github.foxnic.api.error.ErrorDesc;
+import com.github.foxnic.api.proxy.InvokeSource;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.springboot.mvc.RequestParameter;
 import com.github.foxnic.springboot.spring.SpringUtil;
+import com.github.foxnic.springboot.web.WebContext;
 import org.apache.commons.lang3.StringUtils;
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
 import org.github.foxnic.web.constants.enums.system.YesNo;
@@ -41,9 +43,12 @@ public class PreLoginFilter extends GenericFilterBean {
 
     private ICaptchaService captchaService;
 
+    private WebContext webContext;
+
     public PreLoginFilter(String loginProcessingUrl) {
         authenticationRequestMatcher = new AntPathRequestMatcher(loginProcessingUrl, "POST");
         captchaService=SpringUtil.getBean(ICaptchaService.class);
+        webContext=SpringUtil.getBean(WebContext.class);
     }
 
 
@@ -51,6 +56,13 @@ public class PreLoginFilter extends GenericFilterBean {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
     	RequestParameter parameter=RequestParameter.get();
     	HttpServletRequestWrapper wrapper = parameter.getRequestWrapper();
+
+        // 检查接口禁用
+        Boolean forbidden=webContext.isForbidden((HttpServletRequest)request);
+        if(forbidden) {
+            ResponseUtil.writeOK((HttpServletResponse)response, ErrorDesc.failure(CommonError.FUNCTION_FORBIDDEN).message("接口已禁用，请联系开发人员开通接口"));
+            return;
+        }
 
         // 如果匹配登录地址，那么登录
     	if (authenticationRequestMatcher.matches((HttpServletRequest) request)) {

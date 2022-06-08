@@ -65,11 +65,11 @@ public class ProcessDefinitionFileConfig extends BaseCodeConfig<BPM_PROCESS_DEFI
 
     @Override
     public void configList(ViewOptions view, ListOptions list) {
-        list.disableModify();
+        list.disableModify().disableFormView();
         list.disableBatchDelete().disableSingleDelete();
-        list.operationColumn().addActionButton("节点","showNodes");
-        list.operationColumn().addActionButton("流程图","showModel");
-        list.operationColumn().addActionButton("部署","deploy");
+//        list.operationColumn().addActionButton("节点","showNodes");
+        list.operationColumn().addActionButton("打开","showModel");
+//        list.operationColumn().addActionButton("部署","deploy");
     }
 
     @Override
