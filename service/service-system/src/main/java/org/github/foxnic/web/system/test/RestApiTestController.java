@@ -5,10 +5,13 @@ import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.spec.DAO;
+import org.github.foxnic.web.domain.oauth.Menu;
+import org.github.foxnic.web.domain.oauth.Role;
 import org.github.foxnic.web.domain.oauth.RoleVO;
 import org.github.foxnic.web.domain.oauth.UserVO;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -88,7 +91,7 @@ public class RestApiTestController {
      * 有异常，待解决
      * */
     @PostMapping("/service-system/unit-test/rest/io/json")
-    public Result json(Integer id, String name, JSONArray ids, JSONObject names) {
+    public Result json(Integer id, String name, JSONArray ids, @RequestBody JSONObject names) {
         org.springframework.validation.support.BindingAwareModelMap map=null;
         Result result=ErrorDesc.success();
         Map<String,Object> data=new HashMap<>();
@@ -106,11 +109,25 @@ public class RestApiTestController {
         Map<String,Object> data=new HashMap<>();
 //        List<Role> roles=userVO.getRoles();
 //        List<Menu> menus=roles.get(0).getMenus();
-//        三层 model 转换失败
 //        for (Menu menu : menus) {
 //            System.out.println(menu.getId());
 //        }
         data.put("userVO",userVO);
+        result.data(data);
+        return result;
+    }
+
+    @PostMapping("/service-system/unit-test/rest/io/vo1-list")
+    public Result vo1List(List<UserVO> userVOList) {
+        Result result=ErrorDesc.success();
+        Map<String,Object> data=new HashMap<>();
+//        List<Role> roles=userVO.getRoles();
+//        List<Menu> menus=roles.get(0).getMenus();
+//        三层 model 转换失败
+//        for (Menu menu : menus) {
+//            System.out.println(menu.getId());
+//        }
+        data.put("userVOList",userVOList);
         result.data(data);
         return result;
     }
@@ -155,8 +172,8 @@ public class RestApiTestController {
         Map<String,Object> data=new HashMap<>();
         data.put("userVO",userVO);
         data.put("roleVO",roleVO);
-        data.put("userVOArr",userVOMap);
-        data.put("roleVOArr",roleVOMap);
+        data.put("userVOMap",userVOMap);
+        data.put("roleVOMap",roleVOMap);
         result.data(data);
         return result;
     }
