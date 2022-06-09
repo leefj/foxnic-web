@@ -11,6 +11,8 @@ import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.generator.builder.business.ControllerProxyFile;
 import com.github.foxnic.sql.meta.DBTable;
 import com.github.foxnic.sql.meta.DBType;
+import org.github.foxnic.web.bpm.page.DemoCommonPageController;
+import org.github.foxnic.web.bpm.page.DemoLeavePageController;
 import org.github.foxnic.web.constants.db.ExampleTables;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.enums.system.AccessType;
@@ -21,6 +23,8 @@ import org.github.foxnic.web.domain.oauth.Resourze;
 import org.github.foxnic.web.domain.oauth.RoleMenu;
 import org.github.foxnic.web.example.page.OrderItemPageController;
 import org.github.foxnic.web.generator.config.FoxnicWebConfigs;
+import org.github.foxnic.web.proxy.bpm.DemoCommonServiceProxy;
+import org.github.foxnic.web.proxy.bpm.DemoLeaveServiceProxy;
 import org.github.foxnic.web.proxy.example.OrderItemServiceProxy;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -48,8 +52,8 @@ public class MenuGenerator {
 //		mg=new MenuGenerator(ExampleTables.EXAMPLE_ORDER.$TABLE, OrderServiceProxy.class, OrderPageController.class);
 //		mg.generate("583014848745439232");
 
-		mg=new MenuGenerator(ExampleTables.EXAMPLE_ORDER_ITEM.$TABLE, OrderItemServiceProxy.class, OrderItemPageController.class);
-		mg.generate("583014848745439232");
+//		mg=new MenuGenerator(ExampleTables.EXAMPLE_ORDER_ITEM.$TABLE, OrderItemServiceProxy.class, OrderItemPageController.class);
+//		mg.generate("583014848745439232");
 
 //		mg=new MenuGenerator(ExampleTables.EXAMPLE_GOODS.$TABLE, GoodsServiceProxy.class, GoodsPageController.class);
 //		mg.generate("583014848745439232");
@@ -84,6 +88,9 @@ public class MenuGenerator {
 
 //		mg=new MenuGenerator(FoxnicWeb.BPM_DEMO_LEAVE.$TABLE, DemoLeaveServiceProxy.class, DemoLeavePageController.class);
 //		mg.generate("495201409763901440");
+
+		mg = new MenuGenerator(FoxnicWeb.BPM_DEMO_COMMON.$TABLE, DemoCommonServiceProxy.class, DemoCommonPageController.class);
+		mg.generate("495201409763901440");
 
 		// 生成菜单
 //		mg=new MenuGenerator(ExampleTables.EXAMPLE_NEWS.$TABLE, NewsServiceProxy.class, NewsPageController.class);

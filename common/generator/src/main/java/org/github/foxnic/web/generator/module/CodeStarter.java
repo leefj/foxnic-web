@@ -35,7 +35,7 @@ public class CodeStarter extends ModuleCodeGenerator {
     public void initModules() {
 
 //        initPcmModules();
-        initOAuthModules();
+//        initOAuthModules();
 //        initSystemModules();
 //        initHrmModules();
 //        initExampleModules();
@@ -84,6 +84,7 @@ public class CodeStarter extends ModuleCodeGenerator {
         this.addConfig(new TaskApprovalConfig());
         //
         this.addConfig(new DemoLeaveConfig());
+        this.addConfig(new DemoCommonConfig());
     }
 
     private void  initChangeModules() {
