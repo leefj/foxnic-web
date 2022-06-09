@@ -795,6 +795,9 @@ layui.define(['laytpl', 'laypage', 'layer', 'form', 'util'], function(exports){
 
       that.loading();
 
+      // 李方捷添加的回调
+      options.beforeRequest && options.beforeRequest(options);
+
       $.ajax({
         type: options.method || 'get'
         ,url: options.url

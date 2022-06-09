@@ -305,7 +305,7 @@ layui.define(['settings', 'layer'], function (exports) {
                 contentType: "application/json;charset=utf-8",
                 success: success,
                 beforeSend: function (xhr) {
-                    //debugger
+                    // debugger
                     var token = config.getToken();
                     //debugger;
                     if (token) {
@@ -314,8 +314,30 @@ layui.define(['settings', 'layer'], function (exports) {
                         // xhr.setRequestHeader('access-token', token.accessToken);
                         //xhr.setRequestHeader('refresn-token', token.refreshToken);
                     }
+                    // xhr.setRequestHeader('tid', null);
+                    xhr.setRequestHeader('time', admin.getRequestTimestamp());
                 }
             });
+        },
+
+        getRequestTimestamp:function()
+        {
+            // debugger;
+            var date = new Date();
+            var timeStr = date.getFullYear() + "-";
+            if (date.getMonth() < 9) { // 月份从0开始的
+                timeStr += '0';
+            }
+            timeStr += date.getMonth() + 1 + "-";
+            timeStr += date.getDate() < 10 ? ('0' + date.getDate()) : date.getDate();
+            timeStr += ' ';
+            timeStr += date.getHours() < 10 ? ('0' + date.getHours()) : date.getHours();
+            timeStr += ':';
+            timeStr += date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes();
+            timeStr += ':';
+            timeStr += date.getSeconds() < 10 ? ('0' + date.getSeconds()) : date.getSeconds();
+            timeStr += "."+date.getMilliseconds()
+            return timeStr;
         },
 
         // 封装ajax请求

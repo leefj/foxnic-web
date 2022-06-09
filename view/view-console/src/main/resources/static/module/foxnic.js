@@ -466,10 +466,17 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             }
             var basicConfig = {
                 method: 'POST',
-                headers: {'Authorization': "Bearer "+token},
+                headers: {
+                    'Authorization': "Bearer "+token,
+                    // tid:null,
+                    time:admin.getRequestTimestamp()
+                },
                 request: {
                     pageName: "pageIndex",
                     limitName: "pageSize"
+                },
+                beforeRequest:function (opt) {
+                    opt.headers.time=admin.getRequestTimestamp();
                 },
                 parseData: function (res) { //res 即为原始返回的数据
                     // debugger;

@@ -7,11 +7,9 @@ import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.entity.Entity;
 import com.github.foxnic.springboot.mvc.RequestParameter;
-import org.github.foxnic.web.domain.bpm.meta.ProcessInstanceMeta;
 import org.github.foxnic.web.language.LanguageService;
 import org.github.foxnic.web.session.SessionUser;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -57,6 +55,9 @@ public class SuperController {
 		return attributes.getRequest();
 	}
 
+	/**
+	 * 根据权限对返回的数据进行处理
+	 * */
     protected void limitForPermission(PagedList<? extends Entity> list, String perm,String... field) {
 		if(perm==null) return;
 		if(this.getSessionUser().permission().checkAnyAuth(perm)) return;
@@ -64,7 +65,6 @@ public class SuperController {
 			for (String f : field) {
 				BeanUtil.setFieldValue(entity,f,null);
 			}
-
 		}
     }
 

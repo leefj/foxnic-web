@@ -4,8 +4,10 @@ package org.github.foxnic.web.oauth.controller;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.api.validate.annotations.NotNull;
+import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.springboot.mvc.RequestParameter;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.github.xiaoymin.knife4j.annotations.ApiSort;
 import io.swagger.annotations.Api;
@@ -267,6 +269,10 @@ public class UserController extends SuperController {
 	@SentinelResource(value = UserServiceProxy.QUERY_PAGED_LIST)
 	@PostMapping(UserServiceProxy.QUERY_PAGED_LIST)
 	public Result<PagedList<User>> queryPagedList(UserVO sample) {
+
+		RequestParameter requestParameter=this.getParameter();
+		Logger.info(requestParameter.getRequestTimeString() +","+ requestParameter.getRequestTimestamp());
+
 		Result<PagedList<User>> result=new Result<>();
 		PagedList<User> list=userService.queryPagedList(sample,sample.getPageSize(),sample.getPageIndex());
 		for (User user : list) {
@@ -315,4 +321,4 @@ public class UserController extends SuperController {
 
 
 
-}
+}

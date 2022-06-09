@@ -484,7 +484,7 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
 
     // tab选项卡切换监听(貌似无效)
     element.on('tab(admin-pagetabs)', function (data) {
-        debugger
+        // debugger
         var layId = $(this).attr('lay-id');
         // if(layId!="userifr") {
        	 	Q.go(layId);
