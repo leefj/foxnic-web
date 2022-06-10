@@ -18,8 +18,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 表单定义
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-07 15:55:06
- * @sign 1452ED41730CABCA13F677D189AFB68B
+ * @since 2022-06-10 15:17:39
+ * @sign 6521C6613DFFAD7AEA65BAD357069D36
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -134,6 +134,12 @@ public class FormDefinition extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="租户ID" , notes = "租户ID")
 	private String tenantId;
+	
+	/**
+	 * 回调控制器：完整类名
+	*/
+	@ApiModelProperty(required = false,value="回调控制器" , notes = "完整类名")
+	private String callbackController;
 	
 	/**
 	 * 最后修改人：最后修改人
@@ -491,6 +497,25 @@ public class FormDefinition extends Entity {
 	*/
 	public FormDefinition setTenantId(String tenantId) {
 		this.tenantId=tenantId;
+		return this;
+	}
+	
+	/**
+	 * 获得 回调控制器<br>
+	 * 完整类名
+	 * @return 回调控制器
+	*/
+	public String getCallbackController() {
+		return callbackController;
+	}
+	
+	/**
+	 * 设置 回调控制器
+	 * @param callbackController 回调控制器
+	 * @return 当前对象
+	*/
+	public FormDefinition setCallbackController(String callbackController) {
+		this.callbackController=callbackController;
 		return this;
 	}
 	

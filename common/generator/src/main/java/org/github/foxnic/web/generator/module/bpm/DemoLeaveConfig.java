@@ -24,6 +24,8 @@ public class DemoLeaveConfig extends BaseCodeConfig<BPM_DEMO_LEAVE> {
     @Override
     public void configModel(PoClassFile poType, VoClassFile voType) {
 
+
+
     }
 
     @Override
@@ -48,9 +50,10 @@ public class DemoLeaveConfig extends BaseCodeConfig<BPM_DEMO_LEAVE> {
         view.field(BPM_DEMO_LEAVE.BEGIN_TIME).search().hidden().form().validate().required();
         view.field(BPM_DEMO_LEAVE.END_TIME).search().hidden().form().validate().required();
         view.field(BPM_DEMO_LEAVE.REASON).search().hidden().form().validate().required();
-        view.field(BPM_DEMO_LEAVE.APPLICANT_ID).search().hidden()
-                .form().button().chooseEmployee(true)
-                .form().validate().required();
+        view.field(BPM_DEMO_LEAVE.APPLICANT_ID).basic().hidden();
+//        view.field(BPM_DEMO_LEAVE.APPLICANT_ID).search().hidden()
+//                .form().button().chooseEmployee(true)
+//                .form().validate().required();
 //        view.field(BPM_FORM_DEFINITION.VALID).search().hidden().form().logicField().on("有效",1).off("无效",0).defaultValue(true);
 //        view.field(BPM_FORM_DEFINITION.NAME).search().fuzzySearch();
 //        view.field(BPM_FORM_DEFINITION.NOTES).search().fuzzySearch().form().textArea();

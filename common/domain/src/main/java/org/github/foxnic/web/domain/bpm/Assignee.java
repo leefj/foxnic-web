@@ -21,6 +21,10 @@ public class Assignee {
 
     private String typeName;
 
+    public Assignee() {
+
+    }
+
     public Assignee(String id, String code, String name, UnifiedUserType type) {
         this.applyProps(id,code,name,type);
     }

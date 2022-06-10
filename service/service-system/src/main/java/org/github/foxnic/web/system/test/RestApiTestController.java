@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.spec.DAO;
+import org.github.foxnic.web.domain.bpm.ProcessStartVO;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.Role;
 import org.github.foxnic.web.domain.oauth.RoleVO;
@@ -174,6 +175,15 @@ public class RestApiTestController {
         data.put("roleVO",roleVO);
         data.put("userVOMap",userVOMap);
         data.put("roleVOMap",roleVOMap);
+        result.data(data);
+        return result;
+    }
+
+    @PostMapping("/service-system/unit-test/rest/io/map-prop")
+    public Result vo2map(ProcessStartVO startVO) {
+        Result result=ErrorDesc.success();
+        Map<String,Object> data=new HashMap<>();
+        data.put("startVO",startVO);
         result.data(data);
         return result;
     }

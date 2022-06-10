@@ -22,6 +22,8 @@ import java.util.List;
  * */
 public class Validator {
 
+
+
     private static interface  SingleValueValidatorFunction<T> {
         Result validate(T value);
     }
@@ -261,6 +263,10 @@ public class Validator {
     public Result getFirstResult() {
         if(this.errors.isEmpty()) return null;
         return errors.get(0);
+    }
+
+    public void clearErrors() {
+        this.errors.clear();
     }
 
 }

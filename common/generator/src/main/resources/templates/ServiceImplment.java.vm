@@ -1,6 +1,9 @@
 package #(package);
 
-
+#if(bpm)
+import org.github.foxnic.web.domain.bpm.BpmActionResult;
+import org.github.foxnic.web.domain.bpm.BpmEvent;
+#end
 import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -255,6 +258,31 @@ public class #(simpleName) extends SuperService<#(poSimpleName)> implements #(in
      */
 	public void saveRelation(#(relationMasterVarType) #(relationMasterVar),List<#(relationSlaveVarType)> #(relationSlaveVar)) {
 		super.saveRelation(#(relationMasterPoType).class,#(relationMasterIdField),#(relationMasterVar),#(relationSlavePoType).class,#(relationSlaveIdField),#(relationSlaveVar),#(isRelationClearWhenEmpty));
+	}
+	#end
+
+	#if(bpm)
+	/**
+	 * 用户动作处理，返回失败时不再继续处理
+	 * */
+	@Override
+	public BpmActionResult handleBpmAction(BpmEvent event) {
+		BpmActionResult result=event.getActionResult();
+		// 获得当前表单数据
+		#(poSimpleName) #(poVar)= this.getById(event.getBillId());
+		//TODO 此处可查询相关数据，并对业务单据进行处理。如果 Result 返回 失败，用户操作将中断，并在界面给出提示信息
+		return result;
+	}
+
+	/**
+	 * 流程事件处理，返回值不影响后续逻辑
+	 * */
+	@Override
+	public BpmActionResult handleBpmEvent(BpmEvent event) {
+		// 获得当前表单数据
+		#(poSimpleName) #(poVar) = this.getById(event.getBillId());
+		//TODO 此处可查询相关数据，并对业务单据进行处理。
+		return event.getActionResult();
 	}
 	#end
 

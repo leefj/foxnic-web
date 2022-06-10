@@ -1877,6 +1877,9 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             }
 
             var message=result.message;
+            if(result.subject) {
+                message=result.subject+message;
+            }
             if(!message) return;
             var messageLevel=null;
             if(result.extra) {

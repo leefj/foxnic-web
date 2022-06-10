@@ -17,6 +17,12 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 #if(isEnableMicroService)
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 #end
+#if(bpm)
+import org.github.foxnic.web.constants.enums.bpm.BpmEventType;
+import org.github.foxnic.web.proxy.bpm.BpmCallbackController;
+import org.github.foxnic.web.domain.bpm.BpmActionResult;
+import org.github.foxnic.web.domain.bpm.BpmEvent;
+#end
 
 #(imports)
 
@@ -27,7 +33,7 @@ import com.alibaba.csp.sentinel.annotation.SentinelResource;
 @ApiSort(#(apiSort))
 #end
 @RestController("#(beanName)")
-public class #(simpleName) extends SuperController {
+public class #(simpleName) extends SuperController #if(bpm)implements BpmCallbackController#end {
 
 	@Autowired
 	private #(serviceSimpleName) #(serviceVarName);
@@ -326,6 +332,21 @@ public class #(simpleName) extends SuperController {
 		result.success(true).data(list);
 		return result;
 	}
+
+
+	#if(bpm)
+	#if(isEnableMicroService)
+	@SentinelResource(value = #(agentSimpleName).BPM_CALLBACK , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
+	#end
+	@PostMapping(#(agentSimpleName).BPM_CALLBACK)
+    public BpmActionResult handleBpmCallback(BpmEvent event){
+		if(event.getEventType()== BpmEventType.ACTION) {
+			return #(serviceVarName).handleBpmAction(event);
+		} else {
+			return #(serviceVarName).handleBpmEvent(event);
+		}
+	}
+	#end
 
 
 

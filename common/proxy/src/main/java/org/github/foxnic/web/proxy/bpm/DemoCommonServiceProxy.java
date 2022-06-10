@@ -4,6 +4,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.github.foxnic.web.proxy.api.APIProxy;
 import org.github.foxnic.web.proxy.FeignConfiguration;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.github.foxnic.web.proxy.bpm.BpmCallbackController;
+import org.github.foxnic.web.domain.bpm.BpmActionResult;
+import org.github.foxnic.web.domain.bpm.BpmEvent;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.github.foxnic.web.domain.bpm.DemoCommon;
 import org.github.foxnic.web.domain.bpm.DemoCommonVO;
@@ -17,10 +20,10 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  * 通用审批表单  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-08 18:21:28
+ * @since 2022-06-10 16:19:31
  */
 @FeignClient(value = MicroServiceNames.BPM, contextId = DemoCommonServiceProxy.API_CONTEXT_PATH, configuration = FeignConfiguration.class)
-public interface DemoCommonServiceProxy {
+public interface DemoCommonServiceProxy extends BpmCallbackController {
 
     /**
      * 基础路径 , service-bpm
@@ -98,6 +101,11 @@ public interface DemoCommonServiceProxy {
     public static final String IMPORT_EXCEL = API_PREFIX + "import-excel";
 
     /**
+     * 流程事件回调接收接口
+     */
+    public static final String BPM_CALLBACK = API_PREFIX + "bpm-callback";
+
+    /**
      * 添加通用审批表单
      */
     @RequestMapping(DemoCommonServiceProxy.INSERT)
@@ -150,6 +158,12 @@ public interface DemoCommonServiceProxy {
      */
     @RequestMapping(DemoCommonServiceProxy.QUERY_PAGED_LIST)
     Result<PagedList<DemoCommon>> queryPagedList(@RequestParam(name = "sample") DemoCommonVO sample);
+
+    /**
+     * 分页查询通用审批表单
+     */
+    @RequestMapping(DemoCommonServiceProxy.BPM_CALLBACK)
+    BpmActionResult handleBpmCallback(@RequestParam(name = "event") BpmEvent event);
 
     /**
      * 控制器类名

@@ -11,7 +11,7 @@ import org.github.foxnic.web.domain.oauth.User;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-07 15:55:06
+ * @since 2022-06-10 15:17:39
  * @sign D1FAD95945FF2382B267FAAEE66BC29C
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -279,6 +279,16 @@ public class FormDefinitionVOMeta extends FormDefinitionMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.FormDefinitionVO,java.lang.String> TENANT_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.FormDefinitionVO.class ,TENANT_ID, java.lang.String.class, "租户ID", "租户ID", java.lang.String.class, null);
 	
 	/**
+	 * 回调控制器 , 完整类名 , 类型: java.lang.String
+	*/
+	public static final String CALLBACK_CONTROLLER="callbackController";
+	
+	/**
+	 * 回调控制器 , 完整类名 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.FormDefinitionVO,java.lang.String> CALLBACK_CONTROLLER_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.FormDefinitionVO.class ,CALLBACK_CONTROLLER, java.lang.String.class, "回调控制器", "完整类名", java.lang.String.class, null);
+	
+	/**
 	 * 最后修改人 , 类型: org.github.foxnic.web.domain.oauth.User
 	*/
 	public static final String LAST_UPDATE_USER="lastUpdateUser";
@@ -291,7 +301,7 @@ public class FormDefinitionVOMeta extends FormDefinitionMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , CODE , NAME , FORM_TYPE , DRAFT_PAGE_URL , APPROVAL_PAGE_URL , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , LAST_UPDATE_USER };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , CODE , NAME , FORM_TYPE , DRAFT_PAGE_URL , APPROVAL_PAGE_URL , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CALLBACK_CONTROLLER , LAST_UPDATE_USER };
 	
 	/**
 	 * 代理类
@@ -584,6 +594,17 @@ public class FormDefinitionVOMeta extends FormDefinitionMeta {
 		public FormDefinition setTenantId(String tenantId) {
 			super.change(TENANT_ID,super.getTenantId(),tenantId);
 			super.setTenantId(tenantId);
+			return this;
+		}
+		
+		/**
+		 * 设置 回调控制器
+		 * @param callbackController 回调控制器
+		 * @return 当前对象
+		*/
+		public FormDefinition setCallbackController(String callbackController) {
+			super.change(CALLBACK_CONTROLLER,super.getCallbackController(),callbackController);
+			super.setCallbackController(callbackController);
 			return this;
 		}
 		

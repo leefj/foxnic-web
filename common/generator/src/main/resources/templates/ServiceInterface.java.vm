@@ -1,5 +1,9 @@
 package #(package);
 
+#if(bpm)
+import org.github.foxnic.web.domain.bpm.BpmActionResult;
+import org.github.foxnic.web.domain.bpm.BpmEvent;
+#end
 #(imports)
 
 #(classJavaDoc)
@@ -293,6 +297,18 @@ public interface #(simpleName) extends ISuperService<#(poSimpleName)> {
 	 * @param #(relationSlaveVar) #(relationSlaveVarDoc)
 	 */
 	void saveRelation(#(relationMasterVarType) #(relationMasterVar),List<#(relationSlaveVarType)> #(relationSlaveVar));
+	#end
+
+	#if(bpm)
+	/**
+	 * 用户动作处理，返回失败时不再继续处理
+	 * */
+	BpmActionResult handleBpmAction(BpmEvent event);
+
+	/**
+	 * 流程事件处理，返回值不影响后续逻辑
+	 * */
+	BpmActionResult handleBpmEvent(BpmEvent event);
 	#end
 
 }

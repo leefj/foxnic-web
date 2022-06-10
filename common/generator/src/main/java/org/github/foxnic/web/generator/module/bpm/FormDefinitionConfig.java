@@ -3,6 +3,7 @@ package org.github.foxnic.web.generator.module.bpm;
 import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
 import com.github.foxnic.generator.builder.view.config.ActionConfig;
+import com.github.foxnic.generator.builder.view.option.FormOptions;
 import com.github.foxnic.generator.builder.view.option.ListOptions;
 import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
@@ -34,15 +35,25 @@ public class FormDefinitionConfig extends BaseCodeConfig<BPM_FORM_DEFINITION> {
     @Override
     public void configFields(ViewOptions view) {
 
-        view.form().labelWidth(80);
+        view.form().labelWidth(100);
 
         view.field(BPM_FORM_DEFINITION.ID).basic().hidden();
-        view.field(BPM_FORM_DEFINITION.DRAFT_PAGE_URL).search().hidden().form().textInput();
-        view.field(BPM_FORM_DEFINITION.APPROVAL_PAGE_URL).search().hidden().form().textInput();
-        view.field(BPM_FORM_DEFINITION.VALID).search().hidden().form().logicField().on("有效",1).off("无效",0).defaultValue(true);
-        view.field(BPM_FORM_DEFINITION.NAME).search().fuzzySearch();
+        view.field(BPM_FORM_DEFINITION.DRAFT_PAGE_URL)
+                .search().hidden().form().textInput()
+                .form().validate().required();
+        view.field(BPM_FORM_DEFINITION.APPROVAL_PAGE_URL)
+                .search().hidden().form().textInput()
+                .form().validate().required();
+        view.field(BPM_FORM_DEFINITION.VALID).basic().label("有效")
+                .search().hidden().form().logicField().on("有效",1).off("无效",0).defaultValue(true);
+        view.field(BPM_FORM_DEFINITION.NAME).search().fuzzySearch().form().validate().required();
         view.field(BPM_FORM_DEFINITION.NOTES).search().fuzzySearch().form().textArea();
-        view.field(BPM_FORM_DEFINITION.FORM_TYPE).search().hidden().form().radioBox().enumType(FormType.class).defaultValue(FormType.outer);
+        view.field(BPM_FORM_DEFINITION.FORM_TYPE).search().hidden().form().radioBox().enumType(FormType.class).defaultValue(FormType.outer)
+                .form().validate().required();
+
+        view.field(BPM_FORM_DEFINITION.CALLBACK_CONTROLLER)
+                .search().hidden().form().textInput()
+                .form().validate().required();
 //        view.field(BPM_PROCESS_DEFINITION.VALID).form().logicField().on("有效",1).off("无效",0);
 //        view.field(BPM_PROCESS_DEFINITION.NOTES).search().fuzzySearch().form().textArea();
 //        view.field("lastUpdateUserName").basic().label("最后修改").table().fillBy(ProcessDefinitionMeta.LAST_UPDATE_USER, UserMeta.NAME)
@@ -52,7 +63,21 @@ public class FormDefinitionConfig extends BaseCodeConfig<BPM_FORM_DEFINITION> {
         //view.field(BPM_PROCESS_DEFINITION.UPDATE_TIME).table().displayWhenDBTreaty(true);
     }
 
-
+    @Override
+    public void configForm(ViewOptions view, FormOptions form) {
+        super.configForm(view, form);
+        view.formWindow().width("750px");
+        form.columnLayout(new Object[] {
+                BPM_FORM_DEFINITION.CODE,
+                BPM_FORM_DEFINITION.NAME,
+                BPM_FORM_DEFINITION.FORM_TYPE,
+                BPM_FORM_DEFINITION.VALID,
+                BPM_FORM_DEFINITION.DRAFT_PAGE_URL,
+                BPM_FORM_DEFINITION.APPROVAL_PAGE_URL,
+                BPM_FORM_DEFINITION.CALLBACK_CONTROLLER,
+                BPM_FORM_DEFINITION.NOTES
+        });
+    }
 
     @Override
     public void configList(ViewOptions view, ListOptions list) {

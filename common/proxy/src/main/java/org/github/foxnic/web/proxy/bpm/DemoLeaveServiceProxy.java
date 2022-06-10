@@ -4,6 +4,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.github.foxnic.web.proxy.api.APIProxy;
 import org.github.foxnic.web.proxy.FeignConfiguration;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.github.foxnic.web.proxy.bpm.BpmCallbackController;
+import org.github.foxnic.web.domain.bpm.BpmActionResult;
+import org.github.foxnic.web.domain.bpm.BpmEvent;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.github.foxnic.web.domain.bpm.DemoLeave;
 import org.github.foxnic.web.domain.bpm.DemoLeaveVO;
@@ -17,10 +20,10 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  * 请假流程示例表  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-07 15:55:07
+ * @since 2022-06-10 16:19:33
  */
 @FeignClient(value = MicroServiceNames.BPM, contextId = DemoLeaveServiceProxy.API_CONTEXT_PATH, configuration = FeignConfiguration.class)
-public interface DemoLeaveServiceProxy {
+public interface DemoLeaveServiceProxy extends BpmCallbackController {
 
     /**
      * 基础路径 , service-bpm
@@ -98,6 +101,11 @@ public interface DemoLeaveServiceProxy {
     public static final String IMPORT_EXCEL = API_PREFIX + "import-excel";
 
     /**
+     * 流程事件回调接收接口
+     */
+    public static final String BPM_CALLBACK = API_PREFIX + "bpm-callback";
+
+    /**
      * 添加请假流程示例
      */
     @RequestMapping(DemoLeaveServiceProxy.INSERT)
@@ -150,6 +158,12 @@ public interface DemoLeaveServiceProxy {
      */
     @RequestMapping(DemoLeaveServiceProxy.QUERY_PAGED_LIST)
     Result<PagedList<DemoLeave>> queryPagedList(@RequestParam(name = "sample") DemoLeaveVO sample);
+
+    /**
+     * 分页查询请假流程示例
+     */
+    @RequestMapping(DemoLeaveServiceProxy.BPM_CALLBACK)
+    BpmActionResult handleBpmCallback(@RequestParam(name = "event") BpmEvent event);
 
     /**
      * 控制器类名
