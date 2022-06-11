@@ -2,6 +2,7 @@ package org.github.foxnic.web.example.controller;
 
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.github.foxnic.api.error.CommonError;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.api.validate.annotations.NotNull;
@@ -125,8 +126,15 @@ public class AddressController extends SuperController {
 	@SentinelResource(value = AddressServiceProxy.UPDATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(AddressServiceProxy.UPDATE)
 	public Result update(AddressVO addressVO) {
-		Result result=addressService.update(addressVO,SaveMode.DIRTY_OR_NOT_NULL_FIELDS,false);
-		return result;
+
+		return ErrorDesc.failure(CommonError.PARAM_INVALID)
+				.subject("地址")
+				.message("参数错误参数错误参数错误参数错误参数错误参数错误参数错误参数错误").messageLevel4Confirm()
+				.addSolution("请登录").addSolution("请确认参数")
+				.addError("第一行错误").addError("第一行日期格式错误");
+
+//		Result result=addressService.update(addressVO,SaveMode.DIRTY_OR_NOT_NULL_FIELDS,false);
+//		return result;
 	}
 
 

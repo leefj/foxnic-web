@@ -4,10 +4,9 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.dao.spec.DAO;
 import org.github.foxnic.web.domain.bpm.ProcessStartVO;
-import org.github.foxnic.web.domain.oauth.Menu;
-import org.github.foxnic.web.domain.oauth.Role;
 import org.github.foxnic.web.domain.oauth.RoleVO;
 import org.github.foxnic.web.domain.oauth.UserVO;
 import org.github.foxnic.web.framework.dao.DBConfigs;
@@ -36,6 +35,7 @@ public class RestApiTestController {
         Map<String,Object> data=new HashMap<>();
         data.put("id",id);
         data.put("name",name);
+        Logger.info("这是日志");
         result.data(data);
         return result;
     }

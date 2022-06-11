@@ -1,12 +1,11 @@
 package org.github.foxnic.web.example.page;
 
 import org.github.foxnic.web.framework.view.controller.ViewController;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.github.foxnic.web.proxy.example.OrderServiceProxy;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import javax.servlet.http.HttpServletRequest;
 /**
  * <p>
@@ -42,6 +41,7 @@ public class OrderPageController extends ViewController {
 	 */
 	@RequestMapping("/order_list.html")
 	public String list(Model model,HttpServletRequest request) {
+
 		return prefix+"/order_list";
 	}
 

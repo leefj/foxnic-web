@@ -10,6 +10,7 @@ import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.dao.excel.ValidateResult;
+import com.github.foxnic.springboot.mvc.RequestParameter;
 import com.github.foxnic.springboot.web.DownloadUtil;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.github.xiaoymin.knife4j.annotations.ApiSort;
@@ -228,6 +229,11 @@ public class OrderController extends SuperController {
 	@SentinelResource(value = OrderServiceProxy.QUERY_PAGED_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(OrderServiceProxy.QUERY_PAGED_LIST)
 	public Result<PagedList<Order>> queryPagedList(OrderVO sample) {
+
+		RequestParameter requestParameter1 = super.getParameter();
+
+		RequestParameter requestParameter2 = RequestParameter.get();
+
 		Result<PagedList<Order>> result=new Result<>();
 		PagedList<Order> list=orderService.queryPagedList(sample,sample.getPageSize(),sample.getPageIndex());
 		// join 关联的对象
