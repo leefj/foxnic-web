@@ -3,10 +3,8 @@ package org.github.foxnic.web.framework.licence;
 import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.springboot.CP;
-import com.github.foxnic.springboot.spring.SpringUtil;
 
 import java.lang.reflect.Method;
-import java.util.Map;
 
 public class LicenceProxy {
 
@@ -15,6 +13,7 @@ public class LicenceProxy {
     public static Object LO = null;
     public static String LICENCE_DATA = null;
     public static String VnV_CODE=null;
+    public static Long VnV_TICK=0L;
 
     public static void reset() {
         try {

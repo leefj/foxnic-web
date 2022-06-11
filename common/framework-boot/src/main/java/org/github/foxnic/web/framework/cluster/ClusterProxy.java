@@ -134,7 +134,7 @@ public class ClusterProxy {
      */
     private Object request(String url, RequestMethod requestMethod, String body) {
 
-        Logger.info("\n\npost "+url+"\n"+body+"\n");
+        // Logger.info("\n\npost "+url+"\n"+body+"\n");
 
         SessionUser sessionUser = SessionUser.getCurrent();
         Map<String, String> headers = new HashMap<>();
@@ -228,16 +228,28 @@ public class ClusterProxy {
                     }
                     return result;
                 }
+            } else {
+                Result result = ErrorDesc.failure().message("Cluster 请求错误");
+                return  JSON.toJSONString(result);
             }
 
         } catch (HttpHostConnectException e) {
-            Logger.error("网络连接失败", e);
-            return  JSON.toJSONString(ErrorDesc.failure().message("网络连接失败或服务不可用"));
+            if(!ProxyContext.isIgnoreCallError()) {
+                Logger.error("网络连接失败", e);
+            }
+            Result result = ErrorDesc.failure().message("网络连接失败或服务不可用");
+            result.extra().setException(e);
+            return  JSON.toJSONString(result);
         } catch (Exception e) {
-            Logger.error("Cluster 请求失败", e);
-            return null;
+            if(!ProxyContext.isIgnoreCallError()) {
+                Logger.error("Cluster 请求失败", e);
+            }
+            Result result = ErrorDesc.failure().message("Cluster 请求失败");
+            result.extra().setException(e);
+            return  JSON.toJSONString(result);
         }
-        return null;
+
+
 
     }
 
