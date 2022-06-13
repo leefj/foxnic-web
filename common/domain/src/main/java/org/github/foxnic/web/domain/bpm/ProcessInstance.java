@@ -26,8 +26,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程实例
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-07 15:55:05
- * @sign EB7AAD7FC2E3A28D82ADB7C523422C76
+ * @since 2022-06-13 17:30:01
+ * @sign 12A5EA5434EDEB0336F6387828912CE5
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -262,6 +262,12 @@ public class ProcessInstance extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="业务单据ID清单" , notes = "业务单据ID清单")
 	private List<String> billIds;
+	
+	/**
+	 * 流程异常清单：流程异常清单
+	*/
+	@ApiModelProperty(required = false,value="流程异常清单" , notes = "流程异常清单")
+	private List<ProcessError> errors;
 	
 	/**
 	 * 流程定义文件：流程定义文件
@@ -1129,6 +1135,36 @@ public class ProcessInstance extends Entity {
 	public ProcessInstance addBillId(String... billId) {
 		if(this.billIds==null) billIds=new ArrayList<>();
 		this.billIds.addAll(Arrays.asList(billId));
+		return this;
+	}
+	
+	/**
+	 * 获得 流程异常清单<br>
+	 * 流程异常清单
+	 * @return 流程异常清单
+	*/
+	public List<ProcessError> getErrors() {
+		return errors;
+	}
+	
+	/**
+	 * 设置 流程异常清单
+	 * @param errors 流程异常清单
+	 * @return 当前对象
+	*/
+	public ProcessInstance setErrors(List<ProcessError> errors) {
+		this.errors=errors;
+		return this;
+	}
+	
+	/**
+	 * 添加 流程异常清单
+	 * @param error 流程异常清单
+	 * @return 当前对象
+	*/
+	public ProcessInstance addError(ProcessError... error) {
+		if(this.errors==null) errors=new ArrayList<>();
+		this.errors.addAll(Arrays.asList(error));
 		return this;
 	}
 	

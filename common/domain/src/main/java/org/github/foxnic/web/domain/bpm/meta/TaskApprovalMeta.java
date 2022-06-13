@@ -10,8 +10,8 @@ import org.github.foxnic.web.domain.oauth.User;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-10 16:19:28
- * @sign 272641D51D90B3A4BE20966F93F8BF4F
+ * @since 2022-06-13 14:46:25
+ * @sign A70B1539DC7FFD511D745C976A054497
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -208,6 +208,26 @@ public class TaskApprovalMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskApproval,java.lang.String> TENANT_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskApproval.class ,TENANT_ID, java.lang.String.class, "tenant_id", "tenant_id", java.lang.String.class, null);
 	
 	/**
+	 * CAM结果 , Camunda返回的结果 , 类型: java.lang.String
+	*/
+	public static final String CAMUNDA_RESULT="camundaResult";
+	
+	/**
+	 * CAM结果 , Camunda返回的结果 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskApproval,java.lang.String> CAMUNDA_RESULT_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskApproval.class ,CAMUNDA_RESULT, java.lang.String.class, "CAM结果", "Camunda返回的结果", java.lang.String.class, null);
+	
+	/**
+	 * CAM成功 , Camunda处理是否成功 , 类型: java.lang.Integer
+	*/
+	public static final String CAMUNDA_SUCCESS="camundaSuccess";
+	
+	/**
+	 * CAM成功 , Camunda处理是否成功 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskApproval,java.lang.Integer> CAMUNDA_SUCCESS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskApproval.class ,CAMUNDA_SUCCESS, java.lang.Integer.class, "CAM成功", "Camunda处理是否成功", java.lang.Integer.class, null);
+	
+	/**
 	 * 审批人身份 , 类型: org.github.foxnic.web.domain.bpm.Assignee
 	*/
 	public static final String APPROVER="approver";
@@ -230,7 +250,7 @@ public class TaskApprovalMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , TASK_ID , PROCESS_INSTANCE_ID , APPROVAL_USER_ID , APPROVAL_TIME , APPROVAL_RESULT , APPROVAL_COMMENT , ASSIGNEE_TYPE , ASSIGNEE_ID , VARIABLES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , APPROVER , APPROVAL_USER };
+	public static final String[] $PROPS={ ID , TASK_ID , PROCESS_INSTANCE_ID , APPROVAL_USER_ID , APPROVAL_TIME , APPROVAL_RESULT , APPROVAL_COMMENT , ASSIGNEE_TYPE , ASSIGNEE_ID , VARIABLES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CAMUNDA_RESULT , CAMUNDA_SUCCESS , APPROVER , APPROVAL_USER };
 	
 	/**
 	 * 代理类
@@ -446,6 +466,28 @@ public class TaskApprovalMeta {
 		public TaskApproval setTenantId(String tenantId) {
 			super.change(TENANT_ID,super.getTenantId(),tenantId);
 			super.setTenantId(tenantId);
+			return this;
+		}
+		
+		/**
+		 * 设置 CAM结果
+		 * @param camundaResult CAM结果
+		 * @return 当前对象
+		*/
+		public TaskApproval setCamundaResult(String camundaResult) {
+			super.change(CAMUNDA_RESULT,super.getCamundaResult(),camundaResult);
+			super.setCamundaResult(camundaResult);
+			return this;
+		}
+		
+		/**
+		 * 设置 CAM成功
+		 * @param camundaSuccess CAM成功
+		 * @return 当前对象
+		*/
+		public TaskApproval setCamundaSuccess(Integer camundaSuccess) {
+			super.change(CAMUNDA_SUCCESS,super.getCamundaSuccess(),camundaSuccess);
+			super.setCamundaSuccess(camundaSuccess);
 			return this;
 		}
 		

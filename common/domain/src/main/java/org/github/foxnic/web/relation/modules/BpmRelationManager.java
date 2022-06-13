@@ -110,7 +110,9 @@ public class BpmRelationManager extends RelationManager {
 				.using(FoxnicWeb.BPM_PROCESS_INSTANCE.ID).join(FoxnicWeb.BPM_TASK_APPROVAL.PROCESS_INSTANCE_ID)
 				.addOrderBy(FoxnicWeb.BPM_TASK_APPROVAL.CREATE_TIME,false,true);
 
-
+		//流程实例 - 流程异常
+		this.property(ProcessInstanceMeta.ERRORS_PROP)
+				.using(FoxnicWeb.BPM_PROCESS_INSTANCE.ID).join(FoxnicWeb.BPM_PROCESS_ERROR.PROCESS_INSTANCE_ID);
 	}
 
 	protected void setupBpmTask() {

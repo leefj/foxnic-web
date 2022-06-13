@@ -11,14 +11,14 @@ import com.github.foxnic.commons.bean.BeanUtil;
 
 
 /**
- * 流程任务审批结果
+ * 流程错误信息
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-13 14:46:25
- * @sign 745EC38BBD5424AD7AD465F3C225B806
+ * @since 2022-06-13 16:36:09
+ * @sign 23D7B501483EF32F33CA062A375B9A2C
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
-public class TaskApprovalVO extends TaskApproval {
+public class ProcessErrorVO extends ProcessError {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -89,7 +89,7 @@ public class TaskApprovalVO extends TaskApproval {
 	 * @param pageIndex 页码
 	 * @return 当前对象
 	*/
-	public TaskApprovalVO setPageIndex(Integer pageIndex) {
+	public ProcessErrorVO setPageIndex(Integer pageIndex) {
 		this.pageIndex=pageIndex;
 		return this;
 	}
@@ -107,7 +107,7 @@ public class TaskApprovalVO extends TaskApproval {
 	 * @param pageSize 分页大小
 	 * @return 当前对象
 	*/
-	public TaskApprovalVO setPageSize(Integer pageSize) {
+	public ProcessErrorVO setPageSize(Integer pageSize) {
 		this.pageSize=pageSize;
 		return this;
 	}
@@ -125,7 +125,7 @@ public class TaskApprovalVO extends TaskApproval {
 	 * @param searchField 搜索字段
 	 * @return 当前对象
 	*/
-	public TaskApprovalVO setSearchField(String searchField) {
+	public ProcessErrorVO setSearchField(String searchField) {
 		this.searchField=searchField;
 		return this;
 	}
@@ -143,7 +143,7 @@ public class TaskApprovalVO extends TaskApproval {
 	 * @param fuzzyField 模糊搜索字段
 	 * @return 当前对象
 	*/
-	public TaskApprovalVO setFuzzyField(String fuzzyField) {
+	public ProcessErrorVO setFuzzyField(String fuzzyField) {
 		this.fuzzyField=fuzzyField;
 		return this;
 	}
@@ -161,7 +161,7 @@ public class TaskApprovalVO extends TaskApproval {
 	 * @param searchValue 搜索的值
 	 * @return 当前对象
 	*/
-	public TaskApprovalVO setSearchValue(String searchValue) {
+	public ProcessErrorVO setSearchValue(String searchValue) {
 		this.searchValue=searchValue;
 		return this;
 	}
@@ -179,7 +179,7 @@ public class TaskApprovalVO extends TaskApproval {
 	 * @param dirtyFields 已修改字段
 	 * @return 当前对象
 	*/
-	public TaskApprovalVO setDirtyFields(List<String> dirtyFields) {
+	public ProcessErrorVO setDirtyFields(List<String> dirtyFields) {
 		this.dirtyFields=dirtyFields;
 		return this;
 	}
@@ -189,7 +189,7 @@ public class TaskApprovalVO extends TaskApproval {
 	 * @param dirtyField 已修改字段
 	 * @return 当前对象
 	*/
-	public TaskApprovalVO addDirtyField(String... dirtyField) {
+	public ProcessErrorVO addDirtyField(String... dirtyField) {
 		if(this.dirtyFields==null) dirtyFields=new ArrayList<>();
 		this.dirtyFields.addAll(Arrays.asList(dirtyField));
 		return this;
@@ -208,7 +208,7 @@ public class TaskApprovalVO extends TaskApproval {
 	 * @param sortField 排序字段
 	 * @return 当前对象
 	*/
-	public TaskApprovalVO setSortField(String sortField) {
+	public ProcessErrorVO setSortField(String sortField) {
 		this.sortField=sortField;
 		return this;
 	}
@@ -226,7 +226,7 @@ public class TaskApprovalVO extends TaskApproval {
 	 * @param sortType 排序方式
 	 * @return 当前对象
 	*/
-	public TaskApprovalVO setSortType(String sortType) {
+	public ProcessErrorVO setSortType(String sortType) {
 		this.sortType=sortType;
 		return this;
 	}
@@ -245,7 +245,7 @@ public class TaskApprovalVO extends TaskApproval {
 	 * @param ids 主键清单
 	 * @return 当前对象
 	*/
-	public TaskApprovalVO setIds(List<String> ids) {
+	public ProcessErrorVO setIds(List<String> ids) {
 		this.ids=ids;
 		return this;
 	}
@@ -255,7 +255,7 @@ public class TaskApprovalVO extends TaskApproval {
 	 * @param id 主键清单
 	 * @return 当前对象
 	*/
-	public TaskApprovalVO addId(String... id) {
+	public ProcessErrorVO addId(String... id) {
 		if(this.ids==null) ids=new ArrayList<>();
 		this.ids.addAll(Arrays.asList(id));
 		return this;

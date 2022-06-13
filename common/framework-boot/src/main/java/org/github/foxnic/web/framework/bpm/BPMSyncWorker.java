@@ -6,6 +6,7 @@ import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.concurrent.task.SimpleTaskManager;
 import org.github.foxnic.web.domain.job.Job;
 import org.github.foxnic.web.domain.job.JobExecutor;
+import org.github.foxnic.web.proxy.bpm.ProcessErrorServiceProxy;
 import org.github.foxnic.web.proxy.bpm.ProcessInstanceServiceProxy;
 import org.github.foxnic.web.proxy.bpm.TaskServiceProxy;
 import org.springframework.stereotype.Component;
@@ -49,6 +50,14 @@ public class BPMSyncWorker implements JobExecutor {
             @Override
             public void run() {
                 ProcessInstanceServiceProxy.api().syncCamundaProcessInstances(null);
+            }
+        },delayMs);
+
+        // 同步流程实例
+        SimpleTaskManager.doParallelTask(new Runnable() {
+            @Override
+            public void run() {
+                ProcessErrorServiceProxy.api().syncCamundaErrors(null);
             }
         },delayMs);
 

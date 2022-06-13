@@ -50,6 +50,8 @@ public class BpmEvent {
      * */
     private String approverEmployeeId;
 
+    private TaskApproval taskApproval;
+
 
     public BpmEventType getEventType() {
         return eventType;
@@ -133,5 +135,13 @@ public class BpmEvent {
         if(this.getProcessInstance().getBillIds()==null) return null;
         if(this.getProcessInstance().getBillIds().isEmpty()) return null;
         return this.getProcessInstance().getBillIds().get(0);
+    }
+
+    public void setTaskApproval(TaskApproval taskApproval) {
+        this.taskApproval=taskApproval;
+    }
+
+    public TaskApproval getTaskApproval() {
+        return taskApproval;
     }
 }

@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2022-06-10 15:14:14
+ * @since 2022-06-13 16:35:45
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -821,6 +821,62 @@ public class FoxnicWeb {
 	}
 	
 	/**
+	 * 流程错误信息
+	*/
+	public static class BPM_PROCESS_ERROR extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "bpm_process_error";
+		
+		/**
+		 * ID
+		*/
+		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","ID","ID",true,false,false);
+		
+		/**
+		 * 流程ID
+		*/
+		public static final DBField PROCESS_INSTANCE_ID = new DBField(DBDataType.STRING , "process_instance_id","processInstanceId","流程ID","流程ID",false,false,true);
+		
+		/**
+		 * 审批节点
+		*/
+		public static final DBField APPROVAL_NODE_ID = new DBField(DBDataType.STRING , "approval_node_id","approvalNodeId","审批节点","审批节点",false,false,true);
+		
+		/**
+		 * 错误节点
+		*/
+		public static final DBField ERROR_NODE_ID = new DBField(DBDataType.STRING , "error_node_id","errorNodeId","错误节点","错误节点",false,false,true);
+		
+		/**
+		 * 错误消息
+		*/
+		public static final DBField ERROR_MESSAGE = new DBField(DBDataType.STRING , "error_message","errorMessage","错误消息","错误消息",false,false,true);
+		
+		/**
+		 * 错误时间
+		*/
+		public static final DBField ERROR_TIME = new DBField(DBDataType.DATE , "error_time","errorTime","错误时间","错误时间",false,false,true);
+		
+		/**
+		 * 原始 incident id
+		*/
+		public static final DBField CAMUNDA_INCIDENT_ID = new DBField(DBDataType.STRING , "camunda_incident_id","camundaIncidentId","原始","incident id",false,false,true);
+		
+		/**
+		 * 错误类型
+		*/
+		public static final DBField ERROR_TYPE = new DBField(DBDataType.STRING , "error_type","errorType","错误类型","错误类型",false,false,true);
+		
+		public BPM_PROCESS_ERROR() {
+			this.init($NAME,"流程错误信息" , ID , PROCESS_INSTANCE_ID , APPROVAL_NODE_ID , ERROR_NODE_ID , ERROR_MESSAGE , ERROR_TIME , CAMUNDA_INCIDENT_ID , ERROR_TYPE);
+		}
+		public static final BPM_PROCESS_ERROR $TABLE=new BPM_PROCESS_ERROR();
+	}
+	
+	/**
 	 * 流程发起人权限表
 	*/
 	public static class BPM_PROCESS_INITIATOR extends DBTable {
@@ -1243,8 +1299,18 @@ public class FoxnicWeb {
 		*/
 		public static final DBField TENANT_ID = new DBField(DBDataType.STRING , "tenant_id","tenantId","tenant_id","tenant_id",false,false,true);
 		
+		/**
+		 * CAM结果，Camunda返回的结果
+		*/
+		public static final DBField CAMUNDA_RESULT = new DBField(DBDataType.STRING , "camunda_result","camundaResult","CAM结果","Camunda返回的结果",false,false,true);
+		
+		/**
+		 * CAM成功，Camunda处理是否成功
+		*/
+		public static final DBField CAMUNDA_SUCCESS = new DBField(DBDataType.INTEGER , "camunda_success","camundaSuccess","CAM成功","Camunda处理是否成功",false,false,true);
+		
 		public BPM_TASK_APPROVAL() {
-			this.init($NAME,"流程任务审批结果表" , ID , TASK_ID , PROCESS_INSTANCE_ID , APPROVAL_USER_ID , APPROVAL_TIME , APPROVAL_RESULT , APPROVAL_COMMENT , ASSIGNEE_TYPE , ASSIGNEE_ID , VARIABLES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID);
+			this.init($NAME,"流程任务审批结果表" , ID , TASK_ID , PROCESS_INSTANCE_ID , APPROVAL_USER_ID , APPROVAL_TIME , APPROVAL_RESULT , APPROVAL_COMMENT , ASSIGNEE_TYPE , ASSIGNEE_ID , VARIABLES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CAMUNDA_RESULT , CAMUNDA_SUCCESS);
 		}
 		public static final BPM_TASK_APPROVAL $TABLE=new BPM_TASK_APPROVAL();
 	}

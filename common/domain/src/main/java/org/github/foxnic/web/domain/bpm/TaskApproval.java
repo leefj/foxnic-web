@@ -18,8 +18,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程任务审批结果
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-10 16:19:28
- * @sign 272641D51D90B3A4BE20966F93F8BF4F
+ * @since 2022-06-13 14:46:25
+ * @sign A70B1539DC7FFD511D745C976A054497
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -146,6 +146,18 @@ public class TaskApproval extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="tenant_id" , notes = "tenant_id")
 	private String tenantId;
+	
+	/**
+	 * CAM结果：Camunda返回的结果
+	*/
+	@ApiModelProperty(required = false,value="CAM结果" , notes = "Camunda返回的结果")
+	private String camundaResult;
+	
+	/**
+	 * CAM成功：Camunda处理是否成功
+	*/
+	@ApiModelProperty(required = false,value="CAM成功" , notes = "Camunda处理是否成功")
+	private Integer camundaSuccess;
 	
 	/**
 	 * 审批人身份：审批人身份
@@ -547,6 +559,44 @@ public class TaskApproval extends Entity {
 	*/
 	public TaskApproval setTenantId(String tenantId) {
 		this.tenantId=tenantId;
+		return this;
+	}
+	
+	/**
+	 * 获得 CAM结果<br>
+	 * Camunda返回的结果
+	 * @return CAM结果
+	*/
+	public String getCamundaResult() {
+		return camundaResult;
+	}
+	
+	/**
+	 * 设置 CAM结果
+	 * @param camundaResult CAM结果
+	 * @return 当前对象
+	*/
+	public TaskApproval setCamundaResult(String camundaResult) {
+		this.camundaResult=camundaResult;
+		return this;
+	}
+	
+	/**
+	 * 获得 CAM成功<br>
+	 * Camunda处理是否成功
+	 * @return CAM成功
+	*/
+	public Integer getCamundaSuccess() {
+		return camundaSuccess;
+	}
+	
+	/**
+	 * 设置 CAM成功
+	 * @param camundaSuccess CAM成功
+	 * @return 当前对象
+	*/
+	public TaskApproval setCamundaSuccess(Integer camundaSuccess) {
+		this.camundaSuccess=camundaSuccess;
 		return this;
 	}
 	
