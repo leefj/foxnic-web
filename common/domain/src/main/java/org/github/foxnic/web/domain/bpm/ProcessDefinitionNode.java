@@ -23,8 +23,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程定义节点
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-07 15:55:04
- * @sign 6C6CC36AA991C73619FD79F9FC6444C8
+ * @since 2022-06-14 11:13:43
+ * @sign 98C8CD951B5C7C96DA8D7B25145AABBB
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -141,6 +141,12 @@ public class ProcessDefinitionNode extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="序号" , notes = "序号")
 	private Integer sort;
+	
+	/**
+	 * 人工节点类型：人工节点类型
+	*/
+	@ApiModelProperty(required = false,value="人工节点类型" , notes = "人工节点类型")
+	private String userTaskNodeType;
 	
 	/**
 	 * 审批人清单：审批人清单
@@ -531,6 +537,25 @@ public class ProcessDefinitionNode extends Entity {
 	*/
 	public ProcessDefinitionNode setSort(Integer sort) {
 		this.sort=sort;
+		return this;
+	}
+	
+	/**
+	 * 获得 人工节点类型<br>
+	 * 人工节点类型
+	 * @return 人工节点类型
+	*/
+	public String getUserTaskNodeType() {
+		return userTaskNodeType;
+	}
+	
+	/**
+	 * 设置 人工节点类型
+	 * @param userTaskNodeType 人工节点类型
+	 * @return 当前对象
+	*/
+	public ProcessDefinitionNode setUserTaskNodeType(String userTaskNodeType) {
+		this.userTaskNodeType=userTaskNodeType;
 		return this;
 	}
 	

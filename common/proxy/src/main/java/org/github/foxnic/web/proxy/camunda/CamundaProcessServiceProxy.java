@@ -45,6 +45,11 @@ public interface CamundaProcessServiceProxy {
     public static final String START = API_PREFIX + "start";
 
     /**
+     * 启动流程
+     */
+    public static final String SET_VARIABLES = API_PREFIX + "set-variables";
+
+    /**
      * 按流程ID查询流程
      */
     public static final String QUERY_BY_IDS = API_PREFIX + "query-by-ids";
@@ -55,7 +60,8 @@ public interface CamundaProcessServiceProxy {
     public static final String ABANDON_PROCESS = API_PREFIX + "abandon-process";
 
 
-
+    @RequestMapping(CamundaProcessServiceProxy.SET_VARIABLES)
+    Result setVariables(@RequestParam(name = "processInstanceId") String processInstanceId,@RequestParam(name = "variables") Map<String,Object> variables);
 
     /**
      * 启动流程

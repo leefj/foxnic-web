@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2022-06-13 16:35:45
+ * @since 2022-06-14 11:12:31
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -728,8 +728,13 @@ public class FoxnicWeb {
 		*/
 		public static final DBField SORT = new DBField(DBDataType.INTEGER , "sort","sort","序号","序号",false,false,true);
 		
+		/**
+		 * 人工节点类型
+		*/
+		public static final DBField USER_TASK_NODE_TYPE = new DBField(DBDataType.STRING , "user_task_node_type","userTaskNodeType","人工节点类型","人工节点类型",false,false,true);
+		
 		public BPM_PROCESS_DEFINITION_NODE() {
-			this.init($NAME,"流程定义节点表" , ID , PROCESS_DEFINITION_ID , PROCESS_DEFINITION_FILE_ID , CAMUNDA_NODE_ID , NODE_TYPE , NODE_NAME , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , SORT);
+			this.init($NAME,"流程定义节点表" , ID , PROCESS_DEFINITION_ID , PROCESS_DEFINITION_FILE_ID , CAMUNDA_NODE_ID , NODE_TYPE , NODE_NAME , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , SORT , USER_TASK_NODE_TYPE);
 		}
 		public static final BPM_PROCESS_DEFINITION_NODE $TABLE=new BPM_PROCESS_DEFINITION_NODE();
 	}
