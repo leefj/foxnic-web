@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2022-06-14 11:12:31
+ * @since 2022-06-15 14:50:24
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -733,8 +733,13 @@ public class FoxnicWeb {
 		*/
 		public static final DBField USER_TASK_NODE_TYPE = new DBField(DBDataType.STRING , "user_task_node_type","userTaskNodeType","人工节点类型","人工节点类型",false,false,true);
 		
+		/**
+		 * 会审的循环基数
+		*/
+		public static final DBField LOOP_CARDINALITY = new DBField(DBDataType.INTEGER , "loop_cardinality","loopCardinality","会审的循环基数","会审的循环基数",false,false,true);
+		
 		public BPM_PROCESS_DEFINITION_NODE() {
-			this.init($NAME,"流程定义节点表" , ID , PROCESS_DEFINITION_ID , PROCESS_DEFINITION_FILE_ID , CAMUNDA_NODE_ID , NODE_TYPE , NODE_NAME , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , SORT , USER_TASK_NODE_TYPE);
+			this.init($NAME,"流程定义节点表" , ID , PROCESS_DEFINITION_ID , PROCESS_DEFINITION_FILE_ID , CAMUNDA_NODE_ID , NODE_TYPE , NODE_NAME , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , SORT , USER_TASK_NODE_TYPE , LOOP_CARDINALITY);
 		}
 		public static final BPM_PROCESS_DEFINITION_NODE $TABLE=new BPM_PROCESS_DEFINITION_NODE();
 	}

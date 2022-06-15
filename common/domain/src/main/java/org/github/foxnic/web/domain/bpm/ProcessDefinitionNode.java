@@ -24,8 +24,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程定义节点
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-15 09:24:34
- * @sign F9BA2A6C6F7BAE2D329785B9C21BC574
+ * @since 2022-06-15 14:51:08
+ * @sign E3131145DF6EC1C31F85E47B7F53CFA2
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -150,6 +150,12 @@ public class ProcessDefinitionNode extends Entity {
 	private String userTaskNodeType;
 	@Transient
 	private UserTaskType userTaskNodeTypeEnum;
+	
+	/**
+	 * 会审的循环基数：会审的循环基数
+	*/
+	@ApiModelProperty(required = false,value="会审的循环基数" , notes = "会审的循环基数")
+	private Integer loopCardinality;
 	
 	/**
 	 * 审批人清单：审批人清单
@@ -592,6 +598,25 @@ public class ProcessDefinitionNode extends Entity {
 			this.setUserTaskNodeType(userTaskNodeTypeEnum.code());
 		}
 		this.userTaskNodeTypeEnum=userTaskNodeTypeEnum;
+		return this;
+	}
+	
+	/**
+	 * 获得 会审的循环基数<br>
+	 * 会审的循环基数
+	 * @return 会审的循环基数
+	*/
+	public Integer getLoopCardinality() {
+		return loopCardinality;
+	}
+	
+	/**
+	 * 设置 会审的循环基数
+	 * @param loopCardinality 会审的循环基数
+	 * @return 当前对象
+	*/
+	public ProcessDefinitionNode setLoopCardinality(Integer loopCardinality) {
+		this.loopCardinality=loopCardinality;
 		return this;
 	}
 	
