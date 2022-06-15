@@ -23,8 +23,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程任务
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-07 15:55:06
- * @sign CA468010F8A7A263EA0D1816D6ADB4A3
+ * @since 2022-06-15 13:33:19
+ * @sign E603C5AAAD0BB3E33BDD1D623A092160
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -171,6 +171,12 @@ public class Task extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="审批人账户清单" , notes = "审批人账户清单")
 	private List<TaskAssigneeUser> assigneeUsers;
+	
+	/**
+	 * 流程节点：流程节点
+	*/
+	@ApiModelProperty(required = false,value="流程节点" , notes = "流程节点")
+	private ProcessDefinitionNode node;
 	
 	/**
 	 * 获得 id<br>
@@ -683,6 +689,25 @@ public class Task extends Entity {
 	public Task addAssigneeUser(TaskAssigneeUser... assigneeUser) {
 		if(this.assigneeUsers==null) assigneeUsers=new ArrayList<>();
 		this.assigneeUsers.addAll(Arrays.asList(assigneeUser));
+		return this;
+	}
+	
+	/**
+	 * 获得 流程节点<br>
+	 * 流程节点
+	 * @return 流程节点
+	*/
+	public ProcessDefinitionNode getNode() {
+		return node;
+	}
+	
+	/**
+	 * 设置 流程节点
+	 * @param node 流程节点
+	 * @return 当前对象
+	*/
+	public Task setNode(ProcessDefinitionNode node) {
+		this.node=node;
 		return this;
 	}
 

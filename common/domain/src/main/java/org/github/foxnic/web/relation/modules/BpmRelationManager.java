@@ -121,6 +121,10 @@ public class BpmRelationManager extends RelationManager {
 		this.property(TaskMeta.PROCESS_DEFINITION_PROP)
 				.using(FoxnicWeb.BPM_TASK.PROCESS_DEFINITION_ID).join(FoxnicWeb.BPM_PROCESS_DEFINITION.ID);
 
+		//任务 - 流程节点
+		this.property(TaskMeta.NODE_PROP)
+				.using(FoxnicWeb.BPM_TASK.NODE_ID).join(FoxnicWeb.BPM_PROCESS_DEFINITION_NODE.ID);
+
 		//任务 - 流程实例
 		this.property(TaskMeta.PROCESS_INSTANCE_PROP)
 				.using(FoxnicWeb.BPM_TASK.PROCESS_INSTANCE_ID).join(FoxnicWeb.BPM_PROCESS_INSTANCE.ID);

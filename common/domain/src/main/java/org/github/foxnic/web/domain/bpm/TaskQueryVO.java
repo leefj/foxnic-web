@@ -11,7 +11,7 @@ import java.util.Arrays;
 /**
  * 任务查询对象
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-07 15:55:06
+ * @since 2022-06-15 13:33:19
  * @sign F0EFD896440D8340AB1EEB9179736B99
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
