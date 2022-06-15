@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiModelProperty;
 import org.github.foxnic.web.constants.enums.bpm.CamundaNodeType;
 import javax.persistence.Transient;
 import java.util.Date;
+import org.github.foxnic.web.constants.enums.bpm.UserTaskType;
 import java.util.List;
 import com.github.foxnic.commons.reflect.EnumUtil;
 import com.github.foxnic.commons.lang.StringUtil;
@@ -23,8 +24,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程定义节点
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-14 11:13:43
- * @sign 98C8CD951B5C7C96DA8D7B25145AABBB
+ * @since 2022-06-15 09:24:34
+ * @sign F9BA2A6C6F7BAE2D329785B9C21BC574
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -147,6 +148,8 @@ public class ProcessDefinitionNode extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="人工节点类型" , notes = "人工节点类型")
 	private String userTaskNodeType;
+	@Transient
+	private UserTaskType userTaskNodeTypeEnum;
 	
 	/**
 	 * 审批人清单：审批人清单
@@ -550,12 +553,45 @@ public class ProcessDefinitionNode extends Entity {
 	}
 	
 	/**
+	 * 获得 人工节点类型 的投影属性<br>
+	 * 等价于 getUserTaskNodeType 方法，获得对应的枚举类型
+	 * @return 人工节点类型
+	*/
+	@Transient
+	public UserTaskType getUserTaskNodeTypeEnum() {
+		if(this.userTaskNodeTypeEnum==null) {
+			this.userTaskNodeTypeEnum = (UserTaskType) EnumUtil.parseByCode(UserTaskType.values(),userTaskNodeType);
+		}
+		return this.userTaskNodeTypeEnum ;
+	}
+	
+	/**
 	 * 设置 人工节点类型
 	 * @param userTaskNodeType 人工节点类型
 	 * @return 当前对象
 	*/
 	public ProcessDefinitionNode setUserTaskNodeType(String userTaskNodeType) {
 		this.userTaskNodeType=userTaskNodeType;
+		this.userTaskNodeTypeEnum= (UserTaskType) EnumUtil.parseByCode(UserTaskType.values(),userTaskNodeType) ;
+		if(StringUtil.hasContent(userTaskNodeType) && this.userTaskNodeTypeEnum==null) {
+			throw new IllegalArgumentException( userTaskNodeType + " is not one of UserTaskType");
+		}
+		return this;
+	}
+	
+	/**
+	 * 设置 人工节点类型的投影属性，等同于设置 人工节点类型
+	 * @param userTaskNodeTypeEnum 人工节点类型
+	 * @return 当前对象
+	*/
+	@Transient
+	public ProcessDefinitionNode setUserTaskNodeTypeEnum(UserTaskType userTaskNodeTypeEnum) {
+		if(userTaskNodeTypeEnum==null) {
+			this.setUserTaskNodeType(null);
+		} else {
+			this.setUserTaskNodeType(userTaskNodeTypeEnum.code());
+		}
+		this.userTaskNodeTypeEnum=userTaskNodeTypeEnum;
 		return this;
 	}
 	
