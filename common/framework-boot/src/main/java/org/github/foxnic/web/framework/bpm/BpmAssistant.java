@@ -9,11 +9,10 @@ import com.github.foxnic.commons.reflect.ReflectUtil;
 import org.github.foxnic.web.domain.bpm.BpmActionResult;
 import org.github.foxnic.web.domain.bpm.BpmEvent;
 import org.github.foxnic.web.proxy.bpm.BpmCallbackController;
+import org.github.foxnic.web.proxy.camunda.CamundaProcessServiceProxy;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class BpmAssistant {
 
@@ -47,7 +46,21 @@ public class BpmAssistant {
     }
 
 
-//    private static LocalCache<String, Method> callback
+    /**
+     * 设置流程变量
+     * */
+    public Result setVariable(String processInstanceId,String variableName,Object variableValue) {
+        Map<String,Object> variables = new HashMap<>();
+        variables.put(variableName,variableValue);
+        return setVariable(processInstanceId,variables);
+    }
+
+    /**
+     * 设置流程变量
+     * */
+    public Result setVariable(String processInstanceId, Map<String,Object> variables) {
+        return CamundaProcessServiceProxy.api().setVariables(processInstanceId,variables);
+    }
 
 
     public BpmActionResult dispatchEvent(BpmEvent event) {
