@@ -68,6 +68,11 @@ public interface ProcessInstanceServiceProxy {
     public static final String GET_BY_ID = API_PREFIX + "get-by-id";
 
     /**
+     * 获取单个流程实例
+     */
+    public static final String GET_BY_CAMUNDA_INSTANCE_ID = API_PREFIX + "get-by-camunda_instance-id";
+
+    /**
      * 获取多个流程实例
      */
     public static final String GET_BY_IDS = API_PREFIX + "get-by-ids";
@@ -99,11 +104,6 @@ public interface ProcessInstanceServiceProxy {
      */
     public static final String SYNC_CAMUNDA_PROCESS_INSTANCE = API_PREFIX + "sync-camunda-process-instance";
 
-    /**
-     * 添加流程实例
-     */
-    @RequestMapping(ProcessInstanceServiceProxy.START)
-    Result insert(@RequestParam(name = "processInstanceVO") ProcessInstanceVO processInstanceVO);
 
     /**
      * 删除流程实例
@@ -121,13 +121,14 @@ public interface ProcessInstanceServiceProxy {
      * 获取流程实例
      */
     @RequestMapping(ProcessInstanceServiceProxy.GET_BY_ID)
-    Result<ProcessInstance> getById(@RequestParam(name = "id") Integer id);
+    Result<ProcessInstance> getById(@RequestParam(name = "id") String id);
 
     /**
-     * 获取多个流程实例
+     * 获取流程实例
      */
-    @RequestMapping(ProcessInstanceServiceProxy.GET_BY_IDS)
-    Result<List<ProcessInstance>> getByIds(@RequestParam(name = "ids") List<Integer> ids);
+    @RequestMapping(ProcessInstanceServiceProxy.GET_BY_CAMUNDA_INSTANCE_ID)
+    Result<ProcessInstance> getByCamundaProcessId(@RequestParam(name = "camundaProcessId") String camundaProcessId);
+
 
     /**
      * 分页查询流程实例

@@ -8,7 +8,9 @@ import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.commons.reflect.ReflectUtil;
 import org.github.foxnic.web.domain.bpm.BpmActionResult;
 import org.github.foxnic.web.domain.bpm.BpmEvent;
+import org.github.foxnic.web.domain.bpm.ProcessInstance;
 import org.github.foxnic.web.proxy.bpm.BpmCallbackController;
+import org.github.foxnic.web.proxy.bpm.ProcessInstanceServiceProxy;
 import org.github.foxnic.web.proxy.camunda.CamundaProcessServiceProxy;
 
 import java.lang.reflect.Method;
@@ -25,12 +27,6 @@ public class BpmAssistant {
 
     private static QuartzTaskManager taskManager=new QuartzTaskManager(3);
 
-    private String processInstanceId;
-
-    public BpmAssistant(String processInstanceId) {
-        this.processInstanceId=processInstanceId;
-    }
-
     public static void startBpmDataSync(){
         taskManager.doIntervalTask(new Runnable() {
             @Override
@@ -40,30 +36,26 @@ public class BpmAssistant {
         },3000);
     }
 
-    public Result sync(int delay) {
+    public static Result sync(String processInstanceId,int delay) {
         // 调用同步
         return syncWorker.doSync(Arrays.asList(processInstanceId),delay);
     }
 
 
-    /**
-     * 设置流程变量
-     * */
-    public Result setVariable(String processInstanceId,String variableName,Object variableValue) {
-        Map<String,Object> variables = new HashMap<>();
-        variables.put(variableName,variableValue);
-        return setVariable(processInstanceId,variables);
+
+    public static Result<ProcessInstance> getProcessInstanceById(String processInstanceId) {
+        return  ProcessInstanceServiceProxy.api().getById(processInstanceId);
     }
 
-    /**
-     * 设置流程变量
-     * */
-    public Result setVariable(String processInstanceId, Map<String,Object> variables) {
-        return CamundaProcessServiceProxy.api().setVariables(processInstanceId,variables);
+    public static Result<ProcessInstance> getProcessInstanceByCamundaId(String camundaProcessInstanceId) {
+        return  ProcessInstanceServiceProxy.api().getByCamundaProcessId(camundaProcessInstanceId);
     }
 
 
-    public BpmActionResult dispatchEvent(BpmEvent event) {
+    /**
+     * 调度回调事件
+     * */
+    public static BpmActionResult dispatchEvent(BpmEvent event) {
         if(event.getProcessInstance()==null) {
             throw new IllegalArgumentException("缺少流程实例数据");
         }
@@ -71,7 +63,7 @@ public class BpmAssistant {
             throw new IllegalArgumentException("缺少表单定义数据");
         }
 
-        Class proxyClass=this.getCallbackProxyClass(event.getProcessInstance().getFormDefinition().getCallbackController());
+        Class proxyClass=getCallbackProxyClass(event.getProcessInstance().getFormDefinition().getCallbackController());
         if(proxyClass==null) {
             throw new IllegalArgumentException("流程回调控制器无效");
         }
@@ -95,7 +87,7 @@ public class BpmAssistant {
     }
 
 
-    public Class getCallbackProxyClass(String callbackController) {
+    public static Class getCallbackProxyClass(String callbackController) {
 
         String[] parts=callbackController.split("\\.");
         String modulePkg=parts[parts.length-3];
