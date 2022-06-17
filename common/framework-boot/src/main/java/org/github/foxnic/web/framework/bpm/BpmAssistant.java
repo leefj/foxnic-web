@@ -19,6 +19,11 @@ import java.util.*;
 public class BpmAssistant {
 
     /**
+     * 流程实例ID
+     */
+    public static final String BPM_PROCESS_INSTANCE_ID = "bpmProcessInstanceId";
+
+    /**
      * 流程管理员角色
      * */
     public static final String ROLE_BPM_ADMIN="bpm_admin";
