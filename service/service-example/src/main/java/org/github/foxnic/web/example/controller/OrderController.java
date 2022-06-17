@@ -10,7 +10,6 @@ import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.dao.excel.ValidateResult;
-import com.github.foxnic.springboot.mvc.RequestParameter;
 import com.github.foxnic.springboot.web.DownloadUtil;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.github.xiaoymin.knife4j.annotations.ApiSort;
@@ -36,6 +35,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -44,7 +44,7 @@ import java.util.Map;
  *  接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-29 07:23:22
+ * @since 2022-06-17 22:22:18
 */
 
 @Api(tags = "example_order")
@@ -88,6 +88,17 @@ public class OrderController extends SuperController {
 	@SentinelResource(value = OrderServiceProxy.DELETE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(OrderServiceProxy.DELETE)
 	public Result deleteById(String id) {
+		this.validator().asserts(id).require("缺少id值");
+		if(this.validator().failure()) {
+			return this.validator().getFirstResult();
+		}
+		// 引用校验
+		Boolean hasRefer = orderService.hasRefers(id);
+		// 判断是否可以删除
+		this.validator().asserts(hasRefer).mustInList("不允许删除当前记录",false);
+		if(this.validator().failure()) {
+			return this.validator().getFirstResult();
+		}
 		Result result=orderService.deleteByIdLogical(id);
 		return result;
 	}
@@ -106,8 +117,43 @@ public class OrderController extends SuperController {
 	@SentinelResource(value = OrderServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(OrderServiceProxy.DELETE_BY_IDS)
 	public Result deleteByIds(List<String> ids) {
-		Result result=orderService.deleteByIdsLogical(ids);
-		return result;
+
+		// 参数校验
+		this.validator().asserts(ids).require("缺少ids参数");
+		if(this.validator().failure()) {
+			return this.validator().getFirstResult();
+		}
+
+		// 查询引用
+		Map<String, Boolean> hasRefersMap = orderService.hasRefers(ids);
+		// 收集可以删除的ID值
+		List<String> canDeleteIds = new ArrayList<>();
+		for (Map.Entry<String, Boolean> e : hasRefersMap.entrySet()) {
+			if (!e.getValue()) {
+				canDeleteIds.add(e.getKey());
+			}
+		}
+
+		// 执行删除
+		if (canDeleteIds.isEmpty()) {
+			// 如果没有一行可以被删除
+			return ErrorDesc.failure().message("无法删除您选中的数据行");
+		} else if (canDeleteIds.size() == ids.size()) {
+			// 如果全部可以删除
+			Result result=orderService.deleteByIdsLogical(canDeleteIds);
+			return result;
+		} else if (canDeleteIds.size()>0 && canDeleteIds.size() < ids.size()) {
+			// 如果部分行可以删除
+			Result result=orderService.deleteByIdsLogical(canDeleteIds);
+			if (result.failure()) {
+				return result;
+			} else {
+				return ErrorDesc.success().message("已删除 " + canDeleteIds.size() + " 行，但另有 " + (ids.size() - canDeleteIds.size()) + " 行数据无法删除").messageLevel4Confirm();
+			}
+		} else {
+			// 理论上，这个分支不存在
+			return ErrorDesc.success().message("数据删除未处理");
+		}
 	}
 
 	/**
@@ -229,11 +275,6 @@ public class OrderController extends SuperController {
 	@SentinelResource(value = OrderServiceProxy.QUERY_PAGED_LIST , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(OrderServiceProxy.QUERY_PAGED_LIST)
 	public Result<PagedList<Order>> queryPagedList(OrderVO sample) {
-
-		RequestParameter requestParameter1 = super.getParameter();
-
-		RequestParameter requestParameter2 = RequestParameter.get();
-
 		Result<PagedList<Order>> result=new Result<>();
 		PagedList<Order> list=orderService.queryPagedList(sample,sample.getPageSize(),sample.getPageIndex());
 		// join 关联的对象
@@ -244,6 +285,8 @@ public class OrderController extends SuperController {
 		result.success(true).data(list);
 		return result;
 	}
+
+
 
 
 

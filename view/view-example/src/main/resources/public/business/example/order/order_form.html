@@ -2,7 +2,7 @@
 /**
  * example_order 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-29 07:23:22
+ * @since 2022-06-17 22:22:21
  */
  -->
  <!DOCTYPE html>
@@ -68,7 +68,7 @@
 
                 
                     <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('收件地址ID')}">收件地址ID</div></div>
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('收件地址')}">收件地址</div></div>
                         <div class="layui-input-block layui-input-block-c1">
                             <div id="addressId" input-type="select" th:data="${'/service-example/example-address/query-list'}" extraParam="{}"></div>
                         </div>
@@ -76,15 +76,15 @@
 
 
                                     <div class="layui-form-item" style="display: none">
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('receiverName')}">receiverName</div></div>
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('收件人')}">收件人</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="receiverName" id="receiverName" name="receiverName" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('receiverName') }" type="text" class="layui-input"  />
+                            <input lay-filter="receiverName" id="receiverName" name="receiverName" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('收件人') }" type="text" class="layui-input"  />
                         </div>
                     </div>
 
                 
                     <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('goodsNames')}">goodsNames</div></div>
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('商品')}">商品</div></div>
                         <div class="layui-input-block layui-input-block-c1">
                             <div id="goodsNames" input-type="select" th:data="${'/service-example/example-goods/query-list'}" extraParam="{}"></div>
                         </div>
@@ -92,9 +92,9 @@
 
 
                                     <div class="layui-form-item" style="display: none">
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('byGoodsName')}">byGoodsName</div></div>
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('品名')}">品名</div></div>
                         <div class="layui-input-block layui-input-block-c1">
-                            <input lay-filter="byGoodsName" id="byGoodsName" name="byGoodsName" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('byGoodsName') }" type="text" class="layui-input"  />
+                            <input lay-filter="byGoodsName" id="byGoodsName" name="byGoodsName" th:placeholder="${ lang.translate('请输入') +''+ lang.translate('品名') }" type="text" class="layui-input"  />
                         </div>
                     </div>
 

@@ -20,6 +20,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
     //模块基础路径
     const moduleURL="/service-example/example-order-item";
 
+    var orderId=admin.getVar("orderId");
     //列表页的扩展
     var list={
         /**
@@ -77,6 +78,8 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * */
         beforeQuery:function (conditions,param,location) {
             console.log('beforeQuery',conditions,param,location);
+            debugger;
+            param.orderId=orderId;
             return true;
         },
         /**
@@ -233,7 +236,9 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * 数据提交前，如果返回 false，停止后续步骤的执行
          * */
         beforeSubmit:function (data) {
+            debugger
             console.log("beforeSubmit",data);
+            data.orderId=orderId;
             return true;
         },
         /**

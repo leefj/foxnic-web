@@ -22,7 +22,7 @@ import java.util.Map;
  *  服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-29 07:23:21
+ * @since 2022-06-17 22:22:18
 */
 
 public interface IOrderService extends ISuperService<Order> {
@@ -160,6 +160,16 @@ public interface IOrderService extends ISuperService<Order> {
 	 * @return Order 数据对象
 	 */
 	Order getById(String id);
+
+	/**
+	 * 检查引用
+	 * */
+	Boolean hasRefers(String id);
+
+	/**
+	 * 批量检查引用
+	 * */
+	Map<String,Boolean> hasRefers(List<String> ids);
 
 	/**
 	 * 按 id 获取多个对象
@@ -321,6 +331,7 @@ public interface IOrderService extends ISuperService<Order> {
 	 * @return  错误信息，成功时返回 null
 	 * */
 	List<ValidateResult> importExcel(InputStream input,int sheetIndex,boolean batch);
+
 
 
 }

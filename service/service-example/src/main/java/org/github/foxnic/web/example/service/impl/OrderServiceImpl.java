@@ -1,9 +1,11 @@
 package org.github.foxnic.web.example.service.impl;
 
-
 import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.github.foxnic.commons.collection.MapUtil;
+import java.util.Arrays;
 
 
 import org.github.foxnic.web.domain.example.Order;
@@ -36,7 +38,7 @@ import java.util.Map;
  *  服务实现
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-29 07:23:21
+ * @since 2022-06-17 22:22:18
 */
 
 
@@ -267,6 +269,25 @@ public class OrderServiceImpl extends SuperService<Order> implements IOrderServi
 		return false;
 	}
 
+
+	@Override
+	public Boolean hasRefers(String id) {
+		Map<String, Boolean> map=this.hasRefers(Arrays.asList(id));
+		Boolean ex=map.get(id);
+		if(ex==null) return false;
+		return ex;
+	}
+
+	@Override
+	public Map<String, Boolean> hasRefers(List<String> ids) {
+		// 默认无业务逻辑，返回此行；有业务逻辑需要校验时，请修改并使用已注释的行代码！！！
+		return MapUtil.asMap(ids,false);
+		// return super.hasRefers(FoxnicWeb.BPM_PROCESS_INSTANCE.FORM_DEFINITION_ID,ids);
+	}
+
+
+
+
 	@Override
 	public ExcelWriter exportExcel(Order sample) {
 		return super.exportExcel(sample);
@@ -286,6 +307,7 @@ public class OrderServiceImpl extends SuperService<Order> implements IOrderServi
 	public ExcelStructure buildExcelStructure(boolean isForExport) {
 		return super.buildExcelStructure(isForExport);
 	}
+
 
 
 }

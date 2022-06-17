@@ -2,7 +2,7 @@
 /**
  * example_order 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-29 07:23:22
+ * @since 2022-06-17 22:22:21
  */
  -->
  <!DOCTYPE html>
@@ -38,39 +38,42 @@
             <div class="search-input-rows" style="opacity: 0">
                 <!-- 搜索输入区域 -->
                 <div class="layui-form toolbar search-inputs">
-                    <!-- 主键 , id ,typeName=text_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('主键')}" class="search-label id-label">主键</span><span class="search-colon">:</span></div>
-                        <input id="id" class="layui-input search-input" style="width: 140px" type="text" />
-                    </div>
+                    <!-- 主键 , id ,typeName=text_input, isHideInSearch=true -->
                     <!-- 订单编号 , orderNo ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('订单编号')}" class="search-label orderNo-label">订单编号</span><span class="search-colon">:</span></div>
+                        <div class="search-label-div" style="width:80px"><span th:text="${lang.translate('订单编号')}" class="search-label orderNo-label">订单编号</span><span class="search-colon">:</span></div>
                         <input id="orderNo" class="layui-input search-input" style="width: 140px" type="text" />
+                    </div>
+                    <!-- 商品 , goodsNames ,typeName=select_box, isHideInSearch=false -->
+                    <div class="search-unit">
+                        <div class="search-label-div" style="width:80px"><span th:text="${lang.translate('商品')}" class="search-label goodsNames-label">商品</span><span class="search-colon">:</span></div>
+                        <div id="goodsNames" th:data="${'/service-example/example-goods/query-list'}" style="width:140px" extraParam="{}"></div>
                     </div>
                     <!-- 订单金额 , amount ,typeName=number_input, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('订单金额')}" class="search-label amount-label">订单金额</span><span class="search-colon">:</span></div>
-                            <input id="amount" class="layui-input search-input" style="width: 140px" type="text" autocomplete="off" input-type="number_input" integer="false" decimal="true" allow-negative="true" step="1.0" min-value="" max-value="" scale="0"/>
+                        <div class="search-label-div" style="width:80px"><span th:text="${lang.translate('订单金额')}" class="search-label amount-label">订单金额</span><span class="search-colon">:</span></div>
+                            <input id="amount-begin" class="layui-input search-input" style="width: 140px" type="text" autocomplete="off" input-type="number_input"  integer="false" decimal="true" allow-negative="true" step="1.0" min-value="" max-value="" scale="0"/>
+                            <span class="search-dash">-</span>
+                            <input id="amount-end" class="layui-input search-input" style="width: 140px" type="text" autocomplete="off" input-type="number_input"  integer="false" decimal="true" allow-negative="true" step="1.0" min-value="" max-value="" scale="0"/>
                     </div>
-                    <!-- 收件地址ID , addressId ,typeName=select_box, isHideInSearch=false -->
+
+
+                </div>
+                <!-- 搜索输入区域 -->
+                <div class="layui-form toolbar search-inputs">
+                    <!-- 收件地址 , addressId ,typeName=select_box, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('收件地址ID')}" class="search-label addressId-label">收件地址ID</span><span class="search-colon">:</span></div>
+                        <div class="search-label-div" style="width:80px"><span th:text="${lang.translate('收件地址')}" class="search-label addressId-label">收件地址</span><span class="search-colon">:</span></div>
                         <div id="addressId" th:data="${'/service-example/example-address/query-list'}" style="width:140px" extraParam="{}"></div>
                     </div>
-                    <!-- receiverName , receiverName ,typeName=text_input, isHideInSearch=false -->
+                    <!-- 收件人 , receiverName ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('receiverName')}" class="search-label receiverName-label">receiverName</span><span class="search-colon">:</span></div>
+                        <div class="search-label-div" style="width:80px"><span th:text="${lang.translate('收件人')}" class="search-label receiverName-label">收件人</span><span class="search-colon">:</span></div>
                         <input id="receiverName" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
-                    <!-- goodsNames , goodsNames ,typeName=select_box, isHideInSearch=false -->
+                    <!-- 品名 , byGoodsName ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('goodsNames')}" class="search-label goodsNames-label">goodsNames</span><span class="search-colon">:</span></div>
-                        <div id="goodsNames" th:data="${'/service-example/example-goods/query-list'}" style="width:140px" extraParam="{}"></div>
-                    </div>
-                    <!-- byGoodsName , byGoodsName ,typeName=text_input, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('byGoodsName')}" class="search-label byGoodsName-label">byGoodsName</span><span class="search-colon">:</span></div>
+                        <div class="search-label-div" style="width:80px"><span th:text="${lang.translate('品名')}" class="search-label byGoodsName-label">品名</span><span class="search-colon">:</span></div>
                         <input id="byGoodsName" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
 
@@ -85,7 +88,7 @@
             </div>
         </div>
 
-        <div id="table-area" style="margin-top: 42px ">
+        <div id="table-area" style="margin-top: 84px ">
             <table class="layui-table" id="data-table" lay-filter="data-table"></table>
         </div>
 
@@ -115,6 +118,7 @@
 
     <button th:if="${perm.checkAuth('example_order:delete')}" class="layui-btn layui-btn-xs layui-btn-danger ops-delete-button " lay-event="del" data-id="{{d.id}}"><span th:text="${lang.translate('删除')}">删除</span></button>
 
+    <button class="layui-btn layui-btn-xs " lay-event="open-order-detail" data-id="{{d.id}}"><span th:text="${lang.translate('明细')}">明细</span></button>
 
 </script>
 

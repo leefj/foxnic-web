@@ -41,25 +41,50 @@ public class ExampleOrderConfig extends BaseCodeConfig<EXAMPLE_ORDER> {
 	@Override
 	public void configFields(ViewOptions view) {
 
-		view.field(EXAMPLE_ORDER.ADDRESS_ID)
+		view.field(EXAMPLE_ORDER.ID).basic().hidden();
+
+		view.field(EXAMPLE_ORDER.ADDRESS_ID).basic().label("收件地址")
 				.table().fillBy(OrderMeta.ADDRESS, AddressMeta.ADDRESS)
 				.form().selectBox().queryApi(AddressServiceProxy.QUERY_LIST)
 				.valueField("id").textField("address").muliti(false,false);
 
-		view.field("receiverName").table().fillBy(OrderMeta.ADDRESS, AddressMeta.NAME)
+		view.field("receiverName").basic().label("收件人").table().fillBy(OrderMeta.ADDRESS, AddressMeta.NAME)
 				.form().hidden();
 
-		view.field("goodsNames").table().fillBy(OrderMeta.GOODS_LIST, GoodsMeta.NAME)
+		view.field("goodsNames").basic().label("商品").table().fillBy(OrderMeta.GOODS_LIST, GoodsMeta.NAME)
 				.search().on(ExampleTables.EXAMPLE_ORDER_ITEM.GOODS_ID)
 		.form().selectBox().queryApi(GoodsServiceProxy.QUERY_LIST)
 				.valueField("id").textField("name").muliti(true,false);
 
-		view.field("byGoodsName").table().hidden()
+		view.field("byGoodsName").basic().label("品名").table().hidden()
 				.fillBy(OrderMeta.GOODS_LIST, GoodsMeta.NAME)
 				.search().on(ExampleTables.EXAMPLE_GOODS.NAME).fuzzySearch()
 				.form().hidden();
 
+		view.field(EXAMPLE_ORDER.AMOUNT).search().range();
+
 	}
+
+	/**
+	 * 配置搜索
+	 * */
+	@Override
+	public void configSearch(ViewOptions view,SearchAreaOptions search) {
+
+		search.inputLayout(
+				new Object[]{
+						EXAMPLE_ORDER.ORDER_NO,"goodsNames",EXAMPLE_ORDER.AMOUNT
+
+				},
+				new Object[]{
+						EXAMPLE_ORDER.ADDRESS_ID,"receiverName","byGoodsName"
+				});
+
+		search.labelWidth(1,80);
+		search.labelWidth(2,80);
+		search.labelWidth(3,80);
+	}
+
 
 	/**
 	 * 配置源码覆盖
@@ -90,7 +115,7 @@ public class ExampleOrderConfig extends BaseCodeConfig<EXAMPLE_ORDER> {
 	 * */
 	@Override
 	public void configList(ViewOptions view,ListOptions list) {
-
+		list.operationColumn().addActionButton("明细","openOrderDetail");
 	}
 
 	/**
@@ -106,13 +131,6 @@ public class ExampleOrderConfig extends BaseCodeConfig<EXAMPLE_ORDER> {
 //		});
 	}
 
-	/**
-	 * 配置搜索
-	 * */
-	@Override
-	public void configSearch(ViewOptions view,SearchAreaOptions search) {
-
-	}
 
 
 	public ExampleOrderConfig() {

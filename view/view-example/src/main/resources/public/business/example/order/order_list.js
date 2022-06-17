@@ -1,7 +1,7 @@
 /**
  * example_order 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-29 07:23:22
+ * @since 2022-06-17 22:22:21
  */
 
 
@@ -77,14 +77,14 @@ function ListPage() {
 				cols: [[
 					{ fixed: 'left',type: 'numbers' },
 					{ fixed: 'left',type:'checkbox'}
-					,{ field: 'id', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('主键') , templet: function (d) { return templet('id',d.id,d);}  }
+					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('主键') , templet: function (d) { return templet('id',d.id,d);}  }
 					,{ field: 'orderNo', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('订单编号') , templet: function (d) { return templet('orderNo',d.orderNo,d);}  }
 					,{ field: 'amount', align:"right",fixed:false,  hide:false, sort: true  , title: fox.translate('订单金额') , templet: function (d) { return templet('amount',d.amount,d);}  }
-					,{ field: 'addressId', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('收件地址ID'), templet: function (d) { return templet('addressId' ,fox.getProperty(d,["address","address"]),d);}}
+					,{ field: 'addressId', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('收件地址'), templet: function (d) { return templet('addressId' ,fox.getProperty(d,["address","address"]),d);}}
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true   ,title: fox.translate('创建时间') ,templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
-					,{ field: 'receiverName', align:"",fixed:false,  hide:false, sort: false  , title: fox.translate('receiverName') , templet: function (d) { return templet('receiverName',fox.getProperty(d,["address","name"]),d);} }
-					,{ field: 'goodsNames', align:"",fixed:false,  hide:false, sort: false  , title: fox.translate('goodsNames'), templet: function (d) { return templet('goodsNames' ,fox.getProperty(d,["goodsList","name"]),d);}}
-					,{ field: 'byGoodsName', align:"",fixed:false,  hide:true, sort: false  , title: fox.translate('byGoodsName') , templet: function (d) { return templet('byGoodsName',fox.getProperty(d,["goodsList","name"]),d);} }
+					,{ field: 'receiverName', align:"",fixed:false,  hide:false, sort: false  , title: fox.translate('收件人') , templet: function (d) { return templet('receiverName',fox.getProperty(d,["address","name"]),d);} }
+					,{ field: 'goodsNames', align:"",fixed:false,  hide:false, sort: false  , title: fox.translate('商品'), templet: function (d) { return templet('goodsNames' ,fox.getProperty(d,["goodsList","name"]),d);}}
+					,{ field: 'byGoodsName', align:"",fixed:false,  hide:true, sort: false  , title: fox.translate('品名') , templet: function (d) { return templet('byGoodsName',fox.getProperty(d,["goodsList","name"]),d);} }
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
 				]],
@@ -144,11 +144,9 @@ function ListPage() {
 	function refreshTableData(sortField,sortType,reset) {
 		function getSelectedValue(id,prop) { var xm=xmSelect.get(id,true); return xm==null ? null : xm.getValue(prop);}
 		var value = {};
-		value.id={ inputType:"button",value: $("#id").val()};
 		value.orderNo={ inputType:"button",value: $("#orderNo").val()};
-		value.amount={ inputType:"number_input", value: $("#amount").val() };
+		value.amount={ inputType:"number_input", begin: $("#amount-begin").val(), end: $("#amount-end").val() };
 		value.addressId={ inputType:"select_box", value: getSelectedValue("#addressId","value")  ,fillBy:["address","address"] , label:getSelectedValue("#addressId","nameStr") };
-		value.createTime={ inputType:"date_input", value: $("#createTime").val() ,matchType:"auto"};
 		value.receiverName={ inputType:"button",value: $("#receiverName").val(),fillBy:["address","name"] };
 		value.goodsNames={ inputType:"select_box", value: getSelectedValue("#goodsNames","value")  ,fillBy:["goodsList","name"] ,field:"example_order_item.goods_id", label:getSelectedValue("#goodsNames","nameStr") };
 		value.byGoodsName={ inputType:"button",value: $("#byGoodsName").val() ,fuzzy: true,splitValue:false,valuePrefix:"",valueSuffix:"" ,fillBy:["goodsList","name"] ,field:"example_goods.name"};
@@ -197,7 +195,7 @@ function ListPage() {
 
 	function initSearchFields() {
 
-		fox.switchSearchRow(1);
+		fox.switchSearchRow(2);
 
 		//渲染 addressId 下拉字段
 		fox.renderSelectBox({
@@ -272,7 +270,7 @@ function ListPage() {
 
 		// 搜索按钮点击事件
 		$('#search-button-advance').click(function () {
-			fox.switchSearchRow(1,function (ex){
+			fox.switchSearchRow(2,function (ex){
 				if(ex=="1") {
 					$('#search-button-advance span').text("关闭");
 				} else {
@@ -409,6 +407,9 @@ function ListPage() {
 						}
 					});
 				});
+			}
+			else if (layEvent === 'open-order-detail') { // 明细
+				window.pageExt.list.openOrderDetail(data,this);
 			}
 			
 		});

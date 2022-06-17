@@ -1,18 +1,19 @@
 package org.github.foxnic.web.example.page;
 
 import org.github.foxnic.web.framework.view.controller.ViewController;
-import org.github.foxnic.web.proxy.example.OrderServiceProxy;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
+import org.github.foxnic.web.proxy.example.OrderServiceProxy;
 import javax.servlet.http.HttpServletRequest;
 /**
  * <p>
  *  模版页面控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-29 07:23:22
+ * @since 2022-06-17 22:22:20
 */
 
 @Controller("ExampleOrderPageController")
@@ -41,7 +42,6 @@ public class OrderPageController extends ViewController {
 	 */
 	@RequestMapping("/order_list.html")
 	public String list(Model model,HttpServletRequest request) {
-
 		return prefix+"/order_list";
 	}
 

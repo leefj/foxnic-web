@@ -1,6 +1,8 @@
 package org.github.foxnic.web.framework.cluster;
 
 import com.github.foxnic.commons.log.Logger;
+import com.github.foxnic.dao.spec.DAO;
+import com.github.foxnic.springboot.spring.SpringUtil;
 import org.github.foxnic.web.framework.proxy.ProxyContext;
 
 import javax.servlet.*;
@@ -11,6 +13,8 @@ import java.io.IOException;
 public class ClusterFilter implements Filter {
 
     private static ClusterConfig configs=null;
+
+    private DAO dao;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -44,6 +48,13 @@ public class ClusterFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+
+        // 借宝地一用
+        if(dao==null) {
+            dao=SpringUtil.getBean(DAO.class);
+        }
+        dao.resumePrintThreadSQL();
+
         handlerClusterRequest((HttpServletRequest)request);
         chain.doFilter(request,response);
     }

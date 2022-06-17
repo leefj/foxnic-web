@@ -17,7 +17,7 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  *   控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-29 07:23:22
+ * @since 2022-06-17 22:22:18
  */
 @FeignClient(value = MicroServiceNames.EXAMPLE, contextId = OrderServiceProxy.API_CONTEXT_PATH, configuration = FeignConfiguration.class)
 public interface OrderServiceProxy {

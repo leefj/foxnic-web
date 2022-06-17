@@ -1,7 +1,7 @@
 /**
  * example_order 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-29 07:23:22
+ * @since 2022-06-17 22:22:21
  */
 
 function FormPage() {
@@ -168,7 +168,7 @@ function FormPage() {
 			if (r.success) {
 				fillFormData(r.data)
 			} else {
-				fox.showMessage(data);
+				fox.showMessage(r);
 			}
 		});
 	}
@@ -206,8 +206,8 @@ function FormPage() {
 
 
 
-			//设置  收件地址ID 设置下拉框勾选
-			//设置  goodsNames 设置下拉框勾选
+			//设置  收件地址 设置下拉框勾选
+			//设置  商品 设置下拉框勾选
 
 			//处理fillBy
 
@@ -259,9 +259,9 @@ function FormPage() {
 
 
 
-		//获取 收件地址ID 下拉框的值
+		//获取 收件地址 下拉框的值
 		data["addressId"]=fox.getSelectedValue("addressId",false);
-		//获取 goodsNames 下拉框的值
+		//获取 商品 下拉框的值
 		data["goodsNames"]=fox.getSelectedValue("goodsNames",true);
 
 		return data;

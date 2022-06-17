@@ -63,6 +63,25 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
         onSelectBoxChanged:function(id,selected,changes,isAdd) {
             console.log('onSelectBoxChanged',id,selected,changes,isAdd);
         },
+
+        openOrderDetail:function (data){
+            //debugger;
+            admin.putVar("orderId",data.id);
+            admin.popupCenter({
+                title: "订单明细",
+                resize: false,
+                offset: [top,null],
+                area: ["85%","85%"],
+                type: 2,
+                id:"example-order-item-list-win",
+                content: '/business/example/order_item/order_item_list.html',
+                finish: function () {
+
+
+                }
+            });
+        },
+
         /**
          * 当日期选择组件选择后触发
          * */
