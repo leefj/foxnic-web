@@ -53,7 +53,7 @@ public class ClusterFilter implements Filter {
         if(dao==null) {
             dao=SpringUtil.getBean(DAO.class);
         }
-        dao.resumePrintThreadSQL();
+        dao.resumePrintThreadSQL(true);
 
         handlerClusterRequest((HttpServletRequest)request);
         chain.doFilter(request,response);

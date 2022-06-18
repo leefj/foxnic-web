@@ -248,7 +248,7 @@ public class SessionOnlineServiceImpl extends SuperService<SessionOnline> implem
 
 	@Override
 	public void offline(String sessionId) {
-		dao.setPrintThreadSQL(false);
+		dao.pausePrintThreadSQL();
 		dao.execute("update "+this.table()+" set online=0 , logout_time=now() where session_id=?",sessionId);
 		sessionCache.remove(sessionId);
 	}
