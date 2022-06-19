@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2022-06-15 14:50:24
+ * @since 2022-06-19 18:49:40
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -90,6 +90,66 @@ public class FoxnicWeb {
 			this.init($NAME,"请假流程示例表" , ID , TYPE , BEGIN_TIME , END_TIME , REASON , APPLICANT_ID);
 		}
 		public static final BPM_DEMO_LEAVE $TABLE=new BPM_DEMO_LEAVE();
+	}
+	
+	/**
+	*/
+	public static class BPM_EVENT_CALLBACK extends DBTable {
+		
+		/**
+		 * 表名
+		*/
+		public static final String $NAME = "bpm_event_callback";
+		
+		/**
+		*/
+		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","id","id",true,false,false);
+		
+		/**
+		*/
+		public static final DBField CAMUNDA_PROCESS_ID = new DBField(DBDataType.STRING , "camunda_process_id","camundaProcessId","camunda_process_id","camunda_process_id",false,false,true);
+		
+		/**
+		*/
+		public static final DBField EVENT_TYPE = new DBField(DBDataType.STRING , "event_type","eventType","event_type","event_type",false,false,true);
+		
+		/**
+		*/
+		public static final DBField CAMUNDA_NODE_ID = new DBField(DBDataType.INTEGER , "camunda_node_id","camundaNodeId","camunda_node_id","camunda_node_id",false,false,true);
+		
+		/**
+		*/
+		public static final DBField CAMUNDA_NODE_NAME = new DBField(DBDataType.STRING , "camunda_node_name","camundaNodeName","camunda_node_name","camunda_node_name",false,false,true);
+		
+		/**
+		*/
+		public static final DBField ERROR = new DBField(DBDataType.STRING , "error","error","error","error",false,false,true);
+		
+		/**
+		*/
+		public static final DBField RESULT = new DBField(DBDataType.STRING , "result","result","result","result",false,false,true);
+		
+		/**
+		*/
+		public static final DBField QUEUE_STATUS = new DBField(DBDataType.STRING , "queue_status","queueStatus","queue_status","queue_status",false,false,true);
+		
+		/**
+		*/
+		public static final DBField QUEUE_TIME = new DBField(DBDataType.TIMESTAME , "queue_time","queueTime","queue_time","queue_time",false,false,true);
+		
+		/**
+		*/
+		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","create_time","create_time",false,false,true);
+		
+		/**
+		 * 失败重试次数
+		*/
+		public static final DBField QUEUE_RETRYS = new DBField(DBDataType.INTEGER , "queue_retrys","queueRetrys","失败重试次数","失败重试次数",false,false,false);
+		
+		public BPM_EVENT_CALLBACK() {
+			this.init($NAME,"" , ID , CAMUNDA_PROCESS_ID , EVENT_TYPE , CAMUNDA_NODE_ID , CAMUNDA_NODE_NAME , ERROR , RESULT , QUEUE_STATUS , QUEUE_TIME , CREATE_TIME , QUEUE_RETRYS);
+		}
+		public static final BPM_EVENT_CALLBACK $TABLE=new BPM_EVENT_CALLBACK();
 	}
 	
 	/**

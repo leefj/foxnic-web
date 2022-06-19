@@ -11,14 +11,14 @@ import com.github.foxnic.commons.bean.BeanUtil;
 
 
 /**
- * 流程错误信息
+ * bpm_event_callback
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-19 17:03:10
- * @sign 23D7B501483EF32F33CA062A375B9A2C
+ * @since 2022-06-19 18:51:22
+ * @sign 8AB138D81375D4D1FEC1DE74A201FC1A
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
-public class ProcessErrorVO extends ProcessError {
+public class EventCallbackVO extends EventCallback {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -89,7 +89,7 @@ public class ProcessErrorVO extends ProcessError {
 	 * @param pageIndex 页码
 	 * @return 当前对象
 	*/
-	public ProcessErrorVO setPageIndex(Integer pageIndex) {
+	public EventCallbackVO setPageIndex(Integer pageIndex) {
 		this.pageIndex=pageIndex;
 		return this;
 	}
@@ -107,7 +107,7 @@ public class ProcessErrorVO extends ProcessError {
 	 * @param pageSize 分页大小
 	 * @return 当前对象
 	*/
-	public ProcessErrorVO setPageSize(Integer pageSize) {
+	public EventCallbackVO setPageSize(Integer pageSize) {
 		this.pageSize=pageSize;
 		return this;
 	}
@@ -125,7 +125,7 @@ public class ProcessErrorVO extends ProcessError {
 	 * @param searchField 搜索字段
 	 * @return 当前对象
 	*/
-	public ProcessErrorVO setSearchField(String searchField) {
+	public EventCallbackVO setSearchField(String searchField) {
 		this.searchField=searchField;
 		return this;
 	}
@@ -143,7 +143,7 @@ public class ProcessErrorVO extends ProcessError {
 	 * @param fuzzyField 模糊搜索字段
 	 * @return 当前对象
 	*/
-	public ProcessErrorVO setFuzzyField(String fuzzyField) {
+	public EventCallbackVO setFuzzyField(String fuzzyField) {
 		this.fuzzyField=fuzzyField;
 		return this;
 	}
@@ -161,7 +161,7 @@ public class ProcessErrorVO extends ProcessError {
 	 * @param searchValue 搜索的值
 	 * @return 当前对象
 	*/
-	public ProcessErrorVO setSearchValue(String searchValue) {
+	public EventCallbackVO setSearchValue(String searchValue) {
 		this.searchValue=searchValue;
 		return this;
 	}
@@ -179,7 +179,7 @@ public class ProcessErrorVO extends ProcessError {
 	 * @param dirtyFields 已修改字段
 	 * @return 当前对象
 	*/
-	public ProcessErrorVO setDirtyFields(List<String> dirtyFields) {
+	public EventCallbackVO setDirtyFields(List<String> dirtyFields) {
 		this.dirtyFields=dirtyFields;
 		return this;
 	}
@@ -189,7 +189,7 @@ public class ProcessErrorVO extends ProcessError {
 	 * @param dirtyField 已修改字段
 	 * @return 当前对象
 	*/
-	public ProcessErrorVO addDirtyField(String... dirtyField) {
+	public EventCallbackVO addDirtyField(String... dirtyField) {
 		if(this.dirtyFields==null) dirtyFields=new ArrayList<>();
 		this.dirtyFields.addAll(Arrays.asList(dirtyField));
 		return this;
@@ -208,7 +208,7 @@ public class ProcessErrorVO extends ProcessError {
 	 * @param sortField 排序字段
 	 * @return 当前对象
 	*/
-	public ProcessErrorVO setSortField(String sortField) {
+	public EventCallbackVO setSortField(String sortField) {
 		this.sortField=sortField;
 		return this;
 	}
@@ -226,7 +226,7 @@ public class ProcessErrorVO extends ProcessError {
 	 * @param sortType 排序方式
 	 * @return 当前对象
 	*/
-	public ProcessErrorVO setSortType(String sortType) {
+	public EventCallbackVO setSortType(String sortType) {
 		this.sortType=sortType;
 		return this;
 	}
@@ -245,7 +245,7 @@ public class ProcessErrorVO extends ProcessError {
 	 * @param ids 主键清单
 	 * @return 当前对象
 	*/
-	public ProcessErrorVO setIds(List<String> ids) {
+	public EventCallbackVO setIds(List<String> ids) {
 		this.ids=ids;
 		return this;
 	}
@@ -255,7 +255,7 @@ public class ProcessErrorVO extends ProcessError {
 	 * @param id 主键清单
 	 * @return 当前对象
 	*/
-	public ProcessErrorVO addId(String... id) {
+	public EventCallbackVO addId(String... id) {
 		if(this.ids==null) ids=new ArrayList<>();
 		this.ids.addAll(Arrays.asList(id));
 		return this;

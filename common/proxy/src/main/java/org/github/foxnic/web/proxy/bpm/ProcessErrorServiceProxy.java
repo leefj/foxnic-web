@@ -1,17 +1,18 @@
 package org.github.foxnic.web.proxy.bpm;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.github.foxnic.web.proxy.api.APIProxy;
-import org.github.foxnic.web.proxy.FeignConfiguration;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.cloud.openfeign.FeignClient;
-import org.github.foxnic.web.domain.bpm.ProcessError;
-import org.github.foxnic.web.domain.bpm.ProcessErrorVO;
-import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
+import org.github.foxnic.web.domain.bpm.ProcessError;
+import org.github.foxnic.web.domain.bpm.ProcessErrorVO;
+import org.github.foxnic.web.proxy.FeignConfiguration;
 import org.github.foxnic.web.proxy.MicroServiceNames;
+import org.github.foxnic.web.proxy.api.APIProxy;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 /**
  * <p>
@@ -19,6 +20,7 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  * </p>
  * @author 李方捷 , leefangjie@qq.com
  * @since 2022-06-13 16:36:10
+ * @version
  */
 @FeignClient(value = MicroServiceNames.BPM, contextId = ProcessErrorServiceProxy.API_CONTEXT_PATH, configuration = FeignConfiguration.class)
 public interface ProcessErrorServiceProxy {

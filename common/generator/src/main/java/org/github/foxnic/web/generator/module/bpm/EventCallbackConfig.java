@@ -7,23 +7,21 @@ import com.github.foxnic.generator.builder.view.option.ListOptions;
 import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
-import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_PROCESS_ERROR;
+import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_EVENT_CALLBACK;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
-public class ProcessErrorConfig extends BaseCodeConfig<BPM_PROCESS_ERROR> {
+public class EventCallbackConfig extends BaseCodeConfig<BPM_EVENT_CALLBACK> {
 
-    public ProcessErrorConfig() {
-        super(PREFIX_BPM, BPM_PROCESS_ERROR.$TABLE,"bpm_", 4);
+    public EventCallbackConfig() {
+        super(PREFIX_BPM, BPM_EVENT_CALLBACK.$TABLE,"bpm_", 4);
     }
 
     @Override
     public void configModel(PoClassFile poType, VoClassFile voType) {
-        //poType.addSimpleProperty(Assignee.class,"assignee","审批人","审批人");
     }
 
     @Override
     public void configSearch(ViewOptions view, SearchAreaOptions search) {
-//        search.inputLayout(new Object[]{BPM_PROCESS_DEFINITION_NODE_ASSIGNEE.NODE_NAME});
     }
 
     @Override
