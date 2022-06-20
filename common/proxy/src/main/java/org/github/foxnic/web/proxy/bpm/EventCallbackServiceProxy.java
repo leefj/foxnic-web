@@ -17,7 +17,7 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  *   控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-19 18:51:23
+ * @since 2022-06-20 15:57:41
  */
 @FeignClient(value = MicroServiceNames.BPM, contextId = EventCallbackServiceProxy.API_CONTEXT_PATH, configuration = FeignConfiguration.class)
 public interface EventCallbackServiceProxy {

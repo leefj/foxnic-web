@@ -126,13 +126,13 @@ public class ClusterProxy {
             }
             body = ps.toJSONString();
         }
-        return request(url,requestMethod,body);
+        return request(url,requestMethod,body,(Class<? extends Result>) method.getReturnType());
     }
 
     /**
      * 请求外部节点接口
      */
-    private Object request(String url, RequestMethod requestMethod, String body) {
+    private Object request(String url, RequestMethod requestMethod, String body,Class<? extends Result> resultType) {
 
         // Logger.info("\n\npost "+url+"\n"+body+"\n");
 
@@ -166,7 +166,7 @@ public class ClusterProxy {
             String ret = post(url, body, headers, operator);
             if (ret == null) return null;
             if (ret.startsWith("{") && ret.endsWith("}")) {
-                Result result = ErrorDesc.fromJSON(ret);
+                Result result = ErrorDesc.fromJSON(ret,resultType);
                 return result;
             } else {
                 throw new RuntimeException("不支持的返回值");

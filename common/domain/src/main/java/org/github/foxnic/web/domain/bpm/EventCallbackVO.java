@@ -13,7 +13,7 @@ import com.github.foxnic.commons.bean.BeanUtil;
 /**
  * bpm_event_callback
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-19 18:51:22
+ * @since 2022-06-20 15:57:40
  * @sign 8AB138D81375D4D1FEC1DE74A201FC1A
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */

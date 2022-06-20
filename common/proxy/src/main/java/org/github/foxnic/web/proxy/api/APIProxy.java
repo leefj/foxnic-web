@@ -25,6 +25,7 @@ public class APIProxy {
 
         //缓存获取
         Object inst=PROXY_CACHE.get(intfType);
+        inst=null;
 //        if (inst!=null && inst.toString().contains("UndeclaredThrowableException")) {
 //            inst = null;
 //        }

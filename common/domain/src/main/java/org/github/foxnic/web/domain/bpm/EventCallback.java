@@ -6,9 +6,14 @@ import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_EVENT_CALLBACK;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
+import org.github.foxnic.web.constants.enums.bpm.BpmEventType;
+import javax.persistence.Transient;
+import com.github.foxnic.api.queue.QueueStatus;
 import java.sql.Timestamp;
 import java.util.Date;
-import javax.persistence.Transient;
+import org.github.foxnic.web.constants.enums.bpm.CamundaNodeType;
+import com.github.foxnic.commons.reflect.EnumUtil;
+import com.github.foxnic.commons.lang.StringUtil;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
 
@@ -17,8 +22,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * bpm_event_callback
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-19 18:51:22
- * @sign 736776BD91F431FD2F43C43C3B5497C4
+ * @since 2022-06-20 15:57:40
+ * @sign 87F9D4611C01BF53624A98CBF11E2C1B
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -30,84 +35,108 @@ public class EventCallback extends Entity {
 	public static final DBTable TABLE =BPM_EVENT_CALLBACK.$TABLE;
 	
 	/**
-	 * id：id
+	 * 主键：主键
 	*/
 	@Id
-	@ApiModelProperty(required = true,value="id" , notes = "id")
+	@ApiModelProperty(required = true,value="主键" , notes = "主键")
 	private String id;
 	
 	/**
-	 * camunda_process_id：camunda_process_id
+	 * BPM流程ID：BPM流程ID
 	*/
-	@ApiModelProperty(required = false,value="camunda_process_id" , notes = "camunda_process_id")
-	private String camundaProcessId;
+	@ApiModelProperty(required = false,value="BPM流程ID" , notes = "BPM流程ID")
+	private String bpmProcessInstanceId;
 	
 	/**
-	 * event_type：event_type
+	 * 变量：变量
 	*/
-	@ApiModelProperty(required = false,value="event_type" , notes = "event_type")
+	@ApiModelProperty(required = false,value="变量" , notes = "变量")
+	private String variables;
+	
+	/**
+	 * camunda流程ID：camunda流程ID
+	*/
+	@ApiModelProperty(required = false,value="camunda流程ID" , notes = "camunda流程ID")
+	private String camundaProcessInstanceId;
+	
+	/**
+	 * 事件类型：事件类型
+	*/
+	@ApiModelProperty(required = false,value="事件类型" , notes = "事件类型")
 	private String eventType;
+	@Transient
+	private BpmEventType eventTypeEnum;
 	
 	/**
-	 * camunda_node_id：camunda_node_id
+	 * 节点ID：节点ID
 	*/
-	@ApiModelProperty(required = false,value="camunda_node_id" , notes = "camunda_node_id")
-	private Integer camundaNodeId;
+	@ApiModelProperty(required = false,value="节点ID" , notes = "节点ID")
+	private String nodeId;
 	
 	/**
-	 * camunda_node_name：camunda_node_name
+	 * 节点名称：节点名称
 	*/
-	@ApiModelProperty(required = false,value="camunda_node_name" , notes = "camunda_node_name")
-	private String camundaNodeName;
+	@ApiModelProperty(required = false,value="节点名称" , notes = "节点名称")
+	private String nodeName;
 	
 	/**
-	 * error：error
+	 * 异常信息：异常信息
 	*/
-	@ApiModelProperty(required = false,value="error" , notes = "error")
+	@ApiModelProperty(required = false,value="异常信息" , notes = "异常信息")
 	private String error;
 	
 	/**
-	 * result：result
+	 * 处理结果：处理结果
 	*/
-	@ApiModelProperty(required = false,value="result" , notes = "result")
+	@ApiModelProperty(required = false,value="处理结果" , notes = "处理结果")
 	private String result;
 	
 	/**
-	 * queue_status：queue_status
+	 * 状态：状态
 	*/
-	@ApiModelProperty(required = false,value="queue_status" , notes = "queue_status")
-	private String queueStatus;
+	@ApiModelProperty(required = false,value="状态" , notes = "状态")
+	private String status;
+	@Transient
+	private QueueStatus statusEnum;
 	
 	/**
-	 * queue_time：queue_time
+	 * 调用时间：调用时间
 	*/
-	@ApiModelProperty(required = false,value="queue_time" , notes = "queue_time")
-	private Timestamp queueTime;
+	@ApiModelProperty(required = false,value="调用时间" , notes = "调用时间")
+	private Timestamp invokeTime;
 	
 	/**
-	 * create_time：create_time
+	 * 创建时间：创建时间
 	*/
-	@ApiModelProperty(required = false,value="create_time" , notes = "create_time")
+	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间")
 	private Date createTime;
 	
 	/**
 	 * 失败重试次数：失败重试次数
 	*/
 	@ApiModelProperty(required = true,value="失败重试次数" , notes = "失败重试次数")
-	private Integer queueRetrys;
+	private Integer retrys;
 	
 	/**
-	 * 获得 id<br>
-	 * id
-	 * @return id
+	 * 节点类型：节点类型
+	*/
+	@ApiModelProperty(required = false,value="节点类型" , notes = "节点类型")
+	private String nodeType;
+	@Transient
+	private CamundaNodeType nodeTypeEnum;
+	
+	/**
+	 * 获得 主键<br>
+	 * 主键
+	 * @return 主键
 	*/
 	public String getId() {
 		return id;
 	}
 	
 	/**
-	 * 设置 id
-	 * @param id id
+	 * 设置 主键
+	 * @param id 主键
 	 * @return 当前对象
 	*/
 	public EventCallback setId(String id) {
@@ -116,93 +145,164 @@ public class EventCallback extends Entity {
 	}
 	
 	/**
-	 * 获得 camunda_process_id<br>
-	 * camunda_process_id
-	 * @return camunda_process_id
+	 * 获得 BPM流程ID<br>
+	 * BPM流程ID
+	 * @return BPM流程ID
 	*/
-	public String getCamundaProcessId() {
-		return camundaProcessId;
+	public String getBpmProcessInstanceId() {
+		return bpmProcessInstanceId;
 	}
 	
 	/**
-	 * 设置 camunda_process_id
-	 * @param camundaProcessId camunda_process_id
+	 * 设置 BPM流程ID
+	 * @param bpmProcessInstanceId BPM流程ID
 	 * @return 当前对象
 	*/
-	public EventCallback setCamundaProcessId(String camundaProcessId) {
-		this.camundaProcessId=camundaProcessId;
+	public EventCallback setBpmProcessInstanceId(String bpmProcessInstanceId) {
+		this.bpmProcessInstanceId=bpmProcessInstanceId;
 		return this;
 	}
 	
 	/**
-	 * 获得 event_type<br>
-	 * event_type
-	 * @return event_type
+	 * 获得 变量<br>
+	 * 变量
+	 * @return 变量
+	*/
+	public String getVariables() {
+		return variables;
+	}
+	
+	/**
+	 * 设置 变量
+	 * @param variables 变量
+	 * @return 当前对象
+	*/
+	public EventCallback setVariables(String variables) {
+		this.variables=variables;
+		return this;
+	}
+	
+	/**
+	 * 获得 camunda流程ID<br>
+	 * camunda流程ID
+	 * @return camunda流程ID
+	*/
+	public String getCamundaProcessInstanceId() {
+		return camundaProcessInstanceId;
+	}
+	
+	/**
+	 * 设置 camunda流程ID
+	 * @param camundaProcessInstanceId camunda流程ID
+	 * @return 当前对象
+	*/
+	public EventCallback setCamundaProcessInstanceId(String camundaProcessInstanceId) {
+		this.camundaProcessInstanceId=camundaProcessInstanceId;
+		return this;
+	}
+	
+	/**
+	 * 获得 事件类型<br>
+	 * 事件类型
+	 * @return 事件类型
 	*/
 	public String getEventType() {
 		return eventType;
 	}
 	
 	/**
-	 * 设置 event_type
-	 * @param eventType event_type
+	 * 获得 事件类型 的投影属性<br>
+	 * 等价于 getEventType 方法，获得对应的枚举类型
+	 * @return 事件类型
+	*/
+	@Transient
+	public BpmEventType getEventTypeEnum() {
+		if(this.eventTypeEnum==null) {
+			this.eventTypeEnum = (BpmEventType) EnumUtil.parseByCode(BpmEventType.values(),eventType);
+		}
+		return this.eventTypeEnum ;
+	}
+	
+	/**
+	 * 设置 事件类型
+	 * @param eventType 事件类型
 	 * @return 当前对象
 	*/
 	public EventCallback setEventType(String eventType) {
 		this.eventType=eventType;
+		this.eventTypeEnum= (BpmEventType) EnumUtil.parseByCode(BpmEventType.values(),eventType) ;
+		if(StringUtil.hasContent(eventType) && this.eventTypeEnum==null) {
+			throw new IllegalArgumentException( eventType + " is not one of BpmEventType");
+		}
 		return this;
 	}
 	
 	/**
-	 * 获得 camunda_node_id<br>
-	 * camunda_node_id
-	 * @return camunda_node_id
-	*/
-	public Integer getCamundaNodeId() {
-		return camundaNodeId;
-	}
-	
-	/**
-	 * 设置 camunda_node_id
-	 * @param camundaNodeId camunda_node_id
+	 * 设置 事件类型的投影属性，等同于设置 事件类型
+	 * @param eventTypeEnum 事件类型
 	 * @return 当前对象
 	*/
-	public EventCallback setCamundaNodeId(Integer camundaNodeId) {
-		this.camundaNodeId=camundaNodeId;
+	@Transient
+	public EventCallback setEventTypeEnum(BpmEventType eventTypeEnum) {
+		if(eventTypeEnum==null) {
+			this.setEventType(null);
+		} else {
+			this.setEventType(eventTypeEnum.code());
+		}
+		this.eventTypeEnum=eventTypeEnum;
 		return this;
 	}
 	
 	/**
-	 * 获得 camunda_node_name<br>
-	 * camunda_node_name
-	 * @return camunda_node_name
+	 * 获得 节点ID<br>
+	 * 节点ID
+	 * @return 节点ID
 	*/
-	public String getCamundaNodeName() {
-		return camundaNodeName;
+	public String getNodeId() {
+		return nodeId;
 	}
 	
 	/**
-	 * 设置 camunda_node_name
-	 * @param camundaNodeName camunda_node_name
+	 * 设置 节点ID
+	 * @param nodeId 节点ID
 	 * @return 当前对象
 	*/
-	public EventCallback setCamundaNodeName(String camundaNodeName) {
-		this.camundaNodeName=camundaNodeName;
+	public EventCallback setNodeId(String nodeId) {
+		this.nodeId=nodeId;
 		return this;
 	}
 	
 	/**
-	 * 获得 error<br>
-	 * error
-	 * @return error
+	 * 获得 节点名称<br>
+	 * 节点名称
+	 * @return 节点名称
+	*/
+	public String getNodeName() {
+		return nodeName;
+	}
+	
+	/**
+	 * 设置 节点名称
+	 * @param nodeName 节点名称
+	 * @return 当前对象
+	*/
+	public EventCallback setNodeName(String nodeName) {
+		this.nodeName=nodeName;
+		return this;
+	}
+	
+	/**
+	 * 获得 异常信息<br>
+	 * 异常信息
+	 * @return 异常信息
 	*/
 	public String getError() {
 		return error;
 	}
 	
 	/**
-	 * 设置 error
-	 * @param error error
+	 * 设置 异常信息
+	 * @param error 异常信息
 	 * @return 当前对象
 	*/
 	public EventCallback setError(String error) {
@@ -211,17 +311,17 @@ public class EventCallback extends Entity {
 	}
 	
 	/**
-	 * 获得 result<br>
-	 * result
-	 * @return result
+	 * 获得 处理结果<br>
+	 * 处理结果
+	 * @return 处理结果
 	*/
 	public String getResult() {
 		return result;
 	}
 	
 	/**
-	 * 设置 result
-	 * @param result result
+	 * 设置 处理结果
+	 * @param result 处理结果
 	 * @return 当前对象
 	*/
 	public EventCallback setResult(String result) {
@@ -230,55 +330,88 @@ public class EventCallback extends Entity {
 	}
 	
 	/**
-	 * 获得 queue_status<br>
-	 * queue_status
-	 * @return queue_status
+	 * 获得 状态<br>
+	 * 状态
+	 * @return 状态
 	*/
-	public String getQueueStatus() {
-		return queueStatus;
+	public String getStatus() {
+		return status;
 	}
 	
 	/**
-	 * 设置 queue_status
-	 * @param queueStatus queue_status
+	 * 获得 状态 的投影属性<br>
+	 * 等价于 getStatus 方法，获得对应的枚举类型
+	 * @return 状态
+	*/
+	@Transient
+	public QueueStatus getStatusEnum() {
+		if(this.statusEnum==null) {
+			this.statusEnum = (QueueStatus) EnumUtil.parseByCode(QueueStatus.values(),status);
+		}
+		return this.statusEnum ;
+	}
+	
+	/**
+	 * 设置 状态
+	 * @param status 状态
 	 * @return 当前对象
 	*/
-	public EventCallback setQueueStatus(String queueStatus) {
-		this.queueStatus=queueStatus;
+	public EventCallback setStatus(String status) {
+		this.status=status;
+		this.statusEnum= (QueueStatus) EnumUtil.parseByCode(QueueStatus.values(),status) ;
+		if(StringUtil.hasContent(status) && this.statusEnum==null) {
+			throw new IllegalArgumentException( status + " is not one of QueueStatus");
+		}
 		return this;
 	}
 	
 	/**
-	 * 获得 queue_time<br>
-	 * queue_time
-	 * @return queue_time
-	*/
-	public Timestamp getQueueTime() {
-		return queueTime;
-	}
-	
-	/**
-	 * 设置 queue_time
-	 * @param queueTime queue_time
+	 * 设置 状态的投影属性，等同于设置 状态
+	 * @param statusEnum 状态
 	 * @return 当前对象
 	*/
-	public EventCallback setQueueTime(Timestamp queueTime) {
-		this.queueTime=queueTime;
+	@Transient
+	public EventCallback setStatusEnum(QueueStatus statusEnum) {
+		if(statusEnum==null) {
+			this.setStatus(null);
+		} else {
+			this.setStatus(statusEnum.code());
+		}
+		this.statusEnum=statusEnum;
 		return this;
 	}
 	
 	/**
-	 * 获得 create_time<br>
-	 * create_time
-	 * @return create_time
+	 * 获得 调用时间<br>
+	 * 调用时间
+	 * @return 调用时间
+	*/
+	public Timestamp getInvokeTime() {
+		return invokeTime;
+	}
+	
+	/**
+	 * 设置 调用时间
+	 * @param invokeTime 调用时间
+	 * @return 当前对象
+	*/
+	public EventCallback setInvokeTime(Timestamp invokeTime) {
+		this.invokeTime=invokeTime;
+		return this;
+	}
+	
+	/**
+	 * 获得 创建时间<br>
+	 * 创建时间
+	 * @return 创建时间
 	*/
 	public Date getCreateTime() {
 		return createTime;
 	}
 	
 	/**
-	 * 设置 create_time
-	 * @param createTime create_time
+	 * 设置 创建时间
+	 * @param createTime 创建时间
 	 * @return 当前对象
 	*/
 	public EventCallback setCreateTime(Date createTime) {
@@ -291,17 +424,69 @@ public class EventCallback extends Entity {
 	 * 失败重试次数
 	 * @return 失败重试次数
 	*/
-	public Integer getQueueRetrys() {
-		return queueRetrys;
+	public Integer getRetrys() {
+		return retrys;
 	}
 	
 	/**
 	 * 设置 失败重试次数
-	 * @param queueRetrys 失败重试次数
+	 * @param retrys 失败重试次数
 	 * @return 当前对象
 	*/
-	public EventCallback setQueueRetrys(Integer queueRetrys) {
-		this.queueRetrys=queueRetrys;
+	public EventCallback setRetrys(Integer retrys) {
+		this.retrys=retrys;
+		return this;
+	}
+	
+	/**
+	 * 获得 节点类型<br>
+	 * 节点类型
+	 * @return 节点类型
+	*/
+	public String getNodeType() {
+		return nodeType;
+	}
+	
+	/**
+	 * 获得 节点类型 的投影属性<br>
+	 * 等价于 getNodeType 方法，获得对应的枚举类型
+	 * @return 节点类型
+	*/
+	@Transient
+	public CamundaNodeType getNodeTypeEnum() {
+		if(this.nodeTypeEnum==null) {
+			this.nodeTypeEnum = (CamundaNodeType) EnumUtil.parseByCode(CamundaNodeType.values(),nodeType);
+		}
+		return this.nodeTypeEnum ;
+	}
+	
+	/**
+	 * 设置 节点类型
+	 * @param nodeType 节点类型
+	 * @return 当前对象
+	*/
+	public EventCallback setNodeType(String nodeType) {
+		this.nodeType=nodeType;
+		this.nodeTypeEnum= (CamundaNodeType) EnumUtil.parseByCode(CamundaNodeType.values(),nodeType) ;
+		if(StringUtil.hasContent(nodeType) && this.nodeTypeEnum==null) {
+			throw new IllegalArgumentException( nodeType + " is not one of CamundaNodeType");
+		}
+		return this;
+	}
+	
+	/**
+	 * 设置 节点类型的投影属性，等同于设置 节点类型
+	 * @param nodeTypeEnum 节点类型
+	 * @return 当前对象
+	*/
+	@Transient
+	public EventCallback setNodeTypeEnum(CamundaNodeType nodeTypeEnum) {
+		if(nodeTypeEnum==null) {
+			this.setNodeType(null);
+		} else {
+			this.setNodeType(nodeTypeEnum.code());
+		}
+		this.nodeTypeEnum=nodeTypeEnum;
 		return this;
 	}
 

@@ -16,7 +16,7 @@ import org.github.foxnic.web.domain.bpm.ProcessDefinitionNode;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-15 13:33:19
+ * @since 2022-06-20 16:33:13
  * @sign 903E20194942145230B426EE32FE6F14
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -194,6 +194,16 @@ public class TaskVOMeta extends TaskMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskVO,java.lang.String> STATUS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskVO.class ,STATUS, java.lang.String.class, "任务状态", "任务状态", java.lang.String.class, null);
 	
 	/**
+	 * 原因 , 状态变更的原因 , 类型: java.lang.String
+	*/
+	public static final String STATUS_REASON="statusReason";
+	
+	/**
+	 * 原因 , 状态变更的原因 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskVO,java.lang.String> STATUS_REASON_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskVO.class ,STATUS_REASON, java.lang.String.class, "原因", "状态变更的原因", java.lang.String.class, null);
+	
+	/**
 	 * 最后处理时间 , 类型: java.util.Date
 	*/
 	public static final String APPROVAL_TIME="approvalTime";
@@ -366,7 +376,7 @@ public class TaskVOMeta extends TaskMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , APPROVAL_USER_IDS , MINE , ID , PROCESS_DEFINITION_ID , NODE_ID , NODE_NAME , PROCESS_INSTANCE_ID , STATUS , APPROVAL_TIME , CAMUNDA_TASK_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , PROCESS_DEFINITION , PROCESS_INSTANCE , APPROVALS , ASSIGNEES , ASSIGNEE_USERS , NODE };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , APPROVAL_USER_IDS , MINE , ID , PROCESS_DEFINITION_ID , NODE_ID , NODE_NAME , PROCESS_INSTANCE_ID , STATUS , STATUS_REASON , APPROVAL_TIME , CAMUNDA_TASK_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , PROCESS_DEFINITION , PROCESS_INSTANCE , APPROVALS , ASSIGNEES , ASSIGNEE_USERS , NODE };
 	
 	/**
 	 * 代理类
@@ -560,6 +570,17 @@ public class TaskVOMeta extends TaskMeta {
 		public Task setStatus(String status) {
 			super.change(STATUS,super.getStatus(),status);
 			super.setStatus(status);
+			return this;
+		}
+		
+		/**
+		 * 设置 原因
+		 * @param statusReason 原因
+		 * @return 当前对象
+		*/
+		public Task setStatusReason(String statusReason) {
+			super.change(STATUS_REASON,super.getStatusReason(),statusReason);
+			super.setStatusReason(statusReason);
 			return this;
 		}
 		

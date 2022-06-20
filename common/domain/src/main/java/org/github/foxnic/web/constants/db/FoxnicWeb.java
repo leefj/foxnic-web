@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2022-06-19 18:49:40
+ * @since 2022-06-20 16:32:43
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -102,52 +102,77 @@ public class FoxnicWeb {
 		public static final String $NAME = "bpm_event_callback";
 		
 		/**
+		 * 主键
 		*/
-		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","id","id",true,false,false);
+		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","主键","主键",true,false,false);
 		
 		/**
+		 * BPM流程ID
 		*/
-		public static final DBField CAMUNDA_PROCESS_ID = new DBField(DBDataType.STRING , "camunda_process_id","camundaProcessId","camunda_process_id","camunda_process_id",false,false,true);
+		public static final DBField BPM_PROCESS_INSTANCE_ID = new DBField(DBDataType.STRING , "bpm_process_instance_id","bpmProcessInstanceId","BPM流程ID","BPM流程ID",false,false,true);
 		
 		/**
+		 * 变量
 		*/
-		public static final DBField EVENT_TYPE = new DBField(DBDataType.STRING , "event_type","eventType","event_type","event_type",false,false,true);
+		public static final DBField VARIABLES = new DBField(DBDataType.STRING , "variables","variables","变量","变量",false,false,true);
 		
 		/**
+		 * camunda流程ID
 		*/
-		public static final DBField CAMUNDA_NODE_ID = new DBField(DBDataType.INTEGER , "camunda_node_id","camundaNodeId","camunda_node_id","camunda_node_id",false,false,true);
+		public static final DBField CAMUNDA_PROCESS_INSTANCE_ID = new DBField(DBDataType.STRING , "camunda_process_instance_id","camundaProcessInstanceId","camunda流程ID","camunda流程ID",false,false,true);
 		
 		/**
+		 * 事件类型
 		*/
-		public static final DBField CAMUNDA_NODE_NAME = new DBField(DBDataType.STRING , "camunda_node_name","camundaNodeName","camunda_node_name","camunda_node_name",false,false,true);
+		public static final DBField EVENT_TYPE = new DBField(DBDataType.STRING , "event_type","eventType","事件类型","事件类型",false,false,true);
 		
 		/**
+		 * 节点ID
 		*/
-		public static final DBField ERROR = new DBField(DBDataType.STRING , "error","error","error","error",false,false,true);
+		public static final DBField NODE_ID = new DBField(DBDataType.STRING , "node_id","nodeId","节点ID","节点ID",false,false,true);
 		
 		/**
+		 * 节点名称
 		*/
-		public static final DBField RESULT = new DBField(DBDataType.STRING , "result","result","result","result",false,false,true);
+		public static final DBField NODE_NAME = new DBField(DBDataType.STRING , "node_name","nodeName","节点名称","节点名称",false,false,true);
 		
 		/**
+		 * 异常信息
 		*/
-		public static final DBField QUEUE_STATUS = new DBField(DBDataType.STRING , "queue_status","queueStatus","queue_status","queue_status",false,false,true);
+		public static final DBField ERROR = new DBField(DBDataType.STRING , "error","error","异常信息","异常信息",false,false,true);
 		
 		/**
+		 * 处理结果
 		*/
-		public static final DBField QUEUE_TIME = new DBField(DBDataType.TIMESTAME , "queue_time","queueTime","queue_time","queue_time",false,false,true);
+		public static final DBField RESULT = new DBField(DBDataType.STRING , "result","result","处理结果","处理结果",false,false,true);
 		
 		/**
+		 * 状态
 		*/
-		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","create_time","create_time",false,false,true);
+		public static final DBField STATUS = new DBField(DBDataType.STRING , "status","status","状态","状态",false,false,true);
+		
+		/**
+		 * 调用时间
+		*/
+		public static final DBField INVOKE_TIME = new DBField(DBDataType.TIMESTAME , "invoke_time","invokeTime","调用时间","调用时间",false,false,true);
+		
+		/**
+		 * 创建时间
+		*/
+		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","创建时间","创建时间",false,false,true);
 		
 		/**
 		 * 失败重试次数
 		*/
-		public static final DBField QUEUE_RETRYS = new DBField(DBDataType.INTEGER , "queue_retrys","queueRetrys","失败重试次数","失败重试次数",false,false,false);
+		public static final DBField RETRYS = new DBField(DBDataType.INTEGER , "retrys","retrys","失败重试次数","失败重试次数",false,false,false);
+		
+		/**
+		 * 节点类型
+		*/
+		public static final DBField NODE_TYPE = new DBField(DBDataType.STRING , "node_type","nodeType","节点类型","节点类型",false,false,true);
 		
 		public BPM_EVENT_CALLBACK() {
-			this.init($NAME,"" , ID , CAMUNDA_PROCESS_ID , EVENT_TYPE , CAMUNDA_NODE_ID , CAMUNDA_NODE_NAME , ERROR , RESULT , QUEUE_STATUS , QUEUE_TIME , CREATE_TIME , QUEUE_RETRYS);
+			this.init($NAME,"" , ID , BPM_PROCESS_INSTANCE_ID , VARIABLES , CAMUNDA_PROCESS_INSTANCE_ID , EVENT_TYPE , NODE_ID , NODE_NAME , ERROR , RESULT , STATUS , INVOKE_TIME , CREATE_TIME , RETRYS , NODE_TYPE);
 		}
 		public static final BPM_EVENT_CALLBACK $TABLE=new BPM_EVENT_CALLBACK();
 	}
@@ -1213,6 +1238,11 @@ public class FoxnicWeb {
 		public static final DBField STATUS = new DBField(DBDataType.STRING , "status","status","任务状态","任务状态",false,false,true);
 		
 		/**
+		 * 原因，状态变更的原因
+		*/
+		public static final DBField STATUS_REASON = new DBField(DBDataType.STRING , "status_reason","statusReason","原因","状态变更的原因",false,false,true);
+		
+		/**
 		 * 最后处理时间
 		*/
 		public static final DBField APPROVAL_TIME = new DBField(DBDataType.DATE , "approval_time","approvalTime","最后处理时间","最后处理时间",false,false,true);
@@ -1264,7 +1294,7 @@ public class FoxnicWeb {
 		public static final DBField TENANT_ID = new DBField(DBDataType.STRING , "tenant_id","tenantId","tenant_id","tenant_id",false,false,true);
 		
 		public BPM_TASK() {
-			this.init($NAME,"流程任务表" , ID , PROCESS_DEFINITION_ID , NODE_ID , NODE_NAME , PROCESS_INSTANCE_ID , STATUS , APPROVAL_TIME , CAMUNDA_TASK_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID);
+			this.init($NAME,"流程任务表" , ID , PROCESS_DEFINITION_ID , NODE_ID , NODE_NAME , PROCESS_INSTANCE_ID , STATUS , STATUS_REASON , APPROVAL_TIME , CAMUNDA_TASK_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID);
 		}
 		public static final BPM_TASK $TABLE=new BPM_TASK();
 	}

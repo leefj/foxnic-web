@@ -1,5 +1,6 @@
 package org.github.foxnic.web.generator.module.bpm;
 
+import com.github.foxnic.api.queue.QueueStatus;
 import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
 import com.github.foxnic.generator.builder.view.option.FormOptions;
@@ -8,6 +9,8 @@ import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_EVENT_CALLBACK;
+import org.github.foxnic.web.constants.enums.bpm.BpmEventType;
+import org.github.foxnic.web.constants.enums.bpm.CamundaNodeType;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
 public class EventCallbackConfig extends BaseCodeConfig<BPM_EVENT_CALLBACK> {
@@ -18,6 +21,9 @@ public class EventCallbackConfig extends BaseCodeConfig<BPM_EVENT_CALLBACK> {
 
     @Override
     public void configModel(PoClassFile poType, VoClassFile voType) {
+        poType.shadow(BPM_EVENT_CALLBACK.EVENT_TYPE, BpmEventType.class);
+        poType.shadow(BPM_EVENT_CALLBACK.STATUS, QueueStatus.class);
+        poType.shadow(BPM_EVENT_CALLBACK.NODE_TYPE, CamundaNodeType.class);
     }
 
     @Override

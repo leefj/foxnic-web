@@ -23,8 +23,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程任务
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-15 13:33:19
- * @sign E603C5AAAD0BB3E33BDD1D623A092160
+ * @since 2022-06-20 16:33:13
+ * @sign ED32017453502142E19650D325B0717F
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -73,6 +73,12 @@ public class Task extends Entity {
 	private String status;
 	@Transient
 	private TaskStatus statusEnum;
+	
+	/**
+	 * 原因：状态变更的原因
+	*/
+	@ApiModelProperty(required = false,value="原因" , notes = "状态变更的原因")
+	private String statusReason;
 	
 	/**
 	 * 最后处理时间：最后处理时间
@@ -322,6 +328,25 @@ public class Task extends Entity {
 			this.setStatus(statusEnum.code());
 		}
 		this.statusEnum=statusEnum;
+		return this;
+	}
+	
+	/**
+	 * 获得 原因<br>
+	 * 状态变更的原因
+	 * @return 原因
+	*/
+	public String getStatusReason() {
+		return statusReason;
+	}
+	
+	/**
+	 * 设置 原因
+	 * @param statusReason 原因
+	 * @return 当前对象
+	*/
+	public Task setStatusReason(String statusReason) {
+		this.statusReason=statusReason;
 		return this;
 	}
 	

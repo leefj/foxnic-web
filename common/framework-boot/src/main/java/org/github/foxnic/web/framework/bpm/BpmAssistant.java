@@ -81,11 +81,13 @@ public class BpmAssistant {
             Object instance=apiMethod.invoke(null);
             if(instance instanceof BpmCallbackController) {
                 BpmCallbackController controller=(BpmCallbackController)instance;
-                return controller.handleBpmCallback(event);
+                Object  result=controller.handleBpmCallback(event);
+                return null;
             } else {
                 throw new IllegalArgumentException("流程回调控制器无效，未实现 BpmCallbackController ");
             }
         } catch (Exception e) {
+            e.printStackTrace();
             throw new IllegalArgumentException("流程回调处理异常",e);
         }
 
