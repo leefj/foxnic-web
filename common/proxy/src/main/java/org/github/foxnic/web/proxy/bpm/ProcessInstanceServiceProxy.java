@@ -1,11 +1,9 @@
 package org.github.foxnic.web.proxy.bpm;
 
+import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
-import org.github.foxnic.web.domain.bpm.ProcessAbandonVO;
-import org.github.foxnic.web.domain.bpm.ProcessInstance;
-import org.github.foxnic.web.domain.bpm.ProcessInstanceVO;
-import org.github.foxnic.web.domain.bpm.ProcessStartVO;
+import org.github.foxnic.web.domain.bpm.*;
 import org.github.foxnic.web.proxy.FeignConfiguration;
 import org.github.foxnic.web.proxy.MicroServiceNames;
 import org.github.foxnic.web.proxy.api.APIProxy;
@@ -56,6 +54,16 @@ public interface ProcessInstanceServiceProxy {
      * 删除流程实例
      */
     public static final String DELETE = API_PREFIX + "delete";
+
+    /**
+     * 流程撤回
+     */
+    public static final String FETCH_BACK = API_PREFIX + "fetch-back";
+
+    /**
+     * 流程跳转
+     */
+    public static final String JUMP = API_PREFIX + "jump";
 
     /**
      * 批量删除流程实例
@@ -110,6 +118,18 @@ public interface ProcessInstanceServiceProxy {
      */
     public static final String SYNC_CAMUNDA_PROCESS_INSTANCE = API_PREFIX + "sync-camunda-process-instance";
 
+
+    /**
+     * 流程撤回
+     * */
+    @RequestMapping(ProcessInstanceServiceProxy.FETCH_BACK)
+    Result fetchBack(@RequestParam(name = "fetchBackVO") ProcessFetchBackVO fetchBackVO);
+
+    /**
+     * 流程跳转
+     * */
+    @RequestMapping(ProcessInstanceServiceProxy.JUMP)
+    Result jumpToNode(@RequestParam(name = "jumpVO") ProcessJumpVO jumpVO);
 
     @RequestMapping(ProcessInstanceServiceProxy.UPDATE_SYNC_STATUS)
     Result updateSyncStatus(@RequestParam(name = "processInstanceId") String processInstanceId);

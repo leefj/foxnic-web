@@ -5,7 +5,7 @@ import com.github.foxnic.commons.reflect.EnumUtil;
 
 public enum UserTaskType implements CodeTextEnum {
 
-	regular("或审",false),countersign_parallel("会审(并行)",true),countersign_sequence("会审(顺序)",true),countersign_loop("循环",true);
+	regular("或审",false),countersign_parallel("会审(并行)",true),countersign_sequence("会审(顺序)",true),countersign_loop("循环",false);
 
 	private  boolean  countersign=false;
 	private String text;

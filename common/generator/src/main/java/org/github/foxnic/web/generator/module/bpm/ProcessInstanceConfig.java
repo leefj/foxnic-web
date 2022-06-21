@@ -74,8 +74,25 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
         pojo.setSuperType(null);
         pojo.setDoc("流程废弃参数");
         pojo.addSimpleProperty(String.class,"processInstanceId","流程实例ID","流程实例ID");
-        pojo.addSimpleProperty(String.class,"reason","废弃原因","流程实例ID");
+        pojo.addSimpleProperty(String.class,"reason","废弃原因","废弃原因");
         pojo.addSimpleProperty(Boolean.class,"force","是否强制删除","是否强制删除");
+        pojo.addMapProperty(String.class,Object.class,"variables","流程参数","流程参数");
+
+
+        pojo=context.createPojo("ProcessFetchBackVO");
+        pojo.setSuperType(null);
+        pojo.setDoc("流程撤回参数");
+        pojo.addSimpleProperty(String.class,"processInstanceId","流程实例ID","流程实例ID");
+        pojo.addSimpleProperty(String.class,"reason","撤回原因","撤回原因");
+        pojo.addMapProperty(String.class,Object.class,"variables","流程参数","流程参数");
+
+        pojo=context.createPojo("ProcessJumpVO");
+        pojo.setSuperType(null);
+        pojo.setDoc("流程跳转参数");
+        pojo.addSimpleProperty(String.class,"processInstanceId","流程实例ID","流程实例ID");
+        pojo.addSimpleProperty(String.class,"targetNodeId","目标节点ID","目标节点ID");
+        pojo.addSimpleProperty(String.class,"reason","跳转原因","跳转原因");
+        pojo.addMapProperty(String.class,Object.class,"variables","流程参数","流程参数");
 
 
     }

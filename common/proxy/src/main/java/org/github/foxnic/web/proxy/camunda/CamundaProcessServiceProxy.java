@@ -2,6 +2,8 @@ package org.github.foxnic.web.proxy.camunda;
 
 import com.github.foxnic.api.transter.Result;
 import org.github.foxnic.web.domain.bpm.ProcessAbandonVO;
+import org.github.foxnic.web.domain.bpm.ProcessFetchBackVO;
+import org.github.foxnic.web.domain.bpm.ProcessJumpVO;
 import org.github.foxnic.web.proxy.FeignConfiguration;
 import org.github.foxnic.web.proxy.MicroServiceNames;
 import org.github.foxnic.web.proxy.api.APIProxy;
@@ -45,9 +47,20 @@ public interface CamundaProcessServiceProxy {
     public static final String START = API_PREFIX + "start";
 
     /**
-     * 启动流程
+     * 设置流程变量
      */
     public static final String SET_VARIABLES = API_PREFIX + "set-variables";
+
+
+    /**
+     * 流程撤回
+     */
+    public static final String FETCH_BACK = API_PREFIX + "fetch-back";
+
+    /**
+     * 流程跳转
+     */
+    public static final String JUMP = API_PREFIX + "jump";
 
     /**
      * 按流程ID查询流程
@@ -58,6 +71,19 @@ public interface CamundaProcessServiceProxy {
      * 废弃流程
      */
     public static final String ABANDON_PROCESS = API_PREFIX + "abandon-process";
+
+
+    /**
+     * 流程跳转
+     */
+    @RequestMapping(CamundaProcessServiceProxy.JUMP)
+    Result jumpToNode(@RequestParam(name = "jumpVO") ProcessJumpVO jumpVO);
+
+    /**
+     * 流程撤回
+     * */
+    @RequestMapping(CamundaProcessServiceProxy.FETCH_BACK)
+    Result fetchBack(@RequestParam(name = "fetchBackVO") ProcessFetchBackVO fetchBackVO);
 
 
     @RequestMapping(CamundaProcessServiceProxy.SET_VARIABLES)

@@ -7,6 +7,8 @@ layui.define(['settings', 'layer', 'admin', 'util','element'],function (exports)
     const  api_process_task="/service-bpm/bpm-task/process-task";
     const  api_process_abandon="/service-bpm/bpm-process-instance/delete";
     const  api_process_batch_abandon="/service-bpm/bpm-process-instance/delete-by-ids";
+    const  api_process_fetch_back="/service-bpm/bpm-process-instance/fetch-back";
+    const  api_process_jump="/service-bpm/bpm-process-instance/jump";
     var bpm = {
 
         /**
@@ -35,6 +37,26 @@ layui.define(['settings', 'layer', 'admin', 'util','element'],function (exports)
          * */
         start : function (params,callback,lockEls) {
             admin.post(api_start, params, function (result) {
+                callback && callback(result);
+            }, {delayLoading:1000,elms:lockEls});
+        },
+
+        /**
+         * 流程撤回
+         * */
+        fetchBack : function (data,callback,lockEls) {
+            // debugger
+            admin.post(api_process_fetch_back, data, function (result) {
+                callback && callback(result);
+            }, {delayLoading:1000,elms:lockEls});
+        },
+
+        /**
+         * 流程跳转
+         * */
+        jump : function (data,callback,lockEls) {
+            // debugger
+            admin.post(api_process_jump, data, function (result) {
                 callback && callback(result);
             }, {delayLoading:1000,elms:lockEls});
         },

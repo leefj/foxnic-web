@@ -396,6 +396,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             if (window.LAYUI_TABLE_WIDTH_CONFIG) {
                 //debugger;
                 var columnWidthConfig = LAYUI_TABLE_WIDTH_CONFIG[tableId];
+                columnWidthConfig["row-ops"].orderIndex=99999999;
                 if (columnWidthConfig) {
                     cfg.url = settings.base_server + cfg.url;
                     var cols = cfg.cols[0];

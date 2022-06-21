@@ -7,14 +7,14 @@ import java.util.HashMap;
 
 
 /**
- * 流程废弃参数
+ * 流程撤回参数
  * @author 李方捷 , leefangjie@qq.com
  * @since 2022-06-21 16:00:48
- * @sign D22AB907CF786D627BB67C3B5349AC05
+ * @sign 015EC0CA8E92DF31E30C153A2C4E5134
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
-public class ProcessAbandonVO {
+public class ProcessFetchBackVO {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -25,16 +25,10 @@ public class ProcessAbandonVO {
 	private String processInstanceId;
 	
 	/**
-	 * 废弃原因：废弃原因
+	 * 撤回原因：撤回原因
 	*/
-	@ApiModelProperty(required = false,value="废弃原因" , notes = "废弃原因")
+	@ApiModelProperty(required = false,value="撤回原因" , notes = "撤回原因")
 	private String reason;
-	
-	/**
-	 * 是否强制删除：是否强制删除
-	*/
-	@ApiModelProperty(required = false,value="是否强制删除" , notes = "是否强制删除")
-	private Boolean force;
 	
 	/**
 	 * 流程参数：流程参数
@@ -56,56 +50,27 @@ public class ProcessAbandonVO {
 	 * @param processInstanceId 流程实例ID
 	 * @return 当前对象
 	*/
-	public ProcessAbandonVO setProcessInstanceId(String processInstanceId) {
+	public ProcessFetchBackVO setProcessInstanceId(String processInstanceId) {
 		this.processInstanceId=processInstanceId;
 		return this;
 	}
 	
 	/**
-	 * 获得 废弃原因<br>
-	 * 废弃原因
-	 * @return 废弃原因
+	 * 获得 撤回原因<br>
+	 * 撤回原因
+	 * @return 撤回原因
 	*/
 	public String getReason() {
 		return reason;
 	}
 	
 	/**
-	 * 设置 废弃原因
-	 * @param reason 废弃原因
+	 * 设置 撤回原因
+	 * @param reason 撤回原因
 	 * @return 当前对象
 	*/
-	public ProcessAbandonVO setReason(String reason) {
+	public ProcessFetchBackVO setReason(String reason) {
 		this.reason=reason;
-		return this;
-	}
-	
-	/**
-	 * 获得 是否强制删除<br>
-	 * 是否强制删除
-	 * @return 是否强制删除
-	*/
-	public Boolean isForce() {
-		return force;
-	}
-	
-	/**
-	 * 获得 是否强制删除<br>
-	 * 等价于 isForce 方法，为兼容 Swagger 需要
-	 * 属性说明 : 是否强制删除
-	 * @return 是否强制删除
-	*/
-	public Boolean getForce() {
-		return this.force;
-	}
-	
-	/**
-	 * 设置 是否强制删除
-	 * @param force 是否强制删除
-	 * @return 当前对象
-	*/
-	public ProcessAbandonVO setForce(Boolean force) {
-		this.force=force;
 		return this;
 	}
 	
@@ -123,7 +88,7 @@ public class ProcessAbandonVO {
 	 * @param variables 流程参数
 	 * @return 当前对象
 	*/
-	public ProcessAbandonVO setVariables(Map<String,Object> variables) {
+	public ProcessFetchBackVO setVariables(Map<String,Object> variables) {
 		this.variables=variables;
 		return this;
 	}
@@ -134,7 +99,7 @@ public class ProcessAbandonVO {
 	 * @param variable 流程参数
 	 * @return 当前对象
 	*/
-	public ProcessAbandonVO putVariable(String key,Object variable) {
+	public ProcessFetchBackVO putVariable(String key,Object variable) {
 		if(this.variables==null) this.variables=new HashMap<>();
 		this.variables.put(key ,variable);
 		return this;

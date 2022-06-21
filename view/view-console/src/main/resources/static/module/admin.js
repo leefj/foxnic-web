@@ -400,6 +400,39 @@ layui.define(['settings', 'layer'], function (exports) {
             }
             return true;
         },
+        roles:null,
+        initRoles:function () {
+            if(this.roles!=null) {
+                return true;
+            }
+            var usr=config.getUser();
+            if(usr==null) return false;
+            usr=config.getUser().user;
+            if(usr==null) return false;
+            var rs = usr.roles;
+            if(rs==null) return false;
+            if(this.roles==null) {
+                this.roles={};
+                for (var i = 0; i < rs.length; i++) {
+                    this.roles[rs[i].code]=true;
+                }
+            }
+            return true;
+        },
+        // 判断是否为指定角色
+        checkRole: function (role) {
+            if(top.admin.initRoles()==false) {
+
+                return false;
+            }
+            for (var i = 0; i < arguments.length; i++) {
+                if(!top.admin.roles[arguments[i]]) {
+                    return false;
+                }
+            }
+            //
+            return true;
+        },
         // 判断是否有权限
         checkAuth: function (auth) {
             // debugger

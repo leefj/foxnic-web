@@ -70,6 +70,11 @@ public class BpmEvent {
         return nodeId;
     }
 
+    public String getCamundaNodeId() {
+        if(this.getCurrentNode()==null) return null;
+        return this.getCurrentNode().getCamundaNodeId();
+    }
+
     public void setNodeId(String nodeId) {
         this.nodeId = nodeId;
     }
