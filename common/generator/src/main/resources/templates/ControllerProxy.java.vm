@@ -175,7 +175,7 @@ public interface #(simpleName)  #if(bpm)extends BpmCallbackController#end  {
 	 * 分页查询#(topic)
 	 */
 	@RequestMapping(#(agentSimpleName).BPM_CALLBACK)
-	BpmActionResult handleBpmCallback(BpmEvent event);
+	BpmActionResult onProcessCallback(BpmEvent event);
 	#end
 
 

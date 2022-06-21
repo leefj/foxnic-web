@@ -266,7 +266,7 @@ public class #(simpleName) extends SuperService<#(poSimpleName)> implements #(in
 	 * 用户动作处理，返回失败时不再继续处理
 	 * */
 	@Override
-	public BpmActionResult handleBpmAction(BpmEvent event) {
+	public BpmActionResult onUserAction(BpmEvent event) {
 		BpmActionResult result=event.getActionResult();
 		// 获得当前表单数据
 		#(poSimpleName) #(poVar)= this.getById(event.getBillId());
@@ -278,12 +278,51 @@ public class #(simpleName) extends SuperService<#(poSimpleName)> implements #(in
 	 * 流程事件处理，返回值不影响后续逻辑
 	 * */
 	@Override
-	public BpmActionResult handleBpmEvent(BpmEvent event) {
+	public BpmActionResult onNodeEvent(BpmEvent event) {
 		// 获得当前表单数据
 		#(poSimpleName) #(poVar) = this.getById(event.getBillId());
-		//TODO 此处可查询相关数据，并对业务单据进行处理。
+		if(event.getEventType()== BpmEventType.NODE_START) {
+			//TODO 处理节点前事件
+		} else if(event.getEventType()== BpmEventType.NODE_END) {
+			//TODO 处理节点后事件
+		}
 		return event.getActionResult();
 	}
+
+	/**
+	 * 用户流程废弃动作处理，START 事件返回失败时不再继续处理
+	 * */
+	@Override
+	public BpmActionResult onProcessAbandon(BpmEvent event) {
+		// 获得当前表单数据
+		#(poSimpleName) #(poVar) = this.getById(event.getBillId());
+		if(event.getEventType()== BpmEventType.PROCESS_ABANDON_START) {
+			//TODO 处理流程废弃开始动作，可返回 失败的 BpmActionResult 对象拒绝删除
+		} else if(event.getEventType()== BpmEventType.PROCESS_ABANDON_END) {
+			//TODO 处理流程废弃成功后，可处理相关单据
+		}
+		return event.getActionResult();
+	}
+
+	/**
+	* 用户流程暂存动作处理，START 事件返回失败时不再继续处理
+	* */
+	@Override
+	public BpmActionResult onProcessTemporarySave(BpmEvent event) {
+		// 获得当前表单数据
+		#(poSimpleName) #(poVar) = this.getById(event.getBillId());
+		if(event.getEventType()== BpmEventType.TEMPORARY_SAVE_START) {
+			//TODO 处理流程暂存开始动作，可返回 失败的 BpmActionResult 对象暂存删除
+		} else if(event.getEventType()== BpmEventType.TEMPORARY_SAVE_END) {
+			//TODO 处理流程暂存成功后，可处理相关单据
+		}
+		return event.getActionResult();
+	}
+
+
+
+
+
 	#end
 
 }

@@ -31,6 +31,11 @@ public class BpmEvent {
     private String nodeId;
 
     /**
+     * 当前节点
+     * */
+    private ProcessDefinitionNode currentNode;
+
+    /**
      * 流程节点类型
      * */
     private CamundaNodeType nodeType;
@@ -118,6 +123,13 @@ public class BpmEvent {
         this.nodeType = nodeType;
     }
 
+    public ProcessDefinitionNode getCurrentNode() {
+        return currentNode;
+    }
+
+    public void setCurrentNode(ProcessDefinitionNode currentNode) {
+        this.currentNode = currentNode;
+    }
 
     public BpmActionResult getActionResult() {
         BpmActionResult result=new BpmActionResult();

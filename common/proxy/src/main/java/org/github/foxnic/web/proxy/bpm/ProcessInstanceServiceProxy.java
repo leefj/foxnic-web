@@ -68,6 +68,12 @@ public interface ProcessInstanceServiceProxy {
     public static final String GET_BY_ID = API_PREFIX + "get-by-id";
 
     /**
+     * 更新流程同步状态
+     */
+    public static final String UPDATE_SYNC_STATUS = API_PREFIX + "update-sync-status";
+
+
+    /**
      * 获取单个流程实例
      */
     public static final String GET_BY_CAMUNDA_INSTANCE_ID = API_PREFIX + "get-by-camunda_instance-id";
@@ -105,6 +111,8 @@ public interface ProcessInstanceServiceProxy {
     public static final String SYNC_CAMUNDA_PROCESS_INSTANCE = API_PREFIX + "sync-camunda-process-instance";
 
 
+    @RequestMapping(ProcessInstanceServiceProxy.UPDATE_SYNC_STATUS)
+    Result updateSyncStatus(@RequestParam(name = "processInstanceId") String processInstanceId);
     /**
      * 删除流程实例
      */

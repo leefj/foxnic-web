@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2022-06-20 16:32:43
+ * @since 2022-06-21 10:28:51
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -90,91 +90,6 @@ public class FoxnicWeb {
 			this.init($NAME,"请假流程示例表" , ID , TYPE , BEGIN_TIME , END_TIME , REASON , APPLICANT_ID);
 		}
 		public static final BPM_DEMO_LEAVE $TABLE=new BPM_DEMO_LEAVE();
-	}
-	
-	/**
-	*/
-	public static class BPM_EVENT_CALLBACK extends DBTable {
-		
-		/**
-		 * 表名
-		*/
-		public static final String $NAME = "bpm_event_callback";
-		
-		/**
-		 * 主键
-		*/
-		public static final DBField ID = new DBField(DBDataType.STRING , "id","id","主键","主键",true,false,false);
-		
-		/**
-		 * BPM流程ID
-		*/
-		public static final DBField BPM_PROCESS_INSTANCE_ID = new DBField(DBDataType.STRING , "bpm_process_instance_id","bpmProcessInstanceId","BPM流程ID","BPM流程ID",false,false,true);
-		
-		/**
-		 * 变量
-		*/
-		public static final DBField VARIABLES = new DBField(DBDataType.STRING , "variables","variables","变量","变量",false,false,true);
-		
-		/**
-		 * camunda流程ID
-		*/
-		public static final DBField CAMUNDA_PROCESS_INSTANCE_ID = new DBField(DBDataType.STRING , "camunda_process_instance_id","camundaProcessInstanceId","camunda流程ID","camunda流程ID",false,false,true);
-		
-		/**
-		 * 事件类型
-		*/
-		public static final DBField EVENT_TYPE = new DBField(DBDataType.STRING , "event_type","eventType","事件类型","事件类型",false,false,true);
-		
-		/**
-		 * 节点ID
-		*/
-		public static final DBField NODE_ID = new DBField(DBDataType.STRING , "node_id","nodeId","节点ID","节点ID",false,false,true);
-		
-		/**
-		 * 节点名称
-		*/
-		public static final DBField NODE_NAME = new DBField(DBDataType.STRING , "node_name","nodeName","节点名称","节点名称",false,false,true);
-		
-		/**
-		 * 异常信息
-		*/
-		public static final DBField ERROR = new DBField(DBDataType.STRING , "error","error","异常信息","异常信息",false,false,true);
-		
-		/**
-		 * 处理结果
-		*/
-		public static final DBField RESULT = new DBField(DBDataType.STRING , "result","result","处理结果","处理结果",false,false,true);
-		
-		/**
-		 * 状态
-		*/
-		public static final DBField STATUS = new DBField(DBDataType.STRING , "status","status","状态","状态",false,false,true);
-		
-		/**
-		 * 调用时间
-		*/
-		public static final DBField INVOKE_TIME = new DBField(DBDataType.TIMESTAME , "invoke_time","invokeTime","调用时间","调用时间",false,false,true);
-		
-		/**
-		 * 创建时间
-		*/
-		public static final DBField CREATE_TIME = new DBField(DBDataType.DATE , "create_time","createTime","创建时间","创建时间",false,false,true);
-		
-		/**
-		 * 失败重试次数
-		*/
-		public static final DBField RETRYS = new DBField(DBDataType.INTEGER , "retrys","retrys","失败重试次数","失败重试次数",false,false,false);
-		
-		/**
-		 * 节点类型
-		*/
-		public static final DBField NODE_TYPE = new DBField(DBDataType.STRING , "node_type","nodeType","节点类型","节点类型",false,false,true);
-		
-		public BPM_EVENT_CALLBACK() {
-			this.init($NAME,"" , ID , BPM_PROCESS_INSTANCE_ID , VARIABLES , CAMUNDA_PROCESS_INSTANCE_ID , EVENT_TYPE , NODE_ID , NODE_NAME , ERROR , RESULT , STATUS , INVOKE_TIME , CREATE_TIME , RETRYS , NODE_TYPE);
-		}
-		public static final BPM_EVENT_CALLBACK $TABLE=new BPM_EVENT_CALLBACK();
 	}
 	
 	/**
@@ -1192,8 +1107,18 @@ public class FoxnicWeb {
 		*/
 		public static final DBField END_TIME = new DBField(DBDataType.DATE , "end_time","endTime","流程完成时间","流程完成时间",false,false,true);
 		
+		/**
+		 * 是否需要同步
+		*/
+		public static final DBField NEED_SYNC = new DBField(DBDataType.INTEGER , "need_sync","needSync","是否需要同步","是否需要同步",false,false,true);
+		
+		/**
+		 * 状态同步时间
+		*/
+		public static final DBField SYNC_TIME = new DBField(DBDataType.DATE , "sync_time","syncTime","状态同步时间","状态同步时间",false,false,true);
+		
 		public BPM_PROCESS_INSTANCE() {
-			this.init($NAME,"流程实例表" , ID , DRAFTER_USER_ID , DRAFTER_ID , DRAFTER_TYPE , FORM_INSTANCE_ID , PROCESS_DEFINITION_ID , PROCESS_DEFINITION_FILE_ID , FORM_DEFINITION_ID , TITLE , PRIORITY , COMMENT , APPROVAL_STATUS , CAMUNDA_INSTANCE_ID , COMMIT_TIME , ABANDON_USER_ID , ABANDON_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , END_TIME);
+			this.init($NAME,"流程实例表" , ID , DRAFTER_USER_ID , DRAFTER_ID , DRAFTER_TYPE , FORM_INSTANCE_ID , PROCESS_DEFINITION_ID , PROCESS_DEFINITION_FILE_ID , FORM_DEFINITION_ID , TITLE , PRIORITY , COMMENT , APPROVAL_STATUS , CAMUNDA_INSTANCE_ID , COMMIT_TIME , ABANDON_USER_ID , ABANDON_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , END_TIME , NEED_SYNC , SYNC_TIME);
 		}
 		public static final BPM_PROCESS_INSTANCE $TABLE=new BPM_PROCESS_INSTANCE();
 	}

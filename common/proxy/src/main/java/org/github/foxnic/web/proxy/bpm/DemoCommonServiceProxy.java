@@ -20,7 +20,7 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  * 通用审批表单  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-10 16:19:31
+ * @since 2022-06-21 11:56:57
  */
 @FeignClient(value = MicroServiceNames.BPM, contextId = DemoCommonServiceProxy.API_CONTEXT_PATH, configuration = FeignConfiguration.class)
 public interface DemoCommonServiceProxy extends BpmCallbackController {
@@ -163,7 +163,7 @@ public interface DemoCommonServiceProxy extends BpmCallbackController {
      * 分页查询通用审批表单
      */
     @RequestMapping(DemoCommonServiceProxy.BPM_CALLBACK)
-    BpmActionResult handleBpmCallback(@RequestParam(name = "event") BpmEvent event);
+    BpmActionResult onProcessCallback(@RequestParam(name = "event") BpmEvent event);
 
     /**
      * 控制器类名

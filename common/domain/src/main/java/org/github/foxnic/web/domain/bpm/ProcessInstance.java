@@ -26,8 +26,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程实例
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-13 17:30:01
- * @sign 12A5EA5434EDEB0336F6387828912CE5
+ * @since 2022-06-21 10:29:57
+ * @sign E30C3F6A585B74E2362F35CEF33DD2B3
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -202,6 +202,18 @@ public class ProcessInstance extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="流程完成时间" , notes = "流程完成时间")
 	private Date endTime;
+	
+	/**
+	 * 是否需要同步：是否需要同步
+	*/
+	@ApiModelProperty(required = false,value="是否需要同步" , notes = "是否需要同步")
+	private Integer needSync;
+	
+	/**
+	 * 状态同步时间：状态同步时间
+	*/
+	@ApiModelProperty(required = false,value="状态同步时间" , notes = "状态同步时间")
+	private Date syncTime;
 	
 	/**
 	 * 流程定义：流程定义
@@ -901,6 +913,44 @@ public class ProcessInstance extends Entity {
 	*/
 	public ProcessInstance setEndTime(Date endTime) {
 		this.endTime=endTime;
+		return this;
+	}
+	
+	/**
+	 * 获得 是否需要同步<br>
+	 * 是否需要同步
+	 * @return 是否需要同步
+	*/
+	public Integer getNeedSync() {
+		return needSync;
+	}
+	
+	/**
+	 * 设置 是否需要同步
+	 * @param needSync 是否需要同步
+	 * @return 当前对象
+	*/
+	public ProcessInstance setNeedSync(Integer needSync) {
+		this.needSync=needSync;
+		return this;
+	}
+	
+	/**
+	 * 获得 状态同步时间<br>
+	 * 状态同步时间
+	 * @return 状态同步时间
+	*/
+	public Date getSyncTime() {
+		return syncTime;
+	}
+	
+	/**
+	 * 设置 状态同步时间
+	 * @param syncTime 状态同步时间
+	 * @return 当前对象
+	*/
+	public ProcessInstance setSyncTime(Date syncTime) {
+		this.syncTime=syncTime;
 		return this;
 	}
 	

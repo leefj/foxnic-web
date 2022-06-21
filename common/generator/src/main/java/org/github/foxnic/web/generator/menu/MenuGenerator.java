@@ -63,8 +63,9 @@ public class MenuGenerator {
 //		mg.generate("578497780117409792");
 
 		mg=new MenuGenerator(FoxnicWeb.BPM_PROCESS_ERROR.$TABLE, ProcessErrorServiceProxy.class, ProcessErrorPageController.class);
-		mg.generate("578497780117409792");
+//		mg.generate("578497780117409792");
 
+		mg.removeByBatchId("591365727173214208");
 
 
 //		mg=new MenuGenerator(FoxnicWeb.BPM_PROCESS_DEFINITION_NODE.$TABLE, ProcessDefinitionNodeServiceProxy.class, ProcessDefinitionNodePageController.class);

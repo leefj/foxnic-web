@@ -339,11 +339,19 @@ public class #(simpleName) extends SuperController #if(bpm)implements BpmCallbac
 	@SentinelResource(value = #(agentSimpleName).BPM_CALLBACK , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	#end
 	@PostMapping(#(agentSimpleName).BPM_CALLBACK)
-    public BpmActionResult handleBpmCallback(BpmEvent event){
-		if(event.getEventType()== BpmEventType.ACTION) {
-			return #(serviceVarName).handleBpmAction(event);
+    public BpmActionResult onProcessCallback(BpmEvent event){
+		if(event.getEventType()== BpmEventType.TEMPORARY_SAVE_START || event.getEventType()== BpmEventType.TEMPORARY_SAVE_END) {
+			return #(serviceVarName).onProcessTemporarySave(event);
+		} else if(event.getEventType()== BpmEventType.NODE_USER_ACTION) {
+			return #(serviceVarName).onUserAction(event);
+		}  else if(event.getEventType()== BpmEventType.NODE_START || event.getEventType()== BpmEventType.NODE_END) {
+			return #(serviceVarName).onNodeEvent(event);
+		} else if(event.getEventType()== BpmEventType.PROCESS_ABANDON_START || event.getEventType()== BpmEventType.PROCESS_ABANDON_END) {
+			return #(serviceVarName).onProcessAbandon(event);
 		} else {
-			return #(serviceVarName).handleBpmEvent(event);
+			BpmActionResult result= event.getActionResult();
+			result.success(false).message("不支持的事件类型 : "+event.getEventType().name());
+			return result;
 		}
 	}
 	#end

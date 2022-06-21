@@ -303,12 +303,22 @@ public interface #(simpleName) extends ISuperService<#(poSimpleName)> {
 	/**
 	 * 用户动作处理，返回失败时不再继续处理
 	 * */
-	BpmActionResult handleBpmAction(BpmEvent event);
+	BpmActionResult onUserAction(BpmEvent event);
 
 	/**
 	 * 流程事件处理，返回值不影响后续逻辑
 	 * */
-	BpmActionResult handleBpmEvent(BpmEvent event);
+	BpmActionResult onNodeEvent(BpmEvent event);
+
+	/**
+	 * 用户流程废弃动作处理，START 事件返回失败时不再继续处理
+	 * */
+	BpmActionResult onProcessAbandon(BpmEvent event);
+
+	/**
+	 * 用户流程暂存动作处理，START 事件返回失败时不再继续处理
+	 * */
+	BpmActionResult onProcessTemporarySave(BpmEvent event);
 	#end
 
 }

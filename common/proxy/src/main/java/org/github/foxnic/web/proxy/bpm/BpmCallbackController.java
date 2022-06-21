@@ -7,5 +7,5 @@ import org.github.foxnic.web.domain.bpm.BpmEvent;
  * 接收流程事件回调的控制器需要实现此接口
  * */
 public interface BpmCallbackController {
-    BpmActionResult handleBpmCallback(BpmEvent event);
+    BpmActionResult onProcessCallback(BpmEvent event);
 }

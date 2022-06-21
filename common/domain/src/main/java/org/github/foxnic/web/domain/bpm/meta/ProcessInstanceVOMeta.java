@@ -20,7 +20,7 @@ import org.github.foxnic.web.domain.bpm.TaskApproval;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-13 17:30:01
+ * @since 2022-06-21 10:29:57
  * @sign DEDB9EC722B9B23BC314911B41474B11
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -408,6 +408,26 @@ public class ProcessInstanceVOMeta extends ProcessInstanceMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceVO,java.util.Date> END_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceVO.class ,END_TIME, java.util.Date.class, "流程完成时间", "流程完成时间", java.util.Date.class, null);
 	
 	/**
+	 * 是否需要同步 , 类型: java.lang.Integer
+	*/
+	public static final String NEED_SYNC="needSync";
+	
+	/**
+	 * 是否需要同步 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceVO,java.lang.Integer> NEED_SYNC_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceVO.class ,NEED_SYNC, java.lang.Integer.class, "是否需要同步", "是否需要同步", java.lang.Integer.class, null);
+	
+	/**
+	 * 状态同步时间 , 类型: java.util.Date
+	*/
+	public static final String SYNC_TIME="syncTime";
+	
+	/**
+	 * 状态同步时间 , 类型: java.util.Date
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceVO,java.util.Date> SYNC_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceVO.class ,SYNC_TIME, java.util.Date.class, "状态同步时间", "状态同步时间", java.util.Date.class, null);
+	
+	/**
 	 * 流程定义 , 类型: org.github.foxnic.web.domain.bpm.ProcessDefinition
 	*/
 	public static final String PROCESS_DEFINITION="processDefinition";
@@ -540,7 +560,7 @@ public class ProcessInstanceVOMeta extends ProcessInstanceMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , APPROVED_USER_IDS , APPROVING_USER_IDS , MINE , ID , DRAFTER_USER_ID , DRAFTER_ID , DRAFTER_TYPE , FORM_INSTANCE_ID , PROCESS_DEFINITION_ID , PROCESS_DEFINITION_FILE_ID , FORM_DEFINITION_ID , TITLE , PRIORITY , COMMENT , APPROVAL_STATUS , CAMUNDA_INSTANCE_ID , COMMIT_TIME , ABANDON_USER_ID , ABANDON_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , END_TIME , PROCESS_DEFINITION , FORM_DEFINITION , FORM_INSTANCE , DRAFTER , DRAFTER_NAME , DRAFTER_USER , TASKS , USER_TASKS , BILLS , BILL_IDS , ERRORS , PROCESS_DEFINITION_FILE , TASK_APPROVALS };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , APPROVED_USER_IDS , APPROVING_USER_IDS , MINE , ID , DRAFTER_USER_ID , DRAFTER_ID , DRAFTER_TYPE , FORM_INSTANCE_ID , PROCESS_DEFINITION_ID , PROCESS_DEFINITION_FILE_ID , FORM_DEFINITION_ID , TITLE , PRIORITY , COMMENT , APPROVAL_STATUS , CAMUNDA_INSTANCE_ID , COMMIT_TIME , ABANDON_USER_ID , ABANDON_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , END_TIME , NEED_SYNC , SYNC_TIME , PROCESS_DEFINITION , FORM_DEFINITION , FORM_INSTANCE , DRAFTER , DRAFTER_NAME , DRAFTER_USER , TASKS , USER_TASKS , BILLS , BILL_IDS , ERRORS , PROCESS_DEFINITION_FILE , TASK_APPROVALS };
 	
 	/**
 	 * 代理类
@@ -965,6 +985,28 @@ public class ProcessInstanceVOMeta extends ProcessInstanceMeta {
 		public ProcessInstance setEndTime(Date endTime) {
 			super.change(END_TIME,super.getEndTime(),endTime);
 			super.setEndTime(endTime);
+			return this;
+		}
+		
+		/**
+		 * 设置 是否需要同步
+		 * @param needSync 是否需要同步
+		 * @return 当前对象
+		*/
+		public ProcessInstance setNeedSync(Integer needSync) {
+			super.change(NEED_SYNC,super.getNeedSync(),needSync);
+			super.setNeedSync(needSync);
+			return this;
+		}
+		
+		/**
+		 * 设置 状态同步时间
+		 * @param syncTime 状态同步时间
+		 * @return 当前对象
+		*/
+		public ProcessInstance setSyncTime(Date syncTime) {
+			super.change(SYNC_TIME,super.getSyncTime(),syncTime);
+			super.setSyncTime(syncTime);
 			return this;
 		}
 		
