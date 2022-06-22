@@ -11,7 +11,7 @@ import org.github.foxnic.web.domain.bpm.Assignee;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-07 15:55:04
+ * @since 2022-06-22 17:21:47
  * @sign CE34814B78D2BAA7234DB013FE1D9172
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */

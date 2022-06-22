@@ -7,6 +7,9 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_DEMO_LEAVE;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
 import javax.persistence.Transient;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
@@ -16,8 +19,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 请假流程示例
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-21 13:02:05
- * @sign 8609CB0516D86F003BBB04C1CAF79768
+ * @since 2022-06-22 17:21:42
+ * @sign 43E2D8332620B955587E290952968272
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -64,6 +67,18 @@ public class DemoLeave extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="申请人" , notes = "员工ID")
 	private String applicantId;
+	
+	/**
+	 * 历史流程清单：历史流程清单
+	*/
+	@ApiModelProperty(required = false,value="历史流程清单" , notes = "历史流程清单")
+	private List<ProcessInstance> historicProcessList;
+	
+	/**
+	 * 在批的流程清单：在批的流程清单
+	*/
+	@ApiModelProperty(required = false,value="在批的流程清单" , notes = "在批的流程清单")
+	private List<ProcessInstance> currentProcessList;
 	
 	/**
 	 * 获得 主键<br>
@@ -176,6 +191,66 @@ public class DemoLeave extends Entity {
 	*/
 	public DemoLeave setApplicantId(String applicantId) {
 		this.applicantId=applicantId;
+		return this;
+	}
+	
+	/**
+	 * 获得 历史流程清单<br>
+	 * 历史流程清单
+	 * @return 历史流程清单
+	*/
+	public List<ProcessInstance> getHistoricProcessList() {
+		return historicProcessList;
+	}
+	
+	/**
+	 * 设置 历史流程清单
+	 * @param historicProcessList 历史流程清单
+	 * @return 当前对象
+	*/
+	public DemoLeave setHistoricProcessList(List<ProcessInstance> historicProcessList) {
+		this.historicProcessList=historicProcessList;
+		return this;
+	}
+	
+	/**
+	 * 添加 历史流程清单
+	 * @param historicProcess 历史流程清单
+	 * @return 当前对象
+	*/
+	public DemoLeave addHistoricProcess(ProcessInstance... historicProcess) {
+		if(this.historicProcessList==null) historicProcessList=new ArrayList<>();
+		this.historicProcessList.addAll(Arrays.asList(historicProcess));
+		return this;
+	}
+	
+	/**
+	 * 获得 在批的流程清单<br>
+	 * 在批的流程清单
+	 * @return 在批的流程清单
+	*/
+	public List<ProcessInstance> getCurrentProcessList() {
+		return currentProcessList;
+	}
+	
+	/**
+	 * 设置 在批的流程清单
+	 * @param currentProcessList 在批的流程清单
+	 * @return 当前对象
+	*/
+	public DemoLeave setCurrentProcessList(List<ProcessInstance> currentProcessList) {
+		this.currentProcessList=currentProcessList;
+		return this;
+	}
+	
+	/**
+	 * 添加 在批的流程清单
+	 * @param currentProcess 在批的流程清单
+	 * @return 当前对象
+	*/
+	public DemoLeave addCurrentProcess(ProcessInstance... currentProcess) {
+		if(this.currentProcessList==null) currentProcessList=new ArrayList<>();
+		this.currentProcessList.addAll(Arrays.asList(currentProcess));
 		return this;
 	}
 

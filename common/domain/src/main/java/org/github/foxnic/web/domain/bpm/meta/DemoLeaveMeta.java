@@ -3,13 +3,15 @@ package org.github.foxnic.web.domain.bpm.meta;
 import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.bpm.DemoLeave;
 import java.util.Date;
+import org.github.foxnic.web.domain.bpm.ProcessInstance;
+import java.util.List;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-21 13:02:05
- * @sign 8609CB0516D86F003BBB04C1CAF79768
+ * @since 2022-06-22 17:21:42
+ * @sign 43E2D8332620B955587E290952968272
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -76,9 +78,29 @@ public class DemoLeaveMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.DemoLeave,java.lang.String> APPLICANT_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.DemoLeave.class ,APPLICANT_ID, java.lang.String.class, "申请人", "员工ID", java.lang.String.class, null);
 	
 	/**
+	 * 历史流程清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.ProcessInstance
+	*/
+	public static final String HISTORIC_PROCESS_LIST="historicProcessList";
+	
+	/**
+	 * 历史流程清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.ProcessInstance
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.DemoLeave,org.github.foxnic.web.domain.bpm.ProcessInstance> HISTORIC_PROCESS_LIST_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.DemoLeave.class ,HISTORIC_PROCESS_LIST, java.util.List.class, "历史流程清单", "历史流程清单", org.github.foxnic.web.domain.bpm.ProcessInstance.class, null);
+	
+	/**
+	 * 在批的流程清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.ProcessInstance
+	*/
+	public static final String CURRENT_PROCESS_LIST="currentProcessList";
+	
+	/**
+	 * 在批的流程清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.ProcessInstance
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.DemoLeave,org.github.foxnic.web.domain.bpm.ProcessInstance> CURRENT_PROCESS_LIST_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.DemoLeave.class ,CURRENT_PROCESS_LIST, java.util.List.class, "在批的流程清单", "在批的流程清单", org.github.foxnic.web.domain.bpm.ProcessInstance.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , TYPE , BEGIN_TIME , END_TIME , REASON , APPLICANT_ID };
+	public static final String[] $PROPS={ ID , TYPE , BEGIN_TIME , END_TIME , REASON , APPLICANT_ID , HISTORIC_PROCESS_LIST , CURRENT_PROCESS_LIST };
 	
 	/**
 	 * 代理类
@@ -151,6 +173,28 @@ public class DemoLeaveMeta {
 		public DemoLeave setApplicantId(String applicantId) {
 			super.change(APPLICANT_ID,super.getApplicantId(),applicantId);
 			super.setApplicantId(applicantId);
+			return this;
+		}
+		
+		/**
+		 * 设置 历史流程清单
+		 * @param historicProcessList 历史流程清单
+		 * @return 当前对象
+		*/
+		public DemoLeave setHistoricProcessList(List<ProcessInstance> historicProcessList) {
+			super.change(HISTORIC_PROCESS_LIST,super.getHistoricProcessList(),historicProcessList);
+			super.setHistoricProcessList(historicProcessList);
+			return this;
+		}
+		
+		/**
+		 * 设置 在批的流程清单
+		 * @param currentProcessList 在批的流程清单
+		 * @return 当前对象
+		*/
+		public DemoLeave setCurrentProcessList(List<ProcessInstance> currentProcessList) {
+			super.change(CURRENT_PROCESS_LIST,super.getCurrentProcessList(),currentProcessList);
+			super.setCurrentProcessList(currentProcessList);
 			return this;
 		}
 	}

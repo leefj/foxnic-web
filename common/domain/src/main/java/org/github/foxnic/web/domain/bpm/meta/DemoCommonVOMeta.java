@@ -4,12 +4,13 @@ import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.bpm.DemoCommonVO;
 import java.util.List;
 import org.github.foxnic.web.domain.bpm.DemoCommon;
+import org.github.foxnic.web.domain.bpm.ProcessInstance;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-22 14:52:10
+ * @since 2022-06-22 17:21:49
  * @sign FF027A6A7C2A7FA980160448107A36C3
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -137,9 +138,29 @@ public class DemoCommonVOMeta extends DemoCommonMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.DemoCommonVO,java.lang.String> CONTENT_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.DemoCommonVO.class ,CONTENT, java.lang.String.class, "内容", "内容", java.lang.String.class, null);
 	
 	/**
+	 * 历史流程清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.ProcessInstance
+	*/
+	public static final String HISTORIC_PROCESS_LIST="historicProcessList";
+	
+	/**
+	 * 历史流程清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.ProcessInstance
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.DemoCommonVO,org.github.foxnic.web.domain.bpm.ProcessInstance> HISTORIC_PROCESS_LIST_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.DemoCommonVO.class ,HISTORIC_PROCESS_LIST, java.util.List.class, "历史流程清单", "历史流程清单", org.github.foxnic.web.domain.bpm.ProcessInstance.class, null);
+	
+	/**
+	 * 在批的流程清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.ProcessInstance
+	*/
+	public static final String CURRENT_PROCESS_LIST="currentProcessList";
+	
+	/**
+	 * 在批的流程清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.ProcessInstance
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.DemoCommonVO,org.github.foxnic.web.domain.bpm.ProcessInstance> CURRENT_PROCESS_LIST_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.DemoCommonVO.class ,CURRENT_PROCESS_LIST, java.util.List.class, "在批的流程清单", "在批的流程清单", org.github.foxnic.web.domain.bpm.ProcessInstance.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , SUBJECT , CONTENT };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , SUBJECT , CONTENT , HISTORIC_PROCESS_LIST , CURRENT_PROCESS_LIST };
 	
 	/**
 	 * 代理类
@@ -278,6 +299,28 @@ public class DemoCommonVOMeta extends DemoCommonMeta {
 		public DemoCommon setContent(String content) {
 			super.change(CONTENT,super.getContent(),content);
 			super.setContent(content);
+			return this;
+		}
+		
+		/**
+		 * 设置 历史流程清单
+		 * @param historicProcessList 历史流程清单
+		 * @return 当前对象
+		*/
+		public DemoCommon setHistoricProcessList(List<ProcessInstance> historicProcessList) {
+			super.change(HISTORIC_PROCESS_LIST,super.getHistoricProcessList(),historicProcessList);
+			super.setHistoricProcessList(historicProcessList);
+			return this;
+		}
+		
+		/**
+		 * 设置 在批的流程清单
+		 * @param currentProcessList 在批的流程清单
+		 * @return 当前对象
+		*/
+		public DemoCommon setCurrentProcessList(List<ProcessInstance> currentProcessList) {
+			super.change(CURRENT_PROCESS_LIST,super.getCurrentProcessList(),currentProcessList);
+			super.setCurrentProcessList(currentProcessList);
 			return this;
 		}
 	}

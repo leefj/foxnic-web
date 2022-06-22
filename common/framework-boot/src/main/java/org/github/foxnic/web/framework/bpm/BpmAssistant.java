@@ -47,6 +47,11 @@ public class BpmAssistant {
     }
 
 
+    public <T> Map<T,List<ProcessInstance>> getProcessBybillIds(Set<T> billIds) {
+        // 待实现
+        return null;
+    }
+
 
     public static Result<ProcessInstance> getProcessInstanceById(String processInstanceId) {
         return  ProcessInstanceServiceProxy.api().getById(processInstanceId);
