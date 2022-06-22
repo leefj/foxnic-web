@@ -10,8 +10,8 @@ import org.github.foxnic.web.domain.oauth.User;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-13 14:46:25
- * @sign A70B1539DC7FFD511D745C976A054497
+ * @since 2022-06-23 05:30:03
+ * @sign 2B58DDF7021795A381418AEABC92B19C
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 

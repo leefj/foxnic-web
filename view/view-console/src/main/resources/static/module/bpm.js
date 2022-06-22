@@ -1,6 +1,7 @@
 layui.define(['settings', 'layer', 'admin', 'util','element'],function (exports) {
 
-    var admin = layui.admin;
+    const admin = layui.admin;
+    const settings = layui.settings;
     const  api_save="/service-bpm/bpm-process-instance/temporary-save";
     const  api_get="/service-bpm/bpm-process-instance/get-by-id";
     const  api_start="/service-bpm/bpm-process-instance/start";
@@ -9,6 +10,7 @@ layui.define(['settings', 'layer', 'admin', 'util','element'],function (exports)
     const  api_process_batch_abandon="/service-bpm/bpm-process-instance/delete-by-ids";
     const  api_process_fetch_back="/service-bpm/bpm-process-instance/fetch-back";
     const  api_process_jump="/service-bpm/bpm-process-instance/jump";
+
     var bpm = {
 
         /**
@@ -206,6 +208,49 @@ layui.define(['settings', 'layer', 'admin', 'util','element'],function (exports)
                 admin.putTempData("assignee-dialog-index",dialogIndex,true);
             });
 
+        },
+        /**
+         * 获得当前待审节点
+         * */
+        getTodoNodes: function (processData) {
+            var nodes=[];
+            for (var i = 0; i < processData.tasks.length; i++) {
+                var task = processData.tasks[i];
+                // 标记待办(当前审批节点)
+                if (task.status == "todo") {
+                    canvas.addMarker(task.node.camundaNodeId, 'highlight');
+                    nodes.push(task.node);
+                }
+            }
+            return nodes;
+        },
+
+        /**
+         * 判断是否为当前待审节点
+         * */
+        isTodoNodes: function (processData,camundaNodeId) {
+            for (var i = 0; i < processData.tasks.length; i++) {
+                var task = processData.tasks[i];
+                // 标记待办(当前审批节点)
+                if (task.status == "todo" && task.node.camundaNodeId===camundaNodeId) {
+                    return true;
+                }
+            }
+            return false;
+        },
+
+        /**
+         * 判断是否为当前登录账户的审批节点
+         * */
+        isCurrentUserTodoNode: function (processData,camundaNodeId) {
+            for (var i = 0; i < processData.userTasks.length; i++) {
+                var task = processData.userTasks[i];
+                // 标记待办(当前审批节点)
+                if (task.status == "todo" && task.node.camundaNodeId===camundaNodeId) {
+                    return true;
+                }
+            }
+            return false;
         }
 
     };

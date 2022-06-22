@@ -201,6 +201,15 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             // 可根据流程状态、当前审批节点判断和控制表单页面
             processInstance=result.data;
             console.log("processInstance",processInstance);
+            // 获得所有待办节点
+            var todoNodes=bmp.getTodoNodes(processInstance);
+            console.log("todoNodes",todoNodes);
+            // 判断是否为待办节点
+            var isTodoNode=bpm.isTodoNodes(processInstance,"N1");
+            console.log("isTodoNode:N1",isTodoNode);
+            // 判断是否为当前账户的待办节点
+            var isMyTodoNode=bpm.isCurrentUserTodoNode(processInstance,"N1");
+            console.log("isMyTodoNode:N1",isMyTodoNode);
         },
         /**
          * 请求流程数据错误时

@@ -5,7 +5,7 @@ import com.github.foxnic.commons.reflect.EnumUtil;
 
 public enum ApprovalAction implements CodeTextEnum {
 
-	draft("流程起草"),submit("流程提交"),revoke("流程撤回"),
+	draft("流程起草"),submit("流程提交"),fetch_back("流程撤回"),
 	agree("节点同意"),agree_cond("节点有条件同意"),
 	reject("节点驳回"),jump("节点跳转"),
 	ignore("节点忽略"),replace_approver("更换审批人"),

@@ -7,8 +7,11 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_TASK_APPROVAL;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
+import org.github.foxnic.web.constants.enums.changes.ApprovalAction;
 import javax.persistence.Transient;
 import org.github.foxnic.web.domain.oauth.User;
+import com.github.foxnic.commons.reflect.EnumUtil;
+import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.lang.DataParser;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
@@ -18,8 +21,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程任务审批结果
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-13 14:46:25
- * @sign A70B1539DC7FFD511D745C976A054497
+ * @since 2022-06-23 05:30:03
+ * @sign 2B58DDF7021795A381418AEABC92B19C
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -66,6 +69,8 @@ public class TaskApproval extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="审批结果" , notes = "审批结果")
 	private String approvalResult;
+	@Transient
+	private ApprovalAction approvalResultEnum;
 	
 	/**
 	 * 审批意见：审批意见
@@ -276,12 +281,45 @@ public class TaskApproval extends Entity {
 	}
 	
 	/**
+	 * 获得 审批结果 的投影属性<br>
+	 * 等价于 getApprovalResult 方法，获得对应的枚举类型
+	 * @return 审批结果
+	*/
+	@Transient
+	public ApprovalAction getApprovalResultEnum() {
+		if(this.approvalResultEnum==null) {
+			this.approvalResultEnum = (ApprovalAction) EnumUtil.parseByCode(ApprovalAction.values(),approvalResult);
+		}
+		return this.approvalResultEnum ;
+	}
+	
+	/**
 	 * 设置 审批结果
 	 * @param approvalResult 审批结果
 	 * @return 当前对象
 	*/
 	public TaskApproval setApprovalResult(String approvalResult) {
 		this.approvalResult=approvalResult;
+		this.approvalResultEnum= (ApprovalAction) EnumUtil.parseByCode(ApprovalAction.values(),approvalResult) ;
+		if(StringUtil.hasContent(approvalResult) && this.approvalResultEnum==null) {
+			throw new IllegalArgumentException( approvalResult + " is not one of ApprovalAction");
+		}
+		return this;
+	}
+	
+	/**
+	 * 设置 审批结果的投影属性，等同于设置 审批结果
+	 * @param approvalResultEnum 审批结果
+	 * @return 当前对象
+	*/
+	@Transient
+	public TaskApproval setApprovalResultEnum(ApprovalAction approvalResultEnum) {
+		if(approvalResultEnum==null) {
+			this.setApprovalResult(null);
+		} else {
+			this.setApprovalResult(approvalResultEnum.code());
+		}
+		this.approvalResultEnum=approvalResultEnum;
 		return this;
 	}
 	

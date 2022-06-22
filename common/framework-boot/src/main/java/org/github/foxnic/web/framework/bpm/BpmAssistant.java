@@ -1,17 +1,16 @@
 package org.github.foxnic.web.framework.bpm;
 
 import com.github.foxnic.api.transter.Result;
-import com.github.foxnic.commons.cache.LocalCache;
 import com.github.foxnic.commons.concurrent.task.QuartzTaskManager;
 import com.github.foxnic.commons.lang.StringUtil;
-import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.commons.reflect.ReflectUtil;
 import org.github.foxnic.web.domain.bpm.BpmActionResult;
 import org.github.foxnic.web.domain.bpm.BpmEvent;
 import org.github.foxnic.web.domain.bpm.ProcessInstance;
+import org.github.foxnic.web.domain.oauth.User;
+import org.github.foxnic.web.framework.proxy.ProxyContext;
 import org.github.foxnic.web.proxy.bpm.BpmCallbackController;
 import org.github.foxnic.web.proxy.bpm.ProcessInstanceServiceProxy;
-import org.github.foxnic.web.proxy.camunda.CamundaProcessServiceProxy;
 
 import java.lang.reflect.Method;
 import java.util.*;
@@ -47,13 +46,17 @@ public class BpmAssistant {
     }
 
 
-    public <T> Map<T,List<ProcessInstance>> getProcessBybillIds(Set<T> billIds) {
+    public <T> Map<T,List<ProcessInstance>> getProcessByBillIds(Set<T> billIds) {
         // 待实现
         return null;
     }
 
 
-    public static Result<ProcessInstance> getProcessInstanceById(String processInstanceId) {
+    public static Result<ProcessInstance> getProcessInstanceById(String processInstanceId, User user) {
+        if(user!=null && user.getAccount()!=null) {
+            ProxyContext.init();
+            ProxyContext.setCallerAccount(user.getAccount());
+        }
         return  ProcessInstanceServiceProxy.api().getById(processInstanceId);
     }
 

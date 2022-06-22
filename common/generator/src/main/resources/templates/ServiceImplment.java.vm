@@ -149,7 +149,7 @@ public class #(simpleName) extends SuperService<#(poSimpleName)> implements #(in
 	 * 等价于 queryListByIds
 	 * */
 	@Override
-	public List<DemoCommon> getByIds(List<String> ids) {
+	public List<#(poSimpleName)> getByIds(List<String> ids) {
 		return this.queryListByIds(ids);
 	}
 

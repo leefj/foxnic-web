@@ -12,7 +12,6 @@ import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_PROCESS_INSTANCE;
-import org.github.foxnic.web.constants.enums.bpm.AppovalReault;
 import org.github.foxnic.web.constants.enums.bpm.PriorityLevel;
 import org.github.foxnic.web.constants.enums.changes.ApprovalStatus;
 import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
@@ -51,8 +50,9 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
         poType.shadow(BPM_PROCESS_INSTANCE.APPROVAL_STATUS,ApprovalStatus.class);
         poType.shadow(BPM_PROCESS_INSTANCE.DRAFTER_TYPE,UnifiedUserType.class);
         poType.shadow(BPM_PROCESS_INSTANCE.PRIORITY,PriorityLevel.class);
+        //
         poType.addSimpleProperty(ProcessDefinitionFile.class,"processDefinitionFile","流程定义文件","流程定义文件");
-        poType.addListProperty(TaskApproval.class,"taskApprovals","审批动作清单","审批动作清单");
+        poType.addListProperty(TaskApproval.class,"taskApprovals","审批动作清单","已完成的审批动作清单");
         //
         voType.addListProperty(String.class,"approvedUserIds","已审批人ID清单","查询已审批人ID清单");
         voType.addListProperty(String.class,"approvingUserIds","待审批人ID清单","查询待审批人ID清单");
