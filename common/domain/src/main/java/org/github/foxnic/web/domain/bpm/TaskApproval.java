@@ -7,8 +7,9 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_TASK_APPROVAL;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
-import org.github.foxnic.web.constants.enums.changes.ApprovalAction;
+import org.github.foxnic.web.constants.enums.bpm.ApprovalReault;
 import javax.persistence.Transient;
+
 import org.github.foxnic.web.domain.oauth.User;
 import com.github.foxnic.commons.reflect.EnumUtil;
 import com.github.foxnic.commons.lang.StringUtil;
@@ -21,8 +22,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程任务审批结果
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-23 05:30:03
- * @sign 2B58DDF7021795A381418AEABC92B19C
+ * @since 2022-06-23 05:58:32
+ * @sign 915A80A2471273E890C1D70B848F9DD6
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -70,7 +71,7 @@ public class TaskApproval extends Entity {
 	@ApiModelProperty(required = false,value="审批结果" , notes = "审批结果")
 	private String approvalResult;
 	@Transient
-	private ApprovalAction approvalResultEnum;
+	private ApprovalReault approvalResultEnum;
 	
 	/**
 	 * 审批意见：审批意见
@@ -286,9 +287,9 @@ public class TaskApproval extends Entity {
 	 * @return 审批结果
 	*/
 	@Transient
-	public ApprovalAction getApprovalResultEnum() {
+	public ApprovalReault getApprovalResultEnum() {
 		if(this.approvalResultEnum==null) {
-			this.approvalResultEnum = (ApprovalAction) EnumUtil.parseByCode(ApprovalAction.values(),approvalResult);
+			this.approvalResultEnum = (ApprovalReault) EnumUtil.parseByCode(ApprovalReault.values(),approvalResult);
 		}
 		return this.approvalResultEnum ;
 	}
@@ -300,9 +301,9 @@ public class TaskApproval extends Entity {
 	*/
 	public TaskApproval setApprovalResult(String approvalResult) {
 		this.approvalResult=approvalResult;
-		this.approvalResultEnum= (ApprovalAction) EnumUtil.parseByCode(ApprovalAction.values(),approvalResult) ;
+		this.approvalResultEnum= (ApprovalReault) EnumUtil.parseByCode(ApprovalReault.values(),approvalResult) ;
 		if(StringUtil.hasContent(approvalResult) && this.approvalResultEnum==null) {
-			throw new IllegalArgumentException( approvalResult + " is not one of ApprovalAction");
+			throw new IllegalArgumentException( approvalResult + " is not one of AppovalReault");
 		}
 		return this;
 	}
@@ -313,7 +314,7 @@ public class TaskApproval extends Entity {
 	 * @return 当前对象
 	*/
 	@Transient
-	public TaskApproval setApprovalResultEnum(ApprovalAction approvalResultEnum) {
+	public TaskApproval setApprovalResultEnum(ApprovalReault approvalResultEnum) {
 		if(approvalResultEnum==null) {
 			this.setApprovalResult(null);
 		} else {

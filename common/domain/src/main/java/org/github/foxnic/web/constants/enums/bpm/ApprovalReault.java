@@ -6,7 +6,7 @@ import com.github.foxnic.commons.reflect.EnumUtil;
 /**
  * 审批结果
  * */
-public enum AppovalReault implements CodeTextEnum {
+public enum ApprovalReault implements CodeTextEnum {
 
 	agree("同意"),
 	agree_cond("有条件同意"),
@@ -14,10 +14,11 @@ public enum AppovalReault implements CodeTextEnum {
 	/**
 	 * 不涉及，跳过审批
 	 * */
-	skip("跳过");
+	skip("跳过"),
+	fetch_back("撤回");
 
 	private String text;
-	private AppovalReault(String text)  {
+	private ApprovalReault(String text)  {
 		this.text=text;
 	}
 
@@ -29,8 +30,8 @@ public enum AppovalReault implements CodeTextEnum {
 		return text;
 	}
 
-	public static AppovalReault parseByCode(String code) {
-		return (AppovalReault) EnumUtil.parseByCode(AppovalReault.values(),code);
+	public static ApprovalReault parseByCode(String code) {
+		return (ApprovalReault) EnumUtil.parseByCode(ApprovalReault.values(),code);
 	}
 
 }

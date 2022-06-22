@@ -1,11 +1,12 @@
 package org.github.foxnic.web.domain.bpm;
 
 import io.swagger.annotations.ApiModelProperty;
-import org.github.foxnic.web.constants.enums.bpm.AppovalReault;
+import org.github.foxnic.web.constants.enums.bpm.ApprovalReault;
 import javax.persistence.Transient;
 import java.util.Map;
 import com.github.foxnic.commons.reflect.EnumUtil;
 import com.github.foxnic.commons.lang.StringUtil;
+
 import java.util.HashMap;
 
 
@@ -52,7 +53,7 @@ public class TaskProcessVO {
 	@ApiModelProperty(required = false,value="审批结果" , notes = "审批结果")
 	private String result;
 	@Transient
-	private AppovalReault resultEnum;
+	private ApprovalReault resultEnum;
 	
 	/**
 	 * 审批意见：审批意见
@@ -163,9 +164,9 @@ public class TaskProcessVO {
 	 * @return 审批结果
 	*/
 	@Transient
-	public AppovalReault getResultEnum() {
+	public ApprovalReault getResultEnum() {
 		if(this.resultEnum==null) {
-			this.resultEnum = (AppovalReault) EnumUtil.parseByCode(AppovalReault.values(),result);
+			this.resultEnum = (ApprovalReault) EnumUtil.parseByCode(ApprovalReault.values(),result);
 		}
 		return this.resultEnum ;
 	}
@@ -177,7 +178,7 @@ public class TaskProcessVO {
 	*/
 	public TaskProcessVO setResult(String result) {
 		this.result=result;
-		this.resultEnum= (AppovalReault) EnumUtil.parseByCode(AppovalReault.values(),result) ;
+		this.resultEnum= (ApprovalReault) EnumUtil.parseByCode(ApprovalReault.values(),result) ;
 		if(StringUtil.hasContent(result) && this.resultEnum==null) {
 			throw new IllegalArgumentException( result + " is not one of AppovalReault");
 		}
@@ -190,7 +191,7 @@ public class TaskProcessVO {
 	 * @return 当前对象
 	*/
 	@Transient
-	public TaskProcessVO setResultEnum(AppovalReault resultEnum) {
+	public TaskProcessVO setResultEnum(ApprovalReault resultEnum) {
 		if(resultEnum==null) {
 			this.setResult(null);
 		} else {
