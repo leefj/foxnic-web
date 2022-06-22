@@ -5,26 +5,22 @@ import com.github.foxnic.api.transter.Result;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BpmActionResult extends Result<Map<String,Object>> {
+public class BpmActionResult extends Result {
 
-
+    private Map<String, Object> variables=new HashMap<>();
 
     public Map<String, Object> getVariables() {
-        return this.data();
+        return this.variables;
     }
 
     public BpmActionResult setVariables(Map<String, Object> variables) {
-        this.data(variables);
+        this.variables=variables;
         return this;
     }
 
     public BpmActionResult putVariable(String name, Object value) {
-        Map<String, Object> variables=this.data();
-        if(variables==null) variables=new HashMap<>();
         variables.put(name,value);
-        this.data(variables);
         return this;
     }
-
 
 }

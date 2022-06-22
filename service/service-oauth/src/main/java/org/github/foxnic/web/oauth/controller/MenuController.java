@@ -47,7 +47,7 @@ public class MenuController {
 	@Autowired
 	private IRoleMenuService roleMenuService;
 
-	
+
 	/**
 	 * 添加菜单
 	*/
@@ -90,7 +90,7 @@ public class MenuController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 删除菜单
 	*/
@@ -110,13 +110,10 @@ public class MenuController {
 			result.success(false).message("请先删除下级节点");
 			return result;
 		}
-
-		boolean suc=menuService.deleteByIdLogical(id);
-		result.success(suc);
-		return result;
+		return menuService.deleteByIdLogical(id);
 	}
-	
-	
+
+
 	/**
 	 * 批量删除菜单 <br>
 	 * 联合主键时，请自行调整实现
@@ -125,7 +122,7 @@ public class MenuController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = MenuVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 	})
-	@ApiOperationSupport(order=3) 
+	@ApiOperationSupport(order=3)
 	@NotNull(name = MenuVOMeta.IDS)
 	@SentinelResource(value = MenuServiceProxy.BATCH_DELETE)
 	@PostMapping(MenuServiceProxy.BATCH_DELETE)
@@ -133,7 +130,7 @@ public class MenuController {
 		Result result=menuService.deleteByIdsLogical(ids);
 		return result;
 	}
-	
+
 	/**
 	 * 更新菜单
 	*/
@@ -154,7 +151,7 @@ public class MenuController {
 		@ApiImplicitParam(name = MenuVOMeta.HIERARCHY , value = "层级路径" , required = false , dataTypeClass=String.class , example = "463397133957988352"),
 		@ApiImplicitParam(name = MenuVOMeta.SORT , value = "显示顺序" , required = true , dataTypeClass=Integer.class , example = "1"),
 	})
-	@ApiOperationSupport( order=4 , ignoreParameters = { MenuVOMeta.PAGE_INDEX , MenuVOMeta.PAGE_SIZE , MenuVOMeta.SEARCH_FIELD , MenuVOMeta.SEARCH_VALUE , MenuVOMeta.IDS } ) 
+	@ApiOperationSupport( order=4 , ignoreParameters = { MenuVOMeta.PAGE_INDEX , MenuVOMeta.PAGE_SIZE , MenuVOMeta.SEARCH_FIELD , MenuVOMeta.SEARCH_VALUE , MenuVOMeta.IDS } )
 	@NotNull(name = MenuVOMeta.ID)
 	@NotNull(name = MenuVOMeta.HIDDEN)
 	@SentinelResource(value = MenuServiceProxy.UPDATE)
@@ -163,8 +160,8 @@ public class MenuController {
 		Result result=menuService.update(menuVO,SaveMode.NOT_NULL_FIELDS);
 		return result;
 	}
-	
-	
+
+
 	/**
 	 * 保存菜单
 	*/
@@ -195,7 +192,7 @@ public class MenuController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 获取菜单
 	*/
@@ -214,7 +211,7 @@ public class MenuController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 查询菜单
 	*/
@@ -244,9 +241,9 @@ public class MenuController {
 		result.success(true).data(list);
 		return result;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * 查询菜单节点
 	*/
@@ -319,9 +316,9 @@ public class MenuController {
 		result.success(true).data(list);
 		return result;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * 变更菜单层级关系
 	*/
@@ -357,8 +354,8 @@ public class MenuController {
 		result.data(hierarchyList);
 		return result;
 	}
-	
-	
+
+
 
 
 }

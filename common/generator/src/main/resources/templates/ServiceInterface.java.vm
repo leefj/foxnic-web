@@ -4,11 +4,14 @@ package #(package);
 import org.github.foxnic.web.domain.bpm.BpmActionResult;
 import org.github.foxnic.web.domain.bpm.BpmEvent;
 #end
+#if(isSimplePK)
+import com.github.foxnic.dao.entity.ISimpleIdService;
+#end
 #(imports)
 
 #(classJavaDoc)
 
-public interface #(simpleName) extends ISuperService<#(poSimpleName)> {
+public interface #(simpleName) extends #if(isSimplePK) ISimpleIdService<#(poSimpleName),#(idPropertyType)> #else ISuperService<#(poSimpleName)> #end {
 
 	/**
 	 * 添加，如果语句错误，则抛出异常
@@ -301,24 +304,9 @@ public interface #(simpleName) extends ISuperService<#(poSimpleName)> {
 
 	#if(bpm)
 	/**
-	 * 用户动作处理，返回失败时不再继续处理
+	 * 处理流程回调
 	 * */
-	BpmActionResult onUserAction(BpmEvent event);
-
-	/**
-	 * 流程事件处理，返回值不影响后续逻辑
-	 * */
-	BpmActionResult onNodeEvent(BpmEvent event);
-
-	/**
-	 * 用户流程废弃动作处理，START 事件返回失败时不再继续处理
-	 * */
-	BpmActionResult onProcessAbandon(BpmEvent event);
-
-	/**
-	 * 用户流程暂存动作处理，START 事件返回失败时不再继续处理
-	 * */
-	BpmActionResult onProcessTemporarySave(BpmEvent event);
+	BpmActionResult onProcessCallback(BpmEvent event);
 	#end
 
 }

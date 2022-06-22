@@ -43,7 +43,7 @@ public interface IUserService extends ISimpleIdService<User,String> {
 	 * @param id ID
 	 * @return 删除是否成功
 	 */
-	boolean deleteByIdPhysical(String id);
+	Result deleteByIdPhysical(String id);
 
 	/**
 	 * 按主键删除 账户
@@ -51,7 +51,7 @@ public interface IUserService extends ISimpleIdService<User,String> {
 	 * @param id ID
 	 * @return 删除是否成功
 	 */
-	boolean deleteByIdLogical(String id);
+	Result deleteByIdLogical(String id);
 
 
 	/**

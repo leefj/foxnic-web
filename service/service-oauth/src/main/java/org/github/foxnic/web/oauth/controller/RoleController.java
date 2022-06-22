@@ -93,8 +93,7 @@ public class RoleController extends SuperController {
 		if(ex) {
 			return ErrorDesc.failure().message("无法删除角色，请移除角色下的账户");
 		}
-		Boolean suc=roleService.deleteByIdLogical(id);
-		return ErrorDesc.create(suc);
+		return roleService.deleteByIdLogical(id);
 	}
 
 

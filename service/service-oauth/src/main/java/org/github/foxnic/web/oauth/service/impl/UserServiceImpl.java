@@ -128,11 +128,12 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 	 * @param id ID
 	 * @return 删除是否成功
 	 */
-	public boolean deleteByIdPhysical(String id) {
+	public Result deleteByIdPhysical(String id) {
 		User user = new User();
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null ");
 		user.setId(id);
-		return dao.deleteEntity(user);
+		boolean suc=dao.deleteEntity(user);
+		return ErrorDesc.create(suc);
 	}
 
 	/**
@@ -141,14 +142,15 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 	 * @param id ID
 	 * @return 删除是否成功
 	 */
-	public boolean deleteByIdLogical(String id) {
+	public Result deleteByIdLogical(String id) {
 		User user = new User();
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null 。");
 		user.setId(id);
 		user.setDeleted(true);
 		user.setDeleteBy((String)dao.getDBTreaty().getLoginUserId());
 		user.setDeleteTime(new Date());
-		return dao.updateEntity(user,SaveMode.NOT_NULL_FIELDS);
+		boolean suc=dao.updateEntity(user,SaveMode.NOT_NULL_FIELDS);
+		return ErrorDesc.create(suc);
 	}
 
 	/**

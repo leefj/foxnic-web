@@ -90,10 +90,7 @@ public class UserController extends SuperController {
 	@SentinelResource(value = UserServiceProxy.DELETE)
 	@PostMapping(UserServiceProxy.DELETE)
 	public Result<User> deleteById(String id) {
-		Result<User> result=new Result<>();
-		boolean suc=userService.deleteByIdLogical(id);
-		result.success(suc);
-		return result;
+		return userService.deleteByIdLogical(id);
 	}
 
 

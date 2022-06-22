@@ -88,14 +88,15 @@ public class RoleServiceImpl extends SuperService<Role> implements IRoleService 
 	 * @param id ID
 	 * @return 删除是否成功
 	 */
-	public boolean deleteByIdPhysical(String id) {
+	public Result deleteByIdPhysical(String id) {
 		Role role = new Role();
-		if(id==null) return false;
+		if(id==null) return ErrorDesc.failure();
 		role.setId(id);
 		try {
-			return dao.deleteEntity(role);
+			boolean suc=dao.deleteEntity(role);
+			return ErrorDesc.create(suc);
 		} catch(Exception e) {
-			 return false;
+			 return ErrorDesc.exception(e);
 		}
 	}
 
@@ -105,17 +106,18 @@ public class RoleServiceImpl extends SuperService<Role> implements IRoleService 
 	 * @param id ID
 	 * @return 删除是否成功
 	 */
-	public boolean deleteByIdLogical(String id) {
+	public Result deleteByIdLogical(String id) {
 		Role role = new Role();
-		if(id==null) return false;
+		if(id==null) return ErrorDesc.failure();
 		role.setId(id);
 		role.setDeleted(dao.getDBTreaty().getTrueValue());
 		role.setDeleteBy((String)dao.getDBTreaty().getLoginUserId());
 		role.setDeleteTime(new Date());
 		try {
-			return dao.updateEntity(role,SaveMode.NOT_NULL_FIELDS);
+			boolean suc=dao.updateEntity(role,SaveMode.NOT_NULL_FIELDS);
+			return ErrorDesc.create(suc);
 		} catch(Exception e) {
-			return false;
+			return ErrorDesc.failure();
 		}
 	}
 
