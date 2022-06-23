@@ -202,7 +202,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             processInstance=result.data;
             console.log("processInstance",processInstance);
             // 获得所有待办节点
-            var todoNodes=bmp.getTodoNodes(processInstance);
+            var todoNodes=bpm.getTodoNodes(processInstance);
             console.log("todoNodes",todoNodes);
             // 判断是否为待办节点
             var isTodoNode=bpm.isTodoNodes(processInstance,"N1");

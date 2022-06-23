@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class CodeTextEnumUtil {
 
 	private LocalCache<String, JSONArray> cache=new LocalCache<String, JSONArray>();
-	
+
 	/**
 	 * 将符合规范的枚举转换成 JSONArray
 	 * */
@@ -28,6 +28,7 @@ public class CodeTextEnumUtil {
 		array=new JSONArray();
 		CodeTextEnum[] values= EnumUtil.getValues(enumName);//   (Object[])m.invoke(m, null);
 		for (CodeTextEnum e : values) {
+			if(!e.display()) continue;
 			 JSONObject item=new JSONObject();
 			 item.put("code", e.code());
 			 item.put("text", e.text());

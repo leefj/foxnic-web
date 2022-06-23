@@ -60,10 +60,7 @@ public interface ProcessInstanceServiceProxy {
      */
     public static final String FETCH_BACK = API_PREFIX + "fetch-back";
 
-    /**
-     * 流程跳转
-     */
-    public static final String JUMP = API_PREFIX + "jump";
+
 
     /**
      * 批量删除流程实例
@@ -125,11 +122,7 @@ public interface ProcessInstanceServiceProxy {
     @RequestMapping(ProcessInstanceServiceProxy.FETCH_BACK)
     Result fetchBack(@RequestParam(name = "fetchBackVO") ProcessFetchBackVO fetchBackVO);
 
-    /**
-     * 流程跳转
-     * */
-    @RequestMapping(ProcessInstanceServiceProxy.JUMP)
-    Result jumpToNode(@RequestParam(name = "jumpVO") ProcessJumpVO jumpVO);
+
 
     @RequestMapping(ProcessInstanceServiceProxy.UPDATE_SYNC_STATUS)
     Result updateSyncStatus(@RequestParam(name = "processInstanceId") String processInstanceId);

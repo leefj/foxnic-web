@@ -12,6 +12,8 @@ public enum ApprovalAction implements CodeTextEnum {
 	abandon("流程作废");
 
 	private String text;
+
+
 	private ApprovalAction(String text)  {
 		this.text=text;
 	}
@@ -23,6 +25,8 @@ public enum ApprovalAction implements CodeTextEnum {
 	public String text() {
 		return text;
 	}
+
+
 
 	public static ApprovalAction parseByCode(String code) {
 		return (ApprovalAction) EnumUtil.parseByCode(ApprovalAction.values(),code);

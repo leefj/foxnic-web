@@ -128,6 +128,7 @@ layui.define(['settings', 'layer', 'admin', 'util','element'],function (exports)
                 id:"bpm-process-instance-form-data-win",
                 content: '/business/bpm/process_instance/process_instance_form.html' + (queryString?("?"+queryString):""),
                 finish: function (ctx) {
+                    if(ctx=="close") return;
                     if(action=="create") {
                         window.module.refreshTableData();
                     }
@@ -218,7 +219,6 @@ layui.define(['settings', 'layer', 'admin', 'util','element'],function (exports)
                 var task = processData.tasks[i];
                 // 标记待办(当前审批节点)
                 if (task.status == "todo") {
-                    canvas.addMarker(task.node.camundaNodeId, 'highlight');
                     nodes.push(task.node);
                 }
             }
