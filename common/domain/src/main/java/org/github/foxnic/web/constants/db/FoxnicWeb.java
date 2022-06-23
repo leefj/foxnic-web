@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2022-06-21 10:28:51
+ * @since 2022-06-23 17:29:50
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -450,8 +450,13 @@ public class FoxnicWeb {
 		*/
 		public static final DBField CAMUNDA_DEFINITION_KEY = new DBField(DBDataType.STRING , "camunda_definition_key","camundaDefinitionKey","流程Key","在 camunda 中的流程定义KEY",false,false,true);
 		
+		/**
+		 * 驳回配置，流程在驳回时的表现
+		*/
+		public static final DBField REJECT_OPTION = new DBField(DBDataType.STRING , "reject_option","rejectOption","驳回配置","流程在驳回时的表现",false,false,true);
+		
 		public BPM_PROCESS_DEFINITION() {
-			this.init($NAME,"流程定义表" , ID , CODE , FORM_DEFINITION_ID , NAME , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CAMUNDA_DEFINITION_ID , CAMUNDA_DEFINITION_KEY);
+			this.init($NAME,"流程定义表" , ID , CODE , FORM_DEFINITION_ID , NAME , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CAMUNDA_DEFINITION_ID , CAMUNDA_DEFINITION_KEY , REJECT_OPTION);
 		}
 		public static final BPM_PROCESS_DEFINITION $TABLE=new BPM_PROCESS_DEFINITION();
 	}

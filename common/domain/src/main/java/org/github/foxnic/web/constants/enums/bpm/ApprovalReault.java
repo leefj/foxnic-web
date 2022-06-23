@@ -10,7 +10,7 @@ public enum ApprovalReault implements CodeTextEnum {
 
 	agree("同意"),
 	agree_cond("有条件同意"),
-	disagree("不同意"),
+	reject("不同意"),
 	/**
 	 * 不涉及，跳过审批
 	 * */
