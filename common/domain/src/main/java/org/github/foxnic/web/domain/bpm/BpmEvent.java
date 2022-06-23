@@ -57,6 +57,11 @@ public class BpmEvent {
 
     private TaskApproval taskApproval;
 
+    /**
+     * 节点审批是否完成，在此节点上没有待办任务
+     * */
+    private Boolean isNodeEnd;
+
 
     public BpmEventType getEventType() {
         return eventType;
@@ -130,6 +135,18 @@ public class BpmEvent {
 
     public ProcessDefinitionNode getCurrentNode() {
         return currentNode;
+    }
+
+
+    /**
+     * 节点审批是否完成，在此节点上没有待办任务
+     * */
+    public Boolean isNodeEnd() {
+        return isNodeEnd;
+    }
+
+    public void setNodeEnd(Boolean nodeEnd) {
+        isNodeEnd = nodeEnd;
     }
 
     public void setCurrentNode(ProcessDefinitionNode currentNode) {

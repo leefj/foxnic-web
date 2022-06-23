@@ -37,13 +37,6 @@ public class BPMSyncWorker implements JobExecutor {
 
     public Result doSync(List<String> processInstanceIds,Integer delayMs) {
 
-        // 同步任务
-        SimpleTaskManager.doParallelTask(new Runnable() {
-            @Override
-            public void run() {
-                TaskServiceProxy.api().syncCamundaTasks(null);
-            }
-        },delayMs);
 
         // 同步流程实例
         SimpleTaskManager.doParallelTask(new Runnable() {
