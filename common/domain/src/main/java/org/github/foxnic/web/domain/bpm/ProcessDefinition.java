@@ -6,13 +6,13 @@ import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_PROCESS_DEFINITION;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.Date;
-import javax.persistence.Transient;
 import org.github.foxnic.web.constants.enums.bpm.RejectOption;
+import javax.persistence.Transient;
+import java.util.Date;
 import org.github.foxnic.web.domain.oauth.User;
-import com.github.foxnic.commons.lang.DataParser;
 import com.github.foxnic.commons.reflect.EnumUtil;
 import com.github.foxnic.commons.lang.StringUtil;
+import com.github.foxnic.commons.lang.DataParser;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
 
@@ -21,8 +21,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程定义
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-23 17:31:48
- * @sign 14FB006A304DF95F24826D0F62274075
+ * @since 2022-06-24 08:04:28
+ * @sign 5385D9F17B6B8034647316F7DDBADB44
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -51,6 +51,20 @@ public class ProcessDefinition extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="关联表单" , notes = "表单定义ID")
 	private String formDefinitionId;
+	
+	/**
+	 * 驳回配置：流程在驳回时的表现
+	*/
+	@ApiModelProperty(required = false,value="驳回配置" , notes = "流程在驳回时的表现")
+	private String rejectOption;
+	@Transient
+	private RejectOption rejectOptionEnum;
+	
+	/**
+	 * 起草人身份范围：起草人身份类型的范围
+	*/
+	@ApiModelProperty(required = false,value="起草人身份范围" , notes = "起草人身份类型的范围")
+	private String drafterTypeRange;
 	
 	/**
 	 * 名称：名称
@@ -139,14 +153,6 @@ public class ProcessDefinition extends Entity {
 	private String camundaDefinitionKey;
 	
 	/**
-	 * 驳回配置：流程在驳回时的表现
-	*/
-	@ApiModelProperty(required = false,value="驳回配置" , notes = "流程在驳回时的表现")
-	private String rejectOption;
-	@Transient
-	private RejectOption rejectOptionEnum;
-	
-	/**
 	 * 最后修改人：最后修改人
 	*/
 	@ApiModelProperty(required = false,value="最后修改人" , notes = "最后修改人")
@@ -218,6 +224,77 @@ public class ProcessDefinition extends Entity {
 	*/
 	public ProcessDefinition setFormDefinitionId(String formDefinitionId) {
 		this.formDefinitionId=formDefinitionId;
+		return this;
+	}
+	
+	/**
+	 * 获得 驳回配置<br>
+	 * 流程在驳回时的表现
+	 * @return 驳回配置
+	*/
+	public String getRejectOption() {
+		return rejectOption;
+	}
+	
+	/**
+	 * 获得 驳回配置 的投影属性<br>
+	 * 等价于 getRejectOption 方法，获得对应的枚举类型
+	 * @return 驳回配置
+	*/
+	@Transient
+	public RejectOption getRejectOptionEnum() {
+		if(this.rejectOptionEnum==null) {
+			this.rejectOptionEnum = (RejectOption) EnumUtil.parseByCode(RejectOption.values(),rejectOption);
+		}
+		return this.rejectOptionEnum ;
+	}
+	
+	/**
+	 * 设置 驳回配置
+	 * @param rejectOption 驳回配置
+	 * @return 当前对象
+	*/
+	public ProcessDefinition setRejectOption(String rejectOption) {
+		this.rejectOption=rejectOption;
+		this.rejectOptionEnum= (RejectOption) EnumUtil.parseByCode(RejectOption.values(),rejectOption) ;
+		if(StringUtil.hasContent(rejectOption) && this.rejectOptionEnum==null) {
+			throw new IllegalArgumentException( rejectOption + " is not one of RejectOption");
+		}
+		return this;
+	}
+	
+	/**
+	 * 设置 驳回配置的投影属性，等同于设置 驳回配置
+	 * @param rejectOptionEnum 驳回配置
+	 * @return 当前对象
+	*/
+	@Transient
+	public ProcessDefinition setRejectOptionEnum(RejectOption rejectOptionEnum) {
+		if(rejectOptionEnum==null) {
+			this.setRejectOption(null);
+		} else {
+			this.setRejectOption(rejectOptionEnum.code());
+		}
+		this.rejectOptionEnum=rejectOptionEnum;
+		return this;
+	}
+	
+	/**
+	 * 获得 起草人身份范围<br>
+	 * 起草人身份类型的范围
+	 * @return 起草人身份范围
+	*/
+	public String getDrafterTypeRange() {
+		return drafterTypeRange;
+	}
+	
+	/**
+	 * 设置 起草人身份范围
+	 * @param drafterTypeRange 起草人身份范围
+	 * @return 当前对象
+	*/
+	public ProcessDefinition setDrafterTypeRange(String drafterTypeRange) {
+		this.drafterTypeRange=drafterTypeRange;
 		return this;
 	}
 	
@@ -514,58 +591,6 @@ public class ProcessDefinition extends Entity {
 	*/
 	public ProcessDefinition setCamundaDefinitionKey(String camundaDefinitionKey) {
 		this.camundaDefinitionKey=camundaDefinitionKey;
-		return this;
-	}
-	
-	/**
-	 * 获得 驳回配置<br>
-	 * 流程在驳回时的表现
-	 * @return 驳回配置
-	*/
-	public String getRejectOption() {
-		return rejectOption;
-	}
-	
-	/**
-	 * 获得 驳回配置 的投影属性<br>
-	 * 等价于 getRejectOption 方法，获得对应的枚举类型
-	 * @return 驳回配置
-	*/
-	@Transient
-	public RejectOption getRejectOptionEnum() {
-		if(this.rejectOptionEnum==null) {
-			this.rejectOptionEnum = (RejectOption) EnumUtil.parseByCode(RejectOption.values(),rejectOption);
-		}
-		return this.rejectOptionEnum ;
-	}
-	
-	/**
-	 * 设置 驳回配置
-	 * @param rejectOption 驳回配置
-	 * @return 当前对象
-	*/
-	public ProcessDefinition setRejectOption(String rejectOption) {
-		this.rejectOption=rejectOption;
-		this.rejectOptionEnum= (RejectOption) EnumUtil.parseByCode(RejectOption.values(),rejectOption) ;
-		if(StringUtil.hasContent(rejectOption) && this.rejectOptionEnum==null) {
-			throw new IllegalArgumentException( rejectOption + " is not one of RejectOption");
-		}
-		return this;
-	}
-	
-	/**
-	 * 设置 驳回配置的投影属性，等同于设置 驳回配置
-	 * @param rejectOptionEnum 驳回配置
-	 * @return 当前对象
-	*/
-	@Transient
-	public ProcessDefinition setRejectOptionEnum(RejectOption rejectOptionEnum) {
-		if(rejectOptionEnum==null) {
-			this.setRejectOption(null);
-		} else {
-			this.setRejectOption(rejectOptionEnum.code());
-		}
-		this.rejectOptionEnum=rejectOptionEnum;
 		return this;
 	}
 	

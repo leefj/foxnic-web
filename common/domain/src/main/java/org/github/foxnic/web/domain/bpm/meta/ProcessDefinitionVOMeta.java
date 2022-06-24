@@ -13,7 +13,7 @@ import org.github.foxnic.web.domain.bpm.FormDefinition;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-23 17:31:48
+ * @since 2022-06-24 08:04:28
  * @sign 1D2C38500D1ABE5927BCBF1911BE96A0
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -139,6 +139,26 @@ public class ProcessDefinitionVOMeta extends ProcessDefinitionMeta {
 	 * 关联表单 , 表单定义ID , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionVO,java.lang.String> FORM_DEFINITION_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionVO.class ,FORM_DEFINITION_ID, java.lang.String.class, "关联表单", "表单定义ID", java.lang.String.class, null);
+	
+	/**
+	 * 驳回配置 , 流程在驳回时的表现 , 类型: java.lang.String
+	*/
+	public static final String REJECT_OPTION="rejectOption";
+	
+	/**
+	 * 驳回配置 , 流程在驳回时的表现 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionVO,java.lang.String> REJECT_OPTION_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionVO.class ,REJECT_OPTION, java.lang.String.class, "驳回配置", "流程在驳回时的表现", java.lang.String.class, null);
+	
+	/**
+	 * 起草人身份范围 , 起草人身份类型的范围 , 类型: java.lang.String
+	*/
+	public static final String DRAFTER_TYPE_RANGE="drafterTypeRange";
+	
+	/**
+	 * 起草人身份范围 , 起草人身份类型的范围 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionVO,java.lang.String> DRAFTER_TYPE_RANGE_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionVO.class ,DRAFTER_TYPE_RANGE, java.lang.String.class, "起草人身份范围", "起草人身份类型的范围", java.lang.String.class, null);
 	
 	/**
 	 * 名称 , 类型: java.lang.String
@@ -281,16 +301,6 @@ public class ProcessDefinitionVOMeta extends ProcessDefinitionMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionVO,java.lang.String> CAMUNDA_DEFINITION_KEY_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionVO.class ,CAMUNDA_DEFINITION_KEY, java.lang.String.class, "流程Key", "在 camunda 中的流程定义KEY", java.lang.String.class, null);
 	
 	/**
-	 * 驳回配置 , 流程在驳回时的表现 , 类型: java.lang.String
-	*/
-	public static final String REJECT_OPTION="rejectOption";
-	
-	/**
-	 * 驳回配置 , 流程在驳回时的表现 , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionVO,java.lang.String> REJECT_OPTION_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionVO.class ,REJECT_OPTION, java.lang.String.class, "驳回配置", "流程在驳回时的表现", java.lang.String.class, null);
-	
-	/**
 	 * 最后修改人 , 类型: org.github.foxnic.web.domain.oauth.User
 	*/
 	public static final String LAST_UPDATE_USER="lastUpdateUser";
@@ -323,7 +333,7 @@ public class ProcessDefinitionVOMeta extends ProcessDefinitionMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , CODE , FORM_DEFINITION_ID , NAME , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CAMUNDA_DEFINITION_ID , CAMUNDA_DEFINITION_KEY , REJECT_OPTION , LAST_UPDATE_USER , DEFINITION_FILE , FORM_DEFINITION };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , CODE , FORM_DEFINITION_ID , REJECT_OPTION , DRAFTER_TYPE_RANGE , NAME , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CAMUNDA_DEFINITION_ID , CAMUNDA_DEFINITION_KEY , LAST_UPDATE_USER , DEFINITION_FILE , FORM_DEFINITION };
 	
 	/**
 	 * 代理类
@@ -462,6 +472,28 @@ public class ProcessDefinitionVOMeta extends ProcessDefinitionMeta {
 		public ProcessDefinition setFormDefinitionId(String formDefinitionId) {
 			super.change(FORM_DEFINITION_ID,super.getFormDefinitionId(),formDefinitionId);
 			super.setFormDefinitionId(formDefinitionId);
+			return this;
+		}
+		
+		/**
+		 * 设置 驳回配置
+		 * @param rejectOption 驳回配置
+		 * @return 当前对象
+		*/
+		public ProcessDefinition setRejectOption(String rejectOption) {
+			super.change(REJECT_OPTION,super.getRejectOption(),rejectOption);
+			super.setRejectOption(rejectOption);
+			return this;
+		}
+		
+		/**
+		 * 设置 起草人身份范围
+		 * @param drafterTypeRange 起草人身份范围
+		 * @return 当前对象
+		*/
+		public ProcessDefinition setDrafterTypeRange(String drafterTypeRange) {
+			super.change(DRAFTER_TYPE_RANGE,super.getDrafterTypeRange(),drafterTypeRange);
+			super.setDrafterTypeRange(drafterTypeRange);
 			return this;
 		}
 		
@@ -616,17 +648,6 @@ public class ProcessDefinitionVOMeta extends ProcessDefinitionMeta {
 		public ProcessDefinition setCamundaDefinitionKey(String camundaDefinitionKey) {
 			super.change(CAMUNDA_DEFINITION_KEY,super.getCamundaDefinitionKey(),camundaDefinitionKey);
 			super.setCamundaDefinitionKey(camundaDefinitionKey);
-			return this;
-		}
-		
-		/**
-		 * 设置 驳回配置
-		 * @param rejectOption 驳回配置
-		 * @return 当前对象
-		*/
-		public ProcessDefinition setRejectOption(String rejectOption) {
-			super.change(REJECT_OPTION,super.getRejectOption(),rejectOption);
-			super.setRejectOption(rejectOption);
 			return this;
 		}
 		

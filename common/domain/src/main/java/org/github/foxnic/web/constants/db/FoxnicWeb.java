@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2022-06-23 17:29:50
+ * @since 2022-06-24 08:03:56
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -381,6 +381,16 @@ public class FoxnicWeb {
 		public static final DBField FORM_DEFINITION_ID = new DBField(DBDataType.STRING , "form_definition_id","formDefinitionId","关联表单","表单定义ID",false,false,true);
 		
 		/**
+		 * 驳回配置，流程在驳回时的表现
+		*/
+		public static final DBField REJECT_OPTION = new DBField(DBDataType.STRING , "reject_option","rejectOption","驳回配置","流程在驳回时的表现",false,false,true);
+		
+		/**
+		 * 起草人身份范围，起草人身份类型的范围
+		*/
+		public static final DBField DRAFTER_TYPE_RANGE = new DBField(DBDataType.STRING , "drafter_type_range","drafterTypeRange","起草人身份范围","起草人身份类型的范围",false,false,true);
+		
+		/**
 		 * 名称
 		*/
 		public static final DBField NAME = new DBField(DBDataType.STRING , "name","name","名称","名称",false,false,true);
@@ -450,13 +460,8 @@ public class FoxnicWeb {
 		*/
 		public static final DBField CAMUNDA_DEFINITION_KEY = new DBField(DBDataType.STRING , "camunda_definition_key","camundaDefinitionKey","流程Key","在 camunda 中的流程定义KEY",false,false,true);
 		
-		/**
-		 * 驳回配置，流程在驳回时的表现
-		*/
-		public static final DBField REJECT_OPTION = new DBField(DBDataType.STRING , "reject_option","rejectOption","驳回配置","流程在驳回时的表现",false,false,true);
-		
 		public BPM_PROCESS_DEFINITION() {
-			this.init($NAME,"流程定义表" , ID , CODE , FORM_DEFINITION_ID , NAME , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CAMUNDA_DEFINITION_ID , CAMUNDA_DEFINITION_KEY , REJECT_OPTION);
+			this.init($NAME,"流程定义表" , ID , CODE , FORM_DEFINITION_ID , REJECT_OPTION , DRAFTER_TYPE_RANGE , NAME , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CAMUNDA_DEFINITION_ID , CAMUNDA_DEFINITION_KEY);
 		}
 		public static final BPM_PROCESS_DEFINITION $TABLE=new BPM_PROCESS_DEFINITION();
 	}
