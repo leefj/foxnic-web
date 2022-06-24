@@ -6,7 +6,6 @@ import javax.persistence.Transient;
 import java.util.Map;
 import com.github.foxnic.commons.reflect.EnumUtil;
 import com.github.foxnic.commons.lang.StringUtil;
-
 import java.util.HashMap;
 
 
@@ -14,8 +13,8 @@ import java.util.HashMap;
 /**
  * 任务处理参数
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-20 16:33:13
- * @sign C706A9777C4F84B3A86B760FE5C86BD5
+ * @since 2022-06-24 14:26:54
+ * @sign 0E616A3D1928A8AC60A752660D426C19
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -24,9 +23,9 @@ public class TaskProcessVO {
 	private static final long serialVersionUID = 1L;
 	
 	/**
-	 * 流程实例ID：流程实例ID
+	 * 任务ID：任务ID
 	*/
-	@ApiModelProperty(required = false,value="流程实例ID" , notes = "流程实例ID")
+	@ApiModelProperty(required = false,value="任务ID" , notes = "任务ID")
 	private String taskId;
 	
 	/**
@@ -74,17 +73,23 @@ public class TaskProcessVO {
 	private String tenantId;
 	
 	/**
-	 * 获得 流程实例ID<br>
-	 * 流程实例ID
-	 * @return 流程实例ID
+	 * 流程跳转的目标节点ID：流程跳转的目标节点ID
+	*/
+	@ApiModelProperty(required = false,value="流程跳转的目标节点ID" , notes = "流程跳转的目标节点ID")
+	private String jumpToNodeId;
+	
+	/**
+	 * 获得 任务ID<br>
+	 * 任务ID
+	 * @return 任务ID
 	*/
 	public String getTaskId() {
 		return taskId;
 	}
 	
 	/**
-	 * 设置 流程实例ID
-	 * @param taskId 流程实例ID
+	 * 设置 任务ID
+	 * @param taskId 任务ID
 	 * @return 当前对象
 	*/
 	public TaskProcessVO setTaskId(String taskId) {
@@ -180,7 +185,7 @@ public class TaskProcessVO {
 		this.result=result;
 		this.resultEnum= (ApprovalReault) EnumUtil.parseByCode(ApprovalReault.values(),result) ;
 		if(StringUtil.hasContent(result) && this.resultEnum==null) {
-			throw new IllegalArgumentException( result + " is not one of AppovalReault");
+			throw new IllegalArgumentException( result + " is not one of ApprovalReault");
 		}
 		return this;
 	}
@@ -267,6 +272,25 @@ public class TaskProcessVO {
 	*/
 	public TaskProcessVO setTenantId(String tenantId) {
 		this.tenantId=tenantId;
+		return this;
+	}
+	
+	/**
+	 * 获得 流程跳转的目标节点ID<br>
+	 * 流程跳转的目标节点ID
+	 * @return 流程跳转的目标节点ID
+	*/
+	public String getJumpToNodeId() {
+		return jumpToNodeId;
+	}
+	
+	/**
+	 * 设置 流程跳转的目标节点ID
+	 * @param jumpToNodeId 流程跳转的目标节点ID
+	 * @return 当前对象
+	*/
+	public TaskProcessVO setJumpToNodeId(String jumpToNodeId) {
+		this.jumpToNodeId=jumpToNodeId;
 		return this;
 	}
 }

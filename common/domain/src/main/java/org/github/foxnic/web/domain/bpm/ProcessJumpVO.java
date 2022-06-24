@@ -9,8 +9,8 @@ import java.util.HashMap;
 /**
  * 流程跳转参数
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-21 16:00:48
- * @sign EC188B1AD2F3E5594AB5879582BCC44E
+ * @since 2022-06-24 13:50:06
+ * @sign E3DEC1658C019F594460B8B90D5621D5
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -25,10 +25,10 @@ public class ProcessJumpVO {
 	private String processInstanceId;
 	
 	/**
-	 * 目标节点ID：目标节点ID
+	 * 目标节点ID：目标节点ID,CamundaNodeId
 	*/
-	@ApiModelProperty(required = false,value="目标节点ID" , notes = "目标节点ID")
-	private String targetNodeId;
+	@ApiModelProperty(required = false,value="目标节点ID" , notes = "目标节点ID,CamundaNodeId")
+	private String jumpToNodeId;
 	
 	/**
 	 * 跳转原因：跳转原因
@@ -63,20 +63,20 @@ public class ProcessJumpVO {
 	
 	/**
 	 * 获得 目标节点ID<br>
-	 * 目标节点ID
+	 * 目标节点ID,CamundaNodeId
 	 * @return 目标节点ID
 	*/
-	public String getTargetNodeId() {
-		return targetNodeId;
+	public String getJumpToNodeId() {
+		return jumpToNodeId;
 	}
 	
 	/**
 	 * 设置 目标节点ID
-	 * @param targetNodeId 目标节点ID
+	 * @param jumpToNodeId 目标节点ID
 	 * @return 当前对象
 	*/
-	public ProcessJumpVO setTargetNodeId(String targetNodeId) {
-		this.targetNodeId=targetNodeId;
+	public ProcessJumpVO setJumpToNodeId(String jumpToNodeId) {
+		this.jumpToNodeId=jumpToNodeId;
 		return this;
 	}
 	

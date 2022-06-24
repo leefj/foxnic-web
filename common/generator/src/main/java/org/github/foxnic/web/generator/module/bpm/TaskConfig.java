@@ -63,7 +63,7 @@ public class TaskConfig extends BaseCodeConfig<BPM_TASK> {
         pojo=context.createPojo("TaskProcessVO");
         pojo.setSuperType(null);
         pojo.setDoc("任务处理参数");
-        pojo.addSimpleProperty(String.class,"taskId","流程实例ID","流程实例ID");
+        pojo.addSimpleProperty(String.class,"taskId","任务ID","任务ID");
         pojo.addSimpleProperty(String.class,"assigneeUserId","审批人账户ID","审批人账户");
         pojo.addSimpleProperty(String.class,"assigneeType","审批人身份类型","审批人身份类型");
         pojo.addSimpleProperty(String.class,"assigneeId","审批人身份ID","审批人身份ID");
@@ -72,6 +72,7 @@ public class TaskConfig extends BaseCodeConfig<BPM_TASK> {
         pojo.addSimpleProperty(String.class,"comment","审批意见","审批意见");
         pojo.addMapProperty(String.class,Object.class,"variables","流程参数","流程参数");
         pojo.addSimpleProperty(String.class,"tenantId","租户ID","租户ID");
+        pojo.addSimpleProperty(String.class,"jumpToNodeId","流程跳转的目标节点ID","流程跳转的目标节点ID");
 
 
 

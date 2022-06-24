@@ -26,8 +26,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程实例
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-21 16:00:48
- * @sign E30C3F6A585B74E2362F35CEF33DD2B3
+ * @since 2022-06-24 13:50:06
+ * @sign 0710EA78DA6DAAFDF018DCCAE48E5AB2
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -288,9 +288,9 @@ public class ProcessInstance extends Entity {
 	private ProcessDefinitionFile processDefinitionFile;
 	
 	/**
-	 * 审批动作清单：审批动作清单
+	 * 审批动作清单：已完成的审批动作清单
 	*/
-	@ApiModelProperty(required = false,value="审批动作清单" , notes = "审批动作清单")
+	@ApiModelProperty(required = false,value="审批动作清单" , notes = "已完成的审批动作清单")
 	private List<TaskApproval> taskApprovals;
 	
 	/**
@@ -1239,7 +1239,7 @@ public class ProcessInstance extends Entity {
 	
 	/**
 	 * 获得 审批动作清单<br>
-	 * 审批动作清单
+	 * 已完成的审批动作清单
 	 * @return 审批动作清单
 	*/
 	public List<TaskApproval> getTaskApprovals() {

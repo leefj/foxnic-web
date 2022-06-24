@@ -1314,13 +1314,17 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
          * 设置复选框的选中清单，参数为参数 name 属性
          * */
         setCheckedValue:function (checkBoxName,value) {
-            // debugger;
+            debugger;
             if(value==null) return;
             if(!Array.isArray(value)) {
                 try {
                     value=JSON.parse(value);
                 } catch (e){
-                    value=[];
+                    if(value!=null) {
+                     value=value.split(",");
+                    } else {
+                        value = [];
+                    }
                 }
             }
             $('input[name="'+checkBoxName+'"]').each(function() {

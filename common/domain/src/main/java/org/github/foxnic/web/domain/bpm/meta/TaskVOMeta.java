@@ -16,7 +16,7 @@ import org.github.foxnic.web.domain.bpm.ProcessDefinitionNode;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-20 16:33:13
+ * @since 2022-06-24 14:26:54
  * @sign 903E20194942145230B426EE32FE6F14
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */

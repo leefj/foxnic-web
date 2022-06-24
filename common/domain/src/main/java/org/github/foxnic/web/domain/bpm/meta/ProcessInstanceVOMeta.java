@@ -20,7 +20,7 @@ import org.github.foxnic.web.domain.bpm.TaskApproval;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-21 16:00:48
+ * @since 2022-06-24 13:50:06
  * @sign DEDB9EC722B9B23BC314911B41474B11
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -548,14 +548,14 @@ public class ProcessInstanceVOMeta extends ProcessInstanceMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceVO,org.github.foxnic.web.domain.bpm.ProcessDefinitionFile> PROCESS_DEFINITION_FILE_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceVO.class ,PROCESS_DEFINITION_FILE, org.github.foxnic.web.domain.bpm.ProcessDefinitionFile.class, "流程定义文件", "流程定义文件", org.github.foxnic.web.domain.bpm.ProcessDefinitionFile.class, null);
 	
 	/**
-	 * 审批动作清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.TaskApproval
+	 * 审批动作清单 , 已完成的审批动作清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.TaskApproval
 	*/
 	public static final String TASK_APPROVALS="taskApprovals";
 	
 	/**
-	 * 审批动作清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.TaskApproval
+	 * 审批动作清单 , 已完成的审批动作清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.TaskApproval
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceVO,org.github.foxnic.web.domain.bpm.TaskApproval> TASK_APPROVALS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceVO.class ,TASK_APPROVALS, java.util.List.class, "审批动作清单", "审批动作清单", org.github.foxnic.web.domain.bpm.TaskApproval.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceVO,org.github.foxnic.web.domain.bpm.TaskApproval> TASK_APPROVALS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceVO.class ,TASK_APPROVALS, java.util.List.class, "审批动作清单", "已完成的审批动作清单", org.github.foxnic.web.domain.bpm.TaskApproval.class, null);
 	
 	/**
 	 * 全部属性清单

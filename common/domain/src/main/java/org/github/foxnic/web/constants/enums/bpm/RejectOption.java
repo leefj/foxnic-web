@@ -8,7 +8,7 @@ import com.github.foxnic.commons.reflect.EnumUtil;
  * */
 public enum RejectOption implements CodeTextEnum {
 
-	abandon_process("废弃流程"),fetch_back("撤回"),choose_node("选择节点");
+	abandon_process("废弃流程"),fetch_back("撤回流程"),choose_node("选择节点");
 
 	private String text;
 	private RejectOption(String text)  {

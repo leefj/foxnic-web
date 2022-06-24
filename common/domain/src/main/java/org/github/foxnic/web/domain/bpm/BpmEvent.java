@@ -7,7 +7,7 @@ import org.github.foxnic.web.constants.enums.bpm.CamundaNodeType;
 
 import java.util.Map;
 
-public class BpmEvent {
+public class BpmEvent<PO> {
 
 
     /**
@@ -62,6 +62,18 @@ public class BpmEvent {
      * */
     private Boolean isNodeEnd;
 
+    private PO parameter=null;
+
+    /***
+     * 请求接口提交的参数
+     * */
+    public PO getParameter() {
+        return parameter;
+    }
+
+    public void setParameter(PO parameter) {
+        this.parameter = parameter;
+    }
 
     public BpmEventType getEventType() {
         return eventType;
