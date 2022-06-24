@@ -9,12 +9,7 @@ import org.github.foxnic.web.domain.system.UserTenant;
 
 public abstract class SessionUser {
 
-//	private static String SECURITY_CONTEXTHOLDER_CLASS_NAME="org.springframework.security.core.context.SecurityContextHolder";
-
-//	private static Class SECURITY_CONTEXTHOLDER_CLASS=null;
-
 	public SessionUser() {
-//		SECURITY_CONTEXTHOLDER_CLASS=ReflectUtil.forName(SECURITY_CONTEXTHOLDER_CLASS_NAME);
 	}
 
 	/**
@@ -109,6 +104,9 @@ public abstract class SessionUser {
 
 	public abstract String getSessionOnlineId();
 
+	/**
+	 * 获得用户前端缓存键
+	 * */
     public abstract String getCacheKey();
 
 
