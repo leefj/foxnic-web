@@ -244,14 +244,18 @@ security:
   # mode=session 时配置的登录页面
   login-page: /login.html
   jwt:
-    key-location: foxnic-web.jks
+    key-location: demo.jks
     key-alias: foxnic-web
     key-pass: fox-123456-nic
     # 缓存类型  local/remote/both
     cache-type: local
-    iss: felord.cn
+    # 发布者
+    iss: foxnic-web.com
+    # 订阅者
     sub: all
+    # 访问超时秒数
     access-expire-seconds: 1800
+    # 刷新超时秒数
     refresh-expire-seconds: 2000
 
 

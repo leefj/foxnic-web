@@ -1,5 +1,2 @@
-执行命令
-keytool -genkey -alias foxnic-web -keypass foxnic-web -keyalg RSA -storetype PKCS12 -keysize 2048 -validity 3650 -keystore c:/tmp/foxnic-web.jks -storepass fox-123456-nic -dname "CN=(LeeFJ), OU=(org.leefj), O=(org.leefj), L=(nb), ST=(zj), C=(cn)"
-
-导出证书
-keytool -exportcert -alias sun -keystore f:/demo.jks -rfc -file f:/demo.cer -storepass 123456
+执行命令,生成 JKS 文件
+keytool -genkey -alias foxnic-web -keyalg RSA -storetype JKS -keysize 2048 -validity 3650 -keypass fox-123456-nic -keystore /Users/fangjieli/Downloads/foxnic-video/jwt/demo.jks -storepass fox-123456-nic -dname "CN=(LeeFJ), OU=(com.foxnicweb), O=(com.foxnicweb), L=(ningbo), ST=(zhejiang), C=(china)"

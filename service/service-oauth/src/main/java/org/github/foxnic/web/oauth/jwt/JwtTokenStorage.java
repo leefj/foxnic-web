@@ -13,7 +13,6 @@ public interface JwtTokenStorage {
      * Put jwt token pair.
      *
      * @param jwtTokenPair the jwt token pair
-     * @param userId       the user id
      * @return the jwt token pair
      */
     JwtTokenPair put(JwtTokenPair jwtTokenPair);

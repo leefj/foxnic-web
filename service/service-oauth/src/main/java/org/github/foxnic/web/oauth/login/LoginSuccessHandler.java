@@ -1,8 +1,10 @@
 package org.github.foxnic.web.oauth.login;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.commons.json.JSONUtil;
 import com.github.foxnic.commons.network.Machine;
 import com.github.foxnic.springboot.spring.SpringUtil;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER;
@@ -127,7 +129,10 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 		SessionUser sessionUser=setupAuthentication(request,response,authentication);
 
 		JSONObject ret=new JSONObject();
-		ret.put("user", sessionUser.getUser());
+
+		// 瘦身
+		JSONObject user=slimming(sessionUser.getUser());
+		ret.put("user", user);
 		ret.put("sessionId", sessionUser.getSessionOnlineId());
 
         if( securityProperties.getSecurityMode()==SecurityMode.BOTH || securityProperties.getSecurityMode()==SecurityMode.JWT ) {
@@ -141,6 +146,50 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
         ResponseUtil.writeOK(response, r);
 
+	}
+
+	private JSONObject slimming(User user) {
+		JSONObject jsonUser= JSONUtil.toJSONObject(user);
+		jsonUser=slimmingCommonFields(jsonUser);
+		JSONArray menus=jsonUser.getJSONArray("menus");
+		if(menus==null) return jsonUser;
+		for (int i = 0; i < menus.size(); i++) {
+			JSONObject menu=menus.getJSONObject(i);
+			if(menu==null) continue;
+			menu.remove("resourceIds");
+			menu.remove("resources");
+			menu.remove("dynamicHandler");
+			menu.remove("pathResourceId");
+			menu.remove("batchId");
+		}
+		return jsonUser;
+	}
+
+	private JSONObject slimmingCommonFields(JSONObject jsonUser) {
+		jsonUser.remove("deleted");
+		jsonUser.remove("version");
+		jsonUser.remove("deleteTime");
+		jsonUser.remove("deleteBy");
+		jsonUser.remove("createTime");
+		jsonUser.remove("createBy");
+		jsonUser.remove("updateTime");
+		jsonUser.remove("updateBy");
+		jsonUser.remove("valid");
+		jsonUser.remove("tenantId");
+		for (Map.Entry<String, Object> entry : jsonUser.entrySet()) {
+			if(entry.getValue() instanceof JSONObject) {
+				slimmingCommonFields((JSONObject)entry.getValue());
+			} else if(entry.getValue() instanceof JSONArray) {
+				JSONArray array=(JSONArray) entry.getValue();
+				for (int i = 0; i < array.size(); i++) {
+					if(array.get(i) instanceof JSONObject) {
+						slimmingCommonFields((JSONObject) array.get(i));
+					}
+				}
+			}
+		}
+
+		return jsonUser;
 	}
 
 

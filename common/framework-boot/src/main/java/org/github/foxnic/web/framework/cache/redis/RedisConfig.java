@@ -64,7 +64,7 @@ public class RedisConfig {
 
 
     @Bean(name = "JedisConnectionFactory")
-    public JedisConnectionFactory createJedisConnectionFactory(RedisProperties redisProperties,JedisPoolConfig poolConfig) {
+    public JedisConnectionFactory createJedisConnectionFactory( @Autowired(required = false) RedisProperties redisProperties,JedisPoolConfig poolConfig) {
         JedisConnectionFactory factory;
 
         if(clusterEnable) {
