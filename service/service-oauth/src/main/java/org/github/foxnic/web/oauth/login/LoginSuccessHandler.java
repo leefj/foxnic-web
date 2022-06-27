@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.json.JSONUtil;
+import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.network.Machine;
 import com.github.foxnic.springboot.spring.SpringUtil;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER;
@@ -161,6 +162,17 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 			menu.remove("dynamicHandler");
 			menu.remove("pathResourceId");
 			menu.remove("batchId");
+			menu.remove("hierarchy");
+			menu.remove("pathResource");
+			if(StringUtil.isBlank(menu.getString("url"))) {
+				menu.remove("url");
+			}
+			if(StringUtil.isBlank(menu.getString("css"))) {
+				menu.remove("css");
+			}
+			if(StringUtil.isBlank(menu.getString("params"))) {
+				menu.remove("params");
+			}
 		}
 		return jsonUser;
 	}
