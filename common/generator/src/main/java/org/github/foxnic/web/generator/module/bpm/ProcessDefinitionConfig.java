@@ -67,7 +67,7 @@ public class ProcessDefinitionConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITI
                 .textField(BPM_FORM_DEFINITION.NAME).valueField(BPM_FORM_DEFINITION.ID).fillWith(ProcessDefinitionMeta.FORM_DEFINITION);
 
 
-        view.field(BPM_PROCESS_DEFINITION.DRAFTER_TYPE_RANGE).basic().label("起草人范围")
+        view.field(BPM_PROCESS_DEFINITION.ASSIGNEE_TYPE_RANGE).basic().label("审批人范围")
                 .form().validate().required()
                 .form().checkBox().enumType(UnifiedUserType.class)
                 .search().hidden().table().hidden();
@@ -91,7 +91,7 @@ public class ProcessDefinitionConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITI
                 BPM_PROCESS_DEFINITION.NAME,
                 BPM_PROCESS_DEFINITION.VALID,
                 BPM_PROCESS_DEFINITION.FORM_DEFINITION_ID,
-                BPM_PROCESS_DEFINITION.DRAFTER_TYPE_RANGE,
+                BPM_PROCESS_DEFINITION.ASSIGNEE_TYPE_RANGE,
                 BPM_PROCESS_DEFINITION.REJECT_OPTION,
                 BPM_PROCESS_DEFINITION.NOTES
         });

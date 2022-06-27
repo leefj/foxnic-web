@@ -247,7 +247,7 @@ layui.define(['settings', 'layer'], function (exports) {
                 	$(layero).children('.layui-layer-content').load(param.path);
                 }
             };
-            //debugger;
+            // debugger;
             return layer.open(param);
         },
         /**

@@ -2,9 +2,10 @@ layui.define(['settings', 'layer', 'admin', 'util','element'],function (exports)
 
     const admin = layui.admin;
     const settings = layui.settings;
-    const  api_save="/service-bpm/bpm-process-instance/temporary-save";
-    const  api_get="/service-bpm/bpm-process-instance/get-by-id";
-    const  api_start="/service-bpm/bpm-process-instance/start";
+    const  api_definition_get="/service-bpm/bpm-process-definition/get-by-id";
+    const  api_process_save="/service-bpm/bpm-process-instance/temporary-save";
+    const  api_process_get="/service-bpm/bpm-process-instance/get-by-id";
+    const  api_process_start="/service-bpm/bpm-process-instance/start";
     const  api_process_task="/service-bpm/bpm-task/process-task";
     const  api_process_abandon="/service-bpm/bpm-process-instance/delete";
     const  api_process_batch_abandon="/service-bpm/bpm-process-instance/delete-by-ids";
@@ -13,12 +14,17 @@ layui.define(['settings', 'layer', 'admin', 'util','element'],function (exports)
 
     var bpm = {
 
+        getProcessDefinition:function (id,callback) {
+            admin.post(api_definition_get, {id:id}, function (result) {
+                callback && callback(result);
+            });
+        },
         /**
          * 表单暂存
          * */
         save : function (data,callback,lockEls) {
             // debugger
-            admin.post(api_save, data, function (result) {
+            admin.post(api_process_save, data, function (result) {
                 callback && callback(result);
             }, {delayLoading:1000,elms:lockEls});
         },
@@ -27,7 +33,7 @@ layui.define(['settings', 'layer', 'admin', 'util','element'],function (exports)
          * 获得流程实例信息
          * */
         getProcessInstance : function (processInstanceId,callback,lockEls) {
-            admin.post(api_get,{id:processInstanceId}, function (result) {
+            admin.post(api_process_get,{id:processInstanceId}, function (result) {
                 callback && callback(result);
             }, {delayLoading:1000,elms:lockEls});
         },
@@ -38,7 +44,7 @@ layui.define(['settings', 'layer', 'admin', 'util','element'],function (exports)
          * callback 回调函数
          * */
         start : function (params,callback,lockEls) {
-            admin.post(api_start, params, function (result) {
+            admin.post(api_process_start, params, function (result) {
                 callback && callback(result);
             }, {delayLoading:1000,elms:lockEls});
         },
@@ -115,17 +121,24 @@ layui.define(['settings', 'layer', 'admin', 'util','element'],function (exports)
             var height= (area && area.height) ? area.height : ($(window).height()*0.6);
             var top= (area && area.top) ? area.top : (($(window).height()-height)/2);
             var title = fox.translate('流程实例');
-            if(action=="create") title=fox.translate('流程发起');
+            if(action=="create") title=fox.translate('发起流程');
             else if(action=="edit") title=fox.translate("流程审批");
             else if(action=="view") title=fox.translate('流程详情');
 
-            admin.popupCenter({
+            var id="bpm-process-instance-form-data-win";
+
+            var index=-1;
+            admin.putVar("updateProcessViewTitle",function (title) {
+                window.top.layer.title(title, index);
+            });
+
+            index = admin.popupCenter({
                 title: title,
                 resize: false,
                 offset: [top,null],
                 area: ["90%",height+"px"],
                 type: 2,
-                id:"bpm-process-instance-form-data-win",
+                id:id,
                 content: '/business/bpm/process_instance/process_instance_form.html' + (queryString?("?"+queryString):""),
                 finish: function (ctx) {
                     if(ctx=="close") return;

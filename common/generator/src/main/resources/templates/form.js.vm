@@ -91,15 +91,25 @@ function FormPage() {
 			if(!doNext) return;
 		}
 
-		if(bpmIntegrateMode=="front" && isInProcess==1) return;
+
 
 		clearTimeout(adjustPopupTask);
 		var scroll=$(".form-container").attr("scroll");
 		if(scroll=='yes') return;
+		var prevBodyHeight=-1;
 		adjustPopupTask=setTimeout(function () {
 			var body=$("body");
 			var bodyHeight=body.height();
 			var footerHeight=$(".model-form-footer").height();
+			if(bpmIntegrateMode=="front" && isInProcess==1) {
+				if(bodyHeight>0 && bodyHeight!=prevBodyHeight) {
+					parent && parent.updateFrameHeight && parent.updateFrameHeight(bodyHeight);
+				} else {
+					setTimeout(adjustPopup,1000);
+				}
+				prevBodyHeight = bodyHeight;
+				return;
+			}
 			var area=admin.changePopupArea(null,bodyHeight+footerHeight,'#(formDataKey)-win');
 			if(area==null) return;
 			admin.putTempData('#(formAreaKey)', area);

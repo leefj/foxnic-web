@@ -21,8 +21,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程定义
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-24 11:47:01
- * @sign 5385D9F17B6B8034647316F7DDBADB44
+ * @since 2022-06-27 09:36:41
+ * @sign 4CE2AB2F247BFAB6BE99C76ADB8AE4AB
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -61,10 +61,10 @@ public class ProcessDefinition extends Entity {
 	private RejectOption rejectOptionEnum;
 	
 	/**
-	 * 起草人身份范围：起草人身份类型的范围
+	 * 审批人身份范围：审批人身份类型的范围
 	*/
-	@ApiModelProperty(required = false,value="起草人身份范围" , notes = "起草人身份类型的范围")
-	private String drafterTypeRange;
+	@ApiModelProperty(required = false,value="审批人身份范围" , notes = "审批人身份类型的范围")
+	private String assigneeTypeRange;
 	
 	/**
 	 * 名称：名称
@@ -280,21 +280,21 @@ public class ProcessDefinition extends Entity {
 	}
 	
 	/**
-	 * 获得 起草人身份范围<br>
-	 * 起草人身份类型的范围
-	 * @return 起草人身份范围
+	 * 获得 审批人身份范围<br>
+	 * 审批人身份类型的范围
+	 * @return 审批人身份范围
 	*/
-	public String getDrafterTypeRange() {
-		return drafterTypeRange;
+	public String getAssigneeTypeRange() {
+		return assigneeTypeRange;
 	}
 	
 	/**
-	 * 设置 起草人身份范围
-	 * @param drafterTypeRange 起草人身份范围
+	 * 设置 审批人身份范围
+	 * @param assigneeTypeRange 审批人身份范围
 	 * @return 当前对象
 	*/
-	public ProcessDefinition setDrafterTypeRange(String drafterTypeRange) {
-		this.drafterTypeRange=drafterTypeRange;
+	public ProcessDefinition setAssigneeTypeRange(String assigneeTypeRange) {
+		this.assigneeTypeRange=assigneeTypeRange;
 		return this;
 	}
 	

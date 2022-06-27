@@ -37,7 +37,7 @@ public class DemoCommonConfig extends BaseCodeConfig<BPM_DEMO_COMMON> {
     @Override
     public void configFields(ViewOptions view) {
 
-//        view.form().labelWidth(80);
+        view.form().labelWidth(70);
 
 //        view.field(BPM_FORM_DEFINITION.ID).basic().hidden();
 //        view.field(BPM_DEMO_LEAVE.TYPE).search().hidden()

@@ -22,10 +22,10 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             if (!id.startWith("#")) id = "#" + id;
             return this.selectBoxInstances[id];
         },
-        setSelectBoxUrl:function(id,url){
+        setSelectBoxUrl:function(id,url,cb){
             var box=this.getSelectBox(id);
             if(box) {
-                box.setUrl(url);
+                box.setUrl(url,cb);
             } else {
                 $("#"+id).attr("data",url);
             }
@@ -102,12 +102,20 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                                 opts = cfg.transform && cfg.transform(r.data);
                             }
 
+
+
                         } else {
                             opts = [{name: r.message, value: "-1"}];
                         }
+
                         if(!opts) {
                             opts=r.data;
                         }
+
+                        if(cfg.beforeListOptionsChange) {
+                            opts = cfg.beforeListOptionsChange(opts)
+                        }
+
                         // debugger
                         if (cfg.paging) {
                             cb(opts, r.data.pageCount);
@@ -1314,7 +1322,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
          * 设置复选框的选中清单，参数为参数 name 属性
          * */
         setCheckedValue:function (checkBoxName,value) {
-            debugger;
+            // debugger;
             if(value==null) return;
             if(!Array.isArray(value)) {
                 try {
@@ -1327,11 +1335,13 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     }
                 }
             }
-            $('input[name="'+checkBoxName+'"]').each(function() {
+            $('input[name="'+checkBoxName+'"]').each(function(a,b,c) {
                 var v=$(this).val();
                 for (var i = 0; i < value.length; i++) {
                     if(v==value[i]){
                         $(this).attr("checked","yes");
+                    } else {
+                        $(this).removeAttr("checked");
                     }
                 }
             });

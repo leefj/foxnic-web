@@ -11,8 +11,8 @@ import org.github.foxnic.web.domain.bpm.FormDefinition;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-24 11:47:01
- * @sign 5385D9F17B6B8034647316F7DDBADB44
+ * @since 2022-06-27 09:36:41
+ * @sign 4CE2AB2F247BFAB6BE99C76ADB8AE4AB
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -59,14 +59,14 @@ public class ProcessDefinitionMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinition,java.lang.String> REJECT_OPTION_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinition.class ,REJECT_OPTION, java.lang.String.class, "驳回配置", "流程在驳回时的表现", java.lang.String.class, null);
 	
 	/**
-	 * 起草人身份范围 , 起草人身份类型的范围 , 类型: java.lang.String
+	 * 审批人身份范围 , 审批人身份类型的范围 , 类型: java.lang.String
 	*/
-	public static final String DRAFTER_TYPE_RANGE="drafterTypeRange";
+	public static final String ASSIGNEE_TYPE_RANGE="assigneeTypeRange";
 	
 	/**
-	 * 起草人身份范围 , 起草人身份类型的范围 , 类型: java.lang.String
+	 * 审批人身份范围 , 审批人身份类型的范围 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinition,java.lang.String> DRAFTER_TYPE_RANGE_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinition.class ,DRAFTER_TYPE_RANGE, java.lang.String.class, "起草人身份范围", "起草人身份类型的范围", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinition,java.lang.String> ASSIGNEE_TYPE_RANGE_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinition.class ,ASSIGNEE_TYPE_RANGE, java.lang.String.class, "审批人身份范围", "审批人身份类型的范围", java.lang.String.class, null);
 	
 	/**
 	 * 名称 , 类型: java.lang.String
@@ -241,7 +241,7 @@ public class ProcessDefinitionMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , CODE , FORM_DEFINITION_ID , REJECT_OPTION , DRAFTER_TYPE_RANGE , NAME , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CAMUNDA_DEFINITION_ID , CAMUNDA_DEFINITION_KEY , LAST_UPDATE_USER , DEFINITION_FILE , FORM_DEFINITION };
+	public static final String[] $PROPS={ ID , CODE , FORM_DEFINITION_ID , REJECT_OPTION , ASSIGNEE_TYPE_RANGE , NAME , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CAMUNDA_DEFINITION_ID , CAMUNDA_DEFINITION_KEY , LAST_UPDATE_USER , DEFINITION_FILE , FORM_DEFINITION };
 	
 	/**
 	 * 代理类
@@ -296,13 +296,13 @@ public class ProcessDefinitionMeta {
 		}
 		
 		/**
-		 * 设置 起草人身份范围
-		 * @param drafterTypeRange 起草人身份范围
+		 * 设置 审批人身份范围
+		 * @param assigneeTypeRange 审批人身份范围
 		 * @return 当前对象
 		*/
-		public ProcessDefinition setDrafterTypeRange(String drafterTypeRange) {
-			super.change(DRAFTER_TYPE_RANGE,super.getDrafterTypeRange(),drafterTypeRange);
-			super.setDrafterTypeRange(drafterTypeRange);
+		public ProcessDefinition setAssigneeTypeRange(String assigneeTypeRange) {
+			super.change(ASSIGNEE_TYPE_RANGE,super.getAssigneeTypeRange(),assigneeTypeRange);
+			super.setAssigneeTypeRange(assigneeTypeRange);
 			return this;
 		}
 		
