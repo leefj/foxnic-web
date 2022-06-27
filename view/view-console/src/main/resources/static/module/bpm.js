@@ -117,9 +117,8 @@ layui.define(['settings', 'layer', 'admin', 'util','element'],function (exports)
                 queryStrings.push('taskId=' + taskId);
             }
             queryString=queryStrings.join("&");
-            var area=admin.getTempData('bpm-process-instance-form-area');
-            var height= (area && area.height) ? area.height : ($(window).height()*0.6);
-            var top= (area && area.top) ? area.top : (($(window).height()-height)/2);
+            var fullHeight=$(top).height();
+            var fullwidth=$(top).width();
             var title = fox.translate('流程实例');
             if(action=="create") title=fox.translate('发起流程');
             else if(action=="edit") title=fox.translate("流程审批");
@@ -135,8 +134,8 @@ layui.define(['settings', 'layer', 'admin', 'util','element'],function (exports)
             index = admin.popupCenter({
                 title: title,
                 resize: false,
-                offset: [top,null],
-                area: ["90%",height+"px"],
+                // offset: [null,top],
+                area: [(fullwidth-56)+"px",(fullHeight-56)+"px"],
                 type: 2,
                 id:id,
                 content: '/business/bpm/process_instance/process_instance_form.html' + (queryString?("?"+queryString):""),
