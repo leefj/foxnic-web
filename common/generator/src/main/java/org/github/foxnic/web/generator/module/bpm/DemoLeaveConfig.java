@@ -11,6 +11,7 @@ import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_DEMO_LEAVE;
 import org.github.foxnic.web.constants.enums.DictEnum;
+import org.github.foxnic.web.constants.enums.bpm.DemoStatus;
 import org.github.foxnic.web.constants.enums.bpm.FormType;
 import org.github.foxnic.web.constants.enums.changes.ApprovalStatus;
 import org.github.foxnic.web.domain.bpm.ProcessInstance;
@@ -28,9 +29,7 @@ public class DemoLeaveConfig extends BaseCodeConfig<BPM_DEMO_LEAVE> {
 
     @Override
     public void configModel(PoClassFile poType, VoClassFile voType) {
-
-
-
+        poType.shadow(BPM_DEMO_LEAVE.STATUS, DemoStatus.class);
     }
 
     @Override

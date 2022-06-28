@@ -7,10 +7,13 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_DEMO_LEAVE;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
+import org.github.foxnic.web.constants.enums.bpm.DemoStatus;
+import javax.persistence.Transient;
 import java.util.List;
+import com.github.foxnic.commons.reflect.EnumUtil;
+import com.github.foxnic.commons.lang.StringUtil;
 import java.util.ArrayList;
 import java.util.Arrays;
-import javax.persistence.Transient;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
 
@@ -19,8 +22,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 请假流程示例
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-28 16:22:51
- * @sign 4E7BB06731BB6E42B2EFE0C9B3BABCB7
+ * @since 2022-06-28 17:23:26
+ * @sign 02B50B896D552B83DCA23CBBD8F40313
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -67,6 +70,14 @@ public class DemoLeave extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="申请人" , notes = "员工ID")
 	private String applicantId;
+	
+	/**
+	 * 状态：状态
+	*/
+	@ApiModelProperty(required = false,value="状态" , notes = "状态")
+	private String status;
+	@Transient
+	private DemoStatus statusEnum;
 	
 	/**
 	 * 历史流程清单：历史流程清单
@@ -197,6 +208,58 @@ public class DemoLeave extends Entity {
 	*/
 	public DemoLeave setApplicantId(String applicantId) {
 		this.applicantId=applicantId;
+		return this;
+	}
+	
+	/**
+	 * 获得 状态<br>
+	 * 状态
+	 * @return 状态
+	*/
+	public String getStatus() {
+		return status;
+	}
+	
+	/**
+	 * 获得 状态 的投影属性<br>
+	 * 等价于 getStatus 方法，获得对应的枚举类型
+	 * @return 状态
+	*/
+	@Transient
+	public DemoStatus getStatusEnum() {
+		if(this.statusEnum==null) {
+			this.statusEnum = (DemoStatus) EnumUtil.parseByCode(DemoStatus.values(),status);
+		}
+		return this.statusEnum ;
+	}
+	
+	/**
+	 * 设置 状态
+	 * @param status 状态
+	 * @return 当前对象
+	*/
+	public DemoLeave setStatus(String status) {
+		this.status=status;
+		this.statusEnum= (DemoStatus) EnumUtil.parseByCode(DemoStatus.values(),status) ;
+		if(StringUtil.hasContent(status) && this.statusEnum==null) {
+			throw new IllegalArgumentException( status + " is not one of DemoStatus");
+		}
+		return this;
+	}
+	
+	/**
+	 * 设置 状态的投影属性，等同于设置 状态
+	 * @param statusEnum 状态
+	 * @return 当前对象
+	*/
+	@Transient
+	public DemoLeave setStatusEnum(DemoStatus statusEnum) {
+		if(statusEnum==null) {
+			this.setStatus(null);
+		} else {
+			this.setStatus(statusEnum.code());
+		}
+		this.statusEnum=statusEnum;
 		return this;
 	}
 	

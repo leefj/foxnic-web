@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2022-06-27 09:35:42
+ * @since 2022-06-28 17:16:31
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -40,8 +40,13 @@ public class FoxnicWeb {
 		*/
 		public static final DBField CONTENT = new DBField(DBDataType.STRING , "content","content","内容","内容",false,false,true);
 		
+		/**
+		 * 状态
+		*/
+		public static final DBField STATUS = new DBField(DBDataType.STRING , "status","status","状态","状态",false,false,true);
+		
 		public BPM_DEMO_COMMON() {
-			this.init($NAME,"通用审批表单" , ID , SUBJECT , CONTENT);
+			this.init($NAME,"通用审批表单" , ID , SUBJECT , CONTENT , STATUS);
 		}
 		public static final BPM_DEMO_COMMON $TABLE=new BPM_DEMO_COMMON();
 	}
@@ -86,8 +91,13 @@ public class FoxnicWeb {
 		*/
 		public static final DBField APPLICANT_ID = new DBField(DBDataType.STRING , "applicant_id","applicantId","申请人","员工ID",false,false,true);
 		
+		/**
+		 * 状态
+		*/
+		public static final DBField STATUS = new DBField(DBDataType.STRING , "status","status","状态","状态",false,false,true);
+		
 		public BPM_DEMO_LEAVE() {
-			this.init($NAME,"请假流程示例表" , ID , TYPE , BEGIN_TIME , END_TIME , REASON , APPLICANT_ID);
+			this.init($NAME,"请假流程示例表" , ID , TYPE , BEGIN_TIME , END_TIME , REASON , APPLICANT_ID , STATUS);
 		}
 		public static final BPM_DEMO_LEAVE $TABLE=new BPM_DEMO_LEAVE();
 	}

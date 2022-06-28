@@ -9,8 +9,8 @@ import java.util.List;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-28 14:43:06
- * @sign 3E4867BD1E4B2B62744A41B5E65E167D
+ * @since 2022-06-28 17:23:22
+ * @sign 1422044F0495F7639912E1936E6DA565
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -47,6 +47,16 @@ public class DemoCommonMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.DemoCommon,java.lang.String> CONTENT_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.DemoCommon.class ,CONTENT, java.lang.String.class, "内容", "内容", java.lang.String.class, null);
 	
 	/**
+	 * 状态 , 类型: java.lang.String
+	*/
+	public static final String STATUS="status";
+	
+	/**
+	 * 状态 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.DemoCommon,java.lang.String> STATUS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.DemoCommon.class ,STATUS, java.lang.String.class, "状态", "状态", java.lang.String.class, null);
+	
+	/**
 	 * 历史流程清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.ProcessInstance
 	*/
 	public static final String HISTORIC_PROCESS_LIST="historicProcessList";
@@ -79,7 +89,7 @@ public class DemoCommonMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , SUBJECT , CONTENT , HISTORIC_PROCESS_LIST , CURRENT_PROCESS_LIST , DEFAULT_PROCESS };
+	public static final String[] $PROPS={ ID , SUBJECT , CONTENT , STATUS , HISTORIC_PROCESS_LIST , CURRENT_PROCESS_LIST , DEFAULT_PROCESS };
 	
 	/**
 	 * 代理类
@@ -119,6 +129,17 @@ public class DemoCommonMeta {
 		public DemoCommon setContent(String content) {
 			super.change(CONTENT,super.getContent(),content);
 			super.setContent(content);
+			return this;
+		}
+		
+		/**
+		 * 设置 状态
+		 * @param status 状态
+		 * @return 当前对象
+		*/
+		public DemoCommon setStatus(String status) {
+			super.change(STATUS,super.getStatus(),status);
+			super.setStatus(status);
 			return this;
 		}
 		

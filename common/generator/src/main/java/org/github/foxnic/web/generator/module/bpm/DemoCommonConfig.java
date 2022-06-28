@@ -10,6 +10,7 @@ import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_DEMO_COMMON;
 import org.github.foxnic.web.constants.enums.DictEnum;
+import org.github.foxnic.web.constants.enums.bpm.DemoStatus;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
 public class DemoCommonConfig extends BaseCodeConfig<BPM_DEMO_COMMON> {
@@ -20,7 +21,7 @@ public class DemoCommonConfig extends BaseCodeConfig<BPM_DEMO_COMMON> {
 
     @Override
     public void configModel(PoClassFile poType, VoClassFile voType) {
-
+        poType.shadow(BPM_DEMO_COMMON.STATUS, DemoStatus.class);
     }
 
     @Override

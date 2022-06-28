@@ -10,8 +10,8 @@ import java.util.List;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-28 16:22:51
- * @sign 4E7BB06731BB6E42B2EFE0C9B3BABCB7
+ * @since 2022-06-28 17:23:26
+ * @sign 02B50B896D552B83DCA23CBBD8F40313
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -78,6 +78,16 @@ public class DemoLeaveMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.DemoLeave,java.lang.String> APPLICANT_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.DemoLeave.class ,APPLICANT_ID, java.lang.String.class, "申请人", "员工ID", java.lang.String.class, null);
 	
 	/**
+	 * 状态 , 类型: java.lang.String
+	*/
+	public static final String STATUS="status";
+	
+	/**
+	 * 状态 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.DemoLeave,java.lang.String> STATUS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.DemoLeave.class ,STATUS, java.lang.String.class, "状态", "状态", java.lang.String.class, null);
+	
+	/**
 	 * 历史流程清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.ProcessInstance
 	*/
 	public static final String HISTORIC_PROCESS_LIST="historicProcessList";
@@ -110,7 +120,7 @@ public class DemoLeaveMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , TYPE , BEGIN_TIME , END_TIME , REASON , APPLICANT_ID , HISTORIC_PROCESS_LIST , CURRENT_PROCESS_LIST , DEFAULT_PROCESS };
+	public static final String[] $PROPS={ ID , TYPE , BEGIN_TIME , END_TIME , REASON , APPLICANT_ID , STATUS , HISTORIC_PROCESS_LIST , CURRENT_PROCESS_LIST , DEFAULT_PROCESS };
 	
 	/**
 	 * 代理类
@@ -183,6 +193,17 @@ public class DemoLeaveMeta {
 		public DemoLeave setApplicantId(String applicantId) {
 			super.change(APPLICANT_ID,super.getApplicantId(),applicantId);
 			super.setApplicantId(applicantId);
+			return this;
+		}
+		
+		/**
+		 * 设置 状态
+		 * @param status 状态
+		 * @return 当前对象
+		*/
+		public DemoLeave setStatus(String status) {
+			super.change(STATUS,super.getStatus(),status);
+			super.setStatus(status);
 			return this;
 		}
 		
