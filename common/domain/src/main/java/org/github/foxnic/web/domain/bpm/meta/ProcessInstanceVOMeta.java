@@ -20,7 +20,7 @@ import org.github.foxnic.web.domain.bpm.TaskApproval;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-24 13:50:06
+ * @since 2022-06-28 16:15:24
  * @sign DEDB9EC722B9B23BC314911B41474B11
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -498,6 +498,16 @@ public class ProcessInstanceVOMeta extends ProcessInstanceMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceVO,org.github.foxnic.web.domain.bpm.Task> TASKS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceVO.class ,TASKS, java.util.List.class, "流程任务清单", "流程任务清单", org.github.foxnic.web.domain.bpm.Task.class, null);
 	
 	/**
+	 * 待办的流程任务清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.Task
+	*/
+	public static final String TODO_TASKS="todoTasks";
+	
+	/**
+	 * 待办的流程任务清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.Task
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceVO,org.github.foxnic.web.domain.bpm.Task> TODO_TASKS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceVO.class ,TODO_TASKS, java.util.List.class, "待办的流程任务清单", "待办的流程任务清单", org.github.foxnic.web.domain.bpm.Task.class, null);
+	
+	/**
 	 * 可处理的任务清单 , 当前登录账户可以处理的任务清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.Task
 	*/
 	public static final String USER_TASKS="userTasks";
@@ -538,6 +548,16 @@ public class ProcessInstanceVOMeta extends ProcessInstanceMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceVO,org.github.foxnic.web.domain.bpm.ProcessError> ERRORS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceVO.class ,ERRORS, java.util.List.class, "流程异常清单", "流程异常清单", org.github.foxnic.web.domain.bpm.ProcessError.class, null);
 	
 	/**
+	 * 审批状态 , 类型: java.lang.String
+	*/
+	public static final String APPROVAL_STATUS_NAME="approvalStatusName";
+	
+	/**
+	 * 审批状态 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceVO,java.lang.String> APPROVAL_STATUS_NAME_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceVO.class ,APPROVAL_STATUS_NAME, java.lang.String.class, "审批状态", "审批状态", java.lang.String.class, null);
+	
+	/**
 	 * 流程定义文件 , 类型: org.github.foxnic.web.domain.bpm.ProcessDefinitionFile
 	*/
 	public static final String PROCESS_DEFINITION_FILE="processDefinitionFile";
@@ -560,7 +580,7 @@ public class ProcessInstanceVOMeta extends ProcessInstanceMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , APPROVED_USER_IDS , APPROVING_USER_IDS , MINE , ID , DRAFTER_USER_ID , DRAFTER_ID , DRAFTER_TYPE , FORM_INSTANCE_ID , PROCESS_DEFINITION_ID , PROCESS_DEFINITION_FILE_ID , FORM_DEFINITION_ID , TITLE , PRIORITY , COMMENT , APPROVAL_STATUS , CAMUNDA_INSTANCE_ID , COMMIT_TIME , ABANDON_USER_ID , ABANDON_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , END_TIME , NEED_SYNC , SYNC_TIME , PROCESS_DEFINITION , FORM_DEFINITION , FORM_INSTANCE , DRAFTER , DRAFTER_NAME , DRAFTER_USER , TASKS , USER_TASKS , BILLS , BILL_IDS , ERRORS , PROCESS_DEFINITION_FILE , TASK_APPROVALS };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , APPROVED_USER_IDS , APPROVING_USER_IDS , MINE , ID , DRAFTER_USER_ID , DRAFTER_ID , DRAFTER_TYPE , FORM_INSTANCE_ID , PROCESS_DEFINITION_ID , PROCESS_DEFINITION_FILE_ID , FORM_DEFINITION_ID , TITLE , PRIORITY , COMMENT , APPROVAL_STATUS , CAMUNDA_INSTANCE_ID , COMMIT_TIME , ABANDON_USER_ID , ABANDON_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , END_TIME , NEED_SYNC , SYNC_TIME , PROCESS_DEFINITION , FORM_DEFINITION , FORM_INSTANCE , DRAFTER , DRAFTER_NAME , DRAFTER_USER , TASKS , TODO_TASKS , USER_TASKS , BILLS , BILL_IDS , ERRORS , APPROVAL_STATUS_NAME , PROCESS_DEFINITION_FILE , TASK_APPROVALS };
 	
 	/**
 	 * 代理类
@@ -1088,6 +1108,17 @@ public class ProcessInstanceVOMeta extends ProcessInstanceMeta {
 		}
 		
 		/**
+		 * 设置 待办的流程任务清单
+		 * @param todoTasks 待办的流程任务清单
+		 * @return 当前对象
+		*/
+		public ProcessInstance setTodoTasks(List<Task> todoTasks) {
+			super.change(TODO_TASKS,super.getTodoTasks(),todoTasks);
+			super.setTodoTasks(todoTasks);
+			return this;
+		}
+		
+		/**
 		 * 设置 可处理的任务清单
 		 * @param userTasks 可处理的任务清单
 		 * @return 当前对象
@@ -1128,6 +1159,17 @@ public class ProcessInstanceVOMeta extends ProcessInstanceMeta {
 		public ProcessInstance setErrors(List<ProcessError> errors) {
 			super.change(ERRORS,super.getErrors(),errors);
 			super.setErrors(errors);
+			return this;
+		}
+		
+		/**
+		 * 设置 审批状态
+		 * @param approvalStatusName 审批状态
+		 * @return 当前对象
+		*/
+		public ProcessInstance setApprovalStatusName(String approvalStatusName) {
+			super.change(APPROVAL_STATUS_NAME,super.getApprovalStatusName(),approvalStatusName);
+			super.setApprovalStatusName(approvalStatusName);
 			return this;
 		}
 		

@@ -12,6 +12,11 @@ import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_DEMO_LEAVE;
 import org.github.foxnic.web.constants.enums.DictEnum;
 import org.github.foxnic.web.constants.enums.bpm.FormType;
+import org.github.foxnic.web.constants.enums.changes.ApprovalStatus;
+import org.github.foxnic.web.domain.bpm.ProcessInstance;
+import org.github.foxnic.web.domain.bpm.meta.DemoLeaveMeta;
+import org.github.foxnic.web.domain.bpm.meta.ProcessInstanceMeta;
+import org.github.foxnic.web.domain.bpm.meta.TaskMeta;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
@@ -52,14 +57,26 @@ public class DemoLeaveConfig extends BaseCodeConfig<BPM_DEMO_LEAVE> {
         view.field(BPM_DEMO_LEAVE.END_TIME).search().hidden().form().validate().required();
         view.field(BPM_DEMO_LEAVE.REASON).search().hidden().form().validate().required();
         view.field(BPM_DEMO_LEAVE.APPLICANT_ID).basic().hidden();
-//        view.field(BPM_DEMO_LEAVE.APPLICANT_ID).search().hidden()
-//                .form().button().chooseEmployee(true)
-//                .form().validate().required();
-//        view.field(BPM_FORM_DEFINITION.VALID).search().hidden().form().logicField().on("有效",1).off("无效",0).defaultValue(true);
-//        view.field(BPM_FORM_DEFINITION.NAME).search().fuzzySearch();
-//        view.field(BPM_FORM_DEFINITION.NOTES).search().fuzzySearch().form().textArea();
-//        view.field(BPM_FORM_DEFINITION.FORM_TYPE).search().hidden().form().radioBox().enumType(FormType.class).defaultValue(FormType.outer);
 
+
+       // 流程字段：仅支持显示，不支持搜索
+
+        view.field("processTitle").basic().label("流程抬头")
+                .search().hidden().form().hidden()
+                .table().fillByProperty(DemoLeaveMeta.DEFAULT_PROCESS, ProcessInstanceMeta.TITLE);
+
+        view.field("processStatus").basic().label("审批状态")
+                .search().hidden().form().hidden()
+                .table().fillByProperty(DemoLeaveMeta.DEFAULT_PROCESS,ProcessInstanceMeta.APPROVAL_STATUS_NAME);
+
+
+        view.field("currNodes").basic().label("待审节点")
+                .search().hidden().form().hidden()
+                .table().fillByProperty(DemoLeaveMeta.DEFAULT_PROCESS, ProcessInstanceMeta.TODO_TASKS,TaskMeta.NODE_NAME);
+
+        view.field("drafterName").basic().label("起草人")
+                .search().hidden().form().hidden()
+                .table().fillByProperty(DemoLeaveMeta.DEFAULT_PROCESS, ProcessInstanceMeta.DRAFTER_NAME);
     }
 
 

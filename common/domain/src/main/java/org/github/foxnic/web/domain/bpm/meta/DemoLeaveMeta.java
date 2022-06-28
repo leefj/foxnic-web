@@ -10,8 +10,8 @@ import java.util.List;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-28 13:22:53
- * @sign 43E2D8332620B955587E290952968272
+ * @since 2022-06-28 16:22:51
+ * @sign 4E7BB06731BB6E42B2EFE0C9B3BABCB7
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -98,9 +98,19 @@ public class DemoLeaveMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.DemoLeave,org.github.foxnic.web.domain.bpm.ProcessInstance> CURRENT_PROCESS_LIST_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.DemoLeave.class ,CURRENT_PROCESS_LIST, java.util.List.class, "在批的流程清单", "在批的流程清单", org.github.foxnic.web.domain.bpm.ProcessInstance.class, null);
 	
 	/**
+	 * 默认流程 , 优先取在批的流程 , 类型: org.github.foxnic.web.domain.bpm.ProcessInstance
+	*/
+	public static final String DEFAULT_PROCESS="defaultProcess";
+	
+	/**
+	 * 默认流程 , 优先取在批的流程 , 类型: org.github.foxnic.web.domain.bpm.ProcessInstance
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.DemoLeave,org.github.foxnic.web.domain.bpm.ProcessInstance> DEFAULT_PROCESS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.DemoLeave.class ,DEFAULT_PROCESS, org.github.foxnic.web.domain.bpm.ProcessInstance.class, "默认流程", "优先取在批的流程", org.github.foxnic.web.domain.bpm.ProcessInstance.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , TYPE , BEGIN_TIME , END_TIME , REASON , APPLICANT_ID , HISTORIC_PROCESS_LIST , CURRENT_PROCESS_LIST };
+	public static final String[] $PROPS={ ID , TYPE , BEGIN_TIME , END_TIME , REASON , APPLICANT_ID , HISTORIC_PROCESS_LIST , CURRENT_PROCESS_LIST , DEFAULT_PROCESS };
 	
 	/**
 	 * 代理类
@@ -195,6 +205,17 @@ public class DemoLeaveMeta {
 		public DemoLeave setCurrentProcessList(List<ProcessInstance> currentProcessList) {
 			super.change(CURRENT_PROCESS_LIST,super.getCurrentProcessList(),currentProcessList);
 			super.setCurrentProcessList(currentProcessList);
+			return this;
+		}
+		
+		/**
+		 * 设置 默认流程
+		 * @param defaultProcess 默认流程
+		 * @return 当前对象
+		*/
+		public DemoLeave setDefaultProcess(ProcessInstance defaultProcess) {
+			super.change(DEFAULT_PROCESS,super.getDefaultProcess(),defaultProcess);
+			super.setDefaultProcess(defaultProcess);
 			return this;
 		}
 	}

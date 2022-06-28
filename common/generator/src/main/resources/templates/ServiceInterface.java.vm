@@ -13,6 +13,13 @@ import com.github.foxnic.dao.entity.ISimpleIdService;
 
 public interface #(simpleName) extends #if(isSimplePK) ISimpleIdService<#(poSimpleName),#(idPropertyType)> #else ISuperService<#(poSimpleName)> #end {
 
+
+	#if(bpm)
+	/**
+ 	  * 表单定义代码
+      **/
+	public static final String FORM_DEFINITION_CODE="#(bpmFormCode)";
+	#end
 	/**
 	 * 添加，如果语句错误，则抛出异常
 	 * @param #(poVar) 数据对象
@@ -307,6 +314,13 @@ public interface #(simpleName) extends #if(isSimplePK) ISimpleIdService<#(poSimp
 	 * 处理流程回调
 	 * */
 	BpmActionResult onProcessCallback(BpmEvent event);
+
+
+	void joinProcess(#(poSimpleName) #(poVar));
+
+	void joinProcess(List<#(poSimpleName)> #(poVar)List);
+
+	void joinProcess(PagedList<#(poSimpleName)> #(poVar)List);
 	#end
 
 }

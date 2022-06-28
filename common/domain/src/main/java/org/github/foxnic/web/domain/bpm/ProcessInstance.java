@@ -26,8 +26,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程实例
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-24 13:50:06
- * @sign 0710EA78DA6DAAFDF018DCCAE48E5AB2
+ * @since 2022-06-28 16:15:24
+ * @sign 3E482D43690364437A53E51D312BBB23
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -258,6 +258,12 @@ public class ProcessInstance extends Entity {
 	private List<Task> tasks;
 	
 	/**
+	 * 待办的流程任务清单：待办的流程任务清单
+	*/
+	@ApiModelProperty(required = false,value="待办的流程任务清单" , notes = "待办的流程任务清单")
+	private List<Task> todoTasks;
+	
+	/**
 	 * 可处理的任务清单：当前登录账户可以处理的任务清单
 	*/
 	@ApiModelProperty(required = false,value="可处理的任务清单" , notes = "当前登录账户可以处理的任务清单")
@@ -280,6 +286,12 @@ public class ProcessInstance extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="流程异常清单" , notes = "流程异常清单")
 	private List<ProcessError> errors;
+	
+	/**
+	 * 审批状态：审批状态
+	*/
+	@ApiModelProperty(required = false,value="审批状态" , notes = "审批状态")
+	private String approvalStatusName;
 	
 	/**
 	 * 流程定义文件：流程定义文件
@@ -1099,6 +1111,36 @@ public class ProcessInstance extends Entity {
 	}
 	
 	/**
+	 * 获得 待办的流程任务清单<br>
+	 * 待办的流程任务清单
+	 * @return 待办的流程任务清单
+	*/
+	public List<Task> getTodoTasks() {
+		return todoTasks;
+	}
+	
+	/**
+	 * 设置 待办的流程任务清单
+	 * @param todoTasks 待办的流程任务清单
+	 * @return 当前对象
+	*/
+	public ProcessInstance setTodoTasks(List<Task> todoTasks) {
+		this.todoTasks=todoTasks;
+		return this;
+	}
+	
+	/**
+	 * 添加 待办的流程任务清单
+	 * @param todoTask 待办的流程任务清单
+	 * @return 当前对象
+	*/
+	public ProcessInstance addTodoTask(Task... todoTask) {
+		if(this.todoTasks==null) todoTasks=new ArrayList<>();
+		this.todoTasks.addAll(Arrays.asList(todoTask));
+		return this;
+	}
+	
+	/**
 	 * 获得 可处理的任务清单<br>
 	 * 当前登录账户可以处理的任务清单
 	 * @return 可处理的任务清单
@@ -1215,6 +1257,25 @@ public class ProcessInstance extends Entity {
 	public ProcessInstance addError(ProcessError... error) {
 		if(this.errors==null) errors=new ArrayList<>();
 		this.errors.addAll(Arrays.asList(error));
+		return this;
+	}
+	
+	/**
+	 * 获得 审批状态<br>
+	 * 审批状态
+	 * @return 审批状态
+	*/
+	public String getApprovalStatusName() {
+		return approvalStatusName;
+	}
+	
+	/**
+	 * 设置 审批状态
+	 * @param approvalStatusName 审批状态
+	 * @return 当前对象
+	*/
+	public ProcessInstance setApprovalStatusName(String approvalStatusName) {
+		this.approvalStatusName=approvalStatusName;
 		return this;
 	}
 	

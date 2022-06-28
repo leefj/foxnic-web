@@ -1189,7 +1189,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
          * 获得指定属性的值
          * */
         getProperty:function (data,path,start) {
-            //debugger
+            // debugger
             if(data==null) return "";
             if(start==null) start=0;
             var prop,value=data;

@@ -9,8 +9,8 @@ import java.util.List;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-27 15:28:02
- * @sign 1C6819B5989D4EBEF1ECF03FFF852249
+ * @since 2022-06-28 14:43:06
+ * @sign 3E4867BD1E4B2B62744A41B5E65E167D
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -67,9 +67,19 @@ public class DemoCommonMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.DemoCommon,org.github.foxnic.web.domain.bpm.ProcessInstance> CURRENT_PROCESS_LIST_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.DemoCommon.class ,CURRENT_PROCESS_LIST, java.util.List.class, "在批的流程清单", "在批的流程清单", org.github.foxnic.web.domain.bpm.ProcessInstance.class, null);
 	
 	/**
+	 * 默认流程 , 优先取在批的流程 , 类型: org.github.foxnic.web.domain.bpm.ProcessInstance
+	*/
+	public static final String DEFAULT_PROCESS="defaultProcess";
+	
+	/**
+	 * 默认流程 , 优先取在批的流程 , 类型: org.github.foxnic.web.domain.bpm.ProcessInstance
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.DemoCommon,org.github.foxnic.web.domain.bpm.ProcessInstance> DEFAULT_PROCESS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.DemoCommon.class ,DEFAULT_PROCESS, org.github.foxnic.web.domain.bpm.ProcessInstance.class, "默认流程", "优先取在批的流程", org.github.foxnic.web.domain.bpm.ProcessInstance.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , SUBJECT , CONTENT , HISTORIC_PROCESS_LIST , CURRENT_PROCESS_LIST };
+	public static final String[] $PROPS={ ID , SUBJECT , CONTENT , HISTORIC_PROCESS_LIST , CURRENT_PROCESS_LIST , DEFAULT_PROCESS };
 	
 	/**
 	 * 代理类
@@ -131,6 +141,17 @@ public class DemoCommonMeta {
 		public DemoCommon setCurrentProcessList(List<ProcessInstance> currentProcessList) {
 			super.change(CURRENT_PROCESS_LIST,super.getCurrentProcessList(),currentProcessList);
 			super.setCurrentProcessList(currentProcessList);
+			return this;
+		}
+		
+		/**
+		 * 设置 默认流程
+		 * @param defaultProcess 默认流程
+		 * @return 当前对象
+		*/
+		public DemoCommon setDefaultProcess(ProcessInstance defaultProcess) {
+			super.change(DEFAULT_PROCESS,super.getDefaultProcess(),defaultProcess);
+			super.setDefaultProcess(defaultProcess);
 			return this;
 		}
 	}

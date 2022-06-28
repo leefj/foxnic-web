@@ -18,8 +18,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 通用审批表单
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-27 15:28:02
- * @sign 1C6819B5989D4EBEF1ECF03FFF852249
+ * @since 2022-06-28 14:43:06
+ * @sign 3E4867BD1E4B2B62744A41B5E65E167D
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -60,6 +60,12 @@ public class DemoCommon extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="在批的流程清单" , notes = "在批的流程清单")
 	private List<ProcessInstance> currentProcessList;
+	
+	/**
+	 * 默认流程：优先取在批的流程
+	*/
+	@ApiModelProperty(required = false,value="默认流程" , notes = "优先取在批的流程")
+	private ProcessInstance defaultProcess;
 	
 	/**
 	 * 获得 主键<br>
@@ -175,6 +181,25 @@ public class DemoCommon extends Entity {
 	public DemoCommon addCurrentProcess(ProcessInstance... currentProcess) {
 		if(this.currentProcessList==null) currentProcessList=new ArrayList<>();
 		this.currentProcessList.addAll(Arrays.asList(currentProcess));
+		return this;
+	}
+	
+	/**
+	 * 获得 默认流程<br>
+	 * 优先取在批的流程
+	 * @return 默认流程
+	*/
+	public ProcessInstance getDefaultProcess() {
+		return defaultProcess;
+	}
+	
+	/**
+	 * 设置 默认流程
+	 * @param defaultProcess 默认流程
+	 * @return 当前对象
+	*/
+	public DemoCommon setDefaultProcess(ProcessInstance defaultProcess) {
+		this.defaultProcess=defaultProcess;
 		return this;
 	}
 

@@ -40,7 +40,7 @@ layui.define(['settings', 'layer', 'admin', 'util','element'],function (exports)
         },
 
         getProcessInstanceByBill : function (formCode,billId,callback) {
-            admin.post(api_process_get_by_bill,{billId:billId.id,formDefinitionCode:formCode}, function (result) {
+            admin.post(api_process_get_by_bill,{billIds:[billId.id],formDefinitionCode:formCode}, function (result) {
                 if(result.success) {
                     var plist=result.data;
                     var newPList=[];

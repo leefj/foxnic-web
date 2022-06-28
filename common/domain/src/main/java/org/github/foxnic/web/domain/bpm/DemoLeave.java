@@ -19,8 +19,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 请假流程示例
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-28 13:22:53
- * @sign 43E2D8332620B955587E290952968272
+ * @since 2022-06-28 16:22:51
+ * @sign 4E7BB06731BB6E42B2EFE0C9B3BABCB7
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -79,6 +79,12 @@ public class DemoLeave extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="在批的流程清单" , notes = "在批的流程清单")
 	private List<ProcessInstance> currentProcessList;
+	
+	/**
+	 * 默认流程：优先取在批的流程
+	*/
+	@ApiModelProperty(required = false,value="默认流程" , notes = "优先取在批的流程")
+	private ProcessInstance defaultProcess;
 	
 	/**
 	 * 获得 主键<br>
@@ -251,6 +257,25 @@ public class DemoLeave extends Entity {
 	public DemoLeave addCurrentProcess(ProcessInstance... currentProcess) {
 		if(this.currentProcessList==null) currentProcessList=new ArrayList<>();
 		this.currentProcessList.addAll(Arrays.asList(currentProcess));
+		return this;
+	}
+	
+	/**
+	 * 获得 默认流程<br>
+	 * 优先取在批的流程
+	 * @return 默认流程
+	*/
+	public ProcessInstance getDefaultProcess() {
+		return defaultProcess;
+	}
+	
+	/**
+	 * 设置 默认流程
+	 * @param defaultProcess 默认流程
+	 * @return 当前对象
+	*/
+	public DemoLeave setDefaultProcess(ProcessInstance defaultProcess) {
+		this.defaultProcess=defaultProcess;
 		return this;
 	}
 

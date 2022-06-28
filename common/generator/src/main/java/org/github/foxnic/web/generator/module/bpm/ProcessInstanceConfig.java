@@ -42,10 +42,12 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
         poType.addSimpleProperty(String.class,"drafterName","起草人名称","起草人名称");
         poType.addSimpleProperty(User.class,"drafterUser","起草人账户","起草人账户");
         poType.addListProperty(Task.class,"tasks","流程任务清单","流程任务清单");
+        poType.addListProperty(Task.class,"todoTasks","待办的流程任务清单","待办的流程任务清单");
         poType.addListProperty(Task.class,"userTasks","可处理的任务清单","当前登录账户可以处理的任务清单");
         poType.addListProperty(FormInstanceBill.class,"bills","业务单据","关联的业务单据清单");
         poType.addListProperty(String.class,"billIds","业务单据ID清单","业务单据ID清单");
         poType.addListProperty(ProcessError.class,"errors","流程异常清单","流程异常清单");
+        poType.addSimpleProperty(String.class,"approvalStatusName","审批状态","审批状态");
         // 将属性映射为枚举
         poType.shadow(BPM_PROCESS_INSTANCE.APPROVAL_STATUS,ApprovalStatus.class);
         poType.shadow(BPM_PROCESS_INSTANCE.DRAFTER_TYPE,UnifiedUserType.class);

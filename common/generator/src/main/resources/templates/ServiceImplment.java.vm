@@ -4,6 +4,7 @@ package #(package);
 import org.github.foxnic.web.domain.bpm.BpmActionResult;
 import org.github.foxnic.web.domain.bpm.BpmEvent;
 import org.github.foxnic.web.framework.bpm.BpmEventAdaptor;
+import org.github.foxnic.web.framework.bpm.BpmAssistant;
 #end
 import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -277,6 +278,22 @@ public class #(simpleName) extends SuperService<#(poSimpleName)> implements #(in
 	public  BpmActionResult onProcessCallback(BpmEvent event) {
 		return (new #(poSimpleName)BpmEventAdaptor(this)).onProcessCallback(event);
 	}
+
+	@Override
+	public void joinProcess(#(poSimpleName) #(poVar)) {
+		this.joinProcess(Arrays.asList(#(poVar)));
+	}
+
+	@Override
+	public void joinProcess(List<#(poSimpleName)> #(poVar)List) {
+		BpmAssistant.joinProcess(#(poVar)List,#(interfaceName).FORM_DEFINITION_CODE);
+	}
+
+	@Override
+	public void joinProcess(PagedList<#(poSimpleName)> #(poVar)List) {
+		this.joinProcess(#(poVar)List.getList());
+	}
+
 	#end
 
 }

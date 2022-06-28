@@ -3,12 +3,17 @@ package org.github.foxnic.web.relation.modules;
 import com.github.foxnic.commons.collection.CollectorUtil;
 import com.github.foxnic.dao.relation.RelationManager;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
+import org.github.foxnic.web.constants.enums.bpm.TaskStatus;
 import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
 import org.github.foxnic.web.domain.bpm.FormInstanceBill;
+import org.github.foxnic.web.domain.bpm.Task;
 import org.github.foxnic.web.domain.bpm.TaskApproval;
 import org.github.foxnic.web.domain.bpm.meta.*;
 import org.github.foxnic.web.domain.changes.meta.ChangeInstanceMeta;
 import org.github.foxnic.web.domain.oauth.User;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BpmRelationManager extends RelationManager {
 
@@ -103,7 +108,18 @@ public class BpmRelationManager extends RelationManager {
 
 		//流程实例 - 任务
 		this.property(ProcessInstanceMeta.TASKS_PROP)
-				.using(FoxnicWeb.BPM_PROCESS_INSTANCE.ID).join(FoxnicWeb.BPM_TASK.PROCESS_INSTANCE_ID);
+				.using(FoxnicWeb.BPM_PROCESS_INSTANCE.ID).join(FoxnicWeb.BPM_TASK.PROCESS_INSTANCE_ID)
+				.after((tag,owner,data,map)->{
+					List<Task> todoTasks=new ArrayList<>();
+					for (Task task : data) {
+						if(task.getStatusEnum()== TaskStatus.todo) {
+							todoTasks.add(task);
+						}
+					}
+					// 设置待办任务
+					owner.setTodoTasks(todoTasks);
+					return data;
+				});
 
 		//流程实例 - 审批动作
 		this.property(ProcessInstanceMeta.TASK_APPROVALS_PROP)

@@ -125,7 +125,7 @@ public interface ProcessInstanceServiceProxy {
      * 根据表单代码与业务单据号查询流程实例
      */
     @RequestMapping(ProcessInstanceServiceProxy.GET_PROCESS_INSTANCE_BY_BILL)
-    Result<List<ProcessInstance>> getProcessInstanceByBill(@RequestParam(name = "formDefinitionCode") String formDefinitionCode,@RequestParam(name = "billId") String billId, @RequestParam(name = "approvalStatus") String approvalStatus);
+    Result<List<ProcessInstance>> getProcessInstanceByBill(@RequestParam(name = "formDefinitionCode") String formDefinitionCode,@RequestParam(name = "billIds") List<String> billIds, @RequestParam(name = "approvalStatus") String approvalStatus);
     /**
      * 流程撤回
      * */
