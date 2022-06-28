@@ -102,8 +102,9 @@ function FormPage() {
 			var bodyHeight=body.height();
 			var footerHeight=$(".model-form-footer").height();
 			if(bpmIntegrateMode=="front" && isInProcess==1) {
+				var updateFormIframeHeight=admin.getVar("updateFormIframeHeight");
 				if(bodyHeight>0 && bodyHeight!=prevBodyHeight) {
-					parent && parent.updateFrameHeight && parent.updateFrameHeight(bodyHeight);
+					updateFormIframeHeight && updateFormIframeHeight(bodyHeight);
 				} else {
 					setTimeout(adjustPopup,1000);
 				}

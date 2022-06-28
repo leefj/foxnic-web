@@ -84,6 +84,11 @@ public interface ProcessInstanceServiceProxy {
     public static final String GET_BY_CAMUNDA_INSTANCE_ID = API_PREFIX + "get-by-camunda_instance-id";
 
     /**
+     * 获取单个流程实例
+     */
+    public static final String GET_PROCESS_INSTANCE_BY_BILL = API_PREFIX + "get-process-instance-by-bill";
+
+    /**
      * 获取多个流程实例
      */
     public static final String GET_BY_IDS = API_PREFIX + "get-by-ids";
@@ -116,6 +121,11 @@ public interface ProcessInstanceServiceProxy {
     public static final String SYNC_CAMUNDA_PROCESS_INSTANCE = API_PREFIX + "sync-camunda-process-instance";
 
 
+    /**
+     * 根据表单代码与业务单据号查询流程实例
+     */
+    @RequestMapping(ProcessInstanceServiceProxy.GET_PROCESS_INSTANCE_BY_BILL)
+    Result<List<ProcessInstance>> getProcessInstanceByBill(@RequestParam(name = "formDefinitionCode") String formDefinitionCode,@RequestParam(name = "billId") String billId, @RequestParam(name = "approvalStatus") String approvalStatus);
     /**
      * 流程撤回
      * */

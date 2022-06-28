@@ -30,6 +30,7 @@ public class DemoLeaveConfig extends BaseCodeConfig<BPM_DEMO_LEAVE> {
 
     @Override
     public void configBPM(BpmOptions bpm) {
+        bpm.form("demo-leave");
         bpm.integrate(IntegrateMode.FRONT);
     }
 
@@ -43,7 +44,7 @@ public class DemoLeaveConfig extends BaseCodeConfig<BPM_DEMO_LEAVE> {
 
         view.form().labelWidth(70);
 
-//        view.field(BPM_FORM_DEFINITION.ID).basic().hidden();
+//     view.field(BPM_FORM_DEFINITION.ID).basic().hidden();
         view.field(BPM_DEMO_LEAVE.TYPE).search().hidden()
                 .form().validate().required()
                 .form().selectBox().dict(DictEnum.LEAVE_TYPE);

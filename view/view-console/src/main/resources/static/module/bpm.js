@@ -11,6 +11,7 @@ layui.define(['settings', 'layer', 'admin', 'util','element'],function (exports)
     const  api_process_batch_abandon="/service-bpm/bpm-process-instance/delete-by-ids";
     const  api_process_fetch_back="/service-bpm/bpm-process-instance/fetch-back";
     const  api_process_jump="/service-bpm/bpm-process-instance/jump";
+    const  api_process_get_by_bill="/service-bpm/bpm-process-instance/get-process-instance-by-bill";
 
     var bpm = {
 
@@ -36,6 +37,33 @@ layui.define(['settings', 'layer', 'admin', 'util','element'],function (exports)
             admin.post(api_process_get,{id:processInstanceId}, function (result) {
                 callback && callback(result);
             }, {delayLoading:1000,elms:lockEls});
+        },
+
+        getProcessInstanceByBill : function (formCode,billId,callback) {
+            admin.post(api_process_get_by_bill,{billId:billId.id,formDefinitionCode:formCode}, function (result) {
+                if(result.success) {
+                    var plist=result.data;
+                    var newPList=[];
+                    for (var i = 0; i < plist.length; i++) {
+                        if(plist[i].approvalStatus!="abandoned") {
+                            newPList.push(plist[i]);
+                        }
+                    }
+                    //
+                    plist=newPList;
+                    //
+                    if(!plist || plist.length==0) {
+                        top.layer.msg('当前业务单据尚未关联流程', {icon: 2, time: 1500});
+                        return;
+                    } else if(plist.length>=2) {
+                        top.layer.msg('当前业务单据关联了'+plist.length+'个流程，尚不支持', {icon: 2, time: 1500});
+                        return;
+                    }
+                    callback && callback(plist[0]);
+                } else {
+                  fox.showMessage(result);
+                }
+            });
         },
 
         /**
@@ -99,24 +127,56 @@ layui.define(['settings', 'layer', 'admin', 'util','element'],function (exports)
 
         /**
          * 打开流程界面
+         * params process
          * */
-        openProcessView : function ( processInstanceId , taskId ,newPage) {
+        openProcessView : function ( processInstanceId , taskId ,newPage,params,refreshTableData,refreshRowData,refreshLocation) {
             // if(!processInstanceId) {
             //     top.layer.msg('流程未指定，打开失败！', {icon: 2, time: 1500});
             //     return;
             // }
+            // debugger
+            var refreshOption={
+                refreshTableData:refreshTableData,
+                refreshRowData:refreshRowData,
+                refreshLocation:refreshLocation
+            }
+
+            admin.putVar("bpmRefreshOption",refreshOption);
+
+            if(!params) params={};
+            if(processInstanceId) {
+                params["processInstanceId"]= processInstanceId;
+            }
+            if(taskId) {
+                params["taskId"]= taskId;
+            }
+
+            var validateParam=0;
+            if (params["processDefinitionId"]) {
+                validateParam++;
+            }
+            if (params["processDefinitionCode"]) {
+                validateParam++;
+            }
+            if (params["formDefinitionCode"]) {
+                validateParam++;
+            }
+            if(validateParam>1) {
+                top.layer.msg("processDefinitionId , processDefinitionCode , formDefinitionCode 参数只能指定其中一个", {icon: 2, time: 3000});
+                return;
+            }
+
+            var queryString="";
+            var queryStrings=[];
+            for (var key in params) {
+                queryStrings.push(key+"="+params[key]);
+            }
+            queryString=queryStrings.join("&");
+
             var me=this;
             var action = processInstanceId?"edit":"create";
             admin.putTempData('bpm-process-instance-form-data-form-action',action);
-            var queryString="";
-            var queryStrings=[];
-            if(processInstanceId) {
-                queryStrings.push('id=' + processInstanceId);
-            }
-            if(taskId) {
-                queryStrings.push('taskId=' + taskId);
-            }
-            queryString=queryStrings.join("&");
+
             var fullHeight=$(top).height();
             var fullwidth=$(top).width();
             var title = fox.translate('流程实例');
@@ -142,14 +202,20 @@ layui.define(['settings', 'layer', 'admin', 'util','element'],function (exports)
                 finish: function (ctx) {
                     if(ctx=="close") return;
                     if(action=="create") {
-                        window.module.refreshTableData();
+                        refreshTableData();
                     }
                     if(action=="edit") {
                         // 如果没有 ctx 说明是来自保存按钮
                         if(!ctx) {
                             me.getProcessInstance(processInstanceId,function (r){
                                if(r.success) {
-                                   window.module.refreshRowData(r.data,false);
+                                   if(refreshLocation=="process") {
+                                       refreshRowData(r.data,false);
+                                   } else if(refreshLocation=="task") {
+                                       refreshRowData(r.data,false);
+                                   } else if(refreshLocation=="bill") {
+                                       refreshRowData(r.data,false);
+                                   }
                                } else {
                                    fox.showMessage(r);
                                }

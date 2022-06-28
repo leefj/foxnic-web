@@ -25,8 +25,8 @@ public class DemoCommonConfig extends BaseCodeConfig<BPM_DEMO_COMMON> {
 
     @Override
     public void configBPM(BpmOptions bpm) {
+        bpm.form("demo-common");
         bpm.integrate(IntegrateMode.FRONT);
-//        this.appendBpmPreperty
     }
 
     @Override
