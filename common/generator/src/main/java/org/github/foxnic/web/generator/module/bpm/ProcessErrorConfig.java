@@ -23,6 +23,7 @@ public class ProcessErrorConfig extends BaseCodeConfig<BPM_PROCESS_ERROR> {
 
     @Override
     public void configSearch(ViewOptions view, SearchAreaOptions search) {
+        search.disable();
 //        search.inputLayout(new Object[]{BPM_PROCESS_DEFINITION_NODE_ASSIGNEE.NODE_NAME});
     }
 
@@ -31,7 +32,8 @@ public class ProcessErrorConfig extends BaseCodeConfig<BPM_PROCESS_ERROR> {
 
 //        view.form().labelWidth(100);
 //
-//        view.field(BPM_PROCESS_DEFINITION_NODE.NODE_NAME).search().fuzzySearch();
+        view.field(BPM_PROCESS_ERROR.ID).basic().hidden();
+        view.field(BPM_PROCESS_ERROR.PROCESS_INSTANCE_ID).basic().hidden();
 //
 //        view.field( BPM_PROCESS_DEFINITION_NODE.CAMUNDA_NODE_ID).form().readOnly();
 //        view.field( BPM_PROCESS_DEFINITION_NODE.NODE_TYPE).form().readOnly();
