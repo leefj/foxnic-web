@@ -119,7 +119,8 @@ public class ClusterProxy {
                 paramNames[i] = requestParam.name();
             }
 
-            paramNames=(new DefaultParameterNameDiscoverer()).getParameterNames(method);
+            //paramNames=(new DefaultParameterNameDiscoverer()).getParameterNames(method);
+
             JSONObject   ps = new JSONObject();
             for (int i = 0; i < params.length; i++) {
                 ps.put(paramNames[i], args[i]);
