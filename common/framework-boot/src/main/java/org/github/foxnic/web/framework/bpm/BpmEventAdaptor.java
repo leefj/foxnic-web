@@ -3,6 +3,7 @@ package org.github.foxnic.web.framework.bpm;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.entity.Entity;
 import com.github.foxnic.dao.entity.ISimpleIdService;
+import com.github.foxnic.dao.spec.DAO;
 import org.github.foxnic.web.constants.enums.bpm.BpmEventType;
 import org.github.foxnic.web.domain.bpm.BpmActionResult;
 import org.github.foxnic.web.domain.bpm.BpmEvent;
@@ -12,13 +13,22 @@ public abstract class BpmEventAdaptor<E extends Entity,S extends ISimpleIdServic
 
     private  S service;
 
+    private DAO dao;
+
     public BpmEventAdaptor(S service) {
         this.service=service;
+        this.dao=this.service.dao();
     }
 
-    protected S service() {
+    public S service() {
         return service;
     }
+
+    public DAO dao() {
+        return dao;
+    }
+
+
 
     /**
      * 获得表单数据

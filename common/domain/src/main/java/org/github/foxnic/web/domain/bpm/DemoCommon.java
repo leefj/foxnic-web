@@ -21,7 +21,7 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 通用审批表单
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-28 17:23:22
+ * @since 2022-06-29 14:15:36
  * @sign 1422044F0495F7639912E1936E6DA565
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */

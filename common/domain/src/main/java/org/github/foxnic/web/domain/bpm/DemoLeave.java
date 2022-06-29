@@ -22,7 +22,7 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 请假流程示例
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-28 17:23:26
+ * @since 2022-06-29 14:18:40
  * @sign 02B50B896D552B83DCA23CBBD8F40313
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
