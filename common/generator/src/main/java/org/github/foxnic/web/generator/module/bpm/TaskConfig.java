@@ -11,7 +11,7 @@ import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_TASK;
 import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_PROCESS_DEFINITION;
-import org.github.foxnic.web.constants.enums.bpm.ApprovalReault;
+import org.github.foxnic.web.constants.enums.bpm.ApprovalResult;
 import org.github.foxnic.web.constants.enums.bpm.TaskStatus;
 import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
 import org.github.foxnic.web.domain.bpm.*;
@@ -68,7 +68,7 @@ public class TaskConfig extends BaseCodeConfig<BPM_TASK> {
         pojo.addSimpleProperty(String.class,"assigneeType","审批人身份类型","审批人身份类型");
         pojo.addSimpleProperty(String.class,"assigneeId","审批人身份ID","审批人身份ID");
         pojo.addSimpleProperty(String.class,"result","审批结果","审批结果");
-        pojo.shadow("result", ApprovalReault.class);
+        pojo.shadow("result", ApprovalResult.class);
         pojo.addSimpleProperty(String.class,"comment","审批意见","审批意见");
         pojo.addMapProperty(String.class,Object.class,"variables","流程参数","流程参数");
         pojo.addSimpleProperty(String.class,"tenantId","租户ID","租户ID");

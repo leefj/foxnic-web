@@ -7,7 +7,7 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_TASK_APPROVAL;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
-import org.github.foxnic.web.constants.enums.bpm.ApprovalReault;
+import org.github.foxnic.web.constants.enums.bpm.ApprovalResult;
 import javax.persistence.Transient;
 
 import org.github.foxnic.web.domain.oauth.User;
@@ -33,94 +33,94 @@ public class TaskApproval extends Entity {
 	private static final long serialVersionUID = 1L;
 
 	public static final DBTable TABLE =BPM_TASK_APPROVAL.$TABLE;
-	
+
 	/**
 	 * id：id
 	*/
 	@Id
 	@ApiModelProperty(required = true,value="id" , notes = "id")
 	private String id;
-	
+
 	/**
 	 * 任务ID：任务ID
 	*/
 	@ApiModelProperty(required = false,value="任务ID" , notes = "任务ID")
 	private String taskId;
-	
+
 	/**
 	 * 流程实例ID：流程实例ID
 	*/
 	@ApiModelProperty(required = false,value="流程实例ID" , notes = "流程实例ID")
 	private String processInstanceId;
-	
+
 	/**
 	 * 审批人账户ID：实际的审批人
 	*/
 	@ApiModelProperty(required = false,value="审批人账户ID" , notes = "实际的审批人")
 	private String approvalUserId;
-	
+
 	/**
 	 * 处理时间：处理时间
 	*/
 	@ApiModelProperty(required = false,value="处理时间" , notes = "处理时间")
 	private Date approvalTime;
-	
+
 	/**
 	 * 审批结果：审批结果
 	*/
 	@ApiModelProperty(required = false,value="审批结果" , notes = "审批结果")
 	private String approvalResult;
 	@Transient
-	private ApprovalReault approvalResultEnum;
-	
+	private ApprovalResult approvalResultEnum;
+
 	/**
 	 * 审批意见：审批意见
 	*/
 	@ApiModelProperty(required = false,value="审批意见" , notes = "审批意见")
 	private String approvalComment;
-	
+
 	/**
 	 * 审批人类型：预计的审批人类型
 	*/
 	@ApiModelProperty(required = false,value="审批人类型" , notes = "预计的审批人类型")
 	private String assigneeType;
-	
+
 	/**
 	 * 审批人ID：预计的审批人
 	*/
 	@ApiModelProperty(required = false,value="审批人ID" , notes = "预计的审批人")
 	private String assigneeId;
-	
+
 	/**
 	 * 变量数据：变量数据
 	*/
 	@ApiModelProperty(required = false,value="变量数据" , notes = "变量数据")
 	private String variables;
-	
+
 	/**
 	 * create_by：create_by
 	*/
 	@ApiModelProperty(required = false,value="create_by" , notes = "create_by")
 	private String createBy;
-	
+
 	/**
 	 * 创建时间：创建时间
 	*/
 	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间")
 	private Date createTime;
-	
+
 	/**
 	 * update_by：update_by
 	*/
 	@ApiModelProperty(required = false,value="update_by" , notes = "update_by")
 	private String updateBy;
-	
+
 	/**
 	 * 修改时间：修改时间
 	*/
 	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间")
 	private Date updateTime;
-	
+
 	/**
 	 * 是否已删除：是否已删除
 	*/
@@ -128,55 +128,55 @@ public class TaskApproval extends Entity {
 	private Integer deleted;
 	@Transient
 	private Boolean deletedBool;
-	
+
 	/**
 	 * delete_by：delete_by
 	*/
 	@ApiModelProperty(required = false,value="delete_by" , notes = "delete_by")
 	private String deleteBy;
-	
+
 	/**
 	 * 删除时间：删除时间
 	*/
 	@ApiModelProperty(required = false,value="删除时间" , notes = "删除时间")
 	private Date deleteTime;
-	
+
 	/**
 	 * 数据版本号：数据版本号
 	*/
 	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
 	private Integer version;
-	
+
 	/**
 	 * tenant_id：tenant_id
 	*/
 	@ApiModelProperty(required = false,value="tenant_id" , notes = "tenant_id")
 	private String tenantId;
-	
+
 	/**
 	 * CAM结果：Camunda返回的结果
 	*/
 	@ApiModelProperty(required = false,value="CAM结果" , notes = "Camunda返回的结果")
 	private String camundaResult;
-	
+
 	/**
 	 * CAM成功：Camunda处理是否成功
 	*/
 	@ApiModelProperty(required = false,value="CAM成功" , notes = "Camunda处理是否成功")
 	private Integer camundaSuccess;
-	
+
 	/**
 	 * 审批人身份：审批人身份
 	*/
 	@ApiModelProperty(required = false,value="审批人身份" , notes = "审批人身份")
 	private Assignee approver;
-	
+
 	/**
 	 * 审批人账户：审批人账户
 	*/
 	@ApiModelProperty(required = false,value="审批人账户" , notes = "审批人账户")
 	private User approvalUser;
-	
+
 	/**
 	 * 获得 id<br>
 	 * id
@@ -185,7 +185,7 @@ public class TaskApproval extends Entity {
 	public String getId() {
 		return id;
 	}
-	
+
 	/**
 	 * 设置 id
 	 * @param id id
@@ -195,7 +195,7 @@ public class TaskApproval extends Entity {
 		this.id=id;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 任务ID<br>
 	 * 任务ID
@@ -204,7 +204,7 @@ public class TaskApproval extends Entity {
 	public String getTaskId() {
 		return taskId;
 	}
-	
+
 	/**
 	 * 设置 任务ID
 	 * @param taskId 任务ID
@@ -214,7 +214,7 @@ public class TaskApproval extends Entity {
 		this.taskId=taskId;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 流程实例ID<br>
 	 * 流程实例ID
@@ -223,7 +223,7 @@ public class TaskApproval extends Entity {
 	public String getProcessInstanceId() {
 		return processInstanceId;
 	}
-	
+
 	/**
 	 * 设置 流程实例ID
 	 * @param processInstanceId 流程实例ID
@@ -233,7 +233,7 @@ public class TaskApproval extends Entity {
 		this.processInstanceId=processInstanceId;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 审批人账户ID<br>
 	 * 实际的审批人
@@ -242,7 +242,7 @@ public class TaskApproval extends Entity {
 	public String getApprovalUserId() {
 		return approvalUserId;
 	}
-	
+
 	/**
 	 * 设置 审批人账户ID
 	 * @param approvalUserId 审批人账户ID
@@ -252,7 +252,7 @@ public class TaskApproval extends Entity {
 		this.approvalUserId=approvalUserId;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 处理时间<br>
 	 * 处理时间
@@ -261,7 +261,7 @@ public class TaskApproval extends Entity {
 	public Date getApprovalTime() {
 		return approvalTime;
 	}
-	
+
 	/**
 	 * 设置 处理时间
 	 * @param approvalTime 处理时间
@@ -271,7 +271,7 @@ public class TaskApproval extends Entity {
 		this.approvalTime=approvalTime;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 审批结果<br>
 	 * 审批结果
@@ -280,20 +280,20 @@ public class TaskApproval extends Entity {
 	public String getApprovalResult() {
 		return approvalResult;
 	}
-	
+
 	/**
 	 * 获得 审批结果 的投影属性<br>
 	 * 等价于 getApprovalResult 方法，获得对应的枚举类型
 	 * @return 审批结果
 	*/
 	@Transient
-	public ApprovalReault getApprovalResultEnum() {
+	public ApprovalResult getApprovalResultEnum() {
 		if(this.approvalResultEnum==null) {
-			this.approvalResultEnum = (ApprovalReault) EnumUtil.parseByCode(ApprovalReault.values(),approvalResult);
+			this.approvalResultEnum = (ApprovalResult) EnumUtil.parseByCode(ApprovalResult.values(),approvalResult);
 		}
 		return this.approvalResultEnum ;
 	}
-	
+
 	/**
 	 * 设置 审批结果
 	 * @param approvalResult 审批结果
@@ -301,20 +301,20 @@ public class TaskApproval extends Entity {
 	*/
 	public TaskApproval setApprovalResult(String approvalResult) {
 		this.approvalResult=approvalResult;
-		this.approvalResultEnum= (ApprovalReault) EnumUtil.parseByCode(ApprovalReault.values(),approvalResult) ;
+		this.approvalResultEnum= (ApprovalResult) EnumUtil.parseByCode(ApprovalResult.values(),approvalResult) ;
 		if(StringUtil.hasContent(approvalResult) && this.approvalResultEnum==null) {
 			throw new IllegalArgumentException( approvalResult + " is not one of AppovalReault");
 		}
 		return this;
 	}
-	
+
 	/**
 	 * 设置 审批结果的投影属性，等同于设置 审批结果
 	 * @param approvalResultEnum 审批结果
 	 * @return 当前对象
 	*/
 	@Transient
-	public TaskApproval setApprovalResultEnum(ApprovalReault approvalResultEnum) {
+	public TaskApproval setApprovalResultEnum(ApprovalResult approvalResultEnum) {
 		if(approvalResultEnum==null) {
 			this.setApprovalResult(null);
 		} else {
@@ -323,7 +323,7 @@ public class TaskApproval extends Entity {
 		this.approvalResultEnum=approvalResultEnum;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 审批意见<br>
 	 * 审批意见
@@ -332,7 +332,7 @@ public class TaskApproval extends Entity {
 	public String getApprovalComment() {
 		return approvalComment;
 	}
-	
+
 	/**
 	 * 设置 审批意见
 	 * @param approvalComment 审批意见
@@ -342,7 +342,7 @@ public class TaskApproval extends Entity {
 		this.approvalComment=approvalComment;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 审批人类型<br>
 	 * 预计的审批人类型
@@ -351,7 +351,7 @@ public class TaskApproval extends Entity {
 	public String getAssigneeType() {
 		return assigneeType;
 	}
-	
+
 	/**
 	 * 设置 审批人类型
 	 * @param assigneeType 审批人类型
@@ -361,7 +361,7 @@ public class TaskApproval extends Entity {
 		this.assigneeType=assigneeType;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 审批人ID<br>
 	 * 预计的审批人
@@ -370,7 +370,7 @@ public class TaskApproval extends Entity {
 	public String getAssigneeId() {
 		return assigneeId;
 	}
-	
+
 	/**
 	 * 设置 审批人ID
 	 * @param assigneeId 审批人ID
@@ -380,7 +380,7 @@ public class TaskApproval extends Entity {
 		this.assigneeId=assigneeId;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 变量数据<br>
 	 * 变量数据
@@ -389,7 +389,7 @@ public class TaskApproval extends Entity {
 	public String getVariables() {
 		return variables;
 	}
-	
+
 	/**
 	 * 设置 变量数据
 	 * @param variables 变量数据
@@ -399,7 +399,7 @@ public class TaskApproval extends Entity {
 		this.variables=variables;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 create_by<br>
 	 * create_by
@@ -408,7 +408,7 @@ public class TaskApproval extends Entity {
 	public String getCreateBy() {
 		return createBy;
 	}
-	
+
 	/**
 	 * 设置 create_by
 	 * @param createBy create_by
@@ -418,7 +418,7 @@ public class TaskApproval extends Entity {
 		this.createBy=createBy;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 创建时间<br>
 	 * 创建时间
@@ -427,7 +427,7 @@ public class TaskApproval extends Entity {
 	public Date getCreateTime() {
 		return createTime;
 	}
-	
+
 	/**
 	 * 设置 创建时间
 	 * @param createTime 创建时间
@@ -437,7 +437,7 @@ public class TaskApproval extends Entity {
 		this.createTime=createTime;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 update_by<br>
 	 * update_by
@@ -446,7 +446,7 @@ public class TaskApproval extends Entity {
 	public String getUpdateBy() {
 		return updateBy;
 	}
-	
+
 	/**
 	 * 设置 update_by
 	 * @param updateBy update_by
@@ -456,7 +456,7 @@ public class TaskApproval extends Entity {
 		this.updateBy=updateBy;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 修改时间<br>
 	 * 修改时间
@@ -465,7 +465,7 @@ public class TaskApproval extends Entity {
 	public Date getUpdateTime() {
 		return updateTime;
 	}
-	
+
 	/**
 	 * 设置 修改时间
 	 * @param updateTime 修改时间
@@ -475,7 +475,7 @@ public class TaskApproval extends Entity {
 		this.updateTime=updateTime;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 是否已删除<br>
 	 * 是否已删除
@@ -484,7 +484,7 @@ public class TaskApproval extends Entity {
 	public Integer getDeleted() {
 		return deleted;
 	}
-	
+
 	/**
 	 * 获得 是否已删除 的投影属性<br>
 	 * 等价于 getDeleted 方法，获得对应的枚举类型
@@ -497,7 +497,7 @@ public class TaskApproval extends Entity {
 		}
 		return this.deletedBool ;
 	}
-	
+
 	/**
 	 * 设置 是否已删除
 	 * @param deleted 是否已删除
@@ -508,7 +508,7 @@ public class TaskApproval extends Entity {
 		this.deletedBool=DataParser.parseBoolean(deleted);
 		return this;
 	}
-	
+
 	/**
 	 * 设置 是否已删除的投影属性，等同于设置 是否已删除
 	 * @param deletedBool 是否已删除
@@ -524,7 +524,7 @@ public class TaskApproval extends Entity {
 		this.deletedBool=deletedBool;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 delete_by<br>
 	 * delete_by
@@ -533,7 +533,7 @@ public class TaskApproval extends Entity {
 	public String getDeleteBy() {
 		return deleteBy;
 	}
-	
+
 	/**
 	 * 设置 delete_by
 	 * @param deleteBy delete_by
@@ -543,7 +543,7 @@ public class TaskApproval extends Entity {
 		this.deleteBy=deleteBy;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 删除时间<br>
 	 * 删除时间
@@ -552,7 +552,7 @@ public class TaskApproval extends Entity {
 	public Date getDeleteTime() {
 		return deleteTime;
 	}
-	
+
 	/**
 	 * 设置 删除时间
 	 * @param deleteTime 删除时间
@@ -562,7 +562,7 @@ public class TaskApproval extends Entity {
 		this.deleteTime=deleteTime;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 数据版本号<br>
 	 * 数据版本号
@@ -571,7 +571,7 @@ public class TaskApproval extends Entity {
 	public Integer getVersion() {
 		return version;
 	}
-	
+
 	/**
 	 * 设置 数据版本号
 	 * @param version 数据版本号
@@ -581,7 +581,7 @@ public class TaskApproval extends Entity {
 		this.version=version;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 tenant_id<br>
 	 * tenant_id
@@ -590,7 +590,7 @@ public class TaskApproval extends Entity {
 	public String getTenantId() {
 		return tenantId;
 	}
-	
+
 	/**
 	 * 设置 tenant_id
 	 * @param tenantId tenant_id
@@ -600,7 +600,7 @@ public class TaskApproval extends Entity {
 		this.tenantId=tenantId;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 CAM结果<br>
 	 * Camunda返回的结果
@@ -609,7 +609,7 @@ public class TaskApproval extends Entity {
 	public String getCamundaResult() {
 		return camundaResult;
 	}
-	
+
 	/**
 	 * 设置 CAM结果
 	 * @param camundaResult CAM结果
@@ -619,7 +619,7 @@ public class TaskApproval extends Entity {
 		this.camundaResult=camundaResult;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 CAM成功<br>
 	 * Camunda处理是否成功
@@ -628,7 +628,7 @@ public class TaskApproval extends Entity {
 	public Integer getCamundaSuccess() {
 		return camundaSuccess;
 	}
-	
+
 	/**
 	 * 设置 CAM成功
 	 * @param camundaSuccess CAM成功
@@ -638,7 +638,7 @@ public class TaskApproval extends Entity {
 		this.camundaSuccess=camundaSuccess;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 审批人身份<br>
 	 * 审批人身份
@@ -647,7 +647,7 @@ public class TaskApproval extends Entity {
 	public Assignee getApprover() {
 		return approver;
 	}
-	
+
 	/**
 	 * 设置 审批人身份
 	 * @param approver 审批人身份
@@ -657,7 +657,7 @@ public class TaskApproval extends Entity {
 		this.approver=approver;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 审批人账户<br>
 	 * 审批人账户
@@ -666,7 +666,7 @@ public class TaskApproval extends Entity {
 	public User getApprovalUser() {
 		return approvalUser;
 	}
-	
+
 	/**
 	 * 设置 审批人账户
 	 * @param approvalUser 审批人账户

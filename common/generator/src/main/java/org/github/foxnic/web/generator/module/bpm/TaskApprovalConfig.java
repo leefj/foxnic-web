@@ -8,7 +8,7 @@ import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_TASK_APPROVAL;
-import org.github.foxnic.web.constants.enums.bpm.ApprovalReault;
+import org.github.foxnic.web.constants.enums.bpm.ApprovalResult;
 import org.github.foxnic.web.domain.bpm.Assignee;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
@@ -23,7 +23,7 @@ public class TaskApprovalConfig extends BaseCodeConfig<BPM_TASK_APPROVAL> {
     public void configModel(PoClassFile poType, VoClassFile voType) {
         poType.addSimpleProperty(Assignee.class,"approver","审批人身份","审批人身份");
         poType.addSimpleProperty(User.class,"approvalUser","审批人账户","审批人账户");
-        poType.shadow(BPM_TASK_APPROVAL.APPROVAL_RESULT, ApprovalReault.class);
+        poType.shadow(BPM_TASK_APPROVAL.APPROVAL_RESULT, ApprovalResult.class);
     }
 
     @Override

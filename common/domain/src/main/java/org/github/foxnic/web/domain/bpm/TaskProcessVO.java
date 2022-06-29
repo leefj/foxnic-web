@@ -1,11 +1,12 @@
 package org.github.foxnic.web.domain.bpm;
 
 import io.swagger.annotations.ApiModelProperty;
-import org.github.foxnic.web.constants.enums.bpm.ApprovalReault;
+import org.github.foxnic.web.constants.enums.bpm.ApprovalResult;
 import javax.persistence.Transient;
 import java.util.Map;
 import com.github.foxnic.commons.reflect.EnumUtil;
 import com.github.foxnic.commons.lang.StringUtil;
+
 import java.util.HashMap;
 
 
@@ -21,63 +22,63 @@ import java.util.HashMap;
 public class TaskProcessVO {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * 任务ID：任务ID
 	*/
 	@ApiModelProperty(required = false,value="任务ID" , notes = "任务ID")
 	private String taskId;
-	
+
 	/**
 	 * 审批人账户ID：审批人账户
 	*/
 	@ApiModelProperty(required = false,value="审批人账户ID" , notes = "审批人账户")
 	private String assigneeUserId;
-	
+
 	/**
 	 * 审批人身份类型：审批人身份类型
 	*/
 	@ApiModelProperty(required = false,value="审批人身份类型" , notes = "审批人身份类型")
 	private String assigneeType;
-	
+
 	/**
 	 * 审批人身份ID：审批人身份ID
 	*/
 	@ApiModelProperty(required = false,value="审批人身份ID" , notes = "审批人身份ID")
 	private String assigneeId;
-	
+
 	/**
 	 * 审批结果：审批结果
 	*/
 	@ApiModelProperty(required = false,value="审批结果" , notes = "审批结果")
 	private String result;
 	@Transient
-	private ApprovalReault resultEnum;
-	
+	private ApprovalResult resultEnum;
+
 	/**
 	 * 审批意见：审批意见
 	*/
 	@ApiModelProperty(required = false,value="审批意见" , notes = "审批意见")
 	private String comment;
-	
+
 	/**
 	 * 流程参数：流程参数
 	*/
 	@ApiModelProperty(required = false,value="流程参数" , notes = "流程参数")
 	private Map<String,Object> variables;
-	
+
 	/**
 	 * 租户ID：租户ID
 	*/
 	@ApiModelProperty(required = false,value="租户ID" , notes = "租户ID")
 	private String tenantId;
-	
+
 	/**
 	 * 流程跳转的目标节点ID：流程跳转的目标节点ID
 	*/
 	@ApiModelProperty(required = false,value="流程跳转的目标节点ID" , notes = "流程跳转的目标节点ID")
 	private String jumpToNodeId;
-	
+
 	/**
 	 * 获得 任务ID<br>
 	 * 任务ID
@@ -86,7 +87,7 @@ public class TaskProcessVO {
 	public String getTaskId() {
 		return taskId;
 	}
-	
+
 	/**
 	 * 设置 任务ID
 	 * @param taskId 任务ID
@@ -96,7 +97,7 @@ public class TaskProcessVO {
 		this.taskId=taskId;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 审批人账户ID<br>
 	 * 审批人账户
@@ -105,7 +106,7 @@ public class TaskProcessVO {
 	public String getAssigneeUserId() {
 		return assigneeUserId;
 	}
-	
+
 	/**
 	 * 设置 审批人账户ID
 	 * @param assigneeUserId 审批人账户ID
@@ -115,7 +116,7 @@ public class TaskProcessVO {
 		this.assigneeUserId=assigneeUserId;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 审批人身份类型<br>
 	 * 审批人身份类型
@@ -124,7 +125,7 @@ public class TaskProcessVO {
 	public String getAssigneeType() {
 		return assigneeType;
 	}
-	
+
 	/**
 	 * 设置 审批人身份类型
 	 * @param assigneeType 审批人身份类型
@@ -134,7 +135,7 @@ public class TaskProcessVO {
 		this.assigneeType=assigneeType;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 审批人身份ID<br>
 	 * 审批人身份ID
@@ -143,7 +144,7 @@ public class TaskProcessVO {
 	public String getAssigneeId() {
 		return assigneeId;
 	}
-	
+
 	/**
 	 * 设置 审批人身份ID
 	 * @param assigneeId 审批人身份ID
@@ -153,7 +154,7 @@ public class TaskProcessVO {
 		this.assigneeId=assigneeId;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 审批结果<br>
 	 * 审批结果
@@ -162,20 +163,20 @@ public class TaskProcessVO {
 	public String getResult() {
 		return result;
 	}
-	
+
 	/**
 	 * 获得 审批结果 的投影属性<br>
 	 * 等价于 getResult 方法，获得对应的枚举类型
 	 * @return 审批结果
 	*/
 	@Transient
-	public ApprovalReault getResultEnum() {
+	public ApprovalResult getResultEnum() {
 		if(this.resultEnum==null) {
-			this.resultEnum = (ApprovalReault) EnumUtil.parseByCode(ApprovalReault.values(),result);
+			this.resultEnum = (ApprovalResult) EnumUtil.parseByCode(ApprovalResult.values(),result);
 		}
 		return this.resultEnum ;
 	}
-	
+
 	/**
 	 * 设置 审批结果
 	 * @param result 审批结果
@@ -183,20 +184,20 @@ public class TaskProcessVO {
 	*/
 	public TaskProcessVO setResult(String result) {
 		this.result=result;
-		this.resultEnum= (ApprovalReault) EnumUtil.parseByCode(ApprovalReault.values(),result) ;
+		this.resultEnum= (ApprovalResult) EnumUtil.parseByCode(ApprovalResult.values(),result) ;
 		if(StringUtil.hasContent(result) && this.resultEnum==null) {
-			throw new IllegalArgumentException( result + " is not one of ApprovalReault");
+			throw new IllegalArgumentException( result + " is not one of ApprovalResult");
 		}
 		return this;
 	}
-	
+
 	/**
 	 * 设置 审批结果的投影属性，等同于设置 审批结果
 	 * @param resultEnum 审批结果
 	 * @return 当前对象
 	*/
 	@Transient
-	public TaskProcessVO setResultEnum(ApprovalReault resultEnum) {
+	public TaskProcessVO setResultEnum(ApprovalResult resultEnum) {
 		if(resultEnum==null) {
 			this.setResult(null);
 		} else {
@@ -205,7 +206,7 @@ public class TaskProcessVO {
 		this.resultEnum=resultEnum;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 审批意见<br>
 	 * 审批意见
@@ -214,7 +215,7 @@ public class TaskProcessVO {
 	public String getComment() {
 		return comment;
 	}
-	
+
 	/**
 	 * 设置 审批意见
 	 * @param comment 审批意见
@@ -224,7 +225,7 @@ public class TaskProcessVO {
 		this.comment=comment;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 流程参数<br>
 	 * 流程参数
@@ -233,7 +234,7 @@ public class TaskProcessVO {
 	public Map<String,Object> getVariables() {
 		return variables;
 	}
-	
+
 	/**
 	 * 设置 流程参数
 	 * @param variables 流程参数
@@ -243,7 +244,7 @@ public class TaskProcessVO {
 		this.variables=variables;
 		return this;
 	}
-	
+
 	/**
 	 * 添加 流程参数
 	 * @param key 键
@@ -255,7 +256,7 @@ public class TaskProcessVO {
 		this.variables.put(key ,variable);
 		return this;
 	}
-	
+
 	/**
 	 * 获得 租户ID<br>
 	 * 租户ID
@@ -264,7 +265,7 @@ public class TaskProcessVO {
 	public String getTenantId() {
 		return tenantId;
 	}
-	
+
 	/**
 	 * 设置 租户ID
 	 * @param tenantId 租户ID
@@ -274,7 +275,7 @@ public class TaskProcessVO {
 		this.tenantId=tenantId;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 流程跳转的目标节点ID<br>
 	 * 流程跳转的目标节点ID
@@ -283,7 +284,7 @@ public class TaskProcessVO {
 	public String getJumpToNodeId() {
 		return jumpToNodeId;
 	}
-	
+
 	/**
 	 * 设置 流程跳转的目标节点ID
 	 * @param jumpToNodeId 流程跳转的目标节点ID

@@ -307,6 +307,7 @@ layui.define(['settings', 'layer', 'admin', 'util','element'],function (exports)
          * 判断是否为当前待审节点
          * */
         isTodoNodes: function (processData,camundaNodeId) {
+            if(!processData.tasks) return false;
             for (var i = 0; i < processData.tasks.length; i++) {
                 var task = processData.tasks[i];
                 // 标记待办(当前审批节点)
@@ -321,6 +322,7 @@ layui.define(['settings', 'layer', 'admin', 'util','element'],function (exports)
          * 判断是否为当前登录账户的审批节点
          * */
         isCurrentUserTodoNode: function (processData,camundaNodeId) {
+            if(!processData.userTasks) return false;
             for (var i = 0; i < processData.userTasks.length; i++) {
                 var task = processData.userTasks[i];
                 // 标记待办(当前审批节点)
