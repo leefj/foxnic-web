@@ -19,7 +19,7 @@ import java.util.Arrays;
 
 public class #(poSimpleName)BpmEventAdaptor extends BpmEventAdaptor<#(poSimpleName),#(serviceSimpleName)> {
 
-	public #(poSimpleName)BpmEventAdaptor(#(simpleName) service) {
+	public #(poSimpleName)BpmEventAdaptor(#(serviceSimpleName) service) {
 		super(service);
 	}
 
