@@ -39,7 +39,8 @@ layui.define(['settings', 'layer', 'admin', 'util','element'],function (exports)
             }, {delayLoading:1000,elms:lockEls});
         },
 
-        getProcessInstanceByBill : function (formCode,billId,callback) {
+        getProcessInstanceByBill : function (formCode,billId,callback,loc) {
+            // debugger
             admin.post(api_process_get_by_bill,{billIds:[billId.id],formDefinitionCode:formCode}, function (result) {
                 if(result.success) {
                     var plist=result.data;
@@ -53,13 +54,18 @@ layui.define(['settings', 'layer', 'admin', 'util','element'],function (exports)
                     plist=newPList;
                     //
                     if(!plist || plist.length==0) {
-                        top.layer.msg('当前业务单据尚未关联流程', {icon: 2, time: 1500});
-                        return;
+                        if(loc=="bill") {
+                            callback && callback(null);
+                        } else {
+                            top.layer.msg('当前业务单据尚未关联流程', {icon: 2, time: 1500});
+                            return;
+                        }
                     } else if(plist.length>=2) {
                         top.layer.msg('当前业务单据关联了'+plist.length+'个流程，尚不支持', {icon: 2, time: 1500});
                         return;
+                    } else if(plist.length==1) {
+                        callback && callback(plist[0]);
                     }
-                    callback && callback(plist[0]);
                 } else {
                   fox.showMessage(result);
                 }
