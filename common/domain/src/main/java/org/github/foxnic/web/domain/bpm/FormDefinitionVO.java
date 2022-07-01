@@ -13,8 +13,8 @@ import com.github.foxnic.commons.bean.BeanUtil;
 /**
  * 表单定义
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-10 15:17:39
- * @sign D1FAD95945FF2382B267FAAEE66BC29C
+ * @since 2022-07-01 12:00:36
+ * @sign EEE1444540F22C9ED240D3FD8F25C44E
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -75,6 +75,12 @@ public class FormDefinitionVO extends FormDefinition {
 	*/
 	@ApiModelProperty(required = false,value="主键清单" , notes = "用于接收批量主键参数")
 	private List<String> ids;
+	
+	/**
+	 * 是否已经绑定流程：查询条件，null:不控制;1绑定流程:0:未绑定流程
+	*/
+	@ApiModelProperty(required = false,value="是否已经绑定流程" , notes = "查询条件，null:不控制;1绑定流程:0:未绑定流程")
+	private Integer isBindProcess;
 	
 	/**
 	 * 获得 页码<br>
@@ -258,6 +264,25 @@ public class FormDefinitionVO extends FormDefinition {
 	public FormDefinitionVO addId(String... id) {
 		if(this.ids==null) ids=new ArrayList<>();
 		this.ids.addAll(Arrays.asList(id));
+		return this;
+	}
+	
+	/**
+	 * 获得 是否已经绑定流程<br>
+	 * 查询条件，null:不控制;1绑定流程:0:未绑定流程
+	 * @return 是否已经绑定流程
+	*/
+	public Integer getIsBindProcess() {
+		return isBindProcess;
+	}
+	
+	/**
+	 * 设置 是否已经绑定流程
+	 * @param isBindProcess 是否已经绑定流程
+	 * @return 当前对象
+	*/
+	public FormDefinitionVO setIsBindProcess(Integer isBindProcess) {
+		this.isBindProcess=isBindProcess;
 		return this;
 	}
 	@Transient

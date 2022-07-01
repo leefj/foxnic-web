@@ -472,8 +472,12 @@ layui.define(['settings', 'layer'], function (exports) {
         putVar: function (key, value) {
             this.putTempData(key,value,true);
         },
-        getVar: function (key) {
-            return this.getTempData(key);
+        getVar: function (key,clearAfterGet) {
+            var value=this.getTempData(key);
+            if(clearAfterGet) {
+                admin.putVar(key,null);
+            }
+            return value;
         },
         // 缓存临时数据
         putTempData: function (key, value, memoyOnly) {

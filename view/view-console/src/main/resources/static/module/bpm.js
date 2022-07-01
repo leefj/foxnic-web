@@ -133,14 +133,21 @@ layui.define(['settings', 'layer', 'admin', 'util','element'],function (exports)
 
         /**
          * 打开流程界面
-         * params process
+         * processInstanceId 流程ID
+         * taskId 任务ID
+         * params 其它额外的参数
+         * defaultValues 默认值   {"title":"流程标题","priority":"urgency"}  ;  priority 的可选值 urgency，normal
          * */
-        openProcessView : function ( processInstanceId , taskId ,newPage,params,refreshTableData,refreshRowData,refreshLocation) {
+        openProcessView : function ( processInstanceId , taskId ,newPage,params,refreshTableData,refreshRowData,refreshLocation,defaultValues) {
             // if(!processInstanceId) {
             //     top.layer.msg('流程未指定，打开失败！', {icon: 2, time: 1500});
             //     return;
             // }
             // debugger
+            if(!defaultValues) defaultValues={};
+
+            admin.putVar("bpmDefaultValues",defaultValues);
+
             var refreshOption={
                 refreshTableData:refreshTableData,
                 refreshRowData:refreshRowData,

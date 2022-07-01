@@ -25,6 +25,7 @@ public class FormDefinitionConfig extends BaseCodeConfig<BPM_FORM_DEFINITION> {
     @Override
     public void configModel(PoClassFile poType, VoClassFile voType) {
         poType.addSimpleProperty(User.class,"lastUpdateUser","最后修改人","最后修改人");
+        voType.addSimpleProperty(Integer.class,"isBindProcess","是否已经绑定流程","查询条件，null:不控制;1绑定流程:0:未绑定流程");
     }
 
     @Override

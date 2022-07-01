@@ -63,7 +63,7 @@ public class ProcessDefinitionConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITI
         view.field(BPM_PROCESS_DEFINITION.FORM_DEFINITION_ID).basic().label("表单")
                 .table().fillBy(ProcessDefinitionMeta.FORM_DEFINITION, FormDefinitionMeta.NAME)
                 .form().validate().required()
-                .form().selectBox().queryApi(FormDefinitionServiceProxy.QUERY_PAGED_LIST).paging(true).filter(true).muliti(false,false)
+                .form().selectBox().queryApi(FormDefinitionServiceProxy.QUERY_PAGED_LIST+"?isBindProcess=0").paging(true).filter(true).muliti(false,false)
                 .textField(BPM_FORM_DEFINITION.NAME).valueField(BPM_FORM_DEFINITION.ID).fillWith(ProcessDefinitionMeta.FORM_DEFINITION);
 
 
