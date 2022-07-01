@@ -9,8 +9,8 @@ import org.github.foxnic.web.domain.oauth.User;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-01 12:00:36
- * @sign 6521C6613DFFAD7AEA65BAD357069D36
+ * @since 2022-07-01 14:56:30
+ * @sign 5082F4A205F0D65CD6017164ADA05C5D
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -197,6 +197,16 @@ public class FormDefinitionMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.FormDefinition,java.lang.String> CALLBACK_CONTROLLER_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.FormDefinition.class ,CALLBACK_CONTROLLER, java.lang.String.class, "回调控制器", "完整类名", java.lang.String.class, null);
 	
 	/**
+	 * 开启审批 , 是否开启审批 , 类型: java.lang.Integer
+	*/
+	public static final String ENABLE_PROCESS="enableProcess";
+	
+	/**
+	 * 开启审批 , 是否开启审批 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.FormDefinition,java.lang.Integer> ENABLE_PROCESS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.FormDefinition.class ,ENABLE_PROCESS, java.lang.Integer.class, "开启审批", "是否开启审批", java.lang.Integer.class, null);
+	
+	/**
 	 * 最后修改人 , 类型: org.github.foxnic.web.domain.oauth.User
 	*/
 	public static final String LAST_UPDATE_USER="lastUpdateUser";
@@ -209,7 +219,7 @@ public class FormDefinitionMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , CODE , NAME , FORM_TYPE , DRAFT_PAGE_URL , APPROVAL_PAGE_URL , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CALLBACK_CONTROLLER , LAST_UPDATE_USER };
+	public static final String[] $PROPS={ ID , CODE , NAME , FORM_TYPE , DRAFT_PAGE_URL , APPROVAL_PAGE_URL , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CALLBACK_CONTROLLER , ENABLE_PROCESS , LAST_UPDATE_USER };
 	
 	/**
 	 * 代理类
@@ -414,6 +424,17 @@ public class FormDefinitionMeta {
 		public FormDefinition setCallbackController(String callbackController) {
 			super.change(CALLBACK_CONTROLLER,super.getCallbackController(),callbackController);
 			super.setCallbackController(callbackController);
+			return this;
+		}
+		
+		/**
+		 * 设置 开启审批
+		 * @param enableProcess 开启审批
+		 * @return 当前对象
+		*/
+		public FormDefinition setEnableProcess(Integer enableProcess) {
+			super.change(ENABLE_PROCESS,super.getEnableProcess(),enableProcess);
+			super.setEnableProcess(enableProcess);
 			return this;
 		}
 		

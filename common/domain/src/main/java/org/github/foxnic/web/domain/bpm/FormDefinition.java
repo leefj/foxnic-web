@@ -18,8 +18,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 表单定义
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-01 12:00:36
- * @sign 6521C6613DFFAD7AEA65BAD357069D36
+ * @since 2022-07-01 14:56:30
+ * @sign 5082F4A205F0D65CD6017164ADA05C5D
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -140,6 +140,12 @@ public class FormDefinition extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="回调控制器" , notes = "完整类名")
 	private String callbackController;
+	
+	/**
+	 * 开启审批：是否开启审批
+	*/
+	@ApiModelProperty(required = false,value="开启审批" , notes = "是否开启审批")
+	private Integer enableProcess;
 	
 	/**
 	 * 最后修改人：最后修改人
@@ -516,6 +522,25 @@ public class FormDefinition extends Entity {
 	*/
 	public FormDefinition setCallbackController(String callbackController) {
 		this.callbackController=callbackController;
+		return this;
+	}
+	
+	/**
+	 * 获得 开启审批<br>
+	 * 是否开启审批
+	 * @return 开启审批
+	*/
+	public Integer getEnableProcess() {
+		return enableProcess;
+	}
+	
+	/**
+	 * 设置 开启审批
+	 * @param enableProcess 开启审批
+	 * @return 当前对象
+	*/
+	public FormDefinition setEnableProcess(Integer enableProcess) {
+		this.enableProcess=enableProcess;
 		return this;
 	}
 	

@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2022-06-28 17:16:31
+ * @since 2022-07-01 14:54:40
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -202,8 +202,13 @@ public class FoxnicWeb {
 		*/
 		public static final DBField CALLBACK_CONTROLLER = new DBField(DBDataType.STRING , "callback_controller","callbackController","回调控制器","完整类名",false,false,true);
 		
+		/**
+		 * 开启审批，是否开启审批
+		*/
+		public static final DBField ENABLE_PROCESS = new DBField(DBDataType.INTEGER , "enable_process","enableProcess","开启审批","是否开启审批",false,false,true);
+		
 		public BPM_FORM_DEFINITION() {
-			this.init($NAME,"表单定义表" , ID , CODE , NAME , FORM_TYPE , DRAFT_PAGE_URL , APPROVAL_PAGE_URL , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CALLBACK_CONTROLLER);
+			this.init($NAME,"表单定义表" , ID , CODE , NAME , FORM_TYPE , DRAFT_PAGE_URL , APPROVAL_PAGE_URL , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CALLBACK_CONTROLLER , ENABLE_PROCESS);
 		}
 		public static final BPM_FORM_DEFINITION $TABLE=new BPM_FORM_DEFINITION();
 	}
