@@ -151,7 +151,6 @@ function FormPage() {
 				jsFn && jsFn($(formIfrs[i]),$(formIfrs[i])[0].contentWindow,formData);
 			}
 		}
-
 	}
 
 	function getFormData() {
