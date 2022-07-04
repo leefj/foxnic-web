@@ -91,18 +91,44 @@ layui.define('layer', function(exports){
         if(!itemElem[0]) return;
         type = itemElem[0].type;
 
-        //如果为复选框
-        if(type === 'checkbox'){
-          itemElem[0].checked = value;
-        } else if(type === 'checkbox') {
-        }
-        else if(type === 'radio') { //如果为单选框
-          itemElem.each(function(){
-            if(this.value == value ){
-              this.checked = true
+        //如果为复选框(李方捷:复选框和单选框统一处理)
+        if(type === 'checkbox' || type === 'radio'){
+          if(value) {
+            var tmp = null;
+            if(Array.isArray(value)) {
+              tmp=value;
+            } else {
+              value=value+"";
+              value=value.trim();
+              if(value.startsWith("[") && value.endWith("]")) {
+                try {
+                  tmp = JSON.parse(value);
+                } catch (e) {
+                  tmp=value.split(",");
+                }
+              } else {
+                tmp=value.split(",");
+              }
             }
-          });
-        } else { //其它类型的表单
+            for (var i = 0; i < itemElem.length; i++) {
+              if(tmp.indexOf($(itemElem[i]).val())>=0) {
+                itemElem[i].checked = true;
+              } else {
+                itemElem[i].checked = false;
+              }
+            }
+          }
+        }
+        // else if(type === 'checkbox') {
+        // }
+        // else if(type === 'radio') { //如果为单选框
+        //   itemElem.each(function(){
+        //     if(this.value == value ){
+        //       this.checked = true
+        //     }
+        //   });
+        // }
+        else { //其它类型的表单
           itemElem.val(value);
         }
       });

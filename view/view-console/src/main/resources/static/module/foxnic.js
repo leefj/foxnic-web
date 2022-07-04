@@ -134,7 +134,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     }, "POST", true);
                 }
 
-                if (!cfg.filterable) {
+                // if (!cfg.filterable) {
                     var ps={};
                     if (cfg.extraParam) {
                         var ext = {};
@@ -146,7 +146,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                         for (var key in ext) {
                             ps[key] = ext[key];
                         }
-                    }
+                    // }
 
                     query(ps, function (r) {
                         cfg.data = r;
