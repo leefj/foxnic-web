@@ -27,7 +27,7 @@ public class DemoCommonConfig extends BaseCodeConfig<BPM_DEMO_COMMON> {
         view.list().addCss("/list/demo/demo.css");
 
         // 设置 Excel 导入导出
-//        view.list().excel(false,true);
+        view.list().excel(false,true);
 
         view.form().addJs("/form/demo/demo.js");
         view.form().addCss("/form/demo/demo.css");
