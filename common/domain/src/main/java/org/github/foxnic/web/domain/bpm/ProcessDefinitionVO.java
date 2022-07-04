@@ -13,8 +13,8 @@ import com.github.foxnic.commons.bean.BeanUtil;
 /**
  * 流程定义
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-01 12:00:51
- * @sign 1D2C38500D1ABE5927BCBF1911BE96A0
+ * @since 2022-07-04 09:43:07
+ * @sign 8783813299E80FC844F5B18532749B7C
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -75,6 +75,12 @@ public class ProcessDefinitionVO extends ProcessDefinition {
 	*/
 	@ApiModelProperty(required = false,value="主键清单" , notes = "用于接收批量主键参数")
 	private List<String> ids;
+	
+	/**
+	 * 表单定义代码：表单定义代码
+	*/
+	@ApiModelProperty(required = false,value="表单定义代码" , notes = "表单定义代码")
+	private String formDefinitionCode;
 	
 	/**
 	 * 获得 页码<br>
@@ -258,6 +264,25 @@ public class ProcessDefinitionVO extends ProcessDefinition {
 	public ProcessDefinitionVO addId(String... id) {
 		if(this.ids==null) ids=new ArrayList<>();
 		this.ids.addAll(Arrays.asList(id));
+		return this;
+	}
+	
+	/**
+	 * 获得 表单定义代码<br>
+	 * 表单定义代码
+	 * @return 表单定义代码
+	*/
+	public String getFormDefinitionCode() {
+		return formDefinitionCode;
+	}
+	
+	/**
+	 * 设置 表单定义代码
+	 * @param formDefinitionCode 表单定义代码
+	 * @return 当前对象
+	*/
+	public ProcessDefinitionVO setFormDefinitionCode(String formDefinitionCode) {
+		this.formDefinitionCode=formDefinitionCode;
 		return this;
 	}
 	@Transient

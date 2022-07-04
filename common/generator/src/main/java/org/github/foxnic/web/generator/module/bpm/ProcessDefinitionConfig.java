@@ -35,6 +35,9 @@ public class ProcessDefinitionConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITI
         poType.addSimpleProperty(FormDefinition.class,"formDefinition","表单定义","表单定义");
         poType.shadow(BPM_PROCESS_DEFINITION.REJECT_OPTION, RejectOption.class);
 
+
+        voType.addSimpleProperty(String.class,"formDefinitionCode","表单定义代码","表单定义代码");
+
     }
 
     @Override

@@ -21,7 +21,7 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程定义
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-01 12:00:51
+ * @since 2022-07-04 09:43:06
  * @sign 4CE2AB2F247BFAB6BE99C76ADB8AE4AB
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */

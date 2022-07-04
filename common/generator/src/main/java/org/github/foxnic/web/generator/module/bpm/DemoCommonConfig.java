@@ -3,13 +3,9 @@ package org.github.foxnic.web.generator.module.bpm;
 import com.github.foxnic.api.bpm.IntegrateMode;
 import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
-import com.github.foxnic.generator.builder.view.option.BpmOptions;
-import com.github.foxnic.generator.builder.view.option.ListOptions;
-import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
-import com.github.foxnic.generator.builder.view.option.ViewOptions;
+import com.github.foxnic.generator.builder.view.option.*;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_DEMO_COMMON;
-import org.github.foxnic.web.constants.enums.DictEnum;
 import org.github.foxnic.web.constants.enums.bpm.DemoStatus;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
@@ -25,6 +21,19 @@ public class DemoCommonConfig extends BaseCodeConfig<BPM_DEMO_COMMON> {
     }
 
     @Override
+    public void configView(ViewOptions view, ListOptions list, FormOptions form) {
+
+        view.list().addJs("/list/demo/demo.js");
+        view.list().addCss("/list/demo/demo.css");
+
+        // 设置 Excel 导入导出
+//        view.list().excel(false,true);
+
+        view.form().addJs("/form/demo/demo.js");
+        view.form().addCss("/form/demo/demo.css");
+    }
+
+    @Override
     public void configBPM(BpmOptions bpm) {
         bpm.form("demo-common");
         bpm.integrate(IntegrateMode.FRONT);
@@ -32,6 +41,8 @@ public class DemoCommonConfig extends BaseCodeConfig<BPM_DEMO_COMMON> {
 
     @Override
     public void configSearch(ViewOptions view, SearchAreaOptions search) {
+
+
 
     }
 
