@@ -55,7 +55,8 @@ public class FormDefinitionConfig extends BaseCodeConfig<BPM_FORM_DEFINITION> {
         view.field(BPM_FORM_DEFINITION.CALLBACK_CONTROLLER)
                 .search().hidden().form().textInput()
                 .form().validate().required();
-//        view.field(BPM_PROCESS_DEFINITION.VALID).form().logicField().on("有效",1).off("无效",0);
+
+        view.field(BPM_FORM_DEFINITION.MULITI_PROCESS).basic().label("多流程").form().logicField().on("是",1).off("否",0);
 //        view.field(BPM_PROCESS_DEFINITION.NOTES).search().fuzzySearch().form().textArea();
 //        view.field("lastUpdateUserName").basic().label("最后修改").table().fillBy(ProcessDefinitionMeta.LAST_UPDATE_USER, UserMeta.NAME)
 //                .form().hidden()
@@ -73,6 +74,7 @@ public class FormDefinitionConfig extends BaseCodeConfig<BPM_FORM_DEFINITION> {
                 BPM_FORM_DEFINITION.NAME,
                 BPM_FORM_DEFINITION.FORM_TYPE,
                 BPM_FORM_DEFINITION.VALID,
+                BPM_FORM_DEFINITION.MULITI_PROCESS,
                 BPM_FORM_DEFINITION.DRAFT_PAGE_URL,
                 BPM_FORM_DEFINITION.APPROVAL_PAGE_URL,
                 BPM_FORM_DEFINITION.CALLBACK_CONTROLLER,

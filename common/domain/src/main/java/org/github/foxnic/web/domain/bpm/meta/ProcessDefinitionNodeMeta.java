@@ -10,8 +10,8 @@ import java.util.List;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-15 14:51:08
- * @sign E3131145DF6EC1C31F85E47B7F53CFA2
+ * @since 2022-07-04 15:45:35
+ * @sign A38DA6A41E0A29D54438308B8D37F633
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -208,6 +208,16 @@ public class ProcessDefinitionNodeMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionNode,java.lang.Integer> LOOP_CARDINALITY_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionNode.class ,LOOP_CARDINALITY, java.lang.Integer.class, "会审的循环基数", "会审的循环基数", java.lang.Integer.class, null);
 	
 	/**
+	 * 是否起草节点 , 类型: java.lang.Integer
+	*/
+	public static final String IS_DRAFT_NODE="isDraftNode";
+	
+	/**
+	 * 是否起草节点 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionNode,java.lang.Integer> IS_DRAFT_NODE_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionNode.class ,IS_DRAFT_NODE, java.lang.Integer.class, "是否起草节点", "是否起草节点", java.lang.Integer.class, null);
+	
+	/**
 	 * 审批人清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.ProcessDefinitionNodeAssignee
 	*/
 	public static final String ASSIGNEES="assignees";
@@ -220,7 +230,7 @@ public class ProcessDefinitionNodeMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , PROCESS_DEFINITION_ID , PROCESS_DEFINITION_FILE_ID , CAMUNDA_NODE_ID , NODE_TYPE , NODE_NAME , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , SORT , USER_TASK_NODE_TYPE , LOOP_CARDINALITY , ASSIGNEES };
+	public static final String[] $PROPS={ ID , PROCESS_DEFINITION_ID , PROCESS_DEFINITION_FILE_ID , CAMUNDA_NODE_ID , NODE_TYPE , NODE_NAME , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , SORT , USER_TASK_NODE_TYPE , LOOP_CARDINALITY , IS_DRAFT_NODE , ASSIGNEES };
 	
 	/**
 	 * 代理类
@@ -436,6 +446,17 @@ public class ProcessDefinitionNodeMeta {
 		public ProcessDefinitionNode setLoopCardinality(Integer loopCardinality) {
 			super.change(LOOP_CARDINALITY,super.getLoopCardinality(),loopCardinality);
 			super.setLoopCardinality(loopCardinality);
+			return this;
+		}
+		
+		/**
+		 * 设置 是否起草节点
+		 * @param isDraftNode 是否起草节点
+		 * @return 当前对象
+		*/
+		public ProcessDefinitionNode setIsDraftNode(Integer isDraftNode) {
+			super.change(IS_DRAFT_NODE,super.getIsDraftNode(),isDraftNode);
+			super.setIsDraftNode(isDraftNode);
 			return this;
 		}
 		

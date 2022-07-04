@@ -18,8 +18,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 表单定义
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-01 14:56:30
- * @sign 5082F4A205F0D65CD6017164ADA05C5D
+ * @since 2022-07-04 16:12:04
+ * @sign A15DEEDD4B46D7BDC09812C2331E1A0F
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -142,10 +142,10 @@ public class FormDefinition extends Entity {
 	private String callbackController;
 	
 	/**
-	 * 开启审批：是否开启审批
+	 * 是否可关联多个流程：是否可关联多个流程
 	*/
-	@ApiModelProperty(required = false,value="开启审批" , notes = "是否开启审批")
-	private Integer enableProcess;
+	@ApiModelProperty(required = false,value="是否可关联多个流程" , notes = "是否可关联多个流程")
+	private Integer mulitiProcess;
 	
 	/**
 	 * 最后修改人：最后修改人
@@ -526,21 +526,21 @@ public class FormDefinition extends Entity {
 	}
 	
 	/**
-	 * 获得 开启审批<br>
-	 * 是否开启审批
-	 * @return 开启审批
+	 * 获得 是否可关联多个流程<br>
+	 * 是否可关联多个流程
+	 * @return 是否可关联多个流程
 	*/
-	public Integer getEnableProcess() {
-		return enableProcess;
+	public Integer getMulitiProcess() {
+		return mulitiProcess;
 	}
 	
 	/**
-	 * 设置 开启审批
-	 * @param enableProcess 开启审批
+	 * 设置 是否可关联多个流程
+	 * @param mulitiProcess 是否可关联多个流程
 	 * @return 当前对象
 	*/
-	public FormDefinition setEnableProcess(Integer enableProcess) {
-		this.enableProcess=enableProcess;
+	public FormDefinition setMulitiProcess(Integer mulitiProcess) {
+		this.mulitiProcess=mulitiProcess;
 		return this;
 	}
 	

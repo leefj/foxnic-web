@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2022-07-01 14:54:40
+ * @since 2022-07-04 16:10:15
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -203,12 +203,12 @@ public class FoxnicWeb {
 		public static final DBField CALLBACK_CONTROLLER = new DBField(DBDataType.STRING , "callback_controller","callbackController","回调控制器","完整类名",false,false,true);
 		
 		/**
-		 * 开启审批，是否开启审批
+		 * 是否可关联多个流程
 		*/
-		public static final DBField ENABLE_PROCESS = new DBField(DBDataType.INTEGER , "enable_process","enableProcess","开启审批","是否开启审批",false,false,true);
+		public static final DBField MULITI_PROCESS = new DBField(DBDataType.INTEGER , "muliti_process","mulitiProcess","是否可关联多个流程","是否可关联多个流程",false,false,true);
 		
 		public BPM_FORM_DEFINITION() {
-			this.init($NAME,"表单定义表" , ID , CODE , NAME , FORM_TYPE , DRAFT_PAGE_URL , APPROVAL_PAGE_URL , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CALLBACK_CONTROLLER , ENABLE_PROCESS);
+			this.init($NAME,"表单定义表" , ID , CODE , NAME , FORM_TYPE , DRAFT_PAGE_URL , APPROVAL_PAGE_URL , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CALLBACK_CONTROLLER , MULITI_PROCESS);
 		}
 		public static final BPM_FORM_DEFINITION $TABLE=new BPM_FORM_DEFINITION();
 	}
@@ -763,8 +763,13 @@ public class FoxnicWeb {
 		*/
 		public static final DBField LOOP_CARDINALITY = new DBField(DBDataType.INTEGER , "loop_cardinality","loopCardinality","会审的循环基数","会审的循环基数",false,false,true);
 		
+		/**
+		 * 是否起草节点
+		*/
+		public static final DBField IS_DRAFT_NODE = new DBField(DBDataType.INTEGER , "is_draft_node","isDraftNode","是否起草节点","是否起草节点",false,false,false);
+		
 		public BPM_PROCESS_DEFINITION_NODE() {
-			this.init($NAME,"流程定义节点表" , ID , PROCESS_DEFINITION_ID , PROCESS_DEFINITION_FILE_ID , CAMUNDA_NODE_ID , NODE_TYPE , NODE_NAME , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , SORT , USER_TASK_NODE_TYPE , LOOP_CARDINALITY);
+			this.init($NAME,"流程定义节点表" , ID , PROCESS_DEFINITION_ID , PROCESS_DEFINITION_FILE_ID , CAMUNDA_NODE_ID , NODE_TYPE , NODE_NAME , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , SORT , USER_TASK_NODE_TYPE , LOOP_CARDINALITY , IS_DRAFT_NODE);
 		}
 		public static final BPM_PROCESS_DEFINITION_NODE $TABLE=new BPM_PROCESS_DEFINITION_NODE();
 	}

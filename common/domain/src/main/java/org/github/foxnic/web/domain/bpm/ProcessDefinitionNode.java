@@ -24,8 +24,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程定义节点
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-15 14:51:08
- * @sign E3131145DF6EC1C31F85E47B7F53CFA2
+ * @since 2022-07-04 15:45:34
+ * @sign A38DA6A41E0A29D54438308B8D37F633
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -156,6 +156,12 @@ public class ProcessDefinitionNode extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="会审的循环基数" , notes = "会审的循环基数")
 	private Integer loopCardinality;
+	
+	/**
+	 * 是否起草节点：是否起草节点
+	*/
+	@ApiModelProperty(required = true,value="是否起草节点" , notes = "是否起草节点")
+	private Integer isDraftNode;
 	
 	/**
 	 * 审批人清单：审批人清单
@@ -617,6 +623,25 @@ public class ProcessDefinitionNode extends Entity {
 	*/
 	public ProcessDefinitionNode setLoopCardinality(Integer loopCardinality) {
 		this.loopCardinality=loopCardinality;
+		return this;
+	}
+	
+	/**
+	 * 获得 是否起草节点<br>
+	 * 是否起草节点
+	 * @return 是否起草节点
+	*/
+	public Integer getIsDraftNode() {
+		return isDraftNode;
+	}
+	
+	/**
+	 * 设置 是否起草节点
+	 * @param isDraftNode 是否起草节点
+	 * @return 当前对象
+	*/
+	public ProcessDefinitionNode setIsDraftNode(Integer isDraftNode) {
+		this.isDraftNode=isDraftNode;
 		return this;
 	}
 	
