@@ -24,6 +24,9 @@ public class ProcessDefinitionFileConfig extends BaseCodeConfig<BPM_PROCESS_DEFI
         // 映射逻辑值
         poType.shadowBoolean(BPM_PROCESS_DEFINITION_FILE.ACTIVATED);
         poType.addListProperty(ProcessDefinitionNode.class,"nodes","审批节点清单","审批节点清单");
+
+        //
+        voType.addMapProperty(String.class, Boolean.class,"draftNodeInfo","起草节点标记","起草节点标记");
     }
 
     @Override

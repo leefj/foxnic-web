@@ -342,6 +342,10 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 opts=inst.options.transform(Array.isArray(value)?value:[value]);
             }
             inst.setValue(opts);
+            if (!id.startWith("#")) id = "#" + id;
+            if(this.selectBoxConfigs[id]) {
+                this.selectBoxConfigs[id].data=opts;
+            }
         },
         setSelectValue4Dict:function (id,value,data){
             if(!value) return;
@@ -364,6 +368,10 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 }
                 // debugger;
                 inst.setValue(opts);
+                if (!id.startWith("#")) id = "#" + id;
+                if(this.selectBoxConfigs[id]) {
+                    this.selectBoxConfigs[id].data=opts;
+                }
             }
             setTimeout(setV,1);
         },
@@ -390,6 +398,10 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     opts.push({name:name,value:value[i]});
                 }
                 inst.setValue(opts);
+                if (!id.startWith("#")) id = "#" + id;
+                if(this.selectBoxConfigs[id]) {
+                    this.selectBoxConfigs[id].data=opts;
+                }
             };
             setTimeout(setV,1);
         },

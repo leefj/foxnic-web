@@ -24,6 +24,10 @@ public class BpmAssistant {
      */
     public static final String BPM_PROCESS_INSTANCE_ID = "bpmProcessInstanceId";
 
+    public static final String INNER_DRAFTER = "#$DRAFTER:__";
+
+
+
     /**
      * 流程管理员角色
      * */

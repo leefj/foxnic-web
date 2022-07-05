@@ -2,8 +2,10 @@ package org.github.foxnic.web.domain.bpm;
 
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
+import java.util.Map;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import com.github.foxnic.api.model.CompositeParameter;
 import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
@@ -13,8 +15,8 @@ import com.github.foxnic.commons.bean.BeanUtil;
 /**
  * 流程定义文件
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-08 16:37:52
- * @sign F2A969A233B1D662456CDC00FB190980
+ * @since 2022-07-05 13:25:34
+ * @sign 547D9E12375AD9CCAC24A60810B95280
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -75,6 +77,12 @@ public class ProcessDefinitionFileVO extends ProcessDefinitionFile {
 	*/
 	@ApiModelProperty(required = false,value="主键清单" , notes = "用于接收批量主键参数")
 	private List<String> ids;
+	
+	/**
+	 * 起草节点标记：起草节点标记
+	*/
+	@ApiModelProperty(required = false,value="起草节点标记" , notes = "起草节点标记")
+	private Map<String,Boolean> draftNodeInfo;
 	
 	/**
 	 * 获得 页码<br>
@@ -258,6 +266,37 @@ public class ProcessDefinitionFileVO extends ProcessDefinitionFile {
 	public ProcessDefinitionFileVO addId(String... id) {
 		if(this.ids==null) ids=new ArrayList<>();
 		this.ids.addAll(Arrays.asList(id));
+		return this;
+	}
+	
+	/**
+	 * 获得 起草节点标记<br>
+	 * 起草节点标记
+	 * @return 起草节点标记
+	*/
+	public Map<String,Boolean> getDraftNodeInfo() {
+		return draftNodeInfo;
+	}
+	
+	/**
+	 * 设置 起草节点标记
+	 * @param draftNodeInfo 起草节点标记
+	 * @return 当前对象
+	*/
+	public ProcessDefinitionFileVO setDraftNodeInfo(Map<String,Boolean> draftNodeInfo) {
+		this.draftNodeInfo=draftNodeInfo;
+		return this;
+	}
+	
+	/**
+	 * 添加 起草节点标记
+	 * @param key 键
+	 * @param draftNodeInfo 起草节点标记
+	 * @return 当前对象
+	*/
+	public ProcessDefinitionFileVO putDraftNodeInfo(String key,Boolean draftNodeInfo) {
+		if(this.draftNodeInfo==null) this.draftNodeInfo=new HashMap<>();
+		this.draftNodeInfo.put(key ,draftNodeInfo);
 		return this;
 	}
 	@Transient
