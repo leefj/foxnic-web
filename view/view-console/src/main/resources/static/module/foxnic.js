@@ -91,6 +91,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 function query(ps, cb) {
                     //再次重新读取，更改这个值，以便级联
                     var url = el.attr("data");
+
                     // debugger;
                     var key=cfg.el+";URL:"+url+";PS:"+JSON.stringify(ps);
                     key=key.trim();
@@ -106,6 +107,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     }
                     //logger.info(cfg.id,key,now,t)
                     me.selectBoxQueryTime[key]=now;
+
                     admin.request(url, ps, function (r) {
                         // debugger//
                         var opts = [];

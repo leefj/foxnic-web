@@ -26,8 +26,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程实例
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-28 16:15:24
- * @sign 3E482D43690364437A53E51D312BBB23
+ * @since 2022-07-06 15:57:46
+ * @sign AB9B8ED9314AD367EF40815D3E33BA43
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -48,19 +48,19 @@ public class ProcessInstance extends Entity {
 	/**
 	 * 起草人账户ID：起草人账户ID
 	*/
-	@ApiModelProperty(required = false,value="起草人账户ID" , notes = "起草人账户ID")
+	@ApiModelProperty(required = true,value="起草人账户ID" , notes = "起草人账户ID")
 	private String drafterUserId;
 	
 	/**
 	 * 起草人ID：可以是账户ID、员工ID、职位ID、系统角色ID、业务角色ID
 	*/
-	@ApiModelProperty(required = false,value="起草人ID" , notes = "可以是账户ID、员工ID、职位ID、系统角色ID、业务角色ID")
+	@ApiModelProperty(required = true,value="起草人ID" , notes = "可以是账户ID、员工ID、职位ID、系统角色ID、业务角色ID")
 	private String drafterId;
 	
 	/**
 	 * 起草人类型：起草人类型
 	*/
-	@ApiModelProperty(required = false,value="起草人类型" , notes = "起草人类型")
+	@ApiModelProperty(required = true,value="起草人类型" , notes = "起草人类型")
 	private String drafterType;
 	@Transient
 	private UnifiedUserType drafterTypeEnum;
@@ -74,7 +74,7 @@ public class ProcessInstance extends Entity {
 	/**
 	 * 流程定义ID：流程定义ID
 	*/
-	@ApiModelProperty(required = false,value="流程定义ID" , notes = "流程定义ID")
+	@ApiModelProperty(required = true,value="流程定义ID" , notes = "流程定义ID")
 	private String processDefinitionId;
 	
 	/**
@@ -86,7 +86,7 @@ public class ProcessInstance extends Entity {
 	/**
 	 * 表单定义ID：表单定义ID
 	*/
-	@ApiModelProperty(required = false,value="表单定义ID" , notes = "表单定义ID")
+	@ApiModelProperty(required = true,value="表单定义ID" , notes = "表单定义ID")
 	private String formDefinitionId;
 	
 	/**
