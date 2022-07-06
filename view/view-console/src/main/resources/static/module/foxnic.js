@@ -41,6 +41,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             box.doingDisabled=false;
         },
         selectBoxConfigs:{},
+        selectBoxQueryTime:{},
         renderSelectBox: function (cfg,rerender) {
             var me=this;
             var inst = null;
@@ -71,6 +72,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 data = null;
             }
 
+
             //本地数据渲染
             if (data != null) {
                 if (cfg.transform) {
@@ -90,6 +92,20 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     //再次重新读取，更改这个值，以便级联
                     var url = el.attr("data");
                     // debugger;
+                    var key=cfg.el+";URL:"+url+";PS:"+JSON.stringify(ps);
+                    key=key.trim();
+                    var now=(new Date()).getTime();
+                    var t=me.selectBoxQueryTime[key];
+                    if (t) {
+                        t = now - t;
+                        //logger.info("请求时间差(" + cfg.el + "):", t);
+                        if (t < 500) {
+                            // cb && cb([], 0);
+                            return;
+                        }
+                    }
+                    //logger.info(cfg.id,key,now,t)
+                    me.selectBoxQueryTime[key]=now;
                     admin.request(url, ps, function (r) {
                         // debugger//
                         var opts = [];
@@ -168,8 +184,11 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     })
                 }
 
+
                 cfg.remoteMethod = function (val, cb, show, pageIndex) {
-                    //debugger;
+                    // debugger;
+                    // z++;
+                    // logger.warn("select-box:"+cfg.el,"T-"+z);
                     var ps = {searchField: cfg.searchField, searchValue: val, fuzzyField: cfg.searchField};
                     if (cfg.paging) {
                         if (!cfg.pageSize) ps.pageSize = 10;

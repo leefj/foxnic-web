@@ -106,7 +106,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
         getBpmViewConfig:function () {
             return {
                 title:"这是默认标题",
-                priority:"urgency" // priority 的可选值 urgency，normal
+                priority:"normal" // priority 的可选值 urgency，normal
             }
         },
         /**

@@ -93,6 +93,7 @@ layui.define('layer', function(exports){
 
         //如果为复选框(李方捷:复选框和单选框统一处理)
         if(type === 'checkbox' || type === 'radio'){
+          // debugger
           if(value) {
             var tmp = null;
             if(Array.isArray(value)) {
@@ -110,13 +111,22 @@ layui.define('layer', function(exports){
                 tmp=value.split(",");
               }
             }
-            for (var i = 0; i < itemElem.length; i++) {
-              if(tmp.indexOf($(itemElem[i]).val())>=0) {
-                itemElem[i].checked = true;
-              } else {
-                itemElem[i].checked = false;
+            var laySkin=$(itemElem[0]).attr("lay-skin");
+            var val=null;
+            if(laySkin==="switch") {
+              itemElem[0].checked = value;
+            } else {
+              //debugger
+              for (var i = 0; i < itemElem.length; i++) {
+                val=$(itemElem[i]).val();
+                if(tmp.indexOf(val)>=0) {
+                  itemElem[i].checked = true;
+                } else {
+                  itemElem[i].checked = false;
+                }
               }
             }
+
           }
         }
         // else if(type === 'checkbox') {

@@ -727,11 +727,24 @@ layui.define(['laytpl', 'laypage', 'layer', 'form', 'util'], function(exports){
     that.scrollPatch(); //滚动条补丁
   };
 
+  var reloadTimes={};
   //表格重载
   Class.prototype.reload = function(options, deep){
     var that = this;
 
+    //debugger
     options = options || {};
+
+    var key=window.location.href+"#"+that.config.id+";P:"+JSON.stringify(options);
+    var t=reloadTimes[key];
+    var now=(new Date()).getTime();
+    if(t) {
+      t=now-t;
+      if(t<500) return;
+    }
+
+    reloadTimes[key]=now;
+
     delete that.haveInit;
 
     //防止数组深度合并

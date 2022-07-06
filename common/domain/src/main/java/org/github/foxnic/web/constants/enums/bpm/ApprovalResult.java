@@ -17,6 +17,7 @@ public enum ApprovalResult implements CodeTextEnum {
 	skip("跳过",true),
 	fetch_back("撤回",true),
 
+	resubmit("再次提交",false),
 	abandon("废弃",false);
 
 	private boolean display;
