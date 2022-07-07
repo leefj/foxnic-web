@@ -23,8 +23,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程任务
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-24 14:26:54
- * @sign ED32017453502142E19650D325B0717F
+ * @since 2022-07-07 11:05:52
+ * @sign 5B3FDB3DBEB30A011AB453EBDF8973FB
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -183,6 +183,12 @@ public class Task extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="流程节点" , notes = "流程节点")
 	private ProcessDefinitionNode node;
+	
+	/**
+	 * 已读清单：已读清单
+	*/
+	@ApiModelProperty(required = false,value="已读清单" , notes = "已读清单")
+	private List<TaskRead> readList;
 	
 	/**
 	 * 获得 id<br>
@@ -733,6 +739,36 @@ public class Task extends Entity {
 	*/
 	public Task setNode(ProcessDefinitionNode node) {
 		this.node=node;
+		return this;
+	}
+	
+	/**
+	 * 获得 已读清单<br>
+	 * 已读清单
+	 * @return 已读清单
+	*/
+	public List<TaskRead> getReadList() {
+		return readList;
+	}
+	
+	/**
+	 * 设置 已读清单
+	 * @param readList 已读清单
+	 * @return 当前对象
+	*/
+	public Task setReadList(List<TaskRead> readList) {
+		this.readList=readList;
+		return this;
+	}
+	
+	/**
+	 * 添加 已读清单
+	 * @param read 已读清单
+	 * @return 当前对象
+	*/
+	public Task addRead(TaskRead... read) {
+		if(this.readList==null) readList=new ArrayList<>();
+		this.readList.addAll(Arrays.asList(read));
 		return this;
 	}
 

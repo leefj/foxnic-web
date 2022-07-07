@@ -11,7 +11,7 @@ import org.github.foxnic.web.domain.bpm.ProcessDefinitionNodeAssignee;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-04 15:45:35
+ * @since 2022-07-07 14:18:42
  * @sign DC6BFC5E6F291D0B629383BA8C34C0CA
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -289,16 +289,6 @@ public class ProcessDefinitionNodeVOMeta extends ProcessDefinitionNodeMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionNodeVO,java.lang.Integer> SORT_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionNodeVO.class ,SORT, java.lang.Integer.class, "序号", "序号", java.lang.Integer.class, null);
 	
 	/**
-	 * 人工节点类型 , 类型: java.lang.String
-	*/
-	public static final String USER_TASK_NODE_TYPE="userTaskNodeType";
-	
-	/**
-	 * 人工节点类型 , 类型: java.lang.String
-	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionNodeVO,java.lang.String> USER_TASK_NODE_TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionNodeVO.class ,USER_TASK_NODE_TYPE, java.lang.String.class, "人工节点类型", "人工节点类型", java.lang.String.class, null);
-	
-	/**
 	 * 会审的循环基数 , 类型: java.lang.Integer
 	*/
 	public static final String LOOP_CARDINALITY="loopCardinality";
@@ -309,14 +299,14 @@ public class ProcessDefinitionNodeVOMeta extends ProcessDefinitionNodeMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionNodeVO,java.lang.Integer> LOOP_CARDINALITY_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionNodeVO.class ,LOOP_CARDINALITY, java.lang.Integer.class, "会审的循环基数", "会审的循环基数", java.lang.Integer.class, null);
 	
 	/**
-	 * 是否起草节点 , 类型: java.lang.Integer
+	 * 人工节点类型 , 类型: java.lang.String
 	*/
-	public static final String IS_DRAFT_NODE="isDraftNode";
+	public static final String USER_TASK_TYPE="userTaskType";
 	
 	/**
-	 * 是否起草节点 , 类型: java.lang.Integer
+	 * 人工节点类型 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionNodeVO,java.lang.Integer> IS_DRAFT_NODE_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionNodeVO.class ,IS_DRAFT_NODE, java.lang.Integer.class, "是否起草节点", "是否起草节点", java.lang.Integer.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionNodeVO,java.lang.String> USER_TASK_TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionNodeVO.class ,USER_TASK_TYPE, java.lang.String.class, "人工节点类型", "人工节点类型", java.lang.String.class, null);
 	
 	/**
 	 * 审批人清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.ProcessDefinitionNodeAssignee
@@ -331,7 +321,7 @@ public class ProcessDefinitionNodeVOMeta extends ProcessDefinitionNodeMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ASSIGNEE_INFO , ID , PROCESS_DEFINITION_ID , PROCESS_DEFINITION_FILE_ID , CAMUNDA_NODE_ID , NODE_TYPE , NODE_NAME , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , SORT , USER_TASK_NODE_TYPE , LOOP_CARDINALITY , IS_DRAFT_NODE , ASSIGNEES };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ASSIGNEE_INFO , ID , PROCESS_DEFINITION_ID , PROCESS_DEFINITION_FILE_ID , CAMUNDA_NODE_ID , NODE_TYPE , NODE_NAME , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , SORT , LOOP_CARDINALITY , USER_TASK_TYPE , ASSIGNEES };
 	
 	/**
 	 * 代理类
@@ -639,17 +629,6 @@ public class ProcessDefinitionNodeVOMeta extends ProcessDefinitionNodeMeta {
 		}
 		
 		/**
-		 * 设置 人工节点类型
-		 * @param userTaskNodeType 人工节点类型
-		 * @return 当前对象
-		*/
-		public ProcessDefinitionNode setUserTaskNodeType(String userTaskNodeType) {
-			super.change(USER_TASK_NODE_TYPE,super.getUserTaskNodeType(),userTaskNodeType);
-			super.setUserTaskNodeType(userTaskNodeType);
-			return this;
-		}
-		
-		/**
 		 * 设置 会审的循环基数
 		 * @param loopCardinality 会审的循环基数
 		 * @return 当前对象
@@ -661,13 +640,13 @@ public class ProcessDefinitionNodeVOMeta extends ProcessDefinitionNodeMeta {
 		}
 		
 		/**
-		 * 设置 是否起草节点
-		 * @param isDraftNode 是否起草节点
+		 * 设置 人工节点类型
+		 * @param userTaskType 人工节点类型
 		 * @return 当前对象
 		*/
-		public ProcessDefinitionNode setIsDraftNode(Integer isDraftNode) {
-			super.change(IS_DRAFT_NODE,super.getIsDraftNode(),isDraftNode);
-			super.setIsDraftNode(isDraftNode);
+		public ProcessDefinitionNode setUserTaskType(String userTaskType) {
+			super.change(USER_TASK_TYPE,super.getUserTaskType(),userTaskType);
+			super.setUserTaskType(userTaskType);
 			return this;
 		}
 		

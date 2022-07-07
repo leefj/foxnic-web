@@ -3,7 +3,7 @@ package org.github.foxnic.web.domain.bpm.meta;
 import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.bpm.ProcessDefinitionFileVO;
 import java.util.List;
-import java.util.Map;
+import com.alibaba.fastjson.JSONObject;
 import org.github.foxnic.web.domain.bpm.ProcessDefinitionFile;
 import java.util.Date;
 import org.github.foxnic.web.domain.oauth.User;
@@ -13,8 +13,8 @@ import org.github.foxnic.web.domain.bpm.ProcessDefinitionNode;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-05 13:25:34
- * @sign 547D9E12375AD9CCAC24A60810B95280
+ * @since 2022-07-07 14:18:35
+ * @sign E3313A323D7BB71CB5627FF6EB9A71A9
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -111,14 +111,14 @@ public class ProcessDefinitionFileVOMeta extends ProcessDefinitionFileMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionFileVO,java.lang.String> IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionFileVO.class ,IDS, java.util.List.class, "主键清单", "用于接收批量主键参数", java.lang.String.class, null);
 	
 	/**
-	 * 起草节点标记 , 集合类型: MAP , 类型: java.lang.Boolean
+	 * 模型的额外设置信息 , 类型: com.alibaba.fastjson.JSONObject
 	*/
-	public static final String DRAFT_NODE_INFO="draftNodeInfo";
+	public static final String EXTRA_MODEL_SETTINGS="extraModelSettings";
 	
 	/**
-	 * 起草节点标记 , 集合类型: MAP , 类型: java.lang.Boolean
+	 * 模型的额外设置信息 , 类型: com.alibaba.fastjson.JSONObject
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionFileVO,java.lang.Boolean> DRAFT_NODE_INFO_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionFileVO.class ,DRAFT_NODE_INFO, java.util.Map.class, "起草节点标记", "起草节点标记", java.lang.Boolean.class, java.lang.String.class);
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinitionFileVO,com.alibaba.fastjson.JSONObject> EXTRA_MODEL_SETTINGS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinitionFileVO.class ,EXTRA_MODEL_SETTINGS, com.alibaba.fastjson.JSONObject.class, "模型的额外设置信息", "模型的额外设置信息", com.alibaba.fastjson.JSONObject.class, null);
 	
 	/**
 	 * ID , 类型: java.lang.String
@@ -343,7 +343,7 @@ public class ProcessDefinitionFileVOMeta extends ProcessDefinitionFileMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , DRAFT_NODE_INFO , ID , PROCESS_DEFINITION_ID , FILE_ID , MODEL_XML , VERSION_NO , NAME , ACTIVATED , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , DEPLOY_RESULT , DEPLOY_SUCCESS , DEPLOY_ERROR , LAST_UPDATE_USER , NODES };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , EXTRA_MODEL_SETTINGS , ID , PROCESS_DEFINITION_ID , FILE_ID , MODEL_XML , VERSION_NO , NAME , ACTIVATED , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , DEPLOY_RESULT , DEPLOY_SUCCESS , DEPLOY_ERROR , LAST_UPDATE_USER , NODES };
 	
 	/**
 	 * 代理类
@@ -453,13 +453,13 @@ public class ProcessDefinitionFileVOMeta extends ProcessDefinitionFileMeta {
 		}
 		
 		/**
-		 * 设置 起草节点标记
-		 * @param draftNodeInfo 起草节点标记
+		 * 设置 模型的额外设置信息
+		 * @param extraModelSettings 模型的额外设置信息
 		 * @return 当前对象
 		*/
-		public ProcessDefinitionFileVO setDraftNodeInfo(Map<String,Boolean> draftNodeInfo) {
-			super.change(DRAFT_NODE_INFO,super.getDraftNodeInfo(),draftNodeInfo);
-			super.setDraftNodeInfo(draftNodeInfo);
+		public ProcessDefinitionFileVO setExtraModelSettings(JSONObject extraModelSettings) {
+			super.change(EXTRA_MODEL_SETTINGS,super.getExtraModelSettings(),extraModelSettings);
+			super.setExtraModelSettings(extraModelSettings);
 			return this;
 		}
 		

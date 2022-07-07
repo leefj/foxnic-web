@@ -1,5 +1,6 @@
 package org.github.foxnic.web.generator.module.bpm;
 
+import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
 import com.github.foxnic.generator.builder.view.option.FormOptions;
@@ -20,13 +21,18 @@ public class ProcessDefinitionFileConfig extends BaseCodeConfig<BPM_PROCESS_DEFI
 
     @Override
     public void configModel(PoClassFile poType, VoClassFile voType) {
+
         poType.addSimpleProperty(User.class,"lastUpdateUser","最后修改人","最后修改人");
         // 映射逻辑值
         poType.shadowBoolean(BPM_PROCESS_DEFINITION_FILE.ACTIVATED);
         poType.addListProperty(ProcessDefinitionNode.class,"nodes","审批节点清单","审批节点清单");
 
         //
-        voType.addMapProperty(String.class, Boolean.class,"draftNodeInfo","起草节点标记","起草节点标记");
+        voType.addSimpleProperty(JSONObject.class,"extraModelSettings","模型的额外设置信息","模型的额外设置信息");
+
+
+
+
     }
 
     @Override

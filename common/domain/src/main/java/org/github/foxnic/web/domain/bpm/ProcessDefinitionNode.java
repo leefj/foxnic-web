@@ -24,8 +24,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程定义节点
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-04 15:45:34
- * @sign A38DA6A41E0A29D54438308B8D37F633
+ * @since 2022-07-07 14:18:42
+ * @sign 7FCDD3C0AE29303D326EAEDF710CDDA0
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -144,24 +144,18 @@ public class ProcessDefinitionNode extends Entity {
 	private Integer sort;
 	
 	/**
-	 * 人工节点类型：人工节点类型
-	*/
-	@ApiModelProperty(required = false,value="人工节点类型" , notes = "人工节点类型")
-	private String userTaskNodeType;
-	@Transient
-	private UserTaskType userTaskNodeTypeEnum;
-	
-	/**
 	 * 会审的循环基数：会审的循环基数
 	*/
 	@ApiModelProperty(required = false,value="会审的循环基数" , notes = "会审的循环基数")
 	private Integer loopCardinality;
 	
 	/**
-	 * 是否起草节点：是否起草节点
+	 * 人工节点类型：人工节点类型
 	*/
-	@ApiModelProperty(required = true,value="是否起草节点" , notes = "是否起草节点")
-	private Integer isDraftNode;
+	@ApiModelProperty(required = false,value="人工节点类型" , notes = "人工节点类型")
+	private String userTaskType;
+	@Transient
+	private UserTaskType userTaskTypeEnum;
 	
 	/**
 	 * 审批人清单：审批人清单
@@ -556,58 +550,6 @@ public class ProcessDefinitionNode extends Entity {
 	}
 	
 	/**
-	 * 获得 人工节点类型<br>
-	 * 人工节点类型
-	 * @return 人工节点类型
-	*/
-	public String getUserTaskNodeType() {
-		return userTaskNodeType;
-	}
-	
-	/**
-	 * 获得 人工节点类型 的投影属性<br>
-	 * 等价于 getUserTaskNodeType 方法，获得对应的枚举类型
-	 * @return 人工节点类型
-	*/
-	@Transient
-	public UserTaskType getUserTaskNodeTypeEnum() {
-		if(this.userTaskNodeTypeEnum==null) {
-			this.userTaskNodeTypeEnum = (UserTaskType) EnumUtil.parseByCode(UserTaskType.values(),userTaskNodeType);
-		}
-		return this.userTaskNodeTypeEnum ;
-	}
-	
-	/**
-	 * 设置 人工节点类型
-	 * @param userTaskNodeType 人工节点类型
-	 * @return 当前对象
-	*/
-	public ProcessDefinitionNode setUserTaskNodeType(String userTaskNodeType) {
-		this.userTaskNodeType=userTaskNodeType;
-		this.userTaskNodeTypeEnum= (UserTaskType) EnumUtil.parseByCode(UserTaskType.values(),userTaskNodeType) ;
-		if(StringUtil.hasContent(userTaskNodeType) && this.userTaskNodeTypeEnum==null) {
-			throw new IllegalArgumentException( userTaskNodeType + " is not one of UserTaskType");
-		}
-		return this;
-	}
-	
-	/**
-	 * 设置 人工节点类型的投影属性，等同于设置 人工节点类型
-	 * @param userTaskNodeTypeEnum 人工节点类型
-	 * @return 当前对象
-	*/
-	@Transient
-	public ProcessDefinitionNode setUserTaskNodeTypeEnum(UserTaskType userTaskNodeTypeEnum) {
-		if(userTaskNodeTypeEnum==null) {
-			this.setUserTaskNodeType(null);
-		} else {
-			this.setUserTaskNodeType(userTaskNodeTypeEnum.code());
-		}
-		this.userTaskNodeTypeEnum=userTaskNodeTypeEnum;
-		return this;
-	}
-	
-	/**
 	 * 获得 会审的循环基数<br>
 	 * 会审的循环基数
 	 * @return 会审的循环基数
@@ -627,21 +569,54 @@ public class ProcessDefinitionNode extends Entity {
 	}
 	
 	/**
-	 * 获得 是否起草节点<br>
-	 * 是否起草节点
-	 * @return 是否起草节点
+	 * 获得 人工节点类型<br>
+	 * 人工节点类型
+	 * @return 人工节点类型
 	*/
-	public Integer getIsDraftNode() {
-		return isDraftNode;
+	public String getUserTaskType() {
+		return userTaskType;
 	}
 	
 	/**
-	 * 设置 是否起草节点
-	 * @param isDraftNode 是否起草节点
+	 * 获得 人工节点类型 的投影属性<br>
+	 * 等价于 getUserTaskType 方法，获得对应的枚举类型
+	 * @return 人工节点类型
+	*/
+	@Transient
+	public UserTaskType getUserTaskTypeEnum() {
+		if(this.userTaskTypeEnum==null) {
+			this.userTaskTypeEnum = (UserTaskType) EnumUtil.parseByCode(UserTaskType.values(),userTaskType);
+		}
+		return this.userTaskTypeEnum ;
+	}
+	
+	/**
+	 * 设置 人工节点类型
+	 * @param userTaskType 人工节点类型
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionNode setIsDraftNode(Integer isDraftNode) {
-		this.isDraftNode=isDraftNode;
+	public ProcessDefinitionNode setUserTaskType(String userTaskType) {
+		this.userTaskType=userTaskType;
+		this.userTaskTypeEnum= (UserTaskType) EnumUtil.parseByCode(UserTaskType.values(),userTaskType) ;
+		if(StringUtil.hasContent(userTaskType) && this.userTaskTypeEnum==null) {
+			throw new IllegalArgumentException( userTaskType + " is not one of UserTaskType");
+		}
+		return this;
+	}
+	
+	/**
+	 * 设置 人工节点类型的投影属性，等同于设置 人工节点类型
+	 * @param userTaskTypeEnum 人工节点类型
+	 * @return 当前对象
+	*/
+	@Transient
+	public ProcessDefinitionNode setUserTaskTypeEnum(UserTaskType userTaskTypeEnum) {
+		if(userTaskTypeEnum==null) {
+			this.setUserTaskType(null);
+		} else {
+			this.setUserTaskType(userTaskTypeEnum.code());
+		}
+		this.userTaskTypeEnum=userTaskTypeEnum;
 		return this;
 	}
 	

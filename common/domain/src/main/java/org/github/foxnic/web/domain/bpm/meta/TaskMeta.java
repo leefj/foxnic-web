@@ -10,13 +10,14 @@ import java.util.List;
 import org.github.foxnic.web.domain.bpm.TaskAssignee;
 import org.github.foxnic.web.domain.bpm.TaskAssigneeUser;
 import org.github.foxnic.web.domain.bpm.ProcessDefinitionNode;
+import org.github.foxnic.web.domain.bpm.TaskRead;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-24 14:26:54
- * @sign ED32017453502142E19650D325B0717F
+ * @since 2022-07-07 11:05:52
+ * @sign 5B3FDB3DBEB30A011AB453EBDF8973FB
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -263,9 +264,19 @@ public class TaskMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.Task,org.github.foxnic.web.domain.bpm.ProcessDefinitionNode> NODE_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.Task.class ,NODE, org.github.foxnic.web.domain.bpm.ProcessDefinitionNode.class, "流程节点", "流程节点", org.github.foxnic.web.domain.bpm.ProcessDefinitionNode.class, null);
 	
 	/**
+	 * 已读清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.TaskRead
+	*/
+	public static final String READ_LIST="readList";
+	
+	/**
+	 * 已读清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.TaskRead
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.Task,org.github.foxnic.web.domain.bpm.TaskRead> READ_LIST_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.Task.class ,READ_LIST, java.util.List.class, "已读清单", "已读清单", org.github.foxnic.web.domain.bpm.TaskRead.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , PROCESS_DEFINITION_ID , NODE_ID , NODE_NAME , PROCESS_INSTANCE_ID , STATUS , STATUS_REASON , APPROVAL_TIME , CAMUNDA_TASK_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , PROCESS_DEFINITION , PROCESS_INSTANCE , APPROVALS , ASSIGNEES , ASSIGNEE_USERS , NODE };
+	public static final String[] $PROPS={ ID , PROCESS_DEFINITION_ID , NODE_ID , NODE_NAME , PROCESS_INSTANCE_ID , STATUS , STATUS_REASON , APPROVAL_TIME , CAMUNDA_TASK_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , PROCESS_DEFINITION , PROCESS_INSTANCE , APPROVALS , ASSIGNEES , ASSIGNEE_USERS , NODE , READ_LIST };
 	
 	/**
 	 * 代理类
@@ -536,6 +547,17 @@ public class TaskMeta {
 		public Task setNode(ProcessDefinitionNode node) {
 			super.change(NODE,super.getNode(),node);
 			super.setNode(node);
+			return this;
+		}
+		
+		/**
+		 * 设置 已读清单
+		 * @param readList 已读清单
+		 * @return 当前对象
+		*/
+		public Task setReadList(List<TaskRead> readList) {
+			super.change(READ_LIST,super.getReadList(),readList);
+			super.setReadList(readList);
 			return this;
 		}
 	}

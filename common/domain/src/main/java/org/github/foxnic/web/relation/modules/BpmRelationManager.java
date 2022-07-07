@@ -154,6 +154,11 @@ public class BpmRelationManager extends RelationManager {
 				.using(FoxnicWeb.BPM_TASK.ID).join(FoxnicWeb.BPM_TASK_APPROVAL.TASK_ID);
 
 
+		//任务 - 已读清单
+		this.property(TaskMeta.READ_LIST_PROP)
+				.using(FoxnicWeb.BPM_TASK.ID).join(FoxnicWeb.BPM_TASK_READ.TASK_ID);
+
+
 		//审批动作 - 审批人账户
 		this.property(TaskApprovalMeta.APPROVAL_USER_PROP)
 				.using(FoxnicWeb.BPM_TASK_APPROVAL.APPROVAL_USER_ID).join(FoxnicWeb.SYS_USER.ID)
@@ -163,6 +168,11 @@ public class BpmRelationManager extends RelationManager {
 					}
 					return data;
 				});
+
+
+		//已读记录 - 账户
+		this.property(TaskReadMeta.READER_PROP)
+				.using(FoxnicWeb.BPM_TASK_READ.CREATE_BY).join(FoxnicWeb.SYS_USER.ID);
 
 	}
 

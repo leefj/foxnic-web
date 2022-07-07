@@ -38,6 +38,8 @@ public class TaskConfig extends BaseCodeConfig<BPM_TASK> {
         poType.addListProperty(TaskAssigneeUser.class,"assigneeUsers","审批人账户清单","审批人账户清单");
         poType.addSimpleProperty(ProcessDefinitionNode.class,"node","流程节点","流程节点");
         poType.shadow("status", TaskStatus.class);
+        poType.addListProperty(TaskRead.class,"readList","已读清单","已读清单");
+
 
         //
         voType.addListProperty(String.class,"approvalUserIds","处理人账户ID清单","处理人账户ID清单");

@@ -11,14 +11,14 @@ import com.github.foxnic.commons.bean.BeanUtil;
 
 
 /**
- * 流程任务
+ * 流程任务已阅
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-07 11:05:52
- * @sign 903E20194942145230B426EE32FE6F14
+ * @since 2022-07-07 11:02:54
+ * @sign 377A77ECB79874031B3FC42E99DB39DF
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
-public class TaskVO extends Task {
+public class TaskReadVO extends TaskRead {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -77,18 +77,6 @@ public class TaskVO extends Task {
 	private List<String> ids;
 	
 	/**
-	 * 处理人账户ID清单：处理人账户ID清单
-	*/
-	@ApiModelProperty(required = false,value="处理人账户ID清单" , notes = "处理人账户ID清单")
-	private List<String> approvalUserIds;
-	
-	/**
-	 * 是否我的任务：是否我的任务
-	*/
-	@ApiModelProperty(required = false,value="是否我的任务" , notes = "是否我的任务")
-	private Boolean mine;
-	
-	/**
 	 * 获得 页码<br>
 	 * @return 页码
 	*/
@@ -101,7 +89,7 @@ public class TaskVO extends Task {
 	 * @param pageIndex 页码
 	 * @return 当前对象
 	*/
-	public TaskVO setPageIndex(Integer pageIndex) {
+	public TaskReadVO setPageIndex(Integer pageIndex) {
 		this.pageIndex=pageIndex;
 		return this;
 	}
@@ -119,7 +107,7 @@ public class TaskVO extends Task {
 	 * @param pageSize 分页大小
 	 * @return 当前对象
 	*/
-	public TaskVO setPageSize(Integer pageSize) {
+	public TaskReadVO setPageSize(Integer pageSize) {
 		this.pageSize=pageSize;
 		return this;
 	}
@@ -137,7 +125,7 @@ public class TaskVO extends Task {
 	 * @param searchField 搜索字段
 	 * @return 当前对象
 	*/
-	public TaskVO setSearchField(String searchField) {
+	public TaskReadVO setSearchField(String searchField) {
 		this.searchField=searchField;
 		return this;
 	}
@@ -155,7 +143,7 @@ public class TaskVO extends Task {
 	 * @param fuzzyField 模糊搜索字段
 	 * @return 当前对象
 	*/
-	public TaskVO setFuzzyField(String fuzzyField) {
+	public TaskReadVO setFuzzyField(String fuzzyField) {
 		this.fuzzyField=fuzzyField;
 		return this;
 	}
@@ -173,7 +161,7 @@ public class TaskVO extends Task {
 	 * @param searchValue 搜索的值
 	 * @return 当前对象
 	*/
-	public TaskVO setSearchValue(String searchValue) {
+	public TaskReadVO setSearchValue(String searchValue) {
 		this.searchValue=searchValue;
 		return this;
 	}
@@ -191,7 +179,7 @@ public class TaskVO extends Task {
 	 * @param dirtyFields 已修改字段
 	 * @return 当前对象
 	*/
-	public TaskVO setDirtyFields(List<String> dirtyFields) {
+	public TaskReadVO setDirtyFields(List<String> dirtyFields) {
 		this.dirtyFields=dirtyFields;
 		return this;
 	}
@@ -201,7 +189,7 @@ public class TaskVO extends Task {
 	 * @param dirtyField 已修改字段
 	 * @return 当前对象
 	*/
-	public TaskVO addDirtyField(String... dirtyField) {
+	public TaskReadVO addDirtyField(String... dirtyField) {
 		if(this.dirtyFields==null) dirtyFields=new ArrayList<>();
 		this.dirtyFields.addAll(Arrays.asList(dirtyField));
 		return this;
@@ -220,7 +208,7 @@ public class TaskVO extends Task {
 	 * @param sortField 排序字段
 	 * @return 当前对象
 	*/
-	public TaskVO setSortField(String sortField) {
+	public TaskReadVO setSortField(String sortField) {
 		this.sortField=sortField;
 		return this;
 	}
@@ -238,7 +226,7 @@ public class TaskVO extends Task {
 	 * @param sortType 排序方式
 	 * @return 当前对象
 	*/
-	public TaskVO setSortType(String sortType) {
+	public TaskReadVO setSortType(String sortType) {
 		this.sortType=sortType;
 		return this;
 	}
@@ -257,7 +245,7 @@ public class TaskVO extends Task {
 	 * @param ids 主键清单
 	 * @return 当前对象
 	*/
-	public TaskVO setIds(List<String> ids) {
+	public TaskReadVO setIds(List<String> ids) {
 		this.ids=ids;
 		return this;
 	}
@@ -267,68 +255,9 @@ public class TaskVO extends Task {
 	 * @param id 主键清单
 	 * @return 当前对象
 	*/
-	public TaskVO addId(String... id) {
+	public TaskReadVO addId(String... id) {
 		if(this.ids==null) ids=new ArrayList<>();
 		this.ids.addAll(Arrays.asList(id));
-		return this;
-	}
-	
-	/**
-	 * 获得 处理人账户ID清单<br>
-	 * 处理人账户ID清单
-	 * @return 处理人账户ID清单
-	*/
-	public List<String> getApprovalUserIds() {
-		return approvalUserIds;
-	}
-	
-	/**
-	 * 设置 处理人账户ID清单
-	 * @param approvalUserIds 处理人账户ID清单
-	 * @return 当前对象
-	*/
-	public TaskVO setApprovalUserIds(List<String> approvalUserIds) {
-		this.approvalUserIds=approvalUserIds;
-		return this;
-	}
-	
-	/**
-	 * 添加 处理人账户ID清单
-	 * @param approvalUserId 处理人账户ID清单
-	 * @return 当前对象
-	*/
-	public TaskVO addApprovalUserId(String... approvalUserId) {
-		if(this.approvalUserIds==null) approvalUserIds=new ArrayList<>();
-		this.approvalUserIds.addAll(Arrays.asList(approvalUserId));
-		return this;
-	}
-	
-	/**
-	 * 获得 是否我的任务<br>
-	 * 是否我的任务
-	 * @return 是否我的任务
-	*/
-	public Boolean isMine() {
-		return mine;
-	}
-	
-	/**
-	 * 获得 是否我的任务<br>
-	 * 等价于 isMine 方法，为兼容 Swagger 需要
-	 * 属性说明 : 是否我的任务
-	 * @return 是否我的任务
-	*/
-	public Boolean getMine() {
-		return this.mine;
-	}
-	
-	/**
-	 * 设置 是否我的任务
-	 * @param mine 是否我的任务
-	 * @return 当前对象
-	*/
-	public TaskVO setMine(Boolean mine) {
-		this.mine=mine;
 		return this;
 	}
 	@Transient

@@ -80,6 +80,7 @@ public class CodeStarter extends ModuleCodeGenerator {
         this.addConfig(new FormInstanceConfig());
         this.addConfig(new FormInstanceBillConfig());
         this.addConfig(new TaskConfig());
+        this.addConfig(new TaskReadConfig());
         this.addConfig(new TaskAssigneeConfig());
         this.addConfig(new TaskApprovalConfig());
         this.addConfig(new ProcessErrorConfig());
