@@ -57,4 +57,13 @@ public class BPMSyncWorker implements JobExecutor {
         return ErrorDesc.success();
     }
 
+
+    public Result doSync4Retry(List<String> processInstanceIds) {
+        ProcessInstanceServiceProxy.api().syncCamundaProcessInstances(processInstanceIds);
+        ProcessErrorServiceProxy.api().syncCamundaErrors(processInstanceIds);
+
+        // 返回失败，迫使执行
+        return ErrorDesc.failure();
+    }
+
 }

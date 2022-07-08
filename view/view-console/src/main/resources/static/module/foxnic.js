@@ -92,24 +92,26 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     //再次重新读取，更改这个值，以便级联
                     var url = el.attr("data");
 
-                    // debugger;
-                    var key=cfg.el+";URL:"+url+";PS:"+JSON.stringify(ps);
-                    key=key.trim();
-                    var now=(new Date()).getTime();
-                    var t=me.selectBoxQueryTime[key];
-                    if (t) {
-                        t = now - t;
-                        //logger.info("请求时间差(" + cfg.el + "):", t);
-                        if (t < 500) {
-                            // cb && cb([], 0);
-                            return;
-                        }
-                    }
-                    //logger.info(cfg.id,key,now,t)
-                    me.selectBoxQueryTime[key]=now;
+                    // // debugger;
+                    // var key=cfg.el+";URL:"+url+";PS:"+JSON.stringify(ps);
+                    // key=key.trim();
+                    // var now=(new Date()).getTime();
+                    // var t=me.selectBoxQueryTime[key];
+                    // if (t) {
+                    //     t = now - t;
+                    //     //logger.info("请求时间差(" + cfg.el + "):", t);
+                    //     if (t < 500) {
+                    //         //var data=me.selectBoxQueryValue[key];//={opts:opts,pageCount:r.data.pageCount};
+                    //         //cb && cb(data.opts, data.pageCount);
+                    //         return;
+                    //     }
+                    // }
+                    // //logger.info(cfg.id,key,now,t)
+                    // me.selectBoxQueryTime[key]=now;
 
                     admin.request(url, ps, function (r) {
                         // debugger//
+
                         var opts = [];
                         me.getSelectBox(cfg.el)["currentData"]=null;
                         if (r.success) {
@@ -149,45 +151,51 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                             window.adjustPopup();
                         }
 
+
+
                     }, "POST", true);
                 }
 
                 // if (!cfg.filterable) {
-                    var ps={};
-                    if (cfg.extraParam) {
-                        var ext = {};
-                        if (typeof (cfg.extraParam) == 'function') {
-                            ext = cfg.extraParam();
-                        } else {
-                            ext = cfg.extraParam;
-                        }
-                        for (var key in ext) {
-                            ps[key] = ext[key];
-                        }
+                //     var ps={};
+                //     if (cfg.extraParam) {
+                //         var ext = {};
+                //         if (typeof (cfg.extraParam) == 'function') {
+                //             ext = cfg.extraParam();
+                //         } else {
+                //             ext = cfg.extraParam;
+                //         }
+                //         for (var key in ext) {
+                //             ps[key] = ext[key];
+                //         }
                     // }
 
-                    query(ps, function (r) {
-                        cfg.data = r;
-                        cfg.remoteSearch=false;
-                        // debugger
-                        var sel = xmSelect.get(cfg.el, true);
-                        var val = null;
-                        if(sel) {
-                            val = sel.getValue();
-                            sel.reset();
-                            sel.update({data:cfg.data,remoteSearch:false});
-                        } else {
-                            xmSelect.render(cfg);
-                        }
-                        if(val) {
-                            sel.setValue(val);
-                        }
+                    // query(ps, function (r) {
+                    //     cfg.data = r;
+                    //     cfg.remoteSearch=false;
+                    //     // debugger
+                    //     var sel = xmSelect.get(cfg.el, true);
+                    //     var val = null;
+                    //     if(sel) {
+                    //         val = sel.getValue();
+                    //         sel.reset();
+                    //         sel.update({data:cfg.data,remoteSearch:false});
+                    //     } else {
+                    //         xmSelect.render(cfg);
+                    //     }
+                    //     if(val) {
+                    //         sel.setValue(val);
+                    //     }
+                    //
+                    // })
+                // }
 
-                    })
-                }
-
-
+                // 这个方法组件会自动触发
                 cfg.remoteMethod = function (val, cb, show, pageIndex) {
+
+
+                    //   if(window.xx) return;
+                    //window.xx=true;
                     // debugger;
                     // z++;
                     // logger.warn("select-box:"+cfg.el,"T-"+z);
@@ -390,8 +398,8 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 // debugger;
                 inst.setValue(opts);
                 if (!id.startWith("#")) id = "#" + id;
-                if(this.selectBoxConfigs[id]) {
-                    this.selectBoxConfigs[id].data=opts;
+                if(me.selectBoxConfigs[id]) {
+                    me.selectBoxConfigs[id].data=opts;
                 }
             }
             setTimeout(setV,1);

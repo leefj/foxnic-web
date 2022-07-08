@@ -17,7 +17,7 @@ import org.github.foxnic.web.domain.bpm.TaskRead;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-07 11:05:52
+ * @since 2022-07-08 09:44:32
  * @sign 903E20194942145230B426EE32FE6F14
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -225,6 +225,16 @@ public class TaskVOMeta extends TaskMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskVO,java.lang.String> CAMUNDA_TASK_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskVO.class ,CAMUNDA_TASK_ID, java.lang.String.class, "任务ID", "Camunda 任务ID", java.lang.String.class, null);
 	
 	/**
+	 * cam中指定的审批人 , 类型: java.lang.String
+	*/
+	public static final String CAMUNDA_ASSIGNEE="camundaAssignee";
+	
+	/**
+	 * cam中指定的审批人 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskVO,java.lang.String> CAMUNDA_ASSIGNEE_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskVO.class ,CAMUNDA_ASSIGNEE, java.lang.String.class, "cam中指定的审批人", "cam中指定的审批人", java.lang.String.class, null);
+	
+	/**
 	 * create_by , 类型: java.lang.String
 	*/
 	public static final String CREATE_BY="createBy";
@@ -387,7 +397,7 @@ public class TaskVOMeta extends TaskMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , APPROVAL_USER_IDS , MINE , ID , PROCESS_DEFINITION_ID , NODE_ID , NODE_NAME , PROCESS_INSTANCE_ID , STATUS , STATUS_REASON , APPROVAL_TIME , CAMUNDA_TASK_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , PROCESS_DEFINITION , PROCESS_INSTANCE , APPROVALS , ASSIGNEES , ASSIGNEE_USERS , NODE , READ_LIST };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , APPROVAL_USER_IDS , MINE , ID , PROCESS_DEFINITION_ID , NODE_ID , NODE_NAME , PROCESS_INSTANCE_ID , STATUS , STATUS_REASON , APPROVAL_TIME , CAMUNDA_TASK_ID , CAMUNDA_ASSIGNEE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , PROCESS_DEFINITION , PROCESS_INSTANCE , APPROVALS , ASSIGNEES , ASSIGNEE_USERS , NODE , READ_LIST };
 	
 	/**
 	 * 代理类
@@ -614,6 +624,17 @@ public class TaskVOMeta extends TaskMeta {
 		public Task setCamundaTaskId(String camundaTaskId) {
 			super.change(CAMUNDA_TASK_ID,super.getCamundaTaskId(),camundaTaskId);
 			super.setCamundaTaskId(camundaTaskId);
+			return this;
+		}
+		
+		/**
+		 * 设置 cam中指定的审批人
+		 * @param camundaAssignee cam中指定的审批人
+		 * @return 当前对象
+		*/
+		public Task setCamundaAssignee(String camundaAssignee) {
+			super.change(CAMUNDA_ASSIGNEE,super.getCamundaAssignee(),camundaAssignee);
+			super.setCamundaAssignee(camundaAssignee);
 			return this;
 		}
 		

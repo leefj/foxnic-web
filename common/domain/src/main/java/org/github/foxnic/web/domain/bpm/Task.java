@@ -23,8 +23,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程任务
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-07 11:05:52
- * @sign 5B3FDB3DBEB30A011AB453EBDF8973FB
+ * @since 2022-07-08 09:44:32
+ * @sign 33F04072040D32E537D6B5E2243B450A
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -91,6 +91,12 @@ public class Task extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="任务ID" , notes = "Camunda 任务ID")
 	private String camundaTaskId;
+	
+	/**
+	 * cam中指定的审批人：cam中指定的审批人
+	*/
+	@ApiModelProperty(required = false,value="cam中指定的审批人" , notes = "cam中指定的审批人")
+	private String camundaAssignee;
 	
 	/**
 	 * create_by：create_by
@@ -391,6 +397,25 @@ public class Task extends Entity {
 	*/
 	public Task setCamundaTaskId(String camundaTaskId) {
 		this.camundaTaskId=camundaTaskId;
+		return this;
+	}
+	
+	/**
+	 * 获得 cam中指定的审批人<br>
+	 * cam中指定的审批人
+	 * @return cam中指定的审批人
+	*/
+	public String getCamundaAssignee() {
+		return camundaAssignee;
+	}
+	
+	/**
+	 * 设置 cam中指定的审批人
+	 * @param camundaAssignee cam中指定的审批人
+	 * @return 当前对象
+	*/
+	public Task setCamundaAssignee(String camundaAssignee) {
+		this.camundaAssignee=camundaAssignee;
 		return this;
 	}
 	

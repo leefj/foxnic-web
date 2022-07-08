@@ -1,14 +1,17 @@
 package org.github.foxnic.web.framework.bpm;
 
 import com.github.foxnic.api.transter.Result;
+import org.github.foxnic.web.constants.enums.bpm.ApprovalResult;
 import org.github.foxnic.web.constants.enums.bpm.TaskStatus;
+import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
 import org.github.foxnic.web.domain.bpm.*;
 import org.github.foxnic.web.domain.oauth.User;
+import org.github.foxnic.web.proxy.bpm.TaskServiceProxy;
 import org.github.foxnic.web.proxy.camunda.CamundaProcessServiceProxy;
 
 import java.util.*;
 
-public class ProcessInstanceProxy {
+public class ProcessDelegate {
 
     private ProcessInstance processInstance;
     private List<String> billIds;
@@ -16,40 +19,47 @@ public class ProcessInstanceProxy {
     private User user;
 
     /**
-     * 从已有的流程实例ID，创建 ProcessInstanceProxy
+     * 从已有的流程实例ID，创建 ProcessDelegate
      * */
-    public static ProcessInstanceProxy createFromExistsProcess(String processInstanceId, User user) {
-        ProcessInstanceProxy proxy=new ProcessInstanceProxy();
+    public static ProcessDelegate createFromExistsProcess(String processInstanceId, User user) {
+        ProcessDelegate delegate=new ProcessDelegate();
         try {
-            proxy.user=user;
+            delegate.user=user;
             Result<ProcessInstance> result = BpmAssistant.getProcessInstanceById(processInstanceId,user);
             if(result.success()) {
-                proxy.processInstance=result.data();
+                delegate.processInstance=result.data();
             } else {
                 throw new RuntimeException(result.message());
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        return proxy;
+        return delegate;
+    }
+
+    public static ProcessDelegate createFromExistsProcess(ProcessInstance processInstance, User user) {
+        ProcessDelegate delegate=new ProcessDelegate();
+        delegate.user=user;
+        delegate.processInstance=processInstance;
+        return delegate;
     }
 
     /**
-     * 创建一个 ProcessInstanceProxy 用于发起新流程
+     * 创建一个 ProcessDelegate 用于发起新流程
      * */
-    public ProcessInstanceProxy createNewProcess(String processDefinitionId,String billId, User user) {
-        ProcessInstanceProxy proxy=new ProcessInstanceProxy();
-        proxy.user=user;
-        proxy.processDefinitionId=processDefinitionId;
-        proxy.billIds=Arrays.asList(billId);
-        return proxy;
+    public ProcessDelegate createNewProcess(String processDefinitionId, String billId, User user) {
+        ProcessDelegate delegate=new ProcessDelegate();
+        delegate.user=user;
+        delegate.processDefinitionId=processDefinitionId;
+        delegate.billIds=Arrays.asList(billId);
+        return delegate;
     }
 
     /**
-     * 从表单与业务单据为已存在的流程实例 创建 ProcessInstanceProxy
+     * 从表单与业务单据为已存在的流程实例 创建 ProcessDelegate
      * */
-    public static ProcessInstanceProxy createFromExistsBill(String formDefinitionCode, String billId,User user) {
-        ProcessInstanceProxy proxy=new ProcessInstanceProxy();
+    public static ProcessDelegate createFromExistsBill(String formDefinitionCode, String billId, User user) {
+        ProcessDelegate proxy=new ProcessDelegate();
         try {
             proxy.user=user;
             Result<List<ProcessInstance>> result = BpmAssistant.getProcessInstanceByBill(formDefinitionCode, Arrays.asList(billId));
@@ -175,9 +185,33 @@ public class ProcessInstanceProxy {
      * 处理待办任务
      * */
     public Result processTask(TaskProcessVO taskProcessVO) {
-        throw new RuntimeException("待实现");
+        return TaskServiceProxy.api().processTask(taskProcessVO);
     }
 
 
+    /**
+     * 处理待办任务(当前审批人不涉及时跳过审批)
+     * */
+    public Result skipTask(String taskId,UnifiedUserType assigneeType,String assigneeId,String assigneeUserId,String comment,Map<String,Object> variables) {
+        if(variables==null) variables=new HashMap<>();
+        TaskProcessVO taskProcessVO=new TaskProcessVO();
+        taskProcessVO.setTaskId(taskId);
+        taskProcessVO.setResultEnum(ApprovalResult.skip);
+        taskProcessVO.setVariables(variables);
+        taskProcessVO.setAssigneeUserId(assigneeUserId);
+        taskProcessVO.setAssigneeType(assigneeType.code());
+        taskProcessVO.setAssigneeId(assigneeId);
+        taskProcessVO.setTenantId(processInstance.getTenantId());
+        taskProcessVO.setComment(comment);
+        return processTask(taskProcessVO);
+    }
 
-}
+    /**
+     * 处理待办任务(当前审批人不涉及时跳过审批)
+     * */
+    public Result skipTask(String taskId,UnifiedUserType assigneeType,String assigneeId,String comment,Map<String,Object> variables) {
+        return skipTask(taskId,assigneeType,assigneeId,user.getId(),comment,variables);
+    }
+
+
+    }

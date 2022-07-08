@@ -4,6 +4,7 @@ import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.commons.collection.CollectorUtil;
 import com.github.foxnic.commons.concurrent.task.QuartzTaskManager;
+import com.github.foxnic.commons.concurrent.task.SimpleTaskManager;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.reflect.ReflectUtil;
 import org.github.foxnic.web.constants.enums.changes.ApprovalStatus;
@@ -24,7 +25,7 @@ public class BpmAssistant {
      */
     public static final String BPM_PROCESS_INSTANCE_ID = "bpmProcessInstanceId";
 
-    public static final String INNER_DRAFTER = "#$DRAFTER:__";
+
 
 
 
@@ -46,9 +47,10 @@ public class BpmAssistant {
         },3000);
     }
 
-    public static Result sync(String processInstanceId,int delay) {
-        // 调用同步
-        return syncWorker.doSync(Arrays.asList(processInstanceId),delay);
+    public static void sync(String processInstanceId) {
+        SimpleTaskManager.retry(times -> {
+            return syncWorker.doSync4Retry(Arrays.asList(processInstanceId));
+        },500,1000,2000,3000);
     }
 
 

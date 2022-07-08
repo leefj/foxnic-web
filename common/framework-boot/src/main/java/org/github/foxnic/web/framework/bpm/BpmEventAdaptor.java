@@ -44,37 +44,37 @@ public abstract class BpmEventAdaptor<E extends Entity,S extends ISimpleIdServic
     public BpmActionResult onProcessCallback(BpmEvent event) {
         BpmEventType eventType = event.getEventType();
 
-        if (eventType == BpmEventType.TEMPORARY_SAVE_START) {
+        if (eventType == BpmEventType.temporary_save_start) {
             return onTemporarySaveStart(event);
-        } else if (eventType == BpmEventType.TEMPORARY_SAVE_END) {
+        } else if (eventType == BpmEventType.temporary_save_end) {
             return onTemporarySaveEnd(event);
-        } else if (eventType == BpmEventType.PROCESS_SUBMIT_START) {
+        } else if (eventType == BpmEventType.process_submit_start) {
             return onProcessSubmitStart(event);
-        } else if (eventType == BpmEventType.PROCESS_SUBMIT_END) {
+        } else if (eventType == BpmEventType.process_submit_end) {
             return onProcessSubmitEnd(event);
-        } else if (eventType == BpmEventType.TASK_START) {
+        } else if (eventType == BpmEventType.task_start) {
             return onTaskStart(event);
-        } else if (eventType == BpmEventType.TASK_END) {
+        } else if (eventType == BpmEventType.task_end) {
             return onTaskEnd(event);
-        } else if (eventType == BpmEventType.NODE_START) {
+        } else if (eventType == BpmEventType.node_start) {
             return onNodeStart(event);
-        } else if (eventType == BpmEventType.NODE_END) {
+        } else if (eventType == BpmEventType.node_end) {
             return onNodeEnd(event);
-        } else if (eventType == BpmEventType.FETCH_BACK_START) {
+        } else if (eventType == BpmEventType.fetch_back_start) {
             return onFetchBackStart(event);
-        } else if (eventType == BpmEventType.FETCH_BACK_END) {
+        } else if (eventType == BpmEventType.fetch_back_end) {
             return onFetchBackEnd(event);
-        } else if (eventType == BpmEventType.JUMP_START) {
+        } else if (eventType == BpmEventType.jump_start) {
             return onJumpStart(event);
-        } else if (eventType == BpmEventType.JUMP_END) {
+        } else if (eventType == BpmEventType.jump_end) {
             return onJumpEnd(event);
-        } else if (eventType == BpmEventType.DELEGATE_START) {
+        } else if (eventType == BpmEventType.delegate_start) {
             return onDelegateStart(event);
-        } else if (eventType == BpmEventType.DELEGATE_END) {
+        } else if (eventType == BpmEventType.delegate_end) {
             return onDelegateEnd(event);
-        } else if (eventType == BpmEventType.PROCESS_ABANDON_START) {
+        } else if (eventType == BpmEventType.process_abandon_start) {
             return onProcessAbandonStart(event);
-        } else if (eventType == BpmEventType.PROCESS_ABANDON_END) {
+        } else if (eventType == BpmEventType.process_abandon_end) {
             return onProcessAbandonEnd(event);
         } else {
             return event.getActionResult();
