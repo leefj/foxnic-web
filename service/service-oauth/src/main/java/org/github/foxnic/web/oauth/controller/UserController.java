@@ -182,6 +182,27 @@ public class UserController extends SuperController {
 		return result;
 	}
 
+
+	/**
+	 * 获取账户
+	 */
+	@ApiOperation(value = "获取账户")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = UserVOMeta.ACCOUNT , value = "账户" , required = true , dataTypeClass=String.class , example = "leefj"),
+	})
+	@ApiOperationSupport(order=6)
+	@NotNull(name = UserVOMeta.ACCOUNT)
+	@SentinelResource(value = UserServiceProxy.GET_BY_ACCOUNT)
+	@PostMapping(UserServiceProxy.GET_BY_ACCOUNT)
+	public Result<User> getByAccount(String account) {
+		Result<User> result=new Result<>();
+		User user=new User();
+		user.setAccount(account);
+		user=userService.queryEntity(user);
+		result.success(true).data(user);
+		return result;
+	}
+
 	/**
 	 * 获取账户
 	 */

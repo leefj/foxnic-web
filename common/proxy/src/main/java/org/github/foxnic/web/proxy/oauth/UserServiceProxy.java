@@ -75,6 +75,11 @@ public interface UserServiceProxy {
     /**
      * 获取账户
      */
+    public static final String GET_BY_ACCOUNT = API_PREFIX + "get-by-account";
+
+    /**
+     * 获取账户
+     */
     public static final String GET_BY_IDS = API_PREFIX + "get-by-ids";
 
     /**
@@ -137,6 +142,9 @@ public interface UserServiceProxy {
      */
     @RequestMapping(UserServiceProxy.GET_BY_ID)
     Result<User> getById(@RequestParam(name = "id") String id);
+
+    @RequestMapping(UserServiceProxy.GET_BY_ACCOUNT)
+    Result<User> getByAccount(@RequestParam(name = "account") String account);
 
     /**
      * 获取账户
