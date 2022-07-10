@@ -44,11 +44,14 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
         selectBoxQueryTime:{},
         renderSelectBox: function (cfg,rerender) {
             var me=this;
-            var inst = null;
+            if(!cfg) cfg={};
+            if (!cfg.el.startWith("#")) cfg.el = "#" + cfg.el;
+            // debugger
+            var inst = xmSelect.get(cfg.el, true);
             var refreshCallback=cfg.refreshCallback;
             //不重复渲染
-            if (!rerender && xmSelect.get(cfg.el, true) != null) return;
-            if (!cfg.el.startWith("#")) cfg.el = "#" + cfg.el;
+            if (!rerender && inst != null) return;
+
             if(!rerender) {
                 this.selectBoxConfigs[cfg.el]=cfg;
             } else {
@@ -156,39 +159,39 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     }, "POST", true);
                 }
 
-                // if (!cfg.filterable) {
-                //     var ps={};
-                //     if (cfg.extraParam) {
-                //         var ext = {};
-                //         if (typeof (cfg.extraParam) == 'function') {
-                //             ext = cfg.extraParam();
-                //         } else {
-                //             ext = cfg.extraParam;
-                //         }
-                //         for (var key in ext) {
-                //             ps[key] = ext[key];
-                //         }
-                    // }
+                if (!cfg.filterable) {
 
-                    // query(ps, function (r) {
-                    //     cfg.data = r;
-                    //     cfg.remoteSearch=false;
-                    //     // debugger
-                    //     var sel = xmSelect.get(cfg.el, true);
-                    //     var val = null;
-                    //     if(sel) {
-                    //         val = sel.getValue();
-                    //         sel.reset();
-                    //         sel.update({data:cfg.data,remoteSearch:false});
-                    //     } else {
-                    //         xmSelect.render(cfg);
-                    //     }
-                    //     if(val) {
-                    //         sel.setValue(val);
-                    //     }
-                    //
-                    // })
-                // }
+                    var ps={};
+                    if (cfg.extraParam) {
+                        var ext = {};
+                        if (typeof (cfg.extraParam) == 'function') {
+                            ext = cfg.extraParam();
+                        } else {
+                            ext = cfg.extraParam;
+                        }
+                        for (var key in ext) {
+                            ps[key] = ext[key];
+                        }
+                    }
+                    // debugger
+                    query(ps, function (r) {
+                        cfg.data = r;
+                        cfg.remoteSearch=false;
+                        // debugger
+                        var sel = xmSelect.get(cfg.el, true);
+                        var val = null;
+                        if(sel) {
+                            val = sel.getValue();
+                            sel.reset();
+                            sel.update({data:cfg.data,remoteSearch:false});
+                        } else {
+                            xmSelect.render(cfg);
+                        }
+                        if(val) {
+                            sel.setValue(val);
+                        }
+                    })
+                }
 
                 // 这个方法组件会自动触发
                 cfg.remoteMethod = function (val, cb, show, pageIndex) {
@@ -196,7 +199,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
 
                     //   if(window.xx) return;
                     //window.xx=true;
-                    // debugger;
+                    debugger;
                     // z++;
                     // logger.warn("select-box:"+cfg.el,"T-"+z);
                     var ps = {searchField: cfg.searchField, searchValue: val, fuzzyField: cfg.searchField};

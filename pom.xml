@@ -62,7 +62,7 @@
         <oshi.core.version>5.7.5</oshi.core.version>
         <mysql.version>8.0.27</mysql.version>
         <camunda.version>7.17.0</camunda.version>
-        <cangaroo.version>1.1.0.RELEASE</cangaroo.version>
+        <cangaroo.version>1.1.2.RELEASE</cangaroo.version>
     </properties>
     <dependencies/>
     <build>
