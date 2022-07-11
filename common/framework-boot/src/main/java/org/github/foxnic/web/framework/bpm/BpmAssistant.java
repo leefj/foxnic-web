@@ -176,20 +176,20 @@ public class BpmAssistant {
 
         Class proxyClass=getCallbackProxyClass(event.getProcessInstance().getFormDefinition().getCallbackController());
         if(proxyClass==null) {
-            throw new IllegalArgumentException("流程回调控制器无效");
+            throw new IllegalArgumentException("流程回调控制器 "+event.getProcessInstance().getFormDefinition().getCallbackController()+" 无效");
         }
 
         try {
             Method apiMethod = proxyClass.getDeclaredMethod("api");
             if(apiMethod==null) {
-                throw new IllegalArgumentException("流程回调控制器无效，缺少 api 方法");
+                throw new IllegalArgumentException("流程回调控制器 "+event.getProcessInstance().getFormDefinition().getCallbackController()+" 无效，缺少 api 方法");
             }
             Object instance=apiMethod.invoke(null);
             if(instance instanceof BpmCallbackController) {
                 BpmCallbackController controller=(BpmCallbackController)instance;
                 return controller.onProcessCallback(event);
             } else {
-                throw new IllegalArgumentException("流程回调控制器无效，未实现 BpmCallbackController ");
+                throw new IllegalArgumentException("流程回调控制器 "+event.getProcessInstance().getFormDefinition().getCallbackController()+" 无效，未实现 BpmCallbackController ");
             }
         } catch (Exception e) {
             throw new IllegalArgumentException("流程回调处理异常",e);

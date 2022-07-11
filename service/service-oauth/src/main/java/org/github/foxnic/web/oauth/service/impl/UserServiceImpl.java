@@ -305,12 +305,8 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 
  		//填充账户模型
  		dao.fill(user).tag("login")
-//			.with(UserMeta.MENUS)
-//			.with(UserMeta.MENUS, MenuMeta.RESOURCES)
-//			.with(UserMeta.MENUS, MenuMeta.PATH_RESOURCE)
 			.with(UserMeta.ROLES, RoleMeta.MENUS, MenuMeta.RESOURCES)
 			.with(UserMeta.ROLES, RoleMeta.MENUS,MenuMeta.PATH_RESOURCE)
-//			.with(UserMeta.ROLE_MENUS)
 			.with(UserMeta.JOINED_TENANTS, UserTenantMeta.TENANT, TenantMeta.COMPANY)
 			.with(UserMeta.JOINED_TENANTS,UserTenantMeta.EMPLOYEE, EmployeeMeta.PERSON)
 			.with(UserMeta.JOINED_TENANTS,UserTenantMeta.EMPLOYEE, EmployeeMeta.POSITIONS)

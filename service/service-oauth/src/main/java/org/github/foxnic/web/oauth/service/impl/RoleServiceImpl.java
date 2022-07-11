@@ -134,8 +134,11 @@ public class RoleServiceImpl extends SuperService<Role> implements IRoleService 
 		if(result.success()) {
 			String userId=SessionUser.getCurrent().getUserId();
 			if (role instanceof RoleVO) {
+
 				RoleVO vo = (RoleVO) role;
-				roleMenuService.saveMenuIds(userId,role,vo.getMenuIds());
+				if(vo.getMenuIds()!=null && !vo.getMenuIds().isEmpty()) {
+					roleMenuService.saveMenuIds(userId, role, vo.getMenuIds());
+				}
 			}
 		}
 		return result;
