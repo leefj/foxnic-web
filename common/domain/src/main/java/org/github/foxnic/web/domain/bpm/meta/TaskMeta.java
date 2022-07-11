@@ -16,8 +16,8 @@ import org.github.foxnic.web.domain.bpm.TaskRead;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-08 09:44:32
- * @sign 33F04072040D32E537D6B5E2243B450A
+ * @since 2022-07-11 14:08:59
+ * @sign 56B37C1BB1307B7C8DA3ACEF3626CE45
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -274,19 +274,19 @@ public class TaskMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.Task,org.github.foxnic.web.domain.bpm.ProcessDefinitionNode> NODE_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.Task.class ,NODE, org.github.foxnic.web.domain.bpm.ProcessDefinitionNode.class, "流程节点", "流程节点", org.github.foxnic.web.domain.bpm.ProcessDefinitionNode.class, null);
 	
 	/**
-	 * 已读清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.TaskRead
+	 * 已读清单 , 已读人员清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.TaskRead
 	*/
-	public static final String READ_LIST="readList";
+	public static final String READERS="readers";
 	
 	/**
-	 * 已读清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.TaskRead
+	 * 已读清单 , 已读人员清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.TaskRead
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.Task,org.github.foxnic.web.domain.bpm.TaskRead> READ_LIST_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.Task.class ,READ_LIST, java.util.List.class, "已读清单", "已读清单", org.github.foxnic.web.domain.bpm.TaskRead.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.Task,org.github.foxnic.web.domain.bpm.TaskRead> READERS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.Task.class ,READERS, java.util.List.class, "已读清单", "已读人员清单", org.github.foxnic.web.domain.bpm.TaskRead.class, null);
 	
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , PROCESS_DEFINITION_ID , NODE_ID , NODE_NAME , PROCESS_INSTANCE_ID , STATUS , STATUS_REASON , APPROVAL_TIME , CAMUNDA_TASK_ID , CAMUNDA_ASSIGNEE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , PROCESS_DEFINITION , PROCESS_INSTANCE , APPROVALS , ASSIGNEES , ASSIGNEE_USERS , NODE , READ_LIST };
+	public static final String[] $PROPS={ ID , PROCESS_DEFINITION_ID , NODE_ID , NODE_NAME , PROCESS_INSTANCE_ID , STATUS , STATUS_REASON , APPROVAL_TIME , CAMUNDA_TASK_ID , CAMUNDA_ASSIGNEE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , PROCESS_DEFINITION , PROCESS_INSTANCE , APPROVALS , ASSIGNEES , ASSIGNEE_USERS , NODE , READERS };
 	
 	/**
 	 * 代理类
@@ -573,12 +573,12 @@ public class TaskMeta {
 		
 		/**
 		 * 设置 已读清单
-		 * @param readList 已读清单
+		 * @param readers 已读清单
 		 * @return 当前对象
 		*/
-		public Task setReadList(List<TaskRead> readList) {
-			super.change(READ_LIST,super.getReadList(),readList);
-			super.setReadList(readList);
+		public Task setReaders(List<TaskRead> readers) {
+			super.change(READERS,super.getReaders(),readers);
+			super.setReaders(readers);
 			return this;
 		}
 	}

@@ -47,6 +47,7 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
         poType.addListProperty(FormInstanceBill.class,"bills","业务单据","关联的业务单据清单");
         poType.addListProperty(String.class,"billIds","业务单据ID清单","业务单据ID清单");
         poType.addListProperty(ProcessError.class,"errors","流程异常清单","流程异常清单");
+        poType.addListProperty(TaskRead.class,"readers","已读清单","已读人员清单");
         poType.addSimpleProperty(String.class,"approvalStatusName","审批状态","审批状态");
         // 将属性映射为枚举
         poType.shadow(BPM_PROCESS_INSTANCE.APPROVAL_STATUS,ApprovalStatus.class);

@@ -23,8 +23,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程任务
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-08 09:44:32
- * @sign 33F04072040D32E537D6B5E2243B450A
+ * @since 2022-07-11 14:08:59
+ * @sign 56B37C1BB1307B7C8DA3ACEF3626CE45
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -191,10 +191,10 @@ public class Task extends Entity {
 	private ProcessDefinitionNode node;
 	
 	/**
-	 * 已读清单：已读清单
+	 * 已读清单：已读人员清单
 	*/
-	@ApiModelProperty(required = false,value="已读清单" , notes = "已读清单")
-	private List<TaskRead> readList;
+	@ApiModelProperty(required = false,value="已读清单" , notes = "已读人员清单")
+	private List<TaskRead> readers;
 	
 	/**
 	 * 获得 id<br>
@@ -769,31 +769,31 @@ public class Task extends Entity {
 	
 	/**
 	 * 获得 已读清单<br>
-	 * 已读清单
+	 * 已读人员清单
 	 * @return 已读清单
 	*/
-	public List<TaskRead> getReadList() {
-		return readList;
+	public List<TaskRead> getReaders() {
+		return readers;
 	}
 	
 	/**
 	 * 设置 已读清单
-	 * @param readList 已读清单
+	 * @param readers 已读清单
 	 * @return 当前对象
 	*/
-	public Task setReadList(List<TaskRead> readList) {
-		this.readList=readList;
+	public Task setReaders(List<TaskRead> readers) {
+		this.readers=readers;
 		return this;
 	}
 	
 	/**
 	 * 添加 已读清单
-	 * @param read 已读清单
+	 * @param reader 已读清单
 	 * @return 当前对象
 	*/
-	public Task addRead(TaskRead... read) {
-		if(this.readList==null) readList=new ArrayList<>();
-		this.readList.addAll(Arrays.asList(read));
+	public Task addReader(TaskRead... reader) {
+		if(this.readers==null) readers=new ArrayList<>();
+		this.readers.addAll(Arrays.asList(reader));
 		return this;
 	}
 

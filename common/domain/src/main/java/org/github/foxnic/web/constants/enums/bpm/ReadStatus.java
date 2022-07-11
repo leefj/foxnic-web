@@ -6,12 +6,12 @@ import com.github.foxnic.commons.reflect.EnumUtil;
 /**
  * 审批任务状态
  * */
-public enum TaskStatus implements CodeTextEnum {
+public enum ReadStatus implements CodeTextEnum {
 
-	todo("待办"),done("已办"),cancel("取消"),abandoned("废弃"),unread("待阅"),read("已阅");
+	unread("待阅"),read("已阅");
 
 	private String text;
-	private TaskStatus(String text)  {
+	private ReadStatus(String text)  {
 		this.text=text;
 	}
 
@@ -23,8 +23,8 @@ public enum TaskStatus implements CodeTextEnum {
 		return text;
 	}
 
-	public static TaskStatus parseByCode(String code) {
-		return (TaskStatus) EnumUtil.parseByCode(TaskStatus.values(),code);
+	public static ReadStatus parseByCode(String code) {
+		return (ReadStatus) EnumUtil.parseByCode(ReadStatus.values(),code);
 	}
 
 }

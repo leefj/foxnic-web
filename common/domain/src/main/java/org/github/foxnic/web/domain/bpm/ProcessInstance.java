@@ -26,8 +26,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程实例
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-06 15:57:46
- * @sign AB9B8ED9314AD367EF40815D3E33BA43
+ * @since 2022-07-11 14:08:44
+ * @sign 7DE798F8C38C8FB63622A484F583B2B2
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -286,6 +286,12 @@ public class ProcessInstance extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="流程异常清单" , notes = "流程异常清单")
 	private List<ProcessError> errors;
+	
+	/**
+	 * 已读清单：已读人员清单
+	*/
+	@ApiModelProperty(required = false,value="已读清单" , notes = "已读人员清单")
+	private List<TaskRead> readers;
 	
 	/**
 	 * 审批状态：审批状态
@@ -1257,6 +1263,36 @@ public class ProcessInstance extends Entity {
 	public ProcessInstance addError(ProcessError... error) {
 		if(this.errors==null) errors=new ArrayList<>();
 		this.errors.addAll(Arrays.asList(error));
+		return this;
+	}
+	
+	/**
+	 * 获得 已读清单<br>
+	 * 已读人员清单
+	 * @return 已读清单
+	*/
+	public List<TaskRead> getReaders() {
+		return readers;
+	}
+	
+	/**
+	 * 设置 已读清单
+	 * @param readers 已读清单
+	 * @return 当前对象
+	*/
+	public ProcessInstance setReaders(List<TaskRead> readers) {
+		this.readers=readers;
+		return this;
+	}
+	
+	/**
+	 * 添加 已读清单
+	 * @param reader 已读清单
+	 * @return 当前对象
+	*/
+	public ProcessInstance addReader(TaskRead... reader) {
+		if(this.readers==null) readers=new ArrayList<>();
+		this.readers.addAll(Arrays.asList(reader));
 		return this;
 	}
 	

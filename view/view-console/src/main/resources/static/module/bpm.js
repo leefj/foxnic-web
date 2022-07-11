@@ -12,9 +12,14 @@ layui.define(['settings', 'layer', 'admin', 'util','element'],function (exports)
     const  api_process_fetch_back="/service-bpm/bpm-process-instance/fetch-back";
     const  api_process_jump="/service-bpm/bpm-process-instance/jump";
     const  api_process_get_by_bill="/service-bpm/bpm-process-instance/get-process-instance-by-bill";
+    const  api_process_read_insert="/service-bpm/bpm-task-read/insert";
+    const  api_process_read_update="/service-bpm/bpm-task-read/update";
 
     var bpm = {
 
+        /**
+         * 获得流程定义
+         * */
         getProcessDefinition:function (id,callback) {
             admin.post(api_definition_get, {id:id}, function (result) {
                 callback && callback(result);
@@ -28,6 +33,16 @@ layui.define(['settings', 'layer', 'admin', 'util','element'],function (exports)
             admin.post(api_process_save, data, function (result) {
                 callback && callback(result);
             }, {delayLoading:1000,elms:lockEls});
+        },
+
+        readProcess:function (id,processId,taskId,comment,callback) {
+            var read_api=api_process_read_update;
+            if(!id) {
+                read_api=api_process_read_insert;
+            }
+            admin.post(read_api, {id:id,processInstanceId:processId,taskId,taskId,comment}, function (result) {
+                callback && callback(result);
+            });
         },
 
         /**

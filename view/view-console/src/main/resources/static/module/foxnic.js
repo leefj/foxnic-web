@@ -199,7 +199,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
 
                     //   if(window.xx) return;
                     //window.xx=true;
-                    debugger;
+                    // debugger;
                     // z++;
                     // logger.warn("select-box:"+cfg.el,"T-"+z);
                     var ps = {searchField: cfg.searchField, searchValue: val, fuzzyField: cfg.searchField};

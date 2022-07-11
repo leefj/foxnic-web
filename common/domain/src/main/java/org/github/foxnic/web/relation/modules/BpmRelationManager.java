@@ -129,6 +129,11 @@ public class BpmRelationManager extends RelationManager {
 		//流程实例 - 流程异常
 		this.property(ProcessInstanceMeta.ERRORS_PROP)
 				.using(FoxnicWeb.BPM_PROCESS_INSTANCE.ID).join(FoxnicWeb.BPM_PROCESS_ERROR.PROCESS_INSTANCE_ID);
+
+		//任务 - 已读清单
+		this.property(ProcessInstanceMeta.READERS_PROP)
+				.using(FoxnicWeb.BPM_PROCESS_INSTANCE.ID).join(FoxnicWeb.BPM_TASK_READ.PROCESS_INSTANCE_ID)
+				.addOrderBy(FoxnicWeb.BPM_TASK_READ.CREATE_TIME,false,true);
 	}
 
 	protected void setupBpmTask() {
@@ -155,8 +160,9 @@ public class BpmRelationManager extends RelationManager {
 
 
 		//任务 - 已读清单
-		this.property(TaskMeta.READ_LIST_PROP)
-				.using(FoxnicWeb.BPM_TASK.ID).join(FoxnicWeb.BPM_TASK_READ.TASK_ID);
+		this.property(TaskMeta.READERS_PROP)
+				.using(FoxnicWeb.BPM_TASK.ID).join(FoxnicWeb.BPM_TASK_READ.TASK_ID).
+				addOrderBy(FoxnicWeb.BPM_TASK_READ.CREATE_TIME,false,true);
 
 
 		//审批动作 - 审批人账户

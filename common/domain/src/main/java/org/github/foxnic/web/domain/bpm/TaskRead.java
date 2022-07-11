@@ -17,8 +17,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程任务已阅
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-07 11:02:54
- * @sign 979717A77F4F6053DF46D42FFE5526E3
+ * @since 2022-07-11 13:30:21
+ * @sign EC3FDB9324210215D94E5EDC3E9B402B
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -49,10 +49,22 @@ public class TaskRead extends Entity {
 	private String taskId;
 	
 	/**
-	 * 阅读结束时间：阅读结束时间
+	 * 确认时间：已阅确认时间
 	*/
-	@ApiModelProperty(required = false,value="阅读结束时间" , notes = "阅读结束时间")
-	private Date finishTime;
+	@ApiModelProperty(required = false,value="确认时间" , notes = "已阅确认时间")
+	private Date confirmTime;
+	
+	/**
+	 * 评论：评论
+	*/
+	@ApiModelProperty(required = false,value="评论" , notes = "评论")
+	private String comment;
+	
+	/**
+	 * 阅读状态：阅读状态
+	*/
+	@ApiModelProperty(required = false,value="阅读状态" , notes = "阅读状态")
+	private String status;
 	
 	/**
 	 * 创建人：阅读人
@@ -77,6 +89,12 @@ public class TaskRead extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="tenant_id" , notes = "tenant_id")
 	private String tenantId;
+	
+	/**
+	 * 持续阅读时间：持续阅读时间
+	*/
+	@ApiModelProperty(required = false,value="持续阅读时间" , notes = "持续阅读时间")
+	private Date latestTime;
 	
 	/**
 	 * 阅读人：阅读人
@@ -142,21 +160,59 @@ public class TaskRead extends Entity {
 	}
 	
 	/**
-	 * 获得 阅读结束时间<br>
-	 * 阅读结束时间
-	 * @return 阅读结束时间
+	 * 获得 确认时间<br>
+	 * 已阅确认时间
+	 * @return 确认时间
 	*/
-	public Date getFinishTime() {
-		return finishTime;
+	public Date getConfirmTime() {
+		return confirmTime;
 	}
 	
 	/**
-	 * 设置 阅读结束时间
-	 * @param finishTime 阅读结束时间
+	 * 设置 确认时间
+	 * @param confirmTime 确认时间
 	 * @return 当前对象
 	*/
-	public TaskRead setFinishTime(Date finishTime) {
-		this.finishTime=finishTime;
+	public TaskRead setConfirmTime(Date confirmTime) {
+		this.confirmTime=confirmTime;
+		return this;
+	}
+	
+	/**
+	 * 获得 评论<br>
+	 * 评论
+	 * @return 评论
+	*/
+	public String getComment() {
+		return comment;
+	}
+	
+	/**
+	 * 设置 评论
+	 * @param comment 评论
+	 * @return 当前对象
+	*/
+	public TaskRead setComment(String comment) {
+		this.comment=comment;
+		return this;
+	}
+	
+	/**
+	 * 获得 阅读状态<br>
+	 * 阅读状态
+	 * @return 阅读状态
+	*/
+	public String getStatus() {
+		return status;
+	}
+	
+	/**
+	 * 设置 阅读状态
+	 * @param status 阅读状态
+	 * @return 当前对象
+	*/
+	public TaskRead setStatus(String status) {
+		this.status=status;
 		return this;
 	}
 	
@@ -233,6 +289,25 @@ public class TaskRead extends Entity {
 	*/
 	public TaskRead setTenantId(String tenantId) {
 		this.tenantId=tenantId;
+		return this;
+	}
+	
+	/**
+	 * 获得 持续阅读时间<br>
+	 * 持续阅读时间
+	 * @return 持续阅读时间
+	*/
+	public Date getLatestTime() {
+		return latestTime;
+	}
+	
+	/**
+	 * 设置 持续阅读时间
+	 * @param latestTime 持续阅读时间
+	 * @return 当前对象
+	*/
+	public TaskRead setLatestTime(Date latestTime) {
+		this.latestTime=latestTime;
 		return this;
 	}
 	

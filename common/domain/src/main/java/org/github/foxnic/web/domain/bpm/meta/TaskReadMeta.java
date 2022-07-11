@@ -9,8 +9,8 @@ import org.github.foxnic.web.domain.oauth.User;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-07 11:02:54
- * @sign 979717A77F4F6053DF46D42FFE5526E3
+ * @since 2022-07-11 13:30:21
+ * @sign EC3FDB9324210215D94E5EDC3E9B402B
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -47,14 +47,34 @@ public class TaskReadMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskRead,java.lang.String> TASK_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskRead.class ,TASK_ID, java.lang.String.class, "任务ID", "任务ID", java.lang.String.class, null);
 	
 	/**
-	 * 阅读结束时间 , 类型: java.util.Date
+	 * 确认时间 , 已阅确认时间 , 类型: java.util.Date
 	*/
-	public static final String FINISH_TIME="finishTime";
+	public static final String CONFIRM_TIME="confirmTime";
 	
 	/**
-	 * 阅读结束时间 , 类型: java.util.Date
+	 * 确认时间 , 已阅确认时间 , 类型: java.util.Date
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskRead,java.util.Date> FINISH_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskRead.class ,FINISH_TIME, java.util.Date.class, "阅读结束时间", "阅读结束时间", java.util.Date.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskRead,java.util.Date> CONFIRM_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskRead.class ,CONFIRM_TIME, java.util.Date.class, "确认时间", "已阅确认时间", java.util.Date.class, null);
+	
+	/**
+	 * 评论 , 类型: java.lang.String
+	*/
+	public static final String COMMENT="comment";
+	
+	/**
+	 * 评论 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskRead,java.lang.String> COMMENT_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskRead.class ,COMMENT, java.lang.String.class, "评论", "评论", java.lang.String.class, null);
+	
+	/**
+	 * 阅读状态 , 类型: java.lang.String
+	*/
+	public static final String STATUS="status";
+	
+	/**
+	 * 阅读状态 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskRead,java.lang.String> STATUS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskRead.class ,STATUS, java.lang.String.class, "阅读状态", "阅读状态", java.lang.String.class, null);
 	
 	/**
 	 * 创建人 , 阅读人 , 类型: java.lang.String
@@ -97,6 +117,16 @@ public class TaskReadMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskRead,java.lang.String> TENANT_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskRead.class ,TENANT_ID, java.lang.String.class, "tenant_id", "tenant_id", java.lang.String.class, null);
 	
 	/**
+	 * 持续阅读时间 , 类型: java.util.Date
+	*/
+	public static final String LATEST_TIME="latestTime";
+	
+	/**
+	 * 持续阅读时间 , 类型: java.util.Date
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskRead,java.util.Date> LATEST_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskRead.class ,LATEST_TIME, java.util.Date.class, "持续阅读时间", "持续阅读时间", java.util.Date.class, null);
+	
+	/**
 	 * 阅读人 , 类型: org.github.foxnic.web.domain.oauth.User
 	*/
 	public static final String READER="reader";
@@ -109,7 +139,7 @@ public class TaskReadMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , PROCESS_INSTANCE_ID , TASK_ID , FINISH_TIME , CREATE_BY , CREATE_TIME , VERSION , TENANT_ID , READER };
+	public static final String[] $PROPS={ ID , PROCESS_INSTANCE_ID , TASK_ID , CONFIRM_TIME , COMMENT , STATUS , CREATE_BY , CREATE_TIME , VERSION , TENANT_ID , LATEST_TIME , READER };
 	
 	/**
 	 * 代理类
@@ -153,13 +183,35 @@ public class TaskReadMeta {
 		}
 		
 		/**
-		 * 设置 阅读结束时间
-		 * @param finishTime 阅读结束时间
+		 * 设置 确认时间
+		 * @param confirmTime 确认时间
 		 * @return 当前对象
 		*/
-		public TaskRead setFinishTime(Date finishTime) {
-			super.change(FINISH_TIME,super.getFinishTime(),finishTime);
-			super.setFinishTime(finishTime);
+		public TaskRead setConfirmTime(Date confirmTime) {
+			super.change(CONFIRM_TIME,super.getConfirmTime(),confirmTime);
+			super.setConfirmTime(confirmTime);
+			return this;
+		}
+		
+		/**
+		 * 设置 评论
+		 * @param comment 评论
+		 * @return 当前对象
+		*/
+		public TaskRead setComment(String comment) {
+			super.change(COMMENT,super.getComment(),comment);
+			super.setComment(comment);
+			return this;
+		}
+		
+		/**
+		 * 设置 阅读状态
+		 * @param status 阅读状态
+		 * @return 当前对象
+		*/
+		public TaskRead setStatus(String status) {
+			super.change(STATUS,super.getStatus(),status);
+			super.setStatus(status);
 			return this;
 		}
 		
@@ -204,6 +256,17 @@ public class TaskReadMeta {
 		public TaskRead setTenantId(String tenantId) {
 			super.change(TENANT_ID,super.getTenantId(),tenantId);
 			super.setTenantId(tenantId);
+			return this;
+		}
+		
+		/**
+		 * 设置 持续阅读时间
+		 * @param latestTime 持续阅读时间
+		 * @return 当前对象
+		*/
+		public TaskRead setLatestTime(Date latestTime) {
+			super.change(LATEST_TIME,super.getLatestTime(),latestTime);
+			super.setLatestTime(latestTime);
 			return this;
 		}
 		

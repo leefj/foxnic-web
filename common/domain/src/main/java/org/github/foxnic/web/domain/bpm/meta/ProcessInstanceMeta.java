@@ -12,6 +12,7 @@ import org.github.foxnic.web.domain.bpm.Task;
 import java.util.List;
 import org.github.foxnic.web.domain.bpm.FormInstanceBill;
 import org.github.foxnic.web.domain.bpm.ProcessError;
+import org.github.foxnic.web.domain.bpm.TaskRead;
 import org.github.foxnic.web.domain.bpm.ProcessDefinitionFile;
 import org.github.foxnic.web.domain.bpm.TaskApproval;
 
@@ -19,8 +20,8 @@ import org.github.foxnic.web.domain.bpm.TaskApproval;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-06 15:57:46
- * @sign AB9B8ED9314AD367EF40815D3E33BA43
+ * @since 2022-07-11 14:08:44
+ * @sign 7DE798F8C38C8FB63622A484F583B2B2
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -427,6 +428,16 @@ public class ProcessInstanceMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,org.github.foxnic.web.domain.bpm.ProcessError> ERRORS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,ERRORS, java.util.List.class, "流程异常清单", "流程异常清单", org.github.foxnic.web.domain.bpm.ProcessError.class, null);
 	
 	/**
+	 * 已读清单 , 已读人员清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.TaskRead
+	*/
+	public static final String READERS="readers";
+	
+	/**
+	 * 已读清单 , 已读人员清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.TaskRead
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,org.github.foxnic.web.domain.bpm.TaskRead> READERS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,READERS, java.util.List.class, "已读清单", "已读人员清单", org.github.foxnic.web.domain.bpm.TaskRead.class, null);
+	
+	/**
 	 * 审批状态 , 类型: java.lang.String
 	*/
 	public static final String APPROVAL_STATUS_NAME="approvalStatusName";
@@ -459,7 +470,7 @@ public class ProcessInstanceMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , DRAFTER_USER_ID , DRAFTER_ID , DRAFTER_TYPE , FORM_INSTANCE_ID , PROCESS_DEFINITION_ID , PROCESS_DEFINITION_FILE_ID , FORM_DEFINITION_ID , TITLE , PRIORITY , COMMENT , APPROVAL_STATUS , CAMUNDA_INSTANCE_ID , COMMIT_TIME , ABANDON_USER_ID , ABANDON_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , END_TIME , NEED_SYNC , SYNC_TIME , PROCESS_DEFINITION , FORM_DEFINITION , FORM_INSTANCE , DRAFTER , DRAFTER_NAME , DRAFTER_USER , TASKS , TODO_TASKS , USER_TASKS , BILLS , BILL_IDS , ERRORS , APPROVAL_STATUS_NAME , PROCESS_DEFINITION_FILE , TASK_APPROVALS };
+	public static final String[] $PROPS={ ID , DRAFTER_USER_ID , DRAFTER_ID , DRAFTER_TYPE , FORM_INSTANCE_ID , PROCESS_DEFINITION_ID , PROCESS_DEFINITION_FILE_ID , FORM_DEFINITION_ID , TITLE , PRIORITY , COMMENT , APPROVAL_STATUS , CAMUNDA_INSTANCE_ID , COMMIT_TIME , ABANDON_USER_ID , ABANDON_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , END_TIME , NEED_SYNC , SYNC_TIME , PROCESS_DEFINITION , FORM_DEFINITION , FORM_INSTANCE , DRAFTER , DRAFTER_NAME , DRAFTER_USER , TASKS , TODO_TASKS , USER_TASKS , BILLS , BILL_IDS , ERRORS , READERS , APPROVAL_STATUS_NAME , PROCESS_DEFINITION_FILE , TASK_APPROVALS };
 	
 	/**
 	 * 代理类
@@ -906,6 +917,17 @@ public class ProcessInstanceMeta {
 		public ProcessInstance setErrors(List<ProcessError> errors) {
 			super.change(ERRORS,super.getErrors(),errors);
 			super.setErrors(errors);
+			return this;
+		}
+		
+		/**
+		 * 设置 已读清单
+		 * @param readers 已读清单
+		 * @return 当前对象
+		*/
+		public ProcessInstance setReaders(List<TaskRead> readers) {
+			super.change(READERS,super.getReaders(),readers);
+			super.setReaders(readers);
 			return this;
 		}
 		

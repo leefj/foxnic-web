@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2022-07-08 09:43:52
+ * @since 2022-07-11 13:29:03
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -1476,9 +1476,19 @@ public class FoxnicWeb {
 		public static final DBField TASK_ID = new DBField(DBDataType.STRING , "task_id","taskId","任务ID","任务ID",false,false,true);
 		
 		/**
-		 * 阅读结束时间
+		 * 确认时间，已阅确认时间
 		*/
-		public static final DBField FINISH_TIME = new DBField(DBDataType.DATE , "finish_time","finishTime","阅读结束时间","阅读结束时间",false,false,true);
+		public static final DBField CONFIRM_TIME = new DBField(DBDataType.DATE , "confirm_time","confirmTime","确认时间","已阅确认时间",false,false,true);
+		
+		/**
+		 * 评论
+		*/
+		public static final DBField COMMENT = new DBField(DBDataType.STRING , "comment","comment","评论","评论",false,false,true);
+		
+		/**
+		 * 阅读状态
+		*/
+		public static final DBField STATUS = new DBField(DBDataType.STRING , "status","status","阅读状态","阅读状态",false,false,true);
 		
 		/**
 		 * 创建人，阅读人
@@ -1499,8 +1509,13 @@ public class FoxnicWeb {
 		*/
 		public static final DBField TENANT_ID = new DBField(DBDataType.STRING , "tenant_id","tenantId","tenant_id","tenant_id",false,false,true);
 		
+		/**
+		 * 持续阅读时间
+		*/
+		public static final DBField LATEST_TIME = new DBField(DBDataType.DATE , "latest_time","latestTime","持续阅读时间","持续阅读时间",false,false,true);
+		
 		public BPM_TASK_READ() {
-			this.init($NAME,"流程任务已阅表" , ID , PROCESS_INSTANCE_ID , TASK_ID , FINISH_TIME , CREATE_BY , CREATE_TIME , VERSION , TENANT_ID);
+			this.init($NAME,"流程任务已阅表" , ID , PROCESS_INSTANCE_ID , TASK_ID , CONFIRM_TIME , COMMENT , STATUS , CREATE_BY , CREATE_TIME , VERSION , TENANT_ID , LATEST_TIME);
 		}
 		public static final BPM_TASK_READ $TABLE=new BPM_TASK_READ();
 	}

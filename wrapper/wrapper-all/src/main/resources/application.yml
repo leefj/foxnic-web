@@ -169,6 +169,9 @@ foxnic:
   # 设置 Join 的二级缓存
   bpm:
     enable: true
+    debug:
+      enable: true
+      process-definition-code-list: foxnic-leave,p-expense-all,a-expense-all,a-expense-any,p-expense-any,fetchback-jump,draft-test
   cache:
     # 默认配置
     default:
