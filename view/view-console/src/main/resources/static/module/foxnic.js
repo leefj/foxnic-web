@@ -38,7 +38,11 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             if(!box) return;
             box.doingDisabled=true;
             box.update({ disabled: disabled });
+
+            $(box.options.dom).find(".xm-label-block").addClass("xm-label-block-disabled");
+            $(box.options.dom).find(".xm-icon-close").hide();
             box.doingDisabled=false;
+
         },
         selectBoxConfigs:{},
         selectBoxQueryTime:{},
@@ -305,11 +309,38 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             // debugger;
             var me=this;
             if(lock) {
+                function keepCall(fn,t) {
+                    fn();
+                    var i=0;
+                    var t=setInterval(function (){
+                        i++;
+                        fn();
+                        if(i>t) clearInterval(t);
+                        logger.info("hha","hhaha")
+                    },1);
+                }
                 fm.find("input").attr("placeholder", "");
                 fm.find("input").attr("readonly", "yes");
                 fm.find("textarea").attr("placeholder", "");
                 fm.find("textarea").attr("readonly", "yes");
+
+                fm.find("input").addClass("layui-input-read-only");
+                fm.find("textarea").addClass("layui-input-read-only");
+
                 fm.find("input[type=checkbox]").attr("disabled", "yes");
+
+                keepCall(function () {
+                    fm.find(".layui-form-switch").addClass("layui-form-switch-disabled");
+                },250);
+
+
+                fm.find(".layui-form-checked i").addClass("layui-form-chcekbox-disabled");
+                keepCall(function () {
+                    fm.find(".layui-form-checked i").addClass("layui-form-chcekbox-disabled");
+                    fm.find(".layui-form-checked i").attr("style","border-color:#a0a0a0 !important");
+                },250);
+
+
                 fm.find("input[type=radio]").attr("disabled", "yes");
                 fm.find("input[input-type=date]").attr("disabled", "yes");
                 //
@@ -322,7 +353,9 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                         //debugger
                         //inst.update({disabled: true});
                         setTimeout(function (){
-                            // inst.update({disabled: true});
+                            me.disableSelectBox(inst,true);
+                        },100);
+                        setTimeout(function (){
                             me.disableSelectBox(inst,true);
                         },1000);
                     } else {

@@ -4,6 +4,55 @@
     font-size: 14px;
 }
 
+.layui-input-read-only {
+    background-color: #FBFBFB !important;
+    border-color: #eee !important;
+    color: #909090 !important;
+}
+
+.layui-form-switch-disabled {
+    background-color: #FBFBFB !important;
+    color: #909090 !important;
+}
+
+.layui-checkbox-disabled em {
+    color: #909090 !important;
+}
+
+.layui-form-chcekbox-disabled {
+    background-color: #efefef !important;
+    color: #a0a0a0 !important;
+}
+
+.layui-checkbox-disabled-deep {
+    background-color: #ffffff !important;
+    color: #a0a0a0 !important;
+}
+
+.layui-checkbox-disabled[lay-skin="primary"] span {
+    background: none!important;
+    color: #a0a0a0!important;
+}
+
+.layui-radio-disabled * {
+    color: #a0a0a0!important;
+}
+
+
+.xm-label-block-disabled {
+    background-color: #F0F0F0 !important;
+    color: #a0a0a0 !important;
+}
+
+
+xm-select > .xm-label .xm-label-block-disabled > span {
+    color:#a0a0a0 !important;
+}
+
+xm-select .xm-select-disabled {
+    opacity: 0.0 !important;
+}
+
 .layui-upload-img {
     width:92px;
     height:92px;

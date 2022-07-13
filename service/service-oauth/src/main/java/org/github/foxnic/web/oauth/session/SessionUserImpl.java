@@ -1,6 +1,7 @@
 package org.github.foxnic.web.oauth.session;
 
 import com.github.foxnic.commons.lang.StringUtil;
+import com.github.foxnic.commons.log.Logger;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.session.SessionPermission;
 import org.github.foxnic.web.session.SessionUser;
@@ -72,6 +73,9 @@ public class SessionUserImpl extends SessionUser implements UserDetails, Credent
 
 	@Override
 	public boolean isAccountNonExpired() {
+		if(this.user.getValid()==null) {
+			Logger.error("数据库连接字符串可能未加入 tinyInt1isBit 参数，要求 tinyInt1isBit=false");
+		}
 		if(this.user.getValid()==null || this.user.getDeleted()==null) return false;
 		return this.user.getValid()==1 && this.user.getDeleted()==0;
 	}

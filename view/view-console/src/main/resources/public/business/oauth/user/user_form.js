@@ -351,6 +351,12 @@ function FormPage() {
 	    //关闭窗口
 	    $("#cancel-button").click(function(){ admin.finishPopupCenterById('sys-user-form-data-win',this); });
 
+		var lock=false;
+		$(".model-form-footer").click(function (){
+			lock=!lock;
+			fox.lockForm($("#data-form"),lock);
+		});
+
     }
 
     window.module={
