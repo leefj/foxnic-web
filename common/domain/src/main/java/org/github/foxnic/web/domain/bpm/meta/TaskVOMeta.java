@@ -17,8 +17,8 @@ import org.github.foxnic.web.domain.bpm.TaskRead;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-11 14:08:59
- * @sign 903E20194942145230B426EE32FE6F14
+ * @since 2022-07-15 13:54:50
+ * @sign E5D304CA03DC71825CF23F5B10679DAC
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -133,6 +133,16 @@ public class TaskVOMeta extends TaskMeta {
 	 * 是否我的任务 , 类型: java.lang.Boolean
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskVO,java.lang.Boolean> MINE_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskVO.class ,MINE, java.lang.Boolean.class, "是否我的任务", "是否我的任务", java.lang.Boolean.class, null);
+	
+	/**
+	 * 状态值清单 , 设定状态值的查询范围 , 集合类型: LIST , 类型: java.lang.String
+	*/
+	public static final String STATUS_RANGE="statusRange";
+	
+	/**
+	 * 状态值清单 , 设定状态值的查询范围 , 集合类型: LIST , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.TaskVO,java.lang.String> STATUS_RANGE_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.TaskVO.class ,STATUS_RANGE, java.util.List.class, "状态值清单", "设定状态值的查询范围", java.lang.String.class, null);
 	
 	/**
 	 * id , 类型: java.lang.String
@@ -397,7 +407,7 @@ public class TaskVOMeta extends TaskMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , APPROVAL_USER_IDS , MINE , ID , PROCESS_DEFINITION_ID , NODE_ID , NODE_NAME , PROCESS_INSTANCE_ID , STATUS , STATUS_REASON , APPROVAL_TIME , CAMUNDA_TASK_ID , CAMUNDA_ASSIGNEE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , PROCESS_DEFINITION , PROCESS_INSTANCE , APPROVALS , ASSIGNEES , ASSIGNEE_USERS , NODE , READERS };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , APPROVAL_USER_IDS , MINE , STATUS_RANGE , ID , PROCESS_DEFINITION_ID , NODE_ID , NODE_NAME , PROCESS_INSTANCE_ID , STATUS , STATUS_REASON , APPROVAL_TIME , CAMUNDA_TASK_ID , CAMUNDA_ASSIGNEE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , PROCESS_DEFINITION , PROCESS_INSTANCE , APPROVALS , ASSIGNEES , ASSIGNEE_USERS , NODE , READERS };
 	
 	/**
 	 * 代理类
@@ -525,6 +535,17 @@ public class TaskVOMeta extends TaskMeta {
 		public TaskVO setMine(Boolean mine) {
 			super.change(MINE,super.isMine(),mine);
 			super.setMine(mine);
+			return this;
+		}
+		
+		/**
+		 * 设置 状态值清单
+		 * @param statusRange 状态值清单
+		 * @return 当前对象
+		*/
+		public TaskVO setStatusRange(List<String> statusRange) {
+			super.change(STATUS_RANGE,super.getStatusRange(),statusRange);
+			super.setStatusRange(statusRange);
 			return this;
 		}
 		

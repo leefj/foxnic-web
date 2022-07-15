@@ -57,10 +57,15 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
                 // if(menus[i].parentId=="459710992192897024") {
                 //     debugger;
                 // }
+                menus[i].style="padding-left: 5px;margin-right:0px;";
+                if(menus[i].css && menus[i].css.indexOf("mdi-")>0) {
+                    menus[i].style="padding-left: 4px;margin-right:-2px;";
+                }
         		if(menus[i].type!="folder" &&  menus[i].type!="page") continue;
         		if(menus[i].hidden==1) continue;
         		if(menus[i].type=="folder") menus[i].url="javascript:;";
-                menus[i].label=foxnic.translate(menus[i].label);
+
+                    menus[i].label=foxnic.translate(menus[i].label);
         		pages.push(menus[i]);
         		map[menus[i].id]=menus[i];
         	}
@@ -304,7 +309,6 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
                             data.path && data.path.startWith("http://") ?  admin.putTempData("params",data.path) : null ;
 
                             var menuId = data.url.substring(2);
-                            // debugger;
 //                            while(data.path.startWith("/")) {
 //                            	data.path=data.path.substring(1);
 //                            }
@@ -326,7 +330,7 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
         },
         // 路由加载组件
         loadView: function (menuId, menuPath, menuName) {
-        	//debugger;
+        	// debugger;
             console.log(menuId,menuId);
             var contentDom = '.layui-layout-admin .layui-body';
             admin.showLoading('.layui-layout-admin .layui-body');

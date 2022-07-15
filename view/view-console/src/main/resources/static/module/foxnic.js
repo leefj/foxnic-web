@@ -1600,12 +1600,19 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             $(".search-buttons").css("left",ks+"px");
             $(".search-input-rows").animate({opacity:'1.0'},0.25);
             $(".search-buttons").animate({opacity:'1.0'},0.25);
-            if(t<6) {
+            if(t<3) {
                 //渲染后的补充执行
                 setTimeout(function () {
                     me.adjustSearchElement(t);
-                    console.log("adjustSearchElement:"+t);
-                }, 16 * t);
+                    //console.log("adjustSearchElement:"+t);
+                }, 16 * t * t * t );
+            }
+            else if(t<8) {
+                //渲染后的补充执行
+                setTimeout(function () {
+                    me.adjustSearchElement(t);
+                    //console.log("adjustSearchElement:"+t);
+                }, 1000 );
             }
         },
         chooseOrgNode:function (param){

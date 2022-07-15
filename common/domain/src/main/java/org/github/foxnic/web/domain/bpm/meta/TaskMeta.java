@@ -16,7 +16,7 @@ import org.github.foxnic.web.domain.bpm.TaskRead;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-11 14:08:59
+ * @since 2022-07-15 13:54:50
  * @sign 56B37C1BB1307B7C8DA3ACEF3626CE45
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */

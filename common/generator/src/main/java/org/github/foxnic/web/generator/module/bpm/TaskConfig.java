@@ -44,6 +44,7 @@ public class TaskConfig extends BaseCodeConfig<BPM_TASK> {
         //
         voType.addListProperty(String.class,"approvalUserIds","处理人账户ID清单","处理人账户ID清单");
         voType.addSimpleProperty(Boolean.class,"mine","是否我的任务","是否我的任务");
+        voType.addListProperty(String.class,"statusRange","状态值清单","设定状态值的查询范围");
         //
         PojoClassFile pojo=context.createPojo("TaskQueryVO");
         pojo.setSuperType(null);
@@ -101,11 +102,9 @@ public class TaskConfig extends BaseCodeConfig<BPM_TASK> {
     public void configSearch(ViewOptions view, SearchAreaOptions search) {
         search.inputLayout(
                 new Object[]{
-                        TaskMeta.PROCESS_DEFINITION, "processTitle","APPROVAL_USER_IDS"
-                },
-                new Object[]{
-                        BPM_TASK.STATUS, BPM_TASK.APPROVAL_TIME,
-                });
+                        TaskMeta.PROCESS_DEFINITION, "processTitle","APPROVAL_USER_IDS",BPM_TASK.APPROVAL_TIME
+                }
+           );
 
         search.rowsDisplay(4);
         //设置各个列的搜索输入框的标签宽度
@@ -122,7 +121,7 @@ public class TaskConfig extends BaseCodeConfig<BPM_TASK> {
 
 //        view.form().labelWidth(80);
 
-        view.field(FoxnicWeb.BPM_PROCESS_INSTANCE.ID).basic().hidden();
+        view.field(FoxnicWeb.BPM_PROCESS_INSTANCE.ID).basic().hidden().table().disable();
 
         view.field(TaskMeta.PROCESS_DEFINITION).basic().label("流程类型")
                 .search().on(BPM_TASK.PROCESS_DEFINITION_ID).triggerOnSelect(true)
@@ -136,7 +135,9 @@ public class TaskConfig extends BaseCodeConfig<BPM_TASK> {
 
         view.field(TaskMeta.NODE_NAME).basic().label("审批节点");
 
-        view.field(BPM_TASK.STATUS).basic().label("任务状态").form().selectBox().enumType(TaskStatus.class).search().triggerOnSelect(true);
+        view.field(TaskMeta.CAMUNDA_ASSIGNEE).basic().hidden().table().disable();
+
+        view.field(BPM_TASK.STATUS).basic().label("任务状态").form().selectBox().enumType(TaskStatus.class).search().hidden(true);
 
         view.field(BPM_TASK.APPROVAL_TIME).basic().label("处理时间").search().range().matchType(MatchType.auto).triggerOnSelect(true);
 
