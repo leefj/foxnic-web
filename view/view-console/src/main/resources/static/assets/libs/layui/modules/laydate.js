@@ -1536,7 +1536,56 @@
     ,showEvent = function(elem, bind){
       elem.on(options.trigger, function(){
         bind && (that.bindElem = this);
-        // 李方捷：此处可做一个自定识别，看是否在 Iframe 内
+        // 李方捷处理的逻辑
+        if (options.renderAtTop && top.laydate) {
+          var offset= $(options.elem).offset();
+          var win=window;
+          var windows=[];
+          while (true) {
+            windows.push(win);
+            win=win.parent;
+            if(win==null || win==top) break;
+          }
+
+
+          function findIframes(win) {
+            //debugger
+            var ifrs=win.$("iframe");
+            for (var i = 0; i < ifrs.length; i++) {
+              var ifr=ifrs[i];
+              if(windows.indexOf(ifr.contentWindow)!=-1) {
+                var ifrOffset=win.$(ifr).offset();
+                offset.left+=ifrOffset.left;
+                offset.top+=ifrOffset.top;
+                findIframes(ifr.contentWindow);
+                break;
+              }
+            }
+          };
+
+          findIframes(top);
+
+
+          offset.top+=$(options.elem).height();
+
+          //debugger;
+          if(!options.renderTopIndex)  options.renderTopIndex=1;
+          else options.renderTopIndex++;
+          var welId="laydate-"+ options.renderTopIndex;
+          top.$("body").append("<div id='"+welId+"' style='opacity:0.0 ; position: absolute;left:"+offset.left+"px;top: "+offset.top+"px'></div>");
+          top.laydate.render({
+            format: options.format,
+            position: 'abolute',
+            elem: '#'+welId,
+            show: true,
+            done: function(value, date, endDate) {
+              options.done && options.done(value, date, endDate);
+              options.elem.val(value);
+              top.$("#"+welId).remove();
+            }
+          });
+          return;
+        }
         that.render();
       });
     };

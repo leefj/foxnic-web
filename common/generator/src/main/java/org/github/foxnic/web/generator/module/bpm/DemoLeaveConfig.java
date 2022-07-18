@@ -52,8 +52,11 @@ public class DemoLeaveConfig extends BaseCodeConfig<BPM_DEMO_LEAVE> {
         view.field(BPM_DEMO_LEAVE.TYPE).search().hidden()
                 .form().validate().required()
                 .form().selectBox().dict(DictEnum.LEAVE_TYPE);
-        view.field(BPM_DEMO_LEAVE.BEGIN_TIME).search().hidden().form().validate().required();
-        view.field(BPM_DEMO_LEAVE.END_TIME).search().hidden().form().validate().required();
+        view.field(BPM_DEMO_LEAVE.BEGIN_TIME).search().hidden().form().validate().required()
+                .form().dateInput().renderAtTop(true);
+        view.field(BPM_DEMO_LEAVE.END_TIME).search().hidden().form().validate().required()
+                .form().dateInput().renderAtTop(true);
+
         view.field(BPM_DEMO_LEAVE.REASON).search().hidden().form().validate().required();
         view.field(BPM_DEMO_LEAVE.APPLICANT_ID).basic().hidden();
 
