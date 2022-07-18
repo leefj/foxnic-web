@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2022-07-11 13:29:03
+ * @since 2022-07-18 15:21:33
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -7676,8 +7676,18 @@ public class FoxnicWeb {
 		*/
 		public static final DBField NODE_ID = new DBField(DBDataType.STRING , "node_id","nodeId","节点实例ID","节点实例ID",false,false,true);
 		
+		/**
+		 * accessToken
+		*/
+		public static final DBField ACCESS_TOKEN = new DBField(DBDataType.STRING , "access_token","accessToken","accessToken","accessToken",false,false,true);
+		
+		/**
+		 * refreshToken
+		*/
+		public static final DBField REFRESH_TOKEN = new DBField(DBDataType.STRING , "refresh_token","refreshToken","refreshToken","refreshToken",false,false,true);
+		
 		public SYS_SESSION_ONLINE() {
-			this.init($NAME,"在线会话表" , ID , SESSION_ID , USER_ID , LOGIN_TIME , INTERACT_TIME , INTERACT_URL , LOGOUT_TIME , SESSION_TIME , ONLINE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , HOST_ID , VERSION , NODE_ID);
+			this.init($NAME,"在线会话表" , ID , SESSION_ID , USER_ID , LOGIN_TIME , INTERACT_TIME , INTERACT_URL , LOGOUT_TIME , SESSION_TIME , ONLINE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , HOST_ID , VERSION , NODE_ID , ACCESS_TOKEN , REFRESH_TOKEN);
 		}
 		public static final SYS_SESSION_ONLINE $TABLE=new SYS_SESSION_ONLINE();
 	}

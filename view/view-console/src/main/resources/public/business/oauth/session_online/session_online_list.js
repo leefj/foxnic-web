@@ -1,7 +1,7 @@
 /**
  * 在线会话 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-14 19:33:54
+ * @since 2022-07-18 15:28:45
  */
 
 
@@ -45,6 +45,9 @@ function ListPage() {
 		});
 		fox.adjustSearchElement();
 		//
+		 var marginTop=$(".search-bar").height()+$(".search-bar").css("padding-top")+$(".search-bar").css("padding-bottom")
+		 $("#table-area").css("margin-top",marginTop+"px");
+		//
 		function renderTableInternal() {
 
 			var ps={searchField: "$composite"};
@@ -74,40 +77,33 @@ function ListPage() {
 				cols: [[
 					{ fixed: 'left',type: 'numbers' },
 					{ fixed: 'left',type:'checkbox'}
-					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('ID') , templet: function (d) { return templet('id',d.id,d);}  }
-					,{ field: 'sessionId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('会话ID') , templet: function (d) { return templet('sessionId',d.sessionId,d);}  }
-					,{ field: 'userId', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('账户') , templet: function (d) { return templet('userId',fox.getProperty(d,["user","name"]),d);} }
-					,{ field: 'loginTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('登录时间') ,templet: function (d) { return templet('loginTime',fox.dateFormat(d.loginTime,"yyyy-MM-dd HH:mm:ss"),d); } }
-					,{ field: 'interactTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('最后交互') ,templet: function (d) { return templet('interactTime',fox.dateFormat(d.interactTime,"yyyy-MM-dd HH:mm:ss"),d); } }
-					,{ field: 'interactUrl', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('最后访问') , templet: function (d) { return templet('interactUrl',d.interactUrl,d);}  }
-					,{ field: 'logoutTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('登出时间') ,templet: function (d) { return templet('logoutTime',fox.dateFormat(d.logoutTime,"yyyy-MM-dd HH:mm:ss"),d); } }
-					,{ field: 'sessionTime', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('会话时长') , templet: function (d) { return templet('sessionTime',d.sessionTime,d);}  }
-					,{ field: 'online', align:"right",fixed:false,  hide:true, sort: true, title: fox.translate('是否在线') , templet: function (d) { return templet('online',d.online,d);}  }
-					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间') ,templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); } }
-					,{ field: 'hostId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('主机ID') , templet: function (d) { return templet('hostId',d.hostId,d);}  }
-					,{ field: 'nodeId', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('节点实例ID') , templet: function (d) { return templet('nodeId',d.nodeId,d);}  }
+					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('ID') , templet: function (d) { return templet('id',d.id,d);}  }
+					,{ field: 'sessionId', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('会话ID') , templet: function (d) { return templet('sessionId',d.sessionId,d);}  }
+					,{ field: 'userId', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('账户') , templet: function (d) { return templet('userId',fox.getProperty(d,["user","realName"]),d);} }
+					,{ field: 'loginTime', align:"right", fixed:false, hide:false, sort: true   ,title: fox.translate('登录时间') ,templet: function (d) { return templet('loginTime',fox.dateFormat(d.loginTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
+					,{ field: 'interactTime', align:"right", fixed:false, hide:false, sort: true   ,title: fox.translate('最后交互') ,templet: function (d) { return templet('interactTime',fox.dateFormat(d.interactTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
+					,{ field: 'interactUrl', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('最后访问') , templet: function (d) { return templet('interactUrl',d.interactUrl,d);}  }
+					,{ field: 'logoutTime', align:"right", fixed:false, hide:false, sort: true   ,title: fox.translate('登出时间') ,templet: function (d) { return templet('logoutTime',fox.dateFormat(d.logoutTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
+					,{ field: 'sessionTime', align:"right",fixed:false,  hide:false, sort: true  , title: fox.translate('会话时长') , templet: function (d) { return templet('sessionTime',d.sessionTime,d);}  }
+					,{ field: 'online', align:"right",fixed:false,  hide:true, sort: true  , title: fox.translate('是否在线') , templet: function (d) { return templet('online',d.online,d);}  }
+					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true   ,title: fox.translate('创建时间') ,templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
+					,{ field: 'hostId', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('主机ID') , templet: function (d) { return templet('hostId',d.hostId,d);}  }
+					,{ field: 'nodeId', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('节点实例ID') , templet: function (d) { return templet('nodeId',d.nodeId,d);}  }
+					,{ field: 'accessToken', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('accessToken') , templet: function (d) { return templet('accessToken',d.accessToken,d);}  }
+					,{ field: 'refreshToken', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('refreshToken') , templet: function (d) { return templet('refreshToken',d.refreshToken,d);}  }
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
 				]],
 				done: function (data) { window.pageExt.list.afterQuery && window.pageExt.list.afterQuery(data); },
 				footer : {
-					exportExcel : admin.checkAuth(AUTH_PREFIX+":export"),
-					importExcel : admin.checkAuth(AUTH_PREFIX+":import")?{
-						params : {} ,
-						callback : function(r) {
-							if(r.success) {
-								layer.msg(fox.translate('数据导入成功')+"!");
-							} else {
-								layer.msg(fox.translate('数据导入失败')+"!");
-							}
-						}
-					}:false
+					exportExcel : false ,
+					importExcel : false 
 				}
 			};
 			window.pageExt.list.beforeTableRender && window.pageExt.list.beforeTableRender(tableConfig);
 			dataTable=fox.renderTable(tableConfig);
 			//绑定排序事件
 			table.on('sort(data-table)', function(obj){
-			  refreshTableData(obj.field,obj.type);
+			  refreshTableData(obj.sortField,obj.type);
 			});
 			window.pageExt.list.afterTableRender && window.pageExt.list.afterTableRender();
 		}
@@ -115,12 +111,38 @@ function ListPage() {
     };
 
 	/**
+	 * 刷新单号数据
+	 * */
+	function refreshRowData(data,remote) {
+		var context=dataTable.getDataRowContext( { id : data.id } );
+		if(context==null) return;
+		if(remote) {
+			admin.post(moduleURL+"/get-by-id", { id : data.id }, function (r) {
+				if (r.success) {
+					data = r.data;
+					context.update(data);
+					fox.renderFormInputs(form);
+				} else {
+					fox.showMessage(data);
+				}
+			});
+		} else {
+			context.update(data);
+			fox.renderFormInputs(form);
+		}
+	}
+
+	/**
       * 刷新表格数据
       */
 	function refreshTableData(sortField,sortType,reset) {
+		function getSelectedValue(id,prop) { var xm=xmSelect.get(id,true); return xm==null ? null : xm.getValue(prop);}
 		var value = {};
-		value.loginTime={ inputType:"date_input", begin: $("#loginTime-begin").val(), end: $("#loginTime-end").val() };
-		value.interactTime={ inputType:"date_input", begin: $("#interactTime-begin").val(), end: $("#interactTime-end").val() };
+		value.loginTime={ inputType:"date_input", begin: $("#loginTime-begin").val(), end: $("#loginTime-end").val() ,matchType:"auto" };
+		value.interactTime={ inputType:"date_input", begin: $("#interactTime-begin").val(), end: $("#interactTime-end").val() ,matchType:"auto" };
+		value.createTime={ inputType:"date_input", value: $("#createTime").val() ,matchType:"auto"};
+		value.accessToken={ inputType:"button",value: $("#accessToken").val()};
+		value.refreshToken={ inputType:"button",value: $("#refreshToken").val()};
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;
@@ -170,19 +192,39 @@ function ListPage() {
 
 		laydate.render({
 			elem: '#loginTime-begin',
-			trigger:"click"
+			trigger:"click",
+			done: function(value, date, endDate) {
+				setTimeout(function () {
+					window.pageExt.list.onDatePickerChanged && window.pageExt.list.onDatePickerChanged("loginTime",value, date, endDate);
+				},1);
+			}
 		});
 		laydate.render({
 			elem: '#loginTime-end',
-			trigger:"click"
+			trigger:"click",
+			done: function(value, date, endDate) {
+				setTimeout(function () {
+					window.pageExt.list.onDatePickerChanged && window.pageExt.list.onDatePickerChanged("loginTime",value, date, endDate);
+				},1);
+			}
 		});
 		laydate.render({
 			elem: '#interactTime-begin',
-			trigger:"click"
+			trigger:"click",
+			done: function(value, date, endDate) {
+				setTimeout(function () {
+					window.pageExt.list.onDatePickerChanged && window.pageExt.list.onDatePickerChanged("interactTime",value, date, endDate);
+				},1);
+			}
 		});
 		laydate.render({
 			elem: '#interactTime-end',
-			trigger:"click"
+			trigger:"click",
+			done: function(value, date, endDate) {
+				setTimeout(function () {
+					window.pageExt.list.onDatePickerChanged && window.pageExt.list.onDatePickerChanged("interactTime",value, date, endDate);
+				},1);
+			}
 		});
 		fox.renderSearchInputs();
 		window.pageExt.list.afterSearchInputReady && window.pageExt.list.afterSearchInputReady();
@@ -231,6 +273,7 @@ function ListPage() {
 			}
 			switch(obj.event){
 				case 'create':
+					admin.putTempData('sys-session-online-form-data', {});
 					openCreateFrom();
 					break;
 				case 'batch-del':
@@ -268,22 +311,18 @@ function ListPage() {
             }
             //调用批量删除接口
 			top.layer.confirm(fox.translate('确定删除已选中的')+fox.translate('在线会话')+fox.translate('吗？'), function (i) {
-				top.layer.close(i);
-				top.layer.load(2);
-                admin.request(moduleURL+"/delete-by-ids", { ids: ids }, function (data) {
-					top.layer.closeAll('loading');
+                admin.post(moduleURL+"/delete-by-ids", { ids: ids }, function (data) {
                     if (data.success) {
 						if(window.pageExt.list.afterBatchDelete) {
 							var doNext=window.pageExt.list.afterBatchDelete(data);
 							if(!doNext) return;
 						}
-                    	top.layer.msg(data.message, {icon: 1, time: 500});
+						fox.showMessage(data);
                         refreshTableData();
                     } else {
-						top.layer.msg(data.message, {icon: 2, time: 1500});
+						fox.showMessage(data);
                     }
                 });
-
 			});
         }
 	}
@@ -304,29 +343,21 @@ function ListPage() {
 
 			admin.putTempData('sys-session-online-form-data-form-action', "",true);
 			if (layEvent === 'edit') { // 修改
-				//延迟显示加载动画，避免界面闪动
-				var task=setTimeout(function(){layer.load(2);},1000);
-				admin.request(moduleURL+"/get-by-id", { id : data.id }, function (data) {
-					clearTimeout(task);
-					layer.closeAll('loading');
+				admin.post(moduleURL+"/get-by-id", { id : data.id }, function (data) {
 					if(data.success) {
 						admin.putTempData('sys-session-online-form-data-form-action', "edit",true);
 						showEditForm(data.data);
 					} else {
-						 layer.msg(data.message, {icon: 1, time: 1500});
+						 fox.showMessage(data);
 					}
 				});
 			} else if (layEvent === 'view') { // 查看
-				//延迟显示加载动画，避免界面闪动
-				var task=setTimeout(function(){layer.load(2);},1000);
-				admin.request(moduleURL+"/get-by-id", { id : data.id }, function (data) {
-					clearTimeout(task);
-					layer.closeAll('loading');
+				admin.post(moduleURL+"/get-by-id", { id : data.id }, function (data) {
 					if(data.success) {
 						admin.putTempData('sys-session-online-form-data-form-action', "view",true);
 						showEditForm(data.data);
 					} else {
-						layer.msg(data.message, {icon: 1, time: 1500});
+						fox.showMessage(data);
 					}
 				});
 			}
@@ -348,14 +379,13 @@ function ListPage() {
 								var doNext=window.pageExt.list.afterSingleDelete(data);
 								if(!doNext) return;
 							}
-							top.layer.msg(data.message, {icon: 1, time: 500});
+							fox.showMessage(data);
 							refreshTableData();
 						} else {
-							top.layer.msg(data.message, {icon: 2, time: 1500});
+							fox.showMessage(data);
 						}
 					});
 				});
-
 			}
 			
 		});
@@ -372,7 +402,10 @@ function ListPage() {
 		}
 		var action=admin.getTempData('sys-session-online-form-data-form-action');
 		var queryString="";
-		if(data && data.id) queryString="?" + 'id=' + data.id;
+		if(data && data.id) queryString='id=' + data.id;
+		if(window.pageExt.list.makeFormQueryString) {
+			queryString=window.pageExt.list.makeFormQueryString(data,queryString,action);
+		}
 		admin.putTempData('sys-session-online-form-data', data);
 		var area=admin.getTempData('sys-session-online-form-area');
 		var height= (area && area.height) ? area.height : ($(window).height()*0.6);
@@ -382,24 +415,30 @@ function ListPage() {
 		else if(action=="edit") title=fox.translate('修改')+title;
 		else if(action=="view") title=fox.translate('查看')+title;
 
-		var index=admin.popupCenter({
+		admin.popupCenter({
 			title: title,
 			resize: false,
 			offset: [top,null],
 			area: ["500px",height+"px"],
 			type: 2,
 			id:"sys-session-online-form-data-win",
-			content: '/business/oauth/session_online/session_online_form.html' + queryString,
+			content: '/business/oauth/session_online/session_online_form.html' + (queryString?("?"+queryString):""),
 			finish: function () {
-				refreshTableData();
+				if(action=="create") {
+					refreshTableData();
+				}
+				if(action=="edit") {
+					false?refreshTableData():refreshRowData(data,true);
+				}
 			}
 		});
-		admin.putTempData('sys-session-online-form-data-popup-index', index);
 	};
 
 	window.module={
 		refreshTableData: refreshTableData,
-		getCheckedList: getCheckedList
+		refreshRowData: refreshRowData,
+		getCheckedList: getCheckedList,
+		showEditForm: showEditForm
 	};
 
 	window.pageExt.list.ending && window.pageExt.list.ending();

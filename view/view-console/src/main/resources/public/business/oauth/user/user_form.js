@@ -1,7 +1,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-08 17:29:31
+ * @since 2022-07-18 14:46:32
  */
 
 function FormPage() {
@@ -14,7 +14,7 @@ function FormPage() {
 	var disableModify=false;
 	var dataBeforeEdit=null;
 	const bpmIntegrateMode="none";
-	var isInProcess=QueryString.get("isInProcess")
+	var isInProcess=QueryString.get("isInProcess");
 
 	/**
       * 入口函数，初始化
@@ -51,6 +51,7 @@ function FormPage() {
 
 	}
 
+
 	/**
 	 * 自动调节窗口高度
 	 * */
@@ -61,15 +62,26 @@ function FormPage() {
 			if(!doNext) return;
 		}
 
-		if(bpmIntegrateMode=="front" && isInProcess==1) return;
+
 
 		clearTimeout(adjustPopupTask);
 		var scroll=$(".form-container").attr("scroll");
 		if(scroll=='yes') return;
+		var prevBodyHeight=-1;
 		adjustPopupTask=setTimeout(function () {
 			var body=$("body");
 			var bodyHeight=body.height();
 			var footerHeight=$(".model-form-footer").height();
+			if(bpmIntegrateMode=="front" && isInProcess==1) {
+				var updateFormIframeHeight=admin.getVar("updateFormIframeHeight");
+				if(bodyHeight>0 && bodyHeight!=prevBodyHeight) {
+					updateFormIframeHeight && updateFormIframeHeight(bodyHeight);
+				} else {
+					setTimeout(adjustPopup,1000);
+				}
+				prevBodyHeight = bodyHeight;
+				return;
+			}
 			var area=admin.changePopupArea(null,bodyHeight+footerHeight,'sys-user-form-data-win');
 			if(area==null) return;
 			admin.putTempData('sys-user-form-area', area);
@@ -293,6 +305,12 @@ function FormPage() {
 	}
 
 	function saveForm(param,callback) {
+
+		if(window.pageExt.form.beforeSubmit) {
+			var doNext=window.pageExt.form.beforeSubmit(param);
+			if(!doNext) return ;
+		}
+
 		param.dirtyFields=fox.compareDirtyFields(dataBeforeEdit,param);
 		var action=param.id?"edit":"create";
 		var api=moduleURL+"/"+(param.id?"update":"insert");
@@ -336,10 +354,7 @@ function FormPage() {
 	    	//debugger;
 			data.field = getFormData();
 
-			if(window.pageExt.form.beforeSubmit) {
-				var doNext=window.pageExt.form.beforeSubmit(data.field);
-				if(!doNext) return ;
-			}
+
 			//校验表单
 			if(!verifyForm(data.field)) return;
 
@@ -350,12 +365,6 @@ function FormPage() {
 
 	    //关闭窗口
 	    $("#cancel-button").click(function(){ admin.finishPopupCenterById('sys-user-form-data-win',this); });
-
-		var lock=false;
-		$(".model-form-footer").click(function (){
-			lock=!lock;
-			fox.lockForm($("#data-form"),lock);
-		});
 
     }
 

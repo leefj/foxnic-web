@@ -316,14 +316,6 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 
 
 
-
-
-
-//		List<UserTenant> uts=user.getJoinedTenants();
-//	 	List<Employee> emps= CollectorUtil.collectList(uts,UserTenant::getEmployee);
-//	 	dao.join(emps,EmployeeMeta.POSITIONS);
-//		System.err.printf("JOINS = "+ RelationSolver.getJoinCount());
-
 		List<Menu> remMenus=new ArrayList<>();
 		for (Menu menu : user.getMenus()) {
 			if(!StringUtil.isBlank(menu.getDynamicHandler())) {

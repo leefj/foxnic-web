@@ -136,12 +136,14 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 		ret.put("user", user);
 		ret.put("sessionId", sessionUser.getSessionOnlineId());
 
+
         if( securityProperties.getSecurityMode()==SecurityMode.BOTH || securityProperties.getSecurityMode()==SecurityMode.JWT ) {
-        	Map<String, Object> token = getToken(authentication);
+        	Map<String, String> token = getToken(authentication);
         	ret.put("token", token);
+			for (Map.Entry<String, String> entry : token.entrySet()) {
+				response.addHeader("Set-Cookie", entry.getKey()+"="+entry.getValue()+"; path=/");
+			}
         }
-
-
 
         Result r=ErrorDesc.success().message("登录成功").data(ret);
 
@@ -205,9 +207,9 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 	}
 
 
-	private Map<String, Object> getToken(Authentication authentication)  {
+	private Map<String, String> getToken(Authentication authentication)  {
 
-		Map<String, Object> map = new HashMap<>(5);
+		Map<String, String> map = new HashMap<>(5);
 		SessionUserImpl principal = (SessionUserImpl) authentication.getPrincipal();
 
 		String username = principal.getUsername();
@@ -227,7 +229,6 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
 		return map;
 
-//		ResponseUtil.writeOK(response, ErrorDesc.success().message("登录成功").data(map));
 	}
 
 }

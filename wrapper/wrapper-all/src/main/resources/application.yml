@@ -260,7 +260,7 @@ security:
     # 访问超时秒数
     access-expire-seconds: 1800
     # 刷新超时秒数
-    refresh-expire-seconds: 2000
+    refresh-expire-seconds: 3600
 
 
 logging:

@@ -6,8 +6,8 @@ import com.github.foxnic.api.bean.BeanProperty;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-08 17:29:25
- * @sign 74FF4B889002F5CC161ACC7581CF6E6A
+ * @since 2022-07-18 14:46:26
+ * @sign F71081E5B7882E4896C8FA7E81255A58
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -54,7 +54,17 @@ public class LoginIdentityVOMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.oauth.LoginIdentityVO,java.lang.String> CAPTCHA_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.LoginIdentityVO.class ,CAPTCHA, java.lang.String.class, "校验码/验证码", "用户输入的校验码", java.lang.String.class, null);
 	
 	/**
+	 * 登录方式 , 类型: java.lang.String
+	*/
+	public static final String LOGIN_TYPE="loginType";
+	
+	/**
+	 * 登录方式 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.LoginIdentityVO,java.lang.String> LOGIN_TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.LoginIdentityVO.class ,LOGIN_TYPE, java.lang.String.class, "登录方式", "登录方式", java.lang.String.class, null);
+	
+	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ IDENTITY , PASSWD , BROWSER_ID , CAPTCHA };
+	public static final String[] $PROPS={ IDENTITY , PASSWD , BROWSER_ID , CAPTCHA , LOGIN_TYPE };
 }

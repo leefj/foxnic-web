@@ -11,6 +11,7 @@ import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER;
 import org.github.foxnic.web.constants.enums.system.Language;
+import org.github.foxnic.web.constants.enums.system.LoginType;
 import org.github.foxnic.web.domain.hrm.meta.EmployeeMeta;
 import org.github.foxnic.web.domain.hrm.meta.PersonMeta;
 import org.github.foxnic.web.domain.oauth.Menu;
@@ -59,6 +60,8 @@ public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
         pojo.addSimpleProperty(String.class,"passwd","密码","");
         pojo.addSimpleProperty(String.class,"browserId","随机ID","客户端产生的唯一ID，用于标识一次认证");
         pojo.addSimpleProperty(String.class,"captcha","校验码/验证码","用户输入的校验码");
+        pojo.addSimpleProperty(String.class,"loginType","登录方式","登录方式");
+        pojo.shadow("loginType", LoginType.class);
     }
 
     @Override

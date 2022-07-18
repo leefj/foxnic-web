@@ -9,8 +9,8 @@ import org.github.foxnic.web.domain.oauth.User;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-14 11:46:01
- * @sign 4805DE5D46574240E3931EC037BA1FE2
+ * @since 2022-07-18 15:28:42
+ * @sign 8D5AB1AAE0F0813B6BB50E95249C16C4
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -207,6 +207,26 @@ public class SessionOnlineMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.oauth.SessionOnline,java.lang.String> NODE_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.SessionOnline.class ,NODE_ID, java.lang.String.class, "节点实例ID", "节点实例ID", java.lang.String.class, null);
 	
 	/**
+	 * accessToken , 类型: java.lang.String
+	*/
+	public static final String ACCESS_TOKEN="accessToken";
+	
+	/**
+	 * accessToken , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.SessionOnline,java.lang.String> ACCESS_TOKEN_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.SessionOnline.class ,ACCESS_TOKEN, java.lang.String.class, "accessToken", "accessToken", java.lang.String.class, null);
+	
+	/**
+	 * refreshToken , 类型: java.lang.String
+	*/
+	public static final String REFRESH_TOKEN="refreshToken";
+	
+	/**
+	 * refreshToken , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.oauth.SessionOnline,java.lang.String> REFRESH_TOKEN_PROP = new BeanProperty(org.github.foxnic.web.domain.oauth.SessionOnline.class ,REFRESH_TOKEN, java.lang.String.class, "refreshToken", "refreshToken", java.lang.String.class, null);
+	
+	/**
 	 * 账户 , 类型: org.github.foxnic.web.domain.oauth.User
 	*/
 	public static final String USER="user";
@@ -219,7 +239,7 @@ public class SessionOnlineMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , SESSION_ID , USER_ID , LOGIN_TIME , INTERACT_TIME , INTERACT_URL , LOGOUT_TIME , SESSION_TIME , ONLINE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , HOST_ID , VERSION , NODE_ID , USER };
+	public static final String[] $PROPS={ ID , SESSION_ID , USER_ID , LOGIN_TIME , INTERACT_TIME , INTERACT_URL , LOGOUT_TIME , SESSION_TIME , ONLINE , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , HOST_ID , VERSION , NODE_ID , ACCESS_TOKEN , REFRESH_TOKEN , USER };
 	
 	/**
 	 * 代理类
@@ -435,6 +455,28 @@ public class SessionOnlineMeta {
 		public SessionOnline setNodeId(String nodeId) {
 			super.change(NODE_ID,super.getNodeId(),nodeId);
 			super.setNodeId(nodeId);
+			return this;
+		}
+		
+		/**
+		 * 设置 accessToken
+		 * @param accessToken accessToken
+		 * @return 当前对象
+		*/
+		public SessionOnline setAccessToken(String accessToken) {
+			super.change(ACCESS_TOKEN,super.getAccessToken(),accessToken);
+			super.setAccessToken(accessToken);
+			return this;
+		}
+		
+		/**
+		 * 设置 refreshToken
+		 * @param refreshToken refreshToken
+		 * @return 当前对象
+		*/
+		public SessionOnline setRefreshToken(String refreshToken) {
+			super.change(REFRESH_TOKEN,super.getRefreshToken(),refreshToken);
+			super.setRefreshToken(refreshToken);
 			return this;
 		}
 		
