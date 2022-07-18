@@ -565,10 +565,17 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 },
                 beforeRequest:function (opt) {
                     opt.headers.time=admin.getRequestTimestamp();
+                    $(cfg.elem).parent().find("table").css("opacity","0.0");
+                    // debugger
                 },
                 parseData: function (res) { //res 即为原始返回的数据
                     // debugger;
-
+                    setTimeout(function (){
+                        $(cfg.elem).parent().find("table").animate({
+                            opacity:'1.0'
+                        },100,null,function (){
+                            $(cfg.elem).parent().find("table").css("opacity","1.0");});
+                    },100);
                     if (!res.success) {
                         alert(res.message);
                         return null;
@@ -2088,6 +2095,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             //console.log(cls,t);
             var pars = tar.parents();
             var layFilter = null;
+
             var tableIndex = -1;
             for (var i = 0; i < pars.length; i++) {
                 var p = $(pars[i]);
@@ -2096,51 +2104,15 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     tableIndex = layFilter.split("-")[2];
                     break;
                 }
-                //console.log("lay-filter",layFilter);
             }
             if (tableIndex == -1) return;
-            //console.log("tableIndex",tableIndex);
+
             var inst = table.instance[tableIndex - 1];
-            //var cfg=table.getConfiguration()
             var tableId = inst.config.elem[0].id;
-            //console.log("inst",inst);
             var cols = inst.config.cols[0];
             if (cls.indexOf("layui-table-cell") == -1 || cls.indexOf("laytable-cell-") == -1) return;
             var ths = $("th .layui-table-cell");
-            //debugger
             saveTableSettings4UI(tableId,ths,cols);
-            return;
-
-            // var ws = {};
-            // if (cls.indexOf("layui-table-cell") == -1 || cls.indexOf("laytable-cell-") == -1) return;
-            //
-            // //console.log(ths.length);
-            // for (var i = 0; i < ths.length; i++) {
-            //     var th = $(ths[i]);
-            //     if (cols[i] && cols[i].field && !cols[i].hide) {
-            //         ws[cols[i].field] = {width:th[0].clientWidth,hide:false};
-            //         cols[i].width = th[0].clientWidth;
-            //     }
-            // }
-            // var loc = location.href;
-            // loc = loc.substr(loc.indexOf("//") + 2);
-            // loc = loc.substr(loc.indexOf("/"));
-            // if(loc.indexOf("?")>0) {
-            //     loc = loc.substr(0,loc.indexOf("?"));
-            // }
-            // console.log("save table", tableId, ws);
-            //
-            // admin.request("/service-system/sys-db-cache/save", {
-            //     value: JSON.stringify(ws),
-            //     area: loc+"#"+tableId,
-            //     catalog: "layui-table-column-width",
-            //     ownerType: "user"
-            // }, function (data) {
-            //     if(admin.toast()) {
-            //         admin.toast().success("自定义表格设置已同步", {time: 1000, position: "right-bottom"});
-            //     }
-            // });
-
 
         }, 100);
 
@@ -2163,11 +2135,8 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 cfg.title=cols[i].title;
                 cfg.orderIndex=cols[i].orderIndex;
                 ws[cols[i].field] = cfg;
-
             }
         }
-
-
 
         saveTableSettings(tableId,ws);
     }
