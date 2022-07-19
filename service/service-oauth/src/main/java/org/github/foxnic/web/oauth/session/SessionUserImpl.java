@@ -55,16 +55,25 @@ public class SessionUserImpl extends SessionUser implements UserDetails, Credent
 
 	@Override
 	public String getPassword() {
+		if(this.user==null) {
+			throw new IllegalArgumentException("缺少 user 对象");
+		}
 		return this.user.getPasswd();
 	}
 
 	@Override
 	public String getUsername() {
+		if(this.user==null) {
+			throw new IllegalArgumentException("缺少 user 对象");
+		}
 		return this.user.getAccount();
 	}
 
 	@Override
 	public String getRealName() {
+		if(this.user==null) {
+			throw new IllegalArgumentException("缺少 user 对象");
+		}
 		if(StringUtil.hasContent(this.user.getRealName())){
 			return this.user.getRealName();
 		}
@@ -73,6 +82,9 @@ public class SessionUserImpl extends SessionUser implements UserDetails, Credent
 
 	@Override
 	public boolean isAccountNonExpired() {
+		if(this.user==null) {
+			throw new IllegalArgumentException("缺少 user 对象");
+		}
 		if(this.user.getValid()==null) {
 			Logger.error("数据库连接字符串可能未加入 tinyInt1isBit 参数，要求 tinyInt1isBit=false");
 		}
@@ -82,6 +94,12 @@ public class SessionUserImpl extends SessionUser implements UserDetails, Credent
 
 	@Override
 	public boolean isAccountNonLocked() {
+		if(this.user==null) {
+			throw new IllegalArgumentException("缺少 user 对象");
+		}
+		if(this.user.getValid()==null) {
+			Logger.error("数据库连接字符串可能未加入 tinyInt1isBit 参数，要求 tinyInt1isBit=false");
+		}
 		if(this.user.getValid()==null || this.user.getDeleted()==null) return false;
 		return this.user.getValid()==1 && this.user.getDeleted()==0;
 	}
@@ -96,6 +114,12 @@ public class SessionUserImpl extends SessionUser implements UserDetails, Credent
 
 	@Override
 	public boolean isEnabled() {
+		if(this.user==null) {
+			throw new IllegalArgumentException("缺少 user 对象");
+		}
+		if(this.user.getValid()==null) {
+			Logger.error("数据库连接字符串可能未加入 tinyInt1isBit 参数，要求 tinyInt1isBit=false");
+		}
 		return this.user.getValid()==1 && this.user.getDeleted()==0;
 	}
 
@@ -145,11 +169,17 @@ public class SessionUserImpl extends SessionUser implements UserDetails, Credent
 
 	@Override
 	public String getUserId() {
-		 return this.user.getId();
+		if (this.user == null) {
+			throw new IllegalArgumentException("缺少 user 对象");
+		}
+		return this.user.getId();
 	}
 
 	@Override
 	public String getLanguage() {
+		if (this.user == null) {
+			throw new IllegalArgumentException("缺少 user 对象");
+		}
 		return this.user.getLanguage();
 	}
 
