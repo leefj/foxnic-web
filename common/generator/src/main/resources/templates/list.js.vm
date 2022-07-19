@@ -671,7 +671,8 @@ function ListPage() {
             }
             //调用批量删除接口
 			top.layer.confirm(fox.translate('确定删除已选中的')+fox.translate('#(topic)')+fox.translate('吗？'), function (i) {
-                admin.post(moduleURL+"/delete-by-ids", { #(idsPropertyName): ids }, function (data) {
+                top.layer.close(i);
+				admin.post(moduleURL+"/delete-by-ids", { #(idsPropertyName): ids }, function (data) {
                     if (data.success) {
 						if(window.pageExt.list.afterBatchDelete) {
 							var doNext=window.pageExt.list.afterBatchDelete(data);
@@ -682,7 +683,7 @@ function ListPage() {
                     } else {
 						fox.showMessage(data);
                     }
-                });
+                },{delayLoading:200,elms:[$("#delete-button")]});
 			});
         }
         #end
@@ -763,9 +764,9 @@ function ListPage() {
 								} else {
 									fox.showMessage(r);
 								}
-							});
+							},[$(".ops-delete-button[data-id='"+data.#(idPropertyName)+"']")]);
 						} else {
-							admin.request(moduleURL+"/delete", { #(paramJson) }, function (data) {
+							admin.post(moduleURL+"/delete", { #(paramJson) }, function (data) {
 								top.layer.closeAll('loading');
 								if (data.success) {
 									if(window.pageExt.list.afterSingleDelete) {
@@ -777,17 +778,15 @@ function ListPage() {
 								} else {
 									fox.showMessage(data);
 								}
-							});
+							},{delayLoading:100, elms:[$(".ops-delete-button[data-id='"+data.#(idPropertyName)+"']")]});
 						}
-					},"bill");
+					},"bill",);
 				});
 				#else
 				#if(deleteButton.functionName==null)
 				top.layer.confirm(fox.translate('确定删除此')+fox.translate('#(topic)')+fox.translate('吗？'), function (i) {
 					top.layer.close(i);
-
-					top.layer.load(2);
-					admin.request(moduleURL+"/delete", { #(paramJson) }, function (data) {
+					admin.post(moduleURL+"/delete", { #(paramJson) }, function (data) {
 						top.layer.closeAll('loading');
 						if (data.success) {
 							if(window.pageExt.list.afterSingleDelete) {
@@ -799,7 +798,7 @@ function ListPage() {
 						} else {
 							fox.showMessage(data);
 						}
-					});
+					},{delayLoading:100, elms:[$(".ops-delete-button[data-id='"+data.#(idPropertyName)+"']")]});
 				});
 				#else
 				window.pageExt.list.#(deleteButton.functionName)({ #(paramJson) });

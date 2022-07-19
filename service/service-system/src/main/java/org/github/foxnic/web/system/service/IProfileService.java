@@ -1,5 +1,6 @@
 package org.github.foxnic.web.system.service;
 
+import com.github.foxnic.dao.entity.ISimpleIdService;
 
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.dao.entity.ISuperService;
@@ -15,16 +16,18 @@ import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.dao.excel.ExcelStructure;
 import com.github.foxnic.dao.excel.ValidateResult;
 import com.github.foxnic.dao.data.SaveMode;
+import java.util.Map;
 
 /**
  * <p>
  * Profile 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-13 20:23:54
+ * @since 2022-07-19 15:13:05
 */
 
-public interface IProfileService extends ISuperService<Profile> {
+public interface IProfileService extends  ISimpleIdService<Profile,String> {
+
 
 	/**
 	 * 添加，如果语句错误，则抛出异常
@@ -153,11 +156,31 @@ public interface IProfileService extends ISuperService<Profile> {
 	Profile getById(String id);
 
 	/**
+	 * 检查引用
+	 * @param id  检查ID是否又被外部表引用
+	 * */
+	Boolean hasRefers(String id);
+
+	/**
+	 * 批量检查引用
+	 * @param ids  检查这些ID是否又被外部表引用
+	 * */
+	Map<String,Boolean> hasRefers(List<String> ids);
+
+	/**
 	 * 按 id 获取多个对象
 	 * @param ids  主键清单
 	 * @return 实体集
 	 * */
-	List<Profile> getByIds(List<String> ids);
+	List<Profile> queryListByIds(List<String> ids);
+
+	/**
+	 * 按 id 列表查询 Map
+	 * @param ids  主键清单
+	 * */
+	Map<String, Profile> queryMapByIds(List<String> ids);
+
+
 
 	/**
 	 * 检查 实体 是否已经存在 , 判断 主键值不同，但指定字段的值相同的记录是否存在
@@ -187,7 +210,7 @@ public interface IProfileService extends ISuperService<Profile> {
 	 * @param sample  查询条件
 	 * @return 查询结果
 	 * */
-	List<Profile> queryList(Profile sample);
+	List<Profile> queryList(ProfileVO sample);
 
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
@@ -228,7 +251,7 @@ public interface IProfileService extends ISuperService<Profile> {
 	 * @param pageIndex 页码
 	 * @return 查询结果
 	 * */
-	PagedList<Profile> queryPagedList(Profile sample,int pageSize,int pageIndex);
+	PagedList<Profile> queryPagedList(ProfileVO sample,int pageSize,int pageIndex);
 
 	/**
 	 * 分页查询实体集
@@ -282,28 +305,8 @@ public interface IProfileService extends ISuperService<Profile> {
 	 * */
 	<T> List<T> queryValues(DBField field, Class<T> type, String condition,Object... ps);
 
-	/**
-	 * 导出 Excel
-	 * */
-	ExcelWriter exportExcel(Profile sample);
 
-	/**
-	 * 导出用于数据导入的 Excel 模版
-	 * */
-	ExcelWriter  exportExcelTemplate();
 
-	/**
-	 * 构建 Excel 结构
-	 * @param  isForExport 是否用于数据导出
-	 * @return   ExcelStructure
-	 * */
-	ExcelStructure buildExcelStructure(boolean isForExport);
-
-	/**
-	 * 导入 Excel 数据
-	 * @return  错误信息，成功时返回 null
-	 * */
-	List<ValidateResult> importExcel(InputStream input,int sheetIndex,boolean batch);
 
 
 }

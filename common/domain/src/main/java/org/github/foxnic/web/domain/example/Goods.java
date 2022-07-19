@@ -21,7 +21,7 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * example_goods
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-29 06:41:12
+ * @since 2022-07-19 14:54:30
  * @sign 0ACFDBFD8DB3922195708932F726C172
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */

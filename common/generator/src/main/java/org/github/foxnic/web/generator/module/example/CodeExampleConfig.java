@@ -377,7 +377,7 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 
 		//嵌入Tab，页面在 loadStudentIframe、loadCarIframe  函数中载入
 		form.addTab("student-car",
-				new Tab("学生","loadStudentIframe"),
+				new Tab("学生","loadStudentIframe","student-iframe"),
 				new Tab("汽车","loadCarIframe")
 		);
 

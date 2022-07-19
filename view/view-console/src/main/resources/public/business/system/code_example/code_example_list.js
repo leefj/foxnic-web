@@ -1,7 +1,7 @@
 /**
  * 代码生成示例主 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-02-08 08:53:55
+ * @since 2022-07-19 15:10:36
  */
 
 
@@ -44,6 +44,9 @@ function ListPage() {
 			fox.adjustSearchElement();
 		});
 		fox.adjustSearchElement();
+		//
+		 var marginTop=$(".search-bar").height()+$(".search-bar").css("padding-top")+$(".search-bar").css("padding-bottom")
+		 $("#table-area").css("margin-top",marginTop+"px");
 		//
 		function renderTableInternal() {
 
@@ -100,19 +103,8 @@ function ListPage() {
 				]],
 				done: function (data) { window.pageExt.list.afterQuery && window.pageExt.list.afterQuery(data); },
 				footer : {
-					exportExcel : admin.checkAuth(AUTH_PREFIX+":export"),
-					importExcel : admin.checkAuth(AUTH_PREFIX+":import")?{
-						params : {} ,
-						callback : function(r) {
-							if(r.success) {
-								layer.msg(fox.translate('数据导入成功')+"!");
-							} else {
-								layer.msg(fox.translate('数据导入失败')+"!");
-							}
-							// 是否执行后续逻辑：错误提示
-							return false;
-						}
-					}:false
+					exportExcel : false ,
+					importExcel : false 
 				}
 			};
 			window.pageExt.list.beforeTableRender && window.pageExt.list.beforeTableRender(tableConfig);
@@ -131,33 +123,47 @@ function ListPage() {
     };
 
 	/**
+	 * 刷新单号数据
+	 * */
+	function refreshRowData(data,remote) {
+		var context=dataTable.getDataRowContext( { id : data.id } );
+		if(context==null) return;
+		if(remote) {
+			admin.post(moduleURL+"/get-by-id", { id : data.id }, function (r) {
+				if (r.success) {
+					data = r.data;
+					context.update(data);
+					fox.renderFormInputs(form);
+				} else {
+					fox.showMessage(data);
+				}
+			});
+		} else {
+			context.update(data);
+			fox.renderFormInputs(form);
+		}
+	}
+
+	/**
       * 刷新表格数据
       */
 	function refreshTableData(sortField,sortType,reset) {
 		function getSelectedValue(id,prop) { var xm=xmSelect.get(id,true); return xm==null ? null : xm.getValue(prop);}
 		var value = {};
-		value.name={ inputType:"button",value: $("#name").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" };
-		value.notes={ inputType:"button",value: $("#notes").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" };
+		value.name={ inputType:"button",value: $("#name").val() ,fuzzy: true,splitValue:false,valuePrefix:"",valueSuffix:"" };
+		value.notes={ inputType:"button",value: $("#notes").val() ,fuzzy: true,splitValue:false,valuePrefix:"",valueSuffix:"" };
 		value.area={ inputType:"number_input", begin: $("#area-begin").val(), end: $("#area-end").val() };
 		value.weight={ inputType:"number_input", value: $("#weight").val() };
 		value.birthday={ inputType:"date_input", begin: $("#birthday-begin").val(), end: $("#birthday-end").val() ,matchType:"day" };
-		value.workTime={ inputType:"date_input", value: $("#workTime").val() ,matchType:"auto"};
 		value.valid={ inputType:"logic_switch",value: getSelectedValue("#valid","value"), label:getSelectedValue("#valid","nameStr") };
 		value.radioEnum={ inputType:"radio_box", value: getSelectedValue("#radioEnum","value"), label:getSelectedValue("#radioEnum","nameStr") };
 		value.radioDict={ inputType:"radio_box", value: getSelectedValue("#radioDict","value"), label:getSelectedValue("#radioDict","nameStr") };
-		value.checkEnum={ inputType:"check_box", value: getSelectedValue("#checkEnum","value") ,fuzzy: true,valuePrefix:"\"",valueSuffix:"\"", label:getSelectedValue("#checkEnum","nameStr") };
-		value.checkDict={ inputType:"check_box", value: getSelectedValue("#checkDict","value") ,fuzzy: true,valuePrefix:"\"",valueSuffix:"\"", label:getSelectedValue("#checkDict","nameStr") };
+		value.checkEnum={ inputType:"check_box", value: getSelectedValue("#checkEnum","value") ,fuzzy: true,splitValue:false,valuePrefix:"\"",valueSuffix:"\"", label:getSelectedValue("#checkEnum","nameStr") };
+		value.checkDict={ inputType:"check_box", value: getSelectedValue("#checkDict","value") ,fuzzy: true,splitValue:false,valuePrefix:"\"",valueSuffix:"\"", label:getSelectedValue("#checkDict","nameStr") };
 		value.selectEnum={ inputType:"select_box", value: getSelectedValue("#selectEnum","value"), label:getSelectedValue("#selectEnum","nameStr") };
-		value.selectDict={ inputType:"select_box", value: getSelectedValue("#selectDict","value") ,fuzzy: true,valuePrefix:"\"",valueSuffix:"\"", label:getSelectedValue("#selectDict","nameStr") };
+		value.selectDict={ inputType:"select_box", value: getSelectedValue("#selectDict","value") ,fuzzy: true,splitValue:false,valuePrefix:"\"",valueSuffix:"\"", label:getSelectedValue("#selectDict","nameStr") };
 		value.roleIds={ inputType:"select_box", value: getSelectedValue("#roleIds","value") ,fillBy:["roles"]  ,field:"sys_code_example_role.role_id", label:getSelectedValue("#roleIds","nameStr") };
-		value.resourceId={ inputType:"select_box", value: $("#resourceId").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" ,fillBy:["resourze","name"] ,field:"sys_resourze.url"};
-		value.roleCountByAfter={ inputType:"button",value: $("#roleCountByAfter").val()};
-		value.roleCountByJoin={ inputType:"button",value: $("#roleCountByJoin").val()};
-		value.imageId={ inputType:"button",value: $("#imageId").val()};
-		value.fileIds={ inputType:"button",value: $("#fileIds").val()};
-		value.id={ inputType:"button",value: $("#id").val()};
-		value.buttonInput={ inputType:"button",value: $("#buttonInput").val(),label:$("#buttonInput-button").text() };
-		value.createTime={ inputType:"date_input", value: $("#createTime").val() ,matchType:"auto"};
+		value.resourceId={ inputType:"select_box", value: $("#resourceId").val() ,fuzzy: true,splitValue:false,valuePrefix:"",valueSuffix:"" ,fillBy:["resourze","name"] ,field:"sys_resourze.url"};
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;
@@ -223,7 +229,9 @@ function ListPage() {
 			radio: true,
 			on: function(data){
 				setTimeout(function () {
-					refreshTableData();
+					if(data.change && data.change.length>0) {
+						refreshTableData();
+					}
 					window.pageExt.list.onSelectBoxChanged && window.pageExt.list.onSelectBoxChanged("radioEnum",data.arr,data.change,data.isAdd);
 				},1);
 			},
@@ -245,7 +253,9 @@ function ListPage() {
 			radio: true,
 			on: function(data){
 				setTimeout(function () {
-					refreshTableData();
+					if(data.change && data.change.length>0) {
+						refreshTableData();
+					}
 					window.pageExt.list.onSelectBoxChanged && window.pageExt.list.onSelectBoxChanged("radioDict",data.arr,data.change,data.isAdd);
 				},1);
 			},
@@ -267,7 +277,9 @@ function ListPage() {
 			radio: true,
 			on: function(data){
 				setTimeout(function () {
-					refreshTableData();
+					if(data.change && data.change.length>0) {
+						refreshTableData();
+					}
 					window.pageExt.list.onSelectBoxChanged && window.pageExt.list.onSelectBoxChanged("checkEnum",data.arr,data.change,data.isAdd);
 				},1);
 			},
@@ -379,7 +391,9 @@ function ListPage() {
 			trigger:"click",
 			done: function(value, date, endDate) {
 				setTimeout(function () {
-					refreshTableData();
+					if(data.change && data.change.length>0) {
+						refreshTableData();
+					}
 					window.pageExt.list.onDatePickerChanged && window.pageExt.list.onDatePickerChanged("birthday",value, date, endDate);
 				},1);
 			}
@@ -466,6 +480,7 @@ function ListPage() {
 			}
 			switch(obj.event){
 				case 'create':
+					admin.putTempData('sys-code-example-form-data', {});
 					openCreateFrom();
 					break;
 				case 'batch-del':
@@ -509,18 +524,19 @@ function ListPage() {
             }
             //调用批量删除接口
 			top.layer.confirm(fox.translate('确定删除已选中的')+fox.translate('代码生成示例主')+fox.translate('吗？'), function (i) {
-                admin.post(moduleURL+"/delete-by-ids", { ids: ids }, function (data) {
+                top.layer.close(i);
+				admin.post(moduleURL+"/delete-by-ids", { ids: ids }, function (data) {
                     if (data.success) {
 						if(window.pageExt.list.afterBatchDelete) {
 							var doNext=window.pageExt.list.afterBatchDelete(data);
 							if(!doNext) return;
 						}
-                    	top.layer.msg(data.message, {icon: 1, time: 500});
+						fox.showMessage(data);
                         refreshTableData();
                     } else {
-						top.layer.msg(data.message, {icon: 2, time: 1500});
+						fox.showMessage(data);
                     }
-                });
+                },{delayLoading:200,elms:[$("#delete-button")]});
 			});
         }
 	}
@@ -546,7 +562,7 @@ function ListPage() {
 						admin.putTempData('sys-code-example-form-data-form-action', "edit",true);
 						showEditForm(data.data);
 					} else {
-						 top.layer.msg(data.message, {icon: 1, time: 1500});
+						 fox.showMessage(data);
 					}
 				});
 			} else if (layEvent === 'view') { // 查看
@@ -555,7 +571,7 @@ function ListPage() {
 						admin.putTempData('sys-code-example-form-data-form-action', "view",true);
 						showEditForm(data.data);
 					} else {
-						top.layer.msg(data.message, {icon: 1, time: 1500});
+						fox.showMessage(data);
 					}
 				});
 			}
@@ -565,27 +581,26 @@ function ListPage() {
 					var doNext=window.pageExt.list.beforeSingleDelete(data);
 					if(!doNext) return;
 				}
+
 				top.layer.confirm(fox.translate('确定删除此')+fox.translate('代码生成示例主')+fox.translate('吗？'), function (i) {
 					top.layer.close(i);
-
-					top.layer.load(2);
-					admin.request(moduleURL+"/delete", { id : data.id }, function (data) {
+					admin.post(moduleURL+"/delete", { id : data.id }, function (data) {
 						top.layer.closeAll('loading');
 						if (data.success) {
 							if(window.pageExt.list.afterSingleDelete) {
 								var doNext=window.pageExt.list.afterSingleDelete(data);
 								if(!doNext) return;
 							}
-							top.layer.msg(data.message, {icon: 1, time: 500});
+							fox.showMessage(data);
 							refreshTableData();
 						} else {
-							top.layer.msg(data.message, {icon: 2, time: 1500});
+							fox.showMessage(data);
 						}
-					});
+					},{delayLoading:100, elms:[$(".ops-delete-button[data-id='"+data.id+"']")]});
 				});
 			}
 			else if (layEvent === 'do-test-action') { // 测试
-				window.pageExt.list.doTestAction(data);
+				window.pageExt.list.doTestAction(data,this);
 			}
 			else if(obj.event === 'ops-more'){
 				//更多下拉菜单
@@ -641,14 +656,21 @@ function ListPage() {
 			id:"sys-code-example-form-data-win",
 			content: '/business/system/code_example/code_example_form.html' + (queryString?("?"+queryString):""),
 			finish: function () {
-				refreshTableData();
+				if(action=="create") {
+					refreshTableData();
+				}
+				if(action=="edit") {
+					false?refreshTableData():refreshRowData(data,true);
+				}
 			}
 		});
 	};
 
 	window.module={
 		refreshTableData: refreshTableData,
-		getCheckedList: getCheckedList
+		refreshRowData: refreshRowData,
+		getCheckedList: getCheckedList,
+		showEditForm: showEditForm
 	};
 
 	window.pageExt.list.ending && window.pageExt.list.ending();

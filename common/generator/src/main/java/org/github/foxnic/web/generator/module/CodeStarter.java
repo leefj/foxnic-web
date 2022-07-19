@@ -16,9 +16,7 @@ import org.github.foxnic.web.generator.module.oauth.SysUserConfig;
 import org.github.foxnic.web.generator.module.pcm.PcmCatalogAllocationConfig;
 import org.github.foxnic.web.generator.module.pcm.PcmCatalogAttributeConfig;
 import org.github.foxnic.web.generator.module.pcm.PcmCatalogConfig;
-import org.github.foxnic.web.generator.module.system.SysDictConfig;
-import org.github.foxnic.web.generator.module.system.SysDictItemConfig;
-import org.github.foxnic.web.generator.module.system.TenantConfig;
+import org.github.foxnic.web.generator.module.system.*;
 
 import java.io.File;
 
@@ -45,7 +43,7 @@ public class CodeStarter extends ModuleCodeGenerator {
 //        initBpmModules();
 //        initDatapermModules();
 //
-//        initExample2Modules();
+        initExample2Modules();
 //        initJobModules();
     }
 
@@ -135,16 +133,16 @@ public class CodeStarter extends ModuleCodeGenerator {
     }
 
     private void initExampleModules() {
-//        this.addConfig(new CodeExampleConfig());
+        this.addConfig(new CodeExampleConfig());
 //        this.addConfig(new CodeExampleRoleConfig());
 //        this.addConfig(new CodeExampleStudentConfig());
 //        this.addConfig(new CodeExampleCarConfig());
 //        this.addConfig(new CodeExampleMulitPkConfig());
 
-        this.addConfig(new ExampleOrderConfig());
-        this.addConfig(new ExampleOrderItemConfig());
-        this.addConfig(new ExampleGoodsConfig());
-        this.addConfig(new ExampleAddressConfig());
+//        this.addConfig(new ExampleOrderConfig());
+//        this.addConfig(new ExampleOrderItemConfig());
+//        this.addConfig(new ExampleGoodsConfig());
+//        this.addConfig(new ExampleAddressConfig());
 
     }
 
@@ -153,10 +151,10 @@ public class CodeStarter extends ModuleCodeGenerator {
 //        this.addConfig(new BusiRoleConfig());
 //        this.addConfig(new BusiRoleMemberConfig());
 
-        this.addConfig(new SysDictConfig());
-//        this.addConfig(new SysConfigConfig());
-//        this.addConfig(new SysProfileConfig());
-        this.addConfig(new SysDictItemConfig());
+//        this.addConfig(new SysDictConfig());
+        this.addConfig(new SysConfigConfig());
+        this.addConfig(new SysProfileConfig());
+//        this.addConfig(new SysDictItemConfig());
 //        this.addConfig(new SysFileConfig());
         //
 //        this.addConfig(new SequenceConfig());
