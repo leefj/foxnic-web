@@ -3,14 +3,18 @@ package org.github.foxnic.web.domain.system;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
+import com.github.foxnic.api.model.CompositeParameter;
+import javax.persistence.Transient;
+import com.github.foxnic.commons.bean.BeanUtil;
 
 
 
 /**
- * null
+ * 数据字典条目
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-16 14:33:51
- * @sign 5C02189BBB2FA731398BF7AAE8A7C48C
+ * @since 2022-07-19 10:00:25
+ * @sign F2BC3454DCCC9CB20B34954670740B94
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -47,6 +51,12 @@ public class DictItemVO extends DictItem {
 	*/
 	@ApiModelProperty(required = false,value="搜索的值" , notes = "")
 	private String searchValue;
+	
+	/**
+	 * 已修改字段
+	*/
+	@ApiModelProperty(required = false,value="已修改字段" , notes = "")
+	private List<String> dirtyFields;
 	
 	/**
 	 * 排序字段
@@ -157,6 +167,35 @@ public class DictItemVO extends DictItem {
 	}
 	
 	/**
+	 * 获得 已修改字段<br>
+	 * @return 已修改字段
+	*/
+	public List<String> getDirtyFields() {
+		return dirtyFields;
+	}
+	
+	/**
+	 * 设置 已修改字段
+	 * @param dirtyFields 已修改字段
+	 * @return 当前对象
+	*/
+	public DictItemVO setDirtyFields(List<String> dirtyFields) {
+		this.dirtyFields=dirtyFields;
+		return this;
+	}
+	
+	/**
+	 * 添加 已修改字段
+	 * @param dirtyField 已修改字段
+	 * @return 当前对象
+	*/
+	public DictItemVO addDirtyField(String... dirtyField) {
+		if(this.dirtyFields==null) dirtyFields=new ArrayList<>();
+		this.dirtyFields.addAll(Arrays.asList(dirtyField));
+		return this;
+	}
+	
+	/**
 	 * 获得 排序字段<br>
 	 * @return 排序字段
 	*/
@@ -216,9 +255,20 @@ public class DictItemVO extends DictItem {
 	 * @param id 主键清单
 	 * @return 当前对象
 	*/
-	public DictItemVO addId(String id) {
+	public DictItemVO addId(String... id) {
 		if(this.ids==null) ids=new ArrayList<>();
-		this.ids.add(id);
+		this.ids.addAll(Arrays.asList(id));
 		return this;
+	}
+	@Transient
+	private CompositeParameter $compositeParameter;
+	/**
+	 * 获得解析后的复合查询参数
+	 */
+	@Transient
+	public CompositeParameter getCompositeParameter() {
+		if($compositeParameter!=null) return  $compositeParameter;
+		$compositeParameter=new CompositeParameter(this.getSearchValue(),BeanUtil.toMap(this));
+		return  $compositeParameter;
 	}
 }

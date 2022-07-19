@@ -16,6 +16,8 @@ import org.github.foxnic.web.generator.module.oauth.SysUserConfig;
 import org.github.foxnic.web.generator.module.pcm.PcmCatalogAllocationConfig;
 import org.github.foxnic.web.generator.module.pcm.PcmCatalogAttributeConfig;
 import org.github.foxnic.web.generator.module.pcm.PcmCatalogConfig;
+import org.github.foxnic.web.generator.module.system.SysDictConfig;
+import org.github.foxnic.web.generator.module.system.SysDictItemConfig;
 import org.github.foxnic.web.generator.module.system.TenantConfig;
 
 import java.io.File;
@@ -35,8 +37,8 @@ public class CodeStarter extends ModuleCodeGenerator {
     public void initModules() {
 
 //        initPcmModules();
-        initOAuthModules();
-//        initSystemModules();
+//        initOAuthModules();
+        initSystemModules();
 //        initHrmModules();
 //        initExampleModules();
 //        initChangeModule1s();
@@ -151,15 +153,15 @@ public class CodeStarter extends ModuleCodeGenerator {
 //        this.addConfig(new BusiRoleConfig());
 //        this.addConfig(new BusiRoleMemberConfig());
 
-//        this.addConfig(new SysDictConfig());
+        this.addConfig(new SysDictConfig());
 //        this.addConfig(new SysConfigConfig());
 //        this.addConfig(new SysProfileConfig());
-//        this.addConfig(new SysDictItemConfig());
+        this.addConfig(new SysDictItemConfig());
 //        this.addConfig(new SysFileConfig());
         //
 //        this.addConfig(new SequenceConfig());
 //        this.addConfig(new UserTenantConfig());
-        this.addConfig(new TenantConfig());
+//        this.addConfig(new TenantConfig());
 
 
     }

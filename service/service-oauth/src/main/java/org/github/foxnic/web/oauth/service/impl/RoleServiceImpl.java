@@ -68,7 +68,18 @@ public class RoleServiceImpl extends SuperService<Role> implements IRoleService 
 	 * */
 	@Override
 	public Result insert(Role role) {
-		return super.insert(role);
+		Result result = super.insert(role);
+		if(result.success()) {
+			String userId=SessionUser.getCurrent().getUserId();
+			if (role instanceof RoleVO) {
+
+				RoleVO vo = (RoleVO) role;
+				if(vo.getMenuIds()!=null && !vo.getMenuIds().isEmpty()) {
+					roleMenuService.saveMenuIds(userId, role, vo.getMenuIds());
+				}
+			}
+		}
+		return result;
 	}
 
 	/**

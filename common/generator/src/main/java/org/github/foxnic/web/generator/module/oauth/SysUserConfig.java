@@ -125,6 +125,7 @@ public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
                 .search().inputWidth(180).on(FoxnicWeb.SYS_ROLE.ID).selectMuliti(false).triggerOnSelect(true)
                 .form().selectBox().muliti(true,false).queryApi(RoleServiceProxy.QUERY_LIST).fillWith(UserMeta.ROLES)
                 .valueField(RoleMeta.ID).textField(RoleMeta.NAME).muliti(true,false)
+                .form().validate().required()
         ;
 
         context.view().field(SYS_USER.PORTRAIT_ID)

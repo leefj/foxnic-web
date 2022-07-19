@@ -1,7 +1,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-18 14:46:32
+ * @since 2022-07-19 09:40:03
  */
 
 function FormPage() {
@@ -152,6 +152,8 @@ function FormPage() {
 			el: "roleIds",
 			radio: false,
 			filterable: true,
+			layVerify: 'required',
+			layVerType: 'msg',
 			toolbar: {show:true,showIcon:true,list:[ "ALL", "CLEAR","REVERSE"]},
 			on: function(data){
 				setTimeout(function () {

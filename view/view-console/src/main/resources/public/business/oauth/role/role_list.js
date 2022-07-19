@@ -6,19 +6,19 @@
 
 
 function ListPage() {
-        
+
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect;
 	//模块基础路径
 	const moduleURL="/service-oauth/sys-role";
-	
+
 	/**
       * 入口函数，初始化
       */
 	this.init=function(layui) {
-     	
+
      	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload,laydate= layui.laydate;
 		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
-		
+
      	//渲染表格
      	renderTable();
 		//初始化搜索输入框组件
@@ -30,8 +30,8 @@ function ListPage() {
 		//绑定行操作按钮事件
     	bindRowOperationEvent();
      }
-     
-     
+
+
      /**
       * 渲染表格
       */
@@ -46,7 +46,7 @@ function ListPage() {
 			fox.renderTable({
 				elem: '#data-table',
 				toolbar: '#toolbarTemplate',
-				defaultToolbar: ['filter', 'print'],
+				defaultToolbar: ['filter', 'print',{title: '刷新数据',layEvent: 'refresh-data',icon: 'layui-icon-refresh-3'}],
 				url: moduleURL +'/query-paged-list',
 				height: 'full-'+(h+28),
 				limit: 50,
@@ -93,8 +93,8 @@ function ListPage() {
 		var ps={searchField: "$composite", searchValue: JSON.stringify(value),sortField: sortField,sortType: sortType};
 		table.reload('data-table', { where : ps });
 	}
-    
-	
+
+
 	/**
 	  * 获得已经选中行的数据,不传入 field 时，返回所有选中的记录，指定 field 时 返回指定的字段集合
 	  */
@@ -105,7 +105,7 @@ function ListPage() {
 		for(var i=0;i<data.length;i++) data[i]=data[i][field];
 		return data;
 	}
-	
+
 	/**
 	 * 重置搜索框
 	 */
@@ -121,7 +121,7 @@ function ListPage() {
 
 		fox.renderSearchInputs();
 	}
-	
+
 	/**
 	 * 绑定搜索框事件
 	 */
@@ -148,7 +148,7 @@ function ListPage() {
 			});
 		});
 	}
-	
+
 	/**
 	 * 绑定按钮事件
 	  */
@@ -163,6 +163,9 @@ function ListPage() {
 					break;
 				case 'batch-del':
 					batchDelete();
+					break;
+				case 'refresh-data':
+					refreshTableData();
 					break;
 				case 'other':
 					break;
@@ -180,10 +183,10 @@ function ListPage() {
         	var data={};
             showEditForm(data);
         };
-		
+
         //批量删除按钮点击事件
         function batchDelete() {
-          
+
 			var ids=getCheckedList("id");
             if(ids.length==0) {
             	layer.msg(fox.translate('请选择需要删除的')+fox.translate('角色')+"!");
@@ -205,7 +208,7 @@ function ListPage() {
 			});
         }
 	}
-     
+
     /**
      * 绑定行操作按钮事件
      */
@@ -214,7 +217,7 @@ function ListPage() {
 		table.on('tool(data-table)', function (obj) {
 			var data = obj.data;
 			var layEvent = obj.event;
-	
+
 			if (layEvent === 'edit') { // 修改
 				//延迟显示加载动画，避免界面闪动
 				var task=setTimeout(function(){layer.load(2);},1000);
@@ -227,9 +230,9 @@ function ListPage() {
 						 layer.msg(data.message, {icon: 1, time: 1500});
 					}
 				});
-				
+
 			} else if (layEvent === 'del') { // 删除
-			
+
 				layer.confirm(fox.translate('确定删除此')+fox.translate('角色')+fox.translate('吗？'), function (i) {
 					layer.close(i);
 					layer.load(2);
@@ -243,12 +246,12 @@ function ListPage() {
 						}
 					});
 				});
-				
-			}  
+
+			}
 		});
- 
+
     };
-    
+
     /**
      * 打开编辑窗口
      */

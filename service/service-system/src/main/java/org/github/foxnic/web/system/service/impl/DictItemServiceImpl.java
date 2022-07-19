@@ -123,7 +123,7 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 		DictItem dictItem = new DictItem();
 		if(id==null) return ErrorDesc.failure().message("id 不允许为 null 。");
 		dictItem.setId(id);
-		dictItem.setDeleted(dao.getDBTreaty().getTrueValue());
+		dictItem.setDeleted(true);
 		dictItem.setDeleteBy((String)dao.getDBTreaty().getLoginUserId());
 		dictItem.setDeleteTime(new Date());
 		try {
