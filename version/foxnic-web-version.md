@@ -8,6 +8,7 @@
 6、在 header 中传入 nulls 只是后端是否返回 null 值
 7、增加JS日志工具类
 8、SQL 体系增加 parent 校验以及加入 clone 方法
+9、代码生成 colorful badge 支持
 
 ### Bug 修复
 1、增加 首页、Tab组件、弹窗等 iframe 销毁逻辑，提升性能
