@@ -51,7 +51,7 @@ public class DemoLeaveConfig extends BaseCodeConfig<BPM_DEMO_LEAVE> {
 //     view.field(BPM_FORM_DEFINITION.ID).basic().hidden();
         view.field(BPM_DEMO_LEAVE.TYPE).search().hidden()
                 .form().validate().required()
-                .form().selectBox().dict(DictEnum.LEAVE_TYPE);
+                .form().selectBox().dict(DictEnum.LEAVE_TYPE).table().useThemeBadgeStyle();
         view.field(BPM_DEMO_LEAVE.BEGIN_TIME).search().hidden().form().validate().required()
                 .form().dateInput().renderAtTop(true);
         view.field(BPM_DEMO_LEAVE.END_TIME).search().hidden().form().validate().required()
@@ -65,20 +65,20 @@ public class DemoLeaveConfig extends BaseCodeConfig<BPM_DEMO_LEAVE> {
 
         view.field("processTitle").basic().label("流程抬头")
                 .search().hidden().form().hidden()
-                .table().fillByProperty(DemoLeaveMeta.DEFAULT_PROCESS, ProcessInstanceMeta.TITLE);
+                .table().fillByProperty(DemoLeaveMeta.DEFAULT_PROCESS, ProcessInstanceMeta.TITLE).useThemeBadgeStyle();
 
         view.field("processStatus").basic().label("审批状态")
                 .search().hidden().form().hidden()
-                .table().fillByProperty(DemoLeaveMeta.DEFAULT_PROCESS,ProcessInstanceMeta.APPROVAL_STATUS_NAME);
+                .table().fillByProperty(DemoLeaveMeta.DEFAULT_PROCESS,ProcessInstanceMeta.APPROVAL_STATUS_NAME).useThemeBadgeStyle();
 
 
         view.field("currNodes").basic().label("待审节点")
                 .search().hidden().form().hidden()
-                .table().fillByProperty(DemoLeaveMeta.DEFAULT_PROCESS, ProcessInstanceMeta.TODO_TASKS,TaskMeta.NODE_NAME);
+                .table().fillByProperty(DemoLeaveMeta.DEFAULT_PROCESS, ProcessInstanceMeta.TODO_TASKS,TaskMeta.NODE_NAME).useThemeBadgeStyle();
 
         view.field("drafterName").basic().label("起草人")
                 .search().hidden().form().hidden()
-                .table().fillByProperty(DemoLeaveMeta.DEFAULT_PROCESS, ProcessInstanceMeta.DRAFTER_NAME);
+                .table().fillByProperty(DemoLeaveMeta.DEFAULT_PROCESS, ProcessInstanceMeta.DRAFTER_NAME).useThemeBadgeStyle();
     }
 
 

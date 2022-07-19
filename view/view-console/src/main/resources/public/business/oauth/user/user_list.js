@@ -1,7 +1,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-19 09:40:03
+ * @since 2022-07-19 16:36:52
  */
 
 
@@ -80,10 +80,10 @@ function ListPage() {
 					,{ field: 'account', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('账户') , templet: function (d) { return templet('account',d.account,d);}  }
 					,{ field: 'realName', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('姓名') , templet: function (d) { return templet('realName',d.realName,d);}  }
 					,{ field: 'portraitId', align:"center", fixed:false, hide:false, sort: false   , title: fox.translate('头像'), templet: function (d) { return '<img style="height:100%;" fileType="image/png" onclick="window.previewImage(this)"  src="'+apiurls.storage.image+'?id='+ d.portraitId+'" />'; } }
-					,{ field: 'language', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('语言'), templet:function (d){ return templet('language',fox.getEnumText(RADIO_LANGUAGE_DATA,d.language),d);}}
+					,{ field: 'language', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('语言'), templet:function (d){ return templet('language',fox.getEnumText(RADIO_LANGUAGE_DATA,d.language,'["layui-badge","layui-badge layui-bg-green","layui-badge layui-bg-cyan","layui-badge layui-bg-blue","layui-badge layui-bg-gray"]'),d);}}
 					,{ field: 'phone', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('手机') , templet: function (d) { return templet('phone',d.phone,d);}  }
 					,{ field: 'valid', align:"center",fixed:false,  hide:false, sort: true  , title: fox.translate('是否有效'), templet: '#cell-tpl-valid'}
-					,{ field: 'roleIds', align:"",fixed:false,  hide:false, sort: false  , title: fox.translate('角色'), templet: function (d) { return templet('roleIds' ,fox.joinLabel(d.roles,"name"),d);}}
+					,{ field: 'roleIds', align:"",fixed:false,  hide:false, sort: false  , title: fox.translate('角色'), templet: function (d) { return templet('roleIds' ,fox.joinLabel(d.roles,"name",',','#BY-THEME'),d);}}
 					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('ID') , templet: function (d) { return templet('id',d.id,d);}  }
 					,{ field: 'cacheKey', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('缓存键') , templet: function (d) { return templet('cacheKey',d.cacheKey,d);}  }
 					,{ field: 'lastLoginTime', align:"right", fixed:false, hide:true, sort: true   ,title: fox.translate('最后登录时间') ,templet: function (d) { return templet('lastLoginTime',fox.dateFormat(d.lastLoginTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
@@ -346,7 +346,8 @@ function ListPage() {
             }
             //调用批量删除接口
 			top.layer.confirm(fox.translate('确定删除已选中的')+fox.translate('账户')+fox.translate('吗？'), function (i) {
-                admin.post(moduleURL+"/delete-by-ids", { ids: ids }, function (data) {
+                top.layer.close(i);
+				admin.post(moduleURL+"/delete-by-ids", { ids: ids }, function (data) {
                     if (data.success) {
 						if(window.pageExt.list.afterBatchDelete) {
 							var doNext=window.pageExt.list.afterBatchDelete(data);
@@ -357,7 +358,7 @@ function ListPage() {
                     } else {
 						fox.showMessage(data);
                     }
-                });
+                },{delayLoading:200,elms:[$("#delete-button")]});
 			});
         }
 	}
@@ -405,9 +406,7 @@ function ListPage() {
 
 				top.layer.confirm(fox.translate('确定删除此')+fox.translate('账户')+fox.translate('吗？'), function (i) {
 					top.layer.close(i);
-
-					top.layer.load(2);
-					admin.request(moduleURL+"/delete", { id : data.id }, function (data) {
+					admin.post(moduleURL+"/delete", { id : data.id }, function (data) {
 						top.layer.closeAll('loading');
 						if (data.success) {
 							if(window.pageExt.list.afterSingleDelete) {
@@ -419,7 +418,7 @@ function ListPage() {
 						} else {
 							fox.showMessage(data);
 						}
-					});
+					},{delayLoading:100, elms:[$(".ops-delete-button[data-id='"+data.id+"']")]});
 				});
 			}
 			else if (layEvent === 'open-tenant-owner') { // 属主

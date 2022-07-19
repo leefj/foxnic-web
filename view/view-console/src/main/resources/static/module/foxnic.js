@@ -1205,11 +1205,67 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             //
             inst.keyup(limit).bind("paste", limit).css("ime-mode", "disabled");
         },
+        badgeLabelIndex:0,
+        badgeLabelStyleMap:{},
+        getBadgeLabelStyle:function (styles,code,text) {
+            if(!styles) return "layui-badge-rim";
+            var s=this.badgeLabelStyleMap[text];
+            // debugger
+            if(!s) {
+                if(styles.type=="array") {
+                    s = styles.styles[this.badgeLabelIndex % styles.styles.length];
+                    this.badgeLabelIndex++;
+                } else if(styles.type=="map") {
+                    s = styles.styles[code];
+                }
+                this.badgeLabelStyleMap[text]=s;
+            }
 
-        joinLabel:function (data, key, sep) {
+            return s;
+        },
+        parseBadgeLabelStyle:function (styles) {
+            var type="";
+            if(TypeUtil.isObject(styles)) {
+                return styles;
+            }
+            if("#BY-THEME"==styles) {
+                styles=Theme.badgeStyles;
+                type="array";
+            } else if(styles.startWith("[") && styles.endWith("]")){
+                styles=JSON.parse(styles);
+                type="array";
+            }
+            else if(styles.startWith("{") && styles.endWith("}")){
+                styles=JSON.parse(styles);
+                type="map";
+            } else {
+                styles=null;
+            }
+
+            return {styles:styles,type:type};
+
+        },
+
+        joinLabel:function (data, key, sep,styles) {
             if (data==null) return "";
             var label = "";
             if (!sep) sep = ",";
+
+            if(styles) {
+                styles=this.parseBadgeLabelStyle(styles);
+                if(styles.type=="map") {
+                    var tmp=[];
+                    for (var p in styles.styles) {
+                        tmp.push(styles.styles[p]);
+                    }
+                    styles.styles=tmp;
+                    styles.type="array";
+                }
+            }
+
+
+
+
 
             if (Array.isArray(data)) {
                 var labels = [];
@@ -1217,21 +1273,42 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     if (data[i]==null) continue;
                     label = data[i][key];
                     if (label) {
-                        labels.push(label);
+                        if(styles) {
+                            labels.push("<span class='" + this.getBadgeLabelStyle(styles,label,label) + "'>" + label + "</span>");
+                        } else {
+                            labels.push(label);
+                        }
                     }
                 }
-                label = labels.join(sep);
+                if(styles) {
+                    label = labels.join(" ");
+                } else {
+                    label = labels.join(sep);
+                }
             } else {
                 label = data[key];
             }
             if (!label) label = "";
             return label;
         },
-        getEnumText: function (list, code) {
+        getEnumText: function (list, code,styles) {
             if(code==null || code=="") return code;
             if (list==null) return code;
+
+            styles=this.parseBadgeLabelStyle(styles);
+
             for (var i = 0; i < list.length; i++) {
-                if (list[i]["code"] == code) return list[i]["text"];
+                if (list[i]["code"] == code) {
+                    if(styles) {
+                        var text=list[i]["text"];
+                        if(text=="中文简体") {
+                            debugger
+                        }
+                        return "<span class='" + this.getBadgeLabelStyle(styles,code,text) + "'>" +text+"</span>";
+                    } else {
+                        return list[i]["text"];
+                    }
+                }
             }
 
 
@@ -1257,7 +1334,13 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 var text=null;
                 for (var i = 0; i < codes.length; i++) {
                     text=this.getEnumText(list,codes[i]);
-                    if(text) texts.push(text);
+                    if(text) {
+                        if(styles) {
+                            texts.push("<span class='" + this.getBadgeLabelStyle(styles,codes[i],text) + "'>" + text + "</span>");
+                        } else {
+                            texts.push(text);
+                        }
+                    }
                 }
                 if(texts.length>0) {
                     return texts.join(",");
@@ -1272,11 +1355,25 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
         /**
          * 获得指定属性的值
          * */
-        getProperty:function (data,path,start) {
-            // debugger
+        getProperty:function (data,path,start,styles) {
             if(data==null) return "";
             if(start==null) start=0;
             var prop,value=data;
+
+            if(styles) {
+                //debugger
+                styles=this.parseBadgeLabelStyle(styles);
+                if(styles.type=="map") {
+                    var tmp=[];
+                    for (var p in styles.styles) {
+                        tmp.push(styles.styles[p]);
+                    }
+                    styles.styles=tmp;
+                    styles.type="array";
+                }
+            }
+
+
             for (var i = start; i < path.length; i++) {
                 prop=path[i];
                 value=value[prop];
@@ -1284,26 +1381,55 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 if(TypeUtil.isArray(value) && value.length>0){
                     var rets=[];
                     for (var j = 0; j < value.length; j++) {
-                        var ret=this.getProperty(value[j],path,i+1);
+                        var ret=this.getProperty(value[j],path,i+1,styles);
                         if(TypeUtil.isArray(ret)) {
                             for (let k = 0; k < ret.length; k++) {
-                                rets.push(ret[k]);
+                                var text=ret[k];
+                                if(styles) {
+                                    rets.push("<span class='" + this.getBadgeLabelStyle(styles,text,text) + "'>" + text + "</span>");
+                                } else {
+                                    rets.push(text);
+                                }
                             }
                         } else {
-                            rets.push(ret);
+                            if(styles) {
+                                rets.push("<span class='" + this.getBadgeLabelStyle(styles,ret,ret) + "'>" + ret + "</span>");
+                            } else {
+                                rets.push(ret);
+                            }
                         }
                     }
-                    value=rets.join(",");
+                    if(styles) {
+                        value = rets.join(" ");
+                    } else {
+                        value = rets.join(",");
+                    }
                     return value;
+                } else {
+                    if(styles && !TypeUtil.isObject(value) && !TypeUtil.isArray(value)) {
+                        value = "<span class='" + this.getBadgeLabelStyle(styles, value, value) + "'>" + value + "</span>";
+                    }
                 }
             }
             return value;
         },
-        getDictText: function (list, code) {
+        getDictText: function (list, code,styles) {
             if(code==null || code=="") return code;
             if (list==null) return code;
+
+            if(styles) {
+                styles=this.parseBadgeLabelStyle(styles);
+            }
+
             for (var i = 0; i < list.length; i++) {
-                if (list[i]["code"] == code) return list[i]["text"];
+                if (list[i]["code"] == code) {
+                    var text=list[i]["text"];
+                    if(styles) {
+                        return "<span class='" + this.getBadgeLabelStyle(styles, code, text) + "'>"+text+"</span>";
+                    } else {
+                        return text;
+                    }
+                }
             }
             var codes=null;
             try {
@@ -1326,11 +1452,19 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 var texts=[];
                 var text=null;
                 for (var i = 0; i < codes.length; i++) {
-                    text=this.getDictText(list,codes[i]);
-                    if(text) texts.push(text);
+                    text=this.getDictText(list,codes[i],styles);
+                    if(styles){
+                        texts.push("<span class='" + this.getBadgeLabelStyle(styles, codes[i], text) + "'>"+text+"</span>");
+                    } else {
+                        texts.push(text);
+                    }
                 }
                 if(texts.length>0) {
-                    return texts.join(",");
+                    if(styles) {
+                        return texts.join(" ");
+                    } else {
+                        return texts.join(",");
+                    }
                 } else {
                     return "";
                 }

@@ -25,6 +25,8 @@ import org.github.foxnic.web.domain.system.meta.UserTenantMeta;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 import org.github.foxnic.web.proxy.oauth.RoleServiceProxy;
 
+import java.util.HashMap;
+
 public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
 
     public SysUserConfig() {
@@ -113,6 +115,7 @@ public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
                 .form().validate().required().phone();
 
         context.view().field(SYS_USER.LANGUAGE)
+                .table().useBadgeStyle("layui-badge","layui-badge layui-bg-green","layui-badge layui-bg-cyan","layui-badge layui-bg-blue","layui-badge layui-bg-gray")
                 .search().triggerOnSelect(true)
                 .form().radioBox().enumType(Language.class);
 
@@ -121,7 +124,7 @@ public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
         context.view().field(UserVOMeta.ROLE_IDS)
                 .basic().label("角色")
 //				.list().hidden(true)
-                .table().sort(false)
+                .table().sort(false).useThemeBadgeStyle()
                 .search().inputWidth(180).on(FoxnicWeb.SYS_ROLE.ID).selectMuliti(false).triggerOnSelect(true)
                 .form().selectBox().muliti(true,false).queryApi(RoleServiceProxy.QUERY_LIST).fillWith(UserMeta.ROLES)
                 .valueField(RoleMeta.ID).textField(RoleMeta.NAME).muliti(true,false)

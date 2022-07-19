@@ -253,7 +253,8 @@ var Theme={
 		headerMenuSelectedTextColor:"#009688",
 		//顶部菜单文本颜色
 		headerMenuDropDownTextColor:"#333333"
-	}
+	},
+	badgeStyles:["layui-badge","layui-badge layui-bg-green","layui-badge layui-bg-cyan","layui-badge layui-bg-blue"]
 };
 
 
