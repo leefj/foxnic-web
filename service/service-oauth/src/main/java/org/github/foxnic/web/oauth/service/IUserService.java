@@ -262,5 +262,13 @@ public interface IUserService extends ISimpleIdService<User,String> {
 	 * */
 	User getUserByIdentity(String identity);
 
+	/**
+	 * 修改密码
+	 * */
     Result changePasswd(String sessionUserId, String oldpwd, String newpwd);
+
+	/***
+	 * 管理员密码重置
+	 * */
+	Result resetPasswd(String userId, String adminPwd, String pwd);
 }

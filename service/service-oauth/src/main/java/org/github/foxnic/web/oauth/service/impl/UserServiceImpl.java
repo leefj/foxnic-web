@@ -31,6 +31,7 @@ import org.github.foxnic.web.oauth.service.IRoleUserService;
 import org.github.foxnic.web.oauth.service.IUserService;
 import org.github.foxnic.web.proxy.utils.SystemConfigProxyUtil;
 import org.github.foxnic.web.session.DynamicMenuHandler;
+import org.github.foxnic.web.session.SessionUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -377,6 +378,21 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 		user.setPasswd(newpwd);
 		this.update(user,SaveMode.DIRTY_FIELDS);
 		return ErrorDesc.success().message("密码已修改，请记住您的新密码！");
+	}
+
+	@Override
+	public Result resetPasswd(String userId, String adminPwd, String pwd) {
+		PasswordEncoder passwordEncoder=getPasswordEncoder();
+		User admin=this.getById(SessionUser.getCurrent().getUserId());
+		boolean march = passwordEncoder.matches(adminPwd, admin.getPasswd());
+		if(!march) {
+			return ErrorDesc.failure(CommonError.PASSWORD_INVALID).message("您的密码错误");
+		}
+		User user=this.getById(userId);
+		pwd=passwordEncoder.encode(pwd);
+		user.setPasswd(pwd);
+		this.update(user,SaveMode.DIRTY_FIELDS);
+		return ErrorDesc.success();
 	}
 
 }

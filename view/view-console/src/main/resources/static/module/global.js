@@ -184,6 +184,7 @@ TypeUtil={
 		return Number.isInteger(data);
 	},
 	isObject:function (data){
+		if(!data) return false;
 		return data.constructor === Object;
 	},
 	isString:function (data) {

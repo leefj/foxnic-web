@@ -108,6 +108,11 @@ public interface UserServiceProxy {
     public static final String CHANGE_PASSWD = API_PREFIX + "change-passwd";
 
     /**
+     * 重置密码
+     */
+    public static final String RESET_PASSWD = API_PREFIX + "reset-passwd";
+
+    /**
      * 添加账户
      */
     @RequestMapping(UserServiceProxy.INSERT)

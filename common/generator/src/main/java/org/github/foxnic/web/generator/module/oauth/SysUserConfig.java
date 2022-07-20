@@ -115,7 +115,7 @@ public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
                 .form().validate().required().phone();
 
         context.view().field(SYS_USER.LANGUAGE)
-                .table().useBadgeStyle("layui-badge","layui-badge layui-bg-green","layui-badge layui-bg-cyan","layui-badge layui-bg-blue","layui-badge layui-bg-gray")
+                .table().useThemeBadgeStyle()
                 .search().triggerOnSelect(true)
                 .form().radioBox().enumType(Language.class);
 
@@ -164,7 +164,11 @@ public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
         list.columnLayout(SYS_USER.ACCOUNT,SYS_USER.REAL_NAME,SYS_USER.PORTRAIT_ID,SYS_USER.LANGUAGE
                 ,SYS_USER.PHONE,SYS_USER.VALID,UserVOMeta.ROLE_IDS);
 
-        list.operationColumn().addActionButton("属主","openTenantOwner");
+//        list.operationColumn().addActionButton("属主","openTenantOwner");
+
+        list.operationColumn().addActionMenu("ownerRelation","属主关系");
+        list.operationColumn().addActionMenu("passwdReset","重置密码");
+
     }
 
     @Override

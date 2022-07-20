@@ -1,7 +1,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-19 16:36:52
+ * @since 2022-07-20 09:34:24
  */
 
 
@@ -80,10 +80,10 @@ function ListPage() {
 					,{ field: 'account', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('账户') , templet: function (d) { return templet('account',d.account,d);}  }
 					,{ field: 'realName', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('姓名') , templet: function (d) { return templet('realName',d.realName,d);}  }
 					,{ field: 'portraitId', align:"center", fixed:false, hide:false, sort: false   , title: fox.translate('头像'), templet: function (d) { return '<img style="height:100%;" fileType="image/png" onclick="window.previewImage(this)"  src="'+apiurls.storage.image+'?id='+ d.portraitId+'" />'; } }
-					,{ field: 'language', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('语言'), templet:function (d){ return templet('language',fox.getEnumText(RADIO_LANGUAGE_DATA,d.language,'["layui-badge","layui-badge layui-bg-green","layui-badge layui-bg-cyan","layui-badge layui-bg-blue","layui-badge layui-bg-gray"]'),d);}}
+					,{ field: 'language', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('语言'), templet:function (d){ return templet('language',fox.getEnumText(RADIO_LANGUAGE_DATA,d.language,'#BY-THEME','language'),d);}}
 					,{ field: 'phone', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('手机') , templet: function (d) { return templet('phone',d.phone,d);}  }
 					,{ field: 'valid', align:"center",fixed:false,  hide:false, sort: true  , title: fox.translate('是否有效'), templet: '#cell-tpl-valid'}
-					,{ field: 'roleIds', align:"",fixed:false,  hide:false, sort: false  , title: fox.translate('角色'), templet: function (d) { return templet('roleIds' ,fox.joinLabel(d.roles,"name",',','#BY-THEME'),d);}}
+					,{ field: 'roleIds', align:"",fixed:false,  hide:false, sort: false  , title: fox.translate('角色'), templet: function (d) { return templet('roleIds' ,fox.joinLabel(d.roles,"name",',','#BY-THEME','roleIds'),d);}}
 					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('ID') , templet: function (d) { return templet('id',d.id,d);}  }
 					,{ field: 'cacheKey', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('缓存键') , templet: function (d) { return templet('cacheKey',d.cacheKey,d);}  }
 					,{ field: 'lastLoginTime', align:"right", fixed:false, hide:true, sort: true   ,title: fox.translate('最后登录时间') ,templet: function (d) { return templet('lastLoginTime',fox.dateFormat(d.lastLoginTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
@@ -421,8 +421,22 @@ function ListPage() {
 					},{delayLoading:100, elms:[$(".ops-delete-button[data-id='"+data.id+"']")]});
 				});
 			}
-			else if (layEvent === 'open-tenant-owner') { // 属主
-				window.pageExt.list.openTenantOwner(data,this);
+			else if(obj.event === 'ops-more'){
+				//更多下拉菜单
+				dropdown.render({
+					elem: this
+					,show: true //外部事件触发即显示
+					,data: [{"id":"owner-relation","title":"属主关系"},{"id":"passwd-reset","title":"重置密码"}]
+					,click: function(menu, othis){
+						if(menu.perm && !admin.checkAuth(menu.perm)) {
+							top.layer.msg(fox.translate('缺少操作权限'), {icon: 2, time: 1500});
+							return;
+						}
+						window.pageExt.list.moreAction && window.pageExt.list.moreAction(menu,data, othis);
+					}
+					,align: 'right'
+					,style: 'box-shadow: 1px 1px 10px rgb(0 0 0 / 12%);'
+				});
 			}
 			
 		});

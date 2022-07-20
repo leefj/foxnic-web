@@ -47,14 +47,33 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * */
         moreAction:function (menu,data, it){
             console.log('moreAction',menu,data,it);
+            // debugger
+            if(menu.id=="owner-relation") {
+                this.openTenantOwner(data);
+            }
+            if(menu.id=="passwd-reset") {
+                this.openPasswdResetView(data);
+            }
+
+        },
+        openPasswdResetView:function (data){
+            admin.putTempData("userId",data.id,true);
+            var index = admin.popupCenter({
+                title: "重置密码 : "+data.realName,
+                resize: false,
+                id: 'passwdResetView',
+                area: ["400px", "290px"],
+                type: 2,
+                content: "/business/oauth/user/user_passwd_form.html"
+            });
         },
         openTenantOwner:function (data){
             admin.putTempData("userId",data.id,true);
             var index = admin.popupCenter({
-                title: data.name+"的所属租户",
+                title: "所属租户 : "+data.realName,
                 resize: false,
                 id: 'userTenantWindow',
-                area: ["800px", "600px"],
+                area: ["900px", "600px"],
                 type: 2,
                 content: "/business/system/user_tenant/user_tenant_list.html"
             });
