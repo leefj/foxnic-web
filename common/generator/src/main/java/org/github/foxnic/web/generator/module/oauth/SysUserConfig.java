@@ -157,6 +157,8 @@ public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
     @Override
     public void configForm(ViewOptions view, FormOptions form) {
         form.labelWidth(85);
+        // 开启右键菜单
+        form.enableContextMenu();
     }
 
     @Override
