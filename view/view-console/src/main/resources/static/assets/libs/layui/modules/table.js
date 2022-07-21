@@ -823,6 +823,10 @@ layui.define(['laytpl', 'laypage', 'layer', 'form', 'util'], function(exports){
           if(typeof options.parseData === 'function'){
             res = options.parseData(res) || res;
           }
+
+          // 李方捷添加的回调
+          options.afterRequest && options.afterRequest(res);
+
           //检查数据格式是否符合规范
           if(res[response.statusName] != response.statusCode){
             that.renderForm();

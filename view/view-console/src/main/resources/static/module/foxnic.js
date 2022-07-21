@@ -571,14 +571,17 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     $(cfg.elem).parent().find("table").css("opacity","0.0");
                     // debugger
                 },
-                parseData: function (res) { //res 即为原始返回的数据
-                    // debugger;
+                afterRequest:function (res) {
                     setTimeout(function (){
                         $(cfg.elem).parent().find("table").animate({
                             opacity:'1.0'
                         },100,null,function (){
                             $(cfg.elem).parent().find("table").css("opacity","1.0");});
                     },100);
+                },
+                parseData: function (res) { //res 即为原始返回的数据
+                    // debugger;
+
                     if (!res.success) {
                         alert(res.message);
                         return null;
