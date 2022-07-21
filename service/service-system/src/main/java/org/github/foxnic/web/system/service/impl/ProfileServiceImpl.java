@@ -267,7 +267,7 @@ public class ProfileServiceImpl extends SuperService<Profile> implements IProfil
 
 	@Override
 	public PagedList<Profile> queryPagedList(ProfileVO sample, int pageSize, int pageIndex) {
-		return null;
+		return super.queryPagedList(sample,pageSize,pageIndex);
 	}
 
 	@Override

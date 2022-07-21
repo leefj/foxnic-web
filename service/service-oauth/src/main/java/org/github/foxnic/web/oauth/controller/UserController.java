@@ -293,24 +293,18 @@ public class UserController extends SuperController {
 		Logger.info(requestParameter.getRequestTimeString() +","+ requestParameter.getRequestTimestamp());
 
 		Result<PagedList<User>> result=new Result<>();
+
 		PagedList<User> list=userService.queryPagedList(sample,sample.getPageSize(),sample.getPageIndex());
 		for (User user : list) {
 			user.setPasswd("");
 		}
-//		userService.join(list, Role.class);
+
 		//填充账户模型
 		userService.dao().fill(list)
-//				.with(UserMeta.MENUS)
-//				.with(UserMeta.MENUS, MenuMeta.RESOURCES)
-//				.with(UserMeta.MENUS, MenuMeta.PATH_RESOURCE)
 				.with(UserMeta.ROLES)
-//				.with(UserMeta.ROLE_MENUS)
-//				.with(UserMeta.JOINED_TENANTS, UserTenantMeta.TENANT, TenantMeta.COMPANY)
 				.with(UserMeta.JOINED_TENANTS,UserTenantMeta.EMPLOYEE, EmployeeMeta.PERSON)
-//				.with(UserMeta.JOINED_TENANTS,UserTenantMeta.EMPLOYEE, EmployeeMeta.POSITIONS)
-//				.with(UserMeta.JOINED_TENANTS,UserTenantMeta.EMPLOYEE, EmployeeMeta.ORGANIZATIONS)
-//				.with(UserMeta.JOINED_TENANTS,UserTenantMeta.EMPLOYEE, EmployeeMeta.BUSI_ROLES)
 				.execute();
+
 		result.success(true).data(list);
 		return result;
 	}
@@ -352,4 +346,4 @@ public class UserController extends SuperController {
 
 
 
-}
+}
