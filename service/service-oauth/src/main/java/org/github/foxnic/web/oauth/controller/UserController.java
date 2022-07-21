@@ -8,6 +8,9 @@ import com.github.foxnic.commons.encrypt.Base64Util;
 import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.FieldsBuilder;
+import com.github.foxnic.dao.entity.QuerySQLBuilder;
+import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.springboot.mvc.RequestParameter;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.github.xiaoymin.knife4j.annotations.ApiSort;
@@ -15,6 +18,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.domain.hrm.meta.EmployeeMeta;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.domain.oauth.UserVO;
@@ -299,10 +303,18 @@ public class UserController extends SuperController {
 			user.setPasswd("");
 		}
 
+		DAO dao=userService.dao();
+		FieldsBuilder roleFields= FieldsBuilder.build(dao, FoxnicWeb.SYS_ROLE.$TABLE).addAll().removeDBTreatyFields();
+		FieldsBuilder employeeFields= FieldsBuilder.build(dao, FoxnicWeb.HRM_EMPLOYEE.$TABLE).addAll().removeDBTreatyFields();
+		FieldsBuilder personFields= FieldsBuilder.build(dao, FoxnicWeb.HRM_PERSON.$TABLE).addAll().removeDBTreatyFields();
+		FieldsBuilder tenantFields= FieldsBuilder.build(dao, FoxnicWeb.SYS_TENANT.$TABLE).addAll().removeDBTreatyFields();
+		FieldsBuilder userTenantFields= FieldsBuilder.build(dao, FoxnicWeb.SYS_USER_TENANT.$TABLE).addAll().removeDBTreatyFields();
+
 		//填充账户模型
 		userService.dao().fill(list)
 				.with(UserMeta.ROLES)
 				.with(UserMeta.JOINED_TENANTS,UserTenantMeta.EMPLOYEE, EmployeeMeta.PERSON)
+				.fields(roleFields,employeeFields,personFields,tenantFields,userTenantFields)
 				.execute();
 
 		result.success(true).data(list);

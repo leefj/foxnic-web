@@ -7,6 +7,8 @@ import com.github.foxnic.commons.busi.id.IDGenerator;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.FieldsBuilder;
+import com.github.foxnic.dao.entity.QuerySQLBuilder;
 import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.sql.expr.ConditionExpr;
@@ -18,7 +20,6 @@ import org.github.foxnic.web.domain.hrm.Employee;
 import org.github.foxnic.web.domain.hrm.Person;
 import org.github.foxnic.web.domain.hrm.meta.EmployeeMeta;
 import org.github.foxnic.web.domain.oauth.Menu;
-import org.github.foxnic.web.domain.oauth.Role;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.domain.oauth.UserVO;
 import org.github.foxnic.web.domain.oauth.meta.MenuMeta;
@@ -261,7 +262,18 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 	 * */
 	@Override
 	public PagedList<User> queryPagedList(User sample, int pageSize, int pageIndex) {
-		return super.queryPagedList(sample, pageSize, pageIndex);
+
+		FieldsBuilder fieldsBuilder = this.createFieldsBuilder()
+				// 加入所有字段
+				.addAll()
+				// 移除规约字段
+				.removeDBTreatyFields()
+				// 移除密码字段
+				.remove(SYS_USER.PASSWD)
+				// 加入创建时间字段
+				.add(SYS_USER.CREATE_TIME);
+
+		return super.queryPagedList(sample, fieldsBuilder,pageSize, pageIndex);
 	}
 
 	/**
@@ -343,9 +355,6 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 				}
 			}
 		}
-
-
-
 
     	//设置用户语言
     	String usrLang=user.getLanguage();
