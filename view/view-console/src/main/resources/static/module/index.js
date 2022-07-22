@@ -100,12 +100,32 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
                 var navRightWidth=$(".layui-layout-right").width();
                 var buttonLimit=Math.floor((fullWidth-logoWidth-navRightWidth)/120)-2;
 
-                var activedButtonId=sessionStorage.getItem("nav_actived_top_menu_id_"+index.userId);
+                //debugger
+                var activedMenuId=sessionStorage.getItem("nav_actived_top_menu_data_id_"+index.userId);
+                var activedMenuIndex=-1;
+                for (var i = 0; i < tops.length; i++) {
+                    if(tops[i].id==activedMenuId) {
+                        activedMenuIndex=i;
+                        break;
+                    }
+                }
+                // 如果是属于下拉的，就交换位置
+                if(activedMenuIndex>=buttonLimit && buttonLimit<tops.length) {
 
-                debugger;
+                    var tmp=tops[buttonLimit-1];
+                    tops[buttonLimit-1]=tops[activedMenuIndex];
+                    tops[activedMenuIndex]=tops[buttonLimit];
+                    tops[buttonLimit]=tmp;
+
+                }
+
+
+
+                //debugger;
 
                 for (var i = 0; i < tops.length; i++) {
-                    var buttonId='nav-module-button-'+i;
+                    var menuId=tops[i].id;
+                    var buttonId='nav-module-button-'+menuId;
                     var textStyle="color:"+Theme.index.headerMenuTextColor+";";
                     var dropDownTextStyle="color:"+Theme.index.headerMenuDropDownTextColor+";";
 
@@ -120,19 +140,24 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
                             "<div>",
                         ]
                         menuItems.push({
-                            id:i,
+                            id:menuId,
+                            index:i,
+                            menuId:menuId,
                             title:tops[i].label,
                             templet:tps.join("\n")
 
                         });
                     } else {
                         //未超出部分按顺序加入头部菜单
-                        var button=['<li class="module-nav-item layui-nav-item" lay-unselect  index="'+i+'"  id="'+buttonId+'" style="line-height: 49px;">',
+                        var button=['<li class="module-nav-item layui-nav-item" lay-unselect  index="'+i+'" menuId="'+menuId+'"  id="'+buttonId+'" style="line-height: 49px;">',
                             '    <a id="'+buttonId+'-a" index="'+i+'" title="'+tops[i].label+'" style="font-size: 15px;'+textStyle+'"><i class="'+tops[i].css+'" style="font-size: 17px"></i>&nbsp;&nbsp;'+tops[i].label+'</a>',
                             '</li>' ]
                         $("#nav-modules").append(button.join("\n"));
                     }
                 }
+
+
+
                 if(menuItems.length>0) {
 
                     //加入顶部更多菜单项
@@ -147,25 +172,27 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
                         elem: '#more-top-menu-button-li'
                         , data: menuItems
                         , click: function (obj) {
-                            // debugger
-                            var topMenu = tops[obj.id];
+                            debugger
+                            var topMenu = tops[obj.index];
                             // layer.tips('点击了：'+ obj.title, this.elem, {tips: [1, '#5FB878']})
 
                             //之前选中的按钮恢复默认色
-                            var buttonId='nav-module-button-'+index.navModuleIndex+"-a";
+                            var buttonId='nav-module-button-'+tops[index.navModuleIndex].id+"-a";
                             $("#"+buttonId).css("color",Theme.index.headerMenuTextColor);
                             // var buttonId = 'nav-module-button-' + index.navModuleIndex + "-a";
                             // $("#" + buttonId).css("color", "#333333");
                             index.switchNavMenu(obj.id, topMenu.subMenus);
 
-                            index.navModuleIndex = 1024;
-                            buttonId = 'nav-module-button-' + index.navModuleIndex + "-a";
-                            $("#" + buttonId).css("color", Theme.index.headerMenuSelectedTextColor);
+                            index.navModuleIndex = obj.index;
+                            buttonId = 'nav-module-button-' + obj.id + "-a";
+                            $("#nav-module-button-1024-a").css("color", Theme.index.headerMenuSelectedTextColor);
 
                             $("#more-top-text").text(obj.title);
 
                             //记住点击的顶部菜单
+                            // debugger
                             sessionStorage.setItem("nav_actived_top_menu_id_"+index.userId,buttonId);
+                            sessionStorage.setItem("nav_actived_top_menu_data_id_"+index.userId,obj.menuId);
 
                         }
                     });
@@ -197,6 +224,7 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
                     var it=$(this);
                     //忽略自定义按钮事件
                     var idx=it.attr("index");
+                    var menuId=it.attr("menuId");
                     //点了更多菜单本身的情况
                     if(idx=="1024") return;
                     var topMenu=tops[idx];
@@ -207,15 +235,17 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
                         debugger;
                     }
                     //之前选中的按钮恢复默认色
-                    var buttonId='nav-module-button-'+index.navModuleIndex+"-a";
+                    var buttonId='nav-module-button-'+tops[index.navModuleIndex].id+"-a";
                     $("#"+buttonId).css("color",Theme.index.headerMenuTextColor);
                     //最新选中的按钮高亮
-                    buttonId='nav-module-button-'+idx+"-a";
+                    buttonId='nav-module-button-'+menuId+"-a";
                     $("#"+buttonId).css("color",Theme.index.headerMenuSelectedTextColor);
 
                     index.navModuleIndex=idx;
                     //记住点击的顶部菜单
+                    //debugger
                     sessionStorage.setItem("nav_actived_top_menu_id_"+index.userId,buttonId);
+                    sessionStorage.setItem("nav_actived_top_menu_data_id_"+index.userId,menuId);
                 });
                 pages=tops[activedTopMenuIndex].subMenus;
                 activedTopMenuButton.click();
