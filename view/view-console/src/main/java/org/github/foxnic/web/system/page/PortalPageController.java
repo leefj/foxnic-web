@@ -52,10 +52,10 @@ public class PortalPageController extends ViewController  {
 		model.addAttribute("moduleEnable", moduleEnable);
 
 
-		model.addAttribute("baseDir", "/console/pear");
-		return "console/pear/index.html";
+//		model.addAttribute("baseDir", "/console/pear");
+//		return "console/pear/index.html";
 
-		// return prefix+"index";
+		 return prefix+"index";
 	}
 
 	/**
