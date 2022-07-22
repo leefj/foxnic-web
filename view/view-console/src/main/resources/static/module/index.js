@@ -94,8 +94,16 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
         	//顶部导航按钮
             if(MODULE_ENABLE==1) {
                 var menuItems=[];
-                var buttonLimit=4;
-                // debugger
+                // 动态计算展示多少个模块
+                var fullWidth=$(window).width();
+                var logoWidth=$('.layui-logo').width();
+                var navRightWidth=$(".layui-layout-right").width();
+                var buttonLimit=Math.floor((fullWidth-logoWidth-navRightWidth)/120)-2;
+
+                var activedButtonId=sessionStorage.getItem("nav_actived_top_menu_id_"+index.userId);
+
+                debugger;
+
                 for (var i = 0; i < tops.length; i++) {
                     var buttonId='nav-module-button-'+i;
                     var textStyle="color:"+Theme.index.headerMenuTextColor+";";
@@ -156,6 +164,8 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
 
                             $("#more-top-text").text(obj.title);
 
+                            //记住点击的顶部菜单
+                            sessionStorage.setItem("nav_actived_top_menu_id_"+index.userId,buttonId);
 
                         }
                     });

@@ -289,13 +289,22 @@ function ListPage() {
 
 	}
 
-	function changeNodeName(id,name) {
+	function changeNodeInfo(param) {
+		var id = param.id;
+		var name=param.fullName;
+		if(param.shortName) {
+			name=param.shortName;
+		}
 		if(editingNode==null) return;
 		if(editingNode.id!=id) return;
 		editingNode.name=name;
+		// debugger
+		editingNode.iconSkin="icon_"+param.type;
+		editingNode.type=param.type;
+		// iconSkin:"icon_dept",type:"dept"
 		menuTree.updateNode(editingNode);
 	}
-	window.changeNodeName=changeNodeName;
+	window.changeNodeInfo=changeNodeInfo;
 
 	function removeHoverDom(treeId, treeNode) {
 			//if (treeNode.parentTId && treeNode.getParentNode().id!=1) return;
