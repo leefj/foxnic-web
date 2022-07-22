@@ -61,11 +61,12 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
                 if(menus[i].css && menus[i].css.indexOf("mdi-")>0) {
                     menus[i].style="padding-left: 4px;margin-right:-2px;";
                 }
+
         		if(menus[i].type!="folder" &&  menus[i].type!="page") continue;
         		if(menus[i].hidden==1) continue;
         		if(menus[i].type=="folder") menus[i].url="javascript:;";
 
-                    menus[i].label=foxnic.translate(menus[i].label);
+                menus[i].label=foxnic.translate(menus[i].label);
         		pages.push(menus[i]);
         		map[menus[i].id]=menus[i];
         	}
