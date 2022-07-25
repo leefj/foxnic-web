@@ -2,7 +2,7 @@
 /**
  * 在线会话 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-18 15:28:44
+ * @since 2022-07-25 14:02:30
  */
  -->
  <!DOCTYPE html>
@@ -61,16 +61,8 @@
                     <!-- 是否在线 , online ,typeName=number_input, isHideInSearch=true -->
                     <!-- 主机ID , hostId ,typeName=text_input, isHideInSearch=true -->
                     <!-- 节点实例ID , nodeId ,typeName=text_input, isHideInSearch=true -->
-                    <!-- accessToken , accessToken ,typeName=text_area, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('accessToken')}" class="search-label accessToken-label">accessToken</span><span class="search-colon">:</span></div>
-                        <input id="accessToken" class="layui-input search-input" style="width: 140px" type="text" />
-                    </div>
-                    <!-- refreshToken , refreshToken ,typeName=text_area, isHideInSearch=false -->
-                    <div class="search-unit">
-                        <div class="search-label-div" style=""><span th:text="${lang.translate('refreshToken')}" class="search-label refreshToken-label">refreshToken</span><span class="search-colon">:</span></div>
-                        <input id="refreshToken" class="layui-input search-input" style="width: 140px" type="text" />
-                    </div>
+                    <!-- accessToken , accessToken ,typeName=text_area, isHideInSearch=true -->
+                    <!-- refreshToken , refreshToken ,typeName=text_area, isHideInSearch=true -->
 
 
                 </div>

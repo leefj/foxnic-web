@@ -72,10 +72,12 @@ layui.define(['jquery', 'element'], function(exports) {
 				var left = e.clientX;
 				var menuWidth = 100;
 				var currentId = $(this).attr("lay-id");
-				var menu = "<ul><li class='item' id='" + option.elem +
-					"closeThis'>关闭当前</li><li class='item' id='" + option.elem +
-					"closeOther'>关闭其他</li><li class='item' id='" + option.elem +
-					"closeAll'>关闭所有</li></ul>";
+				var menu = "<ul>" +
+					"<li class='item' id='" + option.elem +"openNew'>独立窗口</li>" +
+					"<li class='item' id='" + option.elem +"closeThis'>关闭当前</li>" +
+					"<li class='item' id='" + option.elem +"closeOther'>关闭其他</li>" +
+					"<li class='item' id='" + option.elem +"closeAll'>关闭所有</li>" +
+					"</ul>";
 
 				contextTabDOM = $(this);
 				var isOutsideBounds = (left + menuWidth) > $(window).width();
@@ -89,7 +91,7 @@ layui.define(['jquery', 'element'], function(exports) {
 					shade: false,
 					skin: 'pear-tab-menu',
 					closeBtn: false,
-					area: [menuWidth + 'px', '108px'],
+					area: [menuWidth + 'px', '138px'],
 					fixed: true,
 					anim: false,
 					isOutAnim: false,
@@ -503,9 +505,10 @@ layui.define(['jquery', 'element'], function(exports) {
 
 		title += '</ul>';
 		content += '</div>';
-		control += '<dd id="closeThis"><a href="#">关 闭 当 前</a></dd>'
-		control += '<dd id="closeOther"><a href="#">关 闭 其 他</a></dd>'
-		control += '<dd id="closeAll"><a href="#">关 闭 全 部</a></dd>'
+		control += '<dd id="openNew"><a href="#">独立窗口</a></dd>'
+		control += '<dd id="closeThis"><a href="#">关闭当前</a></dd>'
+		control += '<dd id="closeOther"><a href="#">关闭其他</a></dd>'
+		control += '<dd id="closeAll"><a href="#">关闭全部</a></dd>'
 		control += '</dl></li></ul></li></div>';
 
 		tab += title;
@@ -539,7 +542,25 @@ layui.define(['jquery', 'element'], function(exports) {
 
 	function menuEvent(option, index) {
 
+		$("#" + option.elem + "openNew").click(function() {
+			var currentTab = contextTabDOM;
+			if (currentTab.find("span").is(".able-close")) {
+				var currentId = currentTab.attr("lay-id");
+				var ifr=$("#"+currentId);
+				var loc=ifr[0].contentWindow.location.href;
+				window.open(loc);
+			} else {
+				layer.msg("当前页面不无法打开独立窗口", {
+					icon: 3,
+					time: 800
+				})
+			}
+			layer.close(index);
+		})
+
+
 		$("#" + option.elem + "closeThis").click(function() {
+
 			var currentTab = contextTabDOM;
 
 			if (currentTab.find("span").is(".able-close")) {
@@ -581,6 +602,23 @@ layui.define(['jquery', 'element'], function(exports) {
 	}
 
 	function toolEvent(option) {
+
+		$("body .layui-tab[lay-filter='" + option.elem + "']").on("click", "#openNew", function() {
+			var currentTab = $(".layui-tab[lay-filter='" + option.elem +
+				"'] .layui-tab-title .layui-this");
+			if (currentTab.find("span").is(".able-close")) {
+				var currentId = currentTab.attr("lay-id");
+				var ifr=$("#"+currentId);
+				var loc=ifr[0].contentWindow.location.href;
+				window.open(loc);
+			} else {
+				layer.msg("当前页面不允许独立窗口", {
+					icon: 3,
+					time: 800
+				})
+			}
+		})
+
 		$("body .layui-tab[lay-filter='" + option.elem + "']").on("click", "#closeThis", function() {
 			var currentTab = $(".layui-tab[lay-filter='" + option.elem +
 				"'] .layui-tab-title .layui-this");

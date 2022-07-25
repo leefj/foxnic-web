@@ -509,6 +509,229 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 					});
 				}
 			}
+
+
+			// 补充的方法
+
+
+			this.toast = function() {
+				//https://gitee.com/wispx/toastr?_from=gitee_search
+				debugger;
+				//拦截，并由顶层弹出窗口
+				if(top && top!=window && top.admin) {
+					return top.admin.toast();
+				}
+				return $.toast;
+			};
+
+			var tempDataCache={};
+			this.getKeyPart =function (key) {
+				return (key.substr(0,1)+"~"+key.substr(key.length-1)).toUpperCase();
+			};
+			this.putVar = function (key, value) {
+				this.putTempData(key,value,true);
+			};
+			this.getVar = function (key,clearAfterGet) {
+				var value=this.getTempData(key);
+				if(clearAfterGet) {
+					admin.putVar(key,null);
+				}
+				return value;
+			};
+			// 缓存临时数据
+			this.putTempData=function (key, value, memoyOnly) {
+				//拦截，并由顶层弹出窗口
+				if(top && top!=window && top.admin) {
+					return top.admin.putTempData(key, value,memoyOnly);
+				}
+				var part=this.getKeyPart(key);
+				if(!memoyOnly) {
+					if (value) {
+						layui.sessionData('tempData-' + part, {key: key, value: value});
+					} else {
+						layui.sessionData('tempData-' + part, {key: key, remove: true});
+					}
+				}
+				tempDataCache[key]=value;
+			};
+			// 获取缓存临时数据
+			this.getTempData=function (key) {
+				if(top && top!=window && top.admin) {
+					return top.admin.getTempData(key);
+				}
+				var value=tempDataCache[key];
+				if(value!=null) return value;
+				var part=this.getKeyPart(key);
+				value=layui.sessionData('tempData-'+part)[key];
+				tempDataCache[key]=value;
+				return value;
+			};
+
+
+
+			var popupCenterParamMap={};
+			var popupCenterIndex, popupCenterParam;
+
+			// 中间弹出
+			this.popupCenter = function (param) {
+
+				//拦截，并由顶层弹出窗口
+				if(top && top!=window && top.admin) {
+					return top.admin.popupCenter(param);
+				}
+				// debugger
+				param.id =param.id ? param.id : 'adminPopupC';
+				if(!param.offset) param.offset="auto";
+				popupCenterParam = param;
+				popupCenterIndex = admin.open(param);
+				popupCenterParamMap[popupCenterIndex]=popupCenterParam;
+				var index=popupCenterIndex;
+				if(param.id) {
+					this.putVar("$$"+param.id+"-popup-index",index);
+				}
+
+				return index;
+			};
+
+			// 关闭中间弹出
+			this.closePopupCenter=function (index) {
+				if(top && top!=window && top.admin) {
+					top.admin.closePopupCenter(index);
+					return;
+				}
+				if(index) {
+					layer.close(index);
+					popupCenterParam=popupCenterParamMap[index];
+				} else {
+					layer.close(popupCenterIndex);
+					popupCenterParam=popupCenterParamMap[popupCenterIndex];
+				}
+			};
+
+			// 关闭中间弹出并且触发finish回调
+			this.finishPopupCenterById = function (id,ctx) {
+				// debugger;
+				var index=this.getVar("$$"+id+"-popup-index");
+				this.finishPopupCenter(index,ctx);
+			};
+			// 关闭中间弹出并且触发finish回调
+			this.finishPopupCenter =  function (index,ctx) {
+				//拦截，并由顶层窗口处理
+				if(top && top!=window && top.admin) {
+					top.admin.finishPopupCenter(index,ctx);
+					return;
+				}
+				console.log("finishPopupCenter.index="+index);
+				if(index) {
+					layer.close(index);
+					popupCenterParam=popupCenterParamMap[index];
+				} else {
+					layer.close(popupCenterIndex);
+					popupCenterParam=popupCenterParamMap[popupCenterIndex];
+				}
+				if(popupCenterParam) {
+					popupCenterParam.finish ? popupCenterParam.finish(ctx) : '';
+				}
+			};
+
+			// 封装layer.open
+			this.open = function (param) {
+				var sCallBack = param.success;
+				param.type =param.type?param.type:1;
+				param.area = param.area ? param.area : '450px';
+				param.offset = param.offset ? param.offset : '120px';
+				param.resize ? param.resize : false;
+				param.shade ? param.shade : .2;
+				param.success = function (layero, index) {
+					sCallBack ? sCallBack(layero, index) : '';
+					//var loc=param.path?param.path:param.content;
+					if(param.path) {
+						$(layero).children('.layui-layer-content').load(param.path);
+					}
+				};
+				// debugger;
+				return layer.open(param);
+			};
+
+			this.changePopupArea = function (width,height,popId) {
+				//$("body").attr('style', 'overflow-y:hidden');
+				if(top && top!=window && top.admin) {
+					var ret=top.admin.changePopupArea(width,height,popId);
+					setTimeout(function (){
+						//$("body").attr('style', 'overflow-y:auto');
+					},1000);
+					return ret;
+
+				}
+				// debugger;
+				var index=this.getVar("$$"+popId+"-popup-index");
+				if(index==null) index=popupCenterIndex;
+
+				//debugger;
+				var fullHeight=$(window).height();
+				var fullWidth=$(window).width();
+				var  pop=$("#layui-layer"+index);
+				if(pop.offset()==null) {
+					return null;
+				}
+				var title=pop.find(".layui-layer-title");
+				var titleHeight=title.height();
+
+				height=height+titleHeight+16;
+				height=Math.ceil(height);
+				//限制高度
+				var tooHeigh=false;
+				if(height>fullHeight-128) {
+					height=fullHeight-128;
+					tooHeigh=true;
+				}
+
+				var layerWidth= pop.width();
+				var layerHeight=pop.height();
+
+				var ifr=$('#layui-layer-iframe'+popupCenterIndex);
+
+				var layerTop= pop.offset().top;
+				var layerLeft=pop.offset().left;
+				var iframeWidth= ifr.width();
+				var iframeHeight=ifr.height();
+				var dw=width-layerWidth;
+				var dh=height-layerHeight;
+				var dx=dw/2;
+				var dy=dh/2;
+				iframeWidth+=dw;
+				iframeHeight+=dh;
+				iframeHeight=Math.ceil(iframeHeight);
+				iframeWidth=Math.ceil(iframeWidth);
+				layerTop=(fullHeight-height)*0.35;
+				layerLeft=(fullWidth-width)/2;
+				if(layerTop<0) layerTop=0;
+				if(layerLeft<0) layerLeft=0;
+				// $("body").css("overflow-y","hidden");
+
+				//修正mac
+				height+=1;
+
+				if(width) {
+					pop.animate({width:width+"px",left:layerLeft+"px"},200,"swing",function(){
+						//$("#layui-layer"+popupCenterIndex).animate({left:layerLeft+"px"},200,"swing");
+					});
+				}
+				if(height) {
+					pop.animate({height:(height)+"px",top:layerTop+"px"},200,"swing",function(){
+						//$("#layui-layer"+popupCenterIndex).animate({top:layerTop+"px"},200,"swing");
+					});
+				}
+				if(width) {
+					ifr.animate({height:iframeWidth+"px"},200);
+				}
+				if(height) {
+					ifr.animate({height:iframeHeight+"px"},200);
+				}
+				return {width:width,height:height,left:layerLeft,top:layerTop,tooHeigh:tooHeigh,iframeHeight:iframeHeight};
+			};
+
+
 		};
 
 		function refresh() {
@@ -1130,5 +1353,9 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 				}, awaitTime)
 			}
 		}
+
+
+
+		window.admin=pearAdmin;
 		exports('admin', pearAdmin);
 	})

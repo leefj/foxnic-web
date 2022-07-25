@@ -13,6 +13,7 @@
 		<!-- 图 标 样 式 -->
 		<link href="/assets/libs/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
 		<link href="/assets/libs/material-design-webfont/css/material-design-icons-min.css" rel="stylesheet">
+		<link rel="stylesheet" href="/assets/libs/toast/css/toast.css" th:href="'assets/libs/toast/css/toast.css?'+${cacheKey}" type="text/css">
 	</head>
 	<!-- 结 构 代 码 -->
 	<body class="layui-layout-body pear-admin">
@@ -95,8 +96,10 @@
 			<a href="#" class="layui-icon layui-icon-shrink-right"></a>
 		</div>
 		<!-- 依 赖 脚 本 -->
+		<script type="text/javascript" src="/assets/libs/jquery-3.2.1.min.js" th:src="'/assets/libs/jquery-3.2.1.min.js?'+${cacheKey}"></script>
 		<script src="component/layui/layui.js" th:src="${baseDir}+'/component/layui/layui.js?'+${cacheKey}"></script>
 		<script src="component/pear/pear.js" th:src="${baseDir}+'/component/pear/pear.js?'+${cacheKey}"></script>
+		<script type="text/javascript" src="/assets/libs/toast/js/toast.js" th:src="'/assets/libs/toast/js/toast.js?'+${cacheKey}"></script>
 		<!-- 框 架 初 始 化 -->
 		<script>
 			var BASE_DIR="[[${baseDir}]]";
