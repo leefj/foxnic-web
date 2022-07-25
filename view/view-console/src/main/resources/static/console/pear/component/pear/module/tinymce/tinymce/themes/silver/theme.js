@@ -21365,6 +21365,7 @@
         return renderLabel$2(spec, backstage.shared);
       }),
       iframe: makeIframe(function (spec, backstage) {
+          debugger
         return renderIFrame(spec, backstage.shared.providers);
       }),
       button: make$6(function (spec, backstage) {

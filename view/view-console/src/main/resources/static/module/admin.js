@@ -381,6 +381,7 @@ layui.define(['settings', 'layer'], function (exports) {
             console.log(param);
             $.ajax(param);
         },
+
         authorities:null,
         initAuthorities:function () {
             if(this.authorities!=null) {
@@ -421,12 +422,21 @@ layui.define(['settings', 'layer'], function (exports) {
         },
         // 判断是否为指定角色
         checkRole: function (role) {
-            if(top.admin.initRoles()==false) {
-
-                return false;
+            var roles=null;
+            if(top.admin && top.admin.initRoles) {
+                if (top.admin.initRoles() == false) {
+                    return false;
+                }
+                roles = top.admin.roles;
+            } else {
+                if (this.initRoles() == false) {
+                    return false;
+                }
+                roles = this.roles;
             }
+
             for (var i = 0; i < arguments.length; i++) {
-                if(!top.admin.roles[arguments[i]]) {
+                if(!roles[arguments[i]]) {
                     return false;
                 }
             }
@@ -436,17 +446,28 @@ layui.define(['settings', 'layer'], function (exports) {
         // 判断是否有权限
         checkAuth: function (auth) {
             // debugger
-            if(top.admin.initAuthorities()==false) {
-                return false;
+            var authorities=null;
+            if(top.admin &&  top.admin.initAuthorities) {
+                if( top.admin.initAuthorities()==false) {
+                    return false;
+                }
+                authorities=top.admin.authorities;
+            } else {
+                if( this.initAuthorities()==false) {
+                    return false;
+                }
+                authorities=this.authorities;
             }
+
             for (var i = 0; i < arguments.length; i++) {
-                if(!top.admin.authorities[arguments[i]]) {
+                if(!authorities[arguments[i]]) {
                     return false;
                 }
             }
             //
             return true;
         },
+
         // 窗口大小改变监听
         onResize: function () {
             if (config.autoRender) {

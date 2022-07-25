@@ -10,6 +10,15 @@
 
 .pear-tab .layui-tab-content .layui-tab-item {
 	height: 100%;
+	padding-top: 11px;
+	padding-left: 12px;
+	padding-right: 12px;
+	background-color: whitesmoke;
+}
+
+.tap-iframe {
+	border: solid 1px #efefef;
+	border-radius: 2px;
 }
 
 .pear-tab-menu{

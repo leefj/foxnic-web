@@ -101,15 +101,29 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 
 					menus[i].title=menus[i].label;
 					menus[i].icon=menus[i].css;
+					menus[i].openType = "_iframe";
+					menus[i].href = menus[i].path;
 
+					if(menus[i].parentId=='0'){
+						menus[i].level=0;
+					}
+					//debugger
 					if(menus[i].css && menus[i].css.indexOf("mdi-")>0) {
 						menus[i].style="padding-left: 4px;margin-right:-2px;";
 					}
-
+					// if(menus[i].title=="工作台") {
+					// 	debugger;
+					// }
 					if(menus[i].type!="folder" &&  menus[i].type!="page") continue;
 					if(menus[i].hidden==1) continue;
 					if(menus[i].type=="folder") menus[i].url="javascript:;";
-					menus[i].type=1;
+
+					if(menus[i].type=="folder") {
+						menus[i].type=0;
+					} else if(menus[i].type=="page") {
+						menus[i].type=1;
+					}
+
 					// menus[i].label=foxnic.translate(menus[i].label);
 					pages.push(menus[i]);
 					map[menus[i].id]=menus[i];
@@ -120,8 +134,9 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 				for (var i = 0; i < pages.length; i++) {
 
 					if(pages[i].parentId=='0'){
-						pages[i].type=0;
+						// pages[i].type=0;
 						topMenus.push(pages[i]);
+
 						continue;
 					}
 
@@ -131,12 +146,28 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 					if(children==null) {
 						children=[];
 						p.children=children;
+
 					}
+					pages[i].level=p.level+1;
 					children.push(pages[i]);
 					//如果有下级，则转为 folder
-					p.type=0;
+					// p.type=0;
 					p.url="javascript:;";
 				}
+
+				// for (var i = 0; i < pages.length; i++) {
+				// 	if(pages[i].title=="工作台") {
+				// 		debugger;
+				// 	}
+				// 	if(pages[i].children && pages[i].children.length==0) {
+				// 		delete  pages[i].children;
+				// 	}
+				// 	if(!pages[i].children) {
+				// 		pages[i].type=0;
+				// 	}
+				//
+				// }
+
 
 				//debugger
 				sideMenu = pearMenu.render({
@@ -808,8 +839,9 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 			moreItem +=
 				'<div class="layui-form-item"><div class="layui-input-inline"><input type="checkbox" name="auto-head" lay-filter="auto-head" lay-skin="switch" lay-text="开|关"></div><span class="set-text">通色</span></div>';
 
-			moreItem +=
-				'<div class="layui-form-item"><div class="layui-input-inline"><input type="checkbox" name="footer" lay-filter="footer" lay-skin="switch" lay-text="开|关"></div><span class="set-text">页脚</span></div>';
+			// 关闭页脚控制
+			// moreItem +=
+			//	 '<div class="layui-form-item"><div class="layui-input-inline"><input type="checkbox" name="footer" lay-filter="footer" lay-skin="switch" lay-text="开|关"></div><span class="set-text">页脚</span></div>';
 
 			var moreHtml = '<br><div class="pearone-color">\n' +
 				'<div class="color-title">更多设置</div>\n' +
@@ -883,6 +915,8 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 					})
 
 					form.on('switch(footer)', function (data) {
+						// 强行关闭
+						this.checked = false;
 						localStorage.setItem("footer", this.checked);
 						pearAdmin.footer(this.checked);
 					})

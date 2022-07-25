@@ -180,9 +180,9 @@ layui.define(['jquery', 'element'], function(exports) {
 		}
 		element.tabAdd(this.option.elem, {
 			title: title,
-			content: '<iframe id="' + opt.id + '" data-frameid="' + opt.id +
+			content: '<iframe class="tap-iframe"  id="' + opt.id + '" data-frameid="' + opt.id +
 				'" scrolling="auto" frameborder="0" src="' +
-				opt.url + '" style="width:100%;height:100%;"></iframe>',
+				opt.url + '" style="width:100%;height: calc(100% - 24px);"></iframe>',
 			id: opt.id
 		});
 		tabData.push(opt);
@@ -253,9 +253,9 @@ layui.define(['jquery', 'element'], function(exports) {
 		if ($(".layui-tab[lay-filter='" + elem + "'] .layui-tab-title li[lay-id]").length <= 0) {
 			element.tabAdd(elem, {
 				title: title,
-				content: '<iframe id="' + opt.id + '" data-frameid="' + opt.id +
+				content: '<iframe class="tap-iframe"  id="' + opt.id + '" data-frameid="' + opt.id +
 					'" scrolling="auto" frameborder="0" src="' +
-					opt.url + '" style="width:100%;height:100%;"></iframe>',
+					opt.url + '" style="width:100%;height: calc(100% - 24px);"></iframe>',
 				id: opt.id
 			});
 			if (time != false && time != 0) {
@@ -274,9 +274,9 @@ layui.define(['jquery', 'element'], function(exports) {
 			if (isData == false) {
 				element.tabAdd(elem, {
 					title: title,
-					content: '<iframe id="' + opt.id + '" data-frameid="' + opt.id +
+					content: '<iframe class="tap-iframe"  id="' + opt.id + '" data-frameid="' + opt.id +
 						'" scrolling="auto" frameborder="0" src="' +
-						opt.url + '" style="width:100%;height:100%;"></iframe>',
+						opt.url + '" style="width:100%;height: calc(100% - 24px);"></iframe>',
 					id: opt.id
 				});
 				if (time != false && time != 0) {
@@ -305,9 +305,9 @@ layui.define(['jquery', 'element'], function(exports) {
 			0) {
 			element.tabAdd(this.option.elem, {
 				title: title,
-				content: '<iframe id="' + opt.id + '" data-frameid="' + opt.id +
+				content: '<iframe class="tap-iframe"  id="' + opt.id + '" data-frameid="' + opt.id +
 					'" scrolling="auto" frameborder="0" src="' +
-					opt.url + '" style="width:100%;height:100%;"></iframe>',
+					opt.url + '" style="width:100%;height: calc(100% - 24px);"></iframe>',
 				id: opt.id
 			});
 			if (time != false && time != 0) {
@@ -340,9 +340,9 @@ layui.define(['jquery', 'element'], function(exports) {
 
 				element.tabAdd(this.option.elem, {
 					title: title,
-					content: '<iframe id="' + opt.id + '" data-frameid="' + opt.id +
+					content: '<iframe class="tap-iframe"  id="' + opt.id + '" data-frameid="' + opt.id +
 						'" scrolling="auto" frameborder="0" src="' +
-						opt.url + '" style="width:100%;height:100%;"></iframe>',
+						opt.url + '" style="width:100%;height: calc(100% - 24px);"></iframe>',
 					id: opt.id
 				});
 				if (time != false && time != 0) {
@@ -442,7 +442,7 @@ layui.define(['jquery', 'element'], function(exports) {
 	}
 
 	function createTab(option) {
-
+		// debugger
 		var type = "";
 		var types = option.type + " ";
 		if (option.roll == true) {
@@ -484,19 +484,19 @@ layui.define(['jquery', 'element'], function(exports) {
 			if (option.index == index) {
 
 				// 处 理 显 示 内 容
-				content += '<div class="layui-show layui-tab-item"><iframe id="' + item.id +
+				content += '<div class="layui-show layui-tab-item"><iframe class="tap-iframe" id="' + item.id +
 					'" data-frameid="' + item.id +
 					'"  src="' + item.url +
-					'" frameborder="no" border="0" marginwidth="0" marginheight="0" style="width: 100%;height: 100%;"></iframe></div>'
+					'" frameborder="no" border="0" marginwidth="0" marginheight="0" style="width: 100%;height: calc(100% - 24px);"></iframe></div>'
 			} else {
 				if (!option.preload) {
 					item.url = "about:blank";
 				}
 				// 处 理 显 示 内 容
-				content += '<div class="layui-tab-item"><iframe id="' + item.id + '" data-frameid="' +
+				content += '<div class="layui-tab-item"><iframe class="tap-iframe" id="' + item.id + '" data-frameid="' +
 					item.id + '"  src="' +
 					item.url +
-					'" frameborder="no" border="0" marginwidth="0" marginheight="0" style="width: 100%;height: 100%;"></iframe></div>'
+					'" frameborder="no" border="0" marginwidth="0" marginheight="0" style="width: 100%;height: calc(100% - 24px);"></iframe></div>'
 			}
 			index++;
 		});

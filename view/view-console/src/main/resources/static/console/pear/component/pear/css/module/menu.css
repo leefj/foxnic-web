@@ -2,11 +2,12 @@
 	width: 230px;
 	border-radius: 0px;
 	background-color: #28333E;
+	margin-top: 8px;
 }
 
 .pear-nav-tree .layui-nav-item>a {
-	height: 56px;
-	line-height: 56px;
+	height: 42px;
+	line-height: 42px;
 	padding-top: 0px;
 	padding-bottom: 0px;
 }
@@ -48,11 +49,11 @@
 
 
 .pear-nav-tree .layui-nav-item a i {
-	margin-right: 12px;
+	margin-right: 8px;
 }
 
 .pear-nav-tree .layui-nav-item a span {
-	letter-spacing: 2px;
+	letter-spacing: 1px;
 	font-size: 13.5px;
 }
 
@@ -222,7 +223,7 @@
 	height: auto;
 	line-height: normal;
 	border: none;
-	top: 23px;
+	top: 14px;
 	margin-right: 2px !important;
 	margin: 0;
 	padding: 0;

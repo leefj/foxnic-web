@@ -589,6 +589,7 @@
 
     var getIframeHtml = function (data) {
       var allowFullscreen = data.allowFullscreen ? ' allowFullscreen="1"' : '';
+      debugger
       return '<iframe src="' + data.source + '" width="' + data.width + '" height="' + data.height + '"' + allowFullscreen + '></iframe>';
     };
     var getFlashHtml = function (data) {
@@ -660,6 +661,7 @@
           data[key] = editor.dom.encode('' + value);
         });
         if (data.type === 'iframe') {
+          debugger
           return getIframeHtml(data);
         } else if (data.sourcemime === 'application/x-shockwave-flash') {
           return getFlashHtml(data);
