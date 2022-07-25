@@ -23,7 +23,7 @@ layui.define(["jquery","layer"], function (exports) {
 	}
 
 	theme.colorSet = function(color, second) {
-		
+
 		let style = '';
 		style += '.light-theme .pear-nav-tree .layui-this a:hover,.light-theme .pear-nav-tree .layui-this,.light-theme .pear-nav-tree .layui-this a,.pear-nav-tree .layui-this a,.pear-nav-tree .layui-this{background-color: ' +color + '!important;}';
 		style += '.pear-admin .layui-logo .title{color:' + color + '!important;}';
@@ -34,7 +34,7 @@ layui.define(["jquery","layer"], function (exports) {
 		style += '.layui-header .layui-nav-child .layui-this a{background-color:' + color +'!important;color:white!important;}';
 		style += '#preloader{background-color:' + color + '!important;}';
 		style += '.pearone-color .color-content li.layui-this:after, .pearone-color .color-content li:hover:after {border: ' +color + ' 3px solid!important;}';
-		style += '.layui-nav .layui-nav-child dd.layui-this a, .layui-nav-child dd.layui-this{background-color:' + color + ';color:white;}';	
+		style += '.layui-nav .layui-nav-child dd.layui-this a, .layui-nav-child dd.layui-this{background-color:' + color + ';color:white;}';
 		style += '.pear-social-entrance {background-color:' + color + '!important}';
 		style += '.pear-admin .pe-collapse {background-color:' + color + '!important}';
 		style += '.layui-fixbar li {background-color:' + color + '!important}';

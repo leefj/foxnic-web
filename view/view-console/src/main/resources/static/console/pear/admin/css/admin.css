@@ -140,6 +140,7 @@ body,
 .pear-admin .layui-header .layui-nav .layui-nav-item>a {
 	color: black;
 	font-size: 15px;
+	line-height: 60px;
 }
 
 .pear-admin .layui-body {

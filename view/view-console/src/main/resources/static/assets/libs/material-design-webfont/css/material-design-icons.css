@@ -23844,8 +23844,10 @@
 }
 
 .mdi-18px.mdi-set, .mdi-18px.mdi:before {
-  font-size: 18px;
+  font-size: 17px;
 }
+
+
 
 .mdi-24px.mdi-set, .mdi-24px.mdi:before {
   font-size: 24px;

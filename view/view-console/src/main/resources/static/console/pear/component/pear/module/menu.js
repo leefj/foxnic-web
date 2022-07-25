@@ -1,9 +1,10 @@
-layui.define(['table', 'jquery', 'element'], function (exports) {
+layui.define(['table', 'jquery', 'element','dropdown'], function (exports) {
 	"use strict";
 
 	var MOD_NAME = 'menu',
 		$ = layui.jquery,
-		element = layui.element;
+		element = layui.element,
+		dropdown = layui.dropdown;
 
 	var pearMenu = function (opt) {
 		this.option = opt;
@@ -333,22 +334,70 @@ layui.define(['table', 'jquery', 'element'], function (exports) {
 		// 开 启 同 步 操 作
 		var index = 0;
 		var controlItemPe = '<dl class="layui-nav-child">';
+
+		var buttonLimit=3;
+		var menuItems=[];
+		var tps=[
+			"<div style='height:36px;margin-top:6px'>",
+			'   <a id="{{d.id}}-a" index="{{d.index}}" pear-id="{{d.id}}" title="{{d.title}}" style="font-size: 15px;display: flex;{{d.style}}">',
+			'       <div style="width: 20px;text-align:center;"><i class="{{d.item.icon}}" style="font-size: 17px;"></i></div>',
+			'&nbsp;&nbsp;{{d.title}}',
+			'   </a>',
+			"<div>",
+		]
+
 		$.each(option.data, function (i, item) {
 			var menuItem = '';
 			var controlItem = '';
+
+			var navIcon=item.icon;
+			if(navIcon.indexOf("mdi-")>=0) {
+				navIcon+=" mdi-17px6rp";
+			} else if(navIcon.indexOf("fa-")>=0) {
+				navIcon+=" fa-top-nav";
+			}
+
+
+
+
+
 			if (i === option.defaultMenu) {
+
+				// 头部菜单
 				controlItem = '<li pear-href="' + item.href + '" pear-title="' + item.title + '" pear-id="' + item.id +
-					'" class="layui-this layui-nav-item"><a href="#">' + item.title + '</a></li>';
+					'" class="layui-nav-item layui-this" ><a href="#" class="'+navIcon+'">' + item.title + '</a></li>';
+
 				menuItem = '<ul  pear-id="' + item.id + '" lay-filter="' + option.elem +
 					'" class="layui-nav arrow layui-nav-tree pear-nav-tree">';
 
-				controlPe += '<li class="layui-nav-item"><a class="pe-title" href="javascript:;" >' + item.title + '-4</a>';
+				controlPe += '<li class="layui-nav-item"><a class="pe-title" href="javascript:;" >' + item.title + '</a>';
 
 				controlItemPe += '<dd  pear-href="' + item.href + '" pear-title="' + item.title + '" pear-id="' + item.id +
 					'"><a href="javascript:void(0);">' + item.title + '</a></dd>';
 			} else {
-				controlItem = '<li  pear-href="' + item.href + '" pear-title="' + item.title + '" pear-id="' + item.id +
-					'" class="layui-nav-item"><a href="#">' + item.title + '</a></li>';
+
+				if(i<buttonLimit) {
+					// 头部菜单
+					controlItem = '<li  pear-href="' + item.href + '" pear-title="' + item.title + '" pear-id="' + item.id +
+						'" class="layui-nav-item"><a href="#" class="' + navIcon + '">' + item.title + '</a></li>';
+				}
+				else if(i==buttonLimit) {
+					// 头部菜单
+					controlItem = '<li  pear-href="#" pear-title="更多" pear-id="nav-more" class="layui-nav-item"><a href="#" id="nav-more" class="fa fa-chevron-circle-down fa-top-nav">&nbsp;更&nbsp;多</a></li>'
+					+'<li  pear-href="#" pear-title="替身" pear-id="nav-more-elm" class="layui-nav-item nav-more-elm" style="display: none"><a href="#" id="nav-more-elm" class="fa fa-chevron-circle-down fa-top-nav">&nbsp;替&nbsp;身</a></li>';
+				}
+				else {
+
+					menuItems.push({
+						id:item.id,
+						index:i,
+						menuId:item.id,
+						title:item.label,
+						templet:tps.join("\n"),
+						item:item
+					});
+
+				}
 
 				menuItem = '<ul style="display:none" pear-id="' + item.id + '" lay-filter="' + option.elem +
 					'" class="layui-nav arrow layui-nav-tree pear-nav-tree">';
@@ -395,18 +444,54 @@ layui.define(['table', 'jquery', 'element'], function (exports) {
 		$("#" + option.control).html(control + "</div>");
 		$("#" + option.control).append(controlPe);
 		$("#" + option.elem).html(menu);
+
+		if(menuItems.length>0) {
+
+			function renderMoreNavs() {
+				//下拉菜单
+				dropdown.render({
+					elem: '#nav-more'
+					, style:"width:130px"
+					, data: menuItems
+					, click: function (obj) {
+						// debugger
+						$("#nav-more").text(obj.title);
+
+						$(".nav-more-elm").attr("pear-id",obj.id);
+						$(".nav-more-elm").attr("pear-title",obj.title);
+						$(".nav-more-elm").attr("pear-href",obj.href);
+
+						switchNavMenu($(".nav-more-elm"));
+					}
+				});
+			}
+			setTimeout(renderMoreNavs,1);
+		}
+
+		// 头部菜单点击事件(非样式控制)，切换子菜单
 		$("#" + option.control + " .pear-nav-control").on("click", "[pear-id]", function () {
-			//debugger
+
+			var pearId=$(this).attr("pear-id");
+			if(pearId=="nav-more") {
+				return;
+			}
+
+			switchNavMenu(this);
+
+		});
+
+		function switchNavMenu(it) {
 			$("#" + option.elem).find(".pear-nav-tree").css({
 				display: 'none'
 			});
-			$("#" + option.elem).find(".pear-nav-tree[pear-id='" + $(this).attr("pear-id") + "']").css({
+			$("#" + option.elem).find(".pear-nav-tree[pear-id='" + $(it).attr("pear-id") + "']").css({
 				display: 'block'
 			});
-			$("#" + option.control).find(".pe-title").html($(this).attr("pear-title"));
+			$("#" + option.control).find(".pe-title").html($(it).attr("pear-title"));
 			$("#" + option.control).find("")
-			option.change($(this).attr("pear-id"), $(this).attr("pear-title"), $(this).attr("pear-href"))
-		})
+			option.change($(it).attr("pear-id"), $(it).attr("pear-title"), $(it).attr("pear-href"));
+		}
+
 	}
 
 	/** 加载子菜单 (递归)*/
