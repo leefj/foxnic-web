@@ -17,12 +17,12 @@ layui.define(['table', 'jquery', 'element','dropdown'], function (exports) {
 			async: opt.async,
 			parseData: opt.parseData,
 			url: opt.url,
+			userId:opt.userId,
 			method: opt.method ? opt.method : "GET",
 			defaultOpen: opt.defaultOpen,
 			defaultSelect: opt.defaultSelect,
 			control: opt.control,
 			controlWidth: opt.controlWidth ? opt.controlWidth : "auto",
-			defaultMenu: opt.defaultMenu,
 			accordion: opt.accordion,
 			height: opt.height,
 			theme: opt.theme,
@@ -55,6 +55,7 @@ layui.define(['table', 'jquery', 'element','dropdown'], function (exports) {
 			}
 		} else {
 			// 延时返回，和 javascript 执行时序关联
+			// debugger
 			window.setTimeout(function () { renderMenu(option); }, 1);
 		}
 
@@ -151,6 +152,7 @@ layui.define(['table', 'jquery', 'element','dropdown'], function (exports) {
 	}
 
 	pearMenu.prototype.selectItem = function (pearId) {
+		// debugger
 		if (this.option.control != false) {
 			$("#" + this.option.elem + " a[menu-id='" + pearId + "']").parents(".layui-side-scroll ").find("ul").css({
 				display: "none"
@@ -327,7 +329,7 @@ layui.define(['table', 'jquery', 'element','dropdown'], function (exports) {
 	}
 
 	function createMenuAndControl(option) {
-		var control = '<div style="width: ' + option.controlWidth + 'px;white-space: nowrap;overflow-x: scroll;overflow: hidden;" class="control"><ul class="layui-nav pear-nav-control pc layui-hide-xs" style="width: fit-content;">';
+		var control = '<div style="width: ' + option.controlWidth + 'px;white-space: nowrap;overflow-x: scroll;overflow: visible;" class="control"><ul class="layui-nav pear-nav-control pc layui-hide-xs" style="width: fit-content;">';
 		var controlPe = '<ul class="layui-nav pear-nav-control layui-hide-sm">';
 		// 声 明 头 部
 		var menu = '<div class="layui-side-scroll ' + option.theme + '">'
@@ -335,7 +337,11 @@ layui.define(['table', 'jquery', 'element','dropdown'], function (exports) {
 		var index = 0;
 		var controlItemPe = '<dl class="layui-nav-child">';
 
-		var buttonLimit=3;
+		var fullWidth=$(window).width();
+		var logoWidth=$('.layui-logo').width();
+		var navRightWidth=$(".layui-layout-right").width();
+		var buttonLimit=Math.floor((fullWidth-logoWidth-navRightWidth)/120)-2;
+
 		var menuItems=[];
 		var tps=[
 			"<div style='height:36px;margin-top:6px'>",
@@ -344,7 +350,29 @@ layui.define(['table', 'jquery', 'element','dropdown'], function (exports) {
 			'&nbsp;&nbsp;{{d.title}}',
 			'   </a>',
 			"<div>",
-		]
+		];
+
+		var menuId=sessionStorage.getItem("nav_actived_top_menu_data_id_"+option.userId);
+
+		var activedMenuIndex=-1;
+		for (var i = 0; i < option.data.length; i++) {
+			if(option.data[i].id==menuId) {
+				activedMenuIndex=i;
+				break;
+			}
+		}
+
+		// 如果是属于下拉的，就交换位置
+		if(activedMenuIndex>=buttonLimit && buttonLimit<option.data.length) {
+
+			var tmp=option.data[buttonLimit-1];
+			option.data[buttonLimit-1]=option.data[activedMenuIndex];
+			option.data[activedMenuIndex]=option.data[buttonLimit];
+			option.data[buttonLimit]=tmp;
+
+		}
+
+
 
 		$.each(option.data, function (i, item) {
 			var menuItem = '';
@@ -357,12 +385,9 @@ layui.define(['table', 'jquery', 'element','dropdown'], function (exports) {
 				navIcon+=" fa-top-nav";
 			}
 
+			if (item.id === menuId) {
 
-
-
-
-			if (i === option.defaultMenu) {
-
+				// debugger
 				// 头部菜单
 				controlItem = '<li pear-href="' + item.href + '" pear-title="' + item.title + '" pear-id="' + item.id +
 					'" class="layui-nav-item layui-this" ><a href="#" class="'+navIcon+'">' + item.title + '</a></li>';
@@ -481,6 +506,13 @@ layui.define(['table', 'jquery', 'element','dropdown'], function (exports) {
 		});
 
 		function switchNavMenu(it) {
+
+
+
+			var menuId=$(it).attr("pear-id")
+			sessionStorage.setItem("nav_actived_top_menu_data_id_"+option.userId,menuId);
+			// debugger
+
 			$("#" + option.elem).find(".pear-nav-tree").css({
 				display: 'none'
 			});

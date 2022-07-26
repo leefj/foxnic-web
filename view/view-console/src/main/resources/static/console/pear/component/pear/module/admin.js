@@ -169,7 +169,7 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 				// }
 
 
-				//debugger
+				// debugger
 				sideMenu = pearMenu.render({
 					elem: 'sideMenu',
 					// async: param.menu.async !== undefined ? param.menu.async : true,
@@ -179,9 +179,9 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 					method: param.menu.method,
 					control: isControl(param) === 'true' || isControl(param) === true ? 'control' : false, // control
 					controlWidth: param.menu.controlWidth,
-					defaultMenu: 0,
 					accordion: param.menu.accordion,
 					// url: param.menu.data,
+					userId:user.user.id,
 					data: topMenus,
 					parseData: false,
 					change: function() {
@@ -189,7 +189,7 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 					},
 					done: function() {
 						sideMenu.isCollapse = param.menu.collapse;
-						sideMenu.selectItem(param.menu.select);
+						// sideMenu.selectItem(param.menu.select);
 						pearAdmin.collapse(param);
 					}
 				});
