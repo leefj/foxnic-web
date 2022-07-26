@@ -247,7 +247,7 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 				var user=this.getUser();
 				var menus=user.user.menus;
 
-				debugger;
+				// debugger;
 				$("#portrait-image").attr("src",""+"/service-storage/sys-file/download?id="+user.user.portraitId+"&catalog=portrait");
 				$("#account-name").text(user.user.displayName);
 
@@ -594,6 +594,7 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 				$(elId).click(function (){
 					var user=me.getUser();
 					me.putTempData('sys-user-form-data', user.user);
+					me.putTempData('sys-user-form-data-form-action', "edit",true);
 					me.popupCenter({
 						title: "个人资料",
 						resize: false,
@@ -604,6 +605,8 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 						content: '/business/oauth/user/user_profile.html',
 						finish: function () {
 							var profile=me.getVar("user-profile");
+							if(!profile) return;
+
 							user.user.realName=profile.realName;
 							user.user.portraitId=profile.portraitId;
 							user.user.phone=profile.phone;
