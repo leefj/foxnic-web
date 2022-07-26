@@ -1,4 +1,4 @@
-layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'menu', 'frame', 'theme', 'convert'],
+layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'menu', 'frame', 'theme', 'convert','loading'],
 	function(exports) {
 		"use strict";
 
@@ -11,7 +11,9 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 			pearMenu = layui.menu,
 			pearFrame = layui.frame,
 			pearTheme = layui.theme,
-			message = layui.message;
+			message = layui.message,
+			loading=layui.loading;
+
 
 		var bodyFrame;
 		var sideMenu;
@@ -26,14 +28,165 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 			var configType = 'yml';
 			var configPath = 'pear.config.yml';
 			var baseDir="/";
+			var tableName = 'foxnic-web';
+
+
+			//默认地址
+			var defUrl = 'http://127.0.0.1:9900/';
+			//当前环境的api地址
+			var apiUrl;
+			try{
+				if (apiServerUrl.length > 0) {
+					apiUrl = apiServerUrl;
+				} else {
+					apiUrl = defUrl;
+				}
+			} catch(e) {
+				apiUrl = defUrl;
+			}
+
+			this.base_server=apiUrl;
+
+			this.parseJSON = function (str) {
+				if (typeof str == 'string') {
+					try {
+						var obj = JSON.parse(str);
+						if (typeof obj == 'object' && obj) {
+							return obj;
+						}
+					} catch (e) {
+					}
+				}
+			}
+			this.getRequestTimestamp = function()
+			{
+				// debugger;
+				var date = new Date();
+				var timeStr = date.getFullYear() + "-";
+				if (date.getMonth() < 9) { // 月份从0开始的
+					timeStr += '0';
+				}
+				timeStr += date.getMonth() + 1 + "-";
+				timeStr += date.getDate() < 10 ? ('0' + date.getDate()) : date.getDate();
+				timeStr += ' ';
+				timeStr += date.getHours() < 10 ? ('0' + date.getHours()) : date.getHours();
+				timeStr += ':';
+				timeStr += date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes();
+				timeStr += ':';
+				timeStr += date.getSeconds() < 10 ? ('0' + date.getSeconds()) : date.getSeconds();
+				timeStr += "."+date.getMilliseconds()
+				return timeStr;
+			};
+
+			// 封装ajax请求
+			this.ajax = function (param) {
+				var me=this;
+				//debugger
+				var successCallback = param.success;
+				param.success = function (result, status, xhr) {
+					// 判断登录过期和没有权限
+					var jsonRs;
+					if ('json' == param.dataType.toLowerCase()) {
+						jsonRs = result;
+					} else if ('html' == param.dataType.toLowerCase() || 'text' == param.dataType.toLowerCase()) {
+						jsonRs = me.parseJSON(result);
+					}
+					if (jsonRs) {
+						if (jsonRs.code == "31") {
+							me.removeToken();
+							top.layer.msg('登录过期', {icon: 2, time: 1500}, function () {
+								//debugger;
+								location.replace('/login.html');
+							}, 1000);
+							return;
+						} else if (jsonRs.code == "32") {
+							//layer.msg('没有权限', {icon: 2});
+							layer.closeAll('loading');
+							// fox.showMessage(jsonRs);
+							top.layer.msg('退出失败', {icon: 2, time: 1500});
+							return;
+						}
+					}
+					successCallback(result, status, xhr);
+				};
+				param.error = function (xhr) {
+					//param.success({code: xhr.status, msg: xhr.statusText});
+					//layer.closeAll('loading');
+					//layer.msg('请求异常', {icon: 2});
+					successCallback({code:"01",message:"请求异常",success:false});
+
+				};
+				//发送同步ajax请求
+				//param.async = false;
+				console.log(param);
+				$.ajax(param);
+			};
+
+			// 封装ajax请求，返回数据类型为json
+			this.request = function (url, data, success, method, async) {
+				//debugger;
+				var  me = this;
+				if(method==null) method="POST";
+				if ('put' == method.toLowerCase()) {
+					method = 'PUT';
+				} else if ('delete' == method.toLowerCase()) {
+					method = 'DELETE';
+				}
+				url=url.replace("//","/");
+				data=JSON.stringify(data);
+				//add by owen ajax 执行前置处理器
+				me.ajax({
+					url: me.base_server + url,
+					data: data,
+					type: method,
+					async: async,
+					dataType: 'json',
+					contentType: "application/json;charset=utf-8",
+					success: success,
+					beforeSend: function (xhr) {
+						// debugger
+						var token = me.getToken();
+						//debugger;
+						if (token) {
+							xhr.setRequestHeader('Authorization', 'Bearer ' + token.accessToken);
+							//使用非标 token
+							// xhr.setRequestHeader('access-token', token.accessToken);
+							//xhr.setRequestHeader('refresn-token', token.refreshToken);
+						}
+						// xhr.setRequestHeader('tid', null);
+						xhr.setRequestHeader('time', me.getRequestTimestamp());
+					}
+				});
+			};
 
 			// 当前登录的用户
-			function getUser() {
-				var tableName = 'foxnic-web';
+			this.getUser = function () {
 				var u = layui.data(tableName).login_user;
 				if (u) {
 					return JSON.parse(u);
 				}
+			};
+
+			this.putUser = function (user) {
+				layui.data(tableName, {
+					key: 'login_user',
+					value: JSON.stringify(user)
+				});
+			}
+
+			this.getToken = function () {
+				var t = layui.data(tableName).token;
+				if (t) {
+					return JSON.parse(t);
+				}
+			};
+
+			// 清除user
+			this.removeToken = function () {
+				layui.data(tableName, {
+					key: 'token',
+					remove: true
+				});
 			};
 
 			this.setBaseDir=function (dir) {
@@ -84,15 +237,19 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 			}
 
 			this.logoRender = function(param) {
-				$(".layui-logo .logo").attr("src", param.logo.image);
-				$(".layui-logo .title").html(param.logo.title);
+				$(".layui-logo .logo").attr("src", LOGO);
+				$(".layui-logo .title").html(TITLE);
 			}
 
 			this.menuRender = function(param) {
 
 
-				var user=getUser();
+				var user=this.getUser();
 				var menus=user.user.menus;
+
+				debugger;
+				$("#portrait-image").attr("src",""+"/service-storage/sys-file/download?id="+user.user.portraitId+"&catalog=portrait");
+				$("#account-name").text(user.user.displayName);
 
 				// 提取页面元素
 				var map={};
@@ -104,7 +261,7 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 					menus[i].openType = "_iframe";
 					menus[i].href = menus[i].path;
 
-					if(menus[i].parentId=='0'){
+					if(menus[i].parentId=='0') {
 						menus[i].level=0;
 					}
 					//debugger
@@ -266,10 +423,25 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 			}
 
 			this.keepLoad = function(param) {
-				compatible()
+
+				loading.Load(5,"Foxnic-Web");
+				$("#NotiflixLoadingWrap").css("z-index",9999999);
+				$("#NotiflixLoadingWrap").css("background","whitesmoke");
+
+				// loader-main
+				// debugger
+				// loading.block({
+				// 	type: 6,
+				// 	elem: ".loader-main",
+				// 	msg: '载入中，请稍等...'
+				// });
+				// loading.blockRemove("body", 10000000);
+				compatible();
+
 				setTimeout(function() {
-					$(".loader-main").fadeOut(200);
-				}, param.other.keepLoad)
+					$(".loader-main").hide();
+					loading.loadRemove(0);
+				}, 1000)
 			}
 
 			this.themeRender = function(option) {
@@ -401,8 +573,87 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 				pearAdmin.addClass(theme);
 			}
 
-			this.logout = function(callback) {
-				logout = callback;
+			this.registerChangePwd = function (elId) {
+				var me = this;
+				$(elId).click(function (){
+					me.putVar("pwdDisplayTitle","no");
+					me.putVar("pwdDisplayPosition","center");
+					me.popupCenter({
+						type:1,
+						title: "修改密码",
+						path: '/pages/tpl/password.html',
+						area:["480px","300px"],
+						anim:0,
+						offset:[null,null]
+					});
+				});
+			};
+
+			this.registerUserProfile = function (elId) {
+				var me = this;
+				$(elId).click(function (){
+					var user=me.getUser();
+					me.putTempData('sys-user-form-data', user.user);
+					me.popupCenter({
+						title: "个人资料",
+						resize: false,
+						offset: [null,null],
+						area: ["450px","600px"],
+						type: 2,
+						id:"bpm-form-definition-form-data-win",
+						content: '/business/oauth/user/user_profile.html',
+						finish: function () {
+							var profile=me.getVar("user-profile");
+							user.user.realName=profile.realName;
+							user.user.portraitId=profile.portraitId;
+							user.user.phone=profile.phone;
+							user.user.language=profile.language;
+							user.user.displayName=user.user.realName;
+							// if(user.user.activatedEmployeeName){
+							// 	user.user.displayName=user.user.activatedEmployeeName;
+							// }
+							me.putUser(user);
+							$("#portrait-image").attr("src",""+"/service-storage/sys-file/download?id="+user.user.portraitId+"&catalog=portrait");
+							$("#account-name").text(user.user.displayName);
+						}
+					});
+				});
+			};
+
+			this.registerLogout = function() {
+				var me=this;
+				function logoutHandler() {
+					layer.confirm('您确定要退出登录吗？', function () {
+						let token = me.getToken();
+						//let isExistsToken = false;
+						// debugger
+						if (token) {
+							//let accessToken = token.access_token;
+							me.removeToken();
+
+							//if (accessToken) {
+							//    isExistsToken = true;
+							me.request('/security/logout', {token:token}, function (data) {
+								if (data.success) {
+									// debugger;
+									location.replace('login.html');
+									//let loginPageUrl = window.location.protocol + '//' + window.location.host + '/login.html';
+									//window.location = config.base_server + 'api-uaa/oauth/remove/token?redirect_uri='+loginPageUrl+'&access_token='+accessToken;
+								} else {
+									//debugger;
+									location.replace('login.html');
+									//layer.msg("登出异常");
+								}
+							}, 'POST');
+							// }
+						}
+						else {
+							//debugger;
+							location.replace('login.html');
+						}
+					});
+				};
+				logout = logoutHandler;
 			}
 
 			this.message = function(callback) {
@@ -1050,8 +1301,9 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 				'</div>\n' +
 				'</div>';
 
-			var moreItem =
-				'<div class="layui-form-item"><div class="layui-input-inline"><input type="checkbox" name="control" lay-filter="control" lay-skin="switch" lay-text="开|关"></div><span class="set-text">菜单</span></div>';
+			var moreItem="";
+			// var moreItem =
+			// 	'<div class="layui-form-item"><div class="layui-input-inline"><input type="checkbox" name="control" lay-filter="control" lay-skin="switch" lay-text="开|关"></div><span class="set-text">菜单</span></div>';
 
 			moreItem +=
 				'<div class="layui-form-item"><div class="layui-input-inline"><input type="checkbox" name="muilt-tab" lay-filter="muilt-tab" lay-skin="switch" lay-text="开|关"></div><span class="set-text">视图</span></div>';
@@ -1090,7 +1342,8 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 					form.render();
 
 					var color = localStorage.getItem("theme-color");
-					var menu = localStorage.getItem("theme-menu");
+					// var menu = localStorage.getItem("theme-menu");
+					var menu = true ;
 					var header = localStorage.getItem("theme-header");
 
 					if (color !== "null") {

@@ -2,6 +2,7 @@ package org.github.foxnic.web.oauth.controller;
 
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.api.validate.annotations.NotNull;
 import com.github.foxnic.commons.encrypt.Base64Util;
@@ -141,6 +142,36 @@ public class UserController extends SuperController {
 		Result result=userService.update(userVO,SaveMode.NOT_NULL_FIELDS);
 		return result;
 	}
+
+	/**
+	 * 更新账户
+	 */
+	@ApiOperation(value = "更新账户")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = UserVOMeta.REAL_NAME , value = "姓名" , required = true , dataTypeClass=String.class),
+			@ApiImplicitParam(name = UserVOMeta.PHONE , value = "手机号码" , required = true , dataTypeClass=String.class),
+			@ApiImplicitParam(name = UserVOMeta.PORTRAIT_ID , value = "头像ID" , required = false , dataTypeClass=String.class , example = "1110"),
+			@ApiImplicitParam(name = UserVOMeta.LANGUAGE , value = "语言" , required = false , dataTypeClass=String.class),
+	})
+	@ApiOperationSupport( order=4 , ignoreParameters = { UserVOMeta.PAGE_INDEX , UserVOMeta.PAGE_SIZE , UserVOMeta.SEARCH_FIELD , UserVOMeta.SEARCH_VALUE , UserVOMeta.IDS } )
+	@SentinelResource(value = UserServiceProxy.UPDATE_PROFILE)
+	@PostMapping(UserServiceProxy.UPDATE_PROFILE)
+	public Result updateProfile(UserVO userVO) {
+
+		User user=userService.getById(this.getSessionUserId());
+		if(user==null) {
+			return ErrorDesc.failure().message("保存失败，账户无效");
+		}
+		user.setRealName(userVO.getRealName());
+		user.setPhone(userVO.getPhone());
+		user.setPortraitId(userVO.getPortraitId());
+		user.setLanguage(userVO.getLanguage());
+
+		Result result=userService.update(userVO,SaveMode.NOT_NULL_FIELDS);
+		user.setPasswd("******");
+		return result.data(user);
+	}
+
 
 	/**
 	 * 保存账户

@@ -63,6 +63,11 @@ public interface UserServiceProxy {
     public static final String UPDATE = API_PREFIX + "update";
 
     /**
+     * 更新账户
+     */
+    public static final String UPDATE_PROFILE = API_PREFIX + "update-profile";
+
+    /**
      * 保存账户
      */
     public static final String SAVE = API_PREFIX + "save";

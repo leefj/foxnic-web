@@ -99,10 +99,10 @@
                     if (data.success) {
                         var user=data.data;
                         // debugger
-                        user.user.displayName=user.user.name;
-                        if(user.user.activatedEmployeeName){
-                            user.user.displayName=user.user.activatedEmployeeName;
-                        }
+                        user.user.displayName=user.user.realName;
+                        // if(user.user.activatedEmployeeName){
+                        //     user.user.displayName=user.user.activatedEmployeeName;
+                        // }
                     	config.putUser(user);
                     	console.log("token",user.token);
                         config.putToken(user.token);

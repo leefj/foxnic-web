@@ -292,7 +292,7 @@ layui.define(['table', 'jquery', 'element','dropdown'], function (exports) {
 		var menuHtml = '<div style="height:100%!important;" class="pear-side-scroll layui-side-scroll ' + option.theme + '"><ul lay-filter="' + option.elem +
 			'" class="layui-nav arrow   pear-menu layui-nav-tree pear-nav-tree">'
 		$.each(option.data, function (i, item) {
-			debugger
+			// debugger
 			var content = '<li class="layui-nav-item" >';
 			if (i == option.defaultOpen) {
 				content = '<li class="layui-nav-item layui-nav-itemed" >';
@@ -338,9 +338,11 @@ layui.define(['table', 'jquery', 'element','dropdown'], function (exports) {
 		var controlItemPe = '<dl class="layui-nav-child">';
 
 		var fullWidth=$(window).width();
-		var logoWidth=$('.layui-logo').width();
+		var sideWidth=$("#sideMenu").width();
+		var navLeftWidth=$('.layui-layout-left').width();
 		var navRightWidth=$(".layui-layout-right").width();
-		var buttonLimit=Math.floor((fullWidth-logoWidth-navRightWidth)/120)-2;
+		var buttonLimit=Math.floor((fullWidth-sideWidth-navLeftWidth-navRightWidth)/120)-2;
+		// debugger
 
 		var menuItems=[];
 		var tps=[
@@ -566,7 +568,7 @@ layui.define(['table', 'jquery', 'element','dropdown'], function (exports) {
 			});
 			// 封 装
 		} else {
-			content += '<dd style="background-color: transparent!important;"><a style="background-color: transparent!important;margin-left: 26px">目录为空</a></dd>';
+			content += '<dd style="background-color: transparent!important;"><a style="background-color: transparent!important;margin-left: 20px">目录为空</a></dd>';
 		}
 		content += '</dl>';
 		return content;

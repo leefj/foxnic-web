@@ -3,7 +3,7 @@
 	width: 100%;
 	height: 100%;
 	background-color: whitesmoke;
-	z-index: 9999999;
+	z-index: 9999998;
 }
 .loader {
 	width: 50px;

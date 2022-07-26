@@ -448,9 +448,9 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
         bindEvent: function () {
             // 退出登录
             $('#btnLogout').click(function () {
-                layer.confirm('确定退出登录？', function () {
+                layer.confirm('您确定要退出登录吗？', function () {
                     let token = config.getToken();
-                    let isExistsToken = false;
+                    // let isExistsToken = false;
                     if (token) {
                         //let accessToken = token.access_token;
                         config.removeToken();
@@ -471,7 +471,7 @@ layui.define(['settings', 'admin', 'layer', 'laytpl', 'element', 'form','foxnic'
                             }, 'POST');
                        // }
                     }
-                    if (!isExistsToken) {
+                    else {
                     	//debugger;
                         location.replace('login.html');
                     }
