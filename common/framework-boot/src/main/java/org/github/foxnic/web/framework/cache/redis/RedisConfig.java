@@ -55,11 +55,11 @@ public class RedisConfig {
 
 
 
-    @Value("${jedis.enable:false}")
+    @Value("${spring.redis.enable:false}")
     private Boolean standaloneEnable=null;
-    @Value("${jedis.sentinel.enable:false}")
+    @Value("${spring.redis.sentinel.enable:false}")
     private Boolean sentinelEnable=null;
-    @Value("${jedis.cluster.enable:false}")
+    @Value("${spring.redis.cluster.enable:false}")
     private Boolean clusterEnable=null;
 
 
@@ -174,7 +174,7 @@ public class RedisConfig {
      */
     @Bean
     @Autowired
-    public JedisCluster jedisCluster(@Qualifier("jedis.pool.config") JedisPoolConfig config,
+    public JedisCluster jedisCluster(@Qualifier("spring.redis.pool.config") JedisPoolConfig config,
                                      @Value("${spring.redis.cluster.nodes}") String hostAndPort,
                                      @Value("${spring.redis.password}") String password) {
         /**
@@ -195,10 +195,10 @@ public class RedisConfig {
         return new JedisCluster(hostAndPorts, 1000, 1000, 1, password, config);
     }
 
-    @Bean(name = "jedis.pool.config")
-    public JedisPoolConfig jedisPoolConfig(@Value("${jedis.pool.config.maxTotal:100}") int maxTotal,
-                                           @Value("${jedis.pool.config.maxWaitMillis:5000}") int maxWaitMillis,
-                                           @Value("${jedis.pool.config.maxIdle:10}") int maxIdle) {
+    @Bean(name = "spring.redis.pool.config")
+    public JedisPoolConfig jedisPoolConfig(@Value("${spring.redis.pool.config.maxTotal:100}") int maxTotal,
+                                           @Value("${spring.redis.pool.config.maxWaitMillis:5000}") int maxWaitMillis,
+                                           @Value("${spring.redis.pool.config.maxIdle:10}") int maxIdle) {
         JedisPoolConfig config = new JedisPoolConfig();
         config.setMaxTotal(maxTotal);
         config.setMaxIdle(maxIdle);

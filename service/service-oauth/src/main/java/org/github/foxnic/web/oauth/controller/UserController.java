@@ -79,6 +79,14 @@ public class UserController extends SuperController {
 	@SentinelResource(value = UserServiceProxy.INSERT)
 	@PostMapping(UserServiceProxy.INSERT)
 	public Result insert(UserVO userVO) {
+		if(userVO!=null) {
+			this.validator().asserts(userVO.getAccount(), "账户").require("请填写").mustInList("必须是2", "2");
+		}
+		this.validator().asserts(userVO.getRealName()).require();
+		if(this.validator().failure()) {
+			return this.validator().getMergedResult();
+		}
+
 		Result result=userService.insert(userVO);
 		return result;
 	}

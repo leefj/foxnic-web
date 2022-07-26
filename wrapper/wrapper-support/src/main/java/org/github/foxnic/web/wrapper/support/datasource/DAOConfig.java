@@ -195,7 +195,7 @@ public class DAOConfig {
 
 			dbTreaty.setSubjectHandler(()->{
 				SessionUser user=SessionUser.getCurrent();
-				return  user;
+				return user;
 			});
 
 			dbTreaty.setLoginUserIdHandler(()->{
