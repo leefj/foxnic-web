@@ -6,7 +6,7 @@ import com.github.foxnic.commons.reflect.EnumUtil;
 
 
 /**
- * @since 2022-07-25 09:03:59
+ * @since 2022-07-26 15:42:45
  * @author 李方捷 , leefangjie@qq.com
  * 从 select distinct code,name from sys_config WHERE deleted=0 and code not like 'EAM_%' and code not like 'OPS_%' 生成
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成
@@ -45,6 +45,11 @@ public enum SystemConfigEnum implements CodeTextEnum {
 	SYSTEM_INDEX_LOGO("system.index.logo" , "首页右上的logo图片"),
 	
 	/**
+	 * 门户页面
+	*/
+	SYSTEM_INDEX_PORTALURL("system.index.portalURL" , "门户页面"),
+	
+	/**
 	 * 系统默认语言
 	*/
 	SYSTEM_LANGUAGE("system.language" , "系统默认语言"),
@@ -63,11 +68,6 @@ public enum SystemConfigEnum implements CodeTextEnum {
 	 * 登录信息
 	*/
 	SYSTEM_LOGIN_DEFAULT("system.login.default" , "登录信息"),
-	
-	/**
-	 * 首页模版
-	*/
-	SYSTEM_PAGE_INDEX_TEMPLATE("system.page.index.template" , "首页模版"),
 	
 	/**
 	 * 登录页模版

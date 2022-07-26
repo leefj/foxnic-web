@@ -359,6 +359,7 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 				})
 
 				if (isMuiltTab(param) === "true" || isMuiltTab(param) === true) {
+					// debugger
 					bodyTab = pearTab.render({
 						elem: 'content',
 						roll: true,
@@ -374,7 +375,7 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 						},
 						data: [{
 							id: param.tab.index.id,
-							url: param.tab.index.href,
+							url: PORTAL_URL,
 							title: param.tab.index.title,
 							close: false
 						}],
@@ -407,10 +408,11 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 						compatible();
 					})
 				} else {
+					debugger
 					bodyFrame = pearFrame.render({
 						elem: 'content',
 						title: '首页',
-						url: param.tab.index.href,
+						url: PORTAL_URL,
 						width: '100%',
 						height: '100%'
 					});

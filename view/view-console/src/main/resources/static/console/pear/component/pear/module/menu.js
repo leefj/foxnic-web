@@ -449,14 +449,14 @@ layui.define(['table', 'jquery', 'element','dropdown'], function (exports) {
 				if (note.type == 0) {
 					// 创 建 目 录 结 构
 					content += '<a  href="' + href + '" ' + target + ' menu-type="' + note.type + '" menu-id="' + note.id +
-						'" ><i class="' + note.icon + '"   style="margin-left: "+(note.level * 24)+"px"></i><span>' + note.title +
+						'" ><i class="' + note.icon + '"   style="margin-left: "+(note.level * 20)+"px"></i><span>' + note.title +
 						'</span></a>';
 				} else if (note.type == 1) {
 					// 创 建 菜 单 结 构
 					//debugger
 					content += '<a ' + target + ' class="' + className + '" menu-type="' + note.type + '" menu-url="' + note.href +
 						'" menu-id="' + note.id +
-						'" menu-title="' + note.title + '" href="' + href + '" style="margin-left: "+(note.level * 24)+"px"><i class="' + note.icon +
+						'" menu-title="' + note.title + '" href="' + href + '" style="margin-left: "+(note.level * 20)+"px"><i class="' + note.icon +
 						'" style="'+item.style+'"></i><span>' + note.title + '</span></a>';
 				}
 				content += loadchild(note);

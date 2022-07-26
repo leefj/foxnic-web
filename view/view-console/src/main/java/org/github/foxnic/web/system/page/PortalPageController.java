@@ -31,6 +31,7 @@ public class PortalPageController extends ViewController  {
 	 */
 	@RequestMapping(value = {"/index.html","/"})
 	public String index(Model model) {
+		String portalURL= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_INDEX_PORTALURL);
 		String logo= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_INDEX_LOGO);
 		String title= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_TITLE);
 		String versionCode= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_VERSION_CODE);
@@ -47,6 +48,8 @@ public class PortalPageController extends ViewController  {
 		if(versionType!=VersionType.PROD) {
 			title+="("+versionName+"_"+versionCode+")";
 		}
+
+		model.addAttribute("portalURL", portalURL);
 		model.addAttribute("title", title);
 		model.addAttribute("logo", logo);
 		String moduleEnable= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_PORTAL_MODULE_ENABLE);
