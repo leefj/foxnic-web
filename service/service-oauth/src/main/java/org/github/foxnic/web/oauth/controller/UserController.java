@@ -162,12 +162,13 @@ public class UserController extends SuperController {
 		if(user==null) {
 			return ErrorDesc.failure().message("保存失败，账户无效");
 		}
+
 		user.setRealName(userVO.getRealName());
 		user.setPhone(userVO.getPhone());
 		user.setPortraitId(userVO.getPortraitId());
 		user.setLanguage(userVO.getLanguage());
 
-		Result result=userService.update(userVO,SaveMode.NOT_NULL_FIELDS);
+		Result result=userService.update(user,SaveMode.DIRTY_FIELDS);
 		user.setPasswd("******");
 		return result.data(user);
 	}

@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.commons.lang.StringUtil;
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
-import org.github.foxnic.web.constants.enums.system.IndexPageTemplate;
+import org.github.foxnic.web.constants.enums.system.Theme;
 import org.github.foxnic.web.constants.enums.system.VersionType;
 import org.github.foxnic.web.framework.view.controller.ViewController;
 import org.github.foxnic.web.proxy.utils.SystemConfigProxyUtil;
@@ -53,14 +53,14 @@ public class PortalPageController extends ViewController  {
 		model.addAttribute("moduleEnable", moduleEnable);
 
 
-		IndexPageTemplate indexPageTemplate  = SystemConfigProxyUtil.getEnum(SystemConfigEnum.SYSTEM_PAGE_INDEX_TEMPLATE,IndexPageTemplate.class);
+		Theme theme  = SystemConfigProxyUtil.getEnum(SystemConfigEnum.SYSTEM_THEME, Theme.class);
 
-		if(indexPageTemplate==null) {
+		if(theme==null) {
 			model.addAttribute("baseDir", "");
 			return prefix+"index";
 		} else {
-			model.addAttribute("baseDir", indexPageTemplate.getBaseDir());
-			return indexPageTemplate.getTemplatePath();
+			model.addAttribute("baseDir", theme.getBaseDir());
+			return theme.getIndexTemplatePath();
 		}
 	}
 
