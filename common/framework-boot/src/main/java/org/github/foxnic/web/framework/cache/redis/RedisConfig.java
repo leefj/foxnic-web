@@ -16,6 +16,7 @@ import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.SerializationException;
 import org.springframework.lang.Nullable;
@@ -49,6 +50,12 @@ public class RedisConfig {
      * 默认 FastJsonRedisSerializer ，值存为json，并支持泛型反序列化
      * */
     public final static RedisSerializer<Object> FASTJSON_VALUE_SERIALIZER = new FastJsonRedisSerializer(Object.class);
+
+
+    /**
+     * 默认 JdkSerializationRedisSerializer ，
+     * */
+    public final static RedisSerializer<Object>  JDK_VALUE_SERIALIZER = new JdkSerializationRedisSerializer();
 
 
     public static RedisSerializer<Object> VALUE_SERIALIZER = JACKSON_VALUE_SERIALIZER;
@@ -87,15 +94,6 @@ public class RedisConfig {
         return factory;
     }
 
-
-
-    @Bean(name = "RedisConnectionFactory")
-    @Autowired
-    public RedisConnectionFactory createRedisConnectionFactory(
-            @Qualifier("JedisConnectionFactory") JedisConnectionFactory
-                    factory) {
-        return factory;
-    }
 
     private static RedisStandaloneConfiguration getRedisStandaloneConfiguration(RedisProperties properties) {
         RedisStandaloneConfiguration configuration=new RedisStandaloneConfiguration(properties.getHost(),properties.getPort());
@@ -149,7 +147,7 @@ public class RedisConfig {
 
     @Bean
     @Autowired
-    public RedisTemplate<String, Object> redisTemplate(@Qualifier("RedisConnectionFactory") RedisConnectionFactory connectionFactory) {
+    public RedisTemplate<String, Object> redisTemplate(@Qualifier("JedisConnectionFactory") RedisConnectionFactory connectionFactory) {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
         template.setConnectionFactory(connectionFactory);
 
@@ -162,8 +160,7 @@ public class RedisConfig {
     }
 
     @Bean
-    public StringRedisTemplate stringRedisTemplate(
-            @Qualifier("RedisConnectionFactory") RedisConnectionFactory factory) {
+    public StringRedisTemplate stringRedisTemplate( @Qualifier("JedisConnectionFactory") RedisConnectionFactory factory) {
         StringRedisTemplate stringRedisTemplate = new StringRedisTemplate();
         stringRedisTemplate.setConnectionFactory(factory);
         return stringRedisTemplate;

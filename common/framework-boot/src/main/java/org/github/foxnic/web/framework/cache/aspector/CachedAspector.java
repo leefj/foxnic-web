@@ -2,6 +2,7 @@ package org.github.foxnic.web.framework.cache.aspector;
 
 import com.github.foxnic.api.cache.Cached;
 import com.github.foxnic.commons.cache.DoubleCache;
+import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.dao.cache.CacheStrategy;
 import com.github.foxnic.dao.entity.SuperService;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -9,6 +10,7 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.github.foxnic.web.framework.cache.redis.RedisConfig;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
@@ -55,7 +57,11 @@ public class CachedAspector {
 		if(key==null){
 			return joinPoint.proceed();
 		}
-		result=cache.get(key);
+		try {
+			result = cache.get(key);
+		} catch (Exception e) {
+			Logger.exception(e);
+		}
 //			if(result!=null){
 //				break;
 //			}

@@ -1,6 +1,8 @@
 package org.github.foxnic.web.session;
 
-public interface SessionPermission {
+import java.io.Serializable;
+
+public interface SessionPermission extends Serializable {
 
     public static final String ROLE_PREFIX="ROLE_";
     /**

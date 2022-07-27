@@ -12,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Map;
 
 /**
  *
@@ -162,8 +163,12 @@ public class SessionUserImpl extends SessionUser implements UserDetails, Credent
         return userDetail;
 	}
 
+
+	private Map<String,String> menuRoleRelation;
+
 	public SessionPermission permission() {
-		if(permission==null) permission=new SessionPermissionImpl(this);
+		if(permission==null) permission=new SessionPermissionImpl(this,menuRoleRelation);
+		this.menuRoleRelation=permission.getMenuRoleRelation();
 		return permission;
 	}
 

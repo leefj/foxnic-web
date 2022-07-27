@@ -95,11 +95,11 @@ spring:
     mode: HTML5
     cache: false
   session:
-    #使用 redis 存储session
-    #store-type: redis
+    # 使用外部存储 SESSION ，可以是：NONE、HAZELCAST、JDBC、MONGODB、REDIS，目前仅支持 REDIS
+    store-type: REDIS
   redis:
     # 是否启用单节点的 redis
-    enable: false
+    enable: true
     pool:
       #连接池最大连接数（使用负值表示没有限制）
       max-active: 8
@@ -113,8 +113,9 @@ spring:
       timeout: 30000
     # 单节配置
     port: 6379
-    host: 127.0.0.1
-    password:
+    host: 172.19.2.202
+    password: V(xQ(dye
+    database: 18
     # 哨兵配置
     sentinel:
       # 是否启用哨兵模式的 redis
@@ -178,7 +179,7 @@ foxnic:
     # 默认配置
     default:
       # local,remote,both,none
-      mode: both
+      mode: remote
       # 本地缓存配置 : 最大元素个数
       local-limit: 10240
       # 本地缓存配置 : 本地缓存超时时长；-1 表示永不过期
