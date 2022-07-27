@@ -355,6 +355,9 @@ layui.define(['table', 'jquery', 'element','dropdown'], function (exports) {
 		];
 
 		var menuId=sessionStorage.getItem("nav_actived_top_menu_data_id_"+option.userId);
+		if(!menuId) {
+			menuId=option.data[0].id;
+		}
 
 		var activedMenuIndex=-1;
 		for (var i = 0; i < option.data.length; i++) {

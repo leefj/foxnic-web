@@ -261,6 +261,11 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 					menus[i].openType = "_iframe";
 					menus[i].href = menus[i].path;
 
+					if(menus[i].params) {
+						menus[i].href+="?"+menus[i].params;
+					}
+
+
 					if(menus[i].parentId=='0') {
 						menus[i].level=0;
 					}
@@ -426,7 +431,7 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 
 			this.keepLoad = function(param) {
 
-				loading.Load(5,"Foxnic-Web");
+				loading.Load(5,"");
 				$("#NotiflixLoadingWrap").css("z-index",9999999);
 				$("#NotiflixLoadingWrap").css("background","whitesmoke");
 
