@@ -1552,6 +1552,9 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 		}
 
 		function isControl(option) {
+			// 强行显示顶部菜单目录
+			return true;
+			// 以下代码作废，但保留
 			if (option.theme.allowCustom) {
 				if (localStorage.getItem("control") != null) {
 					return localStorage.getItem("control")
