@@ -68,6 +68,25 @@
             <artifactId>view-console</artifactId>
             <version>${platform.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.github.foxnic.web</groupId>
+            <artifactId>view-dataperm</artifactId>
+            <version>${platform.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.foxnic.web</groupId>
+            <artifactId>view-pcm</artifactId>
+            <version>${platform.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.foxnic.web</groupId>
+            <artifactId>view-changes</artifactId>
+            <version>${platform.version}</version>
+        </dependency>
+
         <!-- 示例模块 -->
         <dependency>
             <groupId>com.github.foxnic.web</groupId>

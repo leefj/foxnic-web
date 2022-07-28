@@ -16,7 +16,9 @@ import java.util.List;
 import org.github.foxnic.web.domain.system.BusiRole;
 import com.github.foxnic.commons.reflect.EnumUtil;
 import com.github.foxnic.commons.lang.StringUtil;
+import com.github.foxnic.commons.lang.DataParser;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
 
@@ -25,8 +27,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 变更实例
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-15 14:54:06
- * @sign F5E5765358FE7D87578955AA52406736
+ * @since 2022-07-28 13:39:20
+ * @sign A06BDB7CAB55EE876E98F35CF910190B
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -105,6 +107,8 @@ public class ChangeInstance extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除")
 	private Integer deleted;
+	@Transient
+	private Boolean deletedBool;
 	
 	/**
 	 * 删除人ID：删除人ID
@@ -457,12 +461,42 @@ public class ChangeInstance extends Entity {
 	}
 	
 	/**
+	 * 获得 是否已删除 的投影属性<br>
+	 * 等价于 getDeleted 方法，获得对应的枚举类型
+	 * @return 是否已删除
+	*/
+	@Transient
+	public Boolean isDeleted() {
+		if(this.deletedBool==null) {
+			this.deletedBool=DataParser.parseBoolean(deleted);
+		}
+		return this.deletedBool ;
+	}
+	
+	/**
 	 * 设置 是否已删除
 	 * @param deleted 是否已删除
 	 * @return 当前对象
 	*/
 	public ChangeInstance setDeleted(Integer deleted) {
 		this.deleted=deleted;
+		this.deletedBool=DataParser.parseBoolean(deleted);
+		return this;
+	}
+	
+	/**
+	 * 设置 是否已删除的投影属性，等同于设置 是否已删除
+	 * @param deletedBool 是否已删除
+	 * @return 当前对象
+	*/
+	@Transient
+	public ChangeInstance setDeleted(Boolean deletedBool) {
+		if(deletedBool==null) {
+			this.deleted=null;
+		} else {
+			this.deleted=deletedBool?1:0;
+		}
+		this.deletedBool=deletedBool;
 		return this;
 	}
 	
@@ -840,9 +874,9 @@ public class ChangeInstance extends Entity {
 	 * @param currEmployeeApprover 当前可审批员工清单
 	 * @return 当前对象
 	*/
-	public ChangeInstance addCurrEmployeeApprover(Employee currEmployeeApprover) {
+	public ChangeInstance addCurrEmployeeApprover(Employee... currEmployeeApprover) {
 		if(this.currEmployeeApprovers==null) currEmployeeApprovers=new ArrayList<>();
-		this.currEmployeeApprovers.add(currEmployeeApprover);
+		this.currEmployeeApprovers.addAll(Arrays.asList(currEmployeeApprover));
 		return this;
 	}
 	
@@ -869,9 +903,9 @@ public class ChangeInstance extends Entity {
 	 * @param currBusiRoleApprover 当前可审批流程角色清单
 	 * @return 当前对象
 	*/
-	public ChangeInstance addCurrBusiRoleApprover(BusiRole currBusiRoleApprover) {
+	public ChangeInstance addCurrBusiRoleApprover(BusiRole... currBusiRoleApprover) {
 		if(this.currBusiRoleApprovers==null) currBusiRoleApprovers=new ArrayList<>();
-		this.currBusiRoleApprovers.add(currBusiRoleApprover);
+		this.currBusiRoleApprovers.addAll(Arrays.asList(currBusiRoleApprover));
 		return this;
 	}
 	
@@ -898,9 +932,9 @@ public class ChangeInstance extends Entity {
 	 * @param currEmployeeApproverId 当前可审批员工ID清单
 	 * @return 当前对象
 	*/
-	public ChangeInstance addCurrEmployeeApproverId(ChangeApprover currEmployeeApproverId) {
+	public ChangeInstance addCurrEmployeeApproverId(ChangeApprover... currEmployeeApproverId) {
 		if(this.currEmployeeApproverIds==null) currEmployeeApproverIds=new ArrayList<>();
-		this.currEmployeeApproverIds.add(currEmployeeApproverId);
+		this.currEmployeeApproverIds.addAll(Arrays.asList(currEmployeeApproverId));
 		return this;
 	}
 	
@@ -927,9 +961,9 @@ public class ChangeInstance extends Entity {
 	 * @param currBusiRoleApproverId 当前可审批流程角色ID清单
 	 * @return 当前对象
 	*/
-	public ChangeInstance addCurrBusiRoleApproverId(ChangeApprover currBusiRoleApproverId) {
+	public ChangeInstance addCurrBusiRoleApproverId(ChangeApprover... currBusiRoleApproverId) {
 		if(this.currBusiRoleApproverIds==null) currBusiRoleApproverIds=new ArrayList<>();
-		this.currBusiRoleApproverIds.add(currBusiRoleApproverId);
+		this.currBusiRoleApproverIds.addAll(Arrays.asList(currBusiRoleApproverId));
 		return this;
 	}
 

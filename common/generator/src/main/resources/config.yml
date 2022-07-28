@@ -97,7 +97,7 @@ applications:
     packageName: org.github.foxnic.web.changes
     primaryDatasourceConfigKey: spring.datasource.druid.primary
     microServiceNameConst: CHS
-    viewProjectPath: /view/view-console
+    viewProjectPath: /view/view-changes
     viewPrefixPath: public/business/changes
     wrapperProjectPath:  /wrapper/wrapper-all-service
   #流程服务
@@ -122,7 +122,7 @@ applications:
     packageName: org.github.foxnic.web.dataperm
     primaryDatasourceConfigKey: spring.datasource.druid.primary
     microServiceNameConst: DATA_PERM
-    viewProjectPath: /view/view-console
+    viewProjectPath: /view/view-dataperm
     viewPrefixPath: public/business/dataperm
     wrapperProjectPath:  /wrapper/wrapper-all-service
   #计划任务
