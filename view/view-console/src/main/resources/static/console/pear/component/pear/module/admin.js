@@ -103,7 +103,7 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 							//layer.msg('没有权限', {icon: 2});
 							layer.closeAll('loading');
 							// fox.showMessage(jsonRs);
-							top.layer.msg('退出失败', {icon: 2, time: 1500});
+							top.layer.msg('缺少权限:'+jsonRs.message, {icon: 2, time: 3000});
 							return;
 						}
 					}

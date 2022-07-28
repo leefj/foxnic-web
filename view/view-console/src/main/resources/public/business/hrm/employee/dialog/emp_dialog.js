@@ -402,6 +402,8 @@ function ListPage() {
 			if(Object.keys(contitions).length>0) {
 				ps = {searchField: "$composite", searchValue: JSON.stringify(contitions)};
 			}
+			// 指定在职人员
+			ps.status="active";
 			// var templet=window.pageExt.list.templet;
 			// if(templet==null) {
 			var templet=function(field,value,row) {
