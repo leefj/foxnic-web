@@ -35,11 +35,11 @@ public class CodeStarter extends ModuleCodeGenerator {
     public void initModules() {
 
 //        initPcmModules();
-        initOAuthModules();
+//        initOAuthModules();
 //        initSystemModules();
 //        initHrmModules();
 //        initExampleModules();
-//        initChangeModule1s();
+        initChangeModules();
 //        initBpmModules();
 //        initDatapermModules();
 //
@@ -91,14 +91,14 @@ public class CodeStarter extends ModuleCodeGenerator {
     }
 
     private void  initChangeModules() {
-        this.addConfig(new ChsChangeDefinitionConfig());
+//        this.addConfig(new ChsChangeDefinitionConfig());
         this.addConfig(new ChsChangeInstanceConfig());
-        this.addConfig(new ChsChangeDataConfig());
-        this.addConfig(new ChsExampleOrderConfig());
-        this.addConfig(new ChsExampleOrderItemConfig());
-        this.addConfig(new ChsChangeEventConfig());
-        this.addConfig(new ChsInstanceBillConfig());
-        this.addConfig(new ChsInstanceApproverConfig());
+//        this.addConfig(new ChsChangeDataConfig());
+//        this.addConfig(new ChsExampleOrderConfig());
+//        this.addConfig(new ChsExampleOrderItemConfig());
+//        this.addConfig(new ChsChangeEventConfig());
+//        this.addConfig(new ChsInstanceBillConfig());
+//        this.addConfig(new ChsInstanceApproverConfig());
     }
 
     private void initJobModules() {

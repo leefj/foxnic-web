@@ -257,6 +257,7 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 				for (var i = 0; i < menus.length; i++) {
 
 					menus[i].title=menus[i].label;
+					if(menus[i].title==null) menus[i].title="";
 					menus[i].icon=menus[i].css;
 					menus[i].openType = "_iframe";
 					menus[i].href = menus[i].path;
@@ -310,25 +311,37 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 						p.children=children;
 
 					}
-					pages[i].level=p.level+1;
+					//pages[i].level=p.level+1;
 					children.push(pages[i]);
 					//如果有下级，则转为 folder
 					// p.type=0;
 					p.url="javascript:;";
+
+
 				}
 
-				// for (var i = 0; i < pages.length; i++) {
-				// 	if(pages[i].title=="工作台") {
-				// 		debugger;
-				// 	}
-				// 	if(pages[i].children && pages[i].children.length==0) {
-				// 		delete  pages[i].children;
-				// 	}
-				// 	if(!pages[i].children) {
-				// 		pages[i].type=0;
-				// 	}
-				//
-				// }
+				function setParentLevel(menu,pages) {
+					var p=map[menu.parentId];
+					if(p) {
+						if(p.level==null) {
+							setParentLevel(p,pages);
+						}
+						menu.level=p.level+1;
+					}
+				}
+
+				// 补充执行,计算 level
+				for (var i = 0; i < pages.length; i++) {
+
+					if(pages[i].level==null) {
+						setParentLevel(pages[i],pages)
+					}
+					var children=pages[i]["children"];
+					if(!children) continue;
+					for (var j = 0; j < children.length; j++) {
+						children[j].level=pages[i].level+1;
+					}
+				}
 
 
 				// debugger
@@ -1048,6 +1061,9 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 				var filteredMenus = [];
 				filterData = $.extend(true, {}, filterData);
 				$.each(filterData, function (index, item) {
+					if(item.title==null) {
+						item.title="";
+					}
 					if (item.children && item.children.length) {
 						var children = filterHandle(item.children, val)
 						var obj = $.extend({}, item, { children: children });
