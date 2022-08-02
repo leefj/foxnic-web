@@ -316,20 +316,24 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 		Map<String,User> userMap=new HashMap();
 		List<User> users=dao.queryEntities(User.class, conditionExpr);
 
-		for (User u : users) {
-			if (u.getAccount()!=null && u.getAccount().equals(identity)) {
-				userMap.put("account", u);
-			} else if (u.getPhone()!=null && u.getPhone().equals(identity)) {
-				userMap.put("phone", u);
-			} else if (u.getId().equals(identity)) {
-				userMap.put("id", u);
-			}
-		}
-
 		User user = null ;
-		for (String priority : IDENTITY_PRIORITY) {
-			user = userMap.get(priority);
-			if(user!=null) break;
+
+		if(users.size()==1) {
+			user = users.get(0);
+		} else {
+			for (User u : users) {
+				if (u.getAccount() != null && u.getAccount().equals(identity)) {
+					userMap.put("account", u);
+				} else if (u.getPhone() != null && u.getPhone().equals(identity)) {
+					userMap.put("phone", u);
+				} else if (u.getId().equals(identity)) {
+					userMap.put("id", u);
+				}
+			}
+			for (String priority : IDENTITY_PRIORITY) {
+				user = userMap.get(priority);
+				if (user != null) break;
+			}
 		}
 
  		//填充账户模型
