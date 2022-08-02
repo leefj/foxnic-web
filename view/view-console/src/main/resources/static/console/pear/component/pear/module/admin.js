@@ -78,6 +78,34 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 				return timeStr;
 			};
 
+			this.openIconDialog = function(callback) {
+
+				//拦截，并由顶层弹出窗口
+				if(top && top!=window && top.admin) {
+					return top.admin.openIconDialog(callback);
+				}
+
+				var index=admin.popupCenter({
+					type:2,
+					title: "请选择图标",
+					content: '/module/icon/icon.html',
+					area:["480px","90%"],
+					offset:["5%",null]
+				});
+
+				var task=setInterval(function (){
+					try{
+						$("#layui-layer-iframe"+index)[0].contentWindow.setLinkIn(index,function(act,css){
+							admin.closePopupCenter();
+							if(act=="sure") {
+								callback(css);
+							}
+						});
+						clearInterval(task);
+					} catch (e) {}
+				},100);
+			};
+
 			// 封装ajax请求
 			this.ajax = function (param) {
 				var me=this;

@@ -3,6 +3,7 @@ package org.github.foxnic.web.domain.pcm;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
 import com.github.foxnic.api.model.CompositeParameter;
 import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
@@ -12,7 +13,7 @@ import com.github.foxnic.commons.bean.BeanUtil;
 /**
  * 数据存储
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-29 16:34:36
+ * @since 2022-08-02 11:48:57
  * @sign D090530F33B5C6D8DA7A68AD7E22D384
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -200,9 +201,9 @@ public class CatalogVO extends Catalog {
 	 * @param dirtyField 已修改字段
 	 * @return 当前对象
 	*/
-	public CatalogVO addDirtyField(String dirtyField) {
+	public CatalogVO addDirtyField(String... dirtyField) {
 		if(this.dirtyFields==null) dirtyFields=new ArrayList<>();
-		this.dirtyFields.add(dirtyField);
+		this.dirtyFields.addAll(Arrays.asList(dirtyField));
 		return this;
 	}
 	
@@ -266,9 +267,9 @@ public class CatalogVO extends Catalog {
 	 * @param id 主键清单
 	 * @return 当前对象
 	*/
-	public CatalogVO addId(String id) {
+	public CatalogVO addId(String... id) {
 		if(this.ids==null) ids=new ArrayList<>();
-		this.ids.add(id);
+		this.ids.addAll(Arrays.asList(id));
 		return this;
 	}
 	
@@ -310,7 +311,7 @@ public class CatalogVO extends Catalog {
 		return this;
 	}
 	@Transient
-	private CompositeParameter $compositeParameter;
+	private transient CompositeParameter $compositeParameter;
 	/**
 	 * 获得解析后的复合查询参数
 	 */

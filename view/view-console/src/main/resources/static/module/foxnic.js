@@ -467,7 +467,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 }
                 inst.setValue(opts);
                 if (!id.startWith("#")) id = "#" + id;
-                if(this.selectBoxConfigs[id]) {
+                if(this.selectBoxConfigs && this.selectBoxConfigs[id]) {
                     this.selectBoxConfigs[id].data=opts;
                 }
             };
@@ -1492,17 +1492,17 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 var data = {};
                 data[idProp] = obj.elem.value;
                 data[logicProp] = obj.elem.checked ? 1 : 0;
-                admin.request(updateApiUrl, data, function (data) {
+                admin.request(updateApiUrl, data, function (result) {
                     layer.closeAll('loading');
-                    if (data.success) {
+                    if (result.success) {
                         //layer.msg(data.message, {icon: 1, time: 500});
-                        admin.toast().success(data.message,{time:1000,position:"right-bottom"})
+                        admin.toast().success(result.message,{time:1000,position:"right-bottom"})
                     } else {
-                        layer.msg(data.message, {icon: 2, time: 3000});
+                        layer.msg(result.message, {icon: 2, time: 3000});
                         $(obj.elem).prop('checked', !obj.elem.checked);
                         form.render('checkbox');
                     }
-                    callback && callback(data,obj);
+                    callback && callback(result,data,obj);
                 }, 'POST');
             });
         },

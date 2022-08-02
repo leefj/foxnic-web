@@ -84,7 +84,7 @@ applications:
     packageName: org.github.foxnic.web.pcm
     primaryDatasourceConfigKey: spring.datasource.druid.primary
     microServiceNameConst: PCM
-    viewProjectPath: /view/view-console
+    viewProjectPath: /view/view-pcm
     viewPrefixPath: public/business/pcm
     wrapperProjectPath:  /wrapper/wrapper-all-service
   #Changes  变更服务

@@ -11,7 +11,7 @@ import org.github.foxnic.web.domain.pcm.CatalogAttribute;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-29 16:34:36
+ * @since 2022-08-02 11:48:57
  * @sign D090530F33B5C6D8DA7A68AD7E22D384
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
