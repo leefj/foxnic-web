@@ -142,9 +142,17 @@ public class PCMTestController {
         JSONObject data=(JSONObject)result1.data();
         JSONArray list=data.getJSONArray("list");
         if(!list.isEmpty()) {
-            String id=list.getJSONObject(0).getString("id");
+            Map<String,Object> data0=list.getJSONObject(0);
+            String id=(String) data0.get("id");
             Result result2 = PcmProxyUtil.queryDataById("606503724902256641", id);
             map.put("queryDataById",result2.data());
+
+            data0.put("MiD",null);
+            PcmProxyUtil.save("606503724902256641",sessionUser.getUserId(),data0);
+            Result result3 = PcmProxyUtil.queryDataById("606503724902256641", id);
+            map.put("queryDataByIdNull",result3.data());
+
+
         }
         Result result3=PcmProxyUtil.queryDataInCatalog("606503724902256641",10,1);
 

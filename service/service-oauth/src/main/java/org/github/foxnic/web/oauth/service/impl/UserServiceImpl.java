@@ -4,6 +4,7 @@ import com.github.foxnic.api.error.CommonError;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.commons.collection.CollectorUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
@@ -42,9 +43,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * <p>
@@ -303,17 +302,34 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 		return false;
 	}
 
+
+	private static final String[] IDENTITY_PRIORITY={"account","phone","id"};
 	/**
 	 * 提供给 SpringSecurity 的查询接口
 	 * */
 	public User getUserByIdentity(String identity) {
 
-		User user=dao.queryEntity(User.class, new ConditionExpr(SYS_USER.ACCOUNT+" = ?",identity));
-    	if(user==null) {
-    		user=dao.queryEntity(User.class, new ConditionExpr(SYS_USER.PHONE+" = ?",identity));
-    	}
-		if(user==null) {
-			user=dao.queryEntity(User.class, new ConditionExpr(SYS_USER.ID+" = ?",identity));
+		ConditionExpr conditionExpr=new ConditionExpr(SYS_USER.ACCOUNT+" = ?",identity);
+		conditionExpr.or(SYS_USER.PHONE+" = ?",identity);
+		conditionExpr.or(SYS_USER.ID+" = ?",identity);
+
+		Map<String,User> userMap=new HashMap();
+		List<User> users=dao.queryEntities(User.class, conditionExpr);
+
+		for (User u : users) {
+			if (u.getAccount()!=null && u.getAccount().equals(identity)) {
+				userMap.put("account", u);
+			} else if (u.getPhone()!=null && u.getPhone().equals(identity)) {
+				userMap.put("phone", u);
+			} else if (u.getId().equals(identity)) {
+				userMap.put("id", u);
+			}
+		}
+
+		User user = null ;
+		for (String priority : IDENTITY_PRIORITY) {
+			user = userMap.get(priority);
+			if(user!=null) break;
 		}
 
  		//填充账户模型
@@ -330,20 +346,24 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 
 
 		List<Menu> remMenus=new ArrayList<>();
-		for (Menu menu : user.getMenus()) {
-			if(!StringUtil.isBlank(menu.getDynamicHandler())) {
-				DynamicMenuHandler dy= DynamicMenuHandler.getHandler(menu.getDynamicHandler());
-				boolean has=dy.hasPermission(menu,user);
-				if(!has) {
-					remMenus.add(menu);
-				}
-				String title=dy.getLabel(menu,user);
-				menu.setLabel(title);
-			}
-		}
+		if(user.getMenus()!=null) {
 
-		for (Menu remMenu : remMenus) {
-			user.getMenus().remove(remMenu);
+			for (Menu menu : user.getMenus()) {
+				if (!StringUtil.isBlank(menu.getDynamicHandler())) {
+					DynamicMenuHandler dy = DynamicMenuHandler.getHandler(menu.getDynamicHandler());
+					boolean has = dy.hasPermission(menu, user);
+					if (!has) {
+						remMenus.add(menu);
+					}
+					String title = dy.getLabel(menu, user);
+					menu.setLabel(title);
+				}
+			}
+
+			for (Menu remMenu : remMenus) {
+				user.getMenus().remove(remMenu);
+			}
+
 		}
 
  		if(user.getActivatedTenant()!=null){

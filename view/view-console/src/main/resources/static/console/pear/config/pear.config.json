@@ -57,6 +57,11 @@
 			"id": "5",
 			"color": "#3963bc",
 			"second": "#ecf5ff"
+		},
+		{
+			"id": "6",
+			"color": "#4ec5c1",
+			"second": "#ecf5ff"
 		}
 	],
 	"other": {

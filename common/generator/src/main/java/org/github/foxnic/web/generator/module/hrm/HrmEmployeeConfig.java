@@ -93,7 +93,7 @@ public class HrmEmployeeConfig extends BaseCodeConfig<HRM_EMPLOYEE> {
                 .search().selectMuliti(false).triggerOnSelect(true)
                 .table().fillBy(EmployeeMeta.PERSON, PersonMeta.SEX).sort(true).alignCenter()
                 .form().validate().required()
-                .form().radioBox().dict(DictEnum.SEX)
+                .form().radioBox().dict(DictEnum.SEX).defaultIndex(0)
                 .form().fillBy(EmployeeMeta.PERSON, PersonMeta.SEX)
                 .search().on(FoxnicWeb.HRM_PERSON.SEX);
 

@@ -50,6 +50,7 @@ public class PcmProxyUtil {
         catalogData.setData(data);
         catalogData.setCatalogId(catalogId);
         catalogData.setOwnerId(ownerId);
+        catalogData.setId((String) data.get("id"));
         return  CatalogServiceProxy.api().saveData(catalogData);
     }
 
@@ -63,6 +64,7 @@ public class PcmProxyUtil {
             catalogData.setCatalogId(catalogId);
             catalogData.setData(map);
             catalogData.setOwnerId(ownerId);
+            catalogData.setId((String) map.get("id"));
             dataList.add(catalogData);
         }
         return  CatalogServiceProxy.api().saveDataList(dataList);
