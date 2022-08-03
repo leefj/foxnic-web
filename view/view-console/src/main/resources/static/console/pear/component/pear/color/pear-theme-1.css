@@ -4,3 +4,51 @@
 .ops-view-button {background-color: #f0f9eb !important}
 .ops-edit-button {background-color: #fef0f0 !important}
 .layui-laypage .layui-laypage-curr .layui-laypage-em { background-color:#2d8cf0 }
+
+.search-button-advance {color:#fff}
+.layui-form-onswitch {
+    border-color: #2d8cf0;
+    background-color: #2d8cf0;
+}
+
+.xm-label-block  {
+    background-color: #2d8cf0 !important;
+}
+.xm-option-icon {
+    border-color: #2d8cf0 !important;
+}
+.xm-body .selected .xm-option-icon {
+    color: #2d8cf0 !important;
+}
+
+xm-select  {
+    border-color: #E6E6E6 !important;
+}
+
+
+.layui-form-checked[lay-skin="primary"] i {
+    border-color: #2d8cf0 !important;
+    background-color: #2d8cf0;
+    color: #fff;
+}
+
+#layui-table-page1-footer-download-excel-template , #layui-table-page1-footer-import-excel , #layui-table-page1-footer-download-excel {
+    background-color: #fff;
+}
+
+.layui-btn-primary:hover {
+    border-color: #2d8cf0;
+    color: #333;
+}
+
+.layui-form-radioed, .layui-form-radioed>i, .layui-form-radio:hover * {
+    color: #2d8cf0;
+}
+
+#cancel-button {
+    color: #fff;
+}
+
+#orgId-button , #empId-button {
+    color: #fff;
+}

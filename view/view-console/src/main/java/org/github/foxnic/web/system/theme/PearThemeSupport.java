@@ -25,7 +25,7 @@ public class PearThemeSupport extends ViewController {
     @GetMapping("/console/pear/component/pear/css/pear-support.js")
     public void pearJs(HttpServletResponse response) throws Exception {
         CodeBuilder js = new CodeBuilder();
-        js.ln("alert('pear')");
+//        js.ln("alert('pear')");
         response.getWriter().print(js.toString());
     }
 

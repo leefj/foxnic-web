@@ -13,11 +13,12 @@ public class CodeExampleDyHandler extends DynamicMenuHandler {
     public boolean hasPermission(Menu menu, User user) {
         VersionType versionType=SystemConfigProxyUtil.getEnum(SystemConfigEnum.SYSTEM_VERSION_TYPE, VersionType.class);
         //生产环境下，不显示当前菜单
-        if(versionType==VersionType.PROD) {
-            return false;
-        } else {
-            return true;
-        }
+//        if(versionType==VersionType.PROD) {
+//            return false;
+//        } else {
+//            return true;
+//        }
+        return true;
     }
 
     @Override

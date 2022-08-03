@@ -1750,30 +1750,31 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             $(".search-buttons").css("left",ks+"px");
             $(".search-input-rows").animate({opacity:'1.0'},0.25);
             $(".search-buttons").animate({opacity:'1.0'},0.25);
-            if(t<3) {
+
+            if(t< 2) {
                 logger.info("adjustSearchElement","快速调整期")
                 //渲染后的补充执行
                 setTimeout(function () {
                     me.adjustSearchElement(t);
                     //console.log("adjustSearchElement:"+t);
-                }, 16 * t * t * t );
+                }, 16 );
             }
-            else if(t<8) {
-                //渲染后的补充执行
-                logger.info("adjustSearchElement","补充调整期")
-                setTimeout(function () {
-                    me.adjustSearchElement(t);
-                    //console.log("adjustSearchElement:"+t);
-                }, 1000 );
-            }
-            else if(t<100) { // 此分支用于测试
-                //渲染后的补充执行
-                logger.info("adjustSearchElement","测试调整期")
-                setTimeout(function () {
-                    me.adjustSearchElement(t);
-                    //console.log("adjustSearchElement:"+t);
-                }, 5000 );
-            }
+            // else if(t<8) {
+            //     //渲染后的补充执行
+            //     logger.info("adjustSearchElement","补充调整期")
+            //     setTimeout(function () {
+            //         me.adjustSearchElement(t);
+            //         //console.log("adjustSearchElement:"+t);
+            //     }, 1000 );
+            // }
+            // else if(t<100) { // 此分支用于测试
+            //     //渲染后的补充执行
+            //     logger.info("adjustSearchElement","测试调整期")
+            //     setTimeout(function () {
+            //         me.adjustSearchElement(t);
+            //         //console.log("adjustSearchElement:"+t);
+            //     }, 5000 );
+            // }
         },
         chooseOrgNode:function (param){
             //fromData,inputEl,buttonEl
