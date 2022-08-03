@@ -1503,6 +1503,7 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 		});
 
 		body.on('click', '.select-color-item', function() {
+			// debugger
 			$(".select-color-item").removeClass("layui-icon").removeClass("layui-icon-ok");
 			$(this).addClass("layui-icon").addClass("layui-icon-ok");
 			var colorId = $(".select-color-item.layui-icon-ok").attr("color-id");
@@ -1511,6 +1512,18 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 			localStorage.setItem("theme-color-color", currentColor.color);
 			localStorage.setItem("theme-color-second", currentColor.second);
 			pearTheme.changeTheme(window, isAutoHead(config));
+
+			pearAdmin.request("/service-system/sys-db-cache/save", {
+					value: JSON.stringify(currentColor),
+					area: "pear-config",
+					catalog: "theme",
+					ownerType: "user"
+				}, function (data) {
+
+				}
+			);
+
+
 		});
 
 		function applyConfig(param) {

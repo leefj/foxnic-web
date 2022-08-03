@@ -329,7 +329,8 @@ layui.define(['table', 'jquery', 'element','dropdown'], function (exports) {
 	}
 
 	function createMenuAndControl(option) {
-		var control = '<div style="width: ' + option.controlWidth + 'px;white-space: nowrap;overflow-x: scroll;overflow: visible;" class="control"><ul class="layui-nav pear-nav-control pc layui-hide-xs" style="width: fit-content;">';
+		// var control = '<div style="width: ' + option.controlWidth + 'px;white-space: nowrap;overflow-x: scroll;overflow: visible;" class="control"><ul class="layui-nav pear-nav-control pc layui-hide-xs" style="width: fit-content;">';
+		var control = '<div style="width:100%;white-space: nowrap;overflow-x: scroll;overflow: visible;" class="control"><ul class="layui-nav pear-nav-control pc layui-hide-xs" style="width: fit-content;">';
 		var controlPe = '<ul class="layui-nav pear-nav-control layui-hide-sm">';
 		// 声 明 头 部
 		var menu = '<div class="layui-side-scroll ' + option.theme + '">'
@@ -489,6 +490,7 @@ layui.define(['table', 'jquery', 'element','dropdown'], function (exports) {
 			menu += menuItem + '</ul>';
 			control += controlItem;
 		})
+		// debugger
 		controlItemPe += "</li></dl></ul>"
 		controlPe += controlItemPe;
 		$("#" + option.control).html(control + "</div>");
@@ -715,7 +717,8 @@ layui.define(['table', 'jquery', 'element','dropdown'], function (exports) {
 		if (option.controlWidth && rationalizeWidth >= option.controlWidth) {
 			rationalizeWidth = option.controlWidth;
 		}
-		$("#" + option.control + " .control").css({ "width": rationalizeWidth, "transition": "width .15s" });
+		// $("#" + option.control + " .control").css({ "width": rationalizeWidth, "transition": "width .15s" });
+		$("#" + option.control + " .control").css({ "width": "100%", "transition": "width .15s" });
 	}
 
 	function rationalizeHeaderControlWidthAuto(option){

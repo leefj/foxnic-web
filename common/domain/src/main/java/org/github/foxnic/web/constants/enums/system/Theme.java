@@ -11,7 +11,7 @@ public enum Theme implements CodeTextEnum {
 	DEFAULT("默认",new String[]{},new String[]{},"/","index"),
 	BLUE("蓝色主题",new String[]{"/assets/css/theme/blue.css"},new String[]{"/assets/css/theme/blue.js"},"/","index"),
 	ORANGE("橘色主题",new String[]{"/assets/css/theme/orange.css"},new String[]{"/assets/css/theme/orange.js"},"/","index"),
-	PEAR("PEAR",new String[]{},new String[]{},"/console/pear","console/pear/index");
+	PEAR("PEAR",new String[]{"/console/pear/component/pear/css/pear-support.css"},new String[]{"/console/pear/component/pear/css/pear-support.js"},"/console/pear","console/pear/index");
 
 	private String[] css;
 	private String[] js;
