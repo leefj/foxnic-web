@@ -575,7 +575,7 @@ layui.define(['table', 'jquery', 'element','dropdown'], function (exports) {
 				//debugger
 				var marginLeft="";
 				if(note.level>=2) {
-					marginLeft="margin-left:"+(note.level-1) * 20 +"px";
+					marginLeft="padding-left:"+(note.level-1) * 20 +"px";
 				}
 				// 判 断 子 项 类 型
 				if (note.type == 0) {
