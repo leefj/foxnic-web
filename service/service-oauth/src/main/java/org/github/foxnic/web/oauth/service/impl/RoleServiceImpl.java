@@ -121,7 +121,7 @@ public class RoleServiceImpl extends SuperService<Role> implements IRoleService 
 		Role role = new Role();
 		if(id==null) return ErrorDesc.failure();
 		role.setId(id);
-		role.setDeleted(dao.getDBTreaty().getTrueValue());
+		role.setDeleted(true);
 		role.setDeleteBy((String)dao.getDBTreaty().getLoginUserId());
 		role.setDeleteTime(new Date());
 		try {

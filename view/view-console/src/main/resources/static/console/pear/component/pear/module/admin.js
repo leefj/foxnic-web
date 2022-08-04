@@ -301,9 +301,14 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 					if(menus[i].parentId=='0') {
 						menus[i].level=0;
 					}
+
+					menus[i].topNavIconStyle="";
+					menus[i].sideMenuIconStyle="";
 					//debugger
 					if(menus[i].css && menus[i].css.indexOf("mdi-")>0) {
-						menus[i].style="padding-left: 4px;margin-right:-2px;";
+						// debugger
+						menus[i].topNavIconStyle="padding-left: 4px;margin-right:-2px;";
+						menus[i].sideMenuIconStyle="font-size:16px";
 					}
 					// if(menus[i].title=="工作台") {
 					// 	debugger;

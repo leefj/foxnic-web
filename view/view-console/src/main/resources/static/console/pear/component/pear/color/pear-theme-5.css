@@ -77,3 +77,10 @@ xm-select  {
 .layui-elem-quote {
     border-left: 5px solid #3963bc;
 }
+
+.layui-border-blue {
+    border-width: 1px;
+    border-style: solid;
+    border-color: #3963bc !important;
+    color: #fff !important;
+}

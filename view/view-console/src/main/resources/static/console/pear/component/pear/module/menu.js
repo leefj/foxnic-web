@@ -308,13 +308,13 @@ layui.define(['table', 'jquery', 'element','dropdown'], function (exports) {
 			if (item.type == 0) {
 				// 创 建 目 录 结 构
 				content += '<a  href="javascript:;" menu-type="' + item.type + '" menu-id="' + item.id + '" href="' + href +
-					'" ' + target + ' ><i class="' + item.icon + '" style="'+item.style+'"></i><span>' + item.title +
+					'" ' + target + ' ><i class="' + item.icon + '" style="'+item.topNavIconStyle+'"></i><span>' + item.title +
 					'</span></a>';
 			} else if (item.type == 1) {
 				content += '<a class="' + className + '" menu-type="' + item.type + '" menu-url="' + item.href + '" menu-id="' +
 					item.id +
 					'" menu-title="' + item.title + '"  href="' + href + '"  ' + target + '><i class="' + item.icon +
-					'" ></i><span>' + item.title + '</span></a>';
+					'" style="'+item.topNavIconStyle+'"></i><span>' + item.title + '</span></a>';
 			}
 			// 调 用 递 归 方 法 加 载 无 限 层 级 的 子 菜 单
 			content += loadchild(item);
@@ -466,22 +466,23 @@ layui.define(['table', 'jquery', 'element','dropdown'], function (exports) {
 
 				var marginLeft="";
 				if(note.level>=2) {
-					marginLeft="margin-left:"+(note.level-1) * 20 +"px";
+					marginLeft="margin-left:"+(note.level-1) * 20 +"px;";
 				}
 
 				// 判 断 菜 单 类 型 0 是 不可跳转的目录 1 是 可 点 击 跳 转 的 菜 单
 				if (note.type == 0) {
 					// 创 建 目 录 结 构
+					// debugger
 					content += '<a level="f2-'+note.level+'"  href="' + href + '" ' + target + ' menu-type="' + note.type + '" menu-id="' + note.id +
-						'" ><i class="' + note.icon + '"   style="'+marginLeft+'"></i><span>' + note.title +
+						'" style="'+marginLeft+'"><i class="' + note.icon + '" style="'+item.sideMenuIconStyle+'"></i><span>' + note.title +
 						'</span></a>';
 				} else if (note.type == 1) {
 					// 创 建 菜 单 结 构
-					//debugger
+					// debugger
 					content += '<a level="p2-'+note.level+'" ' + target + ' class="' + className + '" menu-type="' + note.type + '" menu-url="' + note.href +
 						'" menu-id="' + note.id +
 						'" menu-title="' + note.title + '" href="' + href + '" style="'+marginLeft+'"><i class="' + note.icon +
-						'" style="'+item.style+'"></i><span>' + note.title + '</span></a>';
+						'" style="'+item.sideMenuIconStyle+'"></i><span>' + note.title + '</span></a>';
 				}
 				content += loadchild(note);
 				content += '</li>';
@@ -577,18 +578,18 @@ layui.define(['table', 'jquery', 'element','dropdown'], function (exports) {
 				//debugger
 				var marginLeft="";
 				if(note.level>=2) {
-					marginLeft="padding-left:"+(note.level-1) * 20 +"px";
+					marginLeft="padding-left:"+(note.level-1) * 20 +"px;";
 				}
 				// 判 断 子 项 类 型
 				if (note.type == 0) {
 					// 创 建 目 录 结 构
 					content += '<a   level="f1-'+note.level+'" ' + target + '  href="' + href + '" menu-type="' + note.type + '" menu-id="' + note.id +
-						'" style="'+marginLeft+'"><i class="' + note.icon + '"></i><span>' + note.title + '</span></a>';
+						'" style="'+marginLeft+'"><i class="' + note.icon + '" style="'+note.sideMenuIconStyle+'"></i><span>' + note.title + '-3</span></a>';
 				} else if (note.type == 1) {
 					// 创 建 菜 单 结 构
 					content += '<a level="p1-'+note.level+'" ' + target + ' class="' + className + '" menu-type="' + note.type + '" menu-url="' + note.href +
 						'" menu-id="' + note.id + '" menu-title="' + note.title + '" menu-icon="' + note.icon + '" href="' + href +
-						'" style="'+marginLeft+'"><i class="' + note.icon + '"></i><span>' + note.title + '</span></a>';
+						'" style="'+marginLeft+'"><i class="' + note.icon + '" style="'+note.sideMenuIconStyle+'"></i><span>' + note.title + '</span></a>';
 				}
 				// 加 载 子 项 目 录
 				content += loadchild(note);
