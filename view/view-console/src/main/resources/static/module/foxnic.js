@@ -1871,7 +1871,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     title: title,
                     content: '/business/hrm/employee/dialog/emp_dialog.html',
                     offset: 'auto',
-                    area:["950px","90%"]
+                    area:["1150px","90%"]
                 });
                 admin.putTempData("employee-dialog-index",dialogIndex,true);
             });
