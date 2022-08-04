@@ -37,10 +37,10 @@ public class CodeStarter extends ModuleCodeGenerator {
 //        initPcmModules();
 //        initOAuthModules();
 //        initSystemModules();
-        initHrmModules();
+//        initHrmModules();
 //        initExampleModules();
 //        initChangeModules();
-//        initBpmModules();
+        initBpmModules();
 //        initDatapermModules();
 //
 //        initExample2Modules();
@@ -67,27 +67,27 @@ public class CodeStarter extends ModuleCodeGenerator {
     }
 
     private void initBpmModules() {
-        this.addConfig(new ProcessDefinitionConfig());
-        this.addConfig(new ProcessDefinitionFileConfig());
-        this.addConfig(new ProcessDefinitionNodeConfig());
-        this.addConfig(new ProcessDefinitionNodeAssigneeConfig());
+//        this.addConfig(new ProcessDefinitionConfig());
+//        this.addConfig(new ProcessDefinitionFileConfig());
+//        this.addConfig(new ProcessDefinitionNodeConfig());
+//        this.addConfig(new ProcessDefinitionNodeAssigneeConfig());
 //        this.addConfig(new ProcessInitiatorConfig());
 //        this.addConfig(new ProcessDefinitionApplyConfig());
         //
         this.addConfig(new ProcessInstanceConfig());
         //
-        this.addConfig(new FormDefinitionConfig());
-        this.addConfig(new FormInstanceConfig());
-        this.addConfig(new FormInstanceBillConfig());
-        this.addConfig(new TaskConfig());
-        this.addConfig(new TaskReadConfig());
-        this.addConfig(new TaskAssigneeConfig());
-        this.addConfig(new TaskApprovalConfig());
-        this.addConfig(new ProcessErrorConfig());
-
-        //
-        this.addConfig(new DemoLeaveConfig());
-        this.addConfig(new DemoCommonConfig());
+//        this.addConfig(new FormDefinitionConfig());
+//        this.addConfig(new FormInstanceConfig());
+//        this.addConfig(new FormInstanceBillConfig());
+//        this.addConfig(new TaskConfig());
+//        this.addConfig(new TaskReadConfig());
+//        this.addConfig(new TaskAssigneeConfig());
+//        this.addConfig(new TaskApprovalConfig());
+//        this.addConfig(new ProcessErrorConfig());
+//
+//        //
+//        this.addConfig(new DemoLeaveConfig());
+//        this.addConfig(new DemoCommonConfig());
     }
 
     private void  initChangeModules() {

@@ -21,8 +21,8 @@ import org.github.foxnic.web.domain.bpm.TaskApproval;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-11 14:08:44
- * @sign DEDB9EC722B9B23BC314911B41474B11
+ * @since 2022-08-04 15:56:25
+ * @sign 99EF60040ABA6FDEABA02D0468A47EF5
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -147,6 +147,16 @@ public class ProcessInstanceVOMeta extends ProcessInstanceMeta {
 	 * 是否我的流程 , 类型: java.lang.Boolean
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceVO,java.lang.Boolean> MINE_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceVO.class ,MINE, java.lang.Boolean.class, "是否我的流程", "是否我的流程", java.lang.Boolean.class, null);
+	
+	/**
+	 * 流程审批分类 , 类型: java.lang.String
+	*/
+	public static final String APPROVAL_CATALOG="approvalCatalog";
+	
+	/**
+	 * 流程审批分类 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstanceVO,java.lang.String> APPROVAL_CATALOG_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstanceVO.class ,APPROVAL_CATALOG, java.lang.String.class, "流程审批分类", "流程审批分类", java.lang.String.class, null);
 	
 	/**
 	 * 主键 , 类型: java.lang.String
@@ -591,7 +601,7 @@ public class ProcessInstanceVOMeta extends ProcessInstanceMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , APPROVED_USER_IDS , APPROVING_USER_IDS , MINE , ID , DRAFTER_USER_ID , DRAFTER_ID , DRAFTER_TYPE , FORM_INSTANCE_ID , PROCESS_DEFINITION_ID , PROCESS_DEFINITION_FILE_ID , FORM_DEFINITION_ID , TITLE , PRIORITY , COMMENT , APPROVAL_STATUS , CAMUNDA_INSTANCE_ID , COMMIT_TIME , ABANDON_USER_ID , ABANDON_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , END_TIME , NEED_SYNC , SYNC_TIME , PROCESS_DEFINITION , FORM_DEFINITION , FORM_INSTANCE , DRAFTER , DRAFTER_NAME , DRAFTER_USER , TASKS , TODO_TASKS , USER_TASKS , BILLS , BILL_IDS , ERRORS , READERS , APPROVAL_STATUS_NAME , PROCESS_DEFINITION_FILE , TASK_APPROVALS };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , APPROVED_USER_IDS , APPROVING_USER_IDS , MINE , APPROVAL_CATALOG , ID , DRAFTER_USER_ID , DRAFTER_ID , DRAFTER_TYPE , FORM_INSTANCE_ID , PROCESS_DEFINITION_ID , PROCESS_DEFINITION_FILE_ID , FORM_DEFINITION_ID , TITLE , PRIORITY , COMMENT , APPROVAL_STATUS , CAMUNDA_INSTANCE_ID , COMMIT_TIME , ABANDON_USER_ID , ABANDON_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , END_TIME , NEED_SYNC , SYNC_TIME , PROCESS_DEFINITION , FORM_DEFINITION , FORM_INSTANCE , DRAFTER , DRAFTER_NAME , DRAFTER_USER , TASKS , TODO_TASKS , USER_TASKS , BILLS , BILL_IDS , ERRORS , READERS , APPROVAL_STATUS_NAME , PROCESS_DEFINITION_FILE , TASK_APPROVALS };
 	
 	/**
 	 * 代理类
@@ -730,6 +740,17 @@ public class ProcessInstanceVOMeta extends ProcessInstanceMeta {
 		public ProcessInstanceVO setMine(Boolean mine) {
 			super.change(MINE,super.isMine(),mine);
 			super.setMine(mine);
+			return this;
+		}
+		
+		/**
+		 * 设置 流程审批分类
+		 * @param approvalCatalog 流程审批分类
+		 * @return 当前对象
+		*/
+		public ProcessInstanceVO setApprovalCatalog(String approvalCatalog) {
+			super.change(APPROVAL_CATALOG,super.getApprovalCatalog(),approvalCatalog);
+			super.setApprovalCatalog(approvalCatalog);
 			return this;
 		}
 		

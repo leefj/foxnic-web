@@ -12,6 +12,7 @@ import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_PROCESS_INSTANCE;
+import org.github.foxnic.web.constants.enums.bpm.ApprovalCatalog;
 import org.github.foxnic.web.constants.enums.bpm.PriorityLevel;
 import org.github.foxnic.web.constants.enums.changes.ApprovalStatus;
 import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
@@ -60,6 +61,8 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
         voType.addListProperty(String.class,"approvedUserIds","已审批人ID清单","查询已审批人ID清单");
         voType.addListProperty(String.class,"approvingUserIds","待审批人ID清单","查询待审批人ID清单");
         voType.addSimpleProperty(Boolean.class,"mine","是否我的流程","是否我的流程");
+        voType.addSimpleProperty(String.class,"approvalCatalog","流程审批分类","流程审批分类");
+        voType.shadow("approvalCatalog", ApprovalCatalog.class);
         //
         PojoClassFile pojo=context.createPojo("ProcessStartVO");
         pojo.setSuperType(null);
