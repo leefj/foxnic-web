@@ -130,7 +130,14 @@ layui.define(['jquery', 'element'], function(exports) {
 		var elem = this.option.elem;
 		var option = this.option;
 		element.on('tab(' + this.option.elem + ')', function(data) {
+			// debugger
 			var id = $("#" + elem + " .layui-tab-title .layui-this").attr("lay-id");
+			var ifr=$("#"+id);
+			var src=ifr.attr("src");
+			var moduleSrc=ifr.attr("module-src");
+			if(src!=moduleSrc) {
+				ifr.attr("src",moduleSrc);
+			}
 			sessionStorage.setItem(option.elem + "-pear-tab-data-current", id);
 			if (!option.preload) {
 				var $iframe = $(".layui-tab[lay-filter='" + elem + "'] .layui-tab-content").find(
@@ -486,7 +493,7 @@ layui.define(['jquery', 'element'], function(exports) {
 			if (option.index == index) {
 
 				// 处 理 显 示 内 容
-				content += '<div class="layui-show layui-tab-item"><iframe class="tap-iframe" id="' + item.id +
+				content += '<div class="layui-show layui-tab-item"><iframe class="tap-iframe" module-src="'+item.url+'" id="' + item.id +
 					'" data-frameid="' + item.id +
 					'"  src="' + item.url +
 					'" frameborder="no" border="0" marginwidth="0" marginheight="0" style="width: 100%;height: calc(100% - 24px);"></iframe></div>'
@@ -495,10 +502,8 @@ layui.define(['jquery', 'element'], function(exports) {
 					item.url = "about:blank";
 				}
 				// 处 理 显 示 内 容
-				content += '<div class="layui-tab-item"><iframe class="tap-iframe" id="' + item.id + '" data-frameid="' +
-					item.id + '"  src="' +
-					item.url +
-					'" frameborder="no" border="0" marginwidth="0" marginheight="0" style="width: 100%;height: calc(100% - 24px);"></iframe></div>'
+				content += '<div class="layui-tab-item"><iframe class="tap-iframe" id="' + item.id + '"  module-src="'+item.url+'" data-frameid="' +
+					item.id + '" src="about:blank" frameborder="no" border="0" marginwidth="0" marginheight="0" style="width: 100%;height: calc(100% - 24px);"></iframe></div>'
 			}
 			index++;
 		});
