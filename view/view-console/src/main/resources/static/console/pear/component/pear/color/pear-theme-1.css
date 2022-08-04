@@ -53,12 +53,27 @@ xm-select  {
     color: #fff;
 }
 
+
 .layui-tab-title .layui-this {
     color: #2d8cf0;
 }
 
-.layui-btn-primary {
+.version-no {
     border-color: #2d8cf0;
-    background: none;
+    background: #2d8cf0;
     color: #fff;
+}
+
+.version-no:hover {
+    border-color: #2d8cf0;
+    color: #fff;
+}
+
+#remove-all-result , #add-employee-item , #remove-result-item {
+    border-color: #d2d2d2;
+    color: #fafafa;
+}
+
+.layui-elem-quote {
+    border-left: 5px solid #2d8cf0;
 }

@@ -303,6 +303,12 @@ layui.define(['table', 'jquery', 'element'], function (exports) {
 	};
 	// Notiflix: Confirm Default Settings off
 
+	var loadingSvgColor=localStorage.getItem("theme-color-color");
+	// debugger
+	if(!loadingSvgColor) {
+		loadingSvgColor="#32c682";
+	}
+
 	// Notiflix: Loading Default Settings on
 	var loadingSettings = {
 	    ID: 'NotiflixLoadingWrap', // can not customizable
@@ -317,7 +323,7 @@ layui.define(['table', 'jquery', 'element'], function (exports) {
 	    clickToClose: false,
 	    customSvgUrl: null,
 	    svgSize: '80px',
-	    svgColor: '#32c682',
+	    svgColor: loadingSvgColor,
 	    messageID: 'NotiflixLoadingMessage',
 	    messageFontSize: '15px',
 	    messageMaxLength: 34,
