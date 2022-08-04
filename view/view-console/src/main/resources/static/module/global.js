@@ -185,7 +185,8 @@ TypeUtil={
 	},
 	isObject:function (data){
 		if(!data) return false;
-		return data.constructor === Object;
+		// return data.constructor === Object;
+		return Object.prototype.toString.call(data) === '[object Object]'
 	},
 	isString:function (data) {
 		return typeof(data)=='string';

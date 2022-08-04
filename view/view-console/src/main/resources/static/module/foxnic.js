@@ -2310,7 +2310,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             ownerType: "user"
         }, function (data) {
             if(admin.toast()) {
-                admin.toast().success("自定义表格设置已同步", {time: 1000, position: "right-bottom"});
+                admin.toast().success("自定义表格设置已同步", {time: 1000, position: "right-bottom",title:"提示"});
             }
         });
     }
