@@ -1,4 +1,4 @@
-package org.github.foxnic.web.proxy.utils;
+package org.github.foxnic.web.framework.pcm;
 
 import com.github.foxnic.api.transter.Result;
 import org.github.foxnic.web.domain.pcm.*;
