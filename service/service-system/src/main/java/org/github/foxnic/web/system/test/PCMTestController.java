@@ -8,9 +8,11 @@ import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.collection.MapUtil;
 import org.github.foxnic.web.domain.pcm.Catalog;
 import org.github.foxnic.web.domain.pcm.CatalogAttribute;
-import org.github.foxnic.web.domain.pcm.CatalogData;
+import org.github.foxnic.web.domain.pcm.CatalogVO;
+import org.github.foxnic.web.framework.web.Validator;
 import org.github.foxnic.web.misc.ztree.ZTreeNode;
-import org.github.foxnic.web.proxy.utils.PcmProxyUtil;
+import org.github.foxnic.web.proxy.pcm.CatalogServiceProxy;
+import org.github.foxnic.web.proxy.utils.PcmCatalogDelegate;
 import org.github.foxnic.web.session.SessionUser;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,6 +25,35 @@ import java.util.Map;
 @RestController("PCMMTestController")
 public class PCMTestController {
 
+    private boolean useCatalogCode() {
+        return true;
+    }
+
+    private String getCatalogIdentity(String catalogId) {
+
+        if(useCatalogCode()) {
+            Result<Catalog> result = CatalogServiceProxy.api().getById(catalogId);
+            if(result.failure()) {
+                throw new IllegalArgumentException(result.message());
+            }
+            return result.data().getCode();
+        } else {
+            return catalogId;
+        }
+    }
+
+    public PcmCatalogDelegate createPcmCatalogDelegate(String identity) {
+        SessionUser sessionUser=SessionUser.getCurrent();
+        if(useCatalogCode()) {
+            return new PcmCatalogDelegate(sessionUser.getActivatedTenantId(),sessionUser.getUserId(),identity);
+        } else {
+            return new PcmCatalogDelegate(sessionUser.getUserId(),identity);
+        }
+    }
+
+
+
+
     /**
      * 查询类目树
      * */
@@ -32,9 +63,12 @@ public class PCMTestController {
         if(sessionUser==null) {
             return ErrorDesc.failure(CommonError.SESSION_INVALID);
         }
+        PcmCatalogDelegate delegate=this.createPcmCatalogDelegate(getCatalogIdentity("484764976855126017"));
         // 查询橡胶下的类目树
-        Result<List<ZTreeNode>> tree= PcmProxyUtil.queryCatalogNodesTree("484764976855126017",true);
-        return tree;
+        Result<List<ZTreeNode>> result1= delegate.queryNodesTree(true);
+        Result<List<ZTreeNode>> result2= delegate.queryNodesTree(false);
+        Map map=MapUtil.asMap("All-Descendants",result1.data(),"No-Descendants",result2.data());
+        return ErrorDesc.success().data(map);
     }
 
 
@@ -47,9 +81,35 @@ public class PCMTestController {
         if(sessionUser==null) {
             return ErrorDesc.failure(CommonError.SESSION_INVALID);
         }
+
+        // 海南橡胶
+         String catalogId="606503724902256641";
+        // 金杰的
+//        String catalogId="486917609841758209";
+
+        PcmCatalogDelegate delegate=this.createPcmCatalogDelegate(getCatalogIdentity(catalogId));
+
+        Validator validator=new Validator();
+
         // 查询橡胶下的类目
-        Result<List<ZTreeNode>> tree= PcmProxyUtil.queryCatalogChildNodes("484764976855126017");
-        return tree;
+        Result<List<ZTreeNode>> result1= delegate.queryNodesFlatten(true,true);
+        validator.asserts(result1.data().size(),"祖先和子孙都加载时数量错误").mustInList(5);
+
+
+        Result<List<ZTreeNode>> result2= delegate.queryNodesFlatten(false,false);
+        validator.asserts(result2.data().size(),"祖先和子孙都不加载是数量错误").mustInList(2);
+
+
+        if(validator.failure()) {
+            return validator.getMergedResult();
+        }
+
+
+        Map map=MapUtil.asMap(
+                "Ancestors:true,Descendants:true",result1.data(),
+                "Ancestors:false,Descendants:false",result2.data()
+        );
+        return ErrorDesc.success().data(map);
     }
 
 
@@ -62,8 +122,12 @@ public class PCMTestController {
         if(sessionUser==null) {
             return ErrorDesc.failure(CommonError.SESSION_INVALID);
         }
-        Result<List<CatalogAttribute>> fields1= PcmProxyUtil.queryCatalogFields("484764976855126017");
-        Result<List<CatalogAttribute>> fields2= PcmProxyUtil.queryCatalogFields("606503724902256641");
+
+        PcmCatalogDelegate delegate1=this.createPcmCatalogDelegate(getCatalogIdentity("484764976855126017"));
+        PcmCatalogDelegate delegate2=this.createPcmCatalogDelegate(getCatalogIdentity("606503724902256641"));
+
+        Result<List<CatalogAttribute>> fields1= delegate1.queryFields();
+        Result<List<CatalogAttribute>> fields2= delegate2.queryFields();
 
         Map<String,List<CatalogAttribute>> map=new HashMap<>();
         map.put("橡胶(484764976855126017)",fields1.data());
@@ -90,10 +154,9 @@ public class PCMTestController {
                 "TanXJB",8.6,
                 "MiD",7.2
         );
-        Result result =PcmProxyUtil.save("606503724902256641",sessionUser.getUserId(),data);
 
-
-
+        PcmCatalogDelegate delegate=this.createPcmCatalogDelegate(getCatalogIdentity("606503724902256641"));
+        Result result = delegate.saveData(data);
 
         return  result;
     }
@@ -121,8 +184,9 @@ public class PCMTestController {
             list.add(data);
         }
 
-        Result result=PcmProxyUtil.save("606503724902256641",sessionUser.getUserId(),list);
+        PcmCatalogDelegate delegate=this.createPcmCatalogDelegate(getCatalogIdentity("606503724902256641"));
 
+        Result result= delegate.saveData(list);
         return  result;
     }
 
@@ -136,25 +200,27 @@ public class PCMTestController {
             return ErrorDesc.failure(CommonError.SESSION_INVALID);
         }
 
+        PcmCatalogDelegate delegate=this.createPcmCatalogDelegate(getCatalogIdentity("606503724902256641"));
+
         Map<String,Object> map = new HashMap<>();
 
-        Result result1=PcmProxyUtil.queryDataByOwnerId("606503724902256641",10,1,sessionUser.getUserId());
+        Result result1= delegate.queryDataByOwnerId(10,1,sessionUser.getUserId());
         JSONObject data=(JSONObject)result1.data();
         JSONArray list=data.getJSONArray("list");
         if(!list.isEmpty()) {
             Map<String,Object> data0=list.getJSONObject(0);
             String id=(String) data0.get("id");
-            Result result2 = PcmProxyUtil.queryDataById("606503724902256641", id);
+            Result result2 = delegate.queryDataById(id);
             map.put("queryDataById",result2.data());
 
             data0.put("MiD",null);
-            PcmProxyUtil.save("606503724902256641",sessionUser.getUserId(),data0);
-            Result result3 = PcmProxyUtil.queryDataById("606503724902256641", id);
+            delegate.saveData(data0);
+            Result result3 = delegate.queryDataById("606503724902256641", id);
             map.put("queryDataByIdNull",result3.data());
 
 
         }
-        Result result3=PcmProxyUtil.queryDataInCatalog("606503724902256641",10,1);
+        Result result3= delegate.queryDataInCatalog(10,1);
 
 
         map.put("queryDataByOwnerId",result1.data());
@@ -173,12 +239,15 @@ public class PCMTestController {
             return ErrorDesc.failure(CommonError.SESSION_INVALID);
         }
 
-        Result result1=PcmProxyUtil.queryDataByOwnerId("606503724902256641",10,1,sessionUser.getUserId());
+        PcmCatalogDelegate delegate=this.createPcmCatalogDelegate(getCatalogIdentity("606503724902256641"));
+
+
+        Result result1= delegate.queryDataByOwnerId(10,1,sessionUser.getUserId());
         JSONObject data=(JSONObject)result1.data();
         JSONArray list=data.getJSONArray("list");
         if(!list.isEmpty()) {
             String id = list.getJSONObject(0).getString("id");
-            Result result = PcmProxyUtil.deleteData("606503724902256641",id);
+            Result result = delegate.deleteData(id);
             return  result;
         } else {
             return ErrorDesc.failure().message("没有可删除的数据");

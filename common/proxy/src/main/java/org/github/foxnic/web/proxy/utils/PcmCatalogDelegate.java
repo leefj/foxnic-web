@@ -11,12 +11,42 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-public class PcmProxyUtil {
+public class PcmCatalogDelegate {
+
+    private String tenantId;
+    private String ownerId;
+    private String catalogId;
+    public PcmCatalogDelegate(String ownerId,String catalogId) {
+        this.ownerId=ownerId;
+        this.catalogId=catalogId;
+        Result<Catalog> result = CatalogServiceProxy.api().getById(catalogId);
+        if(result.failure()) {
+            throw new IllegalArgumentException(result.message());
+        }
+        this.tenantId=result.data().getTenantId();
+    }
+
+    public PcmCatalogDelegate(String tenantId,String ownerId,String catalogCode) {
+        this.tenantId=tenantId;
+        this.ownerId=ownerId;
+        CatalogVO vo=new CatalogVO();
+        vo.setCode(catalogCode);
+        vo.setTenantId(tenantId);
+        Result<List<Catalog>> result = CatalogServiceProxy.api().queryList(vo);
+        if(result.failure()) {
+            throw new IllegalArgumentException(result.message());
+        }
+        if(result.data()==null || result.data().isEmpty()) {
+            throw new IllegalArgumentException("类目 "+catalogCode+" 不存在");
+        }
+        this.catalogId=result.data().get(0).getId();
+    }
+
 
     /**
      * 查询类目节点树
      * */
-    public static Result<List<ZTreeNode>> queryCatalogNodesTree(String catalogId,boolean isLoadAllDescendants) {
+    public Result<List<ZTreeNode>> queryNodesTree(boolean isLoadAllDescendants) {
         CatalogVO catalog=new CatalogVO();
         catalog.setRoot(catalogId);
         catalog.setIsLoadAllDescendants(isLoadAllDescendants?1:0);
@@ -26,9 +56,11 @@ public class PcmProxyUtil {
     /**
      * 查询类目下节点清单
      * */
-    public static Result<List<ZTreeNode>> queryCatalogChildNodes(String catalogId) {
+    public Result<List<ZTreeNode>> queryNodesFlatten(boolean isLoadAllAncestors,boolean isLoadAllDescendants) {
         CatalogVO catalog=new CatalogVO();
         catalog.setParentId(catalogId);
+        catalog.setIsLoadAllDescendants(isLoadAllDescendants?1:0);
+        catalog.setIsLoadAllAncestors(isLoadAllAncestors?1:0);
         return CatalogServiceProxy.api().queryNodesFlatten(catalog);
     }
 
@@ -36,7 +68,7 @@ public class PcmProxyUtil {
     /**
      * 查询类目下节点
      * */
-    public static Result<List<CatalogAttribute>> queryCatalogFields(String catalogId) {
+    public Result<List<CatalogAttribute>> queryFields() {
         CatalogAttributeVO catalog=new CatalogAttributeVO();
         catalog.setCatalogId(catalogId);
         return CatalogAttributeServiceProxy.api().queryList(catalog);
@@ -45,7 +77,7 @@ public class PcmProxyUtil {
     /**
      * 保存单个
      * */
-    public static Result save(String catalogId,String ownerId,Map<String,Object> data) {
+    public Result saveData(Map<String,Object> data) {
         CatalogData catalogData=new CatalogData();
         catalogData.setData(data);
         catalogData.setCatalogId(catalogId);
@@ -57,7 +89,7 @@ public class PcmProxyUtil {
     /**
      * 保存列表
      * */
-    public static Result save(String catalogId,String ownerId,List<Map<String,Object>> list) {
+    public Result saveData(List<Map<String,Object>> list) {
         List<CatalogData> dataList=new ArrayList<>();
         for (Map<String, Object> map : list) {
             CatalogData catalogData=new CatalogData();
@@ -73,7 +105,7 @@ public class PcmProxyUtil {
     /**
      * 查询数据
      * */
-    public static Result queryData(String catalogId,String[] ids,String[] ownerIds,Integer pageSize,Integer pageIndex) {
+    public Result queryData(String[] ids,String[] ownerIds,Integer pageSize,Integer pageIndex) {
         DataQueryVo vo=new DataQueryVo();
         vo.setCatalogId(catalogId);
         vo.setIds(Arrays.asList(ids));
@@ -86,35 +118,35 @@ public class PcmProxyUtil {
     /**
      * 查询数据
      * */
-    public static Result queryData(String catalogId,String[] ids,String[] ownerIds) {
-        return queryData(catalogId,ids,ownerIds,null,null);
+    public Result queryData(String[] ids,String[] ownerIds) {
+        return queryData(ids,ownerIds,null,null);
     }
 
     /**
      * 按ID查询数据
      * */
-    public static Result queryDataById(String catalogId,String... id) {
-         return queryData(catalogId,id,new String[0]);
+    public Result queryDataById(String... id) {
+         return queryData(id,new String[0]);
     }
 
     /**
      * 按所有者查询数据
      * */
-    public static Result queryDataByOwnerId(String catalogId,Integer pageSize,Integer pageIndex,String... ownerId) {
-        return queryData(catalogId,new String[0],ownerId,pageSize,pageIndex);
+    public Result queryDataByOwnerId(Integer pageSize,Integer pageIndex,String... ownerId) {
+        return queryData(new String[0],ownerId,pageSize,pageIndex);
     }
 
     /**
      * 按类目查询数据
      * */
-    public static Result queryDataInCatalog(String catalogId,Integer pageSize,Integer pageIndex) {
-        return queryData(catalogId,new String[0],new String[0],pageSize,pageIndex);
+    public Result queryDataInCatalog(Integer pageSize,Integer pageIndex) {
+        return queryData(new String[0],new String[0],pageSize,pageIndex);
     }
 
     /**
      * 按ID删除数据
      * */
-    public static Result deleteData(String catalogId, String... id) {
+    public Result deleteData(String... id) {
         DataQueryVo vo=new DataQueryVo();
         vo.setCatalogId(catalogId);
         vo.setIds(Arrays.asList(id));
@@ -124,7 +156,7 @@ public class PcmProxyUtil {
     /**
      * 按ID删除数据
      * */
-    public static Result deleteData(String catalogId, List<String> ids) {
+    public Result deleteData(List<String> ids) {
         DataQueryVo vo=new DataQueryVo();
         vo.setCatalogId(catalogId);
         vo.setIds(ids);

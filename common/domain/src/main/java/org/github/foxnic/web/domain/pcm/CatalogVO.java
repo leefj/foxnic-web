@@ -13,8 +13,8 @@ import com.github.foxnic.commons.bean.BeanUtil;
 /**
  * 数据存储
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-02 11:48:57
- * @sign D090530F33B5C6D8DA7A68AD7E22D384
+ * @since 2022-08-05 15:25:29
+ * @sign 8C56D0ED5DBA2964D95A806FBD6E2B1F
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -81,6 +81,12 @@ public class CatalogVO extends Catalog {
 	*/
 	@ApiModelProperty(required = false,value="是否加载所有子孙节点" , notes = "1：是；0：否")
 	private Integer isLoadAllDescendants;
+	
+	/**
+	 * 是否加载所有祖先节点：1：是；0：否
+	*/
+	@ApiModelProperty(required = false,value="是否加载所有祖先节点" , notes = "1：是；0：否")
+	private Integer isLoadAllAncestors;
 	
 	/**
 	 * 根节点id或code：根节点id或code
@@ -289,6 +295,25 @@ public class CatalogVO extends Catalog {
 	*/
 	public CatalogVO setIsLoadAllDescendants(Integer isLoadAllDescendants) {
 		this.isLoadAllDescendants=isLoadAllDescendants;
+		return this;
+	}
+	
+	/**
+	 * 获得 是否加载所有祖先节点<br>
+	 * 1：是；0：否
+	 * @return 是否加载所有祖先节点
+	*/
+	public Integer getIsLoadAllAncestors() {
+		return isLoadAllAncestors;
+	}
+	
+	/**
+	 * 设置 是否加载所有祖先节点
+	 * @param isLoadAllAncestors 是否加载所有祖先节点
+	 * @return 当前对象
+	*/
+	public CatalogVO setIsLoadAllAncestors(Integer isLoadAllAncestors) {
+		this.isLoadAllAncestors=isLoadAllAncestors;
 		return this;
 	}
 	

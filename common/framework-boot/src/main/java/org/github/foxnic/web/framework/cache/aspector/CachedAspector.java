@@ -2,6 +2,7 @@ package org.github.foxnic.web.framework.cache.aspector;
 
 import com.github.foxnic.api.cache.Cached;
 import com.github.foxnic.commons.cache.DoubleCache;
+import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.dao.cache.CacheStrategy;
 import com.github.foxnic.dao.entity.SuperService;
@@ -14,7 +15,7 @@ import org.github.foxnic.web.framework.cache.redis.RedisConfig;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
-import java.util.Collection;
+import java.util.*;
 
 
 @Aspect
@@ -45,89 +46,68 @@ public class CachedAspector {
 			return joinPoint.proceed();
 		}
 
-		String name=cached.value();
+		// 提取所有策略
+		Set<String> names=new HashSet<>();
+		if(StringUtil.hasContent(cached.value())) {
+			names.add(cached.value());
+		}
+		for (String name : cached.strategies()) {
+			names.add(name);
+		}
+
+
 		String key = null;
 		CacheStrategy strategy = null;
 		Object result = null;
-		strategy=service.getCacheStrategy(name);
-		if(strategy==null) {
-			return joinPoint.proceed();
+
+		// 匹配策略
+		for (String name : names) {
+
+			strategy=service.getCacheStrategy(name);
+			if(strategy==null) {
+				return joinPoint.proceed();
+			}
+			key=strategy.makeKey(joinPoint.getArgs()[0]);
+			if(key!=null) {
+				// 取缓存值
+				try {
+					result = cache.get(key);
+				} catch (Exception e) {
+					Logger.exception(e);
+				}
+
+				// 如果取到值，返回；否则跳出循环，以当前 key 为准
+				if (result != null) {
+					return result;
+				} else {
+					break;
+				}
+			}
 		}
-		key=strategy.makeKey(joinPoint.getArgs()[0]);
+
+		// 如果未有匹配的 key , 直接调用后返回
 		if(key==null){
 			return joinPoint.proceed();
-		}
-		try {
-			result = cache.get(key);
-		} catch (Exception e) {
-			Logger.exception(e);
-		}
-//			if(result!=null){
-//				break;
-//			}
-//		}
-
-		if(result!=null) {
-			return result;
-		}
-
-		result = joinPoint.proceed();
-
-//		for (String name : names) {
-//			strategy = service.getCacheStrategy(name);
-//			if (strategy == null || cache == null) {
-//				continue;
-//			}
-//			key = strategy.makeKey(joinPoint.getArgs()[0]);
-			boolean isEmpty=false;
-			if(result==null) {
-				isEmpty=true;
+		} else {
+			result = joinPoint.proceed();
+			boolean isEmpty = false;
+			if (result == null) {
+				isEmpty = true;
 			} else {
-				if(result instanceof Collection) {
-					isEmpty=((Collection)result).isEmpty();
+				if (result instanceof Collection) {
+					isEmpty = ((Collection) result).isEmpty();
 				}
 			}
 			//如果缓存null以及空集合
-			if(strategy.isCacheEmptyResult()) {
+			if (strategy.isCacheEmptyResult()) {
 				cache.put(key, result);
 			} else {
-				if(!isEmpty) {
+				if (!isEmpty) {
 					cache.put(key, result);
 				}
 			}
-//		}
-
-
-//		CacheStrategy strategy=service.getCacheStrategy();
-//		if(strategy==null || cache==null) {
-//			return joinPoint.proceed();
-//		}
-//
-//		//缓存键为空，通常是不符合精准匹配的缓存注解
-//		if(key==null) {
-//			return joinPoint.proceed();
-//		}
-//		Object result=cache.get(key);
-//		if(result==null) {
-//			result = joinPoint.proceed();
-//			boolean isEmpty=false;
-//			if(result==null) {
-//				isEmpty=true;
-//			} else {
-//				if(result instanceof Collection) {
-//					isEmpty=((Collection)result).isEmpty();
-//				}
-//			}
-//			//如果缓存null以及空集合
-//			if(strategy.isCacheEmptyResult()) {
-//				cache.put(key, result);
-//			} else {
-//				if(!isEmpty) {
-//					cache.put(key, result);
-//				}
-//			}
-//		}
-		return result;
+			return result;
+		}
 	}
 
 

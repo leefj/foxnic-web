@@ -34,6 +34,7 @@ public class PcmCatalogConfig extends BaseCodeConfig<PCM_CATALOG> {
         pojo.addSimpleProperty(Integer.class,"pageIndex","分页页码","为 null 时不分页");
         //
         voType.addSimpleProperty(Integer.class,"isLoadAllDescendants","是否加载所有子孙节点","1：是；0：否");
+        voType.addSimpleProperty(Integer.class,"isLoadAllAncestors","是否加载所有祖先节点","1：是；0：否");
         voType.addSimpleProperty(String.class,"root","根节点id或code","根节点id或code");
 
     }

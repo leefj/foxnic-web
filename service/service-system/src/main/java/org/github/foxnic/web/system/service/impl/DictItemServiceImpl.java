@@ -202,7 +202,7 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 	 * @return 查询结果
 	 * */
 	@Override
-	@Cached("query-list")
+	@Cached(strategies = {"query-list","query-code"})
 	public List<DictItem> queryList(DictItem sample) {
 		return super.queryList(sample);
 	}
