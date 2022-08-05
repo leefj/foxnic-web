@@ -1,7 +1,7 @@
 package org.github.foxnic.web.relation.modules;
 
 import com.github.foxnic.dao.relation.RelationManager;
-import org.github.foxnic.web.constants.db.ExampleTables;
+//import org.github.foxnic.web.constants.db.ExampleTables;
 
 
 public class ExampleRelationManager extends RelationManager {

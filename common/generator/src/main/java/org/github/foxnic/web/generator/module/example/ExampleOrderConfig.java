@@ -5,12 +5,13 @@ import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
 import com.github.foxnic.generator.builder.view.option.*;
 import com.github.foxnic.generator.config.WriteMode;
-import org.github.foxnic.web.constants.db.ExampleTables;
-import org.github.foxnic.web.constants.db.ExampleTables.EXAMPLE_ORDER;
+//import org.github.foxnic.web.constants.db.ExampleTables;
+//import org.github.foxnic.web.constants.db.ExampleTables.EXAMPLE_ORDER;
+import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
 
-public class ExampleOrderConfig extends BaseCodeConfig<EXAMPLE_ORDER> {
+public class ExampleOrderConfig extends BaseCodeConfig<FoxnicWeb.SYS_USER> {
 
 
 
@@ -60,14 +61,14 @@ public class ExampleOrderConfig extends BaseCodeConfig<EXAMPLE_ORDER> {
 	@Override
 	public void configSearch(ViewOptions view,SearchAreaOptions search) {
 
-		search.inputLayout(
-				new Object[]{
-						EXAMPLE_ORDER.ORDER_NO,"goodsNames",EXAMPLE_ORDER.AMOUNT
-
-				},
-				new Object[]{
-						EXAMPLE_ORDER.ADDRESS_ID,"receiverName","byGoodsName"
-				});
+//		search.inputLayout(
+//				new Object[]{
+//						EXAMPLE_ORDER.ORDER_NO,"goodsNames",EXAMPLE_ORDER.AMOUNT
+//
+//				},
+//				new Object[]{
+//						EXAMPLE_ORDER.ADDRESS_ID,"receiverName","byGoodsName"
+//				});
 
 		search.labelWidth(1,80);
 		search.labelWidth(2,80);
@@ -123,7 +124,7 @@ public class ExampleOrderConfig extends BaseCodeConfig<EXAMPLE_ORDER> {
 
 
 	public ExampleOrderConfig() {
-		super("service-example",EXAMPLE_ORDER.$TABLE,"example_", 3);
+		super("service-example", FoxnicWeb.SYS_USER.$TABLE,"example_", 3);
 	}
 
 

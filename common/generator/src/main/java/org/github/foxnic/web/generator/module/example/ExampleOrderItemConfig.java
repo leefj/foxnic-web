@@ -5,12 +5,13 @@ import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
 import com.github.foxnic.generator.builder.view.option.*;
 import com.github.foxnic.generator.config.WriteMode;
-import org.github.foxnic.web.constants.db.ExampleTables.EXAMPLE_ORDER_ITEM;
+//import org.github.foxnic.web.constants.db.ExampleTables.EXAMPLE_ORDER_ITEM;
 
+import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
 
-public class ExampleOrderItemConfig extends BaseCodeConfig<EXAMPLE_ORDER_ITEM> {
+public class ExampleOrderItemConfig extends BaseCodeConfig<FoxnicWeb.SYS_CODE_EXAMPLE> {
 
 
 
@@ -91,7 +92,7 @@ public class ExampleOrderItemConfig extends BaseCodeConfig<EXAMPLE_ORDER_ITEM> {
 
 
 	public ExampleOrderItemConfig() {
-		super("service-example",EXAMPLE_ORDER_ITEM.$TABLE,"example_", 3);
+		super("service-example", FoxnicWeb.SYS_CODE_EXAMPLE.$TABLE.$TABLE,"example_", 3);
 	}
 
 

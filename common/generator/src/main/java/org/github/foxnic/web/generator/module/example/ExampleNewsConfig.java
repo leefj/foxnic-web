@@ -5,11 +5,11 @@ import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
 import com.github.foxnic.generator.builder.view.option.*;
 import com.github.foxnic.generator.config.WriteMode;
-import org.github.foxnic.web.constants.db.ExampleTables.EXAMPLE_NEWS;
+import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
 
-public class ExampleNewsConfig extends BaseCodeConfig<EXAMPLE_NEWS> {
+public class ExampleNewsConfig extends BaseCodeConfig<FoxnicWeb.SYS_USER> {
 
 
 
@@ -27,7 +27,7 @@ public class ExampleNewsConfig extends BaseCodeConfig<EXAMPLE_NEWS> {
 	@Override
 	public void configFields(ViewOptions view) {
 
-		view.field(EXAMPLE_NEWS.CONTENT).form().textArea();
+//		view.field(EXAMPLE_NEWS.CONTENT).form().textArea();
 
 	}
 
@@ -68,12 +68,12 @@ public class ExampleNewsConfig extends BaseCodeConfig<EXAMPLE_NEWS> {
 	 * */
 	@Override
 	public void configForm(ViewOptions view, FormOptions form, FormWindowOptions formWindow) {
-		form.columnLayout(new Object[]{
-				EXAMPLE_NEWS.TITLE,
-				EXAMPLE_NEWS.EXPIRE_DATE,
-				EXAMPLE_NEWS.CONTENT,
-				EXAMPLE_NEWS.AUTHOR
-		});
+//		form.columnLayout(new Object[]{
+//				EXAMPLE_NEWS.TITLE,
+//				EXAMPLE_NEWS.EXPIRE_DATE,
+//				EXAMPLE_NEWS.CONTENT,
+//				EXAMPLE_NEWS.AUTHOR
+//		});
 	}
 
 	/**
@@ -86,7 +86,7 @@ public class ExampleNewsConfig extends BaseCodeConfig<EXAMPLE_NEWS> {
 
 
 	public ExampleNewsConfig() {
-		super("service-example",EXAMPLE_NEWS.$TABLE,"example_", 3);
+		super("service-example", FoxnicWeb.SYS_USER.$TABLE.$TABLE,"example_", 3);
 	}
 
 

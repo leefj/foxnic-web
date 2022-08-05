@@ -5,11 +5,11 @@ import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
 import com.github.foxnic.generator.builder.view.option.*;
 import com.github.foxnic.generator.config.WriteMode;
-import org.github.foxnic.web.constants.db.ExampleTables.EXAMPLE_GOODS;
+import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
 
-public class ExampleGoodsConfig extends BaseCodeConfig<EXAMPLE_GOODS> {
+public class ExampleGoodsConfig extends BaseCodeConfig<FoxnicWeb.SYS_CODE_EXAMPLE> {
 
 
 
@@ -31,8 +31,8 @@ public class ExampleGoodsConfig extends BaseCodeConfig<EXAMPLE_GOODS> {
 	@Override
 	public void configFields(ViewOptions view) {
 
-		view.field(EXAMPLE_GOODS.ID).basic().hidden();
-		view.field(EXAMPLE_GOODS.NAME).search().fuzzySearch();
+//		view.field(EXAMPLE_GOODS.ID).basic().hidden();
+//		view.field(EXAMPLE_GOODS.NAME).search().fuzzySearch();
 
 	}
 
@@ -91,7 +91,7 @@ public class ExampleGoodsConfig extends BaseCodeConfig<EXAMPLE_GOODS> {
 
 
 	public ExampleGoodsConfig() {
-		super("service-example",EXAMPLE_GOODS.$TABLE,"example_", 3);
+		super("service-example", FoxnicWeb.SYS_CODE_EXAMPLE.$TABLE.$TABLE,"example_", 3);
 	}
 
 
