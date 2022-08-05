@@ -6,9 +6,6 @@ import com.github.foxnic.generator.builder.model.VoClassFile;
 import com.github.foxnic.generator.builder.view.option.*;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.ExampleTables.EXAMPLE_GOODS;
-import org.github.foxnic.web.domain.example.Address;
-import org.github.foxnic.web.domain.example.Goods;
-import org.github.foxnic.web.domain.example.Order;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
 
@@ -22,9 +19,9 @@ public class ExampleGoodsConfig extends BaseCodeConfig<EXAMPLE_GOODS> {
 	@Override
 	public void configModel(PoClassFile poType, VoClassFile voType) {
 
-		poType.addListProperty(Goods.class,"itemList","订单明细","订单明细");
-		poType.addListProperty(Address.class,"addressList","收件地址","收件地址，包括收件人以及手机号码");
-		poType.addListProperty(Order.class,"orderList","订单","订单");
+//		poType.addListProperty(Goods.class,"itemList","订单明细","订单明细");
+//		poType.addListProperty(Address.class,"addressList","收件地址","收件地址，包括收件人以及手机号码");
+//		poType.addListProperty(Order.class,"orderList","订单","订单");
 
 	}
 

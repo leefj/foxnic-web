@@ -7,15 +7,7 @@ import com.github.foxnic.generator.builder.view.option.*;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.ExampleTables;
 import org.github.foxnic.web.constants.db.ExampleTables.EXAMPLE_ORDER;
-import org.github.foxnic.web.domain.example.Address;
-import org.github.foxnic.web.domain.example.Goods;
-import org.github.foxnic.web.domain.example.OrderItem;
-import org.github.foxnic.web.domain.example.meta.AddressMeta;
-import org.github.foxnic.web.domain.example.meta.GoodsMeta;
-import org.github.foxnic.web.domain.example.meta.OrderMeta;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
-import org.github.foxnic.web.proxy.example.AddressServiceProxy;
-import org.github.foxnic.web.proxy.example.GoodsServiceProxy;
 
 
 public class ExampleOrderConfig extends BaseCodeConfig<EXAMPLE_ORDER> {
@@ -27,9 +19,9 @@ public class ExampleOrderConfig extends BaseCodeConfig<EXAMPLE_ORDER> {
 	 * */
 	@Override
 	public void configModel(PoClassFile poType, VoClassFile voType) {
-		poType.addListProperty(Goods.class,"goodsList","订单明细商品","订单明细商品");
-		poType.addSimpleProperty(Address.class,"address","收件地址","收件地址，包括收件人以及手机号码");
-		poType.addListProperty(OrderItem.class,"itemList","订单明细","订单明细");
+//		poType.addListProperty(Goods.class,"goodsList","订单明细商品","订单明细商品");
+//		poType.addSimpleProperty(Address.class,"address","收件地址","收件地址，包括收件人以及手机号码");
+//		poType.addListProperty(OrderItem.class,"itemList","订单明细","订单明细");
 	}
 
 	/**
@@ -38,27 +30,27 @@ public class ExampleOrderConfig extends BaseCodeConfig<EXAMPLE_ORDER> {
 	@Override
 	public void configFields(ViewOptions view) {
 
-		view.field(EXAMPLE_ORDER.ID).basic().hidden();
-
-		view.field(EXAMPLE_ORDER.ADDRESS_ID).basic().label("收件地址")
-				.table().fillBy(OrderMeta.ADDRESS, AddressMeta.ADDRESS)
-				.form().selectBox().queryApi(AddressServiceProxy.QUERY_LIST)
-				.valueField("id").textField("address").muliti(false,false);
-
-		view.field("receiverName").basic().label("收件人").table().fillBy(OrderMeta.ADDRESS, AddressMeta.NAME)
-				.form().hidden();
-
-		view.field("goodsNames").basic().label("商品").table().fillBy(OrderMeta.GOODS_LIST, GoodsMeta.NAME)
-				.search().on(ExampleTables.EXAMPLE_ORDER_ITEM.GOODS_ID)
-		.form().selectBox().queryApi(GoodsServiceProxy.QUERY_LIST)
-				.valueField("id").textField("name").muliti(true,false);
-
-		view.field("byGoodsName").basic().label("品名").table().hidden()
-				.fillBy(OrderMeta.GOODS_LIST, GoodsMeta.NAME)
-				.search().on(ExampleTables.EXAMPLE_GOODS.NAME).fuzzySearch()
-				.form().hidden();
-
-		view.field(EXAMPLE_ORDER.AMOUNT).search().range();
+//		view.field(EXAMPLE_ORDER.ID).basic().hidden();
+//
+//		view.field(EXAMPLE_ORDER.ADDRESS_ID).basic().label("收件地址")
+//				.table().fillBy(OrderMeta.ADDRESS, AddressMeta.ADDRESS)
+//				.form().selectBox().queryApi(AddressServiceProxy.QUERY_LIST)
+//				.valueField("id").textField("address").muliti(false,false);
+//
+//		view.field("receiverName").basic().label("收件人").table().fillBy(OrderMeta.ADDRESS, AddressMeta.NAME)
+//				.form().hidden();
+//
+//		view.field("goodsNames").basic().label("商品").table().fillBy(OrderMeta.GOODS_LIST, GoodsMeta.NAME)
+//				.search().on(ExampleTables.EXAMPLE_ORDER_ITEM.GOODS_ID)
+//		.form().selectBox().queryApi(GoodsServiceProxy.QUERY_LIST)
+//				.valueField("id").textField("name").muliti(true,false);
+//
+//		view.field("byGoodsName").basic().label("品名").table().hidden()
+//				.fillBy(OrderMeta.GOODS_LIST, GoodsMeta.NAME)
+//				.search().on(ExampleTables.EXAMPLE_GOODS.NAME).fuzzySearch()
+//				.form().hidden();
+//
+//		view.field(EXAMPLE_ORDER.AMOUNT).search().range();
 
 	}
 

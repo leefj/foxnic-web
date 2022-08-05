@@ -221,7 +221,6 @@ public class PCMTestController {
         }
         Result result3= delegate.queryDataInCatalog(10,1);
 
-
         map.put("queryDataByOwnerId",result1.data());
         map.put("queryDataInCatalog",result3.data());
 
