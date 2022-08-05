@@ -44,7 +44,7 @@ public class PCMTestController {
     public PcmCatalogDelegate createPcmCatalogDelegate(String identity) {
         SessionUser sessionUser=SessionUser.getCurrent();
         if(useCatalogCode()) {
-            return new PcmCatalogDelegate(sessionUser.getActivatedTenantId(),sessionUser.getUserId(),identity);
+            return new PcmCatalogDelegate(sessionUser.getActivatedTenantId(),identity);
         } else {
             return new PcmCatalogDelegate(sessionUser.getUserId(),identity);
         }
@@ -155,7 +155,7 @@ public class PCMTestController {
         );
 
         PcmCatalogDelegate delegate=this.createPcmCatalogDelegate(getCatalogIdentity("606503724902256641"));
-        Result result = delegate.saveData(data);
+        Result result = delegate.saveData(sessionUser.getUserId(),data);
 
         return  result;
     }
@@ -185,7 +185,7 @@ public class PCMTestController {
 
         PcmCatalogDelegate delegate=this.createPcmCatalogDelegate(getCatalogIdentity("606503724902256641"));
 
-        Result result= delegate.saveData(list);
+        Result result= delegate.saveData(sessionUser.getUserId(),list);
         return  result;
     }
 
@@ -213,7 +213,7 @@ public class PCMTestController {
             map.put("queryDataById",result2.data());
 
             data0.put("MiD",null);
-            delegate.saveData(data0);
+            delegate.saveData(sessionUser.getUserId(),data0);
             Result result3 = delegate.queryDataById("606503724902256641", id);
             map.put("queryDataByIdNull",result3.data());
 

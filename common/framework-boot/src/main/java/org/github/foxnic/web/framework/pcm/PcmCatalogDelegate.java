@@ -13,22 +13,18 @@ import java.util.Map;
 
 public class PcmCatalogDelegate {
 
-    private String tenantId;
-    private String ownerId;
+
     private String catalogId;
-    public PcmCatalogDelegate(String ownerId,String catalogId) {
-        this.ownerId=ownerId;
+    public PcmCatalogDelegate(String catalogId) {
         this.catalogId=catalogId;
         Result<Catalog> result = CatalogServiceProxy.api().getById(catalogId);
         if(result.failure()) {
             throw new IllegalArgumentException(result.message());
         }
-        this.tenantId=result.data().getTenantId();
     }
 
-    public PcmCatalogDelegate(String tenantId,String ownerId,String catalogCode) {
-        this.tenantId=tenantId;
-        this.ownerId=ownerId;
+    public PcmCatalogDelegate(String tenantId,String catalogCode) {
+
         CatalogVO vo=new CatalogVO();
         vo.setCode(catalogCode);
         vo.setTenantId(tenantId);
@@ -77,7 +73,7 @@ public class PcmCatalogDelegate {
     /**
      * 保存单个
      * */
-    public Result saveData(Map<String,Object> data) {
+    public Result saveData(String ownerId,Map<String,Object> data) {
         CatalogData catalogData=new CatalogData();
         catalogData.setData(data);
         catalogData.setCatalogId(catalogId);
@@ -89,7 +85,7 @@ public class PcmCatalogDelegate {
     /**
      * 保存列表
      * */
-    public Result saveData(List<Map<String,Object>> list) {
+    public Result saveData(String ownerId,List<Map<String,Object>> list) {
         List<CatalogData> dataList=new ArrayList<>();
         for (Map<String, Object> map : list) {
             CatalogData catalogData=new CatalogData();
