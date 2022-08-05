@@ -62,10 +62,10 @@ public class MenuGenerator {
 //		mg=new MenuGenerator(FoxnicWeb.BPM_EVENT_CALLBACK.$TABLE, EventCallbackServiceProxy.class, EventCallbackPageController.class);
 //		mg.generate("578497780117409792");
 
-		mg=new MenuGenerator(FoxnicWeb.BPM_PROCESS_ERROR.$TABLE, ProcessErrorServiceProxy.class, ProcessErrorPageController.class);
+//		mg=new MenuGenerator(FoxnicWeb.BPM_PROCESS_ERROR.$TABLE, ProcessErrorServiceProxy.class, ProcessErrorPageController.class);
 //		mg.generate("578497780117409792");
 
-		mg.removeByBatchId("591365727173214208");
+//		mg.removeByBatchId("583019436554846208");
 
 
 //		mg=new MenuGenerator(FoxnicWeb.BPM_PROCESS_DEFINITION_NODE.$TABLE, ProcessDefinitionNodeServiceProxy.class, ProcessDefinitionNodePageController.class);
