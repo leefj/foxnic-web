@@ -2,10 +2,7 @@ package org.github.foxnic.web.generator.module.bpm;
 
 import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
-import com.github.foxnic.generator.builder.view.option.FormOptions;
-import com.github.foxnic.generator.builder.view.option.ListOptions;
-import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
-import com.github.foxnic.generator.builder.view.option.ViewOptions;
+import com.github.foxnic.generator.builder.view.option.*;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_PROCESS_DEFINITION_NODE_ASSIGNEE;
 import org.github.foxnic.web.domain.bpm.Assignee;
@@ -52,7 +49,7 @@ public class ProcessDefinitionNodeAssigneeConfig extends BaseCodeConfig<BPM_PROC
     }
 
     @Override
-    public void configForm(ViewOptions view, FormOptions form) {
+    public void configForm(ViewOptions view, FormOptions form, FormWindowOptions formWindow) {
 //        form.columnLayout(new Object[]{
 //                BPM_PROCESS_DEFINITION_NODE.CAMUNDA_NODE_ID,
 //                BPM_PROCESS_DEFINITION_NODE.NODE_TYPE

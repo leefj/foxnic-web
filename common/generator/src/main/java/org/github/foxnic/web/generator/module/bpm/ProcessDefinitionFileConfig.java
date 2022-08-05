@@ -3,10 +3,7 @@ package org.github.foxnic.web.generator.module.bpm;
 import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
-import com.github.foxnic.generator.builder.view.option.FormOptions;
-import com.github.foxnic.generator.builder.view.option.ListOptions;
-import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
-import com.github.foxnic.generator.builder.view.option.ViewOptions;
+import com.github.foxnic.generator.builder.view.option.*;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_PROCESS_DEFINITION_FILE;
 import org.github.foxnic.web.domain.bpm.ProcessDefinitionNode;
@@ -64,7 +61,7 @@ public class ProcessDefinitionFileConfig extends BaseCodeConfig<BPM_PROCESS_DEFI
     }
 
     @Override
-    public void configForm(ViewOptions view, FormOptions form) {
+    public void configForm(ViewOptions view, FormOptions form, FormWindowOptions formWindow) {
         form.columnLayout(new Object[]{
                 BPM_PROCESS_DEFINITION_FILE.NAME,
                 BPM_PROCESS_DEFINITION_FILE.FILE_ID,

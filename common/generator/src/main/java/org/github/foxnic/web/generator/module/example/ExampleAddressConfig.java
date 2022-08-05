@@ -3,10 +3,7 @@ package org.github.foxnic.web.generator.module.example;
 import com.github.foxnic.generator.builder.business.option.ServiceOptions;
 import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
-import com.github.foxnic.generator.builder.view.option.FormOptions;
-import com.github.foxnic.generator.builder.view.option.ListOptions;
-import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
-import com.github.foxnic.generator.builder.view.option.ViewOptions;
+import com.github.foxnic.generator.builder.view.option.*;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.ExampleTables.EXAMPLE_ADDRESS;
 import org.github.foxnic.web.domain.example.Goods;
@@ -29,6 +26,7 @@ public class ExampleAddressConfig extends BaseCodeConfig<EXAMPLE_ADDRESS> {
 		poType.addListProperty(OrderItem.class,"itemList","订单明细","订单明细");
 		poType.addListProperty(Order.class,"orderList","订单","订单");
 
+
 	}
 
 	/**
@@ -36,10 +34,12 @@ public class ExampleAddressConfig extends BaseCodeConfig<EXAMPLE_ADDRESS> {
 	 * */
 	@Override
 	public void configFields(ViewOptions view) {
-
-		//view.field(EXAMPLE_NEWS.CONTENT).form().textArea();
+		view.field(EXAMPLE_ADDRESS.ID).basic().hidden().search().label("")
+				.form().
 
 	}
+
+
 
 	/**
 	 * 配置源码覆盖
@@ -77,7 +77,10 @@ public class ExampleAddressConfig extends BaseCodeConfig<EXAMPLE_ADDRESS> {
 	 * 配置表单
 	 * */
 	@Override
-	public void configForm(ViewOptions view,FormOptions form) {
+	public void configForm(ViewOptions view, FormOptions form, FormWindowOptions formWindow) {
+
+		form.
+
 //		form.columnLayout(new Object[]{
 //				EXAMPLE_NEWS.TITLE,
 //				EXAMPLE_NEWS.EXPIRE_DATE,

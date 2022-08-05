@@ -6,10 +6,7 @@ import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
 import com.github.foxnic.generator.builder.view.config.ActionConfig;
 import com.github.foxnic.generator.builder.view.config.Tab;
-import com.github.foxnic.generator.builder.view.option.FormOptions;
-import com.github.foxnic.generator.builder.view.option.ListOptions;
-import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
-import com.github.foxnic.generator.builder.view.option.ViewOptions;
+import com.github.foxnic.generator.builder.view.option.*;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_CODE_EXAMPLE;
@@ -275,7 +272,7 @@ public class CodeExampleConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE> {
 	}
 
 	@Override
-	public void configForm(ViewOptions view,FormOptions form) {
+	public void configForm(ViewOptions view, FormOptions form, FormWindowOptions formWindow) {
 
 //		view.formWindow().width(12);
 

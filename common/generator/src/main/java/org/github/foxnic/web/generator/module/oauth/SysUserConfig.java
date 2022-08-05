@@ -5,6 +5,7 @@ import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.PojoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
 import com.github.foxnic.generator.builder.view.option.FormOptions;
+import com.github.foxnic.generator.builder.view.option.FormWindowOptions;
 import com.github.foxnic.generator.builder.view.option.ListOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
@@ -12,8 +13,6 @@ import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER;
 import org.github.foxnic.web.constants.enums.system.Language;
 import org.github.foxnic.web.constants.enums.system.LoginType;
-import org.github.foxnic.web.domain.hrm.meta.EmployeeMeta;
-import org.github.foxnic.web.domain.hrm.meta.PersonMeta;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.Role;
 import org.github.foxnic.web.domain.oauth.RoleMenu;
@@ -21,11 +20,8 @@ import org.github.foxnic.web.domain.oauth.meta.RoleMeta;
 import org.github.foxnic.web.domain.oauth.meta.UserMeta;
 import org.github.foxnic.web.domain.oauth.meta.UserVOMeta;
 import org.github.foxnic.web.domain.system.UserTenant;
-import org.github.foxnic.web.domain.system.meta.UserTenantMeta;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 import org.github.foxnic.web.proxy.oauth.RoleServiceProxy;
-
-import java.util.HashMap;
 
 public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
 
@@ -155,7 +151,7 @@ public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
     }
 
     @Override
-    public void configForm(ViewOptions view, FormOptions form) {
+    public void configForm(ViewOptions view, FormOptions form, FormWindowOptions formWindow) {
         form.labelWidth(85);
         // 开启右键菜单
         form.enableContextMenu();

@@ -4,9 +4,6 @@ import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.generator.builder.constants.DBMetaClassFile;
 import org.github.foxnic.web.generator.config.FoxnicWebConfigs;
 
-import java.util.Arrays;
-import java.util.List;
-
 
 public class ExampleDBMetaGenerator {
 
@@ -31,7 +28,7 @@ public class ExampleDBMetaGenerator {
 	 * 生成DBMeta数据
 	 * */
 	private void buildDBMeta() {
-		DBMetaClassFile dbMetaBuilder=new DBMetaClassFile(dao,configs.getDomianProject(),this.configs.getProjectConfigs().getDomainConstantsPackage(),"ExampleTables");
+		DBMetaClassFile dbMetaBuilder=new DBMetaClassFile(dao,configs.getDomainProject(),this.configs.getProjectConfigs().getDomainConstantsPackage(),"ExampleTables");
 		dbMetaBuilder.setTableFilter(table->{
 			table=table.toLowerCase();
 			// 仅生成以 example_ 开头的表

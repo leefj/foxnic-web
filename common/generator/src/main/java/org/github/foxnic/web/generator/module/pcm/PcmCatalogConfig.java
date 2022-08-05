@@ -4,6 +4,7 @@ import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.PojoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
 import com.github.foxnic.generator.builder.view.option.FormOptions;
+import com.github.foxnic.generator.builder.view.option.FormWindowOptions;
 import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
@@ -45,7 +46,7 @@ public class PcmCatalogConfig extends BaseCodeConfig<PCM_CATALOG> {
     }
 
     @Override
-    public void configForm(ViewOptions view, FormOptions form) {
+    public void configForm(ViewOptions view, FormOptions form, FormWindowOptions formWindow) {
         //form.disableFooter().disableMargin();
     }
 

@@ -2,10 +2,7 @@ package org.github.foxnic.web.generator.module.job;
 
 import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
-import com.github.foxnic.generator.builder.view.option.FormOptions;
-import com.github.foxnic.generator.builder.view.option.ListOptions;
-import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
-import com.github.foxnic.generator.builder.view.option.ViewOptions;
+import com.github.foxnic.generator.builder.view.option.*;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_JOB;
 import org.github.foxnic.web.constants.enums.job.MisfirePolicy;
@@ -76,7 +73,7 @@ public class SysJobConfig extends BaseCodeConfig<SYS_JOB> {
 	}
 
 	@Override
-	public void configForm(ViewOptions view, FormOptions form) {
+	public void configForm(ViewOptions view, FormOptions form, FormWindowOptions formWindow) {
 		view.formWindow().width("700px");
 		form.labelWidth(85);
 		form.columnLayout(new Object[]{

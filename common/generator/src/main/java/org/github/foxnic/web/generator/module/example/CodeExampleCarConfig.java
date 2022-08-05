@@ -3,6 +3,7 @@ package org.github.foxnic.web.generator.module.example;
 import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
 import com.github.foxnic.generator.builder.view.option.FormOptions;
+import com.github.foxnic.generator.builder.view.option.FormWindowOptions;
 import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
@@ -94,7 +95,7 @@ public class CodeExampleCarConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE_CAR> {
     }
 
     @Override
-    public void configForm(ViewOptions view, FormOptions form) {
+    public void configForm(ViewOptions view, FormOptions form, FormWindowOptions formWindow) {
 
         view.formWindow().width("80%");
 

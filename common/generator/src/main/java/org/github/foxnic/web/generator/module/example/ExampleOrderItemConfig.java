@@ -3,10 +3,7 @@ package org.github.foxnic.web.generator.module.example;
 import com.github.foxnic.generator.builder.business.option.ServiceOptions;
 import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
-import com.github.foxnic.generator.builder.view.option.FormOptions;
-import com.github.foxnic.generator.builder.view.option.ListOptions;
-import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
-import com.github.foxnic.generator.builder.view.option.ViewOptions;
+import com.github.foxnic.generator.builder.view.option.*;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.ExampleTables.EXAMPLE_ORDER_ITEM;
 import org.github.foxnic.web.domain.example.Address;
@@ -77,7 +74,7 @@ public class ExampleOrderItemConfig extends BaseCodeConfig<EXAMPLE_ORDER_ITEM> {
 	 * 配置表单
 	 * */
 	@Override
-	public void configForm(ViewOptions view,FormOptions form) {
+	public void configForm(ViewOptions view, FormOptions form, FormWindowOptions formWindow) {
 //		form.columnLayout(new Object[]{
 //				EXAMPLE_NEWS.TITLE,
 //				EXAMPLE_NEWS.EXPIRE_DATE,

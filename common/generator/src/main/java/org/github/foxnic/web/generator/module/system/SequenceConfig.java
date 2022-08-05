@@ -2,6 +2,7 @@ package org.github.foxnic.web.generator.module.system;
 
 import com.github.foxnic.commons.busi.id.SequenceType;
 import com.github.foxnic.generator.builder.view.option.FormOptions;
+import com.github.foxnic.generator.builder.view.option.FormWindowOptions;
 import com.github.foxnic.generator.builder.view.option.ListOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
@@ -50,7 +51,7 @@ public class SequenceConfig extends BaseCodeConfig<SYS_SEQUENCE> {
     }
 
     @Override
-    public void configForm(ViewOptions view, FormOptions form) {
+    public void configForm(ViewOptions view, FormOptions form, FormWindowOptions formWindow) {
         form.labelWidth(100);
         form.columnLayout(new Object[]{
                 SYS_SEQUENCE.ID,SYS_SEQUENCE.NAME,SYS_SEQUENCE.TYPE,SYS_SEQUENCE.LENGTH,SYS_SEQUENCE.FETCH_SIZE,SYS_SEQUENCE.MEMO

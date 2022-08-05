@@ -121,7 +121,7 @@ public class SystemCodeGenerator  {
 		//设置 DAO
 		mdu.setDAO(this.configs.getDAO());
 		//设置 Domain Project
-		mdu.setDomainProject(this.configs.getDomianProject());
+		mdu.setDomainProject(this.configs.getDomainProject());
 		//设置 Proxy Project
 		mdu.setProxyProject(this.configs.getProxyProject());
 		//设置 Service Project

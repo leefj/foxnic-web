@@ -138,6 +138,8 @@ applications:
     wrapperProjectPath:  /wrapper/wrapper-all-service
   #示例
   service-example:
+    # 是否为高级项目
+    advance: false,
     # 如果使用 nacos 指定分组
     nacosGroup: service
     # 如果使用 nacos 指定 dataId

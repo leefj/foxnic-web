@@ -2,10 +2,7 @@ package org.github.foxnic.web.generator.module.changes;
 
 import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
-import com.github.foxnic.generator.builder.view.option.FormOptions;
-import com.github.foxnic.generator.builder.view.option.ListOptions;
-import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
-import com.github.foxnic.generator.builder.view.option.ViewOptions;
+import com.github.foxnic.generator.builder.view.option.*;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.CHS_EXAMPLE_ORDER;
 import org.github.foxnic.web.constants.enums.changes.ApprovalStatus;
@@ -101,7 +98,7 @@ public class ChsExampleOrderConfig extends BaseCodeConfig<CHS_EXAMPLE_ORDER> {
 	}
 
 	@Override
-	public void configForm(ViewOptions view, FormOptions form) {
+	public void configForm(ViewOptions view, FormOptions form, FormWindowOptions formWindow) {
 		view.formWindow().bottomSpace(200);
 	}
 

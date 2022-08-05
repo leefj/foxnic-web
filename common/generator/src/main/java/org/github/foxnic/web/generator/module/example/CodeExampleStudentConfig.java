@@ -1,6 +1,7 @@
 package org.github.foxnic.web.generator.module.example;
 
 import com.github.foxnic.generator.builder.view.option.FormOptions;
+import com.github.foxnic.generator.builder.view.option.FormWindowOptions;
 import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
@@ -29,7 +30,7 @@ public class CodeExampleStudentConfig extends BaseCodeConfig<SYS_CODE_EXAMPLE_ST
     }
 
     @Override
-    public void configForm(ViewOptions view, FormOptions form) {
+    public void configForm(ViewOptions view, FormOptions form, FormWindowOptions formWindow) {
        form.disableFooter();
        form.disableMargin();
     }
