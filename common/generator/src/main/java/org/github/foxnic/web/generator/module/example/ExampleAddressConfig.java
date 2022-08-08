@@ -5,11 +5,11 @@ import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
 import com.github.foxnic.generator.builder.view.option.*;
 import com.github.foxnic.generator.config.WriteMode;
-import org.github.foxnic.web.constants.db.FoxnicWeb;
+import org.github.foxnic.web.constants.db.ExampleTables.EXAMPLE_ADDRESS;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 
 
-public class ExampleAddressConfig extends BaseCodeConfig<FoxnicWeb.SYS_USER> {
+public class ExampleAddressConfig extends BaseCodeConfig<EXAMPLE_ADDRESS> {
 
 
 
@@ -94,7 +94,7 @@ public class ExampleAddressConfig extends BaseCodeConfig<FoxnicWeb.SYS_USER> {
 
 
 	public ExampleAddressConfig() {
-		super("service-example", FoxnicWeb.SYS_USER.$TABLE,"example_", 3);
+		super("service-example", EXAMPLE_ADDRESS.$TABLE,"example_", 3);
 	}
 
 

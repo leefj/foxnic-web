@@ -34,11 +34,11 @@ public class CodeStarter extends ModuleCodeGenerator {
 
     public void initModules() {
 
-        initPcmModules();
+//        initPcmModules();
 //        initOAuthModules();
 //        initSystemModules();
 //        initHrmModules();
-//        initExampleModules();
+        initExampleModules();
 //        initChangeModules();
 //        initBpmModules();
 //        initDatapermModules();
@@ -133,7 +133,7 @@ public class CodeStarter extends ModuleCodeGenerator {
     }
 
     private void initExampleModules() {
-        this.addConfig(new CodeExampleConfig());
+//        this.addConfig(new CodeExampleConfig());
 //        this.addConfig(new CodeExampleRoleConfig());
 //        this.addConfig(new CodeExampleStudentConfig());
 //        this.addConfig(new CodeExampleCarConfig());
@@ -142,7 +142,7 @@ public class CodeStarter extends ModuleCodeGenerator {
 //        this.addConfig(new ExampleOrderConfig());
 //        this.addConfig(new ExampleOrderItemConfig());
 //        this.addConfig(new ExampleGoodsConfig());
-//        this.addConfig(new ExampleAddressConfig());
+        this.addConfig(new ExampleAddressConfig());
 
     }
 
