@@ -1350,7 +1350,8 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 
 			var menuHtml =
 				'<div class="pearone-color">\n' +
-				'<div class="color-title">菜单风格</div>\n' +
+				'<div class="color-title">' +
+				'菜单风格</div>\n' +
 				'<div class="color-content">\n' +
 				'<ul>\n' + menuItem + '</ul>\n' +
 				'</div>\n' +
@@ -1507,6 +1508,31 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 					}
 
 					form.render('checkbox');
+				},
+				end : function(){
+
+					var cfg = {
+						"theme-color": localStorage.getItem("theme-color"),
+						"theme-color-color": localStorage.getItem("theme-color-color"),
+						"theme-color-second": localStorage.getItem("theme-color-second"),
+						"control": localStorage.getItem("control"),
+						"theme-header": localStorage.getItem("theme-header"),
+						"theme-menu":localStorage.getItem("theme-menu"),
+						"theme-banner": localStorage.getItem("theme-banner"),
+						"auto-head": localStorage.getItem("auto-head"),
+						"footer": localStorage.getItem("footer"),
+						"muilt-tab": localStorage.getItem("muilt-tab")
+					};
+
+					pearAdmin.request("/service-system/sys-db-cache/save", {
+							value: JSON.stringify(cfg),
+							area: "pear-config",
+							catalog: "theme",
+							ownerType: "user"
+						}, function (data) {
+
+						}
+					);
 				}
 			});
 		});
@@ -1538,15 +1564,7 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 			localStorage.setItem("theme-color-second", currentColor.second);
 			pearTheme.changeTheme(window, isAutoHead(config));
 
-			pearAdmin.request("/service-system/sys-db-cache/save", {
-					value: JSON.stringify(currentColor),
-					area: "pear-config",
-					catalog: "theme",
-					ownerType: "user"
-				}, function (data) {
 
-				}
-			);
 
 
 		});

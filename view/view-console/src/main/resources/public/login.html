@@ -69,6 +69,7 @@
 <script type="text/javascript" src="module/Math.uuid.js" th:src="'module/Math.uuid.js?'+${cacheKey}"></script>
 
 <script>
+    localStorage.setItem("theme","[[${theme_code}]]");
     if(window!=top) top.location="/login.html"
     layui.config({
         base: 'module/'

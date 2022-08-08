@@ -122,6 +122,12 @@
 			var LOGO="[[${logo}]]";
 			var TITLE="[[${title}]]";
 			var PORTAL_URL="[[${portalURL}]]";
+			localStorage.setItem("theme","[[${theme_code}]]");
+			var THEME_CONFIG="[[${theme_config}]]";
+			THEME_CONFIG=JSON.parse(THEME_CONFIG.replace(/&quot;/g,"\""));
+			for(var key in THEME_CONFIG) {
+				localStorage.setItem(key,THEME_CONFIG[key]);
+			}
 			layui.use(['admin','jquery','popup','drawer'], function() {
 				var $ = layui.jquery;
 				var admin = layui.admin;

@@ -2,15 +2,21 @@ package org.github.foxnic.web.system.page;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.github.foxnic.commons.json.JSONUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
 import org.github.foxnic.web.constants.enums.system.Theme;
 import org.github.foxnic.web.constants.enums.system.VersionType;
+import org.github.foxnic.web.domain.system.DbCache;
+import org.github.foxnic.web.domain.system.DbCacheVO;
 import org.github.foxnic.web.framework.view.controller.ViewController;
+import org.github.foxnic.web.proxy.utils.DBCacheProxyUtil;
 import org.github.foxnic.web.proxy.utils.SystemConfigProxyUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 /**
  * <p>
@@ -57,6 +63,23 @@ public class PortalPageController extends ViewController  {
 
 
 		Theme theme  = SystemConfigProxyUtil.getEnum(SystemConfigEnum.SYSTEM_THEME, Theme.class);
+		JSONObject themeConfig=new JSONObject();
+		if(theme==Theme.PEAR) {
+			DbCacheVO sample=new DbCacheVO();
+			sample.setCatalog("theme");
+			sample.setArea("pear-config");
+			sample.setOwnerType("user");
+			sample.setOwnerId(this.getCurrentUer().getUserId());
+			List<DbCache> list = DBCacheProxyUtil.getList(sample);
+			if(list!=null && list.size()>0) {
+				DbCache cache = list.get(0);
+				String cfg = cache.getValue();
+				themeConfig = JSONUtil.parseJSONObject(cfg);
+			}
+		}
+
+		model.addAttribute("theme_code", theme.code());
+		model.addAttribute("theme_config", themeConfig);
 
 		if(theme==null) {
 			model.addAttribute("baseDir", "");
@@ -73,6 +96,7 @@ public class PortalPageController extends ViewController  {
 	@RequestMapping("/login.html")
 	public String login(Model model) {
 		//
+		Theme theme  = SystemConfigProxyUtil.getEnum(SystemConfigEnum.SYSTEM_THEME, Theme.class);
 		String bgImage= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_LOGIN_BACKGROUND);
 		String shortTitle= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_TITLE);
 		String versionCode= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_VERSION_CODE);
@@ -86,7 +110,7 @@ public class PortalPageController extends ViewController  {
 		String loginDefault= SystemConfigProxyUtil.getString(SystemConfigEnum.SYSTEM_LOGIN_DEFAULT);
 		JSONObject loginDefaultJson=JSONObject.parseObject(loginDefault);
 
-
+		model.addAttribute("theme_code", theme.code());
 		model.addAttribute("bgImage", bgImage);
 		model.addAttribute("shortTitle", shortTitle);
 		model.addAttribute("fullTitle", fullTitle);

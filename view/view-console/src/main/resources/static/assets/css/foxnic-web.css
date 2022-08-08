@@ -313,3 +313,8 @@ xm-select {
 .mdi {
     font-size: 17px;
 }
+
+.foxnic-table-badge {
+    height: 20px;
+    padding: 1px 6px;
+}
