@@ -44,7 +44,7 @@ public class PearThemeSupport extends ViewController {
         String cfg=cache.getValue();
         if(StringUtil.isBlank(cfg)) return;
         JSONObject json= JSONUtil.parseJSONObject(cfg);
-        Integer id=json.getInteger("id");
+        Integer id=json.getInteger("theme-color");
         response.sendRedirect("/console/pear/component/pear/color/pear-theme-"+id+".css");
 
     }

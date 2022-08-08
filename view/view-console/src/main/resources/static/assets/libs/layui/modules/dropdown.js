@@ -49,6 +49,10 @@ layui.define(['jquery', 'laytpl', 'lay'], function(exports){
       //重置实例
       ,reload: function(options){
         that.reload.call(that, options);
+      },
+      // 李方捷添加的隐藏接口
+      hide:function () {
+        that.remove();
       }
     }
   }
@@ -426,7 +430,6 @@ layui.define(['jquery', 'laytpl', 'lay'], function(exports){
       if(!dropdown.thisId) return;
       var that = thisModule.getThis(dropdown.thisId)
       if(!that) return;
-
       var options = that.config;
 
       //如果触发的是绑定的元素，或者属于绑定元素的子元素，则不关闭
@@ -439,7 +442,6 @@ layui.define(['jquery', 'laytpl', 'lay'], function(exports){
           (that.elemView && that.elemView.find(e.target)[0])
         ) return;
       }
-
       that.remove();
     });
 

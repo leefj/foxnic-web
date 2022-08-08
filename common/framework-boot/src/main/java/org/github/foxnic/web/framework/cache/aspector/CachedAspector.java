@@ -67,7 +67,7 @@ public class CachedAspector {
 			if(strategy==null) {
 				return joinPoint.proceed();
 			}
-			key=strategy.makeKey(joinPoint.getArgs()[0]);
+			key=strategy.makeKey(false,joinPoint.getArgs()[0]);
 			if(key!=null) {
 				// 取缓存值
 				try {

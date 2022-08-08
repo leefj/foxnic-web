@@ -85,3 +85,34 @@ xm-select  {
     border-color: #2d8cf0 !important;
     color: #fff !important;
 }
+
+
+.layui-timeline-axis {
+    position: absolute;
+    left: -5px;
+    top: 0;
+    z-index: 10;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    background-color: #fff;
+    color: #2d8cf0;
+    border-radius: 50%;
+    text-align: center;
+    cursor: pointer;
+}
+
+.layui-timeline-axis:hover {
+    color: #f56c6c;
+}
+
+
+.layui-badge {
+    background-color:#2d8cf0;
+}
+
+.layui-bg-green {
+    background-color:#36b368 !important;
+}
+
+
