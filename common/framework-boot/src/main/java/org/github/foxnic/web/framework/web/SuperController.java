@@ -7,6 +7,7 @@ import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.entity.Entity;
 import com.github.foxnic.springboot.mvc.RequestParameter;
+import com.github.foxnic.springboot.mvc.Validator;
 import org.github.foxnic.web.language.LanguageService;
 import org.github.foxnic.web.session.SessionUser;
 import org.springframework.beans.factory.annotation.Autowired;

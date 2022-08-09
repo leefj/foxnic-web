@@ -8,7 +8,7 @@ import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.collection.MapUtil;
 import org.github.foxnic.web.domain.pcm.Catalog;
 import org.github.foxnic.web.domain.pcm.CatalogAttribute;
-import org.github.foxnic.web.framework.web.Validator;
+import com.github.foxnic.springboot.mvc.Validator;
 import org.github.foxnic.web.misc.ztree.ZTreeNode;
 import org.github.foxnic.web.proxy.pcm.CatalogServiceProxy;
 import org.github.foxnic.web.framework.pcm.PcmCatalogDelegate;
@@ -92,11 +92,11 @@ public class PCMTestController {
 
         // 查询橡胶下的类目
         Result<List<ZTreeNode>> result1= delegate.queryNodesFlatten(true,true);
-        validator.asserts(result1.data().size(),"祖先和子孙都加载时数量错误").mustInList(5);
+        validator.asserts(result1.data().size(),"祖先和子孙都加载时数量错误").requireInList(5);
 
 
         Result<List<ZTreeNode>> result2= delegate.queryNodesFlatten(false,false);
-        validator.asserts(result2.data().size(),"祖先和子孙都不加载是数量错误").mustInList(2);
+        validator.asserts(result2.data().size(),"祖先和子孙都不加载是数量错误").requireInList(2);
 
 
         if(validator.failure()) {
