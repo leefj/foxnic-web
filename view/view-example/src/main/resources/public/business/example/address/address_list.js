@@ -1,7 +1,7 @@
 /**
  * 订单地址 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-06 06:44:14
+ * @since 2022-08-09 11:40:57
  */
 
 
@@ -51,6 +51,9 @@ function ListPage() {
 		function renderTableInternal() {
 
 			var ps={searchField: "$composite"};
+			ps.sortField="phone_number";
+			ps.sortType="asc";
+			sort={ field : ps.sortField,type : ps.sortType} ;
 			var contitions={};
 
 			if(window.pageExt.list.beforeQuery){
@@ -150,6 +153,10 @@ function ListPage() {
 			if(sort) {
 				ps.sortField=sort.field;
 				ps.sortType=sort.type;
+			} else {
+				ps.sortField="phone_number";
+				ps.sortType="asc";
+				sort={ field : sortField,type : sortType} ;
 			}
 		}
 		if(reset) {

@@ -16,6 +16,7 @@ import org.github.foxnic.web.generator.module.oauth.SysUserConfig;
 import org.github.foxnic.web.generator.module.pcm.PcmCatalogAllocationConfig;
 import org.github.foxnic.web.generator.module.pcm.PcmCatalogAttributeConfig;
 import org.github.foxnic.web.generator.module.pcm.PcmCatalogConfig;
+import org.github.foxnic.web.generator.module.storage.SysFileConfig;
 import org.github.foxnic.web.generator.module.system.*;
 
 import java.io.File;
@@ -39,6 +40,7 @@ public class CodeStarter extends ModuleCodeGenerator {
 //        initSystemModules();
 //        initHrmModules();
         initExampleModules();
+//        initStorageModules();
 //        initChangeModules();
 //        initBpmModules();
 //        initDatapermModules();
@@ -53,6 +55,12 @@ public class CodeStarter extends ModuleCodeGenerator {
         this.addConfig(new ExampleNewsConfig());
     }
 
+
+
+    private void initStorageModules() {
+
+        this.addConfig(new SysFileConfig());
+    }
     private void initDatapermModules() {
         //
         this.addConfig(new DPRuleConfig());
@@ -92,7 +100,7 @@ public class CodeStarter extends ModuleCodeGenerator {
 
     private void  initChangeModules() {
 //        this.addConfig(new ChsChangeDefinitionConfig());
-        this.addConfig(new ChsChangeInstanceConfig());
+//        this.addConfig(new ChsChangeInstanceConfig());
 //        this.addConfig(new ChsChangeDataConfig());
 //        this.addConfig(new ChsExampleOrderConfig());
 //        this.addConfig(new ChsExampleOrderItemConfig());

@@ -114,7 +114,7 @@ public class FileController extends SuperController {
 	/**
 	 * 删除附件
 	*/
-	@ApiOperation(value = "删除附件")
+	@ApiOperation(value = "删除系统文件")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = FileVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "10"),
 	})
@@ -203,7 +203,7 @@ public class FileController extends SuperController {
 	/**
 	 * 查询附件信息
 	*/
-	@ApiOperation(value = "查询附件信息")
+	@ApiOperation(value = "查询系统文件")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = FileVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "10"),
 		@ApiImplicitParam(name = FileVOMeta.FILE_NAME , value = "文件名" , required = false , dataTypeClass=String.class , example = "0273663d4b44e40d086420e6b59dd768.jpeg"),
@@ -229,7 +229,7 @@ public class FileController extends SuperController {
 	/**
 	 * 分页查询附件
 	*/
-	@ApiOperation(value = "分页查询附件信息")
+	@ApiOperation(value = "分页查询系统文件")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = FileVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "10"),
 		@ApiImplicitParam(name = FileVOMeta.FILE_NAME , value = "文件名" , required = false , dataTypeClass=String.class , example = "0273663d4b44e40d086420e6b59dd768.jpeg"),
@@ -251,4 +251,4 @@ public class FileController extends SuperController {
 		return result;
 	}
 
-}
+}

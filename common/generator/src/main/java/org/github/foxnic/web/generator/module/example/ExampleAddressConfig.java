@@ -1,7 +1,10 @@
 package org.github.foxnic.web.generator.module.example;
 
+import com.github.foxnic.dao.entity.Entity;
+import com.github.foxnic.dao.entity.FieldsBuilder;
 import com.github.foxnic.generator.builder.business.option.ServiceOptions;
 import com.github.foxnic.generator.builder.model.PoClassFile;
+import com.github.foxnic.generator.builder.model.PojoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
 import com.github.foxnic.generator.builder.view.option.*;
 import com.github.foxnic.generator.config.WriteMode;
@@ -23,6 +26,27 @@ public class ExampleAddressConfig extends BaseCodeConfig<EXAMPLE_ADDRESS> {
 //		poType.addListProperty(OrderItem.class,"itemList","订单明细","订单明细");
 //		poType.addListProperty(Order.class,"orderList","订单","订单");
 
+
+		PojoClassFile addressModel=context.createPojo("AddressModel");
+		addressModel.setSuperType(Entity.class);
+		FieldsBuilder fields=this.createFieldsBuilder();
+		fields.addAll().removeDBTreatyFields();
+		addressModel.addSimpleProperties(fields);
+
+
+		PojoClassFile addressSubModel=context.createPojo("AddressSubModel");
+		addressSubModel.setSuperTypeFile(addressModel);
+		addressSubModel.addSimpleProperty(String.class,"postCode","邮编","邮编");
+		addressSubModel.addSimpleProperty(String.class,"postCode2","邮编","邮编");
+
+//		AddressModel model=new AddressModel();
+//		model.set
+
+		PojoClassFile addressPureModel=context.createPojo("AddressPureModel");
+		addressPureModel.noSuperType();
+		fields=this.createFieldsBuilder();
+		fields.addAll().removeDBTreatyFields();
+		addressPureModel.addSimpleProperties(fields);
 
 	}
 
@@ -65,6 +89,8 @@ public class ExampleAddressConfig extends BaseCodeConfig<EXAMPLE_ADDRESS> {
 	 * */
 	@Override
 	public void configList(ViewOptions view,ListOptions list) {
+
+		list.sort(EXAMPLE_ADDRESS.PHONE_NUMBER,true);
 
 	}
 

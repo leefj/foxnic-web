@@ -1,24 +1,28 @@
 /**
  * 系统文件 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-18 22:59:54
+ * @since 2022-08-09 09:40:36
  */
 
 
 function ListPage() {
-        
+
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect;
 	//模块基础路径
 	const moduleURL="/service-storage/sys-file";
 	var dataTable=null;
+	var sort=null;
 	/**
       * 入口函数，初始化
       */
 	this.init=function(layui) {
-     	
+
      	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload,laydate= layui.laydate;
-		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
-		
+		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect,dropdown=layui.dropdown;;
+
+		if(window.pageExt.list.beforeInit) {
+			window.pageExt.list.beforeInit();
+		}
      	//渲染表格
      	renderTable();
 		//初始化搜索输入框组件
@@ -30,8 +34,8 @@ function ListPage() {
 		//绑定行操作按钮事件
     	bindRowOperationEvent();
      }
-     
-     
+
+
      /**
       * 渲染表格
       */
@@ -41,72 +45,119 @@ function ListPage() {
 		});
 		fox.adjustSearchElement();
 		//
+		 var marginTop=$(".search-bar").height()+$(".search-bar").css("padding-top")+$(".search-bar").css("padding-bottom")
+		 $("#table-area").css("margin-top",marginTop+"px");
+		//
 		function renderTableInternal() {
-			var ps={};
+
+			var ps={searchField: "$composite"};
 			var contitions={};
 
+			if(window.pageExt.list.beforeQuery){
+				window.pageExt.list.beforeQuery(contitions,ps,"tableInit");
+			}
+			ps.searchValue=JSON.stringify(contitions);
 
+			var templet=window.pageExt.list.templet;
+			if(templet==null) {
+				templet=function(field,value,row) {
+					if(value==null) return "";
+					return value;
+				}
+			}
 			var h=$(".search-bar").height();
-			dataTable=fox.renderTable({
+			var tableConfig={
 				elem: '#data-table',
 				toolbar: '#toolbarTemplate',
-				defaultToolbar: ['filter', 'print'],
+				defaultToolbar: ['filter', 'print',{title: '刷新数据',layEvent: 'refresh-data',icon: 'layui-icon-refresh-3'}],
 				url: moduleURL +'/query-paged-list',
 				height: 'full-'+(h+28),
 				limit: 50,
 				where: ps,
 				cols: [[
 					{ fixed: 'left',type: 'numbers' },
-					{ fixed: 'left',type:'checkbox' }
-					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true, title: fox.translate('ID') }
-					,{ field: 'fileName', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('文件名') }
-					,{ field: 'location', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('存储位置') }
-					,{ field: 'size', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('文件大小') }
-					,{ field: 'mediaType', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('媒体类型') }
-					,{ field: 'fileType', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('文件类型') }
-					,{ field: 'downloadUrl', align:"left",fixed:false,  hide:false, sort: true, title: fox.translate('下载地址') }
-					,{ field: 'latestVisitTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('最后访问'), templet: function (d) { return fox.dateFormat(d.latestVisitTime); }}
-					,{ field: 'downloads', align:"right",fixed:false,  hide:false, sort: true, title: fox.translate('下载次数') }
-					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true, title: fox.translate('创建时间'), templet: function (d) { return fox.dateFormat(d.createTime); }}
-					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 125 }
+					{ fixed: 'left',type:'checkbox'}
+					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('ID') , templet: function (d) { return templet('id',d.id,d);}  }
+					,{ field: 'fileName', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('文件名') , templet: function (d) { return templet('fileName',d.fileName,d);}  }
+					,{ field: 'location', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('存储位置') , templet: function (d) { return templet('location',d.location,d);}  }
+					,{ field: 'size', align:"right",fixed:false,  hide:false, sort: true  , title: fox.translate('文件大小') , templet: function (d) { return templet('size',d.size,d);}  }
+					,{ field: 'mediaType', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('媒体类型') , templet: function (d) { return templet('mediaType',d.mediaType,d);}  }
+					,{ field: 'fileType', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('文件类型') , templet: function (d) { return templet('fileType',d.fileType,d);}  }
+					,{ field: 'downloadUrl', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('下载地址') , templet: function (d) { return templet('downloadUrl',d.downloadUrl,d);}  }
+					,{ field: 'latestVisitTime', align:"right", fixed:false, hide:false, sort: true   ,title: fox.translate('最后访问') ,templet: function (d) { return templet('latestVisitTime',fox.dateFormat(d.latestVisitTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
+					,{ field: 'downloads', align:"right",fixed:false,  hide:false, sort: true  , title: fox.translate('下载次数') , templet: function (d) { return templet('downloads',d.downloads,d);}  }
+					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true   ,title: fox.translate('创建时间') ,templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
+					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
 				]],
+				done: function (data) { window.pageExt.list.afterQuery && window.pageExt.list.afterQuery(data); },
 				footer : {
-					exportExcel : admin.checkAuth(AUTH_PREFIX+":export"),
-					importExcel : admin.checkAuth(AUTH_PREFIX+":import")?{
-						params : {} ,
-						callback : function(r) {
-							if(r.success) {
-								layer.msg(fox.translate('数据导入成功')+"!");
-							} else {
-								layer.msg(fox.translate('数据导入失败')+"!");
-							}
-						}
-					}:false
+					exportExcel : false ,
+					importExcel : false 
 				}
-			});
+			};
+			window.pageExt.list.beforeTableRender && window.pageExt.list.beforeTableRender(tableConfig);
+			dataTable=fox.renderTable(tableConfig);
 			//绑定排序事件
 			table.on('sort(data-table)', function(obj){
-			  refreshTableData(obj.field,obj.type);
+			  refreshTableData(obj.sortField,obj.type);
 			});
+			window.pageExt.list.afterTableRender && window.pageExt.list.afterTableRender();
 		}
 		setTimeout(renderTableInternal,1);
     };
 
 	/**
+	 * 刷新单号数据
+	 * */
+	function refreshRowData(data,remote) {
+		var context=dataTable.getDataRowContext( { id : data.id } );
+		if(context==null) return;
+		if(remote) {
+			admin.post(moduleURL+"/get-by-id", { id : data.id }, function (r) {
+				if (r.success) {
+					data = r.data;
+					context.update(data);
+					fox.renderFormInputs(form);
+				} else {
+					fox.showMessage(data);
+				}
+			});
+		} else {
+			context.update(data);
+			fox.renderFormInputs(form);
+		}
+	}
+
+	/**
       * 刷新表格数据
       */
-	function refreshTableData(sortField,sortType) {
+	function refreshTableData(sortField,sortType,reset) {
+		function getSelectedValue(id,prop) { var xm=xmSelect.get(id,true); return xm==null ? null : xm.getValue(prop);}
 		var value = {};
-		value.fileName={ value: $("#fileName").val() ,fuzzy: true,valuePrefix:"",valueSuffix:" "};
-		var ps={searchField: "$composite", searchValue: JSON.stringify(value)};
+		value.fileName={ inputType:"button",value: $("#fileName").val() ,fuzzy: true,splitValue:false,valuePrefix:"",valueSuffix:"" };
+		value.createTime={ inputType:"date_input", value: $("#createTime").val() ,matchType:"auto"};
+		var ps={searchField:"$composite"};
+		if(window.pageExt.list.beforeQuery){
+			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;
+		}
+		ps.searchValue=JSON.stringify(value);
 		if(sortField) {
 			ps.sortField=sortField;
 			ps.sortType=sortType;
+			sort={ field : sortField,type : sortType} ;
+		} else {
+			if(sort) {
+				ps.sortField=sort.field;
+				ps.sortType=sort.type;
+			} 		}
+		if(reset) {
+			table.reload('data-table', { where : ps , page:{ curr:1 } });
+		} else {
+			table.reload('data-table', { where : ps });
 		}
-		table.reload('data-table', { where : ps });
 	}
-    
-	
+
+
 	/**
 	  * 获得已经选中行的数据,不传入 field 时，返回所有选中的记录，指定 field 时 返回指定的字段集合
 	  */
@@ -117,7 +168,7 @@ function ListPage() {
 		for(var i=0;i<data.length;i++) data[i]=data[i][field];
 		return data;
 	}
-	
+
 	/**
 	 * 重置搜索框
 	 */
@@ -129,11 +180,12 @@ function ListPage() {
 
 	function initSearchFields() {
 
-		fox.switchSearchRow();
+		fox.switchSearchRow(1);
 
 		fox.renderSearchInputs();
+		window.pageExt.list.afterSearchInputReady && window.pageExt.list.afterSearchInputReady();
 	}
-	
+
 	/**
 	 * 绑定搜索框事件
 	 */
@@ -141,17 +193,17 @@ function ListPage() {
 		//回车键查询
         $(".search-input").keydown(function(event) {
 			if(event.keyCode !=13) return;
-		  	refreshTableData();
+		  	refreshTableData(null,null,true);
         });
 
         // 搜索按钮点击事件
         $('#search-button').click(function () {
-           refreshTableData();
+			refreshTableData(null,null,true);
         });
 
 		// 搜索按钮点击事件
 		$('#search-button-advance').click(function () {
-			fox.switchSearchRow(function (ex){
+			fox.switchSearchRow(1,function (ex){
 				if(ex=="1") {
 					$('#search-button-advance span').text("关闭");
 				} else {
@@ -159,8 +211,9 @@ function ListPage() {
 				}
 			});
 		});
+
 	}
-	
+
 	/**
 	 * 绑定按钮事件
 	  */
@@ -169,18 +222,23 @@ function ListPage() {
 		//头工具栏事件
 		table.on('toolbar(data-table)', function(obj){
 			var checkStatus = table.checkStatus(obj.config.id);
+			var selected=getCheckedList("id");
+			if(window.pageExt.list.beforeToolBarButtonEvent) {
+				var doNext=window.pageExt.list.beforeToolBarButtonEvent(selected,obj);
+				if(!doNext) return;
+			}
 			switch(obj.event){
 				case 'create':
+					admin.putTempData('sys-file-form-data', {});
 					openCreateFrom();
 					break;
 				case 'batch-del':
-					batchDelete();
+					batchDelete(selected);
+					break;
+				case 'refresh-data':
+					refreshTableData();
 					break;
 				case 'other':
-					break;
-					//自定义头工具栏右侧图标 - 提示
-				case 'LAYTABLE_TIPS':
-					layer.alert('这是工具栏右侧自定义的一个图标按钮');
 					break;
 			};
 		});
@@ -193,32 +251,39 @@ function ListPage() {
 			admin.putTempData('sys-file-form-data-form-action', "create",true);
             showEditForm(data);
         };
-		
+
         //批量删除按钮点击事件
-        function batchDelete() {
-          
+        function batchDelete(selected) {
+
+        	if(window.pageExt.list.beforeBatchDelete) {
+				var doNext=window.pageExt.list.beforeBatchDelete(selected);
+				if(!doNext) return;
+			}
+
 			var ids=getCheckedList("id");
             if(ids.length==0) {
-            	layer.msg(fox.translate('请选择需要删除的')+fox.translate('系统文件')+"!");
+				top.layer.msg(fox.translate('请选择需要删除的')+fox.translate('系统文件')+"!");
             	return;
             }
             //调用批量删除接口
-			layer.confirm(fox.translate('确定删除已选中的')+fox.translate('系统文件')+fox.translate('吗？'), function (i) {
-				layer.close(i);
-				layer.load(2);
-                admin.request(moduleURL+"/delete-by-ids", { ids: ids }, function (data) {
-                    layer.closeAll('loading');
+			top.layer.confirm(fox.translate('确定删除已选中的')+fox.translate('系统文件')+fox.translate('吗？'), function (i) {
+                top.layer.close(i);
+				admin.post(moduleURL+"/delete-by-ids", { ids: ids }, function (data) {
                     if (data.success) {
-                        layer.msg(data.message, {icon: 1, time: 500});
+						if(window.pageExt.list.afterBatchDelete) {
+							var doNext=window.pageExt.list.afterBatchDelete(data);
+							if(!doNext) return;
+						}
+						fox.showMessage(data);
                         refreshTableData();
                     } else {
-                        layer.msg(data.message, {icon: 2, time: 1500});
+						fox.showMessage(data);
                     }
-                });
+                },{delayLoading:200,elms:[$("#delete-button")]});
 			});
         }
 	}
-     
+
     /**
      * 绑定行操作按钮事件
      */
@@ -227,91 +292,119 @@ function ListPage() {
 		table.on('tool(data-table)', function (obj) {
 			var data = obj.data;
 			var layEvent = obj.event;
+
+			if(window.pageExt.list.beforeRowOperationEvent) {
+				var doNext=window.pageExt.list.beforeRowOperationEvent(data,obj);
+				if(!doNext) return;
+			}
+
 			admin.putTempData('sys-file-form-data-form-action', "",true);
 			if (layEvent === 'edit') { // 修改
-				//延迟显示加载动画，避免界面闪动
-				var task=setTimeout(function(){layer.load(2);},1000);
-				admin.request(moduleURL+"/get-by-id", { id : data.id }, function (data) {
-					clearTimeout(task);
-					layer.closeAll('loading');
+				admin.post(moduleURL+"/get-by-id", { id : data.id }, function (data) {
 					if(data.success) {
 						admin.putTempData('sys-file-form-data-form-action', "edit",true);
 						showEditForm(data.data);
 					} else {
-						 layer.msg(data.message, {icon: 1, time: 1500});
+						 fox.showMessage(data);
 					}
 				});
-			} else if (layEvent === 'view') { // 修改
-				//延迟显示加载动画，避免界面闪动
-				var task=setTimeout(function(){layer.load(2);},1000);
-				admin.request(moduleURL+"/get-by-id", { id : data.id }, function (data) {
-					clearTimeout(task);
-					layer.closeAll('loading');
+			} else if (layEvent === 'view') { // 查看
+				admin.post(moduleURL+"/get-by-id", { id : data.id }, function (data) {
 					if(data.success) {
 						admin.putTempData('sys-file-form-data-form-action', "view",true);
 						showEditForm(data.data);
 					} else {
-						layer.msg(data.message, {icon: 1, time: 1500});
+						fox.showMessage(data);
 					}
 				});
 			}
 			else if (layEvent === 'del') { // 删除
-			
-				layer.confirm(fox.translate('确定删除此')+fox.translate('系统文件')+fox.translate('吗？'), function (i) {
-					layer.close(i);
-					layer.load(2);
-					admin.request(moduleURL+"/delete", { id : data.id }, function (data) {
-						layer.closeAll('loading');
+
+				if(window.pageExt.list.beforeSingleDelete) {
+					var doNext=window.pageExt.list.beforeSingleDelete(data);
+					if(!doNext) return;
+				}
+
+				top.layer.confirm(fox.translate('确定删除此')+fox.translate('系统文件')+fox.translate('吗？'), function (i) {
+					top.layer.close(i);
+					admin.post(moduleURL+"/delete", { id : data.id }, function (data) {
+						top.layer.closeAll('loading');
 						if (data.success) {
-							layer.msg(data.message, {icon: 1, time: 500});
+							if(window.pageExt.list.afterSingleDelete) {
+								var doNext=window.pageExt.list.afterSingleDelete(data);
+								if(!doNext) return;
+							}
+							fox.showMessage(data);
 							refreshTableData();
 						} else {
-							layer.msg(data.message, {icon: 2, time: 1500});
+							fox.showMessage(data);
 						}
-					});
+					},{delayLoading:100, elms:[$(".ops-delete-button[data-id='"+data.id+"']")]});
 				});
-				
 			}
 			
 		});
- 
+
     };
-    
+
     /**
      * 打开编辑窗口
      */
 	function showEditForm(data) {
+		if(window.pageExt.list.beforeEdit) {
+			var doNext=window.pageExt.list.beforeEdit(data);
+			if(!doNext) return;
+		}
+		var action=admin.getTempData('sys-file-form-data-form-action');
 		var queryString="";
-		if(data && data.id) queryString="?" + 'id=' + data.id;
+		if(data && data.id) queryString='id=' + data.id;
+		if(window.pageExt.list.makeFormQueryString) {
+			queryString=window.pageExt.list.makeFormQueryString(data,queryString,action);
+		}
 		admin.putTempData('sys-file-form-data', data);
 		var area=admin.getTempData('sys-file-form-area');
 		var height= (area && area.height) ? area.height : ($(window).height()*0.6);
 		var top= (area && area.top) ? area.top : (($(window).height()-height)/2);
-		var title = (data && data.id) ? (fox.translate('修改')+fox.translate('系统文件')) : (fox.translate('添加')+fox.translate('系统文件'));
-		var index=admin.popupCenter({
+		var title = fox.translate('系统文件');
+		if(action=="create") title=fox.translate('添加')+title;
+		else if(action=="edit") title=fox.translate('修改')+title;
+		else if(action=="view") title=fox.translate('查看')+title;
+
+		admin.popupCenter({
 			title: title,
 			resize: false,
 			offset: [top,null],
 			area: ["500px",height+"px"],
 			type: 2,
-			content: '/business/storage/file/file_form.html' + queryString,
+			id:"sys-file-form-data-win",
+			content: '/business/storage/file/file_form.html' + (queryString?("?"+queryString):""),
 			finish: function () {
-				refreshTableData();
+				if(action=="create") {
+					refreshTableData();
+				}
+				if(action=="edit") {
+					false?refreshTableData():refreshRowData(data,true);
+				}
 			}
 		});
-		admin.putTempData('sys-file-form-data-popup-index', index);
 	};
 
+	window.module={
+		refreshTableData: refreshTableData,
+		refreshRowData: refreshRowData,
+		getCheckedList: getCheckedList,
+		showEditForm: showEditForm
+	};
 
+	window.pageExt.list.ending && window.pageExt.list.ending();
 
 };
 
 
-layui.config({
-	dir: layuiPath,
-	base: '/module/'
-}).extend({
-	xmSelect: 'xm-select/xm-select'
-}).use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect','laydate'],function() {
-	(new ListPage()).init(layui);
+layui.use(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','xmSelect','laydate','dropdown'],function() {
+	var task=setInterval(function (){
+		if(!window["pageExt"]) return;
+		clearInterval(task);
+		(new ListPage()).init(layui);
+	},1);
 });
