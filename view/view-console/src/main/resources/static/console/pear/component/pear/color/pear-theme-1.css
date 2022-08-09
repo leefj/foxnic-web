@@ -38,7 +38,7 @@ xm-select  {
 
 .layui-btn-primary:hover {
     border-color: #2d8cf0;
-    color: #333;
+    color: #fff;
 }
 
 .layui-form-radioed, .layui-form-radioed>i, .layui-form-radio:hover * {
@@ -49,7 +49,7 @@ xm-select  {
     color: #fff;
 }
 
-#orgId-button , #empId-button {
+button[action-type] {
     color: #fff;
 }
 
