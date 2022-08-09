@@ -584,7 +584,7 @@ layui.define(['table', 'jquery', 'element','dropdown'], function (exports) {
 				if (note.type == 0) {
 					// 创 建 目 录 结 构
 					content += '<a   level="f1-'+note.level+'" ' + target + '  href="' + href + '" menu-type="' + note.type + '" menu-id="' + note.id +
-						'" style="'+marginLeft+'"><i class="' + note.icon + '" style="'+note.sideMenuIconStyle+'"></i><span>' + note.title + '-3</span></a>';
+						'" style="'+marginLeft+'"><i class="' + note.icon + '" style="'+note.sideMenuIconStyle+'"></i><span>' + note.title + '</span></a>';
 				} else if (note.type == 1) {
 					// 创 建 菜 单 结 构
 					content += '<a level="p1-'+note.level+'" ' + target + ' class="' + className + '" menu-type="' + note.type + '" menu-url="' + note.href +
