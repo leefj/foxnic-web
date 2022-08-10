@@ -5,6 +5,7 @@ import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.busi.id.IDGenerator;
 import com.github.foxnic.commons.collection.CollectorUtil;
+import com.github.foxnic.commons.lang.ObjectUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
@@ -14,6 +15,7 @@ import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
+import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER;
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
 import org.github.foxnic.web.constants.enums.system.Language;
@@ -36,12 +38,14 @@ import org.github.foxnic.web.session.DynamicMenuHandler;
 import org.github.foxnic.web.session.SessionUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.lang.instrument.Instrumentation;
 import java.lang.reflect.Field;
 import java.util.*;
 
@@ -336,6 +340,26 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 			}
 		}
 
+		if(user==null) {
+			throw new UsernameNotFoundException("用户不存在");
+		}
+
+//		int size1= ObjectUtil.sizeOf(user);
+
+		FieldsBuilder sysRoleFields=FieldsBuilder.build(this.dao(), FoxnicWeb.SYS_ROLE.$TABLE).addAll().removeDBTreatyFields();
+
+		FieldsBuilder busiRoleFields=FieldsBuilder.build(this.dao(), FoxnicWeb.SYS_BUSI_ROLE.$TABLE).addAll().removeDBTreatyFields();
+
+		FieldsBuilder resourzeFields=FieldsBuilder.build(this.dao(), FoxnicWeb.SYS_RESOURZE.$TABLE)
+				.addAll()
+				.removeDBTreatyFields()
+				.remove(FoxnicWeb.SYS_RESOURZE.BATCH_ID,FoxnicWeb.SYS_RESOURZE.TABLE_NAME,FoxnicWeb.SYS_RESOURZE.MODULE,FoxnicWeb.SYS_RESOURZE.NAME);
+
+		FieldsBuilder menuFields=FieldsBuilder.build(this.dao(), FoxnicWeb.SYS_MENU.$TABLE)
+				.addAll().
+				removeDBTreatyFields()
+				.remove(FoxnicWeb.SYS_MENU.BATCH_ID,FoxnicWeb.SYS_MENU.HIERARCHY,FoxnicWeb.SYS_MENU.SORT);
+
  		//填充账户模型
  		dao.fill(user).tag("login")
 			.with(UserMeta.ROLES, RoleMeta.MENUS, MenuMeta.RESOURCES)
@@ -345,9 +369,11 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 			.with(UserMeta.JOINED_TENANTS,UserTenantMeta.EMPLOYEE, EmployeeMeta.POSITIONS)
 			.with(UserMeta.JOINED_TENANTS,UserTenantMeta.EMPLOYEE, EmployeeMeta.ORGANIZATIONS)
 			.with(UserMeta.JOINED_TENANTS,UserTenantMeta.EMPLOYEE, EmployeeMeta.BUSI_ROLES)
+			.fields(sysRoleFields,busiRoleFields,menuFields,resourzeFields)
 			.execute();
 
 
+//		int size2= ObjectUtil.sizeOf(user);
 
 		List<Menu> remMenus=new ArrayList<>();
 		if(user.getMenus()!=null) {

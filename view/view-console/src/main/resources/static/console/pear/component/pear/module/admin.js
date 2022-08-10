@@ -284,6 +284,9 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 				var pages=[];
 				for (var i = 0; i < menus.length; i++) {
 
+
+					if(menus[i].hidden==1) continue;
+
 					menus[i].title=menus[i].label;
 					if(menus[i].title==null) menus[i].title="";
 					menus[i].icon=menus[i].css;
