@@ -358,7 +358,7 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 		FieldsBuilder menuFields=FieldsBuilder.build(this.dao(), FoxnicWeb.SYS_MENU.$TABLE)
 				.addAll().
 				removeDBTreatyFields()
-				.remove(FoxnicWeb.SYS_MENU.BATCH_ID,FoxnicWeb.SYS_MENU.HIERARCHY,FoxnicWeb.SYS_MENU.SORT);
+				.remove(FoxnicWeb.SYS_MENU.BATCH_ID,FoxnicWeb.SYS_MENU.HIERARCHY);
 
  		//填充账户模型
  		dao.fill(user).tag("login")
