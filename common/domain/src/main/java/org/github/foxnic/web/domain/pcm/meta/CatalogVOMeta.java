@@ -11,8 +11,8 @@ import org.github.foxnic.web.domain.pcm.CatalogAttribute;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-29 16:34:36
- * @sign D090530F33B5C6D8DA7A68AD7E22D384
+ * @since 2022-08-05 15:25:29
+ * @sign 8C56D0ED5DBA2964D95A806FBD6E2B1F
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -117,6 +117,16 @@ public class CatalogVOMeta extends CatalogMeta {
 	 * 是否加载所有子孙节点 , 1：是；0：否 , 类型: java.lang.Integer
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogVO,java.lang.Integer> IS_LOAD_ALL_DESCENDANTS_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogVO.class ,IS_LOAD_ALL_DESCENDANTS, java.lang.Integer.class, "是否加载所有子孙节点", "1：是；0：否", java.lang.Integer.class, null);
+	
+	/**
+	 * 是否加载所有祖先节点 , 1：是；0：否 , 类型: java.lang.Integer
+	*/
+	public static final String IS_LOAD_ALL_ANCESTORS="isLoadAllAncestors";
+	
+	/**
+	 * 是否加载所有祖先节点 , 1：是；0：否 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.pcm.CatalogVO,java.lang.Integer> IS_LOAD_ALL_ANCESTORS_PROP = new BeanProperty(org.github.foxnic.web.domain.pcm.CatalogVO.class ,IS_LOAD_ALL_ANCESTORS, java.lang.Integer.class, "是否加载所有祖先节点", "1：是；0：否", java.lang.Integer.class, null);
 	
 	/**
 	 * 根节点id或code , 类型: java.lang.String
@@ -311,7 +321,7 @@ public class CatalogVOMeta extends CatalogMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , IS_LOAD_ALL_DESCENDANTS , ROOT , ID , CODE , NAME , PARENT_ID , SORT , VALID , HIERARCHY , DATA_TABLE , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , ATTRIBUTES };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , IS_LOAD_ALL_DESCENDANTS , IS_LOAD_ALL_ANCESTORS , ROOT , ID , CODE , NAME , PARENT_ID , SORT , VALID , HIERARCHY , DATA_TABLE , TENANT_ID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , ATTRIBUTES };
 	
 	/**
 	 * 代理类
@@ -428,6 +438,17 @@ public class CatalogVOMeta extends CatalogMeta {
 		public CatalogVO setIsLoadAllDescendants(Integer isLoadAllDescendants) {
 			super.change(IS_LOAD_ALL_DESCENDANTS,super.getIsLoadAllDescendants(),isLoadAllDescendants);
 			super.setIsLoadAllDescendants(isLoadAllDescendants);
+			return this;
+		}
+		
+		/**
+		 * 设置 是否加载所有祖先节点
+		 * @param isLoadAllAncestors 是否加载所有祖先节点
+		 * @return 当前对象
+		*/
+		public CatalogVO setIsLoadAllAncestors(Integer isLoadAllAncestors) {
+			super.change(IS_LOAD_ALL_ANCESTORS,super.getIsLoadAllAncestors(),isLoadAllAncestors);
+			super.setIsLoadAllAncestors(isLoadAllAncestors);
 			return this;
 		}
 		

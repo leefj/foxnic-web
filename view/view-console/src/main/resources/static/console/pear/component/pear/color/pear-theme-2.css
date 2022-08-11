@@ -1,0 +1,116 @@
+.layui-btn { background-color:#36b368 }
+.batch-delete-button { border: solid 1px #f56c6c;background-color: #f56c6c; }
+.ops-delete-button { border: #f56c6c;background-color: #f56c6c;}
+.ops-view-button {background-color: #f0f9eb !important}
+.ops-edit-button {background-color: #fef0f0 !important}
+.layui-laypage .layui-laypage-curr .layui-laypage-em { background-color:#36b368 }
+
+
+.search-button-advance {color:#fff}
+.layui-form-onswitch {
+    border-color: #36b368;
+    background-color: #36b368;
+}
+
+.xm-label-block  {
+    background-color: #36b368 !important;
+}
+.xm-option-icon {
+    border-color: #36b368 !important;
+}
+.xm-body .selected .xm-option-icon {
+    color: #36b368 !important;
+}
+
+xm-select  {
+    border-color: #E6E6E6 !important;
+}
+
+
+.layui-form-checked[lay-skin="primary"] i {
+    border-color: #36b368 !important;
+    background-color: #36b368;
+    color: #fff;
+}
+
+#layui-table-page1-footer-download-excel-template , #layui-table-page1-footer-import-excel , #layui-table-page1-footer-download-excel {
+    background-color: #fff;
+}
+
+.layui-btn-primary:hover {
+    border-color: #36b368;
+    color: #fff;
+}
+
+.layui-form-radioed, .layui-form-radioed>i, .layui-form-radio:hover * {
+    color: #36b368;
+}
+
+#cancel-button {
+    color: #fff;
+}
+
+button[action-type] {
+    color: #fff;
+}
+
+
+.layui-tab-title .layui-this {
+    color: #36b368;
+}
+
+.version-no {
+    border-color: #36b368;
+    background: #36b368;
+    color: #fff;
+}
+
+.version-no:hover {
+    border-color: #36b368;
+    color: #fff;
+}
+
+#remove-all-result , #add-employee-item , #remove-result-item {
+    border-color: #d2d2d2;
+    color: #fafafa;
+}
+
+.layui-elem-quote {
+    border-left: 5px solid #36b368;
+}
+
+.layui-border-blue {
+    border-width: 1px;
+    border-style: solid;
+    border-color: #36b368 !important;
+    color: #fff !important;
+}
+
+
+.layui-timeline-axis {
+    position: absolute;
+    left: -5px;
+    top: 0;
+    z-index: 10;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    background-color: #fff;
+    color: #36b368;
+    border-radius: 50%;
+    text-align: center;
+    cursor: pointer;
+}
+
+.layui-timeline-axis:hover {
+    color: #f56c6c;
+}
+
+.layui-badge {
+    background-color:#36b368;
+}
+
+
+.layui-bg-blue {
+    background-color:#2d8cf0 !important;
+}

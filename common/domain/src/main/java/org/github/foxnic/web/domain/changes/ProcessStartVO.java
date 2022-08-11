@@ -3,13 +3,14 @@ package org.github.foxnic.web.domain.changes;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 
 /**
  * 用于流程提交
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-02 17:59:45
+ * @since 2022-07-28 13:39:20
  * @sign 2F9700BA3CA5CDAA05601FF6387341FB
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -53,9 +54,9 @@ public class ProcessStartVO {
 	 * @param billId 业务单据号
 	 * @return 当前对象
 	*/
-	public ProcessStartVO addBillId(String billId) {
+	public ProcessStartVO addBillId(String... billId) {
 		if(this.billIds==null) billIds=new ArrayList<>();
-		this.billIds.add(billId);
+		this.billIds.addAll(Arrays.asList(billId));
 		return this;
 	}
 	

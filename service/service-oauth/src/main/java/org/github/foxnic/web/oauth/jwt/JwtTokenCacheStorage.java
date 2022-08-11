@@ -37,9 +37,9 @@ public class JwtTokenCacheStorage implements JwtTokenStorage {
 			public void run() {
 				 
 				tokeService=SpringUtil.getBean(ITokenService.class);
-				tokeService.dao().setPrintThreadSQL(false);
+				tokeService.dao().pausePrintThreadSQL();
 				List<Token> tokens=tokeService.queryValidTokens();
-				tokeService.dao().setPrintThreadSQL(true);
+				tokeService.dao().resumePrintThreadSQL();
 				for (Token token : tokens) {
 					JwtTokenPair jwtTokenPair=new JwtTokenPair(token.getJti());
 					//

@@ -123,7 +123,7 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 		DictItem dictItem = new DictItem();
 		if(id==null) return ErrorDesc.failure().message("id 不允许为 null 。");
 		dictItem.setId(id);
-		dictItem.setDeleted(dao.getDBTreaty().getTrueValue());
+		dictItem.setDeleted(true);
 		dictItem.setDeleteBy((String)dao.getDBTreaty().getLoginUserId());
 		dictItem.setDeleteTime(new Date());
 		try {
@@ -202,7 +202,7 @@ public class DictItemServiceImpl extends SuperService<DictItem> implements IDict
 	 * @return 查询结果
 	 * */
 	@Override
-	@Cached("query-list")
+	@Cached(strategies = {"query-list","query-code"})
 	public List<DictItem> queryList(DictItem sample) {
 		return super.queryList(sample);
 	}

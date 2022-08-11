@@ -2,7 +2,7 @@
 /**
  * 系统文件 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-18 22:59:54
+ * @since 2022-08-09 09:40:36
  */
  -->
  <!DOCTYPE html>
@@ -17,29 +17,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="/assets/libs/layui/css/layui.css" th:href="'/assets/libs/layui/css/layui.css?'+${cacheKey}"/>
     <link rel="stylesheet" href="/assets/css/admin.css" th:href="'/assets/css/admin.css?'+${cacheKey}"/>
+    <link rel="stylesheet" href="/assets/libs/toast/css/toast.css" type="text/css" th:href="'/assets/libs/toast/css/toast.css?'+${cacheKey}">
     <link rel="stylesheet" href="/assets/css/foxnic-web.css" th:href="'/assets/css/foxnic-web.css?'+${cacheKey}">
     <link href="/assets/libs/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
     <link href="/assets/libs/material-design-webfont/css/material-design-icons-min.css" rel="stylesheet">
     <script th:inline="javascript">var foxnic_cachekey=[[${cacheKey}]];</script>
-	<link th:each="css:${theme.css}" rel="stylesheet" th:href="${css}+'?'+${cacheKey}">
+    <style>
+    </style>
+    <link th:each="css:${theme.css}" rel="stylesheet" th:href="${css}+'?'+${cacheKey}">
 </head>
 
 <body style="overflow-y: hidden">
 
 <div class="layui-card">
 
-    <div class="layui-card-body">
+    <div class="layui-card-body" style="">
 
-        <div class="search-bar">
+        <div class="search-bar" style="">
 
             <div class="search-input-rows" style="opacity: 0">
                 <!-- 搜索输入区域 -->
                 <div class="layui-form toolbar search-inputs">
+                    <!-- ID , id ,typeName=text_input, isHideInSearch=true -->
                     <!-- 文件名 , fileName ,typeName=text_input, isHideInSearch=false -->
                     <div class="search-unit">
                         <div class="search-label-div" style=""><span th:text="${lang.translate('文件名')}" class="search-label fileName-label">文件名</span><span class="search-colon">:</span></div>
                         <input id="fileName" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
+                    <!-- 存储位置 , location ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 文件大小 , size ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 媒体类型 , mediaType ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 文件类型 , fileType ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 下载地址 , downloadUrl ,typeName=text_input, isHideInSearch=true -->
+                    <!-- 最后访问 , latestVisitTime ,typeName=date_input, isHideInSearch=true -->
+                    <!-- 下载次数 , downloads ,typeName=number_input, isHideInSearch=true -->
 
 
                 </div>
@@ -47,12 +58,12 @@
 
 
             <!-- 按钮区域 -->
-            <div class="layui-form toolbar search-buttons" style="opacity: 0">
+            <div id="search-area" class="layui-form toolbar search-buttons" style="opacity: 0">
                 <button id="search-button" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i>&nbsp;&nbsp;<span th:text="${lang.translate('搜索')}">搜索</span></button>
             </div>
         </div>
 
-        <div style="margin-top: 44px">
+        <div id="table-area" style="margin-top: 42px ">
             <table class="layui-table" id="data-table" lay-filter="data-table"></table>
         </div>
 
@@ -63,7 +74,7 @@
 <script type="text/javascript" src="/assets/libs/jquery-3.2.1.min.js" th:src="'/assets/libs/jquery-3.2.1.min.js?'+${cacheKey}"></script>
 <script type="text/javascript" src="/assets/libs/pandyle.min.js" th:src="'/assets/libs/pandyle.min.js?'+${cacheKey}"></script>
 <script type="text/javascript" src="/assets/libs/layui/layui.js" th:src="'/assets/libs/layui/layui.js?'+${cacheKey}"></script>
-
+<script type="text/javascript" src="/assets/libs/toast/js/toast.js" th:src="'/assets/libs/toast/js/toast.js?'+${cacheKey}"></script>
 <!-- 表格工具栏 -->
 <script type="text/html" id="toolbarTemplate">
     <div class="layui-btn-container">
@@ -73,17 +84,22 @@
 <!-- 表格操作列 -->
 <script type="text/html" id="tableOperationTemplate">
 
-    <a th:if="${perm.checkAuth('sys_file:view-form')}" class="layui-btn layui-btn-primary layui-btn-xs" lay-event="view" th:text="${lang.translate('查看')}">查看</a>
+    <button th:if="${perm.checkAuth('sys_file:view-form')}" class="layui-btn layui-btn-primary layui-btn-xs ops-view-button " lay-event="view"  data-id="{{d.id}}"> <span th:text="${lang.translate('查看')}">查看</span></button>
+
+
 
 
 </script>
 
 
 <script th:inline="javascript">
-    var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];
+    var LAYUI_TABLE_WIDTH_CONFIG = [[${pageHelper.getTableColumnWidthConfig('data-table')}]];
     var AUTH_PREFIX="sys_file";
+
+
 </script>
 
+<script th:src="'/business/storage/file/file_ext.js?'+${cacheKey}"></script>
 <script th:src="'/business/storage/file/file_list.js?'+${cacheKey}"></script>
 
 </body>

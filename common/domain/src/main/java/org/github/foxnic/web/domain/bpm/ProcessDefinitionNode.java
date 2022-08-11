@@ -9,11 +9,13 @@ import io.swagger.annotations.ApiModelProperty;
 import org.github.foxnic.web.constants.enums.bpm.CamundaNodeType;
 import javax.persistence.Transient;
 import java.util.Date;
+import org.github.foxnic.web.constants.enums.bpm.UserTaskType;
 import java.util.List;
 import com.github.foxnic.commons.reflect.EnumUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.lang.DataParser;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
 
@@ -22,8 +24,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程定义节点
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-11 11:17:25
- * @sign 28A5F3A05F45A8C3A0ACA76389A948E4
+ * @since 2022-07-07 14:18:42
+ * @sign 7FCDD3C0AE29303D326EAEDF710CDDA0
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -44,19 +46,19 @@ public class ProcessDefinitionNode extends Entity {
 	/**
 	 * 流程定义ID：流程定义ID
 	*/
-	@ApiModelProperty(required = false,value="流程定义ID" , notes = "流程定义ID")
+	@ApiModelProperty(required = true,value="流程定义ID" , notes = "流程定义ID")
 	private String processDefinitionId;
 	
 	/**
 	 * 流程文件ID：流程文件ID
 	*/
-	@ApiModelProperty(required = false,value="流程文件ID" , notes = "流程文件ID")
+	@ApiModelProperty(required = true,value="流程文件ID" , notes = "流程文件ID")
 	private String processDefinitionFileId;
 	
 	/**
 	 * 节点ID：节点ID
 	*/
-	@ApiModelProperty(required = false,value="节点ID" , notes = "节点ID")
+	@ApiModelProperty(required = true,value="节点ID" , notes = "节点ID")
 	private String camundaNodeId;
 	
 	/**
@@ -140,6 +142,20 @@ public class ProcessDefinitionNode extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="序号" , notes = "序号")
 	private Integer sort;
+	
+	/**
+	 * 会审的循环基数：会审的循环基数
+	*/
+	@ApiModelProperty(required = false,value="会审的循环基数" , notes = "会审的循环基数")
+	private Integer loopCardinality;
+	
+	/**
+	 * 人工节点类型：人工节点类型
+	*/
+	@ApiModelProperty(required = false,value="人工节点类型" , notes = "人工节点类型")
+	private String userTaskType;
+	@Transient
+	private UserTaskType userTaskTypeEnum;
 	
 	/**
 	 * 审批人清单：审批人清单
@@ -534,6 +550,77 @@ public class ProcessDefinitionNode extends Entity {
 	}
 	
 	/**
+	 * 获得 会审的循环基数<br>
+	 * 会审的循环基数
+	 * @return 会审的循环基数
+	*/
+	public Integer getLoopCardinality() {
+		return loopCardinality;
+	}
+	
+	/**
+	 * 设置 会审的循环基数
+	 * @param loopCardinality 会审的循环基数
+	 * @return 当前对象
+	*/
+	public ProcessDefinitionNode setLoopCardinality(Integer loopCardinality) {
+		this.loopCardinality=loopCardinality;
+		return this;
+	}
+	
+	/**
+	 * 获得 人工节点类型<br>
+	 * 人工节点类型
+	 * @return 人工节点类型
+	*/
+	public String getUserTaskType() {
+		return userTaskType;
+	}
+	
+	/**
+	 * 获得 人工节点类型 的投影属性<br>
+	 * 等价于 getUserTaskType 方法，获得对应的枚举类型
+	 * @return 人工节点类型
+	*/
+	@Transient
+	public UserTaskType getUserTaskTypeEnum() {
+		if(this.userTaskTypeEnum==null) {
+			this.userTaskTypeEnum = (UserTaskType) EnumUtil.parseByCode(UserTaskType.values(),userTaskType);
+		}
+		return this.userTaskTypeEnum ;
+	}
+	
+	/**
+	 * 设置 人工节点类型
+	 * @param userTaskType 人工节点类型
+	 * @return 当前对象
+	*/
+	public ProcessDefinitionNode setUserTaskType(String userTaskType) {
+		this.userTaskType=userTaskType;
+		this.userTaskTypeEnum= (UserTaskType) EnumUtil.parseByCode(UserTaskType.values(),userTaskType) ;
+		if(StringUtil.hasContent(userTaskType) && this.userTaskTypeEnum==null) {
+			throw new IllegalArgumentException( userTaskType + " is not one of UserTaskType");
+		}
+		return this;
+	}
+	
+	/**
+	 * 设置 人工节点类型的投影属性，等同于设置 人工节点类型
+	 * @param userTaskTypeEnum 人工节点类型
+	 * @return 当前对象
+	*/
+	@Transient
+	public ProcessDefinitionNode setUserTaskTypeEnum(UserTaskType userTaskTypeEnum) {
+		if(userTaskTypeEnum==null) {
+			this.setUserTaskType(null);
+		} else {
+			this.setUserTaskType(userTaskTypeEnum.code());
+		}
+		this.userTaskTypeEnum=userTaskTypeEnum;
+		return this;
+	}
+	
+	/**
 	 * 获得 审批人清单<br>
 	 * 审批人清单
 	 * @return 审批人清单
@@ -557,9 +644,9 @@ public class ProcessDefinitionNode extends Entity {
 	 * @param assignee 审批人清单
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionNode addAssignee(ProcessDefinitionNodeAssignee assignee) {
+	public ProcessDefinitionNode addAssignee(ProcessDefinitionNodeAssignee... assignee) {
 		if(this.assignees==null) assignees=new ArrayList<>();
-		this.assignees.add(assignee);
+		this.assignees.addAll(Arrays.asList(assignee));
 		return this;
 	}
 

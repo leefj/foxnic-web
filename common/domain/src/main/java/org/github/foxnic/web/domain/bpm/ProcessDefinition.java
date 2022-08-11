@@ -6,9 +6,13 @@ import com.github.foxnic.sql.meta.DBTable;
 import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_PROCESS_DEFINITION;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
+import org.github.foxnic.web.constants.enums.bpm.RejectOption;
+import javax.persistence.Transient;
 import java.util.Date;
 import org.github.foxnic.web.domain.oauth.User;
-import javax.persistence.Transient;
+import com.github.foxnic.commons.reflect.EnumUtil;
+import com.github.foxnic.commons.lang.StringUtil;
+import com.github.foxnic.commons.lang.DataParser;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
 
@@ -17,8 +21,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程定义
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-07 10:00:09
- * @sign 70DC725612447DE8BFE114C196A3D204
+ * @since 2022-07-04 09:43:06
+ * @sign 4CE2AB2F247BFAB6BE99C76ADB8AE4AB
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -47,6 +51,20 @@ public class ProcessDefinition extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="关联表单" , notes = "表单定义ID")
 	private String formDefinitionId;
+	
+	/**
+	 * 驳回配置：流程在驳回时的表现
+	*/
+	@ApiModelProperty(required = false,value="驳回配置" , notes = "流程在驳回时的表现")
+	private String rejectOption;
+	@Transient
+	private RejectOption rejectOptionEnum;
+	
+	/**
+	 * 审批人身份范围：审批人身份类型的范围
+	*/
+	@ApiModelProperty(required = false,value="审批人身份范围" , notes = "审批人身份类型的范围")
+	private String assigneeTypeRange;
 	
 	/**
 	 * 名称：名称
@@ -95,6 +113,8 @@ public class ProcessDefinition extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除")
 	private Integer deleted;
+	@Transient
+	private Boolean deletedBool;
 	
 	/**
 	 * 删除人ID：删除人ID
@@ -204,6 +224,77 @@ public class ProcessDefinition extends Entity {
 	*/
 	public ProcessDefinition setFormDefinitionId(String formDefinitionId) {
 		this.formDefinitionId=formDefinitionId;
+		return this;
+	}
+	
+	/**
+	 * 获得 驳回配置<br>
+	 * 流程在驳回时的表现
+	 * @return 驳回配置
+	*/
+	public String getRejectOption() {
+		return rejectOption;
+	}
+	
+	/**
+	 * 获得 驳回配置 的投影属性<br>
+	 * 等价于 getRejectOption 方法，获得对应的枚举类型
+	 * @return 驳回配置
+	*/
+	@Transient
+	public RejectOption getRejectOptionEnum() {
+		if(this.rejectOptionEnum==null) {
+			this.rejectOptionEnum = (RejectOption) EnumUtil.parseByCode(RejectOption.values(),rejectOption);
+		}
+		return this.rejectOptionEnum ;
+	}
+	
+	/**
+	 * 设置 驳回配置
+	 * @param rejectOption 驳回配置
+	 * @return 当前对象
+	*/
+	public ProcessDefinition setRejectOption(String rejectOption) {
+		this.rejectOption=rejectOption;
+		this.rejectOptionEnum= (RejectOption) EnumUtil.parseByCode(RejectOption.values(),rejectOption) ;
+		if(StringUtil.hasContent(rejectOption) && this.rejectOptionEnum==null) {
+			throw new IllegalArgumentException( rejectOption + " is not one of RejectOption");
+		}
+		return this;
+	}
+	
+	/**
+	 * 设置 驳回配置的投影属性，等同于设置 驳回配置
+	 * @param rejectOptionEnum 驳回配置
+	 * @return 当前对象
+	*/
+	@Transient
+	public ProcessDefinition setRejectOptionEnum(RejectOption rejectOptionEnum) {
+		if(rejectOptionEnum==null) {
+			this.setRejectOption(null);
+		} else {
+			this.setRejectOption(rejectOptionEnum.code());
+		}
+		this.rejectOptionEnum=rejectOptionEnum;
+		return this;
+	}
+	
+	/**
+	 * 获得 审批人身份范围<br>
+	 * 审批人身份类型的范围
+	 * @return 审批人身份范围
+	*/
+	public String getAssigneeTypeRange() {
+		return assigneeTypeRange;
+	}
+	
+	/**
+	 * 设置 审批人身份范围
+	 * @param assigneeTypeRange 审批人身份范围
+	 * @return 当前对象
+	*/
+	public ProcessDefinition setAssigneeTypeRange(String assigneeTypeRange) {
+		this.assigneeTypeRange=assigneeTypeRange;
 		return this;
 	}
 	
@@ -350,12 +441,42 @@ public class ProcessDefinition extends Entity {
 	}
 	
 	/**
+	 * 获得 是否已删除 的投影属性<br>
+	 * 等价于 getDeleted 方法，获得对应的枚举类型
+	 * @return 是否已删除
+	*/
+	@Transient
+	public Boolean isDeleted() {
+		if(this.deletedBool==null) {
+			this.deletedBool=DataParser.parseBoolean(deleted);
+		}
+		return this.deletedBool ;
+	}
+	
+	/**
 	 * 设置 是否已删除
 	 * @param deleted 是否已删除
 	 * @return 当前对象
 	*/
 	public ProcessDefinition setDeleted(Integer deleted) {
 		this.deleted=deleted;
+		this.deletedBool=DataParser.parseBoolean(deleted);
+		return this;
+	}
+	
+	/**
+	 * 设置 是否已删除的投影属性，等同于设置 是否已删除
+	 * @param deletedBool 是否已删除
+	 * @return 当前对象
+	*/
+	@Transient
+	public ProcessDefinition setDeleted(Boolean deletedBool) {
+		if(deletedBool==null) {
+			this.deleted=null;
+		} else {
+			this.deleted=deletedBool?1:0;
+		}
+		this.deletedBool=deletedBool;
 		return this;
 	}
 	

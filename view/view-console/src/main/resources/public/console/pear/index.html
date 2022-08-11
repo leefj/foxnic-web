@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title th:text="${ lang.translate(title) }">Foxnic-Web</title>
+		<link th:if(theme.ico!="null") rel="shortcut icon" th:href="${theme.ico}" type="image/vnd.microsoft.icon">
+		<link th:if(theme.ico!="null") rel="icon" th:href="theme.ico" type="image/vnd.microsoft.icon">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<!-- 依 赖 样 式 -->
+		<link rel="stylesheet" href="component/pear/css/pear.css" th:href="${baseDir}+'/component/pear/css/pear.css?'+${cacheKey}"/>
+		<!-- 加 载 样 式 -->
+		<link rel="stylesheet" href="admin/css/loader.css" th:href="${baseDir}+'/admin/css/loader.css?'+${cacheKey}"/>
+		<!-- 布 局 样 式 -->
+		<link rel="stylesheet" href="admin/css/admin.css" th:href="${baseDir}+'/admin/css/admin.css?'+${cacheKey}"/>
+		<!-- 图 标 样 式 -->
+		<link href="/assets/libs/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+		<link href="/assets/libs/material-design-webfont/css/material-design-icons-min.css" rel="stylesheet">
+		<link rel="stylesheet" href="/assets/libs/toast/css/toast.css" th:href="'assets/libs/toast/css/toast.css?'+${cacheKey}" type="text/css">
+
+	</head>
+	<!-- 结 构 代 码 -->
+	<body class="layui-layout-body pear-admin">
+		<!-- 布 局 框 架 -->
+		<div class="layui-layout layui-layout-admin">
+			<!-- 顶 部 样 式 -->
+			<div class="layui-header">
+				<!-- 菜 单 顶 部 -->
+				<div class="layui-logo">
+					<!-- 图 标 -->
+					<img class="logo">
+					<!-- 标 题 -->
+					<span class="title"></span>
+				</div>
+				<!-- 顶 部 左 侧 功 能 -->
+				<ul class="layui-nav layui-layout-left">
+					<li class="collapse layui-nav-item"><a href="#" class="layui-icon layui-icon-shrink-right"></a></li>
+					<li class="refresh layui-nav-item"><a href="#" class="layui-icon layui-icon-refresh-1" loading = 600></a></li>
+				</ul>
+				<!-- 多 系 统 菜 单 -->
+				<div id="control" class="layui-layout-control"></div>
+				<!-- 顶 部 右 侧 菜 单 -->
+				<ul class="layui-nav layui-layout-right">
+					<!--  菜单搜索 -->
+					<li class="layui-nav-item layui-hide-xs"><a href="#" class="menuSearch layui-icon layui-icon-search"></a></li>
+					<!--  全屏 -->
+					<li class="layui-nav-item layui-hide-xs"><a href="#" class="fullScreen layui-icon layui-icon-screen-full"></a></li>
+					<!--  站点连接 -->
+					<li class="layui-nav-item layui-hide-xs" style="display: none;"><a href="http://web.foxnicweb.com/website/views/index.html" class="layui-icon layui-icon-website" target="_blank"></a></li>
+					<!--  消息 -->
+					<li class="layui-nav-item layui-hide-xs message" style="display: none"></li>
+					<!--  头像等登录信息 -->
+					<li class="layui-nav-item user">
+						<!-- 头 像 -->
+						<a class="layui-icon layui-icon-username" href="javascript:;"></a>
+						<!-- 功 能 菜 单 -->
+						<dl class="layui-nav-child">
+							<dd>
+							<div id="updateUserProfile" style="width: 100%;display: flex;flex-direction:column;justify-content:center;align-items:center;padding-top: 6px; border-bottom: solid 1px #ececec;background-color: #ffffff;cursor: pointer">
+								<img id="portrait-image"  class="layui-nav-img" style="border: solid 0px #ececec;margin-left: 10px">
+								<span id="account-name" style="color: #555555;">李方捷</span>
+							</div>
+							</dd>
+							<dd><a id="changePwdMenu" href="javascript:void(0);"   user-menu-title="修改密码" style="cursor: pointer;">修改密码</a></dd>
+							<dd><a href="javascript:void(0);" style="cursor: pointer;" class="logout">注销登录</a></dd>
+						</dl>
+					</li>
+					<!-- 主 题 配 置 -->
+					<li class="layui-nav-item setting"><a href="#" class="layui-icon layui-icon-more-vertical"></a></li>
+				</ul>
+			</div>
+			<!-- 侧 边 区 域 -->
+			<div class="layui-side layui-bg-black">
+				<!-- 菜 单 顶 部 -->
+				<div class="layui-logo">
+					<!-- 图 标 -->
+					<img class="logo">
+					<!-- 标 题 -->
+					<span class="title"></span>
+				</div>
+				<!-- 菜 单 内 容 -->
+				<div class="layui-side-scroll">
+					<div id="sideMenu"></div>
+				</div>
+			</div>
+			<!-- 视 图 页 面 -->
+			<div class="layui-body">
+				<!-- 内 容 页 面 -->
+				<div id="content"></div>
+			</div>
+			<!-- 页脚 -->
+			<div class="layui-footer layui-text">
+				<span class="left">
+					Released under the MIT license.
+				</span>
+				<span class="center"></span>
+				<span class="right">
+					Copyright © 2021-2022 pearadmin.com
+				</span>
+			</div>
+			<!-- 遮 盖 层 -->
+			<div class="pear-cover"></div>
+			<!-- 加 载 动 画 -->
+			<div class="loader-main">
+<!--				&lt;!&ndash; 动 画 对 象 &ndash;&gt;-->
+<!--				<div class="loader"></div>-->
+			</div>
+		</div>
+		<!-- 移 动 端 便 捷 操 作 -->
+		<div class="pear-collapsed-pe collapse">
+			<a href="#" class="layui-icon layui-icon-shrink-right"></a>
+		</div>
+		<!-- 依 赖 脚 本 -->
+		<script type="text/javascript" src="module/global.js" th:src="'module/global.js?'+${cacheKey}"></script>
+		<script type="text/javascript" src="/assets/libs/jquery-3.2.1.min.js" th:src="'/assets/libs/jquery-3.2.1.min.js?'+${cacheKey}"></script>
+		<script src="component/layui/layui.js" th:src="${baseDir}+'/component/layui/layui.js?'+${cacheKey}"></script>
+		<script src="component/pear/pear.js" th:src="${baseDir}+'/component/pear/pear.js?'+${cacheKey}"></script>
+		<script type="text/javascript" src="/assets/libs/toast/js/toast.js" th:src="'/assets/libs/toast/js/toast.js?'+${cacheKey}"></script>
+		<!-- 框 架 初 始 化 -->
+		<script>
+			var BASE_DIR="[[${baseDir}]]";
+			var LOGO="[[${logo}]]";
+			var TITLE="[[${title}]]";
+			var PORTAL_URL="[[${portalURL}]]";
+			localStorage.setItem("theme","[[${theme_code}]]");
+			var THEME_CONFIG="[[${theme_config}]]";
+			THEME_CONFIG=JSON.parse(THEME_CONFIG.replace(/&quot;/g,"\""));
+			for(var key in THEME_CONFIG) {
+				localStorage.setItem(key,THEME_CONFIG[key]);
+			}
+			layui.use(['admin','jquery','popup','drawer'], function() {
+				var $ = layui.jquery;
+				var admin = layui.admin;
+				var popup = layui.popup;
+
+				admin.setBaseDir(BASE_DIR);
+				admin.setConfigType("yml");
+				admin.setConfigPath("config/pear.config.yml");
+
+				admin.render();
+
+				// 登出逻辑
+				admin.registerLogout();
+				admin.registerChangePwd("#changePwdMenu");
+				admin.registerUserProfile("#updateUserProfile");
+
+				// 消息点击回调
+				admin.message(function(id, title, context, form) {});
+			})
+		</script>
+	</body>
+</html>

@@ -7,8 +7,9 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_FORM_DEFINITION;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
-import org.github.foxnic.web.domain.oauth.User;
 import javax.persistence.Transient;
+import org.github.foxnic.web.domain.oauth.User;
+import com.github.foxnic.commons.lang.DataParser;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
 
@@ -17,8 +18,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 表单定义
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-07 09:27:44
- * @sign 6B41C2BC702201A90EE7B717EE8A9D44
+ * @since 2022-07-04 16:12:04
+ * @sign A15DEEDD4B46D7BDC09812C2331E1A0F
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -107,6 +108,8 @@ public class FormDefinition extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除")
 	private Integer deleted;
+	@Transient
+	private Boolean deletedBool;
 	
 	/**
 	 * 删除人ID：删除人ID
@@ -131,6 +134,18 @@ public class FormDefinition extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="租户ID" , notes = "租户ID")
 	private String tenantId;
+	
+	/**
+	 * 回调控制器：完整类名
+	*/
+	@ApiModelProperty(required = false,value="回调控制器" , notes = "完整类名")
+	private String callbackController;
+	
+	/**
+	 * 是否可关联多个流程：是否可关联多个流程
+	*/
+	@ApiModelProperty(required = false,value="是否可关联多个流程" , notes = "是否可关联多个流程")
+	private Integer mulitiProcess;
 	
 	/**
 	 * 最后修改人：最后修改人
@@ -376,12 +391,42 @@ public class FormDefinition extends Entity {
 	}
 	
 	/**
+	 * 获得 是否已删除 的投影属性<br>
+	 * 等价于 getDeleted 方法，获得对应的枚举类型
+	 * @return 是否已删除
+	*/
+	@Transient
+	public Boolean isDeleted() {
+		if(this.deletedBool==null) {
+			this.deletedBool=DataParser.parseBoolean(deleted);
+		}
+		return this.deletedBool ;
+	}
+	
+	/**
 	 * 设置 是否已删除
 	 * @param deleted 是否已删除
 	 * @return 当前对象
 	*/
 	public FormDefinition setDeleted(Integer deleted) {
 		this.deleted=deleted;
+		this.deletedBool=DataParser.parseBoolean(deleted);
+		return this;
+	}
+	
+	/**
+	 * 设置 是否已删除的投影属性，等同于设置 是否已删除
+	 * @param deletedBool 是否已删除
+	 * @return 当前对象
+	*/
+	@Transient
+	public FormDefinition setDeleted(Boolean deletedBool) {
+		if(deletedBool==null) {
+			this.deleted=null;
+		} else {
+			this.deleted=deletedBool?1:0;
+		}
+		this.deletedBool=deletedBool;
 		return this;
 	}
 	
@@ -458,6 +503,44 @@ public class FormDefinition extends Entity {
 	*/
 	public FormDefinition setTenantId(String tenantId) {
 		this.tenantId=tenantId;
+		return this;
+	}
+	
+	/**
+	 * 获得 回调控制器<br>
+	 * 完整类名
+	 * @return 回调控制器
+	*/
+	public String getCallbackController() {
+		return callbackController;
+	}
+	
+	/**
+	 * 设置 回调控制器
+	 * @param callbackController 回调控制器
+	 * @return 当前对象
+	*/
+	public FormDefinition setCallbackController(String callbackController) {
+		this.callbackController=callbackController;
+		return this;
+	}
+	
+	/**
+	 * 获得 是否可关联多个流程<br>
+	 * 是否可关联多个流程
+	 * @return 是否可关联多个流程
+	*/
+	public Integer getMulitiProcess() {
+		return mulitiProcess;
+	}
+	
+	/**
+	 * 设置 是否可关联多个流程
+	 * @param mulitiProcess 是否可关联多个流程
+	 * @return 当前对象
+	*/
+	public FormDefinition setMulitiProcess(Integer mulitiProcess) {
+		this.mulitiProcess=mulitiProcess;
 		return this;
 	}
 	

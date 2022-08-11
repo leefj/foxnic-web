@@ -133,13 +133,15 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
          * */
         afterSubmit:function (param,result) {
             // debugger
+            param.type="pos";
             console.log("beforeSubmit",param,result);
             if(!result.success) return;
             var name=param.fullName;
             if(param.shortName) {
                 name=param.shortName;
             }
-            parent.changeNodeName(param.id,name);
+            debugger
+            parent.changeNodeInfo(param);
         },
         loadFormData:function(id) {
             var task=setTimeout(function(){layer.load(2);},1000);

@@ -211,7 +211,7 @@ public class EmployeeServiceImpl extends SuperService<Employee> implements IEmpl
 	public Result deleteByIdLogical(String id) {
 		if(id==null) return ErrorDesc.failure().message("id 不允许为 null 。");
 		Employee employee = this.getById(id);
-		employee.setDeleted(dao.getDBTreaty().getTrueValue());
+		employee.setDeleted(true);
 		employee.setDeleteBy((String)dao.getDBTreaty().getLoginUserId());
 		employee.setDeleteTime(new Date());
 		try {

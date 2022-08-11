@@ -6,8 +6,7 @@ import org.github.foxnic.web.generator.data.DataGenerator;
 import org.github.foxnic.web.generator.module.bpm.*;
 import org.github.foxnic.web.generator.module.changes.*;
 import org.github.foxnic.web.generator.module.dataperm.*;
-import org.github.foxnic.web.generator.module.example.CodeExampleMulitPkConfig;
-import org.github.foxnic.web.generator.module.example.ExampleNewsConfig;
+import org.github.foxnic.web.generator.module.example.*;
 import org.github.foxnic.web.generator.module.hrm.HrmEmployeeConfig;
 import org.github.foxnic.web.generator.module.hrm.HrmPositionConfig;
 import org.github.foxnic.web.generator.module.job.SysJobConfig;
@@ -17,7 +16,8 @@ import org.github.foxnic.web.generator.module.oauth.SysUserConfig;
 import org.github.foxnic.web.generator.module.pcm.PcmCatalogAllocationConfig;
 import org.github.foxnic.web.generator.module.pcm.PcmCatalogAttributeConfig;
 import org.github.foxnic.web.generator.module.pcm.PcmCatalogConfig;
-import org.github.foxnic.web.generator.module.system.TenantConfig;
+import org.github.foxnic.web.generator.module.storage.SysFileConfig;
+import org.github.foxnic.web.generator.module.system.*;
 
 import java.io.File;
 
@@ -39,9 +39,10 @@ public class CodeStarter extends ModuleCodeGenerator {
 //        initOAuthModules();
 //        initSystemModules();
 //        initHrmModules();
-//        initExampleModules();
-//        initChangeModule1s();
-        initBpmModules();
+        initExampleModules();
+//        initStorageModules();
+//        initChangeModules();
+//        initBpmModules();
 //        initDatapermModules();
 //
 //        initExample2Modules();
@@ -54,6 +55,12 @@ public class CodeStarter extends ModuleCodeGenerator {
         this.addConfig(new ExampleNewsConfig());
     }
 
+
+
+    private void initStorageModules() {
+
+        this.addConfig(new SysFileConfig());
+    }
     private void initDatapermModules() {
         //
         this.addConfig(new DPRuleConfig());
@@ -68,34 +75,38 @@ public class CodeStarter extends ModuleCodeGenerator {
     }
 
     private void initBpmModules() {
-        this.addConfig(new ProcessDefinitionConfig());
-        this.addConfig(new ProcessDefinitionFileConfig());
-        this.addConfig(new ProcessDefinitionNodeConfig());
-        this.addConfig(new ProcessDefinitionNodeAssigneeConfig());
+//        this.addConfig(new ProcessDefinitionConfig());
+//        this.addConfig(new ProcessDefinitionFileConfig());
+//        this.addConfig(new ProcessDefinitionNodeConfig());
+//        this.addConfig(new ProcessDefinitionNodeAssigneeConfig());
 //        this.addConfig(new ProcessInitiatorConfig());
 //        this.addConfig(new ProcessDefinitionApplyConfig());
         //
         this.addConfig(new ProcessInstanceConfig());
         //
-        this.addConfig(new FormDefinitionConfig());
-        this.addConfig(new FormInstanceConfig());
-        this.addConfig(new FormInstanceBillConfig());
-        this.addConfig(new TaskConfig());
-        this.addConfig(new TaskAssigneeConfig());
-        this.addConfig(new TaskApprovalConfig());
-        //
-        this.addConfig(new DemoLeaveConfig());
+//        this.addConfig(new FormDefinitionConfig());
+//        this.addConfig(new FormInstanceConfig());
+//        this.addConfig(new FormInstanceBillConfig());
+//        this.addConfig(new TaskConfig());
+//        this.addConfig(new TaskReadConfig());
+//        this.addConfig(new TaskAssigneeConfig());
+//        this.addConfig(new TaskApprovalConfig());
+//        this.addConfig(new ProcessErrorConfig());
+//
+//        //
+//        this.addConfig(new DemoLeaveConfig());
+//        this.addConfig(new DemoCommonConfig());
     }
 
     private void  initChangeModules() {
-        this.addConfig(new ChsChangeDefinitionConfig());
-        this.addConfig(new ChsChangeInstanceConfig());
-        this.addConfig(new ChsChangeDataConfig());
-        this.addConfig(new ChsExampleOrderConfig());
-        this.addConfig(new ChsExampleOrderItemConfig());
-        this.addConfig(new ChsChangeEventConfig());
-        this.addConfig(new ChsInstanceBillConfig());
-        this.addConfig(new ChsInstanceApproverConfig());
+//        this.addConfig(new ChsChangeDefinitionConfig());
+//        this.addConfig(new ChsChangeInstanceConfig());
+//        this.addConfig(new ChsChangeDataConfig());
+//        this.addConfig(new ChsExampleOrderConfig());
+//        this.addConfig(new ChsExampleOrderItemConfig());
+//        this.addConfig(new ChsChangeEventConfig());
+//        this.addConfig(new ChsInstanceBillConfig());
+//        this.addConfig(new ChsInstanceApproverConfig());
     }
 
     private void initJobModules() {
@@ -134,7 +145,12 @@ public class CodeStarter extends ModuleCodeGenerator {
 //        this.addConfig(new CodeExampleRoleConfig());
 //        this.addConfig(new CodeExampleStudentConfig());
 //        this.addConfig(new CodeExampleCarConfig());
-        this.addConfig(new CodeExampleMulitPkConfig());
+//        this.addConfig(new CodeExampleMulitPkConfig());
+
+//        this.addConfig(new ExampleOrderConfig());
+//        this.addConfig(new ExampleOrderItemConfig());
+//        this.addConfig(new ExampleGoodsConfig());
+        this.addConfig(new ExampleAddressConfig());
 
     }
 
@@ -144,14 +160,14 @@ public class CodeStarter extends ModuleCodeGenerator {
 //        this.addConfig(new BusiRoleMemberConfig());
 
 //        this.addConfig(new SysDictConfig());
-//        this.addConfig(new SysConfigConfig());
-//        this.addConfig(new SysProfileConfig());
+        this.addConfig(new SysConfigConfig());
+        this.addConfig(new SysProfileConfig());
 //        this.addConfig(new SysDictItemConfig());
 //        this.addConfig(new SysFileConfig());
         //
 //        this.addConfig(new SequenceConfig());
 //        this.addConfig(new UserTenantConfig());
-        this.addConfig(new TenantConfig());
+//        this.addConfig(new TenantConfig());
 
 
     }

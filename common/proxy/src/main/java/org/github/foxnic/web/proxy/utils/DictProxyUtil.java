@@ -25,8 +25,10 @@ public class DictProxyUtil {
     /**
      * 按类别和分组获取
      * */
-    public static List<DictItem> getList(DictItemVO sample) {
+    public static List<DictItem> getList(String dictCode) {
         init();
+        DictItemVO sample=new DictItemVO();
+        sample.setDictCode(dictCode);
         if(StringUtil.isBlank(sample.getSortField())) {
             sample.setSortField(DictItemMeta.SORT);
             sample.setSortType("ASC");
@@ -37,11 +39,21 @@ public class DictProxyUtil {
         return result.data();
     }
 
-    public JSONArray toArray(String dictCode) {
-        JSONArray array=new JSONArray();
+    public static DictItem getDictItem(String dictCode,String itemCode) {
+        init();
         DictItemVO sample=new DictItemVO();
         sample.setDictCode(dictCode);
-        List<DictItem> list=getList(sample);
+        sample.setCode(itemCode);
+        Result<List<DictItem>> result=proxy.queryList(sample);
+        if(result==null) return null;
+        if(result.failure()) return null;
+        if( result.data().isEmpty()) return null;
+        return  result.data().get(0);
+    }
+
+    public JSONArray toArray(String dictCode) {
+        JSONArray array=new JSONArray();
+        List<DictItem> list=getList(dictCode);
         for (DictItem e : list) {
             JSONObject item=new JSONObject();
             item.put("code", e.getCode());

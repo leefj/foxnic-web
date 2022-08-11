@@ -3,6 +3,7 @@ package org.github.foxnic.web.oauth.captcha;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.github.foxnic.web.constants.enums.system.LoginType;
 import org.github.foxnic.web.domain.oauth.LoginIdentityVO;
 import org.github.foxnic.web.proxy.oauth.UserServiceProxy;
 import org.springframework.security.authentication.AuthenticationServiceException;
@@ -15,7 +16,6 @@ import com.github.foxnic.springboot.mvc.RequestParameter;
 
 public class CaptchaAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 
-	 
 
 
     public CaptchaAuthenticationFilter() {
@@ -23,28 +23,27 @@ public class CaptchaAuthenticationFilter extends AbstractAuthenticationProcessin
     }
 
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest request,
-                                                HttpServletResponse response) throws AuthenticationException {
+    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
 
         if (!request.getMethod().equals("POST")) {
             throw new AuthenticationServiceException(
                     "Authentication method not supported: " + request.getMethod());
         }
+
         RequestParameter parameter=RequestParameter.get();
         LoginIdentityVO identity=parameter.toPojo(LoginIdentityVO.class);
+        if(identity.getLoginTypeEnum()==null) {
+            identity.setLoginTypeEnum(LoginType.IDENTITY_TEXT_CAPTCHA);
+        }
 
-        CaptchaAuthenticationToken authRequest = new CaptchaAuthenticationToken(
-        		identity.getIdentity(), identity.getCaptcha());
-
+        CaptchaAuthenticationToken authRequest = new CaptchaAuthenticationToken(identity.getIdentity(), identity.getCaptcha());
         setDetails(request, authRequest);
-
         return this.getAuthenticationManager().authenticate(authRequest);
+
     }
 
-    
 
-    protected void setDetails(HttpServletRequest request,
-                              CaptchaAuthenticationToken authRequest) {
+    protected void setDetails(HttpServletRequest request, CaptchaAuthenticationToken authRequest) {
         authRequest.setDetails(authenticationDetailsSource.buildDetails(request));
     }
 

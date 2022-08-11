@@ -2,7 +2,7 @@
 /**
  * 账户 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-20 13:14:36
+ * @since 2022-07-20 16:30:40
  */
  -->
  <!DOCTYPE html>
@@ -100,7 +100,7 @@
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('语言')}">语言</div></div>
                     <div class="layui-input-block layui-input-block-c1">
-                        <input input-type="radio" type="radio" name="language" lay-filter="language" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.system.Language')}" th:value="${e.code}" th:title="${e.text}" th:checked="${(e.code=='' || stat.index==-1)?'yes':'no'}">
+                        <input input-type="radio" type="radio" name="language" lay-filter="language" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.system.Language')}" th:value="${e.code}" th:title="${e.text}" th:checked="${(e.code=='' || stat.index==-1)}">
                     </div>
                 </div>
 
@@ -131,7 +131,7 @@
 
                 
                     <div class="layui-form-item" >
-                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('角色')}">角色</div></div>
+                        <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('角色')}">角色</div><div class="layui-required">*</div></div>
                         <div class="layui-input-block layui-input-block-c1">
                             <div id="roleIds" input-type="select" th:data="${'/service-oauth/sys-role/query-list'}" extraParam="{}"></div>
                         </div>
@@ -160,11 +160,10 @@
 <script type="text/javascript" src="/assets/libs/pandyle.min.js" th:src="'/assets/libs/pandyle.min.js?'+${cacheKey}"></script>
 <script type="text/javascript" src="/assets/libs/layui/layui.js" th:src="'/assets/libs/layui/layui.js?'+${cacheKey}"></script>
 <script type="text/javascript" src="/assets/libs/toast/js/toast.js" th:src="'/assets/libs/toast/js/toast.js?'+${cacheKey}"></script>
-
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];
     var RADIO_LANGUAGE_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.system.Language')}]];
-    var VALIDATE_CONFIG={"valid":{"labelInForm":"是否有效","inputType":"logic_switch","required":true},"realName":{"labelInForm":"姓名","inputType":"text_input","required":true},"phone":{"phone":true,"labelInForm":"手机","inputType":"text_input","required":true},"account":{"labelInForm":"账户","inputType":"text_input","required":true}};
+    var VALIDATE_CONFIG={"valid":{"labelInForm":"是否有效","inputType":"logic_switch","required":true},"realName":{"labelInForm":"姓名","inputType":"text_input","required":true},"roleIds":{"labelInForm":"角色","inputType":"select_box","required":true},"phone":{"phone":true,"labelInForm":"手机","inputType":"text_input","required":true},"account":{"labelInForm":"账户","inputType":"text_input","required":true}};
     var AUTH_PREFIX="sys_user";
 
 

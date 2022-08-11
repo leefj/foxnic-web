@@ -2,10 +2,13 @@ package org.github.foxnic.web.domain.bpm;
 
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
+import org.github.foxnic.web.constants.enums.bpm.ApprovalCatalog;
+import javax.persistence.Transient;
 import java.util.ArrayList;
 import java.util.Arrays;
+import com.github.foxnic.commons.reflect.EnumUtil;
+import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.api.model.CompositeParameter;
-import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
 
 
@@ -13,8 +16,8 @@ import com.github.foxnic.commons.bean.BeanUtil;
 /**
  * 流程实例
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-27 15:34:38
- * @sign DEDB9EC722B9B23BC314911B41474B11
+ * @since 2022-08-04 15:56:25
+ * @sign 99EF60040ABA6FDEABA02D0468A47EF5
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -93,6 +96,14 @@ public class ProcessInstanceVO extends ProcessInstance {
 	*/
 	@ApiModelProperty(required = false,value="是否我的流程" , notes = "是否我的流程")
 	private Boolean mine;
+	
+	/**
+	 * 流程审批分类：流程审批分类
+	*/
+	@ApiModelProperty(required = false,value="流程审批分类" , notes = "流程审批分类")
+	private String approvalCatalog;
+	@Transient
+	private ApprovalCatalog approvalCatalogEnum;
 	
 	/**
 	 * 获得 页码<br>
@@ -367,8 +378,60 @@ public class ProcessInstanceVO extends ProcessInstance {
 		this.mine=mine;
 		return this;
 	}
+	
+	/**
+	 * 获得 流程审批分类<br>
+	 * 流程审批分类
+	 * @return 流程审批分类
+	*/
+	public String getApprovalCatalog() {
+		return approvalCatalog;
+	}
+	
+	/**
+	 * 获得 流程审批分类 的投影属性<br>
+	 * 等价于 getApprovalCatalog 方法，获得对应的枚举类型
+	 * @return 流程审批分类
+	*/
 	@Transient
-	private CompositeParameter $compositeParameter;
+	public ApprovalCatalog getApprovalCatalogEnum() {
+		if(this.approvalCatalogEnum==null) {
+			this.approvalCatalogEnum = (ApprovalCatalog) EnumUtil.parseByCode(ApprovalCatalog.values(),approvalCatalog);
+		}
+		return this.approvalCatalogEnum ;
+	}
+	
+	/**
+	 * 设置 流程审批分类
+	 * @param approvalCatalog 流程审批分类
+	 * @return 当前对象
+	*/
+	public ProcessInstanceVO setApprovalCatalog(String approvalCatalog) {
+		this.approvalCatalog=approvalCatalog;
+		this.approvalCatalogEnum= (ApprovalCatalog) EnumUtil.parseByCode(ApprovalCatalog.values(),approvalCatalog) ;
+		if(StringUtil.hasContent(approvalCatalog) && this.approvalCatalogEnum==null) {
+			throw new IllegalArgumentException( approvalCatalog + " is not one of ApprovalCatalog");
+		}
+		return this;
+	}
+	
+	/**
+	 * 设置 流程审批分类的投影属性，等同于设置 流程审批分类
+	 * @param approvalCatalogEnum 流程审批分类
+	 * @return 当前对象
+	*/
+	@Transient
+	public ProcessInstanceVO setApprovalCatalogEnum(ApprovalCatalog approvalCatalogEnum) {
+		if(approvalCatalogEnum==null) {
+			this.setApprovalCatalog(null);
+		} else {
+			this.setApprovalCatalog(approvalCatalogEnum.code());
+		}
+		this.approvalCatalogEnum=approvalCatalogEnum;
+		return this;
+	}
+	@Transient
+	private transient CompositeParameter $compositeParameter;
 	/**
 	 * 获得解析后的复合查询参数
 	 */

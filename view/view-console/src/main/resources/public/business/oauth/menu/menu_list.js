@@ -6,21 +6,21 @@
 
 
 function ListPage() {
-        
+
 	var settings,admin,form,table,layer,util,fox,upload,xmSelect;
 	//模块基础路径
 	const moduleURL="/service-oauth/sys-menu";
-	
+
 	var menuTree;
-	
+
 	/**
       * 入口函数，初始化
       */
 	this.init=function(layui) {
- 
+
      	admin = layui.admin,settings = layui.settings,form = layui.form,upload = layui.upload;
 		table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect;
- 
+
      	var cfgs = {
      		edit: {
 				enable: true
@@ -45,8 +45,8 @@ function ListPage() {
 			}
 		};
 		menuTree=$.fn.zTree.init($("#menu-tree"), cfgs);
-		
-		
+
+
 		setTimeout(function(){
 			var toolbarHeight=$("#toolbar")[0].clientHeight;
 			var fullHeight=$(window).height();
@@ -63,17 +63,17 @@ function ListPage() {
 		//
 		bindSearchEvent();
      }
-    
+
     var editingNode=null;
     function onNodeClick(event, treeId, treeNode) {
     	if(treeNode==null) return;
     	editingNode=treeNode;
     	$("#form-view")[0].contentWindow.loadFormData(treeNode.id);
     }
-    
-     
+
+
     function onNodeDrop(event, treeId, treeNodes, targetNode, moveType) {
- 
+
 		var ids=[];
 		//移动节点
     	if(moveType=="inner" || moveType=="prev" || moveType=="next") { // 调整节点顺序
@@ -110,17 +110,18 @@ function ListPage() {
     		debugger;
     	}
     }
-    
+
     function saveHierarchy(ids,parentId) {
     	admin.request(moduleURL+"/save-hierarchy",{"ids":ids,parentId:parentId},function(r) {
 			if(r.success) {
 				admin.toast().success("已调整",{time:1000,position:"right-bottom"});
+				$("#form-view")[0].contentWindow.loadFormData(editingNode.id);
 			} else {
 				admin.toast().error("调整失败",{time:1000,position:"right-bottom"});
 			}
 		});
     }
-  
+
     function beforeNodeRemove(treeId, treeNode) {
     	//debugger;
 		layer.confirm('确定要删除['+treeNode.name+']菜单吗?', function(index,a,c,d) {
@@ -140,7 +141,7 @@ function ListPage() {
 		});
     	return false;
     }
-     
+
 	function onNodeRename (event, treeId, treeNode, isCancel) {
 		admin.request(moduleURL+"/update",{id:treeNode.id,label:treeNode.name},function(r){
 			if(r.success) {
@@ -151,17 +152,17 @@ function ListPage() {
 			}
 		});
 	}
-     
+
 	function nodeDatafilter(treeId, parentNode, childNodes) {
      	//debugger;
      	childNodes=childNodes.data;
 		if (!childNodes) return null;
 		for (var i=0, l=childNodes.length; i<l; i++) {
-		 
+
 		}
 		return childNodes;
 	}
-	
+
 	function addHoverDom(treeId, treeNode) {
 		if(!treeNode.isParent) return;
 		var aObj = $("#" + treeNode.tId + "_a");
@@ -176,9 +177,9 @@ function ListPage() {
 			var node=menuTree.getNodeByTId(tid);
 			menuTree.reAsyncChildNodes(node,'refresh');
 		});
-			 
+
 	}
-	
+
 	function chaneNodeName(id,name) {
 		if(editingNode==null) return;
 		if(editingNode.id!=id) return;
@@ -186,7 +187,7 @@ function ListPage() {
 		menuTree.updateNode(editingNode);
 	}
 	window.chaneNodeName=chaneNodeName;
-	
+
 	function removeHoverDom(treeId, treeNode) {
 			//if (treeNode.parentTId && treeNode.getParentNode().id!=1) return;
 //			if (treeNode.id == 15) {
@@ -197,9 +198,9 @@ function ListPage() {
 //				$("#diyBtn_space_" +treeNode.id).unbind().remove();
 //			}
 		}
-     
-      
-	
+
+
+
 	/**
 	 * 重置搜索框
 	 */
@@ -208,7 +209,7 @@ function ListPage() {
 		$('#search-input').val("");
 		layui.form.render();
 	}
-	
+
 	/**
 	 * 绑定搜索框事件
 	 */
@@ -289,17 +290,17 @@ function ListPage() {
 
 	}
 
-	
+
 	// 添加按钮点击事件
     $('#btn-add').click(function () {
         var nodes=menuTree.getSelectedNodes();
- 
+
         //默认根节点
         var treeNode=null;
         if(nodes && nodes.length>0) {
          	treeNode=nodes[0];
         }
- 
+
         admin.request(moduleURL+"/insert",{parentId:treeNode?treeNode.id:null,label:"新菜单"},function(r) {
 			if(r.success) {
 				admin.toast().success("菜单已创建",{time:1000,position:"right-bottom"});
@@ -309,7 +310,7 @@ function ListPage() {
 					menuTree.addNodes(null,{id:r.data.id,name:r.data.label});
 					return;
 				}
-				
+
 				var isLeaf=!treeNode.isParent;
 				treeNode.isParent=true;
 				menuTree.updateNode(treeNode)
@@ -326,7 +327,7 @@ function ListPage() {
 						} else {
 							menuTree.reAsyncChildNodes(treeNode,"refresh",true);
 						}
-						
+
 					}
 				}
 			} else {
@@ -334,8 +335,8 @@ function ListPage() {
 			}
 		},"POST",true);
     });
- 
-    
+
+
     /**
      * 打开编辑窗口
      */

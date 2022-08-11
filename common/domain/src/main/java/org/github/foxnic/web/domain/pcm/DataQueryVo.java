@@ -3,14 +3,15 @@ package org.github.foxnic.web.domain.pcm;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 
 /**
  * 用于PCM数据查询
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-29 16:34:36
- * @sign 894B3A54E71CCDFDE72909E263659396
+ * @since 2022-08-05 15:25:29
+ * @sign 6E1FEFAB3E01A0FD7D3A7A19FF673223
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -41,6 +42,18 @@ public class DataQueryVo {
 	*/
 	@ApiModelProperty(required = false,value="所有者单据ID清单" , notes = "")
 	private List<String> ownerIds;
+	
+	/**
+	 * 分页大小：为 null 时不分页
+	*/
+	@ApiModelProperty(required = false,value="分页大小" , notes = "为 null 时不分页")
+	private Integer pageSize;
+	
+	/**
+	 * 分页页码：为 null 时不分页
+	*/
+	@ApiModelProperty(required = false,value="分页页码" , notes = "为 null 时不分页")
+	private Integer pageIndex;
 	
 	/**
 	 * 获得 租户ID<br>
@@ -101,9 +114,9 @@ public class DataQueryVo {
 	 * @param id 数据的ID清单
 	 * @return 当前对象
 	*/
-	public DataQueryVo addId(String id) {
+	public DataQueryVo addId(String... id) {
 		if(this.ids==null) ids=new ArrayList<>();
-		this.ids.add(id);
+		this.ids.addAll(Arrays.asList(id));
 		return this;
 	}
 	
@@ -130,9 +143,47 @@ public class DataQueryVo {
 	 * @param ownerId 所有者单据ID清单
 	 * @return 当前对象
 	*/
-	public DataQueryVo addOwnerId(String ownerId) {
+	public DataQueryVo addOwnerId(String... ownerId) {
 		if(this.ownerIds==null) ownerIds=new ArrayList<>();
-		this.ownerIds.add(ownerId);
+		this.ownerIds.addAll(Arrays.asList(ownerId));
+		return this;
+	}
+	
+	/**
+	 * 获得 分页大小<br>
+	 * 为 null 时不分页
+	 * @return 分页大小
+	*/
+	public Integer getPageSize() {
+		return pageSize;
+	}
+	
+	/**
+	 * 设置 分页大小
+	 * @param pageSize 分页大小
+	 * @return 当前对象
+	*/
+	public DataQueryVo setPageSize(Integer pageSize) {
+		this.pageSize=pageSize;
+		return this;
+	}
+	
+	/**
+	 * 获得 分页页码<br>
+	 * 为 null 时不分页
+	 * @return 分页页码
+	*/
+	public Integer getPageIndex() {
+		return pageIndex;
+	}
+	
+	/**
+	 * 设置 分页页码
+	 * @param pageIndex 分页页码
+	 * @return 当前对象
+	*/
+	public DataQueryVo setPageIndex(Integer pageIndex) {
+		this.pageIndex=pageIndex;
 		return this;
 	}
 }

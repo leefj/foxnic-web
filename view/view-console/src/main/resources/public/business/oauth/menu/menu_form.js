@@ -6,7 +6,7 @@
 
 function FormPage() {
 
-	var settings,admin,form,table,layer,util,fox,upload,xmSelect;
+	var settings,admin,form,table,layer,util,fox,upload,xmSelect,dropdown;
 	const moduleURL="/service-oauth/sys-menu";
 
 	/**

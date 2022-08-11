@@ -4,6 +4,7 @@ import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.PojoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
 import com.github.foxnic.generator.builder.view.option.FormOptions;
+import com.github.foxnic.generator.builder.view.option.FormWindowOptions;
 import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
@@ -29,8 +30,12 @@ public class PcmCatalogConfig extends BaseCodeConfig<PCM_CATALOG> {
         pojo.addSimpleProperty(String.class,"catalogId","类目ID","");
         pojo.addListProperty(String.class,"ids","数据的ID清单","");
         pojo.addListProperty(String.class,"ownerIds","所有者单据ID清单","");
+
+        pojo.addSimpleProperty(Integer.class,"pageSize","分页大小","为 null 时不分页");
+        pojo.addSimpleProperty(Integer.class,"pageIndex","分页页码","为 null 时不分页");
         //
         voType.addSimpleProperty(Integer.class,"isLoadAllDescendants","是否加载所有子孙节点","1：是；0：否");
+        voType.addSimpleProperty(Integer.class,"isLoadAllAncestors","是否加载所有祖先节点","1：是；0：否");
         voType.addSimpleProperty(String.class,"root","根节点id或code","根节点id或code");
 
     }
@@ -41,7 +46,7 @@ public class PcmCatalogConfig extends BaseCodeConfig<PCM_CATALOG> {
     }
 
     @Override
-    public void configForm(ViewOptions view, FormOptions form) {
+    public void configForm(ViewOptions view, FormOptions form, FormWindowOptions formWindow) {
         //form.disableFooter().disableMargin();
     }
 

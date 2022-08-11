@@ -49,7 +49,7 @@ public interface IRoleService extends ISimpleIdService<Role,String> {
 	 * @param id ID
 	 * @return 删除是否成功
 	 */
-	boolean deleteByIdPhysical(String id);
+	Result deleteByIdPhysical(String id);
 
 	/**
 	 * 按主键删除 角色
@@ -57,7 +57,7 @@ public interface IRoleService extends ISimpleIdService<Role,String> {
 	 * @param id ID
 	 * @return 删除是否成功
 	 */
-	boolean deleteByIdLogical(String id);
+	Result deleteByIdLogical(String id);
 
 	/**
 	 * 批量物理删除，仅支持单字段主键表

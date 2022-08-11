@@ -29,7 +29,7 @@ public class FoxnicWebConfigs {
 
 	//
 	private MavenProject  generatorProject=null;
-	private MavenProject  domianProject=null;
+	private MavenProject domainProject =null;
 	private MavenProject serviceProject;
 	private MavenProject proxyProject;
 	private MavenProject viewProject;
@@ -68,12 +68,9 @@ public class FoxnicWebConfigs {
 		File advanceBaseDir=generatorProject.getProjectDir().getParentFile().getParentFile().getParentFile();
 		advanceBaseDir=FileUtil.resolveByPath(advanceBaseDir,"foxnic-web-advance");
 
-
-
-
 		//
 		File domainProjectFolder=FileUtil.resolveByPath(baseDir, this.projectConfigs.getDomainProjectPath());
-		domianProject=new MavenProject(domainProjectFolder);
+		domainProject =new MavenProject(domainProjectFolder);
 
 		if(projectConfigs.isAdvance()) {
 			File serviceProjectFolder=FileUtil.resolveByPath(advanceBaseDir,  projectConfigs.getAppServiceProjectPath());
@@ -136,7 +133,7 @@ public class FoxnicWebConfigs {
 		this.settings.setAuthor(author);
 		this.settings.setEnableSwagger(projectConfigs.isEnableSwagger());
 		this.settings.setEnableMicroService(projectConfigs.isEnableMicroService());
-		this.settings.setRebuildEntity(true);
+		this.settings.setRebuildEntity(false);
 
 	}
 
@@ -198,8 +195,8 @@ public class FoxnicWebConfigs {
 		return generatorProject;
 	}
 
-	public MavenProject getDomianProject() {
-		return domianProject;
+	public MavenProject getDomainProject() {
+		return domainProject;
 	}
 
 	public ProjectConfigs getProjectConfigs() {

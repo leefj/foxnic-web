@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisConnectionUtils;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
-import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
@@ -32,10 +30,7 @@ public class RedisUtil {
         return instance;
     }
 
-	/**
-	 * 默认 GenericJackson2JsonRedisSerializer ，值存为json，并支持泛型反序列化
-	 * */
-	public static RedisSerializer<Object> VALUE_SERIALIZER= new GenericJackson2JsonRedisSerializer();
+
 	
 	private  AtomicLong waitings=new AtomicLong();
 	
@@ -57,12 +52,6 @@ public class RedisUtil {
     @Resource
     public void setRedisTemplate(RedisTemplate<String, Object> redisTemplate) {
         this.redisTemplate = redisTemplate;
-        //设置Key序列化
-        this.redisTemplate.setKeySerializer(RedisSerializer.string());
-        this.redisTemplate.setHashKeySerializer(RedisSerializer.string());
-        if(VALUE_SERIALIZER != null) {
-        	this.redisTemplate.setValueSerializer(VALUE_SERIALIZER);
-        }
         //启动预判
         SimpleTaskManager.doParallelTask(new Runnable() {
             @Override

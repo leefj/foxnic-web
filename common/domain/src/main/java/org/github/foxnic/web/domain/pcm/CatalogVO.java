@@ -3,6 +3,7 @@ package org.github.foxnic.web.domain.pcm;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
 import com.github.foxnic.api.model.CompositeParameter;
 import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
@@ -12,8 +13,8 @@ import com.github.foxnic.commons.bean.BeanUtil;
 /**
  * 数据存储
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-29 16:34:36
- * @sign D090530F33B5C6D8DA7A68AD7E22D384
+ * @since 2022-08-05 15:25:29
+ * @sign 8C56D0ED5DBA2964D95A806FBD6E2B1F
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -80,6 +81,12 @@ public class CatalogVO extends Catalog {
 	*/
 	@ApiModelProperty(required = false,value="是否加载所有子孙节点" , notes = "1：是；0：否")
 	private Integer isLoadAllDescendants;
+	
+	/**
+	 * 是否加载所有祖先节点：1：是；0：否
+	*/
+	@ApiModelProperty(required = false,value="是否加载所有祖先节点" , notes = "1：是；0：否")
+	private Integer isLoadAllAncestors;
 	
 	/**
 	 * 根节点id或code：根节点id或code
@@ -200,9 +207,9 @@ public class CatalogVO extends Catalog {
 	 * @param dirtyField 已修改字段
 	 * @return 当前对象
 	*/
-	public CatalogVO addDirtyField(String dirtyField) {
+	public CatalogVO addDirtyField(String... dirtyField) {
 		if(this.dirtyFields==null) dirtyFields=new ArrayList<>();
-		this.dirtyFields.add(dirtyField);
+		this.dirtyFields.addAll(Arrays.asList(dirtyField));
 		return this;
 	}
 	
@@ -266,9 +273,9 @@ public class CatalogVO extends Catalog {
 	 * @param id 主键清单
 	 * @return 当前对象
 	*/
-	public CatalogVO addId(String id) {
+	public CatalogVO addId(String... id) {
 		if(this.ids==null) ids=new ArrayList<>();
-		this.ids.add(id);
+		this.ids.addAll(Arrays.asList(id));
 		return this;
 	}
 	
@@ -292,6 +299,25 @@ public class CatalogVO extends Catalog {
 	}
 	
 	/**
+	 * 获得 是否加载所有祖先节点<br>
+	 * 1：是；0：否
+	 * @return 是否加载所有祖先节点
+	*/
+	public Integer getIsLoadAllAncestors() {
+		return isLoadAllAncestors;
+	}
+	
+	/**
+	 * 设置 是否加载所有祖先节点
+	 * @param isLoadAllAncestors 是否加载所有祖先节点
+	 * @return 当前对象
+	*/
+	public CatalogVO setIsLoadAllAncestors(Integer isLoadAllAncestors) {
+		this.isLoadAllAncestors=isLoadAllAncestors;
+		return this;
+	}
+	
+	/**
 	 * 获得 根节点id或code<br>
 	 * 根节点id或code
 	 * @return 根节点id或code
@@ -310,7 +336,7 @@ public class CatalogVO extends Catalog {
 		return this;
 	}
 	@Transient
-	private CompositeParameter $compositeParameter;
+	private transient CompositeParameter $compositeParameter;
 	/**
 	 * 获得解析后的复合查询参数
 	 */

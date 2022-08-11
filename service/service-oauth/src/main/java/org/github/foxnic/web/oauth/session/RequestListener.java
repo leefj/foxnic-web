@@ -1,18 +1,7 @@
 package org.github.foxnic.web.oauth.session;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.concurrent.ConcurrentHashMap;
-
-import javax.annotation.PostConstruct;
-import javax.servlet.ServletRequestEvent;
-import javax.servlet.ServletRequestListener;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
+import com.github.foxnic.commons.concurrent.task.SimpleTaskManager;
+import com.github.foxnic.dao.spec.DAO;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_SESSION_ONLINE;
 import org.github.foxnic.web.oauth.config.security.SecurityProperties;
 import org.github.foxnic.web.oauth.config.security.SecurityProperties.SecurityMode;
@@ -20,8 +9,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Component;
 
-import com.github.foxnic.commons.concurrent.task.SimpleTaskManager;
-import com.github.foxnic.dao.spec.DAO;
+import javax.annotation.PostConstruct;
+import javax.servlet.ServletRequestEvent;
+import javax.servlet.ServletRequestListener;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentHashMap;
  
 @Component
 @EnableConfigurationProperties(SecurityProperties.class)
@@ -75,7 +73,7 @@ public class RequestListener  implements ServletRequestListener {
 	
 	protected void saveInteracts() {
 		//保存交互时间
-		dao.setPrintThreadSQL(false);
+		dao.pausePrintThreadSQL();
 		if(!interacts.isEmpty())  {
 			Map<String,Interact> map =interacts;
 			interacts = new ConcurrentHashMap<String, Interact>();

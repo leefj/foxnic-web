@@ -1,11 +1,9 @@
 package org.github.foxnic.web.proxy.bpm;
 
+import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
-import org.github.foxnic.web.domain.bpm.ProcessAbandonVO;
-import org.github.foxnic.web.domain.bpm.ProcessInstance;
-import org.github.foxnic.web.domain.bpm.ProcessInstanceVO;
-import org.github.foxnic.web.domain.bpm.ProcessStartVO;
+import org.github.foxnic.web.domain.bpm.*;
 import org.github.foxnic.web.proxy.FeignConfiguration;
 import org.github.foxnic.web.proxy.MicroServiceNames;
 import org.github.foxnic.web.proxy.api.APIProxy;
@@ -58,6 +56,13 @@ public interface ProcessInstanceServiceProxy {
     public static final String DELETE = API_PREFIX + "delete";
 
     /**
+     * 流程撤回
+     */
+    public static final String FETCH_BACK = API_PREFIX + "fetch-back";
+
+
+
+    /**
      * 批量删除流程实例
      */
     public static final String DELETE_BY_IDS = API_PREFIX + "delete-by-ids";
@@ -66,6 +71,22 @@ public interface ProcessInstanceServiceProxy {
      * 获取单个流程实例
      */
     public static final String GET_BY_ID = API_PREFIX + "get-by-id";
+
+    /**
+     * 更新流程同步状态
+     */
+    public static final String UPDATE_SYNC_STATUS = API_PREFIX + "update-sync-status";
+
+
+    /**
+     * 获取单个流程实例
+     */
+    public static final String GET_BY_CAMUNDA_INSTANCE_ID = API_PREFIX + "get-by-camunda_instance-id";
+
+    /**
+     * 获取单个流程实例
+     */
+    public static final String GET_PROCESS_INSTANCE_BY_BILL = API_PREFIX + "get-process-instance-by-bill";
 
     /**
      * 获取多个流程实例
@@ -99,12 +120,22 @@ public interface ProcessInstanceServiceProxy {
      */
     public static final String SYNC_CAMUNDA_PROCESS_INSTANCE = API_PREFIX + "sync-camunda-process-instance";
 
-    /**
-     * 添加流程实例
-     */
-    @RequestMapping(ProcessInstanceServiceProxy.START)
-    Result insert(@RequestParam(name = "processInstanceVO") ProcessInstanceVO processInstanceVO);
 
+    /**
+     * 根据表单代码与业务单据号查询流程实例
+     */
+    @RequestMapping(ProcessInstanceServiceProxy.GET_PROCESS_INSTANCE_BY_BILL)
+    Result<List<ProcessInstance>> getProcessInstanceByBill(@RequestParam(name = "formDefinitionCode") String formDefinitionCode,@RequestParam(name = "billIds") List<String> billIds, @RequestParam(name = "approvalStatus") String approvalStatus);
+    /**
+     * 流程撤回
+     * */
+    @RequestMapping(ProcessInstanceServiceProxy.FETCH_BACK)
+    Result fetchBack(@RequestParam(name = "fetchBackVO") ProcessFetchBackVO fetchBackVO);
+
+
+
+    @RequestMapping(ProcessInstanceServiceProxy.UPDATE_SYNC_STATUS)
+    Result updateSyncStatus(@RequestParam(name = "processInstanceId") String processInstanceId);
     /**
      * 删除流程实例
      */
@@ -121,13 +152,14 @@ public interface ProcessInstanceServiceProxy {
      * 获取流程实例
      */
     @RequestMapping(ProcessInstanceServiceProxy.GET_BY_ID)
-    Result<ProcessInstance> getById(@RequestParam(name = "id") Integer id);
+    Result<ProcessInstance> getById(@RequestParam(name = "id") String id);
 
     /**
-     * 获取多个流程实例
+     * 获取流程实例
      */
-    @RequestMapping(ProcessInstanceServiceProxy.GET_BY_IDS)
-    Result<List<ProcessInstance>> getByIds(@RequestParam(name = "ids") List<Integer> ids);
+    @RequestMapping(ProcessInstanceServiceProxy.GET_BY_CAMUNDA_INSTANCE_ID)
+    Result<ProcessInstance> getByCamundaProcessId(@RequestParam(name = "camundaProcessId") String camundaProcessId);
+
 
     /**
      * 分页查询流程实例

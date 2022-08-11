@@ -75,6 +75,12 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		cfg.view().field(SYS_SESSION_ONLINE.ID)
 			.table().hidden().search().hidden();
 
+		cfg.view().field(SYS_SESSION_ONLINE.REFRESH_TOKEN)
+				.table().hidden().search().hidden();
+
+		cfg.view().field(SYS_SESSION_ONLINE.ACCESS_TOKEN)
+				.table().hidden().search().hidden();
+
 		cfg.view().field(SYS_SESSION_ONLINE.SESSION_ID)
 			.table().hidden().search().hidden();
 

@@ -3,14 +3,12 @@ package org.github.foxnic.web.generator.module.bpm;
 import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
 import com.github.foxnic.generator.builder.view.config.ActionConfig;
-import com.github.foxnic.generator.builder.view.option.ListOptions;
-import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
-import com.github.foxnic.generator.builder.view.option.ViewOptions;
+import com.github.foxnic.generator.builder.view.option.*;
 import com.github.foxnic.generator.config.WriteMode;
-import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.*;
+import org.github.foxnic.web.constants.enums.bpm.RejectOption;
+import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
 import org.github.foxnic.web.domain.bpm.FormDefinition;
-import org.github.foxnic.web.domain.bpm.ProcessDefinition;
 import org.github.foxnic.web.domain.bpm.ProcessDefinitionFile;
 import org.github.foxnic.web.domain.bpm.meta.FormDefinitionMeta;
 import org.github.foxnic.web.domain.bpm.meta.ProcessDefinitionMeta;
@@ -30,6 +28,11 @@ public class ProcessDefinitionConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITI
         poType.addSimpleProperty(User.class,"lastUpdateUser","最后修改人","最后修改人");
         poType.addSimpleProperty(ProcessDefinitionFile.class,"definitionFile","流程模型定义","流程模型文件");
         poType.addSimpleProperty(FormDefinition.class,"formDefinition","表单定义","表单定义");
+        poType.shadow(BPM_PROCESS_DEFINITION.REJECT_OPTION, RejectOption.class);
+
+
+        voType.addSimpleProperty(String.class,"formDefinitionCode","表单定义代码","表单定义代码");
+
     }
 
     @Override
@@ -40,7 +43,7 @@ public class ProcessDefinitionConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITI
     @Override
     public void configFields(ViewOptions view) {
 
-        view.form().labelWidth(50);
+        view.form().labelWidth(100);
 
         view.field(BPM_PROCESS_DEFINITION.CAMUNDA_DEFINITION_ID).basic().hidden();
         view.field(BPM_PROCESS_DEFINITION.CAMUNDA_DEFINITION_KEY).basic().hidden();
@@ -58,18 +61,44 @@ public class ProcessDefinitionConfig extends BaseCodeConfig<BPM_PROCESS_DEFINITI
         view.field(BPM_PROCESS_DEFINITION.FORM_DEFINITION_ID).basic().label("表单")
                 .table().fillBy(ProcessDefinitionMeta.FORM_DEFINITION, FormDefinitionMeta.NAME)
                 .form().validate().required()
-                .form().selectBox().queryApi(FormDefinitionServiceProxy.QUERY_PAGED_LIST).paging(true).filter(true).muliti(false,false)
+                .form().selectBox().queryApi(FormDefinitionServiceProxy.QUERY_PAGED_LIST+"?isBindProcess=0").paging(true).filter(true).muliti(false,false)
                 .textField(BPM_FORM_DEFINITION.NAME).valueField(BPM_FORM_DEFINITION.ID).fillWith(ProcessDefinitionMeta.FORM_DEFINITION);
 
 
+        view.field(BPM_PROCESS_DEFINITION.ASSIGNEE_TYPE_RANGE).basic().label("审批人范围")
+                .form().validate().required()
+                .form().checkBox().enumType(UnifiedUserType.class)
+                .search().hidden().table().hidden();
+        ;
+
+        view.field(BPM_PROCESS_DEFINITION.REJECT_OPTION).basic().label("驳回选项")
+                .form().validate().required()
+                .form().radioBox().enumType(RejectOption.class)
+                .search().hidden().table().hidden();
+        ;
+
     }
 
+    @Override
+    public void configForm(ViewOptions view, FormOptions form, FormWindowOptions formWindow) {
 
+        view.formWindow().width("650px");
+
+        form.columnLayout(new Object[]{
+                BPM_PROCESS_DEFINITION.CODE,
+                BPM_PROCESS_DEFINITION.NAME,
+                BPM_PROCESS_DEFINITION.VALID,
+                BPM_PROCESS_DEFINITION.FORM_DEFINITION_ID,
+                BPM_PROCESS_DEFINITION.ASSIGNEE_TYPE_RANGE,
+                BPM_PROCESS_DEFINITION.REJECT_OPTION,
+                BPM_PROCESS_DEFINITION.NOTES
+        });
+    }
 
     @Override
     public void configList(ViewOptions view, ListOptions list) {
         ActionConfig action = null;
-        action = list.operationColumn().addActionButton("流程图","showBpmnDiagrams");
+        action = list.operationColumn().addActionButton("模型","showBpmnDiagrams");
         //action.setIconHtml("<li class='mdi mdi-set mdi-arrow-decision-outline'></li>");
         action = list.operationColumn().addActionButton("发起人","showInitiators");
         //action.setIconHtml("<li class='fa fa-user-secret' style='font-size:14px'></li>");

@@ -11,6 +11,8 @@ import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.domain.bpm.Task;
 import java.util.List;
 import org.github.foxnic.web.domain.bpm.FormInstanceBill;
+import org.github.foxnic.web.domain.bpm.ProcessError;
+import org.github.foxnic.web.domain.bpm.TaskRead;
 import org.github.foxnic.web.domain.bpm.ProcessDefinitionFile;
 import org.github.foxnic.web.domain.bpm.TaskApproval;
 
@@ -18,8 +20,8 @@ import org.github.foxnic.web.domain.bpm.TaskApproval;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-27 15:34:38
- * @sign EB7AAD7FC2E3A28D82ADB7C523422C76
+ * @since 2022-08-04 15:56:25
+ * @sign 7DE798F8C38C8FB63622A484F583B2B2
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -286,6 +288,26 @@ public class ProcessInstanceMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,java.util.Date> END_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,END_TIME, java.util.Date.class, "流程完成时间", "流程完成时间", java.util.Date.class, null);
 	
 	/**
+	 * 是否需要同步 , 类型: java.lang.Integer
+	*/
+	public static final String NEED_SYNC="needSync";
+	
+	/**
+	 * 是否需要同步 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,java.lang.Integer> NEED_SYNC_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,NEED_SYNC, java.lang.Integer.class, "是否需要同步", "是否需要同步", java.lang.Integer.class, null);
+	
+	/**
+	 * 状态同步时间 , 类型: java.util.Date
+	*/
+	public static final String SYNC_TIME="syncTime";
+	
+	/**
+	 * 状态同步时间 , 类型: java.util.Date
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,java.util.Date> SYNC_TIME_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,SYNC_TIME, java.util.Date.class, "状态同步时间", "状态同步时间", java.util.Date.class, null);
+	
+	/**
 	 * 流程定义 , 类型: org.github.foxnic.web.domain.bpm.ProcessDefinition
 	*/
 	public static final String PROCESS_DEFINITION="processDefinition";
@@ -356,6 +378,16 @@ public class ProcessInstanceMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,org.github.foxnic.web.domain.bpm.Task> TASKS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,TASKS, java.util.List.class, "流程任务清单", "流程任务清单", org.github.foxnic.web.domain.bpm.Task.class, null);
 	
 	/**
+	 * 待办的流程任务清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.Task
+	*/
+	public static final String TODO_TASKS="todoTasks";
+	
+	/**
+	 * 待办的流程任务清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.Task
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,org.github.foxnic.web.domain.bpm.Task> TODO_TASKS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,TODO_TASKS, java.util.List.class, "待办的流程任务清单", "待办的流程任务清单", org.github.foxnic.web.domain.bpm.Task.class, null);
+	
+	/**
 	 * 可处理的任务清单 , 当前登录账户可以处理的任务清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.Task
 	*/
 	public static final String USER_TASKS="userTasks";
@@ -386,6 +418,36 @@ public class ProcessInstanceMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,java.lang.String> BILL_IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,BILL_IDS, java.util.List.class, "业务单据ID清单", "业务单据ID清单", java.lang.String.class, null);
 	
 	/**
+	 * 流程异常清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.ProcessError
+	*/
+	public static final String ERRORS="errors";
+	
+	/**
+	 * 流程异常清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.ProcessError
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,org.github.foxnic.web.domain.bpm.ProcessError> ERRORS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,ERRORS, java.util.List.class, "流程异常清单", "流程异常清单", org.github.foxnic.web.domain.bpm.ProcessError.class, null);
+	
+	/**
+	 * 已读清单 , 已读人员清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.TaskRead
+	*/
+	public static final String READERS="readers";
+	
+	/**
+	 * 已读清单 , 已读人员清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.TaskRead
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,org.github.foxnic.web.domain.bpm.TaskRead> READERS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,READERS, java.util.List.class, "已读清单", "已读人员清单", org.github.foxnic.web.domain.bpm.TaskRead.class, null);
+	
+	/**
+	 * 审批状态 , 类型: java.lang.String
+	*/
+	public static final String APPROVAL_STATUS_NAME="approvalStatusName";
+	
+	/**
+	 * 审批状态 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,java.lang.String> APPROVAL_STATUS_NAME_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,APPROVAL_STATUS_NAME, java.lang.String.class, "审批状态", "审批状态", java.lang.String.class, null);
+	
+	/**
 	 * 流程定义文件 , 类型: org.github.foxnic.web.domain.bpm.ProcessDefinitionFile
 	*/
 	public static final String PROCESS_DEFINITION_FILE="processDefinitionFile";
@@ -396,19 +458,19 @@ public class ProcessInstanceMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,org.github.foxnic.web.domain.bpm.ProcessDefinitionFile> PROCESS_DEFINITION_FILE_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,PROCESS_DEFINITION_FILE, org.github.foxnic.web.domain.bpm.ProcessDefinitionFile.class, "流程定义文件", "流程定义文件", org.github.foxnic.web.domain.bpm.ProcessDefinitionFile.class, null);
 	
 	/**
-	 * 审批动作清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.TaskApproval
+	 * 审批动作清单 , 已完成的审批动作清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.TaskApproval
 	*/
 	public static final String TASK_APPROVALS="taskApprovals";
 	
 	/**
-	 * 审批动作清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.TaskApproval
+	 * 审批动作清单 , 已完成的审批动作清单 , 集合类型: LIST , 类型: org.github.foxnic.web.domain.bpm.TaskApproval
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,org.github.foxnic.web.domain.bpm.TaskApproval> TASK_APPROVALS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,TASK_APPROVALS, java.util.List.class, "审批动作清单", "审批动作清单", org.github.foxnic.web.domain.bpm.TaskApproval.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessInstance,org.github.foxnic.web.domain.bpm.TaskApproval> TASK_APPROVALS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessInstance.class ,TASK_APPROVALS, java.util.List.class, "审批动作清单", "已完成的审批动作清单", org.github.foxnic.web.domain.bpm.TaskApproval.class, null);
 	
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , DRAFTER_USER_ID , DRAFTER_ID , DRAFTER_TYPE , FORM_INSTANCE_ID , PROCESS_DEFINITION_ID , PROCESS_DEFINITION_FILE_ID , FORM_DEFINITION_ID , TITLE , PRIORITY , COMMENT , APPROVAL_STATUS , CAMUNDA_INSTANCE_ID , COMMIT_TIME , ABANDON_USER_ID , ABANDON_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , END_TIME , PROCESS_DEFINITION , FORM_DEFINITION , FORM_INSTANCE , DRAFTER , DRAFTER_NAME , DRAFTER_USER , TASKS , USER_TASKS , BILLS , BILL_IDS , PROCESS_DEFINITION_FILE , TASK_APPROVALS };
+	public static final String[] $PROPS={ ID , DRAFTER_USER_ID , DRAFTER_ID , DRAFTER_TYPE , FORM_INSTANCE_ID , PROCESS_DEFINITION_ID , PROCESS_DEFINITION_FILE_ID , FORM_DEFINITION_ID , TITLE , PRIORITY , COMMENT , APPROVAL_STATUS , CAMUNDA_INSTANCE_ID , COMMIT_TIME , ABANDON_USER_ID , ABANDON_TIME , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , END_TIME , NEED_SYNC , SYNC_TIME , PROCESS_DEFINITION , FORM_DEFINITION , FORM_INSTANCE , DRAFTER , DRAFTER_NAME , DRAFTER_USER , TASKS , TODO_TASKS , USER_TASKS , BILLS , BILL_IDS , ERRORS , READERS , APPROVAL_STATUS_NAME , PROCESS_DEFINITION_FILE , TASK_APPROVALS };
 	
 	/**
 	 * 代理类
@@ -705,6 +767,28 @@ public class ProcessInstanceMeta {
 		}
 		
 		/**
+		 * 设置 是否需要同步
+		 * @param needSync 是否需要同步
+		 * @return 当前对象
+		*/
+		public ProcessInstance setNeedSync(Integer needSync) {
+			super.change(NEED_SYNC,super.getNeedSync(),needSync);
+			super.setNeedSync(needSync);
+			return this;
+		}
+		
+		/**
+		 * 设置 状态同步时间
+		 * @param syncTime 状态同步时间
+		 * @return 当前对象
+		*/
+		public ProcessInstance setSyncTime(Date syncTime) {
+			super.change(SYNC_TIME,super.getSyncTime(),syncTime);
+			super.setSyncTime(syncTime);
+			return this;
+		}
+		
+		/**
 		 * 设置 流程定义
 		 * @param processDefinition 流程定义
 		 * @return 当前对象
@@ -782,6 +866,17 @@ public class ProcessInstanceMeta {
 		}
 		
 		/**
+		 * 设置 待办的流程任务清单
+		 * @param todoTasks 待办的流程任务清单
+		 * @return 当前对象
+		*/
+		public ProcessInstance setTodoTasks(List<Task> todoTasks) {
+			super.change(TODO_TASKS,super.getTodoTasks(),todoTasks);
+			super.setTodoTasks(todoTasks);
+			return this;
+		}
+		
+		/**
 		 * 设置 可处理的任务清单
 		 * @param userTasks 可处理的任务清单
 		 * @return 当前对象
@@ -811,6 +906,39 @@ public class ProcessInstanceMeta {
 		public ProcessInstance setBillIds(List<String> billIds) {
 			super.change(BILL_IDS,super.getBillIds(),billIds);
 			super.setBillIds(billIds);
+			return this;
+		}
+		
+		/**
+		 * 设置 流程异常清单
+		 * @param errors 流程异常清单
+		 * @return 当前对象
+		*/
+		public ProcessInstance setErrors(List<ProcessError> errors) {
+			super.change(ERRORS,super.getErrors(),errors);
+			super.setErrors(errors);
+			return this;
+		}
+		
+		/**
+		 * 设置 已读清单
+		 * @param readers 已读清单
+		 * @return 当前对象
+		*/
+		public ProcessInstance setReaders(List<TaskRead> readers) {
+			super.change(READERS,super.getReaders(),readers);
+			super.setReaders(readers);
+			return this;
+		}
+		
+		/**
+		 * 设置 审批状态
+		 * @param approvalStatusName 审批状态
+		 * @return 当前对象
+		*/
+		public ProcessInstance setApprovalStatusName(String approvalStatusName) {
+			super.change(APPROVAL_STATUS_NAME,super.getApprovalStatusName(),approvalStatusName);
+			super.setApprovalStatusName(approvalStatusName);
 			return this;
 		}
 		

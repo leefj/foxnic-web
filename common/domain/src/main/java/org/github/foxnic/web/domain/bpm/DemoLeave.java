@@ -7,7 +7,13 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_DEMO_LEAVE;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
+import org.github.foxnic.web.constants.enums.bpm.DemoStatus;
 import javax.persistence.Transient;
+import java.util.List;
+import com.github.foxnic.commons.reflect.EnumUtil;
+import com.github.foxnic.commons.lang.StringUtil;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
 
@@ -16,8 +22,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 请假流程示例
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-27 15:16:16
- * @sign 8609CB0516D86F003BBB04C1CAF79768
+ * @since 2022-07-19 17:04:49
+ * @sign 02B50B896D552B83DCA23CBBD8F40313
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -64,6 +70,32 @@ public class DemoLeave extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="申请人" , notes = "员工ID")
 	private String applicantId;
+	
+	/**
+	 * 状态：状态
+	*/
+	@ApiModelProperty(required = false,value="状态" , notes = "状态")
+	private String status;
+	@Transient
+	private DemoStatus statusEnum;
+	
+	/**
+	 * 历史流程清单：历史流程清单
+	*/
+	@ApiModelProperty(required = false,value="历史流程清单" , notes = "历史流程清单")
+	private List<ProcessInstance> historicProcessList;
+	
+	/**
+	 * 在批的流程清单：在批的流程清单
+	*/
+	@ApiModelProperty(required = false,value="在批的流程清单" , notes = "在批的流程清单")
+	private List<ProcessInstance> currentProcessList;
+	
+	/**
+	 * 默认流程：优先取在批的流程
+	*/
+	@ApiModelProperty(required = false,value="默认流程" , notes = "优先取在批的流程")
+	private ProcessInstance defaultProcess;
 	
 	/**
 	 * 获得 主键<br>
@@ -176,6 +208,137 @@ public class DemoLeave extends Entity {
 	*/
 	public DemoLeave setApplicantId(String applicantId) {
 		this.applicantId=applicantId;
+		return this;
+	}
+	
+	/**
+	 * 获得 状态<br>
+	 * 状态
+	 * @return 状态
+	*/
+	public String getStatus() {
+		return status;
+	}
+	
+	/**
+	 * 获得 状态 的投影属性<br>
+	 * 等价于 getStatus 方法，获得对应的枚举类型
+	 * @return 状态
+	*/
+	@Transient
+	public DemoStatus getStatusEnum() {
+		if(this.statusEnum==null) {
+			this.statusEnum = (DemoStatus) EnumUtil.parseByCode(DemoStatus.values(),status);
+		}
+		return this.statusEnum ;
+	}
+	
+	/**
+	 * 设置 状态
+	 * @param status 状态
+	 * @return 当前对象
+	*/
+	public DemoLeave setStatus(String status) {
+		this.status=status;
+		this.statusEnum= (DemoStatus) EnumUtil.parseByCode(DemoStatus.values(),status) ;
+		if(StringUtil.hasContent(status) && this.statusEnum==null) {
+			throw new IllegalArgumentException( status + " is not one of DemoStatus");
+		}
+		return this;
+	}
+	
+	/**
+	 * 设置 状态的投影属性，等同于设置 状态
+	 * @param statusEnum 状态
+	 * @return 当前对象
+	*/
+	@Transient
+	public DemoLeave setStatusEnum(DemoStatus statusEnum) {
+		if(statusEnum==null) {
+			this.setStatus(null);
+		} else {
+			this.setStatus(statusEnum.code());
+		}
+		this.statusEnum=statusEnum;
+		return this;
+	}
+	
+	/**
+	 * 获得 历史流程清单<br>
+	 * 历史流程清单
+	 * @return 历史流程清单
+	*/
+	public List<ProcessInstance> getHistoricProcessList() {
+		return historicProcessList;
+	}
+	
+	/**
+	 * 设置 历史流程清单
+	 * @param historicProcessList 历史流程清单
+	 * @return 当前对象
+	*/
+	public DemoLeave setHistoricProcessList(List<ProcessInstance> historicProcessList) {
+		this.historicProcessList=historicProcessList;
+		return this;
+	}
+	
+	/**
+	 * 添加 历史流程清单
+	 * @param historicProcess 历史流程清单
+	 * @return 当前对象
+	*/
+	public DemoLeave addHistoricProcess(ProcessInstance... historicProcess) {
+		if(this.historicProcessList==null) historicProcessList=new ArrayList<>();
+		this.historicProcessList.addAll(Arrays.asList(historicProcess));
+		return this;
+	}
+	
+	/**
+	 * 获得 在批的流程清单<br>
+	 * 在批的流程清单
+	 * @return 在批的流程清单
+	*/
+	public List<ProcessInstance> getCurrentProcessList() {
+		return currentProcessList;
+	}
+	
+	/**
+	 * 设置 在批的流程清单
+	 * @param currentProcessList 在批的流程清单
+	 * @return 当前对象
+	*/
+	public DemoLeave setCurrentProcessList(List<ProcessInstance> currentProcessList) {
+		this.currentProcessList=currentProcessList;
+		return this;
+	}
+	
+	/**
+	 * 添加 在批的流程清单
+	 * @param currentProcess 在批的流程清单
+	 * @return 当前对象
+	*/
+	public DemoLeave addCurrentProcess(ProcessInstance... currentProcess) {
+		if(this.currentProcessList==null) currentProcessList=new ArrayList<>();
+		this.currentProcessList.addAll(Arrays.asList(currentProcess));
+		return this;
+	}
+	
+	/**
+	 * 获得 默认流程<br>
+	 * 优先取在批的流程
+	 * @return 默认流程
+	*/
+	public ProcessInstance getDefaultProcess() {
+		return defaultProcess;
+	}
+	
+	/**
+	 * 设置 默认流程
+	 * @param defaultProcess 默认流程
+	 * @return 当前对象
+	*/
+	public DemoLeave setDefaultProcess(ProcessInstance defaultProcess) {
+		this.defaultProcess=defaultProcess;
 		return this;
 	}
 

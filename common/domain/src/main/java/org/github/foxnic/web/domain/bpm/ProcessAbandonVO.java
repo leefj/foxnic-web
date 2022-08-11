@@ -1,14 +1,16 @@
 package org.github.foxnic.web.domain.bpm;
 
 import io.swagger.annotations.ApiModelProperty;
+import java.util.Map;
+import java.util.HashMap;
 
 
 
 /**
  * 流程废弃参数
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-27 15:34:38
- * @sign E2ABF6F32AC7BD1956E3A86F346DAEEC
+ * @since 2022-08-04 15:56:25
+ * @sign D22AB907CF786D627BB67C3B5349AC05
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -23,9 +25,9 @@ public class ProcessAbandonVO {
 	private String processInstanceId;
 	
 	/**
-	 * 废弃原因：流程实例ID
+	 * 废弃原因：废弃原因
 	*/
-	@ApiModelProperty(required = false,value="废弃原因" , notes = "流程实例ID")
+	@ApiModelProperty(required = false,value="废弃原因" , notes = "废弃原因")
 	private String reason;
 	
 	/**
@@ -33,6 +35,12 @@ public class ProcessAbandonVO {
 	*/
 	@ApiModelProperty(required = false,value="是否强制删除" , notes = "是否强制删除")
 	private Boolean force;
+	
+	/**
+	 * 流程参数：流程参数
+	*/
+	@ApiModelProperty(required = false,value="流程参数" , notes = "流程参数")
+	private Map<String,Object> variables;
 	
 	/**
 	 * 获得 流程实例ID<br>
@@ -55,7 +63,7 @@ public class ProcessAbandonVO {
 	
 	/**
 	 * 获得 废弃原因<br>
-	 * 流程实例ID
+	 * 废弃原因
 	 * @return 废弃原因
 	*/
 	public String getReason() {
@@ -98,6 +106,37 @@ public class ProcessAbandonVO {
 	*/
 	public ProcessAbandonVO setForce(Boolean force) {
 		this.force=force;
+		return this;
+	}
+	
+	/**
+	 * 获得 流程参数<br>
+	 * 流程参数
+	 * @return 流程参数
+	*/
+	public Map<String,Object> getVariables() {
+		return variables;
+	}
+	
+	/**
+	 * 设置 流程参数
+	 * @param variables 流程参数
+	 * @return 当前对象
+	*/
+	public ProcessAbandonVO setVariables(Map<String,Object> variables) {
+		this.variables=variables;
+		return this;
+	}
+	
+	/**
+	 * 添加 流程参数
+	 * @param key 键
+	 * @param variable 流程参数
+	 * @return 当前对象
+	*/
+	public ProcessAbandonVO putVariable(String key,Object variable) {
+		if(this.variables==null) this.variables=new HashMap<>();
+		this.variables.put(key ,variable);
 		return this;
 	}
 }

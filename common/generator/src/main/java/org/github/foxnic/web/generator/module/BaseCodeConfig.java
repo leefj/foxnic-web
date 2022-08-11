@@ -1,8 +1,10 @@
 package org.github.foxnic.web.generator.module;
 
+import com.github.foxnic.dao.entity.FieldsBuilder;
 import com.github.foxnic.generator.config.ModuleContext;
 import com.github.foxnic.generator.util.ModuleCodeConfig;
 import com.github.foxnic.sql.meta.DBTable;
+import org.github.foxnic.web.constants.db.ExampleTables;
 import org.github.foxnic.web.generator.config.FoxnicWebConfigs;
 import org.github.foxnic.web.generator.config.FoxnicWebConfigs.ProjectConfigs;
 import org.github.foxnic.web.proxy.MicroServiceNames;
@@ -30,6 +32,8 @@ public abstract class BaseCodeConfig<T extends DBTable> extends ModuleCodeConfig
         this.configs=new FoxnicWebConfigs(appConfigPrefix);
     }
 
+
+
     @Override
     protected ModuleContext createModuleContext() {
         return createModuleConfig();
@@ -49,7 +53,7 @@ public abstract class BaseCodeConfig<T extends DBTable> extends ModuleCodeConfig
         //设置 DAO
         mdu.setDAO(this.configs.getDAO());
         //设置 Domain Project
-        mdu.setDomainProject(this.configs.getDomianProject());
+        mdu.setDomainProject(this.configs.getDomainProject());
         //设置 Proxy Project
         mdu.setProxyProject(this.configs.getProxyProject());
         //设置 Service Project

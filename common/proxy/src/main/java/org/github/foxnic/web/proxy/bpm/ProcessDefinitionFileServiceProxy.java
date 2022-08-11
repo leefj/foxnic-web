@@ -1,5 +1,6 @@
 package org.github.foxnic.web.proxy.bpm;
 
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.github.foxnic.web.proxy.api.APIProxy;
 import org.github.foxnic.web.proxy.FeignConfiguration;
@@ -42,6 +43,11 @@ public interface ProcessDefinitionFileServiceProxy {
      * 添加流程定义文件
      */
     public static final String INSERT = API_PREFIX + "insert";
+
+    /**
+     * 复制流程定义文件
+     */
+    public static final String DUPLICATE = API_PREFIX + "duplicate";
 
     /**
      * 删除流程定义文件
@@ -108,6 +114,10 @@ public interface ProcessDefinitionFileServiceProxy {
      */
     @RequestMapping(ProcessDefinitionFileServiceProxy.INSERT)
     Result insert(@RequestParam(name = "processDefinitionFileVO") ProcessDefinitionFileVO processDefinitionFileVO);
+
+
+    @RequestMapping(ProcessDefinitionFileServiceProxy.DUPLICATE)
+    Result duplicate(@RequestParam(name = "id") String id);
 
     /**
      * 删除流程定义文件

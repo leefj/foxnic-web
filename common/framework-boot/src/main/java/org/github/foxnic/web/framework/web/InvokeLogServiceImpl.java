@@ -3,7 +3,6 @@ package org.github.foxnic.web.framework.web;
 import com.github.foxnic.commons.code.CodeBuilder;
 import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.commons.project.maven.MavenProject;
-import com.github.foxnic.commons.reflect.ReflectUtil;
 import com.github.foxnic.springboot.mvc.InvokeLogService;
 import com.github.foxnic.springboot.mvc.RequestParameter;
 import javassist.ClassPool;
@@ -12,7 +11,6 @@ import javassist.CtMethod;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
 import java.lang.reflect.Method;
 
 @Service
@@ -103,8 +101,8 @@ public class InvokeLogServiceImpl implements InvokeLogService {
 			CtMethod methodX = cc.getDeclaredMethod(m.getName(), pTypes);
 			return methodX.getMethodInfo().getLineNumber(0);
 		} catch (Exception e) {
-			Class type= ReflectUtil.forName(m.getDeclaringClass().getName());
-			File file=mp.getSourceFile(type);
+//			Class type= ReflectUtil.forName(m.getDeclaringClass().getName());
+//			File file=mp.getSourceFile(type);
 			try {
 //				return  getLineNumber(m,file);
 				return 0;

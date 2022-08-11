@@ -1,0 +1,121 @@
+.layui-btn { background-color:#f56c6c }
+.batch-delete-button { border: solid 1px #f6ad55;background-color: #f6ad55; }
+.ops-delete-button { border: #f6ad55;background-color: #f6ad55; }
+.ops-view-button {background-color: #f0f9eb !important}
+.ops-edit-button {background-color: #fef0f0 !important}
+.layui-laypage .layui-laypage-curr .layui-laypage-em { background-color:#f56c6c }
+
+
+
+.search-button-advance {color:#fff;}
+
+.layui-form-onswitch {
+    border-color: #f56c6c;
+    background-color: #f56c6c;
+}
+
+.xm-label-block  {
+    background-color: #f56c6c !important;
+}
+.xm-option-icon {
+    border-color: #f56c6c !important;
+}
+.xm-body .selected .xm-option-icon {
+    color: #f56c6c !important;
+}
+
+xm-select  {
+    border-color: #E6E6E6 !important;
+}
+
+
+.layui-form-checked[lay-skin="primary"] i {
+    border-color: #f56c6c !important;
+    background-color: #f56c6c;
+    color: #fff;
+}
+
+#layui-table-page1-footer-download-excel-template , #layui-table-page1-footer-import-excel , #layui-table-page1-footer-download-excel {
+    background-color: #fff;
+}
+
+.layui-btn-primary:hover {
+    border-color: #f56c6c;
+    color: #fff;
+}
+
+.layui-form-radioed, .layui-form-radioed>i, .layui-form-radio:hover * {
+    color: #f56c6c;
+}
+
+#cancel-button {
+    color: #fff;
+}
+
+
+button[action-type] {
+    color: #fff;
+}
+
+.layui-tab-title .layui-this {
+    color: #f56c6c;
+}
+
+.version-no {
+    border-color: #f56c6c;
+    background: #f56c6c;
+    color: #fff;
+}
+
+.version-no:hover {
+    border-color: #f56c6c;
+    color: #fff;
+}
+
+#remove-all-result , #add-employee-item , #remove-result-item {
+    border-color: #d2d2d2;
+    color: #fafafa;
+}
+
+.layui-elem-quote {
+    border-left: 5px solid #f56c6c;
+}
+
+.layui-border-blue {
+    border-width: 1px;
+    border-style: solid;
+    border-color: #f56c6c !important;
+    color: #fff !important;
+}
+
+
+.layui-timeline-axis {
+    position: absolute;
+    left: -5px;
+    top: 0;
+    z-index: 10;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    background-color: #fff;
+    color: #f56c6c;
+    border-radius: 50%;
+    text-align: center;
+    cursor: pointer;
+}
+
+.layui-timeline-axis:hover {
+    color: #f6ad55;
+}
+
+.layui-badge {
+    background-color:#f56c6c;
+}
+
+.layui-bg-green {
+    background-color:#36b368 !important;
+}
+
+.layui-bg-blue {
+    background-color:#2d8cf0 !important;
+}

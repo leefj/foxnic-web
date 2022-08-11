@@ -132,11 +132,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
             // debugger
             console.log("beforeSubmit",param,result);
             if(!result.success) return;
-            var name=param.fullName;
-            if(param.shortName) {
-                name=param.shortName;
-            }
-            parent.changeNodeName(param.id,name);
+            parent.changeNodeInfo(param);
         },
 
         loadFormData:function(id) {

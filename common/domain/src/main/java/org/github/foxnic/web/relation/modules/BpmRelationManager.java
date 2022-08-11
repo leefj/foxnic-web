@@ -3,12 +3,17 @@ package org.github.foxnic.web.relation.modules;
 import com.github.foxnic.commons.collection.CollectorUtil;
 import com.github.foxnic.dao.relation.RelationManager;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
+import org.github.foxnic.web.constants.enums.bpm.TaskStatus;
 import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
 import org.github.foxnic.web.domain.bpm.FormInstanceBill;
+import org.github.foxnic.web.domain.bpm.Task;
 import org.github.foxnic.web.domain.bpm.TaskApproval;
 import org.github.foxnic.web.domain.bpm.meta.*;
 import org.github.foxnic.web.domain.changes.meta.ChangeInstanceMeta;
 import org.github.foxnic.web.domain.oauth.User;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BpmRelationManager extends RelationManager {
 
@@ -103,14 +108,32 @@ public class BpmRelationManager extends RelationManager {
 
 		//流程实例 - 任务
 		this.property(ProcessInstanceMeta.TASKS_PROP)
-				.using(FoxnicWeb.BPM_PROCESS_INSTANCE.ID).join(FoxnicWeb.BPM_TASK.PROCESS_INSTANCE_ID);
+				.using(FoxnicWeb.BPM_PROCESS_INSTANCE.ID).join(FoxnicWeb.BPM_TASK.PROCESS_INSTANCE_ID)
+				.after((tag,owner,data,map)->{
+					List<Task> todoTasks=new ArrayList<>();
+					for (Task task : data) {
+						if(task.getStatusEnum()== TaskStatus.todo) {
+							todoTasks.add(task);
+						}
+					}
+					// 设置待办任务
+					owner.setTodoTasks(todoTasks);
+					return data;
+				});
 
 		//流程实例 - 审批动作
 		this.property(ProcessInstanceMeta.TASK_APPROVALS_PROP)
 				.using(FoxnicWeb.BPM_PROCESS_INSTANCE.ID).join(FoxnicWeb.BPM_TASK_APPROVAL.PROCESS_INSTANCE_ID)
 				.addOrderBy(FoxnicWeb.BPM_TASK_APPROVAL.CREATE_TIME,false,true);
 
+		//流程实例 - 流程异常
+		this.property(ProcessInstanceMeta.ERRORS_PROP)
+				.using(FoxnicWeb.BPM_PROCESS_INSTANCE.ID).join(FoxnicWeb.BPM_PROCESS_ERROR.PROCESS_INSTANCE_ID);
 
+		//任务 - 已读清单
+		this.property(ProcessInstanceMeta.READERS_PROP)
+				.using(FoxnicWeb.BPM_PROCESS_INSTANCE.ID).join(FoxnicWeb.BPM_TASK_READ.PROCESS_INSTANCE_ID)
+				.addOrderBy(FoxnicWeb.BPM_TASK_READ.CREATE_TIME,false,true);
 	}
 
 	protected void setupBpmTask() {
@@ -118,6 +141,10 @@ public class BpmRelationManager extends RelationManager {
 		//任务 - 流程定义
 		this.property(TaskMeta.PROCESS_DEFINITION_PROP)
 				.using(FoxnicWeb.BPM_TASK.PROCESS_DEFINITION_ID).join(FoxnicWeb.BPM_PROCESS_DEFINITION.ID);
+
+		//任务 - 流程节点
+		this.property(TaskMeta.NODE_PROP)
+				.using(FoxnicWeb.BPM_TASK.NODE_ID).join(FoxnicWeb.BPM_PROCESS_DEFINITION_NODE.ID);
 
 		//任务 - 流程实例
 		this.property(TaskMeta.PROCESS_INSTANCE_PROP)
@@ -132,6 +159,12 @@ public class BpmRelationManager extends RelationManager {
 				.using(FoxnicWeb.BPM_TASK.ID).join(FoxnicWeb.BPM_TASK_APPROVAL.TASK_ID);
 
 
+		//任务 - 已读清单
+		this.property(TaskMeta.READERS_PROP)
+				.using(FoxnicWeb.BPM_TASK.ID).join(FoxnicWeb.BPM_TASK_READ.TASK_ID).
+				addOrderBy(FoxnicWeb.BPM_TASK_READ.CREATE_TIME,false,true);
+
+
 		//审批动作 - 审批人账户
 		this.property(TaskApprovalMeta.APPROVAL_USER_PROP)
 				.using(FoxnicWeb.BPM_TASK_APPROVAL.APPROVAL_USER_ID).join(FoxnicWeb.SYS_USER.ID)
@@ -141,6 +174,11 @@ public class BpmRelationManager extends RelationManager {
 					}
 					return data;
 				});
+
+
+		//已读记录 - 账户
+		this.property(TaskReadMeta.READER_PROP)
+				.using(FoxnicWeb.BPM_TASK_READ.CREATE_BY).join(FoxnicWeb.SYS_USER.ID);
 
 	}
 

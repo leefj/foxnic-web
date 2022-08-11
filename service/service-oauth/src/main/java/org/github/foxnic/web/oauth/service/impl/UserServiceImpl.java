@@ -4,13 +4,18 @@ import com.github.foxnic.api.error.CommonError;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.commons.collection.CollectorUtil;
+import com.github.foxnic.commons.lang.ObjectUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.FieldsBuilder;
+import com.github.foxnic.dao.entity.QuerySQLBuilder;
 import com.github.foxnic.dao.entity.SuperService;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
+import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER;
 import org.github.foxnic.web.constants.enums.SystemConfigEnum;
 import org.github.foxnic.web.constants.enums.system.Language;
@@ -18,7 +23,6 @@ import org.github.foxnic.web.domain.hrm.Employee;
 import org.github.foxnic.web.domain.hrm.Person;
 import org.github.foxnic.web.domain.hrm.meta.EmployeeMeta;
 import org.github.foxnic.web.domain.oauth.Menu;
-import org.github.foxnic.web.domain.oauth.Role;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.domain.oauth.UserVO;
 import org.github.foxnic.web.domain.oauth.meta.MenuMeta;
@@ -31,18 +35,19 @@ import org.github.foxnic.web.oauth.service.IRoleUserService;
 import org.github.foxnic.web.oauth.service.IUserService;
 import org.github.foxnic.web.proxy.utils.SystemConfigProxyUtil;
 import org.github.foxnic.web.session.DynamicMenuHandler;
+import org.github.foxnic.web.session.SessionUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.lang.instrument.Instrumentation;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * <p>
@@ -128,11 +133,12 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 	 * @param id ID
 	 * @return 删除是否成功
 	 */
-	public boolean deleteByIdPhysical(String id) {
+	public Result deleteByIdPhysical(String id) {
 		User user = new User();
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null ");
 		user.setId(id);
-		return dao.deleteEntity(user);
+		boolean suc=dao.deleteEntity(user);
+		return ErrorDesc.create(suc);
 	}
 
 	/**
@@ -141,14 +147,15 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 	 * @param id ID
 	 * @return 删除是否成功
 	 */
-	public boolean deleteByIdLogical(String id) {
+	public Result deleteByIdLogical(String id) {
 		User user = new User();
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null 。");
 		user.setId(id);
-		user.setDeleted(dao.getDBTreaty().getTrueValue());
+		user.setDeleted(true);
 		user.setDeleteBy((String)dao.getDBTreaty().getLoginUserId());
 		user.setDeleteTime(new Date());
-		return dao.updateEntity(user,SaveMode.NOT_NULL_FIELDS);
+		boolean suc=dao.updateEntity(user,SaveMode.NOT_NULL_FIELDS);
+		return ErrorDesc.create(suc);
 	}
 
 	/**
@@ -258,7 +265,18 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 	 * */
 	@Override
 	public PagedList<User> queryPagedList(User sample, int pageSize, int pageIndex) {
-		return super.queryPagedList(sample, pageSize, pageIndex);
+
+		FieldsBuilder fieldsBuilder = this.createFieldsBuilder()
+				// 加入所有字段
+				.addAll()
+				// 移除规约字段
+				.removeDBTreatyFields()
+				// 移除密码字段
+				.remove(SYS_USER.PASSWD)
+				// 加入创建时间字段
+				.add(SYS_USER.CREATE_TIME);
+
+		return super.queryPagedList(sample, fieldsBuilder,pageSize, pageIndex);
 	}
 
 	/**
@@ -288,59 +306,94 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 		return false;
 	}
 
+
+	private static final String[] IDENTITY_PRIORITY={"account","phone","id"};
 	/**
 	 * 提供给 SpringSecurity 的查询接口
 	 * */
 	public User getUserByIdentity(String identity) {
 
-		User user=dao.queryEntity(User.class, new ConditionExpr(SYS_USER.ACCOUNT+" = ?",identity));
-    	if(user==null) {
-    		user=dao.queryEntity(User.class, new ConditionExpr(SYS_USER.PHONE+" = ?",identity));
-    	}
-		if(user==null) {
-			user=dao.queryEntity(User.class, new ConditionExpr(SYS_USER.ID+" = ?",identity));
+		ConditionExpr conditionExpr=new ConditionExpr(SYS_USER.ACCOUNT+" = ?",identity);
+		conditionExpr.or(SYS_USER.PHONE+" = ?",identity);
+		conditionExpr.or(SYS_USER.ID+" = ?",identity);
+
+		Map<String,User> userMap=new HashMap();
+		List<User> users=dao.queryEntities(User.class, conditionExpr);
+
+		User user = null ;
+
+		if(users.size()==1) {
+			user = users.get(0);
+		} else {
+			for (User u : users) {
+				if (u.getAccount() != null && u.getAccount().equals(identity)) {
+					userMap.put("account", u);
+				} else if (u.getPhone() != null && u.getPhone().equals(identity)) {
+					userMap.put("phone", u);
+				} else if (u.getId().equals(identity)) {
+					userMap.put("id", u);
+				}
+			}
+			for (String priority : IDENTITY_PRIORITY) {
+				user = userMap.get(priority);
+				if (user != null) break;
+			}
 		}
+
+		if(user==null) {
+			throw new UsernameNotFoundException("用户不存在");
+		}
+
+//		int size1= ObjectUtil.sizeOf(user);
+
+		FieldsBuilder sysRoleFields=FieldsBuilder.build(this.dao(), FoxnicWeb.SYS_ROLE.$TABLE).addAll().removeDBTreatyFields();
+
+		FieldsBuilder busiRoleFields=FieldsBuilder.build(this.dao(), FoxnicWeb.SYS_BUSI_ROLE.$TABLE).addAll().removeDBTreatyFields();
+
+		FieldsBuilder resourzeFields=FieldsBuilder.build(this.dao(), FoxnicWeb.SYS_RESOURZE.$TABLE)
+				.addAll()
+				.removeDBTreatyFields()
+				.remove(FoxnicWeb.SYS_RESOURZE.BATCH_ID,FoxnicWeb.SYS_RESOURZE.TABLE_NAME,FoxnicWeb.SYS_RESOURZE.MODULE,FoxnicWeb.SYS_RESOURZE.NAME);
+
+		FieldsBuilder menuFields=FieldsBuilder.build(this.dao(), FoxnicWeb.SYS_MENU.$TABLE)
+				.addAll().
+				removeDBTreatyFields()
+				.remove(FoxnicWeb.SYS_MENU.BATCH_ID,FoxnicWeb.SYS_MENU.HIERARCHY,FoxnicWeb.SYS_MENU.SORT);
 
  		//填充账户模型
  		dao.fill(user).tag("login")
-//			.with(UserMeta.MENUS)
-//			.with(UserMeta.MENUS, MenuMeta.RESOURCES)
-//			.with(UserMeta.MENUS, MenuMeta.PATH_RESOURCE)
 			.with(UserMeta.ROLES, RoleMeta.MENUS, MenuMeta.RESOURCES)
 			.with(UserMeta.ROLES, RoleMeta.MENUS,MenuMeta.PATH_RESOURCE)
-//			.with(UserMeta.ROLE_MENUS)
 			.with(UserMeta.JOINED_TENANTS, UserTenantMeta.TENANT, TenantMeta.COMPANY)
 			.with(UserMeta.JOINED_TENANTS,UserTenantMeta.EMPLOYEE, EmployeeMeta.PERSON)
 			.with(UserMeta.JOINED_TENANTS,UserTenantMeta.EMPLOYEE, EmployeeMeta.POSITIONS)
 			.with(UserMeta.JOINED_TENANTS,UserTenantMeta.EMPLOYEE, EmployeeMeta.ORGANIZATIONS)
 			.with(UserMeta.JOINED_TENANTS,UserTenantMeta.EMPLOYEE, EmployeeMeta.BUSI_ROLES)
+			.fields(sysRoleFields,busiRoleFields,menuFields,resourzeFields)
 			.execute();
 
 
-
-
-
-
-//		List<UserTenant> uts=user.getJoinedTenants();
-//	 	List<Employee> emps= CollectorUtil.collectList(uts,UserTenant::getEmployee);
-//	 	dao.join(emps,EmployeeMeta.POSITIONS);
-//		System.err.printf("JOINS = "+ RelationSolver.getJoinCount());
+//		int size2= ObjectUtil.sizeOf(user);
 
 		List<Menu> remMenus=new ArrayList<>();
-		for (Menu menu : user.getMenus()) {
-			if(!StringUtil.isBlank(menu.getDynamicHandler())) {
-				DynamicMenuHandler dy= DynamicMenuHandler.getHandler(menu.getDynamicHandler());
-				boolean has=dy.hasPermission(menu,user);
-				if(!has) {
-					remMenus.add(menu);
-				}
-				String title=dy.getLabel(menu,user);
-				menu.setLabel(title);
-			}
-		}
+		if(user.getMenus()!=null) {
 
-		for (Menu remMenu : remMenus) {
-			user.getMenus().remove(remMenu);
+			for (Menu menu : user.getMenus()) {
+				if (!StringUtil.isBlank(menu.getDynamicHandler())) {
+					DynamicMenuHandler dy = DynamicMenuHandler.getHandler(menu.getDynamicHandler());
+					boolean has = dy.hasPermission(menu, user);
+					if (!has) {
+						remMenus.add(menu);
+					}
+					String title = dy.getLabel(menu, user);
+					menu.setLabel(title);
+				}
+			}
+
+			for (Menu remMenu : remMenus) {
+				user.getMenus().remove(remMenu);
+			}
+
 		}
 
  		if(user.getActivatedTenant()!=null){
@@ -352,9 +405,6 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 				}
 			}
 		}
-
-
-
 
     	//设置用户语言
     	String usrLang=user.getLanguage();
@@ -387,6 +437,21 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 		user.setPasswd(newpwd);
 		this.update(user,SaveMode.DIRTY_FIELDS);
 		return ErrorDesc.success().message("密码已修改，请记住您的新密码！");
+	}
+
+	@Override
+	public Result resetPasswd(String userId, String adminPwd, String pwd) {
+		PasswordEncoder passwordEncoder=getPasswordEncoder();
+		User admin=this.getById(SessionUser.getCurrent().getUserId());
+		boolean march = passwordEncoder.matches(adminPwd, admin.getPasswd());
+		if(!march) {
+			return ErrorDesc.failure(CommonError.PASSWORD_INVALID).message("您的密码错误");
+		}
+		User user=this.getById(userId);
+		pwd=passwordEncoder.encode(pwd);
+		user.setPasswd(pwd);
+		this.update(user,SaveMode.DIRTY_FIELDS);
+		return ErrorDesc.success();
 	}
 
 }

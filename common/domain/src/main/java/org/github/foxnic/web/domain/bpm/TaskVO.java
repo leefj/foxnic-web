@@ -13,8 +13,8 @@ import com.github.foxnic.commons.bean.BeanUtil;
 /**
  * 流程任务
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-27 15:55:51
- * @sign 903E20194942145230B426EE32FE6F14
+ * @since 2022-07-15 13:54:50
+ * @sign E5D304CA03DC71825CF23F5B10679DAC
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -87,6 +87,12 @@ public class TaskVO extends Task {
 	*/
 	@ApiModelProperty(required = false,value="是否我的任务" , notes = "是否我的任务")
 	private Boolean mine;
+	
+	/**
+	 * 状态值清单：设定状态值的查询范围
+	*/
+	@ApiModelProperty(required = false,value="状态值清单" , notes = "设定状态值的查询范围")
+	private List<String> statusRange;
 	
 	/**
 	 * 获得 页码<br>
@@ -329,6 +335,36 @@ public class TaskVO extends Task {
 	*/
 	public TaskVO setMine(Boolean mine) {
 		this.mine=mine;
+		return this;
+	}
+	
+	/**
+	 * 获得 状态值清单<br>
+	 * 设定状态值的查询范围
+	 * @return 状态值清单
+	*/
+	public List<String> getStatusRange() {
+		return statusRange;
+	}
+	
+	/**
+	 * 设置 状态值清单
+	 * @param statusRange 状态值清单
+	 * @return 当前对象
+	*/
+	public TaskVO setStatusRange(List<String> statusRange) {
+		this.statusRange=statusRange;
+		return this;
+	}
+	
+	/**
+	 * 添加 状态值清单
+	 * @param entity 状态值清单
+	 * @return 当前对象
+	*/
+	public TaskVO addStatusRange(String... entity) {
+		if(this.statusRange==null) statusRange=new ArrayList<>();
+		this.statusRange.addAll(Arrays.asList(entity));
 		return this;
 	}
 	@Transient

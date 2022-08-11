@@ -106,13 +106,15 @@ public interface TaskServiceProxy {
     public static final String IMPORT_EXCEL = API_PREFIX + "import-excel";
 
 
-    /**
-     * 导入流程任务数据(Excel)
-     */
-    public static final String SYNC_CAMUNDA_TASKS = API_PREFIX + "sync-camunda-tasks";
+
 
     public static final String PROCESS_TASK = API_PREFIX + "process-task";
 
+    public static final String CANCEL_TASK = API_PREFIX + "cancel-task";
+
+
+    @RequestMapping(TaskServiceProxy.CANCEL_TASK)
+    Result cancelTask(@RequestParam(name = "processInstanceId") String processInstanceId,@RequestParam(name = "nodeId") String nodeId,@RequestParam(name = "reason") String reason);
     /**
      * 添加流程任务
      */
@@ -168,12 +170,6 @@ public interface TaskServiceProxy {
      */
     @RequestMapping(TaskServiceProxy.QUERY_PAGED_LIST)
     Result<PagedList<Task>> queryPagedList(@RequestParam(name = "sample") TaskVO sample);
-
-    /**
-     * 同步流程任务
-     * */
-    @RequestMapping(TaskServiceProxy.SYNC_CAMUNDA_TASKS)
-    Result syncCamundaTasks(@RequestParam(name = "processInstanceIds")  List<String> processInstanceIds);
 
     /**
      * 处理流程任务

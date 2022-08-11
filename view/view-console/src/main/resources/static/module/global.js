@@ -1,3 +1,155 @@
+function Log() {}
+
+Log.prototype.type = ["primary", "success", "warn", "error", "info"];
+
+Log.prototype.typeColor = function(type) {
+	let color = "";
+	switch (type) {
+		case "primary":
+			color = "#2d8cf0";
+			break;
+		case "success":
+			color = "#19be6b";
+			break;
+		case "info":
+			color = "#909399";
+			break;
+		case "warn":
+			color = "#ff9900";
+			break;
+		case "error":
+			color = "#f03f14";
+			break;
+		default:
+			color = "#35495E";
+			break;
+	}
+	return color;
+};
+
+Log.prototype.isArray = function(obj) {
+	return Object.prototype.toString.call(obj) === "[object Array]";
+};
+
+Log.prototype.print = function(text, textColor, background) {
+	if (typeof text === "object") {
+		// 如果是對象則調用打印對象方式
+		this.isArray(text) ? console.table(text) : console.dir(text);
+		return;
+	}
+	if(!textColor) {
+		textColor=this.typeColor("primary");
+	}
+	if (background) {
+		// 如果是打印帶背景的
+		console.log(`%c ${text} `, `background:${background}; padding: 2px; border-radius: 4px; color: ${textColor};`);
+	} else {
+		console.log(
+			`%c ${text} `,
+			`border: 1px solid ${textColor}; padding: 2px; border-radius: 4px; color: ${textColor};`
+		);
+	}
+};
+
+
+Log.prototype.pretty = function(type = "primary", title, text,total) {
+
+	if(TypeUtil.isNumber(title)) {
+		if (title < 10) title = "0" + title;
+	}
+
+	if (typeof text === "object") {
+		var content = JSON.stringify(text);
+		console.log(
+			`%c ${title} %c ${content} %c`,
+			`background:${this.typeColor(type)};border:1px solid ${this.typeColor(type)}; padding: 1px; border-radius: 4px 0 0 4px; color: #fff;`,
+			`border:1px solid ${this.typeColor(type)}; padding: 1px; border-radius: 0 4px 4px 0; color: ${this.typeColor(type)};`,
+			"background:transparent"
+		);
+		this.isArray(text) ? console.table(text) : console.dir(text);
+	} else {
+		console.log(
+			`%c ${title} %c ${text} %c`,
+			`background:${this.typeColor(type)};border:1px solid ${this.typeColor(type)}; padding: 1px; border-radius: 4px 0 0 4px; color: #fff;`,
+			`border:1px solid ${this.typeColor(type)}; padding: 1px; border-radius: 0 4px 4px 0; color: ${this.typeColor(type)};`,
+			"background:transparent"
+		);
+	}
+};
+
+Log.prototype.log = function(title, ...text) {
+	if(text.length<=1) {
+		this.pretty("primary", "Log:"+title, text[0],text.length);
+		return;
+	}
+	console.group("Foxnic-Web-Log:"+title);
+	var i=0;
+	text.forEach(t => {
+		i++;
+		this.pretty("primary", i, t,text.length);
+	});
+	console.groupEnd();
+};
+
+Log.prototype.success = function(title, ...text) {
+	if(text.length<=1) {
+		this.pretty("success", "Success:"+title, text[0],text.length);
+		return;
+	}
+	console.group("Foxnic-Web-Success:"+title);
+	var i=0;
+	text.forEach(t => {
+		i++;
+		this.pretty("success", i, t,text.length);
+	});
+	console.groupEnd();
+};
+
+Log.prototype.warn = function(title, ...text) {
+	if(text.length<=1) {
+		this.pretty("warn", "Warn:"+title, text[0],text.length);
+		return;
+	}
+	console.group("Foxnic-Web-Warn:"+title);
+	var i=0;
+	text.forEach(t => {
+		i++;
+		this.pretty("warn", i, t,text.length);
+	});
+	console.groupEnd();
+};
+
+Log.prototype.error = function(title, ...text) {
+	if(text.length<=1) {
+		this.pretty("error", "Error:"+title, text[0],text.length);
+		return;
+	}
+	console.group("Foxnic-Web-Error:"+title);
+	var i=0;
+	text.forEach(t => {
+		i++;
+		this.pretty("error", i, t,text.length);
+	});
+	console.groupEnd();
+};
+
+Log.prototype.info = function(title, ...text) {
+	if(text.length<=1) {
+		this.pretty("info", "Info:"+title, text[0],text.length);
+		return;
+	}
+	console.group("Foxnic-Web-Info:"+title);
+	var i=0;
+	text.forEach(t => {
+		i++;
+		this.pretty("info", i, t,text.length);
+	});
+	console.groupEnd();
+};
+
+window.logger=new Log();
+
+
 QueryString = {
 	data: {},
 	initial: function() {
@@ -32,7 +184,9 @@ TypeUtil={
 		return Number.isInteger(data);
 	},
 	isObject:function (data){
-		return data.constructor === Object;
+		if(!data) return false;
+		// return data.constructor === Object;
+		return Object.prototype.toString.call(data) === '[object Object]'
 	},
 	isString:function (data) {
 		return typeof(data)=='string';
@@ -101,10 +255,12 @@ var Theme={
 		headerMenuSelectedTextColor:"#009688",
 		//顶部菜单文本颜色
 		headerMenuDropDownTextColor:"#333333"
-	}
+	},
+	badgeStyles:["layui-badge foxnic-table-badge","layui-badge layui-bg-green foxnic-table-badge","layui-badge layui-bg-cyan foxnic-table-badge","layui-badge layui-bg-blue foxnic-table-badge"]
 };
 
 
+logger.log("layuiPath",layuiPath)
+logger.log("apiServerUrl",apiServerUrl)
 
-console.log("layuiPath",layuiPath);
-console.log("apiServerUrl",apiServerUrl);
+

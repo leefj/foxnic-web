@@ -2,16 +2,24 @@ package org.github.foxnic.web.oauth.controller;
 
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.api.validate.annotations.NotNull;
+import com.github.foxnic.commons.encrypt.Base64Util;
+import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.FieldsBuilder;
+import com.github.foxnic.dao.entity.QuerySQLBuilder;
+import com.github.foxnic.dao.spec.DAO;
+import com.github.foxnic.springboot.mvc.RequestParameter;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.github.xiaoymin.knife4j.annotations.ApiSort;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.domain.hrm.meta.EmployeeMeta;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.domain.oauth.UserVO;
@@ -71,6 +79,11 @@ public class UserController extends SuperController {
 	@SentinelResource(value = UserServiceProxy.INSERT)
 	@PostMapping(UserServiceProxy.INSERT)
 	public Result insert(UserVO userVO) {
+		this.validator().asserts(userVO.getRealName()).require();
+		if(this.validator().failure()) {
+			return this.validator().getMergedResult();
+		}
+
 		Result result=userService.insert(userVO);
 		return result;
 	}
@@ -88,10 +101,7 @@ public class UserController extends SuperController {
 	@SentinelResource(value = UserServiceProxy.DELETE)
 	@PostMapping(UserServiceProxy.DELETE)
 	public Result<User> deleteById(String id) {
-		Result<User> result=new Result<>();
-		boolean suc=userService.deleteByIdLogical(id);
-		result.success(suc);
-		return result;
+		return userService.deleteByIdLogical(id);
 	}
 
 
@@ -139,6 +149,37 @@ public class UserController extends SuperController {
 	}
 
 	/**
+	 * 更新账户
+	 */
+	@ApiOperation(value = "更新账户")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = UserVOMeta.REAL_NAME , value = "姓名" , required = true , dataTypeClass=String.class),
+			@ApiImplicitParam(name = UserVOMeta.PHONE , value = "手机号码" , required = true , dataTypeClass=String.class),
+			@ApiImplicitParam(name = UserVOMeta.PORTRAIT_ID , value = "头像ID" , required = false , dataTypeClass=String.class , example = "1110"),
+			@ApiImplicitParam(name = UserVOMeta.LANGUAGE , value = "语言" , required = false , dataTypeClass=String.class),
+	})
+	@ApiOperationSupport( order=4 , ignoreParameters = { UserVOMeta.PAGE_INDEX , UserVOMeta.PAGE_SIZE , UserVOMeta.SEARCH_FIELD , UserVOMeta.SEARCH_VALUE , UserVOMeta.IDS } )
+	@SentinelResource(value = UserServiceProxy.UPDATE_PROFILE)
+	@PostMapping(UserServiceProxy.UPDATE_PROFILE)
+	public Result updateProfile(UserVO userVO) {
+
+		User user=userService.getById(this.getSessionUserId());
+		if(user==null) {
+			return ErrorDesc.failure().message("保存失败，账户无效");
+		}
+
+		user.setRealName(userVO.getRealName());
+		user.setPhone(userVO.getPhone());
+		user.setPortraitId(userVO.getPortraitId());
+		user.setLanguage(userVO.getLanguage());
+
+		Result result=userService.update(user,SaveMode.DIRTY_FIELDS);
+		user.setPasswd("******");
+		return result.data(user);
+	}
+
+
+	/**
 	 * 保存账户
 	*/
 	@ApiOperation(value = "保存账户")
@@ -180,6 +221,27 @@ public class UserController extends SuperController {
 		Result<User> result=new Result<>();
 		User role=userService.getById(id);
 		result.success(true).data(role);
+		return result;
+	}
+
+
+	/**
+	 * 获取账户
+	 */
+	@ApiOperation(value = "获取账户")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = UserVOMeta.ACCOUNT , value = "账户" , required = true , dataTypeClass=String.class , example = "leefj"),
+	})
+	@ApiOperationSupport(order=6)
+	@NotNull(name = UserVOMeta.ACCOUNT)
+	@SentinelResource(value = UserServiceProxy.GET_BY_ACCOUNT)
+	@PostMapping(UserServiceProxy.GET_BY_ACCOUNT)
+	public Result<User> getByAccount(String account) {
+		Result<User> result=new Result<>();
+		User user=new User();
+		user.setAccount(account);
+		user=userService.queryEntity(user);
+		result.success(true).data(user);
 		return result;
 	}
 
@@ -267,41 +329,39 @@ public class UserController extends SuperController {
 	@SentinelResource(value = UserServiceProxy.QUERY_PAGED_LIST)
 	@PostMapping(UserServiceProxy.QUERY_PAGED_LIST)
 	public Result<PagedList<User>> queryPagedList(UserVO sample) {
+
+		RequestParameter requestParameter=this.getParameter();
+		Logger.info(requestParameter.getRequestTimeString() +","+ requestParameter.getRequestTimestamp());
+
 		Result<PagedList<User>> result=new Result<>();
+
 		PagedList<User> list=userService.queryPagedList(sample,sample.getPageSize(),sample.getPageIndex());
 		for (User user : list) {
 			user.setPasswd("");
 		}
-//		userService.join(list, Role.class);
+
+		DAO dao=userService.dao();
+		FieldsBuilder roleFields= FieldsBuilder.build(dao, FoxnicWeb.SYS_ROLE.$TABLE).addAll().removeDBTreatyFields();
+		FieldsBuilder employeeFields= FieldsBuilder.build(dao, FoxnicWeb.HRM_EMPLOYEE.$TABLE).addAll().removeDBTreatyFields();
+		FieldsBuilder personFields= FieldsBuilder.build(dao, FoxnicWeb.HRM_PERSON.$TABLE).addAll().removeDBTreatyFields();
+		FieldsBuilder tenantFields= FieldsBuilder.build(dao, FoxnicWeb.SYS_TENANT.$TABLE).addAll().removeDBTreatyFields();
+		FieldsBuilder userTenantFields= FieldsBuilder.build(dao, FoxnicWeb.SYS_USER_TENANT.$TABLE).addAll().removeDBTreatyFields();
+
 		//填充账户模型
 		userService.dao().fill(list)
-//				.with(UserMeta.MENUS)
-//				.with(UserMeta.MENUS, MenuMeta.RESOURCES)
-//				.with(UserMeta.MENUS, MenuMeta.PATH_RESOURCE)
 				.with(UserMeta.ROLES)
-//				.with(UserMeta.ROLE_MENUS)
-//				.with(UserMeta.JOINED_TENANTS, UserTenantMeta.TENANT, TenantMeta.COMPANY)
 				.with(UserMeta.JOINED_TENANTS,UserTenantMeta.EMPLOYEE, EmployeeMeta.PERSON)
-//				.with(UserMeta.JOINED_TENANTS,UserTenantMeta.EMPLOYEE, EmployeeMeta.POSITIONS)
-//				.with(UserMeta.JOINED_TENANTS,UserTenantMeta.EMPLOYEE, EmployeeMeta.ORGANIZATIONS)
-//				.with(UserMeta.JOINED_TENANTS,UserTenantMeta.EMPLOYEE, EmployeeMeta.BUSI_ROLES)
+				.fields(roleFields,employeeFields,personFields,tenantFields,userTenantFields)
 				.execute();
+
 		result.success(true).data(list);
 		return result;
 	}
 
 	@ApiOperation(value = "更改当前登录用户密码")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = UserVOMeta.ID , value = "ID" , required = true , dataTypeClass=String.class , example = "110588348101165000"),
-		@ApiImplicitParam(name = UserVOMeta.PASSWD , value = "密码" , required = false , dataTypeClass=String.class , example = "******"),
-		@ApiImplicitParam(name = UserVOMeta.PHONE , value = "手机号码" , required = false , dataTypeClass=String.class , example = "13888584527"),
-		@ApiImplicitParam(name = UserVOMeta.PORTRAIT_ID , value = "头像ID" , required = false , dataTypeClass=String.class , example = "465814936602279936"),
-		@ApiImplicitParam(name = UserVOMeta.LANGUAGE , value = "语言" , required = false , dataTypeClass=String.class , example = "defaults"),
-		@ApiImplicitParam(name = UserVOMeta.VALID , value = "是否有效" , required = true , dataTypeClass=Integer.class , example = "true"),
-		@ApiImplicitParam(name = UserVOMeta.CACHE_KEY , value = "缓存键" , required = false , dataTypeClass=String.class),
-		@ApiImplicitParam(name = UserVOMeta.LAST_LOGIN_TIME , value = "最后登录时间" , required = false , dataTypeClass=Date.class , example = "2021-05-31 03:09:23"),
-			@ApiImplicitParam(name = "oldpwd" , value = "原始密码" ,required = true , dataTypeClass=String.class),
-			@ApiImplicitParam(name = "newpwd" , value = "新密码" ,required = true , dataTypeClass=String.class),
+		@ApiImplicitParam(name = "oldpwd" , value = "原始密码" ,required = true , dataTypeClass=String.class),
+		@ApiImplicitParam(name = "newpwd" , value = "新密码" ,required = true , dataTypeClass=String.class)
 	})
 	@NotNull(name = "oldpwd")
 	@NotNull(name = "newpwd")
@@ -309,6 +369,26 @@ public class UserController extends SuperController {
 	@ApiOperationSupport(order=4)
 	public  Result changePasswd(String oldpwd,String newpwd) {
 		return userService.changePasswd(this.getSessionUserId(),oldpwd,newpwd);
+	}
+
+
+	@ApiOperation(value = "管理员重置用户密码")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "userId" , value = "账户ID" ,required = true , dataTypeClass=String.class),
+			@ApiImplicitParam(name = "adminPwd" , value = "管理员密码" ,required = true , dataTypeClass=String.class),
+			@ApiImplicitParam(name = "pwd" , value = "新密码" ,required = true , dataTypeClass=String.class),
+	})
+	@NotNull(name = "adminPwd")
+	@NotNull(name = "pwd")
+	@NotNull(name = "userId")
+	@PostMapping(UserServiceProxy.RESET_PASSWD)
+	@ApiOperationSupport(order=4)
+	public  Result resetPasswd(String userId,String adminPwd,String pwd) {
+		for (int i = 0; i < 4; i++) {
+			adminPwd= Base64Util.decode(adminPwd);
+			pwd= Base64Util.decode(pwd);
+		}
+		return userService.resetPasswd(userId,adminPwd,pwd);
 	}
 
 

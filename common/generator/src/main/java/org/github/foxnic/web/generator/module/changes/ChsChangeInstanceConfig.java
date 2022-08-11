@@ -108,6 +108,7 @@ public class ChsChangeInstanceConfig extends BaseCodeConfig<CHS_CHANGE_INSTANCE>
 
 	@Override
 	public void configList(ViewOptions view, ListOptions list) {
+		list.disableCreateNew().disableBatchDelete().disableSingleDelete().disableModify().disableFormView();
 
 	}
 

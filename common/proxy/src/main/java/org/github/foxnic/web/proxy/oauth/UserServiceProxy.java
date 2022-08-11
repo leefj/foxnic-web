@@ -63,6 +63,11 @@ public interface UserServiceProxy {
     public static final String UPDATE = API_PREFIX + "update";
 
     /**
+     * 更新账户
+     */
+    public static final String UPDATE_PROFILE = API_PREFIX + "update-profile";
+
+    /**
      * 保存账户
      */
     public static final String SAVE = API_PREFIX + "save";
@@ -71,6 +76,11 @@ public interface UserServiceProxy {
      * 获取账户
      */
     public static final String GET_BY_ID = API_PREFIX + "get-by-id";
+
+    /**
+     * 获取账户
+     */
+    public static final String GET_BY_ACCOUNT = API_PREFIX + "get-by-account";
 
     /**
      * 获取账户
@@ -101,6 +111,11 @@ public interface UserServiceProxy {
      * 更改密码
      */
     public static final String CHANGE_PASSWD = API_PREFIX + "change-passwd";
+
+    /**
+     * 重置密码
+     */
+    public static final String RESET_PASSWD = API_PREFIX + "reset-passwd";
 
     /**
      * 添加账户
@@ -137,6 +152,9 @@ public interface UserServiceProxy {
      */
     @RequestMapping(UserServiceProxy.GET_BY_ID)
     Result<User> getById(@RequestParam(name = "id") String id);
+
+    @RequestMapping(UserServiceProxy.GET_BY_ACCOUNT)
+    Result<User> getByAccount(@RequestParam(name = "account") String account);
 
     /**
      * 获取账户

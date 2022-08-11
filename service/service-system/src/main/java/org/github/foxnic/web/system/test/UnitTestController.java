@@ -4,20 +4,25 @@ import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.commons.collection.MapUtil;
 import com.github.foxnic.commons.io.FileUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.dao.spec.DBSequence;
+import com.github.foxnic.springboot.spring.SpringUtil;
+import org.github.foxnic.web.domain.system.DictItem;
+import org.github.foxnic.web.domain.system.DictItemVO;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.framework.licence.LicenceProxy;
 import org.github.foxnic.web.proxy.camunda.CamundaUserServiceProxy;
+import org.github.foxnic.web.proxy.utils.DictProxyUtil;
 import org.github.foxnic.web.session.SessionUser;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.io.File;
-import java.util.Date;
+import java.util.*;
 
 @RestController("UnitTestController")
 public class UnitTestController {
@@ -75,6 +80,17 @@ public class UnitTestController {
         JSONObject licence=LicenceProxy.getLicence();
 
         return ErrorDesc.success().data(licence);
+    }
+
+    @PostMapping("/service-system/unit-test/dict-1")
+    public Result dict1() {
+        List<DictItem> items = DictProxyUtil.getList("ops_host_type");
+        int i= (int) (Math.random() * items.size());
+        System.out.println("i="+i);
+        DictItem itemSource=items.get(i);
+        DictItem itemTarget=DictProxyUtil.getDictItem(itemSource.getDictCode(),itemSource.getCode());
+        Map map= MapUtil.asMap("items",items,"itemSource",itemSource,"itemTarget",itemTarget);
+        return ErrorDesc.success().data(map);
     }
 
 

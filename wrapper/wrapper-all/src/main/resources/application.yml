@@ -9,6 +9,8 @@ server:
       timeout: 28800s
   port: 1899
 
+
+
 spring:
   main:
     allow-bean-definition-overriding: true
@@ -92,11 +94,40 @@ spring:
     content-type: text/html
     mode: HTML5
     cache: false
-#  session:
-#    store-type: redis # 使用 redis 存储session
+  session:
+    # 使用外部存储 SESSION ，可以是：NONE、HAZELCAST、JDBC、MONGODB、REDIS，目前仅支持 REDIS
+    store-type: NONE
   redis:
-      port: 6379
-      host: 127.0.0.1
+    # 是否启用单节点的 redis
+    enable: false
+    pool:
+      #连接池最大连接数（使用负值表示没有限制）
+      max-active: 8
+      #连接池最大阻塞等待时间（使用负值表示没有限制）
+      max-wait: -1
+      #连接池中的最大空闲连接
+      max-idle: 8
+      #连接池中的最小空闲连接
+      min-idle: 0
+      #连接超时时间（毫秒）
+      timeout: 30000
+    # 单节配置
+    port: 6379
+    host: 192.168.80.63
+    password: asdf@123
+    database: 12
+    # 哨兵配置
+    sentinel:
+      # 是否启用哨兵模式的 redis
+      enable: false
+      master: common
+      nodes: 192.168.1.84:26379,192.168.1.85:26379
+    #集群配置
+    cluster:
+      # 是否启用集群模式的 redis
+      enable: false
+      nodes: 192.168.1.24:6389,192.168.1.24:6479,192.168.1.24:6579
+
 
 
 #设置开发选项
@@ -112,7 +143,8 @@ develop:
 foxnic:
   config:
     # 按顺序读取 profile 下的配置值，默认使用 default Profile 的配置值，如果位于靠前的 profile 已经有配置，则不再往后读取，即前面 profile 的覆盖后面的 profile
-    profiles: profile@GuoYIE
+    profiles: default
+    #profiles: profile@GuoYIE
   # 设置 API 接口
   api:
     # 是否开启 API 日志输出
@@ -136,14 +168,18 @@ foxnic:
         windows: c:/uploads
         mac: /Users/LeeFJ/git/tailoring/uploads
         linux: /tailoring/uploads
-  # 设置 Join 的二级缓存
+  # 设置 BPM 相关内容
   bpm:
     enable: true
+    debug:
+      enable: true
+      process-definition-code-list: foxnic-leave,p-expense-all,a-expense-all,a-expense-any,p-expense-any,fetchback-jump,draft-test
+  # 设置 Join 的二级缓存
   cache:
     # 默认配置
     default:
       # local,remote,both,none
-      mode: both
+      mode: local
       # 本地缓存配置 : 最大元素个数
       local-limit: 10240
       # 本地缓存配置 : 本地缓存超时时长；-1 表示永不过期
@@ -173,6 +209,10 @@ foxnic:
             is-accurate: true
             cache-empty-result: true
             properties: dictCode
+          query-code:
+              is-accurate: true
+              cache-empty-result: true
+              properties: dictCode,code
       "org.github.foxnic.web.domain.system.DbCache":
         #mode: remote
         local-limit: 10240
@@ -210,19 +250,23 @@ security:
   # 模式：session / jwt
   mode: both
   # 配置无需鉴权可以访问的地址
-  ignored-urls: /assets/** , /pages/** , /*.ico , /module/** ,  /**/*.css , /**/*.js , /error , /demo/** ,/druid/** ,/service-system/unit-test/** ,/camunda/**
+  ignored-urls: /console/** , /assets/** , /pages/** , /*.ico , /module/** ,  /**/*.css , /**/*.js , /error , /demo/** ,/druid/** ,/service-system/unit-test/**
   # mode=session 时配置的登录页面
   login-page: /login.html
   jwt:
-    key-location: foxnic-web.jks
+    key-location: demo.jks
     key-alias: foxnic-web
     key-pass: fox-123456-nic
     # 缓存类型  local/remote/both
     cache-type: local
-    iss: felord.cn
+    # 发布者
+    iss: foxnic-web.com
+    # 订阅者
     sub: all
+    # 访问超时秒数
     access-expire-seconds: 1800
-    refresh-expire-seconds: 2000
+    # 刷新超时秒数
+    refresh-expire-seconds: 3600
 
 
 logging:

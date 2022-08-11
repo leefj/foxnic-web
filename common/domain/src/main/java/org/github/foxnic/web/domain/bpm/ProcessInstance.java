@@ -26,8 +26,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程实例
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-27 15:34:38
- * @sign EB7AAD7FC2E3A28D82ADB7C523422C76
+ * @since 2022-08-04 15:56:25
+ * @sign 7DE798F8C38C8FB63622A484F583B2B2
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -48,19 +48,19 @@ public class ProcessInstance extends Entity {
 	/**
 	 * 起草人账户ID：起草人账户ID
 	*/
-	@ApiModelProperty(required = false,value="起草人账户ID" , notes = "起草人账户ID")
+	@ApiModelProperty(required = true,value="起草人账户ID" , notes = "起草人账户ID")
 	private String drafterUserId;
 	
 	/**
 	 * 起草人ID：可以是账户ID、员工ID、职位ID、系统角色ID、业务角色ID
 	*/
-	@ApiModelProperty(required = false,value="起草人ID" , notes = "可以是账户ID、员工ID、职位ID、系统角色ID、业务角色ID")
+	@ApiModelProperty(required = true,value="起草人ID" , notes = "可以是账户ID、员工ID、职位ID、系统角色ID、业务角色ID")
 	private String drafterId;
 	
 	/**
 	 * 起草人类型：起草人类型
 	*/
-	@ApiModelProperty(required = false,value="起草人类型" , notes = "起草人类型")
+	@ApiModelProperty(required = true,value="起草人类型" , notes = "起草人类型")
 	private String drafterType;
 	@Transient
 	private UnifiedUserType drafterTypeEnum;
@@ -74,7 +74,7 @@ public class ProcessInstance extends Entity {
 	/**
 	 * 流程定义ID：流程定义ID
 	*/
-	@ApiModelProperty(required = false,value="流程定义ID" , notes = "流程定义ID")
+	@ApiModelProperty(required = true,value="流程定义ID" , notes = "流程定义ID")
 	private String processDefinitionId;
 	
 	/**
@@ -86,7 +86,7 @@ public class ProcessInstance extends Entity {
 	/**
 	 * 表单定义ID：表单定义ID
 	*/
-	@ApiModelProperty(required = false,value="表单定义ID" , notes = "表单定义ID")
+	@ApiModelProperty(required = true,value="表单定义ID" , notes = "表单定义ID")
 	private String formDefinitionId;
 	
 	/**
@@ -204,6 +204,18 @@ public class ProcessInstance extends Entity {
 	private Date endTime;
 	
 	/**
+	 * 是否需要同步：是否需要同步
+	*/
+	@ApiModelProperty(required = false,value="是否需要同步" , notes = "是否需要同步")
+	private Integer needSync;
+	
+	/**
+	 * 状态同步时间：状态同步时间
+	*/
+	@ApiModelProperty(required = false,value="状态同步时间" , notes = "状态同步时间")
+	private Date syncTime;
+	
+	/**
 	 * 流程定义：流程定义
 	*/
 	@ApiModelProperty(required = false,value="流程定义" , notes = "流程定义")
@@ -246,6 +258,12 @@ public class ProcessInstance extends Entity {
 	private List<Task> tasks;
 	
 	/**
+	 * 待办的流程任务清单：待办的流程任务清单
+	*/
+	@ApiModelProperty(required = false,value="待办的流程任务清单" , notes = "待办的流程任务清单")
+	private List<Task> todoTasks;
+	
+	/**
 	 * 可处理的任务清单：当前登录账户可以处理的任务清单
 	*/
 	@ApiModelProperty(required = false,value="可处理的任务清单" , notes = "当前登录账户可以处理的任务清单")
@@ -264,15 +282,33 @@ public class ProcessInstance extends Entity {
 	private List<String> billIds;
 	
 	/**
+	 * 流程异常清单：流程异常清单
+	*/
+	@ApiModelProperty(required = false,value="流程异常清单" , notes = "流程异常清单")
+	private List<ProcessError> errors;
+	
+	/**
+	 * 已读清单：已读人员清单
+	*/
+	@ApiModelProperty(required = false,value="已读清单" , notes = "已读人员清单")
+	private List<TaskRead> readers;
+	
+	/**
+	 * 审批状态：审批状态
+	*/
+	@ApiModelProperty(required = false,value="审批状态" , notes = "审批状态")
+	private String approvalStatusName;
+	
+	/**
 	 * 流程定义文件：流程定义文件
 	*/
 	@ApiModelProperty(required = false,value="流程定义文件" , notes = "流程定义文件")
 	private ProcessDefinitionFile processDefinitionFile;
 	
 	/**
-	 * 审批动作清单：审批动作清单
+	 * 审批动作清单：已完成的审批动作清单
 	*/
-	@ApiModelProperty(required = false,value="审批动作清单" , notes = "审批动作清单")
+	@ApiModelProperty(required = false,value="审批动作清单" , notes = "已完成的审批动作清单")
 	private List<TaskApproval> taskApprovals;
 	
 	/**
@@ -899,6 +935,44 @@ public class ProcessInstance extends Entity {
 	}
 	
 	/**
+	 * 获得 是否需要同步<br>
+	 * 是否需要同步
+	 * @return 是否需要同步
+	*/
+	public Integer getNeedSync() {
+		return needSync;
+	}
+	
+	/**
+	 * 设置 是否需要同步
+	 * @param needSync 是否需要同步
+	 * @return 当前对象
+	*/
+	public ProcessInstance setNeedSync(Integer needSync) {
+		this.needSync=needSync;
+		return this;
+	}
+	
+	/**
+	 * 获得 状态同步时间<br>
+	 * 状态同步时间
+	 * @return 状态同步时间
+	*/
+	public Date getSyncTime() {
+		return syncTime;
+	}
+	
+	/**
+	 * 设置 状态同步时间
+	 * @param syncTime 状态同步时间
+	 * @return 当前对象
+	*/
+	public ProcessInstance setSyncTime(Date syncTime) {
+		this.syncTime=syncTime;
+		return this;
+	}
+	
+	/**
 	 * 获得 流程定义<br>
 	 * 流程定义
 	 * @return 流程定义
@@ -1043,6 +1117,36 @@ public class ProcessInstance extends Entity {
 	}
 	
 	/**
+	 * 获得 待办的流程任务清单<br>
+	 * 待办的流程任务清单
+	 * @return 待办的流程任务清单
+	*/
+	public List<Task> getTodoTasks() {
+		return todoTasks;
+	}
+	
+	/**
+	 * 设置 待办的流程任务清单
+	 * @param todoTasks 待办的流程任务清单
+	 * @return 当前对象
+	*/
+	public ProcessInstance setTodoTasks(List<Task> todoTasks) {
+		this.todoTasks=todoTasks;
+		return this;
+	}
+	
+	/**
+	 * 添加 待办的流程任务清单
+	 * @param todoTask 待办的流程任务清单
+	 * @return 当前对象
+	*/
+	public ProcessInstance addTodoTask(Task... todoTask) {
+		if(this.todoTasks==null) todoTasks=new ArrayList<>();
+		this.todoTasks.addAll(Arrays.asList(todoTask));
+		return this;
+	}
+	
+	/**
 	 * 获得 可处理的任务清单<br>
 	 * 当前登录账户可以处理的任务清单
 	 * @return 可处理的任务清单
@@ -1133,6 +1237,85 @@ public class ProcessInstance extends Entity {
 	}
 	
 	/**
+	 * 获得 流程异常清单<br>
+	 * 流程异常清单
+	 * @return 流程异常清单
+	*/
+	public List<ProcessError> getErrors() {
+		return errors;
+	}
+	
+	/**
+	 * 设置 流程异常清单
+	 * @param errors 流程异常清单
+	 * @return 当前对象
+	*/
+	public ProcessInstance setErrors(List<ProcessError> errors) {
+		this.errors=errors;
+		return this;
+	}
+	
+	/**
+	 * 添加 流程异常清单
+	 * @param error 流程异常清单
+	 * @return 当前对象
+	*/
+	public ProcessInstance addError(ProcessError... error) {
+		if(this.errors==null) errors=new ArrayList<>();
+		this.errors.addAll(Arrays.asList(error));
+		return this;
+	}
+	
+	/**
+	 * 获得 已读清单<br>
+	 * 已读人员清单
+	 * @return 已读清单
+	*/
+	public List<TaskRead> getReaders() {
+		return readers;
+	}
+	
+	/**
+	 * 设置 已读清单
+	 * @param readers 已读清单
+	 * @return 当前对象
+	*/
+	public ProcessInstance setReaders(List<TaskRead> readers) {
+		this.readers=readers;
+		return this;
+	}
+	
+	/**
+	 * 添加 已读清单
+	 * @param reader 已读清单
+	 * @return 当前对象
+	*/
+	public ProcessInstance addReader(TaskRead... reader) {
+		if(this.readers==null) readers=new ArrayList<>();
+		this.readers.addAll(Arrays.asList(reader));
+		return this;
+	}
+	
+	/**
+	 * 获得 审批状态<br>
+	 * 审批状态
+	 * @return 审批状态
+	*/
+	public String getApprovalStatusName() {
+		return approvalStatusName;
+	}
+	
+	/**
+	 * 设置 审批状态
+	 * @param approvalStatusName 审批状态
+	 * @return 当前对象
+	*/
+	public ProcessInstance setApprovalStatusName(String approvalStatusName) {
+		this.approvalStatusName=approvalStatusName;
+		return this;
+	}
+	
+	/**
 	 * 获得 流程定义文件<br>
 	 * 流程定义文件
 	 * @return 流程定义文件
@@ -1153,7 +1336,7 @@ public class ProcessInstance extends Entity {
 	
 	/**
 	 * 获得 审批动作清单<br>
-	 * 审批动作清单
+	 * 已完成的审批动作清单
 	 * @return 审批动作清单
 	*/
 	public List<TaskApproval> getTaskApprovals() {

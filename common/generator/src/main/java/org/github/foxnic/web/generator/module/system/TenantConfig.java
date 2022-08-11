@@ -2,10 +2,7 @@ package org.github.foxnic.web.generator.module.system;
 
 import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
-import com.github.foxnic.generator.builder.view.option.FormOptions;
-import com.github.foxnic.generator.builder.view.option.ListOptions;
-import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
-import com.github.foxnic.generator.builder.view.option.ViewOptions;
+import com.github.foxnic.generator.builder.view.option.*;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_TENANT;
 import org.github.foxnic.web.domain.hrm.Company;
@@ -53,8 +50,8 @@ public class TenantConfig extends BaseCodeConfig<SYS_TENANT> {
     }
 
     @Override
-    public void configForm(ViewOptions view, FormOptions form) {
-        super.configForm(view, form);
+    public void configForm(ViewOptions view, FormOptions form, FormWindowOptions formWindow) {
+        super.configForm(view, form, formWindow);
         view.formWindow().bottomSpace(200);
     }
 

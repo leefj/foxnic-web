@@ -247,7 +247,7 @@ layui.define(['settings', 'layer'], function (exports) {
                 	$(layero).children('.layui-layer-content').load(param.path);
                 }
             };
-            //debugger;
+            // debugger;
             return layer.open(param);
         },
         /**
@@ -305,7 +305,7 @@ layui.define(['settings', 'layer'], function (exports) {
                 contentType: "application/json;charset=utf-8",
                 success: success,
                 beforeSend: function (xhr) {
-                    //debugger
+                    // debugger
                     var token = config.getToken();
                     //debugger;
                     if (token) {
@@ -314,8 +314,30 @@ layui.define(['settings', 'layer'], function (exports) {
                         // xhr.setRequestHeader('access-token', token.accessToken);
                         //xhr.setRequestHeader('refresn-token', token.refreshToken);
                     }
+                    // xhr.setRequestHeader('tid', null);
+                    xhr.setRequestHeader('time', admin.getRequestTimestamp());
                 }
             });
+        },
+
+        getRequestTimestamp:function()
+        {
+            // debugger;
+            var date = new Date();
+            var timeStr = date.getFullYear() + "-";
+            if (date.getMonth() < 9) { // 月份从0开始的
+                timeStr += '0';
+            }
+            timeStr += date.getMonth() + 1 + "-";
+            timeStr += date.getDate() < 10 ? ('0' + date.getDate()) : date.getDate();
+            timeStr += ' ';
+            timeStr += date.getHours() < 10 ? ('0' + date.getHours()) : date.getHours();
+            timeStr += ':';
+            timeStr += date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes();
+            timeStr += ':';
+            timeStr += date.getSeconds() < 10 ? ('0' + date.getSeconds()) : date.getSeconds();
+            timeStr += "."+date.getMilliseconds()
+            return timeStr;
         },
 
         // 封装ajax请求
@@ -341,6 +363,7 @@ layui.define(['settings', 'layer'], function (exports) {
                     } else if (jsonRs.code == "32") {
                         //layer.msg('没有权限', {icon: 2});
                         layer.closeAll('loading');
+                        fox.showMessage(jsonRs);
                         return;
                     }
                 }
@@ -358,6 +381,7 @@ layui.define(['settings', 'layer'], function (exports) {
             console.log(param);
             $.ajax(param);
         },
+
         authorities:null,
         initAuthorities:function () {
             if(this.authorities!=null) {
@@ -377,20 +401,73 @@ layui.define(['settings', 'layer'], function (exports) {
             }
             return true;
         },
-        // 判断是否有权限
-        checkAuth: function (auth) {
-            // debugger
-            if(top.admin.initAuthorities()==false) {
-                return false;
+        roles:null,
+        initRoles:function () {
+            if(this.roles!=null) {
+                return true;
             }
+            var usr=config.getUser();
+            if(usr==null) return false;
+            usr=config.getUser().user;
+            if(usr==null) return false;
+            var rs = usr.roles;
+            if(rs==null) return false;
+            if(this.roles==null) {
+                this.roles={};
+                for (var i = 0; i < rs.length; i++) {
+                    this.roles[rs[i].code]=true;
+                }
+            }
+            return true;
+        },
+        // 判断是否为指定角色
+        checkRole: function (role) {
+            var roles=null;
+            if(top.admin && top.admin.initRoles) {
+                if (top.admin.initRoles() == false) {
+                    return false;
+                }
+                roles = top.admin.roles;
+            } else {
+                if (this.initRoles() == false) {
+                    return false;
+                }
+                roles = this.roles;
+            }
+
             for (var i = 0; i < arguments.length; i++) {
-                if(!top.admin.authorities[arguments[i]]) {
+                if(!roles[arguments[i]]) {
                     return false;
                 }
             }
             //
             return true;
         },
+        // 判断是否有权限
+        checkAuth: function (auth) {
+            // debugger
+            var authorities=null;
+            if(top.admin &&  top.admin.initAuthorities) {
+                if( top.admin.initAuthorities()==false) {
+                    return false;
+                }
+                authorities=top.admin.authorities;
+            } else {
+                if( this.initAuthorities()==false) {
+                    return false;
+                }
+                authorities=this.authorities;
+            }
+
+            for (var i = 0; i < arguments.length; i++) {
+                if(!authorities[arguments[i]]) {
+                    return false;
+                }
+            }
+            //
+            return true;
+        },
+
         // 窗口大小改变监听
         onResize: function () {
             if (config.autoRender) {
@@ -416,8 +493,12 @@ layui.define(['settings', 'layer'], function (exports) {
         putVar: function (key, value) {
             this.putTempData(key,value,true);
         },
-        getVar: function (key) {
-            return this.getTempData(key);
+        getVar: function (key,clearAfterGet) {
+            var value=this.getTempData(key);
+            if(clearAfterGet) {
+                admin.putVar(key,null);
+            }
+            return value;
         },
         // 缓存临时数据
         putTempData: function (key, value, memoyOnly) {
@@ -553,6 +634,7 @@ layui.define(['settings', 'layer'], function (exports) {
         },
         // 关闭当前选项卡
         closeThisTabs: function () {
+            debugger
             var $title = $('.layui-layout-admin .layui-body .layui-tab .layui-tab-title');
             if ($title.find('li').first().hasClass('layui-this')) {
                 return;

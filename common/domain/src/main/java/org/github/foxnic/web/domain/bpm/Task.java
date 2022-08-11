@@ -23,8 +23,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程任务
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-27 15:55:51
- * @sign CA468010F8A7A263EA0D1816D6ADB4A3
+ * @since 2022-07-15 13:54:50
+ * @sign 56B37C1BB1307B7C8DA3ACEF3626CE45
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -75,6 +75,12 @@ public class Task extends Entity {
 	private TaskStatus statusEnum;
 	
 	/**
+	 * 原因：状态变更的原因
+	*/
+	@ApiModelProperty(required = false,value="原因" , notes = "状态变更的原因")
+	private String statusReason;
+	
+	/**
 	 * 最后处理时间：最后处理时间
 	*/
 	@ApiModelProperty(required = false,value="最后处理时间" , notes = "最后处理时间")
@@ -85,6 +91,12 @@ public class Task extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="任务ID" , notes = "Camunda 任务ID")
 	private String camundaTaskId;
+	
+	/**
+	 * cam中指定的审批人：cam中指定的审批人
+	*/
+	@ApiModelProperty(required = false,value="cam中指定的审批人" , notes = "cam中指定的审批人")
+	private String camundaAssignee;
 	
 	/**
 	 * create_by：create_by
@@ -171,6 +183,18 @@ public class Task extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="审批人账户清单" , notes = "审批人账户清单")
 	private List<TaskAssigneeUser> assigneeUsers;
+	
+	/**
+	 * 流程节点：流程节点
+	*/
+	@ApiModelProperty(required = false,value="流程节点" , notes = "流程节点")
+	private ProcessDefinitionNode node;
+	
+	/**
+	 * 已读清单：已读人员清单
+	*/
+	@ApiModelProperty(required = false,value="已读清单" , notes = "已读人员清单")
+	private List<TaskRead> readers;
 	
 	/**
 	 * 获得 id<br>
@@ -320,6 +344,25 @@ public class Task extends Entity {
 	}
 	
 	/**
+	 * 获得 原因<br>
+	 * 状态变更的原因
+	 * @return 原因
+	*/
+	public String getStatusReason() {
+		return statusReason;
+	}
+	
+	/**
+	 * 设置 原因
+	 * @param statusReason 原因
+	 * @return 当前对象
+	*/
+	public Task setStatusReason(String statusReason) {
+		this.statusReason=statusReason;
+		return this;
+	}
+	
+	/**
 	 * 获得 最后处理时间<br>
 	 * 最后处理时间
 	 * @return 最后处理时间
@@ -354,6 +397,25 @@ public class Task extends Entity {
 	*/
 	public Task setCamundaTaskId(String camundaTaskId) {
 		this.camundaTaskId=camundaTaskId;
+		return this;
+	}
+	
+	/**
+	 * 获得 cam中指定的审批人<br>
+	 * cam中指定的审批人
+	 * @return cam中指定的审批人
+	*/
+	public String getCamundaAssignee() {
+		return camundaAssignee;
+	}
+	
+	/**
+	 * 设置 cam中指定的审批人
+	 * @param camundaAssignee cam中指定的审批人
+	 * @return 当前对象
+	*/
+	public Task setCamundaAssignee(String camundaAssignee) {
+		this.camundaAssignee=camundaAssignee;
 		return this;
 	}
 	
@@ -683,6 +745,55 @@ public class Task extends Entity {
 	public Task addAssigneeUser(TaskAssigneeUser... assigneeUser) {
 		if(this.assigneeUsers==null) assigneeUsers=new ArrayList<>();
 		this.assigneeUsers.addAll(Arrays.asList(assigneeUser));
+		return this;
+	}
+	
+	/**
+	 * 获得 流程节点<br>
+	 * 流程节点
+	 * @return 流程节点
+	*/
+	public ProcessDefinitionNode getNode() {
+		return node;
+	}
+	
+	/**
+	 * 设置 流程节点
+	 * @param node 流程节点
+	 * @return 当前对象
+	*/
+	public Task setNode(ProcessDefinitionNode node) {
+		this.node=node;
+		return this;
+	}
+	
+	/**
+	 * 获得 已读清单<br>
+	 * 已读人员清单
+	 * @return 已读清单
+	*/
+	public List<TaskRead> getReaders() {
+		return readers;
+	}
+	
+	/**
+	 * 设置 已读清单
+	 * @param readers 已读清单
+	 * @return 当前对象
+	*/
+	public Task setReaders(List<TaskRead> readers) {
+		this.readers=readers;
+		return this;
+	}
+	
+	/**
+	 * 添加 已读清单
+	 * @param reader 已读清单
+	 * @return 当前对象
+	*/
+	public Task addReader(TaskRead... reader) {
+		if(this.readers==null) readers=new ArrayList<>();
+		this.readers.addAll(Arrays.asList(reader));
 		return this;
 	}
 

@@ -119,22 +119,23 @@ public class ClusterProxy {
                 paramNames[i] = requestParam.name();
             }
 
-            paramNames=(new DefaultParameterNameDiscoverer()).getParameterNames(method);
+            //paramNames=(new DefaultParameterNameDiscoverer()).getParameterNames(method);
+
             JSONObject   ps = new JSONObject();
             for (int i = 0; i < params.length; i++) {
                 ps.put(paramNames[i], args[i]);
             }
             body = ps.toJSONString();
         }
-        return request(url,requestMethod,body);
+        return request(url,requestMethod,body,(Class<? extends Result>) method.getReturnType());
     }
 
     /**
      * 请求外部节点接口
      */
-    private Object request(String url, RequestMethod requestMethod, String body) {
+    private Object request(String url, RequestMethod requestMethod, String body,Class<? extends Result> resultType) {
 
-        Logger.info("\n\npost "+url+"\n"+body+"\n");
+        // Logger.info("\n\npost "+url+"\n"+body+"\n");
 
         SessionUser sessionUser = SessionUser.getCurrent();
         Map<String, String> headers = new HashMap<>();
@@ -166,7 +167,7 @@ public class ClusterProxy {
             String ret = post(url, body, headers, operator);
             if (ret == null) return null;
             if (ret.startsWith("{") && ret.endsWith("}")) {
-                Result result = ErrorDesc.fromJSON(ret);
+                Result result = ErrorDesc.fromJSON(ret,resultType);
                 return result;
             } else {
                 throw new RuntimeException("不支持的返回值");
@@ -228,16 +229,28 @@ public class ClusterProxy {
                     }
                     return result;
                 }
+            } else {
+                Result result = ErrorDesc.failure().message("Cluster 请求错误");
+                return  JSON.toJSONString(result);
             }
 
         } catch (HttpHostConnectException e) {
-            Logger.error("网络连接失败", e);
-            return  JSON.toJSONString(ErrorDesc.failure().message("网络连接失败或服务不可用"));
+            if(!ProxyContext.isIgnoreCallError()) {
+                Logger.error("网络连接失败", e);
+            }
+            Result result = ErrorDesc.failure().message("网络连接失败或服务不可用");
+            result.extra().setException(e);
+            return  JSON.toJSONString(result);
         } catch (Exception e) {
-            Logger.error("Cluster 请求失败", e);
-            return null;
+            if(!ProxyContext.isIgnoreCallError()) {
+                Logger.error("Cluster 请求失败", e);
+            }
+            Result result = ErrorDesc.failure().message("Cluster 请求失败");
+            result.extra().setException(e);
+            return  JSON.toJSONString(result);
         }
-        return null;
+
+
 
     }
 

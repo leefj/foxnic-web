@@ -43,7 +43,7 @@ public interface IRoleUserService extends ISimpleIdService<RoleUser,String> {
 	 * @param id id
 	 * @return 删除是否成功
 	 */
-	boolean deleteByIdPhysical(String id);
+	Result deleteByIdPhysical(String id);
 
 	/**
 	 * 按主键删除 角色账户关系
@@ -51,7 +51,7 @@ public interface IRoleUserService extends ISimpleIdService<RoleUser,String> {
 	 * @param id id
 	 * @return 删除是否成功
 	 */
-	boolean deleteByIdLogical(String id);
+	Result deleteByIdLogical(String id);
 
 
 	/**
@@ -114,7 +114,6 @@ public interface IRoleUserService extends ISimpleIdService<RoleUser,String> {
 	 * 检查实体中的数据字段是否已经存在
 	 * @param roleUser  实体对象
 	 * @param field  字段清单，至少指定一个
-	 * @param 是否已经存在
 	 * */
 	boolean checkExists(RoleUser roleUser,DBField... field);
 
@@ -233,7 +232,7 @@ public interface IRoleUserService extends ISimpleIdService<RoleUser,String> {
 
  	/**
 	 * 查询指定字段的数据清单
-	 * @param T 元素类型
+	 * @param <T> 元素类型
 	 * @param field 字段
 	 * @param type 元素类型
 	 * @param condition 条件表达式
@@ -243,7 +242,7 @@ public interface IRoleUserService extends ISimpleIdService<RoleUser,String> {
 
 	/**
 	 * 查询指定字段的数据清单
-	 * @param T 元素类型
+	 * @param <T> 元素类型
 	 * @param field 字段
 	 * @param type 元素类型
 	 * @param condition 条件表达式

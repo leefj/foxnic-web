@@ -14,6 +14,7 @@ import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.domain.system.Profile;
+import org.github.foxnic.web.domain.system.ProfileVO;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.system.service.IConfigService;
 import org.github.foxnic.web.system.service.IProfileService;
@@ -23,7 +24,9 @@ import javax.annotation.Resource;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -178,6 +181,27 @@ public class ProfileServiceImpl extends SuperService<Profile> implements IProfil
 	}
 
 	@Override
+	public Boolean hasRefers(String id) {
+		return false;
+	}
+
+	@Override
+	public Map<String, Boolean> hasRefers(List<String> ids) {
+		Map<String, Boolean> map=new HashMap<>();
+		return map;
+	}
+
+	@Override
+	public List<Profile> queryListByIds(List<String> ids) {
+		return null;
+	}
+
+	@Override
+	public Map<String, Profile> queryMapByIds(List<String> ids) {
+		return null;
+	}
+
+	@Override
 	public List<Profile> getByIds(List<String> ids) {
 		return super.queryListByUKeys("id",ids);
 	}
@@ -234,6 +258,16 @@ public class ProfileServiceImpl extends SuperService<Profile> implements IProfil
 		//boolean exists=this.checkExists(profile, SYS_ROLE.NAME);
 		//return exists;
 		return false;
+	}
+
+	@Override
+	public List<Profile> queryList(ProfileVO sample) {
+		return null;
+	}
+
+	@Override
+	public PagedList<Profile> queryPagedList(ProfileVO sample, int pageSize, int pageIndex) {
+		return super.queryPagedList(sample,pageSize,pageIndex);
 	}
 
 	@Override

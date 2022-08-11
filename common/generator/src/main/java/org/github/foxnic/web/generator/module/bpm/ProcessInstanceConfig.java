@@ -5,14 +5,11 @@ import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.PojoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
 import com.github.foxnic.generator.builder.view.config.ActionConfig;
-import com.github.foxnic.generator.builder.view.option.FormOptions;
-import com.github.foxnic.generator.builder.view.option.ListOptions;
-import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
-import com.github.foxnic.generator.builder.view.option.ViewOptions;
+import com.github.foxnic.generator.builder.view.option.*;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_PROCESS_INSTANCE;
-import org.github.foxnic.web.constants.enums.bpm.AppovalReault;
+import org.github.foxnic.web.constants.enums.bpm.ApprovalCatalog;
 import org.github.foxnic.web.constants.enums.bpm.PriorityLevel;
 import org.github.foxnic.web.constants.enums.changes.ApprovalStatus;
 import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
@@ -43,19 +40,26 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
         poType.addSimpleProperty(String.class,"drafterName","起草人名称","起草人名称");
         poType.addSimpleProperty(User.class,"drafterUser","起草人账户","起草人账户");
         poType.addListProperty(Task.class,"tasks","流程任务清单","流程任务清单");
+        poType.addListProperty(Task.class,"todoTasks","待办的流程任务清单","待办的流程任务清单");
         poType.addListProperty(Task.class,"userTasks","可处理的任务清单","当前登录账户可以处理的任务清单");
         poType.addListProperty(FormInstanceBill.class,"bills","业务单据","关联的业务单据清单");
         poType.addListProperty(String.class,"billIds","业务单据ID清单","业务单据ID清单");
+        poType.addListProperty(ProcessError.class,"errors","流程异常清单","流程异常清单");
+        poType.addListProperty(TaskRead.class,"readers","已读清单","已读人员清单");
+        poType.addSimpleProperty(String.class,"approvalStatusName","审批状态","审批状态");
         // 将属性映射为枚举
         poType.shadow(BPM_PROCESS_INSTANCE.APPROVAL_STATUS,ApprovalStatus.class);
         poType.shadow(BPM_PROCESS_INSTANCE.DRAFTER_TYPE,UnifiedUserType.class);
         poType.shadow(BPM_PROCESS_INSTANCE.PRIORITY,PriorityLevel.class);
+        //
         poType.addSimpleProperty(ProcessDefinitionFile.class,"processDefinitionFile","流程定义文件","流程定义文件");
-        poType.addListProperty(TaskApproval.class,"taskApprovals","审批动作清单","审批动作清单");
+        poType.addListProperty(TaskApproval.class,"taskApprovals","审批动作清单","已完成的审批动作清单");
         //
         voType.addListProperty(String.class,"approvedUserIds","已审批人ID清单","查询已审批人ID清单");
         voType.addListProperty(String.class,"approvingUserIds","待审批人ID清单","查询待审批人ID清单");
         voType.addSimpleProperty(Boolean.class,"mine","是否我的流程","是否我的流程");
+        voType.addSimpleProperty(String.class,"approvalCatalog","流程审批分类","流程审批分类");
+        voType.shadow("approvalCatalog", ApprovalCatalog.class);
         //
         PojoClassFile pojo=context.createPojo("ProcessStartVO");
         pojo.setSuperType(null);
@@ -73,8 +77,25 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
         pojo.setSuperType(null);
         pojo.setDoc("流程废弃参数");
         pojo.addSimpleProperty(String.class,"processInstanceId","流程实例ID","流程实例ID");
-        pojo.addSimpleProperty(String.class,"reason","废弃原因","流程实例ID");
+        pojo.addSimpleProperty(String.class,"reason","废弃原因","废弃原因");
         pojo.addSimpleProperty(Boolean.class,"force","是否强制删除","是否强制删除");
+        pojo.addMapProperty(String.class,Object.class,"variables","流程参数","流程参数");
+
+
+        pojo=context.createPojo("ProcessFetchBackVO");
+        pojo.setSuperType(null);
+        pojo.setDoc("流程撤回参数");
+        pojo.addSimpleProperty(String.class,"processInstanceId","流程实例ID","流程实例ID");
+        pojo.addSimpleProperty(String.class,"reason","撤回原因","撤回原因");
+        pojo.addMapProperty(String.class,Object.class,"variables","流程参数","流程参数");
+
+        pojo=context.createPojo("ProcessJumpVO");
+        pojo.setSuperType(null);
+        pojo.setDoc("流程跳转参数");
+        pojo.addSimpleProperty(String.class,"processInstanceId","流程实例ID","流程实例ID");
+        pojo.addSimpleProperty(String.class,"jumpToNodeId","目标节点ID","目标节点ID,CamundaNodeId");
+        pojo.addSimpleProperty(String.class,"reason","跳转原因","跳转原因");
+        pojo.addMapProperty(String.class,Object.class,"variables","流程参数","流程参数");
 
 
     }
@@ -159,7 +180,7 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
 
         view.field(BPM_PROCESS_INSTANCE.PROCESS_DEFINITION_ID).basic().label("流程类型")
                 .form().validate().required()
-                .form().selectBox().queryApi(ProcessDefinitionServiceProxy.QUERY_PAGED_LIST).paging(true).muliti(false).toolbar(false).filter(true)
+                .form().selectBox().queryApi(ProcessDefinitionServiceProxy.QUERY_PAGED_LIST).paging(true).size(1022).muliti(false).toolbar(false).filter(true)
                 .textField(FoxnicWeb.BPM_PROCESS_DEFINITION.NAME).valueField(FoxnicWeb.BPM_PROCESS_DEFINITION.ID)
                 .fillWith(ProcessInstanceMeta.PROCESS_DEFINITION)
                 .table().fillBy(ProcessInstanceMeta.PROCESS_DEFINITION,ProcessDefinitionMeta.NAME)
@@ -212,7 +233,7 @@ public class ProcessInstanceConfig extends BaseCodeConfig<BPM_PROCESS_INSTANCE> 
     }
 
     @Override
-    public void configForm(ViewOptions view, FormOptions form) {
+    public void configForm(ViewOptions view, FormOptions form, FormWindowOptions formWindow) {
 
         view.formWindow().bottomSpace(200);
 

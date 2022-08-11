@@ -6,10 +6,12 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.HRM_EMPLOYEE;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
+import javax.persistence.Transient;
 import java.util.List;
 import org.github.foxnic.web.domain.system.BusiRole;
+import com.github.foxnic.commons.lang.DataParser;
 import java.util.ArrayList;
-import javax.persistence.Transient;
+import java.util.Arrays;
 import com.github.foxnic.dao.entity.Entity;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
@@ -19,8 +21,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 员工
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-17 13:38:19
- * @sign 949B3E90A524B9F6AD2870BDA9929D0C
+ * @since 2022-08-02 16:36:49
+ * @sign F0B5B72CD6B6ADD13675EEE90EA1419B
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -103,6 +105,8 @@ public class Employee extends Person {
 	*/
 	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除")
 	private Integer deleted;
+	@Transient
+	private Boolean deletedBool;
 	
 	/**
 	 * 删除人ID：删除人ID
@@ -407,12 +411,42 @@ public class Employee extends Person {
 	}
 	
 	/**
+	 * 获得 是否已删除 的投影属性<br>
+	 * 等价于 getDeleted 方法，获得对应的枚举类型
+	 * @return 是否已删除
+	*/
+	@Transient
+	public Boolean isDeleted() {
+		if(this.deletedBool==null) {
+			this.deletedBool=DataParser.parseBoolean(deleted);
+		}
+		return this.deletedBool ;
+	}
+	
+	/**
 	 * 设置 是否已删除
 	 * @param deleted 是否已删除
 	 * @return 当前对象
 	*/
 	public Employee setDeleted(Integer deleted) {
 		this.deleted=deleted;
+		this.deletedBool=DataParser.parseBoolean(deleted);
+		return this;
+	}
+	
+	/**
+	 * 设置 是否已删除的投影属性，等同于设置 是否已删除
+	 * @param deletedBool 是否已删除
+	 * @return 当前对象
+	*/
+	@Transient
+	public Employee setDeleted(Boolean deletedBool) {
+		if(deletedBool==null) {
+			this.deleted=null;
+		} else {
+			this.deleted=deletedBool?1:0;
+		}
+		this.deletedBool=deletedBool;
 		return this;
 	}
 	
@@ -554,9 +588,9 @@ public class Employee extends Person {
 	 * @param position 岗位清单
 	 * @return 当前对象
 	*/
-	public Employee addPosition(Position position) {
+	public Employee addPosition(Position... position) {
 		if(this.positions==null) positions=new ArrayList<>();
-		this.positions.add(position);
+		this.positions.addAll(Arrays.asList(position));
 		return this;
 	}
 	
@@ -584,9 +618,9 @@ public class Employee extends Person {
 	 * @param organization 组织清单
 	 * @return 当前对象
 	*/
-	public Employee addOrganization(Organization organization) {
+	public Employee addOrganization(Organization... organization) {
 		if(this.organizations==null) organizations=new ArrayList<>();
-		this.organizations.add(organization);
+		this.organizations.addAll(Arrays.asList(organization));
 		return this;
 	}
 	
@@ -652,9 +686,9 @@ public class Employee extends Person {
 	 * @param busiRole 业务角色清单
 	 * @return 当前对象
 	*/
-	public Employee addBusiRole(BusiRole busiRole) {
+	public Employee addBusiRole(BusiRole... busiRole) {
 		if(this.busiRoles==null) busiRoles=new ArrayList<>();
-		this.busiRoles.add(busiRole);
+		this.busiRoles.addAll(Arrays.asList(busiRole));
 		return this;
 	}
 	
@@ -701,9 +735,9 @@ public class Employee extends Person {
 	 * @param vicePositionId 兼岗ID
 	 * @return 当前对象
 	*/
-	public Employee addVicePositionId(String vicePositionId) {
+	public Employee addVicePositionId(String... vicePositionId) {
 		if(this.vicePositionIds==null) vicePositionIds=new ArrayList<>();
-		this.vicePositionIds.add(vicePositionId);
+		this.vicePositionIds.addAll(Arrays.asList(vicePositionId));
 		return this;
 	}
 	
@@ -731,9 +765,9 @@ public class Employee extends Person {
 	 * @param vicePosition 兼岗
 	 * @return 当前对象
 	*/
-	public Employee addVicePosition(Position vicePosition) {
+	public Employee addVicePosition(Position... vicePosition) {
 		if(this.vicePositions==null) vicePositions=new ArrayList<>();
-		this.vicePositions.add(vicePosition);
+		this.vicePositions.addAll(Arrays.asList(vicePosition));
 		return this;
 	}
 

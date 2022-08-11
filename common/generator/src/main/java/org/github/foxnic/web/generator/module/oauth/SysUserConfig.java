@@ -5,14 +5,14 @@ import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.PojoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
 import com.github.foxnic.generator.builder.view.option.FormOptions;
+import com.github.foxnic.generator.builder.view.option.FormWindowOptions;
 import com.github.foxnic.generator.builder.view.option.ListOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER;
 import org.github.foxnic.web.constants.enums.system.Language;
-import org.github.foxnic.web.domain.hrm.meta.EmployeeMeta;
-import org.github.foxnic.web.domain.hrm.meta.PersonMeta;
+import org.github.foxnic.web.constants.enums.system.LoginType;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.Role;
 import org.github.foxnic.web.domain.oauth.RoleMenu;
@@ -20,7 +20,6 @@ import org.github.foxnic.web.domain.oauth.meta.RoleMeta;
 import org.github.foxnic.web.domain.oauth.meta.UserMeta;
 import org.github.foxnic.web.domain.oauth.meta.UserVOMeta;
 import org.github.foxnic.web.domain.system.UserTenant;
-import org.github.foxnic.web.domain.system.meta.UserTenantMeta;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 import org.github.foxnic.web.proxy.oauth.RoleServiceProxy;
 
@@ -59,6 +58,8 @@ public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
         pojo.addSimpleProperty(String.class,"passwd","密码","");
         pojo.addSimpleProperty(String.class,"browserId","随机ID","客户端产生的唯一ID，用于标识一次认证");
         pojo.addSimpleProperty(String.class,"captcha","校验码/验证码","用户输入的校验码");
+        pojo.addSimpleProperty(String.class,"loginType","登录方式","登录方式");
+        pojo.shadow("loginType", LoginType.class);
     }
 
     @Override
@@ -110,6 +111,7 @@ public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
                 .form().validate().required().phone();
 
         context.view().field(SYS_USER.LANGUAGE)
+                .table().useThemeBadgeStyle()
                 .search().triggerOnSelect(true)
                 .form().radioBox().enumType(Language.class);
 
@@ -118,10 +120,11 @@ public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
         context.view().field(UserVOMeta.ROLE_IDS)
                 .basic().label("角色")
 //				.list().hidden(true)
-                .table().sort(false)
+                .table().sort(false).useThemeBadgeStyle()
                 .search().inputWidth(180).on(FoxnicWeb.SYS_ROLE.ID).selectMuliti(false).triggerOnSelect(true)
                 .form().selectBox().muliti(true,false).queryApi(RoleServiceProxy.QUERY_LIST).fillWith(UserMeta.ROLES)
                 .valueField(RoleMeta.ID).textField(RoleMeta.NAME).muliti(true,false)
+                .form().validate().required()
         ;
 
         context.view().field(SYS_USER.PORTRAIT_ID)
@@ -148,8 +151,10 @@ public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
     }
 
     @Override
-    public void configForm(ViewOptions view, FormOptions form) {
+    public void configForm(ViewOptions view, FormOptions form, FormWindowOptions formWindow) {
         form.labelWidth(85);
+        // 开启右键菜单
+        form.enableContextMenu();
     }
 
     @Override
@@ -157,7 +162,11 @@ public class SysUserConfig extends BaseCodeConfig<SYS_USER> {
         list.columnLayout(SYS_USER.ACCOUNT,SYS_USER.REAL_NAME,SYS_USER.PORTRAIT_ID,SYS_USER.LANGUAGE
                 ,SYS_USER.PHONE,SYS_USER.VALID,UserVOMeta.ROLE_IDS);
 
-        list.operationColumn().addActionButton("属主","openTenantOwner");
+//        list.operationColumn().addActionButton("属主","openTenantOwner");
+
+        list.operationColumn().addActionMenu("ownerRelation","属主关系");
+        list.operationColumn().addActionMenu("passwdReset","重置密码");
+
     }
 
     @Override

@@ -3,6 +3,7 @@ package org.github.foxnic.web.domain.bpm;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
 import com.github.foxnic.api.model.CompositeParameter;
 import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
@@ -12,7 +13,7 @@ import com.github.foxnic.commons.bean.BeanUtil;
 /**
  * 流程审批人
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-11 11:17:30
+ * @since 2022-06-22 17:21:47
  * @sign CE34814B78D2BAA7234DB013FE1D9172
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -188,9 +189,9 @@ public class ProcessDefinitionNodeAssigneeVO extends ProcessDefinitionNodeAssign
 	 * @param dirtyField 已修改字段
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionNodeAssigneeVO addDirtyField(String dirtyField) {
+	public ProcessDefinitionNodeAssigneeVO addDirtyField(String... dirtyField) {
 		if(this.dirtyFields==null) dirtyFields=new ArrayList<>();
-		this.dirtyFields.add(dirtyField);
+		this.dirtyFields.addAll(Arrays.asList(dirtyField));
 		return this;
 	}
 	
@@ -254,9 +255,9 @@ public class ProcessDefinitionNodeAssigneeVO extends ProcessDefinitionNodeAssign
 	 * @param id 主键清单
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionNodeAssigneeVO addId(String id) {
+	public ProcessDefinitionNodeAssigneeVO addId(String... id) {
 		if(this.ids==null) ids=new ArrayList<>();
-		this.ids.add(id);
+		this.ids.addAll(Arrays.asList(id));
 		return this;
 	}
 	@Transient

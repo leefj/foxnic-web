@@ -1,11 +1,25 @@
 package #(package);
 
+#if(bpm)
+import org.github.foxnic.web.domain.bpm.BpmActionResult;
+import org.github.foxnic.web.domain.bpm.BpmEvent;
+#end
+#if(isSimplePK)
+import com.github.foxnic.dao.entity.ISimpleIdService;
+#end
 #(imports)
 
 #(classJavaDoc)
 
-public interface #(simpleName) extends ISuperService<#(poSimpleName)> {
+public interface #(simpleName) extends #if(isSimplePK) ISimpleIdService<#(poSimpleName),#(idPropertyType)> #else ISuperService<#(poSimpleName)> #end {
 
+
+	#if(bpm)
+	/**
+ 	  * 表单定义代码
+      **/
+	public static final String FORM_DEFINITION_CODE="#(bpmFormCode)";
+	#end
 	/**
 	 * 添加，如果语句错误，则抛出异常
 	 * @param #(poVar) 数据对象
@@ -115,6 +129,18 @@ public interface #(simpleName) extends ISuperService<#(poSimpleName)> {
 	#if(isSimplePK)
 
 	/**
+	 * 检查引用
+	 * @param #(idPropertyName)  检查ID是否又被外部表引用
+	 * */
+	Boolean hasRefers(#(idPropertyType) #(idPropertyName));
+
+	/**
+	 * 批量检查引用
+	 * @param #(idPropertyName)s  检查这些ID是否又被外部表引用
+	 * */
+	Map<#(idPropertyType),Boolean> hasRefers(List<#(idPropertyType)> #(idPropertyName)s);
+
+	/**
 	 * 按 #(idPropertyName) 获取多个对象
 	 * @param #(idPropertyName)s  主键清单
 	 * @return 实体集
@@ -158,7 +184,7 @@ public interface #(simpleName) extends ISuperService<#(poSimpleName)> {
 	 * @param sample  查询条件
 	 * @return 查询结果
 	 * */
-	List<#(poSimpleName)> queryList(#(poSimpleName) sample);
+	List<#(poSimpleName)> queryList(#(voSimpleName) sample);
 
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
@@ -199,7 +225,7 @@ public interface #(simpleName) extends ISuperService<#(poSimpleName)> {
 	 * @param pageIndex 页码
 	 * @return 查询结果
 	 * */
-	PagedList<#(poSimpleName)> queryPagedList(#(poSimpleName) sample,int pageSize,int pageIndex);
+	PagedList<#(poSimpleName)> queryPagedList(#(voSimpleName) sample,int pageSize,int pageIndex);
 
 	/**
 	 * 分页查询实体集
@@ -253,28 +279,33 @@ public interface #(simpleName) extends ISuperService<#(poSimpleName)> {
 	 * */
 	<T> List<T> queryValues(DBField field, Class<T> type, String condition,Object... ps);
 
+	#if(isEnableExportExcel)
 	/**
 	 * 导出 Excel
 	 * */
 	ExcelWriter exportExcel(#(poSimpleName) sample);
-
-	/**
-	 * 导出用于数据导入的 Excel 模版
-	 * */
-	ExcelWriter  exportExcelTemplate();
-
+ 	#end
+	#if(isEnableImportExcel || isEnableExportExcel)
 	/**
 	 * 构建 Excel 结构
 	 * @param  isForExport 是否用于数据导出
 	 * @return   ExcelStructure
 	 * */
 	ExcelStructure buildExcelStructure(boolean isForExport);
+	#end
+	#if(isEnableImportExcel)
+	/**
+	 * 导出用于数据导入的 Excel 模版
+	 * */
+	ExcelWriter  exportExcelTemplate();
 
 	/**
 	 * 导入 Excel 数据
 	 * @return  错误信息，成功时返回 null
 	 * */
 	List<ValidateResult> importExcel(InputStream input,int sheetIndex,boolean batch);
+	#end
+
 
 	#if(relationMasterIdField!=null)
 	/**
@@ -283,6 +314,20 @@ public interface #(simpleName) extends ISuperService<#(poSimpleName)> {
 	 * @param #(relationSlaveVar) #(relationSlaveVarDoc)
 	 */
 	void saveRelation(#(relationMasterVarType) #(relationMasterVar),List<#(relationSlaveVarType)> #(relationSlaveVar));
+	#end
+
+	#if(bpm)
+	/**
+	 * 处理流程回调
+	 * */
+	BpmActionResult onProcessCallback(BpmEvent event);
+
+
+	void joinProcess(#(poSimpleName) #(poVar));
+
+	void joinProcess(List<#(poSimpleName)> #(poVar)List);
+
+	void joinProcess(PagedList<#(poSimpleName)> #(poVar)List);
 	#end
 
 }

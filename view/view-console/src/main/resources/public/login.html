@@ -69,6 +69,7 @@
 <script type="text/javascript" src="module/Math.uuid.js" th:src="'module/Math.uuid.js?'+${cacheKey}"></script>
 
 <script>
+    localStorage.setItem("theme","[[${theme_code}]]");
     if(window!=top) top.location="/login.html"
     layui.config({
         base: 'module/'
@@ -99,10 +100,10 @@
                     if (data.success) {
                         var user=data.data;
                         // debugger
-                        user.user.displayName=user.user.name;
-                        if(user.user.activatedEmployeeName){
-                            user.user.displayName=user.user.activatedEmployeeName;
-                        }
+                        user.user.displayName=user.user.realName;
+                        // if(user.user.activatedEmployeeName){
+                        //     user.user.displayName=user.user.activatedEmployeeName;
+                        // }
                     	config.putUser(user);
                     	console.log("token",user.token);
                         config.putToken(user.token);

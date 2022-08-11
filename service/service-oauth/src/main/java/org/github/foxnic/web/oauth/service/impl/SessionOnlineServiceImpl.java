@@ -109,7 +109,7 @@ public class SessionOnlineServiceImpl extends SuperService<SessionOnline> implem
 		SessionOnline sessionOnline = new SessionOnline();
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null 。");
 		sessionOnline.setId(id);
-		sessionOnline.setDeleted(dao.getDBTreaty().getTrueValue());
+		sessionOnline.setDeleted(true);
 		sessionOnline.setDeleteBy((String)dao.getDBTreaty().getLoginUserId());
 		sessionOnline.setDeleteTime(new Date());
 		return dao.updateEntity(sessionOnline,SaveMode.NOT_NULL_FIELDS);
@@ -248,7 +248,7 @@ public class SessionOnlineServiceImpl extends SuperService<SessionOnline> implem
 
 	@Override
 	public void offline(String sessionId) {
-		dao.setPrintThreadSQL(false);
+		dao.pausePrintThreadSQL();
 		dao.execute("update "+this.table()+" set online=0 , logout_time=now() where session_id=?",sessionId);
 		sessionCache.remove(sessionId);
 	}

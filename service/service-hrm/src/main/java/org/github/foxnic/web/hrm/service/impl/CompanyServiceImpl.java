@@ -39,7 +39,7 @@ public class CompanyServiceImpl extends SuperService<Company> implements ICompan
 	/**
 	 * 注入DAO对象
 	 * */
-	@Resource(name=DBConfigs.PRIMARY_DAO) 
+	@Resource(name=DBConfigs.PRIMARY_DAO)
 	private DAO dao=null;
 
 	/**
@@ -51,7 +51,7 @@ public class CompanyServiceImpl extends SuperService<Company> implements ICompan
 
 	@Override
 	public Object generateId(Field field) {
-		return "prefix"+IDGenerator.getSnowflakeIdString();
+		return IDGenerator.getSnowflakeIdString();
 	}
 
 	/**
@@ -87,7 +87,7 @@ public class CompanyServiceImpl extends SuperService<Company> implements ICompan
 		return super.insertList(companyList);
 	}
 
-	
+
 	/**
 	 * 按主键删除 公司
 	 *
@@ -108,7 +108,7 @@ public class CompanyServiceImpl extends SuperService<Company> implements ICompan
 			return r;
 		}
 	}
-	
+
 	/**
 	 * 按主键删除 公司
 	 *
@@ -168,7 +168,7 @@ public class CompanyServiceImpl extends SuperService<Company> implements ICompan
 		return super.updateList(companyList , mode);
 	}
 
-	
+
 	/**
 	 * 按主键更新字段 公司
 	 *
@@ -182,7 +182,7 @@ public class CompanyServiceImpl extends SuperService<Company> implements ICompan
 		return suc>0;
 	}
 
-	
+
 	/**
 	 * 按主键获取 公司
 	 *

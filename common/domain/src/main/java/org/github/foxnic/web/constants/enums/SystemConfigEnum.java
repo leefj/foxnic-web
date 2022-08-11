@@ -6,48 +6,13 @@ import com.github.foxnic.commons.reflect.EnumUtil;
 
 
 /**
- * @since 2022-05-16 14:14:33
+ * @since 2022-07-26 15:42:45
  * @author 李方捷 , leefangjie@qq.com
- * 从 select distinct code,name from sys_config WHERE deleted=0 生成
+ * 从 select distinct code,name from sys_config WHERE deleted=0 and code not like 'EAM_%' and code not like 'OPS_%' 生成
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成
 */
 
 public enum SystemConfigEnum implements CodeTextEnum {
-	
-	/**
-	 * 资产全局查询数据权限
-	*/
-	EAM_ASSETDATAPERMISSIONS("eam.assetDataPermissions" , "资产全局查询数据权限"),
-	
-	/**
-	 * 资产页面直接更新
-	*/
-	EAM_ASSETDIRECTUPDATEMODE("eam.assetDirectUpdateMode" , "资产页面直接更新"),
-	
-	/**
-	 * 资产导入保留编码
-	*/
-	EAM_ASSETIMPORTASSETCODEKEEP("eam.assetImportAssetCodeKeep" , "资产导入保留编码"),
-	
-	/**
-	 * 资产导入数据自动补充
-	*/
-	EAM_ASSETIMPORTDATAREPLENISH("eam.assetImportDataReplenish" , "资产导入数据自动补充"),
-	
-	/**
-	 * 资产序列是否唯一
-	*/
-	EAM_ASSETSERIALNUMBERISUNIQUE("eam.assetSerialNumberIsUnique" , "资产序列是否唯一"),
-	
-	/**
-	 * 资产字段更新禁用
-	*/
-	EAM_ASSETSTATUSCOLUMNDISABLE("eam.assetStatusColumnDisable" , "资产字段更新禁用"),
-	
-	/**
-	 * 监控zabbixGet命令路径
-	*/
-	OPS_MONITORZABBIXGETROUTE("ops.monitorZabbixGetRoute" , "监控zabbixGet命令路径"),
 	
 	/**
 	 * 缓存键
@@ -80,6 +45,11 @@ public enum SystemConfigEnum implements CodeTextEnum {
 	SYSTEM_INDEX_LOGO("system.index.logo" , "首页右上的logo图片"),
 	
 	/**
+	 * 门户页面
+	*/
+	SYSTEM_INDEX_PORTALURL("system.index.portalURL" , "门户页面"),
+	
+	/**
 	 * 系统默认语言
 	*/
 	SYSTEM_LANGUAGE("system.language" , "系统默认语言"),
@@ -98,6 +68,11 @@ public enum SystemConfigEnum implements CodeTextEnum {
 	 * 登录信息
 	*/
 	SYSTEM_LOGIN_DEFAULT("system.login.default" , "登录信息"),
+	
+	/**
+	 * 登录页模版
+	*/
+	SYSTEM_PAGE_LOGIN_TEMPLATE("system.page.login.template" , "登录页模版"),
 	
 	/**
 	 * 账户默认密码

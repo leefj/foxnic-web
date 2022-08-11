@@ -1,7 +1,7 @@
 /**
  * 员工 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-17 13:38:24
+ * @since 2022-08-02 16:36:55
  */
 
 
@@ -45,6 +45,9 @@ function ListPage() {
 		});
 		fox.adjustSearchElement();
 		//
+		 var marginTop=$(".search-bar").height()+$(".search-bar").css("padding-top")+$(".search-bar").css("padding-bottom")
+		 $("#table-area").css("margin-top",marginTop+"px");
+		//
 		function renderTableInternal() {
 
 			var ps={searchField: "$composite"};
@@ -76,35 +79,24 @@ function ListPage() {
 					{ fixed: 'left',type:'checkbox'}
 					,{ field: 'companyId', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('公司ID') , templet: function (d) { return templet('companyId',d.companyId,d);}  }
 					,{ field: 'badge', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('工号') , templet: function (d) { return templet('badge',d.badge,d);}  }
-					,{ field: 'name', align:"",fixed:false,  hide:false, sort: true  , title: fox.translate('姓名') , templet: function (d) { return templet('name',fox.getProperty(d,["person","name"]),d);} }
-					,{ field: 'sex', align:"center", fixed:false, hide:false, sort: true  , title: fox.translate('姓别'), templet:function (d){ return templet('sex',fox.getDictText(RADIO_SEX_DATA,d.sex),d);}}
+					,{ field: 'name', align:"",fixed:false,  hide:false, sort: true  , title: fox.translate('姓名') , templet: function (d) { return templet('name',fox.getProperty(d,["person","name"],0,'','name'),d);} }
+					,{ field: 'sex', align:"center", fixed:false, hide:false, sort: true  , title: fox.translate('姓别'), templet:function (d){ return templet('sex',fox.getDictText(RADIO_SEX_DATA,d.sex,'','sex'),d);}}
 					,{ field: 'phone', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('手机号') , templet: function (d) { return templet('phone',d.phone,d);}  }
-					,{ field: 'primaryOrganization', align:"",fixed:false,  hide:false, sort: false  , title: fox.translate('部门') , templet: function (d) { return templet('primaryOrganization',fox.getProperty(d,["primaryOrganization","fullName"]),d);} }
-					,{ field: 'primaryPositionId', align:"",fixed:false,  hide:false, sort: false  , title: fox.translate('主岗') , templet: function (d) { return templet('primaryPositionId',fox.getProperty(d,["primaryPosition","fullName"]),d);} }
+					,{ field: 'primaryOrganization', align:"",fixed:false,  hide:false, sort: false  , title: fox.translate('部门') , templet: function (d) { return templet('primaryOrganization',fox.getProperty(d,["primaryOrganization","fullName"],0,'','primaryOrganization'),d);} }
+					,{ field: 'primaryPositionId', align:"",fixed:false,  hide:false, sort: false  , title: fox.translate('主岗') , templet: function (d) { return templet('primaryPositionId',fox.getProperty(d,["primaryPosition","fullName"],0,'','primaryPositionId'),d);} }
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true   ,title: fox.translate('创建时间') ,templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
 					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('ID') , templet: function (d) { return templet('id',d.id,d);}  }
 					,{ field: 'personId', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('人员ID') , templet: function (d) { return templet('personId',d.personId,d);}  }
-					,{ field: 'status', align:"left", fixed:false, hide:true, sort: true  , title: fox.translate('状态'), templet:function (d){ return templet('status',fox.getDictText(RADIO_STATUS_DATA,d.status),d);}}
-					,{ field: 'identity', align:"",fixed:false,  hide:true, sort: true  , title: fox.translate('身份证') , templet: function (d) { return templet('identity',fox.getProperty(d,["person","identity"]),d);} }
-					,{ field: 'vicePositionIds', align:"",fixed:false,  hide:true, sort: false  , title: fox.translate('兼岗') , templet: function (d) { return templet('vicePositionIds',fox.getProperty(d,["vicePositions","fullName"]),d);} }
+					,{ field: 'status', align:"left", fixed:false, hide:true, sort: true  , title: fox.translate('状态'), templet:function (d){ return templet('status',fox.getDictText(RADIO_STATUS_DATA,d.status,'','status'),d);}}
+					,{ field: 'identity', align:"",fixed:false,  hide:true, sort: true  , title: fox.translate('身份证') , templet: function (d) { return templet('identity',fox.getProperty(d,["person","identity"],0,'','identity'),d);} }
+					,{ field: 'vicePositionIds', align:"",fixed:false,  hide:true, sort: false  , title: fox.translate('兼岗') , templet: function (d) { return templet('vicePositionIds',fox.getProperty(d,["vicePositions","fullName"],0,'','vicePositionIds'),d);} }
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
 				]],
 				done: function (data) { window.pageExt.list.afterQuery && window.pageExt.list.afterQuery(data); },
 				footer : {
-					exportExcel : admin.checkAuth(AUTH_PREFIX+":export"),
-					importExcel : admin.checkAuth(AUTH_PREFIX+":import")?{
-						params : {} ,
-						callback : function(r) {
-							if(r.success) {
-								layer.msg(fox.translate('数据导入成功')+"!");
-							} else {
-								layer.msg(fox.translate('数据导入失败')+"!");
-							}
-							// 是否执行后续逻辑：错误提示
-							return false;
-						}
-					}:false
+					exportExcel : false ,
+					importExcel : false 
 				}
 			};
 			window.pageExt.list.beforeTableRender && window.pageExt.list.beforeTableRender(tableConfig);
@@ -119,24 +111,39 @@ function ListPage() {
     };
 
 	/**
+	 * 刷新单号数据
+	 * */
+	function refreshRowData(data,remote) {
+		var context=dataTable.getDataRowContext( { id : data.id } );
+		if(context==null) return;
+		if(remote) {
+			admin.post(moduleURL+"/get-by-id", { id : data.id }, function (r) {
+				if (r.success) {
+					data = r.data;
+					context.update(data);
+					fox.renderFormInputs(form);
+				} else {
+					fox.showMessage(data);
+				}
+			});
+		} else {
+			context.update(data);
+			fox.renderFormInputs(form);
+		}
+	}
+
+	/**
       * 刷新表格数据
       */
 	function refreshTableData(sortField,sortType,reset) {
 		function getSelectedValue(id,prop) { var xm=xmSelect.get(id,true); return xm==null ? null : xm.getValue(prop);}
 		var value = {};
-		value.companyId={ inputType:"button",value: $("#companyId").val()};
-		value.badge={ inputType:"button",value: $("#badge").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" };
-		value.name={ inputType:"button",value: $("#name").val() ,fuzzy: true,valuePrefix:"",valueSuffix:"" ,fillBy:["person","name"] };
+		value.badge={ inputType:"button",value: $("#badge").val() ,fuzzy: true,splitValue:false,valuePrefix:"",valueSuffix:"" };
+		value.name={ inputType:"button",value: $("#name").val() ,fuzzy: true,splitValue:false,valuePrefix:"",valueSuffix:"" ,fillBy:["person","name"] };
 		value.sex={ inputType:"radio_box", value: getSelectedValue("#sex","value"), label:getSelectedValue("#sex","nameStr") ,field:"hrm_person.sex" ,fillBy:["person","sex"] };
 		value.phone={ inputType:"button",value: $("#phone").val()};
-		value.primaryOrganization={ inputType:"button",value: $("#primaryOrganization").val(),fillBy:["primaryOrganization","fullName"] };
-		value.primaryPositionId={ inputType:"button",value: $("#primaryPositionId").val(),fillBy:["primaryPosition","fullName"] ,label:$("#primaryPositionId-button").text() };
 		value.createTime={ inputType:"date_input", value: $("#createTime").val() ,matchType:"auto"};
-		value.id={ inputType:"button",value: $("#id").val()};
-		value.personId={ inputType:"button",value: $("#personId").val()};
 		value.status={ inputType:"radio_box", value: getSelectedValue("#status","value"), label:getSelectedValue("#status","nameStr") };
-		value.identity={ inputType:"button",value: $("#identity").val(),fillBy:["person","identity"] };
-		value.vicePositionIds={ inputType:"button",value: $("#vicePositionIds").val(),fillBy:["vicePositions","fullName"] ,label:$("#vicePositionIds-button").text() };
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
 			if(!window.pageExt.list.beforeQuery(value,ps,"refresh")) return;
@@ -191,7 +198,9 @@ function ListPage() {
 			radio: true,
 			on: function(data){
 				setTimeout(function () {
-					refreshTableData();
+					if(data.change && data.change.length>0) {
+						refreshTableData();
+					}
 					window.pageExt.list.onSelectBoxChanged && window.pageExt.list.onSelectBoxChanged("status",data.arr,data.change,data.isAdd);
 				},1);
 			},
@@ -213,7 +222,9 @@ function ListPage() {
 			radio: true,
 			on: function(data){
 				setTimeout(function () {
-					refreshTableData();
+					if(data.change && data.change.length>0) {
+						refreshTableData();
+					}
 					window.pageExt.list.onSelectBoxChanged && window.pageExt.list.onSelectBoxChanged("sex",data.arr,data.change,data.isAdd);
 				},1);
 			},
@@ -275,6 +286,7 @@ function ListPage() {
 			}
 			switch(obj.event){
 				case 'create':
+					admin.putTempData('hrm-employee-form-data', {});
 					openCreateFrom();
 					break;
 				case 'batch-del':
@@ -312,18 +324,19 @@ function ListPage() {
             }
             //调用批量删除接口
 			top.layer.confirm(fox.translate('确定删除已选中的')+fox.translate('员工')+fox.translate('吗？'), function (i) {
-                admin.post(moduleURL+"/delete-by-ids", { ids: ids }, function (data) {
+                top.layer.close(i);
+				admin.post(moduleURL+"/delete-by-ids", { ids: ids }, function (data) {
                     if (data.success) {
 						if(window.pageExt.list.afterBatchDelete) {
 							var doNext=window.pageExt.list.afterBatchDelete(data);
 							if(!doNext) return;
 						}
-                    	top.layer.msg(data.message, {icon: 1, time: 500});
+						fox.showMessage(data);
                         refreshTableData();
                     } else {
-						top.layer.msg(data.message, {icon: 2, time: 1500});
+						fox.showMessage(data);
                     }
-                });
+                },{delayLoading:200,elms:[$("#delete-button")]});
 			});
         }
 	}
@@ -349,7 +362,7 @@ function ListPage() {
 						admin.putTempData('hrm-employee-form-data-form-action', "edit",true);
 						showEditForm(data.data);
 					} else {
-						 top.layer.msg(data.message, {icon: 1, time: 1500});
+						 fox.showMessage(data);
 					}
 				});
 			} else if (layEvent === 'view') { // 查看
@@ -358,7 +371,7 @@ function ListPage() {
 						admin.putTempData('hrm-employee-form-data-form-action', "view",true);
 						showEditForm(data.data);
 					} else {
-						top.layer.msg(data.message, {icon: 1, time: 1500});
+						fox.showMessage(data);
 					}
 				});
 			}
@@ -368,23 +381,22 @@ function ListPage() {
 					var doNext=window.pageExt.list.beforeSingleDelete(data);
 					if(!doNext) return;
 				}
+
 				top.layer.confirm(fox.translate('确定删除此')+fox.translate('员工')+fox.translate('吗？'), function (i) {
 					top.layer.close(i);
-
-					top.layer.load(2);
-					admin.request(moduleURL+"/delete", { id : data.id }, function (data) {
+					admin.post(moduleURL+"/delete", { id : data.id }, function (data) {
 						top.layer.closeAll('loading');
 						if (data.success) {
 							if(window.pageExt.list.afterSingleDelete) {
 								var doNext=window.pageExt.list.afterSingleDelete(data);
 								if(!doNext) return;
 							}
-							top.layer.msg(data.message, {icon: 1, time: 500});
+							fox.showMessage(data);
 							refreshTableData();
 						} else {
-							top.layer.msg(data.message, {icon: 2, time: 1500});
+							fox.showMessage(data);
 						}
-					});
+					},{delayLoading:100, elms:[$(".ops-delete-button[data-id='"+data.id+"']")]});
 				});
 			}
 			
@@ -424,14 +436,21 @@ function ListPage() {
 			id:"hrm-employee-form-data-win",
 			content: '/business/hrm/employee/employee_form.html' + (queryString?("?"+queryString):""),
 			finish: function () {
-				refreshTableData();
+				if(action=="create") {
+					refreshTableData();
+				}
+				if(action=="edit") {
+					false?refreshTableData():refreshRowData(data,true);
+				}
 			}
 		});
 	};
 
 	window.module={
 		refreshTableData: refreshTableData,
-		getCheckedList: getCheckedList
+		refreshRowData: refreshRowData,
+		getCheckedList: getCheckedList,
+		showEditForm: showEditForm
 	};
 
 	window.pageExt.list.ending && window.pageExt.list.ending();

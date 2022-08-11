@@ -173,13 +173,13 @@ public interface CatalogServiceProxy {
      * 删除数据存储
      */
     @RequestMapping(CatalogServiceProxy.DELETE)
-    Result deleteById(@RequestParam(name = "id") Integer id);
+    Result deleteById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除数据存储
      */
     @RequestMapping(CatalogServiceProxy.DELETE_BY_IDS)
-    Result deleteByIds(@RequestParam(name = "ids") List<Integer> ids);
+    Result deleteByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 更新数据存储
@@ -197,13 +197,13 @@ public interface CatalogServiceProxy {
      * 获取数据存储
      */
     @RequestMapping(CatalogServiceProxy.GET_BY_ID)
-    Result<Catalog> getById(@RequestParam(name = "id") Integer id);
+    Result<Catalog> getById(@RequestParam(name = "id") String id);
 
     /**
      * 批量删除数据存储
      */
     @RequestMapping(CatalogServiceProxy.GET_BY_IDS)
-    Result<List<Catalog>> getByIds(@RequestParam(name = "ids") List<Integer> ids);
+    Result<List<Catalog>> getByIds(@RequestParam(name = "ids") List<String> ids);
 
     /**
      * 查询数据存储

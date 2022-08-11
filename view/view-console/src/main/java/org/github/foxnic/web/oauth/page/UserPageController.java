@@ -16,7 +16,7 @@ import org.springframework.ui.Model;
 @Controller("SysUserPageController")
 @RequestMapping(UserPageController.prefix)
 public class UserPageController {
-	
+
 	public static final String prefix="business/oauth/user";
 
 	/**
@@ -34,4 +34,21 @@ public class UserPageController {
 	public String form(Model model , String id) {
 		return prefix+"/user_form";
 	}
+
+	/**
+	 * 账户 表单页面
+	 */
+	@RequestMapping("/user_profile.html")
+	public String profileForm(Model model , String id) {
+		return prefix+"/user_profile";
+	}
+
+	/**
+	 * 账户 表单页面
+	 */
+	@RequestMapping("/user_passwd_form.html")
+	public String passwdForm(Model model , String id) {
+		return prefix+"/user_passwd_form";
+	}
+
 }

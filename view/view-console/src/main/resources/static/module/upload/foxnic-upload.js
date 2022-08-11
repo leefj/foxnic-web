@@ -71,7 +71,7 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"elem
         }
         //设置预览图
         if(fileType.startWith("image/")) {
-            debugger;
+            // debugger;
             if(result!=null) {
                 img.attr('src', result); //base64 图片
             } else {
@@ -272,7 +272,7 @@ layui.define(['settings', 'layer','admin','form', 'table', 'util','upload',"elem
                     var cfg=UPLOADS[elId].config;
                     //如果只有一个，就替换
                     var fs=$("#"+elId+"-file-list").children();
-                    //debugger;
+                    // debugger;
                     if(cfg.maxFileCount==1) {
                         var idx=$("#"+elId+"-file-list").attr("index");
                         var fid=$("#"+elId+"-file-list").attr("fileId");

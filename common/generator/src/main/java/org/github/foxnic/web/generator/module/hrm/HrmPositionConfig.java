@@ -3,6 +3,7 @@ package org.github.foxnic.web.generator.module.hrm;
 import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
 import com.github.foxnic.generator.builder.view.option.FormOptions;
+import com.github.foxnic.generator.builder.view.option.FormWindowOptions;
 import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
 import com.github.foxnic.generator.builder.view.option.ViewOptions;
 import com.github.foxnic.generator.config.WriteMode;
@@ -48,7 +49,7 @@ public class HrmPositionConfig extends BaseCodeConfig<HRM_POSITION> {
     }
 
     @Override
-    public void configForm(ViewOptions view, FormOptions form) {
+    public void configForm(ViewOptions view, FormOptions form, FormWindowOptions formWindow) {
         form.columnLayout(new Object[] {
                 HRM_POSITION.FULL_NAME,HRM_POSITION.SHORT_NAME,HRM_POSITION.CODE,HRM_POSITION.TYPE,HRM_POSITION.VALID
         });

@@ -527,6 +527,7 @@ a cite{font-style: normal; *cursor:pointer;}
 .layui-bg-blue{background-color: #1E9FFF!important; color: #fff!important;} /*蓝*/
 .layui-bg-black{background-color: #393D49!important; color: #fff!important;} /*黑*/
 .layui-bg-gray{background-color: #FAFAFA!important; color: #666!important;} /*灰*/
+.layui-bg-dark-gray{background-color: #dedede!important; color: #666!important;} /*深灰*/
 
 /* 边框 */
 .layui-border,

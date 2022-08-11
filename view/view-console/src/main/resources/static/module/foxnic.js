@@ -22,10 +22,10 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             if (!id.startWith("#")) id = "#" + id;
             return this.selectBoxInstances[id];
         },
-        setSelectBoxUrl:function(id,url){
+        setSelectBoxUrl:function(id,url,cb){
             var box=this.getSelectBox(id);
             if(box) {
-                box.setUrl(url);
+                box.setUrl(url,cb);
             } else {
                 $("#"+id).attr("data",url);
             }
@@ -38,16 +38,24 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             if(!box) return;
             box.doingDisabled=true;
             box.update({ disabled: disabled });
+
+            $(box.options.dom).find(".xm-label-block").addClass("xm-label-block-disabled");
+            $(box.options.dom).find(".xm-icon-close").hide();
             box.doingDisabled=false;
+
         },
         selectBoxConfigs:{},
+        selectBoxQueryTime:{},
         renderSelectBox: function (cfg,rerender) {
             var me=this;
-            var inst = null;
+            if(!cfg) cfg={};
+            if (!cfg.el.startWith("#")) cfg.el = "#" + cfg.el;
+            // debugger
+            var inst = xmSelect.get(cfg.el, true);
             var refreshCallback=cfg.refreshCallback;
             //不重复渲染
-            if (!rerender && xmSelect.get(cfg.el, true) != null) return;
-            if (!cfg.el.startWith("#")) cfg.el = "#" + cfg.el;
+            if (!rerender && inst != null) return;
+
             if(!rerender) {
                 this.selectBoxConfigs[cfg.el]=cfg;
             } else {
@@ -71,6 +79,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 data = null;
             }
 
+
             //本地数据渲染
             if (data != null) {
                 if (cfg.transform) {
@@ -89,9 +98,27 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 function query(ps, cb) {
                     //再次重新读取，更改这个值，以便级联
                     var url = el.attr("data");
-                    // debugger;
+
+                    // // debugger;
+                    // var key=cfg.el+";URL:"+url+";PS:"+JSON.stringify(ps);
+                    // key=key.trim();
+                    // var now=(new Date()).getTime();
+                    // var t=me.selectBoxQueryTime[key];
+                    // if (t) {
+                    //     t = now - t;
+                    //     //logger.info("请求时间差(" + cfg.el + "):", t);
+                    //     if (t < 500) {
+                    //         //var data=me.selectBoxQueryValue[key];//={opts:opts,pageCount:r.data.pageCount};
+                    //         //cb && cb(data.opts, data.pageCount);
+                    //         return;
+                    //     }
+                    // }
+                    // //logger.info(cfg.id,key,now,t)
+                    // me.selectBoxQueryTime[key]=now;
+
                     admin.request(url, ps, function (r) {
                         // debugger//
+
                         var opts = [];
                         me.getSelectBox(cfg.el)["currentData"]=null;
                         if (r.success) {
@@ -102,12 +129,20 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                                 opts = cfg.transform && cfg.transform(r.data);
                             }
 
+
+
                         } else {
                             opts = [{name: r.message, value: "-1"}];
                         }
+
                         if(!opts) {
                             opts=r.data;
                         }
+
+                        if(cfg.beforeListOptionsChange) {
+                            opts = cfg.beforeListOptionsChange(opts)
+                        }
+
                         // debugger
                         if (cfg.paging) {
                             cb(opts, r.data.pageCount);
@@ -123,10 +158,13 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                             window.adjustPopup();
                         }
 
+
+
                     }, "POST", true);
                 }
 
                 if (!cfg.filterable) {
+
                     var ps={};
                     if (cfg.extraParam) {
                         var ext = {};
@@ -139,7 +177,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                             ps[key] = ext[key];
                         }
                     }
-
+                    // debugger
                     query(ps, function (r) {
                         cfg.data = r;
                         cfg.remoteSearch=false;
@@ -156,12 +194,18 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                         if(val) {
                             sel.setValue(val);
                         }
-
                     })
                 }
 
+                // 这个方法组件会自动触发
                 cfg.remoteMethod = function (val, cb, show, pageIndex) {
-                    //debugger;
+
+
+                    //   if(window.xx) return;
+                    //window.xx=true;
+                    // debugger;
+                    // z++;
+                    // logger.warn("select-box:"+cfg.el,"T-"+z);
                     var ps = {searchField: cfg.searchField, searchValue: val, fuzzyField: cfg.searchField};
                     if (cfg.paging) {
                         if (!cfg.pageSize) ps.pageSize = 10;
@@ -265,11 +309,38 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             // debugger;
             var me=this;
             if(lock) {
+                function keepCall(fn,t) {
+                    fn();
+                    var i=0;
+                    var t=setInterval(function (){
+                        i++;
+                        fn();
+                        if(i>t) clearInterval(t);
+                        logger.info("hha","hhaha")
+                    },1);
+                }
                 fm.find("input").attr("placeholder", "");
                 fm.find("input").attr("readonly", "yes");
                 fm.find("textarea").attr("placeholder", "");
                 fm.find("textarea").attr("readonly", "yes");
+
+                fm.find("input").addClass("layui-input-read-only");
+                fm.find("textarea").addClass("layui-input-read-only");
+
                 fm.find("input[type=checkbox]").attr("disabled", "yes");
+
+                keepCall(function () {
+                    fm.find(".layui-form-switch").addClass("layui-form-switch-disabled");
+                },250);
+
+
+                fm.find(".layui-form-checked i").addClass("layui-form-chcekbox-disabled");
+                keepCall(function () {
+                    fm.find(".layui-form-checked i").addClass("layui-form-chcekbox-disabled");
+                    fm.find(".layui-form-checked i").attr("style","border-color:#a0a0a0 !important");
+                },250);
+
+
                 fm.find("input[type=radio]").attr("disabled", "yes");
                 fm.find("input[input-type=date]").attr("disabled", "yes");
                 //
@@ -282,7 +353,9 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                         //debugger
                         //inst.update({disabled: true});
                         setTimeout(function (){
-                            // inst.update({disabled: true});
+                            me.disableSelectBox(inst,true);
+                        },100);
+                        setTimeout(function (){
                             me.disableSelectBox(inst,true);
                         },1000);
                     } else {
@@ -332,8 +405,15 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             var opts=[];
             if (value) {
                 opts=inst.options.transform(Array.isArray(value)?value:[value]);
+                for (var i = 0; i < opts.length; i++) {
+                    opts[i].selected=true;
+                }
             }
             inst.setValue(opts);
+            if (!id.startWith("#")) id = "#" + id;
+            if(this.selectBoxConfigs[id]) {
+                this.selectBoxConfigs[id].data=opts;
+            }
         },
         setSelectValue4Dict:function (id,value,data){
             if(!value) return;
@@ -352,10 +432,14 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 var opts=[];
                 for (var i = 0; i < value.length; i++) {
                    var name=me.getDictText(data,value[i]);
-                   opts.push({name:name,value:value[i]});
+                   opts.push({name:name,value:value[i],selected:true});
                 }
                 // debugger;
                 inst.setValue(opts);
+                if (!id.startWith("#")) id = "#" + id;
+                if(me.selectBoxConfigs[id]) {
+                    me.selectBoxConfigs[id].data=opts;
+                }
             }
             setTimeout(setV,1);
         },
@@ -382,6 +466,10 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     opts.push({name:name,value:value[i]});
                 }
                 inst.setValue(opts);
+                if (!id.startWith("#")) id = "#" + id;
+                if(this.selectBoxConfigs && this.selectBoxConfigs[id]) {
+                    this.selectBoxConfigs[id].data=opts;
+                }
             };
             setTimeout(setV,1);
         },
@@ -396,6 +484,9 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             if (window.LAYUI_TABLE_WIDTH_CONFIG) {
                 //debugger;
                 var columnWidthConfig = LAYUI_TABLE_WIDTH_CONFIG[tableId];
+                if(columnWidthConfig && columnWidthConfig["row-ops"]) {
+                    columnWidthConfig["row-ops"].orderIndex = 99999999;
+                }
                 if (columnWidthConfig) {
                     cfg.url = settings.base_server + cfg.url;
                     var cols = cfg.cols[0];
@@ -466,10 +557,27 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             }
             var basicConfig = {
                 method: 'POST',
-                headers: {'Authorization': "Bearer "+token},
+                headers: {
+                    'Authorization': "Bearer "+token,
+                    // tid:null,
+                    time:admin.getRequestTimestamp()
+                },
                 request: {
                     pageName: "pageIndex",
                     limitName: "pageSize"
+                },
+                beforeRequest:function (opt) {
+                    opt.headers.time=admin.getRequestTimestamp();
+                    $(cfg.elem).parent().find("table").css("opacity","0.0");
+                    // debugger
+                },
+                afterRequest:function (res) {
+                    setTimeout(function (){
+                        $(cfg.elem).parent().find("table").animate({
+                            opacity:'1.0'
+                        },100,null,function (){
+                            $(cfg.elem).parent().find("table").css("opacity","1.0");});
+                    },100);
                 },
                 parseData: function (res) { //res 即为原始返回的数据
                     // debugger;
@@ -1103,11 +1211,73 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             //
             inst.keyup(limit).bind("paste", limit).css("ime-mode", "disabled");
         },
+        badgeLabelIndex:{},
+        badgeLabelStyleMap:{},
+        getBadgeLabelStyle:function (styles,code,text,field) {
+            if(!field) field="default";
+            if(!styles) return "layui-badge-rim";
+            var s=this.badgeLabelStyleMap[text];
+            // debugger
+            if(!s) {
+                if(styles.type=="array") {
+                    // debugger
+                    var index=this.badgeLabelIndex[field];
+                    if(!index && index!==0) index=-1;
+                    index=index+1;
+                    s = styles.styles[index % styles.styles.length];
+                    this.badgeLabelIndex[field] = index ;
+                } else if(styles.type=="map") {
+                    s = styles.styles[code];
+                }
+                this.badgeLabelStyleMap[text]=s;
+            }
 
-        joinLabel:function (data, key, sep) {
+            return s;
+        },
+        parseBadgeLabelStyle:function (styles) {
+            if(!styles) return null;
+            var type="";
+            if(TypeUtil.isObject(styles)) {
+                return styles;
+            }
+            if("#BY-THEME"==styles) {
+                styles=Theme.badgeStyles;
+                type="array";
+            } else if(styles.startWith("[") && styles.endWith("]")){
+                styles=JSON.parse(styles);
+                type="array";
+            }
+            else if(styles.startWith("{") && styles.endWith("}")){
+                styles=JSON.parse(styles);
+                type="map";
+            } else {
+                styles=null;
+            }
+
+            return {styles:styles,type:type};
+
+        },
+
+        joinLabel:function (data, key, sep,styles,field) {
             if (data==null) return "";
             var label = "";
             if (!sep) sep = ",";
+
+            if(styles) {
+                styles=this.parseBadgeLabelStyle(styles);
+                if(styles.type=="map") {
+                    var tmp=[];
+                    for (var p in styles.styles) {
+                        tmp.push(styles.styles[p]);
+                    }
+                    styles.styles=tmp;
+                    styles.type="array";
+                }
+            }
+
+
+
+
 
             if (Array.isArray(data)) {
                 var labels = [];
@@ -1115,21 +1285,39 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     if (data[i]==null) continue;
                     label = data[i][key];
                     if (label) {
-                        labels.push(label);
+                        if(styles) {
+                            labels.push("<span class='" + this.getBadgeLabelStyle(styles,label,label,field) + "'>" + label + "</span>");
+                        } else {
+                            labels.push(label);
+                        }
                     }
                 }
-                label = labels.join(sep);
+                if(styles) {
+                    label = labels.join(" ");
+                } else {
+                    label = labels.join(sep);
+                }
             } else {
                 label = data[key];
             }
             if (!label) label = "";
             return label;
         },
-        getEnumText: function (list, code) {
+        getEnumText: function (list, code,styles,field) {
             if(code==null || code=="") return code;
             if (list==null) return code;
+
+            styles=this.parseBadgeLabelStyle(styles);
+
             for (var i = 0; i < list.length; i++) {
-                if (list[i]["code"] == code) return list[i]["text"];
+                if (list[i]["code"] == code) {
+                    var text=list[i]["text"];
+                    if(styles) {
+                        return "<span class='" + this.getBadgeLabelStyle(styles,code,text,field) + "'>" +text+"</span>";
+                    } else {
+                        return text;
+                    }
+                }
             }
 
 
@@ -1155,7 +1343,13 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 var text=null;
                 for (var i = 0; i < codes.length; i++) {
                     text=this.getEnumText(list,codes[i]);
-                    if(text) texts.push(text);
+                    if(text) {
+                        if(styles) {
+                            texts.push("<span class='" + this.getBadgeLabelStyle(styles,codes[i],text,field) + "'>" + text + "</span>");
+                        } else {
+                            texts.push(text);
+                        }
+                    }
                 }
                 if(texts.length>0) {
                     return texts.join(",");
@@ -1170,11 +1364,25 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
         /**
          * 获得指定属性的值
          * */
-        getProperty:function (data,path,start) {
-            //debugger
+        getProperty:function (data,path,start,styles,field) {
             if(data==null) return "";
             if(start==null) start=0;
             var prop,value=data;
+
+            if(styles) {
+                //debugger
+                styles=this.parseBadgeLabelStyle(styles);
+                if(styles.type=="map") {
+                    var tmp=[];
+                    for (var p in styles.styles) {
+                        tmp.push(styles.styles[p]);
+                    }
+                    styles.styles=tmp;
+                    styles.type="array";
+                }
+            }
+
+
             for (var i = start; i < path.length; i++) {
                 prop=path[i];
                 value=value[prop];
@@ -1182,26 +1390,55 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 if(TypeUtil.isArray(value) && value.length>0){
                     var rets=[];
                     for (var j = 0; j < value.length; j++) {
-                        var ret=this.getProperty(value[j],path,i+1);
+                        var ret=this.getProperty(value[j],path,i+1,styles);
                         if(TypeUtil.isArray(ret)) {
                             for (let k = 0; k < ret.length; k++) {
-                                rets.push(ret[k]);
+                                var text=ret[k];
+                                if(styles) {
+                                    rets.push("<span class='" + this.getBadgeLabelStyle(styles,text,text,field) + "'>" + text + "</span>");
+                                } else {
+                                    rets.push(text);
+                                }
                             }
                         } else {
-                            rets.push(ret);
+                            if(styles) {
+                                rets.push("<span class='" + this.getBadgeLabelStyle(styles,ret,ret,field) + "'>" + ret + "</span>");
+                            } else {
+                                rets.push(ret);
+                            }
                         }
                     }
-                    value=rets.join(",");
+                    if(styles) {
+                        value = rets.join(" ");
+                    } else {
+                        value = rets.join(",");
+                    }
                     return value;
+                } else {
+                    if(styles && !TypeUtil.isObject(value) && !TypeUtil.isArray(value)) {
+                        value = "<span class='" + this.getBadgeLabelStyle(styles, value, value,field) + "'>" + value + "</span>";
+                    }
                 }
             }
             return value;
         },
-        getDictText: function (list, code) {
+        getDictText: function (list, code,styles,field) {
             if(code==null || code=="") return code;
             if (list==null) return code;
+
+            if(styles) {
+                styles=this.parseBadgeLabelStyle(styles);
+            }
+
             for (var i = 0; i < list.length; i++) {
-                if (list[i]["code"] == code) return list[i]["text"];
+                if (list[i]["code"] == code) {
+                    var text=list[i]["text"];
+                    if(styles) {
+                        return "<span class='" + this.getBadgeLabelStyle(styles, code, text,field) + "'>"+text+"</span>";
+                    } else {
+                        return text;
+                    }
+                }
             }
             var codes=null;
             try {
@@ -1224,11 +1461,19 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 var texts=[];
                 var text=null;
                 for (var i = 0; i < codes.length; i++) {
-                    text=this.getDictText(list,codes[i]);
-                    if(text) texts.push(text);
+                    text=this.getDictText(list,codes[i],styles);
+                    if(styles){
+                        texts.push("<span class='" + this.getBadgeLabelStyle(styles, codes[i], text,field) + "'>"+text+"</span>");
+                    } else {
+                        texts.push(text);
+                    }
                 }
                 if(texts.length>0) {
-                    return texts.join(",");
+                    if(styles) {
+                        return texts.join(" ");
+                    } else {
+                        return texts.join(",");
+                    }
                 } else {
                     return "";
                 }
@@ -1247,17 +1492,17 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 var data = {};
                 data[idProp] = obj.elem.value;
                 data[logicProp] = obj.elem.checked ? 1 : 0;
-                admin.request(updateApiUrl, data, function (data) {
+                admin.request(updateApiUrl, data, function (result) {
                     layer.closeAll('loading');
-                    if (data.success) {
+                    if (result.success) {
                         //layer.msg(data.message, {icon: 1, time: 500});
-                        admin.toast().success(data.message,{time:1000,position:"right-bottom"})
+                        admin.toast().success(result.message,{time:1000,position:"right-bottom"})
                     } else {
-                        layer.msg(data.message, {icon: 2, time: 3000});
+                        layer.msg(result.message, {icon: 2, time: 3000});
                         $(obj.elem).prop('checked', !obj.elem.checked);
                         form.render('checkbox');
                     }
-                    callback && callback(data,obj);
+                    callback && callback(result,data,obj);
                 }, 'POST');
             });
         },
@@ -1310,14 +1555,20 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 try {
                     value=JSON.parse(value);
                 } catch (e){
-                    value=[];
+                    if(value!=null) {
+                     value=value.split(",");
+                    } else {
+                        value = [];
+                    }
                 }
             }
-            $('input[name="'+checkBoxName+'"]').each(function() {
+            $('input[name="'+checkBoxName+'"]').each(function(a,b,c) {
                 var v=$(this).val();
                 for (var i = 0; i < value.length; i++) {
                     if(v==value[i]){
                         $(this).attr("checked","yes");
+                    } else {
+                        $(this).removeAttr("checked");
                     }
                 }
             });
@@ -1499,13 +1750,31 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             $(".search-buttons").css("left",ks+"px");
             $(".search-input-rows").animate({opacity:'1.0'},0.25);
             $(".search-buttons").animate({opacity:'1.0'},0.25);
-            if(t<6) {
+
+            if(t< 2) {
+                logger.info("adjustSearchElement","快速调整期")
                 //渲染后的补充执行
                 setTimeout(function () {
                     me.adjustSearchElement(t);
-                    console.log("adjustSearchElement:"+t);
-                }, 16 * t);
+                    //console.log("adjustSearchElement:"+t);
+                }, 16 );
             }
+            // else if(t<8) {
+            //     //渲染后的补充执行
+            //     logger.info("adjustSearchElement","补充调整期")
+            //     setTimeout(function () {
+            //         me.adjustSearchElement(t);
+            //         //console.log("adjustSearchElement:"+t);
+            //     }, 1000 );
+            // }
+            // else if(t<100) { // 此分支用于测试
+            //     //渲染后的补充执行
+            //     logger.info("adjustSearchElement","测试调整期")
+            //     setTimeout(function () {
+            //         me.adjustSearchElement(t);
+            //         //console.log("adjustSearchElement:"+t);
+            //     }, 5000 );
+            // }
         },
         chooseOrgNode:function (param){
             //fromData,inputEl,buttonEl
@@ -1602,7 +1871,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     title: title,
                     content: '/business/hrm/employee/dialog/emp_dialog.html',
                     offset: 'auto',
-                    area:["950px","90%"]
+                    area:["1150px","90%"]
                 });
                 admin.putTempData("employee-dialog-index",dialogIndex,true);
             });
@@ -1870,6 +2139,9 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             }
 
             var message=result.message;
+            if(result.subject) {
+                message=result.subject+message;
+            }
             if(!message) return;
             var messageLevel=null;
             if(result.extra) {
@@ -1977,6 +2249,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             //console.log(cls,t);
             var pars = tar.parents();
             var layFilter = null;
+
             var tableIndex = -1;
             for (var i = 0; i < pars.length; i++) {
                 var p = $(pars[i]);
@@ -1985,51 +2258,15 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                     tableIndex = layFilter.split("-")[2];
                     break;
                 }
-                //console.log("lay-filter",layFilter);
             }
             if (tableIndex == -1) return;
-            //console.log("tableIndex",tableIndex);
+
             var inst = table.instance[tableIndex - 1];
-            //var cfg=table.getConfiguration()
             var tableId = inst.config.elem[0].id;
-            //console.log("inst",inst);
             var cols = inst.config.cols[0];
             if (cls.indexOf("layui-table-cell") == -1 || cls.indexOf("laytable-cell-") == -1) return;
             var ths = $("th .layui-table-cell");
-            //debugger
             saveTableSettings4UI(tableId,ths,cols);
-            return;
-
-            // var ws = {};
-            // if (cls.indexOf("layui-table-cell") == -1 || cls.indexOf("laytable-cell-") == -1) return;
-            //
-            // //console.log(ths.length);
-            // for (var i = 0; i < ths.length; i++) {
-            //     var th = $(ths[i]);
-            //     if (cols[i] && cols[i].field && !cols[i].hide) {
-            //         ws[cols[i].field] = {width:th[0].clientWidth,hide:false};
-            //         cols[i].width = th[0].clientWidth;
-            //     }
-            // }
-            // var loc = location.href;
-            // loc = loc.substr(loc.indexOf("//") + 2);
-            // loc = loc.substr(loc.indexOf("/"));
-            // if(loc.indexOf("?")>0) {
-            //     loc = loc.substr(0,loc.indexOf("?"));
-            // }
-            // console.log("save table", tableId, ws);
-            //
-            // admin.request("/service-system/sys-db-cache/save", {
-            //     value: JSON.stringify(ws),
-            //     area: loc+"#"+tableId,
-            //     catalog: "layui-table-column-width",
-            //     ownerType: "user"
-            // }, function (data) {
-            //     if(admin.toast()) {
-            //         admin.toast().success("自定义表格设置已同步", {time: 1000, position: "right-bottom"});
-            //     }
-            // });
-
 
         }, 100);
 
@@ -2052,11 +2289,8 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
                 cfg.title=cols[i].title;
                 cfg.orderIndex=cols[i].orderIndex;
                 ws[cols[i].field] = cfg;
-
             }
         }
-
-
 
         saveTableSettings(tableId,ws);
     }
@@ -2076,7 +2310,7 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             ownerType: "user"
         }, function (data) {
             if(admin.toast()) {
-                admin.toast().success("自定义表格设置已同步", {time: 1000, position: "right-bottom"});
+                admin.toast().success("自定义表格设置已同步", {time: 1000, position: "right-bottom",title:"提示"});
             }
         });
     }

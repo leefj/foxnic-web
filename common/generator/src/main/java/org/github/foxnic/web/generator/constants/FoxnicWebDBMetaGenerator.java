@@ -37,7 +37,7 @@ public class FoxnicWebDBMetaGenerator  {
 	 * */
 	private void buildDBMeta() {
 
-		DBMetaClassFile dbMetaBuilder=new DBMetaClassFile(dao,configs.getDomianProject(),this.configs.getProjectConfigs().getDomainConstantsPackage(),"FoxnicWeb");
+		DBMetaClassFile dbMetaBuilder=new DBMetaClassFile(dao,configs.getDomainProject(),this.configs.getProjectConfigs().getDomainConstantsPackage(),"FoxnicWeb");
 		dbMetaBuilder.setTableFilter(table->{
 			table=table.toLowerCase();
 			if(table.startsWith("sys_")) return true;

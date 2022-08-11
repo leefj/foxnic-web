@@ -4,14 +4,10 @@ import com.github.foxnic.commons.cache.LocalCache;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.springboot.spring.SpringUtil;
 import org.github.foxnic.web.framework.cluster.ClusterToken;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-import org.springframework.web.context.WebApplicationContext;
+import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-
-import javax.servlet.http.HttpServletRequest;
 
 public class ProxyContext {
 
@@ -67,6 +63,11 @@ public class ProxyContext {
     private String calleeTenantId = null ;
 
     /**
+     * 是否忽略错误信息，不打印异常或不抛出异常，默认 false
+     * */
+    private boolean ignoreCallError=false;
+
+    /**
      * 在 Proxy 调用接口前，设置操作人(主调方)账户
      * @param  account 操作人账户
      * */
@@ -102,12 +103,33 @@ public class ProxyContext {
         String userId = USER_IDS.get(account);
         if (userId != null) return userId;
         //
-        DAO dao = SpringUtil.getBean(DAO.class);
+        DAO dao = SpringUtil.getBean(DBConfigs.PRIMARY_DAO,DAO.class);
+        if(dao==null) {
+            dao = SpringUtil.getBean(DAO.class);
+        }
         userId = dao.queryString("select id from sys_user where name=?", account);
         USER_IDS.put(account, userId);
         return userId;
     }
 
+    /**
+     * 在调用时，是否忽略错误信息，不打印异常或不抛出异常，默认 false
+     * */
+    public static void setIgnoreCallError(boolean ignoreCallError) {
+        ProxyContext context = getInstance();
+        if(context==null) ProxyContext.init();
+        context = getInstance();
+        context.ignoreCallError=ignoreCallError;
+    }
+
+    /**
+     * 是否忽略错误信息，不打印异常或不抛出异常，默认 false
+     * */
+    public static boolean isIgnoreCallError() {
+        ProxyContext context = getInstance();
+        if(context==null) return false;
+        return context.ignoreCallError;
+    }
 
     /**
      * 作为被调方时当前操作人账户
@@ -134,7 +156,9 @@ public class ProxyContext {
         return context.calleeTenantId;
     }
 
-
+    /**
+     * 设置被调方信息
+     * */
     public static void initCallee(ClusterToken token) {
         ProxyContext context = getInstance();
         if(context==null) return;

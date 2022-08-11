@@ -3,13 +3,14 @@ package org.github.foxnic.web.domain.changes;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 
 /**
  * 用于流程审批
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-02 17:59:45
+ * @since 2022-07-28 13:39:20
  * @sign EDEDBDDB3A81539A5829EA1F7B5FAE7E
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -59,9 +60,9 @@ public class ProcessApproveVO {
 	 * @param instanceId 业务单据号
 	 * @return 当前对象
 	*/
-	public ProcessApproveVO addInstanceId(String instanceId) {
+	public ProcessApproveVO addInstanceId(String... instanceId) {
 		if(this.instanceIds==null) instanceIds=new ArrayList<>();
-		this.instanceIds.add(instanceId);
+		this.instanceIds.addAll(Arrays.asList(instanceId));
 		return this;
 	}
 	

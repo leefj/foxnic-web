@@ -7,10 +7,12 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_DICT;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
+import javax.persistence.Transient;
 import java.util.List;
 import org.github.foxnic.web.domain.oauth.Menu;
+import com.github.foxnic.commons.lang.DataParser;
 import java.util.ArrayList;
-import javax.persistence.Transient;
+import java.util.Arrays;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
 
@@ -19,8 +21,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 数据字典
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-10 16:42:12
- * @sign BECC36F1F254A0CDD30DCA3A25E7EB09
+ * @since 2022-07-19 09:58:48
+ * @sign 3227F46C57043EA80C95594DE77C9F65
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -97,6 +99,8 @@ public class Dict extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除")
 	private Integer deleted;
+	@Transient
+	private Boolean deletedBool;
 	
 	/**
 	 * 删除人ID：删除人ID
@@ -328,12 +332,42 @@ public class Dict extends Entity {
 	}
 	
 	/**
+	 * 获得 是否已删除 的投影属性<br>
+	 * 等价于 getDeleted 方法，获得对应的枚举类型
+	 * @return 是否已删除
+	*/
+	@Transient
+	public Boolean isDeleted() {
+		if(this.deletedBool==null) {
+			this.deletedBool=DataParser.parseBoolean(deleted);
+		}
+		return this.deletedBool ;
+	}
+	
+	/**
 	 * 设置 是否已删除
 	 * @param deleted 是否已删除
 	 * @return 当前对象
 	*/
 	public Dict setDeleted(Integer deleted) {
 		this.deleted=deleted;
+		this.deletedBool=DataParser.parseBoolean(deleted);
+		return this;
+	}
+	
+	/**
+	 * 设置 是否已删除的投影属性，等同于设置 是否已删除
+	 * @param deletedBool 是否已删除
+	 * @return 当前对象
+	*/
+	@Transient
+	public Dict setDeleted(Boolean deletedBool) {
+		if(deletedBool==null) {
+			this.deleted=null;
+		} else {
+			this.deleted=deletedBool?1:0;
+		}
+		this.deletedBool=deletedBool;
 		return this;
 	}
 	
@@ -417,9 +451,9 @@ public class Dict extends Entity {
 	 * @param item 字典项目
 	 * @return 当前对象
 	*/
-	public Dict addItem(DictItem item) {
+	public Dict addItem(DictItem... item) {
 		if(this.items==null) items=new ArrayList<>();
-		this.items.add(item);
+		this.items.addAll(Arrays.asList(item));
 		return this;
 	}
 	

@@ -17,6 +17,9 @@
     <link rel="stylesheet" href="/assets/css/foxnic-web.css" th:href="'/assets/css/foxnic-web.css?'+${cacheKey}">
     <link href="/assets/libs/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
     <link href="/assets/libs/material-design-webfont/css/material-design-icons-min.css" rel="stylesheet">
+    #for(f : cssList)
+    <link rel="stylesheet" href="#(f)" th:href="'#(f)?'+${cacheKey}"/>
+    #end
     <script th:inline="javascript">var foxnic_cachekey=[[${cacheKey}]];</script>
     <style>
         #if(marginDisabled)
@@ -129,15 +132,21 @@
 <script type="text/javascript" src="/assets/libs/pandyle.min.js" th:src="'/assets/libs/pandyle.min.js?'+${cacheKey}"></script>
 <script type="text/javascript" src="/assets/libs/layui/layui.js" th:src="'/assets/libs/layui/layui.js?'+${cacheKey}"></script>
 <script type="text/javascript" src="/assets/libs/toast/js/toast.js" th:src="'/assets/libs/toast/js/toast.js?'+${cacheKey}"></script>
-
+#for(f : jsList)
+<script type="text/javascript" src="#(f)" th:src="'#(f)?'+${cacheKey}"></script>
+#end
 <!-- 表格工具栏 -->
 <script type="text/html" id="toolbarTemplate">
     <div class="layui-btn-container">
         #if(!disableCreateNew)
+        #if(bpm)
+        <button th:if="${perm.checkAuth('#(authPrefix):create')}" id="add-button" class="layui-btn icon-btn layui-btn-sm create-new-button #if(createNewButton.css!=null)#(createNewButton.css)#end" lay-event="create"><i class="layui-icon">&#xe654;</i><span th:text="${lang.translate('发起审批')}">发起审批</span></button>
+        #else
         <button th:if="${perm.checkAuth('#(authPrefix):create')}" id="add-button" class="layui-btn icon-btn layui-btn-sm create-new-button #if(createNewButton.css!=null)#(createNewButton.css)#end" lay-event="create"><i class="layui-icon">&#xe654;</i><span th:text="${lang.translate(#if(createNewButton.label==null)'新建'#else'#(createNewButton.label)'#end)}">#if(createNewButton.label==null)新建#else#(createNewButton.label)#end</span></button>
         #end
+        #end
         #if(!disableBatchDelete)
-        #if(isSimplePK)
+        #if(isSimplePK && !bpm)
         <button th:if="${perm.checkAuth('#(authPrefix):delete-by-ids')}" id="delete-button" class="layui-btn icon-btn layui-btn-danger layui-btn-sm batch-delete-button #if(batchDeleteButton.css!=null)#(batchDeleteButton.css)#end" lay-event="batch-del"><i class="layui-icon">&#xe67e;</i><span th:text="${lang.translate(#if(batchDeleteButton.label==null)'删除'#else'#(batchDeleteButton.label)'#end)}">#if(createNewButton.label==null)删除#else#(createNewButton.label)#end</span></button>
         #end
         #end
@@ -154,15 +163,25 @@
 	#end
 
     #if(!disableFormView)
+    #if(!bpm)
     <button th:if="${perm.checkAuth('#(authPrefix):view-form')}" class="layui-btn layui-btn-primary layui-btn-xs ops-view-button #if(formViewButton.css!=null)#(formViewButton.css)#end" lay-event="view"  data-id="{{d.id}}"> <span th:text="${lang.translate(#if(formViewButton.label==null)'查看'#else'#(formViewButton.label)'#end)}">#if(formViewButton.label==null)查看#else#(formViewButton.label)#end</span></button>
     #end
+    #end
     #if(!disableModify)
+    #if(bpm)
+    <button th:if="${perm.checkAnyAuth('#(authPrefix):update','#(authPrefix):save')}" class="layui-btn layui-btn-primary layui-btn-xs ops-edit-button #if(modifyButton.css!=null)#(modifyButton.css)#end" lay-event="edit"data-id="{{d.id}}"><span th:text="${lang.translate('打开')}">打开</span></button>
+    #else
     <button th:if="${perm.checkAnyAuth('#(authPrefix):update','#(authPrefix):save')}" class="layui-btn layui-btn-primary layui-btn-xs ops-edit-button #if(modifyButton.css!=null)#(modifyButton.css)#end" lay-event="edit"data-id="{{d.id}}"><span th:text="${lang.translate(#if(modifyButton.label==null)'修改'#else'#(modifyButton.label)'#end)}">#if(modifyButton.label==null)修改#else#(modifyButton.label)#end</span></button>
+    #end
     #end
 
 
     #if(!disableSingleDelete)
+    #if(bpm)
+    <button th:if="${perm.checkAuth('#(authPrefix):delete')}" class="layui-btn layui-btn-xs layui-btn-danger ops-delete-button #if(deleteButton.css!=null)#(deleteButton.css)#end" lay-event="del" data-id="{{d.id}}"><span th:text="${lang.translate('废弃')}">废弃</span></button>
+    #else
     <button th:if="${perm.checkAuth('#(authPrefix):delete')}" class="layui-btn layui-btn-xs layui-btn-danger ops-delete-button #if(deleteButton.css!=null)#(deleteButton.css)#end" lay-event="del" data-id="{{d.id}}"><span th:text="${lang.translate(#if(deleteButton.label==null)'删除'#else'#(deleteButton.label)'#end)}">#if(deleteButton.label==null)删除#else#(deleteButton.label)#end</span></button>
+    #end
     #end
 
     #for(b:opColumnButtons)

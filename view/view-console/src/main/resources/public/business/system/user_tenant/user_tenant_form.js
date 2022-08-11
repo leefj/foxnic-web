@@ -180,6 +180,7 @@ function FormPage() {
 			//设置  所属租户 设置下拉框勾选
 			fox.setSelectValue4QueryApi("#ownerTenantId",formData.tenant);
 			//设置  工号 设置下拉框勾选
+			debugger
 			fox.setSelectValue4QueryApi("#employeeId",formData.employee);
 
 			//处理fillBy

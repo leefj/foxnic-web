@@ -11,8 +11,8 @@ import org.github.foxnic.web.domain.bpm.FormDefinition;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-07 10:00:09
- * @sign 70DC725612447DE8BFE114C196A3D204
+ * @since 2022-07-04 09:43:07
+ * @sign 4CE2AB2F247BFAB6BE99C76ADB8AE4AB
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -47,6 +47,26 @@ public class ProcessDefinitionMeta {
 	 * 关联表单 , 表单定义ID , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinition,java.lang.String> FORM_DEFINITION_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinition.class ,FORM_DEFINITION_ID, java.lang.String.class, "关联表单", "表单定义ID", java.lang.String.class, null);
+	
+	/**
+	 * 驳回配置 , 流程在驳回时的表现 , 类型: java.lang.String
+	*/
+	public static final String REJECT_OPTION="rejectOption";
+	
+	/**
+	 * 驳回配置 , 流程在驳回时的表现 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinition,java.lang.String> REJECT_OPTION_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinition.class ,REJECT_OPTION, java.lang.String.class, "驳回配置", "流程在驳回时的表现", java.lang.String.class, null);
+	
+	/**
+	 * 审批人身份范围 , 审批人身份类型的范围 , 类型: java.lang.String
+	*/
+	public static final String ASSIGNEE_TYPE_RANGE="assigneeTypeRange";
+	
+	/**
+	 * 审批人身份范围 , 审批人身份类型的范围 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.ProcessDefinition,java.lang.String> ASSIGNEE_TYPE_RANGE_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.ProcessDefinition.class ,ASSIGNEE_TYPE_RANGE, java.lang.String.class, "审批人身份范围", "审批人身份类型的范围", java.lang.String.class, null);
 	
 	/**
 	 * 名称 , 类型: java.lang.String
@@ -221,7 +241,7 @@ public class ProcessDefinitionMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , CODE , FORM_DEFINITION_ID , NAME , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CAMUNDA_DEFINITION_ID , CAMUNDA_DEFINITION_KEY , LAST_UPDATE_USER , DEFINITION_FILE , FORM_DEFINITION };
+	public static final String[] $PROPS={ ID , CODE , FORM_DEFINITION_ID , REJECT_OPTION , ASSIGNEE_TYPE_RANGE , NAME , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CAMUNDA_DEFINITION_ID , CAMUNDA_DEFINITION_KEY , LAST_UPDATE_USER , DEFINITION_FILE , FORM_DEFINITION };
 	
 	/**
 	 * 代理类
@@ -261,6 +281,28 @@ public class ProcessDefinitionMeta {
 		public ProcessDefinition setFormDefinitionId(String formDefinitionId) {
 			super.change(FORM_DEFINITION_ID,super.getFormDefinitionId(),formDefinitionId);
 			super.setFormDefinitionId(formDefinitionId);
+			return this;
+		}
+		
+		/**
+		 * 设置 驳回配置
+		 * @param rejectOption 驳回配置
+		 * @return 当前对象
+		*/
+		public ProcessDefinition setRejectOption(String rejectOption) {
+			super.change(REJECT_OPTION,super.getRejectOption(),rejectOption);
+			super.setRejectOption(rejectOption);
+			return this;
+		}
+		
+		/**
+		 * 设置 审批人身份范围
+		 * @param assigneeTypeRange 审批人身份范围
+		 * @return 当前对象
+		*/
+		public ProcessDefinition setAssigneeTypeRange(String assigneeTypeRange) {
+			super.change(ASSIGNEE_TYPE_RANGE,super.getAssigneeTypeRange(),assigneeTypeRange);
+			super.setAssigneeTypeRange(assigneeTypeRange);
 			return this;
 		}
 		

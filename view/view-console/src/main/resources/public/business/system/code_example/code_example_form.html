@@ -2,7 +2,7 @@
 /**
  * 代码生成示例主 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-02-08 08:53:56
+ * @since 2022-07-19 15:10:37
  */
  -->
  <!DOCTYPE html>
@@ -108,7 +108,7 @@
                     <div class="layui-form-item" >
                         <div class="layui-form-label "><div th:text="${lang.translate('状态')}">状态</div><div class="layui-required">*</div></div>
                         <div class="layui-input-block ">
-                                <input input-type="checkbox" type="checkbox" name="checkDict" lay-filter="checkDict" lay-skin="primary" th:each="e,stat:${dict.toArray('order_status')}" th:value="${e.code}" th:title="${e.text}" th:checked="${pageHelper.checkDefault(e.code,stat.index,'todo,done','')?'yes':'no'}">
+                                <input input-type="checkbox" type="checkbox" name="checkDict" lay-filter="checkDict" lay-skin="primary" th:each="e,stat:${dict.toArray('order_status')}" th:value="${e.code}" th:title="${e.text}" th:checked="${pageHelper.checkDefault(e.code,stat.index,'todo,done','')}">
                         </div>
                     </div>
 
@@ -151,7 +151,7 @@
         </fieldset>
         <div class="layui-row form-row" style="text-align: center;" id="deploy-node-content">
             <div style="display: inline-block;padding-right: 8px;padding-left: 8px" class="layui-col-xs12">
-            <iframe js-fn="loadTest1Iframe" class="form-iframe" frameborder="0" style="width: 100%"></iframe>
+            <iframe id="deploy-node-iframe" js-fn="loadTest1Iframe" class="form-iframe" frameborder="0" style="width: 100%"></iframe>
             </div>
         </div>
          <!--开始：group 循环-->
@@ -207,10 +207,10 @@
                     </ul>
                     <div class="layui-tab-content">
                         <div class="layui-tab-item  layui-show ">
-                            <iframe js-fn="loadStudentIframe" class="form-iframe form-iframe-tab" frameborder="0" style="width: 100%"></iframe>
+                            <iframe id="student-iframe" js-fn="loadStudentIframe" class="form-iframe form-iframe-tab" frameborder="0" style="width: 100%"></iframe>
                         </div>
                         <div class="layui-tab-item ">
-                            <iframe js-fn="loadCarIframe" class="form-iframe form-iframe-tab" frameborder="0" style="width: 100%"></iframe>
+                            <iframe  js-fn="loadCarIframe" class="form-iframe form-iframe-tab" frameborder="0" style="width: 100%"></iframe>
                         </div>
                     </div>
                 </div>
@@ -235,7 +235,7 @@
                 <div class="layui-form-item" >
                     <div class="layui-form-label "><div th:text="${lang.translate('枚举')}">枚举</div></div>
                     <div class="layui-input-block ">
-                        <input input-type="radio" type="radio" name="radioEnum" lay-filter="radioEnum" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.system.Language')}" th:value="${e.code}" th:title="${e.text}" th:checked="${(e.code=='' || stat.index==2)?'yes':'no'}">
+                        <input input-type="radio" type="radio" name="radioEnum" lay-filter="radioEnum" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.system.Language')}" th:value="${e.code}" th:title="${e.text}" th:checked="${(e.code=='' || stat.index==2)}">
                     </div>
                 </div>
 
@@ -258,7 +258,7 @@
                 <div class="layui-form-item" >
                     <div class="layui-form-label "><div th:text="${lang.translate('性别')}">性别</div><div class="layui-required">*</div></div>
                     <div class="layui-input-block ">
-                        <input input-type="radio" type="radio" name="radioDict" lay-filter="radioDict" th:each="e,stat:${dict.toArray('sex')}" th:value="${e.code}" th:title="${e.text}"  th:checked="${(e.code=='M' || stat.index==-1)?'yes':'no'}">
+                        <input input-type="radio" type="radio" name="radioDict" lay-filter="radioDict" th:each="e,stat:${dict.toArray('sex')}" th:value="${e.code}" th:title="${e.text}"  th:checked="${(e.code=='M' || stat.index==-1)}">
                     </div>
                 </div>
 
@@ -278,11 +278,11 @@
          <!--开始：group 循环-->
 
 
-        <fieldset class="layui-elem-field layui-field-title form-group-title" id="random-1902-fieldset">
+        <fieldset class="layui-elem-field layui-field-title form-group-title" id="random-0798-fieldset">
             <legend>扩展信息</legend>
         </fieldset>
 
-        <div class="layui-row form-row" id="random-1902-content">
+        <div class="layui-row form-row" id="random-0798-content">
 
              <!--开始：column 循环-->
             <!-- 只有当非第一个分组没有title时才使 padding-top 为 0 -->
@@ -292,7 +292,7 @@
                     <div class="layui-form-item" >
                         <div class="layui-form-label "><div th:text="${lang.translate('复选框(枚举)')}">复选框(枚举)</div></div>
                         <div class="layui-input-block ">
-                                <input input-type="checkbox" type="checkbox" name="checkEnum" lay-filter="checkEnum" lay-skin="primary" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.system.MenuType')}" th:value="${e.code}" th:title="${e.text}" th:checked="${pageHelper.checkDefault(e.code,stat.index,'','0,1')?'yes':'no'}">
+                                <input input-type="checkbox" type="checkbox" name="checkEnum" lay-filter="checkEnum" lay-skin="primary" th:each="e,stat:${enum.toArray('org.github.foxnic.web.constants.enums.system.MenuType')}" th:value="${e.code}" th:title="${e.text}" th:checked="${pageHelper.checkDefault(e.code,stat.index,'','0,1')}">
                         </div>
                     </div>
 
@@ -328,7 +328,6 @@
 <script type="text/javascript" src="/assets/libs/pandyle.min.js" th:src="'/assets/libs/pandyle.min.js?'+${cacheKey}"></script>
 <script type="text/javascript" src="/assets/libs/layui/layui.js" th:src="'/assets/libs/layui/layui.js?'+${cacheKey}"></script>
 <script type="text/javascript" src="/assets/libs/toast/js/toast.js" th:src="'/assets/libs/toast/js/toast.js?'+${cacheKey}"></script>
-
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];
     var RADIO_RADIOENUM_DATA = [[${enum.toArray('org.github.foxnic.web.constants.enums.system.Language')}]];

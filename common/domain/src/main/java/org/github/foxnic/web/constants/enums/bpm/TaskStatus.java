@@ -8,7 +8,7 @@ import com.github.foxnic.commons.reflect.EnumUtil;
  * */
 public enum TaskStatus implements CodeTextEnum {
 
-	todo("待办"),done("已办"),cancel("取消"),abandoned("废弃");
+	todo("待办"),done("已办"),cancel("取消"),abandoned("废弃"),unread("待阅"),read("已阅");
 
 	private String text;
 	private TaskStatus(String text)  {

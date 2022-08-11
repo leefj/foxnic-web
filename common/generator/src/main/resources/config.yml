@@ -84,7 +84,7 @@ applications:
     packageName: org.github.foxnic.web.pcm
     primaryDatasourceConfigKey: spring.datasource.druid.primary
     microServiceNameConst: PCM
-    viewProjectPath: /view/view-console
+    viewProjectPath: /view/view-pcm
     viewPrefixPath: public/business/pcm
     wrapperProjectPath:  /wrapper/wrapper-all-service
   #Changes  变更服务
@@ -97,7 +97,7 @@ applications:
     packageName: org.github.foxnic.web.changes
     primaryDatasourceConfigKey: spring.datasource.druid.primary
     microServiceNameConst: CHS
-    viewProjectPath: /view/view-console
+    viewProjectPath: /view/view-changes
     viewPrefixPath: public/business/changes
     wrapperProjectPath:  /wrapper/wrapper-all-service
   #流程服务
@@ -122,7 +122,7 @@ applications:
     packageName: org.github.foxnic.web.dataperm
     primaryDatasourceConfigKey: spring.datasource.druid.primary
     microServiceNameConst: DATA_PERM
-    viewProjectPath: /view/view-console
+    viewProjectPath: /view/view-dataperm
     viewPrefixPath: public/business/dataperm
     wrapperProjectPath:  /wrapper/wrapper-all-service
   #计划任务
@@ -138,6 +138,8 @@ applications:
     wrapperProjectPath:  /wrapper/wrapper-all-service
   #示例
   service-example:
+    # 是否为高级项目
+    advance: false,
     # 如果使用 nacos 指定分组
     nacosGroup: service
     # 如果使用 nacos 指定 dataId

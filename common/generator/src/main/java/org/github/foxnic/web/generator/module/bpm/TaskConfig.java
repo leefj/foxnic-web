@@ -11,15 +11,13 @@ import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_TASK;
 import org.github.foxnic.web.constants.db.FoxnicWeb.BPM_PROCESS_DEFINITION;
-import org.github.foxnic.web.constants.enums.bpm.AppovalReault;
+import org.github.foxnic.web.constants.enums.bpm.ApprovalResult;
 import org.github.foxnic.web.constants.enums.bpm.TaskStatus;
 import org.github.foxnic.web.constants.enums.system.UnifiedUserType;
 import org.github.foxnic.web.domain.bpm.*;
 import org.github.foxnic.web.domain.bpm.meta.ProcessDefinitionMeta;
 import org.github.foxnic.web.domain.bpm.meta.ProcessInstanceMeta;
 import org.github.foxnic.web.domain.bpm.meta.TaskMeta;
-import org.github.foxnic.web.domain.oauth.User;
-import org.github.foxnic.web.domain.oauth.meta.UserMeta;
 import org.github.foxnic.web.generator.module.BaseCodeConfig;
 import org.github.foxnic.web.proxy.bpm.ProcessDefinitionServiceProxy;
 import org.github.foxnic.web.proxy.oauth.UserServiceProxy;
@@ -38,11 +36,15 @@ public class TaskConfig extends BaseCodeConfig<BPM_TASK> {
         poType.addListProperty(TaskApproval.class,"approvals","审批动作清单","审批动作清单");
         poType.addListProperty(TaskAssignee.class,"assignees","审批人清单","审批人清单");
         poType.addListProperty(TaskAssigneeUser.class,"assigneeUsers","审批人账户清单","审批人账户清单");
+        poType.addSimpleProperty(ProcessDefinitionNode.class,"node","流程节点","流程节点");
         poType.shadow("status", TaskStatus.class);
+        poType.addListProperty(TaskRead.class,"readers","已读清单","已读人员清单");
+
 
         //
         voType.addListProperty(String.class,"approvalUserIds","处理人账户ID清单","处理人账户ID清单");
         voType.addSimpleProperty(Boolean.class,"mine","是否我的任务","是否我的任务");
+        voType.addListProperty(String.class,"statusRange","状态值清单","设定状态值的查询范围");
         //
         PojoClassFile pojo=context.createPojo("TaskQueryVO");
         pojo.setSuperType(null);
@@ -64,15 +66,16 @@ public class TaskConfig extends BaseCodeConfig<BPM_TASK> {
         pojo=context.createPojo("TaskProcessVO");
         pojo.setSuperType(null);
         pojo.setDoc("任务处理参数");
-        pojo.addSimpleProperty(String.class,"taskId","流程实例ID","流程实例ID");
+        pojo.addSimpleProperty(String.class,"taskId","任务ID","任务ID");
         pojo.addSimpleProperty(String.class,"assigneeUserId","审批人账户ID","审批人账户");
         pojo.addSimpleProperty(String.class,"assigneeType","审批人身份类型","审批人身份类型");
         pojo.addSimpleProperty(String.class,"assigneeId","审批人身份ID","审批人身份ID");
         pojo.addSimpleProperty(String.class,"result","审批结果","审批结果");
-        pojo.shadow("result", AppovalReault.class);
+        pojo.shadow("result", ApprovalResult.class);
         pojo.addSimpleProperty(String.class,"comment","审批意见","审批意见");
         pojo.addMapProperty(String.class,Object.class,"variables","流程参数","流程参数");
         pojo.addSimpleProperty(String.class,"tenantId","租户ID","租户ID");
+        pojo.addSimpleProperty(String.class,"jumpToNodeId","流程跳转的目标节点ID","流程跳转的目标节点ID");
 
 
 
@@ -99,11 +102,9 @@ public class TaskConfig extends BaseCodeConfig<BPM_TASK> {
     public void configSearch(ViewOptions view, SearchAreaOptions search) {
         search.inputLayout(
                 new Object[]{
-                        TaskMeta.PROCESS_DEFINITION, "processTitle","APPROVAL_USER_IDS"
-                },
-                new Object[]{
-                        BPM_TASK.STATUS, BPM_TASK.APPROVAL_TIME,
-                });
+                        TaskMeta.PROCESS_DEFINITION, "processTitle","APPROVAL_USER_IDS",BPM_TASK.APPROVAL_TIME
+                }
+           );
 
         search.rowsDisplay(4);
         //设置各个列的搜索输入框的标签宽度
@@ -120,7 +121,7 @@ public class TaskConfig extends BaseCodeConfig<BPM_TASK> {
 
 //        view.form().labelWidth(80);
 
-        view.field(FoxnicWeb.BPM_PROCESS_INSTANCE.ID).basic().hidden();
+        view.field(FoxnicWeb.BPM_PROCESS_INSTANCE.ID).basic().hidden().table().disable();
 
         view.field(TaskMeta.PROCESS_DEFINITION).basic().label("流程类型")
                 .search().on(BPM_TASK.PROCESS_DEFINITION_ID).triggerOnSelect(true)
@@ -134,7 +135,9 @@ public class TaskConfig extends BaseCodeConfig<BPM_TASK> {
 
         view.field(TaskMeta.NODE_NAME).basic().label("审批节点");
 
-        view.field(BPM_TASK.STATUS).basic().label("任务状态").form().selectBox().enumType(TaskStatus.class).search().triggerOnSelect(true);
+        view.field(TaskMeta.CAMUNDA_ASSIGNEE).basic().hidden().table().disable();
+
+        view.field(BPM_TASK.STATUS).basic().label("任务状态").form().selectBox().enumType(TaskStatus.class).search().hidden(true);
 
         view.field(BPM_TASK.APPROVAL_TIME).basic().label("处理时间").search().range().matchType(MatchType.auto).triggerOnSelect(true);
 

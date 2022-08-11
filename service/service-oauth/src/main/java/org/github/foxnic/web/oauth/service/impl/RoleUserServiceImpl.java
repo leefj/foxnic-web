@@ -76,11 +76,12 @@ public class RoleUserServiceImpl extends SuperService<RoleUser> implements IRole
 	 * @param id id
 	 * @return 删除是否成功
 	 */
-	public boolean deleteByIdPhysical(String id) {
+	public Result deleteByIdPhysical(String id) {
 		RoleUser roleUser = new RoleUser();
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null ");
 		roleUser.setId(id);
-		return dao.deleteEntity(roleUser);
+		boolean suc= dao.deleteEntity(roleUser);
+		return ErrorDesc.create(suc);
 	}
 
 	/**
@@ -89,19 +90,20 @@ public class RoleUserServiceImpl extends SuperService<RoleUser> implements IRole
 	 * @param id id
 	 * @return 删除是否成功
 	 */
-	public boolean deleteByIdLogical(String id) {
+	public Result deleteByIdLogical(String id) {
 		RoleUser roleUser = new RoleUser();
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null 。");
 		roleUser.setId(id);
 		roleUser.setDeleted(dao.getDBTreaty().getTrueValue());
 		roleUser.setDeleteBy((String)dao.getDBTreaty().getLoginUserId());
 		roleUser.setDeleteTime(new Date());
-		return dao.updateEntity(roleUser,SaveMode.NOT_NULL_FIELDS);
+		boolean suc=dao.updateEntity(roleUser,SaveMode.NOT_NULL_FIELDS);
+		return ErrorDesc.create(suc);
 	}
 
 	/**
 	 * 更新实体
-	 * @param role 数据对象
+	 * @param roleUser 数据对象
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */
@@ -112,7 +114,7 @@ public class RoleUserServiceImpl extends SuperService<RoleUser> implements IRole
 
 	/**
 	 * 更新实体集，事务内
-	 * @param roleList 数据对象列表
+	 * @param roleUserList 数据对象列表
 	 * @param mode 保存模式
 	 * @return 保存是否成功
 	 * */

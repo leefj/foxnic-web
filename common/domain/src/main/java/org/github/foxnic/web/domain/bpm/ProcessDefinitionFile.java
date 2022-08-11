@@ -12,6 +12,7 @@ import org.github.foxnic.web.domain.oauth.User;
 import java.util.List;
 import com.github.foxnic.commons.lang.DataParser;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
 
@@ -20,7 +21,7 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程定义文件
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-13 14:13:05
+ * @since 2022-07-07 14:18:35
  * @sign 304AEFECE665125E051679D1E6DBF03D
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -652,9 +653,9 @@ public class ProcessDefinitionFile extends Entity {
 	 * @param node 审批节点清单
 	 * @return 当前对象
 	*/
-	public ProcessDefinitionFile addNode(ProcessDefinitionNode node) {
+	public ProcessDefinitionFile addNode(ProcessDefinitionNode... node) {
 		if(this.nodes==null) nodes=new ArrayList<>();
-		this.nodes.add(node);
+		this.nodes.addAll(Arrays.asList(node));
 		return this;
 	}
 

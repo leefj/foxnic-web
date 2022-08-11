@@ -24,6 +24,7 @@ import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.job.service.IJobLogService;
 import org.github.foxnic.web.job.service.IJobService;
 import org.github.foxnic.web.job.utils.ScheduleUtils;
+import org.github.foxnic.web.proxy.job.JobServiceProxy;
 import org.quartz.CronExpression;
 import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -381,7 +382,6 @@ public class JobServiceImpl extends SuperService<Job> implements IJobService {
 	@Override
 	public Result simulate(String cronExpr) {
 
-//		CronSequenceGenerator generator = null;
 		CronExpression expression = null;
 		try {
 			expression=new CronExpression(cronExpr);

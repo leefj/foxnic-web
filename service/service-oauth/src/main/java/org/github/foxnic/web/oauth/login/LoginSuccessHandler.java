@@ -1,8 +1,11 @@
 package org.github.foxnic.web.oauth.login;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.commons.json.JSONUtil;
+import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.commons.network.Machine;
 import com.github.foxnic.springboot.spring.SpringUtil;
 import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_USER;
@@ -127,15 +130,20 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 		SessionUser sessionUser=setupAuthentication(request,response,authentication);
 
 		JSONObject ret=new JSONObject();
-		ret.put("user", sessionUser.getUser());
+
+		// 瘦身
+		JSONObject user=slimming(sessionUser.getUser());
+		ret.put("user", user);
 		ret.put("sessionId", sessionUser.getSessionOnlineId());
 
+
         if( securityProperties.getSecurityMode()==SecurityMode.BOTH || securityProperties.getSecurityMode()==SecurityMode.JWT ) {
-        	Map<String, Object> token = getToken(authentication);
+        	Map<String, String> token = getToken(authentication);
         	ret.put("token", token);
+			for (Map.Entry<String, String> entry : token.entrySet()) {
+				response.addHeader("Set-Cookie", entry.getKey()+"="+entry.getValue()+"; path=/");
+			}
         }
-
-
 
         Result r=ErrorDesc.success().message("登录成功").data(ret);
 
@@ -143,10 +151,65 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
 	}
 
+	private JSONObject slimming(User user) {
+		JSONObject jsonUser= JSONUtil.toJSONObject(user);
+		jsonUser=slimmingCommonFields(jsonUser);
+		JSONArray menus=jsonUser.getJSONArray("menus");
+		if(menus==null) return jsonUser;
+		for (int i = 0; i < menus.size(); i++) {
+			JSONObject menu=menus.getJSONObject(i);
+			if(menu==null) continue;
+			menu.remove("resourceIds");
+			menu.remove("resources");
+			menu.remove("dynamicHandler");
+			menu.remove("pathResourceId");
+			menu.remove("batchId");
+			menu.remove("hierarchy");
+			menu.remove("pathResource");
+			if(StringUtil.isBlank(menu.getString("url"))) {
+				menu.remove("url");
+			}
+			if(StringUtil.isBlank(menu.getString("css"))) {
+				menu.remove("css");
+			}
+			if(StringUtil.isBlank(menu.getString("params"))) {
+				menu.remove("params");
+			}
+		}
+		return jsonUser;
+	}
 
-	private Map<String, Object> getToken(Authentication authentication)  {
+	private JSONObject slimmingCommonFields(JSONObject jsonUser) {
+		jsonUser.remove("deleted");
+		jsonUser.remove("version");
+		jsonUser.remove("deleteTime");
+		jsonUser.remove("deleteBy");
+		jsonUser.remove("createTime");
+		jsonUser.remove("createBy");
+		jsonUser.remove("updateTime");
+		jsonUser.remove("updateBy");
+		jsonUser.remove("valid");
+		jsonUser.remove("tenantId");
+		for (Map.Entry<String, Object> entry : jsonUser.entrySet()) {
+			if(entry.getValue() instanceof JSONObject) {
+				slimmingCommonFields((JSONObject)entry.getValue());
+			} else if(entry.getValue() instanceof JSONArray) {
+				JSONArray array=(JSONArray) entry.getValue();
+				for (int i = 0; i < array.size(); i++) {
+					if(array.get(i) instanceof JSONObject) {
+						slimmingCommonFields((JSONObject) array.get(i));
+					}
+				}
+			}
+		}
 
-		Map<String, Object> map = new HashMap<>(5);
+		return jsonUser;
+	}
+
+
+	private Map<String, String> getToken(Authentication authentication)  {
+
+		Map<String, String> map = new HashMap<>(5);
 		SessionUserImpl principal = (SessionUserImpl) authentication.getPrincipal();
 
 		String username = principal.getUsername();
@@ -166,7 +229,6 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
 		return map;
 
-//		ResponseUtil.writeOK(response, ErrorDesc.success().message("登录成功").data(map));
 	}
 
 }

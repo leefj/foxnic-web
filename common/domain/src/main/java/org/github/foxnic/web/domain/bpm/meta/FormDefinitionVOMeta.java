@@ -11,8 +11,8 @@ import org.github.foxnic.web.domain.oauth.User;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-07 09:27:44
- * @sign D1FAD95945FF2382B267FAAEE66BC29C
+ * @since 2022-07-04 16:12:04
+ * @sign EEE1444540F22C9ED240D3FD8F25C44E
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -107,6 +107,16 @@ public class FormDefinitionVOMeta extends FormDefinitionMeta {
 	 * 主键清单 , 用于接收批量主键参数 , 集合类型: LIST , 类型: java.lang.String
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.FormDefinitionVO,java.lang.String> IDS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.FormDefinitionVO.class ,IDS, java.util.List.class, "主键清单", "用于接收批量主键参数", java.lang.String.class, null);
+	
+	/**
+	 * 是否已经绑定流程 , 查询条件，null:不控制;1绑定流程:0:未绑定流程 , 类型: java.lang.Integer
+	*/
+	public static final String IS_BIND_PROCESS="isBindProcess";
+	
+	/**
+	 * 是否已经绑定流程 , 查询条件，null:不控制;1绑定流程:0:未绑定流程 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.FormDefinitionVO,java.lang.Integer> IS_BIND_PROCESS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.FormDefinitionVO.class ,IS_BIND_PROCESS, java.lang.Integer.class, "是否已经绑定流程", "查询条件，null:不控制;1绑定流程:0:未绑定流程", java.lang.Integer.class, null);
 	
 	/**
 	 * 主键 , 类型: java.lang.String
@@ -279,6 +289,26 @@ public class FormDefinitionVOMeta extends FormDefinitionMeta {
 	public static final BeanProperty<org.github.foxnic.web.domain.bpm.FormDefinitionVO,java.lang.String> TENANT_ID_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.FormDefinitionVO.class ,TENANT_ID, java.lang.String.class, "租户ID", "租户ID", java.lang.String.class, null);
 	
 	/**
+	 * 回调控制器 , 完整类名 , 类型: java.lang.String
+	*/
+	public static final String CALLBACK_CONTROLLER="callbackController";
+	
+	/**
+	 * 回调控制器 , 完整类名 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.FormDefinitionVO,java.lang.String> CALLBACK_CONTROLLER_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.FormDefinitionVO.class ,CALLBACK_CONTROLLER, java.lang.String.class, "回调控制器", "完整类名", java.lang.String.class, null);
+	
+	/**
+	 * 是否可关联多个流程 , 类型: java.lang.Integer
+	*/
+	public static final String MULITI_PROCESS="mulitiProcess";
+	
+	/**
+	 * 是否可关联多个流程 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.bpm.FormDefinitionVO,java.lang.Integer> MULITI_PROCESS_PROP = new BeanProperty(org.github.foxnic.web.domain.bpm.FormDefinitionVO.class ,MULITI_PROCESS, java.lang.Integer.class, "是否可关联多个流程", "是否可关联多个流程", java.lang.Integer.class, null);
+	
+	/**
 	 * 最后修改人 , 类型: org.github.foxnic.web.domain.oauth.User
 	*/
 	public static final String LAST_UPDATE_USER="lastUpdateUser";
@@ -291,7 +321,7 @@ public class FormDefinitionVOMeta extends FormDefinitionMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , ID , CODE , NAME , FORM_TYPE , DRAFT_PAGE_URL , APPROVAL_PAGE_URL , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , LAST_UPDATE_USER };
+	public static final String[] $PROPS={ PAGE_INDEX , PAGE_SIZE , SEARCH_FIELD , FUZZY_FIELD , SEARCH_VALUE , DIRTY_FIELDS , SORT_FIELD , SORT_TYPE , IDS , IS_BIND_PROCESS , ID , CODE , NAME , FORM_TYPE , DRAFT_PAGE_URL , APPROVAL_PAGE_URL , VALID , NOTES , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION , TENANT_ID , CALLBACK_CONTROLLER , MULITI_PROCESS , LAST_UPDATE_USER };
 	
 	/**
 	 * 代理类
@@ -397,6 +427,17 @@ public class FormDefinitionVOMeta extends FormDefinitionMeta {
 		public FormDefinitionVO setIds(List<String> ids) {
 			super.change(IDS,super.getIds(),ids);
 			super.setIds(ids);
+			return this;
+		}
+		
+		/**
+		 * 设置 是否已经绑定流程
+		 * @param isBindProcess 是否已经绑定流程
+		 * @return 当前对象
+		*/
+		public FormDefinitionVO setIsBindProcess(Integer isBindProcess) {
+			super.change(IS_BIND_PROCESS,super.getIsBindProcess(),isBindProcess);
+			super.setIsBindProcess(isBindProcess);
 			return this;
 		}
 		
@@ -584,6 +625,28 @@ public class FormDefinitionVOMeta extends FormDefinitionMeta {
 		public FormDefinition setTenantId(String tenantId) {
 			super.change(TENANT_ID,super.getTenantId(),tenantId);
 			super.setTenantId(tenantId);
+			return this;
+		}
+		
+		/**
+		 * 设置 回调控制器
+		 * @param callbackController 回调控制器
+		 * @return 当前对象
+		*/
+		public FormDefinition setCallbackController(String callbackController) {
+			super.change(CALLBACK_CONTROLLER,super.getCallbackController(),callbackController);
+			super.setCallbackController(callbackController);
+			return this;
+		}
+		
+		/**
+		 * 设置 是否可关联多个流程
+		 * @param mulitiProcess 是否可关联多个流程
+		 * @return 当前对象
+		*/
+		public FormDefinition setMulitiProcess(Integer mulitiProcess) {
+			super.change(MULITI_PROCESS,super.getMulitiProcess(),mulitiProcess);
+			super.setMulitiProcess(mulitiProcess);
 			return this;
 		}
 		

@@ -3,10 +3,7 @@ package org.github.foxnic.web.generator.module.hrm;
 import com.github.foxnic.generator.builder.business.option.ServiceOptions;
 import com.github.foxnic.generator.builder.model.PoClassFile;
 import com.github.foxnic.generator.builder.model.VoClassFile;
-import com.github.foxnic.generator.builder.view.option.FormOptions;
-import com.github.foxnic.generator.builder.view.option.ListOptions;
-import com.github.foxnic.generator.builder.view.option.SearchAreaOptions;
-import com.github.foxnic.generator.builder.view.option.ViewOptions;
+import com.github.foxnic.generator.builder.view.option.*;
 import com.github.foxnic.generator.config.WriteMode;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.constants.db.FoxnicWeb.HRM_EMPLOYEE;
@@ -93,7 +90,7 @@ public class HrmEmployeeConfig extends BaseCodeConfig<HRM_EMPLOYEE> {
                 .search().selectMuliti(false).triggerOnSelect(true)
                 .table().fillBy(EmployeeMeta.PERSON, PersonMeta.SEX).sort(true).alignCenter()
                 .form().validate().required()
-                .form().radioBox().dict(DictEnum.SEX)
+                .form().radioBox().dict(DictEnum.SEX).defaultIndex(0)
                 .form().fillBy(EmployeeMeta.PERSON, PersonMeta.SEX)
                 .search().on(FoxnicWeb.HRM_PERSON.SEX);
 
@@ -131,7 +128,7 @@ public class HrmEmployeeConfig extends BaseCodeConfig<HRM_EMPLOYEE> {
     }
 
     @Override
-    public void configForm(ViewOptions view, FormOptions form) {
+    public void configForm(ViewOptions view, FormOptions form, FormWindowOptions formWindow) {
         form.labelWidth(80);
         form.columnLayout(new Object[] {
                 PersonMeta.NAME,

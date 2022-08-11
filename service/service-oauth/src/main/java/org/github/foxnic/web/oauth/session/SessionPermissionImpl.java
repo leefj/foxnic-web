@@ -18,6 +18,8 @@ import java.util.*;
 
 public class SessionPermissionImpl implements SessionPermission {
 
+	private static final long serialVersionUID = 1L;
+
 	private SessionUserImpl sessionUser;
 
 	private Set<AntPathRequestMatcher> requestMatchers;
@@ -32,21 +34,28 @@ public class SessionPermissionImpl implements SessionPermission {
 
 	private Map<String,String> menuRoleRelation ;
 
+	Map<String, String> getMenuRoleRelation() {
+		return menuRoleRelation;
+	}
+
 	private Map<String,Role> roleIdCache;
 	private Map<String,String> urlMenuCache;
 	private Set<String> authorityKeys=new HashSet<>();
 	private Set<String> roleKeys=new HashSet<>();
 
-	public SessionPermissionImpl(SessionUserImpl sessionUser) {
+	public SessionPermissionImpl(SessionUserImpl sessionUser,Map<String,String> menuRoleRelation) {
 		this.sessionUser=sessionUser;
 
 		initRequestMatchers();
 		initAuthorities();
+
+		this.menuRoleRelation=menuRoleRelation;
 		initMenuRoleRelation();
 	}
 
 
 	private void initMenuRoleRelation() {
+		if(menuRoleRelation!=null) return;
 		menuRoleRelation=new HashMap<String, String>();
 		//此处会覆盖拥有相同菜单的角色，在对 SpringSecurity 进行深度定制时建议考虑
 		for (Role role : sessionUser.getUser().getRoles()) {

@@ -3,6 +3,7 @@ package org.github.foxnic.web.domain.oauth;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
 import com.github.foxnic.api.model.CompositeParameter;
 import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
@@ -12,7 +13,7 @@ import com.github.foxnic.commons.bean.BeanUtil;
 /**
  * 账户
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-04-20 13:14:30
+ * @since 2022-07-20 16:30:40
  * @sign 0258A0A69C7952BA43C3A72EE01FD173
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -194,9 +195,9 @@ public class UserVO extends User {
 	 * @param dirtyField 已修改字段
 	 * @return 当前对象
 	*/
-	public UserVO addDirtyField(String dirtyField) {
+	public UserVO addDirtyField(String... dirtyField) {
 		if(this.dirtyFields==null) dirtyFields=new ArrayList<>();
-		this.dirtyFields.add(dirtyField);
+		this.dirtyFields.addAll(Arrays.asList(dirtyField));
 		return this;
 	}
 	
@@ -260,9 +261,9 @@ public class UserVO extends User {
 	 * @param id 主键清单
 	 * @return 当前对象
 	*/
-	public UserVO addId(String id) {
+	public UserVO addId(String... id) {
 		if(this.ids==null) ids=new ArrayList<>();
-		this.ids.add(id);
+		this.ids.addAll(Arrays.asList(id));
 		return this;
 	}
 	
@@ -289,9 +290,9 @@ public class UserVO extends User {
 	 * @param roleId 角色ID列表
 	 * @return 当前对象
 	*/
-	public UserVO addRoleId(String roleId) {
+	public UserVO addRoleId(String... roleId) {
 		if(this.roleIds==null) roleIds=new ArrayList<>();
-		this.roleIds.add(roleId);
+		this.roleIds.addAll(Arrays.asList(roleId));
 		return this;
 	}
 	@Transient

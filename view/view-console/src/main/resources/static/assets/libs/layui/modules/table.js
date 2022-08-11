@@ -727,11 +727,24 @@ layui.define(['laytpl', 'laypage', 'layer', 'form', 'util'], function(exports){
     that.scrollPatch(); //滚动条补丁
   };
 
+  var reloadTimes={};
   //表格重载
   Class.prototype.reload = function(options, deep){
     var that = this;
 
+    //debugger
     options = options || {};
+
+    var key=window.location.href+"#"+that.config.id+";P:"+JSON.stringify(options);
+    var t=reloadTimes[key];
+    var now=(new Date()).getTime();
+    if(t) {
+      t=now-t;
+      if(t<500) return;
+    }
+
+    reloadTimes[key]=now;
+
     delete that.haveInit;
 
     //防止数组深度合并
@@ -795,6 +808,9 @@ layui.define(['laytpl', 'laypage', 'layer', 'form', 'util'], function(exports){
 
       that.loading();
 
+      // 李方捷添加的回调
+      options.beforeRequest && options.beforeRequest(options);
+
       $.ajax({
         type: options.method || 'get'
         ,url: options.url
@@ -807,6 +823,10 @@ layui.define(['laytpl', 'laypage', 'layer', 'form', 'util'], function(exports){
           if(typeof options.parseData === 'function'){
             res = options.parseData(res) || res;
           }
+
+          // 李方捷添加的回调
+          options.afterRequest && options.afterRequest(res);
+
           //检查数据格式是否符合规范
           if(res[response.statusName] != response.statusCode){
             that.renderForm();
