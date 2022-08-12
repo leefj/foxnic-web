@@ -6,7 +6,7 @@ import com.github.foxnic.commons.reflect.EnumUtil;
 
 
 /**
- * @since 2022-07-26 15:42:45
+ * @since 2022-08-09 20:01:08
  * @author 李方捷 , leefangjie@qq.com
  * 从 select distinct code,name from sys_dict WHERE deleted=0 and module in ('system','hrm','463397133957988352') 生成
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成
@@ -43,6 +43,11 @@ public enum DictEnum implements CodeTextEnum {
 	 * 请假类型
 	*/
 	LEAVE_TYPE("leave_type" , "请假类型"),
+	
+	/**
+	 * 地区位置
+	*/
+	REGION_LOCATION("region_location" , "地区位置"),
 	
 	/**
 	 * 系统配置分类
