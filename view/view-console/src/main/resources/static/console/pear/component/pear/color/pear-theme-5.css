@@ -37,7 +37,7 @@ xm-select  {
     background-color: #fff;
 }
 
-.layui-btn-primary:hover {
+.layui-btn-primary:not(.ops-view-button,.ops-edit-button) :hover  {
     border-color: #3963bc;
     color: #fff;
 }
