@@ -58,6 +58,13 @@ button[action-type] {
     color: #f6ad55;
 }
 
+.layui-table-view .layui-table th, .layui-table-view .layui-table td {
+    padding: 5px 0;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+
 .version-no {
     border-color: #f6ad55;
     background: #f6ad55;

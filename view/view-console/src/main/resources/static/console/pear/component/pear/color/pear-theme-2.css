@@ -65,6 +65,13 @@ button[action-type] {
     color: #fff;
 }
 
+.layui-table-view .layui-table th, .layui-table-view .layui-table td {
+    padding: 5px 0;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+
 .version-no:hover {
     border-color: #36b368;
     color: #fff;

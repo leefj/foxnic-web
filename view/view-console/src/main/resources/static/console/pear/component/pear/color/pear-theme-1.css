@@ -63,6 +63,13 @@ button[action-type] {
     color: #2d8cf0;
 }
 
+.layui-table-view .layui-table th, .layui-table-view .layui-table td {
+    padding: 5px 0;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+
 .version-no {
     border-color: #2d8cf0;
     background: #2d8cf0;

@@ -480,6 +480,10 @@ layui.define(['settings', 'layer', 'admin', 'form', 'table', 'util', 'upload', "
             var me=this;
             var tableId = cfg.elem.substring(1);
 
+            if(cfg.even==null) {
+                cfg.even = true;
+            }
+
             // debugger;
             if (window.LAYUI_TABLE_WIDTH_CONFIG) {
                 //debugger;
