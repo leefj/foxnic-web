@@ -1,7 +1,7 @@
 /**
  * 订单地址 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-09 16:26:21
+ * @since 2022-08-19 17:21:03
  */
 
 
@@ -84,7 +84,8 @@ function ListPage() {
 					,{ field: 'name', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('收件人姓名') , templet: function (d) { return templet('name',d.name,d);}  }
 					,{ field: 'phoneNumber', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('收件人手机') , templet: function (d) { return templet('phoneNumber',d.phoneNumber,d);}  }
 					,{ field: 'address', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('收件地址') , templet: function (d) { return templet('address',d.address,d);}  }
-					,{ field: 'type', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('类型') , templet: function (d) { return templet('type',d.type,d);}  }
+					,{ field: 'regionType', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('类型') , templet: function (d) { return templet('regionType',d.regionType,d);}  }
+					,{ field: 'regionLocation', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('地区位置') , templet: function (d) { return templet('regionLocation',d.regionLocation,d);}  }
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true   ,title: fox.translate('创建时间') ,templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
@@ -138,7 +139,8 @@ function ListPage() {
 		value.name={ inputType:"button",value: $("#name").val()};
 		value.phoneNumber={ inputType:"button",value: $("#phoneNumber").val()};
 		value.address={ inputType:"button",value: $("#address").val()};
-		value.type={ inputType:"button",value: $("#type").val()};
+		value.regionType={ inputType:"button",value: $("#regionType").val()};
+		value.regionLocation={ inputType:"button",value: $("#regionLocation").val()};
 		value.createTime={ inputType:"date_input", value: $("#createTime").val() ,matchType:"auto"};
 		var ps={searchField:"$composite"};
 		if(window.pageExt.list.beforeQuery){
@@ -191,6 +193,15 @@ function ListPage() {
 
 		fox.switchSearchRow(1);
 
+		laydate.render({
+			elem: '#createTime',
+			trigger:"click",
+			done: function(value, date, endDate) {
+				setTimeout(function () {
+					window.pageExt.list.onDatePickerChanged && window.pageExt.list.onDatePickerChanged("createTime",value, date, endDate);
+				},1);
+			}
+		});
 		fox.renderSearchInputs();
 		window.pageExt.list.afterSearchInputReady && window.pageExt.list.afterSearchInputReady();
 	}

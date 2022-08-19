@@ -17,8 +17,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 订单地址
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-09 11:07:56
- * @sign F1687084DEFDEB57D033DEA1E076FFB8
+ * @since 2022-08-19 17:20:58
+ * @sign 16D4C13E23C3C3232246E6E448EF551F
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -58,7 +58,13 @@ public class Address extends Entity {
 	 * 类型：A:国内；B:国外
 	*/
 	@ApiModelProperty(required = true,value="类型" , notes = "A:国内；B:国外")
-	private String type;
+	private String regionType;
+	
+	/**
+	 * 地区位置：东北、华北等
+	*/
+	@ApiModelProperty(required = false,value="地区位置" , notes = "东北、华北等")
+	private String regionLocation;
 	
 	/**
 	 * 创建人ID：创建人ID
@@ -191,17 +197,36 @@ public class Address extends Entity {
 	 * A:国内；B:国外
 	 * @return 类型
 	*/
-	public String getType() {
-		return type;
+	public String getRegionType() {
+		return regionType;
 	}
 	
 	/**
 	 * 设置 类型
-	 * @param type 类型
+	 * @param regionType 类型
 	 * @return 当前对象
 	*/
-	public Address setType(String type) {
-		this.type=type;
+	public Address setRegionType(String regionType) {
+		this.regionType=regionType;
+		return this;
+	}
+	
+	/**
+	 * 获得 地区位置<br>
+	 * 东北、华北等
+	 * @return 地区位置
+	*/
+	public String getRegionLocation() {
+		return regionLocation;
+	}
+	
+	/**
+	 * 设置 地区位置
+	 * @param regionLocation 地区位置
+	 * @return 当前对象
+	*/
+	public Address setRegionLocation(String regionLocation) {
+		this.regionLocation=regionLocation;
 		return this;
 	}
 	

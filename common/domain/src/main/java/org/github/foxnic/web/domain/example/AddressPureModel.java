@@ -12,8 +12,8 @@ import com.github.foxnic.dao.entity.Entity;
 /**
  * 订单地址
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-09 11:40:57
- * @sign EA8C001BEF5A7135FE7CF51F1BD72C4A
+ * @since 2022-08-19 17:20:58
+ * @sign 3EFFE1EC4A5A2548BFA8934F1B4C61D6
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -49,7 +49,13 @@ public class AddressPureModel {
 	 * 类型：类型，A:国内；B:国外
 	*/
 	@ApiModelProperty(required = false,value="类型" , notes = "类型，A:国内；B:国外")
-	private String type;
+	private String regionType;
+	
+	/**
+	 * 地区位置：地区位置，东北、华北等
+	*/
+	@ApiModelProperty(required = false,value="地区位置" , notes = "地区位置，东北、华北等")
+	private String regionLocation;
 	
 	/**
 	 * 获得 主键<br>
@@ -132,17 +138,36 @@ public class AddressPureModel {
 	 * 类型，A:国内；B:国外
 	 * @return 类型
 	*/
-	public String getType() {
-		return type;
+	public String getRegionType() {
+		return regionType;
 	}
 	
 	/**
 	 * 设置 类型
-	 * @param type 类型
+	 * @param regionType 类型
 	 * @return 当前对象
 	*/
-	public AddressPureModel setType(String type) {
-		this.type=type;
+	public AddressPureModel setRegionType(String regionType) {
+		this.regionType=regionType;
+		return this;
+	}
+	
+	/**
+	 * 获得 地区位置<br>
+	 * 地区位置，东北、华北等
+	 * @return 地区位置
+	*/
+	public String getRegionLocation() {
+		return regionLocation;
+	}
+	
+	/**
+	 * 设置 地区位置
+	 * @param regionLocation 地区位置
+	 * @return 当前对象
+	*/
+	public AddressPureModel setRegionLocation(String regionLocation) {
+		this.regionLocation=regionLocation;
 		return this;
 	}
 

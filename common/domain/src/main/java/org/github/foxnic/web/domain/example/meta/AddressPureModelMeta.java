@@ -6,8 +6,8 @@ import com.github.foxnic.api.bean.BeanProperty;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-09 11:40:57
- * @sign EA8C001BEF5A7135FE7CF51F1BD72C4A
+ * @since 2022-08-19 17:20:58
+ * @sign 3EFFE1EC4A5A2548BFA8934F1B4C61D6
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -56,15 +56,25 @@ public class AddressPureModelMeta {
 	/**
 	 * 类型 , 类型，A:国内；B:国外 , 类型: java.lang.String
 	*/
-	public static final String TYPE="type";
+	public static final String REGION_TYPE="regionType";
 	
 	/**
 	 * 类型 , 类型，A:国内；B:国外 , 类型: java.lang.String
 	*/
-	public static final BeanProperty<org.github.foxnic.web.domain.example.AddressPureModel,java.lang.String> TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.example.AddressPureModel.class ,TYPE, java.lang.String.class, "类型", "类型，A:国内；B:国外", java.lang.String.class, null);
+	public static final BeanProperty<org.github.foxnic.web.domain.example.AddressPureModel,java.lang.String> REGION_TYPE_PROP = new BeanProperty(org.github.foxnic.web.domain.example.AddressPureModel.class ,REGION_TYPE, java.lang.String.class, "类型", "类型，A:国内；B:国外", java.lang.String.class, null);
+	
+	/**
+	 * 地区位置 , 地区位置，东北、华北等 , 类型: java.lang.String
+	*/
+	public static final String REGION_LOCATION="regionLocation";
+	
+	/**
+	 * 地区位置 , 地区位置，东北、华北等 , 类型: java.lang.String
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.example.AddressPureModel,java.lang.String> REGION_LOCATION_PROP = new BeanProperty(org.github.foxnic.web.domain.example.AddressPureModel.class ,REGION_LOCATION, java.lang.String.class, "地区位置", "地区位置，东北、华北等", java.lang.String.class, null);
 	
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , NAME , PHONE_NUMBER , ADDRESS , TYPE };
+	public static final String[] $PROPS={ ID , NAME , PHONE_NUMBER , ADDRESS , REGION_TYPE , REGION_LOCATION };
 }

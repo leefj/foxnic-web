@@ -56,6 +56,8 @@ public class ExampleAddressConfig extends BaseCodeConfig<EXAMPLE_ADDRESS> {
 	@Override
 	public void configFields(ViewOptions view) {
 
+		view.field(EXAMPLE_ADDRESS.CREATE_TIME).search().hidden(false);
+
 	}
 
 
