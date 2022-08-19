@@ -1,5 +1,6 @@
 package org.github.foxnic.web.oauth.session;
 
+import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import org.github.foxnic.web.constants.enums.system.AccessType;
 import org.github.foxnic.web.domain.hrm.Employee;
@@ -56,15 +57,27 @@ public class SessionPermissionImpl implements SessionPermission {
 
 	private void initMenuRoleRelation() {
 		if(menuRoleRelation!=null) return;
+
 		menuRoleRelation=new HashMap<String, String>();
-		//此处会覆盖拥有相同菜单的角色，在对 SpringSecurity 进行深度定制时建议考虑
+
+		// 复制一份以避免并发问题
+		List<Role> roles=new ArrayList<>();
 		for (Role role : sessionUser.getUser().getRoles()) {
+			Role newRole=new Role();
+			BeanUtil.copy(role,newRole,true);
+			roles.add(newRole);
+		}
+
+		//此处会覆盖拥有相同菜单的角色，在对 SpringSecurity 进行深度定制时建议考虑
+		for (Role role : roles) {
 			for (Menu m : role.getMenus()) {
 				this.menuRoleRelation.put(m.getId(),role.getId());
 			}
 			// 清空
 			role.setMenus(null);
 		}
+
+		sessionUser.getUser().setRoles(roles);
 	}
 
 

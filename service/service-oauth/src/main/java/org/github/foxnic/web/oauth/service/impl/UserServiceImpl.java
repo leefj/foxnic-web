@@ -23,6 +23,7 @@ import org.github.foxnic.web.domain.hrm.Employee;
 import org.github.foxnic.web.domain.hrm.Person;
 import org.github.foxnic.web.domain.hrm.meta.EmployeeMeta;
 import org.github.foxnic.web.domain.oauth.Menu;
+import org.github.foxnic.web.domain.oauth.Role;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.domain.oauth.UserVO;
 import org.github.foxnic.web.domain.oauth.meta.MenuMeta;
@@ -374,28 +375,42 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 
 
 //		int size2= ObjectUtil.sizeOf(user);
-
-		List<Menu> remMenus=new ArrayList<>();
-		if(user.getMenus()!=null) {
-
-			for (Menu menu : user.getMenus()) {
-				if (!StringUtil.isBlank(menu.getDynamicHandler())) {
-					DynamicMenuHandler dy = DynamicMenuHandler.getHandler(menu.getDynamicHandler());
-					boolean has = dy.hasPermission(menu, user);
-					if (!has) {
-						remMenus.add(menu);
-					}
-					String title = dy.getLabel(menu, user);
-					menu.setLabel(title);
+		List<Menu> userMenus=new ArrayList<>();
+		if(user.getRoles()!=null) {
+			for (Role role : user.getRoles()) {
+				if(role.getMenus()!=null) {
+					userMenus.addAll(role.getMenus());
 				}
 			}
-
-			for (Menu remMenu : remMenus) {
-				user.getMenus().remove(remMenu);
-			}
-
 		}
 
+		List<Menu> remMenus=new ArrayList<>();
+		for (Menu menu : userMenus) {
+			if (!StringUtil.isBlank(menu.getDynamicHandler())) {
+				DynamicMenuHandler dy = DynamicMenuHandler.getHandler(menu.getDynamicHandler());
+				boolean has = dy.hasPermission(menu, user);
+				if (!has) {
+					remMenus.add(menu);
+				}
+				String title = dy.getLabel(menu, user);
+				menu.setLabel(title);
+			}
+		}
+
+		for (Menu remMenu : remMenus) {
+			user.getMenus().remove(remMenu);
+		}
+
+		// 按 ID distinct
+		userMenus = CollectorUtil.distinct(userMenus, (menu) -> {
+			return menu.getId();
+		});
+		// 排序
+		CollectorUtil.sort(userMenus,(me)->{return me.getSort();},true,true);
+		// 设置用户菜单
+		user.setMenus(userMenus);
+
+		//
  		if(user.getActivatedTenant()!=null){
  			Employee employee=user.getActivatedTenant().getEmployee();
  			if(employee!=null) {

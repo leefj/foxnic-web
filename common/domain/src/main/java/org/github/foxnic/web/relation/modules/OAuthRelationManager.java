@@ -134,35 +134,35 @@ public class OAuthRelationManager extends RelationManager {
 		this.property(RoleMeta.MENUS_PROP)
 				.using(SYS_ROLE.ID).join(SYS_ROLE_MENU.ROLE_ID)
 				.using(SYS_ROLE_MENU.MENU_ID).join(SYS_MENU.ID)
-				.after((tag,role,menus,m)->{
-					// 如果是登录
-					if("login".equals(tag)) {
-						// 找到当前 Join 的User 对象
-						// long t=System.currentTimeMillis();
-						User user = role.findParentOwner(User.class);
-
-						// 设置菜单
-						List<Menu> userMenus=user.getMenus();
-						if(userMenus==null) {
-							userMenus=new ArrayList<>();
-						}
-						userMenus.addAll(menus);
-						userMenus = CollectorUtil.distinct(userMenus, (menu) -> {
-							return menu.getId();
-						});
-						// 菜单排序
-						CollectorUtil.sort(userMenus,(me)->{return me.getSort();},true,true);
-
-						user.setMenus(userMenus);
-
-						//
-						// long t1=System.currentTimeMillis();
-
-						// System.out.println(t1-t);
-						//role.setMenuIds(CollectorUtil.collectList(menus, Menu::getId));
-					}
-					return menus;
-				})
+//				.after((tag,role,menus,m)->{
+//					// 如果是登录
+//					if("login".equals(tag)) {
+//						// 找到当前 Join 的User 对象
+//						// long t=System.currentTimeMillis();
+//						User user = role.findParentOwner(User.class);
+//
+//						// 设置菜单
+//						List<Menu> userMenus=user.getMenus();
+//						if(userMenus==null) {
+//							userMenus=new ArrayList<>();
+//						}
+//						userMenus.addAll(menus);
+//						userMenus = CollectorUtil.distinct(userMenus, (menu) -> {
+//							return menu.getId();
+//						});
+//						// 菜单排序
+//						CollectorUtil.sort(userMenus,(me)->{return me.getSort();},true,true);
+//
+//						user.setMenus(userMenus);
+//
+//						//
+//						// long t1=System.currentTimeMillis();
+//
+//						// System.out.println(t1-t);
+//						//role.setMenuIds(CollectorUtil.collectList(menus, Menu::getId));
+//					}
+//					return menus;
+//				})
 				.fork(128)
 				.cache(true);
 	}
