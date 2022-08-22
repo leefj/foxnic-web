@@ -432,9 +432,7 @@ function ListPage() {
 			done: function(value, date, endDate) {
 				setTimeout(function () {
 					#if(f.search.triggerOnSelect)
-					if(data.change && data.change.length>0) {
 						refreshTableData();
-					}
 					#end
 					window.pageExt.list.onDatePickerChanged && window.pageExt.list.onDatePickerChanged("#(f.varName)",value, date, endDate);
 				},1);

@@ -23,7 +23,7 @@ import java.util.Map;
  * 代码生成示例主表 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-19 15:10:28
+ * @since 2022-08-22 13:39:22
 */
 
 public interface ICodeExampleService extends  ISimpleIdService<CodeExample,String> {

@@ -11,8 +11,8 @@ import java.util.List;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-19 15:10:28
- * @sign AB1525FC4E497C549D73B688CF4DFFE5
+ * @since 2022-08-22 13:39:22
+ * @sign 5DA5B807819C80EF8AD87B54E1E5646B
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 

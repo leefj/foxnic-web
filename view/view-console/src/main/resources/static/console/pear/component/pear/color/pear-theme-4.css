@@ -1,8 +1,14 @@
 .layui-btn { background-color:#f56c6c }
 .batch-delete-button { border: solid 1px #f6ad55;background-color: #f6ad55; }
 .ops-delete-button { border: #f6ad55;background-color: #f6ad55; }
-.ops-view-button {background-color: #f0f9eb !important}
-.ops-edit-button {background-color: #fef0f0 !important}
+.ops-view-button {
+    background-color: #fff !important;
+    color: #666 !important;
+}
+.ops-edit-button {
+    background-color: #fff !important;
+    color: #666 !important;
+}
 .layui-laypage .layui-laypage-curr .layui-laypage-em { background-color:#f56c6c }
 
 
@@ -17,6 +23,12 @@
 .xm-label-block  {
     background-color: #f56c6c !important;
 }
+
+.xm-label-block-disabled {
+    background-color: #F0F0F0 !important;
+    color: #a0a0a0 !important;
+}
+
 .xm-option-icon {
     border-color: #f56c6c !important;
 }
@@ -39,9 +51,10 @@ xm-select  {
     background-color: #fff;
 }
 
-.layui-btn-primary:not(.ops-view-button,.ops-edit-button) :hover  {
+
+.layui-btn-primary:hover {
     border-color: #f56c6c;
-    color: #fff;
+    color: #ffffff;
 }
 
 .layui-form-radioed, .layui-form-radioed>i, .layui-form-radio:hover * {

@@ -442,7 +442,7 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 
 		//
  		if(user.getActivatedTenant()!=null){
-			EntityContext.clonePropertyChain(user,false,UserMeta.ACTIVATED_TENANT_PROP,UserTenantMeta.EMPLOYEE_PROP,EmployeeMeta.PERSON_PROP);
+			EntityContext.clonePropertyChain(user,false,UserMeta.ACTIVATED_TENANT_PROP,UserTenantMeta.EMPLOYEE_PROP);
  			Employee employee=user.getActivatedTenant().getEmployee();
  			if(employee!=null) {
 

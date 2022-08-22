@@ -1,12 +1,15 @@
 .layui-btn { background-color:#2d8cf0 }
 .batch-delete-button { border: solid 1px #f56c6c;background-color: #f56c6c; }
 .ops-delete-button { border: #f56c6c;background-color: #f56c6c;}
-.ops-view-button {background-color: #f0f9eb !important}
 
-
-
-
-.ops-edit-button {background-color: #fef0f0 !important}
+.ops-view-button {
+    background-color: #fff !important;
+    color: #666 !important;
+}
+.ops-edit-button {
+    background-color: #fff !important;
+    color: #666 !important;
+}
 .layui-laypage .layui-laypage-curr .layui-laypage-em { background-color:#2d8cf0 }
 
 .search-button-advance {color:#fff}
@@ -18,6 +21,12 @@
 .xm-label-block  {
     background-color: #2d8cf0 !important;
 }
+
+.xm-label-block-disabled {
+    background-color: #F0F0F0 !important;
+    color: #a0a0a0 !important;
+}
+
 .xm-option-icon {
     border-color: #2d8cf0 !important;
 }
@@ -40,7 +49,7 @@ xm-select  {
     background-color: #fff;
 }
 
-.layui-btn-primary:not(.ops-view-button,.ops-edit-button) :hover  {
+.layui-btn-primary:hover {
     border-color: #2d8cf0;
     color: #fff;
 }

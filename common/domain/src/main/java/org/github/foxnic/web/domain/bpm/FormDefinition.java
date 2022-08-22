@@ -18,8 +18,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 表单定义
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-04 16:12:04
- * @sign A15DEEDD4B46D7BDC09812C2331E1A0F
+ * @since 2022-08-22 14:22:15
+ * @sign 6104A255338359211BFF78649DEF6F47
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -144,7 +144,7 @@ public class FormDefinition extends Entity {
 	/**
 	 * 是否可关联多个流程：是否可关联多个流程
 	*/
-	@ApiModelProperty(required = false,value="是否可关联多个流程" , notes = "是否可关联多个流程")
+	@ApiModelProperty(required = true,value="是否可关联多个流程" , notes = "是否可关联多个流程")
 	private Integer mulitiProcess;
 	
 	/**
@@ -590,6 +590,22 @@ public class FormDefinition extends Entity {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public FormDefinition clone() {
+		return EntityContext.clone(FormDefinition.class,this);
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public FormDefinition clone(boolean deep) {
+		return EntityContext.clone(FormDefinition.class,this,deep);
 	}
 
 	/**
