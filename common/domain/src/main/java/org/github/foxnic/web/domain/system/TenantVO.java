@@ -3,6 +3,7 @@ package org.github.foxnic.web.domain.system;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
 import com.github.foxnic.api.model.CompositeParameter;
 import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
@@ -12,8 +13,8 @@ import com.github.foxnic.commons.bean.BeanUtil;
 /**
  * 租户
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-03-22 11:16:14
- * @sign B3BA4484CFF43A1A00B6B83A71DC78FC
+ * @since 2022-08-22 09:58:10
+ * @sign 99A9A8BCBE702236665A039052CF3210
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -188,9 +189,9 @@ public class TenantVO extends Tenant {
 	 * @param dirtyField 已修改字段
 	 * @return 当前对象
 	*/
-	public TenantVO addDirtyField(String dirtyField) {
+	public TenantVO addDirtyField(String... dirtyField) {
 		if(this.dirtyFields==null) dirtyFields=new ArrayList<>();
-		this.dirtyFields.add(dirtyField);
+		this.dirtyFields.addAll(Arrays.asList(dirtyField));
 		return this;
 	}
 	
@@ -254,13 +255,13 @@ public class TenantVO extends Tenant {
 	 * @param id 主键清单
 	 * @return 当前对象
 	*/
-	public TenantVO addId(String id) {
+	public TenantVO addId(String... id) {
 		if(this.ids==null) ids=new ArrayList<>();
-		this.ids.add(id);
+		this.ids.addAll(Arrays.asList(id));
 		return this;
 	}
 	@Transient
-	private CompositeParameter $compositeParameter;
+	private transient CompositeParameter $compositeParameter;
 	/**
 	 * 获得解析后的复合查询参数
 	 */

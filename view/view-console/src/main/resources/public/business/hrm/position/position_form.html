@@ -2,7 +2,7 @@
 /**
  * 岗位 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-12 15:26:14
+ * @since 2022-08-22 09:54:44
  */
  -->
  <!DOCTYPE html>
@@ -44,7 +44,7 @@
 
 
 
-        <div class="layui-row form-row" id="random-8930-content">
+        <div class="layui-row form-row" id="random-8665-content">
 
              <!--开始：column 循环-->
             <!-- 只有当非第一个分组没有title时才使 padding-top 为 0 -->
@@ -84,7 +84,7 @@
                 <div class="layui-form-item" >
                     <div class="layui-form-label layui-form-label-c1"><div th:text="${lang.translate('是否有效')}">是否有效</div><div class="layui-required">*</div></div>
                     <div class="layui-input-block layui-input-block-c1">
-                        <input input-type="switch" type="checkbox" checked="yes" id="valid"  name="valid" lay-skin="switch" lay-filter="valid" lay-text="有效|无效&nbsp;" value="1">
+                        <input input-type="switch" type="checkbox" checkedid="valid"  name="valid" lay-skin="switch" lay-filter="valid" lay-text="有效|无效&nbsp;" value="1">
                     </div>
                 </div>
 
@@ -111,7 +111,6 @@
 <script type="text/javascript" src="/assets/libs/pandyle.min.js" th:src="'/assets/libs/pandyle.min.js?'+${cacheKey}"></script>
 <script type="text/javascript" src="/assets/libs/layui/layui.js" th:src="'/assets/libs/layui/layui.js?'+${cacheKey}"></script>
 <script type="text/javascript" src="/assets/libs/toast/js/toast.js" th:src="'/assets/libs/toast/js/toast.js?'+${cacheKey}"></script>
-
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${layuiTableWidthConfig}]];
     var SELECT_TYPE_DATA = [[${dict.toArray('position_type')}]];

@@ -145,10 +145,11 @@ function FormPage() {
     function bindButtonEvent() {
 
 	    form.on('submit(submit-button)', function (data) {
-	    	//debugger;
+	    	debugger;
 			data.field = form.val("data-form");
 
-
+			//处理 生效 默认值
+			if(!data.field.valid) data.field.valid=0;
 
 			if(window.pageExt.form.beforeSubmit) {
 				var doNext=window.pageExt.form.beforeSubmit(data.field);

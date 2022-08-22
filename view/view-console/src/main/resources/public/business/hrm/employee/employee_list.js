@@ -1,7 +1,7 @@
 /**
  * 员工 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-02 16:36:55
+ * @since 2022-08-22 09:54:49
  */
 
 
@@ -157,8 +157,7 @@ function ListPage() {
 			if(sort) {
 				ps.sortField=sort.field;
 				ps.sortType=sort.type;
-			}
-		}
+			} 		}
 		if(reset) {
 			table.reload('data-table', { where : ps , page:{ curr:1 } });
 		} else {

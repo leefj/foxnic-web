@@ -1,7 +1,7 @@
 /**
  * 岗位 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-12 15:26:14
+ * @since 2022-08-22 09:54:44
  */
 
 
@@ -45,6 +45,9 @@ function ListPage() {
 		});
 		fox.adjustSearchElement();
 		//
+		 var marginTop=$(".search-bar").height()+$(".search-bar").css("padding-top")+$(".search-bar").css("padding-bottom")
+		 $("#table-area").css("margin-top",marginTop+"px");
+		//
 		function renderTableInternal() {
 
 			var ps={searchField: "$composite"};
@@ -83,32 +86,22 @@ function ListPage() {
 					,{ field: 'sort', align:"right",fixed:false,  hide:true, sort: true  , title: fox.translate('排序') , templet: function (d) { return templet('sort',d.sort,d);}  }
 					,{ field: 'companyId', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('总公司ID') , templet: function (d) { return templet('companyId',d.companyId,d);}  }
 					,{ field: 'createTime', align:"right", fixed:false, hide:false, sort: true   ,title: fox.translate('创建时间') ,templet: function (d) { return templet('createTime',fox.dateFormat(d.createTime,"yyyy-MM-dd HH:mm:ss"),d); }  }
-					,{ field: 'type', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('岗位类型'), templet:function (d){ return templet('type',fox.getDictText(SELECT_TYPE_DATA,d.type),d);}}
+					,{ field: 'type', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('岗位类型'), templet:function (d){ return templet('type',fox.getDictText(SELECT_TYPE_DATA,d.type,'','type'),d);}}
 					,{ field: fox.translate('空白列'), align:"center", hide:false, sort: false, title: "",minWidth:8,width:8,unresize:true}
 					,{ field: 'row-ops', fixed: 'right', align: 'center', toolbar: '#tableOperationTemplate', title: fox.translate('操作'), width: 160 }
 				]],
 				done: function (data) { window.pageExt.list.afterQuery && window.pageExt.list.afterQuery(data); },
 				footer : {
-					exportExcel : admin.checkAuth(AUTH_PREFIX+":export"),
-					importExcel : admin.checkAuth(AUTH_PREFIX+":import")?{
-						params : {} ,
-						callback : function(r) {
-							if(r.success) {
-								layer.msg(fox.translate('数据导入成功')+"!");
-							} else {
-								layer.msg(fox.translate('数据导入失败')+"!");
-							}
-							// 是否执行后续逻辑：错误提示
-							return false;
-						}
-					}:false
+					exportExcel : false ,
+					importExcel : false 
 				}
 			};
 			window.pageExt.list.beforeTableRender && window.pageExt.list.beforeTableRender(tableConfig);
 			dataTable=fox.renderTable(tableConfig);
 			//绑定 Switch 切换事件
-			fox.bindSwitchEvent("cell-tpl-valid",moduleURL +'/update','id','valid',function(data,ctx){
-				window.pageExt.list.afterSwitched && window.pageExt.list.afterSwitched("valid",data,ctx);
+			fox.bindSwitchEvent("cell-tpl-valid",moduleURL +'/update','id','valid',function(result,data,ctx){
+				window.pageExt.list.afterSwitched && window.pageExt.list.afterSwitched("valid",result,data,ctx);
+				refreshRowData(data,true);
 			});
 			//绑定排序事件
 			table.on('sort(data-table)', function(obj){
@@ -120,19 +113,37 @@ function ListPage() {
     };
 
 	/**
+	 * 刷新单号数据
+	 * */
+	function refreshRowData(data,remote) {
+		var context=dataTable.getDataRowContext( { id : data.id } );
+		if(context==null) return;
+		if(remote) {
+			admin.post(moduleURL+"/get-by-id", { id : data.id }, function (r) {
+				if (r.success) {
+					data = r.data;
+					context.update(data);
+					fox.renderFormInputs(form);
+				} else {
+					fox.showMessage(data);
+				}
+			});
+		} else {
+			context.update(data);
+			fox.renderFormInputs(form);
+		}
+	}
+
+	/**
       * 刷新表格数据
       */
 	function refreshTableData(sortField,sortType,reset) {
 		function getSelectedValue(id,prop) { var xm=xmSelect.get(id,true); return xm==null ? null : xm.getValue(prop);}
 		var value = {};
-		value.id={ inputType:"button",value: $("#id").val()};
-		value.orgId={ inputType:"button",value: $("#orgId").val()};
 		value.code={ inputType:"button",value: $("#code").val()};
 		value.fullName={ inputType:"button",value: $("#fullName").val()};
 		value.shortName={ inputType:"button",value: $("#shortName").val()};
 		value.valid={ inputType:"logic_switch",value: getSelectedValue("#valid","value"), label:getSelectedValue("#valid","nameStr") };
-		value.sort={ inputType:"number_input", value: $("#sort").val() };
-		value.companyId={ inputType:"button",value: $("#companyId").val()};
 		value.createTime={ inputType:"date_input", value: $("#createTime").val() ,matchType:"auto"};
 		value.type={ inputType:"select_box", value: getSelectedValue("#type","value"), label:getSelectedValue("#type","nameStr") };
 		var ps={searchField:"$composite"};
@@ -148,8 +159,7 @@ function ListPage() {
 			if(sort) {
 				ps.sortField=sort.field;
 				ps.sortType=sort.type;
-			}
-		}
+			} 		}
 		if(reset) {
 			table.reload('data-table', { where : ps , page:{ curr:1 } });
 		} else {
@@ -186,7 +196,7 @@ function ListPage() {
 		fox.renderSelectBox({
 			el: "valid",
 			size: "small",
-			radio: false,
+			radio: true,
 			on: function(data){
 				setTimeout(function () {
 					window.pageExt.list.onSelectBoxChanged && window.pageExt.list.onSelectBoxChanged("valid",data.arr,data.change,data.isAdd);
@@ -196,7 +206,7 @@ function ListPage() {
 		//渲染 type 下拉字段
 		fox.renderSelectBox({
 			el: "type",
-			radio: false,
+			radio: true,
 			size: "small",
 			filterable: false,
 			on: function(data){
@@ -262,6 +272,7 @@ function ListPage() {
 			}
 			switch(obj.event){
 				case 'create':
+					admin.putTempData('hrm-position-form-data', {});
 					openCreateFrom();
 					break;
 				case 'batch-del':
@@ -299,18 +310,19 @@ function ListPage() {
             }
             //调用批量删除接口
 			top.layer.confirm(fox.translate('确定删除已选中的')+fox.translate('岗位')+fox.translate('吗？'), function (i) {
-                admin.post(moduleURL+"/delete-by-ids", { ids: ids }, function (data) {
+                top.layer.close(i);
+				admin.post(moduleURL+"/delete-by-ids", { ids: ids }, function (data) {
                     if (data.success) {
 						if(window.pageExt.list.afterBatchDelete) {
 							var doNext=window.pageExt.list.afterBatchDelete(data);
 							if(!doNext) return;
 						}
-                    	top.layer.msg(data.message, {icon: 1, time: 500});
+						fox.showMessage(data);
                         refreshTableData();
                     } else {
-						top.layer.msg(data.message, {icon: 2, time: 1500});
+						fox.showMessage(data);
                     }
-                });
+                },{delayLoading:200,elms:[$("#delete-button")]});
 			});
         }
 	}
@@ -336,7 +348,7 @@ function ListPage() {
 						admin.putTempData('hrm-position-form-data-form-action', "edit",true);
 						showEditForm(data.data);
 					} else {
-						 top.layer.msg(data.message, {icon: 1, time: 1500});
+						 fox.showMessage(data);
 					}
 				});
 			} else if (layEvent === 'view') { // 查看
@@ -345,7 +357,7 @@ function ListPage() {
 						admin.putTempData('hrm-position-form-data-form-action', "view",true);
 						showEditForm(data.data);
 					} else {
-						top.layer.msg(data.message, {icon: 1, time: 1500});
+						fox.showMessage(data);
 					}
 				});
 			}
@@ -355,23 +367,22 @@ function ListPage() {
 					var doNext=window.pageExt.list.beforeSingleDelete(data);
 					if(!doNext) return;
 				}
+
 				top.layer.confirm(fox.translate('确定删除此')+fox.translate('岗位')+fox.translate('吗？'), function (i) {
 					top.layer.close(i);
-
-					top.layer.load(2);
-					admin.request(moduleURL+"/delete", { id : data.id }, function (data) {
+					admin.post(moduleURL+"/delete", { id : data.id }, function (data) {
 						top.layer.closeAll('loading');
 						if (data.success) {
 							if(window.pageExt.list.afterSingleDelete) {
 								var doNext=window.pageExt.list.afterSingleDelete(data);
 								if(!doNext) return;
 							}
-							top.layer.msg(data.message, {icon: 1, time: 500});
+							fox.showMessage(data);
 							refreshTableData();
 						} else {
-							top.layer.msg(data.message, {icon: 2, time: 1500});
+							fox.showMessage(data);
 						}
-					});
+					},{delayLoading:100, elms:[$(".ops-delete-button[data-id='"+data.id+"']")]});
 				});
 			}
 			
@@ -411,14 +422,21 @@ function ListPage() {
 			id:"hrm-position-form-data-win",
 			content: '/business/hrm/position/position_form.html' + (queryString?("?"+queryString):""),
 			finish: function () {
-				refreshTableData();
+				if(action=="create") {
+					refreshTableData();
+				}
+				if(action=="edit") {
+					false?refreshTableData():refreshRowData(data,true);
+				}
 			}
 		});
 	};
 
 	window.module={
 		refreshTableData: refreshTableData,
-		getCheckedList: getCheckedList
+		refreshRowData: refreshRowData,
+		getCheckedList: getCheckedList,
+		showEditForm: showEditForm
 	};
 
 	window.pageExt.list.ending && window.pageExt.list.ending();

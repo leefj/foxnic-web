@@ -7,19 +7,21 @@ import org.github.foxnic.web.constants.db.FoxnicWeb.SYS_MENU;
 import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
-import java.util.List;
-import java.util.ArrayList;
 import javax.persistence.Transient;
+import java.util.List;
+import com.github.foxnic.commons.lang.DataParser;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
 
 
 
 /**
- * null
+ * 菜单
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-22 21:05:48
- * @sign B6B30676345DE1928EFFD9568699AA3B
+ * @since 2022-08-22 09:52:06
+ * @sign 02BAA553C35E43DA7B5DEDBFBD921A85
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -144,6 +146,8 @@ public class Menu extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除")
 	private Integer deleted;
+	@Transient
+	private Boolean deletedBool;
 	
 	/**
 	 * 删除人ID：删除人ID
@@ -551,12 +555,42 @@ public class Menu extends Entity {
 	}
 	
 	/**
+	 * 获得 是否已删除 的投影属性<br>
+	 * 等价于 getDeleted 方法，获得对应的枚举类型
+	 * @return 是否已删除
+	*/
+	@Transient
+	public Boolean isDeleted() {
+		if(this.deletedBool==null) {
+			this.deletedBool=DataParser.parseBoolean(deleted);
+		}
+		return this.deletedBool ;
+	}
+	
+	/**
 	 * 设置 是否已删除
 	 * @param deleted 是否已删除
 	 * @return 当前对象
 	*/
 	public Menu setDeleted(Integer deleted) {
 		this.deleted=deleted;
+		this.deletedBool=DataParser.parseBoolean(deleted);
+		return this;
+	}
+	
+	/**
+	 * 设置 是否已删除的投影属性，等同于设置 是否已删除
+	 * @param deletedBool 是否已删除
+	 * @return 当前对象
+	*/
+	@Transient
+	public Menu setDeleted(Boolean deletedBool) {
+		if(deletedBool==null) {
+			this.deleted=null;
+		} else {
+			this.deleted=deletedBool?1:0;
+		}
+		this.deletedBool=deletedBool;
 		return this;
 	}
 	
@@ -658,9 +692,9 @@ public class Menu extends Entity {
 	 * @param resource 菜单包含的资源清单
 	 * @return 当前对象
 	*/
-	public Menu addResource(Resourze resource) {
+	public Menu addResource(Resourze... resource) {
 		if(this.resources==null) resources=new ArrayList<>();
-		this.resources.add(resource);
+		this.resources.addAll(Arrays.asList(resource));
 		return this;
 	}
 	
@@ -723,9 +757,9 @@ public class Menu extends Entity {
 	 * @param resourceId 资源ID清单
 	 * @return 当前对象
 	*/
-	public Menu addResourceId(String resourceId) {
+	public Menu addResourceId(String... resourceId) {
 		if(this.resourceIds==null) resourceIds=new ArrayList<>();
-		this.resourceIds.add(resourceId);
+		this.resourceIds.addAll(Arrays.asList(resourceId));
 		return this;
 	}
 	
@@ -775,6 +809,22 @@ public class Menu extends Entity {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public Menu clone() {
+		return EntityContext.clone(Menu.class,this);
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public Menu clone(boolean deep) {
+		return EntityContext.clone(Menu.class,this,deep);
 	}
 
 	/**

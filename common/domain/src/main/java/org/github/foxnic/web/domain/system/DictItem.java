@@ -17,8 +17,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 数据字典条目
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-19 10:00:25
- * @sign B0E2DEFEF5795E75547EE7610F0D989A
+ * @since 2022-08-22 11:33:25
+ * @sign 6DB1B035D7E82590800F4C9AA0C50367
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -71,6 +71,12 @@ public class DictItem extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="排序" , notes = "排序")
 	private Integer sort;
+	
+	/**
+	 * 有效：是否有效
+	*/
+	@ApiModelProperty(required = false,value="有效" , notes = "是否有效")
+	private Integer valid;
 	
 	/**
 	 * 创建人ID：创建人ID
@@ -252,6 +258,25 @@ public class DictItem extends Entity {
 	*/
 	public DictItem setSort(Integer sort) {
 		this.sort=sort;
+		return this;
+	}
+	
+	/**
+	 * 获得 有效<br>
+	 * 是否有效
+	 * @return 有效
+	*/
+	public Integer getValid() {
+		return valid;
+	}
+	
+	/**
+	 * 设置 有效
+	 * @param valid 有效
+	 * @return 当前对象
+	*/
+	public DictItem setValid(Integer valid) {
+		this.valid=valid;
 		return this;
 	}
 	
@@ -464,6 +489,22 @@ public class DictItem extends Entity {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public DictItem clone() {
+		return EntityContext.clone(DictItem.class,this);
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public DictItem clone(boolean deep) {
+		return EntityContext.clone(DictItem.class,this,deep);
 	}
 
 	/**

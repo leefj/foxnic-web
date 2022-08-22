@@ -7,8 +7,8 @@ import org.github.foxnic.web.domain.system.Sequence;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-23 14:14:07
- * @sign 87D899276016F546980B1D8C24B45113
+ * @since 2022-08-22 09:59:28
+ * @sign C53230327A370931738A2F89D651168E
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 

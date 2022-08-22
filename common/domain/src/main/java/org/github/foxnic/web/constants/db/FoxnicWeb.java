@@ -7,7 +7,7 @@ import com.github.foxnic.sql.meta.DBDataType;
 
 
 /**
- * @since 2022-07-18 15:21:33
+ * @since 2022-08-22 11:17:10
  * @author 李方捷 , leefangjie@qq.com
  * 数据库描述文件
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
@@ -4108,7 +4108,7 @@ public class FoxnicWeb {
 	}
 	
 	/**
-	 * 区域表
+	 * 中国行政地区表
 	*/
 	public static class SYS_AREA extends DBTable {
 		
@@ -4118,55 +4118,71 @@ public class FoxnicWeb {
 		public static final String $NAME = "sys_area";
 		
 		/**
-		 * 区域ID
 		*/
-		public static final DBField ID = new DBField(DBDataType.INTEGER , "id","id","区域ID","区域ID",true,false,false);
+		public static final DBField ID = new DBField(DBDataType.INTEGER , "id","id","id","id",true,true,false);
 		
 		/**
-		 * 父级ID
-
+		 * 层级
 		*/
-		public static final DBField PARENT_ID = new DBField(DBDataType.INTEGER , "parent_id","parentId","父级ID","父级ID",false,false,false);
+		public static final DBField LEVEL = new DBField(DBDataType.INTEGER , "level","level","层级","层级",false,false,false);
 		
 		/**
-		 * 区域名称
-↵
+		 * 父级行政代码
 		*/
-		public static final DBField NAME = new DBField(DBDataType.STRING , "name","name","区域名称","↵",false,false,true);
+		public static final DBField PARENT_CODE = new DBField(DBDataType.LONG , "parent_code","parentCode","父级行政代码","父级行政代码",false,false,false);
 		
 		/**
-		 * 等级（深度）
+		 * 行政代码
 		*/
-		public static final DBField DEPTH = new DBField(DBDataType.INTEGER , "depth","depth","等级（深度）","等级（深度）",false,false,false);
+		public static final DBField AREA_CODE = new DBField(DBDataType.LONG , "area_code","areaCode","行政代码","行政代码",false,false,false);
 		
 		/**
-		 * 创建人id
+		 * 邮政编码
 		*/
-		public static final DBField CREATED_BY = new DBField(DBDataType.LONG , "created_by","createdBy","创建人id","创建人id",false,false,true);
+		public static final DBField ZIP_CODE = new DBField(DBDataType.INTEGER , "zip_code","zipCode","邮政编码","邮政编码",false,false,false);
 		
 		/**
-		 * 修改人id
+		 * 区号
 		*/
-		public static final DBField UPDATED_BY = new DBField(DBDataType.LONG , "updated_by","updatedBy","修改人id","修改人id",false,false,true);
+		public static final DBField CITY_CODE = new DBField(DBDataType.STRING , "city_code","cityCode","区号","区号",false,false,false);
 		
 		/**
-		 * 创建时间
-
+		 * 名称
 		*/
-		public static final DBField CREATE_DATE = new DBField(DBDataType.TIMESTAME , "create_date","createDate","创建时间","创建时间",false,false,false);
+		public static final DBField NAME = new DBField(DBDataType.STRING , "name","name","名称","名称",false,false,false);
 		
 		/**
-		 * 修改时间
+		 * 简称
 		*/
-		public static final DBField UPDATE_DATE = new DBField(DBDataType.TIMESTAME , "update_date","updateDate","修改时间","修改时间",false,false,false);
+		public static final DBField SHORT_NAME = new DBField(DBDataType.STRING , "short_name","shortName","简称","简称",false,false,false);
 		
 		/**
-		 * 数据是否有效 （0：无效 1：有效）
+		 * 组合名
 		*/
-		public static final DBField VALID = new DBField(DBDataType.INTEGER , "valid","valid","数据是否有效","（0：无效 1：有效）",false,false,false);
+		public static final DBField MERGER_NAME = new DBField(DBDataType.STRING , "merger_name","mergerName","组合名","组合名",false,false,false);
+		
+		/**
+		 * 拼音
+		*/
+		public static final DBField PINYIN = new DBField(DBDataType.STRING , "pinyin","pinyin","拼音","拼音",false,false,false);
+		
+		/**
+		 * 经度
+		*/
+		public static final DBField LNG = new DBField(DBDataType.DECIMAL , "lng","lng","经度","经度",false,false,false);
+		
+		/**
+		 * 纬度
+		*/
+		public static final DBField LAT = new DBField(DBDataType.DECIMAL , "lat","lat","纬度","纬度",false,false,false);
+		
+		/**
+		 * 层级路径
+		*/
+		public static final DBField HIERARCHY = new DBField(DBDataType.STRING , "hierarchy","hierarchy","层级路径","层级路径",false,false,true);
 		
 		public SYS_AREA() {
-			this.init($NAME,"区域表" , ID , PARENT_ID , NAME , DEPTH , CREATED_BY , UPDATED_BY , CREATE_DATE , UPDATE_DATE , VALID);
+			this.init($NAME,"中国行政地区表" , ID , LEVEL , PARENT_CODE , AREA_CODE , ZIP_CODE , CITY_CODE , NAME , SHORT_NAME , MERGER_NAME , PINYIN , LNG , LAT , HIERARCHY);
 		}
 		public static final SYS_AREA $TABLE=new SYS_AREA();
 	}
@@ -5367,6 +5383,11 @@ public class FoxnicWeb {
 		public static final DBField SORT = new DBField(DBDataType.INTEGER , "sort","sort","排序","排序",false,false,false);
 		
 		/**
+		 * 有效，是否有效
+		*/
+		public static final DBField VALID = new DBField(DBDataType.INTEGER , "valid","valid","有效","是否有效",false,false,true);
+		
+		/**
 		 * 创建人ID
 		*/
 		public static final DBField CREATE_BY = new DBField(DBDataType.STRING , "create_by","createBy","创建人ID","创建人ID",false,false,true);
@@ -5407,7 +5428,7 @@ public class FoxnicWeb {
 		public static final DBField VERSION = new DBField(DBDataType.INTEGER , "version","version","数据版本号","数据版本号",false,false,false);
 		
 		public SYS_DICT_ITEM() {
-			this.init($NAME,"数据字典条目" , ID , DICT_ID , DICT_CODE , PARENT_ID , CODE , LABEL , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
+			this.init($NAME,"数据字典条目" , ID , DICT_ID , DICT_CODE , PARENT_ID , CODE , LABEL , SORT , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION);
 		}
 		public static final SYS_DICT_ITEM $TABLE=new SYS_DICT_ITEM();
 	}

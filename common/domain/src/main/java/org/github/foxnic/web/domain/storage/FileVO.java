@@ -13,8 +13,8 @@ import com.github.foxnic.commons.bean.BeanUtil;
 /**
  * 系统文件
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-09 09:30:38
- * @sign 114691D292021561C7CFCA2A790074AD
+ * @since 2022-08-22 09:59:26
+ * @sign F22F5F27BB2009D7E68DEC527FE71CCE
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 

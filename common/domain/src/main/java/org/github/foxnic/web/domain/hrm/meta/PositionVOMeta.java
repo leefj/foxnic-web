@@ -11,8 +11,8 @@ import org.github.foxnic.web.domain.hrm.Organization;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-12 15:26:13
- * @sign 97C24B4D76F843C11C730D9357755FAE
+ * @since 2022-08-22 09:54:44
+ * @sign 57B4E87C769EDE2B2E63B3010FE13C38
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 

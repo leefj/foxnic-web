@@ -11,7 +11,7 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 订单地址
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-19 17:20:58
+ * @since 2022-08-22 09:44:49
  * @sign 775814E7005D731A51D1DB9FFDD06C7A
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -201,6 +201,22 @@ public class AddressModel extends Entity {
 		if(pojo==null) return null;
 		AddressModel po = EntityContext.create(AddressModel.class,pojo);
 		return po;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public AddressModel clone() {
+		return EntityContext.clone(AddressModel.class,this);
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public AddressModel clone(boolean deep) {
+		return EntityContext.clone(AddressModel.class,this,deep);
 	}
 
 	/**

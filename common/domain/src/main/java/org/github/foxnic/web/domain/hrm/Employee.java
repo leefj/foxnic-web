@@ -21,8 +21,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 员工
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-02 16:36:49
- * @sign F0B5B72CD6B6ADD13675EEE90EA1419B
+ * @since 2022-08-22 09:54:47
+ * @sign 361D2893BFB110ABFAEB8B961A725C31
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -798,6 +798,22 @@ public class Employee extends Person {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public Employee clone() {
+		return EntityContext.clone(Employee.class,this);
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public Employee clone(boolean deep) {
+		return EntityContext.clone(Employee.class,this,deep);
 	}
 
 	/**

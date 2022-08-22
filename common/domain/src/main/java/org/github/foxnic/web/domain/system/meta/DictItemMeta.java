@@ -8,8 +8,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-19 10:00:25
- * @sign B0E2DEFEF5795E75547EE7610F0D989A
+ * @since 2022-08-22 11:33:25
+ * @sign 6DB1B035D7E82590800F4C9AA0C50367
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -84,6 +84,16 @@ public class DictItemMeta {
 	 * 排序 , 类型: java.lang.Integer
 	*/
 	public static final BeanProperty<org.github.foxnic.web.domain.system.DictItem,java.lang.Integer> SORT_PROP = new BeanProperty(org.github.foxnic.web.domain.system.DictItem.class ,SORT, java.lang.Integer.class, "排序", "排序", java.lang.Integer.class, null);
+	
+	/**
+	 * 有效 , 是否有效 , 类型: java.lang.Integer
+	*/
+	public static final String VALID="valid";
+	
+	/**
+	 * 有效 , 是否有效 , 类型: java.lang.Integer
+	*/
+	public static final BeanProperty<org.github.foxnic.web.domain.system.DictItem,java.lang.Integer> VALID_PROP = new BeanProperty(org.github.foxnic.web.domain.system.DictItem.class ,VALID, java.lang.Integer.class, "有效", "是否有效", java.lang.Integer.class, null);
 	
 	/**
 	 * 创建人ID , 类型: java.lang.String
@@ -168,7 +178,7 @@ public class DictItemMeta {
 	/**
 	 * 全部属性清单
 	*/
-	public static final String[] $PROPS={ ID , DICT_ID , DICT_CODE , PARENT_ID , CODE , LABEL , SORT , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
+	public static final String[] $PROPS={ ID , DICT_ID , DICT_CODE , PARENT_ID , CODE , LABEL , SORT , VALID , CREATE_BY , CREATE_TIME , UPDATE_BY , UPDATE_TIME , DELETED , DELETE_BY , DELETE_TIME , VERSION };
 	
 	/**
 	 * 代理类
@@ -252,6 +262,17 @@ public class DictItemMeta {
 		public DictItem setSort(Integer sort) {
 			super.change(SORT,super.getSort(),sort);
 			super.setSort(sort);
+			return this;
+		}
+		
+		/**
+		 * 设置 有效
+		 * @param valid 有效
+		 * @return 当前对象
+		*/
+		public DictItem setValid(Integer valid) {
+			super.change(VALID,super.getValid(),valid);
+			super.setValid(valid);
 			return this;
 		}
 		

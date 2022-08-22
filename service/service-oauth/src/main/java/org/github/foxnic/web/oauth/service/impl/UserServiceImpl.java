@@ -3,12 +3,14 @@ package org.github.foxnic.web.oauth.service.impl;
 import com.github.foxnic.api.error.CommonError;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.commons.busi.id.IDGenerator;
 import com.github.foxnic.commons.collection.CollectorUtil;
 import com.github.foxnic.commons.lang.ObjectUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.EntityContext;
 import com.github.foxnic.dao.entity.FieldsBuilder;
 import com.github.foxnic.dao.entity.QuerySQLBuilder;
 import com.github.foxnic.dao.entity.SuperService;
@@ -45,6 +47,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.lang.instrument.Instrumentation;
 import java.lang.reflect.Field;
@@ -62,6 +65,30 @@ import java.util.*;
 
 @Service("SysUserService")
 public class UserServiceImpl extends SuperService<User> implements IUserService {
+
+	/**
+	 * 预热
+	 * */
+	@PostConstruct
+	private void startup() {
+		new Thread() {
+			@Override
+			public void run() {
+				dao().pausePrintThreadSQL();
+				List<String> accounts= dao().queryPage("select distinct u.account from sys_role r,sys_role_user ru,sys_user u where r.id=ru.role_id and ru.user_id=u.id and r.code=?",10,1,"super_admin").getValueList("account",String.class);
+				for (String account : accounts) {
+					try {
+						User user = UserServiceImpl.this.getUserByIdentity(account);
+						if(user!=null) {
+							break;
+						}
+					} catch (Exception e) { }
+				}
+				dao().resumePrintThreadSQL();
+			}
+		} .start();
+
+	}
 
 	@Value("${develop.language:}")
 	private String devLang;
@@ -373,16 +400,19 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 			.fields(sysRoleFields,busiRoleFields,menuFields,resourzeFields)
 			.execute();
 
-
 //		int size2= ObjectUtil.sizeOf(user);
+
 		List<Menu> userMenus=new ArrayList<>();
+
 		if(user.getRoles()!=null) {
 			for (Role role : user.getRoles()) {
 				if(role.getMenus()!=null) {
 					userMenus.addAll(role.getMenus());
 				}
 			}
+			EntityContext.cloneProperty(user,UserMeta.ROLES_PROP);
 		}
+
 
 		List<Menu> remMenus=new ArrayList<>();
 		for (Menu menu : userMenus) {
@@ -412,8 +442,15 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 
 		//
  		if(user.getActivatedTenant()!=null){
+			EntityContext.clonePropertyChain(user,false,UserMeta.ACTIVATED_TENANT_PROP,UserTenantMeta.EMPLOYEE_PROP,EmployeeMeta.PERSON_PROP);
  			Employee employee=user.getActivatedTenant().getEmployee();
  			if(employee!=null) {
+
+				EntityContext.cloneProperty(employee,EmployeeMeta.PRIMARY_ORGANIZATION_PROP);
+				EntityContext.cloneProperty(employee,EmployeeMeta.PRIMARY_POSITION_PROP);
+				EntityContext.cloneProperty(employee,EmployeeMeta.POSITIONS_PROP);
+				EntityContext.cloneProperty(employee,EmployeeMeta.BUSI_ROLES_PROP);
+
  				Person person=employee.getPerson();
  				if(person!=null) {
  					user.setActivatedEmployeeName(person.getName());
@@ -436,6 +473,7 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 		if(StringUtil.isBlank(user.getLanguage())) {
 			user.setLanguage(Language.defaults.name());
 		}
+
 
         return user;
     }

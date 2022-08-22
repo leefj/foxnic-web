@@ -46,6 +46,8 @@ public class CachedAspector {
 			return joinPoint.proceed();
 		}
 
+
+
 		// 提取所有策略
 		Set<String> names=new HashSet<>();
 		if(StringUtil.hasContent(cached.value())) {

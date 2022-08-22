@@ -128,6 +128,8 @@
 			for(var key in THEME_CONFIG) {
 				localStorage.setItem(key,THEME_CONFIG[key]);
 			}
+			var TABLE_PAGE_LEVELS=[[${tablePageLevels}]];
+			localStorage.setItem("ui_table_page_levels", JSON.stringify(TABLE_PAGE_LEVELS));
 			layui.use(['admin','jquery','popup','drawer'], function() {
 				var $ = layui.jquery;
 				var admin = layui.admin;

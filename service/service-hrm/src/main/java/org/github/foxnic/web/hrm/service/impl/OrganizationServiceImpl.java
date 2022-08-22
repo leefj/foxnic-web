@@ -137,7 +137,7 @@ public class OrganizationServiceImpl extends SuperService<Organization> implemen
 		Organization organization = new Organization();
 		if(id==null) return ErrorDesc.failure().message("id 不允许为 null 。");
 		organization.setId(id);
-		organization.setDeleted(dao.getDBTreaty().getTrueValue());
+		organization.setDeleted(true);
 		organization.setDeleteBy((String)dao.getDBTreaty().getLoginUserId());
 		organization.setDeleteTime(new Date());
 		try {

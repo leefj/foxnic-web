@@ -7,7 +7,9 @@ import org.github.foxnic.web.generator.module.bpm.*;
 import org.github.foxnic.web.generator.module.changes.*;
 import org.github.foxnic.web.generator.module.dataperm.*;
 import org.github.foxnic.web.generator.module.example.*;
+import org.github.foxnic.web.generator.module.hrm.HrmCompanyConfig;
 import org.github.foxnic.web.generator.module.hrm.HrmEmployeeConfig;
+import org.github.foxnic.web.generator.module.hrm.HrmOrgnizationConfig;
 import org.github.foxnic.web.generator.module.hrm.HrmPositionConfig;
 import org.github.foxnic.web.generator.module.job.SysJobConfig;
 import org.github.foxnic.web.generator.module.job.SysJobLogConfig;
@@ -37,9 +39,9 @@ public class CodeStarter extends ModuleCodeGenerator {
 
 //        initPcmModules();
 //        initOAuthModules();
-//        initSystemModules();
+        initSystemModules();
 //        initHrmModules();
-        initExampleModules();
+//        initExampleModules();
 //        initStorageModules();
 //        initChangeModules();
 //        initBpmModules();
@@ -122,8 +124,8 @@ public class CodeStarter extends ModuleCodeGenerator {
     }
 
     private void initHrmModules() {
-//        this.addConfig(new HrmCompanyConfig());
-//        this.addConfig(new HrmOrgnizationConfig());
+        this.addConfig(new HrmCompanyConfig());
+        this.addConfig(new HrmOrgnizationConfig());
         this.addConfig(new HrmPositionConfig());
         this.addConfig(new HrmEmployeeConfig());
 //        this.addConfig(new HrmEmployeePositionConfig());
@@ -160,9 +162,10 @@ public class CodeStarter extends ModuleCodeGenerator {
 //        this.addConfig(new BusiRoleMemberConfig());
 
 //        this.addConfig(new SysDictConfig());
-        this.addConfig(new SysConfigConfig());
-        this.addConfig(new SysProfileConfig());
-//        this.addConfig(new SysDictItemConfig());
+//        this.addConfig(new SysConfigConfig());
+//        this.addConfig(new SysProfileConfig());
+//        this.addConfig(new TenantConfig());
+        this.addConfig(new SysDictItemConfig());
 //        this.addConfig(new SysFileConfig());
         //
 //        this.addConfig(new SequenceConfig());

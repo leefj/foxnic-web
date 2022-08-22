@@ -21,8 +21,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 数据字典
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-19 09:58:48
- * @sign 3227F46C57043EA80C95594DE77C9F65
+ * @since 2022-08-22 09:57:50
+ * @sign 5D7BBBCC1F54C8563F918409E82934F5
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -502,6 +502,22 @@ public class Dict extends Entity {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public Dict clone() {
+		return EntityContext.clone(Dict.class,this);
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public Dict clone(boolean deep) {
+		return EntityContext.clone(Dict.class,this,deep);
 	}
 
 	/**

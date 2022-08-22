@@ -17,7 +17,7 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 订单地址
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-19 17:20:58
+ * @since 2022-08-22 09:44:49
  * @sign 16D4C13E23C3C3232246E6E448EF551F
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -439,6 +439,22 @@ public class Address extends Entity {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public Address clone() {
+		return EntityContext.clone(Address.class,this);
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public Address clone(boolean deep) {
+		return EntityContext.clone(Address.class,this,deep);
 	}
 
 	/**

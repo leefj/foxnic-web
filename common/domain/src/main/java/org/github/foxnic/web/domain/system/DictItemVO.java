@@ -13,8 +13,8 @@ import com.github.foxnic.commons.bean.BeanUtil;
 /**
  * 数据字典条目
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-19 10:00:25
- * @sign F2BC3454DCCC9CB20B34954670740B94
+ * @since 2022-08-22 11:33:25
+ * @sign 867DAA5E7A653819A33CFDA22933DDEC
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -261,7 +261,7 @@ public class DictItemVO extends DictItem {
 		return this;
 	}
 	@Transient
-	private CompositeParameter $compositeParameter;
+	private transient CompositeParameter $compositeParameter;
 	/**
 	 * 获得解析后的复合查询参数
 	 */

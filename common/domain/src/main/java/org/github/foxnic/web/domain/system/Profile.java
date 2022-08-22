@@ -15,8 +15,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * Profile
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-19 15:13:05
- * @sign 49BDF2666052C679AB7192211A216339
+ * @since 2022-08-22 09:58:04
+ * @sign 51A9C3F19F9FA5B9660014C6F8A281A3
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -130,6 +130,22 @@ public class Profile extends Entity {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public Profile clone() {
+		return EntityContext.clone(Profile.class,this);
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public Profile clone(boolean deep) {
+		return EntityContext.clone(Profile.class,this,deep);
 	}
 
 	/**

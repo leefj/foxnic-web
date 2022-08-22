@@ -58,7 +58,7 @@ public class PositionController extends SuperController {
 	@Autowired
 	private IEmployeePositionService employeePositionService;
 
-	
+
 	/**
 	 * 添加岗位
 	*/
@@ -81,7 +81,7 @@ public class PositionController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 删除岗位
 	*/
@@ -103,8 +103,8 @@ public class PositionController extends SuperController {
 		result=positionService.deleteByIdLogical(id);
 		return result;
 	}
-	
-	
+
+
 	/**
 	 * 批量删除岗位 <br>
 	 * 联合主键时，请自行调整实现
@@ -113,7 +113,7 @@ public class PositionController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = PositionVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 	})
-	@ApiOperationSupport(order=3) 
+	@ApiOperationSupport(order=3)
 	@NotNull(name = PositionVOMeta.IDS)
 	@SentinelResource(value = PositionServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(PositionServiceProxy.DELETE_BY_IDS)
@@ -121,7 +121,7 @@ public class PositionController extends SuperController {
 		Result result=positionService.deleteByIdsLogical(ids);
 		return result;
 	}
-	
+
 	/**
 	 * 更新岗位
 	*/
@@ -136,7 +136,7 @@ public class PositionController extends SuperController {
 		@ApiImplicitParam(name = PositionVOMeta.SORT , value = "排序" , required = false , dataTypeClass=Integer.class),
 		@ApiImplicitParam(name = PositionVOMeta.COMPANY_ID , value = "总公司ID" , required = false , dataTypeClass=String.class),
 	})
-	@ApiOperationSupport( order=4 , ignoreParameters = { PositionVOMeta.PAGE_INDEX , PositionVOMeta.PAGE_SIZE , PositionVOMeta.SEARCH_FIELD , PositionVOMeta.FUZZY_FIELD , PositionVOMeta.SEARCH_VALUE , PositionVOMeta.SORT_FIELD , PositionVOMeta.SORT_TYPE , PositionVOMeta.IDS } ) 
+	@ApiOperationSupport( order=4 , ignoreParameters = { PositionVOMeta.PAGE_INDEX , PositionVOMeta.PAGE_SIZE , PositionVOMeta.SEARCH_FIELD , PositionVOMeta.FUZZY_FIELD , PositionVOMeta.SEARCH_VALUE , PositionVOMeta.SORT_FIELD , PositionVOMeta.SORT_TYPE , PositionVOMeta.IDS } )
 	@NotNull(name = PositionVOMeta.ID)
 	@NotNull(name = PositionVOMeta.FULL_NAME)
 	@NotNull(name = PositionVOMeta.SHORT_NAME)
@@ -146,8 +146,8 @@ public class PositionController extends SuperController {
 		Result result=positionService.update(positionVO,SaveMode.NOT_NULL_FIELDS);
 		return result;
 	}
-	
-	
+
+
 	/**
 	 * 保存岗位
 	*/
@@ -173,7 +173,7 @@ public class PositionController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 获取岗位
 	*/
@@ -201,7 +201,7 @@ public class PositionController extends SuperController {
 		@ApiImplicitParams({
 				@ApiImplicitParam(name = PositionVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})
-		@ApiOperationSupport(order=3) 
+		@ApiOperationSupport(order=3)
 		@NotNull(name = PositionVOMeta.IDS)
 		@SentinelResource(value = PositionServiceProxy.GET_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(PositionServiceProxy.GET_BY_IDS)
@@ -212,7 +212,7 @@ public class PositionController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 查询岗位
 	*/
@@ -237,7 +237,7 @@ public class PositionController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 分页查询岗位
 	*/
@@ -264,57 +264,7 @@ public class PositionController extends SuperController {
 
 
 
-	/**
-	 * 导出 Excel
-	 * */
-	@SentinelResource(value = PositionServiceProxy.EXPORT_EXCEL , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
-	@RequestMapping(PositionServiceProxy.EXPORT_EXCEL)
-	public void exportExcel(PositionVO  sample,HttpServletResponse response) throws Exception {
-			//生成 Excel 数据
-			ExcelWriter ew=positionService.exportExcel(sample);
-			//下载
-			DownloadUtil.writeToOutput(response, ew.getWorkBook(), ew.getWorkBookName());
-	}
 
-
-	/**
-	 * 导出 Excel 模板
-	 * */
-	@SentinelResource(value = PositionServiceProxy.EXPORT_EXCEL_TEMPLATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
-	@RequestMapping(PositionServiceProxy.EXPORT_EXCEL_TEMPLATE)
-	public void exportExcelTemplate(HttpServletResponse response) throws Exception {
-			//生成 Excel 模版
-			ExcelWriter ew=positionService.exportExcelTemplate();
-			//下载
-			DownloadUtil.writeToOutput(response, ew.getWorkBook(), ew.getWorkBookName());
-		}
-
-
-
-
-	@SentinelResource(value = PositionServiceProxy.IMPORT_EXCEL , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
-	@RequestMapping(PositionServiceProxy.IMPORT_EXCEL)
-	public Result importExcel(MultipartHttpServletRequest request, HttpServletResponse response) throws Exception {
-
-			//获得上传的文件
-			Map<String, MultipartFile> map = request.getFileMap();
-			InputStream input=null;
-			for (MultipartFile mf : map.values()) {
-				input=StreamUtil.bytes2input(mf.getBytes());
-				break;
-			}
-
-			if(input==null) {
-				return ErrorDesc.failure().message("缺少上传的文件");
-			}
-
-			List<ValidateResult> errors=positionService.importExcel(input,0,true);
-			if(errors==null || errors.isEmpty()) {
-				return ErrorDesc.success();
-			} else {
-				return ErrorDesc.failure().message("导入失败").data(errors);
-			}
-		}
 
 
 }

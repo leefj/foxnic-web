@@ -2,7 +2,7 @@
 /**
  * 数据字典条目 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-19 10:00:26
+ * @since 2022-08-22 11:33:25
  */
  -->
  <!DOCTYPE html>
@@ -53,6 +53,7 @@
                         <input id="label" class="layui-input search-input" style="width: 140px" type="text" />
                     </div>
                     <!-- 排序 , sort ,typeName=number_input, isHideInSearch=true -->
+                    <!-- 生效 , valid ,typeName=logic_switch, isHideInSearch=true -->
 
 
                 </div>
@@ -96,6 +97,10 @@
 
 </script>
 
+<!-- 表格状态列 -->
+<script type="text/html" id="cell-tpl-valid">
+    <input type="checkbox" class="switch-valid list-checkbox" lay-filter="cell-tpl-valid" value="{{d.id}}" lay-skin="switch" lay-text="有效|无效&nbsp;"  {{d.valid==1?'checked':''}} data-id="{{d.id}}"/>
+</script>
 
 <script th:inline="javascript">
     var LAYUI_TABLE_WIDTH_CONFIG = [[${pageHelper.getTableColumnWidthConfig('data-table')}]];

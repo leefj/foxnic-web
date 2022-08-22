@@ -1,5 +1,6 @@
 package org.github.foxnic.web.hrm.service;
 
+import com.github.foxnic.dao.entity.ISimpleIdService;
 
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.dao.entity.ISuperService;
@@ -15,16 +16,18 @@ import com.github.foxnic.dao.excel.ExcelWriter;
 import com.github.foxnic.dao.excel.ExcelStructure;
 import com.github.foxnic.dao.excel.ValidateResult;
 import com.github.foxnic.dao.data.SaveMode;
+import java.util.Map;
 
 /**
  * <p>
  * 公司表 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-29 17:12:19
+ * @since 2022-08-22 09:54:33
 */
 
-public interface ICompanyService extends ISuperService<Company> {
+public interface ICompanyService extends  ISimpleIdService<Company,String> {
+
 
 	/**
 	 * 添加，如果语句错误，则抛出异常
@@ -144,7 +147,7 @@ public interface ICompanyService extends ISuperService<Company> {
 	Result saveList(List<Company> companyList , SaveMode mode);
 
 	/**
-	 * 检查实体中的数据字段是否已经存在
+	 * 检查实体中的数据字段是否已经存在 . 判断 主键值不同，但指定字段的值相同的记录是否存在
 	 * @param company  实体对象
 	 * @param field  字段清单，至少指定一个
 	 * @return 是否已经存在
@@ -161,19 +164,39 @@ public interface ICompanyService extends ISuperService<Company> {
 	Company getById(String id);
 
 	/**
-	 * 检查实体中的数据字段是否已经存在
+	 * 检查引用
+	 * @param id  检查ID是否又被外部表引用
+	 * */
+	Boolean hasRefers(String id);
+
+	/**
+	 * 批量检查引用
+	 * @param ids  检查这些ID是否又被外部表引用
+	 * */
+	Map<String,Boolean> hasRefers(List<String> ids);
+
+	/**
+	 * 按 id 获取多个对象
 	 * @param ids  主键清单
 	 * @return 实体集
 	 * */
-	List<Company> getByIds(List<String> ids);
+	List<Company> queryListByIds(List<String> ids);
 
 	/**
-	 * 检查 角色 是否已经存在
+	 * 按 id 列表查询 Map
+	 * @param ids  主键清单
+	 * */
+	Map<String, Company> queryMapByIds(List<String> ids);
+
+
+
+	/**
+	 * 检查 实体 是否已经存在 , 判断 主键值不同，但指定字段的值相同的记录是否存在
 	 *
 	 * @param company 数据对象
 	 * @return 判断结果
 	 */
-	Result<Company> checkExists(Company company);
+	Boolean checkExists(Company company);
 
 	/**
 	 * 根据实体数构建默认的条件表达式, 不支持 Join 其它表
@@ -195,7 +218,7 @@ public interface ICompanyService extends ISuperService<Company> {
 	 * @param sample  查询条件
 	 * @return 查询结果
 	 * */
-	List<Company> queryList(Company sample);
+	List<Company> queryList(CompanyVO sample);
 
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
@@ -236,7 +259,7 @@ public interface ICompanyService extends ISuperService<Company> {
 	 * @param pageIndex 页码
 	 * @return 查询结果
 	 * */
-	PagedList<Company> queryPagedList(Company sample,int pageSize,int pageIndex);
+	PagedList<Company> queryPagedList(CompanyVO sample,int pageSize,int pageIndex);
 
 	/**
 	 * 分页查询实体集
@@ -290,28 +313,8 @@ public interface ICompanyService extends ISuperService<Company> {
 	 * */
 	<T> List<T> queryValues(DBField field, Class<T> type, String condition,Object... ps);
 
-	/**
-	 * 导出 Excel
-	 * */
-	ExcelWriter exportExcel(Company sample);
 
-	/**
-	 * 导出用于数据导入的 Excel 模版
-	 * */
-	ExcelWriter  exportExcelTemplate();
 
-	/**
-	 * 构建 Excel 结构
-	 * @param  isForExport 是否用于数据导出
-	 * @return   ExcelStructure
-	 * */
-	ExcelStructure buildExcelStructure(boolean isForExport);
-
-	/**
-	 * 导入 Excel 数据
-	 * @return  错误信息，成功时返回 null
-	 * */
-	List<ValidateResult> importExcel(InputStream input,int sheetIndex,boolean batch);
 
 
 }

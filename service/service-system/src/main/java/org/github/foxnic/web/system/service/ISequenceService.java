@@ -22,6 +22,7 @@ import com.github.foxnic.dao.data.SaveMode;
  * </p>
  * @author 李方捷 , leefangjie@qq.com
  * @since 2021-10-23 14:14:07
+ * @version
 */
 
 public interface ISequenceService extends ISuperService<Sequence> {
@@ -41,7 +42,7 @@ public interface ISequenceService extends ISuperService<Sequence> {
 	Result insertList(List<Sequence> sequenceList);
 
 
-		
+
 	/**
 	 * 按主键删除 序列
 	 *
@@ -64,7 +65,7 @@ public interface ISequenceService extends ISuperService<Sequence> {
 	 * */
 	<T> Result deleteByIdsLogical(List<T> pks);
 
-		
+
 	/**
 	 * 按主键更新字段 序列
 	 *
@@ -114,7 +115,7 @@ public interface ISequenceService extends ISuperService<Sequence> {
 	 * */
 	boolean checkExists(Sequence sequence,DBField... field);
 
-		
+
 	/**
 	 * 按主键获取 序列
 	 *

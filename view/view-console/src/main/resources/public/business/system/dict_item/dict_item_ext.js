@@ -16,12 +16,14 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
         /**
          * 查询前调用
          * */
-        beforeQuery:function (conditions) {
+        beforeQuery:function (conditions,params,loc) {
             //获得缓存中的字典ID
+            // debugger
             var dictIdValue=admin.getTempData("dictId");
             //设置固定的查询条件
-            if(!conditions["dictId"]) conditions["dictId"]={};
-            conditions["dictId"].value=dictIdValue;
+            // if(!conditions["dictId"]) conditions["dictId"]={};
+            // conditions["dictId"].value=dictIdValue;
+            params["dictId"]=dictIdValue;
             return true;
         }
     }

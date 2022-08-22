@@ -264,57 +264,6 @@ public class SequenceController extends SuperController {
 
 
 
-	/**
-	 * 导出 Excel
-	 * */
-	@SentinelResource(value = SequenceServiceProxy.EXPORT_EXCEL , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
-	@RequestMapping(SequenceServiceProxy.EXPORT_EXCEL)
-	public void exportExcel(SequenceVO  sample,HttpServletResponse response) throws Exception {
-			//生成 Excel 数据
-			ExcelWriter ew=sequenceService.exportExcel(sample);
-			//下载
-			DownloadUtil.writeToOutput(response, ew.getWorkBook(), ew.getWorkBookName());
-	}
-
-
-	/**
-	 * 导出 Excel 模板
-	 * */
-	@SentinelResource(value = SequenceServiceProxy.EXPORT_EXCEL_TEMPLATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
-	@RequestMapping(SequenceServiceProxy.EXPORT_EXCEL_TEMPLATE)
-	public void exportExcelTemplate(HttpServletResponse response) throws Exception {
-			//生成 Excel 模版
-			ExcelWriter ew=sequenceService.exportExcelTemplate();
-			//下载
-			DownloadUtil.writeToOutput(response, ew.getWorkBook(), ew.getWorkBookName());
-		}
-
-
-
-
-	@SentinelResource(value = SequenceServiceProxy.IMPORT_EXCEL , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
-	@RequestMapping(SequenceServiceProxy.IMPORT_EXCEL)
-	public Result importExcel(MultipartHttpServletRequest request, HttpServletResponse response) throws Exception {
-
-			//获得上传的文件
-			Map<String, MultipartFile> map = request.getFileMap();
-			InputStream input=null;
-			for (MultipartFile mf : map.values()) {
-				input=StreamUtil.bytes2input(mf.getBytes());
-				break;
-			}
-
-			if(input==null) {
-				return ErrorDesc.failure().message("缺少上传的文件");
-			}
-
-			List<ValidateResult> errors=sequenceService.importExcel(input,0,true);
-			if(errors==null || errors.isEmpty()) {
-				return ErrorDesc.success();
-			} else {
-				return ErrorDesc.failure().message("导入失败").data(errors);
-			}
-		}
 
 
 }

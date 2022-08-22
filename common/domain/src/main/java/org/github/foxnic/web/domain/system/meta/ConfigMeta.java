@@ -8,8 +8,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-12-04 13:55:51
- * @sign 718D3392E2C20C6828A7FC298EB398D5
+ * @since 2022-08-22 09:57:58
+ * @sign 27EBC9E6C100042BE51E6D0BFBBA68AE
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 

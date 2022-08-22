@@ -13,8 +13,8 @@ import com.github.foxnic.commons.bean.BeanUtil;
 /**
  * Profile
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-19 15:13:05
- * @sign 06D7408A07CF0D84D9554A542525BE33
+ * @since 2022-08-22 09:58:04
+ * @sign BFC7F59AF85B4575AF455EEAA67F73DD
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -261,7 +261,7 @@ public class ProfileVO extends Profile {
 		return this;
 	}
 	@Transient
-	private CompositeParameter $compositeParameter;
+	private transient CompositeParameter $compositeParameter;
 	/**
 	 * 获得解析后的复合查询参数
 	 */

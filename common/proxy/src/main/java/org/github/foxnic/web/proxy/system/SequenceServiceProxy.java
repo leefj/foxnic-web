@@ -3,6 +3,9 @@ package org.github.foxnic.web.proxy.system;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.github.foxnic.web.proxy.api.APIProxy;
 import org.github.foxnic.web.proxy.FeignConfiguration;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.github.foxnic.web.domain.system.Sequence;
 import org.github.foxnic.web.domain.system.SequenceVO;
@@ -10,14 +13,13 @@ import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.proxy.MicroServiceNames;
-import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
  * 序列表  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-23 14:14:07
+ * @since 2022-08-22 09:59:28
  */
 @FeignClient(value = MicroServiceNames.SYSTEM, contextId = SequenceServiceProxy.API_CONTEXT_PATH, configuration = FeignConfiguration.class)
 public interface SequenceServiceProxy {
@@ -83,21 +85,6 @@ public interface SequenceServiceProxy {
     public static final String QUERY_PAGED_LIST = API_PREFIX + "query-paged-list";
 
     /**
-     * 导出序列数据(Excel)
-     */
-    public static final String EXPORT_EXCEL = API_PREFIX + "export-excel";
-
-    /**
-     * 下载序列导入模版(Excel)
-     */
-    public static final String EXPORT_EXCEL_TEMPLATE = API_PREFIX + "export-excel-template";
-
-    /**
-     * 导入序列数据(Excel)
-     */
-    public static final String IMPORT_EXCEL = API_PREFIX + "import-excel";
-
-    /**
      * 添加序列
      */
     @RequestMapping(SequenceServiceProxy.INSERT)
@@ -134,7 +121,7 @@ public interface SequenceServiceProxy {
     Result<Sequence> getById(@RequestParam(name = "pk") String pk);
 
     /**
-     * 批量删除序列
+     * 获取多个序列
      */
     @RequestMapping(SequenceServiceProxy.GET_BY_IDS)
     Result<List<Sequence>> getByIds(@RequestParam(name = "pks") List<String> pks);
