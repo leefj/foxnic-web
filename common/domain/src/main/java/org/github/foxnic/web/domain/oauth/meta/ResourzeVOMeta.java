@@ -10,8 +10,8 @@ import java.util.Date;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-03-10 16:43:00
- * @sign C2A151465BF6F5FD70354A6F3F9B69D9
+ * @since 2022-08-25 11:10:27
+ * @sign B0AD13E1F63579B5BA4FF956A9190A4C
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 

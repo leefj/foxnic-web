@@ -4,6 +4,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.github.foxnic.web.proxy.api.APIProxy;
 import org.github.foxnic.web.proxy.FeignConfiguration;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.github.foxnic.web.domain.bpm.ProcessDefinition;
 import org.github.foxnic.web.domain.bpm.ProcessDefinitionVO;
@@ -17,7 +19,7 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  * 流程定义表  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-04 09:43:07
+ * @since 2022-08-25 13:23:45
  */
 @FeignClient(value = MicroServiceNames.BPM, contextId = ProcessDefinitionServiceProxy.API_CONTEXT_PATH, configuration = FeignConfiguration.class)
 public interface ProcessDefinitionServiceProxy {
@@ -81,21 +83,6 @@ public interface ProcessDefinitionServiceProxy {
      * 分页查询流程定义
      */
     public static final String QUERY_PAGED_LIST = API_PREFIX + "query-paged-list";
-
-    /**
-     * 导出流程定义数据(Excel)
-     */
-    public static final String EXPORT_EXCEL = API_PREFIX + "export-excel";
-
-    /**
-     * 下载流程定义导入模版(Excel)
-     */
-    public static final String EXPORT_EXCEL_TEMPLATE = API_PREFIX + "export-excel-template";
-
-    /**
-     * 导入流程定义数据(Excel)
-     */
-    public static final String IMPORT_EXCEL = API_PREFIX + "import-excel";
 
     /**
      * 添加流程定义

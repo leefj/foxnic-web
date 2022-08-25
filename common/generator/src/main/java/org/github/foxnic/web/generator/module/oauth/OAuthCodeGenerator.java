@@ -22,7 +22,7 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 //		g.generateSysOAuthClient();
 //		g.generateSysSessionOnline();
 //		g.generateSysToken();
-		g.generateSysRole();
+//		g.generateSysRole();
 //		g.generateSysRoleUser();
 //		g.generateSysMenu();
 //		g.generateSysRoleMenu();
@@ -192,7 +192,7 @@ public class OAuthCodeGenerator extends SystemCodeGenerator {
 		.setControllerAndAgent(WriteMode.CREATE_IF_NOT_EXISTS) //Rest
 		.setPageController(WriteMode.CREATE_IF_NOT_EXISTS) //页面控制器
 		.setFormPage(WriteMode.CREATE_IF_NOT_EXISTS) //表单HTML页
-		.setListPage(WriteMode.CREATE_IF_NOT_EXISTS); //列表HTML页
+		.setListPage(WriteMode.COVER_EXISTS_FILE); //列表HTML页
 
 		//生成代码
 		cfg.buildAll();

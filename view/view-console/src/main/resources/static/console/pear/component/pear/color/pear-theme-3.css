@@ -49,6 +49,11 @@ xm-select  {
 
 #layui-table-page1-footer-download-excel-template , #layui-table-page1-footer-import-excel , #layui-table-page1-footer-download-excel {
     background-color: #fff;
+    color: #333;
+}
+
+#layui-table-page1-footer-download-excel-template:hover , #layui-table-page1-footer-import-excel:hover , #layui-table-page1-footer-download-excel:hover {
+    color: #333;
 }
 
 .layui-btn-primary:hover {

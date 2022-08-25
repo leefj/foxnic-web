@@ -10,6 +10,9 @@
     background-color: #fff !important;
     color: #666 !important;
 }
+
+
+
 .layui-laypage .layui-laypage-curr .layui-laypage-em { background-color:#2d8cf0 }
 
 .search-button-advance {color:#fff}
@@ -47,6 +50,15 @@ xm-select  {
 
 #layui-table-page1-footer-download-excel-template , #layui-table-page1-footer-import-excel , #layui-table-page1-footer-download-excel {
     background-color: #fff;
+    color: #333;
+}
+
+#layui-table-page1-footer-download-excel-template:hover , #layui-table-page1-footer-import-excel:hover , #layui-table-page1-footer-download-excel:hover {
+    color: #333;
+}
+
+#layui-table-page1-footer-download-excel-template:hover {
+    color: #666 !important;
 }
 
 .layui-btn-primary:hover {

@@ -3,6 +3,7 @@ package org.github.foxnic.web.domain.dataperm;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
 import com.github.foxnic.api.model.CompositeParameter;
 import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
@@ -12,8 +13,8 @@ import com.github.foxnic.commons.bean.BeanUtil;
 /**
  * 数据权限规则范围
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-13 15:51:45
- * @sign 3C00C94F600DBF77B44DF4013BEB9D9D
+ * @since 2022-08-25 11:43:26
+ * @sign C9267E2EA7C5785364F5F108D7177760
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -50,6 +51,12 @@ public class RuleRangeVO extends RuleRange {
 	*/
 	@ApiModelProperty(required = false,value="搜索的值" , notes = "")
 	private String searchValue;
+	
+	/**
+	 * 已修改字段
+	*/
+	@ApiModelProperty(required = false,value="已修改字段" , notes = "")
+	private List<String> dirtyFields;
 	
 	/**
 	 * 排序字段
@@ -160,6 +167,35 @@ public class RuleRangeVO extends RuleRange {
 	}
 	
 	/**
+	 * 获得 已修改字段<br>
+	 * @return 已修改字段
+	*/
+	public List<String> getDirtyFields() {
+		return dirtyFields;
+	}
+	
+	/**
+	 * 设置 已修改字段
+	 * @param dirtyFields 已修改字段
+	 * @return 当前对象
+	*/
+	public RuleRangeVO setDirtyFields(List<String> dirtyFields) {
+		this.dirtyFields=dirtyFields;
+		return this;
+	}
+	
+	/**
+	 * 添加 已修改字段
+	 * @param dirtyField 已修改字段
+	 * @return 当前对象
+	*/
+	public RuleRangeVO addDirtyField(String... dirtyField) {
+		if(this.dirtyFields==null) dirtyFields=new ArrayList<>();
+		this.dirtyFields.addAll(Arrays.asList(dirtyField));
+		return this;
+	}
+	
+	/**
 	 * 获得 排序字段<br>
 	 * @return 排序字段
 	*/
@@ -219,20 +255,19 @@ public class RuleRangeVO extends RuleRange {
 	 * @param id 主键清单
 	 * @return 当前对象
 	*/
-	public RuleRangeVO addId(String id) {
+	public RuleRangeVO addId(String... id) {
 		if(this.ids==null) ids=new ArrayList<>();
-		this.ids.add(id);
+		this.ids.addAll(Arrays.asList(id));
 		return this;
 	}
 	@Transient
-	private CompositeParameter $compositeParameter;
+	private transient CompositeParameter $compositeParameter;
 	/**
 	 * 获得解析后的复合查询参数
 	 */
 	@Transient
 	public CompositeParameter getCompositeParameter() {
 		if($compositeParameter!=null) return  $compositeParameter;
-		
 		$compositeParameter=new CompositeParameter(this.getSearchValue(),BeanUtil.toMap(this));
 		return  $compositeParameter;
 	}

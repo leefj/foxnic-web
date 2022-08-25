@@ -3,6 +3,7 @@ package org.github.foxnic.web.domain.job;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
 import com.github.foxnic.api.model.CompositeParameter;
 import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
@@ -12,8 +13,8 @@ import com.github.foxnic.commons.bean.BeanUtil;
 /**
  * 定时任务配置
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-14 11:45:51
- * @sign EA93CE36C2B9313F6C823D4451A8D228
+ * @since 2022-08-25 13:21:35
+ * @sign 32A48B507E3B8F2FB3C9BE4C5F35F85A
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -188,9 +189,9 @@ public class JobVO extends Job {
 	 * @param dirtyField 已修改字段
 	 * @return 当前对象
 	*/
-	public JobVO addDirtyField(String dirtyField) {
+	public JobVO addDirtyField(String... dirtyField) {
 		if(this.dirtyFields==null) dirtyFields=new ArrayList<>();
-		this.dirtyFields.add(dirtyField);
+		this.dirtyFields.addAll(Arrays.asList(dirtyField));
 		return this;
 	}
 	
@@ -254,13 +255,13 @@ public class JobVO extends Job {
 	 * @param id 主键清单
 	 * @return 当前对象
 	*/
-	public JobVO addId(String id) {
+	public JobVO addId(String... id) {
 		if(this.ids==null) ids=new ArrayList<>();
-		this.ids.add(id);
+		this.ids.addAll(Arrays.asList(id));
 		return this;
 	}
 	@Transient
-	private CompositeParameter $compositeParameter;
+	private transient CompositeParameter $compositeParameter;
 	/**
 	 * 获得解析后的复合查询参数
 	 */

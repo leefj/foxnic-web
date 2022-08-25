@@ -3,6 +3,9 @@ package org.github.foxnic.web.proxy.changes;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.github.foxnic.web.proxy.api.APIProxy;
 import org.github.foxnic.web.proxy.FeignConfiguration;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.github.foxnic.web.domain.changes.ChangeDefinition;
 import org.github.foxnic.web.domain.changes.ChangeDefinitionVO;
@@ -10,14 +13,13 @@ import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.proxy.MicroServiceNames;
-import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
  * 变更定义表  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-11 15:25:35
+ * @since 2022-08-25 11:44:55
  */
 @FeignClient(value = MicroServiceNames.CHS, contextId = ChangeDefinitionServiceProxy.API_CONTEXT_PATH, configuration = FeignConfiguration.class)
 public interface ChangeDefinitionServiceProxy {
@@ -83,21 +85,6 @@ public interface ChangeDefinitionServiceProxy {
     public static final String QUERY_PAGED_LIST = API_PREFIX + "query-paged-list";
 
     /**
-     * 导出变更定义数据(Excel)
-     */
-    public static final String EXPORT_EXCEL = API_PREFIX + "export-excel";
-
-    /**
-     * 下载变更定义导入模版(Excel)
-     */
-    public static final String EXPORT_EXCEL_TEMPLATE = API_PREFIX + "export-excel-template";
-
-    /**
-     * 导入变更定义数据(Excel)
-     */
-    public static final String IMPORT_EXCEL = API_PREFIX + "import-excel";
-
-    /**
      * 添加变更定义
      */
     @RequestMapping(ChangeDefinitionServiceProxy.INSERT)
@@ -134,7 +121,7 @@ public interface ChangeDefinitionServiceProxy {
     Result<ChangeDefinition> getById(@RequestParam(name = "id") String id);
 
     /**
-     * 批量删除变更定义
+     * 获取多个变更定义
      */
     @RequestMapping(ChangeDefinitionServiceProxy.GET_BY_IDS)
     Result<List<ChangeDefinition>> getByIds(@RequestParam(name = "ids") List<String> ids);

@@ -1,7 +1,8 @@
 package org.github.foxnic.web.system.controller;
 
- 
+
 import java.util.List;
+import java.util.ArrayList;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 
 
 import org.github.foxnic.web.proxy.system.InvokeLogServiceProxy;
@@ -31,6 +33,7 @@ import com.github.foxnic.commons.io.StreamUtil;
 import java.util.Map;
 import com.github.foxnic.dao.excel.ValidateResult;
 import java.io.InputStream;
+import org.github.foxnic.web.domain.system.meta.InvokeLogMeta;
 import io.swagger.annotations.Api;
 import com.github.xiaoymin.knife4j.annotations.ApiSort;
 import io.swagger.annotations.ApiOperation;
@@ -46,7 +49,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 调用统计日志 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-19 14:42:57
+ * @since 2022-08-25 11:42:23
 */
 
 @Api(tags = "调用统计日志")
@@ -57,7 +60,7 @@ public class InvokeLogController extends SuperController {
 	@Autowired
 	private IInvokeLogService invokeLogService;
 
-	
+
 	/**
 	 * 添加调用统计日志
 	*/
@@ -83,11 +86,12 @@ public class InvokeLogController extends SuperController {
 	@SentinelResource(value = InvokeLogServiceProxy.INSERT , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(InvokeLogServiceProxy.INSERT)
 	public Result insert(InvokeLogVO invokeLogVO) {
-		Result result=invokeLogService.insert(invokeLogVO);
+		Result result=invokeLogService.insert(invokeLogVO,false);
 		return result;
 	}
 
-	
+
+
 	/**
 	 * 删除调用统计日志
 	*/
@@ -100,11 +104,22 @@ public class InvokeLogController extends SuperController {
 	@SentinelResource(value = InvokeLogServiceProxy.DELETE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(InvokeLogServiceProxy.DELETE)
 	public Result deleteById(Long id) {
+		this.validator().asserts(id).require("缺少id值");
+		if(this.validator().failure()) {
+			return this.validator().getFirstResult();
+		}
+		// 引用校验
+		Boolean hasRefer = invokeLogService.hasRefers(id);
+		// 判断是否可以删除
+		this.validator().asserts(hasRefer).requireEqual("不允许删除当前记录",false);
+		if(this.validator().failure()) {
+			return this.validator().getFirstResult();
+		}
 		Result result=invokeLogService.deleteByIdPhysical(id);
 		return result;
 	}
-	
-	
+
+
 	/**
 	 * 批量删除调用统计日志 <br>
 	 * 联合主键时，请自行调整实现
@@ -118,10 +133,45 @@ public class InvokeLogController extends SuperController {
 	@SentinelResource(value = InvokeLogServiceProxy.DELETE_BY_IDS , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(InvokeLogServiceProxy.DELETE_BY_IDS)
 	public Result deleteByIds(List<Long> ids) {
-		Result result=invokeLogService.deleteByIdsLogical(ids);
-		return result;
+
+		// 参数校验
+		this.validator().asserts(ids).require("缺少ids参数");
+		if(this.validator().failure()) {
+			return this.validator().getFirstResult();
+		}
+
+		// 查询引用
+		Map<Long, Boolean> hasRefersMap = invokeLogService.hasRefers(ids);
+		// 收集可以删除的ID值
+		List<Long> canDeleteIds = new ArrayList<>();
+		for (Map.Entry<Long, Boolean> e : hasRefersMap.entrySet()) {
+			if (!e.getValue()) {
+				canDeleteIds.add(e.getKey());
+			}
+		}
+
+		// 执行删除
+		if (canDeleteIds.isEmpty()) {
+			// 如果没有一行可以被删除
+			return ErrorDesc.failure().message("无法删除您选中的数据行");
+		} else if (canDeleteIds.size() == ids.size()) {
+			// 如果全部可以删除
+			Result result=invokeLogService.deleteByIdsPhysical(canDeleteIds);
+			return result;
+		} else if (canDeleteIds.size()>0 && canDeleteIds.size() < ids.size()) {
+			// 如果部分行可以删除
+			Result result=invokeLogService.deleteByIdsPhysical(canDeleteIds);
+			if (result.failure()) {
+				return result;
+			} else {
+				return ErrorDesc.success().message("已删除 " + canDeleteIds.size() + " 行，但另有 " + (ids.size() - canDeleteIds.size()) + " 行数据无法删除").messageLevel4Confirm();
+			}
+		} else {
+			// 理论上，这个分支不存在
+			return ErrorDesc.success().message("数据删除未处理");
+		}
 	}
-	
+
 	/**
 	 * 更新调用统计日志
 	*/
@@ -144,16 +194,15 @@ public class InvokeLogController extends SuperController {
 		@ApiImplicitParam(name = InvokeLogVOMeta.END_TIME , value = "结束时间" , required = false , dataTypeClass=Timestamp.class),
 		@ApiImplicitParam(name = InvokeLogVOMeta.EXCEPTION , value = "异常信息" , required = false , dataTypeClass=String.class)
 	})
-	@ApiOperationSupport( order=4 , ignoreParameters = { InvokeLogVOMeta.PAGE_INDEX , InvokeLogVOMeta.PAGE_SIZE , InvokeLogVOMeta.SEARCH_FIELD , InvokeLogVOMeta.SEARCH_VALUE , InvokeLogVOMeta.SORT_FIELD , InvokeLogVOMeta.SORT_TYPE , InvokeLogVOMeta.IDS } ) 
-	@NotNull(name = InvokeLogVOMeta.ID)
+	@ApiOperationSupport( order=4 , ignoreParameters = { InvokeLogVOMeta.PAGE_INDEX , InvokeLogVOMeta.PAGE_SIZE , InvokeLogVOMeta.SEARCH_FIELD , InvokeLogVOMeta.FUZZY_FIELD , InvokeLogVOMeta.SEARCH_VALUE , InvokeLogVOMeta.DIRTY_FIELDS , InvokeLogVOMeta.SORT_FIELD , InvokeLogVOMeta.SORT_TYPE , InvokeLogVOMeta.IDS } )
 	@SentinelResource(value = InvokeLogServiceProxy.UPDATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(InvokeLogServiceProxy.UPDATE)
 	public Result update(InvokeLogVO invokeLogVO) {
-		Result result=invokeLogService.update(invokeLogVO,SaveMode.NOT_NULL_FIELDS);
+		Result result=invokeLogService.update(invokeLogVO,SaveMode.DIRTY_OR_NOT_NULL_FIELDS,false);
 		return result;
 	}
-	
-	
+
+
 	/**
 	 * 保存调用统计日志
 	*/
@@ -176,16 +225,16 @@ public class InvokeLogController extends SuperController {
 		@ApiImplicitParam(name = InvokeLogVOMeta.END_TIME , value = "结束时间" , required = false , dataTypeClass=Timestamp.class),
 		@ApiImplicitParam(name = InvokeLogVOMeta.EXCEPTION , value = "异常信息" , required = false , dataTypeClass=String.class)
 	})
-	@ApiOperationSupport(order=5 ,  ignoreParameters = { InvokeLogVOMeta.PAGE_INDEX , InvokeLogVOMeta.PAGE_SIZE , InvokeLogVOMeta.SEARCH_FIELD , InvokeLogVOMeta.SEARCH_VALUE , InvokeLogVOMeta.SORT_FIELD , InvokeLogVOMeta.SORT_TYPE , InvokeLogVOMeta.IDS } )
+	@ApiOperationSupport(order=5 ,  ignoreParameters = { InvokeLogVOMeta.PAGE_INDEX , InvokeLogVOMeta.PAGE_SIZE , InvokeLogVOMeta.SEARCH_FIELD , InvokeLogVOMeta.FUZZY_FIELD , InvokeLogVOMeta.SEARCH_VALUE , InvokeLogVOMeta.DIRTY_FIELDS , InvokeLogVOMeta.SORT_FIELD , InvokeLogVOMeta.SORT_TYPE , InvokeLogVOMeta.IDS } )
 	@NotNull(name = InvokeLogVOMeta.ID)
 	@SentinelResource(value = InvokeLogServiceProxy.SAVE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
 	@PostMapping(InvokeLogServiceProxy.SAVE)
 	public Result save(InvokeLogVO invokeLogVO) {
-		Result result=invokeLogService.save(invokeLogVO,SaveMode.NOT_NULL_FIELDS);
+		Result result=invokeLogService.save(invokeLogVO,SaveMode.DIRTY_OR_NOT_NULL_FIELDS,false);
 		return result;
 	}
 
-	
+
 	/**
 	 * 获取调用统计日志
 	*/
@@ -199,17 +248,17 @@ public class InvokeLogController extends SuperController {
 	@PostMapping(InvokeLogServiceProxy.GET_BY_ID)
 	public Result<InvokeLog> getById(Long id) {
 		Result<InvokeLog> result=new Result<>();
-		InvokeLog role=invokeLogService.getById(id);
-		result.success(true).data(role);
+		InvokeLog invokeLog=invokeLogService.getById(id);
+		result.success(true).data(invokeLog);
 		return result;
 	}
 
 
 	/**
-	 * 批量删除调用统计日志 <br>
+	 * 批量获取调用统计日志 <br>
 	 * 联合主键时，请自行调整实现
 	*/
-		@ApiOperation(value = "批量删除调用统计日志")
+		@ApiOperation(value = "批量获取调用统计日志")
 		@ApiImplicitParams({
 				@ApiImplicitParam(name = InvokeLogVOMeta.IDS , value = "主键清单" , required = true , dataTypeClass=List.class , example = "[1,3,4]")
 		})
@@ -219,12 +268,12 @@ public class InvokeLogController extends SuperController {
 	@PostMapping(InvokeLogServiceProxy.GET_BY_IDS)
 	public Result<List<InvokeLog>> getByIds(List<Long> ids) {
 		Result<List<InvokeLog>> result=new Result<>();
-		List<InvokeLog> list=invokeLogService.getByIds(ids);
+		List<InvokeLog> list=invokeLogService.queryListByIds(ids);
 		result.success(true).data(list);
 		return result;
 	}
 
-	
+
 	/**
 	 * 查询调用统计日志
 	*/
@@ -257,7 +306,7 @@ public class InvokeLogController extends SuperController {
 		return result;
 	}
 
-	
+
 	/**
 	 * 分页查询调用统计日志
 	*/
@@ -292,57 +341,7 @@ public class InvokeLogController extends SuperController {
 
 
 
-	/**
-	 * 导出 Excel
-	 * */
-	@SentinelResource(value = InvokeLogServiceProxy.EXPORT_EXCEL , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
-	@RequestMapping(InvokeLogServiceProxy.EXPORT_EXCEL)
-	public void exportExcel(InvokeLogVO  sample,HttpServletResponse response) throws Exception {
-			//生成 Excel 数据
-			ExcelWriter ew=invokeLogService.exportExcel(sample);
-			//下载
-			DownloadUtil.writeToOutput(response, ew.getWorkBook(), ew.getWorkBookName());
-	}
 
-
-	/**
-	 * 导出 Excel 模板
-	 * */
-	@SentinelResource(value = InvokeLogServiceProxy.EXPORT_EXCEL_TEMPLATE , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
-	@RequestMapping(InvokeLogServiceProxy.EXPORT_EXCEL_TEMPLATE)
-	public void exportExcelTemplate(HttpServletResponse response) throws Exception {
-			//生成 Excel 模版
-			ExcelWriter ew=invokeLogService.exportExcelTemplate();
-			//下载
-			DownloadUtil.writeToOutput(response, ew.getWorkBook(), ew.getWorkBookName());
-		}
-
-
-
-
-	@SentinelResource(value = InvokeLogServiceProxy.IMPORT_EXCEL , blockHandlerClass = { SentinelExceptionUtil.class } , blockHandler = SentinelExceptionUtil.HANDLER )
-	@RequestMapping(InvokeLogServiceProxy.IMPORT_EXCEL)
-	public Result importExcel(MultipartHttpServletRequest request, HttpServletResponse response) throws Exception {
-
-			//获得上传的文件
-			Map<String, MultipartFile> map = request.getFileMap();
-			InputStream input=null;
-			for (MultipartFile mf : map.values()) {
-				input=StreamUtil.bytes2input(mf.getBytes());
-				break;
-			}
-
-			if(input==null) {
-				return ErrorDesc.failure().message("缺少上传的文件");
-			}
-
-			List<ValidateResult> errors=invokeLogService.importExcel(input,0,true);
-			if(errors==null || errors.isEmpty()) {
-				return ErrorDesc.success();
-			} else {
-				return ErrorDesc.failure().message("导入失败").data(errors);
-			}
-		}
 
 
 }

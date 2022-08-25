@@ -57,7 +57,7 @@ public class NodeController extends SuperController {
 	/**
 	 * 添加sys_node
 	*/
-	@ApiOperation(value = "添加sys_node")
+	@ApiOperation(value = "添加系统节点")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = NodeVOMeta.ID , value = "实例id" , required = true , dataTypeClass=String.class , example = "01-f15ba211b4-9381"),
 		@ApiImplicitParam(name = NodeVOMeta.HOST_ID , value = "主机ID" , required = false , dataTypeClass=String.class , example = "B15BDA59450483F9"),
@@ -85,7 +85,7 @@ public class NodeController extends SuperController {
 	/**
 	 * 删除sys_node
 	*/
-	@ApiOperation(value = "删除sys_node")
+	@ApiOperation(value = "删除系统节点")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = NodeVOMeta.ID , value = "实例id" , required = true , dataTypeClass=String.class , example = "01-f15ba211b4-9381"),
 	})
@@ -119,7 +119,7 @@ public class NodeController extends SuperController {
 	/**
 	 * 更新sys_node
 	*/
-	@ApiOperation(value = "更新sys_node")
+	@ApiOperation(value = "更新系统节点")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = NodeVOMeta.ID , value = "实例id" , required = true , dataTypeClass=String.class , example = "01-f15ba211b4-9381"),
 		@ApiImplicitParam(name = NodeVOMeta.HOST_ID , value = "主机ID" , required = false , dataTypeClass=String.class , example = "B15BDA59450483F9"),
@@ -147,7 +147,7 @@ public class NodeController extends SuperController {
 	/**
 	 * 保存sys_node
 	*/
-	@ApiOperation(value = "保存sys_node")
+	@ApiOperation(value = "保存系统节点")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = NodeVOMeta.ID , value = "实例id" , required = true , dataTypeClass=String.class , example = "01-f15ba211b4-9381"),
 		@ApiImplicitParam(name = NodeVOMeta.HOST_ID , value = "主机ID" , required = false , dataTypeClass=String.class , example = "B15BDA59450483F9"),
@@ -214,7 +214,7 @@ public class NodeController extends SuperController {
 	/**
 	 * 查询sys_node
 	*/
-	@ApiOperation(value = "查询sys_node")
+	@ApiOperation(value = "查询系统节点")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = NodeVOMeta.ID , value = "实例id" , required = true , dataTypeClass=String.class , example = "01-f15ba211b4-9381"),
 		@ApiImplicitParam(name = NodeVOMeta.HOST_ID , value = "主机ID" , required = false , dataTypeClass=String.class , example = "B15BDA59450483F9"),
@@ -243,7 +243,7 @@ public class NodeController extends SuperController {
 	/**
 	 * 分页查询sys_node
 	*/
-	@ApiOperation(value = "分页查询sys_node")
+	@ApiOperation(value = "分页查询系统节点")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = NodeVOMeta.ID , value = "实例id" , required = true , dataTypeClass=String.class , example = "01-f15ba211b4-9381"),
 		@ApiImplicitParam(name = NodeVOMeta.HOST_ID , value = "主机ID" , required = false , dataTypeClass=String.class , example = "B15BDA59450483F9"),

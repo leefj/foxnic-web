@@ -1,7 +1,7 @@
 /**
  * 定时任务配置 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-05-14 11:45:51
+ * @since 2022-08-25 13:21:36
  */
 
 
@@ -44,7 +44,9 @@ function ListPage() {
 			fox.adjustSearchElement();
 		});
 		fox.adjustSearchElement();
-		$("#table-area").css("margin-top",$(".search-bar").height()+"px");
+		//
+		 var marginTop=$(".search-bar").height()+$(".search-bar").css("padding-top")+$(".search-bar").css("padding-bottom")
+		 $("#table-area").css("margin-top",marginTop+"px");
 		//
 		function renderTableInternal() {
 
@@ -76,10 +78,10 @@ function ListPage() {
 					{ fixed: 'left',type: 'numbers' },
 					{ fixed: 'left',type:'checkbox'}
 					,{ field: 'name', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('任务名') , templet: function (d) { return templet('name',d.name,d);}  }
-					,{ field: 'workerId', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('执行器'), templet: function (d) { return templet('workerId' ,fox.joinLabel(d.worker,"className"),fox.getProperty(d,["worker","className"]),d);}}
+					,{ field: 'workerId', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('执行器'), templet: function (d) { return templet('workerId' ,fox.joinLabel(d.worker,"className",',','','workerId'),fox.getProperty(d,["worker","className"],0,'','workerId'),d);}}
 					,{ field: 'cronExpr', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('cron') , templet: function (d) { return templet('cronExpr',d.cronExpr,d);}  }
-					,{ field: 'misfirePolicy', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('执行策略'), templet:function (d){ return templet('misfirePolicy',fox.getEnumText(SELECT_MISFIREPOLICY_DATA,d.misfirePolicy),d);}}
-					,{ field: 'status', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('状态'), templet:function (d){ return templet('status',fox.getEnumText(RADIO_STATUS_DATA,d.status),d);}}
+					,{ field: 'misfirePolicy', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('执行策略'), templet:function (d){ return templet('misfirePolicy',fox.getEnumText(SELECT_MISFIREPOLICY_DATA,d.misfirePolicy,'','misfirePolicy'),d);}}
+					,{ field: 'status', align:"left",fixed:false,  hide:false, sort: true  , title: fox.translate('状态'), templet:function (d){ return templet('status',fox.getEnumText(RADIO_STATUS_DATA,d.status,'','status'),d);}}
 					,{ field: 'nextFireTime', align:"",fixed:false,  hide:false, sort: false  , title: fox.translate('下次执行时间') , templet: function (d) { return templet('nextFireTime',d.nextFireTime,d);}  }
 					,{ field: 'id', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('主键') , templet: function (d) { return templet('id',d.id,d);}  }
 					,{ field: 'code', align:"left",fixed:false,  hide:true, sort: true  , title: fox.translate('代码') , templet: function (d) { return templet('code',d.code,d);}  }
@@ -92,26 +94,16 @@ function ListPage() {
 				]],
 				done: function (data) { window.pageExt.list.afterQuery && window.pageExt.list.afterQuery(data); },
 				footer : {
-					exportExcel : admin.checkAuth(AUTH_PREFIX+":export"),
-					importExcel : admin.checkAuth(AUTH_PREFIX+":import")?{
-						params : {} ,
-						callback : function(r) {
-							if(r.success) {
-								layer.msg(fox.translate('数据导入成功')+"!");
-							} else {
-								layer.msg(fox.translate('数据导入失败')+"!");
-							}
-							// 是否执行后续逻辑：错误提示
-							return false;
-						}
-					}:false
+					exportExcel : false ,
+					importExcel : false 
 				}
 			};
 			window.pageExt.list.beforeTableRender && window.pageExt.list.beforeTableRender(tableConfig);
 			dataTable=fox.renderTable(tableConfig);
 			//绑定 Switch 切换事件
-			fox.bindSwitchEvent("cell-tpl-concurrent",moduleURL +'/update','id','concurrent',function(data,ctx){
-				window.pageExt.list.afterSwitched && window.pageExt.list.afterSwitched("concurrent",data,ctx);
+			fox.bindSwitchEvent("cell-tpl-concurrent",moduleURL +'/update','id','concurrent',function(result,data,ctx){
+				window.pageExt.list.afterSwitched && window.pageExt.list.afterSwitched("concurrent",result,data,ctx);
+				refreshRowData(data,true);
 			});
 			//绑定排序事件
 			table.on('sort(data-table)', function(obj){
@@ -164,8 +156,7 @@ function ListPage() {
 			if(sort) {
 				ps.sortField=sort.field;
 				ps.sortType=sort.type;
-			}
-		}
+			} 		}
 		if(reset) {
 			table.reload('data-table', { where : ps , page:{ curr:1 } });
 		} else {
@@ -245,6 +236,7 @@ function ListPage() {
 			}
 			switch(obj.event){
 				case 'create':
+					admin.putTempData('sys-job-form-data', {});
 					openCreateFrom();
 					break;
 				case 'batch-del':
@@ -282,7 +274,8 @@ function ListPage() {
             }
             //调用批量删除接口
 			top.layer.confirm(fox.translate('确定删除已选中的')+fox.translate('定时任务配置')+fox.translate('吗？'), function (i) {
-                admin.post(moduleURL+"/delete-by-ids", { ids: ids }, function (data) {
+                top.layer.close(i);
+				admin.post(moduleURL+"/delete-by-ids", { ids: ids }, function (data) {
                     if (data.success) {
 						if(window.pageExt.list.afterBatchDelete) {
 							var doNext=window.pageExt.list.afterBatchDelete(data);
@@ -293,7 +286,7 @@ function ListPage() {
                     } else {
 						fox.showMessage(data);
                     }
-                });
+                },{delayLoading:200,elms:[$("#delete-button")]});
 			});
         }
 	}
@@ -338,11 +331,10 @@ function ListPage() {
 					var doNext=window.pageExt.list.beforeSingleDelete(data);
 					if(!doNext) return;
 				}
+
 				top.layer.confirm(fox.translate('确定删除此')+fox.translate('定时任务配置')+fox.translate('吗？'), function (i) {
 					top.layer.close(i);
-
-					top.layer.load(2);
-					admin.request(moduleURL+"/delete", { id : data.id }, function (data) {
+					admin.post(moduleURL+"/delete", { id : data.id }, function (data) {
 						top.layer.closeAll('loading');
 						if (data.success) {
 							if(window.pageExt.list.afterSingleDelete) {
@@ -354,7 +346,7 @@ function ListPage() {
 						} else {
 							fox.showMessage(data);
 						}
-					});
+					},{delayLoading:100, elms:[$(".ops-delete-button[data-id='"+data.id+"']")]});
 				});
 			}
 			else if (layEvent === 'invoke-imm') { // 立即调度
@@ -410,7 +402,8 @@ function ListPage() {
 	window.module={
 		refreshTableData: refreshTableData,
 		refreshRowData: refreshRowData,
-		getCheckedList: getCheckedList
+		getCheckedList: getCheckedList,
+		showEditForm: showEditForm
 	};
 
 	window.pageExt.list.ending && window.pageExt.list.ending();

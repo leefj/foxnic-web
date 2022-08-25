@@ -3,6 +3,9 @@ package org.github.foxnic.web.proxy.system;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.github.foxnic.web.proxy.api.APIProxy;
 import org.github.foxnic.web.proxy.FeignConfiguration;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.github.foxnic.web.domain.system.InvokeLog;
 import org.github.foxnic.web.domain.system.InvokeLogVO;
@@ -10,14 +13,13 @@ import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.proxy.MicroServiceNames;
-import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
  * 调用统计日志  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-07-19 14:42:56
+ * @since 2022-08-25 11:42:23
  */
 @FeignClient(value = MicroServiceNames.SYSTEM, contextId = InvokeLogServiceProxy.API_CONTEXT_PATH, configuration = FeignConfiguration.class)
 public interface InvokeLogServiceProxy {
@@ -83,21 +85,6 @@ public interface InvokeLogServiceProxy {
     public static final String QUERY_PAGED_LIST = API_PREFIX + "query-paged-list";
 
     /**
-     * 导出调用统计日志数据(Excel)
-     */
-    public static final String EXPORT_EXCEL = API_PREFIX + "export-excel";
-
-    /**
-     * 下载调用统计日志导入模版(Excel)
-     */
-    public static final String EXPORT_EXCEL_TEMPLATE = API_PREFIX + "export-excel-template";
-
-    /**
-     * 导入调用统计日志数据(Excel)
-     */
-    public static final String IMPORT_EXCEL = API_PREFIX + "import-excel";
-
-    /**
      * 添加调用统计日志
      */
     @RequestMapping(InvokeLogServiceProxy.INSERT)
@@ -134,7 +121,7 @@ public interface InvokeLogServiceProxy {
     Result<InvokeLog> getById(@RequestParam(name = "id") Long id);
 
     /**
-     * 批量删除调用统计日志
+     * 获取多个调用统计日志
      */
     @RequestMapping(InvokeLogServiceProxy.GET_BY_IDS)
     Result<List<InvokeLog>> getByIds(@RequestParam(name = "ids") List<Long> ids);

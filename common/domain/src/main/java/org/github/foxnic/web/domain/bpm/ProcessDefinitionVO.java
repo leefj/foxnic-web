@@ -13,8 +13,8 @@ import com.github.foxnic.commons.bean.BeanUtil;
 /**
  * 流程定义
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-04 09:43:07
- * @sign 8783813299E80FC844F5B18532749B7C
+ * @since 2022-08-25 13:23:44
+ * @sign A1B8DF7967077555F0C2AB8112191E25
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -286,7 +286,7 @@ public class ProcessDefinitionVO extends ProcessDefinition {
 		return this;
 	}
 	@Transient
-	private CompositeParameter $compositeParameter;
+	private transient CompositeParameter $compositeParameter;
 	/**
 	 * 获得解析后的复合查询参数
 	 */

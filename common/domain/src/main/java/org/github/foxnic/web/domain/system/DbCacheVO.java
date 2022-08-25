@@ -3,14 +3,18 @@ package org.github.foxnic.web.domain.system;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
+import com.github.foxnic.api.model.CompositeParameter;
+import javax.persistence.Transient;
+import com.github.foxnic.commons.bean.BeanUtil;
 
 
 
 /**
- * null
+ * 数据库缓存
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-24 14:46:24
- * @sign F0052B52EC964712A31307C397B9EE47
+ * @since 2022-08-25 11:42:19
+ * @sign 72833A5F5866DEE38894B2A14C2890F9
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -47,6 +51,12 @@ public class DbCacheVO extends DbCache {
 	*/
 	@ApiModelProperty(required = false,value="搜索的值" , notes = "")
 	private String searchValue;
+	
+	/**
+	 * 已修改字段
+	*/
+	@ApiModelProperty(required = false,value="已修改字段" , notes = "")
+	private List<String> dirtyFields;
 	
 	/**
 	 * 排序字段
@@ -163,6 +173,35 @@ public class DbCacheVO extends DbCache {
 	}
 	
 	/**
+	 * 获得 已修改字段<br>
+	 * @return 已修改字段
+	*/
+	public List<String> getDirtyFields() {
+		return dirtyFields;
+	}
+	
+	/**
+	 * 设置 已修改字段
+	 * @param dirtyFields 已修改字段
+	 * @return 当前对象
+	*/
+	public DbCacheVO setDirtyFields(List<String> dirtyFields) {
+		this.dirtyFields=dirtyFields;
+		return this;
+	}
+	
+	/**
+	 * 添加 已修改字段
+	 * @param dirtyField 已修改字段
+	 * @return 当前对象
+	*/
+	public DbCacheVO addDirtyField(String... dirtyField) {
+		if(this.dirtyFields==null) dirtyFields=new ArrayList<>();
+		this.dirtyFields.addAll(Arrays.asList(dirtyField));
+		return this;
+	}
+	
+	/**
 	 * 获得 排序字段<br>
 	 * @return 排序字段
 	*/
@@ -222,9 +261,9 @@ public class DbCacheVO extends DbCache {
 	 * @param id 主键清单
 	 * @return 当前对象
 	*/
-	public DbCacheVO addId(String id) {
+	public DbCacheVO addId(String... id) {
 		if(this.ids==null) ids=new ArrayList<>();
-		this.ids.add(id);
+		this.ids.addAll(Arrays.asList(id));
 		return this;
 	}
 	
@@ -244,5 +283,16 @@ public class DbCacheVO extends DbCache {
 	public DbCacheVO setSeconds(Integer seconds) {
 		this.seconds=seconds;
 		return this;
+	}
+	@Transient
+	private transient CompositeParameter $compositeParameter;
+	/**
+	 * 获得解析后的复合查询参数
+	 */
+	@Transient
+	public CompositeParameter getCompositeParameter() {
+		if($compositeParameter!=null) return  $compositeParameter;
+		$compositeParameter=new CompositeParameter(this.getSearchValue(),BeanUtil.toMap(this));
+		return  $compositeParameter;
 	}
 }

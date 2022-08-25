@@ -14,6 +14,7 @@ import org.github.foxnic.web.generator.module.hrm.HrmPositionConfig;
 import org.github.foxnic.web.generator.module.job.SysJobConfig;
 import org.github.foxnic.web.generator.module.job.SysJobLogConfig;
 import org.github.foxnic.web.generator.module.job.SysJobWorkerConfig;
+import org.github.foxnic.web.generator.module.oauth.SysResourzeConfig;
 import org.github.foxnic.web.generator.module.oauth.SysUserConfig;
 import org.github.foxnic.web.generator.module.pcm.PcmCatalogAllocationConfig;
 import org.github.foxnic.web.generator.module.pcm.PcmCatalogAttributeConfig;
@@ -77,7 +78,7 @@ public class CodeStarter extends ModuleCodeGenerator {
     }
 
     private void initBpmModules() {
-//        this.addConfig(new ProcessDefinitionConfig());
+        this.addConfig(new ProcessDefinitionConfig());
 //        this.addConfig(new ProcessDefinitionFileConfig());
 //        this.addConfig(new ProcessDefinitionNodeConfig());
 //        this.addConfig(new ProcessDefinitionNodeAssigneeConfig());
@@ -101,7 +102,7 @@ public class CodeStarter extends ModuleCodeGenerator {
     }
 
     private void  initChangeModules() {
-//        this.addConfig(new ChsChangeDefinitionConfig());
+        this.addConfig(new ChsChangeDefinitionConfig());
 //        this.addConfig(new ChsChangeInstanceConfig());
 //        this.addConfig(new ChsChangeDataConfig());
 //        this.addConfig(new ChsExampleOrderConfig());
@@ -136,8 +137,8 @@ public class CodeStarter extends ModuleCodeGenerator {
     }
 
     private void initOAuthModules() {
-        this.addConfig(new SysUserConfig());
-//        this.addConfig(new SysResourzeConfig());
+//        this.addConfig(new SysUserConfig());
+        this.addConfig(new SysResourzeConfig());
 
 
     }

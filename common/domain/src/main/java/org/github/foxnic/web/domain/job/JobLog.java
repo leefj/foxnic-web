@@ -19,8 +19,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 定时任务执行日志
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-01-07 13:39:32
- * @sign 5CB401D9B05D63D3C093561C806E9CBA
+ * @since 2022-08-25 13:14:13
+ * @sign C029C1323DE3AFF04D024A306A46DDB9
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -619,6 +619,22 @@ public class JobLog extends Entity {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public JobLog clone() {
+		return EntityContext.clone(JobLog.class,this);
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public JobLog clone(boolean deep) {
+		return EntityContext.clone(JobLog.class,this,deep);
 	}
 
 	/**

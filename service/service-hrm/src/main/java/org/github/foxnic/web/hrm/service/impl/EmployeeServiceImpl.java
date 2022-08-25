@@ -141,7 +141,7 @@ public class EmployeeServiceImpl extends SuperService<Employee> implements IEmpl
 					//保存主岗关系
 					if(!StringUtil.isBlank(vo.getPrimaryPositionId())) {
 						EmployeePosition ep=new EmployeePosition();
-						ep.setEmployeeId(employee.getId()).setPositionId(vo.getPrimaryPositionId());
+						ep.setEmployeeId(employee.getId()).setPositionId(vo.getPrimaryPositionId()).setIsPrimary(1);
 						employeePositionService.insert(ep);
 						//激活主岗
 						employeePositionService.activePrimaryPosition(employee.getId());

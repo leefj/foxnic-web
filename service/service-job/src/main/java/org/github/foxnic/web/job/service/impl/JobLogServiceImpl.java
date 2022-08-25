@@ -4,6 +4,7 @@ package org.github.foxnic.web.job.service.impl;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.commons.busi.id.IDGenerator;
+import com.github.foxnic.commons.collection.MapUtil;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.entity.SuperService;
@@ -15,6 +16,7 @@ import com.github.foxnic.springboot.spring.SpringUtil;
 import com.github.foxnic.sql.expr.ConditionExpr;
 import com.github.foxnic.sql.meta.DBField;
 import org.github.foxnic.web.constants.enums.job.LogType;
+import org.github.foxnic.web.domain.bpm.DemoCommon;
 import org.github.foxnic.web.domain.job.Job;
 import org.github.foxnic.web.domain.job.JobLog;
 import org.github.foxnic.web.framework.dao.DBConfigs;
@@ -27,7 +29,9 @@ import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -178,12 +182,6 @@ public class JobLogServiceImpl extends SuperService<JobLog> implements IJobLogSe
 		return dao.queryEntity(sample);
 	}
 
-	@Override
-	public List<JobLog> getByIds(List<String> ids) {
-		return super.queryListByUKeys("id",ids);
-	}
-
-
 
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
@@ -222,6 +220,48 @@ public class JobLogServiceImpl extends SuperService<JobLog> implements IJobLogSe
 	@Override
 	public PagedList<JobLog> queryPagedList(JobLog sample, ConditionExpr condition, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, condition, pageSize, pageIndex);
+	}
+
+
+	/**
+	 * 检查引用
+	 * @param id  检查ID是否又被外部表引用
+	 * */
+	@Override
+	public Boolean hasRefers(String id) {
+		Map<String, Boolean> map=this.hasRefers(Arrays.asList(id));
+		Boolean ex=map.get(id);
+		if(ex==null) return false;
+		return ex;
+	}
+
+	/**
+	 * 批量检查引用
+	 * @param ids  检查这些ID是否又被外部表引用
+	 * */
+	@Override
+	public Map<String, Boolean> hasRefers(List<String> ids) {
+		// 默认无业务逻辑，返回此行；有业务逻辑需要校验时，请修改并使用已注释的行代码！！！
+		return MapUtil.asMap(ids,false);
+		// return super.hasRefers(FoxnicWeb.BPM_PROCESS_INSTANCE.FORM_DEFINITION_ID,ids);
+	}
+
+	/**
+	 * 等价于 queryListByIds
+	 * */
+	@Override
+	public List<JobLog> getByIds(List<String> ids) {
+		return this.queryListByIds(ids);
+	}
+
+	@Override
+	public List<JobLog> queryListByIds(List<String> ids) {
+		return super.queryListByUKeys("id",ids);
+	}
+
+	@Override
+	public Map<String, JobLog> queryMapByIds(List<String> ids) {
+		return super.queryMapByUKeys("id",ids, JobLog::getId);
 	}
 
 	/**
@@ -274,6 +314,7 @@ public class JobLogServiceImpl extends SuperService<JobLog> implements IJobLogSe
 		this.dao().resumePrintThreadSQL();
 		return log;
 	}
+
 
 	@Override
 	public JobLog startLog(Job job) {

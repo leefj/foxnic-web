@@ -21,8 +21,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程定义
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-04 09:43:06
- * @sign 4CE2AB2F247BFAB6BE99C76ADB8AE4AB
+ * @since 2022-08-25 13:23:44
+ * @sign 2D409DBBBF0ABA4D8818ACDB1853AE11
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -678,6 +678,22 @@ public class ProcessDefinition extends Entity {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public ProcessDefinition clone() {
+		return EntityContext.clone(ProcessDefinition.class,this);
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public ProcessDefinition clone(boolean deep) {
+		return EntityContext.clone(ProcessDefinition.class,this,deep);
 	}
 
 	/**

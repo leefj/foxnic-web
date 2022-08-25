@@ -3,14 +3,18 @@ package org.github.foxnic.web.domain.system;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
+import com.github.foxnic.api.model.CompositeParameter;
+import javax.persistence.Transient;
+import com.github.foxnic.commons.bean.BeanUtil;
 
 
 
 /**
- * null
+ * 调用统计日志
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-06-19 08:22:05
- * @sign 6E8B7155B6B2A8F6DC4E074BC1F6E1EA
+ * @since 2022-08-25 11:42:23
+ * @sign B8DB3DC49B7EB1FEC08D22C688A9C8E6
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -37,10 +41,22 @@ public class InvokeLogVO extends InvokeLog {
 	private String searchField;
 	
 	/**
+	 * 模糊搜索字段
+	*/
+	@ApiModelProperty(required = false,value="模糊搜索字段" , notes = "")
+	private String fuzzyField;
+	
+	/**
 	 * 搜索的值
 	*/
 	@ApiModelProperty(required = false,value="搜索的值" , notes = "")
 	private String searchValue;
+	
+	/**
+	 * 已修改字段
+	*/
+	@ApiModelProperty(required = false,value="已修改字段" , notes = "")
+	private List<String> dirtyFields;
 	
 	/**
 	 * 排序字段
@@ -79,12 +95,6 @@ public class InvokeLogVO extends InvokeLog {
 	}
 	
 	/**
-	 * 添加 页码
-	 * @param pageIndex 页码
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 分页大小<br>
 	 * @return 分页大小
 	*/
@@ -101,12 +111,6 @@ public class InvokeLogVO extends InvokeLog {
 		this.pageSize=pageSize;
 		return this;
 	}
-	
-	/**
-	 * 添加 分页大小
-	 * @param pageSize 分页大小
-	 * @return 当前对象
-	*/
 	
 	/**
 	 * 获得 搜索字段<br>
@@ -127,10 +131,22 @@ public class InvokeLogVO extends InvokeLog {
 	}
 	
 	/**
-	 * 添加 搜索字段
-	 * @param searchField 搜索字段
+	 * 获得 模糊搜索字段<br>
+	 * @return 模糊搜索字段
+	*/
+	public String getFuzzyField() {
+		return fuzzyField;
+	}
+	
+	/**
+	 * 设置 模糊搜索字段
+	 * @param fuzzyField 模糊搜索字段
 	 * @return 当前对象
 	*/
+	public InvokeLogVO setFuzzyField(String fuzzyField) {
+		this.fuzzyField=fuzzyField;
+		return this;
+	}
 	
 	/**
 	 * 获得 搜索的值<br>
@@ -151,10 +167,33 @@ public class InvokeLogVO extends InvokeLog {
 	}
 	
 	/**
-	 * 添加 搜索的值
-	 * @param searchValue 搜索的值
+	 * 获得 已修改字段<br>
+	 * @return 已修改字段
+	*/
+	public List<String> getDirtyFields() {
+		return dirtyFields;
+	}
+	
+	/**
+	 * 设置 已修改字段
+	 * @param dirtyFields 已修改字段
 	 * @return 当前对象
 	*/
+	public InvokeLogVO setDirtyFields(List<String> dirtyFields) {
+		this.dirtyFields=dirtyFields;
+		return this;
+	}
+	
+	/**
+	 * 添加 已修改字段
+	 * @param dirtyField 已修改字段
+	 * @return 当前对象
+	*/
+	public InvokeLogVO addDirtyField(String... dirtyField) {
+		if(this.dirtyFields==null) dirtyFields=new ArrayList<>();
+		this.dirtyFields.addAll(Arrays.asList(dirtyField));
+		return this;
+	}
 	
 	/**
 	 * 获得 排序字段<br>
@@ -175,12 +214,6 @@ public class InvokeLogVO extends InvokeLog {
 	}
 	
 	/**
-	 * 添加 排序字段
-	 * @param sortField 排序字段
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 排序方式<br>
 	 * @return 排序方式
 	*/
@@ -199,14 +232,8 @@ public class InvokeLogVO extends InvokeLog {
 	}
 	
 	/**
-	 * 添加 排序方式
-	 * @param sortType 排序方式
-	 * @return 当前对象
-	*/
-	
-	/**
 	 * 获得 主键清单<br>
-	 * 属性说明 : 用于接收批量主键参数
+	 * 用于接收批量主键参数
 	 * @return 主键清单
 	*/
 	public List<Long> getIds() {
@@ -225,12 +252,23 @@ public class InvokeLogVO extends InvokeLog {
 	
 	/**
 	 * 添加 主键清单
-	 * @param ids 主键清单
+	 * @param id 主键清单
 	 * @return 当前对象
 	*/
-	public InvokeLogVO addId(Long id) {
+	public InvokeLogVO addId(Long... id) {
 		if(this.ids==null) ids=new ArrayList<>();
-		this.ids.add(id);
+		this.ids.addAll(Arrays.asList(id));
 		return this;
+	}
+	@Transient
+	private transient CompositeParameter $compositeParameter;
+	/**
+	 * 获得解析后的复合查询参数
+	 */
+	@Transient
+	public CompositeParameter getCompositeParameter() {
+		if($compositeParameter!=null) return  $compositeParameter;
+		$compositeParameter=new CompositeParameter(this.getSearchValue(),BeanUtil.toMap(this));
+		return  $compositeParameter;
 	}
 }

@@ -124,7 +124,7 @@ public class ResourzeServiceImpl extends SuperService<Resourze> implements IReso
 		Resourze resourze = new Resourze();
 		if(id==null) return ErrorDesc.failure().message("id 不允许为 null 。");
 		resourze.setId(id);
-		resourze.setDeleted(dao.getDBTreaty().getTrueValue());
+		resourze.setDeleted(true);
 		resourze.setDeleteBy((String)dao.getDBTreaty().getLoginUserId());
 		resourze.setDeleteTime(new Date());
 		try {

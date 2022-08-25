@@ -1,7 +1,7 @@
 /**
- * 定时任务执行日志 列表页 JS 脚本
+ * 调用统计日志 列表页 JS 脚本
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-25 13:14:14
+ * @since 2022-08-25 11:27:12
  */
 
 layui.config({
@@ -18,7 +18,7 @@ layui.define(['form', 'table', 'util', 'settings', 'admin', 'upload','foxnic','x
     table = layui.table,layer = layui.layer,util = layui.util,fox = layui.foxnic,xmSelect = layui.xmSelect,foxup=layui.foxnicUpload;
 
     //模块基础路径
-    const moduleURL="/service-job/sys-job-log";
+    const moduleURL="/service-system/sys-invoke-log";
 
 
     //列表页的扩展

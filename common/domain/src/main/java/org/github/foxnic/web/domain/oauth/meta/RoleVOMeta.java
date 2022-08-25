@@ -11,7 +11,7 @@ import org.github.foxnic.web.domain.oauth.Menu;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-22 09:53:33
+ * @since 2022-08-25 11:05:47
  * @sign 422CFFA3A51594222B6BA238086D9325
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */

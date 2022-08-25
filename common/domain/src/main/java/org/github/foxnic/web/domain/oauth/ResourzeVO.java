@@ -3,6 +3,7 @@ package org.github.foxnic.web.domain.oauth;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
 import com.github.foxnic.api.model.CompositeParameter;
 import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
@@ -12,8 +13,8 @@ import com.github.foxnic.commons.bean.BeanUtil;
 /**
  * 系统资源
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-03-10 16:43:00
- * @sign C2A151465BF6F5FD70354A6F3F9B69D9
+ * @since 2022-08-25 11:10:27
+ * @sign B0AD13E1F63579B5BA4FF956A9190A4C
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -188,9 +189,9 @@ public class ResourzeVO extends Resourze {
 	 * @param dirtyField 已修改字段
 	 * @return 当前对象
 	*/
-	public ResourzeVO addDirtyField(String dirtyField) {
+	public ResourzeVO addDirtyField(String... dirtyField) {
 		if(this.dirtyFields==null) dirtyFields=new ArrayList<>();
-		this.dirtyFields.add(dirtyField);
+		this.dirtyFields.addAll(Arrays.asList(dirtyField));
 		return this;
 	}
 	
@@ -254,13 +255,13 @@ public class ResourzeVO extends Resourze {
 	 * @param id 主键清单
 	 * @return 当前对象
 	*/
-	public ResourzeVO addId(String id) {
+	public ResourzeVO addId(String... id) {
 		if(this.ids==null) ids=new ArrayList<>();
-		this.ids.add(id);
+		this.ids.addAll(Arrays.asList(id));
 		return this;
 	}
 	@Transient
-	private CompositeParameter $compositeParameter;
+	private transient CompositeParameter $compositeParameter;
 	/**
 	 * 获得解析后的复合查询参数
 	 */
