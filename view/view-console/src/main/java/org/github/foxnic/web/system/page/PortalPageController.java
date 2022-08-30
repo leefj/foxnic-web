@@ -125,4 +125,10 @@ public class PortalPageController extends ViewController  {
 		//
 		return prefix+"login";
 	}
+
+	@RequestMapping("/pages/tpl/password.html")
+	public String changePasswd(Model model) {
+		return prefix+"pages/tpl/password";
+	}
+
 }

@@ -94,4 +94,34 @@ public class UnitTestController {
     }
 
 
+    @PostMapping("/service-system/unit-test/lic")
+    public Result lic() {
+        Boolean isInLimitGoods=LicenceProxy.isInDataLimit("goodsLimit");
+        Boolean isInLimitNews=LicenceProxy.isInDataLimit("newsLimit");
+
+        Map<String,Boolean> map=MapUtil.asMap("isInLimitGoods",isInLimitGoods,"isInLimitNews",isInLimitNews);
+
+        if(isInLimitNews) {
+            return ErrorDesc.failure().message("数据超出许可限制");
+        }
+
+        return ErrorDesc.success().data(map);
+
+    }
+
+    @PostMapping("/service-system/unit-test/lic-sample")
+    public Result licSample() {
+        Boolean isInLimitGoods=LicenceProxy.isInDataLimit("goodsLimit");
+
+        if(isInLimitGoods) {
+            return ErrorDesc.failure().message("数据超出许可限制");
+        }
+
+        dao.execute("insert xxxx");
+
+        return ErrorDesc.success();
+
+    }
+
+
 }

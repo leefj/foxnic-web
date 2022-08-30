@@ -11,7 +11,9 @@
     color: #666 !important;
 }
 
-
+.layui-btn-fluid {
+    background-color:#2d8cf0
+}
 
 .layui-laypage .layui-laypage-curr .layui-laypage-em { background-color:#2d8cf0 }
 

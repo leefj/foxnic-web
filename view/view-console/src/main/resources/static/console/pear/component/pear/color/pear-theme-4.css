@@ -11,7 +11,9 @@
 }
 .layui-laypage .layui-laypage-curr .layui-laypage-em { background-color:#f56c6c }
 
-
+.layui-btn-fluid {
+    background-color:#f56c6c
+}
 
 .search-button-advance {color:#fff;}
 

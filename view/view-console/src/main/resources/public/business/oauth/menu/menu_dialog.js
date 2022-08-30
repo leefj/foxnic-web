@@ -128,8 +128,11 @@ function ListPage() {
 			menuIds.push(nodes[i].id);
 		}
 		admin.putTempData("selected-role-menu-ids",menuIds);
-		var menuDialogIndex=admin.getTempData("menuDialogIndex");
-		admin.closePopupCenter(menuDialogIndex);
+		//var menuDialogIndex=admin.getTempData("menuDialogIndex");
+		//admin.closePopupCenter(menuDialogIndex);
+		var menuDialogId=admin.putTempData("menuDialogId");
+		debugger
+		admin.finishPopupCenterById(menuDialogId,this);
 	});
 
 };

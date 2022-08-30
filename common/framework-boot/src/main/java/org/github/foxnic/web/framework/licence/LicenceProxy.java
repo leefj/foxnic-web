@@ -3,6 +3,7 @@ package org.github.foxnic.web.framework.licence;
 import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.springboot.CP;
+import jdk.nashorn.internal.scripts.JS;
 
 import java.lang.reflect.Method;
 
@@ -32,6 +33,36 @@ public class LicenceProxy {
             return null;
         }
     }
+
+
+    /**
+     * 数据量是否任然在许可证限制的范围内
+     * */
+    public static boolean isInDataLimit(String key) {
+        JSONObject lic=getLicence();
+        if(lic==null) return true;
+        JSONObject dataLimit=lic.getJSONObject("dataLimit");
+        if(dataLimit==null) {
+            return false;
+        }
+        JSONObject  item=dataLimit.getJSONObject(key);
+        if(item==null) {
+            return true;
+        }
+        // 如果未指定可用或或不可用，则在约束范围内
+        if(item.getBoolean("enable")==null || item.getBoolean("enable")==false) {
+            return true;
+        }
+
+        Long current=item.getLong("current");
+        Long count=item.getLong("count");
+        if(current==null) {
+            return true;
+        }
+        return current<count;
+
+    }
+
 
     /**
      * 获得模块配置，建议把这个方法拷贝到自己的模块去
