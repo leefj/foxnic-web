@@ -3,13 +3,16 @@ package org.github.foxnic.web.system.test;
 import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.api.error.ErrorDesc;
 import com.github.foxnic.api.transter.Result;
+import com.github.foxnic.commons.bean.BeanUtil;
 import com.github.foxnic.commons.busi.id.IDGenerator;
 import com.github.foxnic.commons.collection.MapUtil;
 import com.github.foxnic.commons.io.FileUtil;
 import com.github.foxnic.commons.lang.StringUtil;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.dao.spec.DBSequence;
+import com.github.foxnic.springboot.mvc.ParameterFilter;
 import com.github.foxnic.springboot.spring.SpringUtil;
+import io.undertow.servlet.core.ManagedFilters;
 import org.github.foxnic.web.domain.system.DictItem;
 import org.github.foxnic.web.domain.system.DictItemVO;
 import org.github.foxnic.web.framework.dao.DBConfigs;
@@ -19,8 +22,14 @@ import org.github.foxnic.web.proxy.utils.DictProxyUtil;
 import org.github.foxnic.web.session.SessionUser;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.Resource;
+import javax.servlet.Filter;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.util.*;
 
@@ -96,16 +105,39 @@ public class UnitTestController {
 
     @PostMapping("/service-system/unit-test/lic")
     public Result lic() {
+
+//        System.out.println("KE-11="+LicenceProxy.DP_CODE);
+//        try {
+//            LicenceProxy.DP_CODE = null;
+//        } catch (Throwable t) {
+//            t.printStackTrace();
+//        }
+//        System.out.println("KE-22="+LicenceProxy.DP_CODE);
+
+        ParameterFilter p=ParameterFilter.getInstance();
+
+//        ServletContext servletContext = ContextLoader.getCurrentWebApplicationContext().getServletContext();
+
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request=attributes.getRequest();
+        ServletContext context=request.getServletContext();
+        Object deployment= BeanUtil.getFieldValue(context,"deployment");
+        Object managedFilters=BeanUtil.getFieldValue(deployment,"filters");
+        Map map=BeanUtil.getFieldValue(managedFilters,"managedFilterMap",Map.class);
+        List filters=new ArrayList();
+        for (Object value : map.values()) {
+            filters.add(value);
+        }
         Boolean isInLimitGoods=LicenceProxy.isInDataLimit("goodsLimit");
         Boolean isInLimitNews=LicenceProxy.isInDataLimit("newsLimit");
 
-        Map<String,Boolean> map=MapUtil.asMap("isInLimitGoods",isInLimitGoods,"isInLimitNews",isInLimitNews);
+        Map<String,Boolean> map2=MapUtil.asMap("isInLimitGoods",isInLimitGoods,"isInLimitNews",isInLimitNews);
 
         if(isInLimitNews) {
             return ErrorDesc.failure().message("数据超出许可限制");
         }
 
-        return ErrorDesc.success().data(map);
+        return ErrorDesc.success().data(map2);
 
     }
 
