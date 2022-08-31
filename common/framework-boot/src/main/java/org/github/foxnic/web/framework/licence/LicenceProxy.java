@@ -73,9 +73,9 @@ public class LicenceProxy {
      * 获得未授权的菜单ID
      * */
     public static List<String> getExcludedMenuIds() {
-        if(System.currentTimeMillis()>0) {
-            return new ArrayList<>();
-        }
+//        if(System.currentTimeMillis()>0) {
+//            return new ArrayList<>();
+//        }
         if(EXCLUDED_MENU_IDS!=null) {
             return EXCLUDED_MENU_IDS;
         }
@@ -113,4 +113,4 @@ public class LicenceProxy {
     }
 
 
-}
+}
