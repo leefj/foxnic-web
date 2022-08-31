@@ -1,11 +1,14 @@
 package org.github.foxnic.web.framework.licence;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.springboot.CP;
 import jdk.nashorn.internal.scripts.JS;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LicenceProxy {
 
@@ -20,6 +23,7 @@ public class LicenceProxy {
     public static void reset() {
         try {
             CP.getInstance().reset();
+            EXCLUDED_MENU_IDS = null;
         } catch (Exception e) {
             Logger.error("许可证重置失败",e);
         }
@@ -61,6 +65,34 @@ public class LicenceProxy {
         }
         return current<count;
 
+    }
+
+    private static List<String> EXCLUDED_MENU_IDS = null;
+
+    /**
+     * 获得未授权的菜单ID
+     * */
+    public static List<String> getExcludedMenuIds() {
+        if(EXCLUDED_MENU_IDS!=null) {
+            return EXCLUDED_MENU_IDS;
+        }
+        List<String> ids=new ArrayList<>();
+        JSONObject lic = null;
+        try {
+            lic = getLicence();
+        } catch (Throwable t) {
+            return ids;
+        };
+        if(lic==null) return ids;
+        JSONObject menuExcludeData=lic.getJSONObject("menuExcludeData");
+        if(menuExcludeData==null) return ids;
+        JSONArray menuIds=menuExcludeData.getJSONArray("menuIds");
+        if(menuIds==null) return ids;
+        for (int i = 0; i < menuIds.size(); i++) {
+            ids.add(menuIds.getString(i));
+        }
+        EXCLUDED_MENU_IDS = ids;
+        return ids;
     }
 
 

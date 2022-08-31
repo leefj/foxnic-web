@@ -34,6 +34,7 @@ import org.github.foxnic.web.domain.oauth.meta.UserMeta;
 import org.github.foxnic.web.domain.system.meta.TenantMeta;
 import org.github.foxnic.web.domain.system.meta.UserTenantMeta;
 import org.github.foxnic.web.framework.dao.DBConfigs;
+import org.github.foxnic.web.framework.licence.LicenceProxy;
 import org.github.foxnic.web.oauth.service.IRoleUserService;
 import org.github.foxnic.web.oauth.service.IUserService;
 import org.github.foxnic.web.proxy.utils.SystemConfigProxyUtil;
@@ -413,7 +414,7 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 			EntityContext.cloneProperty(user,UserMeta.ROLES_PROP);
 		}
 
-
+		List excludedMenuIds= LicenceProxy.getExcludedMenuIds();
 		List<Menu> remMenus=new ArrayList<>();
 		for (Menu menu : userMenus) {
 			if (!StringUtil.isBlank(menu.getDynamicHandler())) {
@@ -425,10 +426,15 @@ public class UserServiceImpl extends SuperService<User> implements IUserService 
 				String title = dy.getLabel(menu, user);
 				menu.setLabel(title);
 			}
+
+			if(excludedMenuIds.contains(menu.getId())) {
+				remMenus.add(menu);
+			}
+
 		}
 
 		for (Menu remMenu : remMenus) {
-			user.getMenus().remove(remMenu);
+			userMenus.remove(remMenu);
 		}
 
 		// 按 ID distinct
