@@ -7,6 +7,7 @@ import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.api.validate.annotations.NotNull;
 import com.github.foxnic.commons.encrypt.Base64Util;
 import com.github.foxnic.commons.log.Logger;
+import com.github.foxnic.commons.log.PerformanceLogger;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
 import com.github.foxnic.dao.entity.FieldsBuilder;
@@ -21,6 +22,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.github.foxnic.web.constants.db.FoxnicWeb;
 import org.github.foxnic.web.domain.hrm.meta.EmployeeMeta;
+import org.github.foxnic.web.domain.oauth.Role;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.domain.oauth.UserVO;
 import org.github.foxnic.web.domain.oauth.meta.UserMeta;
@@ -335,17 +337,23 @@ public class UserController extends SuperController {
 
 		Result<PagedList<User>> result=new Result<>();
 
+		PerformanceLogger pl=new PerformanceLogger(false);
+		pl.collect("A");
+
 		PagedList<User> list=userService.queryPagedList(sample,sample.getPageSize(),sample.getPageIndex());
+		pl.collect("B");
 		for (User user : list) {
 			user.setPasswd("");
 		}
 
+		pl.collect("C");
 		DAO dao=userService.dao();
 		FieldsBuilder roleFields= FieldsBuilder.build(dao, FoxnicWeb.SYS_ROLE.$TABLE).addAll().removeDBTreatyFields();
 		FieldsBuilder employeeFields= FieldsBuilder.build(dao, FoxnicWeb.HRM_EMPLOYEE.$TABLE).addAll().removeDBTreatyFields();
 		FieldsBuilder personFields= FieldsBuilder.build(dao, FoxnicWeb.HRM_PERSON.$TABLE).addAll().removeDBTreatyFields();
 		FieldsBuilder tenantFields= FieldsBuilder.build(dao, FoxnicWeb.SYS_TENANT.$TABLE).addAll().removeDBTreatyFields();
 		FieldsBuilder userTenantFields= FieldsBuilder.build(dao, FoxnicWeb.SYS_USER_TENANT.$TABLE).addAll().removeDBTreatyFields();
+		pl.collect("D");
 
 		//填充账户模型
 		userService.dao().fill(list)
@@ -354,7 +362,22 @@ public class UserController extends SuperController {
 				.fields(roleFields,employeeFields,personFields,tenantFields,userTenantFields)
 				.execute();
 
+		// 暂时如此修复一下
+		for (User user : list) {
+			user.setActivatedTenant(null);
+			user.setCompositeParameter(null);
+			if(user.getRoles()!=null) {
+				for (Role role : user.getRoles()) {
+					role.setMenus(null);
+				}
+			}
+		}
+
+		pl.collect("E");
+
 		result.success(true).data(list);
+		pl.collect("F");
+		pl.info("queryPagedList");
 		return result;
 	}
 
@@ -395,4 +418,4 @@ public class UserController extends SuperController {
 
 
 
-}
+}
