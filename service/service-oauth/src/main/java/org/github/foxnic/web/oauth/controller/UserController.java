@@ -10,6 +10,7 @@ import com.github.foxnic.commons.log.Logger;
 import com.github.foxnic.commons.log.PerformanceLogger;
 import com.github.foxnic.dao.data.PagedList;
 import com.github.foxnic.dao.data.SaveMode;
+import com.github.foxnic.dao.entity.EntityContext;
 import com.github.foxnic.dao.entity.FieldsBuilder;
 import com.github.foxnic.dao.entity.QuerySQLBuilder;
 import com.github.foxnic.dao.spec.DAO;

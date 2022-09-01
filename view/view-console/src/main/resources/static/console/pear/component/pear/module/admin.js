@@ -430,12 +430,12 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 						closeEvent: function(id) {
 							sideMenu.selectItem(id);
 						},
-						data: [{
+						data: PORTAL_ENABLE ?[{
 							id: param.tab.index.id,
 							url: PORTAL_URL,
 							title: param.tab.index.title,
 							close: false
-						}],
+						}]:[],
 						success: function(id) {
 							if (param.tab.session) {
 								setTimeout(function() {
@@ -466,13 +466,15 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 					})
 				} else {
 					debugger
-					bodyFrame = pearFrame.render({
-						elem: 'content',
-						title: '首页',
-						url: PORTAL_URL,
-						width: '100%',
-						height: '100%'
-					});
+					if(PORTAL_ENABLE) {
+						bodyFrame = pearFrame.render({
+							elem: 'content',
+							title: '首页',
+							url: PORTAL_URL,
+							width: '100%',
+							height: '100%'
+						});
+					}
 
 					sideMenu.click(function(dom, data) {
 						bodyFrame.changePage(data.menuUrl, true);

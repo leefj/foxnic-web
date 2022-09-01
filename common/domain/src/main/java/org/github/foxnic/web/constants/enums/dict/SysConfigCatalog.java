@@ -6,7 +6,7 @@ import com.github.foxnic.commons.reflect.EnumUtil;
 
 
 /**
- * @since 2022-08-09 20:01:08
+ * @since 2022-09-01 16:33:39
  * @author 李方捷 , leefangjie@qq.com
  * 此文件由工具自动生成，请勿修改。若表结构变动，请使用工具重新生成。
 */
@@ -14,14 +14,14 @@ import com.github.foxnic.commons.reflect.EnumUtil;
 public enum SysConfigCatalog  implements CodeTextEnum {
 	
 	/**
-	 * 组织人事
-	*/
-	HTM("htm" , "组织人事"),
-	
-	/**
 	 * 系统配置
 	*/
 	SYSTEM("system" , "系统配置"),
+	
+	/**
+	 * 组织人事
+	*/
+	HTM("htm" , "组织人事"),
 	;
 	
 	private String code;

@@ -34,4 +34,12 @@ public class SystemConfigProxyUtil {
         return DataParser.parseDate(getString(key));
     }
 
+    /**
+     * 获取 Boolean 型系统配置
+     * */
+    public static Boolean getBoolean(SystemConfigEnum key) {
+        String value=getString(key);
+        return DataParser.parseBoolean(value);
+    }
+
 }

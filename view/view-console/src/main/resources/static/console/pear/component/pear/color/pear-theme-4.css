@@ -1,11 +1,11 @@
 .layui-btn { background-color:#f56c6c }
 .batch-delete-button { border: solid 1px #f6ad55;background-color: #f6ad55; }
-.ops-delete-button { border: #f6ad55;background-color: #f6ad55; }
-.ops-view-button {
+.ops-delete-button:not(.layui-btn-disabled) { border: #f6ad55;background-color: #f6ad55; }
+.ops-view-button:not(.layui-btn-disabled) {
     background-color: #fff !important;
     color: #666 !important;
 }
-.ops-edit-button {
+.ops-edit-button:not(.layui-btn-disabled) {
     background-color: #fff !important;
     color: #666 !important;
 }
