@@ -7,13 +7,15 @@ import java.util.Arrays;
 import com.github.foxnic.api.model.CompositeParameter;
 import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
+import com.github.foxnic.dao.entity.EntityContext;
+import com.github.foxnic.dao.entity.Entity;
 
 
 
 /**
  * 数据权限规则
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-25 11:12:12
+ * @since 2022-09-02 16:45:29
  * @sign D8A21454F5DCF647FD8C7BE842FA7F6D
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -270,5 +272,109 @@ public class RuleVO extends Rule {
 		if($compositeParameter!=null) return  $compositeParameter;
 		$compositeParameter=new CompositeParameter(this.getSearchValue(),BeanUtil.toMap(this));
 		return  $compositeParameter;
+	}
+
+	/**
+	 * 将自己转换成指定类型的PO
+	 * @param poType  PO类型
+	 * @return RuleVO , 转换好的 RuleVO 对象
+	*/
+	@Transient
+	public <T extends Entity> T toPO(Class<T> poType) {
+		return EntityContext.create(poType, this);
+	}
+
+	/**
+	 * 将自己转换成任意指定类型
+	 * @param pojoType  Pojo类型
+	 * @return RuleVO , 转换好的 PoJo 对象
+	*/
+	@Transient
+	public <T> T toPojo(Class<T> pojoType) {
+		if(Entity.class.isAssignableFrom(pojoType)) {
+			return (T)this.toPO((Class<Entity>)pojoType);
+		}
+		try {
+			T pojo=pojoType.newInstance();
+			EntityContext.copyProperties(pojo, this);
+			return pojo;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public RuleVO clone() {
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public RuleVO duplicate(boolean all) {
+		org.github.foxnic.web.domain.dataperm.meta.RuleVOMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.dataperm.meta.RuleVOMeta.$$proxy$$();
+		inst.setCode(this.getCode());
+		inst.setNotes(this.getNotes());
+		inst.setUpdateTime(this.getUpdateTime());
+		inst.setVersion(this.getVersion());
+		inst.setValid(this.getValid());
+		inst.setCreateBy(this.getCreateBy());
+		inst.setDeleted(this.getDeleted());
+		inst.setCreateTime(this.getCreateTime());
+		inst.setUpdateBy(this.getUpdateBy());
+		inst.setDeleteTime(this.getDeleteTime());
+		inst.setName(this.getName());
+		inst.setVersionNo(this.getVersionNo());
+		inst.setDeleteBy(this.getDeleteBy());
+		inst.setId(this.getId());
+		inst.setPoType(this.getPoType());
+		if(all) {
+			inst.setRanges(this.getRanges());
+			inst.setSearchField(this.getSearchField());
+			inst.setPageIndex(this.getPageIndex());
+			inst.setSortType(this.getSortType());
+			inst.setFuzzyField(this.getFuzzyField());
+			inst.setDirtyFields(this.getDirtyFields());
+			inst.setSortField(this.getSortField());
+			inst.setPageSize(this.getPageSize());
+			inst.setIds(this.getIds());
+			inst.setSearchValue(this.getSearchValue());
+		}
+		inst.clearModifies();
+		return inst;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public RuleVO clone(boolean deep) {
+		return EntityContext.clone(RuleVO.class,this,deep);
+	}
+
+	/**
+	 * 将 Pojo 转换成 RuleVO
+	 * @param pojo 包含实体信息的 Pojo 对象
+	 * @return RuleVO , 转换好的的 Rule 对象
+	*/
+	@Transient
+	public static RuleVO createFrom(Object pojo) {
+		if(pojo==null) return null;
+		RuleVO po = EntityContext.create(RuleVO.class,pojo);
+		return po;
+	}
+
+	/**
+	 * 创建一个 RuleVO，等同于 new
+	 * @return RuleVO 对象
+	*/
+	@Transient
+	public static RuleVO create() {
+		return EntityContext.create(RuleVO.class);
 	}
 }

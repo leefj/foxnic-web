@@ -17,8 +17,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 分类属性
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-02 09:34:50
- * @sign 34DDABEABE5989AF0756111F423DC01C
+ * @since 2022-09-02 16:40:38
+ * @sign F6B125456C3FCD58557215125F0CD860
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -789,6 +789,63 @@ public class CatalogAttribute extends Entity {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public CatalogAttribute clone() {
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public CatalogAttribute duplicate(boolean all) {
+		org.github.foxnic.web.domain.pcm.meta.CatalogAttributeMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.pcm.meta.CatalogAttributeMeta.$$proxy$$();
+		inst.setSourceId(this.getSourceId());
+		inst.setNote(this.getNote());
+		inst.setNotNull(this.getNotNull());
+		inst.setDataType(this.getDataType());
+		inst.setLength(this.getLength());
+		inst.setAccuracy(this.getAccuracy());
+		inst.setScale(this.getScale());
+		inst.setFullName(this.getFullName());
+		inst.setUpdateTime(this.getUpdateTime());
+		inst.setVersion(this.getVersion());
+		inst.setValid(this.getValid());
+		inst.setCreateBy(this.getCreateBy());
+		inst.setCatalogId(this.getCatalogId());
+		inst.setDeleted(this.getDeleted());
+		inst.setField(this.getField());
+		inst.setCreateTime(this.getCreateTime());
+		inst.setUpdateBy(this.getUpdateBy());
+		inst.setDeleteTime(this.getDeleteTime());
+		inst.setHint(this.getHint());
+		inst.setVersionNo(this.getVersionNo());
+		inst.setDeleteBy(this.getDeleteBy());
+		inst.setId(this.getId());
+		inst.setDetail(this.getDetail());
+		inst.setShortName(this.getShortName());
+		if(all) {
+			inst.setAllocation(this.getAllocation());
+			inst.setSourceAttr(this.getSourceAttr());
+			inst.setCatalog(this.getCatalog());
+			inst.setAllocationBefore(this.getAllocationBefore());
+		}
+		inst.clearModifies();
+		return inst;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public CatalogAttribute clone(boolean deep) {
+		return EntityContext.clone(CatalogAttribute.class,this,deep);
 	}
 
 	/**

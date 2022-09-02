@@ -5,14 +5,19 @@ import org.github.foxnic.web.constants.enums.bpm.TaskStatus;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
+import javax.persistence.Transient;
+import com.github.foxnic.commons.bean.BeanUtil;
+import java.util.Map;
+import com.github.foxnic.dao.entity.EntityContext;
+import com.github.foxnic.dao.entity.Entity;
 
 
 
 /**
  * 任务查询对象
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-15 13:54:50
- * @sign F0EFD896440D8340AB1EEB9179736B99
+ * @since 2022-09-02 16:42:57
+ * @sign 262FEC1D2243F4F0A869401B7EDD19FD
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -139,5 +144,75 @@ public class TaskQueryVO {
 		if(this.statusList==null) statusList=new ArrayList<>();
 		this.statusList.addAll(Arrays.asList(status));
 		return this;
+	}
+
+	/**
+	 * 创建一个 TaskQueryVO，等同于 new
+	 * @return TaskQueryVO 对象
+	*/
+	@Transient
+	public static TaskQueryVO create() {
+		return new TaskQueryVO();
+	}
+
+	/**
+	 * 将 Map 转换成 TaskQueryVO
+	 * @param taskMap 包含实体信息的 Map 对象
+	 * @return TaskQueryVO , 转换好的的 Task 对象
+	*/
+	@Transient
+	public static TaskQueryVO createFrom(Map<String,Object> taskMap) {
+		if(taskMap==null) return null;
+		TaskQueryVO po = new TaskQueryVO();
+		BeanUtil.copy(taskMap,po);
+		return po;
+	}
+
+	/**
+	 * 将 Pojo 转换成 TaskQueryVO
+	 * @param pojo 包含实体信息的 Pojo 对象
+	 * @return TaskQueryVO , 转换好的的 Task 对象
+	*/
+	@Transient
+	public static TaskQueryVO createFrom(Object pojo) {
+		if(pojo==null) return null;
+		TaskQueryVO po = new TaskQueryVO();
+		BeanUtil.copy(pojo,po,true);
+		return po;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public TaskQueryVO clone() {
+		return BeanUtil.clone(this,false);
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public TaskQueryVO clone(boolean deep) {
+		return BeanUtil.clone(this,deep);
+	}
+
+	/**
+	 * 将自己转换成任意指定类型
+	 * @param pojoType  Pojo类型
+	 * @return TaskQueryVO , 转换好的 PoJo 对象
+	*/
+	@Transient
+	public <T> T toPojo(Class<T> pojoType) {
+		if(Entity.class.isAssignableFrom(pojoType)) {
+			return (T)EntityContext.create((Class<? extends Entity>) pojoType,this);
+		}
+		try {
+			T pojo=pojoType.newInstance();
+			EntityContext.copyProperties(pojo, this);
+			return pojo;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 }

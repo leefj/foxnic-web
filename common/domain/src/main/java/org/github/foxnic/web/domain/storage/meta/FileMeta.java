@@ -3,12 +3,13 @@ package org.github.foxnic.web.domain.storage.meta;
 import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.storage.File;
 import java.util.Date;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-22 09:59:26
+ * @since 2022-09-02 16:18:43
  * @sign 4187DD794E7BA4CB4DCB50CF5712D9D5
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -405,5 +406,45 @@ public class FileMeta {
 			super.setExists(exists);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public File clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public File duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setFileName(this.getFileName());
+			inst.setDownloadUrl(this.getDownloadUrl());
+			inst.setMediaType(this.getMediaType());
+			inst.setUpdateTime(this.getUpdateTime());
+			inst.setVersion(this.getVersion());
+			inst.setCreateBy(this.getCreateBy());
+			inst.setDeleted(this.getDeleted());
+			inst.setSize(this.getSize());
+			inst.setDownloads(this.getDownloads());
+			inst.setCreateTime(this.getCreateTime());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setDeleteTime(this.getDeleteTime());
+			inst.setDeleteBy(this.getDeleteBy());
+			inst.setLocation(this.getLocation());
+			inst.setId(this.getId());
+			inst.setFileType(this.getFileType());
+			inst.setLatestVisitTime(this.getLatestVisitTime());
+			if(all) {
+				inst.setExists(this.isExists());
+			}
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

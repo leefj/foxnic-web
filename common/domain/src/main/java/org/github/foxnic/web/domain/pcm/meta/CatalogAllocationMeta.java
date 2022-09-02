@@ -4,13 +4,14 @@ import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.pcm.CatalogAllocation;
 import java.util.Date;
 import org.github.foxnic.web.domain.pcm.CatalogAttribute;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-04 21:24:28
- * @sign 259C8B3F3ADA55C10426FC1ACCFCF5A4
+ * @since 2022-09-02 16:40:40
+ * @sign 32AA2CE877044950C345A9681C175F92
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -322,5 +323,41 @@ public class CatalogAllocationMeta {
 			super.setAttribute(attribute);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public CatalogAllocation clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public CatalogAllocation duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setUpdateTime(this.getUpdateTime());
+			inst.setVersion(this.getVersion());
+			inst.setAttributeId(this.getAttributeId());
+			inst.setCreateBy(this.getCreateBy());
+			inst.setCatalogId(this.getCatalogId());
+			inst.setDeleted(this.getDeleted());
+			inst.setCreateTime(this.getCreateTime());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setDeleteTime(this.getDeleteTime());
+			inst.setVersionNo(this.getVersionNo());
+			inst.setDeleteBy(this.getDeleteBy());
+			inst.setId(this.getId());
+			inst.setColumnName(this.getColumnName());
+			if(all) {
+				inst.setAttribute(this.getAttribute());
+			}
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

@@ -6,13 +6,14 @@ import java.util.Date;
 import org.github.foxnic.web.domain.bpm.FormDefinition;
 import org.github.foxnic.web.domain.bpm.FormInstanceBill;
 import java.util.List;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-07 15:55:06
- * @sign 97AC79D7BBDD1517683A7C90B764CA46
+ * @since 2022-09-02 16:42:56
+ * @sign F82BAB8909EF5411389F2A1D0DA28A72
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -345,5 +346,42 @@ public class FormInstanceMeta {
 			super.setBills(bills);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public FormInstance clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public FormInstance duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setProcessDefinitionId(this.getProcessDefinitionId());
+			inst.setProcessInstanceId(this.getProcessInstanceId());
+			inst.setUpdateTime(this.getUpdateTime());
+			inst.setVersion(this.getVersion());
+			inst.setCreateBy(this.getCreateBy());
+			inst.setDeleted(this.getDeleted());
+			inst.setCreateTime(this.getCreateTime());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setDeleteTime(this.getDeleteTime());
+			inst.setTenantId(this.getTenantId());
+			inst.setFormDefinitionId(this.getFormDefinitionId());
+			inst.setDeleteBy(this.getDeleteBy());
+			inst.setId(this.getId());
+			if(all) {
+				inst.setFormDefinition(this.getFormDefinition());
+				inst.setBills(this.getBills());
+			}
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

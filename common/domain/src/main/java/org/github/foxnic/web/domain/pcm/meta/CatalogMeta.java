@@ -5,13 +5,14 @@ import org.github.foxnic.web.domain.pcm.Catalog;
 import java.util.Date;
 import org.github.foxnic.web.domain.pcm.CatalogAttribute;
 import java.util.List;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-05 15:25:29
- * @sign 5EAEFC868DC72ED8B851F49646EE7541
+ * @since 2022-09-02 16:40:33
+ * @sign E42C0BCA37DE602EA9555B16906C692E
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -407,5 +408,45 @@ public class CatalogMeta {
 			super.setAttributes(attributes);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public Catalog clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public Catalog duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setCode(this.getCode());
+			inst.setHierarchy(this.getHierarchy());
+			inst.setUpdateTime(this.getUpdateTime());
+			inst.setSort(this.getSort());
+			inst.setVersion(this.getVersion());
+			inst.setParentId(this.getParentId());
+			inst.setValid(this.getValid());
+			inst.setCreateBy(this.getCreateBy());
+			inst.setDeleted(this.getDeleted());
+			inst.setCreateTime(this.getCreateTime());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setDeleteTime(this.getDeleteTime());
+			inst.setDataTable(this.getDataTable());
+			inst.setName(this.getName());
+			inst.setTenantId(this.getTenantId());
+			inst.setDeleteBy(this.getDeleteBy());
+			inst.setId(this.getId());
+			if(all) {
+				inst.setAttributes(this.getAttributes());
+			}
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

@@ -5,12 +5,13 @@ import org.github.foxnic.web.domain.storage.FileVO;
 import java.util.List;
 import org.github.foxnic.web.domain.storage.File;
 import java.util.Date;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-22 09:59:26
+ * @since 2022-09-02 16:18:43
  * @sign F22F5F27BB2009D7E68DEC527FE71CCE
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -596,5 +597,54 @@ public class FileVOMeta extends FileMeta {
 			super.setExists(exists);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public FileVO clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public FileVO duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setFileName(this.getFileName());
+			inst.setDownloadUrl(this.getDownloadUrl());
+			inst.setMediaType(this.getMediaType());
+			inst.setUpdateTime(this.getUpdateTime());
+			inst.setVersion(this.getVersion());
+			inst.setCreateBy(this.getCreateBy());
+			inst.setDeleted(this.getDeleted());
+			inst.setSize(this.getSize());
+			inst.setDownloads(this.getDownloads());
+			inst.setCreateTime(this.getCreateTime());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setDeleteTime(this.getDeleteTime());
+			inst.setDeleteBy(this.getDeleteBy());
+			inst.setLocation(this.getLocation());
+			inst.setId(this.getId());
+			inst.setFileType(this.getFileType());
+			inst.setLatestVisitTime(this.getLatestVisitTime());
+			if(all) {
+				inst.setSearchField(this.getSearchField());
+				inst.setPageIndex(this.getPageIndex());
+				inst.setSortType(this.getSortType());
+				inst.setFuzzyField(this.getFuzzyField());
+				inst.setDirtyFields(this.getDirtyFields());
+				inst.setSortField(this.getSortField());
+				inst.setPageSize(this.getPageSize());
+				inst.setIds(this.getIds());
+				inst.setExists(this.isExists());
+				inst.setSearchValue(this.getSearchValue());
+			}
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

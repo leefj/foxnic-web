@@ -3,6 +3,9 @@ package org.github.foxnic.web.proxy.dataperm;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.github.foxnic.web.proxy.api.APIProxy;
 import org.github.foxnic.web.proxy.FeignConfiguration;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.github.foxnic.web.domain.dataperm.ExampleBrand;
 import org.github.foxnic.web.domain.dataperm.ExampleBrandVO;
@@ -10,14 +13,13 @@ import java.util.List;
 import com.github.foxnic.api.transter.Result;
 import com.github.foxnic.dao.data.PagedList;
 import org.github.foxnic.web.proxy.MicroServiceNames;
-import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * <p>
  * 商品品牌表  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-02 14:49:27
+ * @since 2022-09-02 16:45:38
  */
 @FeignClient(value = MicroServiceNames.DATA_PERM, contextId = ExampleBrandServiceProxy.API_CONTEXT_PATH, configuration = FeignConfiguration.class)
 public interface ExampleBrandServiceProxy {
@@ -83,21 +85,6 @@ public interface ExampleBrandServiceProxy {
     public static final String QUERY_PAGED_LIST = API_PREFIX + "query-paged-list";
 
     /**
-     * 导出商品品牌数据(Excel)
-     */
-    public static final String EXPORT_EXCEL = API_PREFIX + "export-excel";
-
-    /**
-     * 下载商品品牌导入模版(Excel)
-     */
-    public static final String EXPORT_EXCEL_TEMPLATE = API_PREFIX + "export-excel-template";
-
-    /**
-     * 导入商品品牌数据(Excel)
-     */
-    public static final String IMPORT_EXCEL = API_PREFIX + "import-excel";
-
-    /**
      * 添加商品品牌
      */
     @RequestMapping(ExampleBrandServiceProxy.INSERT)
@@ -134,7 +121,7 @@ public interface ExampleBrandServiceProxy {
     Result<ExampleBrand> getById(@RequestParam(name = "id") String id);
 
     /**
-     * 批量删除商品品牌
+     * 获取多个商品品牌
      */
     @RequestMapping(ExampleBrandServiceProxy.GET_BY_IDS)
     Result<List<ExampleBrand>> getByIds(@RequestParam(name = "ids") List<String> ids);

@@ -11,13 +11,14 @@ import org.github.foxnic.web.domain.bpm.TaskAssignee;
 import org.github.foxnic.web.domain.bpm.TaskAssigneeUser;
 import org.github.foxnic.web.domain.bpm.ProcessDefinitionNode;
 import org.github.foxnic.web.domain.bpm.TaskRead;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-15 13:54:50
- * @sign 56B37C1BB1307B7C8DA3ACEF3626CE45
+ * @since 2022-09-02 16:42:57
+ * @sign 79A8E74A5A5E477DA7551C9257BE7C6F
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -581,5 +582,53 @@ public class TaskMeta {
 			super.setReaders(readers);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public Task clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public Task duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setNodeName(this.getNodeName());
+			inst.setProcessDefinitionId(this.getProcessDefinitionId());
+			inst.setProcessInstanceId(this.getProcessInstanceId());
+			inst.setApprovalTime(this.getApprovalTime());
+			inst.setUpdateTime(this.getUpdateTime());
+			inst.setCamundaTaskId(this.getCamundaTaskId());
+			inst.setVersion(this.getVersion());
+			inst.setCreateBy(this.getCreateBy());
+			inst.setStatusReason(this.getStatusReason());
+			inst.setDeleted(this.getDeleted());
+			inst.setCreateTime(this.getCreateTime());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setDeleteTime(this.getDeleteTime());
+			inst.setTenantId(this.getTenantId());
+			inst.setDeleteBy(this.getDeleteBy());
+			inst.setId(this.getId());
+			inst.setCamundaAssignee(this.getCamundaAssignee());
+			inst.setNodeId(this.getNodeId());
+			inst.setStatus(this.getStatus());
+			if(all) {
+				inst.setNode(this.getNode());
+				inst.setAssigneeUsers(this.getAssigneeUsers());
+				inst.setReaders(this.getReaders());
+				inst.setProcessDefinition(this.getProcessDefinition());
+				inst.setApprovals(this.getApprovals());
+				inst.setProcessInstance(this.getProcessInstance());
+				inst.setAssignees(this.getAssignees());
+			}
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

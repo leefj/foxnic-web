@@ -17,7 +17,7 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 系统配置
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-22 09:57:58
+ * @since 2022-09-02 16:18:41
  * @sign 27EBC9E6C100042BE51E6D0BFBBA68AE
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -546,7 +546,36 @@ public class Config extends Entity {
 	*/
 	@Transient
 	public Config clone() {
-		return EntityContext.clone(Config.class,this);
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public Config duplicate(boolean all) {
+		org.github.foxnic.web.domain.system.meta.ConfigMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.system.meta.ConfigMeta.$$proxy$$();
+		inst.setCode(this.getCode());
+		inst.setTypeDesc(this.getTypeDesc());
+		inst.setNotes(this.getNotes());
+		inst.setCatalogCode(this.getCatalogCode());
+		inst.setUpdateTime(this.getUpdateTime());
+		inst.setType(this.getType());
+		inst.setVersion(this.getVersion());
+		inst.setValid(this.getValid());
+		inst.setCreateBy(this.getCreateBy());
+		inst.setDeleted(this.getDeleted());
+		inst.setCreateTime(this.getCreateTime());
+		inst.setUpdateBy(this.getUpdateBy());
+		inst.setDeleteTime(this.getDeleteTime());
+		inst.setProfileId(this.getProfileId());
+		inst.setName(this.getName());
+		inst.setDeleteBy(this.getDeleteBy());
+		inst.setId(this.getId());
+		inst.setValue(this.getValue());
+		inst.clearModifies();
+		return inst;
 	}
 
 	/**

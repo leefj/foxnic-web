@@ -8,8 +8,8 @@ import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import org.github.foxnic.web.constants.enums.bpm.CamundaNodeType;
 import javax.persistence.Transient;
-import java.util.Date;
 import org.github.foxnic.web.constants.enums.bpm.UserTaskType;
+import java.util.Date;
 import java.util.List;
 import com.github.foxnic.commons.reflect.EnumUtil;
 import com.github.foxnic.commons.lang.StringUtil;
@@ -24,8 +24,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程定义节点
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-07 14:18:42
- * @sign 7FCDD3C0AE29303D326EAEDF710CDDA0
+ * @since 2022-09-02 16:42:51
+ * @sign 1A80F015B160C370BD92FA9EC886F55E
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -74,6 +74,14 @@ public class ProcessDefinitionNode extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="节点名称" , notes = "节点名称")
 	private String nodeName;
+	
+	/**
+	 * 人工节点类型：人工节点类型
+	*/
+	@ApiModelProperty(required = false,value="人工节点类型" , notes = "人工节点类型")
+	private String userTaskType;
+	@Transient
+	private UserTaskType userTaskTypeEnum;
 	
 	/**
 	 * 备注：备注
@@ -148,14 +156,6 @@ public class ProcessDefinitionNode extends Entity {
 	*/
 	@ApiModelProperty(required = false,value="会审的循环基数" , notes = "会审的循环基数")
 	private Integer loopCardinality;
-	
-	/**
-	 * 人工节点类型：人工节点类型
-	*/
-	@ApiModelProperty(required = false,value="人工节点类型" , notes = "人工节点类型")
-	private String userTaskType;
-	@Transient
-	private UserTaskType userTaskTypeEnum;
 	
 	/**
 	 * 审批人清单：审批人清单
@@ -307,6 +307,58 @@ public class ProcessDefinitionNode extends Entity {
 	*/
 	public ProcessDefinitionNode setNodeName(String nodeName) {
 		this.nodeName=nodeName;
+		return this;
+	}
+	
+	/**
+	 * 获得 人工节点类型<br>
+	 * 人工节点类型
+	 * @return 人工节点类型
+	*/
+	public String getUserTaskType() {
+		return userTaskType;
+	}
+	
+	/**
+	 * 获得 人工节点类型 的投影属性<br>
+	 * 等价于 getUserTaskType 方法，获得对应的枚举类型
+	 * @return 人工节点类型
+	*/
+	@Transient
+	public UserTaskType getUserTaskTypeEnum() {
+		if(this.userTaskTypeEnum==null) {
+			this.userTaskTypeEnum = (UserTaskType) EnumUtil.parseByCode(UserTaskType.values(),userTaskType);
+		}
+		return this.userTaskTypeEnum ;
+	}
+	
+	/**
+	 * 设置 人工节点类型
+	 * @param userTaskType 人工节点类型
+	 * @return 当前对象
+	*/
+	public ProcessDefinitionNode setUserTaskType(String userTaskType) {
+		this.userTaskType=userTaskType;
+		this.userTaskTypeEnum= (UserTaskType) EnumUtil.parseByCode(UserTaskType.values(),userTaskType) ;
+		if(StringUtil.hasContent(userTaskType) && this.userTaskTypeEnum==null) {
+			throw new IllegalArgumentException( userTaskType + " is not one of UserTaskType");
+		}
+		return this;
+	}
+	
+	/**
+	 * 设置 人工节点类型的投影属性，等同于设置 人工节点类型
+	 * @param userTaskTypeEnum 人工节点类型
+	 * @return 当前对象
+	*/
+	@Transient
+	public ProcessDefinitionNode setUserTaskTypeEnum(UserTaskType userTaskTypeEnum) {
+		if(userTaskTypeEnum==null) {
+			this.setUserTaskType(null);
+		} else {
+			this.setUserTaskType(userTaskTypeEnum.code());
+		}
+		this.userTaskTypeEnum=userTaskTypeEnum;
 		return this;
 	}
 	
@@ -569,58 +621,6 @@ public class ProcessDefinitionNode extends Entity {
 	}
 	
 	/**
-	 * 获得 人工节点类型<br>
-	 * 人工节点类型
-	 * @return 人工节点类型
-	*/
-	public String getUserTaskType() {
-		return userTaskType;
-	}
-	
-	/**
-	 * 获得 人工节点类型 的投影属性<br>
-	 * 等价于 getUserTaskType 方法，获得对应的枚举类型
-	 * @return 人工节点类型
-	*/
-	@Transient
-	public UserTaskType getUserTaskTypeEnum() {
-		if(this.userTaskTypeEnum==null) {
-			this.userTaskTypeEnum = (UserTaskType) EnumUtil.parseByCode(UserTaskType.values(),userTaskType);
-		}
-		return this.userTaskTypeEnum ;
-	}
-	
-	/**
-	 * 设置 人工节点类型
-	 * @param userTaskType 人工节点类型
-	 * @return 当前对象
-	*/
-	public ProcessDefinitionNode setUserTaskType(String userTaskType) {
-		this.userTaskType=userTaskType;
-		this.userTaskTypeEnum= (UserTaskType) EnumUtil.parseByCode(UserTaskType.values(),userTaskType) ;
-		if(StringUtil.hasContent(userTaskType) && this.userTaskTypeEnum==null) {
-			throw new IllegalArgumentException( userTaskType + " is not one of UserTaskType");
-		}
-		return this;
-	}
-	
-	/**
-	 * 设置 人工节点类型的投影属性，等同于设置 人工节点类型
-	 * @param userTaskTypeEnum 人工节点类型
-	 * @return 当前对象
-	*/
-	@Transient
-	public ProcessDefinitionNode setUserTaskTypeEnum(UserTaskType userTaskTypeEnum) {
-		if(userTaskTypeEnum==null) {
-			this.setUserTaskType(null);
-		} else {
-			this.setUserTaskType(userTaskTypeEnum.code());
-		}
-		this.userTaskTypeEnum=userTaskTypeEnum;
-		return this;
-	}
-	
-	/**
 	 * 获得 审批人清单<br>
 	 * 审批人清单
 	 * @return 审批人清单
@@ -677,6 +677,55 @@ public class ProcessDefinitionNode extends Entity {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public ProcessDefinitionNode clone() {
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public ProcessDefinitionNode duplicate(boolean all) {
+		org.github.foxnic.web.domain.bpm.meta.ProcessDefinitionNodeMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.bpm.meta.ProcessDefinitionNodeMeta.$$proxy$$();
+		inst.setNodeName(this.getNodeName());
+		inst.setProcessDefinitionId(this.getProcessDefinitionId());
+		inst.setUserTaskType(this.getUserTaskType());
+		inst.setNotes(this.getNotes());
+		inst.setLoopCardinality(this.getLoopCardinality());
+		inst.setProcessDefinitionFileId(this.getProcessDefinitionFileId());
+		inst.setCamundaNodeId(this.getCamundaNodeId());
+		inst.setUpdateTime(this.getUpdateTime());
+		inst.setSort(this.getSort());
+		inst.setNodeType(this.getNodeType());
+		inst.setVersion(this.getVersion());
+		inst.setCreateBy(this.getCreateBy());
+		inst.setDeleted(this.getDeleted());
+		inst.setCreateTime(this.getCreateTime());
+		inst.setUpdateBy(this.getUpdateBy());
+		inst.setDeleteTime(this.getDeleteTime());
+		inst.setTenantId(this.getTenantId());
+		inst.setDeleteBy(this.getDeleteBy());
+		inst.setId(this.getId());
+		if(all) {
+			inst.setAssignees(this.getAssignees());
+		}
+		inst.clearModifies();
+		return inst;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public ProcessDefinitionNode clone(boolean deep) {
+		return EntityContext.clone(ProcessDefinitionNode.class,this,deep);
 	}
 
 	/**

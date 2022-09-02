@@ -10,12 +10,13 @@ import org.github.foxnic.web.domain.hrm.Company;
 import org.github.foxnic.web.domain.hrm.Position;
 import org.github.foxnic.web.domain.hrm.Organization;
 import org.github.foxnic.web.domain.system.BusiRole;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-22 09:54:47
+ * @since 2022-09-02 16:24:56
  * @sign B3AE6E23482AA8105FBC8326F8FF3DF0
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -895,5 +896,68 @@ public class EmployeeVOMeta extends EmployeeMeta {
 			super.setIdentity(identity);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public EmployeeVO clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public EmployeeVO duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setUpdateTime(this.getUpdateTime());
+			inst.setVersion(this.getVersion());
+			inst.setBadge(this.getBadge());
+			inst.setCompanyId(this.getCompanyId());
+			inst.setCreateBy(this.getCreateBy());
+			inst.setDeleted(this.getDeleted());
+			inst.setPhone(this.getPhone());
+			inst.setCreateTime(this.getCreateTime());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setDeleteTime(this.getDeleteTime());
+			inst.setTenantId(this.getTenantId());
+			inst.setDeleteBy(this.getDeleteBy());
+			inst.setPersonId(this.getPersonId());
+			inst.setId(this.getId());
+			inst.setStatus(this.getStatus());
+			if(all) {
+				inst.setSearchField(this.getSearchField());
+				inst.setFuzzyField(this.getFuzzyField());
+				inst.setPageSize(this.getPageSize());
+				inst.setVicePositions(this.getVicePositions());
+				inst.setSource(this.getSource());
+				inst.setOrgId(this.getOrgId());
+				inst.setPrimaryPosition(this.getPrimaryPosition());
+				inst.setIdentity(this.getIdentity());
+				inst.setDirtyFields(this.getDirtyFields());
+				inst.setSortField(this.getSortField());
+				inst.setCompany(this.getCompany());
+				inst.setSex(this.getSex());
+				inst.setPrimaryPositionId(this.getPrimaryPositionId());
+				inst.setPositions(this.getPositions());
+				inst.setVicePositionIds(this.getVicePositionIds());
+				inst.setPositionId(this.getPositionId());
+				inst.setPageIndex(this.getPageIndex());
+				inst.setSortType(this.getSortType());
+				inst.setPerson(this.getPerson());
+				inst.setNameAndBadge(this.getNameAndBadge());
+				inst.setOrganizations(this.getOrganizations());
+				inst.setName(this.getName());
+				inst.setIds(this.getIds());
+				inst.setBusiRoles(this.getBusiRoles());
+				inst.setPrimaryOrganization(this.getPrimaryOrganization());
+				inst.setSearchValue(this.getSearchValue());
+			}
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

@@ -5,13 +5,14 @@ import org.github.foxnic.web.domain.bpm.ProcessErrorVO;
 import java.util.List;
 import org.github.foxnic.web.domain.bpm.ProcessError;
 import java.util.Date;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-29 14:36:05
- * @sign 23D7B501483EF32F33CA062A375B9A2C
+ * @since 2022-09-02 16:42:58
+ * @sign 06C978777916B1D3CFEA0A4506E62ED9
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -386,5 +387,44 @@ public class ProcessErrorVOMeta extends ProcessErrorMeta {
 			super.setErrorType(errorType);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public ProcessErrorVO clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public ProcessErrorVO duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setProcessInstanceId(this.getProcessInstanceId());
+			inst.setErrorTime(this.getErrorTime());
+			inst.setErrorNodeId(this.getErrorNodeId());
+			inst.setErrorType(this.getErrorType());
+			inst.setApprovalNodeId(this.getApprovalNodeId());
+			inst.setErrorMessage(this.getErrorMessage());
+			inst.setCamundaIncidentId(this.getCamundaIncidentId());
+			inst.setId(this.getId());
+			if(all) {
+				inst.setSearchField(this.getSearchField());
+				inst.setPageIndex(this.getPageIndex());
+				inst.setSortType(this.getSortType());
+				inst.setFuzzyField(this.getFuzzyField());
+				inst.setDirtyFields(this.getDirtyFields());
+				inst.setSortField(this.getSortField());
+				inst.setPageSize(this.getPageSize());
+				inst.setIds(this.getIds());
+				inst.setSearchValue(this.getSearchValue());
+			}
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

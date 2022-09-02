@@ -17,7 +17,7 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 公司
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-22 09:54:32
+ * @since 2022-09-02 16:24:49
  * @sign 1FF5FC27D26E5AE17A8941512864F8BD
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -396,7 +396,30 @@ public class Company extends Entity {
 	*/
 	@Transient
 	public Company clone() {
-		return EntityContext.clone(Company.class,this);
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public Company duplicate(boolean all) {
+		org.github.foxnic.web.domain.hrm.meta.CompanyMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.hrm.meta.CompanyMeta.$$proxy$$();
+		inst.setValid(this.getValid());
+		inst.setCreateBy(this.getCreateBy());
+		inst.setDeleted(this.getDeleted());
+		inst.setCreateTime(this.getCreateTime());
+		inst.setUpdateBy(this.getUpdateBy());
+		inst.setDeleteTime(this.getDeleteTime());
+		inst.setName(this.getName());
+		inst.setDeleteBy(this.getDeleteBy());
+		inst.setUpdateTime(this.getUpdateTime());
+		inst.setId(this.getId());
+		inst.setSocialCreditCode(this.getSocialCreditCode());
+		inst.setVersion(this.getVersion());
+		inst.clearModifies();
+		return inst;
 	}
 
 	/**

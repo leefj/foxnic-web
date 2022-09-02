@@ -2,12 +2,13 @@ package org.github.foxnic.web.domain.system.meta;
 
 import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.system.Profile;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-22 09:58:04
+ * @since 2022-09-02 16:18:42
  * @sign 51A9C3F19F9FA5B9660014C6F8A281A3
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -89,5 +90,28 @@ public class ProfileMeta {
 			super.setNotes(notes);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public Profile clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public Profile duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setNotes(this.getNotes());
+			inst.setName(this.getName());
+			inst.setId(this.getId());
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

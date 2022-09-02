@@ -21,8 +21,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 流程定义文件
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-07 14:18:35
- * @sign 304AEFECE665125E051679D1E6DBF03D
+ * @since 2022-09-02 16:42:50
+ * @sign 61B665C66663D2E9C555B4E01585FFBD
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -686,6 +686,57 @@ public class ProcessDefinitionFile extends Entity {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public ProcessDefinitionFile clone() {
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public ProcessDefinitionFile duplicate(boolean all) {
+		org.github.foxnic.web.domain.bpm.meta.ProcessDefinitionFileMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.bpm.meta.ProcessDefinitionFileMeta.$$proxy$$();
+		inst.setProcessDefinitionId(this.getProcessDefinitionId());
+		inst.setDeployResult(this.getDeployResult());
+		inst.setNotes(this.getNotes());
+		inst.setUpdateTime(this.getUpdateTime());
+		inst.setDeploySuccess(this.getDeploySuccess());
+		inst.setVersion(this.getVersion());
+		inst.setDeployError(this.getDeployError());
+		inst.setCreateBy(this.getCreateBy());
+		inst.setDeleted(this.getDeleted());
+		inst.setModelXml(this.getModelXml());
+		inst.setCreateTime(this.getCreateTime());
+		inst.setUpdateBy(this.getUpdateBy());
+		inst.setDeleteTime(this.getDeleteTime());
+		inst.setVersionNo(this.getVersionNo());
+		inst.setName(this.getName());
+		inst.setTenantId(this.getTenantId());
+		inst.setDeleteBy(this.getDeleteBy());
+		inst.setId(this.getId());
+		inst.setFileId(this.getFileId());
+		inst.setActivated(this.getActivated());
+		if(all) {
+			inst.setNodes(this.getNodes());
+			inst.setLastUpdateUser(this.getLastUpdateUser());
+		}
+		inst.clearModifies();
+		return inst;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public ProcessDefinitionFile clone(boolean deep) {
+		return EntityContext.clone(ProcessDefinitionFile.class,this,deep);
 	}
 
 	/**

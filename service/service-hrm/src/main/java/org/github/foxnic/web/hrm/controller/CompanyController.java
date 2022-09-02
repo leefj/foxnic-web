@@ -49,7 +49,7 @@ import com.github.foxnic.api.validate.annotations.NotNull;
  * 公司表 接口控制器
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-22 09:54:33
+ * @since 2022-09-02 16:24:50
 */
 
 @Api(tags = "公司")
@@ -68,7 +68,7 @@ public class CompanyController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = CompanyVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "002"),
 		@ApiImplicitParam(name = CompanyVOMeta.NAME , value = "公司名称" , required = false , dataTypeClass=String.class , example = "租户公司"),
-		@ApiImplicitParam(name = CompanyVOMeta.SOCIAL_CREDIT_CODE , value = "社会信用代码" , required = false , dataTypeClass=String.class , example = "913700037535461000"),
+		@ApiImplicitParam(name = CompanyVOMeta.SOCIAL_CREDIT_CODE , value = "社会信用代码" , required = false , dataTypeClass=String.class , example = "00000000000000000"),
 		@ApiImplicitParam(name = CompanyVOMeta.VALID , value = "是否有效" , required = false , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiOperationSupport(order=1)
@@ -168,7 +168,7 @@ public class CompanyController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = CompanyVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "002"),
 		@ApiImplicitParam(name = CompanyVOMeta.NAME , value = "公司名称" , required = false , dataTypeClass=String.class , example = "租户公司"),
-		@ApiImplicitParam(name = CompanyVOMeta.SOCIAL_CREDIT_CODE , value = "社会信用代码" , required = false , dataTypeClass=String.class , example = "913700037535461000"),
+		@ApiImplicitParam(name = CompanyVOMeta.SOCIAL_CREDIT_CODE , value = "社会信用代码" , required = false , dataTypeClass=String.class , example = "00000000000000000"),
 		@ApiImplicitParam(name = CompanyVOMeta.VALID , value = "是否有效" , required = false , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiOperationSupport( order=4 , ignoreParameters = { CompanyVOMeta.PAGE_INDEX , CompanyVOMeta.PAGE_SIZE , CompanyVOMeta.SEARCH_FIELD , CompanyVOMeta.FUZZY_FIELD , CompanyVOMeta.SEARCH_VALUE , CompanyVOMeta.DIRTY_FIELDS , CompanyVOMeta.SORT_FIELD , CompanyVOMeta.SORT_TYPE , CompanyVOMeta.IDS } )
@@ -187,7 +187,7 @@ public class CompanyController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = CompanyVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "002"),
 		@ApiImplicitParam(name = CompanyVOMeta.NAME , value = "公司名称" , required = false , dataTypeClass=String.class , example = "租户公司"),
-		@ApiImplicitParam(name = CompanyVOMeta.SOCIAL_CREDIT_CODE , value = "社会信用代码" , required = false , dataTypeClass=String.class , example = "913700037535461000"),
+		@ApiImplicitParam(name = CompanyVOMeta.SOCIAL_CREDIT_CODE , value = "社会信用代码" , required = false , dataTypeClass=String.class , example = "00000000000000000"),
 		@ApiImplicitParam(name = CompanyVOMeta.VALID , value = "是否有效" , required = false , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { CompanyVOMeta.PAGE_INDEX , CompanyVOMeta.PAGE_SIZE , CompanyVOMeta.SEARCH_FIELD , CompanyVOMeta.FUZZY_FIELD , CompanyVOMeta.SEARCH_VALUE , CompanyVOMeta.DIRTY_FIELDS , CompanyVOMeta.SORT_FIELD , CompanyVOMeta.SORT_TYPE , CompanyVOMeta.IDS } )
@@ -246,7 +246,7 @@ public class CompanyController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = CompanyVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "002"),
 		@ApiImplicitParam(name = CompanyVOMeta.NAME , value = "公司名称" , required = false , dataTypeClass=String.class , example = "租户公司"),
-		@ApiImplicitParam(name = CompanyVOMeta.SOCIAL_CREDIT_CODE , value = "社会信用代码" , required = false , dataTypeClass=String.class , example = "913700037535461000"),
+		@ApiImplicitParam(name = CompanyVOMeta.SOCIAL_CREDIT_CODE , value = "社会信用代码" , required = false , dataTypeClass=String.class , example = "00000000000000000"),
 		@ApiImplicitParam(name = CompanyVOMeta.VALID , value = "是否有效" , required = false , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiOperationSupport(order=5 ,  ignoreParameters = { CompanyVOMeta.PAGE_INDEX , CompanyVOMeta.PAGE_SIZE } )
@@ -267,7 +267,7 @@ public class CompanyController extends SuperController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = CompanyVOMeta.ID , value = "主键" , required = true , dataTypeClass=String.class , example = "002"),
 		@ApiImplicitParam(name = CompanyVOMeta.NAME , value = "公司名称" , required = false , dataTypeClass=String.class , example = "租户公司"),
-		@ApiImplicitParam(name = CompanyVOMeta.SOCIAL_CREDIT_CODE , value = "社会信用代码" , required = false , dataTypeClass=String.class , example = "913700037535461000"),
+		@ApiImplicitParam(name = CompanyVOMeta.SOCIAL_CREDIT_CODE , value = "社会信用代码" , required = false , dataTypeClass=String.class , example = "00000000000000000"),
 		@ApiImplicitParam(name = CompanyVOMeta.VALID , value = "是否有效" , required = false , dataTypeClass=Integer.class , example = "1"),
 	})
 	@ApiOperationSupport(order=8)

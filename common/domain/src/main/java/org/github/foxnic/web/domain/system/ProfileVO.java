@@ -7,13 +7,15 @@ import java.util.Arrays;
 import com.github.foxnic.api.model.CompositeParameter;
 import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
+import com.github.foxnic.dao.entity.EntityContext;
+import com.github.foxnic.dao.entity.Entity;
 
 
 
 /**
  * Profile
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-22 09:58:04
+ * @since 2022-09-02 16:18:42
  * @sign BFC7F59AF85B4575AF455EEAA67F73DD
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -270,5 +272,96 @@ public class ProfileVO extends Profile {
 		if($compositeParameter!=null) return  $compositeParameter;
 		$compositeParameter=new CompositeParameter(this.getSearchValue(),BeanUtil.toMap(this));
 		return  $compositeParameter;
+	}
+
+	/**
+	 * 将自己转换成指定类型的PO
+	 * @param poType  PO类型
+	 * @return ProfileVO , 转换好的 ProfileVO 对象
+	*/
+	@Transient
+	public <T extends Entity> T toPO(Class<T> poType) {
+		return EntityContext.create(poType, this);
+	}
+
+	/**
+	 * 将自己转换成任意指定类型
+	 * @param pojoType  Pojo类型
+	 * @return ProfileVO , 转换好的 PoJo 对象
+	*/
+	@Transient
+	public <T> T toPojo(Class<T> pojoType) {
+		if(Entity.class.isAssignableFrom(pojoType)) {
+			return (T)this.toPO((Class<Entity>)pojoType);
+		}
+		try {
+			T pojo=pojoType.newInstance();
+			EntityContext.copyProperties(pojo, this);
+			return pojo;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public ProfileVO clone() {
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public ProfileVO duplicate(boolean all) {
+		org.github.foxnic.web.domain.system.meta.ProfileVOMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.system.meta.ProfileVOMeta.$$proxy$$();
+		inst.setNotes(this.getNotes());
+		inst.setName(this.getName());
+		inst.setId(this.getId());
+		if(all) {
+			inst.setSearchField(this.getSearchField());
+			inst.setPageIndex(this.getPageIndex());
+			inst.setSortType(this.getSortType());
+			inst.setFuzzyField(this.getFuzzyField());
+			inst.setDirtyFields(this.getDirtyFields());
+			inst.setSortField(this.getSortField());
+			inst.setPageSize(this.getPageSize());
+			inst.setIds(this.getIds());
+			inst.setSearchValue(this.getSearchValue());
+		}
+		inst.clearModifies();
+		return inst;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public ProfileVO clone(boolean deep) {
+		return EntityContext.clone(ProfileVO.class,this,deep);
+	}
+
+	/**
+	 * 将 Pojo 转换成 ProfileVO
+	 * @param pojo 包含实体信息的 Pojo 对象
+	 * @return ProfileVO , 转换好的的 Profile 对象
+	*/
+	@Transient
+	public static ProfileVO createFrom(Object pojo) {
+		if(pojo==null) return null;
+		ProfileVO po = EntityContext.create(ProfileVO.class,pojo);
+		return po;
+	}
+
+	/**
+	 * 创建一个 ProfileVO，等同于 new
+	 * @return ProfileVO 对象
+	*/
+	@Transient
+	public static ProfileVO create() {
+		return EntityContext.create(ProfileVO.class);
 	}
 }

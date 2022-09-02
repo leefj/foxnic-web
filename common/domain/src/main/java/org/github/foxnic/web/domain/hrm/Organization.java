@@ -17,7 +17,7 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 组织层级
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-22 09:54:41
+ * @since 2022-09-02 16:24:54
  * @sign 54E943D72D5BF01666E9630E108B8E36
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -571,7 +571,37 @@ public class Organization extends Entity {
 	*/
 	@Transient
 	public Organization clone() {
-		return EntityContext.clone(Organization.class,this);
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public Organization duplicate(boolean all) {
+		org.github.foxnic.web.domain.hrm.meta.OrganizationMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.hrm.meta.OrganizationMeta.$$proxy$$();
+		inst.setCode(this.getCode());
+		inst.setHierarchy(this.getHierarchy());
+		inst.setFullName(this.getFullName());
+		inst.setUpdateTime(this.getUpdateTime());
+		inst.setSort(this.getSort());
+		inst.setType(this.getType());
+		inst.setVersion(this.getVersion());
+		inst.setParentId(this.getParentId());
+		inst.setValid(this.getValid());
+		inst.setCompanyId(this.getCompanyId());
+		inst.setCreateBy(this.getCreateBy());
+		inst.setDeleted(this.getDeleted());
+		inst.setCreateTime(this.getCreateTime());
+		inst.setUpdateBy(this.getUpdateBy());
+		inst.setDeleteTime(this.getDeleteTime());
+		inst.setTenantId(this.getTenantId());
+		inst.setDeleteBy(this.getDeleteBy());
+		inst.setId(this.getId());
+		inst.setShortName(this.getShortName());
+		inst.clearModifies();
+		return inst;
 	}
 
 	/**

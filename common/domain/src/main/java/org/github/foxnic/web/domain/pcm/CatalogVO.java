@@ -7,14 +7,16 @@ import java.util.Arrays;
 import com.github.foxnic.api.model.CompositeParameter;
 import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
+import com.github.foxnic.dao.entity.EntityContext;
+import com.github.foxnic.dao.entity.Entity;
 
 
 
 /**
  * 数据存储
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-05 15:25:29
- * @sign 8C56D0ED5DBA2964D95A806FBD6E2B1F
+ * @since 2022-09-02 16:40:33
+ * @sign E888F9C4D093590F506DD346EF77D8F0
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -345,5 +347,114 @@ public class CatalogVO extends Catalog {
 		if($compositeParameter!=null) return  $compositeParameter;
 		$compositeParameter=new CompositeParameter(this.getSearchValue(),BeanUtil.toMap(this));
 		return  $compositeParameter;
+	}
+
+	/**
+	 * 将自己转换成指定类型的PO
+	 * @param poType  PO类型
+	 * @return CatalogVO , 转换好的 CatalogVO 对象
+	*/
+	@Transient
+	public <T extends Entity> T toPO(Class<T> poType) {
+		return EntityContext.create(poType, this);
+	}
+
+	/**
+	 * 将自己转换成任意指定类型
+	 * @param pojoType  Pojo类型
+	 * @return CatalogVO , 转换好的 PoJo 对象
+	*/
+	@Transient
+	public <T> T toPojo(Class<T> pojoType) {
+		if(Entity.class.isAssignableFrom(pojoType)) {
+			return (T)this.toPO((Class<Entity>)pojoType);
+		}
+		try {
+			T pojo=pojoType.newInstance();
+			EntityContext.copyProperties(pojo, this);
+			return pojo;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public CatalogVO clone() {
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public CatalogVO duplicate(boolean all) {
+		org.github.foxnic.web.domain.pcm.meta.CatalogVOMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.pcm.meta.CatalogVOMeta.$$proxy$$();
+		inst.setCode(this.getCode());
+		inst.setHierarchy(this.getHierarchy());
+		inst.setUpdateTime(this.getUpdateTime());
+		inst.setSort(this.getSort());
+		inst.setVersion(this.getVersion());
+		inst.setParentId(this.getParentId());
+		inst.setValid(this.getValid());
+		inst.setCreateBy(this.getCreateBy());
+		inst.setDeleted(this.getDeleted());
+		inst.setCreateTime(this.getCreateTime());
+		inst.setUpdateBy(this.getUpdateBy());
+		inst.setDeleteTime(this.getDeleteTime());
+		inst.setDataTable(this.getDataTable());
+		inst.setName(this.getName());
+		inst.setTenantId(this.getTenantId());
+		inst.setDeleteBy(this.getDeleteBy());
+		inst.setId(this.getId());
+		if(all) {
+			inst.setIsLoadAllAncestors(this.getIsLoadAllAncestors());
+			inst.setSearchField(this.getSearchField());
+			inst.setFuzzyField(this.getFuzzyField());
+			inst.setPageSize(this.getPageSize());
+			inst.setIsLoadAllDescendants(this.getIsLoadAllDescendants());
+			inst.setPageIndex(this.getPageIndex());
+			inst.setSortType(this.getSortType());
+			inst.setRoot(this.getRoot());
+			inst.setDirtyFields(this.getDirtyFields());
+			inst.setSortField(this.getSortField());
+			inst.setIds(this.getIds());
+			inst.setAttributes(this.getAttributes());
+			inst.setSearchValue(this.getSearchValue());
+		}
+		inst.clearModifies();
+		return inst;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public CatalogVO clone(boolean deep) {
+		return EntityContext.clone(CatalogVO.class,this,deep);
+	}
+
+	/**
+	 * 将 Pojo 转换成 CatalogVO
+	 * @param pojo 包含实体信息的 Pojo 对象
+	 * @return CatalogVO , 转换好的的 Catalog 对象
+	*/
+	@Transient
+	public static CatalogVO createFrom(Object pojo) {
+		if(pojo==null) return null;
+		CatalogVO po = EntityContext.create(CatalogVO.class,pojo);
+		return po;
+	}
+
+	/**
+	 * 创建一个 CatalogVO，等同于 new
+	 * @return CatalogVO 对象
+	*/
+	@Transient
+	public static CatalogVO create() {
+		return EntityContext.create(CatalogVO.class);
 	}
 }

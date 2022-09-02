@@ -7,14 +7,16 @@ import java.util.Arrays;
 import com.github.foxnic.api.model.CompositeParameter;
 import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
+import com.github.foxnic.dao.entity.EntityContext;
+import com.github.foxnic.dao.entity.Entity;
 
 
 
 /**
  * 流程任务
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-15 13:54:50
- * @sign E5D304CA03DC71825CF23F5B10679DAC
+ * @since 2022-09-02 16:42:57
+ * @sign 4FCB377B347195D15E1834DD55F959F0
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -368,7 +370,7 @@ public class TaskVO extends Task {
 		return this;
 	}
 	@Transient
-	private CompositeParameter $compositeParameter;
+	private transient CompositeParameter $compositeParameter;
 	/**
 	 * 获得解析后的复合查询参数
 	 */
@@ -377,5 +379,122 @@ public class TaskVO extends Task {
 		if($compositeParameter!=null) return  $compositeParameter;
 		$compositeParameter=new CompositeParameter(this.getSearchValue(),BeanUtil.toMap(this));
 		return  $compositeParameter;
+	}
+
+	/**
+	 * 将自己转换成指定类型的PO
+	 * @param poType  PO类型
+	 * @return TaskVO , 转换好的 TaskVO 对象
+	*/
+	@Transient
+	public <T extends Entity> T toPO(Class<T> poType) {
+		return EntityContext.create(poType, this);
+	}
+
+	/**
+	 * 将自己转换成任意指定类型
+	 * @param pojoType  Pojo类型
+	 * @return TaskVO , 转换好的 PoJo 对象
+	*/
+	@Transient
+	public <T> T toPojo(Class<T> pojoType) {
+		if(Entity.class.isAssignableFrom(pojoType)) {
+			return (T)this.toPO((Class<Entity>)pojoType);
+		}
+		try {
+			T pojo=pojoType.newInstance();
+			EntityContext.copyProperties(pojo, this);
+			return pojo;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public TaskVO clone() {
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public TaskVO duplicate(boolean all) {
+		org.github.foxnic.web.domain.bpm.meta.TaskVOMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.bpm.meta.TaskVOMeta.$$proxy$$();
+		inst.setNodeName(this.getNodeName());
+		inst.setProcessDefinitionId(this.getProcessDefinitionId());
+		inst.setProcessInstanceId(this.getProcessInstanceId());
+		inst.setApprovalTime(this.getApprovalTime());
+		inst.setUpdateTime(this.getUpdateTime());
+		inst.setCamundaTaskId(this.getCamundaTaskId());
+		inst.setVersion(this.getVersion());
+		inst.setCreateBy(this.getCreateBy());
+		inst.setStatusReason(this.getStatusReason());
+		inst.setDeleted(this.getDeleted());
+		inst.setCreateTime(this.getCreateTime());
+		inst.setUpdateBy(this.getUpdateBy());
+		inst.setDeleteTime(this.getDeleteTime());
+		inst.setTenantId(this.getTenantId());
+		inst.setDeleteBy(this.getDeleteBy());
+		inst.setId(this.getId());
+		inst.setCamundaAssignee(this.getCamundaAssignee());
+		inst.setNodeId(this.getNodeId());
+		inst.setStatus(this.getStatus());
+		if(all) {
+			inst.setMine(this.isMine());
+			inst.setSearchField(this.getSearchField());
+			inst.setProcessDefinition(this.getProcessDefinition());
+			inst.setFuzzyField(this.getFuzzyField());
+			inst.setProcessInstance(this.getProcessInstance());
+			inst.setAssignees(this.getAssignees());
+			inst.setPageSize(this.getPageSize());
+			inst.setStatusRange(this.getStatusRange());
+			inst.setNode(this.getNode());
+			inst.setAssigneeUsers(this.getAssigneeUsers());
+			inst.setReaders(this.getReaders());
+			inst.setPageIndex(this.getPageIndex());
+			inst.setSortType(this.getSortType());
+			inst.setApprovals(this.getApprovals());
+			inst.setApprovalUserIds(this.getApprovalUserIds());
+			inst.setDirtyFields(this.getDirtyFields());
+			inst.setSortField(this.getSortField());
+			inst.setIds(this.getIds());
+			inst.setSearchValue(this.getSearchValue());
+		}
+		inst.clearModifies();
+		return inst;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public TaskVO clone(boolean deep) {
+		return EntityContext.clone(TaskVO.class,this,deep);
+	}
+
+	/**
+	 * 将 Pojo 转换成 TaskVO
+	 * @param pojo 包含实体信息的 Pojo 对象
+	 * @return TaskVO , 转换好的的 Task 对象
+	*/
+	@Transient
+	public static TaskVO createFrom(Object pojo) {
+		if(pojo==null) return null;
+		TaskVO po = EntityContext.create(TaskVO.class,pojo);
+		return po;
+	}
+
+	/**
+	 * 创建一个 TaskVO，等同于 new
+	 * @return TaskVO 对象
+	*/
+	@Transient
+	public static TaskVO create() {
+		return EntityContext.create(TaskVO.class);
 	}
 }

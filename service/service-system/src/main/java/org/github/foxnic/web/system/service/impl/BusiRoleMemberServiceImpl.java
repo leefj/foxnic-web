@@ -1,9 +1,11 @@
 package org.github.foxnic.web.system.service.impl;
 
-
 import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.github.foxnic.commons.collection.MapUtil;
+import java.util.Arrays;
 
 
 import org.github.foxnic.web.domain.system.BusiRoleMember;
@@ -28,13 +30,14 @@ import com.github.foxnic.sql.expr.Select;
 import java.util.ArrayList;
 import org.github.foxnic.web.system.service.IBusiRoleMemberService;
 import org.github.foxnic.web.framework.dao.DBConfigs;
+import java.util.Map;
 
 /**
  * <p>
  * 业务角色成员关系表 服务实现
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-15 14:49:50
+ * @since 2022-09-02 16:18:40
 */
 
 
@@ -113,6 +116,16 @@ public class BusiRoleMemberServiceImpl extends SuperService<BusiRoleMember> impl
 			return r;
 		}
 	}
+	
+	/**
+	 * 按主键删除 业务角色成员关系
+	 *
+	 * @param id 主键
+	 * @return 删除是否成功
+	 */
+	public Result deleteByIdLogical(String id) {
+		throw new RuntimeException("待实现，请按需实现逻辑删");
+	}
 
 	/**
 	 * 更新，如果执行错误，则抛出异常
@@ -177,9 +190,22 @@ public class BusiRoleMemberServiceImpl extends SuperService<BusiRoleMember> impl
 		return dao.queryEntity(sample);
 	}
 
+	/**
+	 * 等价于 queryListByIds
+	 * */
 	@Override
 	public List<BusiRoleMember> getByIds(List<String> ids) {
+		return this.queryListByIds(ids);
+	}
+
+	@Override
+	public List<BusiRoleMember> queryListByIds(List<String> ids) {
 		return super.queryListByUKeys("id",ids);
+	}
+
+	@Override
+	public Map<String, BusiRoleMember> queryMapByIds(List<String> ids) {
+		return super.queryMapByUKeys("id",ids, BusiRoleMember::getId);
 	}
 
 
@@ -191,7 +217,7 @@ public class BusiRoleMemberServiceImpl extends SuperService<BusiRoleMember> impl
 	 * @return 查询结果
 	 * */
 	@Override
-	public List<BusiRoleMember> queryList(BusiRoleMember sample) {
+	public List<BusiRoleMember> queryList(BusiRoleMemberVO sample) {
 		return super.queryList(sample);
 	}
 
@@ -205,7 +231,7 @@ public class BusiRoleMemberServiceImpl extends SuperService<BusiRoleMember> impl
 	 * @return 查询结果
 	 * */
 	@Override
-	public PagedList<BusiRoleMember> queryPagedList(BusiRoleMember sample, int pageSize, int pageIndex) {
+	public PagedList<BusiRoleMember> queryPagedList(BusiRoleMemberVO sample, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, pageSize, pageIndex);
 	}
 
@@ -224,37 +250,45 @@ public class BusiRoleMemberServiceImpl extends SuperService<BusiRoleMember> impl
 	}
 
 	/**
-	 * 检查 角色 是否已经存在
+	 * 检查 实体 是否已经存在 , 判断 主键值不同，但指定字段的值相同的记录是否存在
 	 *
 	 * @param busiRoleMember 数据对象
 	 * @return 判断结果
 	 */
-	public Result<BusiRoleMember> checkExists(BusiRoleMember busiRoleMember) {
+	public Boolean checkExists(BusiRoleMember busiRoleMember) {
 		//TDOD 此处添加判断段的代码
-		//boolean exists=this.checkExists(busiRoleMember, SYS_ROLE.NAME);
+		//boolean exists=super.checkExists(busiRoleMember, SYS_ROLE.NAME);
 		//return exists;
-		return ErrorDesc.success();
+		return false;
 	}
 
+
+	/**
+	 * 检查引用
+	 * @param id  检查ID是否又被外部表引用
+	 * */
 	@Override
-	public ExcelWriter exportExcel(BusiRoleMember sample) {
-		return super.exportExcel(sample);
+	public Boolean hasRefers(String id) {
+		Map<String, Boolean> map=this.hasRefers(Arrays.asList(id));
+		Boolean ex=map.get(id);
+		if(ex==null) return false;
+		return ex;
 	}
 
+	/**
+	 * 批量检查引用
+	 * @param ids  检查这些ID是否又被外部表引用
+	 * */
 	@Override
-	public ExcelWriter exportExcelTemplate() {
-		return super.exportExcelTemplate();
+	public Map<String, Boolean> hasRefers(List<String> ids) {
+		// 默认无业务逻辑，返回此行；有业务逻辑需要校验时，请修改并使用已注释的行代码！！！
+		return MapUtil.asMap(ids,false);
+		// return super.hasRefers(FoxnicWeb.BPM_PROCESS_INSTANCE.FORM_DEFINITION_ID,ids);
 	}
 
-	@Override
-	public List<ValidateResult> importExcel(InputStream input,int sheetIndex,boolean batch) {
-		return super.importExcel(input,sheetIndex,batch);
-	}
 
-	@Override
-	public ExcelStructure buildExcelStructure(boolean isForExport) {
-		return super.buildExcelStructure(isForExport);
-	}
+
+
 
 
 }

@@ -7,14 +7,16 @@ import java.util.Arrays;
 import com.github.foxnic.api.model.CompositeParameter;
 import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
+import com.github.foxnic.dao.entity.EntityContext;
+import com.github.foxnic.dao.entity.Entity;
 
 
 
 /**
  * 流程错误信息
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-29 14:36:05
- * @sign 23D7B501483EF32F33CA062A375B9A2C
+ * @since 2022-09-02 16:42:58
+ * @sign 06C978777916B1D3CFEA0A4506E62ED9
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -261,7 +263,7 @@ public class ProcessErrorVO extends ProcessError {
 		return this;
 	}
 	@Transient
-	private CompositeParameter $compositeParameter;
+	private transient CompositeParameter $compositeParameter;
 	/**
 	 * 获得解析后的复合查询参数
 	 */
@@ -270,5 +272,101 @@ public class ProcessErrorVO extends ProcessError {
 		if($compositeParameter!=null) return  $compositeParameter;
 		$compositeParameter=new CompositeParameter(this.getSearchValue(),BeanUtil.toMap(this));
 		return  $compositeParameter;
+	}
+
+	/**
+	 * 将自己转换成指定类型的PO
+	 * @param poType  PO类型
+	 * @return ProcessErrorVO , 转换好的 ProcessErrorVO 对象
+	*/
+	@Transient
+	public <T extends Entity> T toPO(Class<T> poType) {
+		return EntityContext.create(poType, this);
+	}
+
+	/**
+	 * 将自己转换成任意指定类型
+	 * @param pojoType  Pojo类型
+	 * @return ProcessErrorVO , 转换好的 PoJo 对象
+	*/
+	@Transient
+	public <T> T toPojo(Class<T> pojoType) {
+		if(Entity.class.isAssignableFrom(pojoType)) {
+			return (T)this.toPO((Class<Entity>)pojoType);
+		}
+		try {
+			T pojo=pojoType.newInstance();
+			EntityContext.copyProperties(pojo, this);
+			return pojo;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public ProcessErrorVO clone() {
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public ProcessErrorVO duplicate(boolean all) {
+		org.github.foxnic.web.domain.bpm.meta.ProcessErrorVOMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.bpm.meta.ProcessErrorVOMeta.$$proxy$$();
+		inst.setProcessInstanceId(this.getProcessInstanceId());
+		inst.setErrorTime(this.getErrorTime());
+		inst.setErrorNodeId(this.getErrorNodeId());
+		inst.setErrorType(this.getErrorType());
+		inst.setApprovalNodeId(this.getApprovalNodeId());
+		inst.setErrorMessage(this.getErrorMessage());
+		inst.setCamundaIncidentId(this.getCamundaIncidentId());
+		inst.setId(this.getId());
+		if(all) {
+			inst.setSearchField(this.getSearchField());
+			inst.setPageIndex(this.getPageIndex());
+			inst.setSortType(this.getSortType());
+			inst.setFuzzyField(this.getFuzzyField());
+			inst.setDirtyFields(this.getDirtyFields());
+			inst.setSortField(this.getSortField());
+			inst.setPageSize(this.getPageSize());
+			inst.setIds(this.getIds());
+			inst.setSearchValue(this.getSearchValue());
+		}
+		inst.clearModifies();
+		return inst;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public ProcessErrorVO clone(boolean deep) {
+		return EntityContext.clone(ProcessErrorVO.class,this,deep);
+	}
+
+	/**
+	 * 将 Pojo 转换成 ProcessErrorVO
+	 * @param pojo 包含实体信息的 Pojo 对象
+	 * @return ProcessErrorVO , 转换好的的 ProcessError 对象
+	*/
+	@Transient
+	public static ProcessErrorVO createFrom(Object pojo) {
+		if(pojo==null) return null;
+		ProcessErrorVO po = EntityContext.create(ProcessErrorVO.class,pojo);
+		return po;
+	}
+
+	/**
+	 * 创建一个 ProcessErrorVO，等同于 new
+	 * @return ProcessErrorVO 对象
+	*/
+	@Transient
+	public static ProcessErrorVO create() {
+		return EntityContext.create(ProcessErrorVO.class);
 	}
 }

@@ -7,13 +7,14 @@ import org.github.foxnic.web.domain.pcm.CatalogAttribute;
 import java.util.Date;
 import org.github.foxnic.web.domain.pcm.Catalog;
 import org.github.foxnic.web.domain.pcm.CatalogAllocation;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-02 09:34:50
- * @sign E8A80F650C77910DA881DF6DA78ED0BE
+ * @since 2022-09-02 16:40:38
+ * @sign 81BB19F6E419EE7AFE95B10FD3567030
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -808,5 +809,64 @@ public class CatalogAttributeVOMeta extends CatalogAttributeMeta {
 			super.setSourceAttr(sourceAttr);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public CatalogAttributeVO clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public CatalogAttributeVO duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setSourceId(this.getSourceId());
+			inst.setNote(this.getNote());
+			inst.setNotNull(this.getNotNull());
+			inst.setDataType(this.getDataType());
+			inst.setLength(this.getLength());
+			inst.setAccuracy(this.getAccuracy());
+			inst.setScale(this.getScale());
+			inst.setFullName(this.getFullName());
+			inst.setUpdateTime(this.getUpdateTime());
+			inst.setVersion(this.getVersion());
+			inst.setValid(this.getValid());
+			inst.setCreateBy(this.getCreateBy());
+			inst.setCatalogId(this.getCatalogId());
+			inst.setDeleted(this.getDeleted());
+			inst.setField(this.getField());
+			inst.setCreateTime(this.getCreateTime());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setDeleteTime(this.getDeleteTime());
+			inst.setHint(this.getHint());
+			inst.setVersionNo(this.getVersionNo());
+			inst.setDeleteBy(this.getDeleteBy());
+			inst.setId(this.getId());
+			inst.setDetail(this.getDetail());
+			inst.setShortName(this.getShortName());
+			if(all) {
+				inst.setAllocation(this.getAllocation());
+				inst.setSearchField(this.getSearchField());
+				inst.setCatalog(this.getCatalog());
+				inst.setAllocationBefore(this.getAllocationBefore());
+				inst.setFuzzyField(this.getFuzzyField());
+				inst.setPageSize(this.getPageSize());
+				inst.setSourceAttr(this.getSourceAttr());
+				inst.setPageIndex(this.getPageIndex());
+				inst.setSortType(this.getSortType());
+				inst.setDirtyFields(this.getDirtyFields());
+				inst.setSortField(this.getSortField());
+				inst.setIds(this.getIds());
+				inst.setSearchValue(this.getSearchValue());
+			}
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

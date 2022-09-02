@@ -5,12 +5,13 @@ import org.github.foxnic.web.domain.dataperm.Rule;
 import java.util.Date;
 import org.github.foxnic.web.domain.dataperm.RuleRange;
 import java.util.List;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-25 11:12:12
+ * @since 2022-09-02 16:45:29
  * @sign DB0380B37004D61BDEDE602959A9EC06
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -365,5 +366,43 @@ public class RuleMeta {
 			super.setRanges(ranges);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public Rule clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public Rule duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setCode(this.getCode());
+			inst.setNotes(this.getNotes());
+			inst.setUpdateTime(this.getUpdateTime());
+			inst.setVersion(this.getVersion());
+			inst.setValid(this.getValid());
+			inst.setCreateBy(this.getCreateBy());
+			inst.setDeleted(this.getDeleted());
+			inst.setCreateTime(this.getCreateTime());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setDeleteTime(this.getDeleteTime());
+			inst.setName(this.getName());
+			inst.setVersionNo(this.getVersionNo());
+			inst.setDeleteBy(this.getDeleteBy());
+			inst.setId(this.getId());
+			inst.setPoType(this.getPoType());
+			if(all) {
+				inst.setRanges(this.getRanges());
+			}
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

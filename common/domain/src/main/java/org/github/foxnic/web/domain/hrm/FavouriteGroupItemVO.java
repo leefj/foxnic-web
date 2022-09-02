@@ -3,17 +3,20 @@ package org.github.foxnic.web.domain.hrm;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
 import com.github.foxnic.api.model.CompositeParameter;
 import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
+import com.github.foxnic.dao.entity.EntityContext;
+import com.github.foxnic.dao.entity.Entity;
 
 
 
 /**
  * 常用人员分组条目
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-11-30 08:56:23
- * @sign B7D4B99ACDFACFAE67321E2CD351D6B6
+ * @since 2022-09-02 16:24:59
+ * @sign 63281ECDFF8ED3BB50C775A9CEB6A128
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -194,9 +197,9 @@ public class FavouriteGroupItemVO extends FavouriteGroupItem {
 	 * @param dirtyField 已修改字段
 	 * @return 当前对象
 	*/
-	public FavouriteGroupItemVO addDirtyField(String dirtyField) {
+	public FavouriteGroupItemVO addDirtyField(String... dirtyField) {
 		if(this.dirtyFields==null) dirtyFields=new ArrayList<>();
-		this.dirtyFields.add(dirtyField);
+		this.dirtyFields.addAll(Arrays.asList(dirtyField));
 		return this;
 	}
 	
@@ -260,9 +263,9 @@ public class FavouriteGroupItemVO extends FavouriteGroupItem {
 	 * @param id 主键清单
 	 * @return 当前对象
 	*/
-	public FavouriteGroupItemVO addId(String id) {
+	public FavouriteGroupItemVO addId(String... id) {
 		if(this.ids==null) ids=new ArrayList<>();
-		this.ids.add(id);
+		this.ids.addAll(Arrays.asList(id));
 		return this;
 	}
 	
@@ -285,7 +288,7 @@ public class FavouriteGroupItemVO extends FavouriteGroupItem {
 		return this;
 	}
 	@Transient
-	private CompositeParameter $compositeParameter;
+	private transient CompositeParameter $compositeParameter;
 	/**
 	 * 获得解析后的复合查询参数
 	 */
@@ -294,5 +297,115 @@ public class FavouriteGroupItemVO extends FavouriteGroupItem {
 		if($compositeParameter!=null) return  $compositeParameter;
 		$compositeParameter=new CompositeParameter(this.getSearchValue(),BeanUtil.toMap(this));
 		return  $compositeParameter;
+	}
+
+	/**
+	 * 将自己转换成指定类型的PO
+	 * @param poType  PO类型
+	 * @return FavouriteGroupItemVO , 转换好的 FavouriteGroupItemVO 对象
+	*/
+	@Transient
+	public <T extends Entity> T toPO(Class<T> poType) {
+		return EntityContext.create(poType, this);
+	}
+
+	/**
+	 * 将自己转换成任意指定类型
+	 * @param pojoType  Pojo类型
+	 * @return FavouriteGroupItemVO , 转换好的 PoJo 对象
+	*/
+	@Transient
+	public <T> T toPojo(Class<T> pojoType) {
+		if(Entity.class.isAssignableFrom(pojoType)) {
+			return (T)this.toPO((Class<Entity>)pojoType);
+		}
+		try {
+			T pojo=pojoType.newInstance();
+			EntityContext.copyProperties(pojo, this);
+			return pojo;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public FavouriteGroupItemVO clone() {
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public FavouriteGroupItemVO duplicate(boolean all) {
+		org.github.foxnic.web.domain.hrm.meta.FavouriteGroupItemVOMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.hrm.meta.FavouriteGroupItemVOMeta.$$proxy$$();
+		inst.setTemporary(this.getTemporary());
+		inst.setTargetName(this.getTargetName());
+		inst.setTargetId(this.getTargetId());
+		inst.setGroupId(this.getGroupId());
+		inst.setTargetType(this.getTargetType());
+		inst.setEmployeeId(this.getEmployeeId());
+		inst.setUpdateTime(this.getUpdateTime());
+		inst.setSort(this.getSort());
+		inst.setVersion(this.getVersion());
+		inst.setCompanyId(this.getCompanyId());
+		inst.setCreateBy(this.getCreateBy());
+		inst.setDeleted(this.getDeleted());
+		inst.setCreateTime(this.getCreateTime());
+		inst.setUpdateBy(this.getUpdateBy());
+		inst.setDeleteTime(this.getDeleteTime());
+		inst.setTenantId(this.getTenantId());
+		inst.setDeleteBy(this.getDeleteBy());
+		inst.setId(this.getId());
+		if(all) {
+			inst.setSearchField(this.getSearchField());
+			inst.setFuzzyField(this.getFuzzyField());
+			inst.setPageSize(this.getPageSize());
+			inst.setEmployee(this.getEmployee());
+			inst.setPageIndex(this.getPageIndex());
+			inst.setSortType(this.getSortType());
+			inst.setOrganization(this.getOrganization());
+			inst.setDirtyFields(this.getDirtyFields());
+			inst.setSortField(this.getSortField());
+			inst.setIds(this.getIds());
+			inst.setPosition(this.getPosition());
+			inst.setSearchValue(this.getSearchValue());
+			inst.setInitValue(this.getInitValue());
+		}
+		inst.clearModifies();
+		return inst;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public FavouriteGroupItemVO clone(boolean deep) {
+		return EntityContext.clone(FavouriteGroupItemVO.class,this,deep);
+	}
+
+	/**
+	 * 将 Pojo 转换成 FavouriteGroupItemVO
+	 * @param pojo 包含实体信息的 Pojo 对象
+	 * @return FavouriteGroupItemVO , 转换好的的 FavouriteGroupItem 对象
+	*/
+	@Transient
+	public static FavouriteGroupItemVO createFrom(Object pojo) {
+		if(pojo==null) return null;
+		FavouriteGroupItemVO po = EntityContext.create(FavouriteGroupItemVO.class,pojo);
+		return po;
+	}
+
+	/**
+	 * 创建一个 FavouriteGroupItemVO，等同于 new
+	 * @return FavouriteGroupItemVO 对象
+	*/
+	@Transient
+	public static FavouriteGroupItemVO create() {
+		return EntityContext.create(FavouriteGroupItemVO.class);
 	}
 }

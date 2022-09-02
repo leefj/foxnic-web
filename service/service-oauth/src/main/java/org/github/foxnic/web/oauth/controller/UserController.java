@@ -364,29 +364,29 @@ public class UserController extends SuperController {
 				.fields(roleFields,employeeFields,personFields,tenantFields,userTenantFields)
 				.execute();
 
-		pl.collect("Start Clone");
-		int z=0;
-		List<User> users=new ArrayList<>();
-		for (User user : list) {
-			for (int i = 0; i < 1000; i++) {
-//				User user1=new User();
-				User u=user.duplicate(false);
-				users.add(u);
-				z++;
-			}
-		}
-		pl.collect("End Clone 克隆 "+z+" 次");
+//		pl.collect("Start Clone");
+//		int z=0;
+//		List<User> users=new ArrayList<>();
+//		for (User user : list) {
+//			for (int i = 0; i < 1000; i++) {
+////				User user1=new User();
+//				User u=user.duplicate(false);
+//				users.add(u);
+//				z++;
+//			}
+//		}
+//		pl.collect("End Clone 克隆 "+z+" 次");
 
-		// 暂时如此修复一下
-		for (User user : list) {
-			user.setActivatedTenant(null);
-			user.setCompositeParameter(null);
-			if(user.getRoles()!=null) {
-				for (Role role : user.getRoles()) {
-					role.setMenus(null);
-				}
-			}
-		}
+//		// 暂时如此修复一下
+//		for (User user : list) {
+//			user.setActivatedTenant(null);
+//			user.setCompositeParameter(null);
+//			if(user.getRoles()!=null) {
+//				for (Role role : user.getRoles()) {
+//					role.setMenus(null);
+//				}
+//			}
+//		}
 
 		pl.collect("E");
 

@@ -8,14 +8,16 @@ import java.util.Arrays;
 import com.github.foxnic.api.model.CompositeParameter;
 import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
+import com.github.foxnic.dao.entity.EntityContext;
+import com.github.foxnic.dao.entity.Entity;
 
 
 
 /**
  * 流程定义文件
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-07 14:18:35
- * @sign E3313A323D7BB71CB5627FF6EB9A71A9
+ * @since 2022-09-02 16:42:50
+ * @sign 45A2D7AE606082F52EA8E9CD738B422A
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -287,7 +289,7 @@ public class ProcessDefinitionFileVO extends ProcessDefinitionFile {
 		return this;
 	}
 	@Transient
-	private CompositeParameter $compositeParameter;
+	private transient CompositeParameter $compositeParameter;
 	/**
 	 * 获得解析后的复合查询参数
 	 */
@@ -296,5 +298,116 @@ public class ProcessDefinitionFileVO extends ProcessDefinitionFile {
 		if($compositeParameter!=null) return  $compositeParameter;
 		$compositeParameter=new CompositeParameter(this.getSearchValue(),BeanUtil.toMap(this));
 		return  $compositeParameter;
+	}
+
+	/**
+	 * 将自己转换成指定类型的PO
+	 * @param poType  PO类型
+	 * @return ProcessDefinitionFileVO , 转换好的 ProcessDefinitionFileVO 对象
+	*/
+	@Transient
+	public <T extends Entity> T toPO(Class<T> poType) {
+		return EntityContext.create(poType, this);
+	}
+
+	/**
+	 * 将自己转换成任意指定类型
+	 * @param pojoType  Pojo类型
+	 * @return ProcessDefinitionFileVO , 转换好的 PoJo 对象
+	*/
+	@Transient
+	public <T> T toPojo(Class<T> pojoType) {
+		if(Entity.class.isAssignableFrom(pojoType)) {
+			return (T)this.toPO((Class<Entity>)pojoType);
+		}
+		try {
+			T pojo=pojoType.newInstance();
+			EntityContext.copyProperties(pojo, this);
+			return pojo;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public ProcessDefinitionFileVO clone() {
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public ProcessDefinitionFileVO duplicate(boolean all) {
+		org.github.foxnic.web.domain.bpm.meta.ProcessDefinitionFileVOMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.bpm.meta.ProcessDefinitionFileVOMeta.$$proxy$$();
+		inst.setProcessDefinitionId(this.getProcessDefinitionId());
+		inst.setDeployResult(this.getDeployResult());
+		inst.setNotes(this.getNotes());
+		inst.setUpdateTime(this.getUpdateTime());
+		inst.setDeploySuccess(this.getDeploySuccess());
+		inst.setVersion(this.getVersion());
+		inst.setDeployError(this.getDeployError());
+		inst.setCreateBy(this.getCreateBy());
+		inst.setDeleted(this.getDeleted());
+		inst.setModelXml(this.getModelXml());
+		inst.setCreateTime(this.getCreateTime());
+		inst.setUpdateBy(this.getUpdateBy());
+		inst.setDeleteTime(this.getDeleteTime());
+		inst.setVersionNo(this.getVersionNo());
+		inst.setName(this.getName());
+		inst.setTenantId(this.getTenantId());
+		inst.setDeleteBy(this.getDeleteBy());
+		inst.setId(this.getId());
+		inst.setFileId(this.getFileId());
+		inst.setActivated(this.getActivated());
+		if(all) {
+			inst.setNodes(this.getNodes());
+			inst.setSearchField(this.getSearchField());
+			inst.setPageIndex(this.getPageIndex());
+			inst.setSortType(this.getSortType());
+			inst.setFuzzyField(this.getFuzzyField());
+			inst.setDirtyFields(this.getDirtyFields());
+			inst.setSortField(this.getSortField());
+			inst.setLastUpdateUser(this.getLastUpdateUser());
+			inst.setPageSize(this.getPageSize());
+			inst.setIds(this.getIds());
+			inst.setExtraModelSettings(this.getExtraModelSettings());
+			inst.setSearchValue(this.getSearchValue());
+		}
+		inst.clearModifies();
+		return inst;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public ProcessDefinitionFileVO clone(boolean deep) {
+		return EntityContext.clone(ProcessDefinitionFileVO.class,this,deep);
+	}
+
+	/**
+	 * 将 Pojo 转换成 ProcessDefinitionFileVO
+	 * @param pojo 包含实体信息的 Pojo 对象
+	 * @return ProcessDefinitionFileVO , 转换好的的 ProcessDefinitionFile 对象
+	*/
+	@Transient
+	public static ProcessDefinitionFileVO createFrom(Object pojo) {
+		if(pojo==null) return null;
+		ProcessDefinitionFileVO po = EntityContext.create(ProcessDefinitionFileVO.class,pojo);
+		return po;
+	}
+
+	/**
+	 * 创建一个 ProcessDefinitionFileVO，等同于 new
+	 * @return ProcessDefinitionFileVO 对象
+	*/
+	@Transient
+	public static ProcessDefinitionFileVO create() {
+		return EntityContext.create(ProcessDefinitionFileVO.class);
 	}
 }

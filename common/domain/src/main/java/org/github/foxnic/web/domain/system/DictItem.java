@@ -17,8 +17,8 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 数据字典条目
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-22 11:33:25
- * @sign 6DB1B035D7E82590800F4C9AA0C50367
+ * @since 2022-09-02 16:18:43
+ * @sign 1EFDF7AA422B528ADC305CEDBFC401C0
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -73,12 +73,6 @@ public class DictItem extends Entity {
 	private Integer sort;
 	
 	/**
-	 * 有效：是否有效
-	*/
-	@ApiModelProperty(required = false,value="有效" , notes = "是否有效")
-	private Integer valid;
-	
-	/**
 	 * 创建人ID：创建人ID
 	*/
 	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID")
@@ -127,6 +121,12 @@ public class DictItem extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
 	private Integer version;
+	
+	/**
+	 * 有效：是否有效
+	*/
+	@ApiModelProperty(required = false,value="有效" , notes = "是否有效")
+	private Integer valid;
 	
 	/**
 	 * 获得 ID<br>
@@ -258,25 +258,6 @@ public class DictItem extends Entity {
 	*/
 	public DictItem setSort(Integer sort) {
 		this.sort=sort;
-		return this;
-	}
-	
-	/**
-	 * 获得 有效<br>
-	 * 是否有效
-	 * @return 有效
-	*/
-	public Integer getValid() {
-		return valid;
-	}
-	
-	/**
-	 * 设置 有效
-	 * @param valid 有效
-	 * @return 当前对象
-	*/
-	public DictItem setValid(Integer valid) {
-		this.valid=valid;
 		return this;
 	}
 	
@@ -461,6 +442,25 @@ public class DictItem extends Entity {
 		this.version=version;
 		return this;
 	}
+	
+	/**
+	 * 获得 有效<br>
+	 * 是否有效
+	 * @return 有效
+	*/
+	public Integer getValid() {
+		return valid;
+	}
+	
+	/**
+	 * 设置 有效
+	 * @param valid 有效
+	 * @return 当前对象
+	*/
+	public DictItem setValid(Integer valid) {
+		this.valid=valid;
+		return this;
+	}
 
 	/**
 	 * 将自己转换成指定类型的PO
@@ -496,7 +496,34 @@ public class DictItem extends Entity {
 	*/
 	@Transient
 	public DictItem clone() {
-		return EntityContext.clone(DictItem.class,this);
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public DictItem duplicate(boolean all) {
+		org.github.foxnic.web.domain.system.meta.DictItemMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.system.meta.DictItemMeta.$$proxy$$();
+		inst.setCode(this.getCode());
+		inst.setUpdateTime(this.getUpdateTime());
+		inst.setDictId(this.getDictId());
+		inst.setLabel(this.getLabel());
+		inst.setSort(this.getSort());
+		inst.setVersion(this.getVersion());
+		inst.setParentId(this.getParentId());
+		inst.setValid(this.getValid());
+		inst.setCreateBy(this.getCreateBy());
+		inst.setDeleted(this.getDeleted());
+		inst.setDictCode(this.getDictCode());
+		inst.setCreateTime(this.getCreateTime());
+		inst.setUpdateBy(this.getUpdateBy());
+		inst.setDeleteTime(this.getDeleteTime());
+		inst.setDeleteBy(this.getDeleteBy());
+		inst.setId(this.getId());
+		inst.clearModifies();
+		return inst;
 	}
 
 	/**

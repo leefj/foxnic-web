@@ -5,13 +5,14 @@ import org.github.foxnic.web.domain.bpm.TaskApproval;
 import java.util.Date;
 import org.github.foxnic.web.domain.bpm.Assignee;
 import org.github.foxnic.web.domain.oauth.User;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-23 05:58:32
- * @sign 915A80A2471273E890C1D70B848F9DD6
+ * @since 2022-09-02 16:42:57
+ * @sign D87EF3A6AF52FE29EC229E67BDA279EC
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -512,5 +513,50 @@ public class TaskApprovalMeta {
 			super.setApprovalUser(approvalUser);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public TaskApproval clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public TaskApproval duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setProcessInstanceId(this.getProcessInstanceId());
+			inst.setVariables(this.getVariables());
+			inst.setCamundaSuccess(this.getCamundaSuccess());
+			inst.setApprovalTime(this.getApprovalTime());
+			inst.setUpdateTime(this.getUpdateTime());
+			inst.setAssigneeId(this.getAssigneeId());
+			inst.setVersion(this.getVersion());
+			inst.setCreateBy(this.getCreateBy());
+			inst.setDeleted(this.getDeleted());
+			inst.setApprovalResult(this.getApprovalResult());
+			inst.setApprovalComment(this.getApprovalComment());
+			inst.setCreateTime(this.getCreateTime());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setDeleteTime(this.getDeleteTime());
+			inst.setTenantId(this.getTenantId());
+			inst.setDeleteBy(this.getDeleteBy());
+			inst.setCamundaResult(this.getCamundaResult());
+			inst.setId(this.getId());
+			inst.setApprovalUserId(this.getApprovalUserId());
+			inst.setAssigneeType(this.getAssigneeType());
+			inst.setTaskId(this.getTaskId());
+			if(all) {
+				inst.setApprover(this.getApprover());
+				inst.setApprovalUser(this.getApprovalUser());
+			}
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

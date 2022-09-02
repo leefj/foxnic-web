@@ -7,12 +7,13 @@ import org.github.foxnic.web.domain.system.Dict;
 import java.util.Date;
 import org.github.foxnic.web.domain.system.DictItem;
 import org.github.foxnic.web.domain.oauth.Menu;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-22 09:57:51
+ * @since 2022-09-02 16:18:40
  * @sign F0B6CE5735F5F87F0DF1625262BF7ED1
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -556,5 +557,52 @@ public class DictVOMeta extends DictMeta {
 			super.setModuleInfo(moduleInfo);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public DictVO clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public DictVO duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setIsTree(this.getIsTree());
+			inst.setCode(this.getCode());
+			inst.setNotes(this.getNotes());
+			inst.setModule(this.getModule());
+			inst.setUpdateTime(this.getUpdateTime());
+			inst.setVersion(this.getVersion());
+			inst.setCreateBy(this.getCreateBy());
+			inst.setDeleted(this.getDeleted());
+			inst.setCreateTime(this.getCreateTime());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setDeleteTime(this.getDeleteTime());
+			inst.setName(this.getName());
+			inst.setDeleteBy(this.getDeleteBy());
+			inst.setId(this.getId());
+			if(all) {
+				inst.setSearchField(this.getSearchField());
+				inst.setPageIndex(this.getPageIndex());
+				inst.setSortType(this.getSortType());
+				inst.setFuzzyField(this.getFuzzyField());
+				inst.setModuleInfo(this.getModuleInfo());
+				inst.setDirtyFields(this.getDirtyFields());
+				inst.setSortField(this.getSortField());
+				inst.setPageSize(this.getPageSize());
+				inst.setIds(this.getIds());
+				inst.setSearchValue(this.getSearchValue());
+				inst.setItems(this.getItems());
+			}
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

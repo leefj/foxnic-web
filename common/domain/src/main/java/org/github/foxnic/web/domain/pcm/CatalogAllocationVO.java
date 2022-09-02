@@ -3,14 +3,20 @@ package org.github.foxnic.web.domain.pcm;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
+import com.github.foxnic.api.model.CompositeParameter;
+import javax.persistence.Transient;
+import com.github.foxnic.commons.bean.BeanUtil;
+import com.github.foxnic.dao.entity.EntityContext;
+import com.github.foxnic.dao.entity.Entity;
 
 
 
 /**
- * null
+ * 分类属性分配
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-09-01 21:19:42
- * @sign 86093BB32CC9EBF4DF082E6F927D0E98
+ * @since 2022-09-02 16:40:40
+ * @sign 0A0BD6CC4E2908C6174A31539DFB056F
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -47,6 +53,12 @@ public class CatalogAllocationVO extends CatalogAllocation {
 	*/
 	@ApiModelProperty(required = false,value="搜索的值" , notes = "")
 	private String searchValue;
+	
+	/**
+	 * 已修改字段
+	*/
+	@ApiModelProperty(required = false,value="已修改字段" , notes = "")
+	private List<String> dirtyFields;
 	
 	/**
 	 * 排序字段
@@ -157,6 +169,35 @@ public class CatalogAllocationVO extends CatalogAllocation {
 	}
 	
 	/**
+	 * 获得 已修改字段<br>
+	 * @return 已修改字段
+	*/
+	public List<String> getDirtyFields() {
+		return dirtyFields;
+	}
+	
+	/**
+	 * 设置 已修改字段
+	 * @param dirtyFields 已修改字段
+	 * @return 当前对象
+	*/
+	public CatalogAllocationVO setDirtyFields(List<String> dirtyFields) {
+		this.dirtyFields=dirtyFields;
+		return this;
+	}
+	
+	/**
+	 * 添加 已修改字段
+	 * @param dirtyField 已修改字段
+	 * @return 当前对象
+	*/
+	public CatalogAllocationVO addDirtyField(String... dirtyField) {
+		if(this.dirtyFields==null) dirtyFields=new ArrayList<>();
+		this.dirtyFields.addAll(Arrays.asList(dirtyField));
+		return this;
+	}
+	
+	/**
 	 * 获得 排序字段<br>
 	 * @return 排序字段
 	*/
@@ -216,9 +257,122 @@ public class CatalogAllocationVO extends CatalogAllocation {
 	 * @param id 主键清单
 	 * @return 当前对象
 	*/
-	public CatalogAllocationVO addId(String id) {
+	public CatalogAllocationVO addId(String... id) {
 		if(this.ids==null) ids=new ArrayList<>();
-		this.ids.add(id);
+		this.ids.addAll(Arrays.asList(id));
 		return this;
+	}
+	@Transient
+	private transient CompositeParameter $compositeParameter;
+	/**
+	 * 获得解析后的复合查询参数
+	 */
+	@Transient
+	public CompositeParameter getCompositeParameter() {
+		if($compositeParameter!=null) return  $compositeParameter;
+		$compositeParameter=new CompositeParameter(this.getSearchValue(),BeanUtil.toMap(this));
+		return  $compositeParameter;
+	}
+
+	/**
+	 * 将自己转换成指定类型的PO
+	 * @param poType  PO类型
+	 * @return CatalogAllocationVO , 转换好的 CatalogAllocationVO 对象
+	*/
+	@Transient
+	public <T extends Entity> T toPO(Class<T> poType) {
+		return EntityContext.create(poType, this);
+	}
+
+	/**
+	 * 将自己转换成任意指定类型
+	 * @param pojoType  Pojo类型
+	 * @return CatalogAllocationVO , 转换好的 PoJo 对象
+	*/
+	@Transient
+	public <T> T toPojo(Class<T> pojoType) {
+		if(Entity.class.isAssignableFrom(pojoType)) {
+			return (T)this.toPO((Class<Entity>)pojoType);
+		}
+		try {
+			T pojo=pojoType.newInstance();
+			EntityContext.copyProperties(pojo, this);
+			return pojo;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public CatalogAllocationVO clone() {
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public CatalogAllocationVO duplicate(boolean all) {
+		org.github.foxnic.web.domain.pcm.meta.CatalogAllocationVOMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.pcm.meta.CatalogAllocationVOMeta.$$proxy$$();
+		inst.setUpdateTime(this.getUpdateTime());
+		inst.setVersion(this.getVersion());
+		inst.setAttributeId(this.getAttributeId());
+		inst.setCreateBy(this.getCreateBy());
+		inst.setCatalogId(this.getCatalogId());
+		inst.setDeleted(this.getDeleted());
+		inst.setCreateTime(this.getCreateTime());
+		inst.setUpdateBy(this.getUpdateBy());
+		inst.setDeleteTime(this.getDeleteTime());
+		inst.setVersionNo(this.getVersionNo());
+		inst.setDeleteBy(this.getDeleteBy());
+		inst.setId(this.getId());
+		inst.setColumnName(this.getColumnName());
+		if(all) {
+			inst.setSearchField(this.getSearchField());
+			inst.setPageIndex(this.getPageIndex());
+			inst.setSortType(this.getSortType());
+			inst.setFuzzyField(this.getFuzzyField());
+			inst.setDirtyFields(this.getDirtyFields());
+			inst.setSortField(this.getSortField());
+			inst.setPageSize(this.getPageSize());
+			inst.setIds(this.getIds());
+			inst.setAttribute(this.getAttribute());
+			inst.setSearchValue(this.getSearchValue());
+		}
+		inst.clearModifies();
+		return inst;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public CatalogAllocationVO clone(boolean deep) {
+		return EntityContext.clone(CatalogAllocationVO.class,this,deep);
+	}
+
+	/**
+	 * 将 Pojo 转换成 CatalogAllocationVO
+	 * @param pojo 包含实体信息的 Pojo 对象
+	 * @return CatalogAllocationVO , 转换好的的 CatalogAllocation 对象
+	*/
+	@Transient
+	public static CatalogAllocationVO createFrom(Object pojo) {
+		if(pojo==null) return null;
+		CatalogAllocationVO po = EntityContext.create(CatalogAllocationVO.class,pojo);
+		return po;
+	}
+
+	/**
+	 * 创建一个 CatalogAllocationVO，等同于 new
+	 * @return CatalogAllocationVO 对象
+	*/
+	@Transient
+	public static CatalogAllocationVO create() {
+		return EntityContext.create(CatalogAllocationVO.class);
 	}
 }

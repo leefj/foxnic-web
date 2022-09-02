@@ -7,13 +7,15 @@ import java.util.Arrays;
 import com.github.foxnic.api.model.CompositeParameter;
 import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
+import com.github.foxnic.dao.entity.EntityContext;
+import com.github.foxnic.dao.entity.Entity;
 
 
 
 /**
  * 组织层级
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-22 09:54:41
+ * @since 2022-09-02 16:24:54
  * @sign 40F9CC5E1E30A130DF35A45E1A0D5F1C
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -345,5 +347,115 @@ public class OrganizationVO extends Organization {
 		if($compositeParameter!=null) return  $compositeParameter;
 		$compositeParameter=new CompositeParameter(this.getSearchValue(),BeanUtil.toMap(this));
 		return  $compositeParameter;
+	}
+
+	/**
+	 * 将自己转换成指定类型的PO
+	 * @param poType  PO类型
+	 * @return OrganizationVO , 转换好的 OrganizationVO 对象
+	*/
+	@Transient
+	public <T extends Entity> T toPO(Class<T> poType) {
+		return EntityContext.create(poType, this);
+	}
+
+	/**
+	 * 将自己转换成任意指定类型
+	 * @param pojoType  Pojo类型
+	 * @return OrganizationVO , 转换好的 PoJo 对象
+	*/
+	@Transient
+	public <T> T toPojo(Class<T> pojoType) {
+		if(Entity.class.isAssignableFrom(pojoType)) {
+			return (T)this.toPO((Class<Entity>)pojoType);
+		}
+		try {
+			T pojo=pojoType.newInstance();
+			EntityContext.copyProperties(pojo, this);
+			return pojo;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public OrganizationVO clone() {
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public OrganizationVO duplicate(boolean all) {
+		org.github.foxnic.web.domain.hrm.meta.OrganizationVOMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.hrm.meta.OrganizationVOMeta.$$proxy$$();
+		inst.setCode(this.getCode());
+		inst.setHierarchy(this.getHierarchy());
+		inst.setFullName(this.getFullName());
+		inst.setUpdateTime(this.getUpdateTime());
+		inst.setSort(this.getSort());
+		inst.setType(this.getType());
+		inst.setVersion(this.getVersion());
+		inst.setParentId(this.getParentId());
+		inst.setValid(this.getValid());
+		inst.setCompanyId(this.getCompanyId());
+		inst.setCreateBy(this.getCreateBy());
+		inst.setDeleted(this.getDeleted());
+		inst.setCreateTime(this.getCreateTime());
+		inst.setUpdateBy(this.getUpdateBy());
+		inst.setDeleteTime(this.getDeleteTime());
+		inst.setTenantId(this.getTenantId());
+		inst.setDeleteBy(this.getDeleteBy());
+		inst.setId(this.getId());
+		inst.setShortName(this.getShortName());
+		if(all) {
+			inst.setSearchField(this.getSearchField());
+			inst.setPageIndex(this.getPageIndex());
+			inst.setSortType(this.getSortType());
+			inst.setFuzzyField(this.getFuzzyField());
+			inst.setRoot(this.getRoot());
+			inst.setDirtyFields(this.getDirtyFields());
+			inst.setSortField(this.getSortField());
+			inst.setPageSize(this.getPageSize());
+			inst.setIds(this.getIds());
+			inst.setTargetType(this.getTargetType());
+			inst.setIsLoadAllDescendants(this.getIsLoadAllDescendants());
+			inst.setSearchValue(this.getSearchValue());
+		}
+		inst.clearModifies();
+		return inst;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public OrganizationVO clone(boolean deep) {
+		return EntityContext.clone(OrganizationVO.class,this,deep);
+	}
+
+	/**
+	 * 将 Pojo 转换成 OrganizationVO
+	 * @param pojo 包含实体信息的 Pojo 对象
+	 * @return OrganizationVO , 转换好的的 Organization 对象
+	*/
+	@Transient
+	public static OrganizationVO createFrom(Object pojo) {
+		if(pojo==null) return null;
+		OrganizationVO po = EntityContext.create(OrganizationVO.class,pojo);
+		return po;
+	}
+
+	/**
+	 * 创建一个 OrganizationVO，等同于 new
+	 * @return OrganizationVO 对象
+	*/
+	@Transient
+	public static OrganizationVO create() {
+		return EntityContext.create(OrganizationVO.class);
 	}
 }

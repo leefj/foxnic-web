@@ -23,7 +23,7 @@ import java.util.Map;
  * Profile 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-22 09:58:04
+ * @since 2022-09-02 16:18:42
 */
 
 public interface IProfileService extends  ISimpleIdService<Profile,String> {

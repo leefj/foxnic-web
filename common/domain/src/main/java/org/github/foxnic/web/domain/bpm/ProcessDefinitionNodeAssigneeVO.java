@@ -7,14 +7,16 @@ import java.util.Arrays;
 import com.github.foxnic.api.model.CompositeParameter;
 import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
+import com.github.foxnic.dao.entity.EntityContext;
+import com.github.foxnic.dao.entity.Entity;
 
 
 
 /**
  * 流程审批人
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-22 17:21:47
- * @sign CE34814B78D2BAA7234DB013FE1D9172
+ * @since 2022-09-02 16:42:51
+ * @sign BD8D89A7A3631C670C6D95C5721B86B3
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -261,7 +263,7 @@ public class ProcessDefinitionNodeAssigneeVO extends ProcessDefinitionNodeAssign
 		return this;
 	}
 	@Transient
-	private CompositeParameter $compositeParameter;
+	private transient CompositeParameter $compositeParameter;
 	/**
 	 * 获得解析后的复合查询参数
 	 */
@@ -270,5 +272,108 @@ public class ProcessDefinitionNodeAssigneeVO extends ProcessDefinitionNodeAssign
 		if($compositeParameter!=null) return  $compositeParameter;
 		$compositeParameter=new CompositeParameter(this.getSearchValue(),BeanUtil.toMap(this));
 		return  $compositeParameter;
+	}
+
+	/**
+	 * 将自己转换成指定类型的PO
+	 * @param poType  PO类型
+	 * @return ProcessDefinitionNodeAssigneeVO , 转换好的 ProcessDefinitionNodeAssigneeVO 对象
+	*/
+	@Transient
+	public <T extends Entity> T toPO(Class<T> poType) {
+		return EntityContext.create(poType, this);
+	}
+
+	/**
+	 * 将自己转换成任意指定类型
+	 * @param pojoType  Pojo类型
+	 * @return ProcessDefinitionNodeAssigneeVO , 转换好的 PoJo 对象
+	*/
+	@Transient
+	public <T> T toPojo(Class<T> pojoType) {
+		if(Entity.class.isAssignableFrom(pojoType)) {
+			return (T)this.toPO((Class<Entity>)pojoType);
+		}
+		try {
+			T pojo=pojoType.newInstance();
+			EntityContext.copyProperties(pojo, this);
+			return pojo;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public ProcessDefinitionNodeAssigneeVO clone() {
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public ProcessDefinitionNodeAssigneeVO duplicate(boolean all) {
+		org.github.foxnic.web.domain.bpm.meta.ProcessDefinitionNodeAssigneeVOMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.bpm.meta.ProcessDefinitionNodeAssigneeVOMeta.$$proxy$$();
+		inst.setUpdateTime(this.getUpdateTime());
+		inst.setSort(this.getSort());
+		inst.setAssigneeId(this.getAssigneeId());
+		inst.setVersion(this.getVersion());
+		inst.setCreateBy(this.getCreateBy());
+		inst.setDeleted(this.getDeleted());
+		inst.setCreateTime(this.getCreateTime());
+		inst.setUpdateBy(this.getUpdateBy());
+		inst.setDeleteTime(this.getDeleteTime());
+		inst.setTenantId(this.getTenantId());
+		inst.setDeleteBy(this.getDeleteBy());
+		inst.setId(this.getId());
+		inst.setAssigneeType(this.getAssigneeType());
+		inst.setNodeId(this.getNodeId());
+		if(all) {
+			inst.setSearchField(this.getSearchField());
+			inst.setPageIndex(this.getPageIndex());
+			inst.setSortType(this.getSortType());
+			inst.setFuzzyField(this.getFuzzyField());
+			inst.setDirtyFields(this.getDirtyFields());
+			inst.setSortField(this.getSortField());
+			inst.setPageSize(this.getPageSize());
+			inst.setIds(this.getIds());
+			inst.setAssignee(this.getAssignee());
+			inst.setSearchValue(this.getSearchValue());
+		}
+		inst.clearModifies();
+		return inst;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public ProcessDefinitionNodeAssigneeVO clone(boolean deep) {
+		return EntityContext.clone(ProcessDefinitionNodeAssigneeVO.class,this,deep);
+	}
+
+	/**
+	 * 将 Pojo 转换成 ProcessDefinitionNodeAssigneeVO
+	 * @param pojo 包含实体信息的 Pojo 对象
+	 * @return ProcessDefinitionNodeAssigneeVO , 转换好的的 ProcessDefinitionNodeAssignee 对象
+	*/
+	@Transient
+	public static ProcessDefinitionNodeAssigneeVO createFrom(Object pojo) {
+		if(pojo==null) return null;
+		ProcessDefinitionNodeAssigneeVO po = EntityContext.create(ProcessDefinitionNodeAssigneeVO.class,pojo);
+		return po;
+	}
+
+	/**
+	 * 创建一个 ProcessDefinitionNodeAssigneeVO，等同于 new
+	 * @return ProcessDefinitionNodeAssigneeVO 对象
+	*/
+	@Transient
+	public static ProcessDefinitionNodeAssigneeVO create() {
+		return EntityContext.create(ProcessDefinitionNodeAssigneeVO.class);
 	}
 }

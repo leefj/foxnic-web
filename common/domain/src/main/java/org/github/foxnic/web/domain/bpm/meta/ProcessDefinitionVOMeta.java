@@ -8,12 +8,13 @@ import java.util.Date;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.domain.bpm.ProcessDefinitionFile;
 import org.github.foxnic.web.domain.bpm.FormDefinition;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-25 13:23:44
+ * @since 2022-09-02 16:42:44
  * @sign A1B8DF7967077555F0C2AB8112191E25
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -704,5 +705,59 @@ public class ProcessDefinitionVOMeta extends ProcessDefinitionMeta {
 			super.setFormDefinition(formDefinition);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public ProcessDefinitionVO clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public ProcessDefinitionVO duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setAssigneeTypeRange(this.getAssigneeTypeRange());
+			inst.setRejectOption(this.getRejectOption());
+			inst.setCamundaDefinitionKey(this.getCamundaDefinitionKey());
+			inst.setCode(this.getCode());
+			inst.setNotes(this.getNotes());
+			inst.setCamundaDefinitionId(this.getCamundaDefinitionId());
+			inst.setUpdateTime(this.getUpdateTime());
+			inst.setVersion(this.getVersion());
+			inst.setValid(this.getValid());
+			inst.setCreateBy(this.getCreateBy());
+			inst.setDeleted(this.getDeleted());
+			inst.setCreateTime(this.getCreateTime());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setDeleteTime(this.getDeleteTime());
+			inst.setName(this.getName());
+			inst.setTenantId(this.getTenantId());
+			inst.setFormDefinitionId(this.getFormDefinitionId());
+			inst.setDeleteBy(this.getDeleteBy());
+			inst.setId(this.getId());
+			if(all) {
+				inst.setFormDefinitionCode(this.getFormDefinitionCode());
+				inst.setSearchField(this.getSearchField());
+				inst.setFuzzyField(this.getFuzzyField());
+				inst.setPageSize(this.getPageSize());
+				inst.setFormDefinition(this.getFormDefinition());
+				inst.setPageIndex(this.getPageIndex());
+				inst.setSortType(this.getSortType());
+				inst.setDefinitionFile(this.getDefinitionFile());
+				inst.setDirtyFields(this.getDirtyFields());
+				inst.setSortField(this.getSortField());
+				inst.setIds(this.getIds());
+				inst.setLastUpdateUser(this.getLastUpdateUser());
+				inst.setSearchValue(this.getSearchValue());
+			}
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

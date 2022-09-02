@@ -5,12 +5,13 @@ import org.github.foxnic.web.domain.dataperm.RuleRange;
 import java.util.Date;
 import org.github.foxnic.web.domain.dataperm.RuleCondition;
 import java.util.List;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-25 11:43:26
+ * @since 2022-09-02 16:45:34
  * @sign D27FAC8770628CC1CEAB77456B7B2D86
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -302,5 +303,40 @@ public class RuleRangeMeta {
 			super.setConditions(conditions);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public RuleRange clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public RuleRange duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setValid(this.getValid());
+			inst.setCreateBy(this.getCreateBy());
+			inst.setDeleted(this.getDeleted());
+			inst.setCreateTime(this.getCreateTime());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setDeleteTime(this.getDeleteTime());
+			inst.setName(this.getName());
+			inst.setDeleteBy(this.getDeleteBy());
+			inst.setUpdateTime(this.getUpdateTime());
+			inst.setId(this.getId());
+			inst.setRuleId(this.getRuleId());
+			inst.setVersion(this.getVersion());
+			if(all) {
+				inst.setConditions(this.getConditions());
+			}
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

@@ -4,13 +4,14 @@ import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.bpm.ProcessDefinitionNodeAssignee;
 import java.util.Date;
 import org.github.foxnic.web.domain.bpm.Assignee;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-22 17:21:47
- * @sign 8DA5C6FD8F6887E955C5A2BC9FBBB94F
+ * @since 2022-09-02 16:42:51
+ * @sign B3EDAEC0B42040812C185701D9F528D3
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -343,5 +344,42 @@ public class ProcessDefinitionNodeAssigneeMeta {
 			super.setAssignee(assignee);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public ProcessDefinitionNodeAssignee clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public ProcessDefinitionNodeAssignee duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setUpdateTime(this.getUpdateTime());
+			inst.setSort(this.getSort());
+			inst.setAssigneeId(this.getAssigneeId());
+			inst.setVersion(this.getVersion());
+			inst.setCreateBy(this.getCreateBy());
+			inst.setDeleted(this.getDeleted());
+			inst.setCreateTime(this.getCreateTime());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setDeleteTime(this.getDeleteTime());
+			inst.setTenantId(this.getTenantId());
+			inst.setDeleteBy(this.getDeleteBy());
+			inst.setId(this.getId());
+			inst.setAssigneeType(this.getAssigneeType());
+			inst.setNodeId(this.getNodeId());
+			if(all) {
+				inst.setAssignee(this.getAssignee());
+			}
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

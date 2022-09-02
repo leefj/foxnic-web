@@ -7,13 +7,15 @@ import java.util.Arrays;
 import com.github.foxnic.api.model.CompositeParameter;
 import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
+import com.github.foxnic.dao.entity.EntityContext;
+import com.github.foxnic.dao.entity.Entity;
 
 
 
 /**
  * 租户
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-22 09:58:10
+ * @since 2022-09-02 16:18:43
  * @sign 99A9A8BCBE702236665A039052CF3210
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -270,5 +272,106 @@ public class TenantVO extends Tenant {
 		if($compositeParameter!=null) return  $compositeParameter;
 		$compositeParameter=new CompositeParameter(this.getSearchValue(),BeanUtil.toMap(this));
 		return  $compositeParameter;
+	}
+
+	/**
+	 * 将自己转换成指定类型的PO
+	 * @param poType  PO类型
+	 * @return TenantVO , 转换好的 TenantVO 对象
+	*/
+	@Transient
+	public <T extends Entity> T toPO(Class<T> poType) {
+		return EntityContext.create(poType, this);
+	}
+
+	/**
+	 * 将自己转换成任意指定类型
+	 * @param pojoType  Pojo类型
+	 * @return TenantVO , 转换好的 PoJo 对象
+	*/
+	@Transient
+	public <T> T toPojo(Class<T> pojoType) {
+		if(Entity.class.isAssignableFrom(pojoType)) {
+			return (T)this.toPO((Class<Entity>)pojoType);
+		}
+		try {
+			T pojo=pojoType.newInstance();
+			EntityContext.copyProperties(pojo, this);
+			return pojo;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public TenantVO clone() {
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public TenantVO duplicate(boolean all) {
+		org.github.foxnic.web.domain.system.meta.TenantVOMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.system.meta.TenantVOMeta.$$proxy$$();
+		inst.setValid(this.getValid());
+		inst.setCompanyId(this.getCompanyId());
+		inst.setCreateBy(this.getCreateBy());
+		inst.setDeleted(this.getDeleted());
+		inst.setCreateTime(this.getCreateTime());
+		inst.setUpdateBy(this.getUpdateBy());
+		inst.setDeleteTime(this.getDeleteTime());
+		inst.setAlias(this.getAlias());
+		inst.setDeleteBy(this.getDeleteBy());
+		inst.setUpdateTime(this.getUpdateTime());
+		inst.setId(this.getId());
+		inst.setVersion(this.getVersion());
+		if(all) {
+			inst.setSearchField(this.getSearchField());
+			inst.setPageIndex(this.getPageIndex());
+			inst.setSortType(this.getSortType());
+			inst.setFuzzyField(this.getFuzzyField());
+			inst.setDirtyFields(this.getDirtyFields());
+			inst.setSortField(this.getSortField());
+			inst.setPageSize(this.getPageSize());
+			inst.setIds(this.getIds());
+			inst.setCompany(this.getCompany());
+			inst.setSearchValue(this.getSearchValue());
+		}
+		inst.clearModifies();
+		return inst;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public TenantVO clone(boolean deep) {
+		return EntityContext.clone(TenantVO.class,this,deep);
+	}
+
+	/**
+	 * 将 Pojo 转换成 TenantVO
+	 * @param pojo 包含实体信息的 Pojo 对象
+	 * @return TenantVO , 转换好的的 Tenant 对象
+	*/
+	@Transient
+	public static TenantVO createFrom(Object pojo) {
+		if(pojo==null) return null;
+		TenantVO po = EntityContext.create(TenantVO.class,pojo);
+		return po;
+	}
+
+	/**
+	 * 创建一个 TenantVO，等同于 new
+	 * @return TenantVO 对象
+	*/
+	@Transient
+	public static TenantVO create() {
+		return EntityContext.create(TenantVO.class);
 	}
 }

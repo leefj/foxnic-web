@@ -4,6 +4,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.github.foxnic.web.proxy.api.APIProxy;
 import org.github.foxnic.web.proxy.FeignConfiguration;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.github.foxnic.web.domain.bpm.TaskApproval;
 import org.github.foxnic.web.domain.bpm.TaskApprovalVO;
@@ -17,7 +19,7 @@ import org.github.foxnic.web.proxy.MicroServiceNames;
  * 流程任务审批结果表  控制器服务代理
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-06-23 05:58:33
+ * @since 2022-09-02 16:42:57
  */
 @FeignClient(value = MicroServiceNames.BPM, contextId = TaskApprovalServiceProxy.API_CONTEXT_PATH, configuration = FeignConfiguration.class)
 public interface TaskApprovalServiceProxy {
@@ -81,21 +83,6 @@ public interface TaskApprovalServiceProxy {
      * 分页查询流程任务审批结果
      */
     public static final String QUERY_PAGED_LIST = API_PREFIX + "query-paged-list";
-
-    /**
-     * 导出流程任务审批结果数据(Excel)
-     */
-    public static final String EXPORT_EXCEL = API_PREFIX + "export-excel";
-
-    /**
-     * 下载流程任务审批结果导入模版(Excel)
-     */
-    public static final String EXPORT_EXCEL_TEMPLATE = API_PREFIX + "export-excel-template";
-
-    /**
-     * 导入流程任务审批结果数据(Excel)
-     */
-    public static final String IMPORT_EXCEL = API_PREFIX + "import-excel";
 
     /**
      * 添加流程任务审批结果

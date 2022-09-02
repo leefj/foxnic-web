@@ -23,7 +23,7 @@ import java.util.Map;
  * 公司表 服务接口
  * </p>
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-22 09:54:33
+ * @since 2022-09-02 16:24:50
 */
 
 public interface ICompanyService extends  ISimpleIdService<Company,String> {

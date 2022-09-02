@@ -4,12 +4,13 @@ import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.hrm.Position;
 import java.util.Date;
 import org.github.foxnic.web.domain.hrm.Organization;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-22 09:54:44
+ * @since 2022-09-02 16:24:55
  * @sign DA6DABFCFB5FBC6E59FAE2212B90EF17
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -427,5 +428,46 @@ public class PositionMeta {
 			super.setOrganization(organization);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public Position clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public Position duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setCode(this.getCode());
+			inst.setFullName(this.getFullName());
+			inst.setUpdateTime(this.getUpdateTime());
+			inst.setSort(this.getSort());
+			inst.setType(this.getType());
+			inst.setVersion(this.getVersion());
+			inst.setOrgId(this.getOrgId());
+			inst.setValid(this.getValid());
+			inst.setCompanyId(this.getCompanyId());
+			inst.setCreateBy(this.getCreateBy());
+			inst.setDeleted(this.getDeleted());
+			inst.setCreateTime(this.getCreateTime());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setDeleteTime(this.getDeleteTime());
+			inst.setTenantId(this.getTenantId());
+			inst.setDeleteBy(this.getDeleteBy());
+			inst.setId(this.getId());
+			inst.setShortName(this.getShortName());
+			if(all) {
+				inst.setOrganization(this.getOrganization());
+			}
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

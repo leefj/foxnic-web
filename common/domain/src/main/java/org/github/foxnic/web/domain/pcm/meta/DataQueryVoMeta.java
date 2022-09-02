@@ -6,8 +6,8 @@ import com.github.foxnic.api.bean.BeanProperty;
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-05 15:25:29
- * @sign 6E1FEFAB3E01A0FD7D3A7A19FF673223
+ * @since 2022-09-02 16:40:33
+ * @sign 381635824706D05458C1CB34FACEC93A
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 

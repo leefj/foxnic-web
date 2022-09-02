@@ -8,13 +8,14 @@ import org.github.foxnic.web.domain.bpm.ProcessDefinitionFile;
 import java.util.Date;
 import org.github.foxnic.web.domain.oauth.User;
 import org.github.foxnic.web.domain.bpm.ProcessDefinitionNode;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-07-07 14:18:35
- * @sign E3313A323D7BB71CB5627FF6EB9A71A9
+ * @since 2022-09-02 16:42:50
+ * @sign 45A2D7AE606082F52EA8E9CD738B422A
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -704,5 +705,59 @@ public class ProcessDefinitionFileVOMeta extends ProcessDefinitionFileMeta {
 			super.setNodes(nodes);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public ProcessDefinitionFileVO clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public ProcessDefinitionFileVO duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setProcessDefinitionId(this.getProcessDefinitionId());
+			inst.setDeployResult(this.getDeployResult());
+			inst.setNotes(this.getNotes());
+			inst.setUpdateTime(this.getUpdateTime());
+			inst.setDeploySuccess(this.getDeploySuccess());
+			inst.setVersion(this.getVersion());
+			inst.setDeployError(this.getDeployError());
+			inst.setCreateBy(this.getCreateBy());
+			inst.setDeleted(this.getDeleted());
+			inst.setModelXml(this.getModelXml());
+			inst.setCreateTime(this.getCreateTime());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setDeleteTime(this.getDeleteTime());
+			inst.setVersionNo(this.getVersionNo());
+			inst.setName(this.getName());
+			inst.setTenantId(this.getTenantId());
+			inst.setDeleteBy(this.getDeleteBy());
+			inst.setId(this.getId());
+			inst.setFileId(this.getFileId());
+			inst.setActivated(this.getActivated());
+			if(all) {
+				inst.setNodes(this.getNodes());
+				inst.setSearchField(this.getSearchField());
+				inst.setPageIndex(this.getPageIndex());
+				inst.setSortType(this.getSortType());
+				inst.setFuzzyField(this.getFuzzyField());
+				inst.setDirtyFields(this.getDirtyFields());
+				inst.setSortField(this.getSortField());
+				inst.setPageSize(this.getPageSize());
+				inst.setIds(this.getIds());
+				inst.setLastUpdateUser(this.getLastUpdateUser());
+				inst.setExtraModelSettings(this.getExtraModelSettings());
+				inst.setSearchValue(this.getSearchValue());
+			}
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

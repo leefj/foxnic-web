@@ -18,7 +18,7 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 租户
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-22 09:58:10
+ * @since 2022-09-02 16:18:43
  * @sign 1AAF33EE5D9AA6B7824641A589075E97
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -422,7 +422,33 @@ public class Tenant extends Entity {
 	*/
 	@Transient
 	public Tenant clone() {
-		return EntityContext.clone(Tenant.class,this);
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public Tenant duplicate(boolean all) {
+		org.github.foxnic.web.domain.system.meta.TenantMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.system.meta.TenantMeta.$$proxy$$();
+		inst.setValid(this.getValid());
+		inst.setCompanyId(this.getCompanyId());
+		inst.setCreateBy(this.getCreateBy());
+		inst.setDeleted(this.getDeleted());
+		inst.setCreateTime(this.getCreateTime());
+		inst.setUpdateBy(this.getUpdateBy());
+		inst.setDeleteTime(this.getDeleteTime());
+		inst.setAlias(this.getAlias());
+		inst.setDeleteBy(this.getDeleteBy());
+		inst.setUpdateTime(this.getUpdateTime());
+		inst.setId(this.getId());
+		inst.setVersion(this.getVersion());
+		if(all) {
+			inst.setCompany(this.getCompany());
+		}
+		inst.clearModifies();
+		return inst;
 	}
 
 	/**

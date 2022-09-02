@@ -3,17 +3,20 @@ package org.github.foxnic.web.domain.dataperm;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
 import com.github.foxnic.api.model.CompositeParameter;
 import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
+import com.github.foxnic.dao.entity.EntityContext;
+import com.github.foxnic.dao.entity.Entity;
 
 
 
 /**
  * 销售订单
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-10-14 15:49:25
- * @sign EFB7713A3891A619BB8BC82536D9F2B9
+ * @since 2022-09-02 16:45:38
+ * @sign 4D85D5B2BC9B593FD22635FFFDA3EF12
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -50,6 +53,12 @@ public class ExampleProductVO extends ExampleProduct {
 	*/
 	@ApiModelProperty(required = false,value="搜索的值" , notes = "")
 	private String searchValue;
+	
+	/**
+	 * 已修改字段
+	*/
+	@ApiModelProperty(required = false,value="已修改字段" , notes = "")
+	private List<String> dirtyFields;
 	
 	/**
 	 * 排序字段
@@ -160,6 +169,35 @@ public class ExampleProductVO extends ExampleProduct {
 	}
 	
 	/**
+	 * 获得 已修改字段<br>
+	 * @return 已修改字段
+	*/
+	public List<String> getDirtyFields() {
+		return dirtyFields;
+	}
+	
+	/**
+	 * 设置 已修改字段
+	 * @param dirtyFields 已修改字段
+	 * @return 当前对象
+	*/
+	public ExampleProductVO setDirtyFields(List<String> dirtyFields) {
+		this.dirtyFields=dirtyFields;
+		return this;
+	}
+	
+	/**
+	 * 添加 已修改字段
+	 * @param dirtyField 已修改字段
+	 * @return 当前对象
+	*/
+	public ExampleProductVO addDirtyField(String... dirtyField) {
+		if(this.dirtyFields==null) dirtyFields=new ArrayList<>();
+		this.dirtyFields.addAll(Arrays.asList(dirtyField));
+		return this;
+	}
+	
+	/**
 	 * 获得 排序字段<br>
 	 * @return 排序字段
 	*/
@@ -219,21 +257,125 @@ public class ExampleProductVO extends ExampleProduct {
 	 * @param id 主键清单
 	 * @return 当前对象
 	*/
-	public ExampleProductVO addId(String id) {
+	public ExampleProductVO addId(String... id) {
 		if(this.ids==null) ids=new ArrayList<>();
-		this.ids.add(id);
+		this.ids.addAll(Arrays.asList(id));
 		return this;
 	}
 	@Transient
-	private CompositeParameter $compositeParameter;
+	private transient CompositeParameter $compositeParameter;
 	/**
 	 * 获得解析后的复合查询参数
 	 */
 	@Transient
 	public CompositeParameter getCompositeParameter() {
 		if($compositeParameter!=null) return  $compositeParameter;
-		
 		$compositeParameter=new CompositeParameter(this.getSearchValue(),BeanUtil.toMap(this));
 		return  $compositeParameter;
+	}
+
+	/**
+	 * 将自己转换成指定类型的PO
+	 * @param poType  PO类型
+	 * @return ExampleProductVO , 转换好的 ExampleProductVO 对象
+	*/
+	@Transient
+	public <T extends Entity> T toPO(Class<T> poType) {
+		return EntityContext.create(poType, this);
+	}
+
+	/**
+	 * 将自己转换成任意指定类型
+	 * @param pojoType  Pojo类型
+	 * @return ExampleProductVO , 转换好的 PoJo 对象
+	*/
+	@Transient
+	public <T> T toPojo(Class<T> pojoType) {
+		if(Entity.class.isAssignableFrom(pojoType)) {
+			return (T)this.toPO((Class<Entity>)pojoType);
+		}
+		try {
+			T pojo=pojoType.newInstance();
+			EntityContext.copyProperties(pojo, this);
+			return pojo;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public ExampleProductVO clone() {
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public ExampleProductVO duplicate(boolean all) {
+		org.github.foxnic.web.domain.dataperm.meta.ExampleProductVOMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.dataperm.meta.ExampleProductVOMeta.$$proxy$$();
+		inst.setUpdateTime(this.getUpdateTime());
+		inst.setVersion(this.getVersion());
+		inst.setCreateBy(this.getCreateBy());
+		inst.setDeleted(this.getDeleted());
+		inst.setCreateTime(this.getCreateTime());
+		inst.setUpdateBy(this.getUpdateBy());
+		inst.setDeleteTime(this.getDeleteTime());
+		inst.setPrice(this.getPrice());
+		inst.setBrandId(this.getBrandId());
+		inst.setBigCataId(this.getBigCataId());
+		inst.setName(this.getName());
+		inst.setSmlCataId(this.getSmlCataId());
+		inst.setDeleteBy(this.getDeleteBy());
+		inst.setId(this.getId());
+		if(all) {
+			inst.setSmlCatalog(this.getSmlCatalog());
+			inst.setSearchField(this.getSearchField());
+			inst.setPageIndex(this.getPageIndex());
+			inst.setSortType(this.getSortType());
+			inst.setBigCatalog(this.getBigCatalog());
+			inst.setFuzzyField(this.getFuzzyField());
+			inst.setDirtyFields(this.getDirtyFields());
+			inst.setSortField(this.getSortField());
+			inst.setPageSize(this.getPageSize());
+			inst.setIds(this.getIds());
+			inst.setBrand(this.getBrand());
+			inst.setSearchValue(this.getSearchValue());
+		}
+		inst.clearModifies();
+		return inst;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public ExampleProductVO clone(boolean deep) {
+		return EntityContext.clone(ExampleProductVO.class,this,deep);
+	}
+
+	/**
+	 * 将 Pojo 转换成 ExampleProductVO
+	 * @param pojo 包含实体信息的 Pojo 对象
+	 * @return ExampleProductVO , 转换好的的 ExampleProduct 对象
+	*/
+	@Transient
+	public static ExampleProductVO createFrom(Object pojo) {
+		if(pojo==null) return null;
+		ExampleProductVO po = EntityContext.create(ExampleProductVO.class,pojo);
+		return po;
+	}
+
+	/**
+	 * 创建一个 ExampleProductVO，等同于 new
+	 * @return ExampleProductVO 对象
+	*/
+	@Transient
+	public static ExampleProductVO create() {
+		return EntityContext.create(ExampleProductVO.class);
 	}
 }

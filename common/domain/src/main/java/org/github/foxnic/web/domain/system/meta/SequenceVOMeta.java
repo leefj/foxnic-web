@@ -4,12 +4,13 @@ import com.github.foxnic.api.bean.BeanProperty;
 import org.github.foxnic.web.domain.system.SequenceVO;
 import java.util.List;
 import org.github.foxnic.web.domain.system.Sequence;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-22 09:59:28
+ * @since 2022-09-02 16:18:43
  * @sign 92A7DFD2CDDC2E381BAD0CD21E42C25E
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -427,5 +428,46 @@ public class SequenceVOMeta extends SequenceMeta {
 			super.setFetchSize(fetchSize);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public SequenceVO clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public SequenceVO duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setFetchSize(this.getFetchSize());
+			inst.setCatalog(this.getCatalog());
+			inst.setName(this.getName());
+			inst.setLength(this.getLength());
+			inst.setTenantId(this.getTenantId());
+			inst.setMemo(this.getMemo());
+			inst.setPk(this.getPk());
+			inst.setId(this.getId());
+			inst.setType(this.getType());
+			inst.setValue(this.getValue());
+			if(all) {
+				inst.setSearchField(this.getSearchField());
+				inst.setPageIndex(this.getPageIndex());
+				inst.setSortType(this.getSortType());
+				inst.setFuzzyField(this.getFuzzyField());
+				inst.setDirtyFields(this.getDirtyFields());
+				inst.setSortField(this.getSortField());
+				inst.setPageSize(this.getPageSize());
+				inst.setPks(this.getPks());
+				inst.setSearchValue(this.getSearchValue());
+			}
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

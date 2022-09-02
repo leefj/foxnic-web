@@ -5,12 +5,13 @@ import org.github.foxnic.web.domain.system.BusiRole;
 import java.util.Date;
 import org.github.foxnic.web.domain.hrm.Employee;
 import java.util.List;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-22 11:29:33
+ * @since 2022-09-02 16:18:34
  * @sign E2ABE2C0FC6EAE0EC900DF668AEC7BD1
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -323,5 +324,41 @@ public class BusiRoleMeta {
 			super.setEmployees(employees);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public BusiRole clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public BusiRole duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setCode(this.getCode());
+			inst.setUpdateTime(this.getUpdateTime());
+			inst.setVersion(this.getVersion());
+			inst.setOrgId(this.getOrgId());
+			inst.setValid(this.getValid());
+			inst.setCreateBy(this.getCreateBy());
+			inst.setDeleted(this.getDeleted());
+			inst.setCreateTime(this.getCreateTime());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setDeleteTime(this.getDeleteTime());
+			inst.setName(this.getName());
+			inst.setDeleteBy(this.getDeleteBy());
+			inst.setId(this.getId());
+			if(all) {
+				inst.setEmployees(this.getEmployees());
+			}
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }
