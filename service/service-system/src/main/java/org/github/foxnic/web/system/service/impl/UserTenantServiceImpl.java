@@ -238,7 +238,7 @@ public class UserTenantServiceImpl extends SuperService<UserTenant> implements I
 	 * @return 查询结果
 	 * */
 	@Override
-	public PagedList<UserTenant> queryPagedList(UserTenant sample, int pageSize, int pageIndex) {
+	public PagedList<UserTenant> queryPagedList(UserTenantVO sample, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, pageSize, pageIndex);
 	}
 
@@ -276,10 +276,7 @@ public class UserTenantServiceImpl extends SuperService<UserTenant> implements I
 		return null;
 	}
 
-	@Override
-	public PagedList<UserTenant> queryPagedList(UserTenantVO sample, int pageSize, int pageIndex) {
-		return null;
-	}
+
 
 	private void deactiveOthers(UserTenant userTenant) {
 		userTenant=this.getById(userTenant.getId());
