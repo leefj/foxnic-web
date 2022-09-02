@@ -7,13 +7,15 @@ import java.util.Arrays;
 import com.github.foxnic.api.model.CompositeParameter;
 import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
+import com.github.foxnic.dao.entity.EntityContext;
+import com.github.foxnic.dao.entity.Entity;
 
 
 
 /**
  * 系统资源
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-25 11:10:27
+ * @since 2022-09-02 15:48:40
  * @sign B0AD13E1F63579B5BA4FF956A9190A4C
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -270,5 +272,110 @@ public class ResourzeVO extends Resourze {
 		if($compositeParameter!=null) return  $compositeParameter;
 		$compositeParameter=new CompositeParameter(this.getSearchValue(),BeanUtil.toMap(this));
 		return  $compositeParameter;
+	}
+
+	/**
+	 * 将自己转换成指定类型的PO
+	 * @param poType  PO类型
+	 * @return ResourzeVO , 转换好的 ResourzeVO 对象
+	*/
+	@Transient
+	public <T extends Entity> T toPO(Class<T> poType) {
+		return EntityContext.create(poType, this);
+	}
+
+	/**
+	 * 将自己转换成任意指定类型
+	 * @param pojoType  Pojo类型
+	 * @return ResourzeVO , 转换好的 PoJo 对象
+	*/
+	@Transient
+	public <T> T toPojo(Class<T> pojoType) {
+		if(Entity.class.isAssignableFrom(pojoType)) {
+			return (T)this.toPO((Class<Entity>)pojoType);
+		}
+		try {
+			T pojo=pojoType.newInstance();
+			EntityContext.copyProperties(pojo, this);
+			return pojo;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public ResourzeVO clone() {
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public ResourzeVO duplicate(boolean all) {
+		org.github.foxnic.web.domain.oauth.meta.ResourzeVOMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.oauth.meta.ResourzeVOMeta.$$proxy$$();
+		inst.setMethod(this.getMethod());
+		inst.setModule(this.getModule());
+		inst.setUpdateTime(this.getUpdateTime());
+		inst.setType(this.getType());
+		inst.setBatchId(this.getBatchId());
+		inst.setVersion(this.getVersion());
+		inst.setUrl(this.getUrl());
+		inst.setTableName(this.getTableName());
+		inst.setAccessType(this.getAccessType());
+		inst.setCreateBy(this.getCreateBy());
+		inst.setDeleted(this.getDeleted());
+		inst.setCreateTime(this.getCreateTime());
+		inst.setUpdateBy(this.getUpdateBy());
+		inst.setDeleteTime(this.getDeleteTime());
+		inst.setName(this.getName());
+		inst.setDeleteBy(this.getDeleteBy());
+		inst.setId(this.getId());
+		if(all) {
+			inst.setSearchField(this.getSearchField());
+			inst.setPageIndex(this.getPageIndex());
+			inst.setSortType(this.getSortType());
+			inst.setFuzzyField(this.getFuzzyField());
+			inst.setDirtyFields(this.getDirtyFields());
+			inst.setSortField(this.getSortField());
+			inst.setPageSize(this.getPageSize());
+			inst.setIds(this.getIds());
+			inst.setSearchValue(this.getSearchValue());
+		}
+		inst.clearModifies();
+		return inst;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public ResourzeVO clone(boolean deep) {
+		return EntityContext.clone(ResourzeVO.class,this,deep);
+	}
+
+	/**
+	 * 将 Pojo 转换成 ResourzeVO
+	 * @param pojo 包含实体信息的 Pojo 对象
+	 * @return ResourzeVO , 转换好的的 Resourze 对象
+	*/
+	@Transient
+	public static ResourzeVO createFrom(Object pojo) {
+		if(pojo==null) return null;
+		ResourzeVO po = EntityContext.create(ResourzeVO.class,pojo);
+		return po;
+	}
+
+	/**
+	 * 创建一个 ResourzeVO，等同于 new
+	 * @return ResourzeVO 对象
+	*/
+	@Transient
+	public static ResourzeVO create() {
+		return EntityContext.create(ResourzeVO.class);
 	}
 }

@@ -40,14 +40,14 @@ public class RoleMenuServiceImpl extends SuperService<RoleMenu> implements IRole
 	/**
 	 * 注入DAO对象
 	 * */
-	@Resource(name=DBConfigs.PRIMARY_DAO) 
+	@Resource(name=DBConfigs.PRIMARY_DAO)
 	private DAO dao=null;
-	
+
 	/**
 	 * 获得 DAO 对象
 	 * */
 	public DAO dao() { return dao; }
-	
+
 	/**
 	 * 插入实体
 	 * @param roleMenu 实体数据
@@ -57,7 +57,7 @@ public class RoleMenuServiceImpl extends SuperService<RoleMenu> implements IRole
 	public Result insert(RoleMenu roleMenu) {
 		return super.insert(roleMenu);
 	}
-	
+
 	/**
 	 * 批量插入实体，事务内
 	 * @param roleMenuList 实体数据清单
@@ -67,8 +67,8 @@ public class RoleMenuServiceImpl extends SuperService<RoleMenu> implements IRole
 	public Result insertList(List<RoleMenu> roleMenuList) {
 		return super.insertList(roleMenuList);
 	}
-	
-	
+
+
 	/**
 	 * 按主键删除 角色账户关系
 	 *
@@ -81,7 +81,7 @@ public class RoleMenuServiceImpl extends SuperService<RoleMenu> implements IRole
 		roleMenu.setId(id);
 		return dao.deleteEntity(roleMenu);
 	}
-	
+
 	/**
 	 * 按主键删除 角色账户关系
 	 *
@@ -92,12 +92,12 @@ public class RoleMenuServiceImpl extends SuperService<RoleMenu> implements IRole
 		RoleMenu roleMenu = new RoleMenu();
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null 。");
 		roleMenu.setId(id);
-		roleMenu.setDeleted(dao.getDBTreaty().getTrueValue());
+		roleMenu.setDeleted(true);
 		roleMenu.setDeleteBy((String)dao.getDBTreaty().getLoginUserId());
 		roleMenu.setDeleteTime(new Date());
 		return dao.updateEntity(roleMenu,SaveMode.NOT_NULL_FIELDS);
 	}
-	
+
 	/**
 	 * 更新实体
 	 * @param roleMenu 数据对象
@@ -108,7 +108,7 @@ public class RoleMenuServiceImpl extends SuperService<RoleMenu> implements IRole
 	public Result update(RoleMenu roleMenu , SaveMode mode) {
 		return super.update(roleMenu , mode);
 	}
-	
+
 	/**
 	 * 更新实体集，事务内
 	 * @param roleMenuList 数据对象列表
@@ -119,8 +119,8 @@ public class RoleMenuServiceImpl extends SuperService<RoleMenu> implements IRole
 	public Result updateList(List<RoleMenu> roleMenuList , SaveMode mode) {
 		return super.updateList(roleMenuList , mode);
 	}
-	
-	
+
+
 	/**
 	 * 按主键更新字段 角色账户关系
 	 *
@@ -132,9 +132,9 @@ public class RoleMenuServiceImpl extends SuperService<RoleMenu> implements IRole
 		if(!field.table().name().equals(this.table())) throw new IllegalArgumentException("更新的数据表["+field.table().name()+"]与服务对应的数据表["+this.table()+"]不一致");
 		int suc=dao.update(field.table().name()).set(field.name(), value).where().and("id = ? ",id).top().execute();
 		return suc>0;
-	} 
-	
-	
+	}
+
+
 	/**
 	 * 按主键获取 角色账户关系
 	 *
@@ -147,10 +147,10 @@ public class RoleMenuServiceImpl extends SuperService<RoleMenu> implements IRole
 		sample.setId(id);
 		return dao.queryEntity(sample);
 	}
- 
+
 	/**
 	 * 查询实体集合，默认情况下，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @return 查询结果
 	 * */
@@ -158,11 +158,11 @@ public class RoleMenuServiceImpl extends SuperService<RoleMenu> implements IRole
 	public List<RoleMenu> queryList(RoleMenu sample) {
 		return super.queryList(sample);
 	}
-	
-	
+
+
 	/**
 	 * 分页查询实体集，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @param pageSize 分页条数
 	 * @param pageIndex 页码
@@ -172,10 +172,10 @@ public class RoleMenuServiceImpl extends SuperService<RoleMenu> implements IRole
 	public PagedList<RoleMenu> queryPagedList(RoleMenu sample, int pageSize, int pageIndex) {
 		return super.queryPagedList(sample, pageSize, pageIndex);
 	}
-	
+
 	/**
 	 * 分页查询实体集，字符串使用模糊匹配，非字符串使用精确匹配
-	 * 
+	 *
 	 * @param sample  查询条件
 	 * @param condition 其它条件
 	 * @param pageSize 分页条数

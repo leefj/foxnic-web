@@ -38,6 +38,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -338,7 +339,7 @@ public class UserController extends SuperController {
 
 		Result<PagedList<User>> result=new Result<>();
 
-		PerformanceLogger pl=new PerformanceLogger(false);
+		PerformanceLogger pl=new PerformanceLogger(true);
 		pl.collect("A");
 
 		PagedList<User> list=userService.queryPagedList(sample,sample.getPageSize(),sample.getPageIndex());
@@ -362,6 +363,19 @@ public class UserController extends SuperController {
 				.with(UserMeta.JOINED_TENANTS,UserTenantMeta.EMPLOYEE, EmployeeMeta.PERSON)
 				.fields(roleFields,employeeFields,personFields,tenantFields,userTenantFields)
 				.execute();
+
+		pl.collect("Start Clone");
+		int z=0;
+		List<User> users=new ArrayList<>();
+		for (User user : list) {
+			for (int i = 0; i < 1000; i++) {
+//				User user1=new User();
+				User u=user.duplicate(false);
+				users.add(u);
+				z++;
+			}
+		}
+		pl.collect("End Clone 克隆 "+z+" 次");
 
 		// 暂时如此修复一下
 		for (User user : list) {

@@ -6,12 +6,13 @@ import java.util.List;
 import org.github.foxnic.web.domain.oauth.Menu;
 import java.util.Date;
 import org.github.foxnic.web.domain.oauth.Resourze;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-22 09:52:07
+ * @since 2022-09-02 15:51:06
  * @sign CE145BF1CA43AFFDB6E417F50CFABB46
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -849,5 +850,66 @@ public class MenuVOMeta extends MenuMeta {
 			super.setAncestorsNamePath(ancestorsNamePath);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public MenuVO clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public MenuVO duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setCss(this.getCss());
+			inst.setHidden(this.getHidden());
+			inst.setHierarchy(this.getHierarchy());
+			inst.setUpdateTime(this.getUpdateTime());
+			inst.setLabel(this.getLabel());
+			inst.setSort(this.getSort());
+			inst.setBatchId(this.getBatchId());
+			inst.setType(this.getType());
+			inst.setParams(this.getParams());
+			inst.setVersion(this.getVersion());
+			inst.setUrl(this.getUrl());
+			inst.setParentId(this.getParentId());
+			inst.setCreateBy(this.getCreateBy());
+			inst.setDeleted(this.getDeleted());
+			inst.setCreateTime(this.getCreateTime());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setDeleteTime(this.getDeleteTime());
+			inst.setAuthority(this.getAuthority());
+			inst.setDynamicHandler(this.getDynamicHandler());
+			inst.setDeleteBy(this.getDeleteBy());
+			inst.setId(this.getId());
+			inst.setPathResourceId(this.getPathResourceId());
+			if(all) {
+				inst.setParent(this.getParent());
+				inst.setSearchField(this.getSearchField());
+				inst.setRoleId(this.getRoleId());
+				inst.setFuzzyField(this.getFuzzyField());
+				inst.setPageSize(this.getPageSize());
+				inst.setPathResource(this.getPathResource());
+				inst.setResources(this.getResources());
+				inst.setIsLoadAllDescendants(this.getIsLoadAllDescendants());
+				inst.setPath(this.getPath());
+				inst.setPageIndex(this.getPageIndex());
+				inst.setSortType(this.getSortType());
+				inst.setDirtyFields(this.getDirtyFields());
+				inst.setSortField(this.getSortField());
+				inst.setIds(this.getIds());
+				inst.setAncestorsNamePath(this.getAncestorsNamePath());
+				inst.setSearchValue(this.getSearchValue());
+				inst.setResourceIds(this.getResourceIds());
+			}
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

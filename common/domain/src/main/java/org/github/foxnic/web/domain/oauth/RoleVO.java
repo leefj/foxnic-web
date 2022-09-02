@@ -7,13 +7,15 @@ import java.util.Arrays;
 import com.github.foxnic.api.model.CompositeParameter;
 import javax.persistence.Transient;
 import com.github.foxnic.commons.bean.BeanUtil;
+import com.github.foxnic.dao.entity.EntityContext;
+import com.github.foxnic.dao.entity.Entity;
 
 
 
 /**
  * 角色
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-25 11:05:47
+ * @since 2022-09-02 15:51:05
  * @sign 422CFFA3A51594222B6BA238086D9325
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -270,5 +272,106 @@ public class RoleVO extends Role {
 		if($compositeParameter!=null) return  $compositeParameter;
 		$compositeParameter=new CompositeParameter(this.getSearchValue(),BeanUtil.toMap(this));
 		return  $compositeParameter;
+	}
+
+	/**
+	 * 将自己转换成指定类型的PO
+	 * @param poType  PO类型
+	 * @return RoleVO , 转换好的 RoleVO 对象
+	*/
+	@Transient
+	public <T extends Entity> T toPO(Class<T> poType) {
+		return EntityContext.create(poType, this);
+	}
+
+	/**
+	 * 将自己转换成任意指定类型
+	 * @param pojoType  Pojo类型
+	 * @return RoleVO , 转换好的 PoJo 对象
+	*/
+	@Transient
+	public <T> T toPojo(Class<T> pojoType) {
+		if(Entity.class.isAssignableFrom(pojoType)) {
+			return (T)this.toPO((Class<Entity>)pojoType);
+		}
+		try {
+			T pojo=pojoType.newInstance();
+			EntityContext.copyProperties(pojo, this);
+			return pojo;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public RoleVO clone() {
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public RoleVO duplicate(boolean all) {
+		org.github.foxnic.web.domain.oauth.meta.RoleVOMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.oauth.meta.RoleVOMeta.$$proxy$$();
+		inst.setCreateBy(this.getCreateBy());
+		inst.setCode(this.getCode());
+		inst.setDeleted(this.getDeleted());
+		inst.setCreateTime(this.getCreateTime());
+		inst.setUpdateBy(this.getUpdateBy());
+		inst.setDeleteTime(this.getDeleteTime());
+		inst.setName(this.getName());
+		inst.setDeleteBy(this.getDeleteBy());
+		inst.setUpdateTime(this.getUpdateTime());
+		inst.setId(this.getId());
+		inst.setVersion(this.getVersion());
+		if(all) {
+			inst.setSearchField(this.getSearchField());
+			inst.setPageIndex(this.getPageIndex());
+			inst.setSortType(this.getSortType());
+			inst.setFuzzyField(this.getFuzzyField());
+			inst.setDirtyFields(this.getDirtyFields());
+			inst.setSortField(this.getSortField());
+			inst.setPageSize(this.getPageSize());
+			inst.setIds(this.getIds());
+			inst.setMenus(this.getMenus());
+			inst.setMenuIds(this.getMenuIds());
+			inst.setSearchValue(this.getSearchValue());
+		}
+		inst.clearModifies();
+		return inst;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public RoleVO clone(boolean deep) {
+		return EntityContext.clone(RoleVO.class,this,deep);
+	}
+
+	/**
+	 * 将 Pojo 转换成 RoleVO
+	 * @param pojo 包含实体信息的 Pojo 对象
+	 * @return RoleVO , 转换好的的 Role 对象
+	*/
+	@Transient
+	public static RoleVO createFrom(Object pojo) {
+		if(pojo==null) return null;
+		RoleVO po = EntityContext.create(RoleVO.class,pojo);
+		return po;
+	}
+
+	/**
+	 * 创建一个 RoleVO，等同于 new
+	 * @return RoleVO 对象
+	*/
+	@Transient
+	public static RoleVO create() {
+		return EntityContext.create(RoleVO.class);
 	}
 }

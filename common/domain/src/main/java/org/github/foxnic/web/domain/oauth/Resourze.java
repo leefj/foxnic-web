@@ -22,7 +22,7 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 系统资源
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-25 11:10:27
+ * @since 2022-09-02 15:48:40
  * @sign E4CF522624992BAEA759A534EC0F107D
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -631,7 +631,35 @@ public class Resourze extends Entity {
 	*/
 	@Transient
 	public Resourze clone() {
-		return EntityContext.clone(Resourze.class,this);
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public Resourze duplicate(boolean all) {
+		org.github.foxnic.web.domain.oauth.meta.ResourzeMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.oauth.meta.ResourzeMeta.$$proxy$$();
+		inst.setMethod(this.getMethod());
+		inst.setModule(this.getModule());
+		inst.setUpdateTime(this.getUpdateTime());
+		inst.setType(this.getType());
+		inst.setBatchId(this.getBatchId());
+		inst.setVersion(this.getVersion());
+		inst.setUrl(this.getUrl());
+		inst.setTableName(this.getTableName());
+		inst.setAccessType(this.getAccessType());
+		inst.setCreateBy(this.getCreateBy());
+		inst.setDeleted(this.getDeleted());
+		inst.setCreateTime(this.getCreateTime());
+		inst.setUpdateBy(this.getUpdateBy());
+		inst.setDeleteTime(this.getDeleteTime());
+		inst.setName(this.getName());
+		inst.setDeleteBy(this.getDeleteBy());
+		inst.setId(this.getId());
+		inst.clearModifies();
+		return inst;
 	}
 
 	/**

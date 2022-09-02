@@ -20,7 +20,7 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 角色
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-25 11:05:47
+ * @since 2022-09-02 15:51:05
  * @sign 36B23A7F642A6BB9483AEC2EB417A762
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -445,7 +445,33 @@ public class Role extends Entity {
 	*/
 	@Transient
 	public Role clone() {
-		return EntityContext.clone(Role.class,this);
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public Role duplicate(boolean all) {
+		org.github.foxnic.web.domain.oauth.meta.RoleMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.oauth.meta.RoleMeta.$$proxy$$();
+		inst.setCreateBy(this.getCreateBy());
+		inst.setCode(this.getCode());
+		inst.setDeleted(this.getDeleted());
+		inst.setCreateTime(this.getCreateTime());
+		inst.setUpdateBy(this.getUpdateBy());
+		inst.setDeleteTime(this.getDeleteTime());
+		inst.setName(this.getName());
+		inst.setDeleteBy(this.getDeleteBy());
+		inst.setUpdateTime(this.getUpdateTime());
+		inst.setId(this.getId());
+		inst.setVersion(this.getVersion());
+		if(all) {
+			inst.setMenus(this.getMenus());
+			inst.setMenuIds(this.getMenuIds());
+		}
+		inst.clearModifies();
+		return inst;
 	}
 
 	/**

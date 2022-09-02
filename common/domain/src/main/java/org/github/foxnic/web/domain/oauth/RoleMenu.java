@@ -8,16 +8,17 @@ import javax.persistence.Id;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 import javax.persistence.Transient;
+import com.github.foxnic.commons.lang.DataParser;
 import java.util.Map;
 import com.github.foxnic.dao.entity.EntityContext;
 
 
 
 /**
- * null
+ * 角色账户关系
  * @author 李方捷 , leefangjie@qq.com
- * @since 2021-08-11 13:56:01
- * @sign AFEEA517CCE106178EED9A0E486A783C
+ * @since 2022-09-02 15:51:08
+ * @sign 593389CE94857B0DF46D9A0209D57C3A
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
 
@@ -38,13 +39,13 @@ public class RoleMenu extends Entity {
 	/**
 	 * 角色ID：角色ID
 	*/
-	@ApiModelProperty(required = true,value="角色ID" , notes = "角色ID")
+	@ApiModelProperty(required = false,value="角色ID" , notes = "角色ID")
 	private String roleId;
 	
 	/**
 	 * 菜单ID：菜单ID
 	*/
-	@ApiModelProperty(required = true,value="菜单ID" , notes = "菜单ID")
+	@ApiModelProperty(required = false,value="菜单ID" , notes = "菜单ID")
 	private String menuId;
 	
 	/**
@@ -76,6 +77,8 @@ public class RoleMenu extends Entity {
 	*/
 	@ApiModelProperty(required = true,value="是否已删除" , notes = "是否已删除")
 	private Integer deleted;
+	@Transient
+	private Boolean deletedBool;
 	
 	/**
 	 * 删除人ID：删除人ID
@@ -238,12 +241,42 @@ public class RoleMenu extends Entity {
 	}
 	
 	/**
+	 * 获得 是否已删除 的投影属性<br>
+	 * 等价于 getDeleted 方法，获得对应的枚举类型
+	 * @return 是否已删除
+	*/
+	@Transient
+	public Boolean isDeleted() {
+		if(this.deletedBool==null) {
+			this.deletedBool=DataParser.parseBoolean(deleted);
+		}
+		return this.deletedBool ;
+	}
+	
+	/**
 	 * 设置 是否已删除
 	 * @param deleted 是否已删除
 	 * @return 当前对象
 	*/
 	public RoleMenu setDeleted(Integer deleted) {
 		this.deleted=deleted;
+		this.deletedBool=DataParser.parseBoolean(deleted);
+		return this;
+	}
+	
+	/**
+	 * 设置 是否已删除的投影属性，等同于设置 是否已删除
+	 * @param deletedBool 是否已删除
+	 * @return 当前对象
+	*/
+	@Transient
+	public RoleMenu setDeleted(Boolean deletedBool) {
+		if(deletedBool==null) {
+			this.deleted=null;
+		} else {
+			this.deleted=deletedBool?1:0;
+		}
+		this.deletedBool=deletedBool;
 		return this;
 	}
 	
@@ -331,6 +364,44 @@ public class RoleMenu extends Entity {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public RoleMenu clone() {
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public RoleMenu duplicate(boolean all) {
+		org.github.foxnic.web.domain.oauth.meta.RoleMenuMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.oauth.meta.RoleMenuMeta.$$proxy$$();
+		inst.setCreateBy(this.getCreateBy());
+		inst.setDeleted(this.getDeleted());
+		inst.setCreateTime(this.getCreateTime());
+		inst.setUpdateBy(this.getUpdateBy());
+		inst.setDeleteTime(this.getDeleteTime());
+		inst.setRoleId(this.getRoleId());
+		inst.setMenuId(this.getMenuId());
+		inst.setDeleteBy(this.getDeleteBy());
+		inst.setUpdateTime(this.getUpdateTime());
+		inst.setId(this.getId());
+		inst.setVersion(this.getVersion());
+		inst.clearModifies();
+		return inst;
+	}
+
+	/**
+	 * 克隆当前对象
+	*/
+	@Transient
+	public RoleMenu clone(boolean deep) {
+		return EntityContext.clone(RoleMenu.class,this,deep);
 	}
 
 	/**

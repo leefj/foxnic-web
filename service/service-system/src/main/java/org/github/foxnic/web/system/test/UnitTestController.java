@@ -8,16 +8,22 @@ import com.github.foxnic.commons.busi.id.IDGenerator;
 import com.github.foxnic.commons.collection.MapUtil;
 import com.github.foxnic.commons.io.FileUtil;
 import com.github.foxnic.commons.lang.StringUtil;
+import com.github.foxnic.dao.entity.EntityContext;
 import com.github.foxnic.dao.spec.DAO;
 import com.github.foxnic.dao.spec.DBSequence;
 import com.github.foxnic.springboot.mvc.ParameterFilter;
+import com.github.foxnic.springboot.mvc.Validator;
 import com.github.foxnic.springboot.spring.SpringUtil;
 import io.undertow.servlet.core.ManagedFilters;
+import org.github.foxnic.web.domain.oauth.LoginIdentityVO;
+import org.github.foxnic.web.domain.oauth.User;
+import org.github.foxnic.web.domain.oauth.UserVO;
 import org.github.foxnic.web.domain.system.DictItem;
 import org.github.foxnic.web.domain.system.DictItemVO;
 import org.github.foxnic.web.framework.dao.DBConfigs;
 import org.github.foxnic.web.framework.licence.LicenceProxy;
 import org.github.foxnic.web.proxy.camunda.CamundaUserServiceProxy;
+import org.github.foxnic.web.proxy.oauth.UserServiceProxy;
 import org.github.foxnic.web.proxy.utils.DictProxyUtil;
 import org.github.foxnic.web.session.SessionUser;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -152,6 +158,25 @@ public class UnitTestController {
         dao.execute("insert xxxx");
 
         return ErrorDesc.success();
+
+    }
+
+
+    @PostMapping("/service-system/unit-test/bean")
+    public Result beanTest(UserVO userParam, LoginIdentityVO loginIdentityParam) {
+
+        Validator validator=new Validator();
+
+        validator.asserts(EntityContext.isManaged(userParam)).requireEqual("userParam 需要被 Manage",true);
+        validator.asserts(EntityContext.isManaged(loginIdentityParam)).requireEqual("userParam 不需要被 Manage",false);
+
+        User user= UserServiceProxy.api().getByAccount("admin").data();
+        validator.asserts(EntityContext.isManaged(user)).requireEqual("user 需要被 Manage",true);
+
+        UserVO userVO=user.toPojo(UserVO.class);
+        validator.asserts(EntityContext.isManaged(userVO)).requireEqual("userVO 需要被 Manage",true);
+
+        return validator.getMergedResult();
 
     }
 

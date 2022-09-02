@@ -21,7 +21,7 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 账户
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-22 09:50:48
+ * @since 2022-09-02 15:10:19
  * @sign B875799D0E408516EA4096962DCFDF9E
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -769,7 +769,45 @@ public class User extends Entity {
 	*/
 	@Transient
 	public User clone() {
-		return EntityContext.clone(User.class,this);
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public User duplicate(boolean all) {
+		org.github.foxnic.web.domain.oauth.meta.UserMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.oauth.meta.UserMeta.$$proxy$$();
+		inst.setPortraitId(this.getPortraitId());
+		inst.setLanguage(this.getLanguage());
+		inst.setUpdateTime(this.getUpdateTime());
+		inst.setVersion(this.getVersion());
+		inst.setValid(this.getValid());
+		inst.setRealName(this.getRealName());
+		inst.setLastLoginTime(this.getLastLoginTime());
+		inst.setCreateBy(this.getCreateBy());
+		inst.setDeleted(this.getDeleted());
+		inst.setCacheKey(this.getCacheKey());
+		inst.setPasswd(this.getPasswd());
+		inst.setPhone(this.getPhone());
+		inst.setCreateTime(this.getCreateTime());
+		inst.setUpdateBy(this.getUpdateBy());
+		inst.setDeleteTime(this.getDeleteTime());
+		inst.setDeleteBy(this.getDeleteBy());
+		inst.setId(this.getId());
+		inst.setAccount(this.getAccount());
+		if(all) {
+			inst.setRoles(this.getRoles());
+			inst.setJoinedTenants(this.getJoinedTenants());
+			inst.setActivatedEmployeeId(this.getActivatedEmployeeId());
+			inst.setMenus(this.getMenus());
+			inst.setRoleMenus(this.getRoleMenus());
+			inst.setActivatedTenant(this.getActivatedTenant());
+			inst.setActivatedEmployeeName(this.getActivatedEmployeeName());
+		}
+		inst.clearModifies();
+		return inst;
 	}
 
 	/**

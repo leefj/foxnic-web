@@ -9,12 +9,13 @@ import org.github.foxnic.web.domain.oauth.Role;
 import org.github.foxnic.web.domain.oauth.Menu;
 import org.github.foxnic.web.domain.oauth.RoleMenu;
 import org.github.foxnic.web.domain.system.UserTenant;
+import javax.persistence.Transient;
 
 
 
 /**
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-22 09:50:48
+ * @since 2022-09-02 15:10:19
  * @sign BC26DD37961AE5867192245D8EFEA04C
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -768,5 +769,62 @@ public class UserVOMeta extends UserMeta {
 			super.setActivatedEmployeeName(activatedEmployeeName);
 			return this;
 		}
+
+		/**
+		 * 克隆当前对象
+		*/
+		@Transient
+		public UserVO clone() {
+			return duplicate(true);
+		}
+
+		/**
+		 * 复制当前对象
+		 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+		*/
+		@Transient
+		public UserVO duplicate(boolean all) {
+			$$proxy$$ inst=new $$proxy$$();
+			inst.setPortraitId(this.getPortraitId());
+			inst.setLanguage(this.getLanguage());
+			inst.setUpdateTime(this.getUpdateTime());
+			inst.setVersion(this.getVersion());
+			inst.setValid(this.getValid());
+			inst.setRealName(this.getRealName());
+			inst.setLastLoginTime(this.getLastLoginTime());
+			inst.setCreateBy(this.getCreateBy());
+			inst.setDeleted(this.getDeleted());
+			inst.setCacheKey(this.getCacheKey());
+			inst.setPasswd(this.getPasswd());
+			inst.setPhone(this.getPhone());
+			inst.setCreateTime(this.getCreateTime());
+			inst.setUpdateBy(this.getUpdateBy());
+			inst.setDeleteTime(this.getDeleteTime());
+			inst.setDeleteBy(this.getDeleteBy());
+			inst.setId(this.getId());
+			inst.setAccount(this.getAccount());
+			if(all) {
+				inst.setSearchField(this.getSearchField());
+				inst.setFuzzyField(this.getFuzzyField());
+				inst.setRoles(this.getRoles());
+				inst.setPageSize(this.getPageSize());
+				inst.setActivatedEmployeeId(this.getActivatedEmployeeId());
+				inst.setActivatedEmployeeName(this.getActivatedEmployeeName());
+				inst.setRoleIds(this.getRoleIds());
+				inst.setPageIndex(this.getPageIndex());
+				inst.setSortType(this.getSortType());
+				inst.setDirtyFields(this.getDirtyFields());
+				inst.setSortField(this.getSortField());
+				inst.setIds(this.getIds());
+				inst.setJoinedTenants(this.getJoinedTenants());
+				inst.setMenus(this.getMenus());
+				inst.setSearchValue(this.getSearchValue());
+				inst.setRoleMenus(this.getRoleMenus());
+				inst.setActivatedTenant(this.getActivatedTenant());
+			}
+			inst.clearModifies();
+			return inst;
+		}
+
 	}
 }

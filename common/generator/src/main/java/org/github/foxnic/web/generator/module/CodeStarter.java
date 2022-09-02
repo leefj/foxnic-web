@@ -40,12 +40,12 @@ public class CodeStarter extends ModuleCodeGenerator {
 
 //        initPcmModules();
 //        initOAuthModules();
-//        initSystemModules();
+        initSystemModules();
 //        initHrmModules();
 //        initExampleModules();
 //        initStorageModules();
 //        initChangeModules();
-        initBpmModules();
+//        initBpmModules();
 //        initDatapermModules();
 //
 //        initExample2Modules();
@@ -137,7 +137,7 @@ public class CodeStarter extends ModuleCodeGenerator {
     }
 
     private void initOAuthModules() {
-//        this.addConfig(new SysUserConfig());
+        this.addConfig(new SysUserConfig());
         this.addConfig(new SysResourzeConfig());
 
 
@@ -159,19 +159,19 @@ public class CodeStarter extends ModuleCodeGenerator {
 
     private void initSystemModules() {
 
-//        this.addConfig(new BusiRoleConfig());
-//        this.addConfig(new BusiRoleMemberConfig());
+        this.addConfig(new BusiRoleConfig());
+        this.addConfig(new BusiRoleMemberConfig());
 
-//        this.addConfig(new SysDictConfig());
-//        this.addConfig(new SysConfigConfig());
-//        this.addConfig(new SysProfileConfig());
-//        this.addConfig(new TenantConfig());
+        this.addConfig(new SysDictConfig());
+        this.addConfig(new SysConfigConfig());
+        this.addConfig(new SysProfileConfig());
+        this.addConfig(new TenantConfig());
         this.addConfig(new SysDictItemConfig());
-//        this.addConfig(new SysFileConfig());
+        this.addConfig(new SysFileConfig());
         //
-//        this.addConfig(new SequenceConfig());
-//        this.addConfig(new UserTenantConfig());
-//        this.addConfig(new TenantConfig());
+        this.addConfig(new SequenceConfig());
+        this.addConfig(new UserTenantConfig());
+        this.addConfig(new TenantConfig());
 
 
     }

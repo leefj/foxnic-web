@@ -103,7 +103,7 @@ public class MenuResourceServiceImpl extends SuperService<MenuResource> implemen
 		MenuResource menuResource = new MenuResource();
 		if(id==null) throw new IllegalArgumentException("id 不允许为 null 。");
 		menuResource.setId(id);
-		menuResource.setDeleted(dao.getDBTreaty().getTrueValue());
+		menuResource.setDeleted(true);
 		menuResource.setDeleteBy((String)dao.getDBTreaty().getLoginUserId());
 		menuResource.setDeleteTime(new Date());
 		return dao.updateEntity(menuResource,SaveMode.NOT_NULL_FIELDS);

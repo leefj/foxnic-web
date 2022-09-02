@@ -20,7 +20,7 @@ import com.github.foxnic.dao.entity.EntityContext;
 /**
  * 菜单
  * @author 李方捷 , leefangjie@qq.com
- * @since 2022-08-22 09:52:06
+ * @since 2022-09-02 15:51:06
  * @sign 02BAA553C35E43DA7B5DEDBFBD921A85
  * 此文件由工具自动生成，请勿修改。若表结构或配置发生变动，请使用工具重新生成。
 */
@@ -816,7 +816,48 @@ public class Menu extends Entity {
 	*/
 	@Transient
 	public Menu clone() {
-		return EntityContext.clone(Menu.class,this);
+		return duplicate(true);
+	}
+
+	/**
+	 * 复制当前对象
+	 * @param all 是否复制全部属性，当 false 时，仅复制来自数据表的属性
+	*/
+	@Transient
+	public Menu duplicate(boolean all) {
+		org.github.foxnic.web.domain.oauth.meta.MenuMeta.$$proxy$$ inst = new org.github.foxnic.web.domain.oauth.meta.MenuMeta.$$proxy$$();
+		inst.setCss(this.getCss());
+		inst.setHidden(this.getHidden());
+		inst.setHierarchy(this.getHierarchy());
+		inst.setUpdateTime(this.getUpdateTime());
+		inst.setLabel(this.getLabel());
+		inst.setSort(this.getSort());
+		inst.setBatchId(this.getBatchId());
+		inst.setType(this.getType());
+		inst.setParams(this.getParams());
+		inst.setVersion(this.getVersion());
+		inst.setUrl(this.getUrl());
+		inst.setParentId(this.getParentId());
+		inst.setCreateBy(this.getCreateBy());
+		inst.setDeleted(this.getDeleted());
+		inst.setCreateTime(this.getCreateTime());
+		inst.setUpdateBy(this.getUpdateBy());
+		inst.setDeleteTime(this.getDeleteTime());
+		inst.setAuthority(this.getAuthority());
+		inst.setDynamicHandler(this.getDynamicHandler());
+		inst.setDeleteBy(this.getDeleteBy());
+		inst.setId(this.getId());
+		inst.setPathResourceId(this.getPathResourceId());
+		if(all) {
+			inst.setParent(this.getParent());
+			inst.setPath(this.getPath());
+			inst.setPathResource(this.getPathResource());
+			inst.setResources(this.getResources());
+			inst.setAncestorsNamePath(this.getAncestorsNamePath());
+			inst.setResourceIds(this.getResourceIds());
+		}
+		inst.clearModifies();
+		return inst;
 	}
 
 	/**
