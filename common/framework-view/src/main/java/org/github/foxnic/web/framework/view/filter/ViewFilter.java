@@ -22,7 +22,7 @@ public class ViewFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
         BrowserType browserType= BrowserType.parseByRequest(request);
-        if(browserType==BrowserType.UNKNOWN) {
+        if(browserType==BrowserType.IE) {
             response.setContentType("text/html;");
             response.getWriter().println(
                     "<div style='width:100%;display:flex;justify-content:center;margin-top:100px'>" +
