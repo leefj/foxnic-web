@@ -1,5 +1,6 @@
 package org.github.foxnic.web.domain.system;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.foxnic.dao.entity.Entity;
 import javax.persistence.Table;
 import com.github.foxnic.sql.meta.DBTable;
@@ -28,74 +29,74 @@ public class DbCache extends Entity {
 	private static final long serialVersionUID = 1L;
 
 	public static final DBTable TABLE =SYS_DB_CACHE.$TABLE;
-	
+
 	/**
 	 * ID：ID
 	*/
 	@Id
 	@ApiModelProperty(required = true,value="ID" , notes = "ID")
 	private String id;
-	
+
 	/**
 	 * 数据分类：数据分类
 	*/
 	@ApiModelProperty(required = false,value="数据分类" , notes = "数据分类")
 	private String catalog;
-	
+
 	/**
 	 * 数据分区：数据分区
 	*/
 	@ApiModelProperty(required = false,value="数据分区" , notes = "数据分区")
 	private String area;
-	
+
 	/**
 	 * 所有者类型：所有者类型
 	*/
 	@ApiModelProperty(required = false,value="所有者类型" , notes = "所有者类型")
 	private String ownerType;
-	
+
 	/**
 	 * 所有者ID：所有者ID
 	*/
 	@ApiModelProperty(required = false,value="所有者ID" , notes = "所有者ID")
 	private String ownerId;
-	
+
 	/**
 	 * 数据：数据
 	*/
 	@ApiModelProperty(required = false,value="数据" , notes = "数据")
 	private String value;
-	
+
 	/**
 	 * 过期时间：过期时间
 	*/
 	@ApiModelProperty(required = false,value="过期时间" , notes = "过期时间")
 	private Date expireTime;
-	
+
 	/**
 	 * 创建人ID：创建人ID
 	*/
 	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID")
 	private String createBy;
-	
+
 	/**
 	 * 创建时间：创建时间
 	*/
 	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间")
 	private Date createTime;
-	
+
 	/**
 	 * 修改人ID：修改人ID
 	*/
 	@ApiModelProperty(required = false,value="修改人ID" , notes = "修改人ID")
 	private String updateBy;
-	
+
 	/**
 	 * 修改时间：修改时间
 	*/
 	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间")
 	private Date updateTime;
-	
+
 	/**
 	 * 是否已删除：是否已删除
 	*/
@@ -103,25 +104,25 @@ public class DbCache extends Entity {
 	private Integer deleted;
 	@Transient
 	private Boolean deletedBool;
-	
+
 	/**
 	 * 删除人ID：删除人ID
 	*/
 	@ApiModelProperty(required = false,value="删除人ID" , notes = "删除人ID")
 	private String deleteBy;
-	
+
 	/**
 	 * 删除时间：删除时间
 	*/
 	@ApiModelProperty(required = false,value="删除时间" , notes = "删除时间")
 	private Date deleteTime;
-	
+
 	/**
 	 * 数据版本号：数据版本号
 	*/
 	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
 	private Integer version;
-	
+
 	/**
 	 * 获得 ID<br>
 	 * ID
@@ -130,7 +131,7 @@ public class DbCache extends Entity {
 	public String getId() {
 		return id;
 	}
-	
+
 	/**
 	 * 设置 ID
 	 * @param id ID
@@ -140,7 +141,7 @@ public class DbCache extends Entity {
 		this.id=id;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 数据分类<br>
 	 * 数据分类
@@ -149,7 +150,7 @@ public class DbCache extends Entity {
 	public String getCatalog() {
 		return catalog;
 	}
-	
+
 	/**
 	 * 设置 数据分类
 	 * @param catalog 数据分类
@@ -159,7 +160,7 @@ public class DbCache extends Entity {
 		this.catalog=catalog;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 数据分区<br>
 	 * 数据分区
@@ -168,7 +169,7 @@ public class DbCache extends Entity {
 	public String getArea() {
 		return area;
 	}
-	
+
 	/**
 	 * 设置 数据分区
 	 * @param area 数据分区
@@ -178,7 +179,7 @@ public class DbCache extends Entity {
 		this.area=area;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 所有者类型<br>
 	 * 所有者类型
@@ -187,7 +188,7 @@ public class DbCache extends Entity {
 	public String getOwnerType() {
 		return ownerType;
 	}
-	
+
 	/**
 	 * 设置 所有者类型
 	 * @param ownerType 所有者类型
@@ -197,7 +198,7 @@ public class DbCache extends Entity {
 		this.ownerType=ownerType;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 所有者ID<br>
 	 * 所有者ID
@@ -206,7 +207,7 @@ public class DbCache extends Entity {
 	public String getOwnerId() {
 		return ownerId;
 	}
-	
+
 	/**
 	 * 设置 所有者ID
 	 * @param ownerId 所有者ID
@@ -216,7 +217,7 @@ public class DbCache extends Entity {
 		this.ownerId=ownerId;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 数据<br>
 	 * 数据
@@ -225,7 +226,7 @@ public class DbCache extends Entity {
 	public String getValue() {
 		return value;
 	}
-	
+
 	/**
 	 * 设置 数据
 	 * @param value 数据
@@ -235,7 +236,7 @@ public class DbCache extends Entity {
 		this.value=value;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 过期时间<br>
 	 * 过期时间
@@ -244,7 +245,7 @@ public class DbCache extends Entity {
 	public Date getExpireTime() {
 		return expireTime;
 	}
-	
+
 	/**
 	 * 设置 过期时间
 	 * @param expireTime 过期时间
@@ -254,7 +255,7 @@ public class DbCache extends Entity {
 		this.expireTime=expireTime;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 创建人ID<br>
 	 * 创建人ID
@@ -263,7 +264,7 @@ public class DbCache extends Entity {
 	public String getCreateBy() {
 		return createBy;
 	}
-	
+
 	/**
 	 * 设置 创建人ID
 	 * @param createBy 创建人ID
@@ -273,7 +274,7 @@ public class DbCache extends Entity {
 		this.createBy=createBy;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 创建时间<br>
 	 * 创建时间
@@ -282,7 +283,7 @@ public class DbCache extends Entity {
 	public Date getCreateTime() {
 		return createTime;
 	}
-	
+
 	/**
 	 * 设置 创建时间
 	 * @param createTime 创建时间
@@ -292,7 +293,7 @@ public class DbCache extends Entity {
 		this.createTime=createTime;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 修改人ID<br>
 	 * 修改人ID
@@ -301,7 +302,7 @@ public class DbCache extends Entity {
 	public String getUpdateBy() {
 		return updateBy;
 	}
-	
+
 	/**
 	 * 设置 修改人ID
 	 * @param updateBy 修改人ID
@@ -311,7 +312,7 @@ public class DbCache extends Entity {
 		this.updateBy=updateBy;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 修改时间<br>
 	 * 修改时间
@@ -320,7 +321,7 @@ public class DbCache extends Entity {
 	public Date getUpdateTime() {
 		return updateTime;
 	}
-	
+
 	/**
 	 * 设置 修改时间
 	 * @param updateTime 修改时间
@@ -330,7 +331,7 @@ public class DbCache extends Entity {
 		this.updateTime=updateTime;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 是否已删除<br>
 	 * 是否已删除
@@ -339,7 +340,7 @@ public class DbCache extends Entity {
 	public Integer getDeleted() {
 		return deleted;
 	}
-	
+
 	/**
 	 * 获得 是否已删除 的投影属性<br>
 	 * 等价于 getDeleted 方法，获得对应的枚举类型
@@ -352,18 +353,19 @@ public class DbCache extends Entity {
 		}
 		return this.deletedBool ;
 	}
-	
+
 	/**
 	 * 设置 是否已删除
 	 * @param deleted 是否已删除
 	 * @return 当前对象
 	*/
+	@JsonProperty("deleted")
 	public DbCache setDeleted(Integer deleted) {
 		this.deleted=deleted;
 		this.deletedBool=DataParser.parseBoolean(deleted);
 		return this;
 	}
-	
+
 	/**
 	 * 设置 是否已删除的投影属性，等同于设置 是否已删除
 	 * @param deletedBool 是否已删除
@@ -379,7 +381,7 @@ public class DbCache extends Entity {
 		this.deletedBool=deletedBool;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 删除人ID<br>
 	 * 删除人ID
@@ -388,7 +390,7 @@ public class DbCache extends Entity {
 	public String getDeleteBy() {
 		return deleteBy;
 	}
-	
+
 	/**
 	 * 设置 删除人ID
 	 * @param deleteBy 删除人ID
@@ -398,7 +400,7 @@ public class DbCache extends Entity {
 		this.deleteBy=deleteBy;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 删除时间<br>
 	 * 删除时间
@@ -407,7 +409,7 @@ public class DbCache extends Entity {
 	public Date getDeleteTime() {
 		return deleteTime;
 	}
-	
+
 	/**
 	 * 设置 删除时间
 	 * @param deleteTime 删除时间
@@ -417,7 +419,7 @@ public class DbCache extends Entity {
 		this.deleteTime=deleteTime;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 数据版本号<br>
 	 * 数据版本号
@@ -426,7 +428,7 @@ public class DbCache extends Entity {
 	public Integer getVersion() {
 		return version;
 	}
-	
+
 	/**
 	 * 设置 数据版本号
 	 * @param version 数据版本号

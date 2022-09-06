@@ -1,5 +1,6 @@
 package org.github.foxnic.web.domain.system;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.foxnic.dao.entity.Entity;
 import javax.persistence.Table;
 import com.github.foxnic.sql.meta.DBTable;
@@ -29,74 +30,74 @@ public class UserTenant extends Entity {
 	private static final long serialVersionUID = 1L;
 
 	public static final DBTable TABLE =SYS_USER_TENANT.$TABLE;
-	
+
 	/**
 	 * 主键：主键
 	*/
 	@Id
 	@ApiModelProperty(required = true,value="主键" , notes = "主键")
 	private String id;
-	
+
 	/**
 	 * 用户ID：用户ID
 	*/
 	@ApiModelProperty(required = false,value="用户ID" , notes = "用户ID")
 	private String userId;
-	
+
 	/**
 	 * 所属的租户ID：所属的租户ID
 	*/
 	@ApiModelProperty(required = false,value="所属的租户ID" , notes = "所属的租户ID")
 	private String ownerTenantId;
-	
+
 	/**
 	 * 是否有效：是否有效
 	*/
 	@ApiModelProperty(required = false,value="是否有效" , notes = "是否有效")
 	private Integer valid;
-	
+
 	/**
 	 * 是否激活：激活时为当前默认租户
 	*/
 	@ApiModelProperty(required = false,value="是否激活" , notes = "激活时为当前默认租户")
 	private Integer activated;
-	
+
 	/**
 	 * 员工ID：账户在指定租户下的员工ID
 	*/
 	@ApiModelProperty(required = false,value="员工ID" , notes = "账户在指定租户下的员工ID")
 	private String employeeId;
-	
+
 	/**
 	 * 顺序：顺序
 	*/
 	@ApiModelProperty(required = false,value="顺序" , notes = "顺序")
 	private Integer sort;
-	
+
 	/**
 	 * 创建人ID：创建人ID
 	*/
 	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID")
 	private String createBy;
-	
+
 	/**
 	 * 创建时间：创建时间
 	*/
 	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间")
 	private Date createTime;
-	
+
 	/**
 	 * 修改人ID：修改人ID
 	*/
 	@ApiModelProperty(required = false,value="修改人ID" , notes = "修改人ID")
 	private String updateBy;
-	
+
 	/**
 	 * 修改时间：修改时间
 	*/
 	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间")
 	private Date updateTime;
-	
+
 	/**
 	 * 是否已删除：是否已删除
 	*/
@@ -104,37 +105,37 @@ public class UserTenant extends Entity {
 	private Integer deleted;
 	@Transient
 	private Boolean deletedBool;
-	
+
 	/**
 	 * 删除人ID：删除人ID
 	*/
 	@ApiModelProperty(required = false,value="删除人ID" , notes = "删除人ID")
 	private String deleteBy;
-	
+
 	/**
 	 * 删除时间：删除时间
 	*/
 	@ApiModelProperty(required = false,value="删除时间" , notes = "删除时间")
 	private Date deleteTime;
-	
+
 	/**
 	 * 数据版本号：数据版本号
 	*/
 	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
 	private Integer version;
-	
+
 	/**
 	 * 租户对象：租户对象
 	*/
 	@ApiModelProperty(required = false,value="租户对象" , notes = "租户对象")
 	private Tenant tenant;
-	
+
 	/**
 	 * 当前激活的租户对应的员工：当前激活的租户对应的员工
 	*/
 	@ApiModelProperty(required = false,value="当前激活的租户对应的员工" , notes = "当前激活的租户对应的员工")
 	private Employee employee;
-	
+
 	/**
 	 * 获得 主键<br>
 	 * 主键
@@ -143,7 +144,7 @@ public class UserTenant extends Entity {
 	public String getId() {
 		return id;
 	}
-	
+
 	/**
 	 * 设置 主键
 	 * @param id 主键
@@ -153,7 +154,7 @@ public class UserTenant extends Entity {
 		this.id=id;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 用户ID<br>
 	 * 用户ID
@@ -162,7 +163,7 @@ public class UserTenant extends Entity {
 	public String getUserId() {
 		return userId;
 	}
-	
+
 	/**
 	 * 设置 用户ID
 	 * @param userId 用户ID
@@ -172,7 +173,7 @@ public class UserTenant extends Entity {
 		this.userId=userId;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 所属的租户ID<br>
 	 * 所属的租户ID
@@ -181,7 +182,7 @@ public class UserTenant extends Entity {
 	public String getOwnerTenantId() {
 		return ownerTenantId;
 	}
-	
+
 	/**
 	 * 设置 所属的租户ID
 	 * @param ownerTenantId 所属的租户ID
@@ -191,7 +192,7 @@ public class UserTenant extends Entity {
 		this.ownerTenantId=ownerTenantId;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 是否有效<br>
 	 * 是否有效
@@ -200,7 +201,7 @@ public class UserTenant extends Entity {
 	public Integer getValid() {
 		return valid;
 	}
-	
+
 	/**
 	 * 设置 是否有效
 	 * @param valid 是否有效
@@ -210,7 +211,7 @@ public class UserTenant extends Entity {
 		this.valid=valid;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 是否激活<br>
 	 * 激活时为当前默认租户
@@ -219,7 +220,7 @@ public class UserTenant extends Entity {
 	public Integer getActivated() {
 		return activated;
 	}
-	
+
 	/**
 	 * 设置 是否激活
 	 * @param activated 是否激活
@@ -229,7 +230,7 @@ public class UserTenant extends Entity {
 		this.activated=activated;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 员工ID<br>
 	 * 账户在指定租户下的员工ID
@@ -238,7 +239,7 @@ public class UserTenant extends Entity {
 	public String getEmployeeId() {
 		return employeeId;
 	}
-	
+
 	/**
 	 * 设置 员工ID
 	 * @param employeeId 员工ID
@@ -248,7 +249,7 @@ public class UserTenant extends Entity {
 		this.employeeId=employeeId;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 顺序<br>
 	 * 顺序
@@ -257,7 +258,7 @@ public class UserTenant extends Entity {
 	public Integer getSort() {
 		return sort;
 	}
-	
+
 	/**
 	 * 设置 顺序
 	 * @param sort 顺序
@@ -267,7 +268,7 @@ public class UserTenant extends Entity {
 		this.sort=sort;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 创建人ID<br>
 	 * 创建人ID
@@ -276,7 +277,7 @@ public class UserTenant extends Entity {
 	public String getCreateBy() {
 		return createBy;
 	}
-	
+
 	/**
 	 * 设置 创建人ID
 	 * @param createBy 创建人ID
@@ -286,7 +287,7 @@ public class UserTenant extends Entity {
 		this.createBy=createBy;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 创建时间<br>
 	 * 创建时间
@@ -295,7 +296,7 @@ public class UserTenant extends Entity {
 	public Date getCreateTime() {
 		return createTime;
 	}
-	
+
 	/**
 	 * 设置 创建时间
 	 * @param createTime 创建时间
@@ -305,7 +306,7 @@ public class UserTenant extends Entity {
 		this.createTime=createTime;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 修改人ID<br>
 	 * 修改人ID
@@ -314,7 +315,7 @@ public class UserTenant extends Entity {
 	public String getUpdateBy() {
 		return updateBy;
 	}
-	
+
 	/**
 	 * 设置 修改人ID
 	 * @param updateBy 修改人ID
@@ -324,7 +325,7 @@ public class UserTenant extends Entity {
 		this.updateBy=updateBy;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 修改时间<br>
 	 * 修改时间
@@ -333,7 +334,7 @@ public class UserTenant extends Entity {
 	public Date getUpdateTime() {
 		return updateTime;
 	}
-	
+
 	/**
 	 * 设置 修改时间
 	 * @param updateTime 修改时间
@@ -343,7 +344,7 @@ public class UserTenant extends Entity {
 		this.updateTime=updateTime;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 是否已删除<br>
 	 * 是否已删除
@@ -352,7 +353,7 @@ public class UserTenant extends Entity {
 	public Integer getDeleted() {
 		return deleted;
 	}
-	
+
 	/**
 	 * 获得 是否已删除 的投影属性<br>
 	 * 等价于 getDeleted 方法，获得对应的枚举类型
@@ -365,18 +366,19 @@ public class UserTenant extends Entity {
 		}
 		return this.deletedBool ;
 	}
-	
+
 	/**
 	 * 设置 是否已删除
 	 * @param deleted 是否已删除
 	 * @return 当前对象
 	*/
+	@JsonProperty("deleted")
 	public UserTenant setDeleted(Integer deleted) {
 		this.deleted=deleted;
 		this.deletedBool=DataParser.parseBoolean(deleted);
 		return this;
 	}
-	
+
 	/**
 	 * 设置 是否已删除的投影属性，等同于设置 是否已删除
 	 * @param deletedBool 是否已删除
@@ -392,7 +394,7 @@ public class UserTenant extends Entity {
 		this.deletedBool=deletedBool;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 删除人ID<br>
 	 * 删除人ID
@@ -401,7 +403,7 @@ public class UserTenant extends Entity {
 	public String getDeleteBy() {
 		return deleteBy;
 	}
-	
+
 	/**
 	 * 设置 删除人ID
 	 * @param deleteBy 删除人ID
@@ -411,7 +413,7 @@ public class UserTenant extends Entity {
 		this.deleteBy=deleteBy;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 删除时间<br>
 	 * 删除时间
@@ -420,7 +422,7 @@ public class UserTenant extends Entity {
 	public Date getDeleteTime() {
 		return deleteTime;
 	}
-	
+
 	/**
 	 * 设置 删除时间
 	 * @param deleteTime 删除时间
@@ -430,7 +432,7 @@ public class UserTenant extends Entity {
 		this.deleteTime=deleteTime;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 数据版本号<br>
 	 * 数据版本号
@@ -439,7 +441,7 @@ public class UserTenant extends Entity {
 	public Integer getVersion() {
 		return version;
 	}
-	
+
 	/**
 	 * 设置 数据版本号
 	 * @param version 数据版本号
@@ -449,7 +451,7 @@ public class UserTenant extends Entity {
 		this.version=version;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 租户对象<br>
 	 * 租户对象
@@ -458,7 +460,7 @@ public class UserTenant extends Entity {
 	public Tenant getTenant() {
 		return tenant;
 	}
-	
+
 	/**
 	 * 设置 租户对象
 	 * @param tenant 租户对象
@@ -468,7 +470,7 @@ public class UserTenant extends Entity {
 		this.tenant=tenant;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 当前激活的租户对应的员工<br>
 	 * 当前激活的租户对应的员工
@@ -477,7 +479,7 @@ public class UserTenant extends Entity {
 	public Employee getEmployee() {
 		return employee;
 	}
-	
+
 	/**
 	 * 设置 当前激活的租户对应的员工
 	 * @param employee 当前激活的租户对应的员工

@@ -1,5 +1,6 @@
 package org.github.foxnic.web.domain.system;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.foxnic.dao.entity.Entity;
 import javax.persistence.Table;
 import com.github.foxnic.sql.meta.DBTable;
@@ -28,104 +29,104 @@ public class Node extends Entity {
 	private static final long serialVersionUID = 1L;
 
 	public static final DBTable TABLE =SYS_NODE.$TABLE;
-	
+
 	/**
 	 * 实例id：实例id
 	*/
 	@Id
 	@ApiModelProperty(required = true,value="实例id" , notes = "实例id")
 	private String id;
-	
+
 	/**
 	 * 主机ID：主机ID
 	*/
 	@ApiModelProperty(required = false,value="主机ID" , notes = "主机ID")
 	private String hostId;
-	
+
 	/**
 	 * 应用名称：应用名称
 	*/
 	@ApiModelProperty(required = false,value="应用名称" , notes = "应用名称")
 	private String applicationName;
-	
+
 	/**
 	 * 端口：端口
 	*/
 	@ApiModelProperty(required = false,value="端口" , notes = "端口")
 	private Integer port;
-	
+
 	/**
 	 * 进程号：进程号
 	*/
 	@ApiModelProperty(required = false,value="进程号" , notes = "进程号")
 	private String processId;
-	
+
 	/**
 	 * 启动时间：启动时间
 	*/
 	@ApiModelProperty(required = false,value="启动时间" , notes = "启动时间")
 	private Date startTime;
-	
+
 	/**
 	 * 是否启动：是否启动
 	*/
 	@ApiModelProperty(required = false,value="是否启动" , notes = "是否启动")
 	private Integer isUp;
-	
+
 	/**
 	 * 心跳时间：心跳时间
 	*/
 	@ApiModelProperty(required = false,value="心跳时间" , notes = "心跳时间")
 	private Date heartBeatTime;
-	
+
 	/**
 	 * 主机名称：主机名称
 	*/
 	@ApiModelProperty(required = false,value="主机名称" , notes = "主机名称")
 	private String hostName;
-	
+
 	/**
 	 * IP地址：IP地址
 	*/
 	@ApiModelProperty(required = false,value="IP地址" , notes = "IP地址")
 	private String ip;
-	
+
 	/**
 	 * 雪花DCId：雪花DCId
 	*/
 	@ApiModelProperty(required = false,value="雪花DCId" , notes = "雪花DCId")
 	private Integer datacenterId;
-	
+
 	/**
 	 * 雪花WKId：雪花WKId
 	*/
 	@ApiModelProperty(required = false,value="雪花WKId" , notes = "雪花WKId")
 	private Integer workerId;
-	
+
 	/**
 	 * 创建人ID：创建人ID
 	*/
 	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID")
 	private String createBy;
-	
+
 	/**
 	 * 创建时间：创建时间
 	*/
 	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间")
 	private Date createTime;
-	
+
 	/**
 	 * 修改人ID：修改人ID
 	*/
 	@ApiModelProperty(required = false,value="修改人ID" , notes = "修改人ID")
 	private String updateBy;
-	
+
 	/**
 	 * 修改时间：修改时间
 	*/
 	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间")
 	private Date updateTime;
-	
+
 	/**
 	 * 是否已删除：是否已删除
 	*/
@@ -133,25 +134,25 @@ public class Node extends Entity {
 	private Integer deleted;
 	@Transient
 	private Boolean deletedBool;
-	
+
 	/**
 	 * 删除人ID：删除人ID
 	*/
 	@ApiModelProperty(required = false,value="删除人ID" , notes = "删除人ID")
 	private String deleteBy;
-	
+
 	/**
 	 * 删除时间：删除时间
 	*/
 	@ApiModelProperty(required = false,value="删除时间" , notes = "删除时间")
 	private Date deleteTime;
-	
+
 	/**
 	 * 数据版本号：数据版本号
 	*/
 	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
 	private Integer version;
-	
+
 	/**
 	 * 获得 实例id<br>
 	 * 实例id
@@ -160,7 +161,7 @@ public class Node extends Entity {
 	public String getId() {
 		return id;
 	}
-	
+
 	/**
 	 * 设置 实例id
 	 * @param id 实例id
@@ -170,7 +171,7 @@ public class Node extends Entity {
 		this.id=id;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 主机ID<br>
 	 * 主机ID
@@ -179,7 +180,7 @@ public class Node extends Entity {
 	public String getHostId() {
 		return hostId;
 	}
-	
+
 	/**
 	 * 设置 主机ID
 	 * @param hostId 主机ID
@@ -189,7 +190,7 @@ public class Node extends Entity {
 		this.hostId=hostId;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 应用名称<br>
 	 * 应用名称
@@ -198,7 +199,7 @@ public class Node extends Entity {
 	public String getApplicationName() {
 		return applicationName;
 	}
-	
+
 	/**
 	 * 设置 应用名称
 	 * @param applicationName 应用名称
@@ -208,7 +209,7 @@ public class Node extends Entity {
 		this.applicationName=applicationName;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 端口<br>
 	 * 端口
@@ -217,7 +218,7 @@ public class Node extends Entity {
 	public Integer getPort() {
 		return port;
 	}
-	
+
 	/**
 	 * 设置 端口
 	 * @param port 端口
@@ -227,7 +228,7 @@ public class Node extends Entity {
 		this.port=port;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 进程号<br>
 	 * 进程号
@@ -236,7 +237,7 @@ public class Node extends Entity {
 	public String getProcessId() {
 		return processId;
 	}
-	
+
 	/**
 	 * 设置 进程号
 	 * @param processId 进程号
@@ -246,7 +247,7 @@ public class Node extends Entity {
 		this.processId=processId;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 启动时间<br>
 	 * 启动时间
@@ -255,7 +256,7 @@ public class Node extends Entity {
 	public Date getStartTime() {
 		return startTime;
 	}
-	
+
 	/**
 	 * 设置 启动时间
 	 * @param startTime 启动时间
@@ -265,7 +266,7 @@ public class Node extends Entity {
 		this.startTime=startTime;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 是否启动<br>
 	 * 是否启动
@@ -274,7 +275,7 @@ public class Node extends Entity {
 	public Integer getIsUp() {
 		return isUp;
 	}
-	
+
 	/**
 	 * 设置 是否启动
 	 * @param isUp 是否启动
@@ -284,7 +285,7 @@ public class Node extends Entity {
 		this.isUp=isUp;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 心跳时间<br>
 	 * 心跳时间
@@ -293,7 +294,7 @@ public class Node extends Entity {
 	public Date getHeartBeatTime() {
 		return heartBeatTime;
 	}
-	
+
 	/**
 	 * 设置 心跳时间
 	 * @param heartBeatTime 心跳时间
@@ -303,7 +304,7 @@ public class Node extends Entity {
 		this.heartBeatTime=heartBeatTime;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 主机名称<br>
 	 * 主机名称
@@ -312,7 +313,7 @@ public class Node extends Entity {
 	public String getHostName() {
 		return hostName;
 	}
-	
+
 	/**
 	 * 设置 主机名称
 	 * @param hostName 主机名称
@@ -322,7 +323,7 @@ public class Node extends Entity {
 		this.hostName=hostName;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 IP地址<br>
 	 * IP地址
@@ -331,7 +332,7 @@ public class Node extends Entity {
 	public String getIp() {
 		return ip;
 	}
-	
+
 	/**
 	 * 设置 IP地址
 	 * @param ip IP地址
@@ -341,7 +342,7 @@ public class Node extends Entity {
 		this.ip=ip;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 雪花DCId<br>
 	 * 雪花DCId
@@ -350,7 +351,7 @@ public class Node extends Entity {
 	public Integer getDatacenterId() {
 		return datacenterId;
 	}
-	
+
 	/**
 	 * 设置 雪花DCId
 	 * @param datacenterId 雪花DCId
@@ -360,7 +361,7 @@ public class Node extends Entity {
 		this.datacenterId=datacenterId;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 雪花WKId<br>
 	 * 雪花WKId
@@ -369,7 +370,7 @@ public class Node extends Entity {
 	public Integer getWorkerId() {
 		return workerId;
 	}
-	
+
 	/**
 	 * 设置 雪花WKId
 	 * @param workerId 雪花WKId
@@ -379,7 +380,7 @@ public class Node extends Entity {
 		this.workerId=workerId;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 创建人ID<br>
 	 * 创建人ID
@@ -388,7 +389,7 @@ public class Node extends Entity {
 	public String getCreateBy() {
 		return createBy;
 	}
-	
+
 	/**
 	 * 设置 创建人ID
 	 * @param createBy 创建人ID
@@ -398,7 +399,7 @@ public class Node extends Entity {
 		this.createBy=createBy;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 创建时间<br>
 	 * 创建时间
@@ -407,7 +408,7 @@ public class Node extends Entity {
 	public Date getCreateTime() {
 		return createTime;
 	}
-	
+
 	/**
 	 * 设置 创建时间
 	 * @param createTime 创建时间
@@ -417,7 +418,7 @@ public class Node extends Entity {
 		this.createTime=createTime;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 修改人ID<br>
 	 * 修改人ID
@@ -426,7 +427,7 @@ public class Node extends Entity {
 	public String getUpdateBy() {
 		return updateBy;
 	}
-	
+
 	/**
 	 * 设置 修改人ID
 	 * @param updateBy 修改人ID
@@ -436,7 +437,7 @@ public class Node extends Entity {
 		this.updateBy=updateBy;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 修改时间<br>
 	 * 修改时间
@@ -445,7 +446,7 @@ public class Node extends Entity {
 	public Date getUpdateTime() {
 		return updateTime;
 	}
-	
+
 	/**
 	 * 设置 修改时间
 	 * @param updateTime 修改时间
@@ -455,7 +456,7 @@ public class Node extends Entity {
 		this.updateTime=updateTime;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 是否已删除<br>
 	 * 是否已删除
@@ -464,7 +465,7 @@ public class Node extends Entity {
 	public Integer getDeleted() {
 		return deleted;
 	}
-	
+
 	/**
 	 * 获得 是否已删除 的投影属性<br>
 	 * 等价于 getDeleted 方法，获得对应的枚举类型
@@ -477,18 +478,19 @@ public class Node extends Entity {
 		}
 		return this.deletedBool ;
 	}
-	
+
 	/**
 	 * 设置 是否已删除
 	 * @param deleted 是否已删除
 	 * @return 当前对象
 	*/
+	@JsonProperty("deleted")
 	public Node setDeleted(Integer deleted) {
 		this.deleted=deleted;
 		this.deletedBool=DataParser.parseBoolean(deleted);
 		return this;
 	}
-	
+
 	/**
 	 * 设置 是否已删除的投影属性，等同于设置 是否已删除
 	 * @param deletedBool 是否已删除
@@ -504,7 +506,7 @@ public class Node extends Entity {
 		this.deletedBool=deletedBool;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 删除人ID<br>
 	 * 删除人ID
@@ -513,7 +515,7 @@ public class Node extends Entity {
 	public String getDeleteBy() {
 		return deleteBy;
 	}
-	
+
 	/**
 	 * 设置 删除人ID
 	 * @param deleteBy 删除人ID
@@ -523,7 +525,7 @@ public class Node extends Entity {
 		this.deleteBy=deleteBy;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 删除时间<br>
 	 * 删除时间
@@ -532,7 +534,7 @@ public class Node extends Entity {
 	public Date getDeleteTime() {
 		return deleteTime;
 	}
-	
+
 	/**
 	 * 设置 删除时间
 	 * @param deleteTime 删除时间
@@ -542,7 +544,7 @@ public class Node extends Entity {
 		this.deleteTime=deleteTime;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 数据版本号<br>
 	 * 数据版本号
@@ -551,7 +553,7 @@ public class Node extends Entity {
 	public Integer getVersion() {
 		return version;
 	}
-	
+
 	/**
 	 * 设置 数据版本号
 	 * @param version 数据版本号

@@ -1,5 +1,6 @@
 package org.github.foxnic.web.domain.system;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.foxnic.dao.entity.Entity;
 import javax.persistence.Table;
 import com.github.foxnic.sql.meta.DBTable;
@@ -32,68 +33,68 @@ public class Dict extends Entity {
 	private static final long serialVersionUID = 1L;
 
 	public static final DBTable TABLE =SYS_DICT.$TABLE;
-	
+
 	/**
 	 * 字典ID：字典ID
 	*/
 	@Id
 	@ApiModelProperty(required = true,value="字典ID" , notes = "字典ID")
 	private String id;
-	
+
 	/**
 	 * 是否树形结构：是否树形结构
 	*/
 	@ApiModelProperty(required = true,value="是否树形结构" , notes = "是否树形结构")
 	private Integer isTree;
-	
+
 	/**
 	 * 字典名称：字典名称
 	*/
 	@ApiModelProperty(required = false,value="字典名称" , notes = "字典名称")
 	private String name;
-	
+
 	/**
 	 * 字典代码：字典代码
 	*/
 	@ApiModelProperty(required = false,value="字典代码" , notes = "字典代码")
 	private String code;
-	
+
 	/**
 	 * 所属模块：所属模块
 	*/
 	@ApiModelProperty(required = false,value="所属模块" , notes = "所属模块")
 	private String module;
-	
+
 	/**
 	 * 备注：备注
 	*/
 	@ApiModelProperty(required = false,value="备注" , notes = "备注")
 	private String notes;
-	
+
 	/**
 	 * 创建人ID：创建人ID
 	*/
 	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID")
 	private String createBy;
-	
+
 	/**
 	 * 创建时间：创建时间
 	*/
 	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间")
 	private Date createTime;
-	
+
 	/**
 	 * 修改人ID：修改人ID
 	*/
 	@ApiModelProperty(required = false,value="修改人ID" , notes = "修改人ID")
 	private String updateBy;
-	
+
 	/**
 	 * 修改时间：修改时间
 	*/
 	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间")
 	private Date updateTime;
-	
+
 	/**
 	 * 是否已删除：是否已删除
 	*/
@@ -101,37 +102,37 @@ public class Dict extends Entity {
 	private Integer deleted;
 	@Transient
 	private Boolean deletedBool;
-	
+
 	/**
 	 * 删除人ID：删除人ID
 	*/
 	@ApiModelProperty(required = false,value="删除人ID" , notes = "删除人ID")
 	private String deleteBy;
-	
+
 	/**
 	 * 删除时间：删除时间
 	*/
 	@ApiModelProperty(required = false,value="删除时间" , notes = "删除时间")
 	private Date deleteTime;
-	
+
 	/**
 	 * 数据版本号：数据版本号
 	*/
 	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
 	private Integer version;
-	
+
 	/**
 	 * 字典项目
 	*/
 	@ApiModelProperty(required = false,value="字典项目" , notes = "")
 	private List<DictItem> items;
-	
+
 	/**
 	 * 关联模块
 	*/
 	@ApiModelProperty(required = false,value="关联模块" , notes = "")
 	private Menu moduleInfo;
-	
+
 	/**
 	 * 获得 字典ID<br>
 	 * 字典ID
@@ -140,7 +141,7 @@ public class Dict extends Entity {
 	public String getId() {
 		return id;
 	}
-	
+
 	/**
 	 * 设置 字典ID
 	 * @param id 字典ID
@@ -150,7 +151,7 @@ public class Dict extends Entity {
 		this.id=id;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 是否树形结构<br>
 	 * 是否树形结构
@@ -159,7 +160,7 @@ public class Dict extends Entity {
 	public Integer getIsTree() {
 		return isTree;
 	}
-	
+
 	/**
 	 * 设置 是否树形结构
 	 * @param isTree 是否树形结构
@@ -169,7 +170,7 @@ public class Dict extends Entity {
 		this.isTree=isTree;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 字典名称<br>
 	 * 字典名称
@@ -178,7 +179,7 @@ public class Dict extends Entity {
 	public String getName() {
 		return name;
 	}
-	
+
 	/**
 	 * 设置 字典名称
 	 * @param name 字典名称
@@ -188,7 +189,7 @@ public class Dict extends Entity {
 		this.name=name;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 字典代码<br>
 	 * 字典代码
@@ -197,7 +198,7 @@ public class Dict extends Entity {
 	public String getCode() {
 		return code;
 	}
-	
+
 	/**
 	 * 设置 字典代码
 	 * @param code 字典代码
@@ -207,7 +208,7 @@ public class Dict extends Entity {
 		this.code=code;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 所属模块<br>
 	 * 所属模块
@@ -216,7 +217,7 @@ public class Dict extends Entity {
 	public String getModule() {
 		return module;
 	}
-	
+
 	/**
 	 * 设置 所属模块
 	 * @param module 所属模块
@@ -226,7 +227,7 @@ public class Dict extends Entity {
 		this.module=module;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 备注<br>
 	 * 备注
@@ -235,7 +236,7 @@ public class Dict extends Entity {
 	public String getNotes() {
 		return notes;
 	}
-	
+
 	/**
 	 * 设置 备注
 	 * @param notes 备注
@@ -245,7 +246,7 @@ public class Dict extends Entity {
 		this.notes=notes;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 创建人ID<br>
 	 * 创建人ID
@@ -254,7 +255,7 @@ public class Dict extends Entity {
 	public String getCreateBy() {
 		return createBy;
 	}
-	
+
 	/**
 	 * 设置 创建人ID
 	 * @param createBy 创建人ID
@@ -264,7 +265,7 @@ public class Dict extends Entity {
 		this.createBy=createBy;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 创建时间<br>
 	 * 创建时间
@@ -273,7 +274,7 @@ public class Dict extends Entity {
 	public Date getCreateTime() {
 		return createTime;
 	}
-	
+
 	/**
 	 * 设置 创建时间
 	 * @param createTime 创建时间
@@ -283,7 +284,7 @@ public class Dict extends Entity {
 		this.createTime=createTime;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 修改人ID<br>
 	 * 修改人ID
@@ -292,7 +293,7 @@ public class Dict extends Entity {
 	public String getUpdateBy() {
 		return updateBy;
 	}
-	
+
 	/**
 	 * 设置 修改人ID
 	 * @param updateBy 修改人ID
@@ -302,7 +303,7 @@ public class Dict extends Entity {
 		this.updateBy=updateBy;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 修改时间<br>
 	 * 修改时间
@@ -311,7 +312,7 @@ public class Dict extends Entity {
 	public Date getUpdateTime() {
 		return updateTime;
 	}
-	
+
 	/**
 	 * 设置 修改时间
 	 * @param updateTime 修改时间
@@ -321,7 +322,7 @@ public class Dict extends Entity {
 		this.updateTime=updateTime;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 是否已删除<br>
 	 * 是否已删除
@@ -330,7 +331,7 @@ public class Dict extends Entity {
 	public Integer getDeleted() {
 		return deleted;
 	}
-	
+
 	/**
 	 * 获得 是否已删除 的投影属性<br>
 	 * 等价于 getDeleted 方法，获得对应的枚举类型
@@ -343,18 +344,19 @@ public class Dict extends Entity {
 		}
 		return this.deletedBool ;
 	}
-	
+
 	/**
 	 * 设置 是否已删除
 	 * @param deleted 是否已删除
 	 * @return 当前对象
 	*/
+	@JsonProperty("deleted")
 	public Dict setDeleted(Integer deleted) {
 		this.deleted=deleted;
 		this.deletedBool=DataParser.parseBoolean(deleted);
 		return this;
 	}
-	
+
 	/**
 	 * 设置 是否已删除的投影属性，等同于设置 是否已删除
 	 * @param deletedBool 是否已删除
@@ -370,7 +372,7 @@ public class Dict extends Entity {
 		this.deletedBool=deletedBool;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 删除人ID<br>
 	 * 删除人ID
@@ -379,7 +381,7 @@ public class Dict extends Entity {
 	public String getDeleteBy() {
 		return deleteBy;
 	}
-	
+
 	/**
 	 * 设置 删除人ID
 	 * @param deleteBy 删除人ID
@@ -389,7 +391,7 @@ public class Dict extends Entity {
 		this.deleteBy=deleteBy;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 删除时间<br>
 	 * 删除时间
@@ -398,7 +400,7 @@ public class Dict extends Entity {
 	public Date getDeleteTime() {
 		return deleteTime;
 	}
-	
+
 	/**
 	 * 设置 删除时间
 	 * @param deleteTime 删除时间
@@ -408,7 +410,7 @@ public class Dict extends Entity {
 		this.deleteTime=deleteTime;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 数据版本号<br>
 	 * 数据版本号
@@ -417,7 +419,7 @@ public class Dict extends Entity {
 	public Integer getVersion() {
 		return version;
 	}
-	
+
 	/**
 	 * 设置 数据版本号
 	 * @param version 数据版本号
@@ -427,7 +429,7 @@ public class Dict extends Entity {
 		this.version=version;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 字典项目<br>
 	 * @return 字典项目
@@ -435,7 +437,7 @@ public class Dict extends Entity {
 	public List<DictItem> getItems() {
 		return items;
 	}
-	
+
 	/**
 	 * 设置 字典项目
 	 * @param items 字典项目
@@ -445,7 +447,7 @@ public class Dict extends Entity {
 		this.items=items;
 		return this;
 	}
-	
+
 	/**
 	 * 添加 字典项目
 	 * @param item 字典项目
@@ -456,7 +458,7 @@ public class Dict extends Entity {
 		this.items.addAll(Arrays.asList(item));
 		return this;
 	}
-	
+
 	/**
 	 * 获得 关联模块<br>
 	 * @return 关联模块
@@ -464,7 +466,7 @@ public class Dict extends Entity {
 	public Menu getModuleInfo() {
 		return moduleInfo;
 	}
-	
+
 	/**
 	 * 设置 关联模块
 	 * @param moduleInfo 关联模块

@@ -1,5 +1,6 @@
 package org.github.foxnic.web.domain.oauth;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.foxnic.dao.entity.Entity;
 import javax.persistence.Table;
 import com.github.foxnic.sql.meta.DBTable;
@@ -31,50 +32,50 @@ public class Role extends Entity {
 	private static final long serialVersionUID = 1L;
 
 	public static final DBTable TABLE =SYS_ROLE.$TABLE;
-	
+
 	/**
 	 * ID：ID
 	*/
 	@Id
 	@ApiModelProperty(required = true,value="ID" , notes = "ID")
 	private String id;
-	
+
 	/**
 	 * 代码：代码
 	*/
 	@ApiModelProperty(required = false,value="代码" , notes = "代码")
 	private String code;
-	
+
 	/**
 	 * 名称：名称
 	*/
 	@ApiModelProperty(required = false,value="名称" , notes = "名称")
 	private String name;
-	
+
 	/**
 	 * 创建人ID：创建人ID
 	*/
 	@ApiModelProperty(required = false,value="创建人ID" , notes = "创建人ID")
 	private String createBy;
-	
+
 	/**
 	 * 创建时间：创建时间
 	*/
 	@ApiModelProperty(required = false,value="创建时间" , notes = "创建时间")
 	private Date createTime;
-	
+
 	/**
 	 * 修改人ID：修改人ID
 	*/
 	@ApiModelProperty(required = false,value="修改人ID" , notes = "修改人ID")
 	private String updateBy;
-	
+
 	/**
 	 * 修改时间：修改时间
 	*/
 	@ApiModelProperty(required = false,value="修改时间" , notes = "修改时间")
 	private Date updateTime;
-	
+
 	/**
 	 * 是否已删除：是否已删除
 	*/
@@ -82,37 +83,37 @@ public class Role extends Entity {
 	private Integer deleted;
 	@Transient
 	private Boolean deletedBool;
-	
+
 	/**
 	 * 删除人ID：删除人ID
 	*/
 	@ApiModelProperty(required = false,value="删除人ID" , notes = "删除人ID")
 	private String deleteBy;
-	
+
 	/**
 	 * 删除时间：删除时间
 	*/
 	@ApiModelProperty(required = false,value="删除时间" , notes = "删除时间")
 	private Date deleteTime;
-	
+
 	/**
 	 * 数据版本号：数据版本号
 	*/
 	@ApiModelProperty(required = true,value="数据版本号" , notes = "数据版本号")
 	private Integer version;
-	
+
 	/**
 	 * 菜单清单：当前角色的所有菜单
 	*/
 	@ApiModelProperty(required = false,value="菜单清单" , notes = "当前角色的所有菜单")
 	private List<Menu> menus;
-	
+
 	/**
 	 * 所拥有的菜单ID清单
 	*/
 	@ApiModelProperty(required = false,value="所拥有的菜单ID清单" , notes = "")
 	private List<String> menuIds;
-	
+
 	/**
 	 * 获得 ID<br>
 	 * ID
@@ -121,7 +122,7 @@ public class Role extends Entity {
 	public String getId() {
 		return id;
 	}
-	
+
 	/**
 	 * 设置 ID
 	 * @param id ID
@@ -131,7 +132,7 @@ public class Role extends Entity {
 		this.id=id;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 代码<br>
 	 * 代码
@@ -140,7 +141,7 @@ public class Role extends Entity {
 	public String getCode() {
 		return code;
 	}
-	
+
 	/**
 	 * 设置 代码
 	 * @param code 代码
@@ -150,7 +151,7 @@ public class Role extends Entity {
 		this.code=code;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 名称<br>
 	 * 名称
@@ -159,7 +160,7 @@ public class Role extends Entity {
 	public String getName() {
 		return name;
 	}
-	
+
 	/**
 	 * 设置 名称
 	 * @param name 名称
@@ -169,7 +170,7 @@ public class Role extends Entity {
 		this.name=name;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 创建人ID<br>
 	 * 创建人ID
@@ -178,7 +179,7 @@ public class Role extends Entity {
 	public String getCreateBy() {
 		return createBy;
 	}
-	
+
 	/**
 	 * 设置 创建人ID
 	 * @param createBy 创建人ID
@@ -188,7 +189,7 @@ public class Role extends Entity {
 		this.createBy=createBy;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 创建时间<br>
 	 * 创建时间
@@ -197,7 +198,7 @@ public class Role extends Entity {
 	public Date getCreateTime() {
 		return createTime;
 	}
-	
+
 	/**
 	 * 设置 创建时间
 	 * @param createTime 创建时间
@@ -207,7 +208,7 @@ public class Role extends Entity {
 		this.createTime=createTime;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 修改人ID<br>
 	 * 修改人ID
@@ -216,7 +217,7 @@ public class Role extends Entity {
 	public String getUpdateBy() {
 		return updateBy;
 	}
-	
+
 	/**
 	 * 设置 修改人ID
 	 * @param updateBy 修改人ID
@@ -226,7 +227,7 @@ public class Role extends Entity {
 		this.updateBy=updateBy;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 修改时间<br>
 	 * 修改时间
@@ -235,7 +236,7 @@ public class Role extends Entity {
 	public Date getUpdateTime() {
 		return updateTime;
 	}
-	
+
 	/**
 	 * 设置 修改时间
 	 * @param updateTime 修改时间
@@ -245,7 +246,7 @@ public class Role extends Entity {
 		this.updateTime=updateTime;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 是否已删除<br>
 	 * 是否已删除
@@ -254,7 +255,7 @@ public class Role extends Entity {
 	public Integer getDeleted() {
 		return deleted;
 	}
-	
+
 	/**
 	 * 获得 是否已删除 的投影属性<br>
 	 * 等价于 getDeleted 方法，获得对应的枚举类型
@@ -267,18 +268,19 @@ public class Role extends Entity {
 		}
 		return this.deletedBool ;
 	}
-	
+
 	/**
 	 * 设置 是否已删除
 	 * @param deleted 是否已删除
 	 * @return 当前对象
 	*/
+	@JsonProperty("deleted")
 	public Role setDeleted(Integer deleted) {
 		this.deleted=deleted;
 		this.deletedBool=DataParser.parseBoolean(deleted);
 		return this;
 	}
-	
+
 	/**
 	 * 设置 是否已删除的投影属性，等同于设置 是否已删除
 	 * @param deletedBool 是否已删除
@@ -294,7 +296,7 @@ public class Role extends Entity {
 		this.deletedBool=deletedBool;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 删除人ID<br>
 	 * 删除人ID
@@ -303,7 +305,7 @@ public class Role extends Entity {
 	public String getDeleteBy() {
 		return deleteBy;
 	}
-	
+
 	/**
 	 * 设置 删除人ID
 	 * @param deleteBy 删除人ID
@@ -313,7 +315,7 @@ public class Role extends Entity {
 		this.deleteBy=deleteBy;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 删除时间<br>
 	 * 删除时间
@@ -322,7 +324,7 @@ public class Role extends Entity {
 	public Date getDeleteTime() {
 		return deleteTime;
 	}
-	
+
 	/**
 	 * 设置 删除时间
 	 * @param deleteTime 删除时间
@@ -332,7 +334,7 @@ public class Role extends Entity {
 		this.deleteTime=deleteTime;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 数据版本号<br>
 	 * 数据版本号
@@ -341,7 +343,7 @@ public class Role extends Entity {
 	public Integer getVersion() {
 		return version;
 	}
-	
+
 	/**
 	 * 设置 数据版本号
 	 * @param version 数据版本号
@@ -351,7 +353,7 @@ public class Role extends Entity {
 		this.version=version;
 		return this;
 	}
-	
+
 	/**
 	 * 获得 菜单清单<br>
 	 * 当前角色的所有菜单
@@ -360,7 +362,7 @@ public class Role extends Entity {
 	public List<Menu> getMenus() {
 		return menus;
 	}
-	
+
 	/**
 	 * 设置 菜单清单
 	 * @param menus 菜单清单
@@ -370,7 +372,7 @@ public class Role extends Entity {
 		this.menus=menus;
 		return this;
 	}
-	
+
 	/**
 	 * 添加 菜单清单
 	 * @param menu 菜单清单
@@ -381,7 +383,7 @@ public class Role extends Entity {
 		this.menus.addAll(Arrays.asList(menu));
 		return this;
 	}
-	
+
 	/**
 	 * 获得 所拥有的菜单ID清单<br>
 	 * @return 所拥有的菜单ID清单
@@ -389,7 +391,7 @@ public class Role extends Entity {
 	public List<String> getMenuIds() {
 		return menuIds;
 	}
-	
+
 	/**
 	 * 设置 所拥有的菜单ID清单
 	 * @param menuIds 所拥有的菜单ID清单
@@ -399,7 +401,7 @@ public class Role extends Entity {
 		this.menuIds=menuIds;
 		return this;
 	}
-	
+
 	/**
 	 * 添加 所拥有的菜单ID清单
 	 * @param menuId 所拥有的菜单ID清单
